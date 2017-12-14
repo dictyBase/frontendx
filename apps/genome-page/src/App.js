@@ -3,6 +3,7 @@ import { Header, Footer } from 'dicty-components-header-footer'
 import { Navbar } from 'dicty-components-navbar'
 import { FooterLinks } from './constants/Footer'
 import { NavbarLinks } from './constants/Navbar'
+import Main from './components/Main'
 import GoPageDisplay from './images/go-page-display.png'
 
 class App extends Component {
