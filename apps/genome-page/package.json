@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "dicty-components-header-footer": "github:dictyBase/dicty-components-header-footer",
+    "dicty-components-navbar": "github:dictyBase/dicty-components-navbar",
+    "dicty-components-panel": "github:dictyBase/dicty-components-panel",
+    "dicty-components-tab": "github:dictyBase/dicty-components-tab",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.0.17"
