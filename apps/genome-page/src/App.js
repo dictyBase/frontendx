@@ -3,8 +3,7 @@ import { Header, Footer } from 'dicty-components-header-footer'
 import { Navbar } from 'dicty-components-navbar'
 import { FooterLinks } from './constants/Footer'
 import { NavbarLinks } from './constants/Navbar'
-import Main from './components/Main'
-import GoPageDisplay from './images/go-page-display.png'
+import Routes from './components/Routes'
 
 class App extends Component {
   render() {
@@ -16,7 +15,7 @@ class App extends Component {
           cite="/citation"
         />
         <Navbar items={ NavbarLinks } />
-        <img style={{maxWidth: '100%'}} src={GoPageDisplay} alt="Go Page Mockup"/>
+        <Routes />
         <Footer items={ FooterLinks } />
       </div>
     );
