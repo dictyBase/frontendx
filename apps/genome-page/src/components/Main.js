@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Container = styled.div`
-display: flex;
-justify-content: space-around;
-flex-direction: row;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
 `
 const Main = () => {
   return (
