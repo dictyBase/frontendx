@@ -3,6 +3,9 @@
 }
 
 .wrapper {
-    width: 100vw;
-    height: 100vh;
+    text-align: center;
+}
+
+.ReactVirtualized__Table__Grid {
+    margin: 0px auto;
 }
