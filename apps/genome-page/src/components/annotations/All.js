@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Table, Column } from 'react-virtualized'
+import { Table, Column, InfiniteLoader } from 'react-virtualized'
 import 'react-virtualized/styles.css'
+import '../../styles/index.css'
 
 export default class All extends Component {
     state = { 
@@ -12,12 +13,30 @@ export default class All extends Component {
             .then(res => res.json())
             .then(comments => this.setState({ comments }))
     }
+    
+    isRowLoaded = ({ index }) => {
+        return !!this.state.comments[index]
+    }
+
+    loadMoreRows = ({ startIndex, stopIndex }) => {
+        return fetch(`/data?startIndex=${startIndex}&stopIndex=${stopIndex}`)
+            .then(res => res.json())
+            .then(comments => this.setState({ comments }))
+    }
 
     render() {
         const rowCount = this.state.comments.length
 
         return (
-            <div>
+            <div className="wrapper">
+                <InfiniteLoader
+                    isRowLoaded={this.isRowLoaded}
+                    rowCount={rowCount}
+                    loadMoreRows={this.loadMoreRows}
+                    threshold={10}
+                >
+        
+                {({onRowsRendered, registerChild}) =>
                 <Table
                     headerHeight={50}
                     height={630}
@@ -57,6 +76,8 @@ export default class All extends Component {
                         width={ 75 }
                     />
                 </Table>
+            }
+            </InfiniteLoader>
             </div>
         )
     }
