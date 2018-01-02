@@ -13,7 +13,43 @@ export default class All extends Component {
             .then(res => res.json())
             .then(comments => this.setState({ comments }))
     }
-    
+
+    getRowHeight = ({ index }) => {
+        const data = this.state.comments
+        const cellHeight = this.props.cellHeight
+        if (data[index]) {
+            const remainder = data[index].name.length % 54
+            let lines = data[index].name.length / 54
+            if (remainder > 0) {
+                lines += 1
+            }
+            const height = lines * 30
+            return height >= cellHeight ? height : cellHeight
+        }
+        return cellHeight
+    }
+
+    getRowStyle = ({ index }) => {
+        const data = this.state.comments
+        if (index === -1) {
+            return {
+                margin: '0 auto',
+                borderTop: '1px solid #efefef',
+                borderBottom: '1px solid #efefef'
+            }
+        } else if (index === data.length) {
+            return {}
+        } else if (index % 2 > 0) {
+            return {
+                borderBottom: '1px solid #efefef'
+            }
+        } else if (index % 2 === 0) {
+            return {
+                borderBottom: '1px solid #efefef'
+            }
+        }
+    }
+
     isRowLoaded = ({ index }) => {
         return !!this.state.comments[index]
     }
@@ -26,6 +62,7 @@ export default class All extends Component {
 
     render() {
         const rowCount = this.state.comments.length
+        const { cellWidth, height } = this.props
 
         return (
             <div className="wrapper">
@@ -34,16 +71,17 @@ export default class All extends Component {
                     rowCount={rowCount}
                     loadMoreRows={this.loadMoreRows}
                     threshold={10}
-                >
-        
+                >        
                 {({onRowsRendered, registerChild}) =>
                 <Table
                     headerHeight={50}
-                    height={630}
-                    width={1000}
+                    height={height}
+                    width={cellWidth * 6 + 100}
                     rowCount={rowCount}
                     rowGetter={ ({index}) => this.state.comments[index] }
-                    rowHeight={50}
+                    rowHeight={this.getRowHeight}
+                    rowStyle={this.getRowStyle}
+                    onRowsRendered={onRowsRendered}
                 >
                     <Column
                         label="GO term + Extension"
@@ -81,4 +119,10 @@ export default class All extends Component {
             </div>
         )
     }
+}
+
+All.defaultProps = {
+    cellWidth: 130,
+    cellHeight: 90,
+    height: 630
 }
