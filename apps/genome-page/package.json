@@ -10,7 +10,8 @@
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
     "react-scripts": "1.0.17",
-    "react-virtualized": "^9.15.0"
+    "react-virtualized": "^9.15.0",
+    "styled-components": "^2.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
