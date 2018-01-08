@@ -1,11 +1,77 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Tabs from 'dicty-components-tab'
-import Main from './Main'
-import All from './annotations/All'
-import Electronic from './annotations/Electronic'
-import Experimental from './annotations/Experimental'
-import Manual from './annotations/Manual'
+import Home from './Home'
+import All from './go/All'
+import Electronic from './go/Electronic'
+import Experimental from './go/Experimental'
+import Manual from './go/Manual'
+
+const mainTabs = [
+    {
+        title: 'Gene Summary',
+        element: (
+            <div>
+              General Information
+            </div>
+        ),
+        link: 'summary'
+    },
+    {
+        title: 'Protein Information',
+        element: (
+            <div>
+              Protein Information
+            </div>
+        ),
+        link: 'proteininformation'
+    },
+    {
+        title: 'Gene Ontology',
+        element: (
+            <div>
+              Gene Ontology
+            </div>
+        ),
+        link: 'go'
+    },
+    {
+        title: 'Orthologs',
+        element: (
+            <div>
+              Orthologs
+            </div>
+        ),
+        link: 'orthologs'
+    },
+    {
+        title: 'Phenotypes',
+        element: (
+            <div>
+              Phenotypes
+            </div>
+        ),
+        link: 'phenotypes'
+    },
+    {
+        title: 'Reference',
+        element: (
+            <div>
+              Reference
+            </div>
+        ),
+        link: 'reference'
+    },
+    {
+        title: 'BLAST',
+        element: (
+            <div>
+              BLAST
+            </div>
+        ),
+        link: 'blast'
+    }
+]
 
 const tabs = [
     {
@@ -42,10 +108,11 @@ export default class Routes extends Component {
     render() {
         return (
             <Router>
-                <div>
-                <Route exact path="/" component={ () => <Main /> } />
-                <Route path="/annotations" component={ props => <Tabs { ...props } tabs={ tabs } /> } />
-                </div>
+                <Switch>
+                <Route exact path="/" component={ () => <Home /> } />
+                <Route path="/gene/:id" component={ props => <Tabs { ...props } tabs={ mainTabs } /> } />
+                <Route path="/gene/:id/go" component={ props => <Tabs { ...props } tabs={ tabs } /> } />
+                </Switch>
             </Router>
         )
     }
