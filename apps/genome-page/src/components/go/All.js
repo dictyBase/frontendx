@@ -66,6 +66,7 @@ export default class All extends Component {
 
         return (
             <div className="wrapper">
+                {/* <h2>{this.props.params.id}</h2> */}
                 <InfiniteLoader
                     isRowLoaded={this.isRowLoaded}
                     rowCount={rowCount}

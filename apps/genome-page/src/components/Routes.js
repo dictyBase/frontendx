@@ -29,9 +29,7 @@ const mainTabs = [
     {
         title: 'Gene Ontology',
         element: (
-            <div>
-              Gene Ontology
-            </div>
+            <All />
         ),
         link: 'go'
     },
