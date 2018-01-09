@@ -1,8 +1,12 @@
 import styled, { injectGlobal } from 'styled-components'
 
 injectGlobal([`
+    html {
+        height: 100%;
+    }
     body {
         margin: auto;
+        height: 100%;
     }
 `])
 
