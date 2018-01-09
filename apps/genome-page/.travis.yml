@@ -1,7 +1,7 @@
 sudo: false
 language: node_js
 node_js:
-  - "7"
+  - "stable"
 
 cache:
   directories:
@@ -12,9 +12,7 @@ install:
 
 script:
   - npm run test
-  - NODE_ENV=development npm run deploy
-  - NODE_ENV=staging npm run deploy
-  - NODE_ENV=production npm run deploy
+  - npm run build
 
 # safelist
 branches:
