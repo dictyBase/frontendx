@@ -1,11 +1,10 @@
 ## Master branch
-[![Build Status](https://travis-ci.org/dictyBase/genomepage.svg?branch=master)](https://travis-ci.org/dictyBase/genomepage)
+[![Build Status](https://travis-ci.org/dictyBase/Genomepage.svg?branch=master)](https://travis-ci.org/dictyBase/Genomepage)
 [![Dependency Status](https://david-dm.org/dictybase/genomepage/master.svg?style=flat-square)](https://david-dm.org/dictybase/genomepage/master)
 [![devDependency Status](https://david-dm.org/dictybase/genomepage/master/dev-status.svg?style=flat-square)](https://david-dm.org/dictybase/genomepage/master?type=dev)
 
-
 ## Develop branch
-[![Build Status](https://travis-ci.org/dictyBase/genomepage.svg?branch=develop)](https://travis-ci.org/dictyBase/genomepage)
+[![Build Status](https://travis-ci.org/dictyBase/Genomepage.svg?branch=develop)](https://travis-ci.org/dictyBase/Genomepage)
 [![Dependency Status](https://david-dm.org/dictybase/genomepage/develop.svg?style=flat-square)](https://david-dm.org/dictybase/genomepage/develop)
 [![devDependency Status](https://david-dm.org/dictybase/genomepage/develop/dev-status.svg?style=flat-square)](https://david-dm.org/dictybase/genomepage/develop?type=dev)
 

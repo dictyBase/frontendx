@@ -41,7 +41,8 @@ export default class All extends Component {
             return {}
         } else if (index % 2 > 0) {
             return {
-                borderBottom: '1px solid #efefef'
+                borderBottom: '1px solid #efefef',
+                backgroundColor: '#eaf2ff'
             }
         } else if (index % 2 === 0) {
             return {
@@ -60,9 +61,16 @@ export default class All extends Component {
             .then(comments => this.setState({ comments }))
     }
 
+    rowGetter = ({ index }) => {
+        const data = this.state.comments
+        if (data[index]) {
+            return data[index]
+        }
+    }
+
     render() {
         const rowCount = this.state.comments.length
-        const { cellWidth, height } = this.props
+        const { cellWidth, cellHeight, height } = this.props
 
         return (
             <div className="wrapper">
@@ -75,11 +83,12 @@ export default class All extends Component {
                 >        
                 {({onRowsRendered, registerChild}) =>
                 <Table
+                    ref={ registerChild }
                     headerHeight={50}
                     height={height}
                     width={cellWidth * 6 + 100}
                     rowCount={rowCount}
-                    rowGetter={ ({index}) => this.state.comments[index] }
+                    rowGetter={this.rowGetter}
                     rowHeight={this.getRowHeight}
                     rowStyle={this.getRowStyle}
                     onRowsRendered={onRowsRendered}

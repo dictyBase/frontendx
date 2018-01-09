@@ -1,9 +1,10 @@
 body {
     margin: auto;
+    height: 100%;
 }
 
 #root {
-    height: 100vh;    
+    height: 100%;
 }
 
 .ReactVirtualized__Table__headerRow {
