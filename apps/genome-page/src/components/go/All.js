@@ -3,6 +3,9 @@ import { Table, Column, InfiniteLoader } from 'react-virtualized'
 import 'react-virtualized/styles.css'
 import '../../styles/index.css'
 
+const BASE_ROW_HEIGHT = 30;
+const MAX_NAME_CHARS_PER_LINE = 20;
+
 export default class All extends Component {
     state = { 
         comments: []
@@ -15,19 +18,18 @@ export default class All extends Component {
     }
 
     getRowHeight = ({ index }) => {
-        const data = this.state.comments
-        const cellHeight = this.props.cellHeight
-        if (data[index]) {
-            const remainder = data[index].name.length % 54
-            let lines = data[index].name.length / 54
-            if (remainder > 0) {
-                lines += 1
-            }
-            const height = lines * 30
-            return height >= cellHeight ? height : cellHeight
-        }
-        return cellHeight
-    }
+        const data = this.state.comments[index]
+    
+        const numLines = Math.ceil(data.name.length / MAX_NAME_CHARS_PER_LINE)
+
+        // if (numLines > MAX_NAME_CHARS_PER_LINE) {
+        //     return numLines * BASE_ROW_HEIGHT
+        // } else {
+        //     return BASE_ROW_HEIGHT
+        // }
+    
+        return numLines * BASE_ROW_HEIGHT
+      }
 
     getRowStyle = ({ index }) => {
         const data = this.state.comments
@@ -70,7 +72,7 @@ export default class All extends Component {
 
     render() {
         const rowCount = this.state.comments.length
-        const { cellWidth, cellHeight, height } = this.props
+        const { cellWidth, height } = this.props
 
         return (
             <div className="wrapper">
