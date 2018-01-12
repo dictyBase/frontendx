@@ -106,7 +106,7 @@ export default class Routes extends Component {
         return (
             <Router>
                 <Switch>
-                    <Route exact path="/" component={ () => <Redirect to="/gene/:id" /> } />
+                    <Route exact path="/" component={ () => <Redirect to="/gene/p2xA" /> } />
                     <Route path="/gene/:id" component={ props => <Tabs { ...props } tabs={ mainTabs } /> } />
                     <Route path="/gene/:id/go" component={ props => <Tabs { ...props } tabs={ tabs } /> } />
                 </Switch>
