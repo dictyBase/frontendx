@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 
-export default class All extends Component {
+export default class ElectronicGO extends Component {
     render() {
         return (
             <div>
-                Manual
+                Electronic
             </div>
         )
     }

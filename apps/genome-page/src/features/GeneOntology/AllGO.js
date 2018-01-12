@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { Table, Column, InfiniteLoader } from 'react-virtualized'
 import 'react-virtualized/styles.css'
-import '../../styles/index.css'
+import '../FrontPage/HomeStyle.css'
 
 const BASE_ROW_HEIGHT = 30
 const MAX_NAME_CHARS_PER_LINE = 20
 
-export default class All extends Component {
+export default class AllGO extends Component {
     state = {
         comments: []
     }
@@ -136,7 +136,7 @@ export default class All extends Component {
     }
 }
 
-All.defaultProps = {
+AllGO.defaultProps = {
     cellWidth: 130,
     cellHeight: 90,
     height: 630

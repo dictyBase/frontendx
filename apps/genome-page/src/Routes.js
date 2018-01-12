@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Tabs from 'dicty-components-tab'
-import Home from './Home'
-import All from './go/All'
-import Electronic from './go/Electronic'
-import Experimental from './go/Experimental'
-import Manual from './go/Manual'
+import Home from './features/FrontPage/Home'
+import AllGO from './features/GeneOntology/AllGO'
+import ElectronicGO from './features/GeneOntology/ElectronicGO'
+import ExperimentalGO from './features/GeneOntology/ExperimentalGO'
+import ManualGO from './features/GeneOntology/ManualGO'
 
 const mainTabs = [
     {
@@ -29,7 +29,7 @@ const mainTabs = [
     {
         title: 'Gene Ontology',
         element: (
-            <All />
+            <AllGO />
         ),
         link: 'go'
     },
@@ -75,28 +75,28 @@ const tabs = [
     {
         title: 'All GO',
         element: (
-            <All />
+            <AllGO />
         ),
         link: 'all'
     },
     {
         title: 'Manual GO',
         element: (
-            <Manual />
+            <ManualGO />
         ),
         link: 'manual'
     },
     {
         title: 'Experimental GO',
         element: (
-            <Experimental />
+            <ExperimentalGO />
         ),
         link: 'experimental'
     },
     {
         title: 'Electronic GO',
         element: (
-            <Electronic />
+            <ElectronicGO />
         ),
         link: 'electronic'
     }
