@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import Tabs from 'dicty-components-tab'
-import Home from './features/FrontPage/Home'
 import AllGO from './features/GeneOntology/AllGO'
 import ElectronicGO from './features/GeneOntology/ElectronicGO'
 import ExperimentalGO from './features/GeneOntology/ExperimentalGO'
@@ -107,7 +106,7 @@ export default class Routes extends Component {
         return (
             <Router>
                 <Switch>
-                    <Route exact path="/" component={ () => <Home /> } />
+                    <Route exact path="/" component={ () => <Redirect to="/gene/:id" /> } />
                     <Route path="/gene/:id" component={ props => <Tabs { ...props } tabs={ mainTabs } /> } />
                     <Route path="/gene/:id/go" component={ props => <Tabs { ...props } tabs={ tabs } /> } />
                 </Switch>
