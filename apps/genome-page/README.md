@@ -32,7 +32,6 @@ To run the app, clone the repository then run `npm install` and `npm start`.
 │       ├── utils               # Application utilities
 │   ├── features                # Main features of application
 │       ├── Blast               # Blast Tab components
-│       ├── FrontPage           # Front Page components
 │       ├── GeneOntology        # Gene Ontology Tab components
 │       ├── GeneSummary         # Gene Summary Tab components
 │       ├── Orthologs           # Orthologs Tab components
