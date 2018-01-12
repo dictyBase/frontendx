@@ -12,7 +12,7 @@
 
 Turning existing pages like [http://dictybase.org/gene/sadA](http://dictybase.org/gene/sadA) into this:
 
-![alt text](https://github.com/dictyBase/Genomepage/blob/master/go-page-display.png "Go Page Display mockup")
+![alt text](https://github.com/dictyBase/Genomepage/blob/develop/go-page-display.png "Go Page Display mockup")
 
 To run the app, clone the repository then run `npm install` and `npm start`.
 
@@ -40,5 +40,7 @@ To run the app, clone the repository then run `npm install` and `npm start`.
 │       ├── Reference           # Reference Tab components
 │   ├── index.js                # Application rendering
 │   └── Routes.js               # Application route definitions
-└── .travis.yml                 # Travis-CI and other configurations
+└──                             # Config files
 ```
+
+![alt text](https://github.com/dictyBase/Genomepage/blob/develop/tree_diagram.png "Genomepage Tree Diagram")
