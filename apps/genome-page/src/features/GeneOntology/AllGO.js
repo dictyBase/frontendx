@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Table, Column, InfiniteLoader } from 'react-virtualized'
+import GoTabs from './GoTabs'
 import 'react-virtualized/styles.css'
 
 const BASE_ROW_HEIGHT = 30
@@ -79,6 +80,8 @@ export default class AllGO extends Component {
         return (
             <div className="wrapper">
                 {/* <h2>{this.props.params.id}</h2> */}
+                <GoTabs />
+                <br />
                 <InfiniteLoader
                     isRowLoaded={this.isRowLoaded}
                     rowCount={rowCount}
