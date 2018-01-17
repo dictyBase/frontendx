@@ -42,4 +42,4 @@ To run the app, clone the repository then run `npm install` and `npm start`.
 └──                             # Config files
 ```
 
-![alt text](https://github.com/dictyBase/Genomepage/blob/develop/tree_diagram.png "Genomepage Tree Diagram")
+![alt text](https://github.com/dictyBase/Genomepage/blob/develop/genomepage_components.png "Genomepage Component Wireframe")
