@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import Tabs from 'dicty-components-tab'
 import GoTabs from './features/GeneOntology/GoTabs'
 
-const mainTabs = [
+const tabs = [
     {
         title: 'Gene Summary',
         element: (
@@ -73,7 +73,7 @@ export default class Routes extends Component {
             <Router>
                 <Switch>
                     <Route exact path="/" component={ () => <Redirect to="/gene/p2xA" /> } />
-                    <Route path="/gene/:id" component={ props => <Tabs { ...props } tabs={ mainTabs } /> } />
+                    <Route path="/gene/:id" component={ props => <Tabs { ...props } tabs={ tabs } /> } />
                 </Switch>
             </Router>
         )
