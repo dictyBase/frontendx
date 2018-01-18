@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import Tabs from 'dicty-components-tab'
-import AllGO from './features/GeneOntology/AllGO'
+import GoTabs from './features/GeneOntology/GoTabs'
 
 const mainTabs = [
     {
@@ -25,7 +25,7 @@ const mainTabs = [
     {
         title: 'Gene Ontology',
         element: (
-            <AllGO />
+            <GoTabs />
         ),
         link: 'go'
     },

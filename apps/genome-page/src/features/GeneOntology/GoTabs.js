@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
+import AllGO from './AllGO'
 import { Flex, Tabs, TabItem } from 'rebass'
 import styled, { ThemeProvider } from 'styled-components'
 import { lighten } from 'polished'
 
-const TabList = ['All GO', 'Manual GO', 'Experimental GO', 'Electronic GO']
+const TabList = ['All GO', 'Experimental GO', 'Manual GO', 'Electronic GO']
 
 const theme = {
     primary: '#15317e',
@@ -11,13 +12,13 @@ const theme = {
     tabText: 'white'
 }
 
-const TabRow = styled(Tabs)`
+const TabContainer = styled(Tabs)`
     border-bottom: 0px;
 `
 
 const Tab = styled(TabItem)`
     background: ${ props => !props.active && props.theme.secondary ? '#A3BAE9' : '#15317e' };
-    border-top: 1px solid black;
+    border-top: 1px solid white;
     border-right: 1px solid black;
     border-left: 1px solid black;
     border-top-right-radius: 2px;
@@ -64,15 +65,19 @@ class GoTabs extends Component {
 
     render() {
         return (
-            <ThemeProvider theme={theme}>
-                <TabRow>
-                    <Flex justify='center' mx='auto'>
-                        {TabList.map((value, index) =>
-                            this.renderTabs({ value, index })
-                        )}
-                    </Flex>
-                </TabRow>
-            </ThemeProvider>
+            <div>
+                <ThemeProvider theme={theme}>
+                    <TabContainer>
+                        <Flex justify='center' mx='auto'>
+                            {TabList.map((value, index) =>
+                                this.renderTabs({ value, index })
+                            )}
+                        </Flex>
+                    </TabContainer>
+                </ThemeProvider>
+                <br />
+                <AllGO />
+            </div>
         )
     }
 }
