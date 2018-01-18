@@ -5,7 +5,7 @@ import 'react-virtualized/styles.css'
 const BASE_ROW_HEIGHT = 30
 const MAX_NAME_CHARS_PER_LINE = 20
 
-export default class AllGO extends Component {
+export default class DisplayTable extends Component {
     state = {
         comments: []
     }
@@ -117,7 +117,7 @@ export default class AllGO extends Component {
     }
 }
 
-AllGO.defaultProps = {
+DisplayTable.defaultProps = {
     cellWidth: 130,
     cellHeight: 90,
     height: 630
