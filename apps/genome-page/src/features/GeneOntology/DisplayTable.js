@@ -6,16 +6,8 @@ const BASE_ROW_HEIGHT = 30
 const MAX_NAME_CHARS_PER_LINE = 20
 
 export default class DisplayTable extends Component {
-    state = {
-        data: []
-    }
-    componentDidMount() {
-        fetch('https://api.myjson.com/bins/erxtx')
-            .then(res => res.json())
-            .then(data => this.setState({ data }))
-    }
     getRowHeight = ({ index }) => {
-        const data = this.state.data[index]
+        const data = this.props.data[index]
         const numLines = Math.ceil(data.term.length / MAX_NAME_CHARS_PER_LINE)
 
         // if (numLines > MAX_NAME_CHARS_PER_LINE) {
@@ -33,7 +25,7 @@ export default class DisplayTable extends Component {
                 borderTop: '1px solid #efefef',
                 borderBottom: '1px solid #efefef'
             }
-        } else if (index === this.state.data.length) {
+        } else if (index === this.props.data.length) {
             return {}
         } else if (index % 2 > 0) {
             return {
@@ -47,7 +39,7 @@ export default class DisplayTable extends Component {
         }
     }
     rowGetter = ({ index }) => {
-        const data = this.state.data
+        const data = this.props.data
         if (data[index]) {
             return data[index]
         }
@@ -64,7 +56,7 @@ export default class DisplayTable extends Component {
     }
 
     render() {
-        const rowCount = this.state.data.length
+        const rowCount = this.props.data.length
         const { cellWidth, cellHeight } = this.props
 
         return (
