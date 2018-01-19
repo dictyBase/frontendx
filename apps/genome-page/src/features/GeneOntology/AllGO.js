@@ -7,16 +7,16 @@ const MAX_NAME_CHARS_PER_LINE = 20
 
 export default class AllGO extends Component {
     state = {
-        comments: []
+        data: []
     }
     componentDidMount() {
-        fetch('https://jsonplaceholder.typicode.com/comments')
+        fetch('https://api.myjson.com/bins/erxtx')
             .then(res => res.json())
-            .then(comments => this.setState({ comments }))
+            .then(data => this.setState({ data }))
     }
     getRowHeight = ({ index }) => {
-        const data = this.state.comments[index]
-        const numLines = Math.ceil(data.name.length / MAX_NAME_CHARS_PER_LINE)
+        const data = this.state.data[index]
+        const numLines = Math.ceil(data.term.length / MAX_NAME_CHARS_PER_LINE)
 
         // if (numLines > MAX_NAME_CHARS_PER_LINE) {
         //     return numLines * BASE_ROW_HEIGHT
@@ -27,14 +27,13 @@ export default class AllGO extends Component {
         return numLines * BASE_ROW_HEIGHT
     }
     getRowStyle = ({ index }) => {
-        const data = this.state.comments
         if (index === -1) {
             return {
                 margin: '0 auto',
                 borderTop: '1px solid #efefef',
                 borderBottom: '1px solid #efefef'
             }
-        } else if (index === data.length) {
+        } else if (index === this.state.data.length) {
             return {}
         } else if (index % 2 > 0) {
             return {
@@ -48,7 +47,7 @@ export default class AllGO extends Component {
         }
     }
     rowGetter = ({ index }) => {
-        const data = this.state.comments
+        const data = this.state.data
         if (data[index]) {
             return data[index]
         }
@@ -65,7 +64,7 @@ export default class AllGO extends Component {
     }
 
     render() {
-        const rowCount = this.state.comments.length
+        const rowCount = this.state.data.length
         const { cellWidth, cellHeight } = this.props
 
         return (
@@ -81,35 +80,35 @@ export default class AllGO extends Component {
                 >
                     <Column
                         label="GO term + Extension"
-                        dataKey="name"
+                        dataKey="term"
                         width={250}
                         cellDataGetter={this.attributeGetter}
                         cellRenderer={this.descriptorRenderer}
                     />
                     <Column
                         label="Evidence"
-                        dataKey="postId"
+                        dataKey="evidence"
                         width={100}
                     />
                     <Column
                         label="With"
-                        dataKey="email"
+                        dataKey="with"
                         width={150}
                         cellDataGetter={this.attributeGetter}
                         cellRenderer={this.descriptorRenderer}
                     />
                     <Column
                         label="Reference"
-                        dataKey="name"
+                        dataKey="reference"
                         width={250}
                         cellDataGetter={this.attributeGetter}
                         cellRenderer={this.descriptorRenderer}
                     />
-                    <Column label="Date" dataKey="id" width={75} />
+                    <Column label="Date" dataKey="date" width={100} />
                     <Column
                         label="Source"
-                        dataKey="postId"
-                        width={75}
+                        dataKey="source"
+                        width={100}
                     />
                 </Table>
             </div>
