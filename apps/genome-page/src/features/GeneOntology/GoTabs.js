@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import AllGO from './AllGO'
+import ElectronicGO from './ElectronicGO'
+import ExperimentalGO from './ExperimentalGO'
+import ManualGO from './ManualGO'
 import { Flex, Tabs, TabItem } from 'rebass'
 import styled, { ThemeProvider } from 'styled-components'
 import { lighten } from 'polished'
