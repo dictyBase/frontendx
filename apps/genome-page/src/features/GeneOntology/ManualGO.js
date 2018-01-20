@@ -2,7 +2,7 @@ import React from 'react'
 import DisplayTable from './DisplayTable'
 
 const ManualGO = props => {
-    const data = this.props.data.filter(
+    const data = props.data.filter(
         code =>
             code.evidence === 'IMP' ||
             code.evidence === 'IGI' ||
