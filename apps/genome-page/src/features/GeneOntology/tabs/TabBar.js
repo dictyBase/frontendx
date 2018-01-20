@@ -1,5 +1,6 @@
 import React from 'react'
 import TabItem from './TabItem'
+import ToggleDisplay from 'react-toggle-display'
 import { TabContainer } from '../../../styles/style'
 
 const TabBar = props => {
@@ -19,11 +20,20 @@ const TabBar = props => {
         )
     })
 
+    const tabPanels = tabs.map(tabInfo => {
+        const { name, component: TabComponent } = tabInfo
+
+        return (
+            <ToggleDisplay show={name === currentTab} key={name}>
+                <TabComponent />
+            </ToggleDisplay>
+        )
+    })
+
     return (
         <div>
-            <TabContainer {...otherProps}>
-                {tabItems}
-            </TabContainer>
+            <TabContainer {...otherProps}>{tabItems}</TabContainer>
+            { tabPanels }
         </div>
     )
 }
