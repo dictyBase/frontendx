@@ -14,16 +14,6 @@ const theme = {
 }
 
 class GeneOntology extends Component {
-    state = {
-        data: []
-    }
-
-    componentDidMount() {
-        fetch('https://api.myjson.com/bins/6vbot')
-            .then(res => res.json())
-            .then(data => this.setState({ data }))
-    }
-
     render() {
         const tabs = [
             { name: 'AllGO', label: 'All GO', component: AllGO },

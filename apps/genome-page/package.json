@@ -15,8 +15,10 @@
     "react-toggle-display": "^2.2.0",
     "react-virtualized": "^9.15.0",
     "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
-    "styled-components": "^2.4.0"
+    "styled-components": "^2.4.0",
+    "whatwg-fetch": "^2.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
