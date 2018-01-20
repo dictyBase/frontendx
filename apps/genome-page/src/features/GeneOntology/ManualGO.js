@@ -1,20 +1,41 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { fetchData } from './goActions'
 import DisplayTable from './DisplayTable'
 
-const ManualGO = props => {
-    const data = props.data.filter(
-        code =>
-            code.evidence === 'IMP' ||
-            code.evidence === 'IGI' ||
-            code.evidence === 'IDA' ||
-            code.evidence === 'IBA'
-    )
+class ManualGO extends Component {
+    componentDidMount() {
+        this.props.fetchData('https://api.myjson.com/bins/6vbot')
+    }
 
-    return (
-        <div className="wrapper">
-            <DisplayTable data={data} />
-        </div>
-    )
+    render() {
+        const data = this.props.data.filter(
+            code =>
+                code.evidence === 'IMP' ||
+                code.evidence === 'IGI' ||
+                code.evidence === 'IDA' ||
+                code.evidence === 'IBA'
+        )
+        return (
+            <div className="wrapper">
+                <DisplayTable data={data} />
+            </div>
+        )
+    }
 }
 
-export default ManualGO
+const mapStateToProps = state => {
+    return {
+        data: state.data,
+        hasErrored: state.dataHasErrored,
+        isLoading: state.dataIsLoading
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchData: url => dispatch(fetchData(url))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ManualGO)
