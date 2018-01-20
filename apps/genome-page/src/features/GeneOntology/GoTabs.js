@@ -17,7 +17,14 @@ const theme = {
 
 class GoTabs extends Component {
     state = {
-        active: 0
+        active: 0,
+        data: []
+    }
+
+    componentDidMount() {
+        fetch('https://api.myjson.com/bins/6vbot')
+            .then(res => res.json())
+            .then(data => this.setState({ data }))
     }
 
     setActive = active => {
@@ -54,7 +61,7 @@ class GoTabs extends Component {
                     </TabContainer>
                 </ThemeProvider>
                 <br />
-                <AllGO />
+                <AllGO data={this.state.data} />
             </div>
         )
     }
