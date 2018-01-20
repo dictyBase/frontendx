@@ -9,9 +9,11 @@
     "dicty-components-tab": "github:dictyBase/dicty-components-tab",
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
+    "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
     "react-virtualized": "^9.15.0",
+    "redux": "^3.7.2",
     "styled-components": "^2.4.0"
   },
   "scripts": {
