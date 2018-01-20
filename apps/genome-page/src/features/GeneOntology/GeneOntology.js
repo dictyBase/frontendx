@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import AllGO from './AllGO'
+import ExperimentalGO from './ExperimentalGO'
+import ManualGO from './ManualGO'
+import ElectronicGO from './ElectronicGO'
 import TabBarContainer from './tabs/TabBarContainer'
 import { Flex } from 'rebass'
 import { ThemeProvider } from 'styled-components'
@@ -23,10 +26,10 @@ class GeneOntology extends Component {
 
     render() {
         const tabs = [
-            { name: 'AllGO', label: 'All GO' },
-            { name: 'ExperimentalGO', label: 'Experimental GO' },
-            { name: 'ManualGO', label: 'Manual GO' },
-            { name: 'ElectronicGO', label: 'Electronic GO' }
+            { name: 'AllGO', label: 'All GO', component: AllGO },
+            { name: 'ExperimentalGO', label: 'Experimental GO', component: ExperimentalGO },
+            { name: 'ManualGO', label: 'Manual GO', component: ManualGO },
+            { name: 'ElectronicGO', label: 'Electronic GO', component: ElectronicGO }
         ]
 
         return (
@@ -37,7 +40,6 @@ class GeneOntology extends Component {
                     </Flex>
                 </ThemeProvider>
                 <br />
-                {/* <AllGO data={this.state.data} /> */}
             </div>
         )
     }
