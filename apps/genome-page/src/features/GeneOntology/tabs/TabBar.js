@@ -1,7 +1,7 @@
 import React from 'react'
 import TabItem from './TabItem'
 import ToggleDisplay from 'react-toggle-display'
-import { TabContainer } from '../../../styles/style'
+import { TabContainer } from 'styles/style'
 
 const TabBar = props => {
     const { tabs, currentTab, onTabClick, ...otherProps } = props

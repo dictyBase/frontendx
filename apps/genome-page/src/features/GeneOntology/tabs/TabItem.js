@@ -1,5 +1,5 @@
 import React from 'react'
-import { Tab } from '../../../styles/style'
+import { Tab } from 'styles/style'
 
 const TabItem = ({ name, label, onClick, active }) => (
     <Tab
