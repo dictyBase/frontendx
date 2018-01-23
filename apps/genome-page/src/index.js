@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import configureStore from 'app/configureStore'
+import configureStore from 'app/store/configureStore'
 import App from 'app/layout/App'
 import registerServiceWorker from './registerServiceWorker'
 import 'whatwg-fetch'
