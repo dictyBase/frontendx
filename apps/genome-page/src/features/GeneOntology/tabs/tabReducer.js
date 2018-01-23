@@ -1,4 +1,4 @@
-import { createReducer } from '../../../common/utils/reducerUtils'
+import { createReducer } from 'common/utils/reducerUtils'
 
 import { TAB_SELECTED } from './tabConstants'
 

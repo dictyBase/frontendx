@@ -3,8 +3,8 @@ import {
     data,
     dataHasErrored,
     dataIsLoading
-} from '../features/GeneOntology/goReducer'
-import tabReducer from '../features/GeneOntology/tabs/tabReducer'
+} from 'features/GeneOntology/goReducer'
+import tabReducer from 'features/GeneOntology/tabs/tabReducer'
 
 const rootReducer = combineReducers({
     tabs: tabReducer,
