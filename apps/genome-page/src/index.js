@@ -1,11 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './app/layout/App'
 import { Provider } from 'react-redux'
-import configureStore from './app/configureStore'
+import configureStore from 'app/configureStore'
+import App from 'app/layout/App'
 import registerServiceWorker from './registerServiceWorker'
-import './styles/style.css'
-import './styles/style.js'
+import 'whatwg-fetch'
+
+import 'styles/style.css'
+import 'styles/style.js'
 
 const initialState = {
     data: []

@@ -1,4 +1,3 @@
-import 'whatwg-fetch'
 import { FETCH_DATA } from './goConstants'
 
 export function dataHasErrored(bool) {
