@@ -1,22 +1,22 @@
-import { FETCH_DATA } from './goConstants'
+import { DATA_HAS_ERRORED, DATA_IS_LOADING, FETCH_DATA_SUCCESS } from './goConstants'
 
 export function dataHasErrored(bool) {
     return {
-        type: 'DATA_HAS_ERRORED',
+        type: DATA_HAS_ERRORED,
         hasErrored: bool
     }
 }
 
 export function dataIsLoading(bool) {
     return {
-        type: 'DATA_IS_LOADING',
+        type: DATA_IS_LOADING,
         isLoading: bool
     }
 }
 
 export function fetchDataSuccess(data) {
     return {
-        type: 'FETCH_DATA_SUCCESS',
+        type: FETCH_DATA_SUCCESS,
         data
     }
 }

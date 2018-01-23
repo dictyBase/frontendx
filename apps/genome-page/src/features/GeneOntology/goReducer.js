@@ -1,4 +1,4 @@
-import { FETCH_DATA } from './goConstants'
+import { DATA_HAS_ERRORED, DATA_IS_LOADING, FETCH_DATA_SUCCESS } from './goConstants'
 
 const initialState = {
     data: []
@@ -6,7 +6,7 @@ const initialState = {
 
 export function dataHasErrored(state = false, action) {
     switch (action.type) {
-        case 'DATA_HAS_ERRORED':
+        case DATA_HAS_ERRORED:
             return action.hasErrored;
 
         default:
@@ -16,7 +16,7 @@ export function dataHasErrored(state = false, action) {
 
 export function dataIsLoading(state = false, action) {
     switch (action.type) {
-        case 'DATA_IS_LOADING':
+        case DATA_IS_LOADING:
             return action.isLoading;
 
         default:
@@ -26,7 +26,7 @@ export function dataIsLoading(state = false, action) {
 
 export function data(state = initialState, action) {
     switch (action.type) {
-        case 'FETCH_DATA_SUCCESS':
+        case FETCH_DATA_SUCCESS:
             return action.data;
 
         default:
