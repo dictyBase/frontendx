@@ -4,7 +4,7 @@ import {
     dataHasErrored,
     dataIsLoading
 } from 'features/GeneOntology/goReducer'
-import tabReducer from 'features/GeneOntology/tabs/tabReducer'
+import tabReducer from 'common/components/tabs/tabReducer'
 
 const rootReducer = combineReducers({
     tabs: tabReducer,
