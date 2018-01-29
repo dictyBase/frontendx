@@ -3,7 +3,7 @@ import AllGO from './AllGO'
 import ExperimentalGO from './ExperimentalGO'
 import ManualGO from './ManualGO'
 import ElectronicGO from './ElectronicGO'
-import TabBarContainer from './tabs/TabBarContainer'
+import TabBarContainer from 'common/components/tabs/TabBarContainer'
 import { Flex } from 'rebass'
 import { ThemeProvider } from 'styled-components'
 
@@ -16,10 +16,10 @@ const theme = {
 class GeneOntology extends Component {
     render() {
         const tabs = [
-            { name: 'AllGO', label: 'All GO', component: AllGO },
-            { name: 'ExperimentalGO', label: 'Experimental GO', component: ExperimentalGO },
-            { name: 'ManualGO', label: 'Manual GO', component: ManualGO },
-            { name: 'ElectronicGO', label: 'Electronic GO', component: ElectronicGO }
+            { name: 'All GO', label: 'All GO', component: AllGO },
+            { name: 'Experimental GO', label: 'Experimental GO', component: ExperimentalGO },
+            { name: 'Manual GO', label: 'Manual GO', component: ManualGO },
+            { name: 'Electronic GO', label: 'Electronic GO', component: ElectronicGO }
         ]
 
         return (
