@@ -9,6 +9,11 @@ injectGlobal([`
     body {
         margin: auto;
         height: 100%;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.42857;
+        color: #333;
+        background-color: #fff;
     }
 `])
 
