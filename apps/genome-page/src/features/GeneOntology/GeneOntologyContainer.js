@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import AllGO from './AllGO'
 import ExperimentalGO from './ExperimentalGO'
 import ManualGO from './ManualGO'
@@ -13,26 +13,28 @@ const theme = {
     tabText: 'white'
 }
 
-class GeneOntology extends Component {
-    render() {
-        const tabs = [
-            { name: 'All GO', label: 'All GO', component: AllGO },
-            { name: 'Experimental GO', label: 'Experimental GO', component: ExperimentalGO },
-            { name: 'Manual GO', label: 'Manual GO', component: ManualGO },
-            { name: 'Electronic GO', label: 'Electronic GO', component: ElectronicGO }
-        ]
+const tabs = [
+    { name: 'All GO', label: 'All GO', component: AllGO },
+    {
+        name: 'Experimental GO',
+        label: 'Experimental GO',
+        component: ExperimentalGO
+    },
+    { name: 'Manual GO', label: 'Manual GO', component: ManualGO },
+    { name: 'Electronic GO', label: 'Electronic GO', component: ElectronicGO }
+]
 
-        return (
-            <div>
-                <ThemeProvider theme={theme}>
-                    <Flex justify="center" mx="auto">
-                        <TabBarContainer tabs={tabs} />
-                    </Flex>
-                </ThemeProvider>
-                <br />
-            </div>
-        )
-    }
+const GeneOntology = () => {
+    return (
+        <div>
+            <ThemeProvider theme={theme}>
+                <Flex justify="center" mx="auto">
+                    <TabBarContainer tabs={tabs} />
+                </Flex>
+            </ThemeProvider>
+            <br />
+        </div>
+    )
 }
 
 export default GeneOntology

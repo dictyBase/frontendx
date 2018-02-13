@@ -1,27 +1,28 @@
+// @flow
 import { DATA_HAS_ERRORED, DATA_IS_LOADING, FETCH_DATA_SUCCESS } from './goConstants'
 
-export function dataHasErrored(bool) {
+export function dataHasErrored(bool: boolean) {
     return {
         type: DATA_HAS_ERRORED,
         hasErrored: bool
     }
 }
 
-export function dataIsLoading(bool) {
+export function dataIsLoading(bool: boolean) {
     return {
         type: DATA_IS_LOADING,
         isLoading: bool
     }
 }
 
-export function fetchDataSuccess(data) {
+export function fetchDataSuccess(data: Object) {
     return {
         type: FETCH_DATA_SUCCESS,
         data
     }
 }
 
-export function fetchData(url) {
+export function fetchData(url: string) {
     return dispatch => {
         fetch(url)
             .then(res => {

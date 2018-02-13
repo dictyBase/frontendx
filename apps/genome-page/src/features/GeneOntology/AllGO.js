@@ -1,9 +1,17 @@
+// @flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchData } from './goActions'
 import DisplayTable from './DisplayTable'
 
-class AllGO extends Component {
+type Props = {
+    data: Object,
+    hasErrored: boolean,
+    isLoading: boolean,
+    fetchData: Function
+}
+
+class AllGO extends Component<Props> {
     componentDidMount() {
         this.props.fetchData('https://api.myjson.com/bins/6vbot')
     }
