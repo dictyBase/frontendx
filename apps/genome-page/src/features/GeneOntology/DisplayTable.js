@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react'
 import { Table, Column } from 'react-virtualized'
 import 'react-virtualized/styles.css'
@@ -5,8 +6,23 @@ import 'react-virtualized/styles.css'
 const BASE_ROW_HEIGHT = 30
 const MAX_NAME_CHARS_PER_LINE = 20
 
-export default class DisplayTable extends Component {
-    getRowHeight = ({ index }) => {
+type Props = {
+    cellWidth: number,
+    cellHeight: number,
+    height: number,
+    data: Object
+}
+
+export default class DisplayTable extends Component<Props> {
+    displayName = 'display table'
+
+    static defaultProps = {
+        cellWidth: 130,
+        cellHeight: 90,
+        height: 630
+    }
+
+    getRowHeight = ({ index }: { index: number }) => {
         const data = this.props.data[index]
         const numLines = Math.ceil(data.term.length / MAX_NAME_CHARS_PER_LINE)
 
@@ -18,7 +34,7 @@ export default class DisplayTable extends Component {
 
         return numLines * BASE_ROW_HEIGHT
     }
-    getRowStyle = ({ index }) => {
+    getRowStyle = ({ index }: { index: number }) => {
         if (index === -1) {
             return {
                 margin: '0 auto',
@@ -38,18 +54,30 @@ export default class DisplayTable extends Component {
             }
         }
     }
-    rowGetter = ({ index }) => {
+    rowGetter = ({ index }: { index: number }) => {
         const data = this.props.data
         if (data[index]) {
             return data[index]
         }
     }
-    cellDataGetter = ({ rowData, dataKey }) => {
+    cellDataGetter = ({
+        rowData,
+        dataKey
+    }: {
+        rowData: Object,
+        dataKey: string
+    }) => {
         if (rowData) {
             return rowData[dataKey]
         }
     }
-    descriptorRenderer = ({ rowData, cellData }) => {
+    descriptorRenderer = ({
+        rowData,
+        cellData
+    }: {
+        rowData: Object,
+        cellData: any
+    }) => {
         if (rowData) {
             return <div style={{ whiteSpace: 'normal' }}>{cellData}</div>
         }
@@ -68,8 +96,7 @@ export default class DisplayTable extends Component {
                     rowCount={rowCount}
                     rowGetter={this.rowGetter}
                     rowHeight={this.getRowHeight}
-                    rowStyle={this.getRowStyle}
-                >
+                    rowStyle={this.getRowStyle}>
                     <Column
                         label="GO term + Extension"
                         dataKey="term"
@@ -77,11 +104,7 @@ export default class DisplayTable extends Component {
                         cellDataGetter={this.attributeGetter}
                         cellRenderer={this.descriptorRenderer}
                     />
-                    <Column
-                        label="Evidence"
-                        dataKey="evidence"
-                        width={100}
-                    />
+                    <Column label="Evidence" dataKey="evidence" width={100} />
                     <Column
                         label="With"
                         dataKey="with"
@@ -97,19 +120,9 @@ export default class DisplayTable extends Component {
                         cellRenderer={this.descriptorRenderer}
                     />
                     <Column label="Date" dataKey="date" width={100} />
-                    <Column
-                        label="Source"
-                        dataKey="source"
-                        width={100}
-                    />
+                    <Column label="Source" dataKey="source" width={100} />
                 </Table>
             </div>
         )
     }
-}
-
-DisplayTable.defaultProps = {
-    cellWidth: 130,
-    cellHeight: 90,
-    height: 630
 }
