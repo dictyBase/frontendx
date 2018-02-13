@@ -1,5 +1,9 @@
 // @flow
-import { DATA_HAS_ERRORED, DATA_IS_LOADING, FETCH_DATA_SUCCESS } from './goConstants'
+import {
+    DATA_HAS_ERRORED,
+    DATA_IS_LOADING,
+    FETCH_DATA_SUCCESS
+} from './goConstants'
 
 export function dataHasErrored(bool: boolean) {
     return {
@@ -15,7 +19,7 @@ export function dataIsLoading(bool: boolean) {
     }
 }
 
-export function fetchDataSuccess(data: Object) {
+export function fetchDataSuccess(data: Array<Object>) {
     return {
         type: FETCH_DATA_SUCCESS,
         data

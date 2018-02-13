@@ -4,9 +4,9 @@
 [include]
 
 [libs]
-
+flow-typed
 
 [lints]
 
 [options]
-module.system.node.resolve_dirname=src
+module.system.node.resolve_dirname=./src
