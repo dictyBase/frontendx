@@ -1,35 +1,49 @@
-import { DATA_HAS_ERRORED, DATA_IS_LOADING, FETCH_DATA_SUCCESS } from './goConstants'
+// @flow
+import {
+    DATA_HAS_ERRORED,
+    DATA_IS_LOADING,
+    FETCH_DATA_SUCCESS
+} from './goConstants'
 
 const initialState = {
     data: []
 }
 
-export function dataHasErrored(state = false, action) {
+export function dataHasErrored(
+    state: boolean = false,
+    action: { type: string, hasErrored: boolean }
+) {
     switch (action.type) {
         case DATA_HAS_ERRORED:
-            return action.hasErrored;
+            return action.hasErrored
 
         default:
-            return state;
+            return state
     }
 }
 
-export function dataIsLoading(state = false, action) {
+export function dataIsLoading(
+    state: boolean = false,
+    action: { type: string, isLoading: boolean }
+) {
     switch (action.type) {
         case DATA_IS_LOADING:
-            return action.isLoading;
+            return action.isLoading
 
         default:
-            return state;
+            return state
     }
 }
 
-export function data(state = initialState, action) {
+export function data(
+    state: Object = initialState,
+    action: { type: string, data: Array<Object> }
+) {
     switch (action.type) {
         case FETCH_DATA_SUCCESS:
-            return action.data;
+            return action.data
 
         default:
-            return state;
+            return state
     }
 }

@@ -101,7 +101,7 @@ export default class DisplayTable extends Component<Props> {
                         label="GO term + Extension"
                         dataKey="term"
                         width={250}
-                        cellDataGetter={this.attributeGetter}
+                        cellDataGetter={this.cellDataGetter}
                         cellRenderer={this.descriptorRenderer}
                     />
                     <Column label="Evidence" dataKey="evidence" width={100} />
@@ -109,14 +109,14 @@ export default class DisplayTable extends Component<Props> {
                         label="With"
                         dataKey="with"
                         width={150}
-                        cellDataGetter={this.attributeGetter}
+                        cellDataGetter={this.cellDataGetter}
                         cellRenderer={this.descriptorRenderer}
                     />
                     <Column
                         label="Reference"
                         dataKey="reference"
                         width={250}
-                        cellDataGetter={this.attributeGetter}
+                        cellDataGetter={this.cellDataGetter}
                         cellRenderer={this.descriptorRenderer}
                     />
                     <Column label="Date" dataKey="date" width={100} />
