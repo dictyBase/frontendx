@@ -1,1 +1,2 @@
-export const TAB_SELECTED = 'TAB_SELECTED'
+// @flow
+export const TAB_SELECTED:string = 'TAB_SELECTED'
