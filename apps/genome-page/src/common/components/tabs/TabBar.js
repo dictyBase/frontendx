@@ -1,3 +1,4 @@
+// @flow
 import React from 'react'
 import TabItem from './TabItem'
 import ToggleDisplay from 'react-toggle-display'
@@ -11,7 +12,13 @@ const theme = {
     tabText: 'white'
 }
 
-const TabBar = props => {
+type Props = {
+    tabs: Array<Object>,
+    currentTab: string,
+    onTabClick: Function
+}
+
+const TabBar = (props: Props) => {
     const { tabs, currentTab, onTabClick, ...otherProps } = props
 
     const tabItems = tabs.map(tabInfo => {
