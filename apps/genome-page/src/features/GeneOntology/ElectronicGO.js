@@ -1,23 +1,31 @@
 // @flow
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { fetchData } from './goActions'
-import DisplayTable from './DisplayTable'
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import { fetchData } from "./goActions"
+import DisplayTable from "./DisplayTable"
 
 type Props = {
+    /** The data fetched from the API */
     data: Object,
+    /** Check if items could not be loaded */
     hasErrored: boolean,
+    /** Check if page is loading */
     isLoading: boolean,
+    /** Action creator that accepts URL as parameter */
     fetchData: Function
 }
 
+/**
+ * Fetches and shares only the Electronic GO data (IEA)
+ */
+
 class ElectronicGO extends Component<Props> {
     componentDidMount() {
-        this.props.fetchData('https://api.myjson.com/bins/6vbot')
+        this.props.fetchData("https://api.myjson.com/bins/6vbot")
     }
 
     render() {
-        const data = this.props.data.filter(code => code.evidence === 'IEA')
+        const data = this.props.data.filter(code => code.evidence === "IEA")
         return (
             <div className="wrapper">
                 <DisplayTable data={data} />

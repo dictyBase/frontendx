@@ -1,21 +1,27 @@
 // @flow
-import React, { Component } from 'react'
-import { Table, Column } from 'react-virtualized'
-import 'react-virtualized/styles.css'
+import React, { Component } from "react"
+import { Table, Column } from "react-virtualized"
+import "react-virtualized/styles.css"
 
 const BASE_ROW_HEIGHT = 30
 const MAX_NAME_CHARS_PER_LINE = 20
 
 type Props = {
+    /** Width of table cell */
     cellWidth: number,
+    /** Height of table cell */
     cellHeight: number,
+    /** Height of table */
     height: number,
+    /** The data fetched from the API */
     data: Object
 }
 
-export default class DisplayTable extends Component<Props> {
-    displayName = 'display table'
+/**
+ * React Virtualized table that displays relevant GO data
+ */
 
+export default class DisplayTable extends Component<Props> {
     static defaultProps = {
         cellWidth: 130,
         cellHeight: 90,
@@ -37,20 +43,20 @@ export default class DisplayTable extends Component<Props> {
     getRowStyle = ({ index }: { index: number }) => {
         if (index === -1) {
             return {
-                margin: '0 auto',
-                borderTop: '1px solid #efefef',
-                borderBottom: '1px solid #efefef'
+                margin: "0 auto",
+                borderTop: "1px solid #efefef",
+                borderBottom: "1px solid #efefef"
             }
         } else if (index === this.props.data.length) {
             return {}
         } else if (index % 2 > 0) {
             return {
-                borderBottom: '1px solid #efefef',
-                backgroundColor: '#eaf2ff'
+                borderBottom: "1px solid #efefef",
+                backgroundColor: "#eaf2ff"
             }
         } else if (index % 2 === 0) {
             return {
-                borderBottom: '1px solid #efefef'
+                borderBottom: "1px solid #efefef"
             }
         }
     }
@@ -79,7 +85,7 @@ export default class DisplayTable extends Component<Props> {
         cellData: any
     }) => {
         if (rowData) {
-            return <div style={{ whiteSpace: 'normal' }}>{cellData}</div>
+            return <div style={{ whiteSpace: "normal" }}>{cellData}</div>
         }
     }
 

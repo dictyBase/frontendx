@@ -1,27 +1,34 @@
 // @flow
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { fetchData } from './goActions'
-import DisplayTable from './DisplayTable'
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import { fetchData } from "./goActions"
+import DisplayTable from "./DisplayTable"
 
 type Props = {
+    /** The data fetched from the API */
     data: Object,
+    /** Check if items could not be loaded */
     hasErrored: boolean,
+    /** Check if page is loading */
     isLoading: boolean,
+    /** Action creator that accepts URL as parameter */
     fetchData: Function
 }
 
+/**
+ * Fetches and shares only the Experimental GO data (IMP, IGI, IDA)
+ */
 class ExperimentalGO extends Component<Props> {
     componentDidMount() {
-        this.props.fetchData('https://api.myjson.com/bins/6vbot')
+        this.props.fetchData("https://api.myjson.com/bins/6vbot")
     }
 
     render() {
         const data = this.props.data.filter(
             code =>
-                code.evidence === 'IMP' ||
-                code.evidence === 'IGI' ||
-                code.evidence === 'IDA'
+                code.evidence === "IMP" ||
+                code.evidence === "IGI" ||
+                code.evidence === "IDA"
         )
         return (
             <div className="wrapper">

@@ -1,34 +1,37 @@
 {
-  "name": "genomepage",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "dicty-components-header-footer": "github:dictyBase/dicty-components-header-footer#v2.0.0",
-    "dicty-components-navbar": "github:dictyBase/dicty-components-navbar",
-    "dicty-components-panel": "github:dictyBase/dicty-components-panel",
-    "dicty-components-tab": "github:dictyBase/dicty-components-tab",
-    "flow-bin": "^0.65.0",
-    "react": "^15.6.2",
-    "react-dom": "^15.6.2",
-    "react-redux": "^5.0.6",
-    "react-router-dom": "^4.2.2",
-    "react-scripts": "^1.1.0",
-    "react-toggle-display": "^2.2.0",
-    "react-virtualized": "^9.15.0",
-    "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0",
-    "reselect": "^3.0.1",
-    "styled-components": "^3.0.2",
-    "whatwg-fetch": "^2.0.3"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "flow": "flow"
-  },
-  "devDependencies": {
-    "polished": "^1.9.0"
-  }
+    "name": "genomepage",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test --env=jsdom",
+        "eject": "react-scripts eject",
+        "flow": "flow",
+        "styleguide": "styleguidist server",
+        "styleguide:build": "styleguidist build"
+    },
+    "dependencies": {
+        "dicty-components-header-footer": "github:dictyBase/dicty-components-header-footer#v2.0.0",
+        "dicty-components-navbar": "github:dictyBase/dicty-components-navbar",
+        "dicty-components-panel": "github:dictyBase/dicty-components-panel",
+        "dicty-components-tab": "github:dictyBase/dicty-components-tab",
+        "flow-bin": "^0.65.0",
+        "react": "^15.6.2",
+        "react-dom": "^15.6.2",
+        "react-redux": "^5.0.6",
+        "react-router-dom": "^4.2.2",
+        "react-scripts": "^1.1.0",
+        "react-toggle-display": "^2.2.0",
+        "react-virtualized": "^9.15.0",
+        "redux": "^3.7.2",
+        "redux-thunk": "^2.2.0",
+        "reselect": "^3.0.1",
+        "styled-components": "^3.0.2",
+        "whatwg-fetch": "^2.0.3"
+    },
+    "devDependencies": {
+        "polished": "^1.9.0",
+        "react-styleguidist": "^6.2.6"
+    }
 }
