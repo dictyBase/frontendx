@@ -31,19 +31,24 @@ export function fetchDataSuccess(data: Array<Object>) {
 }
 
 export function fetchData(url: string) {
-    return (dispatch: Function) => {
-        fetch(url)
-            .then(res => {
-                if (!res.ok) {
-                    throw Error(res.statusText)
-                }
-
+    return async (dispatch: Function) => {
+        try {
+            const res = await fetch(url)
+            const data = await res.json()
+            if (res.ok) {
+                dispatch(fetchDataSuccess(data))
+            } else {
                 dispatch(dataIsLoading(false))
-
-                return res
-            })
-            .then(res => res.json())
-            .then(data => dispatch(fetchDataSuccess(data)))
-            .catch(() => dispatch(dataHasErrored(true)))
+                if (process.env.NODE_ENV !== "production") {
+                    console.error(res.statusText)
+                }
+                throw Error(res.statusText)
+            }
+        } catch (error) {
+            dispatch(dataHasErrored(true))
+            if (process.env.NODE_ENV !== "production") {
+                console.error(`Network error: ${error}`)
+            }
+        }
     }
 }
