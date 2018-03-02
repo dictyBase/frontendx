@@ -3,7 +3,11 @@ import {
     DATA_HAS_ERRORED,
     DATA_IS_LOADING,
     FETCH_DATA_SUCCESS
-} from './goConstants'
+} from "./goConstants"
+
+/**
+ * All of the Redux actions related to the GO tab
+ */
 
 export function dataHasErrored(bool: boolean) {
     return {
