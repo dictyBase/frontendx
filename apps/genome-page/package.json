@@ -16,7 +16,7 @@
         "dicty-components-navbar": "github:dictyBase/dicty-components-navbar",
         "dicty-components-panel": "github:dictyBase/dicty-components-panel",
         "dicty-components-tab": "github:dictyBase/dicty-components-tab",
-        "flow-bin": "^0.65.0",
+        "flow-bin": "^0.66.0",
         "react": "^15.6.2",
         "react-dom": "^15.6.2",
         "react-redux": "^5.0.6",

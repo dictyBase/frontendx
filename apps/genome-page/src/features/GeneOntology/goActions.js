@@ -31,7 +31,7 @@ export function fetchDataSuccess(data: Array<Object>) {
 }
 
 export function fetchData(url: string) {
-    return dispatch => {
+    return (dispatch: Function) => {
         fetch(url)
             .then(res => {
                 if (!res.ok) {
