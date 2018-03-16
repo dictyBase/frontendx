@@ -12,7 +12,7 @@
         "styleguide:build": "styleguidist build"
     },
     "dependencies": {
-        "dicty-components-header-footer": "github:dictyBase/dicty-components-header-footer#v2.0.0",
+        "dicty-components-header-footer": "github:dictyBase/dicty-components-header-footer#v2.1.0",
         "dicty-components-navbar": "github:dictyBase/dicty-components-navbar",
         "dicty-components-panel": "github:dictyBase/dicty-components-panel",
         "dicty-components-tab": "github:dictyBase/dicty-components-tab",
@@ -27,7 +27,7 @@
         "redux": "^3.7.2",
         "redux-thunk": "^2.2.0",
         "reselect": "^3.0.1",
-        "styled-components": "^3.0.2",
+        "styled-components": "^2.4.0",
         "whatwg-fetch": "^2.0.3"
     },
     "devDependencies": {
