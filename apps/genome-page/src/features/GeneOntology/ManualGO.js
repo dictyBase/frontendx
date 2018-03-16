@@ -19,7 +19,7 @@ type Props = {
  * Fetches and shares only the Manual GO data (IMP, IGI, IDA, IBA)
  */
 
-class ManualGO extends Component<Props> {
+export class ManualGO extends Component<Props> {
     componentDidMount() {
         this.props.fetchData("https://api.myjson.com/bins/6vbot")
     }
