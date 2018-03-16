@@ -2,8 +2,37 @@
 
 exports[`matching a snapshot of ExperimentalGO 1`] = `
 <div
-  className="wrapper"
+  className="sc-eilVRo fSGauw"
 >
+  <div
+    className="sc-eerKOB kCQXGC"
+  >
+    <h3>
+      Molecular Function
+    </h3>
+  </div>
+  <div
+    className="wrapper"
+  />
+  <br />
+  <div
+    className="sc-eerKOB kCQXGC"
+  >
+    <h3>
+      Biological Process
+    </h3>
+  </div>
+  <div
+    className="wrapper"
+  />
+  <br />
+  <div
+    className="sc-eerKOB kCQXGC"
+  >
+    <h3>
+      Cellular Composition
+    </h3>
+  </div>
   <div
     className="wrapper"
   />
