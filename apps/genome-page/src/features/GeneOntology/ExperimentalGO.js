@@ -3,6 +3,7 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 import { fetchData } from "./goActions"
 import DisplayTable from "./DisplayTable"
+import { Wrapper, GoHeaderStyle } from "styles/style"
 
 type Props = {
     /** The data fetched from the API */
@@ -32,9 +33,22 @@ export class ExperimentalGO extends Component<Props> {
                 code.evidence === "IDA"
         )
         return (
-            <div className="wrapper">
+            <Wrapper>
+                <GoHeaderStyle>
+                    <h3>Molecular Function</h3>
+                </GoHeaderStyle>
                 <DisplayTable data={data} />
-            </div>
+                <br />
+                <GoHeaderStyle>
+                    <h3>Biological Process</h3>
+                </GoHeaderStyle>
+                <DisplayTable data={data} />
+                <br />
+                <GoHeaderStyle>
+                    <h3>Cellular Composition</h3>
+                </GoHeaderStyle>
+                <DisplayTable data={data} />
+            </Wrapper>
         )
     }
 }
