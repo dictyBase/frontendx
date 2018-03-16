@@ -19,7 +19,7 @@ type Props = {
  * Fetches and shares only the Electronic GO data (IEA)
  */
 
-class ElectronicGO extends Component<Props> {
+export class ElectronicGO extends Component<Props> {
     componentDidMount() {
         this.props.fetchData("https://api.myjson.com/bins/6vbot")
     }

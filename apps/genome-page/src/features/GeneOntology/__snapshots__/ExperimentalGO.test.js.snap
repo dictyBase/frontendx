@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matching a snapshot of ExperimentalGO 1`] = `
+<div
+  className="wrapper"
+>
+  <div
+    className="wrapper"
+  />
+</div>
+`;

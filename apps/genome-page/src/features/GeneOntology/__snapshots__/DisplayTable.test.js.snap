@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matching a snapshot of DisplayTable 1`] = `
+<div
+  className="wrapper"
+/>
+`;

@@ -18,7 +18,8 @@ type Props = {
 /**
  * Fetches and shares all of the GO data
  */
-class AllGO extends Component<Props> {
+
+export class AllGO extends Component<Props> {
     componentDidMount() {
         this.props.fetchData("https://api.myjson.com/bins/6vbot")
     }
