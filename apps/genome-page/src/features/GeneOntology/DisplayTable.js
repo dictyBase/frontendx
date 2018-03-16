@@ -24,8 +24,8 @@ type Props = {
 export default class DisplayTable extends Component<Props> {
     static defaultProps = {
         cellWidth: 130,
-        cellHeight: 90,
-        height: 630
+        cellHeight: 60,
+        height: 330
     }
 
     getRowHeight = ({ index }: { index: number }) => {
