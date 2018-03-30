@@ -1,8 +1,8 @@
 // @flow
 import {
-    DATA_HAS_ERRORED,
-    DATA_IS_LOADING,
-    FETCH_DATA_SUCCESS
+  DATA_HAS_ERRORED,
+  DATA_IS_LOADING,
+  FETCH_DATA_SUCCESS
 } from "./goConstants"
 
 /**
@@ -10,45 +10,45 @@ import {
  */
 
 export function dataHasErrored(bool: boolean) {
-    return {
-        type: DATA_HAS_ERRORED,
-        hasErrored: bool
-    }
+  return {
+    type: DATA_HAS_ERRORED,
+    hasErrored: bool
+  }
 }
 
 export function dataIsLoading(bool: boolean) {
-    return {
-        type: DATA_IS_LOADING,
-        isLoading: bool
-    }
+  return {
+    type: DATA_IS_LOADING,
+    isLoading: bool
+  }
 }
 
 export function fetchDataSuccess(data: Array<Object>) {
-    return {
-        type: FETCH_DATA_SUCCESS,
-        data
-    }
+  return {
+    type: FETCH_DATA_SUCCESS,
+    data
+  }
 }
 
 export function fetchData(url: string) {
-    return async (dispatch: Function) => {
-        try {
-            const res = await fetch(url)
-            const data = await res.json()
-            if (res.ok) {
-                dispatch(fetchDataSuccess(data))
-            } else {
-                dispatch(dataIsLoading(false))
-                if (process.env.NODE_ENV !== "production") {
-                    console.error(res.statusText)
-                }
-                throw Error(res.statusText)
-            }
-        } catch (error) {
-            dispatch(dataHasErrored(true))
-            if (process.env.NODE_ENV !== "production") {
-                console.error(`Network error: ${error}`)
-            }
+  return async (dispatch: Function) => {
+    try {
+      const res = await fetch(url)
+      const data = await res.json()
+      if (res.ok) {
+        dispatch(fetchDataSuccess(data))
+      } else {
+        dispatch(dataIsLoading(false))
+        if (process.env.NODE_ENV !== "production") {
+          console.error(res.statusText)
         }
+        throw Error(res.statusText)
+      }
+    } catch (error) {
+      dispatch(dataHasErrored(true))
+      if (process.env.NODE_ENV !== "production") {
+        console.error(`Network error: ${error}`)
+      }
     }
+  }
 }
