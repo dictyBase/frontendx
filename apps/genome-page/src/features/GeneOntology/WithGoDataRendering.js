@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import Skeleton from "react-loading-skeleton"
 import { fetchData } from "features/GeneOntology/goActions"
 
-const WithGoDataRendering = WrappedComponent => props => {
+const WithGoDataRendering = WrappedComponent => {
   class WithGoDataRenderingComponent extends Component {
     componentDidMount() {
       this.props.fetchData("https://api.myjson.com/bins/6vbot")
