@@ -1,8 +1,6 @@
 // @flow
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import { compose } from "redux"
-// import Skeleton from "react-loading-skeleton"
 import { fetchData } from "./goActions"
 import DisplayTable from "./DisplayTable"
 import WithGoDataRendering from "./WithGoDataRendering"
@@ -24,28 +22,7 @@ type Props = {
  */
 
 export class AllGO extends Component<Props> {
-  // componentDidMount() {
-  //   this.props.fetchData("https://api.myjson.com/bins/6vbot")
-  // }
-
   render() {
-    // if (this.props.hasErrored) {
-    //   return (
-    //     <p>
-    //       Sorry! There was an error loading the items:{" "}
-    //       {this.props.hasErrored.message}
-    //     </p>
-    //   )
-    // }
-
-    // if (this.props.isLoading) {
-    //   return (
-    //     <div>
-    //       <Skeleton count={10} />
-    //     </div>
-    //   )
-    // }
-
     return (
       <Wrapper>
         <GoHeaderStyle>
@@ -81,7 +58,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
+export default connect(mapStateToProps, mapDispatchToProps)(
   WithGoDataRendering(AllGO)
 )
