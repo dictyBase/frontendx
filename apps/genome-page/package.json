@@ -25,23 +25,23 @@
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
     "react-loading-skeleton": "^0.4.0",
-    "react-redux": "^5.0.6",
+    "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "^1.1.0",
+    "react-scripts": "^1.1.4",
     "react-toggle-display": "^2.2.0",
     "react-virtualized": "^9.15.0",
-    "redux": "^3.7.2",
+    "redux": "^4.0.0",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
     "styled-components": "^2.4.0",
-    "whatwg-fetch": "^2.0.3"
+    "whatwg-fetch": "^2.0.4"
   },
   "devDependencies": {
     "flow-bin": "^0.70.0",
     "lint-staged": "^7.0.0",
     "polished": "^1.9.0",
     "prettier": "^1.11.1",
-    "react-styleguidist": "^6.2.6",
+    "react-styleguidist": "^7.0.8",
     "react-test-renderer": "^15.6.2"
   }
 }
