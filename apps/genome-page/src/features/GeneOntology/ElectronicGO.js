@@ -29,12 +29,7 @@ export class ElectronicGO extends Component<Props> {
   render() {
     const data = this.props.data.filter(code => code.evidence === "IEA")
     if (this.props.hasErrored) {
-      return (
-        <p>
-          Sorry! There was an error loading the items:{" "}
-          {this.props.hasErrored.message}
-        </p>
-      )
+      return <p>Sorry! There was an error loading the items.</p>
     }
 
     if (this.props.isLoading) {
