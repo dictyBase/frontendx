@@ -22,7 +22,6 @@
     "dicty-components-navbar": "github:dictyBase/dicty-components-navbar",
     "dicty-components-panel": "github:dictyBase/dicty-components-panel",
     "dicty-components-tab": "github:dictyBase/dicty-components-tab",
-    "flow-bin": "^0.66.0",
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
     "react-loading-skeleton": "^0.4.0",
@@ -38,6 +37,7 @@
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
+    "flow-bin": "^0.70.0",
     "lint-staged": "^7.0.0",
     "polished": "^1.9.0",
     "prettier": "^1.11.1",
