@@ -35,12 +35,7 @@ export class ManualGO extends Component<Props> {
         code.evidence === "IBA"
     )
     if (this.props.hasErrored) {
-      return (
-        <p>
-          Sorry! There was an error loading the items:{" "}
-          {this.props.hasErrored.message}
-        </p>
-      )
+      return <p>Sorry! There was an error loading the items.</p>
     }
 
     if (this.props.isLoading) {
