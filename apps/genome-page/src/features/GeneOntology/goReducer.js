@@ -15,11 +15,11 @@ const initialState = {
 
 export function dataHasErrored(
   state: boolean = false,
-  action: { type: string, hasErrored: boolean }
+  action: { type: string, payload: Object }
 ) {
   switch (action.type) {
     case DATA_HAS_ERRORED:
-      return action.hasErrored
+      return action.payload.hasErrored
 
     default:
       return state
@@ -28,11 +28,11 @@ export function dataHasErrored(
 
 export function dataIsLoading(
   state: boolean = false,
-  action: { type: string, isLoading: boolean }
+  action: { type: string, payload: Object }
 ) {
   switch (action.type) {
     case DATA_IS_LOADING:
-      return action.isLoading
+      return action.payload.isLoading
 
     default:
       return state
@@ -41,11 +41,11 @@ export function dataIsLoading(
 
 export function data(
   state: Object = initialState,
-  action: { type: string, data: Array<Object> }
+  action: { type: string, payload: Object }
 ) {
   switch (action.type) {
     case FETCH_DATA_SUCCESS:
-      return action.data
+      return action.payload.data
 
     default:
       return state
