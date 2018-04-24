@@ -12,21 +12,27 @@ import {
 export function dataHasErrored(bool: boolean) {
   return {
     type: DATA_HAS_ERRORED,
-    hasErrored: bool
+    payload: {
+      hasErrored: bool
+    }
   }
 }
 
 export function dataIsLoading(bool: boolean) {
   return {
     type: DATA_IS_LOADING,
-    isLoading: bool
+    payload: {
+      isLoading: bool
+    }
   }
 }
 
 export function fetchDataSuccess(data: Array<Object>) {
   return {
     type: FETCH_DATA_SUCCESS,
-    data
+    payload: {
+      data
+    }
   }
 }
 
