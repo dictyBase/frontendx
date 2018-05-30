@@ -22,28 +22,29 @@ export class AllGO extends Component<Props> {
     this.props.fetchData("https://api.myjson.com/bins/6vbot")
   }
   render() {
+    const { data } = this.props.goData
     return (
       <Wrapper>
         <GoHeaderStyle>
           <h3>Molecular Function</h3>
         </GoHeaderStyle>
-        <DisplayTable data={this.props.data} />
+        <DisplayTable data={data} />
         <br />
         <GoHeaderStyle>
           <h3>Biological Process</h3>
         </GoHeaderStyle>
-        <DisplayTable data={this.props.data} />
+        <DisplayTable data={data} />
         <br />
         <GoHeaderStyle>
           <h3>Cellular Composition</h3>
         </GoHeaderStyle>
-        <DisplayTable data={this.props.data} />
+        <DisplayTable data={data} />
       </Wrapper>
     )
   }
 }
 
-const mapStateToProps = ({ data }) => ({ data })
+const mapStateToProps = ({ goData }) => ({ goData })
 
 const mapDispatchToProps = dispatch => {
   return {

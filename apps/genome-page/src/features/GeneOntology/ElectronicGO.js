@@ -15,7 +15,7 @@ type Props = {
  */
 
 export const ElectronicGO = (props: Props) => {
-  const data = props.data.filter(code => code.evidence === "IEA")
+  const data = props.goData.data.filter(code => code.evidence === "IEA")
 
   return (
     <Wrapper>
@@ -37,6 +37,6 @@ export const ElectronicGO = (props: Props) => {
   )
 }
 
-const mapStateToProps = ({ data }) => ({ data })
+const mapStateToProps = ({ goData }) => ({ goData })
 
 export default connect(mapStateToProps, null)(WithGoDataRendering(ElectronicGO))

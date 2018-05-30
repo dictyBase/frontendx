@@ -15,7 +15,7 @@ type Props = {
  */
 
 export const ExperimentalGO = (props: Props) => {
-  const data = props.data.filter(
+  const data = props.goData.data.filter(
     code =>
       code.evidence === "IMP" ||
       code.evidence === "IGI" ||
@@ -42,7 +42,7 @@ export const ExperimentalGO = (props: Props) => {
   )
 }
 
-const mapStateToProps = ({ data }) => ({ data })
+const mapStateToProps = ({ goData }) => ({ goData })
 
 export default connect(mapStateToProps, null)(
   WithGoDataRendering(ExperimentalGO),
