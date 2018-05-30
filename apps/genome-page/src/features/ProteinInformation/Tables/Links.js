@@ -29,14 +29,6 @@ const styles = theme => ({
   },
 })
 
-let id = 0
-function createData(name, calories, fat, carbs, protein) {
-  id += 1
-  return { id, name, calories, fat, carbs, protein }
-}
-
-const data = [createData("Frozen yoghurt", 159, 6.0, 24, 4.0)]
-
 const Links = props => {
   const { classes } = props
 
@@ -50,21 +42,18 @@ const Links = props => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map(n => {
-            return (
-              <TableRow key={n.id}>
-                <TableCell
-                  component="th"
-                  scope="row"
-                  className={classes.tableLeftData}>
-                  {n.name}
-                </TableCell>
-                <TableCell className={classes.tableRightData}>
-                  {n.calories}
-                </TableCell>
-              </TableRow>
-            )
-          })}
+          <TableRow>
+            <TableCell
+              component="th"
+              scope="row"
+              className={classes.tableLeftData}>
+              External Links
+            </TableCell>
+            <TableCell className={classes.tableRightData}>
+              <a href="#">UniProtKB: Q86JM7</a>&nbsp;
+              <a href="#">GenBank Protein</a>
+            </TableCell>
+          </TableRow>
         </TableBody>
       </Table>
     </Paper>

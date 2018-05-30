@@ -29,14 +29,6 @@ const styles = theme => ({
   },
 })
 
-let id = 0
-function createData(name, calories, fat, carbs, protein) {
-  id += 1
-  return { id, name, calories, fat, carbs, protein }
-}
-
-const data = [createData("Frozen yoghurt", 159, 6.0, 24, 4.0)]
-
 const ProteinSequence = props => {
   const { classes } = props
 
@@ -52,21 +44,25 @@ const ProteinSequence = props => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map(n => {
-            return (
-              <TableRow key={n.id}>
-                <TableCell
-                  component="th"
-                  scope="row"
-                  className={classes.tableLeftData}>
-                  {n.name}
-                </TableCell>
-                <TableCell className={classes.tableRightData}>
-                  {n.calories}
-                </TableCell>
-              </TableRow>
-            )
-          })}
+          <TableRow>
+            <TableCell
+              component="th"
+              scope="row"
+              className={classes.tableLeftData}>
+              Protein Sequence
+            </TableCell>
+            <TableCell className={classes.tableRightData}>
+              >DDB0238349|DDB_G0272004 |Protein|gene: p2xA on chromosome: 2
+              position 1165671 to 1167128<br />
+              MGFSFDWDDIFQYSTVKIVRIRDRRLGILHLSFLVGIVAYIVVYSAIIKKGYLFTEVPIG<br />
+              SVRTSLKGPNTFASNLTYCSNQQHNGSTYPFTPLECNYWDEQLALFPVGQDSTFTCTTRV<br />
+              RLSKQEANCNFTDPTCKFVDEPGSAKNIYIADIESFTILIDHTMYASSSGSQFNAVDLHG<br />
+              YILNQDGDEVQIDANGTSIGVSGKPDIMTIGQLLSFGGVSLDQASPVDSNVSIRYDGVVL<br />
+              FVFITYSNTYTYSTSDFKYVYSVQQIANTIYDVPETIILESIHSRLLYKRHGIRVIFIQT<br />
+              GTIGSFHFQTLLLTLVSGLGLLAVATTVVDQLAIRLLPQRKSYSSLKFQVTESMSNPMKK<br />
+              RITTDEGEDVLYTRIEGL*
+            </TableCell>
+          </TableRow>
         </TableBody>
       </Table>
     </Paper>
