@@ -24,12 +24,14 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
+    "@material-ui/core": "^1.1.0",
     "ProtVista": "^2.0.9",
     "dicty-components-header-footer":
       "github:dictyBase/dicty-components-header-footer#v2.1.0",
     "dicty-components-navbar": "github:dictyBase/dicty-components-navbar",
     "dicty-components-panel": "github:dictyBase/dicty-components-panel",
     "dicty-components-tab": "github:dictyBase/dicty-components-tab",
+    "polished": "^1.9.2",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-loading-skeleton": "^0.5.0",
@@ -48,7 +50,6 @@
     "flow-bin": "^0.73.0",
     "husky": "^0.14.3",
     "lint-staged": "^7.0.0",
-    "polished": "^1.9.0",
     "prettier": "^1.11.1",
     "react-styleguidist": "^7.0.8",
     "react-test-renderer": "^16.4.0"
