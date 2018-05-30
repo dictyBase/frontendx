@@ -14,7 +14,7 @@ type Props = {
  * Filters and shares only the Electronic GO data (IEA)
  */
 
-const ElectronicGO = (props: Props) => {
+export const ElectronicGO = (props: Props) => {
   const data = props.data.filter(code => code.evidence === "IEA")
 
   return (
