@@ -38,7 +38,7 @@ class GeneralInformation extends Component {
   render() {
     const { classes } = this.props
     const { data } = this.props.proteinData
-    console.log(data)
+
     return (
       <Paper className={classes.root}>
         <Table className={classes.table}>
