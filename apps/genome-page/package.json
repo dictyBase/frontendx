@@ -24,14 +24,15 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
+    "ProtVista": "^2.0.9",
     "dicty-components-header-footer":
       "github:dictyBase/dicty-components-header-footer#v2.1.0",
     "dicty-components-navbar": "github:dictyBase/dicty-components-navbar",
     "dicty-components-panel": "github:dictyBase/dicty-components-panel",
     "dicty-components-tab": "github:dictyBase/dicty-components-tab",
-    "react": "^15.6.2",
-    "react-dom": "^15.6.2",
-    "react-loading-skeleton": "^0.4.0",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-loading-skeleton": "^0.5.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-scripts": "^1.1.4",
@@ -50,6 +51,6 @@
     "polished": "^1.9.0",
     "prettier": "^1.11.1",
     "react-styleguidist": "^7.0.8",
-    "react-test-renderer": "^15.6.2"
+    "react-test-renderer": "^16.4.0"
   }
 }
