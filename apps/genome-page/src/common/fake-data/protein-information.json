@@ -1,0 +1,17 @@
+[
+  {
+    "gene-product": "ATP-gated ion channel P2XA",
+    "alternative-protein-names": "DdP2X",
+    "dictybase-id": "DDB0238349",
+    "description":
+      "vacuolar membrane ATP-activated ion channel; calcium release channel",
+    "protein-length": "378 aa",
+    "molecular-weight": "42,185.6 Da",
+    "aa-composition": "View Amino Acid Composition",
+    "subcellular-composition":
+      "Contractile vacuole membrane {ECO:0000269|PubMed:17625565, ECO:0000269|PubMed:19833731}. Note=Ligand binding domain within the lumen of the vacuole.",
+    "protein-existence": "Evidence at protein level",
+    "note":
+      "*This information was obtained from UniProt manually reviewed record"
+  }
+]
