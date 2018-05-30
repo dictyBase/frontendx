@@ -24,6 +24,13 @@ const styles = theme => ({
     color: "#fff",
     fontSize: "1.2em",
   },
+  tableLeftData: {
+    backgroundColor: "#DFE8F6",
+    width: "20%",
+  },
+  tableRightData: {
+    width: "80%",
+  },
 })
 
 class ProteinDomains extends Component {
@@ -64,8 +71,10 @@ class ProteinDomains extends Component {
           </TableHead>
           <TableBody>
             <TableRow>
-              <TableCell>Protein Domains</TableCell>
-              <TableCell>
+              <TableCell className={classes.tableLeftData}>
+                Protein Domains
+              </TableCell>
+              <TableCell className={classes.tableRightData}>
                 <div ref={this.protRef} />
               </TableCell>
             </TableRow>

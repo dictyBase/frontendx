@@ -20,6 +20,13 @@ const styles = theme => ({
     color: "#fff",
     fontSize: "1.2em",
   },
+  tableLeftData: {
+    backgroundColor: "#DFE8F6",
+    width: "20%",
+  },
+  tableRightData: {
+    width: "80%",
+  },
 })
 
 let id = 0
@@ -48,10 +55,15 @@ const ProteinSequence = props => {
           {data.map(n => {
             return (
               <TableRow key={n.id}>
-                <TableCell component="th" scope="row">
+                <TableCell
+                  component="th"
+                  scope="row"
+                  className={classes.tableLeftData}>
                   {n.name}
                 </TableCell>
-                <TableCell numeric>{n.calories}</TableCell>
+                <TableCell className={classes.tableRightData}>
+                  {n.calories}
+                </TableCell>
               </TableRow>
             )
           })}
