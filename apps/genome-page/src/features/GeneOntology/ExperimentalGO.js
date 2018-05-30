@@ -14,7 +14,7 @@ type Props = {
  * Filters and shares only the Experimental GO data (IMP, IGI, IDA)
  */
 
-const ExperimentalGO = (props: Props) => {
+export const ExperimentalGO = (props: Props) => {
   const data = props.data.filter(
     code =>
       code.evidence === "IMP" ||
