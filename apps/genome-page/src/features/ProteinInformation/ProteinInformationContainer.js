@@ -1,32 +1,18 @@
-import React, { Component } from "react"
-import ProtVista from "ProtVista"
-import "ProtVista/style/main.css"
+import React from "react"
+import GeneralInformation from "./Tables/GeneralInformation"
+import Links from "./Tables/Links"
+import ProteinDomains from "./Tables/ProteinDomains"
+import ProteinSequence from "./Tables/ProteinSequence"
 
-class ProteinInformationContainer extends Component {
-  constructor(props) {
-    super(props)
-    this.protRef = React.createRef()
-  }
-  componentDidMount() {
-    new ProtVista({
-      el: this.protRef.current,
-      uniprotacc: "P05067",
-
-      exclusions: [
-        "SEQUENCE_INFORMATION",
-        "STRUCTURAL",
-        "TOPOLOGY",
-        "MUTAGENESIS",
-        "MOLECULE_PROCESSING",
-        "PROTEOMICS",
-        "VARIATION",
-        "ANTIGEN",
-      ],
-    })
-  }
-  render() {
-    return <div ref={this.protRef} />
-  }
+const ProteinInformationContainer = () => {
+  return (
+    <div>
+      <GeneralInformation />
+      <Links />
+      <ProteinDomains />
+      <ProteinSequence />
+    </div>
+  )
 }
 
 export default ProteinInformationContainer
