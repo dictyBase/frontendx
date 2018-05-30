@@ -9,12 +9,8 @@ import { Wrapper, GoHeaderStyle } from "styles/style"
 type Props = {
   /** The data fetched from the API */
   data: Object,
-  /** Check if items could not be loaded */
-  hasErrored: boolean,
-  /** Check if page is loading */
-  isLoading: boolean,
   /** Action creator that accepts URL as parameter */
-  fetchData: Function
+  fetchData: Function,
 }
 
 /**
@@ -22,6 +18,9 @@ type Props = {
  */
 
 export class AllGO extends Component<Props> {
+  componentDidMount() {
+    this.props.fetchData("https://api.myjson.com/bins/6vbot")
+  }
   render() {
     return (
       <Wrapper>
@@ -44,20 +43,14 @@ export class AllGO extends Component<Props> {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    data: state.data,
-    hasErrored: state.dataHasErrored,
-    isLoading: state.dataIsLoading
-  }
-}
+const mapStateToProps = ({ data }) => ({ data })
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchData: url => dispatch(fetchData(url))
+    fetchData: url => dispatch(fetchData(url)),
   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  WithGoDataRendering(AllGO)
+  WithGoDataRendering(AllGO),
 )
