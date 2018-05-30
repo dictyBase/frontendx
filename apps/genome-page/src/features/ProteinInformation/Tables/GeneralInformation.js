@@ -1,4 +1,5 @@
-import React from "react"
+import React, { Component } from "react"
+import { connect } from "react-redux"
 import { withStyles } from "@material-ui/core/styles"
 import Table from "@material-ui/core/Table"
 import TableBody from "@material-ui/core/TableBody"
@@ -6,6 +7,7 @@ import TableCell from "@material-ui/core/TableCell"
 import TableHead from "@material-ui/core/TableHead"
 import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
+import { fetchData } from "../proteinActions"
 
 const styles = theme => ({
   root: {
@@ -29,54 +31,150 @@ const styles = theme => ({
   },
 })
 
-let id = 0
-function createData(name, calories, fat, carbs, protein) {
-  id += 1
-  return { id, name, calories, fat, carbs, protein }
+class GeneralInformation extends Component {
+  componentDidMount() {
+    this.props.fetchData("https://api.myjson.com/bins/171k6m")
+  }
+  render() {
+    const { classes } = this.props
+    const { data } = this.props.proteinData
+    console.log(data)
+    return (
+      <Paper className={classes.root}>
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              <TableCell className={classes.tableHeader}>
+                General Information
+              </TableCell>
+              <TableCell className={classes.tableHeader} />
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            <TableRow>
+              <TableCell
+                component="th"
+                scope="row"
+                className={classes.tableLeftData}>
+                Gene Product
+              </TableCell>
+              <TableCell className={classes.tableRightData}>
+                {data.geneProduct}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell
+                component="th"
+                scope="row"
+                className={classes.tableLeftData}>
+                Alternative Protein Names
+              </TableCell>
+              <TableCell className={classes.tableRightData}>
+                {data.alternativeProteinNames}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell
+                component="th"
+                scope="row"
+                className={classes.tableLeftData}>
+                dictyBase ID
+              </TableCell>
+              <TableCell className={classes.tableRightData}>
+                {data.dictybaseId}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell
+                component="th"
+                scope="row"
+                className={classes.tableLeftData}>
+                Description
+              </TableCell>
+              <TableCell className={classes.tableRightData}>
+                {data.description}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell
+                component="th"
+                scope="row"
+                className={classes.tableLeftData}>
+                Protein Length
+              </TableCell>
+              <TableCell className={classes.tableRightData}>
+                {data.proteinLength}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell
+                component="th"
+                scope="row"
+                className={classes.tableLeftData}>
+                Molecular Weight
+              </TableCell>
+              <TableCell className={classes.tableRightData}>
+                {data.molecularWeight}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell
+                component="th"
+                scope="row"
+                className={classes.tableLeftData}>
+                AA Composition
+              </TableCell>
+              <TableCell className={classes.tableRightData}>
+                {data.aaComposition}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell
+                component="th"
+                scope="row"
+                className={classes.tableLeftData}>
+                Subcellular Location*
+              </TableCell>
+              <TableCell className={classes.tableRightData}>
+                {data.subcellularComposition}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell
+                component="th"
+                scope="row"
+                className={classes.tableLeftData}>
+                Protein Existence*
+              </TableCell>
+              <TableCell className={classes.tableRightData}>
+                {data.proteinExistence}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell
+                component="th"
+                scope="row"
+                className={classes.tableLeftData}>
+                Note
+              </TableCell>
+              <TableCell className={classes.tableRightData}>
+                <strong>{data.note}</strong>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </Paper>
+    )
+  }
 }
 
-const data = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-]
+const mapStateToProps = ({ proteinData }) => ({ proteinData })
 
-const GeneralInformation = props => {
-  const { classes } = props
-
-  return (
-    <Paper className={classes.root}>
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            <TableCell className={classes.tableHeader}>
-              General Information
-            </TableCell>
-            <TableCell className={classes.tableHeader} />
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map(n => {
-            return (
-              <TableRow key={n.id}>
-                <TableCell
-                  component="th"
-                  scope="row"
-                  className={classes.tableLeftData}>
-                  {n.name}
-                </TableCell>
-                <TableCell className={classes.tableRightData}>
-                  {n.calories}
-                </TableCell>
-              </TableRow>
-            )
-          })}
-        </TableBody>
-      </Table>
-    </Paper>
-  )
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchData: url => dispatch(fetchData(url)),
+  }
 }
-
-export default withStyles(styles)(GeneralInformation)
+export default withStyles(styles)(
+  connect(mapStateToProps, mapDispatchToProps)(GeneralInformation),
+)
