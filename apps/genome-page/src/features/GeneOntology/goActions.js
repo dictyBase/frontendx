@@ -1,7 +1,7 @@
 // @flow
 import {
-  DATA_HAS_ERRORED,
-  DATA_IS_LOADING,
+  FETCH_DATA_REQUEST,
+  FETCH_DATA_FAILURE,
   FETCH_DATA_SUCCESS,
 } from "./goConstants"
 
@@ -9,20 +9,20 @@ import {
  * All of the Redux actions related to the GO tab
  */
 
-export function dataHasErrored(bool: boolean) {
+export function fetchDataRequest(bool: boolean) {
   return {
-    type: DATA_HAS_ERRORED,
+    type: FETCH_DATA_REQUEST,
     payload: {
-      hasErrored: bool,
+      isLoading: true,
     },
   }
 }
 
-export function dataIsLoading(bool: boolean) {
+export function fetchDataFailure(bool: boolean) {
   return {
-    type: DATA_IS_LOADING,
+    type: FETCH_DATA_FAILURE,
     payload: {
-      isLoading: bool,
+      hasErrored: true,
     },
   }
 }
@@ -44,14 +44,14 @@ export function fetchData(url: string) {
       if (res.ok) {
         dispatch(fetchDataSuccess(data))
       } else {
-        dispatch(dataIsLoading(false))
+        dispatch(fetchDataRequest(false))
         if (process.env.NODE_ENV !== "production") {
           console.error(res.statusText)
         }
         throw Error(res.statusText)
       }
     } catch (error) {
-      dispatch(dataHasErrored(true))
+      dispatch(fetchDataFailure(true))
       if (process.env.NODE_ENV !== "production") {
         console.error(`Network error: ${error}`)
       }

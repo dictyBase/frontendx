@@ -1,9 +1,9 @@
 // @flow
 
 /**
- * All of the constants related to the GO tab
+ * All of the constants related to the GO tab actions
  */
 
-export const DATA_HAS_ERRORED: string = "DATA_HAS_ERRORED"
-export const DATA_IS_LOADING: string = "DATA_IS_LOADING"
+export const FETCH_DATA_REQUEST: string = "FETCH_DATA_REQUEST"
+export const FETCH_DATA_FAILURE: string = "FETCH_DATA_FAILURE"
 export const FETCH_DATA_SUCCESS: string = "FETCH_DATA_SUCCESS"

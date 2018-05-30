@@ -27,8 +27,8 @@ const WithGoDataRendering = WrappedComponent => {
   }
   const mapStateToProps = state => {
     return {
-      hasErrored: state.dataHasErrored,
-      isLoading: state.dataIsLoading,
+      hasErrored: state.goData.hasErrored,
+      isLoading: state.goData.isLoading,
     }
   }
 
