@@ -2,7 +2,7 @@
 import {
   DATA_HAS_ERRORED,
   DATA_IS_LOADING,
-  FETCH_DATA_SUCCESS
+  FETCH_DATA_SUCCESS,
 } from "./goConstants"
 
 /**
@@ -13,8 +13,8 @@ export function dataHasErrored(bool: boolean) {
   return {
     type: DATA_HAS_ERRORED,
     payload: {
-      hasErrored: bool
-    }
+      hasErrored: bool,
+    },
   }
 }
 
@@ -22,8 +22,8 @@ export function dataIsLoading(bool: boolean) {
   return {
     type: DATA_IS_LOADING,
     payload: {
-      isLoading: bool
-    }
+      isLoading: bool,
+    },
   }
 }
 
@@ -31,8 +31,8 @@ export function fetchDataSuccess(data: Array<Object>) {
   return {
     type: FETCH_DATA_SUCCESS,
     payload: {
-      data
-    }
+      data,
+    },
   }
 }
 
