@@ -14,7 +14,7 @@ type Props = {
  * Filters and shares only the Manual GO data (IMP, IGI, IDA, IBA)
  */
 
-const ManualGO = (props: Props) => {
+export const ManualGO = (props: Props) => {
   const data = props.data.filter(
     code =>
       code.evidence === "IMP" ||
