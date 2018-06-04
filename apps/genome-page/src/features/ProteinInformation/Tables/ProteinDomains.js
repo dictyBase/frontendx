@@ -30,6 +30,8 @@ const styles = theme => ({
   },
   tableRightData: {
     width: "80%",
+    paddingTop: "20px",
+    paddingBottom: "10px",
   },
 })
 
