@@ -50,8 +50,8 @@ const Links = props => {
               External Links
             </TableCell>
             <TableCell className={classes.tableRightData}>
-              <a href="#">UniProtKB: Q86JM7</a>&nbsp;
-              <a href="#">GenBank Protein</a>
+              <a href="#test">UniProtKB: Q86JM7</a>&nbsp;
+              <a href="#test">GenBank Protein</a>
             </TableCell>
           </TableRow>
         </TableBody>
