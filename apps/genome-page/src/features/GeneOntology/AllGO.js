@@ -8,7 +8,7 @@ import { Wrapper, GoHeaderStyle } from "styles/style"
 
 type Props = {
   /** The data fetched from the API */
-  data: Object,
+  goData: Object,
   /** Action creator that accepts URL as parameter */
   fetchData: Function,
 }
