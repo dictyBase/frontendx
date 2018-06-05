@@ -1,13 +1,12 @@
 // @flow
 import querystring from "querystring"
-import oauthConfig from "utils/oauthConfig"
+import oauthConfig from "common/utils/oauthConfig"
 import {
   oauthEndpointResource,
   fetchUserByIdResource,
   fetchRoleByIdResource,
   fetchHeaderConfig,
-} from "utils/fetchResources"
-// import history from "utils/routerHistory"
+} from "common/utils/fetchResources"
 import { push } from "react-router-redux"
 
 import {
@@ -27,7 +26,7 @@ import {
   FETCH_PERMISSION_REQUEST,
   FETCH_PERMISSION_SUCCESS,
   FETCH_PERMISSION_FAILURE,
-} from "constants/types"
+} from "common/constants/types"
 
 type oauthArg = { query: string, provider: string, url: string }
 type receiveLoginArg = { user: Object, token: string }
@@ -158,7 +157,6 @@ export const oAuthLogin = ({ query, provider, url }: oauthArg) => {
           dispatch(receiveLogin(json))
           await dispatch(fetchRoleInfo(json.user.data.id))
           dispatch(push("/"))
-          // history.go(-3)
         } else if (res.status === 401) {
           // user has invalid credentials, redirect with notification
           dispatch(

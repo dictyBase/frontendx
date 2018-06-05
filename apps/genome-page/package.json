@@ -26,7 +26,7 @@
   "dependencies": {
     "@material-ui/core": "^1.1.0",
     "ProtVista": "^2.0.9",
-    "dicty-components-header-footer": "github:dictyBase/dicty-components-header-footer#v2.1.0",
+    "dicty-components-header-footer": "github:dictybase/dicty-components-header-footer#v4.2.0",
     "dicty-components-login": "github:dictybase/dicty-components-login",
     "dicty-components-navbar": "github:dictyBase/dicty-components-navbar",
     "dicty-components-panel": "github:dictyBase/dicty-components-panel",
