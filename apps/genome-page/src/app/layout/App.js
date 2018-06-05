@@ -1,8 +1,8 @@
 import React from "react"
 import { Header, Footer } from "dicty-components-header-footer"
 import { Navbar } from "dicty-components-navbar"
-import { FooterLinks } from "common/constants/Footer"
-import { NavbarLinks } from "common/constants/Navbar"
+import { FooterLinks } from "common/constants/footer"
+import { NavbarLinks } from "common/constants/navbar"
 import Routes from "Routes"
 
 const App = props => {
