@@ -9,6 +9,10 @@ import {
 import Tabs from "dicty-components-tab"
 import GeneOntologyContainer from "features/GeneOntology/GeneOntologyContainer"
 import ProteinInformationContainer from "features/ProteinInformation/ProteinInformationContainer"
+import Login from "features/Authentication/Login"
+import OauthCallback from "features/Authentication/OauthCallback"
+import AuthLoader from "features/Authentication/AuthLoader"
+import Logout from "features/Authentication/Logout"
 
 const tabs: Array<Object> = [
   {
@@ -55,6 +59,10 @@ const Routes = () => {
     <Router>
       <Switch>
         <Route exact path="/" component={() => <Redirect to="/gene/p2xA" />} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/:provider/callback" component={OauthCallback} />
+        <Route exact path="/load/auth" component={AuthLoader} />
+        <Route exact path="/logout" component={Logout} />
         <Route
           path="/gene/:id"
           component={props => <Tabs {...props} tabs={tabs} />}

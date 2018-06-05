@@ -1,14 +1,5 @@
 // @flow
-import clientConfig from "utils/clientConfig"
-
-// const getRandomString = (length) => {
-// const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-// let text = ''
-// for (let i = 0; i < length; i += 1) {
-// text += possible.charAt(Math.floor(Math.random() * length))
-// }
-// return text
-// }
+import clientConfig from "common/utils/clientConfig"
 
 const oauthConfig = {
   google: {

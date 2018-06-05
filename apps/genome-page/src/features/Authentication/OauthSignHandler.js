@@ -1,7 +1,7 @@
 // @flow
 import { Component } from "react"
-import { oAuthLogin } from "actions/auth"
 import { connect } from "react-redux"
+import { oAuthLogin } from "./authActions"
 
 type Props = {
   /** Function that handles the oAuth login process */
