@@ -17,7 +17,7 @@ import {
   FETCH_PERMISSION_REQUEST,
   FETCH_PERMISSION_SUCCESS,
   FETCH_PERMISSION_FAILURE,
-} from "constants/types"
+} from "common/constants/types"
 
 const authReducer = (state: Object = {}, action: Object) => {
   switch (action.type) {
