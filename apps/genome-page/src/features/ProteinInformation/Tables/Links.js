@@ -6,28 +6,7 @@ import TableCell from "@material-ui/core/TableCell"
 import TableHead from "@material-ui/core/TableHead"
 import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
-
-const styles = theme => ({
-  root: {
-    width: "100%",
-    overflowX: "auto",
-  },
-  table: {
-    minWidth: 700,
-  },
-  tableHeader: {
-    backgroundColor: "#4C5E81",
-    color: "#fff",
-    fontSize: "1.2em",
-  },
-  tableLeftData: {
-    backgroundColor: "#DFE8F6",
-    width: "20%",
-  },
-  tableRightData: {
-    width: "80%",
-  },
-})
+import { styles } from "./TableStyles"
 
 const Links = props => {
   const { classes } = props
