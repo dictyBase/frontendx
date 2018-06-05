@@ -16,9 +16,7 @@ const buttons = ["orcid", "google", "linkedin", "facebook"]
 const theme = {
   overrides: {
     MuiButton: {
-      // name of the stylesheet
       root: {
-        // name of the rule
         borderRadius: 3,
         color: "white",
         width: "80%",
