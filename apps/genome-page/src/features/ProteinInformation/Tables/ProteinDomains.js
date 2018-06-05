@@ -14,7 +14,7 @@ import "ProtVista/style/main.css"
 const styles = theme => ({
   root: {
     width: "100%",
-    overflowX: "auto",
+    overflowX: "scroll",
   },
   table: {
     minWidth: 700,
@@ -26,7 +26,7 @@ const styles = theme => ({
   },
   tableLeftData: {
     backgroundColor: "#DFE8F6",
-    width: "20%",
+    minWidth: 150,
   },
   tableRightData: {
     width: "80%",
