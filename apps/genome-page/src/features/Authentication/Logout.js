@@ -2,7 +2,7 @@
 import { connect } from "react-redux"
 import { Redirect } from "react-router-dom"
 import React, { Component } from "react"
-import { logoutUser } from "actions/auth"
+import { logoutUser } from "./authActions"
 
 type Props = {
   /** Logs the user out */
