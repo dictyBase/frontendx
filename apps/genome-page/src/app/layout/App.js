@@ -24,7 +24,6 @@ export const App = props => {
         <Header items={headerItems}>{items => items.map(generateLinks)}</Header>
       )}
       <Navbar items={NavbarLinks} />
-      <h1>Gene Information for p2xA</h1>
       <Routes />
       <Footer items={FooterLinks} />
     </div>

@@ -1,11 +1,6 @@
 // @flow
 import React from "react"
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from "react-router-dom"
+import { Route, Switch, Redirect } from "react-router-dom"
 import Tabs from "dicty-components-tab"
 import GeneOntologyContainer from "features/GeneOntology/GeneOntologyContainer"
 import ProteinInformationContainer from "features/ProteinInformation/ProteinInformationContainer"
@@ -56,19 +51,17 @@ const tabs: Array<Object> = [
 
 const Routes = () => {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={() => <Redirect to="/gene/p2xA" />} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/:provider/callback" component={OauthCallback} />
-        <Route exact path="/load/auth" component={AuthLoader} />
-        <Route exact path="/logout" component={Logout} />
-        <Route
-          path="/gene/:id"
-          component={props => <Tabs {...props} tabs={tabs} />}
-        />
-      </Switch>
-    </Router>
+    <Switch>
+      <Route exact path="/" component={() => <Redirect to="/gene/p2xA" />} />
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/:provider/callback" component={OauthCallback} />
+      <Route exact path="/load/auth" component={AuthLoader} />
+      <Route exact path="/logout" component={Logout} />
+      <Route
+        path="/gene/:id"
+        component={props => <Tabs {...props} tabs={tabs} />}
+      />
+    </Switch>
   )
 }
 
