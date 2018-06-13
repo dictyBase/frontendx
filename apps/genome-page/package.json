@@ -2,6 +2,9 @@
   "name": "genomepage",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "10.4.0"
+  },
   "lint-staged": {
     "*.{js,jsx,json,css}": [
       "prettier --no-semi --trailing-comma all --jsx-bracket-same-line true --write",
@@ -26,12 +29,12 @@
   "dependencies": {
     "@material-ui/core": "^1.1.0",
     "ProtVista": "^2.0.9",
-    "dicty-components-header-footer": "github:dictybase/dicty-components-header-footer#v4.2.0",
-    "dicty-components-login": "github:dictybase/dicty-components-login",
-    "dicty-components-navbar": "github:dictyBase/dicty-components-navbar",
-    "dicty-components-panel": "github:dictyBase/dicty-components-panel",
-    "dicty-components-redux": "github:dictybase-playground/dicty-components-redux",
-    "dicty-components-tab": "github:dictyBase/dicty-components-tab",
+    "dicty-components-header-footer": "github:dictyBase/dicty-components-header-footer#v5.1.0",
+    "dicty-components-login": "github:dictyBase/dicty-components-login#v1.2.0",
+    "dicty-components-navbar": "github:dictyBase/dicty-components-navbar#v0.2.0",
+    "dicty-components-panel": "github:dictyBase/dicty-components-panel#v1.0.0",
+    "dicty-components-redux": "github:dictybase-playground/dicty-components-redux#v2.1.0",
+    "dicty-components-tab": "github:dictyBase/dicty-components-tab#v1.0.0",
     "polished": "^1.9.2",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
