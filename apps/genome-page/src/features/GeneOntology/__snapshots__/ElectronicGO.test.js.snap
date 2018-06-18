@@ -6,7 +6,9 @@ exports[`matching a snapshot of ElectronicGO 1`] = `
     className="sc-eilVRo bGduNt"
   >
     <h3>
-      Molecular Function
+      Molecular Function (
+      0
+      )
     </h3>
   </div>
   <div
@@ -17,7 +19,9 @@ exports[`matching a snapshot of ElectronicGO 1`] = `
     className="sc-eilVRo bGduNt"
   >
     <h3>
-      Biological Process
+      Biological Process (
+      0
+      )
     </h3>
   </div>
   <div
@@ -28,7 +32,9 @@ exports[`matching a snapshot of ElectronicGO 1`] = `
     className="sc-eilVRo bGduNt"
   >
     <h3>
-      Cellular Composition
+      Cellular Composition (
+      0
+      )
     </h3>
   </div>
   <div
