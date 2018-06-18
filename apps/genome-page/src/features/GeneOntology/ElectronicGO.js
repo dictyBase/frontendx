@@ -20,17 +20,17 @@ export const ElectronicGO = (props: Props) => {
   return (
     <div>
       <GoHeaderStyle>
-        <h3>Molecular Function</h3>
+        <h3>Molecular Function ({data.length})</h3>
       </GoHeaderStyle>
       <DisplayTable data={data} />
       <br />
       <GoHeaderStyle>
-        <h3>Biological Process</h3>
+        <h3>Biological Process ({data.length})</h3>
       </GoHeaderStyle>
       <DisplayTable data={data} />
       <br />
       <GoHeaderStyle>
-        <h3>Cellular Composition</h3>
+        <h3>Cellular Composition ({data.length})</h3>
       </GoHeaderStyle>
       <DisplayTable data={data} />
     </div>
