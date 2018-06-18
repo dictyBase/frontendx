@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import { fetchData } from "./goActions"
 import DisplayTable from "./DisplayTable"
 import WithGoDataRendering from "./WithGoDataRendering"
-import { Wrapper, GoHeaderStyle } from "styles/style"
+import { GoHeaderStyle } from "styles/style"
 
 type Props = {
   /** The data fetched from the API */
@@ -24,7 +24,7 @@ export class AllGO extends Component<Props> {
   render() {
     const { data } = this.props.goData
     return (
-      <Wrapper>
+      <div>
         <GoHeaderStyle>
           <h3>Molecular Function</h3>
         </GoHeaderStyle>
@@ -39,7 +39,7 @@ export class AllGO extends Component<Props> {
           <h3>Cellular Composition</h3>
         </GoHeaderStyle>
         <DisplayTable data={data} />
-      </Wrapper>
+      </div>
     )
   }
 }
@@ -52,6 +52,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  WithGoDataRendering(AllGO),
-)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(WithGoDataRendering(AllGO))
