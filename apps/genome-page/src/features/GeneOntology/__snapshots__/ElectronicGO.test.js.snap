@@ -1,11 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`matching a snapshot of ElectronicGO 1`] = `
-<div
-  className="sc-eilVRo fSGauw"
->
+<div>
   <div
-    className="sc-eerKOB kCQXGC"
+    className="sc-eilVRo bGduNt"
   >
     <h3>
       Molecular Function
@@ -16,7 +14,7 @@ exports[`matching a snapshot of ElectronicGO 1`] = `
   />
   <br />
   <div
-    className="sc-eerKOB kCQXGC"
+    className="sc-eilVRo bGduNt"
   >
     <h3>
       Biological Process
@@ -27,7 +25,7 @@ exports[`matching a snapshot of ElectronicGO 1`] = `
   />
   <br />
   <div
-    className="sc-eerKOB kCQXGC"
+    className="sc-eilVRo bGduNt"
   >
     <h3>
       Cellular Composition
