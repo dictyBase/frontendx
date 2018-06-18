@@ -29,8 +29,8 @@
   "dependencies": {
     "@material-ui/core": "^1.1.0",
     "ProtVista": "^2.0.9",
-    "dicty-components-header-footer": "github:dictyBase/dicty-components-header-footer#v5.1.0",
-    "dicty-components-login": "github:dictyBase/dicty-components-login#v1.3.0",
+    "dicty-components-header-footer": "github:dictyBase/dicty-components-header-footer#v6.1.0",
+    "dicty-components-login": "github:dictyBase/dicty-components-login#v1.4.0",
     "dicty-components-navbar": "github:dictyBase/dicty-components-navbar#v0.2.0",
     "dicty-components-panel": "github:dictyBase/dicty-components-panel#v1.0.0",
     "dicty-components-redux": "github:dictybase-playground/dicty-components-redux#v2.1.0",
@@ -45,6 +45,7 @@
     "react-scripts": "^1.1.4",
     "react-toggle-display": "^2.2.0",
     "react-virtualized": "^9.15.0",
+    "rebass": "^1.0.7",
     "redux": "^4.0.0",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
