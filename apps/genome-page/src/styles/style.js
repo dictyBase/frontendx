@@ -1,6 +1,7 @@
 import styled, { injectGlobal } from "styled-components"
 import { Tabs, TabItem } from "rebass"
 import { lighten } from "polished"
+import "typeface-roboto"
 
 injectGlobal([
   `
@@ -10,7 +11,7 @@ injectGlobal([
     body {
         margin: auto;
         height: 100%;
-        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-family: Roboto, sans-serif;
         font-size: 14px;
         line-height: 1.42857;
         color: #333;
@@ -31,9 +32,6 @@ export const ReactVirtualizedTable = styled.div`
   .ReactVirtualized__Table__Grid {
     margin: 0px auto;
   }
-`
-export const Wrapper = styled.div`
-  text-align: center;
 `
 
 export const GoHeaderStyle = styled.div`

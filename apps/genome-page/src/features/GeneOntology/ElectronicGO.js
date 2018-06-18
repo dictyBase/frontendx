@@ -3,7 +3,7 @@ import React from "react"
 import { connect } from "react-redux"
 import DisplayTable from "./DisplayTable"
 import WithGoDataRendering from "./WithGoDataRendering"
-import { Wrapper, GoHeaderStyle } from "styles/style"
+import { GoHeaderStyle } from "styles/style"
 
 type Props = {
   /** The data fetched from the API */
@@ -18,7 +18,7 @@ export const ElectronicGO = (props: Props) => {
   const data = props.goData.data.filter(code => code.evidence === "IEA")
 
   return (
-    <Wrapper>
+    <div>
       <GoHeaderStyle>
         <h3>Molecular Function</h3>
       </GoHeaderStyle>
@@ -33,10 +33,13 @@ export const ElectronicGO = (props: Props) => {
         <h3>Cellular Composition</h3>
       </GoHeaderStyle>
       <DisplayTable data={data} />
-    </Wrapper>
+    </div>
   )
 }
 
 const mapStateToProps = ({ goData }) => ({ goData })
 
-export default connect(mapStateToProps, null)(WithGoDataRendering(ElectronicGO))
+export default connect(
+  mapStateToProps,
+  null,
+)(WithGoDataRendering(ElectronicGO))
