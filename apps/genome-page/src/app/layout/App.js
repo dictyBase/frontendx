@@ -11,6 +11,7 @@ import {
   generateLinks,
 } from "common/utils/headerItems"
 import Routes from "Routes"
+import MainBodyContainer from "styles/MainBodyContainer"
 import type { MapStateToProps } from "react-redux"
 
 export const App = props => {
@@ -24,7 +25,11 @@ export const App = props => {
         <Header items={headerItems}>{items => items.map(generateLinks)}</Header>
       )}
       <Navbar items={NavbarLinks} />
-      <Routes />
+      <MainBodyContainer>
+        <main>
+          <Routes />
+        </main>
+      </MainBodyContainer>
       <Footer items={FooterLinks} />
     </div>
   )
