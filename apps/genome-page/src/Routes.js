@@ -8,6 +8,7 @@ import Login from "features/Authentication/Login"
 import OauthCallback from "features/Authentication/OauthCallback"
 import AuthLoader from "features/Authentication/AuthLoader"
 import Logout from "features/Authentication/Logout"
+import PageNotReady from "common/components/PageNotReady"
 
 const tabs: Array<Object> = [
   {
@@ -61,6 +62,7 @@ const Routes = () => {
         path="/gene/:id"
         component={props => <Tabs {...props} tabs={tabs} />}
       />
+      <Route exact path="*" component={PageNotReady} />
     </Switch>
   )
 }
