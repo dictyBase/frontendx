@@ -1,7 +1,9 @@
 import styled, { injectGlobal } from "styled-components"
 import { Tabs, TabItem } from "rebass"
+import Button from "@material-ui/core/Button"
 import { lighten } from "polished"
 import "typeface-roboto"
+import { Link } from "react-router-dom"
 
 injectGlobal([
   `
@@ -69,5 +71,36 @@ export const Tab = styled(TabItem)`
     color: ${props =>
       !props.active && props.theme.secondary ? "black" : "white"};
     cursor: pointer;
+  }
+`
+
+export const RouterLink = styled(Link)`
+  color: #428bca;
+  text-decoration: none;
+`
+
+export const Jumbotron = styled.div`
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+  color: inherit;
+  background-color: #eee;
+  text-align: center;
+
+  h1 {
+    color: inherit;
+  }
+
+  p {
+    margin-bottom: 15px;
+    font-size: 21px;
+    font-weight: 200;
+  }
+`
+
+export const SaveButton = styled(Button)`
+  && {
+    width: 100%;
+    background-color: #15317e;
   }
 `
