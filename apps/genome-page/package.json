@@ -36,6 +36,7 @@
     "dicty-components-panel": "github:dictyBase/dicty-components-panel#v1.0.0",
     "dicty-components-redux": "github:dictybase-playground/dicty-components-redux#v2.3.0",
     "dicty-components-tab": "github:dictyBase/dicty-components-tab#v1.0.0",
+    "jwt-decode": "^2.2.0",
     "polished": "^1.9.3",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",

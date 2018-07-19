@@ -3,10 +3,21 @@ import React, { Component } from "react"
 import { Flex, Box } from "rebass"
 
 type Props = {
-  /** Object passed by React-Router */
   location: Object,
-  /** Object passed by React-Router */
   match: Object,
+}
+
+// helper function to set redirect URL with basename if included
+const redirectUrlGenerator = basename => {
+  let url
+  if (basename === "" || basename === "/") {
+    url = `${window.location.origin}`
+  } else if (basename.charAt(0) === "/") {
+    url = `${window.location.origin}${basename}`
+  } else {
+    url = `${window.location.origin}/${basename}`
+  }
+  return url
 }
 
 /**
@@ -19,7 +30,9 @@ export default class OauthCallback extends Component<Props> {
       {
         query: this.props.location.search,
         provider: this.props.match.params.provider,
-        url: `${window.location.origin}${this.props.location.pathname}`,
+        url: `${redirectUrlGenerator(process.env.REACT_APP_BASENAME)}${
+          this.props.location.pathname
+        }`,
       },
       window.location,
     )
