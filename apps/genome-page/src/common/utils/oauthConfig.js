@@ -1,13 +1,27 @@
 // @flow
 import clientConfig from "common/utils/clientConfig"
 
+// helper function to set redirect URL with basename if included
+export const redirectUrlGenerator = provider => {
+  let url
+  const basename = process.env.REACT_APP_BASENAME || "/"
+  if (basename === "" || basename === "/") {
+    url = `${window.location.origin}/${provider}/callback`
+  } else if (basename.charAt(0) === "/") {
+    url = `${window.location.origin}${basename}/${provider}/callback`
+  } else {
+    url = `${window.location.origin}/${basename}/${provider}/callback`
+  }
+  return url
+}
+
 const oauthConfig = {
   google: {
     name: "Google",
     url: "/auth/google",
     authorizationEndpoint: "https://accounts.google.com/o/oauth2/v2/auth",
     clientId: clientConfig.google.clientId,
-    redirectUrl: `${window.location.origin}/google/callback`,
+    redirectUrl: redirectUrlGenerator("google"),
     requiredUrlParams: [["response_type", "code"]],
     scopes: ["email"],
     scopeDelimiter: " ",
@@ -17,9 +31,9 @@ const oauthConfig = {
   linkedin: {
     name: "LinkedIn",
     url: "/auth/linkedin",
-    authorizationEndpoint: "https://www.linkedin.com/uas/oauth2/authorization",
+    authorizationEndpoint: "https://www.linkedin.com/oauth/v2/authorization",
     clientId: clientConfig.linkedin.clientId,
-    redirectUrl: `${window.location.origin}/linkedin/callback`,
+    redirectUrl: redirectUrlGenerator("linkedin"),
     scopes: ["r_emailaddress"],
     scopeDelimiter: " ",
     requiredUrlParams: [["state", "linkedin"], ["response_type", "code"]],
@@ -30,7 +44,7 @@ const oauthConfig = {
     url: "/auth/orcid",
     authorizationEndpoint: "https://orcid.org/oauth/authorize",
     clientId: clientConfig.orcid.clientId,
-    redirectUrl: `${window.location.origin}/orcid/callback`,
+    redirectUrl: redirectUrlGenerator("orcid"),
     scopes: ["/authenticate"],
     scopeDelimiter: " ",
     requiredUrlParams: [["response_type", "code"]],
