@@ -7,7 +7,7 @@ cache:
     - $HOME/.npm
 
 before_script:
-  - mv src/utils/clientConfig.sample.js src/utils/clientConfig.js
+  - mv src/common/utils/clientConfig.sample.js src/common/utils/clientConfig.js
 
 script:
   - npm test
