@@ -2,12 +2,10 @@ import { createStore, applyMiddleware, compose } from "redux"
 import thunk from "redux-thunk"
 import { connectRouter, routerMiddleware } from "connected-react-router"
 import { manageStateStorage } from "dicty-components-redux"
-import createHistory from "history/createBrowserHistory"
+import history from "common/utils/routerHistory"
 import callAPI from "common/middlewares/callAPI"
 import rootReducer from "app/reducers/rootReducer"
 import { LOGIN_SUCCESS, LOGOUT_SUCCESS } from "common/constants/types"
-
-export const history = createHistory()
 
 const authArg = {
   save_action: LOGIN_SUCCESS,
