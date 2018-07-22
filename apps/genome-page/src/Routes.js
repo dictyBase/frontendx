@@ -53,15 +53,12 @@ const tabs: Array<Object> = [
 const Routes = () => {
   return (
     <Switch>
-      <Route exact path="/" component={() => <Redirect to="/gene/p2xA" />} />
+      <Route exact path="/" component={() => <Redirect to="/p2xA" />} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/:provider/callback" component={OauthCallback} />
       <Route exact path="/load/auth" component={AuthLoader} />
       <Route exact path="/logout" component={Logout} />
-      <Route
-        path="/gene/:id"
-        component={props => <Tabs {...props} tabs={tabs} />}
-      />
+      <Route path="/:id" component={props => <Tabs {...props} tabs={tabs} />} />
       <Route exact path="*" component={PageNotReady} />
     </Switch>
   )
