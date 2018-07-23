@@ -1,7 +1,8 @@
 // @flow
 import React from "react"
-import { Route, Switch, Redirect } from "react-router-dom"
+import { Route, Switch } from "react-router-dom"
 import Tabs from "dicty-components-tab"
+import MainPage from "features/MainPage/MainPage"
 import GeneOntologyContainer from "features/GeneOntology/GeneOntologyContainer"
 import ProteinInformationContainer from "features/ProteinInformation/ProteinInformationContainer"
 import Login from "features/Authentication/Login"
@@ -48,12 +49,10 @@ const tabs: Array<Object> = [
   },
 ]
 
-// route needs to be updated with non-hardcoded version
-
 const Routes = () => {
   return (
     <Switch>
-      <Route exact path="/" component={() => <Redirect to="/p2xA" />} />
+      <Route exact path="/" component={MainPage} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/:provider/callback" component={OauthCallback} />
       <Route exact path="/load/auth" component={AuthLoader} />
