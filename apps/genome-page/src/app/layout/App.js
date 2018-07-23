@@ -10,7 +10,7 @@ import {
   loggedHeaderItems,
   generateLinks,
 } from "common/utils/headerItems"
-import Routes from "Routes"
+import Routes from "app/routes/Routes"
 import MainBodyContainer from "styles/MainBodyContainer"
 import type { MapStateToProps } from "react-redux"
 
