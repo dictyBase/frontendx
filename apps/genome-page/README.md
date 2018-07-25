@@ -43,5 +43,3 @@ To run the app, clone the repository then run `npm install` and `npm start`.
 │   └── Routes.js               # Application route definitions
 └──                             # Config files
 ```
-
-![alt text](https://github.com/dictyBase/Genomepage/blob/develop/docs/mockups/genomepage_components.png "Genomepage Component Wireframe")
