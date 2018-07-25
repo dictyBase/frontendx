@@ -9,7 +9,7 @@ import ExperimentalGO from "./ExperimentalGO"
 import ManualGO from "./ManualGO"
 import ElectronicGO from "./ElectronicGO"
 
-function TabContainer(props) {
+const TabContainer = props => {
   return (
     <Typography component="div" style={{ paddingTop: 5 }}>
       {props.children}

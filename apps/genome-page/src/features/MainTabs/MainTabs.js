@@ -6,8 +6,9 @@ import Tab from "@material-ui/core/Tab"
 import Typography from "@material-ui/core/Typography"
 import GeneOntologyContainer from "features/GeneOntology/GeneOntologyContainer"
 import ProteinInformationContainer from "features/ProteinInformation/ProteinInformationContainer"
+import * as data from "common/fake-data/goa-only-data.json"
 
-function TabContainer(props) {
+const TabContainer = props => {
   return (
     <Typography component="div" style={{ padding: 8 * 2 }}>
       {props.children}
@@ -32,11 +33,24 @@ const styles = theme => ({
 
 class MainTabs extends Component {
   state = {
-    value: 0,
+    value: "summary",
   }
 
   handleChange = (event, value) => {
     this.setState({ value })
+  }
+
+  // need to convert the group items into real labels, not just "goa", etc
+
+  generateTabs = json => {
+    return json.data.attributes.group.map((item, key) => (
+      <Tab
+        className={this.props.classes.tab}
+        value={item}
+        label={item}
+        key={key}
+      />
+    ))
   }
 
   render() {
@@ -50,30 +64,31 @@ class MainTabs extends Component {
             className={classes.tabs}
             value={value}
             onChange={this.handleChange}>
-            <Tab className={classes.tab} label="Gene Summary" />
-            <Tab className={classes.tab} label="Protein Information" />
+            <Tab className={classes.tab} value="summary" label="Gene Summary" />
+            {this.generateTabs(data)}
+            {/* <Tab className={classes.tab} label="Protein Information" />
             <Tab className={classes.tab} label="Gene Ontology" />
             <Tab className={classes.tab} label="Orthologs" />
             <Tab className={classes.tab} label="Phenotypes" />
-            <Tab className={classes.tab} label="Reference" />
-            <Tab label="BLAST" />
+            <Tab className={classes.tab} label="Reference" /> */}
+            <Tab className={classes.tab} label="BLAST" value="blast" />
           </Tabs>
         </AppBar>
-        {value === 0 && <TabContainer>Gene Summary</TabContainer>}
-        {value === 1 && (
+        {value === "summary" && <TabContainer>Gene Summary</TabContainer>}
+        {value === "protein" && (
           <TabContainer>
             <ProteinInformationContainer />
           </TabContainer>
         )}
-        {value === 2 && (
+        {value === "goa" && (
           <TabContainer>
             <GeneOntologyContainer />
           </TabContainer>
         )}
-        {value === 3 && <TabContainer>Orthologs</TabContainer>}
-        {value === 4 && <TabContainer>Phenotypes</TabContainer>}
-        {value === 5 && <TabContainer>Reference</TabContainer>}
-        {value === 6 && <TabContainer>BLAST</TabContainer>}
+        {value === "orthologs" && <TabContainer>Orthologs</TabContainer>}
+        {value === "phenotypes" && <TabContainer>Phenotypes</TabContainer>}
+        {value === "references" && <TabContainer>Reference</TabContainer>}
+        {value === "blast" && <TabContainer>BLAST</TabContainer>}
       </div>
     )
   }
