@@ -28,6 +28,9 @@ const styles = theme => ({
     backgroundColor: "#a3bae9",
     color: "#000",
   },
+  tab: {
+    textTransform: "none",
+  },
 })
 
 class GeneOntologyContainer extends Component {
@@ -50,10 +53,10 @@ class GeneOntologyContainer extends Component {
             className={classes.tabs}
             value={value}
             onChange={this.handleChange}>
-            <Tab label="All GO" />
-            <Tab label="Experimental GO" />
-            <Tab label="Manual GO" />
-            <Tab label="Electronic GO" />
+            <Tab className={classes.tab} label="All GO" />
+            <Tab className={classes.tab} label="Experimental GO" />
+            <Tab className={classes.tab} label="Manual GO" />
+            <Tab className={classes.tab} label="Electronic GO" />
           </Tabs>
         </AppBar>
         {value === 0 && (
