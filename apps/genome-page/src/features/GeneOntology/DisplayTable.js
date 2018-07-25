@@ -94,7 +94,7 @@ export default class DisplayTable extends Component<Props> {
     const { cellWidth, cellHeight } = this.props
 
     return (
-      <div className="wrapper">
+      <div style={{ textAlign: "center" }}>
         <Table
           headerHeight={50}
           height={cellHeight * 7}
