@@ -3,6 +3,7 @@ import React from "react"
 import { Route, Switch } from "react-router-dom"
 import Tabs from "dicty-components-tab"
 import MainPage from "features/MainPage/MainPage"
+import MainTabs from "features/MainTabs/MainTabs"
 import GeneOntologyContainer from "features/GeneOntology/GeneOntologyContainer"
 import ProteinInformationContainer from "features/ProteinInformation/ProteinInformationContainer"
 import Login from "features/Authentication/Login"
@@ -57,7 +58,7 @@ const Routes = () => {
       <Route exact path="/:provider/callback" component={OauthCallback} />
       <Route exact path="/load/auth" component={AuthLoader} />
       <Route exact path="/logout" component={Logout} />
-      <Route path="/:id" component={props => <Tabs {...props} tabs={tabs} />} />
+      <Route path="/:id" component={props => <MainTabs />} />
       <Route exact path="*" component={PageNotReady} />
     </Switch>
   )
