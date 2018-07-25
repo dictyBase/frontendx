@@ -1,44 +1,84 @@
-import React from "react"
+import React, { Component } from "react"
+import { withStyles } from "@material-ui/core/styles"
+import AppBar from "@material-ui/core/AppBar"
+import Tabs from "@material-ui/core/Tabs"
+import Tab from "@material-ui/core/Tab"
+import Typography from "@material-ui/core/Typography"
 import AllGO from "./AllGO"
 import ExperimentalGO from "./ExperimentalGO"
 import ManualGO from "./ManualGO"
 import ElectronicGO from "./ElectronicGO"
-import TabBarContainer from "common/components/tabs/TabBarContainer"
-import { Flex } from "rebass"
-import { ThemeProvider } from "styled-components"
 
-const theme = {
-  primary: "#15317e",
-  secondary: "#A3BAE9",
-  tabText: "white",
-}
-
-const tabs = [
-  { name: "All GO", label: "All GO", component: AllGO },
-  {
-    name: "Experimental GO",
-    label: "Experimental GO",
-    component: ExperimentalGO,
-  },
-  { name: "Manual GO", label: "Manual GO", component: ManualGO },
-  { name: "Electronic GO", label: "Electronic GO", component: ElectronicGO },
-]
-
-/**
- * Container for the Gene Ontology tab
- */
-
-const GeneOntology = () => {
+function TabContainer(props) {
   return (
-    <div>
-      <ThemeProvider theme={theme}>
-        <Flex justify="center" mx="auto">
-          <TabBarContainer tabs={tabs} />
-        </Flex>
-      </ThemeProvider>
-      <br />
-    </div>
+    <Typography component="div" style={{ paddingTop: 5 }}>
+      {props.children}
+    </Typography>
   )
 }
 
-export default GeneOntology
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper,
+    margin: "10px 5px 0px 5px",
+  },
+  tabs: {
+    textTransform: "none",
+    backgroundColor: "#a3bae9",
+    color: "#000",
+  },
+})
+
+class GeneOntologyContainer extends Component {
+  state = {
+    value: 0,
+  }
+
+  handleChange = (event, value) => {
+    this.setState({ value })
+  }
+
+  render() {
+    const { classes } = this.props
+    const { value } = this.state
+
+    return (
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Tabs
+            className={classes.tabs}
+            value={value}
+            onChange={this.handleChange}>
+            <Tab label="All GO" />
+            <Tab label="Experimental GO" />
+            <Tab label="Manual GO" />
+            <Tab label="Electronic GO" />
+          </Tabs>
+        </AppBar>
+        {value === 0 && (
+          <TabContainer>
+            <AllGO />
+          </TabContainer>
+        )}
+        {value === 1 && (
+          <TabContainer>
+            <ExperimentalGO />
+          </TabContainer>
+        )}
+        {value === 2 && (
+          <TabContainer>
+            <ManualGO />
+          </TabContainer>
+        )}
+        {value === 3 && (
+          <TabContainer>
+            <ElectronicGO />
+          </TabContainer>
+        )}
+      </div>
+    )
+  }
+}
+
+export default withStyles(styles)(GeneOntologyContainer)

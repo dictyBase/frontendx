@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Component } from "react"
 import { withStyles } from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
@@ -23,11 +23,12 @@ const styles = theme => ({
   },
   tabs: {
     textTransform: "none",
-    backgroundColor: "#4C5E81",
+    backgroundColor: "#a3bae9",
+    color: "#000",
   },
 })
 
-class MainTabs extends React.Component {
+class MainTabs extends Component {
   state = {
     value: 0,
   }

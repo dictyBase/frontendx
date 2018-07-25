@@ -38,9 +38,10 @@ export const ReactVirtualizedTable = styled.div`
 
 export const GoHeaderStyle = styled.div`
   text-align: left;
-  background: #15317e;
+  background: #3f51b5;
   color: #fff;
   padding: 1px 10px 1px;
+  width: 885px;
 `
 
 export const TabContainer = styled(Tabs)`
