@@ -3,8 +3,8 @@ import { connect } from "react-redux"
 import { withRouter } from "react-router-dom"
 import { Header, Footer } from "dicty-components-header-footer"
 import { Navbar } from "dicty-components-navbar"
-import { FooterLinks } from "common/constants/footer"
-import { NavbarLinks } from "common/constants/navbar"
+import { FooterLinks } from "common/constants/Footer"
+import { NavbarLinks } from "common/constants/Navbar"
 import {
   headerItems,
   loggedHeaderItems,
