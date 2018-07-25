@@ -22,9 +22,11 @@ const styles = theme => ({
     margin: "10px 5px 0px 5px",
   },
   tabs: {
-    textTransform: "none",
     backgroundColor: "#a3bae9",
     color: "#000",
+  },
+  tab: {
+    textTransform: "none",
   },
 })
 
@@ -48,12 +50,12 @@ class MainTabs extends Component {
             className={classes.tabs}
             value={value}
             onChange={this.handleChange}>
-            <Tab label="Gene Summary" />
-            <Tab label="Protein Information" />
-            <Tab label="Gene Ontology" />
-            <Tab label="Orthologs" />
-            <Tab label="Phenotypes" />
-            <Tab label="Reference" />
+            <Tab className={classes.tab} label="Gene Summary" />
+            <Tab className={classes.tab} label="Protein Information" />
+            <Tab className={classes.tab} label="Gene Ontology" />
+            <Tab className={classes.tab} label="Orthologs" />
+            <Tab className={classes.tab} label="Phenotypes" />
+            <Tab className={classes.tab} label="Reference" />
             <Tab label="BLAST" />
           </Tabs>
         </AppBar>
