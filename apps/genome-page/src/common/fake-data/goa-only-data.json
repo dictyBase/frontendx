@@ -1,0 +1,26 @@
+{
+  "links": {
+    "self": "/features/DDB_G028851"
+  },
+  "data": {
+    "type": "gene",
+    "id": "DDB_G028851",
+    "attributes": {
+      "group": ["goa"],
+      "subgroup": ["goa"],
+      "general": {},
+      "genomic": {},
+      "protein": {},
+      "dbxrefs": {},
+      "summary": {},
+      "version": "2"
+    },
+    "relationships": {
+      "goa": {
+        "links": {
+          "related": "/url"
+        }
+      }
+    }
+  }
+}
