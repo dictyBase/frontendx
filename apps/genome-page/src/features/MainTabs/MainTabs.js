@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { Link } from "react-router-dom"
 import { withStyles } from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
@@ -51,6 +52,8 @@ class MainTabs extends Component {
               value={item}
               label="Protein Information"
               key={key}
+              // component={Link}
+              // to={"/protein"}
             />
           )
         case "goa":
@@ -60,6 +63,8 @@ class MainTabs extends Component {
               value={item}
               label="Gene Ontology"
               key={key}
+              // component={Link}
+              // to={"/DDB_G0272608/goa"}
             />
           )
         case "orthologs":
@@ -69,6 +74,8 @@ class MainTabs extends Component {
               value={item}
               label="Orthologs"
               key={key}
+              // component={Link}
+              // to={"/orthologs"}
             />
           )
         case "phenotypes":
@@ -78,6 +85,8 @@ class MainTabs extends Component {
               value={item}
               label="Phenotypes"
               key={key}
+              // component={Link}
+              // to={"/phenotypes"}
             />
           )
         case "references":
@@ -87,6 +96,8 @@ class MainTabs extends Component {
               value={item}
               label="References"
               key={key}
+              // component={Link}
+              // to={"/references"}
             />
           )
         case "blast":
@@ -96,6 +107,8 @@ class MainTabs extends Component {
               value={item}
               label="BLAST"
               key={key}
+              // component={Link}
+              // to={"/blast"}
             />
           )
         default:
@@ -116,14 +129,14 @@ class MainTabs extends Component {
             className={classes.tabs}
             value={value}
             onChange={this.handleChange}>
-            <Tab className={classes.tab} value="summary" label="Gene Summary" />
+            <Tab
+              className={classes.tab}
+              value="summary"
+              label="Gene Summary"
+              component={Link}
+              to={"/"}
+            />
             {this.generateTabs(data)}
-            {/* <Tab className={classes.tab} label="Protein Information" />
-            <Tab className={classes.tab} label="Gene Ontology" />
-            <Tab className={classes.tab} label="Orthologs" />
-            <Tab className={classes.tab} label="Phenotypes" />
-            <Tab className={classes.tab} label="Reference" />
-            <Tab className={classes.tab} label="BLAST" value="blast" /> */}
           </Tabs>
         </AppBar>
         {value === "summary" && <TabContainer>Gene Summary</TabContainer>}
