@@ -40,17 +40,69 @@ class MainTabs extends Component {
     this.setState({ value })
   }
 
-  // need to convert the group items into real labels, not just "goa", etc
-
+  // generates tabs dynamically based on json data structure
   generateTabs = json => {
-    return json.data.attributes.group.map((item, key) => (
-      <Tab
-        className={this.props.classes.tab}
-        value={item}
-        label={item}
-        key={key}
-      />
-    ))
+    const tabs = json.data.attributes.group.map((item, key) => {
+      switch (item) {
+        case "protein":
+          return (
+            <Tab
+              className={this.props.classes.tab}
+              value={item}
+              label="Protein Information"
+              key={key}
+            />
+          )
+        case "goa":
+          return (
+            <Tab
+              className={this.props.classes.tab}
+              value={item}
+              label="Gene Ontology"
+              key={key}
+            />
+          )
+        case "orthologs":
+          return (
+            <Tab
+              className={this.props.classes.tab}
+              value={item}
+              label="Orthologs"
+              key={key}
+            />
+          )
+        case "phenotypes":
+          return (
+            <Tab
+              className={this.props.classes.tab}
+              value={item}
+              label="Phenotypes"
+              key={key}
+            />
+          )
+        case "references":
+          return (
+            <Tab
+              className={this.props.classes.tab}
+              value={item}
+              label="References"
+              key={key}
+            />
+          )
+        case "blast":
+          return (
+            <Tab
+              className={this.props.classes.tab}
+              value={item}
+              label="BLAST"
+              key={key}
+            />
+          )
+        default:
+          return null
+      }
+    })
+    return tabs
   }
 
   render() {
@@ -70,8 +122,8 @@ class MainTabs extends Component {
             <Tab className={classes.tab} label="Gene Ontology" />
             <Tab className={classes.tab} label="Orthologs" />
             <Tab className={classes.tab} label="Phenotypes" />
-            <Tab className={classes.tab} label="Reference" /> */}
-            <Tab className={classes.tab} label="BLAST" value="blast" />
+            <Tab className={classes.tab} label="Reference" />
+            <Tab className={classes.tab} label="BLAST" value="blast" /> */}
           </Tabs>
         </AppBar>
         {value === "summary" && <TabContainer>Gene Summary</TabContainer>}
