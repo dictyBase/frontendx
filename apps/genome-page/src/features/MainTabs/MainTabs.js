@@ -133,8 +133,8 @@ class MainTabs extends Component {
               className={classes.tab}
               value="summary"
               label="Gene Summary"
-              component={Link}
-              to={"/"}
+              // component={Link}
+              // to={"/"}
             />
             {this.generateTabs(data)}
           </Tabs>
