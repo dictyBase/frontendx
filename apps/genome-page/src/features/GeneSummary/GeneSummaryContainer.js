@@ -4,7 +4,7 @@ import Panel from "common/components/Panel"
 const GeneSummaryContainer = () => {
   return (
     <div>
-      <Panel title="General Information" data="test" />
+      <Panel title="General Information">test</Panel>
     </div>
   )
 }

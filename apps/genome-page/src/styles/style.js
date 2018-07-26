@@ -41,7 +41,6 @@ export const GoHeaderStyle = styled.div`
   background: #3f51b5;
   color: #fff;
   padding: 1px 10px 1px;
-  width: 885px;
 `
 
 export const TabContainer = styled(Tabs)`
