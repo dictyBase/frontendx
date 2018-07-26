@@ -5,6 +5,7 @@ import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import Typography from "@material-ui/core/Typography"
+import GeneSummaryContainer from "features/GeneSummary/GeneSummaryContainer"
 import GeneOntologyContainer from "features/GeneOntology/GeneOntologyContainer"
 import ProteinInformationContainer from "features/ProteinInformation/ProteinInformationContainer"
 import * as data from "common/fake-data/goa-only-data.json"
@@ -139,7 +140,11 @@ class MainTabs extends Component {
             {this.generateTabs(data)}
           </Tabs>
         </AppBar>
-        {value === "summary" && <TabContainer>Gene Summary</TabContainer>}
+        {value === "summary" && (
+          <TabContainer>
+            <GeneSummaryContainer />
+          </TabContainer>
+        )}
         {value === "protein" && (
           <TabContainer>
             <ProteinInformationContainer />

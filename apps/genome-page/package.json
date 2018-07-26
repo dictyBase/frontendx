@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@material-ui/core": "^1.4.1",
+    "@material-ui/icons": "^2.0.0",
     "ProtVista": "^2.0.11",
     "connected-react-router": "^4.3.0",
     "dicty-components-header-footer": "github:dictyBase/dicty-components-header-footer#v6.1.0",
