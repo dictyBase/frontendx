@@ -17,6 +17,8 @@ const styles = theme => ({
   },
   summary: {
     backgroundColor: "#4C5E81",
+  },
+  icon: {
     color: "#fff",
   },
 })
@@ -28,12 +30,10 @@ const Panel = props => {
       <ExpansionPanel defaultExpanded>
         <ExpansionPanelSummary
           className={classes.summary}
-          expandIcon={<ExpandMoreIcon />}>
+          expandIcon={<ExpandMoreIcon className={classes.icon} />}>
           <Typography className={classes.heading}>{props.title}</Typography>
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography>{props.data}</Typography>
-        </ExpansionPanelDetails>
+        <ExpansionPanelDetails>{props.children}</ExpansionPanelDetails>
       </ExpansionPanel>
     </div>
   )
