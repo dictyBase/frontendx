@@ -1,7 +1,6 @@
 // @flow
 import React from "react"
 import { Route, Switch } from "react-router-dom"
-// import Tabs from "dicty-components-tab"
 import MainPage from "features/MainPage/MainPage"
 import MainTabs from "features/MainTabs/MainTabs"
 // import GeneOntologyContainer from "features/GeneOntology/GeneOntologyContainer"
@@ -12,43 +11,7 @@ import AuthLoader from "features/Authentication/AuthLoader"
 import Logout from "features/Authentication/Logout"
 import PageNotReady from "common/components/PageNotReady"
 
-// const tabs: Array<Object> = [
-//   {
-//     title: "Gene Summary",
-//     element: <div>Gene Summary</div>,
-//     link: "summary",
-//   },
-//   {
-//     title: "Protein Information",
-//     element: <ProteinInformationContainer />,
-//     link: "proteininformation",
-//   },
-//   {
-//     title: "Gene Ontology",
-//     element: <GeneOntologyContainer />,
-//     link: "go",
-//   },
-//   {
-//     title: "Orthologs",
-//     element: <div>Orthologs</div>,
-//     link: "orthologs",
-//   },
-//   {
-//     title: "Phenotypes",
-//     element: <div>Phenotypes</div>,
-//     link: "phenotypes",
-//   },
-//   {
-//     title: "Reference",
-//     element: <div>Reference</div>,
-//     link: "reference",
-//   },
-//   {
-//     title: "BLAST",
-//     element: <div>BLAST</div>,
-//     link: "blast",
-//   },
-// ]
+// id subroutes need to be updated
 
 const Routes = () => {
   return (
@@ -59,6 +22,12 @@ const Routes = () => {
       <Route exact path="/load/auth" component={AuthLoader} />
       <Route exact path="/logout" component={Logout} />
       <Route path="/:id" component={props => <MainTabs />} />
+      <Route path="/:id/protein" component={props => <MainTabs />} />
+      <Route path="/:id/goa" component={props => <MainTabs />} />
+      <Route path="/:id/orthologs" component={props => <MainTabs />} />
+      <Route path="/:id/phenotypes" component={props => <MainTabs />} />
+      <Route path="/:id/references" component={props => <MainTabs />} />
+      <Route path="/:id/blast" component={props => <MainTabs />} />
       <Route exact path="*" component={PageNotReady} />
     </Switch>
   )
