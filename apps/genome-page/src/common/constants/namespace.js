@@ -1,1 +1,1 @@
-export const NAMESPACE = "genome"
+export const NAMESPACE = "gene"
