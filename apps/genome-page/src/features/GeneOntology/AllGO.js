@@ -5,9 +5,7 @@ import Grid from "@material-ui/core/Grid"
 import { fetchData } from "./goActions"
 import DisplayTable from "./DisplayTable"
 import WithGoDataRendering from "./WithGoDataRendering"
-import ProteinInformationContainer from "features/ProteinInformation/ProteinInformationContainer"
 import Panel from "common/components/Panel"
-import { GoHeaderStyle } from "styles/style"
 
 type Props = {
   /** The data fetched from the API */
