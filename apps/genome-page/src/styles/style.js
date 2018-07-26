@@ -12,27 +12,13 @@ injectGlobal([
         margin: auto;
         height: 100%;
         font-family: Roboto, sans-serif;
-        font-size: 14px;
+        font-size: 16px;
         line-height: 1.42857;
         color: #333;
         background-color: #fff;
     }
 `,
 ])
-
-export const Root = styled.div`
-  height: 100vh;
-`
-
-export const ReactVirtualizedTable = styled.div`
-  .ReactVirtualized__Table__headerRow {
-    background-color: #e5efff;
-  }
-
-  .ReactVirtualized__Table__Grid {
-    margin: 0px auto;
-  }
-`
 
 export const RouterLink = styled(Link)`
   color: #428bca;
