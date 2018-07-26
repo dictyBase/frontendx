@@ -16,7 +16,7 @@ import type { MapStateToProps } from "react-redux"
 
 export const App = props => {
   return (
-    <div className="wrapper">
+    <div>
       {props.auth.isAuthenticated ? (
         <Header items={loggedHeaderItems}>
           {items => items.map(generateLinks)}

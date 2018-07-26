@@ -8,8 +8,6 @@ import configureStore from "app/store/configureStore"
 import history from "common/utils/routerHistory"
 import App from "app/layout/App"
 import registerServiceWorker from "./registerServiceWorker"
-
-import "styles/style.css"
 import "styles/style.js"
 
 // load state from localStorage(if any) to set the initial state for the store

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 
 const MainPage = () => {
   return (
-    <div>
+    <center>
       <h1>Genomes</h1>
       <div>Example genome pages:</div>
       <p>
@@ -21,7 +21,7 @@ const MainPage = () => {
       <p>
         <Link to="/DDB_G0277399">DDB_G0277399</Link>
       </p>
-    </div>
+    </center>
   )
 }
 
