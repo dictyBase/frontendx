@@ -3,7 +3,7 @@ import {
   FETCH_DATA_REQUEST,
   FETCH_DATA_FAILURE,
   FETCH_DATA_SUCCESS,
-} from "./goConstants"
+} from "./goaConstants"
 
 /**
  * All of the Redux reducers related to the GO tab
@@ -13,7 +13,7 @@ const initialState = {
   data: [],
 }
 
-const goDataReducer = (
+const goaReducer = (
   state: Object = initialState,
   action: { type: string, payload: Object },
 ) => {
@@ -38,4 +38,4 @@ const goDataReducer = (
   }
 }
 
-export default goDataReducer
+export default goaReducer

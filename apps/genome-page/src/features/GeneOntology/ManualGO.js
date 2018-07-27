@@ -8,7 +8,7 @@ import Panel from "common/components/Panel"
 
 type Props = {
   /** The data fetched from the API */
-  goData: Object,
+  goa: Object,
 }
 
 /**
@@ -16,7 +16,7 @@ type Props = {
  */
 
 export const ManualGO = (props: Props) => {
-  const data = props.goData.data.filter(
+  const data = props.goa.data.filter(
     code =>
       code.evidence === "IMP" ||
       code.evidence === "IGI" ||
@@ -40,7 +40,7 @@ export const ManualGO = (props: Props) => {
   )
 }
 
-const mapStateToProps = ({ goData }) => ({ goData })
+const mapStateToProps = ({ goa }) => ({ goa })
 
 export default connect(
   mapStateToProps,
