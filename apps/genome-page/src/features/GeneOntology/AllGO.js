@@ -4,6 +4,7 @@ import { connect } from "react-redux"
 import Grid from "@material-ui/core/Grid"
 import { fetchData } from "./goaActions"
 import WithGoDataRendering from "./WithGoDataRendering"
+// import DisplayTable from "./DisplayTable"
 import Panel from "common/components/Panel"
 
 type Props = {
