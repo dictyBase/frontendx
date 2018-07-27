@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Link, withRouter } from "react-router-dom"
 // import { connect } from "react-redux"
+// import Skeleton from "react-loading-skeleton"
 import { withStyles } from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
@@ -131,6 +132,23 @@ export class GeneOntologyMaster extends Component {
   render() {
     const { classes, match } = this.props
     const { value } = this.state
+
+    // const { hasErrored, isLoading } = this.props
+    //   if (hasErrored) {
+    //     return (
+    //       <p>
+    //         Sorry! There was an error loading the items: {hasErrored.message}
+    //       </p>
+    //     )
+    //   }
+
+    //   if (isLoading) {
+    //     return (
+    //       <div>
+    //         <Skeleton count={10} />
+    //       </div>
+    //     )
+    //   }
 
     return (
       <div className={classes.root}>
