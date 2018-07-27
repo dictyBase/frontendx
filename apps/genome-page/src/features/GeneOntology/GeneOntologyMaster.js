@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-// import { Link } from "react-router-dom"
+import { Link, withRouter } from "react-router-dom"
 import { withStyles } from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
@@ -33,9 +33,9 @@ const styles = theme => ({
   },
 })
 
-class MainTabs extends Component {
+class GeneOntologyMaster extends Component {
   state = {
-    value: "summary",
+    value: "goa",
   }
 
   handleChange = (event, value) => {
@@ -45,74 +45,76 @@ class MainTabs extends Component {
   // generates tabs dynamically based on json data structure
   generateTabs = json => {
     const tabs = json.data.attributes.group.map((item, key) => {
+      const { match, classes } = this.props
+
       switch (item) {
         case "protein":
           return (
             <Tab
-              className={this.props.classes.tab}
+              className={classes.tab}
               value={item}
               label="Protein Information"
               key={key}
-              // component={Link}
-              // to={"/protein"}
+              component={Link}
+              to={`/${match.params.id}/protein`}
             />
           )
         case "goa":
           return (
             <Tab
-              className={this.props.classes.tab}
+              className={classes.tab}
               value={item}
               label="Gene Ontology"
               key={key}
-              // component={Link}
-              // to={"/DDB_G0272608/goa"}
+              component={Link}
+              to={`/${match.params.id}/goa`}
             />
           )
         case "orthologs":
           return (
             <Tab
-              className={this.props.classes.tab}
+              className={classes.tab}
               value={item}
               label="Orthologs"
               key={key}
-              // component={Link}
-              // to={"/orthologs"}
+              component={Link}
+              to={`/${match.params.id}/orthologs`}
             />
           )
         case "phenotypes":
           return (
             <Tab
-              className={this.props.classes.tab}
+              className={classes.tab}
               value={item}
               label="Phenotypes"
               key={key}
-              // component={Link}
-              // to={"/phenotypes"}
+              component={Link}
+              to={`/${match.params.id}/phenotypes`}
             />
           )
         case "references":
           return (
             <Tab
-              className={this.props.classes.tab}
+              className={classes.tab}
               value={item}
               label="References"
               key={key}
-              // component={Link}
-              // to={"/references"}
+              component={Link}
+              to={`/${match.params.id}/references`}
             />
           )
         case "blast":
           return (
             <Tab
-              className={this.props.classes.tab}
+              className={classes.tab}
               value={item}
               label="BLAST"
               key={key}
-              // component={Link}
-              // to={"/blast"}
+              component={Link}
+              to={`/${match.params.id}/blast`}
             />
           )
-        // clean up with error modal
+        // clean up with error modal (needs to be implemented)
         default:
           return <div>Error: data not mapped to tab</div>
       }
@@ -121,7 +123,7 @@ class MainTabs extends Component {
   }
 
   render() {
-    const { classes } = this.props
+    const { classes, match } = this.props
     const { value } = this.state
 
     return (
@@ -135,8 +137,8 @@ class MainTabs extends Component {
               className={classes.tab}
               value="summary"
               label="Gene Summary"
-              // component={Link}
-              // to={"/"}
+              component={Link}
+              to={`/${match.params.id}`}
             />
             {this.generateTabs(data)}
           </Tabs>
@@ -165,4 +167,4 @@ class MainTabs extends Component {
   }
 }
 
-export default withStyles(styles)(MainTabs)
+export default withRouter(withStyles(styles)(GeneOntologyMaster))

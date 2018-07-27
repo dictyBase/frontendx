@@ -3,7 +3,8 @@ import React from "react"
 import { Route, Switch } from "react-router-dom"
 import MainPage from "features/MainPage/MainPage"
 import MainTabs from "features/MainTabs/MainTabs"
-// import GeneOntologyContainer from "features/GeneOntology/GeneOntologyContainer"
+import GeneSummaryMaster from "features/GeneSummary/GeneSummaryMaster"
+import GeneOntologyMaster from "features/GeneOntology/GeneOntologyMaster"
 // import ProteinInformationContainer from "features/ProteinInformation/ProteinInformationContainer"
 import Login from "features/Authentication/Login"
 import OauthCallback from "features/Authentication/OauthCallback"
@@ -21,13 +22,13 @@ const Routes = () => {
       <Route exact path="/:provider/callback" component={OauthCallback} />
       <Route exact path="/load/auth" component={AuthLoader} />
       <Route exact path="/logout" component={Logout} />
-      <Route path="/:id" component={props => <MainTabs />} />
       <Route path="/:id/protein" component={props => <MainTabs />} />
-      <Route path="/:id/goa" component={props => <MainTabs />} />
+      <Route path="/:id/goa" component={props => <GeneOntologyMaster />} />
       <Route path="/:id/orthologs" component={props => <MainTabs />} />
       <Route path="/:id/phenotypes" component={props => <MainTabs />} />
       <Route path="/:id/references" component={props => <MainTabs />} />
       <Route path="/:id/blast" component={props => <MainTabs />} />
+      <Route path="/:id" component={props => <GeneSummaryMaster />} />
       <Route exact path="*" component={PageNotReady} />
     </Switch>
   )
