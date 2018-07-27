@@ -34,7 +34,7 @@ const styles = theme => ({
   },
 })
 
-class GeneSummaryMaster extends Component {
+export class GeneSummaryMaster extends Component {
   state = {
     value: "summary",
   }
