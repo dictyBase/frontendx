@@ -112,8 +112,9 @@ class MainTabs extends Component {
               // to={"/blast"}
             />
           )
+        // clean up with error modal
         default:
-          return null
+          return <div>Error: data not mapped to tab</div>
       }
     })
     return tabs
