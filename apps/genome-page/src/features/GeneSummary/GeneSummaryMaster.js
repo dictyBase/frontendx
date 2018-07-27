@@ -39,6 +39,11 @@ class GeneSummaryMaster extends Component {
     value: "summary",
   }
 
+  // component will fetch data to determine tabs/panels
+  // componentDidMount() {
+  //   this.props.fetchData("url")
+  // }
+
   handleChange = (event, value) => {
     this.setState({ value })
   }
