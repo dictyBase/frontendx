@@ -15,7 +15,7 @@ type Props = {
  */
 
 export const ElectronicGO = (props: Props) => {
-  const data = props.goa.data.filter(code => code.evidence === "IEA")
+  // const data = props.goa.data.filter(code => code.evidence === "IEA")
 
   return (
     <Grid container>
