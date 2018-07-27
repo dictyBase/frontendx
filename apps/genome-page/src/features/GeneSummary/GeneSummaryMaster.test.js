@@ -22,6 +22,14 @@ describe("GeneSummary/GeneSummaryMaster", () => {
     },
   }
 
+  const badjson = {
+    data: {
+      attributes: {
+        group: ["fake"],
+      },
+    },
+  }
+
   const props = {
     classes: {
       root: {},
@@ -40,10 +48,16 @@ describe("GeneSummary/GeneSummaryMaster", () => {
   })
 
   describe("generateTabs method", () => {
-    const generateTabs = wrapper.instance().generateTabs(json)
+    const generateRealTabs = wrapper.instance().generateTabs(json)
+    const generateBadTabs = wrapper.instance().generateTabs(badjson)
 
     it("should produce an array of five items", () => {
-      expect(generateTabs.length).toBe(5)
+      expect(generateRealTabs.length).toBe(5)
+    })
+
+    it("should produce an array of one item for badjson", () => {
+      expect(generateBadTabs.length).toBe(1)
+      console.log(generateBadTabs)
     })
   })
 

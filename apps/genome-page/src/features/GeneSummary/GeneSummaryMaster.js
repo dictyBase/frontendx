@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { Link, withRouter } from "react-router-dom"
+// import { connect } from "react-redux"
 import { withStyles } from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
@@ -174,9 +175,14 @@ export class GeneSummaryMaster extends Component {
               test
             </Panel>
           )
-        // clean up with error modal (needs to be implemented)
+        // clean up with error panel
+        // needs to have different colors to indicate error
         default:
-          return <div>Error: data not mapped to tab</div>
+          return (
+            <Panel key={index} title="Error">
+              Error: data not mapped to tab
+            </Panel>
+          )
       }
     })
     return panels
@@ -227,4 +233,11 @@ export class GeneSummaryMaster extends Component {
   }
 }
 
+// const mapStateToProps = state => {
+//   return {
+//     general: state.general,
+//   }
+// }
+
+// export default withRouter(connect(mapStateToProps)(withStyles(styles)(GeneSummaryMaster)))
 export default withRouter(withStyles(styles)(GeneSummaryMaster))

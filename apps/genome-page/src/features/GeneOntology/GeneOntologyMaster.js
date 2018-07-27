@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { Link, withRouter } from "react-router-dom"
+// import { connect } from "react-redux"
 import { withStyles } from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
@@ -172,4 +173,11 @@ export class GeneOntologyMaster extends Component {
   }
 }
 
+// const mapStateToProps = state => {
+//   return {
+//     goa: state.goa
+//   }
+// }
+
+// export default withRouter(connect(mapStateToProps)(withStyles(styles)(GeneOntologyMaster)))
 export default withRouter(withStyles(styles)(GeneOntologyMaster))
