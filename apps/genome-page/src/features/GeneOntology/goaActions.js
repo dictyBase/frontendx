@@ -3,7 +3,7 @@ import {
   FETCH_DATA_REQUEST,
   FETCH_DATA_FAILURE,
   FETCH_DATA_SUCCESS,
-} from "./goConstants"
+} from "./goaConstants"
 
 /**
  * All of the Redux actions related to the GO tab

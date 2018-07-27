@@ -32,8 +32,8 @@ const WithGeneTabs = WrappedComponent => {
   }
   const mapStateToProps = state => {
     return {
-      hasErrored: state.goData.hasErrored,
-      isLoading: state.goData.isLoading,
+      hasErrored: state.goa.hasErrored,
+      isLoading: state.goa.isLoading,
     }
   }
 
