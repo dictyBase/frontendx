@@ -27,12 +27,15 @@ const WithGoDataRendering = WrappedComponent => {
   }
   const mapStateToProps = state => {
     return {
-      hasErrored: state.goData.hasErrored,
-      isLoading: state.goData.isLoading,
+      hasErrored: state.goa.hasErrored,
+      isLoading: state.goa.isLoading,
     }
   }
 
-  return connect(mapStateToProps, null)(WithGoDataRenderingComponent)
+  return connect(
+    mapStateToProps,
+    null,
+  )(WithGoDataRenderingComponent)
 }
 
 export default WithGoDataRendering

@@ -2,14 +2,14 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import Grid from "@material-ui/core/Grid"
-import { fetchData } from "./goActions"
+import { fetchData } from "./goaActions"
 import DisplayTable from "./DisplayTable"
 import WithGoDataRendering from "./WithGoDataRendering"
 import Panel from "common/components/Panel"
 
 type Props = {
   /** The data fetched from the API */
-  goData: Object,
+  goa: Object,
   /** Action creator that accepts URL as parameter */
   fetchData: Function,
 }
@@ -23,7 +23,7 @@ export class AllGO extends Component<Props> {
     this.props.fetchData("https://api.myjson.com/bins/6vbot")
   }
   render() {
-    const { data } = this.props.goData
+    const { data } = this.props.goa
     return (
       <Grid container>
         <Grid item sm={12} md={12} lg={12} xl={12}>
@@ -42,7 +42,7 @@ export class AllGO extends Component<Props> {
   }
 }
 
-const mapStateToProps = ({ goData }) => ({ goData })
+const mapStateToProps = ({ goa }) => ({ goa })
 
 const mapDispatchToProps = dispatch => {
   return {

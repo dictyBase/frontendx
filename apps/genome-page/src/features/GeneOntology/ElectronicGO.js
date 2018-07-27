@@ -8,7 +8,7 @@ import Panel from "common/components/Panel"
 
 type Props = {
   /** The data fetched from the API */
-  goData: Object,
+  goa: Object,
 }
 
 /**
@@ -16,7 +16,7 @@ type Props = {
  */
 
 export const ElectronicGO = (props: Props) => {
-  const data = props.goData.data.filter(code => code.evidence === "IEA")
+  const data = props.goa.data.filter(code => code.evidence === "IEA")
 
   return (
     <Grid container>
@@ -35,7 +35,7 @@ export const ElectronicGO = (props: Props) => {
   )
 }
 
-const mapStateToProps = ({ goData }) => ({ goData })
+const mapStateToProps = ({ goa }) => ({ goa })
 
 export default connect(
   mapStateToProps,
