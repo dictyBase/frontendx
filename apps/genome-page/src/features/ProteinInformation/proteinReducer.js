@@ -13,7 +13,7 @@ const initialState = {
   data: [],
 }
 
-const proteinDataReducer = (
+const proteinReducer = (
   state: Object = initialState,
   action: { type: string, payload: Object },
 ) => {
@@ -38,4 +38,4 @@ const proteinDataReducer = (
   }
 }
 
-export default proteinDataReducer
+export default proteinReducer

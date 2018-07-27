@@ -16,7 +16,7 @@ class GeneralInformation extends Component {
   }
   render() {
     const { classes } = this.props
-    const { data } = this.props.proteinData
+    const { data } = this.props.protein
 
     return (
       <Paper className={classes.root}>
@@ -147,7 +147,7 @@ class GeneralInformation extends Component {
   }
 }
 
-const mapStateToProps = ({ proteinData }) => ({ proteinData })
+const mapStateToProps = ({ protein }) => ({ protein })
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -155,5 +155,8 @@ const mapDispatchToProps = dispatch => {
   }
 }
 export default withStyles(styles)(
-  connect(mapStateToProps, mapDispatchToProps)(GeneralInformation),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(GeneralInformation),
 )
