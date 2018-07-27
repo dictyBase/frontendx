@@ -2,7 +2,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import Grid from "@material-ui/core/Grid"
-import { fetchData } from "./goaActions"
+import { fetchGoaData } from "./goaActions"
 import WithGoDataRendering from "./WithGoDataRendering"
 // import DisplayTable from "./DisplayTable"
 import Panel from "common/components/Panel"
@@ -20,7 +20,7 @@ type Props = {
 
 export class AllGO extends Component<Props> {
   componentDidMount() {
-    this.props.fetchData("https://api.myjson.com/bins/6vbot")
+    this.props.fetchGoaData("https://api.myjson.com/bins/6vbot")
   }
   render() {
     // const { data } = this.props.goa
@@ -46,7 +46,7 @@ const mapStateToProps = ({ goa }) => ({ goa })
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchData: url => dispatch(fetchData(url)),
+    fetchGoaData: url => dispatch(fetchGoaData(url)),
   }
 }
 
