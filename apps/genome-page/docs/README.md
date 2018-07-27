@@ -1,4 +1,4 @@
-# Dicty Stock Center
+# Genomepage
 
 ## Table of Contents
 
