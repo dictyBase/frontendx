@@ -33,7 +33,7 @@ const styles = theme => ({
   },
 })
 
-class GeneOntologyMaster extends Component {
+export class GeneOntologyMaster extends Component {
   state = {
     value: "goa",
   }
