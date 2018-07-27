@@ -15,12 +15,12 @@ type Props = {
  */
 
 export const ExperimentalGO = (props: Props) => {
-  const data = props.goa.data.filter(
-    code =>
-      code.evidence === "IMP" ||
-      code.evidence === "IGI" ||
-      code.evidence === "IDA",
-  )
+  // const data = props.goa.data.filter(
+  //   code =>
+  //     code.evidence === "IMP" ||
+  //     code.evidence === "IGI" ||
+  //     code.evidence === "IDA",
+  // )
 
   return (
     <Grid container>

@@ -22,7 +22,7 @@ export class AllGO extends Component<Props> {
     this.props.fetchData("https://api.myjson.com/bins/6vbot")
   }
   render() {
-    const { data } = this.props.goa
+    // const { data } = this.props.goa
     return (
       <Grid container>
         <Grid item sm={12} md={12} lg={12} xl={12}>
