@@ -7,7 +7,6 @@ import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import Typography from "@material-ui/core/Typography"
-import GeneSummaryContainer from "features/GeneSummary/GeneSummaryContainer"
 import GeneOntologyTabContainer from "features/GeneOntology/GeneOntologyTabContainer"
 import ProteinInformationContainer from "features/ProteinInformation/ProteinInformationContainer"
 import Panel from "common/components/Panel"
@@ -35,7 +34,7 @@ const styles = theme => ({
   },
 })
 
-export class GeneSummaryMaster extends Component {
+export class SummaryContainer extends Component {
   state = {
     value: "summary",
     loading: true,
@@ -62,9 +61,9 @@ export class GeneSummaryMaster extends Component {
 
   // generates tabs dynamically based on json data structure
   generateTabs = json => {
-    const tabs = json.data.attributes.group.map((item, index) => {
-      const { match, classes } = this.props
+    const { match, classes } = this.props
 
+    const tabs = json.data.attributes.group.map((item, index) => {
       switch (item) {
         case "protein":
           return (
@@ -233,9 +232,7 @@ export class GeneSummaryMaster extends Component {
           </Tabs>
         </AppBar>
         {value === "summary" && (
-          <TabContainer>
-            <GeneSummaryContainer panels={this.generatePanels(data)} />
-          </TabContainer>
+          <TabContainer>{this.generatePanels(data)}</TabContainer>
         )}
         {value === "protein" && (
           <TabContainer>
@@ -263,4 +260,4 @@ export class GeneSummaryMaster extends Component {
 // }
 
 // export default withRouter(connect(mapStateToProps)(withStyles(styles)(GeneSummaryMaster)))
-export default withRouter(withStyles(styles)(GeneSummaryMaster))
+export default withRouter(withStyles(styles)(SummaryContainer))
