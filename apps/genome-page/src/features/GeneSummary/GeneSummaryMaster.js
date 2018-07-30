@@ -39,11 +39,20 @@ const styles = theme => ({
 export class GeneSummaryMaster extends Component {
   state = {
     value: "summary",
+    loading: true,
+    data: "",
+    error: "",
   }
+
+  // set url for fetching data
+  // const url = ""
 
   // component will fetch data to determine tabs/panels
   // componentDidMount() {
-  //   this.props.fetchData("url")
+  // fetch(url)
+  // .then(res => res.json())
+  // .then(json => this.setState({ loading: false, data: json }))
+  // .catch(err => this.setState({ loading: false, error: err }))
   // }
 
   handleChange = (event, value) => {
@@ -193,8 +202,8 @@ export class GeneSummaryMaster extends Component {
     const { classes, match } = this.props
     const { value } = this.state
 
-    // const { hasErrored, isLoading } = this.props
-    //   if (hasErrored) {
+    // const { error, loading } = this.state
+    //   if (error) {
     //     return (
     //       <p>
     //         Sorry! There was an error loading the items: {hasErrored.message}
@@ -202,7 +211,7 @@ export class GeneSummaryMaster extends Component {
     //     )
     //   }
 
-    //   if (isLoading) {
+    //   if (loading) {
     //     return (
     //       <div>
     //         <Skeleton count={10} />
