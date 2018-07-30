@@ -11,6 +11,15 @@ import Typography from "@material-ui/core/Typography"
 import Panel from "common/components/Panel"
 import { fetchGeneralData } from "./summaryActions"
 
+const name2Label = {
+  protein: "Protein Information",
+  goa: "Gene Ontology",
+  orthologs: "Orthologs",
+  phenotypes: "Phenotypes",
+  publications: "Publications",
+  blast: "BLAST",
+}
+
 const TabContainer = props => {
   return (
     <Typography component="div" style={{ padding: 8 * 2 }}>
@@ -53,79 +62,20 @@ export class SummaryContainer extends Component {
   // generates tabs dynamically based on json data structure
   generateTabs = json => {
     const { match, classes } = this.props
-
     const tabs = json.data.attributes.group.map((item, index) => {
-      switch (item) {
-        case "protein":
-          return (
-            <Tab
-              className={classes.tab}
-              value={item}
-              label="Protein Information"
-              key={index}
-              component={Link}
-              to={`/${match.params.id}/protein`}
-            />
-          )
-        case "goa":
-          return (
-            <Tab
-              className={classes.tab}
-              value={item}
-              label="Gene Ontology"
-              key={index}
-              component={Link}
-              to={`/${match.params.id}/goa`}
-            />
-          )
-        case "orthologs":
-          return (
-            <Tab
-              className={classes.tab}
-              value={item}
-              label="Orthologs"
-              key={index}
-              component={Link}
-              to={`/${match.params.id}/orthologs`}
-            />
-          )
-        case "phenotypes":
-          return (
-            <Tab
-              className={classes.tab}
-              value={item}
-              label="Phenotypes"
-              key={index}
-              component={Link}
-              to={`/${match.params.id}/phenotypes`}
-            />
-          )
-        case "references":
-          return (
-            <Tab
-              className={classes.tab}
-              value={item}
-              label="References"
-              key={index}
-              component={Link}
-              to={`/${match.params.id}/references`}
-            />
-          )
-        case "blast":
-          return (
-            <Tab
-              className={classes.tab}
-              value={item}
-              label="BLAST"
-              key={index}
-              component={Link}
-              to={`/${match.params.id}/blast`}
-            />
-          )
-        // clean up with error modal (needs to be implemented)
-        default:
-          return <div>Error: data not mapped to tab</div>
+      if (!name2Label[item]) {
+        return <div>Error: data not mapped to tab</div>
       }
+      return (
+        <Tab
+          className={classes.tab}
+          value={item}
+          label={name2Label[item]}
+          key={index}
+          component={Link}
+          to={`/${match.params.id}/${item}`}
+        />
+      )
     })
     return tabs
   }
