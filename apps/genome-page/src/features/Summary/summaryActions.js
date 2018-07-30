@@ -7,7 +7,7 @@ import {
 } from "./summaryConstants"
 
 /**
- * All of the Redux actions related to the GO tab
+ * All of the Redux actions related to the Summary tab
  */
 
 const fetchGeneralDataRequest = () => {
@@ -19,12 +19,12 @@ const fetchGeneralDataRequest = () => {
   }
 }
 
-const fetchGeneralDataFailure = () => {
+const fetchGeneralDataFailure = error => {
   return {
     type: FETCH_GENERAL_DATA_FAILURE,
     payload: {
       isFetching: false,
-      error: true,
+      error: error,
     },
   }
 }
@@ -46,7 +46,6 @@ export const fetchGeneralData = (url: string) => {
       const res = await fetch(url)
       const json = await res.json()
       if (res.ok) {
-        console.log("ok!")
         dispatch(fetchGeneralDataSuccess(json))
       } else {
         if (process.env.NODE_ENV !== "production") {
@@ -57,12 +56,7 @@ export const fetchGeneralData = (url: string) => {
         dispatch(push("/error"))
       }
     } catch (error) {
-      // if (process.env.NODE_ENV !== "production") {
-      //   console.error("Cannot convert to JSON")
-      // }
-      // dispatch(fetchGeneralDataFailure(res.body))
-      // dispatch(push("/error"))
-      dispatch(fetchGeneralDataFailure())
+      dispatch(fetchGeneralDataFailure(error))
       dispatch(push("/error"))
       if (process.env.NODE_ENV !== "production") {
         console.error(`Network error: ${error.message}`)

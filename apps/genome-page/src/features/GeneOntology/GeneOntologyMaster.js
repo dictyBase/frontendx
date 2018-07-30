@@ -94,10 +94,8 @@ export class GeneOntologyMaster extends Component {
     const { classes, match } = this.props
     const { value, error, loading, data } = this.state
 
-    console.log(data)
-
     if (error) {
-      return <p>Sorry! There was an error loading the items: {error.message}</p>
+      return <p>Sorry! There was an error loading the items: {error}</p>
     }
 
     if (loading) {

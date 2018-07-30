@@ -9,16 +9,8 @@ import Tab from "@material-ui/core/Tab"
 import Typography from "@material-ui/core/Typography"
 
 import Panel from "common/components/Panel"
+import { tabLabels } from "common/constants/tabLabels"
 import { fetchGeneralData } from "./summaryActions"
-
-const name2Label = {
-  protein: "Protein Information",
-  goa: "Gene Ontology",
-  orthologs: "Orthologs",
-  phenotypes: "Phenotypes",
-  publications: "Publications",
-  blast: "BLAST",
-}
 
 const TabContainer = props => {
   return (
@@ -63,14 +55,14 @@ export class SummaryContainer extends Component {
   generateTabs = json => {
     const { match, classes } = this.props
     const tabs = json.data.attributes.group.map((item, index) => {
-      if (!name2Label[item]) {
+      if (!tabLabels[item]) {
         return <div>Error: data not mapped to tab</div>
       }
       return (
         <Tab
           className={classes.tab}
           value={item}
-          label={name2Label[item]}
+          label={tabLabels[item]}
           key={index}
           component={Link}
           to={`/${match.params.id}/${item}`}
