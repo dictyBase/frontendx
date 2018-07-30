@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Link, withRouter } from "react-router-dom"
 // import { connect } from "react-redux"
-// import Skeleton from "react-loading-skeleton"
+import Skeleton from "react-loading-skeleton"
 import { withStyles } from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
@@ -44,16 +44,20 @@ export class GeneSummaryMaster extends Component {
     error: "",
   }
 
-  // set url for fetching data
-  // const url = ""
-
   // component will fetch data to determine tabs/panels
-  // componentDidMount() {
-  // fetch(url)
-  // .then(res => res.json())
-  // .then(json => this.setState({ loading: false, data: json }))
-  // .catch(err => this.setState({ loading: false, error: err }))
-  // }
+  async componentDidMount() {
+    // set url for fetching data
+    const url = `${process.env.REACT_APP_GENE_SERVER}/${
+      this.props.match.params.id
+    }`
+    try {
+      const res = await fetch(url)
+      const json = await res.json()
+      this.setState({ loading: false, data: json })
+    } catch (error) {
+      this.setState({ loading: false, error: error })
+    }
+  }
 
   handleChange = (event, value) => {
     this.setState({ value })
@@ -200,24 +204,19 @@ export class GeneSummaryMaster extends Component {
 
   render() {
     const { classes, match } = this.props
-    const { value } = this.state
+    const { value, error, loading } = this.state
 
-    // const { error, loading } = this.state
-    //   if (error) {
-    //     return (
-    //       <p>
-    //         Sorry! There was an error loading the items: {hasErrored.message}
-    //       </p>
-    //     )
-    //   }
+    if (error) {
+      return <p>Sorry! There was an error loading the items: {error.message}</p>
+    }
 
-    //   if (loading) {
-    //     return (
-    //       <div>
-    //         <Skeleton count={10} />
-    //       </div>
-    //     )
-    //   }
+    if (loading) {
+      return (
+        <div>
+          <Skeleton count={10} />
+        </div>
+      )
+    }
 
     return (
       <div className={classes.root}>

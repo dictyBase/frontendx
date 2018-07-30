@@ -3,6 +3,8 @@ import { shallow } from "enzyme"
 import "../../setupTests"
 import { GeneSummaryMaster } from "./GeneSummaryMaster"
 import Tab from "@material-ui/core/Tab"
+import Tabs from "@material-ui/core/Tabs"
+import AppBar from "@material-ui/core/AppBar"
 
 describe("GeneSummary/GeneSummaryMaster", () => {
   const json = {
@@ -49,15 +51,14 @@ describe("GeneSummary/GeneSummaryMaster", () => {
 
   describe("generateTabs method", () => {
     const generateRealTabs = wrapper.instance().generateTabs(json)
-    const generateBadTabs = wrapper.instance().generateTabs(badjson)
+    const generateErrorTabs = wrapper.instance().generateTabs(badjson)
 
     it("should produce an array of five items", () => {
       expect(generateRealTabs.length).toBe(5)
     })
 
     it("should produce an array of one item for badjson", () => {
-      expect(generateBadTabs.length).toBe(1)
-      console.log(generateBadTabs)
+      expect(generateErrorTabs.length).toBe(1)
     })
   })
 
@@ -66,6 +67,22 @@ describe("GeneSummary/GeneSummaryMaster", () => {
 
     it("should produce an array of seven items", () => {
       expect(generatePanels.length).toBe(7)
+    })
+  })
+
+  describe("appearance", () => {
+    const generateRealTabs = wrapper.instance().generateTabs(json)
+
+    it("always renders an AppBar", () => {
+      expect(wrapper.find(AppBar).length).toBe(1)
+    })
+
+    it("always renders one Tabs outer component", () => {
+      expect(wrapper.find(Tabs).length).toBe(1)
+    })
+
+    it("should render six tabs", () => {
+      expect(wrapper.find(Tab).length).toBe(6)
     })
   })
 })
