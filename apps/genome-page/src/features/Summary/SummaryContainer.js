@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography"
 
 import Panel from "common/components/Panel"
 import { tabLabels } from "common/constants/tabLabels"
+import { panelLabels } from "./panelLabels"
 import { fetchGeneralData } from "./summaryActions"
 
 const TabContainer = props => {
@@ -75,58 +76,18 @@ export class SummaryContainer extends Component {
   // generates panels based on json data structure
   generatePanels = json => {
     const panels = json.data.attributes.subgroup.map((item, index) => {
-      switch (item) {
-        case "general":
-          return (
-            <Panel key={index} title="General Information">
-              test
-            </Panel>
-          )
-        case "genomic":
-          return (
-            <Panel key={index} title="Genomic Information">
-              test
-            </Panel>
-          )
-        case "protein":
-          return (
-            <Panel key={index} title="Gene Product Information">
-              test
-            </Panel>
-          )
-        case "goa":
-          return (
-            <Panel key={index} title="Gene Ontology Annotations">
-              test
-            </Panel>
-          )
-        case "dbxrefs":
-          return (
-            <Panel key={index} title="Links">
-              test
-            </Panel>
-          )
-        case "summary":
-          return (
-            <Panel key={index} title="Summary">
-              test
-            </Panel>
-          )
-        case "publication":
-          return (
-            <Panel key={index} title="Latest References">
-              test
-            </Panel>
-          )
-        // clean up with error panel
-        // needs to have different colors to indicate error
-        default:
-          return (
-            <Panel key={index} title="Error">
-              Error: data not mapped to tab
-            </Panel>
-          )
+      if (!panelLabels[item]) {
+        return (
+          <Panel key={index} title="Error">
+            Error: data not mapped to tab
+          </Panel>
+        )
       }
+      return (
+        <Panel key={index} title={panelLabels[item]}>
+          test
+        </Panel>
+      )
     })
     return panels
   }
