@@ -35,7 +35,7 @@ describe("Ontology/OntologyContainer", () => {
   }
   const wrapper = shallow(<OntologyContainer {...props} />)
   it("renders without crashing", () => {
-    shallow(<GeneOntologyMaster {...props} />)
+    wrapper
   })
 
   describe("generateTabs method", () => {
