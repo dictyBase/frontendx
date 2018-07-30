@@ -1,12 +1,13 @@
 import React from "react"
 import { shallow } from "enzyme"
+import sinon from "sinon"
 import "../../setupTests"
-import { GeneSummaryMaster } from "./GeneSummaryMaster"
+import { SummaryContainer } from "./SummaryContainer"
 import Tab from "@material-ui/core/Tab"
 import Tabs from "@material-ui/core/Tabs"
 import AppBar from "@material-ui/core/AppBar"
 
-describe("GeneSummary/GeneSummaryMaster", () => {
+describe("Summary/SummaryContainer", () => {
   const json = {
     data: {
       attributes: {
@@ -43,10 +44,18 @@ describe("GeneSummary/GeneSummaryMaster", () => {
         id: "id number",
       },
     },
+    isFetching: false,
+    data: {},
   }
-  const wrapper = shallow(<GeneSummaryMaster {...props} />)
+  const wrapper = shallow(<SummaryContainer {...props} />)
   it("renders without crashing", () => {
-    shallow(<GeneSummaryMaster {...props} />)
+    shallow(<SummaryContainer {...props} />)
+  })
+
+  it("calls componentDidMount", () => {
+    sinon.spy(wrapper.prototype, "componentDidMount")
+    wrapper
+    expect(wrapper.prototype.componentDidMount.calledOnce).toEqual(true)
   })
 
   describe("generateTabs method", () => {

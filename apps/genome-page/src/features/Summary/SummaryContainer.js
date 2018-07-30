@@ -1,15 +1,15 @@
 import React, { Component } from "react"
 import { Link, withRouter } from "react-router-dom"
-// import { connect } from "react-redux"
+import { connect } from "react-redux"
 import Skeleton from "react-loading-skeleton"
 import { withStyles } from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import Typography from "@material-ui/core/Typography"
-import GeneOntologyTabContainer from "features/GeneOntology/GeneOntologyTabContainer"
-import ProteinInformationContainer from "features/ProteinInformation/ProteinInformationContainer"
+
 import Panel from "common/components/Panel"
+import { fetchGeneralData } from "./summaryActions"
 
 const TabContainer = props => {
   return (
@@ -37,22 +37,13 @@ const styles = theme => ({
 export class SummaryContainer extends Component {
   state = {
     value: "summary",
-    loading: true,
-    data: "",
-    error: "",
   }
 
   // component will fetch data to determine tabs/panels
-  async componentDidMount() {
+  componentDidMount() {
     // set url for fetching data
     const url = `${process.env.REACT_APP_GENE_SERVER}`
-    try {
-      const res = await fetch(url)
-      const json = await res.json()
-      this.setState({ loading: false, data: json })
-    } catch (error) {
-      this.setState({ loading: false, error: error })
-    }
+    this.props.fetchGeneralData(url)
   }
 
   handleChange = (event, value) => {
@@ -200,16 +191,18 @@ export class SummaryContainer extends Component {
 
   render() {
     const { classes, match } = this.props
-    const { value, error, loading, data } = this.state
+    const { isFetching, error, data } = this.props.general
+    const { value } = this.state
 
     if (error) {
       return <p>Sorry! There was an error loading the items: {error.message}</p>
     }
 
-    if (loading) {
+    if (isFetching) {
       return (
         <div>
-          <Skeleton count={10} />
+          {/* <Skeleton count={10} /> */}
+          Loading...
         </div>
       )
     }
@@ -228,36 +221,20 @@ export class SummaryContainer extends Component {
               component={Link}
               to={`/${match.params.id}`}
             />
-            {this.generateTabs(data)}
+            {/* {this.generateTabs(data)} */}
           </Tabs>
         </AppBar>
-        {value === "summary" && (
-          <TabContainer>{this.generatePanels(data)}</TabContainer>
-        )}
-        {value === "protein" && (
-          <TabContainer>
-            <ProteinInformationContainer />
-          </TabContainer>
-        )}
-        {value === "goa" && (
-          <TabContainer>
-            <GeneOntologyTabContainer />
-          </TabContainer>
-        )}
-        {value === "orthologs" && <TabContainer>Orthologs</TabContainer>}
-        {value === "phenotypes" && <TabContainer>Phenotypes</TabContainer>}
-        {value === "references" && <TabContainer>Reference</TabContainer>}
-        {value === "blast" && <TabContainer>BLAST</TabContainer>}
+        {/* <TabContainer>{this.generatePanels(data)}</TabContainer> */}
       </div>
     )
   }
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     general: state.general,
-//   }
-// }
+const mapStateToProps = ({ general }) => ({ general })
 
-// export default withRouter(connect(mapStateToProps)(withStyles(styles)(GeneSummaryMaster)))
-export default withRouter(withStyles(styles)(SummaryContainer))
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { fetchGeneralData },
+  )(withStyles(styles)(SummaryContainer)),
+)
