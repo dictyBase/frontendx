@@ -1,9 +1,9 @@
 import React from "react"
 import { shallow } from "enzyme"
 import "../../setupTests"
-import { GeneOntologyMaster } from "./GeneOntologyMaster"
+import { OntologyContainer } from "./OntologyContainer"
 
-describe("GeneOntology/GeneOntologyMaster", () => {
+describe("Ontology/OntologyContainer", () => {
   const json = {
     data: {
       attributes: {
@@ -33,7 +33,7 @@ describe("GeneOntology/GeneOntologyMaster", () => {
       },
     },
   }
-  const wrapper = shallow(<GeneOntologyMaster {...props} />)
+  const wrapper = shallow(<OntologyContainer {...props} />)
   it("renders without crashing", () => {
     shallow(<GeneOntologyMaster {...props} />)
   })

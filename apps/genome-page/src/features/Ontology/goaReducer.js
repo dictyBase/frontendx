@@ -9,9 +9,7 @@ import {
  * All of the Redux reducers related to the GO tab
  */
 
-const initialState = {
-  data: [],
-}
+const initialState = {}
 
 const goaReducer = (
   state: Object = initialState,

@@ -7,7 +7,7 @@ declare module "rebass" {
 }
 
 // components
-declare module "features/GeneOntology/GeneOntologyContainer" {
+declare module "features/Ontology/OntologyContainer" {
   declare module.exports: any
 }
 declare module "styles/style" {

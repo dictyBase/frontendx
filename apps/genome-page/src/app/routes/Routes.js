@@ -3,7 +3,7 @@ import React from "react"
 import { Route, Switch } from "react-router-dom"
 import MainPage from "features/MainPage/MainPage"
 import SummaryContainer from "features/Summary/SummaryContainer"
-import GeneOntologyMaster from "features/GeneOntology/GeneOntologyMaster"
+import OntologyContainer from "features/Ontology/OntologyContainer"
 // import ProteinInformationContainer from "features/ProteinInformation/ProteinInformationContainer"
 import Login from "features/Authentication/Login"
 import OauthCallback from "features/Authentication/OauthCallback"
@@ -22,7 +22,7 @@ const Routes = () => {
       <Route exact path="/load/auth" component={AuthLoader} />
       <Route exact path="/logout" component={Logout} />
       <Route path="/:id/protein" component={props => <SummaryContainer />} />
-      <Route path="/:id/goa" component={props => <GeneOntologyMaster />} />
+      <Route path="/:id/goa" component={props => <OntologyContainer />} />
       <Route path="/:id/orthologs" component={props => <SummaryContainer />} />
       <Route path="/:id/phenotypes" component={props => <SummaryContainer />} />
       <Route path="/:id/references" component={props => <SummaryContainer />} />
