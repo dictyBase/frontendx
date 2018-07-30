@@ -7,7 +7,7 @@ import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import Typography from "@material-ui/core/Typography"
-import GeneSummaryContainer from "features/GeneSummary/GeneSummaryContainer"
+import SummaryContainer from "features/Summary/SummaryContainer"
 import GeneOntologyTabContainer from "features/GeneOntology/GeneOntologyTabContainer"
 import ProteinInformationContainer from "features/ProteinInformation/ProteinInformationContainer"
 
@@ -177,7 +177,7 @@ export class GeneOntologyMaster extends Component {
         </AppBar>
         {value === "summary" && (
           <TabContainer>
-            <GeneSummaryContainer />
+            <SummaryContainer />
           </TabContainer>
         )}
         {value === "protein" && (

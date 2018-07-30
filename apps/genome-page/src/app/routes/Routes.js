@@ -2,7 +2,7 @@
 import React from "react"
 import { Route, Switch } from "react-router-dom"
 import MainPage from "features/MainPage/MainPage"
-import GeneSummaryMaster from "features/GeneSummary/GeneSummaryMaster"
+import SummaryContainer from "features/Summary/SummaryContainer"
 import GeneOntologyMaster from "features/GeneOntology/GeneOntologyMaster"
 // import ProteinInformationContainer from "features/ProteinInformation/ProteinInformationContainer"
 import Login from "features/Authentication/Login"
@@ -21,19 +21,13 @@ const Routes = () => {
       <Route exact path="/:provider/callback" component={OauthCallback} />
       <Route exact path="/load/auth" component={AuthLoader} />
       <Route exact path="/logout" component={Logout} />
-      <Route path="/:id/protein" component={props => <GeneSummaryMaster />} />
+      <Route path="/:id/protein" component={props => <SummaryContainer />} />
       <Route path="/:id/goa" component={props => <GeneOntologyMaster />} />
-      <Route path="/:id/orthologs" component={props => <GeneSummaryMaster />} />
-      <Route
-        path="/:id/phenotypes"
-        component={props => <GeneSummaryMaster />}
-      />
-      <Route
-        path="/:id/references"
-        component={props => <GeneSummaryMaster />}
-      />
-      <Route path="/:id/blast" component={props => <GeneSummaryMaster />} />
-      <Route path="/:id" component={props => <GeneSummaryMaster />} />
+      <Route path="/:id/orthologs" component={props => <SummaryContainer />} />
+      <Route path="/:id/phenotypes" component={props => <SummaryContainer />} />
+      <Route path="/:id/references" component={props => <SummaryContainer />} />
+      <Route path="/:id/blast" component={props => <SummaryContainer />} />
+      <Route path="/:id" component={props => <SummaryContainer />} />
       <Route exact path="*" component={PageNotReady} />
     </Switch>
   )
