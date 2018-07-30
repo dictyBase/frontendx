@@ -59,7 +59,6 @@ export class GeneOntologyMaster extends Component {
       const res = await fetch(url)
       const json = await res.json()
       this.setState({ loading: false, data: json })
-      console.log("state: ", this.state.data)
     } catch (error) {
       this.setState({ loading: false, error: error })
     }
