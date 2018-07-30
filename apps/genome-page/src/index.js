@@ -4,9 +4,12 @@ import ReactDOM from "react-dom"
 import { Provider } from "react-redux"
 import { ConnectedRouter } from "connected-react-router"
 import { hydrateStore } from "dicty-components-redux"
+import { MuiThemeProvider } from "@material-ui/core/styles"
+
 import configureStore from "app/store/configureStore"
 import history from "common/utils/routerHistory"
 import App from "app/layout/App"
+import muiTheme from "styles/muiTheme"
 import registerServiceWorker from "./registerServiceWorker"
 import "styles/style.js"
 
@@ -36,7 +39,9 @@ if (process.env.NODE_ENV === "production") {
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <App />
+      <MuiThemeProvider theme={muiTheme}>
+        <App />
+      </MuiThemeProvider>
     </ConnectedRouter>
   </Provider>,
   document.getElementById("root"),
