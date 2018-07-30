@@ -6,7 +6,7 @@ import {
 } from "./summaryConstants"
 
 /**
- * All of the Redux reducers related to the GO tab
+ * All of the Redux reducers related to the Summary tab
  */
 
 const initialState = {}
@@ -19,19 +19,19 @@ const summaryReducer = (
     case FETCH_GENERAL_DATA_REQUEST:
       return {
         ...state,
-        isFetching: action.payload.isFetching,
+        isFetching: true,
       }
     case FETCH_GENERAL_DATA_FAILURE:
       return {
         ...state,
-        error: true,
-        isFetching: action.payload.isFetching,
+        error: action.payload.error,
+        isFetching: false,
       }
     case FETCH_GENERAL_DATA_SUCCESS:
       return {
         ...state,
         data: action.payload.data,
-        isFetching: action.payload.isFetching,
+        isFetching: false,
       }
     default:
       return state
