@@ -2,7 +2,6 @@ import React, { Component } from "react"
 import { Link, withRouter } from "react-router-dom"
 // import { connect } from "react-redux"
 import Skeleton from "react-loading-skeleton"
-import { withStyles } from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
@@ -20,21 +19,6 @@ const TabContainer = props => {
     </Typography>
   )
 }
-
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-    margin: "10px 5px 0px 5px",
-  },
-  tabs: {
-    backgroundColor: "#a3bae9",
-    color: "#000",
-  },
-  tab: {
-    textTransform: "none",
-  },
-})
 
 export class GeneOntologyMaster extends Component {
   state = {
@@ -63,14 +47,13 @@ export class GeneOntologyMaster extends Component {
 
   // generates tabs dynamically based on json data structure
   generateTabs = json => {
-    const { match, classes } = this.props
+    const { match } = this.props
     const tabs = json.data.attributes.group.map((item, index) => {
       if (!tabLabels[item]) {
         return <div>Error: data not mapped to tab</div>
       }
       return (
         <Tab
-          className={classes.tab}
           value={item}
           label={tabLabels[item]}
           key={index}
@@ -83,7 +66,7 @@ export class GeneOntologyMaster extends Component {
   }
 
   render() {
-    const { classes, match } = this.props
+    const { match } = this.props
     const { value, error, loading, data } = this.state
 
     if (error) {
@@ -99,14 +82,10 @@ export class GeneOntologyMaster extends Component {
     }
 
     return (
-      <div className={classes.root}>
+      <div>
         <AppBar position="static">
-          <Tabs
-            className={classes.tabs}
-            value={value}
-            onChange={this.handleChange}>
+          <Tabs value={value} onChange={this.handleChange}>
             <Tab
-              className={classes.tab}
               value="summary"
               label="Gene Summary"
               component={Link}
@@ -145,5 +124,5 @@ export class GeneOntologyMaster extends Component {
 //   }
 // }
 
-// export default withRouter(connect(mapStateToProps)(withStyles(styles)(GeneOntologyMaster)))
-export default withRouter(withStyles(styles)(GeneOntologyMaster))
+// export default withRouter(connect(mapStateToProps)(GeneOntologyMaster))
+export default withRouter(GeneOntologyMaster)
