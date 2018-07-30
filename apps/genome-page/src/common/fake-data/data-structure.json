@@ -1,42 +1,44 @@
 {
-  "links": {
-    "self": "/features/DDB_G028851"
-  },
-  "data": {
-    "type": "gene",
-    "id": "DDB_G028851",
-    "attributes": {
-      "group": ["protein", "goa", "orthologs", "phenotypes", "references"],
-      "subgroup": [
-        "general",
-        "genomic",
-        "protein",
-        "goa",
-        "dbxrefs",
-        "summary",
-        "publication"
-      ],
-      "general": {},
-      "genomic": {},
-      "protein": {},
-      "dbxrefs": {},
-      "summary": {},
-      "version": "2"
+  "gene": {
+    "links": {
+      "self": "/features/DDB_G028851"
     },
-    "relationships": {
-      "goa": {
-        "links": {
-          "related": "/url"
-        }
+    "data": {
+      "type": "gene",
+      "id": "DDB_G028851",
+      "attributes": {
+        "group": ["protein", "goa", "orthologs", "phenotypes", "publications"],
+        "subgroup": [
+          "general",
+          "genomic",
+          "protein",
+          "goa",
+          "dbxrefs",
+          "summary",
+          "publication"
+        ],
+        "general": {},
+        "genomic": {},
+        "protein": {},
+        "dbxrefs": {},
+        "summary": {},
+        "version": "2"
       },
-      "publications": {
-        "links": {
-          "related": "/url"
-        }
-      },
-      "stocks": {
-        "links": {
-          "related": "/url"
+      "relationships": {
+        "goa": {
+          "links": {
+            "related": "/url"
+          }
+        },
+        "publications": {
+          "links": {
+            "related": "/url"
+          }
+        },
+        "stocks": {
+          "links": {
+            "related": "/url"
+          }
         }
       }
     }
