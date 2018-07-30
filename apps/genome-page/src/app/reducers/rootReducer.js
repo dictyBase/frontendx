@@ -1,6 +1,6 @@
 import { combineReducers } from "redux"
 import summaryReducer from "features/Summary/summaryReducer"
-import goaReducer from "features/GeneOntology/goaReducer"
+import goaReducer from "features/Ontology/goaReducer"
 import proteinReducer from "features/ProteinInformation/proteinReducer"
 import authReducer from "features/Authentication/authReducer"
 
