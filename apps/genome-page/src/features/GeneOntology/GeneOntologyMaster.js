@@ -10,7 +10,6 @@ import Typography from "@material-ui/core/Typography"
 import GeneSummaryContainer from "features/GeneSummary/GeneSummaryContainer"
 import GeneOntologyTabContainer from "features/GeneOntology/GeneOntologyTabContainer"
 import ProteinInformationContainer from "features/ProteinInformation/ProteinInformationContainer"
-import * as data from "common/fake-data/goa-only-data.json"
 
 const TabContainer = props => {
   return (
@@ -46,13 +45,12 @@ export class GeneOntologyMaster extends Component {
   // component will fetch data to determine tabs/panels
   async componentDidMount() {
     // set url for fetching data
-    const url = `${process.env.REACT_APP_GENE_SERVER}/${
-      this.props.match.params.id
-    }`
+    const url = `${process.env.REACT_APP_GENE_SERVER}`
     try {
       const res = await fetch(url)
       const json = await res.json()
       this.setState({ loading: false, data: json })
+      console.log("state: ", this.state.data)
     } catch (error) {
       this.setState({ loading: false, error: error })
     }
@@ -144,7 +142,9 @@ export class GeneOntologyMaster extends Component {
 
   render() {
     const { classes, match } = this.props
-    const { value, error, loading } = this.state
+    const { value, error, loading, data } = this.state
+
+    console.log(data)
 
     if (error) {
       return <p>Sorry! There was an error loading the items: {error.message}</p>
