@@ -44,7 +44,6 @@ export const fetchGeneralData = (url: string) => {
     try {
       dispatch(fetchGeneralDataRequest())
       const res = await fetch(url)
-      console.log("res: ", res)
       const json = await res.json()
       if (res.ok) {
         console.log("ok!")

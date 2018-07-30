@@ -151,8 +151,7 @@ export class SummaryContainer extends Component {
     if (isFetching) {
       return (
         <div>
-          {/* <Skeleton count={10} /> */}
-          Loading...
+          <Skeleton count={10} />
         </div>
       )
     }
@@ -171,10 +170,10 @@ export class SummaryContainer extends Component {
               component={Link}
               to={`/${match.params.id}`}
             />
-            {/* {this.generateTabs(data)} */}
+            {data && this.generateTabs(data)}
           </Tabs>
         </AppBar>
-        {/* <TabContainer>{this.generatePanels(data)}</TabContainer> */}
+        <TabContainer>{data && this.generatePanels(data)}</TabContainer>
       </div>
     )
   }
