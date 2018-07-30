@@ -20,7 +20,7 @@ const TabContainer = props => {
   )
 }
 
-export class GeneOntologyMaster extends Component {
+export class OntologyContainer extends Component {
   state = {
     value: "goa",
     loading: true,
@@ -125,4 +125,4 @@ export class GeneOntologyMaster extends Component {
 // }
 
 // export default withRouter(connect(mapStateToProps)(GeneOntologyMaster))
-export default withRouter(GeneOntologyMaster)
+export default withRouter(OntologyContainer)

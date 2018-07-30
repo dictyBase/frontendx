@@ -1,4 +1,5 @@
 import React from "react"
+import { BrowserRouter } from "react-router-dom"
 import { shallow } from "enzyme"
 import sinon from "sinon"
 import "../../setupTests"
@@ -25,62 +26,48 @@ describe("Summary/SummaryContainer", () => {
     },
   }
 
-  const badjson = {
-    data: {
-      attributes: {
-        group: ["fake"],
-      },
-    },
-  }
-
   const props = {
-    classes: {
-      root: {},
-      tabs: {},
-      tab: {},
-    },
     match: {
       params: {
-        id: "id number",
+        id: "999",
       },
     },
-    isFetching: false,
-    data: {},
+    general: {
+      isFetching: false,
+      data: {
+        data: {
+          attributes: {
+            group: ["protein", "goa", "orthologs", "phenotypes", "references"],
+            subgroup: [
+              "general",
+              "genomic",
+              "protein",
+              "goa",
+              "dbxrefs",
+              "summary",
+              "publication",
+            ],
+          },
+        },
+        links: {},
+      },
+    },
+    fetchGeneralData: () => {},
   }
   const wrapper = shallow(<SummaryContainer {...props} />)
-  it("renders without crashing", () => {
-    shallow(<SummaryContainer {...props} />)
-  })
 
-  it("calls componentDidMount", () => {
-    sinon.spy(wrapper.prototype, "componentDidMount")
-    wrapper
-    expect(wrapper.prototype.componentDidMount.calledOnce).toEqual(true)
-  })
-
-  describe("generateTabs method", () => {
-    const generateRealTabs = wrapper.instance().generateTabs(json)
-    const generateErrorTabs = wrapper.instance().generateTabs(badjson)
-
-    it("should produce an array of five items", () => {
-      expect(generateRealTabs.length).toBe(5)
+  describe("initial render", () => {
+    it("renders without crashing", () => {
+      wrapper
     })
 
-    it("should produce an array of one item for badjson", () => {
-      expect(generateErrorTabs.length).toBe(1)
+    it("calls componentDidMount once", () => {
+      sinon.spy(SummaryContainer.prototype, "componentDidMount")
+      shallow(<SummaryContainer {...props} />)
+      expect(SummaryContainer.prototype.componentDidMount.calledOnce).toEqual(
+        true,
+      )
     })
-  })
-
-  describe("generatePanels method", () => {
-    const generatePanels = wrapper.instance().generatePanels(json)
-
-    it("should produce an array of seven items", () => {
-      expect(generatePanels.length).toBe(7)
-    })
-  })
-
-  describe("appearance", () => {
-    const generateRealTabs = wrapper.instance().generateTabs(json)
 
     it("always renders an AppBar", () => {
       expect(wrapper.find(AppBar).length).toBe(1)
@@ -90,8 +77,24 @@ describe("Summary/SummaryContainer", () => {
       expect(wrapper.find(Tabs).length).toBe(1)
     })
 
-    it("should render six tabs", () => {
-      expect(wrapper.find(Tab).length).toBe(6)
+    it("should render five new tabs", () => {
+      expect(wrapper.find(Tab).length).toBe(5)
+    })
+  })
+
+  describe("generateTabs method", () => {
+    const generateRealTabs = wrapper.instance().generateTabs(json)
+
+    it("should produce an array of five items", () => {
+      expect(generateRealTabs.length).toBe(5)
+    })
+  })
+
+  describe("generatePanels method", () => {
+    const generatePanels = wrapper.instance().generatePanels(json)
+
+    it("should produce an array of seven items", () => {
+      expect(generatePanels.length).toBe(7)
     })
   })
 })
