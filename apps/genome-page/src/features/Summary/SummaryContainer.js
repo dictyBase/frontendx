@@ -27,8 +27,9 @@ export class SummaryContainer extends Component {
   }
 
   componentDidMount() {
-    const url = `${process.env.REACT_APP_GENE_SERVER}`
-    this.props.fetchGeneralData(url)
+    const { fetchGeneralData, match } = this.props
+    const url = `${process.env.REACT_APP_API_SERVER}/${match.params.id}`
+    fetchGeneralData(url)
   }
 
   handleChange = (event, value) => {
