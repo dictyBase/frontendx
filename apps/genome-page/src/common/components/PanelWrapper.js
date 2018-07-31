@@ -26,7 +26,7 @@ const styles = theme => ({
   },
 })
 
-const Panel = props => {
+const PanelWrapper = props => {
   const { classes } = props
   return (
     <div className={classes.root}>
@@ -44,4 +44,4 @@ const Panel = props => {
   )
 }
 
-export default withStyles(styles)(Panel)
+export default withStyles(styles)(PanelWrapper)
