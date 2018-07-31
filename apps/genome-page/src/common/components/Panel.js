@@ -21,6 +21,9 @@ const styles = theme => ({
   icon: {
     color: "#fff",
   },
+  details: {
+    padding: 0,
+  },
 })
 
 const Panel = props => {
@@ -33,7 +36,9 @@ const Panel = props => {
           expandIcon={<ExpandMoreIcon className={classes.icon} />}>
           <Typography className={classes.heading}>{props.title}</Typography>
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails>{props.children}</ExpansionPanelDetails>
+        <ExpansionPanelDetails className={classes.details}>
+          {props.children}
+        </ExpansionPanelDetails>
       </ExpansionPanel>
     </div>
   )
