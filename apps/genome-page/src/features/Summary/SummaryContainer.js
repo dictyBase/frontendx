@@ -8,10 +8,10 @@ import Tab from "@material-ui/core/Tab"
 import Typography from "@material-ui/core/Typography"
 
 import Panel from "common/components/Panel"
-import GoaPanel from "features/Summary/Panels/GoaPanel"
 import { tabLabels } from "common/constants/tabLabels"
-import { panelLabels } from "./panelLabels"
+import { panelLabels, panelLabelsWithComponents } from "./panelLabels"
 import { fetchGeneralData } from "./summaryActions"
+import { data as goaData } from "features/Summary/Panels/data"
 
 const TabContainer = props => {
   return (
@@ -58,7 +58,8 @@ export class SummaryContainer extends Component {
   // generates panels based on json data structure
   generatePanels = json => {
     const panels = json.data.attributes.subgroup.map((item, index) => {
-      if (!panelLabels[item]) {
+      const RenderedComponent = panelLabelsWithComponents[item].component
+      if (!panelLabelsWithComponents[item]) {
         return (
           <Panel key={index} title="Error">
             Error: data not mapped to tab
@@ -66,8 +67,8 @@ export class SummaryContainer extends Component {
         )
       }
       return (
-        <Panel key={index} title={panelLabels[item]}>
-          <GoaPanel />
+        <Panel key={index} title={panelLabelsWithComponents[item].title}>
+          <RenderedComponent data={goaData} />
         </Panel>
       )
     })

@@ -6,7 +6,6 @@ import TableBody from "@material-ui/core/TableBody"
 import TableCell from "@material-ui/core/TableCell"
 import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
-import { data } from "./data"
 
 const styles = theme => ({
   root: {
@@ -37,7 +36,7 @@ type Props = {
  */
 
 const GoaPanel = (props: Props) => {
-  const { classes } = props
+  const { classes, data } = props
   const molecular = data.filter(item => item.type === "molecular_function")
   const biological = data.filter(item => item.type === "biological_process")
   const cellular = data.filter(item => item.type === "cellular_component")
