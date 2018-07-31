@@ -3,7 +3,7 @@ import React from "react"
 import { connect } from "react-redux"
 import Grid from "@material-ui/core/Grid"
 import WithGoDataRendering from "./WithGoDataRendering"
-import Panel from "common/components/Panel"
+import PanelWrapper from "common/components/PanelWrapper"
 
 type Props = {
   /** The data fetched from the API */
@@ -25,15 +25,15 @@ export const ManualGO = (props: Props) => {
   return (
     <Grid container>
       <Grid item sm={12} md={12} lg={12} xl={12}>
-        <Panel title="Molecular Function">
+        <PanelWrapper title="Molecular Function">
           <div>data table coming later</div>
-        </Panel>
-        <Panel title="Biological Process">
+        </PanelWrapper>
+        <PanelWrapper title="Biological Process">
           <div>data table coming later</div>
-        </Panel>
-        <Panel title="Cellular Composition">
+        </PanelWrapper>
+        <PanelWrapper title="Cellular Composition">
           <div>data table coming later</div>
-        </Panel>
+        </PanelWrapper>
       </Grid>
     </Grid>
   )

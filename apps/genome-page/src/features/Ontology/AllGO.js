@@ -5,7 +5,7 @@ import { connect } from "react-redux"
 import Grid from "@material-ui/core/Grid"
 import WithGoDataRendering from "./WithGoDataRendering"
 // import DisplayTable from "./DisplayTable"
-import Panel from "common/components/Panel"
+import PanelWrapper from "common/components/PanelWrapper"
 import { gene2Goa } from "./goaActions"
 
 type Props = {
@@ -28,15 +28,15 @@ export class AllGO extends Component<Props> {
     return (
       <Grid container>
         <Grid item sm={12} md={12} lg={12} xl={12}>
-          <Panel title="Molecular Function">
+          <PanelWrapper title="Molecular Function">
             <div>data table coming later</div>
-          </Panel>
-          <Panel title="Biological Process">
+          </PanelWrapper>
+          <PanelWrapper title="Biological Process">
             <div>data table coming later</div>
-          </Panel>
-          <Panel title="Cellular Composition">
+          </PanelWrapper>
+          <PanelWrapper title="Cellular Composition">
             <div>data table coming later</div>
-          </Panel>
+          </PanelWrapper>
         </Grid>
       </Grid>
     )
