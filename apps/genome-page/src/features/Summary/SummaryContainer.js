@@ -9,7 +9,7 @@ import Typography from "@material-ui/core/Typography"
 
 import PanelWrapper from "common/components/PanelWrapper"
 import { tabLabels } from "common/constants/tabLabels"
-import { panelLabels, panelLabelsWithComponents } from "./panelLabels"
+import { panelLabels } from "./panelLabels"
 import { fetchGeneralData } from "./summaryActions"
 import { data as goaData } from "features/Summary/Panels/data"
 
@@ -58,8 +58,8 @@ export class SummaryContainer extends Component {
   // generates panels based on json data structure
   generatePanels = json => {
     const panels = json.data.attributes.subgroup.map((item, index) => {
-      const InnerPanel = panelLabelsWithComponents[item].component
-      if (!panelLabelsWithComponents[item]) {
+      const InnerPanel = panelLabels[item].component
+      if (!panelLabels[item]) {
         return (
           <PanelWrapper key={index} title="Error">
             Error: data not mapped to tab
@@ -67,7 +67,7 @@ export class SummaryContainer extends Component {
         )
       }
       return (
-        <PanelWrapper key={index} title={panelLabelsWithComponents[item].title}>
+        <PanelWrapper key={index} title={panelLabels[item].title}>
           <InnerPanel data={goaData} />
         </PanelWrapper>
       )
