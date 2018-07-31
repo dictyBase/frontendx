@@ -1,5 +1,5 @@
 // @flow
-import { push } from "connected-react-router"
+// import { push } from "connected-react-router"
 import {
   FETCH_GENERAL_DATA_REQUEST,
   FETCH_GENERAL_DATA_FAILURE,
@@ -50,14 +50,13 @@ export const fetchGeneralData = (url: string) => {
       } else {
         if (process.env.NODE_ENV !== "production") {
           printError(res, json)
-          dispatch(push("/error"))
         }
         dispatch(fetchGeneralDataFailure(res.body))
-        dispatch(push("/error"))
+        // dispatch(push("/error"))
       }
     } catch (error) {
-      dispatch(fetchGeneralDataFailure(error))
-      dispatch(push("/error"))
+      dispatch(fetchGeneralDataFailure("There was an error fetching data"))
+      // dispatch(push("/error"))
       if (process.env.NODE_ENV !== "production") {
         console.error(`Network error: ${error.message}`)
       }
