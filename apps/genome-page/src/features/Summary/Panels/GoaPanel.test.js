@@ -1,4 +1,5 @@
 import React from "react"
+import renderer from "react-test-renderer"
 import { mount } from "enzyme"
 import "../../../setupTests"
 import GoaPanel from "./GoaPanel"
@@ -100,5 +101,63 @@ describe("Summary/Panels/GoaPanel", () => {
     it("always renders six TableCells", () => {
       expect(wrapper.find(TableCell).length).toBe(6)
     })
+
+    it("receives two props", () => {
+      expect(Object.keys(wrapper.props()).length).toBe(2)
+    })
   })
+})
+
+test("matching a snapshot of InfoPage/InfoPage", () => {
+  const props = {
+    classes: {},
+    data: [
+      {
+        type: "biological_process",
+        id: "GO:0000281",
+        attributes: {
+          date: "20120522",
+          evidence_code: "IMP",
+          goterm: "mitotic cytokinesis",
+          qualifier: "acts_upstream_of_or_within",
+          publication: "PMID:12499361",
+          with: null,
+          extensions: null,
+          assigned_by: "dictyBase",
+        },
+      },
+      {
+        type: "molecular_function",
+        id: "GO:0005515",
+        attributes: {
+          date: "20110913",
+          evidence_code: "IPI",
+          goterm: "protein binding",
+          qualifier: "enables",
+          publication: "PMID:21441344",
+          with: [{ connectedXrefs: [{ db: "UniProtKB", id: "Q54HG2" }] }],
+          extensions: null,
+          assigned_by: "dictyBase",
+        },
+      },
+      {
+        type: "cellular_component",
+        id: "GO:0005938",
+        attributes: {
+          date: "20120522",
+          evidence_code: "IDA",
+          goterm: "cell cortex",
+          qualifier: "part_of",
+          publication: "PMID:12499361",
+          with: null,
+          extensions: null,
+          assigned_by: "dictyBase",
+        },
+      },
+    ],
+  }
+
+  const component = renderer.create(<GoaPanel {...props} />)
+  let tree = component.toJSON()
+  expect(tree).toMatchSnapshot()
 })
