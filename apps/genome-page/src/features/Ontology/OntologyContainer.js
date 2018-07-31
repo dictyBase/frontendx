@@ -25,7 +25,7 @@ export class OntologyContainer extends Component {
   }
 
   componentDidMount() {
-    const url = `${process.env.REACT_APP_GENE_SERVER}`
+    const url = `${process.env.REACT_APP_ONTOLOGY_SERVER}`
     this.props.fetchGeneralData(url)
   }
 
