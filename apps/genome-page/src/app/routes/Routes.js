@@ -11,8 +11,6 @@ import AuthLoader from "features/Authentication/AuthLoader"
 import Logout from "features/Authentication/Logout"
 import PageNotReady from "common/components/PageNotReady"
 
-// id subroutes need to be updated
-
 const Routes = () => {
   return (
     <Switch>
@@ -27,6 +25,7 @@ const Routes = () => {
       <Route path="/:id/phenotypes" component={props => <SummaryContainer />} />
       <Route path="/:id/references" component={props => <SummaryContainer />} />
       <Route path="/:id/blast" component={props => <SummaryContainer />} />
+      <Route exact path="/:id/*" component={PageNotReady} />
       <Route path="/:id" component={props => <SummaryContainer />} />
       <Route exact path="*" component={PageNotReady} />
     </Switch>
