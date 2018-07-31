@@ -9,11 +9,11 @@ import {
  * All of the Redux actions related to Uniprot ID fetching
  */
 
-const makeUniprotURL = id => {
+const makeUniprotURL = (id: string) => {
   return `https://www.uniprot.org/uniprot?query=gene:${id}&columns=id&format=list`
 }
 
-const fetchUniprotRequest = id => {
+const fetchUniprotRequest = (id: string) => {
   return {
     type: FETCH_UNIPROT_REQUEST,
     payload: {
@@ -33,7 +33,7 @@ const fetchUniprotFailure = error => {
   }
 }
 
-const fetchUniprotSuccess = (id, uniprotId) => {
+const fetchUniprotSuccess = (id: string, uniprotId: string) => {
   return {
     type: FETCH_UNIPROT_SUCCESS,
     payload: {
@@ -44,8 +44,8 @@ const fetchUniprotSuccess = (id, uniprotId) => {
   }
 }
 
-export const geneId2Uniprot = id => {
-  return async dispatch => {
+export const geneId2Uniprot = (id: string) => {
+  return async (dispatch: Function) => {
     dispatch(fetchUniprotRequest(id))
     const res = await fetch(makeUniprotURL(id))
     console.log(res)

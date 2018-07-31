@@ -6,13 +6,14 @@ import FontAwesome from "react-fontawesome"
 import styled from "styled-components"
 import "font-awesome/css/font-awesome.min.css"
 
+// $FlowFixMe
 const RouterLink = styled(Link)`
   color: #15317e;
   padding: 15px;
   text-decoration: none;
 `
 
-const generateLinks = (link, i) => {
+const generateLinks = (link: Object, i: string) => {
   return link.isRouter ? (
     <RouterLink key={i} to={link.url}>
       <center>
