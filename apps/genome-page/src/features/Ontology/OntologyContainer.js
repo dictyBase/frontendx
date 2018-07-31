@@ -1,16 +1,15 @@
 import React, { Component } from "react"
 import { Link, withRouter } from "react-router-dom"
-// import { connect } from "react-redux"
+import { connect } from "react-redux"
 import Skeleton from "react-loading-skeleton"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import Typography from "@material-ui/core/Typography"
 
-import SummaryContainer from "features/Summary/SummaryContainer"
-import OntologyTabContainer from "features/Ontology/OntologyTabContainer"
-import ProteinInformationContainer from "features/ProteinInformation/ProteinInformationContainer"
+import OntologyTabContainer from "./OntologyTabContainer"
 import { tabLabels } from "common/constants/tabLabels"
+import { fetchGeneralData } from "features/Summary/summaryActions"
 
 const TabContainer = props => {
   return (
@@ -23,22 +22,11 @@ const TabContainer = props => {
 export class OntologyContainer extends Component {
   state = {
     value: "goa",
-    loading: true,
-    data: "",
-    error: "",
   }
 
-  // component will fetch data to determine tabs/panels
-  async componentDidMount() {
-    // set url for fetching data
+  componentDidMount() {
     const url = `${process.env.REACT_APP_GENE_SERVER}`
-    try {
-      const res = await fetch(url)
-      const json = await res.json()
-      this.setState({ loading: false, data: json })
-    } catch (error) {
-      this.setState({ loading: false, error: error })
-    }
+    this.props.fetchGeneralData(url)
   }
 
   handleChange = (event, value) => {
@@ -66,16 +54,22 @@ export class OntologyContainer extends Component {
   }
 
   render() {
-    const { match } = this.props
-    const { value, error, loading, data } = this.state
+    const { value } = this.state
+    const { match, data, isFetching, error } = this.props
 
     if (error) {
-      return <p>Sorry! There was an error loading the items: {error}</p>
-    }
-
-    if (loading) {
       return (
         <div>
+          <br />
+          <center>Sorry! There was an error loading the items</center>
+        </div>
+      )
+    }
+
+    if (isFetching) {
+      return (
+        <div>
+          <br />
           <Skeleton count={10} />
         </div>
       )
@@ -91,38 +85,22 @@ export class OntologyContainer extends Component {
               component={Link}
               to={`/${match.params.id}`}
             />
-            {this.generateTabs(data)}
+            {data && this.generateTabs(data)}
           </Tabs>
         </AppBar>
-        {value === "summary" && (
-          <TabContainer>
-            <SummaryContainer />
-          </TabContainer>
-        )}
-        {value === "protein" && (
-          <TabContainer>
-            <ProteinInformationContainer />
-          </TabContainer>
-        )}
-        {value === "goa" && (
-          <TabContainer>
-            <OntologyTabContainer />
-          </TabContainer>
-        )}
-        {value === "orthologs" && <TabContainer>Orthologs</TabContainer>}
-        {value === "phenotypes" && <TabContainer>Phenotypes</TabContainer>}
-        {value === "references" && <TabContainer>Reference</TabContainer>}
-        {value === "blast" && <TabContainer>BLAST</TabContainer>}
+        <TabContainer>
+          <OntologyTabContainer />
+        </TabContainer>
       </div>
     )
   }
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     goa: state.goa
-//   }
-// }
+const mapStateToProps = ({ general }) => ({ general })
 
-// export default withRouter(connect(mapStateToProps)(GeneOntologyMaster))
-export default withRouter(OntologyContainer)
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { fetchGeneralData },
+  )(OntologyContainer),
+)
