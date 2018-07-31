@@ -38,6 +38,7 @@
     "jwt-decode": "^2.2.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-fontawesome": "^1.6.1",
     "react-ga": "^2.5.3",
     "react-loading-skeleton": "^0.5.0",
     "react-redux": "^5.0.7",
