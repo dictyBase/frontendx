@@ -1,30 +1,34 @@
 // @flow
 import React from "react"
+import { withStyles } from "@material-ui/core/styles"
 import SnackbarContent from "@material-ui/core/SnackbarContent"
 import styled from "styled-components"
 
-// change background color of snackbar
-const SnackbarStyle = styled(SnackbarContent)`
-  && {
-    background: #cc0000;
-  }
-`
+const styles = theme => ({
+  message: {
+    backgroundColor: "#cc0000",
+  },
+})
 
 type Props = {
   /** The error message to display */
   error: string,
+  /** Material-UI styling */
+  classes: Object,
 }
 
 /** Notification snackbar-style message if user hits some type of error */
 
 const ErrorNotification = (props: Props) => {
+  const { classes, error } = props
+
   return (
     <center>
-      <SnackbarStyle message={props.error} />
+      <SnackbarContent className={classes.message} message={error} />
       <br />
       <br />
     </center>
   )
 }
 
-export default ErrorNotification
+export default withStyles(styles)(ErrorNotification)
