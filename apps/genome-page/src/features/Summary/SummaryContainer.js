@@ -58,7 +58,10 @@ export class SummaryContainer extends Component {
   // generates panels based on json data structure
   generatePanels = json => {
     const panels = json.data.attributes.subgroup.map((item, index) => {
+      // set variables for each panel's title and component
+      const PanelTitle = panelLabels[item].title
       const InnerPanel = panelLabels[item].component
+
       if (!panelLabels[item]) {
         return (
           <PanelWrapper key={index} title="Error">
@@ -66,8 +69,9 @@ export class SummaryContainer extends Component {
           </PanelWrapper>
         )
       }
+
       return (
-        <PanelWrapper key={index} title={panelLabels[item].title}>
+        <PanelWrapper key={index} title={PanelTitle}>
           <InnerPanel data={goaData} />
         </PanelWrapper>
       )
