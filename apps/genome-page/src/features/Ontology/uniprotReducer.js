@@ -3,18 +3,15 @@ import {
   FETCH_UNIPROT_REQUEST,
   FETCH_UNIPROT_SUCCESS,
   FETCH_UNIPROT_FAILURE,
-  FETCH_GOA_REQUEST,
-  FETCH_GOA_FAILURE,
-  FETCH_GOA_SUCCESS,
-} from "./goaConstants"
+} from "./uniprotConstants"
 
 /**
- * All of the Redux reducers related to GOA data
+ * All of the Redux reducers related to Uniprot
  */
 
 const initialState = {}
 
-const goaReducer = (
+const uniprotReducer = (
   state: Object = initialState,
   action: { type: string, payload: Object },
 ) => {
@@ -22,13 +19,10 @@ const goaReducer = (
     case FETCH_UNIPROT_REQUEST:
     case FETCH_UNIPROT_SUCCESS:
     case FETCH_UNIPROT_FAILURE:
-    case FETCH_GOA_REQUEST:
-    case FETCH_GOA_SUCCESS:
-    case FETCH_GOA_FAILURE:
       return { ...state, ...action.payload }
     default:
       return state
   }
 }
 
-export default goaReducer
+export default uniprotReducer

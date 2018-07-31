@@ -1,60 +1,77 @@
 // @flow
 import {
-  FETCH_GOA_DATA_REQUEST,
-  FETCH_GOA_DATA_FAILURE,
-  FETCH_GOA_DATA_SUCCESS,
+  FETCH_GOA_REQUEST,
+  FETCH_GOA_FAILURE,
+  FETCH_GOA_SUCCESS,
 } from "./goaConstants"
+import { geneId2Uniprot } from "./uniprotActions"
+import { normalizeGoa } from "./goaUtils"
 
 /**
- * All of the Redux actions related to the GO tab
+ * All of the Redux actions related to GOA data
  */
 
-export function fetchGoaDataRequest(bool: boolean) {
+const makeGoaURL = id => {
+  const base = "https://www.ebi.ac.uk/QuickGO/services/annotation/search?"
+  const query = "includeFields=goName&limit=100&geneProductId="
+  return `${base}${query}${id}`
+}
+
+const fetchGoaRequest = id => {
   return {
-    type: FETCH_GOA_DATA_REQUEST,
+    type: FETCH_GOA_REQUEST,
     payload: {
-      isLoading: true,
+      isFetching: true,
+      id,
     },
   }
 }
 
-export function fetchGoaDataFailure(bool: boolean) {
+const fetchGoaFailure = error => {
   return {
-    type: FETCH_GOA_DATA_FAILURE,
+    type: FETCH_GOA_FAILURE,
     payload: {
-      hasErrored: true,
+      isFetching: false,
+      error: error,
     },
   }
 }
 
-export function fetchGoaDataSuccess(data: Array<Object>) {
+const fetchGoaSuccess = goaResp => {
   return {
-    type: FETCH_GOA_DATA_SUCCESS,
+    type: FETCH_GOA_SUCCESS,
     payload: {
-      data,
+      isFetching: false,
+      goa: normalizeGoa(goaResp),
     },
   }
 }
 
-export function fetchGoaData(url: string) {
-  return async (dispatch: Function) => {
+const fetchGoa = id => {
+  return async dispatch => {
+    dispatch(fetchGoaRequest(id))
+    const res = await fetch(makeGoaURL(id), {
+      headers: { Accept: "application/json" },
+    })
+    if (res.ok) {
+      const json = await res.json()
+      dispatch(fetchGoaSuccess(json))
+    } else {
+      dispatch(fetchGoaFailure(res.statusText))
+    }
+  }
+}
+
+export const gene2Goa = id => {
+  return async (dispatch, getState) => {
     try {
-      const res = await fetch(url)
-      const data = await res.json()
-      if (res.ok) {
-        dispatch(fetchGoaDataSuccess(data))
-      } else {
-        dispatch(fetchGoaDataRequest(false))
-        if (process.env.NODE_ENV !== "production") {
-          console.error(res.statusText)
-        }
-        throw Error(res.statusText)
+      await dispatch(geneId2Uniprot(id))
+      const { uniprot } = getState()
+      if (uniprot.uniprotId) {
+        await dispatch(fetchGoa(uniprot.uniprotId))
       }
     } catch (error) {
-      dispatch(fetchGoaDataFailure(true))
-      if (process.env.NODE_ENV !== "production") {
-        console.error(`Network error: ${error}`)
-      }
+      dispatch(fetchGoaFailure(error.message))
     }
   }
 }
