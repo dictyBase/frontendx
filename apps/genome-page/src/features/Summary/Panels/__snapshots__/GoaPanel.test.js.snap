@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matching a snapshot of InfoPage/InfoPage 1`] = `
+<div
+  className="MuiPaper-root-5 MuiPaper-elevation2-9 MuiPaper-rounded-6 GoaPanel-root-1"
+>
+  <table
+    className="MuiTable-root-32 GoaPanel-table-2"
+  >
+    <tbody
+      className="MuiTableBody-root-33"
+    >
+      <tr
+        className="MuiTableRow-root-34"
+      >
+        <th
+          aria-sort={null}
+          className="MuiTableCell-root-39 MuiTableCell-body-41 GoaPanel-tableLeftData-3"
+          scope="row"
+        >
+          Molecular Function
+        </th>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root-39 MuiTableCell-body-41 GoaPanel-tableRightData-4"
+          scope={undefined}
+        >
+          protein binding (IPI)
+        </td>
+      </tr>
+      <tr
+        className="MuiTableRow-root-34"
+      >
+        <th
+          aria-sort={null}
+          className="MuiTableCell-root-39 MuiTableCell-body-41 GoaPanel-tableLeftData-3"
+          scope="row"
+        >
+          Biological Process
+        </th>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root-39 MuiTableCell-body-41 GoaPanel-tableRightData-4"
+          scope={undefined}
+        >
+          mitotic cytokinesis (IMP)
+        </td>
+      </tr>
+      <tr
+        className="MuiTableRow-root-34"
+      >
+        <th
+          aria-sort={null}
+          className="MuiTableCell-root-39 MuiTableCell-body-41 GoaPanel-tableLeftData-3"
+          scope="row"
+        >
+          Cellular Component
+        </th>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root-39 MuiTableCell-body-41 GoaPanel-tableRightData-4"
+          scope={undefined}
+        >
+          cell cortex (IDA)
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
