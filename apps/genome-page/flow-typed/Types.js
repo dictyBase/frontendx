@@ -1,15 +1,7 @@
-// node_modules
-declare module "styled-components" {
+// styling
+declare module "ProtVista/style/main.css" {
   declare module.exports: any
 }
-declare module "rebass" {
-  declare module.exports: any
-}
-
-// components
-declare module "features/Ontology/OntologyContainer" {
-  declare module.exports: any
-}
-declare module "styles/style" {
+declare module "font-awesome/css/font-awesome.min.css" {
   declare module.exports: any
 }
