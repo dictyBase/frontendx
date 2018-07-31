@@ -1,5 +1,5 @@
 export const normalizeGoa = goaResp => {
-  if (goaResp.numberOfHits == 0) {
+  if (goaResp.numberOfHits === 0) {
     return { data: [] }
   }
   return {
