@@ -13,6 +13,10 @@ type Props = {
   goa: Object,
   /** Action creator that accepts URL as parameter */
   fetchData: Function,
+  /** React Router match object */
+  match: Object,
+  /** Action creator to initiate fetching GO data */
+  gene2Goa: Function,
 }
 
 /**

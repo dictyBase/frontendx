@@ -2,7 +2,6 @@
 import React from "react"
 import { withStyles } from "@material-ui/core/styles"
 import SnackbarContent from "@material-ui/core/SnackbarContent"
-import styled from "styled-components"
 
 const styles = theme => ({
   message: {

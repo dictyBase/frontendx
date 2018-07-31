@@ -41,6 +41,7 @@ export const ManualGO = (props: Props) => {
 
 const mapStateToProps = ({ goa }) => ({ goa })
 
+// $FlowFixMe
 export default connect(
   mapStateToProps,
   null,

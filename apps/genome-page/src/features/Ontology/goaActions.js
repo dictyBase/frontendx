@@ -17,7 +17,7 @@ const makeGoaURL = id => {
   return `${base}${query}${id}`
 }
 
-const fetchGoaRequest = id => {
+const fetchGoaRequest = (id: string) => {
   return {
     type: FETCH_GOA_REQUEST,
     payload: {
@@ -47,8 +47,8 @@ const fetchGoaSuccess = goaResp => {
   }
 }
 
-const fetchGoa = id => {
-  return async dispatch => {
+const fetchGoa = (id: string) => {
+  return async (dispatch: Function) => {
     dispatch(fetchGoaRequest(id))
     const res = await fetch(makeGoaURL(id), {
       headers: { Accept: "application/json" },
@@ -62,8 +62,8 @@ const fetchGoa = id => {
   }
 }
 
-export const gene2Goa = id => {
-  return async (dispatch, getState) => {
+export const gene2Goa = (id: string) => {
+  return async (dispatch: Function, getState: Function) => {
     try {
       await dispatch(geneId2Uniprot(id))
       const { uniprot } = getState()
