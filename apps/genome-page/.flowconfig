@@ -9,4 +9,7 @@ flow-typed
 [lints]
 
 [options]
-module.system.node.resolve_dirname=./src
+module.name_mapper='^app\(\/?.*\)$' -> '<PROJECT_ROOT>/src/app/\1'
+module.name_mapper='^common\(\/?.*\)$' -> '<PROJECT_ROOT>/src/common/\1'
+module.name_mapper='^features\(\/?.*\)$' -> '<PROJECT_ROOT>/src/features/\1'
+module.name_mapper='^styles\(\/?.*\)$' -> '<PROJECT_ROOT>/src/styles/\1'
