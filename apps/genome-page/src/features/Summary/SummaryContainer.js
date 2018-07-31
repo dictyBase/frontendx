@@ -8,6 +8,7 @@ import Tab from "@material-ui/core/Tab"
 import Typography from "@material-ui/core/Typography"
 
 import Panel from "common/components/Panel"
+import GoaPanel from "features/Summary/Panels/GoaPanel"
 import { tabLabels } from "common/constants/tabLabels"
 import { panelLabels } from "./panelLabels"
 import { fetchGeneralData } from "./summaryActions"
@@ -66,7 +67,7 @@ export class SummaryContainer extends Component {
       }
       return (
         <Panel key={index} title={panelLabels[item]}>
-          test - unique component goes here
+          <GoaPanel />
         </Panel>
       )
     })

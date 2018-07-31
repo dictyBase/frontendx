@@ -54,7 +54,7 @@ export class OntologyContainer extends Component {
   }
 
   render() {
-    const { value } = this.state
+    // const { value } = this.state
     const { match, data, isFetching, error } = this.props
 
     if (error) {
@@ -78,7 +78,7 @@ export class OntologyContainer extends Component {
     return (
       <div>
         <AppBar position="static">
-          <Tabs value={value} onChange={this.handleChange}>
+          <Tabs value={false} onChange={this.handleChange}>
             <Tab
               value="summary"
               label="Gene Summary"
