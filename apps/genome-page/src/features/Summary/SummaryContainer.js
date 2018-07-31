@@ -66,7 +66,7 @@ export class SummaryContainer extends Component {
       }
       return (
         <Panel key={index} title={panelLabels[item]}>
-          test
+          test - unique component goes here
         </Panel>
       )
     })
@@ -79,12 +79,18 @@ export class SummaryContainer extends Component {
     const { value } = this.state
 
     if (error) {
-      return <p>Sorry! There was an error loading the items: {error}</p>
+      return (
+        <div>
+          <br />
+          <center>Sorry! There was an error loading the items</center>
+        </div>
+      )
     }
 
     if (isFetching) {
       return (
         <div>
+          <br />
           <Skeleton count={10} />
         </div>
       )
