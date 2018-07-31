@@ -1,11 +1,12 @@
 // @flow
 import React, { Component } from "react"
+import { withRouter } from "react-router-dom"
 import { connect } from "react-redux"
 import Grid from "@material-ui/core/Grid"
-import { fetchGoaData } from "./goaActions"
 import WithGoDataRendering from "./WithGoDataRendering"
 // import DisplayTable from "./DisplayTable"
 import Panel from "common/components/Panel"
+import { gene2Goa } from "./goaActions"
 
 type Props = {
   /** The data fetched from the API */
@@ -20,7 +21,7 @@ type Props = {
 
 export class AllGO extends Component<Props> {
   componentDidMount() {
-    this.props.fetchGoaData("https://api.myjson.com/bins/6vbot")
+    this.props.gene2Goa(`${this.props.match.params.id}`)
   }
   render() {
     // const { data } = this.props.goa
@@ -44,13 +45,9 @@ export class AllGO extends Component<Props> {
 
 const mapStateToProps = ({ goa }) => ({ goa })
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchGoaData: url => dispatch(fetchGoaData(url)),
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(WithGoDataRendering(AllGO))
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { gene2Goa },
+  )(WithGoDataRendering(AllGO)),
+)

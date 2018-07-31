@@ -48,6 +48,7 @@ export const geneId2Uniprot = id => {
   return async dispatch => {
     dispatch(fetchUniprotRequest(id))
     const res = await fetch(makeUniprotURL(id))
+    console.log(res)
     if (res.ok) {
       if (res.headers.get("content-length") > 0) {
         const uniprotId = await res.text()
