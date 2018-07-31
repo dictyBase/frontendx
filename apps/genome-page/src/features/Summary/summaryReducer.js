@@ -21,17 +21,17 @@ const summaryReducer = (
         ...state,
         isFetching: true,
       }
-    case FETCH_GENERAL_DATA_FAILURE:
-      return {
-        ...state,
-        error: action.payload.error,
-        isFetching: false,
-      }
     case FETCH_GENERAL_DATA_SUCCESS:
       return {
         ...state,
         data: action.payload.data,
         isFetching: false,
+      }
+    case FETCH_GENERAL_DATA_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.payload.error,
       }
     default:
       return state
