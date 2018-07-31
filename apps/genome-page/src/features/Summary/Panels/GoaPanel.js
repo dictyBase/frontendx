@@ -1,3 +1,4 @@
+// @flow
 import React from "react"
 import { withStyles } from "@material-ui/core/styles"
 import Table from "@material-ui/core/Table"
@@ -24,7 +25,18 @@ const styles = theme => ({
   },
 })
 
-const GoaPanel = props => {
+type Props = {
+  /** Material-UI styling */
+  classes: Object,
+  /** Fetched GOA data */
+  data: Array<Object>,
+}
+
+/**
+ * Panel to display Gene Ontology Annotations in Gene Summary tab
+ */
+
+const GoaPanel = (props: Props) => {
   const { classes } = props
   const molecular = data.filter(item => item.type === "molecular_function")
   const biological = data.filter(item => item.type === "biological_process")
