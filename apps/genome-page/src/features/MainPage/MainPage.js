@@ -21,6 +21,19 @@ const MainPage = () => {
       <p>
         <Link to="/DDB_G0277399">DDB_G0277399</Link>
       </p>
+      <div>Complex examples:</div>
+      <p>
+        <Link to="/DDB_G0280531">DDB_G0280531</Link>
+      </p>
+      <p>
+        <Link to="/DDB_G0276267">DDB_G0276267</Link>
+      </p>
+      <p>
+        <Link to="/DDB_G0281211">DDB_G0281211</Link>
+      </p>
+      <p>
+        <Link to="/DDB_G0277589">DDB_G0277589</Link>
+      </p>
     </center>
   )
 }
