@@ -6,7 +6,7 @@ import PanelWrapper from "common/components/PanelWrapper"
 
 type Props = {
   /** GO data from QuickGO API */
-  goaData: Object,
+  goaData: Array<Object>,
 }
 
 /**
