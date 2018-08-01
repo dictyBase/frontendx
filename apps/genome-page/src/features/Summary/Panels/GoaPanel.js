@@ -28,8 +28,8 @@ const styles = theme => ({
 type Props = {
   /** Material-UI styling */
   classes: Object,
-  /** Fetched GOA data */
-  data: Object,
+  /** Object representing the "goa" slice of state */
+  panelData: Object,
 }
 
 /**
@@ -38,22 +38,13 @@ type Props = {
 
 const GoaPanel = (props: Props) => {
   const { classes, panelData } = props
-  // set variables that represent filtered arrays for use in each row
-  const molecular = panelData.data.data.filter(
-    item => item.type === "molecular_function",
-  )
-  const biological = panelData.data.data.filter(
-    item => item.type === "biological_process",
-  )
-  const cellular = panelData.data.data.filter(
-    item => item.type === "cellular_component",
-  )
 
   if (panelData.error) {
     return (
       <div>
         <br />
-        <center>Sorry! There was an error loading the items</center>
+        <p>Sorry! There was an error loading the items.</p>
+        <br />
       </div>
     )
   }
@@ -67,6 +58,17 @@ const GoaPanel = (props: Props) => {
     )
   }
 
+  // set variables that represent filtered arrays for use in each row
+  const molecular = panelData.data.data.filter(
+    item => item.type === "molecular_function",
+  )
+  const biological = panelData.data.data.filter(
+    item => item.type === "biological_process",
+  )
+  const cellular = panelData.data.data.filter(
+    item => item.type === "cellular_component",
+  )
+
   return (
     <Paper className={classes.root}>
       <Table className={classes.table}>
@@ -79,7 +81,7 @@ const GoaPanel = (props: Props) => {
               Molecular Function
             </TableCell>
             <TableCell className={classes.tableRightData}>
-              {molecular.map((item, i) => {
+              {molecular.map((item: Object, i: string) => {
                 if (molecular.length === i + 1) {
                   return `${item.attributes.goterm} (${
                     item.attributes.evidence_code

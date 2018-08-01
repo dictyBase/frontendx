@@ -38,6 +38,12 @@ type Props = {
   goa: Object,
 }
 
+/**
+ * This is the master container component for the Gene Ontology tab.
+ * It generates the list of tabs needed to display, and it fetches the GO
+ * data from the QuickGO API.
+ */
+
 export class OntologyContainer extends Component<Props> {
   componentDidMount() {
     const { fetchGeneralData, fetchGoa, match } = this.props
@@ -75,6 +81,9 @@ export class OntologyContainer extends Component<Props> {
     if (goa.error) {
       return (
         <div>
+          <AppBar position="static">
+            <Tabs value="goa" onChange={this.handleChange} />
+          </AppBar>
           <br />
           <center>Sorry! There was an error loading the items</center>
         </div>

@@ -34,6 +34,10 @@ type Props = {
   goaData: Array<Object>,
 }
 
+/**
+ * The display table used inside each panel in the GO tabs.
+ */
+
 const DisplayTable = (props: Props) => {
   const { classes, goaData } = props
 
@@ -49,7 +53,7 @@ const DisplayTable = (props: Props) => {
             <TableCell className={classes.headerCell}>With</TableCell>
             <TableCell className={classes.headerCell}>Reference</TableCell>
             <TableCell className={classes.headerCell}>Date</TableCell>
-            {/* <TableCell className={classes.headerCell}>Source</TableCell> */}
+            <TableCell className={classes.headerCell}>Source</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -75,7 +79,7 @@ const DisplayTable = (props: Props) => {
                 </TableCell>
                 <TableCell>{item.attributes.publication}</TableCell>
                 <TableCell>{item.attributes.date}</TableCell>
-                {/* <TableCell>{item.attributes.source}</TableCell> */}
+                <TableCell>{item.attributes.assigned_by}</TableCell>
               </TableRow>
             )
           })}
