@@ -10,20 +10,16 @@ import Paper from "@material-ui/core/Paper"
 const styles = theme => ({
   root: {
     width: "100%",
-    marginTop: theme.spacing.unit * 3,
     overflowX: "auto",
-  },
-  table: {
-    minWidth: 700,
   },
 })
 
 const DisplayTable = props => {
-  const { classes, data } = props
+  const { classes, goaData } = props
 
   return (
     <Paper className={classes.root}>
-      <Table className={classes.table}>
+      <Table>
         <TableHead>
           <TableRow>
             <TableCell>GO Term + Extension</TableCell>
@@ -31,21 +27,21 @@ const DisplayTable = props => {
             <TableCell>With</TableCell>
             <TableCell>Reference</TableCell>
             <TableCell>Date</TableCell>
-            <TableCell>Source</TableCell>
+            {/* <TableCell>Source</TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((item, index) => {
+          {goaData.map((item, index) => {
             return (
-              <TableRow key={item.index}>
+              <TableRow key={index}>
                 <TableCell component="th" scope="row">
-                  {item.term}
+                  {item.attributes.goterm}
                 </TableCell>
-                <TableCell>{item.evidence}</TableCell>
-                <TableCell>{item.with}</TableCell>
-                <TableCell>{item.reference}</TableCell>
-                <TableCell>{item.date}</TableCell>
-                <TableCell>{item.source}</TableCell>
+                <TableCell>{item.attributes.evidence_code}</TableCell>
+                <TableCell>null</TableCell>
+                <TableCell>{item.attributes.publication}</TableCell>
+                <TableCell>{item.attributes.date}</TableCell>
+                {/* <TableCell>{item.attributes.source}</TableCell> */}
               </TableRow>
             )
           })}
