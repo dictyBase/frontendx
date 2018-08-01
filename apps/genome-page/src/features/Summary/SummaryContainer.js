@@ -98,6 +98,9 @@ export class SummaryContainer extends Component {
     if (general.isFetching || goa.isFetching) {
       return (
         <div>
+          <AppBar position="static">
+            <Tabs value="goa" onChange={this.handleChange} />
+          </AppBar>
           <br />
           <Skeleton count={10} />
         </div>
