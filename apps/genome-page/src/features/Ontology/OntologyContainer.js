@@ -21,10 +21,6 @@ const TabContainer = props => {
 }
 
 export class OntologyContainer extends Component {
-  state = {
-    value: "goa",
-  }
-
   componentDidMount() {
     const { fetchGeneralData, fetchGoa, match } = this.props
     const mainUrl = `${process.env.REACT_APP_API_SERVER}/${match.params.id}`
@@ -58,7 +54,6 @@ export class OntologyContainer extends Component {
   }
 
   render() {
-    const { value } = this.state
     const { match, general, goa } = this.props
 
     if (goa.error) {
@@ -82,7 +77,7 @@ export class OntologyContainer extends Component {
     return (
       <div>
         <AppBar position="static">
-          <Tabs value={false} onChange={this.handleChange}>
+          <Tabs value="goa" onChange={this.handleChange}>
             <Tab
               value="summary"
               label="Gene Summary"
@@ -92,11 +87,9 @@ export class OntologyContainer extends Component {
             {general.data && this.generateTabs(general.data)}
           </Tabs>
         </AppBar>
-        {value === "goa" && (
-          <TabContainer>
-            <OntologyTabContainer />
-          </TabContainer>
-        )}
+        <TabContainer>
+          <OntologyTabContainer />
+        </TabContainer>
       </div>
     )
   }
