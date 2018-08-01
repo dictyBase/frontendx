@@ -7,7 +7,11 @@ import Tab from "@material-ui/core/Tab"
 import Typography from "@material-ui/core/Typography"
 import InnerGoPanel from "./InnerGoPanel"
 
-const TabContainer = props => {
+type tabContainerProps = {
+  children: any,
+}
+
+const TabContainer = (props: tabContainerProps) => {
   return (
     <Typography component="div" style={{ paddingTop: 5 }}>
       {props.children}
@@ -16,9 +20,15 @@ const TabContainer = props => {
 }
 
 type Props = {
-  /** Action creator to fetch GOA data */
-  goaData: Function,
+  /** Object representing the "goa" slice of state */
+  goaData: Object,
 }
+
+/**
+ * This is the tab container component for the Gene Ontology tab.
+ * It generates inner tabs for displaying GO data, but it only shows
+ * a tab if the data exists.
+ */
 
 class OntologyTabContainer extends Component<Props> {
   state = {
@@ -37,20 +47,20 @@ class OntologyTabContainer extends Component<Props> {
       // set variables for filtered arrays based on evidence code
       const all = goaData.data.data
       const experimental = goaData.data.data.filter(
-        code =>
+        (code: Object) =>
           code.attributes.evidence_code === "IMP" ||
           code.attributes.evidence_code === "IGI" ||
           code.attributes.evidence_code === "IDA",
       )
       const manual = goaData.data.data.filter(
-        code =>
+        (code: Object) =>
           code.attributes.evidence_code === "IMP" ||
           code.attributes.evidence_code === "IGI" ||
           code.attributes.evidence_code === "IDA" ||
           code.attributes.evidence_code === "IBA",
       )
       const electronic = goaData.data.data.filter(
-        code => code.attributes.evidence_code === "IEA",
+        (code: Object) => code.attributes.evidence_code === "IEA",
       )
 
       return (

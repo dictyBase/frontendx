@@ -5,7 +5,7 @@ import DisplayTable from "./DisplayTable"
 import PanelWrapper from "common/components/PanelWrapper"
 
 type Props = {
-  /** GO data from QuickGO API */
+  /** Filtered GOA data based on tab */
   goaData: Array<Object>,
 }
 
