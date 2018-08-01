@@ -55,7 +55,17 @@ const DisplayTable = (props: Props) => {
                   {item.attributes.goterm}
                 </TableCell>
                 <TableCell>{item.attributes.evidence_code}</TableCell>
-                <TableCell>null</TableCell>
+                <TableCell>
+                  {item.attributes.with !== null &&
+                    item.attributes.with.map(item => {
+                      return item.connectedXrefs.map((xref, i) => {
+                        if (item.connectedXrefs.length === i + 1) {
+                          return `${xref.db}:${xref.id}`
+                        }
+                        return `${xref.db}:${xref.id}, `
+                      })
+                    })}
+                </TableCell>
                 <TableCell>{item.attributes.publication}</TableCell>
                 <TableCell>{item.attributes.date}</TableCell>
                 {/* <TableCell>{item.attributes.source}</TableCell> */}
