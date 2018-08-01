@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography"
 import OntologyTabContainer from "./OntologyTabContainer"
 import { tabLabels } from "common/constants/tabLabels"
 import { fetchGeneralData } from "features/Summary/summaryActions"
+import { fetchGoa } from "features/Ontology/goaActions"
 
 const TabContainer = props => {
   return (
@@ -25,8 +26,11 @@ export class OntologyContainer extends Component {
   }
 
   componentDidMount() {
-    const url = `${process.env.REACT_APP_ONTOLOGY_SERVER}`
-    this.props.fetchGeneralData(url)
+    const { fetchGeneralData, fetchGoa, match } = this.props
+    const mainUrl = `${process.env.REACT_APP_API_SERVER}/${match.params.id}`
+    const goaUrl = `${process.env.REACT_APP_API_SERVER}/${match.params.id}/goas`
+    fetchGeneralData(mainUrl)
+    fetchGoa(goaUrl)
   }
 
   handleChange = (event, value) => {
@@ -54,10 +58,10 @@ export class OntologyContainer extends Component {
   }
 
   render() {
-    // const { value } = this.state
-    const { match, data, isFetching, error } = this.props
+    const { value } = this.state
+    const { match, general, goa } = this.props
 
-    if (error) {
+    if (goa.error) {
       return (
         <div>
           <br />
@@ -66,7 +70,7 @@ export class OntologyContainer extends Component {
       )
     }
 
-    if (isFetching) {
+    if (general.isFetching || goa.isFetching) {
       return (
         <div>
           <br />
@@ -85,22 +89,24 @@ export class OntologyContainer extends Component {
               component={Link}
               to={`/${match.params.id}`}
             />
-            {data && this.generateTabs(data)}
+            {general.data && this.generateTabs(general.data)}
           </Tabs>
         </AppBar>
-        <TabContainer>
-          <OntologyTabContainer />
-        </TabContainer>
+        {value === "goa" && (
+          <TabContainer>
+            <OntologyTabContainer />
+          </TabContainer>
+        )}
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ general }) => ({ general })
+const mapStateToProps = ({ general, goa }) => ({ general, goa })
 
 export default withRouter(
   connect(
     mapStateToProps,
-    { fetchGeneralData },
+    { fetchGeneralData, fetchGoa },
   )(OntologyContainer),
 )
