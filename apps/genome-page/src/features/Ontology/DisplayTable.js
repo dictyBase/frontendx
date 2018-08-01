@@ -13,6 +13,13 @@ const styles = theme => ({
     width: "100%",
     overflowX: "auto",
   },
+  head: {
+    backgroundColor: "#DFE8F6",
+  },
+  headerCell: {
+    color: "#333",
+    fontWeight: "600",
+  },
 })
 
 type Props = {
@@ -28,14 +35,16 @@ const DisplayTable = (props: Props) => {
   return (
     <Paper className={classes.root}>
       <Table>
-        <TableHead>
+        <TableHead className={classes.head}>
           <TableRow>
-            <TableCell>GO Term + Extension</TableCell>
-            <TableCell>Evidence</TableCell>
-            <TableCell>With</TableCell>
-            <TableCell>Reference</TableCell>
-            <TableCell>Date</TableCell>
-            {/* <TableCell>Source</TableCell> */}
+            <TableCell className={classes.headerCell}>
+              GO Term + Extension
+            </TableCell>
+            <TableCell className={classes.headerCell}>Evidence</TableCell>
+            <TableCell className={classes.headerCell}>With</TableCell>
+            <TableCell className={classes.headerCell}>Reference</TableCell>
+            <TableCell className={classes.headerCell}>Date</TableCell>
+            {/* <TableCell className={classes.headerCell}>Source</TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>
