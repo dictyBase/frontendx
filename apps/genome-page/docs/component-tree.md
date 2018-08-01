@@ -6,8 +6,10 @@ src/index.js -> src/app/layout/App
 
 **GO tab:**
 
-`<GeneOntologyMaster />` (generates main tabs, panels)
+`<OntologyContainer />` (generates main tabs and fetches GOA data)
 
-->`<GeneOntologyTabContainer />` (generates nested GO tabs)
+->`<OntologyTabContainer />` (generates nested GO tabs and passes filtered data to each tab)
 
---> `<AllGO />` (dispatches action to get QuickGO data)
+--> `<InnerGoPanel />` (displays panels (i.e. molecular function) and passes filtered data)
+
+---> `<DisplayTable>` (table for displaying the GO data)
