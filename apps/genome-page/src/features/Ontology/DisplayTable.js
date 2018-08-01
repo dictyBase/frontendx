@@ -1,3 +1,4 @@
+// @flow
 import React from "react"
 import { withStyles } from "@material-ui/core/styles"
 import Table from "@material-ui/core/Table"
@@ -14,7 +15,14 @@ const styles = theme => ({
   },
 })
 
-const DisplayTable = props => {
+type Props = {
+  /** Material-UI styling */
+  classes: Object,
+  /** GOA data fetched from QuickGO API */
+  goaData: Array<Object>,
+}
+
+const DisplayTable = (props: Props) => {
   const { classes, goaData } = props
 
   return (
@@ -31,7 +39,7 @@ const DisplayTable = props => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {goaData.map((item, index) => {
+          {goaData.map((item: Object, index: string) => {
             return (
               <TableRow key={index}>
                 <TableCell component="th" scope="row">

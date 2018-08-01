@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from "react"
 import { Link, withRouter } from "react-router-dom"
 import { connect } from "react-redux"
@@ -13,7 +14,11 @@ import { panelLabels } from "./panelLabels"
 import { fetchGeneralData } from "./summaryActions"
 import { fetchGoa } from "features/Ontology/goaActions"
 
-const TabContainer = props => {
+type tabContainerProps = {
+  children: any,
+}
+
+const TabContainer = (props: tabContainerProps) => {
   return (
     <Typography component="div" style={{ padding: 8 * 2 }}>
       {props.children}
@@ -21,7 +26,16 @@ const TabContainer = props => {
   )
 }
 
-export class SummaryContainer extends Component {
+type Props = {
+  /** React Router object */
+  match: Object,
+  /** Action creator to fetch Summary data */
+  fetchGeneralData: Function,
+  /** Action creator to fetch GOA data */
+  fetchGoa: Function,
+}
+
+export class SummaryContainer extends Component<Props> {
   state = {
     value: "summary",
   }
@@ -59,7 +73,7 @@ export class SummaryContainer extends Component {
   }
 
   // generates panels based on json data structure
-  generatePanels = json => {
+  generatePanels = (json: Object) => {
     const panels = json.data.attributes.subgroup.map((item, index) => {
       if (!panelLabels[item]) {
         return (

@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from "react"
 import { Link, withRouter } from "react-router-dom"
 import { connect } from "react-redux"
@@ -12,7 +13,11 @@ import { tabLabels } from "common/constants/tabLabels"
 import { fetchGeneralData } from "features/Summary/summaryActions"
 import { fetchGoa } from "features/Ontology/goaActions"
 
-const TabContainer = props => {
+type tabContainerProps = {
+  children: any,
+}
+
+const TabContainer = (props: tabContainerProps) => {
   return (
     <Typography component="div" style={{ padding: 8 * 2 }}>
       {props.children}
@@ -20,7 +25,16 @@ const TabContainer = props => {
   )
 }
 
-export class OntologyContainer extends Component {
+type Props = {
+  /** React Router object */
+  match: Object,
+  /** Action creator to fetch Summary data */
+  fetchGeneralData: Function,
+  /** Action creator to fetch GOA data */
+  fetchGoa: Function,
+}
+
+export class OntologyContainer extends Component<Props> {
   componentDidMount() {
     const { fetchGeneralData, fetchGoa, match } = this.props
     const mainUrl = `${process.env.REACT_APP_API_SERVER}/${match.params.id}`
@@ -30,7 +44,7 @@ export class OntologyContainer extends Component {
   }
 
   // generates tabs dynamically based on json data structure
-  generateTabs = json => {
+  generateTabs = (json: Object) => {
     const { match } = this.props
     const tabs = json.data.attributes.group.map((item, index) => {
       if (!tabLabels[item]) {
