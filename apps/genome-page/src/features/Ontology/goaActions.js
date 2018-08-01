@@ -4,19 +4,17 @@ import {
   FETCH_GOA_FAILURE,
   FETCH_GOA_SUCCESS,
 } from "./goaConstants"
-import { geneId2Uniprot } from "./uniprotActions"
-import { normalizeGoa } from "./goaUtils"
+import printError from "common/utils/printError"
 
 /**
  * All of the Redux actions related to GOA data
  */
 
-const fetchGoaRequest = (id: string) => {
+const fetchGoaRequest = () => {
   return {
     type: FETCH_GOA_REQUEST,
     payload: {
       isFetching: true,
-      id,
     },
   }
 }
@@ -31,27 +29,39 @@ const fetchGoaFailure = error => {
   }
 }
 
-const fetchGoaSuccess = goaResp => {
+const fetchGoaSuccess = (data: Object) => {
   return {
     type: FETCH_GOA_SUCCESS,
     payload: {
       isFetching: false,
-      goa: goaResp,
+      data,
     },
   }
 }
 
-// const fetchGoa = (url: string) => {
-//   return async (dispatch: Function) => {
-//     dispatch(fetchGoaRequest(id))
-//     const res = await fetch(url), {
-//       headers: { Accept: "application/json" },
-//     })
-//     if (res.ok) {
-//       const json = await res.json()
-//       dispatch(fetchGoaSuccess(json))
-//     } else {
-//       dispatch(fetchGoaFailure(res.statusText))
-//     }
-//   }
-// }
+export const fetchGoa = (url: string) => {
+  return async (dispatch: Function) => {
+    try {
+      dispatch(fetchGoaRequest())
+      const res = await fetch(url, {
+        headers: { Accept: "application/json" },
+      })
+      const json = await res.json()
+      if (res.ok) {
+        dispatch(fetchGoaSuccess(json))
+      } else {
+        if (process.env.NODE_ENV !== "production") {
+          printError(res, json)
+        }
+        dispatch(fetchGoaFailure(res.body))
+        // dispatch(push("/error"))
+      }
+    } catch (error) {
+      dispatch(fetchGoaFailure("There was an error fetching data"))
+      // dispatch(push("/error"))
+      if (process.env.NODE_ENV !== "production") {
+        console.error(`Network error: ${error.message}`)
+      }
+    }
+  }
+}

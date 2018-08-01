@@ -5,6 +5,7 @@ import {
   FETCH_GENERAL_DATA_FAILURE,
   FETCH_GENERAL_DATA_SUCCESS,
 } from "./summaryConstants"
+import printError from "common/utils/printError"
 
 /**
  * All of the Redux actions related to the Summary tab
@@ -62,15 +63,4 @@ export const fetchGeneralData = (url: string) => {
       }
     }
   }
-}
-
-// helper function to print HTTP errors to console
-// responses are structured in JSONAPI format
-const printError = (res, json) => {
-  console.error("HTTP Error")
-  console.error(
-    `HTTP Response: ${res.status}
-    Title: ${json.errors[0].title}
-    Detail: ${json.errors[0].detail}`,
-  )
 }

@@ -6,7 +6,7 @@ import {
 } from "./goaConstants"
 
 /**
- * All of the Redux reducers related to GOA data
+ * Redux reducer for handling GOA data
  */
 
 const initialState = {}
