@@ -29,10 +29,6 @@ export class OntologyContainer extends Component {
     fetchGoa(goaUrl)
   }
 
-  handleChange = (event, value) => {
-    this.setState({ value })
-  }
-
   // generates tabs dynamically based on json data structure
   generateTabs = json => {
     const { match } = this.props
@@ -91,7 +87,7 @@ export class OntologyContainer extends Component {
           </Tabs>
         </AppBar>
         <TabContainer>
-          <OntologyTabContainer />
+          <OntologyTabContainer goaData={goa} />
         </TabContainer>
       </div>
     )
