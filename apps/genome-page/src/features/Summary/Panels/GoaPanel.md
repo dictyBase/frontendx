@@ -1,4 +1,4 @@
 ```js
-const data = require("./data").data
+const data = require("./mockData").data
 ;<GoaPanel data={data} />
 ```
