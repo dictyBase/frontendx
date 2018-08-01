@@ -33,6 +33,10 @@ type Props = {
   fetchGeneralData: Function,
   /** Action creator to fetch GOA data */
   fetchGoa: Function,
+  /** Object for the general slice of state */
+  general: Object,
+  /** Object for the goa slice of state */
+  goa: Object,
 }
 
 export class SummaryContainer extends Component<Props> {
@@ -53,46 +57,50 @@ export class SummaryContainer extends Component<Props> {
   }
 
   // generates tabs dynamically based on json data structure
-  generateTabs = json => {
+  generateTabs = (json: Object) => {
     const { match } = this.props
-    const tabs = json.data.attributes.group.map((item, index) => {
-      if (!tabLabels[item]) {
-        return <div>Error: data not mapped to tab</div>
-      }
-      return (
-        <Tab
-          value={item}
-          label={tabLabels[item]}
-          key={index}
-          component={Link}
-          to={`/${match.params.id}/${item}`}
-        />
-      )
-    })
+    const tabs = json.data.attributes.group.map(
+      (item: Object, index: string) => {
+        if (!tabLabels[item]) {
+          return <div>Error: data not mapped to tab</div>
+        }
+        return (
+          <Tab
+            value={item}
+            label={tabLabels[item]}
+            key={index}
+            component={Link}
+            to={`/${match.params.id}/${item}`}
+          />
+        )
+      },
+    )
     return tabs
   }
 
   // generates panels based on json data structure
   generatePanels = (json: Object) => {
-    const panels = json.data.attributes.subgroup.map((item, index) => {
-      if (!panelLabels[item]) {
+    const panels = json.data.attributes.subgroup.map(
+      (item: Object, index: string) => {
+        if (!panelLabels[item]) {
+          return (
+            <PanelWrapper key={index} title="Error">
+              Error: data not mapped to tab
+            </PanelWrapper>
+          )
+        }
+
+        // set variables for each panel's title and component
+        const panelTitle = panelLabels[item].title
+        const InnerPanel = panelLabels[item].component
+
         return (
-          <PanelWrapper key={index} title="Error">
-            Error: data not mapped to tab
+          <PanelWrapper key={index} title={panelTitle}>
+            <InnerPanel panelData={this.props[item]} />
           </PanelWrapper>
         )
-      }
-
-      // set variables for each panel's title and component
-      const panelTitle = panelLabels[item].title
-      const InnerPanel = panelLabels[item].component
-
-      return (
-        <PanelWrapper key={index} title={panelTitle}>
-          <InnerPanel panelData={this.props[item]} />
-        </PanelWrapper>
-      )
-    })
+      },
+    )
     return panels
   }
 
