@@ -17,9 +17,15 @@ const InnerGoPanel = (props: Props) => {
   const { goaData } = props
 
   // set variables that represent filtered arrays for use in each row
-  const molecular = goaData.filter(item => item.type === "molecular_function")
-  const biological = goaData.filter(item => item.type === "biological_process")
-  const cellular = goaData.filter(item => item.type === "cellular_component")
+  const molecular = goaData.filter(
+    (item: Object) => item.type === "molecular_function",
+  )
+  const biological = goaData.filter(
+    (item: Object) => item.type === "biological_process",
+  )
+  const cellular = goaData.filter(
+    (item: Object) => item.type === "cellular_component",
+  )
 
   return (
     <Grid container>
