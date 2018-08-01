@@ -75,7 +75,7 @@ export class SummaryContainer extends Component {
 
       return (
         <PanelWrapper key={index} title={panelTitle}>
-          <InnerPanel data={this.props[item].data.data} />
+          <InnerPanel panelData={this.props[item]} />
         </PanelWrapper>
       )
     })
