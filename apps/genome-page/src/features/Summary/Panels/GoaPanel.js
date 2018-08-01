@@ -1,5 +1,6 @@
 // @flow
 import React from "react"
+import Skeleton from "react-loading-skeleton"
 import { withStyles } from "@material-ui/core/styles"
 import Table from "@material-ui/core/Table"
 import TableBody from "@material-ui/core/TableBody"
@@ -28,7 +29,7 @@ type Props = {
   /** Material-UI styling */
   classes: Object,
   /** Fetched GOA data */
-  data: Array<Object>,
+  data: Object,
 }
 
 /**
@@ -36,12 +37,35 @@ type Props = {
  */
 
 const GoaPanel = (props: Props) => {
-  const { classes, data } = props
-
+  const { classes, panelData } = props
   // set variables that represent filtered arrays for use in each row
-  const molecular = data.filter(item => item.type === "molecular_function")
-  const biological = data.filter(item => item.type === "biological_process")
-  const cellular = data.filter(item => item.type === "cellular_component")
+  const molecular = panelData.data.data.filter(
+    item => item.type === "molecular_function",
+  )
+  const biological = panelData.data.data.filter(
+    item => item.type === "biological_process",
+  )
+  const cellular = panelData.data.data.filter(
+    item => item.type === "cellular_component",
+  )
+
+  if (panelData.error) {
+    return (
+      <div>
+        <br />
+        <center>Sorry! There was an error loading the items</center>
+      </div>
+    )
+  }
+
+  if (panelData.isFetching) {
+    return (
+      <div>
+        <br />
+        <Skeleton count={10} />
+      </div>
+    )
+  }
 
   return (
     <Paper className={classes.root}>
