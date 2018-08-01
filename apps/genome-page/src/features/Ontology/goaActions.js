@@ -11,12 +11,6 @@ import { normalizeGoa } from "./goaUtils"
  * All of the Redux actions related to GOA data
  */
 
-const makeGoaURL = id => {
-  const base = "https://www.ebi.ac.uk/QuickGO/services/annotation/search?"
-  const query = "includeFields=goName&limit=100&geneProductId="
-  return `${base}${query}${id}`
-}
-
 const fetchGoaRequest = (id: string) => {
   return {
     type: FETCH_GOA_REQUEST,
@@ -42,36 +36,22 @@ const fetchGoaSuccess = goaResp => {
     type: FETCH_GOA_SUCCESS,
     payload: {
       isFetching: false,
-      goa: normalizeGoa(goaResp),
+      goa: goaResp,
     },
   }
 }
 
-const fetchGoa = (id: string) => {
-  return async (dispatch: Function) => {
-    dispatch(fetchGoaRequest(id))
-    const res = await fetch(makeGoaURL(id), {
-      headers: { Accept: "application/json" },
-    })
-    if (res.ok) {
-      const json = await res.json()
-      dispatch(fetchGoaSuccess(json))
-    } else {
-      dispatch(fetchGoaFailure(res.statusText))
-    }
-  }
-}
-
-export const gene2Goa = (id: string) => {
-  return async (dispatch: Function, getState: Function) => {
-    try {
-      await dispatch(geneId2Uniprot(id))
-      const { uniprot } = getState()
-      if (uniprot.uniprotId) {
-        await dispatch(fetchGoa(uniprot.uniprotId))
-      }
-    } catch (error) {
-      dispatch(fetchGoaFailure(error.message))
-    }
-  }
-}
+// const fetchGoa = (url: string) => {
+//   return async (dispatch: Function) => {
+//     dispatch(fetchGoaRequest(id))
+//     const res = await fetch(url), {
+//       headers: { Accept: "application/json" },
+//     })
+//     if (res.ok) {
+//       const json = await res.json()
+//       dispatch(fetchGoaSuccess(json))
+//     } else {
+//       dispatch(fetchGoaFailure(res.statusText))
+//     }
+//   }
+// }
