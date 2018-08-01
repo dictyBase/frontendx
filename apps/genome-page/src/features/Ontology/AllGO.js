@@ -6,7 +6,6 @@ import Grid from "@material-ui/core/Grid"
 import WithGoDataRendering from "./WithGoDataRendering"
 // import DisplayTable from "./DisplayTable"
 import PanelWrapper from "common/components/PanelWrapper"
-import { gene2Goa } from "./goaActions"
 
 type Props = {
   /** The data fetched from the API */
@@ -25,7 +24,7 @@ type Props = {
 
 export class AllGO extends Component<Props> {
   componentDidMount() {
-    this.props.gene2Goa(`${this.props.match.params.id}`)
+    // this.props.gene2Goa(`${this.props.match.params.id}`)
   }
   render() {
     // const { data } = this.props.goa
@@ -52,6 +51,6 @@ const mapStateToProps = ({ goa }) => ({ goa })
 export default withRouter(
   connect(
     mapStateToProps,
-    { gene2Goa },
+    // { gene2Goa },
   )(WithGoDataRendering(AllGO)),
 )

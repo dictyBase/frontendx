@@ -30,6 +30,7 @@ export class SummaryContainer extends Component {
     const { fetchGeneralData, match } = this.props
     const url = `${process.env.REACT_APP_API_SERVER}/${match.params.id}`
     fetchGeneralData(url)
+    // need to fetch go data using relationships link
   }
 
   handleChange = (event, value) => {
