@@ -8,7 +8,7 @@ import TableHead from "@material-ui/core/TableHead"
 import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
 
-const styles = theme => ({
+const styles = (theme: Object) => ({
   root: {
     width: "100%",
     overflowX: "auto",
@@ -19,6 +19,11 @@ const styles = theme => ({
   headerCell: {
     color: "#333",
     fontWeight: "600",
+  },
+  row: {
+    "&:nth-of-type(even)": {
+      backgroundColor: theme.palette.background.default,
+    },
   },
 })
 
@@ -50,20 +55,22 @@ const DisplayTable = (props: Props) => {
         <TableBody>
           {goaData.map((item: Object, index: string) => {
             return (
-              <TableRow key={index}>
+              <TableRow className={classes.row} key={index}>
                 <TableCell component="th" scope="row">
                   {item.attributes.goterm}
                 </TableCell>
                 <TableCell>{item.attributes.evidence_code}</TableCell>
                 <TableCell>
                   {item.attributes.with !== null &&
-                    item.attributes.with.map(item => {
-                      return item.connectedXrefs.map((xref, i) => {
-                        if (item.connectedXrefs.length === i + 1) {
-                          return `${xref.db}:${xref.id}`
-                        }
-                        return `${xref.db}:${xref.id}, `
-                      })
+                    item.attributes.with.map((item: Object) => {
+                      return item.connectedXrefs.map(
+                        (xref: Object, i: string) => {
+                          if (item.connectedXrefs.length === i + 1) {
+                            return `${xref.db}:${xref.id}`
+                          }
+                          return `${xref.db}:${xref.id}, `
+                        },
+                      )
                     })}
                 </TableCell>
                 <TableCell>{item.attributes.publication}</TableCell>
