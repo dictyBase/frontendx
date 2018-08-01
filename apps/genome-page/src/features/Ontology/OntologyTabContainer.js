@@ -22,7 +22,7 @@ type Props = {
 
 class OntologyTabContainer extends Component<Props> {
   state = {
-    value: 0,
+    value: "all",
   }
 
   handleChange = (event, value) => {
@@ -57,28 +57,32 @@ class OntologyTabContainer extends Component<Props> {
         <div>
           <AppBar position="static">
             <Tabs value={value} onChange={this.handleChange}>
-              <Tab label="All GO" />
-              <Tab label="Experimental GO" />
-              <Tab label="Manual GO" />
-              <Tab label="Electronic GO" />
+              <Tab value="all" label="All GO" />
+              {experimental.length > 0 && (
+                <Tab value="experimental" label="Experimental GO" />
+              )}
+              {manual.length > 0 && <Tab value="manual" label="Manual GO" />}
+              {electronic.length > 0 && (
+                <Tab value="electronic" label="Electronic GO" />
+              )}
             </Tabs>
           </AppBar>
-          {value === 0 && (
+          {value === "all" && (
             <TabContainer>
               <InnerGoPanel goaData={all} />
             </TabContainer>
           )}
-          {value === 1 && (
+          {value === "experimental" && (
             <TabContainer>
               <InnerGoPanel goaData={experimental} />
             </TabContainer>
           )}
-          {value === 2 && (
+          {value === "manual" && (
             <TabContainer>
               <InnerGoPanel goaData={manual} />
             </TabContainer>
           )}
-          {value === 3 && (
+          {value === "electronic" && (
             <TabContainer>
               <InnerGoPanel goaData={electronic} />
             </TabContainer>
