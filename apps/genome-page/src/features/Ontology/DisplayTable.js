@@ -44,6 +44,14 @@ const DisplayTable = (props: Props) => {
   return (
     <Paper className={classes.root}>
       <Table>
+        <colgroup>
+          <col style={{ width: "25%" }} />
+          <col style={{ width: "10%" }} />
+          <col style={{ width: "25%" }} />
+          <col style={{ width: "20%" }} />
+          <col style={{ width: "10%" }} />
+          <col style={{ width: "15%" }} />
+        </colgroup>
         <TableHead className={classes.head}>
           <TableRow>
             <TableCell className={classes.headerCell}>
