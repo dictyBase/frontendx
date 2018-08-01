@@ -15,7 +15,12 @@ const TabContainer = props => {
   )
 }
 
-class OntologyTabContainer extends Component {
+type Props = {
+  /** Action creator to fetch GOA data */
+  goaData: Function,
+}
+
+class OntologyTabContainer extends Component<Props> {
   state = {
     value: 0,
   }
