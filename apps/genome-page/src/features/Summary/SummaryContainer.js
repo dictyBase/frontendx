@@ -11,7 +11,7 @@ import PanelWrapper from "common/components/PanelWrapper"
 import { tabLabels } from "common/constants/tabLabels"
 import { panelLabels } from "./panelLabels"
 import { fetchGeneralData } from "./summaryActions"
-import { data as goaData } from "features/Summary/Panels/data"
+import { fetchGoa } from "features/Ontology/goaActions"
 
 const TabContainer = props => {
   return (
@@ -27,10 +27,11 @@ export class SummaryContainer extends Component {
   }
 
   componentDidMount() {
-    const { fetchGeneralData, match } = this.props
-    const url = `${process.env.REACT_APP_API_SERVER}/${match.params.id}`
-    fetchGeneralData(url)
-    // need to fetch go data using relationships link
+    const { fetchGeneralData, fetchGoa, match } = this.props
+    const mainUrl = `${process.env.REACT_APP_API_SERVER}/${match.params.id}`
+    const goaUrl = `${process.env.REACT_APP_API_SERVER}/${match.params.id}/goas`
+    fetchGeneralData(mainUrl)
+    fetchGoa(goaUrl)
   }
 
   handleChange = (event, value) => {
@@ -74,7 +75,7 @@ export class SummaryContainer extends Component {
 
       return (
         <PanelWrapper key={index} title={panelTitle}>
-          <InnerPanel data={goaData} />
+          <InnerPanel data={this.props[item].data.data} />
         </PanelWrapper>
       )
     })
@@ -82,11 +83,10 @@ export class SummaryContainer extends Component {
   }
 
   render() {
-    const { match } = this.props
-    const { isFetching, error, data } = this.props.general
+    const { match, general, goa } = this.props
     const { value } = this.state
 
-    if (error) {
+    if (general.error) {
       return (
         <div>
           <br />
@@ -95,7 +95,7 @@ export class SummaryContainer extends Component {
       )
     }
 
-    if (isFetching) {
+    if (general.isFetching || goa.isFetching) {
       return (
         <div>
           <br />
@@ -114,20 +114,22 @@ export class SummaryContainer extends Component {
               component={Link}
               to={`/${match.params.id}`}
             />
-            {data && this.generateTabs(data)}
+            {general.data && this.generateTabs(general.data)}
           </Tabs>
         </AppBar>
-        <TabContainer>{data && this.generatePanels(data)}</TabContainer>
+        <TabContainer>
+          {general.data && this.generatePanels(general.data)}
+        </TabContainer>
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ general }) => ({ general })
+const mapStateToProps = ({ general, goa }) => ({ general, goa })
 
 export default withRouter(
   connect(
     mapStateToProps,
-    { fetchGeneralData },
+    { fetchGeneralData, fetchGoa },
   )(SummaryContainer),
 )
