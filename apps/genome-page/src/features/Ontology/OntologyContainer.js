@@ -103,7 +103,7 @@ export class OntologyContainer extends Component<Props> {
       return (
         <div>
           <AppBar position="static">
-            <Tabs value="goa" onChange={this.handleChange} />
+            <Tabs />
           </AppBar>
           <br />
           <Skeleton count={10} />
