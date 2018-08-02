@@ -47,8 +47,12 @@ type Props = {
 export class OntologyContainer extends Component<Props> {
   componentDidMount() {
     const { fetchGeneralData, fetchGoa, match } = this.props
-    const mainUrl = `${process.env.REACT_APP_API_SERVER}/${match.params.id}`
-    const goaUrl = `${process.env.REACT_APP_API_SERVER}/${match.params.id}/goas`
+    const mainUrl = `${process.env.REACT_APP_API_SERVER}/genes/${
+      match.params.id
+    }`
+    const goaUrl = `${process.env.REACT_APP_API_SERVER}/genes/${
+      match.params.id
+    }/goas`
     fetchGeneralData(mainUrl)
     fetchGoa(goaUrl)
   }
@@ -56,6 +60,11 @@ export class OntologyContainer extends Component<Props> {
   // generates tabs dynamically based on json data structure
   generateTabs = (json: Object) => {
     const { match } = this.props
+
+    if (!json.data) {
+      return <div>Sorry! There was an error loading the items</div>
+    }
+
     const tabs = json.data.attributes.group.map(
       (item: Object, index: string) => {
         if (!tabLabels[item]) {
@@ -78,7 +87,7 @@ export class OntologyContainer extends Component<Props> {
   render() {
     const { match, general, goa } = this.props
 
-    if (goa.error) {
+    if (general.error || goa.error) {
       return (
         <div>
           <AppBar position="static">
