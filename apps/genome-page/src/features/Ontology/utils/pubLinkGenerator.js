@@ -1,4 +1,9 @@
 // @flow
+
+/**
+ * This is a helper function to generate links to publications.
+ */
+
 const pubLinkGenerator = (id: string) => {
   let idnum
 

@@ -9,6 +9,7 @@ import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
 
 import pubLinkGenerator from "./utils/pubLinkGenerator"
+import dateConverter from "./utils/dateConverter"
 
 const styles = (theme: Object) => ({
   root: {
@@ -98,7 +99,7 @@ const DisplayTable = (props: Props) => {
                     {item.attributes.publication}
                   </a>
                 </TableCell>
-                <TableCell>{item.attributes.date}</TableCell>
+                <TableCell>{dateConverter(item.attributes.date)}</TableCell>
                 <TableCell>{item.attributes.assigned_by}</TableCell>
               </TableRow>
             )
