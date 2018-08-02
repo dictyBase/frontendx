@@ -2,6 +2,7 @@ import React from "react"
 import { shallow } from "enzyme"
 import "../../setupTests"
 import InnerGoPanel from "./InnerGoPanel"
+import Grid from "@material-ui/core/Grid"
 
 describe("Ontology/InnerGoPanel", () => {
   const props = {
@@ -11,6 +12,10 @@ describe("Ontology/InnerGoPanel", () => {
   describe("initial render", () => {
     it("renders without crashing", () => {
       wrapper
+    })
+
+    it("always renders two Grid components", () => {
+      expect(wrapper.find(Grid).length).toBe(2)
     })
   })
 })
