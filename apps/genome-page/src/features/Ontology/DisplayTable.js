@@ -11,6 +11,7 @@ import Paper from "@material-ui/core/Paper"
 import pubLinkGenerator from "./utils/pubLinkGenerator"
 import evidenceLinkGenerator from "./utils/evidenceLinkGenerator"
 import withLinkGenerator from "./utils/withLinkGenerator"
+import sourceLinkGenerator from "./utils/sourceLinkGenerator"
 import dateConverter from "./utils/dateConverter"
 
 const styles = (theme: Object) => ({
@@ -131,7 +132,14 @@ const DisplayTable = (props: Props) => {
                   </a>
                 </TableCell>
                 <TableCell>{dateConverter(item.attributes.date)}</TableCell>
-                <TableCell>{item.attributes.assigned_by}</TableCell>
+                <TableCell>
+                  <a
+                    className={classes.link}
+                    href={sourceLinkGenerator(item.attributes.assigned_by)}
+                    target="_blank">
+                    {item.attributes.assigned_by}
+                  </a>
+                </TableCell>
               </TableRow>
             )
           })}
