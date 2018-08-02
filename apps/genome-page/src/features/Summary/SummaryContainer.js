@@ -46,8 +46,12 @@ export class SummaryContainer extends Component<Props> {
 
   componentDidMount() {
     const { fetchGeneralData, fetchGoa, match } = this.props
-    const mainUrl = `${process.env.REACT_APP_API_SERVER}/${match.params.id}`
-    const goaUrl = `${process.env.REACT_APP_API_SERVER}/${match.params.id}/goas`
+    const mainUrl = `${process.env.REACT_APP_API_SERVER}/genes/${
+      match.params.id
+    }`
+    const goaUrl = `${process.env.REACT_APP_API_SERVER}/genes/${
+      match.params.id
+    }/goas`
     fetchGeneralData(mainUrl)
     fetchGoa(goaUrl)
   }
