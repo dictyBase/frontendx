@@ -9,8 +9,9 @@ import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
 
 import pubLinkGenerator from "./utils/pubLinkGenerator"
-import dateConverter from "./utils/dateConverter"
 import evidenceLinkGenerator from "./utils/evidenceLinkGenerator"
+import withLinkGenerator from "./utils/withLinkGenerator"
+import dateConverter from "./utils/dateConverter"
 
 const styles = (theme: Object) => ({
   root: {
@@ -98,9 +99,25 @@ const DisplayTable = (props: Props) => {
                       return item.connectedXrefs.map(
                         (xref: Object, i: string) => {
                           if (item.connectedXrefs.length === i + 1) {
-                            return `${xref.db}:${xref.id}`
+                            return (
+                              <a
+                                key={i}
+                                className={classes.link}
+                                href={withLinkGenerator(xref.id)}
+                                target="_blank">
+                                {xref.db}:{xref.id}
+                              </a>
+                            )
                           }
-                          return `${xref.db}:${xref.id}, `
+                          return (
+                            <a
+                              key={i}
+                              className={classes.link}
+                              href={withLinkGenerator(xref.id)}
+                              target="_blank">
+                              {xref.db}:{xref.id},&nbsp;
+                            </a>
+                          )
                         },
                       )
                     })}
