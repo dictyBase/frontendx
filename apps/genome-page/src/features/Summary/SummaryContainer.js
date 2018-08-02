@@ -9,6 +9,7 @@ import Tab from "@material-ui/core/Tab"
 import Typography from "@material-ui/core/Typography"
 
 import PanelWrapper from "common/components/PanelWrapper"
+import PageHeader from "common/components/PageHeader"
 import { tabLabels } from "common/constants/tabLabels"
 import { panelLabels } from "./panelLabels"
 import { fetchGeneralData } from "./summaryActions"
@@ -124,6 +125,7 @@ export class SummaryContainer extends Component<Props> {
     if (general.isFetching || goa.isFetching) {
       return (
         <div>
+          <PageHeader />
           <AppBar position="static">
             <Tabs value="goa" onChange={this.handleChange} />
           </AppBar>
@@ -135,6 +137,7 @@ export class SummaryContainer extends Component<Props> {
 
     return (
       <div>
+        <PageHeader />
         <AppBar position="static">
           <Tabs value={value} onChange={this.handleChange}>
             <Tab
