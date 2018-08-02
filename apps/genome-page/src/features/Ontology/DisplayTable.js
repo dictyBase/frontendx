@@ -8,6 +8,8 @@ import TableHead from "@material-ui/core/TableHead"
 import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
 
+import pubLinkGenerator from "./utils/pubLinkGenerator"
+
 const styles = (theme: Object) => ({
   root: {
     width: "100%",
@@ -24,6 +26,9 @@ const styles = (theme: Object) => ({
     "&:nth-of-type(even)": {
       backgroundColor: theme.palette.background.default,
     },
+  },
+  link: {
+    textDecoration: "none",
   },
 })
 
@@ -85,7 +90,14 @@ const DisplayTable = (props: Props) => {
                       )
                     })}
                 </TableCell>
-                <TableCell>{item.attributes.publication}</TableCell>
+                <TableCell>
+                  <a
+                    className={classes.link}
+                    href={pubLinkGenerator(item.attributes.publication)}
+                    target="_blank">
+                    {item.attributes.publication}
+                  </a>
+                </TableCell>
                 <TableCell>{item.attributes.date}</TableCell>
                 <TableCell>{item.attributes.assigned_by}</TableCell>
               </TableRow>
