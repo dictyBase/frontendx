@@ -9,6 +9,7 @@ import Tab from "@material-ui/core/Tab"
 import Typography from "@material-ui/core/Typography"
 
 import OntologyTabContainer from "./OntologyTabContainer"
+import PageHeader from "common/components/PageHeader"
 import { tabLabels } from "common/constants/tabLabels"
 import { fetchGeneralData } from "features/Summary/summaryActions"
 import { fetchGoa } from "features/Ontology/goaActions"
@@ -102,6 +103,7 @@ export class OntologyContainer extends Component<Props> {
     if (general.isFetching || goa.isFetching) {
       return (
         <div>
+          <PageHeader />
           <AppBar position="static">
             <Tabs />
           </AppBar>
@@ -113,6 +115,7 @@ export class OntologyContainer extends Component<Props> {
 
     return (
       <div>
+        <PageHeader />
         <AppBar position="static">
           <Tabs value="goa" onChange={this.handleChange}>
             <Tab
