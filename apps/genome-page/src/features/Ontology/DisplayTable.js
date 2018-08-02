@@ -10,6 +10,7 @@ import Paper from "@material-ui/core/Paper"
 
 import pubLinkGenerator from "./utils/pubLinkGenerator"
 import dateConverter from "./utils/dateConverter"
+import evidenceLinkGenerator from "./utils/evidenceLinkGenerator"
 
 const styles = (theme: Object) => ({
   root: {
@@ -30,6 +31,12 @@ const styles = (theme: Object) => ({
   },
   link: {
     textDecoration: "none",
+    "&:visited": {
+      color: "#0000CE",
+    },
+    "&:hover": {
+      textDecoration: "underline",
+    },
   },
 })
 
@@ -77,7 +84,14 @@ const DisplayTable = (props: Props) => {
                 <TableCell component="th" scope="row">
                   {item.attributes.goterm}
                 </TableCell>
-                <TableCell>{item.attributes.evidence_code}</TableCell>
+                <TableCell>
+                  <a
+                    className={classes.link}
+                    href={evidenceLinkGenerator(item.attributes.evidence_code)}
+                    target="_blank">
+                    {item.attributes.evidence_code}
+                  </a>
+                </TableCell>
                 <TableCell>
                   {item.attributes.with !== null &&
                     item.attributes.with.map((item: Object) => {
