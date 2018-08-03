@@ -6,7 +6,7 @@ import Skeleton from "react-loading-skeleton"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
-import Grid from "@material-ui/core/Grid"
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles"
 
 import OntologyTabContainer from "./OntologyTabContainer"
 import PageHeader from "common/components/PageHeader"
@@ -14,6 +14,22 @@ import TabContainer from "common/components/TabContainer"
 import { tabLabels } from "common/constants/tabLabels"
 import { fetchGeneralData } from "features/Summary/summaryActions"
 import { fetchGoa } from "features/Ontology/goaActions"
+
+const skeletonTheme = createMuiTheme({
+  overrides: {
+    MuiTab: {
+      root: {
+        textTransform: "none",
+      },
+    },
+    MuiTabs: {
+      root: {
+        backgroundColor: "#DFE8F6",
+        color: "#000",
+      },
+    },
+  },
+})
 
 type Props = {
   /** React Router object */
@@ -98,8 +114,21 @@ export class OntologyContainer extends Component<Props> {
         <div>
           <PageHeader />
           <AppBar position="static">
-            <Tabs value="goa" />
+            <Tabs>
+              <Tab label="Gene Summary" />
+              <Tab label="Gene Ontology" />
+            </Tabs>
           </AppBar>
+          <MuiThemeProvider theme={skeletonTheme}>
+            <AppBar position="static">
+              <Tabs>
+                <Tab label="All GO" />
+                <Tab label="Experimental GO" />
+                <Tab label="Manual GO" />
+                <Tab label="Electronic GO" />
+              </Tabs>
+            </AppBar>
+          </MuiThemeProvider>
           <Skeleton count={5} />
           <br />
           <br />
@@ -112,25 +141,23 @@ export class OntologyContainer extends Component<Props> {
     }
 
     return (
-      <Grid container justify="center">
-        <Grid item lg={12}>
-          <PageHeader />
-          <AppBar position="static">
-            <Tabs value="goa">
-              <Tab
-                value="summary"
-                label="Gene Summary"
-                component={Link}
-                to={`/${match.params.id}`}
-              />
-              {general.data && this.generateTabs(general.data)}
-            </Tabs>
-          </AppBar>
-          <TabContainer>
-            <OntologyTabContainer goaData={goa} />
-          </TabContainer>
-        </Grid>
-      </Grid>
+      <div>
+        <PageHeader />
+        <AppBar position="static">
+          <Tabs value="goa">
+            <Tab
+              value="summary"
+              label="Gene Summary"
+              component={Link}
+              to={`/${match.params.id}`}
+            />
+            {general.data && this.generateTabs(general.data)}
+          </Tabs>
+        </AppBar>
+        <TabContainer>
+          <OntologyTabContainer goaData={goa} />
+        </TabContainer>
+      </div>
     )
   }
 }
