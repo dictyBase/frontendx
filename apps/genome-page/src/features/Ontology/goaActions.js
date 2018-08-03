@@ -56,7 +56,7 @@ export const fetchGoa = (url: string) => {
         dispatch(fetchGoaFailure(res.body))
       }
     } catch (error) {
-      dispatch(fetchGoaFailure("There was an error fetching data"))
+      dispatch(fetchGoaFailure(error.message))
       if (process.env.NODE_ENV !== "production") {
         console.error(`Network error: ${error.message}`)
       }
