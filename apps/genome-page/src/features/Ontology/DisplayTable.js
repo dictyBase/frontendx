@@ -116,7 +116,7 @@ const DisplayTable = (props: Props) => {
                               className={classes.link}
                               href={withLinkGenerator(xref.id)}
                               target="_blank">
-                              {xref.db}:{xref.id},&nbsp;
+                              {xref.db}:{xref.id}, &nbsp;
                             </a>
                           )
                         },
