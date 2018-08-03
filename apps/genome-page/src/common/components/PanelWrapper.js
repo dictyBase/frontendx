@@ -1,3 +1,4 @@
+// @flow
 import React from "react"
 import { withStyles } from "@material-ui/core/styles"
 import ExpansionPanel from "@material-ui/core/ExpansionPanel"
@@ -6,7 +7,7 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails"
 import Typography from "@material-ui/core/Typography"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 
-const styles = theme => ({
+const styles = (theme: Object) => ({
   root: {
     width: "100%",
   },
@@ -17,6 +18,7 @@ const styles = theme => ({
   },
   summary: {
     backgroundColor: "#4C5E81",
+    marginTop: "0px",
   },
   icon: {
     color: "#fff",
@@ -26,7 +28,16 @@ const styles = theme => ({
   },
 })
 
-const PanelWrapper = props => {
+type Props = {
+  /** Material-UI styling */
+  classes: Object,
+  /** The title to display for the panel */
+  title: string,
+  /** Children passed to component */
+  children: any,
+}
+
+const PanelWrapper = (props: Props) => {
   const { classes } = props
   return (
     <div className={classes.root}>
