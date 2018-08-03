@@ -105,13 +105,13 @@ export class SummaryContainer extends Component<Props, State> {
         }
 
         // set variables for each panel's title and component
-        const currentItem = panelLabels[item]
-        const panelTitle = currentItem.title
-        const InnerPanel = currentItem.component
+        const panelTitle = panelLabels[item].title
+        const InnerPanel = panelLabels[item].component
 
         return (
           <PanelWrapper key={index} title={panelTitle}>
-            <InnerPanel panelData={this.props[currentItem]} />
+            {/* $FlowFixMe */}
+            <InnerPanel panelData={this.props[item]} />
           </PanelWrapper>
         )
       },
