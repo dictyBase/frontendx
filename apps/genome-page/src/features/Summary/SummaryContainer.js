@@ -27,6 +27,11 @@ const TabContainer = (props: tabContainerProps) => {
   )
 }
 
+type State = {
+  /** Value representing each tab */
+  value: string,
+}
+
 type Props = {
   /** React Router object */
   match: Object,
@@ -40,13 +45,17 @@ type Props = {
   goa: Object,
 }
 
-export class SummaryContainer extends Component<Props> {
+export class SummaryContainer extends Component<Props, State> {
   state = {
     value: "summary",
   }
 
   componentDidMount() {
     const { fetchGeneralData, fetchGoa, match } = this.props
+
+    if (!process.env.REACT_APP_API_SERVER)
+      throw new Error("process.env.REACT_APP_API_SERVER required")
+
     const mainUrl = `${process.env.REACT_APP_API_SERVER}/genes/${
       match.params.id
     }`
@@ -57,7 +66,7 @@ export class SummaryContainer extends Component<Props> {
     fetchGoa(goaUrl)
   }
 
-  handleChange = (event, value) => {
+  handleChange = (event: SyntheticEvent<>, value: string) => {
     this.setState({ value })
   }
 
@@ -65,7 +74,7 @@ export class SummaryContainer extends Component<Props> {
   generateTabs = (json: Object) => {
     const { match } = this.props
     const tabs = json.data.attributes.group.map(
-      (item: Object, index: string) => {
+      (item: string, index: string) => {
         if (!tabLabels[item]) {
           return <div>Error: data not mapped to tab</div>
         }
@@ -96,12 +105,13 @@ export class SummaryContainer extends Component<Props> {
         }
 
         // set variables for each panel's title and component
-        const panelTitle = panelLabels[item].title
-        const InnerPanel = panelLabels[item].component
+        const currentItem = panelLabels[item]
+        const panelTitle = currentItem.title
+        const InnerPanel = currentItem.component
 
         return (
           <PanelWrapper key={index} title={panelTitle}>
-            <InnerPanel panelData={this.props[item]} />
+            <InnerPanel panelData={this.props[currentItem]} />
           </PanelWrapper>
         )
       },
