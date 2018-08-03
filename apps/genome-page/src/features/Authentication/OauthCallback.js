@@ -8,7 +8,7 @@ type Props = {
 }
 
 // helper function to set redirect URL with basename if included
-const redirectUrlGenerator = basename => {
+const redirectUrlGenerator = (basename: string) => {
   let url
   if (basename === "" || basename === "/") {
     url = `${window.location.origin}`
@@ -26,6 +26,9 @@ const redirectUrlGenerator = basename => {
 
 export default class OauthCallback extends Component<Props> {
   componentDidMount() {
+    if (!process.env.REACT_APP_BASENAME)
+      throw new Error("process.env.REACT_APP_API_SERVER required")
+
     window.opener.postMessage(
       {
         query: this.props.location.search,

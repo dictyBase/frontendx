@@ -19,6 +19,11 @@ const TabContainer = (props: tabContainerProps) => {
   )
 }
 
+type State = {
+  /** Value representing each tab */
+  value: string,
+}
+
 type Props = {
   /** Object representing the "goa" slice of state */
   goaData: Object,
@@ -30,12 +35,12 @@ type Props = {
  * a tab if the data exists.
  */
 
-class OntologyTabContainer extends Component<Props> {
+class OntologyTabContainer extends Component<Props, State> {
   state = {
     value: "all",
   }
 
-  handleChange = (event, value) => {
+  handleChange = (event: SyntheticEvent<>, value: string) => {
     this.setState({ value })
   }
 

@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from "react"
 import ProtVista from "ProtVista"
 import { withStyles } from "@material-ui/core/styles"
