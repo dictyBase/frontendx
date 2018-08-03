@@ -1,0 +1,76 @@
+// @flow
+import React, { Component } from "react"
+import { withStyles } from "@material-ui/core/styles"
+import TableHead from "@material-ui/core/TableHead"
+import TableRow from "@material-ui/core/TableRow"
+import TableCell from "@material-ui/core/TableCell"
+import TableSortLabel from "@material-ui/core/TableSortLabel"
+import Tooltip from "@material-ui/core/Tooltip"
+
+const columnData = [
+  {
+    id: "goterm",
+    label: "GO Term + Extension",
+  },
+  { id: "evidence_code", label: "Evidence" },
+  { id: "with", label: "With" },
+  {
+    id: "publication",
+    label: "Reference",
+  },
+  { id: "date", label: "Date" },
+  { id: "assigned_by", label: "Source" },
+]
+
+const styles = () => ({
+  head: {
+    backgroundColor: "#DFE8F6",
+  },
+  headerCell: {
+    color: "#333",
+    fontWeight: "600",
+  },
+})
+
+type Props = {
+  /** Material-UI styling */
+  classes: Object,
+  order: boolean,
+  orderBy: string,
+}
+
+class EnhancedTableHead extends Component<Props> {
+  createSortHandler = property => event => {
+    this.props.onRequestSort(event, property)
+  }
+
+  render() {
+    const { order, orderBy, classes } = this.props
+
+    return (
+      <TableHead className={classes.head}>
+        <TableRow>
+          {columnData.map(column => {
+            return (
+              <TableCell
+                key={column.id}
+                className={classes.headerCell}
+                sortDirection={orderBy === column.id ? order : false}>
+                <Tooltip title="Sort" placement="bottom-start" enterDelay={300}>
+                  <TableSortLabel
+                    active={orderBy === column.id}
+                    direction={order}
+                    onClick={this.createSortHandler(column.id)}>
+                    {column.label}
+                  </TableSortLabel>
+                </Tooltip>
+              </TableCell>
+            )
+          }, this)}
+        </TableRow>
+      </TableHead>
+    )
+  }
+}
+
+export default withStyles(styles)(EnhancedTableHead)
