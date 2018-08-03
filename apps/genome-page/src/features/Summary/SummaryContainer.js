@@ -2,7 +2,7 @@
 import React, { Component } from "react"
 import { Link, withRouter } from "react-router-dom"
 import { connect } from "react-redux"
-import Skeleton from "react-loading-skeleton"
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
@@ -139,7 +139,12 @@ export class SummaryContainer extends Component<Props, State> {
               <Tab label="Gene Ontology" />
             </Tabs>
           </AppBar>
-          <Skeleton count={10} />
+          <SkeletonTheme color="#d1d1d1">
+            <Skeleton count={10} />
+            {/* <br />
+            <br />
+            <Skeleton count={10} /> */}
+          </SkeletonTheme>
         </div>
       )
     }
