@@ -50,11 +50,18 @@ type Props = {
   goaData: Array<Object>,
 }
 
+type State = {
+  /** The order to sort the column */
+  order: string,
+  /** The item to be ordered by */
+  orderBy: string,
+}
+
 /**
  * The display table used inside each panel in the GO tabs.
  */
 
-class DisplayTable extends Component<Props> {
+class DisplayTable extends Component<Props, State> {
   state = {
     order: "asc",
     orderBy: "evidence_code",

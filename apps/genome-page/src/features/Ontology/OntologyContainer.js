@@ -54,12 +54,11 @@ export class OntologyContainer extends Component<Props> {
   componentDidMount() {
     const { fetchGeneralData, fetchGoa, match } = this.props
 
-    // if (!process.env.REACT_APP_API_SERVER)
-    //   throw new Error("process.env.REACT_APP_API_SERVER required")
-
+    // $FlowFixMe
     const mainUrl = `${process.env.REACT_APP_API_SERVER}/genes/${
       match.params.id
     }`
+    // $FlowFixMe
     const goaUrl = `${process.env.REACT_APP_API_SERVER}/genes/${
       match.params.id
     }/goas`
@@ -114,14 +113,14 @@ export class OntologyContainer extends Component<Props> {
         <div>
           <PageHeader />
           <AppBar position="static">
-            <Tabs>
+            <Tabs value="goa">
               <Tab label="Gene Summary" />
               <Tab label="Gene Ontology" />
             </Tabs>
           </AppBar>
           <MuiThemeProvider theme={skeletonTheme}>
             <AppBar position="static">
-              <Tabs>
+              <Tabs value="goa">
                 <Tab label="All GO" />
                 <Tab label="Experimental GO" />
                 <Tab label="Manual GO" />

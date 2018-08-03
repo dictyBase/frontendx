@@ -50,12 +50,11 @@ export class SummaryContainer extends Component<Props, State> {
   componentDidMount() {
     const { fetchGeneralData, fetchGoa, match } = this.props
 
-    // if (!process.env.REACT_APP_API_SERVER)
-    //   throw new Error("process.env.REACT_APP_API_SERVER required")
-
+    // $FlowFixMe
     const mainUrl = `${process.env.REACT_APP_API_SERVER}/genes/${
       match.params.id
     }`
+    // $FlowFixMe
     const goaUrl = `${process.env.REACT_APP_API_SERVER}/genes/${
       match.params.id
     }/goas`
@@ -134,7 +133,7 @@ export class SummaryContainer extends Component<Props, State> {
         <div>
           <PageHeader />
           <AppBar position="static">
-            <Tabs>
+            <Tabs value={value}>
               <Tab label="Gene Summary" />
               <Tab label="Gene Ontology" />
             </Tabs>

@@ -34,9 +34,17 @@ const styles = () => ({
 type Props = {
   /** Material-UI styling */
   classes: Object,
-  order: boolean,
+  /** The order to sort the column */
+  order: string,
+  /** The item to be ordered by */
   orderBy: string,
+  /** Function for handling sorting */
+  onRequestSort: Function,
 }
+
+/**
+ * Enhanced table head component that allows for column sorting.
+ */
 
 class EnhancedTableHead extends Component<Props> {
   createSortHandler = property => event => {
@@ -49,12 +57,13 @@ class EnhancedTableHead extends Component<Props> {
     return (
       <TableHead className={classes.head}>
         <TableRow>
-          {columnData.map(column => {
+          {columnData.map((column: Object) => {
             return (
               <TableCell
                 key={column.id}
                 className={classes.headerCell}
                 sortDirection={orderBy === column.id ? order : false}>
+                {/* $FlowFixMe */}
                 <TableSortLabel
                   active={orderBy === column.id}
                   direction={order}

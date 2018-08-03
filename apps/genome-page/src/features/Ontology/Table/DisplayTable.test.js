@@ -1,6 +1,6 @@
 import React from "react"
 import { mount } from "enzyme"
-import "../../setupTests"
+import "../../../setupTests"
 import DisplayTable from "./DisplayTable"
 import Table from "@material-ui/core/Table"
 
