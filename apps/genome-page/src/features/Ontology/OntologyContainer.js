@@ -6,25 +6,14 @@ import Skeleton from "react-loading-skeleton"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
-import Typography from "@material-ui/core/Typography"
+import Grid from "@material-ui/core/Grid"
 
 import OntologyTabContainer from "./OntologyTabContainer"
 import PageHeader from "common/components/PageHeader"
+import TabContainer from "common/components/TabContainer"
 import { tabLabels } from "common/constants/tabLabels"
 import { fetchGeneralData } from "features/Summary/summaryActions"
 import { fetchGoa } from "features/Ontology/goaActions"
-
-type tabContainerProps = {
-  children: any,
-}
-
-const TabContainer = (props: tabContainerProps) => {
-  return (
-    <Typography component="div" style={{ padding: 8 * 2 }}>
-      {props.children}
-    </Typography>
-  )
-}
 
 type Props = {
   /** React Router object */
@@ -118,23 +107,26 @@ export class OntologyContainer extends Component<Props> {
     }
 
     return (
-      <div>
-        <PageHeader />
-        <AppBar position="static">
-          <Tabs value="goa">
-            <Tab
-              value="summary"
-              label="Gene Summary"
-              component={Link}
-              to={`/${match.params.id}`}
-            />
-            {general.data && this.generateTabs(general.data)}
-          </Tabs>
-        </AppBar>
-        <TabContainer>
-          <OntologyTabContainer goaData={goa} />
-        </TabContainer>
-      </div>
+      <Grid container justify="center">
+        <Grid item lg={12}>
+          <PageHeader />
+          <AppBar position="static">
+            <Tabs value="goa">
+              <Tab
+                value="summary"
+                label="Gene Summary"
+                component={Link}
+                to={`/${match.params.id}`}
+              />
+              {general.data && this.generateTabs(general.data)}
+            </Tabs>
+          </AppBar>
+          <br />
+          <TabContainer>
+            <OntologyTabContainer goaData={goa} />
+          </TabContainer>
+        </Grid>
+      </Grid>
     )
   }
 }
