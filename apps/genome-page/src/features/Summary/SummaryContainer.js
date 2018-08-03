@@ -134,7 +134,10 @@ export class SummaryContainer extends Component<Props, State> {
         <div>
           <PageHeader />
           <AppBar position="static">
-            <Tabs value="goa" onChange={this.handleChange} />
+            <Tabs>
+              <Tab label="Gene Summary" />
+              <Tab label="Gene Ontology" />
+            </Tabs>
           </AppBar>
           <Skeleton count={10} />
         </div>
