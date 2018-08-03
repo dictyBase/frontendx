@@ -11,7 +11,7 @@ RUN apk update && apk upgrade && \
 
 # URL for api server
 ARG api_server
-ENV REACT_APP_API_SERVER ${api_server:-https://betaapi.dictybase.local}
+ENV REACT_APP_API_SERVER ${api_server:-https://betafunc.dictybase.local}
 
 # URL for auth server
 ARG auth_server
