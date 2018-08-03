@@ -7,6 +7,7 @@ import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import Typography from "@material-ui/core/Typography"
+import Grid from "@material-ui/core/Grid"
 
 import PanelWrapper from "common/components/PanelWrapper"
 import PageHeader from "common/components/PageHeader"
@@ -20,11 +21,7 @@ type tabContainerProps = {
 }
 
 const TabContainer = (props: tabContainerProps) => {
-  return (
-    <Typography component="div" style={{ padding: 8 * 2 }}>
-      {props.children}
-    </Typography>
-  )
+  return <Typography component="div">{props.children}</Typography>
 }
 
 type State = {
@@ -139,30 +136,31 @@ export class SummaryContainer extends Component<Props, State> {
           <AppBar position="static">
             <Tabs value="goa" onChange={this.handleChange} />
           </AppBar>
-          <br />
           <Skeleton count={10} />
         </div>
       )
     }
 
     return (
-      <div>
-        <PageHeader />
-        <AppBar position="static">
-          <Tabs value={value} onChange={this.handleChange}>
-            <Tab
-              value="summary"
-              label="Gene Summary"
-              component={Link}
-              to={`/${match.params.id}`}
-            />
-            {general.data && this.generateTabs(general.data)}
-          </Tabs>
-        </AppBar>
-        <TabContainer>
-          {general.data && this.generatePanels(general.data)}
-        </TabContainer>
-      </div>
+      <Grid container justify="center">
+        <Grid item lg={12}>
+          <PageHeader />
+          <AppBar position="static">
+            <Tabs value={value} onChange={this.handleChange}>
+              <Tab
+                value="summary"
+                label="Gene Summary"
+                component={Link}
+                to={`/${match.params.id}`}
+              />
+              {general.data && this.generateTabs(general.data)}
+            </Tabs>
+          </AppBar>
+          <TabContainer>
+            {general.data && this.generatePanels(general.data)}
+          </TabContainer>
+        </Grid>
+      </Grid>
     )
   }
 }
