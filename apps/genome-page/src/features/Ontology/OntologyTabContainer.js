@@ -4,20 +4,30 @@ import Skeleton from "react-loading-skeleton"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
-import Typography from "@material-ui/core/Typography"
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles"
+
 import InnerGoPanel from "./InnerGoPanel"
+import TabContainer from "common/components/TabContainer"
 
-type tabContainerProps = {
-  children: any,
-}
-
-const TabContainer = (props: tabContainerProps) => {
-  return (
-    <Typography component="div" style={{ paddingTop: 5 }}>
-      {props.children}
-    </Typography>
-  )
-}
+// create theme with our standard tab overrides
+const muiTheme = createMuiTheme({
+  overrides: {
+    MuiTab: {
+      root: {
+        textTransform: "none",
+      },
+    },
+    MuiTabs: {
+      root: {
+        backgroundColor: "#DFE8F6",
+        color: "#000",
+      },
+      indicator: {
+        backgroundColor: "#858780",
+      },
+    },
+  },
+})
 
 type State = {
   /** Value representing each tab */
@@ -69,7 +79,7 @@ class OntologyTabContainer extends Component<Props, State> {
       )
 
       return (
-        <div>
+        <MuiThemeProvider theme={muiTheme}>
           <AppBar position="static">
             <Tabs value={value} onChange={this.handleChange}>
               <Tab value="all" label="All GO" />
@@ -102,16 +112,15 @@ class OntologyTabContainer extends Component<Props, State> {
               <InnerGoPanel goaData={electronic} />
             </TabContainer>
           )}
-        </div>
+        </MuiThemeProvider>
       )
     }
 
     return (
       <div>
         <AppBar position="static">
-          <Tabs value="0" onChange={this.handleChange} />
+          <Tabs value={value} />
         </AppBar>
-        <br />
         <Skeleton count={10} />
       </div>
     )
