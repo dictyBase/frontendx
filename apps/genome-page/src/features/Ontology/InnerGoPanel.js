@@ -1,7 +1,7 @@
 // @flow
 import React from "react"
 import Grid from "@material-ui/core/Grid"
-import DisplayTable from "./DisplayTable"
+import DisplayTable from "./Table/DisplayTable"
 import PanelWrapper from "common/components/PanelWrapper"
 
 type Props = {
