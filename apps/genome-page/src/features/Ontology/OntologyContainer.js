@@ -99,11 +99,30 @@ export class OntologyContainer extends Component<Props> {
     if (general.error || goa.error) {
       return (
         <div>
+          <PageHeader />
           <AppBar position="static">
-            <Tabs value="goa" />
+            <Tabs value="goa">
+              <Tab label="Gene Summary" />
+              <Tab label="Gene Ontology" />
+            </Tabs>
           </AppBar>
-          <br />
-          <center>Sorry! There was an error loading the items</center>
+          <MuiThemeProvider theme={skeletonTheme}>
+            <AppBar position="static">
+              <Tabs value="goa">
+                <Tab label="All GO" />
+                <Tab label="Experimental GO" />
+                <Tab label="Manual GO" />
+                <Tab label="Electronic GO" />
+              </Tabs>
+            </AppBar>
+          </MuiThemeProvider>
+          <center>
+            <br />
+            <h3>Sorry! There was an error loading the items.</h3>
+            <p>{general.error}</p>
+            <br />
+            <br />
+          </center>
         </div>
       )
     }

@@ -56,7 +56,7 @@ export const fetchGeneralData = (url: string) => {
         // dispatch(push("/error"))
       }
     } catch (error) {
-      dispatch(fetchGeneralDataFailure("There was an error fetching data"))
+      dispatch(fetchGeneralDataFailure(error.message))
       // dispatch(push("/error"))
       if (process.env.NODE_ENV !== "production") {
         console.error(`Network error: ${error.message}`)
