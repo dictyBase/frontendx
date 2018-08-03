@@ -122,8 +122,19 @@ export class SummaryContainer extends Component<Props, State> {
     if (general.error) {
       return (
         <div>
-          <br />
-          <center>Sorry! There was an error loading the items</center>
+          <PageHeader />
+          <AppBar position="static">
+            <Tabs value={value}>
+              <Tab label="Gene Summary" />
+            </Tabs>
+          </AppBar>
+          <center>
+            <br />
+            <h3>Sorry! There was an error loading the items.</h3>
+            <p>{general.error}</p>
+            <br />
+            <br />
+          </center>
         </div>
       )
     }
