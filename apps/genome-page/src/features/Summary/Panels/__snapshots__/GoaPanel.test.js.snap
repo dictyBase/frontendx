@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`matching a snapshot of InfoPage/InfoPage 1`] = `
+exports[`matching a snapshot of Summary/Panels/GoaPanel 1`] = `
 <div
   className="MuiPaper-root-5 MuiPaper-elevation2-9 MuiPaper-rounded-6 GoaPanel-root-1"
 >
@@ -43,7 +43,8 @@ exports[`matching a snapshot of InfoPage/InfoPage 1`] = `
           className="MuiTableCell-root-39 MuiTableCell-body-41 GoaPanel-tableRightData-4"
           scope={undefined}
         >
-          mitotic cytokinesis (IMP)
+          mitotic cytokinesis (IMP), 
+          cell morphogenesis (IMP)
         </td>
       </tr>
       <tr
@@ -61,7 +62,8 @@ exports[`matching a snapshot of InfoPage/InfoPage 1`] = `
           className="MuiTableCell-root-39 MuiTableCell-body-41 GoaPanel-tableRightData-4"
           scope={undefined}
         >
-          cell cortex (IDA)
+          cell cortex (IDA), 
+          actin cytoskeleton (IDA)
         </td>
       </tr>
     </tbody>
