@@ -53,8 +53,8 @@ export class SummaryContainer extends Component<Props, State> {
   componentDidMount() {
     const { fetchGeneralData, fetchGoa, match } = this.props
 
-    if (!process.env.REACT_APP_API_SERVER)
-      throw new Error("process.env.REACT_APP_API_SERVER required")
+    // if (!process.env.REACT_APP_API_SERVER)
+    //   throw new Error("process.env.REACT_APP_API_SERVER required")
 
     const mainUrl = `${process.env.REACT_APP_API_SERVER}/genes/${
       match.params.id

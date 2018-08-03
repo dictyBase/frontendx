@@ -52,8 +52,16 @@ describe("Summary/SummaryContainer", () => {
         links: {},
       },
     },
+    goa: {
+      isFetching: false,
+      data: {
+        attributes: {},
+      },
+    },
     fetchGeneralData: () => {},
+    fetchGoa: () => {},
   }
+
   const wrapper = shallow(<SummaryContainer {...props} />)
 
   describe("initial render", () => {
