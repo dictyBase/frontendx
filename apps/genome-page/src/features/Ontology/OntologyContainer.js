@@ -48,6 +48,10 @@ type Props = {
 export class OntologyContainer extends Component<Props> {
   componentDidMount() {
     const { fetchGeneralData, fetchGoa, match } = this.props
+
+    if (!process.env.REACT_APP_API_SERVER)
+      throw new Error("process.env.REACT_APP_API_SERVER required")
+
     const mainUrl = `${process.env.REACT_APP_API_SERVER}/genes/${
       match.params.id
     }`
@@ -67,7 +71,7 @@ export class OntologyContainer extends Component<Props> {
     }
 
     const tabs = json.data.attributes.group.map(
-      (item: Object, index: string) => {
+      (item: string, index: string) => {
         if (!tabLabels[item]) {
           return <div>Error: data not mapped to tab</div>
         }
@@ -92,7 +96,7 @@ export class OntologyContainer extends Component<Props> {
       return (
         <div>
           <AppBar position="static">
-            <Tabs value="goa" onChange={this.handleChange} />
+            <Tabs value="goa" />
           </AppBar>
           <br />
           <center>Sorry! There was an error loading the items</center>
@@ -105,7 +109,7 @@ export class OntologyContainer extends Component<Props> {
         <div>
           <PageHeader />
           <AppBar position="static">
-            <Tabs />
+            <Tabs value="goa" />
           </AppBar>
           <br />
           <Skeleton count={10} />
@@ -117,7 +121,7 @@ export class OntologyContainer extends Component<Props> {
       <div>
         <PageHeader />
         <AppBar position="static">
-          <Tabs value="goa" onChange={this.handleChange}>
+          <Tabs value="goa">
             <Tab
               value="summary"
               label="Gene Summary"

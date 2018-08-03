@@ -80,7 +80,7 @@ const DisplayTable = (props: Props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {goaData.map((item: Object, index: string) => {
+          {goaData.map((item: Object, index: number) => {
             return (
               <TableRow className={classes.row} key={index}>
                 <TableCell component="th" scope="row">
