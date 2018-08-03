@@ -26,8 +26,9 @@ const styles = (theme: Object) => ({
   },
   link: {
     textDecoration: "none",
+    color: "#4C5E81",
     "&:visited": {
-      color: "#0000CE",
+      color: "#4C5E81",
     },
     "&:hover": {
       textDecoration: "underline",
@@ -74,7 +75,7 @@ class DisplayTable extends Component<Props> {
     const { order, orderBy } = this.state
     const { classes, goaData } = this.props
 
-    // get array for item.attributes, easier for sorting table
+    // get array for item.attributes, helps for sorting table
     const goaDataAttributes = goaData.map((item: Object) => {
       return item.attributes
     })

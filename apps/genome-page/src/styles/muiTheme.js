@@ -13,6 +13,9 @@ const muiTheme = createMuiTheme({
         backgroundColor: "#a3bae9",
         color: "#000",
       },
+      indicator: {
+        backgroundColor: "#858780",
+      },
     },
   },
 })

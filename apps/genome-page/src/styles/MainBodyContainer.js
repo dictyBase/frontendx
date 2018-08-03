@@ -1,9 +1,7 @@
 import styled from "styled-components"
 
 const MainBodyContainer = styled.div`
-  margin-bottom: 50px;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin: 0 10px 25px 10px;
 `
 
 export default MainBodyContainer

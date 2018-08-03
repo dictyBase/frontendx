@@ -38,8 +38,8 @@ export class OntologyContainer extends Component<Props> {
   componentDidMount() {
     const { fetchGeneralData, fetchGoa, match } = this.props
 
-    if (!process.env.REACT_APP_API_SERVER)
-      throw new Error("process.env.REACT_APP_API_SERVER required")
+    // if (!process.env.REACT_APP_API_SERVER)
+    //   throw new Error("process.env.REACT_APP_API_SERVER required")
 
     const mainUrl = `${process.env.REACT_APP_API_SERVER}/genes/${
       match.params.id
@@ -100,8 +100,13 @@ export class OntologyContainer extends Component<Props> {
           <AppBar position="static">
             <Tabs value="goa" />
           </AppBar>
+          <Skeleton count={5} />
           <br />
-          <Skeleton count={10} />
+          <br />
+          <Skeleton count={5} />
+          <br />
+          <br />
+          <Skeleton count={5} />
         </div>
       )
     }
@@ -121,7 +126,6 @@ export class OntologyContainer extends Component<Props> {
               {general.data && this.generateTabs(general.data)}
             </Tabs>
           </AppBar>
-          <br />
           <TabContainer>
             <OntologyTabContainer goaData={goa} />
           </TabContainer>
