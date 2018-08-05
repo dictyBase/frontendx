@@ -8,7 +8,7 @@ describe("Ontology/OntologyTabContainer", () => {
   const props = {
     goaData: {
       data: {
-        data: [],
+        data: [[]],
       },
     },
   }
