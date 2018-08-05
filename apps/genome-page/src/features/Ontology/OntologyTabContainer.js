@@ -57,24 +57,23 @@ class OntologyTabContainer extends Component<Props, State> {
   render() {
     const { value } = this.state
     const { goaData } = this.props
-
     if (goaData.data) {
       // set variables for filtered arrays based on evidence code
-      const all = goaData.data.data
-      const experimental = goaData.data.data.filter(
+      const all = goaData.data.data[0]
+      const experimental = goaData.data.data[0].filter(
         (code: Object) =>
           code.attributes.evidence_code === "IMP" ||
           code.attributes.evidence_code === "IGI" ||
           code.attributes.evidence_code === "IDA",
       )
-      const manual = goaData.data.data.filter(
+      const manual = goaData.data.data[0].filter(
         (code: Object) =>
           code.attributes.evidence_code === "IMP" ||
           code.attributes.evidence_code === "IGI" ||
           code.attributes.evidence_code === "IDA" ||
           code.attributes.evidence_code === "IBA",
       )
-      const electronic = goaData.data.data.filter(
+      const electronic = goaData.data.data[0].filter(
         (code: Object) => code.attributes.evidence_code === "IEA",
       )
 

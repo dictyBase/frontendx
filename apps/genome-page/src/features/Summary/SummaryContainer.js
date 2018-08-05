@@ -119,6 +119,8 @@ export class SummaryContainer extends Component<Props, State> {
     const { match, general, goa } = this.props
     const { value } = this.state
 
+    console.log(general.data)
+
     if (general.error) {
       return (
         <div>
