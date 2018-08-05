@@ -59,13 +59,13 @@ const GoaPanel = (props: Props) => {
   }
 
   // set variables that represent filtered arrays for use in each row
-  const molecular = panelData.data.data.filter(
+  const molecular = panelData.data.data[0].filter(
     item => item.type === "molecular_function",
   )
-  const biological = panelData.data.data.filter(
+  const biological = panelData.data.data[0].filter(
     item => item.type === "biological_process",
   )
-  const cellular = panelData.data.data.filter(
+  const cellular = panelData.data.data[0].filter(
     item => item.type === "cellular_component",
   )
 

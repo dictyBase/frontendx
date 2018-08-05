@@ -127,10 +127,9 @@ class DisplayTable extends Component<Props, State> {
                             (xref: Object, i: string) => {
                               if (item.connectedXrefs.length === i + 1) {
                                 return (
-                                  <span>
+                                  <span key={i}>
                                     {" "}
                                     <a
-                                      key={i}
                                       className={classes.link}
                                       href={withLinkGenerator(xref.id)}
                                       target="_blank">
