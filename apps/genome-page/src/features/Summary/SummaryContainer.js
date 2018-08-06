@@ -119,7 +119,7 @@ export class SummaryContainer extends Component<Props, State> {
     const { match, general, goa } = this.props
     const { value } = this.state
 
-    if (general.error) {
+    if (general.error || goa.error) {
       return (
         <div>
           <PageHeader />
@@ -131,7 +131,7 @@ export class SummaryContainer extends Component<Props, State> {
           <center>
             <br />
             <h3>Sorry! There was an error loading the items.</h3>
-            <p>{general.error}</p>
+            <p>{general.error || goa.error}</p>
             <br />
             <br />
           </center>
