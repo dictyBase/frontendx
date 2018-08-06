@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from "react"
-import { Link, withRouter } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { connect } from "react-redux"
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton"
 import AppBar from "@material-ui/core/AppBar"
@@ -185,9 +185,7 @@ export class SummaryContainer extends Component<Props, State> {
 
 const mapStateToProps = ({ general, goa }) => ({ general, goa })
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    { fetchGeneralData, fetchGoa },
-  )(SummaryContainer),
-)
+export default connect(
+  mapStateToProps,
+  { fetchGeneralData, fetchGoa },
+)(SummaryContainer)

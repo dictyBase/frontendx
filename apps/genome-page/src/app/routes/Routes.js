@@ -20,13 +20,21 @@ const Routes = () => {
       <Route exact path="/load/auth" component={AuthLoader} />
       <Route exact path="/logout" component={Logout} />
       <Route path="/:id/protein" component={props => <SummaryContainer />} />
-      <Route path="/:id/goa" component={props => <OntologyContainer />} />
+      <Route
+        path="/:id/goa"
+        render={({ match }) => (
+          <OntologyContainer match={match} {...this.props} />
+        )}
+      />
       <Route path="/:id/orthologs" component={props => <SummaryContainer />} />
       <Route path="/:id/phenotypes" component={props => <SummaryContainer />} />
       <Route path="/:id/references" component={props => <SummaryContainer />} />
       <Route path="/:id/blast" component={props => <SummaryContainer />} />
       <Route exact path="/:id/*" component={PageNotReady} />
-      <Route path="/:id" component={props => <SummaryContainer />} />
+      <Route
+        path="/:id"
+        render={({ match }) => <SummaryContainer match={match} />}
+      />
       <Route exact path="*" component={PageNotReady} />
     </Switch>
   )
