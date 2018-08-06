@@ -40,7 +40,10 @@ const fetchGoaSuccess = (data: Object) => {
 }
 
 export const fetchGoa = (url: string) => {
-  return async (dispatch: Function) => {
+  return async (dispatch: Function, getState) => {
+    if (getState().goa.data) {
+      return
+    }
     try {
       dispatch(fetchGoaRequest())
       const res = await fetch(url, {
@@ -48,13 +51,11 @@ export const fetchGoa = (url: string) => {
       })
       const json = await res.json()
       if (res.ok) {
-        // console.log(json)
         if (json.status >= 300) {
           dispatch(fetchGoaFailure(json.title))
         }
         dispatch(fetchGoaSuccess(json))
       } else {
-        // console.log(json)
         dispatch(fetchGoaFailure(json.title))
         if (process.env.NODE_ENV !== "production") {
           printError(res, json)

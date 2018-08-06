@@ -41,7 +41,10 @@ const fetchGeneralDataSuccess = (data: Array<Object>) => {
 }
 
 export const fetchGeneralData = (url: string) => {
-  return async (dispatch: Function) => {
+  return async (dispatch: Function, getState) => {
+    if (getState().general.data) {
+      return
+    }
     try {
       dispatch(fetchGeneralDataRequest())
       const res = await fetch(url, {
