@@ -119,7 +119,7 @@ export class OntologyContainer extends Component<Props> {
           <center>
             <br />
             <h3>Sorry! There was an error loading the items.</h3>
-            <p>{general.error}</p>
+            <p>{general.error || goa.error}</p>
             <br />
             <br />
           </center>
