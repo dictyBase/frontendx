@@ -44,20 +44,22 @@ export const fetchGeneralData = (url: string) => {
   return async (dispatch: Function) => {
     try {
       dispatch(fetchGeneralDataRequest())
-      const res = await fetch(url)
+      const res = await fetch(url, {
+        headers: { Accept: "application/json" },
+      })
       const json = await res.json()
       if (res.ok) {
+        if (json.status >= 300) {
+          dispatch(fetchGeneralDataFailure(json.title))
+        }
         dispatch(fetchGeneralDataSuccess(json))
       } else {
+        dispatch(fetchGeneralDataFailure(json.title))
         if (process.env.NODE_ENV !== "production") {
           printError(res, json)
         }
-        dispatch(fetchGeneralDataFailure(res.body))
-        // dispatch(push("/error"))
       }
     } catch (error) {
-      dispatch(fetchGeneralDataFailure(error.message))
-      // dispatch(push("/error"))
       if (process.env.NODE_ENV !== "production") {
         console.error(`Network error: ${error.message}`)
       }
