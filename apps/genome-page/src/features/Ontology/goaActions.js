@@ -49,7 +49,7 @@ export const fetchGoa = (url: string) => {
       const json = await res.json()
       if (res.ok) {
         // console.log(json)
-        if (json.status === 404) {
+        if (json.status >= 300) {
           dispatch(fetchGoaFailure(json.title))
         }
         dispatch(fetchGoaSuccess(json))

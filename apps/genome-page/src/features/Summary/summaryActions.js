@@ -49,7 +49,7 @@ export const fetchGeneralData = (url: string) => {
       })
       const json = await res.json()
       if (res.ok) {
-        if (json.status === 404) {
+        if (json.status >= 300) {
           dispatch(fetchGeneralDataFailure(json.title))
         }
         dispatch(fetchGeneralDataSuccess(json))
