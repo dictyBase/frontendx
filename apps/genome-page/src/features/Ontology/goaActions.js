@@ -48,13 +48,13 @@ export const fetchGoa = (url: string) => {
       })
       const json = await res.json()
       if (res.ok) {
-        console.log(json)
+        // console.log(json)
         if (json.status === 404) {
           dispatch(fetchGoaFailure(json.title))
         }
         dispatch(fetchGoaSuccess(json))
       } else {
-        console.log(json)
+        // console.log(json)
         dispatch(fetchGoaFailure(json.title))
         if (process.env.NODE_ENV !== "production") {
           printError(res, json)
