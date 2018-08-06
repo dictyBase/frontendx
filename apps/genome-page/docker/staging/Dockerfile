@@ -55,8 +55,8 @@ ENV NODE_PATH src
 # standard install/build commands
 RUN npm install && npm run build
 
-FROM dictybase/static-server:1.0.0
+FROM dictybase/static-server:2.0.2
 RUN mkdir /www
 WORKDIR /www
 COPY --from=0 /usr/src/app/build ./
-ENTRYPOINT ["/usr/local/bin/app", "run", "-f", "/www", "--vf", "/static", "--sub-url", "/gene"]
+ENTRYPOINT ["/usr/local/bin/app", "run", "-f", "/www", "--sub-url", "/gene"]

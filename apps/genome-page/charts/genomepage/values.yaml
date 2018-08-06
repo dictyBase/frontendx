@@ -4,13 +4,13 @@
 replicaCount: 1
 image:
   repository: dictybase/genomepage
-  tag: 0.1.0
+  tag: dev
   pullPolicy: IfNotPresent
 
 service:
   name: genomepage
   type: NodePort
-  port: 9597
+  port: 9595
 
 #resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
