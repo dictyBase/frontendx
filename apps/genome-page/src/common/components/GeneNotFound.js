@@ -2,13 +2,19 @@
 import React from "react"
 import { Flex, Box } from "rebass"
 import FontAwesome from "react-fontawesome"
-import { SaveButton, Jumbotron, RouterLink } from "styles/style"
+import { Jumbotron } from "styles/style"
+
+type Props = {
+  /** The ID of the gene that cannot be found */
+  gene: string,
+}
 
 /**
  * Gene not found error page
  */
 
-const GeneNotFound = props => {
+const GeneNotFound = (props: Props) => {
+  const { gene } = props
   return (
     <Flex justify="center" style={{ marginTop: "20px" }}>
       <Box w="60%">
@@ -16,7 +22,7 @@ const GeneNotFound = props => {
           <h3>
             <FontAwesome name="info" /> Gene not found
           </h3>
-          <p>{props.gene} is not in the database</p>
+          <p>{gene} is not in the database</p>
           <Flex justify="center">
             <Box w={["90%", "60%", "25%"]}>
               <ul>
