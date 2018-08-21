@@ -1,11 +1,24 @@
-export const NavbarLinks = [
+// keep old links as fall back
+const navItems = [
   {
     dropdown: true,
     title: "Genomes",
     items: [
       {
-        name: "Genomes Home",
-        href: "/genomes",
+        name: "Dictyostelium discoideum",
+        href: "/",
+      },
+      {
+        name: "Dictyostelium purpureum",
+        href: "http://genomes.dictybase.org/purpureum",
+      },
+      {
+        name: "Dictyostelium fasciculatum",
+        href: "http://genomes.dictybase.org/fasciculatum",
+      },
+      {
+        name: "Polysphondylium pallium",
+        href: "http://genomes.dictybase.org/pallidum",
       },
     ],
   },
@@ -14,12 +27,13 @@ export const NavbarLinks = [
     title: "Tools",
     items: [
       {
-        name: "Tools Home",
-        href: "/tools",
+        name: "Genome Browser",
+        href:
+          "http://dictybase.org/tools/jbrowse/?data=data/jbrowse/discoideum&loc=6:1..50011&tracks=reference,gene,transcript",
       },
       {
-        name: "New Genome Browser",
-        href: "/tools/jbrowse",
+        name: "Dashboard",
+        href: "/dictyaccess",
       },
     ],
   },
@@ -28,24 +42,12 @@ export const NavbarLinks = [
     title: "Explore",
     items: [
       {
-        name: "Explore Home",
-        href: "/explore",
-      },
-      {
         name: "Dicty Art",
         href: "/explore/art",
       },
       {
         name: "Gallery",
         href: "/explore/gallery",
-      },
-      {
-        name: "Genome Resources",
-        href: "/explore/resources",
-      },
-      {
-        name: "Genome Statistics",
-        href: "/explore/statistics",
       },
       {
         name: "Learn About Dicty",
@@ -65,10 +67,6 @@ export const NavbarLinks = [
     dropdown: true,
     title: "Research",
     items: [
-      {
-        name: "Research Home",
-        href: "/research",
-      },
       {
         name: "Anatomy Ontology",
         href: "/research/ontology",
@@ -92,20 +90,30 @@ export const NavbarLinks = [
     ],
   },
   {
+    dropdown: true,
     title: "Dicty Stock Center",
-    href: "/stockcenter",
+    items: [
+      {
+        name: "Stock Center Home",
+        href: "/stockcenter",
+      },
+      {
+        name: "Order Information",
+        href: "/stockcenter/information/order",
+      },
+      {
+        name: "FAQ",
+        href: "/stockcenter/information/faq",
+      },
+    ],
   },
   {
     dropdown: true,
     title: "Community",
     items: [
       {
-        name: "Community Home",
-        href: "/community",
-      },
-      {
         name: "Cite Us",
-        href: "/citation",
+        href: "/community/citation",
       },
       {
         name: "Dicty Annual Conferences",
@@ -134,3 +142,5 @@ export const NavbarLinks = [
     ],
   },
 ]
+
+export default navItems
