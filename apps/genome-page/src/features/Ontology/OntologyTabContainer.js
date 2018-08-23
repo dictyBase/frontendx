@@ -6,8 +6,8 @@ import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles"
 
-import InnerGoPanel from "./InnerGoPanel"
 import TabContainer from "common/components/TabContainer"
+import InnerGoPanel from "features/Ontology/InnerGoPanel"
 
 // create theme with our standard tab overrides
 const muiTheme = createMuiTheme({
@@ -60,20 +60,19 @@ class OntologyTabContainer extends Component<Props, State> {
     if (goaData.data) {
       // set variables for filtered arrays based on evidence code
       const all = goaData.data.data[0]
-      const experimental = goaData.data.data[0].filter(
-        (code: Object) =>
-          code.attributes.evidence_code === "IMP" ||
-          code.attributes.evidence_code === "IGI" ||
-          code.attributes.evidence_code === "IDA",
-      )
-      const manual = goaData.data.data[0].filter(
+      const experimental = all.filter(
         (code: Object) =>
           code.attributes.evidence_code === "IMP" ||
           code.attributes.evidence_code === "IGI" ||
           code.attributes.evidence_code === "IDA" ||
-          code.attributes.evidence_code === "IBA",
+          code.attributes.evidence_code === "IPI" ||
+          code.attributes.evidence_code === "IEP" ||
+          code.attributes.evidence_code === "EXP",
       )
-      const electronic = goaData.data.data[0].filter(
+      const manual = all.filter(
+        (code: Object) => code.attributes.evidence_code !== "IEA",
+      )
+      const electronic = all.filter(
         (code: Object) => code.attributes.evidence_code === "IEA",
       )
 
