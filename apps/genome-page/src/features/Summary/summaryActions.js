@@ -5,6 +5,7 @@ import {
   FETCH_GENERAL_DATA_REQUEST,
   FETCH_GENERAL_DATA_FAILURE,
   FETCH_GENERAL_DATA_SUCCESS,
+  GENERAL_DATA_NO_REFETCH,
 } from "./summaryConstants"
 
 /**
@@ -34,12 +35,16 @@ const fetchGeneralDataSuccess = (data: Array<Object>) => ({
   },
 })
 
+const noRefetch = () => ({
+  type: GENERAL_DATA_NO_REFETCH,
+})
+
 export const fetchGeneralData = (url: string) => async (
   dispatch: Function,
   getState: Function,
 ) => {
   if (getState().general.data) {
-    return
+    return noRefetch()
   }
   try {
     dispatch(fetchGeneralDataRequest())
