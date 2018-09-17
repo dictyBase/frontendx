@@ -3,6 +3,7 @@ import {
   FETCH_GENERAL_DATA_REQUEST,
   FETCH_GENERAL_DATA_FAILURE,
   FETCH_GENERAL_DATA_SUCCESS,
+  GENERAL_DATA_NO_REFETCH,
 } from "./summaryConstants"
 
 /**
@@ -33,6 +34,8 @@ const summaryReducer = (
         isFetching: false,
         error: action.payload.error,
       }
+    case GENERAL_DATA_NO_REFETCH:
+      return state
     default:
       return state
   }
