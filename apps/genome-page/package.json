@@ -20,11 +20,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "test-coverage": "react-scripts test --env=jsdom --coverage",
     "eject": "react-scripts eject",
     "flow": "flow",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "cz": "git-cz"
   },
   "dependencies": {
     "@material-ui/core": "^1.4.1",
@@ -58,6 +60,7 @@
   "devDependencies": {
     "ajv": "^6.5.2",
     "babel-eslint": "^7.2.3",
+    "cz-conventional-changelog": "^2.1.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.1.1",
@@ -77,5 +80,10 @@
     "react-test-renderer": "^16.4.1",
     "recast": "^0.13.0",
     "sinon": "^6.1.4"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
