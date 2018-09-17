@@ -3,6 +3,7 @@ import {
   FETCH_GOA_REQUEST,
   FETCH_GOA_FAILURE,
   FETCH_GOA_SUCCESS,
+  GOA_NO_REFETCH,
 } from "./goaConstants"
 
 /**
@@ -20,6 +21,8 @@ const goaReducer = (
     case FETCH_GOA_SUCCESS:
     case FETCH_GOA_FAILURE:
       return { ...state, ...action.payload }
+    case GOA_NO_REFETCH:
+      return state
     default:
       return state
   }

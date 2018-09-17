@@ -4,6 +4,7 @@ import {
   FETCH_GOA_REQUEST,
   FETCH_GOA_FAILURE,
   FETCH_GOA_SUCCESS,
+  GOA_NO_REFETCH,
 } from "./goaConstants"
 
 /**
@@ -33,12 +34,16 @@ const fetchGoaSuccess = (data: Object) => ({
   },
 })
 
+const noRefetch = () => ({
+  type: GOA_NO_REFETCH,
+})
+
 export const fetchGoa = (url: string) => async (
   dispatch: Function,
   getState: Function,
 ) => {
   if (getState().goa.data) {
-    return
+    return noRefetch()
   }
   try {
     dispatch(fetchGoaRequest())
