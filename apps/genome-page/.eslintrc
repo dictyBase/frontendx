@@ -1,11 +1,6 @@
 {
   "extends": [
-    "react-app",
-    "airbnb",
-    "prettier",
-    "prettier/flowtype",
-    "prettier/react",
-    "prettier/standard"
+    "react-app"
   ],
   "rules": {
     "quotes": ["error", "double"],
