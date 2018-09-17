@@ -6,23 +6,15 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
-import Typography from "@material-ui/core/Typography"
 import Grid from "@material-ui/core/Grid"
 
 import PanelWrapper from "common/components/PanelWrapper"
 import PageHeader from "common/components/PageHeader"
+import TabContainer from "common/components/TabContainer"
 import { tabLabels } from "common/constants/tabLabels"
 import { panelLabels } from "./panelLabels"
 import { fetchGeneralData } from "./summaryActions"
 import { fetchGoa } from "features/Ontology/goaActions"
-
-type tabContainerProps = {
-  children: any,
-}
-
-const TabContainer = (props: tabContainerProps) => {
-  return <Typography component="div">{props.children}</Typography>
-}
 
 type State = {
   /** Value representing each tab */
@@ -73,6 +65,17 @@ export class SummaryContainer extends Component<Props, State> {
       (item: string, index: string) => {
         if (!tabLabels[item]) {
           return <div>Error: data not mapped to tab</div>
+        }
+        if (item === "goa") {
+          return (
+            <Tab
+              value={item}
+              label={tabLabels[item]}
+              key={index}
+              component={Link}
+              to={`/${match.params.id}/goannotations`}
+            />
+          )
         }
         return (
           <Tab

@@ -6,8 +6,8 @@ type tabContainerProps = {
   children: any,
 }
 
-const TabContainer = (props: tabContainerProps) => {
-  return <Typography component="div">{props.children}</Typography>
-}
+const TabContainer = (props: tabContainerProps) => (
+  <Typography component="div">{props.children}</Typography>
+)
 
 export default TabContainer
