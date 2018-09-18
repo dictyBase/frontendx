@@ -21,12 +21,16 @@ const withLinkGenerator = (id: string) => {
     return `http://www.pantree.org/node/annotationNode.jsp?id=${id}`
   }
 
-  if (id.slice(0, 1) === Number) {
+  if (id.slice(0, 1) === "0") {
     return `https://www.ebi.ac.uk/QuickGO/term/GO:${id}`
   }
 
   if (id.slice(0, 1) === "Q" || id.slice(0, 1) === "P") {
     return `https://www.uniprot.org/uniprot/${id}`
+  }
+
+  if (id.slice(0, 3) === "DDB") {
+    return `/${id}`
   }
 
   return "#"

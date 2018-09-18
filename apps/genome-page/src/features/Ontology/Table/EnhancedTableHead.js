@@ -8,17 +8,17 @@ import TableSortLabel from "@material-ui/core/TableSortLabel"
 
 const columnData = [
   {
-    id: "goterm",
+    id: "qualifier",
     label: "Qualifier + GO Term",
   },
   { id: "evidence_code", label: "Evidence" },
   { id: "with", label: "With" },
+  { id: "extensions", label: "Extensions" },
   {
     id: "publication",
     label: "Reference",
   },
   { id: "date", label: "Date" },
-  { id: "assigned_by", label: "Source" },
 ]
 
 const styles = () => ({
