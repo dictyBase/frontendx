@@ -1,5 +1,6 @@
 // @flow
 import React, { Component, Fragment } from "react"
+import { connect } from "react-redux"
 import { withStyles } from "@material-ui/core/styles"
 import Table from "@material-ui/core/Table"
 import TableBody from "@material-ui/core/TableBody"
@@ -14,6 +15,8 @@ import withLinkGenerator from "../utils/withLinkGenerator"
 import removeUnderscores from "../utils/removeUnderscores"
 import dateConverter from "../utils/dateConverter"
 import qualifierFormatter from "../utils/qualifierFormatter"
+import getSorting from "./utils/getSorting"
+import { changeTableOrder, sortTableBy } from "../goaActions"
 
 const styles = (theme: Object) => ({
   root: {
@@ -37,50 +40,39 @@ const styles = (theme: Object) => ({
   },
 })
 
-// helper function for table sorting
-const getSorting = (order, orderBy) =>
-  order === "desc"
-    ? (a, b) => (b[orderBy] < a[orderBy] ? -1 : 1)
-    : (a, b) => (a[orderBy] < b[orderBy] ? -1 : 1)
-
 type Props = {
   /** Material-UI styling */
   classes: Object,
   /** GOA data fetched from QuickGO API */
   goaData: Array<Object>,
-}
-
-type State = {
-  /** The order to sort the column */
-  order: string,
-  /** The item to be ordered by */
-  orderBy: string,
+  /** The goa slice of state */
+  goa: Object,
+  /** Action to change the table order (asc or desc) */
+  changeTableOrder: Function,
+  /** Action to sort the table by column ID */
+  sortTableBy: Function,
 }
 
 /**
  * The display table used inside each panel in the GO tabs.
  */
 
-class DisplayTable extends Component<Props, State> {
-  state = {
-    order: "asc",
-    orderBy: "evidence_code",
-  }
-
+class DisplayTable extends Component<Props> {
   handleRequestSort = (event, property) => {
+    const { goa, changeTableOrder, sortTableBy } = this.props
     const orderBy = property
     let order = "desc"
 
-    if (this.state.orderBy === property && this.state.order === "desc") {
+    if (goa.tableSortBy === property && goa.tableOrder === "desc") {
       order = "asc"
     }
 
-    this.setState({ order, orderBy })
+    changeTableOrder(order)
+    sortTableBy(orderBy)
   }
 
   render() {
-    const { order, orderBy } = this.state
-    const { classes, goaData } = this.props
+    const { classes, goaData, goa } = this.props
 
     // get array for item.attributes, helps for sorting table
     const goaDataAttributes = goaData.map((item: Object) => item.attributes)
@@ -97,13 +89,13 @@ class DisplayTable extends Component<Props, State> {
             <col style={{ width: "10%" }} />
           </colgroup>
           <EnhancedTableHead
-            order={order}
-            orderBy={orderBy}
+            order={goa.tableOrder}
+            orderBy={goa.tableSortBy}
             onRequestSort={this.handleRequestSort}
           />
           <TableBody>
             {goaDataAttributes
-              .sort(getSorting(order, orderBy))
+              .sort(getSorting(goa.tableOrder, goa.tableSortBy))
               .map((item: Object, index: number) => (
                 <TableRow className={classes.row} key={index}>
                   <TableCell component="th" scope="row">
@@ -173,4 +165,9 @@ class DisplayTable extends Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(DisplayTable)
+const mapStateToProps = ({ goa }) => ({ goa })
+
+export default connect(
+  mapStateToProps,
+  { changeTableOrder, sortTableBy },
+)(withStyles(styles)(DisplayTable))

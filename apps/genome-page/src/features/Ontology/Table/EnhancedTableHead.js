@@ -21,7 +21,7 @@ const columnData = [
   { id: "date", label: "Date" },
 ]
 
-const styles = () => ({
+const styles = (theme: Object) => ({
   head: {
     backgroundColor: "#DFE8F6",
   },

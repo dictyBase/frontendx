@@ -5,6 +5,8 @@ import {
   FETCH_GOA_SUCCESS,
   GOA_NO_REFETCH,
   CHANGE_GOA_TAB,
+  GOA_TABLE_ORDER,
+  GOA_TABLE_SORT_BY,
 } from "./goaConstants"
 
 /**
@@ -13,6 +15,8 @@ import {
 
 const initialState = {
   currentTab: "all",
+  tableOrder: "asc",
+  tableSortBy: "evidence_code",
 }
 
 const goaReducer = (
@@ -30,6 +34,16 @@ const goaReducer = (
       return {
         ...state,
         currentTab: action.payload.tab,
+      }
+    case GOA_TABLE_ORDER:
+      return {
+        ...state,
+        tableOrder: action.payload.order,
+      }
+    case GOA_TABLE_SORT_BY:
+      return {
+        ...state,
+        tableSortBy: action.payload.column,
       }
     default:
       return state
