@@ -13,7 +13,7 @@ import evidenceLinkGenerator from "../utils/evidenceLinkGenerator"
 import withLinkGenerator from "../utils/withLinkGenerator"
 import sourceLinkGenerator from "../utils/sourceLinkGenerator"
 import dateConverter from "../utils/dateConverter"
-import removeUnderscores from "../utils/removeUnderscores"
+import qualifierFormatter from "../utils/qualifierFormatter"
 
 const styles = (theme: Object) => ({
   root: {
@@ -107,7 +107,7 @@ class DisplayTable extends Component<Props, State> {
               .map((item: Object, index: number) => (
                 <TableRow className={classes.row} key={index}>
                   <TableCell component="th" scope="row">
-                    <em>{removeUnderscores(item.qualifier)}</em> {item.goterm}
+                    {qualifierFormatter(item.qualifier)} {item.goterm}
                   </TableCell>
                   <TableCell>
                     <a
