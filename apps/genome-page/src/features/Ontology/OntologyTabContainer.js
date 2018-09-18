@@ -11,7 +11,7 @@ import TabContainer from "common/components/TabContainer"
 import InnerGoPanel from "features/Ontology/InnerGoPanel"
 import { changeTab } from "./goaActions"
 
-// create theme with our standard tab overrides
+// create theme with our inner tab overrides
 const muiTheme = createMuiTheme({
   overrides: {
     MuiTab: {
