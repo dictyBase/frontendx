@@ -5,6 +5,7 @@ import {
   FETCH_GOA_FAILURE,
   FETCH_GOA_SUCCESS,
   GOA_NO_REFETCH,
+  CHANGE_GOA_TAB,
 } from "./goaConstants"
 
 /**
@@ -68,3 +69,10 @@ export const fetchGoa = (url: string) => async (
     }
   }
 }
+
+export const changeTab = (tab: string) => ({
+  type: CHANGE_GOA_TAB,
+  payload: {
+    tab,
+  },
+})

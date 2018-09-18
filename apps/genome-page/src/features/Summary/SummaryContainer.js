@@ -13,13 +13,8 @@ import PageHeader from "common/components/PageHeader"
 import TabContainer from "common/components/TabContainer"
 import { tabLabels } from "common/constants/tabLabels"
 import { panelLabels } from "./panelLabels"
-import { fetchGeneralData } from "./summaryActions"
+import { fetchGeneralData, changeTab } from "./summaryActions"
 import { fetchGoa } from "features/Ontology/goaActions"
-
-type State = {
-  /** Value representing each tab */
-  value: string,
-}
 
 type Props = {
   /** React Router object */
@@ -32,13 +27,11 @@ type Props = {
   general: Object,
   /** Object for the goa slice of state */
   goa: Object,
+  /** Action to change the top level tabs */
+  changeTab: Function,
 }
 
-export class SummaryContainer extends Component<Props, State> {
-  state = {
-    value: "summary",
-  }
-
+export class SummaryContainer extends Component<Props> {
   componentDidMount() {
     const { fetchGeneralData, fetchGoa, match } = this.props
 
@@ -55,7 +48,9 @@ export class SummaryContainer extends Component<Props, State> {
   }
 
   handleChange = (event: SyntheticEvent<>, value: string) => {
-    this.setState({ value })
+    const { changeTab } = this.props
+
+    changeTab(value)
   }
 
   // generates tabs dynamically based on json data structure
@@ -120,14 +115,13 @@ export class SummaryContainer extends Component<Props, State> {
 
   render() {
     const { match, general, goa } = this.props
-    const { value } = this.state
 
     if (general.error || goa.error) {
       return (
         <div>
           <PageHeader />
           <AppBar position="static">
-            <Tabs value={value}>
+            <Tabs value={general.currentTab}>
               <Tab label="Gene Summary" />
             </Tabs>
           </AppBar>
@@ -147,7 +141,7 @@ export class SummaryContainer extends Component<Props, State> {
         <div>
           <PageHeader />
           <AppBar position="static">
-            <Tabs value={value}>
+            <Tabs value={general.currentTab}>
               <Tab label="Gene Summary" />
               <Tab label="Gene Ontology" />
             </Tabs>
@@ -167,7 +161,7 @@ export class SummaryContainer extends Component<Props, State> {
         <Grid item lg={12}>
           <PageHeader />
           <AppBar position="static">
-            <Tabs value={value} onChange={this.handleChange}>
+            <Tabs value={general.currentTab} onChange={this.handleChange}>
               <Tab
                 value="summary"
                 label="Gene Summary"
@@ -190,5 +184,5 @@ const mapStateToProps = ({ general, goa }) => ({ general, goa })
 
 export default connect(
   mapStateToProps,
-  { fetchGeneralData, fetchGoa },
+  { fetchGeneralData, fetchGoa, changeTab },
 )(SummaryContainer)

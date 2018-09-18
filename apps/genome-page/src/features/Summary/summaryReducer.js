@@ -4,13 +4,16 @@ import {
   FETCH_GENERAL_DATA_FAILURE,
   FETCH_GENERAL_DATA_SUCCESS,
   GENERAL_DATA_NO_REFETCH,
+  CHANGE_MAIN_TAB,
 } from "./summaryConstants"
 
 /**
  * All of the Redux reducers related to the Summary tab
  */
 
-const initialState = {}
+const initialState = {
+  currentTab: "summary",
+}
 
 const summaryReducer = (
   state: Object = initialState,
@@ -33,6 +36,11 @@ const summaryReducer = (
         ...state,
         isFetching: false,
         error: action.payload.error,
+      }
+    case CHANGE_MAIN_TAB:
+      return {
+        ...state,
+        currentTab: action.payload.tab,
       }
     case GENERAL_DATA_NO_REFETCH:
       return state
