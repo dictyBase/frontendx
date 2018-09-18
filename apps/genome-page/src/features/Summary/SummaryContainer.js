@@ -2,7 +2,6 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
@@ -11,6 +10,8 @@ import Grid from "@material-ui/core/Grid"
 import PanelWrapper from "common/components/PanelWrapper"
 import PageHeader from "common/components/PageHeader"
 import TabContainer from "common/components/TabContainer"
+import SummaryLoader from "./SummaryLoader"
+import SummaryError from "./SummaryError"
 import { tabLabels } from "common/constants/tabLabels"
 import { panelLabels } from "./panelLabels"
 import { fetchGeneralData, changeTab } from "./summaryActions"
@@ -43,6 +44,7 @@ export class SummaryContainer extends Component<Props> {
     const goaUrl = `${process.env.REACT_APP_API_SERVER}/genes/${
       match.params.id
     }/goas`
+
     fetchGeneralData(mainUrl)
     fetchGoa(goaUrl)
   }
@@ -117,43 +119,11 @@ export class SummaryContainer extends Component<Props> {
     const { match, general, goa } = this.props
 
     if (general.error || goa.error) {
-      return (
-        <div>
-          <PageHeader />
-          <AppBar position="static">
-            <Tabs value={general.currentTab}>
-              <Tab label="Gene Summary" />
-            </Tabs>
-          </AppBar>
-          <center>
-            <br />
-            <h3>Sorry! There was an error loading the items.</h3>
-            <p>{general.error || goa.error}</p>
-            <br />
-            <br />
-          </center>
-        </div>
-      )
+      return <SummaryError generalError={general.error} goaError={goa.error} />
     }
 
     if (general.isFetching || goa.isFetching) {
-      return (
-        <div>
-          <PageHeader />
-          <AppBar position="static">
-            <Tabs value={general.currentTab}>
-              <Tab label="Gene Summary" />
-              <Tab label="Gene Ontology" />
-            </Tabs>
-          </AppBar>
-          <SkeletonTheme color="#d1d1d1">
-            <Skeleton count={10} />
-            {/* <br />
-            <br />
-            <Skeleton count={10} /> */}
-          </SkeletonTheme>
-        </div>
-      )
+      return <SummaryLoader />
     }
 
     return (
