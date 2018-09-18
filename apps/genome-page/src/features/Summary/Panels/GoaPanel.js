@@ -1,12 +1,13 @@
 // @flow
-import React from "react"
-import Skeleton from "react-loading-skeleton"
+import React, { Fragment } from "react"
 import { withStyles } from "@material-ui/core/styles"
 import Table from "@material-ui/core/Table"
 import TableBody from "@material-ui/core/TableBody"
 import TableCell from "@material-ui/core/TableCell"
 import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
+
+import qualifierFormatter from "features/Ontology/utils/qualifierFormatter"
 
 const styles = theme => ({
   root: {
@@ -39,35 +40,22 @@ type Props = {
 const GoaPanel = (props: Props) => {
   const { classes, panelData } = props
 
-  if (panelData.error) {
-    return (
-      <div>
-        <br />
-        <p>Sorry! There was an error loading the items.</p>
-        <br />
-      </div>
-    )
-  }
-
-  if (panelData.isFetching) {
-    return (
-      <div>
-        <br />
-        <Skeleton count={10} />
-      </div>
-    )
-  }
-
   // set variables that represent filtered arrays for use in each row
-  const molecular = panelData.data.data[0].filter(
-    item => item.type === "molecular_function",
-  )
-  const biological = panelData.data.data[0].filter(
-    item => item.type === "biological_process",
-  )
-  const cellular = panelData.data.data[0].filter(
-    item => item.type === "cellular_component",
-  )
+  const molecular = panelData.data.data[0]
+    .filter(item => item.type === "molecular_function")
+    .map(item => item.attributes)
+    .sort((a, b) => b.date - a.date)
+    .slice(0, 5)
+  const biological = panelData.data.data[0]
+    .filter(item => item.type === "biological_process")
+    .map(item => item.attributes)
+    .sort((a, b) => b.date - a.date)
+    .slice(0, 5)
+  const cellular = panelData.data.data[0]
+    .filter(item => item.type === "cellular_component")
+    .map(item => item.attributes)
+    .sort((a, b) => b.date - a.date)
+    .slice(0, 5)
 
   return (
     <Paper className={classes.root}>
@@ -81,16 +69,16 @@ const GoaPanel = (props: Props) => {
               Molecular Function
             </TableCell>
             <TableCell className={classes.tableRightData}>
-              {molecular.map((item: Object, i: string) => {
-                if (molecular.length === i + 1) {
-                  return `${item.attributes.goterm} (${
-                    item.attributes.evidence_code
-                  })`
-                }
-                return `${item.attributes.goterm} (${
-                  item.attributes.evidence_code
-                }), `
-              })}
+              {molecular.map((item: Object, i: string) => (
+                <Fragment key={i}>
+                  <span>
+                    {qualifierFormatter(item.qualifier)} {item.goterm} ({
+                      item.evidence_code
+                    })
+                  </span>
+                  <br />
+                </Fragment>
+              ))}
             </TableCell>
           </TableRow>
           <TableRow>
@@ -101,16 +89,16 @@ const GoaPanel = (props: Props) => {
               Biological Process
             </TableCell>
             <TableCell className={classes.tableRightData}>
-              {biological.map((item, i) => {
-                if (biological.length === i + 1) {
-                  return `${item.attributes.goterm} (${
-                    item.attributes.evidence_code
-                  })`
-                }
-                return `${item.attributes.goterm} (${
-                  item.attributes.evidence_code
-                }), `
-              })}
+              {biological.map((item, i) => (
+                <Fragment key={i}>
+                  <span>
+                    {qualifierFormatter(item.qualifier)} {item.goterm} ({
+                      item.evidence_code
+                    })
+                  </span>
+                  <br />
+                </Fragment>
+              ))}
             </TableCell>
           </TableRow>
           <TableRow>
@@ -121,16 +109,16 @@ const GoaPanel = (props: Props) => {
               Cellular Component
             </TableCell>
             <TableCell className={classes.tableRightData}>
-              {cellular.map((item, i) => {
-                if (cellular.length === i + 1) {
-                  return `${item.attributes.goterm} (${
-                    item.attributes.evidence_code
-                  })`
-                }
-                return `${item.attributes.goterm} (${
-                  item.attributes.evidence_code
-                }), `
-              })}
+              {cellular.map((item, i) => (
+                <Fragment key={i}>
+                  <span>
+                    {qualifierFormatter(item.qualifier)} {item.goterm} ({
+                      item.evidence_code
+                    })
+                  </span>
+                  <br />
+                </Fragment>
+              ))}
             </TableCell>
           </TableRow>
         </TableBody>
