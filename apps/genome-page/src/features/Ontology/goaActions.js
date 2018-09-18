@@ -6,6 +6,8 @@ import {
   FETCH_GOA_SUCCESS,
   GOA_NO_REFETCH,
   CHANGE_GOA_TAB,
+  GOA_TABLE_ORDER,
+  GOA_TABLE_SORT_BY,
 } from "./goaConstants"
 
 /**
@@ -74,5 +76,19 @@ export const changeTab = (tab: string) => ({
   type: CHANGE_GOA_TAB,
   payload: {
     tab,
+  },
+})
+
+export const changeTableOrder = (order: string) => ({
+  type: GOA_TABLE_ORDER,
+  payload: {
+    order,
+  },
+})
+
+export const sortTableBy = (column: string) => ({
+  type: GOA_TABLE_SORT_BY,
+  payload: {
+    column,
   },
 })
