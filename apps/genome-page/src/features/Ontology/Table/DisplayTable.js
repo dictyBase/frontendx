@@ -17,28 +17,7 @@ import dateConverter from "../utils/dateConverter"
 import qualifierFormatter from "../utils/qualifierFormatter"
 import getSorting from "./utils/getSorting"
 import { changeTableOrder, sortTableBy } from "../goaActions"
-
-const styles = (theme: Object) => ({
-  root: {
-    width: "100%",
-    overflowX: "auto",
-  },
-  row: {
-    "&:nth-of-type(even)": {
-      backgroundColor: theme.palette.background.default,
-    },
-  },
-  link: {
-    textDecoration: "none",
-    color: "#4C5E81",
-    "&:visited": {
-      color: "#4C5E81",
-    },
-    "&:hover": {
-      textDecoration: "underline",
-    },
-  },
-})
+import styles from "./DisplayTableStyles"
 
 type Props = {
   /** Material-UI styling */

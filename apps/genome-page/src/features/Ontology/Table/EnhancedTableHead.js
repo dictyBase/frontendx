@@ -6,6 +6,8 @@ import TableRow from "@material-ui/core/TableRow"
 import TableCell from "@material-ui/core/TableCell"
 import TableSortLabel from "@material-ui/core/TableSortLabel"
 
+import styles from "./DisplayTableStyles"
+
 const columnData = [
   {
     id: "qualifier",
@@ -20,16 +22,6 @@ const columnData = [
   },
   { id: "date", label: "Date" },
 ]
-
-const styles = (theme: Object) => ({
-  head: {
-    backgroundColor: "#DFE8F6",
-  },
-  headerCell: {
-    color: "#333",
-    fontWeight: "600",
-  },
-})
 
 type Props = {
   /** Material-UI styling */
