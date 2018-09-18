@@ -1,11 +1,11 @@
 // @flow
-// import { push } from "connected-react-router"
 import printError from "common/utils/printError"
 import {
   FETCH_GENERAL_DATA_REQUEST,
   FETCH_GENERAL_DATA_FAILURE,
   FETCH_GENERAL_DATA_SUCCESS,
   GENERAL_DATA_NO_REFETCH,
+  CHANGE_MAIN_TAB,
 } from "./summaryConstants"
 
 /**
@@ -69,3 +69,10 @@ export const fetchGeneralData = (url: string) => async (
     }
   }
 }
+
+export const changeTab = (tab: string) => ({
+  type: CHANGE_MAIN_TAB,
+  payload: {
+    tab,
+  },
+})

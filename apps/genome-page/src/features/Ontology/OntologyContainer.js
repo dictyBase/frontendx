@@ -175,7 +175,7 @@ export class OntologyContainer extends Component<Props> {
           </Tabs>
         </AppBar>
         <TabContainer>
-          <OntologyTabContainer goaData={goa} />
+          <OntologyTabContainer />
         </TabContainer>
       </div>
     )
