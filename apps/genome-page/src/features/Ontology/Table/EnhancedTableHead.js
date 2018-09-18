@@ -9,7 +9,7 @@ import TableSortLabel from "@material-ui/core/TableSortLabel"
 const columnData = [
   {
     id: "goterm",
-    label: "GO Term + Extension",
+    label: "Qualifier + GO Term",
   },
   { id: "evidence_code", label: "Evidence" },
   { id: "with", label: "With" },
@@ -57,8 +57,8 @@ class EnhancedTableHead extends Component<Props> {
     return (
       <TableHead className={classes.head}>
         <TableRow>
-          {columnData.map((column: Object) => {
-            return (
+          {columnData.map(
+            (column: Object) => (
               <TableCell
                 key={column.id}
                 className={classes.headerCell}
@@ -71,8 +71,9 @@ class EnhancedTableHead extends Component<Props> {
                   {column.label}
                 </TableSortLabel>
               </TableCell>
-            )
-          }, this)}
+            ),
+            this,
+          )}
         </TableRow>
       </TableHead>
     )
