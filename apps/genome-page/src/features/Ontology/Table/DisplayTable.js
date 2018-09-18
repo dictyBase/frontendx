@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from "react"
+import React, { Component, Fragment } from "react"
 import { withStyles } from "@material-ui/core/styles"
 import Table from "@material-ui/core/Table"
 import TableBody from "@material-ui/core/TableBody"
@@ -11,7 +11,7 @@ import EnhancedTableHead from "./EnhancedTableHead"
 import pubLinkGenerator from "../utils/pubLinkGenerator"
 import evidenceLinkGenerator from "../utils/evidenceLinkGenerator"
 import withLinkGenerator from "../utils/withLinkGenerator"
-import sourceLinkGenerator from "../utils/sourceLinkGenerator"
+import removeUnderscores from "../utils/removeUnderscores"
 import dateConverter from "../utils/dateConverter"
 import qualifierFormatter from "../utils/qualifierFormatter"
 
@@ -91,10 +91,10 @@ class DisplayTable extends Component<Props, State> {
           <colgroup>
             <col style={{ width: "25%" }} />
             <col style={{ width: "10%" }} />
-            <col style={{ width: "25%" }} />
             <col style={{ width: "20%" }} />
-            <col style={{ width: "10%" }} />
+            <col style={{ width: "25%" }} />
             <col style={{ width: "15%" }} />
+            <col style={{ width: "10%" }} />
           </colgroup>
           <EnhancedTableHead
             order={order}
@@ -120,32 +120,39 @@ class DisplayTable extends Component<Props, State> {
                   <TableCell>
                     {item.with !== null &&
                       item.with.map((item: Object) =>
-                        item.connectedXrefs.map((xref: Object, i: string) => {
-                          if (item.connectedXrefs.length === i + 1) {
-                            return (
-                              <span key={i}>
-                                {" "}
-                                <a
-                                  className={classes.link}
-                                  href={withLinkGenerator(xref.id)}
-                                  target="_blank">
-                                  {xref.db}:{xref.id}
-                                </a>
-                              </span>
-                            )
-                          }
-                          return (
-                            <span key={i}>
+                        item.connectedXrefs.map((xref: Object, i: string) => (
+                          <Fragment key={i}>
+                            <span>
                               <a
                                 className={classes.link}
                                 href={withLinkGenerator(xref.id)}
                                 target="_blank">
                                 {xref.db}:{xref.id}
                               </a>
-                              {", "}
                             </span>
-                          )
-                        }),
+                            <br />
+                          </Fragment>
+                        )),
+                      )}
+                  </TableCell>
+                  <TableCell>
+                    {item.extensions !== null &&
+                      item.extensions.map((item: Object) =>
+                        item.connectedXrefs.map((xref: Object, i: string) => (
+                          <Fragment key={i}>
+                            <span>
+                              {" "}
+                              <em>{removeUnderscores(xref.relation)}</em>{" "}
+                              <a
+                                className={classes.link}
+                                href={withLinkGenerator(xref.id)}
+                                target="_blank">
+                                ({xref.db}:{xref.id})
+                              </a>
+                            </span>
+                            <br />
+                          </Fragment>
+                        )),
                       )}
                   </TableCell>
                   <TableCell>
@@ -157,14 +164,6 @@ class DisplayTable extends Component<Props, State> {
                     </a>
                   </TableCell>
                   <TableCell>{dateConverter(item.date)}</TableCell>
-                  <TableCell>
-                    <a
-                      className={classes.link}
-                      href={sourceLinkGenerator(item.assigned_by)}
-                      target="_blank">
-                      {item.assigned_by}
-                    </a>
-                  </TableCell>
                 </TableRow>
               ))}
           </TableBody>
