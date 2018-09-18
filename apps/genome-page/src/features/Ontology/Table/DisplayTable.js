@@ -13,6 +13,7 @@ import evidenceLinkGenerator from "../utils/evidenceLinkGenerator"
 import withLinkGenerator from "../utils/withLinkGenerator"
 import sourceLinkGenerator from "../utils/sourceLinkGenerator"
 import dateConverter from "../utils/dateConverter"
+import removeUnderscores from "../utils/removeUnderscores"
 
 const styles = (theme: Object) => ({
   root: {
@@ -37,11 +38,10 @@ const styles = (theme: Object) => ({
 })
 
 // helper function for table sorting
-const getSorting = (order, orderBy) => {
-  return order === "desc"
+const getSorting = (order, orderBy) =>
+  order === "desc"
     ? (a, b) => (b[orderBy] < a[orderBy] ? -1 : 1)
     : (a, b) => (a[orderBy] < b[orderBy] ? -1 : 1)
-}
 
 type Props = {
   /** Material-UI styling */
@@ -83,9 +83,7 @@ class DisplayTable extends Component<Props, State> {
     const { classes, goaData } = this.props
 
     // get array for item.attributes, helps for sorting table
-    const goaDataAttributes = goaData.map((item: Object) => {
-      return item.attributes
-    })
+    const goaDataAttributes = goaData.map((item: Object) => item.attributes)
 
     return (
       <Paper className={classes.root}>
@@ -106,73 +104,69 @@ class DisplayTable extends Component<Props, State> {
           <TableBody>
             {goaDataAttributes
               .sort(getSorting(order, orderBy))
-              .map((item: Object, index: number) => {
-                return (
-                  <TableRow className={classes.row} key={index}>
-                    <TableCell component="th" scope="row">
-                      {item.goterm}
-                    </TableCell>
-                    <TableCell>
-                      <a
-                        className={classes.link}
-                        href={evidenceLinkGenerator(item.evidence_code)}
-                        target="_blank">
-                        {item.evidence_code}
-                      </a>
-                    </TableCell>
-                    <TableCell>
-                      {item.with !== null &&
-                        item.with.map((item: Object) => {
-                          return item.connectedXrefs.map(
-                            (xref: Object, i: string) => {
-                              if (item.connectedXrefs.length === i + 1) {
-                                return (
-                                  <span key={i}>
-                                    {" "}
-                                    <a
-                                      className={classes.link}
-                                      href={withLinkGenerator(xref.id)}
-                                      target="_blank">
-                                      {xref.db}:{xref.id}
-                                    </a>
-                                  </span>
-                                )
-                              }
-                              return (
-                                <span key={i}>
-                                  <a
-                                    className={classes.link}
-                                    href={withLinkGenerator(xref.id)}
-                                    target="_blank">
-                                    {xref.db}:{xref.id}
-                                  </a>
-                                  {", "}
-                                </span>
-                              )
-                            },
+              .map((item: Object, index: number) => (
+                <TableRow className={classes.row} key={index}>
+                  <TableCell component="th" scope="row">
+                    <em>{removeUnderscores(item.qualifier)}</em> {item.goterm}
+                  </TableCell>
+                  <TableCell>
+                    <a
+                      className={classes.link}
+                      href={evidenceLinkGenerator(item.evidence_code)}
+                      target="_blank">
+                      {item.evidence_code}
+                    </a>
+                  </TableCell>
+                  <TableCell>
+                    {item.with !== null &&
+                      item.with.map((item: Object) =>
+                        item.connectedXrefs.map((xref: Object, i: string) => {
+                          if (item.connectedXrefs.length === i + 1) {
+                            return (
+                              <span key={i}>
+                                {" "}
+                                <a
+                                  className={classes.link}
+                                  href={withLinkGenerator(xref.id)}
+                                  target="_blank">
+                                  {xref.db}:{xref.id}
+                                </a>
+                              </span>
+                            )
+                          }
+                          return (
+                            <span key={i}>
+                              <a
+                                className={classes.link}
+                                href={withLinkGenerator(xref.id)}
+                                target="_blank">
+                                {xref.db}:{xref.id}
+                              </a>
+                              {", "}
+                            </span>
                           )
-                        })}
-                    </TableCell>
-                    <TableCell>
-                      <a
-                        className={classes.link}
-                        href={pubLinkGenerator(item.publication)}
-                        target="_blank">
-                        {item.publication}
-                      </a>
-                    </TableCell>
-                    <TableCell>{dateConverter(item.date)}</TableCell>
-                    <TableCell>
-                      <a
-                        className={classes.link}
-                        href={sourceLinkGenerator(item.assigned_by)}
-                        target="_blank">
-                        {item.assigned_by}
-                      </a>
-                    </TableCell>
-                  </TableRow>
-                )
-              })}
+                        }),
+                      )}
+                  </TableCell>
+                  <TableCell>
+                    <a
+                      className={classes.link}
+                      href={pubLinkGenerator(item.publication)}
+                      target="_blank">
+                      {item.publication}
+                    </a>
+                  </TableCell>
+                  <TableCell>{dateConverter(item.date)}</TableCell>
+                  <TableCell>
+                    <a
+                      className={classes.link}
+                      href={sourceLinkGenerator(item.assigned_by)}
+                      target="_blank">
+                      {item.assigned_by}
+                    </a>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </Paper>
