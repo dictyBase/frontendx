@@ -6,8 +6,8 @@ import React, { Fragment } from "react"
  */
 
 const qualifierFormatter = (str: string) => {
-  // convert underscores to spaces, remove pipe after NOT
-  let converted = str.replace(/_/g, " ").replace("NOT|", "NOT ")
+  // remove pipe after NOT
+  let converted = str.replace("NOT|", "NOT ")
 
   if (converted.substring(0, 3) === "NOT") {
     return (
