@@ -55,7 +55,8 @@ export const fetchFooter = () => async (dispatch: Function) => {
 
       return dispatch(fetchFooterSuccess(footerArr))
     }
-    dispatch(fetchFooterFailure(res.body))
+
+    dispatch(fetchFooterFailure(res.statusText))
     return footerItems
   } catch (error) {
     return dispatch(fetchFooterFailure(error.toString()))

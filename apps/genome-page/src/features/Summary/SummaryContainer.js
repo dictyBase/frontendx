@@ -10,8 +10,8 @@ import Grid from "@material-ui/core/Grid"
 import PanelWrapper from "common/components/PanelWrapper"
 import PageHeader from "common/components/PageHeader"
 import TabContainer from "common/components/TabContainer"
+import ErrorPage from "common/components/ErrorPage"
 import SummaryLoader from "./SummaryLoader"
-import SummaryError from "./SummaryError"
 import { tabLabels } from "common/constants/tabLabels"
 import { panelLabels } from "./panelLabels"
 import { fetchGeneralData, changeTab } from "./summaryActions"
@@ -119,7 +119,7 @@ export class SummaryContainer extends Component<Props> {
     const { match, general, goa } = this.props
 
     if (general.error || goa.error) {
-      return <SummaryError generalError={general.error} goaError={goa.error} />
+      return <ErrorPage />
     }
 
     if (general.isFetching || goa.isFetching) {

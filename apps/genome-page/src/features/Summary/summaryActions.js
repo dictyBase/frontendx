@@ -1,5 +1,4 @@
 // @flow
-import printError from "common/utils/printError"
 import {
   FETCH_GENERAL_DATA_REQUEST,
   FETCH_GENERAL_DATA_FAILURE,
@@ -7,6 +6,7 @@ import {
   GENERAL_DATA_NO_REFETCH,
   CHANGE_MAIN_TAB,
 } from "./summaryConstants"
+import { printError, createErrorObj } from "common/utils/actionHelpers"
 
 /**
  * All of the Redux actions related to the Summary tab
@@ -19,19 +19,19 @@ const fetchGeneralDataRequest = () => ({
   },
 })
 
-const fetchGeneralDataFailure = error => ({
-  type: FETCH_GENERAL_DATA_FAILURE,
-  payload: {
-    isFetching: false,
-    error,
-  },
-})
-
 const fetchGeneralDataSuccess = (data: Array<Object>) => ({
   type: FETCH_GENERAL_DATA_SUCCESS,
   payload: {
     isFetching: false,
     data,
+  },
+})
+
+const fetchGeneralDataFailure = error => ({
+  type: FETCH_GENERAL_DATA_FAILURE,
+  payload: {
+    isFetching: false,
+    error,
   },
 })
 
@@ -52,13 +52,13 @@ export const fetchGeneralData = (url: string) => async (
       headers: { Accept: "application/json" },
     })
     const json = await res.json()
-    if (res.ok) {
-      if (json.status >= 300) {
-        dispatch(fetchGeneralDataFailure(json.title))
-      }
+
+    // check if res.ok (https://developer.mozilla.org/en-US/docs/Web/API/Response/ok)
+    // and that the json doesn't contain an error
+    if (res.ok && !json.status) {
       dispatch(fetchGeneralDataSuccess(json))
     } else {
-      dispatch(fetchGeneralDataFailure(json.title))
+      dispatch(fetchGeneralDataFailure(createErrorObj(json.status, json.title)))
       if (process.env.NODE_ENV !== "production") {
         printError(res, json)
       }
