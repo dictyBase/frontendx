@@ -1,11 +1,11 @@
 // @flow
 import React, { Component } from "react"
 import { connect } from "react-redux"
+import Grid from "@material-ui/core/Grid"
 import { Login as LoginContainer } from "dicty-components-login"
 import OauthSignHandler from "features/Authentication/OauthSignHandler"
 import oauthConfig from "common/utils/oauthConfig"
 import ErrorNotification from "./ErrorNotification"
-import { Flex, Box } from "rebass"
 import type { MapStateToProps } from "react-redux"
 
 // list of buttons to display
@@ -66,26 +66,26 @@ class Login extends Component<Props> {
     const { state = {} } = this.props.location
     const { error } = state
     return (
-      <Flex justify="center">
-        <Box w={["100%", "60%", "40%"]}>
+      <Grid container justify="center">
+        <Grid item>
           <center>
             <h1>Log in</h1>
           </center>
           {error && <ErrorNotification error={error} />}
           {auth.error && <ErrorNotification error={auth.error} />}
-          <Flex justify="center">
-            <Box w={"17%"} />
-            <Box w={"83%"}>
+          <Grid container justify="center">
+            <Grid item xs={2} />
+            <Grid item xs={10} style={{ marginBottom: "20px" }}>
               <LoginContainer
                 buttons={buttons}
                 theme={theme}
                 onClick={this.handleClick}
               />
               <OauthSignHandler />
-            </Box>
-          </Flex>
-        </Box>
-      </Flex>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
     )
   }
 }
