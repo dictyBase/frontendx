@@ -17,6 +17,10 @@ const withLinkGenerator = (id: string) => {
     return `http://www.ebi.ac.uk/interpro/entry/${id}`
   }
 
+  if (id.slice(0, 3) === "MGI") {
+    return `http://www.informatics.jax.org/marker/${id}`
+  }
+
   if (id.slice(0, 3) === "PTN") {
     return `http://www.pantree.org/node/annotationNode.jsp?id=${id}`
   }
