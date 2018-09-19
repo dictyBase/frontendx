@@ -12,7 +12,6 @@ import EnhancedTableHead from "./EnhancedTableHead"
 import pubLinkGenerator from "../utils/pubLinkGenerator"
 import evidenceLinkGenerator from "../utils/evidenceLinkGenerator"
 import withLinkGenerator from "../utils/withLinkGenerator"
-import removeUnderscores from "../utils/removeUnderscores"
 import dateConverter from "../utils/dateConverter"
 import qualifierFormatter from "../utils/qualifierFormatter"
 import getSorting from "./utils/getSorting"
@@ -113,7 +112,7 @@ export class DisplayTable extends Component<Props> {
                           <Fragment key={i}>
                             <span>
                               {" "}
-                              <em>{removeUnderscores(xref.relation)}</em>{" "}
+                              <em>{xref.relation}</em>{" "}
                               <a
                                 className={classes.link}
                                 href={withLinkGenerator(xref.id)}
