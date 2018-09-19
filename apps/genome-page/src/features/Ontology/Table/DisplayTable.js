@@ -36,7 +36,7 @@ type Props = {
  * The display table used inside each panel in the GO tabs.
  */
 
-class DisplayTable extends Component<Props> {
+export class DisplayTable extends Component<Props> {
   handleRequestSort = (event, property) => {
     const { goa, changeTableOrder, sortTableBy } = this.props
     const orderBy = property
