@@ -3,25 +3,24 @@ import { HeaderLink } from "dicty-components-header-footer"
 import { Link } from "react-router-dom"
 import React from "react"
 import FontAwesome from "react-fontawesome"
-import styled from "styled-components"
 import "font-awesome/css/font-awesome.min.css"
 
-// $FlowFixMe
-const RouterLink = styled(Link)`
-  color: #15317e;
-  padding: 15px;
-  text-decoration: none;
-`
-
-const generateLinks = (link: Object, i: string) => {
-  return link.isRouter ? (
-    <RouterLink key={i} to={link.url}>
+const generateLinks = (link: Object, i: string) =>
+  link.isRouter ? (
+    <Link
+      style={{
+        color: "#15317e",
+        padding: "15px",
+        textDecoration: "none",
+      }}
+      key={i}
+      to={link.url}>
       <center>
         <FontAwesome name={link.icon} size="2x" />
         <br />
         {link.text}
       </center>
-    </RouterLink>
+    </Link>
   ) : (
     <HeaderLink key={i} href={link.url}>
       <center>
@@ -31,7 +30,7 @@ const generateLinks = (link: Object, i: string) => {
       </center>
     </HeaderLink>
   )
-}
+
 const headerItems = [
   {
     url: "/cite",
@@ -47,7 +46,6 @@ const headerItems = [
     url: "/about",
     icon: "info-circle",
     text: "About dictyBase",
-    isRouter: true,
   },
   {
     url: "/login",
@@ -72,7 +70,6 @@ const loggedHeaderItems = [
     url: "/about",
     icon: "info-circle",
     text: "About dictyBase",
-    isRouter: true,
   },
   {
     url: "/logout",
