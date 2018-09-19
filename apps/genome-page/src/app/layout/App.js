@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import { withRouter } from "react-router-dom"
+import { withStyles } from "@material-ui/core/styles"
 import { Header, Footer } from "dicty-components-header-footer"
 import { Navbar } from "dicty-components-navbar"
 
@@ -15,7 +16,25 @@ import {
   generateLinks,
 } from "common/utils/headerItems"
 import Routes from "app/routes/Routes"
-import MainBodyContainer from "styles/MainBodyContainer"
+
+const styles = theme => ({
+  main: {
+    margin: "0 10px 25px 10px",
+  },
+  body: {
+    margin: "auto",
+    height: "100%",
+    width: "100%",
+    fontFamily: "Roboto, sans-serif",
+    fontSize: "16px",
+    lineHeight: 1.42857,
+    color: "#333",
+    backgroundColor: "#fff",
+    boxSizing: "content-box",
+    WebkitFontSmoothing: "auto",
+    MozOsxFontSmoothing: "auto",
+  },
+})
 
 type Props = {
   /** Object representing auth part of state */
@@ -38,12 +57,12 @@ export class App extends Component<Props> {
   }
 
   render() {
-    const { auth, navbar, footer } = this.props
+    const { auth, navbar, footer, classes } = this.props
 
     // if any errors, fall back to old link setup
     if (navbar.error || !navbar.links || footer.error || !footer.links) {
       return (
-        <div>
+        <div className={classes.body}>
           {auth.isAuthenticated ? (
             <Header items={loggedHeaderItems}>
               {items => items.map(generateLinks)}
@@ -54,20 +73,20 @@ export class App extends Component<Props> {
             </Header>
           )}
           <Navbar items={navbarItems} />
-          <MainBodyContainer>
-            <main>
-              <ErrorBoundary>
-                <Routes />
-              </ErrorBoundary>
-            </main>
-          </MainBodyContainer>
+
+          <main className={classes.main}>
+            <ErrorBoundary>
+              <Routes />
+            </ErrorBoundary>
+          </main>
+
           <Footer items={footerItems} />
         </div>
       )
     }
 
     return (
-      <div>
+      <div className={classes.body}>
         {auth.isAuthenticated ? (
           <Header items={loggedHeaderItems}>
             {items => items.map(generateLinks)}
@@ -78,13 +97,13 @@ export class App extends Component<Props> {
           </Header>
         )}
         <Navbar items={navbar.links} />
-        <MainBodyContainer>
-          <main>
-            <ErrorBoundary>
-              <Routes />
-            </ErrorBoundary>
-          </main>
-        </MainBodyContainer>
+
+        <main className={classes.main}>
+          <ErrorBoundary>
+            <Routes />
+          </ErrorBoundary>
+        </main>
+
         <Footer items={footer.links} />
       </div>
     )
@@ -97,5 +116,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     { fetchNavbar, fetchFooter },
-  )(App),
+  )(withStyles(styles)(App)),
 )
