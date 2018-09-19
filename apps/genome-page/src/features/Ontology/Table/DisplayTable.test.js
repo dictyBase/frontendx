@@ -1,14 +1,18 @@
 import React from "react"
-import { mount } from "enzyme"
+import { shallow } from "enzyme"
 import "../../../setupTests"
-import DisplayTable from "./DisplayTable"
+import { DisplayTable } from "./DisplayTable"
 import Table from "@material-ui/core/Table"
 
 describe("Ontology/DisplayTable", () => {
   const props = {
     goaData: [],
+    goa: {},
+    classes: {},
+    tableOrder: () => {},
+    sortTableBy: () => {},
   }
-  const wrapper = mount(<DisplayTable {...props} />)
+  const wrapper = shallow(<DisplayTable {...props} />)
   describe("initial render", () => {
     it("renders without crashing", () => {
       wrapper

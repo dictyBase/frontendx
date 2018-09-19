@@ -25,7 +25,17 @@ exports[`matching a snapshot of Summary/Panels/GoaPanel 1`] = `
           className="MuiTableCell-root-39 MuiTableCell-body-41 GoaPanel-tableRightData-4"
           scope={undefined}
         >
-          protein binding (IPI)
+          <span>
+            <em>
+              enables
+            </em>
+             
+            protein binding
+             (
+            IPI
+            )
+          </span>
+          <br />
         </td>
       </tr>
       <tr
@@ -43,8 +53,28 @@ exports[`matching a snapshot of Summary/Panels/GoaPanel 1`] = `
           className="MuiTableCell-root-39 MuiTableCell-body-41 GoaPanel-tableRightData-4"
           scope={undefined}
         >
-          mitotic cytokinesis (IMP), 
-          cell morphogenesis (IMP)
+          <span>
+            <em>
+              acts upstream of or within
+            </em>
+             
+            mitotic cytokinesis
+             (
+            IMP
+            )
+          </span>
+          <br />
+          <span>
+            <em>
+              acts upstream of or within
+            </em>
+             
+            cell morphogenesis
+             (
+            IMP
+            )
+          </span>
+          <br />
         </td>
       </tr>
       <tr
@@ -62,8 +92,28 @@ exports[`matching a snapshot of Summary/Panels/GoaPanel 1`] = `
           className="MuiTableCell-root-39 MuiTableCell-body-41 GoaPanel-tableRightData-4"
           scope={undefined}
         >
-          cell cortex (IDA), 
-          actin cytoskeleton (IDA)
+          <span>
+            <em>
+              part of
+            </em>
+             
+            cell cortex
+             (
+            IDA
+            )
+          </span>
+          <br />
+          <span>
+            <em>
+              part of
+            </em>
+             
+            actin cytoskeleton
+             (
+            IDA
+            )
+          </span>
+          <br />
         </td>
       </tr>
     </tbody>
