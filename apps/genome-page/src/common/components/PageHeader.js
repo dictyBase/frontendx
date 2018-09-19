@@ -8,9 +8,11 @@ type Props = {
 }
 
 const PageHeader = (props: Props) => {
+  const { match } = props
+
   return (
     <h2>
-      <center>Gene Information for {props.match.params.id}</center>
+      <center>Gene Information for {match.params.id}</center>
     </h2>
   )
 }
