@@ -8,7 +8,6 @@ import Button from "@material-ui/core/Button"
 import FontAwesome from "react-fontawesome"
 import sadDicty from "images/sad-dicty.png"
 
-// eslint-disable-next-line
 const styles = theme => ({
   error400: {
     backgroundColor: "#eff8fb",
@@ -176,4 +175,5 @@ export const ErrorPage = (props: Props) => {
 
 const mapStateToProps = ({ general, goa }) => ({ general, goa })
 
-export default withStyles(styles)(connect(mapStateToProps)(ErrorPage))
+// $FlowFixMe
+export default connect(mapStateToProps)(withStyles(styles)(ErrorPage))
