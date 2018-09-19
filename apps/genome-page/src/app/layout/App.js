@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom"
 import { Header, Footer } from "dicty-components-header-footer"
 import { Navbar } from "dicty-components-navbar"
 
+import ErrorBoundary from "common/components/ErrorBoundary"
 import fetchNavbar from "app/actions/navbarActions"
 import fetchFooter from "app/actions/footerActions"
 import footerItems from "common/constants/Footer"
@@ -24,16 +25,16 @@ type Props = {
   /** Object representing footer part of state */
   footer: Object,
   /** Action creator to fetch navbar content */
-  fetchNavbarAction: Function,
+  fetchNavbar: Function,
   /** Action creator to fetch footer content */
-  fetchFooterAction: Function,
+  fetchFooter: Function,
 }
 
 export class App extends Component<Props> {
   componentDidMount() {
-    const { fetchNavbarAction, fetchFooterAction } = this.props
-    fetchNavbarAction()
-    fetchFooterAction()
+    const { fetchNavbar, fetchFooter } = this.props
+    fetchNavbar()
+    fetchFooter()
   }
 
   render() {
@@ -55,7 +56,9 @@ export class App extends Component<Props> {
           <Navbar items={navbarItems} />
           <MainBodyContainer>
             <main>
-              <Routes />
+              <ErrorBoundary>
+                <Routes />
+              </ErrorBoundary>
             </main>
           </MainBodyContainer>
           <Footer items={footerItems} />
@@ -77,7 +80,9 @@ export class App extends Component<Props> {
         <Navbar items={navbar.links} />
         <MainBodyContainer>
           <main>
-            <Routes />
+            <ErrorBoundary>
+              <Routes />
+            </ErrorBoundary>
           </main>
         </MainBodyContainer>
         <Footer items={footer.links} />
@@ -88,11 +93,9 @@ export class App extends Component<Props> {
 
 const mapStateToProps = ({ auth, navbar, footer }) => ({ auth, navbar, footer })
 
-// why rename action creator?
-// https://stackoverflow.com/questions/37682705/avoid-no-shadow-eslint-error-with-mapdispatchtoprops/42337137#42337137
 export default withRouter(
   connect(
     mapStateToProps,
-    { fetchNavbarAction: fetchNavbar, fetchFooterAction: fetchFooter },
+    { fetchNavbar, fetchFooter },
   )(App),
 )
