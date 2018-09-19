@@ -26,9 +26,6 @@ const redirectUrlGenerator = (basename: string) => {
 
 export default class OauthCallback extends Component<Props> {
   componentDidMount() {
-    if (!process.env.REACT_APP_BASENAME)
-      throw new Error("process.env.REACT_APP_API_SERVER required")
-
     window.opener.postMessage(
       {
         query: this.props.location.search,

@@ -1,5 +1,4 @@
 // @flow
-import printError from "common/utils/printError"
 import {
   FETCH_GOA_REQUEST,
   FETCH_GOA_FAILURE,
@@ -9,6 +8,7 @@ import {
   GOA_TABLE_ORDER,
   GOA_TABLE_SORT_BY,
 } from "./goaConstants"
+import { printError, createErrorObj } from "common/utils/actionHelpers"
 
 /**
  * All of the Redux actions related to GOA data
@@ -54,13 +54,13 @@ export const fetchGoa = (url: string) => async (
       headers: { Accept: "application/json" },
     })
     const json = await res.json()
-    if (res.ok) {
-      if (json.status >= 300) {
-        dispatch(fetchGoaFailure(json.title))
-      }
+
+    // check if res.ok (https://developer.mozilla.org/en-US/docs/Web/API/Response/ok)
+    // and that the json doesn't contain an error
+    if (res.ok && !json.status) {
       dispatch(fetchGoaSuccess(json))
     } else {
-      dispatch(fetchGoaFailure(json.title))
+      dispatch(fetchGoaFailure(createErrorObj(json.status, json.title)))
       if (process.env.NODE_ENV !== "production") {
         printError(res, json)
       }

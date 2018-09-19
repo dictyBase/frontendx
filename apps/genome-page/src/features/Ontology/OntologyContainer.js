@@ -8,7 +8,7 @@ import Tab from "@material-ui/core/Tab"
 
 import OntologyTabContainer from "./OntologyTabContainer"
 import OntologyLoader from "./OntologyLoader"
-import OntologyError from "./OntologyError"
+import ErrorPage from "common/components/ErrorPage"
 import PageHeader from "common/components/PageHeader"
 import TabContainer from "common/components/TabContainer"
 import { tabLabels } from "common/constants/tabLabels"
@@ -81,7 +81,7 @@ export class OntologyContainer extends Component<Props> {
     const { match, general, goa } = this.props
 
     if (general.error || goa.error) {
-      return <OntologyError generalError={general.error} goaError={goa.error} />
+      return <ErrorPage />
     }
 
     if (general.isFetching || goa.isFetching) {
