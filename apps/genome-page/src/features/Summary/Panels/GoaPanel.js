@@ -7,8 +7,6 @@ import TableCell from "@material-ui/core/TableCell"
 import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
 
-import qualifierFormatter from "features/Ontology/utils/qualifierFormatter"
-
 const styles = theme => ({
   root: {
     width: "100%",
@@ -72,9 +70,7 @@ const GoaPanel = (props: Props) => {
               {molecular.map((item: Object, i: string) => (
                 <Fragment key={i}>
                   <span>
-                    {qualifierFormatter(item.qualifier)} {item.goterm} ({
-                      item.evidence_code
-                    })
+                    {item.goterm} ({item.evidence_code})
                   </span>
                   <br />
                 </Fragment>
@@ -92,9 +88,7 @@ const GoaPanel = (props: Props) => {
               {biological.map((item, i) => (
                 <Fragment key={i}>
                   <span>
-                    {qualifierFormatter(item.qualifier)} {item.goterm} ({
-                      item.evidence_code
-                    })
+                    {item.goterm} ({item.evidence_code})
                   </span>
                   <br />
                 </Fragment>
@@ -112,9 +106,7 @@ const GoaPanel = (props: Props) => {
               {cellular.map((item, i) => (
                 <Fragment key={i}>
                   <span>
-                    {qualifierFormatter(item.qualifier)} {item.goterm} ({
-                      item.evidence_code
-                    })
+                    {item.goterm} ({item.evidence_code})
                   </span>
                   <br />
                 </Fragment>
