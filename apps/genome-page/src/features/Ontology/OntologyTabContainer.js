@@ -44,7 +44,7 @@ type Props = {
  * a tab if the data exists.
  */
 
-class OntologyTabContainer extends Component<Props> {
+export class OntologyTabContainer extends Component<Props> {
   handleChange = (event: SyntheticEvent<>, value: string) => {
     const { changeTab } = this.props
 
