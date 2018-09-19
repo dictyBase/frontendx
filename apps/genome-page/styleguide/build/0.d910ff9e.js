@@ -5224,7 +5224,7 @@ webpackJsonp([0], {
           this.height = null
           var o = widgetHeight(this) - t
           o &&
-            (updateLineHeight(r, r.height + o),
+            (lineIsHidden(this.doc, r) || updateLineHeight(r, r.height + o),
             n &&
               runInOp(n, function() {
                 ;(n.curOp.forceUpdate = !0),
@@ -7349,8 +7349,9 @@ webpackJsonp([0], {
           copyObj(ze, t, !1),
           setGuttersForLineNumbers(t)
         var r = t.value
-        "string" == typeof r &&
-          (r = new ke(r, t.mode, null, t.lineSeparator, t.direction)),
+        "string" == typeof r
+          ? (r = new ke(r, t.mode, null, t.lineSeparator, t.direction))
+          : t.mode && (r.modeOption = t.mode),
           (this.doc = r)
         var o,
           i = new CodeMirror$1.inputStyles[t.inputStyle](this),
@@ -9487,7 +9488,7 @@ webpackJsonp([0], {
             (e.rmClass = L),
             (e.keyNames = Te)
         })(CodeMirror$1),
-        (CodeMirror$1.version = "5.39.0"),
+        (CodeMirror$1.version = "5.39.2"),
         CodeMirror$1
       )
     }),
@@ -11256,7 +11257,7 @@ webpackJsonp([0], {
                   this.delegateCursor(
                     e.cursor,
                     e.autoScroll || !1,
-                    e.autoFocus || !1,
+                    this.editor.getOption("autofocus") || !1,
                   ),
                 e && e.scroll && this.delegateScroll(e.scroll)
             }),
@@ -11295,7 +11296,7 @@ webpackJsonp([0], {
                 this.delegateCursor(
                   t.cursor,
                   e.autoScroll || !1,
-                  e.autoFocus || !1,
+                  this.editor.getOption("autofocus") || !1,
                 )
             }),
             (Shared.prototype.wire = function(e) {
@@ -11332,13 +11333,13 @@ webpackJsonp([0], {
                       })
                       break
                     case "onCut":
-                      t.editor.on("cut", function(e) {
-                        t.props.onCut(t.editor, event)
+                      t.editor.on("cut", function(e, n) {
+                        t.props.onCut(t.editor, n)
                       })
                       break
                     case "onDblClick":
-                      t.editor.on("dblclick", function(e) {
-                        t.props.onDblClick(t.editor, event)
+                      t.editor.on("dblclick", function(e, n) {
+                        t.props.onDblClick(t.editor, n)
                       })
                       break
                     case "onDragEnter":
@@ -11347,8 +11348,8 @@ webpackJsonp([0], {
                       })
                       break
                     case "onDragLeave":
-                      t.editor.on("dragleave", function(e) {
-                        t.props.onDragLeave(t.editor, event)
+                      t.editor.on("dragleave", function(e, n) {
+                        t.props.onDragLeave(t.editor, n)
                       })
                       break
                     case "onDragOver":
@@ -11357,8 +11358,8 @@ webpackJsonp([0], {
                       })
                       break
                     case "onDragStart":
-                      t.editor.on("dragstart", function(e) {
-                        t.props.onDragStart(t.editor, event)
+                      t.editor.on("dragstart", function(e, n) {
+                        t.props.onDragStart(t.editor, n)
                       })
                       break
                     case "onDrop":
@@ -11392,13 +11393,18 @@ webpackJsonp([0], {
                       })
                       break
                     case "onMouseDown":
-                      t.editor.on("mousedown", function(e) {
-                        t.props.onMouseDown(t.editor, event)
+                      t.editor.on("mousedown", function(e, n) {
+                        t.props.onMouseDown(t.editor, n)
                       })
                       break
                     case "onPaste":
-                      t.editor.on("paste", function(e) {
-                        t.props.onPaste(t.editor, event)
+                      t.editor.on("paste", function(e, n) {
+                        t.props.onPaste(t.editor, n)
+                      })
+                      break
+                    case "onRenderLine":
+                      t.editor.on("renderLine", function(e, n, r) {
+                        t.props.onRenderLine(t.editor, n, r)
                       })
                       break
                     case "onScroll":
@@ -11412,8 +11418,8 @@ webpackJsonp([0], {
                       })
                       break
                     case "onTouchStart":
-                      t.editor.on("touchstart", function(e) {
-                        t.props.onTouchStart(t.editor, event)
+                      t.editor.on("touchstart", function(e, n) {
+                        t.props.onTouchStart(t.editor, n)
                       })
                       break
                     case "onUpdate":
@@ -11549,6 +11555,7 @@ webpackJsonp([0], {
                 (this.applied = !0),
                 (this.mounted = !0),
                 this.shared.wire(this.props),
+                this.editor.getOption("autofocus") && this.editor.focus(),
                 this.props.editorDidMount &&
                   this.props.editorDidMount(
                     this.editor,
@@ -11751,16 +11758,24 @@ webpackJsonp([0], {
     n,
   ) {
     "use strict"
-    Object.defineProperty(t, "__esModule", { value: !0 })
+    Object.defineProperty(t, "__esModule", { value: !0 }),
+      n.d(t, "Editor", function() {
+        return g
+      })
     var r = n("./node_modules/react/index.js"),
       o = n.n(r),
-      i = n("./node_modules/prop-types/index.js"),
+      i = n(
+        "./node_modules/react-styleguidist/node_modules/prop-types/index.js",
+      ),
       a = n.n(i),
-      s = n("./node_modules/lodash/debounce.js"),
-      l = n.n(s),
-      c = n("./node_modules/react-codemirror2/index.js"),
-      u = (n.n(c), n("./node_modules/codemirror/mode/jsx/jsx.js")),
-      d = (n.n(u),
+      s = n(
+        "./node_modules/react-styleguidist/lib/rsg-components/Styled/index.js",
+      ),
+      l = n("./node_modules/lodash/debounce.js"),
+      c = n.n(l),
+      u = n("./node_modules/react-codemirror2/index.js"),
+      d = (n.n(u), n("./node_modules/codemirror/mode/jsx/jsx.js")),
+      p = (n.n(d),
       Object.assign ||
         function(e) {
           for (var t = 1; t < arguments.length; t++) {
@@ -11770,7 +11785,7 @@ webpackJsonp([0], {
           }
           return e
         }),
-      p = (function() {
+      h = (function() {
         function defineProperties(e, t) {
           for (var n = 0; n < t.length; n++) {
             var r = t[n]
@@ -11823,19 +11838,19 @@ webpackJsonp([0], {
       n(
         "./node_modules/react-styleguidist/loaders/style-loader.js!./node_modules/react-styleguidist/loaders/css-loader.js!./node_modules/codemirror/theme/base16-light.css",
       )
-    var h = 10,
-      f = (function(e) {
+    var f = 10,
+      g = (function(e) {
         function Editor() {
           _classCallCheck(this, Editor)
           var e = _possibleConstructorReturn(
             this,
             (Editor.__proto__ || Object.getPrototypeOf(Editor)).call(this),
           )
-          return (e.handleChange = l()(e.handleChange.bind(e), h)), e
+          return (e.handleChange = c()(e.handleChange.bind(e), f)), e
         }
         return (
           _inherits(Editor, r["Component"]),
-          p(Editor, [
+          h(Editor, [
             {
               key: "shouldComponentUpdate",
               value: function shouldComponentUpdate(e) {
@@ -11848,7 +11863,7 @@ webpackJsonp([0], {
             {
               key: "getEditorConfig",
               value: function getEditorConfig(e) {
-                return d({}, this.context.config.editorConfig, e.editorConfig)
+                return p({}, this.context.config.editorConfig, e.editorConfig)
               },
             },
             {
@@ -11861,9 +11876,12 @@ webpackJsonp([0], {
             {
               key: "render",
               value: function render() {
-                var e = this.props.code
-                return o.a.createElement(c.UnControlled, {
-                  value: e,
+                var e = this.props,
+                  t = e.code,
+                  n = e.classes
+                return o.a.createElement(u.UnControlled, {
+                  className: n.root,
+                  value: t,
                   onChange: this.handleChange,
                   options: this.getEditorConfig(this.props),
                 })
@@ -11873,13 +11891,37 @@ webpackJsonp([0], {
           Editor
         )
       })()
-    ;(f.propTypes = {
+    ;(g.propTypes = {
       code: a.a.string.isRequired,
       onChange: a.a.func,
       editorConfig: a.a.object,
+      classes: a.a.object.isRequired,
     }),
-      (f.contextTypes = { config: a.a.object.isRequired }),
-      (t.default = f)
+      (g.contextTypes = { config: a.a.object.isRequired }),
+      (t.default = Object(s.a)(function styles(e) {
+        var t = e.fontFamily,
+          n = e.space,
+          r = e.fontSize
+        return {
+          root: {
+            "& .CodeMirror": {
+              isolate: !1,
+              fontFamily: t.monospace,
+              height: "auto",
+              padding: [[n[1], n[2]]],
+              fontSize: r.small,
+            },
+            "& .CodeMirror pre": { isolate: !1, padding: 0 },
+            "& .CodeMirror-scroll": {
+              isolate: !1,
+              height: "auto",
+              overflowY: "hidden",
+              overflowX: "auto",
+            },
+            "& .cm-error": { isolate: !1, background: "none" },
+          },
+        }
+      })(g))
   },
   "./node_modules/react-styleguidist/loaders/css-loader.js!./node_modules/codemirror/lib/codemirror.css": function(
     e,
