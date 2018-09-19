@@ -1,6 +1,5 @@
 // @flow
 import React from "react"
-import { Link } from "react-router-dom"
 import { withStyles } from "@material-ui/core/styles"
 import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
@@ -53,7 +52,7 @@ const PageNotReady = props => {
             We are constantly adding content to our new website so check back
             soon!
           </p>
-          <Link className={classes.routerLink} to="/">
+          <a href="/" className={classes.routerLink}>
             <Button
               className={classes.button}
               size="small"
@@ -61,7 +60,7 @@ const PageNotReady = props => {
               color="primary">
               Back to homepage
             </Button>
-          </Link>
+          </a>
         </div>
       </Grid>
     </Grid>
