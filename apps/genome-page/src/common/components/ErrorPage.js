@@ -1,7 +1,6 @@
 // @flow
 import React from "react"
 import { connect } from "react-redux"
-import { Link } from "react-router-dom"
 import { withStyles } from "@material-ui/core/styles"
 import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
@@ -20,26 +19,20 @@ const styles = theme => ({
   error500: {
     backgroundColor: "#a63232",
     textAlign: "center",
-    paddingTop: 30,
-    paddingBottom: 30,
+    paddingTop: 40,
+    paddingBottom: 40,
     marginBottom: 30,
     borderRadius: 5,
-    color: "#fff",
+    color: "#e3e3e3",
   },
   backButton: {
     width: "25%",
     padding: "20px",
     textTransform: "none",
     backgroundColor: "#15317e",
-  },
-  addPageButton: {
-    width: "25%",
-    marginTop: "25px",
-    padding: "25px",
-    textTransform: "none",
-    backgroundColor: "#FF6347",
+    color: "#e3e3e3",
     "&:hover": {
-      backgroundColor: "#cc381e",
+      backgroundColor: "#1a3d9e",
     },
   },
   mainGrid: {
@@ -48,9 +41,17 @@ const styles = theme => ({
   paragraph: {
     padding: "10px",
   },
-  routerLink: {
+  link: {
     color: "#428bca",
     textDecoration: "none",
+  },
+  link500: {
+    color: "#e0e0e0",
+    textDecoration: "none",
+  },
+  list: {
+    margin: "0 auto",
+    display: "table",
   },
 })
 
@@ -88,14 +89,17 @@ export const ErrorPage = (props: Props) => {
       <Grid container className={classes.mainGrid} justify="center">
         <Grid item xs={10} md={8}>
           <div className={classes.error500}>
-            <h3>Sorry! There was a server error.</h3>
+            <h2>Sorry! There was a server error.</h2>
             <p>
               If the problem persists, please email us at{" "}
-              <a href="mailto:dictybase@northwestern.edu">
+              <a
+                className={classes.link500}
+                href="mailto:dictybase@northwestern.edu">
                 dictybase@northwestern.edu
               </a>
+              .
             </p>
-            <Link className={classes.routerLink} to="/">
+            <a href="/">
               <Button
                 className={classes.backButton}
                 size="small"
@@ -103,7 +107,7 @@ export const ErrorPage = (props: Props) => {
                 color="default">
                 Back to homepage
               </Button>
-            </Link>
+            </a>
           </div>
         </Grid>
       </Grid>
@@ -117,17 +121,23 @@ export const ErrorPage = (props: Props) => {
           <div className={classes.error400}>
             <img src={sadDicty} alt="Sad Dicty -- Gene Not Found" />
             <h3>Gene Not Found</h3>
-            <ul>
-              <li>This is probably an invalid ID. Try a different one.</li>
-              <li>You might be coming here from an outdated link.</li>
-              <li>
-                If problems persist, email us at{" "}
-                <a href="mailto:dictybase@northwestern.edu">
-                  dictybase@northwestern.edu
-                </a>.
-              </li>
-            </ul>
-            <Link className={classes.routerLink} to="/">
+            <div className={classes.list}>
+              <ul>
+                <li>This is probably an invalid ID. Try a different one.</li>
+                <li>You might be coming here from an outdated link.</li>
+              </ul>
+            </div>
+            <p>
+              {" "}
+              If problems persist, email us at{" "}
+              <a
+                className={classes.link}
+                href="mailto:dictybase@northwestern.edu">
+                dictybase@northwestern.edu
+              </a>
+              .
+            </p>
+            <a href="/">
               <Button
                 className={classes.backButton}
                 size="small"
@@ -135,7 +145,7 @@ export const ErrorPage = (props: Props) => {
                 color="primary">
                 Back to homepage
               </Button>
-            </Link>
+            </a>
           </div>
         </Grid>
       </Grid>
@@ -153,12 +163,14 @@ export const ErrorPage = (props: Props) => {
           <h3>{errorMsg}</h3>
           <p>
             If the problem persists, please email us at{" "}
-            <a href="mailto:dictybase@northwestern.edu">
+            <a
+              className={classes.link}
+              href="mailto:dictybase@northwestern.edu">
               dictybase@northwestern.edu
             </a>
             .
           </p>
-          <Link className={classes.routerLink} to="/">
+          <a href="/">
             <Button
               className={classes.backButton}
               size="small"
@@ -166,7 +178,7 @@ export const ErrorPage = (props: Props) => {
               color="primary">
               Back to Homepage
             </Button>
-          </Link>
+          </a>
         </div>
       </Grid>
     </Grid>
