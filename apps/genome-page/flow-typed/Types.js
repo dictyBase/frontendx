@@ -5,6 +5,10 @@ declare module "ProtVista/style/main.css" {
 declare module "font-awesome/css/font-awesome.min.css" {
   declare module.exports: any
 }
+// images
+declare module "images/sad-dicty.png" {
+  declare module.exports: any
+}
 
 class process {
   static env: {
