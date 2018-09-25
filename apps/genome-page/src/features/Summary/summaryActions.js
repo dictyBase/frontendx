@@ -5,6 +5,9 @@ import {
   FETCH_GENERAL_DATA_SUCCESS,
   GENERAL_DATA_NO_REFETCH,
   CHANGE_MAIN_TAB,
+  FETCH_GENE_NAME_REQUEST,
+  FETCH_GENE_NAME_SUCCESS,
+  FETCH_GENE_NAME_FAILURE,
 } from "./summaryConstants"
 import { printError, createErrorObj } from "common/utils/actionHelpers"
 
@@ -35,6 +38,29 @@ const fetchGeneralDataFailure = error => ({
   },
 })
 
+const fetchGeneNameRequest = () => ({
+  type: FETCH_GENE_NAME_REQUEST,
+  payload: {
+    isFetching: true,
+  },
+})
+
+const fetchGeneNameSuccess = (data: Array<Object>) => ({
+  type: FETCH_GENE_NAME_SUCCESS,
+  payload: {
+    isFetching: false,
+    data,
+  },
+})
+
+const fetchGeneNameFailure = error => ({
+  type: FETCH_GENE_NAME_FAILURE,
+  payload: {
+    isFetching: false,
+    error,
+  },
+})
+
 const noRefetch = () => ({
   type: GENERAL_DATA_NO_REFETCH,
 })
@@ -59,6 +85,35 @@ export const fetchGeneralData = (url: string) => async (
       dispatch(fetchGeneralDataSuccess(json))
     } else {
       dispatch(fetchGeneralDataFailure(createErrorObj(json.status, json.title)))
+      if (process.env.NODE_ENV !== "production") {
+        printError(res, json)
+      }
+    }
+  } catch (error) {
+    if (process.env.NODE_ENV !== "production") {
+      console.error(`Network error: ${error.message}`)
+    }
+  }
+}
+
+export const fetchGeneName = (url: string) => async (
+  dispatch: Function,
+  getState: Function,
+) => {
+  if (getState().general.geneName) {
+    return noRefetch()
+  }
+  try {
+    dispatch(fetchGeneNameRequest())
+    const res = await fetch(url, {
+      headers: { Accept: "application/json" },
+    })
+    const json = await res.json()
+
+    if (res.ok && !json.status) {
+      dispatch(fetchGeneNameSuccess(json))
+    } else {
+      dispatch(fetchGeneNameFailure(createErrorObj(json.status, json.title)))
       if (process.env.NODE_ENV !== "production") {
         printError(res, json)
       }
