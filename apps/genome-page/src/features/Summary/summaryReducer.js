@@ -5,6 +5,9 @@ import {
   FETCH_GENERAL_DATA_SUCCESS,
   GENERAL_DATA_NO_REFETCH,
   CHANGE_MAIN_TAB,
+  FETCH_GENE_NAME_REQUEST,
+  FETCH_GENE_NAME_SUCCESS,
+  FETCH_GENE_NAME_FAILURE,
 } from "./summaryConstants"
 
 /**
@@ -32,6 +35,24 @@ const summaryReducer = (
         isFetching: false,
       }
     case FETCH_GENERAL_DATA_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.payload.error,
+      }
+    case FETCH_GENE_NAME_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+      }
+    case FETCH_GENE_NAME_SUCCESS:
+      console.log(action.payload.data)
+      return {
+        ...state,
+        geneName: action.payload.data.data.attributes.geneName,
+        isFetching: false,
+      }
+    case FETCH_GENE_NAME_FAILURE:
       return {
         ...state,
         isFetching: false,

@@ -1,20 +1,19 @@
 // @flow
 import React from "react"
-import { withRouter } from "react-router-dom"
 
 type Props = {
-  /** React Router's match object */
-  match: Object,
+  /** The gene name */
+  name: string,
 }
 
 const PageHeader = (props: Props) => {
-  const { match } = props
+  const { name } = props
 
   return (
     <h2>
-      <center>Gene Information for {match.params.id}</center>
+      <center>Gene Information for {name}</center>
     </h2>
   )
 }
 
-export default withRouter(PageHeader)
+export default PageHeader
