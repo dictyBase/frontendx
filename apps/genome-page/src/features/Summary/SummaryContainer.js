@@ -14,16 +14,18 @@ import ErrorPage from "common/components/ErrorPage"
 import SummaryLoader from "./SummaryLoader"
 import { tabLabels } from "common/constants/tabLabels"
 import { panelLabels } from "./panelLabels"
-import { fetchGeneralData, changeTab } from "./summaryActions"
+import { fetchGeneralData, fetchGeneName, changeTab } from "./summaryActions"
 import { fetchGoa } from "features/Ontology/goaActions"
 
 type Props = {
   /** React Router object */
   match: Object,
-  /** Action creator to fetch Summary data */
+  /** Action to fetch Summary data */
   fetchGeneralData: Function,
-  /** Action creator to fetch GOA data */
+  /** Action to fetch GOA data */
   fetchGoa: Function,
+  /** Action to fetch gene name from ID */
+  fetchGeneName: Function,
   /** Object for the general slice of state */
   general: Object,
   /** Object for the goa slice of state */
@@ -34,7 +36,7 @@ type Props = {
 
 export class SummaryContainer extends Component<Props> {
   componentDidMount() {
-    const { fetchGeneralData, fetchGoa, match } = this.props
+    const { fetchGeneralData, fetchGoa, fetchGeneName, match } = this.props
 
     // $FlowFixMe
     const mainUrl = `${process.env.REACT_APP_API_SERVER}/genes/${
@@ -44,8 +46,13 @@ export class SummaryContainer extends Component<Props> {
     const goaUrl = `${process.env.REACT_APP_API_SERVER}/genes/${
       match.params.id
     }/goas`
+    // $FlowFixMe
+    const geneIdConvertUrl = `${
+      process.env.REACT_APP_API_SERVER
+    }/goa/converter/${match.params.id}`
 
     fetchGeneralData(mainUrl)
+    fetchGeneName(geneIdConvertUrl)
     fetchGoa(goaUrl)
   }
 
@@ -129,7 +136,7 @@ export class SummaryContainer extends Component<Props> {
     return (
       <Grid container justify="center">
         <Grid item lg={12}>
-          <PageHeader />
+          <PageHeader name={general.geneName} />
           <AppBar position="static">
             <Tabs value={general.currentTab} onChange={this.handleChange}>
               <Tab
@@ -154,5 +161,5 @@ const mapStateToProps = ({ general, goa }) => ({ general, goa })
 
 export default connect(
   mapStateToProps,
-  { fetchGeneralData, fetchGoa, changeTab },
+  { fetchGeneralData, fetchGoa, fetchGeneName, changeTab },
 )(SummaryContainer)
