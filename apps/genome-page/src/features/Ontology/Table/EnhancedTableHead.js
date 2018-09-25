@@ -13,14 +13,15 @@ const columnData = [
     id: "qualifier",
     label: "Qualifier + GO Term",
   },
-  { id: "evidence_code", label: "Evidence" },
-  { id: "with", label: "With" },
   { id: "extensions", label: "Extensions" },
+  { id: "with", label: "With" },
+  { id: "evidence_code", label: "Evidence" },
   {
     id: "publication",
     label: "Reference",
   },
   { id: "date", label: "Date" },
+  { id: "assigned_by", label: "Source" },
 ]
 
 type Props = {
