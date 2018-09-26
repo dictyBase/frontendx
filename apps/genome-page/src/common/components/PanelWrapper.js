@@ -1,5 +1,6 @@
 // @flow
 import React from "react"
+import { Link } from "react-router-dom"
 import { withStyles } from "@material-ui/core/styles"
 import ExpansionPanel from "@material-ui/core/ExpansionPanel"
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary"
@@ -26,6 +27,11 @@ const styles = (theme: Object) => ({
   details: {
     padding: 0,
   },
+  link: {
+    color: "#e1f5fe",
+    marginLeft: 40,
+    textDecoration: "none",
+  },
 })
 
 type Props = {
@@ -45,7 +51,14 @@ const PanelWrapper = (props: Props) => {
         <ExpansionPanelSummary
           className={classes.summary}
           expandIcon={<ExpandMoreIcon className={classes.icon} />}>
-          <Typography className={classes.heading}>{props.title}</Typography>
+          <Typography className={classes.heading}>
+            {props.title}
+            {props.route && (
+              <Link className={classes.link} to={props.route}>
+                View All
+              </Link>
+            )}
+          </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.details}>
           {props.children}

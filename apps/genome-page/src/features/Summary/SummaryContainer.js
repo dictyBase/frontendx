@@ -97,6 +97,7 @@ export class SummaryContainer extends Component<Props> {
 
   // generates panels based on json data structure
   generatePanels = (json: Object) => {
+    const { match } = this.props
     const panels = json.data.attributes.subgroup.map(
       (item: Object, index: string) => {
         if (!panelLabels[item]) {
@@ -110,9 +111,13 @@ export class SummaryContainer extends Component<Props> {
         // set variables for each panel's title and component
         const panelTitle = panelLabels[item].title
         const InnerPanel = panelLabels[item].component
+        const panelRoute = panelLabels[item].route
 
         return (
-          <PanelWrapper key={index} title={panelTitle}>
+          <PanelWrapper
+            key={index}
+            title={panelTitle}
+            route={`/${match.params.id}/${panelRoute}`}>
             {/* $FlowFixMe */}
             <InnerPanel panelData={this.props[item]} />
           </PanelWrapper>

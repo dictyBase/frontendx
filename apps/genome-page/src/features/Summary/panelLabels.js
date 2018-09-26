@@ -16,8 +16,9 @@ export const panelLabels = {
     component: GoaPanel,
   },
   goa: {
-    title: "Gene Ontology Annotations",
+    title: "Latest Gene Ontology Annotations",
     component: GoaPanel,
+    route: "goannotations",
   },
   dbxrefs: {
     title: "Links",
