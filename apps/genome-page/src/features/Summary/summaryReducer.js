@@ -46,7 +46,6 @@ const summaryReducer = (
         isFetching: true,
       }
     case FETCH_GENE_NAME_SUCCESS:
-      console.log(action.payload.data)
       return {
         ...state,
         geneName: action.payload.data.data.attributes.geneName,
