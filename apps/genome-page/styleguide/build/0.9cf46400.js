@@ -8863,7 +8863,8 @@ webpackJsonp([0], {
                 return e.doc.setDirection(t)
               },
               !0,
-            )
+            ),
+            option("phrases", null)
         })(CodeMirror$1),
         (function(e) {
           var t = e.optionHandlers,
@@ -9339,6 +9340,10 @@ webpackJsonp([0], {
                 t
               )
             }),
+            phrase: function(e) {
+              var t = this.options.phrases
+              return t && Object.prototype.hasOwnProperty.call(t, e) ? t[e] : e
+            },
             getInputField: function() {
               return this.display.input.getField()
             },
@@ -9488,7 +9493,7 @@ webpackJsonp([0], {
             (e.rmClass = L),
             (e.keyNames = Te)
         })(CodeMirror$1),
-        (CodeMirror$1.version = "5.39.2"),
+        (CodeMirror$1.version = "5.40.0"),
         CodeMirror$1
       )
     }),
@@ -11764,9 +11769,7 @@ webpackJsonp([0], {
       })
     var r = n("./node_modules/react/index.js"),
       o = n.n(r),
-      i = n(
-        "./node_modules/react-styleguidist/node_modules/prop-types/index.js",
-      ),
+      i = n("./node_modules/prop-types/index.js"),
       a = n.n(i),
       s = n(
         "./node_modules/react-styleguidist/lib/rsg-components/Styled/index.js",
