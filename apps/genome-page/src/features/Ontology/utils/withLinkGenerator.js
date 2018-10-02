@@ -4,7 +4,7 @@
  * This is a helper function to generate links for the With column of DisplayTable.
  */
 
-const withLinkGenerator = (id: string) => {
+const withLinkGenerator = (id: string, db: string) => {
   if (id.slice(0, 3) === "KW-") {
     return `https://www.uniprot.org/keywords/${id}`
   }
@@ -25,16 +25,24 @@ const withLinkGenerator = (id: string) => {
     return `http://www.pantree.org/node/annotationNode.jsp?id=${id}`
   }
 
-  if (id.slice(0, 1) === "0") {
+  if (db === "GO") {
     return `https://www.ebi.ac.uk/QuickGO/term/GO:${id}`
+  }
+
+  if (db === "DDB") {
+    return `/${id}`
+  }
+
+  if (db === "CHEBI") {
+    return `https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:${id}`
+  }
+
+  if (db === "SO") {
+    return `http://www.sequenceontology.org/browser/current_svn/term/SO:${id}`
   }
 
   if (id.slice(0, 1) === "Q" || id.slice(0, 1) === "P") {
     return `https://www.uniprot.org/uniprot/${id}`
-  }
-
-  if (id.slice(0, 3) === "DDB") {
-    return `/${id}`
   }
 
   return "#"
