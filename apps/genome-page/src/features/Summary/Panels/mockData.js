@@ -110,11 +110,7 @@ export const data = {
           publication: "PMID:22219373",
           with: null,
           extensions: [
-            {
-              connectedXrefs: [
-                { db: "UniProtKB", id: "Q54KF7", relation: "has_direct_input" },
-              ],
-            },
+            { db: "UniProtKB", id: "Q54KF7", relation: "has_direct_input" },
           ],
           assigned_by: "dictyBase",
         },
@@ -131,9 +127,9 @@ export const data = {
           with: null,
           extensions: [
             {
-              connectedXrefs: [
-                { db: "UniProtKB", id: "Q54KF7", relation: "has_direct_input" },
-              ],
+              db: "UniProtKB",
+              id: "Q54KF7",
+              relation: "has_direct_input",
             },
           ],
           assigned_by: "dictyBase",
