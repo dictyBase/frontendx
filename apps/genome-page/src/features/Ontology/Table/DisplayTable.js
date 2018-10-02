@@ -90,9 +90,10 @@ export class DisplayTable extends Component<Props> {
                             <em>{item.relation}</em>{" "}
                             <a
                               className={classes.link}
-                              href={withLinkGenerator(item.id)}
+                              href={withLinkGenerator(item.id, item.db)}
                               target="_blank">
-                              ({item.name})
+                              {!item.name && `(${item.db}:${item.id})`}
+                              {item.name && `(${item.name})`}
                             </a>
                           </span>
                           <br />
@@ -108,7 +109,7 @@ export class DisplayTable extends Component<Props> {
                             <span>
                               <a
                                 className={classes.link}
-                                href={withLinkGenerator(xref.id)}
+                                href={withLinkGenerator(xref.id, xref.db)}
                                 target="_blank">
                                 {xref.db}:{xref.id}
                               </a>
