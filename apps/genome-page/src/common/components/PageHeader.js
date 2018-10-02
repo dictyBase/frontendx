@@ -1,19 +1,30 @@
 // @flow
 import React from "react"
+import { withRouter } from "react-router-dom"
 
 type Props = {
   /** The gene name */
   name: string,
+  /** React Router match object */
+  match: Object,
+}
+
+const titleConverter = path => {
+  if (path.includes("goannotations")) {
+    return "Gene Ontology Annotations"
+  }
+  return "Gene Information"
 }
 
 const PageHeader = (props: Props) => {
-  const { name } = props
-
+  const { name, match } = props
   return (
     <h2>
-      <center>Gene Information for {name}</center>
+      <center>
+        {titleConverter(match.path)} for {name}
+      </center>
     </h2>
   )
 }
 
-export default PageHeader
+export default withRouter(PageHeader)
