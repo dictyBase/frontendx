@@ -7,6 +7,8 @@ import TableCell from "@material-ui/core/TableCell"
 import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
 
+import withLinkGenerator from "features/Ontology/utils/withLinkGenerator"
+
 const styles = theme => ({
   root: {
     width: "100%",
@@ -21,6 +23,16 @@ const styles = theme => ({
   },
   tableRightData: {
     width: "80%",
+  },
+  link: {
+    textDecoration: "none",
+    color: "#4C5E81",
+    "&:visited": {
+      color: "#4C5E81",
+    },
+    "&:hover": {
+      textDecoration: "underline",
+    },
   },
 })
 
@@ -70,7 +82,24 @@ const GoaPanel = (props: Props) => {
               {molecular.map((item: Object, i: string) => (
                 <Fragment key={i}>
                   <span>
-                    {item.goterm} ({item.evidence_code})
+                    {item.goterm}
+                    {item.extensions !== null &&
+                      item.extensions.map((ext: Object, i: string) => (
+                        <Fragment key={i}>
+                          <span>
+                            {" "}
+                            <em>{ext.relation}</em>{" "}
+                            <a
+                              className={classes.link}
+                              href={withLinkGenerator(ext.id, ext.db)}
+                              target="_blank">
+                              {!ext.name && `${ext.db}:${ext.id}`}
+                              {ext.name && `${ext.name}`}
+                            </a>{" "}
+                          </span>
+                        </Fragment>
+                      ))}{" "}
+                    ({item.evidence_code})
                   </span>
                   <br />
                 </Fragment>
@@ -88,7 +117,24 @@ const GoaPanel = (props: Props) => {
               {biological.map((item, i) => (
                 <Fragment key={i}>
                   <span>
-                    {item.goterm} ({item.evidence_code})
+                    {item.goterm}
+                    {item.extensions !== null &&
+                      item.extensions.map((ext: Object, i: string) => (
+                        <Fragment key={i}>
+                          <span>
+                            {" "}
+                            <em>{ext.relation}</em>{" "}
+                            <a
+                              className={classes.link}
+                              href={withLinkGenerator(ext.id, ext.db)}
+                              target="_blank">
+                              {!ext.name && `${ext.db}:${ext.id}`}
+                              {ext.name && `${ext.name}`}
+                            </a>{" "}
+                          </span>
+                        </Fragment>
+                      ))}{" "}
+                    ({item.evidence_code})
                   </span>
                   <br />
                 </Fragment>
@@ -106,7 +152,24 @@ const GoaPanel = (props: Props) => {
               {cellular.map((item, i) => (
                 <Fragment key={i}>
                   <span>
-                    {item.goterm} ({item.evidence_code})
+                    {item.goterm}
+                    {item.extensions !== null &&
+                      item.extensions.map((ext: Object, i: string) => (
+                        <Fragment key={i}>
+                          <span>
+                            {" "}
+                            <em>{ext.relation}</em>{" "}
+                            <a
+                              className={classes.link}
+                              href={withLinkGenerator(ext.id, ext.db)}
+                              target="_blank">
+                              {!ext.name && `${ext.db}:${ext.id}`}
+                              {ext.name && `${ext.name}`}
+                            </a>{" "}
+                          </span>
+                        </Fragment>
+                      ))}{" "}
+                    ({item.evidence_code})
                   </span>
                   <br />
                 </Fragment>
