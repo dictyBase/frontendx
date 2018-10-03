@@ -63,7 +63,7 @@ const styles = theme => ({
     borderBottom: "1px dotted #A3BAE9",
   },
   tableLeftData: {
-    backgroundColor: "#DFE8F6",
+    backgroundColor: "#ccd9ff",
     minWidth: 150,
     maxWidth: 200,
   },
