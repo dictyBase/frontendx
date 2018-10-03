@@ -5,11 +5,15 @@
  */
 
 const withLinkGenerator = (id: string, db: string) => {
+  if (id === undefined) {
+    return "#"
+  }
+
   if (id.slice(0, 3) === "KW-") {
     return `https://www.uniprot.org/keywords/${id}`
   }
 
-  if (id.slice(0, 3) === "SL-") {
+  if (db === "UniProtKB-SubCell") {
     return `https://www.uniprot.org/locations/${id}`
   }
 
@@ -29,7 +33,7 @@ const withLinkGenerator = (id: string, db: string) => {
     return `https://www.ebi.ac.uk/QuickGO/term/GO:${id}`
   }
 
-  if (db === "DDB") {
+  if (db === "DDB" || db === "dictyBase") {
     return `/${id}`
   }
 
