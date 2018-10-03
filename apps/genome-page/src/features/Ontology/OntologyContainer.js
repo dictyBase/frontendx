@@ -15,6 +15,7 @@ import { tabLabels } from "common/constants/tabLabels"
 import {
   fetchGeneralData,
   fetchGeneName,
+  changeTab,
 } from "features/Summary/summaryActions"
 import { fetchGoa } from "features/Ontology/goaActions"
 
@@ -31,6 +32,8 @@ type Props = {
   general: Object,
   /** Object for the goa slice of state */
   goa: Object,
+  /** Action to change the top level tabs */
+  changeTab: Function,
 }
 
 /**
@@ -59,6 +62,12 @@ export class OntologyContainer extends Component<Props> {
     fetchGeneralData(mainUrl)
     fetchGeneName(geneIdConvertUrl)
     fetchGoa(goaUrl)
+  }
+
+  handleChange = (event: SyntheticEvent<>, value: string) => {
+    const { changeTab } = this.props
+
+    changeTab(value)
   }
 
   // generates tabs dynamically based on json data structure
@@ -103,7 +112,7 @@ export class OntologyContainer extends Component<Props> {
       <div>
         <PageHeader name={general.geneName} />
         <AppBar position="static">
-          <Tabs value="goa">
+          <Tabs value="goa" onChange={this.handleChange}>
             <Tab
               value="summary"
               label="Gene Summary"
@@ -125,5 +134,5 @@ const mapStateToProps = ({ general, goa }) => ({ general, goa })
 
 export default connect(
   mapStateToProps,
-  { fetchGeneralData, fetchGoa, fetchGeneName },
+  { fetchGeneralData, fetchGoa, fetchGeneName, changeTab },
 )(OntologyContainer)
