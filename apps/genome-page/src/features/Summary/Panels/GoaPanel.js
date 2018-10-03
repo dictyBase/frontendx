@@ -9,6 +9,28 @@ import Paper from "@material-ui/core/Paper"
 
 import withLinkGenerator from "features/Ontology/utils/withLinkGenerator"
 
+// set variables that represent filtered arrays for use in each row
+const molecular = arr =>
+  arr
+    .filter(item => item.type === "molecular_function")
+    .map(item => item.attributes)
+    .sort((a, b) => b.date - a.date)
+    .slice(0, 5)
+
+const biological = arr =>
+  arr
+    .filter(item => item.type === "biological_process")
+    .map(item => item.attributes)
+    .sort((a, b) => b.date - a.date)
+    .slice(0, 5)
+const cellular = arr =>
+  arr
+    .filter(item => item.type === "cellular_component")
+    .map(item => item.attributes)
+    .sort((a, b) => b.date - a.date)
+    .slice(0, 5)
+
+// Material-UI stylings
 const styles = theme => ({
   root: {
     width: "100%",
@@ -50,23 +72,6 @@ type Props = {
 const GoaPanel = (props: Props) => {
   const { classes, panelData } = props
 
-  // set variables that represent filtered arrays for use in each row
-  const molecular = panelData.data.data[0]
-    .filter(item => item.type === "molecular_function")
-    .map(item => item.attributes)
-    .sort((a, b) => b.date - a.date)
-    .slice(0, 5)
-  const biological = panelData.data.data[0]
-    .filter(item => item.type === "biological_process")
-    .map(item => item.attributes)
-    .sort((a, b) => b.date - a.date)
-    .slice(0, 5)
-  const cellular = panelData.data.data[0]
-    .filter(item => item.type === "cellular_component")
-    .map(item => item.attributes)
-    .sort((a, b) => b.date - a.date)
-    .slice(0, 5)
-
   return (
     <Paper className={classes.root}>
       <Table className={classes.table}>
@@ -79,31 +84,33 @@ const GoaPanel = (props: Props) => {
               Molecular Function
             </TableCell>
             <TableCell className={classes.tableRightData}>
-              {molecular.map((item: Object, i: string) => (
-                <Fragment key={i}>
-                  <span>
-                    {item.goterm}
-                    {item.extensions !== null &&
-                      item.extensions.map((ext: Object, i: string) => (
-                        <Fragment key={i}>
-                          <span>
-                            {" "}
-                            <em>{ext.relation}</em>{" "}
-                            <a
-                              className={classes.link}
-                              href={withLinkGenerator(ext.id, ext.db)}
-                              target="_blank">
-                              {!ext.name && `${ext.db}:${ext.id}`}
-                              {ext.name && `${ext.name}`}
-                            </a>{" "}
-                          </span>
-                        </Fragment>
-                      ))}{" "}
-                    ({item.evidence_code})
-                  </span>
-                  <br />
-                </Fragment>
-              ))}
+              {molecular(panelData.data.data[0]).map(
+                (item: Object, i: string) => (
+                  <Fragment key={i}>
+                    <span>
+                      {item.goterm}
+                      {item.extensions !== null &&
+                        item.extensions.map((ext: Object, i: string) => (
+                          <Fragment key={i}>
+                            <span>
+                              {" "}
+                              <em>{ext.relation}</em>{" "}
+                              <a
+                                className={classes.link}
+                                href={withLinkGenerator(ext.id, ext.db)}
+                                target="_blank">
+                                {!ext.name && `${ext.db}:${ext.id}`}
+                                {ext.name && `${ext.name}`}
+                              </a>{" "}
+                            </span>
+                          </Fragment>
+                        ))}{" "}
+                      ({item.evidence_code})
+                    </span>
+                    <br />
+                  </Fragment>
+                ),
+              )}
             </TableCell>
           </TableRow>
           <TableRow>
@@ -114,10 +121,27 @@ const GoaPanel = (props: Props) => {
               Biological Process
             </TableCell>
             <TableCell className={classes.tableRightData}>
-              {biological.map((item, i) => (
+              {biological(panelData.data.data[0]).map((item, i) => (
                 <Fragment key={i}>
                   <span>
                     {item.goterm}
+                    {/* {item.with !== null &&
+                      item.with.map((item: Object) =>
+                        item.connectedXrefs.map((xref: Object, i: string) => (
+                          <Fragment key={i}>
+                            <span>
+                              {" "}
+                              <em>with</em>{" "}
+                              <a
+                                className={classes.link}
+                                href={withLinkGenerator(xref.id, xref.db)}
+                                target="_blank">
+                                {xref.db}:{xref.id}
+                              </a>
+                            </span>
+                          </Fragment>
+                        )),
+                      )} */}
                     {item.extensions !== null &&
                       item.extensions.map((ext: Object, i: string) => (
                         <Fragment key={i}>
@@ -149,7 +173,7 @@ const GoaPanel = (props: Props) => {
               Cellular Component
             </TableCell>
             <TableCell className={classes.tableRightData}>
-              {cellular.map((item, i) => (
+              {cellular(panelData.data.data[0]).map((item, i) => (
                 <Fragment key={i}>
                   <span>
                     {item.goterm}
