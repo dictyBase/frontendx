@@ -21,7 +21,7 @@ const muiTheme = createMuiTheme({
     },
     MuiTabs: {
       root: {
-        backgroundColor: "#DFE8F6",
+        backgroundColor: "#ccd9ff",
         color: "#000",
       },
       indicator: {
