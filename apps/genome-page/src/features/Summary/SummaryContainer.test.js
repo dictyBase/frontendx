@@ -60,6 +60,7 @@ describe("Summary/SummaryContainer", () => {
     },
     fetchGeneralData: () => {},
     fetchGoa: () => {},
+    fetchGeneName: () => {},
   }
 
   const wrapper = shallow(<SummaryContainer {...props} />)

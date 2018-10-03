@@ -2,36 +2,47 @@
 
 exports[`matching a snapshot of Summary/Panels/GoaPanel 1`] = `
 <div
-  className="MuiPaper-root-5 MuiPaper-elevation2-9 MuiPaper-rounded-6 GoaPanel-root-1"
+  className="MuiPaper-root-6 MuiPaper-elevation2-10 MuiPaper-rounded-7 GoaPanel-root-1"
 >
   <table
-    className="MuiTable-root-32 GoaPanel-table-2"
+    className="MuiTable-root-33 GoaPanel-table-2"
   >
     <tbody
-      className="MuiTableBody-root-33"
+      className="MuiTableBody-root-34"
     >
       <tr
-        className="MuiTableRow-root-34"
+        className="MuiTableRow-root-35"
       >
         <th
           aria-sort={null}
-          className="MuiTableCell-root-39 MuiTableCell-body-41 GoaPanel-tableLeftData-3"
+          className="MuiTableCell-root-40 MuiTableCell-body-42 GoaPanel-tableLeftData-3"
           scope="row"
         >
           Molecular Function
         </th>
         <td
           aria-sort={null}
-          className="MuiTableCell-root-39 MuiTableCell-body-41 GoaPanel-tableRightData-4"
+          className="MuiTableCell-root-40 MuiTableCell-body-42 GoaPanel-tableRightData-4"
           scope={undefined}
         >
           <span>
-            <em>
-              enables
-            </em>
-             
             protein binding
-             (
+            <span>
+               
+              <em>
+                with
+              </em>
+               
+              <a
+                className="GoaPanel-link-5"
+                href="https://www.uniprot.org/uniprot/Q54HG2"
+                target="_blank"
+              >
+                UniProtKB:Q54HG2
+              </a>
+            </span>
+             
+            (
             IPI
             )
           </span>
@@ -39,38 +50,32 @@ exports[`matching a snapshot of Summary/Panels/GoaPanel 1`] = `
         </td>
       </tr>
       <tr
-        className="MuiTableRow-root-34"
+        className="MuiTableRow-root-35"
       >
         <th
           aria-sort={null}
-          className="MuiTableCell-root-39 MuiTableCell-body-41 GoaPanel-tableLeftData-3"
+          className="MuiTableCell-root-40 MuiTableCell-body-42 GoaPanel-tableLeftData-3"
           scope="row"
         >
           Biological Process
         </th>
         <td
           aria-sort={null}
-          className="MuiTableCell-root-39 MuiTableCell-body-41 GoaPanel-tableRightData-4"
+          className="MuiTableCell-root-40 MuiTableCell-body-42 GoaPanel-tableRightData-4"
           scope={undefined}
         >
           <span>
-            <em>
-              acts upstream of or within
-            </em>
-             
             mitotic cytokinesis
-             (
+             
+            (
             IMP
             )
           </span>
           <br />
           <span>
-            <em>
-              acts upstream of or within
-            </em>
-             
             cell morphogenesis
-             (
+             
+            (
             IMP
             )
           </span>
@@ -78,38 +83,32 @@ exports[`matching a snapshot of Summary/Panels/GoaPanel 1`] = `
         </td>
       </tr>
       <tr
-        className="MuiTableRow-root-34"
+        className="MuiTableRow-root-35"
       >
         <th
           aria-sort={null}
-          className="MuiTableCell-root-39 MuiTableCell-body-41 GoaPanel-tableLeftData-3"
+          className="MuiTableCell-root-40 MuiTableCell-body-42 GoaPanel-tableLeftData-3"
           scope="row"
         >
           Cellular Component
         </th>
         <td
           aria-sort={null}
-          className="MuiTableCell-root-39 MuiTableCell-body-41 GoaPanel-tableRightData-4"
+          className="MuiTableCell-root-40 MuiTableCell-body-42 GoaPanel-tableRightData-4"
           scope={undefined}
         >
           <span>
-            <em>
-              part of
-            </em>
-             
             cell cortex
-             (
+             
+            (
             IDA
             )
           </span>
           <br />
           <span>
-            <em>
-              part of
-            </em>
-             
             actin cytoskeleton
-             (
+             
+            (
             IDA
             )
           </span>
