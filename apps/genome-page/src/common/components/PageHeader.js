@@ -18,6 +18,15 @@ const titleConverter = path => {
 
 const PageHeader = (props: Props) => {
   const { name, match } = props
+
+  if (!name) {
+    return (
+      <center>
+        <br /> <br />
+      </center>
+    )
+  }
+
   return (
     <h2>
       <center>
