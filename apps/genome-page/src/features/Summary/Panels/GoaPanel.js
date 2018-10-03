@@ -9,26 +9,50 @@ import Paper from "@material-ui/core/Paper"
 
 import withLinkGenerator from "features/Ontology/utils/withLinkGenerator"
 
-// set variables that represent filtered arrays for use in each row
-const molecular = arr =>
-  arr
-    .filter(item => item.type === "molecular_function")
+// function that takes in the data array and the type (i.e. "molecular_function") to filter by
+const dataFilter = (arr, type) => {
+  // get the attributes from specified type
+  const attr = arr
+    .filter(item => item.type === type)
     .map(item => item.attributes)
+
+  // get the five most recent EXP annotations
+  const expChecker = attr
+    .filter(
+      item =>
+        item.evidence_code === "IMP" ||
+        item.evidence_code === "IGI" ||
+        item.evidence_code === "IDA" ||
+        item.evidence_code === "IPI" ||
+        item.evidence_code === "IEP" ||
+        item.evidence_code === "EXP",
+    )
     .sort((a, b) => b.date - a.date)
     .slice(0, 5)
 
-const biological = arr =>
-  arr
-    .filter(item => item.type === "biological_process")
-    .map(item => item.attributes)
+  // get five most recent manual
+  const manualChecker = attr
+    .filter(item => item.evidence_code !== "IEA")
     .sort((a, b) => b.date - a.date)
     .slice(0, 5)
-const cellular = arr =>
-  arr
-    .filter(item => item.type === "cellular_component")
-    .map(item => item.attributes)
+
+  // get five most recent electronic
+  const electronicChecker = attr
+    .filter(item => item.evidence_code === "IEA")
     .sort((a, b) => b.date - a.date)
     .slice(0, 5)
+
+  // check if EXP array is empty
+  // if it is, return manual
+  // if manual is empty, return electronic
+  if (!Array.isArray(expChecker) || !expChecker.length) {
+    if (!Array.isArray(manualChecker) || !manualChecker.length) {
+      return electronicChecker
+    }
+    return manualChecker
+  }
+  return expChecker
+}
 
 // Material-UI stylings
 const styles = theme => ({
@@ -84,7 +108,7 @@ const GoaPanel = (props: Props) => {
               Molecular Function
             </TableCell>
             <TableCell className={classes.tableRightData}>
-              {molecular(panelData.data.data[0]).map(
+              {dataFilter(panelData.data.data[0], "molecular_function").map(
                 (item: Object, i: string) => (
                   <Fragment key={i}>
                     <span>
@@ -121,11 +145,12 @@ const GoaPanel = (props: Props) => {
               Biological Process
             </TableCell>
             <TableCell className={classes.tableRightData}>
-              {biological(panelData.data.data[0]).map((item, i) => (
-                <Fragment key={i}>
-                  <span>
-                    {item.goterm}
-                    {/* {item.with !== null &&
+              {dataFilter(panelData.data.data[0], "biological_process").map(
+                (item, i) => (
+                  <Fragment key={i}>
+                    <span>
+                      {item.goterm}
+                      {/* {item.with !== null &&
                       item.with.map((item: Object) =>
                         item.connectedXrefs.map((xref: Object, i: string) => (
                           <Fragment key={i}>
@@ -142,27 +167,28 @@ const GoaPanel = (props: Props) => {
                           </Fragment>
                         )),
                       )} */}
-                    {item.extensions !== null &&
-                      item.extensions.map((ext: Object, i: string) => (
-                        <Fragment key={i}>
-                          <span>
-                            {" "}
-                            <em>{ext.relation}</em>{" "}
-                            <a
-                              className={classes.link}
-                              href={withLinkGenerator(ext.id, ext.db)}
-                              target="_blank">
-                              {!ext.name && `${ext.db}:${ext.id}`}
-                              {ext.name && `${ext.name}`}
-                            </a>{" "}
-                          </span>
-                        </Fragment>
-                      ))}{" "}
-                    ({item.evidence_code})
-                  </span>
-                  <br />
-                </Fragment>
-              ))}
+                      {item.extensions !== null &&
+                        item.extensions.map((ext: Object, i: string) => (
+                          <Fragment key={i}>
+                            <span>
+                              {" "}
+                              <em>{ext.relation}</em>{" "}
+                              <a
+                                className={classes.link}
+                                href={withLinkGenerator(ext.id, ext.db)}
+                                target="_blank">
+                                {!ext.name && `${ext.db}:${ext.id}`}
+                                {ext.name && `${ext.name}`}
+                              </a>{" "}
+                            </span>
+                          </Fragment>
+                        ))}{" "}
+                      ({item.evidence_code})
+                    </span>
+                    <br />
+                  </Fragment>
+                ),
+              )}
             </TableCell>
           </TableRow>
           <TableRow>
@@ -173,31 +199,33 @@ const GoaPanel = (props: Props) => {
               Cellular Component
             </TableCell>
             <TableCell className={classes.tableRightData}>
-              {cellular(panelData.data.data[0]).map((item, i) => (
-                <Fragment key={i}>
-                  <span>
-                    {item.goterm}
-                    {item.extensions !== null &&
-                      item.extensions.map((ext: Object, i: string) => (
-                        <Fragment key={i}>
-                          <span>
-                            {" "}
-                            <em>{ext.relation}</em>{" "}
-                            <a
-                              className={classes.link}
-                              href={withLinkGenerator(ext.id, ext.db)}
-                              target="_blank">
-                              {!ext.name && `${ext.db}:${ext.id}`}
-                              {ext.name && `${ext.name}`}
-                            </a>{" "}
-                          </span>
-                        </Fragment>
-                      ))}{" "}
-                    ({item.evidence_code})
-                  </span>
-                  <br />
-                </Fragment>
-              ))}
+              {dataFilter(panelData.data.data[0], "cellular_component").map(
+                (item, i) => (
+                  <Fragment key={i}>
+                    <span>
+                      {item.goterm}
+                      {item.extensions !== null &&
+                        item.extensions.map((ext: Object, i: string) => (
+                          <Fragment key={i}>
+                            <span>
+                              {" "}
+                              <em>{ext.relation}</em>{" "}
+                              <a
+                                className={classes.link}
+                                href={withLinkGenerator(ext.id, ext.db)}
+                                target="_blank">
+                                {!ext.name && `${ext.db}:${ext.id}`}
+                                {ext.name && `${ext.name}`}
+                              </a>{" "}
+                            </span>
+                          </Fragment>
+                        ))}{" "}
+                      ({item.evidence_code})
+                    </span>
+                    <br />
+                  </Fragment>
+                ),
+              )}
             </TableCell>
           </TableRow>
         </TableBody>
