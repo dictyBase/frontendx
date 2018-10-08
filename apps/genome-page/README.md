@@ -110,14 +110,11 @@ image](https://docs.docker.com/engine/reference/commandline/build/) and running
 it through [Kubernetes](https://k8s.io). More detailed information about the deployment process for DSC
 and all Dicty software can be found [here](https://github.com/dictyBase/Migration/blob/master/deploy.md).
 
-Starting with version `1.0.0` of the application, the following Kubeless functions need to be deployed as well:
+Starting with version `2.0.0` of the application, the following Kubeless functions need to be deployed as well:
 
 - [genefn](https://github.com/dictybase-playground/kubeless-nodefn/tree/master/gene)
-- [cachefn](https://github.com/dictybase-playground/kubeless-nodefn/tree/master/geneids)
-- [gene2namefn](https://github.com/dictybase-playground/kubeless-nodefn/tree/master/geneids)
-- [goidsfn](https://github.com/dictybase-playground/kubeless-nodefn/tree/master/goids)
+- [genecachefn](https://github.com/dictybase-playground/kubeless-nodefn/tree/master/geneids)
 - [uniprotcachefn](https://github.com/dictybase-playground/kubeless-nodefn/tree/master/uniprot)
-- [uniprot2namefn](https://github.com/dictybase-playground/kubeless-nodefn/tree/master/uniprot)
 
 **Important**: make sure you are using the latest version of `genefn`. Follow the documentation on each of these
 pages in order to deploy them.
