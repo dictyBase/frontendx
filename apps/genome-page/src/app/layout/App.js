@@ -17,6 +17,11 @@ import {
 } from "common/utils/headerItems"
 import Routes from "app/routes/Routes"
 
+const navTheme = {
+  primary: "#004080",
+  secondary: "#0059b3",
+}
+
 const styles = theme => ({
   main: {
     margin: "0 10px 25px 10px",
@@ -72,7 +77,7 @@ export class App extends Component<Props> {
               {items => items.map(generateLinks)}
             </Header>
           )}
-          <Navbar items={navbarItems} />
+          <Navbar theme={navTheme} items={navbarItems} />
 
           <main className={classes.main}>
             <ErrorBoundary>
@@ -96,7 +101,7 @@ export class App extends Component<Props> {
             {items => items.map(generateLinks)}
           </Header>
         )}
-        <Navbar items={navbar.links} />
+        <Navbar theme={navTheme} items={navbar.links} />
 
         <main className={classes.main}>
           <ErrorBoundary>
