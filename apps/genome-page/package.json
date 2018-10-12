@@ -23,7 +23,7 @@
     "@material-ui/icons": "^2.0.0",
     "ProtVista": "^2.0.11",
     "connected-react-router": "^4.4.1",
-    "dicty-components-header-footer": "github:dictyBase/dicty-components-header-footer#v6.6.0",
+    "dicty-components-header-footer": "github:dictyBase/dicty-components-header-footer#v7.0.0",
     "dicty-components-login": "github:dictyBase/dicty-components-login#v1.4.0",
     "dicty-components-navbar": "github:dictyBase/dicty-components-navbar#v0.2.0",
     "dicty-components-redux": "github:dictybase-playground/dicty-components-redux#v2.3.0",
