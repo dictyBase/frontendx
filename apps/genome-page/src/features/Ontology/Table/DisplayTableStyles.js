@@ -19,7 +19,7 @@ const styles = (theme: Object) => ({
     },
   },
   head: {
-    backgroundColor: "#ccd9ff",
+    backgroundColor: "#e6f2ff",
   },
   headerCell: {
     color: "#333",

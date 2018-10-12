@@ -18,7 +18,7 @@ const styles = (theme: Object) => ({
     color: "#fff",
   },
   summary: {
-    backgroundColor: "#29355a",
+    backgroundColor: "#004080",
     marginTop: "0px",
   },
   icon: {
