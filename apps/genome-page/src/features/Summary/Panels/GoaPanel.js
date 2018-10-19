@@ -146,23 +146,21 @@ const GoaPanel = (props: Props) => {
                     <span>
                       {item.goterm}
                       {item.with !== null &&
-                        item.with.map((item: Object) =>
-                          withDataFilter(item.connectedXrefs).map(
-                            (xref: Object, i: string) => (
-                              <Fragment key={i}>
-                                <span>
-                                  {" "}
-                                  <em>with</em>{" "}
-                                  <a
-                                    className={classes.link}
-                                    href={withLinkGenerator(xref.id, xref.db)}
-                                    target="_blank">
-                                    {!xref.name && `${xref.db}:${xref.id}`}
-                                    {xref.name && `${xref.name}`}
-                                  </a>
-                                </span>
-                              </Fragment>
-                            ),
+                        withDataFilter(item.with).map(
+                          (xref: Object, i: string) => (
+                            <Fragment key={i}>
+                              <span>
+                                {" "}
+                                <em>with</em>{" "}
+                                <a
+                                  className={classes.link}
+                                  href={withLinkGenerator(xref.id, xref.db)}
+                                  target="_blank">
+                                  {!xref.name && `${xref.db}:${xref.id}`}
+                                  {xref.name && `${xref.name}`}
+                                </a>
+                              </span>
+                            </Fragment>
                           ),
                         )}
                       {item.extensions !== null &&
@@ -205,23 +203,21 @@ const GoaPanel = (props: Props) => {
                     <span>
                       {item.goterm}
                       {item.with !== null &&
-                        item.with.map((item: Object) =>
-                          withDataFilter(item.connectedXrefs).map(
-                            (xref: Object, i: string) => (
-                              <Fragment key={i}>
-                                <span>
-                                  {" "}
-                                  <em>with</em>{" "}
-                                  <a
-                                    className={classes.link}
-                                    href={withLinkGenerator(xref.id, xref.db)}
-                                    target="_blank">
-                                    {!xref.name && `${xref.db}:${xref.id}`}
-                                    {xref.name && `${xref.name}`}
-                                  </a>
-                                </span>
-                              </Fragment>
-                            ),
+                        withDataFilter(item.with).map(
+                          (xref: Object, i: string) => (
+                            <Fragment key={i}>
+                              <span>
+                                {" "}
+                                <em>with</em>{" "}
+                                <a
+                                  className={classes.link}
+                                  href={withLinkGenerator(xref.id, xref.db)}
+                                  target="_blank">
+                                  {!xref.name && `${xref.db}:${xref.id}`}
+                                  {xref.name && `${xref.name}`}
+                                </a>
+                              </span>
+                            </Fragment>
                           ),
                         )}
                       {item.extensions !== null &&
@@ -264,23 +260,21 @@ const GoaPanel = (props: Props) => {
                     <span>
                       {item.goterm}
                       {item.with !== null &&
-                        item.with.map((item: Object) =>
-                          withDataFilter(item.connectedXrefs).map(
-                            (xref: Object, i: string) => (
-                              <Fragment key={i}>
-                                <span>
-                                  {" "}
-                                  <em>with</em>{" "}
-                                  <a
-                                    className={classes.link}
-                                    href={withLinkGenerator(xref.id, xref.db)}
-                                    target="_blank">
-                                    {!xref.name && `${xref.db}:${xref.id}`}
-                                    {xref.name && `${xref.name}`}
-                                  </a>
-                                </span>
-                              </Fragment>
-                            ),
+                        withDataFilter(item.with).map(
+                          (xref: Object, i: string) => (
+                            <Fragment key={i}>
+                              <span>
+                                {" "}
+                                <em>with</em>{" "}
+                                <a
+                                  className={classes.link}
+                                  href={withLinkGenerator(xref.id, xref.db)}
+                                  target="_blank">
+                                  {!xref.name && `${xref.db}:${xref.id}`}
+                                  {xref.name && `${xref.name}`}
+                                </a>
+                              </span>
+                            </Fragment>
                           ),
                         )}
                       {item.extensions !== null &&
