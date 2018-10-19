@@ -103,21 +103,20 @@ export class DisplayTable extends Component<Props> {
 
                   <TableCell>
                     {item.with !== null &&
-                      item.with.map((item: Object) =>
-                        item.connectedXrefs.map((xref: Object, i: string) => (
-                          <Fragment key={i}>
-                            <span>
-                              <a
-                                className={classes.link}
-                                href={withLinkGenerator(xref.id, xref.db)}
-                                target="_blank">
-                                {xref.db}:{xref.id}
-                              </a>
-                            </span>
-                            <br />
-                          </Fragment>
-                        )),
-                      )}
+                      item.with.map((item: Object, i: string) => (
+                        <Fragment key={i}>
+                          <span>
+                            <a
+                              className={classes.link}
+                              href={withLinkGenerator(item.id, item.db)}
+                              target="_blank">
+                              {!item.name && `${item.db}:${item.id}`}
+                              {item.name && `${item.name}`}
+                            </a>
+                          </span>
+                          <br />
+                        </Fragment>
+                      ))}
                   </TableCell>
                   <TableCell>
                     <a
