@@ -152,13 +152,26 @@ const GoaPanel = (props: Props) => {
                               <span>
                                 {" "}
                                 <em>with</em>{" "}
-                                <a
-                                  className={classes.link}
-                                  href={withLinkGenerator(xref.id, xref.db)}
-                                  target="_blank">
-                                  {!xref.name && `${xref.db}:${xref.id}`}
-                                  {xref.name && `${xref.name}`}
-                                </a>
+                                {!xref.name && (
+                                  <a
+                                    className={classes.link}
+                                    href={withLinkGenerator(xref.id, xref.db)}
+                                    target="_blank">
+                                    {xref.db}:{xref.id}
+                                  </a>
+                                )}
+                                {xref.name && (
+                                  <a
+                                    className={classes.link}
+                                    href={withLinkGenerator(
+                                      xref.id,
+                                      xref.db,
+                                      xref.name,
+                                    )}
+                                    target="_blank">
+                                    {xref.name}
+                                  </a>
+                                )}
                               </span>
                             </Fragment>
                           ),
@@ -171,13 +184,26 @@ const GoaPanel = (props: Props) => {
                               <span>
                                 {" "}
                                 <em>{ext.relation}</em>{" "}
-                                <a
-                                  className={classes.link}
-                                  href={withLinkGenerator(ext.id, ext.db)}
-                                  target="_blank">
-                                  {!ext.name && `${ext.db}:${ext.id}`}
-                                  {ext.name && `${ext.name}`}
-                                </a>{" "}
+                                {!ext.name && (
+                                  <a
+                                    className={classes.link}
+                                    href={withLinkGenerator(ext.id, ext.db)}
+                                    target="_blank">
+                                    {ext.db}:{ext.id}
+                                  </a>
+                                )}
+                                {ext.name && (
+                                  <a
+                                    className={classes.link}
+                                    href={withLinkGenerator(
+                                      ext.id,
+                                      ext.db,
+                                      ext.name,
+                                    )}
+                                    target="_blank">
+                                    {ext.name}
+                                  </a>
+                                )}{" "}
                               </span>
                             </Fragment>
                           ))}{" "}
@@ -209,13 +235,26 @@ const GoaPanel = (props: Props) => {
                               <span>
                                 {" "}
                                 <em>with</em>{" "}
-                                <a
-                                  className={classes.link}
-                                  href={withLinkGenerator(xref.id, xref.db)}
-                                  target="_blank">
-                                  {!xref.name && `${xref.db}:${xref.id}`}
-                                  {xref.name && `${xref.name}`}
-                                </a>
+                                {!xref.name && (
+                                  <a
+                                    className={classes.link}
+                                    href={withLinkGenerator(xref.id, xref.db)}
+                                    target="_blank">
+                                    {xref.db}:{xref.id}
+                                  </a>
+                                )}
+                                {xref.name && (
+                                  <a
+                                    className={classes.link}
+                                    href={withLinkGenerator(
+                                      xref.id,
+                                      xref.db,
+                                      xref.name,
+                                    )}
+                                    target="_blank">
+                                    {xref.name}
+                                  </a>
+                                )}
                               </span>
                             </Fragment>
                           ),
@@ -228,13 +267,26 @@ const GoaPanel = (props: Props) => {
                               <span>
                                 {" "}
                                 <em>{ext.relation}</em>{" "}
-                                <a
-                                  className={classes.link}
-                                  href={withLinkGenerator(ext.id, ext.db)}
-                                  target="_blank">
-                                  {!ext.name && `${ext.db}:${ext.id}`}
-                                  {ext.name && `${ext.name}`}
-                                </a>{" "}
+                                {!ext.name && (
+                                  <a
+                                    className={classes.link}
+                                    href={withLinkGenerator(ext.id, ext.db)}
+                                    target="_blank">
+                                    {ext.db}:{ext.id}
+                                  </a>
+                                )}
+                                {ext.name && (
+                                  <a
+                                    className={classes.link}
+                                    href={withLinkGenerator(
+                                      ext.id,
+                                      ext.db,
+                                      ext.name,
+                                    )}
+                                    target="_blank">
+                                    {ext.name}
+                                  </a>
+                                )}{" "}
                               </span>
                             </Fragment>
                           ))}{" "}
@@ -266,13 +318,26 @@ const GoaPanel = (props: Props) => {
                               <span>
                                 {" "}
                                 <em>with</em>{" "}
-                                <a
-                                  className={classes.link}
-                                  href={withLinkGenerator(xref.id, xref.db)}
-                                  target="_blank">
-                                  {!xref.name && `${xref.db}:${xref.id}`}
-                                  {xref.name && `${xref.name}`}
-                                </a>
+                                {!xref.name && (
+                                  <a
+                                    className={classes.link}
+                                    href={withLinkGenerator(xref.id, xref.db)}
+                                    target="_blank">
+                                    {xref.db}:{xref.id}
+                                  </a>
+                                )}
+                                {xref.name && (
+                                  <a
+                                    className={classes.link}
+                                    href={withLinkGenerator(
+                                      xref.id,
+                                      xref.db,
+                                      xref.name,
+                                    )}
+                                    target="_blank">
+                                    {xref.name}
+                                  </a>
+                                )}
                               </span>
                             </Fragment>
                           ),
@@ -285,13 +350,26 @@ const GoaPanel = (props: Props) => {
                               <span>
                                 {" "}
                                 <em>{ext.relation}</em>{" "}
-                                <a
-                                  className={classes.link}
-                                  href={withLinkGenerator(ext.id, ext.db)}
-                                  target="_blank">
-                                  {!ext.name && `${ext.db}:${ext.id}`}
-                                  {ext.name && `${ext.name}`}
-                                </a>{" "}
+                                {!ext.name && (
+                                  <a
+                                    className={classes.link}
+                                    href={withLinkGenerator(ext.id, ext.db)}
+                                    target="_blank">
+                                    {ext.db}:{ext.id}
+                                  </a>
+                                )}
+                                {ext.name && (
+                                  <a
+                                    className={classes.link}
+                                    href={withLinkGenerator(
+                                      ext.id,
+                                      ext.db,
+                                      ext.name,
+                                    )}
+                                    target="_blank">
+                                    {ext.name}
+                                  </a>
+                                )}{" "}
                               </span>
                             </Fragment>
                           ))}{" "}
