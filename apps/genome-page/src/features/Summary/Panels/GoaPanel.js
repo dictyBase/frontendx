@@ -1,5 +1,5 @@
 // @flow
-import React, { Fragment } from "react"
+import React from "react"
 import { withStyles } from "@material-ui/core/styles"
 import Table from "@material-ui/core/Table"
 import TableBody from "@material-ui/core/TableBody"
@@ -7,7 +7,7 @@ import TableCell from "@material-ui/core/TableCell"
 import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
 
-import withLinkGenerator from "features/Ontology/utils/withLinkGenerator"
+import GoaPanelContent from "./GoaPanelContent"
 
 // function that takes in the data array and the type (i.e. "molecular_function") to filter by
 const dataFilter = (arr, type) => {
@@ -54,37 +54,6 @@ const dataFilter = (arr, type) => {
   return expChecker
 }
 
-// function to filter the With data
-const withDataFilter = arr => {
-  // filter With array by db type
-  const dictyChecker = arr.filter(item => item.db === "dictyBase").slice(0, 2)
-  const uniprotChecker = arr.filter(item => item.db === "UniProtKB").slice(0, 2)
-  const mgiChecker = arr.filter(item => item.db === "MGI").slice(0, 2)
-  const rgdChecker = arr.filter(item => item.db === "RGD").slice(0, 2)
-  const sgdChecker = arr.filter(item => item.db === "SGD").slice(0, 2)
-  const pomChecker = arr.filter(item => item.db === "PomBase").slice(0, 2)
-
-  // order of preference to display With data
-  // dicty => UniProt => MGI => RGD => SGD => PomBase
-  if (!Array.isArray(dictyChecker) || !dictyChecker.length) {
-    if (!Array.isArray(uniprotChecker) || !uniprotChecker.length) {
-      if (!Array.isArray(mgiChecker) || !mgiChecker.length) {
-        if (!Array.isArray(rgdChecker) || !rgdChecker.length) {
-          if (!Array.isArray(sgdChecker) || !sgdChecker.length) {
-            return pomChecker
-          }
-          return sgdChecker
-        }
-        return rgdChecker
-      }
-      return mgiChecker
-    }
-    return uniprotChecker
-  }
-
-  return dictyChecker
-}
-
 // Material-UI stylings
 const styles = theme => ({
   root: {
@@ -101,16 +70,6 @@ const styles = theme => ({
   },
   tableRightData: {
     width: "80%",
-  },
-  link: {
-    textDecoration: "none",
-    color: "#4C5E81",
-    "&:visited": {
-      color: "#4C5E81",
-    },
-    "&:hover": {
-      textDecoration: "underline",
-    },
   },
 })
 
@@ -142,75 +101,7 @@ const GoaPanel = (props: Props) => {
             <TableCell className={classes.tableRightData}>
               {dataFilter(panelData.data.data[0], "molecular_function").map(
                 (item: Object, i: string) => (
-                  <Fragment key={i}>
-                    <span>
-                      {item.goterm}
-                      {item.with !== null &&
-                        withDataFilter(item.with).map(
-                          (xref: Object, i: string) => (
-                            <Fragment key={i}>
-                              <span>
-                                {" "}
-                                <em>with</em>{" "}
-                                {!xref.name && (
-                                  <a
-                                    className={classes.link}
-                                    href={withLinkGenerator(xref.id, xref.db)}
-                                    target="_blank">
-                                    {xref.db}:{xref.id}
-                                  </a>
-                                )}
-                                {xref.name && (
-                                  <a
-                                    className={classes.link}
-                                    href={withLinkGenerator(
-                                      xref.id,
-                                      xref.db,
-                                      xref.name,
-                                    )}
-                                    target="_blank">
-                                    {xref.name}
-                                  </a>
-                                )}
-                              </span>
-                            </Fragment>
-                          ),
-                        )}
-                      {item.extensions !== null &&
-                        item.extensions
-                          .slice(0, 2)
-                          .map((ext: Object, i: string) => (
-                            <Fragment key={i}>
-                              <span>
-                                {" "}
-                                <em>{ext.relation}</em>{" "}
-                                {!ext.name && (
-                                  <a
-                                    className={classes.link}
-                                    href={withLinkGenerator(ext.id, ext.db)}
-                                    target="_blank">
-                                    {ext.db}:{ext.id}
-                                  </a>
-                                )}
-                                {ext.name && (
-                                  <a
-                                    className={classes.link}
-                                    href={withLinkGenerator(
-                                      ext.id,
-                                      ext.db,
-                                      ext.name,
-                                    )}
-                                    target="_blank">
-                                    {ext.name}
-                                  </a>
-                                )}{" "}
-                              </span>
-                            </Fragment>
-                          ))}{" "}
-                      ({item.evidence_code})
-                    </span>
-                    <br />
-                  </Fragment>
+                  <GoaPanelContent item={item} />
                 ),
               )}
             </TableCell>
@@ -225,75 +116,7 @@ const GoaPanel = (props: Props) => {
             <TableCell className={classes.tableRightData}>
               {dataFilter(panelData.data.data[0], "biological_process").map(
                 (item, i) => (
-                  <Fragment key={i}>
-                    <span>
-                      {item.goterm}
-                      {item.with !== null &&
-                        withDataFilter(item.with).map(
-                          (xref: Object, i: string) => (
-                            <Fragment key={i}>
-                              <span>
-                                {" "}
-                                <em>with</em>{" "}
-                                {!xref.name && (
-                                  <a
-                                    className={classes.link}
-                                    href={withLinkGenerator(xref.id, xref.db)}
-                                    target="_blank">
-                                    {xref.db}:{xref.id}
-                                  </a>
-                                )}
-                                {xref.name && (
-                                  <a
-                                    className={classes.link}
-                                    href={withLinkGenerator(
-                                      xref.id,
-                                      xref.db,
-                                      xref.name,
-                                    )}
-                                    target="_blank">
-                                    {xref.name}
-                                  </a>
-                                )}
-                              </span>
-                            </Fragment>
-                          ),
-                        )}
-                      {item.extensions !== null &&
-                        item.extensions
-                          .slice(0, 2)
-                          .map((ext: Object, i: string) => (
-                            <Fragment key={i}>
-                              <span>
-                                {" "}
-                                <em>{ext.relation}</em>{" "}
-                                {!ext.name && (
-                                  <a
-                                    className={classes.link}
-                                    href={withLinkGenerator(ext.id, ext.db)}
-                                    target="_blank">
-                                    {ext.db}:{ext.id}
-                                  </a>
-                                )}
-                                {ext.name && (
-                                  <a
-                                    className={classes.link}
-                                    href={withLinkGenerator(
-                                      ext.id,
-                                      ext.db,
-                                      ext.name,
-                                    )}
-                                    target="_blank">
-                                    {ext.name}
-                                  </a>
-                                )}{" "}
-                              </span>
-                            </Fragment>
-                          ))}{" "}
-                      ({item.evidence_code})
-                    </span>
-                    <br />
-                  </Fragment>
+                  <GoaPanelContent item={item} />
                 ),
               )}
             </TableCell>
@@ -308,75 +131,7 @@ const GoaPanel = (props: Props) => {
             <TableCell className={classes.tableRightData}>
               {dataFilter(panelData.data.data[0], "cellular_component").map(
                 (item, i) => (
-                  <Fragment key={i}>
-                    <span>
-                      {item.goterm}
-                      {item.with !== null &&
-                        withDataFilter(item.with).map(
-                          (xref: Object, i: string) => (
-                            <Fragment key={i}>
-                              <span>
-                                {" "}
-                                <em>with</em>{" "}
-                                {!xref.name && (
-                                  <a
-                                    className={classes.link}
-                                    href={withLinkGenerator(xref.id, xref.db)}
-                                    target="_blank">
-                                    {xref.db}:{xref.id}
-                                  </a>
-                                )}
-                                {xref.name && (
-                                  <a
-                                    className={classes.link}
-                                    href={withLinkGenerator(
-                                      xref.id,
-                                      xref.db,
-                                      xref.name,
-                                    )}
-                                    target="_blank">
-                                    {xref.name}
-                                  </a>
-                                )}
-                              </span>
-                            </Fragment>
-                          ),
-                        )}
-                      {item.extensions !== null &&
-                        item.extensions
-                          .slice(0, 2)
-                          .map((ext: Object, i: string) => (
-                            <Fragment key={i}>
-                              <span>
-                                {" "}
-                                <em>{ext.relation}</em>{" "}
-                                {!ext.name && (
-                                  <a
-                                    className={classes.link}
-                                    href={withLinkGenerator(ext.id, ext.db)}
-                                    target="_blank">
-                                    {ext.db}:{ext.id}
-                                  </a>
-                                )}
-                                {ext.name && (
-                                  <a
-                                    className={classes.link}
-                                    href={withLinkGenerator(
-                                      ext.id,
-                                      ext.db,
-                                      ext.name,
-                                    )}
-                                    target="_blank">
-                                    {ext.name}
-                                  </a>
-                                )}{" "}
-                              </span>
-                            </Fragment>
-                          ))}{" "}
-                      ({item.evidence_code})
-                    </span>
-                    <br />
-                  </Fragment>
+                  <GoaPanelContent item={item} />
                 ),
               )}
             </TableCell>
