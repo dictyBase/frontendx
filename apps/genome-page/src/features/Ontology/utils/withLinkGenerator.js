@@ -5,21 +5,27 @@
  */
 
 const withLinkGenerator = (id: string, db: string, name: ?string) => {
+  let baseUrl
+  if (process.env.NODE_ENV === "production") {
+    baseUrl = `/${process.env.REACT_APP_BASENAME}`
+  } else {
+    baseUrl = "/"
+  }
   if (id === undefined) {
     return "#"
   }
   // if using converted gene name, link to gene page not uniprot
-  if (name && !name.includes(" ")) {
-    return `/${name}`
+  if (name && name.length < 10) {
+    return `${baseUrl}${name}`
   }
   switch (db) {
     case "CHEBI": {
       return `https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:${id}`
     }
     case "DDB":
-      return `/${id}`
+      return `${baseUrl}${id}`
     case "dictyBase":
-      return `/${id}`
+      return `${baseUrl}${id}`
     case "FB":
       return `http://flybase.org/reports/${id}.html`
     case "GO":
