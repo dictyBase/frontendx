@@ -88,13 +88,26 @@ export class DisplayTable extends Component<Props> {
                           <span>
                             {" "}
                             <em>{item.relation}</em>{" "}
-                            <a
-                              className={classes.link}
-                              href={withLinkGenerator(item.id, item.db)}
-                              target="_blank">
-                              {!item.name && `(${item.db}:${item.id})`}
-                              {item.name && `(${item.name})`}
-                            </a>
+                            {!item.name && (
+                              <a
+                                className={classes.link}
+                                href={withLinkGenerator(item.id, item.db)}
+                                target="_blank">
+                                ({item.db}:{item.id})
+                              </a>
+                            )}
+                            {item.name && (
+                              <a
+                                className={classes.link}
+                                href={withLinkGenerator(
+                                  item.id,
+                                  item.db,
+                                  item.name,
+                                )}
+                                target="_blank">
+                                ({item.name})
+                              </a>
+                            )}
                           </span>
                           <br />
                         </Fragment>
@@ -106,13 +119,26 @@ export class DisplayTable extends Component<Props> {
                       item.with.map((item: Object, i: string) => (
                         <Fragment key={i}>
                           <span>
-                            <a
-                              className={classes.link}
-                              href={withLinkGenerator(item.id, item.db)}
-                              target="_blank">
-                              {!item.name && `${item.db}:${item.id}`}
-                              {item.name && `${item.name}`}
-                            </a>
+                            {!item.name && (
+                              <a
+                                className={classes.link}
+                                href={withLinkGenerator(item.id, item.db)}
+                                target="_blank">
+                                {item.db}:{item.id}
+                              </a>
+                            )}
+                            {item.name && (
+                              <a
+                                className={classes.link}
+                                href={withLinkGenerator(
+                                  item.id,
+                                  item.db,
+                                  item.name,
+                                )}
+                                target="_blank">
+                                {item.name}
+                              </a>
+                            )}
                           </span>
                           <br />
                         </Fragment>
