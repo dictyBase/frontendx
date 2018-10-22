@@ -4,9 +4,13 @@
  * This is a helper function to generate links for the With column of DisplayTable.
  */
 
-const withLinkGenerator = (id: string, db: string) => {
+const withLinkGenerator = (id: string, db: string, name: ?string) => {
   if (id === undefined) {
     return "#"
+  }
+  // if using converted gene name, link to gene page not uniprot
+  if (name && !name.includes(" ")) {
+    return `/${name}`
   }
   switch (db) {
     case "CHEBI": {
