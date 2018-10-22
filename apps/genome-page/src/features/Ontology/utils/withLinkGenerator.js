@@ -7,7 +7,7 @@
 const withLinkGenerator = (id: string, db: string, name: ?string) => {
   let baseUrl
   if (process.env.NODE_ENV === "production") {
-    baseUrl = `/${process.env.REACT_APP_BASENAME}`
+    baseUrl = `/${process.env.REACT_APP_BASENAME}/`
   } else {
     baseUrl = "/"
   }
