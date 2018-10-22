@@ -101,7 +101,7 @@ const GoaPanel = (props: Props) => {
             <TableCell className={classes.tableRightData}>
               {dataFilter(panelData.data.data[0], "molecular_function").map(
                 (item: Object, i: string) => (
-                  <GoaPanelContent item={item} />
+                  <GoaPanelContent key={i} item={item} />
                 ),
               )}
             </TableCell>
@@ -116,7 +116,7 @@ const GoaPanel = (props: Props) => {
             <TableCell className={classes.tableRightData}>
               {dataFilter(panelData.data.data[0], "biological_process").map(
                 (item, i) => (
-                  <GoaPanelContent item={item} />
+                  <GoaPanelContent key={i} item={item} />
                 ),
               )}
             </TableCell>
@@ -131,7 +131,7 @@ const GoaPanel = (props: Props) => {
             <TableCell className={classes.tableRightData}>
               {dataFilter(panelData.data.data[0], "cellular_component").map(
                 (item, i) => (
-                  <GoaPanelContent item={item} />
+                  <GoaPanelContent key={i} item={item} />
                 ),
               )}
             </TableCell>
