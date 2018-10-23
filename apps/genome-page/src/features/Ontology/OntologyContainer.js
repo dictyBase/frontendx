@@ -13,15 +13,12 @@ import PageHeader from "common/components/PageHeader"
 import TabContainer from "common/components/TabContainer"
 import { tabLabels } from "common/constants/tabLabels"
 import { fetchGeneralData, changeTab } from "features/Summary/summaryActions"
-import { fetchGoa } from "features/Ontology/goaActions"
 
 type Props = {
   /** React Router object */
   match: Object,
   /** Action to fetch Summary data */
   fetchGeneralData: Function,
-  /** Action to fetch GOA data */
-  fetchGoa: Function,
   /** Object for the general slice of state */
   general: Object,
   /** Object for the goa slice of state */
@@ -38,19 +35,13 @@ type Props = {
 
 export class OntologyContainer extends Component<Props> {
   componentDidMount() {
-    const { fetchGeneralData, fetchGoa, match } = this.props
+    const { fetchGeneralData, match } = this.props
 
-    // $FlowFixMe
     const mainUrl = `${process.env.REACT_APP_API_SERVER}/genes/${
       match.params.id
     }`
-    // $FlowFixMe
-    const goaUrl = `${process.env.REACT_APP_API_SERVER}/genes/${
-      match.params.id
-    }/goas`
 
     fetchGeneralData(mainUrl)
-    fetchGoa(goaUrl)
   }
 
   handleChange = (event: SyntheticEvent<>, value: string) => {
@@ -125,5 +116,5 @@ const mapStateToProps = ({ general, goa }) => ({ general, goa })
 
 export default connect(
   mapStateToProps,
-  { fetchGeneralData, fetchGoa, changeTab },
+  { fetchGeneralData, changeTab },
 )(OntologyContainer)
