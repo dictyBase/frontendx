@@ -6,6 +6,7 @@ import {
   GENERAL_DATA_NO_REFETCH,
   CHANGE_MAIN_TAB,
 } from "./summaryConstants"
+import { fetchGoa } from "features/Ontology/goaActions"
 import { printError, createErrorObj } from "common/utils/actionHelpers"
 
 /**
@@ -57,6 +58,7 @@ export const fetchGeneralData = (url: string) => async (
     // and that the json doesn't contain an error
     if (res.ok && !json.status) {
       dispatch(fetchGeneralDataSuccess(json))
+      await dispatch(fetchGoa(json.data.relationships.goa.links.related))
     } else {
       dispatch(fetchGeneralDataFailure(createErrorObj(json.status, json.title)))
       if (process.env.NODE_ENV !== "production") {
