@@ -25,6 +25,8 @@ type Props = {
   goa: Object,
   /** Action to change the top level tabs */
   changeTab: Function,
+  /** Boolean set to true if route matches ID */
+  identifier: Boolean,
 }
 
 /**
@@ -35,11 +37,16 @@ type Props = {
 
 export class OntologyContainer extends Component<Props> {
   componentDidMount() {
-    const { fetchGeneralData, match } = this.props
+    const { fetchGeneralData, match, identifier } = this.props
+    let mainUrl
 
-    const mainUrl = `${process.env.REACT_APP_API_SERVER}/genes/${
-      match.params.id
-    }`
+    if (identifier) {
+      mainUrl = `${process.env.REACT_APP_API_SERVER}/genes/${match.params.id}`
+    } else {
+      mainUrl = `${process.env.REACT_APP_API_SERVER}/genes/name/${
+        match.params.id
+      }`
+    }
 
     fetchGeneralData(mainUrl)
   }
