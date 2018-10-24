@@ -56,8 +56,7 @@ export class SummaryContainer extends Component<Props> {
   }
 
   // generates tabs dynamically based on json data structure
-  generateTabs = (json: Object) => {
-    const { match } = this.props
+  generateTabs = (json: Object, id: string) => {
     const tabs = json.data.attributes.group.map(
       (item: string, index: string) => {
         if (!tabLabels[item]) {
@@ -70,7 +69,7 @@ export class SummaryContainer extends Component<Props> {
               label={tabLabels[item]}
               key={index}
               component={Link}
-              to={`/${match.params.id}/goannotations`}
+              to={`/${id}/goannotations`}
             />
           )
         }
@@ -80,7 +79,7 @@ export class SummaryContainer extends Component<Props> {
             label={tabLabels[item]}
             key={index}
             component={Link}
-            to={`/${match.params.id}/${item}`}
+            to={`/${id}/${item}`}
           />
         )
       },
@@ -89,8 +88,7 @@ export class SummaryContainer extends Component<Props> {
   }
 
   // generates panels based on json data structure
-  generatePanels = (json: Object) => {
-    const { match } = this.props
+  generatePanels = (json: Object, id: string) => {
     const panels = json.data.attributes.subgroup.map(
       (item: Object, index: string) => {
         if (!panelLabels[item]) {
@@ -110,7 +108,7 @@ export class SummaryContainer extends Component<Props> {
           <PanelWrapper
             key={index}
             title={panelTitle}
-            route={`/${match.params.id}/${panelRoute}`}>
+            route={`/${id}/${panelRoute}`}>
             {/* $FlowFixMe */}
             <InnerPanel panelData={this.props[item]} />
           </PanelWrapper>
@@ -145,11 +143,13 @@ export class SummaryContainer extends Component<Props> {
                 component={Link}
                 to={`/${match.params.id}`}
               />
-              {general.data && this.generateTabs(general.data)}
+              {general.data && this.generateTabs(general.data, match.params.id)}
             </Tabs>
           </AppBar>
           <TabContainer>
-            {general.data && goa.data && this.generatePanels(general.data)}
+            {general.data &&
+              goa.data &&
+              this.generatePanels(general.data, match.params.id)}
           </TabContainer>
         </Grid>
       </Grid>
