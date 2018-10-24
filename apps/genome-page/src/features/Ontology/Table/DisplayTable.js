@@ -37,7 +37,7 @@ type Props = {
  */
 
 export class DisplayTable extends Component<Props> {
-  handleRequestSort = (event, property) => {
+  handleRequestSort = (event: SyntheticEvent<*>, property: string) => {
     const { goa, changeTableOrder, sortTableBy } = this.props
     const orderBy = property
     let order = "desc"
