@@ -26,10 +26,17 @@ const Routes = (props: Props) => (
     <Route exact path="/logout" component={Logout} />
     <Route path="/:id/protein" component={props => <SummaryContainer />} />
     <Route
+      path="/:id([A-Z]{3}_G[0-9]{4,})/goannotations"
+      render={({ match }) => (
+        // $FlowFixMe
+        <OntologyContainer match={match} identifier={true} {...this.props} />
+      )}
+    />
+    <Route
       path="/:id/goannotations"
       render={({ match }) => (
         // $FlowFixMe
-        <OntologyContainer match={match} {...this.props} />
+        <OntologyContainer match={match} identifier={false} {...this.props} />
       )}
     />
     <Route path="/:id/orthologs" component={props => <SummaryContainer />} />
@@ -38,8 +45,16 @@ const Routes = (props: Props) => (
     <Route path="/:id/blast" component={props => <SummaryContainer />} />
     <Route exact path="/:id/*" component={PageNotReady} />
     <Route
+      path="/:id([A-Z]{3}_G[0-9]{4,})"
+      render={({ match }) => (
+        <SummaryContainer match={match} identifier={true} />
+      )}
+    />
+    <Route
       path="/:id"
-      render={({ match }) => <SummaryContainer match={match} />}
+      render={({ match }) => (
+        <SummaryContainer match={match} identifier={false} />
+      )}
     />
     <Route exact path="*" component={PageNotReady} />
   </Switch>
