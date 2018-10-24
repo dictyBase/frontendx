@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
+import { withRouter } from "react-router"
 import { connect } from "react-redux"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
@@ -121,7 +122,9 @@ export class OntologyContainer extends Component<Props> {
 
 const mapStateToProps = ({ general, goa }) => ({ general, goa })
 
-export default connect(
-  mapStateToProps,
-  { fetchGeneralData, changeTab },
-)(OntologyContainer)
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { fetchGeneralData, changeTab },
+  )(OntologyContainer),
+)
