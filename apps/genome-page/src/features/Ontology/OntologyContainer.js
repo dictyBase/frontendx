@@ -59,7 +59,7 @@ export class OntologyContainer extends Component<Props> {
   }
 
   // generates tabs dynamically based on json data structure
-  generateTabs = (json: Object, id: string) => {
+  generateTabs = (json: { data: { attributes: Object } }, id: string) => {
     if (!json.data) {
       return <div>Sorry! There was an error loading the items</div>
     }
