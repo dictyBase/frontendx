@@ -59,9 +59,7 @@ export class OntologyContainer extends Component<Props> {
   }
 
   // generates tabs dynamically based on json data structure
-  generateTabs = (json: Object) => {
-    const { match } = this.props
-
+  generateTabs = (json: Object, id: string) => {
     if (!json.data) {
       return <div>Sorry! There was an error loading the items</div>
     }
@@ -77,7 +75,7 @@ export class OntologyContainer extends Component<Props> {
             label={tabLabels[item]}
             key={index}
             component={Link}
-            to={`/${match.params.id}/${item}`}
+            to={`/${id}/${item}`}
           />
         )
       },
@@ -109,7 +107,7 @@ export class OntologyContainer extends Component<Props> {
               component={Link}
               to={`/${match.params.id}`}
             />
-            {general.data && this.generateTabs(general.data)}
+            {general.data && this.generateTabs(general.data, match.params.id)}
           </Tabs>
         </AppBar>
         <TabContainer>
