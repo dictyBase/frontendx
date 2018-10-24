@@ -12,51 +12,41 @@ import AuthLoader from "features/Authentication/AuthLoader"
 import Logout from "features/Authentication/Logout"
 import PageNotReady from "common/components/PageNotReady"
 
-type Props = {
-  /** React Router's match object */
-  match: Object,
-}
-
-const Routes = (props: Props) => (
+// Switch is used to only render the first Route that matches the current location
+const Routes = () => (
   <Switch>
     <Route exact path="/" component={MainPage} />
-    <Route exact path="/login" component={Login} />
-    <Route exact path="/:provider/callback" component={OauthCallback} />
-    <Route exact path="/load/auth" component={AuthLoader} />
-    <Route exact path="/logout" component={Logout} />
-    <Route path="/:id/protein" component={props => <SummaryContainer />} />
+    <Route path="/login" component={Login} />
+    <Route path="/:provider/callback" component={OauthCallback} />
+    <Route path="/load/auth" component={AuthLoader} />
+    <Route path="/logout" component={Logout} />
     <Route
       path="/:id([A-Z]{3}_G[0-9]{4,})/goannotations"
-      render={({ match }) => (
-        // $FlowFixMe
-        <OntologyContainer match={match} identifier={true} {...this.props} />
-      )}
+      render={() => <OntologyContainer identifier={true} />}
     />
     <Route
       path="/:id/goannotations"
-      render={({ match }) => (
-        // $FlowFixMe
-        <OntologyContainer match={match} identifier={false} {...this.props} />
-      )}
+      render={() => <OntologyContainer identifier={false} />}
     />
-    <Route path="/:id/orthologs" component={props => <SummaryContainer />} />
-    <Route path="/:id/phenotypes" component={props => <SummaryContainer />} />
-    <Route path="/:id/references" component={props => <SummaryContainer />} />
-    <Route path="/:id/blast" component={props => <SummaryContainer />} />
-    <Route exact path="/:id/*" component={PageNotReady} />
+    {/* <Route path="/:id/protein" component={SummaryContainer} />
+    <Route path="/:id/orthologs" component={SummaryContainer} />
+    <Route path="/:id/phenotypes" component={SummaryContainer} />
+    <Route path="/:id/references" component={SummaryContainer} />
+    <Route path="/:id/blast" component={SummaryContainer} /> */}
+    <Route path="/:id/*" component={PageNotReady} />
+
+    {/* if route matches gene ID, set identifier as true */}
     <Route
+      exact
       path="/:id([A-Z]{3}_G[0-9]{4,})"
-      render={({ match }) => (
-        <SummaryContainer match={match} identifier={true} />
-      )}
+      render={() => <SummaryContainer identifier={true} />}
     />
     <Route
+      exact
       path="/:id"
-      render={({ match }) => (
-        <SummaryContainer match={match} identifier={false} />
-      )}
+      render={() => <SummaryContainer identifier={false} />}
     />
-    <Route exact path="*" component={PageNotReady} />
+    <Route path="*" component={PageNotReady} />
   </Switch>
 )
 
