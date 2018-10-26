@@ -3,6 +3,8 @@ import React, { Component } from "react"
 import { Link } from "react-router-dom"
 import { withRouter } from "react-router"
 import { connect } from "react-redux"
+import AppBar from "@material-ui/core/AppBar"
+import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import Grid from "@material-ui/core/Grid"
 
@@ -11,7 +13,6 @@ import PageHeader from "common/components/PageHeader"
 import TabContainer from "common/components/TabContainer"
 import ErrorPage from "common/components/ErrorPage"
 import SummaryLoader from "./SummaryLoader"
-import SummaryAppBar from "./SummaryAppBar"
 import { tabLabels } from "common/constants/tabLabels"
 import { panelLabels } from "./panelLabels"
 import { fetchGeneralData, changeTab } from "./summaryActions"
@@ -134,12 +135,17 @@ export class SummaryContainer extends Component<Props> {
           {general.data && (
             <PageHeader name={general.data.data.attributes.geneName} />
           )}
-          <SummaryAppBar
-            general={general}
-            id={match.params.id}
-            generateTabs={this.generateTabs}
-            handleChange={this.handleChange}
-          />
+          <AppBar position="static">
+            <Tabs value={general.currentTab} onChange={this.handleChange}>
+              <Tab
+                value="summary"
+                label="Gene Summary"
+                component={Link}
+                to={`/${match.params.id}`}
+              />
+              {general.data && this.generateTabs(general.data, match.params.id)}
+            </Tabs>
+          </AppBar>
           <TabContainer>
             {general.data &&
               goa.data &&

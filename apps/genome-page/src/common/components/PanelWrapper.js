@@ -41,6 +41,8 @@ type Props = {
   title: string,
   /** Children passed to component */
   children: any,
+  /** The path that View All links to */
+  route: string,
 }
 
 const PanelWrapper = (props: Props) => {
