@@ -45,29 +45,31 @@ type Props = {
   route: string,
 }
 
-const PanelWrapper = (props: Props) => {
-  const { classes } = props
-  return (
-    <div className={classes.root}>
-      <ExpansionPanel defaultExpanded>
-        <ExpansionPanelSummary
-          className={classes.summary}
-          expandIcon={<ExpandMoreIcon className={classes.icon} />}>
-          <Typography className={classes.heading}>
-            {props.title}
-            {props.route && (
-              <Link className={classes.link} to={props.route}>
-                View All
-              </Link>
-            )}
-          </Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails className={classes.details}>
-          {props.children}
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-    </div>
-  )
-}
+/**
+ * This is a basic panel wrapper that uses Material-UI for the design.
+ * It is used for every panel on the gene summary page.
+ */
+
+const PanelWrapper = ({ classes, title, route, children }: Props) => (
+  <div className={classes.root}>
+    <ExpansionPanel defaultExpanded>
+      <ExpansionPanelSummary
+        className={classes.summary}
+        expandIcon={<ExpandMoreIcon className={classes.icon} />}>
+        <Typography className={classes.heading}>
+          {title}
+          {route && (
+            <Link className={classes.link} to={route}>
+              View All
+            </Link>
+          )}
+        </Typography>
+      </ExpansionPanelSummary>
+      <ExpansionPanelDetails className={classes.details}>
+        {children}
+      </ExpansionPanelDetails>
+    </ExpansionPanel>
+  </div>
+)
 
 export default withStyles(styles)(PanelWrapper)
