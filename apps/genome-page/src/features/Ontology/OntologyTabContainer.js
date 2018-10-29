@@ -7,7 +7,7 @@ import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles"
 
-import TabContainer from "common/components/TabContainer"
+import TypographyWrapper from "common/components/TypographyWrapper"
 import InnerGoPanel from "features/Ontology/InnerGoPanel"
 import { changeTab } from "./goaActions"
 
@@ -88,24 +88,24 @@ export class OntologyTabContainer extends Component<Props> {
             </Tabs>
           </AppBar>
           {goa.currentTab === "all" && (
-            <TabContainer>
+            <TypographyWrapper>
               <InnerGoPanel goaData={all} />
-            </TabContainer>
+            </TypographyWrapper>
           )}
           {goa.currentTab === "experimental" && (
-            <TabContainer>
+            <TypographyWrapper>
               <InnerGoPanel goaData={experimental} />
-            </TabContainer>
+            </TypographyWrapper>
           )}
           {goa.currentTab === "manual" && (
-            <TabContainer>
+            <TypographyWrapper>
               <InnerGoPanel goaData={manual} />
-            </TabContainer>
+            </TypographyWrapper>
           )}
           {goa.currentTab === "electronic" && (
-            <TabContainer>
+            <TypographyWrapper>
               <InnerGoPanel goaData={electronic} />
-            </TabContainer>
+            </TypographyWrapper>
           )}
         </MuiThemeProvider>
       )
