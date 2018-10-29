@@ -2,7 +2,7 @@
 import React from "react"
 import Grid from "@material-ui/core/Grid"
 import DisplayTable from "./Table/DisplayTable"
-import PanelWrapper from "common/components/PanelWrapper"
+import PanelWrapper from "common/components/panels/PanelWrapper"
 
 type Props = {
   /** Filtered GOA data based on tab */
