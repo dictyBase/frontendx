@@ -1,5 +1,6 @@
 module.exports = {
-  components: "src/features/**/*.js",
+  styleguideDir: "docs",
+  components: "src/**/*.js",
   ignore: [
     "**/*.test.{js,jsx,ts,tsx}",
     "**/*Actions.js",
@@ -9,7 +10,13 @@ module.exports = {
     "**/*Styles.js",
     "**/mockData.js",
     "**/panelLabels.js",
+    "src/common/constants/*.js",
+    "src/common/utils/*.js",
     "src/features/Ontology/utils/*.js",
     "src/features/Ontology/Table/utils/*.js",
+    "src/styles/*.js",
+    "src/index.js",
+    "src/registerServiceWorker.js",
+    "src/setupTests.js",
   ],
 }
