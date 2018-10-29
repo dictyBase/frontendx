@@ -1578,17 +1578,17 @@ webpackJsonp([0], {
             pos: 0,
             cm: e,
             trailingSpace: !1,
-            splitSpaces: (a || l) && e.getOption("lineWrapping"),
+            splitSpaces: e.getOption("lineWrapping"),
           }
         t.measure = {}
         for (var o = 0; o <= (t.rest ? t.rest.length : 0); o++) {
           var i = o ? t.rest[o - 1] : t.line,
-            s = void 0
+            a = void 0
           ;(r.pos = 0),
             (r.addToken = buildToken),
             hasBadBidiRects(e.display.measure) &&
-              (s = getOrder(i, e.doc.direction)) &&
-              (r.addToken = buildTokenBadBidi(r.addToken, s)),
+              (a = getOrder(i, e.doc.direction)) &&
+              (r.addToken = buildTokenBadBidi(r.addToken, a)),
             (r.map = []),
             insertLineContent(
               i,
@@ -1618,9 +1618,9 @@ webpackJsonp([0], {
                 (t.measure.caches || (t.measure.caches = [])).push({}))
         }
         if (l) {
-          var c = r.content.lastChild
-          ;(/\bcm-tab\b/.test(c.className) ||
-            (c.querySelector && c.querySelector(".cm-tab"))) &&
+          var s = r.content.lastChild
+          ;(/\bcm-tab\b/.test(s.className) ||
+            (s.querySelector && s.querySelector(".cm-tab"))) &&
             (r.content.className = "cm-tab-wrap-hack")
         }
         return (
@@ -6977,23 +6977,27 @@ webpackJsonp([0], {
               setTimeout(function() {
                 return (n.scroller.draggable = !0)
               }, 100))
-          else if (!clickInGutter(t, e)) {
-            var r = posFromMouse(t, e),
-              o = e_button(e),
-              i = r ? clickRepeat(r, o) : "single"
-            window.focus(),
-              1 == o && t.state.selectingText && t.state.selectingText(e),
-              (r && handleMappedButton(t, o, r, i, e)) ||
-                (1 == o
-                  ? r
-                    ? leftButtonDown(t, r, i, e)
-                    : e_target(e) == n.scroller && e_preventDefault(e)
-                  : 2 == o
-                    ? (r && extendSelection(t.doc, r),
-                      setTimeout(function() {
-                        return n.input.focus()
-                      }, 20))
-                    : 3 == o && (S ? onContextMenu(t, e) : delayBlurEvent(t)))
+          else {
+            var r = e_button(e)
+            if (
+              3 == r && S ? !contextMenuInGutter(t, e) : !clickInGutter(t, e)
+            ) {
+              var o = posFromMouse(t, e),
+                i = o ? clickRepeat(o, r) : "single"
+              window.focus(),
+                1 == r && t.state.selectingText && t.state.selectingText(e),
+                (o && handleMappedButton(t, r, o, i, e)) ||
+                  (1 == r
+                    ? o
+                      ? leftButtonDown(t, o, i, e)
+                      : e_target(e) == n.scroller && e_preventDefault(e)
+                    : 2 == r
+                      ? (o && extendSelection(t.doc, o),
+                        setTimeout(function() {
+                          return n.input.focus()
+                        }, 20))
+                      : 3 == r && (S ? onContextMenu(t, e) : delayBlurEvent(t)))
+            }
           }
       }
       function handleMappedButton(e, t, n, r, o) {
@@ -9493,7 +9497,7 @@ webpackJsonp([0], {
             (e.rmClass = L),
             (e.keyNames = Te)
         })(CodeMirror$1),
-        (CodeMirror$1.version = "5.40.0"),
+        (CodeMirror$1.version = "5.40.2"),
         CodeMirror$1
       )
     }),
@@ -10316,7 +10320,7 @@ webpackJsonp([0], {
               : "spread" == e
                 ? cont(pattern)
                 : "[" == e
-                  ? contCommasep(pattern, "]")
+                  ? contCommasep(eltpattern, "]")
                   : "{" == e
                     ? contCommasep(proppattern, "}")
                     : void 0
@@ -10330,6 +10334,9 @@ webpackJsonp([0], {
                   ? pass()
                   : cont(expect(":"), pattern, maybeAssign))
             : (register(t), cont(maybeAssign))
+        }
+        function eltpattern() {
+          return pass(pattern, maybeAssign)
         }
         function maybeAssign(e, t) {
           if ("=" == t) return cont(expressionNoComma)
