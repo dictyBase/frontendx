@@ -1,12 +1,9 @@
 // @flow
 import React from "react"
-import { withStyles } from "@material-ui/core/styles"
-import Table from "@material-ui/core/Table"
-import TableBody from "@material-ui/core/TableBody"
 import TableRow from "@material-ui/core/TableRow"
-import Paper from "@material-ui/core/Paper"
 
 import GoaPanelContent from "./GoaPanelContent"
+import TableWrapper from "common/components/TableWrapper"
 import PanelListItemLeft from "common/components/panels/PanelListItemLeft"
 import PanelListItemRight from "common/components/panels/PanelListItemRight"
 
@@ -55,16 +52,6 @@ const dataFilter = (arr, type) => {
   return expChecker
 }
 
-// Material-UI stylings
-const styles = theme => ({
-  root: {
-    width: "100%",
-  },
-  table: {
-    borderBottom: "1px dotted #A3BAE9",
-  },
-})
-
 type Props = {
   /** Material-UI styling */
   classes: Object,
@@ -77,46 +64,38 @@ type Props = {
  */
 
 const GoaPanel = (props: Props) => {
-  const { classes, panelData } = props
+  const { panelData } = props
 
   return (
-    <Paper className={classes.root}>
-      <Table className={classes.table}>
-        <TableBody>
-          <TableRow>
-            <PanelListItemLeft title="Molecular Function" />
-            <PanelListItemRight>
-              {dataFilter(panelData.data.data[0], "molecular_function").map(
-                (item: Object, i: string) => (
-                  <GoaPanelContent key={i} item={item} />
-                ),
-              )}
-            </PanelListItemRight>
-          </TableRow>
-          <TableRow>
-            <PanelListItemLeft title="Biological Process" />
-            <PanelListItemRight>
-              {dataFilter(panelData.data.data[0], "biological_process").map(
-                (item, i) => (
-                  <GoaPanelContent key={i} item={item} />
-                ),
-              )}
-            </PanelListItemRight>
-          </TableRow>
-          <TableRow>
-            <PanelListItemLeft title="Cellular Component" />
-            <PanelListItemRight>
-              {dataFilter(panelData.data.data[0], "cellular_component").map(
-                (item, i) => (
-                  <GoaPanelContent key={i} item={item} />
-                ),
-              )}
-            </PanelListItemRight>
-          </TableRow>
-        </TableBody>
-      </Table>
-    </Paper>
+    <TableWrapper>
+      <TableRow>
+        <PanelListItemLeft title="Molecular Function" />
+        <PanelListItemRight>
+          {dataFilter(panelData.data, "molecular_function").map(
+            (item: Object, i: string) => (
+              <GoaPanelContent key={i} item={item} />
+            ),
+          )}
+        </PanelListItemRight>
+      </TableRow>
+      <TableRow>
+        <PanelListItemLeft title="Biological Process" />
+        <PanelListItemRight>
+          {dataFilter(panelData.data, "biological_process").map((item, i) => (
+            <GoaPanelContent key={i} item={item} />
+          ))}
+        </PanelListItemRight>
+      </TableRow>
+      <TableRow>
+        <PanelListItemLeft title="Cellular Component" />
+        <PanelListItemRight>
+          {dataFilter(panelData.data, "cellular_component").map((item, i) => (
+            <GoaPanelContent key={i} item={item} />
+          ))}
+        </PanelListItemRight>
+      </TableRow>
+    </TableWrapper>
   )
 }
 
-export default withStyles(styles)(GoaPanel)
+export default GoaPanel

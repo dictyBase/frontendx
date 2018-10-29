@@ -56,7 +56,7 @@ export class OntologyTabContainer extends Component<Props> {
 
     if (goa.data) {
       // set variables for filtered arrays based on evidence code
-      const all = goa.data.data[0]
+      const all = goa.data
       const experimental = all.filter(
         (code: Object) =>
           code.attributes.evidence_code === "IMP" ||
