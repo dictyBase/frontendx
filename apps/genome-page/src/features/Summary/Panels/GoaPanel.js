@@ -52,6 +52,17 @@ const dataFilter = (arr, type) => {
   return expChecker
 }
 
+type dataProps = {
+  assigned_by: string,
+  date: string,
+  evidence_code: string,
+  extensions: Array<Object>,
+  goterm: string,
+  publication: string,
+  qualifier: string,
+  with: Array<Object>,
+}
+
 type Props = {
   /** Material-UI styling */
   classes: Object,
@@ -72,7 +83,7 @@ const GoaPanel = (props: Props) => {
         <PanelListItemLeft title="Molecular Function" />
         <PanelListItemRight>
           {dataFilter(panelData.data, "molecular_function").map(
-            (item: Object, i: string) => (
+            (item: dataProps, i: string) => (
               <GoaPanelContent key={i} item={item} />
             ),
           )}
@@ -81,17 +92,21 @@ const GoaPanel = (props: Props) => {
       <TableRow>
         <PanelListItemLeft title="Biological Process" />
         <PanelListItemRight>
-          {dataFilter(panelData.data, "biological_process").map((item, i) => (
-            <GoaPanelContent key={i} item={item} />
-          ))}
+          {dataFilter(panelData.data, "biological_process").map(
+            (item: dataProps, i: string) => (
+              <GoaPanelContent key={i} item={item} />
+            ),
+          )}
         </PanelListItemRight>
       </TableRow>
       <TableRow>
         <PanelListItemLeft title="Cellular Component" />
         <PanelListItemRight>
-          {dataFilter(panelData.data, "cellular_component").map((item, i) => (
-            <GoaPanelContent key={i} item={item} />
-          ))}
+          {dataFilter(panelData.data, "cellular_component").map(
+            (item: dataProps, i: string) => (
+              <GoaPanelContent key={i} item={item} />
+            ),
+          )}
         </PanelListItemRight>
       </TableRow>
     </TableWrapper>
