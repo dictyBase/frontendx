@@ -8,6 +8,7 @@ import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
 
 import GoaPanelContent from "./GoaPanelContent"
+import PanelListItemLeft from "common/components/PanelListItemLeft"
 
 // function that takes in the data array and the type (i.e. "molecular_function") to filter by
 const dataFilter = (arr, type) => {
@@ -92,12 +93,7 @@ const GoaPanel = (props: Props) => {
       <Table className={classes.table}>
         <TableBody>
           <TableRow>
-            <TableCell
-              component="th"
-              scope="row"
-              className={classes.tableLeftData}>
-              Molecular Function
-            </TableCell>
+            <PanelListItemLeft title="Molecular Function" />
             <TableCell className={classes.tableRightData}>
               {dataFilter(panelData.data.data[0], "molecular_function").map(
                 (item: Object, i: string) => (
@@ -107,12 +103,7 @@ const GoaPanel = (props: Props) => {
             </TableCell>
           </TableRow>
           <TableRow>
-            <TableCell
-              component="th"
-              scope="row"
-              className={classes.tableLeftData}>
-              Biological Process
-            </TableCell>
+            <PanelListItemLeft title="Biological Process" />
             <TableCell className={classes.tableRightData}>
               {dataFilter(panelData.data.data[0], "biological_process").map(
                 (item, i) => (
@@ -122,12 +113,7 @@ const GoaPanel = (props: Props) => {
             </TableCell>
           </TableRow>
           <TableRow>
-            <TableCell
-              component="th"
-              scope="row"
-              className={classes.tableLeftData}>
-              Cellular Component
-            </TableCell>
+            <PanelListItemLeft title="Cellular Component" />
             <TableCell className={classes.tableRightData}>
               {dataFilter(panelData.data.data[0], "cellular_component").map(
                 (item, i) => (
