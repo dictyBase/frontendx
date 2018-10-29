@@ -68,20 +68,19 @@ const GoaPanelContent = (props: Props) => {
               <span>
                 {" "}
                 <em>with</em>{" "}
-                {!xref.name && (
-                  <a
-                    className={classes.link}
-                    href={withLinkGenerator(xref.id, xref.db)}
-                    target="_blank">
-                    {xref.db}:{xref.id}
-                  </a>
-                )}
-                {xref.name && (
+                {xref.name ? (
                   <a
                     className={classes.link}
                     href={withLinkGenerator(xref.id, xref.db, xref.name)}
                     target="_blank">
                     {xref.name}
+                  </a>
+                ) : (
+                  <a
+                    className={classes.link}
+                    href={withLinkGenerator(xref.id, xref.db)}
+                    target="_blank">
+                    {xref.db}:{xref.id}
                   </a>
                 )}
               </span>
@@ -93,20 +92,19 @@ const GoaPanelContent = (props: Props) => {
               <span>
                 {" "}
                 <em>{ext.relation}</em>{" "}
-                {!ext.name && (
-                  <a
-                    className={classes.link}
-                    href={withLinkGenerator(ext.id, ext.db)}
-                    target="_blank">
-                    {ext.db}:{ext.id}
-                  </a>
-                )}
-                {ext.name && (
+                {ext.name ? (
                   <a
                     className={classes.link}
                     href={withLinkGenerator(ext.id, ext.db, ext.name)}
                     target="_blank">
                     {ext.name}
+                  </a>
+                ) : (
+                  <a
+                    className={classes.link}
+                    href={withLinkGenerator(ext.id, ext.db)}
+                    target="_blank">
+                    {ext.db}:{ext.id}
                   </a>
                 )}{" "}
               </span>
