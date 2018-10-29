@@ -3,12 +3,12 @@ import React from "react"
 import { withStyles } from "@material-ui/core/styles"
 import Table from "@material-ui/core/Table"
 import TableBody from "@material-ui/core/TableBody"
-import TableCell from "@material-ui/core/TableCell"
 import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
 
 import GoaPanelContent from "./GoaPanelContent"
-import PanelListItemLeft from "common/components/PanelListItemLeft"
+import PanelListItemLeft from "common/components/panels/PanelListItemLeft"
+import PanelListItemRight from "common/components/panels/PanelListItemRight"
 
 // function that takes in the data array and the type (i.e. "molecular_function") to filter by
 const dataFilter = (arr, type) => {
@@ -63,15 +63,6 @@ const styles = theme => ({
   table: {
     borderBottom: "1px dotted #A3BAE9",
   },
-  tableLeftData: {
-    backgroundColor: "#e6f2ff",
-    minWidth: 150,
-    maxWidth: 200,
-    fontSize: "1.1em",
-  },
-  tableRightData: {
-    width: "80%",
-  },
 })
 
 type Props = {
@@ -94,33 +85,33 @@ const GoaPanel = (props: Props) => {
         <TableBody>
           <TableRow>
             <PanelListItemLeft title="Molecular Function" />
-            <TableCell className={classes.tableRightData}>
+            <PanelListItemRight>
               {dataFilter(panelData.data.data[0], "molecular_function").map(
                 (item: Object, i: string) => (
                   <GoaPanelContent key={i} item={item} />
                 ),
               )}
-            </TableCell>
+            </PanelListItemRight>
           </TableRow>
           <TableRow>
             <PanelListItemLeft title="Biological Process" />
-            <TableCell className={classes.tableRightData}>
+            <PanelListItemRight>
               {dataFilter(panelData.data.data[0], "biological_process").map(
                 (item, i) => (
                   <GoaPanelContent key={i} item={item} />
                 ),
               )}
-            </TableCell>
+            </PanelListItemRight>
           </TableRow>
           <TableRow>
             <PanelListItemLeft title="Cellular Component" />
-            <TableCell className={classes.tableRightData}>
+            <PanelListItemRight>
               {dataFilter(panelData.data.data[0], "cellular_component").map(
                 (item, i) => (
                   <GoaPanelContent key={i} item={item} />
                 ),
               )}
-            </TableCell>
+            </PanelListItemRight>
           </TableRow>
         </TableBody>
       </Table>
