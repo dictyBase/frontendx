@@ -8,7 +8,7 @@ import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import Grid from "@material-ui/core/Grid"
 
-import PanelWrapper from "common/components/PanelWrapper"
+import PanelWrapper from "common/components/panels/PanelWrapper"
 import PageHeader from "common/components/PageHeader"
 import TabContainer from "common/components/TabContainer"
 import ErrorPage from "common/components/ErrorPage"
