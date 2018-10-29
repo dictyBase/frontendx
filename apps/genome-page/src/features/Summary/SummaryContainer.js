@@ -131,7 +131,7 @@ export class SummaryContainer extends Component<Props> {
 
     return (
       <Grid container justify="center">
-        <Grid item lg={12}>
+        <Grid item xs={12}>
           {general.data && (
             <PageHeader name={general.data.data.attributes.geneName} />
           )}
