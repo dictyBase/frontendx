@@ -11,7 +11,7 @@ import OntologyTabContainer from "./OntologyTabContainer"
 import OntologyLoader from "./OntologyLoader"
 import ErrorPage from "common/components/ErrorPage"
 import PageHeader from "common/components/PageHeader"
-import TabContainer from "common/components/TabContainer"
+import TypographyWrapper from "common/components/TypographyWrapper"
 import { tabLabels } from "common/constants/tabLabels"
 import { fetchGeneralData, changeTab } from "features/Summary/summaryActions"
 
@@ -110,9 +110,9 @@ export class OntologyContainer extends Component<Props> {
             {general.data && this.generateTabs(general.data, match.params.id)}
           </Tabs>
         </AppBar>
-        <TabContainer>
+        <TypographyWrapper>
           <OntologyTabContainer />
-        </TabContainer>
+        </TypographyWrapper>
       </div>
     )
   }

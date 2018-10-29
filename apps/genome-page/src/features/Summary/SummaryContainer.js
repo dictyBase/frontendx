@@ -10,7 +10,7 @@ import Grid from "@material-ui/core/Grid"
 
 import PanelWrapper from "common/components/panels/PanelWrapper"
 import PageHeader from "common/components/PageHeader"
-import TabContainer from "common/components/TabContainer"
+import TypographyWrapper from "common/components/TypographyWrapper"
 import ErrorPage from "common/components/ErrorPage"
 import SummaryLoader from "./SummaryLoader"
 import { tabLabels } from "common/constants/tabLabels"
@@ -146,11 +146,11 @@ export class SummaryContainer extends Component<Props> {
               {general.data && this.generateTabs(general.data, match.params.id)}
             </Tabs>
           </AppBar>
-          <TabContainer>
+          <TypographyWrapper>
             {general.data &&
               goa.data &&
               this.generatePanels(general.data, match.params.id)}
-          </TabContainer>
+          </TypographyWrapper>
         </Grid>
       </Grid>
     )
