@@ -25,9 +25,22 @@ const goaReducer = (
 ) => {
   switch (action.type) {
     case FETCH_GOA_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+      }
     case FETCH_GOA_SUCCESS:
+      return {
+        ...state,
+        data: action.payload.data.data[0],
+        isFetching: false,
+      }
     case FETCH_GOA_FAILURE:
-      return { ...state, ...action.payload }
+      return {
+        ...state,
+        isFetching: false,
+        error: action.payload.error,
+      }
     case GOA_NO_REFETCH:
       return state
     case CHANGE_GOA_TAB:
