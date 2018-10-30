@@ -1,6 +1,6 @@
 import React from "react"
 import { shallow } from "enzyme"
-import PanelListItemRight from "./PanelListItemRight"
+import RightDisplay from "./RightDisplay"
 import TableCell from "@material-ui/core/TableCell"
 
 // two options for tests for components that use Material-UI withStyles:
@@ -8,9 +8,9 @@ import TableCell from "@material-ui/core/TableCell"
 // 2) use mount instead of shallow
 // https://github.com/mui-org/material-ui/issues/9266
 
-describe("PanelListItemRight", () => {
+describe("RightDisplay", () => {
   const wrapper = shallow(
-    <PanelListItemRight>nucleic acid binding (IEA)</PanelListItemRight>,
+    <RightDisplay>nucleic acid binding (IEA)</RightDisplay>,
   )
   const cell = wrapper.dive().find(TableCell)
 
