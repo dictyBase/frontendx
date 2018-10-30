@@ -4,8 +4,8 @@ import TableRow from "@material-ui/core/TableRow"
 
 import GoaPanelContent from "./GoaPanelContent"
 import TableWrapper from "common/components/TableWrapper"
-import PanelListItemLeft from "common/components/panels/PanelListItemLeft"
-import PanelListItemRight from "common/components/panels/PanelListItemRight"
+import LeftDisplay from "common/components/panels/LeftDisplay"
+import RightDisplay from "common/components/panels/RightDisplay"
 
 // function that takes in the data array and the type (i.e. "molecular_function") to filter by
 const dataFilter = (arr, type) => {
@@ -80,34 +80,34 @@ const GoaPanel = (props: Props) => {
   return (
     <TableWrapper>
       <TableRow>
-        <PanelListItemLeft title="Molecular Function" />
-        <PanelListItemRight>
+        <LeftDisplay title="Molecular Function" />
+        <RightDisplay>
           {dataFilter(panelData.data, "molecular_function").map(
             (item: dataProps, i: string) => (
               <GoaPanelContent key={i} item={item} />
             ),
           )}
-        </PanelListItemRight>
+        </RightDisplay>
       </TableRow>
       <TableRow>
-        <PanelListItemLeft title="Biological Process" />
-        <PanelListItemRight>
+        <LeftDisplay title="Biological Process" />
+        <RightDisplay>
           {dataFilter(panelData.data, "biological_process").map(
             (item: dataProps, i: string) => (
               <GoaPanelContent key={i} item={item} />
             ),
           )}
-        </PanelListItemRight>
+        </RightDisplay>
       </TableRow>
       <TableRow>
-        <PanelListItemLeft title="Cellular Component" />
-        <PanelListItemRight>
+        <LeftDisplay title="Cellular Component" />
+        <RightDisplay>
           {dataFilter(panelData.data, "cellular_component").map(
             (item: dataProps, i: string) => (
               <GoaPanelContent key={i} item={item} />
             ),
           )}
-        </PanelListItemRight>
+        </RightDisplay>
       </TableRow>
     </TableWrapper>
   )

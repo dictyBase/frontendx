@@ -23,10 +23,10 @@ type Props = {
  * This represents the left side of the inner panel content.
  */
 
-const PanelListItemLeft = ({ classes, title }: Props) => (
+const LeftDisplay = ({ classes, title }: Props) => (
   <TableCell component="th" scope="row" className={classes.tableLeftData}>
     {title}
   </TableCell>
 )
 
-export default withStyles(styles)(PanelListItemLeft)
+export default withStyles(styles)(LeftDisplay)
