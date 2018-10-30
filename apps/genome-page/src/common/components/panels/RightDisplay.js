@@ -21,8 +21,8 @@ type Props = {
  * It acts as a wrapper around whatever children it receives.
  */
 
-const PanelListItemRight = ({ classes, children }: Props) => (
+const RightDisplay = ({ classes, children }: Props) => (
   <TableCell className={classes.tableRightData}>{children}</TableCell>
 )
 
-export default withStyles(styles)(PanelListItemRight)
+export default withStyles(styles)(RightDisplay)
