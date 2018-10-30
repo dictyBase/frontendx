@@ -4,6 +4,7 @@ import TableRow from "@material-ui/core/TableRow"
 
 import GoaPanelContent from "./GoaPanelContent"
 import TableWrapper from "common/components/TableWrapper"
+import ItemDisplay from "common/components/panels/ItemDisplay"
 import LeftDisplay from "common/components/panels/LeftDisplay"
 import RightDisplay from "common/components/panels/RightDisplay"
 
@@ -78,8 +79,8 @@ const GoaPanel = (props: Props) => {
   const { panelData } = props
 
   return (
-    <TableWrapper>
-      <TableRow>
+    <div>
+      <ItemDisplay>
         <LeftDisplay title="Molecular Function" />
         <RightDisplay>
           {dataFilter(panelData.data, "molecular_function").map(
@@ -88,8 +89,8 @@ const GoaPanel = (props: Props) => {
             ),
           )}
         </RightDisplay>
-      </TableRow>
-      <TableRow>
+      </ItemDisplay>
+      <ItemDisplay>
         <LeftDisplay title="Biological Process" />
         <RightDisplay>
           {dataFilter(panelData.data, "biological_process").map(
@@ -98,8 +99,8 @@ const GoaPanel = (props: Props) => {
             ),
           )}
         </RightDisplay>
-      </TableRow>
-      <TableRow>
+      </ItemDisplay>
+      <ItemDisplay>
         <LeftDisplay title="Cellular Component" />
         <RightDisplay>
           {dataFilter(panelData.data, "cellular_component").map(
@@ -108,8 +109,8 @@ const GoaPanel = (props: Props) => {
             ),
           )}
         </RightDisplay>
-      </TableRow>
-    </TableWrapper>
+      </ItemDisplay>
+    </div>
   )
 }
 
