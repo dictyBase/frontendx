@@ -1,17 +1,20 @@
 // @flow
 import React from "react"
 import { withStyles } from "@material-ui/core/styles"
-import TableCell from "@material-ui/core/TableCell"
 import Grid from "@material-ui/core/Grid"
 
 const styles = theme => ({
-  tableRightData: {
+  rightContainer: {
     width: "80%",
     height: "100%",
-    display: "inline",
+    display: "table-cell",
+    padding: "4px 56px 4px 24px",
+    verticalAlign: "middle",
   },
   innerSpan: {
     height: "100%",
+    fontSize: "0.8125rem",
+    fontWeight: 400,
   },
 })
 
@@ -28,7 +31,7 @@ type Props = {
  */
 
 const RightDisplay = ({ classes, children }: Props) => (
-  <Grid item xs={9} component="span" className={classes.tableRightData}>
+  <Grid item xs={10} component="span" className={classes.rightContainer}>
     <span className={classes.innerSpan}>{children}</span>
   </Grid>
 )

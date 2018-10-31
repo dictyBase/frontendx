@@ -1,9 +1,7 @@
 // @flow
 import React from "react"
-import TableRow from "@material-ui/core/TableRow"
 
 import GoaPanelContent from "./GoaPanelContent"
-import TableWrapper from "common/components/TableWrapper"
 import ItemDisplay from "common/components/panels/ItemDisplay"
 import LeftDisplay from "common/components/panels/LeftDisplay"
 import RightDisplay from "common/components/panels/RightDisplay"
