@@ -58,7 +58,15 @@ export const fetchGoa = (url: string) => async (
     // check if res.ok (https://developer.mozilla.org/en-US/docs/Web/API/Response/ok)
     // and that the json doesn't contain an error
     if (res.ok && !json.status) {
-      dispatch(fetchGoaSuccess(json))
+      if (json.data.length === 2) {
+        const mergedData = {
+          links: json.links,
+          data: json.data[0].concat(json.data[1]),
+        }
+        dispatch(fetchGoaSuccess(mergedData))
+      } else {
+        dispatch(fetchGoaSuccess(json))
+      }
     } else {
       dispatch(fetchGoaFailure(createErrorObj(json.status, json.title)))
       if (process.env.NODE_ENV !== "production") {

@@ -32,7 +32,7 @@ const goaReducer = (
     case FETCH_GOA_SUCCESS:
       return {
         ...state,
-        data: action.payload.data.data[0],
+        data: action.payload.data.data,
         isFetching: false,
       }
     case FETCH_GOA_FAILURE:
