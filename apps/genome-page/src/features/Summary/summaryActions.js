@@ -66,6 +66,7 @@ export const fetchGeneralData = (url: string) => async (
       }
     }
   } catch (error) {
+    dispatch(fetchGeneralDataFailure(createErrorObj("Network", error.message)))
     if (process.env.NODE_ENV !== "production") {
       console.error(`Network error: ${error.message}`)
     }
