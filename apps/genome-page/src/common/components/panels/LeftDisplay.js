@@ -1,19 +1,26 @@
 // @flow
 import React from "react"
 import { withStyles } from "@material-ui/core/styles"
-import TableCell from "@material-ui/core/TableCell"
 import Grid from "@material-ui/core/Grid"
 
 const styles = theme => ({
-  tableLeftData: {
+  leftContainer: {
     backgroundColor: "#e6f2ff",
-    minWidth: 150,
-    maxWidth: 200,
+    // minWidth: 150,
+    // maxWidth: 300,
     fontSize: "1.1em",
-    display: "inline",
+    fontWeight: 400,
+    display: "table-cell",
+    padding: "4px 56px 4px 24px",
+    verticalAlign: "middle",
+    [theme.breakpoints.down("sm")]: {
+      padding: "2px 8px 2px 8px",
+      minWidth: 50,
+    },
   },
   innerSpan: {
     height: "100%",
+    verticalAlign: "middle",
   },
 })
 
@@ -29,7 +36,7 @@ type Props = {
  */
 
 const LeftDisplay = ({ classes, title }: Props) => (
-  <Grid item xs={3} component="span" className={classes.tableLeftData}>
+  <Grid item xs={2} component="span" className={classes.leftContainer}>
     <span className={classes.innerSpan}>{title}</span>
   </Grid>
 )

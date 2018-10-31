@@ -27,6 +27,9 @@ const styles = (theme: Object) => ({
   details: {
     padding: 0,
   },
+  innerContent: {
+    width: "100%",
+  },
   link: {
     color: "#e1f5fe",
     marginLeft: 40,
@@ -66,7 +69,7 @@ const PanelWrapper = ({ classes, title, route, children }: Props) => (
         </Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails className={classes.details}>
-        {children}
+        <div className={classes.innerContent}>{children}</div>
       </ExpansionPanelDetails>
     </ExpansionPanel>
   </div>

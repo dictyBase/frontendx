@@ -5,7 +5,9 @@ import Grid from "@material-ui/core/Grid"
 
 const styles = theme => ({
   container: {
-    float: "left",
+    borderBottom: "1px dotted #A3BAE9",
+    display: "table",
+    height: "48px",
   },
 })
 
@@ -14,7 +16,7 @@ const styles = theme => ({
  */
 
 const ItemDisplay = ({ children, classes }) => (
-  <Grid className={classes.container} container>
+  <Grid container className={classes.container}>
     {children}
   </Grid>
 )
