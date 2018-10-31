@@ -66,6 +66,7 @@ export const fetchGoa = (url: string) => async (
       }
     }
   } catch (error) {
+    dispatch(fetchGoaFailure(createErrorObj("Network", error.message)))
     if (process.env.NODE_ENV !== "production") {
       console.error(`Network error: ${error.message}`)
     }
