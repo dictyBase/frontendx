@@ -21,7 +21,7 @@ const styles = theme => ({
 type Props = {
   /** Material-UI styling */
   classes: Object,
-  /** The content to display inside this cell */
+  /** The content to display on the right */
   children: any,
 }
 
