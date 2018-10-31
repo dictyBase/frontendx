@@ -79,7 +79,7 @@ const GoaPanel = (props: Props) => {
   return (
     <div>
       <ItemDisplay>
-        <LeftDisplay title="Molecular Function" />
+        <LeftDisplay>Molecular Function</LeftDisplay>
         <RightDisplay>
           {dataFilter(panelData.data, "molecular_function").map(
             (item: dataProps, i: string) => (
@@ -89,7 +89,7 @@ const GoaPanel = (props: Props) => {
         </RightDisplay>
       </ItemDisplay>
       <ItemDisplay>
-        <LeftDisplay title="Biological Process" />
+        <LeftDisplay>Biological Process</LeftDisplay>
         <RightDisplay>
           {dataFilter(panelData.data, "biological_process").map(
             (item: dataProps, i: string) => (
@@ -99,7 +99,7 @@ const GoaPanel = (props: Props) => {
         </RightDisplay>
       </ItemDisplay>
       <ItemDisplay>
-        <LeftDisplay title="Cellular Component" />
+        <LeftDisplay>Cellular Component</LeftDisplay>
         <RightDisplay>
           {dataFilter(panelData.data, "cellular_component").map(
             (item: dataProps, i: string) => (
