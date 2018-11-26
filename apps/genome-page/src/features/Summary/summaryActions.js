@@ -44,7 +44,8 @@ export const fetchGeneralData = (url: string) => async (
   dispatch: Function,
   getState: Function,
 ) => {
-  if (getState().general.data) {
+  /** This is a hack; need to figure out why SummaryContainer is mounting 3x */
+  if (getState().general.data || getState().general.isFetching) {
     return noRefetch()
   }
   try {

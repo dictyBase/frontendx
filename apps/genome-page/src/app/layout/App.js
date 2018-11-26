@@ -1,4 +1,5 @@
 import React from "react"
+import { compose } from "redux"
 import { connect } from "react-redux"
 import { withRouter } from "react-router-dom"
 import { withStyles } from "@material-ui/core/styles"
@@ -12,6 +13,7 @@ import {
   loggedHeaderItems,
   generateLinks,
 } from "common/utils/headerItems"
+import footerItems from "common/constants/Footer"
 import Routes from "app/routes/Routes"
 import withDataFetching from "common/components/withDataFetching"
 import AppErrorFallback from "./AppErrorFallback"
@@ -36,6 +38,12 @@ type Props = {
 export const App = (props: Props) => {
   const { auth, navbar, footer, classes } = props
 
+  let footerLinks = footerItems
+
+  if (footer.links) {
+    footerLinks = footer.links
+  }
+
   return (
     <div className={classes.body}>
       {auth.isAuthenticated ? (
@@ -53,23 +61,30 @@ export const App = (props: Props) => {
         </ErrorBoundary>
       </main>
 
-      {footer.links && <Footer items={footer.links} />}
+      <Footer items={footerLinks} />
     </div>
   )
 }
 
-const mapStateToProps = ({ auth, navbar, footer }) => ({ auth, navbar, footer })
+const mapStateToProps: MapStateToProps<*, *, *> = ({
+  auth,
+  navbar,
+  footer,
+}) => ({ auth, navbar, footer })
 
-const ConnectedApp = connect(
-  mapStateToProps,
-  { fetchNavbarAndFooter },
-)(withStyles(styles)(App))
-
-export default withRouter(
+const enhance = compose(
+  withRouter,
+  connect(
+    mapStateToProps,
+    null,
+  ),
+  withStyles(styles),
   withDataFetching(
     fetchNavbarAndFooter,
     "navbar",
     AppErrorFallback,
     AppErrorFallback,
-  )(ConnectedApp),
+  ),
 )
+
+export default enhance(App)

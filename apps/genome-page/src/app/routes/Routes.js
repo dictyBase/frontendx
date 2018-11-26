@@ -37,15 +37,10 @@ const Routes = () => (
 
     {/* if route matches gene ID, set identifier as true */}
     <Route
-      exact
       path="/:id([A-Z]{3}_G[0-9]{4,})"
       render={() => <SummaryContainer identifier={true} />}
     />
-    <Route
-      exact
-      path="/:id"
-      render={() => <SummaryContainer identifier={false} />}
-    />
+    <Route path="/:id" render={() => <SummaryContainer identifier={false} />} />
     <Route path="*" component={PageNotReady} />
   </Switch>
 )

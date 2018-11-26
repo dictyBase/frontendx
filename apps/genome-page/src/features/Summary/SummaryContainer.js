@@ -2,6 +2,7 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
 import { withRouter } from "react-router"
+import { compose } from "redux"
 import { connect } from "react-redux"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
@@ -159,9 +160,12 @@ export class SummaryContainer extends Component<Props> {
 
 const mapStateToProps = ({ general, goa }) => ({ general, goa })
 
-export default withRouter(
+const enhance = compose(
+  withRouter,
   connect(
     mapStateToProps,
     { fetchGeneralData, changeTab },
-  )(SummaryContainer),
+  ),
 )
+
+export default enhance(SummaryContainer)
