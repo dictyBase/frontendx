@@ -7,38 +7,14 @@ import { Navbar } from "dicty-components-navbar"
 
 import ErrorBoundary from "common/components/ErrorBoundary"
 import fetchNavbarAndFooter from "app/actions/navbarActions"
-import footerItems from "common/constants/Footer"
-import navbarItems from "common/constants/Navbar"
 import {
   headerItems,
   loggedHeaderItems,
   generateLinks,
 } from "common/utils/headerItems"
 import Routes from "app/routes/Routes"
-
-const navTheme = {
-  primary: "#004080",
-  secondary: "#0059b3",
-}
-
-const styles = theme => ({
-  main: {
-    margin: "0 10px 25px 10px",
-  },
-  body: {
-    margin: "auto",
-    height: "100%",
-    width: "100%",
-    fontFamily: "Roboto, sans-serif",
-    fontSize: "16px",
-    lineHeight: 1.42857,
-    color: "#333",
-    backgroundColor: "#fff",
-    boxSizing: "content-box",
-    WebkitFontSmoothing: "auto",
-    MozOsxFontSmoothing: "auto",
-  },
-})
+import AppErrorFallback from "./AppErrorFallback"
+import { appStyles as styles, navTheme } from "./appStyles"
 
 type Props = {
   /** Object representing auth part of state */
@@ -47,15 +23,19 @@ type Props = {
   navbar: Object,
   /** Object representing footer part of state */
   footer: Object,
-  /** Action creator to fetch navbar content */
-  fetchNavbar: Function,
-  /** Action creator to fetch footer content */
-  fetchFooter: Function,
+  /** Action that fetches both navbar and footer content */
+  fetchNavbarAndFooter: Function,
 }
+
+/**
+ * This is the main App component.
+ * It is responsible for the main layout of the entire application.
+ */
 
 export class App extends Component<Props> {
   componentDidMount() {
     const { fetchNavbarAndFooter } = this.props
+
     fetchNavbarAndFooter()
   }
 
@@ -64,28 +44,7 @@ export class App extends Component<Props> {
 
     // if any errors, fall back to old link setup
     if (navbar.error || !navbar.links || footer.error || !footer.links) {
-      return (
-        <div className={classes.body}>
-          {auth.isAuthenticated ? (
-            <Header items={loggedHeaderItems}>
-              {items => items.map(generateLinks)}
-            </Header>
-          ) : (
-            <Header items={headerItems}>
-              {items => items.map(generateLinks)}
-            </Header>
-          )}
-          <Navbar theme={navTheme} items={navbarItems} />
-
-          <main className={classes.main}>
-            <ErrorBoundary>
-              <Routes />
-            </ErrorBoundary>
-          </main>
-
-          <Footer items={footerItems} />
-        </div>
-      )
+      return <AppErrorFallback />
     }
 
     return (
