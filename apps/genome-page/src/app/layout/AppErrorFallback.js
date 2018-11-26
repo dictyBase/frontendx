@@ -1,5 +1,8 @@
+// @flow
 import React from "react"
+import { compose } from "redux"
 import { connect } from "react-redux"
+import type { MapStateToProps } from "react-redux"
 import { withRouter } from "react-router-dom"
 import { withStyles } from "@material-ui/core/styles"
 import { Header, Footer } from "dicty-components-header-footer"
@@ -19,8 +22,8 @@ import { appStyles as styles, navTheme } from "./appStyles"
 type Props = {
   /** Object representing auth part of state */
   auth: Object,
-  /** Action that fetches both navbar and footer content */
-  fetchNavbarAndFooter: Function,
+  /** Material-UI styling */
+  classes: Object,
 }
 
 /**
@@ -53,11 +56,15 @@ const AppErrorFallback = (props: Props) => {
   )
 }
 
-const mapStateToProps = ({ auth }) => ({ auth })
+const mapStateToProps: MapStateToProps<*, *, *> = ({ auth }) => ({ auth })
 
-export default withRouter(
+const enhance = compose(
+  withRouter,
   connect(
     mapStateToProps,
     null,
-  )(withStyles(styles)(AppErrorFallback)),
+  ),
+  withStyles(styles),
 )
+
+export default enhance(AppErrorFallback)
