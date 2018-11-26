@@ -5,6 +5,7 @@ import {
   FETCH_NAVBAR_FAILURE,
 } from "common/constants/types"
 import navItems from "common/constants/Navbar"
+import { fetchFooter } from "./footerActions"
 
 const navbarJson = process.env.REACT_APP_NAVBAR_JSON
 
@@ -30,8 +31,7 @@ const fetchNavbarFailure = error => ({
   },
 })
 
-// fetch navbar function that fetches data using async/await
-export const fetchNavbar = () => async (dispatch: Function) => {
+export const fetchNavbarAndFooter = () => async (dispatch: Function) => {
   try {
     dispatch(fetchNavbarRequest())
     const res = await fetch(navbarJson)
@@ -50,14 +50,15 @@ export const fetchNavbar = () => async (dispatch: Function) => {
         }
       })
 
-      return dispatch(fetchNavbarSuccess(navbarArr))
+      dispatch(fetchNavbarSuccess(navbarArr))
+      await dispatch(fetchFooter())
+    } else {
+      dispatch(fetchNavbarFailure(res.statusText))
+      return navItems
     }
-
-    dispatch(fetchNavbarFailure(res.statusText))
-    return navItems
   } catch (error) {
     return dispatch(fetchNavbarFailure(error.toString()))
   }
 }
 
-export default fetchNavbar
+export default fetchNavbarAndFooter
