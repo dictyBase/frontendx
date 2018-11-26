@@ -65,7 +65,11 @@ export const fetchGoa = (url: string) => async (
         }
         dispatch(fetchGoaSuccess(mergedData))
       } else {
-        dispatch(fetchGoaSuccess(json))
+        const flattenedData = {
+          links: json.links,
+          data: [].concat.apply([], json.data[0]),
+        }
+        dispatch(fetchGoaSuccess(flattenedData))
       }
     } else {
       dispatch(fetchGoaFailure(createErrorObj(json.status, json.title)))
