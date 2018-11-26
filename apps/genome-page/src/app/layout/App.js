@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React from "react"
 import { connect } from "react-redux"
 import { withRouter } from "react-router-dom"
 import { withStyles } from "@material-ui/core/styles"
@@ -13,6 +13,7 @@ import {
   generateLinks,
 } from "common/utils/headerItems"
 import Routes from "app/routes/Routes"
+import withDataFetching from "common/components/withDataFetching"
 import AppErrorFallback from "./AppErrorFallback"
 import { appStyles as styles, navTheme } from "./appStyles"
 
@@ -32,51 +33,43 @@ type Props = {
  * It is responsible for the main layout of the entire application.
  */
 
-export class App extends Component<Props> {
-  componentDidMount() {
-    const { fetchNavbarAndFooter } = this.props
+export const App = (props: Props) => {
+  const { auth, navbar, footer, classes } = props
 
-    fetchNavbarAndFooter()
-  }
+  return (
+    <div className={classes.body}>
+      {auth.isAuthenticated ? (
+        <Header items={loggedHeaderItems}>
+          {items => items.map(generateLinks)}
+        </Header>
+      ) : (
+        <Header items={headerItems}>{items => items.map(generateLinks)}</Header>
+      )}
+      <Navbar theme={navTheme} items={navbar.links} />
 
-  render() {
-    const { auth, navbar, footer, classes } = this.props
+      <main className={classes.main}>
+        <ErrorBoundary>
+          <Routes />
+        </ErrorBoundary>
+      </main>
 
-    // if any errors, fall back to old link setup
-    if (navbar.error || !navbar.links || footer.error || !footer.links) {
-      return <AppErrorFallback />
-    }
-
-    return (
-      <div className={classes.body}>
-        {auth.isAuthenticated ? (
-          <Header items={loggedHeaderItems}>
-            {items => items.map(generateLinks)}
-          </Header>
-        ) : (
-          <Header items={headerItems}>
-            {items => items.map(generateLinks)}
-          </Header>
-        )}
-        <Navbar theme={navTheme} items={navbar.links} />
-
-        <main className={classes.main}>
-          <ErrorBoundary>
-            <Routes />
-          </ErrorBoundary>
-        </main>
-
-        <Footer items={footer.links} />
-      </div>
-    )
-  }
+      {footer.links && <Footer items={footer.links} />}
+    </div>
+  )
 }
 
 const mapStateToProps = ({ auth, navbar, footer }) => ({ auth, navbar, footer })
 
+const ConnectedApp = connect(
+  mapStateToProps,
+  { fetchNavbarAndFooter },
+)(withStyles(styles)(App))
+
 export default withRouter(
-  connect(
-    mapStateToProps,
-    { fetchNavbarAndFooter },
-  )(withStyles(styles)(App)),
+  withDataFetching(
+    fetchNavbarAndFooter,
+    "navbar",
+    AppErrorFallback,
+    AppErrorFallback,
+  )(ConnectedApp),
 )
