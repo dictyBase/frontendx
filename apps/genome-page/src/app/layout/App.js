@@ -6,8 +6,7 @@ import { Header, Footer } from "dicty-components-header-footer"
 import { Navbar } from "dicty-components-navbar"
 
 import ErrorBoundary from "common/components/ErrorBoundary"
-import fetchNavbar from "app/actions/navbarActions"
-import fetchFooter from "app/actions/footerActions"
+import fetchNavbarAndFooter from "app/actions/navbarActions"
 import footerItems from "common/constants/Footer"
 import navbarItems from "common/constants/Navbar"
 import {
@@ -56,9 +55,8 @@ type Props = {
 
 export class App extends Component<Props> {
   componentDidMount() {
-    const { fetchNavbar, fetchFooter } = this.props
-    fetchNavbar()
-    fetchFooter()
+    const { fetchNavbarAndFooter } = this.props
+    fetchNavbarAndFooter()
   }
 
   render() {
@@ -120,6 +118,6 @@ const mapStateToProps = ({ auth, navbar, footer }) => ({ auth, navbar, footer })
 export default withRouter(
   connect(
     mapStateToProps,
-    { fetchNavbar, fetchFooter },
+    { fetchNavbarAndFooter },
   )(withStyles(styles)(App)),
 )
