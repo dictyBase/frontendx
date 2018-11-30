@@ -10,6 +10,12 @@ const withLinkGenerator = (id: string, db: string, name: ?string) => {
   }
   // if using converted gene name, link to gene page not uniprot
   if (name) {
+    if (name.includes(" ")) {
+      return `https://www.ebi.ac.uk/QuickGO/term/GO:${id}`
+    }
+    if (name.match(/^([A-Z0-9]*$)/)) {
+      return `https://www.uniprot.org/uniprot/${id}`
+    }
     return `/${name}`
   }
   switch (db) {

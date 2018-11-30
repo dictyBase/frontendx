@@ -16,6 +16,8 @@ const sourceLinkGenerator = (id: string) => {
       return "https://www.uniprot.org/"
     case "GOC":
       return "http://www.geneontology.org/"
+    case "IntAct":
+      return "https://www.ebi.ac.uk/intact/"
     default:
       return "#"
   }
