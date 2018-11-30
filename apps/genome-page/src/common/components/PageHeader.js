@@ -16,6 +16,10 @@ const titleConverter = path => {
   return "Gene Information"
 }
 
+/**
+ * Basic page header for all gene pages.
+ */
+
 const PageHeader = (props: Props) => {
   const { name, match } = props
 

@@ -1,3 +1,3 @@
 ```js
-<LeftDisplay title="Molecular Function" />
+<LeftDisplay>Molecular Function</LeftDisplay>
 ```

@@ -4,7 +4,6 @@ import { withStyles } from "@material-ui/core/styles"
 
 import sadDicty from "images/sad-dicty.png"
 
-// eslint-disable-next-line
 const styles = theme => ({
   gridContainer: {
     marginTop: "33px",
@@ -22,6 +21,10 @@ const styles = theme => ({
     },
   },
 })
+
+/**
+ * This is an ErrorBoundary wrapper that catches any JavaScript errors and provides a fallback UI.
+ */
 
 class ErrorBoundary extends Component {
   state = { error: null, errorInfo: null }

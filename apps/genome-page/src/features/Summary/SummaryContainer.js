@@ -33,6 +33,11 @@ type Props = {
   identifier: Boolean,
 }
 
+/**
+ * This is the master container component for the Gene Summary tab.
+ * It generates the list of tabs and panels needed to display and fetches data.
+ */
+
 export class SummaryContainer extends Component<Props> {
   componentDidMount() {
     const { fetchGeneralData, match, identifier } = this.props
