@@ -14,6 +14,8 @@ module.exports = {
     "src/common/utils/*.js",
     "src/features/Ontology/utils/*.js",
     "src/features/Ontology/Table/utils/*.js",
+    "src/features/ProteinInformation/*.js",
+    "src/features/ProteinInformation/Tables/*.js",
     "src/styles/*.js",
     "src/index.js",
     "src/registerServiceWorker.js",
