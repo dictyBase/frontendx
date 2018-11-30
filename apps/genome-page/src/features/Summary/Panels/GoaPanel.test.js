@@ -1,9 +1,9 @@
 import React from "react"
 import { mount } from "enzyme"
 import GoaPanel from "./GoaPanel"
-import Table from "@material-ui/core/Table"
-import TableRow from "@material-ui/core/TableRow"
-import TableCell from "@material-ui/core/TableCell"
+import ItemDisplay from "common/components/panels/ItemDisplay"
+import LeftDisplay from "common/components/panels/LeftDisplay"
+import RightDisplay from "common/components/panels/RightDisplay"
 
 describe("Summary/Panels/GoaPanel", () => {
   const props = {
@@ -92,16 +92,16 @@ describe("Summary/Panels/GoaPanel", () => {
       wrapper
     })
 
-    it("always renders one Table", () => {
-      expect(wrapper.find(Table).length).toBe(1)
+    it("always renders three ItemDisplay components", () => {
+      expect(wrapper.find(ItemDisplay).length).toBe(3)
     })
 
-    it("always renders three TableRows", () => {
-      expect(wrapper.find(TableRow).length).toBe(3)
+    it("always renders three LeftDisplay components", () => {
+      expect(wrapper.find(LeftDisplay).length).toBe(3)
     })
 
-    it("always renders six TableCells", () => {
-      expect(wrapper.find(TableCell).length).toBe(6)
+    it("always renders three RightDisplay components", () => {
+      expect(wrapper.find(RightDisplay).length).toBe(3)
     })
 
     it("receives two props", () => {

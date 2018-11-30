@@ -1,7 +1,7 @@
 import React from "react"
 import { shallow } from "enzyme"
 import RightDisplay from "./RightDisplay"
-import TableCell from "@material-ui/core/TableCell"
+import Grid from "@material-ui/core/Grid"
 
 // two options for tests for components that use Material-UI withStyles:
 // 1) use dive() for shallow rendering
@@ -12,13 +12,13 @@ describe("RightDisplay", () => {
   const wrapper = shallow(
     <RightDisplay>nucleic acid binding (IEA)</RightDisplay>,
   )
-  const cell = wrapper.dive().find(TableCell)
+  const cell = wrapper.dive().find(Grid)
 
-  it("always renders one TableCell component", () => {
+  it("always renders one Grid component", () => {
     expect(cell.length).toBe(1)
   })
 
-  it("displays the correct title", () => {
+  it("displays the correct data", () => {
     expect(cell.contains("nucleic acid binding (IEA)")).toBe(true)
   })
 })
