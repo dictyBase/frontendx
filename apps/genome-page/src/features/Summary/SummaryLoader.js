@@ -1,9 +1,14 @@
+// @flow
 import React from "react"
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import PageHeader from "common/components/PageHeader"
+
+/**
+ * Loading screen for Summary page
+ */
 
 const SummaryLoader = () => (
   <div>

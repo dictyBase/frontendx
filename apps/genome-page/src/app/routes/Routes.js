@@ -12,6 +12,10 @@ import AuthLoader from "features/Authentication/AuthLoader"
 import Logout from "features/Authentication/Logout"
 import PageNotReady from "common/components/PageNotReady"
 
+/**
+ * List of routes used with React Router.
+ */
+
 // Switch is used to only render the first Route that matches the current location
 const Routes = () => (
   <Switch>

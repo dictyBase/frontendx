@@ -55,6 +55,10 @@ type Props = {
   item: Object,
 }
 
+/**
+ * The content that goes in the right side of the GOA panel on the summary page.
+ */
+
 const GoaPanelContent = (props: Props) => {
   const { item, classes } = props
 
