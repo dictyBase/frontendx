@@ -62,8 +62,8 @@ export class DisplayTable extends Component<Props> {
           <colgroup>
             <col style={{ width: "25%" }} />
             <col style={{ width: "20%" }} />
-            <col style={{ width: "15%" }} />
             <col style={{ width: "10%" }} />
+            <col style={{ width: "15%" }} />
             <col style={{ width: "10%" }} />
             <col style={{ width: "10%" }} />
             <col style={{ width: "10%" }} />
@@ -81,6 +81,7 @@ export class DisplayTable extends Component<Props> {
                   <TableCell component="th" scope="row">
                     {qualifierFormatter(item.qualifier)} {item.goterm}
                   </TableCell>
+
                   <TableCell>
                     {item.extensions !== null &&
                       item.extensions.map((item: Object, i: string) => (
@@ -115,6 +116,15 @@ export class DisplayTable extends Component<Props> {
                   </TableCell>
 
                   <TableCell>
+                    <a
+                      className={classes.link}
+                      href={evidenceLinkGenerator(item.evidence_code)}
+                      target="_blank">
+                      {item.evidence_code}
+                    </a>
+                  </TableCell>
+
+                  <TableCell>
                     {item.with !== null &&
                       item.with.map((item: Object, i: string) => (
                         <Fragment key={i}>
@@ -144,14 +154,7 @@ export class DisplayTable extends Component<Props> {
                         </Fragment>
                       ))}
                   </TableCell>
-                  <TableCell>
-                    <a
-                      className={classes.link}
-                      href={evidenceLinkGenerator(item.evidence_code)}
-                      target="_blank">
-                      {item.evidence_code}
-                    </a>
-                  </TableCell>
+
                   <TableCell>
                     <a
                       className={classes.link}
@@ -160,7 +163,9 @@ export class DisplayTable extends Component<Props> {
                       {item.publication}
                     </a>
                   </TableCell>
+
                   <TableCell>{dateConverter(item.date)}</TableCell>
+
                   <TableCell>
                     <a
                       className={classes.link}

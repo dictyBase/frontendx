@@ -14,8 +14,8 @@ const columnData = [
     label: "Qualifier + GO Term",
   },
   { id: "extensions", label: "Extensions" },
-  { id: "with", label: "With" },
   { id: "evidence_code", label: "Evidence" },
+  { id: "with", label: "With" },
   {
     id: "publication",
     label: "Reference",
