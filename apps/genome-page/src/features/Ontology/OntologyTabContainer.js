@@ -5,31 +5,12 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles"
+import { MuiThemeProvider } from "@material-ui/core/styles"
 
 import TypographyWrapper from "common/components/TypographyWrapper"
 import InnerGoPanel from "features/Ontology/InnerGoPanel"
 import { changeTab } from "./goaActions"
-
-// create theme with our inner tab overrides
-const muiTheme = createMuiTheme({
-  overrides: {
-    MuiTab: {
-      root: {
-        textTransform: "none",
-      },
-    },
-    MuiTabs: {
-      root: {
-        backgroundColor: "#e6f2ff",
-        color: "#000",
-      },
-      indicator: {
-        backgroundColor: "#858780",
-      },
-    },
-  },
-})
+import { goTabTheme as muiTheme } from "styles/goTabTheme"
 
 type Props = {
   /** Object representing the "goa" slice of state */
