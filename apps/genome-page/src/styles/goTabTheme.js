@@ -7,6 +7,10 @@ export const goTabTheme = createMuiTheme({
       root: {
         textTransform: "none",
       },
+      // leaving this as an example of how to change selected tab properties
+      // selected: {
+      //   backgroundColor: "#f2f1ef",
+      // },
     },
     MuiTabs: {
       root: {
@@ -15,6 +19,7 @@ export const goTabTheme = createMuiTheme({
       },
       indicator: {
         backgroundColor: "#858780",
+        height: "3px",
       },
     },
   },
