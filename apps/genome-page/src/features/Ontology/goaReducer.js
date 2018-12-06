@@ -15,8 +15,8 @@ import {
 
 const initialState = {
   currentTab: "all",
-  tableOrder: "asc",
-  tableSortBy: "qualifier",
+  tableOrder: "desc",
+  tableSortBy: "date",
 }
 
 const goaReducer = (
