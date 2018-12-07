@@ -1,5 +1,5 @@
 // @flow
-import React, { Component, Fragment } from "react"
+import React, { Component } from "react"
 import { connect } from "react-redux"
 import { withStyles } from "@material-ui/core/styles"
 import Table from "@material-ui/core/Table"
@@ -9,9 +9,10 @@ import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
 
 import EnhancedTableHead from "./EnhancedTableHead"
+import ExtensionsDisplay from "./ExtensionsDisplay"
+import WithDisplay from "./WithDisplay"
 import pubLinkGenerator from "../utils/pubLinkGenerator"
 import evidenceLinkGenerator from "../utils/evidenceLinkGenerator"
-import withLinkGenerator from "../utils/withLinkGenerator"
 import dateConverter from "../utils/dateConverter"
 import qualifierFormatter from "../utils/qualifierFormatter"
 import sourceLinkGenerator from "../utils/sourceLinkGenerator"
@@ -83,36 +84,7 @@ export class DisplayTable extends Component<Props> {
                   </TableCell>
 
                   <TableCell>
-                    {item.extensions !== null &&
-                      item.extensions.map((item: Object, i: string) => (
-                        <Fragment key={i}>
-                          <span>
-                            {" "}
-                            <em>{item.relation}</em>{" "}
-                            {!item.name && (
-                              <a
-                                className={classes.link}
-                                href={withLinkGenerator(item.id, item.db)}
-                                target="_blank">
-                                ({item.db}:{item.id})
-                              </a>
-                            )}
-                            {item.name && (
-                              <a
-                                className={classes.link}
-                                href={withLinkGenerator(
-                                  item.id,
-                                  item.db,
-                                  item.name,
-                                )}
-                                target="_blank">
-                                ({item.name})
-                              </a>
-                            )}
-                          </span>
-                          <br />
-                        </Fragment>
-                      ))}
+                    <ExtensionsDisplay extensions={item.extensions} />
                   </TableCell>
 
                   <TableCell>
@@ -125,34 +97,7 @@ export class DisplayTable extends Component<Props> {
                   </TableCell>
 
                   <TableCell>
-                    {item.with !== null &&
-                      item.with.map((item: Object, i: string) => (
-                        <Fragment key={i}>
-                          <span>
-                            {!item.name && (
-                              <a
-                                className={classes.link}
-                                href={withLinkGenerator(item.id, item.db)}
-                                target="_blank">
-                                {item.db}:{item.id}
-                              </a>
-                            )}
-                            {item.name && (
-                              <a
-                                className={classes.link}
-                                href={withLinkGenerator(
-                                  item.id,
-                                  item.db,
-                                  item.name,
-                                )}
-                                target="_blank">
-                                {item.name}
-                              </a>
-                            )}
-                          </span>
-                          <br />
-                        </Fragment>
-                      ))}
+                    <WithDisplay withData={item.with} />
                   </TableCell>
 
                   <TableCell>
