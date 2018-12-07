@@ -16,16 +16,16 @@ const withLinkGenerator = (id: string, db: string, name: ?string) => {
     if (name.match(/^([A-Z0-9]*$)/)) {
       return `https://www.uniprot.org/uniprot/${id}`
     }
-    return `/${name}`
+    return `https://testdb.dictybase.org/gene/${name}`
   }
   switch (db) {
     case "CHEBI": {
       return `https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:${id}`
     }
     case "DDB":
-      return `/${id}`
+      return `https://testdb.dictybase.org/gene/${id}`
     case "dictyBase":
-      return `/${id}`
+      return `https://testdb.dictybase.org/gene/${id}`
     case "FB":
       return `http://flybase.org/reports/${id}.html`
     case "GO":
