@@ -5,12 +5,6 @@
  */
 
 const withLinkGenerator = (id: string, db: string, name: ?string) => {
-  let baseUrl
-  if (process.env.NODE_ENV === "production") {
-    baseUrl = `${process.env.REACT_APP_BASENAME}/`
-  } else {
-    baseUrl = "/"
-  }
   if (id === undefined) {
     return "#"
   }
@@ -22,16 +16,16 @@ const withLinkGenerator = (id: string, db: string, name: ?string) => {
     if (name.match(/^([A-Z0-9]*$)/)) {
       return `https://www.uniprot.org/uniprot/${id}`
     }
-    return `${baseUrl}${name}`
+    return `/${name}`
   }
   switch (db) {
     case "CHEBI": {
       return `https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:${id}`
     }
     case "DDB":
-      return `${baseUrl}${id}`
+      return `/${id}`
     case "dictyBase":
-      return `${baseUrl}${id}`
+      return `/${id}`
     case "FB":
       return `http://flybase.org/reports/${id}.html`
     case "GO":
