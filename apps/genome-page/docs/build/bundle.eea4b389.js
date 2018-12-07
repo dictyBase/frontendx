@@ -55621,6 +55621,74 @@ object-assign
       examples: [],
     }
   },
+  "./node_modules/react-styleguidist/loaders/props-loader.js!./src/features/Ontology/Table/ExtensionsDisplay.js": function(
+    e,
+    t,
+    n,
+  ) {
+    e.exports = {
+      description: "This handles the display for the extensions GO data.\n",
+      displayName: "ExtensionsDisplay",
+      methods: [],
+      props: [
+        {
+          required: !0,
+          flowType: { name: "Object" },
+          description: "Material-UI styling",
+          tags: {},
+          name: "classes",
+        },
+        {
+          required: !0,
+          flowType: {
+            name: "Array",
+            elements: [{ name: "Object" }],
+            raw: "Array<Object>",
+          },
+          description: "The extensions data from GO annotations",
+          tags: {},
+          name: "extensions",
+        },
+      ],
+      doclets: {},
+      tags: {},
+      examples: [],
+    }
+  },
+  "./node_modules/react-styleguidist/loaders/props-loader.js!./src/features/Ontology/Table/WithDisplay.js": function(
+    e,
+    t,
+    n,
+  ) {
+    e.exports = {
+      description: 'This handles the display for the "With" GO data.\n',
+      displayName: "WithDisplay",
+      methods: [],
+      props: [
+        {
+          required: !0,
+          flowType: { name: "Object" },
+          description: "Material-UI styling",
+          tags: {},
+          name: "classes",
+        },
+        {
+          required: !0,
+          flowType: {
+            name: "Array",
+            elements: [{ name: "Object" }],
+            raw: "Array<Object>",
+          },
+          description: "The With data from GO annotations",
+          tags: {},
+          name: "withData",
+        },
+      ],
+      doclets: {},
+      tags: {},
+      examples: [],
+    }
+  },
   "./node_modules/react-styleguidist/loaders/props-loader.js!./src/features/Summary/Panels/GoaPanel.js": function(
     e,
     t,
@@ -56109,6 +56177,28 @@ object-assign
               module: n("./src/features/Ontology/Table/EnhancedTableHead.js"),
               props: n(
                 "./node_modules/react-styleguidist/loaders/props-loader.js!./src/features/Ontology/Table/EnhancedTableHead.js",
+              ),
+              hasExamples: !1,
+              metadata: {},
+            },
+            {
+              filepath: "src/features/Ontology/Table/ExtensionsDisplay.js",
+              slug: "extensionsdisplay",
+              pathLine: "src/features/Ontology/Table/ExtensionsDisplay.js",
+              module: n("./src/features/Ontology/Table/ExtensionsDisplay.js"),
+              props: n(
+                "./node_modules/react-styleguidist/loaders/props-loader.js!./src/features/Ontology/Table/ExtensionsDisplay.js",
+              ),
+              hasExamples: !1,
+              metadata: {},
+            },
+            {
+              filepath: "src/features/Ontology/Table/WithDisplay.js",
+              slug: "withdisplay",
+              pathLine: "src/features/Ontology/Table/WithDisplay.js",
+              module: n("./src/features/Ontology/Table/WithDisplay.js"),
+              props: n(
+                "./node_modules/react-styleguidist/loaders/props-loader.js!./src/features/Ontology/Table/WithDisplay.js",
               ),
               hasExamples: !1,
               metadata: {},
@@ -64700,7 +64790,8 @@ object-assign
       h = (n.n(m), n("./src/common/components/TypographyWrapper.js")),
       b = n("./src/features/Ontology/InnerGoPanel.js"),
       _ = n("./src/features/Ontology/goaActions.js"),
-      y = (function() {
+      y = n("./src/styles/goTabTheme.js"),
+      g = (function() {
         function defineProperties(e, t) {
           for (var n = 0; n < t.length; n++) {
             var r = t[n]
@@ -64747,138 +64838,126 @@ object-assign
             ? Object.setPrototypeOf(e, t)
             : (e.__proto__ = t))
     }
-    var g = Object(m.createMuiTheme)({
-        overrides: {
-          MuiTab: { root: { textTransform: "none" } },
-          MuiTabs: {
-            root: { backgroundColor: "#e6f2ff", color: "#000" },
-            indicator: { backgroundColor: "#858780" },
-          },
-        },
-      }),
-      v = (function(e) {
-        function OntologyTabContainer() {
-          var e, t, n
-          _classCallCheck(this, OntologyTabContainer)
-          for (var r = arguments.length, o = Array(r), a = 0; a < r; a++)
-            o[a] = arguments[a]
-          return (
-            (t = n = _possibleConstructorReturn(
-              this,
-              (e =
-                OntologyTabContainer.__proto__ ||
-                Object.getPrototypeOf(OntologyTabContainer)).call.apply(
-                e,
-                [this].concat(o),
-              ),
-            )),
-            (n.handleChange = function(e, t) {
-              ;(0, n.props.changeTab)(t)
-            }),
-            _possibleConstructorReturn(n, t)
-          )
-        }
+    var v = (function(e) {
+      function OntologyTabContainer() {
+        var e, t, n
+        _classCallCheck(this, OntologyTabContainer)
+        for (var r = arguments.length, o = Array(r), a = 0; a < r; a++)
+          o[a] = arguments[a]
         return (
-          _inherits(OntologyTabContainer, r["Component"]),
-          y(OntologyTabContainer, [
-            {
-              key: "render",
-              value: function render() {
-                var e = this.props.goa
-                if (e.data) {
-                  var t = e.data,
-                    n = t.filter(function(e) {
-                      return (
-                        "IMP" === e.attributes.evidence_code ||
-                        "IGI" === e.attributes.evidence_code ||
-                        "IDA" === e.attributes.evidence_code ||
-                        "IPI" === e.attributes.evidence_code ||
-                        "IEP" === e.attributes.evidence_code ||
-                        "EXP" === e.attributes.evidence_code
-                      )
-                    }),
-                    r = t.filter(function(e) {
-                      return "IEA" !== e.attributes.evidence_code
-                    }),
-                    a = t.filter(function(e) {
-                      return "IEA" === e.attributes.evidence_code
-                    })
-                  return o.a.createElement(
-                    m.MuiThemeProvider,
-                    { theme: g },
-                    o.a.createElement(
-                      u.a,
-                      { position: "static" },
-                      o.a.createElement(
-                        d.a,
-                        { value: e.currentTab, onChange: this.handleChange },
-                        o.a.createElement(f.a, {
-                          value: "all",
-                          label: "All GO",
-                        }),
-                        n.length > 0 &&
-                          o.a.createElement(f.a, {
-                            value: "experimental",
-                            label: "Experimental GO",
-                          }),
-                        r.length > 0 &&
-                          o.a.createElement(f.a, {
-                            value: "manual",
-                            label: "Manual GO",
-                          }),
-                        a.length > 0 &&
-                          o.a.createElement(f.a, {
-                            value: "electronic",
-                            label: "Electronic GO",
-                          }),
-                      ),
-                    ),
-                    "all" === e.currentTab &&
-                      o.a.createElement(
-                        h.default,
-                        null,
-                        o.a.createElement(b.default, { goaData: t }),
-                      ),
-                    "experimental" === e.currentTab &&
-                      o.a.createElement(
-                        h.default,
-                        null,
-                        o.a.createElement(b.default, { goaData: n }),
-                      ),
-                    "manual" === e.currentTab &&
-                      o.a.createElement(
-                        h.default,
-                        null,
-                        o.a.createElement(b.default, { goaData: r }),
-                      ),
-                    "electronic" === e.currentTab &&
-                      o.a.createElement(
-                        h.default,
-                        null,
-                        o.a.createElement(b.default, { goaData: a }),
-                      ),
-                  )
-                }
+          (t = n = _possibleConstructorReturn(
+            this,
+            (e =
+              OntologyTabContainer.__proto__ ||
+              Object.getPrototypeOf(OntologyTabContainer)).call.apply(
+              e,
+              [this].concat(o),
+            ),
+          )),
+          (n.handleChange = function(e, t) {
+            ;(0, n.props.changeTab)(t)
+          }),
+          _possibleConstructorReturn(n, t)
+        )
+      }
+      return (
+        _inherits(OntologyTabContainer, r["Component"]),
+        g(OntologyTabContainer, [
+          {
+            key: "render",
+            value: function render() {
+              var e = this.props.goa
+              if (e.data) {
+                var t = e.data,
+                  n = t.filter(function(e) {
+                    return (
+                      "IMP" === e.attributes.evidence_code ||
+                      "IGI" === e.attributes.evidence_code ||
+                      "IDA" === e.attributes.evidence_code ||
+                      "IPI" === e.attributes.evidence_code ||
+                      "IEP" === e.attributes.evidence_code ||
+                      "EXP" === e.attributes.evidence_code
+                    )
+                  }),
+                  r = t.filter(function(e) {
+                    return "IEA" !== e.attributes.evidence_code
+                  }),
+                  a = t.filter(function(e) {
+                    return "IEA" === e.attributes.evidence_code
+                  })
                 return o.a.createElement(
-                  "div",
-                  null,
+                  m.MuiThemeProvider,
+                  { theme: y.a },
                   o.a.createElement(
                     u.a,
                     { position: "static" },
-                    o.a.createElement(d.a, { value: e.currentTab }),
+                    o.a.createElement(
+                      d.a,
+                      { value: e.currentTab, onChange: this.handleChange },
+                      o.a.createElement(f.a, { value: "all", label: "All GO" }),
+                      n.length > 0 &&
+                        o.a.createElement(f.a, {
+                          value: "experimental",
+                          label: "Experimental GO",
+                        }),
+                      r.length > 0 &&
+                        o.a.createElement(f.a, {
+                          value: "manual",
+                          label: "Manual GO",
+                        }),
+                      a.length > 0 &&
+                        o.a.createElement(f.a, {
+                          value: "electronic",
+                          label: "Electronic GO",
+                        }),
+                    ),
                   ),
-                  o.a.createElement(
-                    i.SkeletonTheme,
-                    { color: "#d1d1d1" },
-                    o.a.createElement(s.a, { count: 10 }),
-                  ),
+                  "all" === e.currentTab &&
+                    o.a.createElement(
+                      h.default,
+                      null,
+                      o.a.createElement(b.default, { goaData: t }),
+                    ),
+                  "experimental" === e.currentTab &&
+                    o.a.createElement(
+                      h.default,
+                      null,
+                      o.a.createElement(b.default, { goaData: n }),
+                    ),
+                  "manual" === e.currentTab &&
+                    o.a.createElement(
+                      h.default,
+                      null,
+                      o.a.createElement(b.default, { goaData: r }),
+                    ),
+                  "electronic" === e.currentTab &&
+                    o.a.createElement(
+                      h.default,
+                      null,
+                      o.a.createElement(b.default, { goaData: a }),
+                    ),
                 )
-              },
+              }
+              return o.a.createElement(
+                "div",
+                null,
+                o.a.createElement(
+                  u.a,
+                  { position: "static" },
+                  o.a.createElement(d.a, { value: e.currentTab }),
+                ),
+                o.a.createElement(
+                  i.SkeletonTheme,
+                  { color: "#d1d1d1" },
+                  o.a.createElement(s.a, { count: 10 }),
+                ),
+              )
             },
-          ]),
-          OntologyTabContainer
-        )
-      })()
+          },
+        ]),
+        OntologyTabContainer
+      )
+    })()
     t.default = Object(a.connect)(
       function mapStateToProps(e) {
         return { goa: e.goa }
@@ -64890,7 +64969,7 @@ object-assign
     "use strict"
     Object.defineProperty(t, "__esModule", { value: !0 }),
       n.d(t, "DisplayTable", function() {
-        return O
+        return P
       })
     var r = n("./node_modules/react/index.js"),
       o = n.n(r),
@@ -64907,16 +64986,17 @@ object-assign
       h = n("./node_modules/@material-ui/core/Paper/index.js"),
       b = n.n(h),
       _ = n("./src/features/Ontology/Table/EnhancedTableHead.js"),
-      y = n("./src/features/Ontology/utils/pubLinkGenerator.js"),
-      g = n("./src/features/Ontology/utils/evidenceLinkGenerator.js"),
-      v = n("./src/features/Ontology/utils/withLinkGenerator.js"),
-      j = n("./src/features/Ontology/utils/dateConverter.js"),
-      x = n("./src/features/Ontology/utils/qualifierFormatter.js"),
-      w = n("./src/features/Ontology/utils/sourceLinkGenerator.js"),
-      E = n("./src/features/Ontology/Table/utils/getSorting.js"),
-      S = n("./src/features/Ontology/goaActions.js"),
-      C = n("./src/features/Ontology/Table/DisplayTableStyles.js"),
-      k = (function() {
+      y = n("./src/features/Ontology/Table/ExtensionsDisplay.js"),
+      g = n("./src/features/Ontology/Table/WithDisplay.js"),
+      v = n("./src/features/Ontology/utils/pubLinkGenerator.js"),
+      j = n("./src/features/Ontology/utils/evidenceLinkGenerator.js"),
+      x = n("./src/features/Ontology/utils/dateConverter.js"),
+      w = n("./src/features/Ontology/utils/qualifierFormatter.js"),
+      E = n("./src/features/Ontology/utils/sourceLinkGenerator.js"),
+      S = n("./src/features/Ontology/Table/utils/getSorting.js"),
+      C = n("./src/features/Ontology/goaActions.js"),
+      k = n("./src/features/Ontology/Table/DisplayTableStyles.js"),
+      O = (function() {
         function defineProperties(e, t) {
           for (var n = 0; n < t.length; n++) {
             var r = t[n]
@@ -64963,7 +65043,7 @@ object-assign
             ? Object.setPrototypeOf(e, t)
             : (e.__proto__ = t))
     }
-    var O = (function(e) {
+    var P = (function(e) {
       function DisplayTable() {
         var e, t, n
         _classCallCheck(this, DisplayTable)
@@ -64995,15 +65075,15 @@ object-assign
       }
       return (
         _inherits(DisplayTable, r["Component"]),
-        k(DisplayTable, [
+        O(DisplayTable, [
           {
             key: "render",
             value: function render() {
               var e = this.props,
                 t = e.classes,
                 n = e.goaData,
-                a = e.goa,
-                i = n.map(function(e) {
+                r = e.goa,
+                a = n.map(function(e) {
                   return e.attributes
                 })
               return o.a.createElement(
@@ -65017,22 +65097,22 @@ object-assign
                     null,
                     o.a.createElement("col", { style: { width: "25%" } }),
                     o.a.createElement("col", { style: { width: "20%" } }),
-                    o.a.createElement("col", { style: { width: "15%" } }),
                     o.a.createElement("col", { style: { width: "10%" } }),
+                    o.a.createElement("col", { style: { width: "15%" } }),
                     o.a.createElement("col", { style: { width: "10%" } }),
                     o.a.createElement("col", { style: { width: "10%" } }),
                     o.a.createElement("col", { style: { width: "10%" } }),
                   ),
                   o.a.createElement(_.default, {
-                    order: a.tableOrder,
-                    orderBy: a.tableSortBy,
+                    order: r.tableOrder,
+                    orderBy: r.tableSortBy,
                     onRequestSort: this.handleRequestSort,
                   }),
                   o.a.createElement(
                     c.a,
                     null,
-                    i
-                      .sort(Object(E.a)(a.tableOrder, a.tableSortBy))
+                    a
+                      .sort(Object(S.a)(r.tableOrder, r.tableSortBy))
                       .map(function(e, n) {
                         return o.a.createElement(
                           m.a,
@@ -65040,92 +65120,16 @@ object-assign
                           o.a.createElement(
                             p.a,
                             { component: "th", scope: "row" },
-                            Object(x.a)(e.qualifier),
+                            Object(w.a)(e.qualifier),
                             " ",
                             e.goterm,
                           ),
                           o.a.createElement(
                             p.a,
                             null,
-                            null !== e.extensions &&
-                              e.extensions.map(function(e, n) {
-                                return o.a.createElement(
-                                  r.Fragment,
-                                  { key: n },
-                                  o.a.createElement(
-                                    "span",
-                                    null,
-                                    " ",
-                                    o.a.createElement("em", null, e.relation),
-                                    " ",
-                                    !e.name &&
-                                      o.a.createElement(
-                                        "a",
-                                        {
-                                          className: t.link,
-                                          href: Object(v.a)(e.id, e.db),
-                                          target: "_blank",
-                                        },
-                                        "(",
-                                        e.db,
-                                        ":",
-                                        e.id,
-                                        ")",
-                                      ),
-                                    e.name &&
-                                      o.a.createElement(
-                                        "a",
-                                        {
-                                          className: t.link,
-                                          href: Object(v.a)(e.id, e.db, e.name),
-                                          target: "_blank",
-                                        },
-                                        "(",
-                                        e.name,
-                                        ")",
-                                      ),
-                                  ),
-                                  o.a.createElement("br", null),
-                                )
-                              }),
-                          ),
-                          o.a.createElement(
-                            p.a,
-                            null,
-                            null !== e.with &&
-                              e.with.map(function(e, n) {
-                                return o.a.createElement(
-                                  r.Fragment,
-                                  { key: n },
-                                  o.a.createElement(
-                                    "span",
-                                    null,
-                                    !e.name &&
-                                      o.a.createElement(
-                                        "a",
-                                        {
-                                          className: t.link,
-                                          href: Object(v.a)(e.id, e.db),
-                                          target: "_blank",
-                                        },
-                                        e.db,
-                                        ":",
-                                        e.id,
-                                      ),
-                                    e.name &&
-                                      o.a.createElement(
-                                        "a",
-                                        {
-                                          className: t.link,
-                                          href: Object(v.a)(e.id, e.db, e.name),
-                                          target: "_blank",
-                                        },
-                                        e.name,
-                                      ),
-                                  ),
-                                  o.a.createElement("br", null),
-                                )
-                              }),
+                            o.a.createElement(y.default, {
+                              extensions: e.extensions,
+                            }),
                           ),
                           o.a.createElement(
                             p.a,
@@ -65134,7 +65138,7 @@ object-assign
                               "a",
                               {
                                 className: t.link,
-                                href: Object(g.a)(e.evidence_code),
+                                href: Object(j.a)(e.evidence_code),
                                 target: "_blank",
                               },
                               e.evidence_code,
@@ -65143,17 +65147,8 @@ object-assign
                           o.a.createElement(
                             p.a,
                             null,
-                            o.a.createElement(
-                              "a",
-                              {
-                                className: t.link,
-                                href: Object(y.a)(e.publication),
-                                target: "_blank",
-                              },
-                              e.publication,
-                            ),
+                            o.a.createElement(g.default, { withData: e.with }),
                           ),
-                          o.a.createElement(p.a, null, Object(j.a)(e.date)),
                           o.a.createElement(
                             p.a,
                             null,
@@ -65161,7 +65156,21 @@ object-assign
                               "a",
                               {
                                 className: t.link,
-                                href: Object(w.a)(e.assigned_by),
+                                href: Object(v.a)(e.publication),
+                                target: "_blank",
+                              },
+                              e.publication,
+                            ),
+                          ),
+                          o.a.createElement(p.a, null, Object(x.a)(e.date)),
+                          o.a.createElement(
+                            p.a,
+                            null,
+                            o.a.createElement(
+                              "a",
+                              {
+                                className: t.link,
+                                href: Object(E.a)(e.assigned_by),
                                 target: "_blank",
                               },
                               e.assigned_by,
@@ -65182,8 +65191,8 @@ object-assign
       function mapStateToProps(e) {
         return { goa: e.goa }
       },
-      { changeTableOrder: S.b, sortTableBy: S.d },
-    )(Object(i.withStyles)(C.a)(O))
+      { changeTableOrder: C.b, sortTableBy: C.d },
+    )(Object(i.withStyles)(k.a)(P))
   },
   "./src/features/Ontology/Table/DisplayTableStyles.js": function(e, t, n) {
     "use strict"
@@ -65271,8 +65280,8 @@ object-assign
     var b = [
         { id: "qualifier", label: "Qualifier + GO Term" },
         { id: "extensions", label: "Extensions" },
-        { id: "with", label: "With" },
         { id: "evidence_code", label: "Evidence" },
+        { id: "with", label: "With" },
         { id: "publication", label: "Reference" },
         { id: "date", label: "Date" },
         { id: "assigned_by", label: "Source" },
@@ -65346,6 +65355,117 @@ object-assign
         )
       })()
     t.default = Object(a.withStyles)(m.a)(_)
+  },
+  "./src/features/Ontology/Table/ExtensionsDisplay.js": function(e, t, n) {
+    "use strict"
+    Object.defineProperty(t, "__esModule", { value: !0 })
+    var r = n("./node_modules/react/index.js"),
+      o = n.n(r),
+      a = n("./node_modules/@material-ui/core/styles/index.js"),
+      i = (n.n(a), n("./src/features/Ontology/utils/withLinkGenerator.js")),
+      s = n("./src/features/Ontology/Table/DisplayTableStyles.js")
+    t.default = Object(a.withStyles)(s.a)(function ExtensionsDisplay(e) {
+      var t = e.extensions,
+        n = e.classes
+      return null === t
+        ? o.a.createElement(r.Fragment, null)
+        : o.a.createElement(
+            r.Fragment,
+            null,
+            t.map(function(e, t) {
+              return o.a.createElement(
+                r.Fragment,
+                { key: t },
+                o.a.createElement(
+                  "span",
+                  null,
+                  " ",
+                  o.a.createElement("em", null, e.relation),
+                  " ",
+                  !e.name &&
+                    o.a.createElement(
+                      "a",
+                      {
+                        className: n.link,
+                        href: Object(i.a)(e.id, e.db),
+                        target: "_blank",
+                      },
+                      "(",
+                      e.db,
+                      ":",
+                      e.id,
+                      ")",
+                    ),
+                  e.name &&
+                    o.a.createElement(
+                      "a",
+                      {
+                        className: n.link,
+                        href: Object(i.a)(e.id, e.db, e.name),
+                        target: "_blank",
+                      },
+                      "(",
+                      e.name,
+                      ")",
+                    ),
+                ),
+                o.a.createElement("br", null),
+              )
+            }),
+          )
+    })
+  },
+  "./src/features/Ontology/Table/WithDisplay.js": function(e, t, n) {
+    "use strict"
+    Object.defineProperty(t, "__esModule", { value: !0 })
+    var r = n("./node_modules/react/index.js"),
+      o = n.n(r),
+      a = n("./node_modules/@material-ui/core/styles/index.js"),
+      i = (n.n(a), n("./src/features/Ontology/utils/withLinkGenerator.js")),
+      s = n("./src/features/Ontology/Table/DisplayTableStyles.js")
+    t.default = Object(a.withStyles)(s.a)(function WithDisplay(e) {
+      var t = e.withData,
+        n = e.classes
+      return null === t
+        ? o.a.createElement(r.Fragment, null)
+        : o.a.createElement(
+            r.Fragment,
+            null,
+            t.map(function(e, t) {
+              return o.a.createElement(
+                r.Fragment,
+                { key: t },
+                o.a.createElement(
+                  "span",
+                  null,
+                  !e.name &&
+                    o.a.createElement(
+                      "a",
+                      {
+                        className: n.link,
+                        href: Object(i.a)(e.id, e.db),
+                        target: "_blank",
+                      },
+                      e.db,
+                      ":",
+                      e.id,
+                    ),
+                  e.name &&
+                    o.a.createElement(
+                      "a",
+                      {
+                        className: n.link,
+                        href: Object(i.a)(e.id, e.db, e.name),
+                        target: "_blank",
+                      },
+                      e.name,
+                    ),
+                ),
+                o.a.createElement("br", null),
+              )
+            }),
+          )
+    })
   },
   "./src/features/Ontology/Table/utils/getSorting.js": function(e, t, n) {
     "use strict"
@@ -65517,7 +65637,7 @@ object-assign
   "./src/features/Ontology/goaReducer.js": function(e, t, n) {
     "use strict"
     var r = n("./src/features/Ontology/goaConstants.js"),
-      o = { currentTab: "all", tableOrder: "asc", tableSortBy: "qualifier" }
+      o = { currentTab: "all", tableOrder: "desc", tableSortBy: "date" }
     t.a = function goaReducer() {
       var e =
           arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : o,
@@ -65762,13 +65882,13 @@ object-assign
           ? "https://www.ebi.ac.uk/QuickGO/term/GO:" + e
           : n.match(/^([A-Z0-9]*$)/)
             ? "https://www.uniprot.org/uniprot/" + e
-            : "/" + n
+            : "https://testdb.dictybase.org/gene/" + n
       switch (t) {
         case "CHEBI":
           return "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:" + e
         case "DDB":
         case "dictyBase":
-          return "/" + e
+          return "https://testdb.dictybase.org/gene/" + e
         case "FB":
           return "http://flybase.org/reports/" + e + ".html"
         case "GO":
@@ -66832,6 +66952,23 @@ object-assign
   },
   "./src/images/sad-dicty.png": function(e, t, n) {
     e.exports = n.p + "static/media/sad-dicty.98bec487.png"
+  },
+  "./src/styles/goTabTheme.js": function(e, t, n) {
+    "use strict"
+    n.d(t, "a", function() {
+      return o
+    })
+    var r = n("./node_modules/@material-ui/core/styles/index.js"),
+      o = (n.n(r),
+      Object(r.createMuiTheme)({
+        overrides: {
+          MuiTab: { root: { textTransform: "none" } },
+          MuiTabs: {
+            root: { backgroundColor: "#e6f2ff", color: "#000" },
+            indicator: { backgroundColor: "#858780", height: "3px" },
+          },
+        },
+      }))
   },
   0: function(e, t, n) {
     e.exports = n("./node_modules/react-styleguidist/lib/index.js")
