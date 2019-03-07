@@ -1,3 +1,5 @@
+union Stock = Strain | Plasmid
+
 type Order {
   id: ID!
   created_at: Timestamp!
@@ -8,10 +10,10 @@ type Order {
   payment: String
   purchase_order_num: String
   status: String
-  consumer: String
-  payer: String
-  purchaser: String
-  items: [String]
+  consumer: User
+  payer: User
+  purchaser: User
+  items: [Stock]
 }
 
 type OrderListWithCursor {
@@ -29,10 +31,10 @@ input CreateOrderInput {
   payment: String!
   purchase_order_num: String!
   status: String!
-  consumer: String!
-  payer: String!
-  purchaser: String!
-  items: [String]!
+  consumer: User!
+  payer: User!
+  purchaser: User!
+  items: [Stock]!
 }
 
 input UpdateOrderInput {
@@ -42,5 +44,5 @@ input UpdateOrderInput {
   payment: String
   purchase_order_num: String
   status: String
-  items: [String]
+  items: [Stock]
 }

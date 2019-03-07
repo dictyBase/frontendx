@@ -2,20 +2,20 @@ type Strain {
   id: ID!
   created_at: Timestamp!
   updated_at: Timestamp!
-  created_by: String!
-  updated_by: String!
+  created_by: User!
+  updated_by: User!
   summary: String
   editable_summary: String
   depositor: String
   genes: [String]
   dbxrefs: [String]
-  publications: [String]
+  publications: [Publication]
   # from strain_properties
   systematic_name: String!
   descriptor: String!
   species: String!
-  plasmid: String
-  parent: String
+  plasmid: String # update to Plasmid later?
+  parent: Strain
   names: [String]
   # new additions
   in_stock: Boolean!
@@ -30,21 +30,21 @@ type Phenotype {
   phenotype: String
   notes: String
   dbxrefs: [String]
-  publications: [String]
+  publications: [Publication]
 }
 
 type Plasmid {
   id: ID!
   created_at: Timestamp!
   updated_at: Timestamp!
-  created_by: String!
-  updated_by: String!
+  created_by: User!
+  updated_by: User!
   summary: String # same as description field?
   editable_summary: String
   depositor: String
   genes: [String]
   dbxrefs: [String]
-  publications: [String]
+  publications: [Publication]
   # from plasmid_properties
   image_map: String
   sequence: String
@@ -76,20 +76,20 @@ type DeleteItem {
 
 input CreateStrainInput {
   id: ID!
-  created_by: String!
-  updated_by: String!
+  created_by: User!
+  updated_by: User!
   summary: String
   editable_summary: String
   depositor: String
   genes: [String]
   dbxrefs: [String]
-  publications: [String]
+  publications: [Publication]
   # from strain_properties
   systematic_name: String!
   descriptor: String!
   species: String!
   plasmid: String
-  parent: String
+  parent: Strain
   names: [String]
   # new additions
   in_stock: Boolean!
@@ -102,14 +102,14 @@ input CreateStrainInput {
 
 input CreatePlasmidInput {
   id: ID!
-  created_by: String!
-  updated_by: String!
+  created_by: User!
+  updated_by: User!
   summary: String
   editable_summary: String
   depositor: String
   genes: [String]
   dbxrefs: [String]
-  publications: [String]
+  publications: [Publication]
   # from plasmid_properties
   image_map: String
   sequence: String
@@ -121,19 +121,19 @@ input CreatePlasmidInput {
 
 input UpdateStrainInput {
   id: ID!
-  updated_by: String!
+  updated_by: User!
   summary: String
   editable_summary: String
   depositor: String
   genes: [String]
   dbxrefs: [String]
-  publications: [String]
+  publications: [Publication]
   # from strain_properties
   systematic_name: String!
   descriptor: String!
   species: String!
   plasmid: String
-  parent: String
+  parent: Strain
   names: [String]
   # new additions
   in_stock: Boolean
@@ -146,13 +146,13 @@ input UpdateStrainInput {
 
 input UpdatePlasmidInput {
   id: ID!
-  updated_by: String!
+  updated_by: User!
   summary: String
   editable_summary: String
   depositor: String
   genes: [String]
   dbxrefs: [String]
-  publications: [String]
+  publications: [Publication]
   # from plasmid_properties
   image_map: String
   sequence: String
