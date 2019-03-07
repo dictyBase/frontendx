@@ -1,0 +1,163 @@
+type Strain {
+  id: ID!
+  created_at: Timestamp!
+  updated_at: Timestamp!
+  created_by: String!
+  updated_by: String!
+  summary: String
+  editable_summary: String
+  depositor: String
+  genes: [String]
+  dbxrefs: [String]
+  publications: [String]
+  # from strain_properties
+  systematic_name: String!
+  descriptor: String!
+  species: String!
+  plasmid: String
+  parent: String
+  names: [String]
+  # new additions
+  in_stock: Boolean!
+  phenotypes: [Phenotype]
+  genetic_modification: String
+  mutagenesis_method: String
+  characteristics: [String]
+  genotypes: [String]
+}
+
+type Phenotype {
+  phenotype: String
+  notes: String
+  dbxrefs: [String]
+  publications: [String]
+}
+
+type Plasmid {
+  id: ID!
+  created_at: Timestamp!
+  updated_at: Timestamp!
+  created_by: String!
+  updated_by: String!
+  summary: String # same as description field?
+  editable_summary: String
+  depositor: String
+  genes: [String]
+  dbxrefs: [String]
+  publications: [String]
+  # from plasmid_properties
+  image_map: String
+  sequence: String
+  # new additions
+  in_stock: Boolean!
+  keywords: [String]
+  genbank_accession: String
+}
+
+type StrainListWithCursor {
+  strains: [Strain!]!
+  nextCursor: ID!
+  previousCursor: ID!
+  limit: Int
+  totalCount: Int!
+}
+
+type PlasmidListWithCursor {
+  plasmids: [Plasmid!]!
+  nextCursor: ID!
+  previousCursor: ID!
+  limit: Int
+  totalCount: Int!
+}
+
+type DeleteItem {
+  success: Boolean!
+}
+
+input CreateStrainInput {
+  id: ID!
+  created_by: String!
+  updated_by: String!
+  summary: String
+  editable_summary: String
+  depositor: String
+  genes: [String]
+  dbxrefs: [String]
+  publications: [String]
+  # from strain_properties
+  systematic_name: String!
+  descriptor: String!
+  species: String!
+  plasmid: String
+  parent: String
+  names: [String]
+  # new additions
+  in_stock: Boolean!
+  phenotypes: [Phenotype]
+  genetic_modification: String
+  mutagenesis_method: String
+  characteristics: [String]
+  genotypes: [String]
+}
+
+input CreatePlasmidInput {
+  id: ID!
+  created_by: String!
+  updated_by: String!
+  summary: String
+  editable_summary: String
+  depositor: String
+  genes: [String]
+  dbxrefs: [String]
+  publications: [String]
+  # from plasmid_properties
+  image_map: String
+  sequence: String
+  # new additions
+  in_stock: Boolean!
+  keywords: [String]
+  genbank_accession: String
+}
+
+input UpdateStrainInput {
+  id: ID!
+  updated_by: String!
+  summary: String
+  editable_summary: String
+  depositor: String
+  genes: [String]
+  dbxrefs: [String]
+  publications: [String]
+  # from strain_properties
+  systematic_name: String!
+  descriptor: String!
+  species: String!
+  plasmid: String
+  parent: String
+  names: [String]
+  # new additions
+  in_stock: Boolean
+  phenotypes: [Phenotype]
+  genetic_modification: String
+  mutagenesis_method: String
+  characteristics: [String]
+  genotypes: [String]
+}
+
+input UpdatePlasmidInput {
+  id: ID!
+  updated_by: String!
+  summary: String
+  editable_summary: String
+  depositor: String
+  genes: [String]
+  dbxrefs: [String]
+  publications: [String]
+  # from plasmid_properties
+  image_map: String
+  sequence: String
+  # new additions
+  in_stock: Boolean
+  keywords: [String]
+  genbank_accession: String
+}
