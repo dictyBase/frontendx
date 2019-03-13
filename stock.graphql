@@ -70,7 +70,7 @@ type PlasmidListWithCursor {
   totalCount: Int!
 }
 
-type DeleteItem {
+type DeleteStock {
   success: Boolean!
 }
 

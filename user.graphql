@@ -96,6 +96,14 @@ input UpdatePermissionInput {
   resource: String!
 }
 
-type DeleteItem {
+type DeleteUser {
+  success: Boolean!
+}
+
+type DeleteRole {
+  success: Boolean!
+}
+
+type DeletePermission {
   success: Boolean!
 }

@@ -69,3 +69,7 @@ input UpdateAuthorInput {
   initials: String
   rank: String
 }
+
+type DeletePublication {
+  success: Boolean!
+}
