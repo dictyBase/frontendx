@@ -76,14 +76,14 @@ type DeleteStock {
 
 input CreateStrainInput {
   id: ID!
-  created_by: User!
-  updated_by: User!
+  created_by: String!
+  updated_by: String!
   summary: String
   editable_summary: String
   depositor: String
   genes: [String]
   dbxrefs: [String]
-  publications: [Publication]
+  publications: [String]
   # from strain_properties
   systematic_name: String!
   descriptor: String!
@@ -93,7 +93,7 @@ input CreateStrainInput {
   names: [String]
   # new additions
   in_stock: Boolean!
-  phenotypes: [Phenotype]
+  phenotypes: [String]
   genetic_modification: String
   mutagenesis_method: String
   characteristics: [String]
@@ -102,14 +102,14 @@ input CreateStrainInput {
 
 input CreatePlasmidInput {
   id: ID!
-  created_by: User!
-  updated_by: User!
+  created_by: String!
+  updated_by: String!
   summary: String
   editable_summary: String
   depositor: String
   genes: [String]
   dbxrefs: [String]
-  publications: [Publication]
+  publications: [String]
   # from plasmid_properties
   image_map: String
   sequence: String
@@ -121,13 +121,13 @@ input CreatePlasmidInput {
 
 input UpdateStrainInput {
   id: ID!
-  updated_by: User!
+  updated_by: String!
   summary: String
   editable_summary: String
   depositor: String
   genes: [String]
   dbxrefs: [String]
-  publications: [Publication]
+  publications: [String]
   # from strain_properties
   systematic_name: String!
   descriptor: String!
@@ -137,7 +137,7 @@ input UpdateStrainInput {
   names: [String]
   # new additions
   in_stock: Boolean
-  phenotypes: [Phenotype]
+  phenotypes: [String]
   genetic_modification: String
   mutagenesis_method: String
   characteristics: [String]
@@ -146,13 +146,13 @@ input UpdateStrainInput {
 
 input UpdatePlasmidInput {
   id: ID!
-  updated_by: User!
+  updated_by: String!
   summary: String
   editable_summary: String
   depositor: String
   genes: [String]
   dbxrefs: [String]
-  publications: [Publication]
+  publications: [String]
   # from plasmid_properties
   image_map: String
   sequence: String

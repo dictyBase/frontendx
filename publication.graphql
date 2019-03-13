@@ -15,14 +15,6 @@ type Publication {
   authors: [Author]
 }
 
-type PublicationListWithCursor {
-  publications: [Publication!]!
-  nextCursor: ID!
-  previousCursor: ID!
-  limit: Int
-  totalCount: Int!
-}
-
 type Author {
   last_name: String
   first_name: String
@@ -30,46 +22,54 @@ type Author {
   rank: String
 }
 
-input CreatePublicationInput {
-  doi: String
-  title: String
-  abstract: String
-  journal: String
-  pub_date: Timestamp
-  volume: String
-  pages: String
-  issn: String
-  pub_type: String
-  source: String
-  issue: String
-  status: String
-  authors: [CreateAuthorInput]
-}
+# type PublicationListWithCursor {
+#   publications: [Publication!]!
+#   nextCursor: ID!
+#   previousCursor: ID!
+#   limit: Int
+#   totalCount: Int!
+# }
 
-input CreateAuthorInput {
-  last_name: String
-  first_name: String
-  initials: String
-  rank: String
-}
+# input CreatePublicationInput {
+#   doi: String
+#   title: String
+#   abstract: String
+#   journal: String
+#   pub_date: Timestamp
+#   volume: String
+#   pages: String
+#   issn: String
+#   pub_type: String
+#   source: String
+#   issue: String
+#   status: String
+#   authors: [CreateAuthorInput]
+# }
 
-input UpdatePublicationInput {
-  pub_date: String
-  volume: String
-  pages: String
-  pub_type: String
-  source: String
-  status: String
-  authors: [UpdateAuthorInput]
-}
+# input CreateAuthorInput {
+#   last_name: String
+#   first_name: String
+#   initials: String
+#   rank: String
+# }
 
-input UpdateAuthorInput {
-  last_name: String
-  first_name: String
-  initials: String
-  rank: String
-}
+# input UpdatePublicationInput {
+#   pub_date: String
+#   volume: String
+#   pages: String
+#   pub_type: String
+#   source: String
+#   status: String
+#   authors: [UpdateAuthorInput]
+# }
 
-type DeletePublication {
-  success: Boolean!
-}
+# input UpdateAuthorInput {
+#   last_name: String
+#   first_name: String
+#   initials: String
+#   rank: String
+# }
+
+# type DeletePublication {
+#   success: Boolean!
+# }

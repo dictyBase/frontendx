@@ -4,11 +4,6 @@ type Query {
   listOrders(cursor: ID, limit: Int, filter: String): OrderListWithCursor
   # Publication queries
   publication(id: ID!): Publication
-  listPublications(
-    cursor: ID
-    limit: Int
-    filter: String
-  ): PublicationListWithCursor
   # Stock queries
   plasmid(id: ID!): Plasmid
   strain(id: ID!): Stock

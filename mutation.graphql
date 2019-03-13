@@ -2,10 +2,6 @@ type Mutation {
   # Order mutations
   createOrder(input: CreateOrderInput): Order
   updateOrder(id: ID!, input: UpdateOrderInput): Order
-  # Publication mutations
-  createPublication(input: CreatePublicationInput): Publication
-  updatePublication(id: ID!, input: UpdatePublicationInput): Publication
-  deletePublication(id: ID!): DeletePublication
   # Stock mutations
   createStrain(input: CreateStrainInput): Strain
   createPlasmid(input: CreatePlasmidInput): Plasmid

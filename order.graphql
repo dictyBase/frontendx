@@ -31,10 +31,10 @@ input CreateOrderInput {
   payment: String!
   purchase_order_num: String!
   status: String!
-  consumer: User!
-  payer: User!
-  purchaser: User!
-  items: [Stock]!
+  consumer: String!
+  payer: String!
+  purchaser: String!
+  items: [String]!
 }
 
 input UpdateOrderInput {
@@ -44,5 +44,5 @@ input UpdateOrderInput {
   payment: String
   purchase_order_num: String
   status: String
-  items: [Stock]
+  items: [String]
 }
