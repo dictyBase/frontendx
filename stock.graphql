@@ -133,7 +133,7 @@ input UpdateStrainInput {
   descriptor: String!
   species: String!
   plasmid: String
-  parent: Strain
+  parent: String
   names: [String]
   # new additions
   in_stock: Boolean
