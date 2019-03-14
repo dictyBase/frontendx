@@ -6,7 +6,7 @@ type Query {
   publication(id: ID!): Publication
   # Stock queries
   plasmid(id: ID!): Plasmid
-  strain(id: ID!): Stock
+  strain(id: ID!): Strain
   listStrains(cursor: ID, limit: Int, filter: String): StrainListWithCursor
   listPlasmids(cursor: ID, limit: Int, filter: String): PlasmidListWithCursor
   # User queries
