@@ -3,11 +3,11 @@ type Mutation {
   # createOrder(input: CreateOrderInput): Order
   # updateOrder(id: ID!, input: UpdateOrderInput): Order
   # Stock mutations
-  # createStrain(input: CreateStrainInput): Strain
-  # createPlasmid(input: CreatePlasmidInput): Plasmid
-  # updateStrain(id: ID!, input: UpdateStrainInput): Strain
-  # updatePlasmid(id: ID!, input: UpdatePlasmidInput): Plasmid
-  # deleteStock(id: ID!): DeleteStock
+  createStrain(input: CreateStrainInput): Strain
+  createPlasmid(input: CreatePlasmidInput): Plasmid
+  updateStrain(id: ID!, input: UpdateStrainInput): Strain
+  updatePlasmid(id: ID!, input: UpdatePlasmidInput): Plasmid
+  deleteStock(id: ID!): DeleteStock
   # User mutations
   createUser(input: CreateUserInput): User
   createUserRoleRelationship(userId: ID!, roleId: ID!): User

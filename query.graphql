@@ -5,10 +5,10 @@ type Query {
   # Publication queries
   publication(id: ID!): Publication
   # Stock queries
-  # plasmid(id: ID!): Plasmid
-  # strain(id: ID!): Stock
-  # listStrains(cursor: ID, limit: Int, filter: String): StrainListWithCursor
-  # listPlasmids(cursor: ID, limit: Int, filter: String): PlasmidListWithCursor
+  plasmid(id: ID!): Plasmid
+  strain(id: ID!): Stock
+  listStrains(cursor: ID, limit: Int, filter: String): StrainListWithCursor
+  listPlasmids(cursor: ID, limit: Int, filter: String): PlasmidListWithCursor
   # User queries
   user(id: ID!): User
   userByEmail(email: String!): User
