@@ -120,7 +120,6 @@ input CreatePlasmidInput {
 }
 
 input UpdateStrainInput {
-  id: ID!
   updated_by: String!
   summary: String
   editable_summary: String
@@ -129,9 +128,9 @@ input UpdateStrainInput {
   dbxrefs: [String]
   publications: [String]
   # from strain_properties
-  systematic_name: String!
-  descriptor: String!
-  species: String!
+  systematic_name: String
+  descriptor: String
+  species: String
   plasmid: String
   parent: String
   names: [String]
@@ -145,7 +144,6 @@ input UpdateStrainInput {
 }
 
 input UpdatePlasmidInput {
-  id: ID!
   updated_by: String!
   summary: String
   editable_summary: String
