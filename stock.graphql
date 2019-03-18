@@ -75,7 +75,6 @@ type DeleteStock {
 }
 
 input CreateStrainInput {
-  id: ID!
   created_by: String!
   updated_by: String!
   summary: String
@@ -101,7 +100,6 @@ input CreateStrainInput {
 }
 
 input CreatePlasmidInput {
-  id: ID!
   created_by: String!
   updated_by: String!
   summary: String
