@@ -18,8 +18,8 @@ type Order {
 
 type OrderListWithCursor {
   orders: [Order!]!
-  nextCursor: ID!
-  previousCursor: ID!
+  nextCursor: Int!
+  previousCursor: Int!
   limit: Int
   totalCount: Int!
 }

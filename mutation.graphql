@@ -1,7 +1,7 @@
 type Mutation {
   # Order mutations
-  # createOrder(input: CreateOrderInput): Order
-  # updateOrder(id: ID!, input: UpdateOrderInput): Order
+  createOrder(input: CreateOrderInput): Order
+  updateOrder(id: ID!, input: UpdateOrderInput): Order
   # Stock mutations
   createStrain(input: CreateStrainInput): Strain
   createPlasmid(input: CreatePlasmidInput): Plasmid

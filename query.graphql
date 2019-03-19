@@ -1,7 +1,7 @@
 type Query {
   # Order queries
-  # order(id: ID!): Order
-  # listOrders(input: ListOrderInput): OrderListWithCursor
+  order(id: ID!): Order
+  listOrders(input: ListOrderInput): OrderListWithCursor
   # Publication queries
   publication(id: ID!): Publication
   # Stock queries
