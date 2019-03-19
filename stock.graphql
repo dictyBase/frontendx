@@ -56,16 +56,16 @@ type Plasmid {
 
 type StrainListWithCursor {
   strains: [Strain!]!
-  nextCursor: ID!
-  previousCursor: ID!
+  nextCursor: Int!
+  previousCursor: Int!
   limit: Int
   totalCount: Int!
 }
 
 type PlasmidListWithCursor {
   plasmids: [Plasmid!]!
-  nextCursor: ID!
-  previousCursor: ID!
+  nextCursor: Int!
+  previousCursor: Int!
   limit: Int
   totalCount: Int!
 }
