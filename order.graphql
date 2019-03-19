@@ -46,3 +46,9 @@ input UpdateOrderInput {
   status: String
   items: [String]
 }
+
+input ListOrderInput {
+  cursor: Int
+  limit: Int
+  filter: String
+}
