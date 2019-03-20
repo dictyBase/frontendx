@@ -5,7 +5,7 @@ type Order {
   created_at: Timestamp!
   updated_at: Timestamp!
   courier: String
-  courer_account: String
+  courier_account: String
   comments: String
   payment: String
   purchase_order_num: String
@@ -26,7 +26,7 @@ type OrderListWithCursor {
 
 input CreateOrderInput {
   courier: String!
-  courer_account: String!
+  courier_account: String!
   comments: String
   payment: String!
   purchase_order_num: String!
@@ -39,7 +39,7 @@ input CreateOrderInput {
 
 input UpdateOrderInput {
   courier: String
-  courer_account: String
+  courier_account: String
   comments: String
   payment: String
   purchase_order_num: String
