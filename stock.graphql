@@ -1,4 +1,19 @@
-type Strain {
+interface Stock {
+  id: ID!
+  created_at: Timestamp!
+  updated_at: Timestamp!
+  created_by: User!
+  updated_by: User!
+  summary: String
+  editable_summary: String
+  depositor: String!
+  genes: [String]
+  dbxrefs: [String]
+  publications: [Publication]
+  in_stock: Boolean!
+}
+
+type Strain implements Stock {
   id: ID!
   created_at: Timestamp!
   updated_at: Timestamp!
@@ -26,14 +41,7 @@ type Strain {
   genotypes: [String]
 }
 
-type Phenotype {
-  phenotype: String
-  notes: String
-  dbxrefs: [String]
-  publications: [Publication]
-}
-
-type Plasmid {
+type Plasmid implements Stock {
   id: ID!
   created_at: Timestamp!
   updated_at: Timestamp!
@@ -52,6 +60,13 @@ type Plasmid {
   in_stock: Boolean!
   keywords: [String]
   genbank_accession: String
+}
+
+type Phenotype {
+  phenotype: String
+  notes: String
+  dbxrefs: [String]
+  publications: [Publication]
 }
 
 type StrainListWithCursor {

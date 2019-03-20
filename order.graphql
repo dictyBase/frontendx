@@ -1,5 +1,3 @@
-union Stock = Strain | Plasmid
-
 type Order {
   id: ID!
   created_at: Timestamp!
