@@ -21,6 +21,8 @@
   "devDependencies": {
     "@semantic-release/changelog": "^3.0.2",
     "@semantic-release/git": "^7.0.8",
+    "@typescript-eslint/eslint-plugin": "^1.5.0",
+    "@typescript-eslint/parser": "^1.5.0",
     "commitizen": "^3.0.7",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.11.2",

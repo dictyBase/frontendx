@@ -1,0 +1,24 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": ["react-app"],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "quotes": ["error", "double"],
+    "semi": ["error", "never"],
+    "no-console": ["error", { "allow": ["log", "warn", "error"] }],
+    "arrow-body-style": ["error", "as-needed"],
+    "arrow-parens": ["error", "as-needed"],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/prop-types": [0],
+    "jsx-a11y/href-no-hash": [0],
+    "jsx-a11y/label-has-associated-control": [0],
+    "react/jsx-no-bind": [2, {}],
+    "import/no-unresolved": "off"
+  }
+}
