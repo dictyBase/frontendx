@@ -1,14 +1,17 @@
 {
   "name": "publication",
-  "version": "0.1.0",
+  "version": "0.0.0-semantically-released",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.9.2",
+    "@types/enzyme": "^3.9.1",
+    "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/jest": "24.0.11",
     "@types/node": "11.11.7",
     "@types/react": "16.8.8",
     "@types/react-dom": "16.8.3",
     "dicty-components-header-footer": "github:dictyBase/dicty-components-header-footer",
+    "dicty-components-login": "github:dictyBase/dicty-components-login",
     "dicty-components-navbar": "github:dictyBase/dicty-components-navbar",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
@@ -19,7 +22,10 @@
     "@semantic-release/changelog": "^3.0.2",
     "@semantic-release/git": "^7.0.8",
     "commitizen": "^3.0.7",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.11.2",
     "husky": "^1.3.1",
+    "jest-enzyme": "^7.0.2",
     "lint-staged": "^8.1.5",
     "prettier": "^1.16.4",
     "react-styleguidist": "^9.0.5",
@@ -32,7 +38,9 @@
     "eject": "react-scripts eject",
     "precommit": "lint-staged",
     "cz": "git-cz",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "styleguide": "styleguidist server",
+    "styleguide:build": "styleguidist build"
   },
   "eslintConfig": {
     "extends": "react-app"
