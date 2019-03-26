@@ -7,42 +7,30 @@ import { Header, Footer } from "dicty-components-header-footer"
 import { Navbar } from "dicty-components-navbar"
 
 import ErrorBoundary from "../../common/components/ErrorBoundary"
-import fetchNavbarAndFooter from "../actions/navbarActions"
+import footerItems from "../../common/constants/footer"
+import navbarItems from "../../common/constants/navbar"
 import {
   headerItems,
   loggedHeaderItems,
   generateLinks,
 } from "../../common/utils/headerItems"
-import footerItems from "../../common/constants/footer"
 import Routes from "../routes/Routes"
-import withDataFetching from "../../common/components/withDataFetching"
-import AppErrorFallback from "./AppErrorFallback"
 import { appStyles as styles, navTheme } from "./appStyles"
 
 type Props = {
   /** Object representing auth part of state */
   auth: Object
-  /** Object representing navbar part of state */
-  navbar: Object
-  /** Object representing footer part of state */
-  footer: Object
-  /** Action that fetches both navbar and footer content */
-  fetchNavbarAndFooter: Function
+  /** Material-UI styling */
+  classes: Object
 }
 
 /**
- * This is the main App component.
- * It is responsible for the main layout of the entire application.
+ * If there's an error fetching navbar and/or footer data,
+ * this component is rendered with the static link data.
  */
 
-export const App = (props: Props) => {
-  const { auth, navbar, footer, classes } = props
-
-  let footerLinks = footerItems
-
-  if (footer.links) {
-    footerLinks = footer.links
-  }
+const AppErrorFallback = (props: Props) => {
+  const { auth, classes } = props
 
   return (
     <div className={classes.body}>
@@ -53,7 +41,7 @@ export const App = (props: Props) => {
       ) : (
         <Header items={headerItems}>{items => items.map(generateLinks)}</Header>
       )}
-      <Navbar theme={navTheme} items={navbar.links} />
+      <Navbar theme={navTheme} items={navbarItems} />
 
       <main className={classes.main}>
         <ErrorBoundary>
@@ -61,12 +49,12 @@ export const App = (props: Props) => {
         </ErrorBoundary>
       </main>
 
-      <Footer items={footerLinks} />
+      <Footer items={footerItems} />
     </div>
   )
 }
 
-const mapStateToProps = ({ auth, navbar, footer }) => ({ auth, navbar, footer })
+const mapStateToProps = ({ auth }) => ({ auth })
 
 const enhance = compose(
   withRouter,
@@ -75,12 +63,6 @@ const enhance = compose(
     null,
   ),
   withStyles(styles),
-  withDataFetching(
-    fetchNavbarAndFooter,
-    "navbar",
-    AppErrorFallback,
-    AppErrorFallback,
-  ),
 )
 
-export default enhance(App)
+export default enhance(AppErrorFallback)
