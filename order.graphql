@@ -7,7 +7,7 @@ type Order {
   comments: String
   payment: String
   purchase_order_num: String
-  status: String
+  status: StatusEnum
   consumer: User
   payer: User
   purchaser: User
@@ -22,13 +22,20 @@ type OrderListWithCursor {
   totalCount: Int!
 }
 
+enum StatusEnum {
+  IN_PREPARATION
+  GROWING
+  CANCELLED
+  SHIPPED
+}
+
 input CreateOrderInput {
   courier: String!
   courier_account: String!
   comments: String
   payment: String!
   purchase_order_num: String!
-  status: String!
+  status: StatusEnum!
   consumer: String!
   payer: String!
   purchaser: String!
@@ -41,7 +48,7 @@ input UpdateOrderInput {
   comments: String
   payment: String
   purchase_order_num: String
-  status: String
+  status: StatusEnum
   items: [String]
 }
 
