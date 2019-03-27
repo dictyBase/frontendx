@@ -2,7 +2,7 @@ import { MAIN_RESOURCE } from "../../common/constants/resources"
 import jwtDecode from "jwt-decode"
 
 interface Json {
-  data?: {
+  data: {
     attributes: {
       first_name?: string
       last_name?: string
@@ -10,11 +10,26 @@ interface Json {
     id: string
     relationships: object
   }
+  isAuthenticated?: boolean
+  provider?: string
+  user?: object
+  token?: string
+  roles?: Array<{
+    attributes: {
+      role: string
+    }
+  }>
+  permissions?: Array<{
+    attributes: {
+      permission: string
+      resource: string
+    }
+  }>
 }
 
 export class JsonAPI {
   json: Json
-  constructor(json: Object) {
+  constructor(json: Json) {
     this.json = json
   }
   getAttributes() {
@@ -28,23 +43,7 @@ export class JsonAPI {
   }
 }
 
-interface AuthJson {
-  data?: {
-    attributes: {
-      first_name?: string
-      last_name?: string
-    }
-    id: string
-    relationships: object
-  }
-  isAuthenticated: boolean
-  provider: string
-  user: object
-  token: string
-}
-
 export class AuthAPI extends JsonAPI {
-  json: AuthJson
   // checks if user is currently authenticated
   isAuthenticated() {
     if (this.json.isAuthenticated === true) {
@@ -64,7 +63,7 @@ export class AuthAPI extends JsonAPI {
     const token = this.json.token
 
     // decode token
-    const decodedToken = jwtDecode(token)
+    const decodedToken = jwtDecode(token as string)
 
     // get current time in plain UTC
     const currentTime = Date.now().valueOf() / 1000
@@ -88,24 +87,7 @@ export class AuthAPI extends JsonAPI {
   }
 }
 
-interface AuthUserJson {
-  data: {
-    attributes: {
-      first_name?: string
-      last_name?: string
-    }
-    id: string
-    relationships: object
-  }
-  roles: Array<{
-    attributes: {
-      role: string
-    }
-  }>
-}
-
 export class AuthenticatedUser extends JsonAPI {
-  json: AuthUserJson
   // gets the first and last name of logged in user
   getFullName() {
     return `${this.json.data.attributes.first_name} ${
@@ -142,28 +124,6 @@ export class AuthenticatedUser extends JsonAPI {
   }
 }
 
-interface RolePermJson {
-  data: {
-    attributes: {
-      first_name?: string
-      last_name?: string
-    }
-    id: string
-    relationships: object
-  }
-  roles: Array<{
-    attributes: {
-      role: string
-    }
-  }>
-  permissions: Array<{
-    attributes: {
-      permission: string
-      resource: string
-    }
-  }>
-}
-
 interface PermItem {
   attributes: {
     permission: string
@@ -172,7 +132,6 @@ interface PermItem {
 }
 
 export class RolesPermissionsAPI extends JsonAPI {
-  json: RolePermJson
   // get full list of user's roles
   getRoles() {
     if (this.json.roles) {
