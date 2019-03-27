@@ -54,14 +54,14 @@ const authReducer = (state = initialState, action: Action) => {
     case LOGIN_REQUEST:
       return {
         ...state,
-        isFetching: true,
+        isFetching: action.payload.isFetching,
         isAuthenticated: false,
         provider: action.payload.provider,
       }
     case LOGIN_SUCCESS:
       return {
         ...state,
-        isFetching: false,
+        isFetching: action.payload.isFetching,
         isAuthenticated: action.payload.token ? true : false,
         token: action.payload.token,
         user: action.payload.user,
@@ -69,7 +69,7 @@ const authReducer = (state = initialState, action: Action) => {
     case LOGIN_FAILURE:
       return {
         ...state,
-        isFetching: false,
+        isFetching: action.payload.isFetching,
         isAuthenticated: false,
         error: action.payload.error,
         provider: null,
@@ -82,7 +82,7 @@ const authReducer = (state = initialState, action: Action) => {
     case LOGOUT_SUCCESS:
       return {
         ...state,
-        isFetching: false,
+        isFetching: action.payload.isFetching,
         isAuthenticated: false,
         provider: null,
         user: null,
@@ -91,24 +91,24 @@ const authReducer = (state = initialState, action: Action) => {
     case FETCH_USER_REQUEST:
       return {
         ...state,
-        isFetching: true,
+        isFetching: action.payload.isFetching,
       }
     case FETCH_USER_SUCCESS:
       return {
         ...state,
-        isFetching: false,
+        isFetching: action.payload.isFetching,
         fetchedUserData: action.payload.json,
       }
     case FETCH_USER_FAILURE:
       return {
         ...state,
-        isFetching: false,
+        isFetching: action.payload.isFetching,
         error: action.payload.error,
       }
     case FETCH_ROLE_REQUEST:
       return {
         ...state,
-        isFetching: true,
+        isFetching: action.payload.isFetching,
       }
     case FETCH_ROLE_SUCCESS:
       return {
