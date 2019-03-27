@@ -1,10 +1,11 @@
 import React, { Component } from "react"
 import Grid from "@material-ui/core/Grid"
 import { withStyles } from "@material-ui/core/styles"
+import { Theme } from "@material-ui/core/styles/createMuiTheme"
 
 import sadDicty from "../assets/sad-dicty.png"
 
-const styles = theme => ({
+const styles = (theme: Theme) => ({
   gridContainer: {
     marginTop: "33px",
   },
@@ -29,7 +30,7 @@ const styles = theme => ({
 class ErrorBoundary extends Component {
   state = { error: null, errorInfo: null }
 
-  componentDidCatch(error, errorInfo) {
+  componentDidCatch(error: Error | null, errorInfo: object) {
     // catch errors in any components below and re-render with error message
     this.setState({
       error,
@@ -39,17 +40,25 @@ class ErrorBoundary extends Component {
 
   render() {
     const { errorInfo, error } = this.state
-    const { children, classes } = this.props
+    const { children, classes } = this.props as {
+      children: React.ReactNode
+      classes: {
+        gridContainer: string
+        paper: string
+      }
+    }
 
     if (errorInfo) {
       // error path
       return (
         <Grid className={classes.gridContainer} container justify="center">
           <Grid item xs={6} className={classes.paper}>
-            <center>
+            <div style={{ textAlign: "center" }}>
               <img src={sadDicty} alt="Sad Dicty Logo" />
               <h2>Sorry! There was an error loading this page.</h2>
               <p>Something went wrong behind the scenes.</p>
+              {/*
+                // @ts-ignore */}
               <em>{error && error.toString()}</em>
               <p>
                 If the problem persists, please email us at{" "}
@@ -58,7 +67,7 @@ class ErrorBoundary extends Component {
                 </a>
                 .
               </p>
-            </center>
+            </div>
           </Grid>
         </Grid>
       )

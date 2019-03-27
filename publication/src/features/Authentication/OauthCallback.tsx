@@ -1,9 +1,22 @@
 import React, { Component } from "react"
 import Grid from "@material-ui/core/Grid"
 
-type Props = {
-  location: Object
-  match: Object
+interface Props {
+  location: {
+    search: string
+    pathname: string
+  }
+  match: {
+    params: {
+      provider: string
+    }
+  }
+}
+
+declare var process: {
+  env: {
+    REACT_APP_BASENAME: string
+  }
 }
 
 // helper function to set redirect URL with basename if included

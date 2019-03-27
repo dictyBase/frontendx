@@ -25,11 +25,31 @@ const theme = {
   },
 }
 
-type Props = {
+interface Props {
   /** Object passed by React-Router */
-  location: Object
+  location: {
+    state: {
+      error: object
+    }
+  }
   /** Auth part of state */
-  auth: Object
+  auth: {
+    error: object
+  }
+}
+
+interface Config {
+  authorizationEndpoint: string
+  clientId: string
+  scopes: Array<string>
+  scopeDelimiter: string
+  requiredUrlParams: Array<string>
+  optionalUrlParams: Array<string>
+  redirectUrl: string
+  popupOptions: {
+    width: string
+    height: string
+  }
 }
 
 /**
@@ -38,16 +58,16 @@ type Props = {
 
 class Login extends Component<Props> {
   handleClick = (name: string) => {
-    const config = oauthConfig[name]
+    const config: Config = (oauthConfig as any)[name]
     let url = `${config.authorizationEndpoint}?client_id=${config.clientId}`
     url += `&scope=${config.scopes.join(config.scopeDelimiter)}`
     if (config.requiredUrlParams) {
-      config.requiredUrlParams.forEach(element => {
+      config.requiredUrlParams.forEach((element: string) => {
         url += `&${element[0]}=${element[1]}`
       })
     }
     if (config.optionalUrlParams) {
-      config.optionalUrlParams.forEach(element => {
+      config.optionalUrlParams.forEach((element: string) => {
         url += `&${element[0]}=${element[1]}`
       })
     }
@@ -62,13 +82,13 @@ class Login extends Component<Props> {
   render() {
     const { auth } = this.props
     const { state = {} } = this.props.location
-    const { error } = state
+    const { error }: any = state
     return (
       <Grid container justify="center">
         <Grid item>
-          <center>
+          <div style={{ textAlign: "center" }}>
             <h1>Log in</h1>
-          </center>
+          </div>
           {error && <ErrorNotification error={error} />}
           {auth.error && <ErrorNotification error={auth.error} />}
           <Grid container justify="center">
@@ -88,6 +108,6 @@ class Login extends Component<Props> {
   }
 }
 
-const mapStateToProps = ({ auth }) => ({ auth })
+const mapStateToProps = ({ auth }: Props) => ({ auth })
 
 export default connect(mapStateToProps)(Login)

@@ -19,15 +19,26 @@ import withDataFetching from "../../common/components/withDataFetching"
 import AppErrorFallback from "./AppErrorFallback"
 import { appStyles as styles, navTheme } from "./appStyles"
 
-type Props = {
+interface Props {
   /** Object representing auth part of state */
-  auth: Object
+  auth: {
+    isAuthenticated: boolean
+  }
   /** Object representing navbar part of state */
-  navbar: Object
+  navbar: {
+    links: Object
+  }
   /** Object representing footer part of state */
-  footer: Object
+  footer: {
+    links: Object
+  }
   /** Action that fetches both navbar and footer content */
   fetchNavbarAndFooter: Function
+  /** Material-UI styling */
+  classes: {
+    main: string
+    body: string
+  }
 }
 
 /**
@@ -41,6 +52,7 @@ export const App = (props: Props) => {
   let footerLinks = footerItems
 
   if (footer.links) {
+    // @ts-ignore
     footerLinks = footer.links
   }
 
@@ -66,7 +78,11 @@ export const App = (props: Props) => {
   )
 }
 
-const mapStateToProps = ({ auth, navbar, footer }) => ({ auth, navbar, footer })
+const mapStateToProps = ({ auth, navbar, footer }: Props) => ({
+  auth,
+  navbar,
+  footer,
+})
 
 const enhance = compose(
   withRouter,
@@ -78,6 +94,7 @@ const enhance = compose(
   withDataFetching(
     fetchNavbarAndFooter,
     "navbar",
+    // @ts-ignore
     AppErrorFallback,
     AppErrorFallback,
   ),

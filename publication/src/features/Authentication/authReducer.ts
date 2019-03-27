@@ -19,7 +19,37 @@ import {
   FETCH_PERMISSION_FAILURE,
 } from "../../common/constants/types"
 
-const authReducer = (state: Object = {}, action: Object) => {
+interface Action {
+  type: string
+  payload: {
+    provider: string
+    token: string
+    user: object
+    error: object
+    json: {
+      data: Array<object>
+    }
+    isFetching: boolean
+    roles: {
+      data: Array<object>
+    }
+    permissions: {
+      data: Array<object>
+    }
+  }
+}
+
+interface AuthState {
+  user: object
+  fetchedUserData: object
+}
+
+const initialState: AuthState = {
+  user: {},
+  fetchedUserData: {},
+}
+
+const authReducer = (state = initialState, action: Action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
       return {
@@ -87,7 +117,7 @@ const authReducer = (state: Object = {}, action: Object) => {
         user: {
           ...state.user,
           // merge roles into one array, regardless if they are one or many
-          roles: [].concat(action.payload.json.data),
+          roles: [].concat(<any>action.payload.json.data),
         },
       }
     case FETCH_ROLE_FAILURE:
@@ -108,7 +138,7 @@ const authReducer = (state: Object = {}, action: Object) => {
         fetchedUserData: {
           ...state.fetchedUserData,
           // merge roles into one array, regardless if they are one or many
-          roles: [].concat(action.payload.roles.data),
+          roles: [].concat(<any>action.payload.roles.data),
         },
       }
     case FETCH_NON_AUTH_ROLE_FAILURE:
@@ -129,7 +159,7 @@ const authReducer = (state: Object = {}, action: Object) => {
         user: {
           ...state.user,
           // merge permissions into one array, regardless if they are one or many
-          permissions: [].concat(action.payload.permissions.data),
+          permissions: [].concat(<any>action.payload.permissions.data),
         },
       }
     case FETCH_PERMISSION_FAILURE:

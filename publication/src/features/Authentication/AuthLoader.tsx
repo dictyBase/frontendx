@@ -9,11 +9,11 @@ import CircularProgress from "@material-ui/core/CircularProgress"
 const AuthLoader = () => (
   <Grid container justify="center">
     <Grid item xs={12}>
-      <center>
+      <div style={{ textAlign: "center" }}>
         <h1>Logging in...</h1>
         <br />
         <CircularProgress size={70} />
-      </center>
+      </div>
     </Grid>
   </Grid>
 )

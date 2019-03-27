@@ -6,6 +6,12 @@ import {
 import navItems from "../../common/constants/navbar"
 import { fetchFooter } from "./footerActions"
 
+declare var process: {
+  env: {
+    REACT_APP_NAVBAR_JSON: string
+  }
+}
+
 const navbarJson = process.env.REACT_APP_NAVBAR_JSON
 
 const fetchNavbarRequest = () => ({
@@ -23,12 +29,24 @@ const fetchNavbarSuccess = (json: Object) => ({
   },
 })
 
-const fetchNavbarFailure = error => ({
+const fetchNavbarFailure = (error: Object) => ({
   type: FETCH_NAVBAR_FAILURE,
   payload: {
     error,
   },
 })
+
+interface Item {
+  attributes: {
+    items: Array<Items>
+    display: string
+  }
+}
+
+interface Items {
+  label: string
+  link: string
+}
 
 export const fetchNavbarAndFooter = () => async (dispatch: Function) => {
   try {
@@ -36,7 +54,7 @@ export const fetchNavbarAndFooter = () => async (dispatch: Function) => {
     const res = await fetch(navbarJson)
     const json = await res.json()
     if (res.ok) {
-      const navbarArr = json.data.map(item => {
+      const navbarArr = json.data.map((item: Item) => {
         const menuItemsArr = item.attributes.items.map(c => ({
           name: c.label,
           href: c.link,

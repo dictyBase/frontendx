@@ -17,11 +17,16 @@ import {
 import Routes from "../routes/Routes"
 import { appStyles as styles, navTheme } from "./appStyles"
 
-type Props = {
+interface Props {
   /** Object representing auth part of state */
-  auth: Object
+  auth: {
+    isAuthenticated: boolean
+  }
   /** Material-UI styling */
-  classes: Object
+  classes: {
+    main: string
+    body: string
+  }
 }
 
 /**
@@ -54,7 +59,7 @@ const AppErrorFallback = (props: Props) => {
   )
 }
 
-const mapStateToProps = ({ auth }) => ({ auth })
+const mapStateToProps = ({ auth }: Props) => ({ auth })
 
 const enhance = compose(
   withRouter,
@@ -62,6 +67,7 @@ const enhance = compose(
     mapStateToProps,
     null,
   ),
+  // @ts-ignore
   withStyles(styles),
 )
 

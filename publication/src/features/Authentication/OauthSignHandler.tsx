@@ -10,7 +10,7 @@ type Props = {
 /** Sign in handler for the oAuth process */
 
 class OauthSignHandler extends Component<Props> {
-  onMessage = event => {
+  onMessage = (event: any) => {
     event.preventDefault()
     event.stopPropagation()
     if (!event.data.provider) {
