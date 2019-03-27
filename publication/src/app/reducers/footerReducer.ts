@@ -9,28 +9,29 @@ const initialState = {}
 interface Action {
   type: string
   payload: {
+    isFetching: boolean
     links: Array<object>
     error: object
   }
 }
 
-const footerReducer = (state: Object = initialState, action: Action) => {
+const footerReducer = (state: object = initialState, action: Action) => {
   switch (action.type) {
     case FETCH_FOOTER_REQUEST:
       return {
         ...state,
-        isFetching: true,
+        isFetching: action.payload.isFetching,
       }
     case FETCH_FOOTER_SUCCESS:
       return {
         ...state,
-        isFetching: false,
+        isFetching: action.payload.isFetching,
         links: action.payload.links,
       }
     case FETCH_FOOTER_FAILURE:
       return {
         ...state,
-        isFetching: false,
+        isFetching: action.payload.isFetching,
         error: action.payload.error,
       }
     default:

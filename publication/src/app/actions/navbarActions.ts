@@ -48,7 +48,7 @@ interface Items {
   link: string
 }
 
-export const fetchNavbarAndFooter = () => async (dispatch: Function) => {
+export const fetchNavbarAndFooter = () => async dispatch => {
   try {
     dispatch(fetchNavbarRequest())
     const res = await fetch(navbarJson)

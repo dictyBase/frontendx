@@ -7,14 +7,10 @@ import navbarReducer from "./navbarReducer"
 
 const rootReducer = (history: History) =>
   combineReducers({
-    // @ts-ignore
     auth: authReducer,
-    // @ts-ignore
     footer: footerReducer,
-    // @ts-ignore
     navbar: navbarReducer,
-    // @ts-ignore
     router: connectRouter(history),
-  })
+  } as any)
 
 export default rootReducer

@@ -30,7 +30,7 @@ interface Props {
   }
   /** Object representing footer part of state */
   footer: {
-    links: Object
+    links: Array<Array<object>>
   }
   /** Action that fetches both navbar and footer content */
   fetchNavbarAndFooter: Function
