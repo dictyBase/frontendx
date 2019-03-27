@@ -5,6 +5,12 @@ import {
 } from "../../common/constants/types"
 import footerItems from "../../common/constants/footer"
 
+declare var process: {
+  env: {
+    REACT_APP_FOOTER_JSON: string
+  }
+}
+
 const footerJson = process.env.REACT_APP_FOOTER_JSON
 
 const fetchFooterRequest = () => ({
@@ -22,12 +28,24 @@ const fetchFooterSuccess = (json: Object) => ({
   },
 })
 
-const fetchFooterFailure = error => ({
+const fetchFooterFailure = (error: Object) => ({
   type: FETCH_FOOTER_FAILURE,
   payload: {
     error,
   },
 })
+
+interface Item {
+  attributes: {
+    items: Array<Items>
+    display: string
+  }
+}
+
+interface Items {
+  label: string
+  link: string
+}
 
 // fetch footer function that fetches data using async/await
 export const fetchFooter = () => async (dispatch: Function) => {
@@ -36,7 +54,7 @@ export const fetchFooter = () => async (dispatch: Function) => {
     const res = await fetch(footerJson)
     const json = await res.json()
     if (res.ok) {
-      const footerArr = json.data.map(item => {
+      const footerArr = json.data.map((item: Item) => {
         const menuItemsArr = item.attributes.items.map(c => ({
           description: c.label,
           link: c.link,

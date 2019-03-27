@@ -6,7 +6,15 @@ import {
 
 const initialState = {}
 
-const navbarReducer = (state: Object = initialState, action: Object) => {
+interface NavbarAction {
+  type: string
+  payload: {
+    links: Array<object>
+    error: object
+  }
+}
+
+const navbarReducer = (state: object = initialState, action: NavbarAction) => {
   switch (action.type) {
     case FETCH_NAVBAR_REQUEST:
       return {

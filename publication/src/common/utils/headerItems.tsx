@@ -4,7 +4,14 @@ import React from "react"
 import FontAwesome from "react-fontawesome"
 import "font-awesome/css/font-awesome.min.css"
 
-const generateLinks = (link: Object, i: string) =>
+interface Links {
+  isRouter: boolean
+  icon: string
+  text: string
+  url: string
+}
+
+const generateLinks = (link: Links, i: string) =>
   link.isRouter ? (
     <Link
       style={{
@@ -14,19 +21,19 @@ const generateLinks = (link: Object, i: string) =>
       }}
       key={i}
       to={link.url}>
-      <center>
+      <div style={{ textAlign: "center" }}>
         <FontAwesome name={link.icon} size="2x" />
         <br />
         {link.text}
-      </center>
+      </div>
     </Link>
   ) : (
     <HeaderLink key={i} href={link.url}>
-      <center>
+      <div style={{ textAlign: "center" }}>
         <FontAwesome name={link.icon} size="2x" />
         <br />
         {link.text}
-      </center>
+      </div>
     </HeaderLink>
   )
 

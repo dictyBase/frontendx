@@ -28,14 +28,22 @@ import {
   FETCH_PERMISSION_FAILURE,
 } from "../../common/constants/types"
 
-type oauthArg = { query: string; provider: string; url: string }
-type receiveLoginArg = { user: Object; token: string }
+interface oauthArg {
+  query: string
+  provider: string
+  url: string
+}
+interface receiveLoginArg {
+  user: object
+  token: string
+}
 
 const makeOauthConfig = ({ query, provider, url }: oauthArg) => {
   const parsed = querystring.parse(query.replace("?", ""))
-  let body = `client_id=${oauthConfig[provider].clientId}&redirect_url=${url}`
+  const prov = (oauthConfig as any)[provider]
+  let body = `client_id=${prov.clientId}&redirect_url=${url}`
   body += `&state=${parsed.state}&code=${parsed.code}`
-  body += `&scopes=${oauthConfig[provider].scopes[0]}`
+  body += `&scopes=${prov.scopes[0]}`
   const config = {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -62,7 +70,7 @@ export const receiveLogin = ({ user, token }: receiveLoginArg) => ({
   },
 })
 
-export const loginError = (error: string) => ({
+export const loginError = (error: object) => ({
   type: LOGIN_FAILURE,
   payload: {
     isFetching: false,
@@ -92,7 +100,7 @@ export const fetchUserSuccess = (json: Object) => ({
   },
 })
 
-export const fetchUserFailure = (error: string) => ({
+export const fetchUserFailure = (error: object) => ({
   type: FETCH_USER_FAILURE,
   payload: {
     error,
@@ -114,7 +122,7 @@ export const fetchRoleSuccess = (json: Object) => ({
   },
 })
 
-export const fetchRoleFailure = (error: string) => ({
+export const fetchRoleFailure = (error: object) => ({
   type: FETCH_ROLE_FAILURE,
   payload: {
     error,
@@ -136,7 +144,7 @@ const fetchNonAuthRoleSuccess = (json: Object) => ({
   },
 })
 
-const fetchNonAuthRoleFailure = error => ({
+const fetchNonAuthRoleFailure = (error: object) => ({
   type: FETCH_NON_AUTH_ROLE_FAILURE,
   payload: {
     error,
@@ -158,7 +166,7 @@ const fetchPermissionSuccess = (json: Object) => ({
   },
 })
 
-const fetchPermissionFailure = error => ({
+const fetchPermissionFailure = (error: object) => ({
   type: FETCH_PERMISSION_FAILURE,
   payload: {
     error,
@@ -316,8 +324,11 @@ export const oAuthLogin = ({ query, provider, url }: oauthArg) => async (
         // user has invalid credentials, redirect with notification
         dispatch(
           loginError(
-            `You are not an authorized user of dictyBase.
-              Please sign in with proper credentials.`,
+            createErrorObj(
+              res.status,
+              `You are not an authorized user of dictyBase.
+               Please sign in with proper credentials.`,
+            ),
           ),
         )
         dispatch(push("/login"))

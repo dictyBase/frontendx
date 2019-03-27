@@ -1,4 +1,6 @@
-export const appStyles = theme => ({
+import createStyles from "@material-ui/core/styles/createStyles"
+
+export const appStyles = createStyles({
   main: {
     margin: "0 10px 25px 10px",
   },

@@ -14,9 +14,9 @@ type Props = {
 const withDataFetching = (
   action: Function,
   key: string,
-  LoadingComponent: Object,
-  ErrorComponent: Object,
-) => (WrappedComponent: Object) => {
+  LoadingComponent: React.FC,
+  ErrorComponent: React.FC,
+) => (WrappedComponent: React.FC) => {
   class WithDataFetchingComponent extends Component<Props> {
     componentDidMount() {
       const { action } = this.props
@@ -31,7 +31,7 @@ const withDataFetching = (
         }
 
         return (
-          <center>
+          <div style={{ textAlign: "center" }}>
             <br />
             <p>
               <strong>Sorry! There was an error loading the items:</strong>
@@ -39,7 +39,7 @@ const withDataFetching = (
             <p>
               <em>{error.toString()}</em>
             </p>
-          </center>
+          </div>
         )
       }
 
@@ -49,10 +49,10 @@ const withDataFetching = (
         }
 
         return (
-          <center>
+          <div style={{ textAlign: "center" }}>
             <br />
             Loading ...
-          </center>
+          </div>
         )
       }
 
@@ -60,9 +60,9 @@ const withDataFetching = (
     }
   }
   const mapStateToProps = state => ({
-    error: state[key].error,
-    isFetching: state[key].isFetching,
-    data: state[key].data,
+    error: (state as any)[key].error,
+    isFetching: (state as any)[key].isFetching,
+    data: (state as any)[key].data,
   })
 
   return connect(

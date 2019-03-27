@@ -1,8 +1,8 @@
-let fetchUserByIdResource,
-  fetchUserByEmailResource,
-  fetchRoleByIdResource,
-  fetchPermissionByIdResource,
-  oauthEndpointResource
+let fetchUserByIdResource: string,
+  fetchUserByEmailResource: string,
+  fetchRoleByIdResource: string,
+  fetchPermissionByIdResource: string,
+  oauthEndpointResource: string
 
 if (process.env.REACT_APP_API_SERVER) {
   // set URL base for fetching user by ID

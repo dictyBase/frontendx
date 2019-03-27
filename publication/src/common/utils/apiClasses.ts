@@ -1,27 +1,50 @@
 import { MAIN_RESOURCE } from "../../common/constants/resources"
 import jwtDecode from "jwt-decode"
 
+interface Json {
+  data?: {
+    attributes: {
+      first_name?: string
+      last_name?: string
+    }
+    id: string
+    relationships: object
+  }
+}
+
 export class JsonAPI {
-  json: Object
-  links: Object
-  relationships: Object
+  json: Json
   constructor(json: Object) {
     this.json = json
   }
   getAttributes() {
-    return this.json.data.attributes
+    return this.json.data!.attributes
   }
   getId() {
-    return this.json.data.id
+    return this.json.data!.id
   }
   getRelationships() {
-    return this.json.data.relationships
+    return this.json.data!.relationships
   }
 }
 
-export class AuthAPI extends JsonAPI {
-  json: Object
+interface AuthJson {
+  data?: {
+    attributes: {
+      first_name?: string
+      last_name?: string
+    }
+    id: string
+    relationships: object
+  }
+  isAuthenticated: boolean
+  provider: string
+  user: object
+  token: string
+}
 
+export class AuthAPI extends JsonAPI {
+  json: AuthJson
   // checks if user is currently authenticated
   isAuthenticated() {
     if (this.json.isAuthenticated === true) {
@@ -47,6 +70,7 @@ export class AuthAPI extends JsonAPI {
     const currentTime = Date.now().valueOf() / 1000
 
     // check if current time is less than token expiration date
+    // @ts-ignore
     if (currentTime < decodedToken.exp) {
       return true
     }
@@ -64,9 +88,24 @@ export class AuthAPI extends JsonAPI {
   }
 }
 
-export class AuthenticatedUser extends JsonAPI {
-  json: Object
+interface AuthUserJson {
+  data: {
+    attributes: {
+      first_name?: string
+      last_name?: string
+    }
+    id: string
+    relationships: object
+  }
+  roles: Array<{
+    attributes: {
+      role: string
+    }
+  }>
+}
 
+export class AuthenticatedUser extends JsonAPI {
+  json: AuthUserJson
   // gets the first and last name of logged in user
   getFullName() {
     return `${this.json.data.attributes.first_name} ${
@@ -103,9 +142,37 @@ export class AuthenticatedUser extends JsonAPI {
   }
 }
 
-export class RolesPermissionsAPI extends JsonAPI {
-  json: Object
+interface RolePermJson {
+  data: {
+    attributes: {
+      first_name?: string
+      last_name?: string
+    }
+    id: string
+    relationships: object
+  }
+  roles: Array<{
+    attributes: {
+      role: string
+    }
+  }>
+  permissions: Array<{
+    attributes: {
+      permission: string
+      resource: string
+    }
+  }>
+}
 
+interface PermItem {
+  attributes: {
+    permission: string
+    resource: string
+  }
+}
+
+export class RolesPermissionsAPI extends JsonAPI {
+  json: RolePermJson
   // get full list of user's roles
   getRoles() {
     if (this.json.roles) {
@@ -161,7 +228,7 @@ export class RolesPermissionsAPI extends JsonAPI {
         return true
       }
 
-      const validPermissions = item =>
+      const validPermissions = (item: PermItem) =>
         item.attributes.permission === "admin" ||
         (item.attributes.permission === perm &&
           item.attributes.resource === resource) ||
@@ -178,17 +245,5 @@ export class RolesPermissionsAPI extends JsonAPI {
     }
     // if no permissions, just return false
     return false
-  }
-}
-
-export class ContentAPI extends AuthenticatedUser {
-  json: Object
-
-  // gets the user ID for person who last updated this content
-  getUser() {
-    if (this.json.data) {
-      return this.json.data.attributes.updated_by
-    }
-    return null
   }
 }

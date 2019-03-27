@@ -6,7 +6,15 @@ import {
 
 const initialState = {}
 
-const footerReducer = (state: Object = initialState, action: Object) => {
+interface Action {
+  type: string
+  payload: {
+    links: Array<object>
+    error: object
+  }
+}
+
+const footerReducer = (state: Object = initialState, action: Action) => {
   switch (action.type) {
     case FETCH_FOOTER_REQUEST:
       return {

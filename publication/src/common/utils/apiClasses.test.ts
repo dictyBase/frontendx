@@ -3,7 +3,6 @@ import {
   AuthAPI,
   AuthenticatedUser,
   RolesPermissionsAPI,
-  ContentAPI,
 } from "./apiClasses"
 
 describe("API Classes", () => {
@@ -41,7 +40,7 @@ describe("API Classes", () => {
     let instance = new JsonAPI(userJson)
 
     it("creates a new JsonAPI instance", () => {
-      expect(typeof instance, "object")
+      expect(typeof instance).toBe("object")
     })
 
     describe("getAttributes()", () => {
@@ -104,7 +103,7 @@ describe("API Classes", () => {
     let unauthInstance = new AuthAPI(unauthenticatedUser)
 
     it("creates a new AuthAPI instance", () => {
-      expect(typeof instance, "object")
+      expect(typeof instance).toBe("object")
     })
 
     describe("isAuthenticated()", () => {
@@ -129,7 +128,9 @@ describe("API Classes", () => {
     describe("verifyToken()", () => {
       afterAll(() => {
         // unlock time
+        // @ts-ignore
         dateNowSpy.mockReset()
+        // @ts-ignore
         dateNowSpy.mockRestore()
       })
 
@@ -238,7 +239,7 @@ describe("API Classes", () => {
     let emptyRolesInstance = new AuthenticatedUser(emptyRoles)
 
     it("creates a new AuthenticatedUser instance", () => {
-      expect(typeof instance, "object")
+      expect(typeof instance).toBe("object")
     })
 
     describe("getFullName()", () => {
@@ -453,7 +454,7 @@ describe("API Classes", () => {
     let noRolesInstance = new RolesPermissionsAPI(userNoRoles)
 
     it("creates a new RolesPermissionsAPI instance", () => {
-      expect(typeof instance, "object")
+      expect(typeof instance).toBe("object")
     })
 
     describe("getResources()", () => {
@@ -526,47 +527,6 @@ describe("API Classes", () => {
       it("should be user", () => {
         const list = regUserInstance.checkRoles("user")
         expect(list).toBe(true)
-      })
-    })
-  })
-
-  describe("ContentAPI class", () => {
-    const content = {
-      data: {
-        id: "9",
-        attributes: {
-          name: "content",
-          slug: "information",
-          created_by: "99",
-          updated_by: "99",
-          created_at: "2018-07-17T01:07:20.898Z",
-          updated_at: "2018-07-17T01:07:20.898Z",
-          content: "fake content",
-          namespace: "dictybase",
-        },
-      },
-    }
-
-    const noData = {
-      something: "no data",
-    }
-
-    let instance = new ContentAPI(content)
-    let noDataInstance = new ContentAPI(noData)
-
-    it("creates a new ContentAPI instance", () => {
-      expect(typeof instance, "object")
-    })
-
-    describe("getUser()", () => {
-      it("can get user's ID", () => {
-        const name = instance.getUser()
-        expect(name).toBe("99")
-      })
-
-      it("returns null if no data", () => {
-        const name = noDataInstance.getUser()
-        expect(name).toBe(null)
       })
     })
   })
