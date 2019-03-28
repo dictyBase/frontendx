@@ -63,8 +63,10 @@ type Plasmid implements Stock {
 }
 
 type Phenotype {
-  phenotype: String
+  phenotype: String!
   notes: String
+  assay: String
+  environment: String
   dbxrefs: [String]
   publications: [Publication]
 }
