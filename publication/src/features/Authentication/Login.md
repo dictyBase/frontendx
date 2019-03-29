@@ -1,10 +1,9 @@
 ```js
 const Provider = require("react-redux").Provider
-const createStore = require("redux").createStore
+const configureStore = require("../../app/store/configureStore").default
 const reducers = require("../../app/reducers/rootReducer").default
 
-let store = createStore(reducers)
-;<Provider store={store}>
+;<Provider store={configureStore({})}>
   <Login location={{}} />
 </Provider>
 ```

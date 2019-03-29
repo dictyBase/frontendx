@@ -25,19 +25,6 @@ const theme = {
   },
 }
 
-interface Props {
-  /** Object passed by React-Router */
-  location: {
-    state: {
-      error: object
-    }
-  }
-  /** Auth part of state */
-  auth: {
-    error: object
-  }
-}
-
 interface Config {
   authorizationEndpoint: string
   clientId: string
@@ -52,11 +39,23 @@ interface Config {
   }
 }
 
+interface Props {
+  /** Object passed by React-Router */
+  location: {
+    state: {
+      error: object
+    }
+  }
+  /** Auth part of state */
+  auth: {
+    error: object
+  }
+}
+
 /**
  * Component that displays all of the social login buttons with click handlers for each one
  */
-
-class Login extends Component<Props> {
+export class Login extends Component<Props, {}> {
   handleClick = (name: string) => {
     const config: Config = (oauthConfig as any)[name]
     let url = `${config.authorizationEndpoint}?client_id=${config.clientId}`

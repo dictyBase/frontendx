@@ -34,7 +34,7 @@ interface Props {
  * this component is rendered with the static link data.
  */
 
-const AppErrorFallback = (props: Props) => {
+export const AppErrorFallback = (props: Props) => {
   const { auth, classes } = props
 
   return (

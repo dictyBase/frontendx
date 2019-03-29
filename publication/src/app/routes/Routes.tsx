@@ -6,7 +6,11 @@ import OauthCallback from "../../features/Authentication/OauthCallback"
 import AuthLoader from "../../features/Authentication/AuthLoader"
 import Logout from "../../features/Authentication/Logout"
 
-const Routes = () => (
+/**
+ * Component for all of our React Router routes.
+ */
+
+export const Routes = (props: any) => (
   <Switch>
     <Route exact path="/" component={Publication} />
     <Route path="/login" component={Login} />
