@@ -1,11 +1,12 @@
 import React from "react"
 import { withStyles } from "@material-ui/core/styles"
 import createStyles from "@material-ui/core/styles/createStyles"
+import FontAwesome from "react-fontawesome"
 
 const styles = createStyles({
   link: {
     textDecoration: "none",
-    color: "#020202",
+    color: "rgb(32, 105, 156)",
   },
 })
 
@@ -15,12 +16,21 @@ interface Props {
   }
 }
 
+/**
+ * LeftSidebar is the main component for the left sidebar on an individual publication page.
+ */
+
 export const LeftSidebar = (props: Props) => {
   const { classes } = props
   return (
     <div>
-      <a href="#" className={classes.link}>
-        Full text
+      <a
+        href="#"
+        target="_blank"
+        rel="noopener noreferrer"
+        className={classes.link}>
+        Full text &nbsp;
+        <FontAwesome name="external-link" />
       </a>
       <br />
       <a href="#" className={classes.link}>
