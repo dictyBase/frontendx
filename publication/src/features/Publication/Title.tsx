@@ -3,21 +3,30 @@ import { withStyles } from "@material-ui/core/styles"
 import createStyles from "@material-ui/core/styles/createStyles"
 
 const styles = createStyles({
-  link: {
-    textDecoration: "none",
-    color: "#020202",
+  title: {
+    padding: 0,
   },
 })
 
 interface Props {
   classes: {
-    link: string
+    title: string
   }
 }
 
+/**
+ * Title displays the title of the publication.
+ */
+
 export const Title = (props: Props) => {
   const { classes } = props
-  return <div>Publication Title</div>
+  return (
+    <div className={classes.title}>
+      <h2>
+        This is a fake publication title that should be at least ten words
+      </h2>
+    </div>
+  )
 }
 
 export default withStyles(styles)(Title)
