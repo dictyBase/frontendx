@@ -6,6 +6,7 @@ import Authors from "./Authors"
 import JournalData from "./JournalData"
 import SocialLinks from "./SocialLinks"
 import Abstract from "./Abstract"
+import FullTextLinks from "./FullTextLinks"
 
 const styles = createStyles({
   link: {
@@ -29,6 +30,7 @@ export const PublicationDisplay = (props: Props) => {
       <JournalData />
       <SocialLinks />
       <Abstract />
+      <FullTextLinks />
     </Fragment>
   )
 }

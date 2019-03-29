@@ -30,6 +30,11 @@ interface Props {
   }
 }
 
+/**
+ * PublicationContainer is the main component for an individual publication page.
+ * It is responsible for fetching the data and passing it down to more specific components.
+ */
+
 export const PublicationContainer = (props: Props) => {
   const { classes } = props
   return (

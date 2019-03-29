@@ -15,6 +15,10 @@ interface Props {
   }
 }
 
+/**
+ * JournalData displays general data related to the publication.
+ */
+
 export const JournalData = (props: Props) => {
   const { classes } = props
   return <div>Publication JournalData</div>

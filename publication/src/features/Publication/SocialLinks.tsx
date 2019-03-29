@@ -15,6 +15,10 @@ interface Props {
   }
 }
 
+/**
+ * SocialLinks contains links to share the publication via social media.
+ */
+
 export const SocialLinks = (props: Props) => {
   const { classes } = props
   return <div>Publication SocialLinks</div>
