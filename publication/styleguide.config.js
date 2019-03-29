@@ -9,4 +9,5 @@ module.exports = {
     "src/common/utils/headerItems.tsx",
     "src/index.tsx",
   ],
+  webpackConfig: require("react-scripts/config/webpack.config")("development"),
 }
