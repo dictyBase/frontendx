@@ -21,7 +21,7 @@ declare var process: {
 
 // helper function to set redirect URL with basename if included
 const redirectUrlGenerator = (basename: string) => {
-  let url
+  let url: string
   if (basename === "" || basename === "/") {
     url = `${window.location.origin}`
   } else if (basename.charAt(0) === "/") {
@@ -35,8 +35,7 @@ const redirectUrlGenerator = (basename: string) => {
 /**
  * Callback that transfers the user to the login system
  */
-
-export default class OauthCallback extends Component<Props> {
+export default class OauthCallback extends Component<Props, {}> {
   componentDidMount() {
     window.opener.postMessage(
       {

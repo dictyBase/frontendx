@@ -1,5 +1,5 @@
 import React from "react"
 
-const Publication = () => <div>Publication</div>
+export const Publication = (props: any) => <div>Publication</div>
 
 export default Publication

@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import { Redirect } from "react-router-dom"
 import { logoutUser } from "./authActions"
 
-type Props = {
+interface Props {
   /** Logs the user out */
   logoutUser: Function
 }
@@ -11,8 +11,7 @@ type Props = {
 /**
  * Allows the user to logout
  */
-
-export class Logout extends Component<Props> {
+export class Logout extends Component<Props, {}> {
   componentWillMount() {
     this.props.logoutUser()
   }

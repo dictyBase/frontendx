@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React from "react"
 import Grid from "@material-ui/core/Grid"
 import { withStyles } from "@material-ui/core/styles"
 import { Theme } from "@material-ui/core/styles/createMuiTheme"
@@ -27,7 +27,7 @@ const styles = (theme: Theme) => ({
  * This is an ErrorBoundary wrapper that catches any JavaScript errors and provides a fallback UI.
  */
 
-class ErrorBoundary extends Component {
+export class ErrorBoundary extends React.Component<any, {}> {
   state = { error: null, errorInfo: null }
 
   componentDidCatch(error: Error | null, errorInfo: object) {

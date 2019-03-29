@@ -19,7 +19,7 @@ interface Props {
 
 /** Notification snackbar-style message if user hits some type of error */
 
-const ErrorNotification = (props: Props) => {
+export const ErrorNotification = (props: Props) => {
   const { classes, error } = props
 
   return (
