@@ -12,7 +12,7 @@ const styles = createStyles({
     fontWeight: "bold",
   },
   section: {
-    paddingBottom: "5px",
+    paddingBottom: "15px",
   },
 })
 
