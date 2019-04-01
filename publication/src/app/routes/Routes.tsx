@@ -17,6 +17,7 @@ export const Routes = (props: any) => (
     <Route path="/:provider/callback" component={OauthCallback} />
     <Route path="/load/auth" component={AuthLoader} />
     <Route path="/logout" component={Logout} />
+    <Route path="/:id" component={PublicationContainer} />
   </Switch>
 )
 

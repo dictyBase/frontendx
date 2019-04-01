@@ -24,12 +24,10 @@ interface Props {
   }
   data: {
     doi: string
-    full_text_url: string
     journal: string
-    page: string
-    publication_date: string
-    pubmed: string
-    pubmed_url: string
+    pages: string
+    pub_date: string
+    id: string
   }
 }
 
@@ -39,20 +37,22 @@ interface Props {
 
 export const JournalData = (props: Props) => {
   const { classes, data } = props
+  const pubmedURL = `https://pubmed.gov/${data.id}`
+  const doiURL = `https://doi.org/${data.doi}`
 
   return (
     <div className={classes.section}>
       <div>
         <span className={classes.journal}>{data.journal},&nbsp;</span>
         <span>
-          {data.publication_date}, p{data.page}
+          {data.pub_date}, p{data.pages}
         </span>
       </div>
       <Grid container>
         <Grid item xs={6}>
           DOI:{" "}
           <a
-            href={data.full_text_url}
+            href={doiURL}
             target="_blank"
             rel="noopener noreferrer"
             className={classes.link}>
@@ -62,11 +62,11 @@ export const JournalData = (props: Props) => {
         <Grid item xs={6}>
           Pubmed:{" "}
           <a
-            href={data.pubmed_url}
+            href={pubmedURL}
             target="_blank"
             rel="noopener noreferrer"
             className={classes.link}>
-            {data.pubmed}
+            {data.id}
           </a>
         </Grid>
       </Grid>

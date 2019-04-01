@@ -4,6 +4,8 @@ import React from "react"
 import ReactDOM from "react-dom"
 import { Provider } from "react-redux"
 import { ConnectedRouter } from "connected-react-router"
+import { ApolloProvider } from "react-apollo"
+import ApolloClient from "apollo-boost"
 import { hydrateStore } from "dicty-components-redux"
 import CssBaseline from "@material-ui/core/CssBaseline"
 
@@ -17,13 +19,17 @@ declare var process: {
   env: {
     REACT_APP_GA_TRACKING_ID: string
     NODE_ENV: string
+    REACT_APP_GRAPHQL_SERVER: string
   }
 }
 
 // load state from localStorage(if any) to set the initial state for the store
 const initialState = hydrateStore({ key: "auth", namespace: "auth" })
-
 const store = configureStore(initialState)
+
+const client = new ApolloClient({
+  uri: `${process.env.REACT_APP_GRAPHQL_SERVER}/graphql`,
+})
 
 const setGoogleAnalytics = async () => {
   try {
@@ -44,12 +50,14 @@ if (process.env.NODE_ENV === "production") {
 }
 
 ReactDOM.render(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <CssBaseline />
-      <App />
-    </ConnectedRouter>
-  </Provider>,
+  <ApolloProvider client={client}>
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <CssBaseline />
+        <App />
+      </ConnectedRouter>
+    </Provider>
+  </ApolloProvider>,
   document.getElementById("root"),
 )
 

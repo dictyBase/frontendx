@@ -12,14 +12,13 @@ interface Props extends Publication {}
 export const PublicationDisplay = (props: Props) => {
   const { data } = props
   const journalData = {
+    id: data.publication.id,
     doi: data.publication.doi,
-    full_text_url: data.publication.full_text_url,
     journal: data.publication.journal,
-    page: data.publication.page,
-    publication_date: data.publication.publication_date,
-    pubmed: data.publication.pubmed,
-    pubmed_url: data.publication.pubmed_url,
+    pages: data.publication.pages,
+    pub_date: data.publication.pub_date,
   }
+  const url = `https://doi.org/${data.publication.doi}`
 
   return (
     <Fragment>
@@ -28,7 +27,7 @@ export const PublicationDisplay = (props: Props) => {
       <JournalData data={journalData} />
       <SocialLinks title={data.publication.title} />
       <Abstract abstract={data.publication.abstract} />
-      <FullTextLinks url={data.publication.full_text_url} />
+      <FullTextLinks url={url} />
     </Fragment>
   )
 }
