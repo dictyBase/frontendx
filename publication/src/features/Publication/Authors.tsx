@@ -4,7 +4,7 @@ import createStyles from "@material-ui/core/styles/createStyles"
 
 const styles = createStyles({
   section: {
-    paddingBottom: "5px",
+    paddingBottom: "15px",
   },
 })
 

@@ -5,7 +5,7 @@ import FontAwesome from "react-fontawesome"
 
 const styles = createStyles({
   section: {
-    paddingBottom: "5px",
+    paddingBottom: "10px",
   },
   link: {
     textDecoration: "none",
