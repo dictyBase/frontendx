@@ -13,9 +13,9 @@ interface Props {
     section: string
   }
   authors: Array<{
-    first_name: string
+    first_name?: string
     last_name: string
-    full_name: string
+    rank?: string
     initials: string
   }>
 }
@@ -28,7 +28,9 @@ export const Authors = (props: Props) => {
   return (
     <div className={classes.section}>
       {authors.map((author, index) => (
-        <span key={index}>{(index ? ", " : "") + author.full_name}</span>
+        <span key={index}>
+          {(index ? ", " : "") + author.last_name + " " + author.initials}
+        </span>
       ))}
     </div>
   )

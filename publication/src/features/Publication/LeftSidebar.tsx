@@ -23,10 +23,12 @@ interface Props extends Publication {
 
 export const LeftSidebar = (props: Props) => {
   const { classes, data } = props
+  const doiURL = `https://doi.org/${data.publication.doi}`
+
   return (
     <div>
       <a
-        href={data.publication.full_text_url}
+        href={doiURL}
         target="_blank"
         rel="noopener noreferrer"
         className={classes.link}>

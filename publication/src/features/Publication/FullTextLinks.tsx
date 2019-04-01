@@ -27,6 +27,7 @@ interface Props {
 
 export const FullTextLinks = (props: Props) => {
   const { classes, url } = props
+
   return (
     <div className={classes.section}>
       <h3>Full Text Links</h3>
