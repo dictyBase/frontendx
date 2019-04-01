@@ -2,6 +2,7 @@ import React from "react"
 import { withStyles } from "@material-ui/core/styles"
 import createStyles from "@material-ui/core/styles/createStyles"
 import FontAwesome from "react-fontawesome"
+import { Publication } from "./PublicationContainer"
 
 const styles = createStyles({
   link: {
@@ -10,7 +11,7 @@ const styles = createStyles({
   },
 })
 
-interface Props {
+interface Props extends Publication {
   classes: {
     link: string
   }
@@ -21,11 +22,11 @@ interface Props {
  */
 
 export const LeftSidebar = (props: Props) => {
-  const { classes } = props
+  const { classes, data } = props
   return (
     <div>
       <a
-        href="#"
+        href={data.publication.full_text_url}
         target="_blank"
         rel="noopener noreferrer"
         className={classes.link}>

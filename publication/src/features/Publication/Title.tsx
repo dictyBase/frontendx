@@ -12,6 +12,7 @@ interface Props {
   classes: {
     title: string
   }
+  title: string
 }
 
 /**
@@ -19,12 +20,10 @@ interface Props {
  */
 
 export const Title = (props: Props) => {
-  const { classes } = props
+  const { classes, title } = props
   return (
     <div className={classes.title}>
-      <h2>
-        This is a fake publication title that should be at least ten words
-      </h2>
+      <h2>{title}</h2>
     </div>
   )
 }

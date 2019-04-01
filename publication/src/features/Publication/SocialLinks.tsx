@@ -18,10 +18,7 @@ interface Props {
     email: string
     tweet: string
   }
-}
-
-const data = {
-  title: "This is a fake publication title that should be at least ten words",
+  title: string
 }
 
 /**
@@ -29,12 +26,10 @@ const data = {
  */
 
 export const SocialLinks = (props: Props) => {
-  const { classes } = props
+  const { classes, title } = props
   const url = window.location.href
   const tweetURL = `https://twitter.com/intent/tweet?url=${url}`
-  const email = `mailto:?subject=${
-    data.title
-  }&body=I thought you might find this article interesting: ${url}`
+  const email = `mailto:?subject=${title}&body=I thought you might find this article interesting: ${url}`
 
   return (
     <div>

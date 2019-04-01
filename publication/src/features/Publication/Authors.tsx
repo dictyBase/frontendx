@@ -12,29 +12,19 @@ interface Props {
   classes: {
     section: string
   }
+  authors: Array<{
+    first_name: string
+    last_name: string
+    full_name: string
+    initials: string
+  }>
 }
-
-const authors = [
-  {
-    first_name: "George",
-    last_name: "Costanza",
-    full_name: "Costanza G",
-    initials: "GC",
-  },
-  {
-    first_name: "Cosmo",
-    last_name: "Kramer",
-    full_name: "Kramer C",
-    initials: "CK",
-  },
-]
-
 /**
  * Authors displays an inline list of the authors of the publication.
  */
 
 export const Authors = (props: Props) => {
-  const { classes } = props
+  const { classes, authors } = props
   return (
     <div className={classes.section}>
       {authors.map((author, index) => (

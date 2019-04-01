@@ -22,18 +22,15 @@ interface Props {
     journal: string
     section: string
   }
-}
-
-const data = {
-  doi: "9.0909/j.diff.1964.02.01",
-  full_text_url: "https://doi.org/9.0909/j.diff.1964.02.01",
-  journal:
-    "Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb",
-  page: "71-79",
-  publication_date: "1964-01-29",
-  pubmed: "12345678",
-  pubmed_url: "https://pubmed.gov/12345678",
-  // add volume when available
+  data: {
+    doi: string
+    full_text_url: string
+    journal: string
+    page: string
+    publication_date: string
+    pubmed: string
+    pubmed_url: string
+  }
 }
 
 /**
@@ -41,7 +38,8 @@ const data = {
  */
 
 export const JournalData = (props: Props) => {
-  const { classes } = props
+  const { classes, data } = props
+
   return (
     <div className={classes.section}>
       <div>
