@@ -9,7 +9,7 @@ const styles = createStyles({
   },
   link: {
     textDecoration: "none",
-    color: "rgb(32, 105, 156);",
+    color: "rgb(32, 105, 156)",
   },
 })
 
