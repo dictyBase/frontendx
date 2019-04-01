@@ -18,16 +18,15 @@ interface Props {
     section: string
     link: string
   }
+  url: string
 }
-
-const url = "http://www.zombo.com"
 
 /**
  * FullTextLinks displays links to the full text of the publication.
  */
 
 export const FullTextLinks = (props: Props) => {
-  const { classes } = props
+  const { classes, url } = props
   return (
     <div className={classes.section}>
       <h3>Full Text Links</h3>
