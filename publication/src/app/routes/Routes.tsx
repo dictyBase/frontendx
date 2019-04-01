@@ -5,6 +5,7 @@ import Login from "../../features/Authentication/Login"
 import OauthCallback from "../../features/Authentication/OauthCallback"
 import AuthLoader from "../../features/Authentication/AuthLoader"
 import Logout from "../../features/Authentication/Logout"
+import MainPage from "../../features/MainPage/MainPage"
 
 /**
  * Component for all of our React Router routes.
@@ -12,7 +13,7 @@ import Logout from "../../features/Authentication/Logout"
 
 export const Routes = (props: any) => (
   <Switch>
-    <Route exact path="/" component={PublicationContainer} />
+    <Route exact path="/" component={MainPage} />
     <Route path="/login" component={Login} />
     <Route path="/:provider/callback" component={OauthCallback} />
     <Route path="/load/auth" component={AuthLoader} />
