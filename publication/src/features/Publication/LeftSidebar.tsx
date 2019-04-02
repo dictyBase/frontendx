@@ -9,11 +9,16 @@ const styles = createStyles({
     textDecoration: "none",
     color: "rgb(32, 105, 156)",
   },
+  section: {
+    position: "sticky",
+    top: 40,
+  },
 })
 
 interface Props extends Publication {
   classes: {
     link: string
+    section: string
   }
 }
 
@@ -26,7 +31,7 @@ export const LeftSidebar = (props: Props) => {
   const doiURL = `https://doi.org/${data.publication.doi}`
 
   return (
-    <div>
+    <div className={classes.section}>
       <a
         href={doiURL}
         target="_blank"
