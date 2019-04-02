@@ -7,16 +7,12 @@ import Grid from "@material-ui/core/Grid"
 describe("Publication/JournalData", () => {
   const props = {
     data: {
-      publication: {
-        doi: "9.0909/j.diff.1964.02.01",
-        full_text_url: "https://doi.org/9.0909/j.diff.1964.02.01",
-        journal:
-          "Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb",
-        page: "71-79",
-        publication_date: "1964-01-29",
-        pubmed: "12345678",
-        pubmed_url: "https://pubmed.gov/12345678",
-      },
+      doi: "9.0909/j.diff.1964.02.01",
+      journal:
+        "Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb",
+      pages: "71-79",
+      pub_date: "1964-01-29",
+      id: "12345678",
     },
   }
   const wrapper = shallow(<JournalData {...props} />)

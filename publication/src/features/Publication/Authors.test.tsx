@@ -9,13 +9,13 @@ describe("Publication/Authors", () => {
       {
         first_name: "George",
         last_name: "Costanza",
-        full_name: "Costanza G",
+        rank: "0",
         initials: "GC",
       },
       {
         first_name: "Cosmo",
         last_name: "Kramer",
-        full_name: "Kramer C",
+        rank: "1",
         initials: "CK",
       },
     ],
