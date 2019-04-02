@@ -1,6 +1,6 @@
 import React from "react"
 import { shallow } from "enzyme"
-import "../../setupTests"
+import "../../../setupTests"
 import Authors from "./Authors"
 
 describe("Publication/Authors", () => {
@@ -23,7 +23,7 @@ describe("Publication/Authors", () => {
   const wrapper = shallow(<Authors {...props} />)
   describe("initial render", () => {
     it("renders without crashing", () => {
-      wrapper
+      expect(wrapper).toHaveLength(1)
     })
     it("always renders one <div> element", () => {
       expect(wrapper.dive().find("div")).toHaveLength(1)

@@ -60,7 +60,7 @@ describe("Publication/PublicationContainer", async () => {
   )
   describe("initial render", () => {
     it("renders without crashing", () => {
-      expect(wrapper.find(PublicationContainer)).toHaveLength(1)
+      expect(wrapper).toHaveLength(1)
     })
     it("should render loading state initially", () => {
       expect(wrapper.contains("Loading..."))

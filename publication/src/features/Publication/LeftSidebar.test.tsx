@@ -37,7 +37,7 @@ describe("Publication/LeftSidebar", () => {
   const wrapper = shallow(<LeftSidebar {...props} />)
   describe("initial render", () => {
     it("renders without crashing", () => {
-      wrapper
+      expect(wrapper).toHaveLength(1)
     })
     it("always renders one <div> element", () => {
       expect(wrapper.dive().find("div")).toHaveLength(1)

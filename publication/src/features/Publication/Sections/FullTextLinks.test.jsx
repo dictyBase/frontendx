@@ -1,6 +1,6 @@
 import React from "react"
 import { shallow } from "enzyme"
-import "../../setupTests"
+import "../../../setupTests"
 import FullTextLinks from "./FullTextLinks"
 import FontAwesome from "react-fontawesome"
 
@@ -11,7 +11,7 @@ describe("Publication/FullTextLinks", () => {
   const wrapper = shallow(<FullTextLinks {...props} />)
   describe("initial render", () => {
     it("renders without crashing", () => {
-      wrapper
+      expect(wrapper).toHaveLength(1)
     })
     it("always renders one <div> element", () => {
       expect(wrapper.dive().find("div")).toHaveLength(1)

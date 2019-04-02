@@ -1,10 +1,10 @@
 import React, { Fragment } from "react"
-import Title from "./Title"
-import Authors from "./Authors"
-import JournalData from "./JournalData"
-import SocialLinks from "./SocialLinks"
-import Abstract from "./Abstract"
-import FullTextLinks from "./FullTextLinks"
+import Title from "./Sections/Title"
+import Authors from "./Sections/Authors"
+import JournalData from "./Sections/JournalData"
+import SocialLinks from "./Sections/SocialLinks"
+import Abstract from "./Sections/Abstract"
+import FullTextLinks from "./Sections/FullTextLinks"
 import { Publication } from "./PublicationContainer"
 
 interface Props extends Publication {}

@@ -2,12 +2,12 @@ import React from "react"
 import { mount } from "enzyme"
 import "../../setupTests"
 import PublicationDisplay from "./PublicationDisplay"
-import Title from "./Title"
-import Authors from "./Authors"
-import JournalData from "./JournalData"
-import SocialLinks from "./SocialLinks"
-import Abstract from "./Abstract"
-import FullTextLinks from "./FullTextLinks"
+import Title from "./Sections/Title"
+import Authors from "./Sections/Authors"
+import JournalData from "./Sections/JournalData"
+import SocialLinks from "./Sections/SocialLinks"
+import Abstract from "./Sections/Abstract"
+import FullTextLinks from "./Sections/FullTextLinks"
 
 describe("Publication/PublicationDisplay", () => {
   const props = {
@@ -42,7 +42,7 @@ describe("Publication/PublicationDisplay", () => {
   const wrapper = mount(<PublicationDisplay {...props} />)
   describe("initial render", () => {
     it("renders without crashing", () => {
-      wrapper
+      expect(wrapper).toHaveLength(1)
     })
     it("always renders one <Title> element", () => {
       expect(wrapper.find(Title)).toHaveLength(1)

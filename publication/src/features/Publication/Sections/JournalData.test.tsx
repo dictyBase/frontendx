@@ -1,6 +1,6 @@
 import React from "react"
 import { shallow } from "enzyme"
-import "../../setupTests"
+import "../../../setupTests"
 import JournalData from "./JournalData"
 import Grid from "@material-ui/core/Grid"
 
@@ -18,7 +18,7 @@ describe("Publication/JournalData", () => {
   const wrapper = shallow(<JournalData {...props} />)
   describe("initial render", () => {
     it("renders without crashing", () => {
-      wrapper
+      expect(wrapper).toHaveLength(1)
     })
     it("always renders two <div> elements", () => {
       expect(wrapper.dive().find("div")).toHaveLength(2)

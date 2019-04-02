@@ -1,23 +1,22 @@
 import React from "react"
 import { shallow } from "enzyme"
-import "../../setupTests"
-import SocialLinks from "./SocialLinks"
-import FontAwesome from "react-fontawesome"
+import "../../../setupTests"
+import Title from "./Title"
 
-describe("Publication/SocialLinks", () => {
+describe("Publication/Title", () => {
   const props = {
     title: "this is a test title",
   }
-  const wrapper = shallow(<SocialLinks {...props} />)
+  const wrapper = shallow(<Title {...props} />)
   describe("initial render", () => {
     it("renders without crashing", () => {
-      wrapper
+      expect(wrapper).toHaveLength(1)
     })
     it("always renders one <div> element", () => {
       expect(wrapper.dive().find("div")).toHaveLength(1)
     })
-    it("always renders two <FontAwesome> elements", () => {
-      expect(wrapper.dive().find(FontAwesome)).toHaveLength(2)
+    it("always renders one <h2> element", () => {
+      expect(wrapper.dive().find("h2")).toHaveLength(1)
     })
     it("matches title prop value", () => {
       expect(wrapper.prop("title")).toEqual("this is a test title")
