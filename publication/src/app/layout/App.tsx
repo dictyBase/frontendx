@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Component } from "react"
 import { compose } from "redux"
 import { connect } from "react-redux"
 import { withRouter } from "react-router-dom"
@@ -14,9 +14,8 @@ import {
   generateLinks,
 } from "../../common/utils/headerItems"
 import footerItems from "../../common/constants/footer"
+import navItems from "../../common/constants/navbar"
 import Routes from "../routes/Routes"
-import withDataFetching from "../../common/components/withDataFetching"
-import AppErrorFallback from "./AppErrorFallback"
 import { appStyles as styles, navTheme } from "./appStyles"
 
 interface Props {
@@ -26,7 +25,7 @@ interface Props {
   }
   /** Object representing navbar part of state */
   navbar: {
-    links: Object
+    links: object
   }
   /** Object representing footer part of state */
   footer: {
@@ -46,36 +45,62 @@ interface Props {
  * It is responsible for the main layout of the entire application.
  */
 
-export const App = (props: Props) => {
-  const { auth, navbar, footer, classes } = props
-
-  let footerLinks = footerItems
-
-  if (footer.links) {
-    // @ts-ignore
-    footerLinks = footer.links
+export class App extends Component<Props, {}> {
+  componentDidMount() {
+    const { fetchNavbarAndFooter } = this.props
+    fetchNavbarAndFooter()
   }
 
-  return (
-    <div className={classes.body}>
-      {auth.isAuthenticated ? (
-        <Header items={loggedHeaderItems}>
-          {items => items.map(generateLinks)}
-        </Header>
-      ) : (
-        <Header items={headerItems}>{items => items.map(generateLinks)}</Header>
-      )}
-      <Navbar theme={navTheme} items={navbar.links} />
+  render() {
+    const { auth, navbar, footer, classes } = this.props
 
-      <main className={classes.main}>
-        <ErrorBoundary>
-          <Routes />
-        </ErrorBoundary>
-      </main>
+    // if any errors, fall back to old link setup
+    if (!navbar.links || !footer.links) {
+      return (
+        <div className={classes.body}>
+          {auth.isAuthenticated ? (
+            <Header items={loggedHeaderItems}>
+              {items => items.map(generateLinks)}
+            </Header>
+          ) : (
+            <Header items={headerItems}>
+              {items => items.map(generateLinks)}
+            </Header>
+          )}
+          <Navbar theme={navTheme} items={navItems} />
+          <main className={classes.main}>
+            <ErrorBoundary>
+              <Routes />
+            </ErrorBoundary>
+          </main>
+          <Footer items={footerItems} />
+        </div>
+      )
+    }
 
-      <Footer items={footerLinks} />
-    </div>
-  )
+    return (
+      <div className={classes.body}>
+        {auth.isAuthenticated ? (
+          <Header items={loggedHeaderItems}>
+            {items => items.map(generateLinks)}
+          </Header>
+        ) : (
+          <Header items={headerItems}>
+            {items => items.map(generateLinks)}
+          </Header>
+        )}
+        <Navbar theme={navTheme} items={navbar.links} />
+
+        <main className={classes.main}>
+          <ErrorBoundary>
+            <Routes />
+          </ErrorBoundary>
+        </main>
+
+        <Footer items={footer.links} />
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = ({ auth, navbar, footer }: Props) => ({
@@ -88,16 +113,9 @@ const enhance = compose(
   withRouter,
   connect(
     mapStateToProps,
-    null,
+    { fetchNavbarAndFooter },
   ),
   withStyles(styles),
-  withDataFetching(
-    fetchNavbarAndFooter,
-    "navbar",
-    // @ts-ignore
-    AppErrorFallback,
-    AppErrorFallback,
-  ),
 )
 
-export default enhance(App)
+export default enhance(App) as React.ComponentType
