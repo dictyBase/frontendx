@@ -9,6 +9,7 @@ import { Theme } from "@material-ui/core/styles/createMuiTheme"
 import LeftSidebar from "./LeftSidebar"
 import PublicationDisplay from "./PublicationDisplay"
 import PublicationLoader from "./PublicationLoader"
+import ErrorPage from "../../common/components/ErrorPage"
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -86,13 +87,12 @@ type FullProps = Props & RouteComponentProps<any>
 
 export const PublicationContainer = (props: FullProps) => {
   const { classes, match } = props
-  const id = match.params.id
 
   return (
-    <Query query={GET_PUBLICATION} variables={{ id: id }}>
+    <Query query={GET_PUBLICATION} variables={{ id: match.params.id }}>
       {({ loading, error, data }) => {
         if (loading) return <PublicationLoader />
-        if (error) return <p>{error.toString()}</p>
+        if (error) return <ErrorPage error={error} />
 
         return (
           <Grid container spacing={16} className={classes.layout}>
