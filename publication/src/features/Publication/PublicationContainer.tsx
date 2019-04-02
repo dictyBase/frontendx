@@ -41,11 +41,10 @@ export interface Publication {
       authors: Array<{
         first_name: string
         last_name: string
-        full_name: string
+        rank: string
         initials: string
       }>
       doi: string
-      full_text_url: string
       issn?: string
       issue?: number
       journal: string
@@ -59,7 +58,7 @@ export interface Publication {
   }
 }
 
-const GET_PUBLICATION = gql`
+export const GET_PUBLICATION = gql`
   query Publication($id: ID!) {
     publication(id: $id) {
       id
