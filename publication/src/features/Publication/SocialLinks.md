@@ -1,0 +1,3 @@
+```js
+<SocialLinks title="Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb" />
+```
