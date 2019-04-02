@@ -8,6 +8,7 @@ import createStyles from "@material-ui/core/styles/createStyles"
 import { Theme } from "@material-ui/core/styles/createMuiTheme"
 import LeftSidebar from "./LeftSidebar"
 import PublicationDisplay from "./PublicationDisplay"
+import PublicationLoader from "./PublicationLoader"
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -90,7 +91,7 @@ export const PublicationContainer = (props: FullProps) => {
   return (
     <Query query={GET_PUBLICATION} variables={{ id: id }}>
       {({ loading, error, data }) => {
-        if (loading) return <p>Loading...</p>
+        if (loading) return <PublicationLoader />
         if (error) return <p>{error.toString()}</p>
 
         return (
