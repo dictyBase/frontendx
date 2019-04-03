@@ -18,7 +18,7 @@
     "apollo-boost": "^0.3.1",
     "connected-react-router": "^6.3.2",
     "date-fns": "^1.30.1",
-    "dicty-components-header-footer": "github:dictyBase/dicty-components-header-footer",
+    "dicty-components-header-footer": "github:dictyBase/dicty-components-header-footer#v7.1.0",
     "dicty-components-login": "github:dictyBase/dicty-components-login",
     "dicty-components-navbar": "github:dictyBase/dicty-components-navbar",
     "dicty-components-redux": "github:dictybase-playground/dicty-components-redux",
