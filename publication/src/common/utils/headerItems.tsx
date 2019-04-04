@@ -1,12 +1,12 @@
-import { HeaderLink } from "dicty-components-header-footer"
-import { Link } from "react-router-dom"
 import React from "react"
-import FontAwesome from "react-fontawesome"
-import "font-awesome/css/font-awesome.min.css"
+import { Link } from "react-router-dom"
+import { HeaderLink } from "dicty-components-header-footer"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { IconProp } from "@fortawesome/fontawesome-svg-core"
 
 interface Links {
   isRouter: boolean
-  icon: string
+  icon: IconProp
   text: string
   url: string
 }
@@ -22,7 +22,7 @@ const generateLinks = (link: Links, i: string) =>
       key={i}
       to={link.url}>
       <div style={{ textAlign: "center" }}>
-        <FontAwesome name={link.icon} size="2x" />
+        <FontAwesomeIcon icon={link.icon} size="2x" />
         <br />
         {link.text}
       </div>
@@ -30,7 +30,7 @@ const generateLinks = (link: Links, i: string) =>
   ) : (
     <HeaderLink key={i} href={link.url}>
       <div style={{ textAlign: "center" }}>
-        <FontAwesome name={link.icon} size="2x" />
+        <FontAwesomeIcon icon={link.icon} size="2x" />
         <br />
         {link.text}
       </div>
@@ -55,7 +55,7 @@ const headerItems = [
   },
   {
     url: "/login",
-    icon: "sign-in",
+    icon: "sign-in-alt",
     text: "Login",
     isRouter: true,
   },
@@ -79,7 +79,7 @@ const loggedHeaderItems = [
   },
   {
     url: "/logout",
-    icon: "sign-out",
+    icon: "sign-out-alt",
     text: "Logout",
     isRouter: true,
   },

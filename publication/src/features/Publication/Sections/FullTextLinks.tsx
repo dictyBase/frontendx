@@ -1,7 +1,7 @@
 import React from "react"
 import { withStyles } from "@material-ui/core/styles"
 import createStyles from "@material-ui/core/styles/createStyles"
-import FontAwesome from "react-fontawesome"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const styles = createStyles({
   section: {
@@ -43,7 +43,7 @@ export const FullTextLinks = (props: Props) => {
           rel="noopener noreferrer"
           className={classes.link}>
           Read article at publisher's site &nbsp;
-          <FontAwesome name="external-link" />
+          <FontAwesomeIcon icon="external-link-alt" />
         </a>
       </div>
     </div>

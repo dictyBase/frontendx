@@ -98,7 +98,7 @@ export const PublicationContainer = (props: FullProps) => {
         return (
           <Grid container spacing={16} className={classes.layout}>
             <Helmet>
-              <title>{data.publication.title} - dictyBase Literature</title>
+              <title>dictyBase Literature - {data.publication.title}</title>
               <meta
                 name="description"
                 content={`dictyBase literature page for title ${

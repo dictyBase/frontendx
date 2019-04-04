@@ -1,7 +1,7 @@
 import React from "react"
 import { withStyles } from "@material-ui/core/styles"
 import createStyles from "@material-ui/core/styles/createStyles"
-import FontAwesome from "react-fontawesome"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Publication } from "./PublicationContainer"
 
 const styles = createStyles({
@@ -39,7 +39,7 @@ export const LeftSidebar = (props: Props) => {
         rel="noopener noreferrer"
         className={classes.link}>
         Full text &nbsp;
-        <FontAwesome name="external-link" />
+        <FontAwesomeIcon icon="external-link-alt" />
       </a>
       <br />
       <a href="#" className={classes.link}>
