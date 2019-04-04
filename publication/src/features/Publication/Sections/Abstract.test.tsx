@@ -12,8 +12,8 @@ describe("Publication/Abstract", () => {
     it("renders without crashing", () => {
       expect(wrapper).toHaveLength(1)
     })
-    it("always renders one <div> element", () => {
-      expect(wrapper.dive().find("div")).toHaveLength(1)
+    it("always renders two <div> elements", () => {
+      expect(wrapper.dive().find("div")).toHaveLength(2)
     })
     it("always renders one <h2> element", () => {
       expect(wrapper.dive().find("h2")).toHaveLength(1)
