@@ -61,6 +61,7 @@
     "react-docgen-typescript": "^1.12.3",
     "react-styleguidist": "^9.0.5",
     "semantic-release": "^15.13.3",
+    "source-map-explorer": "^1.8.0",
     "waait": "^1.0.4"
   },
   "scripts": {
@@ -73,7 +74,8 @@
     "cz": "git-cz",
     "semantic-release": "semantic-release",
     "styleguide": "styleguidist server",
-    "styleguide:build": "styleguidist build"
+    "styleguide:build": "styleguidist build",
+    "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "eslintConfig": {
     "extends": "react-app"
