@@ -7,11 +7,12 @@ import { Publication } from "./PublicationContainer"
 const styles = createStyles({
   link: {
     textDecoration: "none",
-    color: "rgb(32, 105, 156)",
+    color: "#0059b3",
   },
   section: {
     position: "sticky",
     top: 40,
+    paddingTop: "20px",
   },
 })
 

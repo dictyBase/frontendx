@@ -14,11 +14,11 @@ import ErrorPage from "../../common/components/ErrorPage"
 const styles = (theme: Theme) =>
   createStyles({
     layout: {
-      width: "auto",
-      marginLeft: theme.spacing.unit * 3,
-      marginRight: theme.spacing.unit * 3,
-      [theme.breakpoints.up(900 + theme.spacing.unit * 3 * 2)]: {
-        width: 900,
+      width: "70%",
+      marginLeft: "auto",
+      marginRight: "auto",
+      [theme.breakpoints.up(1200 + theme.spacing.unit * 3 * 2)]: {
+        width: 1200,
         marginLeft: "auto",
         marginRight: "auto",
       },
@@ -99,10 +99,10 @@ export const PublicationContainer = (props: FullProps) => {
             <Grid item xs={12}>
               <h1 className={classes.title}>dictyBase Literature</h1>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={2}>
               <LeftSidebar data={data} />
             </Grid>
-            <Grid item xs={9}>
+            <Grid item xs={10}>
               <PublicationDisplay data={data} />
             </Grid>
           </Grid>

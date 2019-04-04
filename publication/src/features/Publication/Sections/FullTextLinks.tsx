@@ -9,7 +9,10 @@ const styles = createStyles({
   },
   link: {
     textDecoration: "none",
-    color: "rgb(32, 105, 156)",
+    color: "#0059b3",
+  },
+  content: {
+    paddingTop: "10px",
   },
 })
 
@@ -17,6 +20,7 @@ interface Props {
   classes: {
     section: string
     link: string
+    content: string
   }
   url: string
 }
@@ -32,8 +36,7 @@ export const FullTextLinks = (props: Props) => {
     <div className={classes.section}>
       <h3>Full Text Links</h3>
       <hr />
-      <span>
-        {" "}
+      <div className={classes.content}>
         <a
           href={url}
           target="_blank"
@@ -42,7 +45,7 @@ export const FullTextLinks = (props: Props) => {
           Read article at publisher's site &nbsp;
           <FontAwesome name="external-link" />
         </a>
-      </span>
+      </div>
     </div>
   )
 }
