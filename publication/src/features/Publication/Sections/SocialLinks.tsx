@@ -1,7 +1,7 @@
 import React from "react"
 import { withStyles } from "@material-ui/core/styles"
 import createStyles from "@material-ui/core/styles/createStyles"
-import FontAwesome from "react-fontawesome"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const styles = createStyles({
   email: {
@@ -40,14 +40,14 @@ export const SocialLinks = (props: Props) => {
           target="_blank"
           rel="noopener noreferrer"
           className={classes.tweet}>
-          <FontAwesome name="twitter" />
+          <FontAwesomeIcon icon={["fab", "twitter"]} />
         </a>
         <a
           href={email}
           target="_blank"
           rel="noopener noreferrer"
           className={classes.email}>
-          <FontAwesome name="envelope" />
+          <FontAwesomeIcon icon="envelope" />
         </a>
       </span>
     </div>

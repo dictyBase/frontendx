@@ -1,11 +1,10 @@
 import React from "react"
-import { connect } from "react-redux"
 import { withStyles } from "@material-ui/core/styles"
 import createStyles from "@material-ui/core/styles/createStyles"
 import { Theme } from "@material-ui/core/styles/createMuiTheme"
 import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
-import FontAwesome from "react-fontawesome"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import sadDicty from "../assets/sad-dicty.png"
 
 const styles = (theme: Theme) =>
@@ -64,7 +63,7 @@ export const ErrorPage = (props: Props) => {
         <div className={classes.error}>
           <img src={sadDicty} alt="Sad Dicty -- HTTP Error" />
           <h1>
-            <FontAwesome name="exclamation-circle" /> Error
+            <FontAwesomeIcon icon="exclamation-circle" /> Error
           </h1>
           <h3>{error.toString()}</h3>
           <p>

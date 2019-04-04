@@ -2,7 +2,7 @@ import React from "react"
 import { shallow } from "enzyme"
 import "../../setupTests"
 import LeftSidebar from "./LeftSidebar"
-import FontAwesome from "react-fontawesome"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 describe("Publication/LeftSidebar", () => {
   const props = {
@@ -42,8 +42,8 @@ describe("Publication/LeftSidebar", () => {
     it("always renders one <div> element", () => {
       expect(wrapper.dive().find("div")).toHaveLength(1)
     })
-    it("always renders one <FontAwesome> element", () => {
-      expect(wrapper.dive().find(FontAwesome)).toHaveLength(1)
+    it("always renders one <FontAwesomeIcon> element", () => {
+      expect(wrapper.dive().find(FontAwesomeIcon)).toHaveLength(1)
     })
     it("matches data prop value", () => {
       expect(wrapper.prop("data")).toEqual(props.data)

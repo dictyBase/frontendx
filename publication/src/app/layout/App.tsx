@@ -5,6 +5,18 @@ import { withRouter } from "react-router-dom"
 import { withStyles } from "@material-ui/core/styles"
 import { Header, Footer } from "dicty-components-header-footer"
 import { Navbar } from "dicty-components-navbar"
+import { library } from "@fortawesome/fontawesome-svg-core"
+import { faTwitter } from "@fortawesome/free-brands-svg-icons"
+import {
+  faDownload,
+  faEnvelope,
+  faExternalLinkAlt,
+  faExclamationCircle,
+  faInfoCircle,
+  faPlus,
+  faSignInAlt,
+  faSignOutAlt,
+} from "@fortawesome/free-solid-svg-icons"
 
 import ErrorBoundary from "../../common/components/ErrorBoundary"
 import fetchNavbarAndFooter from "../actions/navbarActions"
@@ -17,6 +29,19 @@ import footerItems from "../../common/constants/footer"
 import navItems from "../../common/constants/navbar"
 import Routes from "../routes/Routes"
 import { appStyles as styles, navTheme } from "./appStyles"
+
+// define fontawesome icons used in the app
+library.add(
+  faDownload,
+  faEnvelope,
+  faExclamationCircle,
+  faExternalLinkAlt,
+  faInfoCircle,
+  faPlus,
+  faSignInAlt,
+  faSignOutAlt,
+  faTwitter,
+)
 
 interface Props {
   /** Object representing auth part of state */
