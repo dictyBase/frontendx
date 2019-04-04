@@ -29,7 +29,7 @@ interface Props {
   }
 }
 
-const PublicationLoader = (props: Props) => {
+export const PublicationLoader = (props: Props) => {
   const { classes } = props
 
   return (
