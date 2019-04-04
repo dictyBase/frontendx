@@ -1,5 +1,6 @@
 import React from "react"
 import { withRouter, RouteComponentProps } from "react-router-dom"
+import { Helmet } from "react-helmet"
 import gql from "graphql-tag"
 import { Query } from "react-apollo"
 import Grid from "@material-ui/core/Grid"
@@ -96,6 +97,15 @@ export const PublicationContainer = (props: FullProps) => {
 
         return (
           <Grid container spacing={16} className={classes.layout}>
+            <Helmet>
+              <title>{data.publication.title} - dictyBase Literature</title>
+              <meta
+                name="description"
+                content={`dictyBase literature page for title ${
+                  data.publication.title
+                }`}
+              />
+            </Helmet>
             <Grid item xs={12}>
               <h1 className={classes.title}>dictyBase Literature</h1>
             </Grid>
