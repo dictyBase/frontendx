@@ -9,7 +9,7 @@ import addDays from "date-fns/add_days"
 const styles = createStyles({
   link: {
     textDecoration: "none",
-    color: "rgb(32, 105, 156)",
+    color: "#0059b3",
   },
   journal: {
     fontWeight: "bold",
@@ -53,11 +53,11 @@ export const JournalData = (props: Props) => {
       <div>
         <span className={classes.journal}>{data.journal},&nbsp;</span>
         <span>
-          {date}, p{data.pages}
+          {date}, {data.pages}
         </span>
       </div>
       <Grid container>
-        <Grid item xs={6}>
+        <Grid item xs={4}>
           DOI:{" "}
           <a
             href={doiURL}
@@ -67,8 +67,8 @@ export const JournalData = (props: Props) => {
             {data.doi}
           </a>
         </Grid>
-        <Grid item xs={6}>
-          Pubmed:{" "}
+        <Grid item xs={4}>
+          PMID:{" "}
           <a
             href={pubmedURL}
             target="_blank"

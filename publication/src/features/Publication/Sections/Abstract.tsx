@@ -6,11 +6,15 @@ const styles = createStyles({
   section: {
     paddingBottom: "5px",
   },
+  abstract: {
+    paddingTop: "10px",
+  },
 })
 
 interface Props {
   classes: {
     section: string
+    abstract: string
   }
   abstract: string
 }
@@ -25,7 +29,7 @@ export const Abstract = (props: Props) => {
     <div className={classes.section}>
       <h2>Abstract</h2>
       <hr />
-      {abstract}
+      <div className={classes.abstract}>{abstract}</div>
     </div>
   )
 }

@@ -5,7 +5,7 @@ import FontAwesome from "react-fontawesome"
 
 const styles = createStyles({
   email: {
-    color: "rgb(32, 105, 156)",
+    color: "#0059b3",
   },
   tweet: {
     color: "#1da1f2",
