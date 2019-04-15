@@ -27,7 +27,7 @@ type Strain implements Stock {
   publications: [Publication]
   # from strain_properties
   systematic_name: String!
-  descriptor: String!
+  label: String!
   species: String!
   plasmid: String # update to Plasmid later?
   parent: Strain
@@ -101,7 +101,7 @@ input CreateStrainInput {
   publications: [String]
   # from strain_properties
   systematic_name: String!
-  descriptor: String!
+  label: String!
   species: String!
   plasmid: String
   parent: String
@@ -143,7 +143,7 @@ input UpdateStrainInput {
   publications: [String]
   # from strain_properties
   systematic_name: String
-  descriptor: String
+  label: String
   species: String
   plasmid: String
   parent: String
