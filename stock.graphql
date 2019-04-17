@@ -53,6 +53,7 @@ type Plasmid implements Stock {
   genes: [String]
   dbxrefs: [String]
   publications: [Publication]
+  name: String!
   # from plasmid_properties
   image_map: String
   sequence: String
@@ -124,6 +125,7 @@ input CreatePlasmidInput {
   genes: [String]
   dbxrefs: [String]
   publications: [String]
+  name: String!
   # from plasmid_properties
   image_map: String
   sequence: String
@@ -165,6 +167,7 @@ input UpdatePlasmidInput {
   genes: [String]
   dbxrefs: [String]
   publications: [String]
+  name: String
   # from plasmid_properties
   image_map: String
   sequence: String
