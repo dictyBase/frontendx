@@ -34,7 +34,7 @@ input CreateOrderInput {
   courier_account: String!
   comments: String
   payment: String!
-  purchase_order_num: String!
+  purchase_order_num: String
   status: StatusEnum!
   consumer: String!
   payer: String!
