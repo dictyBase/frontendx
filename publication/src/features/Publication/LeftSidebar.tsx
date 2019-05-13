@@ -42,9 +42,9 @@ export const LeftSidebar = (props: Props) => {
         <FontAwesomeIcon icon="external-link-alt" />
       </a>
       <br />
-      <a href="#" className={classes.link}>
+      {/* <a href="#" className={classes.link}>
         Get Citation
-      </a>
+      </a> */}
     </div>
   )
 }
