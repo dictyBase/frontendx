@@ -1,13 +1,13 @@
 ## Master branch
 
-[![Dependency Status](https://david-dm.org/dictybase-playground/Publication/master.svg?style=flat-square)](https://david-dm.org/dictybase-playground/Publication/master)
-[![devDependency Status](https://david-dm.org/dictybase-playground/Publication/master/dev-status.svg?style=flat-square)](https://david-dm.org/dictybase-playground/Publication/master?type=dev)
+[![Dependency Status](https://david-dm.org/dictyBase/Publication/master.svg?style=flat-square)](https://david-dm.org/dictyBase/Publication/master)
+[![devDependency Status](https://david-dm.org/dictyBase/Publication/master/dev-status.svg?style=flat-square)](https://david-dm.org/dictyBase/Publication/master?type=dev)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 ## Develop branch
 
-[![Dependency Status](https://david-dm.org/dictybase-playground/Publication/develop.svg?style=flat-square)](https://david-dm.org/dictybase-playground/Publication/develop)
-[![devDependency Status](https://david-dm.org/dictybase-playground/Publication/develop/dev-status.svg?style=flat-square)](https://david-dm.org/dictybase-playground/Publication/develop?type=dev)
+[![Dependency Status](https://david-dm.org/dictyBase/Publication/develop.svg?style=flat-square)](https://david-dm.org/dictyBase/Publication/develop)
+[![devDependency Status](https://david-dm.org/dictyBase/Publication/develop/dev-status.svg?style=flat-square)](https://david-dm.org/dictyBase/Publication/develop?type=dev)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 ## Web application to display genomic information at dictyBase
