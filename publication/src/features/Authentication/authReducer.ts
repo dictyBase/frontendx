@@ -117,7 +117,7 @@ const authReducer = (state = initialState, action: Action) => {
         user: {
           ...state.user,
           // merge roles into one array, regardless if they are one or many
-          roles: [].concat(<any>action.payload.json.data),
+          roles: [].concat(action.payload.json.data as any),
         },
       }
     case FETCH_ROLE_FAILURE:
@@ -138,7 +138,7 @@ const authReducer = (state = initialState, action: Action) => {
         fetchedUserData: {
           ...state.fetchedUserData,
           // merge roles into one array, regardless if they are one or many
-          roles: [].concat(<any>action.payload.roles.data),
+          roles: [].concat(action.payload.roles.data as any),
         },
       }
     case FETCH_NON_AUTH_ROLE_FAILURE:
@@ -159,7 +159,7 @@ const authReducer = (state = initialState, action: Action) => {
         user: {
           ...state.user,
           // merge permissions into one array, regardless if they are one or many
-          permissions: [].concat(<any>action.payload.permissions.data),
+          permissions: [].concat(action.payload.permissions.data as any),
         },
       }
     case FETCH_PERMISSION_FAILURE:
