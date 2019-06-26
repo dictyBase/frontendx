@@ -17,4 +17,7 @@ type Query {
   listRoles: [Role!]
   permission(id: ID!): Permission
   listPermissions: [Permission!]
+  # Content queries
+  content(id: ID!): Content
+  contentBySlug(slug: String!): Content
 }

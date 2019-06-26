@@ -20,4 +20,8 @@ type Mutation {
   createPermission(input: CreatePermissionInput): Permission
   updatePermission(id: ID!, input: UpdatePermissionInput): Permission
   deletePermission(id: ID!): DeletePermission
+  # Content mutations
+  createContent(input: CreateContentInput): Content
+  updateContent(input: UpdateContentInput): Content
+  deleteContent(id: ID!): DeleteContent
 }
