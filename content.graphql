@@ -2,8 +2,8 @@ type Content {
   id: ID!
   name: String!
   slug: String!
-  created_by: String!
-  updated_by: String!
+  created_by: User!
+  updated_by: User!
   created_at: Timestamp!
   updated_at: Timestamp!
   content: String!
