@@ -2,7 +2,6 @@
 # The first one build single file js for the web app
 # The second one copies the file and server with a golang static web server
 FROM node:10.16.0-alpine
-LABEL maintainer "Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 LABEL maintainer "Eric Hartline <eric.hartline@northwestern.edu>"
 
 # include git, otherwise npm install doesn't work
@@ -11,19 +10,15 @@ RUN apk update && apk upgrade && \
 
 # URL for api server
 ARG api_server
-ENV REACT_APP_API_SERVER ${api_server:-https://betafunc.dictybase.org}
+ENV REACT_APP_API_SERVER ${api_server:-https://ericfunc.dictybase.dev}
 
 # URL for auth server
 ARG auth_server
-ENV REACT_APP_AUTH_SERVER ${auth_server:-https://betatoken.dictybase.org}
+ENV REACT_APP_AUTH_SERVER ${auth_server:-https://erictoken.dictybase.dev}
 
 # base path for React Router
 ARG basename
 ENV REACT_APP_BASENAME ${basename:-gene}
-
-# Google Analytics tracking ID
-ARG ga_tracking_id
-ENV REACT_APP_GA_TRACKING_ID ${ga_tracking_id:-UA-16352781-8}
 
 # URL for navbar json
 ARG navbar_json
@@ -35,7 +30,7 @@ ENV REACT_APP_FOOTER_JSON ${footer_json:-https://raw.githubusercontent.com/dicty
 
 # Setup client keys for third party auth
 ARG client_keys
-ENV CLIENT_KEYS ${client_keys:-https://raw.githubusercontent.com/dictybase-playground/client-keys/1.0.0/clientConfig.js}
+ENV CLIENT_KEYS ${client_keys:-https://raw.githubusercontent.com/dictybase-playground/client-keys/2.0.0/clientConfig.eric.js}
 
 # Create app directory
 RUN mkdir -p /usr/src/app
