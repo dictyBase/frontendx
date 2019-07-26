@@ -3,7 +3,6 @@
 # The second one copies the file and server with a golang static web server
 FROM node:10.16.0-alpine
 LABEL maintainer "Siddhartha Basu <siddhartha-basu@northwestern.edu>"
-LABEL maintainer "Eric Hartline <eric.hartline@northwestern.edu>"
 
 # include git, otherwise npm install doesn't work
 RUN apk update && apk upgrade && \
@@ -20,10 +19,6 @@ ENV REACT_APP_AUTH_SERVER ${auth_server:-https://betatoken.dictybase.org}
 # base path for React Router
 ARG basename
 ENV REACT_APP_BASENAME ${basename:-gene}
-
-# Google Analytics tracking ID
-ARG ga_tracking_id
-ENV REACT_APP_GA_TRACKING_ID ${ga_tracking_id:-UA-16352781-8}
 
 # URL for navbar json
 ARG navbar_json
