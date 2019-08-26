@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "/gene",
   "engines": {
-    "node": "10.4.0"
+    "node": "10.16.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -17,7 +17,10 @@
     "styleguide:build": "styleguidist build",
     "precommit": "lint-staged",
     "cz": "git-cz",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "local-ci-eric": "IMAGE_TAG=$(git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||' -e 's~/~-~')-$(git rev-parse --short HEAD) skaffold run -p ericdev",
+    "local-ci-sidd": "IMAGE_TAG=$(git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||' -e 's~/~-~')-$(git rev-parse --short HEAD) skaffold run -p devsidd",
+    "local-ci-staging": "IMAGE_TAG=staging-$(git rev-parse --short HEAD) skaffold run"
   },
   "dependencies": {
     "@material-ui/core": "^1.4.1",
