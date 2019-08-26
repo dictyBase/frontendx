@@ -6,32 +6,32 @@ let fetchBySlugResource,
   fetchPermissionByIdResource,
   oauthEndpointResource
 
-if (process.env.REACT_APP_API_SERVER) {
+if (process.env.REACT_APP_FUNC_SERVER) {
   // set URL base for fetching by slug
   const fetchBySlugBase = "/contents/slug"
-  fetchBySlugResource = `${process.env.REACT_APP_API_SERVER}${fetchBySlugBase}`
+  fetchBySlugResource = `${process.env.REACT_APP_FUNC_SERVER}${fetchBySlugBase}`
   // set URL base for fetching by ID
   const fetchByIdBase = "/contents"
-  fetchByIdResource = `${process.env.REACT_APP_API_SERVER}${fetchByIdBase}`
+  fetchByIdResource = `${process.env.REACT_APP_FUNC_SERVER}${fetchByIdBase}`
   // set URL base for fetching user by ID
   const fetchUserByIdBase = "/users"
   fetchUserByIdResource = `${
-    process.env.REACT_APP_API_SERVER
+    process.env.REACT_APP_FUNC_SERVER
   }${fetchUserByIdBase}`
   // set URL base for fetching user by email
   const fetchUserByEmailBase = "/users/email"
   fetchUserByEmailResource = `${
-    process.env.REACT_APP_API_SERVER
+    process.env.REACT_APP_FUNC_SERVER
   }${fetchUserByEmailBase}`
   // set URL base for fetching role by ID
   const fetchRoleByIdBase = "/roles"
   fetchRoleByIdResource = `${
-    process.env.REACT_APP_API_SERVER
+    process.env.REACT_APP_FUNC_SERVER
   }${fetchRoleByIdBase}`
   // set URL base for fetching permission by ID
   const fetchPermissionByIdBase = "/permissions"
   fetchPermissionByIdResource = `${
-    process.env.REACT_APP_API_SERVER
+    process.env.REACT_APP_FUNC_SERVER
   }${fetchPermissionByIdBase}`
 } else {
   fetchBySlugResource = "http://localhost:8080/contents/slug"
