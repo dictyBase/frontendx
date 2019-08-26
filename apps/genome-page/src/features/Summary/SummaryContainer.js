@@ -45,9 +45,9 @@ export class SummaryContainer extends Component<Props> {
     let mainUrl
 
     if (identifier) {
-      mainUrl = `${process.env.REACT_APP_API_SERVER}/genes/${match.params.id}`
+      mainUrl = `${process.env.REACT_APP_FUNC_SERVER}/genes/${match.params.id}`
     } else {
-      mainUrl = `${process.env.REACT_APP_API_SERVER}/genes/name/${
+      mainUrl = `${process.env.REACT_APP_FUNC_SERVER}/genes/name/${
         match.params.id
       }`
     }

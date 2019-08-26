@@ -18,12 +18,13 @@
   - [Configuration](#configuration)
     - [Providers](#providers)
     - [Auth server](#auth-server)
-    - [API server](#api-server)
+    - [Func server](#func-server)
     - [Navbar and footer](#navbar-and-footer)
   - [Semantic Versioning](#semantic-versioning)
   - [Running the application(dev version)](#running-the-application-dev-version)
   - [Application Structure](#application-structure)
 - [Deployment](#deployment)
+- [Developers](#developers)
 
 # Development
 
@@ -55,12 +56,12 @@
 - The **REACT_APP_AUTH_SERVER** env variable can also be customized by modifying the
   global variable in the [env](.env.development) file.
 
-### API server
+### Func server
 
 - By default, the application expects it to run on `https://betafunc.dictybase.local`
-- The url of the auth server can be configured by **REACT_APP_API_SERVER** environmental variable.
+- The url of the auth server can be configured by **REACT_APP_FUNC_SERVER** environmental variable.
 - Kubeless [Node.js](https://github.com/dictybase-playground/kubeless-nodefn) and [Golang](https://github.com/dictybase-playground/kubeless-gofn) functions are currently used and mapped to this URL. All of the `Node.js` functions are necessary to run version 1.0.0 of this application.
-- The **REACT_APP_API_SERVER** env variable can also be customize by modifying the
+- The **REACT_APP_FUNC_SERVER** env variable can also be customize by modifying the
   global variable in the [env](.env.development) file.
 
 ### Navbar and Footer
@@ -133,5 +134,9 @@ Starting with version `2.0.0` of the application, the following Kubeless functio
 - [genecachefn](https://github.com/dictybase-playground/kubeless-nodefn/tree/master/geneids)
 - [uniprotcachefn](https://github.com/dictybase-playground/kubeless-nodefn/tree/master/uniprot)
 
-**Important**: make sure you are using the latest versions. Follow the documentation on each of these
-pages in order to deploy them.
+**Important**: make sure you are using the latest versions. Follow the documentation on each of these pages in order to deploy them.
+
+# Developers
+
+<a href="https://sourcerer.io/wildlifehexagon"><img src="https://sourcerer.io/assets/avatar/wildlifehexagon" height="80px" alt="Sourcerer"></a>
+<a href="https://sourcerer.io/cybersiddhu"><img src="https://sourcerer.io/assets/avatar/cybersiddhu" height="80px" alt="Sourcerer"></a>
