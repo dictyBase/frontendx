@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from "react"
+import { Helmet } from "react-helmet"
 import { Link } from "react-router-dom"
 import { withRouter } from "react-router"
 import { compose } from "redux"
@@ -137,6 +138,13 @@ export class SummaryContainer extends Component<Props> {
 
     return (
       <Grid container justify="center">
+        <Helmet>
+          <title>Gene Information for {match.params.id} - dictyBase</title>
+          <meta
+            name="description"
+            content={`Gene information for ${match.params.id} at dictyBase`}
+          />
+        </Helmet>
         <Grid item xs={12}>
           {general.data && (
             <PageHeader name={general.data.data.attributes.geneName} />

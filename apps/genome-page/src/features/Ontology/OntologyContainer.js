@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from "react"
+import { Helmet } from "react-helmet"
 import { Link } from "react-router-dom"
 import { withRouter } from "react-router"
 import { connect } from "react-redux"
@@ -96,6 +97,17 @@ export class OntologyContainer extends Component<Props> {
 
     return (
       <div>
+        <Helmet>
+          <title>
+            Gene Ontology Annotations for {match.params.id} - dictyBase
+          </title>
+          <meta
+            name="description"
+            content={`Gene ontology annotations for ${
+              match.params.id
+            } at dictyBase`}
+          />
+        </Helmet>
         {general.data && (
           <PageHeader name={general.data.data.attributes.geneName} />
         )}
