@@ -5,7 +5,10 @@ import ReactDOM from "react-dom"
 import { Provider } from "react-redux"
 import { ConnectedRouter } from "connected-react-router"
 import { ApolloProvider } from "react-apollo"
-import ApolloClient from "apollo-boost"
+import { ApolloClient } from "apollo-client"
+import { InMemoryCache } from "apollo-cache-inmemory"
+import { createHttpLink } from "apollo-link-http"
+import { createPersistedQueryLink } from "apollo-link-persisted-queries"
 import { hydrateStore } from "dicty-components-redux"
 import CssBaseline from "@material-ui/core/CssBaseline"
 
@@ -27,8 +30,15 @@ declare var process: {
 const initialState = hydrateStore({ key: "auth", namespace: "auth" })
 const store = configureStore(initialState)
 
+// set up automatic persisted queries
+// https://www.apollographql.com/docs/apollo-server/performance/apq/
+const link = createPersistedQueryLink().concat(
+  createHttpLink({ uri: `${process.env.REACT_APP_GRAPHQL_SERVER}/graphql` }),
+)
+
 const client = new ApolloClient({
-  uri: `${process.env.REACT_APP_GRAPHQL_SERVER}/graphql`,
+  link: link,
+  cache: new InMemoryCache(),
 })
 
 const setGoogleAnalytics = async () => {
