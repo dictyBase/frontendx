@@ -14,7 +14,7 @@ const SummaryLoader = () => (
   <div>
     <PageHeader />
     <AppBar position="static">
-      <Tabs value="summary">
+      <Tabs value={0}>
         <Tab label="Gene Summary" />
         <Tab label="Gene Ontology" />
       </Tabs>

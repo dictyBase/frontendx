@@ -7,7 +7,7 @@ import { connect } from "react-redux"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
-
+import LegacyLinkSnackbar from "common/components/LegacyLinkSnackbar"
 import OntologyTabContainer from "./OntologyTabContainer"
 import OntologyLoader from "./OntologyLoader"
 import ErrorPage from "common/components/ErrorPage"
@@ -45,9 +45,7 @@ export class OntologyContainer extends Component<Props> {
     if (identifier) {
       mainUrl = `${process.env.REACT_APP_FUNC_SERVER}/genes/${match.params.id}`
     } else {
-      mainUrl = `${process.env.REACT_APP_FUNC_SERVER}/genes/name/${
-        match.params.id
-      }`
+      mainUrl = `${process.env.REACT_APP_FUNC_SERVER}/genes/name/${match.params.id}`
     }
 
     fetchGeneralData(mainUrl)
@@ -103,24 +101,25 @@ export class OntologyContainer extends Component<Props> {
           </title>
           <meta
             name="description"
-            content={`Gene ontology annotations for ${
-              match.params.id
-            } at dictyBase`}
+            content={`Gene ontology annotations for ${match.params.id} at dictyBase`}
           />
         </Helmet>
         {general.data && (
           <PageHeader name={general.data.data.attributes.geneName} />
         )}
+        <LegacyLinkSnackbar id={match.params.id} />
         <AppBar position="static">
-          <Tabs value="goa" onChange={this.handleChange}>
-            <Tab
-              value="summary"
-              label="Gene Summary"
-              component={Link}
-              to={`/${match.params.id}`}
-            />
-            {general.data && this.generateTabs(general.data, match.params.id)}
-          </Tabs>
+          {general.data && (
+            <Tabs value="goa" onChange={this.handleChange}>
+              <Tab
+                value="summary"
+                label="Gene Summary"
+                component={Link}
+                to={`/${match.params.id}`}
+              />
+              {this.generateTabs(general.data, match.params.id)}
+            </Tabs>
+          )}
         </AppBar>
         <TypographyWrapper>
           <OntologyTabContainer />

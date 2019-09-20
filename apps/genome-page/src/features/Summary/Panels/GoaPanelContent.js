@@ -76,14 +76,16 @@ const GoaPanelContent = (props: Props) => {
                   <a
                     className={classes.link}
                     href={withLinkGenerator(xref.id, xref.db, xref.name)}
-                    target="_blank">
+                    target="_blank"
+                    rel="noopener noreferrer">
                     {xref.name}
                   </a>
                 ) : (
                   <a
                     className={classes.link}
                     href={withLinkGenerator(xref.id, xref.db)}
-                    target="_blank">
+                    target="_blank"
+                    rel="noopener noreferrer">
                     {xref.db}:{xref.id}
                   </a>
                 )}
@@ -100,14 +102,16 @@ const GoaPanelContent = (props: Props) => {
                   <a
                     className={classes.link}
                     href={withLinkGenerator(ext.id, ext.db, ext.name)}
-                    target="_blank">
+                    target="_blank"
+                    rel="noopener noreferrer">
                     {ext.name}
                   </a>
                 ) : (
                   <a
                     className={classes.link}
                     href={withLinkGenerator(ext.id, ext.db)}
-                    target="_blank">
+                    target="_blank"
+                    rel="noopener noreferrer">
                     {ext.db}:{ext.id}
                   </a>
                 )}{" "}
