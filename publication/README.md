@@ -1,13 +1,15 @@
+[![License](https://img.shields.io/badge/License-BSD%202--Clause-blue.svg)](LICENSE)
+
 ## Master branch
 
-[![Dependency Status](https://david-dm.org/dictyBase/Publication/master.svg?style=flat-square)](https://david-dm.org/dictyBase/Publication/master)
-[![devDependency Status](https://david-dm.org/dictyBase/Publication/master/dev-status.svg?style=flat-square)](https://david-dm.org/dictyBase/Publication/master?type=dev)
+[![Dependency Status](https://david-dm.org/dictyBase/publication/master.svg?style=flat-square)](https://david-dm.org/dictyBase/publication/master)
+[![devDependency Status](https://david-dm.org/dictyBase/publication/master/dev-status.svg?style=flat-square)](https://david-dm.org/dictyBase/publication/master?type=dev)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 ## Develop branch
 
-[![Dependency Status](https://david-dm.org/dictyBase/Publication/develop.svg?style=flat-square)](https://david-dm.org/dictyBase/Publication/develop)
-[![devDependency Status](https://david-dm.org/dictyBase/Publication/develop/dev-status.svg?style=flat-square)](https://david-dm.org/dictyBase/Publication/develop?type=dev)
+[![Dependency Status](https://david-dm.org/dictyBase/publication/develop.svg?style=flat-square)](https://david-dm.org/dictyBase/publication/develop)
+[![devDependency Status](https://david-dm.org/dictyBase/publication/develop/dev-status.svg?style=flat-square)](https://david-dm.org/dictyBase/publication/develop?type=dev)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 ## Web application to display genomic information at dictyBase
@@ -116,6 +118,6 @@ image](https://docs.docker.com/engine/reference/commandline/build/) and running
 it through [Kubernetes](https://k8s.io). More detailed information about the deployment process for DSC
 and all Dicty software can be found [here](https://github.com/dictyBase/Migration/blob/master/deploy.md).
 
-# Developers
+# Active Developers
 
 <a href="https://sourcerer.io/wildlifehexagon"><img src="https://sourcerer.io/assets/avatar/wildlifehexagon" height="80px" alt="Sourcerer"></a>
