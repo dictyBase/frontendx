@@ -22,7 +22,7 @@ const withLinkGenerator = (id: string, db: string, name: ?string) => {
     case "CHEBI":
       return `https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:${id}`
     case "DDANAT":
-      return `http://www.ontobee.org/ontology/DDANAT?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FDDANAT_${id}`
+      return `https://www.ebi.ac.uk/ols/ontologies/ddanat/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FDDANAT_${id}`
     case "DDB":
       return `https://testdb.dictybase.org/gene/${id}`
     case "dictyBase":
