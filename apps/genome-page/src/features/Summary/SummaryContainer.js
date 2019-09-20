@@ -9,7 +9,7 @@ import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import Grid from "@material-ui/core/Grid"
-
+import LegacyLinkSnackbar from "common/components/LegacyLinkSnackbar"
 import PanelWrapper from "common/components/panels/PanelWrapper"
 import PageHeader from "common/components/PageHeader"
 import TypographyWrapper from "common/components/TypographyWrapper"
@@ -48,9 +48,7 @@ export class SummaryContainer extends Component<Props> {
     if (identifier) {
       mainUrl = `${process.env.REACT_APP_FUNC_SERVER}/genes/${match.params.id}`
     } else {
-      mainUrl = `${process.env.REACT_APP_FUNC_SERVER}/genes/name/${
-        match.params.id
-      }`
+      mainUrl = `${process.env.REACT_APP_FUNC_SERVER}/genes/name/${match.params.id}`
     }
 
     fetchGeneralData(mainUrl)
@@ -149,6 +147,7 @@ export class SummaryContainer extends Component<Props> {
           {general.data && (
             <PageHeader name={general.data.data.attributes.geneName} />
           )}
+          <LegacyLinkSnackbar id={match.params.id} />
           <AppBar position="static">
             <Tabs value={general.currentTab} onChange={this.handleChange}>
               <Tab
