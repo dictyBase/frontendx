@@ -7,7 +7,7 @@ import { connect } from "react-redux"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
-
+import LegacyLinkSnackbar from "common/components/LegacyLinkSnackbar"
 import OntologyTabContainer from "./OntologyTabContainer"
 import OntologyLoader from "./OntologyLoader"
 import ErrorPage from "common/components/ErrorPage"
@@ -107,6 +107,7 @@ export class OntologyContainer extends Component<Props> {
         {general.data && (
           <PageHeader name={general.data.data.attributes.geneName} />
         )}
+        <LegacyLinkSnackbar id={match.params.id} />
         <AppBar position="static">
           {general.data && (
             <Tabs value="goa" onChange={this.handleChange}>
