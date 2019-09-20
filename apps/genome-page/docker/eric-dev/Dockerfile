@@ -11,6 +11,7 @@ WORKDIR /usr/src/app
 
 # copy only necessary files
 COPY package*.json ./
+COPY jsconfig.json ./
 
 RUN npm ci
 
