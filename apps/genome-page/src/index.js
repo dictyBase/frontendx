@@ -5,15 +5,32 @@ import ReactDOM from "react-dom"
 import { Provider } from "react-redux"
 import { ConnectedRouter } from "connected-react-router"
 import { hydrateStore } from "dicty-components-redux"
-import { MuiThemeProvider } from "@material-ui/core/styles"
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles"
 import CssBaseline from "@material-ui/core/CssBaseline"
-
 import configureStore from "app/store/configureStore"
 import history from "common/utils/routerHistory"
 import App from "app/layout/App"
-import muiTheme from "styles/muiTheme"
 import registerServiceWorker from "./registerServiceWorker"
 import "typeface-roboto"
+
+const muiTheme = createMuiTheme({
+  overrides: {
+    MuiTab: {
+      root: {
+        textTransform: "none",
+      },
+    },
+    MuiTabs: {
+      root: {
+        backgroundColor: "#cce6ff",
+        color: "#000",
+      },
+      indicator: {
+        backgroundColor: "#858780",
+      },
+    },
+  },
+})
 
 // load state from localStorage(if any) to set the initial state for the store
 const initialState = hydrateStore({ key: "auth", namespace: "auth" })
