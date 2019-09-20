@@ -18,7 +18,7 @@ const styles = (theme: Theme) =>
       width: "70%",
       marginLeft: "auto",
       marginRight: "auto",
-      [theme.breakpoints.up(1300 + theme.spacing.unit * 3 * 2)]: {
+      [theme.breakpoints.up(1300 + theme.spacing(3) * 2)]: {
         width: 1300,
         marginLeft: "auto",
         marginRight: "auto",
@@ -96,7 +96,7 @@ export const PublicationContainer = (props: FullProps) => {
         if (error) return <ErrorPage error={error} />
 
         return (
-          <Grid container spacing={16} className={classes.layout}>
+          <Grid container spacing={2} className={classes.layout}>
             <Helmet>
               <title>dictyBase Literature - {data.publication.title}</title>
               <meta
