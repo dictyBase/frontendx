@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.js": "/gene/build/main.81337061.js",
+    "runtime-main.js": "/gene/build/bundle.ea870005.js",
+    "static/css/2.31c70e1d.chunk.css": "/gene/static/css/2.31c70e1d.chunk.css",
+    "build/2.cb00c2a8.js": "/gene/build/2.cb00c2a8.js",
+    "index.html": "/gene/index.html",
+    "precache-manifest.b1e93d37da28fdf7f68077e3f29ad593.js": "/gene/precache-manifest.b1e93d37da28fdf7f68077e3f29ad593.js",
+    "service-worker.js": "/gene/service-worker.js",
+    "static/css/2.31c70e1d.chunk.css.map": "/gene/static/css/2.31c70e1d.chunk.css.map",
+    "static/media/academicons.min.css": "/gene/static/media/academicons.ea3755c3.eot",
+    "static/media/font-awesome.min.css": "/gene/static/media/fontawesome-webfont.fee66e71.woff",
+    "static/media/logo.png": "/gene/static/media/logo.4eeedc37.png",
+    "static/media/index.css": "/gene/static/media/roboto-latin-900italic.bc833e72.woff",
+    "static/media/sad-dicty.png": "/gene/static/media/sad-dicty.98bec487.png"
+  }
+}
