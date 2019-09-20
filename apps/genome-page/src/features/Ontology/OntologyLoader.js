@@ -19,6 +19,10 @@ const skeletonTheme = createMuiTheme({
         backgroundColor: "#DFE8F6",
         color: "#000",
       },
+      indicator: {
+        backgroundColor: "#858780",
+        height: "3px",
+      },
     },
   },
 })
@@ -31,14 +35,14 @@ const OntologyLoader = () => (
   <div>
     <PageHeader />
     <AppBar position="static">
-      <Tabs value="goa">
+      <Tabs value={1}>
         <Tab label="Gene Summary" />
         <Tab label="Gene Ontology" />
       </Tabs>
     </AppBar>
     <MuiThemeProvider theme={skeletonTheme}>
       <AppBar position="static">
-        <Tabs value="goa">
+        <Tabs value={0}>
           <Tab label="All GO" />
           <Tab label="Experimental GO" />
           <Tab label="Manual GO" />
