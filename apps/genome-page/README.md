@@ -1,15 +1,15 @@
+[![License](https://img.shields.io/badge/License-BSD%202--Clause-blue.svg)](LICENSE)
+
 ## Master branch
 
-[![Build Status](https://travis-ci.org/dictyBase/Genomepage.svg?branch=master)](https://travis-ci.org/dictyBase/Genomepage)
-[![Dependency Status](https://david-dm.org/dictybase/genomepage/master.svg?style=flat-square)](https://david-dm.org/dictybase/genomepage/master)
-[![devDependency Status](https://david-dm.org/dictybase/genomepage/master/dev-status.svg?style=flat-square)](https://david-dm.org/dictybase/genomepage/master?type=dev)
+[![Dependency Status](https://david-dm.org/dictyBase/genomepage/master.svg?style=flat-square)](https://david-dm.org/dictyBase/genomepage/master)
+[![devDependency Status](https://david-dm.org/dictyBase/genomepage/master/dev-status.svg?style=flat-square)](https://david-dm.org/dictyBase/genomepage/master?type=dev)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 ## Develop branch
 
-[![Build Status](https://travis-ci.org/dictyBase/Genomepage.svg?branch=develop)](https://travis-ci.org/dictyBase/Genomepage)
-[![Dependency Status](https://david-dm.org/dictybase/genomepage/develop.svg?style=flat-square)](https://david-dm.org/dictybase/genomepage/develop)
-[![devDependency Status](https://david-dm.org/dictybase/genomepage/develop/dev-status.svg?style=flat-square)](https://david-dm.org/dictybase/genomepage/develop?type=dev)
+[![Dependency Status](https://david-dm.org/dictyBase/genomepage/develop.svg?style=flat-square)](https://david-dm.org/dictyBase/genomepage/develop)
+[![devDependency Status](https://david-dm.org/dictyBase/genomepage/develop/dev-status.svg?style=flat-square)](https://david-dm.org/dictyBase/genomepage/develop?type=dev)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 ## Web application to display genomic information at dictyBase
@@ -136,7 +136,7 @@ Starting with version `2.0.0` of the application, the following Kubeless functio
 
 **Important**: make sure you are using the latest versions. Follow the documentation on each of these pages in order to deploy them.
 
-# Developers
+# Active Developers
 
 <a href="https://sourcerer.io/wildlifehexagon"><img src="https://sourcerer.io/assets/avatar/wildlifehexagon" height="80px" alt="Sourcerer"></a>
 <a href="https://sourcerer.io/cybersiddhu"><img src="https://sourcerer.io/assets/avatar/cybersiddhu" height="80px" alt="Sourcerer"></a>
