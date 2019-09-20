@@ -28,22 +28,21 @@ const WithDisplay = (props: Props) => {
       {withData.map((item, i) => (
         <Fragment key={i}>
           <span>
-            {!item.name && (
-              <a
-                className={classes.link}
-                href={withLinkGenerator(item.id, item.db)}
-                target="_blank"
-                rel="noopener noreferrer">
-                {item.db}:{item.id}
-              </a>
-            )}
-            {item.name && (
+            {item.name ? (
               <a
                 className={classes.link}
                 href={withLinkGenerator(item.id, item.db, item.name)}
                 target="_blank"
                 rel="noopener noreferrer">
                 {item.name}
+              </a>
+            ) : (
+              <a
+                className={classes.link}
+                href={withLinkGenerator(item.id, item.db)}
+                target="_blank"
+                rel="noopener noreferrer">
+                {item.db}:{item.id}
               </a>
             )}
           </span>
