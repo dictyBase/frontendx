@@ -91,7 +91,8 @@ export class DisplayTable extends Component<Props> {
                     <a
                       className={classes.link}
                       href={evidenceLinkGenerator(item.evidence_code)}
-                      target="_blank">
+                      target="_blank"
+                      rel="noopener noreferrer">
                       {item.evidence_code}
                     </a>
                   </TableCell>
@@ -104,7 +105,8 @@ export class DisplayTable extends Component<Props> {
                     <a
                       className={classes.link}
                       href={pubLinkGenerator(item.publication)}
-                      target="_blank">
+                      target="_blank"
+                      rel="noopener noreferrer">
                       {item.publication}
                     </a>
                   </TableCell>
@@ -115,7 +117,8 @@ export class DisplayTable extends Component<Props> {
                     <a
                       className={classes.link}
                       href={sourceLinkGenerator(item.assigned_by)}
-                      target="_blank">
+                      target="_blank"
+                      rel="noopener noreferrer">
                       {item.assigned_by}
                     </a>
                   </TableCell>

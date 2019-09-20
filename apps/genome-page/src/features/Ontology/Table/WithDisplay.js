@@ -32,7 +32,8 @@ const WithDisplay = (props: Props) => {
               <a
                 className={classes.link}
                 href={withLinkGenerator(item.id, item.db)}
-                target="_blank">
+                target="_blank"
+                rel="noopener noreferrer">
                 {item.db}:{item.id}
               </a>
             )}
@@ -40,7 +41,8 @@ const WithDisplay = (props: Props) => {
               <a
                 className={classes.link}
                 href={withLinkGenerator(item.id, item.db, item.name)}
-                target="_blank">
+                target="_blank"
+                rel="noopener noreferrer">
                 {item.name}
               </a>
             )}
