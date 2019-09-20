@@ -11,7 +11,7 @@ const styles = (theme: Theme) =>
       width: "70%",
       marginLeft: "auto",
       marginRight: "auto",
-      [theme.breakpoints.up(1300 + theme.spacing.unit * 3 * 2)]: {
+      [theme.breakpoints.up(1300 + theme.spacing(3) * 2)]: {
         width: 1300,
         marginLeft: "auto",
         marginRight: "auto",
@@ -33,7 +33,7 @@ export const PublicationLoader = (props: Props) => {
   const { classes } = props
 
   return (
-    <Grid container spacing={16} className={classes.layout}>
+    <Grid container spacing={2} className={classes.layout}>
       <Grid item xs={12}>
         <h1 className={classes.title}>dictyBase Literature</h1>
       </Grid>
