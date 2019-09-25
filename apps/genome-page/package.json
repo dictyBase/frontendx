@@ -26,11 +26,12 @@
     "@material-ui/icons": "^4.2.1",
     "ProtVista": "^2.0.13",
     "connected-react-router": "^6.5.2",
-    "dicty-components-header-footer": "github:dictyBase/dicty-components-header-footer#9.0.0",
-    "dicty-components-login": "github:dictyBase/dicty-components-login#v1.4.0",
-    "dicty-components-navbar": "github:dictyBase/dicty-components-navbar#v0.2.0",
+    "dicty-components-header-footer": "github:dictyBase/dicty-components-header-footer#10.0.1",
+    "dicty-components-login": "github:dictyBase/dicty-components-login#3.0.1",
+    "dicty-components-navbar": "github:dictyBase/dicty-components-navbar#2.0.0",
     "dicty-components-redux": "github:dictybase-playground/dicty-components-redux#v2.3.0",
     "element-remove": "^1.0.4",
+    "font-awesome": "^4.7.0",
     "jwt-decode": "^2.2.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -46,6 +47,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "string.prototype.includes": "^1.0.0",
+    "typeface-roboto": "0.0.75",
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
