@@ -106,7 +106,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged && CI=true npm run test",
+      "post-commit": "npm run local-ci-eric"
     }
   },
   "config": {
