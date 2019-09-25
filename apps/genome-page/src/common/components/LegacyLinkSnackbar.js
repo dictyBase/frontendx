@@ -4,13 +4,15 @@ import Grid from "@material-ui/core/Grid"
 import SnackbarContent from "@material-ui/core/SnackbarContent"
 import { makeStyles } from "@material-ui/core/styles"
 import InfoIcon from "@material-ui/icons/Info"
+import LaunchIcon from "@material-ui/icons/Launch"
 
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundColor: "#a8a8a8",
+    backgroundColor: "#f5f5f5",
     marginBottom: "20px",
     paddingTop: 0,
     paddingBottom: 0,
+    color: "rgba(0, 0, 0, 0.87)",
   },
   icon: {
     paddingRight: "5px",
@@ -26,6 +28,9 @@ const useStyles = makeStyles(theme => ({
     textDecoration: "none",
     color: "#4C5E81",
   },
+  linkIcon: {
+    verticalAlign: "middle",
+  },
 }))
 
 type Props = {
@@ -37,7 +42,7 @@ const LegacyLinkSnackbar = ({ id }: Props) => {
 
   return (
     <Grid container justify="center">
-      <Grid item xs={10} lg={10}>
+      <Grid item xs={10} lg={10} xl={8}>
         <SnackbarContent
           className={classes.root}
           classes={{ message: classes.message }}
@@ -51,8 +56,12 @@ const LegacyLinkSnackbar = ({ id }: Props) => {
                 the meantime you can visit our{" "}
                 <a
                   href={`http://dictybase.org/gene/${id}`}
-                  className={classes.link}>
-                  legacy page
+                  className={classes.link}
+                  title={`Legacy gene page for ${id}`}
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  legacy page{" "}
+                  <LaunchIcon fontSize="inherit" className={classes.linkIcon} />
                 </a>{" "}
                 for more detailed information about this gene.
               </p>
