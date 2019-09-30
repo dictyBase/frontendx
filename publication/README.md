@@ -58,6 +58,7 @@ on `pre-commit` and run [Skaffold](https://github.com/GoogleContainerTools/skaff
 
 This app requires the following services to be running:
 
+- [pubfn](https://github.com/dictybase-playground/kubeless-gofn/tree/master/publication)
 - [graphql-server](https://github.com/dictyBase/graphql-server)
 - [modware-user](https://github.com/dictyBase/modware-user) (used for login)
 - [authserver](https://github.com/dictyBase/authserver) (used for login)
