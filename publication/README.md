@@ -1,91 +1,72 @@
-[![License](https://img.shields.io/badge/License-BSD%202--Clause-blue.svg)](LICENSE)
+# publication
 
-## Master branch
-
-[![Dependency Status](https://david-dm.org/dictyBase/publication/master.svg?style=flat-square)](https://david-dm.org/dictyBase/publication/master)
-[![devDependency Status](https://david-dm.org/dictyBase/publication/master/dev-status.svg?style=flat-square)](https://david-dm.org/dictyBase/publication/master?type=dev)
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-
-## Develop branch
-
+[![License](https://img.shields.io/badge/License-BSD%202--Clause-blue.svg)](LICENSE)  
+![GitHub action](https://github.com/dictyBase/publication/workflows/Node%20CI/badge.svg)
 [![Dependency Status](https://david-dm.org/dictyBase/publication/develop.svg?style=flat-square)](https://david-dm.org/dictyBase/publication/develop)
 [![devDependency Status](https://david-dm.org/dictyBase/publication/develop/dev-status.svg?style=flat-square)](https://david-dm.org/dictyBase/publication/develop?type=dev)
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+![GitHub tag](https://img.shields.io/github/v/tag/dictyBase/publication)  
+![Commits](https://badgen.net/github/commits/dictyBase/publication/develop)
+![Last commit](https://badgen.net/github/last-commit/dictyBase/publication/develop)
+![Branches](https://badgen.net/github/branches/dictyBase/publication)
+![Tags](https://badgen.net/github/tags/dictyBase/publication)
+![GitHub repo size](https://img.shields.io/github/repo-size/dictyBase/publication?style=plastic)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/dictyBase/publication?style=plastic)
+[![Lines of Code](https://badgen.net/codeclimate/loc/dictyBase/publication)](https://codeclimate.com/github/dictyBase/publication/code)  
+![Issues](https://badgen.net/github/issues/dictyBase/publication)
+![Open Issues](https://badgen.net/github/open-issues/dictyBase/publication)
+![Closed Issues](https://badgen.net/github/closed-issues/dictyBase/publication)
+![Total PRS](https://badgen.net/github/prs/dictyBase/publication)
+![Open PRS](https://badgen.net/github/open-prs/dictyBase/publication)
+![Closed PRS](https://badgen.net/github/closed-prs/dictyBase/publication)
+![Merged PRS](https://badgen.net/github/merged-prs/dictyBase/publication)  
+[![Technical debt](https://badgen.net/codeclimate/tech-debt/dictyBase/publication)](https://codeclimate.com/github/dictyBase/publication/trends/technical_debt)
+[![Issues](https://badgen.net/codeclimate/issues/dictyBase/publication)](https://codeclimate.com/github/dictyBase/publication/issues)
+[![Maintainability percentage](https://badgen.net/codeclimate/maintainability-percentage/dictyBase/publication)](https://codeclimate.com/github/dictyBase/publication)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=dictyBase/publication)](https://dependabot.com)  
+[![Funding](https://badgen.net/badge/NIGMS/Rex%20L%20Chisholm,dictyBase/yellow?list=|)](https://projectreporter.nih.gov/project_info_description.cfm?aid=9476993)
+[![Funding](https://badgen.net/badge/NIGMS/Rex%20L%20Chisholm,DSC/yellow?list=|)](https://projectreporter.nih.gov/project_info_description.cfm?aid=9438930)
 
-## Web application to display genomic information at dictyBase
+This is the [Publication](https://testdb.dictybase.org/publication/26088819) application to display publication information at dictyBase.
 
-- [Development](#development)
-  - [Configuration](#configuration)
-    - [Providers](#providers)
-    - [Auth server](#auth-server)
-    - [GraphQL server](#graphql-server)
-    - [Navbar and footer](#navbar-and-footer)
-  - [Semantic Versioning](#semantic-versioning)
-  - [Running the application(dev version)](#running-the-application-dev-version)
-  - [Application Structure](#application-structure)
-- [Deployment](#deployment)
-- [Developers](#developers)
+## Cloud Native Development
 
-# Development
+All dictyBase development is now done with cloud native development in mind. It is expected
+that you have your own [Kubernetes](https://kubernetes.io/) cluster running. Documentation
+for the cloud deployment process can be found [here](https://github.com/dictyBase/Migration/tree/master/deployment).
 
-- First clone this repository.
-- Next configure the application as described below.
+The general idea is that after every git commit a new Docker image is built based on that commit,
+pushed to Docker Hub, then the corresponding Helm chart is upgraded with that image tag
+inside your cluster.
 
-## Configuration
+## Local Development
 
-### Providers
+In order for this application's login system to work locally, you will need to
+configure the list of providers.
 
-- Copy the provided sample [clientConfig.sample.js](src/utils/clientConfig.sample.js) file
+- Copy the provided sample [clientConfig.sample.js](src/common/utils/clientConfig.sample.js) file
   to **clientConfig.js** in the same folder.
-- Then add the provider names and their corresponding client IDs.
-- All the providers should have a matching counterpart in the
-  [oauthConfig.js](src/common/utils/oauthConfig.js) file. Fill up all the
+- Add any provider names and their corresponding client IDs.
+- All providers should have a matching counterpart in the
+  [oauthConfig.js](src/common/utils/oauthConfig.js) file. Fill up all of the
   configuration parameters for every new provider in that file.
-- For each of the provider names, a corresponding login button will be shown
-  in the login route. The list of supported buttons are given
-  [here](http://fontawesome.io/icons/#brand)
 
-### Auth server
+After setting up the login providers, you can run `npm install` and `npm start` as usual.
+There are also [husky](https://github.com/typicode/husky) scripts set up to run unit tests
+on `pre-commit` and run [Skaffold](https://github.com/GoogleContainerTools/skaffold) on `post-commit`.
 
-- By default, the application expects it to run on `https://betatoken.dictybase.local`
-- The url of the auth server can be configured by **REACT_APP_AUTH_SERVER** environmental variable.
-- The binaries for the auth server can be downloaded from its release
-  [page](https://github.com/dictyBase/authserver/releases). Download the one that is
-  suitable for your OS and make sure you always use the latest one.
-- The **REACT_APP_AUTH_SERVER** env variable can also be customized by modifying the
-  global variable in the [env](.env.development) file.
+## Backend Requirements
 
-### GraphQL server
+This app requires the following services to be running:
 
-- By default, the application expects it to run on `http://localhost:8080`
-- The url of the GraphQL server can be configured by modifying the **REACT_APP_GRAPHQL_SERVER** environmental variable in the [env](.env.development) file.
+- [graphql-server](https://github.com/dictyBase/graphql-server)
+- [modware-user](https://github.com/dictyBase/modware-user) (used for login)
+- [authserver](https://github.com/dictyBase/authserver) (used for login)
 
-### Navbar and Footer
-
-- The application has env variables for `REACT_APP_NAVBAR_JSON` and `REACT_APP_FOOTER_JSON` that are set to
-  the corresponding URLs where the JSON data is stored on GitHub.
-
-## Semantic Versioning
-
-This app has been set up to use [semantic-release](https://github.com/semantic-release/semantic-release) and [commitizen](https://github.com/commitizen/cz-cli). After adding a new commit (`git add .`), use `npm run cz` and follow the prompts to categorize and provide more details about your commit. Once complete, push your changes to whatever branch you are working on.
-
-When you are ready to push to prod, you can use `semantic-release` to automate the release process:
-
-- Merge your changes into `master`
-- Run `npx semantic-release`
-
-**Important:** you MUST have an env variable stored for `GH_TOKEN` or `GITHUB_TOKEN` that contains a GitHub [personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/). You can either pass this in manually when you run the script (i.e. `GH_TOKEN=XXX npx semantic-release`) or you can [store your env variable locally](https://www.schrodinger.com/kb/1842).
-
-This will look at your most recent commits since the last `git tag` and automatically determine the appropriate version number for your release. It also updates the [CHANGELOG](./CHANGELOD.md) documentation.
-
-## Running the application (dev version)
-
-- `npm install`
-- `npm start`
+It also relies on the navbar, footer and dashboard JSON files found in the
+[migration-data](https://github.com/dictyBase/migration-data) repository. An example
+of the necessary environmental variables can be found [here](.env.development).
 
 ## Application Structure
-
-This was built using the [create-react-app](https://github.com/facebook/create-react-app) structure and philosophy. Please read their [User Guide](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md) for more detailed information.
 
 ```
 .
@@ -111,13 +92,7 @@ This was built using the [create-react-app](https://github.com/facebook/create-r
 └──                             # Config files
 ```
 
-# Deployment
-
-The application is deployed by [building a Docker
-image](https://docs.docker.com/engine/reference/commandline/build/) and running
-it through [Kubernetes](https://k8s.io). More detailed information about the deployment process for DSC
-and all Dicty software can be found [here](https://github.com/dictyBase/Migration/blob/master/deploy.md).
-
-# Active Developers
+## Active Developers
 
 <a href="https://sourcerer.io/wildlifehexagon"><img src="https://sourcerer.io/assets/avatar/wildlifehexagon" height="80px" alt="Sourcerer"></a>
+<a href="https://sourcerer.io/cybersiddhu"><img src="https://sourcerer.io/assets/avatar/cybersiddhu" height="80px" alt="Sourcerer"></a>
