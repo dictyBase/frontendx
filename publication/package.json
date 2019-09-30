@@ -34,7 +34,7 @@
     "dicty-components-navbar": "github:dictyBase/dicty-components-navbar#2.0.0",
     "dicty-components-redux": "github:dictybase-playground/dicty-components-redux",
     "element-remove": "^1.0.4",
-    "graphql": "^14.2.1",
+    "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
     "react": "^16.8.5",
     "react-apollo": "^2.5.3",
