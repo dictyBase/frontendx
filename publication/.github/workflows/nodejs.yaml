@@ -20,7 +20,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: npm install and test
         run: |
-          mv src/common/utils/clientConfig.sample.js src/common/utils/clientConfig.js
+          mv src/common/utils/clientConfig.sample.ts src/common/utils/clientConfig.ts
           npm ci
           npm test
         env:
