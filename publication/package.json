@@ -116,14 +116,15 @@
     }
   },
   "release": {
-    "noCi": true,
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/github"
+    ],
+    "ci": false,
     "tagFormat": "${version}",
     "verifyConditions": [
-      "@semantic-release/changelog",
       "@semantic-release/git"
-    ],
-    "prepare": [
-      "@semantic-release/changelog"
     ],
     "publish": [
       "@semantic-release/github"
