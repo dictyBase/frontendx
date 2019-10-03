@@ -51,7 +51,6 @@
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
-    "@semantic-release/changelog": "^3.0.4",
     "@semantic-release/git": "^7.0.16",
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^2.1.0",
@@ -86,14 +85,15 @@
     }
   },
   "release": {
-    "noCi": true,
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/github"
+    ],
+    "ci": false,
     "tagFormat": "${version}",
     "verifyConditions": [
-      "@semantic-release/changelog",
       "@semantic-release/git"
-    ],
-    "prepare": [
-      "@semantic-release/changelog"
     ],
     "publish": [
       "@semantic-release/github"
