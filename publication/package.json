@@ -67,7 +67,7 @@
     "jest-enzyme": "^7.0.2",
     "jss": "^9.8.7",
     "jwt-decode": "^2.2.0",
-    "lint-staged": "^8.1.5",
+    "lint-staged": "^9.4.2",
     "nightwatch": "^1.2.4",
     "prettier": "^1.16.4",
     "react-docgen-typescript": "^1.12.3",
