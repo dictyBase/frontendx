@@ -55,8 +55,6 @@ interface Props {
 export const ErrorPage = (props: Props) => {
   const { classes, error } = props
 
-  console.log(error)
-
   return (
     <Grid container className={classes.mainGrid} justify="center">
       <Grid item xs={10} md={8}>

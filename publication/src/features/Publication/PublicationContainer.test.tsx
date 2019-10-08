@@ -4,12 +4,12 @@ import "../../setupTests"
 import { MockedProvider } from "react-apollo/test-utils"
 import { BrowserRouter } from "react-router-dom"
 import PublicationContainer, { GET_PUBLICATION } from "./PublicationContainer"
-import LeftSidebar from "./LeftSidebar"
-import PublicationDisplay from "./PublicationDisplay"
-import Grid from "@material-ui/core/Grid"
-import wait from "waait"
+// import LeftSidebar from "./LeftSidebar"
+// import PublicationDisplay from "./PublicationDisplay"
+// import Grid from "@material-ui/core/Grid"
+// import wait from "waait"
 
-describe("Publication/PublicationContainer", async () => {
+describe("Publication/PublicationContainer", () => {
   const mocks = [
     {
       request: {
