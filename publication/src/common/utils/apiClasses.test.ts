@@ -135,17 +135,13 @@ describe("API Classes", () => {
       })
 
       it("verifies token", () => {
-        let dateNowSpy = jest
-          .spyOn(Date, "now")
-          .mockImplementation(() => 1487076708000) // 2017-02-14
+        jest.spyOn(Date, "now").mockImplementation(() => 1487076708000) // 2017-02-14
 
         const token = instance.verifyToken()
         expect(token).toBe(true)
       })
       it("says token is invalid", () => {
-        let dateNowSpy = jest
-          .spyOn(Date, "now")
-          .mockImplementation(() => 1932701199000) // 2031-03-31
+        jest.spyOn(Date, "now").mockImplementation(() => 1932701199000) // 2031-03-31
 
         const token = instance.verifyToken()
         expect(token).toBe(false)

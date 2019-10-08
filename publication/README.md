@@ -88,7 +88,6 @@ of the necessary environmental variables can be found [here](.env.development).
 │       ├── utils               # Application utilities
 │   ├── features                # Main features of application
 │       ├── Authentication      # Authentication-related components
-│       ├── MainPage            # Component for the / route, displays example genes
 │       ├── Publication         # All components related to publication retrieval/display
 │   └── index.tsx               # Application rendering
 └──                             # Config files
