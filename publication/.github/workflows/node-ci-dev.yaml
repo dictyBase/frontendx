@@ -48,15 +48,25 @@ jobs:
     needs: build
     runs-on: ubuntu-18.04
     steps:
-      - name: Audit live URL
+      - name: audit live URL
         uses: docker://dictybase/lighthouse-audit:latest
         with:
           url: "https://eric.dictybase.dev/publication/26088819"
-      - name: Upload results as an artifact
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN}}
+          BUCKET_PATH: https://ericstorage.dictybase.dev/lighthouse
+      - name: upload results as an artifact
         uses: actions/upload-artifact@master
         with:
           name: report
           path: "./report"
+      - name: upload results to minio
+        uses: docker://dictybase/file-uploader:latest
+        with:
+          args: "minio --folder report --minio-bucket lighthouse"
+        env:
+          MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
+          MINIO_SECRET_KEY: ${{ secrets.MINIO_SECRET_KEY }}
   snapshots:
     needs: build
     runs-on: ubuntu-18.04
@@ -77,9 +87,15 @@ jobs:
           name: snapshots
           path: "./nightwatch/reports"
       - name: upload snapshots to minio
-        uses: docker://dictybase/snapshot-upload:app
+        uses: docker://dictybase/file-uploader:latest
         with:
-          args: "--folder ./nightwatch/reports"
+          args: "minio --folder ./nightwatch/reports --minio-bucket snapshots"
         env:
           MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
           MINIO_SECRET_KEY: ${{ secrets.MINIO_SECRET_KEY }}
+      - name: add snapshots to github issue
+        uses: docker://dictybase/snapshot-issue-creator:latest
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN}}
+          BUCKET_PATH: https://ericstorage.dictybase.dev/snapshots
+          FILE_PATH: "./nightwatch/reports"
