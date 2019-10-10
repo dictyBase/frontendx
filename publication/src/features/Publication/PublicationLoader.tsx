@@ -8,7 +8,7 @@ import { Theme } from "@material-ui/core/styles/createMuiTheme"
 const styles = (theme: Theme) =>
   createStyles({
     layout: {
-      width: "70%",
+      width: "75%",
       marginLeft: "auto",
       marginRight: "auto",
       [theme.breakpoints.up(1300 + theme.spacing(3) * 2)]: {
@@ -16,9 +16,19 @@ const styles = (theme: Theme) =>
         marginLeft: "auto",
         marginRight: "auto",
       },
+      [theme.breakpoints.down("sm")]: {
+        width: "90%",
+        marginLeft: "auto",
+        marginRight: "auto",
+      },
     },
     title: {
       textAlign: "center",
+    },
+    sidebar: {
+      [theme.breakpoints.down("sm")]: {
+        textAlign: "center",
+      },
     },
   })
 
@@ -26,6 +36,7 @@ interface Props {
   classes: {
     layout: string
     title: string
+    sidebar: string
   }
 }
 
@@ -37,7 +48,7 @@ export const PublicationLoader = (props: Props) => {
       <Grid item xs={12}>
         <h1 className={classes.title}>dictyBase Literature</h1>
       </Grid>
-      <Grid item xs={3}>
+      <Grid item xs={3} className={classes.sidebar}>
         <Skeleton count={5} />
       </Grid>
       <Grid item xs={9}>

@@ -57,7 +57,7 @@ export const JournalData = (props: Props) => {
         </span>
       </div>
       <Grid container>
-        <Grid item xs={4}>
+        <Grid item xs={12} sm={4}>
           DOI:{" "}
           <a
             href={doiURL}
@@ -67,7 +67,7 @@ export const JournalData = (props: Props) => {
             {data.doi}
           </a>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} sm={4}>
           PMID:{" "}
           <a
             href={pubmedURL}

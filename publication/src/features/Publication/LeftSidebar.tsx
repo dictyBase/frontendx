@@ -1,20 +1,25 @@
 import React from "react"
 import { withStyles } from "@material-ui/core/styles"
+import { Theme } from "@material-ui/core/styles/createMuiTheme"
 import createStyles from "@material-ui/core/styles/createStyles"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Publication } from "./PublicationContainer"
 
-const styles = createStyles({
-  link: {
-    textDecoration: "none",
-    color: "#0059b3",
-  },
-  section: {
-    position: "sticky",
-    top: 40,
-    paddingTop: "20px",
-  },
-})
+const styles = (theme: Theme) =>
+  createStyles({
+    link: {
+      textDecoration: "none",
+      color: "#0059b3",
+    },
+    section: {
+      position: "sticky",
+      top: 40,
+      paddingTop: "25px",
+      [theme.breakpoints.down("xs")]: {
+        paddingTop: "0px",
+      },
+    },
+  })
 
 interface Props extends Publication {
   classes: {
