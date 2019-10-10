@@ -15,7 +15,7 @@ import ErrorPage from "../../common/components/ErrorPage"
 const styles = (theme: Theme) =>
   createStyles({
     layout: {
-      width: "70%",
+      width: "75%",
       marginLeft: "auto",
       marginRight: "auto",
       [theme.breakpoints.up(1300 + theme.spacing(3) * 2)]: {
@@ -23,9 +23,19 @@ const styles = (theme: Theme) =>
         marginLeft: "auto",
         marginRight: "auto",
       },
+      [theme.breakpoints.down("sm")]: {
+        width: "90%",
+        marginLeft: "auto",
+        marginRight: "auto",
+      },
     },
     title: {
       textAlign: "center",
+    },
+    sidebar: {
+      [theme.breakpoints.down("sm")]: {
+        textAlign: "center",
+      },
     },
   })
 
@@ -33,6 +43,7 @@ interface Props {
   classes: {
     layout: string
     title: string
+    sidebar: string
   }
 }
 
@@ -96,23 +107,21 @@ export const PublicationContainer = (props: FullProps) => {
         if (error) return <ErrorPage error={error} />
 
         return (
-          <Grid container spacing={2} className={classes.layout}>
+          <Grid container className={classes.layout}>
             <Helmet>
               <title>dictyBase Literature - {data.publication.title}</title>
               <meta
                 name="description"
-                content={`dictyBase literature page for title ${
-                  data.publication.title
-                }`}
+                content={`dictyBase literature page for title ${data.publication.title}`}
               />
             </Helmet>
             <Grid item xs={12}>
               <h1 className={classes.title}>dictyBase Literature</h1>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={12} sm={2} className={classes.sidebar}>
               <LeftSidebar data={data} />
             </Grid>
-            <Grid item xs={10}>
+            <Grid item xs={12} sm={10}>
               <PublicationDisplay data={data} />
             </Grid>
           </Grid>
