@@ -11,7 +11,7 @@ describe("Ontology/InnerGoPanel", () => {
   const wrapper = shallow(<InnerGoPanel {...props} />)
   describe("initial render", () => {
     it("renders without crashing", () => {
-      wrapper
+      expect(wrapper).toHaveLength(1)
     })
 
     it("always renders two Grid components", () => {

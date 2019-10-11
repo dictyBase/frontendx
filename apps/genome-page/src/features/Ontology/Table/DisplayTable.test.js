@@ -15,7 +15,7 @@ describe("Ontology/DisplayTable", () => {
   const wrapper = shallow(<DisplayTable {...props} />)
   describe("initial render", () => {
     it("renders without crashing", () => {
-      wrapper
+      expect(wrapper).toHaveLength(1)
     })
 
     it("always renders one Table", () => {
