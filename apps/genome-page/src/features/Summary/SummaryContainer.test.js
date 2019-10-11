@@ -1,5 +1,4 @@
 import React from "react"
-import { BrowserRouter } from "react-router-dom"
 import { shallow } from "enzyme"
 import sinon from "sinon"
 import "../../setupTests"
@@ -67,7 +66,7 @@ describe("Summary/SummaryContainer", () => {
 
   describe("initial render", () => {
     it("renders without crashing", () => {
-      wrapper
+      expect(wrapper).toHaveLength(1)
     })
 
     it("calls componentDidMount once", () => {

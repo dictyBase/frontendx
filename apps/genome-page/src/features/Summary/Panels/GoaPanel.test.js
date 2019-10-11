@@ -89,7 +89,7 @@ describe("Summary/Panels/GoaPanel", () => {
 
   describe("initial render", () => {
     it("renders without crashing", () => {
-      wrapper
+      expect(wrapper).toHaveLength(1)
     })
 
     it("always renders three ItemDisplay components", () => {
