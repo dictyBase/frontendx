@@ -9,7 +9,7 @@
         "allow": ["log", "warn", "error"]
       }
     ],
-    "arrow-body-style": ["error", "as-needed"],
+    "arrow-body-style": ["warn", "as-needed"],
     "arrow-parens": ["error", "as-needed"],
     "react/jsx-filename-extension": ["off"],
     "react/prop-types": ["off"],

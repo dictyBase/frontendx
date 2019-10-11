@@ -11,7 +11,7 @@ describe("Ontology/OntologyTabContainer", () => {
   const wrapper = shallow(<OntologyTabContainer {...props} />)
   describe("initial render", () => {
     it("renders without crashing", () => {
-      wrapper
+      expect(wrapper).toHaveLength(1)
     })
   })
 })
