@@ -24,7 +24,7 @@ ADD $CLIENT_KEYS /usr/src/app/src/common/utils/clientConfig.js
 
 RUN npm run build
 
-FROM dictybase/static-server:2.0.2
+FROM dictybase/static-server:pwa
 RUN mkdir /www
 WORKDIR /www
 COPY --from=0 /usr/src/app/build ./
