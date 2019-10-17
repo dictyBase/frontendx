@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { useEffect } from "react"
 import { compose } from "redux"
 import { connect } from "react-redux"
 import { withRouter } from "react-router-dom"
@@ -70,38 +70,37 @@ interface Props {
  * It is responsible for the main layout of the entire application.
  */
 
-export class App extends Component<Props, {}> {
-  componentDidMount() {
-    const { fetchNavbarAndFooter } = this.props
+export const App = ({
+  auth,
+  navbar,
+  footer,
+  fetchNavbarAndFooter,
+  classes,
+}: Props) => {
+  let headerContent = headerItems
+  if (auth.isAuthenticated) {
+    headerContent = loggedHeaderItems
+  }
+  // if any errors, fall back to old link setup
+  const navbarContent = !navbar.links ? navItems : navbar.links
+  const footerContent = !footer.links ? footerItems : footer.links
+
+  useEffect(() => {
     fetchNavbarAndFooter()
-  }
+  }, [fetchNavbarAndFooter])
 
-  render() {
-    const { auth, navbar, footer, classes } = this.props
-
-    let headerContent = headerItems
-    if (auth.isAuthenticated) {
-      headerContent = loggedHeaderItems
-    }
-    // if any errors, fall back to old link setup
-    const navbarContent = !navbar.links ? navItems : navbar.links
-    const footerContent = !footer.links ? footerItems : footer.links
-
-    return (
-      <div className={classes.body}>
-        <Header items={headerContent}>
-          {items => items.map(generateLinks)}
-        </Header>
-        <Navbar theme={navTheme} items={navbarContent} />
-        <main className={classes.main}>
-          <ErrorBoundary>
-            <Routes />
-          </ErrorBoundary>
-        </main>
-        <Footer items={footerContent} />
-      </div>
-    )
-  }
+  return (
+    <div className={classes.body}>
+      <Header items={headerContent}>{items => items.map(generateLinks)}</Header>
+      <Navbar theme={navTheme} items={navbarContent} />
+      <main className={classes.main}>
+        <ErrorBoundary>
+          <Routes />
+        </ErrorBoundary>
+      </main>
+      <Footer items={footerContent} />
+    </div>
+  )
 }
 
 const mapStateToProps = ({ auth, navbar, footer }: Props) => ({
