@@ -12,13 +12,13 @@ describe("Publication/PublicationLoader", () => {
       expect(wrapper).toHaveLength(1)
     })
     it("always renders one <h1> element", () => {
-      expect(wrapper.dive().find("h1")).toHaveLength(1)
+      expect(wrapper.find("h1")).toHaveLength(1)
     })
     it("always renders four <Skeleton> elements", () => {
-      expect(wrapper.dive().find(Skeleton)).toHaveLength(4)
+      expect(wrapper.find(Skeleton)).toHaveLength(4)
     })
     it("always renders four <Grid> elements", () => {
-      expect(wrapper.dive().find(Grid)).toHaveLength(4)
+      expect(wrapper.find(Grid)).toHaveLength(4)
     })
   })
 })

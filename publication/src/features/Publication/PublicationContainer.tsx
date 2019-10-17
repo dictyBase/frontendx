@@ -4,20 +4,11 @@ import { Helmet } from "react-helmet"
 import gql from "graphql-tag"
 import { Query } from "react-apollo"
 import Grid from "@material-ui/core/Grid"
-import { withStyles } from "@material-ui/core/styles"
 import LeftSidebar from "./LeftSidebar"
 import PublicationDisplay from "./PublicationDisplay"
 import PublicationLoader from "./PublicationLoader"
 import ErrorPage from "../../common/components/ErrorPage"
-import styles from "./publicationStyles"
-
-interface Props {
-  classes: {
-    layout: string
-    title: string
-    sidebar: string
-  }
-}
+import useStyles from "./publicationStyles"
 
 export interface Publication {
   data: {
@@ -62,14 +53,14 @@ export const GET_PUBLICATION = gql`
   }
 `
 
-type FullProps = Props & RouteComponentProps<any>
-
 /**
  * PublicationContainer is the main component for an individual publication page.
  * It is responsible for fetching the data and passing it down to more specific components.
  */
 
-export const PublicationContainer = ({ classes, match }: FullProps) => {
+export const PublicationContainer = ({ match }: RouteComponentProps<any>) => {
+  const classes = useStyles()
+
   return (
     <Query query={GET_PUBLICATION} variables={{ id: match.params.id }}>
       {({ loading, error, data }) => {
@@ -101,4 +92,4 @@ export const PublicationContainer = ({ classes, match }: FullProps) => {
   )
 }
 
-export default withRouter(withStyles(styles)(PublicationContainer))
+export default withRouter(PublicationContainer)
