@@ -11,7 +11,7 @@ describe("Publication/Sections/JournalDataItem", () => {
   }
   const wrapper = shallow(<JournalDataItem {...props} />)
   describe("initial render", () => {
-    it("renders without crashing", () => {
+    it("renders JournalDataItem without crashing", () => {
       expect(wrapper).toHaveLength(1)
     })
     it("always renders initial components", () => {

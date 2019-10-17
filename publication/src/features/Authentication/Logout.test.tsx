@@ -9,7 +9,7 @@ describe("Authentication/Logout", () => {
   }
   const wrapper = shallow(<Logout {...props} />)
   describe("initial render", () => {
-    it("renders without crashing", () => {
+    it("renders Logout without crashing", () => {
       expect(wrapper).toHaveLength(1)
     })
     it("always renders initial components", () => {
