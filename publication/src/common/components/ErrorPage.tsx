@@ -75,6 +75,7 @@ export const ErrorPage = (props: Props) => {
           </p>
           <a href="/">
             <Button
+              aria-label="Back to homepage"
               className={classes.backButton}
               size="small"
               variant="contained"
