@@ -41,6 +41,34 @@ const user = {
   },
 }
 
+const actionRequestFn = (type: string) => {
+  return {
+    type,
+    payload: {
+      isFetching: true,
+    },
+  }
+}
+
+const actionSuccessFn = (type: string, json: object) => {
+  return {
+    type,
+    payload: {
+      isFetching: false,
+      json,
+    },
+  }
+}
+
+const actionFailureFn = (type: string, error: object) => {
+  return {
+    type,
+    payload: {
+      error,
+    },
+  }
+}
+
 describe("auth actions", () => {
   describe("login request", () => {
     it("should create an action to request user login", () => {
@@ -87,25 +115,14 @@ describe("auth actions", () => {
   })
   describe("fetch user request", () => {
     it("should create an action to fetch user data", () => {
-      const expectedAction = {
-        type: FETCH_USER_REQUEST,
-        payload: {
-          isFetching: true,
-        },
-      }
+      const expectedAction = actionRequestFn(FETCH_USER_REQUEST)
       expect(actions.fetchUserRequest()).toEqual(expectedAction)
     })
   })
   describe("fetch user success", () => {
-    it("should create an action for successful user fetch request", () => {
+    it("should create an action for successful user fetch", () => {
       const json = {}
-      const expectedAction = {
-        type: FETCH_USER_SUCCESS,
-        payload: {
-          isFetching: false,
-          json: json,
-        },
-      }
+      const expectedAction = actionSuccessFn(FETCH_USER_SUCCESS, json)
       expect(actions.fetchUserSuccess(json)).toEqual(expectedAction)
     })
   })
@@ -115,36 +132,20 @@ describe("auth actions", () => {
         title: "could not fetch user",
         status: 404,
       }
-      const expectedAction = {
-        type: FETCH_USER_FAILURE,
-        payload: {
-          error: error,
-        },
-      }
+      const expectedAction = actionFailureFn(FETCH_USER_FAILURE, error)
       expect(actions.fetchUserFailure(error)).toEqual(expectedAction)
     })
   })
   describe("fetch role request", () => {
     it("should create an action to fetch role data", () => {
-      const expectedAction = {
-        type: FETCH_ROLE_REQUEST,
-        payload: {
-          isFetching: true,
-        },
-      }
+      const expectedAction = actionRequestFn(FETCH_ROLE_REQUEST)
       expect(actions.fetchRoleRequest()).toEqual(expectedAction)
     })
   })
   describe("fetch role success", () => {
     it("should create an action for successful role fetch request", () => {
       const json = {}
-      const expectedAction = {
-        type: FETCH_ROLE_SUCCESS,
-        payload: {
-          isFetching: false,
-          json: json,
-        },
-      }
+      const expectedAction = actionSuccessFn(FETCH_ROLE_SUCCESS, json)
       expect(actions.fetchRoleSuccess(json)).toEqual(expectedAction)
     })
   })
@@ -154,12 +155,7 @@ describe("auth actions", () => {
         title: "could not fetch roles",
         status: 404,
       }
-      const expectedAction = {
-        type: FETCH_ROLE_FAILURE,
-        payload: {
-          error: error,
-        },
-      }
+      const expectedAction = actionFailureFn(FETCH_ROLE_FAILURE, error)
       expect(actions.fetchRoleFailure(error)).toEqual(expectedAction)
     })
   })
