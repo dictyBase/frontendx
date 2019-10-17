@@ -1,10 +1,10 @@
 import React from "react"
 import { shallow } from "enzyme"
-import "../../../setupTests"
 import JournalData from "./JournalData"
 import Grid from "@material-ui/core/Grid"
+import JournalDataItem from "./JournalDataItem"
 
-describe("Publication/JournalData", () => {
+describe("Publication/Sections/JournalData", () => {
   const props = {
     data: {
       doi: "9.0909/j.diff.1964.02.01",
@@ -20,14 +20,10 @@ describe("Publication/JournalData", () => {
     it("renders without crashing", () => {
       expect(wrapper).toHaveLength(1)
     })
-    it("always renders two <div> elements", () => {
-      expect(wrapper.dive().find("div")).toHaveLength(2)
-    })
-    it("always renders three <Grid> elements", () => {
-      expect(wrapper.dive().find(Grid)).toHaveLength(3)
-    })
-    it("matches data prop value", () => {
-      expect(wrapper.prop("data")).toEqual(props.data)
+    it("always renders initial components", () => {
+      expect(wrapper.find("div")).toHaveLength(2)
+      expect(wrapper.find(Grid)).toHaveLength(1)
+      expect(wrapper.find(JournalDataItem)).toHaveLength(2)
     })
   })
 })
