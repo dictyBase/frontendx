@@ -41,33 +41,27 @@ const user = {
   },
 }
 
-const actionRequestFn = (type: string) => {
-  return {
-    type,
-    payload: {
-      isFetching: true,
-    },
-  }
-}
+const actionRequestFn = (type: string) => ({
+  type,
+  payload: {
+    isFetching: true,
+  },
+})
 
-const actionSuccessFn = (type: string, json: object) => {
-  return {
-    type,
-    payload: {
-      isFetching: false,
-      json,
-    },
-  }
-}
+const actionSuccessFn = (type: string, json: object) => ({
+  type,
+  payload: {
+    isFetching: false,
+    json,
+  },
+})
 
-const actionFailureFn = (type: string, error: object) => {
-  return {
-    type,
-    payload: {
-      error,
-    },
-  }
-}
+const actionFailureFn = (type: string, error: object) => ({
+  type,
+  payload: {
+    error,
+  },
+})
 
 describe("auth actions", () => {
   describe("login request", () => {
