@@ -2,35 +2,7 @@ import React from "react"
 import Grid from "@material-ui/core/Grid"
 import Skeleton from "react-loading-skeleton"
 import { withStyles } from "@material-ui/core/styles"
-import createStyles from "@material-ui/core/styles/createStyles"
-import { Theme } from "@material-ui/core/styles/createMuiTheme"
-
-const styles = (theme: Theme) =>
-  createStyles({
-    layout: {
-      width: "75%",
-      marginLeft: "auto",
-      marginRight: "auto",
-      [theme.breakpoints.up(1300 + theme.spacing(3) * 2)]: {
-        width: 1300,
-        marginLeft: "auto",
-        marginRight: "auto",
-      },
-      [theme.breakpoints.down("sm")]: {
-        width: "90%",
-        marginLeft: "auto",
-        marginRight: "auto",
-      },
-    },
-    title: {
-      textAlign: "center",
-    },
-    sidebar: {
-      [theme.breakpoints.down("sm")]: {
-        textAlign: "center",
-      },
-    },
-  })
+import styles from "./publicationStyles"
 
 interface Props {
   classes: {
@@ -40,9 +12,7 @@ interface Props {
   }
 }
 
-export const PublicationLoader = (props: Props) => {
-  const { classes } = props
-
+export const PublicationLoader = ({ classes }: Props) => {
   return (
     <Grid container spacing={2} className={classes.layout}>
       <Grid item xs={12}>
