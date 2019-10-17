@@ -5,39 +5,11 @@ import gql from "graphql-tag"
 import { Query } from "react-apollo"
 import Grid from "@material-ui/core/Grid"
 import { withStyles } from "@material-ui/core/styles"
-import createStyles from "@material-ui/core/styles/createStyles"
-import { Theme } from "@material-ui/core/styles/createMuiTheme"
 import LeftSidebar from "./LeftSidebar"
 import PublicationDisplay from "./PublicationDisplay"
 import PublicationLoader from "./PublicationLoader"
 import ErrorPage from "../../common/components/ErrorPage"
-
-const styles = (theme: Theme) =>
-  createStyles({
-    layout: {
-      width: "75%",
-      marginLeft: "auto",
-      marginRight: "auto",
-      [theme.breakpoints.up(1300 + theme.spacing(3) * 2)]: {
-        width: 1300,
-        marginLeft: "auto",
-        marginRight: "auto",
-      },
-      [theme.breakpoints.down("sm")]: {
-        width: "90%",
-        marginLeft: "auto",
-        marginRight: "auto",
-      },
-    },
-    title: {
-      textAlign: "center",
-    },
-    sidebar: {
-      [theme.breakpoints.down("sm")]: {
-        textAlign: "center",
-      },
-    },
-  })
+import styles from "./publicationStyles"
 
 interface Props {
   classes: {
@@ -97,9 +69,7 @@ type FullProps = Props & RouteComponentProps<any>
  * It is responsible for fetching the data and passing it down to more specific components.
  */
 
-export const PublicationContainer = (props: FullProps) => {
-  const { classes, match } = props
-
+export const PublicationContainer = ({ classes, match }: FullProps) => {
   return (
     <Query query={GET_PUBLICATION} variables={{ id: match.params.id }}>
       {({ loading, error, data }) => {
