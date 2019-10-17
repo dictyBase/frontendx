@@ -43,12 +43,18 @@ interface Props {
   /** Object passed by React-Router */
   location: {
     state: {
-      error: object
+      error: {
+        status: number
+        title: string
+      }
     }
   }
   /** Auth part of state */
   auth: {
-    error: object
+    error: {
+      status: number
+      title: string
+    }
   }
 }
 
