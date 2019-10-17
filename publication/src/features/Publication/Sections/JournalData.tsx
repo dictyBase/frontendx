@@ -1,16 +1,12 @@
 import React from "react"
 import Grid from "@material-ui/core/Grid"
-import { withStyles } from "@material-ui/core/styles"
-import createStyles from "@material-ui/core/styles/createStyles"
+import { makeStyles } from "@material-ui/core/styles"
 import parse from "date-fns/parse"
 import format from "date-fns/format"
 import addDays from "date-fns/add_days"
+import JournalDataItem from "./JournalDataItem"
 
-const styles = createStyles({
-  link: {
-    textDecoration: "none",
-    color: "#0059b3",
-  },
+const useStyles = makeStyles({
   journal: {
     fontWeight: "bold",
   },
@@ -20,11 +16,6 @@ const styles = createStyles({
 })
 
 interface Props {
-  classes: {
-    link: string
-    journal: string
-    section: string
-  }
   data: {
     doi: string
     journal: string
@@ -38,8 +29,8 @@ interface Props {
  * JournalData displays general data related to the publication.
  */
 
-export const JournalData = (props: Props) => {
-  const { classes, data } = props
+export const JournalData = ({ data }: Props) => {
+  const classes = useStyles()
   const pubmedURL = `https://pubmed.gov/${data.id}`
   const doiURL = `https://doi.org/${data.doi}`
   // convert ISO 8601 string to Date format
@@ -57,29 +48,11 @@ export const JournalData = (props: Props) => {
         </span>
       </div>
       <Grid container>
-        <Grid item xs={12} sm={4}>
-          DOI:{" "}
-          <a
-            href={doiURL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={classes.link}>
-            {data.doi}
-          </a>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          PMID:{" "}
-          <a
-            href={pubmedURL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={classes.link}>
-            {data.id}
-          </a>
-        </Grid>
+        <JournalDataItem title="DOI" url={doiURL} content={data.doi} />
+        <JournalDataItem title="PMID" url={pubmedURL} content={data.id} />
       </Grid>
     </div>
   )
 }
 
-export default withStyles(styles)(JournalData)
+export default JournalData
