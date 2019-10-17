@@ -36,6 +36,8 @@ const fetchFooterFailure = (error: Object) => ({
 })
 
 interface Item {
+  type: string
+  id: string
   attributes: {
     items: Array<Items>
     display: string
@@ -47,6 +49,10 @@ interface Items {
   link: string
 }
 
+interface Json {
+  data: [Item]
+}
+
 // fetch footer function that fetches data using async/await
 export const fetchFooter = () => async dispatch => {
   try {
@@ -54,22 +60,7 @@ export const fetchFooter = () => async dispatch => {
     const res = await fetch(footerJson)
     const json = await res.json()
     if (res.ok) {
-      const footerArr = json.data.map((item: Item) => {
-        const menuItemsArr = item.attributes.items.map(c => ({
-          description: c.label,
-          link: c.link,
-        }))
-
-        return [
-          {
-            header: {
-              description: item.attributes.display,
-            },
-            items: menuItemsArr,
-          },
-        ]
-      })
-
+      const footerArr = footerDataFormatter(json)
       return dispatch(fetchFooterSuccess(footerArr))
     }
 
@@ -79,5 +70,22 @@ export const fetchFooter = () => async dispatch => {
     return dispatch(fetchFooterFailure(error.toString()))
   }
 }
+
+const footerDataFormatter = (json: Json) =>
+  json.data.map((item: Item) => {
+    const menuItemsArr = item.attributes.items.map(c => ({
+      description: c.label,
+      link: c.link,
+    }))
+
+    return [
+      {
+        header: {
+          description: item.attributes.display,
+        },
+        items: menuItemsArr,
+      },
+    ]
+  })
 
 export default fetchFooter
