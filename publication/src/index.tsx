@@ -6,8 +6,10 @@ import { Provider } from "react-redux"
 import { ConnectedRouter } from "connected-react-router"
 import { ApolloProvider } from "react-apollo"
 import { ApolloClient } from "apollo-client"
-import { InMemoryCache } from "apollo-cache-inmemory"
+import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory"
 import { createHttpLink } from "apollo-link-http"
+import { persistCache } from "apollo-cache-persist"
+import { PersistentStorage, PersistedData } from "apollo-cache-persist/types"
 import { createPersistedQueryLink } from "apollo-link-persisted-queries"
 import { hydrateStore } from "dicty-components-redux"
 import CssBaseline from "@material-ui/core/CssBaseline"
@@ -36,9 +38,16 @@ const link = createPersistedQueryLink().concat(
   createHttpLink({ uri: `${process.env.REACT_APP_GRAPHQL_SERVER}/graphql` }),
 )
 
+// Use an InMemoryCache, but keep it synced to localStorage
+const cache = new InMemoryCache()
+const storage = window.localStorage as PersistentStorage<
+  PersistedData<NormalizedCacheObject>
+>
+const waitOnCache = persistCache({ cache, storage })
+
 const client = new ApolloClient({
-  link: link,
-  cache: new InMemoryCache(),
+  link,
+  cache,
 })
 
 const setGoogleAnalytics = async () => {
@@ -59,19 +68,20 @@ if (process.env.NODE_ENV === "production") {
   })
 }
 
-ReactDOM.render(
-  <ApolloProvider client={client}>
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <CssBaseline />
-        <App />
-      </ConnectedRouter>
-    </Provider>
-  </ApolloProvider>,
-  document.getElementById("root"),
-)
+// Wait for the cache to sync before starting the app
+waitOnCache.then(() => {
+  ReactDOM.render(
+    <ApolloProvider client={client}>
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <CssBaseline />
+          <App />
+        </ConnectedRouter>
+      </Provider>
+    </ApolloProvider>,
+    document.getElementById("root"),
+  )
+})
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.register()
