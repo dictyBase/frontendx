@@ -40,14 +40,17 @@ export const SocialLinks = (props: Props) => {
           target="_blank"
           rel="noopener noreferrer"
           className={classes.tweet}>
-          <FontAwesomeIcon icon={["fab", "twitter"]} />
+          <FontAwesomeIcon
+            icon={["fab", "twitter"]}
+            title="Share article on Twitter"
+          />
         </a>
         <a
           href={email}
           target="_blank"
           rel="noopener noreferrer"
           className={classes.email}>
-          <FontAwesomeIcon icon="envelope" />
+          <FontAwesomeIcon icon="envelope" title="Email this article" />
         </a>
       </span>
     </div>
