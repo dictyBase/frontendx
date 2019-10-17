@@ -48,8 +48,8 @@ jobs:
     needs: build
     runs-on: ubuntu-18.04
     steps:
-      - name: sleep for five minutes
-        run: sleep 300
+      - name: sleep for three minutes
+        run: sleep 180
   audit:
     needs: sleep
     runs-on: ubuntu-18.04
