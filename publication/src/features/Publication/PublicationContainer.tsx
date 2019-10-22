@@ -2,7 +2,7 @@ import React from "react"
 import { withRouter, RouteComponentProps } from "react-router-dom"
 import { Helmet } from "react-helmet"
 import gql from "graphql-tag"
-import { Query } from "react-apollo"
+import { useQuery } from "@apollo/react-hooks"
 import Grid from "@material-ui/core/Grid"
 import LeftSidebar from "./LeftSidebar"
 import PublicationDisplay from "./PublicationDisplay"
@@ -60,35 +60,32 @@ export const GET_PUBLICATION = gql`
 
 export const PublicationContainer = ({ match }: RouteComponentProps<any>) => {
   const classes = useStyles()
+  const { loading, error, data } = useQuery(GET_PUBLICATION, {
+    variables: { id: match.params.id },
+  })
+
+  if (loading) return <PublicationLoader />
+  if (error) return <ErrorPage error={error} />
 
   return (
-    <Query query={GET_PUBLICATION} variables={{ id: match.params.id }}>
-      {({ loading, error, data }) => {
-        if (loading) return <PublicationLoader />
-        if (error) return <ErrorPage error={error} />
-
-        return (
-          <Grid container className={classes.layout}>
-            <Helmet>
-              <title>dictyBase Literature - {data.publication.title}</title>
-              <meta
-                name="description"
-                content={`dictyBase literature page for title ${data.publication.title}`}
-              />
-            </Helmet>
-            <Grid item xs={12}>
-              <h1 className={classes.title}>dictyBase Literature</h1>
-            </Grid>
-            <Grid item xs={12} sm={2} className={classes.sidebar}>
-              <LeftSidebar data={data} />
-            </Grid>
-            <Grid item xs={12} sm={10}>
-              <PublicationDisplay data={data} />
-            </Grid>
-          </Grid>
-        )
-      }}
-    </Query>
+    <Grid container className={classes.layout}>
+      <Helmet>
+        <title>dictyBase Literature - {data.publication.title}</title>
+        <meta
+          name="description"
+          content={`dictyBase literature page for title ${data.publication.title}`}
+        />
+      </Helmet>
+      <Grid item xs={12}>
+        <h1 className={classes.title}>dictyBase Literature</h1>
+      </Grid>
+      <Grid item xs={12} sm={2} className={classes.sidebar}>
+        <LeftSidebar data={data} />
+      </Grid>
+      <Grid item xs={12} sm={10}>
+        <PublicationDisplay data={data} />
+      </Grid>
+    </Grid>
   )
 }
 
