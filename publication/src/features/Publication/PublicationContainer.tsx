@@ -7,6 +7,7 @@ import Grid from "@material-ui/core/Grid"
 import LeftSidebar from "./LeftSidebar"
 import PublicationDisplay from "./PublicationDisplay"
 import PublicationLoader from "./PublicationLoader"
+import PublicationHeader from "./PublicationHeader"
 import ErrorPage from "../../common/components/ErrorPage"
 import useStyles from "./publicationStyles"
 
@@ -76,9 +77,7 @@ export const PublicationContainer = ({ match }: RouteComponentProps<any>) => {
           content={`dictyBase literature page for title ${data.publication.title}`}
         />
       </Helmet>
-      <Grid item xs={12}>
-        <h1 className={classes.title}>dictyBase Literature</h1>
-      </Grid>
+      <PublicationHeader />
       <Grid item xs={12} sm={2} className={classes.sidebar}>
         <LeftSidebar data={data} />
       </Grid>
