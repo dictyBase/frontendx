@@ -1,6 +1,7 @@
 import React from "react"
 import Grid from "@material-ui/core/Grid"
 import Skeleton from "react-loading-skeleton"
+import PublicationHeader from "./PublicationHeader"
 import useStyles from "./publicationStyles"
 
 export const PublicationLoader = () => {
@@ -8,9 +9,7 @@ export const PublicationLoader = () => {
 
   return (
     <Grid container spacing={2} className={classes.layout}>
-      <Grid item xs={12}>
-        <h1 className={classes.title}>dictyBase Literature</h1>
-      </Grid>
+      <PublicationHeader />
       <Grid item xs={3} className={classes.sidebar}>
         <Skeleton count={5} />
       </Grid>
