@@ -1,7 +1,7 @@
 import React from "react"
 import { mount } from "enzyme"
 import "../../setupTests"
-import { MockedProvider } from "react-apollo/test-utils"
+import { MockedProvider } from "@apollo/react-testing"
 import { BrowserRouter } from "react-router-dom"
 import PublicationContainer, { GET_PUBLICATION } from "./PublicationContainer"
 // import LeftSidebar from "./LeftSidebar"

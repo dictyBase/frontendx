@@ -1,6 +1,5 @@
 import React from "react"
 import { shallow } from "enzyme"
-import "../../setupTests"
 import LeftSidebar from "./LeftSidebar"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 

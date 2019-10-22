@@ -1,6 +1,5 @@
 import React from "react"
 import { mount } from "enzyme"
-import "../../setupTests"
 import PublicationDisplay from "./PublicationDisplay"
 import Title from "./Sections/Title"
 import Authors from "./Sections/Authors"
@@ -41,25 +40,12 @@ describe("Publication/PublicationDisplay", () => {
   }
   const wrapper = mount(<PublicationDisplay {...props} />)
   describe("initial render", () => {
-    it("renders without crashing", () => {
-      expect(wrapper).toHaveLength(1)
-    })
-    it("always renders one <Title> element", () => {
+    it("always renders initial components", () => {
       expect(wrapper.find(Title)).toHaveLength(1)
-    })
-    it("always renders one <Authors> element", () => {
       expect(wrapper.find(Authors)).toHaveLength(1)
-    })
-    it("always renders one <JournalData> element", () => {
       expect(wrapper.find(JournalData)).toHaveLength(1)
-    })
-    it("always renders one <SocialLinks> element", () => {
       expect(wrapper.find(SocialLinks)).toHaveLength(1)
-    })
-    it("always renders one <Abstract> element", () => {
       expect(wrapper.find(Abstract)).toHaveLength(1)
-    })
-    it("always renders one <FullTextLinks> element", () => {
       expect(wrapper.find(FullTextLinks)).toHaveLength(1)
     })
     it("matches data prop value", () => {
