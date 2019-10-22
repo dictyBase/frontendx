@@ -65,7 +65,7 @@
     "prettier": "^1.18.2",
     "react-styleguidist": "^9.2.0",
     "react-test-renderer": "^16.10.2",
-    "semantic-release": "^15.13.24",
+    "semantic-release": "^15.13.27",
     "sinon": "^7.4.2"
   },
   "config": {
