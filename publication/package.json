@@ -14,7 +14,7 @@
     "@fortawesome/react-fontawesome": "^0.1.5",
     "@material-ui/core": "^4.2.1",
     "@types/jwt-decode": "^2.2.1",
-    "@types/node": "12.11.2",
+    "@types/node": "12.11.7",
     "@types/react": "16.9.9",
     "@types/react-dom": "16.9.2",
     "@types/react-fontawesome": "^1.6.4",
