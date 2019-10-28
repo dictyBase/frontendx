@@ -52,7 +52,7 @@
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
-    "@semantic-release/git": "^7.0.16",
+    "@semantic-release/git": "^7.0.17",
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.0.2",
     "enzyme": "^3.10.0",
