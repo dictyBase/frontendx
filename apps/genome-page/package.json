@@ -62,7 +62,7 @@
     "jest-enzyme": "^7.1.1",
     "jss": "^9.8.7",
     "lint-staged": "^9.4.1",
-    "prettier": "^1.18.2",
+    "prettier": "^1.19.1",
     "react-styleguidist": "^10.2.0",
     "react-test-renderer": "^16.10.2",
     "semantic-release": "^15.13.28",
