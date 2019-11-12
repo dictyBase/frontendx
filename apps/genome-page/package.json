@@ -73,6 +73,14 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/app/layout/*.{js,jsx,ts,tsx}",
+      "src/common/**/*.{js,jsx,ts,tsx}",
+      "src/components/**/*.{js,jsx,ts,tsx}",
+      "src/features/**/*.{js,jsx,ts,tsx}"
+    ]
+  },
   "lint-staged": {
     "*.{js,jsx,json,css}": [
       "prettier --no-semi --trailing-comma all --jsx-bracket-same-line true --write",
