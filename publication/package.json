@@ -3,7 +3,7 @@
   "version": "0.0.0-semantically-released",
   "private": true,
   "engines": {
-    "node": "10.16.0"
+    "node": "10.17.0"
   },
   "homepage": "/publication",
   "dependencies": {
@@ -95,9 +95,7 @@
     "styleguide:build": "styleguidist build",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "local-ci-eric": "IMAGE_TAG=$(git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||' -e 's~/~-~')-$(git rev-parse --short HEAD) skaffold run -p ericdev",
-    "local-ci-sidd": "IMAGE_TAG=$(git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||' -e 's~/~-~')-$(git rev-parse --short HEAD) skaffold run -p devsidd",
-    "local-ci-staging": "IMAGE_TAG=staging-$(git rev-parse --short HEAD) skaffold run",
-    "nightwatch": "nightwatch -e chrome"
+    "local-ci-sidd": "IMAGE_TAG=$(git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||' -e 's~/~-~')-$(git rev-parse --short HEAD) skaffold run -p devsidd"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -116,8 +114,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && CI=true npm run test",
-      "post-commit": "npm run local-ci-eric"
+      "pre-commit": "lint-staged"
     }
   },
   "config": {
