@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "/gene",
   "engines": {
-    "node": "10.16.0"
+    "node": "10.17.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -19,8 +19,7 @@
     "cz": "git-cz",
     "semantic-release": "semantic-release",
     "local-ci-eric": "IMAGE_TAG=$(git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||' -e 's~/~-~')-$(git rev-parse --short HEAD) skaffold run -p ericdev",
-    "local-ci-sidd": "IMAGE_TAG=$(git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||' -e 's~/~-~')-$(git rev-parse --short HEAD) skaffold run -p devsidd",
-    "local-ci-staging": "IMAGE_TAG=staging-$(git rev-parse --short HEAD) skaffold run"
+    "local-ci-sidd": "IMAGE_TAG=$(git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||' -e 's~/~-~')-$(git rev-parse --short HEAD) skaffold run -p devsidd"
   },
   "dependencies": {
     "@material-ui/core": "^4.6.0",
@@ -89,8 +88,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && CI=true npm run test",
-      "post-commit": "npm run local-ci-eric"
+      "pre-commit": "lint-staged"
     }
   },
   "release": {
