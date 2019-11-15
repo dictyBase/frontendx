@@ -72,7 +72,7 @@
     "jwt-decode": "^2.2.0",
     "lint-staged": "^9.4.2",
     "nightwatch": "^1.2.4",
-    "nock": "^11.6.0",
+    "nock": "^11.7.0",
     "prettier": "^1.19.1",
     "react-docgen-typescript": "^1.15.1",
     "react-styleguidist": "^9.0.5",
