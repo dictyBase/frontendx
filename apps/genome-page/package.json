@@ -55,7 +55,7 @@
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.0.2",
     "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.15.1",
+    "enzyme-adapter-react-16": "^1.15.2",
     "flow-bin": "^0.113.0",
     "husky": "^3.1.0",
     "jest-enzyme": "^7.1.2",
