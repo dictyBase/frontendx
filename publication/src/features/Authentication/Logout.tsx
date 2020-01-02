@@ -21,7 +21,4 @@ export class Logout extends Component<Props, {}> {
   }
 }
 
-export default connect(
-  null,
-  { logoutUser },
-)(Logout)
+export default connect(null, { logoutUser })(Logout)
