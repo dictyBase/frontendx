@@ -42,11 +42,11 @@ const enhancer = composeWithDevTools(
   ),
 )
 
-export default function configureStore(initialState: Object) {
+export default function configureStore(initialState: any) {
   const store = createStore(createRootReducer(history), initialState, enhancer)
   if (process.env.NODE_ENV === "development") {
-    if (module.hot) {
-      module.hot.accept("../reducers/rootReducer", () =>
+    if (module["hot"]) {
+      module["hot"].accept("../reducers/rootReducer", () =>
         store.replaceReducer(require("../reducers/rootReducer").default),
       )
     }
