@@ -27,7 +27,7 @@ interface Json {
   }>
 }
 
-export class JsonAPI {
+class JsonAPI {
   json: Json
   constructor(json: Json) {
     this.json = json
@@ -43,7 +43,7 @@ export class JsonAPI {
   }
 }
 
-export class AuthAPI extends JsonAPI {
+class AuthAPI extends JsonAPI {
   // checks if user is currently authenticated
   isAuthenticated() {
     if (this.json.isAuthenticated === true) {
@@ -87,12 +87,10 @@ export class AuthAPI extends JsonAPI {
   }
 }
 
-export class AuthenticatedUser extends JsonAPI {
+class AuthenticatedUser extends JsonAPI {
   // gets the first and last name of logged in user
   getFullName() {
-    return `${this.json.data.attributes.first_name} ${
-      this.json.data.attributes.last_name
-    }`
+    return `${this.json.data.attributes.first_name} ${this.json.data.attributes.last_name}`
   }
 
   // gets capitalized version of user's role
@@ -131,7 +129,7 @@ interface PermItem {
   }
 }
 
-export class RolesPermissionsAPI extends JsonAPI {
+class RolesPermissionsAPI extends JsonAPI {
   // get full list of user's roles
   getRoles() {
     if (this.json.roles) {
@@ -206,3 +204,5 @@ export class RolesPermissionsAPI extends JsonAPI {
     return false
   }
 }
+
+export { JsonAPI, AuthAPI, AuthenticatedUser, RolesPermissionsAPI }

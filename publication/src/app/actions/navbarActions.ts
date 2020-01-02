@@ -4,7 +4,7 @@ import {
   FETCH_NAVBAR_FAILURE,
 } from "../../common/constants/types"
 import navItems from "../../common/constants/navbar"
-import { fetchFooter } from "./footerActions"
+import fetchFooter from "./footerActions"
 
 declare var process: {
   env: {

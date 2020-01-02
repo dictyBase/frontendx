@@ -70,17 +70,14 @@ interface Props {
  * It is responsible for the main layout of the entire application.
  */
 
-export const App = ({
+const App = ({
   auth,
   navbar,
   footer,
   fetchNavbarAndFooter,
   classes,
 }: Props) => {
-  let headerContent = headerItems
-  if (auth.isAuthenticated) {
-    headerContent = loggedHeaderItems
-  }
+  const headerContent = auth.isAuthenticated ? loggedHeaderItems : headerItems
   // if any errors, fall back to old link setup
   const navbarContent = !navbar.links ? navItems : navbar.links
   const footerContent = !footer.links ? footerItems : footer.links
@@ -111,11 +108,9 @@ const mapStateToProps = ({ auth, navbar, footer }: Props) => ({
 
 const enhance = compose(
   withRouter,
-  connect(
-    mapStateToProps,
-    { fetchNavbarAndFooter },
-  ),
+  connect(mapStateToProps, { fetchNavbarAndFooter }),
   withStyles(styles),
 )
 
+export { App }
 export default enhance(App) as React.ComponentType

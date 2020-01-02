@@ -54,7 +54,7 @@ interface Json {
 }
 
 // fetch footer function that fetches data using async/await
-export const fetchFooter = () => async dispatch => {
+const fetchFooter = () => async dispatch => {
   try {
     dispatch(fetchFooterRequest())
     const res = await fetch(footerJson)
