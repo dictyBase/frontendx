@@ -98,8 +98,16 @@
     "local-ci-eric": "IMAGE_TAG=$(git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||' -e 's~/~-~')-$(git rev-parse --short HEAD) skaffold run -p ericdev",
     "local-ci-sidd": "IMAGE_TAG=$(git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||' -e 's~/~-~')-$(git rev-parse --short HEAD) skaffold run -p devsidd"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "jest": {
+    "collectCoverageFrom": [
+      "src/app/layout/*.{js,jsx,ts,tsx}",
+      "src/common/components/*.{js,jsx,ts,tsx}",
+      "src/common/utils/*.{js,jsx,ts,tsx}",
+      "src/features/**/*.{js,jsx,ts,tsx}",
+      "!src/**/mock*.js",
+      "!src/**/types.js",
+      "!src/**/*Styles.js"
+    ]
   },
   "browserslist": [
     ">0.2%",
