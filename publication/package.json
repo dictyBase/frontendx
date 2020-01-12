@@ -60,7 +60,7 @@
     "@types/jest": "24.0.25",
     "@types/redux-mock-store": "^1.0.1",
     "@typescript-eslint/eslint-plugin": "^2.15.0",
-    "@typescript-eslint/parser": "^2.14.0",
+    "@typescript-eslint/parser": "^2.15.0",
     "chromedriver": "^79.0.0",
     "commitizen": "^4.0.3",
     "enzyme": "^3.11.0",
