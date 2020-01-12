@@ -76,7 +76,7 @@
     "nock": "^11.7.2",
     "prettier": "^1.19.1",
     "react-docgen-typescript": "^1.16.2",
-    "react-styleguidist": "^10.4.0",
+    "react-styleguidist": "^10.4.2",
     "redux-mock-store": "^1.5.4",
     "semantic-release": "^15.14.0",
     "source-map-explorer": "^2.2.2",
