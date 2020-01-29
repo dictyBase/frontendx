@@ -1,4 +1,9 @@
 type Query {
+  # Auth queries
+  getRefreshToken(token: String!): Token
+  # Content queries
+  content(id: ID!): Content
+  contentBySlug(slug: String!): Content
   # Order queries
   order(id: ID!): Order
   listOrders(input: ListOrderInput): OrderListWithCursor
@@ -17,7 +22,4 @@ type Query {
   listRoles: [Role!]
   permission(id: ID!): Permission
   listPermissions: [Permission!]
-  # Content queries
-  content(id: ID!): Content
-  contentBySlug(slug: String!): Content
 }
