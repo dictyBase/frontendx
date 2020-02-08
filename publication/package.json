@@ -34,7 +34,7 @@
     "dicty-components-redux": "github:dictybase-playground/dicty-components-redux",
     "element-remove": "^1.0.4",
     "graphql": "^14.5.8",
-    "graphql-tag": "^2.10.1",
+    "graphql-tag": "^2.10.3",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-ga": "^2.7.0",
