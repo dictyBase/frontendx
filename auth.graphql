@@ -22,10 +22,6 @@ type Auth {
   identity: Identity!
 }
 
-type Token {
-  token: String!
-}
-
 type Logout {
   success: Boolean!
 }

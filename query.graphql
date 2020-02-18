@@ -1,6 +1,6 @@
 type Query {
   # Auth queries
-  getRefreshToken(token: String!): Token
+  getRefreshToken(token: String!): Auth
   # Content queries
   content(id: ID!): Content
   contentBySlug(slug: String!): Content
