@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.9.5",
-    "@material-ui/icons": "^4.5.1",
+    "@material-ui/icons": "^4.9.1",
     "ProtVista": "^2.0.13",
     "connected-react-router": "^6.6.1",
     "dicty-components-header-footer": "github:dictyBase/dicty-components-header-footer#10.1.0",
