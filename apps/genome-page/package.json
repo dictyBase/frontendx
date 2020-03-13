@@ -65,7 +65,7 @@
     "react-styleguidist": "^10.6.2",
     "react-test-renderer": "^16.13.0",
     "semantic-release": "^15.14.0",
-    "sinon": "^7.5.0"
+    "sinon": "^9.0.1"
   },
   "config": {
     "commitizen": {
