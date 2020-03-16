@@ -4,39 +4,38 @@ import { HeaderLink } from "dicty-components-header-footer"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { IconProp } from "@fortawesome/fontawesome-svg-core"
 
-interface Links {
-  isRouter: boolean
+type LinkIconProps = {
+  link: LinkProps
+}
+
+interface LinkProps {
+  isRouter?: boolean
   icon: IconProp
   text: string
   url: string
 }
 
-const generateLinks = (link: Links, i: string) =>
+const LinkIcon = ({ link }: LinkIconProps) => (
+  <div style={{ textAlign: "center" }}>
+    <FontAwesomeIcon icon={link.icon} size="2x" />
+    <br />
+    {link.text}
+  </div>
+)
+
+const generateLinks = (link: LinkProps, i: string) =>
   link.isRouter ? (
     <Link
-      style={{
-        color: "#15317e",
-        padding: "15px",
-        textDecoration: "none",
-      }}
+      style={{ color: "#15317e", padding: "15px", textDecoration: "none" }}
       key={i}
       to={link.url}>
-      <div style={{ textAlign: "center" }}>
-        <FontAwesomeIcon icon={link.icon} size="2x" />
-        <br />
-        {link.text}
-      </div>
+      <LinkIcon link={link} />
     </Link>
   ) : (
     <HeaderLink key={i} href={link.url}>
-      <div style={{ textAlign: "center" }}>
-        <FontAwesomeIcon icon={link.icon} size="2x" />
-        <br />
-        {link.text}
-      </div>
+      <LinkIcon link={link} />
     </HeaderLink>
   )
-
 const headerItems = [
   {
     url: "/cite",
