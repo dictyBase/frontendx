@@ -33,7 +33,7 @@
     "element-remove": "^1.0.4",
     "font-awesome": "^4.7.0",
     "jwt-decode": "^2.2.0",
-    "react": "^16.13.0",
+    "react": "^16.13.1",
     "react-dom": "^16.13.0",
     "react-fontawesome": "^1.7.1",
     "react-ga": "^2.7.0",
