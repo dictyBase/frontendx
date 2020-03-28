@@ -79,7 +79,7 @@
     "react-styleguidist": "^11.0.4",
     "redux-mock-store": "^1.5.4",
     "semantic-release": "^17.0.4",
-    "source-map-explorer": "^2.4.0",
+    "source-map-explorer": "^2.4.1",
     "waait": "^1.0.5"
   },
   "scripts": {
