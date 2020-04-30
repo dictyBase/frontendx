@@ -1,5 +1,5 @@
 import React from "react"
-import { withRouter, RouteComponentProps } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { Helmet } from "react-helmet"
 import gql from "graphql-tag"
 import { useQuery } from "@apollo/react-hooks"
@@ -11,6 +11,7 @@ import PublicationHeader from "./PublicationHeader"
 import ErrorPage from "../../common/components/ErrorPage"
 import useStyles from "./publicationStyles"
 
+/* eslint-disable */
 export interface Publication {
   data: {
     publication: {
@@ -36,7 +37,7 @@ export interface Publication {
   }
 }
 
-export const GET_PUBLICATION = gql`
+const GET_PUBLICATION = gql`
   query Publication($id: ID!) {
     publication(id: $id) {
       id
@@ -59,10 +60,11 @@ export const GET_PUBLICATION = gql`
  * It is responsible for fetching the data and passing it down to more specific components.
  */
 
-export const PublicationContainer = ({ match }: RouteComponentProps<any>) => {
+const PublicationContainer = () => {
+  const { id } = useParams()
   const classes = useStyles()
   const { loading, error, data } = useQuery(GET_PUBLICATION, {
-    variables: { id: match.params.id },
+    variables: { id: id },
   })
 
   if (loading) return <PublicationLoader />
@@ -88,4 +90,5 @@ export const PublicationContainer = ({ match }: RouteComponentProps<any>) => {
   )
 }
 
-export default withRouter(PublicationContainer)
+export { GET_PUBLICATION }
+export default PublicationContainer
