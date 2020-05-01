@@ -8,7 +8,7 @@
     }
   },
   "extends": ["react-app", "prettier"],
-  "plugins": ["prettier"],
+  "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
     "quotes": ["error", "double"],
     "semi": ["error", "never"],
