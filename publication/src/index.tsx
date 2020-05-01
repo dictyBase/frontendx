@@ -45,6 +45,7 @@ const link = createPersistedQueryLink().concat(
   authLink.concat(
     createHttpLink({
       uri: `${process.env.REACT_APP_GRAPHQL_SERVER}/graphql`,
+      credentials: "include",
     }),
   ),
 )
