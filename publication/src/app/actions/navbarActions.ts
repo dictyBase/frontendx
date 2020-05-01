@@ -48,14 +48,14 @@ interface Items {
   link: string
 }
 
-export const fetchNavbarAndFooter = () => async dispatch => {
+export const fetchNavbarAndFooter = () => async (dispatch) => {
   try {
     dispatch(fetchNavbarRequest())
     const res = await fetch(navbarJson)
     const json = await res.json()
     if (res.ok) {
       const navbarArr = json.data.map((item: Item) => {
-        const menuItemsArr = item.attributes.items.map(c => ({
+        const menuItemsArr = item.attributes.items.map((c) => ({
           name: c.label,
           href: c.link,
         }))

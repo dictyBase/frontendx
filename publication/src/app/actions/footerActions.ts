@@ -54,7 +54,7 @@ interface Json {
 }
 
 // fetch footer function that fetches data using async/await
-const fetchFooter = () => async dispatch => {
+const fetchFooter = () => async (dispatch) => {
   try {
     dispatch(fetchFooterRequest())
     const res = await fetch(footerJson)
@@ -73,7 +73,7 @@ const fetchFooter = () => async dispatch => {
 
 const footerDataFormatter = (json: Json) =>
   json.data.map((item: Item) => {
-    const menuItemsArr = item.attributes.items.map(c => ({
+    const menuItemsArr = item.attributes.items.map((c) => ({
       description: c.label,
       link: c.link,
     }))
