@@ -25,7 +25,7 @@ export interface Publication {
       }>
       doi: string
       issn?: string
-      issue?: number
+      issue: string
       journal: string
       pages: string
       pub_date: string
@@ -33,6 +33,7 @@ export interface Publication {
       source?: string
       status?: string
       title: string
+      volume: string
     }
   }
 }
@@ -47,6 +48,8 @@ const GET_PUBLICATION = gql`
       journal
       pub_date
       pages
+      issue
+      volume
       authors {
         initials
         last_name
