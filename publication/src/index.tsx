@@ -7,13 +7,13 @@ import { ConnectedRouter } from "connected-react-router"
 import { ApolloProvider } from "@apollo/react-hooks"
 import { ApolloClient } from "apollo-client"
 import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory"
+import { setContext } from "apollo-link-context"
 import { createHttpLink } from "apollo-link-http"
 import { persistCache } from "apollo-cache-persist"
 import { PersistentStorage, PersistedData } from "apollo-cache-persist/types"
 import { createPersistedQueryLink } from "apollo-link-persisted-queries"
 import { hydrateStore } from "dicty-components-redux"
 import CssBaseline from "@material-ui/core/CssBaseline"
-
 import configureStore from "./app/store/configureStore"
 import history from "./common/utils/routerHistory"
 import App from "./app/layout/App"
@@ -32,10 +32,21 @@ declare var process: {
 const initialState = hydrateStore({ key: "auth", namespace: "auth" })
 const store = configureStore(initialState)
 
+const authLink = setContext((_, { headers }) => ({
+  headers: {
+    ...headers,
+    "X-GraphQL-Method": "Query",
+  },
+}))
+
 // set up automatic persisted queries
 // https://www.apollographql.com/docs/apollo-server/performance/apq/
 const link = createPersistedQueryLink().concat(
-  createHttpLink({ uri: `${process.env.REACT_APP_GRAPHQL_SERVER}/graphql` }),
+  authLink.concat(
+    createHttpLink({
+      uri: `${process.env.REACT_APP_GRAPHQL_SERVER}/graphql`,
+    }),
+  ),
 )
 
 // Use an InMemoryCache, but keep it synced to localStorage
