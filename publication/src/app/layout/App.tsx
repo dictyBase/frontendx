@@ -88,7 +88,9 @@ const App = ({
 
   return (
     <div className={classes.body}>
-      <Header items={headerContent}>{items => items.map(generateLinks)}</Header>
+      <Header items={headerContent}>
+        {(items) => items.map(generateLinks)}
+      </Header>
       <Navbar theme={navTheme} items={navbarContent} />
       <main className={classes.main}>
         <ErrorBoundary>
