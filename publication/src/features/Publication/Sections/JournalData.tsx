@@ -22,6 +22,8 @@ interface Props {
     pages: string
     pub_date: string
     id: string
+    issue: string
+    volume: string
   }
 }
 
@@ -44,7 +46,7 @@ export const JournalData = ({ data }: Props) => {
       <div>
         <span className={classes.journal}>{data.journal},&nbsp;</span>
         <span>
-          {date}, {data.pages}
+          {date}, {data.volume}({data.issue}):{data.pages}
         </span>
       </div>
       <Grid container>

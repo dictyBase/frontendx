@@ -17,6 +17,8 @@ export const PublicationDisplay = (props: Props) => {
     journal: data.publication.journal,
     pages: data.publication.pages,
     pub_date: data.publication.pub_date,
+    issue: data.publication.issue,
+    volume: data.publication.volume,
   }
   const url = `https://doi.org/${data.publication.doi}`
 
