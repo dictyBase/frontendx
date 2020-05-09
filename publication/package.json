@@ -80,7 +80,7 @@
     "@typescript-eslint/eslint-plugin": "^2.29.0",
     "@typescript-eslint/parser": "^2.29.0",
     "chromedriver": "^81.0.0",
-    "commitizen": "^4.0.4",
+    "commitizen": "^4.1.2",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "eslint-config-prettier": "^6.11.0",
