@@ -182,3 +182,9 @@ input ListStockInput {
   limit: Int
   filter: String
 }
+
+input ListStrainsWithPhenotypeInput {
+  cursor: Int
+  limit: Int
+  phenotype: String!
+}

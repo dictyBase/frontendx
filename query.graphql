@@ -14,9 +14,11 @@ type Query {
   strain(id: ID!): Strain
   listStrains(input: ListStockInput): StrainListWithCursor
   listPlasmids(input: ListStockInput): PlasmidListWithCursor
-  listStrainsWithPhenotype(phenotype: String!): [Strain!]
-  listStrainsWithCharacteristic(characteristic: String!): [Strain!]
-  listStrainsWithAnno(anno: String!): [Strain!] # used for genetic modification, mutagenesis method
+  listStrainsWithPhenotype(
+    input: ListStrainsWithPhenotypeInput
+  ): StrainListWithCursor
+  # listStrainsWithCharacteristic(characteristic: String!): [Strain!]
+  # listStrainsWithAnno(anno: String!): [Strain!]
   # User queries
   user(id: ID!): User
   userByEmail(email: String!): User
