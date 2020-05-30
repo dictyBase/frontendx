@@ -96,7 +96,7 @@
     "react-docgen-typescript": "^1.16.5",
     "react-styleguidist": "^11.0.6",
     "redux-mock-store": "^1.5.4",
-    "semantic-release": "^17.0.7",
+    "semantic-release": "^17.0.8",
     "source-map-explorer": "^2.4.2",
     "waait": "^1.0.5"
   },
