@@ -20,11 +20,7 @@ import {
 
 import ErrorBoundary from "../../common/components/ErrorBoundary"
 import fetchNavbarAndFooter from "../actions/navbarActions"
-import {
-  headerItems,
-  loggedHeaderItems,
-  generateLinks,
-} from "../../common/utils/headerItems"
+import { headerItems, generateLinks } from "../../common/utils/headerItems"
 import footerItems from "../../common/constants/footer"
 import navItems from "../../common/constants/navbar"
 import Routes from "../routes/Routes"
@@ -44,10 +40,6 @@ library.add(
 )
 
 interface Props {
-  /** Object representing auth part of state */
-  auth: {
-    isAuthenticated: boolean
-  }
   /** Object representing navbar part of state */
   navbar: {
     links: object
@@ -70,14 +62,7 @@ interface Props {
  * It is responsible for the main layout of the entire application.
  */
 
-const App = ({
-  auth,
-  navbar,
-  footer,
-  fetchNavbarAndFooter,
-  classes,
-}: Props) => {
-  const headerContent = auth.isAuthenticated ? loggedHeaderItems : headerItems
+const App = ({ navbar, footer, fetchNavbarAndFooter, classes }: Props) => {
   // if any errors, fall back to old link setup
   const navbarContent = !navbar.links ? navItems : navbar.links
   const footerContent = !footer.links ? footerItems : footer.links
@@ -88,9 +73,7 @@ const App = ({
 
   return (
     <div className={classes.body}>
-      <Header items={headerContent}>
-        {(items) => items.map(generateLinks)}
-      </Header>
+      <Header items={headerItems}>{(items) => items.map(generateLinks)}</Header>
       <Navbar theme={navTheme} items={navbarContent} />
       <main className={classes.main}>
         <ErrorBoundary>
@@ -102,8 +85,7 @@ const App = ({
   )
 }
 
-const mapStateToProps = ({ auth, navbar, footer }: Props) => ({
-  auth,
+const mapStateToProps = ({ navbar, footer }: Props) => ({
   navbar,
   footer,
 })
