@@ -41,13 +41,9 @@ library.add(
 
 interface Props {
   /** Object representing navbar part of state */
-  navbar: {
-    links: object
-  }
+  navbar: any
   /** Object representing footer part of state */
-  footer: {
-    links: Array<Array<object>>
-  }
+  footer: any
   /** Action that fetches both navbar and footer content */
   fetchNavbarAndFooter: Function
   /** Material-UI styling */

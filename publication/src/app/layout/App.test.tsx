@@ -14,7 +14,10 @@ describe("layout/App", () => {
     navbar: {},
     footer: {},
     fetchNavbarAndFooter: jest.fn(),
-    classes: {},
+    classes: {
+      main: "",
+      body: "",
+    },
   }
   const wrapper = shallow(<App {...props} />)
   describe("initial render without authentication", () => {

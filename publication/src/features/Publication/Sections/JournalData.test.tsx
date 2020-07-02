@@ -13,6 +13,8 @@ describe("Publication/Sections/JournalData", () => {
       pages: "71-79",
       pub_date: "1964-01-29",
       id: "12345678",
+      issue: "1",
+      volume: "2",
     },
   }
   const wrapper = shallow(<JournalData {...props} />)
