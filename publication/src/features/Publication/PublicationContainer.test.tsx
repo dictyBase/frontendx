@@ -92,6 +92,7 @@ describe("Publication/PublicationContainer", () => {
       },
     ]
     const wrapper = mount(
+      // @ts-ignore
       <MockedProvider mocks={mocks} addTypename={false}>
         <BrowserRouter>
           <PublicationContainer />
