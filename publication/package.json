@@ -124,20 +124,5 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
-  },
-  "release": {
-    "plugins": [
-      "@semantic-release/commit-analyzer",
-      "@semantic-release/release-notes-generator",
-      "@semantic-release/github"
-    ],
-    "ci": false,
-    "tagFormat": "${version}",
-    "verifyConditions": [
-      "@semantic-release/git"
-    ],
-    "publish": [
-      "@semantic-release/github"
-    ]
   }
 }
