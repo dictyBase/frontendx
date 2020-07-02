@@ -12,7 +12,6 @@ import { createHttpLink } from "apollo-link-http"
 import { persistCache } from "apollo-cache-persist"
 import { PersistentStorage, PersistedData } from "apollo-cache-persist/types"
 import { createPersistedQueryLink } from "apollo-link-persisted-queries"
-import { hydrateStore } from "dicty-components-redux"
 import CssBaseline from "@material-ui/core/CssBaseline"
 import configureStore from "./app/store/configureStore"
 import history from "./common/utils/routerHistory"
@@ -28,9 +27,7 @@ declare var process: {
   }
 }
 
-// load state from localStorage(if any) to set the initial state for the store
-const initialState = hydrateStore({ key: "auth", namespace: "auth" })
-const store = configureStore(initialState)
+const store = configureStore({})
 
 const authLink = setContext((_, { headers }) => ({
   headers: {
