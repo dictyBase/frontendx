@@ -41,7 +41,7 @@
     "dicty-components-navbar": "github:dictyBase/dicty-components-navbar#2.0.0",
     "element-remove": "^1.0.4",
     "graphql": "^14.6.0",
-    "graphql-tag": "^2.10.3",
+    "graphql-tag": "^2.10.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-ga": "^3.0.0",
