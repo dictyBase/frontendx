@@ -48,7 +48,7 @@
     "redux-thunk": "^2.3.0",
     "string.prototype.includes": "^2.0.0",
     "typeface-roboto": "0.0.75",
-    "whatwg-fetch": "^3.0.0"
+    "whatwg-fetch": "^3.2.0"
   },
   "devDependencies": {
     "@semantic-release/git": "^9.0.0",
