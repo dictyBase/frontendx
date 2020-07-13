@@ -40,7 +40,7 @@
     "dicty-components-login": "github:dictyBase/dicty-components-login#3.0.1",
     "dicty-components-navbar": "github:dictyBase/dicty-components-navbar#2.0.0",
     "element-remove": "^1.0.4",
-    "graphql": "^14.6.0",
+    "graphql": "^15.3.0",
     "graphql-tag": "^2.10.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
