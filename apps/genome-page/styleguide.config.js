@@ -1,6 +1,7 @@
 module.exports = {
-  styleguideDir: "docs",
+  styleguideDir: "styleguide",
   components: "src/**/*.js",
+  title: "dictyBase Gene Page",
   ignore: [
     "**/*.test.{js,jsx,ts,tsx}",
     "**/*Actions.js",
