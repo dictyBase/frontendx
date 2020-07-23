@@ -1,5 +1,6 @@
 {
-  "extends": "react-app",
+  "extends": ["react-app", "prettier"],
+  "plugins": ["import", "prettier"],
   "rules": {
     "quotes": ["error", "double"],
     "semi": ["error", "never"],
@@ -9,12 +10,13 @@
         "allow": ["log", "warn", "error"]
       }
     ],
-    "arrow-body-style": ["warn", "as-needed"],
-    "arrow-parens": ["error", "as-needed"],
+    "arrow-body-style": ["error", "as-needed"],
     "react/jsx-filename-extension": ["off"],
     "react/prop-types": ["off"],
     "jsx-a11y/href-no-hash": ["off"],
     "jsx-a11y/label-has-associated-control": ["off"],
-    "import/no-unresolved": ["off"]
+    "import/no-unresolved": ["off"],
+    "import/exports-last": ["error"],
+    "prettier/prettier": ["error"]
   }
 }
