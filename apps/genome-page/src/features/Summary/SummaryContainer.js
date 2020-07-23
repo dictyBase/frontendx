@@ -174,10 +174,7 @@ const mapStateToProps = ({ general, goa }) => ({ general, goa })
 
 const enhance = compose(
   withRouter,
-  connect(
-    mapStateToProps,
-    { fetchGeneralData, changeTab },
-  ),
+  connect(mapStateToProps, { fetchGeneralData, changeTab }),
 )
 
 export default enhance(SummaryContainer)

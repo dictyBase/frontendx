@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button"
 import FontAwesome from "react-fontawesome"
 import sadDicty from "images/sad-dicty.png"
 
-const styles = theme => ({
+const styles = (theme) => ({
   error400: {
     backgroundColor: "#eff8fb",
     textAlign: "center",

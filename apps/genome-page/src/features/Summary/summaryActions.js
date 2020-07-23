@@ -28,7 +28,7 @@ const fetchGeneralDataSuccess = (data: Array<Object>) => ({
   },
 })
 
-const fetchGeneralDataFailure = error => ({
+const fetchGeneralDataFailure = (error) => ({
   type: FETCH_GENERAL_DATA_FAILURE,
   payload: {
     isFetching: false,

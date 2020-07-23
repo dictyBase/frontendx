@@ -5,7 +5,7 @@ import Table from "@material-ui/core/Table"
 import TableBody from "@material-ui/core/TableBody"
 import Paper from "@material-ui/core/Paper"
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     width: "100%",
   },

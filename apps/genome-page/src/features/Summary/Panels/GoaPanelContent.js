@@ -4,14 +4,16 @@ import withLinkGenerator from "features/Ontology/utils/withLinkGenerator"
 import { withStyles } from "@material-ui/core/styles"
 
 // function to filter the With data
-const withDataFilter = arr => {
+const withDataFilter = (arr) => {
   // filter With array by db type
-  const dictyChecker = arr.filter(item => item.db === "dictyBase").slice(0, 2)
-  const uniprotChecker = arr.filter(item => item.db === "UniProtKB").slice(0, 2)
-  const mgiChecker = arr.filter(item => item.db === "MGI").slice(0, 2)
-  const rgdChecker = arr.filter(item => item.db === "RGD").slice(0, 2)
-  const sgdChecker = arr.filter(item => item.db === "SGD").slice(0, 2)
-  const pomChecker = arr.filter(item => item.db === "PomBase").slice(0, 2)
+  const dictyChecker = arr.filter((item) => item.db === "dictyBase").slice(0, 2)
+  const uniprotChecker = arr
+    .filter((item) => item.db === "UniProtKB")
+    .slice(0, 2)
+  const mgiChecker = arr.filter((item) => item.db === "MGI").slice(0, 2)
+  const rgdChecker = arr.filter((item) => item.db === "RGD").slice(0, 2)
+  const sgdChecker = arr.filter((item) => item.db === "SGD").slice(0, 2)
+  const pomChecker = arr.filter((item) => item.db === "PomBase").slice(0, 2)
 
   // order of preference to display With data
   // dicty => UniProt => MGI => RGD => SGD => PomBase
@@ -35,7 +37,7 @@ const withDataFilter = arr => {
 }
 
 // Material-UI stylings
-const styles = theme => ({
+const styles = (theme) => ({
   link: {
     textDecoration: "none",
     color: "#4C5E81",

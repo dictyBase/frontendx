@@ -70,9 +70,7 @@ export class AuthenticatedUser extends JsonAPI {
 
   // gets the first and last name of logged in user
   getFullName() {
-    return `${this.json.data.attributes.first_name} ${
-      this.json.data.attributes.last_name
-    }`
+    return `${this.json.data.attributes.first_name} ${this.json.data.attributes.last_name}`
   }
 
   // gets capitalized version of user's role
@@ -110,7 +108,7 @@ export class RolesPermissionsAPI extends JsonAPI {
   // get full list of user's roles
   getRoles() {
     if (this.json.roles) {
-      const roles = this.json.roles.map(item => item.attributes.role)
+      const roles = this.json.roles.map((item) => item.attributes.role)
       return roles
     }
     return null
@@ -120,7 +118,7 @@ export class RolesPermissionsAPI extends JsonAPI {
   checkRoles = (role: string) => {
     if (this.json.roles) {
       const filteredRoles = this.json.roles.filter(
-        item => item.attributes.role === role,
+        (item) => item.attributes.role === role,
       )
 
       // check if array is empty
@@ -135,7 +133,7 @@ export class RolesPermissionsAPI extends JsonAPI {
   getResources() {
     if (this.json.permissions) {
       const resources = this.json.permissions.map(
-        item => item.attributes.resource,
+        (item) => item.attributes.resource,
       )
       return resources
     }
@@ -146,7 +144,7 @@ export class RolesPermissionsAPI extends JsonAPI {
   getPermissions() {
     if (this.json.permissions) {
       const permissions = this.json.permissions.map(
-        item => item.attributes.permission,
+        (item) => item.attributes.permission,
       )
       return permissions
     }
@@ -162,15 +160,12 @@ export class RolesPermissionsAPI extends JsonAPI {
         return true
       }
 
-      const validPermissions = item => {
-        return (
-          item.attributes.permission === "admin" ||
-          (item.attributes.permission === perm &&
-            item.attributes.resource === resource) ||
-          (item.attributes.permission === perm &&
-            item.attributes.resource === MAIN_RESOURCE)
-        )
-      }
+      const validPermissions = (item) =>
+        item.attributes.permission === "admin" ||
+        (item.attributes.permission === perm &&
+          item.attributes.resource === resource) ||
+        (item.attributes.permission === perm &&
+          item.attributes.resource === MAIN_RESOURCE)
       const filteredPerms = this.json.permissions.filter(validPermissions)
 
       // check if array is empty

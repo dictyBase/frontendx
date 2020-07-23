@@ -129,7 +129,4 @@ export class OntologyTabContainer extends Component<Props> {
 
 const mapStateToProps = ({ goa }) => ({ goa })
 
-export default connect(
-  mapStateToProps,
-  { changeTab },
-)(OntologyTabContainer)
+export default connect(mapStateToProps, { changeTab })(OntologyTabContainer)

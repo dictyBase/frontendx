@@ -17,23 +17,29 @@ const MainPage = () => (
     <center>
       <h1>Genomes</h1>
       <div>Example genome pages:</div>
-      {links.filter(n => n.type === "regular").map((item, index) => (
-        <p key={index}>
-          <Link to={`/${item.id}`}>{item.id}</Link>
-        </p>
-      ))}
+      {links
+        .filter((n) => n.type === "regular")
+        .map((item, index) => (
+          <p key={index}>
+            <Link to={`/${item.id}`}>{item.id}</Link>
+          </p>
+        ))}
       <div>Complex examples:</div>
-      {links.filter(n => n.type === "complex").map((item, index) => (
-        <p key={index}>
-          <Link to={`/${item.id}`}>{item.id}</Link>
-        </p>
-      ))}
+      {links
+        .filter((n) => n.type === "complex")
+        .map((item, index) => (
+          <p key={index}>
+            <Link to={`/${item.id}`}>{item.id}</Link>
+          </p>
+        ))}
       <div>Gene name examples:</div>
-      {links.filter(n => n.type === "name").map((item, index) => (
-        <p key={index}>
-          <Link to={`/${item.id}`}>{item.id}</Link>
-        </p>
-      ))}
+      {links
+        .filter((n) => n.type === "name")
+        .map((item, index) => (
+          <p key={index}>
+            <Link to={`/${item.id}`}>{item.id}</Link>
+          </p>
+        ))}
     </center>
   </div>
 )

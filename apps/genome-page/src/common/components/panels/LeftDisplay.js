@@ -3,7 +3,7 @@ import React from "react"
 import { withStyles } from "@material-ui/core/styles"
 import Grid from "@material-ui/core/Grid"
 
-const styles = theme => ({
+const styles = (theme) => ({
   leftContainer: {
     backgroundColor: "#e6f2ff",
     fontSize: "1.1em",

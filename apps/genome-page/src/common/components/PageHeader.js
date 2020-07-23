@@ -9,7 +9,7 @@ type Props = {
   match: Object,
 }
 
-const titleConverter = path => {
+const titleConverter = (path) => {
   if (path.includes("goannotations")) {
     return "Gene Ontology Annotations"
   }
