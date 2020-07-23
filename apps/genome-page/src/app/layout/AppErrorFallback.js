@@ -38,10 +38,12 @@ const AppErrorFallback = (props: Props) => {
     <div className={classes.body}>
       {auth.isAuthenticated ? (
         <Header items={loggedHeaderItems}>
-          {items => items.map(generateLinks)}
+          {(items) => items.map(generateLinks)}
         </Header>
       ) : (
-        <Header items={headerItems}>{items => items.map(generateLinks)}</Header>
+        <Header items={headerItems}>
+          {(items) => items.map(generateLinks)}
+        </Header>
       )}
       <Navbar theme={navTheme} items={navbarItems} />
 
@@ -60,10 +62,7 @@ const mapStateToProps: MapStateToProps<*, *, *> = ({ auth }) => ({ auth })
 
 const enhance = compose(
   withRouter,
-  connect(
-    mapStateToProps,
-    null,
-  ),
+  connect(mapStateToProps, null),
   withStyles(styles),
 )
 

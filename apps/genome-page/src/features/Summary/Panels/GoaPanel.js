@@ -10,13 +10,13 @@ import RightDisplay from "common/components/panels/RightDisplay"
 const dataFilter = (arr, type) => {
   // get the attributes from specified type
   const attr = arr
-    .filter(item => item.type === type)
-    .map(item => item.attributes)
+    .filter((item) => item.type === type)
+    .map((item) => item.attributes)
 
   // get the five most recent EXP annotations
   const expChecker = attr
     .filter(
-      item =>
+      (item) =>
         item.evidence_code === "IMP" ||
         item.evidence_code === "IGI" ||
         item.evidence_code === "IDA" ||
@@ -29,13 +29,13 @@ const dataFilter = (arr, type) => {
 
   // get five most recent manual
   const manualChecker = attr
-    .filter(item => item.evidence_code !== "IEA")
+    .filter((item) => item.evidence_code !== "IEA")
     .sort((a, b) => b.date - a.date)
     .slice(0, 5)
 
   // get five most recent electronic
   const electronicChecker = attr
-    .filter(item => item.evidence_code === "IEA")
+    .filter((item) => item.evidence_code === "IEA")
     .sort((a, b) => b.date - a.date)
     .slice(0, 5)
 

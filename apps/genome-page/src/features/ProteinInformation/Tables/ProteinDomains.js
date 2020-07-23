@@ -10,7 +10,7 @@ import Paper from "@material-ui/core/Paper"
 // styling for ProtVista module
 import "ProtVista/style/main.css"
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     width: "100%",
     overflowX: "scroll",

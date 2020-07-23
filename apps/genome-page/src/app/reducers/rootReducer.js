@@ -7,7 +7,7 @@ import authReducer from "features/Authentication/authReducer"
 import footerReducer from "app/reducers/footerReducer"
 import navbarReducer from "app/reducers/navbarReducer"
 
-export default history =>
+export default (history) =>
   combineReducers({
     router: connectRouter(history),
     general: summaryReducer,

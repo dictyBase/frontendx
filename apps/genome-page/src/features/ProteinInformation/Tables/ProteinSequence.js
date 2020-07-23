@@ -8,7 +8,7 @@ import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
 import { styles } from "./TableStyles"
 
-const ProteinSequence = props => {
+const ProteinSequence = (props) => {
   const { classes } = props
 
   return (
@@ -32,13 +32,20 @@ const ProteinSequence = props => {
             </TableCell>
             <TableCell className={classes.tableRightData}>
               >DDB0238349|DDB_G0272004 |Protein|gene: p2xA on chromosome: 2
-              position 1165671 to 1167128<br />
-              MGFSFDWDDIFQYSTVKIVRIRDRRLGILHLSFLVGIVAYIVVYSAIIKKGYLFTEVPIG<br />
-              SVRTSLKGPNTFASNLTYCSNQQHNGSTYPFTPLECNYWDEQLALFPVGQDSTFTCTTRV<br />
-              RLSKQEANCNFTDPTCKFVDEPGSAKNIYIADIESFTILIDHTMYASSSGSQFNAVDLHG<br />
-              YILNQDGDEVQIDANGTSIGVSGKPDIMTIGQLLSFGGVSLDQASPVDSNVSIRYDGVVL<br />
-              FVFITYSNTYTYSTSDFKYVYSVQQIANTIYDVPETIILESIHSRLLYKRHGIRVIFIQT<br />
-              GTIGSFHFQTLLLTLVSGLGLLAVATTVVDQLAIRLLPQRKSYSSLKFQVTESMSNPMKK<br />
+              position 1165671 to 1167128
+              <br />
+              MGFSFDWDDIFQYSTVKIVRIRDRRLGILHLSFLVGIVAYIVVYSAIIKKGYLFTEVPIG
+              <br />
+              SVRTSLKGPNTFASNLTYCSNQQHNGSTYPFTPLECNYWDEQLALFPVGQDSTFTCTTRV
+              <br />
+              RLSKQEANCNFTDPTCKFVDEPGSAKNIYIADIESFTILIDHTMYASSSGSQFNAVDLHG
+              <br />
+              YILNQDGDEVQIDANGTSIGVSGKPDIMTIGQLLSFGGVSLDQASPVDSNVSIRYDGVVL
+              <br />
+              FVFITYSNTYTYSTSDFKYVYSVQQIANTIYDVPETIILESIHSRLLYKRHGIRVIFIQT
+              <br />
+              GTIGSFHFQTLLLTLVSGLGLLAVATTVVDQLAIRLLPQRKSYSSLKFQVTESMSNPMKK
+              <br />
               RITTDEGEDVLYTRIEGL*
             </TableCell>
           </TableRow>

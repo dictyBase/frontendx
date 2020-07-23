@@ -149,14 +149,9 @@ class GeneralInformation extends Component {
 
 const mapStateToProps = ({ protein }) => ({ protein })
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchData: url => dispatch(fetchData(url)),
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  fetchData: (url) => dispatch(fetchData(url)),
+})
 export default withStyles(styles)(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  )(GeneralInformation),
+  connect(mapStateToProps, mapDispatchToProps)(GeneralInformation),
 )

@@ -40,7 +40,7 @@ type Props = {
  */
 
 class EnhancedTableHead extends Component<Props> {
-  createSortHandler = property => event => {
+  createSortHandler = (property) => (event) => {
     this.props.onRequestSort(event, property)
   }
 

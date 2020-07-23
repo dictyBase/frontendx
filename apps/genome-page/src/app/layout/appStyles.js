@@ -1,4 +1,4 @@
-export const appStyles = theme => ({
+export const appStyles = (theme) => ({
   main: {
     margin: "0 10px 25px 10px",
   },

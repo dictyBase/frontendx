@@ -4,15 +4,13 @@ import Links from "./Tables/Links"
 import ProteinDomains from "./Tables/ProteinDomains"
 import ProteinSequence from "./Tables/ProteinSequence"
 
-const ProteinInformationContainer = () => {
-  return (
-    <div>
-      <GeneralInformation />
-      <Links />
-      <ProteinDomains />
-      <ProteinSequence />
-    </div>
-  )
-}
+const ProteinInformationContainer = () => (
+  <div>
+    <GeneralInformation />
+    <Links />
+    <ProteinDomains />
+    <ProteinSequence />
+  </div>
+)
 
 export default ProteinInformationContainer

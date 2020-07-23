@@ -21,7 +21,7 @@ const fetchGoaRequest = () => ({
   },
 })
 
-const fetchGoaFailure = error => ({
+const fetchGoaFailure = (error) => ({
   type: FETCH_GOA_FAILURE,
   payload: {
     isFetching: false,

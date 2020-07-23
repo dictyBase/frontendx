@@ -15,24 +15,16 @@ if (process.env.REACT_APP_FUNC_SERVER) {
   fetchByIdResource = `${process.env.REACT_APP_FUNC_SERVER}${fetchByIdBase}`
   // set URL base for fetching user by ID
   const fetchUserByIdBase = "/users"
-  fetchUserByIdResource = `${
-    process.env.REACT_APP_FUNC_SERVER
-  }${fetchUserByIdBase}`
+  fetchUserByIdResource = `${process.env.REACT_APP_FUNC_SERVER}${fetchUserByIdBase}`
   // set URL base for fetching user by email
   const fetchUserByEmailBase = "/users/email"
-  fetchUserByEmailResource = `${
-    process.env.REACT_APP_FUNC_SERVER
-  }${fetchUserByEmailBase}`
+  fetchUserByEmailResource = `${process.env.REACT_APP_FUNC_SERVER}${fetchUserByEmailBase}`
   // set URL base for fetching role by ID
   const fetchRoleByIdBase = "/roles"
-  fetchRoleByIdResource = `${
-    process.env.REACT_APP_FUNC_SERVER
-  }${fetchRoleByIdBase}`
+  fetchRoleByIdResource = `${process.env.REACT_APP_FUNC_SERVER}${fetchRoleByIdBase}`
   // set URL base for fetching permission by ID
   const fetchPermissionByIdBase = "/permissions"
-  fetchPermissionByIdResource = `${
-    process.env.REACT_APP_FUNC_SERVER
-  }${fetchPermissionByIdBase}`
+  fetchPermissionByIdResource = `${process.env.REACT_APP_FUNC_SERVER}${fetchPermissionByIdBase}`
 } else {
   fetchBySlugResource = "http://localhost:8080/contents/slug"
   fetchByIdResource = "http://localhost:8080/contents"
@@ -44,9 +36,7 @@ if (process.env.REACT_APP_FUNC_SERVER) {
 
 if (process.env.REACT_APP_AUTH_SERVER) {
   const oauthEndpointBase = "/tokens"
-  oauthEndpointResource = `${
-    process.env.REACT_APP_AUTH_SERVER
-  }${oauthEndpointBase}`
+  oauthEndpointResource = `${process.env.REACT_APP_AUTH_SERVER}${oauthEndpointBase}`
 } else {
   oauthEndpointResource = "http://localhost:9999/tokens"
 }
