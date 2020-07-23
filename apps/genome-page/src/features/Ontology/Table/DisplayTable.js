@@ -133,7 +133,6 @@ export class DisplayTable extends Component<Props> {
 
 const mapStateToProps = ({ goa }) => ({ goa })
 
-export default connect(
-  mapStateToProps,
-  { changeTableOrder, sortTableBy },
-)(withStyles(styles)(DisplayTable))
+export default connect(mapStateToProps, { changeTableOrder, sortTableBy })(
+  withStyles(styles)(DisplayTable),
+)

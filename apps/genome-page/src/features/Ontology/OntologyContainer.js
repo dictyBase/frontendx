@@ -132,8 +132,5 @@ export class OntologyContainer extends Component<Props> {
 const mapStateToProps = ({ general, goa }) => ({ general, goa })
 
 export default withRouter(
-  connect(
-    mapStateToProps,
-    { fetchGeneralData, changeTab },
-  )(OntologyContainer),
+  connect(mapStateToProps, { fetchGeneralData, changeTab })(OntologyContainer),
 )

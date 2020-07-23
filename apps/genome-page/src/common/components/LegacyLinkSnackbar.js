@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles"
 import InfoIcon from "@material-ui/icons/Info"
 import LaunchIcon from "@material-ui/icons/Launch"
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "#f5f5f5",
     marginBottom: "20px",

@@ -48,10 +48,12 @@ export const App = (props: Props) => {
     <div className={classes.body}>
       {auth.isAuthenticated ? (
         <Header items={loggedHeaderItems}>
-          {items => items.map(generateLinks)}
+          {(items) => items.map(generateLinks)}
         </Header>
       ) : (
-        <Header items={headerItems}>{items => items.map(generateLinks)}</Header>
+        <Header items={headerItems}>
+          {(items) => items.map(generateLinks)}
+        </Header>
       )}
       <Navbar theme={navTheme} items={navbar.links} />
 
@@ -74,10 +76,7 @@ const mapStateToProps: MapStateToProps<*, *, *> = ({
 
 const enhance = compose(
   withRouter,
-  connect(
-    mapStateToProps,
-    null,
-  ),
+  connect(mapStateToProps, null),
   withStyles(styles),
   withDataFetching(
     fetchNavbarAndFooter,
