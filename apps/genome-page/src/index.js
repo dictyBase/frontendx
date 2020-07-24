@@ -10,12 +10,15 @@ import CssBaseline from "@material-ui/core/CssBaseline"
 import configureStore from "app/store/configureStore"
 import history from "common/utils/routerHistory"
 import App from "app/layout/App"
-import registerServiceWorker from "./registerServiceWorker"
 import "typeface-roboto"
 
 const client = new ApolloClient({
-  uri: process.env.REACT_APP_GRAPHQL_SERVER,
   cache: new InMemoryCache(),
+  uri: process.env.REACT_APP_GRAPHQL_SERVER,
+  credentials: "include",
+  headers: {
+    "X-GraphQL-Method": "Query",
+  },
 })
 
 const muiTheme = createMuiTheme({
@@ -73,4 +76,3 @@ ReactDOM.render(
   </ApolloProvider>,
   document.getElementById("root"),
 )
-registerServiceWorker()
