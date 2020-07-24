@@ -1,4 +1,3 @@
-// @flow
 import React from "react"
 import { connect } from "react-redux"
 import { withStyles } from "@material-ui/core/styles"
@@ -55,20 +54,11 @@ const styles = (theme) => ({
   },
 })
 
-type Props = {
-  /** Material-UI styling */
-  classes: Object,
-  /** The general object in the state */
-  general: Object,
-  /** The goa object in the state */
-  goa: Object,
-}
-
 /**
  * General error handling page. It displays different messages based on HTTP status code.
  */
 
-export const ErrorPage = (props: Props) => {
+export const ErrorPage = (props) => {
   const { goa, general, classes } = props
 
   let errorStatus = 0

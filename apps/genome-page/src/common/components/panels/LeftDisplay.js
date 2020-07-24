@@ -1,4 +1,3 @@
-// @flow
 import React from "react"
 import { withStyles } from "@material-ui/core/styles"
 import Grid from "@material-ui/core/Grid"
@@ -22,18 +21,11 @@ const styles = (theme) => ({
   },
 })
 
-type Props = {
-  /** Material-UI styling */
-  classes: Object,
-  /** The content to display on the left */
-  children: any,
-}
-
 /**
  * This represents the left side of the inner panel content.
  */
 
-const LeftDisplay = ({ classes, children }: Props) => (
+const LeftDisplay = ({ classes, children }) => (
   <Grid item xs={2} component="span" className={classes.leftContainer}>
     <span className={classes.innerSpan}>{children}</span>
   </Grid>
