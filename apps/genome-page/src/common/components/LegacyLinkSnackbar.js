@@ -1,4 +1,3 @@
-// @flow
 import React from "react"
 import Grid from "@material-ui/core/Grid"
 import SnackbarContent from "@material-ui/core/SnackbarContent"
@@ -33,11 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-type Props = {
-  id: string,
-}
-
-const LegacyLinkSnackbar = ({ id }: Props) => {
+const LegacyLinkSnackbar = ({ id }) => {
   const classes = useStyles()
 
   return (

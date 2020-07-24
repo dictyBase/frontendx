@@ -1,4 +1,3 @@
-// @flow
 import React from "react"
 import { withStyles } from "@material-ui/core/styles"
 import Grid from "@material-ui/core/Grid"
@@ -6,7 +5,6 @@ import Button from "@material-ui/core/Button"
 import FontAwesome from "react-fontawesome"
 import sadDicty from "images/sad-dicty.png"
 
-// eslint-disable-next-line
 const styles = (theme) => ({
   container: {
     backgroundColor: "#eff8fb",
@@ -39,6 +37,7 @@ const styles = (theme) => ({
 
 const PageNotReady = (props) => {
   const { classes } = props
+
   return (
     <Grid container className={classes.mainGrid} justify="center">
       <Grid item xs={10} md={8}>

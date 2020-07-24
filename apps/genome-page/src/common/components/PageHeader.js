@@ -1,13 +1,5 @@
-// @flow
 import React from "react"
 import { withRouter } from "react-router-dom"
-
-type Props = {
-  /** The gene name */
-  name: string,
-  /** React Router match object */
-  match: Object,
-}
 
 const titleConverter = (path) => {
   if (path.includes("goannotations")) {
@@ -20,7 +12,7 @@ const titleConverter = (path) => {
  * Basic page header for all gene pages.
  */
 
-const PageHeader = (props: Props) => {
+const PageHeader = (props) => {
   const { name, match } = props
 
   if (!name) {
