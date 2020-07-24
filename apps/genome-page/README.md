@@ -71,7 +71,9 @@ of the necessary environmental variables can be found [here](.env.development).
 
 ## Application Structure
 
-This was reconfigured to use the [create-react-app](https://github.com/facebook/create-react-app) structure and philosophy. Please read their [User Guide](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md) for more detailed information.
+This was reconfigured to use the [create-react-app](https://github.com/facebook/create-react-app) structure and philosophy.
+Please read their [User Guide](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md)
+for more detailed information.
 
 ```
 .
@@ -86,7 +88,6 @@ This was reconfigured to use the [create-react-app](https://github.com/facebook/
 │   ├── common                  # Common features for entire app
 │       ├── components          # Generic components
 │       ├── constants           # Static data (i.e. footer, navbar links)
-│       ├── fake-data           # Any fake data needed for placeholder content
 │       ├── utils               # Application utilities
 │   ├── features                # Main features of application
 │       ├── Authentication      # Authentication-related components
@@ -132,5 +133,5 @@ wireframes and Redux shape of state diagrams.
 
 ## Active Developers
 
-<a href="https://sourcerer.io/wildlifehexagon"><img src="https://sourcerer.io/assets/avatar/wildlifehexagon" height="80px" alt="Sourcerer"></a>
 <a href="https://sourcerer.io/cybersiddhu"><img src="https://sourcerer.io/assets/avatar/cybersiddhu" height="80px" alt="Sourcerer"></a>
+<a href="https://sourcerer.io/wildlifehexagon"><img src="https://sourcerer.io/assets/avatar/wildlifehexagon" height="80px" alt="Sourcerer"></a>
