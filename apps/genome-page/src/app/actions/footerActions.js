@@ -1,4 +1,3 @@
-// @flow
 import {
   FETCH_FOOTER_REQUEST,
   FETCH_FOOTER_SUCCESS,
@@ -15,7 +14,7 @@ const fetchFooterRequest = () => ({
   },
 })
 
-const fetchFooterSuccess = (json: Object) => ({
+const fetchFooterSuccess = (json) => ({
   type: FETCH_FOOTER_SUCCESS,
   payload: {
     isFetching: false,
@@ -31,7 +30,7 @@ const fetchFooterFailure = (error) => ({
 })
 
 // fetch footer function that fetches data using async/await
-export const fetchFooter = () => async (dispatch: Function) => {
+export const fetchFooter = () => async (dispatch) => {
   try {
     dispatch(fetchFooterRequest())
     const res = await fetch(footerJson)

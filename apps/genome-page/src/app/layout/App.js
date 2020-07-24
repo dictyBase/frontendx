@@ -5,7 +5,6 @@ import { withRouter } from "react-router-dom"
 import { withStyles } from "@material-ui/core/styles"
 import { Header, Footer } from "dicty-components-header-footer"
 import { Navbar } from "dicty-components-navbar"
-
 import ErrorBoundary from "common/components/ErrorBoundary"
 import fetchNavbarAndFooter from "app/actions/navbarActions"
 import {
@@ -19,23 +18,12 @@ import withDataFetching from "common/components/withDataFetching"
 import AppErrorFallback from "./AppErrorFallback"
 import { appStyles as styles, navTheme } from "./appStyles"
 
-type Props = {
-  /** Object representing auth part of state */
-  auth: Object,
-  /** Object representing navbar part of state */
-  navbar: Object,
-  /** Object representing footer part of state */
-  footer: Object,
-  /** Action that fetches both navbar and footer content */
-  fetchNavbarAndFooter: Function,
-}
-
 /**
  * This is the main App component.
  * It is responsible for the main layout of the entire application.
  */
 
-export const App = (props: Props) => {
+export const App = (props) => {
   const { auth, navbar, footer, classes } = props
 
   let footerLinks = footerItems
@@ -68,11 +56,7 @@ export const App = (props: Props) => {
   )
 }
 
-const mapStateToProps: MapStateToProps<*, *, *> = ({
-  auth,
-  navbar,
-  footer,
-}) => ({ auth, navbar, footer })
+const mapStateToProps = ({ auth, navbar, footer }) => ({ auth, navbar, footer })
 
 const enhance = compose(
   withRouter,

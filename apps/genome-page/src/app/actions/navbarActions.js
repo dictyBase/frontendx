@@ -1,4 +1,3 @@
-// @flow
 import {
   FETCH_NAVBAR_REQUEST,
   FETCH_NAVBAR_SUCCESS,
@@ -31,7 +30,7 @@ const fetchNavbarFailure = (error) => ({
   },
 })
 
-export const fetchNavbarAndFooter = () => async (dispatch: Function) => {
+export const fetchNavbarAndFooter = () => async (dispatch) => {
   try {
     dispatch(fetchNavbarRequest())
     const res = await fetch(navbarJson)
