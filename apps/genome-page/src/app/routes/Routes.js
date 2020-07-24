@@ -5,7 +5,6 @@ import { Route, Switch } from "react-router-dom"
 import MainPage from "features/MainPage/MainPage"
 import SummaryContainer from "features/Summary/SummaryContainer"
 import OntologyContainer from "features/Ontology/OntologyContainer"
-// import ProteinInformationContainer from "features/ProteinInformation/ProteinInformationContainer"
 import Login from "features/Authentication/Login"
 import OauthCallback from "features/Authentication/OauthCallback"
 import AuthLoader from "features/Authentication/AuthLoader"
@@ -32,13 +31,7 @@ const Routes = () => (
       path="/:id/goannotations"
       render={() => <OntologyContainer identifier={false} />}
     />
-    {/* <Route path="/:id/protein" component={SummaryContainer} />
-    <Route path="/:id/orthologs" component={SummaryContainer} />
-    <Route path="/:id/phenotypes" component={SummaryContainer} />
-    <Route path="/:id/references" component={SummaryContainer} />
-    <Route path="/:id/blast" component={SummaryContainer} /> */}
     <Route path="/:id/*" component={PageNotReady} />
-
     {/* if route matches gene ID, set identifier as true */}
     <Route
       path="/:id([A-Z]{3}_G[0-9]{4,})"
