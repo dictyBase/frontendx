@@ -1,19 +1,13 @@
-// @flow
 import { connect } from "react-redux"
 import { Redirect } from "react-router-dom"
 import React, { Component } from "react"
 import { logoutUser } from "./authActions"
 
-type Props = {
-  /** Logs the user out */
-  logoutUser: Function,
-}
-
 /**
  * Allows the user to logout
  */
 
-export class Logout extends Component<Props> {
+export class Logout extends Component {
   componentWillMount() {
     this.props.logoutUser()
   }

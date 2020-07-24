@@ -1,10 +1,8 @@
-// @flow
-
 /**
  * This is a helper function to generate links to publications.
  */
 
-const pubLinkGenerator = (id: string) => {
+const pubLinkGenerator = (id) => {
   let idnum
 
   if (id.includes("PMID")) {
