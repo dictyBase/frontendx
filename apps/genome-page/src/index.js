@@ -1,7 +1,7 @@
 import "common/utils/polyfills" // necessary for IE11
-import "whatwg-fetch"
 import React from "react"
 import ReactDOM from "react-dom"
+import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client"
 import { Provider } from "react-redux"
 import { ConnectedRouter } from "connected-react-router"
 import { hydrateStore } from "dicty-components-redux"
@@ -12,6 +12,11 @@ import history from "common/utils/routerHistory"
 import App from "app/layout/App"
 import registerServiceWorker from "./registerServiceWorker"
 import "typeface-roboto"
+
+const client = new ApolloClient({
+  uri: process.env.REACT_APP_GRAPHQL_SERVER,
+  cache: new InMemoryCache(),
+})
 
 const muiTheme = createMuiTheme({
   overrides: {
@@ -56,14 +61,16 @@ if (process.env.NODE_ENV === "production") {
 }
 
 ReactDOM.render(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <MuiThemeProvider theme={muiTheme}>
-        <CssBaseline />
-        <App />
-      </MuiThemeProvider>
-    </ConnectedRouter>
-  </Provider>,
+  <ApolloProvider client={client}>
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <MuiThemeProvider theme={muiTheme}>
+          <CssBaseline />
+          <App />
+        </MuiThemeProvider>
+      </ConnectedRouter>
+    </Provider>
+  </ApolloProvider>,
   document.getElementById("root"),
 )
 registerServiceWorker()
