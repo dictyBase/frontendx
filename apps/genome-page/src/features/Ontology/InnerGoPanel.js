@@ -7,15 +7,15 @@ import PanelWrapper from "common/components/panels/PanelWrapper"
  * Displays the inside of GO Tab panels
  */
 
-const InnerGoPanel = ({ goaData }) => {
+const InnerGoPanel = ({ data }) => {
   // set variables that represent filtered arrays for use in each row
-  const molecular = goaData.filter(
+  const molecular = data.filter(
     (item: Object) => item.type === "molecular_function",
   )
-  const biological = goaData.filter(
+  const biological = data.filter(
     (item: Object) => item.type === "biological_process",
   )
-  const cellular = goaData.filter(
+  const cellular = data.filter(
     (item: Object) => item.type === "cellular_component",
   )
 
@@ -24,17 +24,17 @@ const InnerGoPanel = ({ goaData }) => {
       <Grid item sm={12} md={12} lg={12} xl={12}>
         {molecular.length > 0 && (
           <PanelWrapper title="Molecular Function">
-            <DisplayTable goaData={molecular} />
+            <DisplayTable data={molecular} />
           </PanelWrapper>
         )}
         {biological.length > 0 && (
           <PanelWrapper title="Biological Process">
-            <DisplayTable goaData={biological} />
+            <DisplayTable data={biological} />
           </PanelWrapper>
         )}
         {cellular.length > 0 && (
           <PanelWrapper title="Cellular Composition">
-            <DisplayTable goaData={cellular} />
+            <DisplayTable data={cellular} />
           </PanelWrapper>
         )}
       </Grid>
