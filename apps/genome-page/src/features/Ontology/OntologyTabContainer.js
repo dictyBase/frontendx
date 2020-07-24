@@ -65,7 +65,7 @@ const OntologyTabContainer = ({ data }) => {
         </Tabs>
       </AppBar>
       <TypographyWrapper>
-        <InnerGoPanel goaData={data} />
+        <InnerGoPanel data={data} />
       </TypographyWrapper>
       {/* {goa.currentTab === "experimental" && (
           <TypographyWrapper>
