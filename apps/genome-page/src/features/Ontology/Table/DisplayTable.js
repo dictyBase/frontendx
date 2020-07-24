@@ -54,9 +54,6 @@ export class DisplayTable extends Component<Props> {
   render() {
     const { classes, goaData, goa } = this.props
 
-    // get array for item.attributes, helps for sorting table
-    const goaDataAttributes = goaData.map((item: Object) => item.attributes)
-
     return (
       <Paper className={classes.root}>
         <Table>
@@ -75,7 +72,7 @@ export class DisplayTable extends Component<Props> {
             onRequestSort={this.handleRequestSort}
           />
           <TableBody>
-            {goaDataAttributes
+            {goaData
               .sort(getSorting(goa.tableOrder, goa.tableSortBy))
               .map((item: Object, index: number) => (
                 <TableRow className={classes.row} key={index}>

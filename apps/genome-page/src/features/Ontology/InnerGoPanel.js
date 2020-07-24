@@ -1,21 +1,13 @@
-// @flow
 import React from "react"
 import Grid from "@material-ui/core/Grid"
 import DisplayTable from "./Table/DisplayTable"
 import PanelWrapper from "common/components/panels/PanelWrapper"
 
-type Props = {
-  /** Filtered GOA data based on tab */
-  goaData: Array<Object>,
-}
-
 /**
  * Displays the inside of GO Tab panels
  */
 
-const InnerGoPanel = (props: Props) => {
-  const { goaData } = props
-
+const InnerGoPanel = ({ goaData }) => {
   // set variables that represent filtered arrays for use in each row
   const molecular = goaData.filter(
     (item: Object) => item.type === "molecular_function",
