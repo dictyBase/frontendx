@@ -1,4 +1,3 @@
-// @flow
 import React from "react"
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton"
 import AppBar from "@material-ui/core/AppBar"

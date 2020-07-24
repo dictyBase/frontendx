@@ -1,24 +1,13 @@
-// @flow
 import React, { Fragment } from "react"
 import { withStyles } from "@material-ui/core/styles"
-
 import withLinkGenerator from "../utils/withLinkGenerator"
 import styles from "./DisplayTableStyles"
-
-type Props = {
-  /** The With data from GO annotations */
-  withData: Array<Object>,
-  /** Material-UI styling */
-  classes: Object,
-}
 
 /**
  * This handles the display for the "With" GO data.
  */
 
-const WithDisplay = (props: Props) => {
-  const { withData, classes } = props
-
+const WithDisplay = ({ withData, classes }) => {
   if (withData === null) {
     return <Fragment />
   }

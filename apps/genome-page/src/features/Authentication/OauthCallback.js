@@ -1,14 +1,8 @@
-// @flow
 import React, { Component } from "react"
 import Grid from "@material-ui/core/Grid"
 
-type Props = {
-  location: Object,
-  match: Object,
-}
-
 // helper function to set redirect URL with basename if included
-const redirectUrlGenerator = (basename: string) => {
+const redirectUrlGenerator = (basename) => {
   let url
   if (basename === "" || basename === "/") {
     url = `${window.location.origin}`
@@ -24,7 +18,7 @@ const redirectUrlGenerator = (basename: string) => {
  * Callback that transfers the user to the login system
  */
 
-export default class OauthCallback extends Component<Props> {
+export default class OauthCallback extends Component {
   componentDidMount() {
     window.opener.postMessage(
       {

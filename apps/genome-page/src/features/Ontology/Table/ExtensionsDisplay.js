@@ -1,24 +1,13 @@
-// @flow
 import React, { Fragment } from "react"
 import { withStyles } from "@material-ui/core/styles"
-
 import withLinkGenerator from "../utils/withLinkGenerator"
 import styles from "./DisplayTableStyles"
-
-type Props = {
-  /** The extensions data from GO annotations */
-  extensions: Array<Object>,
-  /** Material-UI styling */
-  classes: Object,
-}
 
 /**
  * This handles the display for the extensions GO data.
  */
 
-const ExtensionsDisplay = (props: Props) => {
-  const { extensions, classes } = props
-
+const ExtensionsDisplay = ({ extensions, classes }) => {
   if (extensions === null) {
     return <Fragment />
   }

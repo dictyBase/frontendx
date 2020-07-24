@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from "react"
 import { withStyles } from "@material-ui/core/styles"
 import TableHead from "@material-ui/core/TableHead"
@@ -24,22 +23,11 @@ const columnData = [
   { id: "assigned_by", label: "Source" },
 ]
 
-type Props = {
-  /** Material-UI styling */
-  classes: Object,
-  /** The order to sort the column */
-  order: string,
-  /** The item to be ordered by */
-  orderBy: string,
-  /** Function for handling sorting */
-  onRequestSort: Function,
-}
-
 /**
  * Enhanced table head component that allows for column sorting.
  */
 
-class EnhancedTableHead extends Component<Props> {
+class EnhancedTableHead extends Component {
   createSortHandler = (property) => (event) => {
     this.props.onRequestSort(event, property)
   }

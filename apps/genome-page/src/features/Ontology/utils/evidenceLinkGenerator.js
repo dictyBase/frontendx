@@ -1,10 +1,8 @@
-// @flow
-
 /**
  * This is a helper function to generate links for evidence codes.
  */
 
-const evidenceLinkGenerator = (id: string) => {
+const evidenceLinkGenerator = (id) => {
   switch (id) {
     case "IMP":
       return "http://dictybase.org/ontology/go/evidence#IMP"

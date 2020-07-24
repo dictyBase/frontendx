@@ -1,4 +1,3 @@
-// @flow
 import { Component } from "react"
 import { connect } from "react-redux"
 import { oAuthLogin } from "./authActions"
@@ -10,7 +9,7 @@ type Props = {
 
 /** Sign in handler for the oAuth process */
 
-class OauthSignHandler extends Component<Props> {
+class OauthSignHandler extends Component {
   onMessage = (event) => {
     event.preventDefault()
     event.stopPropagation()
