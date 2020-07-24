@@ -2,8 +2,8 @@ import "common/utils/polyfills" // necessary for IE11
 import React from "react"
 import ReactDOM from "react-dom"
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client"
+import { BrowserRouter } from "react-router-dom"
 import { Provider } from "react-redux"
-import { ConnectedRouter } from "connected-react-router"
 import { hydrateStore } from "dicty-components-redux"
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles"
 import CssBaseline from "@material-ui/core/CssBaseline"
@@ -66,12 +66,12 @@ if (process.env.NODE_ENV === "production") {
 ReactDOM.render(
   <ApolloProvider client={client}>
     <Provider store={store}>
-      <ConnectedRouter history={history}>
+      <BrowserRouter basename={process.env.REACT_APP_BASENAME}>
         <MuiThemeProvider theme={muiTheme}>
           <CssBaseline />
           <App />
         </MuiThemeProvider>
-      </ConnectedRouter>
+      </BrowserRouter>
     </Provider>
   </ApolloProvider>,
   document.getElementById("root"),
