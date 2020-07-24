@@ -14,7 +14,7 @@ import "typeface-roboto"
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  uri: process.env.REACT_APP_GRAPHQL_SERVER,
+  uri: `${process.env.REACT_APP_GRAPHQL_SERVER}/graphql`,
   credentials: "include",
   headers: {
     "X-GraphQL-Method": "Query",
