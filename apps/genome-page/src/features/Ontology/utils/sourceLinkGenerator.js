@@ -1,10 +1,8 @@
-// @flow
-
 /**
  * This is a helper function to generate links for sources.
  */
 
-const sourceLinkGenerator = (id: string) => {
+const sourceLinkGenerator = (id) => {
   switch (id) {
     case "dictyBase":
       return "http://dictybase.org/"

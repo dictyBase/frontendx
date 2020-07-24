@@ -1,10 +1,9 @@
-// @flow
-
 /**
  * This is a helper function to generate links for the With column of DisplayTable.
  */
 
-const withLinkGenerator = (id: string, db: string, name: ?string) => {
+//name optional
+const withLinkGenerator = (id, db, name) => {
   if (id === undefined) {
     return "#"
   }

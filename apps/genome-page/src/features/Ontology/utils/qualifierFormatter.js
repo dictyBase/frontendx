@@ -1,11 +1,10 @@
-// @flow
 import React, { Fragment } from "react"
 
 /**
  * Helper function to handle GO qualifiers formatting
  */
 
-const qualifierFormatter = (str: string) => {
+const qualifierFormatter = (str) => {
   // remove pipe after NOT
   let converted = str.replace("NOT|", "NOT ")
 
