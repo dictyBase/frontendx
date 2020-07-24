@@ -1,6 +1,4 @@
-// @flow
 import React from "react"
-
 import GoaPanelContent from "./GoaPanelContent"
 import ItemDisplay from "common/components/panels/ItemDisplay"
 import LeftDisplay from "common/components/panels/LeftDisplay"
@@ -9,9 +7,7 @@ import RightDisplay from "common/components/panels/RightDisplay"
 // function that takes in the data array and the type (i.e. "molecular_function") to filter by
 const dataFilter = (arr, type) => {
   // get the attributes from specified type
-  const attr = arr
-    .filter((item) => item.type === type)
-    .map((item) => item.attributes)
+  const attr = arr.filter((item) => item.type === type)
 
   // get the five most recent EXP annotations
   const expChecker = attr
@@ -51,61 +47,36 @@ const dataFilter = (arr, type) => {
   return expChecker
 }
 
-type dataProps = {
-  assigned_by: string,
-  date: string,
-  evidence_code: string,
-  extensions: Array<Object>,
-  goterm: string,
-  publication: string,
-  qualifier: string,
-  with: Array<Object>,
-}
-
-type Props = {
-  /** Material-UI styling */
-  classes: Object,
-  /** Object representing the "goa" slice of state */
-  panelData: Object,
-}
-
 /**
  * Panel to display Gene Ontology Annotations in Gene Summary tab
  */
 
-const GoaPanel = (props: Props) => {
-  const { panelData } = props
-
+const GoaPanel = ({ data }) => {
+  console.log(data)
   return (
     <div>
       <ItemDisplay>
         <LeftDisplay>Molecular Function</LeftDisplay>
         <RightDisplay>
-          {dataFilter(panelData.data, "molecular_function").map(
-            (item: dataProps, i: string) => (
-              <GoaPanelContent key={i} item={item} />
-            ),
-          )}
+          {dataFilter(data, "molecular_function").map((item, i) => (
+            <GoaPanelContent key={i} item={item} />
+          ))}
         </RightDisplay>
       </ItemDisplay>
       <ItemDisplay>
         <LeftDisplay>Biological Process</LeftDisplay>
         <RightDisplay>
-          {dataFilter(panelData.data, "biological_process").map(
-            (item: dataProps, i: string) => (
-              <GoaPanelContent key={i} item={item} />
-            ),
-          )}
+          {dataFilter(data, "biological_process").map((item, i) => (
+            <GoaPanelContent key={i} item={item} />
+          ))}
         </RightDisplay>
       </ItemDisplay>
       <ItemDisplay>
         <LeftDisplay>Cellular Component</LeftDisplay>
         <RightDisplay>
-          {dataFilter(panelData.data, "cellular_component").map(
-            (item: dataProps, i: string) => (
-              <GoaPanelContent key={i} item={item} />
-            ),
-          )}
+          {dataFilter(data, "cellular_component").map((item, i) => (
+            <GoaPanelContent key={i} item={item} />
+          ))}
         </RightDisplay>
       </ItemDisplay>
     </div>
