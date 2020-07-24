@@ -1,14 +1,13 @@
-// @flow
 import React from "react"
 import { Link } from "react-router-dom"
-import { withStyles } from "@material-ui/core/styles"
-import ExpansionPanel from "@material-ui/core/ExpansionPanel"
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary"
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails"
+import { makeStyles } from "@material-ui/core/styles"
+import Accordion from "@material-ui/core/Accordion"
+import AccordionSummary from "@material-ui/core/AccordionSummary"
+import AccordionDetails from "@material-ui/core/AccordionActions"
 import Typography from "@material-ui/core/Typography"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 
-const styles = (theme: Object) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
   },
@@ -35,44 +34,37 @@ const styles = (theme: Object) => ({
     marginLeft: 40,
     textDecoration: "none",
   },
-})
-
-type Props = {
-  /** Material-UI styling */
-  classes: Object,
-  /** The title to display for the panel */
-  title: string,
-  /** Children passed to component */
-  children: any,
-  /** The path that View All links to */
-  route: string,
-}
+}))
 
 /**
  * This is a basic panel wrapper that uses Material-UI for the design.
  * It is used for every panel on the gene summary page.
  */
 
-const PanelWrapper = ({ classes, title, route, children }: Props) => (
-  <div className={classes.root}>
-    <ExpansionPanel defaultExpanded>
-      <ExpansionPanelSummary
-        className={classes.summary}
-        expandIcon={<ExpandMoreIcon className={classes.icon} />}>
-        <Typography className={classes.heading}>
-          {title}
-          {route && (
-            <Link className={classes.link} to={route}>
-              View All
-            </Link>
-          )}
-        </Typography>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails className={classes.details}>
-        <div className={classes.innerContent}>{children}</div>
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
-  </div>
-)
+const PanelWrapper = ({ title, route, children }) => {
+  const classes = useStyles()
 
-export default withStyles(styles)(PanelWrapper)
+  return (
+    <div className={classes.root}>
+      <Accordion defaultExpanded>
+        <AccordionSummary
+          className={classes.summary}
+          expandIcon={<ExpandMoreIcon className={classes.icon} />}>
+          <Typography className={classes.heading}>
+            {title}
+            {route && (
+              <Link className={classes.link} to={route}>
+                View All
+              </Link>
+            )}
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails className={classes.details}>
+          <div className={classes.innerContent}>{children}</div>
+        </AccordionDetails>
+      </Accordion>
+    </div>
+  )
+}
+
+export default PanelWrapper
