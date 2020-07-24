@@ -1,12 +1,11 @@
-// @flow
 import { MAIN_RESOURCE } from "common/constants/resources"
 import jwtDecode from "jwt-decode"
 
 export class JsonAPI {
-  json: Object
-  links: Object
-  relationships: Object
-  constructor(json: Object) {
+  json
+  links
+  relationships
+  constructor(json) {
     this.json = json
   }
   getAttributes() {
@@ -21,7 +20,7 @@ export class JsonAPI {
 }
 
 export class AuthAPI extends JsonAPI {
-  json: Object
+  json
 
   // checks if user is currently authenticated
   isAuthenticated() {
@@ -66,7 +65,7 @@ export class AuthAPI extends JsonAPI {
 }
 
 export class AuthenticatedUser extends JsonAPI {
-  json: Object
+  json
 
   // gets the first and last name of logged in user
   getFullName() {
@@ -94,7 +93,7 @@ export class AuthenticatedUser extends JsonAPI {
   }
 
   // checks if user can overwrite current content
-  canOverwrite = (id: string) => {
+  canOverwrite = (id) => {
     if (id === this.json.data.id || this.getRoles() === "Superuser") {
       return true
     }
@@ -103,7 +102,7 @@ export class AuthenticatedUser extends JsonAPI {
 }
 
 export class RolesPermissionsAPI extends JsonAPI {
-  json: Object
+  json
 
   // get full list of user's roles
   getRoles() {
@@ -115,7 +114,7 @@ export class RolesPermissionsAPI extends JsonAPI {
   }
 
   // checks if user has specified role
-  checkRoles = (role: string) => {
+  checkRoles = (role) => {
     if (this.json.roles) {
       const filteredRoles = this.json.roles.filter(
         (item) => item.attributes.role === role,
@@ -153,7 +152,7 @@ export class RolesPermissionsAPI extends JsonAPI {
 
   // this verifies that the user has the right resource
   // and permission to edit content
-  verifyPermissions = (perm: string, resource: string) => {
+  verifyPermissions = (perm, resource) => {
     if (this.json.permissions) {
       // immediately return true if superuser
       if (this.checkRoles("superuser")) {
@@ -181,7 +180,7 @@ export class RolesPermissionsAPI extends JsonAPI {
 }
 
 export class ContentAPI extends AuthenticatedUser {
-  json: Object
+  json
 
   // gets the user ID for person who last updated this content
   getUser() {

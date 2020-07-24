@@ -1,24 +1,14 @@
-// @flow
 import React, { Component } from "react"
 import { connect } from "react-redux"
-
-type Props = {
-  error: Object,
-  isFetching: Boolean,
-  action: Function,
-}
 
 /**
  * HOC used to handle data fetching, loading and error displays.
  */
 
-const withDataFetching = (
-  action: Function,
-  key: string,
-  LoadingComponent: Object,
-  ErrorComponent: Object,
-) => (WrappedComponent: Object) => {
-  class WithDataFetchingComponent extends Component<Props> {
+const withDataFetching = (action, key, LoadingComponent, ErrorComponent) => (
+  WrappedComponent,
+) => {
+  class WithDataFetchingComponent extends Component {
     componentDidMount() {
       const { action } = this.props
       action()
