@@ -4,6 +4,9 @@ type Query {
   # Content queries
   content(id: ID!): Content
   contentBySlug(slug: String!): Content
+  # Gene queries
+  geneByID(id: ID!): Gene
+  geneByName(name: Name!): Gene
   # Order queries
   order(id: ID!): Order
   listOrders(input: ListOrderInput): OrderListWithCursor
