@@ -29,8 +29,8 @@ const GoaPanelContent = ({ item }) => {
       <span>
         {item.go_term}
         {item.with !== null &&
-          withDataFilter(item.with).map((xref: Object, i: string) => (
-            <Fragment key={i}>
+          withDataFilter(item.with).map((xref, index) => (
+            <Fragment key={index}>
               <span>
                 {" "}
                 <em>with</em>{" "}
@@ -55,8 +55,8 @@ const GoaPanelContent = ({ item }) => {
             </Fragment>
           ))}
         {item.extensions !== null &&
-          item.extensions.slice(0, 2).map((ext: Object, i: string) => (
-            <Fragment key={i}>
+          item.extensions.slice(0, 2).map((ext, index) => (
+            <Fragment key={index}>
               <span>
                 {" "}
                 <em>{ext.relation}</em>{" "}

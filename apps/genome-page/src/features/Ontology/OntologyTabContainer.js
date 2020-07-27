@@ -39,7 +39,7 @@ const muiTheme = createMuiTheme({
 const OntologyTabContainer = ({ data }) => {
   // set variables for filtered arrays based on evidence code
   const experimental = data.filter(
-    (code: Object) =>
+    (code) =>
       code.evidence_code === "IMP" ||
       code.evidence_code === "IGI" ||
       code.evidence_code === "IDA" ||
@@ -47,8 +47,8 @@ const OntologyTabContainer = ({ data }) => {
       code.evidence_code === "IEP" ||
       code.evidence_code === "EXP",
   )
-  const manual = data.filter((code: Object) => code.evidence_code !== "IEA")
-  const electronic = data.filter((code: Object) => code.evidence_code === "IEA")
+  const manual = data.filter((code) => code.evidence_code !== "IEA")
+  const electronic = data.filter((code) => code.evidence_code === "IEA")
 
   return (
     <MuiThemeProvider theme={muiTheme}>

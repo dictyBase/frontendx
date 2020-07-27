@@ -42,7 +42,7 @@ const enhancer = composeWithDevTools(
   ),
 )
 
-export default function configureStore(initialState: Object) {
+export default function configureStore(initialState) {
   const store = createStore(createRootReducer(history), initialState, enhancer)
   if (process.env.NODE_ENV === "development") {
     if (module.hot) {
