@@ -20,21 +20,9 @@ const Routes = () => (
     <Route path="/:provider/callback" component={OauthCallback} />
     <Route path="/load/auth" component={AuthLoader} />
     <Route path="/logout" component={Logout} />
-    <Route
-      path="/:id([A-Z]{3}_G[0-9]{4,})/goannotations"
-      render={() => <OntologyContainer identifier={true} />}
-    />
-    <Route
-      path="/:id/goannotations"
-      render={() => <OntologyContainer identifier={false} />}
-    />
+    <Route path="/:id/goannotations" component={OntologyContainer} />
     <Route path="/:id/*" component={PageNotReady} />
-    {/* if route matches gene ID, set identifier as true */}
-    <Route
-      path="/:id([A-Z]{3}_G[0-9]{4,})"
-      render={() => <SummaryContainer identifier={true} />}
-    />
-    <Route path="/:id" render={() => <SummaryContainer identifier={false} />} />
+    <Route path="/:id" component={SummaryContainer} />
     <Redirect
       from="/"
       to={{
