@@ -18,7 +18,7 @@ import {
   FETCH_PERMISSION_FAILURE,
 } from "common/constants/types"
 
-const authReducer = (state, action) => {
+const authReducer = (state = {}, action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
       return {

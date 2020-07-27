@@ -15,7 +15,7 @@ const fetchNavbarRequest = () => ({
   },
 })
 
-const fetchNavbarSuccess = (json: Object) => ({
+const fetchNavbarSuccess = (json) => ({
   type: FETCH_NAVBAR_SUCCESS,
   payload: {
     isFetching: false,
