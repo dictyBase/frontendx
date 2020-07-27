@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom"
 import { useQuery } from "@apollo/client"
 import Typography from "@material-ui/core/Typography"
 import ErrorPage from "common/components/ErrorPage"
-import OntologyTabContainer from "./OntologyTabContainer"
+import OntologyTabLayout from "./OntologyTabLayout"
 import OntologyLoader from "./OntologyLoader"
 import Layout from "app/layout/Layout"
 import { GET_GENE_BY_ID } from "common/graphql/query"
@@ -42,7 +42,7 @@ const OntologyContainer = ({ identifier }: Props) => {
         />
       </Helmet>
       <Typography component="div">
-        <OntologyTabContainer data={data.geneByID.goas} />
+        <OntologyTabLayout data={data.geneByID.goas} />
       </Typography>
     </Layout>
   )
