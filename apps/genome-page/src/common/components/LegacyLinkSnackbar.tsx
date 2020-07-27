@@ -32,7 +32,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const LegacyLinkSnackbar = ({ id }) => {
+type Props = {
+  /** Gene ID used to link to legacy page */
+  id: string
+}
+
+/**
+ * LegacyLinkSnackbar displays a link to the old gene page at the top of each page.
+ */
+
+const LegacyLinkSnackbar = ({ id }: Props) => {
   const classes = useStyles()
 
   return (
