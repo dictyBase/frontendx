@@ -2,6 +2,7 @@ import React from "react"
 import Grid from "@material-ui/core/Grid"
 import DisplayTable from "./Table/DisplayTable"
 import PanelWrapper from "common/components/panels/PanelWrapper"
+import Typography from "@material-ui/core/Typography"
 
 /**
  * Displays the inside of GO Tab panels
@@ -16,21 +17,23 @@ const InnerGoPanel = ({ data }) => {
   return (
     <Grid container>
       <Grid item sm={12} md={12} lg={12} xl={12}>
-        {molecular.length > 0 && (
-          <PanelWrapper title="Molecular Function">
-            <DisplayTable data={molecular} />
-          </PanelWrapper>
-        )}
-        {biological.length > 0 && (
-          <PanelWrapper title="Biological Process">
-            <DisplayTable data={biological} />
-          </PanelWrapper>
-        )}
-        {cellular.length > 0 && (
-          <PanelWrapper title="Cellular Composition">
-            <DisplayTable data={cellular} />
-          </PanelWrapper>
-        )}
+        <Typography component="div">
+          {molecular.length > 0 && (
+            <PanelWrapper title="Molecular Function">
+              <DisplayTable data={molecular} />
+            </PanelWrapper>
+          )}
+          {biological.length > 0 && (
+            <PanelWrapper title="Biological Process">
+              <DisplayTable data={biological} />
+            </PanelWrapper>
+          )}
+          {cellular.length > 0 && (
+            <PanelWrapper title="Cellular Composition">
+              <DisplayTable data={cellular} />
+            </PanelWrapper>
+          )}
+        </Typography>
       </Grid>
     </Grid>
   )

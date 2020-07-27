@@ -75,7 +75,7 @@ const DisplayTable = ({ data }) => {
             .map((item, index) => (
               <TableRow className={classes.row} key={index}>
                 <TableCell component="th" scope="row">
-                  {qualifierFormatter(item.qualifier)} {item.goterm}
+                  {qualifierFormatter(item.qualifier)} {item.go_term}
                 </TableCell>
 
                 <TableCell>
