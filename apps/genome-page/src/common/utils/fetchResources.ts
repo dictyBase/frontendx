@@ -1,18 +1,10 @@
-let fetchBySlugResource,
-  fetchByIdResource,
-  fetchUserByIdResource,
+let fetchUserByIdResource,
   fetchUserByEmailResource,
   fetchRoleByIdResource,
   fetchPermissionByIdResource,
   oauthEndpointResource
 
 if (process.env.REACT_APP_FUNC_SERVER) {
-  // set URL base for fetching by slug
-  const fetchBySlugBase = "/contents/slug"
-  fetchBySlugResource = `${process.env.REACT_APP_FUNC_SERVER}${fetchBySlugBase}`
-  // set URL base for fetching by ID
-  const fetchByIdBase = "/contents"
-  fetchByIdResource = `${process.env.REACT_APP_FUNC_SERVER}${fetchByIdBase}`
   // set URL base for fetching user by ID
   const fetchUserByIdBase = "/users"
   fetchUserByIdResource = `${process.env.REACT_APP_FUNC_SERVER}${fetchUserByIdBase}`
@@ -26,8 +18,6 @@ if (process.env.REACT_APP_FUNC_SERVER) {
   const fetchPermissionByIdBase = "/permissions"
   fetchPermissionByIdResource = `${process.env.REACT_APP_FUNC_SERVER}${fetchPermissionByIdBase}`
 } else {
-  fetchBySlugResource = "http://localhost:8080/contents/slug"
-  fetchByIdResource = "http://localhost:8080/contents"
   fetchUserByIdResource = "http://localhost:8080/users"
   fetchUserByEmailResource = "http://localhost:8000/users/email"
   fetchRoleByIdResource = "http://localhost:8000/roles"
@@ -48,8 +38,6 @@ const fetchHeaderConfig = {
 }
 
 export {
-  fetchBySlugResource,
-  fetchByIdResource,
   fetchUserByIdResource,
   fetchUserByEmailResource,
   fetchRoleByIdResource,

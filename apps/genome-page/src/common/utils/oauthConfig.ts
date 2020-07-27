@@ -1,26 +1,37 @@
 import clientConfig from "common/utils/clientConfig"
 
-// helper function to set redirect URL with basename if included
-export const redirectUrlGenerator = (provider) => {
-  let url
-  const basename = process.env.REACT_APP_BASENAME || "/"
-  if (basename === "" || basename === "/") {
-    url = `${window.location.origin}/${provider}/callback`
-  } else if (basename.charAt(0) === "/") {
-    url = `${window.location.origin}${basename}/${provider}/callback`
-  } else {
-    url = `${window.location.origin}/${basename}/${provider}/callback`
+type Config = {
+  name: string
+  url: string
+  authorizationEndpoint: string
+  clientId: string
+  redirectUrl: string
+  requiredUrlParams: Array<Array<string>>
+  scopes: Array<string>
+  scopeDelimiter: string
+  optionalUrlParams?: Array<Array<string>>
+  popupOptions: {
+    width: number
+    height: number
   }
-  return url
 }
 
-const oauthConfig = {
+type Auth = {
+  google: Config
+  linkedin: Config
+  orcid: Config
+  [index: string]: any
+}
+
+const basename = process.env.REACT_APP_BASENAME
+
+const oauthConfig: Auth = {
   google: {
     name: "Google",
     url: "/auth/google",
     authorizationEndpoint: "https://accounts.google.com/o/oauth2/v2/auth",
     clientId: clientConfig.google.clientId,
-    redirectUrl: redirectUrlGenerator("google"),
+    redirectUrl: `${window.location.origin}${basename}/google/callback`,
     requiredUrlParams: [["response_type", "code"]],
     scopes: ["email"],
     scopeDelimiter: " ",
@@ -32,7 +43,7 @@ const oauthConfig = {
     url: "/auth/linkedin",
     authorizationEndpoint: "https://www.linkedin.com/oauth/v2/authorization",
     clientId: clientConfig.linkedin.clientId,
-    redirectUrl: redirectUrlGenerator("linkedin"),
+    redirectUrl: `${window.location.origin}${basename}/linkedin/callback`,
     scopes: ["r_emailaddress"],
     scopeDelimiter: " ",
     requiredUrlParams: [
@@ -46,7 +57,7 @@ const oauthConfig = {
     url: "/auth/orcid",
     authorizationEndpoint: "https://orcid.org/oauth/authorize",
     clientId: clientConfig.orcid.clientId,
-    redirectUrl: redirectUrlGenerator("orcid"),
+    redirectUrl: `${window.location.origin}${basename}/orcid/callback`,
     scopes: ["/authenticate"],
     scopeDelimiter: " ",
     requiredUrlParams: [["response_type", "code"]],
