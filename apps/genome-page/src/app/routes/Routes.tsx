@@ -1,6 +1,5 @@
 import React from "react"
-import { Route, Switch } from "react-router-dom"
-import MainPage from "features/MainPage/MainPage"
+import { Route, Switch, Redirect } from "react-router-dom"
 import SummaryContainer from "features/Summary/SummaryContainer"
 import OntologyContainer from "features/Ontology/OntologyContainer"
 import Login from "features/Authentication/Login"
@@ -13,10 +12,10 @@ import PageNotReady from "common/components/PageNotReady"
  * List of routes used with React Router.
  */
 
-// Switch is used to only render the first Route that matches the current location
+// TODO: Consider useRouteMatch instead of identifier
+
 const Routes = () => (
   <Switch>
-    <Route exact path="/" component={MainPage} />
     <Route path="/login" component={Login} />
     <Route path="/:provider/callback" component={OauthCallback} />
     <Route path="/load/auth" component={AuthLoader} />
@@ -36,6 +35,12 @@ const Routes = () => (
       render={() => <SummaryContainer identifier={true} />}
     />
     <Route path="/:id" render={() => <SummaryContainer identifier={false} />} />
+    <Redirect
+      from="/"
+      to={{
+        pathname: "/sadA",
+      }}
+    />
     <Route path="*" component={PageNotReady} />
   </Switch>
 )
