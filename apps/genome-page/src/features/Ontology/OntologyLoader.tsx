@@ -32,7 +32,7 @@ const skeletonTheme = createMuiTheme({
 
 const OntologyLoader = () => (
   <div>
-    <PageHeader />
+    <PageHeader name="" />
     <AppBar position="static">
       <Tabs value={1}>
         <Tab label="Gene Summary" />

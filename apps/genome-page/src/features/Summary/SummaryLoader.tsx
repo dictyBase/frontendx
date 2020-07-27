@@ -11,7 +11,7 @@ import PageHeader from "common/components/PageHeader"
 
 const SummaryLoader = () => (
   <div>
-    <PageHeader />
+    <PageHeader name="" />
     <AppBar position="static">
       <Tabs value={0}>
         <Tab label="Gene Summary" />
