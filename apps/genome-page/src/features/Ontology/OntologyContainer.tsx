@@ -1,4 +1,5 @@
 import React from "react"
+import { Helmet } from "react-helmet"
 import { useParams } from "react-router-dom"
 import { useQuery } from "@apollo/client"
 import TypographyWrapper from "common/components/TypographyWrapper"
@@ -33,6 +34,13 @@ const OntologyContainer = ({ identifier }: Props) => {
 
   return (
     <Layout>
+      <Helmet>
+        <title>GO Annotations for {id} - dictyBase</title>
+        <meta
+          name="description"
+          content={`Gene information for ${id} at dictyBase`}
+        />
+      </Helmet>
       <TypographyWrapper>
         <OntologyTabContainer data={data.geneByID.goas} />
       </TypographyWrapper>
