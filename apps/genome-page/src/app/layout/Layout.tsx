@@ -34,13 +34,6 @@ const Layout = ({ children }: Props) => {
 
   return (
     <Grid container justify="center">
-      <Helmet>
-        <title>Gene Information for {id} - dictyBase</title>
-        <meta
-          name="description"
-          content={`Gene information for ${id} at dictyBase`}
-        />
-      </Helmet>
       <Grid item xs={12}>
         <PageHeader name={id} />
         <LegacyLinkSnackbar id={id} />

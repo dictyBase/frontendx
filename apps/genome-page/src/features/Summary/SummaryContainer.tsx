@@ -1,4 +1,5 @@
 import React from "react"
+import { Helmet } from "react-helmet"
 import { useParams } from "react-router-dom"
 import { useQuery } from "@apollo/client"
 import Typography from "@material-ui/core/Typography"
@@ -35,6 +36,13 @@ const SummaryContainer = ({ identifier }: Props) => {
 
   return (
     <Layout>
+      <Helmet>
+        <title>Gene Summary for {id} - dictyBase</title>
+        <meta
+          name="description"
+          content={`Gene information for ${id} at dictyBase`}
+        />
+      </Helmet>
       <Typography component="div">
         <PanelWrapper
           title="Latest Gene Ontology Annotations"
