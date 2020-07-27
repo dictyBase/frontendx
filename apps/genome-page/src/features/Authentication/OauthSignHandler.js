@@ -2,11 +2,6 @@ import { Component } from "react"
 import { connect } from "react-redux"
 import { oAuthLogin } from "./authActions"
 
-type Props = {
-  /** Function that handles the oAuth login process */
-  oAuthLogin: Function,
-}
-
 /** Sign in handler for the oAuth process */
 
 class OauthSignHandler extends Component {

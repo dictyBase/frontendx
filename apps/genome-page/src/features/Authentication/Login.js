@@ -25,13 +25,6 @@ const theme = {
   },
 }
 
-type Props = {
-  /** Object passed by React-Router */
-  location: Object,
-  /** Auth part of state */
-  auth: Object,
-}
-
 /**
  * Component that displays all of the social login buttons with click handlers for each one
  */

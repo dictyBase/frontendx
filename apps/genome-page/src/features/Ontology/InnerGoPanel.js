@@ -9,15 +9,9 @@ import PanelWrapper from "common/components/panels/PanelWrapper"
 
 const InnerGoPanel = ({ data }) => {
   // set variables that represent filtered arrays for use in each row
-  const molecular = data.filter(
-    (item: Object) => item.type === "molecular_function",
-  )
-  const biological = data.filter(
-    (item: Object) => item.type === "biological_process",
-  )
-  const cellular = data.filter(
-    (item: Object) => item.type === "cellular_component",
-  )
+  const molecular = data.filter((item) => item.type === "molecular_function")
+  const biological = data.filter((item) => item.type === "biological_process")
+  const cellular = data.filter((item) => item.type === "cellular_component")
 
   return (
     <Grid container>

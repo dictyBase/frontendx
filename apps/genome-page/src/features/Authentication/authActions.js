@@ -50,7 +50,7 @@ export const requestLogin = (provider) => ({
   },
 })
 
-export const receiveLogin = ({ user, token }: receiveLoginArg) => ({
+export const receiveLogin = ({ user, token }) => ({
   type: LOGIN_SUCCESS,
   payload: {
     isFetching: false,

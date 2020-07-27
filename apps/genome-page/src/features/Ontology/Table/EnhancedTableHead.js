@@ -39,7 +39,7 @@ class EnhancedTableHead extends Component {
       <TableHead className={classes.head}>
         <TableRow>
           {columnData.map(
-            (column: Object) => (
+            (column) => (
               <TableCell
                 key={column.id}
                 className={classes.headerCell}
