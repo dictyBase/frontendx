@@ -1,4 +1,64 @@
-export const data = [
+// this array is just used to demo different genes
+const links = [
+  {
+    type: "regular",
+    id: "DDB_G0272608",
+  },
+  {
+    type: "regular",
+    id: "DDB_G0288511",
+  },
+  {
+    type: "regular",
+    id: "DDB_G0269114",
+  },
+  {
+    type: "regular",
+    id: "DDB_G0286355",
+  },
+  {
+    type: "regular",
+    id: "DDB_G0277399",
+  },
+  {
+    type: "complex",
+    id: "DDB_G0280531",
+  },
+  {
+    type: "complex",
+    id: "DDB_G0276267",
+  },
+  {
+    type: "complex",
+    id: "DDB_G0281211",
+  },
+  {
+    type: "complex",
+    id: "DDB_G0277589",
+  },
+  {
+    type: "name",
+    id: "sadA",
+  },
+  {
+    type: "name",
+    id: "piaA",
+  },
+  {
+    type: "name",
+    id: "svkA",
+  },
+  {
+    type: "name",
+    id: "ripA",
+  },
+  {
+    type: "name",
+    id: "far1",
+  },
+]
+
+const data = [
   {
     type: "biological_process",
     id: "GO:0006909",
@@ -112,3 +172,5 @@ export const data = [
     },
   },
 ]
+
+export { data, links }
