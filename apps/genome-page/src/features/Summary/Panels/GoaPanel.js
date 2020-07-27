@@ -51,36 +51,34 @@ const dataFilter = (arr, type) => {
  * Panel to display Gene Ontology Annotations in Gene Summary tab
  */
 
-const GoaPanel = ({ data }) => {
-  console.log(data)
-  return (
-    <div>
-      <ItemDisplay>
-        <LeftDisplay>Molecular Function</LeftDisplay>
-        <RightDisplay>
-          {dataFilter(data, "molecular_function").map((item, i) => (
-            <GoaPanelContent key={i} item={item} />
-          ))}
-        </RightDisplay>
-      </ItemDisplay>
-      <ItemDisplay>
-        <LeftDisplay>Biological Process</LeftDisplay>
-        <RightDisplay>
-          {dataFilter(data, "biological_process").map((item, i) => (
-            <GoaPanelContent key={i} item={item} />
-          ))}
-        </RightDisplay>
-      </ItemDisplay>
-      <ItemDisplay>
-        <LeftDisplay>Cellular Component</LeftDisplay>
-        <RightDisplay>
-          {dataFilter(data, "cellular_component").map((item, i) => (
-            <GoaPanelContent key={i} item={item} />
-          ))}
-        </RightDisplay>
-      </ItemDisplay>
-    </div>
-  )
-}
+const GoaPanel = ({ data }) => (
+  // console.log(data)
+  <div>
+    <ItemDisplay>
+      <LeftDisplay>Molecular Function</LeftDisplay>
+      <RightDisplay>
+        {dataFilter(data, "molecular_function").map((item, i) => (
+          <GoaPanelContent key={i} item={item} />
+        ))}
+      </RightDisplay>
+    </ItemDisplay>
+    <ItemDisplay>
+      <LeftDisplay>Biological Process</LeftDisplay>
+      <RightDisplay>
+        {dataFilter(data, "biological_process").map((item, i) => (
+          <GoaPanelContent key={i} item={item} />
+        ))}
+      </RightDisplay>
+    </ItemDisplay>
+    <ItemDisplay>
+      <LeftDisplay>Cellular Component</LeftDisplay>
+      <RightDisplay>
+        {dataFilter(data, "cellular_component").map((item, i) => (
+          <GoaPanelContent key={i} item={item} />
+        ))}
+      </RightDisplay>
+    </ItemDisplay>
+  </div>
+)
 
 export default GoaPanel
