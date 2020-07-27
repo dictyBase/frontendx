@@ -2,7 +2,7 @@ import React from "react"
 import { Helmet } from "react-helmet"
 import { useParams } from "react-router-dom"
 import { useQuery } from "@apollo/client"
-import TypographyWrapper from "common/components/TypographyWrapper"
+import Typography from "@material-ui/core/Typography"
 import ErrorPage from "common/components/ErrorPage"
 import OntologyTabContainer from "./OntologyTabContainer"
 import OntologyLoader from "./OntologyLoader"
@@ -41,9 +41,9 @@ const OntologyContainer = ({ identifier }: Props) => {
           content={`Gene information for ${id} at dictyBase`}
         />
       </Helmet>
-      <TypographyWrapper>
+      <Typography component="div">
         <OntologyTabContainer data={data.geneByID.goas} />
-      </TypographyWrapper>
+      </Typography>
     </Layout>
   )
 }
