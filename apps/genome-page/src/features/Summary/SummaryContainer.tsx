@@ -4,7 +4,6 @@ import { useParams, useRouteMatch } from "react-router-dom"
 import { useQuery } from "@apollo/client"
 import Typography from "@material-ui/core/Typography"
 import PanelWrapper from "common/components/panels/PanelWrapper"
-import ErrorPage from "common/components/ErrorPage"
 import SummaryLoader from "./SummaryLoader"
 import Layout from "app/layout/Layout"
 import GoaPanel from "features/Summary/Panels/GoaPanel"
@@ -33,7 +32,7 @@ const SummaryContainer = () => {
 
   if (loading) return <SummaryLoader />
 
-  if (error) return <ErrorPage />
+  if (error) return <div>got an error...</div>
 
   let geneData = data.geneByID ? data.geneByID : data.geneByName
 
