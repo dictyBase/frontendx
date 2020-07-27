@@ -3,19 +3,18 @@ import { makeStyles } from "@material-ui/core/styles"
 import withLinkGenerator from "features/Ontology/utils/withLinkGenerator"
 import withDataFilter from "../utils/withDataFilter"
 
-const useStyles = (theme) =>
-  makeStyles({
-    link: {
-      textDecoration: "none",
+const useStyles = makeStyles({
+  link: {
+    textDecoration: "none",
+    color: "#4C5E81",
+    "&:visited": {
       color: "#4C5E81",
-      "&:visited": {
-        color: "#4C5E81",
-      },
-      "&:hover": {
-        textDecoration: "underline",
-      },
     },
-  })
+    "&:hover": {
+      textDecoration: "underline",
+    },
+  },
+})
 
 /**
  * The content that goes in the right side of the GOA panel on the summary page.
