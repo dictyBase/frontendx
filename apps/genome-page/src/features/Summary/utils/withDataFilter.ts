@@ -1,5 +1,7 @@
+import { With } from "common/@types/gene-data"
+
 // function to filter the With data
-const withDataFilter = (arr) => {
+const withDataFilter = (arr: Array<With>) => {
   // filter With array by db type
   const dictyChecker = arr.filter((item) => item.db === "dictyBase").slice(0, 2)
   const uniprotChecker = arr

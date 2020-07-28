@@ -3,9 +3,11 @@ import GoaPanelContent from "./GoaPanelContent"
 import ItemDisplay from "common/components/panels/ItemDisplay"
 import LeftDisplay from "common/components/panels/LeftDisplay"
 import RightDisplay from "common/components/panels/RightDisplay"
+import { GeneGOA } from "common/@types/gene-data"
 
-// function that takes in the data array and the type (i.e. "molecular_function") to filter by
-const dataFilter = (arr, type) => {
+type GOType = "molecular_function" | "biological_process" | "cellular_component"
+
+const dataFilter = (arr: Array<GeneGOA>, type: GOType) => {
   // get the attributes from specified type
   const attr = arr.filter((item) => item.type === type)
 
@@ -20,19 +22,19 @@ const dataFilter = (arr, type) => {
         item.evidence_code === "IEP" ||
         item.evidence_code === "EXP",
     )
-    .sort((a, b) => b.date - a.date)
+    .sort((a, b) => b.date.localeCompare(a.date))
     .slice(0, 5)
 
   // get five most recent manual
   const manualChecker = attr
     .filter((item) => item.evidence_code !== "IEA")
-    .sort((a, b) => b.date - a.date)
+    .sort((a, b) => b.date.localeCompare(a.date))
     .slice(0, 5)
 
   // get five most recent electronic
   const electronicChecker = attr
     .filter((item) => item.evidence_code === "IEA")
-    .sort((a, b) => b.date - a.date)
+    .sort((a, b) => b.date.localeCompare(a.date))
     .slice(0, 5)
 
   // check if EXP array is empty
@@ -47,35 +49,46 @@ const dataFilter = (arr, type) => {
   return expChecker
 }
 
+type Props = {
+  /** Array of GO annotations for particular gene */
+  data: Array<GeneGOA>
+}
+
 /**
  * Panel to display Gene Ontology Annotations in Gene Summary tab
  */
 
-const GoaPanel = ({ data }) => (
+const GoaPanel = ({ data }: Props) => (
   // console.log(data)
   <div>
     <ItemDisplay>
       <LeftDisplay>Molecular Function</LeftDisplay>
       <RightDisplay>
-        {dataFilter(data, "molecular_function").map((item, i) => (
-          <GoaPanelContent key={i} item={item} />
-        ))}
+        {dataFilter(data, "molecular_function").map(
+          (item: GeneGOA, index: number) => (
+            <GoaPanelContent key={index} data={item} />
+          ),
+        )}
       </RightDisplay>
     </ItemDisplay>
     <ItemDisplay>
       <LeftDisplay>Biological Process</LeftDisplay>
       <RightDisplay>
-        {dataFilter(data, "biological_process").map((item, i) => (
-          <GoaPanelContent key={i} item={item} />
-        ))}
+        {dataFilter(data, "biological_process").map(
+          (item: GeneGOA, index: number) => (
+            <GoaPanelContent key={index} data={item} />
+          ),
+        )}
       </RightDisplay>
     </ItemDisplay>
     <ItemDisplay>
       <LeftDisplay>Cellular Component</LeftDisplay>
       <RightDisplay>
-        {dataFilter(data, "cellular_component").map((item, i) => (
-          <GoaPanelContent key={i} item={item} />
-        ))}
+        {dataFilter(data, "cellular_component").map(
+          (item: GeneGOA, index: number) => (
+            <GoaPanelContent key={index} data={item} />
+          ),
+        )}
       </RightDisplay>
     </ItemDisplay>
   </div>
