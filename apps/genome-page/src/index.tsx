@@ -12,6 +12,15 @@ import history from "common/utils/routerHistory"
 import App from "app/layout/App"
 import "typeface-roboto"
 
+declare var process: {
+  env: {
+    NODE_ENV: string
+    REACT_APP_GA_TRACKING_ID: string
+    REACT_APP_GRAPHQL_SERVER: string
+    REACT_APP_BASENAME: string
+  }
+}
+
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   uri: `${process.env.REACT_APP_GRAPHQL_SERVER}/graphql`,
@@ -45,7 +54,7 @@ const initialState = hydrateStore({ key: "auth", namespace: "auth" })
 
 const store = configureStore(initialState)
 
-const setGoogleAnalytics = async (location, action) => {
+const setGoogleAnalytics = async () => {
   try {
     const module = await import("react-ga")
     let ReactGA = module.default
@@ -59,7 +68,7 @@ const setGoogleAnalytics = async (location, action) => {
 
 if (process.env.NODE_ENV === "production") {
   history.listen((location, action) => {
-    setGoogleAnalytics(location, action)
+    setGoogleAnalytics()
   })
 }
 
