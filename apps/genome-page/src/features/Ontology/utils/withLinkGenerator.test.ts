@@ -113,8 +113,5 @@ describe("withLinkGenerator", () => {
     it("returns hash if no ID match", () => {
       expect(fn("test", "test")).toBe("#")
     })
-    it("returns hash if undefined", () => {
-      expect(fn(undefined, undefined)).toBe("#")
-    })
   })
 })
