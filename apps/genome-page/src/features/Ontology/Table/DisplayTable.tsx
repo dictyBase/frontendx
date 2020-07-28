@@ -15,41 +15,40 @@ import qualifierFormatter from "../utils/qualifierFormatter"
 import sourceLinkGenerator from "../utils/sourceLinkGenerator"
 // import getSorting from "./utils/getSorting"
 
-const useStyles = (theme) =>
-  makeStyles({
-    root: {
-      width: "100%",
-      overflowX: "auto",
+const useStyles = makeStyles({
+  root: {
+    width: "100%",
+    overflowX: "auto",
+  },
+  row: {
+    "&:nth-of-type(even)": {
+      // backgroundColor: theme.palette.background.default,
     },
-    row: {
-      "&:nth-of-type(even)": {
-        // backgroundColor: theme.palette.background.default,
-      },
-    },
-    link: {
-      textDecoration: "none",
+  },
+  link: {
+    textDecoration: "none",
+    color: "#4C5E81",
+    "&:visited": {
       color: "#4C5E81",
-      "&:visited": {
-        color: "#4C5E81",
-      },
-      "&:hover": {
-        textDecoration: "underline",
-      },
     },
-    head: {
-      backgroundColor: "#e6f2ff",
+    "&:hover": {
+      textDecoration: "underline",
     },
-    headerCell: {
-      color: "#333",
-      fontWeight: "600",
-    },
-  })
+  },
+  head: {
+    backgroundColor: "#e6f2ff",
+  },
+  headerCell: {
+    color: "#333",
+    fontWeight: 600,
+  },
+})
 
 /**
  * The display table used inside each panel in the GO tabs.
  */
 
-const DisplayTable = ({ data }) => {
+const DisplayTable = ({ data }: any) => {
   const classes = useStyles()
 
   return (
@@ -72,7 +71,7 @@ const DisplayTable = ({ data }) => {
         <TableBody>
           {data
             // .sort(getSorting(goa.tableOrder, goa.tableSortBy))
-            .map((item, index) => (
+            .map((item: any, index: number) => (
               <TableRow className={classes.row} key={index}>
                 <TableCell component="th" scope="row">
                   {qualifierFormatter(item.qualifier)} {item.go_term}

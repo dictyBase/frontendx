@@ -1,21 +1,22 @@
-import React, { Fragment } from "react"
-import { withStyles } from "@material-ui/core/styles"
+import React from "react"
 import withLinkGenerator from "../utils/withLinkGenerator"
-import styles from "./DisplayTableStyles"
+import useStyles from "./displayTableStyles"
 
 /**
  * This handles the display for the extensions GO data.
  */
 
-const ExtensionsDisplay = ({ extensions, classes }) => {
+const ExtensionsDisplay = ({ extensions }: any) => {
+  const classes = useStyles()
+
   if (extensions === null) {
-    return <Fragment />
+    return <React.Fragment />
   }
 
   return (
-    <Fragment>
-      {extensions.map((item, i) => (
-        <Fragment key={i}>
+    <React.Fragment>
+      {extensions.map((item: any, index: number) => (
+        <React.Fragment key={index}>
           <span>
             {" "}
             <em>{item.relation}</em>{" "}
@@ -38,10 +39,10 @@ const ExtensionsDisplay = ({ extensions, classes }) => {
             )}
           </span>
           <br />
-        </Fragment>
+        </React.Fragment>
       ))}
-    </Fragment>
+    </React.Fragment>
   )
 }
 
-export default withStyles(styles)(ExtensionsDisplay)
+export default ExtensionsDisplay
