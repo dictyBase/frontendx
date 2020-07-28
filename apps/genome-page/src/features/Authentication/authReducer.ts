@@ -16,21 +16,51 @@ import {
   FETCH_PERMISSION_REQUEST,
   FETCH_PERMISSION_SUCCESS,
   FETCH_PERMISSION_FAILURE,
-} from "common/constants/types"
+} from "../../common/constants/types"
 
-const authReducer = (state = {}, action) => {
+interface Action {
+  type: string
+  payload: {
+    provider: string
+    token: string
+    user: object
+    error: object
+    json: {
+      data: Array<object>
+    }
+    isFetching: boolean
+    roles: {
+      data: Array<object>
+    }
+    permissions: {
+      data: Array<object>
+    }
+  }
+}
+
+interface AuthState {
+  user: object
+  fetchedUserData: object
+}
+
+const initialState: AuthState = {
+  user: {},
+  fetchedUserData: {},
+}
+
+const authReducer = (state = initialState, action: Action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
       return {
         ...state,
-        isFetching: true,
+        isFetching: action.payload.isFetching,
         isAuthenticated: false,
         provider: action.payload.provider,
       }
     case LOGIN_SUCCESS:
       return {
         ...state,
-        isFetching: false,
+        isFetching: action.payload.isFetching,
         isAuthenticated: action.payload.token ? true : false,
         token: action.payload.token,
         user: action.payload.user,
@@ -38,7 +68,7 @@ const authReducer = (state = {}, action) => {
     case LOGIN_FAILURE:
       return {
         ...state,
-        isFetching: false,
+        isFetching: action.payload.isFetching,
         isAuthenticated: false,
         error: action.payload.error,
         provider: null,
@@ -51,7 +81,7 @@ const authReducer = (state = {}, action) => {
     case LOGOUT_SUCCESS:
       return {
         ...state,
-        isFetching: false,
+        isFetching: action.payload.isFetching,
         isAuthenticated: false,
         provider: null,
         user: null,
@@ -60,24 +90,24 @@ const authReducer = (state = {}, action) => {
     case FETCH_USER_REQUEST:
       return {
         ...state,
-        isFetching: true,
+        isFetching: action.payload.isFetching,
       }
     case FETCH_USER_SUCCESS:
       return {
         ...state,
-        isFetching: false,
+        isFetching: action.payload.isFetching,
         fetchedUserData: action.payload.json,
       }
     case FETCH_USER_FAILURE:
       return {
         ...state,
-        isFetching: false,
+        isFetching: action.payload.isFetching,
         error: action.payload.error,
       }
     case FETCH_ROLE_REQUEST:
       return {
         ...state,
-        isFetching: true,
+        isFetching: action.payload.isFetching,
       }
     case FETCH_ROLE_SUCCESS:
       return {
@@ -86,7 +116,7 @@ const authReducer = (state = {}, action) => {
         user: {
           ...state.user,
           // merge roles into one array, regardless if they are one or many
-          roles: [].concat(action.payload.json.data),
+          roles: [].concat(action.payload.json.data as any),
         },
       }
     case FETCH_ROLE_FAILURE:
@@ -107,7 +137,7 @@ const authReducer = (state = {}, action) => {
         fetchedUserData: {
           ...state.fetchedUserData,
           // merge roles into one array, regardless if they are one or many
-          roles: [].concat(action.payload.roles.data),
+          roles: [].concat(action.payload.roles.data as any),
         },
       }
     case FETCH_NON_AUTH_ROLE_FAILURE:
@@ -128,7 +158,7 @@ const authReducer = (state = {}, action) => {
         user: {
           ...state.user,
           // merge permissions into one array, regardless if they are one or many
-          permissions: [].concat(action.payload.permissions.data),
+          permissions: [].concat(action.payload.permissions.data as any),
         },
       }
     case FETCH_PERMISSION_FAILURE:
