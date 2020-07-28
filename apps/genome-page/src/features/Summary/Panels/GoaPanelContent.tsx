@@ -1,7 +1,8 @@
-import React, { Fragment } from "react"
+import React from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import withLinkGenerator from "features/Ontology/utils/withLinkGenerator"
 import withDataFilter from "../utils/withDataFilter"
+import { GeneGOA, Extension, With } from "common/@types/gene-data"
 
 const useStyles = makeStyles({
   link: {
@@ -16,20 +17,26 @@ const useStyles = makeStyles({
   },
 })
 
+type Props = {
+  /** Individual GO Annotation */
+  data: GeneGOA
+}
+
 /**
  * The content that goes in the right side of the GOA panel on the summary page.
  */
 
-const GoaPanelContent = ({ item }) => {
+const GoaPanelContent = ({ data }: Props) => {
   const classes = useStyles()
 
   return (
-    <Fragment>
+    <React.Fragment>
       <span>
-        {item.go_term}
-        {item.with !== null &&
-          withDataFilter(item.with).map((xref, index) => (
-            <Fragment key={index}>
+        {data.go_term}
+        {data.with !== null &&
+          data.with !== undefined &&
+          withDataFilter(data.with).map((xref: With, index: number) => (
+            <React.Fragment key={index}>
               <span>
                 {" "}
                 <em>with</em>{" "}
@@ -51,11 +58,12 @@ const GoaPanelContent = ({ item }) => {
                   </a>
                 )}
               </span>
-            </Fragment>
+            </React.Fragment>
           ))}
-        {item.extensions !== null &&
-          item.extensions.slice(0, 2).map((ext, index) => (
-            <Fragment key={index}>
+        {data.extensions !== null &&
+          data.extensions !== undefined &&
+          data.extensions.slice(0, 2).map((ext: Extension, index: number) => (
+            <React.Fragment key={index}>
               <span>
                 {" "}
                 <em>{ext.relation}</em>{" "}
@@ -77,12 +85,12 @@ const GoaPanelContent = ({ item }) => {
                   </a>
                 )}{" "}
               </span>
-            </Fragment>
+            </React.Fragment>
           ))}{" "}
-        ({item.evidence_code})
+        ({data.evidence_code})
       </span>
       <br />
-    </Fragment>
+    </React.Fragment>
   )
 }
 
