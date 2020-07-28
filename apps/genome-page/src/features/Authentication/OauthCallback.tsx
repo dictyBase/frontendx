@@ -1,9 +1,27 @@
-import React, { Component } from "react"
+import React from "react"
 import Grid from "@material-ui/core/Grid"
 
+type Props = {
+  location: {
+    search: string
+    pathname: string
+  }
+  match: {
+    params: {
+      provider: string
+    }
+  }
+}
+
+declare var process: {
+  env: {
+    REACT_APP_BASENAME: string
+  }
+}
+
 // helper function to set redirect URL with basename if included
-const redirectUrlGenerator = (basename) => {
-  let url
+const redirectUrlGenerator = (basename: string) => {
+  let url: string
   if (basename === "" || basename === "/") {
     url = `${window.location.origin}`
   } else if (basename.charAt(0) === "/") {
@@ -17,8 +35,7 @@ const redirectUrlGenerator = (basename) => {
 /**
  * Callback that transfers the user to the login system
  */
-
-export default class OauthCallback extends Component {
+export default class OauthCallback extends React.Component<Props, {}> {
   componentDidMount() {
     window.opener.postMessage(
       {
@@ -32,6 +49,7 @@ export default class OauthCallback extends Component {
     )
     window.close()
   }
+
   render() {
     return (
       <Grid container justify="center">
