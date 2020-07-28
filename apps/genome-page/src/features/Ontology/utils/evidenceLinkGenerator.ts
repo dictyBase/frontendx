@@ -2,7 +2,7 @@
  * This is a helper function to generate links for evidence codes.
  */
 
-const evidenceLinkGenerator = (id) => {
+const evidenceLinkGenerator = (id: string) => {
   switch (id) {
     case "IMP":
       return "http://dictybase.org/ontology/go/evidence#IMP"

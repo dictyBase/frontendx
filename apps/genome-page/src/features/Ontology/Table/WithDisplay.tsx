@@ -1,22 +1,27 @@
-import React, { Fragment } from "react"
+import React from "react"
 import withLinkGenerator from "../utils/withLinkGenerator"
 import useStyles from "./displayTableStyles"
+import { With } from "common/@types/gene-data"
+
+type Props = {
+  withData?: Array<With>
+}
 
 /**
  * This handles the display for the "With" GO data.
  */
 
-const WithDisplay = ({ withData }: any) => {
+const WithDisplay = ({ withData }: Props) => {
   const classes = useStyles()
 
-  if (withData === null) {
-    return <Fragment />
+  if (withData === null || withData === undefined) {
+    return <React.Fragment />
   }
 
   return (
-    <Fragment>
-      {withData.map((item: any, index: number) => (
-        <Fragment key={index}>
+    <React.Fragment>
+      {withData.map((item: With, index: number) => (
+        <React.Fragment key={index}>
           <span>
             {item.name ? (
               <a
@@ -37,9 +42,9 @@ const WithDisplay = ({ withData }: any) => {
             )}
           </span>
           <br />
-        </Fragment>
+        </React.Fragment>
       ))}
-    </Fragment>
+    </React.Fragment>
   )
 }
 
