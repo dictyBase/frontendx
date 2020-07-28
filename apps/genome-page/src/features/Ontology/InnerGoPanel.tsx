@@ -3,12 +3,18 @@ import Grid from "@material-ui/core/Grid"
 import DisplayTable from "./Table/DisplayTable"
 import PanelWrapper from "common/components/panels/PanelWrapper"
 import Typography from "@material-ui/core/Typography"
+import { GeneGOA } from "common/@types/gene-data"
+
+type Props = {
+  /** GO Annotations */
+  data: Array<GeneGOA>
+}
 
 /**
  * Displays the inside of GO Tab panels
  */
 
-const InnerGoPanel = ({ data }) => {
+const InnerGoPanel = ({ data }: Props) => {
   // set variables that represent filtered arrays for use in each row
   const molecular = data.filter((item) => item.type === "molecular_function")
   const biological = data.filter((item) => item.type === "biological_process")

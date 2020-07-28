@@ -5,6 +5,7 @@ import Tab from "@material-ui/core/Tab"
 import Typography from "@material-ui/core/Typography"
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles"
 import InnerGoPanel from "features/Ontology/InnerGoPanel"
+import { GeneGOA } from "common/@types/gene-data"
 
 const muiTheme = createMuiTheme({
   overrides: {
@@ -29,30 +30,9 @@ const muiTheme = createMuiTheme({
   },
 })
 
-type GeneData = {
-  assigned_by: string
-  date: string
-  evidence_code: string
-  extensions?: Array<{
-    id: string
-    db: string
-    relation: string
-    name: string
-  }>
-  go_term: string
-  id: string
-  publication: string
-  qualifier: string
-  type: string
-  with: Array<{
-    id: string
-    db: string
-  }>
-}
-
 type Props = {
   /** Gene data from GraphQL query */
-  data: Array<GeneData>
+  data: Array<GeneGOA>
 }
 
 const OntologyTabLayout = ({ data }: Props) => {
@@ -60,7 +40,7 @@ const OntologyTabLayout = ({ data }: Props) => {
 
   // set variables for filtered arrays based on evidence code
   const experimental = data.filter(
-    (item: GeneData) =>
+    (item: GeneGOA) =>
       item.evidence_code === "IMP" ||
       item.evidence_code === "IGI" ||
       item.evidence_code === "IDA" ||
@@ -68,9 +48,9 @@ const OntologyTabLayout = ({ data }: Props) => {
       item.evidence_code === "IEP" ||
       item.evidence_code === "EXP",
   )
-  const manual = data.filter((item: GeneData) => item.evidence_code !== "IEA")
+  const manual = data.filter((item: GeneGOA) => item.evidence_code !== "IEA")
   const electronic = data.filter(
-    (item: GeneData) => item.evidence_code === "IEA",
+    (item: GeneGOA) => item.evidence_code === "IEA",
   )
 
   const handleChange = (event: React.ChangeEvent<{}>, value: number) => {

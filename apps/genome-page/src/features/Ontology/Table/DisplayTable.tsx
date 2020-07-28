@@ -14,6 +14,7 @@ import dateConverter from "../utils/dateConverter"
 import qualifierFormatter from "../utils/qualifierFormatter"
 import sourceLinkGenerator from "../utils/sourceLinkGenerator"
 // import getSorting from "./utils/getSorting"
+import { GeneGOA } from "common/@types/gene-data"
 
 const useStyles = makeStyles({
   root: {
@@ -44,11 +45,16 @@ const useStyles = makeStyles({
   },
 })
 
+type Props = {
+  /** GO Annotations */
+  data: Array<GeneGOA>
+}
+
 /**
  * The display table used inside each panel in the GO tabs.
  */
 
-const DisplayTable = ({ data }: any) => {
+const DisplayTable = ({ data }: Props) => {
   const classes = useStyles()
 
   return (
@@ -71,7 +77,7 @@ const DisplayTable = ({ data }: any) => {
         <TableBody>
           {data
             // .sort(getSorting(goa.tableOrder, goa.tableSortBy))
-            .map((item: any, index: number) => (
+            .map((item: GeneGOA, index: number) => (
               <TableRow className={classes.row} key={index}>
                 <TableCell component="th" scope="row">
                   {qualifierFormatter(item.qualifier)} {item.go_term}

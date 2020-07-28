@@ -2,7 +2,7 @@
  * This is a helper function to generate links for sources.
  */
 
-const sourceLinkGenerator = (id) => {
+const sourceLinkGenerator = (id: string) => {
   switch (id) {
     case "dictyBase":
       return "http://dictybase.org/"
