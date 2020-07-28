@@ -1,21 +1,22 @@
 import React, { Fragment } from "react"
-import { withStyles } from "@material-ui/core/styles"
 import withLinkGenerator from "../utils/withLinkGenerator"
-import styles from "./DisplayTableStyles"
+import useStyles from "./displayTableStyles"
 
 /**
  * This handles the display for the "With" GO data.
  */
 
-const WithDisplay = ({ withData, classes }) => {
+const WithDisplay = ({ withData }: any) => {
+  const classes = useStyles()
+
   if (withData === null) {
     return <Fragment />
   }
 
   return (
     <Fragment>
-      {withData.map((item, i) => (
-        <Fragment key={i}>
+      {withData.map((item: any, index: number) => (
+        <Fragment key={index}>
           <span>
             {item.name ? (
               <a
@@ -42,4 +43,4 @@ const WithDisplay = ({ withData, classes }) => {
   )
 }
 
-export default withStyles(styles)(WithDisplay)
+export default WithDisplay
