@@ -3,14 +3,14 @@ import { composeWithDevTools } from "redux-devtools-extension/developmentOnly"
 import thunk from "redux-thunk"
 import { routerMiddleware } from "connected-react-router"
 import { manageStateStorage } from "dicty-components-redux"
-import history from "common/utils/routerHistory"
-import createRootReducer from "app/reducers/rootReducer"
+import history from "../../common/utils/routerHistory"
+import createRootReducer from "../reducers/rootReducer"
 import {
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
   FETCH_ROLE_SUCCESS,
   FETCH_PERMISSION_SUCCESS,
-} from "common/constants/types"
+} from "../../common/constants/types"
 
 const authArg = {
   save_action: LOGIN_SUCCESS,
@@ -42,12 +42,14 @@ const enhancer = composeWithDevTools(
   ),
 )
 
-export default function configureStore(initialState) {
+export default function configureStore(initialState: any) {
   const store = createStore(createRootReducer(history), initialState, enhancer)
   if (process.env.NODE_ENV === "development") {
-    if (module.hot) {
-      module.hot.accept("app/reducers/rootReducer", () =>
-        store.replaceReducer(require("app/reducers/rootReducer").default),
+    // @ts-ignore
+    if (module["hot"]) {
+      // @ts-ignore
+      module["hot"].accept("../reducers/rootReducer", () =>
+        store.replaceReducer(require("../reducers/rootReducer").default),
       )
     }
   }
