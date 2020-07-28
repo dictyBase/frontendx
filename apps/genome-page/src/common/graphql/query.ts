@@ -58,4 +58,28 @@ const GET_GENE_BY_NAME = gql`
   }
 `
 
-export { GET_GENE_BY_ID, GET_GENE_BY_NAME }
+const GET_REFRESH_TOKEN = gql`
+  query GetRefreshToken($token: String!) {
+    getRefreshToken(token: $token) {
+      token
+      user {
+        id
+        email
+        first_name
+        last_name
+        roles {
+          role
+          permissions {
+            permission
+            resource
+          }
+        }
+      }
+      identity {
+        provider
+      }
+    }
+  }
+`
+
+export { GET_GENE_BY_ID, GET_GENE_BY_NAME, GET_REFRESH_TOKEN }

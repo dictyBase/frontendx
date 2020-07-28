@@ -1,33 +1,86 @@
-import React from "react"
-import { connect } from "react-redux"
-import { oAuthLogin } from "./authActions"
+import { useEffect } from "react"
+import { useMutation } from "@apollo/client"
+import { useHistory } from "react-router-dom"
+import querystring from "querystring"
+import { useAuthStore, ActionType } from "features/Authentication/AuthStore"
+import { LOGIN } from "common/graphql/mutation"
+import oauthConfig from "common/utils/oauthConfig"
 
-type Props = {
-  /** Function that handles the oAuth login process */
-  oAuthLogin: Function
+type LoginEvent = {
+  /** Third-party provider (orcid, google, linkedin) */
+  provider: string
+  /** Query containing authorization code and possibly state */
+  query: string
+  /** Callback URL */
+  url: string
+}
+
+const getLoginInputVariables = (data: LoginEvent) => {
+  const provider = (oauthConfig as any)[data.provider]
+  const parsed = querystring.parse(data.query.replace("?", ""))
+
+  const variables = {
+    input: {
+      client_id: provider.clientId,
+      redirect_url: data.url,
+      state: parsed.state || "state",
+      code: parsed.code,
+      scopes: provider.scopes[0],
+      provider: data.provider,
+    },
+  }
+
+  return variables
 }
 
 /**
- * Sign in handler for the oAuth process
+ * OauthSignHandler listens to an event message and attempts to login
+ * with the event data.
  */
-export class OauthSignHandler extends React.Component<Props, {}> {
-  onMessage = (event: any) => {
-    event.preventDefault()
-    event.stopPropagation()
-    if (!event.data.provider) {
-      return
+
+const OauthSignHandler = () => {
+  const history = useHistory()
+  const [, dispatch] = useAuthStore()
+  const [login, { data }] = useMutation(LOGIN)
+
+  useEffect(() => {
+    const onMessage = async (event: MessageEvent) => {
+      event.preventDefault()
+      event.stopPropagation()
+      if (!event.data.provider) {
+        return
+      }
+      history.push("/load/auth")
+      try {
+        const { data } = await login({
+          variables: getLoginInputVariables(event.data),
+        })
+        dispatch({
+          type: ActionType.LOGIN,
+          payload: {
+            token: data.login.token,
+            user: data.login.user,
+            provider: data.login.identity.provider,
+          },
+        })
+        history.push("/mydsc")
+      } catch (error) {
+        dispatch({
+          type: ActionType.LOGIN_ERROR,
+          payload: {
+            error: error,
+          },
+        })
+        history.push("/login")
+      }
     }
-    this.props.oAuthLogin(event.data)
-  }
-  componentDidMount() {
-    window.addEventListener("message", this.onMessage, false)
-  }
-  componentWillUnmount() {
-    window.removeEventListener("message", this.onMessage)
-  }
-  render() {
-    return null
-  }
+    window.addEventListener("message", onMessage, false)
+    return () => {
+      window.removeEventListener("message", onMessage)
+    }
+  }, [data, dispatch, history, login])
+
+  return null
 }
 
-export default connect(null, { oAuthLogin })(OauthSignHandler)
+export default OauthSignHandler

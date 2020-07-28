@@ -5,18 +5,17 @@ import SnackbarContent from "@material-ui/core/SnackbarContent"
 const useStyles = makeStyles({
   container: {
     textAlign: "center",
+    width: "80%",
+    marginBottom: "20px",
   },
-  message: {
+  snackbar: {
     backgroundColor: "#cc0000",
   },
 })
 
 type Props = {
   /** The error message to display */
-  error: {
-    status: number
-    title: string
-  }
+  error: string
 }
 
 /** Notification snackbar-style message if user hits some type of error */
@@ -26,9 +25,7 @@ const ErrorNotification = ({ error }: Props) => {
 
   return (
     <div className={classes.container}>
-      <SnackbarContent className={classes.message} message={error} />
-      <br />
-      <br />
+      <SnackbarContent className={classes.snackbar} message={error} />
     </div>
   )
 }

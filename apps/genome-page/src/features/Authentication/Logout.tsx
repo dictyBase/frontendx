@@ -1,24 +1,25 @@
 import React from "react"
-import { connect } from "react-redux"
 import { Redirect } from "react-router-dom"
-import { logoutUser } from "./authActions"
-
-type Props = {
-  /** Logs the user out */
-  logoutUser: Function
-}
+import { useMutation } from "@apollo/client"
+import { useAuthStore, ActionType } from "features/Authentication/AuthStore"
+import { LOGOUT } from "common/graphql/mutation"
 
 /**
  * Allows the user to logout
  */
-export class Logout extends React.Component<Props, {}> {
-  componentWillMount() {
-    this.props.logoutUser()
-  }
 
-  render() {
-    return <Redirect to="/" />
-  }
+const Logout = () => {
+  const [logout] = useMutation(LOGOUT)
+  const [, dispatch] = useAuthStore()
+
+  React.useEffect(() => {
+    logout()
+    dispatch({
+      type: ActionType.LOGOUT,
+    })
+  }, [dispatch, logout])
+
+  return <Redirect to="/" />
 }
 
-export default connect(null, { logoutUser })(Logout)
+export default Logout
