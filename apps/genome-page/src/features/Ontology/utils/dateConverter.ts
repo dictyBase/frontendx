@@ -2,7 +2,7 @@
  * Helper function to convert dates to a more readable format.
  */
 
-const dateConverter = (date) => {
+const dateConverter = (date: string) => {
   // dates arrive from API in YYYYMMDD format
   const year = date.substring(0, 4)
   const month = date.substring(4, 6)

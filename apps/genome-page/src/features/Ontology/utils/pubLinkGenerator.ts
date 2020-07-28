@@ -2,7 +2,7 @@
  * This is a helper function to generate links to publications.
  */
 
-const pubLinkGenerator = (id) => {
+const pubLinkGenerator = (id: string) => {
   let idnum
 
   if (id.includes("PMID")) {

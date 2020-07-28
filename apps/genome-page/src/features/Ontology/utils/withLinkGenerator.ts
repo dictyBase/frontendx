@@ -3,7 +3,7 @@
  */
 
 //name optional
-const withLinkGenerator = (id, db, name) => {
+const withLinkGenerator = (id: string, db: string, name?: string) => {
   if (id === undefined) {
     return "#"
   }
