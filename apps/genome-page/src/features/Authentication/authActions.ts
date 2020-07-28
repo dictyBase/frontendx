@@ -1,13 +1,13 @@
 import { push } from "connected-react-router"
 import querystring from "querystring"
-import oauthConfig from "common/utils/oauthConfig"
+import oauthConfig from "../../common/utils/oauthConfig"
 import {
   oauthEndpointResource,
   fetchUserByIdResource,
   fetchRoleByIdResource,
   fetchHeaderConfig,
-} from "common/utils/fetchResources"
-import { printError, createErrorObj } from "common/utils/actionHelpers"
+} from "../../common/utils/fetchResources"
+import { printError, createErrorObj } from "../../common/utils/actionHelpers"
 
 import {
   LOGIN_REQUEST,
@@ -26,13 +26,24 @@ import {
   FETCH_PERMISSION_REQUEST,
   FETCH_PERMISSION_SUCCESS,
   FETCH_PERMISSION_FAILURE,
-} from "common/constants/types"
+} from "../../common/constants/types"
 
-const makeOauthConfig = ({ query, provider, url }) => {
+interface oauthArg {
+  query: string
+  provider: string
+  url: string
+}
+interface receiveLoginArg {
+  user: object
+  token: string
+}
+
+const makeOauthConfig = ({ query, provider, url }: oauthArg) => {
   const parsed = querystring.parse(query.replace("?", ""))
-  let body = `client_id=${oauthConfig[provider].clientId}&redirect_url=${url}`
+  const prov = (oauthConfig as any)[provider]
+  let body = `client_id=${prov.clientId}&redirect_url=${url}`
   body += `&state=${parsed.state}&code=${parsed.code}`
-  body += `&scopes=${oauthConfig[provider].scopes[0]}`
+  body += `&scopes=${prov.scopes[0]}`
   const config = {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -42,7 +53,7 @@ const makeOauthConfig = ({ query, provider, url }) => {
   return { config, endpoint }
 }
 
-export const requestLogin = (provider) => ({
+const requestLogin = (provider: string) => ({
   type: LOGIN_REQUEST,
   payload: {
     isFetching: true,
@@ -50,7 +61,7 @@ export const requestLogin = (provider) => ({
   },
 })
 
-export const receiveLogin = ({ user, token }) => ({
+const receiveLogin = ({ user, token }: receiveLoginArg) => ({
   type: LOGIN_SUCCESS,
   payload: {
     isFetching: false,
@@ -59,7 +70,7 @@ export const receiveLogin = ({ user, token }) => ({
   },
 })
 
-export const loginError = (error) => ({
+const loginError = (error: object) => ({
   type: LOGIN_FAILURE,
   payload: {
     isFetching: false,
@@ -74,14 +85,14 @@ const receiveLogout = () => ({
   },
 })
 
-export const fetchUserRequest = () => ({
+const fetchUserRequest = () => ({
   type: FETCH_USER_REQUEST,
   payload: {
     isFetching: true,
   },
 })
 
-export const fetchUserSuccess = (json) => ({
+const fetchUserSuccess = (json: Object) => ({
   type: FETCH_USER_SUCCESS,
   payload: {
     isFetching: false,
@@ -89,21 +100,21 @@ export const fetchUserSuccess = (json) => ({
   },
 })
 
-export const fetchUserFailure = (error) => ({
+const fetchUserFailure = (error: object) => ({
   type: FETCH_USER_FAILURE,
   payload: {
     error,
   },
 })
 
-export const fetchRoleRequest = () => ({
+const fetchRoleRequest = () => ({
   type: FETCH_ROLE_REQUEST,
   payload: {
     isFetching: true,
   },
 })
 
-export const fetchRoleSuccess = (json) => ({
+const fetchRoleSuccess = (json: Object) => ({
   type: FETCH_ROLE_SUCCESS,
   payload: {
     isFetching: false,
@@ -111,7 +122,7 @@ export const fetchRoleSuccess = (json) => ({
   },
 })
 
-export const fetchRoleFailure = (error) => ({
+const fetchRoleFailure = (error: object) => ({
   type: FETCH_ROLE_FAILURE,
   payload: {
     error,
@@ -125,7 +136,7 @@ const fetchNonAuthRoleRequest = () => ({
   },
 })
 
-const fetchNonAuthRoleSuccess = (json) => ({
+const fetchNonAuthRoleSuccess = (json: Object) => ({
   type: FETCH_NON_AUTH_ROLE_SUCCESS,
   payload: {
     isFetching: false,
@@ -133,7 +144,7 @@ const fetchNonAuthRoleSuccess = (json) => ({
   },
 })
 
-const fetchNonAuthRoleFailure = (error) => ({
+const fetchNonAuthRoleFailure = (error: object) => ({
   type: FETCH_NON_AUTH_ROLE_FAILURE,
   payload: {
     error,
@@ -147,7 +158,7 @@ const fetchPermissionRequest = () => ({
   },
 })
 
-const fetchPermissionSuccess = (json) => ({
+const fetchPermissionSuccess = (json: Object) => ({
   type: FETCH_PERMISSION_SUCCESS,
   payload: {
     isFetching: false,
@@ -155,7 +166,7 @@ const fetchPermissionSuccess = (json) => ({
   },
 })
 
-const fetchPermissionFailure = (error) => ({
+const fetchPermissionFailure = (error: object) => ({
   type: FETCH_PERMISSION_FAILURE,
   payload: {
     error,
@@ -164,7 +175,7 @@ const fetchPermissionFailure = (error) => ({
 
 // fetch permissions function that fetches data using async/await
 // checks if header is correct, then either grabs data or displays error
-export const fetchPermissionInfo = (roleId) => async (dispatch) => {
+const fetchPermissionInfo = (roleId: string) => async (dispatch: Function) => {
   try {
     dispatch(fetchPermissionRequest())
     const res = await fetch(
@@ -207,7 +218,7 @@ export const fetchPermissionInfo = (roleId) => async (dispatch) => {
 
 // fetch roles function that fetches data using async/await
 // checks if header is correct, then either grabs data or displays error
-export const fetchRoleInfo = (userId) => async (dispatch) => {
+const fetchRoleInfo = (userId: string) => async (dispatch: Function) => {
   try {
     dispatch(fetchRoleRequest())
     const res = await fetch(
@@ -246,7 +257,7 @@ export const fetchRoleInfo = (userId) => async (dispatch) => {
 
 // fetch roles function that fetches data for non-authenticated users using async/await
 // checks if header is correct, then either grabs data or displays error
-export const fetchNonAuthRoleInfo = (userId) => async (dispatch) => {
+const fetchNonAuthRoleInfo = (userId: string) => async (dispatch: Function) => {
   try {
     dispatch(fetchNonAuthRoleRequest())
     const res = await fetch(
@@ -290,7 +301,9 @@ export const fetchNonAuthRoleInfo = (userId) => async (dispatch) => {
 
 // Calls the API to get a token and
 // dispatch actions along the way
-export const oAuthLogin = ({ query, provider, url }) => async (dispatch) => {
+const oAuthLogin = ({ query, provider, url }: oauthArg) => async (
+  dispatch: Function,
+) => {
   const { config, endpoint } = makeOauthConfig({ query, provider, url })
   try {
     dispatch(requestLogin(provider))
@@ -307,8 +320,11 @@ export const oAuthLogin = ({ query, provider, url }) => async (dispatch) => {
         // user has invalid credentials, redirect with notification
         dispatch(
           loginError(
-            `You are not an authorized user of dictyBase.
-              Please sign in with proper credentials.`,
+            createErrorObj(
+              res.status,
+              `You are not an authorized user of dictyBase.
+               Please sign in with proper credentials.`,
+            ),
           ),
         )
         dispatch(push("/login"))
@@ -330,14 +346,14 @@ export const oAuthLogin = ({ query, provider, url }) => async (dispatch) => {
 }
 
 // Logs the user out
-export const logoutUser = () => (dispatch) => {
+const logoutUser = () => (dispatch: Function) => {
   dispatch(receiveLogout())
 }
 
 // fetch user function that fetches data using async/await
 // checks if header is correct, then either grabs data or displays error
 // this is used to get a non-authenticated user's information
-export const fetchUserInfo = (userId) => async (dispatch) => {
+const fetchUserInfo = (userId: string) => async (dispatch: Function) => {
   try {
     dispatch(fetchUserRequest())
     const res = await fetch(
@@ -373,4 +389,22 @@ export const fetchUserInfo = (userId) => async (dispatch) => {
       console.error(`Network error: ${error.message}`)
     }
   }
+}
+
+export {
+  requestLogin,
+  receiveLogin,
+  loginError,
+  fetchUserRequest,
+  fetchUserSuccess,
+  fetchUserFailure,
+  fetchRoleRequest,
+  fetchRoleSuccess,
+  fetchRoleFailure,
+  fetchPermissionInfo,
+  fetchRoleInfo,
+  fetchNonAuthRoleInfo,
+  oAuthLogin,
+  logoutUser,
+  fetchUserInfo,
 }

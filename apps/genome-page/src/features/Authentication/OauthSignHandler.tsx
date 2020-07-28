@@ -1,11 +1,17 @@
-import { Component } from "react"
+import React from "react"
 import { connect } from "react-redux"
 import { oAuthLogin } from "./authActions"
 
-/** Sign in handler for the oAuth process */
+type Props = {
+  /** Function that handles the oAuth login process */
+  oAuthLogin: Function
+}
 
-class OauthSignHandler extends Component {
-  onMessage = (event) => {
+/**
+ * Sign in handler for the oAuth process
+ */
+export class OauthSignHandler extends React.Component<Props, {}> {
+  onMessage = (event: any) => {
     event.preventDefault()
     event.stopPropagation()
     if (!event.data.provider) {
