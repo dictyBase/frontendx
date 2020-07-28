@@ -1,15 +1,11 @@
 import "common/utils/polyfills" // necessary for IE11
 import React from "react"
 import ReactDOM from "react-dom"
-import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client"
-import { BrowserRouter } from "react-router-dom"
-import { Provider } from "react-redux"
-import { hydrateStore } from "dicty-components-redux"
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles"
 import CssBaseline from "@material-ui/core/CssBaseline"
-import configureStore from "app/store/configureStore"
 import history from "common/utils/routerHistory"
 import App from "app/layout/App"
+import AppProviders from "app/layout/AppProviders"
+import { AuthProvider } from "features/Authentication/AuthStore"
 import "typeface-roboto"
 
 declare var process: {
@@ -21,67 +17,31 @@ declare var process: {
   }
 }
 
-const client = new ApolloClient({
-  cache: new InMemoryCache(),
-  uri: `${process.env.REACT_APP_GRAPHQL_SERVER}/graphql`,
-  credentials: "include",
-  headers: {
-    "X-GraphQL-Method": "Query",
-  },
-})
-
-const muiTheme = createMuiTheme({
-  overrides: {
-    MuiTab: {
-      root: {
-        textTransform: "none",
-      },
-    },
-    MuiTabs: {
-      root: {
-        backgroundColor: "#cce6ff",
-        color: "#000",
-      },
-      indicator: {
-        backgroundColor: "#858780",
-      },
-    },
-  },
-})
-
-// load state from localStorage(if any) to set the initial state for the store
-const initialState = hydrateStore({ key: "auth", namespace: "auth" })
-
-const store = configureStore(initialState)
-
-const setGoogleAnalytics = async () => {
+const setGoogleAnalytics = async (location: any) => {
   try {
     const module = await import("react-ga")
+    const page = location.pathname || window.location.pathname
     let ReactGA = module.default
     ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_ID)
-    ReactGA.set({ page: window.location.pathname })
-    ReactGA.pageview(window.location.pathname)
+    ReactGA.set({ page: page, anonymizeIp: true })
+    ReactGA.pageview(page)
   } catch (e) {
     console.error("could not load react-ga module", JSON.stringify(e))
   }
 }
 
 if (process.env.NODE_ENV === "production") {
-  history.listen((location, action) => {
-    setGoogleAnalytics()
+  history.listen((location: any) => {
+    setGoogleAnalytics(location)
   })
 }
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <Provider store={store}>
-      <BrowserRouter basename={process.env.REACT_APP_BASENAME}>
-        <MuiThemeProvider theme={muiTheme}>
-          <CssBaseline />
-          <App />
-        </MuiThemeProvider>
-      </BrowserRouter>
-    </Provider>
-  </ApolloProvider>,
+  <AuthProvider>
+    <AppProviders>
+      <CssBaseline />
+      <App />
+    </AppProviders>
+  </AuthProvider>,
   document.getElementById("root"),
 )
