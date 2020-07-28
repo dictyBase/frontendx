@@ -40,7 +40,7 @@ type Props = {
   /** Any content to display inside the panel */
   children: any
   /** Route to link the View All button to */
-  route: string
+  route?: string
   /** Title of the panel */
   title: string
 }

@@ -12,7 +12,11 @@ const useStyles = makeStyles({
 })
 
 type Props = {
-  error: string
+  /** The error message to display */
+  error: {
+    status: number
+    title: string
+  }
 }
 
 /** Notification snackbar-style message if user hits some type of error */
