@@ -20,7 +20,7 @@ type GOAnnotation {
 type With {
   id: String!
   db: String!
-  name: String
+  name: String!
 }
 
 type Extension {
