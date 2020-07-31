@@ -17,6 +17,7 @@ const GET_GENE_BY_ID = gql`
         with {
           id
           db
+          name
         }
         extensions {
           id
@@ -46,6 +47,7 @@ const GET_GENE_BY_NAME = gql`
         with {
           id
           db
+          name
         }
         extensions {
           id
