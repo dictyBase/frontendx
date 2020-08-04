@@ -79,7 +79,8 @@
       "src/**/*.{js,jsx,ts,tsx}",
       "!src/common/@types/*.{ts,tsx}",
       "!src/common/constants/*.{ts,tsx}",
-      "!src/common/graphql/*.{ts,tsx}"
+      "!src/common/graphql/*.{ts,tsx}",
+      "!src/**/mock*.{ts,tsx}"
     ]
   },
   "lint-staged": {
