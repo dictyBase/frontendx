@@ -20,21 +20,21 @@ const useStyles = makeStyles({
 })
 
 type Props = {
-  /** Gene name to display */
-  name: string
+  /** Gene name or ID to display */
+  gene: string
 }
 
 /**
  * Basic page header for all gene pages.
  */
 
-const PageHeader = ({ name }: Props) => {
+const PageHeader = ({ gene }: Props) => {
   const classes = useStyles()
   const { pathname } = useLocation()
 
   return (
     <h2 className={classes.header}>
-      {getHeaderValue(pathname)} for {name}
+      {getHeaderValue(pathname)} for {gene}
     </h2>
   )
 }

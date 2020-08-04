@@ -23,7 +23,7 @@ type Props = {
 }
 
 const Layout = ({ children }: Props) => {
-  const { id } = useParams()
+  const { gene } = useParams()
   const { pathname } = useLocation()
   const [tabValue, setTabValue] = React.useState(getTabValue(pathname))
 
@@ -34,15 +34,15 @@ const Layout = ({ children }: Props) => {
   return (
     <Grid container justify="center">
       <Grid item xs={12}>
-        <PageHeader name={id} />
-        <LegacyLinkSnackbar id={id} />
+        <PageHeader gene={gene} />
+        <LegacyLinkSnackbar gene={gene} />
         <AppBar position="static">
           <Tabs value={tabValue} onChange={handleChange}>
-            <Tab label="Gene Summary" component={Link} to={`/${id}`} />
+            <Tab label="Gene Summary" component={Link} to={`/${gene}`} />
             <Tab
               label="Gene Ontology"
               component={Link}
-              to={`/${id}/goannotations`}
+              to={`/${gene}/goannotations`}
             />
           </Tabs>
         </AppBar>
