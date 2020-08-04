@@ -33,15 +33,15 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 type Props = {
-  /** Gene ID used to link to legacy page */
-  id: string
+  /** Gene used to link to legacy page */
+  gene: string
 }
 
 /**
  * LegacyLinkSnackbar displays a link to the old gene page at the top of each page.
  */
 
-const LegacyLinkSnackbar = ({ id }: Props) => {
+const LegacyLinkSnackbar = ({ gene }: Props) => {
   const classes = useStyles()
 
   return (
@@ -59,9 +59,9 @@ const LegacyLinkSnackbar = ({ id }: Props) => {
                 database. We are continuously adding data to these pages, but in
                 the meantime you can visit our{" "}
                 <a
-                  href={`http://dictybase.org/gene/${id}`}
+                  href={`http://dictybase.org/gene/${gene}`}
                   className={classes.link}
-                  title={`Legacy gene page for ${id}`}
+                  title={`Legacy gene page for ${gene}`}
                   target="_blank"
                   rel="noopener noreferrer">
                   legacy page{" "}

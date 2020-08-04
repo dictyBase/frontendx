@@ -6,17 +6,17 @@ import Tab from "@material-ui/core/Tab"
 import PageHeader from "common/components/PageHeader"
 
 type Props = {
-  /** Gene name or ID (from routing params) */
-  id: string
+  /** Gene name/ID (from routing params) */
+  gene: string
 }
 
 /**
  * Loading screen for Summary page
  */
 
-const SummaryLoader = ({ id }: Props) => (
+const SummaryLoader = ({ gene }: Props) => (
   <div data-testid="skeleton-loader">
-    <PageHeader name={id} />
+    <PageHeader gene={gene} />
     <AppBar position="static">
       <Tabs value={0}>
         <Tab label="Gene Summary" />

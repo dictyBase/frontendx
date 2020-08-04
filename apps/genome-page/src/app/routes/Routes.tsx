@@ -20,9 +20,9 @@ const Routes = () => (
     <Route path="/:provider/callback" component={OauthCallback} />
     <Route path="/load/auth" component={AuthLoader} />
     <Route path="/logout" component={Logout} />
-    <Route path="/:id/goannotations" component={OntologyContainer} />
-    <Route path="/:id/*" component={PageNotReady} />
-    <Route path="/:id" component={SummaryContainer} />
+    <Route path="/:gene/goannotations" component={OntologyContainer} />
+    <Route path="/:gene/*" component={PageNotReady} />
+    <Route path="/:gene" component={SummaryContainer} />
     <Redirect
       from="/"
       to={{
