@@ -30,7 +30,7 @@ const SummaryContainer = () => {
     variables,
   })
 
-  if (loading) return <SummaryLoader />
+  if (loading) return <SummaryLoader id={id} />
 
   if (error) return <div>got an error...</div>
 
