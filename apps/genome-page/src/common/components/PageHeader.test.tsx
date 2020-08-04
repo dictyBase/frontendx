@@ -18,7 +18,7 @@ describe("common/components/PageHeader", () => {
     ;(useLocation as jest.Mock).mockReturnValue({
       pathname: "testdb.dictybase.org/gene/sadA",
     })
-    render(<PageHeader name="sadA" />)
+    render(<PageHeader gene="sadA" />)
     expect(screen.getByText(/Gene Summary for sadA/)).toBeInTheDocument()
   })
 
@@ -26,7 +26,7 @@ describe("common/components/PageHeader", () => {
     ;(useLocation as jest.Mock).mockReturnValue({
       pathname: "testdb.dictybase.org/gene/sadA/goannotations",
     })
-    render(<PageHeader name="sadA" />)
+    render(<PageHeader gene="sadA" />)
     expect(
       screen.getByText(/Gene Ontology Annotations for sadA/),
     ).toBeInTheDocument()
