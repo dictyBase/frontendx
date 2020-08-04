@@ -76,7 +76,10 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}"
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/common/@types/*.{ts,tsx}",
+      "!src/common/constants/*.{ts,tsx}",
+      "!src/common/graphql/*.{ts,tsx}"
     ]
   },
   "lint-staged": {
