@@ -35,22 +35,19 @@ const EnhancedTableHead = ({ onRequestSort, order, orderBy }: any) => {
   return (
     <TableHead className={classes.head}>
       <TableRow>
-        {columnData.map(
-          (column) => (
-            <TableCell
-              key={column.id}
-              className={classes.headerCell}
-              sortDirection={orderBy === column.id ? order : false}>
-              <TableSortLabel
-                active={orderBy === column.id}
-                direction={order}
-                onClick={createSortHandler(column.id)}>
-                {column.label}
-              </TableSortLabel>
-            </TableCell>
-          ),
-          // this,
-        )}
+        {columnData.map((column) => (
+          <TableCell
+            key={column.id}
+            className={classes.headerCell}
+            sortDirection={orderBy === column.id ? order : false}>
+            <TableSortLabel
+              active={orderBy === column.id}
+              direction={order}
+              onClick={createSortHandler(column.id)}>
+              {column.label}
+            </TableSortLabel>
+          </TableCell>
+        ))}
       </TableRow>
     </TableHead>
   )
