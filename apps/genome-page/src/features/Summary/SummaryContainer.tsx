@@ -7,6 +7,7 @@ import PanelWrapper from "common/components/panels/PanelWrapper"
 import SummaryLoader from "./SummaryLoader"
 import Layout from "app/layout/Layout"
 import GoaPanel from "features/Summary/Panels/GoaPanel"
+import GraphQLErrorPage from "common/components/errors/GraphQLErrorPage"
 import { GET_GENE } from "common/graphql/query"
 
 const SummaryContainer = () => {
@@ -19,7 +20,7 @@ const SummaryContainer = () => {
 
   if (loading) return <SummaryLoader gene={gene} />
 
-  if (error) return <div>got an error...</div>
+  if (error) return <GraphQLErrorPage error={error} />
 
   return (
     <Layout>
