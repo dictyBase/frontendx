@@ -36,7 +36,7 @@ type Props = {
  */
 
 const OntologyLoader = ({ gene }: Props) => (
-  <div>
+  <div data-testid="skeleton-loader">
     <PageHeader gene={gene} />
     <AppBar position="static">
       <Tabs value={1}>
