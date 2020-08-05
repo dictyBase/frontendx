@@ -8,7 +8,7 @@ type Extension = {
 type With = {
   id: string
   db: string
-  name?: string
+  name: string
 }
 
 type GeneGOA = {
@@ -18,7 +18,6 @@ type GeneGOA = {
   extensions?: Array<Extension>
   go_term: string
   id: string
-  name: string
   publication: string
   qualifier: string
   type: string
