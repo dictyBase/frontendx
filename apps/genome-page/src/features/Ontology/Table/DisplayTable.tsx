@@ -91,7 +91,10 @@ const DisplayTable = ({ data }: Props) => {
           {data
             .sort(getSorting(tableOrder, tableSortBy))
             .map((item: GeneGOA, index: number) => (
-              <TableRow className={classes.row} key={index}>
+              <TableRow
+                className={classes.row}
+                key={index}
+                data-testid={`table-row-${index}`}>
                 <TableCell component="th" scope="row">
                   {qualifierFormatter(item.qualifier)} {item.go_term}
                 </TableCell>
