@@ -43,14 +43,14 @@ describe("features/Ontology/OntologyContainer", () => {
     expect(screen.getByTestId("skeleton-loader")).toBeInTheDocument()
 
     // wait for data to load...
-    const innerTab = await screen.findByText(/All GO/)
-    expect(innerTab).toBeInTheDocument()
     const molecularPanel = await screen.findByText(/Molecular Function/)
     expect(molecularPanel).toBeInTheDocument()
     const biologicalPanel = await screen.findByText(/Biological Process/)
     expect(biologicalPanel).toBeInTheDocument()
     const cellularPanel = await screen.findByText(/Cellular Composition/)
     expect(cellularPanel).toBeInTheDocument()
+    const innerTab = screen.getByText(/All GO/)
+    expect(innerTab).toBeInTheDocument()
   })
 
   it("should render error page", async () => {
