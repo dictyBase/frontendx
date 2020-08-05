@@ -17,7 +17,7 @@ const OntologyContainer = () => {
     },
   })
 
-  if (loading) return <OntologyLoader />
+  if (loading) return <OntologyLoader gene={gene} />
 
   if (error) return <GraphQLErrorPage error={error} />
 
