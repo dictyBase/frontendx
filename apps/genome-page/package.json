@@ -80,7 +80,8 @@
       "!src/common/@types/*.{ts,tsx}",
       "!src/common/constants/*.{ts,tsx}",
       "!src/common/graphql/*.{ts,tsx}",
-      "!src/**/mock*.{ts,tsx}"
+      "!src/**/mock*.{ts,tsx}",
+      "!src/**/*Config.{ts,tsx}"
     ]
   },
   "lint-staged": {
