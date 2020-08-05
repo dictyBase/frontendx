@@ -5,7 +5,7 @@ import TableBody from "@material-ui/core/TableBody"
 import TableCell from "@material-ui/core/TableCell"
 import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
-// import EnhancedTableHead from "./EnhancedTableHead"
+import EnhancedTableHead from "./EnhancedTableHead"
 import ExtensionsDisplay from "./ExtensionsDisplay"
 import WithDisplay from "./WithDisplay"
 import pubLinkGenerator from "../utils/pubLinkGenerator"
@@ -13,7 +13,7 @@ import evidenceLinkGenerator from "../utils/evidenceLinkGenerator"
 import dateConverter from "../utils/dateConverter"
 import qualifierFormatter from "../utils/qualifierFormatter"
 import sourceLinkGenerator from "../utils/sourceLinkGenerator"
-// import getSorting from "./utils/getSorting"
+import getSorting from "./utils/getSorting"
 import { GeneGOA } from "common/@types/gene-data"
 
 const useStyles = makeStyles({
@@ -45,6 +45,8 @@ const useStyles = makeStyles({
   },
 })
 
+type Order = "asc" | "desc"
+
 type Props = {
   /** GO Annotations */
   data: Array<GeneGOA>
@@ -55,7 +57,18 @@ type Props = {
  */
 
 const DisplayTable = ({ data }: Props) => {
+  const [tableOrder, setTableOrder] = React.useState<Order>("desc")
+  const [tableSortBy, setTableSortBy] = React.useState("date")
   const classes = useStyles()
+
+  const handleRequestSort = (
+    event: React.MouseEvent<unknown>,
+    property: keyof GeneGOA,
+  ) => {
+    const isAsc = tableSortBy === property && tableOrder === "asc"
+    setTableOrder(isAsc ? "desc" : "asc")
+    setTableSortBy(property)
+  }
 
   return (
     <Paper className={classes.root}>
@@ -69,14 +82,14 @@ const DisplayTable = ({ data }: Props) => {
           <col style={{ width: "10%" }} />
           <col style={{ width: "10%" }} />
         </colgroup>
-        {/* <EnhancedTableHead
-            order={goa.tableOrder}
-            orderBy={goa.tableSortBy}
-            onRequestSort={this.handleRequestSort}
-          /> */}
+        <EnhancedTableHead
+          order={tableOrder}
+          orderBy={tableSortBy}
+          onRequestSort={handleRequestSort}
+        />
         <TableBody>
           {data
-            // .sort(getSorting(goa.tableOrder, goa.tableSortBy))
+            .sort(getSorting(tableOrder, tableSortBy))
             .map((item: GeneGOA, index: number) => (
               <TableRow className={classes.row} key={index}>
                 <TableCell component="th" scope="row">
