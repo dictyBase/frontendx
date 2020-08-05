@@ -1,4 +1,5 @@
-const mockData = {
+// mock data response for sadA gene
+const mockGraphQLData = {
   data: {
     gene: {
       id: "DDB_G123456",
@@ -293,4 +294,4 @@ const mockData = {
   },
 }
 
-export default mockData
+export default mockGraphQLData
