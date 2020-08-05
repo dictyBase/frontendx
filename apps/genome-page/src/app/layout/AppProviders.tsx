@@ -59,6 +59,17 @@ const muiTheme = createMuiTheme({
         backgroundColor: "#858780",
       },
     },
+    MuiCssBaseline: {
+      "@global": {
+        a: {
+          textDecoration: "none",
+          color: "#004080",
+          "&:hover": {
+            color: "#001b53",
+          },
+        },
+      },
+    },
   },
 })
 
