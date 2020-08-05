@@ -5,6 +5,7 @@ import { useQuery } from "@apollo/client"
 import Typography from "@material-ui/core/Typography"
 import OntologyTabLayout from "./OntologyTabLayout"
 import OntologyLoader from "./OntologyLoader"
+import GraphQLErrorPage from "common/components/errors/GraphQLErrorPage"
 import Layout from "app/layout/Layout"
 import { GET_GENE } from "common/graphql/query"
 
@@ -18,7 +19,7 @@ const OntologyContainer = () => {
 
   if (loading) return <OntologyLoader />
 
-  if (error) return <div>got an error...</div>
+  if (error) return <GraphQLErrorPage error={error} />
 
   return (
     <Layout>
