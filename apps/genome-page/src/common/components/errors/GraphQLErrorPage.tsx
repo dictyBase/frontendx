@@ -29,18 +29,11 @@ const GraphQLErrorPage = ({ error }: Props) => {
     errorMsg = error.graphQLErrors[0].message
   }
 
-  const printError = `
-  error: ${errorMsg}
-  code: ${errorCode}
-  `
-
   if (errorCode === "Unavailable") {
-    console.error(printError)
     return <ServerError />
   }
 
   if (errorCode === "NotFound" && errorMsg) {
-    console.error(printError)
     return (
       <NotFoundError
         error={errorMsg.charAt(0).toUpperCase() + errorMsg.slice(1)}
@@ -48,7 +41,6 @@ const GraphQLErrorPage = ({ error }: Props) => {
     )
   }
 
-  console.error(printError)
   return <OtherError />
 }
 
