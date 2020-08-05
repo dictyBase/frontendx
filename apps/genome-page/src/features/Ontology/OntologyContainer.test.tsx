@@ -3,7 +3,8 @@ import { render, screen } from "@testing-library/react"
 import { MockedProvider } from "@apollo/client/testing"
 import OntologyContainer from "./OntologyContainer"
 import { GET_GENE } from "common/graphql/query"
-import mockData from "features/Summary/mockData"
+import mockGraphQLData from "common/mocks/mockGraphQLData"
+import { mockNotFoundError } from "common/mocks/mockGraphQLError"
 import { BrowserRouter } from "react-router-dom"
 
 jest.mock("react-router-dom", () => {
@@ -29,7 +30,7 @@ describe("features/Ontology/OntologyContainer", () => {
             gene: "sadA",
           },
         },
-        result: mockData,
+        result: mockGraphQLData,
       },
     ]
     render(
@@ -62,21 +63,7 @@ describe("features/Ontology/OntologyContainer", () => {
             gene: "sadA",
           },
         },
-        result: {
-          errors: [
-            {
-              message: "could not find gene with ID banana",
-              path: ["gene"],
-              extensions: { code: "NotFound" },
-              locations: undefined,
-              nodes: undefined,
-              source: undefined,
-              positions: undefined,
-              originalError: undefined,
-              name: "",
-            },
-          ],
-        },
+        result: mockNotFoundError,
       },
     ]
     render(
