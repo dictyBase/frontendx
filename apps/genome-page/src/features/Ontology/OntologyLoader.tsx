@@ -26,13 +26,18 @@ const skeletonTheme = createMuiTheme({
   },
 })
 
+type Props = {
+  /** Gene name/ID (from routing params) */
+  gene: string
+}
+
 /**
  * Loading screen for GO page
  */
 
-const OntologyLoader = () => (
+const OntologyLoader = ({ gene }: Props) => (
   <div>
-    <PageHeader gene="" />
+    <PageHeader gene={gene} />
     <AppBar position="static">
       <Tabs value={1}>
         <Tab label="Gene Summary" />
