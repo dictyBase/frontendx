@@ -51,4 +51,47 @@ describe("features/Summary/SummaryContainer", () => {
     expect(screen.getByText(/Biological Process/)).toBeInTheDocument()
     expect(screen.getByText(/Cellular Component/)).toBeInTheDocument()
   })
+
+  it("should render error page", async () => {
+    const mocks = [
+      {
+        request: {
+          query: GET_GENE,
+          variables: {
+            gene: "sadA",
+          },
+        },
+        result: {
+          errors: [
+            {
+              message: "could not find gene with ID banana",
+              path: ["gene"],
+              extensions: { code: "NotFound" },
+              locations: undefined,
+              nodes: undefined,
+              source: undefined,
+              positions: undefined,
+              originalError: undefined,
+              name: "",
+            },
+          ],
+        },
+      },
+    ]
+    render(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <BrowserRouter>
+          <SummaryContainer />
+        </BrowserRouter>
+      </MockedProvider>,
+    )
+    // displays loading skeleton first
+    expect(screen.getByTestId("skeleton-loader")).toBeInTheDocument()
+
+    // wait for data to load...
+    const errorMsg = await screen.findByText(
+      /Could not find gene with ID banana/,
+    )
+    expect(errorMsg).toBeInTheDocument()
+  })
 })
