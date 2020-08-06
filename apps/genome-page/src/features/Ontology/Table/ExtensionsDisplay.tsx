@@ -4,6 +4,7 @@ import useStyles from "./displayTableStyles"
 import { Extension } from "common/@types/gene-data"
 
 type Props = {
+  /** List of extensions for a given annotation */
   extensions?: Array<Extension>
 }
 
