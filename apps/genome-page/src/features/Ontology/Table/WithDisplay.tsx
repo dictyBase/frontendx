@@ -4,6 +4,7 @@ import useStyles from "./displayTableStyles"
 import { With } from "common/@types/gene-data"
 
 type Props = {
+  /** List of With data for a given annotation */
   withData?: Array<With>
 }
 
