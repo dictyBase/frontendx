@@ -21,13 +21,15 @@ const OntologyContainer = () => {
 
   if (error) return <GraphQLErrorPage error={error} />
 
+  const geneName = data.gene.name
+
   return (
-    <Layout>
+    <Layout gene={geneName}>
       <Helmet>
-        <title>GO Annotations for {data.gene.name} - dictyBase</title>
+        <title>GO Annotations for {geneName} - dictyBase</title>
         <meta
           name="description"
-          content={`Gene Ontology Annotations for ${data.gene.name} at dictyBase`}
+          content={`Gene Ontology Annotations for ${geneName} at dictyBase`}
         />
       </Helmet>
       <Typography component="div">

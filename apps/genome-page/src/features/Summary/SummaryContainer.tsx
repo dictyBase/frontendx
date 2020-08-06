@@ -22,13 +22,15 @@ const SummaryContainer = () => {
 
   if (error) return <GraphQLErrorPage error={error} />
 
+  const geneName = data.gene.name
+
   return (
-    <Layout>
+    <Layout gene={geneName}>
       <Helmet>
-        <title>Gene Summary for {data.gene.name} - dictyBase</title>
+        <title>Gene Summary for {geneName} - dictyBase</title>
         <meta
           name="description"
-          content={`Gene information for ${data.gene.name} at dictyBase`}
+          content={`Gene information for ${geneName} at dictyBase`}
         />
       </Helmet>
       <Typography component="div">
