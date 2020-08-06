@@ -26,19 +26,19 @@ module.exports = {
       content: "src/README.md",
     },
     {
-      name: "Basic Components",
-      components: "src/common/components/*.tsx",
+      name: "Common Components",
+      components: "src/common/components/**/*.tsx",
       description:
         "This contains a list of components commonly used throughout the entire web application.",
     },
     {
       name: "Gene Summary Page",
-      components: "src/features/Summary/*.tsx",
+      components: "src/features/Summary/**/*.tsx",
       description: "All components used for the Gene Summary page.",
     },
     {
       name: "GO Annotations Page",
-      components: "src/features/Ontology/*.tsx",
+      components: "src/features/Ontology/**/*.tsx",
       description: "All components used for the GO page.",
     },
     // {
