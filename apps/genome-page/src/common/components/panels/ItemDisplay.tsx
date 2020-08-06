@@ -11,7 +11,8 @@ const useStyles = makeStyles({
 })
 
 /**
- * Wrapper component for each item inside panel
+ * Wrapper component for each item inside panel. This is used with the
+ * LeftDisplay and RightDisplay as children.
  */
 
 const ItemDisplay = ({ children }: any) => {

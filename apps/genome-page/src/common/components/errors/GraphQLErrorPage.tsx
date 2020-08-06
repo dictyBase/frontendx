@@ -10,8 +10,8 @@ type Props = {
 }
 
 /**
- * GraphQLErrorPage is used to display any errors found when issuing a
- * GraphQL query or mutation.
+ * Displays any errors found when issuing a GraphQL query or mutation.
+ * Returns one of the other error components based on the error code.
  */
 
 const GraphQLErrorPage = ({ error }: Props) => {

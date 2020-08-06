@@ -78,7 +78,7 @@ class ErrorBoundary extends Component<Props, State> {
         </Grid>
       )
     }
-    // normally, just render children
+
     return children
   }
 }
