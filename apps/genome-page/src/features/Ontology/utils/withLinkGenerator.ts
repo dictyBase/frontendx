@@ -1,22 +1,20 @@
+const convertNameToURL = (name: string, id: string) => {
+  if (name.includes(" ")) {
+    return `https://www.ebi.ac.uk/QuickGO/term/GO:${id}`
+  }
+  if (name.match(/^([A-Z0-9]*$)/)) {
+    return `https://www.uniprot.org/uniprot/${id}`
+  }
+  return `/${name}`
+}
+
 /**
- * This is a helper function to generate links for the With column of DisplayTable.
+ * This is a helper function to generate links for the With and Extensions columns of DisplayTable.
  */
 
-//name optional
 const withLinkGenerator = (id: string, db: string, name?: string) => {
-  if (id === undefined) {
-    return "#"
-  }
-  // if using converted gene name, link to gene page not uniprot
-  if (name) {
-    if (name.includes(" ")) {
-      return `https://www.ebi.ac.uk/QuickGO/term/GO:${id}`
-    }
-    if (name.match(/^([A-Z0-9]*$)/)) {
-      return `https://www.uniprot.org/uniprot/${id}`
-    }
-    return `/${name}`
-  }
+  if (name) return convertNameToURL(name, id)
+
   switch (db) {
     case "CHEBI":
       return `https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:${id}`
