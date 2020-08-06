@@ -1,11 +1,6 @@
-```js
-const Provider = require("react-redux").Provider
-const createStore = require("redux").createStore
-const reducers = require("../../app/reducers/rootReducer").default
-const data = require("./mockData").data
+```jsx
+const data = require("../../common/mocks/mockGraphQLData").data.gene.goas
 
-let store = createStore(reducers)
-;<Provider store={store}>
-  <InnerGoPanel goaData={data} />
-</Provider>
+<InnerGoPanel data={data} />
+
 ```
