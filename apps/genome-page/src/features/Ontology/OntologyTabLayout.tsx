@@ -35,6 +35,11 @@ type Props = {
   data: Array<GeneGOA>
 }
 
+/**
+ * Wrapper component that generates the inner tabs and their
+ * corresponding layouts on the GO annotations page.
+ */
+
 const OntologyTabLayout = ({ data }: Props) => {
   const [tabValue, setTabValue] = React.useState(0)
 
