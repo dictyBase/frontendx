@@ -15,7 +15,7 @@ const withLinkGenerator = (id: string, db: string, name?: string) => {
     if (name.match(/^([A-Z0-9]*$)/)) {
       return `https://www.uniprot.org/uniprot/${id}`
     }
-    return `https://testdb.dictybase.org/gene/${name}`
+    return `/${name}`
   }
   switch (db) {
     case "CHEBI":
@@ -23,9 +23,9 @@ const withLinkGenerator = (id: string, db: string, name?: string) => {
     case "DDANAT":
       return `https://www.ebi.ac.uk/ols/ontologies/ddanat/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FDDANAT_${id}`
     case "DDB":
-      return `https://testdb.dictybase.org/gene/${id}`
+      return `/${id}`
     case "dictyBase":
-      return `https://testdb.dictybase.org/gene/${id}`
+      return `/${id}`
     case "FB":
       return `http://flybase.org/reports/${id}.html`
     case "GO":
