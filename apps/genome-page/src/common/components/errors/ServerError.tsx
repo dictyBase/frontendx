@@ -4,7 +4,7 @@ import ErrorMessage from "./ErrorMessage"
 import useStyles from "./errorStyles"
 
 /**
- * ServerError is the UI display when there is a server error.
+ * UI display when there is a server error.
  */
 
 const ServerError = () => {

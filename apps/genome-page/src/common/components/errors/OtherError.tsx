@@ -6,7 +6,7 @@ import sadDicty from "common/assets/sad-dicty.png"
 import useStyles from "./errorStyles"
 
 /**
- * OtherError is the UI display when there is a general error.
+ * UI display when there is a general error.
  */
 
 const OtherError = () => {

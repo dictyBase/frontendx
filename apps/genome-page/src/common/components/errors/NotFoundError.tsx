@@ -10,7 +10,7 @@ type Props = {
 }
 
 /**
- * NotFoundError is the UI display when an item was not found.
+ * UI display when an item was not found.
  */
 
 const NotFoundError = ({ error }: Props) => {
