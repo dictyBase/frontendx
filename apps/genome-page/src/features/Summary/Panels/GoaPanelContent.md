@@ -1,4 +1,4 @@
 ```jsx
 import mockGraphQLData from "common/mocks/mockGraphQLData"
-;<GoaPanel data={mockGraphQLData.data.gene.goas} />
+;<GoaPanelContent data={mockGraphQLData.data.gene.goas[0]} />
 ```
