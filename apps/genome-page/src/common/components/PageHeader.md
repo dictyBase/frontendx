@@ -1,0 +1,3 @@
+```jsx
+<PageHeader gene="sadA" />
+```

@@ -1,0 +1,3 @@
+```jsx
+<LegacyLinkSnackbar gene="sadA" />
+```
