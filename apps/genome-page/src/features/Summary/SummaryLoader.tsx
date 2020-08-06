@@ -6,7 +6,7 @@ import Tab from "@material-ui/core/Tab"
 import PageHeader from "common/components/PageHeader"
 
 type Props = {
-  /** Gene name/ID (from routing params) */
+  /** Gene name */
   gene: string
 }
 

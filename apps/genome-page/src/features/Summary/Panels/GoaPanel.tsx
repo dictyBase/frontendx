@@ -50,16 +50,15 @@ const dataFilter = (arr: Array<GeneGOA>, type: GOType) => {
 }
 
 type Props = {
-  /** Array of GO annotations for particular gene */
+  /** Array of GO annotations for a particular gene */
   data: Array<GeneGOA>
 }
 
 /**
- * Panel to display Gene Ontology Annotations in Gene Summary tab
+ * Panel to display Gene Ontology Annotations on the Gene Summary page.
  */
 
 const GoaPanel = ({ data }: Props) => (
-  // console.log(data)
   <div>
     <ItemDisplay>
       <LeftDisplay>Molecular Function</LeftDisplay>
