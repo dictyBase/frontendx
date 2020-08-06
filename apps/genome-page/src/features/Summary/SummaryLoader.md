@@ -1,0 +1,3 @@
+```jsx
+<SummaryLoader gene="sadA" />
+```
