@@ -1,5 +1,5 @@
 import React from "react"
-import { Link, useLocation, useParams } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import Grid from "@material-ui/core/Grid"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
@@ -19,11 +19,13 @@ const getTabValue = (pathname: string) => {
 }
 
 type Props = {
+  /** Children components to display in the layout */
   children: React.ReactNode
+  /** Name of gene */
+  gene: string
 }
 
-const Layout = ({ children }: Props) => {
-  const { gene } = useParams()
+const Layout = ({ children, gene }: Props) => {
   const { pathname } = useLocation()
   const [tabValue, setTabValue] = React.useState(getTabValue(pathname))
 
