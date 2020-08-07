@@ -2,14 +2,14 @@ import React from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import TableCell from "@material-ui/core/TableCell"
 import TableRow from "@material-ui/core/TableRow"
-import ExtensionsDisplay from "./ExtensionsDisplay"
-import WithDisplay from "./WithDisplay"
+import ExtensionsDisplayItem from "./ExtensionsDisplayItem"
+import WithDisplayItem from "./WithDisplayItem"
 import pubLinkGenerator from "../utils/pubLinkGenerator"
 import dateConverter from "../utils/dateConverter"
 import qualifierFormatter from "../utils/qualifierFormatter"
 import sourceLinkGenerator from "../utils/sourceLinkGenerator"
 import StyledExternalLink from "common/components/StyledExternalLink"
-import { GeneGOA } from "common/@types/gene-data"
+import { GeneGOA, With, Extension } from "common/@types/gene-data"
 
 const useStyles = makeStyles({
   row: {
@@ -37,11 +37,22 @@ const GoaDisplayTableRow = ({ item }: Props) => {
         {qualifierFormatter(item.qualifier)} {item.go_term}
       </TableCell>
       <TableCell>
-        <ExtensionsDisplay extensions={item.extensions} />
+        {item.extensions?.map((item: Extension, index: number) => (
+          <>
+            {" "}
+            <ExtensionsDisplayItem key={index} item={item} />
+            <br />
+          </>
+        ))}
       </TableCell>
       <TableCell>{item.evidence_code}</TableCell>
       <TableCell>
-        <WithDisplay withData={item.with} />
+        {item.with?.map((item: With, index: number) => (
+          <>
+            <WithDisplayItem key={index} item={item} />
+            <br />
+          </>
+        ))}
       </TableCell>
       <TableCell>
         <StyledExternalLink
