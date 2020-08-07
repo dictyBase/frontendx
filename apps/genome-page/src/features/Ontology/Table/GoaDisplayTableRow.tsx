@@ -38,20 +38,20 @@ const GoaDisplayTableRow = ({ item }: Props) => {
       </TableCell>
       <TableCell>
         {item.extensions?.map((item: Extension, index: number) => (
-          <>
+          <React.Fragment key={index}>
             {" "}
-            <ExtensionsDisplayItem key={index} item={item} />
+            <ExtensionsDisplayItem item={item} />
             <br />
-          </>
+          </React.Fragment>
         ))}
       </TableCell>
       <TableCell>{item.evidence_code}</TableCell>
       <TableCell>
         {item.with?.map((item: With, index: number) => (
-          <>
-            <WithDisplayItem key={index} item={item} />
+          <React.Fragment key={index}>
+            <WithDisplayItem item={item} />
             <br />
-          </>
+          </React.Fragment>
         ))}
       </TableCell>
       <TableCell>
