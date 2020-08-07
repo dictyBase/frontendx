@@ -5,7 +5,7 @@
 const sourceLinkGenerator = (id: string) => {
   switch (id) {
     case "dictyBase":
-      return "http://dictybase.org/"
+      return "/"
     case "InterPro":
       return "http://www.ebi.ac.uk/interpro/"
     case "GO_Central":

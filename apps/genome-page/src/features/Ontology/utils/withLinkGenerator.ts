@@ -5,7 +5,7 @@ const convertNameToURL = (name: string, id: string) => {
   if (name.match(/^([A-Z0-9]*$)/)) {
     return `https://www.uniprot.org/uniprot/${id}`
   }
-  return `/${name}`
+  return `/gene/${name}`
 }
 
 /**
@@ -21,9 +21,9 @@ const withLinkGenerator = (id: string, db: string, name?: string) => {
     case "DDANAT":
       return `https://www.ebi.ac.uk/ols/ontologies/ddanat/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FDDANAT_${id}`
     case "DDB":
-      return `/${id}`
+      return `/gene/${id}`
     case "dictyBase":
-      return `/${id}`
+      return `/gene/${id}`
     case "FB":
       return `http://flybase.org/reports/${id}.html`
     case "GO":

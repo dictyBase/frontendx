@@ -1,15 +1,15 @@
 import withLinkGenerator from "./withLinkGenerator"
 
-// withLinkGenerator accepts (id, db, name)
-
 describe("withLinkGenerator", () => {
   const fn = withLinkGenerator
   describe("with name parameters", () => {
     it("returns local URL if given gene name", () => {
-      expect(fn("Q54QB1", "UniprotKB", "erkB")).toBe("/erkB")
+      expect(fn("Q54QB1", "UniprotKB", "erkB")).toBe("/gene/erkB")
     })
     it("returns local URL if given gene ID", () => {
-      expect(fn("Q54QB1", "UniprotKB", "DDB_G0272608")).toBe("/DDB_G0272608")
+      expect(fn("Q54QB1", "UniprotKB", "DDB_G0272608")).toBe(
+        "/gene/DDB_G0272608",
+      )
     })
     it("returns GO URL if given GO name", () => {
       expect(fn("0032496", "GO", "response to lipopolysaccharide")).toBe(
@@ -30,10 +30,10 @@ describe("withLinkGenerator", () => {
       )
     })
     it("returns correct DDB URL", () => {
-      expect(fn("DDB_G0272608", "DDB")).toBe("/DDB_G0272608")
+      expect(fn("DDB_G0272608", "DDB")).toBe("/gene/DDB_G0272608")
     })
     it("returns correct dictyBase URL", () => {
-      expect(fn("DDB_G0272608", "dictyBase")).toBe("/DDB_G0272608")
+      expect(fn("DDB_G0272608", "dictyBase")).toBe("/gene/DDB_G0272608")
     })
     it("returns correct FB URL", () => {
       expect(fn("test", "FB")).toBe("http://flybase.org/reports/test.html")

@@ -7,7 +7,7 @@ const pubLinkGenerator = (id: string) => {
 
   if (id.includes("PMID")) {
     idnum = id.slice(5)
-    return `https://www.ncbi.nlm.nih.gov/pubmed/${idnum}`
+    return `/publication/${idnum}`
   }
 
   if (id.includes("GO_REF")) {
