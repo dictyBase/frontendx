@@ -2,7 +2,7 @@ import sourceLinkGenerator from "./sourceLinkGenerator"
 
 describe("sourceLinkGenerator", () => {
   it("returns correct link for dictyBase", () => {
-    expect(sourceLinkGenerator("dictyBase")).toBe("http://dictybase.org/")
+    expect(sourceLinkGenerator("dictyBase")).toBe("/")
   })
   it("returns correct link for InterPro", () => {
     expect(sourceLinkGenerator("InterPro")).toBe(
