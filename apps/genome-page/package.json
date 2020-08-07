@@ -91,7 +91,9 @@
       "!src/common/constants/*.{ts,tsx}",
       "!src/common/graphql/*.{ts,tsx}",
       "!src/**/mock*.{ts,tsx}",
-      "!src/**/*Config.{ts,tsx}"
+      "!src/**/*Config.{ts,tsx,sample.ts}",
+      "!src/common/utils/icons.ts",
+      "!src/app/styleguide/*.{ts,tsx}"
     ]
   },
   "lint-staged": {
