@@ -1,5 +1,7 @@
 import { With } from "common/@types/gene-data"
 
+const emptyArray = (arr: Array<With>) => !Array.isArray(arr) || !arr.length
+
 // function to filter the With data
 const withDataFilter = (arr: Array<With>) => {
   // filter With array by db type
@@ -14,11 +16,11 @@ const withDataFilter = (arr: Array<With>) => {
 
   // order of preference to display With data
   // dicty => UniProt => MGI => RGD => SGD => PomBase
-  if (!Array.isArray(dictyChecker) || !dictyChecker.length) {
-    if (!Array.isArray(uniprotChecker) || !uniprotChecker.length) {
-      if (!Array.isArray(mgiChecker) || !mgiChecker.length) {
-        if (!Array.isArray(rgdChecker) || !rgdChecker.length) {
-          if (!Array.isArray(sgdChecker) || !sgdChecker.length) {
+  if (emptyArray(dictyChecker)) {
+    if (emptyArray(uniprotChecker)) {
+      if (emptyArray(mgiChecker)) {
+        if (emptyArray(rgdChecker)) {
+          if (emptyArray(sgdChecker)) {
             return pomChecker
           }
           return sgdChecker
@@ -29,8 +31,8 @@ const withDataFilter = (arr: Array<With>) => {
     }
     return uniprotChecker
   }
-
   return dictyChecker
 }
 
+export { emptyArray }
 export default withDataFilter
