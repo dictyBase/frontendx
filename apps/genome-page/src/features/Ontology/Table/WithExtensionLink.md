@@ -5,5 +5,5 @@ const item = {
   name: "ctxA",
 }
 
-;<WithDisplayItem item={item} />
+;<WithExtensionLink item={item} />
 ```
