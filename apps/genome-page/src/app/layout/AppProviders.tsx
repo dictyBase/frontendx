@@ -38,7 +38,13 @@ const createClient = async (token: string) => {
   )
 
   return new ApolloClient({
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache({
+      typePolicies: {
+        Extension: {
+          keyFields: ["id", "relation"],
+        },
+      },
+    }),
     link,
   })
 }
