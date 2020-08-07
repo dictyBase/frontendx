@@ -9,7 +9,6 @@ import EnhancedTableHead from "./EnhancedTableHead"
 import ExtensionsDisplay from "./ExtensionsDisplay"
 import WithDisplay from "./WithDisplay"
 import pubLinkGenerator from "../utils/pubLinkGenerator"
-import evidenceLinkGenerator from "../utils/evidenceLinkGenerator"
 import dateConverter from "../utils/dateConverter"
 import qualifierFormatter from "../utils/qualifierFormatter"
 import sourceLinkGenerator from "../utils/sourceLinkGenerator"
@@ -103,15 +102,7 @@ const DisplayTable = ({ data }: Props) => {
                   <ExtensionsDisplay extensions={item.extensions} />
                 </TableCell>
 
-                <TableCell>
-                  <a
-                    className={classes.link}
-                    href={evidenceLinkGenerator(item.evidence_code)}
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    {item.evidence_code}
-                  </a>
-                </TableCell>
+                <TableCell>{item.evidence_code}</TableCell>
 
                 <TableCell>
                   <WithDisplay withData={item.with} />
