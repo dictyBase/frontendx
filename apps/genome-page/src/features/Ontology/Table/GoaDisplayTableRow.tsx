@@ -2,8 +2,7 @@ import React from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import TableCell from "@material-ui/core/TableCell"
 import TableRow from "@material-ui/core/TableRow"
-import ExtensionsDisplayItem from "./ExtensionsDisplayItem"
-import WithDisplayItem from "./WithDisplayItem"
+import WithExtensionLink from "features/Ontology/Table/WithExtensionLink"
 import pubLinkGenerator from "../utils/pubLinkGenerator"
 import dateConverter from "../utils/dateConverter"
 import qualifierFormatter from "../utils/qualifierFormatter"
@@ -40,7 +39,7 @@ const GoaDisplayTableRow = ({ item }: Props) => {
         {item.extensions?.map((item: Extension, index: number) => (
           <React.Fragment key={index}>
             {" "}
-            <ExtensionsDisplayItem item={item} />
+            <em>{item.relation}</em> (<WithExtensionLink item={item} />)
             <br />
           </React.Fragment>
         ))}
@@ -49,7 +48,7 @@ const GoaDisplayTableRow = ({ item }: Props) => {
       <TableCell>
         {item.with?.map((item: With, index: number) => (
           <React.Fragment key={index}>
-            <WithDisplayItem item={item} />
+            <WithExtensionLink item={item} />
             <br />
           </React.Fragment>
         ))}

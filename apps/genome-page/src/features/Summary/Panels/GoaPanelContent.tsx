@@ -1,8 +1,7 @@
 import React from "react"
-import WithDisplayItem from "features/Ontology/Table/WithDisplayItem"
 import withDataFilter from "../utils/withDataFilter"
 import { GeneGOA, Extension, With } from "common/@types/gene-data"
-import ExtensionsDisplayItem from "features/Ontology/Table/ExtensionsDisplayItem"
+import WithExtensionLink from "features/Ontology/Table/WithExtensionLink"
 
 type Props = {
   /** Individual GO Annotation */
@@ -20,7 +19,7 @@ const GoaPanelContent = ({ data }: Props) => {
     withData = withDataFilter(data.with).map((xref: With, index: number) => (
       <React.Fragment key={index}>
         {" "}
-        <em>with</em> <WithDisplayItem item={xref} />
+        <em>with</em> <WithExtensionLink item={xref} />
       </React.Fragment>
     ))
   }
@@ -31,7 +30,7 @@ const GoaPanelContent = ({ data }: Props) => {
       .map((ext: Extension, index: number) => (
         <React.Fragment key={index}>
           {" "}
-          <ExtensionsDisplayItem item={ext} />{" "}
+          <em>{ext.relation}</em> <WithExtensionLink item={ext} />{" "}
         </React.Fragment>
       ))
   }

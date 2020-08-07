@@ -1,22 +1,22 @@
 import React from "react"
 import StyledExternalLink from "common/components/StyledExternalLink"
 import withLinkGenerator from "../utils/withLinkGenerator"
-import { Extension } from "common/@types/gene-data"
+import { Extension, With } from "common/@types/gene-data"
 
 type Props = {
-  /** Individual extension for a given annotation */
-  item: Extension
+  /** Individual With or Extension item for a given annotation */
+  item: Extension | With
 }
 
 /**
- * This handles the display for the extensions GO data.
+ * This handles the display for With or Extension links.
  */
 
-const ExtensionsDisplayItem = ({ item }: Props) => {
+const WithExtensionLink = ({ item }: Props) => {
   let link = (
     <StyledExternalLink
       href={withLinkGenerator(item.id, item.db)}
-      content={`(${item.db}:${item.id})`}
+      content={`${item.db}:${item.id}`}
     />
   )
 
@@ -29,11 +29,7 @@ const ExtensionsDisplayItem = ({ item }: Props) => {
     )
   }
 
-  return (
-    <>
-      <em>{item.relation}</em> {link}
-    </>
-  )
+  return link
 }
 
-export default ExtensionsDisplayItem
+export default WithExtensionLink
