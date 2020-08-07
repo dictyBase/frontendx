@@ -1,8 +1,8 @@
 import React from "react"
-import StyledExternalLink from "common/components/StyledExternalLink"
-import withLinkGenerator from "features/Ontology/utils/withLinkGenerator"
+import WithDisplayItem from "features/Ontology/Table/WithDisplayItem"
 import withDataFilter from "../utils/withDataFilter"
 import { GeneGOA, Extension, With } from "common/@types/gene-data"
+import ExtensionsDisplayItem from "features/Ontology/Table/ExtensionsDisplayItem"
 
 type Props = {
   /** Individual GO Annotation */
@@ -13,56 +13,37 @@ type Props = {
  * The content that goes in the right side of the GOA panel on the summary page.
  */
 
-const GoaPanelContent = ({ data }: Props) => (
-  <React.Fragment>
-    <span>
+const GoaPanelContent = ({ data }: Props) => {
+  let withData, extensionsData
+
+  if (data.with !== null && data.with !== undefined) {
+    withData = withDataFilter(data.with).map((xref: With, index: number) => (
+      <React.Fragment key={index}>
+        {" "}
+        <em>with</em> <WithDisplayItem item={xref} />
+      </React.Fragment>
+    ))
+  }
+
+  if (data.extensions !== null && data.extensions !== undefined) {
+    extensionsData = data.extensions
+      .slice(0, 2)
+      .map((ext: Extension, index: number) => (
+        <React.Fragment key={index}>
+          {" "}
+          <ExtensionsDisplayItem item={ext} />{" "}
+        </React.Fragment>
+      ))
+  }
+
+  return (
+    <React.Fragment>
       {data.go_term}
-      {data.with !== null &&
-        data.with !== undefined &&
-        withDataFilter(data.with).map((xref: With, index: number) => (
-          <React.Fragment key={index}>
-            <span>
-              {" "}
-              <em>with</em>{" "}
-              {xref.name ? (
-                <StyledExternalLink
-                  href={withLinkGenerator(xref.id, xref.db, xref.name)}
-                  content={xref.name}
-                />
-              ) : (
-                <StyledExternalLink
-                  href={withLinkGenerator(xref.id, xref.db)}
-                  content={`${xref.db}:${xref.id}`}
-                />
-              )}
-            </span>
-          </React.Fragment>
-        ))}
-      {data.extensions !== null &&
-        data.extensions !== undefined &&
-        data.extensions.slice(0, 2).map((ext: Extension, index: number) => (
-          <React.Fragment key={index}>
-            <span>
-              {" "}
-              <em>{ext.relation}</em>{" "}
-              {ext.name ? (
-                <StyledExternalLink
-                  href={withLinkGenerator(ext.id, ext.db, ext.name)}
-                  content={ext.name}
-                />
-              ) : (
-                <StyledExternalLink
-                  href={withLinkGenerator(ext.id, ext.db)}
-                  content={`${ext.db}:${ext.id}`}
-                />
-              )}{" "}
-            </span>
-          </React.Fragment>
-        ))}{" "}
-      ({data.evidence_code})
-    </span>
-    <br />
-  </React.Fragment>
-)
+      {withData}
+      {extensionsData} ({data.evidence_code})
+      <br />
+    </React.Fragment>
+  )
+}
 
 export default GoaPanelContent
