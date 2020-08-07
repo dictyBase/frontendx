@@ -1,13 +1,13 @@
 import React from "react"
 import { fireEvent, render, screen, within } from "@testing-library/react"
-import DisplayTable from "./DisplayTable"
+import GoaDisplayTable from "./GoaDisplayTable"
 import mockGraphQLData from "common/mocks/mockGraphQLData"
 
 const data = mockGraphQLData.data.gene.goas
 
-describe("features/Ontology/Table/DisplayTable", () => {
+describe("features/Ontology/Table/GoaDisplayTable", () => {
   it("should render expected table columns", () => {
-    render(<DisplayTable data={data} />)
+    render(<GoaDisplayTable data={data} />)
     expect(screen.getByText(/Qualifier/)).toBeInTheDocument()
     expect(screen.getByText(/Extensions/)).toBeInTheDocument()
     expect(screen.getByText(/Evidence/)).toBeInTheDocument()
@@ -18,12 +18,12 @@ describe("features/Ontology/Table/DisplayTable", () => {
   })
 
   it("should sort column on click", () => {
-    render(<DisplayTable data={data} />)
+    render(<GoaDisplayTable data={data} />)
     // verify date column exists
     const dateCol = screen.getByText(/Date/)
     expect(dateCol).toBeInTheDocument()
     // verify newest date is listed first
-    const firstRow = screen.getByTestId("table-row-0")
+    const firstRow = screen.getAllByTestId("table-row")[0]
     expect(within(firstRow).getByText("2020-07-18")).toBeInTheDocument()
     // click column header
     fireEvent.click(dateCol)

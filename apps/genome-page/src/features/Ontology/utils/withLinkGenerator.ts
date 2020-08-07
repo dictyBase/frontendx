@@ -9,7 +9,7 @@ const convertNameToURL = (name: string, id: string) => {
 }
 
 /**
- * This is a helper function to generate links for the With and Extensions columns of DisplayTable.
+ * This is a helper function to generate links for the With and Extensions columns of the GOA table.
  */
 
 const withLinkGenerator = (id: string, db: string, name?: string) => {

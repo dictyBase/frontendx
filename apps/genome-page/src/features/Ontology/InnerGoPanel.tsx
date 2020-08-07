@@ -1,6 +1,6 @@
 import React from "react"
 import Grid from "@material-ui/core/Grid"
-import DisplayTable from "./Table/DisplayTable"
+import GoaDisplayTable from "./Table/GoaDisplayTable"
 import PanelWrapper from "common/components/panels/PanelWrapper"
 import Typography from "@material-ui/core/Typography"
 import { GeneGOA } from "common/@types/gene-data"
@@ -26,17 +26,17 @@ const InnerGoPanel = ({ data }: Props) => {
         <Typography component="div">
           {molecular.length > 0 && (
             <PanelWrapper title="Molecular Function">
-              <DisplayTable data={molecular} />
+              <GoaDisplayTable data={molecular} />
             </PanelWrapper>
           )}
           {biological.length > 0 && (
             <PanelWrapper title="Biological Process">
-              <DisplayTable data={biological} />
+              <GoaDisplayTable data={biological} />
             </PanelWrapper>
           )}
           {cellular.length > 0 && (
             <PanelWrapper title="Cellular Composition">
-              <DisplayTable data={cellular} />
+              <GoaDisplayTable data={cellular} />
             </PanelWrapper>
           )}
         </Typography>
