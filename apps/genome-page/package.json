@@ -90,7 +90,7 @@
       "!src/common/@types/*.{ts,tsx}",
       "!src/common/constants/*.{ts,tsx}",
       "!src/common/graphql/*.{ts,tsx}",
-      "!src/**/mock*.{ts,tsx}",
+      "!src/common/mocks/*.{ts,tsx}",
       "!src/**/*Config.{ts,tsx,sample.ts}",
       "!src/common/utils/icons.ts",
       "!src/app/styleguide/*.{ts,tsx}"
