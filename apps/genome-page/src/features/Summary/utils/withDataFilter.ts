@@ -4,6 +4,7 @@ const emptyArray = (arr: Array<With>) => !Array.isArray(arr) || !arr.length
 
 // function to filter the With data
 const withDataFilter = (arr: Array<With>) => {
+  let finalArr = arr
   // filter by db type
   const dictyBase = arr.filter((item) => item.db === "dictyBase").slice(0, 2)
   const uniProtKB = arr.filter((item) => item.db === "UniProtKB").slice(0, 2)
@@ -14,13 +15,26 @@ const withDataFilter = (arr: Array<With>) => {
 
   // order of preference to display With data
   // dictyBase => UniProt => MGI => RGD => SGD => PomBase
-  if (!emptyArray(dictyBase)) return dictyBase
-  if (!emptyArray(uniProtKB)) return uniProtKB
-  if (!emptyArray(MGI)) return MGI
-  if (!emptyArray(RGD)) return RGD
-  if (!emptyArray(SGD)) return SGD
+  if (!emptyArray(dictyBase)) {
+    finalArr = dictyBase
+  }
+  if (!emptyArray(uniProtKB)) {
+    finalArr = uniProtKB
+  }
+  if (!emptyArray(MGI)) {
+    finalArr = MGI
+  }
+  if (!emptyArray(RGD)) {
+    finalArr = RGD
+  }
+  if (!emptyArray(SGD)) {
+    finalArr = SGD
+  }
+  if (!emptyArray(PomBase)) {
+    finalArr = PomBase
+  }
 
-  return PomBase
+  return finalArr
 }
 
 export { emptyArray }
