@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-BSD%202--Clause-blue.svg)](LICENSE)  
 ![GitHub tag](https://img.shields.io/github/v/tag/dictyBase/Genomepage)  
-![GitHub action](https://github.com/dictyBase/Genomepage/workflows/Node%20CI/badge.svg)
+![GitHub action](https://github.com/dictyBase/Genomepage/workflows/Node%20CI%20Develop/badge.svg)
 [![codecov](https://codecov.io/gh/dictyBase/Genomepage/branch/develop/graph/badge.svg)](https://codecov.io/gh/dictyBase/Genomepage)  
 [![Dependency Status](https://david-dm.org/dictyBase/Genomepage/develop.svg?style=flat-square)](https://david-dm.org/dictyBase/Genomepage/develop)
 [![devDependency Status](https://david-dm.org/dictyBase/Genomepage/develop/dev-status.svg?style=flat-square)](https://david-dm.org/dictyBase/Genomepage/develop?type=dev)  
