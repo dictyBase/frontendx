@@ -50,7 +50,7 @@
     "react-scripts": "^3.4.0",
     "string.prototype.includes": "^2.0.0",
     "typeface-roboto": "0.0.75",
-    "whatwg-fetch": "^3.2.0"
+    "whatwg-fetch": "^3.4.0"
   },
   "devDependencies": {
     "@percy/cypress": "^2.3.1",
