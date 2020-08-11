@@ -32,3 +32,22 @@ jobs:
         uses: codecov/codecov-action@v1.0.2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+  automerge:
+    needs: test
+    runs-on: ubuntu-18.04
+    if: |
+      github.actor == 'dependabot[bot]' &&
+      github.event_name == 'pull_request' &&
+      startsWith(github.event.pull_request.title, 'build(deps-dev):')
+    steps:
+      - name: "@dependabot squash and merge"
+        uses: actions/github-script@v2
+        with:
+          github-token: ${{secrets.GH_TOKEN}}
+          script: |
+            await github.issues.createComment({
+              owner: context.payload.repository.owner.login,
+              repo: context.payload.repository.name,
+              issue_number: context.payload.pull_request.number,
+              body: '@dependabot squash and merge'
+            })
