@@ -47,7 +47,7 @@
     "react-loading-skeleton": "^2.1.1",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.0",
+    "react-scripts": "^3.4.3",
     "string.prototype.includes": "^2.0.0",
     "typeface-roboto": "0.0.75",
     "whatwg-fetch": "^3.4.0"
