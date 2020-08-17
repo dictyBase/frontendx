@@ -5,7 +5,7 @@ type Query {
   content(id: ID!): Content
   contentBySlug(slug: String!): Content
   # Download page queries
-  downloads(taxon_id: String!): [Download!]! # get list of downloads for given taxon ID
+  organism(taxon_id: String!): Organism
   # Gene queries
   gene(gene: String!): Gene
   # Order queries

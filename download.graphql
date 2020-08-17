@@ -1,7 +1,7 @@
 type Organism {
   taxon_id: String!
   scientific_name: String!
-  citation: Citation!
+  citations: [Citation!]!
   downloads: [Download!]!
 }
 
