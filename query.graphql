@@ -6,6 +6,7 @@ type Query {
   contentBySlug(slug: String!): Content
   # Download page queries
   organism(taxon_id: String!): Organism
+  listOrganisms: [Organism!]
   # Gene queries
   gene(gene: String!): Gene
   # Order queries
