@@ -11,32 +11,6 @@ import ErrorPage from "common/components/ErrorPage"
 import { GET_PUBLICATION } from "common/graphql/query"
 import useStyles from "./publicationStyles"
 
-type Publication = {
-  data: {
-    publication: {
-      id: string
-      abstract: string
-      authors: Array<{
-        first_name: string
-        last_name: string
-        rank: string
-        initials: string
-      }>
-      doi: string
-      issn?: string
-      issue: string
-      journal: string
-      pages: string
-      pub_date: string
-      pub_type?: string
-      source?: string
-      status?: string
-      title: string
-      volume: string
-    }
-  }
-}
-
 /**
  * PublicationContainer is the main component for an individual publication page.
  * It is responsible for fetching the data and passing it down to more specific components.
@@ -72,5 +46,4 @@ const PublicationContainer = () => {
   )
 }
 
-export type { Publication }
 export default PublicationContainer

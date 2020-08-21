@@ -3,7 +3,7 @@ import { withStyles } from "@material-ui/core/styles"
 import { Theme } from "@material-ui/core/styles/createMuiTheme"
 import createStyles from "@material-ui/core/styles/createStyles"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { Publication } from "./PublicationContainer"
+import { Publication } from "common/@types/publication"
 
 const styles = (theme: Theme) =>
   createStyles({
