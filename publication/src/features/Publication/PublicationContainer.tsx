@@ -1,18 +1,17 @@
 import React from "react"
 import { useParams } from "react-router-dom"
 import { Helmet } from "react-helmet"
-import gql from "graphql-tag"
 import { useQuery } from "@apollo/react-hooks"
 import Grid from "@material-ui/core/Grid"
 import LeftSidebar from "./LeftSidebar"
 import PublicationDisplay from "./PublicationDisplay"
 import PublicationLoader from "./PublicationLoader"
 import PublicationHeader from "./PublicationHeader"
-import ErrorPage from "../../common/components/ErrorPage"
+import ErrorPage from "common/components/ErrorPage"
+import { GET_PUBLICATION } from "common/graphql/query"
 import useStyles from "./publicationStyles"
 
-/* eslint-disable */
-export interface Publication {
+type Publication = {
   data: {
     publication: {
       id: string
@@ -37,26 +36,6 @@ export interface Publication {
     }
   }
 }
-
-const GET_PUBLICATION = gql`
-  query Publication($id: ID!) {
-    publication(id: $id) {
-      id
-      doi
-      title
-      abstract
-      journal
-      pub_date
-      pages
-      issue
-      volume
-      authors {
-        initials
-        last_name
-      }
-    }
-  }
-`
 
 /**
  * PublicationContainer is the main component for an individual publication page.
@@ -93,5 +72,5 @@ const PublicationContainer = () => {
   )
 }
 
-export { GET_PUBLICATION }
+export type { Publication }
 export default PublicationContainer

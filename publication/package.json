@@ -39,6 +39,7 @@
     "dicty-components-header-footer": "github:dictyBase/dicty-components-header-footer#10.1.0",
     "dicty-components-login": "github:dictyBase/dicty-components-login#3.0.1",
     "dicty-components-navbar": "github:dictyBase/dicty-components-navbar#2.0.0",
+    "dicty-hooks": "dictyBase/dicty-hooks#1.1.0",
     "element-remove": "^1.0.4",
     "graphql": "^15.3.0",
     "graphql-tag": "^2.11.0",

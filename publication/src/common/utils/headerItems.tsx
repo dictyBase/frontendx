@@ -1,6 +1,6 @@
 import React from "react"
-import { Link } from "react-router-dom"
 import { HeaderLink } from "dicty-components-header-footer"
+import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { IconProp } from "@fortawesome/fontawesome-svg-core"
 
@@ -8,10 +8,10 @@ type LinkIconProps = {
   link: LinkProps
 }
 
-interface LinkProps {
+type LinkProps = {
   isRouter?: boolean
-  icon: IconProp
   text: string
+  icon: IconProp
   url: string
 }
 
@@ -23,12 +23,9 @@ const LinkIcon = ({ link }: LinkIconProps) => (
   </div>
 )
 
-const generateLinks = (link: LinkProps, i: string) =>
+const generateLinks = (link: LinkProps, i: number) =>
   link.isRouter ? (
-    <Link
-      style={{ color: "#15317e", padding: "15px", textDecoration: "none" }}
-      key={i}
-      to={link.url}>
+    <Link style={{ padding: "15px" }} key={i} to={link.url}>
       <LinkIcon link={link} />
     </Link>
   ) : (
@@ -36,6 +33,7 @@ const generateLinks = (link: LinkProps, i: string) =>
       <LinkIcon link={link} />
     </HeaderLink>
   )
+
 const headerItems = [
   {
     url: "/cite",

@@ -1,96 +1,116 @@
-import React, { useEffect } from "react"
-import { compose } from "redux"
-import { connect } from "react-redux"
-import { withRouter } from "react-router-dom"
-import { withStyles } from "@material-ui/core/styles"
+import React from "react"
+import { useQuery } from "@apollo/react-hooks"
+import { makeStyles } from "@material-ui/core/styles"
 import { Header, Footer } from "dicty-components-header-footer"
 import { Navbar } from "dicty-components-navbar"
-import { library } from "@fortawesome/fontawesome-svg-core"
-import { faTwitter } from "@fortawesome/free-brands-svg-icons"
+import jwtDecode from "jwt-decode"
+import { IconProp } from "@fortawesome/fontawesome-svg-core"
+import { useFetchRefreshToken, useFooter, useNavbar } from "dicty-hooks"
+import { useAuthStore } from "features/Authentication/AuthStore"
+import ErrorBoundary from "common/components/ErrorBoundary"
 import {
-  faDownload,
-  faEnvelope,
-  faExternalLinkAlt,
-  faExclamationCircle,
-  faInfoCircle,
-  faPlus,
-  faSignInAlt,
-  faSignOutAlt,
-} from "@fortawesome/free-solid-svg-icons"
+  headerItems,
+  loggedHeaderItems,
+  generateLinks,
+} from "common/utils/headerItems"
+import Routes from "app/routes/Routes"
+import { GET_REFRESH_TOKEN } from "common/graphql/query"
 
-import ErrorBoundary from "../../common/components/ErrorBoundary"
-import fetchNavbarAndFooter from "../actions/navbarActions"
-import { headerItems, generateLinks } from "../../common/utils/headerItems"
-import footerItems from "../../common/constants/footer"
-import navItems from "../../common/constants/navbar"
-import Routes from "../routes/Routes"
-import { appStyles as styles, navTheme } from "./appStyles"
+const useStyles = makeStyles({
+  main: {
+    margin: "0 10px 25px 10px",
+  },
+  body: {
+    margin: "auto",
+    height: "100%",
+    width: "100%",
+    fontFamily: "Roboto, sans-serif",
+    fontSize: "16px",
+    lineHeight: 1.42857,
+    color: "#333",
+    backgroundColor: "#fff",
+    boxSizing: "content-box",
+    WebkitFontSmoothing: "auto",
+    MozOsxFontSmoothing: "auto",
+  },
+})
 
-// define fontawesome icons used in the app
-library.add(
-  faDownload,
-  faEnvelope,
-  faExclamationCircle,
-  faExternalLinkAlt,
-  faInfoCircle,
-  faPlus,
-  faSignInAlt,
-  faSignOutAlt,
-  faTwitter,
-)
+const navTheme = {
+  primary: "#004080",
+  secondary: "#0059b3",
+}
 
-interface Props {
-  /** Object representing navbar part of state */
-  navbar: any
-  /** Object representing footer part of state */
-  footer: any
-  /** Action that fetches both navbar and footer content */
-  fetchNavbarAndFooter: Function
-  /** Material-UI styling */
-  classes: {
-    main: string
-    body: string
+const getTokenIntervalDelayInMS = (token: string) => {
+  if (token === "") {
+    return
   }
+  const decodedToken = jwtDecode(token) as any
+  const currentTime = new Date(Date.now())
+  const jwtTime = new Date(decodedToken.exp * 1000)
+  const timeDiffInMins = (+jwtTime - +currentTime) / 60000
+  // all this to say we want the delay to be two minutes before the JWT expires
+  return (timeDiffInMins - 2) * 60 * 1000
+}
+
+type HeaderItem = {
+  isRouter?: boolean
+  text: string
+  icon: IconProp
+  url: string
 }
 
 /**
- * This is the main App component.
- * It is responsible for the main layout of the entire application.
+ * App is responsible for the main layout of the entire application.
  */
 
-const App = ({ navbar, footer, fetchNavbarAndFooter, classes }: Props) => {
-  // if any errors, fall back to old link setup
-  const navbarContent = !navbar.links ? navItems : navbar.links
-  const footerContent = !footer.links ? footerItems : footer.links
+export const App = () => {
+  const [{ isAuthenticated, token }, dispatch] = useAuthStore()
+  const { navbarData } = useNavbar()
+  const { footerData } = useFooter()
+  const classes = useStyles()
+  const { refetch } = useQuery(GET_REFRESH_TOKEN, {
+    variables: { token: token },
+    errorPolicy: "ignore",
+  })
+  const interval = React.useRef(null)
+  const delay = getTokenIntervalDelayInMS(token)
 
-  useEffect(() => {
-    fetchNavbarAndFooter()
-  }, [fetchNavbarAndFooter])
+  const fetchRefreshToken = React.useCallback(async () => {
+    try {
+      const res = await refetch({ token: token })
+      if (res.data.getRefreshToken) {
+        const { data } = res
+        dispatch({
+          type: "UPDATE_TOKEN",
+          payload: {
+            provider: data.getRefreshToken.identity.provider,
+            token: data.getRefreshToken.token,
+            user: data.getRefreshToken.user,
+          },
+        })
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }, [dispatch, refetch, token])
+  useFetchRefreshToken(fetchRefreshToken, interval, delay!, isAuthenticated)
+
+  const headerContent = isAuthenticated ? loggedHeaderItems : headerItems
 
   return (
     <div className={classes.body}>
-      <Header items={headerItems}>{(items) => items.map(generateLinks)}</Header>
-      <Navbar theme={navTheme} items={navbarContent} />
+      <Header items={headerContent}>
+        {(items: Array<HeaderItem>) => items.map(generateLinks)}
+      </Header>
+      <Navbar items={navbarData} theme={navTheme} />
       <main className={classes.main}>
         <ErrorBoundary>
           <Routes />
         </ErrorBoundary>
       </main>
-      <Footer items={footerContent} />
+      <Footer items={footerData} />
     </div>
   )
 }
 
-const mapStateToProps = ({ navbar, footer }: Props) => ({
-  navbar,
-  footer,
-})
-
-const enhance = compose(
-  withRouter,
-  connect(mapStateToProps, { fetchNavbarAndFooter }),
-  withStyles(styles),
-)
-
-export { App }
-export default enhance(App) as React.ComponentType
+export default App
