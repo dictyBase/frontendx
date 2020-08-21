@@ -97,9 +97,12 @@
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
-      "!src/**/mock*.js",
-      "!src/**/types.js",
-      "!src/**/*Styles.js"
+      "!src/common/@types/*.{ts}",
+      "!src/common/constants/*.{ts}",
+      "!src/common/graphql/*.{ts}",
+      "!src/**/mock*.{ts,tsx}",
+      "!src/**/types.{ts,tsx}",
+      "!src/**/*Styles.{ts,tsx}"
     ]
   },
   "browserslist": [
