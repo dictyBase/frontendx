@@ -1,16 +1,15 @@
-import React, { Fragment } from "react"
+import React from "react"
 import Title from "./Sections/Title"
 import Authors from "./Sections/Authors"
 import JournalData from "./Sections/JournalData"
 import SocialLinks from "./Sections/SocialLinks"
 import Abstract from "./Sections/Abstract"
 import FullTextLinks from "./Sections/FullTextLinks"
-import { Publication } from "./PublicationContainer"
+import { Publication } from "common/@types/publication"
 
 interface Props extends Publication {}
 
-export const PublicationDisplay = (props: Props) => {
-  const { data } = props
+export const PublicationDisplay = ({ data }: Props) => {
   const journalData = {
     id: data.publication.id,
     doi: data.publication.doi,
@@ -23,14 +22,14 @@ export const PublicationDisplay = (props: Props) => {
   const url = `https://doi.org/${data.publication.doi}`
 
   return (
-    <Fragment>
+    <>
       <Title title={data.publication.title} />
       <Authors authors={data.publication.authors} />
       <JournalData data={journalData} />
       <SocialLinks title={data.publication.title} />
       <Abstract abstract={data.publication.abstract} />
       <FullTextLinks url={url} />
-    </Fragment>
+    </>
   )
 }
 
