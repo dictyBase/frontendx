@@ -46,19 +46,15 @@ jobs:
     env:
       DOCKER_BUILDKIT: "1"
     steps:
-      - name: set up node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
       - name: check out code
         uses: actions/checkout@v2
-      - name: build ericdev docker image
-        run: docker build -t dictybase/publication:ericdev-develop-$(git rev-parse --short HEAD) -f docker/eric-dev/Dockerfile .
-      - name: build devsidd docker image
-        run: docker build -t dictybase/publication:devsidd-develop-$(git rev-parse --short HEAD) -f docker/sidd-dev/Dockerfile .
       - name: login to docker hub
         run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: build ericdev docker image
+        run: docker build -t dictybase/genomepage:ericdev-develop-$(git rev-parse --short HEAD) -f docker/eric-dev/Dockerfile .
       - name: push ericdev to docker hub
-        run: docker push dictybase/publication:ericdev-develop-$(git rev-parse --short HEAD)
+        run: docker push dictybase/genomepage:ericdev-develop-$(git rev-parse --short HEAD)
+      - name: build devsidd docker image
+        run: docker build -t dictybase/genomepage:devsidd-develop-$(git rev-parse --short HEAD) -f docker/sidd-dev/Dockerfile .
       - name: push devsidd to docker hub
-        run: docker push dictybase/publication:devsidd-develop-$(git rev-parse --short HEAD)
+        run: docker push dictybase/genomepage:devsidd-develop-$(git rev-parse --short HEAD)
