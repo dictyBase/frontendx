@@ -3,6 +3,7 @@ on: create
 jobs:
   create-pr:
     runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]'
     steps:
       - uses: actions/checkout@v2
       - name: get branch name
