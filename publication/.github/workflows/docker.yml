@@ -1,4 +1,4 @@
-name: Node CI Develop
+name: Docker build
 on: push
 jobs:
   build:
@@ -18,6 +18,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: dictybase/publication:ericdev-test-$(git rev-parse --short HEAD)
+          tags: dictybase/publication:ericdev-test
           file: docker/Dockerfile
           build-args: graphql_server=https://ericgraphql.dictybase.dev,func_server=https://ericfunc.dictybase.dev,client_keys=https://raw.githubusercontent.com/dictybase-playground/client-keys/2.0.0/clientConfig.eric.js,ga_tracking_id=-UA-146763741-1
