@@ -1,8 +1,5 @@
 FROM dictybase/frontend-builder:dev-test
 
-# ARG func_server
-# ENV REACT_APP_FUNC_SERVER ${func_server}
-
 ARG graphql_server
 ENV REACT_APP_GRAPHQL_SERVER ${graphql_server}
 
@@ -30,7 +27,7 @@ ADD $CLIENT_KEYS /usr/src/app/src/common/utils/clientConfig.js
 
 RUN yarn build
 
-FROM dictybase/static-server:develop-4a320cc
+FROM dictybase/static-server:2.1.0
 RUN mkdir /www
 WORKDIR /www
 COPY --from=0 /usr/src/app/build ./
