@@ -31,7 +31,6 @@ jobs:
         with:
           push: true
           tags: dictybase/publication:ericdev-test-${{ steps.type.outputs.id }}
-          file: docker/Dockerfile
           build-args: |
             graphql_server=https://ericgraphql.dictybase.dev
             client_keys=https://raw.githubusercontent.com/dictybase-playground/client-keys/2.0.0/clientConfig.eric.js
