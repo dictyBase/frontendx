@@ -32,6 +32,9 @@ jobs:
           push: true
           tags: dictybase/publication:ericdev-test-${{ steps.type.outputs.id }}
           file: docker/Dockerfile
-          build-args: graphql_server=https://ericgraphql.dictybase.dev,func_server=https://ericfunc.dictybase.dev,client_keys=https://raw.githubusercontent.com/dictybase-playground/client-keys/2.0.0/clientConfig.eric.js,ga_tracking_id=-UA-146763741-1
+          build-args: |
+            graphql_server=https://ericgraphql.dictybase.dev
+            client_keys=https://raw.githubusercontent.com/dictybase-playground/client-keys/2.0.0/clientConfig.eric.js
+            ga_tracking_id=-UA-146763741-1
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
