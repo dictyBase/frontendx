@@ -143,7 +143,7 @@ describe("authentication/OauthSignHandler", () => {
 
       await waitFor(() => {
         expect(mockHistoryPush).toHaveBeenCalledWith("/load/auth")
-        expect(mockHistoryPush).toHaveBeenCalledWith("/mydsc")
+        expect(mockHistoryPush).toHaveBeenCalledWith("/")
       })
     })
   })
