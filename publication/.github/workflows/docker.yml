@@ -24,7 +24,7 @@ jobs:
         id: type
         run: |
           sha=$(git rev-parse --short HEAD)
-          echo ::set-output name=id::sha
+          echo ::set-output name=id::${sha}
       - name: build and push
         id: docker_build
         uses: docker/build-push-action@v2
