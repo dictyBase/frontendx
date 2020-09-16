@@ -3,6 +3,15 @@ FROM dictybase/frontend-builder:dev-test
 # ARG func_server
 # ENV REACT_APP_FUNC_SERVER ${func_server}
 
+ARG graphql_server
+ENV REACT_APP_GRAPHQL_SERVER ${graphql_server}
+
+ARG ga_tracking_id
+ENV REACT_APP_GA_TRACKING_ID ${ga_tracking_id}
+
+ARG client_keys
+ENV CLIENT_KEYS ${client_keys}
+
 ARG basename
 ENV REACT_APP_BASENAME ${basename:-publication}
 
