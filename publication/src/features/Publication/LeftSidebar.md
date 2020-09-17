@@ -1,4 +1,4 @@
 ```js
-import { data } from "./mocks/mockdata"
+import { data } from "common/mocks/mockdata"
 ;<LeftSidebar data={data.data} />
 ```

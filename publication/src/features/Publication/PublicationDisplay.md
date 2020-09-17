@@ -1,4 +1,4 @@
 ```js
-import { data } from "./mocks/mockdata"
+import { data } from "common/mocks/mockdata"
 ;<PublicationDisplay data={data.data} />
 ```
