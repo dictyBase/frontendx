@@ -43,29 +43,20 @@ inside your cluster.
 In order for this application's login system to work locally, you will need to
 configure the list of providers.
 
-- Copy the provided sample [clientConfig.sample.js](src/common/utils/clientConfig.sample.js) file
-  to **clientConfig.js** in the same folder.
+- Copy the provided sample [clientConfig.sample.js](src/common/utils/clientConfig.sample.ts) file
+  to **clientConfig.ts** in the same folder.
 - Add any provider names and their corresponding client IDs.
 - All providers should have a matching counterpart in the
-  [oauthConfig.js](src/common/utils/oauthConfig.js) file. Fill up all of the
+  [oauthConfig.ts](src/common/utils/oauthConfig.ts) file. Fill up all of the
   configuration parameters for every new provider in that file.
 
-After setting up the login providers, you can run `npm install` and `npm start` as usual.
-There are also [husky](https://github.com/typicode/husky) scripts set up to run unit tests
-on `pre-commit` and run [Skaffold](https://github.com/GoogleContainerTools/skaffold) on `post-commit`.
+After setting up the login providers, you can run `yarn install` and `yarn start` as usual.
 
 ## Backend Requirements
 
 This app requires the following services to be running:
 
-- [pubfn](https://github.com/dictybase-playground/kubeless-gofn/tree/master/publication)
 - [graphql-server](https://github.com/dictyBase/graphql-server)
-- [modware-user](https://github.com/dictyBase/modware-user) (used for login)
-- [authserver](https://github.com/dictyBase/authserver) (used for login)
-
-It also relies on the navbar, footer and dashboard JSON files found in the
-[migration-data](https://github.com/dictyBase/migration-data) repository. An example
-of the necessary environmental variables can be found [here](.env.development).
 
 ## Application Structure
 
@@ -91,28 +82,6 @@ of the necessary environmental variables can be found [here](.env.development).
 │   └── index.tsx               # Application rendering
 └──                             # Config files
 ```
-
-## Semantic Versioning
-
-This app has been set up to use [semantic-release](https://github.com/semantic-release/semantic-release)
-and [commitizen](https://github.com/commitizen/cz-cli). After adding a new commit
-(`git add ...`), use `npm run cz` and follow the prompts to categorize and provide
-more details about your commit. Once complete, push your changes to whatever branch
-you are working on.
-
-When you are ready to push to prod, you can use `semantic-release` to automate the
-release process:
-
-- Merge your changes into `master`
-- Run `npx semantic-release`
-
-**Important:** you MUST have an env variable stored for `GH_TOKEN` or `GITHUB_TOKEN`
-that contains a GitHub [personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/).
-You can either pass this in manually when you run the script (i.e. `GH_TOKEN=XXX npx semantic-release`)
-or you can [store your env variable locally](https://www.schrodinger.com/kb/1842).
-
-This will look at your most recent commits since the last `git tag` and automatically
-determine the appropriate version number for your release.
 
 ## Active Developers
 
