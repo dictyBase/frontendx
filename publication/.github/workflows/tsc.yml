@@ -7,7 +7,7 @@ on:
     branches:
       - develop
 jobs:
-  eslint:
+  tsc:
     runs-on: ubuntu-latest
     steps:
       - name: set up node.js
