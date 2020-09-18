@@ -9,13 +9,17 @@ import GraphQLErrorPage from "common/components/errors/GraphQLErrorPage"
 import Layout from "app/layout/Layout"
 import { GET_GENE } from "common/graphql/query"
 
+type Params = {
+  gene: string
+}
+
 /**
  * Container component that issues a GraphQL query to get gene data for the
  * GO annotations page.
  */
 
 const OntologyContainer = () => {
-  const { gene } = useParams()
+  const { gene } = useParams<Params>()
   const { loading, error, data } = useQuery(GET_GENE, {
     variables: {
       gene,
