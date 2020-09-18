@@ -21,7 +21,3 @@ clientConfig.ts
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# nightwatch
-/nightwatch/reports
-*.log
