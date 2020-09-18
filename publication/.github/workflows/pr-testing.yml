@@ -24,7 +24,6 @@ jobs:
       - name: rename config file
         run: mv src/common/utils/clientConfig.sample.ts src/common/utils/clientConfig.ts
       - name: install
-        if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn install
       - name: unit tests
         run: yarn test-coverage
