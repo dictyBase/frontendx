@@ -6,7 +6,7 @@ on:
       - "src/**"
 jobs:
   percy:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - name: set up node.js
         uses: actions/setup-node@v1
