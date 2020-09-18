@@ -18,5 +18,7 @@ jobs:
         uses: actions/checkout@v2
       - name: install
         run: yarn install
+      - name: rename config file
+        run: mv src/common/utils/clientConfig.sample.ts src/common/utils/clientConfig.ts
       - name: tsc
         run: yarn tsc
