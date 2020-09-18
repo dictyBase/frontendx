@@ -16,7 +16,7 @@
     "cypress:run": "percy exec -- cypress run",
     "cypress:ci": "start-server-and-test start http://localhost:3000 cypress:run",
     "eject": "react-scripts eject",
-    "eslint": "eslint --ext .tsx,.ts,.jsx,.js src/",
+    "lint": "eslint --ext .tsx,.ts,.jsx,.js src/",
     "tsc": "tsc",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
