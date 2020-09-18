@@ -14,7 +14,7 @@
     "test-coverage-watch": "react-scripts test --env=jsdom-fourteen --coverage --watchAll",
     "eject": "react-scripts eject",
     "tsc": "tsc",
-    "eslint": "eslint --ext .tsx,.ts src/",
+    "lint": "eslint --ext .tsx,.ts src/",
     "pre-commit": "lint-staged",
     "semantic-release": "semantic-release",
     "styleguide": "styleguidist server",
