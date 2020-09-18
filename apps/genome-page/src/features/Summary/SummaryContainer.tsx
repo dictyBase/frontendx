@@ -10,13 +10,17 @@ import GoaPanel from "features/Summary/Panels/GoaPanel"
 import GraphQLErrorPage from "common/components/errors/GraphQLErrorPage"
 import { GET_GENE } from "common/graphql/query"
 
+type Params = {
+  gene: string
+}
+
 /**
  * Container component that issues a GraphQL query to get gene data for the
  * summary page.
  */
 
 const SummaryContainer = () => {
-  const { gene } = useParams()
+  const { gene } = useParams<Params>()
   const { loading, error, data } = useQuery(GET_GENE, {
     variables: {
       gene,
