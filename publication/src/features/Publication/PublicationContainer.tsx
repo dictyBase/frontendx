@@ -11,13 +11,18 @@ import ErrorPage from "common/components/ErrorPage"
 import { GET_PUBLICATION } from "common/graphql/query"
 import useStyles from "./publicationStyles"
 
+type Params = {
+  /** Pubmed ID from the URL */
+  id: string
+}
+
 /**
  * PublicationContainer is the main component for an individual publication page.
  * It is responsible for fetching the data and passing it down to more specific components.
  */
 
 const PublicationContainer = () => {
-  const { id } = useParams()
+  const { id } = useParams<Params>()
   const classes = useStyles()
   const { loading, error, data } = useQuery(GET_PUBLICATION, {
     variables: { id: id },
