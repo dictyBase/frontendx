@@ -7,10 +7,6 @@ jobs:
     name: Unit tests (PR ${{ github.event.number }})
     runs-on: ubuntu-latest
     steps:
-      - name: dump github context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
       - name: set up node.js
         uses: actions/setup-node@v1
         with:
