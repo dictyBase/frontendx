@@ -1,6 +1,6 @@
 ci:
   collect:
-    url: https://sidd.dictybase.dev/publication/18559084 
+    url: https://eric.dictybase.dev/publication/18559084 
     settings:
       chromeFlags: "--disable-gpu --no-sandbox"
   assert:
@@ -8,5 +8,5 @@ ci:
   upload:
     target: lhci
     serverBaseUrl: https://lighthouse.dictycr.org
-    token: 64d239f5-4399-4a23-a12e-96054cb3fb15
+    token: b6472ebf-ac4b-4484-a3d3-e1ac70338085
 
