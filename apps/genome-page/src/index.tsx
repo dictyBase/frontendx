@@ -7,7 +7,7 @@ import App from "app/layout/App"
 import AppProviders from "app/layout/AppProviders"
 import { AuthProvider } from "features/Authentication/AuthStore"
 import "common/utils/icons" // fontawesome library
-import "typeface-roboto"
+import "fontsource-roboto"
 
 declare var process: {
   env: {

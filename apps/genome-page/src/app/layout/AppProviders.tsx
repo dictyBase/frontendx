@@ -3,7 +3,6 @@ import { ApolloProvider } from "@apollo/client"
 import { BrowserRouter } from "react-router-dom"
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles"
 import useApolloClient from "common/hooks/useApolloClient"
-import "typeface-roboto"
 
 const muiTheme = createMuiTheme({
   overrides: {
