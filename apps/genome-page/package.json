@@ -35,6 +35,7 @@
     "dicty-hooks": "dictyBase/dicty-hooks#1.1.1",
     "element-remove": "^1.0.4",
     "font-awesome": "^4.7.0",
+    "fontsource-roboto": "^3.0.3",
     "graphql": "^15.3.0",
     "jwt-decode": "^3.0.0",
     "react": "^16.14.0",
@@ -47,7 +48,6 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.4",
     "string.prototype.includes": "^2.0.0",
-    "typeface-roboto": "1.1.13",
     "typescript": "^4.0.3",
     "whatwg-fetch": "^3.4.0"
   },
