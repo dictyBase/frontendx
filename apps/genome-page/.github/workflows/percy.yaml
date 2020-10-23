@@ -1,6 +1,7 @@
 name: Visual testing
 on:
   pull_request:
+    types: [edited, labeled, opened, synchronize, reopened]
     # only run when src files have changed
     paths:
       - "src/**"
