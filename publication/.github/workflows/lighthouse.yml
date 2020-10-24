@@ -18,6 +18,8 @@ jobs:
       - name: install lhci 
         run: npm i -g @lhci/cli@0.5.x
       - name: run report 
+        env:
+          LHCI_BUILD_CONTEXT__CURRENT_BRANCH: ${{ github.event.deployment.ref }}
         run: lhci autorun --config lighthouse/${{ github.event.deployment.environment}}.yaml 
 
       
