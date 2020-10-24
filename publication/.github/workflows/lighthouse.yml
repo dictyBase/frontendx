@@ -4,7 +4,7 @@ jobs:
   lighthouse-report:
     runs-on: ubuntu-20.04
     if: |
-      github.event.deployment_status["state"] == 'success' && 
+      github.event.deployment_status.state == 'success' && 
       contains(github.event.deployment.environment, 'kube')
     steps:
       - name: checkout code 
