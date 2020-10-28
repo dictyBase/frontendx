@@ -1,7 +1,7 @@
 import React from "react"
 import { useParams } from "react-router-dom"
 import { Helmet } from "react-helmet"
-import { useQuery } from "@apollo/react-hooks"
+import { useQuery } from "@apollo/client"
 import Grid from "@material-ui/core/Grid"
 import LeftSidebar from "./LeftSidebar"
 import PublicationDisplay from "./PublicationDisplay"
