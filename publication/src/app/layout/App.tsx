@@ -1,12 +1,12 @@
 import React from "react"
-import { useQuery } from "@apollo/react-hooks"
+import { useQuery } from "@apollo/client"
 import { makeStyles } from "@material-ui/core/styles"
 import { Header, Footer } from "dicty-components-header-footer"
 import { Navbar } from "dicty-components-navbar"
 import jwtDecode from "jwt-decode"
 import { IconProp } from "@fortawesome/fontawesome-svg-core"
 import { useFetchRefreshToken, useFooter, useNavbar } from "dicty-hooks"
-import { useAuthStore } from "features/Authentication/AuthStore"
+import { useAuthStore, ActionType } from "features/Authentication/AuthStore"
 import ErrorBoundary from "common/components/ErrorBoundary"
 import {
   headerItems,
@@ -40,6 +40,52 @@ const navTheme = {
   secondary: "#0059b3",
 }
 
+type User = {
+  id: number
+  first_name: string
+  last_name: string
+  email: string
+  roles: Array<{
+    id: number
+    role: string
+    permissions?: Array<{
+      id: number
+      permission: string
+      resource: string
+    }>
+  }>
+}
+
+type RefreshTokenData = {
+  token: string
+  user: User
+  identity: {
+    provider: string
+  }
+}
+
+type Action = {
+  type: string
+  payload: {
+    provider: string
+    token: string
+    user: User
+  }
+}
+
+const updateToken = (
+  dispatch: (arg0: Action) => void,
+  data: RefreshTokenData,
+) =>
+  dispatch({
+    type: ActionType.UPDATE_TOKEN,
+    payload: {
+      provider: data.identity.provider,
+      token: data.token,
+      user: data.user,
+    },
+  })
+
 const getTokenIntervalDelayInMS = (token: string) => {
   if (token === "") {
     return
@@ -63,31 +109,35 @@ type HeaderItem = {
  * App is responsible for the main layout of the entire application.
  */
 
-export const App = () => {
+const App = () => {
+  const [skip, setSkip] = React.useState(false)
   const [{ isAuthenticated, token }, dispatch] = useAuthStore()
   const { navbarData } = useNavbar()
   const { footerData } = useFooter()
   const classes = useStyles()
-  const { refetch } = useQuery(GET_REFRESH_TOKEN, {
+  const { loading, refetch, data } = useQuery(GET_REFRESH_TOKEN, {
     variables: { token: token },
     errorPolicy: "ignore",
+    skip, // only run query once
   })
   const interval = React.useRef(null)
   const delay = getTokenIntervalDelayInMS(token)
+
+  // set skip to true so the query is only run once
+  // then update the refresh token in our global state
+  React.useEffect(() => {
+    if (!loading && data && data.getRefreshToken) {
+      setSkip(true)
+      updateToken(dispatch, data.getRefreshToken)
+    }
+  }, [data, dispatch, loading])
 
   const fetchRefreshToken = React.useCallback(async () => {
     try {
       const res = await refetch({ token: token })
       if (res.data.getRefreshToken) {
         const { data } = res
-        dispatch({
-          type: "UPDATE_TOKEN",
-          payload: {
-            provider: data.getRefreshToken.identity.provider,
-            token: data.getRefreshToken.token,
-            user: data.getRefreshToken.user,
-          },
-        })
+        updateToken(dispatch, data.getRefreshToken)
       }
     } catch (error) {
       console.error(error)
