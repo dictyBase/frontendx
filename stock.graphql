@@ -176,15 +176,3 @@ input UpdatePlasmidInput {
   keywords: [String]
   genbank_accession: String
 }
-
-input ListStockInput {
-  cursor: Int
-  limit: Int
-  filter: String
-}
-
-input ListStrainsWithPhenotypeInput {
-  cursor: Int
-  limit: Int
-  phenotype: String!
-}

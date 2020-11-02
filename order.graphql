@@ -51,9 +51,3 @@ input UpdateOrderInput {
   status: StatusEnum
   items: [String]
 }
-
-input ListOrderInput {
-  cursor: Int
-  limit: Int
-  filter: String
-}

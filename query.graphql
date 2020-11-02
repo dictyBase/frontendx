@@ -11,16 +11,18 @@ type Query {
   gene(gene: String!): Gene
   # Order queries
   order(id: ID!): Order
-  listOrders(input: ListOrderInput): OrderListWithCursor
+  listOrders(cursor: Int, limit: Int, filter: String): OrderListWithCursor
   # Publication queries
   publication(id: ID!): Publication
   # Stock queries
   plasmid(id: ID!): Plasmid
   strain(id: ID!): Strain
-  listStrains(input: ListStockInput): StrainListWithCursor
-  listPlasmids(input: ListStockInput): PlasmidListWithCursor
+  listStrains(cursor: Int, limit: Int, filter: String): StrainListWithCursor
+  listPlasmids(cursor: Int, limit: Int, filter: String): PlasmidListWithCursor
   listStrainsWithPhenotype(
-    input: ListStrainsWithPhenotypeInput
+    cursor: Int
+    limit: Int
+    phenotype: String!
   ): StrainListWithCursor
   # listStrainsWithCharacteristic(characteristic: String!): [Strain!]
   # listStrainsWithAnno(anno: String!): [Strain!]
