@@ -24,8 +24,11 @@ type Query {
     limit: Int
     phenotype: String!
   ): StrainListWithCursor
-  # listStrainsWithCharacteristic(characteristic: String!): [Strain!]
-  # listStrainsWithAnno(anno: String!): [Strain!]
+  listStrainsWithCharacteristic(
+    cursor: Int
+    limit: Int
+    characteristic: String!
+  ): StrainListWithCursor
   # User queries
   user(id: ID!): User
   userByEmail(email: String!): User
