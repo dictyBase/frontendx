@@ -25,6 +25,12 @@ type Query {
     type: String!
     annotation: String!
   ): StrainListWithCursor
+  listPlasmidsWithAnnotation(
+    cursor: Int
+    limit: Int
+    type: String!
+    annotation: String!
+  ): PlasmidListWithCursor
   # User queries
   user(id: ID!): User
   userByEmail(email: String!): User
