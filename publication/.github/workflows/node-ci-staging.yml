@@ -52,7 +52,7 @@ jobs:
           chart-name: ${{ github.event.repository.name }}
           chart-path: charts/${{ github.event.repository.name }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          image-tag: staging-${{ steps.vars.outputs.short_sha }}
+          image-tag: staging-${{ steps.type.outputs.id }}
           ref: ${{ github.ref }}
           artifact: ${{ github.event.repository.name }}
           environment: staging
