@@ -1,65 +1,50 @@
 # publication
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![License](https://img.shields.io/badge/License-BSD%202--Clause-blue.svg)](LICENSE)  
-![GitHub tag](https://img.shields.io/github/v/tag/dictyBase/publication)  
-![GitHub action](https://github.com/dictyBase/publication/workflows/Node%20CI%20Develop/badge.svg)
-[![codecov](https://codecov.io/gh/dictyBase/publication/branch/develop/graph/badge.svg)](https://codecov.io/gh/dictyBase/publication)  
-[![Dependency Status](https://david-dm.org/dictyBase/publication/develop.svg?style=flat-square)](https://david-dm.org/dictyBase/publication/develop)
-[![devDependency Status](https://david-dm.org/dictyBase/publication/develop/dev-status.svg?style=flat-square)](https://david-dm.org/dictyBase/publication/develop?type=dev)  
-[![Technical debt](https://badgen.net/codeclimate/tech-debt/dictyBase/publication)](https://codeclimate.com/github/dictyBase/publication/trends/technical_debt)
-[![Issues](https://badgen.net/codeclimate/issues/dictyBase/publication)](https://codeclimate.com/github/dictyBase/publication/issues)
-[![Maintainability percentage](https://badgen.net/codeclimate/maintainability-percentage/dictyBase/publication)](https://codeclimate.com/github/dictyBase/publication)  
-![Issues](https://badgen.net/github/issues/dictyBase/publication)
-![Open Issues](https://badgen.net/github/open-issues/dictyBase/publication)
-![Closed Issues](https://badgen.net/github/closed-issues/dictyBase/publication)
-![Total PRS](https://badgen.net/github/prs/dictyBase/publication)
-![Open PRS](https://badgen.net/github/open-prs/dictyBase/publication)
-![Closed PRS](https://badgen.net/github/closed-prs/dictyBase/publication)
-![Merged PRS](https://badgen.net/github/merged-prs/dictyBase/publication)  
-![Commits](https://badgen.net/github/commits/dictyBase/publication/develop)
-![Last commit](https://badgen.net/github/last-commit/dictyBase/publication/develop)
-![Branches](https://badgen.net/github/branches/dictyBase/publication)
-![Tags](https://badgen.net/github/tags/dictyBase/publication)
-![GitHub repo size](https://img.shields.io/github/repo-size/dictyBase/publication?style=plastic)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/dictyBase/publication?style=plastic)
-[![Lines of Code](https://badgen.net/codeclimate/loc/dictyBase/publication)](https://codeclimate.com/github/dictyBase/publication/code)  
-[![Funding](https://badgen.net/badge/NIGMS/Rex%20L%20Chisholm,dictyBase/yellow?list=|)](https://projectreporter.nih.gov/project_info_description.cfm?aid=9476993)
-[![Funding](https://badgen.net/badge/NIGMS/Rex%20L%20Chisholm,DSC/yellow?list=|)](https://projectreporter.nih.gov/project_info_description.cfm?aid=9438930)
+![GitHub tag](https://img.shields.io/github/v/tag/dictyBase/publication)
+![GitHub action](https://github.com/dictyBase/publication/workflows/Node%20CI%20Develop/badge.svg)  
+[![codecov](https://codecov.io/gh/dictyBase/publication/branch/develop/graph/badge.svg)](https://codecov.io/gh/dictyBase/publication)
+[![Maintainability](https://badgen.net/codeclimate/maintainability/dictyBase/publication)](https://codeclimate.com/github/dictyBase/publication)  
+![Last commit](https://badgen.net/github/last-commit/dictyBase/publication/develop)  
+[![Funding](https://badgen.net/badge/Funding/Rex%20L%20Chisholm,dictyBase,DCR/yellow?list=|)](https://projectreporter.nih.gov/project_info_description.cfm?aid=10024726&icde=0)
 
-This is the [Publication](https://testdb.dictybase.org/publication/26088819) application to display publication information at dictyBase.
+This is the [Publication](https://dictycr.org/publication/26088819) application to display publication information at dictyBase.
 
 ## Cloud Native Development
 
 All dictyBase development is now done with cloud native development in mind. It is expected
 that you have your own [Kubernetes](https://kubernetes.io/) cluster running. Documentation
-for the cloud deployment process can be found [here](https://github.com/dictyBase/Migration/tree/master/deployment).
+for the cloud deployment process can be found at the [dictyBase Developer Docs](https://dictybase-docker.github.io/developer-docs).
 
-The general idea is that after every git commit a new Docker image is built based on that commit,
-pushed to Docker Hub, then the corresponding Helm chart is upgraded with that image tag
-inside your cluster.
+To deploy an application manually, you can leave a `/deploy` comment inside of a pull request
+or issue.
 
 ## Local Development
 
 In order for this application's login system to work locally, you will need to
 configure the list of providers.
 
-- Copy the provided sample [clientConfig.sample.js](src/common/utils/clientConfig.sample.ts) file
+- Copy the provided sample [clientConfig.sample.ts](src/common/utils/clientConfig.sample.ts) file
   to **clientConfig.ts** in the same folder.
 - Add any provider names and their corresponding client IDs.
 - All providers should have a matching counterpart in the
-  [oauthConfig.ts](src/common/utils/oauthConfig.ts) file. Fill up all of the
+  [oauthConfig.ts](src/common/utils/oauthConfig.ts) file. Enter all of the
   configuration parameters for every new provider in that file.
 
-After setting up the login providers, you can run `yarn install` and `yarn start` as usual.
+After setting up the login providers, you can run `yarn` and `yarn start` as usual.
 
 ## Backend Requirements
 
 This app requires the following services to be running:
 
 - [graphql-server](https://github.com/dictyBase/graphql-server)
+- [graphql-authserver](https://github.com/dictyBase/graphql-authserver)
 
 ## Application Structure
 
@@ -86,11 +71,6 @@ This app requires the following services to be running:
 └──                             # Config files
 ```
 
-## Active Developers
-
-<a href="https://sourcerer.io/wildlifehexagon"><img src="https://sourcerer.io/assets/avatar/wildlifehexagon" height="80px" alt="Sourcerer"></a>
-<a href="https://sourcerer.io/cybersiddhu"><img src="https://sourcerer.io/assets/avatar/cybersiddhu" height="80px" alt="Sourcerer"></a>
-
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -106,6 +86,23 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+## Misc badges
+
+![Issues](https://badgen.net/github/issues/dictyBase/publication)
+![Open Issues](https://badgen.net/github/open-issues/dictyBase/publication)
+![Closed Issues](https://badgen.net/github/closed-issues/dictyBase/publication)  
+![Total PRS](https://badgen.net/github/prs/dictyBase/publication)
+![Open PRS](https://badgen.net/github/open-prs/dictyBase/publication)
+![Closed PRS](https://badgen.net/github/closed-prs/dictyBase/publication)
+![Merged PRS](https://badgen.net/github/merged-prs/dictyBase/publication)  
+![Commits](https://badgen.net/github/commits/dictyBase/publication/develop)
+![Branches](https://badgen.net/github/branches/dictyBase/publication)
+![Tags](https://badgen.net/github/tags/dictyBase/publication)  
+![GitHub repo size](https://img.shields.io/github/repo-size/dictyBase/publication?style=plastic)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/dictyBase/publication?style=plastic)
+[![Lines of Code](https://badgen.net/codeclimate/loc/dictyBase/publication)](https://codeclimate.com/github/dictyBase/publication/code)
