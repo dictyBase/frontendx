@@ -1,35 +1,20 @@
 # Genomepage
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![License](https://img.shields.io/badge/License-BSD%202--Clause-blue.svg)](LICENSE)  
-![GitHub tag](https://img.shields.io/github/v/tag/dictyBase/genomepage)  
-![GitHub action](https://github.com/dictyBase/genomepage/workflows/Node%20CI%20Develop/badge.svg)
-[![codecov](https://codecov.io/gh/dictyBase/genomepage/branch/develop/graph/badge.svg)](https://codecov.io/gh/dictyBase/genomepage)  
-[![Dependency Status](https://david-dm.org/dictyBase/genomepage/develop.svg?style=flat-square)](https://david-dm.org/dictyBase/genomepage/develop)
-[![devDependency Status](https://david-dm.org/dictyBase/genomepage/develop/dev-status.svg?style=flat-square)](https://david-dm.org/dictyBase/genomepage/develop?type=dev)  
-[![Technical debt](https://badgen.net/codeclimate/tech-debt/dictyBase/genomepage)](https://codeclimate.com/github/dictyBase/genomepage/trends/technical_debt)
-[![Issues](https://badgen.net/codeclimate/issues/dictyBase/genomepage)](https://codeclimate.com/github/dictyBase/genomepage/issues)
-[![Maintainability percentage](https://badgen.net/codeclimate/maintainability-percentage/dictyBase/genomepage)](https://codeclimate.com/github/dictyBase/genomepage)  
-![Issues](https://badgen.net/github/issues/dictyBase/genomepage)
-![Open Issues](https://badgen.net/github/open-issues/dictyBase/genomepage)
-![Closed Issues](https://badgen.net/github/closed-issues/dictyBase/genomepage)
-![Total PRS](https://badgen.net/github/prs/dictyBase/genomepage)
-![Open PRS](https://badgen.net/github/open-prs/dictyBase/genomepage)
-![Closed PRS](https://badgen.net/github/closed-prs/dictyBase/genomepage)
-![Merged PRS](https://badgen.net/github/merged-prs/dictyBase/genomepage)  
-![Commits](https://badgen.net/github/commits/dictyBase/genomepage/develop)
-![Last commit](https://badgen.net/github/last-commit/dictyBase/genomepage/develop)
-![Branches](https://badgen.net/github/branches/dictyBase/genomepage)
-![Tags](https://badgen.net/github/tags/dictyBase/genomepage)
-![GitHub repo size](https://img.shields.io/github/repo-size/dictyBase/genomepage?style=plastic)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/dictyBase/genomepage?style=plastic)
-[![Lines of Code](https://badgen.net/codeclimate/loc/dictyBase/genomepage)](https://codeclimate.com/github/dictyBase/genomepage/code)  
-[![Funding](https://badgen.net/badge/NIGMS/Rex%20L%20Chisholm,dictyBase/yellow?list=|)](https://projectreporter.nih.gov/project_info_description.cfm?aid=9476993)
-[![Funding](https://badgen.net/badge/NIGMS/Rex%20L%20Chisholm,DSC/yellow?list=|)](https://projectreporter.nih.gov/project_info_description.cfm?aid=9438930)
+![GitHub tag](https://img.shields.io/github/v/tag/dictyBase/genomepage)
+![GitHub action](https://github.com/dictyBase/genomepage/workflows/Node%20CI%20Develop/badge.svg)  
+[![codecov](https://codecov.io/gh/dictyBase/genomepage/branch/develop/graph/badge.svg)](https://codecov.io/gh/dictyBase/genomepage)
+[![Maintainability](https://badgen.net/codeclimate/maintainability/dictyBase/genomepage)](https://codeclimate.com/github/dictyBase/genomepage)  
+![Last commit](https://badgen.net/github/last-commit/dictyBase/genomepage/develop)  
+[![Funding](https://badgen.net/badge/Funding/Rex%20L%20Chisholm,dictyBase,DCR/yellow?list=|)](https://projectreporter.nih.gov/project_info_description.cfm?aid=10024726&icde=0)
 
-This is the [Genomepage](https://testdb.dictybase.org/gene/gflB) web application to display genomic information at dictyBase.
+This is the [Genomepage](https://dictycr.org/gene/gflB) web application to display genomic information at dictyBase.
 
 ## Cloud Native Development
 
@@ -60,18 +45,7 @@ After setting up the login providers, you can run `yarn install` and `yarn start
 This app requires the following services to be running:
 
 - [graphql-server](https://github.com/dictyBase/graphql-server)
-
-For auth/login purposes:
-
 - [graphql-authserver](https://github.com/dictyBase/graphql-authserver)
-- [modware-auth](https://github.com/dictyBase/modware-auth)
-- [modware-identity](https://github.com/dictyBase/modware-identity)
-- [modware-user](https://github.com/dictyBase/modware-user)
-
-## Active Developers
-
-<a href="https://sourcerer.io/cybersiddhu"><img src="https://sourcerer.io/assets/avatar/cybersiddhu" height="80px" alt="Sourcerer"></a>
-<a href="https://sourcerer.io/wildlifehexagon"><img src="https://sourcerer.io/assets/avatar/wildlifehexagon" height="80px" alt="Sourcerer"></a>
 
 ## Contributors ✨
 
@@ -89,6 +63,23 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+## Misc badges
+
+![Issues](https://badgen.net/github/issues/dictyBase/genomepage)
+![Open Issues](https://badgen.net/github/open-issues/dictyBase/genomepage)
+![Closed Issues](https://badgen.net/github/closed-issues/dictyBase/genomepage)  
+![Total PRS](https://badgen.net/github/prs/dictyBase/genomepage)
+![Open PRS](https://badgen.net/github/open-prs/dictyBase/genomepage)
+![Closed PRS](https://badgen.net/github/closed-prs/dictyBase/genomepage)
+![Merged PRS](https://badgen.net/github/merged-prs/dictyBase/genomepage)  
+![Commits](https://badgen.net/github/commits/dictyBase/genomepage/develop)
+![Branches](https://badgen.net/github/branches/dictyBase/genomepage)
+![Tags](https://badgen.net/github/tags/dictyBase/genomepage)  
+![GitHub repo size](https://img.shields.io/github/repo-size/dictyBase/genomepage?style=plastic)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/dictyBase/genomepage?style=plastic)
+[![Lines of Code](https://badgen.net/codeclimate/loc/dictyBase/genomepage)](https://codeclimate.com/github/dictyBase/genomepage/code)
