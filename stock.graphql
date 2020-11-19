@@ -7,7 +7,7 @@ interface Stock {
   summary: String
   editable_summary: String
   depositor: String!
-  genes: [String]
+  genes: [Gene]
   dbxrefs: [String]
   publications: [Publication]
   in_stock: Boolean!
@@ -22,7 +22,7 @@ type Strain implements Stock {
   summary: String
   editable_summary: String
   depositor: String!
-  genes: [String]
+  genes: [Gene]
   dbxrefs: [String]
   publications: [Publication]
   # from strain_properties
@@ -50,7 +50,7 @@ type Plasmid implements Stock {
   summary: String # same as description field?
   editable_summary: String
   depositor: String!
-  genes: [String]
+  genes: [Gene]
   dbxrefs: [String]
   publications: [Publication]
   name: String!
