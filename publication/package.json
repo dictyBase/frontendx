@@ -75,7 +75,7 @@
     "react-scripts": "^3.4.3",
     "react-styleguidist": "^11.1.4",
     "semantic-release": "^17.2.4",
-    "source-map-explorer": "^2.4.2"
+    "source-map-explorer": "^2.5.1"
   },
   "jest": {
     "collectCoverageFrom": [
