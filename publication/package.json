@@ -9,9 +9,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom-fourteen",
-    "test-coverage": "react-scripts test --env=jsdom-fourteen --coverage",
-    "test-coverage-watch": "react-scripts test --env=jsdom-fourteen --coverage --watchAll",
+    "test": "react-scripts test",
+    "test-coverage": "react-scripts test --coverage",
     "eject": "react-scripts eject",
     "tsc": "tsc",
     "lint": "eslint --ext .tsx,.ts src/",
@@ -45,7 +44,7 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "string.prototype.includes": "^2.0.0",
-    "typescript": "4.x"
+    "typescript": "^4.1.3"
   },
   "devDependencies": {
     "@semantic-release/git": "^9.0.0",
@@ -60,19 +59,15 @@
     "@types/react-helmet": "^6.1.0",
     "@types/react-router-dom": "^5.1.7",
     "@types/webpack-env": "^1.16.0",
-    "@typescript-eslint/eslint-plugin": "^2.33.0",
-    "@typescript-eslint/parser": "^2.33.0",
     "eslint-config-prettier": "^7.1.0",
-    "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jest-dom": "^3.6.5",
     "eslint-plugin-prettier": "^3.3.0",
-    "eslint-plugin-testing-library": "^3.10.1",
     "husky": "^4.3.6",
     "lint-staged": "^10.5.3",
     "nock": "^13.0.5",
     "prettier": "^2.2.1",
     "react-docgen-typescript": "^1.20.5",
-    "react-scripts": "^3.4.3",
+    "react-scripts": "^4.0.1",
     "react-styleguidist": "^11.1.5",
     "semantic-release": "^17.3.1",
     "source-map-explorer": "^2.5.1"
@@ -103,6 +98,31 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
+    }
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest",
+      "prettier",
+      "plugin:jest-dom/recommended"
+    ],
+    "plugins": [
+      "prettier",
+      "jest-dom"
+    ],
+    "rules": {
+      "import/exports-last": [
+        "error"
+      ],
+      "prettier/prettier": [
+        "error",
+        {
+          "semi": false,
+          "trailingComma": "all",
+          "jsxBracketSameLine": true
+        }
+      ]
     }
   }
 }
