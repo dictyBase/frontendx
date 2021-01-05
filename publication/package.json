@@ -80,7 +80,8 @@
       "!src/**/mock*.{ts,tsx}",
       "!src/**/types.{ts,tsx}",
       "!src/**/*Styles.{ts,tsx}"
-    ]
+    ],
+    "resetMocks": false
   },
   "browserslist": [
     ">0.2%",
