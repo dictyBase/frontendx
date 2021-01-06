@@ -39,7 +39,7 @@ describe("common/components/panels/PanelWrapper", () => {
 
   it("should not display link when not passed a route", () => {
     renderComponent()
-    expect(screen.queryByText(/View All/)).toBeNull()
-    expect(screen.queryByRole("link")).toBeNull()
+    expect(screen.queryByText(/View All/)).not.toBeInTheDocument()
+    expect(screen.queryByRole("link")).not.toBeInTheDocument()
   })
 })
