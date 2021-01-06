@@ -114,14 +114,6 @@
     "rules": {
       "import/exports-last": [
         "error"
-      ],
-      "prettier/prettier": [
-        "error",
-        {
-          "semi": false,
-          "trailingComma": "all",
-          "jsxBracketSameLine": true
-        }
       ]
     }
   }
