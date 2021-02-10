@@ -6,7 +6,7 @@ interface Stock {
   updated_by: User!
   summary: String
   editable_summary: String
-  depositor: String!
+  depositor: User!
   genes: [Gene]
   dbxrefs: [String]
   publications: [Publication]
@@ -21,7 +21,7 @@ type Strain implements Stock {
   updated_by: User!
   summary: String
   editable_summary: String
-  depositor: String!
+  depositor: User!
   genes: [Gene]
   dbxrefs: [String]
   publications: [Publication]
@@ -49,7 +49,7 @@ type Plasmid implements Stock {
   updated_by: User!
   summary: String # same as description field?
   editable_summary: String
-  depositor: String!
+  depositor: User!
   genes: [Gene]
   dbxrefs: [String]
   publications: [Publication]
