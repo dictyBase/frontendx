@@ -68,7 +68,7 @@
     "prettier": "^2.2.1",
     "react-docgen-typescript": "^1.21.0",
     "react-styleguidist": "^11.1.5",
-    "semantic-release": "^17.3.7",
+    "semantic-release": "^17.3.9",
     "source-map-explorer": "^2.5.2"
   },
   "jest": {
