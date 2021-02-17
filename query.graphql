@@ -22,12 +22,14 @@ type Query {
   listStrainsWithAnnotation(
     cursor: Int
     limit: Int
+    filter: String
     type: String!
     annotation: String!
   ): StrainListWithCursor
   listPlasmidsWithAnnotation(
     cursor: Int
     limit: Int
+    filter: String
     type: String!
     annotation: String!
   ): PlasmidListWithCursor
