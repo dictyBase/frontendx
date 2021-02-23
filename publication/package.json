@@ -18,7 +18,8 @@
     "semantic-release": "semantic-release",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
-    "analyze": "source-map-explorer 'build/static/js/*.js'"
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "postinstall": "husky install"
   },
   "dependencies": {
     "@apollo/client": "^3.3.11",
@@ -63,7 +64,7 @@
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-jest-dom": "^3.6.5",
     "eslint-plugin-prettier": "^3.3.0",
-    "husky": "^5.0.9",
+    "husky": "5",
     "lint-staged": "^10.5.4",
     "prettier": "^2.2.1",
     "react-docgen-typescript": "^1.21.0",
@@ -94,11 +95,6 @@
       "prettier --no-semi --trailing-comma all --jsx-bracket-same-line true --write",
       "git add"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "eslintConfig": {
     "extends": [
