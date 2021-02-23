@@ -20,18 +20,10 @@ type Query {
   listStrains(cursor: Int, limit: Int, filter: String): StrainListWithCursor
   listPlasmids(cursor: Int, limit: Int, filter: String): PlasmidListWithCursor
   listStrainsWithAnnotation(
-    cursor: Int
-    limit: Int
-    filter: String
-    type: String!
-    annotation: String!
+    input: ListStockAnnotationInput
   ): StrainListWithCursor
   listPlasmidsWithAnnotation(
-    cursor: Int
-    limit: Int
-    filter: String
-    type: String!
-    annotation: String!
+    input: ListStockAnnotationInput
   ): PlasmidListWithCursor
   # User queries
   user(id: ID!): User

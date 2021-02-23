@@ -176,3 +176,11 @@ input UpdatePlasmidInput {
   keywords: [String]
   genbank_accession: String
 }
+
+input ListStockAnnotationInput {
+  cursor: Int
+  limit: Int
+  filter: String
+  type: String!
+  annotation: String!
+}
