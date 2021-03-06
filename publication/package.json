@@ -46,7 +46,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.2",
     "string.prototype.includes": "^2.0.0",
-    "typescript": "^4.2.2"
+    "typescript": "^4.2.3"
   },
   "devDependencies": {
     "@semantic-release/git": "^9.0.0",
