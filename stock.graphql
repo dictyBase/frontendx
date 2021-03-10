@@ -176,3 +176,9 @@ input UpdatePlasmidInput {
   keywords: [String]
   genbank_accession: String
 }
+
+enum StrainTypeEnum {
+  ALL
+  REGULAR
+  GWDI
+}
