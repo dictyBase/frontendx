@@ -31,6 +31,21 @@ type Query {
     type: String!
     annotation: String!
   ): PlasmidListWithCursor
+  listStrainsInventory(
+    cursor: Int
+    limit: Int
+    filter: String
+  ): StrainListWithCursor
+  listPlasmidsInventory(
+    cursor: Int
+    limit: Int
+    filter: String
+  ): PlasmidListWithCursor
+  listBacterialStrains(
+    cursor: Int
+    limit: Int
+    filter: String
+  ): StrainListWithCursor
   # User queries
   user(id: ID!): User
   userByEmail(email: String!): User
