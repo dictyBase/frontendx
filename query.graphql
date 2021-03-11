@@ -43,7 +43,11 @@ type Query {
     filter: String
     strain_type: StrainTypeEnum
   ): StrainListWithCursor
-  listBacterialStrains(cursor: Int, limit: Int): StrainListWithCursor
+  listBacterialStrains(
+    cursor: Int
+    limit: Int
+    filter: String
+  ): StrainListWithCursor
   # User queries
   user(id: ID!): User
   userByEmail(email: String!): User
