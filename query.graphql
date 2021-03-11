@@ -31,11 +31,16 @@ type Query {
     type: String!
     annotation: String!
   ): PlasmidListWithCursor
-  listRegularStrains(cursor: Int, limit: Int): StrainListWithCursor
-  listGWDIStrains(cursor: Int, limit: Int): StrainListWithCursor
+  listRegularStrains(
+    cursor: Int
+    limit: Int
+    filter: String
+  ): StrainListWithCursor
+  listGWDIStrains(cursor: Int, limit: Int, filter: String): StrainListWithCursor
   listStrainsInventory(
     cursor: Int
     limit: Int
+    filter: String
     strain_type: StrainTypeEnum
   ): StrainListWithCursor
   listBacterialStrains(cursor: Int, limit: Int): StrainListWithCursor
