@@ -181,4 +181,13 @@ enum StrainTypeEnum {
   ALL
   REGULAR
   GWDI
+  BACTERIAL
+}
+
+input StrainListFilter {
+  label: String
+  summary: String
+  id: ID
+  in_stock: Boolean
+  strain_type: StrainTypeEnum
 }

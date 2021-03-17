@@ -17,7 +17,11 @@ type Query {
   # Stock queries
   plasmid(id: ID!): Plasmid
   strain(id: ID!): Strain
-  listStrains(cursor: Int, limit: Int, filter: String): StrainListWithCursor
+  listStrains(
+    cursor: Int
+    limit: Int
+    filter: StrainListFilter
+  ): StrainListWithCursor
   listPlasmids(cursor: Int, limit: Int, filter: String): PlasmidListWithCursor
   listStrainsWithAnnotation(
     cursor: Int
@@ -31,23 +35,6 @@ type Query {
     type: String!
     annotation: String!
   ): PlasmidListWithCursor
-  listRegularStrains(
-    cursor: Int
-    limit: Int
-    filter: String
-  ): StrainListWithCursor
-  listGWDIStrains(cursor: Int, limit: Int, filter: String): StrainListWithCursor
-  listStrainsInventory(
-    cursor: Int
-    limit: Int
-    filter: String
-    strain_type: StrainTypeEnum
-  ): StrainListWithCursor
-  listBacterialStrains(
-    cursor: Int
-    limit: Int
-    filter: String
-  ): StrainListWithCursor
   # User queries
   user(id: ID!): User
   userByEmail(email: String!): User
