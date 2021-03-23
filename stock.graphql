@@ -189,5 +189,5 @@ input StrainListFilter {
   summary: String
   id: ID
   in_stock: Boolean
-  strain_type: StrainTypeEnum
+  strain_type: StrainTypeEnum!
 }
