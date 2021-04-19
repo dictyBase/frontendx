@@ -19,7 +19,6 @@ import { GET_REFRESH_TOKEN } from "common/graphql/query"
 const useStyles = makeStyles({
   main: {
     margin: "0 10px 25px 10px",
-    flex: 1,
   },
   body: {
     margin: "auto",
@@ -33,9 +32,6 @@ const useStyles = makeStyles({
     boxSizing: "content-box",
     WebkitFontSmoothing: "auto",
     MozOsxFontSmoothing: "auto",
-    display: "flex",
-    minHeight: "100vh",
-    flexDirection: "column",
   },
 })
 
