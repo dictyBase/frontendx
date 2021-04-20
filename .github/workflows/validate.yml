@@ -13,7 +13,7 @@ jobs:
       - name: check out code
         uses: actions/checkout@v2
       - name: download cli tool
-        run: yarn global add graphql-schema-utilies
+        run: yarn global add graphql-schema-utilities
       - name: generate combined schema
         run: graphql-schema-utilities -s "*.graphql" -o "combined.graphql"
       - name: validate schema
