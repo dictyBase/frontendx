@@ -1,8 +1,7 @@
 name: GraphQL Schema Validation
 on:
-  push:
-    branches:
-      - develop
+  pull_request:
+    types: [edited, labeled, opened, synchronize, reopened]
 jobs:
   graphql-inspector:
     runs-on: ubuntu-20.04
