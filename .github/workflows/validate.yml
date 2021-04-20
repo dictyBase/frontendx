@@ -1,0 +1,21 @@
+name: GraphQL Schema Validation
+on:
+  push:
+    branches:
+      - develop
+jobs:
+  graphql-inspector:
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        schema:
+          - ./auth.graphql
+          - ./content.graphql
+    steps:
+      - name: check out code
+        uses: actions/checkout@v2
+      - uses: kamilkisiela/graphql-inspector@v2.5.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          schema: ${{ matrix.schema }}
