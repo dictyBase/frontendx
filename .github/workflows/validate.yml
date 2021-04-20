@@ -6,9 +6,18 @@ jobs:
   graphql-inspector:
     runs-on: ubuntu-20.04
     steps:
+      - name: set up node.js
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: 14.15.0
       - name: check out code
         uses: actions/checkout@v2
-      - uses: kamilkisiela/graphql-inspector@v2.5.0
+      - name: download cli tool
+        run: yarn global add graphql-schema-utilies
+      - name: generate combined schema
+        run: graphql-schema-utilities -s "*.graphql" -o "combined.graphql"
+      - name: validate schema
+        uses: kamilkisiela/graphql-inspector@v2.5.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          endpoint: https://ericgraphql.dictybase.dev/graphql
+          schema: combined.graphql
