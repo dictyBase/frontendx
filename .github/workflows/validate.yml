@@ -9,8 +9,8 @@ jobs:
       fail-fast: false
       matrix:
         schema:
-          - ./auth.graphql
-          - ./content.graphql
+          - "auth.graphql"
+          - "content.graphql"
     steps:
       - name: check out code
         uses: actions/checkout@v2
