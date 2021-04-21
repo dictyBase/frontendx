@@ -1,0 +1,46 @@
+query contentBySlug($slug: String!) {
+  contentBySlug(slug: $slug) {
+    id
+    content
+    name
+    slug
+    updated_at
+    updated_by {
+      id
+      email
+      first_name
+      last_name
+      roles {
+        role
+        permissions {
+          permission
+          resource
+        }
+      }
+    }
+  }
+}
+
+query content($id: ID!) {
+  content(id: $id) {
+    id
+    content
+    name
+    slug
+    namespace
+    updated_at
+    updated_by {
+      id
+      email
+      first_name
+      last_name
+      roles {
+        role
+        permissions {
+          permission
+          resource
+        }
+      }
+    }
+  }
+}
