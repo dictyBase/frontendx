@@ -1,6 +1,13 @@
 schema:
   - './schema/*.graphql'
+documents:
+  - './queries/*.graphql'
+  - './mutations/*.graphql'
 generates:
   ./types/index.ts:
     plugins:
       - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      withHooks: true
