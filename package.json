@@ -1,0 +1,26 @@
+{
+  "name": "graphql-schema",
+  "version": "1.0.0",
+  "description": "GraphQL schema and typings for the dictyBase API.",
+  "files": [
+    "types"
+  ],
+  "scripts": {
+    "generate": "graphql-codegen"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dictyBase/graphql-schema.git"
+  },
+  "author": "Eric Hartline <eric.hartline@northwestern.edu>",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/dictyBase/graphql-schema/issues"
+  },
+  "homepage": "https://github.com/dictyBase/graphql-schema#readme",
+  "devDependencies": {
+    "@graphql-codegen/cli": "^1.21.4",
+    "@graphql-codegen/typescript": "^1.22.0",
+    "graphql": "^15.5.0"
+  }
+}
