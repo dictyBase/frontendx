@@ -1,0 +1,16 @@
+name: GraphQL Validation
+on: push
+jobs:
+  graphql-inspector:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: set up node.js
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: 14.15.0
+      - name: check out code
+        uses: actions/checkout@v2
+      - name: install deps
+        run: yarn install
+      - name: run codegen
+        run: yarn generate
