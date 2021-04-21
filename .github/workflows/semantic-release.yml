@@ -1,0 +1,21 @@
+name: Semantic Release
+on:
+  push:
+    branches:
+      - master
+jobs:
+  semantic-release:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: set up node.js
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: 14.15.0
+      - name: check out code
+        uses: actions/checkout@v2
+      - name: install semantic release
+        run: yarn add semantic-release@17.x @semantic-release/git@9.x
+      - name: release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: yarn semantic-release

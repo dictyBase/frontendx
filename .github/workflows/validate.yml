@@ -1,7 +1,7 @@
 name: GraphQL Validation
 on: push
 jobs:
-  graphql-inspector:
+  graphql-validate:
     runs-on: ubuntu-20.04
     steps:
       - name: set up node.js
