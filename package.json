@@ -5,6 +5,7 @@
   "files": [
     "types"
   ],
+  "typings": "types/index.ts",
   "scripts": {
     "generate": "graphql-codegen"
   },
