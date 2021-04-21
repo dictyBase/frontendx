@@ -10,7 +10,8 @@
   ],
   "scripts": {
     "generate": "graphql-codegen",
-    "tsc": "tsc types/index.ts --outDir ./dist --esModuleInterop"
+    "tsc": "tsc types/index.ts --outDir ./dist --esModuleInterop",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,8 @@
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
     "graphql": "^15.5.0",
+    "graphql-tag": "^2.11.0",
+    "husky": "^6.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "typescript": "^4.2.4"
