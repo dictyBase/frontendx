@@ -176,18 +176,3 @@ input UpdatePlasmidInput {
   keywords: [String]
   genbank_accession: String
 }
-
-enum StrainTypeEnum {
-  ALL
-  REGULAR
-  GWDI
-  BACTERIAL
-}
-
-input StrainListFilter {
-  label: String
-  summary: String
-  id: ID
-  in_stock: Boolean
-  strain_type: StrainTypeEnum!
-}

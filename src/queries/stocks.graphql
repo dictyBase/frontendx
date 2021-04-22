@@ -7,7 +7,7 @@ query StockList($limit: Int!) {
   }
 }
 
-query StrainList($cursor: Int!, $limit: Int!, $filter: StrainListFilter) {
+query StrainList($cursor: Int!, $limit: Int!, $filter: String!) {
   listStrains(cursor: $cursor, limit: $limit, filter: $filter) {
     nextCursor
     totalCount
