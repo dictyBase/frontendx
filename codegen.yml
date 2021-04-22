@@ -1,8 +1,8 @@
 schema:
-  - './schema/*.graphql'
+  - './src/schema/*.graphql'
 documents:
-  - './queries/*.graphql'
-  - './mutations/*.graphql'
+  - './src/queries/*.graphql'
+  - './src/mutations/*.graphql'
 generates:
   ./types/index.ts:
     plugins:
