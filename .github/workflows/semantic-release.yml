@@ -13,9 +13,9 @@ jobs:
           node-version: 14.15.0
       - name: check out code
         uses: actions/checkout@v2
-      - name: install semantic release
-        run: yarn add semantic-release@17.x @semantic-release/git@9.x
+      - name: install deps
+        run: yarn install
       - name: release
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: yarn semantic-release
