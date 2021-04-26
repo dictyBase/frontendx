@@ -35,7 +35,7 @@ const InnerGoPanel = ({ data }: Props) => {
             </PanelWrapper>
           )}
           {cellular.length > 0 && (
-            <PanelWrapper title="Cellular Composition">
+            <PanelWrapper title="Cellular Component">
               <GoaDisplayTable data={cellular} />
             </PanelWrapper>
           )}
