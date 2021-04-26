@@ -48,7 +48,7 @@ describe("features/Ontology/OntologyContainer", () => {
     expect(molecularPanel).toBeInTheDocument()
     const biologicalPanel = await screen.findByText(/Biological Process/)
     expect(biologicalPanel).toBeInTheDocument()
-    const cellularPanel = await screen.findByText(/Cellular Composition/)
+    const cellularPanel = await screen.findByText(/Cellular Component/)
     expect(cellularPanel).toBeInTheDocument()
     const innerTab = screen.getByText(/All GO/)
     expect(innerTab).toBeInTheDocument()
