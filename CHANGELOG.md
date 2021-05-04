@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/dictyBase/graphql-schema/compare/1.0.1...1.1.0) (2021-05-04)
+
+
+### Features
+
+* add publication query ([8f15609](https://github.com/dictyBase/graphql-schema/commit/8f15609fcdce139687a79de1dcceed2eb749844b))
+
 ## [1.0.1](https://github.com/dictyBase/graphql-schema/compare/1.0.0...1.0.1) (2021-04-26)
 
 # 1.0.0 (2021-04-22)
