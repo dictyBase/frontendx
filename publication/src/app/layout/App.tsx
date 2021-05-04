@@ -1,6 +1,7 @@
 import React from "react"
 import { useQuery } from "@apollo/client"
-import { makeStyles } from "@material-ui/core/styles"
+import { makeStyles, Theme } from "@material-ui/core/styles"
+import Container from "@material-ui/core/Container"
 import { Header, Footer } from "dicty-components-header-footer"
 import { Navbar } from "dicty-components-navbar"
 import jwtDecode from "jwt-decode"
@@ -17,24 +18,25 @@ import { GET_REFRESH_TOKEN } from "common/graphql/query"
 import footerItems from "common/utils/footerItems"
 import { navTheme, headerTheme, footerTheme } from "common/utils/themes"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
   main: {
-    margin: "0 10px 25px 10px",
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(4),
   },
   body: {
-    margin: "auto",
-    height: "100%",
-    width: "100%",
-    fontFamily: "Roboto, sans-serif",
     fontSize: "16px",
-    lineHeight: 1.42857,
     color: "#333",
     backgroundColor: "#fff",
-    boxSizing: "content-box",
-    WebkitFontSmoothing: "auto",
-    MozOsxFontSmoothing: "auto",
+    "& h1, h2, h3, h4, h5, h6": {
+      fontWeight: 500,
+      lineHeight: 1.1,
+    },
+    "& h4, h5, h6": {
+      marginTop: theme.spacing(1.2),
+      marginBottom: theme.spacing(1.2),
+    },
   },
-})
+}))
 
 type User = {
   id: number
@@ -160,9 +162,11 @@ const App = () => {
       <Header items={headerContent} render={HeaderLinks} theme={headerTheme} />
       <Navbar items={navbarData} theme={navTheme} />
       <main className={classes.main}>
-        <ErrorBoundary>
-          <Routes />
-        </ErrorBoundary>
+        <Container>
+          <ErrorBoundary>
+            <Routes />
+          </ErrorBoundary>
+        </Container>
       </main>
       {footer.data?.data && (
         <Footer
