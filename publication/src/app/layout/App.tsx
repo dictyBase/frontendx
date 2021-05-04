@@ -18,7 +18,12 @@ import {
   HeaderLinks,
 } from "common/utils/headerItems"
 import Routes from "app/routes/Routes"
-import footerItems from "common/utils/footerItems"
+import {
+  footerLinks,
+  footerURL,
+  convertFooterData,
+  FooterItems,
+} from "common/utils/footerItems"
 import { navTheme, headerTheme, footerTheme } from "common/utils/themes"
 import {
   navbarItems,
@@ -81,25 +86,6 @@ const getTokenIntervalDelayInMS = (token: string) => {
   return (timeDiffInMins - 2) * 60 * 1000
 }
 
-const footerURL = process.env.REACT_APP_FOOTER_JSON
-
-type FooterItems = {
-  data: Array<{
-    type: string
-    id: string
-    attributes: {
-      url: string
-      description: string
-    }
-  }>
-}
-
-const convertFooterData = (data: FooterItems["data"]) =>
-  data.map((item) => ({
-    description: item.attributes.description,
-    url: item.attributes.url,
-  }))
-
 /**
  * App is responsible for the main layout of the entire application.
  */
@@ -111,7 +97,7 @@ const App = () => {
     dispatch,
   } = useAuthStore()
   const navbar = useFetch<NavbarItems>(navbarURL, navbarItems)
-  const footer = useFetch<FooterItems>(footerURL, footerItems)
+  const footer = useFetch<FooterItems>(footerURL, footerLinks)
   const classes = useStyles()
   const { loading, refetch, data } = useGetRefreshTokenQuery({
     variables: { token: token },

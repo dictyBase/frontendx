@@ -1,4 +1,4 @@
-const footerItems = {
+const footerLinks = {
   data: [
     {
       type: "link",
@@ -76,4 +76,24 @@ const footerItems = {
   ],
 }
 
-export default footerItems
+const footerURL = process.env.REACT_APP_FOOTER_JSON
+
+type FooterItems = {
+  data: Array<{
+    type: string
+    id: string
+    attributes: {
+      url: string
+      description: string
+    }
+  }>
+}
+
+const convertFooterData = (data: FooterItems["data"]) =>
+  data.map((item) => ({
+    description: item.attributes.description,
+    url: item.attributes.url,
+  }))
+
+export type { FooterItems }
+export { footerLinks, footerURL, convertFooterData }
