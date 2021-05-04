@@ -8,8 +8,10 @@ export const PublicationLoader = () => {
   const classes = useStyles()
 
   return (
-    <Grid container spacing={2}>
-      <PublicationHeader />
+    <Grid container justify="center" spacing={2}>
+      <Grid item xs={12}>
+        <PublicationHeader />
+      </Grid>
       <Grid item xs={3} className={classes.sidebar}>
         <Skeleton count={5} />
       </Grid>
