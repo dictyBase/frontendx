@@ -5330,9 +5330,9 @@ dicty-components-header-footer@dictybase/dicty-components-header-footer#11.0.0:
   dependencies:
     polished "^3.4.1"
 
-dicty-graphql-schema@dictybase/dicty-graphql-schema#1.0.1:
-  version "1.0.1"
-  resolved "https://codeload.github.com/dictybase/dicty-graphql-schema/tar.gz/70ea5f78fca0c76622686f152b4781b8619587bc"
+dicty-graphql-schema@dictybase/dicty-graphql-schema#1.1.0:
+  version "1.1.0"
+  resolved "https://codeload.github.com/dictybase/dicty-graphql-schema/tar.gz/ec7c391513a977824d25edde8cc14985e6857714"
 
 dicty-hooks@dictybase/dicty-hooks#2.1.0:
   version "2.1.0"
