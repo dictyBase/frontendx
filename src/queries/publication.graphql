@@ -1,0 +1,17 @@
+query Publication($id: ID!) {
+  publication(id: $id) {
+    id
+    doi
+    title
+    abstract
+    journal
+    pub_date
+    pages
+    issue
+    volume
+    authors {
+      initials
+      last_name
+    }
+  }
+}

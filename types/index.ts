@@ -1031,6 +1031,23 @@ export type GeneQuery = (
   )> }
 );
 
+export type PublicationQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type PublicationQuery = (
+  { __typename?: 'Query' }
+  & { publication?: Maybe<(
+    { __typename?: 'Publication' }
+    & Pick<Publication, 'id' | 'doi' | 'title' | 'abstract' | 'journal' | 'pub_date' | 'pages' | 'issue' | 'volume'>
+    & { authors?: Maybe<Array<Maybe<(
+      { __typename?: 'Author' }
+      & Pick<Author, 'initials' | 'last_name'>
+    )>>> }
+  )> }
+);
+
 export type StockListQueryVariables = Exact<{
   limit: Scalars['Int'];
 }>;
@@ -1773,6 +1790,53 @@ export function useGeneLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GeneQ
 export type GeneQueryHookResult = ReturnType<typeof useGeneQuery>;
 export type GeneLazyQueryHookResult = ReturnType<typeof useGeneLazyQuery>;
 export type GeneQueryResult = Apollo.QueryResult<GeneQuery, GeneQueryVariables>;
+export const PublicationDocument = gql`
+    query Publication($id: ID!) {
+  publication(id: $id) {
+    id
+    doi
+    title
+    abstract
+    journal
+    pub_date
+    pages
+    issue
+    volume
+    authors {
+      initials
+      last_name
+    }
+  }
+}
+    `;
+
+/**
+ * __usePublicationQuery__
+ *
+ * To run a query within a React component, call `usePublicationQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePublicationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePublicationQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function usePublicationQuery(baseOptions: Apollo.QueryHookOptions<PublicationQuery, PublicationQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PublicationQuery, PublicationQueryVariables>(PublicationDocument, options);
+      }
+export function usePublicationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PublicationQuery, PublicationQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PublicationQuery, PublicationQueryVariables>(PublicationDocument, options);
+        }
+export type PublicationQueryHookResult = ReturnType<typeof usePublicationQuery>;
+export type PublicationLazyQueryHookResult = ReturnType<typeof usePublicationLazyQuery>;
+export type PublicationQueryResult = Apollo.QueryResult<PublicationQuery, PublicationQueryVariables>;
 export const StockListDocument = gql`
     query StockList($limit: Int!) {
   listPlasmids(limit: $limit) {
