@@ -1,21 +1,9 @@
 import React from "react"
-import { withStyles } from "@material-ui/core/styles"
-import createStyles from "@material-ui/core/styles/createStyles"
+import Box from "@material-ui/core/Box"
+import Typography from "@material-ui/core/Typography"
+import Divider from "@material-ui/core/Divider"
 
-const styles = createStyles({
-  section: {
-    paddingBottom: "5px",
-  },
-  abstract: {
-    paddingTop: "10px",
-  },
-})
-
-interface Props {
-  classes: {
-    section: string
-    abstract: string
-  }
+type Props = {
   abstract: string
 }
 
@@ -23,15 +11,16 @@ interface Props {
  * Abstract displays the abstract of the publication.
  */
 
-export const Abstract = (props: Props) => {
-  const { classes, abstract } = props
+export const Abstract = ({ abstract }: Props) => {
   return (
-    <div className={classes.section}>
-      <h2>Abstract</h2>
-      <hr />
-      <div className={classes.abstract}>{abstract}</div>
-    </div>
+    <Box pt={2} pb={1}>
+      <Typography variant="h2">Abstract</Typography>
+      <Divider />
+      <Box pt={2} pb={2}>
+        {abstract}
+      </Box>
+    </Box>
   )
 }
 
-export default withStyles(styles)(Abstract)
+export default Abstract

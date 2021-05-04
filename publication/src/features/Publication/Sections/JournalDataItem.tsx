@@ -1,15 +1,8 @@
 import React from "react"
-import Grid from "@material-ui/core/Grid"
-import { makeStyles } from "@material-ui/core/styles"
+import Box from "@material-ui/core/Box"
+import Typography from "@material-ui/core/Typography"
 
-const useStyles = makeStyles({
-  link: {
-    textDecoration: "none",
-    color: "#0059b3",
-  },
-})
-
-interface Props {
+type Props = {
   title: string
   url: string
   content: string
@@ -20,19 +13,13 @@ interface Props {
  */
 
 export const JournalDataItem = ({ title, url, content }: Props) => {
-  const classes = useStyles()
-
   return (
-    <Grid item xs={12} sm={4}>
-      {title}:{" "}
-      <a
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={classes.link}>
+    <Box component="span" pr={3}>
+      <Typography component="span">{title}: </Typography>
+      <a href={url} target="_blank" rel="noopener noreferrer">
         {content}
       </a>
-    </Grid>
+    </Box>
   )
 }
 

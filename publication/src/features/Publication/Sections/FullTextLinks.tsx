@@ -1,27 +1,10 @@
 import React from "react"
-import { withStyles } from "@material-ui/core/styles"
-import createStyles from "@material-ui/core/styles/createStyles"
+import Box from "@material-ui/core/Box"
+import Typography from "@material-ui/core/Typography"
+import Divider from "@material-ui/core/Divider"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-const styles = createStyles({
-  section: {
-    paddingBottom: "10px",
-  },
-  link: {
-    textDecoration: "none",
-    color: "#0059b3",
-  },
-  content: {
-    paddingTop: "10px",
-  },
-})
-
-interface Props {
-  classes: {
-    section: string
-    link: string
-    content: string
-  }
+type Props = {
   url: string
 }
 
@@ -29,25 +12,19 @@ interface Props {
  * FullTextLinks displays links to the full text of the publication.
  */
 
-export const FullTextLinks = (props: Props) => {
-  const { classes, url } = props
-
+export const FullTextLinks = ({ url }: Props) => {
   return (
-    <div className={classes.section}>
-      <h3>Full Text Links</h3>
-      <hr />
-      <div className={classes.content}>
-        <a
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={classes.link}>
+    <Box pb={2}>
+      <Typography variant="h2">Full Text Links</Typography>
+      <Divider />
+      <Box pt={2} pb={2}>
+        <a href={url} target="_blank" rel="noopener noreferrer">
           Read article at publisher's site &nbsp;
           <FontAwesomeIcon icon="external-link-alt" />
         </a>
-      </div>
-    </div>
+      </Box>
+    </Box>
   )
 }
 
-export default withStyles(styles)(FullTextLinks)
+export default FullTextLinks

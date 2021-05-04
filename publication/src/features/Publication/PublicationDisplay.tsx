@@ -1,4 +1,5 @@
 import React from "react"
+import Box from "@material-ui/core/Box"
 import Title from "./Sections/Title"
 import Authors from "./Sections/Authors"
 import JournalData from "./Sections/JournalData"
@@ -28,14 +29,14 @@ export const PublicationDisplay = ({ data }: Props) => {
   const abstract = data.abstract as string
 
   return (
-    <React.Fragment>
+    <Box pt={3}>
       <Title title={title} />
       <Authors authors={authors} />
       <JournalData data={journalData} />
       <SocialLinks title={title} />
       <Abstract abstract={abstract} />
       <FullTextLinks url={url} />
-    </React.Fragment>
+    </Box>
   )
 }
 

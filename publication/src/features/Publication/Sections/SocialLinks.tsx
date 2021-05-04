@@ -1,23 +1,20 @@
 import React from "react"
-import { withStyles } from "@material-ui/core/styles"
-import createStyles from "@material-ui/core/styles/createStyles"
+import { makeStyles, Theme } from "@material-ui/core/styles"
+import Box from "@material-ui/core/Box"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-const styles = createStyles({
+const useStyles = makeStyles((theme: Theme) => ({
   email: {
     color: "#0059b3",
   },
   tweet: {
     color: "#1da1f2",
-    paddingRight: "5px",
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
   },
-})
+}))
 
-interface Props {
-  classes: {
-    email: string
-    tweet: string
-  }
+type Props = {
   title: string
 }
 
@@ -25,11 +22,12 @@ interface Props {
  * SocialLinks contains links to share the publication via social media.
  */
 
-export const SocialLinks = ({ classes, title }: Props) => {
+export const SocialLinks = ({ title }: Props) => {
+  const classes = useStyles()
   const url = window.location.href
 
   return (
-    <div>
+    <Box>
       <strong>Share this article</strong>&nbsp;
       <a
         href={`https://twitter.com/intent/tweet?url=${url}`}
@@ -48,8 +46,8 @@ export const SocialLinks = ({ classes, title }: Props) => {
         className={classes.email}>
         <FontAwesomeIcon icon="envelope" title="Email this article" />
       </a>
-    </div>
+    </Box>
   )
 }
 
-export default withStyles(styles)(SocialLinks)
+export default SocialLinks

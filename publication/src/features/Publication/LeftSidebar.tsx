@@ -11,9 +11,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     position: "sticky",
     top: 40,
     paddingTop: theme.spacing(3),
+
     [theme.breakpoints.down("xs")]: {
       paddingTop: "0px",
     },
+  },
+  icon: {
+    marginLeft: theme.spacing(1),
   },
 }))
 
@@ -36,10 +40,9 @@ export const LeftSidebar = ({ doi }: Props) => {
         target="_blank"
         rel="noopener noreferrer"
         className={classes.link}>
-        Full text &nbsp;
-        <FontAwesomeIcon icon="external-link-alt" />
+        Full text
+        <FontAwesomeIcon className={classes.icon} icon="external-link-alt" />
       </a>
-      <br />
       {/* <a href="#" className={classes.link}>
         Get Citation
       </a> */}

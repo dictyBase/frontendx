@@ -28,12 +28,12 @@ const PublicationContainer = () => {
   })
 
   if (loading) return <PublicationLoader />
-  if (error) return <ErrorPage error={error} />
+  if (error) return <ErrorPage />
 
   const title = data?.publication?.title
 
   return (
-    <Grid container className={classes.layout}>
+    <Grid container>
       <Helmet>
         <title>dictyBase Literature - {title}</title>
         <meta
