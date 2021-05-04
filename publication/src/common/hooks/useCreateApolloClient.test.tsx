@@ -1,8 +1,8 @@
-import { isMutation, getGraphQLServer } from "./useApolloClient"
+import { isMutation, getGraphQLServer } from "./useCreateApolloClient"
 
 describe("isMutation function", () => {
   it("should return true for mutation", () => {
-    expect(isMutation("Logout")).toBeTruthy()
+    expect(isMutation("CreateContent")).toBeTruthy()
   })
   it("should return false for query", () => {
     expect(isMutation("GetRefreshToken")).toBeFalsy()
