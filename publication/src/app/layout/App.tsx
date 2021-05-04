@@ -4,14 +4,13 @@ import { makeStyles } from "@material-ui/core/styles"
 import { Header, Footer } from "dicty-components-header-footer"
 import { Navbar } from "dicty-components-navbar"
 import jwtDecode from "jwt-decode"
-import { IconProp } from "@fortawesome/fontawesome-svg-core"
 import { useFetchRefreshToken, useFetch, useNavbar } from "dicty-hooks"
 import { useAuthStore, ActionType } from "features/Authentication/AuthStore"
 import ErrorBoundary from "common/components/ErrorBoundary"
 import {
   headerItems,
   loggedHeaderItems,
-  generateLinks,
+  HeaderLinks,
 } from "common/utils/headerItems"
 import Routes from "app/routes/Routes"
 import { GET_REFRESH_TOKEN } from "common/graphql/query"
@@ -95,13 +94,6 @@ const getTokenIntervalDelayInMS = (token: string) => {
   return (timeDiffInMins - 2) * 60 * 1000
 }
 
-type HeaderItem = {
-  isRouter?: boolean
-  text: string
-  icon: IconProp
-  url: string
-}
-
 const footerURL = process.env.REACT_APP_FOOTER_JSON
 
 type FooterItems = {
@@ -161,13 +153,11 @@ const App = () => {
   }, [dispatch, refetch, token])
   useFetchRefreshToken(fetchRefreshToken, interval, delay!, isAuthenticated)
 
-  // const headerContent = isAuthenticated ? loggedHeaderItems : headerItems
+  const headerContent = isAuthenticated ? loggedHeaderItems : headerItems
 
   return (
     <div className={classes.body}>
-      <Header items={headerContent}>
-        {(items: Array<HeaderItem>) => items.map(generateLinks)}
-      </Header>
+      <Header items={headerContent} render={HeaderLinks} theme={headerTheme} />
       <Navbar items={navbarData} theme={navTheme} />
       <main className={classes.main}>
         <ErrorBoundary>
