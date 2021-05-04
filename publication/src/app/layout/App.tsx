@@ -1,11 +1,15 @@
 import React from "react"
-import { useQuery } from "@apollo/client"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import Container from "@material-ui/core/Container"
 import { Header, Footer } from "dicty-components-header-footer"
 import { Navbar } from "dicty-components-navbar"
 import jwtDecode from "jwt-decode"
 import { useFetchRefreshToken, useFetch, useNavbar } from "dicty-hooks"
+import {
+  useGetRefreshTokenQuery,
+  GetRefreshTokenQuery,
+  User,
+} from "dicty-graphql-schema"
 import { useAuthStore, ActionType } from "features/Authentication/AuthStore"
 import ErrorBoundary from "common/components/ErrorBoundary"
 import {
@@ -14,7 +18,6 @@ import {
   HeaderLinks,
 } from "common/utils/headerItems"
 import Routes from "app/routes/Routes"
-import { GET_REFRESH_TOKEN } from "common/graphql/query"
 import footerItems from "common/utils/footerItems"
 import { navTheme, headerTheme, footerTheme } from "common/utils/themes"
 
@@ -38,32 +41,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-type User = {
-  id: number
-  first_name: string
-  last_name: string
-  email: string
-  roles: Array<{
-    id: number
-    role: string
-    permissions?: Array<{
-      id: number
-      permission: string
-      resource: string
-    }>
-  }>
-}
-
-type RefreshTokenData = {
-  token: string
-  user: User
-  identity: {
-    provider: string
-  }
-}
-
 type Action = {
-  type: string
+  type: ActionType.UPDATE_TOKEN
   payload: {
     provider: string
     token: string
@@ -73,14 +52,14 @@ type Action = {
 
 const updateToken = (
   dispatch: (arg0: Action) => void,
-  data: RefreshTokenData,
+  data: GetRefreshTokenQuery["getRefreshToken"],
 ) =>
   dispatch({
     type: ActionType.UPDATE_TOKEN,
     payload: {
-      provider: data.identity.provider,
-      token: data.token,
-      user: data.user,
+      provider: data?.identity.provider as string,
+      token: data?.token as string,
+      user: data?.user as User,
     },
   })
 
@@ -125,9 +104,11 @@ const App = () => {
   const { navbarData } = useNavbar()
   const footer = useFetch<FooterItems>(footerURL, footerItems)
   const classes = useStyles()
-  const { loading, refetch, data } = useQuery(GET_REFRESH_TOKEN, {
+  const { loading, refetch, data } = useGetRefreshTokenQuery({
     variables: { token: token },
     errorPolicy: "ignore",
+    fetchPolicy: "no-cache",
+    nextFetchPolicy: "no-cache",
     skip, // only run query once
   })
   const interval = React.useRef(null)
