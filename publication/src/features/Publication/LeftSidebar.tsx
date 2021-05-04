@@ -1,40 +1,33 @@
 import React from "react"
-import { withStyles } from "@material-ui/core/styles"
-import { Theme } from "@material-ui/core/styles/createMuiTheme"
-import createStyles from "@material-ui/core/styles/createStyles"
+import { makeStyles, Theme } from "@material-ui/core/styles"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { Publication } from "common/@types/publication"
 
-const styles = (theme: Theme) =>
-  createStyles({
-    link: {
-      textDecoration: "none",
-      color: "#0059b3",
+const useStyles = makeStyles((theme: Theme) => ({
+  link: {
+    textDecoration: "none",
+    color: "#0059b3",
+  },
+  section: {
+    position: "sticky",
+    top: 40,
+    paddingTop: theme.spacing(3),
+    [theme.breakpoints.down("xs")]: {
+      paddingTop: "0px",
     },
-    section: {
-      position: "sticky",
-      top: 40,
-      paddingTop: "25px",
-      [theme.breakpoints.down("xs")]: {
-        paddingTop: "0px",
-      },
-    },
-  })
+  },
+}))
 
-interface Props extends Publication {
-  classes: {
-    link: string
-    section: string
-  }
+type Props = {
+  doi: string | undefined | null
 }
 
 /**
  * LeftSidebar is the main component for the left sidebar on an individual publication page.
  */
 
-export const LeftSidebar = (props: Props) => {
-  const { classes, data } = props
-  const doiURL = `https://doi.org/${data.publication.doi}`
+export const LeftSidebar = ({ doi }: Props) => {
+  const classes = useStyles()
+  const doiURL = `https://doi.org/${doi}`
 
   return (
     <div className={classes.section}>
@@ -54,4 +47,4 @@ export const LeftSidebar = (props: Props) => {
   )
 }
 
-export default withStyles(styles)(LeftSidebar)
+export default LeftSidebar

@@ -1,39 +1,24 @@
 import React from "react"
-import { withStyles } from "@material-ui/core/styles"
-import createStyles from "@material-ui/core/styles/createStyles"
+import Box from "@material-ui/core/Box"
+import { Author } from "dicty-graphql-schema"
 
-const styles = createStyles({
-  section: {
-    paddingBottom: "15px",
-  },
-})
-
-interface Props {
-  classes: {
-    section: string
-  }
-  authors: Array<{
-    first_name?: string
-    last_name: string
-    rank?: string
-    initials: string
-  }>
+type Props = {
+  authors: Author[]
 }
+
 /**
  * Authors displays an inline list of the authors of the publication.
  */
-
-export const Authors = (props: Props) => {
-  const { classes, authors } = props
+const Authors = ({ authors }: Props) => {
   return (
-    <div className={classes.section}>
+    <Box pb={2}>
       {authors.map((author, index) => (
         <span key={index}>
           {(index ? ", " : "") + author.last_name + " " + author.initials}
         </span>
       ))}
-    </div>
+    </Box>
   )
 }
 
-export default withStyles(styles)(Authors)
+export default Authors

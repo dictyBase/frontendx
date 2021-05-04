@@ -17,9 +17,6 @@ const useStyles = makeStyles((theme: Theme) => ({
       marginRight: "auto",
     },
   },
-  title: {
-    textAlign: "center",
-  },
   sidebar: {
     [theme.breakpoints.down("sm")]: {
       textAlign: "center",
