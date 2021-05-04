@@ -1,21 +1,20 @@
 import React from "react"
-import Grid from "@material-ui/core/Grid"
-import { makeStyles } from "@material-ui/core/styles"
+import Box from "@material-ui/core/Box"
+import Typography from "@material-ui/core/Typography"
+import { makeStyles, Theme } from "@material-ui/core/styles"
 import parse from "date-fns/parse"
 import format from "date-fns/format"
 import addDays from "date-fns/add_days"
 import JournalDataItem from "./JournalDataItem"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
   journal: {
     fontWeight: "bold",
+    paddingRight: theme.spacing(0.5),
   },
-  section: {
-    paddingBottom: "15px",
-  },
-})
+}))
 
-interface Props {
+type Props = {
   data: {
     doi: string
     journal: string
@@ -42,18 +41,20 @@ export const JournalData = ({ data }: Props) => {
   const date = format(day, "D MMM YYYY")
 
   return (
-    <div className={classes.section}>
-      <div>
-        <span className={classes.journal}>{data.journal},&nbsp;</span>
-        <span>
+    <Box pb={2}>
+      <Box>
+        <Typography component="span" className={classes.journal}>
+          {data.journal},
+        </Typography>
+        <Typography component="span">
           {date}, {data.volume}({data.issue}):{data.pages}
-        </span>
-      </div>
-      <Grid container>
+        </Typography>
+      </Box>
+      <Box>
         <JournalDataItem title="DOI" url={doiURL} content={data.doi} />
         <JournalDataItem title="PMID" url={pubmedURL} content={data.id} />
-      </Grid>
-    </div>
+      </Box>
+    </Box>
   )
 }
 

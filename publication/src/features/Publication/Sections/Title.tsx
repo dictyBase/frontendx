@@ -1,17 +1,8 @@
 import React from "react"
-import { withStyles } from "@material-ui/core/styles"
-import createStyles from "@material-ui/core/styles/createStyles"
+import Box from "@material-ui/core/Box"
+import Typography from "@material-ui/core/Typography"
 
-const styles = createStyles({
-  title: {
-    padding: 0,
-  },
-})
-
-interface Props {
-  classes: {
-    title: string
-  }
+type Props = {
   title: string
 }
 
@@ -19,13 +10,12 @@ interface Props {
  * Title displays the title of the publication.
  */
 
-export const Title = (props: Props) => {
-  const { classes, title } = props
+export const Title = ({ title }: Props) => {
   return (
-    <div className={classes.title}>
-      <h2>{title}</h2>
-    </div>
+    <Box pb={2}>
+      <Typography variant="h2">{title}</Typography>
+    </Box>
   )
 }
 
-export default withStyles(styles)(Title)
+export default Title
