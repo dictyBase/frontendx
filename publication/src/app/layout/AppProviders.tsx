@@ -2,7 +2,8 @@ import React from "react"
 import { ApolloProvider } from "@apollo/client"
 import { BrowserRouter } from "react-router-dom"
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles"
-import useApolloClient from "common/hooks/useApolloClient"
+import CircularProgress from "@material-ui/core/CircularProgress"
+import useCreateApolloClient from "common/hooks/useCreateApolloClient"
 
 const muiTheme = createMuiTheme({
   palette: {
@@ -62,7 +63,11 @@ const muiTheme = createMuiTheme({
 })
 
 const AppProviders = ({ children }: { children: React.ReactNode }) => {
-  const client = useApolloClient()
+  const { client, cacheInitializing } = useCreateApolloClient()
+
+  if (cacheInitializing) {
+    return <CircularProgress />
+  }
 
   return (
     <ApolloProvider client={client}>
