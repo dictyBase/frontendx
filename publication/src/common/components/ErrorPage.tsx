@@ -1,92 +1,70 @@
 import React from "react"
-import { withStyles } from "@material-ui/core/styles"
-import createStyles from "@material-ui/core/styles/createStyles"
-import { Theme } from "@material-ui/core/styles/createMuiTheme"
-import Grid from "@material-ui/core/Grid"
+import { Link } from "react-router-dom"
+import { makeStyles } from "@material-ui/core/styles"
+import Box from "@material-ui/core/Box"
+import Typography from "@material-ui/core/Typography"
 import Button from "@material-ui/core/Button"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import sadDicty from "../assets/sad-dicty.png"
+import sadDicty from "common/assets/sad-dicty.png"
 
-const styles = (theme: Theme) =>
-  createStyles({
-    error: {
-      backgroundColor: "#eff8fb",
-      textAlign: "center",
-      paddingTop: 30,
-      paddingBottom: 30,
-      marginBottom: 30,
-      borderRadius: 5,
+const useStyles = makeStyles((theme) => ({
+  root: {
+    marginTop: theme.spacing(2),
+    "&:hover": {
+      color: theme.palette.getContrastText(theme.palette.primary.main),
     },
-    backButton: {
-      width: "25%",
-      padding: "20px",
-      textTransform: "none",
-      backgroundColor: "#15317e",
-      color: "#e3e3e3",
-      "&:hover": {
-        backgroundColor: "#1a3d9e",
-      },
-    },
-    mainGrid: {
-      marginTop: "40px",
-    },
-
-    link: {
-      color: "#428bca",
-      textDecoration: "none",
-    },
-  })
-
-interface Props {
-  /** Material-UI styling */
-  classes: {
-    mainGrid: string
-    error: string
-    backButton: string
-    link: string
-  }
-  error: object
-}
+  },
+  container: {
+    backgroundColor: "#eff8fb",
+    paddingTop: theme.spacing(6),
+    paddingBottom: theme.spacing(6),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    borderRadius: theme.spacing(1),
+  },
+  text: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+  },
+}))
 
 /**
- * General error handling page. It displays different messages based on HTTP status code.
+ * ErrorPage is the display component when there is an error.
  */
 
-export const ErrorPage = (props: Props) => {
-  const { classes, error } = props
+const ErrorPage = () => {
+  const classes = useStyles()
 
   return (
-    <Grid container className={classes.mainGrid} justify="center">
-      <Grid item xs={10} md={8}>
-        <div className={classes.error}>
-          <img src={sadDicty} alt="Sad Dicty -- HTTP Error" />
-          <h1>
-            <FontAwesomeIcon icon="exclamation-circle" /> Error
-          </h1>
-          <h3>{error.toString()}</h3>
-          <p>
-            If the problem persists, please email us at{" "}
-            <a
-              className={classes.link}
-              href="mailto:dictybase@northwestern.edu">
-              dictybase@northwestern.edu
-            </a>
-            .
-          </p>
-          <a href="/">
-            <Button
-              aria-label="Back to homepage"
-              className={classes.backButton}
-              size="small"
-              variant="contained"
-              color="primary">
-              Back to Homepage
-            </Button>
+    <Box
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      textAlign="center">
+      <Box className={classes.container}>
+        <img src={sadDicty} alt="Sad Dicty -- HTTP Error" />
+        <Typography className={classes.text} variant="h1">
+          <FontAwesomeIcon icon="exclamation-circle" /> Error
+        </Typography>
+        <Typography variant="body1" className={classes.text}>
+          If this problem persists, please email us at{" "}
+          <a href="mailto:dictybase@northwestern.edu">
+            dictybase@northwestern.edu
           </a>
-        </div>
-      </Grid>
-    </Grid>
+          .
+        </Typography>
+        <Button
+          classes={{ root: classes.root }}
+          component={Link}
+          to="/"
+          size="medium"
+          variant="contained"
+          color="primary">
+          Back to DSC Homepage
+        </Button>
+      </Box>
+    </Box>
   )
 }
 
-export default withStyles(styles)(ErrorPage)
+export default ErrorPage
