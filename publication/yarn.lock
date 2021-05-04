@@ -5325,9 +5325,9 @@ dicty-components-header-footer@dictybase/dicty-components-header-footer#11.0.0:
   dependencies:
     polished "^3.4.1"
 
-dicty-hooks@dictyBase/dicty-hooks#2.0.0:
-  version "0.0.0-semantically-released"
-  resolved "https://codeload.github.com/dictyBase/dicty-hooks/tar.gz/454bfebf21ac3633f76e4e5a73106d3d308f1f2f"
+dicty-hooks@dictybase/dicty-hooks#2.1.0:
+  version "2.1.0"
+  resolved "https://codeload.github.com/dictybase/dicty-hooks/tar.gz/d4a6de9335512d3bdf8ff6322acd241bcfcc8402"
 
 diff-sequences@^26.6.2:
   version "26.6.2"
