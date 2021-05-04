@@ -5,7 +5,7 @@ import { Header, Footer } from "dicty-components-header-footer"
 import { Navbar } from "dicty-components-navbar"
 import jwtDecode from "jwt-decode"
 import { IconProp } from "@fortawesome/fontawesome-svg-core"
-import { useFetchRefreshToken, useFooter, useNavbar } from "dicty-hooks"
+import { useFetchRefreshToken, useFetch, useNavbar } from "dicty-hooks"
 import { useAuthStore, ActionType } from "features/Authentication/AuthStore"
 import ErrorBoundary from "common/components/ErrorBoundary"
 import {
@@ -15,6 +15,8 @@ import {
 } from "common/utils/headerItems"
 import Routes from "app/routes/Routes"
 import { GET_REFRESH_TOKEN } from "common/graphql/query"
+import footerItems from "common/utils/footerItems"
+import { navTheme, headerTheme, footerTheme } from "common/utils/themes"
 
 const useStyles = makeStyles({
   main: {
@@ -34,11 +36,6 @@ const useStyles = makeStyles({
     MozOsxFontSmoothing: "auto",
   },
 })
-
-const navTheme = {
-  primary: "#004080",
-  secondary: "#0059b3",
-}
 
 type User = {
   id: number
@@ -105,6 +102,25 @@ type HeaderItem = {
   url: string
 }
 
+const footerURL = process.env.REACT_APP_FOOTER_JSON
+
+type FooterItems = {
+  data: Array<{
+    type: string
+    id: string
+    attributes: {
+      url: string
+      description: string
+    }
+  }>
+}
+
+const convertFooterData = (data: FooterItems["data"]) =>
+  data.map((item) => ({
+    description: item.attributes.description,
+    url: item.attributes.url,
+  }))
+
 /**
  * App is responsible for the main layout of the entire application.
  */
@@ -113,7 +129,7 @@ const App = () => {
   const [skip, setSkip] = React.useState(false)
   const [{ isAuthenticated, token }, dispatch] = useAuthStore()
   const { navbarData } = useNavbar()
-  const { footerData } = useFooter()
+  const footer = useFetch<FooterItems>(footerURL, footerItems)
   const classes = useStyles()
   const { loading, refetch, data } = useQuery(GET_REFRESH_TOKEN, {
     variables: { token: token },
@@ -145,7 +161,7 @@ const App = () => {
   }, [dispatch, refetch, token])
   useFetchRefreshToken(fetchRefreshToken, interval, delay!, isAuthenticated)
 
-  const headerContent = isAuthenticated ? loggedHeaderItems : headerItems
+  // const headerContent = isAuthenticated ? loggedHeaderItems : headerItems
 
   return (
     <div className={classes.body}>
@@ -158,7 +174,12 @@ const App = () => {
           <Routes />
         </ErrorBoundary>
       </main>
-      <Footer items={footerData} />
+      {footer.data?.data && (
+        <Footer
+          links={convertFooterData(footer.data.data)}
+          theme={footerTheme}
+        />
+      )}
     </div>
   )
 }
