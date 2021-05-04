@@ -8,14 +8,15 @@ import App from "app/layout/App"
 import AppProviders from "app/layout/AppProviders"
 import "common/utils/icons" // fontawesome library
 import "fontsource-roboto"
-import * as serviceWorker from "./serviceWorker"
 
 declare var process: {
   env: {
     NODE_ENV: string
     REACT_APP_GA_TRACKING_ID: string
     REACT_APP_GRAPHQL_SERVER: string
+    REACT_APP_ALT_GRAPHQL_SERVER: string
     REACT_APP_BASENAME: string
+    REACT_APP_FOOTER_JSON: string
   }
 }
 
@@ -47,6 +48,3 @@ ReactDOM.render(
   </AuthProvider>,
   document.getElementById("root"),
 )
-
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.register()
