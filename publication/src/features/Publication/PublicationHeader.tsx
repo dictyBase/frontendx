@@ -1,18 +1,18 @@
 import React from "react"
-import Grid from "@material-ui/core/Grid"
-import useStyles from "./publicationStyles"
+import Box from "@material-ui/core/Box"
+import Typography from "@material-ui/core/Typography"
 
 /**
  * PublicationHeader displays the header at the top of publication pages.
  */
 
 export const PublicationHeader = () => {
-  const classes = useStyles()
-
   return (
-    <Grid item xs={12}>
-      <h1 className={classes.title}>dictyBase Literature</h1>
-    </Grid>
+    <Box mt={2} mb={2}>
+      <Typography variant="h1" align="center">
+        dictyBase Literature
+      </Typography>
+    </Box>
   )
 }
 

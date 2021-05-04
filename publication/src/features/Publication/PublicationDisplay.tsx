@@ -5,31 +5,37 @@ import JournalData from "./Sections/JournalData"
 import SocialLinks from "./Sections/SocialLinks"
 import Abstract from "./Sections/Abstract"
 import FullTextLinks from "./Sections/FullTextLinks"
-import { Publication } from "common/@types/publication"
+import { Author, Publication } from "dicty-graphql-schema"
 
-interface Props extends Publication {}
+type Props = {
+  data: Publication
+}
 
 export const PublicationDisplay = ({ data }: Props) => {
   const journalData = {
-    id: data.publication.id,
-    doi: data.publication.doi,
-    journal: data.publication.journal,
-    pages: data.publication.pages,
-    pub_date: data.publication.pub_date,
-    issue: data.publication.issue,
-    volume: data.publication.volume,
+    id: data.id as string,
+    doi: data.doi as string,
+    journal: data.journal as string,
+    pages: data.pages as string,
+    pub_date: data.pub_date as string,
+    issue: data.issue as string,
+    volume: data.volume as string,
   }
-  const url = `https://doi.org/${data.publication.doi}`
+  const url = `https://doi.org/${data.doi}`
+
+  const title = data.title as string
+  const authors = data.authors as Author[]
+  const abstract = data.abstract as string
 
   return (
-    <>
-      <Title title={data.publication.title} />
-      <Authors authors={data.publication.authors} />
+    <React.Fragment>
+      <Title title={title} />
+      <Authors authors={authors} />
       <JournalData data={journalData} />
-      <SocialLinks title={data.publication.title} />
-      <Abstract abstract={data.publication.abstract} />
+      <SocialLinks title={title} />
+      <Abstract abstract={abstract} />
       <FullTextLinks url={url} />
-    </>
+    </React.Fragment>
   )
 }
 
