@@ -30,7 +30,7 @@ const PublicationContainer = () => {
   if (loading) return <PublicationLoader />
   if (error) return <ErrorPage />
 
-  const title = data?.publication?.title
+  const title = data?.publication?.title || ""
 
   return (
     <Grid container>
