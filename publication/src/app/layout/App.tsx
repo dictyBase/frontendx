@@ -4,7 +4,7 @@ import Container from "@material-ui/core/Container"
 import { Header, Footer } from "dicty-components-header-footer"
 import { Navbar } from "dicty-components-navbar"
 import jwtDecode from "jwt-decode"
-import { useFetchRefreshToken, useFetch, useNavbar } from "dicty-hooks"
+import { useFetchRefreshToken, useFetch } from "dicty-hooks"
 import {
   useGetRefreshTokenQuery,
   GetRefreshTokenQuery,
@@ -20,6 +20,12 @@ import {
 import Routes from "app/routes/Routes"
 import footerItems from "common/utils/footerItems"
 import { navTheme, headerTheme, footerTheme } from "common/utils/themes"
+import {
+  navbarItems,
+  NavbarItems,
+  navbarURL,
+  formatNavbarData,
+} from "common/utils/navbarItems"
 
 const useStyles = makeStyles((theme: Theme) => ({
   main: {
@@ -104,7 +110,7 @@ const App = () => {
     state: { token, isAuthenticated },
     dispatch,
   } = useAuthStore()
-  const { navbarData } = useNavbar()
+  const navbar = useFetch<NavbarItems>(navbarURL, navbarItems)
   const footer = useFetch<FooterItems>(footerURL, footerItems)
   const classes = useStyles()
   const { loading, refetch, data } = useGetRefreshTokenQuery({
@@ -144,7 +150,7 @@ const App = () => {
   return (
     <div className={classes.body}>
       <Header items={headerContent} render={HeaderLinks} theme={headerTheme} />
-      <Navbar items={navbarData} theme={navTheme} />
+      <Navbar items={formatNavbarData(navbar.data)} theme={navTheme} />
       <main className={classes.main}>
         <Container>
           <ErrorBoundary>
