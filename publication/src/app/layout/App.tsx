@@ -100,7 +100,10 @@ const convertFooterData = (data: FooterItems["data"]) =>
 
 const App = () => {
   const [skip, setSkip] = React.useState(false)
-  const [{ isAuthenticated, token }, dispatch] = useAuthStore()
+  const {
+    state: { token, isAuthenticated },
+    dispatch,
+  } = useAuthStore()
   const { navbarData } = useNavbar()
   const footer = useFetch<FooterItems>(footerURL, footerItems)
   const classes = useStyles()

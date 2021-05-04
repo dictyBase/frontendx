@@ -1,16 +1,19 @@
 import React from "react"
+import { useApolloClient } from "@apollo/client"
 import { Redirect } from "react-router-dom"
-import { useMutation } from "@apollo/client"
+import { useLogoutMutation } from "dicty-graphql-schema"
 import { useAuthStore, ActionType } from "features/Authentication/AuthStore"
-import { LOGOUT } from "common/graphql/mutation"
 
 /**
- * Allows the user to logout
+ * Logout handles the user logout process.
  */
-
 const Logout = () => {
-  const [{ token }, dispatch] = useAuthStore()
-  const [logout] = useMutation(LOGOUT, {
+  const client = useApolloClient()
+  const {
+    state: { token },
+    dispatch,
+  } = useAuthStore()
+  const [logout] = useLogoutMutation({
     context: {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -23,7 +26,8 @@ const Logout = () => {
     dispatch({
       type: ActionType.LOGOUT,
     })
-  }, [dispatch, logout])
+    client.resetStore()
+  }, [dispatch, logout, client])
 
   return <Redirect to="/" />
 }
