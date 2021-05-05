@@ -6,7 +6,7 @@ import Paper from "@material-ui/core/Paper"
 import EnhancedTableHead from "./EnhancedTableHead"
 import GoaDisplayTableRow from "./GoaDisplayTableRow"
 import getSorting from "./utils/getSorting"
-import { GeneGOA } from "common/@types/gene-data"
+import { GoAnnotation } from "dicty-graphql-schema"
 
 const useStyles = makeStyles({
   root: {
@@ -26,7 +26,7 @@ type Order = "asc" | "desc"
 
 type Props = {
   /** GO Annotations */
-  data: Array<GeneGOA>
+  data: GoAnnotation[]
 }
 
 /**
@@ -40,7 +40,7 @@ const GoaDisplayTable = ({ data }: Props) => {
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: keyof GeneGOA,
+    property: keyof GoAnnotation,
   ) => {
     const isAsc = tableSortBy === property && tableOrder === "asc"
     setTableOrder(isAsc ? "desc" : "asc")
@@ -67,7 +67,7 @@ const GoaDisplayTable = ({ data }: Props) => {
         <TableBody>
           {data
             .sort(getSorting(tableOrder, tableSortBy))
-            .map((item: GeneGOA, index: number) => (
+            .map((item: GoAnnotation, index: number) => (
               <GoaDisplayTableRow key={index} item={item} />
             ))}
         </TableBody>

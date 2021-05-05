@@ -8,7 +8,7 @@ import dateConverter from "../utils/dateConverter"
 import qualifierFormatter from "../utils/qualifierFormatter"
 import sourceLinkGenerator from "../utils/sourceLinkGenerator"
 import StyledExternalLink from "common/components/StyledExternalLink"
-import { GeneGOA, With, Extension } from "common/@types/gene-data"
+import { GoAnnotation, With, Extension } from "dicty-graphql-schema"
 
 const useStyles = makeStyles({
   row: {
@@ -20,7 +20,7 @@ const useStyles = makeStyles({
 
 type Props = {
   /** Individual GO Annotation */
-  item: GeneGOA
+  item: GoAnnotation
 }
 
 /**
