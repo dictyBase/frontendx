@@ -5,7 +5,7 @@ import Tab from "@material-ui/core/Tab"
 import Typography from "@material-ui/core/Typography"
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles"
 import InnerGoPanel from "features/Ontology/InnerGoPanel"
-import { GeneGOA } from "common/@types/gene-data"
+import { GoAnnotation } from "dicty-graphql-schema"
 
 const muiTheme = createMuiTheme({
   overrides: {
@@ -32,7 +32,7 @@ const muiTheme = createMuiTheme({
 
 type Props = {
   /** Gene data from GraphQL query */
-  data: Array<GeneGOA>
+  data: GoAnnotation[]
 }
 
 /**
@@ -45,7 +45,7 @@ const OntologyTabLayout = ({ data }: Props) => {
 
   // set variables for filtered arrays based on evidence code
   const experimental = data.filter(
-    (item: GeneGOA) =>
+    (item: GoAnnotation) =>
       item.evidence_code === "IMP" ||
       item.evidence_code === "IGI" ||
       item.evidence_code === "IDA" ||
@@ -53,9 +53,11 @@ const OntologyTabLayout = ({ data }: Props) => {
       item.evidence_code === "IEP" ||
       item.evidence_code === "EXP",
   )
-  const manual = data.filter((item: GeneGOA) => item.evidence_code !== "IEA")
+  const manual = data.filter(
+    (item: GoAnnotation) => item.evidence_code !== "IEA",
+  )
   const electronic = data.filter(
-    (item: GeneGOA) => item.evidence_code === "IEA",
+    (item: GoAnnotation) => item.evidence_code === "IEA",
   )
 
   const handleChange = (event: React.ChangeEvent<{}>, value: number) => {

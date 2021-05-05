@@ -1,7 +1,7 @@
 import React from "react"
 import StyledExternalLink from "common/components/StyledExternalLink"
 import withLinkGenerator from "../utils/withLinkGenerator"
-import { Extension, With } from "common/@types/gene-data"
+import { With, Extension } from "dicty-graphql-schema"
 
 type Props = {
   /** Individual With or Extension item for a given annotation */

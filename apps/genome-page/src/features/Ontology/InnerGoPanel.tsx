@@ -3,11 +3,11 @@ import Grid from "@material-ui/core/Grid"
 import GoaDisplayTable from "./Table/GoaDisplayTable"
 import PanelWrapper from "common/components/panels/PanelWrapper"
 import Typography from "@material-ui/core/Typography"
-import { GeneGOA } from "common/@types/gene-data"
+import { GoAnnotation } from "dicty-graphql-schema"
 
 type Props = {
   /** GO Annotations */
-  data: Array<GeneGOA>
+  data: GoAnnotation[]
 }
 
 /**

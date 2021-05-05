@@ -1,4 +1,4 @@
-import { With } from "common/@types/gene-data"
+import { With } from "dicty-graphql-schema"
 
 const emptyArray = (arr: Array<With>) => !Array.isArray(arr) || !arr.length
 
