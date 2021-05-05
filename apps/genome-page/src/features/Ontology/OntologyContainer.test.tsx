@@ -2,7 +2,7 @@ import React from "react"
 import { render, screen } from "@testing-library/react"
 import { MockedProvider } from "@apollo/client/testing"
 import OntologyContainer from "./OntologyContainer"
-import { GET_GENE } from "common/graphql/query"
+import { GeneDocument } from "dicty-graphql-schema"
 import mockGraphQLData from "common/mocks/mockGraphQLData"
 import { mockNotFoundError } from "common/mocks/mockGraphQLError"
 import { BrowserRouter } from "react-router-dom"
@@ -25,7 +25,7 @@ describe("features/Ontology/OntologyContainer", () => {
     const mocks = [
       {
         request: {
-          query: GET_GENE,
+          query: GeneDocument,
           variables: {
             gene: "sadA",
           },
@@ -58,7 +58,7 @@ describe("features/Ontology/OntologyContainer", () => {
     const mocks = [
       {
         request: {
-          query: GET_GENE,
+          query: GeneDocument,
           variables: {
             gene: "sadA",
           },
