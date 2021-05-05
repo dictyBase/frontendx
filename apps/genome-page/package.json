@@ -29,10 +29,10 @@
     "@fortawesome/react-fontawesome": "^0.1.14",
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
-    "dicty-components-header-footer": "github:dictyBase/dicty-components-header-footer#10.2.1",
+    "dicty-components-header-footer": "dictybase/dicty-components-header-footer#11.0.0",
     "dicty-components-login": "github:dictyBase/dicty-components-login#3.1.1",
     "dicty-components-navbar": "github:dictyBase/dicty-components-navbar#2.0.0",
-    "dicty-hooks": "dictyBase/dicty-hooks#2.0.0",
+    "dicty-hooks": "dictybase/dicty-hooks#3.0.0",
     "element-remove": "^1.0.4",
     "font-awesome": "^4.7.0",
     "fontsource-roboto": "^3.1.5",
@@ -52,6 +52,7 @@
     "whatwg-fetch": "^3.6.2"
   },
   "devDependencies": {
+    "@material-ui/styles": "^4.11.4",
     "@percy/cli": "^1.0.0-beta.48",
     "@percy/cypress": "3.1.0",
     "@semantic-release/changelog": "^5.0.1",
