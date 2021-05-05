@@ -14,7 +14,9 @@ const AuthLoader = () => {
         Logging in...
       </Typography>
       <br />
-      <FontAwesomeIcon icon="spinner" size="5x" pulse fixedWidth />
+      <Box textAlign="center">
+        <FontAwesomeIcon icon="spinner" size="5x" pulse fixedWidth />
+      </Box>
     </Box>
   )
 }
