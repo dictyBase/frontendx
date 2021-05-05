@@ -1,44 +1,53 @@
 import React from "react"
 import { useQuery } from "@apollo/client"
-import { makeStyles } from "@material-ui/core/styles"
+import { makeStyles, Theme } from "@material-ui/core/styles"
+import Container from "@material-ui/core/Container"
 import { Header, Footer } from "dicty-components-header-footer"
 import { Navbar } from "dicty-components-navbar"
 import jwtDecode from "jwt-decode"
-import { IconProp } from "@fortawesome/fontawesome-svg-core"
-import { useFetchRefreshToken, useFooter, useNavbar } from "dicty-hooks"
-import { useAuthStore, ActionType } from "features/Authentication/AuthStore"
+import { useFetchRefreshToken, useFetch } from "dicty-hooks"
 import ErrorBoundary from "common/components/errors/ErrorBoundary"
+import Routes from "app/routes/Routes"
+import { useAuthStore, ActionType } from "features/Authentication/AuthStore"
 import {
   headerItems,
   loggedHeaderItems,
-  generateLinks,
+  HeaderLinks,
 } from "common/utils/headerItems"
-import Routes from "app/routes/Routes"
+import {
+  footerLinks,
+  footerURL,
+  convertFooterData,
+  FooterItems,
+} from "common/utils/footerItems"
+import {
+  navbarItems,
+  NavbarItems,
+  navbarURL,
+  formatNavbarData,
+} from "common/utils/navbarItems"
+import { navTheme, headerTheme, footerTheme } from "common/utils/themes"
 import { GET_REFRESH_TOKEN } from "common/graphql/query"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
   main: {
-    margin: "0 10px 25px 10px",
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(4),
   },
   body: {
-    margin: "auto",
-    height: "100%",
-    width: "100%",
-    fontFamily: "Roboto, sans-serif",
     fontSize: "16px",
-    lineHeight: 1.42857,
     color: "#333",
     backgroundColor: "#fff",
-    boxSizing: "content-box",
-    WebkitFontSmoothing: "auto",
-    MozOsxFontSmoothing: "auto",
+    "& h1, h2, h3, h4, h5, h6": {
+      fontWeight: 500,
+      lineHeight: 1.1,
+    },
+    "& h4, h5, h6": {
+      marginTop: theme.spacing(1.2),
+      marginBottom: theme.spacing(1.2),
+    },
   },
-})
-
-const navTheme = {
-  primary: "#004080",
-  secondary: "#0059b3",
-}
+}))
 
 type User = {
   id: number
@@ -98,13 +107,6 @@ const getTokenIntervalDelayInMS = (token: string) => {
   return (timeDiffInMins - 2) * 60 * 1000
 }
 
-type HeaderItem = {
-  isRouter?: boolean
-  text: string
-  icon: IconProp
-  url: string
-}
-
 /**
  * App is responsible for the main layout of the entire application.
  */
@@ -112,12 +114,14 @@ type HeaderItem = {
 const App = () => {
   const [skip, setSkip] = React.useState(false)
   const [{ isAuthenticated, token }, dispatch] = useAuthStore()
-  const { navbarData } = useNavbar()
-  const { footerData } = useFooter()
+  const navbar = useFetch<NavbarItems>(navbarURL, navbarItems)
+  const footer = useFetch<FooterItems>(footerURL, footerLinks)
   const classes = useStyles()
   const { loading, refetch, data } = useQuery(GET_REFRESH_TOKEN, {
     variables: { token: token },
     errorPolicy: "ignore",
+    fetchPolicy: "no-cache",
+    nextFetchPolicy: "no-cache",
     skip, // only run query once
   })
   const interval = React.useRef(null)
@@ -149,16 +153,21 @@ const App = () => {
 
   return (
     <div className={classes.body}>
-      <Header items={headerContent}>
-        {(items: Array<HeaderItem>) => items.map(generateLinks)}
-      </Header>
-      <Navbar items={navbarData} theme={navTheme} />
+      <Header items={headerContent} render={HeaderLinks} theme={headerTheme} />
+      <Navbar items={formatNavbarData(navbar.data)} theme={navTheme} />
       <main className={classes.main}>
-        <ErrorBoundary>
-          <Routes />
-        </ErrorBoundary>
+        <Container>
+          <ErrorBoundary>
+            <Routes />
+          </ErrorBoundary>
+        </Container>
       </main>
-      <Footer items={footerData} />
+      {footer.data?.data && (
+        <Footer
+          links={convertFooterData(footer.data.data)}
+          theme={footerTheme}
+        />
+      )}
     </div>
   )
 }
