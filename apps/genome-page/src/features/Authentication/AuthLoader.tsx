@@ -13,8 +13,7 @@ const AuthLoader = () => {
       <Typography variant="h1" align="center">
         Logging in...
       </Typography>
-      <br />
-      <Box textAlign="center">
+      <Box textAlign="center" mt={3}>
         <FontAwesomeIcon icon="spinner" size="5x" pulse fixedWidth />
       </Box>
     </Box>
