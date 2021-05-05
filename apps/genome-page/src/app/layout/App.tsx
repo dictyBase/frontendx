@@ -156,7 +156,7 @@ const App = () => {
       <Header items={headerContent} render={HeaderLinks} theme={headerTheme} />
       <Navbar items={formatNavbarData(navbar.data)} theme={navTheme} />
       <main className={classes.main}>
-        <Container>
+        <Container maxWidth="xl">
           <ErrorBoundary>
             <Routes />
           </ErrorBoundary>
