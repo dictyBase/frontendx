@@ -3,11 +3,11 @@ import GoaPanelContent from "./GoaPanelContent"
 import ItemDisplay from "common/components/panels/ItemDisplay"
 import LeftDisplay from "common/components/panels/LeftDisplay"
 import RightDisplay from "common/components/panels/RightDisplay"
-import { GeneGOA } from "common/@types/gene-data"
+import { GoAnnotation } from "dicty-graphql-schema"
 
 type GOType = "molecular_function" | "biological_process" | "cellular_component"
 
-const dataFilter = (arr: Array<GeneGOA>, type: GOType) => {
+const dataFilter = (arr: Array<GoAnnotation>, type: GOType) => {
   // get the attributes from specified type
   const attr = arr.filter((item) => item.type === type)
 
@@ -51,7 +51,7 @@ const dataFilter = (arr: Array<GeneGOA>, type: GOType) => {
 
 type Props = {
   /** Array of GO annotations for a particular gene */
-  data: Array<GeneGOA>
+  data: Array<GoAnnotation>
 }
 
 /**
@@ -64,7 +64,7 @@ const GoaPanel = ({ data }: Props) => (
       <LeftDisplay>Molecular Function</LeftDisplay>
       <RightDisplay>
         {dataFilter(data, "molecular_function").map(
-          (item: GeneGOA, index: number) => (
+          (item: GoAnnotation, index: number) => (
             <GoaPanelContent key={index} data={item} />
           ),
         )}
@@ -74,7 +74,7 @@ const GoaPanel = ({ data }: Props) => (
       <LeftDisplay>Biological Process</LeftDisplay>
       <RightDisplay>
         {dataFilter(data, "biological_process").map(
-          (item: GeneGOA, index: number) => (
+          (item: GoAnnotation, index: number) => (
             <GoaPanelContent key={index} data={item} />
           ),
         )}
@@ -84,7 +84,7 @@ const GoaPanel = ({ data }: Props) => (
       <LeftDisplay>Cellular Component</LeftDisplay>
       <RightDisplay>
         {dataFilter(data, "cellular_component").map(
-          (item: GeneGOA, index: number) => (
+          (item: GoAnnotation, index: number) => (
             <GoaPanelContent key={index} data={item} />
           ),
         )}

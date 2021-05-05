@@ -1,11 +1,11 @@
 import React from "react"
 import withDataFilter from "../utils/withDataFilter"
-import { GeneGOA, Extension, With } from "common/@types/gene-data"
+import { GoAnnotation, Extension, With } from "dicty-graphql-schema"
 import WithExtensionLink from "features/Ontology/Table/WithExtensionLink"
 
 type Props = {
   /** Individual GO Annotation */
-  data: GeneGOA
+  data: GoAnnotation
 }
 
 /**
