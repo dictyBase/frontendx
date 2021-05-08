@@ -37,7 +37,7 @@
     "dicty-graphql-schema": "dictybase/dicty-graphql-schema#1.1.0",
     "dicty-hooks": "dictybase/dicty-hooks#3.0.0",
     "element-remove": "^1.0.4",
-    "fontsource-roboto": "^3.1.5",
+    "fontsource-roboto": "^4.0.0",
     "graphql": "^15.5.0",
     "jwt-decode": "^3.0.0",
     "localforage": "^1.9.0",
