@@ -86,7 +86,7 @@
     "react-styleguidist": "^11.1.6",
     "react-test-renderer": "^16.13.1",
     "semantic-release": "^17.4.3",
-    "start-server-and-test": "^1.12.2"
+    "start-server-and-test": "^1.12.4"
   },
   "jest": {
     "collectCoverageFrom": [
