@@ -10,9 +10,12 @@ const useGoogleAnalytics = () => {
     const setGoogleAnalytics = async () => {
       try {
         const module = await import("react-ga")
-        const page = location.pathname + location.search
+        const trackingID = process.env.REACT_APP_GA_TRACKING_ID
+        const basename = process.env.REACT_APP_BASENAME
+        const page = basename + location.pathname + location.search
         let ReactGA = module.default
-        ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_ID)
+
+        ReactGA.initialize(trackingID)
         ReactGA.set({ page: page, anonymizeIp: true })
         ReactGA.pageview(page)
 
