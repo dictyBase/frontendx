@@ -12,9 +12,9 @@
   "private": true,
   "scripts": {
     "generate": "graphql-codegen",
-    "compile": "tsc types/index.ts --outDir ./dist --esModuleInterop",
-    "prepare": "husky install",
-    "semantic-release": "semantic-release"
+    "build": "tsc types/index.ts --outDir ./dist --esModuleInterop",
+    "compile": "yarn run generate && yarn run build",
+    "create-release": "semantic-release"
   },
   "repository": {
     "type": "git",
