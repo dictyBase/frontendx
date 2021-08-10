@@ -29,7 +29,9 @@ Run it only once, skip this if you have have already done so.
 - Run `yarn install`
 - Create a new branch (i.e. `feature/new-schema`).
 - Complete any necessary work.
-- Commit any changes. A `husky` hook will run precommit to verify that the schema is valid, and it will auto add any new typings based on these updates.
+- Run `yarn run compile`. It verify that the schema is valid, and it will auto
+  add any new typings based on these updates.
+- Commit all changes.
 - When finished, merge to `develop`.
 
 If you are ready to cut a new release, you can then merge into `master`. This
