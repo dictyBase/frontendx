@@ -82,7 +82,7 @@
     "eslint-plugin-prettier": "^3.4.0",
     "husky": "7",
     "lint-staged": "^11.0.0",
-    "prettier": "^2.4.0",
+    "prettier": "^2.4.1",
     "react-docgen-typescript": "^2.0.0",
     "react-styleguidist": "^11.1.7",
     "react-test-renderer": "^16.13.1",
