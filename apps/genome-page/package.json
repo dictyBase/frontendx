@@ -38,7 +38,7 @@
     "element-remove": "^1.0.4",
     "font-awesome": "^4.7.0",
     "fontsource-roboto": "^4.0.0",
-    "graphql": "^15.5.3",
+    "graphql": "^15.6.0",
     "jwt-decode": "^3.1.2",
     "localforage": "^1.9.0",
     "react": "^16.14.0",
