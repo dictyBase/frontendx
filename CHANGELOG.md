@@ -4,6 +4,14 @@
 ### Bug Fixes
 
 * remove unnecessary pacakges ([70effec](https://github.com/dictyBase/graphql-schema/commit/70effecda87f0fd6f152c864cf138a79a56aeb9f))
+* replace the html version of dependabot configuration ([830b8fa](https://github.com/dictyBase/graphql-schema/commit/830b8fa37e2fb5e6cf1c8dbb03c722b10ffe97ee))
+
+## [1.1.1](https://github.com/dictyBase/graphql-schema/compare/1.1.0...1.1.1) (2021-10-07)
+
+
+### Bug Fixes
+
+* remove unnecessary pacakges ([70effec](https://github.com/dictyBase/graphql-schema/commit/70effecda87f0fd6f152c864cf138a79a56aeb9f))
 
 # [1.1.0](https://github.com/dictyBase/graphql-schema/compare/1.0.1...1.1.0) (2021-05-04)
 
