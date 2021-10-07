@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/dictyBase/graphql-schema/compare/1.1.0...1.1.1) (2021-10-07)
+
+
+### Bug Fixes
+
+* remove unnecessary pacakges ([70effec](https://github.com/dictyBase/graphql-schema/commit/70effecda87f0fd6f152c864cf138a79a56aeb9f))
+
 # [1.1.0](https://github.com/dictyBase/graphql-schema/compare/1.0.1...1.1.0) (2021-05-04)
 
 
