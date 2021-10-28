@@ -1,0 +1,17 @@
+query listOfPublications {
+  publication(limit: 10, orderBy: { field: pub_date, direction: DESC }) {
+    id
+    doi
+    title
+    abstract
+    journal
+    pub_date
+    pages
+    issue
+    volume
+    authors {
+      initials
+      last_name
+    }
+  }
+}
