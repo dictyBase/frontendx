@@ -1,5 +1,5 @@
 query listPublications {
-  publication {
+  listPublications {
     id
     doi
     title
