@@ -22,6 +22,10 @@ type Author {
   rank: String
 }
 
+type PublicationQuery {
+  listPublications: [Publication!]!
+}
+
 # type PublicationListWithCursor {
 #   publications: [Publication!]!
 #   nextCursor: ID!
