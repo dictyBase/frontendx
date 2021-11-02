@@ -1,5 +1,5 @@
-query listOfPublications {
-  publication(limit: 10, orderBy: { field: pub_date, direction: DESC }) {
+query listPublications {
+  publication {
     id
     doi
     title
