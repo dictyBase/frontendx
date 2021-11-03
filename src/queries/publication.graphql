@@ -15,3 +15,21 @@ query listPublications {
     }
   }
 }
+
+query ListRecentPublications($limit: Int!) {
+  listRecentPublications(limit: $limit) {
+    id
+    doi
+    title
+    abstract
+    journal
+    pub_date
+    pages
+    issue
+    volume
+    authors {
+      initials
+      last_name
+    }
+  }
+}
