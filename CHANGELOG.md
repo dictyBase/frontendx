@@ -1,3 +1,14 @@
+## [1.1.2](https://github.com/dictyBase/graphql-schema/compare/1.1.1...1.1.2) (2021-11-03)
+
+
+### Bug Fixes
+
+* a separate file for query is not required ([7578c29](https://github.com/dictyBase/graphql-schema/commit/7578c292c2857bb5584ee1fc858a06089178b01d))
+* a separate file for query is not required ([bc29bc2](https://github.com/dictyBase/graphql-schema/commit/bc29bc2f227355193fb26d44cc7a3d423a188dd1))
+* add publication query in query file ([87dc8d2](https://github.com/dictyBase/graphql-schema/commit/87dc8d2e0baf11f5d94084090d3256ecafe67bd5))
+* add publication query in query file ([7d8267a](https://github.com/dictyBase/graphql-schema/commit/7d8267ad161bf67145a4d99891cb84e2097cb079))
+* replace the html version of dependabot configuration ([0c05ad1](https://github.com/dictyBase/graphql-schema/commit/0c05ad1c46ef419d2ba933eb8ef0db3832a19937))
+
 ## [1.1.1](https://github.com/dictyBase/graphql-schema/compare/1.1.0...1.1.1) (2021-10-07)
 
 
