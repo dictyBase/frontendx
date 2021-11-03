@@ -485,6 +485,7 @@ export type Query = {
   order?: Maybe<Order>;
   listOrders?: Maybe<OrderListWithCursor>;
   publication?: Maybe<Publication>;
+  listRecentPublications?: Maybe<Array<Publication>>;
   plasmid?: Maybe<Plasmid>;
   strain?: Maybe<Strain>;
   listStrains?: Maybe<StrainListWithCursor>;
@@ -540,6 +541,11 @@ export type QueryListOrdersArgs = {
 
 export type QueryPublicationArgs = {
   id: Scalars['ID'];
+};
+
+
+export type QueryListRecentPublicationsArgs = {
+  limit: Scalars['Int'];
 };
 
 
@@ -1046,6 +1052,23 @@ export type PublicationQuery = (
       & Pick<Author, 'initials' | 'last_name'>
     )>>> }
   )> }
+);
+
+export type ListRecentPublicationsQueryVariables = Exact<{
+  limit: Scalars['Int'];
+}>;
+
+
+export type ListRecentPublicationsQuery = (
+  { __typename?: 'Query' }
+  & { listRecentPublications?: Maybe<Array<(
+    { __typename?: 'Publication' }
+    & Pick<Publication, 'id' | 'doi' | 'title' | 'abstract' | 'journal' | 'pub_date' | 'pages' | 'issue' | 'volume'>
+    & { authors?: Maybe<Array<Maybe<(
+      { __typename?: 'Author' }
+      & Pick<Author, 'initials' | 'last_name'>
+    )>>> }
+  )>> }
 );
 
 export type StockListQueryVariables = Exact<{
@@ -1837,6 +1860,53 @@ export function usePublicationLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type PublicationQueryHookResult = ReturnType<typeof usePublicationQuery>;
 export type PublicationLazyQueryHookResult = ReturnType<typeof usePublicationLazyQuery>;
 export type PublicationQueryResult = Apollo.QueryResult<PublicationQuery, PublicationQueryVariables>;
+export const ListRecentPublicationsDocument = gql`
+    query ListRecentPublications($limit: Int!) {
+  listRecentPublications(limit: $limit) {
+    id
+    doi
+    title
+    abstract
+    journal
+    pub_date
+    pages
+    issue
+    volume
+    authors {
+      initials
+      last_name
+    }
+  }
+}
+    `;
+
+/**
+ * __useListRecentPublicationsQuery__
+ *
+ * To run a query within a React component, call `useListRecentPublicationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListRecentPublicationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListRecentPublicationsQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useListRecentPublicationsQuery(baseOptions: Apollo.QueryHookOptions<ListRecentPublicationsQuery, ListRecentPublicationsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListRecentPublicationsQuery, ListRecentPublicationsQueryVariables>(ListRecentPublicationsDocument, options);
+      }
+export function useListRecentPublicationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListRecentPublicationsQuery, ListRecentPublicationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListRecentPublicationsQuery, ListRecentPublicationsQueryVariables>(ListRecentPublicationsDocument, options);
+        }
+export type ListRecentPublicationsQueryHookResult = ReturnType<typeof useListRecentPublicationsQuery>;
+export type ListRecentPublicationsLazyQueryHookResult = ReturnType<typeof useListRecentPublicationsLazyQuery>;
+export type ListRecentPublicationsQueryResult = Apollo.QueryResult<ListRecentPublicationsQuery, ListRecentPublicationsQueryVariables>;
 export const StockListDocument = gql`
     query StockList($limit: Int!) {
   listPlasmids(limit: $limit) {

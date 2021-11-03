@@ -14,6 +14,9 @@ type Query {
   listOrders(cursor: Int, limit: Int, filter: String): OrderListWithCursor
   # Publication queries
   publication(id: ID!): Publication
+  # List publication query that is by default is sorted by publication
+  # date in descendent order
+  listRecentPublications(limit: Int!): [Publication!]
   # Stock queries
   plasmid(id: ID!): Plasmid
   strain(id: ID!): Strain
