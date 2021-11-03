@@ -16,7 +16,7 @@ query Publication($id: ID!) {
   }
 }
 
-query ListRecentPublications($limit: Int!) {
+query ListRecentPublications($limit: Int! = 4) {
   listRecentPublications(limit: $limit) {
     id
     doi
