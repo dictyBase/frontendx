@@ -1,5 +1,5 @@
-query listPublications {
-  publication {
+query Publication($id: ID!) {
+  publication(id: $id) {
     id
     doi
     title
