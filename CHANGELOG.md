@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/dictyBase/graphql-schema/compare/1.1.3...1.1.4) (2021-11-04)
+
+
+### Bug Fixes
+
+* update dist with latest version of schema ([f45f2f7](https://github.com/dictyBase/graphql-schema/commit/f45f2f7a97449e698b784075749b86ee8b733914))
+
 ## [1.1.3](https://github.com/dictyBase/graphql-schema/compare/1.1.2...1.1.3) (2021-11-04)
 
 
