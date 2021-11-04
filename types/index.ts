@@ -1055,7 +1055,7 @@ export type PublicationQuery = (
 );
 
 export type ListRecentPublicationsQueryVariables = Exact<{
-  limit: Scalars['Int'];
+  limit?: Scalars['Int'];
 }>;
 
 
@@ -1861,7 +1861,7 @@ export type PublicationQueryHookResult = ReturnType<typeof usePublicationQuery>;
 export type PublicationLazyQueryHookResult = ReturnType<typeof usePublicationLazyQuery>;
 export type PublicationQueryResult = Apollo.QueryResult<PublicationQuery, PublicationQueryVariables>;
 export const ListRecentPublicationsDocument = gql`
-    query ListRecentPublications($limit: Int!) {
+    query ListRecentPublications($limit: Int! = 4) {
   listRecentPublications(limit: $limit) {
     id
     doi
@@ -1896,7 +1896,7 @@ export const ListRecentPublicationsDocument = gql`
  *   },
  * });
  */
-export function useListRecentPublicationsQuery(baseOptions: Apollo.QueryHookOptions<ListRecentPublicationsQuery, ListRecentPublicationsQueryVariables>) {
+export function useListRecentPublicationsQuery(baseOptions?: Apollo.QueryHookOptions<ListRecentPublicationsQuery, ListRecentPublicationsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<ListRecentPublicationsQuery, ListRecentPublicationsQueryVariables>(ListRecentPublicationsDocument, options);
       }
