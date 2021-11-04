@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/dictyBase/graphql-schema/compare/1.1.2...1.1.3) (2021-11-04)
+
+
+### Bug Fixes
+
+* generate types for default value ([cce7a14](https://github.com/dictyBase/graphql-schema/commit/cce7a14459159136f48e4493f4ea35f992ba4a0d))
+
 ## [1.1.2](https://github.com/dictyBase/graphql-schema/compare/1.1.1...1.1.2) (2021-11-03)
 
 
