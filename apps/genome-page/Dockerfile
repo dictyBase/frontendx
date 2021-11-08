@@ -1,4 +1,4 @@
-FROM dictybase/frontend-builder:14.16.1
+FROM dictybase/frontend-builder:14.17.0
 
 ARG graphql_server
 ENV REACT_APP_GRAPHQL_SERVER ${graphql_server}
