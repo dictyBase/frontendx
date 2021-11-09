@@ -34,7 +34,7 @@ const Layout = ({ children, gene }: Props) => {
   }
 
   return (
-    <Grid container justify="center">
+    <Grid container justifyContent="center">
       <Grid item xs={12}>
         <PageHeader gene={gene} />
         <LegacyLinkSnackbar gene={gene} />
