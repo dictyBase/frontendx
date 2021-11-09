@@ -45,7 +45,7 @@ const LegacyLinkSnackbar = ({ gene }: Props) => {
   const classes = useStyles()
 
   return (
-    <Grid container justify="center">
+    <Grid container justifyContent="center">
       <Grid item xs={10} lg={10} xl={8}>
         <SnackbarContent
           className={classes.root}
