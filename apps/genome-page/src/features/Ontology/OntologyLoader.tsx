@@ -54,7 +54,7 @@ const OntologyLoader = ({ gene }: Props) => (
         </Tabs>
       </AppBar>
     </MuiThemeProvider>
-    <SkeletonTheme color="#d1d1d1">
+    <SkeletonTheme baseColor="#d1d1d1">
       <Skeleton count={5} />
       <br />
       <br />

@@ -23,7 +23,7 @@ const SummaryLoader = ({ gene }: Props) => (
         <Tab label="Gene Ontology" />
       </Tabs>
     </AppBar>
-    <SkeletonTheme color="#d1d1d1">
+    <SkeletonTheme baseColor="#d1d1d1">
       <Skeleton count={10} />
       {/* <br />
       <br />
