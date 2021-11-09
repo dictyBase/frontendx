@@ -6,13 +6,15 @@ import {
   mockOtherError,
   mockUnavailableError,
 } from "common/mocks/mockGraphQLError"
+import { ApolloError } from "@apollo/client"
 
-const errorFormat = (error: any) => ({
+const errorFormat = (error: any): ApolloError => ({
   message: "Error!",
   graphQLErrors: [error],
   networkError: null,
   extraInfo: undefined,
   name: "",
+  clientErrors: [],
 })
 
 describe("common/components/errors/GraphQLErrorPage", () => {
