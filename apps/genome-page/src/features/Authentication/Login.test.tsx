@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react"
 import Login, { createOauthURL, generateErrorDisplayMessage } from "./Login"
 import MockAuthProvider from "common/mocks/MockAuthProvider"
 import userEvent from "@testing-library/user-event"
+import { ApolloError } from "@apollo/client"
 
 describe("features/Authentication/Login", () => {
   const globalAny = global as any
@@ -94,13 +95,9 @@ describe("features/Authentication/Login", () => {
 
   describe("generateErrorDisplayMessage function", () => {
     it("should return correct network error message", () => {
-      const error = {
+      const error: ApolloError = {
         message: "",
-        networkError: {
-          error: "test error",
-          name: "err",
-          message: "test error msg",
-        },
+        networkError: null,
         extraInfo: {},
         name: "",
         graphQLErrors: [
@@ -116,11 +113,12 @@ describe("features/Authentication/Login", () => {
             path: [""],
           },
         ],
+        clientErrors: [],
       }
       expect(generateErrorDisplayMessage(error)).toEqual("Network Error")
     })
     it("should return appropriate error if user not found", () => {
-      const error = {
+      const error: ApolloError = {
         message: "",
         networkError: null,
         extraInfo: {},
@@ -141,13 +139,14 @@ describe("features/Authentication/Login", () => {
             path: [""],
           },
         ],
+        clientErrors: [],
       }
       expect(generateErrorDisplayMessage(error)).toContain(
         "Could not find user account",
       )
     })
     it("should return generic error if not network or not found error", () => {
-      const error = {
+      const error: ApolloError = {
         message: "",
         networkError: null,
         extraInfo: {},
@@ -165,6 +164,7 @@ describe("features/Authentication/Login", () => {
             path: [""],
           },
         ],
+        clientErrors: [],
       }
       expect(generateErrorDisplayMessage(error)).toContain("Could not log in")
     })
