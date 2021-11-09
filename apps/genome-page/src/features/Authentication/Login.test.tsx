@@ -97,7 +97,10 @@ describe("features/Authentication/Login", () => {
     it("should return correct network error message", () => {
       const error: ApolloError = {
         message: "",
-        networkError: null,
+        networkError: {
+          name: "",
+          message: "",
+        },
         extraInfo: {},
         name: "",
         graphQLErrors: [
