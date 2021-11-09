@@ -3,10 +3,10 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles"
+import { createTheme, MuiThemeProvider } from "@material-ui/core/styles"
 import PageHeader from "common/components/PageHeader"
 
-const skeletonTheme = createMuiTheme({
+const skeletonTheme = createTheme({
   overrides: {
     MuiTab: {
       root: {
