@@ -8,17 +8,14 @@ import GraphQLErrorPage from "common/components/errors/GraphQLErrorPage"
 import Layout from "app/layout/Layout"
 import { useGeneQuery, GoAnnotation } from "dicty-graphql-schema"
 
-type Params = {
-  gene: string
-}
-
 /**
  * Container component that issues a GraphQL query to get gene data for the
  * GO annotations page.
  */
 
 const OntologyContainer = () => {
-  const { gene } = useParams<Params>()
+  let { gene } = useParams()
+  if (!gene) gene = ""
   const { loading, error, data } = useGeneQuery({
     variables: {
       gene,

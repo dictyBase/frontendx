@@ -9,17 +9,14 @@ import GoaPanel from "features/Summary/Panels/GoaPanel"
 import GraphQLErrorPage from "common/components/errors/GraphQLErrorPage"
 import { useGeneQuery, GoAnnotation } from "dicty-graphql-schema"
 
-type Params = {
-  gene: string
-}
-
 /**
  * Container component that issues a GraphQL query to get gene data for the
  * summary page.
  */
 
 const SummaryContainer = () => {
-  const { gene } = useParams<Params>()
+  let { gene } = useParams()
+  if (!gene) gene = ""
   const { loading, error, data } = useGeneQuery({
     variables: {
       gene,
