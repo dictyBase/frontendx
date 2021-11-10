@@ -4,6 +4,7 @@ import { LoginDocument } from "dicty-graphql-schema"
 import OauthSignHandler from "./OauthSignHandler"
 import MockAuthProvider from "common/mocks/MockAuthProvider"
 import clientConfig from "common/utils/clientConfig"
+import { useNavigate } from "react-router-dom"
 
 const mockHistoryPush = jest.fn()
 
@@ -12,9 +13,7 @@ jest.mock("react-router-dom", () => {
 
   return {
     ...originalModule,
-    useHistory: () => ({
-      push: mockHistoryPush,
-    }),
+    useNavigate: (to: string) => mockHistoryPush,
   }
 })
 
