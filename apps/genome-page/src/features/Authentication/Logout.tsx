@@ -22,6 +22,9 @@ const Logout = () => {
   })
 
   React.useEffect(() => {
+    // Empty token results in a 401, causing network errors
+    if (!token || token === "") return
+
     logout()
     dispatch({
       type: ActionType.LOGOUT,
