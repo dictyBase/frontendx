@@ -1,5 +1,10 @@
 import React from "react"
-import { Route, Switch, Redirect } from "react-router-dom"
+import {
+  Route,
+  Routes as ReactRoutes,
+  Redirect,
+  BrowserRouter,
+} from "react-router-dom"
 import SummaryContainer from "features/Summary/SummaryContainer"
 import OntologyContainer from "features/Ontology/OntologyContainer"
 import Login from "features/Authentication/Login"
@@ -19,22 +24,24 @@ const Routes = () => {
   useGoogleAnalytics()
 
   return (
-    <Switch>
-      <Route path="/login" component={Login} />
-      <Route path="/:provider/callback" component={OauthCallback} />
-      <Route path="/load/auth" component={AuthLoader} />
-      <Route path="/logout" component={Logout} />
-      <Route path="/:gene/goannotations" component={OntologyContainer} />
-      <Route path="/:gene/*" component={PageNotReady} />
-      <Route path="/:gene" component={SummaryContainer} />
-      <Redirect
-        from="/"
-        to={{
-          pathname: "/sadA",
-        }}
-      />
-      <Route path="*" component={PageNotReady} />
-    </Switch>
+    <BrowserRouter>
+      <ReactRoutes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/:provider/callback" element={<OauthCallback />} />
+        <Route path="/load/auth" element={<AuthLoader />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/:gene/goannotations" element={<OntologyContainer />} />
+        <Route path="/:gene/*" element={<PageNotReady />} />
+        <Route path="/:gene" element={<SummaryContainer />} />
+        <Redirect
+          from="/"
+          to={{
+            pathname: "/sadA",
+          }}
+        />
+        <Route path="*" element={<PageNotReady />} />
+      </ReactRoutes>
+    </BrowserRouter>
   )
 }
 
