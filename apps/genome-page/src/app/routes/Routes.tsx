@@ -1,40 +1,47 @@
-import React from "react"
+import React, { lazy, Suspense } from "react"
 import { Route, Routes as ReactRoutes, Navigate } from "react-router-dom"
-import SummaryContainer from "features/Summary/SummaryContainer"
-import OntologyContainer from "features/Ontology/OntologyContainer"
-import Login from "features/Authentication/Login"
-import OauthCallback from "features/Authentication/OauthCallback"
-import AuthLoader from "features/Authentication/AuthLoader"
-import Logout from "features/Authentication/Logout"
-import PageNotReady from "common/components/PageNotReady"
 import useGoogleAnalytics from "common/hooks/useGoogleAnalytics"
+import Loader from "common/components/Loader"
+
+/**
+ * Lazy loading components for increased performance.
+ * See https://reactjs.org/docs/code-splitting.html#code-splitting for code-splitting
+ */
+const LoginPage = lazy(() => import("features/Authentication/Login"))
+const OauthCallbackPage = React.lazy(
+  () => import("features/Authentication/OauthCallback"),
+)
+const AuthLoaderPage = lazy(() => import("features/Authentication/AuthLoader"))
+const LogoutPage = lazy(() => import("features/Authentication/Logout"))
+const SummaryPage = lazy(() => import("features/Summary/SummaryContainer"))
+const OntologyPage = lazy(() => import("features/Ontology/OntologyContainer"))
+const PageNotReady = lazy(() => import("common/components/PageNotReady"))
 
 /**
  * List of routes used with React Router.
  */
-
-// TODO: Consider useRouteMatch instead of identifier
-
 const Routes = () => {
   useGoogleAnalytics()
 
   return (
-    <ReactRoutes>
-      <Route path="/">
-        {/* Since react-router v6 has removed Redirect we have to use Navigate instead. See https://gist.github.com/mjackson/b5748add2795ce7448a366ae8f8ae3bb#not-server-rendering */}
-        <Route index element={<Navigate replace to="/sadA" />} />
-        <Route path="login" element={<Login />} />
-        <Route path=":provider/callback" element={<OauthCallback />} />
-        <Route path="load/auth" element={<AuthLoader />} />
-        <Route path="logout" element={<Logout />} />
-        <Route path=":gene">
-          <Route index element={<SummaryContainer />} />
-          <Route path="goannotations" element={<OntologyContainer />} />
-          <Route path="*" element={<PageNotReady />} />
+    <Suspense fallback={<Loader />}>
+      <ReactRoutes>
+        <Route path="/">
+          {/* Since react-router v6 has removed Redirect we have to use Navigate instead. See https://gist.github.com/mjackson/b5748add2795ce7448a366ae8f8ae3bb#not-server-rendering */}
+          <Route index element={<Navigate replace to="/sadA" />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path=":provider/callback" element={<OauthCallbackPage />} />
+          <Route path="load/auth" element={<AuthLoaderPage />} />
+          <Route path="logout" element={<LogoutPage />} />
+          <Route path=":gene">
+            <Route index element={<SummaryPage />} />
+            <Route path="goannotations" element={<OntologyPage />} />
+            <Route path="*" element={<PageNotReady />} />
+          </Route>
         </Route>
-      </Route>
-      <Route path="*" element={<PageNotReady />} />
-    </ReactRoutes>
+        <Route path="*" element={<PageNotReady />} />
+      </ReactRoutes>
+    </Suspense>
   )
 }
 

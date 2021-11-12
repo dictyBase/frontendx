@@ -30,6 +30,7 @@ const Logout = () => {
       type: ActionType.LOGOUT,
     })
     client.resetStore()
+    // eslint-disable-next-line
   }, [dispatch, logout, client])
 
   return <Navigate to="/" />
