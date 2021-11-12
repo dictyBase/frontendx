@@ -1,4 +1,4 @@
-import React, { lazy } from "react"
+import React, { lazy, Suspense } from "react"
 import { Route, Routes as ReactRoutes, Navigate } from "react-router-dom"
 import useGoogleAnalytics from "common/hooks/useGoogleAnalytics"
 
@@ -19,29 +19,28 @@ const PageNotReady = lazy(() => import("common/components/PageNotReady"))
 /**
  * List of routes used with React Router.
  */
-
-// TODO: Consider useRouteMatch instead of identifier
-
 const Routes = () => {
   useGoogleAnalytics()
 
   return (
-    <ReactRoutes>
-      <Route path="/">
-        {/* Since react-router v6 has removed Redirect we have to use Navigate instead. See https://gist.github.com/mjackson/b5748add2795ce7448a366ae8f8ae3bb#not-server-rendering */}
-        <Route index element={<Navigate replace to="/sadA" />} />
-        <Route path="login" element={<LoginPage />} />
-        <Route path=":provider/callback" element={<OauthCallbackPage />} />
-        <Route path="load/auth" element={<AuthLoaderPage />} />
-        <Route path="logout" element={<LogoutPage />} />
-        <Route path=":gene">
-          <Route index element={<SummaryPage />} />
-          <Route path="goannotations" element={<OntologyPage />} />
-          <Route path="*" element={<PageNotReady />} />
+    <Suspense fallback={<h1>Loading...</h1>}>
+      <ReactRoutes>
+        <Route path="/">
+          {/* Since react-router v6 has removed Redirect we have to use Navigate instead. See https://gist.github.com/mjackson/b5748add2795ce7448a366ae8f8ae3bb#not-server-rendering */}
+          <Route index element={<Navigate replace to="/sadA" />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path=":provider/callback" element={<OauthCallbackPage />} />
+          <Route path="load/auth" element={<AuthLoaderPage />} />
+          <Route path="logout" element={<LogoutPage />} />
+          <Route path=":gene">
+            <Route index element={<SummaryPage />} />
+            <Route path="goannotations" element={<OntologyPage />} />
+            <Route path="*" element={<PageNotReady />} />
+          </Route>
         </Route>
-      </Route>
-      <Route path="*" element={<PageNotReady />} />
-    </ReactRoutes>
+        <Route path="*" element={<PageNotReady />} />
+      </ReactRoutes>
+    </Suspense>
   )
 }
 
