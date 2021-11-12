@@ -6,9 +6,13 @@ import Grid from "@material-ui/core/Grid"
  * Loader is the default loading skeleton component.
  */
 const Loader = () => (
-  <Grid container justify="center" data-testid="skeleton-loader">
+  <Grid
+    container
+    justifyContent="center"
+    data-testid="skeleton-loader"
+    role="loader">
     <Grid item xs={12}>
-      <SkeletonTheme baseColor="#fff	" highlightColor="#fff">
+      <SkeletonTheme>
         <Skeleton count={10} />
         <br />
         <br />
