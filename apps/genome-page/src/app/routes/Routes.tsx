@@ -20,15 +20,19 @@ const Routes = () => {
 
   return (
     <ReactRoutes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/:provider/callback" element={<OauthCallback />} />
-      <Route path="/load/auth" element={<AuthLoader />} />
-      <Route path="/logout" element={<Logout />} />
-      <Route path="/:gene/goannotations" element={<OntologyContainer />} />
-      <Route path="/:gene/*" element={<PageNotReady />} />
-      <Route path="/:gene" element={<SummaryContainer />} />
-      {/* Since react-router v6 has removed Redirect we have to use Navigate instead. See https://gist.github.com/mjackson/b5748add2795ce7448a366ae8f8ae3bb#not-server-rendering */}
-      <Route path="/" element={<Navigate replace to="/sadA" />} />
+      <Route path="/">
+        {/* Since react-router v6 has removed Redirect we have to use Navigate instead. See https://gist.github.com/mjackson/b5748add2795ce7448a366ae8f8ae3bb#not-server-rendering */}
+        <Route index element={<Navigate replace to="/sadA" />} />
+        <Route path="login" element={<Login />} />
+        <Route path=":provider/callback" element={<OauthCallback />} />
+        <Route path="load/auth" element={<AuthLoader />} />
+        <Route path="logout" element={<Logout />} />
+        <Route path=":gene">
+          <Route index element={<SummaryContainer />} />
+          <Route path="goannotations" element={<OntologyContainer />} />
+          <Route path="*" element={<PageNotReady />} />
+        </Route>
+      </Route>
       <Route path="*" element={<PageNotReady />} />
     </ReactRoutes>
   )
