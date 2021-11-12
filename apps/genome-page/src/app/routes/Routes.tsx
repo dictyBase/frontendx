@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from "react"
 import { Route, Routes as ReactRoutes, Navigate } from "react-router-dom"
 import useGoogleAnalytics from "common/hooks/useGoogleAnalytics"
+import Loader from "common/components/Loader"
 
 /**
  * Lazy loading components for increased performance.
@@ -23,7 +24,7 @@ const Routes = () => {
   useGoogleAnalytics()
 
   return (
-    <Suspense fallback={<h1>Loading...</h1>}>
+    <Suspense fallback={<Loader />}>
       <ReactRoutes>
         <Route path="/">
           {/* Since react-router v6 has removed Redirect we have to use Navigate instead. See https://gist.github.com/mjackson/b5748add2795ce7448a366ae8f8ae3bb#not-server-rendering */}
