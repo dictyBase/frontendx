@@ -1,5 +1,5 @@
 import React from "react"
-import { Route, Switch, Redirect } from "react-router-dom"
+import { Navigate, Route, Routes as ReactRoutes } from "react-router-dom"
 import PublicationContainer from "features/Publication/PublicationContainer"
 import Login from "features/Authentication/Login"
 import OauthCallback from "features/Authentication/OauthCallback"
@@ -15,19 +15,16 @@ export const Routes = () => {
   useGoogleAnalytics()
 
   return (
-    <Switch>
-      <Route path="/login" component={Login} />
-      <Route path="/:provider/callback" component={OauthCallback} />
-      <Route path="/load/auth" component={AuthLoader} />
-      <Route path="/logout" component={Logout} />
-      <Route exact path="/:id" component={PublicationContainer} />
-      <Redirect
-        from="/"
-        to={{
-          pathname: "/26088819",
-        }}
-      />
-    </Switch>
+    <ReactRoutes>
+      <Route path="/">
+        <Route index element={<Navigate replace to="/26088819" />} />
+        <Route path="login" element={<Login />} />
+        <Route path=":provider/callback" element={<OauthCallback />} />
+        <Route path="load/auth" element={<AuthLoader />} />
+        <Route path="logout" element={<Logout />} />
+        <Route path=":id" element={<PublicationContainer />} />
+      </Route>
+    </ReactRoutes>
   )
 }
 
