@@ -36,7 +36,7 @@ export const JournalData = ({ data }: Props) => {
   // otherwise the 00:00:00.000Z causes it to return the previous day
   const day = addDays(parseISO(data.pub_date), 1)
   // convert Date to desired display format
-  const date = format(day, "D MMM YYYY")
+  const date = format(day, "d MMM yyyy")
 
   return (
     <Box pb={2}>
