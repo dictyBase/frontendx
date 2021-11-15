@@ -4,7 +4,7 @@ import Typography from "@material-ui/core/Typography"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import parse from "date-fns/parse"
 import format from "date-fns/format"
-import addDays from "date-fns/add_days"
+import addDays from "date-fns/addDays"
 import JournalDataItem from "./JournalDataItem"
 
 const useStyles = makeStyles((theme: Theme) => ({
