@@ -2,10 +2,8 @@ import React from "react"
 import Box from "@material-ui/core/Box"
 import Typography from "@material-ui/core/Typography"
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import parse from "date-fns/parse"
-import format from "date-fns/format"
-import addDays from "date-fns/addDays"
 import JournalDataItem from "./JournalDataItem"
+import { addDays, format, parseISO } from "date-fns"
 
 const useStyles = makeStyles((theme: Theme) => ({
   journal: {
@@ -36,7 +34,7 @@ export const JournalData = ({ data }: Props) => {
   const doiURL = `https://doi.org/${data.doi}`
   // convert ISO 8601 string to Date format
   // otherwise the 00:00:00.000Z causes it to return the previous day
-  const day = addDays(parse(data.pub_date), 1)
+  const day = addDays(parseISO(data.pub_date), 1)
   // convert Date to desired display format
   const date = format(day, "D MMM YYYY")
 
