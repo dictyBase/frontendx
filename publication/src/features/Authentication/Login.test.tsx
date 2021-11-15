@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react"
 import Login, { createOauthURL, generateErrorDisplayMessage } from "./Login"
 import MockAuthProvider from "common/mocks/MockAuthProvider"
 import userEvent from "@testing-library/user-event"
+import { ApolloError } from "@apollo/client"
 
 describe("features/Authentication/Login", () => {
   const globalAny = global as any
@@ -97,7 +98,6 @@ describe("features/Authentication/Login", () => {
       const error = {
         message: "",
         networkError: {
-          error: "test error",
           name: "err",
           message: "test error msg",
         },
@@ -116,6 +116,7 @@ describe("features/Authentication/Login", () => {
             path: [""],
           },
         ],
+        clientErrors: [],
       }
       expect(generateErrorDisplayMessage(error)).toEqual("Network Error")
     })
@@ -141,6 +142,7 @@ describe("features/Authentication/Login", () => {
             path: [""],
           },
         ],
+        clientErrors: [],
       }
       expect(generateErrorDisplayMessage(error)).toContain(
         "Could not find user account",
@@ -165,6 +167,7 @@ describe("features/Authentication/Login", () => {
             path: [""],
           },
         ],
+        clientErrors: [],
       }
       expect(generateErrorDisplayMessage(error)).toContain("Could not log in")
     })
