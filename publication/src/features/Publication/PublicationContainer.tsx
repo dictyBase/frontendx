@@ -10,18 +10,14 @@ import PublicationHeader from "./PublicationHeader"
 import ErrorPage from "common/components/ErrorPage"
 import useStyles from "./publicationStyles"
 
-type Params = {
-  /** Pubmed ID from the URL */
-  id: string
-}
-
 /**
  * PublicationContainer is the main component for an individual publication page.
  * It is responsible for fetching the data and passing it down to more specific components.
  */
 
 const PublicationContainer = () => {
-  const { id } = useParams<Params>()
+  let { id } = useParams()
+  if (!id) id = ""
   const classes = useStyles()
   const { loading, error, data } = usePublicationQuery({
     variables: { id: id },
