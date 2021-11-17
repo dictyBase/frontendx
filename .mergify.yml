@@ -1,13 +1,13 @@
 queue_rules:
   - name: default
     conditions:
-      - check-success=graphql validate
+      - check-success=graphql-validate
 
 pull_request_rules:
   - name: merge using the merge queue
     conditions:
       - base=develop
-      - check-success=graphql validate
+      - check-success=graphql-validate
     actions:
       queue:
         name: default
