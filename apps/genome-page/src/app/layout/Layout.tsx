@@ -11,6 +11,8 @@ const getTabValue = (pathname: string) => {
   const subroute = pathname.split("/").splice(-1).join()
 
   switch (subroute) {
+    case "phenotypes":
+      return 2
     case "goannotations":
       return 1
     default:
@@ -45,6 +47,11 @@ const Layout = ({ children, gene }: Props) => {
               label="Gene Ontology"
               component={Link}
               to={`/${gene}/goannotations`}
+            />
+            <Tab
+              label="Phenotypes"
+              component={Link}
+              to={`/${gene}/phenotypes`}
             />
           </Tabs>
         </AppBar>
