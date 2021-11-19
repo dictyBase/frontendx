@@ -4,7 +4,7 @@ import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import { createTheme, MuiThemeProvider } from "@material-ui/core/styles"
-import PageHeader from "common/components/PageHeader"
+import Layout from "app/layout/Layout"
 
 const skeletonTheme = createTheme({
   overrides: {
@@ -37,32 +37,27 @@ type Props = {
 
 const OntologyLoader = ({ gene }: Props) => (
   <div data-testid="skeleton-loader">
-    <PageHeader gene={gene} />
-    <AppBar position="static">
-      <Tabs value={1}>
-        <Tab label="Gene Summary" />
-        <Tab label="Gene Ontology" />
-      </Tabs>
-    </AppBar>
-    <MuiThemeProvider theme={skeletonTheme}>
-      <AppBar position="static">
-        <Tabs value={0}>
-          <Tab label="All GO" />
-          <Tab label="Experimental GO" />
-          <Tab label="Manual GO" />
-          <Tab label="Electronic GO" />
-        </Tabs>
-      </AppBar>
-    </MuiThemeProvider>
-    <SkeletonTheme baseColor="#d1d1d1">
-      <Skeleton count={5} />
-      <br />
-      <br />
-      <Skeleton count={5} />
-      <br />
-      <br />
-      <Skeleton count={5} />
-    </SkeletonTheme>
+    <Layout gene={gene}>
+      <MuiThemeProvider theme={skeletonTheme}>
+        <AppBar position="static">
+          <Tabs value={0}>
+            <Tab label="All GO" />
+            <Tab label="Experimental GO" />
+            <Tab label="Manual GO" />
+            <Tab label="Electronic GO" />
+          </Tabs>
+        </AppBar>
+      </MuiThemeProvider>
+      <SkeletonTheme baseColor="#d1d1d1">
+        <Skeleton count={5} />
+        <br />
+        <br />
+        <Skeleton count={5} />
+        <br />
+        <br />
+        <Skeleton count={5} />
+      </SkeletonTheme>
+    </Layout>
   </div>
 )
 
