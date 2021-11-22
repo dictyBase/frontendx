@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography"
 import GraphQLErrorPage from "common/components/errors/GraphQLErrorPage"
 import Layout from "app/layout/Layout"
 import { useGeneQuery } from "dicty-graphql-schema"
+import PhenotypesLoader from "./PhenotypesLoader"
 
 const PhenotypesContainer = () => {
   let { gene } = useParams()
@@ -16,7 +17,7 @@ const PhenotypesContainer = () => {
     fetchPolicy: "cache-and-network",
   })
 
-  if (loading) return <h1>Loading</h1>
+  if (loading) return <PhenotypesLoader gene={gene} />
 
   if (error) return <GraphQLErrorPage error={error} />
 
@@ -31,6 +32,7 @@ const PhenotypesContainer = () => {
           content={`Gene Ontology Annotations for ${geneName} at dictyBase`}
         />
       </Helmet>
+
       <Typography component="div">
         <h1>Render table here...</h1>
       </Typography>
