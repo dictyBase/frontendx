@@ -7,7 +7,7 @@ const gene = "sadA"
 jest.mock("react-router-dom", () => {
   return {
     useLocation: () => ({
-      pathname: "gene/sadA/phenotypes",
+      pathname: `gene/${gene}/phenotypes`,
     }),
   }
 })
