@@ -1,7 +1,32 @@
+import { ApolloError } from "@apollo/client"
+
+export interface IMockGeneData {
+  id: string
+  strain: string
+  characteristics: string
+  phenotype: string
+  reference: {
+    author: string
+    title: string
+    name: string
+    links: {
+      dictyBase: string
+      pubMed: string
+      fullText: string
+    }
+  }
+}
+
+export interface IMockPhenotypesData {
+  data: { genes: IMockGeneData[] }
+  loading: boolean
+  error?: ApolloError
+}
+
 /**
  * Reference: http://dictybase.org/gene/DDB_G0288511/phenotypes
  */
-const mockPhenotypesData = {
+const mockPhenotypesData: IMockPhenotypesData = {
   data: {
     genes: [
       {
@@ -206,6 +231,8 @@ const mockPhenotypesData = {
       // Fourth...
     ],
   },
+  loading: false,
+  error: undefined,
 }
 
 export default mockPhenotypesData
