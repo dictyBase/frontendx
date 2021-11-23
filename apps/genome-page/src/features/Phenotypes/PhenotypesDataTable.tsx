@@ -11,6 +11,7 @@ import {
   TableRow,
 } from "@material-ui/core"
 import { IMockGeneData } from "common/mocks/mockPhenotypesData"
+import { prependOnceListener } from "process"
 
 const useStyles = makeStyles({
   root: {
@@ -32,6 +33,31 @@ interface PhenotypesDataTableProps {
   data: IMockGeneData[]
 }
 
+/**
+ * Checks if the field was repeated, so we can give a "nested" table effect
+ */
+const isRepeated = (
+  data: IMockGeneData[],
+  i: number,
+  field: "strain" | "characteristics" | "phenotype",
+) => {
+  if (i === 0) return false
+
+  const cur = data[i]
+  const prev = data[i - 1]
+  const strainIsRepeated = cur.strain === prev.strain && cur.id === prev.id
+  switch (field) {
+    case "strain":
+      return strainIsRepeated
+    case "characteristics":
+      return strainIsRepeated && cur.characteristics === prev.characteristics
+    case "phenotype":
+      return strainIsRepeated && cur.phenotype === prev.phenotype
+    default:
+      return false
+  }
+}
+
 const PhenotypesDataTable = ({ data }: PhenotypesDataTableProps) => {
   const classes = useStyles()
 
@@ -51,11 +77,27 @@ const PhenotypesDataTable = ({ data }: PhenotypesDataTableProps) => {
           {data.map((item, i) => (
             <TableRow key={`${item}#${i}`}>
               <TableCell>
-                <Box>{item.strain}</Box>
-                <Box>({item.id})</Box>
+                {isRepeated(data, i, "strain") ? (
+                  <></>
+                ) : (
+                  <>
+                    <Box>
+                      <a href={`/stockcenter/strains/${item.id}`}>
+                        {item.strain}
+                      </a>
+                    </Box>
+                    <Box>({item.id})</Box>
+                  </>
+                )}
               </TableCell>
-              <TableCell>{item.characteristics}</TableCell>
-              <TableCell>{item.phenotype}</TableCell>
+              <TableCell>
+                {isRepeated(data, i, "characteristics")
+                  ? ""
+                  : item.characteristics}
+              </TableCell>
+              <TableCell>
+                {isRepeated(data, i, "phenotype") ? "" : item.phenotype}
+              </TableCell>
               <TableCell>
                 <i>To be implemented</i>
               </TableCell>
