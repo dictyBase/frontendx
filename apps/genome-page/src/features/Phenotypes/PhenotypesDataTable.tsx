@@ -11,7 +11,6 @@ import {
   TableRow,
 } from "@material-ui/core"
 import { IMockGeneData } from "common/mocks/mockPhenotypesData"
-import { prependOnceListener } from "process"
 
 const useStyles = makeStyles({
   root: {
