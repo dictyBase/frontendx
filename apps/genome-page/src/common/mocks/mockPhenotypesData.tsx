@@ -1,6 +1,6 @@
 import { ApolloError } from "@apollo/client"
 
-export interface IMockGeneData {
+interface IMockGeneData {
   id: string
   strain: string
   characteristics: string
@@ -17,7 +17,7 @@ export interface IMockGeneData {
   }
 }
 
-export interface IMockPhenotypesData {
+interface IMockPhenotypesData {
   data: { genes: IMockGeneData[] }
   loading: boolean
   error?: ApolloError
@@ -235,4 +235,5 @@ const mockPhenotypesData: IMockPhenotypesData = {
   error: undefined,
 }
 
+export type { IMockGeneData, IMockPhenotypesData }
 export default mockPhenotypesData
