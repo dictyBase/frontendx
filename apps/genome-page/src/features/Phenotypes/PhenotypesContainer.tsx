@@ -6,22 +6,19 @@ import GraphQLErrorPage from "common/components/errors/GraphQLErrorPage"
 import Layout from "app/layout/Layout"
 import { useGeneQuery } from "dicty-graphql-schema"
 import PhenotypesLoader from "./PhenotypesLoader"
+import PhenotypesDataTable from "./PhenotypesDataTable"
+import mockPhenotypesData from "../../common/mocks/mockPhenotypesData"
 
 const PhenotypesContainer = () => {
   let { gene } = useParams()
   if (!gene) gene = ""
-  const { loading, error, data } = useGeneQuery({
-    variables: {
-      gene,
-    },
-    fetchPolicy: "cache-and-network",
-  })
+  const { loading, error, data } = mockPhenotypesData
 
   if (loading) return <PhenotypesLoader gene={gene} />
 
   if (error) return <GraphQLErrorPage error={error} />
 
-  const geneName = data?.gene?.name as string
+  const geneName = gene as string
 
   return (
     <Layout gene={geneName}>
@@ -34,7 +31,7 @@ const PhenotypesContainer = () => {
       </Helmet>
 
       <Typography component="div">
-        <h1>Render table here...</h1>
+        <PhenotypesDataTable data={data.genes} />
       </Typography>
     </Layout>
   )
