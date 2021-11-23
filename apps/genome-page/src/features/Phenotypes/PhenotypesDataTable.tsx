@@ -9,6 +9,7 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core"
+import { IMockGeneData } from "common/mocks/mockPhenotypesData"
 
 const useStyles = makeStyles({
   root: {
@@ -19,10 +20,15 @@ const useStyles = makeStyles({
   head: {
     backgroundColor: "#e6f2ff",
   },
+  headRow: {
+    "& > th": {
+      fontWeight: "bold",
+    },
+  },
 })
 
 interface PhenotypesDataTableProps {
-  data: any
+  data: IMockGeneData[]
 }
 
 const PhenotypesDataTable = ({ data }: PhenotypesDataTableProps) => {
@@ -32,7 +38,7 @@ const PhenotypesDataTable = ({ data }: PhenotypesDataTableProps) => {
     <TableContainer component={Paper} className={classes.root}>
       <Table aria-label="phenotypes-table">
         <TableHead className={classes.head}>
-          <TableRow>
+          <TableRow className={classes.headRow}>
             <TableCell>Strain</TableCell>
             <TableCell>Characteristics</TableCell>
             <TableCell>Phenotype</TableCell>
@@ -40,19 +46,25 @@ const PhenotypesDataTable = ({ data }: PhenotypesDataTableProps) => {
             <TableCell>Reference(s)</TableCell>
           </TableRow>
         </TableHead>
-        {/* <TableBody>
-          {data.map((item: any) => (
-            <TableRow key={item.name}>
+        <TableBody>
+          {data.map((item, i) => (
+            <TableRow key={`${item}#${i}`}>
               <TableCell component="th" scope="row">
-                {item.name}
+                {`${item.strain}\n (${item.id})`}
               </TableCell>
-              <TableCell align="right">{item.calories}</TableCell>
-              <TableCell align="right">{item.fat}</TableCell>
-              <TableCell align="right">{item.carbs}</TableCell>
-              <TableCell align="right">{item.protein}</TableCell>
+              <TableCell>{item.characteristics}</TableCell>
+              <TableCell>{item.phenotype}</TableCell>
+              <TableCell>
+                <i>To be implemented</i>
+              </TableCell>
+              <TableCell>
+                <b>{item.reference.author}</b>
+                &nbsp; '{item.reference.title}' &nbsp;
+                <i>{item.reference.name}</i>
+              </TableCell>
             </TableRow>
           ))}
-        </TableBody> */}
+        </TableBody>
       </Table>
     </TableContainer>
   )
