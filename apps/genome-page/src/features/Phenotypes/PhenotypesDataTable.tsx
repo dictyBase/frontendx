@@ -1,5 +1,6 @@
 import React from "react"
 import {
+  Box,
   makeStyles,
   Paper,
   Table,
@@ -49,8 +50,9 @@ const PhenotypesDataTable = ({ data }: PhenotypesDataTableProps) => {
         <TableBody>
           {data.map((item, i) => (
             <TableRow key={`${item}#${i}`}>
-              <TableCell component="th" scope="row">
-                {`${item.strain}\n (${item.id})`}
+              <TableCell>
+                <Box>{item.strain}</Box>
+                <Box>({item.id})</Box>
               </TableCell>
               <TableCell>{item.characteristics}</TableCell>
               <TableCell>{item.phenotype}</TableCell>
