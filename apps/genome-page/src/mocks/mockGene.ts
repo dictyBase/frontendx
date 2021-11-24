@@ -3,14 +3,16 @@ import mockOntologyData from "./mockOntologyData"
 import mockPhenotypesData, { IMockPhenotypesData } from "./mockPhenotypesData"
 
 interface IMockGeneData {
+  __typename?: string
   id: string
   name: string
-  goas: GoAnnotation[]
-  phenotypes: IMockPhenotypesData[]
+  goas?: GoAnnotation[]
+  phenotypes?: IMockPhenotypesData[]
 }
 
 const mockGene: { gene: IMockGeneData } = {
   gene: {
+    __typename: "Gene",
     id: "DDB_G0288511",
     name: "sadA",
     goas: [...mockOntologyData.goas],
@@ -18,4 +20,5 @@ const mockGene: { gene: IMockGeneData } = {
   },
 }
 
+export type { IMockGeneData }
 export default mockGene
