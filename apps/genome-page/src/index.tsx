@@ -8,23 +8,33 @@ import { AuthProvider } from "features/Authentication/AuthStore"
 import "common/utils/icons" // fontawesome library
 import "fontsource-roboto"
 
-console.log(process.env.REACT_APP_MOCK_SERVER)
+const main = async () => {
+  if (process.env.NODE_ENV === "development") {
+    // Redirect to /gene
+    if (window.location.pathname === "/") {
+      window.location.pathname = "/gene"
+    }
 
-if (
-  process.env.NODE_ENV === "development" &&
-  process.env.REACT_APP_MOCK_SERVER === "on"
-) {
-  console.log("Mock server running...")
-  const { worker } = require("./mocks/browser")
-  worker.start()
+    // Activate MSW
+    if (process.env.REACT_APP_MOCK_SERVER === "on") {
+      const { worker } = require("./mocks/browser.js")
+      await worker.start({
+        serviceWorker: {
+          url: "/gene/mockServiceWorker.js",
+        },
+      })
+    }
+  }
+
+  ReactDOM.render(
+    <AuthProvider>
+      <AppProviders>
+        <CssBaseline />
+        <App />
+      </AppProviders>
+    </AuthProvider>,
+    document.getElementById("root"),
+  )
 }
 
-ReactDOM.render(
-  <AuthProvider>
-    <AppProviders>
-      <CssBaseline />
-      <App />
-    </AppProviders>
-  </AuthProvider>,
-  document.getElementById("root"),
-)
+main()
