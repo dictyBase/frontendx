@@ -1,5 +1,3 @@
-import { ApolloError } from "@apollo/client"
-
 interface IMockPhenotypesData {
   id: string
   strain: string
