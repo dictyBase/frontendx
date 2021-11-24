@@ -8,6 +8,17 @@ import { AuthProvider } from "features/Authentication/AuthStore"
 import "common/utils/icons" // fontawesome library
 import "fontsource-roboto"
 
+console.log(process.env.REACT_APP_MOCK_SERVER)
+
+if (
+  process.env.NODE_ENV === "development" &&
+  process.env.REACT_APP_MOCK_SERVER === "on"
+) {
+  console.log("Mock server running...")
+  const { worker } = require("./mocks/browser")
+  worker.start()
+}
+
 ReactDOM.render(
   <AuthProvider>
     <AppProviders>
