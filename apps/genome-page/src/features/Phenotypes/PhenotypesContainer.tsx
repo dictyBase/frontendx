@@ -7,12 +7,27 @@ import Layout from "app/layout/Layout"
 import { useGeneQuery } from "dicty-graphql-schema"
 import PhenotypesLoader from "./PhenotypesLoader"
 import PhenotypesDataTable from "./PhenotypesDataTable"
+import { IMockGeneData } from "mocks/mockGene"
 import mockPhenotypesData from "mocks/mockPhenotypesData"
 
 const PhenotypesContainer = () => {
   let { gene } = useParams()
   if (!gene) gene = ""
-  const { loading, error, data } = mockPhenotypesData
+
+  // TODO: Change to const once graphql-schema is updated...
+  const { loading, error, data } = useGeneQuery({
+    variables: {
+      gene,
+    },
+    fetchPolicy: "cache-and-network",
+  })
+  let updatedData = data as IMockGeneData
+  if (data) {
+    updatedData = {
+      ...updatedData,
+      phenotypes: [...mockPhenotypesData.phenotypes],
+    }
+  }
 
   if (loading) return <PhenotypesLoader gene={gene} />
 
@@ -31,7 +46,7 @@ const PhenotypesContainer = () => {
       </Helmet>
 
       <Typography component="div">
-        <PhenotypesDataTable data={data.genes} />
+        <PhenotypesDataTable data={updatedData?.phenotypes} />
       </Typography>
     </Layout>
   )
