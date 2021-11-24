@@ -10,7 +10,7 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core"
-import { IMockGeneData } from "mocks/mockPhenotypesData"
+import { IMockPhenotypesData } from "mocks/mockPhenotypesData"
 
 const useStyles = makeStyles({
   root: {
@@ -29,14 +29,14 @@ const useStyles = makeStyles({
 })
 
 interface PhenotypesDataTableProps {
-  data: IMockGeneData[]
+  data: IMockPhenotypesData[]
 }
 
 /**
  * Checks if the field was repeated, so we can give a "nested" table effect
  */
 const isRepeated = (
-  data: IMockGeneData[],
+  data: IMockPhenotypesData[],
   i: number,
   field: "strain" | "characteristics" | "phenotype",
 ) => {
