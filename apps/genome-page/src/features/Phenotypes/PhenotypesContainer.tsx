@@ -7,7 +7,7 @@ import Layout from "app/layout/Layout"
 import { useGeneQuery } from "dicty-graphql-schema"
 import PhenotypesLoader from "./PhenotypesLoader"
 import PhenotypesDataTable from "./PhenotypesDataTable"
-import mockPhenotypesData from "../../common/mocks/mockPhenotypesData"
+import mockPhenotypesData from "mocks/mockPhenotypesData"
 
 const PhenotypesContainer = () => {
   let { gene } = useParams()
