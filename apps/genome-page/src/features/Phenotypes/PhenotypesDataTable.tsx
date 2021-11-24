@@ -10,7 +10,7 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core"
-import { IMockGeneData } from "common/mocks/mockPhenotypesData"
+import { IMockGeneData } from "mocks/mockPhenotypesData"
 
 const useStyles = makeStyles({
   root: {
