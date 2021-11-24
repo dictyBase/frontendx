@@ -29,7 +29,7 @@ const useStyles = makeStyles({
 })
 
 interface PhenotypesDataTableProps {
-  data: IMockPhenotypesData[]
+  data?: IMockPhenotypesData[]
 }
 
 /**
@@ -73,7 +73,7 @@ const PhenotypesDataTable = ({ data }: PhenotypesDataTableProps) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((item, i) => (
+          {data?.map((item, i) => (
             <TableRow key={`${item}#${i}`}>
               <TableCell>
                 {isRepeated(data, i, "strain") ? (
