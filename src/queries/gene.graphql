@@ -18,6 +18,7 @@ query Gene($gene: String!) {
           pub_date
           authors {
             last_name
+            rank
           }
         }
       }
