@@ -1,4 +1,28 @@
 query Gene($gene: String!) {
+  allStrains(gene: $gene) {
+    id
+    name
+    strains {
+      id
+      label
+      characteristics
+      in_stock
+      phenotypes { 
+        phenotype
+      }
+      publications { 
+        id
+        title
+        journal
+        pages
+        volume
+        pub_date
+        authors { 
+          last_name
+        }
+      }
+    }
+  }
   gene(gene: $gene) {
     id
     name
@@ -22,40 +46,6 @@ query Gene($gene: String!) {
         relation
         name
       }
-    }
-    strains {
-      id
-      summary
-      dbxrefs
-      systematic_name
-      label
-      species
-      names
-      in_stock
-      phenotypes {
-        phenotype
-        note
-        assay
-        environment
-        publication {
-          id
-          title
-          journal
-          pub_date
-          volume
-          pages
-          issn
-          pub_type
-          source
-          issue
-          authors {
-            first_name
-            last_name
-            initials
-          }
-        }
-      }
-      characteristics
     }
   }
 }
