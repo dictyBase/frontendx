@@ -46,7 +46,7 @@ var StatusEnum;
     StatusEnum["Cancelled"] = "CANCELLED";
     StatusEnum["Shipped"] = "SHIPPED";
 })(StatusEnum = exports.StatusEnum || (exports.StatusEnum = {}));
-exports.LoginDocument = client_1.gql(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    mutation Login($input: LoginInput!) {\n  login(input: $input) {\n    token\n    user {\n      id\n      email\n      first_name\n      last_name\n      roles {\n        role\n        permissions {\n          permission\n          resource\n        }\n      }\n    }\n    identity {\n      provider\n    }\n  }\n}\n    "], ["\n    mutation Login($input: LoginInput!) {\n  login(input: $input) {\n    token\n    user {\n      id\n      email\n      first_name\n      last_name\n      roles {\n        role\n        permissions {\n          permission\n          resource\n        }\n      }\n    }\n    identity {\n      provider\n    }\n  }\n}\n    "])));
+exports.LoginDocument = (0, client_1.gql)(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    mutation Login($input: LoginInput!) {\n  login(input: $input) {\n    token\n    user {\n      id\n      email\n      first_name\n      last_name\n      roles {\n        role\n        permissions {\n          permission\n          resource\n        }\n      }\n    }\n    identity {\n      provider\n    }\n  }\n}\n    "], ["\n    mutation Login($input: LoginInput!) {\n  login(input: $input) {\n    token\n    user {\n      id\n      email\n      first_name\n      last_name\n      roles {\n        role\n        permissions {\n          permission\n          resource\n        }\n      }\n    }\n    identity {\n      provider\n    }\n  }\n}\n    "])));
 /**
  * __useLoginMutation__
  *
@@ -69,7 +69,7 @@ function useLoginMutation(baseOptions) {
     return Apollo.useMutation(exports.LoginDocument, options);
 }
 exports.useLoginMutation = useLoginMutation;
-exports.LogoutDocument = client_1.gql(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    mutation Logout {\n  logout {\n    success\n  }\n}\n    "], ["\n    mutation Logout {\n  logout {\n    success\n  }\n}\n    "])));
+exports.LogoutDocument = (0, client_1.gql)(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    mutation Logout {\n  logout {\n    success\n  }\n}\n    "], ["\n    mutation Logout {\n  logout {\n    success\n  }\n}\n    "])));
 /**
  * __useLogoutMutation__
  *
@@ -91,7 +91,7 @@ function useLogoutMutation(baseOptions) {
     return Apollo.useMutation(exports.LogoutDocument, options);
 }
 exports.useLogoutMutation = useLogoutMutation;
-exports.CreateContentDocument = client_1.gql(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n    mutation CreateContent($input: CreateContentInput!) {\n  createContent(input: $input) {\n    name\n    created_by {\n      id\n    }\n    content\n    namespace\n  }\n}\n    "], ["\n    mutation CreateContent($input: CreateContentInput!) {\n  createContent(input: $input) {\n    name\n    created_by {\n      id\n    }\n    content\n    namespace\n  }\n}\n    "])));
+exports.CreateContentDocument = (0, client_1.gql)(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n    mutation CreateContent($input: CreateContentInput!) {\n  createContent(input: $input) {\n    name\n    created_by {\n      id\n    }\n    content\n    namespace\n  }\n}\n    "], ["\n    mutation CreateContent($input: CreateContentInput!) {\n  createContent(input: $input) {\n    name\n    created_by {\n      id\n    }\n    content\n    namespace\n  }\n}\n    "])));
 /**
  * __useCreateContentMutation__
  *
@@ -114,7 +114,7 @@ function useCreateContentMutation(baseOptions) {
     return Apollo.useMutation(exports.CreateContentDocument, options);
 }
 exports.useCreateContentMutation = useCreateContentMutation;
-exports.UpdateContentDocument = client_1.gql(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n    mutation UpdateContent($input: UpdateContentInput!) {\n  updateContent(input: $input) {\n    id\n    updated_by {\n      id\n    }\n    content\n  }\n}\n    "], ["\n    mutation UpdateContent($input: UpdateContentInput!) {\n  updateContent(input: $input) {\n    id\n    updated_by {\n      id\n    }\n    content\n  }\n}\n    "])));
+exports.UpdateContentDocument = (0, client_1.gql)(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n    mutation UpdateContent($input: UpdateContentInput!) {\n  updateContent(input: $input) {\n    id\n    updated_by {\n      id\n    }\n    content\n  }\n}\n    "], ["\n    mutation UpdateContent($input: UpdateContentInput!) {\n  updateContent(input: $input) {\n    id\n    updated_by {\n      id\n    }\n    content\n  }\n}\n    "])));
 /**
  * __useUpdateContentMutation__
  *
@@ -137,7 +137,7 @@ function useUpdateContentMutation(baseOptions) {
     return Apollo.useMutation(exports.UpdateContentDocument, options);
 }
 exports.useUpdateContentMutation = useUpdateContentMutation;
-exports.CreateOrderDocument = client_1.gql(templateObject_5 || (templateObject_5 = __makeTemplateObject(["\n    mutation CreateOrder($input: CreateOrderInput!) {\n  createOrder(input: $input) {\n    id\n  }\n}\n    "], ["\n    mutation CreateOrder($input: CreateOrderInput!) {\n  createOrder(input: $input) {\n    id\n  }\n}\n    "])));
+exports.CreateOrderDocument = (0, client_1.gql)(templateObject_5 || (templateObject_5 = __makeTemplateObject(["\n    mutation CreateOrder($input: CreateOrderInput!) {\n  createOrder(input: $input) {\n    id\n  }\n}\n    "], ["\n    mutation CreateOrder($input: CreateOrderInput!) {\n  createOrder(input: $input) {\n    id\n  }\n}\n    "])));
 /**
  * __useCreateOrderMutation__
  *
@@ -160,7 +160,7 @@ function useCreateOrderMutation(baseOptions) {
     return Apollo.useMutation(exports.CreateOrderDocument, options);
 }
 exports.useCreateOrderMutation = useCreateOrderMutation;
-exports.CreateUserDocument = client_1.gql(templateObject_6 || (templateObject_6 = __makeTemplateObject(["\n    mutation CreateUser($input: CreateUserInput!) {\n  createUser(input: $input) {\n    id\n  }\n}\n    "], ["\n    mutation CreateUser($input: CreateUserInput!) {\n  createUser(input: $input) {\n    id\n  }\n}\n    "])));
+exports.CreateUserDocument = (0, client_1.gql)(templateObject_6 || (templateObject_6 = __makeTemplateObject(["\n    mutation CreateUser($input: CreateUserInput!) {\n  createUser(input: $input) {\n    id\n  }\n}\n    "], ["\n    mutation CreateUser($input: CreateUserInput!) {\n  createUser(input: $input) {\n    id\n  }\n}\n    "])));
 /**
  * __useCreateUserMutation__
  *
@@ -183,7 +183,7 @@ function useCreateUserMutation(baseOptions) {
     return Apollo.useMutation(exports.CreateUserDocument, options);
 }
 exports.useCreateUserMutation = useCreateUserMutation;
-exports.UpdateUserDocument = client_1.gql(templateObject_7 || (templateObject_7 = __makeTemplateObject(["\n    mutation UpdateUser($id: ID!, $input: UpdateUserInput!) {\n  updateUser(id: $id, input: $input) {\n    id\n  }\n}\n    "], ["\n    mutation UpdateUser($id: ID!, $input: UpdateUserInput!) {\n  updateUser(id: $id, input: $input) {\n    id\n  }\n}\n    "])));
+exports.UpdateUserDocument = (0, client_1.gql)(templateObject_7 || (templateObject_7 = __makeTemplateObject(["\n    mutation UpdateUser($id: ID!, $input: UpdateUserInput!) {\n  updateUser(id: $id, input: $input) {\n    id\n  }\n}\n    "], ["\n    mutation UpdateUser($id: ID!, $input: UpdateUserInput!) {\n  updateUser(id: $id, input: $input) {\n    id\n  }\n}\n    "])));
 /**
  * __useUpdateUserMutation__
  *
@@ -207,7 +207,7 @@ function useUpdateUserMutation(baseOptions) {
     return Apollo.useMutation(exports.UpdateUserDocument, options);
 }
 exports.useUpdateUserMutation = useUpdateUserMutation;
-exports.GetRefreshTokenDocument = client_1.gql(templateObject_8 || (templateObject_8 = __makeTemplateObject(["\n    query GetRefreshToken($token: String!) {\n  getRefreshToken(token: $token) {\n    token\n    user {\n      id\n      email\n      first_name\n      last_name\n      roles {\n        role\n        permissions {\n          permission\n          resource\n        }\n      }\n    }\n    identity {\n      provider\n    }\n  }\n}\n    "], ["\n    query GetRefreshToken($token: String!) {\n  getRefreshToken(token: $token) {\n    token\n    user {\n      id\n      email\n      first_name\n      last_name\n      roles {\n        role\n        permissions {\n          permission\n          resource\n        }\n      }\n    }\n    identity {\n      provider\n    }\n  }\n}\n    "])));
+exports.GetRefreshTokenDocument = (0, client_1.gql)(templateObject_8 || (templateObject_8 = __makeTemplateObject(["\n    query GetRefreshToken($token: String!) {\n  getRefreshToken(token: $token) {\n    token\n    user {\n      id\n      email\n      first_name\n      last_name\n      roles {\n        role\n        permissions {\n          permission\n          resource\n        }\n      }\n    }\n    identity {\n      provider\n    }\n  }\n}\n    "], ["\n    query GetRefreshToken($token: String!) {\n  getRefreshToken(token: $token) {\n    token\n    user {\n      id\n      email\n      first_name\n      last_name\n      roles {\n        role\n        permissions {\n          permission\n          resource\n        }\n      }\n    }\n    identity {\n      provider\n    }\n  }\n}\n    "])));
 /**
  * __useGetRefreshTokenQuery__
  *
@@ -234,7 +234,7 @@ function useGetRefreshTokenLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.GetRefreshTokenDocument, options);
 }
 exports.useGetRefreshTokenLazyQuery = useGetRefreshTokenLazyQuery;
-exports.ContentBySlugDocument = client_1.gql(templateObject_9 || (templateObject_9 = __makeTemplateObject(["\n    query contentBySlug($slug: String!) {\n  contentBySlug(slug: $slug) {\n    id\n    content\n    name\n    slug\n    updated_at\n    updated_by {\n      id\n      email\n      first_name\n      last_name\n      roles {\n        role\n        permissions {\n          permission\n          resource\n        }\n      }\n    }\n  }\n}\n    "], ["\n    query contentBySlug($slug: String!) {\n  contentBySlug(slug: $slug) {\n    id\n    content\n    name\n    slug\n    updated_at\n    updated_by {\n      id\n      email\n      first_name\n      last_name\n      roles {\n        role\n        permissions {\n          permission\n          resource\n        }\n      }\n    }\n  }\n}\n    "])));
+exports.ContentBySlugDocument = (0, client_1.gql)(templateObject_9 || (templateObject_9 = __makeTemplateObject(["\n    query contentBySlug($slug: String!) {\n  contentBySlug(slug: $slug) {\n    id\n    content\n    name\n    slug\n    updated_at\n    updated_by {\n      id\n      email\n      first_name\n      last_name\n      roles {\n        role\n        permissions {\n          permission\n          resource\n        }\n      }\n    }\n  }\n}\n    "], ["\n    query contentBySlug($slug: String!) {\n  contentBySlug(slug: $slug) {\n    id\n    content\n    name\n    slug\n    updated_at\n    updated_by {\n      id\n      email\n      first_name\n      last_name\n      roles {\n        role\n        permissions {\n          permission\n          resource\n        }\n      }\n    }\n  }\n}\n    "])));
 /**
  * __useContentBySlugQuery__
  *
@@ -261,7 +261,7 @@ function useContentBySlugLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.ContentBySlugDocument, options);
 }
 exports.useContentBySlugLazyQuery = useContentBySlugLazyQuery;
-exports.ContentDocument = client_1.gql(templateObject_10 || (templateObject_10 = __makeTemplateObject(["\n    query content($id: ID!) {\n  content(id: $id) {\n    id\n    content\n    name\n    slug\n    namespace\n    updated_at\n    updated_by {\n      id\n      email\n      first_name\n      last_name\n      roles {\n        role\n        permissions {\n          permission\n          resource\n        }\n      }\n    }\n  }\n}\n    "], ["\n    query content($id: ID!) {\n  content(id: $id) {\n    id\n    content\n    name\n    slug\n    namespace\n    updated_at\n    updated_by {\n      id\n      email\n      first_name\n      last_name\n      roles {\n        role\n        permissions {\n          permission\n          resource\n        }\n      }\n    }\n  }\n}\n    "])));
+exports.ContentDocument = (0, client_1.gql)(templateObject_10 || (templateObject_10 = __makeTemplateObject(["\n    query content($id: ID!) {\n  content(id: $id) {\n    id\n    content\n    name\n    slug\n    namespace\n    updated_at\n    updated_by {\n      id\n      email\n      first_name\n      last_name\n      roles {\n        role\n        permissions {\n          permission\n          resource\n        }\n      }\n    }\n  }\n}\n    "], ["\n    query content($id: ID!) {\n  content(id: $id) {\n    id\n    content\n    name\n    slug\n    namespace\n    updated_at\n    updated_by {\n      id\n      email\n      first_name\n      last_name\n      roles {\n        role\n        permissions {\n          permission\n          resource\n        }\n      }\n    }\n  }\n}\n    "])));
 /**
  * __useContentQuery__
  *
@@ -288,7 +288,7 @@ function useContentLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.ContentDocument, options);
 }
 exports.useContentLazyQuery = useContentLazyQuery;
-exports.ListOrganismsDocument = client_1.gql(templateObject_11 || (templateObject_11 = __makeTemplateObject(["\n    query ListOrganisms {\n  listOrganisms {\n    taxon_id\n    scientific_name\n    citations {\n      title\n      authors\n      pubmed_id\n      journal\n    }\n    downloads {\n      title\n      items {\n        title\n        url\n      }\n    }\n  }\n}\n    "], ["\n    query ListOrganisms {\n  listOrganisms {\n    taxon_id\n    scientific_name\n    citations {\n      title\n      authors\n      pubmed_id\n      journal\n    }\n    downloads {\n      title\n      items {\n        title\n        url\n      }\n    }\n  }\n}\n    "])));
+exports.ListOrganismsDocument = (0, client_1.gql)(templateObject_11 || (templateObject_11 = __makeTemplateObject(["\n    query ListOrganisms {\n  listOrganisms {\n    taxon_id\n    scientific_name\n    citations {\n      title\n      authors\n      pubmed_id\n      journal\n    }\n    downloads {\n      title\n      items {\n        title\n        url\n      }\n    }\n  }\n}\n    "], ["\n    query ListOrganisms {\n  listOrganisms {\n    taxon_id\n    scientific_name\n    citations {\n      title\n      authors\n      pubmed_id\n      journal\n    }\n    downloads {\n      title\n      items {\n        title\n        url\n      }\n    }\n  }\n}\n    "])));
 /**
  * __useListOrganismsQuery__
  *
@@ -314,7 +314,7 @@ function useListOrganismsLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.ListOrganismsDocument, options);
 }
 exports.useListOrganismsLazyQuery = useListOrganismsLazyQuery;
-exports.GeneDocument = client_1.gql(templateObject_12 || (templateObject_12 = __makeTemplateObject(["\n    query Gene($gene: String!) {\n  gene(gene: $gene) {\n    id\n    name\n    goas {\n      id\n      type\n      date\n      evidence_code\n      go_term\n      qualifier\n      publication\n      assigned_by\n      with {\n        id\n        db\n        name\n      }\n      extensions {\n        id\n        db\n        relation\n        name\n      }\n    }\n    strains {\n      id\n      summary\n      dbxrefs\n      systematic_name\n      label\n      species\n      names\n      in_stock\n      phenotypes {\n        phenotype\n        note\n        assay\n        environment\n        publication {\n          id\n          title\n          journal\n          pub_date\n          volume\n          pages\n          issn\n          pub_type\n          source\n          issue\n          authors {\n            first_name\n            last_name\n            initials\n          }\n        }\n      }\n      characteristics\n    }\n  }\n}\n    "], ["\n    query Gene($gene: String!) {\n  gene(gene: $gene) {\n    id\n    name\n    goas {\n      id\n      type\n      date\n      evidence_code\n      go_term\n      qualifier\n      publication\n      assigned_by\n      with {\n        id\n        db\n        name\n      }\n      extensions {\n        id\n        db\n        relation\n        name\n      }\n    }\n    strains {\n      id\n      summary\n      dbxrefs\n      systematic_name\n      label\n      species\n      names\n      in_stock\n      phenotypes {\n        phenotype\n        note\n        assay\n        environment\n        publication {\n          id\n          title\n          journal\n          pub_date\n          volume\n          pages\n          issn\n          pub_type\n          source\n          issue\n          authors {\n            first_name\n            last_name\n            initials\n          }\n        }\n      }\n      characteristics\n    }\n  }\n}\n    "])));
+exports.GeneDocument = (0, client_1.gql)(templateObject_12 || (templateObject_12 = __makeTemplateObject(["\n    query Gene($gene: String!) {\n  gene(gene: $gene) {\n    id\n    name\n    goas {\n      id\n      type\n      date\n      evidence_code\n      go_term\n      qualifier\n      publication\n      assigned_by\n      with {\n        id\n        db\n        name\n      }\n      extensions {\n        id\n        db\n        relation\n        name\n      }\n    }\n    strains {\n      id\n      summary\n      dbxrefs\n      systematic_name\n      label\n      species\n      names\n      in_stock\n      phenotypes {\n        phenotype\n        note\n        assay\n        environment\n        publication {\n          id\n          title\n          journal\n          pub_date\n          volume\n          pages\n          issn\n          pub_type\n          source\n          issue\n          authors {\n            first_name\n            last_name\n            initials\n          }\n        }\n      }\n      characteristics\n    }\n  }\n}\n    "], ["\n    query Gene($gene: String!) {\n  gene(gene: $gene) {\n    id\n    name\n    goas {\n      id\n      type\n      date\n      evidence_code\n      go_term\n      qualifier\n      publication\n      assigned_by\n      with {\n        id\n        db\n        name\n      }\n      extensions {\n        id\n        db\n        relation\n        name\n      }\n    }\n    strains {\n      id\n      summary\n      dbxrefs\n      systematic_name\n      label\n      species\n      names\n      in_stock\n      phenotypes {\n        phenotype\n        note\n        assay\n        environment\n        publication {\n          id\n          title\n          journal\n          pub_date\n          volume\n          pages\n          issn\n          pub_type\n          source\n          issue\n          authors {\n            first_name\n            last_name\n            initials\n          }\n        }\n      }\n      characteristics\n    }\n  }\n}\n    "])));
 /**
  * __useGeneQuery__
  *
@@ -341,7 +341,7 @@ function useGeneLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.GeneDocument, options);
 }
 exports.useGeneLazyQuery = useGeneLazyQuery;
-exports.PublicationDocument = client_1.gql(templateObject_13 || (templateObject_13 = __makeTemplateObject(["\n    query Publication($id: ID!) {\n  publication(id: $id) {\n    id\n    doi\n    title\n    abstract\n    journal\n    pub_date\n    pages\n    issue\n    volume\n    authors {\n      initials\n      last_name\n    }\n  }\n}\n    "], ["\n    query Publication($id: ID!) {\n  publication(id: $id) {\n    id\n    doi\n    title\n    abstract\n    journal\n    pub_date\n    pages\n    issue\n    volume\n    authors {\n      initials\n      last_name\n    }\n  }\n}\n    "])));
+exports.PublicationDocument = (0, client_1.gql)(templateObject_13 || (templateObject_13 = __makeTemplateObject(["\n    query Publication($id: ID!) {\n  publication(id: $id) {\n    id\n    doi\n    title\n    abstract\n    journal\n    pub_date\n    pages\n    issue\n    volume\n    authors {\n      initials\n      last_name\n    }\n  }\n}\n    "], ["\n    query Publication($id: ID!) {\n  publication(id: $id) {\n    id\n    doi\n    title\n    abstract\n    journal\n    pub_date\n    pages\n    issue\n    volume\n    authors {\n      initials\n      last_name\n    }\n  }\n}\n    "])));
 /**
  * __usePublicationQuery__
  *
@@ -368,7 +368,7 @@ function usePublicationLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.PublicationDocument, options);
 }
 exports.usePublicationLazyQuery = usePublicationLazyQuery;
-exports.ListRecentPublicationsDocument = client_1.gql(templateObject_14 || (templateObject_14 = __makeTemplateObject(["\n    query ListRecentPublications($limit: Int! = 4) {\n  listRecentPublications(limit: $limit) {\n    id\n    doi\n    title\n    abstract\n    journal\n    pub_date\n    pages\n    issue\n    volume\n    authors {\n      initials\n      last_name\n    }\n  }\n}\n    "], ["\n    query ListRecentPublications($limit: Int! = 4) {\n  listRecentPublications(limit: $limit) {\n    id\n    doi\n    title\n    abstract\n    journal\n    pub_date\n    pages\n    issue\n    volume\n    authors {\n      initials\n      last_name\n    }\n  }\n}\n    "])));
+exports.ListRecentPublicationsDocument = (0, client_1.gql)(templateObject_14 || (templateObject_14 = __makeTemplateObject(["\n    query ListRecentPublications($limit: Int! = 4) {\n  listRecentPublications(limit: $limit) {\n    id\n    doi\n    title\n    abstract\n    journal\n    pub_date\n    pages\n    issue\n    volume\n    authors {\n      initials\n      last_name\n    }\n  }\n}\n    "], ["\n    query ListRecentPublications($limit: Int! = 4) {\n  listRecentPublications(limit: $limit) {\n    id\n    doi\n    title\n    abstract\n    journal\n    pub_date\n    pages\n    issue\n    volume\n    authors {\n      initials\n      last_name\n    }\n  }\n}\n    "])));
 /**
  * __useListRecentPublicationsQuery__
  *
@@ -395,7 +395,7 @@ function useListRecentPublicationsLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.ListRecentPublicationsDocument, options);
 }
 exports.useListRecentPublicationsLazyQuery = useListRecentPublicationsLazyQuery;
-exports.StockListDocument = client_1.gql(templateObject_15 || (templateObject_15 = __makeTemplateObject(["\n    query StockList($limit: Int!) {\n  listPlasmids(limit: $limit) {\n    totalCount\n  }\n  listStrains(limit: $limit) {\n    totalCount\n  }\n}\n    "], ["\n    query StockList($limit: Int!) {\n  listPlasmids(limit: $limit) {\n    totalCount\n  }\n  listStrains(limit: $limit) {\n    totalCount\n  }\n}\n    "])));
+exports.StockListDocument = (0, client_1.gql)(templateObject_15 || (templateObject_15 = __makeTemplateObject(["\n    query StockList($limit: Int!) {\n  listPlasmids(limit: $limit) {\n    totalCount\n  }\n  listStrains(limit: $limit) {\n    totalCount\n  }\n}\n    "], ["\n    query StockList($limit: Int!) {\n  listPlasmids(limit: $limit) {\n    totalCount\n  }\n  listStrains(limit: $limit) {\n    totalCount\n  }\n}\n    "])));
 /**
  * __useStockListQuery__
  *
@@ -422,7 +422,7 @@ function useStockListLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.StockListDocument, options);
 }
 exports.useStockListLazyQuery = useStockListLazyQuery;
-exports.StrainListDocument = client_1.gql(templateObject_16 || (templateObject_16 = __makeTemplateObject(["\n    query StrainList($cursor: Int!, $limit: Int!, $filter: String!) {\n  listStrains(cursor: $cursor, limit: $limit, filter: $filter) {\n    nextCursor\n    totalCount\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n}\n    "], ["\n    query StrainList($cursor: Int!, $limit: Int!, $filter: String!) {\n  listStrains(cursor: $cursor, limit: $limit, filter: $filter) {\n    nextCursor\n    totalCount\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n}\n    "])));
+exports.StrainListDocument = (0, client_1.gql)(templateObject_16 || (templateObject_16 = __makeTemplateObject(["\n    query StrainList($cursor: Int!, $limit: Int!, $filter: String!) {\n  listStrains(cursor: $cursor, limit: $limit, filter: $filter) {\n    nextCursor\n    totalCount\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n}\n    "], ["\n    query StrainList($cursor: Int!, $limit: Int!, $filter: String!) {\n  listStrains(cursor: $cursor, limit: $limit, filter: $filter) {\n    nextCursor\n    totalCount\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n}\n    "])));
 /**
  * __useStrainListQuery__
  *
@@ -451,7 +451,7 @@ function useStrainListLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.StrainListDocument, options);
 }
 exports.useStrainListLazyQuery = useStrainListLazyQuery;
-exports.ListStrainsWithPhenotypeDocument = client_1.gql(templateObject_17 || (templateObject_17 = __makeTemplateObject(["\n    query ListStrainsWithPhenotype($cursor: Int!, $limit: Int!, $type: String!, $annotation: String!) {\n  listStrainsWithAnnotation(\n    cursor: $cursor\n    limit: $limit\n    type: $type\n    annotation: $annotation\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      genes {\n        name\n      }\n      publications {\n        id\n        pub_date\n        title\n        journal\n        volume\n        pages\n        authors {\n          last_name\n        }\n      }\n    }\n  }\n}\n    "], ["\n    query ListStrainsWithPhenotype($cursor: Int!, $limit: Int!, $type: String!, $annotation: String!) {\n  listStrainsWithAnnotation(\n    cursor: $cursor\n    limit: $limit\n    type: $type\n    annotation: $annotation\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      genes {\n        name\n      }\n      publications {\n        id\n        pub_date\n        title\n        journal\n        volume\n        pages\n        authors {\n          last_name\n        }\n      }\n    }\n  }\n}\n    "])));
+exports.ListStrainsWithPhenotypeDocument = (0, client_1.gql)(templateObject_17 || (templateObject_17 = __makeTemplateObject(["\n    query ListStrainsWithPhenotype($cursor: Int!, $limit: Int!, $type: String!, $annotation: String!) {\n  listStrainsWithAnnotation(\n    cursor: $cursor\n    limit: $limit\n    type: $type\n    annotation: $annotation\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      genes {\n        name\n      }\n      publications {\n        id\n        pub_date\n        title\n        journal\n        volume\n        pages\n        authors {\n          last_name\n        }\n      }\n    }\n  }\n}\n    "], ["\n    query ListStrainsWithPhenotype($cursor: Int!, $limit: Int!, $type: String!, $annotation: String!) {\n  listStrainsWithAnnotation(\n    cursor: $cursor\n    limit: $limit\n    type: $type\n    annotation: $annotation\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      genes {\n        name\n      }\n      publications {\n        id\n        pub_date\n        title\n        journal\n        volume\n        pages\n        authors {\n          last_name\n        }\n      }\n    }\n  }\n}\n    "])));
 /**
  * __useListStrainsWithPhenotypeQuery__
  *
@@ -481,7 +481,7 @@ function useListStrainsWithPhenotypeLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.ListStrainsWithPhenotypeDocument, options);
 }
 exports.useListStrainsWithPhenotypeLazyQuery = useListStrainsWithPhenotypeLazyQuery;
-exports.ListBacterialStrainsDocument = client_1.gql(templateObject_18 || (templateObject_18 = __makeTemplateObject(["\n    query ListBacterialStrains {\n  bacterialFoodSource: listStrainsWithAnnotation(\n    cursor: 0\n    limit: 100\n    type: \"characteristic\"\n    annotation: \"bacterial food source\"\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n  symbioticFarmerBacterium: listStrainsWithAnnotation(\n    cursor: 0\n    limit: 100\n    type: \"characteristic\"\n    annotation: \"symbiotic farmer bacterium\"\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n}\n    "], ["\n    query ListBacterialStrains {\n  bacterialFoodSource: listStrainsWithAnnotation(\n    cursor: 0\n    limit: 100\n    type: \"characteristic\"\n    annotation: \"bacterial food source\"\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n  symbioticFarmerBacterium: listStrainsWithAnnotation(\n    cursor: 0\n    limit: 100\n    type: \"characteristic\"\n    annotation: \"symbiotic farmer bacterium\"\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n}\n    "])));
+exports.ListBacterialStrainsDocument = (0, client_1.gql)(templateObject_18 || (templateObject_18 = __makeTemplateObject(["\n    query ListBacterialStrains {\n  bacterialFoodSource: listStrainsWithAnnotation(\n    cursor: 0\n    limit: 100\n    type: \"characteristic\"\n    annotation: \"bacterial food source\"\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n  symbioticFarmerBacterium: listStrainsWithAnnotation(\n    cursor: 0\n    limit: 100\n    type: \"characteristic\"\n    annotation: \"symbiotic farmer bacterium\"\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n}\n    "], ["\n    query ListBacterialStrains {\n  bacterialFoodSource: listStrainsWithAnnotation(\n    cursor: 0\n    limit: 100\n    type: \"characteristic\"\n    annotation: \"bacterial food source\"\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n  symbioticFarmerBacterium: listStrainsWithAnnotation(\n    cursor: 0\n    limit: 100\n    type: \"characteristic\"\n    annotation: \"symbiotic farmer bacterium\"\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n}\n    "])));
 /**
  * __useListBacterialStrainsQuery__
  *
@@ -507,7 +507,7 @@ function useListBacterialStrainsLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.ListBacterialStrainsDocument, options);
 }
 exports.useListBacterialStrainsLazyQuery = useListBacterialStrainsLazyQuery;
-exports.ListStrainsInventoryDocument = client_1.gql(templateObject_19 || (templateObject_19 = __makeTemplateObject(["\n    query ListStrainsInventory($cursor: Int!, $limit: Int!) {\n  listStrainsWithAnnotation(\n    cursor: $cursor\n    limit: $limit\n    type: \"strain_inventory\"\n    annotation: \"strain_inventory\"\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n}\n    "], ["\n    query ListStrainsInventory($cursor: Int!, $limit: Int!) {\n  listStrainsWithAnnotation(\n    cursor: $cursor\n    limit: $limit\n    type: \"strain_inventory\"\n    annotation: \"strain_inventory\"\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n}\n    "])));
+exports.ListStrainsInventoryDocument = (0, client_1.gql)(templateObject_19 || (templateObject_19 = __makeTemplateObject(["\n    query ListStrainsInventory($cursor: Int!, $limit: Int!) {\n  listStrainsWithAnnotation(\n    cursor: $cursor\n    limit: $limit\n    type: \"strain_inventory\"\n    annotation: \"strain_inventory\"\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n}\n    "], ["\n    query ListStrainsInventory($cursor: Int!, $limit: Int!) {\n  listStrainsWithAnnotation(\n    cursor: $cursor\n    limit: $limit\n    type: \"strain_inventory\"\n    annotation: \"strain_inventory\"\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n}\n    "])));
 /**
  * __useListStrainsInventoryQuery__
  *
@@ -535,7 +535,7 @@ function useListStrainsInventoryLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.ListStrainsInventoryDocument, options);
 }
 exports.useListStrainsInventoryLazyQuery = useListStrainsInventoryLazyQuery;
-exports.ListPlasmidsInventoryDocument = client_1.gql(templateObject_20 || (templateObject_20 = __makeTemplateObject(["\n    query ListPlasmidsInventory($cursor: Int!, $limit: Int!) {\n  listPlasmidsWithAnnotation(\n    cursor: $cursor\n    limit: $limit\n    type: \"plasmid_inventory\"\n    annotation: \"plasmid inventory\"\n  ) {\n    totalCount\n    nextCursor\n    plasmids {\n      id\n      name\n      summary\n      in_stock\n    }\n  }\n}\n    "], ["\n    query ListPlasmidsInventory($cursor: Int!, $limit: Int!) {\n  listPlasmidsWithAnnotation(\n    cursor: $cursor\n    limit: $limit\n    type: \"plasmid_inventory\"\n    annotation: \"plasmid inventory\"\n  ) {\n    totalCount\n    nextCursor\n    plasmids {\n      id\n      name\n      summary\n      in_stock\n    }\n  }\n}\n    "])));
+exports.ListPlasmidsInventoryDocument = (0, client_1.gql)(templateObject_20 || (templateObject_20 = __makeTemplateObject(["\n    query ListPlasmidsInventory($cursor: Int!, $limit: Int!) {\n  listPlasmidsWithAnnotation(\n    cursor: $cursor\n    limit: $limit\n    type: \"plasmid_inventory\"\n    annotation: \"plasmid inventory\"\n  ) {\n    totalCount\n    nextCursor\n    plasmids {\n      id\n      name\n      summary\n      in_stock\n    }\n  }\n}\n    "], ["\n    query ListPlasmidsInventory($cursor: Int!, $limit: Int!) {\n  listPlasmidsWithAnnotation(\n    cursor: $cursor\n    limit: $limit\n    type: \"plasmid_inventory\"\n    annotation: \"plasmid inventory\"\n  ) {\n    totalCount\n    nextCursor\n    plasmids {\n      id\n      name\n      summary\n      in_stock\n    }\n  }\n}\n    "])));
 /**
  * __useListPlasmidsInventoryQuery__
  *
@@ -563,7 +563,7 @@ function useListPlasmidsInventoryLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.ListPlasmidsInventoryDocument, options);
 }
 exports.useListPlasmidsInventoryLazyQuery = useListPlasmidsInventoryLazyQuery;
-exports.PlasmidListFilterDocument = client_1.gql(templateObject_21 || (templateObject_21 = __makeTemplateObject(["\n    query PlasmidListFilter($cursor: Int!, $limit: Int!, $filter: String!) {\n  listPlasmids(cursor: $cursor, limit: $limit, filter: $filter) {\n    nextCursor\n    totalCount\n    plasmids {\n      id\n      name\n      summary\n      in_stock\n    }\n  }\n}\n    "], ["\n    query PlasmidListFilter($cursor: Int!, $limit: Int!, $filter: String!) {\n  listPlasmids(cursor: $cursor, limit: $limit, filter: $filter) {\n    nextCursor\n    totalCount\n    plasmids {\n      id\n      name\n      summary\n      in_stock\n    }\n  }\n}\n    "])));
+exports.PlasmidListFilterDocument = (0, client_1.gql)(templateObject_21 || (templateObject_21 = __makeTemplateObject(["\n    query PlasmidListFilter($cursor: Int!, $limit: Int!, $filter: String!) {\n  listPlasmids(cursor: $cursor, limit: $limit, filter: $filter) {\n    nextCursor\n    totalCount\n    plasmids {\n      id\n      name\n      summary\n      in_stock\n    }\n  }\n}\n    "], ["\n    query PlasmidListFilter($cursor: Int!, $limit: Int!, $filter: String!) {\n  listPlasmids(cursor: $cursor, limit: $limit, filter: $filter) {\n    nextCursor\n    totalCount\n    plasmids {\n      id\n      name\n      summary\n      in_stock\n    }\n  }\n}\n    "])));
 /**
  * __usePlasmidListFilterQuery__
  *
@@ -592,7 +592,7 @@ function usePlasmidListFilterLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.PlasmidListFilterDocument, options);
 }
 exports.usePlasmidListFilterLazyQuery = usePlasmidListFilterLazyQuery;
-exports.PlasmidDocument = client_1.gql(templateObject_22 || (templateObject_22 = __makeTemplateObject(["\n    query Plasmid($id: ID!) {\n  plasmid(id: $id) {\n    id\n    name\n    summary\n    depositor {\n      first_name\n      last_name\n    }\n    publications {\n      id\n      pub_date\n      title\n      journal\n      volume\n      pages\n      doi\n      authors {\n        last_name\n      }\n    }\n    dbxrefs\n    genes {\n      name\n    }\n    image_map\n    sequence\n    keywords\n    genbank_accession\n    in_stock\n  }\n}\n    "], ["\n    query Plasmid($id: ID!) {\n  plasmid(id: $id) {\n    id\n    name\n    summary\n    depositor {\n      first_name\n      last_name\n    }\n    publications {\n      id\n      pub_date\n      title\n      journal\n      volume\n      pages\n      doi\n      authors {\n        last_name\n      }\n    }\n    dbxrefs\n    genes {\n      name\n    }\n    image_map\n    sequence\n    keywords\n    genbank_accession\n    in_stock\n  }\n}\n    "])));
+exports.PlasmidDocument = (0, client_1.gql)(templateObject_22 || (templateObject_22 = __makeTemplateObject(["\n    query Plasmid($id: ID!) {\n  plasmid(id: $id) {\n    id\n    name\n    summary\n    depositor {\n      first_name\n      last_name\n    }\n    publications {\n      id\n      pub_date\n      title\n      journal\n      volume\n      pages\n      doi\n      authors {\n        last_name\n      }\n    }\n    dbxrefs\n    genes {\n      name\n    }\n    image_map\n    sequence\n    keywords\n    genbank_accession\n    in_stock\n  }\n}\n    "], ["\n    query Plasmid($id: ID!) {\n  plasmid(id: $id) {\n    id\n    name\n    summary\n    depositor {\n      first_name\n      last_name\n    }\n    publications {\n      id\n      pub_date\n      title\n      journal\n      volume\n      pages\n      doi\n      authors {\n        last_name\n      }\n    }\n    dbxrefs\n    genes {\n      name\n    }\n    image_map\n    sequence\n    keywords\n    genbank_accession\n    in_stock\n  }\n}\n    "])));
 /**
  * __usePlasmidQuery__
  *
@@ -619,7 +619,7 @@ function usePlasmidLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.PlasmidDocument, options);
 }
 exports.usePlasmidLazyQuery = usePlasmidLazyQuery;
-exports.StrainDocument = client_1.gql(templateObject_23 || (templateObject_23 = __makeTemplateObject(["\n    query Strain($id: ID!) {\n  strain(id: $id) {\n    id\n    label\n    summary\n    species\n    parent {\n      id\n      label\n    }\n    depositor {\n      first_name\n      last_name\n    }\n    plasmid\n    dbxrefs\n    publications {\n      id\n      pub_date\n      title\n      journal\n      volume\n      pages\n      doi\n      authors {\n        last_name\n      }\n    }\n    genes {\n      name\n    }\n    in_stock\n    systematic_name\n    genotypes\n    mutagenesis_method\n    genetic_modification\n    names\n    characteristics\n    phenotypes {\n      phenotype\n      note\n      assay\n      environment\n      publication {\n        id\n        pub_date\n        title\n        journal\n        volume\n        pages\n        authors {\n          last_name\n        }\n      }\n    }\n  }\n}\n    "], ["\n    query Strain($id: ID!) {\n  strain(id: $id) {\n    id\n    label\n    summary\n    species\n    parent {\n      id\n      label\n    }\n    depositor {\n      first_name\n      last_name\n    }\n    plasmid\n    dbxrefs\n    publications {\n      id\n      pub_date\n      title\n      journal\n      volume\n      pages\n      doi\n      authors {\n        last_name\n      }\n    }\n    genes {\n      name\n    }\n    in_stock\n    systematic_name\n    genotypes\n    mutagenesis_method\n    genetic_modification\n    names\n    characteristics\n    phenotypes {\n      phenotype\n      note\n      assay\n      environment\n      publication {\n        id\n        pub_date\n        title\n        journal\n        volume\n        pages\n        authors {\n          last_name\n        }\n      }\n    }\n  }\n}\n    "])));
+exports.StrainDocument = (0, client_1.gql)(templateObject_23 || (templateObject_23 = __makeTemplateObject(["\n    query Strain($id: ID!) {\n  strain(id: $id) {\n    id\n    label\n    summary\n    species\n    parent {\n      id\n      label\n    }\n    depositor {\n      first_name\n      last_name\n    }\n    plasmid\n    dbxrefs\n    publications {\n      id\n      pub_date\n      title\n      journal\n      volume\n      pages\n      doi\n      authors {\n        last_name\n      }\n    }\n    genes {\n      name\n    }\n    in_stock\n    systematic_name\n    genotypes\n    mutagenesis_method\n    genetic_modification\n    names\n    characteristics\n    phenotypes {\n      phenotype\n      note\n      assay\n      environment\n      publication {\n        id\n        pub_date\n        title\n        journal\n        volume\n        pages\n        authors {\n          last_name\n        }\n      }\n    }\n  }\n}\n    "], ["\n    query Strain($id: ID!) {\n  strain(id: $id) {\n    id\n    label\n    summary\n    species\n    parent {\n      id\n      label\n    }\n    depositor {\n      first_name\n      last_name\n    }\n    plasmid\n    dbxrefs\n    publications {\n      id\n      pub_date\n      title\n      journal\n      volume\n      pages\n      doi\n      authors {\n        last_name\n      }\n    }\n    genes {\n      name\n    }\n    in_stock\n    systematic_name\n    genotypes\n    mutagenesis_method\n    genetic_modification\n    names\n    characteristics\n    phenotypes {\n      phenotype\n      note\n      assay\n      environment\n      publication {\n        id\n        pub_date\n        title\n        journal\n        volume\n        pages\n        authors {\n          last_name\n        }\n      }\n    }\n  }\n}\n    "])));
 /**
  * __useStrainQuery__
  *
@@ -646,7 +646,7 @@ function useStrainLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.StrainDocument, options);
 }
 exports.useStrainLazyQuery = useStrainLazyQuery;
-exports.UserByEmailDocument = client_1.gql(templateObject_24 || (templateObject_24 = __makeTemplateObject(["\n    query UserByEmail($email: String!) {\n  userByEmail(email: $email) {\n    id\n  }\n}\n    "], ["\n    query UserByEmail($email: String!) {\n  userByEmail(email: $email) {\n    id\n  }\n}\n    "])));
+exports.UserByEmailDocument = (0, client_1.gql)(templateObject_24 || (templateObject_24 = __makeTemplateObject(["\n    query UserByEmail($email: String!) {\n  userByEmail(email: $email) {\n    id\n  }\n}\n    "], ["\n    query UserByEmail($email: String!) {\n  userByEmail(email: $email) {\n    id\n  }\n}\n    "])));
 /**
  * __useUserByEmailQuery__
  *
