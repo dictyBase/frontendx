@@ -9,6 +9,7 @@ type Query {
   listOrganisms: [Organism!]
   # Gene queries
   gene(gene: String!): Gene
+  allStrains(gene: String!): Gene
   # Order queries
   order(id: ID!): Order
   listOrders(cursor: Int, limit: Int, filter: String): OrderListWithCursor
