@@ -9,7 +9,7 @@ query Gene($gene: String!) {
       in_stock
       phenotypes {
         phenotype
-        publications {
+        publication {
           id
           title
           journal
