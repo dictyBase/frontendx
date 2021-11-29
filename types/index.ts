@@ -483,6 +483,7 @@ export type Query = {
   organism?: Maybe<Organism>;
   listOrganisms?: Maybe<Array<Organism>>;
   gene?: Maybe<Gene>;
+  allStrains?: Maybe<Gene>;
   order?: Maybe<Order>;
   listOrders?: Maybe<OrderListWithCursor>;
   publication?: Maybe<Publication>;
@@ -524,6 +525,11 @@ export type QueryOrganismArgs = {
 
 
 export type QueryGeneArgs = {
+  gene: Scalars['String'];
+};
+
+
+export type QueryAllStrainsArgs = {
   gene: Scalars['String'];
 };
 
@@ -1021,7 +1027,26 @@ export type GeneQueryVariables = Exact<{
 
 export type GeneQuery = (
   { __typename?: 'Query' }
-  & { gene?: Maybe<(
+  & { allStrains?: Maybe<(
+    { __typename?: 'Gene' }
+    & Pick<Gene, 'id' | 'name'>
+    & { strains?: Maybe<Array<Maybe<(
+      { __typename?: 'Strain' }
+      & Pick<Strain, 'id' | 'label' | 'characteristics' | 'in_stock'>
+      & { phenotypes?: Maybe<Array<Maybe<(
+        { __typename?: 'Phenotype' }
+        & Pick<Phenotype, 'phenotype'>
+        & { publication?: Maybe<(
+          { __typename?: 'Publication' }
+          & Pick<Publication, 'id' | 'title' | 'journal' | 'pages' | 'volume' | 'pub_date'>
+          & { authors?: Maybe<Array<Maybe<(
+            { __typename?: 'Author' }
+            & Pick<Author, 'last_name' | 'rank'>
+          )>>> }
+        )> }
+      )>>> }
+    )>>> }
+  )>, gene?: Maybe<(
     { __typename?: 'Gene' }
     & Pick<Gene, 'id' | 'name'>
     & { goas?: Maybe<Array<Maybe<(
@@ -1034,21 +1059,6 @@ export type GeneQuery = (
         { __typename?: 'Extension' }
         & Pick<Extension, 'id' | 'db' | 'relation' | 'name'>
       )>> }
-    )>>>, strains?: Maybe<Array<Maybe<(
-      { __typename?: 'Strain' }
-      & Pick<Strain, 'id' | 'summary' | 'dbxrefs' | 'systematic_name' | 'label' | 'species' | 'names' | 'in_stock' | 'characteristics'>
-      & { phenotypes?: Maybe<Array<Maybe<(
-        { __typename?: 'Phenotype' }
-        & Pick<Phenotype, 'phenotype' | 'note' | 'assay' | 'environment'>
-        & { publication?: Maybe<(
-          { __typename?: 'Publication' }
-          & Pick<Publication, 'id' | 'title' | 'journal' | 'pub_date' | 'volume' | 'pages' | 'issn' | 'pub_type' | 'source' | 'issue'>
-          & { authors?: Maybe<Array<Maybe<(
-            { __typename?: 'Author' }
-            & Pick<Author, 'first_name' | 'last_name' | 'initials'>
-          )>>> }
-        )> }
-      )>>> }
     )>>> }
   )> }
 );
@@ -1774,6 +1784,31 @@ export type ListOrganismsLazyQueryHookResult = ReturnType<typeof useListOrganism
 export type ListOrganismsQueryResult = Apollo.QueryResult<ListOrganismsQuery, ListOrganismsQueryVariables>;
 export const GeneDocument = gql`
     query Gene($gene: String!) {
+  allStrains(gene: $gene) {
+    id
+    name
+    strains {
+      id
+      label
+      characteristics
+      in_stock
+      phenotypes {
+        phenotype
+        publication {
+          id
+          title
+          journal
+          pages
+          volume
+          pub_date
+          authors {
+            last_name
+            rank
+          }
+        }
+      }
+    }
+  }
   gene(gene: $gene) {
     id
     name
@@ -1797,40 +1832,6 @@ export const GeneDocument = gql`
         relation
         name
       }
-    }
-    strains {
-      id
-      summary
-      dbxrefs
-      systematic_name
-      label
-      species
-      names
-      in_stock
-      phenotypes {
-        phenotype
-        note
-        assay
-        environment
-        publication {
-          id
-          title
-          journal
-          pub_date
-          volume
-          pages
-          issn
-          pub_type
-          source
-          issue
-          authors {
-            first_name
-            last_name
-            initials
-          }
-        }
-      }
-      characteristics
     }
   }
 }
