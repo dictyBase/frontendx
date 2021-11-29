@@ -2,7 +2,7 @@ type Gene {
   id: String!
   name: String!
   goas: [GOAnnotation]
-  gene_strains: [GeneStrain]
+  strains: [Strain]
 }
 
 type GOAnnotation {
@@ -29,22 +29,4 @@ type Extension {
   db: String!
   relation: String!
   name: String!
-}
-
-type GeneStrain implements Stock {
-  id: ID!
-  summary: String
-  genes: [Gene]
-  dbxrefs: [String]
-  publications: [Publication]
-  # from strain_properties
-  systematic_name: String!
-  label: String! # update to strain?
-  species: String!
-  parent: Strain
-  names: [String]
-  phenotypes: [Phenotype]
-  characteristics: [String]
-
-  in_stock: Boolean!
 }

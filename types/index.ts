@@ -202,6 +202,7 @@ export type Gene = {
   id: Scalars['String'];
   name: Scalars['String'];
   goas?: Maybe<Array<Maybe<GoAnnotation>>>;
+  strains?: Maybe<Array<Maybe<Strain>>>;
 };
 
 export type Identity = {
@@ -1033,6 +1034,21 @@ export type GeneQuery = (
         { __typename?: 'Extension' }
         & Pick<Extension, 'id' | 'db' | 'relation' | 'name'>
       )>> }
+    )>>>, strains?: Maybe<Array<Maybe<(
+      { __typename?: 'Strain' }
+      & Pick<Strain, 'id' | 'summary' | 'dbxrefs' | 'systematic_name' | 'label' | 'species' | 'names' | 'in_stock' | 'characteristics'>
+      & { phenotypes?: Maybe<Array<Maybe<(
+        { __typename?: 'Phenotype' }
+        & Pick<Phenotype, 'phenotype' | 'note' | 'assay' | 'environment'>
+        & { publication?: Maybe<(
+          { __typename?: 'Publication' }
+          & Pick<Publication, 'id' | 'title' | 'journal' | 'pub_date' | 'volume' | 'pages' | 'issn' | 'pub_type' | 'source' | 'issue'>
+          & { authors?: Maybe<Array<Maybe<(
+            { __typename?: 'Author' }
+            & Pick<Author, 'first_name' | 'last_name' | 'initials'>
+          )>>> }
+        )> }
+      )>>> }
     )>>> }
   )> }
 );
@@ -1781,6 +1797,40 @@ export const GeneDocument = gql`
         relation
         name
       }
+    }
+    strains {
+      id
+      summary
+      dbxrefs
+      systematic_name
+      label
+      species
+      names
+      in_stock
+      phenotypes {
+        phenotype
+        note
+        assay
+        environment
+        publication {
+          id
+          title
+          journal
+          pub_date
+          volume
+          pages
+          issn
+          pub_type
+          source
+          issue
+          authors {
+            first_name
+            last_name
+            initials
+          }
+        }
+      }
+      characteristics
     }
   }
 }

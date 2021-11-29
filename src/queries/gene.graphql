@@ -33,7 +33,7 @@ query Gene($gene: String!) {
       names
       in_stock
       phenotypes {
-        phenotypes
+        phenotype
         note
         assay
         environment
@@ -58,3 +58,4 @@ query Gene($gene: String!) {
       characteristics
     }
   }
+}
