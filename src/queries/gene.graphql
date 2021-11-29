@@ -23,5 +23,39 @@ query Gene($gene: String!) {
         name
       }
     }
+    strains {
+      id
+      summary
+      dbxrefs
+      systematic_name
+      label
+      species
+      names
+      in_stock
+      phenotypes {
+        phenotype
+        note
+        assay
+        environment
+        publication {
+          id
+          title
+          journal
+          pub_date
+          volume
+          pages
+          issn
+          pub_type
+          source
+          issue
+          authors {
+            first_name
+            last_name
+            initials
+          }
+        }
+      }
+      characteristics
+    }
   }
 }

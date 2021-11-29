@@ -2,6 +2,7 @@ type Gene {
   id: String!
   name: String!
   goas: [GOAnnotation]
+  strains: [Strain]
 }
 
 type GOAnnotation {
