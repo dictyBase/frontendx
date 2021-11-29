@@ -7,18 +7,18 @@ query Gene($gene: String!) {
       label
       characteristics
       in_stock
-      phenotypes { 
+      phenotypes {
         phenotype
-      }
-      publications { 
-        id
-        title
-        journal
-        pages
-        volume
-        pub_date
-        authors { 
-          last_name
+        publications {
+          id
+          title
+          journal
+          pages
+          volume
+          pub_date
+          authors {
+            last_name
+          }
         }
       }
     }
