@@ -1,3 +1,18 @@
+# [1.2.0](https://github.com/dictyBase/graphql-schema/compare/1.1.4...1.2.0) (2021-11-29)
+
+
+### Bug Fixes
+
+* move publications inside phenotypes ([9b7c59c](https://github.com/dictyBase/graphql-schema/commit/9b7c59c94468eb7da47cde580339525028be4a81))
+* typo with publication field ([db33eff](https://github.com/dictyBase/graphql-schema/commit/db33eff08449aaf06a4d0c9852baeb708e946b14))
+
+
+### Features
+
+* add allStrains to the query type ([6aeb15d](https://github.com/dictyBase/graphql-schema/commit/6aeb15d437dca41a18fb090ea3add0ba2e8f6737))
+* add author rank in addition to their last name ([e0c92fc](https://github.com/dictyBase/graphql-schema/commit/e0c92fc1b762126d648edbba872cdcf85af94d2f))
+* generate new types with yarn run compile ([da82447](https://github.com/dictyBase/graphql-schema/commit/da824473c41a8fcd14f4759b3e6a46afa0103c25))
+
 ## [1.1.4](https://github.com/dictyBase/graphql-schema/compare/1.1.3...1.1.4) (2021-11-04)
 
 
