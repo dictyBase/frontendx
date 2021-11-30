@@ -17,7 +17,7 @@ const commaSeparate = (array: string[], initialValue?: string): string => {
 
 /**
  * Given an array of strings, return a single string with elements separated by a comma and an "&"
- * Ex. ["Mike", "Fox", "Tito"] -> "Mike, Fox, & Tito"
+ * Ex. ["Mike", "Fox", "Tito"] -> "Mike, Fox & Tito"
  * @param array
  * @param initialValue
  * @returns String with elements separated by a comma, and the last element with an "&"
