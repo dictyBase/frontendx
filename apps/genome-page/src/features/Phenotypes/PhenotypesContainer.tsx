@@ -24,7 +24,7 @@ const PhenotypesContainer = () => {
   if (error || !data?.allStrains) return <GraphQLErrorPage error={error} />
 
   const geneName = gene as string
-  const strains = data.allStrains.strains as Strain[]
+  const strains = data.allStrains?.strains as Strain[]
 
   return (
     <Layout gene={geneName}>
