@@ -9,6 +9,7 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core"
+import ShoppingCart from "@material-ui/icons/ShoppingCart"
 import { Phenotype, Strain } from "dicty-graphql-schema"
 import PhenotypeRow from "./PhenotypeRow"
 
@@ -44,6 +45,7 @@ const StrainRow = ({ strain }: { strain: Strain }) => {
             strain={strain.label}
             characteristics={characteristics}
             phenotype={phenotype}
+            in_stock={strain.in_stock}
           />
         ) : (
           <PhenotypeRow id={strain.id} phenotype={phenotype} />
@@ -61,6 +63,9 @@ const PhenotypesDataTable = ({ data }: PhenotypesDataTableProps) => {
       <Table aria-label="phenotypes-table">
         <TableHead className={classes.head}>
           <TableRow className={classes.headRow}>
+            <TableCell>
+              <ShoppingCart />
+            </TableCell>
             <TableCell>Strain</TableCell>
             <TableCell>Characteristics</TableCell>
             <TableCell>Phenotype</TableCell>
