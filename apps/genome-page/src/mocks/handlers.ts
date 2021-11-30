@@ -7,11 +7,7 @@ export const handlers = [
   graphql.query("Gene", (req, res, ctx) => {
     const gene = req.body?.variables?.gene
     if (gene === "sadA") {
-      return res(
-        ctx.data({
-          gene: { ...mockGene.gene },
-        }),
-      )
+      return res(ctx.data({ ...mockGene }))
     }
   }),
 ]
