@@ -7,13 +7,13 @@ const mockGene: { gene: Gene; allStrains: Gene } = {
     __typename: "Gene",
     id: "DDB_G0288511",
     name: "sadA",
-    goas: { ...mockOntologyData.goas },
+    goas: [...mockOntologyData.goas],
   },
   allStrains: {
     __typename: "Gene",
     id: "DDB_G0288511",
     name: "sadA",
-    strains: { ...mockPhenotypesData.strains },
+    strains: [...mockPhenotypesData.strains],
   },
 }
 export default mockGene
