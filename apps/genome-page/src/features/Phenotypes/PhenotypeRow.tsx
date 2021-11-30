@@ -1,4 +1,5 @@
 import { TableRow, TableCell, Box } from "@material-ui/core"
+import { commaSeparate } from "common/utils/strings"
 import { Phenotype } from "dicty-graphql-schema"
 
 interface PhenotypeRowProps {
@@ -28,7 +29,9 @@ const PhenotypeRow = ({
           <></>
         )}
       </TableCell>
-      <TableCell>{characteristics ? characteristics : ""}</TableCell>
+      <TableCell>
+        {characteristics ? commaSeparate(characteristics) : ""}
+      </TableCell>
       <TableCell>{phenotype.phenotype}</TableCell>
       <TableCell></TableCell>
     </TableRow>
