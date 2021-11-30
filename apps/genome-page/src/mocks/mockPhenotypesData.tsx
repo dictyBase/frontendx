@@ -168,7 +168,7 @@ const mockPhenotypesData: { strains: Strain[] } = {
           },
         },
       ],
-      in_stock: false,
+      in_stock: true,
     } as Strain,
 
     // Third
