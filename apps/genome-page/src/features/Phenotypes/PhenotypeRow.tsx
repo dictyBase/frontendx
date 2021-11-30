@@ -1,6 +1,6 @@
 import { TableRow, TableCell, Box } from "@material-ui/core"
-import { commaSeparate } from "common/utils/strings"
-import { Phenotype } from "dicty-graphql-schema"
+import { commaSeparate, commaSeparateWithAnd } from "common/utils/strings"
+import { Phenotype, Publication } from "dicty-graphql-schema"
 
 interface PhenotypeRowProps {
   id: string
@@ -15,6 +15,12 @@ const PhenotypeRow = ({
   characteristics,
   phenotype,
 }: PhenotypeRowProps) => {
+  const { authors, title, journal, issue } =
+    phenotype.publication as Publication
+  const authorLastNames = authors?.map(
+    (a) => a?.last_name as string,
+  ) as string[]
+
   return (
     <TableRow>
       <TableCell>
@@ -33,7 +39,10 @@ const PhenotypeRow = ({
         {characteristics ? commaSeparate(characteristics) : ""}
       </TableCell>
       <TableCell>{phenotype.phenotype}</TableCell>
-      <TableCell></TableCell>
+      <TableCell>
+        <b>{commaSeparateWithAnd(authorLastNames)}</b> '{title}'{" "}
+        <i>{journal}</i> {issue}
+      </TableCell>
     </TableRow>
   )
 }
