@@ -46,9 +46,10 @@ const StrainRow = ({ strain }: { strain: Strain }) => {
             characteristics={characteristics}
             phenotype={phenotype}
             in_stock={strain.in_stock}
+            key={index}
           />
         ) : (
-          <PhenotypeRow id={strain.id} phenotype={phenotype} />
+          <PhenotypeRow id={strain.id} phenotype={phenotype} key={index} />
         ),
       )}
     </>
@@ -73,8 +74,8 @@ const PhenotypesDataTable = ({ data }: PhenotypesDataTableProps) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((strain) => (
-            <StrainRow strain={strain} />
+          {data.map((strain, i) => (
+            <StrainRow strain={strain} key={`strain#${i}`} />
           ))}
         </TableBody>
       </Table>
