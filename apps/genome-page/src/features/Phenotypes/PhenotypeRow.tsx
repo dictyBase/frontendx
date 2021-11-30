@@ -40,8 +40,9 @@ const PhenotypeRow = ({
       </TableCell>
       <TableCell>{phenotype.phenotype}</TableCell>
       <TableCell>
-        <b>{commaSeparateWithAnd(authorLastNames)}</b> '{title}'{" "}
-        <i>{journal}</i> {issue}
+        <b>{commaSeparateWithAnd(authorLastNames)}</b> &nbsp;
+        <span>'{title}'</span> &nbsp;
+        <i>{journal}</i> &nbsp; <span>{issue}</span>
       </TableCell>
     </TableRow>
   )
