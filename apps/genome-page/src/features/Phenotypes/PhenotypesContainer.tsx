@@ -9,8 +9,7 @@ import PhenotypesLoader from "./PhenotypesLoader"
 import PhenotypesDataTable from "./PhenotypesDataTable"
 
 const PhenotypesContainer = () => {
-  let { gene } = useParams()
-  if (!gene) gene = ""
+  const gene = useParams().gene as string
 
   const { loading, error, data } = useGeneQuery({
     variables: {
