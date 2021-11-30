@@ -1,4 +1,5 @@
-import { TableRow, TableCell, Box } from "@material-ui/core"
+import { TableRow, TableCell, Box, IconButton } from "@material-ui/core"
+import { RemoveShoppingCart, ShoppingCart } from "@material-ui/icons"
 import { commaSeparate, commaSeparateWithAnd } from "common/utils/strings"
 import { Phenotype, Publication } from "dicty-graphql-schema"
 
@@ -7,6 +8,21 @@ interface PhenotypeRowProps {
   strain?: string
   characteristics?: string[]
   phenotype: Phenotype
+  in_stock?: boolean
+}
+
+const renderInStock = (in_stock: boolean) => {
+  if (in_stock)
+    return (
+      <IconButton size="small">
+        <ShoppingCart color="secondary" />
+      </IconButton>
+    )
+  return (
+    <IconButton size="small" disabled>
+      <RemoveShoppingCart />
+    </IconButton>
+  )
 }
 
 const PhenotypeRow = ({
@@ -14,6 +30,7 @@ const PhenotypeRow = ({
   strain,
   characteristics,
   phenotype,
+  in_stock,
 }: PhenotypeRowProps) => {
   const { authors, title, journal, issue } =
     phenotype.publication as Publication
@@ -23,6 +40,9 @@ const PhenotypeRow = ({
 
   return (
     <TableRow>
+      <TableCell>
+        {in_stock !== undefined ? renderInStock(in_stock) : <></>}
+      </TableCell>
       <TableCell>
         {strain ? (
           <>
