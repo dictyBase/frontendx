@@ -5841,6 +5841,7 @@ dicty-components-login@dictybase/dicty-components-login#4.1.1:
 
 dicty-graphql-schema@dictybase/dicty-graphql-schema#1.2.0:
   version "1.2.0"
+  uid "7101a4600b193d8061f3b40b29222aeeb98a431e"
   resolved "https://codeload.github.com/dictybase/dicty-graphql-schema/tar.gz/7101a4600b193d8061f3b40b29222aeeb98a431e"
 
 dicty-hooks@dictybase/dicty-hooks#3.0.0:
