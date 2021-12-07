@@ -4,7 +4,6 @@ import Login, { createOauthURL, generateErrorDisplayMessage } from "./Login"
 import MockAuthProvider from "common/mocks/MockAuthProvider"
 import userEvent from "@testing-library/user-event"
 import { ApolloError } from "@apollo/client"
-import { GraphQLError } from "graphql"
 
 describe("features/Authentication/Login", () => {
   const globalAny = global as any
@@ -104,7 +103,19 @@ describe("features/Authentication/Login", () => {
         },
         extraInfo: {},
         name: "",
-        graphQLErrors: [new GraphQLError("")],
+        graphQLErrors: [
+          {
+            message: "",
+            extensions: {},
+            locations: undefined,
+            nodes: undefined,
+            source: undefined,
+            positions: undefined,
+            originalError: undefined,
+            name: "",
+            path: [""],
+          },
+        ],
         clientErrors: [],
       }
       expect(generateErrorDisplayMessage(error)).toEqual("Network Error")
@@ -116,18 +127,20 @@ describe("features/Authentication/Login", () => {
         extraInfo: {},
         name: "",
         graphQLErrors: [
-          new GraphQLError(
-            "",
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            {
+          {
+            message: "",
+            extensions: {
               code: "NotFound",
               timestamp: "cye",
             },
-          ),
+            locations: undefined,
+            nodes: undefined,
+            source: undefined,
+            positions: undefined,
+            originalError: undefined,
+            name: "",
+            path: [""],
+          },
         ],
         clientErrors: [],
       }
@@ -141,7 +154,19 @@ describe("features/Authentication/Login", () => {
         networkError: null,
         extraInfo: {},
         name: "",
-        graphQLErrors: [new GraphQLError("")],
+        graphQLErrors: [
+          {
+            message: "",
+            extensions: {},
+            locations: undefined,
+            nodes: undefined,
+            source: undefined,
+            positions: undefined,
+            originalError: undefined,
+            name: "",
+            path: [""],
+          },
+        ],
         clientErrors: [],
       }
       expect(generateErrorDisplayMessage(error)).toContain("Could not log in")
