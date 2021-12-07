@@ -1,40 +1,42 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { makeStyles, Theme } from "@material-ui/core/styles"
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles"
 import Accordion from "@material-ui/core/Accordion"
 import AccordionSummary from "@material-ui/core/AccordionSummary"
 import AccordionDetails from "@material-ui/core/AccordionActions"
 import Typography from "@material-ui/core/Typography"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    width: "100%",
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightRegular,
-    color: "#fff",
-  },
-  summary: {
-    backgroundColor: "#004080",
-    marginTop: "0px",
-  },
-  icon: {
-    color: "#fff",
-  },
-  details: {
-    padding: 0,
-  },
-  innerContent: {
-    width: "100%",
-  },
-  link: {
-    color: "#e1f5fe",
-    marginLeft: 40,
-    textDecoration: "none",
-  },
-}))
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      width: "100%",
+    },
+    heading: {
+      fontSize: theme.typography.pxToRem(15),
+      fontWeight: "normal",
+      color: "#fff",
+    },
+    summary: {
+      backgroundColor: "#004080",
+      marginTop: "0px",
+    },
+    icon: {
+      color: "#fff",
+    },
+    details: {
+      padding: 0,
+    },
+    innerContent: {
+      width: "100%",
+    },
+    link: {
+      color: "#e1f5fe",
+      marginLeft: 40,
+      textDecoration: "none",
+    },
+  }),
+)
 
 type Props = {
   /** Any content to display inside the panel */
