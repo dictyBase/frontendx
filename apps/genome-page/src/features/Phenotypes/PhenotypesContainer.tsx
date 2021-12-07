@@ -22,16 +22,15 @@ const PhenotypesContainer = () => {
 
   if (error || !data?.allStrains) return <GraphQLErrorPage error={error} />
 
-  const geneName = gene as string
   const strains = data.allStrains?.strains as Strain[]
 
   return (
-    <Layout gene={geneName}>
+    <Layout gene={gene}>
       <Helmet>
-        <title>Phenotypes for {geneName} - dictyBase</title>
+        <title>Phenotypes for {gene} - dictyBase</title>
         <meta
           name="description"
-          content={`Gene Ontology Annotations for ${geneName} at dictyBase`}
+          content={`Gene Ontology Annotations for ${gene} at dictyBase`}
         />
       </Helmet>
 
