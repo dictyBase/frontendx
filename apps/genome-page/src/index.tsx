@@ -12,7 +12,7 @@ const main = async () => {
   if (process.env.NODE_ENV === "development") {
     // Redirect to /gene
     if (window.location.pathname === "/") {
-      window.location.pathname = "/gene"
+      window.location.pathname = "/gene/sadA"
     }
 
     // Activate MSW
