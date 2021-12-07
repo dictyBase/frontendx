@@ -2,7 +2,7 @@ import React from "react"
 import { useParams } from "react-router-dom"
 import { Helmet } from "react-helmet"
 import Grid from "@material-ui/core/Grid"
-import { usePublicationQuery } from "dicty-graphql-schema"
+import { Publication, usePublicationQuery } from "dicty-graphql-schema"
 import LeftSidebar from "./LeftSidebar"
 import PublicationDisplay from "./PublicationDisplay"
 import PublicationLoader from "./PublicationLoader"
@@ -24,9 +24,10 @@ const PublicationContainer = () => {
   })
 
   if (loading) return <PublicationLoader />
-  if (error) return <ErrorPage />
+  if (error || !data) return <ErrorPage />
 
   const title = data?.publication?.title || ""
+  const publication = data.publication as Publication
 
   return (
     <Grid container>
@@ -43,10 +44,10 @@ const PublicationContainer = () => {
       {data?.publication && (
         <React.Fragment>
           <Grid item xs={12} sm={2} className={classes.sidebar}>
-            <LeftSidebar doi={data.publication.doi} />
+            <LeftSidebar doi={publication.doi} />
           </Grid>
           <Grid item xs={12} sm={10}>
-            <PublicationDisplay data={data.publication} />
+            <PublicationDisplay data={publication} />
           </Grid>
         </React.Fragment>
       )}
