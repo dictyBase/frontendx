@@ -12,8 +12,8 @@ ENV CLIENT_KEYS ${client_keys}
 ARG basename
 ENV NEXT_PUBLIC_BASENAME ${basename:-publication}
 
-ARG deploy_env
-ENV DEPLOY_ENV ${deploy_env}
+ARG NEXT_PUBLIC_DEPLOY_ENV
+ENV NEXT_PUBLIC_DEPLOY_ENV ${NEXT_PUBLIC_DEPLOY_ENV}
 
 ARG alt_graphql_server
 ENV NEXT_PUBLIC_ALT_GRAPHQL_SERVER ${alt_graphql_server:-https://betagraphql.dictycr.org}

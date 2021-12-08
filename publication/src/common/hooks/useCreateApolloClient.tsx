@@ -43,7 +43,7 @@ let server = ""
 if (typeof window !== "undefined") {
   server = getGraphQLServer(
     process.env.NEXT_PUBLIC_GRAPHQL_SERVER,
-    process.env.DEPLOY_ENV,
+    process.env.NEXT_PUBLIC_DEPLOY_ENV,
     window.location.origin,
   )
 }
