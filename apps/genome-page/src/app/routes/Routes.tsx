@@ -40,7 +40,6 @@ const Routes = () => {
             <Route index element={<SummaryPage />} />
             <Route path="goannotations" element={<OntologyPage />} />
             <Route path="phenotypes" element={<PhenotypesPage />} />
-            <Route path="*" element={<PageNotReady />} />
           </Route>
         </Route>
         <Route path="*" element={<PageNotReady />} />
