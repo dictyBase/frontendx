@@ -1,4 +1,10 @@
-import { TableRow, TableCell, Box, IconButton } from "@material-ui/core"
+import {
+  TableRow,
+  TableCell,
+  Box,
+  IconButton,
+  Tooltip,
+} from "@material-ui/core"
 import { RemoveShoppingCart, ShoppingCart } from "@material-ui/icons"
 import { commaSeparate, commaSeparateWithAnd } from "common/utils/strings"
 import { Phenotype, Publication } from "dicty-graphql-schema"
@@ -11,19 +17,13 @@ interface PhenotypeRowProps {
   in_stock?: boolean
 }
 
-const renderInStock = (in_stock: boolean) => {
-  if (in_stock)
-    return (
-      <IconButton size="small">
-        <ShoppingCart color="secondary" />
-      </IconButton>
-    )
-  return (
-    <IconButton size="small" disabled>
-      <RemoveShoppingCart />
+const renderInStock = (in_stock: boolean) => (
+  <Tooltip title={in_stock ? "Strain available" : "Strain unavailable"}>
+    <IconButton size="small" disabled={in_stock ? false : true}>
+      {in_stock ? <ShoppingCart color="secondary" /> : <RemoveShoppingCart />}
     </IconButton>
-  )
-}
+  </Tooltip>
+)
 
 const PhenotypeRow = ({
   id,
