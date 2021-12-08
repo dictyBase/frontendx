@@ -17,7 +17,6 @@ import {
   loggedHeaderItems,
   HeaderLinks,
 } from "common/utils/headerItems"
-import Routes from "app/routes/Routes"
 import {
   footerLinks,
   footerURL,
@@ -90,7 +89,7 @@ const getTokenIntervalDelayInMS = (token: string) => {
  * App is responsible for the main layout of the entire application.
  */
 
-const App = () => {
+const App = ({ children }: { children: React.ReactNode }) => {
   const [skip, setSkip] = React.useState(false)
   const {
     state: { token, isAuthenticated },
@@ -139,9 +138,7 @@ const App = () => {
       <Navbar items={formatNavbarData(navbar.data)} theme={navTheme} />
       <main className={classes.main}>
         <Container>
-          <ErrorBoundary>
-            <Routes />
-          </ErrorBoundary>
+          <ErrorBoundary>{children}</ErrorBoundary>
         </Container>
       </main>
       {footer.data?.data && (

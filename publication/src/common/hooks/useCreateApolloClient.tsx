@@ -36,11 +36,14 @@ const authLink = setContext((request, { headers }) => {
   }
 })
 
-const server = getGraphQLServer(
-  process.env.REACT_APP_GRAPHQL_SERVER,
-  process.env.DEPLOY_ENV,
-  window.location.origin,
-)
+let server = ""
+if (typeof window !== "undefined") {
+  server = getGraphQLServer(
+    process.env.REACT_APP_GRAPHQL_SERVER,
+    process.env.DEPLOY_ENV,
+    window.location.origin,
+  )
+}
 
 const link = authLink.concat(
   createHttpLink({

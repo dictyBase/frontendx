@@ -1,6 +1,5 @@
 import React from "react"
 import { ApolloProvider } from "@apollo/client"
-import { BrowserRouter } from "react-router-dom"
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles"
 import CircularProgress from "@material-ui/core/CircularProgress"
 import useCreateApolloClient from "common/hooks/useCreateApolloClient"
@@ -71,11 +70,7 @@ const AppProviders = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <ApolloProvider client={client}>
-      <MuiThemeProvider theme={muiTheme}>
-        <BrowserRouter basename={process.env.REACT_APP_BASENAME}>
-          {children}
-        </BrowserRouter>
-      </MuiThemeProvider>
+      <MuiThemeProvider theme={muiTheme}>{children}</MuiThemeProvider>
     </ApolloProvider>
   )
 }
