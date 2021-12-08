@@ -19,7 +19,7 @@ const isMutation = (value: string) => {
 
 const getGraphQLServer = (url: string, deployEnv: string, origin: string) => {
   if (deployEnv === "staging" && origin === "https://dictycr.org") {
-    return process.env.REACT_APP_ALT_GRAPHQL_SERVER
+    return process.env.NEXT_PUBLIC_ALT_GRAPHQL_SERVER
   }
   return url
 }
@@ -36,10 +36,13 @@ const authLink = setContext((request, { headers }) => {
   }
 })
 
+// Next.js supports both SSR and CSR
+// so we have to make sure that window is defined
+// See: https://dev.to/vvo/how-to-solve-window-is-not-defined-errors-in-react-and-next-js-5f97
 let server = ""
 if (typeof window !== "undefined") {
   server = getGraphQLServer(
-    process.env.REACT_APP_GRAPHQL_SERVER,
+    process.env.NEXT_PUBLIC_GRAPHQL_SERVER,
     process.env.DEPLOY_ENV,
     window.location.origin,
   )
