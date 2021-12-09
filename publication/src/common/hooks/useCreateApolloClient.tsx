@@ -1,5 +1,10 @@
 import React from "react"
-import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client"
+import {
+  ApolloClient,
+  InMemoryCache,
+  createHttpLink,
+  ApolloLink,
+} from "@apollo/client"
 import { setContext } from "@apollo/client/link/context"
 import { CachePersistor, LocalForageWrapper } from "apollo3-cache-persist"
 import localForage from "localforage"
@@ -36,27 +41,27 @@ const authLink = setContext((request, { headers }) => {
   }
 })
 
-// Next.js supports both SSR and CSR
-// so we have to make sure that window is defined
-// See: https://dev.to/vvo/how-to-solve-window-is-not-defined-errors-in-react-and-next-js-5f97
-let server = ""
-if (typeof window !== "undefined") {
-  server = getGraphQLServer(
-    process.env.NEXT_PUBLIC_GRAPHQL_SERVER,
-    process.env.NEXT_PUBLIC_DEPLOY_ENV,
-    window.location.origin,
+const createApolloLink = (server: string): ApolloLink =>
+  authLink.concat(
+    createHttpLink({
+      uri: `${server}/graphql`,
+      credentials: "include",
+    }),
   )
-}
-
-const link = authLink.concat(
-  createHttpLink({
-    uri: `${server}/graphql`,
-    credentials: "include",
-  }),
-)
 
 const useCreateApolloClient = () => {
   const [cacheInitializing, setCacheInitializing] = React.useState(true)
+  const [link, setLink] = React.useState<ApolloLink>()
+
+  // Set ApolloLink in useEffect. See: https://frontend-digest.com/why-is-window-not-defined-in-nextjs-44daf7b4604e
+  React.useEffect(() => {
+    const server = getGraphQLServer(
+      process.env.NEXT_PUBLIC_GRAPHQL_SERVER,
+      process.env.NEXT_PUBLIC_DEPLOY_ENV,
+      window.location.origin,
+    )
+    setLink(createApolloLink(server))
+  }, [])
 
   React.useEffect(() => {
     const initializeCache = async () => {
