@@ -5,7 +5,7 @@ import CssBaseline from "@material-ui/core/CssBaseline"
 import App from "../src/app/layout/App"
 import Head from "next/head"
 
-function PublicationApp({ Component, pageProps }: AppProps) {
+const PublicationApp = ({ Component, pageProps }: AppProps) => {
   return (
     <AuthProvider>
       <AppProviders>

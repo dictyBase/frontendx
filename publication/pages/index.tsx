@@ -1,7 +1,7 @@
 import React from "react"
 import { useRouter } from "next/router"
 
-function Home() {
+const Home = () => {
   const router = useRouter()
   React.useEffect(() => {
     router.push("/26088819")
