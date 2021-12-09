@@ -1,13 +1,13 @@
 import React from "react"
 import { useRouter } from "next/router"
 import { Publication, usePublicationQuery } from "dicty-graphql-schema"
+import PublicationLoader from "src/features/Publication/PublicationLoader"
 import ErrorPage from "src/common/components/ErrorPage"
 import PublicationContent from "components/PublicationContent"
-import PublicationLoader from "src/features/Publication/PublicationLoader"
 
 function PublicationPage() {
   const { query } = useRouter()
-  const id = query.publicationId as string
+  const id = query.id as string
 
   const { loading, error, data } = usePublicationQuery({
     variables: { id },
