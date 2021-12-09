@@ -1,3 +1,5 @@
+const base = "/publication"
+
 module.exports = {
-  basePath: "/publication",
+  basePath: base,
 }

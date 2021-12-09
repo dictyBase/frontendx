@@ -24,8 +24,6 @@ class PublicationDocument extends Document {
           <meta name="theme-color" content="#000000" />
 
           <link rel="manifest" href="manifest.json" />
-
-          <title>dictyBase Literature</title>
         </Head>
         <body>
           <Main />
