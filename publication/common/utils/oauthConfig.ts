@@ -1,5 +1,4 @@
-import clientConfig from "src/common/utils/clientConfig"
-
+import clientConfig from "./clientConfig"
 type Config = {
   name: string
   url: string

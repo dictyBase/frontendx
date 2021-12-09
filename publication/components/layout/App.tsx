@@ -22,14 +22,14 @@ import {
   footerURL,
   convertFooterData,
   FooterItems,
-} from "src/common/utils/footerItems"
-import { navTheme, headerTheme, footerTheme } from "src/common/utils/themes"
+} from "common/utils/footerItems"
+import { navTheme, headerTheme, footerTheme } from "common/utils/themes"
 import {
   navbarItems,
   NavbarItems,
   navbarURL,
   formatNavbarData,
-} from "src/common/utils/navbarItems"
+} from "common/utils/navbarItems"
 
 const useStyles = makeStyles((theme: Theme) => ({
   main: {
