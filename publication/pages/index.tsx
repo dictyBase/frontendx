@@ -6,6 +6,7 @@ function Home() {
   React.useEffect(() => {
     router.push("/26088819")
   }, [])
+
   return <></>
 }
 
