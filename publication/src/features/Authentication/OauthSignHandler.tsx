@@ -1,9 +1,9 @@
 import React from "react"
-import { useNavigate } from "react-router-dom"
 import querystring from "querystring"
 import { useLoginMutation, User } from "dicty-graphql-schema"
-import { useAuthStore, ActionType } from "features/Authentication/AuthStore"
-import oauthConfig from "common/utils/oauthConfig"
+import { useAuthStore, ActionType } from "src/features/Authentication/AuthStore"
+import oauthConfig from "src/common/utils/oauthConfig"
+import { useRouter } from "next/router"
 
 type LoginEventData = {
   /** Third-party provider (orcid, google, linkedin) */
@@ -38,7 +38,7 @@ const getLoginInputVariables = (data: LoginEventData) => {
  */
 
 const OauthSignHandler = () => {
-  const history = useNavigate()
+  const router = useRouter()
   const { dispatch } = useAuthStore()
   const [login, { data }] = useLoginMutation()
 
@@ -49,7 +49,7 @@ const OauthSignHandler = () => {
       if (!event.data.provider) {
         return
       }
-      history("/load/auth")
+      router.push("/load/auth")
       try {
         const { data } = await login({
           variables: getLoginInputVariables(event.data),
@@ -62,7 +62,7 @@ const OauthSignHandler = () => {
             provider: data?.login?.identity.provider as string,
           },
         })
-        history("/")
+        router.push("/")
       } catch (error) {
         dispatch({
           type: ActionType.LOGIN_ERROR,
@@ -70,7 +70,7 @@ const OauthSignHandler = () => {
             error: error,
           },
         })
-        history("/login")
+        router.push("/login")
       }
     }
     window.addEventListener("message", onMessage, false)
