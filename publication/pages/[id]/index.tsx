@@ -2,7 +2,7 @@ import React from "react"
 import { useRouter } from "next/router"
 import { Publication, usePublicationQuery } from "dicty-graphql-schema"
 import PublicationLoader from "src/features/Publication/PublicationLoader"
-import ErrorPage from "src/common/components/ErrorPage"
+import ErrorPage from "components/errors/ErrorPage"
 import PublicationContent from "components/PublicationContent"
 
 const PublicationPage = () => {
