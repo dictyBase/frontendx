@@ -7,10 +7,10 @@
   },
   "homepage": "/publication",
   "scripts": {
-    "start": "next start",
-    "build": "next build",
     "dev": "next dev",
-    "test": "react-scripts test",
+    "build": "next build",
+    "start": "next start",
+    "test": "jest --watch",
     "test-coverage": "react-scripts test --coverage",
     "eject": "react-scripts eject",
     "tsc": "tsc",
@@ -78,6 +78,7 @@
     "eslint-plugin-jest-dom": "^3.9.2",
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "7",
+    "jest-cli": "^27.4.3",
     "lint-staged": "^12.1.2",
     "prettier": "^2.5.1",
     "react-docgen-typescript": "^2.1.1",
@@ -87,13 +88,14 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}",
-      "!src/common/@types/*.{ts}",
-      "!src/common/constants/*.{ts}",
-      "!src/common/graphql/*.{ts}",
-      "!src/**/mock*.{ts,tsx}",
-      "!src/**/types.{ts,tsx}",
-      "!src/**/*Styles.{ts,tsx}"
+      "components/**/*.{js,jsx,ts,tsx}",
+      "!pages/*.{ts}",
+      "!common/@types/*.{ts}",
+      "!common/constants/*.{ts}",
+      "!common/graphql/*.{ts}",
+      "!**/mock*.{ts,tsx}",
+      "!**/types.{ts,tsx}",
+      "!**/*Styles.{ts,tsx}"
     ],
     "resetMocks": false
   },
