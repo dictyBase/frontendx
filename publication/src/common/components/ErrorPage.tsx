@@ -1,5 +1,4 @@
 import React from "react"
-import { Link } from "react-router-dom"
 import { makeStyles } from "@material-ui/core/styles"
 import Box from "@material-ui/core/Box"
 import Typography from "@material-ui/core/Typography"
@@ -55,8 +54,7 @@ const ErrorPage = () => {
         </Typography>
         <Button
           classes={{ root: classes.root }}
-          component={Link}
-          to="/"
+          href="/"
           size="medium"
           variant="contained"
           color="primary"
