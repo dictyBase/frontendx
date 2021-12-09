@@ -2,7 +2,6 @@ import React, { Component } from "react"
 import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
 import { withStyles, Theme } from "@material-ui/core/styles"
-import sadDicty from "common/assets/sad-dicty.png"
 
 const styles = (theme: Theme) => ({
   gridContainer: {
@@ -64,7 +63,7 @@ class ErrorBoundary extends Component<Props, State> {
         <Grid className={classes.gridContainer} container justify="center">
           <Grid item xs={6} className={classes.paper}>
             <div style={{ textAlign: "center" }}>
-              <img src={sadDicty} alt="Sad Dicty Logo" />
+              <img src="public/sad-dicty.png" alt="Sad Dicty Logo" />
               <Typography variant="h2">
                 Sorry! There was an error loading this page.
               </Typography>
