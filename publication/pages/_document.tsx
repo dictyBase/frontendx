@@ -15,16 +15,7 @@ class PublicationDocument extends Document {
   render() {
     return (
       <Html>
-        <Head>
-          <link rel="shortcut icon" href="favicon.ico" />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-          />
-          <meta name="theme-color" content="#000000" />
-
-          <link rel="manifest" href="manifest.json" />
-        </Head>
+        <Head />
         <body>
           <Main />
           <NextScript />
