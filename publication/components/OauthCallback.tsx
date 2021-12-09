@@ -1,22 +1,21 @@
 import React, { useEffect } from "react"
-import { useLocation, useParams } from "react-router-dom"
 import Box from "@material-ui/core/Box"
 import Typography from "@material-ui/core/Typography"
+import { useRouter } from "next/router"
 
 /**
  * Callback that transfers the user to the login system
  */
 
 const OauthCallback = () => {
-  const { provider } = useParams()
-  const location = useLocation()
-
+  const { query, pathname } = useRouter()
+  const provider = query.id as string
   useEffect(() => {
     window.opener?.postMessage(
       {
         query: location.search,
         provider: provider,
-        url: `${window.location.origin}/${process.env.NEXT_PUBLIC_BASENAME}${location.pathname}`,
+        url: `${window.location.origin}/${process.env.NEXT_PUBLIC_BASENAME}${pathname}`,
       },
       window.location.toString(),
     )
