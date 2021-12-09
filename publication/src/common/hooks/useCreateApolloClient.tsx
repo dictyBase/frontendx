@@ -8,7 +8,7 @@ import {
 import { setContext } from "@apollo/client/link/context"
 import { CachePersistor, LocalForageWrapper } from "apollo3-cache-persist"
 import localForage from "localforage"
-import { version as SCHEMA_VERSION } from "dicty-graphql-schema/package.json"
+import version from "dicty-graphql-schema/package.json"
 
 const SCHEMA_VERSION_KEY = "publication-apollo-schema-version"
 const PUBLICATION_CACHE_KEY = "publication-apollo-cache-persist"
@@ -71,7 +71,7 @@ const useCreateApolloClient = () => {
         key: PUBLICATION_CACHE_KEY,
       })
       const currentVersion = await localForage.getItem(SCHEMA_VERSION_KEY)
-      if (currentVersion === SCHEMA_VERSION) {
+      if (currentVersion === version) {
         // If the current version matches the latest version,
         // we're good to go and can restore the cache.
         await persistor.restore()
@@ -79,7 +79,7 @@ const useCreateApolloClient = () => {
         // Otherwise, we'll want to purge the outdated persisted cache
         // and mark ourselves as having updated to the latest version.
         await persistor.purge()
-        await localForage.setItem(SCHEMA_VERSION_KEY, SCHEMA_VERSION)
+        await localForage.setItem(SCHEMA_VERSION_KEY, version)
       }
       setCacheInitializing(false)
     }
