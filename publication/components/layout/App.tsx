@@ -16,7 +16,7 @@ import {
   headerItems,
   loggedHeaderItems,
   HeaderLinks,
-} from "src/common/utils/headerItems"
+} from "components/HeaderItems"
 import {
   footerLinks,
   footerURL,
