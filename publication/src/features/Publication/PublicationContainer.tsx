@@ -1,5 +1,4 @@
 import React from "react"
-import { useParams } from "react-router-dom"
 import { Helmet } from "react-helmet"
 import Grid from "@material-ui/core/Grid"
 import { Publication, usePublicationQuery } from "dicty-graphql-schema"
@@ -9,15 +8,14 @@ import PublicationLoader from "./PublicationLoader"
 import PublicationHeader from "./PublicationHeader"
 import ErrorPage from "common/components/ErrorPage"
 import useStyles from "./publicationStyles"
+import { useRouter } from "next/router"
 
 /**
  * PublicationContainer is the main component for an individual publication page.
  * It is responsible for fetching the data and passing it down to more specific components.
  */
-
 const PublicationContainer = () => {
-  let { id } = useParams()
-  if (!id) id = ""
+  const id = useRouter().query.publicationId as string
   const classes = useStyles()
   const { loading, error, data } = usePublicationQuery({
     variables: { id: id },
