@@ -30,14 +30,14 @@ or issue.
 In order for this application's login system to work locally, you will need to
 configure the list of providers.
 
-- Copy the provided sample [clientConfig.sample.ts](src/common/utils/clientConfig.sample.ts) file
+- Copy the provided sample [clientConfig.sample.ts](common/utils/clientConfig.sample.ts) file
   to **clientConfig.ts** in the same folder.
 - Add any provider names and their corresponding client IDs.
 - All providers should have a matching counterpart in the
-  [oauthConfig.ts](src/common/utils/oauthConfig.ts) file. Enter all of the
+  [oauthConfig.ts](common/utils/oauthConfig.ts) file. Enter all of the
   configuration parameters for every new provider in that file.
 
-After setting up the login providers, you can run `yarn` and `yarn start` as usual.
+After setting up the login providers, you can run `yarn` and `yarn dev` as usual.
 
 ## Backend Requirements
 
