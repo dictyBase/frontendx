@@ -1,4 +1,7 @@
-import { isMutation, getGraphQLServer } from "./useCreateApolloClient"
+import {
+  isMutation,
+  getGraphQLServer,
+} from "../common/hooks/useCreateApolloClient"
 
 describe("isMutation function", () => {
   it("should return true for mutation", () => {
