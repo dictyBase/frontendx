@@ -12,7 +12,7 @@ type Props = {
   data: Publication
 }
 
-export const PublicationDisplay = ({ data }: Props) => {
+export const PublicationBody = ({ data }: Props) => {
   const journalData = {
     id: data.id as string,
     doi: data.doi as string,
@@ -40,4 +40,4 @@ export const PublicationDisplay = ({ data }: Props) => {
   )
 }
 
-export default PublicationDisplay
+export default PublicationBody
