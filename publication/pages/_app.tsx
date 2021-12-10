@@ -1,5 +1,5 @@
 import type { AppProps } from "next/app"
-import { AuthProvider } from "../src/features/Authentication/AuthStore"
+import { AuthProvider } from "../components/AuthStore"
 import AppProviders from "components/layout/AppProviders"
 import CssBaseline from "@material-ui/core/CssBaseline"
 import App from "components/layout/App"

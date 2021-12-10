@@ -1,7 +1,7 @@
 import React from "react"
 import querystring from "querystring"
 import { useLoginMutation, User } from "dicty-graphql-schema"
-import { useAuthStore, ActionType } from "src/features/Authentication/AuthStore"
+import { useAuthStore, ActionType } from "components/AuthStore"
 import oauthConfig from "common/utils/oauthConfig"
 import { useRouter } from "next/router"
 

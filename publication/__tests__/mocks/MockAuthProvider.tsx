@@ -2,7 +2,7 @@ import React from "react"
 import { BrowserRouter } from "react-router-dom"
 import { MockedProvider, MockedResponse } from "@apollo/client/testing"
 import { User } from "dicty-graphql-schema"
-import { AuthContext, authReducer } from "features/Authentication/AuthStore"
+import { AuthContext, authReducer } from "components/AuthStore"
 
 type AuthProps = {
   children: React.ReactNode

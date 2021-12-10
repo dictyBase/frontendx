@@ -33,6 +33,7 @@
     "src",
     "pages",
     "components",
-    "common"
+    "common",
+    "__tests__/mocks"
   ]
 }

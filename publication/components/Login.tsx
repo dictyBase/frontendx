@@ -10,7 +10,7 @@ import {
 } from "dicty-components-login"
 import oauthConfig from "common/utils/oauthConfig"
 import ErrorNotification from "src/features/Authentication/ErrorNotification"
-import { useAuthStore } from "src/features/Authentication/AuthStore"
+import { useAuthStore } from "components/AuthStore"
 import OauthSignHandler from "src/features/Authentication/OauthSignHandler"
 
 type Config = {
