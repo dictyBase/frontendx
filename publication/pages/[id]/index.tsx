@@ -5,6 +5,9 @@ import PublicationLoader from "src/features/Publication/PublicationLoader"
 import ErrorPage from "components/errors/ErrorPage"
 import PublicationContent from "components/PublicationContent"
 
+/**
+ * Renders the publication page given a publication id
+ */
 const PublicationPage = () => {
   const { query } = useRouter()
   const id = query.id as string
