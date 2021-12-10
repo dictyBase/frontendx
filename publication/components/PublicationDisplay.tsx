@@ -1,11 +1,11 @@
 import React from "react"
 import Box from "@material-ui/core/Box"
-import Title from "./Sections/Title"
-import Authors from "./Sections/Authors"
-import JournalData from "./Sections/JournalData"
-import SocialLinks from "./Sections/SocialLinks"
-import Abstract from "./Sections/Abstract"
-import FullTextLinks from "./Sections/FullTextLinks"
+import Title from "components/Title"
+import Authors from "components/Authors"
+import JournalData from "components/JournalData"
+import SocialLinks from "components/SocialLinks"
+import Abstract from "components/Abstract"
+import FullTextLinks from "components/FullTextLinks"
 import { Author, Publication } from "dicty-graphql-schema"
 
 type Props = {
