@@ -36,21 +36,20 @@ export const PublicationSidebar = ({ doi }: Props) => {
 
   return (
     <div className={classes.section}>
-      <a
-        href={doiURL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={classes.link}>
-        <Box display="flex">
-          Full text
-          <CallMadeIcon
-            sx={{ marginLeft: "10px", width: "0.8em", height: "0.8em" }}
-          />
-        </Box>
-      </a>
-      {/* <a href="#" className={classes.link}>
-        Get Citation
-      </a> */}
+      <Box display="inline-block">
+        <a
+          href={doiURL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={classes.link}>
+          <Box display="flex">
+            Full text
+            <CallMadeIcon
+              sx={{ marginLeft: "10px", width: "0.8em", height: "0.8em" }}
+            />
+          </Box>
+        </a>
+      </Box>
     </div>
   )
 }

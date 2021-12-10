@@ -17,14 +17,16 @@ export const FullTextLinks = ({ url }: Props) => {
     <Box pb={2}>
       <Typography variant="h2">Full Text Links</Typography>
       <Divider />
-      <a href={url} target="_blank" rel="noopener noreferrer">
-        <Box pt={2} pb={2} display="flex">
-          Read article at publisher's site
-          <CallMadeIcon
-            sx={{ marginLeft: "7px", width: "0.7em", height: "0.7em" }}
-          />
-        </Box>
-      </a>
+      <Box display="inline-block">
+        <a href={url} target="_blank" rel="noopener noreferrer">
+          <Box pt={2} pb={2} display="flex">
+            Read article at publisher's site
+            <CallMadeIcon
+              sx={{ marginLeft: "7px", width: "0.7em", height: "0.7em" }}
+            />
+          </Box>
+        </a>
+      </Box>
     </Box>
   )
 }
