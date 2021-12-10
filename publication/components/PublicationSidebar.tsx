@@ -29,7 +29,7 @@ type Props = {
  * LeftSidebar is the main component for the left sidebar on an individual publication page.
  */
 
-export const LeftSidebar = ({ doi }: Props) => {
+export const PublicationSidebar = ({ doi }: Props) => {
   const classes = useStyles()
   const doiURL = `https://doi.org/${doi}`
 
@@ -50,4 +50,4 @@ export const LeftSidebar = ({ doi }: Props) => {
   )
 }
 
-export default LeftSidebar
+export default PublicationSidebar
