@@ -10,7 +10,7 @@ import {
   GetRefreshTokenQuery,
   User,
 } from "dicty-graphql-schema"
-import { useAuthStore, ActionType } from "components/AuthStore"
+import { useAuthStore, ActionType } from "components/auth/AuthStore"
 import ErrorBoundary from "components/errors/ErrorBoundary"
 import {
   headerItems,
