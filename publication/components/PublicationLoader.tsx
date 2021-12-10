@@ -2,7 +2,7 @@ import React from "react"
 import Grid from "@material-ui/core/Grid"
 import Skeleton from "react-loading-skeleton"
 import PublicationHeader from "./PublicationHeader"
-import useStyles from "./publicationStyles"
+import useStyles from "styles/publicationStyles"
 
 export const PublicationLoader = () => {
   const classes = useStyles()

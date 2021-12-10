@@ -2,10 +2,10 @@ import React from "react"
 import Grid from "@material-ui/core/Grid"
 import { Publication } from "dicty-graphql-schema"
 import Head from "next/head"
-import PublicationHeader from "src/features/Publication/PublicationHeader"
-import LeftSidebar from "src/features/Publication/LeftSidebar"
-import PublicationDisplay from "src/features/Publication/PublicationDisplay"
-import useStyles from "src/features/Publication/publicationStyles"
+import PublicationHeader from "components/PublicationHeader"
+import LeftSidebar from "components/LeftSidebar"
+import PublicationDisplay from "components/PublicationDisplay"
+import useStyles from "styles/publicationStyles"
 
 interface PublicationProps {
   data: Publication

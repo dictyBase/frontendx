@@ -34,6 +34,7 @@
     "pages",
     "components",
     "common",
-    "__tests__/mocks"
+    "__tests__/mocks",
+    "styles"
   ]
 }
