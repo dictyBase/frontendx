@@ -1,6 +1,7 @@
 import React from "react"
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import CallMadeIcon from "@mui/icons-material/CallMade"
+import { Box } from "@material-ui/core"
 
 const useStyles = makeStyles((theme: Theme) => ({
   link: {
@@ -40,8 +41,12 @@ export const PublicationSidebar = ({ doi }: Props) => {
         target="_blank"
         rel="noopener noreferrer"
         className={classes.link}>
-        Full text
-        <FontAwesomeIcon className={classes.icon} icon="external-link-alt" />
+        <Box display="flex">
+          Full text
+          <CallMadeIcon
+            sx={{ marginLeft: "10px", width: "0.8em", height: "0.8em" }}
+          />
+        </Box>
       </a>
       {/* <a href="#" className={classes.link}>
         Get Citation
