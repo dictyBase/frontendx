@@ -8,12 +8,12 @@ import PublicationDisplay from "src/features/Publication/PublicationDisplay"
 import useStyles from "src/features/Publication/publicationStyles"
 
 interface PublicationProps {
-  title: string
   data: Publication
 }
 
-const PublicationContent = ({ title, data }: PublicationProps) => {
+const PublicationContent = ({ data }: PublicationProps) => {
   const classes = useStyles()
+  const title = data.title
 
   return (
     <Grid container>
@@ -24,10 +24,10 @@ const PublicationContent = ({ title, data }: PublicationProps) => {
           content={`dictyBase literature page for title ${title}`}
         />
       </Head>
+
       <Grid item xs={12}>
         <PublicationHeader />
       </Grid>
-
       <Grid item xs={12} sm={2} className={classes.sidebar}>
         <LeftSidebar doi={data.doi} />
       </Grid>

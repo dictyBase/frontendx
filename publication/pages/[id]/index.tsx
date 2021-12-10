@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import { Publication, usePublicationQuery } from "dicty-graphql-schema"
 import PublicationLoader from "src/features/Publication/PublicationLoader"
 import ErrorPage from "components/errors/ErrorPage"
-import PublicationWrapper from "components/PublicationWrapper"
+import PublicationContent from "components/PublicationContent"
 
 /**
  * Renders the publication page given a publication id
@@ -20,7 +20,7 @@ const PublicationPage = () => {
     <>
       {loading && <PublicationLoader />}
       {error && <ErrorPage />}
-      {data && <PublicationWrapper data={data.publication as Publication} />}
+      {data && <PublicationContent data={data.publication as Publication} />}
     </>
   )
 }
