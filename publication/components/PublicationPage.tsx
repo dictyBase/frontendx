@@ -7,11 +7,11 @@ import PublicationSidebar from "components/PublicationSidebar"
 import PublicationBody from "components/PublicationBody"
 import useStyles from "styles/publicationStyles"
 
-interface PublicationProps {
+interface PublicationPageProps {
   data: Publication
 }
 
-const PublicationContent = ({ data }: PublicationProps) => {
+const PublicationPage = ({ data }: PublicationPageProps) => {
   const classes = useStyles()
   const title = data.title
 
@@ -38,4 +38,4 @@ const PublicationContent = ({ data }: PublicationProps) => {
   )
 }
 
-export default PublicationContent
+export default PublicationPage
