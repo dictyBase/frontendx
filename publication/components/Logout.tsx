@@ -1,7 +1,7 @@
 import React from "react"
 import { useApolloClient } from "@apollo/client"
 import { useLogoutMutation } from "dicty-graphql-schema"
-import { useAuthStore, ActionType } from "src/features/Authentication/AuthStore"
+import { useAuthStore, ActionType } from "components/AuthStore"
 import { useRouter } from "next/router"
 import { Box, Typography } from "@material-ui/core"
 
