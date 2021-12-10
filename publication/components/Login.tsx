@@ -11,7 +11,7 @@ import {
 import oauthConfig from "common/utils/oauthConfig"
 import ErrorNotification from "components/errors/ErrorNotification"
 import { useAuthStore } from "components/auth/AuthStore"
-import OauthSignHandler from "src/features/Authentication/OauthSignHandler"
+import OauthSignHandler from "components/auth/OauthSignHandler"
 
 type Config = {
   name: string
