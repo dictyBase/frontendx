@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import { Publication, usePublicationQuery } from "dicty-graphql-schema"
 import PublicationLoader from "src/features/Publication/PublicationLoader"
 import ErrorPage from "components/errors/ErrorPage"
-import PublicationContent from "components/PublicationContent"
+import PublicationWrapper from "components/PublicationWrapper"
 
 /**
  * Renders the publication page given a publication id
@@ -16,13 +16,13 @@ const PublicationPage = () => {
     variables: { id },
   })
 
-  if (loading) return <PublicationLoader />
-  if (error || !data) return <ErrorPage />
-
-  const publication = data.publication as Publication
-  const title = publication.title as string
-
-  return <PublicationContent title={title} data={publication} />
+  return (
+    <>
+      {loading && <PublicationLoader />}
+      {error && <ErrorPage />}
+      {data && <PublicationWrapper data={data.publication as Publication} />}
+    </>
+  )
 }
 
 export default PublicationPage
