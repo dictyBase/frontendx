@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles"
 import Box from "@material-ui/core/Box"
 import Typography from "@material-ui/core/Typography"
 import Button from "@material-ui/core/Button"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import ErrorIcon from "@mui/icons-material/Error"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,12 +38,11 @@ const ErrorPage = () => {
       display="flex"
       flexDirection="column"
       justifyContent="center"
-      textAlign="center"
-    >
+      textAlign="center">
       <Box className={classes.container}>
         <img src="public/sad-dicty.png" alt="Sad Dicty -- HTTP Error" />
         <Typography className={classes.text} variant="h1">
-          <FontAwesomeIcon icon="exclamation-circle" /> Error
+          <ErrorIcon /> Error
         </Typography>
         <Typography variant="body1" className={classes.text}>
           If this problem persists, please email us at{" "}
@@ -57,8 +56,7 @@ const ErrorPage = () => {
           href="/"
           size="medium"
           variant="contained"
-          color="primary"
-        >
+          color="primary">
           Back to DSC Homepage
         </Button>
       </Box>

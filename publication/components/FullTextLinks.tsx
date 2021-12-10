@@ -2,7 +2,7 @@ import React from "react"
 import Box from "@material-ui/core/Box"
 import Typography from "@material-ui/core/Typography"
 import Divider from "@material-ui/core/Divider"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import CallMadeIcon from "@mui/icons-material/CallMade"
 
 type Props = {
   url: string
@@ -17,12 +17,14 @@ export const FullTextLinks = ({ url }: Props) => {
     <Box pb={2}>
       <Typography variant="h2">Full Text Links</Typography>
       <Divider />
-      <Box pt={2} pb={2}>
-        <a href={url} target="_blank" rel="noopener noreferrer">
-          Read article at publisher's site &nbsp;
-          <FontAwesomeIcon icon="external-link-alt" />
-        </a>
-      </Box>
+      <a href={url} target="_blank" rel="noopener noreferrer">
+        <Box pt={2} pb={2} display="flex">
+          Read article at publisher's site
+          <CallMadeIcon
+            sx={{ marginLeft: "7px", width: "0.7em", height: "0.7em" }}
+          />
+        </Box>
+      </a>
     </Box>
   )
 }
