@@ -1,6 +1,6 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import OauthCallback from "./OauthCallback"
+import OauthCallback from "../components/auth/OauthCallback"
 import { BrowserRouter } from "react-router-dom"
 
 describe("features/Authentication/OauthCallback", () => {

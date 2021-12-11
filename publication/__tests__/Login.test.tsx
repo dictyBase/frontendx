@@ -1,9 +1,11 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import Login, { createOauthURL, generateErrorDisplayMessage } from "./Login"
-import MockAuthProvider from "common/mocks/MockAuthProvider"
+import Login, {
+  createOauthURL,
+  generateErrorDisplayMessage,
+} from "../components/Login"
+import MockAuthProvider from "./mocks/MockAuthProvider"
 import userEvent from "@testing-library/user-event"
-import { ApolloError } from "@apollo/client"
 
 describe("features/Authentication/Login", () => {
   const globalAny = global as any

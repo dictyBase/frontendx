@@ -1,6 +1,6 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import ErrorNotification from "./ErrorNotification"
+import ErrorNotification from "../components/errors/ErrorNotification"
 
 describe("features/Authentication/ErrorNotification", () => {
   render(<ErrorNotification error="not a marine biologist" />)

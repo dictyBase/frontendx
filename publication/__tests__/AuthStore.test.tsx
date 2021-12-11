@@ -1,6 +1,6 @@
-import { authReducer, ActionType } from "../../../components/AuthStore"
+import { authReducer, ActionType } from "../components/auth/AuthStore"
 import { User } from "dicty-graphql-schema"
-import { MockSuperuser } from "__tests__/mocks/MockAuthProvider"
+import { MockSuperuser } from "./mocks/MockAuthProvider"
 
 const initialState = {
   isAuthenticated: false,
