@@ -14,7 +14,7 @@ jobs:
       - name: check out code
         uses: actions/checkout@v2
       - name: rename config file
-        run: mv src/common/utils/clientConfig.sample.ts src/common/utils/clientConfig.ts
+        run: mv common/utils/clientConfig.sample.ts common/utils/clientConfig.ts
       - name: install
         run: yarn install
       - name: run eslint
