@@ -20,7 +20,7 @@ export const FullTextLinks = ({ url }: Props) => {
       <Box display="inline-block">
         <a href={url} target="_blank" rel="noopener noreferrer">
           <Box pt={2} pb={2} display="flex">
-            Read article at publisher's site
+            Read article at publisher&apos;s site
             <CallMadeIcon
               sx={{ marginLeft: "7px", width: "0.7em", height: "0.7em" }}
             />
