@@ -14,7 +14,7 @@
     "test-coverage": "react-scripts test --coverage",
     "eject": "react-scripts eject",
     "tsc": "tsc",
-    "lint": "eslint --ext .tsx,.ts src/",
+    "lint": "next lint",
     "pre-commit": "lint-staged",
     "semantic-release": "semantic-release",
     "styleguide": "FAST_REFRESH=false styleguidist server",
@@ -110,22 +110,5 @@
       "prettier --no-semi --trailing-comma all --jsx-bracket-same-line true --write",
       "git add"
     ]
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest",
-      "prettier",
-      "plugin:jest-dom/recommended"
-    ],
-    "plugins": [
-      "prettier",
-      "jest-dom"
-    ],
-    "rules": {
-      "import/exports-last": [
-        "error"
-      ]
-    }
   }
 }
