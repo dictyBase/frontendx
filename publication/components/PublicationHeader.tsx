@@ -9,7 +9,7 @@ import Typography from "@material-ui/core/Typography"
 export const PublicationHeader = () => {
   return (
     <Box mt={2} mb={2}>
-      <Typography variant="h1" align="center">
+      <Typography variant="h2" align="center">
         dictyBase Literature
       </Typography>
     </Box>

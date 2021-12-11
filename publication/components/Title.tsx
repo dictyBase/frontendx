@@ -13,7 +13,9 @@ type Props = {
 export const Title = ({ title }: Props) => {
   return (
     <Box pb={2}>
-      <Typography variant="h2">{title}</Typography>
+      <Typography variant="h1">
+        <b>{title}</b>
+      </Typography>
     </Box>
   )
 }
