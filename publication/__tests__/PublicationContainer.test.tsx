@@ -1,11 +1,10 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import { MockedProvider } from "@apollo/client/testing"
-import { BrowserRouter } from "react-router-dom"
-import PublicationContainer from "./PublicationContainer"
 import { PublicationDocument } from "dicty-graphql-schema"
-import { data } from "common/mocks/mockdata"
-import { mockNotFoundError } from "common/mocks/mockGraphQLError"
+import { data } from "./mocks/mockdata"
+import { mockNotFoundError } from "./mocks/mockGraphQLError"
+import PublicationPageWrapper from "../pages/[id]/index"
 
 const mockID = data.publication.id
 
@@ -25,9 +24,7 @@ describe("features/Publication/PublicationContainer", () => {
   const MockComponent = ({ mocks }: any) => {
     return (
       <MockedProvider mocks={mocks} addTypename={false}>
-        <BrowserRouter>
-          <PublicationContainer />
-        </BrowserRouter>
+        <PublicationPageWrapper />
       </MockedProvider>
     )
   }
