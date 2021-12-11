@@ -1,6 +1,5 @@
 import React from "react"
-import Box from "@material-ui/core/Box"
-import Title from "components/Title"
+import { Box, Typography } from "@material-ui/core"
 import Authors from "components/Authors"
 import JournalData from "components/JournalData"
 import SocialLinks from "components/SocialLinks"
@@ -30,7 +29,12 @@ export const PublicationBody = ({ data }: Props) => {
 
   return (
     <Box pt={3}>
-      <Title title={title} />
+      <Box pb={2}>
+        <Typography variant="h1">
+          <b>{title}</b>
+        </Typography>
+      </Box>
+
       <Authors authors={authors} />
       <JournalData data={journalData} />
       <SocialLinks title={title} />
