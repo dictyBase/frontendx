@@ -11,7 +11,7 @@
     "build": "next build",
     "start": "next start",
     "test": "jest --watch",
-    "test-coverage": "react-scripts test --coverage",
+    "test-coverage": "jest --watch --coverage",
     "eject": "react-scripts eject",
     "tsc": "tsc",
     "lint": "next lint",
