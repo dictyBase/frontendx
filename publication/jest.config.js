@@ -7,7 +7,14 @@ const createJestConfig = nextJest({
 
 // Add any custom config to be passed to Jest
 const customJestConfig = {
-  setupFilesAfterEnv: [],
+  testMatch: ["**/components/**/*.{ts,tsx}", "**/common/hooks/*.{ts,tsx}"],
+  collectCoverageFrom: [
+    "**/components/**/*.{ts,tsx}",
+    "**/common/hooks/*.{ts,tsx}",
+    "!**/node_modules/**",
+    "!**/mocks/*.{ts,tsx}",
+    "!**/pages/*.{ts,tsx}",
+  ],
 }
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
