@@ -86,19 +86,6 @@
     "semantic-release": "^18.0.1",
     "source-map-explorer": "^2.5.2"
   },
-  "jest": {
-    "collectCoverageFrom": [
-      "components/**/*.{js,jsx,ts,tsx}",
-      "!pages/*.{ts}",
-      "!common/@types/*.{ts}",
-      "!common/constants/*.{ts}",
-      "!common/graphql/*.{ts}",
-      "!**/mock*.{ts,tsx}",
-      "!**/types.{ts,tsx}",
-      "!**/*Styles.{ts,tsx}"
-    ],
-    "resetMocks": false
-  },
   "browserslist": [
     ">0.2%",
     "not dead",
