@@ -1,5 +1,4 @@
 import React from "react"
-import { BrowserRouter } from "react-router-dom"
 import { MockedProvider, MockedResponse } from "@apollo/client/testing"
 import { User } from "dicty-graphql-schema"
 import { AuthContext, authReducer } from "components/auth/AuthStore"
@@ -63,7 +62,7 @@ const MockAuthProvider = ({
   return (
     <AuthContext.Provider value={{ state, dispatch }}>
       <MockedProvider mocks={mocks} addTypename={false}>
-        <BrowserRouter>{children}</BrowserRouter>
+        {children}
       </MockedProvider>
     </AuthContext.Provider>
   )
