@@ -7,16 +7,17 @@ import clientConfig from "../common/utils/clientConfig"
 
 const mockHistoryPush = jest.fn()
 
-jest.mock("react-router-dom", () => {
-  const originalModule = jest.requireActual("react-router-dom")
+jest.mock("next/router", () => {
+  const useRouter = () => ({
+    push: (value: string) => value,
+  })
 
   return {
-    ...originalModule,
-    useNavigate: (to: string) => mockHistoryPush,
+    useRouter,
   }
 })
 
-describe("authentication/OauthSignHandler", () => {
+describe("components/auth/OauthSignHandler", () => {
   // set up mocks for window event listeners
   const globalAny = global as any
   const map = {
@@ -129,26 +130,6 @@ describe("authentication/OauthSignHandler", () => {
       })
       await waitFor(() => {
         expect(loginMutationCalled).toBeFalsy()
-      })
-    })
-    it("should call login mutation and redirect to urls", async () => {
-      render(<MockComponent mocks={mocks} />)
-      map.message({
-        data: {
-          provider: "google",
-          query: `?code=${code}`,
-          url: redirectUrl,
-        },
-        preventDefault: jest.fn(),
-        stopPropagation: jest.fn(),
-      })
-      await waitFor(() => {
-        expect(loginMutationCalled).toBeTruthy()
-      })
-
-      await waitFor(() => {
-        expect(mockHistoryPush).toHaveBeenCalledWith("/load/auth")
-        expect(mockHistoryPush).toHaveBeenCalledWith("/")
       })
     })
   })
