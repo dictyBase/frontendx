@@ -7,6 +7,8 @@ const createJestConfig = nextJest({
 
 // Add any custom config to be passed to Jest
 const customJestConfig = {
+  testEnvironment: "jsdom",
+  setupFilesAfterEnv: ["./jest.setup.js"],
   testPathIgnorePatterns: ["__tests__/mocks/"],
   coveragePathIgnorePatterns: ["__tests__/mocks/"],
   collectCoverageFrom: [
