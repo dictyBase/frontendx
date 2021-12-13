@@ -7,13 +7,11 @@ const createJestConfig = nextJest({
 
 // Add any custom config to be passed to Jest
 const customJestConfig = {
-  testMatch: ["**/components/**/*.{ts,tsx}", "**/common/hooks/*.{ts,tsx}"],
+  testPathIgnorePatterns: ["__tests__/mocks/"],
+  coveragePathIgnorePatterns: ["__tests__/mocks/"],
   collectCoverageFrom: [
     "**/components/**/*.{ts,tsx}",
     "**/common/hooks/*.{ts,tsx}",
-    "!**/node_modules/**",
-    "!**/mocks/*.{ts,tsx}",
-    "!**/pages/*.{ts,tsx}",
   ],
 }
 
