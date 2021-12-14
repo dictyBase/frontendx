@@ -12,7 +12,6 @@
     "start": "next start",
     "test": "jest",
     "test-coverage": "jest --coverage",
-    "eject": "react-scripts eject",
     "tsc": "tsc",
     "lint": "next lint",
     "pre-commit": "lint-staged",
