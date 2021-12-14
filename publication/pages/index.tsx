@@ -1,5 +1,6 @@
 import React from "react"
 import { useRouter } from "next/router"
+import PublicationLoader from "../components/PublicationLoader"
 
 const Home = () => {
   const router = useRouter()
@@ -7,7 +8,7 @@ const Home = () => {
     router.push("/26088819")
   }, [])
 
-  return <></>
+  return <PublicationLoader />
 }
 
 export default Home
