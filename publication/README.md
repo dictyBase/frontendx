@@ -37,7 +37,11 @@ configure the list of providers.
   [oauthConfig.ts](common/utils/oauthConfig.ts) file. Enter all of the
   configuration parameters for every new provider in that file.
 
-After setting up the login providers, you can run `yarn` and `yarn dev` as usual.
+```
+$ cp common/utils/oauthConfig.sample.ts common/utils/oauthConfig.ts
+```
+
+After setting up the login providers, run `yarn`, to install the dependencies and finally, `yarn dev` to run the server in watch mode.
 
 ## Backend Requirements
 
@@ -50,25 +54,22 @@ This app requires the following services to be running:
 
 ```
 .
-├── public                      # Index.html and favicon
-├── src                         # Application source code
-│   ├── app                     # Application level components
-│       ├── actions             # Actions used for the entire app (i.e. footer, navbar)
-│       ├── layout              # Main app template
-│       ├── reducers            # Redux reducers
-│       ├── routes              # React Router routes
-│       ├── store               # Redux store configuration
-│   ├── common                  # Common features for entire app
-│       ├── @types              # Typescript type definitions
-│       ├── assets              # Images, fonts, etc.
-│       ├── components          # Generic components
-│       ├── constants           # Static data (i.e. footer, navbar links)
-│       ├── utils               # Application utilities
-│   ├── features                # Main features of application
-│       ├── Authentication      # Authentication-related components
-│       ├── Publication         # All components related to publication retrieval/display
-│   └── index.tsx               # Application rendering
-└──                             # Config files
+common                          # Common features for entire app (that aren't components)
+├── @types                      # Typescript type definitions
+├── constants                   # Strings or namespaces used in the app
+├── hooks                       # Hooks (ex. ApolloClient, Google, etc)
+└── utils                       # Application utilities 
+components                      # All React components
+├── auth                        # Components related to auth
+├── errors                      # Components that display errors
+└── layout                      # Wrapper/Layout components
+pages                           # Next.js router components
+├── [id]                        # Pages that have a dynamic id param
+└── load
+public                          # Static files (images, fonts, etc.)
+styles                          # Anything related to styling
+__tests__                       # Jest tests
+└── mocks                       # Mock data to replicate API calls
 ```
 
 ## Contributors ✨
