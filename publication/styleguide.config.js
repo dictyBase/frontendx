@@ -3,12 +3,8 @@ module.exports = {
     "./tsconfig.json",
   ).parse,
   styleguideDir: "styleguide",
-  components: "src/**/*.tsx",
+  components: "components/**/*.tsx",
   title: "dictyBase Publication",
-  ignore: [
-    "**/*.test.{js,jsx,ts,tsx}",
-    "src/common/utils/headerItems.tsx",
-    "src/index.tsx",
-  ],
+  ignore: ["**/*.test.{js,jsx,ts,tsx}"],
   webpackConfig: require("react-scripts/config/webpack.config")("development"),
 }
