@@ -29,7 +29,7 @@ RUN yarn install
 
 ADD src src
 ADD public public
-ADD $CLIENT_KEYS /usr/src/app/src/common/utils/clientConfig.js
+ADD $CLIENT_KEYS /usr/src/app/common/utils/clientConfig.js
 
 RUN yarn build
 
