@@ -5,7 +5,7 @@ import JournalData from "components/JournalData"
 import SocialLinks from "components/SocialLinks"
 import Abstract from "components/Abstract"
 import FullTextLinks from "components/FullTextLinks"
-import { Author, Publication } from "dicty-graphql-schema"
+import { Publication } from "dicty-graphql-schema"
 
 interface PublicationBodyProps {
   publication: Publication
@@ -13,7 +13,6 @@ interface PublicationBodyProps {
 
 export const PublicationBody = ({ publication }: PublicationBodyProps) => {
   const url = `https://doi.org/${publication.doi}`
-  const authors = publication.authors as Author[]
 
   return (
     <Box pt={3}>
@@ -23,7 +22,7 @@ export const PublicationBody = ({ publication }: PublicationBodyProps) => {
         </Typography>
       </Box>
 
-      <Authors authors={authors} />
+      <Authors authors={publication.authors} />
       <JournalData data={publication} />
       <SocialLinks title={publication.title} />
       <Abstract abstract={publication.abstract} />
