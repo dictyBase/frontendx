@@ -1,11 +1,12 @@
 import React from "react"
 import Box from "@material-ui/core/Box"
 import Typography from "@material-ui/core/Typography"
+import { Maybe } from "dicty-graphql-schema"
 
 type Props = {
   title: string
   url: string
-  content: string
+  content?: Maybe<string>
 }
 
 /**
@@ -13,6 +14,8 @@ type Props = {
  */
 
 export const JournalDataItem = ({ title, url, content }: Props) => {
+  if (!content) return <></>
+
   return (
     <Box component="span" pr={3}>
       <Typography component="span">{title}: </Typography>
