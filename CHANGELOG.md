@@ -1,3 +1,17 @@
+# [1.3.0](https://github.com/dictyBase/graphql-schema/compare/1.2.0...1.3.0) (2021-12-15)
+
+
+### Bug Fixes
+
+* yarn.lock dependency issue ([84cc532](https://github.com/dictyBase/graphql-schema/commit/84cc53229bd6292b501b2b92d2d5472e24cc5315))
+* yarn.lock dependency issue for dependabot/npm_and_yarn/graphql-codegen/cli-2.3.0 PR ([f748afc](https://github.com/dictyBase/graphql-schema/commit/f748afc983d2b0ca43cb813f3cf97e3a89f883a9))
+
+
+### Features
+
+* new mandatory author fields - last_name and first_name ([ed745ad](https://github.com/dictyBase/graphql-schema/commit/ed745ad986396aa3c596a03980b16359886e099a))
+* new mandatory fields - title, author, journal, pub_type, abstract, and source ([13a3c99](https://github.com/dictyBase/graphql-schema/commit/13a3c994c4b787c420ea2119e2d01cc9a8912b72))
+
 # [1.2.0](https://github.com/dictyBase/graphql-schema/compare/1.1.4...1.2.0) (2021-11-29)
 
 
