@@ -8,12 +8,12 @@ import PublicationBody from "components/PublicationBody"
 import useStyles from "styles/publicationStyles"
 
 interface PublicationPageProps {
-  data: Publication
+  publication: Publication
 }
 
-const PublicationPage = ({ data }: PublicationPageProps) => {
+const PublicationPage = ({ publication }: PublicationPageProps) => {
   const classes = useStyles()
-  const title = data.title
+  const title = publication.title
 
   return (
     <Grid container>
@@ -29,10 +29,10 @@ const PublicationPage = ({ data }: PublicationPageProps) => {
         <PublicationHeader />
       </Grid>
       <Grid item xs={12} sm={2} className={classes.sidebar}>
-        <PublicationSidebar doi={data.doi} />
+        <PublicationSidebar doi={publication.doi} />
       </Grid>
       <Grid item xs={12} sm={10}>
-        <PublicationBody data={data} />
+        <PublicationBody publication={publication} />
       </Grid>
     </Grid>
   )

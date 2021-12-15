@@ -20,7 +20,9 @@ const PublicationPageWrapper = () => {
     <>
       {loading && <PublicationLoader />}
       {error && <ErrorPage />}
-      {data && <PublicationPage data={data.publication as Publication} />}
+      {data && (
+        <PublicationPage publication={data.publication as Publication} />
+      )}
     </>
   )
 }
