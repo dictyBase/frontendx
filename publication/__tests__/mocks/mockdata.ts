@@ -1,4 +1,5 @@
-const data = {
+import { Publication } from "dicty-graphql-schema"
+const data: { publication: Publication } = {
   publication: {
     id: "12345678",
     doi: "9.0909/j.diff.1964.02.01",
@@ -20,6 +21,8 @@ const data = {
         initials: "CK",
       },
     ],
+    pub_type: "",
+    source: "",
   },
 }
 

@@ -6,7 +6,7 @@ import PublicationPage from "../components/PublicationPage"
 describe("components/PublicationPage", () => {
   describe("initial render", () => {
     it("displays expected data", () => {
-      render(<PublicationPage data={data.publication} />)
+      render(<PublicationPage publication={data.publication} />)
 
       expect(
         screen.getByText(
