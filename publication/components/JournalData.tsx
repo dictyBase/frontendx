@@ -4,7 +4,7 @@ import Typography from "@material-ui/core/Typography"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import JournalDataItem from "./JournalDataItem"
 import { addDays, format, parseISO } from "date-fns"
-import { Maybe, Publication } from "dicty-graphql-schema"
+import { Publication } from "dicty-graphql-schema"
 
 const useStyles = makeStyles((theme: Theme) => ({
   journal: {
@@ -22,12 +22,14 @@ interface JournalDataProps {
  */
 
 export const JournalData = ({ data }: JournalDataProps) => {
+  const { id, doi, pub_date, journal, pages, issue, volume } = data
+
   const classes = useStyles()
-  const pubmedURL = `https://pubmed.gov/${data.id}`
-  const doiURL = `https://doi.org/${data.doi}`
+  const pubmedURL = `https://pubmed.gov/${id}`
+  const doiURL = `https://doi.org/${doi}`
   // convert ISO 8601 string to Date format
   // otherwise the 00:00:00.000Z causes it to return the previous day
-  const day = addDays(parseISO(data.pub_date), 1)
+  const day = addDays(parseISO(pub_date), 1)
   // convert Date to desired display format
   const date = format(day, "d MMM yyyy")
 
@@ -35,15 +37,15 @@ export const JournalData = ({ data }: JournalDataProps) => {
     <Box pb={2}>
       <Box>
         <Typography component="span" className={classes.journal}>
-          {data.journal},
+          {journal},
         </Typography>
         <Typography component="span">
-          {date}, {data.volume}({data.issue}):{data.pages}
+          {date}, {volume}({issue}):{pages}
         </Typography>
       </Box>
       <Box>
-        <JournalDataItem title="DOI" url={doiURL} content={data.doi} />
-        <JournalDataItem title="PMID" url={pubmedURL} content={data.id} />
+        <JournalDataItem title="DOI" url={doiURL} content={doi} />
+        <JournalDataItem title="PMID" url={pubmedURL} content={id} />
       </Box>
     </Box>
   )
