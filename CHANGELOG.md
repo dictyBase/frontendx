@@ -1,3 +1,11 @@
+# [1.4.0](https://github.com/dictyBase/graphql-schema/compare/1.3.0...1.4.0) (2021-12-15)
+
+
+### Features
+
+* generate types ([6a18127](https://github.com/dictyBase/graphql-schema/commit/6a181272855be94d8ce1ebd40283a2dab12e64bc))
+* remove first_name as mandatory ([c6aba31](https://github.com/dictyBase/graphql-schema/commit/c6aba314f2bb1ab11472822b8e21ea138fec73fd))
+
 # [1.3.0](https://github.com/dictyBase/graphql-schema/compare/1.2.0...1.3.0) (2021-12-15)
 
 
