@@ -41,9 +41,9 @@ var Apollo = __importStar(require("@apollo/client"));
 var defaultOptions = {};
 var StatusEnum;
 (function (StatusEnum) {
-    StatusEnum["InPreparation"] = "IN_PREPARATION";
-    StatusEnum["Growing"] = "GROWING";
     StatusEnum["Cancelled"] = "CANCELLED";
+    StatusEnum["Growing"] = "GROWING";
+    StatusEnum["InPreparation"] = "IN_PREPARATION";
     StatusEnum["Shipped"] = "SHIPPED";
 })(StatusEnum = exports.StatusEnum || (exports.StatusEnum = {}));
 exports.LoginDocument = (0, client_1.gql)(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    mutation Login($input: LoginInput!) {\n  login(input: $input) {\n    token\n    user {\n      id\n      email\n      first_name\n      last_name\n      roles {\n        role\n        permissions {\n          permission\n          resource\n        }\n      }\n    }\n    identity {\n      provider\n    }\n  }\n}\n    "], ["\n    mutation Login($input: LoginInput!) {\n  login(input: $input) {\n    token\n    user {\n      id\n      email\n      first_name\n      last_name\n      roles {\n        role\n        permissions {\n          permission\n          resource\n        }\n      }\n    }\n    identity {\n      provider\n    }\n  }\n}\n    "])));

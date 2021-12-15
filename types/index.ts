@@ -24,7 +24,7 @@ export type Auth = {
 
 export type Author = {
   __typename?: 'Author';
-  first_name: Scalars['String'];
+  first_name?: Maybe<Scalars['String']>;
   initials?: Maybe<Scalars['String']>;
   last_name: Scalars['String'];
   rank?: Maybe<Scalars['String']>;
