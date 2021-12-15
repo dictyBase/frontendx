@@ -4,6 +4,7 @@ import Typography from "@material-ui/core/Typography"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import JournalDataItem from "./JournalDataItem"
 import { addDays, format, parseISO } from "date-fns"
+import { Maybe, Publication } from "dicty-graphql-schema"
 
 const useStyles = makeStyles((theme: Theme) => ({
   journal: {
@@ -12,23 +13,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-type Props = {
-  data: {
-    doi: string
-    journal: string
-    pages: string
-    pub_date: string
-    id: string
-    issue: string
-    volume: string
-  }
+interface JournalDataProps {
+  data: Publication
 }
 
 /**
  * JournalData displays general data related to the publication.
  */
 
-export const JournalData = ({ data }: Props) => {
+export const JournalData = ({ data }: JournalDataProps) => {
   const classes = useStyles()
   const pubmedURL = `https://pubmed.gov/${data.id}`
   const doiURL = `https://doi.org/${data.doi}`
