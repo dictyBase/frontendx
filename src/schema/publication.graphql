@@ -1,18 +1,18 @@
 type Publication {
   id: ID!
   doi: String
-  title: String
-  abstract: String
-  journal: String
+  title: String!
+  abstract: String!
+  journal: String!
   pub_date: Timestamp
   volume: String
   pages: String
   issn: String
-  pub_type: String
-  source: String
+  pub_type: String!
+  source: String!
   issue: String
   status: String
-  authors: [Author]
+  authors: [Author]!
 }
 
 type Author {
