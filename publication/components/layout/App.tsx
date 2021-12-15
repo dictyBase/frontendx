@@ -88,7 +88,6 @@ const getTokenIntervalDelayInMS = (token: string) => {
 /**
  * App is responsible for the main layout of the entire application.
  */
-
 const App = ({ children }: { children: React.ReactNode }) => {
   const [skip, setSkip] = React.useState(false)
   const {
