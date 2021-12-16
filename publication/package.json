@@ -19,7 +19,9 @@
     "styleguide": "FAST_REFRESH=false styleguidist server",
     "styleguide:build": "FAST_REFRESH=false styleguidist build",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "rescript": "rescript build -w",
+    "rescript:build": "rescript build"
   },
   "dependencies": {
     "@apollo/client": "^3.5.5",
