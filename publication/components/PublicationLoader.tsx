@@ -1,6 +1,6 @@
 import React from "react"
 import Grid from "@material-ui/core/Grid"
-import PublicationHeader from "./PublicationHeader"
+import { make as PublicationHeader } from "components/PublicationHeader.bs"
 import useStyles from "styles/publicationStyles"
 import { Skeleton } from "@mui/material"
 
