@@ -29,6 +29,7 @@
     "@material-ui/icons": "^4.11.2",
     "@mui/icons-material": "^5.2.1",
     "@mui/material": "^5.2.3",
+    "@rescript/react": "^0.10.3",
     "apollo3-cache-persist": "^0.13.0",
     "date-fns": "^2.27.0",
     "dicty-components-header-footer": "dictybase/dicty-components-header-footer#11.0.0",
@@ -83,6 +84,7 @@
     "prettier": "^2.5.1",
     "react-docgen-typescript": "^2.1.1",
     "react-styleguidist": "^11.1.6",
+    "rescript": "^9.1.4",
     "semantic-release": "^18.0.1",
     "source-map-explorer": "^2.5.2"
   },
