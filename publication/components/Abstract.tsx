@@ -8,17 +8,25 @@ type Props = {
 }
 
 /**
- * Abstract displays the abstract of the publication.
+ * Displays the abstract of the publication.
  */
-
 export const Abstract = ({ abstract }: Props) => {
+  const body =
+    abstract === "" ? (
+      <></>
+    ) : (
+      <>
+        <Typography variant="h2">Abstract</Typography>
+        <Divider />
+        <Box pt={2} pb={2}>
+          {abstract}
+        </Box>
+      </>
+    )
+
   return (
     <Box pt={2} pb={1}>
-      <Typography variant="h2">Abstract</Typography>
-      <Divider />
-      <Box pt={2} pb={2}>
-        {abstract}
-      </Box>
+      {body}
     </Box>
   )
 }
