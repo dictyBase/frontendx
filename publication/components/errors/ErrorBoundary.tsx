@@ -63,7 +63,7 @@ class ErrorBoundary extends Component<Props, State> {
         <Grid className={classes.gridContainer} container justify="center">
           <Grid item xs={6} className={classes.paper}>
             <div style={{ textAlign: "center" }}>
-              <img src="public/sad-dicty.png" alt="Sad Dicty Logo" />
+              <img src="sad-dicty.png" alt="Sad Dicty Logo" />
               <Typography variant="h2">
                 Sorry! There was an error loading this page.
               </Typography>
