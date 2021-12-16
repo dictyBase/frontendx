@@ -1,5 +1,5 @@
 {
-    "name": "rescript-todo-app",
+    "name": "dicty-publication",
     "sources": [
         {
             "dir": "pages",
@@ -29,6 +29,8 @@
         "react-jsx": 3
     },
     "bs-dependencies": [
-        "@rescript/react"
+        "@rescript/react",
+        "rescript-material-ui",
+        "rescript-material-ui-lab"
     ]
 }
