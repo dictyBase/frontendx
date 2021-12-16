@@ -10398,6 +10398,16 @@ requires-port@^1.0.0:
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
 
+rescript-material-ui-lab@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/rescript-material-ui-lab/-/rescript-material-ui-lab-3.0.2.tgz#95a98348b9292be1841a20db2677a19ca0291c1e"
+  integrity sha512-DIpGOqdVWLLnMLnhygNZIOemBxRbeQJSNZkT2e3yvJPtrbKNNCnWOWu2glcPkRXzlCP/27KACWdoQJGjMjaPQw==
+
+rescript-material-ui@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/rescript-material-ui/-/rescript-material-ui-3.0.2.tgz#81bdf7a6e9e3528137e7ea23b1ead76b5577a201"
+  integrity sha512-TxD7UekhXlK9uYIuHhAERnATzgT2MCPrbqazYVlfy06dOqElHG5OCiafI0/39dNuwwYnWoDZWOC+fG/AZ+8T7A==
+
 rescript@^9.1.4:
   version "9.1.4"
   resolved "https://registry.yarnpkg.com/rescript/-/rescript-9.1.4.tgz#1eb126f98d6c16942c0bf0df67c050198e580515"
