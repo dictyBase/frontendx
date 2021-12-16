@@ -40,7 +40,7 @@ const ErrorPage = () => {
       justifyContent="center"
       textAlign="center">
       <Box className={classes.container}>
-        <img src="public/sad-dicty.png" alt="Sad Dicty -- HTTP Error" />
+        <img src="sad-dicty.png" alt="Sad Dicty -- HTTP Error" />
         <Typography className={classes.text} variant="h1">
           <ErrorIcon /> Error
         </Typography>
