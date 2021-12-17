@@ -10,6 +10,9 @@
     "package.json"
   ],
   "private": true,
+  "engines": {
+    "node": ">= 16.13.1"
+  },
   "scripts": {
     "generate": "graphql-codegen",
     "build": "tsc types/index.ts --outDir ./dist --esModuleInterop",
