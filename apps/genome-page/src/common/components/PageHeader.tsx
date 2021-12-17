@@ -6,6 +6,8 @@ const getHeaderValue = (pathname: string) => {
   const subroute = pathname.split("/").splice(-1).join()
 
   switch (subroute) {
+    case "phenotypes":
+      return "Gene Phenotypes"
     case "goannotations":
       return "Gene Ontology Annotations"
     default:

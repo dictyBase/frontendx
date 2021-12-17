@@ -4,16 +4,17 @@
   "private": true,
   "homepage": "/gene",
   "engines": {
-    "node": ">= 14.17"
+    "node": ">= 16.13.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "start:mock": "REACT_APP_MOCK_SERVER=on react-scripts start",
     "test": "react-scripts test",
     "test-coverage": "react-scripts test --coverage",
     "cypress:open": "cypress open",
     "cypress:run": "percy exec -- cypress run",
-    "cypress:ci": "start-server-and-test start http://localhost:3000 cypress:run",
+    "cypress:ci": "REACT_APP_MOCK_SERVER=on start-server-and-test start http://localhost:3000 cypress:run",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .tsx,.ts,.jsx,.js src/",
     "tsc": "tsc",
@@ -82,6 +83,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "7",
     "lint-staged": "^12.1.2",
+    "msw": "^0.35.0",
     "prettier": "^2.5.1",
     "react-docgen-typescript": "^2.2.1",
     "react-styleguidist": "^11.1.7",
@@ -96,9 +98,11 @@
       "!src/common/constants/*.{ts,tsx}",
       "!src/common/graphql/*.{ts,tsx}",
       "!src/common/mocks/*.{ts,tsx}",
+      "!src/mocks/*.{js,jsx,ts,tsx}",
       "!src/**/*Config.{ts,tsx,sample.ts}",
       "!src/common/utils/icons.ts",
-      "!src/app/styleguide/*.{ts,tsx}"
+      "!src/app/styleguide/*.{ts,tsx}",
+      "!src/index.tsx"
     ],
     "resetMocks": false
   },
@@ -142,5 +146,8 @@
         "error"
       ]
     }
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

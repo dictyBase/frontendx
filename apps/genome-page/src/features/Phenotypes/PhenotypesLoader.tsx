@@ -8,10 +8,9 @@ type Props = {
 }
 
 /**
- * Loading screen for Summary page
+ * Loading screen for Phenotypes page
  */
-
-const SummaryLoader = ({ gene }: Props) => (
+const PhenotypesLoader = ({ gene }: Props) => (
   <div data-testid="skeleton-loader">
     <Layout gene={gene}>
       <SkeletonTheme baseColor="#d1d1d1">
@@ -21,4 +20,4 @@ const SummaryLoader = ({ gene }: Props) => (
   </div>
 )
 
-export default SummaryLoader
+export default PhenotypesLoader

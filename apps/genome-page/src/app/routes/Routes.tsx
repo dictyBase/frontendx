@@ -15,6 +15,9 @@ const AuthLoaderPage = lazy(() => import("features/Authentication/AuthLoader"))
 const LogoutPage = lazy(() => import("features/Authentication/Logout"))
 const SummaryPage = lazy(() => import("features/Summary/SummaryContainer"))
 const OntologyPage = lazy(() => import("features/Ontology/OntologyContainer"))
+const PhenotypesPage = lazy(
+  () => import("features/Phenotypes/PhenotypesContainer"),
+)
 const PageNotReady = lazy(() => import("common/components/PageNotReady"))
 
 /**
@@ -36,7 +39,7 @@ const Routes = () => {
           <Route path=":gene">
             <Route index element={<SummaryPage />} />
             <Route path="goannotations" element={<OntologyPage />} />
-            <Route path="*" element={<PageNotReady />} />
+            <Route path="phenotypes" element={<PhenotypesPage />} />
           </Route>
         </Route>
         <Route path="*" element={<PageNotReady />} />
