@@ -14,7 +14,7 @@
     "test-coverage": "react-scripts test --coverage",
     "cypress:open": "cypress open",
     "cypress:run": "percy exec -- cypress run",
-    "cypress:ci": "start-server-and-test start http://localhost:3000 cypress:run",
+    "cypress:ci": "REACT_APP_MOCK_SERVER=on start-server-and-test start http://localhost:3000 cypress:run",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .tsx,.ts,.jsx,.js src/",
     "tsc": "tsc",
