@@ -10,6 +10,9 @@
     "package.json"
   ],
   "private": true,
+  "engines": {
+    "node": ">= 16.13.1"
+  },
   "scripts": {
     "generate": "graphql-codegen",
     "build": "tsc types/index.ts --outDir ./dist --esModuleInterop",
@@ -48,6 +51,5 @@
     "react-dom": "^17.0.2",
     "semantic-release": "^18.0.1",
     "typescript": "^4.2.4"
-  },
-  "packageManager": "yarn@3.1.1"
+  }
 }
