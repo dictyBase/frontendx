@@ -4,11 +4,12 @@
   "private": true,
   "homepage": "/gene",
   "engines": {
-    "node": ">= 14.17"
+    "node": ">= 16.13.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "start:mock": "REACT_APP_MOCK_SERVER=on react-scripts start",
     "test": "react-scripts test",
     "test-coverage": "react-scripts test --coverage",
     "cypress:open": "cypress open",
