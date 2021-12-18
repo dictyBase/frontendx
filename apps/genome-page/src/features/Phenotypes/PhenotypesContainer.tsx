@@ -30,7 +30,7 @@ const PhenotypesContainer = () => {
         <title>Phenotypes for {gene} - dictyBase</title>
         <meta
           name="description"
-          content={`Gene Ontology Annotations for ${gene} at dictyBase`}
+          content={`Gene phenotypes for ${gene} at dictyBase`}
         />
       </Helmet>
 
