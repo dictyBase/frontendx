@@ -5,8 +5,8 @@ import AddIcon from "@material-ui/icons/Add"
 import FileDownloadIcon from "@material-ui/icons/GetApp"
 import InfoIcon from "@material-ui/icons/Info"
 import { SvgIconProps } from "@material-ui/core/SvgIcon"
-import LoginIcon from "common/icons/LoginIcon"
-import LogoutIcon from "common/icons/LogoutIcon"
+import LogoutIcon from "@mui/icons-material/Logout"
+import LoginIcon from "@mui/icons-material/Login"
 
 type LinkIconProps = {
   link: LinkProps
