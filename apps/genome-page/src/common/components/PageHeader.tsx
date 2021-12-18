@@ -10,6 +10,8 @@ const getHeaderValue = (pathname: string) => {
       return "Gene Phenotypes"
     case "goannotations":
       return "Gene Ontology Annotations"
+    case "references":
+      return "References"
     default:
       return "Gene Summary"
   }
