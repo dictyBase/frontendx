@@ -18,6 +18,9 @@ const OntologyPage = lazy(() => import("features/Ontology/OntologyContainer"))
 const PhenotypesPage = lazy(
   () => import("features/Phenotypes/PhenotypesContainer"),
 )
+const ReferencesPage = lazy(
+  () => import("features/References/ReferencesContainer"),
+)
 const PageNotReady = lazy(() => import("common/components/PageNotReady"))
 
 /**
@@ -40,6 +43,7 @@ const Routes = () => {
             <Route index element={<SummaryPage />} />
             <Route path="goannotations" element={<OntologyPage />} />
             <Route path="phenotypes" element={<PhenotypesPage />} />
+            <Route path="references" element={<ReferencesPage />} />
           </Route>
         </Route>
         <Route path="*" element={<PageNotReady />} />
