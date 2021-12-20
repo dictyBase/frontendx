@@ -10,7 +10,6 @@ import PhenotypesDataTable from "./PhenotypesDataTable"
 
 const PhenotypesContainer = () => {
   const gene = useParams().gene as string
-
   const { loading, error, data } = useGeneQuery({
     variables: {
       gene,
@@ -29,11 +28,9 @@ const PhenotypesContainer = () => {
       </Helmet>
 
       <Typography component="div">
-        {loading && <PhenotypesLoader gene={gene} />}
+        {loading && <PhenotypesLoader />}
         {error && <GraphQLErrorPage error={error} />}
-        {data && (
-          <PhenotypesDataTable data={data.allStrains?.strains as Strain[]} />
-        )}
+        {data && <PhenotypesDataTable data={data} />}
       </Typography>
     </Layout>
   )
