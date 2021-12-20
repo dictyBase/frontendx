@@ -1,10 +1,10 @@
 import React from "react"
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import { createTheme, MuiThemeProvider } from "@material-ui/core/styles"
 import Layout from "app/layout/Layout"
+import { Box, Skeleton } from "@mui/material"
 
 const skeletonTheme = createTheme({
   overrides: {
@@ -48,15 +48,21 @@ const OntologyLoader = ({ gene }: Props) => (
           </Tabs>
         </AppBar>
       </MuiThemeProvider>
-      <SkeletonTheme baseColor="#d1d1d1">
-        <Skeleton count={5} />
+      <Box mt="10px">
+        {[...Array(5)].map((i) => (
+          <Skeleton key={i} animation="wave" />
+        ))}
         <br />
         <br />
-        <Skeleton count={5} />
+        {[...Array(5)].map((i) => (
+          <Skeleton key={i} animation="wave" />
+        ))}
         <br />
         <br />
-        <Skeleton count={5} />
-      </SkeletonTheme>
+        {[...Array(5)].map((i) => (
+          <Skeleton key={i} animation="wave" />
+        ))}
+      </Box>
     </Layout>
   </div>
 )

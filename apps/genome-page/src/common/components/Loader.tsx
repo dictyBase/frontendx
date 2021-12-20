@@ -1,6 +1,6 @@
 import React from "react"
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton"
 import Grid from "@material-ui/core/Grid"
+import { Skeleton } from "@mui/material"
 
 /**
  * Loader is the default loading skeleton component.
@@ -12,18 +12,24 @@ const Loader = () => (
     data-testid="skeleton-loader"
     role="loader">
     <Grid item xs={12}>
-      <SkeletonTheme>
-        <Skeleton count={10} />
-        <br />
-        <br />
-        <Skeleton count={10} />
-        <br />
-        <br />
-        <Skeleton count={10} />
-        <br />
-        <br />
-        <Skeleton count={5} />
-      </SkeletonTheme>
+      {[...Array(10)].map((i) => (
+        <Skeleton key={i} animation="wave" />
+      ))}
+      <br />
+      <br />
+      {[...Array(10)].map((i) => (
+        <Skeleton key={i} animation="wave" />
+      ))}
+      <br />
+      <br />
+      {[...Array(10)].map((i) => (
+        <Skeleton key={i} animation="wave" />
+      ))}
+      <br />
+      <br />
+      {[...Array(5)].map((i) => (
+        <Skeleton key={i} animation="wave" />
+      ))}
     </Grid>
   </Grid>
 )
