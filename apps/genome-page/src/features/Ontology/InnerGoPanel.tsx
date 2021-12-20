@@ -1,7 +1,7 @@
 import React from "react"
 import Grid from "@material-ui/core/Grid"
 import GoaDisplayTable from "./Table/GoaDisplayTable"
-import PanelWrapper from "common/components/panels/PanelWrapper"
+import PanelWrapper from "components/panels/PanelWrapper"
 import Typography from "@material-ui/core/Typography"
 import { GoAnnotation } from "dicty-graphql-schema"
 

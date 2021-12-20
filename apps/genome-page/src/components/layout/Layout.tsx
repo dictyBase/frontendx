@@ -4,8 +4,8 @@ import Grid from "@material-ui/core/Grid"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
-import LegacyLinkSnackbar from "common/components/LegacyLinkSnackbar"
-import PageHeader from "common/components/PageHeader"
+import LegacyLinkSnackbar from "components/LegacyLinkSnackbar"
+import PageHeader from "components/PageHeader"
 
 const getTabValue = (pathname: string) => {
   const subroute = pathname.split("/").splice(-1).join()

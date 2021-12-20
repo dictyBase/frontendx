@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom"
 import Typography from "@material-ui/core/Typography"
 import OntologyTabLayout from "./OntologyTabLayout"
 import OntologyLoader from "./OntologyLoader"
-import GraphQLErrorPage from "common/components/errors/GraphQLErrorPage"
+import GraphQLErrorPage from "components/errors/GraphQLErrorPage"
 import Layout from "components/layout/Layout"
 import { useGeneQuery, GoAnnotation } from "dicty-graphql-schema"
 

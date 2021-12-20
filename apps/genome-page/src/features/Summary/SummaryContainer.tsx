@@ -2,11 +2,11 @@ import React from "react"
 import { Helmet } from "react-helmet"
 import { useParams } from "react-router-dom"
 import Typography from "@material-ui/core/Typography"
-import PanelWrapper from "common/components/panels/PanelWrapper"
+import PanelWrapper from "components/panels/PanelWrapper"
 import SummaryLoader from "./SummaryLoader"
 import Layout from "components/layout/Layout"
 import GoaPanel from "features/Summary/Panels/GoaPanel"
-import GraphQLErrorPage from "common/components/errors/GraphQLErrorPage"
+import GraphQLErrorPage from "components/errors/GraphQLErrorPage"
 import { useGeneQuery, GoAnnotation } from "dicty-graphql-schema"
 
 /**

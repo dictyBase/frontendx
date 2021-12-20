@@ -2,7 +2,7 @@ import React from "react"
 import { render, screen } from "@testing-library/react"
 import LegacyLinkSnackbar from "./LegacyLinkSnackbar"
 
-describe("common/components/LegacyLinkSnackbar", () => {
+describe("components/LegacyLinkSnackbar", () => {
   it("should render correct legacy URL", () => {
     render(<LegacyLinkSnackbar gene="DDB_G123456" />)
     expect(screen.getByRole("link")).toHaveAttribute(

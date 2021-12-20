@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet"
 import { useParams } from "react-router-dom"
 import Typography from "@material-ui/core/Typography"
-import GraphQLErrorPage from "common/components/errors/GraphQLErrorPage"
+import GraphQLErrorPage from "components/errors/GraphQLErrorPage"
 import Layout from "components/layout/Layout"
 import { useGeneQuery } from "dicty-graphql-schema"
 import PhenotypesLoader from "./PhenotypesLoader"
