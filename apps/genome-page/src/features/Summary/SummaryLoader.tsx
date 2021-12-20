@@ -1,5 +1,5 @@
 import React from "react"
-import Layout from "app/layout/Layout"
+import Layout from "components/layout/Layout"
 import { Box, Skeleton } from "@mui/material"
 
 type Props = {

@@ -11,7 +11,7 @@ import {
   User,
 } from "dicty-graphql-schema"
 import ErrorBoundary from "common/components/errors/ErrorBoundary"
-import Routes from "app/routes/Routes"
+import Routes from "components/routes/Routes"
 import { useAuthStore, ActionType } from "features/Authentication/AuthStore"
 import {
   headerItems,
