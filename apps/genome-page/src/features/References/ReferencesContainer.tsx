@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom"
 import Typography from "@material-ui/core/Typography"
 import GraphQLErrorPage from "common/components/errors/GraphQLErrorPage"
 import Layout from "app/layout/Layout"
-import { Strain, useGeneQuery } from "dicty-graphql-schema"
+import { useGeneQuery } from "dicty-graphql-schema"
 
 const ReferencesContainer = () => {
   const gene = useParams().gene as string
@@ -17,10 +17,7 @@ const ReferencesContainer = () => {
   })
 
   if (loading) return <h1>Loading...</h1>
-
   if (error || !data?.allStrains) return <GraphQLErrorPage error={error} />
-
-  const strains = data.allStrains?.strains as Strain[]
 
   return (
     <Layout gene={gene}>
