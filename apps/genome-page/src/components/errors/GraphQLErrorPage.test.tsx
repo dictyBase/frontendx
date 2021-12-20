@@ -17,7 +17,7 @@ const errorFormat = (error: any): ApolloError => ({
   clientErrors: [],
 })
 
-describe("common/components/errors/GraphQLErrorPage", () => {
+describe("components/errors/GraphQLErrorPage", () => {
   it("should render not found error", () => {
     render(
       <GraphQLErrorPage error={errorFormat(mockNotFoundError.errors[0])} />,

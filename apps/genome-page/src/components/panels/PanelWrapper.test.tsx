@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react"
 import PanelWrapper from "./PanelWrapper"
 import { BrowserRouter } from "react-router-dom"
 
-describe("common/components/panels/PanelWrapper", () => {
+describe("components/panels/PanelWrapper", () => {
   const Child = () => <React.Fragment>child component</React.Fragment>
   const renderComponent = () => {
     render(

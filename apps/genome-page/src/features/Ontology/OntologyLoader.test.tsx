@@ -12,7 +12,7 @@ jest.mock("react-router-dom", () => {
   }
 })
 
-describe("common/components/OntologyLoader", () => {
+describe("components/OntologyLoader", () => {
   it("should render correct page header", () => {
     render(<OntologyLoader gene={gene} />)
     expect(

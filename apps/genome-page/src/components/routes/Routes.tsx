@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from "react"
 import { Route, Routes as ReactRoutes, Navigate } from "react-router-dom"
 import useGoogleAnalytics from "common/hooks/useGoogleAnalytics"
-import Loader from "common/components/Loader"
+import Loader from "components/Loader"
 
 /**
  * Lazy loading components for increased performance.
@@ -21,7 +21,7 @@ const PhenotypesPage = lazy(
 const ReferencesPage = lazy(
   () => import("features/References/ReferencesContainer"),
 )
-const PageNotReady = lazy(() => import("common/components/PageNotReady"))
+const PageNotReady = lazy(() => import("components/PageNotReady"))
 
 /**
  * List of routes used with React Router.

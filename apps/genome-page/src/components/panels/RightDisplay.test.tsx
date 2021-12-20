@@ -1,15 +1,15 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import LeftDisplay from "./LeftDisplay"
+import RightDisplay from "./RightDisplay"
 
-describe("common/components/panels/LeftDisplay", () => {
+describe("components/panels/RightDisplay", () => {
   const Child = () => <React.Fragment>child component</React.Fragment>
 
   it("should render children", () => {
     render(
-      <LeftDisplay>
+      <RightDisplay>
         <Child />
-      </LeftDisplay>,
+      </RightDisplay>,
     )
     expect(screen.getByText(/child component/)).toBeInTheDocument()
   })

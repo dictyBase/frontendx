@@ -11,7 +11,7 @@ jest.mock("react-router-dom", () => {
   }
 })
 
-describe("common/components/SummaryLoader", () => {
+describe("components/SummaryLoader", () => {
   it("should render correct page header", () => {
     render(<SummaryLoader gene={gene} />)
     expect(screen.getByText(`Gene Summary for ${gene}`)).toBeInTheDocument()
