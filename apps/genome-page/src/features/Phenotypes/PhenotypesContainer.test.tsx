@@ -41,7 +41,7 @@ describe("features/Phenotypes/PhenotypesContainer", () => {
     expect(screen.getByText("Strain")).toBeInTheDocument()
     expect(screen.getByText("Characteristics")).toBeInTheDocument()
     expect(screen.getByText("Phenotype")).toBeInTheDocument()
-    expect(screen.getByText(/Reference/)).toBeInTheDocument()
+    expect(screen.getByText("Reference(s)")).toBeInTheDocument()
 
     expect(
       screen.getByText("aberrant actin filament organization"),
