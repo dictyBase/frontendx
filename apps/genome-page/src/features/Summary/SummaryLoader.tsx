@@ -1,6 +1,6 @@
 import React from "react"
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton"
 import Layout from "app/layout/Layout"
+import { Box, Skeleton } from "@mui/material"
 
 type Props = {
   /** Gene name */
@@ -12,13 +12,13 @@ type Props = {
  */
 
 const SummaryLoader = ({ gene }: Props) => (
-  <div data-testid="skeleton-loader">
+  <Box mt={"10px"} data-testid="skeleton-loader">
     <Layout gene={gene}>
-      <SkeletonTheme baseColor="#d1d1d1">
-        <Skeleton count={10} />
-      </SkeletonTheme>
+      {[...Array(10)].map((i) => (
+        <Skeleton key={i} animation="wave" />
+      ))}
     </Layout>
-  </div>
+  </Box>
 )
 
 export default SummaryLoader
