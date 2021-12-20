@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography"
 import GraphQLErrorPage from "common/components/errors/GraphQLErrorPage"
 import Layout from "app/layout/Layout"
 import { useGeneQuery } from "dicty-graphql-schema"
+import ReferencesLoader from "./ReferencesLoader"
 
 const ReferencesContainer = () => {
   const gene = useParams().gene as string
@@ -12,7 +13,6 @@ const ReferencesContainer = () => {
     variables: {
       gene,
     },
-    fetchPolicy: "cache-and-network",
   })
 
   return (
