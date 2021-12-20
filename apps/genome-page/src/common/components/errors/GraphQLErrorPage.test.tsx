@@ -5,7 +5,7 @@ import {
   mockNotFoundError,
   mockOtherError,
   mockUnavailableError,
-} from "common/mocks/mockGraphQLError"
+} from "features/Authentication/mockGraphQLError"
 import { ApolloError } from "@apollo/client"
 
 const errorFormat = (error: any): ApolloError => ({

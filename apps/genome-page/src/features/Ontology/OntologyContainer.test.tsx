@@ -3,8 +3,8 @@ import { render, screen } from "@testing-library/react"
 import { MockedProvider } from "@apollo/client/testing"
 import OntologyContainer from "./OntologyContainer"
 import { GeneDocument } from "dicty-graphql-schema"
-import mockGraphQLData from "common/mocks/mockGraphQLData"
-import { mockNotFoundError } from "common/mocks/mockGraphQLError"
+import mockGraphQLData from "mocks/mockGraphQLData"
+import { mockNotFoundError } from "features/Authentication/mockGraphQLError"
 import { BrowserRouter } from "react-router-dom"
 
 jest.mock("react-router-dom", () => {
