@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet"
 import { useParams } from "react-router-dom"
 import Typography from "@material-ui/core/Typography"
 import GraphQLErrorPage from "common/components/errors/GraphQLErrorPage"
-import Layout from "app/layout/Layout"
+import Layout from "components/layout/Layout"
 import { useGeneQuery } from "dicty-graphql-schema"
 import ReferencesLoader from "./ReferencesLoader"
 

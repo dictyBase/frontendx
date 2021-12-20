@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react"
 import { MockedProvider } from "@apollo/client/testing"
 import { BrowserRouter } from "react-router-dom"
 import { GeneDocument } from "dicty-graphql-schema"
-import Routes from "app/routes/Routes"
+import Routes from "components/routes/Routes"
 import mockGraphQLData from "common/mocks/mockGraphQLData"
 
 const mockHistoryPush = jest.fn()
@@ -17,7 +17,7 @@ jest.mock("react-router-dom", () => {
   }
 })
 
-describe("app/routes/Routes", () => {
+describe("components/routes/Routes", () => {
   const mocks = [
     {
       request: {
