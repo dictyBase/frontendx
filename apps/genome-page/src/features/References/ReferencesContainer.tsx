@@ -8,16 +8,12 @@ import { useGeneQuery } from "dicty-graphql-schema"
 
 const ReferencesContainer = () => {
   const gene = useParams().gene as string
-
   const { loading, error, data } = useGeneQuery({
     variables: {
       gene,
     },
     fetchPolicy: "cache-and-network",
   })
-
-  if (loading) return <h1>Loading...</h1>
-  if (error || !data?.allStrains) return <GraphQLErrorPage error={error} />
 
   return (
     <Layout gene={gene}>
@@ -30,7 +26,9 @@ const ReferencesContainer = () => {
       </Helmet>
 
       <Typography component="div">
-        <h1>Data here...</h1>
+        {loading && <ReferencesLoader />}
+        {error && <GraphQLErrorPage error={error} />}
+        {data && <p>Data...</p>}
       </Typography>
     </Layout>
   )
