@@ -4,7 +4,7 @@ import { MockedProvider } from "@apollo/client/testing"
 import { BrowserRouter } from "react-router-dom"
 import { GeneDocument } from "dicty-graphql-schema"
 import Routes from "components/routes/Routes"
-import mockGraphQLData from "common/mocks/mockGraphQLData"
+import mockGraphQLData from "mocks/mockGraphQLData"
 
 const mockHistoryPush = jest.fn()
 
