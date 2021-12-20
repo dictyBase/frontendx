@@ -102,8 +102,8 @@ const App = () => {
   const { loading, refetch, data } = useGetRefreshTokenQuery({
     variables: { token: token },
     errorPolicy: "ignore",
-    fetchPolicy: "no-cache",
-    nextFetchPolicy: "no-cache",
+    fetchPolicy: "cache-and-network",
+    nextFetchPolicy: "cache-and-network",
     skip, // only run query once
   })
   const interval = React.useRef(null)

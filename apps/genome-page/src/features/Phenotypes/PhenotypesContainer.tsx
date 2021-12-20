@@ -13,7 +13,6 @@ const PhenotypesContainer = () => {
     variables: {
       gene,
     },
-    fetchPolicy: "cache-and-network",
   })
 
   return (
