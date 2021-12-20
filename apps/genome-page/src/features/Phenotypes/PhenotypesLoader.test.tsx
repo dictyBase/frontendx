@@ -14,8 +14,8 @@ jest.mock("react-router-dom", () => {
 
 describe("features/Phenotypes/PhenotypesLoader", () => {
   it("should render loader", () => {
-    render(<PhenotypesLoader gene={gene} />)
+    render(<PhenotypesLoader />)
 
-    expect(screen.getByText(`Gene Phenotypes for ${gene}`)).toBeInTheDocument()
+    expect(screen.getByTestId("skeleton-loader")).toBeInTheDocument()
   })
 })

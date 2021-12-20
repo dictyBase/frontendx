@@ -5,7 +5,6 @@ import { useGeneQuery } from "dicty-graphql-schema"
 import mockGene from "mocks/mockGene"
 import { ApolloError } from "@apollo/client"
 
-const geneId = "DDB_G0288511"
 const gene = "sadA"
 const pathname = `gene/${gene}/phenotypes`
 
