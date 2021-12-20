@@ -1,5 +1,5 @@
 import React from "react"
-import StyledExternalLink from "common/components/StyledExternalLink"
+import StyledExternalLink from "components/StyledExternalLink"
 import withLinkGenerator from "../utils/withLinkGenerator"
 import { With, Extension } from "dicty-graphql-schema"
 

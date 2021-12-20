@@ -2,7 +2,7 @@ import React from "react"
 import { render, screen } from "@testing-library/react"
 import PageNotReady from "./PageNotReady"
 
-describe("common/components/PageNotReady", () => {
+describe("components/PageNotReady", () => {
   it("should render sad dicty image", () => {
     render(<PageNotReady />)
     expect(

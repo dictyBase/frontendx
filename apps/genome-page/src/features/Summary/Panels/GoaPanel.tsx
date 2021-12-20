@@ -1,8 +1,8 @@
 import React from "react"
 import GoaPanelContent from "./GoaPanelContent"
-import ItemDisplay from "common/components/panels/ItemDisplay"
-import LeftDisplay from "common/components/panels/LeftDisplay"
-import RightDisplay from "common/components/panels/RightDisplay"
+import ItemDisplay from "components/panels/ItemDisplay"
+import LeftDisplay from "components/panels/LeftDisplay"
+import RightDisplay from "components/panels/RightDisplay"
 import { GoAnnotation } from "dicty-graphql-schema"
 
 type GOType = "molecular_function" | "biological_process" | "cellular_component"

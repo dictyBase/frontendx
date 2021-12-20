@@ -7,7 +7,7 @@ import pubLinkGenerator from "../utils/pubLinkGenerator"
 import dateConverter from "../utils/dateConverter"
 import qualifierFormatter from "../utils/qualifierFormatter"
 import sourceLinkGenerator from "../utils/sourceLinkGenerator"
-import StyledExternalLink from "common/components/StyledExternalLink"
+import StyledExternalLink from "components/StyledExternalLink"
 import { GoAnnotation, With, Extension } from "dicty-graphql-schema"
 
 const useStyles = makeStyles({

@@ -11,7 +11,7 @@ jest.mock("react-router-dom", () => {
   }
 })
 
-describe("common/components/PageHeader", () => {
+describe("components/PageHeader", () => {
   beforeEach(() => jest.clearAllMocks())
 
   it("should render gene summary header", () => {
