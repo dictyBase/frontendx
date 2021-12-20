@@ -18,12 +18,6 @@ const PhenotypesContainer = () => {
     fetchPolicy: "cache-and-network",
   })
 
-  if (loading) return <PhenotypesLoader gene={gene} />
-
-  if (error || !data?.allStrains) return <GraphQLErrorPage error={error} />
-
-  const strains = data.allStrains?.strains as Strain[]
-
   return (
     <Layout gene={gene}>
       <Helmet>
@@ -35,7 +29,11 @@ const PhenotypesContainer = () => {
       </Helmet>
 
       <Typography component="div">
-        <PhenotypesDataTable data={strains} />
+        {loading && <PhenotypesLoader gene={gene} />}
+        {error && <GraphQLErrorPage error={error} />}
+        {data && (
+          <PhenotypesDataTable data={data.allStrains?.strains as Strain[]} />
+        )}
       </Typography>
     </Layout>
   )
