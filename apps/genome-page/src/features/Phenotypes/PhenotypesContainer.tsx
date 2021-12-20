@@ -1,10 +1,9 @@
-import React from "react"
 import { Helmet } from "react-helmet"
 import { useParams } from "react-router-dom"
 import Typography from "@material-ui/core/Typography"
 import GraphQLErrorPage from "common/components/errors/GraphQLErrorPage"
 import Layout from "app/layout/Layout"
-import { Strain, useGeneQuery } from "dicty-graphql-schema"
+import { useGeneQuery } from "dicty-graphql-schema"
 import PhenotypesLoader from "./PhenotypesLoader"
 import PhenotypesDataTable from "./PhenotypesDataTable"
 
