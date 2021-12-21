@@ -487,7 +487,10 @@ export type Query = {
   listPermissions?: Maybe<Array<Permission>>;
   listPlasmids?: Maybe<PlasmidListWithCursor>;
   listPlasmidsWithAnnotation?: Maybe<PlasmidListWithCursor>;
+  listRecentGenes?: Maybe<Array<Gene>>;
+  listRecentPlasmids?: Maybe<Array<Plasmid>>;
   listRecentPublications?: Maybe<Array<Publication>>;
+  listRecentStrains?: Maybe<Array<Strain>>;
   listRoles?: Maybe<Array<Role>>;
   listStrains?: Maybe<StrainListWithCursor>;
   listStrainsWithAnnotation?: Maybe<StrainListWithCursor>;
@@ -551,7 +554,22 @@ export type QueryListPlasmidsWithAnnotationArgs = {
 };
 
 
+export type QueryListRecentGenesArgs = {
+  limit: Scalars['Int'];
+};
+
+
+export type QueryListRecentPlasmidsArgs = {
+  limit: Scalars['Int'];
+};
+
+
 export type QueryListRecentPublicationsArgs = {
+  limit: Scalars['Int'];
+};
+
+
+export type QueryListRecentStrainsArgs = {
   limit: Scalars['Int'];
 };
 
@@ -888,6 +906,13 @@ export type GeneQueryVariables = Exact<{
 
 export type GeneQuery = { __typename?: 'Query', allStrains?: { __typename?: 'Gene', id: string, name: string, strains?: Array<{ __typename?: 'Strain', id: string, label: string, characteristics?: Array<string | null | undefined> | null | undefined, in_stock: boolean, phenotypes?: Array<{ __typename?: 'Phenotype', phenotype: string, publication?: { __typename?: 'Publication', id: string, title: string, journal: string, pages?: string | null | undefined, volume?: string | null | undefined, pub_date?: any | null | undefined, authors: Array<{ __typename?: 'Author', last_name: string, rank?: string | null | undefined } | null | undefined> } | null | undefined } | null | undefined> | null | undefined } | null | undefined> | null | undefined } | null | undefined, gene?: { __typename?: 'Gene', id: string, name: string, goas?: Array<{ __typename?: 'GOAnnotation', id: string, type: string, date: string, evidence_code: string, go_term: string, qualifier: string, publication: string, assigned_by: string, with?: Array<{ __typename?: 'With', id: string, db: string, name: string }> | null | undefined, extensions?: Array<{ __typename?: 'Extension', id: string, db: string, relation: string, name: string }> | null | undefined } | null | undefined> | null | undefined } | null | undefined };
 
+export type ListRecentGenesQueryVariables = Exact<{
+  limit?: Scalars['Int'];
+}>;
+
+
+export type ListRecentGenesQuery = { __typename?: 'Query', listRecentGenes?: Array<{ __typename?: 'Gene', id: string, name: string }> | null | undefined };
+
 export type PublicationQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
@@ -971,6 +996,20 @@ export type StrainQueryVariables = Exact<{
 
 
 export type StrainQuery = { __typename?: 'Query', strain?: { __typename?: 'Strain', id: string, label: string, summary?: string | null | undefined, species: string, plasmid?: string | null | undefined, dbxrefs?: Array<string | null | undefined> | null | undefined, in_stock: boolean, systematic_name: string, genotypes?: Array<string | null | undefined> | null | undefined, mutagenesis_method?: string | null | undefined, genetic_modification?: string | null | undefined, names?: Array<string | null | undefined> | null | undefined, characteristics?: Array<string | null | undefined> | null | undefined, parent?: { __typename?: 'Strain', id: string, label: string } | null | undefined, depositor: { __typename?: 'User', first_name: string, last_name: string }, publications?: Array<{ __typename?: 'Publication', id: string, pub_date?: any | null | undefined, title: string, journal: string, volume?: string | null | undefined, pages?: string | null | undefined, doi?: string | null | undefined, authors: Array<{ __typename?: 'Author', last_name: string } | null | undefined> } | null | undefined> | null | undefined, genes?: Array<{ __typename?: 'Gene', name: string } | null | undefined> | null | undefined, phenotypes?: Array<{ __typename?: 'Phenotype', phenotype: string, note?: string | null | undefined, assay?: string | null | undefined, environment?: string | null | undefined, publication?: { __typename?: 'Publication', id: string, pub_date?: any | null | undefined, title: string, journal: string, volume?: string | null | undefined, pages?: string | null | undefined, authors: Array<{ __typename?: 'Author', last_name: string } | null | undefined> } | null | undefined } | null | undefined> | null | undefined } | null | undefined };
+
+export type ListRecentPlasmidsQueryVariables = Exact<{
+  limit?: Scalars['Int'];
+}>;
+
+
+export type ListRecentPlasmidsQuery = { __typename?: 'Query', listRecentPlasmids?: Array<{ __typename?: 'Plasmid', id: string, created_at: any, name: string }> | null | undefined };
+
+export type ListRecentStrainsQueryVariables = Exact<{
+  limit?: Scalars['Int'];
+}>;
+
+
+export type ListRecentStrainsQuery = { __typename?: 'Query', listRecentStrains?: Array<{ __typename?: 'Strain', id: string, created_at: any, systematic_name: string }> | null | undefined };
 
 export type UserByEmailQueryVariables = Exact<{
   email: Scalars['String'];
@@ -1522,6 +1561,42 @@ export function useGeneLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GeneQ
 export type GeneQueryHookResult = ReturnType<typeof useGeneQuery>;
 export type GeneLazyQueryHookResult = ReturnType<typeof useGeneLazyQuery>;
 export type GeneQueryResult = Apollo.QueryResult<GeneQuery, GeneQueryVariables>;
+export const ListRecentGenesDocument = gql`
+    query listRecentGenes($limit: Int! = 4) {
+  listRecentGenes(limit: $limit) {
+    id
+    name
+  }
+}
+    `;
+
+/**
+ * __useListRecentGenesQuery__
+ *
+ * To run a query within a React component, call `useListRecentGenesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListRecentGenesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListRecentGenesQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useListRecentGenesQuery(baseOptions?: Apollo.QueryHookOptions<ListRecentGenesQuery, ListRecentGenesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListRecentGenesQuery, ListRecentGenesQueryVariables>(ListRecentGenesDocument, options);
+      }
+export function useListRecentGenesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListRecentGenesQuery, ListRecentGenesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListRecentGenesQuery, ListRecentGenesQueryVariables>(ListRecentGenesDocument, options);
+        }
+export type ListRecentGenesQueryHookResult = ReturnType<typeof useListRecentGenesQuery>;
+export type ListRecentGenesLazyQueryHookResult = ReturnType<typeof useListRecentGenesLazyQuery>;
+export type ListRecentGenesQueryResult = Apollo.QueryResult<ListRecentGenesQuery, ListRecentGenesQueryVariables>;
 export const PublicationDocument = gql`
     query Publication($id: ID!) {
   publication(id: $id) {
@@ -2110,6 +2185,80 @@ export function useStrainLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Str
 export type StrainQueryHookResult = ReturnType<typeof useStrainQuery>;
 export type StrainLazyQueryHookResult = ReturnType<typeof useStrainLazyQuery>;
 export type StrainQueryResult = Apollo.QueryResult<StrainQuery, StrainQueryVariables>;
+export const ListRecentPlasmidsDocument = gql`
+    query listRecentPlasmids($limit: Int! = 4) {
+  listRecentPlasmids(limit: $limit) {
+    id
+    created_at
+    name
+  }
+}
+    `;
+
+/**
+ * __useListRecentPlasmidsQuery__
+ *
+ * To run a query within a React component, call `useListRecentPlasmidsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListRecentPlasmidsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListRecentPlasmidsQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useListRecentPlasmidsQuery(baseOptions?: Apollo.QueryHookOptions<ListRecentPlasmidsQuery, ListRecentPlasmidsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListRecentPlasmidsQuery, ListRecentPlasmidsQueryVariables>(ListRecentPlasmidsDocument, options);
+      }
+export function useListRecentPlasmidsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListRecentPlasmidsQuery, ListRecentPlasmidsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListRecentPlasmidsQuery, ListRecentPlasmidsQueryVariables>(ListRecentPlasmidsDocument, options);
+        }
+export type ListRecentPlasmidsQueryHookResult = ReturnType<typeof useListRecentPlasmidsQuery>;
+export type ListRecentPlasmidsLazyQueryHookResult = ReturnType<typeof useListRecentPlasmidsLazyQuery>;
+export type ListRecentPlasmidsQueryResult = Apollo.QueryResult<ListRecentPlasmidsQuery, ListRecentPlasmidsQueryVariables>;
+export const ListRecentStrainsDocument = gql`
+    query listRecentStrains($limit: Int! = 4) {
+  listRecentStrains(limit: $limit) {
+    id
+    created_at
+    systematic_name
+  }
+}
+    `;
+
+/**
+ * __useListRecentStrainsQuery__
+ *
+ * To run a query within a React component, call `useListRecentStrainsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListRecentStrainsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListRecentStrainsQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useListRecentStrainsQuery(baseOptions?: Apollo.QueryHookOptions<ListRecentStrainsQuery, ListRecentStrainsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListRecentStrainsQuery, ListRecentStrainsQueryVariables>(ListRecentStrainsDocument, options);
+      }
+export function useListRecentStrainsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListRecentStrainsQuery, ListRecentStrainsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListRecentStrainsQuery, ListRecentStrainsQueryVariables>(ListRecentStrainsDocument, options);
+        }
+export type ListRecentStrainsQueryHookResult = ReturnType<typeof useListRecentStrainsQuery>;
+export type ListRecentStrainsLazyQueryHookResult = ReturnType<typeof useListRecentStrainsLazyQuery>;
+export type ListRecentStrainsQueryResult = Apollo.QueryResult<ListRecentStrainsQuery, ListRecentStrainsQueryVariables>;
 export const UserByEmailDocument = gql`
     query UserByEmail($email: String!) {
   userByEmail(email: $email) {

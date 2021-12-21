@@ -10,6 +10,9 @@ type Query {
   # Gene queries
   gene(gene: String!): Gene
   allStrains(gene: String!): Gene
+  # List gene query that is by default is sorted by gene
+  # date in descendent order
+  listRecentGenes(limit: Int!): [Gene!]
   # Order queries
   order(id: ID!): Order
   listOrders(cursor: Int, limit: Int, filter: String): OrderListWithCursor
@@ -35,6 +38,12 @@ type Query {
     type: String!
     annotation: String!
   ): PlasmidListWithCursor
+  # List plasmid query that is by default is sorted by plasmid
+  # date in descendent order
+  listRecentPlasmids(limit: Int!): [Plasmid!]
+  # List strain query that is by default is sorted by strain
+  # date in descendent order
+  listRecentStrains(limit: Int!): [Strain!]
   # User queries
   user(id: ID!): User
   userByEmail(email: String!): User

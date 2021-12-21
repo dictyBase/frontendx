@@ -50,3 +50,10 @@ query Gene($gene: String!) {
     }
   }
 }
+
+query listRecentGenes($limit: Int! = 4) {
+  listRecentGenes(limit: $limit) {
+    id
+    name
+  }
+}
