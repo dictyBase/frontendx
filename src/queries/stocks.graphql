@@ -228,3 +228,19 @@ query Strain($id: ID!) {
     }
   }
 }
+
+query listRecentPlasmids($limit: Int! = 4) {
+  listRecentPlasmids(limit: $limit) {
+    id
+    created_at
+    name
+  }
+}
+
+query listRecentStrains($limit: Int! = 4) {
+  listRecentStrains(limit: $limit) {
+    id
+    created_at
+    systematic_name
+  }
+}
