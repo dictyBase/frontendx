@@ -11,8 +11,7 @@ import { useGeneQuery, GoAnnotation } from "dicty-graphql-schema"
  * GO annotations page.
  */
 const OntologyContainer = () => {
-  let { gene } = useParams()
-  if (!gene) gene = ""
+  const gene = useParams().gene as string
   const { loading, error, data } = useGeneQuery({
     variables: {
       gene,
@@ -20,20 +19,15 @@ const OntologyContainer = () => {
     fetchPolicy: "cache-and-network",
   })
 
-  if (loading) return <OntologyLoader gene={gene} />
-
-  if (error) return <GraphQLErrorPage error={error} />
-
-  const geneName = data?.gene?.name as string
-  const goas = data?.gene?.goas as GoAnnotation[]
-
   return (
     <Layout
-      gene={geneName}
-      title={`GO Annotations for ${geneName}`}
-      description={`Gene Ontology Annotations for ${geneName}`}>
+      gene={gene}
+      title={`GO Annotations for ${gene}`}
+      description={`Gene Ontology Annotations for ${gene}`}>
       <Typography component="div">
-        <OntologyTabLayout data={goas} />
+        {loading && <OntologyLoader />}
+        {error && <GraphQLErrorPage error={error} />}
+        {data && <OntologyTabLayout data={data.gene?.goas as GoAnnotation[]} />}
       </Typography>
     </Layout>
   )
