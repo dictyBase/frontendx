@@ -1,4 +1,40 @@
-type Publication {
+interface BasePublication {
+  id: ID!
+  doi: String
+  title: String!
+  abstract: String!
+  journal: String!
+  pub_date: Timestamp
+  volume: String
+  pages: String
+  issn: String
+  pub_type: String!
+  source: String!
+  issue: String
+  status: String
+  authors: [Author]!
+}
+
+type Publication implements BasePublication {
+  id: ID!
+  doi: String
+  title: String!
+  abstract: String!
+  journal: String!
+  pub_date: Timestamp
+  volume: String
+  pages: String
+  issn: String
+  pub_type: String!
+  source: String!
+  issue: String
+  status: String
+  authors: [Author]!
+}
+
+type PublicationWithGene implements BasePublication {
+  gene_id: ID!
+  gene_name: String!
   id: ID!
   doi: String
   title: String!
