@@ -1,5 +1,3 @@
-import React from "react"
-import { Helmet } from "react-helmet"
 import { useParams } from "react-router-dom"
 import Typography from "@material-ui/core/Typography"
 import GraphQLErrorPage from "components/errors/GraphQLErrorPage"
@@ -16,15 +14,10 @@ const ReferencesContainer = () => {
   })
 
   return (
-    <Layout gene={gene}>
-      <Helmet>
-        <title>References for {gene} - dictyBase</title>
-        <meta
-          name="description"
-          content={`Gene references for ${gene} at dictyBase`}
-        />
-      </Helmet>
-
+    <Layout
+      gene={gene}
+      title={`References for ${gene}`}
+      description={`Gene references for ${gene}`}>
       <Typography component="div">
         {loading && <ReferencesLoader />}
         {error && <GraphQLErrorPage error={error} />}

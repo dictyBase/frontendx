@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet"
 import { useParams } from "react-router-dom"
 import Typography from "@material-ui/core/Typography"
 import GraphQLErrorPage from "components/errors/GraphQLErrorPage"
@@ -16,15 +15,10 @@ const PhenotypesContainer = () => {
   })
 
   return (
-    <Layout gene={gene}>
-      <Helmet>
-        <title>Phenotypes for {gene} - dictyBase</title>
-        <meta
-          name="description"
-          content={`Gene phenotypes for ${gene} at dictyBase`}
-        />
-      </Helmet>
-
+    <Layout
+      gene={gene}
+      title={`Phenotypes for ${gene}`}
+      description={`Gene phenotypes for ${gene}`}>
       <Typography component="div">
         {loading && <PhenotypesLoader />}
         {error && <GraphQLErrorPage error={error} />}
