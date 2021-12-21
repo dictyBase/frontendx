@@ -50,8 +50,10 @@ query Gene($gene: String!) {
     }
   }
   allPublications(gene: $gene) {
-    gene_id
-    gene_name
+    gene {
+      id
+      name
+    }
     id
     doi
     title
