@@ -1,5 +1,3 @@
-import React from "react"
-import { Helmet } from "react-helmet"
 import { useParams } from "react-router-dom"
 import Typography from "@material-ui/core/Typography"
 import OntologyTabLayout from "./OntologyTabLayout"
@@ -12,7 +10,6 @@ import { useGeneQuery, GoAnnotation } from "dicty-graphql-schema"
  * Container component that issues a GraphQL query to get gene data for the
  * GO annotations page.
  */
-
 const OntologyContainer = () => {
   let { gene } = useParams()
   if (!gene) gene = ""
@@ -31,14 +28,10 @@ const OntologyContainer = () => {
   const goas = data?.gene?.goas as GoAnnotation[]
 
   return (
-    <Layout gene={geneName}>
-      <Helmet>
-        <title>GO Annotations for {geneName} - dictyBase</title>
-        <meta
-          name="description"
-          content={`Gene Ontology Annotations for ${geneName} at dictyBase`}
-        />
-      </Helmet>
+    <Layout
+      gene={geneName}
+      title={`GO Annotations for ${geneName}`}
+      description={`Gene Ontology Annotations for ${geneName}`}>
       <Typography component="div">
         <OntologyTabLayout data={goas} />
       </Typography>

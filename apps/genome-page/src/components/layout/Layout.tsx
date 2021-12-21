@@ -5,7 +5,8 @@ import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import LegacyLinkSnackbar from "components/LegacyLinkSnackbar"
-import PageHeader from "components/PageHeader"
+import { Typography } from "@mui/material"
+import { Helmet } from "react-helmet"
 
 const getTabValue = (pathname: string) => {
   const subroute = pathname.split("/").splice(-1).join()
@@ -23,13 +24,13 @@ const getTabValue = (pathname: string) => {
 }
 
 type Props = {
-  /** Children components to display in the layout */
   children: React.ReactNode
-  /** Name of gene */
   gene: string
+  title: string
+  description: string
 }
 
-const Layout = ({ children, gene }: Props) => {
+const Layout = ({ children, gene, title, description }: Props) => {
   const { pathname } = useLocation()
   const [tabValue, setTabValue] = React.useState(getTabValue(pathname))
 
@@ -40,7 +41,13 @@ const Layout = ({ children, gene }: Props) => {
   return (
     <Grid container justifyContent="center">
       <Grid item xs={12}>
-        <PageHeader gene={gene} />
+        <Helmet>
+          <title>{title} - dictyBase</title>
+          <meta name="description" content={`${description} at dictyBase`} />
+        </Helmet>
+        <Typography textAlign="center" variant="h2">
+          {title}
+        </Typography>
         <LegacyLinkSnackbar gene={gene} />
         <AppBar position="static">
           <Tabs value={tabValue} onChange={handleChange}>
