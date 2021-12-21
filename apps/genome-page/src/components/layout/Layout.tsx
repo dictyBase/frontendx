@@ -1,11 +1,9 @@
 import React from "react"
 import { Link, useLocation } from "react-router-dom"
-import Grid from "@material-ui/core/Grid"
-import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import LegacyLinkSnackbar from "components/LegacyLinkSnackbar"
-import { Typography } from "@mui/material"
+import { Typography, Grid, AppBar, Box } from "@mui/material"
 import { Helmet } from "react-helmet"
 
 const getTabValue = (pathname: string) => {
@@ -45,9 +43,11 @@ const Layout = ({ children, gene, title, description }: Props) => {
           <title>{title} - dictyBase</title>
           <meta name="description" content={`${description} at dictyBase`} />
         </Helmet>
-        <Typography textAlign="center" variant="h2">
-          {title}
-        </Typography>
+        <Box pt="20px" pb="20px">
+          <Typography textAlign="center" variant="h1" fontSize="24px">
+            {title}
+          </Typography>
+        </Box>
         <LegacyLinkSnackbar gene={gene} />
         <AppBar position="static">
           <Tabs value={tabValue} onChange={handleChange}>
