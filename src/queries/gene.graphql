@@ -49,4 +49,22 @@ query Gene($gene: String!) {
       }
     }
   }
+  allPublications(gene: $gene) {
+    gene_id
+    gene_name
+    id
+    doi
+    title
+    journal
+    pub_date
+    volume
+    pages
+    pub_type
+    source
+    issue
+    authors {
+      last_name
+      rank
+    }
+  }
 }
