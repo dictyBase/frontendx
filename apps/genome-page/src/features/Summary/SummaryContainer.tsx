@@ -20,22 +20,18 @@ const SummaryContainer = () => {
     fetchPolicy: "cache-and-network",
   })
 
-  if (loading) return <SummaryLoader gene={gene} />
-  if (error) return <GraphQLErrorPage error={error} />
-
-  const geneName = data?.gene?.name as string
-  const goas = data?.gene?.goas as GoAnnotation[]
-
   return (
     <Layout
-      gene={geneName}
-      title={`Gene Summary for ${geneName}`}
-      description={`Gene information for ${geneName}`}>
+      gene={gene}
+      title={`Gene Summary for ${gene}`}
+      description={`Gene information for ${gene}`}>
       <Typography component="div">
         <PanelWrapper
           title="Latest Gene Ontology Annotations"
           route={`/${gene}/goannotations`}>
-          <GoaPanel data={goas} />
+          {loading && <SummaryLoader />}
+          {error && <GraphQLErrorPage error={error} />}
+          {data && <GoaPanel data={data.gene?.goas as GoAnnotation[]} />}
         </PanelWrapper>
       </Typography>
     </Layout>
