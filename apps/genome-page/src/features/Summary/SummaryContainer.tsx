@@ -1,5 +1,3 @@
-import React from "react"
-import { Helmet } from "react-helmet"
 import { useParams } from "react-router-dom"
 import Typography from "@material-ui/core/Typography"
 import PanelWrapper from "components/panels/PanelWrapper"
@@ -13,7 +11,6 @@ import { useGeneQuery, GoAnnotation } from "dicty-graphql-schema"
  * Container component that issues a GraphQL query to get gene data for the
  * summary page.
  */
-
 const SummaryContainer = () => {
   const gene = useParams().gene as string
   const { loading, error, data } = useGeneQuery({
@@ -24,21 +21,16 @@ const SummaryContainer = () => {
   })
 
   if (loading) return <SummaryLoader gene={gene} />
-
   if (error) return <GraphQLErrorPage error={error} />
 
   const geneName = data?.gene?.name as string
   const goas = data?.gene?.goas as GoAnnotation[]
 
   return (
-    <Layout gene={geneName}>
-      <Helmet>
-        <title>Gene Summary for {geneName} - dictyBase</title>
-        <meta
-          name="description"
-          content={`Gene information for ${geneName} at dictyBase`}
-        />
-      </Helmet>
+    <Layout
+      gene={geneName}
+      title={`Gene Summary for ${geneName}`}
+      description={`Gene information for ${geneName}`}>
       <Typography component="div">
         <PanelWrapper
           title="Latest Gene Ontology Annotations"
