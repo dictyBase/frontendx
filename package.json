@@ -42,7 +42,7 @@
     "@semantic-release/npm": "^8.0.3",
     "@semantic-release/release-notes-generator": "^10.0.3",
     "@types/node": "^17.0.4",
-    "@types/react": "^17.0.3",
+    "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.3",
     "@yarnpkg/pnpify": "^3.0.1-rc.1",
     "graphql": "^15.5.0",
