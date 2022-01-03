@@ -10,6 +10,7 @@ type Query {
   # Gene queries
   gene(gene: String!): Gene
   allStrains(gene: String!): Gene
+  allPublications(gene: String!): PublicationWithGene
   # Order queries
   order(id: ID!): Order
   listOrders(cursor: Int, limit: Int, filter: String): OrderListWithCursor
