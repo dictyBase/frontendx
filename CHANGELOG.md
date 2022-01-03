@@ -1,3 +1,13 @@
+# [1.5.0](https://github.com/dictyBase/graphql-schema/compare/1.4.0...1.5.0) (2022-01-03)
+
+
+### Features
+
+* add allPublications query ([0c380cf](https://github.com/dictyBase/graphql-schema/commit/0c380cf95674a88152e776bff3a816afcfa246c8))
+* add gene field replacing gene_id and gene_name ([9c37ad1](https://github.com/dictyBase/graphql-schema/commit/9c37ad1246fc6298505aba20cdd1c92e21eaeb6d))
+* create base publication interface and extend publication types ([0ab813b](https://github.com/dictyBase/graphql-schema/commit/0ab813b7c12422f240533c63d3dbdb41207b7834))
+* rename gene field ([8e7aa84](https://github.com/dictyBase/graphql-schema/commit/8e7aa841be1b6ed71acf25f93277aadfb4045b48))
+
 # [1.4.0](https://github.com/dictyBase/graphql-schema/compare/1.3.0...1.4.0) (2021-12-15)
 
 
