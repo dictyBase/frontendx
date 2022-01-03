@@ -50,7 +50,7 @@ query Gene($gene: String!) {
     }
   }
   allPublications(gene: $gene) {
-    gene {
+    related_genes {
       id
       name
     }

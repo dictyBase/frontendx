@@ -497,7 +497,6 @@ export type PublicationWithGene = BasePublication & {
   abstract: Scalars['String'];
   authors: Array<Maybe<Author>>;
   doi?: Maybe<Scalars['String']>;
-  gene: Array<Maybe<Gene>>;
   id: Scalars['ID'];
   issn?: Maybe<Scalars['String']>;
   issue?: Maybe<Scalars['String']>;
@@ -505,6 +504,7 @@ export type PublicationWithGene = BasePublication & {
   pages?: Maybe<Scalars['String']>;
   pub_date?: Maybe<Scalars['Timestamp']>;
   pub_type: Scalars['String'];
+  related_genes: Array<Maybe<Gene>>;
   source: Scalars['String'];
   status?: Maybe<Scalars['String']>;
   title: Scalars['String'];
@@ -928,7 +928,7 @@ export type GeneQueryVariables = Exact<{
 }>;
 
 
-export type GeneQuery = { __typename?: 'Query', allStrains?: { __typename?: 'Gene', id: string, name: string, strains?: Array<{ __typename?: 'Strain', id: string, label: string, characteristics?: Array<string | null | undefined> | null | undefined, in_stock: boolean, phenotypes?: Array<{ __typename?: 'Phenotype', phenotype: string, publication?: { __typename?: 'Publication', id: string, title: string, journal: string, pages?: string | null | undefined, volume?: string | null | undefined, pub_date?: any | null | undefined, authors: Array<{ __typename?: 'Author', last_name: string, rank?: string | null | undefined } | null | undefined> } | null | undefined } | null | undefined> | null | undefined } | null | undefined> | null | undefined } | null | undefined, gene?: { __typename?: 'Gene', id: string, name: string, goas?: Array<{ __typename?: 'GOAnnotation', id: string, type: string, date: string, evidence_code: string, go_term: string, qualifier: string, publication: string, assigned_by: string, with?: Array<{ __typename?: 'With', id: string, db: string, name: string }> | null | undefined, extensions?: Array<{ __typename?: 'Extension', id: string, db: string, relation: string, name: string }> | null | undefined } | null | undefined> | null | undefined } | null | undefined, allPublications?: { __typename?: 'PublicationWithGene', id: string, doi?: string | null | undefined, title: string, journal: string, pub_date?: any | null | undefined, volume?: string | null | undefined, pages?: string | null | undefined, pub_type: string, source: string, issue?: string | null | undefined, gene: Array<{ __typename?: 'Gene', id: string, name: string } | null | undefined>, authors: Array<{ __typename?: 'Author', last_name: string, rank?: string | null | undefined } | null | undefined> } | null | undefined };
+export type GeneQuery = { __typename?: 'Query', allStrains?: { __typename?: 'Gene', id: string, name: string, strains?: Array<{ __typename?: 'Strain', id: string, label: string, characteristics?: Array<string | null | undefined> | null | undefined, in_stock: boolean, phenotypes?: Array<{ __typename?: 'Phenotype', phenotype: string, publication?: { __typename?: 'Publication', id: string, title: string, journal: string, pages?: string | null | undefined, volume?: string | null | undefined, pub_date?: any | null | undefined, authors: Array<{ __typename?: 'Author', last_name: string, rank?: string | null | undefined } | null | undefined> } | null | undefined } | null | undefined> | null | undefined } | null | undefined> | null | undefined } | null | undefined, gene?: { __typename?: 'Gene', id: string, name: string, goas?: Array<{ __typename?: 'GOAnnotation', id: string, type: string, date: string, evidence_code: string, go_term: string, qualifier: string, publication: string, assigned_by: string, with?: Array<{ __typename?: 'With', id: string, db: string, name: string }> | null | undefined, extensions?: Array<{ __typename?: 'Extension', id: string, db: string, relation: string, name: string }> | null | undefined } | null | undefined> | null | undefined } | null | undefined, allPublications?: { __typename?: 'PublicationWithGene', id: string, doi?: string | null | undefined, title: string, journal: string, pub_date?: any | null | undefined, volume?: string | null | undefined, pages?: string | null | undefined, pub_type: string, source: string, issue?: string | null | undefined, related_genes: Array<{ __typename?: 'Gene', id: string, name: string } | null | undefined>, authors: Array<{ __typename?: 'Author', last_name: string, rank?: string | null | undefined } | null | undefined> } | null | undefined };
 
 export type PublicationQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -1535,7 +1535,7 @@ export const GeneDocument = gql`
     }
   }
   allPublications(gene: $gene) {
-    gene {
+    related_genes {
       id
       name
     }

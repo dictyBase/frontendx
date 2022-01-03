@@ -33,7 +33,7 @@ type Publication implements BasePublication {
 }
 
 type PublicationWithGene implements BasePublication {
-  gene: [Gene]!
+  related_genes: [Gene]!
   id: ID!
   doi: String
   title: String!
