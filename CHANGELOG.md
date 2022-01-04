@@ -1,3 +1,19 @@
+# [1.6.0](https://github.com/dictyBase/graphql-schema/compare/1.5.0...1.6.0) (2022-01-04)
+
+
+### Bug Fixes
+
+* delete duplicate and capitalize query ([59b2189](https://github.com/dictyBase/graphql-schema/commit/59b21893fb0c8545cce5e88301af4c34a41e09b6))
+* fix merge conflict in query.graphql ([db67e04](https://github.com/dictyBase/graphql-schema/commit/db67e04d517f52828d8144655ad40dd373171df0))
+* update index.ts ([1e81de5](https://github.com/dictyBase/graphql-schema/commit/1e81de566d63b924173e76e257b0c7cbfe10722e))
+
+
+### Features
+
+* add listRecent queries for plasmid, strains, and genes ([222949c](https://github.com/dictyBase/graphql-schema/commit/222949c04f0cd95dd5229bd186dea85824d26908))
+* add listRecent queries for plasmid, strains, and genes ([2cae414](https://github.com/dictyBase/graphql-schema/commit/2cae414d3d351052824278d793f09cfee15d6989))
+* make array type mandatory ([de0e9ce](https://github.com/dictyBase/graphql-schema/commit/de0e9cea9f3e7699535df7f9d9edaa4341d3b293))
+
 # [1.5.0](https://github.com/dictyBase/graphql-schema/compare/1.4.0...1.5.0) (2022-01-03)
 
 
