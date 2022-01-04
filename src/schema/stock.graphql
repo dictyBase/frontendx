@@ -7,9 +7,9 @@ interface Stock {
   summary: String
   editable_summary: String
   depositor: User!
-  genes: [Gene]
-  dbxrefs: [String]
-  publications: [Publication]
+  genes: [Gene!]
+  dbxrefs: [String!]
+  publications: [Publication!]
   in_stock: Boolean!
 }
 
@@ -22,23 +22,23 @@ type Strain implements Stock {
   summary: String
   editable_summary: String
   depositor: User!
-  genes: [Gene]
-  dbxrefs: [String]
-  publications: [Publication]
+  genes: [Gene!]
+  dbxrefs: [String!]
+  publications: [Publication!]
   # from strain_properties
   systematic_name: String!
   label: String!
   species: String!
   plasmid: String # update to Plasmid later?
   parent: Strain
-  names: [String]
+  names: [String!]
   # new additions
   in_stock: Boolean!
-  phenotypes: [Phenotype]
+  phenotypes: [Phenotype!]
   genetic_modification: String
   mutagenesis_method: String
-  characteristics: [String]
-  genotypes: [String]
+  characteristics: [String!]
+  genotypes: [String!]
 }
 
 type Plasmid implements Stock {
@@ -50,16 +50,16 @@ type Plasmid implements Stock {
   summary: String # same as description field?
   editable_summary: String
   depositor: User!
-  genes: [Gene]
-  dbxrefs: [String]
-  publications: [Publication]
+  genes: [Gene!]
+  dbxrefs: [String!]
+  publications: [Publication!]
   name: String!
   # from plasmid_properties
   image_map: String
   sequence: String
   # new additions
   in_stock: Boolean!
-  keywords: [String]
+  keywords: [String!]
   genbank_accession: String
 }
 
@@ -97,23 +97,23 @@ input CreateStrainInput {
   summary: String
   editable_summary: String
   depositor: String
-  genes: [String]
-  dbxrefs: [String]
-  publications: [String]
+  genes: [String!]
+  dbxrefs: [String!]
+  publications: [String!]
   # from strain_properties
   systematic_name: String!
   label: String!
   species: String!
   plasmid: String
   parent: String
-  names: [String]
+  names: [String!]
   # new additions
   in_stock: Boolean!
-  phenotypes: [String]
+  phenotypes: [String!]
   genetic_modification: String
   mutagenesis_method: String
-  characteristics: [String]
-  genotypes: [String]
+  characteristics: [String!]
+  genotypes: [String!]
 }
 
 input CreatePlasmidInput {
@@ -122,16 +122,16 @@ input CreatePlasmidInput {
   summary: String
   editable_summary: String
   depositor: String
-  genes: [String]
-  dbxrefs: [String]
-  publications: [String]
+  genes: [String!]
+  dbxrefs: [String!]
+  publications: [String!]
   name: String!
   # from plasmid_properties
   image_map: String
   sequence: String
   # new additions
   in_stock: Boolean!
-  keywords: [String]
+  keywords: [String!]
   genbank_accession: String
 }
 
@@ -140,23 +140,23 @@ input UpdateStrainInput {
   summary: String
   editable_summary: String
   depositor: String
-  genes: [String]
-  dbxrefs: [String]
-  publications: [String]
+  genes: [String!]
+  dbxrefs: [String!]
+  publications: [String!]
   # from strain_properties
   systematic_name: String
   label: String
   species: String
   plasmid: String
   parent: String
-  names: [String]
+  names: [String!]
   # new additions
   in_stock: Boolean
-  phenotypes: [String]
+  phenotypes: [String!]
   genetic_modification: String
   mutagenesis_method: String
-  characteristics: [String]
-  genotypes: [String]
+  characteristics: [String!]
+  genotypes: [String!]
 }
 
 input UpdatePlasmidInput {
@@ -164,15 +164,15 @@ input UpdatePlasmidInput {
   summary: String
   editable_summary: String
   depositor: String
-  genes: [String]
-  dbxrefs: [String]
-  publications: [String]
+  genes: [String!]
+  dbxrefs: [String!]
+  publications: [String!]
   name: String
   # from plasmid_properties
   image_map: String
   sequence: String
   # new additions
   in_stock: Boolean
-  keywords: [String]
+  keywords: [String!]
   genbank_accession: String
 }
