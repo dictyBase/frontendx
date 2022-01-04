@@ -1,5 +1,5 @@
-import { Strain } from "dicty-graphql-schema"
+import { PublicationWithGene } from "dicty-graphql-schema"
 
-const mockReferencesData: Strain[] = [{} as Strain]
+const mockReferencesData: PublicationWithGene[] = [{} as PublicationWithGene]
 
 export default mockReferencesData
