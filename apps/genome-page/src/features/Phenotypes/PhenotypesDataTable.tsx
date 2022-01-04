@@ -12,6 +12,7 @@ import {
 import ShoppingCart from "@material-ui/icons/ShoppingCart"
 import { GeneQuery, Phenotype, Strain } from "dicty-graphql-schema"
 import PhenotypeRow from "./PhenotypeRow"
+import OtherError from "components/errors/OtherError"
 
 const useStyles = makeStyles({
   root: {
@@ -57,8 +58,11 @@ const StrainRow = ({ strain }: { strain: Strain }) => {
 }
 
 const PhenotypesDataTable = ({ data }: PhenotypesDataTableProps) => {
-  const strains = data.allStrains?.strains as Strain[]
   const classes = useStyles()
+  const allStrains = data.allStrains
+  if (!allStrains || !allStrains.strains) return <OtherError />
+
+  const strains = allStrains.strains as Strain[]
 
   return (
     <TableContainer component={Paper} className={classes.root}>
