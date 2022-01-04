@@ -77,3 +77,10 @@ query listRecentGenes($limit: Int! = 4) {
     name
   }
 }
+
+query listRecentGenes($limit: Int! = 4) {
+  listRecentGenes(limit: $limit) {
+    id
+    name
+  }
+}

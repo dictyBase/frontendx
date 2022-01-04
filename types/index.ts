@@ -955,6 +955,13 @@ export type ListRecentGenesQueryVariables = Exact<{
 
 export type ListRecentGenesQuery = { __typename?: 'Query', listRecentGenes?: Array<{ __typename?: 'Gene', id: string, name: string }> | null | undefined };
 
+export type ListRecentGenesQueryVariables = Exact<{
+  limit?: Scalars['Int'];
+}>;
+
+
+export type ListRecentGenesQuery = { __typename?: 'Query', listRecentGenes?: Array<{ __typename?: 'Gene', id: string, name: string }> | null | undefined };
+
 export type PublicationQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
