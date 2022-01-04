@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
@@ -76,14 +77,14 @@ export type CreateContentInput = {
 };
 
 export type CreateOrderInput = {
-  comments?: Maybe<Scalars['String']>;
+  comments?: InputMaybe<Scalars['String']>;
   consumer: Scalars['String'];
   courier: Scalars['String'];
   courier_account: Scalars['String'];
-  items: Array<Maybe<Scalars['String']>>;
+  items: Array<InputMaybe<Scalars['String']>>;
   payer: Scalars['String'];
   payment: Scalars['String'];
-  purchase_order_num?: Maybe<Scalars['String']>;
+  purchase_order_num?: InputMaybe<Scalars['String']>;
   purchaser: Scalars['String'];
   status: StatusEnum;
 };
@@ -96,18 +97,18 @@ export type CreatePermissionInput = {
 
 export type CreatePlasmidInput = {
   created_by: Scalars['String'];
-  dbxrefs?: Maybe<Array<Maybe<Scalars['String']>>>;
-  depositor?: Maybe<Scalars['String']>;
-  editable_summary?: Maybe<Scalars['String']>;
-  genbank_accession?: Maybe<Scalars['String']>;
-  genes?: Maybe<Array<Maybe<Scalars['String']>>>;
-  image_map?: Maybe<Scalars['String']>;
+  dbxrefs?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  depositor?: InputMaybe<Scalars['String']>;
+  editable_summary?: InputMaybe<Scalars['String']>;
+  genbank_accession?: InputMaybe<Scalars['String']>;
+  genes?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  image_map?: InputMaybe<Scalars['String']>;
   in_stock: Scalars['Boolean'];
-  keywords?: Maybe<Array<Maybe<Scalars['String']>>>;
+  keywords?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   name: Scalars['String'];
-  publications?: Maybe<Array<Maybe<Scalars['String']>>>;
-  sequence?: Maybe<Scalars['String']>;
-  summary?: Maybe<Scalars['String']>;
+  publications?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  sequence?: InputMaybe<Scalars['String']>;
+  summary?: InputMaybe<Scalars['String']>;
   updated_by: Scalars['String'];
 };
 
@@ -117,42 +118,42 @@ export type CreateRoleInput = {
 };
 
 export type CreateStrainInput = {
-  characteristics?: Maybe<Array<Maybe<Scalars['String']>>>;
+  characteristics?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   created_by: Scalars['String'];
-  dbxrefs?: Maybe<Array<Maybe<Scalars['String']>>>;
-  depositor?: Maybe<Scalars['String']>;
-  editable_summary?: Maybe<Scalars['String']>;
-  genes?: Maybe<Array<Maybe<Scalars['String']>>>;
-  genetic_modification?: Maybe<Scalars['String']>;
-  genotypes?: Maybe<Array<Maybe<Scalars['String']>>>;
+  dbxrefs?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  depositor?: InputMaybe<Scalars['String']>;
+  editable_summary?: InputMaybe<Scalars['String']>;
+  genes?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  genetic_modification?: InputMaybe<Scalars['String']>;
+  genotypes?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   in_stock: Scalars['Boolean'];
   label: Scalars['String'];
-  mutagenesis_method?: Maybe<Scalars['String']>;
-  names?: Maybe<Array<Maybe<Scalars['String']>>>;
-  parent?: Maybe<Scalars['String']>;
-  phenotypes?: Maybe<Array<Maybe<Scalars['String']>>>;
-  plasmid?: Maybe<Scalars['String']>;
-  publications?: Maybe<Array<Maybe<Scalars['String']>>>;
+  mutagenesis_method?: InputMaybe<Scalars['String']>;
+  names?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  parent?: InputMaybe<Scalars['String']>;
+  phenotypes?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  plasmid?: InputMaybe<Scalars['String']>;
+  publications?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   species: Scalars['String'];
-  summary?: Maybe<Scalars['String']>;
+  summary?: InputMaybe<Scalars['String']>;
   systematic_name: Scalars['String'];
   updated_by: Scalars['String'];
 };
 
 export type CreateUserInput = {
-  city?: Maybe<Scalars['String']>;
-  country?: Maybe<Scalars['String']>;
+  city?: InputMaybe<Scalars['String']>;
+  country?: InputMaybe<Scalars['String']>;
   email: Scalars['String'];
-  first_address?: Maybe<Scalars['String']>;
+  first_address?: InputMaybe<Scalars['String']>;
   first_name: Scalars['String'];
-  group_name?: Maybe<Scalars['String']>;
+  group_name?: InputMaybe<Scalars['String']>;
   is_active: Scalars['Boolean'];
   last_name: Scalars['String'];
-  organization?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
-  second_address?: Maybe<Scalars['String']>;
-  state?: Maybe<Scalars['String']>;
-  zipcode?: Maybe<Scalars['String']>;
+  organization?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['String']>;
+  second_address?: InputMaybe<Scalars['String']>;
+  state?: InputMaybe<Scalars['String']>;
+  zipcode?: InputMaybe<Scalars['String']>;
 };
 
 export type DeleteContent = {
@@ -275,27 +276,27 @@ export type Mutation = {
 
 
 export type MutationCreateContentArgs = {
-  input?: Maybe<CreateContentInput>;
+  input?: InputMaybe<CreateContentInput>;
 };
 
 
 export type MutationCreateOrderArgs = {
-  input?: Maybe<CreateOrderInput>;
+  input?: InputMaybe<CreateOrderInput>;
 };
 
 
 export type MutationCreatePermissionArgs = {
-  input?: Maybe<CreatePermissionInput>;
+  input?: InputMaybe<CreatePermissionInput>;
 };
 
 
 export type MutationCreatePlasmidArgs = {
-  input?: Maybe<CreatePlasmidInput>;
+  input?: InputMaybe<CreatePlasmidInput>;
 };
 
 
 export type MutationCreateRoleArgs = {
-  input?: Maybe<CreateRoleInput>;
+  input?: InputMaybe<CreateRoleInput>;
 };
 
 
@@ -306,12 +307,12 @@ export type MutationCreateRolePermissionRelationshipArgs = {
 
 
 export type MutationCreateStrainArgs = {
-  input?: Maybe<CreateStrainInput>;
+  input?: InputMaybe<CreateStrainInput>;
 };
 
 
 export type MutationCreateUserArgs = {
-  input?: Maybe<CreateUserInput>;
+  input?: InputMaybe<CreateUserInput>;
 };
 
 
@@ -347,48 +348,48 @@ export type MutationDeleteUserArgs = {
 
 
 export type MutationLoginArgs = {
-  input?: Maybe<LoginInput>;
+  input?: InputMaybe<LoginInput>;
 };
 
 
 export type MutationUpdateContentArgs = {
-  input?: Maybe<UpdateContentInput>;
+  input?: InputMaybe<UpdateContentInput>;
 };
 
 
 export type MutationUpdateOrderArgs = {
   id: Scalars['ID'];
-  input?: Maybe<UpdateOrderInput>;
+  input?: InputMaybe<UpdateOrderInput>;
 };
 
 
 export type MutationUpdatePermissionArgs = {
   id: Scalars['ID'];
-  input?: Maybe<UpdatePermissionInput>;
+  input?: InputMaybe<UpdatePermissionInput>;
 };
 
 
 export type MutationUpdatePlasmidArgs = {
   id: Scalars['ID'];
-  input?: Maybe<UpdatePlasmidInput>;
+  input?: InputMaybe<UpdatePlasmidInput>;
 };
 
 
 export type MutationUpdateRoleArgs = {
   id: Scalars['ID'];
-  input?: Maybe<UpdateRoleInput>;
+  input?: InputMaybe<UpdateRoleInput>;
 };
 
 
 export type MutationUpdateStrainArgs = {
   id: Scalars['ID'];
-  input?: Maybe<UpdateStrainInput>;
+  input?: InputMaybe<UpdateStrainInput>;
 };
 
 
 export type MutationUpdateUserArgs = {
   id: Scalars['ID'];
-  input?: Maybe<UpdateUserInput>;
+  input?: InputMaybe<UpdateUserInput>;
 };
 
 export type Order = {
@@ -575,23 +576,23 @@ export type QueryGetRefreshTokenArgs = {
 
 
 export type QueryListOrdersArgs = {
-  cursor?: Maybe<Scalars['Int']>;
-  filter?: Maybe<Scalars['String']>;
-  limit?: Maybe<Scalars['Int']>;
+  cursor?: InputMaybe<Scalars['Int']>;
+  filter?: InputMaybe<Scalars['String']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type QueryListPlasmidsArgs = {
-  cursor?: Maybe<Scalars['Int']>;
-  filter?: Maybe<Scalars['String']>;
-  limit?: Maybe<Scalars['Int']>;
+  cursor?: InputMaybe<Scalars['Int']>;
+  filter?: InputMaybe<Scalars['String']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type QueryListPlasmidsWithAnnotationArgs = {
   annotation: Scalars['String'];
-  cursor?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
+  cursor?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
   type: Scalars['String'];
 };
 
@@ -617,16 +618,16 @@ export type QueryListRecentStrainsArgs = {
 
 
 export type QueryListStrainsArgs = {
-  cursor?: Maybe<Scalars['Int']>;
-  filter?: Maybe<Scalars['String']>;
-  limit?: Maybe<Scalars['Int']>;
+  cursor?: InputMaybe<Scalars['Int']>;
+  filter?: InputMaybe<Scalars['String']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type QueryListStrainsWithAnnotationArgs = {
   annotation: Scalars['String'];
-  cursor?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
+  cursor?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
   type: Scalars['String'];
 };
 
@@ -750,7 +751,6 @@ export type StrainListWithCursor = {
   totalCount: Scalars['Int'];
 };
 
-
 export type UpdateContentInput = {
   content: Scalars['String'];
   id: Scalars['ID'];
@@ -758,13 +758,13 @@ export type UpdateContentInput = {
 };
 
 export type UpdateOrderInput = {
-  comments?: Maybe<Scalars['String']>;
-  courier?: Maybe<Scalars['String']>;
-  courier_account?: Maybe<Scalars['String']>;
-  items?: Maybe<Array<Maybe<Scalars['String']>>>;
-  payment?: Maybe<Scalars['String']>;
-  purchase_order_num?: Maybe<Scalars['String']>;
-  status?: Maybe<StatusEnum>;
+  comments?: InputMaybe<Scalars['String']>;
+  courier?: InputMaybe<Scalars['String']>;
+  courier_account?: InputMaybe<Scalars['String']>;
+  items?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  payment?: InputMaybe<Scalars['String']>;
+  purchase_order_num?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<StatusEnum>;
 };
 
 export type UpdatePermissionInput = {
@@ -774,18 +774,18 @@ export type UpdatePermissionInput = {
 };
 
 export type UpdatePlasmidInput = {
-  dbxrefs?: Maybe<Array<Maybe<Scalars['String']>>>;
-  depositor?: Maybe<Scalars['String']>;
-  editable_summary?: Maybe<Scalars['String']>;
-  genbank_accession?: Maybe<Scalars['String']>;
-  genes?: Maybe<Array<Maybe<Scalars['String']>>>;
-  image_map?: Maybe<Scalars['String']>;
-  in_stock?: Maybe<Scalars['Boolean']>;
-  keywords?: Maybe<Array<Maybe<Scalars['String']>>>;
-  name?: Maybe<Scalars['String']>;
-  publications?: Maybe<Array<Maybe<Scalars['String']>>>;
-  sequence?: Maybe<Scalars['String']>;
-  summary?: Maybe<Scalars['String']>;
+  dbxrefs?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  depositor?: InputMaybe<Scalars['String']>;
+  editable_summary?: InputMaybe<Scalars['String']>;
+  genbank_accession?: InputMaybe<Scalars['String']>;
+  genes?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  image_map?: InputMaybe<Scalars['String']>;
+  in_stock?: InputMaybe<Scalars['Boolean']>;
+  keywords?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  name?: InputMaybe<Scalars['String']>;
+  publications?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  sequence?: InputMaybe<Scalars['String']>;
+  summary?: InputMaybe<Scalars['String']>;
   updated_by: Scalars['String'];
 };
 
@@ -795,40 +795,40 @@ export type UpdateRoleInput = {
 };
 
 export type UpdateStrainInput = {
-  characteristics?: Maybe<Array<Maybe<Scalars['String']>>>;
-  dbxrefs?: Maybe<Array<Maybe<Scalars['String']>>>;
-  depositor?: Maybe<Scalars['String']>;
-  editable_summary?: Maybe<Scalars['String']>;
-  genes?: Maybe<Array<Maybe<Scalars['String']>>>;
-  genetic_modification?: Maybe<Scalars['String']>;
-  genotypes?: Maybe<Array<Maybe<Scalars['String']>>>;
-  in_stock?: Maybe<Scalars['Boolean']>;
-  label?: Maybe<Scalars['String']>;
-  mutagenesis_method?: Maybe<Scalars['String']>;
-  names?: Maybe<Array<Maybe<Scalars['String']>>>;
-  parent?: Maybe<Scalars['String']>;
-  phenotypes?: Maybe<Array<Maybe<Scalars['String']>>>;
-  plasmid?: Maybe<Scalars['String']>;
-  publications?: Maybe<Array<Maybe<Scalars['String']>>>;
-  species?: Maybe<Scalars['String']>;
-  summary?: Maybe<Scalars['String']>;
-  systematic_name?: Maybe<Scalars['String']>;
+  characteristics?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  dbxrefs?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  depositor?: InputMaybe<Scalars['String']>;
+  editable_summary?: InputMaybe<Scalars['String']>;
+  genes?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  genetic_modification?: InputMaybe<Scalars['String']>;
+  genotypes?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  in_stock?: InputMaybe<Scalars['Boolean']>;
+  label?: InputMaybe<Scalars['String']>;
+  mutagenesis_method?: InputMaybe<Scalars['String']>;
+  names?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  parent?: InputMaybe<Scalars['String']>;
+  phenotypes?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  plasmid?: InputMaybe<Scalars['String']>;
+  publications?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  species?: InputMaybe<Scalars['String']>;
+  summary?: InputMaybe<Scalars['String']>;
+  systematic_name?: InputMaybe<Scalars['String']>;
   updated_by: Scalars['String'];
 };
 
 export type UpdateUserInput = {
-  city?: Maybe<Scalars['String']>;
-  country?: Maybe<Scalars['String']>;
-  first_address?: Maybe<Scalars['String']>;
-  first_name?: Maybe<Scalars['String']>;
-  group_name?: Maybe<Scalars['String']>;
-  is_active?: Maybe<Scalars['Boolean']>;
-  last_name?: Maybe<Scalars['String']>;
-  organization?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
-  second_address?: Maybe<Scalars['String']>;
-  state?: Maybe<Scalars['String']>;
-  zipcode?: Maybe<Scalars['String']>;
+  city?: InputMaybe<Scalars['String']>;
+  country?: InputMaybe<Scalars['String']>;
+  first_address?: InputMaybe<Scalars['String']>;
+  first_name?: InputMaybe<Scalars['String']>;
+  group_name?: InputMaybe<Scalars['String']>;
+  is_active?: InputMaybe<Scalars['Boolean']>;
+  last_name?: InputMaybe<Scalars['String']>;
+  organization?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['String']>;
+  second_address?: InputMaybe<Scalars['String']>;
+  state?: InputMaybe<Scalars['String']>;
+  zipcode?: InputMaybe<Scalars['String']>;
 };
 
 export type User = {
@@ -947,13 +947,6 @@ export type GeneQueryVariables = Exact<{
 
 
 export type GeneQuery = { __typename?: 'Query', allStrains?: { __typename?: 'Gene', id: string, name: string, strains?: Array<{ __typename?: 'Strain', id: string, label: string, characteristics?: Array<string | null | undefined> | null | undefined, in_stock: boolean, phenotypes?: Array<{ __typename?: 'Phenotype', phenotype: string, publication?: { __typename?: 'Publication', id: string, title: string, journal: string, pages?: string | null | undefined, volume?: string | null | undefined, pub_date?: any | null | undefined, authors: Array<{ __typename?: 'Author', last_name: string, rank?: string | null | undefined } | null | undefined> } | null | undefined } | null | undefined> | null | undefined } | null | undefined> | null | undefined } | null | undefined, gene?: { __typename?: 'Gene', id: string, name: string, goas?: Array<{ __typename?: 'GOAnnotation', id: string, type: string, date: string, evidence_code: string, go_term: string, qualifier: string, publication: string, assigned_by: string, with?: Array<{ __typename?: 'With', id: string, db: string, name: string }> | null | undefined, extensions?: Array<{ __typename?: 'Extension', id: string, db: string, relation: string, name: string }> | null | undefined } | null | undefined> | null | undefined } | null | undefined, allPublications?: { __typename?: 'PublicationWithGene', id: string, doi?: string | null | undefined, title: string, journal: string, pub_date?: any | null | undefined, volume?: string | null | undefined, pages?: string | null | undefined, pub_type: string, source: string, issue?: string | null | undefined, related_genes: Array<{ __typename?: 'Gene', id: string, name: string } | null | undefined>, authors: Array<{ __typename?: 'Author', last_name: string, rank?: string | null | undefined } | null | undefined> } | null | undefined };
-
-export type ListRecentGenesQueryVariables = Exact<{
-  limit?: Scalars['Int'];
-}>;
-
-
-export type ListRecentGenesQuery = { __typename?: 'Query', listRecentGenes?: Array<{ __typename?: 'Gene', id: string, name: string }> | null | undefined };
 
 export type ListRecentGenesQueryVariables = Exact<{
   limit?: Scalars['Int'];
