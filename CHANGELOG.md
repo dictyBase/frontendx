@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/dictyBase/graphql-schema/compare/1.6.0...1.7.0) (2022-01-04)
+
+
+### Features
+
+* return array of PublicationWithGene ([22ed6f3](https://github.com/dictyBase/graphql-schema/commit/22ed6f3631cd949c2cadd146bc3e4a80fee777d7))
+
 # [1.6.0](https://github.com/dictyBase/graphql-schema/compare/1.5.0...1.6.0) (2022-01-04)
 
 
