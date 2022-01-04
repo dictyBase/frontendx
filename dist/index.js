@@ -34,8 +34,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 exports.__esModule = true;
-exports.useListStrainsInventoryQuery = exports.ListStrainsInventoryDocument = exports.useListBacterialStrainsLazyQuery = exports.useListBacterialStrainsQuery = exports.ListBacterialStrainsDocument = exports.useListStrainsWithPhenotypeLazyQuery = exports.useListStrainsWithPhenotypeQuery = exports.ListStrainsWithPhenotypeDocument = exports.useStrainListLazyQuery = exports.useStrainListQuery = exports.StrainListDocument = exports.useStockListLazyQuery = exports.useStockListQuery = exports.StockListDocument = exports.useListRecentPublicationsLazyQuery = exports.useListRecentPublicationsQuery = exports.ListRecentPublicationsDocument = exports.usePublicationLazyQuery = exports.usePublicationQuery = exports.PublicationDocument = exports.useGeneLazyQuery = exports.useGeneQuery = exports.GeneDocument = exports.useListOrganismsLazyQuery = exports.useListOrganismsQuery = exports.ListOrganismsDocument = exports.useContentLazyQuery = exports.useContentQuery = exports.ContentDocument = exports.useContentBySlugLazyQuery = exports.useContentBySlugQuery = exports.ContentBySlugDocument = exports.useGetRefreshTokenLazyQuery = exports.useGetRefreshTokenQuery = exports.GetRefreshTokenDocument = exports.useUpdateUserMutation = exports.UpdateUserDocument = exports.useCreateUserMutation = exports.CreateUserDocument = exports.useCreateOrderMutation = exports.CreateOrderDocument = exports.useUpdateContentMutation = exports.UpdateContentDocument = exports.useCreateContentMutation = exports.CreateContentDocument = exports.useLogoutMutation = exports.LogoutDocument = exports.useLoginMutation = exports.LoginDocument = exports.StatusEnum = void 0;
-exports.useUserByEmailLazyQuery = exports.useUserByEmailQuery = exports.UserByEmailDocument = exports.useStrainLazyQuery = exports.useStrainQuery = exports.StrainDocument = exports.usePlasmidLazyQuery = exports.usePlasmidQuery = exports.PlasmidDocument = exports.usePlasmidListFilterLazyQuery = exports.usePlasmidListFilterQuery = exports.PlasmidListFilterDocument = exports.useListPlasmidsInventoryLazyQuery = exports.useListPlasmidsInventoryQuery = exports.ListPlasmidsInventoryDocument = exports.useListStrainsInventoryLazyQuery = void 0;
+exports.useListBacterialStrainsQuery = exports.ListBacterialStrainsDocument = exports.useListStrainsWithPhenotypeLazyQuery = exports.useListStrainsWithPhenotypeQuery = exports.ListStrainsWithPhenotypeDocument = exports.useStrainListLazyQuery = exports.useStrainListQuery = exports.StrainListDocument = exports.useStockListLazyQuery = exports.useStockListQuery = exports.StockListDocument = exports.useListRecentPublicationsLazyQuery = exports.useListRecentPublicationsQuery = exports.ListRecentPublicationsDocument = exports.usePublicationLazyQuery = exports.usePublicationQuery = exports.PublicationDocument = exports.useListRecentGenesLazyQuery = exports.useListRecentGenesQuery = exports.ListRecentGenesDocument = exports.useGeneLazyQuery = exports.useGeneQuery = exports.GeneDocument = exports.useListOrganismsLazyQuery = exports.useListOrganismsQuery = exports.ListOrganismsDocument = exports.useContentLazyQuery = exports.useContentQuery = exports.ContentDocument = exports.useContentBySlugLazyQuery = exports.useContentBySlugQuery = exports.ContentBySlugDocument = exports.useGetRefreshTokenLazyQuery = exports.useGetRefreshTokenQuery = exports.GetRefreshTokenDocument = exports.useUpdateUserMutation = exports.UpdateUserDocument = exports.useCreateUserMutation = exports.CreateUserDocument = exports.useCreateOrderMutation = exports.CreateOrderDocument = exports.useUpdateContentMutation = exports.UpdateContentDocument = exports.useCreateContentMutation = exports.CreateContentDocument = exports.useLogoutMutation = exports.LogoutDocument = exports.useLoginMutation = exports.LoginDocument = exports.StatusEnum = void 0;
+exports.useUserByEmailLazyQuery = exports.useUserByEmailQuery = exports.UserByEmailDocument = exports.useListRecentStrainsLazyQuery = exports.useListRecentStrainsQuery = exports.ListRecentStrainsDocument = exports.useListRecentPlasmidsLazyQuery = exports.useListRecentPlasmidsQuery = exports.ListRecentPlasmidsDocument = exports.useStrainLazyQuery = exports.useStrainQuery = exports.StrainDocument = exports.usePlasmidLazyQuery = exports.usePlasmidQuery = exports.PlasmidDocument = exports.usePlasmidListFilterLazyQuery = exports.usePlasmidListFilterQuery = exports.PlasmidListFilterDocument = exports.useListPlasmidsInventoryLazyQuery = exports.useListPlasmidsInventoryQuery = exports.ListPlasmidsInventoryDocument = exports.useListStrainsInventoryLazyQuery = exports.useListStrainsInventoryQuery = exports.ListStrainsInventoryDocument = exports.useListBacterialStrainsLazyQuery = void 0;
 var client_1 = require("@apollo/client");
 var Apollo = __importStar(require("@apollo/client"));
 var defaultOptions = {};
@@ -341,7 +341,34 @@ function useGeneLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.GeneDocument, options);
 }
 exports.useGeneLazyQuery = useGeneLazyQuery;
-exports.PublicationDocument = (0, client_1.gql)(templateObject_13 || (templateObject_13 = __makeTemplateObject(["\n    query Publication($id: ID!) {\n  publication(id: $id) {\n    id\n    doi\n    title\n    abstract\n    journal\n    pub_date\n    pages\n    issue\n    volume\n    authors {\n      initials\n      last_name\n    }\n  }\n}\n    "], ["\n    query Publication($id: ID!) {\n  publication(id: $id) {\n    id\n    doi\n    title\n    abstract\n    journal\n    pub_date\n    pages\n    issue\n    volume\n    authors {\n      initials\n      last_name\n    }\n  }\n}\n    "])));
+exports.ListRecentGenesDocument = (0, client_1.gql)(templateObject_13 || (templateObject_13 = __makeTemplateObject(["\n    query listRecentGenes($limit: Int! = 4) {\n  listRecentGenes(limit: $limit) {\n    id\n    name\n  }\n}\n    "], ["\n    query listRecentGenes($limit: Int! = 4) {\n  listRecentGenes(limit: $limit) {\n    id\n    name\n  }\n}\n    "])));
+/**
+ * __useListRecentGenesQuery__
+ *
+ * To run a query within a React component, call `useListRecentGenesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListRecentGenesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListRecentGenesQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+function useListRecentGenesQuery(baseOptions) {
+    var options = __assign(__assign({}, defaultOptions), baseOptions);
+    return Apollo.useQuery(exports.ListRecentGenesDocument, options);
+}
+exports.useListRecentGenesQuery = useListRecentGenesQuery;
+function useListRecentGenesLazyQuery(baseOptions) {
+    var options = __assign(__assign({}, defaultOptions), baseOptions);
+    return Apollo.useLazyQuery(exports.ListRecentGenesDocument, options);
+}
+exports.useListRecentGenesLazyQuery = useListRecentGenesLazyQuery;
+exports.PublicationDocument = (0, client_1.gql)(templateObject_14 || (templateObject_14 = __makeTemplateObject(["\n    query Publication($id: ID!) {\n  publication(id: $id) {\n    id\n    doi\n    title\n    abstract\n    journal\n    pub_date\n    pages\n    issue\n    volume\n    authors {\n      initials\n      last_name\n    }\n  }\n}\n    "], ["\n    query Publication($id: ID!) {\n  publication(id: $id) {\n    id\n    doi\n    title\n    abstract\n    journal\n    pub_date\n    pages\n    issue\n    volume\n    authors {\n      initials\n      last_name\n    }\n  }\n}\n    "])));
 /**
  * __usePublicationQuery__
  *
@@ -368,7 +395,7 @@ function usePublicationLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.PublicationDocument, options);
 }
 exports.usePublicationLazyQuery = usePublicationLazyQuery;
-exports.ListRecentPublicationsDocument = (0, client_1.gql)(templateObject_14 || (templateObject_14 = __makeTemplateObject(["\n    query ListRecentPublications($limit: Int! = 4) {\n  listRecentPublications(limit: $limit) {\n    id\n    doi\n    title\n    abstract\n    journal\n    pub_date\n    pages\n    issue\n    volume\n    authors {\n      initials\n      last_name\n    }\n  }\n}\n    "], ["\n    query ListRecentPublications($limit: Int! = 4) {\n  listRecentPublications(limit: $limit) {\n    id\n    doi\n    title\n    abstract\n    journal\n    pub_date\n    pages\n    issue\n    volume\n    authors {\n      initials\n      last_name\n    }\n  }\n}\n    "])));
+exports.ListRecentPublicationsDocument = (0, client_1.gql)(templateObject_15 || (templateObject_15 = __makeTemplateObject(["\n    query ListRecentPublications($limit: Int! = 4) {\n  listRecentPublications(limit: $limit) {\n    id\n    doi\n    title\n    abstract\n    journal\n    pub_date\n    pages\n    issue\n    volume\n    authors {\n      initials\n      last_name\n    }\n  }\n}\n    "], ["\n    query ListRecentPublications($limit: Int! = 4) {\n  listRecentPublications(limit: $limit) {\n    id\n    doi\n    title\n    abstract\n    journal\n    pub_date\n    pages\n    issue\n    volume\n    authors {\n      initials\n      last_name\n    }\n  }\n}\n    "])));
 /**
  * __useListRecentPublicationsQuery__
  *
@@ -395,7 +422,7 @@ function useListRecentPublicationsLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.ListRecentPublicationsDocument, options);
 }
 exports.useListRecentPublicationsLazyQuery = useListRecentPublicationsLazyQuery;
-exports.StockListDocument = (0, client_1.gql)(templateObject_15 || (templateObject_15 = __makeTemplateObject(["\n    query StockList($limit: Int!) {\n  listPlasmids(limit: $limit) {\n    totalCount\n  }\n  listStrains(limit: $limit) {\n    totalCount\n  }\n}\n    "], ["\n    query StockList($limit: Int!) {\n  listPlasmids(limit: $limit) {\n    totalCount\n  }\n  listStrains(limit: $limit) {\n    totalCount\n  }\n}\n    "])));
+exports.StockListDocument = (0, client_1.gql)(templateObject_16 || (templateObject_16 = __makeTemplateObject(["\n    query StockList($limit: Int!) {\n  listPlasmids(limit: $limit) {\n    totalCount\n  }\n  listStrains(limit: $limit) {\n    totalCount\n  }\n}\n    "], ["\n    query StockList($limit: Int!) {\n  listPlasmids(limit: $limit) {\n    totalCount\n  }\n  listStrains(limit: $limit) {\n    totalCount\n  }\n}\n    "])));
 /**
  * __useStockListQuery__
  *
@@ -422,7 +449,7 @@ function useStockListLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.StockListDocument, options);
 }
 exports.useStockListLazyQuery = useStockListLazyQuery;
-exports.StrainListDocument = (0, client_1.gql)(templateObject_16 || (templateObject_16 = __makeTemplateObject(["\n    query StrainList($cursor: Int!, $limit: Int!, $filter: String!) {\n  listStrains(cursor: $cursor, limit: $limit, filter: $filter) {\n    nextCursor\n    totalCount\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n}\n    "], ["\n    query StrainList($cursor: Int!, $limit: Int!, $filter: String!) {\n  listStrains(cursor: $cursor, limit: $limit, filter: $filter) {\n    nextCursor\n    totalCount\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n}\n    "])));
+exports.StrainListDocument = (0, client_1.gql)(templateObject_17 || (templateObject_17 = __makeTemplateObject(["\n    query StrainList($cursor: Int!, $limit: Int!, $filter: String!) {\n  listStrains(cursor: $cursor, limit: $limit, filter: $filter) {\n    nextCursor\n    totalCount\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n}\n    "], ["\n    query StrainList($cursor: Int!, $limit: Int!, $filter: String!) {\n  listStrains(cursor: $cursor, limit: $limit, filter: $filter) {\n    nextCursor\n    totalCount\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n}\n    "])));
 /**
  * __useStrainListQuery__
  *
@@ -451,7 +478,7 @@ function useStrainListLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.StrainListDocument, options);
 }
 exports.useStrainListLazyQuery = useStrainListLazyQuery;
-exports.ListStrainsWithPhenotypeDocument = (0, client_1.gql)(templateObject_17 || (templateObject_17 = __makeTemplateObject(["\n    query ListStrainsWithPhenotype($cursor: Int!, $limit: Int!, $type: String!, $annotation: String!) {\n  listStrainsWithAnnotation(\n    cursor: $cursor\n    limit: $limit\n    type: $type\n    annotation: $annotation\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      genes {\n        name\n      }\n      publications {\n        id\n        pub_date\n        title\n        journal\n        volume\n        pages\n        authors {\n          last_name\n        }\n      }\n    }\n  }\n}\n    "], ["\n    query ListStrainsWithPhenotype($cursor: Int!, $limit: Int!, $type: String!, $annotation: String!) {\n  listStrainsWithAnnotation(\n    cursor: $cursor\n    limit: $limit\n    type: $type\n    annotation: $annotation\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      genes {\n        name\n      }\n      publications {\n        id\n        pub_date\n        title\n        journal\n        volume\n        pages\n        authors {\n          last_name\n        }\n      }\n    }\n  }\n}\n    "])));
+exports.ListStrainsWithPhenotypeDocument = (0, client_1.gql)(templateObject_18 || (templateObject_18 = __makeTemplateObject(["\n    query ListStrainsWithPhenotype($cursor: Int!, $limit: Int!, $type: String!, $annotation: String!) {\n  listStrainsWithAnnotation(\n    cursor: $cursor\n    limit: $limit\n    type: $type\n    annotation: $annotation\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      genes {\n        name\n      }\n      publications {\n        id\n        pub_date\n        title\n        journal\n        volume\n        pages\n        authors {\n          last_name\n        }\n      }\n    }\n  }\n}\n    "], ["\n    query ListStrainsWithPhenotype($cursor: Int!, $limit: Int!, $type: String!, $annotation: String!) {\n  listStrainsWithAnnotation(\n    cursor: $cursor\n    limit: $limit\n    type: $type\n    annotation: $annotation\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      genes {\n        name\n      }\n      publications {\n        id\n        pub_date\n        title\n        journal\n        volume\n        pages\n        authors {\n          last_name\n        }\n      }\n    }\n  }\n}\n    "])));
 /**
  * __useListStrainsWithPhenotypeQuery__
  *
@@ -481,7 +508,7 @@ function useListStrainsWithPhenotypeLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.ListStrainsWithPhenotypeDocument, options);
 }
 exports.useListStrainsWithPhenotypeLazyQuery = useListStrainsWithPhenotypeLazyQuery;
-exports.ListBacterialStrainsDocument = (0, client_1.gql)(templateObject_18 || (templateObject_18 = __makeTemplateObject(["\n    query ListBacterialStrains {\n  bacterialFoodSource: listStrainsWithAnnotation(\n    cursor: 0\n    limit: 100\n    type: \"characteristic\"\n    annotation: \"bacterial food source\"\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n  symbioticFarmerBacterium: listStrainsWithAnnotation(\n    cursor: 0\n    limit: 100\n    type: \"characteristic\"\n    annotation: \"symbiotic farmer bacterium\"\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n}\n    "], ["\n    query ListBacterialStrains {\n  bacterialFoodSource: listStrainsWithAnnotation(\n    cursor: 0\n    limit: 100\n    type: \"characteristic\"\n    annotation: \"bacterial food source\"\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n  symbioticFarmerBacterium: listStrainsWithAnnotation(\n    cursor: 0\n    limit: 100\n    type: \"characteristic\"\n    annotation: \"symbiotic farmer bacterium\"\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n}\n    "])));
+exports.ListBacterialStrainsDocument = (0, client_1.gql)(templateObject_19 || (templateObject_19 = __makeTemplateObject(["\n    query ListBacterialStrains {\n  bacterialFoodSource: listStrainsWithAnnotation(\n    cursor: 0\n    limit: 100\n    type: \"characteristic\"\n    annotation: \"bacterial food source\"\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n  symbioticFarmerBacterium: listStrainsWithAnnotation(\n    cursor: 0\n    limit: 100\n    type: \"characteristic\"\n    annotation: \"symbiotic farmer bacterium\"\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n}\n    "], ["\n    query ListBacterialStrains {\n  bacterialFoodSource: listStrainsWithAnnotation(\n    cursor: 0\n    limit: 100\n    type: \"characteristic\"\n    annotation: \"bacterial food source\"\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n  symbioticFarmerBacterium: listStrainsWithAnnotation(\n    cursor: 0\n    limit: 100\n    type: \"characteristic\"\n    annotation: \"symbiotic farmer bacterium\"\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n}\n    "])));
 /**
  * __useListBacterialStrainsQuery__
  *
@@ -507,7 +534,7 @@ function useListBacterialStrainsLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.ListBacterialStrainsDocument, options);
 }
 exports.useListBacterialStrainsLazyQuery = useListBacterialStrainsLazyQuery;
-exports.ListStrainsInventoryDocument = (0, client_1.gql)(templateObject_19 || (templateObject_19 = __makeTemplateObject(["\n    query ListStrainsInventory($cursor: Int!, $limit: Int!) {\n  listStrainsWithAnnotation(\n    cursor: $cursor\n    limit: $limit\n    type: \"strain_inventory\"\n    annotation: \"strain_inventory\"\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n}\n    "], ["\n    query ListStrainsInventory($cursor: Int!, $limit: Int!) {\n  listStrainsWithAnnotation(\n    cursor: $cursor\n    limit: $limit\n    type: \"strain_inventory\"\n    annotation: \"strain_inventory\"\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n}\n    "])));
+exports.ListStrainsInventoryDocument = (0, client_1.gql)(templateObject_20 || (templateObject_20 = __makeTemplateObject(["\n    query ListStrainsInventory($cursor: Int!, $limit: Int!) {\n  listStrainsWithAnnotation(\n    cursor: $cursor\n    limit: $limit\n    type: \"strain_inventory\"\n    annotation: \"strain_inventory\"\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n}\n    "], ["\n    query ListStrainsInventory($cursor: Int!, $limit: Int!) {\n  listStrainsWithAnnotation(\n    cursor: $cursor\n    limit: $limit\n    type: \"strain_inventory\"\n    annotation: \"strain_inventory\"\n  ) {\n    totalCount\n    nextCursor\n    strains {\n      id\n      label\n      summary\n      in_stock\n    }\n  }\n}\n    "])));
 /**
  * __useListStrainsInventoryQuery__
  *
@@ -535,7 +562,7 @@ function useListStrainsInventoryLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.ListStrainsInventoryDocument, options);
 }
 exports.useListStrainsInventoryLazyQuery = useListStrainsInventoryLazyQuery;
-exports.ListPlasmidsInventoryDocument = (0, client_1.gql)(templateObject_20 || (templateObject_20 = __makeTemplateObject(["\n    query ListPlasmidsInventory($cursor: Int!, $limit: Int!) {\n  listPlasmidsWithAnnotation(\n    cursor: $cursor\n    limit: $limit\n    type: \"plasmid_inventory\"\n    annotation: \"plasmid inventory\"\n  ) {\n    totalCount\n    nextCursor\n    plasmids {\n      id\n      name\n      summary\n      in_stock\n    }\n  }\n}\n    "], ["\n    query ListPlasmidsInventory($cursor: Int!, $limit: Int!) {\n  listPlasmidsWithAnnotation(\n    cursor: $cursor\n    limit: $limit\n    type: \"plasmid_inventory\"\n    annotation: \"plasmid inventory\"\n  ) {\n    totalCount\n    nextCursor\n    plasmids {\n      id\n      name\n      summary\n      in_stock\n    }\n  }\n}\n    "])));
+exports.ListPlasmidsInventoryDocument = (0, client_1.gql)(templateObject_21 || (templateObject_21 = __makeTemplateObject(["\n    query ListPlasmidsInventory($cursor: Int!, $limit: Int!) {\n  listPlasmidsWithAnnotation(\n    cursor: $cursor\n    limit: $limit\n    type: \"plasmid_inventory\"\n    annotation: \"plasmid inventory\"\n  ) {\n    totalCount\n    nextCursor\n    plasmids {\n      id\n      name\n      summary\n      in_stock\n    }\n  }\n}\n    "], ["\n    query ListPlasmidsInventory($cursor: Int!, $limit: Int!) {\n  listPlasmidsWithAnnotation(\n    cursor: $cursor\n    limit: $limit\n    type: \"plasmid_inventory\"\n    annotation: \"plasmid inventory\"\n  ) {\n    totalCount\n    nextCursor\n    plasmids {\n      id\n      name\n      summary\n      in_stock\n    }\n  }\n}\n    "])));
 /**
  * __useListPlasmidsInventoryQuery__
  *
@@ -563,7 +590,7 @@ function useListPlasmidsInventoryLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.ListPlasmidsInventoryDocument, options);
 }
 exports.useListPlasmidsInventoryLazyQuery = useListPlasmidsInventoryLazyQuery;
-exports.PlasmidListFilterDocument = (0, client_1.gql)(templateObject_21 || (templateObject_21 = __makeTemplateObject(["\n    query PlasmidListFilter($cursor: Int!, $limit: Int!, $filter: String!) {\n  listPlasmids(cursor: $cursor, limit: $limit, filter: $filter) {\n    nextCursor\n    totalCount\n    plasmids {\n      id\n      name\n      summary\n      in_stock\n    }\n  }\n}\n    "], ["\n    query PlasmidListFilter($cursor: Int!, $limit: Int!, $filter: String!) {\n  listPlasmids(cursor: $cursor, limit: $limit, filter: $filter) {\n    nextCursor\n    totalCount\n    plasmids {\n      id\n      name\n      summary\n      in_stock\n    }\n  }\n}\n    "])));
+exports.PlasmidListFilterDocument = (0, client_1.gql)(templateObject_22 || (templateObject_22 = __makeTemplateObject(["\n    query PlasmidListFilter($cursor: Int!, $limit: Int!, $filter: String!) {\n  listPlasmids(cursor: $cursor, limit: $limit, filter: $filter) {\n    nextCursor\n    totalCount\n    plasmids {\n      id\n      name\n      summary\n      in_stock\n    }\n  }\n}\n    "], ["\n    query PlasmidListFilter($cursor: Int!, $limit: Int!, $filter: String!) {\n  listPlasmids(cursor: $cursor, limit: $limit, filter: $filter) {\n    nextCursor\n    totalCount\n    plasmids {\n      id\n      name\n      summary\n      in_stock\n    }\n  }\n}\n    "])));
 /**
  * __usePlasmidListFilterQuery__
  *
@@ -592,7 +619,7 @@ function usePlasmidListFilterLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.PlasmidListFilterDocument, options);
 }
 exports.usePlasmidListFilterLazyQuery = usePlasmidListFilterLazyQuery;
-exports.PlasmidDocument = (0, client_1.gql)(templateObject_22 || (templateObject_22 = __makeTemplateObject(["\n    query Plasmid($id: ID!) {\n  plasmid(id: $id) {\n    id\n    name\n    summary\n    depositor {\n      first_name\n      last_name\n    }\n    publications {\n      id\n      pub_date\n      title\n      journal\n      volume\n      pages\n      doi\n      authors {\n        last_name\n      }\n    }\n    dbxrefs\n    genes {\n      name\n    }\n    image_map\n    sequence\n    keywords\n    genbank_accession\n    in_stock\n  }\n}\n    "], ["\n    query Plasmid($id: ID!) {\n  plasmid(id: $id) {\n    id\n    name\n    summary\n    depositor {\n      first_name\n      last_name\n    }\n    publications {\n      id\n      pub_date\n      title\n      journal\n      volume\n      pages\n      doi\n      authors {\n        last_name\n      }\n    }\n    dbxrefs\n    genes {\n      name\n    }\n    image_map\n    sequence\n    keywords\n    genbank_accession\n    in_stock\n  }\n}\n    "])));
+exports.PlasmidDocument = (0, client_1.gql)(templateObject_23 || (templateObject_23 = __makeTemplateObject(["\n    query Plasmid($id: ID!) {\n  plasmid(id: $id) {\n    id\n    name\n    summary\n    depositor {\n      first_name\n      last_name\n    }\n    publications {\n      id\n      pub_date\n      title\n      journal\n      volume\n      pages\n      doi\n      authors {\n        last_name\n      }\n    }\n    dbxrefs\n    genes {\n      name\n    }\n    image_map\n    sequence\n    keywords\n    genbank_accession\n    in_stock\n  }\n}\n    "], ["\n    query Plasmid($id: ID!) {\n  plasmid(id: $id) {\n    id\n    name\n    summary\n    depositor {\n      first_name\n      last_name\n    }\n    publications {\n      id\n      pub_date\n      title\n      journal\n      volume\n      pages\n      doi\n      authors {\n        last_name\n      }\n    }\n    dbxrefs\n    genes {\n      name\n    }\n    image_map\n    sequence\n    keywords\n    genbank_accession\n    in_stock\n  }\n}\n    "])));
 /**
  * __usePlasmidQuery__
  *
@@ -619,7 +646,7 @@ function usePlasmidLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.PlasmidDocument, options);
 }
 exports.usePlasmidLazyQuery = usePlasmidLazyQuery;
-exports.StrainDocument = (0, client_1.gql)(templateObject_23 || (templateObject_23 = __makeTemplateObject(["\n    query Strain($id: ID!) {\n  strain(id: $id) {\n    id\n    label\n    summary\n    species\n    parent {\n      id\n      label\n    }\n    depositor {\n      first_name\n      last_name\n    }\n    plasmid\n    dbxrefs\n    publications {\n      id\n      pub_date\n      title\n      journal\n      volume\n      pages\n      doi\n      authors {\n        last_name\n      }\n    }\n    genes {\n      name\n    }\n    in_stock\n    systematic_name\n    genotypes\n    mutagenesis_method\n    genetic_modification\n    names\n    characteristics\n    phenotypes {\n      phenotype\n      note\n      assay\n      environment\n      publication {\n        id\n        pub_date\n        title\n        journal\n        volume\n        pages\n        authors {\n          last_name\n        }\n      }\n    }\n  }\n}\n    "], ["\n    query Strain($id: ID!) {\n  strain(id: $id) {\n    id\n    label\n    summary\n    species\n    parent {\n      id\n      label\n    }\n    depositor {\n      first_name\n      last_name\n    }\n    plasmid\n    dbxrefs\n    publications {\n      id\n      pub_date\n      title\n      journal\n      volume\n      pages\n      doi\n      authors {\n        last_name\n      }\n    }\n    genes {\n      name\n    }\n    in_stock\n    systematic_name\n    genotypes\n    mutagenesis_method\n    genetic_modification\n    names\n    characteristics\n    phenotypes {\n      phenotype\n      note\n      assay\n      environment\n      publication {\n        id\n        pub_date\n        title\n        journal\n        volume\n        pages\n        authors {\n          last_name\n        }\n      }\n    }\n  }\n}\n    "])));
+exports.StrainDocument = (0, client_1.gql)(templateObject_24 || (templateObject_24 = __makeTemplateObject(["\n    query Strain($id: ID!) {\n  strain(id: $id) {\n    id\n    label\n    summary\n    species\n    parent {\n      id\n      label\n    }\n    depositor {\n      first_name\n      last_name\n    }\n    plasmid\n    dbxrefs\n    publications {\n      id\n      pub_date\n      title\n      journal\n      volume\n      pages\n      doi\n      authors {\n        last_name\n      }\n    }\n    genes {\n      name\n    }\n    in_stock\n    systematic_name\n    genotypes\n    mutagenesis_method\n    genetic_modification\n    names\n    characteristics\n    phenotypes {\n      phenotype\n      note\n      assay\n      environment\n      publication {\n        id\n        pub_date\n        title\n        journal\n        volume\n        pages\n        authors {\n          last_name\n        }\n      }\n    }\n  }\n}\n    "], ["\n    query Strain($id: ID!) {\n  strain(id: $id) {\n    id\n    label\n    summary\n    species\n    parent {\n      id\n      label\n    }\n    depositor {\n      first_name\n      last_name\n    }\n    plasmid\n    dbxrefs\n    publications {\n      id\n      pub_date\n      title\n      journal\n      volume\n      pages\n      doi\n      authors {\n        last_name\n      }\n    }\n    genes {\n      name\n    }\n    in_stock\n    systematic_name\n    genotypes\n    mutagenesis_method\n    genetic_modification\n    names\n    characteristics\n    phenotypes {\n      phenotype\n      note\n      assay\n      environment\n      publication {\n        id\n        pub_date\n        title\n        journal\n        volume\n        pages\n        authors {\n          last_name\n        }\n      }\n    }\n  }\n}\n    "])));
 /**
  * __useStrainQuery__
  *
@@ -646,7 +673,61 @@ function useStrainLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.StrainDocument, options);
 }
 exports.useStrainLazyQuery = useStrainLazyQuery;
-exports.UserByEmailDocument = (0, client_1.gql)(templateObject_24 || (templateObject_24 = __makeTemplateObject(["\n    query UserByEmail($email: String!) {\n  userByEmail(email: $email) {\n    id\n  }\n}\n    "], ["\n    query UserByEmail($email: String!) {\n  userByEmail(email: $email) {\n    id\n  }\n}\n    "])));
+exports.ListRecentPlasmidsDocument = (0, client_1.gql)(templateObject_25 || (templateObject_25 = __makeTemplateObject(["\n    query listRecentPlasmids($limit: Int! = 4) {\n  listRecentPlasmids(limit: $limit) {\n    id\n    created_at\n    name\n  }\n}\n    "], ["\n    query listRecentPlasmids($limit: Int! = 4) {\n  listRecentPlasmids(limit: $limit) {\n    id\n    created_at\n    name\n  }\n}\n    "])));
+/**
+ * __useListRecentPlasmidsQuery__
+ *
+ * To run a query within a React component, call `useListRecentPlasmidsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListRecentPlasmidsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListRecentPlasmidsQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+function useListRecentPlasmidsQuery(baseOptions) {
+    var options = __assign(__assign({}, defaultOptions), baseOptions);
+    return Apollo.useQuery(exports.ListRecentPlasmidsDocument, options);
+}
+exports.useListRecentPlasmidsQuery = useListRecentPlasmidsQuery;
+function useListRecentPlasmidsLazyQuery(baseOptions) {
+    var options = __assign(__assign({}, defaultOptions), baseOptions);
+    return Apollo.useLazyQuery(exports.ListRecentPlasmidsDocument, options);
+}
+exports.useListRecentPlasmidsLazyQuery = useListRecentPlasmidsLazyQuery;
+exports.ListRecentStrainsDocument = (0, client_1.gql)(templateObject_26 || (templateObject_26 = __makeTemplateObject(["\n    query listRecentStrains($limit: Int! = 4) {\n  listRecentStrains(limit: $limit) {\n    id\n    created_at\n    systematic_name\n  }\n}\n    "], ["\n    query listRecentStrains($limit: Int! = 4) {\n  listRecentStrains(limit: $limit) {\n    id\n    created_at\n    systematic_name\n  }\n}\n    "])));
+/**
+ * __useListRecentStrainsQuery__
+ *
+ * To run a query within a React component, call `useListRecentStrainsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListRecentStrainsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListRecentStrainsQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+function useListRecentStrainsQuery(baseOptions) {
+    var options = __assign(__assign({}, defaultOptions), baseOptions);
+    return Apollo.useQuery(exports.ListRecentStrainsDocument, options);
+}
+exports.useListRecentStrainsQuery = useListRecentStrainsQuery;
+function useListRecentStrainsLazyQuery(baseOptions) {
+    var options = __assign(__assign({}, defaultOptions), baseOptions);
+    return Apollo.useLazyQuery(exports.ListRecentStrainsDocument, options);
+}
+exports.useListRecentStrainsLazyQuery = useListRecentStrainsLazyQuery;
+exports.UserByEmailDocument = (0, client_1.gql)(templateObject_27 || (templateObject_27 = __makeTemplateObject(["\n    query UserByEmail($email: String!) {\n  userByEmail(email: $email) {\n    id\n  }\n}\n    "], ["\n    query UserByEmail($email: String!) {\n  userByEmail(email: $email) {\n    id\n  }\n}\n    "])));
 /**
  * __useUserByEmailQuery__
  *
@@ -673,4 +754,4 @@ function useUserByEmailLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.UserByEmailDocument, options);
 }
 exports.useUserByEmailLazyQuery = useUserByEmailLazyQuery;
-var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8, templateObject_9, templateObject_10, templateObject_11, templateObject_12, templateObject_13, templateObject_14, templateObject_15, templateObject_16, templateObject_17, templateObject_18, templateObject_19, templateObject_20, templateObject_21, templateObject_22, templateObject_23, templateObject_24;
+var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8, templateObject_9, templateObject_10, templateObject_11, templateObject_12, templateObject_13, templateObject_14, templateObject_15, templateObject_16, templateObject_17, templateObject_18, templateObject_19, templateObject_20, templateObject_21, templateObject_22, templateObject_23, templateObject_24, templateObject_25, templateObject_26, templateObject_27;
