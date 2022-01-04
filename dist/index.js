@@ -341,7 +341,7 @@ function useGeneLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.GeneDocument, options);
 }
 exports.useGeneLazyQuery = useGeneLazyQuery;
-exports.ListRecentGenesDocument = (0, client_1.gql)(templateObject_13 || (templateObject_13 = __makeTemplateObject(["\n    query listRecentGenes($limit: Int! = 4) {\n  listRecentGenes(limit: $limit) {\n    id\n    name\n  }\n}\n    "], ["\n    query listRecentGenes($limit: Int! = 4) {\n  listRecentGenes(limit: $limit) {\n    id\n    name\n  }\n}\n    "])));
+exports.ListRecentGenesDocument = (0, client_1.gql)(templateObject_13 || (templateObject_13 = __makeTemplateObject(["\n    query ListRecentGenes($limit: Int! = 4) {\n  listRecentGenes(limit: $limit) {\n    id\n    name\n  }\n}\n    "], ["\n    query ListRecentGenes($limit: Int! = 4) {\n  listRecentGenes(limit: $limit) {\n    id\n    name\n  }\n}\n    "])));
 /**
  * __useListRecentGenesQuery__
  *
@@ -673,7 +673,7 @@ function useStrainLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.StrainDocument, options);
 }
 exports.useStrainLazyQuery = useStrainLazyQuery;
-exports.ListRecentPlasmidsDocument = (0, client_1.gql)(templateObject_25 || (templateObject_25 = __makeTemplateObject(["\n    query listRecentPlasmids($limit: Int! = 4) {\n  listRecentPlasmids(limit: $limit) {\n    id\n    created_at\n    name\n  }\n}\n    "], ["\n    query listRecentPlasmids($limit: Int! = 4) {\n  listRecentPlasmids(limit: $limit) {\n    id\n    created_at\n    name\n  }\n}\n    "])));
+exports.ListRecentPlasmidsDocument = (0, client_1.gql)(templateObject_25 || (templateObject_25 = __makeTemplateObject(["\n    query ListRecentPlasmids($limit: Int! = 4) {\n  listRecentPlasmids(limit: $limit) {\n    id\n    created_at\n    name\n  }\n}\n    "], ["\n    query ListRecentPlasmids($limit: Int! = 4) {\n  listRecentPlasmids(limit: $limit) {\n    id\n    created_at\n    name\n  }\n}\n    "])));
 /**
  * __useListRecentPlasmidsQuery__
  *
@@ -700,7 +700,7 @@ function useListRecentPlasmidsLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.ListRecentPlasmidsDocument, options);
 }
 exports.useListRecentPlasmidsLazyQuery = useListRecentPlasmidsLazyQuery;
-exports.ListRecentStrainsDocument = (0, client_1.gql)(templateObject_26 || (templateObject_26 = __makeTemplateObject(["\n    query listRecentStrains($limit: Int! = 4) {\n  listRecentStrains(limit: $limit) {\n    id\n    created_at\n    systematic_name\n  }\n}\n    "], ["\n    query listRecentStrains($limit: Int! = 4) {\n  listRecentStrains(limit: $limit) {\n    id\n    created_at\n    systematic_name\n  }\n}\n    "])));
+exports.ListRecentStrainsDocument = (0, client_1.gql)(templateObject_26 || (templateObject_26 = __makeTemplateObject(["\n    query ListRecentStrains($limit: Int! = 4) {\n  listRecentStrains(limit: $limit) {\n    id\n    created_at\n    systematic_name\n  }\n}\n    "], ["\n    query ListRecentStrains($limit: Int! = 4) {\n  listRecentStrains(limit: $limit) {\n    id\n    created_at\n    systematic_name\n  }\n}\n    "])));
 /**
  * __useListRecentStrainsQuery__
  *
