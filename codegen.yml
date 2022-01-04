@@ -12,4 +12,3 @@ generates:
     config:
       withHooks: true
       maybeValue: T | undefined
-      avoidOptionals: true
