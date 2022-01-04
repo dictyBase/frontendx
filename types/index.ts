@@ -1624,7 +1624,7 @@ export type GeneQueryHookResult = ReturnType<typeof useGeneQuery>;
 export type GeneLazyQueryHookResult = ReturnType<typeof useGeneLazyQuery>;
 export type GeneQueryResult = Apollo.QueryResult<GeneQuery, GeneQueryVariables>;
 export const ListRecentGenesDocument = gql`
-    query listRecentGenes($limit: Int! = 4) {
+    query ListRecentGenes($limit: Int! = 4) {
   listRecentGenes(limit: $limit) {
     id
     name
@@ -2248,7 +2248,7 @@ export type StrainQueryHookResult = ReturnType<typeof useStrainQuery>;
 export type StrainLazyQueryHookResult = ReturnType<typeof useStrainLazyQuery>;
 export type StrainQueryResult = Apollo.QueryResult<StrainQuery, StrainQueryVariables>;
 export const ListRecentPlasmidsDocument = gql`
-    query listRecentPlasmids($limit: Int! = 4) {
+    query ListRecentPlasmids($limit: Int! = 4) {
   listRecentPlasmids(limit: $limit) {
     id
     created_at
@@ -2285,7 +2285,7 @@ export type ListRecentPlasmidsQueryHookResult = ReturnType<typeof useListRecentP
 export type ListRecentPlasmidsLazyQueryHookResult = ReturnType<typeof useListRecentPlasmidsLazyQuery>;
 export type ListRecentPlasmidsQueryResult = Apollo.QueryResult<ListRecentPlasmidsQuery, ListRecentPlasmidsQueryVariables>;
 export const ListRecentStrainsDocument = gql`
-    query listRecentStrains($limit: Int! = 4) {
+    query ListRecentStrains($limit: Int! = 4) {
   listRecentStrains(limit: $limit) {
     id
     created_at
