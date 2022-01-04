@@ -12,7 +12,7 @@ interface BasePublication {
   source: String!
   issue: String
   status: String
-  authors: [Author]!
+  authors: [Author!]!
 }
 
 type Publication implements BasePublication {
@@ -29,11 +29,11 @@ type Publication implements BasePublication {
   source: String!
   issue: String
   status: String
-  authors: [Author]!
+  authors: [Author!]!
 }
 
 type PublicationWithGene implements BasePublication {
-  related_genes: [Gene]!
+  related_genes: [Gene!]!
   id: ID!
   doi: String
   title: String!
@@ -47,7 +47,7 @@ type PublicationWithGene implements BasePublication {
   source: String!
   issue: String
   status: String
-  authors: [Author]!
+  authors: [Author!]!
 }
 
 type Author {

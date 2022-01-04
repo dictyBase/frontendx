@@ -11,7 +11,7 @@ type Order {
   consumer: User
   payer: User
   purchaser: User
-  items: [Stock]
+  items: [Stock!]
 }
 
 type OrderListWithCursor {
@@ -39,7 +39,7 @@ input CreateOrderInput {
   consumer: String!
   payer: String!
   purchaser: String!
-  items: [String]!
+  items: [String!]!
 }
 
 input UpdateOrderInput {
@@ -49,5 +49,5 @@ input UpdateOrderInput {
   payment: String
   purchase_order_num: String
   status: StatusEnum
-  items: [String]
+  items: [String!]
 }
