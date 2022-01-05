@@ -6,7 +6,7 @@ import mockReferencesData from "./mockReferencesData"
 const mockGene: {
   gene: Gene
   allStrains: Gene
-  allReferences: PublicationWithGene[]
+  allPublications: PublicationWithGene[]
 } = {
   gene: {
     __typename: "Gene",
@@ -20,6 +20,6 @@ const mockGene: {
     name: "sadA",
     strains: [...mockPhenotypesData.strains],
   },
-  allReferences: [...mockReferencesData],
+  allPublications: [...mockReferencesData],
 }
 export default mockGene
