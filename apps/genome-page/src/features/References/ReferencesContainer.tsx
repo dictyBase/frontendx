@@ -4,6 +4,7 @@ import GraphQLErrorPage from "components/errors/GraphQLErrorPage"
 import Layout from "components/layout/Layout"
 import { useGeneQuery } from "dicty-graphql-schema"
 import ReferencesLoader from "./ReferencesLoader"
+import ReferencesDataTable from "./ReferencesDataTable"
 
 const ReferencesContainer = () => {
   const gene = useParams().gene as string
@@ -21,7 +22,7 @@ const ReferencesContainer = () => {
       <Typography component="div">
         {loading && <ReferencesLoader />}
         {error && <GraphQLErrorPage error={error} />}
-        {data && <p>Data...</p>}
+        {data && <ReferencesDataTable data={data} />}
       </Typography>
     </Layout>
   )
