@@ -1,11 +1,23 @@
-import { GeneQuery } from "dicty-graphql-schema"
+import OtherError from "components/errors/OtherError"
+import { GeneQuery, PublicationWithGene } from "dicty-graphql-schema"
 
 interface Props {
   data: GeneQuery
 }
 
 const ReferencesDataTable = ({ data }: Props) => {
-  return <p>Data goes here...</p>
+  if (!data.allPublications) return <OtherError />
+  const publications = data.allPublications
+
+  console.log(publications)
+
+  return (
+    <>
+      {publications.map((p, i) => (
+        <p>{p.title}</p>
+      ))}
+    </>
+  )
 }
 
 export default ReferencesDataTable
