@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/dictyBase/graphql-schema/compare/1.7.1...1.8.0) (2022-01-06)
+
+
+### Features
+
+* generate types due to reverting to built-in Maybe type definition ([0d4043d](https://github.com/dictyBase/graphql-schema/commit/0d4043d9103cab7bee9b2a85ef5c4cd3e8176bd4))
+
 ## [1.7.1](https://github.com/dictyBase/graphql-schema/compare/1.7.0...1.7.1) (2022-01-05)
 
 # [1.7.0](https://github.com/dictyBase/graphql-schema/compare/1.6.0...1.7.0) (2022-01-04)
