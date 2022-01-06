@@ -7,7 +7,7 @@ import {
 } from "@material-ui/core"
 import { RemoveShoppingCart, ShoppingCart } from "@material-ui/icons"
 import { commaSeparate, commaSeparateWithAnd } from "common/utils/strings"
-import { Publication } from "dicty-graphql-schema"
+import OtherError from "components/errors/OtherError"
 
 interface PhenotypeRowProps {
   id: string
@@ -49,11 +49,11 @@ const PhenotypeRow = ({
   phenotype,
   in_stock,
 }: PhenotypeRowProps) => {
-  const { authors, title, journal, issue } =
-    phenotype.publication as Publication
-  const authorLastNames = authors?.map(
-    (a) => a?.last_name as string,
-  ) as string[]
+  const publication = phenotype.publication
+  if (!publication) return <OtherError />
+
+  const { authors, title, journal, pages } = publication
+  const authorLastNames = authors.map((a) => a.last_name)
 
   return (
     <TableRow>
@@ -79,7 +79,7 @@ const PhenotypeRow = ({
       <TableCell>
         <b>{commaSeparateWithAnd(authorLastNames)}</b> &nbsp;
         <span>'{title}'</span> &nbsp;
-        <i>{journal}</i> &nbsp; <span>{issue}</span>
+        <i>{journal}</i> &nbsp; <span>{pages}</span>
       </TableCell>
     </TableRow>
   )
