@@ -5944,9 +5944,9 @@ dicty-components-login@dictybase/dicty-components-login#4.1.1:
   dependencies:
     polished "^3.4.1"
 
-dicty-graphql-schema@dictybase/dicty-graphql-schema#1.7.1:
-  version "1.7.1"
-  resolved "https://codeload.github.com/dictybase/dicty-graphql-schema/tar.gz/90d252b2853209e45bc972b2aec5c9dda7f06c19"
+dicty-graphql-schema@dictybase/dicty-graphql-schema#1.8.0:
+  version "1.8.0"
+  resolved "https://codeload.github.com/dictybase/dicty-graphql-schema/tar.gz/d4c5e29f106343c6507fdef395204e3294c749a6"
 
 dicty-hooks@dictybase/dicty-hooks#3.0.0:
   version "3.0.0"

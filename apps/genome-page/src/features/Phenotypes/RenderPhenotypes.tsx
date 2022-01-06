@@ -1,32 +1,40 @@
 import PhenotypeRow from "./PhenotypeRow"
 
 interface RenderPhenotypesProps {
-  __typename?: "Strain"
-  id: string
-  label: string
-  characteristics?: Array<string> | undefined
-  in_stock: boolean
-  phenotypes?: Array<{
-    __typename?: "Phenotype"
-    phenotype: string
-    publication?: {
-      __typename?: "Publication"
-      id: string
-      title: string
-      journal: string
-      pages?: string | undefined
-      volume?: string | undefined
-      pub_date?: any | undefined
-      authors: Array<{
-        __typename?: "Author"
-        last_name: string
-        rank?: string | undefined
-      }>
-    }
-  }>
+  strain: {
+    __typename?: "Strain"
+    id: string
+    label: string
+    characteristics?: Array<string> | null | undefined
+    in_stock: boolean
+    phenotypes?:
+      | Array<{
+          __typename?: "Phenotype"
+          phenotype: string
+          publication?:
+            | {
+                __typename?: "Publication"
+                id: string
+                title: string
+                journal: string
+                pages?: string | null | undefined
+                volume?: string | null | undefined
+                pub_date?: any | null | undefined
+                authors: Array<{
+                  __typename?: "Author"
+                  last_name: string
+                  rank?: string | null | undefined
+                }>
+              }
+            | null
+            | undefined
+        }>
+      | null
+      | undefined
+  }
 }
 
-const RenderPhenotypes = ({ strain }: { strain: RenderPhenotypesProps }) => {
+const RenderPhenotypes = ({ strain }: RenderPhenotypesProps) => {
   return (
     <>
       {strain.phenotypes?.map((phenotype, index) =>
