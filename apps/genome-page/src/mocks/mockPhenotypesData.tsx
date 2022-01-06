@@ -22,7 +22,7 @@ const mockPhenotypesData: { strains: Strain[] } = {
             ],
             title: "SadA, a novel adhesion receptor in Dictyostelium.",
             journal: "J Cell Biol",
-            issue: "159:1109-19",
+            pages: "159:1109-19",
           },
         },
         {
@@ -37,7 +37,7 @@ const mockPhenotypesData: { strains: Strain[] } = {
             ],
             title: "SadA, a novel adhesion receptor in Dictyostelium.",
             journal: "J Cell Biol",
-            issue: "159:1109-19",
+            pages: "159:1109-19",
           },
         },
         {
@@ -52,7 +52,7 @@ const mockPhenotypesData: { strains: Strain[] } = {
             ],
             title: "SadA, a novel adhesion receptor in Dictyostelium.",
             journal: "J Cell Biol",
-            issue: "159:1109-19",
+            pages: "159:1109-19",
           },
         },
         {
@@ -70,7 +70,7 @@ const mockPhenotypesData: { strains: Strain[] } = {
             title:
               "Cell Substratum Adhesion during Early Development of Dictyostelium discoideum.",
             journal: "PLoS ONE",
-            issue: "9:e106574",
+            pages: "9:e106574",
           },
         },
         {
@@ -85,7 +85,7 @@ const mockPhenotypesData: { strains: Strain[] } = {
             ],
             title: "SadA, a novel adhesion receptor in Dictyostelium.",
             journal: "J Cell Biol",
-            issue: "159:1109-19",
+            pages: "159:1109-19",
           },
         },
         {
@@ -100,7 +100,7 @@ const mockPhenotypesData: { strains: Strain[] } = {
             ],
             title: "SadA, a novel adhesion receptor in Dictyostelium.",
             journal: "J Cell Biol",
-            issue: "159:1109-19",
+            pages: "159:1109-19",
           },
         },
       ],
@@ -128,7 +128,7 @@ const mockPhenotypesData: { strains: Strain[] } = {
             title:
               "TM9/Phg1 and SadA proteins control surface expression and stability of SibA adhesion molecules in Dictyostelium.",
             journal: "Molecular biology of the cell",
-            issue: ":",
+            pages: ":",
           },
         },
         {
@@ -146,7 +146,7 @@ const mockPhenotypesData: { strains: Strain[] } = {
             title:
               "TM9/Phg1 and SadA proteins control surface expression and stability of SibA adhesion molecules in Dictyostelium.",
             journal: "Molecular biology of the cell",
-            issue: ":",
+            pages: ":",
           },
         },
         {
@@ -164,7 +164,7 @@ const mockPhenotypesData: { strains: Strain[] } = {
             title:
               "TM9/Phg1 and SadA proteins control surface expression and stability of SibA adhesion molecules in Dictyostelium.",
             journal: "Molecular biology of the cell",
-            issue: ":",
+            pages: ":",
           },
         },
       ],
@@ -185,7 +185,7 @@ const mockPhenotypesData: { strains: Strain[] } = {
             title:
               "The G alpha subunit G?8 inhibits proliferation, promotes adhesion and regulates cell differentiation.",
             journal: "Dev. Biol.",
-            issue: ":",
+            pages: ":",
           },
         },
       ],
@@ -206,7 +206,7 @@ const mockPhenotypesData: { strains: Strain[] } = {
             title:
               "Uncovering a role for the Dictyostelium discoideum SadA protein in cell-substrate adhesion: A Role for the Tail.",
             journal: "Eukaryotic cell",
-            issue: ":",
+            pages: ":",
           },
         },
       ],
@@ -227,7 +227,7 @@ const mockPhenotypesData: { strains: Strain[] } = {
             title:
               "Uncovering a role for the Dictyostelium discoideum SadA protein in cell-substrate adhesion: A Role for the Tail.",
             journal: "Eukaryotic cell",
-            issue: ":",
+            pages: ":",
           },
         },
       ],
@@ -248,7 +248,7 @@ const mockPhenotypesData: { strains: Strain[] } = {
             title:
               "Uncovering a role for the Dictyostelium discoideum SadA protein in cell-substrate adhesion: A Role for the Tail.",
             journal: "Eukaryotic cell",
-            issue: ":",
+            pages: ":",
           },
         },
       ],
@@ -273,7 +273,7 @@ const mockPhenotypesData: { strains: Strain[] } = {
             ],
             title: "SadA, a novel adhesion receptor in Dictyostelium.",
             journal: " J Cell Biol",
-            issue: "159:1109-19",
+            pages: "159:1109-19",
           },
         },
       ],
@@ -294,7 +294,7 @@ const mockPhenotypesData: { strains: Strain[] } = {
             title:
               "Uncovering a role for the Dictyostelium discoideum SadA protein in cell-substrate adhesion: A Role for the Tail.",
             journal: "Eukaryotic cell",
-            issue: ":",
+            pages: ":",
           },
         },
       ],
