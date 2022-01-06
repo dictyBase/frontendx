@@ -1,6 +1,5 @@
 import OtherError from "components/errors/OtherError"
 import { GeneQuery } from "dicty-graphql-schema"
-import { commaSeparateWithAnd } from "common/utils/strings"
 import {
   Paper,
   Table,
@@ -10,8 +9,8 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core"
-import { Link } from "react-router-dom"
-import useStyles from "../../common/styles/dataTableStyles"
+import useStyles from "common/styles/dataTableStyles"
+import PublicationRow from "./PublicationRow"
 
 interface Props {
   data: GeneQuery
@@ -35,30 +34,7 @@ const ReferencesDataTable = ({ data }: Props) => {
 
         <TableBody>
           {publications.map((publication, i) => (
-            <TableRow key={i}>
-              <TableCell>
-                <b>
-                  {commaSeparateWithAnd(
-                    publication.authors.map((a) => a.last_name),
-                  )}
-                </b>
-                &nbsp; '{publication.title}' &nbsp;
-                <i>{publication.journal}</i>
-                &nbsp;
-                {publication.issue}
-              </TableCell>
-
-              <TableCell>
-                {publication.related_genes.map((gene, i) => (
-                  <>
-                    <Link to={`/gene/${gene.id}`} key={`${gene.id}_${i}`}>
-                      {gene.name}
-                    </Link>
-                    {i !== publication.related_genes.length - 1 ? ", " : ""}
-                  </>
-                ))}
-              </TableCell>
-            </TableRow>
+            <PublicationRow publication={publication} key={i} />
           ))}
         </TableBody>
       </Table>
