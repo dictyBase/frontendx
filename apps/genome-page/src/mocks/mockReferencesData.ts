@@ -2,6 +2,109 @@ import { PublicationWithGene, Gene } from "dicty-graphql-schema"
 
 const mockReferencesData: PublicationWithGene[] = [
   {
+    id: "17968",
+    authors: [
+      { last_name: "Kamprad" },
+      { last_name: "Witt" },
+      { last_name: "Schroder" },
+      { last_name: "Kreis" },
+      { last_name: "Baumchen" },
+      { last_name: "Janshoff" },
+      { last_name: "Tarantola" },
+    ],
+    title:
+      "Adhesion strategies of Dictyostelium discoideum - a force spectroscopy study.",
+    journal: "Nanoscale",
+    pages: ":",
+    related_genes: Array<Gene>(),
+  } as PublicationWithGene,
+  {
+    id: "14229",
+    authors: [
+      { last_name: "Tarantola" },
+      { last_name: "Bae" },
+      { last_name: "Fuller" },
+      { last_name: "Bodenschatz" },
+      { last_name: "Rappel" },
+      { last_name: "Loomis" },
+    ],
+    title:
+      "Cell Substratum Adhesion during Early Development of Dictyostelium discoideum.",
+    journal: "PLoS ONE",
+    pages: "9:e106574",
+    related_genes: [
+      { id: "", name: "carA-1" } as Gene,
+      { id: "", name: "sibA" } as Gene,
+      { id: "", name: "carA-2" } as Gene,
+      { id: "", name: "talA" } as Gene,
+    ],
+  } as PublicationWithGene,
+  {
+    id: "13217",
+    authors: [{ last_name: "Wu" }, { last_name: "Janetopoulos" }],
+    title:
+      "The G alpha subunit G?8 inhibits proliferation, promotes adhesion and regulates cell differentiation.",
+    journal: "Dev. Biol.",
+    pages: ":",
+    related_genes: [
+      { id: "DDB_G0285793", name: "cadA" } as Gene,
+      { id: "DDB_G0277143", name: "gpbA" } as Gene,
+      { id: "DDB_G0274109", name: "paxB" } as Gene,
+      { id: "DDB_G0284469", name: "gpaH" } as Gene,
+      { id: "DDB_G0280531", name: "tgrC1" } as Gene,
+      { id: "DDB_G0289073", name: "csaA" } as Gene,
+    ],
+  } as PublicationWithGene,
+  {
+    id: "11946",
+    authors: [
+      { last_name: "Froquet" },
+      { last_name: "le Coadic" },
+      { last_name: "Perrin" },
+      { last_name: "Cherix" },
+      { last_name: "Cornillon" },
+      { last_name: "Cosson" },
+    ],
+    title:
+      "TM9/Phg1 and SadA proteins control surface expression and stability of SibA adhesion molecules in Dictyostelium.",
+    journal: "Molecular biology of the cell",
+    pages: ":",
+    related_genes: [
+      { id: "DDB_G0267444", name: "phg1A" } as Gene,
+      { id: "DDB_G0290481", name: "talA" } as Gene,
+      { id: "DDB_G0283699", name: "phg2" } as Gene,
+      { id: "DDB_G0277273", name: "phg1B" } as Gene,
+      { id: "DDB_G0287363", name: "sibA" } as Gene,
+    ],
+  } as PublicationWithGene,
+  {
+    id: "11864",
+    authors: [
+      { last_name: "Journet" },
+      { last_name: "Klein" },
+      { last_name: "Brugiere" },
+      { last_name: "Vandenbrouck" },
+      { last_name: "Chapel" },
+      { last_name: "Kieffer" },
+      { last_name: "Bruley" },
+      { last_name: "Masselon" },
+      { last_name: "Aubry" },
+    ],
+    title:
+      "Investigating the macropinocytic proteome of Dictyostelium amoebae by high-resolution mass spectrometry.",
+    journal: "Proteomics",
+    pages: ":",
+    related_genes: [
+      { id: "DDB_G0273737", name: "cak1-2" } as Gene,
+      { id: "DDB_G0294491", name: "trxB" } as Gene,
+      { id: "DDB_G0276885", name: "casK" } as Gene,
+      { id: "DDB_G0276893", name: "ctxB" } as Gene,
+      { id: "DDB_G0273251", name: "fpaB-1" } as Gene,
+      { id: "DDB_G0272112", name: "myoJ" } as Gene,
+      { id: "DDB_G0277399", name: "piaA" } as Gene,
+    ],
+  } as PublicationWithGene,
+  {
     id: "12499361",
     authors: [{ last_name: "Kowal" }, { last_name: "Chisholm" }],
     title:
