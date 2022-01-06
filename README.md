@@ -37,3 +37,5 @@ Run it only once, skip this if you have have already done so.
 If you are ready to cut a new release, you can then merge into `master`. This
 will trigger a GitHub Action that uses `semantic-release` to create a new tag/release
 automatically.
+
+See https://github.com/semantic-release/commit-analyzer#rules-matching or [`.releaserc.json`](https://github.com/dictyBase/dicty-graphql-schema/blob/develop/.releaserc.json) to learn more about how semantic versioning treats commits with different tags and scopes.
