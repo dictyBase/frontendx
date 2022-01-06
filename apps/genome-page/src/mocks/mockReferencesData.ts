@@ -7,7 +7,7 @@ const mockReferencesData: PublicationWithGene[] = [
     title:
       "Uncovering a role for the Dictyostelium discoideum SadA protein in cell-substrate adhesion: A Role for the Tail.",
     journal: "Eukaryotic cell",
-    issue: ":",
+    pages: ":",
     related_genes: [{ id: "DDB_G0289483", name: "ctxA" } as Gene],
   } as PublicationWithGene,
   {
@@ -15,7 +15,7 @@ const mockReferencesData: PublicationWithGene[] = [
     authors: [{ last_name: "Tsujioka" }],
     title: "Cell migration in multicellular environments.",
     journal: "Dev. Growth Differ.",
-    issue: "53:528-37",
+    pages: "53:528-37",
     related_genes: [
       { id: "DDB_G0268632", name: "abpA" } as Gene,
       { id: "DDB_G0290481", name: "talA" } as Gene,
@@ -31,7 +31,7 @@ const mockReferencesData: PublicationWithGene[] = [
     authors: [{ last_name: "Abedin" }, { last_name: "King" }],
     title: "Diverse evolutionary paths to cell adhesion.",
     journal: "Trends Cell Biol",
-    issue: "20:734-42",
+    pages: "20:734-42",
     related_genes: [
       { id: "DDB_G0287363", name: "sibA" } as Gene,
       { id: "DDB_G0288877", name: "aarA" } as Gene,
@@ -57,7 +57,7 @@ const mockReferencesData: PublicationWithGene[] = [
     title:
       "Genome-wide transcriptional changes induced by phagocytosis or growth on bacteria in Dictyostelium.",
     journal: "BMC Genomics",
-    issue: "9:291",
+    pages: "9:291",
     related_genes: [
       { id: "DDB_G0281547", name: "amyA" } as Gene,
       { id: "DDB_G0281551", name: "guaA" } as Gene,
@@ -73,7 +73,7 @@ const mockReferencesData: PublicationWithGene[] = [
     authors: [{ last_name: "Cosson" }, { last_name: "Soldati" }],
     title: "Eat, kill or die: when amoeba meets bacteria.",
     journal: "Curr Opin Microbiol",
-    issue: "11:271-6",
+    pages: "11:271-6",
     related_genes: [
       { id: "DDB_G0287363", name: "sibA" } as Gene,
       { id: "DDB_G0267400", name: "hspD" } as Gene,
@@ -93,7 +93,7 @@ const mockReferencesData: PublicationWithGene[] = [
     title:
       "Phagocytosis and host-pathogen interactions in Dictyostelium with a look at macrophages.",
     journal: "Int Rev Cell Mol Biol",
-    issue: "271:253-300",
+    pages: "271:253-300",
     related_genes: [
       { id: "DDB_G0287035", name: "ImpB" } as Gene,
       { id: "DDB_G0287125", name: "proA" } as Gene,
@@ -114,7 +114,7 @@ const mockReferencesData: PublicationWithGene[] = [
     ],
     title: "Developmental commitment in Dictyostelium discoideum.",
     journal: "Eukaryot Cell",
-    issue: "6:2038-45",
+    pages: "6:2038-45",
     related_genes: [
       { id: "DDB_G0276267", name: "gpaB" } as Gene,
       { id: "DDB_G0290481", name: "talA" } as Gene,
@@ -129,7 +129,7 @@ const mockReferencesData: PublicationWithGene[] = [
     authors: [{ last_name: "Williams" }, { last_name: "Harwood" }],
     title: "Cell polarity and Dictyostelium development.",
     journal: "Curr Opin Microbiol",
-    issue: "6:621-7",
+    pages: "6:621-7",
     related_genes: [
       { id: "DDB_G0288179", name: "carB" } as Gene,
       { id: "DDB_G0288877", name: "aarA" } as Gene,
@@ -149,7 +149,7 @@ const mockReferencesData: PublicationWithGene[] = [
     ],
     title: "SadA, a novel adhesion receptor in Dictyostelium.",
     journal: "J Cell Biol",
-    issue: "159:1109-19",
+    pages: "159:1109-19",
     related_genes: Array<Gene>(),
   } as PublicationWithGene,
 ]
