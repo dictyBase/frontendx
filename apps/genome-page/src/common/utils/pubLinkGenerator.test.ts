@@ -1,4 +1,4 @@
-import pubLinkGenerator from "./pubLinkGenerator"
+import pubLinkGenerator from "common/utils/pubLinkGenerator"
 
 describe("pubLinkGenerator", () => {
   it("returns correct URL for PMID", () => {
