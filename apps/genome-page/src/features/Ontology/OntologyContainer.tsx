@@ -4,7 +4,7 @@ import OntologyTabLayout from "./OntologyTabLayout"
 import OntologyLoader from "./OntologyLoader"
 import GraphQLErrorPage from "components/errors/GraphQLErrorPage"
 import Layout from "components/layout/Layout"
-import { useGeneQuery, GoAnnotation } from "dicty-graphql-schema"
+import { useGeneQuery } from "dicty-graphql-schema"
 
 /**
  * Container component that issues a GraphQL query to get gene data for the
@@ -27,7 +27,7 @@ const OntologyContainer = () => {
       <Typography component="div">
         {loading && <OntologyLoader />}
         {error && <GraphQLErrorPage error={error} />}
-        {data && <OntologyTabLayout data={data.gene?.goas as GoAnnotation[]} />}
+        {data && <OntologyTabLayout data={data} />}
       </Typography>
     </Layout>
   )
