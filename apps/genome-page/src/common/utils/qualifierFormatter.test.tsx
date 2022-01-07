@@ -1,5 +1,5 @@
 import React from "react"
-import qualifierFormatter from "./qualifierFormatter"
+import qualifierFormatter from "common/utils/qualifierFormatter"
 
 describe("qualifierFormatter", () => {
   it("returns correct formatting for NOT", () => {
