@@ -6,7 +6,7 @@ import WithExtensionLink from "features/Ontology/Table/WithExtensionLink"
 import pubLinkGenerator from "../utils/pubLinkGenerator"
 import dateConverter from "../utils/dateConverter"
 import qualifierFormatter from "../utils/qualifierFormatter"
-import sourceLinkGenerator from "../utils/sourceLinkGenerator"
+import sourceLinkGenerator from "common/utils/sourceLinkGenerator"
 import StyledExternalLink from "components/StyledExternalLink"
 import { GoAnnotation, With, Extension } from "dicty-graphql-schema"
 
