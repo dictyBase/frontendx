@@ -1,4 +1,5 @@
-import { TableCell, TableRow } from "@material-ui/core"
+import { Chip, ListItem, TableCell, TableRow } from "@material-ui/core"
+import { Stack } from "@mui/material"
 import { commaSeparateWithAnd } from "common/utils/strings"
 import { Link } from "react-router-dom"
 
@@ -39,12 +40,12 @@ const PublicationRow = ({ publication }: PublicationRowProps) => {
 
       <TableCell>
         {publication.related_genes.map((gene, i) => (
-          <>
-            <Link to={`/gene/${gene.id}`} key={`${gene.id}_${i}`}>
-              {gene.name}
-            </Link>
-            {i !== publication.related_genes.length - 1 ? ", " : ""}
-          </>
+          <Chip
+            label={gene.name}
+            size="small"
+            style={{ margin: "0px 5px 5px 0px" }}
+            variant="outlined"
+          />
         ))}
       </TableCell>
     </TableRow>
