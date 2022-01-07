@@ -1,4 +1,4 @@
-import withLinkGenerator from "../../../common/utils/withLinkGenerator"
+import withLinkGenerator from "common/utils/withLinkGenerator"
 
 describe("withLinkGenerator", () => {
   const fn = withLinkGenerator
