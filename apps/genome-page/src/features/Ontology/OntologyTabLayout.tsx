@@ -5,7 +5,8 @@ import Tab from "@material-ui/core/Tab"
 import Typography from "@material-ui/core/Typography"
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles"
 import InnerGoPanel from "features/Ontology/InnerGoPanel"
-import { GoAnnotation } from "dicty-graphql-schema"
+import { GoAnnotation, GeneQuery } from "dicty-graphql-schema"
+import OtherError from "components/errors/OtherError"
 
 const muiTheme = createTheme({
   overrides: {
@@ -13,9 +14,6 @@ const muiTheme = createTheme({
       root: {
         textTransform: "none",
       },
-      // selected: {
-      //   backgroundColor: "#f2f1ef",
-      // },
     },
     MuiTabs: {
       root: {
@@ -32,19 +30,21 @@ const muiTheme = createTheme({
 
 type Props = {
   /** Gene data from GraphQL query */
-  data: GoAnnotation[]
+  data: GeneQuery
 }
 
 /**
  * Wrapper component that generates the inner tabs and their
  * corresponding layouts on the GO annotations page.
  */
-
 const OntologyTabLayout = ({ data }: Props) => {
   const [tabValue, setTabValue] = React.useState(0)
 
+  if (!data.gene || !data.gene.goas) return <OtherError />
+  const goas = data.gene.goas
+
   // set variables for filtered arrays based on evidence code
-  const experimental = data.filter(
+  const experimental = goas.filter(
     (item: GoAnnotation) =>
       item.evidence_code === "IMP" ||
       item.evidence_code === "IGI" ||
@@ -53,10 +53,10 @@ const OntologyTabLayout = ({ data }: Props) => {
       item.evidence_code === "IEP" ||
       item.evidence_code === "EXP",
   )
-  const manual = data.filter(
+  const manual = goas.filter(
     (item: GoAnnotation) => item.evidence_code !== "IEA",
   )
-  const electronic = data.filter(
+  const electronic = goas.filter(
     (item: GoAnnotation) => item.evidence_code === "IEA",
   )
 
@@ -75,7 +75,7 @@ const OntologyTabLayout = ({ data }: Props) => {
         </Tabs>
       </AppBar>
       <Typography component="div">
-        {tabValue === 0 && <InnerGoPanel data={data} />}
+        {tabValue === 0 && <InnerGoPanel data={goas} />}
         {tabValue === 1 && <InnerGoPanel data={experimental} />}
         {tabValue === 2 && <InnerGoPanel data={manual} />}
         {tabValue === 3 && <InnerGoPanel data={electronic} />}
