@@ -5,7 +5,7 @@ import SummaryLoader from "./SummaryLoader"
 import Layout from "components/layout/Layout"
 import GoaPanel from "features/Summary/Panels/GoaPanel"
 import GraphQLErrorPage from "components/errors/GraphQLErrorPage"
-import { useGeneQuery, GoAnnotation } from "dicty-graphql-schema"
+import { useGeneQuery } from "dicty-graphql-schema"
 
 /**
  * Container component that issues a GraphQL query to get gene data for the
@@ -31,7 +31,7 @@ const SummaryContainer = () => {
           route={`/${gene}/goannotations`}>
           {loading && <SummaryLoader />}
           {error && <GraphQLErrorPage error={error} />}
-          {data && <GoaPanel data={data.gene?.goas as GoAnnotation[]} />}
+          {data && <GoaPanel data={data} />}
         </PanelWrapper>
       </Typography>
     </Layout>
