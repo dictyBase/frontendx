@@ -3,6 +3,7 @@ import SummaryContainer from "features/Summary/SummaryContainer"
 import { useGeneQuery } from "dicty-graphql-schema"
 import { BrowserRouter } from "react-router-dom"
 import mockGene from "mocks/mockGene"
+import { ApolloError } from "@apollo/client"
 
 jest.mock("react-router-dom", () => {
   const originalModule = jest.requireActual("react-router-dom")
@@ -60,5 +61,16 @@ describe("features/Summary/SummaryContainer", () => {
     expect(screen.getByText(/Cellular Component/)).toBeInTheDocument()
   })
 
-  it("should display apollo error")
+  it("should display apollo error", () => {
+    ;(useGeneQuery as jest.Mock).mockReturnValue({
+      loading: false,
+      error: new ApolloError({}),
+      data: undefined,
+    })
+    render(
+      <BrowserRouter>
+        <SummaryContainer />
+      </BrowserRouter>,
+    )
+  })
 })
