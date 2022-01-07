@@ -1,4 +1,4 @@
-describe("Gene page snapshots", ;() => {
+describe("Gene page snapshots", () => {
   it("visits the sadA gene summary page", () => {
     cy.visit("/gene/sadA")
     cy.contains("Molecular Function")
