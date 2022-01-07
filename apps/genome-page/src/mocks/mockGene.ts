@@ -1,13 +1,9 @@
-import { Gene, PublicationWithGene } from "dicty-graphql-schema"
+import { GeneQuery } from "dicty-graphql-schema"
 import mockOntologyData from "./mockOntologyData"
 import mockPhenotypesData from "./mockPhenotypesData"
 import mockReferencesData from "./mockReferencesData"
 
-const mockGene: {
-  gene: Gene
-  allStrains: Gene
-  allPublications: PublicationWithGene[]
-} = {
+const mockGene: GeneQuery = {
   gene: {
     __typename: "Gene",
     id: "DDB_G0288511",
