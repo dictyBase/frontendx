@@ -1,7 +1,5 @@
-import { Chip, ListItem, TableCell, TableRow } from "@material-ui/core"
-import { Stack } from "@mui/material"
+import { Chip, TableCell, TableRow } from "@material-ui/core"
 import { commaSeparateWithAnd } from "common/utils/strings"
-import { Link } from "react-router-dom"
 
 interface PublicationRowProps {
   publication: {
