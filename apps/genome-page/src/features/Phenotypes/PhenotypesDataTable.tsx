@@ -1,6 +1,4 @@
-import React from "react"
 import {
-  makeStyles,
   Paper,
   Table,
   TableBody,
@@ -10,54 +8,20 @@ import {
   TableRow,
 } from "@material-ui/core"
 import ShoppingCart from "@material-ui/icons/ShoppingCart"
-import { Phenotype, Strain } from "dicty-graphql-schema"
-import PhenotypeRow from "./PhenotypeRow"
-
-const useStyles = makeStyles({
-  root: {
-    width: "100%",
-    overflowX: "auto",
-    borderRadius: 0,
-  },
-  head: {
-    backgroundColor: "#e6f2ff",
-  },
-  headRow: {
-    "& > th": {
-      fontWeight: "bold",
-    },
-  },
-})
+import { GeneQuery } from "dicty-graphql-schema"
+import OtherError from "components/errors/OtherError"
+import useStyles from "common/styles/dataTableStyles"
+import RenderPhenotypes from "./RenderPhenotypes"
 
 interface PhenotypesDataTableProps {
-  data: Strain[]
-}
-
-const StrainRow = ({ strain }: { strain: Strain }) => {
-  const phenotypes = strain.phenotypes as Phenotype[]
-  const characteristics = strain.characteristics as string[] | undefined
-  return (
-    <>
-      {phenotypes.map((phenotype, index) =>
-        index === 0 ? (
-          <PhenotypeRow
-            id={strain.id}
-            strain={strain.label}
-            characteristics={characteristics}
-            phenotype={phenotype}
-            in_stock={strain.in_stock}
-            key={index}
-          />
-        ) : (
-          <PhenotypeRow id={strain.id} phenotype={phenotype} key={index} />
-        ),
-      )}
-    </>
-  )
+  data: GeneQuery
 }
 
 const PhenotypesDataTable = ({ data }: PhenotypesDataTableProps) => {
   const classes = useStyles()
+
+  if (!data.allStrains) return <OtherError />
+  const allStrains = data.allStrains
 
   return (
     <TableContainer component={Paper} className={classes.root}>
@@ -74,8 +38,8 @@ const PhenotypesDataTable = ({ data }: PhenotypesDataTableProps) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((strain, i) => (
-            <StrainRow strain={strain} key={`strain#${i}`} />
+          {allStrains.strains?.map((strain, i) => (
+            <RenderPhenotypes strain={strain} key={`strain#${i}`} />
           ))}
         </TableBody>
       </Table>

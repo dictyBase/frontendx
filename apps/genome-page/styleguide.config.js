@@ -27,7 +27,7 @@ module.exports = {
     },
     {
       name: "Common Components",
-      components: "src/common/components/**/*.tsx",
+      components: "src/components/**/*.tsx",
       description:
         "This contains a list of components commonly used throughout the entire web application.",
     },

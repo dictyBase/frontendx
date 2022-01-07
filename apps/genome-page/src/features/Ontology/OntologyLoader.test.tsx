@@ -12,16 +12,9 @@ jest.mock("react-router-dom", () => {
   }
 })
 
-describe("common/components/OntologyLoader", () => {
-  it("should render correct page header", () => {
-    render(<OntologyLoader gene={gene} />)
-    expect(
-      screen.getByText(`Gene Ontology Annotations for ${gene}`),
-    ).toBeInTheDocument()
-  })
-
+describe("components/OntologyLoader", () => {
   it("should render skeleton loader", () => {
-    render(<OntologyLoader gene={gene} />)
+    render(<OntologyLoader />)
     expect(screen.getByTestId("skeleton-loader")).toBeInTheDocument()
   })
 })
