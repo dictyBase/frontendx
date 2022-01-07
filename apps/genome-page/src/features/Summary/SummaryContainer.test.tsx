@@ -1,11 +1,8 @@
-import React from "react"
 import { render, screen } from "@testing-library/react"
-import { MockedProvider } from "@apollo/client/testing"
-import SummaryContainer from "./SummaryContainer"
-import { GeneDocument } from "dicty-graphql-schema"
-import mockGraphQLData from "mocks/mockGraphQLData"
-import { mockNotFoundError } from "features/Authentication/mockGraphQLError"
+import SummaryContainer from "features/Summary/SummaryContainer"
+import { useGeneQuery } from "dicty-graphql-schema"
 import { BrowserRouter } from "react-router-dom"
+import mockGene from "mocks/mockGene"
 
 jest.mock("react-router-dom", () => {
   const originalModule = jest.requireActual("react-router-dom")
@@ -20,65 +17,48 @@ jest.mock("react-router-dom", () => {
   }
 })
 
-describe("features/Summary/SummaryContainer", () => {
-  it("should render fetched data", async () => {
-    const mocks = [
-      {
-        request: {
-          query: GeneDocument,
-          variables: {
-            gene: "sadA",
-          },
-        },
-        result: mockGraphQLData,
-      },
-    ]
-    render(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <BrowserRouter>
-          <SummaryContainer />
-        </BrowserRouter>
-      </MockedProvider>,
-    )
-    // displays loading skeleton first
-    expect(screen.getByTestId("skeleton-loader")).toBeInTheDocument()
+jest.mock("dicty-graphql-schema", () => {
+  const useGeneQuery = jest.fn()
+  return { useGeneQuery }
+})
 
-    // wait for data to load...
-    const panelHeader = await screen.findByText(
-      /Latest Gene Ontology Annotations/,
+describe("features/Summary/SummaryContainer", () => {
+  beforeEach(() => jest.clearAllMocks())
+
+  it("should display loading state", async () => {
+    ;(useGeneQuery as jest.Mock).mockReturnValue({
+      loading: true,
+      error: undefined,
+      data: {},
+    })
+
+    render(
+      <BrowserRouter>
+        <SummaryContainer />
+      </BrowserRouter>,
     )
-    expect(panelHeader).toBeInTheDocument()
+    // Display loading
+    expect(screen.getByTestId("skeleton-loader")).toBeInTheDocument()
+  })
+
+  it("should display data", () => {
+    ;(useGeneQuery as jest.Mock).mockReturnValue({
+      loading: false,
+      error: undefined,
+      data: mockGene,
+    })
+
+    render(
+      <BrowserRouter>
+        <SummaryContainer />
+      </BrowserRouter>,
+    )
+
+    // Render data
     expect(screen.getByText(/Molecular Function/)).toBeInTheDocument()
     expect(screen.getByText(/Biological Process/)).toBeInTheDocument()
     expect(screen.getByText(/Cellular Component/)).toBeInTheDocument()
   })
 
-  it("should render error page", async () => {
-    const mocks = [
-      {
-        request: {
-          query: GeneDocument,
-          variables: {
-            gene: "sadA",
-          },
-        },
-        result: mockNotFoundError,
-      },
-    ]
-    render(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <BrowserRouter>
-          <SummaryContainer />
-        </BrowserRouter>
-      </MockedProvider>,
-    )
-    // displays loading skeleton first
-    expect(screen.getByTestId("skeleton-loader")).toBeInTheDocument()
-
-    // wait for data to load...
-    const errorMsg = await screen.findByText(
-      /Could not find gene with ID banana/,
-    )
-    expect(errorMsg).toBeInTheDocument()
-  })
+  it("should display apollo error")
 })
