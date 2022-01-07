@@ -10,7 +10,8 @@ describe("qualifierFormatter", () => {
     ).toBe(
       JSON.stringify(
         <React.Fragment>
-          <strong>NOT </strong> <em>acts_upstream_of_or_within</em>
+          <strong>NOT </strong>
+          <em>acts_upstream_of_or_within</em>
         </React.Fragment>,
       ),
     )
