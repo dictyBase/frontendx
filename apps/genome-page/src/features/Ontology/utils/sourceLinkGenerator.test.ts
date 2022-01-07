@@ -1,4 +1,4 @@
-import sourceLinkGenerator from "./sourceLinkGenerator"
+import sourceLinkGenerator from "common/utils/sourceLinkGenerator"
 
 describe("sourceLinkGenerator", () => {
   it("returns correct link for dictyBase", () => {
