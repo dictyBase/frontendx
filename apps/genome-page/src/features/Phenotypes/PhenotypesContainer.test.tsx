@@ -1,6 +1,5 @@
-import React from "react"
 import { render, screen } from "@testing-library/react"
-import PhenotypesContainer from "./PhenotypesContainer"
+import PhenotypesContainer from "features/Phenotypes/PhenotypesContainer"
 import { useGeneQuery } from "dicty-graphql-schema"
 import mockGene from "mocks/mockGene"
 import { ApolloError } from "@apollo/client"
@@ -28,15 +27,11 @@ describe("features/Phenotypes/PhenotypesContainer", () => {
     ;(useGeneQuery as jest.Mock).mockReturnValue({
       loading: false,
       error: undefined,
-      data: {
-        __typename: "Gene",
-        allStrains: { ...mockGene.allStrains },
-        gene: { ...mockGene.gene },
-      },
+      data: mockGene,
     })
     render(<PhenotypesContainer />)
 
-    expect(screen.getByText(`Gene Phenotypes for ${gene}`)).toBeInTheDocument()
+    expect(screen.getByText(`Phenotypes for ${gene}`)).toBeInTheDocument()
 
     expect(screen.getByText("Strain")).toBeInTheDocument()
     expect(screen.getByText("Characteristics")).toBeInTheDocument()
