@@ -9,6 +9,8 @@ S /home/ayaanqui/work/dictybase/publication/node_modules/rescript-material-ui/li
 B /home/ayaanqui/work/dictybase/publication/node_modules/rescript-material-ui/lib/ocaml
 S /home/ayaanqui/work/dictybase/publication/node_modules/rescript-material-ui-lab/lib/ocaml
 B /home/ayaanqui/work/dictybase/publication/node_modules/rescript-material-ui-lab/lib/ocaml
+S bindings
+B lib/bs/bindings
 S components
 B lib/bs/components
 ####BSB GENERATED: NO EDIT}
