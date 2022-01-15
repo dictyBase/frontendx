@@ -46,7 +46,7 @@
     "graphql": "^15.7.2",
     "jwt-decode": "^3.0.0",
     "localforage": "^1.10.0",
-    "next": "^12.0.7",
+    "next": "^12.0.8",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-ga": "^3.3.0",
