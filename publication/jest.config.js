@@ -13,7 +13,7 @@ const customJestConfig = {
   setupFilesAfterEnv: ["./jest.setup.js"],
   modulePaths: ["./"],
   testPathIgnorePatterns: ["__tests__/mocks/"],
-  coveragePathIgnorePatterns: ["__tests__/mocks/"],
+  coveragePathIgnorePatterns: ["__tests__/mocks/", "common/hooks/"],
   collectCoverageFrom: [
     "**/components/**/*.{ts,tsx}",
     "**/common/hooks/*.{ts,tsx}",
