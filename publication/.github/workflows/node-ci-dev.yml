@@ -17,6 +17,8 @@ jobs:
         run: mv common/utils/clientConfig.sample.ts common/utils/clientConfig.ts
       - name: install
         run: yarn install
+      - name: rescript
+        run: yarn re:build
       - name: run eslint
         run: yarn lint
       - name: run typescript build 
