@@ -10,10 +10,6 @@
             "subdirs": true
         },
         {
-            "dir": "bindings",
-            "subdirs": true
-        },
-        {
             "dir": "common",
             "subdirs": true
         }
