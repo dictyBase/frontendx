@@ -6,8 +6,11 @@ documents:
 generates:
   ./types/index.ts:
     plugins:
-      - typescript
-      - typescript-operations
-      - typescript-react-apollo
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
     config:
       withHooks: true
+  ./schema.json:
+    plugins:
+      - "introspection"
