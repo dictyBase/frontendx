@@ -15,24 +15,13 @@ The typings can be directly used throughout dictyBase frontend web applications.
 For a particular version (check tags/release first)  
  `yarn add dictyBase/dicty-graphql-schema#v1.0.0`
 
-## Development Guide
-- Clone the `develop` branch of this repository.
-### Migrate and setup for yarn v2
-Run it only once, skip this if you have have already done so.
-- Make sure you have at least __node version__ `14.17.x`
-- Upgrade to or install latest version of yarn.
-- Run `yarn set version berry`
-- Run `yarn install`.
-- __End of migration.__
-
 ### Regular development
 - Run `yarn install`
 - Create a new branch (i.e. `feature/new-schema`).
 - Complete any necessary work.
-- Run `yarn run compile`. It verify that the schema is valid, and it will auto
-  add any new typings based on these updates.
+- Run `yarn compile`. This command verifies that the schema is valid, and it will generate any new bindings, hooks, types, etc automatically.
 - Commit all changes.
-- When finished, merge to `develop`.
+- When finished, merge to `develop`, doing so will automatically create a new release.
 
 If you are ready to cut a new release, you can then merge into `master`. This
 will trigger a GitHub Action that uses `semantic-release` to create a new tag/release
