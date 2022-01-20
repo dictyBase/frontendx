@@ -83,7 +83,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "7",
     "jest": "^27.4.4",
-    "jest-cli": "^27.4.3",
+    "jest-cli": "^27.4.7",
     "lint-staged": "^12.2.2",
     "prettier": "^2.5.1",
     "react-docgen-typescript": "^2.1.1",
