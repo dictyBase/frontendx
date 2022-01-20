@@ -1,3 +1,5 @@
+## [1.8.1](https://github.com/dictyBase/graphql-schema/compare/1.8.0...1.8.1) (2022-01-20)
+
 # [1.8.0](https://github.com/dictyBase/graphql-schema/compare/1.7.1...1.8.0) (2022-01-06)
 
 
