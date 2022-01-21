@@ -2,7 +2,7 @@ import GoaPanelContent from "./GoaPanelContent"
 import ItemDisplay from "components/panels/ItemDisplay"
 import LeftDisplay from "components/panels/LeftDisplay"
 import RightDisplay from "components/panels/RightDisplay"
-import { GeneQuery, GoAnnotation } from "dicty-graphql-schema"
+import { Gene, GoAnnotation } from "dicty-graphql-schema"
 import OtherError from "components/errors/OtherError"
 
 type GOType = "molecular_function" | "biological_process" | "cellular_component"
@@ -51,15 +51,15 @@ const dataFilter = (arr: Array<GoAnnotation>, type: GOType) => {
 
 type Props = {
   /** Array of GO annotations for a particular gene */
-  data: GeneQuery
+  data: Gene
 }
 
 /**
  * Panel to display Gene Ontology Annotations on the Gene Summary page.
  */
 const GoaPanel = ({ data }: Props) => {
-  if (!data.gene || !data.gene.goas) return <OtherError />
-  const goas = data.gene.goas
+  if (!data || !data.goas) return <OtherError />
+  const goas = data.goas
 
   return (
     <div>
