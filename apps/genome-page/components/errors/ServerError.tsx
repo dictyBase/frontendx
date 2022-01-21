@@ -1,7 +1,7 @@
 import React from "react"
 import Grid from "@material-ui/core/Grid"
 import ErrorMessage from "./ErrorMessage"
-import useStyles from "./errorStyles"
+import useStyles from "../../styles/errorStyles"
 
 /**
  * UI display when there is a server error.

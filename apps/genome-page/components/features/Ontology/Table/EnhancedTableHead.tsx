@@ -3,7 +3,7 @@ import TableHead from "@material-ui/core/TableHead"
 import TableRow from "@material-ui/core/TableRow"
 import TableCell from "@material-ui/core/TableCell"
 import TableSortLabel from "@material-ui/core/TableSortLabel"
-import useStyles from "./displayTableStyles"
+import useStyles from "../../../../styles/displayTableStyles"
 
 const columnData = [
   {
