@@ -16,7 +16,7 @@ const main = async () => {
     }
 
     // Activate MSW
-    if (process.env.REACT_APP_MOCK_SERVER === "on") {
+    if (process.env.NEXT_PUBLIC_MOCK_SERVER === "on") {
       const { worker } = require("./mocks/browser.js")
       await worker.start({
         serviceWorker: {
@@ -26,15 +26,16 @@ const main = async () => {
     }
   }
 
-  ReactDOM.render(
-    <AuthProvider>
-      <AppProviders>
-        <CssBaseline />
-        <App />
-      </AppProviders>
-    </AuthProvider>,
-    document.getElementById("root"),
-  )
+  export default function NextIndexWrapper() {
+    return (
+      <AuthProvider>
+        <AppProviders>
+          <CssBaseline />
+          <App />
+        </AppProviders>
+      </AuthProvider>
+    )
+  }
 }
 
 main()
