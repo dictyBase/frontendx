@@ -1,28 +1,24 @@
 import { useParams } from "react-router-dom"
 import Typography from "@material-ui/core/Typography"
-import GraphQLErrorPage from "components/errors/GraphQLErrorPage"
 import Layout from "components/layout/Layout"
-import { useGeneQuery } from "dicty-graphql-schema"
-import PhenotypesLoader from "./PhenotypesLoader"
+import { GeneQuery } from "dicty-graphql-schema"
 import PhenotypesDataTable from "./PhenotypesDataTable"
+import { useRouter } from "next/router"
 
-const PhenotypesContainer = () => {
-  const gene = useParams().gene as string
-  const { loading, error, data } = useGeneQuery({
-    variables: {
-      gene,
-    },
-  })
+interface PhenotypesContainerProps {
+  gene: GeneQuery
+}
+const PhenotypesContainer = ({ gene }: PhenotypesContainerProps) => {
+  const { query } = useRouter()
+  const geneId = query.gene as string
 
   return (
     <Layout
-      gene={gene}
-      title={`Phenotypes for ${gene}`}
-      description={`Gene phenotypes for ${gene}`}>
+      gene={geneId}
+      title={`Phenotypes for ${geneId}`}
+      description={`Gene phenotypes for ${geneId}`}>
       <Typography component="div">
-        {loading && <PhenotypesLoader />}
-        {error && <GraphQLErrorPage error={error} />}
-        {data && <PhenotypesDataTable data={data} />}
+        <PhenotypesDataTable data={gene} />
       </Typography>
     </Layout>
   )
