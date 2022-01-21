@@ -1,6 +1,6 @@
 import React from "react"
 import { HeaderLink } from "dicty-components-header-footer"
-import { Link } from "react-router-dom"
+import Link from "next/link"
 import AddIcon from "@material-ui/icons/Add"
 import FileDownloadIcon from "@material-ui/icons/GetApp"
 import InfoIcon from "@material-ui/icons/Info"
@@ -32,9 +32,11 @@ const HeaderLinks = ({ items }: { items: LinkProps[] }) => {
     <React.Fragment>
       {items.map((link: LinkProps, i: number) =>
         link.isRouter ? (
-          <Link style={{ padding: "15px" }} key={i} to={link.url}>
-            <LinkIcon link={link} />
-          </Link>
+          <div style={{ padding: "15px" }}>
+            <Link key={i} href={link.url}>
+              <LinkIcon link={link} />
+            </Link>
+          </div>
         ) : (
           <HeaderLink key={i} href={link.url}>
             <LinkIcon link={link} />
