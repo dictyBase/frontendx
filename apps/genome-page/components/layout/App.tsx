@@ -11,8 +11,10 @@ import {
   User,
 } from "dicty-graphql-schema"
 import ErrorBoundary from "components/errors/ErrorBoundary"
-import Routes from "components/Routes"
-import { useAuthStore, ActionType } from "features/Authentication/AuthStore"
+import {
+  useAuthStore,
+  ActionType,
+} from "components/features/Authentication/AuthStore"
 import {
   headerItems,
   loggedHeaderItems,
@@ -90,7 +92,7 @@ const getTokenIntervalDelayInMS = (token: string) => {
  * App is responsible for the main layout of the entire application.
  */
 
-const App = () => {
+const App = ({ children }: { children: React.ReactNode }) => {
   const [skip, setSkip] = React.useState(false)
   const {
     state: { token, isAuthenticated },
@@ -139,9 +141,7 @@ const App = () => {
       <Navbar items={formatNavbarData(navbar.data)} theme={navTheme} />
       <main className={classes.main}>
         <Container maxWidth="xl">
-          <ErrorBoundary>
-            <Routes />
-          </ErrorBoundary>
+          <ErrorBoundary>{children}</ErrorBoundary>
         </Container>
       </main>
       {footer.data?.data && (
