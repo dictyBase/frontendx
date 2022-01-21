@@ -1,5 +1,6 @@
 import React from "react"
-import { Link, useLocation } from "react-router-dom"
+import { useRouter } from "next/router"
+import Link from "next/link"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import LegacyLinkSnackbar from "components/LegacyLinkSnackbar"
@@ -29,8 +30,8 @@ type Props = {
 }
 
 const Layout = ({ children, gene, title, description }: Props) => {
-  const { pathname } = useLocation()
-  const [tabValue, setTabValue] = React.useState(getTabValue(pathname))
+  const router = useRouter()
+  const [tabValue, setTabValue] = React.useState(getTabValue(router.pathname))
 
   const handleChange = (event: React.ChangeEvent<{}>, value: number) => {
     setTabValue(value)
@@ -51,22 +52,18 @@ const Layout = ({ children, gene, title, description }: Props) => {
         <LegacyLinkSnackbar gene={gene} />
         <AppBar position="static">
           <Tabs value={tabValue} onChange={handleChange}>
-            <Tab label="Gene Summary" component={Link} to={`/${gene}`} />
-            <Tab
-              label="Gene Ontology"
-              component={Link}
-              to={`/${gene}/goannotations`}
-            />
-            <Tab
-              label="Phenotypes"
-              component={Link}
-              to={`/${gene}/phenotypes`}
-            />
-            <Tab
-              label="References"
-              component={Link}
-              to={`/${gene}/references`}
-            />
+            <Link href={`/${gene}`} passHref>
+              <Tab label="Gene Summary" />
+            </Link>
+            <Link href={`/${gene}/goannotations`} passHref>
+              <Tab label="Gene Ontology" />
+            </Link>
+            <Link href={`/${gene}/phenotypes`} passHref>
+              <Tab label="Phenotypes" />
+            </Link>
+            <Link href={`/${gene}/references`} passHref>
+              <Tab label="References" />
+            </Link>
           </Tabs>
         </AppBar>
         {children}
