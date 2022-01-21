@@ -23,7 +23,7 @@ type Auth = {
   [index: string]: any
 }
 
-const basename = process.env.REACT_APP_BASENAME
+const basename = process.env.NEXT_PUBLIC_BASENAME
 
 const oauthConfig: Auth = {
   google: {
