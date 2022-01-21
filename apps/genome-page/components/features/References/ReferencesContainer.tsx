@@ -1,28 +1,25 @@
 import { useParams } from "react-router-dom"
 import Typography from "@material-ui/core/Typography"
-import GraphQLErrorPage from "components/errors/GraphQLErrorPage"
 import Layout from "components/layout/Layout"
-import { useGeneQuery } from "dicty-graphql-schema"
-import ReferencesLoader from "./ReferencesLoader"
+import { GeneQuery } from "dicty-graphql-schema"
 import ReferencesDataTable from "./ReferencesDataTable"
+import { useRouter } from "next/router"
+interface ReferencesContainerProps {
+  gene: GeneQuery
+}
 
-const ReferencesContainer = () => {
-  const gene = useParams().gene as string
-  const { loading, error, data } = useGeneQuery({
-    variables: {
-      gene,
-    },
-  })
+const ReferencesContainer = ({ gene }: ReferencesContainerProps) => {
+  const { query } = useRouter()
+  const geneId = query.gene as string
 
   return (
     <Layout
-      gene={gene}
-      title={`References for ${gene}`}
-      description={`Gene references for ${gene}`}>
+      gene={geneId}
+      title={`References for ${geneId}`}
+      description={`Gene references for ${geneId}`}>
       <Typography component="div">
-        {loading && <ReferencesLoader />}
-        {error && <GraphQLErrorPage error={error} />}
-        {data && <ReferencesDataTable data={data} />}
+        {" "}
+        <ReferencesDataTable data={gene} />
       </Typography>
     </Layout>
   )
