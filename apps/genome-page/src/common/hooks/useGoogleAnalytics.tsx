@@ -10,8 +10,8 @@ const useGoogleAnalytics = () => {
     const setGoogleAnalytics = async () => {
       try {
         const module = await import("react-ga")
-        const trackingID = process.env.REACT_APP_GA_TRACKING_ID
-        const basename = process.env.REACT_APP_BASENAME
+        const trackingID = process.env.NEXT_PUBLIC_GA_TRACKING_ID
+        const basename = process.env.NEXT_PUBLIC_BASENAME
         const page = basename + location.pathname + location.search
         let ReactGA = module.default
 

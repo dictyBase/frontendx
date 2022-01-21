@@ -86,7 +86,7 @@ const AppProviders = ({ children }: { children: React.ReactNode }) => {
   return (
     <ApolloProvider client={client}>
       <MuiThemeProvider theme={muiTheme}>
-        <BrowserRouter basename={process.env.REACT_APP_BASENAME}>
+        <BrowserRouter basename={process.env.NEXT_PUBLIC_BASENAME}>
           {children}
         </BrowserRouter>
       </MuiThemeProvider>

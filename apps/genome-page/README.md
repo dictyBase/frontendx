@@ -48,11 +48,14 @@ This app requires the following services to be running:
 - [graphql-authserver](https://github.com/dictyBase/graphql-authserver)
 
 ### Mock Server
+
 In case the GraphQL server is unavailable or does not have the queries implemented, you can use the mock server by running the command:
+
 ```
 yarn start:mock
 ```
-This command makes use of the `REACT_APP_MOCK_SERVER` environment variable while in development mode (`DEPLOY_ENV='development'`), which will activate the mock server that will intercept the requests made to the GraphQL server.
+
+This command makes use of the `NEXT_PUBLIC_MOCK_SERVER` environment variable while in development mode (`DEPLOY_ENV='development'`), which will activate the mock server that will intercept the requests made to the GraphQL server.
 
 To update the data used by the mock server see [`src/mocks/handlers.ts`](https://github.com/dictyBase/genomepage/tree/develop/src/mocks/handlers.ts), and update the query and mock data accordingly.
 
