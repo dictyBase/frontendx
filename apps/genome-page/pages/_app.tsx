@@ -1,3 +1,6 @@
+import "common/utils/polyfills" // necessary for IE11
+import "common/utils/icons" // fontawesome library
+import "fontsource-roboto"
 import CssBaseline from "@material-ui/core/CssBaseline"
 import type { AppProps } from "next/app"
 import Head from "next/head"
