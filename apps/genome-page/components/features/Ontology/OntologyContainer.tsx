@@ -4,30 +4,27 @@ import OntologyTabLayout from "./OntologyTabLayout"
 import OntologyLoader from "./OntologyLoader"
 import GraphQLErrorPage from "components/errors/GraphQLErrorPage"
 import Layout from "components/layout/Layout"
-import { useGeneQuery } from "dicty-graphql-schema"
-
+import { Gene } from "dicty-graphql-schema"
+import { useRouter } from "next/router"
 /**
  * Container component that issues a GraphQL query to get gene data for the
  * GO annotations page.
  */
-const OntologyContainer = () => {
-  const gene = useParams().gene as string
-  const { loading, error, data } = useGeneQuery({
-    variables: {
-      gene,
-    },
-    fetchPolicy: "cache-and-network",
-  })
+
+interface OntologyContainerProps {
+  gene: Gene
+}
+const OntologyContainer = ({ gene }: OntologyContainerProps) => {
+  const { query } = useRouter()
+  const geneId = query.gene as string
 
   return (
     <Layout
-      gene={gene}
-      title={`GO Annotations for ${gene}`}
-      description={`Gene Ontology Annotations for ${gene}`}>
+      gene={geneId}
+      title={`GO Annotations for ${geneId}`}
+      description={`Gene Ontology Annotations for ${geneId}`}>
       <Typography component="div">
-        {loading && <OntologyLoader />}
-        {error && <GraphQLErrorPage error={error} />}
-        {data && <OntologyTabLayout data={data} />}
+        <OntologyTabLayout data={gene} />{" "}
       </Typography>
     </Layout>
   )
