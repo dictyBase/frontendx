@@ -23,5 +23,12 @@
     "incremental": true
   },
   "exclude": ["node_modules"],
-  "include": ["src", "pages", "components", "common"]
+  "include": [
+    "src",
+    "pages",
+    "components",
+    "common",
+    "next-env.d.ts",
+    "additional.d.ts"
+  ]
 }
