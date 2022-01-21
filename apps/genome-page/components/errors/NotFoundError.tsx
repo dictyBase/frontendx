@@ -1,8 +1,8 @@
 import React from "react"
 import Grid from "@material-ui/core/Grid"
 import ErrorMessage from "./ErrorMessage"
-import sadDicty from "common/assets/sad-dicty.png"
 import useStyles from "./errorStyles"
+import Image from "next/image"
 
 type Props = {
   /** Error message to display*/
@@ -20,7 +20,7 @@ const NotFoundError = ({ error }: Props) => {
     <Grid container className={classes.mainGrid} justifyContent="center">
       <Grid item xs={10} md={8}>
         <div className={classes.error400}>
-          <img src={sadDicty} alt="Sad Dicty -- Item Not Found" />
+          <Image src="./sadDicty.png" alt="Sad Dicty Logo" layout="fill" />
           <h3>{error}</h3>
           <div className={classes.list}>
             <ul>
