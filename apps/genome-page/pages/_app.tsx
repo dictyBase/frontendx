@@ -20,7 +20,7 @@ const GenomePageApp = async ({ Component, pageProps }: AppProps) => {
 
     // Activate MSW
     if (process.env.NEXT_PUBLIC_MOCK_SERVER === "on") {
-      const { worker } = require("./mocks/browser.js")
+      const { worker } = require("../mocks/browser.js")
       await worker.start({
         serviceWorker: {
           url: "/gene/mockServiceWorker.js",
