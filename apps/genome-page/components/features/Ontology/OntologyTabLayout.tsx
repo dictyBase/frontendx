@@ -5,7 +5,7 @@ import Tab from "@material-ui/core/Tab"
 import Typography from "@material-ui/core/Typography"
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles"
 import InnerGoPanel from "./InnerGoPanel"
-import { GoAnnotation, Gene } from "dicty-graphql-schema"
+import { GoAnnotation, GeneQuery } from "dicty-graphql-schema"
 import OtherError from "components/errors/OtherError"
 
 const muiTheme = createTheme({
@@ -30,7 +30,7 @@ const muiTheme = createTheme({
 
 type Props = {
   /** Gene data from GraphQL query */
-  data: Gene
+  data: GeneQuery
 }
 
 /**
@@ -40,8 +40,8 @@ type Props = {
 const OntologyTabLayout = ({ data }: Props) => {
   const [tabValue, setTabValue] = React.useState(0)
 
-  if (!data || !data.goas) return <OtherError />
-  const goas = data.goas
+  if (!data.gene || !data.gene.goas) return <OtherError />
+  const goas = data.gene.goas
 
   // set variables for filtered arrays based on evidence code
   const experimental = goas.filter(

@@ -4,7 +4,7 @@ import OntologyTabLayout from "./OntologyTabLayout"
 import OntologyLoader from "./OntologyLoader"
 import GraphQLErrorPage from "components/errors/GraphQLErrorPage"
 import Layout from "components/layout/Layout"
-import { Gene } from "dicty-graphql-schema"
+import { GeneQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
 /**
  * Container component that issues a GraphQL query to get gene data for the
@@ -12,7 +12,7 @@ import { useRouter } from "next/router"
  */
 
 interface OntologyContainerProps {
-  gene: Gene
+  gene: GeneQuery
 }
 const OntologyContainer = ({ gene }: OntologyContainerProps) => {
   const { query } = useRouter()

@@ -2,7 +2,7 @@ import SummaryContainer from "components/features/Summary/SummaryContainer"
 import SummaryLoader from "components/features/Summary/SummaryLoader"
 import GraphQLErrorPage from "components/errors/GraphQLErrorPage"
 import { useRouter } from "next/router"
-import { useGeneQuery, Gene } from "dicty-graphql-schema"
+import { useGeneQuery, GeneQuery } from "dicty-graphql-schema"
 
 /**
  * Renders the gene page given a gene id
@@ -21,7 +21,7 @@ const GenomePageWrapper = () => {
     <>
       {loading ? <SummaryLoader /> : <></>}
       {error ? <GraphQLErrorPage error={error} /> : <></>}
-      {data ? <SummaryContainer gene={data.gene as Gene} /> : <></>}
+      {data ? <SummaryContainer gene={data as GeneQuery} /> : <></>}
     </>
   )
 }
