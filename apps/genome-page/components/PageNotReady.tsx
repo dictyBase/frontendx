@@ -41,7 +41,7 @@ const PageNotReady = () => {
     <Grid container className={classes.mainGrid} justifyContent="center">
       <Grid item xs={10} md={8}>
         <div className={classes.container}>
-          <Image src="./sadDicty.png" alt="Sad Dicty Logo" layout="fill" />
+          <Image src="/sadDicty.png" alt="Sad Dicty Logo" layout="fill" />
           <h1>
             <FontAwesome name="wrench" /> Content Not Ready
           </h1>
