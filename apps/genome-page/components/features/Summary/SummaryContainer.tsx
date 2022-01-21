@@ -5,11 +5,11 @@ import GoaPanel from "./Panels/GoaPanel"
 import { Gene } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
 
-interface GenePageProps {
+interface SummaryContainerProps {
   gene: Gene
 }
 
-const SummaryContainer = ({ gene }: GenePageProps) => {
+const SummaryContainer = ({ gene }: SummaryContainerProps) => {
   const { query } = useRouter()
   const geneId = query.id as string
 
