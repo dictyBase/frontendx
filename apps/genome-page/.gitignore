@@ -27,3 +27,6 @@ cypress/screenshots
 
 # MSW (Mock server)
 public/mockServiceWorker.js
+
+# Nextjs
+.next
