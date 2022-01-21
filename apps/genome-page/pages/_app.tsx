@@ -1,6 +1,6 @@
-import "common/utils/polyfills" // necessary for IE11
 import "common/utils/icons" // fontawesome library
 import "fontsource-roboto"
+import { useEffect } from "react"
 import CssBaseline from "@material-ui/core/CssBaseline"
 import type { AppProps } from "next/app"
 import Head from "next/head"
@@ -9,25 +9,27 @@ import AppProviders from "components/layout/AppProviders"
 import App from "components/layout/App"
 import useGoogleAnalytics from "common/hooks/useGoogleAnalytics"
 
-const GenomePageApp = async ({ Component, pageProps }: AppProps) => {
+const GenomePageApp = ({ Component, pageProps }: AppProps) => {
   useGoogleAnalytics()
-
-  if (process.env.NODE_ENV === "development") {
-    // Redirect to /gene
-    if (window.location.pathname === "/") {
-      window.location.pathname = "/gene/sadA"
-    }
-
-    // Activate MSW
-    if (process.env.NEXT_PUBLIC_MOCK_SERVER === "on") {
-      const { worker } = require("../mocks/browser.js")
-      await worker.start({
-        serviceWorker: {
-          url: "/gene/mockServiceWorker.js",
-        },
-      })
-    }
-  }
+  useEffect(() => {
+    window.addEventListener("load", function () {
+      if (process.env.NODE_ENV === "development") {
+        // Redirect to /gene
+        if (window.location.pathname === "/") {
+          window.location.pathname = "/gene/sadA"
+        }
+        // Activate MSW
+        if (process.env.NEXT_PUBLIC_MOCK_SERVER === "on") {
+          const { worker } = require("../mocks/browser.js")
+          worker.start({
+            serviceWorker: {
+              url: "/gene/mockServiceWorker.js",
+            },
+          })
+        }
+      }
+    })
+  }, [])
 
   return (
     <AuthProvider>
