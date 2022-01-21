@@ -1,5 +1,5 @@
 import React from "react"
-import { Link } from "react-router-dom"
+import Link from "next/link"
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles"
 import Accordion from "@material-ui/core/Accordion"
 import AccordionSummary from "@material-ui/core/AccordionSummary"
@@ -64,9 +64,9 @@ const PanelWrapper = ({ title, route, children }: Props) => {
           <Typography className={classes.heading}>
             {title}
             {route && (
-              <Link className={classes.link} to={route}>
-                View All
-              </Link>
+              <div className={classes.link}>
+                <Link href={route}>View All</Link>
+              </div>
             )}
           </Typography>
         </AccordionSummary>
