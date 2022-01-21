@@ -2,7 +2,7 @@ import OntologyContainer from "components/features/Ontology/OntologyContainer"
 import GraphQLErrorPage from "components/errors/GraphQLErrorPage"
 import OntologyLoader from "components/features/Ontology/OntologyLoader"
 import { useRouter } from "next/router"
-import { useGeneQuery, Gene } from "dicty-graphql-schema"
+import { useGeneQuery, GeneQuery } from "dicty-graphql-schema"
 
 /*
     Renders the Ontology page given a gene id
@@ -22,7 +22,7 @@ const OntologyPageWrapper = () => {
     <>
       {loading ? <OntologyLoader /> : <></>}
       {error ? <GraphQLErrorPage error={error} /> : <></>}
-      {data ? <OntologyContainer gene={data.gene as Gene} /> : <></>}
+      {data ? <OntologyContainer gene={data as GeneQuery} /> : <></>}
     </>
   )
 }

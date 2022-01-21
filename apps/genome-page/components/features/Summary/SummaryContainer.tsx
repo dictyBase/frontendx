@@ -2,11 +2,11 @@ import Typography from "@material-ui/core/Typography"
 import PanelWrapper from "components/panels/PanelWrapper"
 import Layout from "components/layout/Layout"
 import GoaPanel from "./Panels/GoaPanel"
-import { Gene } from "dicty-graphql-schema"
+import { GeneQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
 
 interface SummaryContainerProps {
-  gene: Gene
+  gene: GeneQuery
 }
 
 const SummaryContainer = ({ gene }: SummaryContainerProps) => {
