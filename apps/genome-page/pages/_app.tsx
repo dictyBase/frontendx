@@ -9,8 +9,25 @@ import AppProviders from "components/layout/AppProviders"
 import App from "components/layout/App"
 import useGoogleAnalytics from "common/hooks/useGoogleAnalytics"
 
-const GenomePageApp = ({ Component, pageProps }: AppProps) => {
+const GenomePageApp = async ({ Component, pageProps }: AppProps) => {
   useGoogleAnalytics()
+
+  if (process.env.NODE_ENV === "development") {
+    // Redirect to /gene
+    if (window.location.pathname === "/") {
+      window.location.pathname = "/gene/sadA"
+    }
+
+    // Activate MSW
+    if (process.env.NEXT_PUBLIC_MOCK_SERVER === "on") {
+      const { worker } = require("./mocks/browser.js")
+      await worker.start({
+        serviceWorker: {
+          url: "/gene/mockServiceWorker.js",
+        },
+      })
+    }
+  }
 
   return (
     <AuthProvider>
