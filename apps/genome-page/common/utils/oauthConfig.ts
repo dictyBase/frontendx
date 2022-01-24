@@ -1,4 +1,4 @@
-import clientConfig from "common/utils/clientConfig"
+import clientConfig from "./clientConfig"
 
 type Config = {
   name: string
@@ -24,6 +24,7 @@ type Auth = {
 }
 
 const basename = process.env.NEXT_PUBLIC_BASENAME
+const url = typeof window !== "undefined" ? window.location.origin : ""
 
 const oauthConfig: Auth = {
   google: {
@@ -31,7 +32,7 @@ const oauthConfig: Auth = {
     url: "/auth/google",
     authorizationEndpoint: "https://accounts.google.com/o/oauth2/v2/auth",
     clientId: clientConfig.google.clientId,
-    redirectUrl: `${window.location.origin}/${basename}/google/callback`,
+    redirectUrl: `${url}/${basename}/google/callback`,
     requiredUrlParams: [["response_type", "code"]],
     scopes: ["email"],
     scopeDelimiter: " ",
@@ -43,7 +44,7 @@ const oauthConfig: Auth = {
     url: "/auth/linkedin",
     authorizationEndpoint: "https://www.linkedin.com/oauth/v2/authorization",
     clientId: clientConfig.linkedin.clientId,
-    redirectUrl: `${window.location.origin}/${basename}/linkedin/callback`,
+    redirectUrl: `${url}/${basename}/linkedin/callback`,
     scopes: ["r_emailaddress"],
     scopeDelimiter: " ",
     requiredUrlParams: [
@@ -57,7 +58,7 @@ const oauthConfig: Auth = {
     url: "/auth/orcid",
     authorizationEndpoint: "https://orcid.org/oauth/authorize",
     clientId: clientConfig.orcid.clientId,
-    redirectUrl: `${window.location.origin}/${basename}/orcid/callback`,
+    redirectUrl: `${url}/${basename}/orcid/callback`,
     scopes: ["/authenticate"],
     scopeDelimiter: " ",
     requiredUrlParams: [["response_type", "code"]],
