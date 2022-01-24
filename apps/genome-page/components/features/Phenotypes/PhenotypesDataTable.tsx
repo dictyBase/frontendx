@@ -10,7 +10,7 @@ import {
 import ShoppingCart from "@material-ui/icons/ShoppingCart"
 import { GeneQuery } from "dicty-graphql-schema"
 import OtherError from "components/errors/OtherError"
-import useStyles from "common/styles/dataTableStyles"
+import useStyles from "../../../styles/dataTableStyles"
 import RenderPhenotypes from "./RenderPhenotypes"
 
 interface PhenotypesDataTableProps {
