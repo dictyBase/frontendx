@@ -56,7 +56,7 @@ const useCreateApolloClient = () => {
   React.useEffect(() => {
     const server = getGraphQLServer(
       process.env.NEXT_PUBLIC_GRAPHQL_SERVER,
-      process.env.NEXT_PUBLIC_DEPLOY_ENV,
+      process.env.DEPLOY_ENV,
       window.location.origin,
     )
     setLink(createApolloLink(server))
