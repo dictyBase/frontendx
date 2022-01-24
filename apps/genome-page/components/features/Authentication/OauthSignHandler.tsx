@@ -1,8 +1,8 @@
 import React from "react"
-import { useNavigate } from "react-router-dom"
+import { useRouter } from "next/router"
 import querystring from "querystring"
 import { useLoginMutation, User } from "dicty-graphql-schema"
-import { useAuthStore, ActionType } from "features/Authentication/AuthStore"
+import { useAuthStore, ActionType } from "./AuthStore"
 import oauthConfig from "common/utils/oauthConfig"
 
 type LoginEventData = {
@@ -36,9 +36,8 @@ const getLoginInputVariables = (data: LoginEventData) => {
  * OauthSignHandler listens to an event message and attempts to login
  * with the event data.
  */
-
 const OauthSignHandler = () => {
-  const history = useNavigate()
+  const router = useRouter()
   const { dispatch } = useAuthStore()
   const [login, { data }] = useLoginMutation()
 
@@ -49,7 +48,7 @@ const OauthSignHandler = () => {
       if (!event.data.provider) {
         return
       }
-      history("/load/auth")
+      router.push("/load/auth")
       try {
         const { data } = await login({
           variables: getLoginInputVariables(event.data),
@@ -62,7 +61,7 @@ const OauthSignHandler = () => {
             provider: data?.login?.identity.provider as string,
           },
         })
-        history("/")
+        router.push("/")
       } catch (error) {
         dispatch({
           type: ActionType.LOGIN_ERROR,
@@ -70,7 +69,7 @@ const OauthSignHandler = () => {
             error: error,
           },
         })
-        history("/login")
+        router.push("/login")
       }
     }
     window.addEventListener("message", onMessage, false)
