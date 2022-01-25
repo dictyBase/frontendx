@@ -9,7 +9,7 @@ import { useGeneQuery, GeneQuery } from "dicty-graphql-schema"
  */
 const GenomePageWrapper = () => {
   const { query } = useRouter()
-  const gene = query.id as string
+  const gene = query.gene as string
 
   const { loading, error, data } = useGeneQuery({
     variables: {
