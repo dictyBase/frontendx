@@ -32,14 +32,14 @@ const HeaderLinks = ({ items }: { items: LinkProps[] }) => {
     <React.Fragment>
       {items.map((link: LinkProps, i: number) =>
         link.isRouter ? (
-          <div style={{ padding: "15px" }}>
+          <div key={i} style={{ padding: "15px" }}>
             <Link key={i} href={link.url}>
               <LinkIcon link={link} />
             </Link>
           </div>
         ) : (
           <HeaderLink key={i} href={link.url}>
-            <LinkIcon link={link} />
+            <LinkIcon key={i} link={link} />
           </HeaderLink>
         ),
       )}
