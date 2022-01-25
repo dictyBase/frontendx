@@ -9,7 +9,7 @@ import { useRouter } from "next/router"
 
 const OauthCallback = () => {
   const { query, pathname } = useRouter()
-  const provider = query.id as string
+  const provider = query.gene as string
 
   useEffect(() => {
     window.opener?.postMessage(

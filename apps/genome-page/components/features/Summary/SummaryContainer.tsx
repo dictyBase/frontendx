@@ -11,7 +11,7 @@ interface SummaryContainerProps {
 
 const SummaryContainer = ({ gene }: SummaryContainerProps) => {
   const { query } = useRouter()
-  const geneId = query.id as string
+  const geneId = query.gene as string
 
   return (
     <Layout
