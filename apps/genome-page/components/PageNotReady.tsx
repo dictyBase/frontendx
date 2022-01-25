@@ -50,15 +50,14 @@ const PageNotReady = () => {
             We are constantly adding content to our new website so check back
             soon!
           </p>
-          <a href="/" className={classes.routerLink}>
-            <Button
-              className={classes.button}
-              size="small"
-              variant="contained"
-              color="primary">
-              Back to homepage
-            </Button>
-          </a>
+          <Button
+            className={classes.button}
+            href="/"
+            size="small"
+            variant="contained"
+            color="primary">
+            Back to homepage
+          </Button>
         </div>
       </Grid>
     </Grid>
