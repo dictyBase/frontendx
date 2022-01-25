@@ -1,4 +1,4 @@
-const base = "/sadA"
+const base = ""
 
 module.exports = {
   basePath: base,
