@@ -81,7 +81,7 @@ const PhenotypeRow = ({
       <TableCell>{phenotype.phenotype}</TableCell>
       <TableCell>
         <b>{commaSeparateWithAnd(authorLastNames)}</b> &nbsp;
-        <span>'{title}'</span> &nbsp;
+        <span>&apos;{title}&apos;</span> &nbsp;
         <i>{journal}</i> &nbsp; <span>{pages}</span>
       </TableCell>
     </TableRow>

@@ -30,7 +30,7 @@ const PublicationRow = ({ publication }: PublicationRowProps) => {
         <b>
           {commaSeparateWithAnd(publication.authors.map((a) => a.last_name))}
         </b>
-        &nbsp; '{publication.title}' &nbsp;
+        &nbsp; &apos;{publication.title}&apos; &nbsp;
         <i>{publication.journal}</i>
         &nbsp;
         {publication.pages}
@@ -39,6 +39,7 @@ const PublicationRow = ({ publication }: PublicationRowProps) => {
       <TableCell>
         {publication.related_genes.map((gene, i) => (
           <Chip
+            key={i}
             label={gene.name}
             size="small"
             style={{ margin: "0px 5px 5px 0px" }}
