@@ -12,24 +12,19 @@ import useGoogleAnalytics from "common/hooks/useGoogleAnalytics"
 const GenomePageApp = ({ Component, pageProps }: AppProps) => {
   useGoogleAnalytics()
   useEffect(() => {
-    window.addEventListener("load", function () {
-      if (process.env.NODE_ENV === "development") {
-        // Redirect to /gene
-        if (window.location.pathname === "/") {
-          window.location.pathname = "/gene/sadA"
-        }
-        // Activate MSW
-        if (process.env.NEXT_PUBLIC_MOCK_SERVER === "on") {
-          const { worker } = require("../mocks/browser.js")
-          worker.start({
-            serviceWorker: {
-              url: "/gene/mockServiceWorker.js",
-            },
-          })
-        }
+    if (process.env.NODE_ENV === "development") {
+      // Redirect to /gene
+      if (window.location.pathname === "/") {
+        window.location.pathname = "/gene/sadA"
       }
-    })
+    }
   }, [])
+
+  // Activate MSW
+  // Utilizing this approach: https://github.com/vercel/next.js/tree/canary/examples/with-msw
+  if (process.env.NEXT_PUBLIC_MOCK_SERVER === "on") {
+    require("../mocks")
+  }
 
   return (
     <AuthProvider>
@@ -47,8 +42,8 @@ const GenomePageApp = ({ Component, pageProps }: AppProps) => {
             <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
             <title>dictyBase Genomepage</title>
           </Head>
+          <Component {...pageProps} />
         </App>
-        <Component {...pageProps} />
       </AppProviders>
     </AuthProvider>
   )
