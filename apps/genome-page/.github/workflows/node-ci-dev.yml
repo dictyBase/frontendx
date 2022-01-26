@@ -25,7 +25,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: rename config file
-        run: mv src/common/utils/clientConfig.sample.ts src/common/utils/clientConfig.ts
+        run: mv common/utils/clientConfig.sample.ts common/utils/clientConfig.ts
       - name: install
         run: yarn install
       - name: unit tests
@@ -70,7 +70,7 @@ jobs:
             graphql_server=https://ericgraphql.dictybase.dev
             client_keys=https://raw.githubusercontent.com/dictybase-playground/client-keys/2.0.1/clientConfig.eric.js
             ga_tracking_id=-UA-146763741-1
-            deploy_env=development
+            NEXT_PUBLIC_DEPLOY_ENV=development
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
       - name: docker build and push (devsidd)
@@ -81,6 +81,6 @@ jobs:
           build-args: |
             graphql_server=https://siddgraphql.dictybase.dev
             client_keys=https://raw.githubusercontent.com/dictybase-playground/client-keys/2.0.1/clientConfig.sidd.js
-            deploy_env=development
+            NEXT_PUBLIC_DEPLOY_ENV=development
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
