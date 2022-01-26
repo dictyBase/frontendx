@@ -25,11 +25,11 @@ describe("getGraphQLServer function", () => {
     process.env.NEXT_PUBLIC_GRAPHQL_SERVER = "https://ericgraphql.dictybase.dev"
     process.env.NEXT_PUBLIC_ALT_GRAPHQL_SERVER =
       "https://betagraphql.dictycr.org"
-    process.env.DEPLOY_ENV = "development"
+    process.env.NEXT_PUBLIC_DEPLOY_ENV = "development"
     expect(
       getGraphQLServer(
         process.env.NEXT_PUBLIC_GRAPHQL_SERVER,
-        process.env.DEPLOY_ENV,
+        process.env.NEXT_PUBLIC_DEPLOY_ENV,
         "https://eric.dictybase.dev",
       ),
     ).toBe(process.env.NEXT_PUBLIC_GRAPHQL_SERVER)
@@ -39,11 +39,11 @@ describe("getGraphQLServer function", () => {
     process.env.NEXT_PUBLIC_GRAPHQL_SERVER = "https://ericgraphql.dictybase.dev"
     process.env.NEXT_PUBLIC_ALT_GRAPHQL_SERVER =
       "https://betagraphql.dictycr.org"
-    process.env.DEPLOY_ENV = "staging"
+    process.env.NEXT_PUBLIC_DEPLOY_ENV = "staging"
     expect(
       getGraphQLServer(
         process.env.NEXT_PUBLIC_GRAPHQL_SERVER,
-        process.env.DEPLOY_ENV,
+        process.env.NEXT_PUBLIC_DEPLOY_ENV,
         "https://dictycr.org",
       ),
     ).toBe(process.env.NEXT_PUBLIC_ALT_GRAPHQL_SERVER)
@@ -53,11 +53,11 @@ describe("getGraphQLServer function", () => {
     process.env.NEXT_PUBLIC_GRAPHQL_SERVER = "https://ericgraphql.dictybase.dev"
     process.env.NEXT_PUBLIC_ALT_GRAPHQL_SERVER =
       "https://betagraphql.dictycr.org"
-    process.env.DEPLOY_ENV = "staging"
+    process.env.NEXT_PUBLIC_DEPLOY_ENV = "staging"
     expect(
       getGraphQLServer(
         process.env.NEXT_PUBLIC_GRAPHQL_SERVER,
-        process.env.DEPLOY_ENV,
+        process.env.NEXT_PUBLIC_DEPLOY_ENV,
         "https://dictybase.org",
       ),
     ).toBe(process.env.NEXT_PUBLIC_GRAPHQL_SERVER)

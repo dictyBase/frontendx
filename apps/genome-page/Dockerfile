@@ -9,8 +9,8 @@ ENV NEXT_PUBLIC_GA_TRACKING_ID ${ga_tracking_id}
 ARG client_keys
 ENV CLIENT_KEYS ${client_keys}
 
-ARG deploy_env
-ENV DEPLOY_ENV ${deploy_env}
+ARG NEXT_PUBLIC_DEPLOY_ENV
+ENV NEXT_PUBLIC_DEPLOY_ENV ${NEXT_PUBLIC_DEPLOY_ENV}
 
 ARG alt_graphql_server
 ENV NEXT_PUBLIC_ALT_GRAPHQL_SERVER ${alt_graphql_server:-https://betagraphql.dictycr.org}

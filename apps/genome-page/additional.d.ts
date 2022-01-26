@@ -13,7 +13,7 @@ declare global {
       // Activates mock service worker
       NEXT_PUBLIC_MOCK_SERVER: "on" | "off"
       // used to differentiate between deploy environments, specifically for using correct GraphQL URL
-      DEPLOY_ENV: "development" | "staging" | "production"
+      NEXT_PUBLIC_DEPLOY_ENV: "development" | "staging" | "production"
     }
   }
 }
