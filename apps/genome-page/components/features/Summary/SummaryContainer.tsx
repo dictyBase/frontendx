@@ -21,7 +21,7 @@ const SummaryContainer = ({ gene }: SummaryContainerProps) => {
       <Typography component="div">
         <PanelWrapper
           title="Latest Gene Ontology Annotations"
-          route={`/${geneId}/goannotations`}>
+          route={`/gene/${geneId}/goannotations`}>
           <GoaPanel data={gene} />
         </PanelWrapper>
       </Typography>
