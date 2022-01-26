@@ -1,19 +1,10 @@
-import { ApolloError } from "@apollo/client"
 import { render, screen } from "@testing-library/react"
-import { useGeneQuery } from "dicty-graphql-schema"
+import { GeneQuery } from "dicty-graphql-schema"
 import mockGene from "mocks/mockGene"
-import ReferencesContainer from "features/References/ReferencesContainer"
-
+import ReferencesContainer from "./ReferencesContainer"
+const useRouter = jest.spyOn(require("next/router"), "useRouter")
 const gene = "sadA"
 const pathname = `gene/${gene}/references`
-
-jest.mock("react-router-dom", () => {
-  const useParams = () => ({ gene })
-  return {
-    useParams,
-    useLocation: () => ({ pathname }),
-  }
-})
 
 jest.mock("dicty-graphql-schema", () => {
   const useGeneQuery = jest.fn()
@@ -23,34 +14,12 @@ jest.mock("dicty-graphql-schema", () => {
 describe("features/References/ReferencesContainer", () => {
   beforeEach(() => jest.clearAllMocks())
 
-  it("should render loading", () => {
-    ;(useGeneQuery as jest.Mock).mockReturnValue({
-      loading: true,
-      error: undefined,
-      data: undefined,
-    })
-    render(<ReferencesContainer />)
-
-    // Renders skeleton loading
-    expect(screen.getByTestId("skeleton-loader")).toBeInTheDocument()
-  })
-
-  it("should render apollo error", () => {
-    ;(useGeneQuery as jest.Mock).mockReturnValue({
-      loading: false,
-      error: new ApolloError({}),
-      data: undefined,
-    })
-    render(<ReferencesContainer />)
-  })
-
   it("should render data", () => {
-    ;(useGeneQuery as jest.Mock).mockReturnValue({
-      loading: false,
-      error: undefined,
-      data: mockGene,
-    })
-    render(<ReferencesContainer />)
+    useRouter.mockImplementation(() => ({
+      query: { id: gene },
+      pathname: pathname,
+    }))
+    render(<ReferencesContainer gene={mockGene as GeneQuery} />)
 
     // Renders skeleton loading
     expect(screen.getByText("Reference")).toBeInTheDocument()
