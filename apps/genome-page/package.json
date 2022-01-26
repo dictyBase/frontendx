@@ -94,21 +94,6 @@
     "semantic-release": "^18.0.1",
     "start-server-and-test": "^1.14.0"
   },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}",
-      "!src/common/@types/*.{ts,tsx}",
-      "!src/common/constants/*.{ts,tsx}",
-      "!src/common/graphql/*.{ts,tsx}",
-      "!src/common/mocks/*.{ts,tsx}",
-      "!src/mocks/*.{js,jsx,ts,tsx}",
-      "!src/**/*Config.{ts,tsx,sample.ts}",
-      "!src/common/utils/icons.ts",
-      "!src/app/styleguide/*.{ts,tsx}",
-      "!src/index.tsx"
-    ],
-    "resetMocks": false
-  },
   "lint-staged": {
     "*.{js,jsx,json,css}": [
       "prettier --no-semi --trailing-comma all --jsx-bracket-same-line true --write",
