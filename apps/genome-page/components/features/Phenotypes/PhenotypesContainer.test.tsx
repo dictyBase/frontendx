@@ -1,19 +1,10 @@
 import { render, screen } from "@testing-library/react"
-import PhenotypesContainer from "features/Phenotypes/PhenotypesContainer"
-import { useGeneQuery } from "dicty-graphql-schema"
+import PhenotypesContainer from "./PhenotypesContainer"
+import { GeneQuery } from "dicty-graphql-schema"
 import mockGene from "mocks/mockGene"
-import { ApolloError } from "@apollo/client"
-
+const useRouter = jest.spyOn(require("next/router"), "useRouter")
 const gene = "sadA"
 const pathname = `gene/${gene}/phenotypes`
-
-jest.mock("react-router-dom", () => {
-  const useParams = () => ({ gene })
-  return {
-    useParams,
-    useLocation: () => ({ pathname }),
-  }
-})
 
 jest.mock("dicty-graphql-schema", () => {
   const useGeneQuery = jest.fn()
@@ -24,12 +15,11 @@ describe("features/Phenotypes/PhenotypesContainer", () => {
   beforeEach(() => jest.clearAllMocks())
 
   it("should render phenotypes page", () => {
-    ;(useGeneQuery as jest.Mock).mockReturnValue({
-      loading: false,
-      error: undefined,
-      data: mockGene,
-    })
-    render(<PhenotypesContainer />)
+    useRouter.mockImplementation(() => ({
+      query: { gene: "sadA" },
+      pathname: pathname,
+    }))
+    render(<PhenotypesContainer gene={mockGene as GeneQuery} />)
 
     expect(screen.getByText(`Phenotypes for ${gene}`)).toBeInTheDocument()
 
@@ -41,20 +31,5 @@ describe("features/Phenotypes/PhenotypesContainer", () => {
     expect(
       screen.getByText("aberrant actin filament organization"),
     ).toBeInTheDocument()
-  })
-
-  it("should render loading", () => {
-    ;(useGeneQuery as jest.Mock).mockReturnValue({
-      loading: true,
-    })
-    render(<PhenotypesContainer />)
-    expect(screen.getByTestId("skeleton-loader")).toBeInTheDocument()
-  })
-
-  it("should render Apollo error component", () => {
-    ;(useGeneQuery as jest.Mock).mockReturnValue({
-      error: new ApolloError({}),
-    })
-    render(<PhenotypesContainer />)
   })
 })
