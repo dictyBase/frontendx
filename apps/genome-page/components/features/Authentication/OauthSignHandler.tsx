@@ -76,7 +76,7 @@ const OauthSignHandler = () => {
     return () => {
       window.removeEventListener("message", onMessage)
     }
-  }, [data, dispatch, history, login])
+  }, [data, dispatch, login, router])
 
   return null
 }
