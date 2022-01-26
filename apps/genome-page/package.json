@@ -13,7 +13,7 @@
     "start:mock": "NEXT_PUBLIC_MOCK_SERVER=on next start",
     "cypress:open": "cypress open",
     "cypress:run": "percy exec -- cypress run",
-    "cypress:ci": "NEXT_PUBLIC_MOCK_SERVER=on start-server-and-test start http://localhost:3000 cypress:run",
+    "cypress:ci": "NEXT_PUBLIC_MOCK_SERVER=on start-server-and-test dev http://localhost:3000 cypress:run",
     "lint": "next lint",
     "tsc": "tsc",
     "styleguide": "FAST_REFRESH=false styleguidist server",
