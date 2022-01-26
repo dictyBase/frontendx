@@ -21,7 +21,7 @@ const OauthCallback = () => {
       window.location.toString(),
     )
     window.close()
-  }, [location.pathname, location.search, provider])
+  }, [pathname, provider])
 
   return (
     <Box textAlign="center">
