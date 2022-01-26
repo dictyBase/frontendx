@@ -31,14 +31,14 @@ inside your cluster.
 In order for this application to work locally, you will need to configure the list of
 login providers.
 
-- Copy the provided sample [clientConfig.sample.ts](src/common/utils/clientConfig.sample.ts) file
+- Copy the provided sample [clientConfig.sample.ts](common/utils/clientConfig.sample.ts) file
   to **clientConfig.ts** in the same folder.
 - Add any provider names and their corresponding client IDs.
 - All providers should have a matching counterpart in the
-  [oauthConfig.ts](src/common/utils/oauthConfig.ts) file. Fill up all of the
+  [oauthConfig.ts](common/utils/oauthConfig.ts) file. Fill up all of the
   configuration parameters for every new provider in that file.
 
-After setting up the login providers, you can run `yarn install` and `yarn start` as usual.
+After setting up the login providers, you can run `yarn install` and `yarn dev` as usual.
 
 ## Backend Requirements
 
@@ -57,7 +57,7 @@ yarn start:mock
 
 This command makes use of the `NEXT_PUBLIC_MOCK_SERVER` environment variable while in development mode (`NEXT_PUBLIC_DEPLOY_ENV='development'`), which will activate the mock server that will intercept the requests made to the GraphQL server.
 
-To update the data used by the mock server see [`src/mocks/handlers.ts`](https://github.com/dictyBase/genomepage/tree/develop/src/mocks/handlers.ts), and update the query and mock data accordingly.
+To update the data used by the mock server see [`mocks/handlers.ts`](https://github.com/dictyBase/genomepage/tree/develop/src/mocks/handlers.ts), and update the query and mock data accordingly.
 
 ## Contributors ✨
 
