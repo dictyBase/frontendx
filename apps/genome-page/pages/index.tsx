@@ -6,7 +6,7 @@ const Home = () => {
   const router = useRouter()
   React.useEffect(() => {
     router.push("/gene/sadA")
-  }, [])
+  }, [router])
   return <Loader />
 }
 

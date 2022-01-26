@@ -10,7 +10,7 @@
     "test": "jest --watch",
     "test-coverage": "jest --coverage",
     "start-production": "next start",
-    "start:mock": "NEXT_PUBLIC_MOCK_SERVER=on next start",
+    "start:mock": "NEXT_PUBLIC_MOCK_SERVER=on next dev",
     "cypress:open": "cypress open",
     "cypress:run": "percy exec -- cypress run",
     "cypress:ci": "NEXT_PUBLIC_MOCK_SERVER=on start-server-and-test dev http://localhost:3000 cypress:run",
