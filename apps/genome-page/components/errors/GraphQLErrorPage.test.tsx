@@ -5,7 +5,7 @@ import {
   mockNotFoundError,
   mockOtherError,
   mockUnavailableError,
-} from "features/Authentication/mockGraphQLError"
+} from "../features/Authentication/mockGraphQLError"
 import { ApolloError } from "@apollo/client"
 
 const errorFormat = (error: any): ApolloError => ({
@@ -33,7 +33,7 @@ describe("components/errors/GraphQLErrorPage", () => {
     const errorMsg = screen.getByText(/Error/)
     expect(errorMsg).toBeInTheDocument()
     expect(
-      screen.getByRole("img", { name: "Sad Dicty -- HTTP Error" }),
+      screen.getByRole("img", { name: "Sad Dicty Logo" }),
     ).toBeInTheDocument()
   })
 

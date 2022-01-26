@@ -4,11 +4,12 @@ import PhenotypesLoader from "./PhenotypesLoader"
 
 const gene = "sadA"
 
-jest.mock("react-router-dom", () => {
+jest.mock("next/router", () => {
+  const useRouter = () => {
+    push: (value: string) => value
+  }
   return {
-    useLocation: () => ({
-      pathname: `gene/${gene}/phenotypes`,
-    }),
+    useRouter,
   }
 })
 
