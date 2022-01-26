@@ -52,16 +52,16 @@ const Layout = ({ children, gene, title, description }: Props) => {
         <LegacyLinkSnackbar gene={gene} />
         <AppBar position="static">
           <Tabs value={tabValue} onChange={handleChange}>
-            <Link href={`/${gene}`} passHref>
+            <Link href={`/gene/${gene}`} passHref>
               <Tab label="Gene Summary" />
             </Link>
-            <Link href={`/${gene}/goannotations`} passHref>
+            <Link href={`/gene/${gene}/goannotations`} passHref>
               <Tab label="Gene Ontology" />
             </Link>
-            <Link href={`/${gene}/phenotypes`} passHref>
+            <Link href={`/gene/${gene}/phenotypes`} passHref>
               <Tab label="Phenotypes" />
             </Link>
-            <Link href={`/${gene}/references`} passHref>
+            <Link href={`/gene/${gene}/references`} passHref>
               <Tab label="References" />
             </Link>
           </Tabs>
