@@ -1,7 +1,6 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import PanelWrapper from "./PanelWrapper"
-import { BrowserRouter } from "react-router-dom"
 
 describe("components/panels/PanelWrapper", () => {
   const Child = () => <React.Fragment>child component</React.Fragment>
@@ -24,13 +23,11 @@ describe("components/panels/PanelWrapper", () => {
   })
 
   it("should display link when passed a route", () => {
-    const route = "/goannotations"
+    const route = "/genes/sadA/goannotations"
     render(
-      <BrowserRouter>
-        <PanelWrapper title="GO Annotations" route={route}>
-          <Child />
-        </PanelWrapper>
-      </BrowserRouter>,
+      <PanelWrapper title="GO Annotations" route={route}>
+        <Child />
+      </PanelWrapper>,
     )
 
     expect(screen.getByText(/View All/)).toBeInTheDocument()

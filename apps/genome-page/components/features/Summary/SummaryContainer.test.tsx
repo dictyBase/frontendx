@@ -1,20 +1,15 @@
 import { render, screen } from "@testing-library/react"
-import SummaryContainer from "features/Summary/SummaryContainer"
+import SummaryContainer from "./SummaryContainer"
 import { useGeneQuery } from "dicty-graphql-schema"
-import { BrowserRouter } from "react-router-dom"
 import mockGene from "mocks/mockGene"
 import { ApolloError } from "@apollo/client"
 
-jest.mock("react-router-dom", () => {
-  const originalModule = jest.requireActual("react-router-dom")
+jest.mock("next/router", () => {
+  const useRouter = () => ({
+    push: (value: string) => value,
+  })
   return {
-    ...originalModule,
-    useLocation: () => ({
-      pathname: "testdb.dictybase.org/gene/sadA",
-    }),
-    useParams: () => ({
-      gene: "sadA",
-    }),
+    useRouter,
   }
 })
 
@@ -33,11 +28,7 @@ describe("features/Summary/SummaryContainer", () => {
       data: {},
     })
 
-    render(
-      <BrowserRouter>
-        <SummaryContainer />
-      </BrowserRouter>,
-    )
+    render(<SummaryContainer />)
     // Display loading
     expect(screen.getByTestId("skeleton-loader")).toBeInTheDocument()
   })
@@ -49,11 +40,7 @@ describe("features/Summary/SummaryContainer", () => {
       data: mockGene,
     })
 
-    render(
-      <BrowserRouter>
-        <SummaryContainer />
-      </BrowserRouter>,
-    )
+    render(<SummaryContainer />)
 
     // Render data
     expect(screen.getByText(/Molecular Function/)).toBeInTheDocument()
@@ -67,10 +54,6 @@ describe("features/Summary/SummaryContainer", () => {
       error: new ApolloError({}),
       data: undefined,
     })
-    render(
-      <BrowserRouter>
-        <SummaryContainer />
-      </BrowserRouter>,
-    )
+    render(<SummaryContainer />)
   })
 })

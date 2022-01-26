@@ -1,15 +1,17 @@
 import React from "react"
 import { render } from "@testing-library/react"
 import Logout from "./Logout"
+import { useRouter } from "next/router"
 
 const mockHistoryPush = jest.fn()
 
-jest.mock("react-router-dom", () => {
-  const originalModule = jest.requireActual("react-router-dom")
+jest.mock("next/router", () => {
+  const useRouter = () => ({
+    push: (value: string) => value,
+  })
 
   return {
-    ...originalModule,
-    useNavigate: (to: string) => mockHistoryPush,
+    useRouter,
   }
 })
 

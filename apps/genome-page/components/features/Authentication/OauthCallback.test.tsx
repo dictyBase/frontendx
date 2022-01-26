@@ -1,7 +1,7 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import OauthCallback from "./OauthCallback"
-import { BrowserRouter } from "react-router-dom"
+const useRouter = jest.spyOn(require("next/router"), "useRouter")
 
 describe("features/Authentication/OauthCallback", () => {
   const globalAny = global as any
@@ -14,11 +14,11 @@ describe("features/Authentication/OauthCallback", () => {
   process.env.NEXT_PUBLIC_BASENAME = "/publication"
   describe("initial render", () => {
     it("renders text notification", () => {
-      render(
-        <BrowserRouter>
-          <OauthCallback />
-        </BrowserRouter>,
-      )
+      useRouter.mockImplementationOnce(() => ({
+        query: { id: "" },
+        pathname: "",
+      }))
+      render(<OauthCallback />)
       expect(
         screen.getByText(/Transferring to login system ......../),
       ).toBeInTheDocument()
@@ -26,11 +26,11 @@ describe("features/Authentication/OauthCallback", () => {
   })
   describe("window behavior", () => {
     it("should call post message on mount", () => {
-      render(
-        <BrowserRouter>
-          <OauthCallback />
-        </BrowserRouter>,
-      )
+      useRouter.mockImplementationOnce(() => ({
+        query: { id: "" },
+        pathname: "",
+      }))
+      render(<OauthCallback />)
       expect(postMessageMock).toHaveBeenCalled()
     })
   })
