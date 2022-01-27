@@ -4,7 +4,7 @@
  */
 const nextConfig = {
   /* config options here */
-  basePath: base,
+  basePath: "",
 }
 
 export default nextConfig
