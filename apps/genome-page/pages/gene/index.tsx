@@ -4,7 +4,7 @@ import Loader from "../../components/Loader"
 
 const Home = () => {
   const router = useRouter()
-  React.useEffect(() => {
+  React.useMemo(() => {
     router.push("/gene/sadA")
   }, [router])
 
