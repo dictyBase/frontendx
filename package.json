@@ -45,7 +45,7 @@
     "@types/node": "^17.0.10",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
-    "@yarnpkg/pnpify": "^3.1.1-rc.11",
+    "@yarnpkg/pnpify": "^3.1.1-rc.13",
     "graphql": "^16.2.0",
     "graphql-tag": "^2.12.6",
     "react": "^17.0.2",
