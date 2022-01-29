@@ -36,7 +36,7 @@
     "@rescript/react": "^0.10.3",
     "apollo3-cache-persist": "^0.13.0",
     "date-fns": "^2.28.0",
-    "dicty-components-header-footer": "dictybase/dicty-components-header-footer#11.0.0",
+    "dicty-components-header-footer": "dictybase/dicty-components-header-footer#11.0.1",
     "dicty-components-login": "dictybase/dicty-components-login#4.1.1",
     "dicty-components-navbar": "github:dictyBase/dicty-components-navbar#2.0.0",
     "dicty-graphql-schema": "dictybase/dicty-graphql-schema#1.4.0",
