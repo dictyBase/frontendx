@@ -3,8 +3,22 @@
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  /* config options here */
-  basePath: "",
+  // /* config options here */
+  // basePath: "",
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/gene/sadA",
+        permanent: true,
+      },
+      {
+        source: "/gene",
+        destination: "/gene/sadA",
+        permanent: true,
+      },
+    ]
+  },
 }
 
 export default nextConfig
