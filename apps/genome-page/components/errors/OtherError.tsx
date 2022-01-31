@@ -16,7 +16,12 @@ const OtherError = () => {
     <Grid container className={classes.mainGrid} justifyContent="center">
       <Grid item xs={10} md={8}>
         <div className={classes.error400}>
-          <Image src="/sadDicty.png" alt="Sad Dicty Logo" layout="fill" />
+          <Image
+            src="/sad-dicty.png"
+            alt="Sad Dicty Logo"
+            width="350px"
+            height="200%"
+          />
           <h1>
             <FontAwesomeIcon icon="exclamation-circle" /> Error
           </h1>
