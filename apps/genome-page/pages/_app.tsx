@@ -11,14 +11,6 @@ import useGoogleAnalytics from "common/hooks/useGoogleAnalytics"
 
 const GenomePageApp = ({ Component, pageProps }: AppProps) => {
   useGoogleAnalytics()
-  useEffect(() => {
-    if (process.env.NODE_ENV === "development") {
-      // Redirect to /gene
-      if (window.location.pathname === "/") {
-        window.location.pathname = "/gene/sadA"
-      }
-    }
-  }, [])
   // Activate MSW
   // Utilizing this approach: https://github.com/vercel/next.js/tree/canary/examples/with-msw
   if (process.env.NEXT_PUBLIC_MOCK_SERVER === "on") {
