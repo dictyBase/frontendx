@@ -33,8 +33,10 @@ const HeaderLinks = ({ items }: { items: LinkProps[] }) => {
       {items.map((link: LinkProps, i: number) =>
         link.isRouter ? (
           <div key={i} style={{ padding: "15px" }}>
-            <Link key={i} href={link.url}>
-              <LinkIcon link={link} />
+            <Link href={link.url} passHref>
+              <a>
+                <LinkIcon link={link} />
+              </a>
             </Link>
           </div>
         ) : (
