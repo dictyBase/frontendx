@@ -19,7 +19,6 @@ const GenomePageApp = ({ Component, pageProps }: AppProps) => {
       }
     }
   }, [])
-
   // Activate MSW
   // Utilizing this approach: https://github.com/vercel/next.js/tree/canary/examples/with-msw
   if (process.env.NEXT_PUBLIC_MOCK_SERVER === "on") {
@@ -38,8 +37,8 @@ const GenomePageApp = ({ Component, pageProps }: AppProps) => {
               content="width=device-width, initial-scale=1, shrink-to-fit=no"
             />
             <meta name="theme-color" content="#000000" />
-            <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-            <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+            <link rel="manifest" href="/manifest.json" />
+            <link rel="shortcut icon" href="/favicon.ico" />
             <title>dictyBase Genomepage</title>
           </Head>
           <Component {...pageProps} />
