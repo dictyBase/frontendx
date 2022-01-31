@@ -1,6 +1,5 @@
 import "common/utils/icons" // fontawesome library
 import "fontsource-roboto"
-import { useEffect } from "react"
 import CssBaseline from "@material-ui/core/CssBaseline"
 import type { AppProps } from "next/app"
 import Head from "next/head"
