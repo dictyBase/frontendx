@@ -61,7 +61,7 @@ const PanelWrapper = ({ title, route, children }: Props) => {
         <AccordionSummary
           className={classes.summary}
           expandIcon={<ExpandMoreIcon className={classes.icon} />}>
-          <Typography className={classes.heading}>
+          <Typography component={"span"} className={classes.heading}>
             {title}
             {route && (
               <div className={classes.link}>
