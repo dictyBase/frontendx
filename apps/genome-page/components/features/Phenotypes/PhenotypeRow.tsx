@@ -39,9 +39,11 @@ interface PhenotypeRowProps {
 
 const renderInStock = (in_stock: boolean) => (
   <Tooltip title={in_stock ? "Strain available" : "Strain unavailable"}>
-    <IconButton size="small" disabled={in_stock ? false : true}>
-      {in_stock ? <ShoppingCart color="secondary" /> : <RemoveShoppingCart />}
-    </IconButton>
+    <>
+      <IconButton size="small" disabled={in_stock ? false : true}>
+        {in_stock ? <ShoppingCart color="secondary" /> : <RemoveShoppingCart />}
+      </IconButton>
+    </>
   </Tooltip>
 )
 
