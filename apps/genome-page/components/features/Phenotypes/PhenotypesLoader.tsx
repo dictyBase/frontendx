@@ -6,8 +6,8 @@ import Box from "@material-ui/core/Box"
  */
 const PhenotypesLoader = () => (
   <Box mt={"10px"} data-testid="skeleton-loader">
-    {[...Array(10)].map((i) => (
-      <Skeleton key={i} animation="wave" />
+    {[...Array(10)].map((item, key) => (
+      <Skeleton key={key} animation="wave" />
     ))}
   </Box>
 )
