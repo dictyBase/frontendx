@@ -69,7 +69,7 @@ query Gene($gene: String!) {
       rank
     }
   }
-  gene(gene: $gene) {
+  allOrthologs(gene: $gene) {
     id
     name
     orthologs {
