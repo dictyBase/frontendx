@@ -3,6 +3,7 @@ type Gene {
   name: String!
   goas: [GOAnnotation!]
   strains: [Strain!]
+  orthologs: [Orthologs!]
 }
 
 type GOAnnotation {
@@ -29,4 +30,12 @@ type Extension {
   db: String!
   relation: String!
   name: String!
+}
+
+type Orthologs {
+  id: String!
+  species: String!
+  uniprotkb: String!
+  gene_product: String!
+  source: [String!]
 }
