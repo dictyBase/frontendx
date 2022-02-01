@@ -40,18 +40,18 @@ const OntologyLoader = () => (
       </AppBar>
     </MuiThemeProvider>
     <Box mt="10px">
-      {[...Array(5)].map((i) => (
-        <Skeleton key={i} animation="wave" />
+      {[...Array(5)].map((item, key) => (
+        <Skeleton key={key} animation="wave" />
       ))}
       <br />
       <br />
-      {[...Array(5)].map((i) => (
-        <Skeleton key={i} animation="wave" />
+      {[...Array(5)].map((item, key) => (
+        <Skeleton key={key} animation="wave" />
       ))}
       <br />
       <br />
-      {[...Array(5)].map((i) => (
-        <Skeleton key={i} animation="wave" />
+      {[...Array(5)].map((item, key) => (
+        <Skeleton key={key} animation="wave" />
       ))}
     </Box>
   </Box>
