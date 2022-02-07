@@ -28,6 +28,13 @@ const mockOrthologsData: IMockOrthologsData = {
         "FOR VISUAL TESTING REMOVE LATER"
       ]
     },
+    {
+      id: "ENSP00000296782",
+      species: "",
+      uniprotkb: "Q6R327-3",
+      gene_product: "Rapamycin-insensitive companion of mTOR",
+      source: ["OrthoMCL"]
+    },
   ],
 }
 
