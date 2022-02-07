@@ -1,27 +1,26 @@
 import Typography from "@material-ui/core/Typography"
 import Layout from "components/layout/Layout"
 import { GeneQuery } from "dicty-graphql-schema"
-import ReferencesDataTable from "./ReferencesDataTable"
+import OrthologsDataTable from "./OrthologsDataTable"
 import { useRouter } from "next/router"
-interface ReferencesContainerProps {
+
+interface OrthologsContainerProps {
   gene: GeneQuery
 }
-
-const ReferencesContainer = ({ gene }: ReferencesContainerProps) => {
+const OrthologsContainer = ({ gene }: OrthologsContainerProps) => {
   const { query } = useRouter()
   const geneId = query.gene as string
 
   return (
     <Layout
       gene={geneId}
-      title={`References for ${geneId}`}
-      description={`Gene references for ${geneId}`}>
+      title={`Orthologs for ${geneId}`}
+      description={`Gene Orthologs for ${geneId}`}>
       <Typography component="div">
-        {" "}
-        <ReferencesDataTable data={gene} />
+        <OrthologsDataTable data={gene} />
       </Typography>
     </Layout>
   )
 }
 
-export default ReferencesContainer
+export default OrthologsContainer
