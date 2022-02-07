@@ -2,6 +2,7 @@ import Typography from "@material-ui/core/Typography"
 import PanelWrapper from "components/panels/PanelWrapper"
 import Layout from "components/layout/Layout"
 import GoaPanel from "./Panels/GoaPanel"
+import ReferencesPanel from './Panels/ReferencesPanel'
 import { GeneQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
 
@@ -23,6 +24,11 @@ const SummaryContainer = ({ gene }: SummaryContainerProps) => {
           title="Latest Gene Ontology Annotations"
           route={`/gene/${geneId}/goannotations`}>
           <GoaPanel data={gene} />
+        </PanelWrapper>
+        <PanelWrapper
+          title="Latest References"
+          route={`/gene/${geneId}/references`}>
+          <ReferencesPanel data={gene} />
         </PanelWrapper>
       </Typography>
     </Layout>
