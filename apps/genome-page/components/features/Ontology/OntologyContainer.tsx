@@ -1,4 +1,3 @@
-import { useParams } from "react-router-dom"
 import Typography from "@material-ui/core/Typography"
 import OntologyTabLayout from "./OntologyTabLayout"
 import OntologyLoader from "./OntologyLoader"
