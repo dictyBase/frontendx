@@ -1,4 +1,3 @@
-import { useParams } from "react-router-dom"
 import Typography from "@material-ui/core/Typography"
 import Layout from "components/layout/Layout"
 import { GeneQuery } from "dicty-graphql-schema"
