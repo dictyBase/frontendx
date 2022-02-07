@@ -69,6 +69,17 @@ query Gene($gene: String!) {
       rank
     }
   }
+  allOrthologs(gene: $gene) {
+    id
+    name
+    orthologs {
+      id
+      species
+      uniprotkb
+      gene_product
+      source
+    }
+  }
 }
 
 query ListRecentGenes($limit: Int! = 4) {
