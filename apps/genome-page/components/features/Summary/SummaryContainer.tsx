@@ -28,7 +28,7 @@ const SummaryContainer = ({ gene }: SummaryContainerProps) => {
         <PanelWrapper
           title="Latest References"
           route={`/gene/${geneId}/references`}>
-          <ReferencesPanel data={gene} />
+          <ReferencesPanel gene={gene} />
         </PanelWrapper>
       </Typography>
     </Layout>
