@@ -13,6 +13,7 @@ interface SummaryContainerProps {
 const SummaryContainer = ({ gene }: SummaryContainerProps) => {
   const { query } = useRouter()
   const geneId = query.gene as string
+  const referencesTitle = `Latest References (press references tab to view all ${gene.allPublications.num_pubs} papers)`
 
   return (
     <Layout
@@ -26,7 +27,7 @@ const SummaryContainer = ({ gene }: SummaryContainerProps) => {
           <GoaPanel data={gene} />
         </PanelWrapper>
         <PanelWrapper
-          title="Latest References"
+          title={referencesTitle}
           route={`/gene/${geneId}/references`}>
           <ReferencesPanel gene={gene} />
         </PanelWrapper>
