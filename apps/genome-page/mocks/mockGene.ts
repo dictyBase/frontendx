@@ -17,7 +17,10 @@ const mockGene: GeneQuery = {
     name: "sadA",
     strains: [...mockPhenotypesData.strains],
   },
-  allPublications: [...mockReferencesData],
+  allPublications: {
+    num_pubs: 14,
+    publications: [...mockReferencesData]
+  },
   allOrthologs: {
     __typename: "Gene",
     id: "DDB_G0288511",

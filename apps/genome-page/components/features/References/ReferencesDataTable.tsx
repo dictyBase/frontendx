@@ -19,8 +19,8 @@ interface Props {
 const ReferencesDataTable = ({ data }: Props) => {
   const classes = useStyles()
 
-  if (!data.allPublications) return <OtherError />
-  const publications = data.allPublications
+  if (!data.allPublications?.publications) return <OtherError />
+  const publications = data.allPublications.publications
 
   return (
     <TableContainer component={Paper} className={classes.root}>
