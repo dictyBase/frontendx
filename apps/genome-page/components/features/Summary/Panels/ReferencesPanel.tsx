@@ -5,11 +5,9 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
   TableRow,
 } from "@material-ui/core"
 import useStyles from "../../../../styles/dataTableStyles"
-import PublicationRow from "components/features/References/PublicationRow"
 import OtherError from "components/errors/OtherError"
 import { commaSeparateWithAnd } from "common/utils/strings"
 import NewspaperIcon from '@mui/icons-material/Newspaper';
@@ -28,8 +26,8 @@ type Props = {
 const ReferencesPanel = ({ gene }: Props) => {
   const classes = useStyles()
 
-  if (!gene.allPublications) return <OtherError />
-  const publications = gene.allPublications.slice(0,3)
+  if (!gene.allPublications?.publications) return <OtherError />
+  const publications = gene.allPublications.publications.slice(0,3)
 
   
 
