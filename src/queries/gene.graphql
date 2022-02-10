@@ -2,6 +2,7 @@ query Gene($gene: String!) {
   allStrains(gene: $gene) {
     id
     name
+    num_pubs
     strains {
       id
       label
@@ -27,6 +28,7 @@ query Gene($gene: String!) {
   gene(gene: $gene) {
     id
     name
+    num_pubs
     goas {
       id
       type
@@ -54,6 +56,7 @@ query Gene($gene: String!) {
       id
       name
     }
+    num_pubs
     id
     doi
     title
