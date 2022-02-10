@@ -4884,16 +4884,12 @@
               }
             ],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "NumberOfPublicationsWithGene",
-                  "ofType": null
-                }
+                "kind": "OBJECT",
+                "name": "NumberOfPublicationsWithGene",
+                "ofType": null
               }
             },
             "isDeprecated": false,
