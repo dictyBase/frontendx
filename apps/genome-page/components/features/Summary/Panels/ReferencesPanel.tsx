@@ -27,7 +27,7 @@ const ReferencesPanel = ({ gene }: Props) => {
   const classes = useStyles()
 
   if (!gene.allPublications?.publications) return <OtherError />
-  const publications = gene.allPublications.publications.slice(0,3)
+  const publications = gene.allPublications.publications
 
   
 
