@@ -11,7 +11,7 @@ type Query {
   gene(gene: String!): Gene
   allStrains(gene: String!): Gene
   # Lists out all publications with other genes mentioned in the publication
-  allPublications(gene: String!, limit: Int, sort_by: String): [PublicationWithGene!]
+  allPublications(gene: String!, limit: Int, sort_by: String): [NumberOfPublicationsWithGene!]
   # Lists out all the Orthologs
   allOrthologs(gene: String!): Gene
   # List gene query that is by default is sorted by gene
