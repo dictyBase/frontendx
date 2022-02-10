@@ -14,9 +14,14 @@ describe("features/Summary/SummaryContainer", () => {
     }))
     render(<SummaryContainer gene={mockGene as GeneQuery} />)
 
-    // Render data
+    // Render Latest Gene Ontology Annotations
     expect(screen.getByText(/Molecular Function/)).toBeInTheDocument()
     expect(screen.getByText(/Biological Process/)).toBeInTheDocument()
     expect(screen.getByText(/Cellular Component/)).toBeInTheDocument()
+
+    // Render Latest References
+    expect(screen.getByText(/Kamprad, Witt, Schroder, Kreis, Baumchen, Janshoff & Tarantola/)).toBeInTheDocument()
+    expect(screen.getByText(/Tarantola, Bae, Fuller, Bodenschatz, Rappel & Loomis/)).toBeInTheDocument()
+    expect(screen.getByText(/Wu & Janetopoulos/)).toBeInTheDocument()
   })
 })
