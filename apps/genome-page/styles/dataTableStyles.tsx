@@ -14,6 +14,9 @@ const useStyles = makeStyles({
       fontWeight: "bold",
     },
   },
+  icon: {
+    margin: "0px 10px 10px 0px"
+  }
 })
 
 export default useStyles

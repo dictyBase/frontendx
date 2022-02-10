@@ -4,7 +4,7 @@ import mockOrthologsData from "./mockOrthologsData"
 import mockPhenotypesData from "./mockPhenotypesData"
 import mockReferencesData from "./mockReferencesData"
 
-const mockGene: GeneQuery = {
+const mockGeneLimit: GeneQuery = {
   gene: {
     __typename: "Gene",
     id: "DDB_G0288511",
@@ -19,7 +19,7 @@ const mockGene: GeneQuery = {
   },
   allPublications: {
     num_pubs: 14,
-    publications: [...mockReferencesData]
+    publications: [...mockReferencesData.slice(0,3)]
   },
   allOrthologs: {
     __typename: "Gene",
@@ -28,4 +28,4 @@ const mockGene: GeneQuery = {
     orthologs: [...mockOrthologsData.orthologs],
   }
 }
-export default mockGene
+export default mockGeneLimit
