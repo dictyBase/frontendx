@@ -52,7 +52,7 @@ type PublicationWithGene implements BasePublication {
 
 type NumberOfPublicationsWithGene {
   num_pubs: Int!
-  publications: [PublicationWithGene]
+  publications: [PublicationWithGene!]!
 }
 
 type Author {
