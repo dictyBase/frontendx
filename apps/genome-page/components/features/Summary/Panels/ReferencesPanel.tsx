@@ -10,9 +10,7 @@ import {
 import useStyles from "../../../../styles/dataTableStyles"
 import OtherError from "components/errors/OtherError"
 import { commaSeparateWithAnd } from "common/utils/strings"
-import NewspaperIcon from '@mui/icons-material/Newspaper';
-import ArticleIcon from '@mui/icons-material/Article';
-import NoteIcon from '@mui/icons-material/Note';
+import Image from "next/image"
 
 
 type Props = {
@@ -48,14 +46,29 @@ const ReferencesPanel = ({ gene }: Props) => {
               </TableCell>
 
               <TableCell>
-                <a href="https://www.google.com/?client=safari">
-                  <NewspaperIcon style={{ margin: "0px 5px 5px 0px" }} />
+                <a className={classes.icon} href={`http://dictybase.org/publication/${publication.id}`}>
+                  <Image
+                    src="/refDicty.gif"
+                    alt="Ref Dicty"
+                    width={30}
+                    height={30}
+                  />
                 </a>
-                <a href="">
-                  <ArticleIcon style={{ margin: "0px 5px 5px 0px" }} />
+                <a className={classes.icon} href={`https://pubmed.ncbi.nlm.nih.gov/${publication.issue}/`}>
+                <Image
+                    src="/refPubmed.gif"
+                    alt="Ref Dicty"
+                    width={30}
+                    height={30}
+                  />
                 </a>
-                <a href="">
-                  <NoteIcon style={{ margin: "0px 5px 5px 0px" }} />
+                <a className={classes.icon} href="">
+                <Image
+                    src="/refFull.gif"
+                    alt="Ref Dicty"
+                    width={30}
+                    height={30}
+                  />
                 </a>
               </TableCell>
           </TableRow>
