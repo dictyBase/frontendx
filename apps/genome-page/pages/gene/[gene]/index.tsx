@@ -14,6 +14,8 @@ const GenomePageWrapper = () => {
   const { loading, error, data } = useGeneQuery({
     variables: {
       gene,
+      limit: 3,
+      sort_by: "desc"
     },
     fetchPolicy: "cache-and-network",
   })
