@@ -1,6 +1,7 @@
 type Gene {
   id: String!
   name: String!
+  num_pubs: Int!
   goas: [GOAnnotation!]
   strains: [Strain!]
   orthologs: [Orthologs!]
