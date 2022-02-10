@@ -55,8 +55,8 @@ query Gene($gene: String!) {
     related_genes {
       id
       name
+      num_pubs
     }
-    num_pubs
     id
     doi
     title
