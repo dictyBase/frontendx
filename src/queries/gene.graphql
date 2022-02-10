@@ -1,4 +1,4 @@
-query Gene($gene: String!) {
+query Gene($gene: String!, $num: Int) {
   allStrains(gene: $gene) {
     id
     name
@@ -51,7 +51,7 @@ query Gene($gene: String!) {
       }
     }
   }
-  allPublications(gene: $gene) {
+  allPublications(gene: $gene, limit: $num) {
     related_genes {
       id
       name

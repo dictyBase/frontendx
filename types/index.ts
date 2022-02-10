@@ -564,6 +564,7 @@ export type QueryAllOrthologsArgs = {
 
 export type QueryAllPublicationsArgs = {
   gene: Scalars['String'];
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -960,6 +961,7 @@ export type ListOrganismsQuery = { __typename?: 'Query', listOrganisms?: Array<{
 
 export type GeneQueryVariables = Exact<{
   gene: Scalars['String'];
+  num?: InputMaybe<Scalars['Int']>;
 }>;
 
 
@@ -1539,7 +1541,7 @@ export type ListOrganismsQueryHookResult = ReturnType<typeof useListOrganismsQue
 export type ListOrganismsLazyQueryHookResult = ReturnType<typeof useListOrganismsLazyQuery>;
 export type ListOrganismsQueryResult = Apollo.QueryResult<ListOrganismsQuery, ListOrganismsQueryVariables>;
 export const GeneDocument = gql`
-    query Gene($gene: String!) {
+    query Gene($gene: String!, $num: Int) {
   allStrains(gene: $gene) {
     id
     name
@@ -1592,7 +1594,7 @@ export const GeneDocument = gql`
       }
     }
   }
-  allPublications(gene: $gene) {
+  allPublications(gene: $gene, limit: $num) {
     related_genes {
       id
       name
@@ -1640,6 +1642,7 @@ export const GeneDocument = gql`
  * const { data, loading, error } = useGeneQuery({
  *   variables: {
  *      gene: // value for 'gene'
+ *      num: // value for 'num'
  *   },
  * });
  */
