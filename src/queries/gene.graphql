@@ -2,7 +2,6 @@ query Gene($gene: String!, $limit: Int, $sort_by: String = "desc") {
   allStrains(gene: $gene) {
     id
     name
-    num_pubs
     strains {
       id
       label
@@ -28,7 +27,6 @@ query Gene($gene: String!, $limit: Int, $sort_by: String = "desc") {
   gene(gene: $gene) {
     id
     name
-    num_pubs
     goas {
       id
       type
@@ -52,24 +50,26 @@ query Gene($gene: String!, $limit: Int, $sort_by: String = "desc") {
     }
   }
   allPublications(gene: $gene, limit: $limit, sort_by: $sort_by) {
-    related_genes {
+    num_pubs
+    publications {
+      related_genes {
+        id
+        name
+      }
       id
-      name
-      num_pubs
-    }
-    id
-    doi
-    title
-    journal
-    pub_date
-    volume
-    pages
-    pub_type
-    source
-    issue
-    authors {
-      last_name
-      rank
+      doi
+      title
+      journal
+      pub_date
+      volume
+      pages
+      pub_type
+      source
+      issue
+      authors {
+        last_name
+        rank
+      }
     }
   }
   allOrthologs(gene: $gene) {
