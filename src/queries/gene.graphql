@@ -1,4 +1,4 @@
-query Gene($gene: String!, $num: Int) {
+query Gene($gene: String!, $limit: Int, $sort_by: String = "desc") {
   allStrains(gene: $gene) {
     id
     name
@@ -51,7 +51,7 @@ query Gene($gene: String!, $num: Int) {
       }
     }
   }
-  allPublications(gene: $gene, limit: $num) {
+  allPublications(gene: $gene, limit: $limit, sort_by: $sort_by) {
     related_genes {
       id
       name
