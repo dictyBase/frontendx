@@ -50,7 +50,7 @@ type PublicationWithGene implements BasePublication {
   authors: [Author!]!
 }
 
-type PublicationWithGeneWithNumberOfPublications {
+type NumberOfPublicationsWithGene {
   num_pubs: Int!
   publications: [PublicationWithGene]
 }
