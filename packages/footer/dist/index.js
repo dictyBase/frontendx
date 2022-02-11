@@ -54,7 +54,7 @@ var muiTheme = (0, import_core.createTheme)({
 });
 
 // src/components/FooterContainer.tsx
-var FooterContainer = () => {
+var FooterContainer = ({ links }) => {
   return /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null);
 };
 
@@ -63,7 +63,9 @@ var Footer = ({ theme, links }) => {
   const customTheme = theme ? theme : muiTheme;
   return /* @__PURE__ */ import_react.default.createElement(import_core2.MuiThemeProvider, {
     theme: customTheme
-  }, /* @__PURE__ */ import_react.default.createElement(FooterContainer, null));
+  }, /* @__PURE__ */ import_react.default.createElement(FooterContainer, {
+    links
+  }));
 };
 module.exports = __toCommonJS(src_exports);
 // Annotate the CommonJS export names for ESM import in node:

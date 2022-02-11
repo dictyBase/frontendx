@@ -1,3 +1,5 @@
-export const FooterContainer = () => {
+import { FooterContainerProps } from "footer/src/types"
+
+export const FooterContainer = ({ links }: FooterContainerProps) => {
   return <></>
 }

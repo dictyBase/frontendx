@@ -20,7 +20,7 @@ var muiTheme = createTheme({
 });
 
 // src/components/FooterContainer.tsx
-var FooterContainer = () => {
+var FooterContainer = ({ links }) => {
   return /* @__PURE__ */ React.createElement(React.Fragment, null);
 };
 
@@ -29,7 +29,9 @@ var Footer = ({ theme, links }) => {
   const customTheme = theme ? theme : muiTheme;
   return /* @__PURE__ */ React.createElement(MuiThemeProvider, {
     theme: customTheme
-  }, /* @__PURE__ */ React.createElement(FooterContainer, null));
+  }, /* @__PURE__ */ React.createElement(FooterContainer, {
+    links
+  }));
 };
 export {
   Footer
