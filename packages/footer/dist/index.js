@@ -36,8 +36,34 @@ __export(src_exports, {
 var import_react = __toESM(require("react"));
 
 // src/components/Footer.tsx
-var Footer = () => {
+var import_core2 = require("@material-ui/core");
+
+// ../navbar/src/styles/customTheme.ts
+var import_core = require("@material-ui/core");
+var primaryColor = "#004080";
+var blueSecondaryColor = "#001b53";
+var muiTheme = (0, import_core.createTheme)({
+  palette: {
+    primary: {
+      main: primaryColor
+    },
+    secondary: {
+      main: blueSecondaryColor
+    }
+  }
+});
+
+// src/components/FooterContainer.tsx
+var FooterContainer = () => {
   return /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null);
+};
+
+// src/components/Footer.tsx
+var Footer = ({ theme, links }) => {
+  const customTheme = theme ? theme : muiTheme;
+  return /* @__PURE__ */ import_react.default.createElement(import_core2.MuiThemeProvider, {
+    theme: customTheme
+  }, /* @__PURE__ */ import_react.default.createElement(FooterContainer, null));
 };
 module.exports = __toCommonJS(src_exports);
 // Annotate the CommonJS export names for ESM import in node:
