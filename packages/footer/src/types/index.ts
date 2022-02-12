@@ -8,3 +8,8 @@ export interface FooterProps {
 export interface FooterContainerProps {
   links: Array<any>
 }
+
+export interface FooterItem {
+  url: string
+  description: string
+}
