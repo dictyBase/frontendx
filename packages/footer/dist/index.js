@@ -1,9 +1,26 @@
 var __create = Object.create;
 var __defProp = Object.defineProperty;
+var __defProps = Object.defineProperties;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __propIsEnum = Object.prototype.propertyIsEnumerable;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __spreadValues = (a, b) => {
+  for (var prop in b || (b = {}))
+    if (__hasOwnProp.call(b, prop))
+      __defNormalProp(a, prop, b[prop]);
+  if (__getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(b)) {
+      if (__propIsEnum.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    }
+  return a;
+};
+var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
 var __export = (target, all) => {
   for (var name in all)
@@ -36,7 +53,7 @@ __export(src_exports, {
 var import_react = __toESM(require("react"));
 
 // src/components/Footer.tsx
-var import_core7 = require("@material-ui/core");
+var import_core8 = require("@material-ui/core");
 
 // ../navbar/src/styles/customTheme.ts
 var import_core = require("@material-ui/core");
@@ -54,7 +71,7 @@ var muiTheme = (0, import_core.createTheme)({
 });
 
 // src/components/FooterContainer.tsx
-var import_core6 = require("@material-ui/core");
+var import_core7 = require("@material-ui/core");
 
 // src/styles/footerStyles.ts
 var import_core2 = require("@material-ui/core");
@@ -70,7 +87,6 @@ var footerStyles = (0, import_core2.makeStyles)((theme) => ({
   },
   link: {
     color: "rgb(216, 216, 216)",
-    paddingRight: theme.spacing(0.5),
     "& a": {
       color: "rgb(216, 216, 216)",
       textDecoration: "none",
@@ -82,6 +98,18 @@ var footerStyles = (0, import_core2.makeStyles)((theme) => ({
   support: {
     [theme.breakpoints.down("sm")]: {
       justifyContent: "center"
+    }
+  },
+  separator: {
+    "&::after": {
+      content: "'\u2022'",
+      margin: "0px 7px"
+    },
+    "&:last-child": {
+      "&::after": {
+        content: "''",
+        margin: "0px"
+      }
     }
   }
 }));
@@ -128,26 +156,30 @@ var FooterSponsors = () => {
 };
 
 // src/components/FooterLinks.tsx
+var import_core6 = require("@material-ui/core");
+
+// src/components/FooterLink.tsx
 var import_core5 = require("@material-ui/core");
+var FooterLink = ({ url, description }) => {
+  const classes = footerStyles();
+  return /* @__PURE__ */ import_react.default.createElement(import_core5.Typography, {
+    variant: "body2",
+    className: `${classes.link} ${classes.separator}`
+  }, /* @__PURE__ */ import_react.default.createElement("a", {
+    href: url
+  }, description));
+};
+
+// src/components/FooterLinks.tsx
 var FooterLinks = ({ links }) => {
   const classes = footerStyles();
-  return /* @__PURE__ */ import_react.default.createElement(import_core5.Grid, {
+  return /* @__PURE__ */ import_react.default.createElement(import_core6.Grid, {
     item: true,
     container: true,
     justifyContent: "center"
-  }, links.map((item, index) => {
-    const separator = index ? " \u2022 " : "";
-    return /* @__PURE__ */ import_react.default.createElement(import_core5.Typography, {
-      key: index,
-      variant: "body2",
-      className: classes.link
-    }, /* @__PURE__ */ import_react.default.createElement(import_core5.Box, {
-      component: "span",
-      px: 0.5
-    }, separator), /* @__PURE__ */ import_react.default.createElement("a", {
-      href: item.url
-    }, item.description));
-  }));
+  }, links.map((data, i) => /* @__PURE__ */ import_react.default.createElement(FooterLink, __spreadProps(__spreadValues({}, data), {
+    key: i
+  }))));
 };
 
 // src/components/FooterContainer.tsx
@@ -155,9 +187,9 @@ var FooterContainer = ({ links }) => {
   const classes = footerStyles();
   return /* @__PURE__ */ import_react.default.createElement("footer", {
     className: classes.footer
-  }, /* @__PURE__ */ import_react.default.createElement(import_core6.Box, {
+  }, /* @__PURE__ */ import_react.default.createElement(import_core7.Box, {
     px: 2
-  }, /* @__PURE__ */ import_react.default.createElement(import_core6.Grid, {
+  }, /* @__PURE__ */ import_react.default.createElement(import_core7.Grid, {
     container: true,
     justifyContent: "center"
   }, /* @__PURE__ */ import_react.default.createElement(FooterHead, null), /* @__PURE__ */ import_react.default.createElement(FooterLinks, {
@@ -168,7 +200,7 @@ var FooterContainer = ({ links }) => {
 // src/components/Footer.tsx
 var Footer = ({ theme, links }) => {
   const customTheme = theme ? theme : muiTheme;
-  return /* @__PURE__ */ import_react.default.createElement(import_core7.MuiThemeProvider, {
+  return /* @__PURE__ */ import_react.default.createElement(import_core8.MuiThemeProvider, {
     theme: customTheme
   }, /* @__PURE__ */ import_react.default.createElement(FooterContainer, {
     links

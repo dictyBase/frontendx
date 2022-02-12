@@ -12,7 +12,6 @@ export const footerStyles = makeStyles((theme) => ({
   },
   link: {
     color: "rgb(216, 216, 216)",
-    paddingRight: theme.spacing(0.5),
     "& a": {
       color: "rgb(216, 216, 216)",
       textDecoration: "none",
@@ -24,6 +23,18 @@ export const footerStyles = makeStyles((theme) => ({
   support: {
     [theme.breakpoints.down("sm")]: {
       justifyContent: "center",
+    },
+  },
+  separator: {
+    "&::after": {
+      content: "'•'",
+      margin: "0px 7px",
+    },
+    "&:last-child": {
+      "&::after": {
+        content: "''",
+        margin: "0px",
+      },
     },
   },
 }))
