@@ -36,7 +36,7 @@ __export(src_exports, {
 var import_react = __toESM(require("react"));
 
 // src/components/Footer.tsx
-var import_core4 = require("@material-ui/core");
+var import_core7 = require("@material-ui/core");
 
 // ../navbar/src/styles/customTheme.ts
 var import_core = require("@material-ui/core");
@@ -54,7 +54,7 @@ var muiTheme = (0, import_core.createTheme)({
 });
 
 // src/components/FooterContainer.tsx
-var import_core3 = require("@material-ui/core");
+var import_core6 = require("@material-ui/core");
 
 // src/styles/footerStyles.ts
 var import_core2 = require("@material-ui/core");
@@ -86,17 +86,11 @@ var footerStyles = (0, import_core2.makeStyles)((theme) => ({
   }
 }));
 
-// src/components/FooterContainer.tsx
-var FooterContainer = ({ links }) => {
+// src/components/FooterHead.tsx
+var import_core3 = require("@material-ui/core");
+var FooterHead = () => {
   const classes = footerStyles();
-  return /* @__PURE__ */ import_react.default.createElement("footer", {
-    className: classes.footer
-  }, /* @__PURE__ */ import_react.default.createElement(import_core3.Box, {
-    px: 2
-  }, /* @__PURE__ */ import_react.default.createElement(import_core3.Grid, {
-    container: true,
-    justifyContent: "center"
-  }, /* @__PURE__ */ import_react.default.createElement(import_core3.Grid, {
+  return /* @__PURE__ */ import_react.default.createElement(import_core3.Grid, {
     item: true,
     xs: 12
   }, /* @__PURE__ */ import_react.default.createElement(import_core3.Box, {
@@ -104,29 +98,20 @@ var FooterContainer = ({ links }) => {
     textAlign: "center"
   }, /* @__PURE__ */ import_react.default.createElement(import_core3.Typography, {
     className: classes.header
-  }, "Dicty Community Resource"))), /* @__PURE__ */ import_react.default.createElement(import_core3.Grid, {
-    item: true,
-    container: true,
-    justifyContent: "center"
-  }, links.map((item, index) => {
-    const separator = index ? " \u2022 " : "";
-    return /* @__PURE__ */ import_react.default.createElement(import_core3.Typography, {
-      key: index,
-      variant: "body2",
-      className: classes.link
-    }, /* @__PURE__ */ import_react.default.createElement(import_core3.Box, {
-      component: "span",
-      px: 0.5
-    }, separator), /* @__PURE__ */ import_react.default.createElement("a", {
-      href: item.url
-    }, item.description));
-  })), /* @__PURE__ */ import_react.default.createElement(import_core3.Grid, {
+  }, "Dicty Community Resource")));
+};
+
+// src/components/FooterSponsors.tsx
+var import_core4 = require("@material-ui/core");
+var FooterSponsors = () => {
+  const classes = footerStyles();
+  return /* @__PURE__ */ import_react.default.createElement(import_core4.Grid, {
     item: true,
     xs: 12,
     container: true,
     justifyContent: "flex-end",
     className: classes.support
-  }, /* @__PURE__ */ import_react.default.createElement(import_core3.Box, {
+  }, /* @__PURE__ */ import_react.default.createElement(import_core4.Box, {
     mt: 1,
     mb: 2,
     mr: 1,
@@ -139,13 +124,51 @@ var FooterContainer = ({ links }) => {
     href: "https://www.nigms.nih.gov/",
     target: "_blank",
     rel: "noopener"
-  }, "NIGMS")))))));
+  }, "NIGMS"))));
+};
+
+// src/components/FooterLinks.tsx
+var import_core5 = require("@material-ui/core");
+var FooterLinks = ({ links }) => {
+  const classes = footerStyles();
+  return /* @__PURE__ */ import_react.default.createElement(import_core5.Grid, {
+    item: true,
+    container: true,
+    justifyContent: "center"
+  }, links.map((item, index) => {
+    const separator = index ? " \u2022 " : "";
+    return /* @__PURE__ */ import_react.default.createElement(import_core5.Typography, {
+      key: index,
+      variant: "body2",
+      className: classes.link
+    }, /* @__PURE__ */ import_react.default.createElement(import_core5.Box, {
+      component: "span",
+      px: 0.5
+    }, separator), /* @__PURE__ */ import_react.default.createElement("a", {
+      href: item.url
+    }, item.description));
+  }));
+};
+
+// src/components/FooterContainer.tsx
+var FooterContainer = ({ links }) => {
+  const classes = footerStyles();
+  return /* @__PURE__ */ import_react.default.createElement("footer", {
+    className: classes.footer
+  }, /* @__PURE__ */ import_react.default.createElement(import_core6.Box, {
+    px: 2
+  }, /* @__PURE__ */ import_react.default.createElement(import_core6.Grid, {
+    container: true,
+    justifyContent: "center"
+  }, /* @__PURE__ */ import_react.default.createElement(FooterHead, null), /* @__PURE__ */ import_react.default.createElement(FooterLinks, {
+    links
+  }), /* @__PURE__ */ import_react.default.createElement(FooterSponsors, null))));
 };
 
 // src/components/Footer.tsx
 var Footer = ({ theme, links }) => {
   const customTheme = theme ? theme : muiTheme;
-  return /* @__PURE__ */ import_react.default.createElement(import_core4.MuiThemeProvider, {
+  return /* @__PURE__ */ import_react.default.createElement(import_core7.MuiThemeProvider, {
     theme: customTheme
   }, /* @__PURE__ */ import_react.default.createElement(FooterContainer, {
     links
