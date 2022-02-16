@@ -17,6 +17,18 @@ var __spreadValues = (a, b) => {
   return a;
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
+var __objRest = (source, exclude) => {
+  var target = {};
+  for (var prop in source)
+    if (__hasOwnProp.call(source, prop) && exclude.indexOf(prop) < 0)
+      target[prop] = source[prop];
+  if (source != null && __getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(source)) {
+      if (exclude.indexOf(prop) < 0 && __propIsEnum.call(source, prop))
+        target[prop] = source[prop];
+    }
+  return target;
+};
 
 // react-shim.js
 import React from "react";
@@ -85,7 +97,7 @@ var footerStyles = makeStyles((theme) => ({
 
 // src/components/FooterHead.tsx
 import { Box, Grid, Typography } from "@material-ui/core";
-var FooterHead = () => {
+var FooterHead = ({ title }) => {
   const classes = footerStyles();
   return /* @__PURE__ */ React.createElement(Grid, {
     item: true,
@@ -95,7 +107,7 @@ var FooterHead = () => {
     textAlign: "center"
   }, /* @__PURE__ */ React.createElement(Typography, {
     className: classes.header
-  }, "Dicty Community Resource")));
+  }, title)));
 };
 
 // src/components/FooterSponsors.tsx
@@ -152,7 +164,7 @@ var FooterLinks = ({ links }) => {
 };
 
 // src/components/FooterContainer.tsx
-var FooterContainer = ({ links }) => {
+var FooterContainer = ({ links, title }) => {
   const classes = footerStyles();
   return /* @__PURE__ */ React.createElement("footer", {
     className: classes.footer
@@ -161,19 +173,20 @@ var FooterContainer = ({ links }) => {
   }, /* @__PURE__ */ React.createElement(Grid4, {
     container: true,
     justifyContent: "center"
-  }, /* @__PURE__ */ React.createElement(FooterHead, null), /* @__PURE__ */ React.createElement(FooterLinks, {
+  }, /* @__PURE__ */ React.createElement(FooterHead, {
+    title
+  }), /* @__PURE__ */ React.createElement(FooterLinks, {
     links
   }), /* @__PURE__ */ React.createElement(FooterSponsors, null))));
 };
 
 // src/components/Footer.tsx
-var Footer = ({ theme, links }) => {
+var Footer = (_a) => {
+  var _b = _a, { theme } = _b, rest = __objRest(_b, ["theme"]);
   const customTheme = theme ? theme : muiTheme;
   return /* @__PURE__ */ React.createElement(MuiThemeProvider, {
     theme: customTheme
-  }, /* @__PURE__ */ React.createElement(FooterContainer, {
-    links
-  }));
+  }, /* @__PURE__ */ React.createElement(FooterContainer, __spreadValues({}, rest)));
 };
 
 // src/data/footerData.ts

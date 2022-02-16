@@ -5,14 +5,14 @@ import { FooterHead } from "footer/src/components/FooterHead"
 import { FooterSponsors } from "footer/src/components/FooterSponsors"
 import { FooterLinks } from "footer/src/components/FooterLinks"
 
-export const FooterContainer = ({ links }: FooterContainerProps) => {
+export const FooterContainer = ({ links, title }: FooterContainerProps) => {
   const classes = footerStyles()
 
   return (
     <footer className={classes.footer}>
       <Box px={2}>
         <Grid container justifyContent="center">
-          <FooterHead />
+          <FooterHead title={title} />
           <FooterLinks links={links} />
           <FooterSponsors />
         </Grid>
