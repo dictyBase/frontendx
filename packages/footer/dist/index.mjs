@@ -1,6 +1,4 @@
 var __defProp = Object.defineProperty;
-var __defProps = Object.defineProperties;
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __propIsEnum = Object.prototype.propertyIsEnumerable;
@@ -16,7 +14,6 @@ var __spreadValues = (a, b) => {
     }
   return a;
 };
-var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var __objRest = (source, exclude) => {
   var target = {};
   for (var prop in source)
@@ -138,29 +135,12 @@ var FooterSponsors = () => {
 
 // src/components/FooterLinks.tsx
 import { Grid as Grid3 } from "@material-ui/core";
-
-// src/components/FooterLink.tsx
-import { Typography as Typography2 } from "@material-ui/core";
-var FooterLink = ({ url, description }) => {
-  const classes = footerStyles();
-  return /* @__PURE__ */ React.createElement(Typography2, {
-    variant: "body2",
-    className: `${classes.link} ${classes.separator}`
-  }, /* @__PURE__ */ React.createElement("a", {
-    href: url
-  }, description));
-};
-
-// src/components/FooterLinks.tsx
 var FooterLinks = ({ links }) => {
-  const classes = footerStyles();
   return /* @__PURE__ */ React.createElement(Grid3, {
     item: true,
     container: true,
     justifyContent: "center"
-  }, links.map((data, i) => /* @__PURE__ */ React.createElement(FooterLink, __spreadProps(__spreadValues({}, data), {
-    key: i
-  }))));
+  }, links);
 };
 
 // src/components/FooterContainer.tsx
@@ -182,54 +162,69 @@ var FooterContainer = ({ links, title }) => {
 
 // src/components/Footer.tsx
 var Footer = (_a) => {
-  var _b = _a, { theme } = _b, rest = __objRest(_b, ["theme"]);
+  var _b = _a, { theme, children } = _b, rest = __objRest(_b, ["theme", "children"]);
   const customTheme = theme ? theme : muiTheme;
   return /* @__PURE__ */ React.createElement(MuiThemeProvider, {
     theme: customTheme
-  }, /* @__PURE__ */ React.createElement(FooterContainer, __spreadValues({}, rest)));
+  }, /* @__PURE__ */ React.createElement(FooterContainer, __spreadValues({
+    links: children
+  }, rest)));
+};
+
+// src/components/FooterLink.tsx
+import { Typography as Typography2 } from "@material-ui/core";
+var FooterLink = ({ url, label }) => {
+  const classes = footerStyles();
+  return /* @__PURE__ */ React.createElement(Typography2, {
+    variant: "body2",
+    className: `${classes.link} ${classes.separator}`
+  }, /* @__PURE__ */ React.createElement("a", {
+    href: url
+  }, label));
 };
 
 // src/data/footerData.ts
 var footerData = [
   {
     url: "/research/techniques",
-    description: "Techniques"
+    label: "Techniques"
   },
   {
     url: "/research/teach",
-    description: "Teaching Protocols"
+    label: "Teaching Protocols"
   },
   {
     url: "/stockcenter",
-    description: "Dicty Stock Center"
+    label: "Dicty Stock Center"
   },
   {
     url: "http://dictybase.org/tools/jbrowse/?data=data%2Fjbrowse%2Fdiscoideum&loc=6%3A1..50022&tracks=reference%2Cgene%2Ctranscript&highlight=",
-    description: "Genome Browser"
+    label: "Genome Browser"
   },
   {
     url: "/dictyaccess",
-    description: "DictyAccess"
+    label: "DictyAccess"
   },
   {
     url: "/community/conference",
-    description: "Conference"
+    label: "Conference"
   },
   {
     url: "/community/labs",
-    description: "Labs"
+    label: "Labs"
   },
   {
     url: "/about",
-    description: "About"
+    label: "About"
   },
   {
     url: "/stockcenter/contact",
-    description: "Contact"
+    label: "Contact"
   }
 ];
 export {
   Footer,
+  FooterLink,
   footerData,
   footerStyles
 };

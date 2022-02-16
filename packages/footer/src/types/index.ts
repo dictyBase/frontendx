@@ -1,23 +1,24 @@
 import { Theme } from "@material-ui/core"
+import React from "react"
 
 export interface FooterProps {
   title: string
-  links: Array<FooterItem>
+  children: React.ReactNode
   theme?: Partial<Theme>
 }
 
 export interface FooterContainerProps {
   title: string
-  links: Array<FooterItem>
+  links: React.ReactNode
 }
 
 export interface FooterLinksProps {
-  links: Array<FooterItem>
+  links: React.ReactNode
 }
 
 export interface FooterItem {
   url: string
-  description: string
+  label: string
 }
 
 export interface FooterHeadProps {

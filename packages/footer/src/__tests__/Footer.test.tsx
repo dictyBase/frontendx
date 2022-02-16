@@ -16,7 +16,7 @@ describe("Footer", () => {
     // Generate links
     const links: Array<FooterItem> = []
     for (let i = 0; i < 5; ++i) {
-      links.push({ url: `/link${i + 1}`, description: `Link ${i + 1}` })
+      links.push({ url: `/link${i + 1}`, label: `Link ${i + 1}` })
     }
 
     const title = "Dicty Community Resource"
@@ -27,8 +27,6 @@ describe("Footer", () => {
     expect(screen.getByText(/Supported by/)).not.toBeNull()
 
     // Check if generate links are found in the document
-    links.forEach((item) =>
-      expect(screen.getByText(item.description)).not.toBeNull(),
-    )
+    links.forEach((item) => expect(screen.getByText(item.label)).not.toBeNull())
   })
 })
