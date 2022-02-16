@@ -3,38 +3,38 @@ import { FooterItem } from "footer/src/types"
 export const footerData: Array<FooterItem> = [
   {
     url: "/research/techniques",
-    description: "Techniques",
+    label: "Techniques",
   },
   {
     url: "/research/teach",
-    description: "Teaching Protocols",
+    label: "Teaching Protocols",
   },
   {
     url: "/stockcenter",
-    description: "Dicty Stock Center",
+    label: "Dicty Stock Center",
   },
   {
     url: "http://dictybase.org/tools/jbrowse/?data=data%2Fjbrowse%2Fdiscoideum&loc=6%3A1..50022&tracks=reference%2Cgene%2Ctranscript&highlight=",
-    description: "Genome Browser",
+    label: "Genome Browser",
   },
   {
     url: "/dictyaccess",
-    description: "DictyAccess",
+    label: "DictyAccess",
   },
   {
     url: "/community/conference",
-    description: "Conference",
+    label: "Conference",
   },
   {
     url: "/community/labs",
-    description: "Labs",
+    label: "Labs",
   },
   {
     url: "/about",
-    description: "About",
+    label: "About",
   },
   {
     url: "/stockcenter/contact",
-    description: "Contact",
+    label: "Contact",
   },
 ]

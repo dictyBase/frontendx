@@ -1,8 +1,6 @@
 var __create = Object.create;
 var __defProp = Object.defineProperty;
-var __defProps = Object.defineProperties;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __getProtoOf = Object.getPrototypeOf;
@@ -20,8 +18,19 @@ var __spreadValues = (a, b) => {
     }
   return a;
 };
-var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
+var __objRest = (source, exclude) => {
+  var target = {};
+  for (var prop in source)
+    if (__hasOwnProp.call(source, prop) && exclude.indexOf(prop) < 0)
+      target[prop] = source[prop];
+  if (source != null && __getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(source)) {
+      if (exclude.indexOf(prop) < 0 && __propIsEnum.call(source, prop))
+        target[prop] = source[prop];
+    }
+  return target;
+};
 var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
@@ -47,6 +56,7 @@ var __toCommonJS = /* @__PURE__ */ ((cache) => {
 var src_exports = {};
 __export(src_exports, {
   Footer: () => Footer,
+  FooterLink: () => FooterLink,
   footerData: () => footerData,
   footerStyles: () => footerStyles
 });
@@ -55,7 +65,7 @@ __export(src_exports, {
 var import_react = __toESM(require("react"));
 
 // src/components/Footer.tsx
-var import_core8 = require("@material-ui/core");
+var import_core7 = require("@material-ui/core");
 
 // ../navbar/src/styles/customTheme.ts
 var import_core = require("@material-ui/core");
@@ -73,7 +83,7 @@ var muiTheme = (0, import_core.createTheme)({
 });
 
 // src/components/FooterContainer.tsx
-var import_core7 = require("@material-ui/core");
+var import_core6 = require("@material-ui/core");
 
 // src/styles/footerStyles.ts
 var import_core2 = require("@material-ui/core");
@@ -118,7 +128,7 @@ var footerStyles = (0, import_core2.makeStyles)((theme) => ({
 
 // src/components/FooterHead.tsx
 var import_core3 = require("@material-ui/core");
-var FooterHead = () => {
+var FooterHead = ({ title }) => {
   const classes = footerStyles();
   return /* @__PURE__ */ import_react.default.createElement(import_core3.Grid, {
     item: true,
@@ -128,7 +138,7 @@ var FooterHead = () => {
     textAlign: "center"
   }, /* @__PURE__ */ import_react.default.createElement(import_core3.Typography, {
     className: classes.header
-  }, "Dicty Community Resource")));
+  }, title)));
 };
 
 // src/components/FooterSponsors.tsx
@@ -158,100 +168,99 @@ var FooterSponsors = () => {
 };
 
 // src/components/FooterLinks.tsx
-var import_core6 = require("@material-ui/core");
-
-// src/components/FooterLink.tsx
 var import_core5 = require("@material-ui/core");
-var FooterLink = ({ url, description }) => {
-  const classes = footerStyles();
-  return /* @__PURE__ */ import_react.default.createElement(import_core5.Typography, {
-    variant: "body2",
-    className: `${classes.link} ${classes.separator}`
-  }, /* @__PURE__ */ import_react.default.createElement("a", {
-    href: url
-  }, description));
-};
-
-// src/components/FooterLinks.tsx
 var FooterLinks = ({ links }) => {
-  const classes = footerStyles();
-  return /* @__PURE__ */ import_react.default.createElement(import_core6.Grid, {
+  return /* @__PURE__ */ import_react.default.createElement(import_core5.Grid, {
     item: true,
     container: true,
     justifyContent: "center"
-  }, links.map((data, i) => /* @__PURE__ */ import_react.default.createElement(FooterLink, __spreadProps(__spreadValues({}, data), {
-    key: i
-  }))));
+  }, links);
 };
 
 // src/components/FooterContainer.tsx
-var FooterContainer = ({ links }) => {
+var FooterContainer = ({ links, title }) => {
   const classes = footerStyles();
   return /* @__PURE__ */ import_react.default.createElement("footer", {
     className: classes.footer
-  }, /* @__PURE__ */ import_react.default.createElement(import_core7.Box, {
+  }, /* @__PURE__ */ import_react.default.createElement(import_core6.Box, {
     px: 2
-  }, /* @__PURE__ */ import_react.default.createElement(import_core7.Grid, {
+  }, /* @__PURE__ */ import_react.default.createElement(import_core6.Grid, {
     container: true,
     justifyContent: "center"
-  }, /* @__PURE__ */ import_react.default.createElement(FooterHead, null), /* @__PURE__ */ import_react.default.createElement(FooterLinks, {
+  }, /* @__PURE__ */ import_react.default.createElement(FooterHead, {
+    title
+  }), /* @__PURE__ */ import_react.default.createElement(FooterLinks, {
     links
   }), /* @__PURE__ */ import_react.default.createElement(FooterSponsors, null))));
 };
 
 // src/components/Footer.tsx
-var Footer = ({ theme, links }) => {
+var Footer = (_a) => {
+  var _b = _a, { theme, children } = _b, rest = __objRest(_b, ["theme", "children"]);
   const customTheme = theme ? theme : muiTheme;
-  return /* @__PURE__ */ import_react.default.createElement(import_core8.MuiThemeProvider, {
+  return /* @__PURE__ */ import_react.default.createElement(import_core7.MuiThemeProvider, {
     theme: customTheme
-  }, /* @__PURE__ */ import_react.default.createElement(FooterContainer, {
-    links
-  }));
+  }, /* @__PURE__ */ import_react.default.createElement(FooterContainer, __spreadValues({
+    links: children
+  }, rest)));
+};
+
+// src/components/FooterLink.tsx
+var import_core8 = require("@material-ui/core");
+var FooterLink = ({ url, label }) => {
+  const classes = footerStyles();
+  return /* @__PURE__ */ import_react.default.createElement(import_core8.Typography, {
+    variant: "body2",
+    className: `${classes.link} ${classes.separator}`
+  }, /* @__PURE__ */ import_react.default.createElement("a", {
+    href: url
+  }, label));
 };
 
 // src/data/footerData.ts
 var footerData = [
   {
     url: "/research/techniques",
-    description: "Techniques"
+    label: "Techniques"
   },
   {
     url: "/research/teach",
-    description: "Teaching Protocols"
+    label: "Teaching Protocols"
   },
   {
     url: "/stockcenter",
-    description: "Dicty Stock Center"
+    label: "Dicty Stock Center"
   },
   {
     url: "http://dictybase.org/tools/jbrowse/?data=data%2Fjbrowse%2Fdiscoideum&loc=6%3A1..50022&tracks=reference%2Cgene%2Ctranscript&highlight=",
-    description: "Genome Browser"
+    label: "Genome Browser"
   },
   {
     url: "/dictyaccess",
-    description: "DictyAccess"
+    label: "DictyAccess"
   },
   {
     url: "/community/conference",
-    description: "Conference"
+    label: "Conference"
   },
   {
     url: "/community/labs",
-    description: "Labs"
+    label: "Labs"
   },
   {
     url: "/about",
-    description: "About"
+    label: "About"
   },
   {
     url: "/stockcenter/contact",
-    description: "Contact"
+    label: "Contact"
   }
 ];
 module.exports = __toCommonJS(src_exports);
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   Footer,
+  FooterLink,
   footerData,
   footerStyles
 });
