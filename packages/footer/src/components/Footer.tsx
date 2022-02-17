@@ -4,8 +4,8 @@ import { muiTheme } from "navbar/src/styles/customTheme"
 import { FooterContainer } from "footer/src/components/FooterContainer"
 
 /**
- * Renders dictyBase footer, example usage:
- * ```ts
+ * Renders dictyBase footer. Example usage:
+ * ```tsx
  * import { Footer, FooterLink } from "footer"
  * 
  * <Footer title="Dicty Community Resource">
