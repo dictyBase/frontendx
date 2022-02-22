@@ -83,6 +83,15 @@ query Gene($gene: String!, $limit: Int, $sort_by: String = "desc") {
       source
     }
   }
+  listProductInfo(gene: $gene) {
+    id
+    name
+    product_info {
+      protein_length
+      protein_molecular_weight
+      more_protein_data
+    }
+  }
 }
 
 query ListRecentGenes($limit: Int! = 4) {

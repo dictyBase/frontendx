@@ -4,6 +4,7 @@ type Gene {
   goas: [GOAnnotation!]
   strains: [Strain!]
   orthologs: [Orthologs!]
+  product_info: [ProductInformation!]
 }
 
 type GOAnnotation {
@@ -17,6 +18,12 @@ type GOAnnotation {
   with: [With!]
   extensions: [Extension!]
   assigned_by: String!
+}
+
+type ProductInformation {
+  protein_length: String!
+  protein_molecular_weight: String!
+  more_protein_data: String!
 }
 
 type With {
