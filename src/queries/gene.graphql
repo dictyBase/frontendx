@@ -83,7 +83,7 @@ query Gene($gene: String!, $limit: Int, $sort_by: String = "desc") {
       source
     }
   }
-  listProductInfo(gene: $gene) {
+  listGeneProductInfo(gene: $gene) {
     id
     name
     product_info {
