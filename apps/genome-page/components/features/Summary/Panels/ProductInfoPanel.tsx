@@ -37,10 +37,22 @@ const ProductInfoPanel = ({ gene }: Props) => {
         </RightDisplay>
       </ItemDisplay>
       <ItemDisplay>
-      <LeftDisplay>Protein Length</LeftDisplay>
-        <RightDisplay>
-          {productInfo.protein_length}
-        </RightDisplay>
+        <LeftDisplay>Protein Length</LeftDisplay>
+          <RightDisplay>
+            {productInfo.protein_length}
+          </RightDisplay>
+      </ItemDisplay>
+      <ItemDisplay>
+        <LeftDisplay>Molecular Weight</LeftDisplay>
+          <RightDisplay>
+            {productInfo.protein_molecular_weight}
+          </RightDisplay>
+      </ItemDisplay>
+      <ItemDisplay>
+        <LeftDisplay>More Protein Data</LeftDisplay>
+          <RightDisplay>
+            <a href={productInfo.more_protein_data}>Protein sequence, domains and much more...</a>
+          </RightDisplay>
       </ItemDisplay>
     </div>
   )
