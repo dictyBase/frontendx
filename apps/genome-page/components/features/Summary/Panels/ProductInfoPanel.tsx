@@ -36,6 +36,12 @@ const ProductInfoPanel = ({ gene }: Props) => {
             {"Derived from gene prediction. Supported by mRNA."}
         </RightDisplay>
       </ItemDisplay>
+      <ItemDisplay>
+      <LeftDisplay>Protein Length</LeftDisplay>
+        <RightDisplay>
+          {productInfo.protein_length}
+        </RightDisplay>
+      </ItemDisplay>
     </div>
   )
 }
