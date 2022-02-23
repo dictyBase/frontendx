@@ -17,6 +17,8 @@ type Query {
   # List gene query that is by default is sorted by gene
   # date in descendent order
   listRecentGenes(limit: Int!): [Gene!]
+  # List all product info associated to the gene
+  listGeneProductInfo(gene: String!): Gene
   # Order queries
   order(id: ID!): Order
   listOrders(cursor: Int, limit: Int, filter: String): OrderListWithCursor
