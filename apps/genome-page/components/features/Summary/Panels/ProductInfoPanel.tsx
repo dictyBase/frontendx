@@ -4,6 +4,7 @@ import Image from "next/image"
 import LeftDisplay from "components/panels/LeftDisplay"
 import ItemDisplay from "components/panels/ItemDisplay"
 import RightDisplay from "components/panels/RightDisplay"
+import TableDisplay from '../../../panels/TableDisplay';
 
 
 type Props = {
@@ -18,6 +19,7 @@ const ProductInfoPanel = ({ gene }: Props) => {
 
   if (!gene.listGeneProductInfo?.product_info) return <OtherError />
   const productInfo = gene.listGeneProductInfo.product_info[0]
+  console.log(productInfo.genomic_coords)
 
   return (
     <div>
@@ -53,6 +55,12 @@ const ProductInfoPanel = ({ gene }: Props) => {
           <RightDisplay>
             <a href={productInfo.more_protein_data}>Protein sequence, domains and much more...</a>
           </RightDisplay>
+      </ItemDisplay>
+      <ItemDisplay>
+        <LeftDisplay>Genomic Coordinates</LeftDisplay>
+        <RightDisplay>
+          <TableDisplay data={productInfo.genomic_coords}></TableDisplay>
+        </RightDisplay>
       </ItemDisplay>
     </div>
   )
