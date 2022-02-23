@@ -21,6 +21,7 @@ type GOAnnotation {
 }
 
 type ProductInformation {
+  protein_coding_gene: String!
   protein_length: String!
   protein_molecular_weight: String!
   more_protein_data: String!
