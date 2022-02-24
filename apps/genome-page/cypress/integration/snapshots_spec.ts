@@ -3,6 +3,7 @@ describe("Gene page snapshots", () => {
     cy.visit("/gene/sadA")
     cy.contains("Molecular Function")
     cy.contains("Latest References")
+    cy.contains("Gene Product Information")
   })
 
   it("visits the sadA go annotations page", () => {
