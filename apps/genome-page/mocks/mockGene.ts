@@ -3,6 +3,7 @@ import mockOntologyData from "./mockOntologyData"
 import mockOrthologsData from "./mockOrthologsData"
 import mockPhenotypesData from "./mockPhenotypesData"
 import mockReferencesData from "./mockReferencesData"
+import mockProductInfo from "./mockProductInfo"
 
 const mockGene: GeneQuery = {
   gene: {
@@ -26,6 +27,11 @@ const mockGene: GeneQuery = {
     id: "DDB_G0288511",
     name: "sadA",
     orthologs: [...mockOrthologsData.orthologs],
+  },
+  listGeneProductInfo: {
+    id: "DDB_G0288511",
+    name: "sadA",
+    product_info: [...mockProductInfo]
   }
 }
 export default mockGene
