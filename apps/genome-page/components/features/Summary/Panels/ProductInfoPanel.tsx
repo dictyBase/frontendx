@@ -1,4 +1,4 @@
-import { GeneQuery } from "dicty-graphql-schema"
+import { GeneQuery } from 'dicty-graphql-schema';
 import OtherError from "components/errors/OtherError"
 import Image from "next/image"
 import LeftDisplay from "components/panels/LeftDisplay"
@@ -19,7 +19,6 @@ const ProductInfoPanel = ({ gene }: Props) => {
 
   if (!gene.listGeneProductInfo?.product_info) return <OtherError />
   const productInfo = gene.listGeneProductInfo.product_info[0]
-  console.log(productInfo.genomic_coords)
 
   return (
     <div>
@@ -57,7 +56,7 @@ const ProductInfoPanel = ({ gene }: Props) => {
           </RightDisplay>
       </ItemDisplay>
       <ItemDisplay>
-        <LeftDisplay>Genomic Coordinates</LeftDisplay>
+        <LeftDisplay>Genomic Coords.</LeftDisplay>
         <RightDisplay>
           <TableDisplay data={productInfo.genomic_coords}></TableDisplay>
         </RightDisplay>
