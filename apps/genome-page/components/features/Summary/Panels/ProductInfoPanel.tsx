@@ -4,7 +4,7 @@ import Image from "next/image"
 import LeftDisplay from "components/panels/LeftDisplay"
 import ItemDisplay from "components/panels/ItemDisplay"
 import RightDisplay from "components/panels/RightDisplay"
-import TableDisplay from '../../../panels/TableDisplay';
+import TableDisplay from '../../../panels/GenomicCoordsTable';
 
 
 type Props = {
