@@ -1,4 +1,4 @@
-import { FooterItem } from "footer/src/types"
+import { FooterItem } from "@dictyBase/footer/src/types"
 
 export const footerData: Array<FooterItem> = [
   {
