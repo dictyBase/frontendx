@@ -1,6 +1,6 @@
 import { Typography } from "@material-ui/core"
-import { FooterItem } from "footer/src/types"
-import { footerStyles } from "footer/src/styles/footerStyles"
+import { FooterItem } from "@dictyBase/footer/src/types"
+import { footerStyles } from "@dictyBase/footer/src/styles/footerStyles"
 
 export const FooterLink = ({ url, label }: FooterItem) => {
   const classes = footerStyles()
