@@ -20,14 +20,26 @@ describe("features/Summary/SummaryContainer", () => {
     expect(screen.getByText(/Cellular Component/)).toBeInTheDocument()
 
     // Render Latest References
-    expect(screen.getByText(/Kamprad, Witt, Schroder, Kreis, Baumchen, Janshoff & Tarantola/)).toBeInTheDocument()
-    expect(screen.getByText(/Tarantola, Bae, Fuller, Bodenschatz, Rappel & Loomis/)).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        /Kamprad, Witt, Schroder, Kreis, Baumchen, Janshoff & Tarantola/,
+      ),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText(/Tarantola, Bae, Fuller, Bodenschatz, Rappel & Loomis/),
+    ).toBeInTheDocument()
     expect(screen.getByText(/Wu & Janetopoulos/)).toBeInTheDocument()
 
     // Render Gene Product Information
-    expect(screen.getByText(/Derived from gene prediction. Supported by mRNA./)).toBeInTheDocument()
+    expect(
+      screen.getByText(/Derived from gene prediction. Supported by mRNA./),
+    ).toBeInTheDocument()
     expect(screen.getByText(/1,148 aa/)).toBeInTheDocument()
     expect(screen.getByText(/129,527.5 Da/)).toBeInTheDocument()
 
+    // Render General Information
+    expect(screen.getByText(/Gene Name/)).toBeInTheDocument()
+    expect(screen.getByText(/Name Description/)).toBeInTheDocument()
+    expect(screen.getByText(/DG1117, amiA, pia, rictor/)).toBeInTheDocument()
   })
 })
