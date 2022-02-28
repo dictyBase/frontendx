@@ -4,6 +4,7 @@ import mockOrthologsData from "./mockOrthologsData"
 import mockPhenotypesData from "./mockPhenotypesData"
 import mockReferencesData from "./mockReferencesData"
 import mockProductInfo from "./mockProductInfo"
+import mockGeneralInfoData from "./mockGeneralInfoData"
 
 const mockGene: GeneQuery = {
   gene: {

@@ -1,12 +1,9 @@
 import { GeneralInfo } from "dicty-graphql-schema"
 
-interface IMockGeneralInfo {
-  orthologs: GeneralInfo
-}
 /**
  * Reference: http://dictybase.org/gene/piaA
  */
-const mockGeneralInfoData: IMockGeneralInfo = {
+const mockGeneralInfoData: GeneralInfo = {
   name_description: ["pia = PIAnissimo", "rictor = Rapamycin-Insensitive Companion of mTOR"],
   alt_gene_name: ["DG1117", "amiA", "pia", "rictor"],
   gene_product: "cytosolic regulator of adenylyl cyclase PiaA",
