@@ -39,7 +39,7 @@ const GeneralInfoPanel = ({ gene }: Props) => {
         <ItemDisplay>
           <LeftDisplay>Alternative Gene Names</LeftDisplay>
           <RightDisplay>
-                <i>{commaSeparate(gen_info.alt_gene_name)}</i>
+            <i>{commaSeparate(gen_info.alt_gene_name)}</i>
           </RightDisplay>
         </ItemDisplay>
       ) : (

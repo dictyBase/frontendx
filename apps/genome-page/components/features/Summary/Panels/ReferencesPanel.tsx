@@ -12,7 +12,6 @@ import OtherError from "components/errors/OtherError"
 import { commaSeparateWithAnd } from "common/utils/strings"
 import Image from "next/image"
 
-
 type Props = {
   /** Array of GO annotations for a particular gene */
   gene: GeneQuery
@@ -27,8 +26,6 @@ const ReferencesPanel = ({ gene }: Props) => {
   if (!gene.allPublications?.publications) return <OtherError />
   const publications = gene.allPublications.publications
 
-  
-
   return (
     <TableContainer component={Paper} className={classes.root}>
       <Table aria-label="summary-references-table">
@@ -37,7 +34,9 @@ const ReferencesPanel = ({ gene }: Props) => {
             <TableRow key={i}>
               <TableCell>
                 <b>
-                  {commaSeparateWithAnd(publication.authors.map((a) => a.last_name))}
+                  {commaSeparateWithAnd(
+                    publication.authors.map((a) => a.last_name),
+                  )}
                 </b>
                 &nbsp; &apos;{publication.title}&apos; &nbsp;
                 <i>{publication.journal}</i>
@@ -46,7 +45,9 @@ const ReferencesPanel = ({ gene }: Props) => {
               </TableCell>
 
               <TableCell>
-                <a className={classes.icon} href={`http://dictybase.org/publication/${publication.id}`}>
+                <a
+                  className={classes.icon}
+                  href={`http://dictybase.org/publication/${publication.id}`}>
                   <Image
                     src="/refDicty.gif"
                     alt="Ref Dicty"
@@ -54,8 +55,10 @@ const ReferencesPanel = ({ gene }: Props) => {
                     height={30}
                   />
                 </a>
-                <a className={classes.icon} href={`https://pubmed.ncbi.nlm.nih.gov/${publication.issue}/`}>
-                <Image
+                <a
+                  className={classes.icon}
+                  href={`https://pubmed.ncbi.nlm.nih.gov/${publication.issue}/`}>
+                  <Image
                     src="/refPubmed.gif"
                     alt="Ref Dicty"
                     width={30}
@@ -63,7 +66,7 @@ const ReferencesPanel = ({ gene }: Props) => {
                   />
                 </a>
                 <a className={classes.icon} href="">
-                <Image
+                  <Image
                     src="/refFull.gif"
                     alt="Ref Dicty"
                     width={30}
@@ -71,7 +74,7 @@ const ReferencesPanel = ({ gene }: Props) => {
                   />
                 </a>
               </TableCell>
-          </TableRow>
+            </TableRow>
           ))}
         </TableBody>
       </Table>
