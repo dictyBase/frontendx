@@ -98,6 +98,17 @@ query Gene($gene: String!, $limit: Int, $sort_by: String = "desc") {
       }
     }
   }
+  generalInformation(gene: $gene) {
+    id
+    name
+    general_info {
+      name_description
+      alt_gene_name
+      gene_product
+      alt_protein_names
+      description
+    }
+  }
 }
 
 query ListRecentGenes($limit: Int! = 4) {
