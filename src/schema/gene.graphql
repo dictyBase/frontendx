@@ -60,6 +60,6 @@ type GeneralInfo {
   name_description: [String!]
   alt_gene_name: [String!]
   gene_product: String!
-  alt_protein_name: String!
+  alt_protein_names: [String!]
   description: String!
 }

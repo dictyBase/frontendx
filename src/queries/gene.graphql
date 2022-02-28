@@ -105,7 +105,7 @@ query Gene($gene: String!, $limit: Int, $sort_by: String = "desc") {
       name_description
       alt_gene_name
       gene_product
-      alt_protein_name
+      alt_protein_names
       description
     }
   }
