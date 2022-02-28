@@ -2178,16 +2178,12 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "GeneralInfo",
-                  "ofType": null
-                }
+                "kind": "OBJECT",
+                "name": "GeneralInfo",
+                "ofType": null
               }
             },
             "isDeprecated": false,

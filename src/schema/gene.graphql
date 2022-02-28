@@ -5,7 +5,7 @@ type Gene {
   strains: [Strain!]
   orthologs: [Orthologs!]
   product_info: [ProductInformation!]
-  general_info: [GeneralInfo!]
+  general_info: GeneralInfo!
 }
 
 type GOAnnotation {
