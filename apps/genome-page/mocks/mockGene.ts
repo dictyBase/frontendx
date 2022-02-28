@@ -32,6 +32,11 @@ const mockGene: GeneQuery = {
     id: "DDB_G0288511",
     name: "sadA",
     product_info: [...mockProductInfo]
+  },
+  generalInformation: {
+    id: "DDB_G0288511",
+    name: "sadA",
+    general_info: mockGeneralInfoData
   }
 }
 export default mockGene
