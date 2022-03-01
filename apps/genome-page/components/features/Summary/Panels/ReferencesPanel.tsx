@@ -32,7 +32,7 @@ const ReferencesPanel = ({ gene }: Props) => {
         <TableBody>
           {publications.map((publication, i) => (
             <TableRow key={i}>
-              <TableCell>
+              <TableCell className={classes.cell}>
                 <b>
                   {commaSeparateWithAnd(
                     publication.authors.map((a) => a.last_name),
@@ -44,15 +44,15 @@ const ReferencesPanel = ({ gene }: Props) => {
                 {publication.pages}
               </TableCell>
 
-              <TableCell>
+              <TableCell className={classes.cell}>
                 <a
                   className={classes.icon}
                   href={`http://dictybase.org/publication/${publication.id}`}>
                   <Image
                     src="/refDicty.gif"
                     alt="Ref Dicty"
-                    width={30}
-                    height={30}
+                    width={25}
+                    height={25}
                   />
                 </a>
                 <a
@@ -61,16 +61,16 @@ const ReferencesPanel = ({ gene }: Props) => {
                   <Image
                     src="/refPubmed.gif"
                     alt="Ref Dicty"
-                    width={30}
-                    height={30}
+                    width={25}
+                    height={25}
                   />
                 </a>
                 <a className={classes.icon} href="">
                   <Image
                     src="/refFull.gif"
                     alt="Ref Dicty"
-                    width={30}
-                    height={30}
+                    width={25}
+                    height={25}
                   />
                 </a>
               </TableCell>
