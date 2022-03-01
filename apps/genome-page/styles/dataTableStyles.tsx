@@ -19,6 +19,11 @@ const useStyles = makeStyles({
   cell: {
     padding: "4px",
   },
+  cellIcons: {
+    padding: "4px",
+    textAlign: "right",
+    width: "100px",
+  },
 })
 
 export default useStyles
