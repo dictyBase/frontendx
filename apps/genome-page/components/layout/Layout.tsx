@@ -3,7 +3,6 @@ import { useRouter } from "next/router"
 import Link from "next/link"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
-import LegacyLinkSnackbar from "components/LegacyLinkSnackbar"
 import { Typography, Grid, AppBar, Box } from "@mui/material"
 import { Helmet } from "react-helmet"
 
@@ -51,7 +50,6 @@ const Layout = ({ children, gene, title, description }: Props) => {
             {title}
           </Typography>
         </Box>
-        <LegacyLinkSnackbar gene={gene} />
         <AppBar position="static">
           <Tabs value={tabValue} onChange={handleChange}>
             <Link href={`/gene/${gene}`} passHref>
