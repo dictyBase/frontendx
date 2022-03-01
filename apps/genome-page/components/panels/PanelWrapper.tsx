@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%",
     },
     link: {
-      color: "#e1f5fe",
+      color: "#96dfff",
       marginLeft: 40,
       textDecoration: "none",
     },
@@ -64,9 +64,9 @@ const PanelWrapper = ({ title, route, children }: Props) => {
           <Typography component={"span"} className={classes.heading}>
             {title}
             {route && (
-              <div className={classes.link}>
-                <Link href={route}>View All</Link>
-              </div>
+              <Link href={route}>
+                <a className={classes.link}>View All</a>
+              </Link>
             )}
           </Typography>
         </AccordionSummary>
