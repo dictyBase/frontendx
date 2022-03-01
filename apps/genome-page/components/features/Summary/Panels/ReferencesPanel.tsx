@@ -44,7 +44,7 @@ const ReferencesPanel = ({ gene }: Props) => {
                 {publication.pages}
               </TableCell>
 
-              <TableCell className={classes.cell}>
+              <TableCell className={classes.cellIcons}>
                 <a
                   className={classes.icon}
                   href={`http://dictybase.org/publication/${publication.id}`}>
