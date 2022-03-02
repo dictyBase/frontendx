@@ -11,7 +11,11 @@ type Query {
   gene(gene: String!): Gene
   allStrains(gene: String!): Gene
   # Lists out all publications with other genes mentioned in the publication
-  allPublications(gene: String!, limit: Int, sort_by: String): NumberOfPublicationsWithGene!
+  allPublications(
+    gene: String!
+    limit: Int
+    sort_by: String
+  ): NumberOfPublicationsWithGene!
   # Lists out all the Orthologs
   allOrthologs(gene: String!): Gene
   # List gene query that is by default is sorted by gene
@@ -19,6 +23,8 @@ type Query {
   listRecentGenes(limit: Int!): [Gene!]
   # List general information given gene
   generalInformation(gene: String!): Gene
+  # List associated sequences given gene
+  getAssociatedSequnces(gene: String!): Gene
   # List all product info associated to the gene
   listGeneProductInfo(gene: String!): Gene
   # Order queries

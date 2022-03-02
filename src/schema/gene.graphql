@@ -6,6 +6,7 @@ type Gene {
   orthologs: [Orthologs!]
   product_info: [ProductInformation!]
   general_info: GeneralInfo!
+  associated_sequences: AssociatedSequences!
 }
 
 type GOAnnotation {
@@ -62,4 +63,9 @@ type GeneralInfo {
   gene_product: String!
   alt_protein_names: [String!]
   description: String!
+}
+
+type AssociatedSequences {
+  genbank_genomic_fragment: String!
+  ests: [String!]
 }
