@@ -1,3 +1,4 @@
+import React from "react"
 import ItemDisplay from "components/panels/ItemDisplay"
 import LeftDisplay from "components/panels/LeftDisplay"
 import RightDisplay from "components/panels/RightDisplay"
@@ -13,21 +14,27 @@ type Props = {
  * Panel to display Associated Sequence Panel on the Gene Summary page.
  */
 const AssociatedSequencePanel = ({ data }: Props) => {
-  if (!data.gene || !data.gene.associated_sequences) return <OtherError />
-  const associated_seq = data.gene.associated_sequences
+  if (!data.getAssociatedSequnces) return <OtherError />
+  const associated_seq = data.getAssociatedSequnces
 
   return (
     <div>
       <ItemDisplay>
         <LeftDisplay>GenBank Genomic Fragment</LeftDisplay>
-        <RightDisplay>{associated_seq.genbank_genomic_fragment}</RightDisplay>
+        <RightDisplay>
+          {associated_seq.associated_sequences.genbank_genomic_fragment}
+        </RightDisplay>
       </ItemDisplay>
       <ItemDisplay>
         <LeftDisplay>Cellular Component</LeftDisplay>
         <RightDisplay>
-          {associated_seq.ests.map((item, i) => (
-            <React.Fragment key={i}>{item}&nbsp;&nbsp;&nbsp;</React.Fragment>
-          ))}
+          {associated_seq.associated_sequences.ests ? (
+            associated_seq.associated_sequences.ests.map((item, i) => (
+              <React.Fragment key={i}>{item}&nbsp;&nbsp;&nbsp;</React.Fragment>
+            ))
+          ) : (
+            <></>
+          )}
           <a href="">more..</a>
         </RightDisplay>
       </ItemDisplay>
