@@ -28,6 +28,7 @@ const AssociatedSequencePanel = ({ data }: Props) => {
           {associated_seq.ests.map((item, i) => (
             <React.Fragment key={i}>{item}&nbsp;&nbsp;&nbsp;</React.Fragment>
           ))}
+          <a href="">more..</a>
         </RightDisplay>
       </ItemDisplay>
     </div>
