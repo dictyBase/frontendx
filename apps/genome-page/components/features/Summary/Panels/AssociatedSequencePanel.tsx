@@ -26,7 +26,7 @@ const AssociatedSequencePanel = ({ data }: Props) => {
         </RightDisplay>
       </ItemDisplay>
       <ItemDisplay>
-        <LeftDisplay>Cellular Component</LeftDisplay>
+        <LeftDisplay>ESTs</LeftDisplay>
         <RightDisplay>
           {associated_seq.associated_sequences.ests ? (
             associated_seq.associated_sequences.ests.map((item, i) => (
