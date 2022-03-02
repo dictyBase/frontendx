@@ -109,6 +109,14 @@ query Gene($gene: String!, $limit: Int, $sort_by: String = "desc") {
       description
     }
   }
+  getAssociatedSequnces(gene: $gene) {
+    id
+    name
+    associated_sequences {
+      genbank_genomic_fragment
+      ests
+    }
+  }
 }
 
 query ListRecentGenes($limit: Int! = 4) {
