@@ -6,7 +6,7 @@ type Gene {
   orthologs: [Orthologs!]
   product_info: [ProductInformation!]
   general_info: GeneralInfo!
-  associated_sequences: [AssociatedSequences!]
+  associated_sequences: AssociatedSequences!
 }
 
 type GOAnnotation {
