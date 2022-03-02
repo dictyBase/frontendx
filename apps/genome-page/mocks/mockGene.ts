@@ -5,6 +5,7 @@ import mockPhenotypesData from "./mockPhenotypesData"
 import mockReferencesData from "./mockReferencesData"
 import mockProductInfo from "./mockProductInfo"
 import mockGeneralInfoData from "./mockGeneralInfoData"
+import mockAssociatedData from "./mockAssociatedData"
 
 const mockGene: GeneQuery = {
   gene: {
@@ -38,6 +39,11 @@ const mockGene: GeneQuery = {
     id: "DDB_G0288511",
     name: "sadA",
     general_info: mockGeneralInfoData
+  },
+  getAssociatedSequnces: {
+    id: "DDB_G0288511",
+    name: "sadA",
+    associated_sequences: mockAssociatedData
   }
 }
 export default mockGene
