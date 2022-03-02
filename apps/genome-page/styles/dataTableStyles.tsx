@@ -4,7 +4,6 @@ const useStyles = makeStyles({
   root: {
     width: "100%",
     overflowX: "auto",
-    borderRadius: 0,
   },
   head: {
     backgroundColor: "#e6f2ff",
@@ -15,8 +14,16 @@ const useStyles = makeStyles({
     },
   },
   icon: {
-    margin: "0px 10px 10px 0px"
-  }
+    margin: "0px 5px 5px 0px",
+  },
+  cell: {
+    padding: "4px",
+  },
+  cellIcons: {
+    padding: "4px",
+    textAlign: "right",
+    width: "100px",
+  },
 })
 
 export default useStyles
