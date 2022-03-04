@@ -66,5 +66,14 @@ describe("features/Summary/SummaryContainer", () => {
     expect(screen.getByText(/AY178767/)).toBeInTheDocument()
     expect(screen.getByText(/ESTs/)).toBeInTheDocument()
     expect(screen.getByText(/DDB0024552/)).toBeInTheDocument()
+
+    // Render Links
+    expect(screen.getByText(/Expression/)).toBeInTheDocument()
+
+    expect(screen.getByText(/dictyBase Colleagues/)).toBeInTheDocument()
+    expect(screen.getByText(/piaA Researchers/)).toBeInTheDocument()
+
+    expect(screen.getByText(/External Resources/)).toBeInTheDocument()
+    expect(screen.getByText(/STKE/)).toBeInTheDocument()
   })
 })
