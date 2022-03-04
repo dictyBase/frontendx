@@ -7,12 +7,36 @@ const useRouter = jest.spyOn(require("next/router"), "useRouter")
 
 describe("features/Summary/SummaryContainer", () => {
   beforeEach(() => jest.clearAllMocks())
-  it("should display data", () => {
+  it("should display data", async () => {
+    await new Promise(process.nextTick)
     useRouter.mockImplementation(() => ({
       query: { id: "sadA" },
       pathname: "/gene/[gene]",
     }))
     render(<SummaryContainer gene={mockGene as GeneQuery} />)
+
+    // Render General Information
+    expect(screen.getByText(/sadA/)).toBeInTheDocument()
+
+    expect(screen.getByText(/Name Description/)).toBeInTheDocument()
+    expect(screen.getByText(/pia = PIAnissimo/)).toBeInTheDocument()
+    expect(
+      screen.getByText(/rictor = Rapamycin-Insensitive Companion of mTOR/),
+    ).toBeInTheDocument()
+
+    expect(screen.getByText(/Alternative Gene Names/)).toBeInTheDocument()
+    expect(screen.getByText(/DG1117, amiA, pia, rictor/)).toBeInTheDocument()
+
+    expect(screen.getByText(/Gene ID/)).toBeInTheDocument()
+    expect(screen.getByText(/DDB_G0288511/)).toBeInTheDocument()
+
+    expect(
+      screen.getByText(/cytosolic regulator of adenylyl cyclase PiaA/),
+    ).toBeInTheDocument()
+    expect(screen.getByText(/Alternative Protein Names/)).toBeInTheDocument()
+    expect(
+      screen.getByText(/Pianissimo, cytosolic regulator of adenylate cyclase/),
+    ).toBeInTheDocument()
 
     // Render Latest Gene Ontology Annotations
     expect(screen.getByText(/Molecular Function/)).toBeInTheDocument()
@@ -37,8 +61,10 @@ describe("features/Summary/SummaryContainer", () => {
     expect(screen.getByText(/1,148 aa/)).toBeInTheDocument()
     expect(screen.getByText(/129,527.5 Da/)).toBeInTheDocument()
 
-    // Render General Information
-    expect(screen.getByText(/Name Description/)).toBeInTheDocument()
-    expect(screen.getByText(/DG1117, amiA, pia, rictor/)).toBeInTheDocument()
+    // Render Associated Sequences
+    expect(screen.getByText(/GenBank Genomic Fragment/)).toBeInTheDocument()
+    expect(screen.getByText(/AY178767/)).toBeInTheDocument()
+    expect(screen.getByText(/ESTs/)).toBeInTheDocument()
+    expect(screen.getByText(/DDB0024552/)).toBeInTheDocument()
   })
 })
