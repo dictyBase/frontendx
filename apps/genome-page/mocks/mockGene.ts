@@ -6,7 +6,7 @@ import mockReferencesData from "./mockReferencesData"
 import mockProductInfo from "./mockProductInfo"
 import mockGeneralInfoData from "./mockGeneralInfoData"
 import mockAssociatedData from "./mockAssociatedData"
-import mockLinks from "./mockLinksData"
+import mockLinksData from "./mockLinksData"
 
 const mockGene: GeneQuery = {
   gene: {
