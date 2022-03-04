@@ -14,7 +14,7 @@ type Props = {
  * Panel to display Links Panel on the Gene Summary page.
  */
 const LinkPanel = ({ data }: Props) => {
-  if (!data.getLinks.links) return <OtherError />
+  if (!data.getLinks?.links) return <OtherError />
   const links = data.getLinks.links
 
   return (
