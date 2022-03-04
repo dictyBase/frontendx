@@ -117,6 +117,24 @@ query Gene($gene: String!, $limit: Int, $sort_by: String = "desc") {
       ests
     }
   }
+  getLinks(gene: $gene) {
+    id
+    name
+    links {
+      expression {
+        name
+        link
+      }
+      colleagues {
+        name
+        link
+      }
+      ext_resources {
+        name
+        link
+      }
+    }
+  }
 }
 
 query ListRecentGenes($limit: Int! = 4) {

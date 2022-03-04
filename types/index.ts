@@ -227,6 +227,7 @@ export type Gene = {
   general_info: GeneralInfo;
   goas?: Maybe<Array<GoAnnotation>>;
   id: Scalars['String'];
+  links: Links;
   name: Scalars['String'];
   orthologs?: Maybe<Array<Orthologs>>;
   product_info?: Maybe<Array<ProductInformation>>;
@@ -257,6 +258,13 @@ export type Identity = {
   provider: Scalars['String'];
   updated_at: Scalars['Timestamp'];
   user_id: Scalars['ID'];
+};
+
+export type Links = {
+  __typename?: 'Links';
+  colleagues: NameWithLink;
+  expression?: Maybe<Array<NameWithLink>>;
+  ext_resources?: Maybe<Array<NameWithLink>>;
 };
 
 export type LoginInput = {
@@ -418,6 +426,12 @@ export type MutationUpdateUserArgs = {
   input?: InputMaybe<UpdateUserInput>;
 };
 
+export type NameWithLink = {
+  __typename?: 'NameWithLink';
+  link: Scalars['String'];
+  name: Scalars['String'];
+};
+
 export type NumberOfPublicationsWithGene = {
   __typename?: 'NumberOfPublicationsWithGene';
   num_pubs: Scalars['Int'];
@@ -572,6 +586,7 @@ export type Query = {
   gene?: Maybe<Gene>;
   generalInformation?: Maybe<Gene>;
   getAssociatedSequnces?: Maybe<Gene>;
+  getLinks?: Maybe<Gene>;
   getRefreshToken?: Maybe<Auth>;
   listGeneProductInfo?: Maybe<Gene>;
   listOrders?: Maybe<OrderListWithCursor>;
@@ -637,6 +652,11 @@ export type QueryGeneralInformationArgs = {
 
 
 export type QueryGetAssociatedSequncesArgs = {
+  gene: Scalars['String'];
+};
+
+
+export type QueryGetLinksArgs = {
   gene: Scalars['String'];
 };
 
@@ -1024,7 +1044,7 @@ export type GeneQueryVariables = Exact<{
 }>;
 
 
-export type GeneQuery = { __typename?: 'Query', allStrains?: { __typename?: 'Gene', id: string, name: string, strains?: Array<{ __typename?: 'Strain', id: string, label: string, characteristics?: Array<string> | null | undefined, in_stock: boolean, phenotypes?: Array<{ __typename?: 'Phenotype', phenotype: string, publication?: { __typename?: 'Publication', id: string, title: string, journal: string, pages?: string | null | undefined, volume?: string | null | undefined, pub_date?: any | null | undefined, authors: Array<{ __typename?: 'Author', last_name: string, rank?: string | null | undefined }> } | null | undefined }> | null | undefined }> | null | undefined } | null | undefined, gene?: { __typename?: 'Gene', id: string, name: string, goas?: Array<{ __typename?: 'GOAnnotation', id: string, type: string, date: string, evidence_code: string, go_term: string, qualifier: string, publication: string, assigned_by: string, with?: Array<{ __typename?: 'With', id: string, db: string, name: string }> | null | undefined, extensions?: Array<{ __typename?: 'Extension', id: string, db: string, relation: string, name: string }> | null | undefined }> | null | undefined } | null | undefined, allPublications: { __typename?: 'NumberOfPublicationsWithGene', num_pubs: number, publications: Array<{ __typename?: 'PublicationWithGene', id: string, doi?: string | null | undefined, title: string, journal: string, pub_date?: any | null | undefined, volume?: string | null | undefined, pages?: string | null | undefined, pub_type: string, source: string, issue?: string | null | undefined, related_genes: Array<{ __typename?: 'Gene', id: string, name: string }>, authors: Array<{ __typename?: 'Author', last_name: string, rank?: string | null | undefined }> }> }, allOrthologs?: { __typename?: 'Gene', id: string, name: string, orthologs?: Array<{ __typename?: 'Orthologs', id: string, species: string, uniprotkb: string, gene_product: string, source?: Array<string> | null | undefined }> | null | undefined } | null | undefined, listGeneProductInfo?: { __typename?: 'Gene', id: string, name: string, product_info?: Array<{ __typename?: 'ProductInformation', protein_coding_gene: string, protein_length: string, protein_molecular_weight: string, more_protein_data: string, genomic_coords?: Array<{ __typename?: 'GenomicCoordinates', exon: string, local_coords: string, chrom_coords: string }> | null | undefined }> | null | undefined } | null | undefined, generalInformation?: { __typename?: 'Gene', id: string, name: string, general_info: { __typename?: 'GeneralInfo', name_description?: Array<string> | null | undefined, alt_gene_name?: Array<string> | null | undefined, gene_product: string, alt_protein_names?: Array<string> | null | undefined, description: string } } | null | undefined, getAssociatedSequnces?: { __typename?: 'Gene', id: string, name: string, associated_sequences: { __typename?: 'AssociatedSequences', genbank_genomic_fragment: string, ests?: Array<string> | null | undefined } } | null | undefined };
+export type GeneQuery = { __typename?: 'Query', allStrains?: { __typename?: 'Gene', id: string, name: string, strains?: Array<{ __typename?: 'Strain', id: string, label: string, characteristics?: Array<string> | null | undefined, in_stock: boolean, phenotypes?: Array<{ __typename?: 'Phenotype', phenotype: string, publication?: { __typename?: 'Publication', id: string, title: string, journal: string, pages?: string | null | undefined, volume?: string | null | undefined, pub_date?: any | null | undefined, authors: Array<{ __typename?: 'Author', last_name: string, rank?: string | null | undefined }> } | null | undefined }> | null | undefined }> | null | undefined } | null | undefined, gene?: { __typename?: 'Gene', id: string, name: string, goas?: Array<{ __typename?: 'GOAnnotation', id: string, type: string, date: string, evidence_code: string, go_term: string, qualifier: string, publication: string, assigned_by: string, with?: Array<{ __typename?: 'With', id: string, db: string, name: string }> | null | undefined, extensions?: Array<{ __typename?: 'Extension', id: string, db: string, relation: string, name: string }> | null | undefined }> | null | undefined } | null | undefined, allPublications: { __typename?: 'NumberOfPublicationsWithGene', num_pubs: number, publications: Array<{ __typename?: 'PublicationWithGene', id: string, doi?: string | null | undefined, title: string, journal: string, pub_date?: any | null | undefined, volume?: string | null | undefined, pages?: string | null | undefined, pub_type: string, source: string, issue?: string | null | undefined, related_genes: Array<{ __typename?: 'Gene', id: string, name: string }>, authors: Array<{ __typename?: 'Author', last_name: string, rank?: string | null | undefined }> }> }, allOrthologs?: { __typename?: 'Gene', id: string, name: string, orthologs?: Array<{ __typename?: 'Orthologs', id: string, species: string, uniprotkb: string, gene_product: string, source?: Array<string> | null | undefined }> | null | undefined } | null | undefined, listGeneProductInfo?: { __typename?: 'Gene', id: string, name: string, product_info?: Array<{ __typename?: 'ProductInformation', protein_coding_gene: string, protein_length: string, protein_molecular_weight: string, more_protein_data: string, genomic_coords?: Array<{ __typename?: 'GenomicCoordinates', exon: string, local_coords: string, chrom_coords: string }> | null | undefined }> | null | undefined } | null | undefined, generalInformation?: { __typename?: 'Gene', id: string, name: string, general_info: { __typename?: 'GeneralInfo', name_description?: Array<string> | null | undefined, alt_gene_name?: Array<string> | null | undefined, gene_product: string, alt_protein_names?: Array<string> | null | undefined, description: string } } | null | undefined, getAssociatedSequnces?: { __typename?: 'Gene', id: string, name: string, associated_sequences: { __typename?: 'AssociatedSequences', genbank_genomic_fragment: string, ests?: Array<string> | null | undefined } } | null | undefined, getLinks?: { __typename?: 'Gene', id: string, name: string, links: { __typename?: 'Links', expression?: Array<{ __typename?: 'NameWithLink', name: string, link: string }> | null | undefined, colleagues: { __typename?: 'NameWithLink', name: string, link: string }, ext_resources?: Array<{ __typename?: 'NameWithLink', name: string, link: string }> | null | undefined } } | null | undefined };
 
 export type ListRecentGenesQueryVariables = Exact<{
   limit?: Scalars['Int'];
@@ -1717,6 +1737,24 @@ export const GeneDocument = gql`
     associated_sequences {
       genbank_genomic_fragment
       ests
+    }
+  }
+  getLinks(gene: $gene) {
+    id
+    name
+    links {
+      expression {
+        name
+        link
+      }
+      colleagues {
+        name
+        link
+      }
+      ext_resources {
+        name
+        link
+      }
     }
   }
 }
