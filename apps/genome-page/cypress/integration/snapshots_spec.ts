@@ -6,6 +6,7 @@ describe("Gene page snapshots", () => {
     cy.contains("Gene Product Information")
     cy.contains("General Information")
     cy.contains("Associated Sequences")
+    cy.contains("Links")
   })
 
   it("visits the sadA go annotations page", () => {
