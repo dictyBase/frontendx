@@ -72,7 +72,12 @@ type AssociatedSequences {
 }
 
 type Links {
-  expression: [String!]
-  colleagues: String!
-  ext_resources: [String!]
+  expression: [NameWithLink!]
+  colleagues: NameWithLink!
+  ext_resources: [NameWithLink!]
+}
+
+type NameWithLink {
+  name: String!
+  link: String!
 }
