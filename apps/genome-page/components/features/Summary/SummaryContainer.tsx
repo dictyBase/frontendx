@@ -8,6 +8,7 @@ import { GeneQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
 import ProductInfoPanel from "./Panels/ProductInfoPanel"
 import AssociatedSequencePanel from "./Panels/AssociatedSequencePanel"
+import LinkPanel from "./Panels/LinksPanel"
 
 interface SummaryContainerProps {
   gene: GeneQuery
@@ -39,6 +40,9 @@ const SummaryContainer = ({ gene }: SummaryContainerProps) => {
         </PanelWrapper>
         <PanelWrapper title={"Associated Sequences"} route={`/gene/${geneId}/`}>
           <AssociatedSequencePanel data={gene} />
+        </PanelWrapper>
+        <PanelWrapper title={referencesTitle} route={`/gene/${geneId}/`}>
+          <LinkPanel data={gene} />
         </PanelWrapper>
         <PanelWrapper
           title={referencesTitle}
