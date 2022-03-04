@@ -6,6 +6,7 @@ import mockReferencesData from "./mockReferencesData"
 import mockProductInfo from "./mockProductInfo"
 import mockGeneralInfoData from "./mockGeneralInfoData"
 import mockAssociatedData from "./mockAssociatedData"
+import mockLinks from "./mockLinksData"
 
 const mockGene: GeneQuery = {
   gene: {
@@ -22,7 +23,7 @@ const mockGene: GeneQuery = {
   },
   allPublications: {
     num_pubs: 14,
-    publications: [...mockReferencesData]
+    publications: [...mockReferencesData],
   },
   allOrthologs: {
     __typename: "Gene",
@@ -33,17 +34,22 @@ const mockGene: GeneQuery = {
   listGeneProductInfo: {
     id: "DDB_G0288511",
     name: "sadA",
-    product_info: [...mockProductInfo]
+    product_info: [...mockProductInfo],
   },
   generalInformation: {
     id: "DDB_G0288511",
     name: "sadA",
-    general_info: mockGeneralInfoData
+    general_info: mockGeneralInfoData,
   },
   getAssociatedSequnces: {
     id: "DDB_G0288511",
     name: "sadA",
-    associated_sequences: mockAssociatedData
-  }
+    associated_sequences: mockAssociatedData,
+  },
+  getLinks: {
+    id: "DDB_G0288511",
+    name: "sadA",
+    links: mockLinksData,
+  },
 }
 export default mockGene
