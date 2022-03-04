@@ -72,7 +72,7 @@ type AssociatedSequences {
 }
 
 type Links {
-  expression: String!
+  expression: [String!]
   colleagues: String!
   ext_resources: [String!]
 }
