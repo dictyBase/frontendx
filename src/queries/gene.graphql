@@ -121,9 +121,18 @@ query Gene($gene: String!, $limit: Int, $sort_by: String = "desc") {
     id
     name
     links {
-      expression
-      colleagues
-      ext_resources
+      expression {
+        name
+        link
+      }
+      colleagues {
+        name
+        link
+      }
+      ext_resources {
+        name
+        link
+      }
     }
   }
 }
