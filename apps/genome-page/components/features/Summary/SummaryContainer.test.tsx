@@ -69,7 +69,6 @@ describe("features/Summary/SummaryContainer", () => {
 
     // Render Links
     expect(screen.getByText(/Expression/)).toBeInTheDocument()
-    expect(screen.getByText(/dictyExpress (microarray)/)).toBeInTheDocument()
 
     expect(screen.getByText(/dictyBase Colleagues/)).toBeInTheDocument()
     expect(screen.getByText(/piaA Researchers/)).toBeInTheDocument()
