@@ -41,7 +41,7 @@ const SummaryContainer = ({ gene }: SummaryContainerProps) => {
         <PanelWrapper title={"Associated Sequences"} route={`/gene/${geneId}/`}>
           <AssociatedSequencePanel data={gene} />
         </PanelWrapper>
-        <PanelWrapper title={referencesTitle} route={`/gene/${geneId}/`}>
+        <PanelWrapper title={"Links"} route={`/gene/${geneId}/`}>
           <LinkPanel data={gene} />
         </PanelWrapper>
         <PanelWrapper
