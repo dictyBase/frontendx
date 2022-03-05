@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: 16.13.1
       - name: check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: install dependencies
         run: |
           mv common/utils/clientConfig.sample.ts common/utils/clientConfig.ts
