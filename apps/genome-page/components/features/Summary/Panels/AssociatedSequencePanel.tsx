@@ -58,7 +58,7 @@ const AssociatedSequencePanel = ({ data }: Props) => {
           ) : (
             <></>
           )}
-          <a href="">more..</a>
+          <a href={associated_seq.associated_sequences.more_link}>more..</a>
         </RightDisplay>
       </ItemDisplay>
     </div>

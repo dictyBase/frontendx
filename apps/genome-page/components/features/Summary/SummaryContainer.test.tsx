@@ -7,7 +7,7 @@ const useRouter = jest.spyOn(require("next/router"), "useRouter")
 
 describe("features/Summary/SummaryContainer", () => {
   beforeEach(() => jest.clearAllMocks())
-  it("should display data", async () => {
+  it("should display data for sadA", async () => {
     await new Promise(process.nextTick)
     useRouter.mockImplementation(() => ({
       query: { id: "sadA" },
@@ -16,27 +16,13 @@ describe("features/Summary/SummaryContainer", () => {
     render(<SummaryContainer gene={mockGene as GeneQuery} />)
 
     // Render General Information
-    expect(screen.getByText(/sadA/)).toBeInTheDocument()
-
     expect(screen.getByText(/Name Description/)).toBeInTheDocument()
-    expect(screen.getByText(/pia = PIAnissimo/)).toBeInTheDocument()
-    expect(
-      screen.getByText(/rictor = Rapamycin-Insensitive Companion of mTOR/),
-    ).toBeInTheDocument()
-
-    expect(screen.getByText(/Alternative Gene Names/)).toBeInTheDocument()
-    expect(screen.getByText(/DG1117, amiA, pia, rictor/)).toBeInTheDocument()
+    expect(screen.getByText(/sadA = Substrate ADhesion/)).toBeInTheDocument()
 
     expect(screen.getByText(/Gene ID/)).toBeInTheDocument()
     expect(screen.getByText(/DDB_G0288511/)).toBeInTheDocument()
 
-    expect(
-      screen.getByText(/cytosolic regulator of adenylyl cyclase PiaA/),
-    ).toBeInTheDocument()
-    expect(screen.getByText(/Alternative Protein Names/)).toBeInTheDocument()
-    expect(
-      screen.getByText(/Pianissimo, cytosolic regulator of adenylate cyclase/),
-    ).toBeInTheDocument()
+    expect(screen.getByText(/substrate adhesion molecule/)).toBeInTheDocument()
 
     // Render Latest Gene Ontology Annotations
     expect(screen.getByText(/Molecular Function/)).toBeInTheDocument()
@@ -55,11 +41,8 @@ describe("features/Summary/SummaryContainer", () => {
     expect(screen.getByText(/Wu & Janetopoulos/)).toBeInTheDocument()
 
     // Render Gene Product Information
-    expect(
-      screen.getByText(/Derived from gene prediction. Supported by mRNA./),
-    ).toBeInTheDocument()
-    expect(screen.getByText(/1,148 aa/)).toBeInTheDocument()
-    expect(screen.getByText(/129,527.5 Da/)).toBeInTheDocument()
+    expect(screen.getByText(/952 aa/)).toBeInTheDocument()
+    expect(screen.getByText(/104,673.8 Da/)).toBeInTheDocument()
 
     // Render Associated Sequences
     expect(screen.getByText(/GenBank Genomic Fragment/)).toBeInTheDocument()
@@ -71,9 +54,8 @@ describe("features/Summary/SummaryContainer", () => {
     expect(screen.getByText(/Expression/)).toBeInTheDocument()
 
     expect(screen.getByText(/dictyBase Colleagues/)).toBeInTheDocument()
-    expect(screen.getByText(/piaA Researchers/)).toBeInTheDocument()
+    expect(screen.getByText(/sadA Researchers/)).toBeInTheDocument()
 
     expect(screen.getByText(/External Resources/)).toBeInTheDocument()
-    expect(screen.getByText(/STKE/)).toBeInTheDocument()
   })
 })
