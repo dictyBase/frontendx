@@ -25,13 +25,9 @@ const SummaryContainer = ({ gene }: SummaryContainerProps) => {
       title={`Gene Summary for ${geneId}`}
       description={`Gene information for ${geneId}`}>
       <Typography component="div">
-        {gene.generalInformation ? (
-          <PanelWrapper title="General Information" route={`/gene/${geneId}/`}>
-            <GeneralInfoPanel gene={gene} />
-          </PanelWrapper>
-        ) : (
-          <></>
-        )}
+        <PanelWrapper title="General Information" route={`/gene/${geneId}/`}>
+          <GeneralInfoPanel gene={gene} />
+        </PanelWrapper>
         {gene.gene ? (
           <PanelWrapper
             title="Latest Gene Ontology Annotations"
@@ -66,15 +62,11 @@ const SummaryContainer = ({ gene }: SummaryContainerProps) => {
         ) : (
           <></>
         )}
-        {gene.allPublications ? (
-          <PanelWrapper
-            title={referencesTitle}
-            route={`/gene/${geneId}/references`}>
-            <ReferencesPanel gene={gene} />
-          </PanelWrapper>
-        ) : (
-          <></>
-        )}
+        <PanelWrapper
+          title={referencesTitle}
+          route={`/gene/${geneId}/references`}>
+          <ReferencesPanel gene={gene} />
+        </PanelWrapper>
       </Typography>
     </Layout>
   )
