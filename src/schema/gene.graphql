@@ -59,7 +59,7 @@ type Orthologs {
 }
 
 type GeneralInfo {
-  name_description: [String!]
+  name_description: [String!]!
   alt_gene_name: [String!]
   gene_product: String!
   alt_protein_names: [String!]
