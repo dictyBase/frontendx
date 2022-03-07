@@ -1,9 +1,16 @@
-import { AssociatedSequences } from 'dicty-graphql-schema';
+import { AssociatedSequences, NameWithLink } from "dicty-graphql-schema"
 
 const mockAssociatedData: AssociatedSequences = {
-    genbank_genomic_fragment: "AY178767",
-    ests: ["DDB0025213","DDB0029617","DDB0031643","DDB0085797","DDB0032475","DDB0024552"]
+  genbank_genomic_fragment: { name: "AY178767", link: "" } as NameWithLink,
+  genbank_mrna: { name: "AF085194", link: "" } as NameWithLink,
+  ests: [
+    { name: "DDB0025213", link: "" },
+    { name: "DDB0029617", link: "" },
+    { name: "DDB0031643", link: "" },
+    { name: "DDB0085797", link: "" },
+    { name: "DDB0032475", link: "" },
+    { name: "DDB0024552", link: "" },
+  ] as NameWithLink[],
 }
-
 
 export default mockAssociatedData
