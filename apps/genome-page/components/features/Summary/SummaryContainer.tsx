@@ -25,30 +25,56 @@ const SummaryContainer = ({ gene }: SummaryContainerProps) => {
       title={`Gene Summary for ${geneId}`}
       description={`Gene information for ${geneId}`}>
       <Typography component="div">
-        <PanelWrapper title="General Information" route={`/gene/${geneId}/`}>
-          <GeneralInfoPanel gene={gene} />
-        </PanelWrapper>
-        <PanelWrapper
-          title="Latest Gene Ontology Annotations"
-          route={`/gene/${geneId}/goannotations`}>
-          <GoaPanel data={gene} />
-        </PanelWrapper>
-        <PanelWrapper
-          title={"Gene Product Information"}
-          route={`/gene/${geneId}/`}>
-          <ProductInfoPanel gene={gene} />
-        </PanelWrapper>
-        <PanelWrapper title={"Associated Sequences"} route={`/gene/${geneId}/`}>
-          <AssociatedSequencePanel data={gene} />
-        </PanelWrapper>
-        <PanelWrapper title={"Links"} route={`/gene/${geneId}/`}>
-          <LinkPanel data={gene} />
-        </PanelWrapper>
-        <PanelWrapper
-          title={referencesTitle}
-          route={`/gene/${geneId}/references`}>
-          <ReferencesPanel gene={gene} />
-        </PanelWrapper>
+        {gene.generalInformation ? (
+          <PanelWrapper title="General Information" route={`/gene/${geneId}/`}>
+            <GeneralInfoPanel gene={gene} />
+          </PanelWrapper>
+        ) : (
+          <></>
+        )}
+        {gene.gene ? (
+          <PanelWrapper
+            title="Latest Gene Ontology Annotations"
+            route={`/gene/${geneId}/goannotations`}>
+            <GoaPanel data={gene} />
+          </PanelWrapper>
+        ) : (
+          <></>
+        )}
+        {gene.listGeneProductInfo ? (
+          <PanelWrapper
+            title={"Gene Product Information"}
+            route={`/gene/${geneId}/`}>
+            <ProductInfoPanel gene={gene} />
+          </PanelWrapper>
+        ) : (
+          <></>
+        )}
+        {gene.getAssociatedSequnces ? (
+          <PanelWrapper
+            title={"Associated Sequences"}
+            route={`/gene/${geneId}/`}>
+            <AssociatedSequencePanel data={gene} />
+          </PanelWrapper>
+        ) : (
+          <></>
+        )}
+        {gene.getLinks ? (
+          <PanelWrapper title={"Links"} route={`/gene/${geneId}/`}>
+            <LinkPanel data={gene} />
+          </PanelWrapper>
+        ) : (
+          <></>
+        )}
+        {gene.allPublications ? (
+          <PanelWrapper
+            title={referencesTitle}
+            route={`/gene/${geneId}/references`}>
+            <ReferencesPanel gene={gene} />
+          </PanelWrapper>
+        ) : (
+          <></>
+        )}
       </Typography>
     </Layout>
   )
