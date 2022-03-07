@@ -113,8 +113,18 @@ query Gene($gene: String!, $limit: Int, $sort_by: String = "desc") {
     id
     name
     associated_sequences {
-      genbank_genomic_fragment
-      ests
+      genbank_genomic_fragment {
+        name
+        link
+      }
+      genbank_mrna {
+        name
+        link
+      }
+      ests {
+        name
+        link
+      }
     }
   }
   getLinks(gene: $gene) {
