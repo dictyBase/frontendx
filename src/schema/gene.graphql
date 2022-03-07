@@ -74,9 +74,9 @@ type AssociatedSequences {
 }
 
 type Links {
-  expression: [NameWithLink!]
+  expression: [NameWithLink!]!
   colleagues: NameWithLink!
-  ext_resources: [NameWithLink!]
+  ext_resources: [NameWithLink!]!
 }
 
 type NameWithLink {
