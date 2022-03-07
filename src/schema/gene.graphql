@@ -51,11 +51,11 @@ type Extension {
 }
 
 type Orthologs {
-  id: String!
+  id: NameWithLink!
   species: String!
-  uniprotkb: String!
+  uniprotkb: NameWithLink!
   gene_product: String!
-  source: [String!]
+  source: [String!]!
 }
 
 type GeneralInfo {

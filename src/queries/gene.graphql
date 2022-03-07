@@ -76,9 +76,15 @@ query Gene($gene: String!, $limit: Int, $sort_by: String = "desc") {
     id
     name
     orthologs {
-      id
+      id {
+        name
+        link
+      }
       species
-      uniprotkb
+      uniprotkb {
+        name
+        link
+      }
       gene_product
       source
     }
