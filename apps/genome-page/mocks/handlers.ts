@@ -1,6 +1,8 @@
 import { graphql } from "msw"
 import mockGene from "./mockGene"
 import mockGeneLimit from "./mockGeneLimit"
+import mockGenePiaA from "./piaAMocks/mockGenePiaA"
+import mockGenePiaALimit from "./piaAMocks/mockGenePiaALimit"
 
 export const handlers = [
   // Handles the Gene query: https://github.com/dictyBase/dicty-graphql-schema/blob/develop/src/queries/gene.graphql
@@ -10,10 +12,16 @@ export const handlers = [
     const limit = req.body?.variables?.limit
 
     if (gene === "sadA") {
-      if(limit == 3) {
+      if (limit == 3) {
         return res(ctx.data({ ...mockGeneLimit }))
       }
       return res(ctx.data({ ...mockGene }))
+    }
+    if (gene === "piaA") {
+      if (limit == 3) {
+        return res(ctx.data({ ...mockGenePiaALimit }))
+      }
+      return res(ctx.data({ ...mockGenePiaA }))
     }
   }),
 ]
