@@ -125,6 +125,7 @@ query Gene($gene: String!, $limit: Int, $sort_by: String = "desc") {
         name
         link
       }
+      more_link
     }
   }
   getLinks(gene: $gene) {
