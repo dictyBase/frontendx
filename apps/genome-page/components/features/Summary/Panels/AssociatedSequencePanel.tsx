@@ -48,12 +48,10 @@ const AssociatedSequencePanel = ({ data }: Props) => {
         <RightDisplay>
           {associated_seq.associated_sequences.ests ? (
             associated_seq.associated_sequences.ests.map((item, i) => (
-              <>
-                <a href={item.link} key={i}>
-                  {item.name}
-                </a>
+              <React.Fragment key={i}>
+                <a href={item.link}>{item.name}</a>
                 &nbsp;&nbsp;&nbsp;
-              </>
+              </React.Fragment>
             ))
           ) : (
             <></>
