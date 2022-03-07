@@ -16,6 +16,7 @@ type Props = {
 const AssociatedSequencePanel = ({ data }: Props) => {
   if (!data.getAssociatedSequnces) return <OtherError />
   const associated_seq = data.getAssociatedSequnces
+  console.log(associated_seq)
 
   return (
     <div>
@@ -35,7 +36,7 @@ const AssociatedSequencePanel = ({ data }: Props) => {
           <LeftDisplay>GenBank mRNA</LeftDisplay>
           <RightDisplay>
             <a href={associated_seq.associated_sequences.genbank_mrna.link}>
-              {associated_seq.associated_sequences.genbank_mrna.link}
+              {associated_seq.associated_sequences.genbank_mrna.name}
             </a>
           </RightDisplay>
         </ItemDisplay>
@@ -47,9 +48,12 @@ const AssociatedSequencePanel = ({ data }: Props) => {
         <RightDisplay>
           {associated_seq.associated_sequences.ests ? (
             associated_seq.associated_sequences.ests.map((item, i) => (
-              <React.Fragment key={i}>
-                <a href={item.link}>{item.name}</a>&nbsp;&nbsp;&nbsp;
-              </React.Fragment>
+              <>
+                <a href={item.link} key={i}>
+                  {item.name}
+                </a>
+                &nbsp;&nbsp;&nbsp;
+              </>
             ))
           ) : (
             <></>
