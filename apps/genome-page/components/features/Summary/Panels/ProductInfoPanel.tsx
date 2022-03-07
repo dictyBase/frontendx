@@ -23,7 +23,9 @@ const ProductInfoPanel = ({ gene }: Props) => {
       <ItemDisplay>
         <LeftDisplay>Protein Coding Gene</LeftDisplay>
         <RightDisplay>
-          {productInfo.protein_coding_gene}
+          <a href={productInfo.protein_coding_gene.link}>
+            {productInfo.protein_coding_gene.name}
+          </a>
           <Image
             src="/icon_yes_green.png"
             alt="Yes Icon"
