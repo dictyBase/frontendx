@@ -87,7 +87,10 @@ query Gene($gene: String!, $limit: Int, $sort_by: String = "desc") {
     id
     name
     product_info {
-      protein_coding_gene
+      protein_coding_gene {
+        name
+        link
+      }
       protein_length
       protein_molecular_weight
       more_protein_data
