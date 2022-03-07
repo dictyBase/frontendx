@@ -1,14 +1,6 @@
 import { TableRow, TableCell, Box } from "@material-ui/core"
 import { commaSeparate } from "common/utils/strings"
-
-interface OrthologsRowProps {
-  __typename?: "Orthologs"
-  id: string
-  species: string
-  uniprotkb: string
-  gene_product: string
-  source?: Array<string> | null | undefined
-}
+import { Orthologs } from "dicty-graphql-schema"
 
 const PhenotypeRow = ({
   id,
@@ -16,7 +8,7 @@ const PhenotypeRow = ({
   uniprotkb,
   gene_product,
   source,
-}: OrthologsRowProps) => {
+}: Orthologs) => {
   return (
     <TableRow>
       <TableCell>
