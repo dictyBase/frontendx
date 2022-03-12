@@ -33,7 +33,7 @@
     "@apollo/client": "^3.5.10",
     "@graphql-codegen/cli": "2.6.2",
     "@graphql-codegen/introspection": "2.1.1",
-    "@graphql-codegen/typescript": "2.4.5",
+    "@graphql-codegen/typescript": "2.4.7",
     "@graphql-codegen/typescript-operations": "2.3.4",
     "@graphql-codegen/typescript-react-apollo": "3.2.10",
     "@semantic-release/changelog": "^6.0.1",
