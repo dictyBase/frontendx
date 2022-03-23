@@ -1,14 +1,12 @@
 import Typography from "@material-ui/core/Typography"
 import PanelWrapper from "components/panels/PanelWrapper"
 import Layout from "components/layout/Layout"
-import GoaPanel from "./Panels/GoaPanel"
-import ReferencesPanel from "./Panels/ReferencesPanel"
-import GeneralInfoPanel from "./Panels/GeneralInfoPanel"
 import { GeneQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
-import ProductInfoPanel from "./Panels/ProductInfoPanel"
-import AssociatedSequencePanel from "./Panels/AssociatedSequencePanel"
-import LinkPanel from "./Panels/LinksPanel"
+import {
+  contentGenerator,
+  convertStringToTemplateString,
+} from "../../../common/utils/contentGenerator"
 
 interface SummaryContainerProps {
   gene: GeneQuery
@@ -17,7 +15,17 @@ interface SummaryContainerProps {
 const SummaryContainer = ({ gene }: SummaryContainerProps) => {
   const { query } = useRouter()
   const geneId = query.gene as string
-  const referencesTitle = `Latest References (press references tab to view all ${gene.allPublications.num_pubs} papers)`
+  let returnArray = contentGenerator(
+    [
+      "generalInformation",
+      "gene",
+      "listGeneProductInfo",
+      "getAssociatedSequnces",
+      "getLinks",
+      "allPublications",
+    ],
+    gene,
+  )
 
   return (
     <Layout
@@ -25,48 +33,14 @@ const SummaryContainer = ({ gene }: SummaryContainerProps) => {
       title={`Gene Summary for ${geneId}`}
       description={`Gene information for ${geneId}`}>
       <Typography component="div">
-        <PanelWrapper title="General Information" route={`/gene/${geneId}/`}>
-          <GeneralInfoPanel gene={gene} />
-        </PanelWrapper>
-        {gene.gene ? (
+        {returnArray.map((item, key) => (
           <PanelWrapper
-            title="Latest Gene Ontology Annotations"
-            route={`/gene/${geneId}/goannotations`}>
-            <GoaPanel data={gene} />
+            key={key}
+            title={item.props.title}
+            route={convertStringToTemplateString(item.props.route, gene)}>
+            {item.component}
           </PanelWrapper>
-        ) : (
-          <></>
-        )}
-        {gene.listGeneProductInfo ? (
-          <PanelWrapper
-            title={"Gene Product Information"}
-            route={`/gene/${geneId}/`}>
-            <ProductInfoPanel gene={gene} />
-          </PanelWrapper>
-        ) : (
-          <></>
-        )}
-        {gene.getAssociatedSequnces ? (
-          <PanelWrapper
-            title={"Associated Sequences"}
-            route={`/gene/${geneId}/`}>
-            <AssociatedSequencePanel data={gene} />
-          </PanelWrapper>
-        ) : (
-          <></>
-        )}
-        {gene.getLinks ? (
-          <PanelWrapper title={"Links"} route={`/gene/${geneId}/`}>
-            <LinkPanel data={gene} />
-          </PanelWrapper>
-        ) : (
-          <></>
-        )}
-        <PanelWrapper
-          title={referencesTitle}
-          route={`/gene/${geneId}/references`}>
-          <ReferencesPanel gene={gene} />
-        </PanelWrapper>
+        ))}
       </Typography>
     </Layout>
   )
