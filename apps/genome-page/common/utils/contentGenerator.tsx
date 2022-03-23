@@ -6,6 +6,15 @@ import ProductInfoPanel from "components/features/Summary/Panels/ProductInfoPane
 import ReferencesPanel from "components/features/Summary/Panels/ReferencesPanel"
 import { GeneQuery } from "dicty-graphql-schema"
 
+interface ReturnProps {
+  props: {
+    id: String
+    title: String
+    route: String
+  }
+  component: JSX.Element | undefined
+}
+
 const SummaryContainerContent = {
   generalInformation: {
     id: "generalInformation",
@@ -80,8 +89,7 @@ const convertStringToTemplateString = (target: string, gene: GeneQuery) => {
   This function will take in props and return the container items
 */
 const contentGenerator = (req: string[], gene: GeneQuery) => {
-  let returnArray: any[] = []
-  console.log(gene)
+  let returnArray: ReturnProps[] = []
   req.forEach((element) => {
     if (gene[element]) {
       let entry = {
