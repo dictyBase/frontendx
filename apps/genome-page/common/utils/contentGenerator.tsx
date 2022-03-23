@@ -68,10 +68,7 @@ const returnComponentByName = (id: string, gene: GeneQuery) => {
   }
 }
 
-const convertStringToTemplateString = (target: string, gene: GeneQuery) => {
-  /* Not efficient 
-    I tried the regex but I had issue with converting a string to a string literal
-  */
+const createRouteFromString = (target: string, gene: GeneQuery) => {
   switch (target) {
     case "geneId":
       return target.replace("$(geneId}", `${gene.gene?.name}`)
@@ -106,8 +103,4 @@ const contentGenerator = (req: string[], gene: GeneQuery) => {
   return returnArray
 }
 
-export {
-  contentGenerator,
-  convertStringToTemplateString,
-  returnComponentByName,
-}
+export { contentGenerator, createRouteFromString, returnComponentByName }
