@@ -8,9 +8,9 @@ import { GeneQuery } from "dicty-graphql-schema"
 
 interface ReturnProps {
   props: {
-    id: String
-    title: String
-    route: String
+    id: string
+    title: string
+    route: string
   }
   component: JSX.Element | undefined
 }
