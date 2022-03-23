@@ -15,7 +15,7 @@ interface SummaryContainerProps {
 const SummaryContainer = ({ gene }: SummaryContainerProps) => {
   const { query } = useRouter()
   const geneId = query.gene as string
-  let returnArray = contentGenerator(
+  let displayList = contentGenerator(
     [
       "generalInformation",
       "gene",
@@ -33,7 +33,7 @@ const SummaryContainer = ({ gene }: SummaryContainerProps) => {
       title={`Gene Summary for ${geneId}`}
       description={`Gene information for ${geneId}`}>
       <Typography component="div">
-        {returnArray.map((item, key) => (
+        {displayList.map((item, key) => (
           <PanelWrapper
             key={key}
             title={item.props.title}
