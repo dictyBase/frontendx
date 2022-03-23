@@ -1,6 +1,9 @@
 import AssociatedSequencePanel from "components/features/Summary/Panels/AssociatedSequencePanel"
 import GeneralInfoPanel from "components/features/Summary/Panels/GeneralInfoPanel"
+import GoaPanel from "components/features/Summary/Panels/GoaPanel"
+import LinkPanel from "components/features/Summary/Panels/LinksPanel"
 import ProductInfoPanel from "components/features/Summary/Panels/ProductInfoPanel"
+import ReferencesPanel from "components/features/Summary/Panels/ReferencesPanel"
 import PanelWrapper from "components/panels/PanelWrapper"
 import { Content, GeneQuery, Gene } from "dicty-graphql-schema"
 import { Component } from "react"
@@ -40,8 +43,25 @@ const SummaryContainerContent = {
 }
 
 const returnComponentByName = (id: string, gene: GeneQuery) => {
-  if (id === "generalInformation") {
-    return <GeneralInfoPanel gene={gene}></GeneralInfoPanel>
+  switch (id) {
+    case "generalInformation":
+      ;<GeneralInfoPanel gene={gene}></GeneralInfoPanel>
+      break
+    case "gene":
+      ;<GoaPanel data={gene} />
+      break
+    case "listGeneProductInfo":
+      ;<ProductInfoPanel gene={gene} />
+      break
+    case "getAssociatedSequences":
+      ;<AssociatedSequencePanel data={gene} />
+      break
+    case "getLinks":
+      ;<LinkPanel data={gene} />
+      break
+    case "allPublications":
+      ;<ReferencesPanel gene={gene} />
+      break
   }
 }
 
