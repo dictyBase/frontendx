@@ -5,7 +5,7 @@ import { GeneQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
 import {
   contentGenerator,
-  convertStringToTemplateString,
+  createPathFromString,
 } from "../../../common/utils/contentGenerator"
 
 interface SummaryContainerProps {
@@ -37,7 +37,7 @@ const SummaryContainer = ({ gene }: SummaryContainerProps) => {
           <PanelWrapper
             key={key}
             title={item.props.title}
-            route={convertStringToTemplateString(item.props.route, gene)}>
+            route={createPathFromString(item.props.route, gene)}>
             {item.component}
           </PanelWrapper>
         ))}
