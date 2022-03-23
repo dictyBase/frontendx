@@ -4,9 +4,7 @@ import GoaPanel from "components/features/Summary/Panels/GoaPanel"
 import LinkPanel from "components/features/Summary/Panels/LinksPanel"
 import ProductInfoPanel from "components/features/Summary/Panels/ProductInfoPanel"
 import ReferencesPanel from "components/features/Summary/Panels/ReferencesPanel"
-import PanelWrapper from "components/panels/PanelWrapper"
-import { Content, GeneQuery, Gene } from "dicty-graphql-schema"
-import { Component } from "react"
+import { GeneQuery } from "dicty-graphql-schema"
 
 const SummaryContainerContent = {
   generalInformation: {
@@ -38,30 +36,26 @@ const SummaryContainerContent = {
     id: "allPublications",
     title:
       "Latest References (press references tab to view all ${gene.allPublications.num_pubs} papers)",
-    route: "`/gene/${geneId}/references`",
+    route: "/gene/${geneId}/references",
   },
 }
 
 const returnComponentByName = (id: string, gene: GeneQuery) => {
   switch (id) {
     case "generalInformation":
-      ;<GeneralInfoPanel gene={gene}></GeneralInfoPanel>
-      break
+      return <GeneralInfoPanel gene={gene}></GeneralInfoPanel>
     case "gene":
-      ;<GoaPanel data={gene} />
-      break
+      return <GoaPanel data={gene} />
     case "listGeneProductInfo":
-      ;<ProductInfoPanel gene={gene} />
-      break
+      return <ProductInfoPanel gene={gene} />
     case "getAssociatedSequences":
-      ;<AssociatedSequencePanel data={gene} />
-      break
+      return <AssociatedSequencePanel data={gene} />
     case "getLinks":
-      ;<LinkPanel data={gene} />
-      break
+      return <LinkPanel data={gene} />
     case "allPublications":
-      ;<ReferencesPanel gene={gene} />
-      break
+      return <ReferencesPanel gene={gene} />
+    default:
+      return
   }
 }
 
@@ -69,13 +63,17 @@ const convertStringToTemplateString = (target: string, gene: GeneQuery) => {
   /* Not efficient 
     I tried the regex but I had issue with converting a string to a string literal
   */
-  if (target === "geneId")
-    return target.replace("$(geneId}", `${gene.gene?.name}`)
-  if (target === "allPublications")
-    return target.replace(
-      "${gene.allPublications.num_pubs",
-      `${gene.allPublications.num_pubs}`,
-    )
+  switch (target) {
+    case "geneId":
+      return target.replace("$(geneId}", `${gene.gene?.name}`)
+    case "allPublications":
+      return target.replace(
+        "${gene.allPublications.num_pubs",
+        `${gene.allPublications.num_pubs}`,
+      )
+    default:
+      return
+  }
 }
 
 /* 
