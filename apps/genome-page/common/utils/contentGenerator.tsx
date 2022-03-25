@@ -15,6 +15,21 @@ interface ReturnProps {
   component: JSX.Element | undefined
 }
 
+interface ContainerProps {
+  id: string
+  title: string
+  route: string
+}
+
+interface SummaryContainerTypes {
+  generalInformation: ContainerProps
+  gene: ContainerProps
+  listGeneProductInfo: ContainerProps
+  getAssociatedSequnces: ContainerProps
+  getLinks: ContainerProps
+  allPublications: ContainerProps
+}
+
 const SummaryContainerContent = {
   generalInformation: {
     id: "generalInformation",
@@ -88,11 +103,11 @@ const createRouteFromString = (target: string, gene: GeneQuery) => {
 const contentGenerator = (req: string[], gene: GeneQuery) => {
   let returnArray: ReturnProps[] = []
   req.forEach((element) => {
-    if (gene[element]) {
+    if (gene[element as keyof GeneQuery]) {
       let entry = {
-        props: SummaryContainerContent[element],
+        props: SummaryContainerContent[element as keyof SummaryContainerTypes],
         component: returnComponentByName(
-          SummaryContainerContent[element].id,
+          SummaryContainerContent[element as keyof SummaryContainerTypes].id,
           gene,
         ),
       }
