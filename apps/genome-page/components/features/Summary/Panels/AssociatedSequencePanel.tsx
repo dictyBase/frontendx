@@ -16,7 +16,6 @@ type Props = {
 const AssociatedSequencePanel = ({ data }: Props) => {
   if (!data.getAssociatedSequnces) return <OtherError />
   const associated_seq = data.getAssociatedSequnces
-  console.log(associated_seq)
 
   return (
     <div>

@@ -4,7 +4,6 @@ import OtherError from "components/errors/OtherError"
 import LeftDisplay from "components/panels/LeftDisplay"
 import ItemDisplay from "components/panels/ItemDisplay"
 import RightDisplay from "components/panels/RightDisplay"
-import { commaSeparate } from "common/utils/strings"
 import { panelGenerator } from "common/utils/panelGenerator"
 
 type Props = {
@@ -18,7 +17,7 @@ type Props = {
 const GeneralInfoPanel = ({ gene }: Props) => {
   if (!gene.generalInformation?.general_info) return <OtherError />
   const gen_info = gene.generalInformation.general_info
-  console.log(gen_info)
+
   let output = panelGenerator(
     [
       { id: "Gene Name", value: gene.gene?.name },
@@ -43,58 +42,6 @@ const GeneralInfoPanel = ({ gene }: Props) => {
           </ItemDisplay>
         )
       })}
-      {/* <ItemDisplay>
-        <LeftDisplay>Gene Name</LeftDisplay>
-        <RightDisplay>{gene.gene?.name}</RightDisplay>
-      </ItemDisplay>
-      <ItemDisplay>
-        <LeftDisplay>Name Description</LeftDisplay>
-        <RightDisplay>
-          {gen_info.name_description?.map((desc, i) => (
-            <React.Fragment key={i}>
-              {desc}
-              <br />
-            </React.Fragment>
-          ))}
-        </RightDisplay>
-      </ItemDisplay>
-      {gen_info.alt_gene_name ? (
-        <ItemDisplay>
-          <LeftDisplay>Alternative Gene Names</LeftDisplay>
-          <RightDisplay>
-            <i>{commaSeparate(gen_info.alt_gene_name)}</i>
-          </RightDisplay>
-        </ItemDisplay>
-      ) : (
-        <></>
-      )}
-      <ItemDisplay>
-        <LeftDisplay>Gene ID</LeftDisplay>
-        <RightDisplay>{gene.gene?.id}</RightDisplay>
-      </ItemDisplay>
-      <ItemDisplay>
-        <LeftDisplay>Gene Product</LeftDisplay>
-        <RightDisplay>{gen_info.gene_product}</RightDisplay>
-      </ItemDisplay>
-      {gen_info.alt_protein_names ? (
-        <ItemDisplay>
-          <LeftDisplay>Alternative Protein Names</LeftDisplay>
-          <RightDisplay>
-            {gen_info.alt_protein_names.map((name, i) => (
-              <React.Fragment key={i}>
-                {name}
-                <br />
-              </React.Fragment>
-            ))}
-          </RightDisplay>
-        </ItemDisplay>
-      ) : (
-        <></>
-      )}
-      <ItemDisplay>
-        <LeftDisplay>Description</LeftDisplay>
-        <RightDisplay>{gen_info.description}</RightDisplay>
-      </ItemDisplay> */}
     </div>
   )
 }
