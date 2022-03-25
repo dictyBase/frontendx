@@ -73,7 +73,7 @@ const returnComponentByName = (id: string, gene: GeneQuery) => {
       return <GoaPanel data={gene} />
     case "listGeneProductInfo":
       return <ProductInfoPanel gene={gene} />
-    case "getAssociatedSequences":
+    case "getAssociatedSequnces":
       return <AssociatedSequencePanel data={gene} />
     case "getLinks":
       return <LinkPanel data={gene} />

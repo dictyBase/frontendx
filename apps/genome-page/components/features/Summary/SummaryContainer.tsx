@@ -33,14 +33,16 @@ const SummaryContainer = ({ gene }: SummaryContainerProps) => {
       title={`Gene Summary for ${geneId}`}
       description={`Gene information for ${geneId}`}>
       <Typography component="div">
-        {displayList.map((item, key) => (
-          <PanelWrapper
-            key={key}
-            title={item.props.title}
-            route={createRouteFromString(item.props.route, gene)}>
-            {item.component}
-          </PanelWrapper>
-        ))}
+        {displayList.map((item, key) => {
+          return (
+            <PanelWrapper
+              key={key}
+              title={item.props.title}
+              route={createRouteFromString(item.props.route, gene)}>
+              {item.component}
+            </PanelWrapper>
+          )
+        })}
       </Typography>
     </Layout>
   )
