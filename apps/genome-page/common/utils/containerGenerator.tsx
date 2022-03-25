@@ -5,6 +5,7 @@ import LinkPanel from "components/features/Summary/Panels/LinksPanel"
 import ProductInfoPanel from "components/features/Summary/Panels/ProductInfoPanel"
 import ReferencesPanel from "components/features/Summary/Panels/ReferencesPanel"
 import { GeneQuery } from "dicty-graphql-schema"
+import React from "react"
 
 interface ReturnProps {
   props: {

@@ -5,6 +5,7 @@ import LeftDisplay from "components/panels/LeftDisplay"
 import ItemDisplay from "components/panels/ItemDisplay"
 import RightDisplay from "components/panels/RightDisplay"
 import { commaSeparate } from "common/utils/strings"
+import { panelGenerator } from "common/utils/panelGenerator"
 
 type Props = {
   /** Array of GO annotations for a particular gene */
@@ -17,10 +18,32 @@ type Props = {
 const GeneralInfoPanel = ({ gene }: Props) => {
   if (!gene.generalInformation?.general_info) return <OtherError />
   const gen_info = gene.generalInformation.general_info
+  console.log(gen_info)
+  let output = panelGenerator(
+    [
+      { id: "Gene Name", value: gene.gene?.name },
+      { id: "Name Description", value: gen_info.name_description },
+      { id: "Alternative Gene Names", value: gen_info.alt_gene_name },
+      { id: "Gene ID", value: gene.gene?.id },
+      { id: "Gene Product", value: gen_info.gene_product },
+      { id: "Alternative Protein Names", value: gen_info.alt_protein_names },
+      { id: "Description", value: gen_info.description },
+    ],
+    "generalInformation",
+    gene,
+  )
 
   return (
     <div>
-      <ItemDisplay>
+      {output?.map((item, key) => {
+        return (
+          <ItemDisplay key={key}>
+            <LeftDisplay>{item.leftDisplay}</LeftDisplay>
+            <RightDisplay>{item.rightDisplay}</RightDisplay>
+          </ItemDisplay>
+        )
+      })}
+      {/* <ItemDisplay>
         <LeftDisplay>Gene Name</LeftDisplay>
         <RightDisplay>{gene.gene?.name}</RightDisplay>
       </ItemDisplay>
@@ -71,7 +94,7 @@ const GeneralInfoPanel = ({ gene }: Props) => {
       <ItemDisplay>
         <LeftDisplay>Description</LeftDisplay>
         <RightDisplay>{gen_info.description}</RightDisplay>
-      </ItemDisplay>
+      </ItemDisplay> */}
     </div>
   )
 }
