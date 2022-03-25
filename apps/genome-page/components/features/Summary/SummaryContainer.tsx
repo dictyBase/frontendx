@@ -4,9 +4,9 @@ import Layout from "components/layout/Layout"
 import { GeneQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
 import {
-  contentGenerator,
-  createPathFromString,
-} from "../../../common/utils/contentGenerator"
+  containerGenerator,
+  createRouteFromString,
+} from "../../../common/utils/containerGenerator"
 
 interface SummaryContainerProps {
   gene: GeneQuery
@@ -15,7 +15,7 @@ interface SummaryContainerProps {
 const SummaryContainer = ({ gene }: SummaryContainerProps) => {
   const { query } = useRouter()
   const geneId = query.gene as string
-  let displayList = contentGenerator(
+  let displayList = containerGenerator(
     [
       "generalInformation",
       "gene",
@@ -37,7 +37,7 @@ const SummaryContainer = ({ gene }: SummaryContainerProps) => {
           <PanelWrapper
             key={key}
             title={item.props.title}
-            route={createPathFromString(item.props.route, gene)}>
+            route={createRouteFromString(item.props.route, gene)}>
             {item.component}
           </PanelWrapper>
         ))}
