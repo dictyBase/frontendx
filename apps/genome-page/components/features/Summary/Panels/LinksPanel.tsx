@@ -4,6 +4,7 @@ import LeftDisplay from "components/panels/LeftDisplay"
 import RightDisplay from "components/panels/RightDisplay"
 import { GeneQuery } from "dicty-graphql-schema"
 import OtherError from "components/errors/OtherError"
+import { panelGenerator } from "common/utils/panelGenerator"
 
 type Props = {
   /** Array of GO annotations for a particular gene */
@@ -17,42 +18,26 @@ const LinkPanel = ({ data }: Props) => {
   if (!data.getLinks?.links) return <OtherError />
   const links = data.getLinks.links
 
+  let output = panelGenerator(
+    [
+      { id: "Expression", value: links.expression },
+      { id: "dictyBase Colleagues", value: links.colleagues },
+      { id: "External Resources", value: links.ext_resources },
+    ],
+    "getLinks",
+    data,
+  )
+
   return (
     <div>
-      <ItemDisplay>
-        <LeftDisplay>Expression</LeftDisplay>
-        <RightDisplay>
-          {links.expression ? (
-            links.expression.map((item, i) => (
-              <a href={item.link} key={i}>
-                {item.name} |{" "}
-              </a>
-            ))
-          ) : (
-            <></>
-          )}
-        </RightDisplay>
-      </ItemDisplay>
-      <ItemDisplay>
-        <LeftDisplay>dictyBase Colleagues</LeftDisplay>
-        <RightDisplay>
-          <a href={links.colleagues.link}>{links.colleagues.name}</a>
-        </RightDisplay>
-      </ItemDisplay>
-      <ItemDisplay>
-        <LeftDisplay>External Resources</LeftDisplay>
-        <RightDisplay>
-          {links.ext_resources ? (
-            links.ext_resources.map((item, i) => (
-              <a href={item.link} key={i}>
-                {item.name} |{" "}
-              </a>
-            ))
-          ) : (
-            <></>
-          )}
-        </RightDisplay>
-      </ItemDisplay>
+      {output?.map((item, key) => {
+        return (
+          <ItemDisplay key={key}>
+            <LeftDisplay>{item.leftDisplay}</LeftDisplay>
+            <RightDisplay>{item.rightDisplay}</RightDisplay>
+          </ItemDisplay>
+        )
+      })}
     </div>
   )
 }

@@ -16,6 +16,7 @@ interface PanelReturnType {
     | JSX.Element
     | JSX.Element[]
     | NameWithLink
+    | NameWithLink[]
     | GenomicCoordinates[]
     | null
     | undefined
@@ -27,6 +28,7 @@ interface PanelReqProps {
     | string
     | string[]
     | NameWithLink
+    | NameWithLink[]
     | GenomicCoordinates[]
     | null
     | undefined
@@ -61,18 +63,23 @@ const panelGenerator = (
 
 const returnPanelContentById = (
   id: string,
-  value: string | string[] | NameWithLink | GenomicCoordinates[],
+  value:
+    | string
+    | string[]
+    | NameWithLink
+    | NameWithLink[]
+    | GenomicCoordinates[],
   gene: GeneQuery,
 ) => {
   /*
   Why switch over map
   https://medium.com/front-end-weekly/switch-case-if-else-or-a-lookup-map-a-study-case-de1c801d944
+  Using Type Assertion because this function will know what to return
  */
   switch (id) {
     case "Gene Name":
       return value
     case "Name Description":
-      // if (value === null || value === undefined || !Array.isArray(value)) return
       return (value as string[]).map((desc, i) => (
         <React.Fragment key={i}>
           {desc}
@@ -80,15 +87,12 @@ const returnPanelContentById = (
         </React.Fragment>
       ))
     case "Alternative Gene Names":
-      // if (value === null || value === undefined || !Array.isArray(value)) return
-      /* Using Type Assertion because I know that this will be a string[] */
       return <i>{commaSeparate(value as string[])}</i>
     case "Gene ID":
       return value
     case "Gene Product":
       return value
     case "Alternative Protein Names":
-      // if (value === null || value === undefined || !Array.isArray(value)) return
       return (value as string[]).map((name, i) => (
         <React.Fragment key={i}>
           {name}
@@ -99,8 +103,6 @@ const returnPanelContentById = (
       return value
     /* Product Info Panel */
     case "Protein Coding Gene":
-      // if (value === null || value === undefined || Array.isArray(value)) return
-      // if (typeof value === "string") return
       return (
         <>
           <a href={(value as NameWithLink).link}>
@@ -122,15 +124,31 @@ const returnPanelContentById = (
     case "Molecular Weight":
       return value as string
     case "More Protein Data":
-      // if (value === null || value === undefined || Array.isArray(value)) return
-      // if (typeof value !== "string") return
       return (
         <a href={value as string}>Protein sequence, domains and much more...</a>
       )
     case "Genomic Coords.":
       return <TableDisplay data={value as GenomicCoordinates[]}></TableDisplay>
+    /* Links Panel */
+    case "Expression":
+      return (value as NameWithLink[]).map((item, i) => (
+        <a href={item.link} key={i}>
+          {item.name} |{" "}
+        </a>
+      ))
+    case "dictyBase Colleagues":
+      return (
+        <a href={(value as NameWithLink).link}>
+          {(value as NameWithLink).name}
+        </a>
+      )
+    case "External Resources":
+      return (value as NameWithLink[]).map((item, i) => (
+        <a href={item.link} key={i}>
+          {item.name} |{" "}
+        </a>
+      ))
   }
 }
 
 export { panelGenerator }
-
