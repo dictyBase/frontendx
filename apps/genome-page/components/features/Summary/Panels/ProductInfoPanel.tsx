@@ -1,10 +1,9 @@
 import { GeneQuery } from "dicty-graphql-schema"
 import OtherError from "components/errors/OtherError"
-import Image from "next/image"
 import LeftDisplay from "components/panels/LeftDisplay"
 import ItemDisplay from "components/panels/ItemDisplay"
 import RightDisplay from "components/panels/RightDisplay"
-import TableDisplay from "../../../panels/GenomicCoordsTable"
+import { panelGenerator } from "common/utils/panelGenerator"
 
 type Props = {
   /** Array of GO annotations for a particular gene */
@@ -18,49 +17,31 @@ const ProductInfoPanel = ({ gene }: Props) => {
   if (!gene.listGeneProductInfo?.product_info) return <OtherError />
   const productInfo = gene.listGeneProductInfo.product_info[0]
 
+  let output = panelGenerator(
+    [
+      { id: "Protein Coding Gene", value: productInfo.protein_coding_gene },
+      { id: "Protein Length", value: productInfo.protein_length },
+      { id: "Molecular Weight", value: productInfo.protein_molecular_weight },
+      { id: "More Protein Data", value: productInfo.more_protein_data },
+      { id: "Genomic Coords.", value: productInfo.genomic_coords },
+    ],
+    "generalInformation",
+    gene,
+  )
+
   return (
     <div>
-      <ItemDisplay>
-        <LeftDisplay>Protein Coding Gene</LeftDisplay>
-        <RightDisplay>
-          <a href={productInfo.protein_coding_gene.link}>
-            {productInfo.protein_coding_gene.name}
-          </a>
-          <Image
-            src="/icon_yes_green.png"
-            alt="Yes Icon"
-            width={30}
-            height={30}
-          />
-          {"(Curator reviewed)"}
-          <br />
-          {"Derived from gene prediction. Supported by mRNA."}
-        </RightDisplay>
-      </ItemDisplay>
-      <ItemDisplay>
-        <LeftDisplay>Protein Length</LeftDisplay>
-        <RightDisplay>{productInfo.protein_length}</RightDisplay>
-      </ItemDisplay>
-      <ItemDisplay>
-        <LeftDisplay>Molecular Weight</LeftDisplay>
-        <RightDisplay>{productInfo.protein_molecular_weight}</RightDisplay>
-      </ItemDisplay>
-      <ItemDisplay>
-        <LeftDisplay>More Protein Data</LeftDisplay>
-        <RightDisplay>
-          <a href={productInfo.more_protein_data}>
-            Protein sequence, domains and much more...
-          </a>
-        </RightDisplay>
-      </ItemDisplay>
-      <ItemDisplay>
-        <LeftDisplay>Genomic Coords.</LeftDisplay>
-        <RightDisplay>
-          <TableDisplay data={productInfo.genomic_coords}></TableDisplay>
-        </RightDisplay>
-      </ItemDisplay>
+      {output?.map((item, key) => {
+        return (
+          <ItemDisplay key={key}>
+            <LeftDisplay>{item.leftDisplay}</LeftDisplay>
+            <RightDisplay>{item.rightDisplay}</RightDisplay>
+          </ItemDisplay>
+        )
+      })}
     </div>
   )
 }
 
 export default ProductInfoPanel
+
