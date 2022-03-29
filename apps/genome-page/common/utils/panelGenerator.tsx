@@ -2,6 +2,7 @@ import {
   GeneQuery,
   GenomicCoordinates,
   NameWithLink,
+  AssociatedSequences,
 } from "dicty-graphql-schema"
 import React from "react"
 import Image from "next/image"
@@ -18,6 +19,7 @@ interface PanelReturnType {
     | NameWithLink
     | NameWithLink[]
     | GenomicCoordinates[]
+    | AssociatedSequences
     | null
     | undefined
 }
@@ -30,12 +32,18 @@ interface PanelReqProps {
     | NameWithLink
     | NameWithLink[]
     | GenomicCoordinates[]
+    | AssociatedSequences
     | null
     | undefined
 }
 
 /*
   This function will take in props and return the Panel Items
+  Integrated Panels:
+  - General Info Panel
+  - Product Info Panel
+  = Links Panel
+  - Associated Sequence Panel
 */
 const panelGenerator = (
   req: PanelReqProps[],
@@ -68,7 +76,8 @@ const returnPanelContentById = (
     | string[]
     | NameWithLink
     | NameWithLink[]
-    | GenomicCoordinates[],
+    | GenomicCoordinates[]
+    | AssociatedSequences,
   gene: GeneQuery,
 ) => {
   /*
@@ -148,6 +157,31 @@ const returnPanelContentById = (
           {item.name} |{" "}
         </a>
       ))
+    /* Associated Sequence Panel */
+    case "GenBank Genomic Fragment":
+      return (
+        <a href={(value as NameWithLink).link}>
+          {(value as NameWithLink).name}
+        </a>
+      )
+    case "GenBank mRNA":
+      return (
+        <a href={(value as NameWithLink).link}>
+          {(value as NameWithLink).name}
+        </a>
+      )
+    case "ESTs":
+      return (
+        <>
+          {(value as AssociatedSequences).ests.map((item, i) => (
+            <React.Fragment key={i}>
+              <a href={item.link}>{item.name}</a>
+              &nbsp;&nbsp;&nbsp;
+            </React.Fragment>
+          ))}
+          <a href={(value as AssociatedSequences).more_link}>more..</a>
+        </>
+      )
   }
 }
 
