@@ -30,7 +30,7 @@ const AssociatedSequencePanel = ({ data }: Props) => {
       },
       { id: "ESTs", value: associated_seq.associated_sequences },
     ],
-    "getLinks",
+    "getAssociatedSequnces",
     data,
   )
 
