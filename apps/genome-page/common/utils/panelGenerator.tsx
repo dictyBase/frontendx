@@ -1,6 +1,12 @@
-import { GeneQuery } from "dicty-graphql-schema"
+import {
+  GeneQuery,
+  GenomicCoordinates,
+  NameWithLink,
+} from "dicty-graphql-schema"
 import React from "react"
+import Image from "next/image"
 import { commaSeparate } from "./strings"
+import TableDisplay from "components/panels/GenomicCoordsTable"
 
 interface PanelReturnType {
   leftDisplay: string
@@ -9,13 +15,21 @@ interface PanelReturnType {
     | string[]
     | JSX.Element
     | JSX.Element[]
+    | NameWithLink
+    | GenomicCoordinates[]
     | null
     | undefined
 }
 
 interface PanelReqProps {
   id: string
-  value: string | string[] | null | undefined
+  value:
+    | string
+    | string[]
+    | NameWithLink
+    | GenomicCoordinates[]
+    | null
+    | undefined
 }
 
 /*
@@ -47,7 +61,7 @@ const panelGenerator = (
 
 const returnPanelContentById = (
   id: string,
-  value: string | string[] | null | undefined,
+  value: string | string[] | NameWithLink | GenomicCoordinates[],
   gene: GeneQuery,
 ) => {
   /*
@@ -58,23 +72,24 @@ const returnPanelContentById = (
     case "Gene Name":
       return value
     case "Name Description":
-      if (value === null || value === undefined || !Array.isArray(value)) return
-      return value.map((desc, i) => (
+      // if (value === null || value === undefined || !Array.isArray(value)) return
+      return (value as string[]).map((desc, i) => (
         <React.Fragment key={i}>
           {desc}
           <br />
         </React.Fragment>
       ))
     case "Alternative Gene Names":
-      if (value === null || value === undefined || !Array.isArray(value)) return
-      return <i>{commaSeparate(value)}</i>
+      // if (value === null || value === undefined || !Array.isArray(value)) return
+      /* Using Type Assertion because I know that this will be a string[] */
+      return <i>{commaSeparate(value as string[])}</i>
     case "Gene ID":
       return value
     case "Gene Product":
       return value
     case "Alternative Protein Names":
-      if (value === null || value === undefined || !Array.isArray(value)) return
-      return value.map((name, i) => (
+      // if (value === null || value === undefined || !Array.isArray(value)) return
+      return (value as string[]).map((name, i) => (
         <React.Fragment key={i}>
           {name}
           <br />
@@ -82,9 +97,40 @@ const returnPanelContentById = (
       ))
     case "Description":
       return value
-    default:
-      return
+    /* Product Info Panel */
+    case "Protein Coding Gene":
+      // if (value === null || value === undefined || Array.isArray(value)) return
+      // if (typeof value === "string") return
+      return (
+        <>
+          <a href={(value as NameWithLink).link}>
+            {(value as NameWithLink).name}
+          </a>
+          <Image
+            src="/icon_yes_green.png"
+            alt="Yes Icon"
+            width={30}
+            height={30}
+          />
+          {"(Curator reviewed)"}
+          <br />
+          {"Derived from gene prediction. Supported by mRNA."}
+        </>
+      )
+    case "Protein Length":
+      return value as string
+    case "Molecular Weight":
+      return value as string
+    case "More Protein Data":
+      // if (value === null || value === undefined || Array.isArray(value)) return
+      // if (typeof value !== "string") return
+      return (
+        <a href={value as string}>Protein sequence, domains and much more...</a>
+      )
+    case "Genomic Coords.":
+      return <TableDisplay data={value as GenomicCoordinates[]}></TableDisplay>
   }
 }
 
 export { panelGenerator }
+
