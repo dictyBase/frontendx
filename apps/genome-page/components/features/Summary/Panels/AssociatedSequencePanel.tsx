@@ -44,45 +44,6 @@ const AssociatedSequencePanel = ({ data }: Props) => {
           </ItemDisplay>
         )
       })}
-      {/* <ItemDisplay>
-        <LeftDisplay>GenBank Genomic Fragment</LeftDisplay>
-        <RightDisplay>
-          <a
-            href={
-              associated_seq.associated_sequences.genbank_genomic_fragment.link
-            }>
-            {associated_seq.associated_sequences.genbank_genomic_fragment.name}
-          </a>
-        </RightDisplay>
-      </ItemDisplay>
-      {associated_seq.associated_sequences.genbank_mrna ? (
-        <ItemDisplay>
-          <LeftDisplay>GenBank mRNA</LeftDisplay>
-          <RightDisplay>
-            <a href={associated_seq.associated_sequences.genbank_mrna.link}>
-              {associated_seq.associated_sequences.genbank_mrna.name}
-            </a>
-          </RightDisplay>
-        </ItemDisplay>
-      ) : (
-        <></>
-      )}
-      <ItemDisplay>
-        <LeftDisplay>ESTs</LeftDisplay>
-        <RightDisplay>
-          {associated_seq.associated_sequences.ests ? (
-            associated_seq.associated_sequences.ests.map((item, i) => (
-              <React.Fragment key={i}>
-                <a href={item.link}>{item.name}</a>
-                &nbsp;&nbsp;&nbsp;
-              </React.Fragment>
-            ))
-          ) : (
-            <></>
-          )}
-          <a href={associated_seq.associated_sequences.more_link}>more..</a>
-        </RightDisplay>
-      </ItemDisplay> */}
     </div>
   )
 }
