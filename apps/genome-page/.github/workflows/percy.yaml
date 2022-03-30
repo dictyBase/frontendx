@@ -13,14 +13,14 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: set up node.js
-        uses: actions/setup-node@v2.5.0
+        uses: actions/setup-node@v3
         with:
           node-version: 16.13.1
       - name: check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: install dependencies
         run: |
-          mv src/common/utils/clientConfig.sample.ts src/common/utils/clientConfig.ts
+          mv common/utils/clientConfig.sample.ts common/utils/clientConfig.ts
           yarn install
       - name: run cypress and percy tests
         run: yarn cypress:ci

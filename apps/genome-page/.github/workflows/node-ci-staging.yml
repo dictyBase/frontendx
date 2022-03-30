@@ -8,11 +8,11 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: set up docker buildx
         uses: docker/setup-buildx-action@v1
       - name: cache docker layers
-        uses: actions/cache@v2.1.7
+        uses: actions/cache@v3
         with:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-buildx-${{ github.sha }}
@@ -37,7 +37,7 @@ jobs:
             graphql_server=https://betagraphql.dictybase.org
             client_keys=https://raw.githubusercontent.com/dictybase-playground/client-keys/2.0.1/clientConfig.js
             ga_tracking_id=UA-16352781-8
-            deploy_env=staging
+            NEXT_PUBLIC_DEPLOY_ENV=staging
             alt_graphql_server=https://betagraphql.dictycr.org
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
@@ -63,7 +63,7 @@ jobs:
     needs: build
     steps:
       - name: check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: download deployment artifact
         uses: actions/download-artifact@v2
         with:
