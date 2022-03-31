@@ -15,17 +15,6 @@ interface SummaryContainerProps {
 const SummaryContainer = ({ gene }: SummaryContainerProps) => {
   const { query } = useRouter()
   const geneId = query.gene as string
-  let displayList = containerGenerator(
-    [
-      "generalInformation",
-      "gene",
-      "listGeneProductInfo",
-      "getAssociatedSequnces",
-      "getLinks",
-      "allPublications",
-    ],
-    gene,
-  )
 
   return (
     <Layout
@@ -33,7 +22,20 @@ const SummaryContainer = ({ gene }: SummaryContainerProps) => {
       title={`Gene Summary for ${geneId}`}
       description={`Gene information for ${geneId}`}>
       <Typography component="div">
-        {displayList.map((item, key) => {
+        {containerGenerator(
+          [
+            "generalInformation",
+            "gene",
+            "listGeneProductInfo",
+            "getAssociatedSequnces",
+            "getLinks",
+            "allPublications",
+          ],
+          gene,
+        ).map((item, key) => {
+          if (!item) {
+            return <></>
+          }
           return (
             <PanelWrapper
               key={key}
