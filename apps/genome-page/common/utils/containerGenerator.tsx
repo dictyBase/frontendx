@@ -7,13 +7,13 @@ import ReferencesPanel from "components/features/Summary/Panels/ReferencesPanel"
 import { GeneQuery } from "dicty-graphql-schema"
 import React from "react"
 
-interface ReturnProps {
-  props: {
+interface ChildContent {
+  panelProps: {
     id: string
     title: string
     route: string
   }
-  component: JSX.Element | undefined
+  child: JSX.Element | undefined
 }
 
 interface ContainerProps {
@@ -105,14 +105,15 @@ const containerGenerator = (req: string[], gene: GeneQuery) => {
   return req.map((element) => {
     if (gene[element as keyof GeneQuery]) {
       return {
-        props: SummaryContainerContent[element as keyof SummaryContainerTypes],
-        component: returnComponentByName(
+        panelProps:
+          SummaryContainerContent[element as keyof SummaryContainerTypes],
+        child: returnComponentByName(
           SummaryContainerContent[element as keyof SummaryContainerTypes].id,
           gene,
         ),
       }
     }
-  })
+  }) as ChildContent[]
 }
 
 export { containerGenerator, createRouteFromString, returnComponentByName }
