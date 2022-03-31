@@ -31,6 +31,28 @@ interface SummaryContainerTypes {
   allPublications: ContainerProps
 }
 
+/*
+  containerGenerator returns ChildContent[] if the sectionId, element of arrayOfSections, exists.
+  Props: 
+   - arrayOfSections: string[], an array of section ID's from the gene graphql query. You can console.log(gene) to understand.
+   - gene: GeneQuery, the GraphQL query that was made
+*/
+const containerGenerator = (arrayOfSections: string[], gene: GeneQuery) => {
+  return arrayOfSections.map((sectionId) => {
+    if (gene[sectionId as keyof GeneQuery]) {
+      return {
+        panelProps:
+          SummaryContainerContent[sectionId as keyof SummaryContainerTypes],
+        child: returnComponentByName(
+          SummaryContainerContent[sectionId as keyof SummaryContainerTypes].id,
+          gene,
+        ),
+      }
+    }
+  }) as ChildContent[]
+}
+
+/* An object that contains the Props of PanelWrapper for the respective sectionId */
 const SummaryContainerContent = {
   generalInformation: {
     id: "generalInformation",
@@ -65,6 +87,12 @@ const SummaryContainerContent = {
   },
 }
 
+/*
+  returnComponentByName returns the Component from passed in id
+  Props:
+    - id: a string that represents a section from SummaryPage
+    - gene: the GraphQL gene query
+*/
 const returnComponentByName = (id: string, gene: GeneQuery) => {
   switch (id) {
     case "generalInformation":
@@ -84,36 +112,23 @@ const returnComponentByName = (id: string, gene: GeneQuery) => {
   }
 }
 
-const createRouteFromString = (target: string, gene: GeneQuery) => {
-  switch (target) {
+/*
+  createRouteFromString returns the correct string path which can be used in the route prop of Panel Wrapper
+  Props:
+    - link: string
+*/
+const createRouteFromString = (link: string, gene: GeneQuery) => {
+  switch (link) {
     case "geneId":
-      return target.replace("$(geneId}", `${gene.gene?.name}`)
+      return link.replace("$(geneId}", `${gene.gene?.name}`)
     case "allPublications":
-      return target.replace(
+      return link.replace(
         "${gene.allPublications.num_pubs",
         `${gene.allPublications.num_pubs}`,
       )
     default:
       return
   }
-}
-
-/* 
-  This function will take in props and return the container items
-*/
-const containerGenerator = (req: string[], gene: GeneQuery) => {
-  return req.map((element) => {
-    if (gene[element as keyof GeneQuery]) {
-      return {
-        panelProps:
-          SummaryContainerContent[element as keyof SummaryContainerTypes],
-        child: returnComponentByName(
-          SummaryContainerContent[element as keyof SummaryContainerTypes].id,
-          gene,
-        ),
-      }
-    }
-  }) as ChildContent[]
 }
 
 export { containerGenerator, createRouteFromString, returnComponentByName }
