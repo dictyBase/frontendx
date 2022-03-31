@@ -16,7 +16,7 @@ describe("Gene page snapshots", () => {
 
   it("visits the sadA go Orthologs page", () => {
     cy.visit("/gene/sadA/orthologs")
-    cy.contains("Q6R327-1")
+    cy.contains("DPU_G0068986")
   })
 
   it("visits the sadA go Ontology page", () => {
