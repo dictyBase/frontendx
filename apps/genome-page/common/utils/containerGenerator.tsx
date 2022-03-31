@@ -102,21 +102,17 @@ const createRouteFromString = (target: string, gene: GeneQuery) => {
   This function will take in props and return the container items
 */
 const containerGenerator = (req: string[], gene: GeneQuery) => {
-  let returnArray: ReturnProps[] = []
-  req.forEach((element) => {
+  return req.map((element) => {
     if (gene[element as keyof GeneQuery]) {
-      let entry = {
+      return {
         props: SummaryContainerContent[element as keyof SummaryContainerTypes],
         component: returnComponentByName(
           SummaryContainerContent[element as keyof SummaryContainerTypes].id,
           gene,
         ),
       }
-      returnArray.push(entry)
     }
   })
-
-  return returnArray
 }
 
 export { containerGenerator, createRouteFromString, returnComponentByName }
