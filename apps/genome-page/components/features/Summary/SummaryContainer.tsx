@@ -12,6 +12,15 @@ interface SummaryContainerProps {
   gene: GeneQuery
 }
 
+interface ChildContent {
+  panelProps: {
+    id: string
+    title: string
+    route: string
+  }
+  child: JSX.Element | undefined
+}
+
 const SummaryContainer = ({ gene }: SummaryContainerProps) => {
   const { query } = useRouter()
   const geneId = query.gene as string
@@ -22,16 +31,18 @@ const SummaryContainer = ({ gene }: SummaryContainerProps) => {
       title={`Gene Summary for ${geneId}`}
       description={`Gene information for ${geneId}`}>
       <Typography component="div">
-        {containerGenerator(
-          [
-            "generalInformation",
-            "gene",
-            "listGeneProductInfo",
-            "getAssociatedSequnces",
-            "getLinks",
-            "allPublications",
-          ],
-          gene,
+        {(
+          containerGenerator(
+            [
+              "generalInformation",
+              "gene",
+              "listGeneProductInfo",
+              "getAssociatedSequnces",
+              "getLinks",
+              "allPublications",
+            ],
+            gene,
+          ) as ChildContent[]
         ).map((item, key) => {
           if (!item) {
             return <></>
@@ -39,9 +50,9 @@ const SummaryContainer = ({ gene }: SummaryContainerProps) => {
           return (
             <PanelWrapper
               key={key}
-              title={item.props.title}
-              route={createRouteFromString(item.props.route, gene)}>
-              {item.component}
+              title={item.panelProps.title}
+              route={createRouteFromString(item.panelProps.route, gene)}>
+              {item.child}
             </PanelWrapper>
           )
         })}
