@@ -46,7 +46,7 @@ interface PanelReqProps {
   - Associated Sequence Panel
 */
 const panelGenerator = (
-  req: PanelReqProps[],
+  arrayOfChildSections: PanelReqProps[],
   type: string,
   gene: GeneQuery,
 ) => {
@@ -56,7 +56,7 @@ const panelGenerator = (
     return
   }
 
-  req.forEach((element) => {
+  arrayOfChildSections.forEach((element) => {
     if (element.value !== null && element.value !== undefined) {
       let entry = {
         leftDisplay: element.id,
