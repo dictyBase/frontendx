@@ -39,7 +39,7 @@
     "dicty-graphql-schema": "dictyBase/dicty-graphql-schema",
     "dicty-hooks": "dictybase/dicty-hooks#3.0.0",
     "element-remove": "^1.0.4",
-    "eslint-config-next": "^12.0.8",
+    "eslint-config-next": "^12.1.5",
     "font-awesome": "^4.7.0",
     "fontsource-roboto": "^4.0.0",
     "graphql": "^15.7.2",
