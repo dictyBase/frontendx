@@ -4,7 +4,7 @@ import Link from "next/link"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import { Typography, Grid, AppBar, Box } from "@mui/material"
-import { Helmet } from "react-helmet"
+import Head from "next/head"
 
 const getTabValue = (pathname: string) => {
   const subroute = pathname.split("/").splice(-1).join()
@@ -41,10 +41,10 @@ const Layout = ({ children, gene, title, description }: Props) => {
   return (
     <Grid container justifyContent="center">
       <Grid item xs={12}>
-        <Helmet>
+        <Head>
           <title>{title} - dictyBase</title>
           <meta name="description" content={`${description} at dictyBase`} />
-        </Helmet>
+        </Head>
         <Box pt="20px" pb="20px">
           <Typography textAlign="center" variant="h1" fontSize="24px">
             {title}
