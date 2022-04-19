@@ -42,7 +42,7 @@
     "eslint-config-next": "^12.1.5",
     "font-awesome": "^4.7.0",
     "fontsource-roboto": "^4.0.0",
-    "graphql": "^15.7.2",
+    "graphql": "^16.3.0",
     "jest": "^27.4.7",
     "jwt-decode": "^3.1.2",
     "localforage": "^1.10.0",
