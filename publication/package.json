@@ -84,7 +84,7 @@
     "husky": "7",
     "jest": "^27.4.7",
     "jest-cli": "^27.4.7",
-    "lint-staged": "^12.3.2",
+    "lint-staged": "^12.4.0",
     "prettier": "^2.5.1",
     "react-docgen-typescript": "^2.1.1",
     "react-styleguidist": "^11.1.6",
