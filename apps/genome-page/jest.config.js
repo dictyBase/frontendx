@@ -9,7 +9,8 @@ const createJestConfig = nextJest({
 const customJestConfig = {
   // Configure jsdom because by default jest uses a node environment
   // So jsdom uses the browser implementation. See: https://stackoverflow.com/questions/69227566/consider-using-the-jsdom-test-environment
-  testEnvironment: "jsdom",
+  // testEnvironment: "jsdom",
+  testEnvironment: "jest-environment-jsdom-global",
   setupFilesAfterEnv: ["./jest.setup.js"],
   modulePaths: ["./", "node_modules"],
   testPathIgnorePatterns: [],
