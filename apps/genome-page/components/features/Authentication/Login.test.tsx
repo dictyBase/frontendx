@@ -4,6 +4,7 @@ import Login, { createOauthURL, generateErrorDisplayMessage } from "./Login"
 import MockAuthProvider from "mocks/MockAuthProvider"
 import userEvent from "@testing-library/user-event"
 import { ApolloError } from "@apollo/client"
+import { GraphQLError, GraphQLFormattedError } from "graphql"
 
 describe("features/Authentication/Login", () => {
   const globalAny = global as any
@@ -114,6 +115,10 @@ describe("features/Authentication/Login", () => {
             originalError: undefined,
             name: "",
             path: [""],
+            get [Symbol.toStringTag]() {
+              return 'Validator';
+            },
+            toJSON: () => {return {message:""} as GraphQLFormattedError}
           },
         ],
         clientErrors: [],
@@ -140,6 +145,10 @@ describe("features/Authentication/Login", () => {
             originalError: undefined,
             name: "",
             path: [""],
+            get [Symbol.toStringTag]() {
+              return 'Validator';
+            },
+            toJSON: () => {return {message:""} as GraphQLFormattedError}
           },
         ],
         clientErrors: [],
@@ -165,6 +174,10 @@ describe("features/Authentication/Login", () => {
             originalError: undefined,
             name: "",
             path: [""],
+            get [Symbol.toStringTag]() {
+              return 'Validator';
+            },
+            toJSON: () => {return {message:""} as GraphQLFormattedError}
           },
         ],
         clientErrors: [],
