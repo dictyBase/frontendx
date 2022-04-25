@@ -34,7 +34,8 @@ describe("features/Authentication/Login", () => {
       expect(screen.getByText(/Sign in with LinkedIn/)).toBeInTheDocument()
     })
 
-    it("calls function on button click", () => {
+    it("calls function on button click", async () => {
+      const user = userEvent.setup()
       render(
         <MockAuthProvider mocks={[]}>
           <Login />
@@ -47,15 +48,15 @@ describe("features/Authentication/Login", () => {
       })
       // click orcid button
       expect(orcid).toBeInTheDocument()
-      userEvent.click(orcid)
+      await user.click(orcid)
       expect(openMock).toHaveBeenCalledTimes(1)
       // click google button
       expect(google).toBeInTheDocument()
-      userEvent.click(google)
+      await user.click(google)
       expect(openMock).toHaveBeenCalledTimes(2)
       // click linkedin button
       expect(linkedin).toBeInTheDocument()
-      userEvent.click(linkedin)
+      await user.click(linkedin)
       expect(openMock).toHaveBeenCalledTimes(3)
     })
   })
