@@ -34,8 +34,8 @@ describe("features/Authentication/Login", () => {
       expect(screen.getByText(/Sign in with LinkedIn/)).toBeInTheDocument()
     })
 
-    it("calls function on button click", () => {
-      const openSpy =  jest.spyOn(window, "open");
+    it("calls function on button click", async () => {
+      const user = userEvent.setup()
       render(
         <MockAuthProvider mocks={[]}>
           <Login />
@@ -49,24 +49,16 @@ describe("features/Authentication/Login", () => {
 
       // click orcid button
       expect(orcid).toBeInTheDocument()
-      open(createOauthURL(oauthConfig["orcid"]));
-      expect(openSpy).toHaveBeenCalledTimes(1);
-      // userEvent.click(orcid)
-      // expect(openMock).toHaveBeenCalledTimes(1)
-
+      await user.click(orcid)
+      expect(openMock).toHaveBeenCalledTimes(1)
       // click google button
       expect(google).toBeInTheDocument()
-      open(createOauthURL(oauthConfig["google"]));
-      expect(openSpy).toHaveBeenCalledTimes(2);
-      // userEvent.click(google)
-      // expect(openMock).toHaveBeenCalledTimes(2)
-
+      await user.click(google)
+      expect(openMock).toHaveBeenCalledTimes(2)
       // click linkedin button
       expect(linkedin).toBeInTheDocument()
-      open(createOauthURL(oauthConfig["linkedin"]));
-      expect(openSpy).toHaveBeenCalledTimes(3);
-      // userEvent.click(linkedin)
-      // expect(openMock).toHaveBeenCalledTimes(3)
+      await user.click(linkedin)
+      expect(openMock).toHaveBeenCalledTimes(3)
     })
   })
 
@@ -127,9 +119,11 @@ describe("features/Authentication/Login", () => {
             name: "",
             path: [""],
             get [Symbol.toStringTag]() {
-              return 'Validator';
+              return "Validator"
             },
-            toJSON: () => {return {message:""} as GraphQLFormattedError}
+            toJSON: () => {
+              return { message: "" } as GraphQLFormattedError
+            },
           },
         ],
         clientErrors: [],
@@ -157,9 +151,11 @@ describe("features/Authentication/Login", () => {
             name: "",
             path: [""],
             get [Symbol.toStringTag]() {
-              return 'Validator';
+              return "Validator"
             },
-            toJSON: () => {return {message:""} as GraphQLFormattedError}
+            toJSON: () => {
+              return { message: "" } as GraphQLFormattedError
+            },
           },
         ],
         clientErrors: [],
@@ -186,9 +182,11 @@ describe("features/Authentication/Login", () => {
             name: "",
             path: [""],
             get [Symbol.toStringTag]() {
-              return 'Validator';
+              return "Validator"
             },
-            toJSON: () => {return {message:""} as GraphQLFormattedError}
+            toJSON: () => {
+              return { message: "" } as GraphQLFormattedError
+            },
           },
         ],
         clientErrors: [],
