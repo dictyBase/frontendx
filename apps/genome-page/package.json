@@ -43,7 +43,7 @@
     "font-awesome": "^4.7.0",
     "fontsource-roboto": "^4.0.0",
     "graphql": "^16.4.0",
-    "jest": "^27.4.7",
+    "jest": "^28.0.3",
     "jest-environment-jsdom-global": "^3.0.0",
     "jwt-decode": "^3.1.2",
     "localforage": "^1.10.0",
