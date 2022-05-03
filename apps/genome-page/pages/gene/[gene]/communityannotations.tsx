@@ -12,9 +12,9 @@ import FS from "@isomorphic-git/lightning-fs"
 
 export default function Gene() {
   const router = useRouter()
-  // markdown file that will be retrieved from the wiki
-  const geneFile = `${router.query.id}.md`
 
+  // markdown file that will be retrieved from the wiki
+  const geneFile = `${router.query.gene}.md`
   //react state that contains the markdown content
   const [content, setContent] = useState<WikiContentEither>(
     E.right({ loading: true }),
