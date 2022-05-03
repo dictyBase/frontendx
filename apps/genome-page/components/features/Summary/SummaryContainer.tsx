@@ -47,7 +47,7 @@ const SummaryContainer = ({ gene }: SummaryContainerProps) => {
           return (
             <PanelWrapper
               key={key}
-              title={item!.panelProps.title}
+              title={createRouteFromString(item!.panelProps.title, gene)}
               route={createRouteFromString(item!.panelProps.route, gene)}>
               {item!.child}
             </PanelWrapper>
