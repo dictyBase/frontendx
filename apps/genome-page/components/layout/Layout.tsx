@@ -67,6 +67,9 @@ const Layout = ({ children, gene, title, description }: Props) => {
             <Link href={`/gene/${gene}/references`} passHref>
               <Tab label="References" />
             </Link>
+            <Link href={`/gene/${gene}/communityannotations`} passHref>
+              <Tab label="Annotations" />
+            </Link>
           </Tabs>
         </AppBar>
         {children}
