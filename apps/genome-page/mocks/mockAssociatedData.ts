@@ -5,7 +5,7 @@ const mockAssociatedData: AssociatedSequences = {
     name: "AY178767",
     link: "http://www.ncbi.nlm.nih.gov/nuccore/AY178767",
   } as NameWithLink,
-  genbank_mrna: undefined,
+  genbank_mrna: null,
   ests: [
     {
       name: "DDB0025213",
