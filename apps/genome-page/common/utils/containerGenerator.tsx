@@ -118,17 +118,13 @@ const returnComponentByName = (id: string, gene: GeneQuery) => {
     - link: string
 */
 const createRouteFromString = (link: string, gene: GeneQuery) => {
-  switch (link) {
-    case "geneId":
-      return link.replace("$(geneId}", `${gene.gene?.name}`)
-    case "allPublications":
-      return link.replace(
-        "${gene.allPublications.num_pubs",
-        `${gene.allPublications.num_pubs}`,
-      )
-    default:
-      return
+  if ("/gene/${geneId}/references") {
+    let numPubs = gene.allPublications.num_pubs.toString()
+    link = link.replace("${gene.allPublications.num_pubs", numPubs)
   }
+  let geneName = gene.gene!.name!.toString()
+  link = link.replace("${geneId}", geneName)
+  return link
 }
 
 export { containerGenerator, createRouteFromString, returnComponentByName }
