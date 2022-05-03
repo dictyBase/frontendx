@@ -120,7 +120,7 @@ const returnComponentByName = (id: string, gene: GeneQuery) => {
 const createRouteFromString = (link: string, gene: GeneQuery) => {
   if ("/gene/${geneId}/references") {
     let numPubs = gene.allPublications.num_pubs.toString()
-    link = link.replace("${gene.allPublications.num_pubs", numPubs)
+    link = link.replace("${gene.allPublications.num_pubs}", numPubs)
   }
   let geneName = gene.gene!.name!.toString()
   link = link.replace("${geneId}", geneName)
