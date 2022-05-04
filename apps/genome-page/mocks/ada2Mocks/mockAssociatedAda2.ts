@@ -1,6 +1,6 @@
 import { AssociatedSequences, NameWithLink } from "dicty-graphql-schema"
 
-const mockAssociatedPiaA: AssociatedSequences = {
+const mockAssociatedAda2: AssociatedSequences = {
   genbank_genomic_fragment: null,
   genbank_mrna: null,
   ests: [
@@ -33,4 +33,4 @@ const mockAssociatedPiaA: AssociatedSequences = {
     "http://dictybase.org/db/cgi-bin/more_est.pl?feature_id=186572&gene_name=ada2",
 }
 
-export default mockAssociatedPiaA
+export default mockAssociatedAda2
