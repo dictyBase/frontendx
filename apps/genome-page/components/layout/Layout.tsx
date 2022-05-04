@@ -10,6 +10,8 @@ const getTabValue = (pathname: string) => {
   const subroute = pathname.split("/").splice(-1).join()
 
   switch (subroute) {
+    case "communityannotations":
+      return 5
     case "references":
       return 4
     case "phenotypes":
