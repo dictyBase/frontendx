@@ -9,13 +9,13 @@ import { useGeneQuery, GeneQuery } from "dicty-graphql-schema"
  */
 const GenomePageWrapper = () => {
   const { query } = useRouter()
-  const gene = query.gene as string
+  const gene = query.id as string
 
   const { loading, error, data } = useGeneQuery({
     variables: {
       gene,
       limit: 3,
-      sort_by: "desc"
+      sort_by: "desc",
     },
     fetchPolicy: "cache-and-network",
   })
