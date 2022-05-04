@@ -1,7 +1,8 @@
 // group of functions that maps the markdown content/error to the corresponding react component
 import * as E from "fp-ts/Either"
 import * as F from "fp-ts-std/Function"
-import ReactMarkDown from "react-markdown"
+import WikiContainer from "./WikiContainer"
+import WikiLoader from "./WikiLoader"
 
 interface WikiContentProps {
   markdown?: string
@@ -19,15 +20,14 @@ const isNotLoading = (ma: WikiContentEither) =>
   E.isRight(ma) && !ma.right.loading
 
 // react component for loading state
-const loaderDisplay = () => <h1>Loading....</h1>
+const loaderDisplay = () => <WikiLoader />
 
 // react component for error display
-const errDisplay = (ma: WikiContentEither) =>
-  E.isLeft(ma) && <h2>error {ma.left}</h2>
+const errDisplay = (ma: WikiContentEither) => E.isLeft(ma) && <WikiContainer />
 
 // react component for display markdown content
 const nameDisplay = (ma: WikiContentEither) =>
-  E.isRight(ma) && <ReactMarkDown>{ma.right.markdown as string}</ReactMarkDown>
+  E.isRight(ma) && <WikiContainer markdown={ma.right.markdown as string} />
 
 // react component when something unexpected happened
 const defaultDisplay = () => <h2>Not sure what happened</h2>
