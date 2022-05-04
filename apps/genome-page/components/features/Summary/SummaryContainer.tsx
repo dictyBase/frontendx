@@ -23,7 +23,7 @@ interface ChildContent {
 
 const SummaryContainer = ({ gene }: SummaryContainerProps) => {
   const { query } = useRouter()
-  const geneId = query.gene as string
+  const geneId = query.id as string
 
   return (
     <Layout

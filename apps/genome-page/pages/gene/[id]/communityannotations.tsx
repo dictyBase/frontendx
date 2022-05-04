@@ -14,7 +14,7 @@ export default function Gene() {
   const router = useRouter()
 
   // markdown file that will be retrieved from the wiki
-  const geneFile = `${router.query.gene}.md`
+  const geneFile = `${router.query.id}.md`
   //react state that contains the markdown content
   const [content, setContent] = useState<WikiContentEither>(
     E.right({ loading: true }),

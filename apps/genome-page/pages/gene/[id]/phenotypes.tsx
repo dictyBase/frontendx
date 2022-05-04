@@ -8,7 +8,7 @@ import { useRouter } from "next/router"
 */
 const PhenotypesPageWrapper = () => {
   const { query } = useRouter()
-  const gene = query.gene as string
+  const gene = query.id as string
   const { loading, error, data } = useGeneQuery({
     variables: {
       gene,
