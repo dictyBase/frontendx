@@ -9,7 +9,7 @@ interface ReferencesContainerProps {
 
 const ReferencesContainer = ({ gene }: ReferencesContainerProps) => {
   const { query } = useRouter()
-  const geneId = query.gene as string
+  const geneId = query.id as string
 
   return (
     <Layout

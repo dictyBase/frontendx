@@ -9,7 +9,7 @@ interface PhenotypesContainerProps {
 }
 const PhenotypesContainer = ({ gene }: PhenotypesContainerProps) => {
   const { query } = useRouter()
-  const geneId = query.gene as string
+  const geneId = query.id as string
 
   return (
     <Layout

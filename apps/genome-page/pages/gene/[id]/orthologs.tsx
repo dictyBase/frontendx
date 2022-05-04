@@ -1,15 +1,15 @@
-import OntologyContainer from "components/features/Ontology/OntologyContainer"
 import GraphQLErrorPage from "components/errors/GraphQLErrorPage"
-import OntologyLoader from "components/features/Ontology/OntologyLoader"
+import OrthologsLoader from "components/features/Orthologs/OrthologsLoader"
 import { useRouter } from "next/router"
 import { useGeneQuery, GeneQuery } from "dicty-graphql-schema"
+import OrthologsContainer from "components/features/Orthologs/OrthologsContainer"
 
 /*
-    Renders the Ontology page given a gene id
+    Renders the Orthologs page given a gene id
 */
-const OntologyPageWrapper = () => {
+const OrthologsPageWrapper = () => {
   const { query } = useRouter()
-  const gene = query.gene as string
+  const gene = query.id as string
 
   const { loading, error, data } = useGeneQuery({
     variables: {
@@ -20,11 +20,11 @@ const OntologyPageWrapper = () => {
 
   return (
     <>
-      {loading ? <OntologyLoader /> : <></>}
+      {loading ? <OrthologsLoader /> : <></>}
       {error ? <GraphQLErrorPage error={error} /> : <></>}
-      {data ? <OntologyContainer gene={data as GeneQuery} /> : <></>}
+      {data ? <OrthologsContainer gene={data as GeneQuery} /> : <></>}
     </>
   )
 }
 
-export default OntologyPageWrapper
+export default OrthologsPageWrapper
