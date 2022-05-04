@@ -67,7 +67,7 @@ type GeneralInfo {
 }
 
 type AssociatedSequences {
-  genbank_genomic_fragment: NameWithLink!
+  genbank_genomic_fragment: NameWithLink
   genbank_mrna: NameWithLink
   ests: [NameWithLink!]!
   more_link: String!
