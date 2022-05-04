@@ -1,7 +1,5 @@
 import Typography from "@material-ui/core/Typography"
 import OntologyTabLayout from "./OntologyTabLayout"
-import OntologyLoader from "./OntologyLoader"
-import GraphQLErrorPage from "components/errors/GraphQLErrorPage"
 import Layout from "components/layout/Layout"
 import { GeneQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
@@ -15,7 +13,7 @@ interface OntologyContainerProps {
 }
 const OntologyContainer = ({ gene }: OntologyContainerProps) => {
   const { query } = useRouter()
-  const geneId = query.gene as string
+  const geneId = query.id as string
 
   return (
     <Layout
