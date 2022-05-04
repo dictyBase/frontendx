@@ -1,9 +1,9 @@
 import { useRouter } from "next/router"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import * as E from "fp-ts/Either"
 import * as TE from "fp-ts/TaskEither"
 import { pipe } from "fp-ts/lib/function"
-import { useGithubWiki } from "../../../common/hooks/useGithubWiki"
+import { cloneGithubWiki } from "../../../common/hooks/useGithubWiki"
 import {
   toOutput,
   WikiContentEither,
@@ -26,12 +26,14 @@ export default function Gene() {
     setContent(E.right({ markdown: cont, loading: false }))
 
   // returns a promise that resolves to returing the markdown content
-  const wikiFn = useGithubWiki({
-    dir: "/wiki",
-    file: geneFile,
-    browserFS: new FS("github-wiki"),
-    url: "https://github.com/dictybase-playground/ontomania.wiki.git",
-  })
+  const wikiFn = useMemo(() => {
+    return cloneGithubWiki({
+      dir: "/wiki",
+      file: geneFile,
+      browserFS: new FS("github-wiki"),
+      url: "https://github.com/dictybase-playground/ontomania.wiki.git",
+    })
+  }, [geneFile])
 
   // resolves the promise, returns the content or the error
   useEffect(() => {

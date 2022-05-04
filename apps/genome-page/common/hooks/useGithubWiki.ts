@@ -17,7 +17,7 @@ export interface DirFileProps {
 }
 
 // The main wrapper function or hook
-export function useGithubWiki(props: DirFileProps) {
+export function cloneGithubWiki(props: DirFileProps) {
   const defaultCloneParams = {
     http: http,
     fs: props.browserFS,
