@@ -3,6 +3,7 @@ import { useRouter } from "next/router"
 import ReactMarkDown from "react-markdown"
 import { Paper, Container, Typography } from "@material-ui/core"
 import useStyles from "../../../styles/dataTableStyles"
+import WikiError from "./WikiError"
 /**
  * Container component that issues a GraphQL query to get gene data for the
  * GO annotations page.
@@ -28,7 +29,9 @@ const WikiContainer = ({ markdown }: WikiContainerProps) => {
           {markdown ? (
             <ReactMarkDown>{markdown}</ReactMarkDown>
           ) : (
-            `${geneId} doesn't have a community annotation. Be the first to contribute`
+            <WikiError
+              error={`${geneId} doesn't have a community annotation.`}
+            />
           )}
         </Container>
       </Typography>
