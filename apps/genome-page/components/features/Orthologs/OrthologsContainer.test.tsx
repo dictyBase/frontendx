@@ -21,16 +21,12 @@ describe("features/Orthologs/OrthologsContainer", () => {
     }))
     render(<OrthologsContainer gene={mockGene as GeneQuery} />)
 
-    expect(screen.getByText(`Orthologs for ${gene}`)).toBeInTheDocument()
-
     expect(screen.getByText("Species")).toBeInTheDocument()
     expect(screen.getByText("ID")).toBeInTheDocument()
     expect(screen.getByText("UniProtKB")).toBeInTheDocument()
     expect(screen.getByText("Gene Product")).toBeInTheDocument()
     expect(screen.getByText("Source(s)")).toBeInTheDocument()
 
-    expect(
-      screen.getByText("Dictyostelium purpureum"),
-    ).toBeInTheDocument()
+    expect(screen.getByText("Dictyostelium purpureum")).toBeInTheDocument()
   })
 })
