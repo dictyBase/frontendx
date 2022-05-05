@@ -14,14 +14,12 @@ jest.mock("dicty-graphql-schema", () => {
 describe("features/Phenotypes/PhenotypesContainer", () => {
   beforeEach(() => jest.clearAllMocks())
 
-  it("should render phenotypes page", () => {
+  it("should render phenotypes page", async () => {
     useRouter.mockImplementation(() => ({
       query: { gene: "sadA" },
       pathname: pathname,
     }))
     render(<PhenotypesContainer gene={mockGene as GeneQuery} />)
-
-    expect(screen.getByText(`Phenotypes for ${gene}`)).toBeInTheDocument()
 
     expect(screen.getByText("Strain")).toBeInTheDocument()
     expect(screen.getByText("Characteristics")).toBeInTheDocument()
