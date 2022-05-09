@@ -20,6 +20,10 @@ const customJestConfig = {
     "**/common/hooks/*.{ts,tsx}",
   ],
   resetMocks: false,
+  moduleNameMapper: {
+    "react-markdown":
+      "<rootDir>/components/features/CommunityAnnotations/mocks/react-markdown.js",
+  },
 }
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
