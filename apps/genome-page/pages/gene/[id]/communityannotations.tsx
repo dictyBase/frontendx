@@ -4,10 +4,7 @@ import * as E from "fp-ts/Either"
 import * as TE from "fp-ts/TaskEither"
 import { pipe } from "fp-ts/lib/function"
 import { cloneGithubWiki } from "../../../common/hooks/useGithubWiki"
-import {
-  toOutput,
-  WikiContentEither,
-} from "../../../components/features/CommunityAnnotations/WikiDisplay"
+import { toOutput, WikiContentEither } from "../../../common/hooks/WikiDisplay"
 import FS from "@isomorphic-git/lightning-fs"
 
 export default function Gene() {
