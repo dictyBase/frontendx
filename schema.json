@@ -5069,16 +5069,12 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "ProteinGeneralInfo",
-                  "ofType": null
-                }
+                "kind": "OBJECT",
+                "name": "ProteinGeneralInfo",
+                "ofType": null
               }
             },
             "isDeprecated": false,

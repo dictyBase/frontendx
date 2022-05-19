@@ -12,7 +12,7 @@ type Gene {
 }
 
 type ProteinInformation {
-  general_info: [ProteinGeneralInfo!]
+  general_info: ProteinGeneralInfo!
   external_links: [NameWithLink!]!
   protein_sequence: String!
 }
