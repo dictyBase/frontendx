@@ -155,6 +155,31 @@ query Gene($gene: String!, $limit: Int, $sort_by: String = "desc") {
       }
     }
   }
+  getProteinInformation(gene: $gene) {
+    id
+    name
+    protein_information {
+      general_info {
+        gene_product
+        dictybase_id
+        description
+        protein_length
+        molecular_weight
+        aa_composition {
+          name
+          link
+        }
+        subcellular_location
+        protein_existence
+        note
+      }
+      external_links {
+        name
+        link
+      }
+      protein_sequence
+    }
+  }
 }
 
 query ListRecentGenes($limit: Int! = 4) {
