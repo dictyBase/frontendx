@@ -7,6 +7,7 @@ import mockReferencesPiaA from "mocks/piaAMocks/mockReferencesPiaA"
 import mockAssociatedAda2 from "./mockAssociatedAda2"
 import mockOntologyAda2 from "./mockOntologyAda2"
 import mockPhenotypesAda2 from "./mockPhenotypesAda2"
+import mockProteinInformation from "mocks/mockProteinInformation"
 
 const mockGeneAda2: GeneQuery = {
   gene: {
@@ -50,6 +51,11 @@ const mockGeneAda2: GeneQuery = {
     id: "DDB_G0280079",
     name: "ada2",
     links: mockLinksPiaA,
+  },
+  getProteinInformation: {
+    id: "DDB_G0280079",
+    name: "ada2",
+    protein_information: mockProteinInformation,
   },
 }
 export default mockGeneAda2

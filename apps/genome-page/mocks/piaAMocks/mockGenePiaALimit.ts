@@ -7,6 +7,7 @@ import mockOntologyPiaA from "./mockOntologyPiaA"
 import mockOrthologsPiaA from "./mockOrthologsPiaA"
 import mockReferencesPiaA from "./mockReferencesPiaA"
 import mockPhenotypesPiaA from "./mockPhenotypesPiaA"
+import mockProteinInformation from "mocks/mockProteinInformation"
 
 const mockGenePiaALimit: GeneQuery = {
   gene: {
@@ -50,6 +51,11 @@ const mockGenePiaALimit: GeneQuery = {
     id: "DDB_G0277399",
     name: "piaA",
     links: mockLinksPiaA,
+  },
+  getProteinInformation: {
+    id: "DDB_G0277399",
+    name: "piaA",
+    protein_information: mockProteinInformation,
   },
 }
 export default mockGenePiaALimit
