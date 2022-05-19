@@ -8,6 +8,25 @@ type Gene {
   general_info: GeneralInfo!
   associated_sequences: AssociatedSequences!
   links: Links!
+  protein_information: ProteinInformation
+}
+
+type ProteinInformation {
+  general_info: ProteinGeneralInfo!
+  external_links: [NameWithLink!]!
+  protein_sequence: String!
+}
+
+type ProteinGeneralInfo {
+  gene_product: String!
+  dictybase_id: String!
+  description: String!
+  protein_length: String!
+  molecular_weight: String!
+  aa_composition: NameWithLink!
+  subcellular_location: String!
+  protein_existence: String!
+  note: String!
 }
 
 type GOAnnotation {

@@ -27,6 +27,8 @@ type Query {
   getAssociatedSequnces(gene: String!): Gene
   # List links given gene
   getLinks(gene: String!): Gene
+  # List Protein Information given gene
+  getProteinInformation(gene: String!): Gene
   # List all product info associated to the gene
   listGeneProductInfo(gene: String!): Gene
   # Order queries
