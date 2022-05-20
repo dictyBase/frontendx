@@ -1,24 +1,14 @@
 import Typography from "@material-ui/core/Typography"
 import Layout from "components/layout/Layout"
-import PanelWrapper from "components/panels/PanelWrapper"
 import { GeneQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
-import {
-  containerGenerator,
-  createRouteFromString,
-} from "../../../common/utils/containerGenerator"
+import PanelWrapper from "components/panels/PanelWrapper"
+import ProteinLinks from "./ProteinLinks"
+import ProteinSequence from "./ProteinSequence"
+import ProteinGeneralInfo from "./ProteinGeneralInfo"
 
 interface ProteinInfoContainerProps {
   gene: GeneQuery
-}
-
-interface ChildContent {
-  panelProps: {
-    id: string
-    title: string
-    route: string
-  }
-  child: JSX.Element | undefined
 }
 
 /**
@@ -35,21 +25,15 @@ const ProteinInfoContainer = ({ gene }: ProteinInfoContainerProps) => {
       title={`Protein Information for ${geneId}`}
       description={`Protein Information for ${geneId}`}>
       <Typography component="div">
-        {(
-          containerGenerator(
-            ["general_info", "external_links", "protein_sequence"],
-            gene,
-          ) as ChildContent[]
-        ).map((item, key) => {
-          return (
-            <PanelWrapper
-              key={key}
-              title={createRouteFromString(item!.panelProps.title, gene)}
-              route={createRouteFromString(item!.panelProps.route, gene)}>
-              {item!.child}
-            </PanelWrapper>
-          )
-        })}
+        <PanelWrapper title={"General Information"}>
+          <ProteinGeneralInfo gene={gene} />
+        </PanelWrapper>
+        <PanelWrapper title={"Links"}>
+          <ProteinLinks gene={gene} />
+        </PanelWrapper>
+        <PanelWrapper title={"Protein Sequence"}>
+          <ProteinSequence gene={gene} />
+        </PanelWrapper>
       </Typography>
     </Layout>
   )
