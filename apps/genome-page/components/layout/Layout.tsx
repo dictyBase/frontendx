@@ -11,14 +11,16 @@ const getTabValue = (pathname: string) => {
 
   switch (subroute) {
     case "communityannotations":
-      return 5
+      return 6
     case "references":
-      return 4
+      return 5
     case "phenotypes":
-      return 3
+      return 4
     case "orthologs":
-      return 2
+      return 3
     case "goannotations":
+      return 2
+    case "proteininformation":
       return 1
     default:
       return 0
@@ -56,6 +58,9 @@ const Layout = ({ children, gene, title, description }: Props) => {
           <Tabs value={tabValue} onChange={handleChange}>
             <Link href={`/gene/${gene}`} passHref>
               <Tab label="Gene Summary" />
+            </Link>
+            <Link href={`/gene/${gene}/proteininformation`} passHref>
+              <Tab label="Protein Information" />
             </Link>
             <Link href={`/gene/${gene}/goannotations`} passHref>
               <Tab label="Gene Ontology" />
