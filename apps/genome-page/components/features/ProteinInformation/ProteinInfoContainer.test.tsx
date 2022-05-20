@@ -14,11 +14,11 @@ describe("features/ProteinInformation/ProteinInfoContainer", () => {
     render(<ProteinInfoContainer gene={mockGene as GeneQuery} />)
 
     // wait for data to load...
-    const molecularPanel = screen.getByText(/General Information/)
-    expect(molecularPanel).toBeInTheDocument()
-    const biologicalPanel = screen.getByText(/Links/)
-    expect(biologicalPanel).toBeInTheDocument()
-    const cellularPanel = screen.getByText(/Protein Sequence/)
-    expect(cellularPanel).toBeInTheDocument()
+    const GeneralInfoPanel = screen.getByText(/General Information/)
+    expect(GeneralInfoPanel).toBeInTheDocument()
+    const LinkPanel = screen.getByText(/External Links/)
+    expect(LinkPanel).toBeInTheDocument()
+    const ProteinSequencePanel = screen.getAllByText(/Protein Sequence/)
+    expect(ProteinSequencePanel.length).toBe(2)
   })
 })
