@@ -8,7 +8,6 @@ import {
   Select,
   MenuItem,
   FormControl,
-  InputLabel,
 } from "@material-ui/core"
 
 const QueryOrGeneRow = () => {
