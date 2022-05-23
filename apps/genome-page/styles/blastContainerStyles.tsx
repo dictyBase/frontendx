@@ -20,6 +20,12 @@ const useStyles = makeStyles({
     marginTop: 10,
     marginBottom: 10,
   },
+  col: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   titleBox: {
     backgroundColor: "#DFE8F6",
     border: "1px solid",
@@ -27,6 +33,7 @@ const useStyles = makeStyles({
     textAlign: "center",
     paddingLeft: 5,
     paddingRight: 5,
+    marginBottom: 10,
     maxWidth: 200,
   },
   titleBoxText: {
@@ -37,13 +44,24 @@ const useStyles = makeStyles({
     fontSize: "14px",
     fontWeight: "bold",
   },
+  text: {
+    fontSize: "14px",
+  },
   card: {
     padding: 10,
     backgroundColor: "#F2F2F2",
+    minHeight: 200,
   },
   textArea: {
     padding: 0,
     fontSize: 12,
+    width: "100%",
+  },
+  contentBox: {
+    minWidth: 450,
+    maxWidth: 550,
+    width: "100%",
+    minHeight: 300,
   },
 })
 
