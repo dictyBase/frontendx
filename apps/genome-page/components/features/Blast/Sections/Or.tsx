@@ -4,8 +4,8 @@ const Or = () => {
   return (
     <Grid
       item
-      xs={2}
-      md={2}
+      xs={1}
+      md={1}
       style={{
         display: "flex",
         justifyContent: "center",
