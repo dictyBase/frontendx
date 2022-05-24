@@ -1,9 +1,11 @@
 import Layout from "components/layout/Layout"
 import { GeneQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
-import useStyles from "../../../styles/blastContainerStyles"
-import { Paper, Container } from "@material-ui/core"
-import QueryOrGeneRow from "./Sections/QueryOrGeneRow"
+import useStyles from "styles/blastContainerStyles"
+import { Paper, Container, Grid } from "@material-ui/core"
+import QuerySection from "./Sections/QuerySection"
+import GeneOrID from "./Sections/GeneOrID"
+import Or from "./Sections/Or"
 import BlastProgramRow from "./Sections/BlastProgramRow"
 import BlastDatabaseRow from "./Sections/BlastDatabaseRow"
 import BlastButtonsRow from "./Sections/BlastButtonsRow"
@@ -23,13 +25,15 @@ const BlastContainer = ({ gene }: BlastContainerProps) => {
       title={`Phenotypes for ${geneId}`}
       description={`Gene phenotypes for ${geneId}`}>
       <Container component={Paper} className={classes.root} maxWidth={false}>
-        <Container maxWidth="lg" className={classes.col}>
-          <QueryOrGeneRow />
+        <Grid container spacing={2}>
+          <QuerySection />
+          <Or />
+          <GeneOrID />
           <BlastProgramRow />
           <BlastDatabaseRow />
           <BlastButtonsRow />
           <BlastOptionsRow />
-        </Container>
+        </Grid>
       </Container>
     </Layout>
   )
