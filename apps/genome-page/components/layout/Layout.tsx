@@ -57,7 +57,7 @@ const Layout = ({ children, gene, title, description }: Props) => {
           </Typography>
         </Box>
         <AppBar position="static">
-          <Tabs value={tabValue} onChange={handleChange}>
+          <Tabs value={tabValue} onChange={handleChange} variant="scrollable">
             <Link href={`/gene/${gene}`} passHref>
               <Tab label="Gene Summary" />
             </Link>
