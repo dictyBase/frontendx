@@ -27,14 +27,17 @@ const useStyles = makeStyles({
     justifyContent: "center",
   },
   titleBox: {
+    position: "absolute",
+    marginTop: "-10px",
     backgroundColor: "#DFE8F6",
     border: "1px solid",
     borderColor: "#A3BAE9",
     textAlign: "center",
     paddingLeft: 5,
     paddingRight: 5,
-    marginBottom: 10,
     maxWidth: 200,
+    marginLeft: 25,
+    zIndex: 5,
   },
   titleBoxText: {
     color: "#336699",
@@ -48,7 +51,7 @@ const useStyles = makeStyles({
     fontSize: "14px",
   },
   card: {
-    padding: 10,
+    padding: 20,
     backgroundColor: "#F2F2F2",
     minHeight: 200,
   },
@@ -58,6 +61,7 @@ const useStyles = makeStyles({
     width: "100%",
   },
   contentBox: {
+    marginTop: 20,
     minWidth: 450,
     maxWidth: 550,
     width: "100%",
