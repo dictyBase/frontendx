@@ -14,7 +14,7 @@ const GeneOrID = () => {
   const classes = useStyles()
 
   return (
-    <Grid item xs={5} md={5}>
+    <Grid item xs={6} md={6}>
       <Box className={classes.titleBox}>
         <Typography className={classes.titleBoxText}>
           Gene or Gene Model ID
