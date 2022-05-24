@@ -94,7 +94,7 @@
     "prettier": "^2.6.2",
     "react-docgen-typescript": "^2.2.1",
     "react-styleguidist": "^11.2.0",
-    "react-test-renderer": "^16.13.1",
+    "react-test-renderer": "^18.1.0",
     "semantic-release": "^19.0.2",
     "start-server-and-test": "^1.14.0"
   },
