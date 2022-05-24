@@ -182,6 +182,29 @@ const returnPanelContentById = (
           <a href={(value as AssociatedSequences).more_link}>more..</a>
         </>
       )
+    // Protein General Info
+    case "Gene Product":
+      return value
+    case "dictyBase ID":
+      return value
+    case "Description":
+      return value
+    case "Protein Length":
+      return value
+    case "Molecular Weight":
+      return value
+    case "AA Composition":
+      return (
+        <a href={(value as NameWithLink).link}>
+          {(value as NameWithLink).name}
+        </a>
+      )
+    case "Subcellular location":
+      return value
+    case "Protein existence":
+      return value
+    case "Note":
+      return <strong>{value as string}</strong>
   }
 }
 

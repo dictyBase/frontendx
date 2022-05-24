@@ -10,15 +10,19 @@ const getTabValue = (pathname: string) => {
   const subroute = pathname.split("/").splice(-1).join()
 
   switch (subroute) {
+    case "blast":
+      return 7
     case "communityannotations":
-      return 5
+      return 6
     case "references":
-      return 4
+      return 5
     case "phenotypes":
-      return 3
+      return 4
     case "orthologs":
-      return 2
+      return 3
     case "goannotations":
+      return 2
+    case "proteininformation":
       return 1
     default:
       return 0
@@ -53,9 +57,12 @@ const Layout = ({ children, gene, title, description }: Props) => {
           </Typography>
         </Box>
         <AppBar position="static">
-          <Tabs value={tabValue} onChange={handleChange}>
+          <Tabs value={tabValue} onChange={handleChange} variant="scrollable">
             <Link href={`/gene/${gene}`} passHref>
               <Tab label="Gene Summary" />
+            </Link>
+            <Link href={`/gene/${gene}/proteininformation`} passHref>
+              <Tab label="Protein Information" />
             </Link>
             <Link href={`/gene/${gene}/goannotations`} passHref>
               <Tab label="Gene Ontology" />
@@ -71,6 +78,9 @@ const Layout = ({ children, gene, title, description }: Props) => {
             </Link>
             <Link href={`/gene/${gene}/communityannotations`} passHref>
               <Tab label="Annotations" />
+            </Link>
+            <Link href={`/gene/${gene}/blast`} passHref>
+              <Tab label="BLAST" />
             </Link>
           </Tabs>
         </AppBar>
