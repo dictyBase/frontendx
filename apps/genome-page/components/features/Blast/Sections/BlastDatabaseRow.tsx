@@ -1,15 +1,50 @@
+import react, { MutableRefObject, useState, useEffect } from "react"
 import useStyles from "styles/geneOrIDSection"
 import {
   Typography,
   Card,
   Box,
-  TextField,
-  MenuItem,
+  FormControl,
+  Select,
   Grid,
 } from "@material-ui/core"
+import { Observable } from "rxjs"
+import programToDatabaseMock from "../mocks/relatonalMockData"
 
-const BlastDatabaseRow = () => {
+interface BlastDatabaseRowProps {
+  organismElement: MutableRefObject<HTMLInputElement>
+  databaseElement: MutableRefObject<HTMLInputElement>
+  stream: Observable<string>
+}
+
+const BlastDatabaseRow = ({
+  stream,
+  organismElement,
+  databaseElement,
+}: BlastDatabaseRowProps) => {
   const classes = useStyles()
+  const [organismOptions, setOrganismOptions] = useState<string[]>([
+    "Please Select an Organism",
+    "All",
+    "Dictyostellum discoldeum",
+    "Dictyostellum fasciculatum",
+    "Dictyostellum purpureum",
+    "Polysphondylium pallidum",
+  ])
+
+  const [databaseOptions, setDatabaseOptions] = useState<string[]>(
+    programToDatabaseMock["Please Select a Program"],
+  )
+
+  useEffect(() => {
+    if (!stream) return
+    const subscription = stream.subscribe((content) => {
+      console.log(programToDatabaseMock[content])
+      setDatabaseOptions(programToDatabaseMock[content])
+    })
+    return () => subscription.unsubscribe()
+  }, [stream])
+
   return (
     <Grid item xs={12} md={12}>
       <Box className={classes.titleBox}>
@@ -24,19 +59,21 @@ const BlastDatabaseRow = () => {
             </Typography>
           </Grid>
           <Grid item xs={9} md={9}>
-            <TextField
-              size="small"
-              select
-              defaultValue={2}
-              variant="outlined"
-              InputProps={{ style: { fontSize: 12, minWidth: 400 } }}>
-              <MenuItem value={0}>Please Select an Organism</MenuItem>
-              <MenuItem value={1}>All</MenuItem>
-              <MenuItem value={2}>Dictyostellum discoldeum</MenuItem>
-              <MenuItem value={3}>Dictyostellum fasciculatum</MenuItem>
-              <MenuItem value={4}>Dictyostellum purpureum</MenuItem>
-              <MenuItem value={5}>Polysphondylium pallidum</MenuItem>
-            </TextField>
+            <FormControl>
+              <Select
+                native
+                id="organism-select-id"
+                defaultValue={"Dictyostellum discoldeum"}
+                inputProps={{ style: { fontSize: 12, minWidth: 400 } }}
+                variant="outlined"
+                ref={organismElement}>
+                {organismOptions.map((val, index) => (
+                  <option value={val} key={index}>
+                    {val}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
           </Grid>
           {/* Select Database */}
           <Grid item xs={3} md={3}>
@@ -45,31 +82,21 @@ const BlastDatabaseRow = () => {
             </Typography>
           </Grid>
           <Grid item xs={9} md={9}>
-            <TextField
-              size="small"
-              select
-              defaultValue={0}
-              variant="outlined"
-              InputProps={{ style: { fontSize: 12, minWidth: 400 } }}>
-              <MenuItem value={0}>Please Select a Database</MenuItem>
-              <MenuItem value={1}>
-                D. discoideum Protein sequences - protein
-              </MenuItem>
-              <MenuItem value={2}>
-                D. discoideum Coding sequences - DNA
-              </MenuItem>
-              <MenuItem value={3}>
-                D. discoideum Non-coding sequences - DNA
-              </MenuItem>
-              <MenuItem value={4}>
-                D. discoideum Genomic sequences - DNA
-              </MenuItem>
-              <MenuItem value={5}>D. discoideum EST sequences - DNA</MenuItem>
-              <MenuItem value={6}>
-                D. discoideum Chromosomal DNA: 1,2,3,4,5,6,M and floating
-                contigs - DNA
-              </MenuItem>
-            </TextField>
+            <FormControl>
+              <Select
+                native
+                id="database-select-id"
+                defaultValue={"Please Select a Database"}
+                inputProps={{ style: { fontSize: 12, minWidth: 400 } }}
+                variant="outlined"
+                ref={databaseElement}>
+                {databaseOptions.map((val, index) => (
+                  <option value={val} key={index}>
+                    {val}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
           </Grid>
         </Grid>
       </Card>
