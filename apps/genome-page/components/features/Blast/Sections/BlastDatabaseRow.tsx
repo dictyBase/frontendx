@@ -23,7 +23,7 @@ const BlastDatabaseRow = ({
   databaseElement,
 }: BlastDatabaseRowProps) => {
   const classes = useStyles()
-  const [organismOptions, setOrganismOptions] = useState<string[]>([
+  const [organismOptions] = useState<string[]>([
     "Please Select an Organism",
     "All",
     "Dictyostellum discoldeum",
@@ -38,10 +38,9 @@ const BlastDatabaseRow = ({
 
   useEffect(() => {
     if (!stream) return
-    const subscription = stream.subscribe((content) => {
-      console.log(programToDatabaseMock[content])
-      setDatabaseOptions(programToDatabaseMock[content])
-    })
+    const subscription = stream.subscribe((content) =>
+      setDatabaseOptions(programToDatabaseMock[content]),
+    )
     return () => subscription.unsubscribe()
   }, [stream])
 

@@ -1,4 +1,4 @@
-import React, { useRef } from "react"
+import React, { useRef, MutableRefObject } from "react"
 import Layout from "components/layout/Layout"
 import { GeneQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
@@ -12,7 +12,7 @@ import BlastDatabaseRow from "./Sections/BlastDatabaseRow"
 import BlastButtonsRow from "./Sections/BlastButtonsRow"
 import BlastOptionsRow from "./Sections/BlastOptionsRow"
 import { useStreamManager } from "./streamManager"
-import { MutableRefObject } from "react"
+import {} from "react"
 
 interface BlastContainerProps {
   gene: GeneQuery
@@ -40,7 +40,6 @@ const BlastContainer = ({ gene }: BlastContainerProps) => {
       description={`Gene phenotypes for ${geneId}`}>
       <Container component={Paper} className={classes.root} maxWidth={false}>
         <Grid container spacing={2}>
-          {/* Need to create a container here to manage the stream */}
           <QuerySection />
           <Or />
           <GeneOrID />
