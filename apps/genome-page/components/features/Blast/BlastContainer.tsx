@@ -1,3 +1,4 @@
+import React, { useRef } from "react"
 import Layout from "components/layout/Layout"
 import { GeneQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
@@ -10,6 +11,8 @@ import BlastProgramRow from "./Sections/BlastProgramRow"
 import BlastDatabaseRow from "./Sections/BlastDatabaseRow"
 import BlastButtonsRow from "./Sections/BlastButtonsRow"
 import BlastOptionsRow from "./Sections/BlastOptionsRow"
+import { useStreamManager } from "./streamManager"
+import { MutableRefObject } from "react"
 
 interface BlastContainerProps {
   gene: GeneQuery
@@ -19,6 +22,17 @@ const BlastContainer = ({ gene }: BlastContainerProps) => {
   const { query } = useRouter()
   const geneId = query.id as string
 
+  const selectProgramEl = useRef<HTMLInputElement>(
+    null,
+  ) as MutableRefObject<HTMLInputElement>
+  const selectOrganismEl = useRef<HTMLInputElement>(
+    null,
+  ) as MutableRefObject<HTMLInputElement>
+  const selectDatabaseEl = useRef<HTMLInputElement>(
+    null,
+  ) as MutableRefObject<HTMLInputElement>
+  const stream = useStreamManager({ element: selectProgramEl })
+
   return (
     <Layout
       gene={geneId}
@@ -26,11 +40,16 @@ const BlastContainer = ({ gene }: BlastContainerProps) => {
       description={`Gene phenotypes for ${geneId}`}>
       <Container component={Paper} className={classes.root} maxWidth={false}>
         <Grid container spacing={2}>
+          {/* Need to create a container here to manage the stream */}
           <QuerySection />
           <Or />
           <GeneOrID />
-          <BlastProgramRow />
-          <BlastDatabaseRow />
+          <BlastProgramRow programElement={selectProgramEl} />
+          <BlastDatabaseRow
+            stream={stream}
+            organismElement={selectOrganismEl}
+            databaseElement={selectDatabaseEl}
+          />
           <BlastButtonsRow />
           <BlastOptionsRow />
         </Grid>

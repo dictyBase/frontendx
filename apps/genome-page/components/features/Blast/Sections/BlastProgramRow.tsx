@@ -1,15 +1,23 @@
 import useStyles from "styles/geneOrIDSection"
-import {
-  Typography,
-  Card,
-  Box,
-  Grid,
-  MenuItem,
-  TextField,
-} from "@material-ui/core"
+import { Typography, Card, Box, Grid, Select } from "@material-ui/core"
+import { MutableRefObject, useState } from "react"
 
-const BlastProgramRow = () => {
+interface BlastProgramRow {
+  programElement: MutableRefObject<HTMLInputElement>
+}
+
+const BlastProgramRow = ({ programElement }: BlastProgramRow) => {
   const classes = useStyles()
+
+  const [programOptions] = useState<string[]>([
+    "Please Select a Program",
+    "blastn - DNA query to DNA database",
+    "blastp - Protein query to protein database",
+    "blastx - Translated (6 frames) DNA query to protein database",
+    "tblastx - Translated (6 frames) DNA query to translated (6 frames) DNA database",
+    "tblastn - Protein query to DNA (6 frames) DNA database",
+  ])
+
   return (
     <Grid item xs={12} md={12}>
       <Box className={classes.titleBox}>
@@ -21,28 +29,19 @@ const BlastProgramRow = () => {
             <Typography className={classes.boldText}>Select Program</Typography>
           </Grid>
           <Grid item xs={9} md={9}>
-            <TextField
-              size="small"
-              select
-              defaultValue={0}
+            <Select
+              native
+              id="program-select-id"
+              defaultValue={"Please Select a Program"}
               variant="outlined"
-              InputProps={{ style: { fontSize: 12, minWidth: 400 } }}>
-              <MenuItem value={0}>Please Select a Program</MenuItem>
-              <MenuItem value={1}>blastn - DNA query to DNA database</MenuItem>
-              <MenuItem value={2}>
-                blastp - Protein query to protein database
-              </MenuItem>
-              <MenuItem value={3}>
-                blastx - Translated (6 frames) DNA query to protein databse
-              </MenuItem>
-              <MenuItem value={4}>
-                tblastx - Translated (6 frames) DNA query to translated (6
-                frames) DNA database
-              </MenuItem>
-              <MenuItem value={5}>
-                tblastn - Protein query to DNA (6 frames) DNA database
-              </MenuItem>
-            </TextField>
+              inputProps={{ style: { fontSize: 12, minWidth: 400 } }}
+              ref={programElement}>
+              {programOptions.map((val, index) => (
+                <option value={val} key={index}>
+                  {val}
+                </option>
+              ))}
+            </Select>
           </Grid>
         </Grid>
       </Card>
