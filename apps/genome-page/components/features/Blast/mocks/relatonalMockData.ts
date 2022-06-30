@@ -22,7 +22,7 @@ let programToDatabaseMock: { [key: string]: string[] } = {
   "blastx - Translated (6 frames) DNA query to protein database": [
     "D. discoideum Protein sequences - protein",
   ],
-  "tblastx - Translated (6 frames) DNA query to translated (6frames) DNA database":
+  "tblastx - Translated (6 frames) DNA query to translated (6 frames) DNA database":
     [
       "Please Select a Database",
       "D. discoideum Coding sequences - DNA",
