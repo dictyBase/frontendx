@@ -9,7 +9,7 @@ interface StreamManagerProps {
 }
 
 export function useStreamManager({ element }: StreamManagerProps) {
-  const [streamer, setStreamer] = useState<Observable<string>>(null)
+  const [streamer, setStreamer] = useState<Observable<string>>()
   useEffect(() => {
     const obs = fromEvent<InputEvent>(
       element.current as HTMLInputElement,
