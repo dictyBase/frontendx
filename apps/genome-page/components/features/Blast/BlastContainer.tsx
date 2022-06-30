@@ -13,6 +13,7 @@ import BlastButtonsRow from "./Sections/BlastButtonsRow"
 import BlastOptionsRow from "./Sections/BlastOptionsRow"
 import { useStreamManager } from "./streamManager"
 import {} from "react"
+import { Observable } from "rxjs"
 
 interface BlastContainerProps {
   gene: GeneQuery
@@ -31,7 +32,9 @@ const BlastContainer = ({ gene }: BlastContainerProps) => {
   const selectDatabaseEl = useRef<HTMLInputElement>(
     null,
   ) as MutableRefObject<HTMLInputElement>
-  const stream = useStreamManager({ element: selectProgramEl })
+  const stream = useStreamManager({
+    element: selectProgramEl,
+  }) as Observable<string>
 
   return (
     <Layout
