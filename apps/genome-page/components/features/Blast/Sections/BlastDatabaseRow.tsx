@@ -14,11 +14,15 @@ import programToDatabaseMock from "../mocks/relatonalMockData"
 interface BlastDatabaseRowProps {
   organismElement: MutableRefObject<HTMLInputElement>
   databaseElement: MutableRefObject<HTMLInputElement>
-  stream: Observable<string>
+  programStream: Observable<string>
+  sequenceStream: Observable<string>
+  organismStream: Observable<string>
 }
 
 const BlastDatabaseRow = ({
-  stream,
+  organismStream,
+  programStream,
+  sequenceStream,
   organismElement,
   databaseElement,
 }: BlastDatabaseRowProps) => {
@@ -37,12 +41,20 @@ const BlastDatabaseRow = ({
   )
 
   useEffect(() => {
-    if (!stream) return
-    const subscription = stream.subscribe((content) =>
+    if (!programStream) return
+    const subscription = programStream.subscribe((content) =>
       setDatabaseOptions(programToDatabaseMock[content]),
     )
     return () => subscription.unsubscribe()
-  }, [stream])
+  }, [programStream])
+
+  useEffect(() => {
+    if (!organismStream) return
+    const subscription = organismStream.subscribe((content) => {
+      setDatabaseOptions(["Test", ...content])
+    })
+    return () => subscription.unsubscribe()
+  }, [organismStream])
 
   return (
     <Grid item xs={12} md={12}>
