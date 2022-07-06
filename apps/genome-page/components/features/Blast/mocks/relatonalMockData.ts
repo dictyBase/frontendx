@@ -52,7 +52,7 @@ let programOptionsMock: { [key: string]: string[] } = {
   ],
   Protein: [
     "Please Select a Program",
-    "blastn - DNA query to DNA database",
+    "blastp - Protein query to protein database",
     "tblastn - Protein query to DNA (6 frames) DNA database",
   ],
   "DNA coding sequence": [
