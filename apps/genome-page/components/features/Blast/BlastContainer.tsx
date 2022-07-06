@@ -23,17 +23,30 @@ const BlastContainer = ({ gene }: BlastContainerProps) => {
   const { query } = useRouter()
   const geneId = query.id as string
 
+  const selectSequenceEl = useRef<HTMLInputElement>(
+    null,
+  ) as MutableRefObject<HTMLInputElement>
   const selectProgramEl = useRef<HTMLInputElement>(
     null,
   ) as MutableRefObject<HTMLInputElement>
+
   const selectOrganismEl = useRef<HTMLInputElement>(
     null,
   ) as MutableRefObject<HTMLInputElement>
   const selectDatabaseEl = useRef<HTMLInputElement>(
     null,
   ) as MutableRefObject<HTMLInputElement>
-  const stream = useStreamManager({
+
+  const organismStream = useStreamManager({
+    element: selectOrganismEl,
+  }) as Observable<string>
+
+  const programStream = useStreamManager({
     element: selectProgramEl,
+  }) as Observable<string>
+
+  const sequenceStream = useStreamManager({
+    element: selectSequenceEl,
   }) as Observable<string>
 
   return (
@@ -45,10 +58,15 @@ const BlastContainer = ({ gene }: BlastContainerProps) => {
         <Grid container spacing={2}>
           <QuerySection />
           <Or />
-          <GeneOrID />
-          <BlastProgramRow programElement={selectProgramEl} />
+          <GeneOrID sequenceElement={selectSequenceEl} />
+          <BlastProgramRow
+            programElement={selectProgramEl}
+            sequenceStream={sequenceStream}
+          />
           <BlastDatabaseRow
-            stream={stream}
+            organismStream={organismStream}
+            programStream={programStream}
+            sequenceStream={sequenceStream}
             organismElement={selectOrganismEl}
             databaseElement={selectDatabaseEl}
           />
