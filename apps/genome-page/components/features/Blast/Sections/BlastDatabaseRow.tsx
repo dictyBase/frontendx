@@ -1,12 +1,14 @@
-import react, { MutableRefObject, useState, useEffect } from "react"
+import react, { MutableRefObject, useState, useEffect, useRef } from "react"
 import useStyles from "styles/geneOrIDSection"
-import { Typography, Card, Box, Select, Grid } from "@material-ui/core"
+import { Typography, Card, Box, Grid } from "@material-ui/core"
+import Select, { SelectChangeEvent } from "@mui/material/Select"
 import { Observable } from "rxjs"
 import { programToDatabaseMock } from "../mocks/relatonalMockData"
 
 interface BlastDatabaseRowProps {
   organismElement: MutableRefObject<HTMLInputElement>
   databaseElement: MutableRefObject<HTMLInputElement>
+  sequenceStream: Observable<string>
   programStream: Observable<string>
   organismStream: Observable<string>
 }
@@ -14,38 +16,63 @@ interface BlastDatabaseRowProps {
 const BlastDatabaseRow = ({
   organismStream,
   programStream,
+  sequenceStream,
   organismElement,
   databaseElement,
 }: BlastDatabaseRowProps) => {
   const classes = useStyles()
+
+  const [currentProgram, setCurrentProgram] = useState<string>(
+    "Please Select a Program",
+  )
+
   const [organismOptions] = useState<string[]>([
     "Please Select an Organism",
     "All",
-    "Dictyostellum discoldeum",
-    "Dictyostellum fasciculatum",
-    "Dictyostellum purpureum",
+    "Dictyostelium discoideum",
+    "Dictyostelium fasciculatum",
+    "Dictyostelium purpureum",
     "Polysphondylium pallidum",
   ])
 
+  const [selectOrganismValue, setSelectOrganismValue] = useState(
+    "Dictyostelium discoideum",
+  )
+
   const [databaseOptions, setDatabaseOptions] = useState<string[]>(
-    programToDatabaseMock["Please Select a Program"],
+    programToDatabaseMock["Please Select a Program"][
+      "Dictyostelium discoideum"
+    ],
   )
 
   useEffect(() => {
-    if (!programStream) return
-    const subscription = programStream.subscribe((content) =>
-      setDatabaseOptions(programToDatabaseMock[content]),
-    )
+    if (!sequenceStream) return
+    const subscription = sequenceStream.subscribe((content) => {
+      setDatabaseOptions(
+        programToDatabaseMock["Please Select a Program"][selectOrganismValue],
+      )
+      setCurrentProgram("Please Select a Program")
+    })
     return () => subscription.unsubscribe()
-  }, [programStream])
+  }, [selectOrganismValue, sequenceStream])
+
+  useEffect(() => {
+    if (!programStream) return
+    const subscription = programStream.subscribe((content) => {
+      console.log("BlastDatabaseRow: ", content)
+      setCurrentProgram(content)
+      setDatabaseOptions(programToDatabaseMock[content][selectOrganismValue])
+    })
+    return () => subscription.unsubscribe()
+  }, [programStream, selectOrganismValue])
 
   useEffect(() => {
     if (!organismStream) return
     const subscription = organismStream.subscribe((content) => {
-      setDatabaseOptions(["Test", ...content])
+      setDatabaseOptions(programToDatabaseMock[currentProgram][content])
     })
     return () => subscription.unsubscribe()
-  }, [organismStream])
+  }, [organismStream, currentProgram])
 
   return (
     <Grid item xs={12} md={12}>
@@ -64,7 +91,10 @@ const BlastDatabaseRow = ({
             <Select
               native
               id="organism-select-id"
-              defaultValue={"Dictyostellum discoldeum"}
+              defaultValue="Dictyostelium discoideum"
+              onChange={(e: SelectChangeEvent) => {
+                setSelectOrganismValue(e.target.value as string)
+              }}
               inputProps={{ style: { fontSize: 12, minWidth: 400 } }}
               variant="outlined"
               ref={organismElement}>
