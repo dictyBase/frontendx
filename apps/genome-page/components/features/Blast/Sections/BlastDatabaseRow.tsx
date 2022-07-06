@@ -8,14 +8,12 @@ interface BlastDatabaseRowProps {
   organismElement: MutableRefObject<HTMLInputElement>
   databaseElement: MutableRefObject<HTMLInputElement>
   programStream: Observable<string>
-  sequenceStream: Observable<string>
   organismStream: Observable<string>
 }
 
 const BlastDatabaseRow = ({
   organismStream,
   programStream,
-  sequenceStream,
   organismElement,
   databaseElement,
 }: BlastDatabaseRowProps) => {
