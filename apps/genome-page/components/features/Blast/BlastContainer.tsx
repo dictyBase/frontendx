@@ -65,6 +65,7 @@ const BlastContainer = ({ gene }: BlastContainerProps) => {
           />
           <BlastDatabaseRow
             organismStream={organismStream}
+            sequenceStream={sequenceStream}
             programStream={programStream}
             organismElement={selectOrganismEl}
             databaseElement={selectDatabaseEl}
