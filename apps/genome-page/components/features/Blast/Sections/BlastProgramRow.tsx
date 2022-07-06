@@ -1,8 +1,9 @@
 import useStyles from "styles/geneOrIDSection"
-import { Typography, Card, Box, Grid, Select } from "@material-ui/core"
+import { Typography, Card, Box, Grid } from "@material-ui/core"
 import { MutableRefObject, useEffect, useState } from "react"
 import { Observable } from "rxjs"
 import { programOptionsMock } from "../mocks/relatonalMockData"
+import Select, { SelectChangeEvent } from "@mui/material/Select"
 
 interface BlastProgramRow {
   programElement: MutableRefObject<HTMLInputElement>
@@ -19,11 +20,13 @@ const BlastProgramRow = ({
     programOptionsMock["Please Select a Sequence Type"],
   )
 
+  const [option, setOption] = useState<string>("Please Select a Program")
+
   useEffect(() => {
     if (!sequenceStream) return
-    const subscription = sequenceStream.subscribe((content) =>
-      setProgramOptions(programOptionsMock[content]),
-    )
+    const subscription = sequenceStream.subscribe((content) => {
+      setProgramOptions(programOptionsMock[content])
+    })
     return () => subscription.unsubscribe()
   }, [sequenceStream])
 
@@ -41,9 +44,13 @@ const BlastProgramRow = ({
             <Select
               native
               id="program-select-id"
-              defaultValue={"Please Select a Program"}
               variant="outlined"
+              defaultValue={"Please Select a Program"}
               inputProps={{ style: { fontSize: 12, minWidth: 400 } }}
+              value={option}
+              onChange={(e: SelectChangeEvent) => {
+                setOption(e.target.value as string)
+              }}
               ref={programElement}>
               {programOptions.map((val, index) => (
                 <option value={val} key={index}>
