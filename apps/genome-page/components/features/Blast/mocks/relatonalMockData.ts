@@ -41,4 +41,32 @@ let programToDatabaseMock: { [key: string]: string[] } = {
   ],
 }
 
-export default programToDatabaseMock
+let programOptionsMock: { [key: string]: string[] } = {
+  "Please Select a Sequence Type": [
+    "Please Select a Program",
+    "blastn - DNA query to DNA database",
+    "blastp - Protein query to protein database",
+    "blastx - Translated (6 frames) DNA query to protein database",
+    "tblastx - Translated (6 frames) DNA query to translated (6 frames) DNA database",
+    "tblastn - Protein query to DNA (6 frames) DNA database",
+  ],
+  Protein: [
+    "Please Select a Program",
+    "blastn - DNA query to DNA database",
+    "tblastn - Protein query to DNA (6 frames) DNA database",
+  ],
+  "DNA coding sequence": [
+    "Please Select a Program",
+    "blastn - DNA query to DNA database",
+    "blastx - Translated (6 frames) DNA query to protein database",
+    "tblastx - Translated (6 frames) DNA query to translated (6 frames) DNA database",
+  ],
+  "Genomic DNA": [
+    "Please Select a Program",
+    "blastn - DNA query to DNA database",
+    "blastx - Translated (6 frames) DNA query to protein database",
+    "tblastx - Translated (6 frames) DNA query to translated (6 frames) DNA database",
+  ],
+}
+
+export { programToDatabaseMock, programOptionsMock }

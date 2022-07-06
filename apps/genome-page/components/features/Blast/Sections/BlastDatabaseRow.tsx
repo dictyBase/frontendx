@@ -1,15 +1,8 @@
 import react, { MutableRefObject, useState, useEffect } from "react"
 import useStyles from "styles/geneOrIDSection"
-import {
-  Typography,
-  Card,
-  Box,
-  FormControl,
-  Select,
-  Grid,
-} from "@material-ui/core"
+import { Typography, Card, Box, Select, Grid } from "@material-ui/core"
 import { Observable } from "rxjs"
-import programToDatabaseMock from "../mocks/relatonalMockData"
+import { programToDatabaseMock } from "../mocks/relatonalMockData"
 
 interface BlastDatabaseRowProps {
   organismElement: MutableRefObject<HTMLInputElement>
@@ -70,21 +63,19 @@ const BlastDatabaseRow = ({
             </Typography>
           </Grid>
           <Grid item xs={9} md={9}>
-            <FormControl>
-              <Select
-                native
-                id="organism-select-id"
-                defaultValue={"Dictyostellum discoldeum"}
-                inputProps={{ style: { fontSize: 12, minWidth: 400 } }}
-                variant="outlined"
-                ref={organismElement}>
-                {organismOptions.map((val, index) => (
-                  <option value={val} key={index}>
-                    {val}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
+            <Select
+              native
+              id="organism-select-id"
+              defaultValue={"Dictyostellum discoldeum"}
+              inputProps={{ style: { fontSize: 12, minWidth: 400 } }}
+              variant="outlined"
+              ref={organismElement}>
+              {organismOptions.map((val, index) => (
+                <option value={val} key={index}>
+                  {val}
+                </option>
+              ))}
+            </Select>
           </Grid>
           {/* Select Database */}
           <Grid item xs={3} md={3}>
@@ -93,21 +84,19 @@ const BlastDatabaseRow = ({
             </Typography>
           </Grid>
           <Grid item xs={9} md={9}>
-            <FormControl>
-              <Select
-                native
-                id="database-select-id"
-                defaultValue={"Please Select a Database"}
-                inputProps={{ style: { fontSize: 12, minWidth: 400 } }}
-                variant="outlined"
-                ref={databaseElement}>
-                {databaseOptions.map((val, index) => (
-                  <option value={val} key={index}>
-                    {val}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
+            <Select
+              native
+              id="database-select-id"
+              defaultValue={"Please Select a Database"}
+              inputProps={{ style: { fontSize: 12, minWidth: 400 } }}
+              variant="outlined"
+              ref={databaseElement}>
+              {databaseOptions.map((val, index) => (
+                <option value={val} key={index}>
+                  {val}
+                </option>
+              ))}
+            </Select>
           </Grid>
         </Grid>
       </Card>

@@ -7,11 +7,23 @@ import {
   Button,
   MenuItem,
   TextField,
-  FormControl,
+  Select,
 } from "@material-ui/core"
+import { MutableRefObject, useState } from "react"
 
-const GeneOrID = () => {
+interface GeneOrIdProps {
+  sequenceElement: MutableRefObject<HTMLInputElement>
+}
+
+const GeneOrID = ({ sequenceElement }: GeneOrIdProps) => {
   const classes = useStyles()
+
+  const [sequenceOptions] = useState<string[]>([
+    "Please Select a Sequence Type",
+    "Protein",
+    "DNA coding sequence",
+    "Genomic DNA",
+  ])
 
   return (
     <Grid item xs={6} md={6}>
@@ -63,17 +75,19 @@ const GeneOrID = () => {
             </Typography>
           </Grid>
           <Grid item xs={8} md={6}>
-            <TextField
-              size="small"
-              select
-              defaultValue={0}
+            <Select
+              native
+              id="sequence-select-id"
+              defaultValue={"Please Select a Sequence Type"}
+              inputProps={{ style: { fontSize: 12, minWidth: 200 } }}
               variant="outlined"
-              InputProps={{ style: { fontSize: 12, minWidth: 200 } }}>
-              <MenuItem value={0}>Please Select a Sequence Type</MenuItem>
-              <MenuItem value={1}>Protein</MenuItem>
-              <MenuItem value={2}>DNA coding sequence</MenuItem>
-              <MenuItem value={3}>Genomic DNA</MenuItem>
-            </TextField>
+              ref={sequenceElement}>
+              {sequenceOptions.map((val, index) => (
+                <option value={val} key={index}>
+                  {val}
+                </option>
+              ))}
+            </Select>
           </Grid>
         </Grid>
       </Card>
