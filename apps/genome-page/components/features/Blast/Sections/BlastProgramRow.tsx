@@ -1,22 +1,31 @@
 import useStyles from "styles/geneOrIDSection"
 import { Typography, Card, Box, Grid, Select } from "@material-ui/core"
-import { MutableRefObject, useState } from "react"
+import { MutableRefObject, useEffect, useState } from "react"
+import { Observable } from "rxjs"
+import { programOptionsMock } from "../mocks/relatonalMockData"
 
 interface BlastProgramRow {
   programElement: MutableRefObject<HTMLInputElement>
+  sequenceStream: Observable<string>
 }
 
-const BlastProgramRow = ({ programElement }: BlastProgramRow) => {
+const BlastProgramRow = ({
+  programElement,
+  sequenceStream,
+}: BlastProgramRow) => {
   const classes = useStyles()
 
-  const [programOptions] = useState<string[]>([
-    "Please Select a Program",
-    "blastn - DNA query to DNA database",
-    "blastp - Protein query to protein database",
-    "blastx - Translated (6 frames) DNA query to protein database",
-    "tblastx - Translated (6 frames) DNA query to translated (6 frames) DNA database",
-    "tblastn - Protein query to DNA (6 frames) DNA database",
-  ])
+  const [programOptions, setProgramOptions] = useState<string[]>(
+    programOptionsMock["Please Select a Sequence Type"],
+  )
+
+  useEffect(() => {
+    if (!sequenceStream) return
+    const subscription = sequenceStream.subscribe((content) =>
+      setProgramOptions(programOptionsMock[content]),
+    )
+    return () => subscription.unsubscribe()
+  }, [sequenceStream])
 
   return (
     <Grid item xs={12} md={12}>
