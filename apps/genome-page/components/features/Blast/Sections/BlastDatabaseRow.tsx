@@ -59,7 +59,6 @@ const BlastDatabaseRow = ({
   useEffect(() => {
     if (!programStream) return
     const subscription = programStream.subscribe((content) => {
-      console.log("BlastDatabaseRow: ", content)
       setCurrentProgram(content)
       setDatabaseOptions(programToDatabaseMock[content][selectOrganismValue])
     })
