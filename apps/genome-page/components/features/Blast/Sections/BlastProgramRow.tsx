@@ -1,15 +1,35 @@
 import useStyles from "styles/geneOrIDSection"
-import {
-  Typography,
-  Card,
-  Box,
-  Grid,
-  MenuItem,
-  TextField,
-} from "@material-ui/core"
+import { Typography, Card, Box, Grid } from "@material-ui/core"
+import { MutableRefObject, useEffect, useState } from "react"
+import { Observable } from "rxjs"
+import { programOptionsMock } from "../mocks/relatonalMockData"
+import Select, { SelectChangeEvent } from "@mui/material/Select"
 
-const BlastProgramRow = () => {
+interface BlastProgramRow {
+  programElement: MutableRefObject<HTMLInputElement>
+  sequenceStream: Observable<string>
+}
+
+const BlastProgramRow = ({
+  programElement,
+  sequenceStream,
+}: BlastProgramRow) => {
   const classes = useStyles()
+
+  const [programOptions, setProgramOptions] = useState<string[]>(
+    programOptionsMock["Please Select a Sequence Type"],
+  )
+
+  const [option, setOption] = useState<string>("Please Select a Program")
+
+  useEffect(() => {
+    if (!sequenceStream) return
+    const subscription = sequenceStream.subscribe((content) => {
+      setProgramOptions(programOptionsMock[content])
+    })
+    return () => subscription.unsubscribe()
+  }, [sequenceStream])
+
   return (
     <Grid item xs={12} md={12}>
       <Box className={classes.titleBox}>
@@ -21,28 +41,23 @@ const BlastProgramRow = () => {
             <Typography className={classes.boldText}>Select Program</Typography>
           </Grid>
           <Grid item xs={9} md={9}>
-            <TextField
-              size="small"
-              select
-              defaultValue={0}
+            <Select
+              native
+              id="program-select-id"
               variant="outlined"
-              InputProps={{ style: { fontSize: 12, minWidth: 400 } }}>
-              <MenuItem value={0}>Please Select a Program</MenuItem>
-              <MenuItem value={1}>blastn - DNA query to DNA database</MenuItem>
-              <MenuItem value={2}>
-                blastp - Protein query to protein database
-              </MenuItem>
-              <MenuItem value={3}>
-                blastx - Translated (6 frames) DNA query to protein databse
-              </MenuItem>
-              <MenuItem value={4}>
-                tblastx - Translated (6 frames) DNA query to translated (6
-                frames) DNA database
-              </MenuItem>
-              <MenuItem value={5}>
-                tblastn - Protein query to DNA (6 frames) DNA database
-              </MenuItem>
-            </TextField>
+              defaultValue={"Please Select a Program"}
+              inputProps={{ style: { fontSize: 12, minWidth: 400 } }}
+              value={option}
+              onChange={(e: SelectChangeEvent) => {
+                setOption(e.target.value as string)
+              }}
+              ref={programElement}>
+              {programOptions.map((val, index) => (
+                <option value={val} key={index}>
+                  {val}
+                </option>
+              ))}
+            </Select>
           </Grid>
         </Grid>
       </Card>
