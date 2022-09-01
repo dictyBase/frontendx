@@ -2,12 +2,12 @@ name: GraphQL Validation
 on: push
 jobs:
   graphql-validate:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: set up node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16.13.1
+          node-version: 16
       - name: check out code
         uses: actions/checkout@v3
       - name: install deps

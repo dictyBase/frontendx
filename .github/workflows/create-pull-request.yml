@@ -3,7 +3,7 @@ name: Create Pull Request
 on: create
 jobs:
   create-pr:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     if: github.actor != 'dependabot[bot]'
     steps:
       - uses: actions/checkout@v3
