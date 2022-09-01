@@ -11,6 +11,9 @@ generates:
       - "typescript-react-apollo"
     config:
       withHooks: true
+  ./introspection/fragment.ts: 
+    plugins: 
+      - fragment-matcher
   ./schema.json:
     plugins:
       - "introspection"
