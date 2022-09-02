@@ -17,6 +17,9 @@ generates:
   ./introspection/apollo-client-helpers.ts:
     plugins:
       - typescript-apollo-client-helpers
+  ./introspection/mocks.ts:
+    plugins:
+      - typescript-msw
   ./schema.json:
     plugins:
       - "introspection"
