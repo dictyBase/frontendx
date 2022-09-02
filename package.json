@@ -28,6 +28,26 @@
   "bugs": {
     "url": "https://github.com/dictyBase/graphql-schema/issues"
   },
+  "eslintConfig": {
+    "overrides": [
+      {
+        "files": [
+          "*.graphql"
+        ],
+        "parser": "@graphql-eslint/eslint-plugin",
+        "plugins": [
+          "@graphql-eslint"
+        ],
+        "extends": "plugin:@graphql-eslint/schema-recommended",
+        "parserOptions": {
+          "schema": "./src/schema/*.graphql"
+        },
+        "rules": {
+          "prettier/prettier": "error"
+        }
+      }
+    ]
+  },
   "homepage": "https://github.com/dictyBase/graphql-schema#readme",
   "devDependencies": {
     "@apollo/client": "^3.6.9",
@@ -50,8 +70,10 @@
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@yarnpkg/pnpify": "^3.1.5",
+    "eslint-plugin-prettier": "^4.2.1",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
+    "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "semantic-release": "^19.0.5",
