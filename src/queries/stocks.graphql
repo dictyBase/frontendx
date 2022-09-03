@@ -1,12 +1,3 @@
-query StockList($limit: Int!) {
-  listPlasmids(limit: $limit) {
-    totalCount
-  }
-  listStrains(limit: $limit) {
-    totalCount
-  }
-}
-
 query StrainList($cursor: Int!, $limit: Int!, $filter: String!) {
   listStrains(cursor: $cursor, limit: $limit, filter: $filter) {
     nextCursor
