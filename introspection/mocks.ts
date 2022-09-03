@@ -257,23 +257,6 @@ export const mockListRecentPublicationsQuery = (resolver: ResponseResolver<Graph
  * @param resolver a function that accepts a captured request and may return a mocked response.
  * @see https://mswjs.io/docs/basics/response-resolver
  * @example
- * mockStockListQuery((req, res, ctx) => {
- *   const { limit } = req.variables;
- *   return res(
- *     ctx.data({ listPlasmids, listStrains })
- *   )
- * })
- */
-export const mockStockListQuery = (resolver: ResponseResolver<GraphQLRequest<StockListQueryVariables>, GraphQLContext<StockListQuery>, any>) =>
-  graphql.query<StockListQuery, StockListQueryVariables>(
-    'StockList',
-    resolver
-  )
-
-/**
- * @param resolver a function that accepts a captured request and may return a mocked response.
- * @see https://mswjs.io/docs/basics/response-resolver
- * @example
  * mockStrainListQuery((req, res, ctx) => {
  *   const { cursor, limit, filter } = req.variables;
  *   return res(

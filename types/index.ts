@@ -744,7 +744,7 @@ export type QueryListRecentStrainsArgs = {
 
 export type QueryListStrainsArgs = {
   cursor?: InputMaybe<Scalars['Int']>;
-  filter?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<StrainListFilter>;
   limit?: InputMaybe<Scalars['Int']>;
 };
 
@@ -867,6 +867,14 @@ export type Strain = Stock & {
   updated_by: User;
 };
 
+export type StrainListFilter = {
+  id?: InputMaybe<Scalars['ID']>;
+  in_stock?: InputMaybe<Scalars['Boolean']>;
+  label?: InputMaybe<Scalars['String']>;
+  strain_type: StrainType;
+  summary?: InputMaybe<Scalars['String']>;
+};
+
 export type StrainListWithCursor = {
   __typename?: 'StrainListWithCursor';
   limit?: Maybe<Scalars['Int']>;
@@ -875,6 +883,13 @@ export type StrainListWithCursor = {
   strains: Array<Strain>;
   totalCount: Scalars['Int'];
 };
+
+export enum StrainType {
+  All = 'ALL',
+  Bacterial = 'BACTERIAL',
+  Gwdi = 'GWDI',
+  Regular = 'REGULAR'
+}
 
 export type UpdateContentInput = {
   content: Scalars['String'];
@@ -1096,17 +1111,10 @@ export type ListRecentPublicationsQueryVariables = Exact<{
 
 export type ListRecentPublicationsQuery = { __typename?: 'Query', listRecentPublications?: Array<{ __typename?: 'Publication', id: string, doi?: string | null, title: string, abstract: string, journal: string, pub_date?: any | null, pages?: string | null, issue?: string | null, volume?: string | null, authors: Array<{ __typename?: 'Author', initials?: string | null, last_name: string }> }> | null };
 
-export type StockListQueryVariables = Exact<{
-  limit: Scalars['Int'];
-}>;
-
-
-export type StockListQuery = { __typename?: 'Query', listPlasmids?: { __typename?: 'PlasmidListWithCursor', totalCount: number } | null, listStrains?: { __typename?: 'StrainListWithCursor', totalCount: number } | null };
-
 export type StrainListQueryVariables = Exact<{
   cursor: Scalars['Int'];
   limit: Scalars['Int'];
-  filter: Scalars['String'];
+  filter?: InputMaybe<StrainListFilter>;
 }>;
 
 
@@ -1993,46 +2001,8 @@ export function useListRecentPublicationsLazyQuery(baseOptions?: Apollo.LazyQuer
 export type ListRecentPublicationsQueryHookResult = ReturnType<typeof useListRecentPublicationsQuery>;
 export type ListRecentPublicationsLazyQueryHookResult = ReturnType<typeof useListRecentPublicationsLazyQuery>;
 export type ListRecentPublicationsQueryResult = Apollo.QueryResult<ListRecentPublicationsQuery, ListRecentPublicationsQueryVariables>;
-export const StockListDocument = gql`
-    query StockList($limit: Int!) {
-  listPlasmids(limit: $limit) {
-    totalCount
-  }
-  listStrains(limit: $limit) {
-    totalCount
-  }
-}
-    `;
-
-/**
- * __useStockListQuery__
- *
- * To run a query within a React component, call `useStockListQuery` and pass it any options that fit your needs.
- * When your component renders, `useStockListQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useStockListQuery({
- *   variables: {
- *      limit: // value for 'limit'
- *   },
- * });
- */
-export function useStockListQuery(baseOptions: Apollo.QueryHookOptions<StockListQuery, StockListQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<StockListQuery, StockListQueryVariables>(StockListDocument, options);
-      }
-export function useStockListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<StockListQuery, StockListQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<StockListQuery, StockListQueryVariables>(StockListDocument, options);
-        }
-export type StockListQueryHookResult = ReturnType<typeof useStockListQuery>;
-export type StockListLazyQueryHookResult = ReturnType<typeof useStockListLazyQuery>;
-export type StockListQueryResult = Apollo.QueryResult<StockListQuery, StockListQueryVariables>;
 export const StrainListDocument = gql`
-    query StrainList($cursor: Int!, $limit: Int!, $filter: String!) {
+    query StrainList($cursor: Int!, $limit: Int!, $filter: StrainListFilter) {
   listStrains(cursor: $cursor, limit: $limit, filter: $filter) {
     nextCursor
     totalCount
