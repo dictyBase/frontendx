@@ -42,7 +42,7 @@ type Query {
   # Stock queries
   plasmid(id: ID!): Plasmid
   strain(id: ID!): Strain
-  listStrains(cursor: Int, limit: Int, filter: String): StrainListWithCursor
+  listStrains(cursor: Int, limit: Int, filter: StrainListFilter): StrainListWithCursor
   listPlasmids(cursor: Int, limit: Int, filter: String): PlasmidListWithCursor
   listStrainsWithAnnotation(
     cursor: Int
