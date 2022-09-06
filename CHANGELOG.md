@@ -1,3 +1,51 @@
+# [1.9.0](https://github.com/dictyBase/graphql-schema/compare/1.8.1...1.9.0) (2022-09-06)
+
+
+### Bug Fixes
+
+* allPublications does not need to return an array ([f9dc7f4](https://github.com/dictyBase/graphql-schema/commit/f9dc7f49ba6d8aa7d4f62ed37fa3e0eb2c2273c3))
+* Associated Sequence should return object not array ([d7835ee](https://github.com/dictyBase/graphql-schema/commit/d7835ee6699cde368f2885e3808a048798c3ac97))
+* Change alt_protein_name to alt_protein_names + string to string array ([b590964](https://github.com/dictyBase/graphql-schema/commit/b590964c23d883adc8fd4fdc26819ef30aec313f))
+* change general_info from array to singular object ([680cee2](https://github.com/dictyBase/graphql-schema/commit/680cee29fb8400e1c192265ea92dd831aa6b79ad))
+* change general_info to object ([9d26d1e](https://github.com/dictyBase/graphql-schema/commit/9d26d1e006bb8cbaaec97747e48ce075652ec01f))
+* expression should be array of strings ([8b00d7a](https://github.com/dictyBase/graphql-schema/commit/8b00d7a03353790fba4807a0e03a8f25cb5fb440))
+* fix gene queries to account for NameWithLink ([2504df6](https://github.com/dictyBase/graphql-schema/commit/2504df65bb48d69777fefb6e602faf13a347e541))
+* genbank_mrna is not required ([3a02180](https://github.com/dictyBase/graphql-schema/commit/3a02180653780347533c0b26f770412789057a5f))
+* make ests required ([a637719](https://github.com/dictyBase/graphql-schema/commit/a6377190db9bfd9ec1488e0777ef4801aeb701ef))
+* make expression and ext_resources required ([4d644e0](https://github.com/dictyBase/graphql-schema/commit/4d644e0d0cee6d3975e47484fe01add0c64ee42c))
+* make name_description required ([37c9734](https://github.com/dictyBase/graphql-schema/commit/37c97347c50e58bbb3dcef1a80f8b662635431f3))
+* Make publications field required in NumberOfPublicationsWithGene ([24b2f79](https://github.com/dictyBase/graphql-schema/commit/24b2f79a7915ee5a248d52e3a33069d7a787f001))
+
+
+### Features
+
+* add allOrthologs query ([0df6bcb](https://github.com/dictyBase/graphql-schema/commit/0df6bcb0bb5d65020d395bff472411a3beb565de))
+* add Associated Sequences to gene schema ([b0545c1](https://github.com/dictyBase/graphql-schema/commit/b0545c18a6fd164c3f8f64003b5871b3af327c8b))
+* add general information to gene ([3ee7c33](https://github.com/dictyBase/graphql-schema/commit/3ee7c332a63a74806ee68f53051846ae41a1004f))
+* add generated output from apollo-client-helpers plugin ([d533509](https://github.com/dictyBase/graphql-schema/commit/d5335090b90654a16b61c4d61aefb71b54d87e96))
+* add GenomicCoordinates to Gene ProductInformation ([0c9fb85](https://github.com/dictyBase/graphql-schema/commit/0c9fb8526062d3be1f0a511aeb6d8f41091c37e2))
+* Add Links to Gene ([5641aab](https://github.com/dictyBase/graphql-schema/commit/5641aabef0b732420ed0e076e4607a2491744920))
+* add more link to associated sequence ([1eee578](https://github.com/dictyBase/graphql-schema/commit/1eee57826fa6c682e9daa797e50b2eb98cb717ae))
+* add msw mock plugin and it's generated output ([1f502f0](https://github.com/dictyBase/graphql-schema/commit/1f502f0639bd7a7f28c59a64279a86882d877b47))
+* Add NameWithLink type ([da5e9fe](https://github.com/dictyBase/graphql-schema/commit/da5e9fee95f37f332ed87b43be40b01da591e2b9))
+* add num_pubs to gene ([193d193](https://github.com/dictyBase/graphql-schema/commit/193d1936b8ba4574aa66aadbf60c00f55cd69305))
+* add optional limit to allPublications in Gene query ([e254c50](https://github.com/dictyBase/graphql-schema/commit/e254c508770d22189b4d3b4e5b56de63846b48e2))
+* add orthologs schema ([6af7981](https://github.com/dictyBase/graphql-schema/commit/6af79814474744de373be5148d58a730f55a74cd))
+* add Protein Coding Gene ([8d4e6ff](https://github.com/dictyBase/graphql-schema/commit/8d4e6ff046d6a25a981d5b6e79ed4516b2a44245))
+* Add Protein information schema ([68041f9](https://github.com/dictyBase/graphql-schema/commit/68041f90110f6d5eeca6f59573e008b93a57b29b))
+* add protein length, molecular data, and more info to gene schema ([9c267f4](https://github.com/dictyBase/graphql-schema/commit/9c267f4c21f8e0635a8386892edfcdff8bd89376))
+* add sort_by default desc to Gene allPublications ([9490437](https://github.com/dictyBase/graphql-schema/commit/9490437bdac2e14b790ca1d13f1c85b8435c2456))
+* add strain type enum ([c1296b9](https://github.com/dictyBase/graphql-schema/commit/c1296b97a18ba4888da70bc63dbbd2785ce7c64f))
+* add the generated types ([6cfb639](https://github.com/dictyBase/graphql-schema/commit/6cfb6398385233593e614c7c2ea8b9c39dce8452))
+* add typescript output file from fragment-matcher plugin ([f9c4480](https://github.com/dictyBase/graphql-schema/commit/f9c448076b6421c549ea11765cab74c3fe66275d))
+* allow genbank_genomic_fragment to be null ([ee3b4e2](https://github.com/dictyBase/graphql-schema/commit/ee3b4e21ee41688b729f9d58c46222b7e6f5bf0c))
+* change AssociatedSequences to NameWithLink type and add genbank_mrna ([0cff2d0](https://github.com/dictyBase/graphql-schema/commit/0cff2d097098ade9bb629d445fd6c50310c5a260))
+* change id and uniprotkb to NameWithLink ([bb4ea49](https://github.com/dictyBase/graphql-schema/commit/bb4ea49a8e7c10d085d1d4f4df1691c05b5e9d18))
+* change protein_coding_gene from String to NameWithLink ([dac269d](https://github.com/dictyBase/graphql-schema/commit/dac269deea873749e1feb653b51c94b39e76cccc))
+* make genomic_coords required ([fd5d1c6](https://github.com/dictyBase/graphql-schema/commit/fd5d1c6f7d742f57499f3dfcd657a36a479ce604))
+* yarn compile changes ([43e97ba](https://github.com/dictyBase/graphql-schema/commit/43e97badaedbdafe696284b8daa02488a8c7be85))
+* yarn compile NumberOfPublicationsWithGene ([0eda7a6](https://github.com/dictyBase/graphql-schema/commit/0eda7a612707c9725f8d0f352fc2d209e1d461d5))
+
 ## [1.8.1](https://github.com/dictyBase/graphql-schema/compare/1.8.0...1.8.1) (2022-01-20)
 
 # [1.8.0](https://github.com/dictyBase/graphql-schema/compare/1.7.1...1.8.0) (2022-01-06)
