@@ -57,7 +57,7 @@
     "@graphql-codegen/typescript": "2.7.4",
     "@graphql-codegen/typescript-apollo-client-helpers": "^2.2.4",
     "@graphql-codegen/typescript-msw": "^1.1.4",
-    "@graphql-codegen/typescript-operations": "2.5.3",
+    "@graphql-codegen/typescript-operations": "2.5.4",
     "@graphql-codegen/typescript-react-apollo": "3.3.4",
     "@graphql-eslint/eslint-plugin": "^3.12.0",
     "@semantic-release/changelog": "^6.0.1",
