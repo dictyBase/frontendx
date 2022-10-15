@@ -51,7 +51,7 @@
   "homepage": "https://github.com/dictyBase/graphql-schema#readme",
   "devDependencies": {
     "@apollo/client": "^3.7.0",
-    "@graphql-codegen/cli": "2.13.5",
+    "@graphql-codegen/cli": "2.13.7",
     "@graphql-codegen/fragment-matcher": "^3.3.1",
     "@graphql-codegen/introspection": "2.2.1",
     "@graphql-codegen/typescript": "2.7.3",
