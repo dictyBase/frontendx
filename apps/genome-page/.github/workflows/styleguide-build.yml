@@ -4,9 +4,12 @@ on:
     branches:
       - develop
 
+env:
+  ENABLE: ${{ false }}
+
 jobs:
   build-and-deploy-styleguide:
-    if: ${{ false }}
+  if: ${{ env.ENABLE }}
     runs-on: ubuntu-20.04
     steps:
       - name: checkout code
