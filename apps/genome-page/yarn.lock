@@ -4083,8 +4083,9 @@ dicty-components-login@dictybase/dicty-components-login#4.1.1:
     polished "^3.4.1"
 
 dicty-graphql-schema@dictyBase/dicty-graphql-schema:
-  version "1.8.1"
-  resolved "https://codeload.github.com/dictyBase/dicty-graphql-schema/tar.gz/3991a656514e3334ae1118923a162b1ac97c3b7e"
+  version "1.9.0"
+  uid "0a0bd6ef35f2beeea4b2f2d76b41e5498e53a6da"
+  resolved "https://codeload.github.com/dictyBase/dicty-graphql-schema/tar.gz/0a0bd6ef35f2beeea4b2f2d76b41e5498e53a6da"
 
 dicty-hooks@dictybase/dicty-hooks#3.0.0:
   version "3.0.0"
