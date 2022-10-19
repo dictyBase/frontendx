@@ -9,12 +9,9 @@ on:
     branches:
       - develop
 
-env:
-  ENABLE: ${{ false }}
-
 jobs:
   percy:
-    if: ${{ env.ENABLE }}
+    if: ${{ false }}
     runs-on: ubuntu-20.04
     steps:
       - name: set up node.js
