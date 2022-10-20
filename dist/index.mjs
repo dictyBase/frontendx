@@ -1,108 +1,6 @@
-"use strict";
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-
 // types/index.ts
-var types_exports = {};
-__export(types_exports, {
-  ContentBySlugDocument: () => ContentBySlugDocument,
-  ContentDocument: () => ContentDocument,
-  CreateContentDocument: () => CreateContentDocument,
-  CreateOrderDocument: () => CreateOrderDocument,
-  CreateUserDocument: () => CreateUserDocument,
-  GeneDocument: () => GeneDocument,
-  GetRefreshTokenDocument: () => GetRefreshTokenDocument,
-  ListBacterialStrainsDocument: () => ListBacterialStrainsDocument,
-  ListOrganismsDocument: () => ListOrganismsDocument,
-  ListPlasmidsInventoryDocument: () => ListPlasmidsInventoryDocument,
-  ListRecentGenesDocument: () => ListRecentGenesDocument,
-  ListRecentPlasmidsDocument: () => ListRecentPlasmidsDocument,
-  ListRecentPublicationsDocument: () => ListRecentPublicationsDocument,
-  ListRecentStrainsDocument: () => ListRecentStrainsDocument,
-  ListStrainsInventoryDocument: () => ListStrainsInventoryDocument,
-  ListStrainsWithPhenotypeDocument: () => ListStrainsWithPhenotypeDocument,
-  LoginDocument: () => LoginDocument,
-  LogoutDocument: () => LogoutDocument,
-  PlasmidDocument: () => PlasmidDocument,
-  PlasmidListFilterDocument: () => PlasmidListFilterDocument,
-  PublicationDocument: () => PublicationDocument,
-  StatusEnum: () => StatusEnum,
-  StrainDocument: () => StrainDocument,
-  StrainListDocument: () => StrainListDocument,
-  StrainType: () => StrainType,
-  UpdateContentDocument: () => UpdateContentDocument,
-  UpdateUserDocument: () => UpdateUserDocument,
-  UserByEmailDocument: () => UserByEmailDocument,
-  useContentBySlugLazyQuery: () => useContentBySlugLazyQuery,
-  useContentBySlugQuery: () => useContentBySlugQuery,
-  useContentLazyQuery: () => useContentLazyQuery,
-  useContentQuery: () => useContentQuery,
-  useCreateContentMutation: () => useCreateContentMutation,
-  useCreateOrderMutation: () => useCreateOrderMutation,
-  useCreateUserMutation: () => useCreateUserMutation,
-  useGeneLazyQuery: () => useGeneLazyQuery,
-  useGeneQuery: () => useGeneQuery,
-  useGetRefreshTokenLazyQuery: () => useGetRefreshTokenLazyQuery,
-  useGetRefreshTokenQuery: () => useGetRefreshTokenQuery,
-  useListBacterialStrainsLazyQuery: () => useListBacterialStrainsLazyQuery,
-  useListBacterialStrainsQuery: () => useListBacterialStrainsQuery,
-  useListOrganismsLazyQuery: () => useListOrganismsLazyQuery,
-  useListOrganismsQuery: () => useListOrganismsQuery,
-  useListPlasmidsInventoryLazyQuery: () => useListPlasmidsInventoryLazyQuery,
-  useListPlasmidsInventoryQuery: () => useListPlasmidsInventoryQuery,
-  useListRecentGenesLazyQuery: () => useListRecentGenesLazyQuery,
-  useListRecentGenesQuery: () => useListRecentGenesQuery,
-  useListRecentPlasmidsLazyQuery: () => useListRecentPlasmidsLazyQuery,
-  useListRecentPlasmidsQuery: () => useListRecentPlasmidsQuery,
-  useListRecentPublicationsLazyQuery: () => useListRecentPublicationsLazyQuery,
-  useListRecentPublicationsQuery: () => useListRecentPublicationsQuery,
-  useListRecentStrainsLazyQuery: () => useListRecentStrainsLazyQuery,
-  useListRecentStrainsQuery: () => useListRecentStrainsQuery,
-  useListStrainsInventoryLazyQuery: () => useListStrainsInventoryLazyQuery,
-  useListStrainsInventoryQuery: () => useListStrainsInventoryQuery,
-  useListStrainsWithPhenotypeLazyQuery: () => useListStrainsWithPhenotypeLazyQuery,
-  useListStrainsWithPhenotypeQuery: () => useListStrainsWithPhenotypeQuery,
-  useLoginMutation: () => useLoginMutation,
-  useLogoutMutation: () => useLogoutMutation,
-  usePlasmidLazyQuery: () => usePlasmidLazyQuery,
-  usePlasmidListFilterLazyQuery: () => usePlasmidListFilterLazyQuery,
-  usePlasmidListFilterQuery: () => usePlasmidListFilterQuery,
-  usePlasmidQuery: () => usePlasmidQuery,
-  usePublicationLazyQuery: () => usePublicationLazyQuery,
-  usePublicationQuery: () => usePublicationQuery,
-  useStrainLazyQuery: () => useStrainLazyQuery,
-  useStrainListLazyQuery: () => useStrainListLazyQuery,
-  useStrainListQuery: () => useStrainListQuery,
-  useStrainQuery: () => useStrainQuery,
-  useUpdateContentMutation: () => useUpdateContentMutation,
-  useUpdateUserMutation: () => useUpdateUserMutation,
-  useUserByEmailLazyQuery: () => useUserByEmailLazyQuery,
-  useUserByEmailQuery: () => useUserByEmailQuery
-});
-module.exports = __toCommonJS(types_exports);
-var import_client = require("@apollo/client");
-var Apollo = __toESM(require("@apollo/client"));
+import { gql } from "@apollo/client";
+import * as Apollo from "@apollo/client";
 var defaultOptions = {};
 var StatusEnum = /* @__PURE__ */ ((StatusEnum2) => {
   StatusEnum2["Cancelled"] = "CANCELLED";
@@ -118,7 +16,7 @@ var StrainType = /* @__PURE__ */ ((StrainType2) => {
   StrainType2["Regular"] = "REGULAR";
   return StrainType2;
 })(StrainType || {});
-var LoginDocument = import_client.gql`
+var LoginDocument = gql`
     mutation Login($input: LoginInput!) {
   login(input: $input) {
     token
@@ -145,7 +43,7 @@ function useLoginMutation(baseOptions) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useMutation(LoginDocument, options);
 }
-var LogoutDocument = import_client.gql`
+var LogoutDocument = gql`
     mutation Logout {
   logout {
     success
@@ -156,7 +54,7 @@ function useLogoutMutation(baseOptions) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useMutation(LogoutDocument, options);
 }
-var CreateContentDocument = import_client.gql`
+var CreateContentDocument = gql`
     mutation CreateContent($input: CreateContentInput!) {
   createContent(input: $input) {
     name
@@ -172,7 +70,7 @@ function useCreateContentMutation(baseOptions) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useMutation(CreateContentDocument, options);
 }
-var UpdateContentDocument = import_client.gql`
+var UpdateContentDocument = gql`
     mutation UpdateContent($input: UpdateContentInput!) {
   updateContent(input: $input) {
     id
@@ -187,7 +85,7 @@ function useUpdateContentMutation(baseOptions) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useMutation(UpdateContentDocument, options);
 }
-var CreateOrderDocument = import_client.gql`
+var CreateOrderDocument = gql`
     mutation CreateOrder($input: CreateOrderInput!) {
   createOrder(input: $input) {
     id
@@ -198,7 +96,7 @@ function useCreateOrderMutation(baseOptions) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useMutation(CreateOrderDocument, options);
 }
-var CreateUserDocument = import_client.gql`
+var CreateUserDocument = gql`
     mutation CreateUser($input: CreateUserInput!) {
   createUser(input: $input) {
     id
@@ -209,7 +107,7 @@ function useCreateUserMutation(baseOptions) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useMutation(CreateUserDocument, options);
 }
-var UpdateUserDocument = import_client.gql`
+var UpdateUserDocument = gql`
     mutation UpdateUser($id: ID!, $input: UpdateUserInput!) {
   updateUser(id: $id, input: $input) {
     id
@@ -220,7 +118,7 @@ function useUpdateUserMutation(baseOptions) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useMutation(UpdateUserDocument, options);
 }
-var GetRefreshTokenDocument = import_client.gql`
+var GetRefreshTokenDocument = gql`
     query GetRefreshToken($token: String!) {
   getRefreshToken(token: $token) {
     token
@@ -251,7 +149,7 @@ function useGetRefreshTokenLazyQuery(baseOptions) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery(GetRefreshTokenDocument, options);
 }
-var ContentBySlugDocument = import_client.gql`
+var ContentBySlugDocument = gql`
     query contentBySlug($slug: String!) {
   contentBySlug(slug: $slug) {
     id
@@ -283,7 +181,7 @@ function useContentBySlugLazyQuery(baseOptions) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery(ContentBySlugDocument, options);
 }
-var ContentDocument = import_client.gql`
+var ContentDocument = gql`
     query content($id: ID!) {
   content(id: $id) {
     id
@@ -316,7 +214,7 @@ function useContentLazyQuery(baseOptions) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery(ContentDocument, options);
 }
-var ListOrganismsDocument = import_client.gql`
+var ListOrganismsDocument = gql`
     query ListOrganisms {
   listOrganisms {
     taxon_id
@@ -345,7 +243,7 @@ function useListOrganismsLazyQuery(baseOptions) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery(ListOrganismsDocument, options);
 }
-var GeneDocument = import_client.gql`
+var GeneDocument = gql`
     query Gene($gene: String!, $limit: Int, $sort_by: String = "desc") {
   allStrains(gene: $gene) {
     id
@@ -538,7 +436,7 @@ function useGeneLazyQuery(baseOptions) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery(GeneDocument, options);
 }
-var ListRecentGenesDocument = import_client.gql`
+var ListRecentGenesDocument = gql`
     query ListRecentGenes($limit: Int! = 4) {
   listRecentGenes(limit: $limit) {
     id
@@ -554,7 +452,7 @@ function useListRecentGenesLazyQuery(baseOptions) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery(ListRecentGenesDocument, options);
 }
-var PublicationDocument = import_client.gql`
+var PublicationDocument = gql`
     query Publication($id: ID!) {
   publication(id: $id) {
     id
@@ -581,7 +479,7 @@ function usePublicationLazyQuery(baseOptions) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery(PublicationDocument, options);
 }
-var ListRecentPublicationsDocument = import_client.gql`
+var ListRecentPublicationsDocument = gql`
     query ListRecentPublications($limit: Int! = 4) {
   listRecentPublications(limit: $limit) {
     id
@@ -608,7 +506,7 @@ function useListRecentPublicationsLazyQuery(baseOptions) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery(ListRecentPublicationsDocument, options);
 }
-var StrainListDocument = import_client.gql`
+var StrainListDocument = gql`
     query StrainList($cursor: Int!, $limit: Int!, $filter: StrainListFilter) {
   listStrains(cursor: $cursor, limit: $limit, filter: $filter) {
     nextCursor
@@ -630,7 +528,7 @@ function useStrainListLazyQuery(baseOptions) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery(StrainListDocument, options);
 }
-var ListStrainsWithPhenotypeDocument = import_client.gql`
+var ListStrainsWithPhenotypeDocument = gql`
     query ListStrainsWithPhenotype($cursor: Int!, $limit: Int!, $type: String!, $annotation: String!) {
   listStrainsWithAnnotation(
     cursor: $cursor
@@ -669,7 +567,7 @@ function useListStrainsWithPhenotypeLazyQuery(baseOptions) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery(ListStrainsWithPhenotypeDocument, options);
 }
-var ListBacterialStrainsDocument = import_client.gql`
+var ListBacterialStrainsDocument = gql`
     query ListBacterialStrains {
   bacterialFoodSource: listStrainsWithAnnotation(
     cursor: 0
@@ -711,7 +609,7 @@ function useListBacterialStrainsLazyQuery(baseOptions) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery(ListBacterialStrainsDocument, options);
 }
-var ListStrainsInventoryDocument = import_client.gql`
+var ListStrainsInventoryDocument = gql`
     query ListStrainsInventory($cursor: Int!, $limit: Int!) {
   listStrainsWithAnnotation(
     cursor: $cursor
@@ -738,7 +636,7 @@ function useListStrainsInventoryLazyQuery(baseOptions) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery(ListStrainsInventoryDocument, options);
 }
-var ListPlasmidsInventoryDocument = import_client.gql`
+var ListPlasmidsInventoryDocument = gql`
     query ListPlasmidsInventory($cursor: Int!, $limit: Int!) {
   listPlasmidsWithAnnotation(
     cursor: $cursor
@@ -765,7 +663,7 @@ function useListPlasmidsInventoryLazyQuery(baseOptions) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery(ListPlasmidsInventoryDocument, options);
 }
-var PlasmidListFilterDocument = import_client.gql`
+var PlasmidListFilterDocument = gql`
     query PlasmidListFilter($cursor: Int!, $limit: Int!, $filter: String!) {
   listPlasmids(cursor: $cursor, limit: $limit, filter: $filter) {
     nextCursor
@@ -787,7 +685,7 @@ function usePlasmidListFilterLazyQuery(baseOptions) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery(PlasmidListFilterDocument, options);
 }
-var PlasmidDocument = import_client.gql`
+var PlasmidDocument = gql`
     query Plasmid($id: ID!) {
   plasmid(id: $id) {
     id
@@ -829,7 +727,7 @@ function usePlasmidLazyQuery(baseOptions) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery(PlasmidDocument, options);
 }
-var StrainDocument = import_client.gql`
+var StrainDocument = gql`
     query Strain($id: ID!) {
   strain(id: $id) {
     id
@@ -896,7 +794,7 @@ function useStrainLazyQuery(baseOptions) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery(StrainDocument, options);
 }
-var ListRecentPlasmidsDocument = import_client.gql`
+var ListRecentPlasmidsDocument = gql`
     query ListRecentPlasmids($limit: Int! = 4) {
   listRecentPlasmids(limit: $limit) {
     id
@@ -913,7 +811,7 @@ function useListRecentPlasmidsLazyQuery(baseOptions) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery(ListRecentPlasmidsDocument, options);
 }
-var ListRecentStrainsDocument = import_client.gql`
+var ListRecentStrainsDocument = gql`
     query ListRecentStrains($limit: Int! = 4) {
   listRecentStrains(limit: $limit) {
     id
@@ -930,7 +828,7 @@ function useListRecentStrainsLazyQuery(baseOptions) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery(ListRecentStrainsDocument, options);
 }
-var UserByEmailDocument = import_client.gql`
+var UserByEmailDocument = gql`
     query UserByEmail($email: String!) {
   userByEmail(email: $email) {
     id
@@ -945,8 +843,7 @@ function useUserByEmailLazyQuery(baseOptions) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery(UserByEmailDocument, options);
 }
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
+export {
   ContentBySlugDocument,
   ContentDocument,
   CreateContentDocument,
@@ -1020,4 +917,4 @@ function useUserByEmailLazyQuery(baseOptions) {
   useUpdateUserMutation,
   useUserByEmailLazyQuery,
   useUserByEmailQuery
-});
+};
