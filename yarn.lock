@@ -647,13 +647,13 @@
     change-case-all "1.0.14"
     tslib "~2.4.0"
 
-"@graphql-codegen/typescript-msw@^1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-msw/-/typescript-msw-1.1.4.tgz#5dfb5056801c88546fe81df5c7abc3a4b4cf112c"
-  integrity sha512-0YneLhcBNgat/JO/C40jM0xM4k85CJjyASugD/SIoRxldHDkCsn1DitSgCmHwqvhVtpzXoadI9ur71+I1fa54w==
+"@graphql-codegen/typescript-msw@^1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-msw/-/typescript-msw-1.1.5.tgz#22078697e7492ca4fc938ff4e23697a1e5b593bc"
+  integrity sha512-pFHSSr7av4g8o3px5Uz1cFuzqEqBt/I0AUsbCBVr0vUZNaZt+v/lD8AZ1LK6m/aDO5Ed2UixcULinPcIJfjHnA==
   dependencies:
     "@graphql-codegen/plugin-helpers" "^2.6.2"
-    "@graphql-codegen/visitor-plugin-common" "2.12.2"
+    "@graphql-codegen/visitor-plugin-common" "2.13.0"
     auto-bind "~4.0.0"
     change-case-all "1.0.14"
     tslib "~2.4.0"
