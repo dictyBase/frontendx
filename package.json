@@ -76,7 +76,7 @@
     "@semantic-release/github": "^8.0.6",
     "@semantic-release/npm": "^9.0.1",
     "@semantic-release/release-notes-generator": "^10.0.3",
-    "@types/node": "17.x",
+    "@types/node": "18.x",
     "@types/react": "17.x",
     "@types/react-dom": "17.x",
     "eslint-plugin-prettier": "^4.2.1",
