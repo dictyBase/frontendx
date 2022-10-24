@@ -44,7 +44,7 @@
     "font-awesome": "^4.7.0",
     "fontsource-roboto": "^4.0.0",
     "fp-ts": "^2.12.1",
-    "fp-ts-std": "^0.14.2",
+    "fp-ts-std": "^0.15.0",
     "graphql": "^16.6.0",
     "isomorphic-git": "^1.17.1",
     "jest": "^28.1.0",
