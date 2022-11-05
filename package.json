@@ -61,7 +61,7 @@
     "react-dom": "17.x"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "2.13.8",
+    "@graphql-codegen/cli": "2.13.11",
     "@graphql-codegen/fragment-matcher": "^3.3.1",
     "@graphql-codegen/introspection": "2.2.1",
     "@graphql-codegen/typescript": "2.8.0",
