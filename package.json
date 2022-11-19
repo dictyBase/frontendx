@@ -83,6 +83,6 @@
     "prettier": "^2.7.1",
     "semantic-release": "^19.0.5",
     "tsup": "^6.4.0",
-    "typescript": "^4.8.4"
+    "typescript": "^4.9.3"
   }
 }
