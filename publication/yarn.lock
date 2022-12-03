@@ -2149,10 +2149,10 @@
     micromatch "^4.0.0"
     p-reduce "^2.0.0"
 
-"@semantic-release/github@^8.0.0", "@semantic-release/github@^8.0.6":
-  version "8.0.6"
-  resolved "https://registry.yarnpkg.com/@semantic-release/github/-/github-8.0.6.tgz#5235386d65a5d7d650dc10a6ebce908d213234f7"
-  integrity sha512-ZxgaxYCeqt9ylm2x3OPqUoUqBw1p60LhxzdX6BqJlIBThupGma98lttsAbK64T6L6AlNa2G5T66BbiG8y0PIHQ==
+"@semantic-release/github@^8.0.0", "@semantic-release/github@^8.0.7":
+  version "8.0.7"
+  resolved "https://registry.yarnpkg.com/@semantic-release/github/-/github-8.0.7.tgz#643aee7a5cdd2acd3ae643bb90ad4ac796901de6"
+  integrity sha512-VtgicRIKGvmTHwm//iqTh/5NGQwsncOMR5vQK9pMT92Aem7dv37JFKKRuulUsAnUOIlO4G8wH3gPiBAA0iW0ww==
   dependencies:
     "@octokit/rest" "^19.0.0"
     "@semantic-release/error" "^3.0.0"
@@ -2160,7 +2160,7 @@
     bottleneck "^2.18.1"
     debug "^4.0.0"
     dir-glob "^3.0.0"
-    fs-extra "^10.0.0"
+    fs-extra "^11.0.0"
     globby "^11.0.0"
     http-proxy-agent "^5.0.0"
     https-proxy-agent "^5.0.0"
@@ -2601,7 +2601,7 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/retry@0.12.0", "@types/retry@^0.12.0":
+"@types/retry@0.12.0":
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/@types/retry/-/retry-0.12.0.tgz#2b35eccfcee7d38cd72ad99232fbd58bffb3c84d"
   integrity sha512-wWKOClTTiizcZhXnPY4wikVAwmdYHp8q6DmC+EJUzAMsycb7HB32Kh9RN4+0gExjmPmZSAQjgURXIGATPegAvA==
@@ -8869,15 +8869,7 @@ p-reduce@^2.0.0:
   resolved "https://registry.yarnpkg.com/p-reduce/-/p-reduce-2.1.0.tgz#09408da49507c6c274faa31f28df334bc712b64a"
   integrity sha512-2USApvnsutq8uoxZBGbbWM0JIYLiEMJ9RlaN7fAzVNb9OZN0SHjjTTfIcb667XynS5Y1VhwDJVDa72TnPzAYWw==
 
-p-retry@^4.0.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/p-retry/-/p-retry-4.5.0.tgz#6685336b3672f9ee8174d3769a660cb5e488521d"
-  integrity sha512-5Hwh4aVQSu6BEP+w2zKlVXtFAaYQe1qWuVADSgoeVlLjwe/Q/AMSoRR4MDeaAfu8llT+YNbEijWu/YF3m6avkg==
-  dependencies:
-    "@types/retry" "^0.12.0"
-    retry "^0.12.0"
-
-p-retry@^4.5.0:
+p-retry@^4.0.0, p-retry@^4.5.0:
   version "4.6.2"
   resolved "https://registry.yarnpkg.com/p-retry/-/p-retry-4.6.2.tgz#9baae7184057edd4e17231cee04264106e092a16"
   integrity sha512-312Id396EbJdvRONlngUx0NydfrIQ5lsYu0znKVUzVvArzEIt08V1qhtyESbGVd1FGX7UKtiFp5uwKZdM8wIuQ==
