@@ -97,7 +97,7 @@
     "react-styleguidist": "^13.0.0",
     "react-test-renderer": "^18.1.0",
     "semantic-release": "^19.0.5",
-    "start-server-and-test": "^1.14.0"
+    "start-server-and-test": "^1.15.2"
   },
   "lint-staged": {
     "*.{js,jsx,json,css}": [
