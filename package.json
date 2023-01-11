@@ -1,5 +1,5 @@
 {
-  "name": "turborepo-basic-shared",
+  "name": "frontendx",
   "version": "0.0.0",
   "private": true,
   "workspaces": [
@@ -8,35 +8,32 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev --parallel",
+    "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "clean": "rm -rf node_modules && yarn install",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "doc:build": "typedoc --tsconfig typedoc-tsconfig.json",
+    "doc:watch": "typedoc --tsconfig typedoc-tsconfig.json --watch",
+    "create:package": "plop package",
+    "create:app": "plop app"
   },
   "devDependencies": {
-    "prettier": "^2.5.1",
-    "turbo": "latest"
-  },
-  "turbo": {
-    "pipeline": {
-      "build": {
-        "dependsOn": [
-          "^build"
-        ],
-        "outputs": [
-          "dist/**",
-          ".next/**"
-        ]
-      },
-      "lint": {
-        "outputs": []
-      },
-      "dev": {
-        "cache": false
-      }
-    }
+    "plop": "~3.0.5",
+    "prettier": "~2.8.2",
+    "turbo": "^1.7.x",
+    "typedoc": "~0.22.11"
   },
   "engines": {
-    "npm": ">=7.0.0",
-    "node": ">=14.0.0"
+    "node": ">=18.0.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "custom"
+    ]
+  },
+  "prettier": {
+    "semi": false,
+    "trailingComma": "all",
+    "bracketSameLine": true
   }
 }
