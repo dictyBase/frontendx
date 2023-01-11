@@ -1,11 +1,9 @@
 {
   "name": "tsconfig",
   "version": "0.0.0",
-  "private": true,
-  "main": "index.js",
-  "files": [
-    "base.json",
-    "nextjs.json",
-    "react-library.json"
-  ]
+  "devDependencies": {
+    "@tsconfig/esm": "^1.0.2",
+    "@tsconfig/next": "^1.0.4",
+    "@tsconfig/vite-react": "^1.0.1"
+  }
 }
