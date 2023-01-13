@@ -4,6 +4,7 @@
   "devDependencies": {
     "@tsconfig/esm": "^1.0.2",
     "@tsconfig/next": "^1.0.4",
+    "@tsconfig/node18-strictest-esm": "^1.0.1",
     "@tsconfig/vite-react": "^1.0.1"
   }
 }

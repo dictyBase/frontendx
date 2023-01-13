@@ -1,0 +1,12 @@
+{
+  "extends": "@tsconfig/node18-strictest-esm/tsconfig.json",
+  "lib": ["DOM", "DOM.Iterable", "es2022"],
+  "useDefineForClassFields": true,
+  "allowJs": false,
+  "allowSyntheticDefaultImports": true,
+  "resolveJsonModule": true,
+  "isolatedModules": true,
+  "noEmit": true,
+  "jsx": "react-jsx",
+  "esModuleInterop": false
+}
