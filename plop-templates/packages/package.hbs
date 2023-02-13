@@ -1,0 +1,40 @@
+{
+  "name": "@dictybase/{{lowerCase name}}",
+  "version": "0.0.0",
+  "description": "{{description}}",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "author": "{{author}}",
+  "license": "{{license}}",
+  "devDependencies": {
+    "@types/jest": "^26.0.x",
+    "@types/react": "17.x",
+    "@types/react-dom": "17.x",
+    "prettier": "^2.2.1",
+    "typescript": "^4.5.x",
+    "eslint": "^7.32.x",
+    "jest": "^26.x",
+    "tsconfig": "*",
+    "eslint-config-custom": "*",
+    "tsup": "^5.11.x"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.x",
+    "@material-ui/lab": "^4.11.3-deprecations.1",
+    "react": "17.x",
+    "react-dom": "17.x"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react --inject react-shim.js",
+    "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react --inject react-shim.js",
+    "lint": "TIMING=1 eslint src --fix",
+    "test": "jest",
+  },
+  "eslintConfig": {
+    "root":true,
+    "extends": [
+      "config/eslint-preset"
+    ]
+  }
+}
