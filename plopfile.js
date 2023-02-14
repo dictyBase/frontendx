@@ -142,6 +142,18 @@ function packageActions() {
       dest: "packages/{{dashCase name}}/react-shim.js",
       skipIfExists: true,
     },
+    {
+      type: "copy",
+      src: "plop-templates/packages/.swcrc",
+      dest: "packages/{{dashCase name}}/.swcrc",
+      skipIfExists: true,
+    },
+    {
+      type: "copy",
+      src: "plop-templates/packages/.prettierrc",
+      dest: "packages/{{dashCase name}}/.prettierrc",
+      skipIfExists: true,
+    },
     { type: "message", group: "package", folder: "packages" },
   ]
 }
