@@ -20,7 +20,8 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-router-dom": "^6.4.2",
-    "resizable-image": "*"
+    "resizable-image": "*",
+    "image-plugin": "*"
   },
   "devDependencies": {
     "@types/react": "17.0.52",
@@ -28,7 +29,6 @@
     "@vitejs/plugin-react": "^2.2.0",
     "eslint": "^8.31.0",
     "eslint-config-dictybase": "*",
-    "prettier": "^2.7.1",
     "ts-config": "*",
     "typescript": "^4.9.3",
     "vite": "^3.1.0"

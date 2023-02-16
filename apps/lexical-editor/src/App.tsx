@@ -6,8 +6,7 @@ import { ListItemNode, ListNode } from "@lexical/list"
 import { HeadingNode, QuoteNode } from "@lexical/rich-text"
 import { Grid, Paper, makeStyles } from "@material-ui/core"
 import LocalPersistencePlugin from "./plugins/LocalPersistencePlugin"
-import ImagePlugin from "./plugins/ImagePlugin"
-import ImageNode from "./nodes/ImageNode"
+import { ImagePlugin, ImageNode } from "image-plugin"
 import ToolbarV7Plugin from "./Toolbar"
 import {
   useEditorInputStyles,
