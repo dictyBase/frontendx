@@ -3,8 +3,11 @@ import { Provider, useAtomValue } from "jotai"
 import { $getNodeByKey, CLICK_COMMAND, COMMAND_PRIORITY_LOW } from "lexical"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { useLexicalNodeSelection } from "@lexical/react/useLexicalNodeSelection"
-import Image from "resizable-image"
-import { ImageDimensionsAtom, isResizingAtom } from "resizable-image/state"
+import {
+  ResizableImage,
+  ImageDimensionsAtom,
+  isResizingAtom,
+} from "resizable-image"
 
 export type ImageComponentProperties = {
   src: string
@@ -29,7 +32,7 @@ const ImageComponent = ({
 }: ImageComponentProperties) => {
   const imageReference = useRef<HTMLImageElement>(null)
   const [editor] = useLexicalComposerContext()
-  // const isResizing = useAtomValue(isResizingAtom)
+  const isResizing = useAtomValue(isResizingAtom)
   const [isSelected, setSelected, clearSelection] =
     useLexicalNodeSelection(nodeKey)
 
@@ -75,7 +78,7 @@ const ImageComponent = ({
       initialValues={[
         [ImageDimensionsAtom, { width: initialWidth, height: initialHeight }],
       ]}>
-      <Image
+      <ResizableImage
         src={src}
         imageReference={imageReference}
         alt={alt}
