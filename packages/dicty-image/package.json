@@ -1,0 +1,62 @@
+{
+  "name": "@dictybase/dicty-image",
+  "version": "0.0.0",
+  "description": "Image component for dictybase applications",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "author": "Siddhartha Basu",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "@types/jest": "^26.0.x",
+    "@types/react": "^17.x",
+    "@types/react-dom": "^17.x",
+    "@testing-library/jest-dom": "^5.x",
+    "@testing-library/react": "^13.x",
+    "@testing-library/user-event": "^14.x",
+    "prettier": "^2.x",
+    "jest": "^26.x",
+    "tsup": "^6.x",
+    "tsconfig": "*",
+    "eslint-config-custom": "*",
+    "@swc/core": "^1.x",
+    "@swc/jest": "^0.x"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.x",
+    "@material-ui/icons": "^4.x",
+    "@material-ui/lab": "^4.11.3-deprecations.1",
+    "react": "17.x",
+    "react-dom": "17.x"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react --inject react-shim.js",
+    "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react --inject react-shim.js",
+    "lint": "TIMING=1 eslint src --fix",
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "jest-environment-jsdom",
+    "testPathIgnorePatterns": [
+      "src/e2e/"
+    ],
+    "coveragePathIgnorePatterns": [
+      "dist/",
+      "src/data/",
+      "src/types/",
+      "src/e2e/",
+      "src/styles/"
+    ],
+    "transform": {
+      "^.+\\.(t|j)sx?$": [
+        "@swc/jest"
+      ]
+    }
+  },
+  "eslintConfig": {
+    "root":true,
+    "extends": [
+      "custom"
+    ]
+  }
+}
