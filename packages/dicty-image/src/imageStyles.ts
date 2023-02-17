@@ -22,7 +22,7 @@ const imageStyles = makeStyles<Theme, StyleProperties>({
     width: "100%",
     height: "100%",
     "object-fit": ({ fit }) => fit,
-    animationName: "materialize",
+    animationName: `$materialize`,
     animationDuration: ({ duration }) => `${duration}ms`,
     animationTimingFunction: ({ easing }) => easing,
   },
