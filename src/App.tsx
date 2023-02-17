@@ -5,8 +5,8 @@ import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary"
 import { ListItemNode, ListNode } from "@lexical/list"
 import { HeadingNode, QuoteNode } from "@lexical/rich-text"
 import { Grid, Paper, makeStyles } from "@material-ui/core"
-import LocalPersistencePlugin from "./plugins/LocalPersistencePlugin"
 import { ImagePlugin, ImageNode } from "image-plugin"
+import { LocalPersistencePlugin } from "persistence-plugin"
 import ToolbarV7Plugin from "./Toolbar"
 import {
   useEditorInputStyles,
