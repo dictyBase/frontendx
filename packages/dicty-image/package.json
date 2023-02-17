@@ -2,9 +2,7 @@
   "name": "@dictybase/dicty-image",
   "version": "0.0.0",
   "description": "Image component for dictybase applications",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "main": "./src/index.ts",
   "author": "Siddhartha Basu",
   "license": "BSD-2-Clause",
   "devDependencies": {
@@ -14,9 +12,7 @@
     "@testing-library/jest-dom": "^5.x",
     "@testing-library/react": "^13.x",
     "@testing-library/user-event": "^14.x",
-    "prettier": "^2.x",
     "jest": "^26.x",
-    "tsup": "^6.x",
     "tsconfig": "*",
     "eslint-config-custom": "*",
     "@swc/core": "^1.x",
@@ -30,9 +26,7 @@
     "react-dom": "17.x"
   },
   "scripts": {
-    "build": "tsup src/index.tsx --format esm,cjs --dts --external react --inject react-shim.js",
-    "dev": "tsup src/index.tsx --format esm,cjs --watch --dts --external react --inject react-shim.js",
-    "lint": "TIMING=1 eslint src --fix",
+    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
     "test": "jest"
   },
   "jest": {
