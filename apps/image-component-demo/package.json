@@ -1,0 +1,35 @@
+{
+  "name": "image-component-demo",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite --port 3004 --clearScreen false",
+    "build": "tsc && vite build",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache"
+  },
+  "dependencies": {
+    "@dictybase/dicty-image": "*",
+    "@fontsource/fira-code": "^4.5.13",
+    "@material-ui/core": "^4.x",
+    "@material-ui/icons": "^4.x",
+    "react": "17.x",
+    "react-dom": "17.x"
+  },
+  "devDependencies": {
+    "@types/react": "^17.x",
+    "@types/react-dom": "^17.x",
+    "@vitejs/plugin-react-swc": "^3.x",
+    "eslint-config-custom": "*",
+    "prettier": "^2.x",
+    "tsconfig": "*",
+    "typescript": "^4.9.x",
+    "vite": "^4.x"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "custom"
+    ]
+  }
+}
