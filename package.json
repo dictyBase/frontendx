@@ -19,9 +19,9 @@
   },
   "devDependencies": {
     "plop": "^3.x",
-    "prettier": "~2.8.2",
-    "turbo": "^1.7.x",
-    "typedoc": "~0.22.11"
+    "prettier": "^2.x",
+    "turbo": "^1.x",
+    "typedoc": "^0.x"
   },
   "engines": {
     "node": ">=18.0.0"
