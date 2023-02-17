@@ -1,0 +1,67 @@
+{
+  "name": "@dictybase/header",
+  "version": "0.0.0",
+  "main": "./src/index.tsx",
+  "sideEffects": false,
+  "license": "BSD-2-Clause",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --collect-coverage",
+    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.x",
+    "@types/react": "^17.x",
+    "@types/react-dom": "^17.x",
+    "@testing-library/jest-dom": "^5.x",
+    "@testing-library/react": "^13.x",
+    "@testing-library/user-event": "^14.x",
+    "jest": "^26.x",
+    "tsconfig": "*",
+    "eslint-config-custom": "*",
+    "@swc/core": "^1.x",
+    "@swc/jest": "^0.x"
+  },
+  "dependencies": {
+    "react": "17.x",
+    "react-dom": "17.x",
+    "@material-ui/core": "^4.x",
+    "@material-ui/icons": "^4.x",
+    "@material-ui/lab": "^4.11.3-deprecations.1",
+    "@fontsource/roboto": "~4.5.2",
+    "fp-ts": "^2.x",
+    "newtype-ts": "~0.3.5",
+    "monocle-ts": "~2.3.13",
+    "fp-ts-std": "~0.13.1"
+  },
+  "jest": {
+    "testEnvironment": "jest-environment-jsdom",
+    "testPathIgnorePatterns": [
+      "src/e2e/"
+    ],
+    "coveragePathIgnorePatterns": [
+      "dist/",
+      "src/data/",
+      "src/types/",
+      "src/e2e/",
+      "src/styles/"
+    ],
+    "transform": {
+      "^.+\\.(t|j)sx?$": [
+        "@swc/jest"
+      ]
+    },
+    "moduleNameMapper": {
+      "fp-ts-std/(.*)": "fp-ts-std/dist/cjs/$1",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js"
+    }
+  },
+  "eslintConfig": {
+    "extends": [
+      "custom"
+    ]
+  }
+}
