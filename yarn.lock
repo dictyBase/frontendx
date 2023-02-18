@@ -895,10 +895,10 @@
     parse-filepath "^1.0.2"
     tslib "~2.4.0"
 
-"@graphql-eslint/eslint-plugin@^3.15.0":
-  version "3.15.0"
-  resolved "https://registry.yarnpkg.com/@graphql-eslint/eslint-plugin/-/eslint-plugin-3.15.0.tgz#9d2db9a69836a24e608165ae9c8dafb34e73d431"
-  integrity sha512-0sCHsbD07sCAHLKr/89i0ZcKasAbPps9OcWcvBtBoyuyvINWQlTrG0eqIwo4n5pOdNLw1yCfk+R7AwRYJ8m+MQ==
+"@graphql-eslint/eslint-plugin@^3.16.0":
+  version "3.16.0"
+  resolved "https://registry.yarnpkg.com/@graphql-eslint/eslint-plugin/-/eslint-plugin-3.16.0.tgz#ca40c13c739ade7d1d2e0aa2de10d2776e5df70c"
+  integrity sha512-OGcrtdENu93FvYWGPaxd0IrwhgtQs6XuIYfh0a19OgjJyKMjT/p4Dwr1MNVzHsdGV1VGm1jMonZL/g9gRqT9Lg==
   dependencies:
     "@babel/code-frame" "^7.18.6"
     "@graphql-tools/code-file-loader" "^7.3.6"
@@ -1039,7 +1039,7 @@
     tslib "^2.4.0"
     unixify "^1.0.0"
 
-"@graphql-tools/graphql-tag-pluck@7.4.0", "@graphql-tools/graphql-tag-pluck@^7.3.6":
+"@graphql-tools/graphql-tag-pluck@7.4.0":
   version "7.4.0"
   resolved "https://registry.yarnpkg.com/@graphql-tools/graphql-tag-pluck/-/graphql-tag-pluck-7.4.0.tgz#b8082801164aad0b9b03bc61fb92388d076cc66a"
   integrity sha512-f966Z8cMDiPxWuN3ksuHpNgGE8euZtrL/Gcwz9rRarAb13al4CGHKmw2Cb/ZNdt7GbyhdiLT4wbaddrF0xCpdw==
@@ -1051,7 +1051,7 @@
     "@graphql-tools/utils" "9.1.1"
     tslib "^2.4.0"
 
-"@graphql-tools/graphql-tag-pluck@7.4.4":
+"@graphql-tools/graphql-tag-pluck@7.4.4", "@graphql-tools/graphql-tag-pluck@^7.3.6":
   version "7.4.4"
   resolved "https://registry.yarnpkg.com/@graphql-tools/graphql-tag-pluck/-/graphql-tag-pluck-7.4.4.tgz#16f8f7c5c5579f98106c58473b65806f2839da8a"
   integrity sha512-yHIEcapR/kVSrn4W4Nf3FYpJKPcoGvJbdbye8TnW3dD5GkG4UqVnKuyqFvQPOhgqXKbloFZqUhNqEuyqxqIPRw==
