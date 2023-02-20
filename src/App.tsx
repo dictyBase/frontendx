@@ -7,7 +7,7 @@ import { HeadingNode, QuoteNode } from "@lexical/rich-text"
 import { Grid, Paper, makeStyles } from "@material-ui/core"
 import { ImagePlugin, ImageNode } from "image-plugin"
 import { LocalPersistencePlugin } from "persistence-plugin"
-import ToolbarV7Plugin from "./Toolbar"
+import Toolbar from "dictybase-toolbar"
 import {
   useEditorInputStyles,
   useEditorPlaceholderStyles,
@@ -53,7 +53,7 @@ const EditorV8 = () => {
       <ImagePlugin />
       <Grid container direction="column">
         <Grid item>
-          <ToolbarV7Plugin />
+          <Toolbar />
         </Grid>
         <Grid item>
           <Paper className={paperClasses.root}>
