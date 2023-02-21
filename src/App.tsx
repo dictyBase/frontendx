@@ -1,12 +1,15 @@
 import { LexicalComposer } from "@lexical/react/LexicalComposer"
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin"
 import { ContentEditable } from "@lexical/react/LexicalContentEditable"
+import { ListPlugin } from "@lexical/react/LexicalListPlugin"
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary"
 import { ListItemNode, ListNode } from "@lexical/list"
 import { HeadingNode, QuoteNode } from "@lexical/rich-text"
+import { TableCellNode, TableRowNode } from "@lexical/table"
 import { Grid, Paper, makeStyles } from "@material-ui/core"
 import { ImagePlugin, ImageNode } from "image-plugin"
 import { LocalPersistencePlugin } from "persistence-plugin"
+import { WidthTablePlugin, WidthTableNode } from "width-table-plugin"
 import Toolbar from "dictybase-toolbar"
 import {
   useEditorInputStyles,
@@ -28,6 +31,9 @@ const editorTheme = {
     italic: "editor-text-italic",
     underline: "editor-text-underline",
   },
+  table: "editor-table",
+  tableCell: "editor-tablecell",
+  tableCellHeader: "editor-tablecell-head",
 }
 
 const onError = (error: Error) => {
@@ -38,7 +44,16 @@ const onError = (error: Error) => {
 const initialConfig = {
   namespace: "DictyEditor",
   theme: { ...editorTheme },
-  nodes: [HeadingNode, QuoteNode, ListItemNode, ListNode, ImageNode],
+  nodes: [
+    HeadingNode,
+    QuoteNode,
+    ListItemNode,
+    ListNode,
+    ImageNode,
+    TableCellNode,
+    TableRowNode,
+    WidthTableNode,
+  ],
   onError,
 }
 
@@ -50,7 +65,9 @@ const EditorV8 = () => {
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
+      <ListPlugin />
       <ImagePlugin />
+      <WidthTablePlugin />
       <Grid container direction="column">
         <Grid item>
           <Toolbar />
