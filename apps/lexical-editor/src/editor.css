@@ -32,3 +32,28 @@
 .editor-paragraph:last-child {
   margin-bottom: 0;
 }
+
+.editor-table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.editor-tablecell-head {
+  font-weight: normal;
+}
+
+.editor-tablecell {
+  text-align: center;
+  min-width: 4rem;
+}
+
+.editor-tablecell p {
+  margin-left: 0.125rem;
+  margin-right: 0.125rem;
+}
+
+.editor-table,
+.editor-tablecell {
+  border: 1px solid rgb(156, 156, 156);
+  border-collapse: collapse;
+}
