@@ -7,7 +7,7 @@ import { ListItemNode, ListNode } from "@lexical/list"
 import { HeadingNode, QuoteNode } from "@lexical/rich-text"
 import { TableCellNode, TableRowNode } from "@lexical/table"
 import { Grid, Paper, makeStyles } from "@material-ui/core"
-import { ImagePlugin, ImageNode } from "image-plugin"
+import { ImageNode } from "image-plugin"
 import { LocalPersistencePlugin } from "persistence-plugin"
 import { WidthTablePlugin, WidthTableNode } from "width-table-plugin"
 import Toolbar from "dictybase-toolbar"
@@ -66,7 +66,6 @@ const EditorV8 = () => {
   return (
     <LexicalComposer initialConfig={initialConfig}>
       <ListPlugin />
-      <ImagePlugin />
       <WidthTablePlugin />
       <Grid container direction="column">
         <Grid item>
