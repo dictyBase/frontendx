@@ -22,7 +22,9 @@
     "dictybase-toolbar": "*",
     "image-plugin": "*",
     "persistence-plugin": "*",
-    "resizable-image": "*"
+    "resizable-image": "*",
+    "width-table-plugin": "*",
+    "table-action-plugin": "*"
   },
   "devDependencies": {
     "@tsconfig/dictybase": "*",
