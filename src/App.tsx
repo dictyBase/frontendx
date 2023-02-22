@@ -10,6 +10,7 @@ import { Grid, Paper, makeStyles } from "@material-ui/core"
 import { ImageNode } from "image-plugin"
 import { LocalPersistencePlugin } from "persistence-plugin"
 import { WidthTablePlugin, WidthTableNode } from "width-table-plugin"
+import { TableActionPlugin } from "table-action-plugin"
 import Toolbar from "dictybase-toolbar"
 import {
   useEditorInputStyles,
@@ -67,6 +68,7 @@ const EditorV8 = () => {
     <LexicalComposer initialConfig={initialConfig}>
       <ListPlugin />
       <WidthTablePlugin />
+      <TableActionPlugin />
       <Grid container direction="column">
         <Grid item>
           <Toolbar />
