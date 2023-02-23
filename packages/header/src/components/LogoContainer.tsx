@@ -1,0 +1,35 @@
+import Typography from "@material-ui/core/Typography"
+import Box from "@material-ui/core/Box"
+import headerStyles from "../styles/headerStyles"
+import Image from "@dictybase/dicty-image"
+import AvifImage from "../images/logo.avif"
+import PngImage from "../images/logo.png"
+import WebPImage from "../images/logo.webp"
+import type { ReactNode } from "react"
+
+interface ReactChildrenProperty {
+  children: ReactNode
+}
+
+const ImgContainer = () => (
+  <Image
+    src={PngImage}
+    webpSrc={WebPImage}
+    avifSrc={AvifImage}
+    height="10vh"
+    width="90%"
+    fit="fill"
+  />
+)
+
+const TitleContainer = ({ title }: { title: string }) => (
+  <Typography variant="subtitle1" className={headerStyles().logoTitle}>
+    {title}
+  </Typography>
+)
+
+const LogoContainer = ({ children }: ReactChildrenProperty) => (
+  <Box className={headerStyles().logoContainer}>{children}</Box>
+)
+
+export { ImgContainer, TitleContainer, LogoContainer }
