@@ -1,4 +1,4 @@
-import { default as ReactCompose } from "./reactfp"
+import { default as ReactCompose } from "@dictybase/functional"
 import { pipe } from "fp-ts/function"
 import { Option, match } from "fp-ts/Option"
 import {
