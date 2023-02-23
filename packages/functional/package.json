@@ -1,0 +1,28 @@
+{
+  "name": "@dictybase/functional",
+  "version": "0.0.0",
+  "description": "functional programming for dictybase packages and applications",
+  "main": "./src/index.tsx",
+  "author": "Siddhartha Basu",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "@types/react": "^17.x",
+    "@types/react-dom": "^17.x",
+    "tsconfig": "*",
+    "eslint-config-custom": "*"
+  },
+  "dependencies": {
+    "react": "17.x",
+    "fp-ts": "^2.x",
+    "react-dom": "17.x"
+  },
+  "scripts": {
+    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache"
+  },
+  "eslintConfig": {
+    "root":true,
+    "extends": [
+      "custom"
+    ]
+  }
+}
