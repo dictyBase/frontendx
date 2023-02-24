@@ -6,7 +6,6 @@ type StyleProperties = {
   fit: string
   duration: number
   easing: string
-  loading: boolean
 }
 
 const imageStyles = makeStyles<Theme, StyleProperties>({
@@ -26,13 +25,6 @@ const imageStyles = makeStyles<Theme, StyleProperties>({
     animationDuration: ({ duration }) => `${duration}ms`,
     animationTimingFunction: ({ easing }) => easing,
   },
-  icons: {
-    width: "100%",
-    marginLeft: "-100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
   "@keyframes materialize": {
     "0%": {
       filter: "saturate(20%) contrast(50%) brightness(160%)",
@@ -49,4 +41,14 @@ const imageStyles = makeStyles<Theme, StyleProperties>({
   },
 })
 
-export default imageStyles
+const iconStyles = makeStyles({
+  icons: {
+    width: "100%",
+    marginLeft: "-100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+})
+
+export { imageStyles, iconStyles }
