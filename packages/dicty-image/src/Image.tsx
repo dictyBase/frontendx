@@ -3,8 +3,14 @@ import { Container } from "@material-ui/core"
 import ErrorDisplay from "./ErrorDisplay"
 import LoadingDisplay from "./LoadingDisplay"
 import { imageStyles } from "./imageStyles"
-import { Either, left, right, match } from "fp-ts/Either"
 import { pipe } from "fp-ts/function"
+import {
+  error,
+  success,
+  loading,
+  match,
+  SelectState,
+} from "@dictybase/functional"
 
 type ImageProperties = {
   webpSrc: string
@@ -18,18 +24,9 @@ type ImageProperties = {
   easing?: string
 }
 
-type LoadErrorStatus = Either<boolean, boolean>
-
-const matchAndDisplay = (status: LoadErrorStatus) => {
-  return pipe(
-    status,
-    match(
-      () => <ErrorDisplay />,
-      () => <LoadingDisplay />,
-    ),
-  )
-}
-
+const LoadingUI = () => <LoadingDisplay />
+const ErrorUI = () => <ErrorDisplay />
+const Noop = () => <></>
 const Image = ({
   src,
   webpSrc,
@@ -41,7 +38,7 @@ const Image = ({
   easing = "cubic-bezier(0.7, 0, 0.6, 1)",
   duration = 3000,
 }: ImageProperties) => {
-  const [status, setStatus] = useState<LoadErrorStatus>(right(true))
+  const [status, setStatus] = useState<SelectState<string, string>>(loading())
   const { root, image } = imageStyles({
     height,
     width,
@@ -53,19 +50,19 @@ const Image = ({
     <Container disableGutters className={root!}>
       <picture
         className={image!}
-        onLoad={() => setStatus(right(false))}
-        onError={() => setStatus(left(true))}>
+        onLoad={() => setStatus(success("loaded image"))}
+        onError={() => setStatus(error("error in loading image"))}>
         <source srcSet={avifSrc} type="image/avif" />
         <source srcSet={webpSrc} type="image/webp" />
         <img
           src={src}
           alt={alt}
           className={image!}
-          onLoad={() => setStatus(right(false))}
-          onError={() => setStatus(left(true))}
+          onLoad={() => setStatus(success("loaded image"))}
+          onError={() => setStatus(error("error in loading image"))}
         />
       </picture>
-      {matchAndDisplay(status)}
+      {pipe(status, match(LoadingUI, ErrorUI, Noop))}
     </Container>
   )
 }
