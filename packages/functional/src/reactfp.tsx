@@ -1,21 +1,39 @@
 import type { Monoid } from "fp-ts/Monoid"
 import { concatAll } from "fp-ts/Monoid"
-import type { ReactNode } from "react"
+import { type ReactNode, Fragment } from "react"
+import { pipe } from "fp-ts/function"
+import { Option, map as Omap, Applicative, of as Oof } from "fp-ts/Option"
+import { sequence, map as Amap } from "fp-ts/Array"
 
-type A = JSX.Element | ReactNode
+type Comp = JSX.Element | ReactNode
 
-const reactMonoid: Monoid<A> = {
-  concat: (x: A, y: A) => (
-    <>
+const reactCompMonoid: Monoid<Comp> = {
+  concat: (x: Comp, y: Comp) => (
+    <Fragment>
       {x}
       {y}
-    </>
+    </Fragment>
   ),
-  empty: <></>,
+  empty: <Fragment></Fragment>,
 }
 
-const compose = (...v: A[]) => {
-  return { children: concatAll(reactMonoid)(v) }
+const fromChildren = (...c: Array<Comp>) =>
+  pipe(
+    c,
+    Amap((ca) => Oof(ca)),
+    sequence(Applicative),
+  )
+
+const compose = (...v: Comp[]) => {
+  return { children: concatAll(reactCompMonoid)(v) }
 }
 
-export default compose
+const composeChildren = (o: Option<Array<Comp>>) => {
+  const conc = concatAll(reactCompMonoid)
+  return pipe(
+    o,
+    Omap((comps) => conc(comps)),
+  )
+}
+
+export { compose, composeChildren, fromChildren }
