@@ -1,6 +1,9 @@
-import { default as ReactCompose } from "@dictybase/functional"
+import {
+  fromChildren,
+  composeChildren,
+} from "@dictybase/functional"
 import { pipe } from "fp-ts/function"
-import { Option, match } from "fp-ts/Option"
+import { Option, getOrElse, map as Omap } from "fp-ts/Option"
 import {
   ImgContainer,
   TitleContainer,
@@ -14,15 +17,14 @@ interface LogoProperties {
 const Logo = ({ title }: LogoProperties) => {
   const logoTitle = pipe(
     title,
-    match(
-      () => "Dicty Community Resource",
-      (value) => value,
-    ),
+    getOrElse(() => "Dicty Community Resource"),
   )
   return pipe(
-    Array.of(<ImgContainer />, <TitleContainer title={logoTitle} />),
-    ReactCompose,
-    LogoContainer,
+    [<ImgContainer />, <TitleContainer title={logoTitle} />],
+    fromChildren,
+    composeChildren,
+    Omap((children) => <LogoContainer children={children} />),
+    getOrElse(() => <></>),
   )
 }
 export default Logo
