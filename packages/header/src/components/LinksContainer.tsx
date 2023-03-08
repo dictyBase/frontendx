@@ -58,7 +58,7 @@ const LinksIconButton = ({ children, href }: IconButtonProperties) => (
 )
 
 const LinksContainer = ({ children }: LinksContainerProperties) => (
-  <Box className={headerStyles().header}>{children}</Box>
+  <Box className={headerStyles().linksContainer}>{children}</Box>
 )
 
 export {
