@@ -1,6 +1,3 @@
-import { InputAdornment, TextField } from "@material-ui/core"
-import { Search } from "@material-ui/icons"
-import headerStyles from "../styles/headerStyles"
 import {
   Option,
   alt,
@@ -17,13 +14,14 @@ import { fromOption, map as IOmap } from "fp-ts/IOOption"
 import { Monoid } from "fp-ts/string"
 import { concatAll } from "fp-ts/Monoid"
 import React, { useState } from "react"
+import SearchContainer from "../components/SearchContainer"
 
-type SearchContainerProps = { searchPath: Option<string> }
-type SearchProps = { input: string; path: string }
+type SearchProps = { searchPath: Option<string> }
+type UrlProps = { input: string; path: string }
 type ChangeEvent = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 type KeyEvent = React.KeyboardEvent<HTMLDivElement>
 
-const makeURL = ({ input, path }: SearchProps) => {
+const makeURL = ({ input, path }: UrlProps) => {
   const strConcat = concatAll(Monoid)
   return new URL(
     strConcat([
@@ -47,7 +45,7 @@ const doSearch = (input: Option<string>, searchPath: Option<string>) =>
     IOmap(setSearchURL),
   )
 
-const SearchContainer = ({ searchPath }: SearchContainerProps) => {
+const Search = ({ searchPath }: SearchProps) => {
   const [searchInput, setsearchInput] = useState<Option<string>>(none)
   const onChange = (event: ChangeEvent) =>
     setsearchInput(of(event.target.value))
@@ -55,23 +53,7 @@ const SearchContainer = ({ searchPath }: SearchContainerProps) => {
     if (event.key != "Enter") return
     doSearch(searchInput, searchPath)
   }
-  return (
-    <TextField
-      className={headerStyles().search}
-      id="filled-basic"
-      label="Guided Search"
-      variant="filled"
-      onChange={onChange}
-      onKeyPress={onKeyPress}
-      InputProps={{
-        endAdornment: (
-          <InputAdornment position="end">
-            <Search />
-          </InputAdornment>
-        ),
-      }}
-    />
-  )
+  return <SearchContainer onKeyPress={onKeyPress} onChange={onChange} />
 }
 
-export default SearchContainer
+export default Search
