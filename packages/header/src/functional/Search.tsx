@@ -16,7 +16,7 @@ import { concatAll } from "fp-ts/Monoid"
 import React, { useState } from "react"
 import SearchContainer from "../components/SearchContainer"
 
-type SearchProps = { searchPath: Option<string> }
+type SearchProps = { searchPath?: Option<string> }
 type UrlProps = { input: string; path: string }
 type ChangeEvent = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 type KeyEvent = React.KeyboardEvent<HTMLDivElement>
@@ -45,7 +45,7 @@ const doSearch = (input: Option<string>, searchPath: Option<string>) =>
     IOmap(setSearchURL),
   )
 
-const Search = ({ searchPath }: SearchProps) => {
+const Search = ({ searchPath = none }: SearchProps) => {
   const [searchInput, setsearchInput] = useState<Option<string>>(none)
   const onChange = (event: ChangeEvent) =>
     setsearchInput(of(event.target.value))

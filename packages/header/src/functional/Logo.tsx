@@ -1,9 +1,6 @@
-import {
-  fromChildren,
-  composeChildren,
-} from "@dictybase/functional"
+import { fromChildren, composeChildren } from "@dictybase/functional"
 import { pipe } from "fp-ts/function"
-import { Option, getOrElse, map as Omap } from "fp-ts/Option"
+import { Option, getOrElse, map as Omap, none } from "fp-ts/Option"
 import {
   ImgContainer,
   TitleContainer,
@@ -11,10 +8,10 @@ import {
 } from "../components/LogoContainer"
 
 interface LogoProperties {
-  title: Option<string>
+  title?: Option<string>
 }
 
-const Logo = ({ title }: LogoProperties) => {
+const Logo = ({ title = none }: LogoProperties) => {
   const logoTitle = pipe(
     title,
     getOrElse(() => "Dicty Community Resource"),
