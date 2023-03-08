@@ -4,38 +4,34 @@
   "main": "./src/index.tsx",
   "sideEffects": false,
   "license": "BSD-2-Clause",
-  "files": [
-    "dist/**"
-  ],
   "scripts": {
     "test": "jest",
     "test:coverage": "jest --collect-coverage",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.x",
-    "@types/react": "^17.x",
-    "@types/react-dom": "^17.x",
     "@testing-library/jest-dom": "^5.x",
     "@testing-library/react": "^13.x",
     "@testing-library/user-event": "^14.x",
-    "jest": "^26.x",
-    "tsconfig": "*",
+    "@types/jest": "^26.0.x",
+    "@types/react": "^17.x",
+    "@types/react-dom": "^17.x",
+    "@types/uuid": "^9.0.1",
     "eslint-config-custom": "*",
-    "@swc/core": "^1.x",
-    "@swc/jest": "^0.x"
+    "tsconfig": "*"
   },
   "dependencies": {
-    "react": "17.x",
-    "react-dom": "17.x",
+    "@dictybase/dicty-image": "*",
+    "@dictybase/functional": "*",
+    "@fontsource/roboto": "~4.5.2",
     "@material-ui/core": "^4.x",
     "@material-ui/icons": "^4.x",
     "@material-ui/lab": "^4.11.3-deprecations.1",
-    "@fontsource/roboto": "~4.5.2",
-    "fp-ts": "^2.x",
-    "newtype-ts": "~0.3.5",
-    "monocle-ts": "~2.3.13",
-    "fp-ts-std": "~0.13.1"
+    "fp-ts": "2.13.1",
+    "fp-ts-std": "~0.13.1",
+    "react": "17.x",
+    "react-dom": "17.x",
+    "uuid": "9.x"
   },
   "jest": {
     "testEnvironment": "jest-environment-jsdom",
