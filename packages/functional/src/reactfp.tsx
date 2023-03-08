@@ -36,4 +36,4 @@ const composeChildren = (o: Option<Array<Comp>>) => {
   )
 }
 
-export { compose, composeChildren, fromChildren }
+export {type Comp, compose, composeChildren, fromChildren }
