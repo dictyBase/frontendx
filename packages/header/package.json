@@ -5,21 +5,20 @@
   "sideEffects": false,
   "license": "BSD-2-Clause",
   "scripts": {
-    "test": "jest",
-    "test:coverage": "jest --collect-coverage",
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache"
   },
   "devDependencies": {
+    "@testing-library/react": "^12.x",
     "@testing-library/jest-dom": "^5.x",
-    "@testing-library/react": "^13.x",
-    "@testing-library/user-event": "^14.x",
-    "@types/jest": "^26.0.x",
     "@types/react": "^17.x",
     "@types/react-dom": "^17.x",
     "@types/uuid": "^9.0.1",
-    "bun-types": "^0.5.7",
     "eslint-config-custom": "*",
-    "tsconfig": "*"
+    "tsconfig": "*",
+    "vitest": "latest",
+    "jsdom": "latest"
   },
   "dependencies": {
     "@dictybase/dicty-image": "*",
