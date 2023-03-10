@@ -1,12 +1,20 @@
-import { none } from "fp-ts/Option"
+import { none, Option } from "fp-ts/Option"
 import SearchContainer from "../components/SearchContainer"
-import { useSearch, type SearchProperties } from "../hook/useSearch"
+import useSearch from "../hook/useSearch"
+import type React from "react"
+
+type KeyEvent = React.KeyboardEvent<HTMLDivElement>
+type OnKeyPress = (event: KeyEvent) => void
+type SearchProperties = {
+  searchPath?: Option<string>
+  onKeyPressHandler?: Option<OnKeyPress>
+}
 
 const Search = ({
   searchPath = none,
   onKeyPressHandler = none,
 }: SearchProperties) => {
-  const { onKeyPress, onChange } = useSearch({ searchPath, onKeyPressHandler })
+  const { onKeyPress, onChange } = useSearch(searchPath, onKeyPressHandler)
   return <SearchContainer onKeyPress={onKeyPress} onChange={onChange} />
 }
 

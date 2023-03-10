@@ -11,7 +11,7 @@ import {
 import { sequence } from "fp-ts/Record"
 import { pipe } from "fp-ts/function"
 import { fromOption, map as IOmap } from "fp-ts/IOOption"
-import {trim, Monoid } from "fp-ts/string"
+import { trim, Monoid } from "fp-ts/string"
 import { concatAll } from "fp-ts/Monoid"
 import React, { useState } from "react"
 
@@ -19,10 +19,6 @@ type UrlProps = { input: string; path: string }
 type KeyEvent = React.KeyboardEvent<HTMLDivElement>
 type ChangeEvent = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 type OnKeyPress = (event: KeyEvent) => void
-type SearchProperties = {
-  searchPath?: Option<string>
-  onKeyPressHandler?: Option<OnKeyPress>
-}
 
 const makeURL = ({ input, path }: UrlProps) => {
   const strConcat = concatAll(Monoid)
@@ -47,10 +43,10 @@ const doSearch = (input: Option<string>, searchPath: Option<string>) =>
     fromOption,
     IOmap(setSearchURL),
   )
-const useSearch = ({
-  searchPath = none,
-  onKeyPressHandler = none,
-}: SearchProperties) => {
+const useSearch = (
+  searchPath: Option<string> = none,
+  onKeyPressHandler: Option<OnKeyPress> = none,
+) => {
   const [searchInput, setsearchInput] = useState<Option<string>>(none)
   const onChange = (event: ChangeEvent) =>
     setsearchInput(of(event.target.value))
@@ -68,4 +64,4 @@ const useSearch = ({
   }
 }
 
-export { useSearch, type SearchProperties }
+export default useSearch
