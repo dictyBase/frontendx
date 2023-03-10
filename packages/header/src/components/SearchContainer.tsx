@@ -14,7 +14,7 @@ const SearchContainer = ({onChange,onKeyPress}: SearchContainerProps) => {
   return (
     <TextField
       className={headerStyles().search}
-      id="filled-basic"
+      id="search-input"
       label="Guided Search"
       variant="filled"
       onChange={onChange}
