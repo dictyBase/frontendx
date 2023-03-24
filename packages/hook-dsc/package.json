@@ -2,22 +2,21 @@
   "name": "@dictybase/hook-dsc",
   "version": "0.0.0",
   "description": "React hooks for dsc application",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "main": "./src/index.js",
   "author": "Siddhartha Basu",
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "@types/jest": "^26.0.x",
+    "@testing-library/react": "^12.x",
+    "@testing-library/react-hooks": "^8.x",
+    "@testing-library/user-event":"^14.x",
+    "@testing-library/jest-dom": "^5.x",
+    "@types/node": "~17.0.21",
     "@types/react": "17.x",
     "@types/react-dom": "17.x",
-    "config": "*",
-    "eslint": "^7.32.x",
-    "jest": "^26.x",
-    "prettier": "^2.2.1",
-    "tsconfig": "*",
-    "tsup": "6.x",
-    "typescript": "^4.5.x"
+    "eslint-config-custom": "*",
+    "vitest": "latest",
+    "jsdom": "latest",
+    "tsconfig": "*"
   },
   "dependencies": {
     "@apollo/client": "3.7.x",
@@ -29,11 +28,9 @@
     "react-dom": "17.x"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --external react --inject react-shim.js --target=chrome87,firefox78,safari13,edge88",
-    "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react --inject react-shim.js --target=chrome87,firefox78,safari13,edge88",
-    "lint": "TIMING=1 eslint src --fix",
-    "test": "jest",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist && yarn"
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache"
   },
   "eslintConfig": {
     "extends": [
