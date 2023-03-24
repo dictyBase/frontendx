@@ -12,6 +12,7 @@
   "devDependencies": {
     "@testing-library/react": "^12.x",
     "@testing-library/react-hooks": "^8.x",
+    "@testing-library/user-event":"^14.x",
     "@testing-library/jest-dom": "^5.x",
     "@types/react": "^17.x",
     "@types/react-dom": "^17.x",
@@ -19,7 +20,8 @@
     "eslint-config-custom": "*",
     "tsconfig": "*",
     "vitest": "latest",
-    "jsdom": "latest"
+    "jsdom": "latest",
+    "happy-dom": "latest"
   },
   "dependencies": {
     "@dictybase/dicty-image": "*",
@@ -32,7 +34,8 @@
     "fp-ts-std": "~0.13.1",
     "react": "17.x",
     "react-dom": "17.x",
-    "uuid": "9.x"
+    "uuid": "9.x",
+    "rxjs": "~7.8.x"
   },
   "jest": {
     "testEnvironment": "jest-environment-jsdom",
