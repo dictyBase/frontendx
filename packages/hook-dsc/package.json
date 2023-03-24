@@ -1,0 +1,43 @@
+{
+  "name": "@dictybase/hook-dsc",
+  "version": "0.0.0",
+  "description": "React hooks for dsc application",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "author": "Siddhartha Basu",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "@types/jest": "^26.0.x",
+    "@types/react": "17.x",
+    "@types/react-dom": "17.x",
+    "config": "*",
+    "eslint": "^7.32.x",
+    "jest": "^26.x",
+    "prettier": "^2.2.1",
+    "tsconfig": "*",
+    "tsup": "6.x",
+    "typescript": "^4.5.x"
+  },
+  "dependencies": {
+    "@apollo/client": "3.7.x",
+    "dicty-graphql-schema": "dictyBase/dicty-graphql-schema#v1.10.0",
+    "fp-ts": "2.13.1",
+    "fp-ts-std": "^0.15.0",
+    "monocle-ts": "^2.3.13",
+    "react": "17.x",
+    "react-dom": "17.x"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react --inject react-shim.js --target=chrome87,firefox78,safari13,edge88",
+    "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react --inject react-shim.js --target=chrome87,firefox78,safari13,edge88",
+    "lint": "TIMING=1 eslint src --fix",
+    "test": "jest",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist && yarn"
+  },
+  "eslintConfig": {
+    "extends": [
+      "config/eslint-preset"
+    ]
+  }
+}
