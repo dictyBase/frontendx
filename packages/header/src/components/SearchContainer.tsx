@@ -10,23 +10,24 @@ type SearchContainerProps = {
   onKeyPress: (event: KeyEvent) => void
 }
 
-const SearchContainer = ({onChange,onKeyPress}: SearchContainerProps) => {
+const SearchContainer = ({ onChange, onKeyPress }: SearchContainerProps) => {
   return (
-    <TextField
-      className={headerStyles().search}
-      id="search-input"
-      label="Guided Search"
-      variant="filled"
-      onChange={onChange}
-      onKeyPress={onKeyPress}
-      InputProps={{
-        endAdornment: (
-          <InputAdornment position="end">
-            <Search />
-          </InputAdornment>
-        ),
-      }}
-    />
+    <form noValidate autoComplete="off" className={headerStyles().search}>
+      <TextField
+        id="search-input"
+        label="Guided Search"
+        variant="filled"
+        onChange={onChange}
+        onKeyPress={onKeyPress}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <Search />
+            </InputAdornment>
+          ),
+        }}
+      />
+    </form>
   )
 }
 

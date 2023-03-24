@@ -1,63 +1,114 @@
 import {
   Option,
   of,
-  alt,
   some,
   none,
   map as Omap,
-  Applicative,
   getOrElse,
+  fold,
 } from "fp-ts/Option"
-import { sequence } from "fp-ts/Record"
 import { pipe } from "fp-ts/function"
-import { fromOption, map as IOmap } from "fp-ts/IOOption"
 import { trim, Monoid } from "fp-ts/string"
 import { concatAll } from "fp-ts/Monoid"
 import React, { useState } from "react"
 
-type UrlProps = { input: string; path: string }
 type KeyEvent = React.KeyboardEvent<HTMLDivElement>
 type ChangeEvent = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-type OnKeyPress = (event: KeyEvent) => void
+type SearchProperties = {
+  input: string
+  path: string
+}
+type SearchHandler = (props: SearchProperties) => void
+type HandlerProperties = {
+  searchPath: Option<string>
+  searchInput: Option<string>
+  searchHandler: Option<SearchHandler>
+  event: KeyEvent
+}
 
-const makeURL = ({ input, path }: UrlProps) => {
-  const strConcat = concatAll(Monoid)
-  return new URL(
-    strConcat([
-      `${path}?query=${input}`,
-      `${document.location.protocol}`,
+const voidFn = () => {}
+
+const setSearchURL = (url: URL) => window.location.assign(url.href)
+
+const makeURL = ({ input, path }: SearchProperties) =>
+  new URL(
+    `${path}?query=${input}`,
+    concatAll(Monoid)([
+      document.location.protocol,
       "//",
-      `${document.location.host}`,
+      document.location.host,
     ]),
   )
-}
-const defaultPath = () => some("/search")
+
 const getPath = (searchPath: Option<string>) =>
-  pipe(searchPath, Omap(trim), alt(defaultPath))
-const setSearchURL = (url: URL) => document.location.assign(url.href)
-const doSearch = (input: Option<string>, searchPath: Option<string>) =>
   pipe(
-    Object.create({ input, path: getPath(searchPath) }),
-    sequence(Applicative),
-    Omap(makeURL),
-    fromOption,
-    IOmap(setSearchURL),
+    searchPath,
+    Omap(trim),
+    getOrElse(() => "/search"),
   )
+
+const defaultSearch = (props: SearchProperties) =>
+  pipe(props, makeURL, setSearchURL)
+
+const isEnterKey = (event: KeyEvent) =>
+  event.key === "Enter" ? some("Enter") : none
+
+const doHandler = ({
+  searchPath,
+  searchHandler,
+  searchInput,
+  event,
+}: HandlerProperties) => {}
+
+const handler = ({
+  searchPath,
+  searchHandler,
+  searchInput,
+  event,
+}: HandlerProperties) => {
+  const handlerPipe = (input: string) => {
+    const path = getPath(searchPath)
+    pipe(
+      searchHandler,
+      fold(
+        () => defaultSearch({ input, path }),
+        (cb) => cb({ input, path }),
+      ),
+    )
+  }
+
+  const inputPipe = () =>
+    pipe(
+      searchInput,
+      fold(
+        () => voidFn(),
+        (input) => handlerPipe(input),
+      ),
+    )
+
+  const eventPipe = () =>
+    pipe(
+      of(event),
+      Omap(isEnterKey),
+      fold(
+        () => voidFn(),
+        () => inputPipe(),
+      ),
+    )
+  eventPipe()
+}
+
 const useSearch = (
   searchPath: Option<string> = none,
-  onKeyPressHandler: Option<OnKeyPress> = none,
+  searchHandler: Option<SearchHandler> = none,
 ) => {
   const [searchInput, setsearchInput] = useState<Option<string>>(none)
   const onChange = (event: ChangeEvent) =>
     setsearchInput(of(event.target.value))
-  const onKeyPressDefault = (event: KeyEvent) => {
-    if (event.key != "Enter") return
-    doSearch(searchInput, searchPath)
-  }
-  const onKeyPress = pipe(
-    onKeyPressHandler,
-    getOrElse(() => onKeyPressDefault),
-  )
+
+  const onKeyPress = (event: KeyEvent) =>
+    handler({ searchPath, searchHandler, searchInput, event })
+
   return {
     onChange,
     onKeyPress,
