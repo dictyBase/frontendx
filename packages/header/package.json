@@ -20,8 +20,7 @@
     "eslint-config-custom": "*",
     "tsconfig": "*",
     "vitest": "latest",
-    "jsdom": "latest",
-    "happy-dom": "latest"
+    "jsdom": "latest"
   },
   "dependencies": {
     "@dictybase/dicty-image": "*",
@@ -36,28 +35,6 @@
     "react-dom": "17.x",
     "uuid": "9.x",
     "rxjs": "~7.8.x"
-  },
-  "jest": {
-    "testEnvironment": "jest-environment-jsdom",
-    "testPathIgnorePatterns": [
-      "src/e2e/"
-    ],
-    "coveragePathIgnorePatterns": [
-      "dist/",
-      "src/data/",
-      "src/types/",
-      "src/e2e/",
-      "src/styles/"
-    ],
-    "transform": {
-      "^.+\\.(t|j)sx?$": [
-        "@swc/jest"
-      ]
-    },
-    "moduleNameMapper": {
-      "fp-ts-std/(.*)": "fp-ts-std/dist/cjs/$1",
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js"
-    }
   },
   "eslintConfig": {
     "extends": [
