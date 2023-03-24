@@ -1,0 +1,50 @@
+{
+  "name": "@dictybase/hook",
+  "version": "0.0.1",
+  "description": "reusable react hooks for dictybase apps",
+  "main": "./src/index.js",
+  "author": "Siddhartha Basu",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "@testing-library/react": "^12.x",
+    "@testing-library/react-hooks": "^8.x",
+    "@testing-library/user-event":"^14.x",
+    "@testing-library/jest-dom": "^5.x",
+    "@types/node": "~17.0.21",
+    "@types/react": "^17.x",
+    "@types/react-dom": "^17.x",
+    "jotai": "~1.6.1",
+    "optics-ts": "~2.3.0",
+    "tsconfig": "*",
+    "eslint-config-custom": "*",
+    "vitest": "latest",
+    "jsdom": "latest"
+  },
+  "dependencies": {
+    "@isomorphic-git/lightning-fs": "~4.6.0",
+    "@material-ui/core": "4.12.x",
+    "@material-ui/lab": "^4.11.3-deprecations.1",
+    "@types/react-router-dom": "~5.3.3",
+    "fp-ts": "2.13.1",
+    "immer": "~9.0.12",
+    "isomorphic-git": "~1.17.1",
+    "react": "17.x",
+    "react-dom": "17.x",
+    "react-router-dom": "~6.1.1",
+    "use-immer": "~0.6.0"
+  },
+  "resolutions": {
+    "@types/react": "17.x",
+    "@types/react-dom": "17.x"
+  },
+  "scripts": {
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache"
+  },
+  "eslintConfig": {
+    "extends": [
+      "custom"
+    ]
+  }
+}
