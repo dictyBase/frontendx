@@ -1,5 +1,5 @@
-import * as React from "react"
-import * as ReactDOM from "react-dom"
+import React from "react"
+import ReactDOM from "react-dom"
 import { createTheme, ThemeProvider } from "@material-ui/core"
 import Demo from "./App"
 import "@fontsource/fira-code"
