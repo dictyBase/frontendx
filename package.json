@@ -21,7 +21,7 @@
   "devDependencies": {
     "plop": "3.x",
     "prettier": "2.x",
-    "turbo": "latest",
+    "turbo": "^1.8.5",
     "typedoc": "0.x"
   },
   "engines": {
