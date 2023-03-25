@@ -1,0 +1,37 @@
+{
+  "name": "@dictybase/data-access",
+  "version": "0.0.0",
+  "description": "Client functions to access data from dictybase backend",
+  "main": "./src/index.ts",
+  "author": "Siddhartha Basu",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "@types/jest": "^26.0.x",
+    "@types/react": "17.x",
+    "@types/react-dom": "17.x",
+    "@testing-library/jest-dom": "^5.x",
+    "@testing-library/react": "^13.x",
+    "@testing-library/user-event": "^14.x",
+    "vitest": "latest",
+    "jsdom": "latest",
+    "eslint-config-custom": "*",
+    "tsconfig": "*"
+  },
+  "dependencies": {
+    "@apollo/client": "3.7.x",
+    "apollo3-cache-persist": "0.13.x",
+    "localforage": "1.10.x",
+    "react": "17.x",
+    "react-dom": "17.x"
+  },
+  "scripts": {
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache"
+  },
+  "eslintConfig": {
+    "extends": [
+      "custom"
+    ]
+  }
+}
