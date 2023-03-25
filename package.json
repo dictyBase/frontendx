@@ -69,7 +69,7 @@
     "@graphql-codegen/typescript-msw": "^1.1.6",
     "@graphql-codegen/typescript-operations": "3.0.2",
     "@graphql-codegen/typescript-react-apollo": "3.3.7",
-    "@graphql-eslint/eslint-plugin": "^3.16.1",
+    "@graphql-eslint/eslint-plugin": "^3.16.2",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^9.0.2",
     "@semantic-release/git": "^10.0.1",
