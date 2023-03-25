@@ -1,0 +1,48 @@
+{
+  "name": "@dictybase/ui-dsc",
+  "version": "0.0.1",
+  "description": "ui components for dsc application",
+  "main": "./src/index.ts",
+  "author": "Siddhartha Basu",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "@apollo/client": "3.7.x",
+    "@material-ui/core": "4.12.x",
+    "@material-ui/icons": "~4.11.2",
+    "@material-ui/lab": "~4.11.3-deprecations.1",
+    "@material-ui/styles": "~4.11.4",
+    "@material-ui/system": "~4.12.1",
+    "fontsource-roboto": "^4.0.0",
+    "react": "17.x",
+    "react-dom": "17.x",
+    "react-router": "~6.1.1",
+    "react-router-dom": "~6.1.1"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^12.x",
+    "@testing-library/react-hooks": "^8.x",
+    "@testing-library/user-event":"^14.x",
+    "@testing-library/jest-dom": "^5.x",
+    "@types/react": "17.x",
+    "@types/react-dom": "17.x",
+    "@types/react-router-dom": "^5.3.3",
+    "eslint-config-custom": "*",
+    "vitest": "latest",
+    "jsdom": "latest",
+    "tsconfig": "*"
+  },
+  "resolutions": {
+    "@types/react": "17.x",
+    "@types/react-dom": "17.x"
+  },
+  "scripts": {
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache"
+  },
+  "eslintConfig": {
+    "extends": [
+      "custom"
+    ]
+  }
+}
