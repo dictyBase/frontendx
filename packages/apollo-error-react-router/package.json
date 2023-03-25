@@ -1,0 +1,38 @@
+{
+  "name": "@dictybase/apollo-error-react-router",
+  "version": "0.0.0",
+  "description": "React router based apollo error link handler",
+  "main": "./src/index.js",
+  "author": "Siddhartha Basu",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "@testing-library/react": "^12.x",
+    "@testing-library/react-hooks": "^8.x",
+    "@testing-library/user-event":"^14.x",
+    "@testing-library/jest-dom": "^5.x",
+    "@types/react": "17.x",
+    "@types/react-dom": "17.x",
+    "eslint-config-custom": "*",
+    "vitest": "latest",
+    "jsdom": "latest",
+    "tsconfig": "*"
+  },
+  "dependencies": {
+    "@apollo/client": "3.5.x",
+    "graphql": "~15.5.0",
+    "plop": "~3.0.5",
+    "react": "17.x",
+    "react-dom": "17.x",
+    "react-router-dom": "~6.1.1"
+  },
+  "scripts": {
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache"
+  },
+  "eslintConfig": {
+    "extends": [
+      "custom"
+    ]
+  }
+}
