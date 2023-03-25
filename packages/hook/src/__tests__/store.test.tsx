@@ -3,6 +3,7 @@ import {
 } from "../store"
 import { renderHook, act } from "@testing-library/react-hooks"
 import "@testing-library/jest-dom"
+import { expect, describe, beforeEach, test } from "vitest"
 
 describe("methods for managing counter state", () => {
   interface CounterState {
