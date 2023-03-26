@@ -22,7 +22,11 @@
     "plop": "3.x",
     "prettier": "2.x",
     "turbo": "^1.8.5",
-    "typedoc": "0.x"
+    "typedoc": "0.23.x",
+    "typedoc-plugin-mermaid":"1.x",
+    "typedoc-plugin-coverage": "2.x",
+    "typedoc-plugin-markdown":"3.x",
+    "typedoc-plugin-resolve-crossmodule-references":"0.x"
   },
   "engines": {
     "node": ">=18.0.0"

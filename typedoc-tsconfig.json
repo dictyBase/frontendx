@@ -18,12 +18,16 @@
     "noUnusedParameters": false,
     "preserveWatchOutput": true,
     "skipLibCheck": true,
-    "strict": true
+    "strict": true,
+    "typeRoots": ["./definition.d.ts"]
   },
   "exclude": [
-    "node_modules"
+    "dist",
+    "build",
+    "node_modules",
+    "./**/**/vitest.config.ts"
   ],
   "include": [
-    "packages/**/src/**/*"
+    "."
   ]
 }

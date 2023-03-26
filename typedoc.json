@@ -1,10 +1,14 @@
 {
   "entryPoints": [
     "./packages/hook/src",
+    "./packages/header/src",
+    "./packages/dicty-image/src",
+    "./packages/functional/src",
     "./packages/ui-dsc/src",
     "./packages/data-access/src",
     "./packages/apollo-error-nextjs/src",
     "./packages/apollo-error-react-router/src"
   ],
-  "out": "doc"
+  "out": "doc",
+  "theme": "nord"
 }
