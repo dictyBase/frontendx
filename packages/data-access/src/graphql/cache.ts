@@ -39,7 +39,9 @@ export function apolloClientCache({
   customPolicies,
   storage,
 }: apolloClientCacheProps) {
-  const mc = new InMemoryCache({ typePolicies: customPolicies })
+  const mc = customPolicies
+    ? new InMemoryCache({ typePolicies: customPolicies })
+    : new InMemoryCache()
   const [cache, setCache] = useState<InMemoryCache>(mc)
   useEffect(() => {
     const initCache = async () => {
@@ -57,11 +59,13 @@ export function apolloClientCache({
             cache: mc,
             storage: new LocalForageWrapper(localForage),
           })
+          break
         case "SESSION":
           await persistCache({
             cache: mc,
             storage: new SessionStorageWrapper(window.sessionStorage),
           })
+          break
         default:
           break
       }
