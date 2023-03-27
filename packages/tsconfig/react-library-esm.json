@@ -1,14 +1,36 @@
 {
-  "extends": "@tsconfig/node18-strictest-esm/tsconfig.json",
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "ESM-strictest",
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "es2022"],
+    "noEmit": true,
+    "module": "es2022",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "es2022"
+    ],
+    "target": "es2022",
+    "jsx": "react-jsx",
+    "strict": true,
     "useDefineForClassFields": true,
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "esModuleInterop": false
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "verbatimModuleSyntax": true,
+    "checkJs": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
   }
 }
