@@ -1,4 +1,5 @@
 import { pipe } from "fp-ts/function"
+import { v4 as uuid4 } from "uuid"
 import { map as Amap, let as Alet, bindTo } from "fp-ts/Array"
 import { map as Omap, getOrElse, Option } from "fp-ts/Option"
 import { fromChildren, composeChildren, Comp } from "@dictybase/functional"
@@ -30,7 +31,9 @@ const linksIconButtonWrapper = ({
 }: linksIconButtonWrapperProperties) =>
   pipe(
     children,
-    Omap((children) => <LinksIconButton href={href} children={children} />),
+    Omap((children) => (
+      <LinksIconButton href={href} children={children} key={uuid4()} />
+    )),
     getOrElse(() => <></>),
   )
 
@@ -44,8 +47,12 @@ const iconButtonPipe = (items: Array<IconItemProp>) =>
   pipe(
     items,
     bindTo("items"),
-    Alet("titleComp", ({ items: { title } }) => <Title title={title} />),
-    Alet("iconComp", ({ items: { Icon } }) => <LinksIcon Icon={Icon} />),
+    Alet("titleComp", ({ items: { title } }) => (
+      <Title title={title} key={uuid4()} />
+    )),
+    Alet("iconComp", ({ items: { Icon } }) => (
+      <LinksIcon Icon={Icon} key={uuid4()} />
+    )),
     Alet("children", composeTitleIcon),
     Amap(linksIconButtonWrapper),
   )
