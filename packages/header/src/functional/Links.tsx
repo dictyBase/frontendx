@@ -1,8 +1,7 @@
-import { pipe, flow } from "fp-ts/function"
-import { map as Amap } from "fp-ts/Array"
-import { map as Omap, getOrElse } from "fp-ts/Option"
+import { pipe } from "fp-ts/function"
+import { map as Amap, let as Alet, bindTo } from "fp-ts/Array"
+import { map as Omap, getOrElse, Option } from "fp-ts/Option"
 import { fromChildren, composeChildren, Comp } from "@dictybase/functional"
-import { fork } from "fp-ts-std/Function"
 import {
   type IconItemProp,
   iconItems,
@@ -12,36 +11,48 @@ import {
   LinksContainer,
 } from "../components/LinksContainer"
 
-type iconButtonPipeProperties = JSX.Element | string | undefined
+type composeTitleIconProperties = {
+  items: IconItemProp
+  titleComp: Comp
+  iconComp: Comp
+}
+type linksIconButtonWrapperProperties = composeTitleIconProperties & {
+  children: Option<Comp>
+}
 
-const mapTitle = ({ title }: IconItemProp) => ({ title })
-const mapIcon = ({ Icon }: IconItemProp) => ({ Icon })
-const mapHref = ({ href }: IconItemProp) => href
-const titlePipe = flow(Amap(mapTitle), Amap(Title))
-const iconPipe = flow(Amap(mapIcon), Amap(LinksIcon))
 const linksContainerWrapper = (children: Comp) => (
   <LinksContainer children={children} />
 )
-const iconButtonPipe = ([
-  first,
-  second,
-  href,
-]: Array<iconButtonPipeProperties>) =>
+
+const linksIconButtonWrapper = ({
+  children,
+  items: { href },
+}: linksIconButtonWrapperProperties) =>
   pipe(
-    [first, second],
-    fromChildren,
-    composeChildren,
-    Omap((children) => (
-      <LinksIconButton href={href as string} children={children} />
-    )),
+    children,
+    Omap((children) => <LinksIconButton href={href} children={children} />),
     getOrElse(() => <></>),
+  )
+
+const composeTitleIcon = ({
+  titleComp,
+  iconComp,
+}: composeTitleIconProperties) =>
+  pipe([titleComp, iconComp], fromChildren, composeChildren)
+
+const iconButtonPipe = (items: Array<IconItemProp>) =>
+  pipe(
+    items,
+    bindTo("items"),
+    Alet("titleComp", ({ items: { title } }) => <Title title={title} />),
+    Alet("iconComp", ({ items: { Icon } }) => <LinksIcon Icon={Icon} />),
+    Alet("children", composeTitleIcon),
+    Amap(linksIconButtonWrapper),
   )
 
 const Links = () =>
   pipe(
-    iconItems,
-    fork([titlePipe, iconPipe, flow(Amap(mapHref))]),
-    Amap(iconButtonPipe),
+    iconButtonPipe(iconItems),
     fromChildren,
     composeChildren,
     Omap(linksContainerWrapper),
