@@ -24,6 +24,7 @@ const fromChildren = (...c: Array<Comp>) =>
     sequence(Applicative),
   )
 
+
 const compose = (...v: Comp[]) => {
   return { children: concatAll(reactCompMonoid)(v) }
 }
