@@ -53,13 +53,6 @@ const defaultSearch = (props: SearchProperties) =>
 const isEnterKey = (event: KeyEvent) =>
   event.key === "Enter" ? some("Enter") : none
 
-const doHandler = ({
-  searchPath,
-  searchHandler,
-  searchInput,
-  event,
-}: HandlerProperties) => {}
-
 const handler = ({
   searchPath,
   searchHandler,

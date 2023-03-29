@@ -53,5 +53,10 @@
     "extends": [
       "custom"
     ]
+  },
+  "typedoc": {
+    "entryPoint": "./src/index.ts",
+    "displayName": "@dictybase/dicty-image",
+    "readmeFile": "./README.md"
   }
 }

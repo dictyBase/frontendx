@@ -33,5 +33,10 @@
     "extends": [
       "custom"
     ]
+  },
+  "typedoc": {
+    "entryPoint": "./src/index.ts",
+    "displayName": "@dictybase/data-access",
+    "readmeFile": "./README.md"
   }
 }

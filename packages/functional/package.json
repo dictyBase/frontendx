@@ -24,5 +24,10 @@
     "extends": [
       "custom"
     ]
+  },
+  "typedoc": {
+    "entryPoint": "./src/index.ts",
+    "displayName": "@dictybase/functional",
+    "readmeFile": "./README.md"
   }
 }
