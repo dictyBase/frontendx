@@ -36,5 +36,10 @@
     "extends": [
       "config/eslint-preset"
     ]
+  },
+  "typedoc": {
+    "entryPoint": "./src/index.ts",
+    "displayName": "@dictybase/hook-dsc",
+    "readmeFile": "./README.md"
   }
 }

@@ -44,5 +44,10 @@
     "extends": [
       "custom"
     ]
+  },
+  "typedoc": {
+    "entryPoint": "./src/index.ts",
+    "displayName": "@dictybase/ui-dsc",
+    "readmeFile": "./README.md"
   }
 }

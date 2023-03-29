@@ -8,7 +8,7 @@
   "devDependencies": {
     "@testing-library/react": "^12.x",
     "@testing-library/react-hooks": "^8.x",
-    "@testing-library/user-event":"^14.x",
+    "@testing-library/user-event": "^14.x",
     "@testing-library/jest-dom": "^5.x",
     "@types/node": "~17.0.21",
     "@types/react": "^17.x",
@@ -46,5 +46,10 @@
     "extends": [
       "custom"
     ]
+  },
+  "typedoc": {
+    "entryPoint": "./src/index.ts",
+    "displayName": "@dictybase/hook",
+    "readmeFile": "./README.md"
   }
 }

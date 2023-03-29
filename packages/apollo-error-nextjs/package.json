@@ -32,5 +32,10 @@
     "extends": [
       "custom"
     ]
+  },
+  "typedoc": {
+    "entryPoint": "./src/index.ts",
+    "displayName": "@dictybase/apollo-error-nextjs",
+    "readmeFile": "./README.md"
   }
 }
