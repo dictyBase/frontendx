@@ -5,7 +5,7 @@ import Links from "./Links"
 import Search from "./Search"
 import { fromChildren, composeChildren, type Comp } from "@dictybase/functional"
 import { pipe } from "fp-ts/function"
-import { map as Omap } from "fp-ts/Option"
+import { map as Omap, getOrElse } from "fp-ts/Option"
 
 const boxWrapper = (children: Comp) => (
   <Box className={headerStyles().header}>{children}</Box>
@@ -17,5 +17,7 @@ const Header = () =>
     fromChildren,
     composeChildren,
     Omap(boxWrapper),
+    getOrElse(() => <></>),
   )
+
 export default Header
