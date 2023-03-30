@@ -34,6 +34,7 @@ module.exports = {
   },
   rules: {
     "import/no-unresolved": "error",
+    "import/prefer-default-export": "off",
     quotes: ["off", "single"],
     semi: ["error", "never"],
     "no-shadow": "off",
