@@ -1,6 +1,6 @@
 import { none, Option } from "fp-ts/Option"
-import SearchContainer from "../components/SearchContainerWithRxjs"
-import useSearch from "../hook/useSearchWithRx"
+import SearchContainer from "../components/SearchContainer"
+import useSearch from "../hook/useSearch"
 import type { SearchHandler } from "../helper/searchManagement"
 
 type SearchProperties = {
