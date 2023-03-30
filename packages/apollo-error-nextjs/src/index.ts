@@ -12,9 +12,9 @@ export interface errorLinkProps {
 }
 
 /**
- * An apollo {@link https://www.apollographql.com/docs/react/api/link/apollo-link-error/ | Error Link handler}
+ * An apollo @see [error link handler](https://www.apollographql.com/docs/react/api/link/apollo-link-error)
  * that reports the errors in the
- * browser's console and uses {@link |https://nextjs.org/docs/api-reference/next/router| nextjs router}
+ * browser's console and uses @see [nextjs router](https://nextjs.org/docs/api-reference/next/router)
  * redirect the page to a custom(or default)
  * route. The routes are expected to be handled
  * by a react component.
@@ -32,9 +32,7 @@ export function errorLink({
     }
     if (graphQLErrors) {
       graphQLErrors.forEach(({ message }) => {
-        console.error(
-          `[GraphQL error]: ${message} [operation]: ${name}`,
-        )
+        console.error(`[GraphQL error]: ${message} [operation]: ${name}`)
       })
       router.replace(graphqlPath)
     }
