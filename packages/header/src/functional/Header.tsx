@@ -17,7 +17,7 @@ const boxWrapper = (children: Comp) => (
  * @returns The rendered header component.
  * @example
  * ```
- * import Header from "@dictybase/header"
+ * import {Header} from "@dictybase/header"
  *
  * const App = () => (
  *   <div>
