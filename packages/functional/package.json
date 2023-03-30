@@ -19,12 +19,6 @@
   "scripts": {
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache"
   },
-  "eslintConfig": {
-    "root":true,
-    "extends": [
-      "custom"
-    ]
-  },
   "typedoc": {
     "entryPoint": "./src/index.ts",
     "displayName": "@dictybase/functional",

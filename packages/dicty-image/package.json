@@ -48,12 +48,6 @@
       ]
     }
   },
-  "eslintConfig": {
-    "root":true,
-    "extends": [
-      "custom"
-    ]
-  },
   "typedoc": {
     "entryPoint": "./src/index.ts",
     "displayName": "@dictybase/dicty-image",
