@@ -1,24 +1,19 @@
-import React from "react"
 import { InputAdornment, TextField } from "@material-ui/core"
 import { Search } from "@material-ui/icons"
+import type { RefObject } from "react"
 import headerStyles from "../styles/headerStyles"
 
-type ChangeEvent = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-type KeyEvent = React.KeyboardEvent<HTMLDivElement>
-
-type SearchContainerProperty = {
-  onChange: (event: ChangeEvent) => void
-  onKeyPress: (event: KeyEvent) => void
+type SearchContainerProperties = {
+  textFieldRef: RefObject<HTMLDivElement>
 }
 
-const SearchContainer = ({ onChange, onKeyPress }: SearchContainerProperty) => (
+const SearchContainer = ({ textFieldRef }: SearchContainerProperties) => (
   <form noValidate autoComplete="off" className={headerStyles().search}>
     <TextField
       id="search-input"
       label="Guided Search"
       variant="filled"
-      onChange={onChange}
-      onKeyPress={onKeyPress}
+      ref={textFieldRef}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
