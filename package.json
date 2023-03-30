@@ -25,12 +25,14 @@
     "typedoc": "0.23.x",
     "typedoc-plugin-mermaid": "1.x",
     "typedoc-plugin-coverage": "2.x",
-    "typedoc-plugin-resolve-crossmodule-references": "0.x"
+    "typedoc-plugin-resolve-crossmodule-references": "0.x",
+    "eslint-config-custom": "*"
   },
   "engines": {
     "node": ">=18.0.0"
   },
   "eslintConfig": {
+    "root": true,
     "extends": [
       "custom"
     ]

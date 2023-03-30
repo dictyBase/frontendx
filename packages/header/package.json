@@ -36,11 +36,6 @@
     "uuid": "9.x",
     "rxjs": "~7.8.x"
   },
-  "eslintConfig": {
-    "extends": [
-      "custom"
-    ]
-  },
   "typedoc": {
     "entryPoint": "./src/index.ts",
     "displayName": "@dictybase/header",
