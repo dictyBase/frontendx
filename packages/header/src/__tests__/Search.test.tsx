@@ -1,9 +1,9 @@
 import { render } from "@testing-library/react"
 import { expect, describe, beforeEach, vi, test, Mock } from "vitest"
 import "@testing-library/jest-dom"
-import Search from "../functional/Search"
 import userEvent from "@testing-library/user-event"
 import { of } from "fp-ts/Option"
+import Search from "../functional/Search"
 
 declare module "vitest" {
   export interface TestContext {
@@ -18,7 +18,7 @@ type SearchTextContext = {
 describe("functional search component", () => {
   test("should render the default search component", () => {
     const { getByRole } = render(<Search />)
-    expect(getByRole("textbox", { name: /Guided Search/i })).toBeInTheDocument()
+    expect(getByRole("textbox", { name: /guided search/i })).toBeInTheDocument()
   })
   test("should accept user search input", async () => {
     const user = userEvent.setup()
