@@ -1,11 +1,11 @@
 import Typography from "@material-ui/core/Typography"
 import Box from "@material-ui/core/Box"
-import headerStyles from "../styles/headerStyles"
+import type { ReactNode } from "react"
 import Image from "@dictybase/dicty-image"
+import headerStyles from "../styles/headerStyles"
 import AvifImage from "../images/logo.avif"
 import PngImage from "../images/logo.png"
 import WebPImage from "../images/logo.webp"
-import type { ReactNode } from "react"
 
 interface ReactChildrenProperty {
   children: ReactNode

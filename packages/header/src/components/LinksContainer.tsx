@@ -5,13 +5,13 @@ import {
   ArrowDownward as Download,
   ExitToApp as Login,
 } from "@material-ui/icons"
-import headerStyles from "../styles/headerStyles"
 import { v4 as uuid4 } from "uuid"
 import type { Comp } from "@dictybase/functional"
+import headerStyles from "../styles/headerStyles"
 
 type IconType = typeof Login
 
-type IconItemProp = {
+type IconItemProperty = {
   href: string
   title: string
   key: string
@@ -26,7 +26,7 @@ type IconButtonProperties = LinksContainerProperties & {
   href: string
 }
 
-const iconItems: Array<IconItemProp> = [
+const iconItems: Array<IconItemProperty> = [
   {
     href: "/community/citation",
     title: "Cite Us",
@@ -62,7 +62,7 @@ const LinksContainer = ({ children }: LinksContainerProperties) => (
 )
 
 export {
-  type IconItemProp,
+  type IconItemProperty,
   iconItems,
   Title,
   LinksIcon,

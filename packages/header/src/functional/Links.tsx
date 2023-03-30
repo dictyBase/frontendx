@@ -1,10 +1,11 @@
+import { Box } from "@material-ui/core"
 import { pipe } from "fp-ts/function"
 import { v4 as uuid4 } from "uuid"
 import { map as Amap, let as Alet, bindTo } from "fp-ts/Array"
 import { map as Omap, getOrElse, Option } from "fp-ts/Option"
 import { fromChildren, composeChildren, Comp } from "@dictybase/functional"
 import {
-  type IconItemProp,
+  type IconItemProperty,
   iconItems,
   Title,
   LinksIcon,
@@ -13,7 +14,7 @@ import {
 } from "../components/LinksContainer"
 
 type composeTitleIconProperties = {
-  items: IconItemProp
+  items: IconItemProperty
   titleComp: Comp
   iconComp: Comp
 }
@@ -22,7 +23,7 @@ type linksIconButtonWrapperProperties = composeTitleIconProperties & {
 }
 
 const linksContainerWrapper = (children: Comp) => (
-  <LinksContainer children={children} />
+  <LinksContainer>{children}</LinksContainer>
 )
 
 const linksIconButtonWrapper = ({
@@ -31,10 +32,12 @@ const linksIconButtonWrapper = ({
 }: linksIconButtonWrapperProperties) =>
   pipe(
     children,
-    Omap((children) => (
-      <LinksIconButton href={href} children={children} key={uuid4()} />
+    Omap((comp) => (
+      <LinksIconButton href={href} key={uuid4()}>
+        {comp}
+      </LinksIconButton>
     )),
-    getOrElse(() => <></>),
+    getOrElse(() => <Box>Error in rendering</Box>),
   )
 
 const composeTitleIcon = ({
@@ -43,7 +46,7 @@ const composeTitleIcon = ({
 }: composeTitleIconProperties) =>
   pipe([titleComp, iconComp], fromChildren, composeChildren)
 
-const iconButtonPipe = (items: Array<IconItemProp>) =>
+const iconButtonPipe = (items: Array<IconItemProperty>) =>
   pipe(
     items,
     bindTo("items"),
@@ -63,7 +66,7 @@ const Links = () =>
     fromChildren,
     composeChildren,
     Omap(linksContainerWrapper),
-    getOrElse(() => <></>),
+    getOrElse(() => <Box>error in rendering</Box>),
   )
 
 export default Links

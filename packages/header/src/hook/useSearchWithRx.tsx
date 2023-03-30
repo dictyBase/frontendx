@@ -1,16 +1,16 @@
 import { useRef, useEffect } from "react"
 import { Option, none } from "fp-ts/Option"
 import { pipe } from "fp-ts/function"
-import {type SearchHandler, handler} from "../helper/searchManagement"
-import obsToSubs from '../helper/searchObserver'
+import { type SearchHandler, handler } from "../helper/searchManagement"
+import obsToSubs from "../helper/searchObserver"
 
 const useSearch = (
   searchPath: Option<string> = none,
   searchHandler: Option<SearchHandler> = none,
 ) => {
-  const textRef = useRef<HTMLDivElement>(null)
+  const textReference = useRef<HTMLDivElement>(null)
   useEffect(() => {
-    const subscriber = obsToSubs(textRef).subscribe(
+    const subscriber = obsToSubs(textReference).subscribe(
       (input) =>
         input &&
         pipe(input, handler({ path: searchPath, handler: searchHandler })),
@@ -19,8 +19,7 @@ const useSearch = (
       subscriber.unsubscribe()
     }
   }, [searchPath, searchHandler])
-  return textRef
+  return textReference
 }
 
 export default useSearch
-

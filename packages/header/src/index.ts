@@ -1,1 +1,1 @@
-export {default} from "./functional/Header"
+export * from "./functional/Header"

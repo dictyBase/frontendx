@@ -1,13 +1,13 @@
 import { InputAdornment, TextField } from "@material-ui/core"
 import { Search } from "@material-ui/icons"
-import headerStyles from "../styles/headerStyles"
 import type { RefObject } from "react"
+import headerStyles from "../styles/headerStyles"
 
-type SearchContainerProps = {
+type SearchContainerProperties = {
   textFieldRef: RefObject<HTMLDivElement>
 }
 
-const SearchContainer = ({ textFieldRef }: SearchContainerProps) => (
+const SearchContainer = ({ textFieldRef }: SearchContainerProperties) => (
   <form noValidate autoComplete="off" className={headerStyles().search}>
     <TextField
       id="search-input"
