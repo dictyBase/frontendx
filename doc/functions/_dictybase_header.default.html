@@ -1,4 +1,4 @@
-<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>dicty-image/src | frontendx</title><meta name="description" content="Documentation for frontendx"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script async src="../assets/search.js" id="search-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>default | frontendx</title><meta name="description" content="Documentation for frontendx"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script async src="../assets/search.js" id="search-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
 <div class="tsd-toolbar-contents container">
 <div class="table-cell" id="tsd-search" data-base="..">
 <div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z" fill="var(--color-text)"></path></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
@@ -13,19 +13,23 @@
 <div class="tsd-page-title">
 <ul class="tsd-breadcrumb">
 <li><a href="../modules.html">frontendx</a></li>
-<li><a href="dicty_image_src.html">dicty-image/src</a></li></ul>
-<h1>Module dicty-image/src</h1></div><aside class="tsd-sources">
+<li><a href="../modules/_dictybase_header.html">@dictybase/header</a></li>
+<li><a href="_dictybase_header.default.html">default</a></li></ul>
+<h1>Function default</h1></div>
+<section class="tsd-panel">
+<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+<li class="tsd-signature tsd-anchor-link" id="default">default<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Element</span><a href="#default" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" id="icon-anchor-a"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" id="icon-anchor-b"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" id="icon-anchor-c"></path></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Renders a header component with a logo, search bar and navigation links.</p>
+
+<h3>Returns</h3><p>The rendered header component.</p>
+
+<h3>Example</h3><pre><code><span class="hl-0">import</span><span class="hl-1"> </span><span class="hl-2">Header</span><span class="hl-1"> </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;@dictybase/header&quot;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">App</span><span class="hl-1"> = () </span><span class="hl-4">=&gt;</span><span class="hl-1"> (</span><br/><span class="hl-1">  &lt;</span><span class="hl-6">div</span><span class="hl-1">&gt;</span><br/><span class="hl-1">    &lt;</span><span class="hl-2">Header</span><span class="hl-1"> /&gt;</span><br/><span class="hl-1">    &lt;</span><span class="hl-6">p</span><span class="hl-1">&gt;</span><span class="hl-2">This</span><span class="hl-1"> </span><span class="hl-2">is</span><span class="hl-1"> </span><span class="hl-2">the</span><span class="hl-1"> </span><span class="hl-2">main</span><span class="hl-1"> </span><span class="hl-2">content</span><span class="hl-1"> </span><span class="hl-2">area</span><span class="hl-1">&lt;/</span><span class="hl-2">p</span><span class="hl-1">&gt;</span><br/><span class="hl-1">  &lt;/</span><span class="hl-2">div</span><span class="hl-1">&gt;</span><br/><span class="hl-1">)</span>
+</code></pre>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/dictyBase/frontendx/blob/de7aa7d/packages/dicty-image/src/index.ts#L1">dicty-image/src/index.ts:1</a></li></ul></aside>
-<section class="tsd-panel-group">
-<section class="tsd-panel tsd-typography"></section></section>
-<section class="tsd-panel-group tsd-index-group">
-<section class="tsd-panel tsd-index-panel">
-<h3 class="tsd-index-heading uppercase">Index</h3>
-<section class="tsd-index-section">
-<h3 class="tsd-index-heading">Functions</h3>
-<div class="tsd-index-list"><a href="../functions/dicty_image_src.default.html" class="tsd-index-link tsd-kind-function tsd-parent-kind-module"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-function)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-64-path"></rect><path d="M9.39 16V7.24H14.55V8.224H10.446V11.128H14.238V12.112H10.47V16H9.39Z" fill="var(--color-text)" id="icon-64-text"></path></svg><span>default</span></a>
-</div></section></section></section></div>
+<li>Defined in <a href="https://github.com/dictyBase/frontendx/blob/c5fbe2b/packages/header/src/functional/Header.tsx#L30">header/src/functional/Header.tsx:30</a></li></ul></aside></li></ul></section></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tsd-navigation settings">
 <details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
@@ -47,17 +51,13 @@
 <ul>
 <li class="current"><a href="../modules.html">frontendx</a>
 <ul>
-<li class="tsd-kind-module"><a href="apollo_error_nextjs_src.html">apollo-<wbr/>error-<wbr/>nextjs/src</a></li>
-<li class="tsd-kind-module"><a href="apollo_error_react_router_src.html">apollo-<wbr/>error-<wbr/>react-<wbr/>router/src</a></li>
-<li class="tsd-kind-module"><a href="data_access_src.html">data-<wbr/>access/src</a></li>
-<li class="current selected tsd-kind-module"><a href="dicty_image_src.html">dicty-<wbr/>image/src</a></li>
-<li class="tsd-kind-module"><a href="functional_src.html">functional/src</a></li>
-<li class="tsd-kind-module"><a href="header_src.html">header/src</a></li>
-<li class="tsd-kind-module"><a href="hook_src.html">hook/src</a></li>
-<li class="tsd-kind-module"><a href="ui_dsc_src.html">ui-<wbr/>dsc/src</a></li></ul></li></ul></div></details></nav>
+<li class="tsd-kind-module"><a href="../modules/_dictybase_apollo_error_nextjs.html">@dictybase/apollo-<wbr/>error-<wbr/>nextjs</a></li>
+<li class="tsd-kind-module"><a href="../modules/_dictybase_apollo_error_react_router.html">@dictybase/apollo-<wbr/>error-<wbr/>react-<wbr/>router</a></li>
+<li class="tsd-kind-module"><a href="../modules/_dictybase_data_access.html">@dictybase/data-<wbr/>access</a></li>
+<li class="current tsd-kind-module"><a href="../modules/_dictybase_header.html">@dictybase/header</a></li></ul></li></ul></div></details></nav>
 <nav class="tsd-navigation secondary menu-sticky">
 <ul>
-<li class="tsd-kind-function tsd-parent-kind-module"><a href="../functions/dicty_image_src.default.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>default</a></li></ul></nav></div></div>
+<li class="current tsd-kind-function tsd-parent-kind-module"><a href="_dictybase_header.default.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-function)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-64-path"></rect><path d="M9.39 16V7.24H14.55V8.224H10.446V11.128H14.238V12.112H10.47V16H9.39Z" fill="var(--color-text)" id="icon-64-text"></path></svg>default</a></li></ul></nav></div></div>
 <div class="container tsd-generator">
 <p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>
 <div class="overlay"></div><script src="../assets/main.js"></script></body></html>
