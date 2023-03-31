@@ -13,7 +13,10 @@ const useSearch = (
     const subscriber = obsToSubs(textReference).subscribe(
       (input) =>
         input &&
-        pipe(input, handler({ path: searchPath, handler: searchHandler })),
+        pipe(
+          input,
+          handler({ path: searchPath, searchCallback: searchHandler }),
+        ),
     )
     return () => {
       subscriber.unsubscribe()
