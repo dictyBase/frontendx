@@ -7,10 +7,10 @@ type SearchProperties = {
   input: string
   path: string
 }
-type SearchHandler = (props: SearchProperties) => void
+type SearchHandler = (properties: SearchProperties) => void
 type HandlerProperties = {
   path: Option<string>
-  handler: Option<SearchHandler>
+  searchCallback: Option<SearchHandler>
 }
 
 const setSearchURL = (url: URL) => window.location.assign(url.href)
@@ -32,8 +32,8 @@ const getPath = (searchPath: Option<string>) =>
     getOrElse(() => "/search"),
   )
 
-const defaultSearch = (props: SearchProperties) =>
-  pipe(props, makeURL, setSearchURL)
+const defaultSearch = (properties: SearchProperties) =>
+  pipe(properties, makeURL, setSearchURL)
 
 const getSearchHandler = (searchHandler: Option<SearchHandler>) =>
   pipe(
@@ -42,8 +42,8 @@ const getSearchHandler = (searchHandler: Option<SearchHandler>) =>
   )
 
 const handler =
-  ({ path, handler }: HandlerProperties) =>
+  ({ path, searchCallback }: HandlerProperties) =>
   (input: string) =>
-    pipe({ input, path: getPath(path) }, getSearchHandler(handler))
+    pipe({ input, path: getPath(path) }, getSearchHandler(searchCallback))
 
 export { type SearchHandler, handler }
