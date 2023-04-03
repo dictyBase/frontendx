@@ -31,7 +31,8 @@
     "react": "17.x",
     "react-dom": "17.x",
     "react-router-dom": "~6.1.1",
-    "use-immer": "~0.6.0"
+    "use-immer": "~0.6.0",
+    "@types/uuid": "^9.0.1"
   },
   "resolutions": {
     "@types/react": "17.x",
@@ -40,7 +41,8 @@
   "scripts": {
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache"
+    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/hook.json"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",
