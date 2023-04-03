@@ -39,6 +39,7 @@ module.exports = {
     semi: ["error", "never"],
     "no-shadow": "off",
     "no-unused-vars": "off",
+    "no-undef": "off",
     "@typescript-eslint/no-shadow": ["error"],
     "@typescript-eslint/no-unused-vars": [
       "error",
@@ -89,5 +90,7 @@ module.exports = {
       { allow: ["eslint-disable", "eslint-disable-next-line"] },
     ],
     "unicorn/no-new-array": "off",
+    "unicorn/switch-case-braces": ["error", "avoid"],
+    "react/jsx-props-no-spreading": ["off", { explicitSpread: "ignore" }],
   },
 }
