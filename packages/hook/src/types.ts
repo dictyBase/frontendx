@@ -3,7 +3,7 @@ import { URLSearchParamsInit } from "react-router-dom"
 /**
  * @typedef inputProps - The props type for state that keep tracks of user inputs.
  */
-export interface inputProps {
+export interface inputProperties {
   /** user input that gets reset after switching options  */
   user: string
   /** copy of user input that does not gets reset */
@@ -13,7 +13,7 @@ export interface inputProps {
 /**
  * @typedef AllStringObj - An object with key and value are of string type
  */
-export interface AllStringObj {
+export interface AllStringObject {
   [index: string]: string
 }
 
@@ -21,7 +21,7 @@ export interface AllStringObj {
  * @typedef SetURLSearchParams - Type definition for react-router function that
  * modify the query string of the URL
  */
-export type SetURLSearchParams = (
+export type SetURLSearchParameters = (
   nextInit: URLSearchParamsInit,
   navigateOptions?:
     | {
