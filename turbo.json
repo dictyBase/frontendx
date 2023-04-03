@@ -10,10 +10,11 @@
         ".next/**"
       ]
     },
-    "lint": {
-      "outputs": []
+    "lint": {},
+    "lint:out": {
+      "cache": false,
+      "outputMode": "none"
     },
-    "lint:out": {},
     "dev": {
       "cache": false
     },
