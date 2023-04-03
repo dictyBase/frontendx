@@ -28,6 +28,7 @@
   },
   "scripts": {
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/dicty-image.json",
     "test": "jest"
   },
   "jest": {
