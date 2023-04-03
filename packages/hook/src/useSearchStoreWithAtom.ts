@@ -52,14 +52,16 @@ export function useSearchStoreAtoms() {
   const [activeChip, setActiveChipStatus] = useAtom(activeChipAtom)
   const [inactiveChips, setInactiveChip] = useAtom(inactiveChipAtom)
   const toggleActiveChip = (label: string) => {
-    setActiveChipStatus({ label: label, active: false })
+    setActiveChipStatus({ label, active: false })
   }
   const addActiveChip = (label: string) => {
-    addChip({ label: label, active: true })
+    addChip({ label, active: true })
   }
   const addUniqInactiveChip = (label: string) => {
-    inactiveChips.find((c) => c.label !== label) &&
-      addChip({ label: label, active: false })
+    const hasSome = inactiveChips.some((c) => c.label !== label)
+    if (hasSome) {
+      addChip({ label, active: false })
+    }
   }
   return {
     tag,

@@ -1,63 +1,59 @@
 import { pipe, flow } from "fp-ts/lib/function"
-import * as E from "fp-ts/lib/Either"
-import * as TE from "fp-ts/lib/TaskEither"
-import * as Console from "fp-ts/Console"
+import { right, map as Emap, toError } from "fp-ts/Either"
+import {
+  chain as TEchain,
+  map as TEmap,
+  mapLeft as TEmapleft,
+  tryCatch,
+  of as TEof,
+} from "fp-ts/TaskEither"
 import { clone } from "isomorphic-git"
-import * as S from "fp-ts/string"
+import { Semigroup } from "fp-ts/string"
 import { intercalate } from "fp-ts/Semigroup"
 import http from "isomorphic-git/http/web"
 import FS from "@isomorphic-git/lightning-fs"
 
-export interface DirFileProps {
+export interface DirectoryFileProperties {
   dir: string
   file: string
   url: string
 }
 
-export function useFunky() {
-  const input = (name: string) => E.right(name)
-  const padMore = (name: string) => `${name}-${name}`
-  return flow(input, E.map(padMore))
+const browserFS = new FS("github-wiki")
+const defaultCloneParameter = {
+  http,
+  fs: browserFS,
+  corsProxy: "https://cors.isomorphic-git.org",
 }
+const defaultSeparator = "/"
+const readFileFromRepo = (path: string) =>
+  tryCatch(async () => {
+    const buffer = await browserFS.promises.readFile(path, {
+      encoding: "utf8",
+    })
+    return buffer.toString()
+  }, toError)
+const executeCloneRepo = ({ dir, url, file }: DirectoryFileProperties) =>
+  tryCatch(async () => {
+    await clone({ dir, url, ...defaultCloneParameter })
+    return { dir, url, file } as DirectoryFileProperties
+  }, toError)
+const addPath = ({ dir, file }: DirectoryFileProperties) =>
+  // eslint-disable-next-line unicorn/prefer-spread
+  pipe(Semigroup, intercalate(defaultSeparator)).concat(dir, file)
+const input = (name: string) => right(name)
+const padMore = (name: string) => `${name}-${name}`
+const wrapper = (properties: DirectoryFileProperties) => TEof(properties)
+const errorMessageExtract = (xerror: Error) => xerror.message
+const useFunky = () => flow(input, Emap(padMore))
 
-export function useGithubWiki() {
-  const browserFS = new FS("github-wiki")
-  const defaultCloneParams = {
-    http: http,
-    fs: browserFS,
-    corsProxy: "https://cors.isomorphic-git.org",
-  }
-  const defaultSep = "/"
-  const wrapper = (props: DirFileProps) => TE.of(props)
-  const executeCloneRepo = ({ dir, url, file }: DirFileProps) =>
-    TE.tryCatch(async () => {
-      await clone({ dir, url, ...defaultCloneParams })
-      return { dir, url, file } as DirFileProps
-    }, E.toError)
-  // const errLogger = TE.fromIOK(Console.error)
-  const infoLogger = TE.fromIOK(Console.info)
-  const errMsgExtract = (err: Error) => err.message
-  const addPath = ({ dir, file }: DirFileProps) => {
-    const pathDelimGroup = pipe(S.Semigroup, intercalate(defaultSep))
-    return pathDelimGroup.concat(dir, file)
-  }
-  const readFileFromRepo = (path: string) =>
-    TE.tryCatch(async () => {
-      const buffer = await browserFS.promises.readFile(path, {
-        encoding: "utf8",
-      })
-      return buffer.toString()
-    }, E.toError)
-
-  const payload = flow(
+const useGithubWiki = () =>
+  flow(
     wrapper,
-    TE.chain(executeCloneRepo),
-    // TE.chainFirstIOK(infoLogger),
-    TE.map(addPath),
-    // TE.chainFirstIOK(infoLogger),
-    TE.chain(readFileFromRepo),
-    // TE.chainFirstIOK(infoLogger),
-    TE.mapLeft(errMsgExtract),
+    TEchain(executeCloneRepo),
+    TEmap(addPath),
+    TEchain(readFileFromRepo),
+    TEmapleft(errorMessageExtract),
   )
-  return payload
-}
+
+export { useGithubWiki, useFunky }

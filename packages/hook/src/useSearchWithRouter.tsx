@@ -1,16 +1,15 @@
 import { useState, ReactNode } from "react"
 import { AutocompleteRenderInputParams } from "@material-ui/lab"
-import { TextField } from "@material-ui/core"
-import { Chip } from "@material-ui/core"
-import { inputProps, SetURLSearchParams  } from "./types"
+import { TextField, Chip } from "@material-ui/core"
+import { v4 as uuid4 } from "uuid"
+import { inputProperties, SetURLSearchParameters } from "./types"
 
 const emptyString: Readonly<string> = ""
-
 
 /**
  * The prop type for {@link useSearchWithRouter}
  */
-export interface useSearchWithRouterProps {
+export interface useSearchWithRouterProperties {
   /** Text that will be displayed below the input */
   help: string
   /** The label of input box */
@@ -20,7 +19,7 @@ export interface useSearchWithRouterProps {
   /** The react-router [function]{@link https://reactrouter.com/docs/en/v6/api#usesearchparams}
    * which allows to change the search params of the browser's url
    */
-  setSearchParams: SetURLSearchParams
+  setSearchParams: SetURLSearchParameters
   /** The {@link https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams | URLSearchParams object}
    */
   searchParams: URLSearchParams
@@ -41,12 +40,12 @@ export function useSearchWithRouter({
   help,
   setSearchParams,
   searchParams,
-}: useSearchWithRouterProps) {
+}: useSearchWithRouterProperties) {
   const [hasTag, setHasTag] = useState<boolean>(false)
-  const [value, setValue] = useState<string[]>([])
-  const [prevChipValue, setPrevChipValue] = useState<string[]>([])
+  const [value, setValue] = useState<Array<string>>([])
+  const [previousChipValue, setPreviousChipValue] = useState<string[]>([])
   const [activeChipValue, setActiveChipValue] = useState<string>(emptyString)
-  const [input, setInput] = useState<inputProps>({
+  const [input, setInput] = useState<inputProperties>({
     user: emptyString,
     userCopy: emptyString,
   })
@@ -59,13 +58,15 @@ export function useSearchWithRouter({
     switch (reason) {
       case "select-option":
         if (activeChipValue) {
-          setPrevChipValue((state) => [...state, activeChipValue])
+          setPreviousChipValue((state) => [...state, activeChipValue])
           setActiveChipValue(emptyString)
         }
         setHasTag(false)
         setValue(values)
         break
       case "create-option":
+        break
+      default:
         break
     }
   }
@@ -81,18 +82,18 @@ export function useSearchWithRouter({
     reason: string,
   ): void => {
     if (!["change", "keydown"].includes(event.type)) return
-    switch (reason) {
-      case "input":
-        setHasTag(false)
-        setInput({ user: newInputValue, userCopy: newInputValue })
-        break
-      case "reset":
-        setInput((state) => ({ ...state, user: emptyString }))
-        setHasTag(true)
-        setActiveChipValue(`${value[value.length - 1]}:${input.userCopy}`)
-        searchParams.append(value[value.length - 1], input.userCopy)
-        setSearchParams(searchParams)
-        break
+    if (reason === "input") {
+      setHasTag(false)
+      setInput({ user: newInputValue, userCopy: newInputValue })
+      return
+    }
+    setInput((state) => ({ ...state, user: emptyString }))
+    setHasTag(true)
+    const lastValue = value.at(-1)
+    if (lastValue) {
+      setActiveChipValue(`${lastValue}:${input.userCopy}`)
+      searchParams.append(lastValue, input.userCopy)
+      setSearchParams(searchParams)
     }
   }
 
@@ -102,13 +103,15 @@ export function useSearchWithRouter({
   const onDeleteChip = (chipValue: string) => {
     const [optValue] = chipValue.split(":")
     setValue(value.filter((v) => v !== optValue))
-    searchParams.delete(optValue)
+    if (optValue) {
+      searchParams.delete(optValue)
+    }
     setSearchParams(searchParams)
     if (chipValue === activeChipValue) {
       setActiveChipValue(emptyString)
       return
     }
-    setPrevChipValue(prevChipValue.filter((v) => v !== chipValue))
+    setPreviousChipValue(previousChipValue.filter((v) => v !== chipValue))
   }
 
   /**
@@ -116,24 +119,24 @@ export function useSearchWithRouter({
    */
   const renderTags = (values: string[]): ReactNode => {
     if (hasTag) {
-      return [...prevChipValue, activeChipValue]
+      return [...previousChipValue, activeChipValue]
         .filter((o) => o !== emptyString)
-        .map((o, i) => (
+        .map((o) => (
           <Chip
             onDelete={() => onDeleteChip(o)}
             label={o}
-            key={i + 1}
+            key={uuid4()}
             size="small"
           />
         ))
     }
     return (
       <>
-        {prevChipValue.map((o, i) => (
+        {previousChipValue.map((o) => (
           <Chip
             onDelete={() => onDeleteChip(o)}
             size="small"
-            key={i + 1}
+            key={uuid4()}
             label={o}
           />
         ))}
@@ -145,16 +148,15 @@ export function useSearchWithRouter({
   /**
    * Callback for rendering the search box
    */
-  const renderInput = (params: AutocompleteRenderInputParams): ReactNode => {
-    return (
-      <TextField
-        {...params}
-        label={label}
-        variant="outlined"
-        helperText={help}
-      />
-    )
-  }
+  const renderInput = (parameters: AutocompleteRenderInputParams) => (
+    <TextField
+      {...parameters}
+      size="small"
+      label={label}
+      variant="outlined"
+      helperText={help}
+    />
+  )
 
   return {
     value,
