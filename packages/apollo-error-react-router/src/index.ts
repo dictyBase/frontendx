@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 /**
  * The props for {@link errorLink}
  */
-export interface errorLinkProps {
+export interface errorLinkProperties {
   /** path to route for network error */
   networkPath?: string
   /** path to route for graphql errors */
@@ -13,29 +13,21 @@ export interface errorLinkProps {
 
 /**
  * An apollo {@link https://www.apollographql.com/docs/react/api/link/apollo-link-error/ | Error Link handler}
- * that reports the errors in the
- * browser's console and uses {@link https://nextjs.org/docs/api-reference/next/router| react router}
- * redirect the page to a custom(or default)
+ * uses {@link https://nextjs.org/docs/api-reference/next/router| react router}
+ * to redirect the page to a custom(or default)
  * route. The routes are expected to be handled
  * by a react component.
  */
-export function errorLink({
+export function useErrorLink({
   networkPath = "/errors/network",
   graphqlPath = "/errors/graphql",
 }) {
   const navigate = useNavigate()
-  return onError(({ networkError, graphQLErrors, operation }) => {
-    const name = operation.operationName
+  return onError(({ networkError, graphQLErrors }) => {
     if (networkError) {
-      console.error(`[Network error]: ${networkError} [operation]: ${name}`)
       navigate(networkPath, { replace: true })
     }
     if (graphQLErrors) {
-      graphQLErrors.forEach(({ message }) => {
-        console.error(
-          `[GraphQL error]: ${message} [operation]: ${name}`,
-        )
-      })
       navigate(graphqlPath, { replace: true })
     }
   })
