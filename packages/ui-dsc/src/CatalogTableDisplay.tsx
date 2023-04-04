@@ -15,22 +15,22 @@ const useStyles = makeStyles({
 })
 const StyledTableCell = styled(TableCell)(compose(borders, typography))
 const borderBottom = `2px solid ${indigo[700]}`
-const tblHeaders = ["Strain Descriptor", "Strain Summary", "Strain ID"]
+const tableHeaders = ["Strain Descriptor", "Strain Summary", "Strain ID"]
 
-interface CatalogRowFnProps<Type> {
+interface CatalogRowFunctionProperties<Type> {
   strains: any
   nextCursor: number
   lastIndex: number
-  targetRef: RefObject<Type>
+  targetReference: RefObject<Type>
 }
 
 /**
  * The prop for {@link CatalogTableDisplay}
  */
-export interface CatalogListProps<T> {
-  /** data for display*/
+export interface CatalogListProperties<T> {
+  /** data for display */
   data: any
-  /** field for accessing the data*/
+  /** field for accessing the data */
   dataField: string
   /** a DOM element
    * @typeparam T could be any HTML element
@@ -38,11 +38,13 @@ export interface CatalogListProps<T> {
   target: RefObject<T>
 }
 
-interface CatalogTableHeaderProps {
+interface CatalogTableHeaderProperties {
   headers?: Array<string>
 }
 
-function CatalogTableHeader({ headers = tblHeaders }: CatalogTableHeaderProps) {
+function CatalogTableHeader({
+  headers = tableHeaders,
+}: CatalogTableHeaderProperties) {
   return (
     <TableRow>
       {headers.map((h: string, i: number) => {
@@ -65,7 +67,7 @@ const truncate = (input: string, length: number): string => {
   return input.slice(0, length)
 }
 
-const cellFn = (item: any) => {
+const cellFunction = (item: any) => {
   return (
     <>
       <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
@@ -81,20 +83,20 @@ const cellFn = (item: any) => {
   )
 }
 
-const rowFn = ({
+const rowFunction = ({
   strains,
   nextCursor,
-  targetRef,
+  targetReference,
   lastIndex,
-}: CatalogRowFnProps<HTMLTableRowElement>) => {
+}: CatalogRowFunctionProperties<HTMLTableRowElement>) => {
   const rows = strains.map((item: any, idx: number) => {
     const key = `${item.id}${idx}`
     if (idx === lastIndex && nextCursor !== 0) {
       // last item and expected to have more data
       return (
         <>
-          <TableRow key={key}>{cellFn(item)}</TableRow>
-          <TableRow key={idx} ref={targetRef}>
+          <TableRow key={key}>{cellFunction(item)}</TableRow>
+          <TableRow key={idx} ref={targetReference}>
             <TableCell colSpan={3}>
               <LinearProgress />
             </TableCell>
@@ -102,7 +104,7 @@ const rowFn = ({
         </>
       )
     }
-    return <TableRow key={key}>{cellFn(item)}</TableRow>
+    return <TableRow key={key}>{cellFunction(item)}</TableRow>
   })
   return rows
 }
@@ -114,8 +116,8 @@ const rowFn = ({
 export function CatalogTableDisplay({
   data,
   dataField,
-  target: targetRef,
-}: CatalogListProps<HTMLTableRowElement>): JSX.Element {
+target: targetReference,
+}: CatalogListProperties<HTMLTableRowElement>): JSX.Element {
   const classes = useStyles()
   const { strains, nextCursor } = data[dataField]
   const lastIndex = strains.length - 1
@@ -126,7 +128,7 @@ export function CatalogTableDisplay({
           <CatalogTableHeader />
         </TableHead>
         <TableBody>
-          {rowFn({ strains, nextCursor, targetRef, lastIndex })}
+          {rowFunction({ strains, nextCursor, targetRef, lastIndex })}
         </TableBody>
       </Table>
     </TableContainer>
