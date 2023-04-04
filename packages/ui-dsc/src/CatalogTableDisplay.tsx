@@ -43,25 +43,21 @@ interface CatalogTableHeaderProperties {
   headers?: Array<string>
 }
 
-function CatalogTableHeader({
+const CatalogTableHeader = ({
   headers = tableHeaders,
-}: CatalogTableHeaderProperties) {
-  return (
-    <TableRow>
-      {headers.map((h: string) => {
-        return (
-          <StyledTableCell
-            borderBottom={borderBottom}
-            fontSize="subtitle1.fontSize"
-            fontWeight="fontWeightBold"
-            key={uuid4()}>
-            {h}
-          </StyledTableCell>
-        )
-      })}
-    </TableRow>
-  )
-}
+}: CatalogTableHeaderProperties) => (
+  <TableRow>
+    {headers.map((h: string) => (
+      <StyledTableCell
+        borderBottom={borderBottom}
+        fontSize="subtitle1.fontSize"
+        fontWeight="fontWeightBold"
+        key={uuid4()}>
+        {h}
+      </StyledTableCell>
+    ))}
+  </TableRow>
+)
 
 const truncate = (input: string, length: number): string => {
   if (input.length <= length) return input
@@ -113,11 +109,11 @@ const rowFunction = ({
  * Displays data in tablular format in which the target DOM element is attached
  * to the penultimate table row to work in tandem with intersection observer.
  */
-export function CatalogTableDisplay({
+export const CatalogTableDisplay = ({
   data,
   dataField,
   target: targetReference,
-}: CatalogListProperties<HTMLTableRowElement>): JSX.Element {
+}: CatalogListProperties<HTMLTableRowElement>): JSX.Element => {
   const classes = useStyles()
   const { strains, nextCursor } = data[dataField]
   const lastIndex = strains.length - 1
@@ -128,7 +124,7 @@ export function CatalogTableDisplay({
           <CatalogTableHeader />
         </TableHead>
         <TableBody>
-          {rowFunction({ strains, nextCursor, targetRef, lastIndex })}
+          {rowFunction({ strains, nextCursor, targetReference, lastIndex })}
         </TableBody>
       </Table>
     </TableContainer>
