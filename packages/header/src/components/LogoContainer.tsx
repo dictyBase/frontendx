@@ -1,7 +1,7 @@
 import Typography from "@material-ui/core/Typography"
 import Box from "@material-ui/core/Box"
 import type { ReactNode } from "react"
-import Image from "@dictybase/dicty-image"
+import { Image } from "@dictybase/dicty-image"
 import headerStyles from "../styles/headerStyles"
 import AvifImage from "../images/logo.avif"
 import PngImage from "../images/logo.png"
