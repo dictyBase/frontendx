@@ -1,5 +1,5 @@
-export * from "./graphql-config"
-export * from "./graphql-cache"
+export * from "./graphql_config"
+export * from "./graphql_cache"
 export * from "./types"
 export * from "./useConfigureStrainCatalogSearchGraphql"
 export * from "./useConfigureStrainCatalogSearchDropdown"
