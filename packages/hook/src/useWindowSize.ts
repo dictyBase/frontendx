@@ -5,9 +5,9 @@ import { useState, useEffect } from "react"
  */
 export interface SizeProperties {
   /** window width in pixel, optional */
-  width?: number
+  width: number
   /** window height in pixel, optional */
-  height?: number
+  height: number
 }
 
 /**
@@ -17,7 +17,10 @@ export interface SizeProperties {
  * @returns {@link SizeProps}
  */
 export function useWindowSize(): SizeProperties {
-  const [windowSize, setWindowSize] = useState<SizeProperties>({})
+  const [windowSize, setWindowSize] = useState<SizeProperties>({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  })
   useEffect(() => {
     const handleResize = () => {
       setWindowSize({ width: window.innerWidth, height: window.innerHeight })
