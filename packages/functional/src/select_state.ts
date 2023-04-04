@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* export const URI = "SelectState"
 export type URI = typeof URI
 declare module "fp-ts/HKT" {
@@ -11,9 +12,9 @@ type Error<E> = { _tag: "Error"; value: E }
 type Success<A> = { _tag: "Success"; value: A }
 type SelectState<E, A> = Loading | Error<E> | Success<A>
 
-const error = <E = never, A = never>(err: E): SelectState<E, A> => ({
+const error = <E = never, A = never>(xerror: E): SelectState<E, A> => ({
   _tag: "Error",
-  value: err,
+  value: xerror,
 })
 const success = <E = never, A = never>(value: A): SelectState<E, A> => ({
   _tag: "Success",
@@ -40,24 +41,7 @@ const fold =
         return onLoading()
       case "Error":
         return onError(ma.value)
-      case "Success":
-        return onSuccess(ma.value)
-    }
-  }
-
-const match =
-  <E, A, B>(
-    onLoading: () => B,
-    onError: (error: E) => B,
-    onSuccess: (value: A) => B,
-  ) =>
-  (ma: SelectState<E, A>): B => {
-    switch (ma._tag) {
-      case "Loading":
-        return onLoading()
-      case "Error":
-        return onError(ma.value)
-      case "Success":
+      default:
         return onSuccess(ma.value)
     }
   }
@@ -70,6 +54,6 @@ export {
   isLoading,
   isSuccess,
   fold,
-  match,
+  fold as match,
   type SelectState,
 }
