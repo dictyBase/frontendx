@@ -1,5 +1,6 @@
 import { Container, CircularProgress } from "@material-ui/core"
 import { iconStyles } from "./imageStyles"
+
 const LoadingDisplay = () => {
   const { icons } = iconStyles()
   return (

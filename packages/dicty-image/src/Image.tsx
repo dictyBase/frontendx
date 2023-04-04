@@ -1,8 +1,5 @@
 import { useState } from "react"
 import { Container } from "@material-ui/core"
-import ErrorDisplay from "./ErrorDisplay"
-import LoadingDisplay from "./LoadingDisplay"
-import { imageStyles } from "./imageStyles"
 import { pipe } from "fp-ts/function"
 import {
   error,
@@ -11,6 +8,9 @@ import {
   match,
   SelectState,
 } from "@dictybase/functional"
+import { imageStyles } from "./imageStyles"
+import ErrorDisplay from "./ErrorDisplay"
+import LoadingDisplay from "./LoadingDisplay"
 
 type ImageProperties = {
   webpSrc: string
@@ -26,7 +26,7 @@ type ImageProperties = {
 
 const LoadingUI = () => <LoadingDisplay />
 const ErrorUI = () => <ErrorDisplay />
-const Noop = () => <></>
+const Noop = () => <div>error error</div>
 const Image = ({
   src,
   webpSrc,
@@ -67,4 +67,4 @@ const Image = ({
   )
 }
 
-export default Image
+export { Image }
