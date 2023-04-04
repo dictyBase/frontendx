@@ -70,7 +70,7 @@ const cellFunction = (item: any) => (
       {item.label}
     </StyledTableCell>
     <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
-      {truncate(item.summary, 84).concat("...")}
+      {`${truncate(item.summary, 84)}...}`}
     </StyledTableCell>
     <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
       {item.id}
