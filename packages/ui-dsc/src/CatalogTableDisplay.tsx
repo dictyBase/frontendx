@@ -83,7 +83,7 @@ const rowFunction = ({
   nextCursor,
   targetReference,
   lastIndex,
-}: CatalogRowFunctionProperties<HTMLTableRowElement>) => {
+}: CatalogRowFunctionProperties<HTMLTableRowElement>) =>
   strains.map((item: any, index: number) => {
     const key = `${item.id}`
     if (index === lastIndex && nextCursor !== 0) {
@@ -101,7 +101,6 @@ const rowFunction = ({
     }
     return <TableRow key={key}>{cellFunction(item)}</TableRow>
   })
-}
 
 /**
  * Displays data in tablular format in which the target DOM element is attached
