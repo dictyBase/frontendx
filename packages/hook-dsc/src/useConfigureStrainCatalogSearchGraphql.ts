@@ -1,30 +1,31 @@
-import {
-  StrainCatalogSearchProps,
-  SearchConfigMember,
-  ConfigureStrainCatalogSearchGraphql,
-} from "./types"
-import {
-  strainConfig,
-  graphqlQueryVars,
-  fieldsToVar,
-  baseConfig,
-} from "./graphql-config"
 import { filter as RAfilter, reduce as RAreduce } from "fp-ts/ReadonlyArray"
 import { head as RNAhead } from "fp-ts/ReadonlyNonEmptyArray"
 import { keys as Rkeys } from "fp-ts/Record"
 import { flow, pipe } from "fp-ts/function"
 import { Lens } from "monocle-ts"
 import { StrainType } from "dicty-graphql-schema"
+import {
+  strainConfig,
+  graphqlQueryVariables,
+  fieldsToVariables,
+  baseConfig,
+} from "./graphql_config"
+import {
+  StrainCatalogSearchProperties,
+  SearchConfigMember,
+  ConfigureStrainCatalogSearchGraphql,
+} from "./types"
 
 export function useConfigureStrainCatalogSearchGraphql({
   searchParams,
   value,
-}: StrainCatalogSearchProps) {
+}: StrainCatalogSearchProperties) {
   const initValues: ConfigureStrainCatalogSearchGraphql = {
     dataField: baseConfig.dataField,
     variables: {
+      // eslint-disable-next-line camelcase
       filter: { strain_type: StrainType.Regular },
-      ...graphqlQueryVars,
+      ...graphqlQueryVariables,
     },
   }
   const strainCatalogDataFieldLens =
@@ -45,12 +46,12 @@ export function useConfigureStrainCatalogSearchGraphql({
   // @ts-ignore
   const graphqlPipe = pipe(strainConfig(), basePipe, graphqlLens.get)
   const filterPipe = pipe(
-    fieldsToVar,
+    fieldsToVariables,
     Rkeys,
     RAfilter((field) => searchParams.has(field)),
-    RAreduce({}, (acc, field: string) => ({
-      ...acc,
-      [fieldsToVar[field]]: searchParams.get(field),
+    RAreduce({}, (accumulator, field: string) => ({
+      ...accumulator,
+      [fieldsToVariables[field]]: searchParams.get(field),
     })),
   )
   return pipe(

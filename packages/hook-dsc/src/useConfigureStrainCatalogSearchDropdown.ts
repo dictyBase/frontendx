@@ -1,4 +1,4 @@
-import { strainConfig } from "./graphql-config"
+import { strainConfig } from "./graphql_config"
 
 export function useConfigureStrainCatalogSearchDropdown() {
   return strainConfig().map((config) => ({

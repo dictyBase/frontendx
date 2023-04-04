@@ -1,12 +1,12 @@
 import { TypedDocumentNode } from "@apollo/client"
 import { StrainListFilter } from "dicty-graphql-schema"
 
-export interface GraphqlQueryVarProps {
+export interface GraphqlQueryVariableProperties {
   cursor: number
   limit: number
 }
 
-export interface StrainCatalogSearchProps {
+export interface StrainCatalogSearchProperties {
   searchParams: URLSearchParams
   value: string
 }

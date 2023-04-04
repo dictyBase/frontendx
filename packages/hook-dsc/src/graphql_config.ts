@@ -1,12 +1,10 @@
-import {
-  StrainListDocument,
-  StrainType,
-} from "dicty-graphql-schema"
+/* eslint-disable camelcase */
+import { StrainListDocument, StrainType } from "dicty-graphql-schema"
 import { SearchConfigMember, BaseConfigMember } from "./types"
 
-const graphqlQueryVars = { cursor: 0, limit: 12 }
+const graphqlQueryVariables = { cursor: 0, limit: 12 }
 const defaultFilter = { param: "group", value: "regular" }
-const fieldsToVar: Record<string, string> = {
+const fieldsToVariables: Record<string, string> = {
   Descriptor: "label",
   Summary: "summary",
 }
@@ -14,8 +12,8 @@ const baseConfig: BaseConfigMember = {
   graphqlQuery: StrainListDocument,
   dataField: "listStrains",
 }
-const strainConfig = (): Array<SearchConfigMember> => {
-  return [
+const strainConfig = (): Array<SearchConfigMember> =>
+  [
     {
       label: "Regular Strains",
       value: "regular",
@@ -37,6 +35,11 @@ const strainConfig = (): Array<SearchConfigMember> => {
       graphqlFilter: { strain_type: StrainType.Bacterial },
     },
   ].map((member) => ({ ...member, ...baseConfig }))
-}
 
-export { graphqlQueryVars, strainConfig, defaultFilter, fieldsToVar, baseConfig }
+export {
+  graphqlQueryVariables,
+  strainConfig,
+  defaultFilter,
+  fieldsToVariables,
+  baseConfig,
+}
