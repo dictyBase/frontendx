@@ -19,10 +19,10 @@ export interface useSearchWithRouterProperties {
   /** The react-router [function]{@link https://reactrouter.com/docs/en/v6/api#usesearchparams}
    * which allows to change the search params of the browser's url
    */
-  setSearchParams: SetURLSearchParameters
+  setSearchParameters: SetURLSearchParameters
   /** The {@link https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams | URLSearchParams object}
    */
-  searchParams: URLSearchParams
+  searchParameters: URLSearchParams
 }
 
 /**
@@ -38,8 +38,8 @@ export function useSearchWithRouter({
   fields,
   label,
   help,
-  setSearchParams,
-  searchParams,
+  setSearchParameters,
+  searchParameters,
 }: useSearchWithRouterProperties) {
   const [hasTag, setHasTag] = useState<boolean>(false)
   const [value, setValue] = useState<Array<string>>([])
@@ -92,8 +92,8 @@ export function useSearchWithRouter({
     const lastValue = value.at(-1)
     if (lastValue) {
       setActiveChipValue(`${lastValue}:${input.userCopy}`)
-      searchParams.append(lastValue, input.userCopy)
-      setSearchParams(searchParams)
+      searchParameters.append(lastValue, input.userCopy)
+      setSearchParameters(searchParameters)
     }
   }
 
@@ -104,9 +104,9 @@ export function useSearchWithRouter({
     const [optValue] = chipValue.split(":")
     setValue(value.filter((v) => v !== optValue))
     if (optValue) {
-      searchParams.delete(optValue)
+      searchParameters.delete(optValue)
     }
-    setSearchParams(searchParams)
+    setSearchParameters(searchParameters)
     if (chipValue === activeChipValue) {
       setActiveChipValue(emptyString)
       return
