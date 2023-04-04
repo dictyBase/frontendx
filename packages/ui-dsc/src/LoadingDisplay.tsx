@@ -4,10 +4,10 @@ import { Box } from "@material-ui/core"
 /**
  * The prop for {@link LoadingDisplay}
  */
-export interface LoadingDisplayProps {
-  /** Number of rows of loading skeleton*/
+export interface LoadingDisplayProperties {
+  /** Number of rows of loading skeleton */
   rows?: number
-  /** Height of each loading skeleton*/
+  /** Height of each loading skeleton */
   height?: number
 }
 
@@ -17,7 +17,7 @@ export interface LoadingDisplayProps {
 export function LoadingDisplay({
   rows = 6,
   height = 35,
-}: LoadingDisplayProps): JSX.Element {
+}: LoadingDisplayProperties): JSX.Element {
   return (
     <Box mx={8} mt={4}>
       {[...Array(rows)].map((_, i: number) => {
