@@ -4,7 +4,7 @@ import { useRouter } from "next/router"
 /**
  * The props for {@link errorLink}
  */
-export interface errorLinkProps {
+export interface errorLinkProperties {
   /** path to route for network error */
   networkPath?: string
   /** path to route for graphql errors */
@@ -19,21 +19,16 @@ export interface errorLinkProps {
  * route. The routes are expected to be handled
  * by a react component.
  */
-export function errorLink({
+export function useErrorLink({
   networkPath = "/errors/network",
   graphqlPath = "/errors/graphql",
 }) {
   const router = useRouter()
-  return onError(({ networkError, graphQLErrors, operation }) => {
-    const name = operation.operationName
+  return onError(({ networkError, graphQLErrors }) => {
     if (networkError) {
-      console.error(`[Network error]: ${networkError} [operation]: ${name}`)
       router.replace(networkPath)
     }
     if (graphQLErrors) {
-      graphQLErrors.forEach(({ message }) => {
-        console.error(`[GraphQL error]: ${message} [operation]: ${name}`)
-      })
       router.replace(graphqlPath)
     }
   })
