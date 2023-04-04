@@ -11,6 +11,6 @@ export interface ErrorDisplayProperties {
 /**
  * Display error(s) coming from apollo client API call
  */
-export function ErrorDisplay({ error }: ErrorDisplayProperties): JSX.Element {
-  return <h2>Error..... {error?.message}</h2>
-}
+export const ErrorDisplay = ({ error }: ErrorDisplayProperties) => (
+  <h2>Error..... {error?.message}</h2>
+)

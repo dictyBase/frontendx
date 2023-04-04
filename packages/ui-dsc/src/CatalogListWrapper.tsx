@@ -36,7 +36,7 @@ export const CatalogListWrapper = ({
   children,
 }: CatalogListWrapperProperties): JSX.Element => {
   const { height } = useWindowSize()
-  // 50% of actual client window height
+  // 60% of actual client window height
   const { root } = useStyles({ height: height && (60 * height) / 100 })
   return (
     <Paper ref={rootReference} className={root as string}>
