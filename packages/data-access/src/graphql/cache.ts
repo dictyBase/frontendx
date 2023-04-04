@@ -5,24 +5,24 @@ import {
   LocalForageWrapper,
 } from "apollo3-cache-persist"
 import localForage from "localforage"
-import { useEffect, useState } from "react"
+import { useMemo, useEffect, useState } from "react"
 
 /**
  * Different storage backend for apollo cache
  */
 export enum storageType {
-  /** localstorage*/
+  /** localstorage */
   LOCAL = "LOCAL",
-  /** sessionstorage*/
+  /** sessionstorage */
   SESSION = "SESSION",
-  /**indexdb*/
+  /** indexdb */
   INDEX = "INDEX",
 }
 
 /**
  * The props for {@link apolloClientCache}
  */
-export interface apolloClientCacheProps {
+export interface apolloClientCacheProperties {
   /**
    * Custom object to customize the cache's behaviour.
    * For details look {@link https://www.apollographql.com/docs/react/caching/cache-configuration/#typepolicies | here}
@@ -35,13 +35,17 @@ export interface apolloClientCacheProps {
  * Returns an instance of apollo client cache that can be customized
  * with type policies.
  */
-export function apolloClientCache({
+export function useApolloClientCache({
   customPolicies,
   storage,
-}: apolloClientCacheProps) {
-  const mc = customPolicies
-    ? new InMemoryCache({ typePolicies: customPolicies })
-    : new InMemoryCache()
+}: apolloClientCacheProperties) {
+  const mc = useMemo(
+    () =>
+      customPolicies
+        ? new InMemoryCache({ typePolicies: customPolicies })
+        : new InMemoryCache(),
+    [customPolicies],
+  )
   const [cache, setCache] = useState<InMemoryCache>(mc)
   useEffect(() => {
     const initCache = async () => {
@@ -72,6 +76,6 @@ export function apolloClientCache({
     }
     initCache()
     setCache(mc)
-  }, [])
+  }, [mc, storage])
   return cache
 }

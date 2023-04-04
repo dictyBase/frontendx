@@ -12,11 +12,11 @@ import {
 /**
  * The props for {@link useGraphqlClient}
  */
-export interface useGraphqlClientProps {
+export interface useGraphqlClientProperties {
   /** The cache for apollo client to store query result */
   cache?: ApolloCache<NormalizedCacheObject>
   /** application wide default value for the client */
-  clientOpts?: DefaultOptions
+  clientOptions?: DefaultOptions
   /**
    * An {@link https://www.apollographql.com/docs/react/api/link/introduction/
    * | Apollo link} for handling graphql error
@@ -26,7 +26,7 @@ export interface useGraphqlClientProps {
   uri: string
 }
 
-export const apolloOpts: DefaultOptions = {
+export const apolloOptions: DefaultOptions = {
   watchQuery: {
     notifyOnNetworkStatusChange: true,
   },
@@ -43,12 +43,12 @@ export const apolloOpts: DefaultOptions = {
 export function useGraphqlClient({
   uri,
   errorHandler,
-  clientOpts = apolloOpts,
+  clientOptions = apolloOptions,
   cache = new InMemoryCache(),
-}: useGraphqlClientProps): ApolloClient<NormalizedCacheObject> {
+}: useGraphqlClientProperties): ApolloClient<NormalizedCacheObject> {
   // const [client, setClient] = useState<ApolloClient<NormalizedCacheObject>>()
   const httpClient = new HttpLink({
-    uri: uri,
+    uri,
     headers: { "X-GraphQL-Method": "Query" },
   })
   const link = errorHandler
@@ -57,6 +57,6 @@ export function useGraphqlClient({
   return new ApolloClient({
     link,
     cache,
-    defaultOptions: clientOpts,
+    defaultOptions: clientOptions,
   })
 }
