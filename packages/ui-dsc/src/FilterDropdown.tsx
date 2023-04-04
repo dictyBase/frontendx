@@ -5,7 +5,7 @@ import Select from "@material-ui/core/Select"
 import MenuItem from "@material-ui/core/MenuItem"
 import { deepPurple } from "@material-ui/core/colors"
 import { useConfigureStrainCatalogSearchDropdown } from "@dictybase/hook-dsc"
-import { SetURLSearchParams } from "@dictybase/hook";
+import { SetURLSearchParams } from "@dictybase/hook"
 
 const useStyles = makeStyles({
   root: {
@@ -52,8 +52,8 @@ const useStyles = makeStyles({
 /**
  * The props for {@link FilterDropdown}
  */
-export interface FilterDropdownProps {
-  /** value for filter parameter*/
+export interface FilterDropdownProperties {
+  /** value for filter parameter */
   searchParamFn: SetURLSearchParams
   value: string
   param: string
@@ -67,7 +67,7 @@ export function FilterDropdown({
   searchParamFn,
   param,
   value,
-}: FilterDropdownProps) {
+}: FilterDropdownProperties) {
   const classes = useStyles()
   const [filterValue, setFilterValue] = useState<string>(value)
   const items = useConfigureStrainCatalogSearchDropdown()
@@ -93,9 +93,9 @@ export function FilterDropdown({
           }}
           onChange={handleChange}
           value={filterValue}>
-          {items.map((obj, i) => (
-            <MenuItem value={obj.value} key={i}>
-              {obj.label}
+          {items.map((object, i) => (
+            <MenuItem value={object.value} key={i}>
+              {object.label}
             </MenuItem>
           ))}
         </Select>
