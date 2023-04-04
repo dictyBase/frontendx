@@ -64,21 +64,19 @@ const truncate = (input: string, length: number): string => {
   return input.slice(0, length)
 }
 
-const cellFunction = (item: any) => {
-  return (
-    <>
-      <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
-        {item.label}
-      </StyledTableCell>
-      <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
-        {truncate(item.summary, 84).concat("...")}
-      </StyledTableCell>
-      <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
-        {item.id}
-      </StyledTableCell>
-    </>
-  )
-}
+const cellFunction = (item: any) => (
+  <>
+    <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
+      {item.label}
+    </StyledTableCell>
+    <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
+      {truncate(item.summary, 84).concat("...")}
+    </StyledTableCell>
+    <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
+      {item.id}
+    </StyledTableCell>
+  </>
+)
 
 const rowFunction = ({
   strains,
