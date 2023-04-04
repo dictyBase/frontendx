@@ -90,7 +90,6 @@ export const FilterDropdown = ({
           MenuProps={{
             classes: { paper: classes.paper, list: classes.list },
             anchorOrigin: { vertical: "bottom", horizontal: "left" },
-            getContentAnchorEl: undefined,
           }}
           onChange={handleChange}
           value={filterValue}>
