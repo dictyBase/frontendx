@@ -14,15 +14,13 @@ export interface LoadingDisplayProperties {
 /**
  * Displays loading skeleton
  */
-export function LoadingDisplay({
+export const LoadingDisplay = ({
   rows = 6,
   height = 35,
-}: LoadingDisplayProperties): JSX.Element {
-  return (
-    <Box mx={8} mt={4}>
-      {[...Array(rows)].map((_, i: number) => {
-        return <Skeleton key={i} height={height} />
-      })}
-    </Box>
-  )
-}
+}: LoadingDisplayProperties): JSX.Element => (
+  <Box mx={8} mt={4}>
+    {[...Array(rows)].map((_, i: number) => (
+      <Skeleton key={i} height={height} />
+    ))}
+  </Box>
+)
