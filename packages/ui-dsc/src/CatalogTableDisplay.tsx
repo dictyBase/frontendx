@@ -9,6 +9,7 @@ import { makeStyles, styled } from "@material-ui/core/styles"
 import { compose, borders, typography } from "@material-ui/system"
 import { indigo } from "@material-ui/core/colors"
 import { RefObject } from "react"
+import { v4 as uuid4 } from "uuid"
 
 const useStyles = makeStyles({
   root: { overflowX: "initial" },
@@ -47,13 +48,13 @@ function CatalogTableHeader({
 }: CatalogTableHeaderProperties) {
   return (
     <TableRow>
-      {headers.map((h: string, i: number) => {
+      {headers.map((h: string) => {
         return (
           <StyledTableCell
             borderBottom={borderBottom}
             fontSize="subtitle1.fontSize"
             fontWeight="fontWeightBold"
-            key={i}>
+            key={uuid4()}>
             {h}
           </StyledTableCell>
         )
@@ -89,14 +90,14 @@ const rowFunction = ({
   targetReference,
   lastIndex,
 }: CatalogRowFunctionProperties<HTMLTableRowElement>) => {
-  const rows = strains.map((item: any, idx: number) => {
-    const key = `${item.id}${idx}`
-    if (idx === lastIndex && nextCursor !== 0) {
+  strains.map((item: any, index: number) => {
+    const key = `${item.id}`
+    if (index === lastIndex && nextCursor !== 0) {
       // last item and expected to have more data
       return (
         <>
           <TableRow key={key}>{cellFunction(item)}</TableRow>
-          <TableRow key={idx} ref={targetReference}>
+          <TableRow key={key} ref={targetReference}>
             <TableCell colSpan={3}>
               <LinearProgress />
             </TableCell>
@@ -106,7 +107,6 @@ const rowFunction = ({
     }
     return <TableRow key={key}>{cellFunction(item)}</TableRow>
   })
-  return rows
 }
 
 /**
@@ -116,7 +116,7 @@ const rowFunction = ({
 export function CatalogTableDisplay({
   data,
   dataField,
-target: targetReference,
+  target: targetReference,
 }: CatalogListProperties<HTMLTableRowElement>): JSX.Element {
   const classes = useStyles()
   const { strains, nextCursor } = data[dataField]
