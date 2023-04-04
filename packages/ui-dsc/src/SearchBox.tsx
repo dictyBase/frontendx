@@ -1,6 +1,6 @@
 import { Autocomplete } from "@material-ui/lab"
-import { useSearchWithRouter } from "@dictybase/hook"
 import { useSearchParams } from "react-router-dom"
+import { useSearchWithRouter } from "@dictybase/hook"
 
 export const defaultLabel = "Search (Click for available fields to serach)"
 export const defaultHelp =
@@ -9,7 +9,7 @@ export const defaultHelp =
 /**
  * The props for {@link SearchBox}
  */
-export interface SearchBoxProps {
+export interface SearchBoxProperties {
   /** The list of fields for searching */
   fields: string[]
   /** The label of input box */
@@ -23,12 +23,12 @@ export interface SearchBoxProps {
  * https://v4.mui.com| material ui's} {@link
  * https://v4.mui.com/components/autocomplete/ | AutoComplete} component.
  */
-export function SearchBox({
+export const SearchBox = ({
   fields,
   label = defaultLabel,
   help = defaultHelp,
-}: SearchBoxProps) {
-  const [searchParams, setSearchParams] = useSearchParams()
+}: SearchBoxProperties) => {
+  const [searchParameters, setSearchParameters] = useSearchParams()
   const {
     input,
     value,
@@ -41,8 +41,8 @@ export function SearchBox({
     fields,
     label,
     help,
-    setSearchParams,
-    searchParams,
+    setSearchParameters,
+    searchParameters,
   })
 
   return (
