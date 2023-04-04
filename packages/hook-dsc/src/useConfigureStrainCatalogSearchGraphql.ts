@@ -51,6 +51,7 @@ export function useConfigureStrainCatalogSearchGraphql({
     RAfilter((field) => searchParams.has(field)),
     RAreduce({}, (accumulator, field: string) => ({
       ...accumulator,
+      // @ts-ignore
       [fieldsToVariables[field]]: searchParams.get(field),
     })),
   )
