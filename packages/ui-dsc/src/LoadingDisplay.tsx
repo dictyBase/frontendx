@@ -1,5 +1,6 @@
 import { Skeleton } from "@material-ui/lab"
 import { Box } from "@material-ui/core"
+import { v4 as uuid } from "uuid"
 
 /**
  * The prop for {@link LoadingDisplay}
@@ -19,8 +20,8 @@ export const LoadingDisplay = ({
   height = 35,
 }: LoadingDisplayProperties): JSX.Element => (
   <Box mx={8} mt={4}>
-    {[...Array(rows)].map((_, i: number) => (
-      <Skeleton key={i} height={height} />
+    {[...new Array(rows)].map(() => (
+      <Skeleton key={uuid()} height={height} />
     ))}
   </Box>
 )
