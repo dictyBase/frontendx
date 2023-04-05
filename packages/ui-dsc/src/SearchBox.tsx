@@ -14,7 +14,7 @@ export interface SearchBoxProperties {
   fields: string[]
   /** The label of input box */
   label?: string
-  /** Text that will be displayed below the input */
+  /** The help text displayed below the input to guide the user */
   help?: string
 }
 
@@ -47,19 +47,19 @@ export const SearchBox = ({
 
   return (
     <Autocomplete
-      selectOnFocus
-      id="controllable-states"
       disableClearable
-      freeSolo
-      multiple
-      options={fields}
-      value={value}
-      inputValue={input.user}
       filterOptions={filterFields}
+      freeSolo
+      id="controllable-states"
+      inputValue={input.user}
+      multiple
       onChange={onChange}
       onInputChange={onInputChange}
+      options={fields}
       renderTags={renderTags}
       renderInput={renderInput}
+      selectOnFocus
+      value={value}
     />
   )
 }
