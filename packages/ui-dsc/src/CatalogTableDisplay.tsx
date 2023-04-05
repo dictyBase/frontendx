@@ -18,11 +18,11 @@ const StyledTableCell = styled(TableCell)(compose(borders, typography))
 const borderBottom = `2px solid ${indigo[700]}`
 const tableHeaders = ["Strain Descriptor", "Strain Summary", "Strain ID"]
 
-interface CatalogRowFunctionProperties<Type> {
+interface CatalogRowFunctionProperties<HTMLType> {
   strains: any
   nextCursor: number
   lastIndex: number
-  targetReference: RefObject<Type>
+  targetReference: RefObject<HTMLType>
 }
 
 /**
@@ -59,7 +59,7 @@ const CatalogTableHeader = ({
   </TableRow>
 )
 
-const truncate = (input: string, length: number): string => {
+const abbreviateString = (input: string, length: number): string => {
   if (input.length <= length) return input
   return input.slice(0, length)
 }
@@ -70,7 +70,7 @@ const cellFunction = (item: any) => (
       {item.label}
     </StyledTableCell>
     <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
-      {`${truncate(item.summary, 84)}...}`}
+      {`${abbreviateString(item.summary, 84)}...}`}
     </StyledTableCell>
     <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
       {item.id}
