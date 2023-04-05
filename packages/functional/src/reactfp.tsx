@@ -1,5 +1,4 @@
-import type { Monoid } from "fp-ts/Monoid"
-import { concatAll } from "fp-ts/Monoid"
+import { concatAll, type Monoid } from "fp-ts/Monoid"
 import { type ReactNode } from "react"
 import { pipe } from "fp-ts/function"
 import { Option, map as Omap, Applicative, of as Oof } from "fp-ts/Option"
