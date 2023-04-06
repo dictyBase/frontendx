@@ -12,12 +12,13 @@
     },
     "lint": {},
     "lint:out": {
-      "cache": false,
       "outputMode": "none"
     },
     "dev": {
       "cache": false
     },
-    "test": {}
+    "test": {
+      "outputMode": "none"
+    }
   }
 }
