@@ -12,7 +12,7 @@
     "test": "turbo run test",
     "lint": "turbo run lint",
     "lint:out": "turbo run lint:out",
-    "lint:merge": "tsx merge_eslint eslint",
+    "lint:merge": "tsx merge_eslint.ts eslint",
     "clean": "rm -rf node_modules && yarn",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "doc:build": "typedoc --tsconfig typedoc-tsconfig.json",

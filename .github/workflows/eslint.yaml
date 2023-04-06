@@ -1,0 +1,26 @@
+name: Linting with eslint
+on: pull_request
+jobs:
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: set up node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: check out code
+        uses: actions/checkout@v3
+      - name: install
+        run: yarn
+      - name: generate eslint report
+        run : yarn lint:out
+        continue-on-error: true
+      - name: merge all eslint reports
+        run: yarn lint:merge
+      - name: Annotate Code Linting Results
+        uses: ataylorme/eslint-annotate-action@v2
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          report-json: "eslint_output.json"
+
