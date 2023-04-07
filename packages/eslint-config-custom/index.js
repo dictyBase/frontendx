@@ -40,6 +40,7 @@ module.exports = {
     "no-shadow": "off",
     "no-unused-vars": "off",
     "no-undef": "off",
+    "no-underscore-dangle": "off",
     "@typescript-eslint/no-shadow": ["error"],
     "@typescript-eslint/no-unused-vars": [
       "error",
