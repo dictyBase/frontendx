@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 /* export const URI = "SelectState"
 export type URI = typeof URI
 declare module "fp-ts/HKT" {
