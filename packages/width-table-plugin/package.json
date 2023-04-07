@@ -1,0 +1,29 @@
+{
+  "name": "width-table-plugin",
+  "version": "0.0.0",
+  "description": "Table Plugin for dictybase text editor",
+  "main": "src/index.ts",
+  "author": "Kevin Tun",
+  "scripts": {
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/width-table-plugin.json"
+  },
+  "devDependencies": {
+    "@types/react": "^17.x",
+    "@vitest/coverage-c8": "^0.28.5",
+    "tsconfig": "*",
+    "jsdom": "latest",
+    "vitest": "latest"
+  },
+  "dependencies": {
+    "@lexical/react": "latest",
+    "@material-ui/core": "^4.x",
+    "@material-ui/icons": "^4.x",
+    "@mobily/ts-belt": "^3.13.1",
+    "jotai": "^1.12.0",
+    "lexical": "^latest",
+    "react": "17.x"
+  }
+}
