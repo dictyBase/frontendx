@@ -82,14 +82,14 @@ describe("bodyCellsToAppend & headerCellsToAppend", () => {
 
   let tableBodyRow: TableRowNode
   let bodyCellsInRow: number
-  let firstBodyCell: TableCellNode | null
-  let firstBodyCellHeaderState: number | null
+  let firstBodyCell: TableCellNode | undefined | null
+  let firstBodyCellHeaderState: number | undefined | null
   const appendNBodyCellsFunction = bodyCellsToAppend(cellCount)
 
   let tableHeaderRow: TableRowNode
   let headerCellsInRow: number
-  let firstHeaderCell: TableCellNode | null
-  let firstHeaderCellHeaderState: number | null
+  let firstHeaderCell: TableCellNode | undefined | null
+  let firstHeaderCellHeaderState: number | undefined | null
   const appendNHeaderCellsFunction = headerCellsToAppend(cellCount)
 
   beforeAll(() => {
@@ -101,18 +101,18 @@ describe("bodyCellsToAppend & headerCellsToAppend", () => {
       tableBodyRow = new TableRowNode()
       appendNBodyCellsFunction(tableBodyRow)
       bodyCellsInRow = tableBodyRow.getChildrenSize()
-      firstBodyCell = tableBodyRow.getFirstChild()
+      firstBodyCell = tableBodyRow.getFirstChild() as TableCellNode
       firstBodyCellHeaderState = firstBodyCell
         ? firstBodyCell.getHeaderStyles()
-        : null
+        : undefined
 
       tableHeaderRow = new TableRowNode()
       appendNHeaderCellsFunction(tableHeaderRow)
       headerCellsInRow = tableHeaderRow.getChildrenSize()
-      firstHeaderCell = tableHeaderRow.getFirstChild()
+      firstHeaderCell = tableHeaderRow.getFirstChild() as TableCellNode
       firstHeaderCellHeaderState = firstHeaderCell
         ? firstHeaderCell.getHeaderStyles()
-        : null
+        : undefined
     })
   })
   test("returns a function that, when called, appends a specified number of body cells to a table row ", () => {
@@ -127,7 +127,7 @@ describe("bodyCellsToAppend & headerCellsToAppend", () => {
 })
 
 describe("cellsToAppend & headerCellsToAppend", () => {
-  const cellCount = 2
+  const cellCount = 3
   const appendThreeCellsToEachRow = cellsToAppend(cellCount)
   let rowArray
   let firstRowChildren: TableCellNode[]
@@ -149,19 +149,25 @@ describe("cellsToAppend & headerCellsToAppend", () => {
     testEditor.update(() => {
       rowArray = Array.from({ length: 2 }).map(() => $createTableRowNode())
       appendThreeCellsToEachRow(rowArray)
-      firstRowChildren = rowArray[0].getChildren()
-      ;[firstCellRowOne, secondCellRowOne] = firstRowChildren
+      firstRowChildren = (rowArray[0] as TableRowNode).getChildren()
+      ;[firstCellRowOne, secondCellRowOne] = firstRowChildren as [
+        TableCellNode,
+        TableCellNode,
+      ]
       firstCellRowOneHeaderState = firstCellRowOne.getHeaderStyles()
       secondCellRowOneHeaderState = secondCellRowOne.getHeaderStyles()
 
-      secondRowChildren = rowArray[1].getChildren()
-      ;[firstCellRowTwo, secondCellRowTwo] = secondRowChildren
+      secondRowChildren = (rowArray[1] as TableRowNode).getChildren()
+      ;[firstCellRowTwo, secondCellRowTwo] = secondRowChildren as [
+        TableCellNode,
+        TableCellNode,
+      ]
       firstCellRowTwoHeaderState = firstCellRowTwo.getHeaderStyles()
       secondCellRowTwoHeaderState = secondCellRowTwo.getHeaderStyles()
     })
   })
 
-  test("returns a function that, when passed an array of table rows, appends a given number of schildren to each row", () => {
+  test("returns a function that, when passed an array of table rows, appends a given number of children to each row", () => {
     expect(firstRowChildren).toHaveLength(cellCount)
     expect(secondRowChildren).toHaveLength(cellCount)
   })
