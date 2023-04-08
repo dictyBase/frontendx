@@ -1,7 +1,7 @@
 import { describe, test, expect, beforeAll } from "vitest"
 import { createEditor, SerializedElementNode } from "lexical"
-import { testConfig } from "./LexicalTestComposer"
-import WidthTableNode, { SerializedWidthTableNode } from "./WidthTableNode"
+import { testConfig } from "../LexicalTestComposer"
+import WidthTableNode, { SerializedWidthTableNode } from "../WidthTableNode"
 
 const width = Math.random() * 500
 
