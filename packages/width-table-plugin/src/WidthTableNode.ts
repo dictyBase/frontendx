@@ -6,35 +6,59 @@ export interface SerializedWidthTableNode extends SerializedTableNode {
   width: number
 }
 
-/*
-Note about double underscore naming from Lexical's documentation:
-
-"By convention, we prefix properties with __ (double underscore) so that it makes it clear that these
-properties are private and their access should be avoided directly. We opted for __ instead of _
-because of the fact that some build tooling mangles and minifies single _ prefixed properties to improve
-code size. However, this breaks down if you're exposing a node to be extended outside of your build."
-https://lexical.dev/docs/concepts/nodes#node-properties
-*/
 class WidthTableNode extends TableNode {
+  /** @private */
   __width
 
+  /**
+   * Returns the node type
+   *
+   * @static
+   * @returns {string}
+   */
   static override getType() {
     return "table"
   }
 
-  static override clone(node: WidthTableNode): WidthTableNode {
-    return new WidthTableNode(node.__width, node.__key)
+  /**
+   * Returns a new instance of WidthTableNode with the same width and optional key as the input node.
+   *
+   * @static
+   * @param {WidthTableNode} node - The node to clone.
+   * @returns {WidthTableNode}
+   */
+  static override clone({ __width, __key }: WidthTableNode): WidthTableNode {
+    return new WidthTableNode(__width, __key)
   }
 
+  /**
+   * Creates a new instance of WidthTableNode from the serialized data.
+   *
+   * @static
+   * @param {SerializedWidthTableNode} serializedNode - Serialized data of the node.
+   * @returns {WidthTableNode}
+   */
   static override importJSON(serializedNode: SerializedWidthTableNode) {
     return new WidthTableNode(serializedNode.width)
   }
 
+  /**
+   * Creates a new instance of WidthTableNode with the specified width and optional key.
+   *
+   * @param {number} width - The width of the table.
+   * @param {NodeKey} [key] - Optional key for the node.
+   */
   constructor(width: number, key?: NodeKey) {
     super(key)
     this.__width = width
   }
 
+  /**
+   * Returns a serialized version of the WidthTableNode, including its key and width.
+   *
+   * @override
+   * @returns {SerializedWidthTableNode}
+   */
   override exportJSON() {
     return {
       ...super.exportJSON(),
@@ -42,6 +66,13 @@ class WidthTableNode extends TableNode {
     }
   }
 
+  /**
+   * Creates and returns a new HTML table element with the appropriate width and CSS classes.
+   *
+   * @override
+   * @param {EditorConfig} config - The configuration of the editor.
+   * @returns {HTMLElement}
+   */
   override createDOM(config: EditorConfig) {
     const tableElement = document.createElement("table")
     addClassNamesToElement(tableElement, config.theme.table)
