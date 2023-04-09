@@ -7,6 +7,7 @@ const width = Math.random() * 500
 
 const data: SerializedWidthTableNode = {
   children: [],
+  // eslint-disable-next-line unicorn/no-null
   direction: null,
   format: "",
   indent: 0,
