@@ -28,5 +28,9 @@
     "lexical": "0.9.x",
     "react": "17.x",
     "react-dom": "17.x"
+  },
+  "typedoc": {
+    "entryPoint": "./src/index.ts",
+    "displayName": "@dictybase/width-table-plugin"
   }
 }
