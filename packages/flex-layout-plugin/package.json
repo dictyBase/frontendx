@@ -29,5 +29,10 @@
     "react": "17.x",
     "react-dom": "17.x",
     "yjs": "13.x"
+  },
+  "typedoc": {
+    "entryPoint": "./src/index.ts",
+    "displayName": "@dictybase/flex-layout-plugin",
+    "readmeFile": "./README.md"
   }
 }
