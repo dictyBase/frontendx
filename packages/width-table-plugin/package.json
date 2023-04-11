@@ -4,6 +4,7 @@
   "description": "Table Plugin for dictybase text editor",
   "main": "src/index.ts",
   "author": "Kevin Tun",
+  "license": "BSD-2-Clause",
   "scripts": {
     "test": "vitest",
     "coverage": "vitest run --coverage",
@@ -14,17 +15,18 @@
     "@types/react": "^17.x",
     "@vitest/coverage-c8": "^0.28.5",
     "eslint-config-custom": "*",
-    "tsconfig": "*",
     "jsdom": "latest",
-    "vitest": "latest"
+    "vitest": "latest",
+    "tsconfig": "*"
   },
   "dependencies": {
-    "@lexical/react": "latest",
-    "@material-ui/core": "^4.x",
-    "@material-ui/icons": "^4.x",
+    "@lexical/react": "0.9.x",
+    "@material-ui/core": "4.x",
+    "@material-ui/icons": "4.x",
     "@mobily/ts-belt": "^3.13.1",
     "jotai": "latest",
-    "lexical": "latest",
-    "react": "17.x"
+    "lexical": "0.9.x",
+    "react": "17.x",
+    "react-dom": "17.x"
   }
 }
