@@ -6,8 +6,17 @@ import {
   TextNode,
   RangeSelection,
   $getSelection,
+  $createParagraphNode,
+  $createTextNode,
+  $isRangeSelection,
+  $setSelection,
+  $createRangeSelection,
 } from "lexical"
-import { getTopLevelElementFromSelection, getTextEdges } from "../helpers"
+import {
+  getTopLevelElementFromSelection,
+  getTextEdges,
+  handleTextContent,
+} from "../helpers"
 import FlexLayoutNode from "../FlexLayoutNode"
 
 describe("getTextEdges", () => {
@@ -45,5 +54,39 @@ describe("getTopLevelElementFromSelection", () => {
     })
 
     expect(retrievedElement).toEqual(topLevelElement)
+  })
+})
+
+describe("handleTextContent", () => {
+  test("Handles the text content of a given node by moving a specified portion of its text content to a new paragraph node", () => {
+    const editor = createEditor()
+    const testString = "This too shall pass."
+    const offset = 8
+    let originNodeText
+    let newParagraphNodeText
+
+    editor.update(() => {
+      const originNode = $createParagraphNode().append(
+        $createTextNode(testString),
+      )
+      const newParagraphNode = $createParagraphNode()
+      const textNode = originNode.getAllTextNodes()[0]
+
+      if (textNode) textNode.select(offset)
+      const selection = $getSelection()
+      if (!$isRangeSelection(selection)) return
+      handleTextContent(selection.anchor, newParagraphNode)
+
+      originNodeText = originNode.getTextContent()
+      newParagraphNodeText = newParagraphNode.getTextContent()
+
+      // This is just here to prevent an error message from Lexical warning
+      // that the selection was not updated after the previously selected node
+      // was removed/replaced. It does not affect the outcome of the test.
+      $setSelection($createRangeSelection())
+    })
+
+    expect(originNodeText).toBe("This too")
+    expect(newParagraphNodeText).toBe(" shall pass.")
   })
 })
