@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import {
   EditorConfig,
   ElementNode,
@@ -19,7 +20,6 @@ class FlexLayoutNode extends ElementNode {
     return new FlexLayoutNode(__key)
   }
 
-  // eslint-disable-next-line class-methods-use-this
   override canBeEmpty() {
     return false
   }
@@ -35,7 +35,6 @@ class FlexLayoutNode extends ElementNode {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
   override updateDOM() {
     return false
   }
@@ -48,11 +47,9 @@ class FlexLayoutNode extends ElementNode {
     return paragraphNode as ParagraphNode
   }
 
-  // eslint-disable-next-line class-methods-use-this
   override createDOM(config: EditorConfig) {
     const div = document.createElement("div")
     div.style.display = "flex"
-    // div.style.justifyContent = "center"
     const { theme } = config
     // eslint-disable-next-line dot-notation
     const className = theme["flexLayout"]
