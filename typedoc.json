@@ -4,7 +4,8 @@
     "./packages/header",
     "./packages/data-access",
     "./packages/apollo-error-nextjs",
-    "./packages/apollo-error-react-router"
+    "./packages/apollo-error-react-router",
+    "./packages/flex-layout-plugin"
   ],
   "out": "doc"
 }
