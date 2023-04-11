@@ -1965,7 +1965,7 @@
   resolved "https://registry.yarnpkg.com/@lexical/plain-text/-/plain-text-0.9.1.tgz#285f4ab9992111393d9a76018df8384ca434a10c"
   integrity sha512-mFDfTtz6KkbQahpGj3U6tsF+oLUMYojrKl7AhO87gLKB3lJM5rIO9avkYRt5qAtagKh84FpRLEHpqs7KFQFPxw==
 
-"@lexical/react@latest":
+"@lexical/react@0.9.x":
   version "0.9.1"
   resolved "https://registry.yarnpkg.com/@lexical/react/-/react-0.9.1.tgz#5ce1e2b3d5756dd26b2d558db272b3f3e90679db"
   integrity sha512-xpRqyPEbEHcXFeianPdnAYhD4NYt7zCsLza2uVLnNG2Uul+TzHgkBfT8rJhY3B1FcdNY/5+TpkYG43JxJEiNTg==
@@ -2045,7 +2045,7 @@
     react-is "^16.8.0 || ^17.0.0"
     react-transition-group "^4.4.0"
 
-"@material-ui/icons@^4.x", "@material-ui/icons@~4.11.2":
+"@material-ui/icons@4.x", "@material-ui/icons@^4.x", "@material-ui/icons@~4.11.2":
   version "4.11.3"
   resolved "https://registry.yarnpkg.com/@material-ui/icons/-/icons-4.11.3.tgz#b0693709f9b161ce9ccde276a770d968484ecff1"
   integrity sha512-IKHlyx6LDh8n19vzwH5RtHIOHl9Tu90aAAxcbWME6kp4dmvODM3UvOHJeMIDzUbd4muuJKHmlNoBN+mDY4XkBA==
@@ -6921,10 +6921,10 @@ jest@^26.x:
     import-local "^3.0.2"
     jest-cli "^26.6.3"
 
-jotai@^1.12.0:
-  version "1.13.1"
-  resolved "https://registry.yarnpkg.com/jotai/-/jotai-1.13.1.tgz#20cc46454cbb39096b12fddfa635b873b3668236"
-  integrity sha512-RUmH1S4vLsG3V6fbGlKzGJnLrDcC/HNb5gH2AeA9DzuJknoVxSGvvg8OBB7lke+gDc4oXmdVsaKn/xDUhWZ0vw==
+jotai@latest:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/jotai/-/jotai-2.0.4.tgz#084accf703e3da768e0dbbeeec740545adca67ca"
+  integrity sha512-XkR1Jtm4a2iKV/7fdB3rNHjJz8FkkDMVczqiAok7lt8W4F69l/ZQkPGWSEV+hJOJXRn27k6XYKOoKEQIwBuAMA==
 
 jotai@~1.6.1:
   version "1.6.7"
@@ -7218,10 +7218,10 @@ levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-lexical@^0.7.6:
-  version "0.7.9"
-  resolved "https://registry.yarnpkg.com/lexical/-/lexical-0.7.9.tgz#04f1ea83ff2a31583b89330256284aab36cedb64"
-  integrity sha512-O230znIyri2MdackXEZhFBCmcfDU4SGlYgPQJAzRPOIRcqyYKLUcl17KWEZwpexgsuCIrggvcVbeuR73dZjzaQ==
+lexical@0.9.x:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/lexical/-/lexical-0.9.1.tgz#0e8a3df9e3d4cb8399b39a52693cc0251620ed82"
+  integrity sha512-I7m8u717rqjdGZaRCZ3/EW+IwJWA78nX2kaTYQyua6mLlFDvcnHtX1bFXDZA+flNpPcnAuaI8HMA4xgajdFgHw==
 
 lie@3.1.1:
   version "3.1.1"
