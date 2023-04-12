@@ -14,7 +14,6 @@ class WidthTableNode extends TableNode {
    * Returns the node type
    *
    * @static
-   * @returns {string}
    */
   static override getType() {
     return "table"
@@ -24,8 +23,7 @@ class WidthTableNode extends TableNode {
    * Returns a new instance of WidthTableNode with the same width and optional key as the input node.
    *
    * @static
-   * @param {WidthTableNode} node - The node to clone.
-   * @returns {WidthTableNode}
+   * @param node - The node to clone.
    */
   static override clone({ __width, __key }: WidthTableNode): WidthTableNode {
     return new WidthTableNode(__width, __key)
@@ -35,8 +33,7 @@ class WidthTableNode extends TableNode {
    * Creates a new instance of WidthTableNode from the serialized data.
    *
    * @static
-   * @param {SerializedWidthTableNode} serializedNode - Serialized data of the node.
-   * @returns {WidthTableNode}
+   * @param serializedNode - Serialized data of the node.
    */
   static override importJSON(serializedNode: SerializedWidthTableNode) {
     return new WidthTableNode(serializedNode.width)
@@ -45,8 +42,8 @@ class WidthTableNode extends TableNode {
   /**
    * Creates a new instance of WidthTableNode with the specified width and optional key.
    *
-   * @param {number} width - The width of the table.
-   * @param {NodeKey} [key] - Optional key for the node.
+   * @param  width - The width of the table.
+   * @param  key -  key for the node.
    */
   constructor(width: number, key?: NodeKey) {
     super(key)
@@ -57,7 +54,6 @@ class WidthTableNode extends TableNode {
    * Returns a serialized version of the WidthTableNode, including its key and width.
    *
    * @override
-   * @returns {SerializedWidthTableNode}
    */
   override exportJSON() {
     return {
@@ -70,8 +66,7 @@ class WidthTableNode extends TableNode {
    * Creates and returns a new HTML table element with the appropriate width and CSS classes.
    *
    * @override
-   * @param {EditorConfig} config - The configuration of the editor.
-   * @returns {HTMLElement}
+   * @param config - The configuration of the editor.
    */
   override createDOM(config: EditorConfig) {
     const tableElement = document.createElement("table")
