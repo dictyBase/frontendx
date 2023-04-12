@@ -26,7 +26,7 @@ export const useResize = (
   // so it can be removed by onMouseUp.
   const moveHandlerReference = useRef<{
     handler: ((event: MouseEvent) => void) | null | undefined
-  }>({ handler: null })
+  }>({ handler: undefined })
   const [dimensions, setDimensions] = useAtom(ImageDimensionsAtom)
   const setIsResizing = useSetAtom(isResizingAtom)
 
