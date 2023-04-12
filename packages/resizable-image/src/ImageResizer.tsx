@@ -10,7 +10,7 @@ export type ImageResizerProperties = {
 /**
  * Renders draggable handles that can be used to resize their parent element.
  *
- * @param handleResize a callback function used to set the new dimensions of the parent element.
+ * @param onResize a callback function used to set the new dimensions of the parent element.
  */
 const ImageResizer = ({ onResize }: ImageResizerProperties) => {
   const classes = useResizerStyles()
@@ -19,6 +19,7 @@ const ImageResizer = ({ onResize }: ImageResizerProperties) => {
   return (
     <>
       {directions.map((direction) => (
+        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
         <div
           key={direction}
           className={`${classes.root} ${classes[direction]}`}
