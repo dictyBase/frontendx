@@ -62,6 +62,7 @@ export const useResize = (
     const createMoveHandler = handlerCreators[direction]
     if (!createMoveHandler) return
 
+    // eslint-disable-next-line unicorn/consistent-function-scoping
     const handleResize = (width: number, height: number) => {
       onResize(width, height)
       setDimensions({ width, height })
