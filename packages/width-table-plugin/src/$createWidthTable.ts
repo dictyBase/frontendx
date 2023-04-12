@@ -12,7 +12,7 @@ import WidthTableNode from "./WidthTableNode"
 /**
  * Creates ParagraphNode with a TextNode appended to it.
  *
- * @returns {ParagraphNode} A ParagraphNode with a TextNode appended to it.
+ * @returns A ParagraphNode with a TextNode appended to it.
  */
 export const createParagraphWithTextNode = () =>
   $createParagraphNode().append($createTextNode())
@@ -20,7 +20,7 @@ export const createParagraphWithTextNode = () =>
 /**
  * Creates a TableCellNode with a ParagraphNode containing a TextNode appended to it.
  *
- * @returns {TableCellNode} a TableCellNode with a ParagraphNode containing a TextNode appended to it.
+ * @returns a TableCellNode with a ParagraphNode containing a TextNode appended to it.
  */
 export const createCellWithParagraphNode = () =>
   $createTableCellNode(TableCellHeaderStates.NO_STATUS).append(
@@ -30,7 +30,7 @@ export const createCellWithParagraphNode = () =>
 /**
  * Creates a Header TableCellNode with a ParagraphNode containing a TextNode appended to it.
  *
- * @returns {TableCellNode} a Header TableCellNode with a ParagraphNode containing a TextNode appended to it.
+ * @returns a Header TableCellNode with a ParagraphNode containing a TextNode appended to it.
  */
 export const createHeaderCellWithParagraphNode = () =>
   $createTableCellNode(TableCellHeaderStates.ROW).append(
@@ -40,8 +40,8 @@ export const createHeaderCellWithParagraphNode = () =>
 /**
  * Generates a function to append a given number of TableCellNodes to a TableRowNode.
  *
- * @param {number} count - The number of cells to append to the row.
- * @returns {(row: TableRowNode) => void} A function that accepts a TableRowNode and appends the given number of cells to it.
+ * @param count - The number of cells to append to the row.
+ * @returns A function that accepts a TableRowNode and appends the given number of cells to it.
  */
 export const bodyCellsToAppend = (count: number) => (row: TableRowNode) => {
   Array.from({ length: count }).forEach(() =>
@@ -52,8 +52,8 @@ export const bodyCellsToAppend = (count: number) => (row: TableRowNode) => {
 /**
  * Generates a function to append a given number of header TableCellNodes to a TableRowNode.
  *
- * @param {number} count - The number of cells to append to the row.
- * @returns {(row: TableRowNode) => void} A function that accepts a TableRowNode and appends the given number of cells to it.
+ * @param count - The number of cells to append to the row.
+ * @returns A function that accepts a TableRowNode and appends the given number of cells to it.
  */
 export const headerCellsToAppend = (count: number) => (row: TableRowNode) => {
   Array.from({ length: count }).forEach(() =>
@@ -64,8 +64,8 @@ export const headerCellsToAppend = (count: number) => (row: TableRowNode) => {
 /**
  * Generates a function to append a given number of cells (header and body) to an array of TableRowNodes.
  *
- * @param {number} cells - The total number of cells (header and body) to append.
- * @returns {(rows: TableRowNode[]) => void} A function that accepts an array of TableRowNodes and appends the specified number of header and body cells to each row.
+ * @param cells - The total number of cells (header and body) to append.
+ * @returns A function that accepts an array of TableRowNodes and appends the specified number of header and body cells to each row.
  */
 export const cellsToAppend = (cells: number) => (rows: TableRowNode[]) => {
   if (rows.length === 0) return
@@ -77,8 +77,8 @@ export const cellsToAppend = (cells: number) => (rows: TableRowNode[]) => {
 /**
  * Creates an array of TableRowNodes with given length.
  *
- * @param {number} rows - The number of TableRowNodes to generate.
- * @returns {TableRowNode[]} An array of TableRowNodes.
+ * @param rows - The number of TableRowNodes to generate.
+ * @returns An array of TableRowNodes.
  */
 export const createRows = (rows: number) =>
   Array.from({ length: rows }).map(() => $createTableRowNode())
@@ -86,8 +86,8 @@ export const createRows = (rows: number) =>
 /**
  * Generates a function to append a TableRowNode to a TableNode.
  *
- * @param {TableNode} table - The TableNode to append rows onto.
- * @returns {(row: TableRowNode) => void} A function that accepts a TableRowNode to append to the table.
+ * @param table - The TableNode to append rows onto.
+ * @returns A function that accepts a TableRowNode to append to the table.
  */
 export const rowToAppend = (table: TableNode) => (row: TableRowNode) => {
   table.append(row)
@@ -96,10 +96,10 @@ export const rowToAppend = (table: TableNode) => (row: TableRowNode) => {
 /**
  * Creates a WidthTableNode with given number of rows, columns, and width.
  *
- * @param {number} rows - The number of TableRowNodes to generate.
- * @param {number} columns - The number of table cell columns to generate.
- * @param {number} width - The width (px) of the table.
- * @returns {WidthTableNode} A WidthTableNode with given number of rows, columns, and width.
+ * @param rows - The number of TableRowNodes to generate.
+ * @param columns - The number of table cell columns to generate.
+ * @param width - The width (px) of the table.
+ * @returns A WidthTableNode with given number of rows, columns, and width.
  */
 const $createWidthTable = (
   rowCount: number,
