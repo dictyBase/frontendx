@@ -1,0 +1,36 @@
+{
+  "name": "image-plugin",
+  "version": "0.0.0",
+  "descripton": "Image plugin for dictybase text editor",
+  "main": "src/index.ts",
+  "author": "Kevin Tun",
+  "license": "BSD-2-Clause",
+  "scripts": {
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/header.json"
+  },
+  "devDependencies": {
+    "@types/react": "17.x",
+    "@types/react-dom": "17.x",
+    "@vitest/coverage-c8": "^0.28.5",
+    "jsdom": "latest",
+    "vitest": "latest",
+    "eslint-config-custom": "*",
+    "tsconfig": "*"
+  },
+  "dependencies": {
+    "@lexical/react": "0.9.x",
+    "@material-ui/core": "4.x",
+    "@material-ui/icons": "4.x",
+    "jotai": "latest",
+    "lexical": "0.9.x",
+    "react": "17.x",
+    "flex-layout-plugin": "*"
+  },
+  "typedoc": {
+    "entryPoint": "./src/index.ts",
+    "displayName": "@dictybase/image-plugin"
+  }
+}
