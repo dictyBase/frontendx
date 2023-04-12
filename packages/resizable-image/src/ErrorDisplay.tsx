@@ -6,10 +6,10 @@ import { SvgIcon, Container } from "@material-ui/core"
  *
  * @param {Object} props - The component props
  * @param {string} props.icons - The CSS classname for the icon
- * @returns {JSX.Element} - The rendered component
+ * @returns {JSX.Element} - The rendered error component
  */
-const ErrorDisplay = ({ icons }: { icons: string }) => (
-  <Container disableGutters className={icons}>
+const ErrorDisplay = ({ className }: { className: string }) => (
+  <Container disableGutters className={className}>
     <SvgIcon fontSize="large" color="error">
       <BrokenImageTwoToneIcon />
     </SvgIcon>
