@@ -52,7 +52,7 @@ const ResizableImage = ({
       draggable={isSelected}
       ref={imageContainerReference}
       disableGutters
-      className={root}>
+      className={root as string}>
       <img
         ref={imageReference}
         src={src}
@@ -61,8 +61,8 @@ const ResizableImage = ({
         onLoad={() => setLoading(false)}
         onError={handleError}
       />
-      {loading ? <LoadingDisplay className={icons} /> : undefined}
-      {error ? <ErrorDisplay className={icons} /> : undefined}
+      {loading ? <LoadingDisplay className={icons as string} /> : undefined}
+      {error ? <ErrorDisplay className={icons as string} /> : undefined}
       {imageContainerReference.current && isSelected ? (
         <ImageResizer onResize={onResize} />
       ) : undefined}
