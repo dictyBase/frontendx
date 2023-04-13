@@ -34,35 +34,44 @@ type ImageNodeConstructorProperties = {
 }
 
 class ImageNode extends DecoratorNode<JSX.Element> {
-  source
+  __source
 
-  height
+  __height
 
-  width
+  __width
 
-  fit
+  __fit
 
-  transition
+  __transition
 
-  duration
+  __duration
 
-  alt
+  __alt
 
   static override getType() {
     return "image"
   }
 
   static override clone(node: ImageNode) {
-    const { source, alt, key, width, height, fit, transition, duration } = node
+    const {
+      __source,
+      __alt,
+      __key,
+      __width,
+      __height,
+      __fit,
+      __transition,
+      __duration,
+    } = node
     return new ImageNode({
-      source,
-      alt,
-      key,
-      width,
-      height,
-      fit,
-      transition,
-      duration,
+      __source,
+      __alt,
+      __key,
+      __width,
+      __height,
+      __fit,
+      __transition,
+      __duration,
     })
   }
 
@@ -97,19 +106,19 @@ class ImageNode extends DecoratorNode<JSX.Element> {
     key,
   }: ImageNodeConstructorProperties) {
     super(key)
-    this.source = source
-    this.height = height
-    this.width = width
-    this.fit = fit
-    this.transition = transition
-    this.duration = duration
-    this.alt = alt
+    this.__source = source
+    this.__height = height
+    this.__width = width
+    this.__fit = fit
+    this.__transition = transition
+    this.__duration = duration
+    this.__alt = alt
   }
 
   setDimensions(width: number, height: number) {
     const writable = this.getWritable()
-    writable.width = width
-    writable.height = height
+    writable.__width = width
+    writable.__height = height
   }
 
   override createDOM(config: EditorConfig) {
@@ -129,13 +138,13 @@ class ImageNode extends DecoratorNode<JSX.Element> {
   override exportJSON(): SerializedImageNode {
     return {
       type: "image",
-      source: this.source,
-      width: this.width,
-      height: this.height,
-      fit: this.fit,
-      transition: this.transition,
-      duration: this.duration,
-      alt: this.alt,
+      source: this.__source,
+      width: this.__width,
+      height: this.__height,
+      fit: this.__fit,
+      transition: this.__transition,
+      duration: this.__duration,
+      alt: this.__alt,
       version: 1,
     }
   }
@@ -144,10 +153,10 @@ class ImageNode extends DecoratorNode<JSX.Element> {
     return (
       <ImageComponent
         nodeKey={this.__key}
-        src={this.source}
-        alt={this.alt}
-        initialWidth={this.width}
-        initialHeight={this.height}
+        src={this.__source}
+        alt={this.__alt}
+        initialWidth={this.__width}
+        initialHeight={this.__height}
         fit="cover"
         easing="cubic-bezier(0.7, 0, 0.6, 1)"
         duration={2000}
