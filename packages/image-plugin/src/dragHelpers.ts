@@ -3,19 +3,20 @@ import { $isImageNode } from "./ImageNode"
 
 export const getImageNodeFromSelection = () => {
   const selection = $getSelection()
-  if (!$isNodeSelection(selection)) return null
+  if (!$isNodeSelection(selection)) return undefined
   const nodes = selection.getNodes()
-  return $isImageNode(nodes[0]) ? nodes[0] : null
+  return nodes[0] && $isImageNode(nodes[0]) ? nodes[0] : undefined
 }
 
 export const getRangeSelectionFromPoint = (x: number, y: number) => {
   const rangeSelection = $createRangeSelection()
+  // eslint-disable-next-line unicorn/no-null
   let range: StaticRange | null = null
   // @ts-ignore
   if (document.caretPositionFromPoint) {
     // @ts-ignore
     const caretPosition = document.caretPositionFromPoint(x, y)
-    if (!caretPosition) return null
+    if (!caretPosition) return undefined
     range = {
       startContainer: caretPosition.offsetNode,
       endContainer: caretPosition.offsetNode,
@@ -29,7 +30,7 @@ export const getRangeSelectionFromPoint = (x: number, y: number) => {
     range = document.caretRangeFromPoint(x, y)
   }
 
-  if (!range) return null
+  if (!range) return undefined
   rangeSelection.applyDOMRange(range)
   return rangeSelection
 }
