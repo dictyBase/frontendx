@@ -48,8 +48,8 @@ export const getRangeSelectionFromPoint = (x: number, y: number) => {
     // @ts-ignore
     const caretPosition = document.caretPositionFromPoint(x, y)
     const offsetNode = $getNearestNodeFromDOMNode(caretPosition.offsetNode)
-    if (!offsetNode || !(offsetNode instanceof TextNode)) return null
-    if (!caretPosition) return null
+    if (!offsetNode || !(offsetNode instanceof TextNode)) return undefined
+    if (!caretPosition) return undefined
 
     rangeSelection.setTextNodeRange(
       offsetNode,
@@ -61,7 +61,7 @@ export const getRangeSelectionFromPoint = (x: number, y: number) => {
 
   if (document.caretRangeFromPoint) {
     const range = document.caretRangeFromPoint(x, y)
-    if (!range) return null
+    if (!range) return undefined
     rangeSelection.applyDOMRange(range)
   }
 
@@ -78,7 +78,7 @@ const getFlexLayoutNodeFromSelection = () => {
     if ($isFlexLayoutNode(node)) return node
     node = node.getParentOrThrow()
   }
-  return null
+  return undefined
 }
 
 /**
