@@ -9,6 +9,7 @@ import {
   getRangeSelectionFromPoint,
 } from "./dragHelpers"
 import { INSERT_IMAGE_COMMAND } from "./InsertImageCommand"
+
 // On Firefox, when the image is dragged, a transparent version of the image hovers
 // with the user's cursor. This can make it difficult to see where the image is
 // being moved precisely. The drag image can be replaced with transparent image
@@ -33,7 +34,9 @@ export const onDrop = (event: DragEvent, editor: LexicalEditor) => {
   const imageNode = getImageNodeFromSelection()
   if (!imageNode) return false
 
-  $setSelection(getRangeSelectionFromPoint(event.clientX, event.clientY))
+  const selection = getRangeSelectionFromPoint(event.clientX, event.clientY)
+  if (!selection) return false
+  $setSelection(selection)
 
   editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
     source: imageNode.__source,
