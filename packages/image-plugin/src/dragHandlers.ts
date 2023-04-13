@@ -37,9 +37,9 @@ export const onDrop = (event: DragEvent, editor: LexicalEditor) => {
   $setSelection(getRangeSelectionFromPoint(event.clientX, event.clientY))
 
   editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
-    source: imageNode.source,
-    width: imageNode.width,
-    height: imageNode.height,
+    source: imageNode.__source,
+    width: imageNode.__width,
+    height: imageNode.__height,
     key: imageNode.key,
     x: event.clientX,
   })
