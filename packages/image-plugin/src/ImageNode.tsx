@@ -13,7 +13,7 @@ export type SerializedImageNode = Spread<
     source: string
     width: number
     height: number
-    alt?: string
+    alt?: string | undefined
     type: "image"
   },
   SerializedLexicalNode
@@ -23,14 +23,14 @@ type ImageNodeConstructorProperties = {
   source: string
   width: number
   height: number
-  alt?: string
+  alt?: string | undefined
   key?: string
 }
 
 class ImageNode extends DecoratorNode<JSX.Element> {
   __source
 
-  __alt = ""
+  __alt
 
   __height
 
