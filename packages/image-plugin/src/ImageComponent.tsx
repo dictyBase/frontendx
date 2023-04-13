@@ -8,7 +8,6 @@ import {
   ImageDimensionsAtom,
   isResizingAtom,
 } from "resizable-image"
-import { $isImageNode } from "./ImageNode"
 
 export type ImageComponentProperties = {
   src: string
@@ -40,7 +39,8 @@ const ImageComponent = ({
   const onResize = (width: number, height: number) => {
     editor.update(() => {
       const node = $getNodeByKey(nodeKey)
-      if (!node || !$isImageNode(node)) return
+      if (!node || !(node.getType() === "image")) return
+      // @ts-ignore
       node.setDimensions(width, height)
     })
   }
