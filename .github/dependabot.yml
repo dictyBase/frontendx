@@ -1,0 +1,142 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "11:00"
+      timezone: America/Chicago
+  - package-ecosystem: "npm"
+    directory: "/packages/apollo-error-nextjs"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "11:00"
+      timezone: America/Chicago
+  - package-ecosystem: "npm"
+    directory: "/packages/apollo-error-react-router"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "11:00"
+      timezone: America/Chicago
+  - package-ecosystem: "npm"
+    directory: "/packages/data-access"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "11:00"
+      timezone: America/Chicago
+  - package-ecosystem: "npm"
+    directory: "/packages/dicty-image"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "11:00"
+      timezone: America/Chicago
+  - package-ecosystem: "npm"
+    directory: "/packages/dictybase-toolbar"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "11:00"
+      timezone: America/Chicago
+  - package-ecosystem: "npm"
+    directory: "/packages/editor-toolbar"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "11:00"
+      timezone: America/Chicago
+  - package-ecosystem: "npm"
+    directory: "/packages/eslint-config-custom"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "11:00"
+      timezone: America/Chicago
+  - package-ecosystem: "npm"
+    directory: "/packages/flex-layout-plugin"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "11:00"
+      timezone: America/Chicago
+  - package-ecosystem: "npm"
+    directory: "/packages/functional"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "11:00"
+      timezone: America/Chicago
+  - package-ecosystem: "npm"
+    directory: "/packages/header"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "11:00"
+      timezone: America/Chicago
+  - package-ecosystem: "npm"
+    directory: "/packages/hook"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "11:00"
+      timezone: America/Chicago
+  - package-ecosystem: "npm"
+    directory: "/packages/hook-dsc"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "11:00"
+      timezone: America/Chicago
+  - package-ecosystem: "npm"
+    directory: "/packages/image-plugin"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "11:00"
+      timezone: America/Chicago
+  - package-ecosystem: "npm"
+    directory: "/packages/persistence-plugin"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "11:00"
+      timezone: America/Chicago
+  - package-ecosystem: "npm"
+    directory: "/packages/resizable-image"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "11:00"
+      timezone: America/Chicago
+  - package-ecosystem: "npm"
+    directory: "/packages/table-action-plugin"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "11:00"
+      timezone: America/Chicago
+  - package-ecosystem: "npm"
+    directory: "/packages/tsconfig"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "11:00"
+      timezone: America/Chicago
+  - package-ecosystem: "npm"
+    directory: "/packages/ui-dsc"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "11:00"
+      timezone: America/Chicago
+  - package-ecosystem: "npm"
+    directory: "/packages/width-table-plugin"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "11:00"
+      timezone: America/Chicago
