@@ -13,9 +13,6 @@ export type SerializedImageNode = Spread<
     source: string
     width: number
     height: number
-    fit?: string
-    transition?: string
-    duration?: number
     alt?: string
     type: "image"
   },
@@ -26,9 +23,6 @@ type ImageNodeConstructorProperties = {
   source: string
   width: number
   height: number
-  fit?: string
-  transition?: string
-  duration?: number
   alt?: string
   key?: string
 }
@@ -36,11 +30,11 @@ type ImageNodeConstructorProperties = {
 class ImageNode extends DecoratorNode<JSX.Element> {
   __source
 
+  __alt = ""
+
   __height
 
   __width
-
-  __fit
 
   static override getType() {
     return "image"
@@ -81,9 +75,6 @@ class ImageNode extends DecoratorNode<JSX.Element> {
     source,
     width,
     height,
-    fit,
-    transition,
-    duration,
     alt,
     key,
   }: ImageNodeConstructorProperties) {
@@ -91,9 +82,6 @@ class ImageNode extends DecoratorNode<JSX.Element> {
     this.__source = source
     this.__height = height
     this.__width = width
-    this.__fit = fit
-    this.__transition = transition
-    this.__duration = duration
     this.__alt = alt
   }
 
