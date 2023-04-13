@@ -42,36 +42,24 @@ class ImageNode extends DecoratorNode<JSX.Element> {
 
   __fit
 
-  __transition
-
-  __duration
-
-  __alt
-
   static override getType() {
     return "image"
   }
 
   static override clone(node: ImageNode) {
     const {
-      __source,
-      __alt,
-      __key,
-      __width,
-      __height,
-      __fit,
-      __transition,
-      __duration,
+      __source: source,
+      __alt: alt,
+      __key: key,
+      __width: width,
+      __height: height,
     } = node
     return new ImageNode({
-      __source,
-      __alt,
-      __key,
-      __width,
-      __height,
-      __fit,
-      __transition,
-      __duration,
+      source,
+      alt,
+      key,
+      width,
+      height,
     })
   }
 
@@ -80,18 +68,12 @@ class ImageNode extends DecoratorNode<JSX.Element> {
     alt,
     width,
     height,
-    fit,
-    transition,
-    duration,
   }: SerializedImageNode): ImageNode {
     return new ImageNode({
       source,
       alt,
       width,
       height,
-      fit,
-      transition,
-      duration,
     })
   }
 
@@ -141,9 +123,6 @@ class ImageNode extends DecoratorNode<JSX.Element> {
       source: this.__source,
       width: this.__width,
       height: this.__height,
-      fit: this.__fit,
-      transition: this.__transition,
-      duration: this.__duration,
       alt: this.__alt,
       version: 1,
     }
