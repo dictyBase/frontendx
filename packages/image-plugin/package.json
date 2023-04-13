@@ -27,7 +27,8 @@
     "jotai": "latest",
     "lexical": "0.9.x",
     "react": "17.x",
-    "flex-layout-plugin": "*"
+    "flex-layout-plugin": "*",
+    "resizable-image": "*"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",
