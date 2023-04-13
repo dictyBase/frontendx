@@ -1,0 +1,35 @@
+{
+  "name": "table-action-plugin",
+  "version": "0.0.0",
+  "descripton": "Table Action plugin for dictybase text editor",
+  "main": "src/index.ts",
+  "author": "Kevin Tun",
+  "license": "BSD-2-Clause",
+  "scripts": {
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/header.json"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^7.21.4",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/react": "17.x",
+    "@vitest/coverage-c8": "^0.28.5",
+    "jsdom": "latest",
+    "vitest": "latest",
+    "eslint-config-custom": "*",
+    "width-table-plugin": "*"
+  },
+  "dependencies": {
+    "@lexical/react": "0.9.x",
+    "@material-ui/core": "4.x",
+    "@material-ui/icons": "4.x",
+    "fp-ts": "^2.13.1",
+    "jotai": "^1.12.0",
+    "lexical": "0.9.x",
+    "react": "17.x",
+    "react-dom": "17.x",
+    "yjs": "^13.5.22"
+  }
+}
