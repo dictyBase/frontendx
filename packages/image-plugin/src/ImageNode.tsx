@@ -33,11 +33,11 @@ type ImageNodeConstructorProperties = {
 }
 
 class ImageNode extends DecoratorNode<JSX.Element> {
-  static getType() {
+  static override getType() {
     return "image"
   }
 
-  static clone(node: ImageNode) {
+  static override clone(node: ImageNode) {
     const { source, alt, key, width, height, fit, transition, duration } = node
     return new ImageNode({
       source,
@@ -51,7 +51,7 @@ class ImageNode extends DecoratorNode<JSX.Element> {
     })
   }
 
-  static importJSON({
+  static override importJSON({
     source,
     alt,
     width,
@@ -97,7 +97,7 @@ class ImageNode extends DecoratorNode<JSX.Element> {
     writable.height = height
   }
 
-  createDOM(config: EditorConfig) {
+  override createDOM(config: EditorConfig) {
     const div = document.createElement("div")
     const { theme } = config
     const className = theme.image
@@ -107,11 +107,11 @@ class ImageNode extends DecoratorNode<JSX.Element> {
     return div
   }
 
-  updateDOM() {
+  override updateDOM() {
     return false
   }
 
-  exportJSON(): SerializedImageNode {
+  override exportJSON(): SerializedImageNode {
     return {
       type: "image",
       source: this.source,
@@ -125,7 +125,7 @@ class ImageNode extends DecoratorNode<JSX.Element> {
     }
   }
 
-  decorate() {
+  override decorate() {
     return (
       <ImageComponent
         nodeKey={this.__key}
