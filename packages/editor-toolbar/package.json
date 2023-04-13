@@ -1,0 +1,36 @@
+{
+  "name": "editor-toolbar",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "src/index.tsx",
+  "scripts": {
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/toolbar.json"
+  },
+  "dependencies": {
+    "@lexical/react": "^0.7.6",
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
+    "image-plugin": "*",
+    "jotai": "^2.0.2",
+    "jotai-optics": "^0.3.0",
+    "lexical": "^0.7.6",
+    "optics-ts": "^2.4.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^12.x",
+    "@testing-library/jest-dom": "^5.x",
+    "@types/react-dom": "^17.x",
+    "@types/react": "17.0.52",
+    "@vitest/coverage-c8": "^0.28.5",
+    "jsdom": "^21.1.0",
+    "vitest": "^0.28.4",
+    "eslint-config-custom": "*",
+    "tsconfig": "*"
+  }
+}
