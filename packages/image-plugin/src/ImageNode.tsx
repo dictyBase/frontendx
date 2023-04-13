@@ -34,6 +34,20 @@ type ImageNodeConstructorProperties = {
 }
 
 class ImageNode extends DecoratorNode<JSX.Element> {
+  source
+
+  height
+
+  width
+
+  fit
+
+  transition
+
+  duration
+
+  alt
+
   static override getType() {
     return "image"
   }
