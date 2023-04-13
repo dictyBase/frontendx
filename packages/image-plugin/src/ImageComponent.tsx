@@ -14,7 +14,7 @@ export type ImageComponentProperties = {
   nodeKey: string
   initialWidth: number
   initialHeight: number
-  alt?: string
+  alt?: string | undefined
   fit: string
   duration: number
   easing: string
