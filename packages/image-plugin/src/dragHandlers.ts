@@ -1,6 +1,5 @@
 import {
   $getNearestNodeFromDOMNode,
-  $getSelection,
   $isDecoratorNode,
   $setSelection,
   LexicalEditor,
