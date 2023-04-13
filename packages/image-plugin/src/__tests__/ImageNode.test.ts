@@ -12,9 +12,6 @@ const data: SerializedImageNode = {
   source: "source.jpg",
   width: 100,
   height: 100,
-  fit: "cover",
-  transition: "cubic-bezier(0.7, 0, 0.6, 1)",
-  duration: 2000,
   alt: "test image",
   version: 1,
 }
@@ -34,19 +31,13 @@ describe("ImageNode", () => {
   let imageWidth: number
   let imageHeight: number
   let imageSource: string
-  let imageFit: string
-  let imageTransition: string
-  let imageDuration: number
-  let imageAltText: string
+  let imageAltText: string | undefined
 
   let imageClone: ImageNode
-  let imageCloneWidth: string
-  let imageCloneHeight: string
+  let imageCloneWidth: number
+  let imageCloneHeight: number
   let imageCloneSource: string
-  let imageCloneFit: string
-  let imageCloneTransition: string
-  let imageCloneDuration: number
-  let imageCloneAltText: string
+  let imageCloneAltText: string | undefined
 
   let serializedImageNode: SerializedImageNode
   let importedImageNode: ImageNode
@@ -65,23 +56,17 @@ describe("ImageNode", () => {
       })
       nodeType = imageNode.getType()
 
-      imageWidth = imageNode.width
-      imageHeight = imageNode.height
-      imageSource = imageNode.source
-      imageFit = imageNode.fit
-      imageTransition = imageNode.transition
-      imageDuration = imageNode.duration
-      imageAltText = imageNode.alt
+      imageWidth = imageNode.__width
+      imageHeight = imageNode.__height
+      imageSource = imageNode.__source
+      imageAltText = imageNode.__alt
 
       imageClone = ImageNode.clone(imageNode)
 
-      imageCloneWidth = imageClone.width
-      imageCloneHeight = imageClone.height
-      imageCloneSource = imageClone.source
-      imageCloneFit = imageClone.fit
-      imageCloneTransition = imageClone.transition
-      imageCloneDuration = imageClone.duration
-      imageCloneAltText = imageClone.alt
+      imageCloneWidth = imageClone.__width
+      imageCloneHeight = imageClone.__height
+      imageCloneSource = imageClone.__source
+      imageCloneAltText = imageClone.__alt
 
       serializedImageNode = imageNode.exportJSON()
       importedImageNode = ImageNode.importJSON(data)
@@ -89,8 +74,8 @@ describe("ImageNode", () => {
 
       imageNode.setDimensions(nextImageWidth, nextImageHeight)
 
-      newImageWidth = imageNode.width
-      newImageHeight = imageNode.height
+      newImageWidth = imageNode.__width
+      newImageHeight = imageNode.__height
     })
   })
   test('implements a method called "getType", that returns string "image"', () => {
@@ -107,9 +92,6 @@ describe("ImageNode", () => {
     expect(imageCloneSource).toEqual(imageSource)
     expect(imageCloneWidth).toEqual(imageWidth)
     expect(imageCloneHeight).toEqual(imageHeight)
-    expect(imageCloneFit).toEqual(imageFit)
-    expect(imageCloneTransition).toEqual(imageTransition)
-    expect(imageCloneDuration).toEqual(imageDuration)
     expect(imageCloneAltText).toEqual(imageAltText)
   })
   test("implements a static importJSON method that takes a serialized image node and returns an ImageNode instance", () => {
@@ -119,9 +101,6 @@ describe("ImageNode", () => {
     expect(serializedImageNode).toHaveProperty("source")
     expect(serializedImageNode).toHaveProperty("width")
     expect(serializedImageNode).toHaveProperty("height")
-    expect(serializedImageNode).toHaveProperty("fit")
-    expect(serializedImageNode).toHaveProperty("transition")
-    expect(serializedImageNode).toHaveProperty("duration")
     expect(serializedImageNode).toHaveProperty("alt")
   })
   test("implements a setDimensions method that accepts a width and height argument, and changes the width and height properties of the image node instance", () => {
