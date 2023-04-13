@@ -40,7 +40,7 @@ export const onDrop = (event: DragEvent, editor: LexicalEditor) => {
     source: imageNode.__source,
     width: imageNode.__width,
     height: imageNode.__height,
-    key: imageNode.key,
+    key: imageNode.__key,
     x: event.clientX,
   })
   imageNode.remove()
