@@ -9,7 +9,7 @@ import useImageStyles from "./useImageStyles"
 
 export type ImageProperties = {
   src: string
-  alt?: string
+  alt?: string | undefined
   imageReference: React.MutableRefObject<HTMLImageElement | null>
   fit: string
   duration: number
