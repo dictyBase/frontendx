@@ -6,7 +6,7 @@
   "main": "src/index.tsx",
   "scripts": {
     "test": "vitest run",
-    "coverage": "vitest run --coverage",
+    "coverage": "vitest run --coverage --passWithNoTests",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/toolbar.json"
   },
