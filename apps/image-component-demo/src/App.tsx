@@ -9,7 +9,7 @@ import {
   MenuItem,
   Toolbar,
 } from "@material-ui/core"
-import Image from "@dictybase/dicty-image"
+import { Image } from "@dictybase/dicty-image"
 import AvifImage from "./assets/unsplash.avif"
 import WebPImage from "./assets/unsplash.webp"
 import RegularImage from "./assets/unsplash.jpg"
