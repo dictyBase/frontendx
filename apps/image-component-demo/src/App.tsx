@@ -124,7 +124,7 @@ const Demo = () => {
           easing={easing}
           fit={fit}
         />
-      ) : null}
+      ) : undefined}
     </Container>
   )
 }
