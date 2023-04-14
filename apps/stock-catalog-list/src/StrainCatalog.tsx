@@ -19,17 +19,17 @@ import { StrainListDocument } from "dicty-graphql-schema"
 import { useSearchParams } from "react-router-dom"
 
 export default function StrainCatalog() {
-  const [searchParams, setSearchParams] = useSearchParams()
-  const value = searchParams.get(defaultFilter.param) ?? defaultFilter.value
+  const [searchParameters, setSearchParameters] = useSearchParams()
+  const value = searchParameters.get(defaultFilter.param) ?? defaultFilter.value
   const { dataField, variables } = useConfigureStrainCatalogSearchGraphql({
     value,
-    searchParams,
+    searchParams: searchParameters,
   })
   const { loading, error, data, fetchMore } = useQuery(StrainListDocument, {
     variables,
   })
-  const rootRef = useRef<HTMLDivElement>(null)
-  const targetRef = useRef<HTMLTableRowElement>(null)
+  const rootReference = useRef<HTMLDivElement>(null)
+  const targetReference = useRef<HTMLTableRowElement>(null)
   const onIntersection = ([entry]: IntersectionObserverEntry[]) => {
     if (!entry.isIntersecting) return
     const { nextCursor } = data?.[dataField]
@@ -37,30 +37,30 @@ export default function StrainCatalog() {
     fetchMore({ variables: { cursor: nextCursor } })
   }
   useIntersectionObserver({
-    target: targetRef,
-    onIntersection: onIntersection,
-    option: { root: rootRef.current, threshold: 0.1 },
+    target: targetReference,
+    onIntersection,
+    option: { root: rootReference.current, threshold: 0.1 },
   })
 
   return (
     <>
       <Box m={2} display="flex">
         <FilterDropdown
-          searchParamFn={setSearchParams}
+          searchParamFn={setSearchParameters}
           param={defaultFilter.param}
           value={defaultFilter.value}
         />
         <SearchBox fields={Object.keys(fieldsToVar)} key={value} />
       </Box>
       <Box>
-        <CatalogListWrapper root={rootRef}>
+        <CatalogListWrapper root={rootReference}>
           {loading ? <LoadingDisplay rows={10} /> : <></>}
           {error ? <ErrorDisplay error={error} /> : <></>}
           {data?.[dataField] ? (
             <CatalogTableDisplay
               data={data}
               dataField={dataField}
-              target={targetRef}
+              target={targetReference}
             />
           ) : (
             <></>
