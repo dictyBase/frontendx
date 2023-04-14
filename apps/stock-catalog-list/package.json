@@ -6,6 +6,7 @@
     "dev": "vite --port 3003 --clearScreen false",
     "build": "vite build",
     "lint": "TIMING=1 eslint src/**/*.tsx --fix && tsc --noEmit",
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/stock-catalog-list.json",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
