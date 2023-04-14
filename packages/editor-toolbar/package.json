@@ -11,13 +11,13 @@
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/toolbar.json"
   },
   "dependencies": {
-    "@lexical/react": "^0.7.6",
+    "@lexical/react": "0.9.x",
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
     "image-plugin": "*",
     "jotai": "^2.0.2",
     "jotai-optics": "^0.3.0",
-    "lexical": "^0.7.6",
+    "lexical": "0.9.x",
     "optics-ts": "^2.4.0",
     "react": "17.0.2",
     "react-dom": "17.0.2"
