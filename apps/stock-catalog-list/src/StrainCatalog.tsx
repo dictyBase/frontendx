@@ -2,7 +2,7 @@
 import {
   useConfigureStrainCatalogSearchGraphql,
   defaultFilter,
-  fieldsToVar,
+  fieldsToVariables,
 } from "@dictybase/hook-dsc"
 import {
   LoadingDisplay,
@@ -51,7 +51,7 @@ const StrainCatalog = () => {
           param={defaultFilter.param}
           value={defaultFilter.value}
         />
-        <SearchBox fields={Object.keys(fieldsToVar)} key={value} />
+        <SearchBox fields={Object.keys(fieldsToVariables)} key={value} />
       </Box>
       <Box>
         <CatalogListWrapper root={rootReference}>
