@@ -32,7 +32,7 @@ const StrainCatalog = () => {
   const targetReference = useRef<HTMLTableRowElement>(null)
   const onIntersection = ([entry]: IntersectionObserverEntry[]) => {
     if (!entry.isIntersecting) return
-    const { nextCursor } = data?.[dataField]
+    const { nextCursor } = data ? data[dataField] : undefined
     if (!nextCursor) return
     fetchMore({ variables: { cursor: nextCursor } })
   }
