@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { ApolloProvider } from "@apollo/client"
-import { useGraphqlClient, apolloClientCache } from "@dictybase/data-access"
+import { useGraphqlClient, useApolloClientCache } from "@dictybase/data-access"
 import { listStrainsPagination } from "@dictybase/hook-dsc"
 import StrainCatalog from "./StrainCatalog"
 
 export const App = () => {
   const client = useGraphqlClient({
     uri: import.meta.env.REACT_APP_GRAPHQL_SERVER as string,
-    cache: apolloClientCache({
+    cache: useApolloClientCache({
       customPolicies: {
         Query: {
           fields: {
