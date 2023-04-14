@@ -18,7 +18,7 @@ import { Box } from "@material-ui/core"
 import { StrainListDocument } from "dicty-graphql-schema"
 import { useSearchParams } from "react-router-dom"
 
-export default function StrainCatalog() {
+const StrainCatalog = () => {
   const [searchParameters, setSearchParameters] = useSearchParams()
   const value = searchParameters.get(defaultFilter.param) ?? defaultFilter.value
   const { dataField, variables } = useConfigureStrainCatalogSearchGraphql({
@@ -70,3 +70,5 @@ export default function StrainCatalog() {
     </>
   )
 }
+
+export default StrainCatalog
