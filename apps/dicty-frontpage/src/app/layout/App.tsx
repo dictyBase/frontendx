@@ -10,27 +10,30 @@ import {
   GetRefreshTokenQuery,
   User,
 } from "dicty-graphql-schema"
-import { useAuthStore, ActionType } from "features/Authentication/AuthStore"
-import ErrorBoundary from "common/components/errors/ErrorBoundary"
+import {
+  useAuthStore,
+  ActionType,
+} from "../../features/Authentication/AuthStore"
+import ErrorBoundary from "../../common/components/errors/ErrorBoundary"
 import {
   headerItems,
   loggedHeaderItems,
   HeaderLinks,
-} from "common/utils/headerItems"
+} from "../../common/utils/headerItems"
 import {
   footerLinks,
   footerURL,
   convertFooterData,
   FooterItems,
-} from "common/utils/footerItems"
+} from "../../common/utils/footerItems"
 import {
   navbarItems,
   NavbarItems,
   navbarURL,
   formatNavbarData,
-} from "common/utils/navbarItems"
-import { navTheme, headerTheme, footerTheme } from "common/utils/themes"
-import Routes from "app/routes/Routes"
+} from "../../common/utils/navbarItems"
+import { navTheme, headerTheme, footerTheme } from "../../common/utils/themes"
+import Routes from "../routes/Routes"
 
 const useStyles = makeStyles((theme: Theme) => ({
   main: {
