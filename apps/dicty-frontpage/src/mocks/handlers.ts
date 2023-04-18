@@ -7,12 +7,12 @@ import {
   mockContentBySlugQuery,
   mockListOrganismsQuery,
 } from "dicty-graphql-schema/introspection/mocks"
-import listRecentPublications from "common/data/mockPublications"
-import listRecentPlasmids from "common/data/mockPlasmids"
-import listRecentStrains from "common/data/mockStrains"
-import listRecentGenes from "common/data/mockGenes"
-import listOrganisms from "common/data/mockDownloadsData"
-import contentBySlug from "common/data/mockContentBySlug"
+import listRecentPublications from "../common/data/mockPublications"
+import listRecentPlasmids from "../common/data/mockPlasmids"
+import listRecentStrains from "../common/data/mockStrains"
+import listRecentGenes from "../common/data/mockGenes"
+import listOrganisms from "../common/data/mockDownloadsData"
+import contentBySlug from "../common/data/mockContentBySlug"
 
 const handlers = [
   // Handles a "GetUserInfo" query
