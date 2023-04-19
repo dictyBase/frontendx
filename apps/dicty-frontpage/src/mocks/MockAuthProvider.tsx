@@ -7,10 +7,8 @@ import { AuthContext, authReducer } from "features/Authentication/AuthStore"
 type AuthProperties = {
   children: React.ReactNode
   mocks: ReadonlyArray<MockedResponse>
-  // eslint-disable-next-line react/require-default-props
   user?: User
   /** Indicates if auth state should include valid token, default is true */
-  // eslint-disable-next-line react/require-default-props
   validToken?: boolean
 }
 
