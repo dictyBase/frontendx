@@ -8,8 +8,8 @@ import {
   LinkedInButton,
   OrcidButton,
 } from "dicty-components-login"
-import OauthSignHandler from "features/Authentication/OauthSignHandler"
-import oauthConfig from "common/utils/oauthConfig"
+import OauthSignHandler from "./OauthSignHandler"
+import oauthConfig from "../../common/utils/oauthConfig"
 import ErrorNotification from "./ErrorNotification"
 import { useAuthStore } from "./AuthStore"
 

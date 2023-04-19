@@ -1,8 +1,8 @@
 import { Carousel } from "react-responsive-carousel"
 import { makeStyles } from "@material-ui/core/styles"
-import lifeCycle from "common/assets/frontCarousel/dicty-life-cycle.jpg"
-import slug from "common/assets/frontCarousel/dicty-slug.jpg"
-import tubulin from "common/assets/frontCarousel/dicty-tubulin-centrosom.png"
+import lifeCycle from "../../common/assets/frontCarousel/dicty-life-cycle.jpg"
+import slug from "../../common/assets/frontCarousel/dicty-slug.jpg"
+import tubulin from "../../common/assets/frontCarousel/dicty-tubulin-centrosom.png"
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 
 const useStyles = makeStyles({

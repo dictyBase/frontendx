@@ -4,7 +4,7 @@ import {
   // mockNotFoundError,
   mockOtherError,
   mockUnavailableError,
-} from "mocks/mockGraphQLError"
+} from "../../../mocks/mockGraphQLError"
 import GraphQLErrorPage from "./GraphQLErrorPage"
 
 const errorFormat = (error: any) => ({

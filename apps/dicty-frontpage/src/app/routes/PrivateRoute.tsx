@@ -1,6 +1,6 @@
 import React from "react"
 import { Navigate } from "react-router-dom"
-import { useAuthStore } from "features/Authentication/AuthStore"
+import { useAuthStore } from "../../features/Authentication/AuthStore"
 
 /**
  * PrivateRoute redirects user from route if not authenticated.

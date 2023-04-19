@@ -1,4 +1,4 @@
-import clientConfig from "common/utils/clientConfig"
+import clientConfig from "./clientConfig"
 
 type Config = {
   name: string

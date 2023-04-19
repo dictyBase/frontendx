@@ -3,7 +3,7 @@ import {
   ListRecentPublicationsQuery,
   ListRecentGenesQuery,
 } from "dicty-graphql-schema"
-import Fallback from "common/components/Fallback"
+import Fallback from "../../common/components/Fallback"
 
 const useStyles = makeStyles({
   listItem: {

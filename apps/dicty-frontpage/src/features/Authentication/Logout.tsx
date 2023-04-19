@@ -2,7 +2,7 @@ import React from "react"
 import { useApolloClient } from "@apollo/client"
 import { Navigate } from "react-router-dom"
 import { useLogoutMutation } from "dicty-graphql-schema"
-import { useAuthStore, ActionType } from "features/Authentication/AuthStore"
+import { useAuthStore, ActionType } from "./AuthStore"
 
 /**
  * Logout handles the user logout process.
