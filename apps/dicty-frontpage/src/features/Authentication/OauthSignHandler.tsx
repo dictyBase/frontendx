@@ -2,8 +2,8 @@ import React from "react"
 import { useNavigate } from "react-router-dom"
 import querystring from "node:querystring"
 import { useLoginMutation, User } from "dicty-graphql-schema"
-import { useAuthStore, ActionType } from "features/Authentication/AuthStore"
-import oauthConfig from "common/utils/oauthConfig"
+import { useAuthStore, ActionType } from "./AuthStore"
+import oauthConfig from "../../common/utils/oauthConfig"
 
 type LoginEventData = {
   /** Third-party provider (orcid, google, linkedin) */

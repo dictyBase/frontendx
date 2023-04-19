@@ -1,6 +1,6 @@
 import { renderHook } from "@testing-library/react-hooks"
 import { vi } from "vitest"
-import MockAuthProvider, { MockSuperuser } from "mocks/MockAuthProvider"
+import MockAuthProvider, { MockSuperuser } from "../../mocks/MockAuthProvider"
 import useAuthorization, {
   verifyToken,
   verifyPermissions,

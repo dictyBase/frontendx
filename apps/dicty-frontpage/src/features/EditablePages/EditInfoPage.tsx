@@ -3,11 +3,11 @@ import { useNavigate, useLocation } from "react-router-dom"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import Container from "@material-ui/core/Container"
 import Box from "@material-ui/core/Box"
-import { PageEditor } from "dicty-components-page-editor"
-import { useAuthStore } from "features/Authentication/AuthStore"
-import useAuthorization from "common/hooks/useAuthorization"
 import { useUpdateContentMutation } from "dicty-graphql-schema"
-import { appTheme } from "app/layout/AppProviders"
+import { PageEditor } from "dicty-components-page-editor"
+import { useAuthStore } from "../Authentication/AuthStore"
+import useAuthorization from "../../common/hooks/useAuthorization"
+import { appTheme } from "../../app/layout/AppProviders"
 
 const useStyles = makeStyles((theme: Theme) => ({
   editor: {

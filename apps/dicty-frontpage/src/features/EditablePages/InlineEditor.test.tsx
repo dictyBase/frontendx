@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event"
 import waitForExpect from "wait-for-expect"
 import { vi } from "vitest"
 import { UpdateContentDocument } from "dicty-graphql-schema"
-import MockAuthProvider from "mocks/MockAuthProvider"
+import MockAuthProvider from "../../mocks/MockAuthProvider"
 import InlineEditor from "./InlineEditor"
 
 window.getSelection = vi.fn()

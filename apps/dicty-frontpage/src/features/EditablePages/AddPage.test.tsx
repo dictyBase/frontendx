@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event"
 import waitForExpect from "wait-for-expect"
 import { CreateContentDocument } from "dicty-graphql-schema"
 import { vi } from "vitest"
-import MockAuthProvider from "mocks/MockAuthProvider"
+import MockAuthProvider from "../../mocks/MockAuthProvider"
 import AddPage from "./AddPage"
 
 const mockContent = [

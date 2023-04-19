@@ -3,7 +3,7 @@ import { ApolloProvider } from "@apollo/client"
 import { BrowserRouter } from "react-router-dom"
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles"
 import CircularProgress from "@material-ui/core/CircularProgress"
-import useCreateApolloClient from "common/hooks/useCreateApolloClient"
+import useCreateApolloClient from "../../common/hooks/useCreateApolloClient"
 
 const appTheme = createTheme({
   // use color tool for palette -- https://material.io/resources/color/
