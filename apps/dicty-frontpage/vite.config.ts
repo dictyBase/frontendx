@@ -4,11 +4,10 @@
 import react from "@vitejs/plugin-react"
 import { defineConfig, mergeConfig } from "vite"
 import { defineConfig as defineVitestConfig } from "vitest/config"
-import tsconfigPaths from "vite-tsconfig-paths"
 
 // https://vitejs.dev/config/
 const viteConfig = defineConfig({
-  plugins: [tsconfigPaths(), react()],
+  plugins: [react()],
   server: {
     port: 3000,
   },
