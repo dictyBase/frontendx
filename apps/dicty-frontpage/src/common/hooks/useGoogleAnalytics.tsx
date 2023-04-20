@@ -29,7 +29,7 @@ const useGoogleAnalytics = () => {
       }
     }
 
-    if (process.env.NODE_ENV === "production") {
+    if (import.meta.env.DEPLOY_ENV === "production") {
       setGoogleAnalytics()
     }
   }, [location.pathname, location.search])
