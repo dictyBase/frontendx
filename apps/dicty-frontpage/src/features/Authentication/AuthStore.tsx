@@ -69,15 +69,15 @@ const authReducer = (state: AuthState, action: Action) => {
         error: undefined,
       }
     }
-    case ActionType.LOGIN_ERROR: {
+    case ActionType.LOGIN_ERROR:
       return {
         ...state,
         error: action.payload.error,
       }
-    }
-    case ActionType.LOGOUT: {
+
+    case ActionType.LOGOUT:
       return initialState
-    }
+
     case ActionType.UPDATE_TOKEN: {
       const newToken = action.payload.token
       return {
@@ -89,9 +89,8 @@ const authReducer = (state: AuthState, action: Action) => {
         error: undefined,
       }
     }
-    default: {
+    default:
       return state
-    }
   }
 }
 
