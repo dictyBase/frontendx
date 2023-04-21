@@ -12,7 +12,7 @@
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/table-action-plugin.json"
   },
   "devDependencies": {
-    "@testing-library/dom": "^7.21.4",
+    "@testing-library/dom": "^9.2.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/react": "17.x",
     "@vitest/coverage-c8": "^0.28.5",
