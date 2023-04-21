@@ -1,0 +1,59 @@
+.editor-container {
+  margin: 20px auto 20px auto;
+  border-radius: 2px;
+  max-width: 600px;
+  color: #000;
+  position: relative;
+  line-height: 20px;
+  font-weight: 400;
+  text-align: left;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.editor-text-bold {
+  font-weight: bold;
+}
+
+.editor-text-italic {
+  font-style: italic;
+}
+
+.editor-text-underline {
+  text-decoration: underline;
+}
+
+.editor-paragraph {
+  margin: 0;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.editor-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+.editor-table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.editor-tablecell-head {
+  font-weight: normal;
+}
+
+.editor-tablecell {
+  text-align: center;
+  min-width: 4rem;
+}
+
+.editor-tablecell p {
+  margin-left: 0.125rem;
+  margin-right: 0.125rem;
+}
+
+.editor-table,
+.editor-tablecell {
+  border: 1px solid rgb(156, 156, 156);
+  border-collapse: collapse;
+}
