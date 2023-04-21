@@ -15,7 +15,7 @@
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
     "image-plugin": "*",
-    "jotai": "^2.0.2",
+    "jotai": "^2.0.4",
     "jotai-optics": "^0.3.0",
     "lexical": "0.9.x",
     "optics-ts": "^2.4.0",
