@@ -18,7 +18,7 @@
     "vitest": "latest"
   },
   "dependencies": {
-    "@apollo/client": "3.7.10",
+    "@apollo/client": "3.7.12",
     "apollo3-cache-persist": "0.13.x",
     "localforage": "1.10.x",
     "react": "17.x",
