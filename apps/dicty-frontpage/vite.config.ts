@@ -11,9 +11,6 @@ const viteConfig = defineConfig({
   server: {
     port: 3000,
   },
-  resolve: {
-    mainFields: ["module"],
-  },
 })
 
 const vitestConfig = defineVitestConfig({
@@ -21,9 +18,6 @@ const vitestConfig = defineVitestConfig({
     globals: true,
     environment: "jsdom",
     setupFiles: ["./src/setupTests.js"],
-    deps: {
-      inline: ["clsx"],
-    },
   },
 })
 
