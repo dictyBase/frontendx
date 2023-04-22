@@ -30,7 +30,7 @@
     "typedoc-plugin-coverage": "2.x",
     "typedoc-plugin-mermaid": "1.x",
     "typedoc-plugin-resolve-crossmodule-references": "0.x",
-    "@types/node": "~17.0.21",
+    "@types/node": "~18.15.13",
     "tsx": "latest"
   },
   "engines": {
