@@ -23,7 +23,7 @@
     "@vitejs/plugin-react": "^2.1.0",
     "tsconfig": "*",
     "eslint-config-custom": "*",
-    "vite": "^3.x",
+    "vite": "^4.x",
     "vite-plugin-swc-react-refresh": "^2.2.0"
   }
 }
