@@ -21,7 +21,7 @@
   "dependencies": {
     "@apollo/client": "3.7.10",
     "dicty-graphql-schema": "dictyBase/dicty-graphql-schema#v1.10.0",
-    "fp-ts": "2.13.1",
+    "fp-ts": "2.14.0",
     "fp-ts-std": "^0.15.0",
     "monocle-ts": "^2.3.13",
     "react": "17.x",

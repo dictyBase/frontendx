@@ -30,7 +30,7 @@
     "@material-ui/core": "^4.x",
     "@material-ui/icons": "^4.x",
     "@material-ui/lab": "^4.11.3-deprecations.1",
-    "fp-ts": "2.13.1",
+    "fp-ts": "2.14.0",
     "fp-ts-std": "~0.13.1",
     "react": "17.x",
     "react-dom": "17.x",
