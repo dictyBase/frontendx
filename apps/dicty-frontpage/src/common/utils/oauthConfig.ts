@@ -1,4 +1,4 @@
-import clientConfig from "./clientConfig"
+import clientConfig from "./clientConfig.sample"
 
 type Config = {
   name: string
