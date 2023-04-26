@@ -1,5 +1,5 @@
 {
-  "name": "lexical-editor",
+  "name": "dicty-editor",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -18,7 +18,7 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-router-dom": "^6.4.2",
-    "dictybase-toolbar": "*",
+    "editor-toolbar": "*",
     "image-plugin": "*",
     "persistence-plugin": "*",
     "resizable-image": "*",
@@ -26,14 +26,12 @@
     "table-action-plugin": "*"
   },
   "devDependencies": {
-    "@tsconfig/dictybase": "*",
     "@types/react": "17.0.52",
     "@types/react-dom": "17.0.18",
     "@vitejs/plugin-react": "^2.2.0",
-    "eslint": "^8.31.0",
-    "eslint-config-dictybase": "*",
-    "typescript": "^4.9.3",
     "vite": "^3.1.0",
-    "vite-tsconfig-paths": "^3.5.2"
+    "vite-tsconfig-paths": "^3.5.2",
+    "tsconfig": "*",
+    "eslint-config-custom": "*"
   }
 }
