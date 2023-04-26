@@ -34,3 +34,6 @@ yarn-error.log*
 .turbo
 
 .eslintcache
+
+# dicty-frontpage
+clientConfig.ts
