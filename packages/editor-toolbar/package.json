@@ -29,7 +29,7 @@
     "@types/react": "17.0.52",
     "@vitest/coverage-c8": "^0.28.5",
     "jsdom": "^21.1.0",
-    "vitest": "^0.28.4",
+    "vitest": "^0.30.1",
     "eslint-config-custom": "*",
     "tsconfig": "*"
   }
