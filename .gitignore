@@ -37,3 +37,4 @@ yarn-error.log*
 
 # dicty-frontpage
 clientConfig.ts
+clientConfig.js
