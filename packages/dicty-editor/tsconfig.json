@@ -1,3 +1,5 @@
 {
-  "extends": "@tsconfig/dictybase/base.json"
+  "extends": "tsconfig/react-library-esm.json",
+  "include": ["."],
+  "exclude": ["dist", "build", "node_modules"]
 }
