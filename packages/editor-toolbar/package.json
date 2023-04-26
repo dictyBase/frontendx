@@ -17,7 +17,7 @@
     "image-plugin": "*",
     "jotai": "^2.0.2",
     "jotai-optics": "^0.3.0",
-    "lexical": "0.9.x",
+    "lexical": "0.10.x",
     "optics-ts": "^2.4.0",
     "react": "17.0.2",
     "react-dom": "17.0.2"
