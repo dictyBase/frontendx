@@ -11,7 +11,7 @@ import { ImageNode, ImagePlugin } from "image-plugin"
 import { LocalPersistencePlugin } from "persistence-plugin"
 import { WidthTablePlugin, WidthTableNode } from "width-table-plugin"
 import { TableActionPlugin } from "table-action-plugin"
-import Toolbar from "dictybase-toolbar"
+import Toolbar from "editor-toolbar"
 import {
   useEditorInputStyles,
   useEditorPlaceholderStyles,
