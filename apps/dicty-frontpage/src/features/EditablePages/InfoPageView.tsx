@@ -1,7 +1,7 @@
 import React from "react"
 import { useNavigate, useLocation } from "react-router-dom"
-import { PageEditor } from "dicty-components-page-editor"
 import { ThemeProvider } from "@material-ui/core/styles"
+import { Editor } from "dicty-editor"
 import Box from "@material-ui/core/Box"
 import { ContentBySlugQuery } from "dicty-graphql-schema"
 import { appTheme } from "../../app/layout/AppProviders"
@@ -37,13 +37,7 @@ const InfoPageView = ({ data }: Properties) => {
         />
       )}
       <ThemeProvider theme={appTheme}>
-        <PageEditor
-          pageContent={data?.content}
-          handleSave={() => {}}
-          handleCancel={() => {}}
-          readOnly
-          theme={appTheme}
-        />
+        <Editor />
       </ThemeProvider>
     </Box>
   )
