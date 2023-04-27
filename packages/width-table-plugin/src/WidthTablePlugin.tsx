@@ -30,7 +30,7 @@ const WidthTablePlugin = () => {
     }
   }, [editor])
 
-  return undefined
+  return <></>
 }
 
 export default WidthTablePlugin
