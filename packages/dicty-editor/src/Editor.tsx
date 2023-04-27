@@ -58,7 +58,7 @@ const initialConfig = {
   onError,
 }
 
-const EditorV8 = () => {
+const Editor = () => {
   const inputClasses = useEditorInputStyles()
   const placeholderClasses = useEditorPlaceholderStyles()
   const persistencePluginStyles = usePersistencePluginStyles()
@@ -97,4 +97,4 @@ const EditorV8 = () => {
   )
 }
 
-export default EditorV8
+export default Editor
