@@ -48,7 +48,7 @@ const ImagePlugin = () => {
     }
   })
 
-  return undefined
+  return <></>
 }
 
 export default ImagePlugin
