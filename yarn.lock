@@ -7008,6 +7008,20 @@ dicty-components-page-editor@dictybase/dicty-components-page-editor#3.1.2:
     slate-hyperscript "0.62.0"
     slate-react "0.65.2"
 
+dicty-graphql-schema@dictyBase/dicty-graphql-schema:
+  version "1.9.0"
+  resolved "https://codeload.github.com/dictyBase/dicty-graphql-schema/tar.gz/86f5d40ef8518dd671fe3ce0341674956796c15f"
+  dependencies:
+    "@apollo/client" "^3.7.12"
+    graphql "^16.6.0"
+    graphql-tag "^2.12.6"
+    react "17.x"
+    react-dom "17.x"
+
+dicty-graphql-schema@dictyBase/dicty-graphql-schema#v1.10.0:
+  version "1.9.0"
+  resolved "https://codeload.github.com/dictyBase/dicty-graphql-schema/tar.gz/804e0c93f4ddd028884860fe69a934c4bf76ddfe"
+
 dicty-hooks@dictybase/dicty-hooks#3.0.0:
   version "3.0.0"
   resolved "https://codeload.github.com/dictybase/dicty-hooks/tar.gz/ba8c51064bed30bc514d80dc38cb25b12f1db142"

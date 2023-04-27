@@ -44,8 +44,9 @@
     "react-helmet": "^6.1.0",
     "react-loading-skeleton": "^3.3.1",
     "react-responsive-carousel": "^3.2.23",
-    "react-router-dom": "^6.11.2",
-    "twitter-fetcher": "^18.0.4"
+    "react-router-dom": "^6.8.2",
+    "twitter-fetcher": "^18.0.4",
+    "dicty-editor": "*"
   },
   "devDependencies": {
     "@material-ui/styles": "^4.11.4",
