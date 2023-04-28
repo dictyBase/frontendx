@@ -4,7 +4,7 @@ import { makeStyles, Theme } from "@material-ui/core/styles"
 import Container from "@material-ui/core/Container"
 import Box from "@material-ui/core/Box"
 import { useUpdateContentMutation } from "dicty-graphql-schema"
-import { PageEditor } from "dicty-components-page-editor"
+import { Editor } from "dicty-editor"
 import { useAuthStore } from "../Authentication/AuthStore"
 import useAuthorization from "../../common/hooks/useAuthorization"
 import { appTheme } from "../../app/layout/AppProviders"
@@ -75,13 +75,7 @@ const EditInfoPage = () => {
   return (
     <Container maxWidth="lg">
       <Box mt={2} className={classes.editor}>
-        <PageEditor
-          pageContent={data?.content}
-          readOnly={false}
-          handleSave={handleSaveClick}
-          handleCancel={handleCancelClick}
-          theme={appTheme}
-        />
+        <Editor content={data?.content} editable={true} />
       </Box>
     </Container>
   )
