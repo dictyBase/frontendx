@@ -19,6 +19,11 @@ import {
 import usePersistencePluginStyles from "./usePersistencePluginStyles"
 import "./editor.css"
 
+type EditorProperties = { 
+  content?: string
+  editable: boolean
+}
+
 const usePaperStyles = makeStyles({
   root: {
     position: "relative",
@@ -58,21 +63,22 @@ const initialConfig = {
   onError,
 }
 
-const Editor = () => {
+const Editor = ({ content, editable = false }: EditorProperties) => {
+  console.log(content)
   const inputClasses = useEditorInputStyles()
   const placeholderClasses = useEditorPlaceholderStyles()
   const persistencePluginStyles = usePersistencePluginStyles()
   const paperClasses = usePaperStyles()
-
+  
   return (
-    <LexicalComposer initialConfig={initialConfig}>
+    <LexicalComposer initialConfig={{...initialConfig, editorState: content, editable}}>
       <ListPlugin />
       <ImagePlugin />
       <WidthTablePlugin />
       <TableActionPlugin />
       <Grid container direction="column">
         <Grid item>
-          <Toolbar />
+          {editable ? <Toolbar /> : <></>}
         </Grid>
         <Grid item>
           <Paper className={paperClasses.root}>
@@ -90,7 +96,7 @@ const Editor = () => {
           </Paper>
         </Grid>
         <Grid item className={persistencePluginStyles.root}>
-          <LocalPersistencePlugin />
+          {editable ? <LocalPersistencePlugin /> : <></>}
         </Grid>
       </Grid>
     </LexicalComposer>
