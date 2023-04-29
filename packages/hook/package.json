@@ -10,7 +10,7 @@
     "@testing-library/react-hooks": "^8.x",
     "@testing-library/user-event": "^14.x",
     "@testing-library/jest-dom": "^5.x",
-    "@types/node": "~17.0.21",
+    "@types/node": "~18.16.3",
     "@types/react": "^17.x",
     "@types/react-dom": "^17.x",
     "jotai": "~1.6.1",
