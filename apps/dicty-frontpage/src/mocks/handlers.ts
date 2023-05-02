@@ -74,10 +74,10 @@ const handlers = [
 
   mockContentBySlugQuery((request, response, context) => {
     const { slug } = request.variables
-
+    
     return response(
       context.data({
-        contentBySlug,
+        contentBySlug: contentBySlug[slug],
         ...slug,
       }),
     )
