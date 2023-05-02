@@ -77,7 +77,8 @@ const handlers = [
 
     return response(
       context.data({
-        contentBySlug: { ...contentBySlug, slug },
+        contentBySlug: contentBySlug[slug],
+        slug,
       }),
     )
   }),
