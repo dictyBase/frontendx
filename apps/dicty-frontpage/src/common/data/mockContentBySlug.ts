@@ -1,6 +1,17 @@
 import MockSuperuser from "./superuser"
 
-const contentBySlug = {
+type mockContentBySlug = {
+  [slug: string]: {
+    content: string,
+    name: string
+    updated_at: string
+    updated_by: typeof MockSuperuser
+    id: string
+    slug: string
+  }
+}
+
+const contentBySlug: mockContentBySlug = {
   "foo/bar": {
     content: "content",
     name: "Content By Slug",
