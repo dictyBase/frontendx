@@ -37,7 +37,7 @@ const InfoPageView = ({ data }: Properties) => {
         />
       )}
       <ThemeProvider theme={appTheme}>
-        <Editor />
+        <Editor content={data?.content} editable={false} />
       </ThemeProvider>
     </Box>
   )
