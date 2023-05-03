@@ -1,6 +1,5 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
-import querystring from "node:querystring"
 import { useLoginMutation, User } from "dicty-graphql-schema"
 import { useAuthStore, ActionType } from "./AuthStore"
 import oauthConfig from "../../common/utils/oauthConfig"
@@ -16,7 +15,8 @@ type LoginEventData = {
 
 const getLoginInputVariables = (data: LoginEventData) => {
   const provider = (oauthConfig as any)[data.provider]
-  const parsed = querystring.parse(data.query.replace("?", ""))
+  const urlSearchParameters = new URLSearchParams(data.query)
+  const parsed = Object.fromEntries(urlSearchParameters.entries())
 
   return {
     input: {
