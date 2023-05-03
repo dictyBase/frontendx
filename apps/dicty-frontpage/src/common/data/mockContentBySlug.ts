@@ -19,7 +19,7 @@ const contentBySlug: mockContentBySlug = {
     updated_at: "2018-03-18",
     // eslint-disable-next-line camelcase
     updated_by: MockSuperuser,
-    id: "2",
+    id: "1",
     slug: "history",
   },
   "dfp-conference": {
