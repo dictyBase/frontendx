@@ -1,4 +1,7 @@
-import { LexicalComposer } from "@lexical/react/LexicalComposer"
+import {
+  InitialEditorStateType,
+  LexicalComposer,
+} from "@lexical/react/LexicalComposer"
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin"
 import { ContentEditable } from "@lexical/react/LexicalContentEditable"
 import { ListPlugin } from "@lexical/react/LexicalListPlugin"
@@ -10,6 +13,7 @@ import { Grid, Paper, makeStyles } from "@material-ui/core"
 import { ImageNode, ImagePlugin } from "image-plugin"
 import { LocalPersistencePlugin } from "persistence-plugin"
 import { WidthTablePlugin, WidthTableNode } from "width-table-plugin"
+import { FlexLayoutNode, FlexLayoutPlugin } from "flex-layout-plugin"
 import { TableActionPlugin } from "table-action-plugin"
 import Toolbar from "editor-toolbar"
 import {
@@ -19,8 +23,8 @@ import {
 import usePersistencePluginStyles from "./usePersistencePluginStyles"
 import "./editor.css"
 
-type EditorProperties = { 
-  content?: string
+type EditorProperties = {
+  content?: InitialEditorStateType
   editable: boolean
 }
 
@@ -59,27 +63,33 @@ const initialConfig = {
     TableCellNode,
     TableRowNode,
     WidthTableNode,
+    FlexLayoutNode,
   ],
   onError,
 }
 
 const Editor = ({ content, editable = false }: EditorProperties) => {
-  console.log(content)
+  // eslint-disable-next-line unicorn/no-null
+  const initialEditorState = content || null
   const inputClasses = useEditorInputStyles()
   const placeholderClasses = useEditorPlaceholderStyles()
   const persistencePluginStyles = usePersistencePluginStyles()
   const paperClasses = usePaperStyles()
-  
+
   return (
-    <LexicalComposer initialConfig={{...initialConfig, editorState: content, editable}}>
+    <LexicalComposer
+      initialConfig={{
+        ...initialConfig,
+        editorState: initialEditorState,
+        editable,
+      }}>
       <ListPlugin />
       <ImagePlugin />
+      <FlexLayoutPlugin />
       <WidthTablePlugin />
       <TableActionPlugin />
       <Grid container direction="column">
-        <Grid item>
-          {editable ? <Toolbar /> : <></>}
-        </Grid>
+        <Grid item>{editable ? <Toolbar /> : <></>}</Grid>
         <Grid item>
           <Paper className={paperClasses.root}>
             <RichTextPlugin
