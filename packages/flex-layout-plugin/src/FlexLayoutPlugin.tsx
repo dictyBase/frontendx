@@ -18,7 +18,7 @@ const FlexLayoutPlugin = () => {
     }
   })
 
-  return undefined
+  return <></>
 }
 
 export default FlexLayoutPlugin
