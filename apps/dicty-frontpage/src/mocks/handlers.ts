@@ -86,10 +86,8 @@ const handlers = [
     )
   }),
 
-  mockLoginMutation((request, response, context) => {
-    console.log(request.variables)
-
-    return response(
+  mockLoginMutation((request, response, context) =>
+    response(
       context.data({
         login: {
           user: MockSuperuser,
@@ -100,13 +98,11 @@ const handlers = [
           },
         },
       }),
-    )
-  }),
+    ),
+  ),
 
-  mockRefreshTokenQuery((request, response, context) => {
-    console.log(request.variables)
-
-    return response(
+  mockRefreshTokenQuery((request, response, context) =>
+    response(
       context.data({
         refreshToken: {
           token:
@@ -117,8 +113,8 @@ const handlers = [
           },
         },
       }),
-    )
-  }),
+    ),
+  ),
 ]
 
 export default handlers
