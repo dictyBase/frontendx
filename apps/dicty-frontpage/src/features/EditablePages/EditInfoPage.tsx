@@ -75,7 +75,7 @@ const EditInfoPage = () => {
   return (
     <Container maxWidth="lg">
       <Box mt={2} className={classes.editor}>
-        <Editor content={data?.content} editable={true} />
+        <Editor content={data?.content} editable />
       </Box>
     </Container>
   )
