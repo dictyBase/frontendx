@@ -77,6 +77,19 @@ const handlers = [
 
   mockContentBySlugQuery((request, response, context) => {
     const { slug } = request.variables
+    const content = contentBySlug[slug]
+
+    if (!content)
+      return response(
+        context.errors([
+          {
+            message: "Page Content Not Found.",
+            extensions: {
+              code: "NotFound",
+            },
+          },
+        ]),
+      )
 
     return response(
       context.data({
