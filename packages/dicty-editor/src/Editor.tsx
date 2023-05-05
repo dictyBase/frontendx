@@ -107,7 +107,10 @@ const Editor = ({ content, editable = false }: EditorProperties) => {
           </Paper>
         </Grid>
         <Grid item className={persistencePluginStyles.root}>
-          {editable ? <LocalPersistencePlugin /> : <></>}
+          <LocalPersistencePlugin
+            editable={editable}
+            storageKey={content?.id}
+          />
         </Grid>
       </Grid>
     </LexicalComposer>
