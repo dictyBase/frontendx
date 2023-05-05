@@ -9,7 +9,7 @@ import AppProviders from "./app/layout/AppProviders"
 
 const main = async () => {
   // Activate MSW
-  if (import.meta.env.VITE_APP_MOCK_SERVER === "on") {
+  if (import.meta.env.VITE_APP_DEPLOY_ENV === "mock") {
     const { default: worker } = await import("./mocks/browser")
     await worker.start()
   }
