@@ -114,8 +114,15 @@ const handlers = [
     ),
   ),
 
-  mockRefreshTokenQuery((request, response, context) =>
-    response(
+  mockRefreshTokenQuery((request, response, context) => {
+    console.log("Variables sent to mockGetRefreshTokenQuery", request.variables)
+    if (!request.variables.token) {
+      return response(
+        context.errors([{ message: "No Refresh Token Provided" }]),
+      )
+    }
+
+    return response(
       context.data({
         refreshToken: {
           token:
@@ -126,8 +133,8 @@ const handlers = [
           },
         },
       }),
-    ),
-  ),
+    )
+  }),
 ]
 
 export default handlers
