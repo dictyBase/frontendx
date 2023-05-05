@@ -25,7 +25,7 @@ import usePersistencePluginStyles from "./usePersistencePluginStyles"
 import "./editor.css"
 
 type EditorProperties = {
-  content?: InitialEditorStateType
+  content?: { id: string; editorState: InitialEditorStateType }
   editable: boolean
 }
 
@@ -71,7 +71,7 @@ const initialConfig = {
 
 const Editor = ({ content, editable = false }: EditorProperties) => {
   // eslint-disable-next-line unicorn/no-null
-  const initialEditorState = content || null
+  const initialEditorState = content?.editorState || null
   const inputClasses = useEditorInputStyles()
   const placeholderClasses = useEditorPlaceholderStyles()
   const persistencePluginStyles = usePersistencePluginStyles()
