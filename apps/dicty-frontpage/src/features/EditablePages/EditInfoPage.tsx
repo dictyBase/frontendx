@@ -37,7 +37,6 @@ const EditInfoPage = () => {
   const {
     state: { data },
   } = location
-
   const { user } = useAuthorization()
   const [updateContent] = useUpdateContentMutation({
     context: {
@@ -75,7 +74,12 @@ const EditInfoPage = () => {
   return (
     <Container maxWidth="lg">
       <Box mt={2} className={classes.editor}>
-        <Editor content={data?.content} editable />
+        <Editor
+          content={
+            data ? { id: data.id, editorState: data.content } : undefined
+          }
+          editable
+        />
       </Box>
     </Container>
   )
