@@ -2,14 +2,22 @@ import { useEffect } from "react"
 import SaveButton from "./SaveButton"
 import useLocalStorage from "./useLocalStorage"
 
-const LocalPersistencePlugin = () => {
-  const { retrieveLocalStorage, saveLocalStorage } = useLocalStorage()
+type LocalPersistencePluginProperties = {
+  storageKey: string | undefined
+  editable: boolean
+}
+
+const LocalPersistencePlugin = ({
+  storageKey,
+  editable,
+}: LocalPersistencePluginProperties) => {
+  const { retrieveLocalStorage, saveLocalStorage } = useLocalStorage(storageKey)
 
   useEffect(() => {
     retrieveLocalStorage()
   }, [retrieveLocalStorage])
 
-  return <SaveButton handleSave={saveLocalStorage} />
+  return editable ? <SaveButton handleSave={saveLocalStorage} /> : <></>
 }
 
 export default LocalPersistencePlugin
