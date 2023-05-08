@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import { Button } from "@material-ui/core"
 import {
   InitialEditorStateType,
   LexicalComposer,
@@ -11,9 +10,9 @@ import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary"
 import { ListItemNode, ListNode } from "@lexical/list"
 import { HeadingNode, QuoteNode } from "@lexical/rich-text"
 import { TableCellNode, TableRowNode } from "@lexical/table"
-import { Grid, Paper, makeStyles } from "@material-ui/core"
+import { Grid, Paper, Button, makeStyles } from "@material-ui/core"
 import { ImageNode, ImagePlugin } from "image-plugin"
-import { LocalPersistencePlugin } from "persistence-plugin"
+import { LocalPersistencePlugin, SaveButton } from "persistence-plugin"
 import { WidthTablePlugin, WidthTableNode } from "width-table-plugin"
 import { FlexLayoutNode, FlexLayoutPlugin } from "flex-layout-plugin"
 import { TableActionPlugin } from "table-action-plugin"
@@ -26,9 +25,10 @@ import usePersistencePluginStyles from "./usePersistencePluginStyles"
 import "./editor.css"
 
 type EditorProperties = {
-  content?: { id: string; editorState: InitialEditorStateType }
+  content: { id: string; editorState: InitialEditorStateType }
   editable: boolean
   handleCancelClick?: () => void
+  handleSaveClick?: (content: string) => void
 }
 
 const usePaperStyles = makeStyles({
@@ -75,6 +75,7 @@ const Editor = ({
   content,
   editable = false,
   handleCancelClick,
+  handleSaveClick,
 }: EditorProperties) => {
   // eslint-disable-next-line unicorn/no-null
   const initialEditorState = content?.editorState || null
@@ -95,6 +96,7 @@ const Editor = ({
       <FlexLayoutPlugin />
       <WidthTablePlugin />
       <TableActionPlugin />
+      <LocalPersistencePlugin currentStorageKey={content.id} />
       <Grid container direction="column">
         <Grid item>{editable ? <Toolbar /> : <></>}</Grid>
         <Grid item>
@@ -113,10 +115,11 @@ const Editor = ({
           </Paper>
         </Grid>
         <Grid item className={persistencePluginStyles.root}>
-          <LocalPersistencePlugin
-            editable={editable}
-            storageKey={content?.id}
-          />
+          {handleSaveClick ? (
+            <SaveButton storageKey={content.id} handleSave={handleSaveClick} />
+          ) : (
+            <></>
+          )}
           {handleCancelClick ? (
             <Button variant="contained" onClick={handleCancelClick}>
               Cancel
