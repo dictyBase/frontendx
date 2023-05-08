@@ -1,6 +1,6 @@
 import React from "react"
 import { useNavigate, useLocation } from "react-router-dom"
-import { makeStyles, Theme, Button } from "@material-ui/core"
+import { makeStyles, Theme } from "@material-ui/core"
 import Container from "@material-ui/core/Container"
 import Box from "@material-ui/core/Box"
 import { useUpdateContentMutation } from "dicty-graphql-schema"
@@ -8,6 +8,7 @@ import { Editor } from "dicty-editor"
 import { useAuthStore } from "../Authentication/AuthStore"
 import useAuthorization from "../../common/hooks/useAuthorization"
 import { appTheme } from "../../app/layout/AppProviders"
+import Fallback from "../../common/components/Fallback"
 
 const useStyles = makeStyles((theme: Theme) => ({
   editor: {
@@ -71,15 +72,16 @@ const EditInfoPage = () => {
     navigate(previousURL)
   }
 
+  if (!data) return <Fallback />
+
   return (
     <Container maxWidth="lg">
       <Box mt={2} className={classes.editor}>
         <Editor
-          content={
-            data ? { id: data.id, editorState: data.content } : undefined
-          }
+          content={{ id: data.id, editorState: data.content }}
           editable
           handleCancelClick={handleCancelClick}
+          handleSaveClick={handleSaveClick}
         />
       </Box>
     </Container>
