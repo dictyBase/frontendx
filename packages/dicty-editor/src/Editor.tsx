@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-no-useless-fragment */
+import { Button } from "@material-ui/core"
 import {
   InitialEditorStateType,
   LexicalComposer,
@@ -27,6 +28,7 @@ import "./editor.css"
 type EditorProperties = {
   content?: { id: string; editorState: InitialEditorStateType }
   editable: boolean
+  handleCancelClick?: () => void
 }
 
 const usePaperStyles = makeStyles({
@@ -69,7 +71,11 @@ const initialConfig = {
   onError,
 }
 
-const Editor = ({ content, editable = false }: EditorProperties) => {
+const Editor = ({
+  content,
+  editable = false,
+  handleCancelClick,
+}: EditorProperties) => {
   // eslint-disable-next-line unicorn/no-null
   const initialEditorState = content?.editorState || null
   const inputClasses = useEditorInputStyles()
@@ -111,6 +117,13 @@ const Editor = ({ content, editable = false }: EditorProperties) => {
             editable={editable}
             storageKey={content?.id}
           />
+          {handleCancelClick ? (
+            <Button variant="contained" onClick={handleCancelClick}>
+              Cancel
+            </Button>
+          ) : (
+            <></>
+          )}
         </Grid>
       </Grid>
     </LexicalComposer>
