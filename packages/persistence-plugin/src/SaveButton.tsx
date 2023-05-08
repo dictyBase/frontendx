@@ -1,18 +1,25 @@
 import { Button } from "@material-ui/core"
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import useButtonStyles from "./useButtonStyles"
 import useButtonState from "./useButtonState"
 import { buttonColor, buttonIcon, buttonText } from "./buttonProperties"
+import { SAVE_LOCAL_COMMAND } from "./LocalPersistencePlugin"
 
 type SaveButtonProperties = {
-  handleSave: () => void
+  storageKey: string
+  handleSave: (value: string) => void
 }
 // I think we might have to pass in the onClick handler and
 // handle the changing button state logic in the whichever persistenceplugin
 // uses the savebutton. If our savehook callback is asynchronous, then we'll want
 // to await that callback before proceeding to set the button state
-const SaveButton = ({ handleSave }: SaveButtonProperties) => {
+const SaveButton = ({ storageKey, handleSave }: SaveButtonProperties) => {
+  const [editor] = useLexicalComposerContext()
   const { root } = useButtonStyles()
-  const [buttonState, onClick] = useButtonState(handleSave)
+  const [buttonState, onClick] = useButtonState(() => {
+    editor.dispatchCommand(SAVE_LOCAL_COMMAND, { storageKey })
+    handleSave("placeholder")
+  })
 
   return (
     <Button
