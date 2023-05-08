@@ -1,28 +1,18 @@
-import { useCallback } from "react"
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
+import { LexicalEditor } from "lexical"
 
-// if data exists in persistence plugin, get persistence plugin data
-//
-const useLocalStorage = (storageKey: string | undefined) => {
-  const [editor] = useLexicalComposerContext()
-
-  const saveLocalStorage = useCallback(() => {
-    if (!storageKey) return
-    const editorState = editor.getEditorState()
-    const editorStateString = JSON.stringify(editorState)
-    localStorage.setItem(`DFP-${storageKey}`, editorStateString)
-  }, [editor, storageKey])
-
-  const retrieveLocalStorage = useCallback(() => {
-    if (!storageKey) return
-    const editorString = localStorage.getItem(`DFP-${storageKey}`)
-    if (editorString) {
-      const editorState = editor.parseEditorState(editorString)
-      editor.setEditorState(editorState)
-    }
-  }, [editor, storageKey])
-
-  return { saveLocalStorage, retrieveLocalStorage }
+export const saveLocalStorage = (editor: LexicalEditor, storageKey: string) => {
+  const editorState = editor.getEditorState()
+  const editorStateString = JSON.stringify(editorState)
+  localStorage.setItem(`DFP-${storageKey}`, editorStateString)
 }
 
-export default useLocalStorage
+export const retrieveLocalStorage = (
+  editor: LexicalEditor,
+  storageKey: string,
+) => {
+  const editorString = localStorage.getItem(`DFP-${storageKey}`)
+  if (editorString) {
+    const editorState = editor.parseEditorState(editorString)
+    editor.setEditorState(editorState)
+  }
+}
