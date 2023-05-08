@@ -6,6 +6,7 @@ import {
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin"
 import { ContentEditable } from "@lexical/react/LexicalContentEditable"
 import { ListPlugin } from "@lexical/react/LexicalListPlugin"
+import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin"
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary"
 import { ListItemNode, ListNode } from "@lexical/list"
 import { HeadingNode, QuoteNode } from "@lexical/rich-text"
@@ -25,10 +26,10 @@ import usePersistencePluginStyles from "./usePersistencePluginStyles"
 import "./editor.css"
 
 type EditorProperties = {
-  content: { id: string; editorState: InitialEditorStateType }
+  content?: { storageKey: string; editorState: InitialEditorStateType }
   editable: boolean
-  handleCancelClick?: () => void
-  handleSaveClick?: (content: string) => void
+  handleCancel?: () => void
+  handleSave?: (content: string) => void
 }
 
 const usePaperStyles = makeStyles({
@@ -74,8 +75,8 @@ const initialConfig = {
 const Editor = ({
   content,
   editable = false,
-  handleCancelClick,
-  handleSaveClick,
+  handleCancel: handleCancelClick,
+  handleSave: handleSaveClick,
 }: EditorProperties) => {
   // eslint-disable-next-line unicorn/no-null
   const initialEditorState = content?.editorState || null
@@ -96,7 +97,12 @@ const Editor = ({
       <FlexLayoutPlugin />
       <WidthTablePlugin />
       <TableActionPlugin />
-      <LocalPersistencePlugin currentStorageKey={content.id} />
+      <HistoryPlugin />
+      {content?.storageKey ? (
+        <LocalPersistencePlugin storageKey={content.storageKey} />
+      ) : (
+        <></>
+      )}
       <Grid container direction="column">
         <Grid item>{editable ? <Toolbar /> : <></>}</Grid>
         <Grid item>
@@ -116,7 +122,7 @@ const Editor = ({
         </Grid>
         <Grid item className={persistencePluginStyles.root}>
           {handleSaveClick ? (
-            <SaveButton storageKey={content.id} handleSave={handleSaveClick} />
+            <SaveButton handleSave={handleSaveClick} />
           ) : (
             <></>
           )}
