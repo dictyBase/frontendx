@@ -1,4 +1,3 @@
-import React from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { makeStyles, Theme } from "@material-ui/core"
 import Container from "@material-ui/core/Container"
@@ -7,7 +6,6 @@ import { useUpdateContentMutation } from "dicty-graphql-schema"
 import { Editor } from "dicty-editor"
 import { useAuthStore } from "../Authentication/AuthStore"
 import useAuthorization from "../../common/hooks/useAuthorization"
-import { appTheme } from "../../app/layout/AppProviders"
 import Fallback from "../../common/components/Fallback"
 
 const useStyles = makeStyles((theme: Theme) => ({
