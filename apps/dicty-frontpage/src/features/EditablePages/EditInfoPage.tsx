@@ -1,6 +1,6 @@
 import React from "react"
 import { useNavigate, useLocation } from "react-router-dom"
-import { makeStyles, Theme } from "@material-ui/core/styles"
+import { makeStyles, Theme, Button } from "@material-ui/core"
 import Container from "@material-ui/core/Container"
 import Box from "@material-ui/core/Box"
 import { useUpdateContentMutation } from "dicty-graphql-schema"
@@ -79,6 +79,7 @@ const EditInfoPage = () => {
             data ? { id: data.id, editorState: data.content } : undefined
           }
           editable
+          handleCancelClick={handleCancelClick}
         />
       </Box>
     </Container>
