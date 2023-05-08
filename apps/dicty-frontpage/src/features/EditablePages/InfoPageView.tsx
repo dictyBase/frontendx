@@ -6,6 +6,7 @@ import Box from "@material-ui/core/Box"
 import { ContentBySlugQuery } from "dicty-graphql-schema"
 import { appTheme } from "../../app/layout/AppProviders"
 import InfoPageViewToolbar from "./InfoPageViewToolbar"
+import Fallback from "../../common/components/Fallback"
 
 type Properties = {
   /** Page content object */
@@ -27,21 +28,19 @@ const InfoPageView = ({ data }: Properties) => {
     })
   }
 
+  if (!data) return <Fallback />
+
   return (
     <Box>
-      {data?.updatedBy && (
-        <InfoPageViewToolbar
-          handleClick={handleClick}
-          lastUpdate={data?.updatedAt}
-          user={data.updatedBy}
-        />
-      )}
+      <InfoPageViewToolbar
+        handleClick={handleClick}
+        lastUpdate={data?.updated_at}
+        user={data.updated_by}
+      />
       <ThemeProvider theme={appTheme}>
         <Editor
           editable={false}
-          content={
-            data ? { id: data.id, editorState: data.content } : undefined
-          }
+          content={{ id: data.id, editorState: data.content }}
         />
       </ThemeProvider>
     </Box>
