@@ -2,13 +2,12 @@ import { useNavigate, useLocation } from "react-router-dom"
 import Box from "@material-ui/core/Box"
 import Typography from "@material-ui/core/Typography"
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import { PageEditor } from "dicty-components-page-editor"
 import { useCreateContentMutation } from "dicty-graphql-schema"
+import { Editor } from "dicty-editor"
 import ErrorNotification from "../Authentication/ErrorNotification"
 import { useAuthStore } from "../Authentication/AuthStore"
 import useAuthorization from "../../common/hooks/useAuthorization"
 import NAMESPACE from "../../common/constants/namespace"
-import { appTheme } from "../../app/layout/AppProviders"
 
 const useStyles = makeStyles((theme: Theme) => ({
   banner: {
@@ -82,11 +81,10 @@ const AddPage = () => {
         <Typography variant="h3">{previousURL}</Typography>
       </Box>
       <Box width="80%" m="auto">
-        <PageEditor
+        <Editor
           handleSave={handleSaveClick}
           handleCancel={handleCancelClick}
-          readOnly={false}
-          theme={appTheme}
+          editable
         />
       </Box>
     </>
