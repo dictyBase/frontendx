@@ -18,7 +18,6 @@ const useButtonState = (handleSave: () => void): [ButtonStates, () => void] => {
         setButtonState("DONE")
       } catch {
         setButtonState("ERROR")
-      } finally {
         setTimeout(() => {
           setButtonState("NORMAL")
         }, 2000)
