@@ -78,7 +78,7 @@ describe("createCellWithParagraphNode & createHeaderCellwithParagraphNode", () =
 })
 
 describe("bodyCellsToAppend & headerCellsToAppend", () => {
-  const cellCount = Math.floor(Math.random() * 10)
+  const cellCount = 3
 
   let tableBodyRow: TableRowNode
   let bodyCellsInRow: number
@@ -187,8 +187,8 @@ describe("cellsToAppend & headerCellsToAppend", () => {
 })
 
 describe("createWidthTable", () => {
-  const rowCount = Math.floor(Math.random() * 10)
-  const columnCount = Math.floor(Math.random() * 10)
+  const rowCount = 3
+  const columnCount = 3
   const width = 500
   let tableNode: WidthTableNode
   let numberOfRows: number
