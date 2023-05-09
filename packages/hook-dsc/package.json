@@ -16,7 +16,7 @@
     "eslint-config-custom": "*",
     "jsdom": "latest",
     "tsconfig": "*",
-    "vitest": "latest"
+    "vitest": "0.31.x"
   },
   "dependencies": {
     "@apollo/client": "3.7.10",

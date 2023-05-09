@@ -15,9 +15,9 @@
     "@testing-library/dom": "^7.21.4",
     "@testing-library/user-event": "^13.5.0",
     "@types/react": "17.x",
-    "@vitest/coverage-c8": "^0.28.5",
+    "@vitest/coverage-c8": "0.31.x",
     "jsdom": "latest",
-    "vitest": "latest",
+    "vitest": "0.31.x",
     "eslint-config-custom": "*",
     "width-table-plugin": "*"
   },

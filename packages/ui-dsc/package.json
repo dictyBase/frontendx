@@ -29,7 +29,7 @@
     "eslint-config-custom": "*",
     "jsdom": "latest",
     "tsconfig": "*",
-    "vitest": "latest"
+    "vitest": "0.31.x"
   },
   "resolutions": {
     "@types/react": "17.x",

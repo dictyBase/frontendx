@@ -13,10 +13,10 @@
   },
   "devDependencies": {
     "@types/react": "^17.x",
-    "@vitest/coverage-c8": "^0.28.5",
+    "@vitest/coverage-c8": "0.31.x",
     "eslint-config-custom": "*",
     "jsdom": "latest",
-    "vitest": "latest",
+    "vitest": "0.31.x",
     "tsconfig": "*"
   },
   "dependencies": {
