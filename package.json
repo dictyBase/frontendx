@@ -10,6 +10,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "test": "turbo run test",
+    "coverage": "turbo run coverage",
     "lint": "turbo run lint",
     "lint:out": "turbo run lint:out",
     "lint:merge": "tsx merge_eslint.ts eslint",
