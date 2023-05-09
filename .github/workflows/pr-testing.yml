@@ -14,6 +14,6 @@ jobs:
       - name: install
         run: yarn install
       - name: unit tests
-        run: yarn test
+        run: yarn coverage
         env:
           CI: true
