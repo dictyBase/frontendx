@@ -9,11 +9,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
+      - name: check node version
+        run: node -v
       - name: check out code
         uses: actions/checkout@v3
       - name: install
         run: yarn install
       - name: unit tests
         run: yarn coverage
-        env:
-          CI: true
