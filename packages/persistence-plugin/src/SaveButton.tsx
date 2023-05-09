@@ -6,18 +6,17 @@ import { buttonColor, buttonIcon, buttonText } from "./buttonProperties"
 import { SAVE_LOCAL_COMMAND } from "./LocalPersistencePlugin"
 
 type SaveButtonProperties = {
-  storageKey: string
   handleSave: (value: string) => void
 }
 // I think we might have to pass in the onClick handler and
 // handle the changing button state logic in the whichever persistenceplugin
 // uses the savebutton. If our savehook callback is asynchronous, then we'll want
 // to await that callback before proceeding to set the button state
-const SaveButton = ({ storageKey, handleSave }: SaveButtonProperties) => {
+const SaveButton = ({ handleSave }: SaveButtonProperties) => {
   const [editor] = useLexicalComposerContext()
   const { root } = useButtonStyles()
   const [buttonState, onClick] = useButtonState(() => {
-    editor.dispatchCommand(SAVE_LOCAL_COMMAND, { storageKey })
+    editor.dispatchCommand(SAVE_LOCAL_COMMAND, {})
     handleSave("placeholder")
   })
 
