@@ -3,52 +3,33 @@ import { createCommand, COMMAND_PRIORITY_EDITOR } from "lexical"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { saveLocalStorage, retrieveLocalStorage } from "./useLocalStorage"
 
-type LocalStorageCommandPayload = {
+type LocalPersistencePluginProperties = {
   storageKey: string
 }
 
-type LocalPersistencePluginProperties = {
-  currentStorageKey: string
-}
-
-export const SAVE_LOCAL_COMMAND = createCommand<LocalStorageCommandPayload>()
-export const RETRIEVE_LOCAL_COMMAND =
-  createCommand<LocalStorageCommandPayload>()
+export const SAVE_LOCAL_COMMAND = createCommand()
+export const RETRIEVE_LOCAL_COMMAND = createCommand()
 
 const LocalPersistencePlugin = ({
-  currentStorageKey,
+  storageKey,
 }: LocalPersistencePluginProperties) => {
   const [editor] = useLexicalComposerContext()
 
   useEffect(() => {
     const unregisterSaveLocal = editor.registerCommand(
       SAVE_LOCAL_COMMAND,
-      ({ storageKey }) => {
+      () => {
         saveLocalStorage(editor, storageKey)
         return true
       },
       COMMAND_PRIORITY_EDITOR,
     )
-    const unregisterRetrieveLocal = editor.registerCommand(
-      RETRIEVE_LOCAL_COMMAND,
-      ({ storageKey }) => {
-        retrieveLocalStorage(editor, storageKey)
-        return true
-      },
-      COMMAND_PRIORITY_EDITOR,
-    )
-
+    retrieveLocalStorage(editor, storageKey)
     return () => {
       unregisterSaveLocal()
-      unregisterRetrieveLocal()
     }
-  }, [editor])
+  }, [editor, storageKey])
 
-  useEffect(() => {
-    editor.dispatchCommand(RETRIEVE_LOCAL_COMMAND, {
-      storageKey: currentStorageKey,
-    })
-  }, [currentStorageKey, editor])
   // eslint-disable-next-line react/jsx-no-useless-fragment
   return <></>
 }
