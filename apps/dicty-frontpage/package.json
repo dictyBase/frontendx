@@ -7,7 +7,7 @@
     "build": "vite build",
     "test": "vitest run",
     "serve": "vite preview --port 3000",
-    "test-coverage": "vitest run --coverage",
+    "coverage": "vitest run --coverage",
     "lint": "eslint --ext .jsx,.js,.ts,.tsx src/",
     "styleguide": "FAST_REFRESH=false styleguidist server",
     "styleguide:build": "FAST_REFRESH=false styleguidist build",
