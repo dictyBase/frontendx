@@ -76,10 +76,10 @@ const EditInfoPage = () => {
     <Container maxWidth="lg">
       <Box mt={2} className={classes.editor}>
         <Editor
-          content={{ id: data.id, editorState: data.content }}
+          content={{ storageKey: data.slug, editorState: data.content }}
           editable
-          handleCancelClick={handleCancelClick}
-          handleSaveClick={handleSaveClick}
+          handleCancel={handleCancelClick}
+          handleSave={handleSaveClick}
         />
       </Box>
     </Container>
