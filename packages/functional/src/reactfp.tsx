@@ -13,7 +13,7 @@ const reactCompMonoid: Monoid<Comp> = {
       {y}
     </>
   ),
-  empty: <div>error error</div>,
+  empty: <></>,
 }
 
 const fromChildren = (...c: Array<Comp>) =>
