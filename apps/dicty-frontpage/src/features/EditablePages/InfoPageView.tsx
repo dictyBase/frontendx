@@ -40,7 +40,7 @@ const InfoPageView = ({ data }: Properties) => {
       <ThemeProvider theme={appTheme}>
         <Editor
           editable={false}
-          content={{ id: data.id, editorState: data.content }}
+          content={{ storageKey: data.slug, editorState: data.content }}
         />
       </ThemeProvider>
     </Box>
