@@ -75,8 +75,8 @@ const initialConfig = {
 const Editor = ({
   content,
   editable = false,
-  handleCancel: handleCancelClick,
-  handleSave: handleSaveClick,
+  handleCancel,
+  handleSave,
 }: EditorProperties) => {
   // eslint-disable-next-line unicorn/no-null
   const initialEditorState = content?.editorState || null
@@ -121,13 +121,9 @@ const Editor = ({
           </Paper>
         </Grid>
         <Grid item className={persistencePluginStyles.root}>
-          {handleSaveClick ? (
-            <SaveButton handleSave={handleSaveClick} />
-          ) : (
-            <></>
-          )}
-          {handleCancelClick ? (
-            <Button variant="contained" onClick={handleCancelClick}>
+          {handleSave ? <SaveButton handleSave={handleSave} /> : <></>}
+          {handleCancel ? (
+            <Button variant="contained" onClick={handleCancel}>
               Cancel
             </Button>
           ) : (
