@@ -78,7 +78,7 @@
     "snyk": "^1.1111.0",
     "source-map-explorer": "^2.5.3",
     "vite": "latest",
-    "vitest": "latest",
+    "vitest": "^0.25.3",
     "vitest-fetch-mock": "^0.2.2",
     "wait-for-expect": "^3.0.2",
     "eslint-config-custom": "*",
