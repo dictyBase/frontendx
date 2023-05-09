@@ -8,7 +8,7 @@
   "devDependencies": {
     "@testing-library/react": "^12.x",
     "@testing-library/react-hooks": "^8.x",
-    "@testing-library/user-event":"^14.x",
+    "@testing-library/user-event": "^14.x",
     "@testing-library/jest-dom": "^5.x",
     "@types/react": "17.x",
     "@types/react-dom": "17.x",
@@ -24,8 +24,6 @@
     "react-dom": "17.x"
   },
   "scripts": {
-    "test": "vitest",
-    "coverage": "vitest run --coverage",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/apollo-error-nextjs.json"
   },
