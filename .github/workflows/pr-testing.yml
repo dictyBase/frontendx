@@ -11,6 +11,8 @@ jobs:
           node-version: 18
       - name: check out code
         uses: actions/checkout@v3
+      - name: rename config file
+        run: mv src/common/utils/clientConfig.sample.ts src/common/utils/clientConfig.ts
       - name: install
         run: yarn install
       - name: unit tests
