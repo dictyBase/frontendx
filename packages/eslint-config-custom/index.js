@@ -63,6 +63,7 @@ module.exports = {
       },
     ],
     "react/require-default-props": "off",
+    "react/jsx-no-useless-fragment": "off",
     "react/react-in-jsx-scope": "off",
     "react/function-component-definition": [
       "warn",
