@@ -68,7 +68,6 @@ const PapersItem = ({ data }: PaperContainerProperties) => {
       </li>
     )
   })
-  // eslint-disable-next-line react/jsx-no-useless-fragment --- recentPublications may represent more than one child, and should therefore be wrapped in a JSX fragment
   return <>{recentPublications}</>
 }
 
