@@ -6,7 +6,7 @@
   "author": "Siddhartha Basu",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "@apollo/client": "3.7.10",
+    "@apollo/client": "3.6.9",
     "@material-ui/core": "4.12.x",
     "@material-ui/icons": "~4.11.2",
     "@material-ui/lab": "~4.11.3-deprecations.1",
