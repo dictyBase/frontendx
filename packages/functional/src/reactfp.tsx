@@ -13,7 +13,6 @@ const reactCompMonoid: Monoid<Comp> = {
       {y}
     </>
   ),
-  // eslint-disable-next-line react/jsx-no-useless-fragment
   empty: <></>,
 }
 
