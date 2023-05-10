@@ -28,7 +28,7 @@ const TableActionPlugin = () => {
       </>
     )
 
-  return undefined
+  return <></>
 }
 
 export default TableActionPlugin
