@@ -1,0 +1,88 @@
+{
+  "name": "dicty-graphql-schema",
+  "version": "1.9.0",
+  "description": "GraphQL schema and typings for the dictyBase API.",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "module": "./dist/index.mjs",
+  "files": [
+    "dist",
+    "types",
+    "package.json"
+  ],
+  "private": true,
+  "engines": {
+    "node": ">= 16.13.1"
+  },
+  "scripts": {
+    "generate": "graphql-codegen",
+    "build-esm": "esbuild --bundle types/index.ts --outfile=dist/index.mjs --format=esm --target=chrome87,firefox78,safari13,edge88 --external:./node_modules/*",
+    "build-cjs": "esbuild --bundle types/index.ts --outfile=dist/index.js --format=cjs --target=chrome87,firefox78,safari13,edge88 --external:./node_modules/*",
+    "build": "tsup types/index.ts --format esm,cjs --target=chrome87,firefox78,safari13,edge88 --dts",
+    "compile": "yarn run generate && yarn run build",
+    "clean": "rm -rf dist",
+    "create-release": "semantic-release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dictyBase/graphql-schema.git"
+  },
+  "author": "Siddhartha Basu <siddhartha-basu@northwestern.edu>",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/dictyBase/graphql-schema/issues"
+  },
+  "eslintConfig": {
+    "overrides": [
+      {
+        "files": [
+          "*.graphql"
+        ],
+        "parser": "@graphql-eslint/eslint-plugin",
+        "plugins": [
+          "@graphql-eslint"
+        ],
+        "extends": "plugin:@graphql-eslint/schema-recommended",
+        "parserOptions": {
+          "schema": "./src/schema/*.graphql"
+        },
+        "rules": {
+          "prettier/prettier": "error"
+        }
+      }
+    ]
+  },
+  "homepage": "https://github.com/dictyBase/graphql-schema#readme",
+  "dependencies": {
+    "@apollo/client": "^3.7.14",
+    "graphql": "^16.6.0",
+    "graphql-tag": "^2.12.6",
+    "react": "17.x",
+    "react-dom": "17.x"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "3.3.1",
+    "@graphql-codegen/fragment-matcher": "^4.0.1",
+    "@graphql-codegen/introspection": "2.2.3",
+    "@graphql-codegen/typescript": "3.0.4",
+    "@graphql-codegen/typescript-apollo-client-helpers": "^2.2.6",
+    "@graphql-codegen/typescript-msw": "^1.1.6",
+    "@graphql-codegen/typescript-operations": "3.0.4",
+    "@graphql-codegen/typescript-react-apollo": "3.3.7",
+    "@graphql-eslint/eslint-plugin": "^3.18.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^9.0.2",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^8.0.7",
+    "@semantic-release/npm": "^9.0.2",
+    "@semantic-release/release-notes-generator": "^10.0.3",
+    "@types/node": "18.x",
+    "@types/react": "17.x",
+    "@types/react-dom": "17.x",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.8",
+    "semantic-release": "^19.0.5",
+    "tsup": "^6.7.0",
+    "typescript": "^5.0.4"
+  }
+}

@@ -1,0 +1,25 @@
+schema:
+  - "./src/schema/*.graphql"
+documents:
+  - "./src/queries/*.graphql"
+  - "./src/mutations/*.graphql"
+generates:
+  ./types/index.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+    config:
+      withHooks: true
+  ./introspection/fragment.ts:
+    plugins:
+      - fragment-matcher
+  ./introspection/apollo-client-helpers.ts:
+    plugins:
+      - typescript-apollo-client-helpers
+  ./introspection/mocks.ts:
+    plugins:
+      - typescript-msw
+  ./schema.json:
+    plugins:
+      - "introspection"

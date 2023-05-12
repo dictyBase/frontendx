@@ -1,0 +1,73 @@
+type Query {
+  # Auth queries
+  getRefreshToken(token: String!): Auth
+  # Content queries
+  content(id: ID!): Content
+  contentBySlug(slug: String!): Content
+  # Download page queries
+  organism(taxon_id: String!): Organism
+  listOrganisms: [Organism!]
+  # Gene queries
+  gene(gene: String!): Gene
+  allStrains(gene: String!): Gene
+  # Lists out all publications with other genes mentioned in the publication
+  allPublications(
+    gene: String!
+    limit: Int
+    sort_by: String
+  ): NumberOfPublicationsWithGene!
+  # Lists out all the Orthologs
+  allOrthologs(gene: String!): Gene
+  # List gene query that is by default is sorted by gene
+  # date in descendent order
+  listRecentGenes(limit: Int!): [Gene!]
+  # List general information given gene
+  generalInformation(gene: String!): Gene
+  # List associated sequences given gene
+  getAssociatedSequnces(gene: String!): Gene
+  # List links given gene
+  getLinks(gene: String!): Gene
+  # List Protein Information given gene
+  getProteinInformation(gene: String!): Gene
+  # List all product info associated to the gene
+  listGeneProductInfo(gene: String!): Gene
+  # Order queries
+  order(id: ID!): Order
+  listOrders(cursor: Int, limit: Int, filter: String): OrderListWithCursor
+  # Publication queries
+  publication(id: ID!): Publication
+  # List publication query that is by default is sorted by publication
+  # date in descendent order
+  listRecentPublications(limit: Int!): [Publication!]
+  # Stock queries
+  plasmid(id: ID!): Plasmid
+  strain(id: ID!): Strain
+  listStrains(cursor: Int, limit: Int, filter: StrainListFilter): StrainListWithCursor
+  listPlasmids(cursor: Int, limit: Int, filter: String): PlasmidListWithCursor
+  listStrainsWithAnnotation(
+    cursor: Int
+    limit: Int
+    type: String!
+    annotation: String!
+  ): StrainListWithCursor
+  listPlasmidsWithAnnotation(
+    cursor: Int
+    limit: Int
+    type: String!
+    annotation: String!
+  ): PlasmidListWithCursor
+  # List plasmid query that is by default is sorted by plasmid
+  # date in descendent order
+  listRecentPlasmids(limit: Int!): [Plasmid!]
+  # List strain query that is by default is sorted by strain
+  # date in descendent order
+  listRecentStrains(limit: Int!): [Strain!]
+  # User queries
+  user(id: ID!): User
+  userByEmail(email: String!): User
+  listUsers(pagenum: String!, pagesize: String!, filter: String!): UserList
+  role(id: ID!): Role
+  listRoles: [Role!]
+  permission(id: ID!): Permission
+  listPermissions: [Permission!]
+}

@@ -1,0 +1,28 @@
+type Content {
+  id: ID!
+  name: String!
+  slug: String!
+  created_by: User!
+  updated_by: User!
+  created_at: Timestamp!
+  updated_at: Timestamp!
+  content: String!
+  namespace: String!
+}
+
+input CreateContentInput {
+  name: String!
+  created_by: String!
+  content: String!
+  namespace: String!
+}
+
+input UpdateContentInput {
+  id: ID!
+  updated_by: String!
+  content: String!
+}
+
+type DeleteContent {
+  success: Boolean!
+}

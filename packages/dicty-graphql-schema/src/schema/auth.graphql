@@ -1,0 +1,27 @@
+input LoginInput {
+  client_id: String!
+  state: String!
+  code: String!
+  scopes: String!
+  provider: String!
+  redirect_url: String!
+}
+
+type Identity {
+  id: ID!
+  identifier: String!
+  provider: String!
+  user_id: ID!
+  created_at: Timestamp!
+  updated_at: Timestamp!
+}
+
+type Auth {
+  token: String!
+  user: User!
+  identity: Identity!
+}
+
+type Logout {
+  success: Boolean!
+}
