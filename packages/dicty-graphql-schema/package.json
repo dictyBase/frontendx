@@ -32,26 +32,6 @@
   "bugs": {
     "url": "https://github.com/dictyBase/graphql-schema/issues"
   },
-  "eslintConfig": {
-    "overrides": [
-      {
-        "files": [
-          "*.graphql"
-        ],
-        "parser": "@graphql-eslint/eslint-plugin",
-        "plugins": [
-          "@graphql-eslint"
-        ],
-        "extends": "plugin:@graphql-eslint/schema-recommended",
-        "parserOptions": {
-          "schema": "./src/schema/*.graphql"
-        },
-        "rules": {
-          "prettier/prettier": "error"
-        }
-      }
-    ]
-  },
   "homepage": "https://github.com/dictyBase/graphql-schema#readme",
   "dependencies": {
     "@apollo/client": "^3.7.14",
