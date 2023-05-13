@@ -15,7 +15,7 @@
     "@testing-library/dom": "^7.21.4",
     "@testing-library/user-event": "^13.5.0",
     "@types/react": "17.x",
-    "@vitest/coverage-c8": "^0.28.5",
+    "@vitest/coverage-c8": "^0.31.0",
     "jsdom": "latest",
     "vitest": "latest",
     "eslint-config-custom": "*",

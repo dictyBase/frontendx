@@ -14,7 +14,7 @@
   "devDependencies": {
     "@types/react": "17.x",
     "@types/react-dom": "17.x",
-    "@vitest/coverage-c8": "^0.28.5",
+    "@vitest/coverage-c8": "^0.31.0",
     "jsdom": "latest",
     "vitest": "latest",
     "eslint-config-custom": "*",
