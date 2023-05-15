@@ -9,9 +9,6 @@
     "package.json"
   ],
   "private": true,
-  "engines": {
-    "node": ">= 16.13.1"
-  },
   "scripts": {
     "generate": "graphql-codegen"
   },
