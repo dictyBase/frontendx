@@ -19,7 +19,8 @@
     "doc:build": "typedoc --tsconfig typedoc-tsconfig.json",
     "doc:watch": "typedoc --tsconfig typedoc-tsconfig.json --watch",
     "create:package": "plop package",
-    "create:app": "plop app"
+    "create:app": "plop app",
+    "generate:schema": "turbo run generate"
   },
   "devDependencies": {
     "browserlist": "latest",
