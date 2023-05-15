@@ -2,7 +2,7 @@
   "name": "dicty-graphql-schema",
   "version": "0.0.0",
   "description": "GraphQL schema and typings for the dictyBase API.",
-  "main": "./index.js",
+  "main": "./index.ts",
   "typings": "./dist/index.d.ts",
   "files": [
     "types",
@@ -44,7 +44,6 @@
     "@graphql-eslint/eslint-plugin": "^3.18.0",
     "@types/node": "18.x",
     "@types/react": "17.x",
-    "@types/react-dom": "17.x",
-    "tsup": "^6.7.0"
+    "@types/react-dom": "17.x"
   }
 }
