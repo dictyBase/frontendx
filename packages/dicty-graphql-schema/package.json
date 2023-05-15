@@ -5,7 +5,6 @@
   "main": "./index.js",
   "typings": "./dist/index.d.ts",
   "files": [
-    "dist",
     "types",
     "package.json"
   ],
