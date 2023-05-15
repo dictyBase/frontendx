@@ -14,12 +14,7 @@
     "node": ">= 16.13.1"
   },
   "scripts": {
-    "generate": "graphql-codegen",
-    "build-esm": "esbuild --bundle types/index.ts --outfile=dist/index.mjs --format=esm --target=chrome87,firefox78,safari13,edge88 --external:./node_modules/*",
-    "build-cjs": "esbuild --bundle types/index.ts --outfile=dist/index.js --format=cjs --target=chrome87,firefox78,safari13,edge88 --external:./node_modules/*",
-    "build": "tsup types/index.ts --format esm,cjs --target=chrome87,firefox78,safari13,edge88 --dts",
-    "compile": "yarn run generate && yarn run build",
-    "clean": "rm -rf dist"
+    "generate": "graphql-codegen"
   },
   "repository": {
     "type": "git",
