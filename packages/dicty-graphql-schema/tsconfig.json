@@ -1,12 +1,9 @@
 {
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "ESNext",
-    "strict": true,
-    "outDir": "dist",
-    "declaration": true,
-    "emitDeclarationOnly": true,
-    "moduleResolution": "node"
-  },
-  "include": ["types/*"]
+  "extends": "tsconfig/react-library-esm.json",
+  "include": [
+    "generated"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
