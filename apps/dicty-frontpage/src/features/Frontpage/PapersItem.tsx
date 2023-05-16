@@ -40,9 +40,7 @@ const PapersItem = ({ data }: PaperContainerProperties) => {
   const recentPublications = filteredPublications.map((paper) => {
     const { authors, id, title, journal } = paper
     const doi = paper?.doi
-    const lastname = Array.isArray(authors[0]?.last_name)
-      ? authors[0]?.last_name?.join(", ")
-      : authors[0]?.last_name
+    const lastname = authors.map((author) => author.last_name).join(", ")
 
     return (
       <li className={classes.listItem} key={id}>
