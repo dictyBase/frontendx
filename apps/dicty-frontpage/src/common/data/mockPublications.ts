@@ -15,7 +15,7 @@ const listRecentPublications = [
       { last_name: "Tanaka" },
       { last_name: "Jahan" },
       { last_name: "Kondo" },
-      { last_name: "Nakano & Yumura (2019" },
+      { last_name: "Nakano & Yumura (2019)" },
     ],
   },
   {
