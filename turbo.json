@@ -2,8 +2,13 @@
   "$schema": "https://turborepo.org/schema.json",
   "pipeline": {
     "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**"]
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "dist/**",
+        ".next/**"
+      ]
     },
     "lint": {},
     "lint:out": {
@@ -13,6 +18,7 @@
       "cache": false
     },
     "test": {},
-    "coverage": {}
+    "coverage": {},
+    "generate": {}
   }
 }
