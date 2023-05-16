@@ -2,26 +2,13 @@
   "name": "dicty-graphql-schema",
   "version": "0.0.0",
   "description": "GraphQL schema and typings for the dictyBase API.",
-  "main": "./index.ts",
-  "typings": "./dist/index.d.ts",
-  "files": [
-    "types",
-    "package.json"
-  ],
+  "main": "./generated/index.ts",
   "private": true,
   "scripts": {
     "generate": "graphql-codegen"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dictyBase/graphql-schema.git"
-  },
   "author": "Siddhartha Basu <siddhartha-basu@northwestern.edu>",
   "license": "BSD-2-Clause",
-  "bugs": {
-    "url": "https://github.com/dictyBase/graphql-schema/issues"
-  },
-  "homepage": "https://github.com/dictyBase/graphql-schema#readme",
   "dependencies": {
     "@apollo/client": "^3.7.14",
     "graphql": "^16.6.0",
