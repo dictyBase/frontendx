@@ -38,7 +38,7 @@
             "deprecationReason": null
           },
           {
-            "name": "genbank_genomic_fragment",
+            "name": "genbankGenomicFragment",
             "description": null,
             "args": [],
             "type": {
@@ -50,7 +50,7 @@
             "deprecationReason": null
           },
           {
-            "name": "genbank_mrna",
+            "name": "genbankMrna",
             "description": null,
             "args": [],
             "type": {
@@ -62,7 +62,7 @@
             "deprecationReason": null
           },
           {
-            "name": "more_link",
+            "name": "moreLink",
             "description": null,
             "args": [],
             "type": {
@@ -148,7 +148,7 @@
         "description": null,
         "fields": [
           {
-            "name": "first_name",
+            "name": "firstName",
             "description": null,
             "args": [],
             "type": {
@@ -172,7 +172,7 @@
             "deprecationReason": null
           },
           {
-            "name": "last_name",
+            "name": "lastName",
             "description": null,
             "args": [],
             "type": {
@@ -331,7 +331,7 @@
             "deprecationReason": null
           },
           {
-            "name": "pub_date",
+            "name": "pubDate",
             "description": null,
             "args": [],
             "type": {
@@ -343,7 +343,7 @@
             "deprecationReason": null
           },
           {
-            "name": "pub_type",
+            "name": "pubType",
             "description": null,
             "args": [],
             "type": {
@@ -479,7 +479,7 @@
             "deprecationReason": null
           },
           {
-            "name": "pubmed_id",
+            "name": "pubmedId",
             "description": null,
             "args": [],
             "type": {
@@ -538,7 +538,7 @@
             "deprecationReason": null
           },
           {
-            "name": "created_at",
+            "name": "createdAt",
             "description": null,
             "args": [],
             "type": {
@@ -554,7 +554,7 @@
             "deprecationReason": null
           },
           {
-            "name": "created_by",
+            "name": "createdBy",
             "description": null,
             "args": [],
             "type": {
@@ -634,7 +634,7 @@
             "deprecationReason": null
           },
           {
-            "name": "updated_at",
+            "name": "updatedAt",
             "description": null,
             "args": [],
             "type": {
@@ -650,7 +650,7 @@
             "deprecationReason": null
           },
           {
-            "name": "updated_by",
+            "name": "updatedBy",
             "description": null,
             "args": [],
             "type": {
@@ -694,7 +694,7 @@
             "deprecationReason": null
           },
           {
-            "name": "created_by",
+            "name": "createdBy",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -797,7 +797,7 @@
             "deprecationReason": null
           },
           {
-            "name": "courier_account",
+            "name": "courierAccount",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -869,7 +869,7 @@
             "deprecationReason": null
           },
           {
-            "name": "purchase_order_num",
+            "name": "purchaseOrderNum",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -983,7 +983,7 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "created_by",
+            "name": "createdBy",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -1031,7 +1031,7 @@
             "deprecationReason": null
           },
           {
-            "name": "editable_summary",
+            "name": "editableSummary",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -1043,7 +1043,7 @@
             "deprecationReason": null
           },
           {
-            "name": "genbank_accession",
+            "name": "genbankAccession",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -1075,7 +1075,7 @@
             "deprecationReason": null
           },
           {
-            "name": "image_map",
+            "name": "imageMap",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -1087,7 +1087,7 @@
             "deprecationReason": null
           },
           {
-            "name": "in_stock",
+            "name": "inStock",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -1183,7 +1183,7 @@
             "deprecationReason": null
           },
           {
-            "name": "updated_by",
+            "name": "updatedBy",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -1273,7 +1273,7 @@
             "deprecationReason": null
           },
           {
-            "name": "created_by",
+            "name": "createdBy",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -1321,7 +1321,7 @@
             "deprecationReason": null
           },
           {
-            "name": "editable_summary",
+            "name": "editableSummary",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -1353,7 +1353,7 @@
             "deprecationReason": null
           },
           {
-            "name": "genetic_modification",
+            "name": "geneticModification",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -1385,7 +1385,7 @@
             "deprecationReason": null
           },
           {
-            "name": "in_stock",
+            "name": "inStock",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -1417,7 +1417,7 @@
             "deprecationReason": null
           },
           {
-            "name": "mutagenesis_method",
+            "name": "mutagenesisMethod",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -1541,7 +1541,7 @@
             "deprecationReason": null
           },
           {
-            "name": "systematic_name",
+            "name": "systematicName",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -1557,7 +1557,7 @@
             "deprecationReason": null
           },
           {
-            "name": "updated_by",
+            "name": "updatedBy",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -1624,7 +1624,7 @@
             "deprecationReason": null
           },
           {
-            "name": "first_address",
+            "name": "firstAddress",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -1636,7 +1636,7 @@
             "deprecationReason": null
           },
           {
-            "name": "first_name",
+            "name": "firstName",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -1652,7 +1652,7 @@
             "deprecationReason": null
           },
           {
-            "name": "group_name",
+            "name": "groupName",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -1664,7 +1664,7 @@
             "deprecationReason": null
           },
           {
-            "name": "is_active",
+            "name": "isActive",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -1680,7 +1680,7 @@
             "deprecationReason": null
           },
           {
-            "name": "last_name",
+            "name": "lastName",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -1720,7 +1720,7 @@
             "deprecationReason": null
           },
           {
-            "name": "second_address",
+            "name": "secondAddress",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -1766,6 +1766,22 @@
         "description": null,
         "fields": [
           {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "success",
             "description": null,
             "args": [],
@@ -1792,6 +1808,22 @@
         "name": "DeletePermission",
         "description": null,
         "fields": [
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "success",
             "description": null,
@@ -1820,6 +1852,22 @@
         "description": null,
         "fields": [
           {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "success",
             "description": null,
             "args": [],
@@ -1847,6 +1895,22 @@
         "description": null,
         "fields": [
           {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "success",
             "description": null,
             "args": [],
@@ -1873,6 +1937,22 @@
         "name": "DeleteUser",
         "description": null,
         "fields": [
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "success",
             "description": null,
@@ -2070,7 +2150,7 @@
         "description": null,
         "fields": [
           {
-            "name": "assigned_by",
+            "name": "assignedBy",
             "description": null,
             "args": [],
             "type": {
@@ -2102,7 +2182,7 @@
             "deprecationReason": null
           },
           {
-            "name": "evidence_code",
+            "name": "evidenceCode",
             "description": null,
             "args": [],
             "type": {
@@ -2138,7 +2218,7 @@
             "deprecationReason": null
           },
           {
-            "name": "go_term",
+            "name": "goTerm",
             "description": null,
             "args": [],
             "type": {
@@ -2249,7 +2329,7 @@
         "description": null,
         "fields": [
           {
-            "name": "associated_sequences",
+            "name": "associatedSequences",
             "description": null,
             "args": [],
             "type": {
@@ -2265,7 +2345,7 @@
             "deprecationReason": null
           },
           {
-            "name": "general_info",
+            "name": "generalInfo",
             "description": null,
             "args": [],
             "type": {
@@ -2369,7 +2449,7 @@
             "deprecationReason": null
           },
           {
-            "name": "product_info",
+            "name": "productInfo",
             "description": null,
             "args": [],
             "type": {
@@ -2389,7 +2469,7 @@
             "deprecationReason": null
           },
           {
-            "name": "protein_information",
+            "name": "proteinInformation",
             "description": null,
             "args": [],
             "type": {
@@ -2432,7 +2512,7 @@
         "description": null,
         "fields": [
           {
-            "name": "alt_gene_name",
+            "name": "altGeneName",
             "description": null,
             "args": [],
             "type": {
@@ -2452,7 +2532,7 @@
             "deprecationReason": null
           },
           {
-            "name": "alt_protein_names",
+            "name": "altProteinNames",
             "description": null,
             "args": [],
             "type": {
@@ -2488,7 +2568,7 @@
             "deprecationReason": null
           },
           {
-            "name": "gene_product",
+            "name": "geneProduct",
             "description": null,
             "args": [],
             "type": {
@@ -2504,7 +2584,7 @@
             "deprecationReason": null
           },
           {
-            "name": "name_description",
+            "name": "nameDescription",
             "description": null,
             "args": [],
             "type": {
@@ -2539,7 +2619,7 @@
         "description": null,
         "fields": [
           {
-            "name": "chrom_coords",
+            "name": "chromCoords",
             "description": null,
             "args": [],
             "type": {
@@ -2571,7 +2651,7 @@
             "deprecationReason": null
           },
           {
-            "name": "local_coords",
+            "name": "localCoords",
             "description": null,
             "args": [],
             "type": {
@@ -2608,7 +2688,7 @@
         "description": null,
         "fields": [
           {
-            "name": "created_at",
+            "name": "createdAt",
             "description": null,
             "args": [],
             "type": {
@@ -2672,7 +2752,7 @@
             "deprecationReason": null
           },
           {
-            "name": "updated_at",
+            "name": "updatedAt",
             "description": null,
             "args": [],
             "type": {
@@ -2688,7 +2768,7 @@
             "deprecationReason": null
           },
           {
-            "name": "user_id",
+            "name": "userId",
             "description": null,
             "args": [],
             "type": {
@@ -2765,7 +2845,7 @@
             "deprecationReason": null
           },
           {
-            "name": "ext_resources",
+            "name": "extResources",
             "description": null,
             "args": [],
             "type": {
@@ -2801,7 +2881,7 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "client_id",
+            "name": "clientId",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -2849,7 +2929,7 @@
             "deprecationReason": null
           },
           {
-            "name": "redirect_url",
+            "name": "redirectUrl",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -3706,7 +3786,7 @@
         "description": null,
         "fields": [
           {
-            "name": "num_pubs",
+            "name": "numPubs",
             "description": null,
             "args": [],
             "type": {
@@ -3793,7 +3873,7 @@
             "deprecationReason": null
           },
           {
-            "name": "courier_account",
+            "name": "courierAccount",
             "description": null,
             "args": [],
             "type": {
@@ -3805,7 +3885,7 @@
             "deprecationReason": null
           },
           {
-            "name": "created_at",
+            "name": "createdAt",
             "description": null,
             "args": [],
             "type": {
@@ -3881,7 +3961,7 @@
             "deprecationReason": null
           },
           {
-            "name": "purchase_order_num",
+            "name": "purchaseOrderNum",
             "description": null,
             "args": [],
             "type": {
@@ -3917,7 +3997,7 @@
             "deprecationReason": null
           },
           {
-            "name": "updated_at",
+            "name": "updatedAt",
             "description": null,
             "args": [],
             "type": {
@@ -4087,7 +4167,7 @@
             "deprecationReason": null
           },
           {
-            "name": "scientific_name",
+            "name": "scientificName",
             "description": null,
             "args": [],
             "type": {
@@ -4103,7 +4183,7 @@
             "deprecationReason": null
           },
           {
-            "name": "taxon_id",
+            "name": "taxonId",
             "description": null,
             "args": [],
             "type": {
@@ -4130,7 +4210,7 @@
         "description": null,
         "fields": [
           {
-            "name": "gene_product",
+            "name": "geneProduct",
             "description": null,
             "args": [],
             "type": {
@@ -4229,7 +4309,7 @@
         "description": null,
         "fields": [
           {
-            "name": "created_at",
+            "name": "createdAt",
             "description": null,
             "args": [],
             "type": {
@@ -4277,7 +4357,7 @@
             "deprecationReason": null
           },
           {
-            "name": "permission",
+            "name": "level",
             "description": null,
             "args": [],
             "type": {
@@ -4305,7 +4385,7 @@
             "deprecationReason": null
           },
           {
-            "name": "updated_at",
+            "name": "updatedAt",
             "description": null,
             "args": [],
             "type": {
@@ -4407,7 +4487,7 @@
         "description": null,
         "fields": [
           {
-            "name": "created_at",
+            "name": "createdAt",
             "description": null,
             "args": [],
             "type": {
@@ -4423,7 +4503,7 @@
             "deprecationReason": null
           },
           {
-            "name": "created_by",
+            "name": "createdBy",
             "description": null,
             "args": [],
             "type": {
@@ -4475,7 +4555,7 @@
             "deprecationReason": null
           },
           {
-            "name": "editable_summary",
+            "name": "editableSummary",
             "description": null,
             "args": [],
             "type": {
@@ -4487,7 +4567,7 @@
             "deprecationReason": null
           },
           {
-            "name": "genbank_accession",
+            "name": "genbankAccession",
             "description": null,
             "args": [],
             "type": {
@@ -4535,7 +4615,7 @@
             "deprecationReason": null
           },
           {
-            "name": "image_map",
+            "name": "imageMap",
             "description": null,
             "args": [],
             "type": {
@@ -4547,7 +4627,7 @@
             "deprecationReason": null
           },
           {
-            "name": "in_stock",
+            "name": "inStock",
             "description": null,
             "args": [],
             "type": {
@@ -4643,7 +4723,7 @@
             "deprecationReason": null
           },
           {
-            "name": "updated_at",
+            "name": "updatedAt",
             "description": null,
             "args": [],
             "type": {
@@ -4659,7 +4739,7 @@
             "deprecationReason": null
           },
           {
-            "name": "updated_by",
+            "name": "updatedBy",
             "description": null,
             "args": [],
             "type": {
@@ -4787,7 +4867,7 @@
         "description": null,
         "fields": [
           {
-            "name": "genomic_coords",
+            "name": "genomicCoords",
             "description": null,
             "args": [],
             "type": {
@@ -4811,7 +4891,7 @@
             "deprecationReason": null
           },
           {
-            "name": "more_protein_data",
+            "name": "moreProteinData",
             "description": null,
             "args": [],
             "type": {
@@ -4827,7 +4907,7 @@
             "deprecationReason": null
           },
           {
-            "name": "protein_coding_gene",
+            "name": "proteinCodingGene",
             "description": null,
             "args": [],
             "type": {
@@ -4843,7 +4923,7 @@
             "deprecationReason": null
           },
           {
-            "name": "protein_length",
+            "name": "proteinLength",
             "description": null,
             "args": [],
             "type": {
@@ -4859,7 +4939,7 @@
             "deprecationReason": null
           },
           {
-            "name": "protein_molecular_weight",
+            "name": "proteinMolecularWeight",
             "description": null,
             "args": [],
             "type": {
@@ -4886,7 +4966,7 @@
         "description": null,
         "fields": [
           {
-            "name": "aa_composition",
+            "name": "aaComposition",
             "description": null,
             "args": [],
             "type": {
@@ -4918,7 +4998,7 @@
             "deprecationReason": null
           },
           {
-            "name": "dictybase_id",
+            "name": "dictybaseId",
             "description": null,
             "args": [],
             "type": {
@@ -4934,7 +5014,7 @@
             "deprecationReason": null
           },
           {
-            "name": "gene_product",
+            "name": "geneProduct",
             "description": null,
             "args": [],
             "type": {
@@ -4950,7 +5030,7 @@
             "deprecationReason": null
           },
           {
-            "name": "molecular_weight",
+            "name": "molecularWeight",
             "description": null,
             "args": [],
             "type": {
@@ -4982,7 +5062,7 @@
             "deprecationReason": null
           },
           {
-            "name": "protein_existence",
+            "name": "proteinExistence",
             "description": null,
             "args": [],
             "type": {
@@ -4998,7 +5078,7 @@
             "deprecationReason": null
           },
           {
-            "name": "protein_length",
+            "name": "proteinLength",
             "description": null,
             "args": [],
             "type": {
@@ -5014,7 +5094,7 @@
             "deprecationReason": null
           },
           {
-            "name": "subcellular_location",
+            "name": "subcellularLocation",
             "description": null,
             "args": [],
             "type": {
@@ -5041,7 +5121,7 @@
         "description": null,
         "fields": [
           {
-            "name": "external_links",
+            "name": "externalLinks",
             "description": null,
             "args": [],
             "type": {
@@ -5065,7 +5145,7 @@
             "deprecationReason": null
           },
           {
-            "name": "general_info",
+            "name": "generalInfo",
             "description": null,
             "args": [],
             "type": {
@@ -5081,7 +5161,7 @@
             "deprecationReason": null
           },
           {
-            "name": "protein_sequence",
+            "name": "proteinSequence",
             "description": null,
             "args": [],
             "type": {
@@ -5228,7 +5308,7 @@
             "deprecationReason": null
           },
           {
-            "name": "pub_date",
+            "name": "pubDate",
             "description": null,
             "args": [],
             "type": {
@@ -5240,7 +5320,7 @@
             "deprecationReason": null
           },
           {
-            "name": "pub_type",
+            "name": "pubType",
             "description": null,
             "args": [],
             "type": {
@@ -5449,7 +5529,7 @@
             "deprecationReason": null
           },
           {
-            "name": "pub_date",
+            "name": "pubDate",
             "description": null,
             "args": [],
             "type": {
@@ -5461,7 +5541,7 @@
             "deprecationReason": null
           },
           {
-            "name": "pub_type",
+            "name": "pubType",
             "description": null,
             "args": [],
             "type": {
@@ -5477,7 +5557,7 @@
             "deprecationReason": null
           },
           {
-            "name": "related_genes",
+            "name": "relatedGenes",
             "description": null,
             "args": [],
             "type": {
@@ -5635,7 +5715,7 @@
                 "deprecationReason": null
               },
               {
-                "name": "sort_by",
+                "name": "sortBy",
                 "description": null,
                 "type": {
                   "kind": "SCALAR",
@@ -5661,6 +5741,35 @@
           },
           {
             "name": "allStrains",
+            "description": null,
+            "args": [
+              {
+                "name": "gene",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Gene",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "associatedSequnces",
             "description": null,
             "args": [
               {
@@ -5805,7 +5914,7 @@
             "deprecationReason": null
           },
           {
-            "name": "getAssociatedSequnces",
+            "name": "links",
             "description": null,
             "args": [
               {
@@ -5828,93 +5937,6 @@
             "type": {
               "kind": "OBJECT",
               "name": "Gene",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "getLinks",
-            "description": null,
-            "args": [
-              {
-                "name": "gene",
-                "description": null,
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "OBJECT",
-              "name": "Gene",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "getProteinInformation",
-            "description": null,
-            "args": [
-              {
-                "name": "gene",
-                "description": null,
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "OBJECT",
-              "name": "Gene",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "getRefreshToken",
-            "description": null,
-            "args": [
-              {
-                "name": "token",
-                "description": null,
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "OBJECT",
-              "name": "Auth",
               "ofType": null
             },
             "isDeprecated": false,
@@ -6537,7 +6559,7 @@
             "description": null,
             "args": [
               {
-                "name": "taxon_id",
+                "name": "taxonId",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
@@ -6620,6 +6642,35 @@
             "deprecationReason": null
           },
           {
+            "name": "proteinInformation",
+            "description": null,
+            "args": [
+              {
+                "name": "gene",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Gene",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "publication",
             "description": null,
             "args": [
@@ -6643,6 +6694,35 @@
             "type": {
               "kind": "OBJECT",
               "name": "Publication",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "refreshToken",
+            "description": null,
+            "args": [
+              {
+                "name": "token",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Auth",
               "ofType": null
             },
             "isDeprecated": false,
@@ -6776,7 +6856,7 @@
         "description": null,
         "fields": [
           {
-            "name": "created_at",
+            "name": "createdAt",
             "description": null,
             "args": [],
             "type": {
@@ -6824,6 +6904,22 @@
             "deprecationReason": null
           },
           {
+            "name": "name",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "permissions",
             "description": null,
             "args": [],
@@ -6844,23 +6940,7 @@
             "deprecationReason": null
           },
           {
-            "name": "role",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "updated_at",
+            "name": "updatedAt",
             "description": null,
             "args": [],
             "type": {
@@ -6922,7 +7002,7 @@
         "description": null,
         "fields": [
           {
-            "name": "created_at",
+            "name": "createdAt",
             "description": null,
             "args": [],
             "type": {
@@ -6938,7 +7018,7 @@
             "deprecationReason": null
           },
           {
-            "name": "created_by",
+            "name": "createdBy",
             "description": null,
             "args": [],
             "type": {
@@ -6990,7 +7070,7 @@
             "deprecationReason": null
           },
           {
-            "name": "editable_summary",
+            "name": "editableSummary",
             "description": null,
             "args": [],
             "type": {
@@ -7038,7 +7118,7 @@
             "deprecationReason": null
           },
           {
-            "name": "in_stock",
+            "name": "inStock",
             "description": null,
             "args": [],
             "type": {
@@ -7086,7 +7166,7 @@
             "deprecationReason": null
           },
           {
-            "name": "updated_at",
+            "name": "updatedAt",
             "description": null,
             "args": [],
             "type": {
@@ -7102,7 +7182,7 @@
             "deprecationReason": null
           },
           {
-            "name": "updated_by",
+            "name": "updatedBy",
             "description": null,
             "args": [],
             "type": {
@@ -7160,7 +7240,7 @@
             "deprecationReason": null
           },
           {
-            "name": "created_at",
+            "name": "createdAt",
             "description": null,
             "args": [],
             "type": {
@@ -7176,7 +7256,7 @@
             "deprecationReason": null
           },
           {
-            "name": "created_by",
+            "name": "createdBy",
             "description": null,
             "args": [],
             "type": {
@@ -7228,7 +7308,7 @@
             "deprecationReason": null
           },
           {
-            "name": "editable_summary",
+            "name": "editableSummary",
             "description": null,
             "args": [],
             "type": {
@@ -7260,7 +7340,7 @@
             "deprecationReason": null
           },
           {
-            "name": "genetic_modification",
+            "name": "geneticModification",
             "description": null,
             "args": [],
             "type": {
@@ -7308,7 +7388,7 @@
             "deprecationReason": null
           },
           {
-            "name": "in_stock",
+            "name": "inStock",
             "description": null,
             "args": [],
             "type": {
@@ -7340,7 +7420,7 @@
             "deprecationReason": null
           },
           {
-            "name": "mutagenesis_method",
+            "name": "mutagenesisMethod",
             "description": null,
             "args": [],
             "type": {
@@ -7464,7 +7544,7 @@
             "deprecationReason": null
           },
           {
-            "name": "systematic_name",
+            "name": "systematicName",
             "description": null,
             "args": [],
             "type": {
@@ -7480,7 +7560,7 @@
             "deprecationReason": null
           },
           {
-            "name": "updated_at",
+            "name": "updatedAt",
             "description": null,
             "args": [],
             "type": {
@@ -7496,7 +7576,7 @@
             "deprecationReason": null
           },
           {
-            "name": "updated_by",
+            "name": "updatedBy",
             "description": null,
             "args": [],
             "type": {
@@ -7542,7 +7622,7 @@
             "deprecationReason": null
           },
           {
-            "name": "in_stock",
+            "name": "inStock",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -7566,7 +7646,7 @@
             "deprecationReason": null
           },
           {
-            "name": "strain_type",
+            "name": "strainType",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -7787,7 +7867,7 @@
             "deprecationReason": null
           },
           {
-            "name": "updated_by",
+            "name": "updatedBy",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -7838,7 +7918,7 @@
             "deprecationReason": null
           },
           {
-            "name": "courier_account",
+            "name": "courierAccount",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -7882,7 +7962,7 @@
             "deprecationReason": null
           },
           {
-            "name": "purchase_order_num",
+            "name": "purchaseOrderNum",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -8008,7 +8088,7 @@
             "deprecationReason": null
           },
           {
-            "name": "editable_summary",
+            "name": "editableSummary",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -8020,7 +8100,7 @@
             "deprecationReason": null
           },
           {
-            "name": "genbank_accession",
+            "name": "genbankAccession",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -8052,7 +8132,7 @@
             "deprecationReason": null
           },
           {
-            "name": "image_map",
+            "name": "imageMap",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -8064,7 +8144,7 @@
             "deprecationReason": null
           },
           {
-            "name": "in_stock",
+            "name": "inStock",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -8152,7 +8232,7 @@
             "deprecationReason": null
           },
           {
-            "name": "updated_by",
+            "name": "updatedBy",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -8274,7 +8354,7 @@
             "deprecationReason": null
           },
           {
-            "name": "editable_summary",
+            "name": "editableSummary",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -8306,7 +8386,7 @@
             "deprecationReason": null
           },
           {
-            "name": "genetic_modification",
+            "name": "geneticModification",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -8338,7 +8418,7 @@
             "deprecationReason": null
           },
           {
-            "name": "in_stock",
+            "name": "inStock",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -8362,7 +8442,7 @@
             "deprecationReason": null
           },
           {
-            "name": "mutagenesis_method",
+            "name": "mutagenesisMethod",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -8482,7 +8562,7 @@
             "deprecationReason": null
           },
           {
-            "name": "systematic_name",
+            "name": "systematicName",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -8494,7 +8574,7 @@
             "deprecationReason": null
           },
           {
-            "name": "updated_by",
+            "name": "updatedBy",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -8545,7 +8625,7 @@
             "deprecationReason": null
           },
           {
-            "name": "first_address",
+            "name": "firstAddress",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -8557,7 +8637,7 @@
             "deprecationReason": null
           },
           {
-            "name": "first_name",
+            "name": "firstName",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -8569,7 +8649,7 @@
             "deprecationReason": null
           },
           {
-            "name": "group_name",
+            "name": "groupName",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -8581,7 +8661,7 @@
             "deprecationReason": null
           },
           {
-            "name": "is_active",
+            "name": "isActive",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -8593,7 +8673,7 @@
             "deprecationReason": null
           },
           {
-            "name": "last_name",
+            "name": "lastName",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -8629,7 +8709,7 @@
             "deprecationReason": null
           },
           {
-            "name": "second_address",
+            "name": "secondAddress",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -8699,7 +8779,7 @@
             "deprecationReason": null
           },
           {
-            "name": "created_at",
+            "name": "createdAt",
             "description": null,
             "args": [],
             "type": {
@@ -8731,7 +8811,7 @@
             "deprecationReason": null
           },
           {
-            "name": "first_address",
+            "name": "firstAddress",
             "description": null,
             "args": [],
             "type": {
@@ -8743,7 +8823,7 @@
             "deprecationReason": null
           },
           {
-            "name": "first_name",
+            "name": "firstName",
             "description": null,
             "args": [],
             "type": {
@@ -8759,7 +8839,7 @@
             "deprecationReason": null
           },
           {
-            "name": "group_name",
+            "name": "groupName",
             "description": null,
             "args": [],
             "type": {
@@ -8787,7 +8867,7 @@
             "deprecationReason": null
           },
           {
-            "name": "is_active",
+            "name": "isActive",
             "description": null,
             "args": [],
             "type": {
@@ -8803,7 +8883,7 @@
             "deprecationReason": null
           },
           {
-            "name": "last_name",
+            "name": "lastName",
             "description": null,
             "args": [],
             "type": {
@@ -8863,7 +8943,7 @@
             "deprecationReason": null
           },
           {
-            "name": "second_address",
+            "name": "secondAddress",
             "description": null,
             "args": [],
             "type": {
@@ -8887,7 +8967,7 @@
             "deprecationReason": null
           },
           {
-            "name": "updated_at",
+            "name": "updatedAt",
             "description": null,
             "args": [],
             "type": {
