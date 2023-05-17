@@ -1,14 +1,14 @@
 import { User, Role, Permission, Maybe } from "dicty-graphql-schema"
 
-type UpdatedByUser = Pick<User, "id" | "email" | "first_name" | "last_name"> & {
+type UpdatedByUser = Pick<User, "id" | "email" | "firstName" | "lastName"> & {
   roles?: Maybe<
     Array<
-      { __typename?: "Role" } & Pick<Role, "role"> & {
+      { __typename?: "Role" } & Pick<Role, "name"> & {
           permissions?: Maybe<
             Array<
               { __typename?: "Permission" } & Pick<
                 Permission,
-                "permission" | "resource"
+                "level" | "resource"
               >
             >
           >

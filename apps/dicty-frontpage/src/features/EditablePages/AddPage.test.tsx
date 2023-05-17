@@ -81,8 +81,8 @@ describe("features/EditablePages/AddPage", () => {
             variables: {
               input: {
                 name: "shipping",
-                //  eslint-disable-next-line camelcase
-                created_by: "999",
+
+                createdBy: "999",
                 content: JSON.stringify(mockContent),
                 namespace: "dfp",
               },
@@ -92,8 +92,8 @@ describe("features/EditablePages/AddPage", () => {
             data: {
               createContent: {
                 name: "shipping",
-                //  eslint-disable-next-line camelcase
-                created_by: {
+
+                createdBy: {
                   id: "999",
                 },
                 content: JSON.stringify(mockContent),

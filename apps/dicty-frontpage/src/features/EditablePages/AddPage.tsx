@@ -55,8 +55,7 @@ const AddPage = () => {
       variables: {
         input: {
           name: slug,
-          // eslint-disable-next-line camelcase
-          created_by: user.id,
+          createdBy: user.id,
           content: JSON.stringify(value),
           namespace: NAMESPACE,
         },

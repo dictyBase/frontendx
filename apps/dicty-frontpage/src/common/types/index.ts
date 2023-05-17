@@ -24,12 +24,12 @@ type Organism = {
 
 type User = {
   id: number
-  first_name: string
-  last_name: string
+  firstName: string
+  lastName: string
   email: string
   roles: Array<{
     id: number
-    role: string
+    name: string
     permissions?: Array<{
       id: number
       permission: string

@@ -29,11 +29,11 @@ const InfoPageView = ({ data }: Properties) => {
 
   return (
     <Box>
-      {data?.updated_by && (
+      {data?.updatedBy && (
         <InfoPageViewToolbar
           handleClick={handleClick}
-          lastUpdate={data?.updated_at}
-          user={data.updated_by}
+          lastUpdate={data?.updatedAt}
+          user={data.updatedBy}
         />
       )}
       <ThemeProvider theme={appTheme}>

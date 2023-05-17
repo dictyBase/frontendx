@@ -22,8 +22,8 @@ const verifyPermissions = (
 ) => {
   const allowedResources = new Set([resource, MAIN_RESOURCE])
   const validPerms = (item: Permission) =>
-    item.permission === "admin" ||
-    (item.permission === perm && allowedResources.has(item.resource as string))
+    item.level === "admin" ||
+    (item.level === perm && allowedResources.has(item.resource as string))
 
   const filteredPerms = permissions.filter((element) => validPerms(element))
   // check if array is empty
@@ -50,7 +50,7 @@ const useAuthorization = () => {
     ) as unknown as Permission[]
     canEditPages = verifyPermissions(permissions, "write", frontpagecontent)
 
-    const roles = state?.user?.roles?.map((item: Role) => item.role)
+    const roles = state?.user?.roles?.map((item: Role) => item.name)
     if (roles?.includes("superuser")) {
       canEditPages = true
     }

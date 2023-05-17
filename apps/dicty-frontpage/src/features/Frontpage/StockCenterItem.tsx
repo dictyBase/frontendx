@@ -31,7 +31,7 @@ const PlasmidItem = ({ data, type }: PlasmidItemProperties) => {
   if (type === "Strain") {
     const recentStrains = data?.listRecentStrains?.map((strain) => (
       <li className={classes.listItem} key={strain.id}>
-        {strain.systematic_name}
+        {strain.systematicName}
       </li>
     ))
     return <>{recentStrains}</>
