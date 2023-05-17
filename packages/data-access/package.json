@@ -11,7 +11,7 @@
     "@testing-library/user-event": "^14.x",
     "@types/jest": "^26.0.x",
     "@types/react": "17.x",
-    "@types/react-dom": "17.x",
+    "@types/react-dom": "18.x",
     "eslint-config-custom": "*",
     "jsdom": "latest",
     "tsconfig": "*",
@@ -22,7 +22,7 @@
     "apollo3-cache-persist": "0.14.x",
     "localforage": "1.10.x",
     "react": "17.x",
-    "react-dom": "17.x"
+    "react-dom": "18.x"
   },
   "scripts": {
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",

@@ -11,7 +11,7 @@
     "@testing-library/react-hooks": "^8.x",
     "@testing-library/user-event": "^14.x",
     "@types/react": "17.x",
-    "@types/react-dom": "17.x",
+    "@types/react-dom": "18.x",
     "eslint-config-custom": "*",
     "jsdom": "latest",
     "tsconfig": "*",
@@ -21,7 +21,7 @@
     "@apollo/client": "3.7.10",
     "graphql": "~15.5.0",
     "react": "17.x",
-    "react-dom": "17.x",
+    "react-dom": "18.x",
     "react-router-dom": "~6.1.1"
   },
   "scripts": {
