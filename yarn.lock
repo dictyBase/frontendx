@@ -8585,10 +8585,10 @@ fp-ts-std@^0.16.0, fp-ts-std@~0.16.0:
   resolved "https://registry.yarnpkg.com/fp-ts-std/-/fp-ts-std-0.16.0.tgz#1c9f264f3b5803eb434255d2276cd539fe0b77bc"
   integrity sha512-eKSTmRxoRFPMLtUcEHmQYouZ39G/erlf5lx6eC/Jn5gowVPrlBX5t6WoxGwXjVJom0J8xvkDkI6QVEpVAEXIdw==
 
-fp-ts@2.13.1, fp-ts@^2.13.1:
-  version "2.13.1"
-  resolved "https://registry.yarnpkg.com/fp-ts/-/fp-ts-2.13.1.tgz#1bf2b24136cca154846af16752dc29e8fa506f2a"
-  integrity sha512-0eu5ULPS2c/jsa1lGFneEFFEdTbembJv8e4QKXeVJ3lm/5hyve06dlKZrpxmMwJt6rYen7sxmHHK2CLaXvWuWQ==
+fp-ts@2.15.0, fp-ts@^2.15.0:
+  version "2.15.0"
+  resolved "https://registry.yarnpkg.com/fp-ts/-/fp-ts-2.15.0.tgz#ed1ff6fc9a072176ec2310e20e814077bb391545"
+  integrity sha512-3o6EllAvGuCsDgjM+frscLKDRPR9pqbrg13tJ13z86F4eni913kBV8h85rM6zpu2fEvJ8RWA0ouYlUWwHEmxTg==
 
 fragment-cache@^0.2.1:
   version "0.2.1"
