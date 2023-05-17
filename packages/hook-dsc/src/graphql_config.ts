@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { StrainListDocument, StrainType } from "dicty-graphql-schema"
 import { SearchConfigMember, BaseConfigMember } from "./types"
 
@@ -17,22 +16,22 @@ const strainConfig = (): Array<SearchConfigMember> =>
     {
       label: "Regular Strains",
       value: "regular",
-      graphqlFilter: { strain_type: StrainType.Regular },
+      graphqlFilter: { strainType: StrainType.Regular },
     },
     {
       label: "GWDI Strains",
       value: "gwdi",
-      graphqlFilter: { strain_type: StrainType.Gwdi },
+      graphqlFilter: { strainType: StrainType.Gwdi },
     },
     {
       label: "All Available Strains",
       value: "all",
-      graphqlFilter: { strain_type: StrainType.All },
+      graphqlFilter: { strainType: StrainType.All },
     },
     {
       label: "Bacterial Strains",
       value: "bacterial",
-      graphqlFilter: { strain_type: StrainType.Bacterial },
+      graphqlFilter: { strainType: StrainType.Bacterial },
     },
   ].map((member) => ({ ...member, ...baseConfig }))
 

@@ -23,8 +23,7 @@ export function useConfigureStrainCatalogSearchGraphql({
   const initValues: ConfigureStrainCatalogSearchGraphql = {
     dataField: baseConfig.dataField,
     variables: {
-      // eslint-disable-next-line camelcase
-      filter: { strain_type: StrainType.Regular },
+      filter: { strainType: StrainType.Regular },
       ...graphqlQueryVariables,
     },
   }
