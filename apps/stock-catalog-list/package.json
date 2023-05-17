@@ -20,7 +20,7 @@
   "devDependencies": {
     "@types/react": "17.x",
     "@types/react-dom": "17.x",
-    "@vitejs/plugin-react": "^2.1.0",
+    "@vitejs/plugin-react": "^4.0.0",
     "tsconfig": "*",
     "eslint-config-custom": "*",
     "vite": "^3.x",
