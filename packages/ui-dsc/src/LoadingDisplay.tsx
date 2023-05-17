@@ -20,7 +20,7 @@ export const LoadingDisplay = ({
   height = 35,
 }: LoadingDisplayProperties): JSX.Element => (
   <Box mx={8} mt={4}>
-    {[...new Array(rows)].map(() => (
+    {new Array(rows).map(() => (
       <Skeleton key={uuid()} height={height} />
     ))}
   </Box>

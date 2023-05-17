@@ -50,7 +50,7 @@ export function useSearch({ fields, label, help }: useSearchProperties) {
       case "reset":
         setInput((state) => ({ ...state, user: emptyString }))
         setHasTag(true)
-        setActiveChipValue(`${value[value.length - 1]}:${input.userCopy}`)
+        setActiveChipValue(`${value.at(-1)}:${input.userCopy}`)
         break
       default:
         break
@@ -90,7 +90,7 @@ export function useSearch({ fields, label, help }: useSearchProperties) {
             label={o}
           />
         ))}
-        <div>{`${values[values.length - 1]}:`}</div>
+        <div>{`${values.at(-1)}:`}</div>
       </>
     )
   }

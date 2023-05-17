@@ -140,7 +140,7 @@ export function useSearchWithRouter({
             label={o}
           />
         ))}
-        <div>{`${values[values.length - 1]}:`}</div>
+        <div>{`${values.at(-1)}:`}</div>
       </>
     )
   }

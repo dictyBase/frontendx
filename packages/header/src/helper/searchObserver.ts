@@ -14,7 +14,7 @@ const inputObserver = (reference: RefObject<HTMLDivElement>) =>
 const obsToSubs = (reference: RefObject<HTMLDivElement>) =>
   inputObserver(reference).pipe(
     buffer(keyObserver(reference)),
-    map((value) => value[value.length - 1]),
+    map((value) => value.at(-1)),
     filter((value) => value !== ""),
   )
 
