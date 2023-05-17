@@ -1,11 +1,11 @@
 type Query {
   # Auth queries
-  getRefreshToken(token: String!): Auth
+  refreshToken(token: String!): Auth
   # Content queries
   content(id: ID!): Content
   contentBySlug(slug: String!): Content
   # Download page queries
-  organism(taxon_id: String!): Organism
+  organism(taxonId: String!): Organism
   listOrganisms: [Organism!]
   # Gene queries
   gene(gene: String!): Gene
@@ -14,7 +14,7 @@ type Query {
   allPublications(
     gene: String!
     limit: Int
-    sort_by: String
+    sortBy: String
   ): NumberOfPublicationsWithGene!
   # Lists out all the Orthologs
   allOrthologs(gene: String!): Gene
@@ -24,11 +24,11 @@ type Query {
   # List general information given gene
   generalInformation(gene: String!): Gene
   # List associated sequences given gene
-  getAssociatedSequnces(gene: String!): Gene
+  associatedSequnces(gene: String!): Gene
   # List links given gene
-  getLinks(gene: String!): Gene
+  links(gene: String!): Gene
   # List Protein Information given gene
-  getProteinInformation(gene: String!): Gene
+  proteinInformation(gene: String!): Gene
   # List all product info associated to the gene
   listGeneProductInfo(gene: String!): Gene
   # Order queries
@@ -42,7 +42,11 @@ type Query {
   # Stock queries
   plasmid(id: ID!): Plasmid
   strain(id: ID!): Strain
-  listStrains(cursor: Int, limit: Int, filter: StrainListFilter): StrainListWithCursor
+  listStrains(
+    cursor: Int
+    limit: Int
+    filter: StrainListFilter
+  ): StrainListWithCursor
   listPlasmids(cursor: Int, limit: Int, filter: String): PlasmidListWithCursor
   listStrainsWithAnnotation(
     cursor: Int

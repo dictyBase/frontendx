@@ -1,38 +1,38 @@
 type Permission {
   id: ID!
-  permission: String!
+  level: String!
   description: String!
-  created_at: Timestamp!
-  updated_at: Timestamp!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
   resource: String
 }
 
 type Role {
   id: ID!
-  role: String!
+  name: String!
   description: String!
-  created_at: Timestamp!
-  updated_at: Timestamp!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
   permissions: [Permission!]
 }
 
 type User {
   id: ID!
-  first_name: String!
-  last_name: String!
+  firstName: String!
+  lastName: String!
   email: String!
   organization: String
-  group_name: String
-  first_address: String
-  second_address: String
+  groupName: String
+  firstAddress: String
+  secondAddress: String
   city: String
   state: String
   zipcode: String
   country: String
   phone: String
-  is_active: Boolean!
-  created_at: Timestamp!
-  updated_at: Timestamp!
+  isActive: Boolean!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
   roles: [Role!]
 }
 
@@ -44,34 +44,34 @@ type UserList {
 }
 
 input CreateUserInput {
-  first_name: String!
-  last_name: String!
+  firstName: String!
+  lastName: String!
   email: String!
   organization: String
-  group_name: String
-  first_address: String
-  second_address: String
+  groupName: String
+  firstAddress: String
+  secondAddress: String
   city: String
   state: String
   zipcode: String
   country: String
   phone: String
-  is_active: Boolean!
+  isActive: Boolean!
 }
 
 input UpdateUserInput {
-  first_name: String
-  last_name: String
+  firstName: String
+  lastName: String
   organization: String
-  group_name: String
-  first_address: String
-  second_address: String
+  groupName: String
+  firstAddress: String
+  secondAddress: String
   city: String
   state: String
   zipcode: String
   country: String
   phone: String
-  is_active: Boolean
+  isActive: Boolean
 }
 
 input CreateRoleInput {
@@ -97,13 +97,16 @@ input UpdatePermissionInput {
 }
 
 type DeleteUser {
+  id: ID!
   success: Boolean!
 }
 
 type DeleteRole {
+  id: ID!
   success: Boolean!
 }
 
 type DeletePermission {
+  id: ID!
   success: Boolean!
 }

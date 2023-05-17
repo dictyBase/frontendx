@@ -5,10 +5,67 @@
   "main": "./generated/index.ts",
   "private": true,
   "scripts": {
-    "generate": "graphql-codegen"
+    "generate": "graphql-codegen",
+    "lint": "eslint src/"
   },
   "author": "Siddhartha Basu <siddhartha-basu@northwestern.edu>",
   "license": "BSD-2-Clause",
+  "eslintConfig": {
+    "overrides": [
+      {
+        "files": [
+          "*.graphql"
+        ],
+        "extends": "plugin:@graphql-eslint/schema-recommended",
+        "parserOptions": {
+          "schema": "./src/schema/*.graphql"
+        },
+        "rules": {
+          "@graphql-eslint/require-description": "off",
+          "spaced-comment": "off",
+          "@graphql-eslint/no-hashtag-description": "off",
+          "@graphql-eslint/strict-id-in-types": [
+            "error",
+            {
+              "acceptedIdNames": [
+                "id",
+                "taxonId",
+                "pubmedId",
+                "dictybaseId"
+              ],
+              "acceptedIdTypes": [
+                "ID",
+                "String",
+                "NameWithLink"
+              ],
+              "exceptions": {
+                "types": [
+                  "ProteinInformation",
+                  "ProductInformation",
+                  "AssociatedSequences",
+                  "Phenotype",
+                  "Author",
+                  "Auth",
+                  "Logout",
+                  "UserList",
+                  "OrderListWithCursor",
+                  "StrainListWithCursor",
+                  "PlasmidListWithCursor",
+                  "NumberOfPublicationsWithGene",
+                  "GeneralInfo",
+                  "GenomicCoordinates",
+                  "Download",
+                  "DownloadItem",
+                  "Links",
+                  "NameWithLink"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
   "dependencies": {
     "@apollo/client": "^3.7.14",
     "graphql": "^16.6.0",
@@ -29,6 +86,6 @@
     "@types/node": "18.x",
     "@types/react": "17.x",
     "@types/react-dom": "17.x",
-    "tsconfig":"*"
+    "tsconfig": "*"
   }
 }

@@ -4,12 +4,12 @@ query contentBySlug($slug: String!) {
     content
     name
     slug
-    updated_at
-    updated_by {
+    updatedAt
+    updatedBy {
       id
       email
-      first_name
-      last_name
+      firstName
+      lastName
       roles {
         role
         permissions {
@@ -28,12 +28,12 @@ query content($id: ID!) {
     name
     slug
     namespace
-    updated_at
-    updated_by {
+    updatedAt
+    updatedBy {
       id
       email
-      first_name
-      last_name
+      firstName
+      lastName
       roles {
         role
         permissions {

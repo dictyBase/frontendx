@@ -1,11 +1,11 @@
 query ListOrganisms {
   listOrganisms {
-    taxon_id
-    scientific_name
+    taxonId
+    scientificName
     citations {
       title
       authors
-      pubmed_id
+      pubmedId
       journal
     }
     downloads {

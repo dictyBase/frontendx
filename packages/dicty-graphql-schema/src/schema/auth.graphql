@@ -1,19 +1,19 @@
 input LoginInput {
-  client_id: String!
+  clientId: String!
   state: String!
   code: String!
   scopes: String!
   provider: String!
-  redirect_url: String!
+  redirectUrl: String!
 }
 
 type Identity {
   id: ID!
   identifier: String!
   provider: String!
-  user_id: ID!
-  created_at: Timestamp!
-  updated_at: Timestamp!
+  userId: ID!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
 }
 
 type Auth {

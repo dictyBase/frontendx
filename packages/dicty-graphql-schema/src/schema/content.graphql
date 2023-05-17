@@ -2,27 +2,29 @@ type Content {
   id: ID!
   name: String!
   slug: String!
-  created_by: User!
-  updated_by: User!
-  created_at: Timestamp!
-  updated_at: Timestamp!
+  createdBy: User!
+  updatedBy: User!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+  # eslint-disable-next-line @graphql-eslint/no-typename-prefix
   content: String!
   namespace: String!
 }
 
 input CreateContentInput {
   name: String!
-  created_by: String!
+  createdBy: String!
   content: String!
   namespace: String!
 }
 
 input UpdateContentInput {
   id: ID!
-  updated_by: String!
+  updatedBy: String!
   content: String!
 }
 
 type DeleteContent {
+  id: ID!
   success: Boolean!
 }

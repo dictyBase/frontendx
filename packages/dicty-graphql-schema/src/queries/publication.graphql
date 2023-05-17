@@ -5,13 +5,13 @@ query Publication($id: ID!) {
     title
     abstract
     journal
-    pub_date
+    pubDate
     pages
     issue
     volume
     authors {
       initials
-      last_name
+      lastName
     }
   }
 }
@@ -23,13 +23,13 @@ query ListRecentPublications($limit: Int! = 4) {
     title
     abstract
     journal
-    pub_date
+    pubDate
     pages
     issue
     volume
     authors {
       initials
-      last_name
+      lastName
     }
   }
 }

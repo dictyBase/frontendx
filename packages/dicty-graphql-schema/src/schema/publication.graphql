@@ -4,11 +4,11 @@ interface BasePublication {
   title: String!
   abstract: String!
   journal: String!
-  pub_date: Timestamp
+  pubDate: Timestamp
   volume: String
   pages: String
   issn: String
-  pub_type: String!
+  pubType: String!
   source: String!
   issue: String
   status: String
@@ -21,11 +21,11 @@ type Publication implements BasePublication {
   title: String!
   abstract: String!
   journal: String!
-  pub_date: Timestamp
+  pubDate: Timestamp
   volume: String
   pages: String
   issn: String
-  pub_type: String!
+  pubType: String!
   source: String!
   issue: String
   status: String
@@ -33,17 +33,17 @@ type Publication implements BasePublication {
 }
 
 type PublicationWithGene implements BasePublication {
-  related_genes: [Gene!]!
+  relatedGenes: [Gene!]!
   id: ID!
   doi: String
   title: String!
   abstract: String!
   journal: String!
-  pub_date: Timestamp
+  pubDate: Timestamp
   volume: String
   pages: String
   issn: String
-  pub_type: String!
+  pubType: String!
   source: String!
   issue: String
   status: String
@@ -51,20 +51,20 @@ type PublicationWithGene implements BasePublication {
 }
 
 type NumberOfPublicationsWithGene {
-  num_pubs: Int!
+  numPubs: Int!
   publications: [PublicationWithGene!]!
 }
 
 type Author {
-  last_name: String!
-  first_name: String
+  lastName: String!
+  firstName: String
   initials: String
   rank: String
 }
 
-#type PublicationQuery {
+# type PublicationQuery {
 #  listPublications: [Publication!]!
-#}
+# }
 
 # type PublicationListWithCursor {
 #   publications: [Publication!]!
@@ -79,11 +79,11 @@ type Author {
 #   title: String
 #   abstract: String
 #   journal: String
-#   pub_date: Timestamp
+#   pubDate: Timestamp
 #   volume: String
 #   pages: String
 #   issn: String
-#   pub_type: String
+#   pubType: String
 #   source: String
 #   issue: String
 #   status: String
@@ -91,25 +91,25 @@ type Author {
 # }
 
 # input CreateAuthorInput {
-#   last_name: String
-#   first_name: String
+#   lastName: String
+#   firstName: String
 #   initials: String
 #   rank: String
 # }
 
 # input UpdatePublicationInput {
-#   pub_date: String
+#   pubDate: String
 #   volume: String
 #   pages: String
-#   pub_type: String
+#   pubType: String
 #   source: String
 #   status: String
 #   authors: [UpdateAuthorInput]
 # }
 
 # input UpdateAuthorInput {
-#   last_name: String
-#   first_name: String
+#   lastName: String
+#   firstName: String
 #   initials: String
 #   rank: String
 # }

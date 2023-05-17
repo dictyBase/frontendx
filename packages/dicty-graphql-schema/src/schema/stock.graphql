@@ -1,69 +1,70 @@
 interface Stock {
   id: ID!
-  created_at: Timestamp!
-  updated_at: Timestamp!
-  created_by: User!
-  updated_by: User!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+  createdBy: User!
+  updatedBy: User!
   summary: String
-  editable_summary: String
+  editableSummary: String
   depositor: User!
   genes: [Gene!]
   dbxrefs: [String!]
   publications: [Publication!]
-  in_stock: Boolean!
+  inStock: Boolean!
 }
 
 type Strain implements Stock {
   id: ID!
-  created_at: Timestamp!
-  updated_at: Timestamp!
-  created_by: User!
-  updated_by: User!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+  createdBy: User!
+  updatedBy: User!
   summary: String
-  editable_summary: String
+  editableSummary: String
   depositor: User!
   genes: [Gene!]
   dbxrefs: [String!]
   publications: [Publication!]
-  # from strain_properties
-  systematic_name: String!
+  # from strainProperties
+  systematicName: String!
   label: String!
   species: String!
   plasmid: String # update to Plasmid later?
   parent: Strain
   names: [String!]
   # new additions
-  in_stock: Boolean!
+  inStock: Boolean!
   phenotypes: [Phenotype!]
-  genetic_modification: String
-  mutagenesis_method: String
+  geneticModification: String
+  mutagenesisMethod: String
   characteristics: [String!]
   genotypes: [String!]
 }
 
 type Plasmid implements Stock {
   id: ID!
-  created_at: Timestamp!
-  updated_at: Timestamp!
-  created_by: User!
-  updated_by: User!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+  createdBy: User!
+  updatedBy: User!
   summary: String # same as description field?
-  editable_summary: String
+  editableSummary: String
   depositor: User!
   genes: [Gene!]
   dbxrefs: [String!]
   publications: [Publication!]
   name: String!
-  # from plasmid_properties
-  image_map: String
+  # from plasmidProperties
+  imageMap: String
   sequence: String
   # new additions
-  in_stock: Boolean!
+  inStock: Boolean!
   keywords: [String!]
-  genbank_accession: String
+  genbankAccession: String
 }
 
 type Phenotype {
+  # eslint-disable-next-line @graphql-eslint/no-typename-prefix
   phenotype: String!
   note: String
   assay: String
@@ -88,99 +89,100 @@ type PlasmidListWithCursor {
 }
 
 type DeleteStock {
+  id: ID!
   success: Boolean!
 }
 
 input CreateStrainInput {
-  created_by: String!
-  updated_by: String!
+  createdBy: String!
+  updatedBy: String!
   summary: String
-  editable_summary: String
+  editableSummary: String
   depositor: String
   genes: [String!]
   dbxrefs: [String!]
   publications: [String!]
-  # from strain_properties
-  systematic_name: String!
+  # from strainProperties
+  systematicName: String!
   label: String!
   species: String!
   plasmid: String
   parent: String
   names: [String!]
   # new additions
-  in_stock: Boolean!
+  inStock: Boolean!
   phenotypes: [String!]
-  genetic_modification: String
-  mutagenesis_method: String
+  geneticModification: String
+  mutagenesisMethod: String
   characteristics: [String!]
   genotypes: [String!]
 }
 
 input CreatePlasmidInput {
-  created_by: String!
-  updated_by: String!
+  createdBy: String!
+  updatedBy: String!
   summary: String
-  editable_summary: String
+  editableSummary: String
   depositor: String
   genes: [String!]
   dbxrefs: [String!]
   publications: [String!]
   name: String!
-  # from plasmid_properties
-  image_map: String
+  # from plasmidProperties
+  imageMap: String
   sequence: String
   # new additions
-  in_stock: Boolean!
+  inStock: Boolean!
   keywords: [String!]
-  genbank_accession: String
+  genbankAccession: String
 }
 
 input UpdateStrainInput {
-  updated_by: String!
+  updatedBy: String!
   summary: String
-  editable_summary: String
+  editableSummary: String
   depositor: String
   genes: [String!]
   dbxrefs: [String!]
   publications: [String!]
-  # from strain_properties
-  systematic_name: String
+  # from strainProperties
+  systematicName: String
   label: String
   species: String
   plasmid: String
   parent: String
   names: [String!]
   # new additions
-  in_stock: Boolean
+  inStock: Boolean
   phenotypes: [String!]
-  genetic_modification: String
-  mutagenesis_method: String
+  geneticModification: String
+  mutagenesisMethod: String
   characteristics: [String!]
   genotypes: [String!]
 }
 
 input UpdatePlasmidInput {
-  updated_by: String!
+  updatedBy: String!
   summary: String
-  editable_summary: String
+  editableSummary: String
   depositor: String
   genes: [String!]
   dbxrefs: [String!]
   publications: [String!]
   name: String
-  # from plasmid_properties
-  image_map: String
+  # from plasmidProperties
+  imageMap: String
   sequence: String
   # new additions
-  in_stock: Boolean
+  inStock: Boolean
   keywords: [String!]
-  genbank_accession: String
+  genbankAccession: String
 }
 
 enum StrainType {
-  ALL 
-  REGULAR 
-  GWDI 
+  ALL
+  REGULAR
+  GWDI
   BACTERIAL
 }
 
@@ -188,6 +190,6 @@ input StrainListFilter {
   label: String
   summary: String
   id: ID
-  in_stock: Boolean
-  strain_type: StrainType!
+  inStock: Boolean
+  strainType: StrainType!
 }
