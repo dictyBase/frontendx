@@ -22,7 +22,7 @@
     "@apollo/client": "3.7.10",
     "dicty-graphql-schema": "*",
     "fp-ts": "2.13.1",
-    "fp-ts-std": "^0.15.0",
+    "fp-ts-std": "^0.16.0",
     "monocle-ts": "^2.3.13",
     "react": "17.x",
     "react-dom": "17.x"
