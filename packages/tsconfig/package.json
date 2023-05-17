@@ -5,7 +5,7 @@
     "@tsconfig/esm": "^1.x",
     "@tsconfig/next": "^1.x",
     "@tsconfig/node18-strictest-esm": "^1.x",
-    "@tsconfig/vite-react": "^1.x",
+    "@tsconfig/vite-react": "^2.x",
     "typescript": "4.9.x"
   }
 }
