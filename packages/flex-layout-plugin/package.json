@@ -21,7 +21,7 @@
     "tsconfig": "*"
   },
   "dependencies": {
-    "@lexical/react": "0.9.x",
+    "@lexical/react": "0.10.x",
     "@material-ui/core": "4.x",
     "@material-ui/icons": "4.x",
     "jotai": "^1.12.0",

@@ -11,7 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@lexical/react": "0.9.x",
+    "@lexical/react": "0.10.x",
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
     "lexical": "0.9.x",
