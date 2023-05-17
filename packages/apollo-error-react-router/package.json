@@ -22,7 +22,7 @@
     "graphql": "~15.5.0",
     "react": "17.x",
     "react-dom": "17.x",
-    "react-router-dom": "~6.11.1"
+    "react-router-dom": "~6.11.2"
   },
   "scripts": {
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
