@@ -14,7 +14,7 @@
     "@types/react": "^17.x",
     "@types/react-dom": "^17.x",
     "jotai": "~1.6.1",
-    "optics-ts": "~2.3.0",
+    "optics-ts": "~2.4.0",
     "tsconfig": "*",
     "eslint-config-custom": "*",
     "vitest": "0.31.x",
