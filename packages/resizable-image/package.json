@@ -12,7 +12,7 @@
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/resizable-image.json"
   },
   "devDependencies": {
-    "@types/react": "17.x",
+    "@types/react": "18.x",
     "@types/react-dom": "17.x",
     "@vitest/coverage-c8": "0.31.x",
     "eslint-config-custom": "*",
@@ -23,7 +23,7 @@
     "@material-ui/core": "4.x",
     "@material-ui/icons": "4.x",
     "jotai": "^1.12.0",
-    "react": "17.x"
+    "react": "18.x"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",
