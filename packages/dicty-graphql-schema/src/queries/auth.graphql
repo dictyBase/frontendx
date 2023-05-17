@@ -7,9 +7,9 @@ query GetRefreshToken($token: String!) {
       firstName
       lastName
       roles {
-        role
+        name
         permissions {
-          permission
+          level
           resource
         }
       }

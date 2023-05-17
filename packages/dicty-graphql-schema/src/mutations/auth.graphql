@@ -4,12 +4,12 @@ mutation Login($input: LoginInput!) {
     user {
       id
       email
-      first_name
-      last_name
+      firstName
+      lastName
       roles {
-        role
+        name
         permissions {
-          permission
+          level
           resource
         }
       }

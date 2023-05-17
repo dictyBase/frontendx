@@ -11,9 +11,9 @@ query contentBySlug($slug: String!) {
       firstName
       lastName
       roles {
-        role
+        name
         permissions {
-          permission
+          level
           resource
         }
       }
@@ -35,9 +35,9 @@ query content($id: ID!) {
       firstName
       lastName
       roles {
-        role
+        name
         permissions {
-          permission
+          level
           resource
         }
       }
