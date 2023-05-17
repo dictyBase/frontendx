@@ -7,7 +7,7 @@ import {
   mockContentBySlugQuery,
   mockListOrganismsQuery,
   mockLoginMutation,
-  mockRefreshTokenQuery,
+  mockGetRefreshTokenQuery,
 } from "dicty-graphql-schema"
 import listRecentPublications from "../common/data/mockPublications"
 import listRecentPlasmids from "../common/data/mockPlasmids"
@@ -114,7 +114,7 @@ const handlers = [
     ),
   ),
 
-  mockRefreshTokenQuery((request, response, context) => {
+  mockGetRefreshTokenQuery((request, response, context) => {
     if (!request.variables.token) {
       return response(
         context.errors([{ message: "No Refresh Token Provided" }]),
