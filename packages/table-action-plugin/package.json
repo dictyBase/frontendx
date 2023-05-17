@@ -6,7 +6,7 @@
   "author": "Kevin Tun",
   "license": "BSD-2-Clause",
   "scripts": {
-    "test": "vitest",
+    "test": "vitest run",
     "coverage": "vitest run --coverage",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/table-action-plugin.json"
@@ -15,9 +15,9 @@
     "@testing-library/dom": "^7.21.4",
     "@testing-library/user-event": "^13.5.0",
     "@types/react": "17.x",
-    "@vitest/coverage-c8": "^0.28.5",
+    "@vitest/coverage-c8": "0.31.x",
     "jsdom": "latest",
-    "vitest": "latest",
+    "vitest": "0.31.x",
     "eslint-config-custom": "*",
     "width-table-plugin": "*"
   },

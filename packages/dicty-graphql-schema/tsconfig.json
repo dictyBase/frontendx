@@ -1,0 +1,9 @@
+{
+  "extends": "tsconfig/react-library-esm.json",
+  "include": [
+    "generated"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

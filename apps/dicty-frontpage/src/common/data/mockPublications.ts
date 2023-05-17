@@ -6,17 +6,15 @@ const listRecentPublications = [
       "Cytokinesis D is Mediated by Cortical Flow of Dividing Cells Instead of Chemotaxis.",
     abstract: "",
     journal: "Cells 8",
-    // eslint-disable-next-line camelcase
-    pub_date: "",
+    pubDate: "",
     pages: "",
     issue: "",
     volume: "",
     authors: [
-      {
-        initials: [""],
-        // eslint-disable-next-line camelcase
-        last_name: ["Tanaka", "Jahan", "Kondo", "Nakano & Yumura (2019)"],
-      },
+      { lastName: "Tanaka" },
+      { lastName: "Jahan" },
+      { lastName: "Kondo" },
+      { lastName: "Nakano & Yumura (2019)" },
     ],
   },
   {
@@ -26,23 +24,16 @@ const listRecentPublications = [
       "Force balances between interphase centrosomes, as revealed by laser ablation.",
     abstract: "",
     journal: "Mol. Biol. Cell mbcE19010034",
-    // eslint-disable-next-line camelcase
-    pub_date: "",
+    pubDate: "",
     pages: "",
     issue: "",
     volume: "",
     authors: [
-      {
-        initials: [""],
-        // eslint-disable-next-line camelcase
-        last_name: [
-          "Odell",
-          "Sikirzhytski",
-          "Tikhonenko",
-          "Cobani",
-          "Khodjakov & Koonce (2019)",
-        ],
-      },
+      { lastName: "Odell" },
+      { lastName: "Sikirzhytski" },
+      { lastName: "Tikhonenko" },
+      { lastName: "Cobani" },
+      { lastName: "Khodjakov & Koonce (2019)" },
     ],
   },
   {
@@ -52,27 +43,20 @@ const listRecentPublications = [
       "A terpene synthase-cytochrome P450 cluster in Dictyostelium discoideum produces a novel trisnorsesquiterpene.",
     abstract: "",
     journal: "Elife 8",
-    // eslint-disable-next-line camelcase
-    pub_date: "",
+    pubDate: "",
     pages: "",
     issue: "",
     volume: "",
     authors: [
-      {
-        initials: [""],
-        // eslint-disable-next-line camelcase
-        last_name: [
-          "Chen",
-          "Luck",
-          "Rabe",
-          "Dinh",
-          "Shaulsky",
-          "Nelson",
-          "Gershenzon",
-          "Dickschat",
-          "Kollner & Chen (2019)",
-        ],
-      },
+      { lastName: "Chen" },
+      { lastName: "Luck" },
+      { lastName: "Rabe" },
+      { lastName: "Dinh" },
+      { lastName: "Shaulsky" },
+      { lastName: "Nelson" },
+      { lastName: "Gershenzon" },
+      { lastName: "Dickschat" },
+      { lastName: "Kollner & Chen (2019)" },
     ],
   },
   {
@@ -82,16 +66,13 @@ const listRecentPublications = [
       "Cyclic AMP induction of Dictyostelium prespore gene expression requires autophagy.",
     abstract: "",
     journal: "Dev. Biol.",
-    // eslint-disable-next-line camelcase
-    pub_date: "",
+    pubDate: "",
     pages: "",
     issue: "",
     volume: "",
     authors: [
       {
-        initials: [""],
-        // eslint-disable-next-line camelcase
-        last_name: ["Yamada & Schaap (2019)"],
+        lastName: "Yamada & Schaap (2019)",
       },
     ],
   },

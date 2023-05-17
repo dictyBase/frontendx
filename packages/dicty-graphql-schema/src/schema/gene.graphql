@@ -1,0 +1,105 @@
+type Gene {
+  id: String!
+  name: String!
+  goas: [GOAnnotation!]
+  strains: [Strain!]
+  orthologs: [Orthologs!]
+  productInfo: [ProductInformation!]
+  # eslint-disable-next-line @graphql-eslint/no-typename-prefix
+  generalInfo: GeneralInfo!
+  associatedSequences: AssociatedSequences!
+  links: Links!
+  proteinInformation: ProteinInformation
+}
+
+type ProteinInformation {
+  generalInfo: ProteinGeneralInfo!
+  externalLinks: [NameWithLink!]!
+  proteinSequence: String!
+}
+
+type ProteinGeneralInfo {
+  geneProduct: String!
+  dictybaseId: String!
+  description: String!
+  proteinLength: String!
+  molecularWeight: String!
+  aaComposition: NameWithLink!
+  subcellularLocation: String!
+  proteinExistence: String!
+  note: String!
+}
+
+type GOAnnotation {
+  id: String!
+  type: String!
+  date: String!
+  evidenceCode: String!
+  goTerm: String!
+  qualifier: String!
+  publication: String!
+  with: [With!]
+  extensions: [Extension!]
+  assignedBy: String!
+}
+
+type ProductInformation {
+  proteinCodingGene: NameWithLink!
+  proteinLength: String!
+  proteinMolecularWeight: String!
+  moreProteinData: String!
+  genomicCoords: [GenomicCoordinates!]!
+}
+
+type GenomicCoordinates {
+  exon: String!
+  localCoords: String!
+  chromCoords: String!
+}
+
+type With {
+  id: String!
+  db: String!
+  name: String!
+}
+
+type Extension {
+  id: String!
+  db: String!
+  relation: String!
+  name: String!
+}
+
+type Orthologs {
+  id: NameWithLink!
+  species: String!
+  uniprotkb: NameWithLink!
+  geneProduct: String!
+  source: [String!]!
+}
+
+type GeneralInfo {
+  nameDescription: [String!]!
+  altGeneName: [String!]
+  geneProduct: String!
+  altProteinNames: [String!]
+  description: String!
+}
+
+type AssociatedSequences {
+  genbankGenomicFragment: NameWithLink
+  genbankMrna: NameWithLink
+  ests: [NameWithLink!]!
+  moreLink: String!
+}
+
+type Links {
+  expression: [NameWithLink!]!
+  colleagues: NameWithLink!
+  extResources: [NameWithLink!]!
+}
+
+type NameWithLink {
+  name: String!
+  link: String!
+}

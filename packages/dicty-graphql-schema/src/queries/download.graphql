@@ -1,0 +1,19 @@
+query ListOrganisms {
+  listOrganisms {
+    taxonId
+    scientificName
+    citations {
+      title
+      authors
+      pubmedId
+      journal
+    }
+    downloads {
+      title
+      items {
+        title
+        url
+      }
+    }
+  }
+}

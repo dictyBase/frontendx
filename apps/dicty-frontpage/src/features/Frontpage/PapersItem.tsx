@@ -40,9 +40,7 @@ const PapersItem = ({ data }: PaperContainerProperties) => {
   const recentPublications = filteredPublications.map((paper) => {
     const { authors, id, title, journal } = paper
     const doi = paper?.doi
-    const lastname = Array.isArray(authors[0]?.last_name)
-      ? authors[0]?.last_name?.join(", ")
-      : authors[0]?.last_name
+    const lastname = authors.map((author) => author.lastName).join(", ")
 
     return (
       <li className={classes.listItem} key={id}>
@@ -68,7 +66,6 @@ const PapersItem = ({ data }: PaperContainerProperties) => {
       </li>
     )
   })
-  // eslint-disable-next-line react/jsx-no-useless-fragment --- recentPublications may represent more than one child, and should therefore be wrapped in a JSX fragment
   return <>{recentPublications}</>
 }
 

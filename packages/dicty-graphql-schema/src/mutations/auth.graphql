@@ -1,0 +1,27 @@
+mutation Login($input: LoginInput!) {
+  login(input: $input) {
+    token
+    user {
+      id
+      email
+      firstName
+      lastName
+      roles {
+        name
+        permissions {
+          level
+          resource
+        }
+      }
+    }
+    identity {
+      provider
+    }
+  }
+}
+
+mutation Logout {
+  logout {
+    success
+  }
+}

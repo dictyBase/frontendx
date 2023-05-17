@@ -60,21 +60,21 @@ describe("features/EditablePages/InfoPageContainer", () => {
               content: JSON.stringify(mockContent),
               name: mockName,
               slug: mockSlug,
-              // eslint-disable-next-line camelcase
-              updated_at: "2020-01-01T17:50:12.427Z",
-              // eslint-disable-next-line camelcase
-              updated_by: {
+
+              updatedAt: "2020-01-01T17:50:12.427Z",
+
+              updatedBy: {
                 id: 1,
                 email: "rusty@holzer.com",
-                // eslint-disable-next-line camelcase
-                first_name: "Rusty",
-                // eslint-disable-next-line camelcase
-                last_name: "Holzer",
+
+                firstName: "Rusty",
+
+                lastName: "Holzer",
                 roles: [
                   {
-                    role: "superuser",
+                    name: "superuser",
                     permissions: {
-                      permission: "admin",
+                      level: "admin",
                       resource: "dictybase",
                     },
                   },

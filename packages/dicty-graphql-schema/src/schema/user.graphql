@@ -1,0 +1,112 @@
+type Permission {
+  id: ID!
+  level: String!
+  description: String!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+  resource: String
+}
+
+type Role {
+  id: ID!
+  name: String!
+  description: String!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+  permissions: [Permission!]
+}
+
+type User {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+  organization: String
+  groupName: String
+  firstAddress: String
+  secondAddress: String
+  city: String
+  state: String
+  zipcode: String
+  country: String
+  phone: String
+  isActive: Boolean!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+  roles: [Role!]
+}
+
+type UserList {
+  users: [User!]!
+  pageNum: String
+  pageSize: String
+  totalCount: Int!
+}
+
+input CreateUserInput {
+  firstName: String!
+  lastName: String!
+  email: String!
+  organization: String
+  groupName: String
+  firstAddress: String
+  secondAddress: String
+  city: String
+  state: String
+  zipcode: String
+  country: String
+  phone: String
+  isActive: Boolean!
+}
+
+input UpdateUserInput {
+  firstName: String
+  lastName: String
+  organization: String
+  groupName: String
+  firstAddress: String
+  secondAddress: String
+  city: String
+  state: String
+  zipcode: String
+  country: String
+  phone: String
+  isActive: Boolean
+}
+
+input CreateRoleInput {
+  role: String!
+  description: String!
+}
+
+input UpdateRoleInput {
+  role: String!
+  description: String!
+}
+
+input CreatePermissionInput {
+  permission: String!
+  description: String!
+  resource: String!
+}
+
+input UpdatePermissionInput {
+  permission: String!
+  description: String!
+  resource: String!
+}
+
+type DeleteUser {
+  id: ID!
+  success: Boolean!
+}
+
+type DeleteRole {
+  id: ID!
+  success: Boolean!
+}
+
+type DeletePermission {
+  id: ID!
+  success: Boolean!
+}

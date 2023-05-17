@@ -57,8 +57,8 @@ const InlineEditor = ({ data }: Properties) => {
       variables: {
         input: {
           id: data.id,
-          // eslint-disable-next-line camelcase
-          updated_by: user.id,
+
+          updatedBy: user.id,
           content: valueString,
         },
       },

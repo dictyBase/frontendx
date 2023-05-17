@@ -17,7 +17,8 @@
     "dev": {
       "cache": false
     },
-    "test": {
-    }
+    "test": {},
+    "coverage": {},
+    "generate": {}
   }
 }

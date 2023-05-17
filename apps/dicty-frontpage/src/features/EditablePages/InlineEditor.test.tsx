@@ -32,21 +32,21 @@ describe("EditablePages/InlineEditor", () => {
         id: "99",
         name: "payment",
         slug: "dsc-payment",
-        // eslint-disable-next-line camelcase
-        updated_at: mockDate,
-        // eslint-disable-next-line camelcase
-        updated_by: {
+
+        updatedAt: mockDate,
+
+        updatedBy: {
           id: "999",
-          // eslint-disable-next-line camelcase
-          first_name: "Art",
-          // eslint-disable-next-line camelcase
-          last_name: "Vandelay",
+
+          firstName: "Art",
+
+          lastName: "Vandelay",
           email: "seven@vandelayindustries.com",
-          // eslint-disable-next-line camelcase
-          updated_at: mockDate,
+
+          updatedAt: mockDate,
           roles: [
             {
-              role: "Latex Salesman",
+              name: "Latex Salesman",
             },
           ],
         },
@@ -70,8 +70,8 @@ describe("EditablePages/InlineEditor", () => {
             variables: {
               input: {
                 id: properties.data.id,
-                // eslint-disable-next-line camelcase
-                updated_by: properties.data.updated_by.id,
+
+                updatedBy: properties.data.updatedBy.id,
                 content: properties.data.content,
               },
             },
@@ -80,9 +80,9 @@ describe("EditablePages/InlineEditor", () => {
             data: {
               updateContent: {
                 id: properties.data.id,
-                // eslint-disable-next-line camelcase
-                updated_by: {
-                  id: properties.data.updated_by.id,
+
+                updatedBy: {
+                  id: properties.data.updatedBy.id,
                 },
                 content: properties.data.content,
               },
@@ -113,21 +113,21 @@ describe("EditablePages/InlineEditor", () => {
         id: "99",
         name: "payment",
         slug: "dsc-payment",
-        // eslint-disable-next-line camelcase
-        updated_at: mockDate,
-        // eslint-disable-next-line camelcase
-        updated_by: {
+
+        updatedAt: mockDate,
+
+        updatedBy: {
           id: "999",
-          // eslint-disable-next-line camelcase
-          first_name: "Art",
-          // eslint-disable-next-line camelcase
-          last_name: "Vandelay",
+
+          firstName: "Art",
+
+          lastName: "Vandelay",
           email: "seven@vandelayindustries.com",
-          // eslint-disable-next-line camelcase
-          updated_at: mockDate,
+
+          updatedAt: mockDate,
           roles: [
             {
-              role: "Latex Salesman",
+              name: "Latex Salesman",
             },
           ],
         },

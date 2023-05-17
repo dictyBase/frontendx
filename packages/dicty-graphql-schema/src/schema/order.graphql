@@ -1,0 +1,53 @@
+type Order {
+  id: ID!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+  courier: String
+  courierAccount: String
+  comments: String
+  payment: String
+  purchaseOrderNum: String
+  status: StatusEnum
+  consumer: User
+  payer: User
+  purchaser: User
+  items: [Stock!]
+}
+
+type OrderListWithCursor {
+  orders: [Order!]!
+  nextCursor: Int!
+  previousCursor: Int!
+  limit: Int
+  totalCount: Int!
+}
+
+enum StatusEnum {
+  IN_PREPARATION
+  GROWING
+  CANCELLED
+  SHIPPED
+}
+
+input CreateOrderInput {
+  courier: String!
+  courierAccount: String!
+  comments: String
+  payment: String!
+  purchaseOrderNum: String
+  status: StatusEnum!
+  consumer: String!
+  payer: String!
+  purchaser: String!
+  items: [String!]!
+}
+
+input UpdateOrderInput {
+  courier: String
+  courierAccount: String
+  comments: String
+  payment: String
+  purchaseOrderNum: String
+  status: StatusEnum
+  items: [String!]
+}

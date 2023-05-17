@@ -39,25 +39,21 @@ describe("hooks/useAuthorization", () => {
     const writePerms = [
       {
         id: "1",
-        permission: "write",
+        level: "write",
         resource: "dsccontent",
         description: "test permission",
-        // eslint-disable-next-line camelcase
-        created_at: 123,
-        // eslint-disable-next-line camelcase
-        updated_at: 456,
+        createdAt: 123,
+        updatedAt: 456,
       },
     ]
     const adminPerms = [
       {
         id: "1",
-        permission: "admin",
+        level: "admin",
         resource: "dictybase",
         description: "test permission",
-        // eslint-disable-next-line camelcase
-        created_at: 123,
-        // eslint-disable-next-line camelcase
-        updated_at: 456,
+        createdAt: 123,
+        updatedAt: 456,
       },
     ]
     it("should return true for admin permission even with different permission specified", () => {
@@ -99,36 +95,34 @@ describe("hooks/useAuthorization", () => {
     describe("useAuthorization with non-superuser logged in", () => {
       const MockAdmin = {
         id: "999",
-        // eslint-disable-next-line camelcase
-        first_name: "Art",
-        // eslint-disable-next-line camelcase
-        last_name: "Vandelay",
+
+        firstName: "Art",
+
+        lastName: "Vandelay",
         email: "george@vandelayindustries.com",
-        // eslint-disable-next-line camelcase
-        is_active: true,
-        // eslint-disable-next-line camelcase
-        created_at: "123456",
-        // eslint-disable-next-line camelcase
-        updated_at: "123456",
+
+        isActive: true,
+        createdAt: "123456",
+        updatedAt: "123456",
         roles: [
           {
             id: "1",
-            role: "curator",
+            name: "curator",
             description: "dicty curator",
-            // eslint-disable-next-line camelcase
-            created_at: 123_456,
-            // eslint-disable-next-line camelcase
-            updated_at: 678_900,
+
+            createdAt: 123_456,
+
+            updatedAt: 678_900,
             permissions: [
               {
                 id: "1",
-                permission: "write",
+                level: "write",
                 description: "a test permission",
                 resource: "dsccontent",
-                // eslint-disable-next-line camelcase
-                created_at: 123_456,
-                // eslint-disable-next-line camelcase
-                updated_at: 678_900,
+
+                createdAt: 123_456,
+
+                updatedAt: 678_900,
               },
             ],
           },

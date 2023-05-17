@@ -6,7 +6,7 @@ import {
   mockListRecentStrainsQuery,
   mockContentBySlugQuery,
   mockListOrganismsQuery,
-} from "dicty-graphql-schema/introspection/mocks"
+} from "dicty-graphql-schema"
 import listRecentPublications from "../common/data/mockPublications"
 import listRecentPlasmids from "../common/data/mockPlasmids"
 import listRecentStrains from "../common/data/mockStrains"
@@ -77,8 +77,7 @@ const handlers = [
 
     return response(
       context.data({
-        contentBySlug,
-        ...slug,
+        contentBySlug: { ...contentBySlug, slug },
       }),
     )
   }),

@@ -42,7 +42,6 @@ const Annotations = ({ data, type }: AnnotationsItemProperties) => {
       )
     })
 
-    // eslint-disable-next-line react/jsx-no-useless-fragment --- Since recentPublications may represent more than one child, is necessary to wrap it in a JSX fragment
     return <>{recentPublications}</>
   }
 
@@ -54,7 +53,6 @@ const Annotations = ({ data, type }: AnnotationsItemProperties) => {
         </a>
       </li>
     ))
-    // eslint-disable-next-line react/jsx-no-useless-fragment --- Since recentGenes may represent more than one child, is necessary to wrap it in a JSX fragment
     return <>{recentGenes}</>
   }
 

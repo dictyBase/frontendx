@@ -10,6 +10,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "test": "turbo run test",
+    "coverage": "turbo run coverage --continue",
     "lint": "turbo run lint",
     "lint:out": "turbo run lint:out",
     "lint:merge": "tsx merge_eslint.ts eslint",
@@ -18,7 +19,8 @@
     "doc:build": "typedoc --tsconfig typedoc-tsconfig.json",
     "doc:watch": "typedoc --tsconfig typedoc-tsconfig.json --watch",
     "create:package": "plop package",
-    "create:app": "plop app"
+    "create:app": "plop app",
+    "generate:schema": "turbo run generate"
   },
   "devDependencies": {
     "browserlist": "latest",

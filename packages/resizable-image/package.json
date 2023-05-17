@@ -6,7 +6,7 @@
   "author": "Kevin Tun",
   "license": "BSD-2-Clause",
   "scripts": {
-    "test": "vitest",
+    "test": "vitest run",
     "coverage": "vitest run --coverage",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/resizable-image.json"
@@ -14,10 +14,10 @@
   "devDependencies": {
     "@types/react": "17.x",
     "@types/react-dom": "17.x",
-    "@vitest/coverage-c8": "^0.28.5",
-    "vitest": "latest",
+    "@vitest/coverage-c8": "0.31.x",
     "eslint-config-custom": "*",
-    "tsconfig": "*"
+    "tsconfig": "*",
+    "vitest": "0.31.x"
   },
   "dependencies": {
     "@material-ui/core": "4.x",

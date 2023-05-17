@@ -1,0 +1,30 @@
+type Mutation {
+  # Auth mutations
+  login(input: LoginInput): Auth
+  logout: Logout
+  # Content mutations
+  createContent(input: CreateContentInput): Content
+  updateContent(input: UpdateContentInput): Content
+  deleteContent(id: ID!): DeleteContent
+  # Order mutations
+  createOrder(input: CreateOrderInput): Order
+  updateOrder(id: ID!, input: UpdateOrderInput): Order
+  # Stock mutations
+  createStrain(input: CreateStrainInput): Strain
+  createPlasmid(input: CreatePlasmidInput): Plasmid
+  updateStrain(id: ID!, input: UpdateStrainInput): Strain
+  updatePlasmid(id: ID!, input: UpdatePlasmidInput): Plasmid
+  deleteStock(id: ID!): DeleteStock
+  # User mutations
+  createUser(input: CreateUserInput): User
+  createUserRoleRelationship(userId: ID!, roleId: ID!): User
+  updateUser(id: ID!, input: UpdateUserInput): User
+  deleteUser(id: ID!): DeleteUser
+  createRole(input: CreateRoleInput): Role
+  createRolePermissionRelationship(roleId: ID!, permissionId: ID!): Role
+  updateRole(id: ID!, input: UpdateRoleInput): Role
+  deleteRole(id: ID!): DeleteRole
+  createPermission(input: CreatePermissionInput): Permission
+  updatePermission(id: ID!, input: UpdatePermissionInput): Permission
+  deletePermission(id: ID!): DeletePermission
+}

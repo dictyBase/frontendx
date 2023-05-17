@@ -28,19 +28,19 @@ const properties = {
         name: "payment",
         slug: "dsc-payment",
         content: JSON.stringify(mockContent),
-        // eslint-disable-next-line camelcase
-        updated_at: "2020-01-01T17:50:12.427Z",
-        // eslint-disable-next-line camelcase
-        updated_by: {
+
+        updatedAt: "2020-01-01T17:50:12.427Z",
+
+        updatedBy: {
           id: "999",
-          // eslint-disable-next-line camelcase
-          first_name: "Art",
-          // eslint-disable-next-line camelcase
-          last_name: "Vandelay",
+
+          firstName: "Art",
+
+          lastName: "Vandelay",
           email: "art@vandelayindustries.com",
           roles: [
             {
-              role: "Latex Salesman",
+              name: "Latex Salesman",
             },
           ],
         },
@@ -89,8 +89,8 @@ describe("features/EditablePages/EditInfoPage", () => {
             variables: {
               input: {
                 id: properties.location.state.data.id,
-                // eslint-disable-next-line camelcase
-                updated_by: properties.location.state.data.updated_by.id,
+
+                updatedBy: properties.location.state.data.updatedBy.id,
                 content: properties.location.state.data.content,
               },
             },
@@ -99,9 +99,9 @@ describe("features/EditablePages/EditInfoPage", () => {
             data: {
               updateContent: {
                 id: properties.location.state.data.id,
-                // eslint-disable-next-line camelcase
-                updated_by: {
-                  id: properties.location.state.data.updated_by.id,
+
+                updatedBy: {
+                  id: properties.location.state.data.updatedBy.id,
                 },
                 content: properties.location.state.data.content,
               },

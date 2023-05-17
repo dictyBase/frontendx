@@ -16,11 +16,11 @@
     "eslint-config-custom": "*",
     "jsdom": "latest",
     "tsconfig": "*",
-    "vitest": "latest"
+    "vitest": "0.31.x"
   },
   "dependencies": {
     "@apollo/client": "3.7.10",
-    "dicty-graphql-schema": "dictyBase/dicty-graphql-schema#v1.10.0",
+    "dicty-graphql-schema": "*",
     "fp-ts": "2.13.1",
     "fp-ts-std": "^0.15.0",
     "monocle-ts": "^2.3.13",
@@ -28,8 +28,6 @@
     "react-dom": "17.x"
   },
   "scripts": {
-    "test": "vitest",
-    "coverage": "vitest run --coverage",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/hook-dsc.json"
   },

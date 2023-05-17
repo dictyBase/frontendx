@@ -1,0 +1,190 @@
+query Gene($gene: String!, $limit: Int, $sortBy: String = "desc") {
+  allStrains(gene: $gene) {
+    id
+    name
+    strains {
+      id
+      label
+      characteristics
+      inStock
+      phenotypes {
+        phenotype
+        publication {
+          id
+          title
+          journal
+          pages
+          volume
+          pubDate
+          authors {
+            lastName
+            rank
+          }
+        }
+      }
+    }
+  }
+  gene(gene: $gene) {
+    id
+    name
+    goas {
+      id
+      type
+      date
+      evidenceCode
+      goTerm
+      qualifier
+      publication
+      assignedBy
+      with {
+        id
+        db
+        name
+      }
+      extensions {
+        id
+        db
+        relation
+        name
+      }
+    }
+  }
+  allPublications(gene: $gene, limit: $limit, sortBy: $sortBy) {
+    numPubs
+    publications {
+      relatedGenes {
+        id
+        name
+      }
+      id
+      doi
+      title
+      journal
+      pubDate
+      volume
+      pages
+      pubType
+      source
+      issue
+      authors {
+        lastName
+        rank
+      }
+    }
+  }
+  allOrthologs(gene: $gene) {
+    id
+    name
+    orthologs {
+      id {
+        name
+        link
+      }
+      species
+      uniprotkb {
+        name
+        link
+      }
+      geneProduct
+      source
+    }
+  }
+  listGeneProductInfo(gene: $gene) {
+    id
+    name
+    productInfo {
+      proteinCodingGene {
+        name
+        link
+      }
+      proteinLength
+      proteinMolecularWeight
+      moreProteinData
+      genomicCoords {
+        exon
+        localCoords
+        chromCoords
+      }
+    }
+  }
+  generalInformation(gene: $gene) {
+    id
+    name
+    generalInfo {
+      nameDescription
+      altGeneName
+      geneProduct
+      altProteinNames
+      description
+    }
+  }
+  associatedSequnces(gene: $gene) {
+    id
+    name
+    associatedSequences {
+      genbankGenomicFragment {
+        name
+        link
+      }
+      genbankMrna {
+        name
+        link
+      }
+      ests {
+        name
+        link
+      }
+      moreLink
+    }
+  }
+  links(gene: $gene) {
+    id
+    name
+    links {
+      expression {
+        name
+        link
+      }
+      colleagues {
+        name
+        link
+      }
+      extResources {
+        name
+        link
+      }
+    }
+  }
+  proteinInformation(gene: $gene) {
+    id
+    name
+    proteinInformation {
+      generalInfo {
+        geneProduct
+        dictybaseId
+        description
+        proteinLength
+        molecularWeight
+        aaComposition {
+          name
+          link
+        }
+        subcellularLocation
+        proteinExistence
+        note
+      }
+      externalLinks {
+        name
+        link
+      }
+      proteinSequence
+    }
+  }
+}
+
+query ListRecentGenes($limit: Int! = 4) {
+  listRecentGenes(limit: $limit) {
+    id
+    name
+  }
+}

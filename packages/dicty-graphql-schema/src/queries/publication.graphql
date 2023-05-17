@@ -1,0 +1,35 @@
+query Publication($id: ID!) {
+  publication(id: $id) {
+    id
+    doi
+    title
+    abstract
+    journal
+    pubDate
+    pages
+    issue
+    volume
+    authors {
+      initials
+      lastName
+    }
+  }
+}
+
+query ListRecentPublications($limit: Int! = 4) {
+  listRecentPublications(limit: $limit) {
+    id
+    doi
+    title
+    abstract
+    journal
+    pubDate
+    pages
+    issue
+    volume
+    authors {
+      initials
+      lastName
+    }
+  }
+}

@@ -8,24 +8,22 @@
   "devDependencies": {
     "@testing-library/react": "^12.x",
     "@testing-library/react-hooks": "^8.x",
-    "@testing-library/user-event":"^14.x",
+    "@testing-library/user-event": "^14.x",
     "@testing-library/jest-dom": "^5.x",
     "@types/react": "17.x",
     "@types/react-dom": "17.x",
     "eslint-config-custom": "*",
-    "vitest": "latest",
+    "vitest": "0.31.x",
     "jsdom": "latest",
     "tsconfig": "*"
   },
   "dependencies": {
-    "@apollo/client": "3.5.x",
+    "@apollo/client": "3.7.10",
     "next": "12.x",
     "react": "17.x",
     "react-dom": "17.x"
   },
   "scripts": {
-    "test": "vitest",
-    "coverage": "vitest run --coverage",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/apollo-error-nextjs.json"
   },

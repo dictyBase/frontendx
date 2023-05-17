@@ -59,8 +59,8 @@ const EditInfoPage = () => {
       variables: {
         input: {
           id: data.id,
-          // eslint-disable-next-line camelcase
-          updated_by: user.id,
+
+          updatedBy: user.id,
           content: JSON.stringify(value),
         },
       },

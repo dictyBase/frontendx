@@ -1,0 +1,237 @@
+query StrainList($cursor: Int!, $limit: Int!, $filter: StrainListFilter) {
+  listStrains(cursor: $cursor, limit: $limit, filter: $filter) {
+    nextCursor
+    totalCount
+    strains {
+      id
+      label
+      summary
+      inStock
+    }
+  }
+}
+
+query ListStrainsWithPhenotype(
+  $cursor: Int!
+  $limit: Int!
+  $type: String!
+  $annotation: String!
+) {
+  listStrainsWithAnnotation(
+    cursor: $cursor
+    limit: $limit
+    type: $type
+    annotation: $annotation
+  ) {
+    totalCount
+    nextCursor
+    strains {
+      id
+      label
+      genes {
+        name
+      }
+      publications {
+        id
+        pubDate
+        title
+        journal
+        volume
+        pages
+        authors {
+          lastName
+        }
+      }
+    }
+  }
+}
+
+query ListBacterialStrains {
+  bacterialFoodSource: listStrainsWithAnnotation(
+    cursor: 0
+    limit: 100
+    type: "characteristic"
+    annotation: "bacterial food source"
+  ) {
+    totalCount
+    nextCursor
+    strains {
+      id
+      label
+      summary
+      inStock
+    }
+  }
+
+  symbioticFarmerBacterium: listStrainsWithAnnotation(
+    cursor: 0
+    limit: 100
+    type: "characteristic"
+    annotation: "symbiotic farmer bacterium"
+  ) {
+    totalCount
+    nextCursor
+    strains {
+      id
+      label
+      summary
+      inStock
+    }
+  }
+}
+
+query ListStrainsInventory($cursor: Int!, $limit: Int!) {
+  listStrainsWithAnnotation(
+    cursor: $cursor
+    limit: $limit
+    type: "strainInventory"
+    annotation: "strainInventory"
+  ) {
+    totalCount
+    nextCursor
+    strains {
+      id
+      label
+      summary
+      inStock
+    }
+  }
+}
+
+query ListPlasmidsInventory($cursor: Int!, $limit: Int!) {
+  listPlasmidsWithAnnotation(
+    cursor: $cursor
+    limit: $limit
+    type: "plasmidInventory"
+    annotation: "plasmid inventory"
+  ) {
+    totalCount
+    nextCursor
+    plasmids {
+      id
+      name
+      summary
+      inStock
+    }
+  }
+}
+
+query PlasmidListFilter($cursor: Int!, $limit: Int!, $filter: String!) {
+  listPlasmids(cursor: $cursor, limit: $limit, filter: $filter) {
+    nextCursor
+    totalCount
+    plasmids {
+      id
+      name
+      summary
+      inStock
+    }
+  }
+}
+
+query Plasmid($id: ID!) {
+  plasmid(id: $id) {
+    id
+    name
+    summary
+    depositor {
+      firstName
+      lastName
+    }
+    publications {
+      id
+      pubDate
+      title
+      journal
+      volume
+      pages
+      doi
+      authors {
+        lastName
+      }
+    }
+    dbxrefs
+    genes {
+      name
+    }
+    imageMap
+    sequence
+    keywords
+    genbankAccession
+    inStock
+  }
+}
+
+query Strain($id: ID!) {
+  strain(id: $id) {
+    id
+    label
+    summary
+    species
+    parent {
+      id
+      label
+    }
+    depositor {
+      firstName
+      lastName
+    }
+    plasmid
+    dbxrefs
+    publications {
+      id
+      pubDate
+      title
+      journal
+      volume
+      pages
+      doi
+      authors {
+        lastName
+      }
+    }
+    genes {
+      name
+    }
+    inStock
+    systematicName
+    genotypes
+    mutagenesisMethod
+    geneticModification
+    names
+    characteristics
+    phenotypes {
+      phenotype
+      note
+      assay
+      environment
+      publication {
+        id
+        pubDate
+        title
+        journal
+        volume
+        pages
+        authors {
+          lastName
+        }
+      }
+    }
+  }
+}
+
+query ListRecentPlasmids($limit: Int! = 4) {
+  listRecentPlasmids(limit: $limit) {
+    id
+    createdAt
+    name
+  }
+}
+
+query ListRecentStrains($limit: Int! = 4) {
+  listRecentStrains(limit: $limit) {
+    id
+    createdAt
+    systematicName
+  }
+}

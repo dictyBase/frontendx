@@ -1,0 +1,23 @@
+type Organism {
+  taxonId: String!
+  scientificName: String!
+  citations: [Citation!]!
+  downloads: [Download!]!
+}
+
+type Citation {
+  authors: String!
+  title: String!
+  journal: String!
+  pubmedId: String!
+}
+
+type Download {
+  title: String!
+  items: [DownloadItem!]!
+}
+
+type DownloadItem {
+  title: String!
+  url: String!
+}

@@ -68,9 +68,9 @@ const InfoPageViewToolbar = ({ handleClick, lastUpdate, user }: Properties) => {
   } = useAuthStore()
   const { canEditPages, verifiedToken } = useAuthorization()
 
-  const fullName = `${user.first_name} ${user.last_name}`
+  const fullName = `${user.firstName} ${user.lastName}`
   const role = user?.roles?.length
-    ? `${capitalizeFirstCharacter(user.roles[0].role)}`
+    ? `${capitalizeFirstCharacter(user.roles[0].name)}`
     : "dictyBase User"
 
   const validUser = isAuthenticated && canEditPages

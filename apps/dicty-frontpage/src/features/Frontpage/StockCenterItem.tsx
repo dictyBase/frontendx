@@ -26,16 +26,14 @@ const PlasmidItem = ({ data, type }: PlasmidItemProperties) => {
         {plasmid.name}
       </li>
     ))
-    // eslint-disable-next-line react/jsx-no-useless-fragment --- Since recentPlasmids may represent more than one child, is necessary to wrap it in a JSX fragment
     return <>{recentPlasmids}</>
   }
   if (type === "Strain") {
     const recentStrains = data?.listRecentStrains?.map((strain) => (
       <li className={classes.listItem} key={strain.id}>
-        {strain.systematic_name}
+        {strain.systematicName}
       </li>
     ))
-    // eslint-disable-next-line react/jsx-no-useless-fragment --- Since recentStrains may represent more than one child, is necessary to wrap it in a JSX fragment
     return <>{recentStrains}</>
   }
 

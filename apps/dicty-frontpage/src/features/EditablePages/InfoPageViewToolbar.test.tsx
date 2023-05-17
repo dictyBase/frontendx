@@ -12,14 +12,14 @@ describe("EditablePages/InfoPageViewToolbar", () => {
       lastUpdate: "2020-01-01T17:50:12.427Z",
       user: {
         id: "1234",
-        // eslint-disable-next-line camelcase
-        first_name: "Art",
-        // eslint-disable-next-line camelcase
-        last_name: "Vandelay",
+
+        firstName: "Art",
+
+        lastName: "Vandelay",
         email: "art@vandelayindustries.com",
         roles: [
           {
-            role: "Latex Salesman",
+            name: "Latex Salesman",
           },
         ],
       },
@@ -61,14 +61,14 @@ describe("EditablePages/InfoPageViewToolbar", () => {
       lastUpdate: "2020-01-01T17:50:12.427Z",
       user: {
         id: "1234",
-        // eslint-disable-next-line camelcase
-        first_name: "Art",
-        // eslint-disable-next-line camelcase
-        last_name: "Vandelay",
+
+        firstName: "Art",
+
+        lastName: "Vandelay",
         email: "art@vandelayindustries.com",
         roles: [
           {
-            role: "Latex Salesman",
+            name: "Latex Salesman",
           },
         ],
       },

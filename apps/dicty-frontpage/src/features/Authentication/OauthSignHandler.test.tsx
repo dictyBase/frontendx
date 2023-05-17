@@ -66,16 +66,16 @@ describe("authentication/OauthSignHandler", () => {
               user: {
                 id: "123",
                 email: "crazyjoe@davola.org",
-                // eslint-disable-next-line camelcase
-                first_name: "Joe",
-                // eslint-disable-next-line camelcase
-                last_name: "Davola",
+
+                firstName: "Joe",
+
+                lastName: "Davola",
                 roles: [
                   {
-                    role: "superuser",
+                    name: "superuser",
                     permissions: [
                       {
-                        permission: "admin",
+                        level: "admin",
                         resource: "dictybase",
                       },
                     ],
