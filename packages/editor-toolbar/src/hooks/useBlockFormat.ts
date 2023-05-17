@@ -67,10 +67,10 @@ const formatBulletList = (
   currentBlockType: BlockTypes,
   editor: LexicalEditor,
 ) => {
-  if (currentBlockType !== "bullet") {
-    editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined)
-  } else {
+  if (currentBlockType === "bullet") {
     editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined)
+  } else {
+    editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined)
   }
 }
 
@@ -78,10 +78,10 @@ const formatNumberedList = (
   currentBlockType: BlockTypes,
   editor: LexicalEditor,
 ) => {
-  if (currentBlockType !== "number") {
-    editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined)
-  } else {
+  if (currentBlockType === "number") {
     editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined)
+  } else {
+    editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined)
   }
 }
 
