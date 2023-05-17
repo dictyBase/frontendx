@@ -24,6 +24,6 @@
     "tsconfig": "*",
     "eslint-config-custom": "*",
     "vite": "^3.x",
-    "vite-plugin-swc-react-refresh": "^2.2.0"
+    "vite-plugin-swc-react-refresh": "^2.2.1"
   }
 }
