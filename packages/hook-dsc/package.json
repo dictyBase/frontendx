@@ -19,7 +19,7 @@
     "vitest": "0.31.x"
   },
   "dependencies": {
-    "@apollo/client": "3.7.10",
+    "@apollo/client": "3.7.14",
     "dicty-graphql-schema": "*",
     "fp-ts": "2.15.0",
     "fp-ts-std": "^0.16.0",
