@@ -34,8 +34,8 @@ const InfoPageView = ({ data }: Properties) => {
     <Box>
       <InfoPageViewToolbar
         handleClick={handleClick}
-        lastUpdate={data?.updated_at}
-        user={data.updated_by}
+        lastUpdate={data.updatedAt}
+        user={data.updatedBy}
       />
       <ThemeProvider theme={appTheme}>
         <Editor
