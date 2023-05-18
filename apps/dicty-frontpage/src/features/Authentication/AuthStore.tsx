@@ -108,12 +108,10 @@ const authReducer = (state: AuthState, action: Action) => {
  * AuthProvider contains global state used for the shopping auth.
  */
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [authState, dispatch] = React.useReducer(
-    authReducer,
-    initialState
-    )
-    
-    const state = import.meta.env.VITE_APP_DEPLOY_ENV === "mock"
+  const [authState, dispatch] = React.useReducer(authReducer, initialState)
+
+  const state =
+    import.meta.env.VITE_APP_DEPLOY_ENV === "mock"
       ? developmentAuthState
       : authState
 
