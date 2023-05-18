@@ -34,25 +34,6 @@
     tslib "^2.3.0"
     zen-observable-ts "^1.2.5"
 
-"@apollo/client@^3.7.12", "@apollo/client@^3.7.9":
-  version "3.7.12"
-  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.7.12.tgz#9ddd355d0788374cdb900e5f40298b196176952b"
-  integrity sha512-XvH8ssDibx5hR92Tet8CHtUxhiIs+RbYjyxkflAcnF85QT3VacUdNAhjj0OcA2kcZ+5KyceJmilmBNjj6+rJFg==
-  dependencies:
-    "@graphql-typed-document-node/core" "^3.1.1"
-    "@wry/context" "^0.7.0"
-    "@wry/equality" "^0.5.0"
-    "@wry/trie" "^0.3.0"
-    graphql-tag "^2.12.6"
-    hoist-non-react-statics "^3.3.2"
-    optimism "^0.16.2"
-    prop-types "^15.7.2"
-    response-iterator "^0.2.6"
-    symbol-observable "^4.0.0"
-    ts-invariant "^0.10.3"
-    tslib "^2.3.0"
-    zen-observable-ts "^1.2.5"
-
 "@ardatan/relay-compiler@12.0.0":
   version "12.0.0"
   resolved "https://registry.yarnpkg.com/@ardatan/relay-compiler/-/relay-compiler-12.0.0.tgz#2e4cca43088e807adc63450e8cab037020e91106"
@@ -4373,15 +4354,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.16.8.tgz#fcd9bd0a793aba2701caff4aeae7c988d4da6ce5"
   integrity sha512-p0iAXcfWCOTCBbsExHIDFCfwsqFwBTgETJveKMT+Ci3LY9YqQCI91F5S+TB20+aRCXpcWfvx5Qr5EccnwCm2NA==
 
-"@types/node@^18.16.0":
+"@types/node@18.16.x", "@types/node@^18.16.0":
   version "18.16.12"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.16.12.tgz#f11e19055c5b3daeb79dc6eb7ccdd3d036313034"
   integrity sha512-tIRrjbY9C277MOfP8M3zjMIhtMlUJ6YVqkGgLjz+74jVsdf4/UjC6Hku4+1N0BS0qyC0JAS6tJLUk9H6JUKviQ==
-
-"@types/node@~17.0.21":
-  version "17.0.45"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.45.tgz#2c0fafd78705e7a18b7906b5201a522719dc5190"
-  integrity sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
@@ -7026,20 +7002,6 @@ dicty-components-page-editor@dictybase/dicty-components-page-editor#3.1.2:
     slate-history "0.62.0"
     slate-hyperscript "0.62.0"
     slate-react "0.65.2"
-
-dicty-graphql-schema@dictyBase/dicty-graphql-schema:
-  version "1.9.0"
-  resolved "https://codeload.github.com/dictyBase/dicty-graphql-schema/tar.gz/86f5d40ef8518dd671fe3ce0341674956796c15f"
-  dependencies:
-    "@apollo/client" "^3.7.12"
-    graphql "^16.6.0"
-    graphql-tag "^2.12.6"
-    react "17.x"
-    react-dom "17.x"
-
-dicty-graphql-schema@dictyBase/dicty-graphql-schema#v1.10.0:
-  version "1.9.0"
-  resolved "https://codeload.github.com/dictyBase/dicty-graphql-schema/tar.gz/804e0c93f4ddd028884860fe69a934c4bf76ddfe"
 
 dicty-hooks@dictybase/dicty-hooks#3.0.0:
   version "3.0.0"
@@ -13793,7 +13755,7 @@ react-responsive-carousel@^3.2.23:
     prop-types "^15.5.8"
     react-easy-swipe "^0.0.21"
 
-react-router-dom@^6.11.2, react-router-dom@~6.11.2:
+react-router-dom@^6.11.2, react-router-dom@^6.8.2, react-router-dom@~6.11.2:
   version "6.11.2"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.11.2.tgz#324d55750ffe2ecd54ca4ec6b7bc7ab01741f170"
   integrity sha512-JNbKtAeh1VSJQnH6RvBDNhxNwemRj7KxCzc5jb7zvDSKRnPWIFj9pO+eXqjM69gQJ0r46hSz1x4l9y0651DKWw==
