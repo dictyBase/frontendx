@@ -10,7 +10,7 @@ import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary"
 import { ListItemNode, ListNode } from "@lexical/list"
 import { HeadingNode, QuoteNode } from "@lexical/rich-text"
 import { TableCellNode, TableRowNode } from "@lexical/table"
-import { Grid, Paper, Button, makeStyles } from "@material-ui/core"
+import { Grid, Container, Button, makeStyles } from "@material-ui/core"
 import { ImageNode, ImagePlugin } from "image-plugin"
 import { LocalPersistencePlugin, SaveButton } from "persistence-plugin"
 import { WidthTablePlugin, WidthTableNode } from "width-table-plugin"
@@ -31,7 +31,7 @@ type EditorProperties = {
   handleSave?: (content: string) => void
 }
 
-const usePaperStyles = makeStyles({
+const useEditorAreaStyles = makeStyles({
   root: {
     position: "relative",
   },
@@ -82,7 +82,7 @@ const Editor = ({
   const inputClasses = useEditorInputStyles()
   const placeholderClasses = useEditorPlaceholderStyles()
   const persistencePluginStyles = usePersistencePluginStyles()
-  const paperClasses = usePaperStyles()
+  const editorAreaClasses = useEditorAreaStyles()
 
   return (
     <LexicalComposer
@@ -103,9 +103,15 @@ const Editor = ({
         <></>
       )}
       <Grid container direction="column">
-        <Grid item>{editable ? <Toolbar /> : <></>}</Grid>
+        {editable ? (
+          <Grid item>
+            <Toolbar />
+          </Grid>
+        ) : (
+          <></>
+        )}
         <Grid item>
-          <Paper className={paperClasses.root}>
+          <Container className={editorAreaClasses.root}>
             <RichTextPlugin
               ErrorBoundary={LexicalErrorBoundary}
               contentEditable={
@@ -117,7 +123,7 @@ const Editor = ({
                 </div>
               }
             />
-          </Paper>
+          </Container>
         </Grid>
         <Grid item className={persistencePluginStyles.root}>
           {handleSave ? <SaveButton handleSave={handleSave} /> : <></>}
