@@ -44,3 +44,12 @@ query content($id: ID!) {
     }
   }
 }
+
+query ListNewsContent {
+  listContent {
+    id
+    content
+    name
+    updatedAt
+  }
+}
