@@ -66,7 +66,7 @@ type Action = {
 
 const updateToken = (
   dispatch: (argument0: Action) => void,
-  data: GetRefreshTokenQuery["getRefreshToken"],
+  data: GetRefreshTokenQuery["refreshToken"],
 ) =>
   dispatch({
     type: ActionType.UPDATE_TOKEN,
@@ -115,18 +115,18 @@ const App = () => {
   // set skip to true so the query is only run once
   // then update the refresh token in our global state
   React.useEffect(() => {
-    if (!loading && data && data.getRefreshToken) {
+    if (!loading && data && data.refreshToken) {
       setSkip(true)
-      updateToken(dispatch, data.getRefreshToken)
+      updateToken(dispatch, data.refreshToken)
     }
   }, [data, dispatch, loading])
 
   const fetchRefreshToken = React.useCallback(async () => {
     try {
       const response = await refetch({ token })
-      if (response.data.getRefreshToken) {
+      if (response.data.refreshToken) {
         const { data: rdata } = response
-        updateToken(dispatch, rdata.getRefreshToken)
+        updateToken(dispatch, rdata.refreshToken)
       }
     } catch (error) {
       // eslint-disable-next-line no-console
