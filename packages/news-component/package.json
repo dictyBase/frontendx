@@ -1,0 +1,32 @@
+{
+  "name": "news-component",
+  "version": "0.0.0",
+  "description": "News component for dictyBase applications.",
+  "main": "./src/index.js",
+  "author": "Kevin Tun",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "@types/react": "^17.x",
+    "@types/react-dom": "^17.x",
+    "@testing-library/jest-dom": "^5.x",
+    "@testing-library/react": "^13.x",
+    "@testing-library/user-event": "^14.x",
+    "prettier": "^2.x",
+    "vitest": "0.31.x",
+    "tsconfig": "*",
+    "eslint-config-custom": "*"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.x",
+    "@material-ui/icons": "^4.x",
+    "@material-ui/lab": "^4.11.3-deprecations.1",
+    "react": "17.x",
+    "react-dom": "17.x",
+    "dicty-editor": "*",
+    "dicty-graphql-schema": "*"
+  },
+  "scripts": {
+    "lint": "TIMING=1 eslint src --fix",
+    "test": "vitest run"
+  }
+}
