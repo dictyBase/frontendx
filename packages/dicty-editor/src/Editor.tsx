@@ -7,16 +7,14 @@ import { ContentEditable } from "@lexical/react/LexicalContentEditable"
 import { ListPlugin } from "@lexical/react/LexicalListPlugin"
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin"
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary"
-import { ListItemNode, ListNode } from "@lexical/list"
-import { HeadingNode, QuoteNode } from "@lexical/rich-text"
-import { TableCellNode, TableRowNode } from "@lexical/table"
 import { Grid, Container, Button, makeStyles } from "@material-ui/core"
-import { ImageNode, ImagePlugin } from "image-plugin"
+import { ImagePlugin } from "image-plugin"
 import { LocalPersistencePlugin, SaveButton } from "persistence-plugin"
-import { WidthTablePlugin, WidthTableNode } from "width-table-plugin"
-import { FlexLayoutNode, FlexLayoutPlugin } from "flex-layout-plugin"
+import { WidthTablePlugin } from "width-table-plugin"
+import { FlexLayoutPlugin } from "flex-layout-plugin"
 import { TableActionPlugin } from "table-action-plugin"
 import Toolbar from "editor-toolbar"
+import dictyEditorConfig from "./editorConfig"
 import {
   useEditorInputStyles,
   useEditorPlaceholderStyles,
@@ -37,40 +35,6 @@ const useEditorAreaStyles = makeStyles({
   },
 })
 
-const editorTheme = {
-  paragraph: "editor-paragraph",
-  text: {
-    bold: "editor-text-bold",
-    italic: "editor-text-italic",
-    underline: "editor-text-underline",
-  },
-  table: "editor-table",
-  tableCell: "editor-tablecell",
-  tableCellHeader: "editor-tablecell-head",
-}
-
-const onError = (error: Error) => {
-  // eslint-disable-next-line no-console
-  console.error(error)
-}
-
-const initialConfig = {
-  namespace: "DictyEditor",
-  theme: { ...editorTheme },
-  nodes: [
-    HeadingNode,
-    QuoteNode,
-    ListItemNode,
-    ListNode,
-    ImageNode,
-    TableCellNode,
-    TableRowNode,
-    WidthTableNode,
-    FlexLayoutNode,
-  ],
-  onError,
-}
-
 const Editor = ({
   content,
   editable = false,
@@ -87,7 +51,7 @@ const Editor = ({
   return (
     <LexicalComposer
       initialConfig={{
-        ...initialConfig,
+        ...dictyEditorConfig,
         editorState: initialEditorState,
         editable,
       }}>
@@ -111,7 +75,7 @@ const Editor = ({
           <></>
         )}
         <Grid item>
-          <Container className={editorAreaClasses.root}>
+          <Container disableGutters className={editorAreaClasses.root}>
             <RichTextPlugin
               ErrorBoundary={LexicalErrorBoundary}
               contentEditable={
