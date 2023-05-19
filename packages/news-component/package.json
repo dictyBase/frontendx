@@ -30,6 +30,8 @@
   },
   "scripts": {
     "lint": "TIMING=1 eslint src --fix",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "coverage": "vitest run --coverage"
   }
 }
