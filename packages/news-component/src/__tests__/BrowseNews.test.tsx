@@ -1,23 +1,34 @@
 import { vi, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
+import { MemoryRouter } from "react-router-dom"
+import listNewsContent from "../mockNews"
 import BrowseNews from "../BrowseNews"
 
-// vi.mock("dicty-graphql-schema", () => {
-//   return {
-//     useListNewsContentQuery: () => {},
-//   }
-// })
+vi.mock("dicty-graphql-schema", () => ({
+  useListNewsContentQuery: () => ({
+    data: {
+      listContent: listNewsContent,
+    },
+  }),
+}))
 
-const data = {
-  id: "45",
-  name: "Test News",
-  updatedAt: "2021-10-29",
-  slug: "test-news",
-  content: "This is a test news article.",
-}
+test("It renders a link for each news item from the query", async () => {
+  render(
+    <MemoryRouter>
+      <BrowseNews />
+    </MemoryRouter>,
+  )
 
-test.todo("It renders news data ", async () => {
-  render(<BrowseNews data={data} />)
+  expect(screen.getAllByRole("link")).toHaveLength(listNewsContent.length)
+})
 
-  expect(screen.getByText(data.name)).toBeInTheDocument()
+test("It renders a create button", () => {
+  render(
+    <MemoryRouter>
+      <BrowseNews />
+    </MemoryRouter>,
+  )
+
+  expect(screen.getByRole("button")).toBeInTheDocument()
+  expect(screen.getByRole("button")).toHaveTextContent(/Create/)
 })
