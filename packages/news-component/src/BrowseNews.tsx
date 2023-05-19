@@ -1,4 +1,4 @@
-import { Grid, Container } from "@material-ui/core"
+import { Grid, Container, Typography } from "@material-ui/core"
 import { useListNewsContentQuery } from "dicty-graphql-schema"
 import NewsPreview from "./NewsPreview"
 
@@ -16,6 +16,11 @@ const BrowseNews = () => {
   return (
     <Container>
       <Grid container direction="column" spacing={1}>
+        <Grid item>
+          <Typography gutterBottom align="center" variant="h1">
+            Dicty News
+          </Typography>
+        </Grid>
         {data.listContent?.map((article) => (
           <Grid item>
             <NewsPreview article={article} />
