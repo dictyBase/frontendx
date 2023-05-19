@@ -1,22 +1,20 @@
-import { Grid, Typography, IconButton } from "@material-ui/core"
-import CreateIcon from "@material-ui/icons/Create"
-import useNewsHeaderStyles from "./useNewsHeaderStyles"
+import { Grid, Typography, Button } from "@material-ui/core"
+import DynamicBreadCrumbs from "./DynamicBreadCrumbs"
 
-const NewsHeader = () => {
-  const { root } = useNewsHeaderStyles()
-
-  return (
-    <Grid container className={root}>
-      <Grid item>
-        <Typography variant="h1">News</Typography>
-      </Grid>
-      <Grid item>
-        <IconButton>
-          <CreateIcon />
-        </IconButton>
-      </Grid>
+const NewsHeader = () => (
+  <Grid container justifyContent="space-between">
+    <Grid item>
+      <DynamicBreadCrumbs />
     </Grid>
-  )
-}
+    <Grid item>
+      <Typography gutterBottom align="center" variant="h1">
+        Dicty News
+      </Typography>
+    </Grid>
+    <Grid item>
+      <Button>Create</Button>
+    </Grid>
+  </Grid>
+)
 
 export default NewsHeader

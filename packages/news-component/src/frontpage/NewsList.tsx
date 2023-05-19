@@ -13,7 +13,7 @@ const NewsList = ({ articles }: NewsListProperties) => {
   return (
     <Grid container direction="column" spacing={1} className={root}>
       {articles.map((article) => (
-        <Grid item>
+        <Grid key={article.slug} item>
           <NewsItem article={article} />
         </Grid>
       ))}
