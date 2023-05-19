@@ -9,7 +9,9 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
+    "dev:mock": "turbo run dev:mock --filter dicty-frontpage",
     "test": "turbo run test",
+    "test:watch": "turbo run test:watch",
     "coverage": "turbo run coverage --continue",
     "lint": "turbo run lint",
     "lint:out": "turbo run lint:out",
