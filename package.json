@@ -27,7 +27,7 @@
     "eslint-config-custom": "*",
     "plop": "3.x",
     "prettier": "2.x",
-    "turbo": "^1.9.6",
+    "turbo": "^1.9.8",
     "typedoc": "0.23.x",
     "typedoc-plugin-coverage": "2.x",
     "typedoc-plugin-mermaid": "1.x",
