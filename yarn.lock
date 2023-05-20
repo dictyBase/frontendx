@@ -4354,15 +4354,15 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.16.8.tgz#fcd9bd0a793aba2701caff4aeae7c988d4da6ce5"
   integrity sha512-p0iAXcfWCOTCBbsExHIDFCfwsqFwBTgETJveKMT+Ci3LY9YqQCI91F5S+TB20+aRCXpcWfvx5Qr5EccnwCm2NA==
 
+"@types/node@18.16.x":
+  version "18.16.13"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.16.13.tgz#984c48275c718b5b3e47371938f3cff482790598"
+  integrity sha512-uZRomboV1vBL61EBXneL4j9/hEn+1Yqa4LQdpGrKmXFyJmVfWc9JV9+yb2AlnOnuaDnb2PDO3hC6/LKmzJxP1A==
+
 "@types/node@^18.16.0":
   version "18.16.12"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.16.12.tgz#f11e19055c5b3daeb79dc6eb7ccdd3d036313034"
   integrity sha512-tIRrjbY9C277MOfP8M3zjMIhtMlUJ6YVqkGgLjz+74jVsdf4/UjC6Hku4+1N0BS0qyC0JAS6tJLUk9H6JUKviQ==
-
-"@types/node@~17.0.21":
-  version "17.0.45"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.45.tgz#2c0fafd78705e7a18b7906b5201a522719dc5190"
-  integrity sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
@@ -14945,10 +14945,10 @@ snapdragon@^0.8.1:
     source-map-resolve "^0.5.0"
     use "^3.1.0"
 
-snyk@^1.1157.0:
-  version "1.1157.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.1157.0.tgz#6356f57b04e7ad123b3fb516cb0ea858e79829bf"
-  integrity sha512-bk2dz2XiJ/wVsM+pR4CgHf4yAKPKof/YcYxiE1hjT1bChaw80J6V3222d7Q1XttVmdmu4V0kQbExhNkLFxXi8Q==
+snyk@^1.1159.0:
+  version "1.1159.0"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.1159.0.tgz#f6ef963a2e42e906c9ce6b352162959ee5513502"
+  integrity sha512-LPheHTd8fI8m76affxON9qO9J3ebVofLk712zoF4883aonZtPHoJvLYuAf11utn05ff9nNwV+QoA+OpnyF7e8A==
   dependencies:
     "@sentry/node" "^7.36.0"
     global-agent "^3.0.0"
