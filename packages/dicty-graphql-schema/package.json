@@ -83,7 +83,7 @@
     "@graphql-codegen/typescript-operations": "3.0.4",
     "@graphql-codegen/typescript-react-apollo": "3.3.7",
     "@graphql-eslint/eslint-plugin": "^3.18.0",
-    "@types/node": "^18.16.0",
+    "@types/node": "^20.2.1",
     "@types/react": "17.x",
     "@types/react-dom": "17.x",
     "tsconfig": "*"
