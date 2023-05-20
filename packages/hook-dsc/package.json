@@ -7,7 +7,7 @@
   "license": "BSD-2-Clause",
   "devDependencies": {
     "@testing-library/jest-dom": "^5.x",
-    "@testing-library/react": "^12.x",
+    "@testing-library/react": "^14.x",
     "@testing-library/react-hooks": "^8.x",
     "@testing-library/user-event": "^14.x",
     "@types/node": "^18.16.0",

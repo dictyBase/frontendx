@@ -6,7 +6,7 @@
   "author": "Siddhartha Basu",
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "@testing-library/react": "^12.x",
+    "@testing-library/react": "^14.x",
     "@testing-library/react-hooks": "^8.x",
     "@testing-library/user-event": "^14.x",
     "@testing-library/jest-dom": "^5.x",
