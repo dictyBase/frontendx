@@ -12,7 +12,7 @@
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/image-plugin.json"
   },
   "devDependencies": {
-    "@types/react": "17.x",
+    "@types/react": "18.x",
     "@types/react-dom": "17.x",
     "@vitest/coverage-c8": "0.31.x",
     "jsdom": "latest",
@@ -26,7 +26,7 @@
     "@material-ui/icons": "4.x",
     "jotai": "^1.12.0",
     "lexical": "0.9.x",
-    "react": "17.x",
+    "react": "18.x",
     "flex-layout-plugin": "*",
     "resizable-image": "*"
   },

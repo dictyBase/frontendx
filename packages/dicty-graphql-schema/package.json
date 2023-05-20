@@ -70,7 +70,7 @@
     "@apollo/client": "^3.7.14",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
-    "react": "17.x",
+    "react": "18.x",
     "react-dom": "17.x"
   },
   "devDependencies": {
@@ -84,7 +84,7 @@
     "@graphql-codegen/typescript-react-apollo": "3.3.7",
     "@graphql-eslint/eslint-plugin": "^3.18.0",
     "@types/node": "^18.16.0",
-    "@types/react": "17.x",
+    "@types/react": "18.x",
     "@types/react-dom": "17.x",
     "tsconfig": "*"
   }

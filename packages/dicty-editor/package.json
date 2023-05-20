@@ -15,7 +15,7 @@
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
     "lexical": "0.9.x",
-    "react": "17.0.2",
+    "react": "18.2.0",
     "react-dom": "17.0.2",
     "react-router-dom": "^6.11.2",
     "editor-toolbar": "*",
@@ -26,7 +26,7 @@
     "table-action-plugin": "*"
   },
   "devDependencies": {
-    "@types/react": "17.0.52",
+    "@types/react": "18.2.6",
     "@types/react-dom": "17.0.18",
     "@vitejs/plugin-react": "^2.2.0",
     "vite": "^3.1.0",
