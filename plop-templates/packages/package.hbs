@@ -2,25 +2,19 @@
   "name": "@dictybase/{{lowerCase name}}",
   "version": "0.0.0",
   "description": "{{description}}",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "main": "./src/index.js",
   "author": "{{author}}",
   "license": "{{license}}",
   "devDependencies": {
-    "@types/jest": "^26.0.x",
     "@types/react": "^17.x",
     "@types/react-dom": "^17.x",
     "@testing-library/jest-dom": "^5.x",
     "@testing-library/react": "^13.x",
     "@testing-library/user-event": "^14.x",
     "prettier": "^2.x",
-    "jest": "^26.x",
-    "tsup": "^6.x",
+    "vitest": "0.31.x",
     "tsconfig": "*",
     "eslint-config-custom": "*",
-    "@swc/core": "^1.x",
-    "@swc/jest": "^0.x"
   },
   "dependencies": {
     "@material-ui/core": "^4.x",
@@ -30,33 +24,7 @@
     "react-dom": "17.x"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --external react --inject react-shim.js",
-    "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react --inject react-shim.js",
     "lint": "TIMING=1 eslint src --fix",
-    "test": "jest"
+    "test": "vitest run"
   },
-  "jest": {
-    "testEnvironment": "jest-environment-jsdom",
-    "testPathIgnorePatterns": [
-      "src/e2e/"
-    ],
-    "coveragePathIgnorePatterns": [
-      "dist/",
-      "src/data/",
-      "src/types/",
-      "src/e2e/",
-      "src/styles/"
-    ],
-    "transform": {
-      "^.+\\.(t|j)sx?$": [
-        "@swc/jest"
-      ]
-    }
-  },
-  "eslintConfig": {
-    "root":true,
-    "extends": [
-      "config/eslint-preset"
-    ]
-  }
 }
