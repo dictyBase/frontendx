@@ -22,12 +22,14 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
+    "@mswjs/data": "^0.12.0",
     "apollo3-cache-persist": "^0.14.1",
     "core-js": "^3.30.2",
     "dicty-components-header-footer": "dictybase/dicty-components-header-footer#11.0.1",
     "dicty-components-login": "dictybase/dicty-components-login#4.1.1",
     "dicty-components-navbar": "github:dictyBase/dicty-components-navbar#2.0.0",
     "dicty-components-page-editor": "dictybase/dicty-components-page-editor#3.1.2",
+    "dicty-editor": "*",
     "dicty-graphql-schema": "*",
     "dicty-hooks": "dictybase/dicty-hooks#3.0.0",
     "font-awesome": "^4.7.0",
@@ -37,6 +39,7 @@
     "history": "^4.10.1",
     "jwt-decode": "^3.0.0",
     "localforage": "^1.10.0",
+    "news-component": "*",
     "react": "^17.0.2",
     "react-app-polyfill": "^3.0.0",
     "react-dom": "^17.0.2",
@@ -45,9 +48,7 @@
     "react-loading-skeleton": "^3.3.1",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.8.2",
-    "twitter-fetcher": "^18.0.4",
-    "dicty-editor": "*",
-    "news-component": "*"
+    "twitter-fetcher": "^18.0.4"
   },
   "devDependencies": {
     "@material-ui/styles": "^4.11.4",
@@ -71,6 +72,7 @@
     "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react": "latest",
     "@vitest/coverage-c8": "0.31.x",
+    "eslint-config-custom": "*",
     "msw": "^1.2.1",
     "prettier": "^2.8.8",
     "react-docgen-typescript": "^2.2.2",
@@ -79,12 +81,11 @@
     "semantic-release": "^19.0.5",
     "snyk": "^1.1157.0",
     "source-map-explorer": "^2.5.3",
+    "tsconfig": "*",
     "vite": "latest",
     "vitest": "0.31.x",
     "vitest-fetch-mock": "^0.2.2",
-    "wait-for-expect": "^3.0.2",
-    "eslint-config-custom": "*",
-    "tsconfig": "*"
+    "wait-for-expect": "^3.0.2"
   },
   "browserslist": {
     "production": [
