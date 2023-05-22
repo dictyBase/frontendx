@@ -21,7 +21,7 @@ const BrowseNews = () => {
           <NewsHeader />
         </Grid>
         {data.listContent?.map((article) => (
-          <Grid item>
+          <Grid item key={article.id}>
             <NewsPreview article={article} />
           </Grid>
         ))}
