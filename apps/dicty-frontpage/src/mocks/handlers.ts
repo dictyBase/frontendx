@@ -10,12 +10,12 @@ import {
   mockGetRefreshTokenQuery,
   mockListNewsContentQuery,
 } from "dicty-graphql-schema"
+import database from "./database"
 import listRecentPublications from "../common/data/mockPublications"
 import listRecentPlasmids from "../common/data/mockPlasmids"
 import listRecentStrains from "../common/data/mockStrains"
 import listRecentGenes from "../common/data/mockGenes"
 import listOrganisms from "../common/data/mockDownloadsData"
-import listNewsContent from "../common/data/mockListNewsContent"
 import MockSuperuser from "../common/data/superuser"
 import contentBySlug from "../common/data/mockContentBySlug"
 
@@ -136,13 +136,14 @@ const handlers = [
       }),
     )
   }),
-  mockListNewsContentQuery((request, response, context) =>
-    response(
+  mockListNewsContentQuery((request, response, context) => {
+    const listNewsContent = database.news.getAll()
+    return response(
       context.data({
         listContent: listNewsContent,
       }),
-    ),
-  ),
+    )
+  }),
 ]
 
 export default handlers
