@@ -2,7 +2,7 @@
   "name": "news-component",
   "version": "0.0.0",
   "description": "News component for dictyBase applications.",
-  "main": "./src/index.js",
+  "main": "./src/index.ts",
   "author": "Kevin Tun",
   "license": "BSD-2-Clause",
   "devDependencies": {
@@ -24,9 +24,11 @@
     "dicty-editor": "*",
     "dicty-graphql-schema": "*",
     "lexical": "0.9.x",
+    "nanoid": "^4.0.2",
     "react": "17.x",
     "react-dom": "17.x",
-    "react-router-dom": "^6.8.2"
+    "react-router-dom": "^6.8.2",
+    "slugify": "^1.6.6"
   },
   "scripts": {
     "lint": "TIMING=1 eslint src --fix",
