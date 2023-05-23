@@ -48,6 +48,7 @@ query content($id: ID!) {
 query ListNewsContent {
   listContent {
     id
+    slug
     content
     name
     updatedAt
