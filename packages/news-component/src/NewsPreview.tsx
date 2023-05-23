@@ -5,7 +5,7 @@ import useNewsPreviewStyles from "./useNewsPreviewStyles"
 
 type NewsPreviewProperties = {
   article: {
-    id: string
+    slug: string
     name: string
     updatedAt: string
     content: string
@@ -17,7 +17,7 @@ const NewsPreview = ({ article }: NewsPreviewProperties) => {
   const previewText = `${parseContentToText(article.content).slice(0, 250)}...`
 
   return (
-    <Link to={article.id}>
+    <Link to={article.slug}>
       <Paper className={root}>
         <Typography variant="h2">{article.name}</Typography>
         <Typography>{article.updatedAt}</Typography>
