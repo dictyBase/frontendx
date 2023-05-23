@@ -3,13 +3,12 @@ import { useParams } from "react-router-dom"
 import DisplayNews from "./DisplayNews"
 
 const NewsPage = () => {
-  const { id } = useParams()
+  const { slug } = useParams()
   const { loading, error, data } = useContentBySlugQuery({
     variables: {
-      slug: `news-${id}`,
+      slug: `${slug}`,
     },
   })
-
   if (error) return <div> Error </div>
   if (loading) return <div> Loading </div>
   if (!data?.contentBySlug) return <div> Fallback </div>
