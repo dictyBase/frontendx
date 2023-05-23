@@ -8,7 +8,9 @@ import NewsHeader from "./NewsHeader"
  * @returns
  */
 const BrowseNews = () => {
-  const { loading, error, data } = useListNewsContentQuery()
+  const { loading, error, data } = useListNewsContentQuery({
+    fetchPolicy: "no-cache",
+  })
 
   if (error) return <div> Error </div>
   if (loading) return <div> Loading </div>
