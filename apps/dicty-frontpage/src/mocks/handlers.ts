@@ -9,15 +9,16 @@ import {
   mockLoginMutation,
   mockGetRefreshTokenQuery,
   mockListNewsContentQuery,
+  mockCreateContentMutation,
 } from "dicty-graphql-schema"
+import { nanoid } from "nanoid"
 import database from "./database"
 import listRecentPublications from "../common/data/mockPublications"
 import listRecentPlasmids from "../common/data/mockPlasmids"
 import listRecentStrains from "../common/data/mockStrains"
 import listRecentGenes from "../common/data/mockGenes"
 import listOrganisms from "../common/data/mockDownloadsData"
-import MockSuperuser from "../common/data/superuser"
-import contentBySlug from "../common/data/mockContentBySlug"
+import { MockSuperuser } from "../common/data/superuser"
 
 const handlers = [
   // Handles a "GetUserInfo" query
@@ -79,26 +80,43 @@ const handlers = [
 
   mockContentBySlugQuery((request, response, context) => {
     const { slug } = request.variables
-    const content = contentBySlug[slug]
 
-    if (!content)
-      return response(
-        context.errors([
-          {
-            message: "Page Content Not Found.",
-            extensions: {
-              code: "NotFound",
-            },
+    try {
+      const content = database.content.findFirst({
+        where: {
+          slug: {
+            equals: slug,
           },
-        ]),
-      )
+        },
+      })
 
-    return response(
-      context.data({
-        contentBySlug: contentBySlug[slug],
-        slug,
-      }),
-    )
+      if (!content)
+        return response(
+          context.errors([
+            {
+              message: "Page Content Not Found.",
+              extensions: {
+                code: "NotFound",
+              },
+            },
+          ]),
+        )
+
+      return response(
+        context.data({
+          contentBySlug: {
+            slug: content.slug,
+            id: content.id,
+            content: content.content,
+            name: content.name,
+            updatedAt: content.updatedAt,
+            updatedBy: content.updatedBy,
+          },
+        }),
+      )
+    } catch (error) {
+      return response(context.errors([{ message: "Database Error", error }]))
+    }
   }),
 
   mockLoginMutation((request, response, context) =>
@@ -137,12 +155,55 @@ const handlers = [
     )
   }),
   mockListNewsContentQuery((request, response, context) => {
-    const listNewsContent = database.news.getAll()
+    const listNewsContent = database.content.findMany({
+      where: {
+        namespace: {
+          equals: "news",
+        },
+      },
+    })
     return response(
       context.data({
         listContent: listNewsContent,
       }),
     )
+  }),
+
+  mockCreateContentMutation((request, response, context) => {
+    const { name, slug, createdBy, content, namespace } =
+      request.variables.input
+    const date = new Date().toDateString()
+
+    try {
+      const user = database.user.findFirst({
+        where: { email: { equals: createdBy } },
+      })
+      if (!user) throw new Error("User not found.")
+      const created = database.content.create({
+        id: nanoid(),
+        name,
+        slug,
+        content,
+        namespace,
+        createdBy: user,
+        updatedBy: user,
+        createdAt: date,
+        updatedAt: date,
+      })
+      return response(
+        context.data({
+          createContent: {
+            slug: created.slug,
+            name: created.name,
+            content: created.content,
+            createdBy: user,
+            namespace: created.namespace,
+          },
+        }),
+      )
+    } catch (error) {
+      return response(context.errors([{ message: "Database Error", error }]))
+    }
   }),
 ]
 
