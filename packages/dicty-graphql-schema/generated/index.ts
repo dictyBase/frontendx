@@ -84,6 +84,7 @@ export type CreateContentInput = {
   createdBy: Scalars['String'];
   name: Scalars['String'];
   namespace: Scalars['String'];
+  slug: Scalars['String'];
 };
 
 export type CreateOrderInput = {
@@ -1032,7 +1033,7 @@ export type CreateContentMutationVariables = Exact<{
 }>;
 
 
-export type CreateContentMutation = { __typename?: 'Mutation', createContent?: { __typename?: 'Content', name: string, content: string, namespace: string, createdBy: { __typename?: 'User', id: string } } | null };
+export type CreateContentMutation = { __typename?: 'Mutation', createContent?: { __typename?: 'Content', slug: string, name: string, content: string, namespace: string, createdBy: { __typename?: 'User', id: string } } | null };
 
 export type UpdateContentMutationVariables = Exact<{
   input: UpdateContentInput;
@@ -1087,7 +1088,7 @@ export type ContentQuery = { __typename?: 'Query', content?: { __typename?: 'Con
 export type ListNewsContentQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ListNewsContentQuery = { __typename?: 'Query', listContent?: Array<{ __typename?: 'Content', id: string, content: string, name: string, updatedAt: any }> | null };
+export type ListNewsContentQuery = { __typename?: 'Query', listContent?: Array<{ __typename?: 'Content', id: string, slug: string, content: string, name: string, updatedAt: any }> | null };
 
 export type ListOrganismsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1293,6 +1294,7 @@ export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, L
 export const CreateContentDocument = gql`
     mutation CreateContent($input: CreateContentInput!) {
   createContent(input: $input) {
+    slug
     name
     createdBy {
       id
@@ -1625,6 +1627,7 @@ export const ListNewsContentDocument = gql`
     query ListNewsContent {
   listContent {
     id
+    slug
     content
     name
     updatedAt

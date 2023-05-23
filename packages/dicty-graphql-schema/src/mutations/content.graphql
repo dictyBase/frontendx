@@ -1,5 +1,6 @@
 mutation CreateContent($input: CreateContentInput!) {
   createContent(input: $input) {
+    slug
     name
     createdBy {
       id

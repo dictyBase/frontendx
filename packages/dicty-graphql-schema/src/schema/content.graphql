@@ -13,6 +13,7 @@ type Content {
 
 input CreateContentInput {
   name: String!
+  slug: String!
   createdBy: String!
   content: String!
   namespace: String!
