@@ -1,6 +1,6 @@
 import React from "react"
 import { User } from "dicty-graphql-schema"
-import MockSuperuser from "../../common/data/superuser"
+import { MockSuperuser } from "../../common/data/superuser"
 
 enum ActionType {
   LOGIN = "LOGIN",
