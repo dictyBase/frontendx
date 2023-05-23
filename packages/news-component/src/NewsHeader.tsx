@@ -1,4 +1,5 @@
-import { Grid, Typography, Button } from "@material-ui/core"
+import { Grid, Typography } from "@material-ui/core"
+import CreateButton from "./CreateButton"
 import DynamicBreadCrumbs from "./DynamicBreadCrumbs"
 
 const NewsHeader = () => (
@@ -12,7 +13,7 @@ const NewsHeader = () => (
       </Typography>
     </Grid>
     <Grid item>
-      <Button>Create</Button>
+      <CreateButton />
     </Grid>
   </Grid>
 )
