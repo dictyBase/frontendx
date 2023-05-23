@@ -17,7 +17,7 @@ const SaveButton = ({ handleSave }: SaveButtonProperties) => {
   const { root } = useButtonStyles()
   const [buttonState, onClick] = useButtonState(() => {
     editor.dispatchCommand(SAVE_LOCAL_COMMAND, {})
-    handleSave("placeholder")
+    handleSave(JSON.stringify(editor.getEditorState().toJSON()))
   })
 
   return (
