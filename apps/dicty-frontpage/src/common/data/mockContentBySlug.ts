@@ -1,4 +1,4 @@
-import MockSuperuser from "./superuser"
+import { MockSuperuser } from "./superuser"
 
 type mockContentBySlug = {
   [slug: string]: {
