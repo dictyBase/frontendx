@@ -249,13 +249,13 @@ const handlers = [
   }),
 
   mockUpdateContentMutation((request, response, context) => {
-    const { id, content } = request.variables.input
+    const { id, content, updatedBy } = request.variables.input
     const date = new Date().toISOString()
 
     if (!id) return response(context.errors([{ message: "ID not provided." }]))
     try {
       const updatingUser = database.user.findFirst({
-        where: { email: { equals: "george@vandelayindustries.com" } },
+        where: { email: { equals: updatedBy } },
       })
       if (!updatingUser) throw new Error("User not found.")
       const updated = database.content.update({
