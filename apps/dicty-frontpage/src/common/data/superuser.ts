@@ -2,7 +2,7 @@ export const testPermission = {
   id: "1",
   level: "test",
   description: "a test permission",
-  resource: "testresource",
+  resource: "test resource",
   createdAt: "123_456",
   updatedAt: "678_900",
 }
