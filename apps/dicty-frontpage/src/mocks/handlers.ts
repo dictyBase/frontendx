@@ -21,6 +21,8 @@ import listRecentGenes from "../common/data/mockGenes"
 import listOrganisms from "../common/data/mockDownloadsData"
 import { MockSuperuser } from "../common/data/superuser"
 
+const dataBaseErrorMessage = "Database Error."
+
 const handlers = [
   // Handles a "GetUserInfo" query
   mockListRecentPublicationsQuery((request, response, context) => {
@@ -107,7 +109,7 @@ const handlers = [
         return response(
           context.errors([
             {
-              message: "Database Error.",
+              message: dataBaseErrorMessage,
               extensions: {
                 code: "NotFound",
               },
@@ -128,7 +130,9 @@ const handlers = [
         }),
       )
     } catch (error) {
-      return response(context.errors([{ message: "Database Error", error }]))
+      return response(
+        context.errors([{ message: dataBaseErrorMessage, error }]),
+      )
     }
   }),
 
