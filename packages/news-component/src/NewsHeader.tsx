@@ -1,8 +1,15 @@
+/* eslint-disable no-unneeded-ternary  */
+/* eslint-disable unicorn/prefer-logical-operator-over-ternary */
+import type { ReactChild } from "react"
 import { Grid, Typography } from "@material-ui/core"
 import CreateButton from "./CreateButton"
 import DynamicBreadCrumbs from "./DynamicBreadCrumbs"
 
-const NewsHeader = () => (
+type NewsHeaderType = {
+  button?: ReactChild
+}
+
+const NewsHeader = ({ button }: NewsHeaderType) => (
   <Grid container justifyContent="space-between">
     <Grid item>
       <DynamicBreadCrumbs />
@@ -12,9 +19,7 @@ const NewsHeader = () => (
         Dicty News
       </Typography>
     </Grid>
-    <Grid item>
-      <CreateButton />
-    </Grid>
+    <Grid item>{button ? button : <CreateButton show={false} />}</Grid>
   </Grid>
 )
 
