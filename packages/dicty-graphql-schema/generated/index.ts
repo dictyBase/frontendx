@@ -173,6 +173,10 @@ export type DeleteContent = {
   success: Scalars['Boolean'];
 };
 
+export type DeleteContentInput = {
+  id: Scalars['ID'];
+};
+
 export type DeletePermission = {
   __typename?: 'DeletePermission';
   id: Scalars['ID'];
@@ -1042,6 +1046,13 @@ export type UpdateContentMutationVariables = Exact<{
 
 export type UpdateContentMutation = { __typename?: 'Mutation', updateContent?: { __typename?: 'Content', id: string, content: string, updatedBy: { __typename?: 'User', id: string } } | null };
 
+export type DeleteContentMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type DeleteContentMutation = { __typename?: 'Mutation', deleteContent?: { __typename?: 'DeleteContent', id: string, success: boolean } | null };
+
 export type CreateOrderMutationVariables = Exact<{
   input: CreateOrderInput;
 }>;
@@ -1367,6 +1378,40 @@ export function useUpdateContentMutation(baseOptions?: Apollo.MutationHookOption
 export type UpdateContentMutationHookResult = ReturnType<typeof useUpdateContentMutation>;
 export type UpdateContentMutationResult = Apollo.MutationResult<UpdateContentMutation>;
 export type UpdateContentMutationOptions = Apollo.BaseMutationOptions<UpdateContentMutation, UpdateContentMutationVariables>;
+export const DeleteContentDocument = gql`
+    mutation DeleteContent($id: ID!) {
+  deleteContent(id: $id) {
+    id
+    success
+  }
+}
+    `;
+export type DeleteContentMutationFn = Apollo.MutationFunction<DeleteContentMutation, DeleteContentMutationVariables>;
+
+/**
+ * __useDeleteContentMutation__
+ *
+ * To run a mutation, you first call `useDeleteContentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteContentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteContentMutation, { data, loading, error }] = useDeleteContentMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteContentMutation(baseOptions?: Apollo.MutationHookOptions<DeleteContentMutation, DeleteContentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteContentMutation, DeleteContentMutationVariables>(DeleteContentDocument, options);
+      }
+export type DeleteContentMutationHookResult = ReturnType<typeof useDeleteContentMutation>;
+export type DeleteContentMutationResult = Apollo.MutationResult<DeleteContentMutation>;
+export type DeleteContentMutationOptions = Apollo.BaseMutationOptions<DeleteContentMutation, DeleteContentMutationVariables>;
 export const CreateOrderDocument = gql`
     mutation CreateOrder($input: CreateOrderInput!) {
   createOrder(input: $input) {
@@ -3354,6 +3399,23 @@ export const mockCreateContentMutation = (resolver: ResponseResolver<GraphQLRequ
 export const mockUpdateContentMutation = (resolver: ResponseResolver<GraphQLRequest<UpdateContentMutationVariables>, GraphQLContext<UpdateContentMutation>, any>) =>
   graphql.mutation<UpdateContentMutation, UpdateContentMutationVariables>(
     'UpdateContent',
+    resolver
+  )
+
+/**
+ * @param resolver a function that accepts a captured request and may return a mocked response.
+ * @see https://mswjs.io/docs/basics/response-resolver
+ * @example
+ * mockDeleteContentMutation((req, res, ctx) => {
+ *   const { id } = req.variables;
+ *   return res(
+ *     ctx.data({ deleteContent })
+ *   )
+ * })
+ */
+export const mockDeleteContentMutation = (resolver: ResponseResolver<GraphQLRequest<DeleteContentMutationVariables>, GraphQLContext<DeleteContentMutation>, any>) =>
+  graphql.mutation<DeleteContentMutation, DeleteContentMutationVariables>(
+    'DeleteContent',
     resolver
   )
 
