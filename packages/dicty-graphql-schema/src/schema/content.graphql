@@ -25,6 +25,10 @@ input UpdateContentInput {
   content: String!
 }
 
+input DeleteContentInput {
+  id: ID!
+}
+
 type DeleteContent {
   id: ID!
   success: Boolean!
