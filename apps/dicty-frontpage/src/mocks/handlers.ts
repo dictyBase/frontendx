@@ -1,4 +1,5 @@
 // src/mocks/handlers.js
+import { nanoid } from "nanoid"
 import {
   mockListRecentPublicationsQuery,
   mockListRecentGenesQuery,
@@ -10,8 +11,8 @@ import {
   mockGetRefreshTokenQuery,
   mockListNewsContentQuery,
   mockCreateContentMutation,
+  mockDeleteContentMutation,
 } from "dicty-graphql-schema"
-import { nanoid } from "nanoid"
 import database from "./database"
 import listRecentPublications from "../common/data/mockPublications"
 import listRecentPlasmids from "../common/data/mockPlasmids"
@@ -109,6 +110,8 @@ const handlers = [
             id: content.id,
             content: content.content,
             name: content.name,
+            createdAt: content.createdAt,
+            createdBy: content.createdBy,
             updatedAt: content.updatedAt,
             updatedBy: content.updatedBy,
           },
@@ -161,6 +164,9 @@ const handlers = [
           equals: "news",
         },
       },
+      orderBy: {
+        updatedAt: "desc",
+      },
     })
     return response(
       context.data({
@@ -172,8 +178,7 @@ const handlers = [
   mockCreateContentMutation((request, response, context) => {
     const { name, slug, createdBy, content, namespace } =
       request.variables.input
-    const date = new Date().toDateString()
-
+    const date = new Date().toISOString()
     try {
       const user = database.user.findFirst({
         where: { email: { equals: createdBy } },
@@ -198,6 +203,24 @@ const handlers = [
             content: created.content,
             createdBy: user,
             namespace: created.namespace,
+          },
+        }),
+      )
+    } catch (error) {
+      return response(context.errors([{ message: "Database Error", error }]))
+    }
+  }),
+
+  mockDeleteContentMutation((request, response, context) => {
+    const { id } = request.variables
+    if (!id) return response(context.errors([{ message: "ID not provided." }]))
+    try {
+      const deleted = database.content.delete({ where: { id: { equals: id } } })
+      return response(
+        context.data({
+          deleteContent: {
+            id,
+            success: true,
           },
         }),
       )
