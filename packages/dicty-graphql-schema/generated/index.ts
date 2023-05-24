@@ -173,10 +173,6 @@ export type DeleteContent = {
   success: Scalars['Boolean'];
 };
 
-export type DeleteContentInput = {
-  id: Scalars['ID'];
-};
-
 export type DeletePermission = {
   __typename?: 'DeletePermission';
   id: Scalars['ID'];
