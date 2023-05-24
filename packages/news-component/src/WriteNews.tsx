@@ -20,7 +20,7 @@ const WriteNews = () => {
       variables: {
         input: {
           content,
-          slug: slugify(title),
+          slug: slugify(title, { lower: true }),
           name: title,
           namespace: "news",
           createdBy: "george@vandelayindustries.com",
