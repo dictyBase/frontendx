@@ -1,7 +1,8 @@
 import { Grid, Container } from "@material-ui/core"
 import { useListNewsContentQuery } from "dicty-graphql-schema"
-import NewsPreview from "./NewsPreview"
+import NewsList from "./NewsList"
 import NewsHeader from "./NewsHeader"
+import CreateButton from "./CreateButton"
 
 /**
  * Renders a list of news articles.
@@ -20,13 +21,9 @@ const BrowseNews = () => {
     <Container>
       <Grid container direction="column" spacing={1}>
         <Grid item>
-          <NewsHeader />
+          <NewsHeader button={<CreateButton />} />
         </Grid>
-        {data.listContent?.map((article) => (
-          <Grid item key={article.id}>
-            <NewsPreview article={article} />
-          </Grid>
-        ))}
+        <NewsList articles={data?.listContent} />
       </Grid>
     </Container>
   )
