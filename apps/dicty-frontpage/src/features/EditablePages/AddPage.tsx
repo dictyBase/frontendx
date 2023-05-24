@@ -54,6 +54,7 @@ const AddPage = () => {
       variables: {
         input: {
           name: slug,
+          slug,
           createdBy: user.id,
           content: JSON.stringify(value),
           namespace: NAMESPACE,
