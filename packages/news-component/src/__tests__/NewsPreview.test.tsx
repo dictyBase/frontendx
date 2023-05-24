@@ -2,6 +2,7 @@ import { test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { MemoryRouter, Routes, Route } from "react-router-dom"
+import { formatDateISOString } from "../utils"
 import NewsPreview from "../NewsPreview"
 
 const testSlug = "test-slug"
@@ -23,7 +24,9 @@ test("It renders a preview of the news data ", () => {
   )
 
   expect(screen.getByText(article.name)).toBeInTheDocument()
-  expect(screen.getByText(article.updatedAt)).toBeInTheDocument()
+  expect(
+    screen.getByText(formatDateISOString(article.updatedAt)),
+  ).toBeInTheDocument()
   expect(
     screen.getByText(parsedContentString, { exact: false }),
   ).toBeInTheDocument()
