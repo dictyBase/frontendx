@@ -12,6 +12,7 @@ import {
   mockListNewsContentQuery,
   mockCreateContentMutation,
   mockDeleteContentMutation,
+  mockUpdateContentMutation,
 } from "dicty-graphql-schema"
 import database from "./database"
 import listRecentPublications from "../common/data/mockPublications"
@@ -221,7 +222,9 @@ const handlers = [
         }),
       )
     } catch (error) {
-      return response(context.errors([{ message: "Database Error", error }]))
+      return response(
+        context.errors([{ message: dataBaseErrorMessage, error }]),
+      )
     }
   }),
 
@@ -235,6 +238,41 @@ const handlers = [
           deleteContent: {
             id,
             success: true,
+          },
+        }),
+      )
+    } catch (error) {
+      return response(
+        context.errors([{ message: dataBaseErrorMessage, error }]),
+      )
+    }
+  }),
+
+  mockUpdateContentMutation((request, response, context) => {
+    const { id, content } = request.variables.input
+    const date = new Date().toISOString()
+
+    if (!id) return response(context.errors([{ message: "ID not provided." }]))
+    try {
+      const updatingUser = database.user.findFirst({
+        where: { email: { equals: "george@vandelayindustries.com" } },
+      })
+      if (!updatingUser) throw new Error("User not found.")
+      const updated = database.content.update({
+        where: { id: { equals: id } },
+        data: {
+          content,
+          updatedBy: updatingUser,
+          updatedAt: date,
+        },
+      })
+      if (!updated) throw new Error("Update failed.")
+      return response(
+        context.data({
+          updateContent: {
+            id,
+            content: updated.content,
+            updatedBy: { id: updatingUser.id },
           },
         }),
       )
