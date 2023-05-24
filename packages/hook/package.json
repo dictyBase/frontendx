@@ -12,7 +12,7 @@
     "@testing-library/jest-dom": "^5.x",
     "@types/node": "^18.16.0",
     "@types/react": "^17.x",
-    "@types/react-dom": "^17.x",
+    "@types/react-dom": "^18.x",
     "jotai": "~1.6.1",
     "optics-ts": "~2.4.0",
     "tsconfig": "*",
@@ -29,7 +29,7 @@
     "immer": "~9.0.12",
     "isomorphic-git": "~1.23.0",
     "react": "17.x",
-    "react-dom": "17.x",
+    "react-dom": "18.x",
     "react-router-dom": "~6.11.2",
     "use-immer": "~0.9.0",
     "@types/uuid": "^9.0.1"

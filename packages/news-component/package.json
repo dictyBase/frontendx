@@ -10,7 +10,7 @@
     "@testing-library/react": "^12.x",
     "@testing-library/user-event": "^14.x",
     "@types/react": "^17.x",
-    "@types/react-dom": "^17.x",
+    "@types/react-dom": "^18.x",
     "eslint-config-custom": "*",
     "jsdom": "latest",
     "tsconfig": "*",
@@ -26,7 +26,7 @@
     "lexical": "0.9.x",
     "nanoid": "^4.0.2",
     "react": "17.x",
-    "react-dom": "17.x",
+    "react-dom": "18.x",
     "react-router-dom": "^6.8.2",
     "slugify": "^1.6.6"
   },

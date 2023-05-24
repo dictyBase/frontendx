@@ -71,7 +71,7 @@
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
     "react": "17.x",
-    "react-dom": "17.x"
+    "react-dom": "18.x"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "3.3.1",
@@ -85,7 +85,7 @@
     "@graphql-eslint/eslint-plugin": "^3.18.0",
     "@types/node": "^18.16.0",
     "@types/react": "17.x",
-    "@types/react-dom": "17.x",
+    "@types/react-dom": "18.x",
     "tsconfig": "*"
   }
 }

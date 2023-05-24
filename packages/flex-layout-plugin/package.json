@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@types/react": "17.x",
-    "@types/react-dom": "17.x",
+    "@types/react-dom": "18.x",
     "@vitest/coverage-c8": "0.31.x",
     "jsdom": "latest",
     "vitest": "0.31.x",
@@ -27,7 +27,7 @@
     "jotai": "^1.12.0",
     "lexical": "0.9.x",
     "react": "17.x",
-    "react-dom": "17.x",
+    "react-dom": "18.x",
     "yjs": "13.x"
   },
   "typedoc": {
