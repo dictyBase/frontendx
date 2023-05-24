@@ -11,7 +11,7 @@ const article = {
   id: "45",
   slug: testSlug,
   name: "Test News",
-  updatedAt: "2021-10-29",
+  updatedAt: new Date("2022-01-01").toISOString(),
   content: contentJsonString,
 }
 
