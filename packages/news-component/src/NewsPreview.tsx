@@ -2,6 +2,7 @@ import { Paper, Typography } from "@material-ui/core"
 import { Link } from "react-router-dom"
 import { parseContentToText } from "dicty-editor"
 import useNewsPreviewStyles from "./useNewsPreviewStyles"
+import { formatDateISOString } from "./utils"
 
 type NewsPreviewProperties = {
   article: {
@@ -20,7 +21,7 @@ const NewsPreview = ({ article }: NewsPreviewProperties) => {
     <Link to={article.slug}>
       <Paper className={root}>
         <Typography variant="h2">{article.name}</Typography>
-        <Typography>{article.updatedAt}</Typography>
+        <Typography>{formatDateISOString(article.updatedAt)}</Typography>
         <Typography>{previewText}</Typography>
       </Paper>
     </Link>
