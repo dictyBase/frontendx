@@ -3,6 +3,11 @@ import { BrowserRouter } from "react-router-dom"
 import { MockedProvider, MockedResponse } from "@apollo/client/testing"
 import { User } from "dicty-graphql-schema"
 import { AuthContext, authReducer } from "../features/Authentication/AuthStore"
+import {
+  MockSuperuser as testUser,
+  superUserRole,
+  testPermission,
+} from "../common/data/superuser"
 
 type AuthProperties = {
   children: React.ReactNode
@@ -13,41 +18,8 @@ type AuthProperties = {
 }
 
 const MockSuperuser = {
-  id: "999",
-
-  firstName: "Art",
-
-  lastName: "Vandelay",
-  email: "george@vandelayindustries.com",
-
-  isActive: true,
-
-  createdAt: 123_456,
-
-  updatedAt: 678_900,
-  roles: [
-    {
-      id: "1",
-      name: "superuser",
-      description: "total power!",
-
-      createdAt: 123_456,
-
-      updatedAt: 678_900,
-      permissions: [
-        {
-          id: "1",
-          level: "test",
-          description: "a test permission",
-          resource: "testresource",
-
-          createdAt: 123_456,
-
-          updatedAt: 678_900,
-        },
-      ],
-    },
-  ],
+  ...testUser,
+  roles: [{ ...superUserRole, permissions: [testPermission] }],
 }
 
 const expiredToken =
