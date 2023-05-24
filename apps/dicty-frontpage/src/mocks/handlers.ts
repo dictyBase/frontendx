@@ -103,6 +103,18 @@ const handlers = [
           ]),
         )
 
+      if (!content.updatedBy)
+        return response(
+          context.errors([
+            {
+              message: "Database Error.",
+              extensions: {
+                code: "NotFound",
+              },
+            },
+          ]),
+        )
+
       return response(
         context.data({
           contentBySlug: {
@@ -110,8 +122,6 @@ const handlers = [
             id: content.id,
             content: content.content,
             name: content.name,
-            createdAt: content.createdAt,
-            createdBy: content.createdBy,
             updatedAt: content.updatedAt,
             updatedBy: content.updatedBy,
           },
@@ -215,7 +225,7 @@ const handlers = [
     const { id } = request.variables
     if (!id) return response(context.errors([{ message: "ID not provided." }]))
     try {
-      const deleted = database.content.delete({ where: { id: { equals: id } } })
+      database.content.delete({ where: { id: { equals: id } } })
       return response(
         context.data({
           deleteContent: {
