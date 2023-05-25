@@ -2,19 +2,39 @@ import { useState, ChangeEvent } from "react"
 import { Grid, Container, TextField } from "@material-ui/core"
 import slugify from "slugify"
 import { useNavigate } from "react-router-dom"
-import { useCreateContentMutation } from "dicty-graphql-schema"
+import {
+  useCreateContentMutation,
+  useUpdateContentMutation,
+} from "dicty-graphql-schema"
 import { Editor } from "dicty-editor"
 import NewsHeader from "./NewsHeader"
+import useInitialContentData from "./useInitialContentData"
 
 const WriteNews = () => {
-  const [title, setTitle] = useState("")
+  const { initialId, initialTitle, initialContent, initialSlug } =
+    useInitialContentData()
+
+  const [title, setTitle] = useState(initialTitle)
   const [createContent] = useCreateContentMutation()
+  const [updateContent] = useUpdateContentMutation()
   const navigate = useNavigate()
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value)
   }
 
+  const handleUpdate = async (content: string) => {
+    await updateContent({
+      variables: {
+        input: {
+          id: initialId,
+          content,
+          updatedBy: "george@vandelayindustries.com",
+        },
+      },
+    })
+    navigate(`/news`)
+  }
   const handleSave = async (content: string) => {
     await createContent({
       variables: {
@@ -49,11 +69,20 @@ const WriteNews = () => {
           />
         </Grid>
         <Grid item>
-          <Editor
-            editable
-            handleSave={handleSave}
-            handleCancel={handleCancel}
-          />
+          {initialContent ? (
+            <Editor
+              editable
+              content={{ storageKey: initialSlug, editorState: initialContent }}
+              handleSave={handleSave}
+              handleCancel={handleCancel}
+            />
+          ) : (
+            <Editor
+              editable
+              handleSave={handleUpdate}
+              handleCancel={handleCancel}
+            />
+          )}
         </Grid>
       </Grid>
     </Container>
