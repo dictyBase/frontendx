@@ -38,6 +38,7 @@ const Routes = () => {
         {/* Editable page routes */}
         <Route path="news" element={<BrowseNews />} />
         <Route path="news/:slug" element={<NewsPage />} />
+        <Route path="news/:slug/edit" element={<WriteNews />} />
         <Route path="news/create" element={<WriteNews />} />
         <Route path=":section/:name" element={<InfoPageContainer />} />
         <Route path=":section/:name/edit" element={<EditInfoPage />} />
