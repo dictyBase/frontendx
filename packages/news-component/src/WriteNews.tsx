@@ -33,7 +33,7 @@ const WriteNews = () => {
         },
       },
     })
-    navigate(`/news`)
+    navigate(`/news/${initialSlug}`)
   }
   const handleSave = async (content: string) => {
     await createContent({
