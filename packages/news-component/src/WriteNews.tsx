@@ -73,13 +73,13 @@ const WriteNews = () => {
             <Editor
               editable
               content={{ storageKey: initialSlug, editorState: initialContent }}
-              handleSave={handleSave}
+              handleSave={handleUpdate}
               handleCancel={handleCancel}
             />
           ) : (
             <Editor
               editable
-              handleSave={handleUpdate}
+              handleSave={handleSave}
               handleCancel={handleCancel}
             />
           )}
