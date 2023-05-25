@@ -1,12 +1,10 @@
 import { Breadcrumbs, Typography } from "@material-ui/core"
 import { useLocation, Link } from "react-router-dom"
-
-const capitalizeFirstLetter = (string: string) =>
-  `${string.charAt(0).toUpperCase()}${string.slice(1)}`
+import { capitalizeFirstLetter, getURLPathSegments } from "./utils"
 
 const DynamicBreadCrumbs = () => {
   const location = useLocation()
-  const paths = location.pathname.split("/").slice(1)
+  const paths = getURLPathSegments(location.pathname)
   return (
     <Breadcrumbs>
       <Link key="/" to="/">
