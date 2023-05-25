@@ -23,6 +23,7 @@
     "@material-ui/lab": "^4.11.3-deprecations.1",
     "dicty-editor": "*",
     "dicty-graphql-schema": "*",
+    "jotai": "^1.12.0",
     "lexical": "0.9.x",
     "nanoid": "^4.0.2",
     "react": "17.x",
