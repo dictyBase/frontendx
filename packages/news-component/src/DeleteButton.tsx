@@ -1,22 +1,22 @@
 import { Button } from "@material-ui/core"
-import { useNavigate } from "react-router-dom"
 import { useDeleteContentMutation } from "dicty-graphql-schema"
+import { useAtomValue, useSetAtom } from "jotai"
+import { selectedArticlesAtom, clearSelectedArticles } from "./atomConfigs"
 
-type DeleteButtonProperties = {
-  id: string
-}
-
-const DeleteButton = ({ id }: DeleteButtonProperties) => {
+const DeleteButton = () => {
   const [deleteContent] = useDeleteContentMutation()
-  const navigate = useNavigate()
+  const selectedArticles = useAtomValue(selectedArticlesAtom)
+  const clearArticles = useSetAtom(clearSelectedArticles)
 
   const onClick = () => {
-    deleteContent({
-      variables: {
-        id,
-      },
+    selectedArticles.forEach((articleId) => {
+      deleteContent({
+        variables: {
+          id: articleId,
+        },
+      })
     })
-    navigate("/news")
+    clearArticles()
   }
 
   return (
