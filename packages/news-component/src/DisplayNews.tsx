@@ -2,7 +2,7 @@ import { Grid, Container, Typography } from "@material-ui/core"
 import { Editor } from "dicty-editor"
 import NewsHeader from "./NewsHeader"
 import { formatDateISOString } from "./utils"
-import DeleteButton from "./DeleteButton"
+import EditButton from "./EditButton"
 
 type DisplayNewsProperties = {
   content: {
@@ -18,7 +18,7 @@ const DisplayNews = ({ content }: DisplayNewsProperties) => (
   <Container>
     <Grid container direction="column" spacing={1}>
       <Grid item>
-        <NewsHeader button={<DeleteButton id={content.id} />} />
+        <NewsHeader button={<EditButton slug={content.slug} />} />
       </Grid>
       <Grid item>
         <Typography variant="h1">{content.name}</Typography>
