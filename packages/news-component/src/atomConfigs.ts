@@ -1,9 +1,14 @@
+/* eslint-disable unicorn/no-null */
+import { ListNewsContentQuery } from "dicty-graphql-schema"
 import { atom } from "jotai"
+
+export const listArticlesAtom = atom<
+  NonNullable<ListNewsContentQuery["listContent"]>
+>([])
 
 export const selectedArticlesAtom = atom<string[]>([])
 
 export const addSelectedArticlesAtom = atom(
-  // eslint-disable-next-line unicorn/no-null
   null,
   (_get, set, targetArticle: string) => {
     set(selectedArticlesAtom, (previous) => [...previous, targetArticle])
@@ -11,7 +16,6 @@ export const addSelectedArticlesAtom = atom(
 )
 
 export const removeSelectedArticlesAtom = atom(
-  // eslint-disable-next-line unicorn/no-null
   null,
   (_get, set, targetArticle: string) => {
     set(selectedArticlesAtom, (previous) =>
@@ -20,10 +24,13 @@ export const removeSelectedArticlesAtom = atom(
   },
 )
 
-export const clearSelectedArticles = atom(
-  // eslint-disable-next-line unicorn/no-null
-  null,
-  (_get, set) => {
-    set(selectedArticlesAtom, [])
-  },
-)
+export const clearSelectedArticles = atom(null, (_get, set) => {
+  set(selectedArticlesAtom, [])
+})
+
+export const selectAllArticles = atom(null, (_get, set) => {
+  set(
+    selectedArticlesAtom,
+    _get(listArticlesAtom)?.map((article) => article.id),
+  )
+})
