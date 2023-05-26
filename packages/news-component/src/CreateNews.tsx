@@ -1,18 +1,21 @@
 import { useState, ChangeEvent } from "react"
 import { Grid, Container, TextField } from "@material-ui/core"
+import { useNavigate } from "react-router-dom"
+import { Editor } from "dicty-editor"
 import NewsHeader from "./NewsHeader"
-import CreateNews from "./CreateNews"
-import UpdateNews from "./UpdateNews"
+import useCreateNews from "./useCreateNews"
 
-type WriteNewsProperties = {
-  isUpdating: boolean
-}
-
-const WriteNews = ({ isUpdating }: WriteNewsProperties) => {
+const CreateNews = () => {
   const [title, setTitle] = useState("")
+  const { handleCreate } = useCreateNews(title)
+  const navigate = useNavigate()
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value)
+  }
+
+  const handleCancel = () => {
+    navigate("/news")
   }
 
   return (
@@ -29,10 +32,16 @@ const WriteNews = ({ isUpdating }: WriteNewsProperties) => {
             value={title}
           />
         </Grid>
-        <Grid item>{isUpdating ? <UpdateNews /> : <CreateNews />}</Grid>
+        <Grid item>
+          <Editor
+            editable
+            handleSave={handleCreate}
+            handleCancel={handleCancel}
+          />
+        </Grid>
       </Grid>
     </Container>
   )
 }
 
-export default WriteNews
+export default CreateNews
