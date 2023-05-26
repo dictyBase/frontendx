@@ -7,6 +7,11 @@ const useNewsPreviewStyles = makeStyles({
     width: "100%",
     textOverflow: "ellipsis",
   },
+  checkbox: {
+    padding: "0",
+    paddingLeft: "9px",
+    paddingRight: "9px",
+  },
 })
 
 export default useNewsPreviewStyles
