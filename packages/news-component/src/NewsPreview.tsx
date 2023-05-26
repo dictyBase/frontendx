@@ -24,7 +24,7 @@ const NewsPreview = ({ article }: NewsPreviewProperties) => {
   const addToSelected = useSetAtom(addSelectedArticlesAtom)
   const removefromSelected = useSetAtom(removeSelectedArticlesAtom)
   const [selected, setSelected] = useState(false)
-  const { root } = useNewsPreviewStyles()
+  const { root, checkbox } = useNewsPreviewStyles()
   const previewText = `${parseContentToText(article.content).slice(0, 250)}...`
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +41,11 @@ const NewsPreview = ({ article }: NewsPreviewProperties) => {
     <Paper className={root}>
       <Grid container direction="row" wrap="nowrap">
         <Grid item>
-          <Checkbox checked={selected} onChange={onChange} />
+          <Checkbox
+            checked={selected}
+            onChange={onChange}
+            className={checkbox}
+          />
         </Grid>
         <Grid item>
           <>
