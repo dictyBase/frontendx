@@ -1,5 +1,5 @@
 import { Route, Routes as ReactRoutes } from "react-router-dom"
-import { BrowseNews, NewsPage, WriteNews } from "news-component"
+import { BrowseNews, NewsPage, CreateNews, UpdateNews } from "news-component"
 import Front from "../../features/Frontpage/Front"
 import DownloadsContainer from "../../features/Downloads/DownloadsContainer"
 import About from "../../features/About/About"
@@ -38,8 +38,8 @@ const Routes = () => {
         {/* Editable page routes */}
         <Route path="news" element={<BrowseNews />} />
         <Route path="news/:slug" element={<NewsPage />} />
-        <Route path="news/:slug/edit" element={<WriteNews />} />
-        <Route path="news/create" element={<WriteNews />} />
+        <Route path="news/:slug/edit" element={<UpdateNews />} />
+        <Route path="news/create" element={<CreateNews />} />
         <Route path=":section/:name" element={<InfoPageContainer />} />
         <Route path=":section/:name/edit" element={<EditInfoPage />} />
         <Route path=":section/:name/:subname" element={<InfoPageContainer />} />
