@@ -1,4 +1,5 @@
-import { Button } from "@material-ui/core"
+import { IconButton } from "@material-ui/core"
+import CreateIcon from "@material-ui/icons/Create"
 import { useNavigate } from "react-router-dom"
 
 type EditbuttonProperties = {
@@ -13,9 +14,9 @@ const Editbutton = ({ slug }: EditbuttonProperties) => {
   }
 
   return (
-    <Button variant="contained" onClick={onClick}>
-      Edit
-    </Button>
+    <IconButton onClick={onClick}>
+      <CreateIcon />
+    </IconButton>
   )
 }
 
