@@ -21,6 +21,8 @@ input CreateContentInput {
 
 input UpdateContentInput {
   id: ID!
+  name: String!
+  slug: String!
   updatedBy: String!
   content: String!
 }
