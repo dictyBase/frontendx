@@ -249,9 +249,8 @@ const handlers = [
   }),
 
   mockUpdateContentMutation((request, response, context) => {
-    const { id, content, updatedBy } = request.variables.input
+    const { id, name, slug, content, updatedBy } = request.variables.input
     const date = new Date().toISOString()
-
     if (!id) return response(context.errors([{ message: "ID not provided." }]))
     try {
       const updatingUser = database.user.findFirst({
@@ -262,6 +261,8 @@ const handlers = [
         where: { id: { equals: id } },
         data: {
           content,
+          name,
+          slug,
           updatedBy: updatingUser,
           updatedAt: date,
         },
@@ -271,6 +272,8 @@ const handlers = [
         context.data({
           updateContent: {
             id,
+            slug,
+            name,
             content: updated.content,
             updatedBy: { id: updatingUser.id },
           },
