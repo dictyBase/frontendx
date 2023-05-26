@@ -13,6 +13,8 @@ mutation CreateContent($input: CreateContentInput!) {
 mutation UpdateContent($input: UpdateContentInput!) {
   updateContent(input: $input) {
     id
+    name
+    slug
     updatedBy {
       id
     }

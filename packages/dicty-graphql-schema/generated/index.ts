@@ -903,6 +903,8 @@ export enum StrainType {
 export type UpdateContentInput = {
   content: Scalars['String'];
   id: Scalars['ID'];
+  name: Scalars['String'];
+  slug: Scalars['String'];
   updatedBy: Scalars['String'];
 };
 
@@ -1040,7 +1042,7 @@ export type UpdateContentMutationVariables = Exact<{
 }>;
 
 
-export type UpdateContentMutation = { __typename?: 'Mutation', updateContent?: { __typename?: 'Content', id: string, content: string, updatedBy: { __typename?: 'User', id: string } } | null };
+export type UpdateContentMutation = { __typename?: 'Mutation', updateContent?: { __typename?: 'Content', id: string, name: string, slug: string, content: string, updatedBy: { __typename?: 'User', id: string } } | null };
 
 export type DeleteContentMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -1341,6 +1343,8 @@ export const UpdateContentDocument = gql`
     mutation UpdateContent($input: UpdateContentInput!) {
   updateContent(input: $input) {
     id
+    name
+    slug
     updatedBy {
       id
     }
