@@ -1,4 +1,5 @@
-import { Button } from "@material-ui/core"
+import { IconButton } from "@material-ui/core"
+import DeleteIcon from "@material-ui/icons/Delete"
 import { useDeleteContentMutation } from "dicty-graphql-schema"
 import { useAtomValue, useSetAtom } from "jotai"
 import { selectedArticlesAtom, clearSelectedArticles } from "./atomConfigs"
@@ -20,9 +21,9 @@ const DeleteButton = () => {
   }
 
   return (
-    <Button variant="contained" onClick={onClick}>
-      Delete
-    </Button>
+    <IconButton onClick={onClick}>
+      <DeleteIcon />
+    </IconButton>
   )
 }
 
