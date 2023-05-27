@@ -10,7 +10,7 @@
     "@testing-library/react": "^13.x",
     "@testing-library/user-event": "^14.x",
     "@types/jest": "^26.0.x",
-    "@types/react": "17.x",
+    "@types/react": "18.x",
     "@types/react-dom": "17.x",
     "eslint-config-custom": "*",
     "jsdom": "latest",
@@ -21,7 +21,7 @@
     "@apollo/client": "3.7.14",
     "apollo3-cache-persist": "0.14.x",
     "localforage": "1.10.x",
-    "react": "17.x",
+    "react": "18.x",
     "react-dom": "17.x"
   },
   "scripts": {
