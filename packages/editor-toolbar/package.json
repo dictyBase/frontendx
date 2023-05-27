@@ -28,7 +28,7 @@
     "@types/react-dom": "^17.x",
     "@types/react": "17.0.52",
     "@vitest/coverage-c8": "0.31.x",
-    "jsdom": "^22.0.0",
+    "jsdom": "^22.1.0",
     "vitest": "0.31.x",
     "eslint-config-custom": "*",
     "tsconfig": "*"
