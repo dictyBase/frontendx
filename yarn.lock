@@ -1944,10 +1944,10 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.41.0.tgz#080321c3b68253522f7646b55b577dd99d2950b3"
   integrity sha512-LxcyMGxwmTh2lY9FwHPGWOHmYFCZvbrFCBZL4FzSSsxsRPuhrYUg/49/0KDfW8tnIEaEHtfmn6+NPN+1DqaNmA==
 
-"@fontsource/fira-code@^4.5.13":
-  version "4.5.13"
-  resolved "https://registry.yarnpkg.com/@fontsource/fira-code/-/fira-code-4.5.13.tgz#7ddd62472f7e6002acf9371815090eecf5d28f8c"
-  integrity sha512-T1IG6/2AXSwEKwlrEm3kyIL3RQTMblPyj68HgnBGl0IBGFxgS5LZ7StRdDo/QimJ4Tz6FQGHuy1Y/ShNxaUefA==
+"@fontsource/fira-code@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@fontsource/fira-code/-/fira-code-5.0.1.tgz#1baed9099c311137fb7935e94a5867eabe3cbc27"
+  integrity sha512-IKQ7dR7ZarnKnXiKDYvOyqrnfdkdQYBX1VhErM4QuN5K97tEoG1AFRrS8in6qf1WKwhNLbp9lKQfIFj0j43nsg==
 
 "@fontsource/lato@^4.4.2":
   version "4.5.10"
