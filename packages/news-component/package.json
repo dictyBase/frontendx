@@ -24,7 +24,7 @@
     "dicty-editor": "*",
     "dicty-graphql-schema": "*",
     "jotai": "^1.12.0",
-    "lexical": "0.9.x",
+    "lexical": "0.11.x",
     "nanoid": "^4.0.2",
     "react": "17.x",
     "react-dom": "17.x",
