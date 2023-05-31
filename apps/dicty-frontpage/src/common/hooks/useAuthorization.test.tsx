@@ -1,6 +1,6 @@
 import { renderHook } from "@testing-library/react-hooks"
 import { vi } from "vitest"
-import MockAuthProvider, { MockSuperuser } from "../../mocks/MockAuthProvider"
+import MockAuthProvider, { mockSuperuser } from "../../mocks/MockAuthProvider"
 import useAuthorization, {
   verifyToken,
   verifyPermissions,
@@ -76,7 +76,7 @@ describe("hooks/useAuthorization", () => {
   describe("useAuthorization hook", () => {
     describe("useAuthorization with superuser logged in", () => {
       const wrapper = ({ children }: any) => (
-        <MockAuthProvider mocks={[]} user={MockSuperuser}>
+        <MockAuthProvider mocks={[]} user={mockSuperuser}>
           {children}
         </MockAuthProvider>
       )
@@ -85,7 +85,7 @@ describe("hooks/useAuthorization", () => {
       })
       // eslint-disable-next-line sonarjs/no-duplicate-string
       it("should return user state", () => {
-        expect(result.current.user).toBe(MockSuperuser)
+        expect(result.current.user).toBe(mockSuperuser)
       })
       it("should authorize superuser to edit pages", () => {
         expect(result.current.canEditPages).toBeTruthy()
