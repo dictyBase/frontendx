@@ -2,8 +2,8 @@ import { factory, primaryKey, oneOf, manyOf, nullable } from "@mswjs/data"
 import listNewsContent from "../common/data/mockListNewsContent"
 import {
   testPermission,
-  superUserRole,
-  MockSuperuser,
+  superuserRole,
+  superuserProperties,
 } from "../common/data/superuser"
 
 const database = factory({
@@ -58,10 +58,10 @@ const database = factory({
 const initializeMockNewsData = () => {
   const permissions = database.permission.create(testPermission)
   const roles = database.role.create({
-    ...superUserRole,
+    ...superuserRole,
     permissions: [permissions],
   })
-  const user = database.user.create({ ...MockSuperuser, roles: [roles] })
+  const user = database.user.create({ ...superuserProperties, roles: [roles] })
   listNewsContent.forEach((item) =>
     database.content.create({ ...item, createdBy: user, updatedBy: user }),
   )
