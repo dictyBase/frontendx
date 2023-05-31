@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet"
 import Grid from "@material-ui/core/Grid"
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import { News } from "news-component"
+import { RecentNews } from "news-component"
 import Slideshow from "./Slideshow"
 import Papers from "./Papers"
 import Popular from "./Popular"
@@ -41,7 +41,7 @@ const Front = () => {
           <Slideshow />
         </Grid>
         <Grid item className={classes.topItem} sm={12} md={6} xl={5}>
-          <News />
+          <RecentNews />
         </Grid>
         <Grid item className={classes.topItem} xs={12} lg={6} xl={4}>
           <Papers />
