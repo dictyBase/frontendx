@@ -33,9 +33,9 @@ const NewsPreview = ({ article }: NewsPreviewProperties) => {
   }
 
   useEffect(() => {
-    if (selected) addToSelected(article.id)
-    if (!selected) removefromSelected(article.id)
-  }, [selected, addToSelected, removefromSelected, article.id])
+    if (selected) addToSelected(article.slug)
+    if (!selected) removefromSelected(article.slug)
+  }, [selected, addToSelected, removefromSelected, article.slug])
 
   return (
     <Paper className={root}>
