@@ -700,6 +700,11 @@ export type QueryLinksArgs = {
 };
 
 
+export type QueryListContentArgs = {
+  limit: Scalars['Int'];
+};
+
+
 export type QueryListGeneProductInfoArgs = {
   gene: Scalars['String'];
 };
@@ -1107,7 +1112,9 @@ export type ContentQueryVariables = Exact<{
 
 export type ContentQuery = { __typename?: 'Query', content?: { __typename?: 'Content', id: string, content: string, name: string, slug: string, namespace: string, updatedAt: any, updatedBy: { __typename?: 'User', id: string, email: string, firstName: string, lastName: string, roles?: Array<{ __typename?: 'Role', name: string, permissions?: Array<{ __typename?: 'Permission', level: string, resource?: string | null }> | null }> | null } } | null };
 
-export type ListNewsContentQueryVariables = Exact<{ [key: string]: never; }>;
+export type ListNewsContentQueryVariables = Exact<{
+  limit: Scalars['Int'];
+}>;
 
 
 export type ListNewsContentQuery = { __typename?: 'Query', listContent?: Array<{ __typename?: 'Content', id: string, slug: string, content: string, name: string, updatedAt: any }> | null };
@@ -1716,8 +1723,8 @@ export type ContentQueryHookResult = ReturnType<typeof useContentQuery>;
 export type ContentLazyQueryHookResult = ReturnType<typeof useContentLazyQuery>;
 export type ContentQueryResult = Apollo.QueryResult<ContentQuery, ContentQueryVariables>;
 export const ListNewsContentDocument = gql`
-    query ListNewsContent {
-  listContent {
+    query ListNewsContent($limit: Int!) {
+  listContent(limit: $limit) {
     id
     slug
     content
@@ -1739,10 +1746,11 @@ export const ListNewsContentDocument = gql`
  * @example
  * const { data, loading, error } = useListNewsContentQuery({
  *   variables: {
+ *      limit: // value for 'limit'
  *   },
  * });
  */
-export function useListNewsContentQuery(baseOptions?: Apollo.QueryHookOptions<ListNewsContentQuery, ListNewsContentQueryVariables>) {
+export function useListNewsContentQuery(baseOptions: Apollo.QueryHookOptions<ListNewsContentQuery, ListNewsContentQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<ListNewsContentQuery, ListNewsContentQueryVariables>(ListNewsContentDocument, options);
       }
@@ -3591,6 +3599,7 @@ export const mockContentQuery = (resolver: ResponseResolver<GraphQLRequest<Conte
  * @see https://mswjs.io/docs/basics/response-resolver
  * @example
  * mockListNewsContentQuery((req, res, ctx) => {
+ *   const { limit } = req.variables;
  *   return res(
  *     ctx.data({ listContent })
  *   )
