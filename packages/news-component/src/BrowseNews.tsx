@@ -1,8 +1,8 @@
 import { useEffect } from "react"
 import { Grid, Container } from "@material-ui/core"
 import { useListNewsContentQuery } from "dicty-graphql-schema"
-import { useAtom, useAtomValue } from "jotai"
-import { listArticlesAtom, selectedArticlesAtom } from "./atomConfigs"
+import { useAtomValue } from "jotai"
+import { selectedArticlesAtom } from "./atomConfigs"
 import NewsList from "./NewsList"
 import NewsHeader from "./NewsHeader"
 import NewsToolbar from "./Toolbar"
@@ -12,12 +12,7 @@ import NewsToolbar from "./Toolbar"
  */
 const BrowseNews = () => {
   const selectedArticles = useAtomValue(selectedArticlesAtom)
-  const [articles, setArticles] = useAtom(listArticlesAtom)
   const { loading, error, data, refetch } = useListNewsContentQuery()
-
-  useEffect(() => {
-    setArticles(data?.listContent || [])
-  }, [data, setArticles])
 
   useEffect(() => {
     refetch()
@@ -36,7 +31,7 @@ const BrowseNews = () => {
         <Grid item>
           <NewsToolbar />
         </Grid>
-        <NewsList articles={articles} />
+        <NewsList articles={data?.listContent} />
       </Grid>
     </Container>
   )
