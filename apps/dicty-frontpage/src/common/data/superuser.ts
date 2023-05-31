@@ -7,7 +7,7 @@ export const testPermission = {
   updatedAt: "678_900",
 }
 
-export const superUserRole = {
+export const superuserRole = {
   id: "1",
   name: "superuser",
   description: "total power!",
@@ -15,7 +15,7 @@ export const superUserRole = {
   updatedAt: "678_900",
 }
 
-export const MockSuperuser = {
+export const superuserProperties = {
   id: "999",
   firstName: "Art",
   lastName: "Vandelay",
@@ -23,4 +23,9 @@ export const MockSuperuser = {
   isActive: true,
   createdAt: "123_456",
   updatedAt: "678_900",
+}
+
+export const mockSuperuser = {
+  ...superuserProperties,
+  roles: [{ ...superuserRole, permissions: [testPermission] }],
 }
