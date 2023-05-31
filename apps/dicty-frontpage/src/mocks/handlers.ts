@@ -161,7 +161,8 @@ const handlers = [
   }),
 
   mockListNewsContentQuery(async (request, response, context) => {
-    const listNewsData = await database.values({ limit: 50 }).all()
+    const { limit } = request.variables
+    const listNewsData = await database.values({ limit }).all()
     const listNewsContent = listNewsData
       .map((article) => JSON.parse(article))
       .sort((a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt))
