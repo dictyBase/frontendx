@@ -9,13 +9,16 @@ import useInitialContentData from "./useInitialContentData"
 const UpdateNews = () => {
   const initialData = useInitialContentData()
   const [title, setTitle] = useState(initialData?.name || "")
+  const navigate = useNavigate()
+  const { handleUpdate } = useUpdateNews(
+    initialData?.id,
+    initialData?.slug,
+    title,
+  )
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value)
   }
-
-  const navigate = useNavigate()
-  const { handleUpdate } = useUpdateNews(initialData?.id, title)
 
   const handleCancel = () => {
     navigate("/news")
