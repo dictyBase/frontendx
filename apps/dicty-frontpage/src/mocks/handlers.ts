@@ -11,22 +11,19 @@ import {
   mockGetRefreshTokenQuery,
   mockListNewsContentQuery,
   mockCreateContentMutation,
-  mockDeleteContentMutation,
+  mockDeleteContentBySlugMutation,
   mockUpdateContentMutation,
 } from "dicty-graphql-schema"
-import database from "./database"
+import slugify from "slugify"
+import database from "../database"
 import listRecentPublications from "../common/data/mockPublications"
 import listRecentPlasmids from "../common/data/mockPlasmids"
 import listRecentStrains from "../common/data/mockStrains"
 import listRecentGenes from "../common/data/mockGenes"
 import listOrganisms from "../common/data/mockDownloadsData"
-import {
-  MockSuperuser,
-  superUserRole,
-  testPermission,
-} from "../common/data/superuser"
+import { mockSuperuser } from "../common/data/superuser"
 
-const dataBaseErrorMessage = "Database Error."
+const databaseErrorMessage = "Database Error."
 
 const handlers = [
   // Handles a "GetUserInfo" query
@@ -86,19 +83,12 @@ const handlers = [
     response(context.data({ listOrganisms })),
   ),
 
-  mockContentBySlugQuery((request, response, context) => {
+  mockContentBySlugQuery(async (request, response, context) => {
     const { slug } = request.variables
-
     try {
-      const content = database.content.findFirst({
-        where: {
-          slug: {
-            equals: slug,
-          },
-        },
-      })
-
-      if (!content)
+      const data = await database.get(slug)
+      const contentBySlug = JSON.parse(data)
+      if (!contentBySlug)
         return response(
           context.errors([
             {
@@ -110,11 +100,11 @@ const handlers = [
           ]),
         )
 
-      if (!content.updatedBy)
+      if (!contentBySlug.updatedBy)
         return response(
           context.errors([
             {
-              message: dataBaseErrorMessage,
+              message: databaseErrorMessage,
               extensions: {
                 code: "NotFound",
               },
@@ -124,19 +114,12 @@ const handlers = [
 
       return response(
         context.data({
-          contentBySlug: {
-            slug: content.slug,
-            id: content.id,
-            content: content.content,
-            name: content.name,
-            updatedAt: content.updatedAt,
-            updatedBy: content.updatedBy,
-          },
+          contentBySlug,
         }),
       )
     } catch (error) {
       return response(
-        context.errors([{ message: dataBaseErrorMessage, error }]),
+        context.errors([{ message: databaseErrorMessage, error }]),
       )
     }
   }),
@@ -145,7 +128,7 @@ const handlers = [
     response(
       context.data({
         login: {
-          user: MockSuperuser,
+          user: mockSuperuser,
           token:
             "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMiwiZXhwIjo1NTE2MjM5MDIyfQ.Twt1dSBv6Jha3dqWvyUWI4G_ySJsWTD3av30TDtsnyIBPgXwVM3KtPA_YaDw-iO9pfFWZXc2wFUQ6q5WjNwy14yf7IEf2-r_r78jn9tq8a-vSmlr3ieK-Wjg6Y_U8pa4ZXy2zdrtf7IxA2Jz25Vj-BKtW7z_D00qm6EqSGT46fs9Dh0e1zcuCfOwq-STMLFzIbdcpOzvgtyVfyo-P89qhBWooTBt11xR0HeEr5_gJMThXBLtgzT6t_FYzQj3GadPvUQg3gf3qsPOCYk5TNlTIzJXD6yNtncF1MGSpacKTXJFTi3zf_zzpFkBmftPPEicqJo0CrqGO66JdJby8RZE1w",
           identity: {
@@ -168,10 +151,7 @@ const handlers = [
         refreshToken: {
           token:
             "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMiwiZXhwIjo1NTE2MjM5MDIyfQ.Twt1dSBv6Jha3dqWvyUWI4G_ySJsWTD3av30TDtsnyIBPgXwVM3KtPA_YaDw-iO9pfFWZXc2wFUQ6q5WjNwy14yf7IEf2-r_r78jn9tq8a-vSmlr3ieK-Wjg6Y_U8pa4ZXy2zdrtf7IxA2Jz25Vj-BKtW7z_D00qm6EqSGT46fs9Dh0e1zcuCfOwq-STMLFzIbdcpOzvgtyVfyo-P89qhBWooTBt11xR0HeEr5_gJMThXBLtgzT6t_FYzQj3GadPvUQg3gf3qsPOCYk5TNlTIzJXD6yNtncF1MGSpacKTXJFTi3zf_zzpFkBmftPPEicqJo0CrqGO66JdJby8RZE1w",
-          user: {
-            ...MockSuperuser,
-            roles: [{ ...superUserRole, permissions: [testPermission] }],
-          },
+          user: mockSuperuser,
           identity: {
             provider: "google",
           },
@@ -179,17 +159,10 @@ const handlers = [
       }),
     )
   }),
-  mockListNewsContentQuery((request, response, context) => {
-    const listNewsContent = database.content.findMany({
-      where: {
-        namespace: {
-          equals: "news",
-        },
-      },
-      orderBy: {
-        updatedAt: "desc",
-      },
-    })
+
+  mockListNewsContentQuery(async (request, response, context) => {
+    const listNewsData = await database.values({ limit: 50 }).all()
+    const listNewsContent = listNewsData.map((article) => JSON.parse(article))
     return response(
       context.data({
         listContent: listNewsContent,
@@ -197,97 +170,88 @@ const handlers = [
     )
   }),
 
-  mockCreateContentMutation((request, response, context) => {
-    const { name, slug, createdBy, content, namespace } =
-      request.variables.input
+  mockCreateContentMutation(async (request, response, context) => {
+    const { name, slug, content, namespace } = request.variables.input
+    const date = new Date().toISOString()
+    const created = {
+      id: nanoid(),
+      slug,
+      name,
+      createdBy: mockSuperuser,
+      createdAt: date,
+      updatedBy: mockSuperuser,
+      updatedAt: date,
+      content,
+      namespace,
+    }
+    try {
+      await database.put(slug, JSON.stringify(created))
+      return response(
+        context.data({
+          createContent: created,
+        }),
+      )
+    } catch (error) {
+      return response(
+        context.errors([{ message: databaseErrorMessage, error }]),
+      )
+    }
+  }),
+
+  mockDeleteContentBySlugMutation(async (request, response, context) => {
+    const { slug } = request.variables
+    if (!slug)
+      return response(context.errors([{ message: "slug not provided." }]))
+    try {
+      const data = await database.get(slug)
+      const content = JSON.parse(data)
+      await database.del(slug)
+      return response(
+        context.data({
+          deleteContentBySlug: { id: content.id, success: true },
+        }),
+      )
+    } catch (error) {
+      return response(
+        context.errors([{ message: databaseErrorMessage, error }]),
+      )
+    }
+  }),
+
+  mockUpdateContentMutation(async (request, response, context) => {
+    const { name, slug, content } = request.variables.input
     const date = new Date().toISOString()
     try {
-      const user = database.user.findFirst({
-        where: { email: { equals: createdBy } },
-      })
-      if (!user) throw new Error("User not found.")
-      const created = database.content.create({
-        id: nanoid(),
+      const data = await database.get(slug)
+      const newSlug = slugify(name, { lower: true })
+      const previous = JSON.parse(data)
+      if (newSlug !== slug) {
+        await database.del(previous.slug)
+      }
+      const updated = {
+        ...previous,
         name,
-        slug,
         content,
-        namespace,
-        createdBy: user,
-        updatedBy: user,
-        createdAt: date,
+        slug: newSlug,
+        updatedBy: mockSuperuser,
         updatedAt: date,
-      })
-      return response(
-        context.data({
-          createContent: {
-            slug: created.slug,
-            name: created.name,
-            content: created.content,
-            createdBy: user,
-            namespace: created.namespace,
-          },
-        }),
-      )
-    } catch (error) {
-      return response(
-        context.errors([{ message: dataBaseErrorMessage, error }]),
-      )
-    }
-  }),
-
-  mockDeleteContentMutation((request, response, context) => {
-    const { id } = request.variables
-    if (!id) return response(context.errors([{ message: "ID not provided." }]))
-    try {
-      database.content.delete({ where: { id: { equals: id } } })
-      return response(
-        context.data({
-          deleteContent: {
-            id,
-            success: true,
-          },
-        }),
-      )
-    } catch (error) {
-      return response(
-        context.errors([{ message: dataBaseErrorMessage, error }]),
-      )
-    }
-  }),
-
-  mockUpdateContentMutation((request, response, context) => {
-    const { id, name, slug, content, updatedBy } = request.variables.input
-    const date = new Date().toISOString()
-    if (!id) return response(context.errors([{ message: "ID not provided." }]))
-    try {
-      const updatingUser = database.user.findFirst({
-        where: { email: { equals: updatedBy } },
-      })
-      if (!updatingUser) throw new Error("User not found.")
-      const updated = database.content.update({
-        where: { id: { equals: id } },
-        data: {
-          content,
-          name,
-          slug,
-          updatedBy: updatingUser,
-          updatedAt: date,
-        },
-      })
-      if (!updated) throw new Error("Update failed.")
+      }
+      await database.put(updated.slug, JSON.stringify(updated))
       return response(
         context.data({
           updateContent: {
-            id,
-            slug,
-            name,
+            id: updated.id,
+            name: updated.name,
+            slug: updated.slug,
+            updatedBy: updated.updatedBy.id,
             content: updated.content,
-            updatedBy: { id: updatingUser.id },
           },
         }),
       )
     } catch (error) {
-      return response(context.errors([{ message: "Database Error", error }]))
+      return response(
+        context.errors([{ message: databaseErrorMessage, error }]),
+      )
     }
   }),
 ]
