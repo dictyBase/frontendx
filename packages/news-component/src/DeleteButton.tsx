@@ -1,19 +1,19 @@
 import { IconButton } from "@material-ui/core"
 import DeleteIcon from "@material-ui/icons/Delete"
-import { useDeleteContentMutation } from "dicty-graphql-schema"
+import { useDeleteContentBySlugMutation } from "dicty-graphql-schema"
 import { useAtomValue, useSetAtom } from "jotai"
 import { selectedArticlesAtom, clearSelectedArticles } from "./atomConfigs"
 
 const DeleteButton = () => {
-  const [deleteContent] = useDeleteContentMutation()
+  const [deleteContent] = useDeleteContentBySlugMutation()
   const selectedArticles = useAtomValue(selectedArticlesAtom)
   const clearArticles = useSetAtom(clearSelectedArticles)
 
   const onClick = () => {
-    selectedArticles.forEach((articleId) => {
+    selectedArticles.forEach((articleSlug) => {
       deleteContent({
         variables: {
-          id: articleId,
+          slug: articleSlug,
         },
       })
     })
