@@ -1,8 +1,12 @@
 import { useNavigate } from "react-router-dom"
 import { useUpdateContentMutation } from "dicty-graphql-schema"
-import slugify from "slugify"
 
-const useUpdateNews = (id: string | undefined, title: string) => {
+const useUpdateNews = (
+  id: string | undefined,
+  slug: string | undefined,
+  title: string,
+) => {
+  if (!slug) throw new Error("Slug not found")
   if (!id) throw new Error("Content ID not found")
   const [updateContent] = useUpdateContentMutation()
   const navigate = useNavigate()
@@ -13,7 +17,7 @@ const useUpdateNews = (id: string | undefined, title: string) => {
         input: {
           id,
           name: title,
-          slug: slugify(title, { lower: true }),
+          slug,
           content,
           updatedBy: "george@vandelayindustries.com",
         },
