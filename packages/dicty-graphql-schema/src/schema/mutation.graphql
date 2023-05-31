@@ -6,6 +6,7 @@ type Mutation {
   createContent(input: CreateContentInput): Content
   updateContent(input: UpdateContentInput): Content
   deleteContent(id: ID!): DeleteContent
+  deleteContentBySlug(slug: String!): DeleteContent
   # Order mutations
   createOrder(input: CreateOrderInput): Order
   updateOrder(id: ID!, input: UpdateOrderInput): Order

@@ -304,6 +304,7 @@ export type Mutation = {
   createUser?: Maybe<User>;
   createUserRoleRelationship?: Maybe<User>;
   deleteContent?: Maybe<DeleteContent>;
+  deleteContentBySlug?: Maybe<DeleteContent>;
   deletePermission?: Maybe<DeletePermission>;
   deleteRole?: Maybe<DeleteRole>;
   deleteStock?: Maybe<DeleteStock>;
@@ -369,6 +370,11 @@ export type MutationCreateUserRoleRelationshipArgs = {
 
 export type MutationDeleteContentArgs = {
   id: Scalars['ID'];
+};
+
+
+export type MutationDeleteContentBySlugArgs = {
+  slug: Scalars['String'];
 };
 
 
@@ -1051,6 +1057,13 @@ export type DeleteContentMutationVariables = Exact<{
 
 export type DeleteContentMutation = { __typename?: 'Mutation', deleteContent?: { __typename?: 'DeleteContent', id: string, success: boolean } | null };
 
+export type DeleteContentBySlugMutationVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+
+export type DeleteContentBySlugMutation = { __typename?: 'Mutation', deleteContentBySlug?: { __typename?: 'DeleteContent', id: string, success: boolean } | null };
+
 export type CreateOrderMutationVariables = Exact<{
   input: CreateOrderInput;
 }>;
@@ -1412,6 +1425,40 @@ export function useDeleteContentMutation(baseOptions?: Apollo.MutationHookOption
 export type DeleteContentMutationHookResult = ReturnType<typeof useDeleteContentMutation>;
 export type DeleteContentMutationResult = Apollo.MutationResult<DeleteContentMutation>;
 export type DeleteContentMutationOptions = Apollo.BaseMutationOptions<DeleteContentMutation, DeleteContentMutationVariables>;
+export const DeleteContentBySlugDocument = gql`
+    mutation DeleteContentBySlug($slug: String!) {
+  deleteContentBySlug(slug: $slug) {
+    id
+    success
+  }
+}
+    `;
+export type DeleteContentBySlugMutationFn = Apollo.MutationFunction<DeleteContentBySlugMutation, DeleteContentBySlugMutationVariables>;
+
+/**
+ * __useDeleteContentBySlugMutation__
+ *
+ * To run a mutation, you first call `useDeleteContentBySlugMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteContentBySlugMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteContentBySlugMutation, { data, loading, error }] = useDeleteContentBySlugMutation({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useDeleteContentBySlugMutation(baseOptions?: Apollo.MutationHookOptions<DeleteContentBySlugMutation, DeleteContentBySlugMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteContentBySlugMutation, DeleteContentBySlugMutationVariables>(DeleteContentBySlugDocument, options);
+      }
+export type DeleteContentBySlugMutationHookResult = ReturnType<typeof useDeleteContentBySlugMutation>;
+export type DeleteContentBySlugMutationResult = Apollo.MutationResult<DeleteContentBySlugMutation>;
+export type DeleteContentBySlugMutationOptions = Apollo.BaseMutationOptions<DeleteContentBySlugMutation, DeleteContentBySlugMutationVariables>;
 export const CreateOrderDocument = gql`
     mutation CreateOrder($input: CreateOrderInput!) {
   createOrder(input: $input) {
@@ -2841,7 +2888,7 @@ export type LogoutKeySpecifier = ('success' | LogoutKeySpecifier)[];
 export type LogoutFieldPolicy = {
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('createContent' | 'createOrder' | 'createPermission' | 'createPlasmid' | 'createRole' | 'createRolePermissionRelationship' | 'createStrain' | 'createUser' | 'createUserRoleRelationship' | 'deleteContent' | 'deletePermission' | 'deleteRole' | 'deleteStock' | 'deleteUser' | 'login' | 'logout' | 'updateContent' | 'updateOrder' | 'updatePermission' | 'updatePlasmid' | 'updateRole' | 'updateStrain' | 'updateUser' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('createContent' | 'createOrder' | 'createPermission' | 'createPlasmid' | 'createRole' | 'createRolePermissionRelationship' | 'createStrain' | 'createUser' | 'createUserRoleRelationship' | 'deleteContent' | 'deleteContentBySlug' | 'deletePermission' | 'deleteRole' | 'deleteStock' | 'deleteUser' | 'login' | 'logout' | 'updateContent' | 'updateOrder' | 'updatePermission' | 'updatePlasmid' | 'updateRole' | 'updateStrain' | 'updateUser' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	createContent?: FieldPolicy<any> | FieldReadFunction<any>,
 	createOrder?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2853,6 +2900,7 @@ export type MutationFieldPolicy = {
 	createUser?: FieldPolicy<any> | FieldReadFunction<any>,
 	createUserRoleRelationship?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteContent?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteContentBySlug?: FieldPolicy<any> | FieldReadFunction<any>,
 	deletePermission?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteRole?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteStock?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -3416,6 +3464,23 @@ export const mockUpdateContentMutation = (resolver: ResponseResolver<GraphQLRequ
 export const mockDeleteContentMutation = (resolver: ResponseResolver<GraphQLRequest<DeleteContentMutationVariables>, GraphQLContext<DeleteContentMutation>, any>) =>
   graphql.mutation<DeleteContentMutation, DeleteContentMutationVariables>(
     'DeleteContent',
+    resolver
+  )
+
+/**
+ * @param resolver a function that accepts a captured request and may return a mocked response.
+ * @see https://mswjs.io/docs/basics/response-resolver
+ * @example
+ * mockDeleteContentBySlugMutation((req, res, ctx) => {
+ *   const { slug } = req.variables;
+ *   return res(
+ *     ctx.data({ deleteContentBySlug })
+ *   )
+ * })
+ */
+export const mockDeleteContentBySlugMutation = (resolver: ResponseResolver<GraphQLRequest<DeleteContentBySlugMutationVariables>, GraphQLContext<DeleteContentBySlugMutation>, any>) =>
+  graphql.mutation<DeleteContentBySlugMutation, DeleteContentBySlugMutationVariables>(
+    'DeleteContentBySlug',
     resolver
   )
 
