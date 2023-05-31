@@ -3,11 +3,7 @@ import { BrowserRouter } from "react-router-dom"
 import { MockedProvider, MockedResponse } from "@apollo/client/testing"
 import { User } from "dicty-graphql-schema"
 import { AuthContext, authReducer } from "../features/Authentication/AuthStore"
-import {
-  MockSuperuser as testUser,
-  superUserRole,
-  testPermission,
-} from "../common/data/superuser"
+import { mockSuperuser } from "../common/data/superuser"
 
 type AuthProperties = {
   children: React.ReactNode
@@ -15,11 +11,6 @@ type AuthProperties = {
   user?: User
   /** Indicates if auth state should include valid token, default is true */
   validToken?: boolean
-}
-
-const MockSuperuser = {
-  ...testUser,
-  roles: [{ ...superUserRole, permissions: [testPermission] }],
 }
 
 const expiredToken =
@@ -31,7 +22,7 @@ const activeToken =
 const MockAuthProvider = ({
   children,
   mocks,
-  user = MockSuperuser,
+  user = mockSuperuser,
   validToken = true,
 }: AuthProperties) => {
   const [state, dispatch] = React.useReducer(authReducer, {
@@ -55,5 +46,6 @@ const MockAuthProvider = ({
   )
 }
 
-export { MockSuperuser }
 export default MockAuthProvider
+
+export { mockSuperuser } from "../common/data/superuser"
