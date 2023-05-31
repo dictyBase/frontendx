@@ -1,24 +1,29 @@
-import type { Content } from "dicty-graphql-schema"
 import { Grid } from "@material-ui/core"
-import NewsItem from "./NewsItem"
+import RecentNewsPreview from "./RecentNewsPreview"
 import useNewsListStyles from "./useNewsListStyles"
 
 type NewsListProperties = {
-  articles: Content[]
+  articles: {
+    id: string
+    name: string
+    slug: string
+    content: string
+    updatedAt: string
+  }[]
 }
 
-const NewsList = ({ articles }: NewsListProperties) => {
+const RecentNewsList = ({ articles }: NewsListProperties) => {
   const { root } = useNewsListStyles()
 
   return (
     <Grid container direction="column" spacing={1} className={root}>
       {articles.map((article) => (
         <Grid key={article.slug} item>
-          <NewsItem article={article} />
+          <RecentNewsPreview article={article} />
         </Grid>
       ))}
     </Grid>
   )
 }
 
-export default NewsList
+export default RecentNewsList
