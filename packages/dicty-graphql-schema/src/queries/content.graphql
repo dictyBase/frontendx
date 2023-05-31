@@ -45,8 +45,8 @@ query content($id: ID!) {
   }
 }
 
-query ListNewsContent {
-  listContent {
+query ListNewsContent($limit: Int!) {
+  listContent(limit: $limit) {
     id
     slug
     content
