@@ -1,6 +1,6 @@
 {
   "name": "dicty-frontpage",
-  "version": "0.0.0-semantically-released",
+  "version": "0.0.0",
   "scripts": {
     "dev": "vite",
     "dev:mock": "vite --mode mock",
@@ -11,7 +11,6 @@
     "lint": "eslint --ext .jsx,.js,.ts,.tsx src/",
     "styleguide": "FAST_REFRESH=false styleguidist server",
     "styleguide:build": "FAST_REFRESH=false styleguidist build",
-    "semantic-release": "semantic-release",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "snyk-protect": "snyk protect"
   },
@@ -79,7 +78,6 @@
     "react-docgen-typescript": "^2.2.2",
     "react-styleguidist": "^13.1.0",
     "react-test-renderer": "^17.0.2",
-    "semantic-release": "^19.0.5",
     "snyk": "^1.1168.0",
     "source-map-explorer": "^2.5.3",
     "tsconfig": "*",
