@@ -28,3 +28,10 @@ mutation DeleteContent($id: ID!) {
     success
   }
 }
+
+mutation DeleteContentBySlug($slug: String!) {
+  deleteContentBySlug(slug: $slug) {
+    id
+    success
+  }
+}
