@@ -133,7 +133,7 @@ const App = () => {
       console.error(error)
     }
   }, [dispatch, refetch, token])
-  useFetchRefreshToken(fetchRefreshToken, interval, delay!, isAuthenticated)
+  // useFetchRefreshToken(fetchRefreshToken, interval, delay!, isAuthenticated)
 
   const headerContent = isAuthenticated ? loggedHeaderItems : headerItems
 
