@@ -19,6 +19,9 @@ const headerStyles = makeStyles({
   },
   search: {
     flexBasis: "25%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
   },
   linksIcon: { fontSize: "2.2rem" },
   linksButton: {
