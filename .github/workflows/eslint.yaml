@@ -1,5 +1,5 @@
 name: Linting with eslint
-on: pull_request
+on: [pull_request, workflow_dispatch]
 jobs:
   lint:
     name: lint
@@ -14,7 +14,7 @@ jobs:
       - name: install
         run: yarn
       - name: generate eslint report
-        run : yarn lint:out
+        run: yarn lint:out
       - name: merge all eslint reports
         if: ${{ failure() }}
         run: yarn lint:merge
@@ -24,4 +24,3 @@ jobs:
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           report-json: "eslint_output.json"
-
