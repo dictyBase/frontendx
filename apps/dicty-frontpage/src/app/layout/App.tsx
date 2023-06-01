@@ -1,7 +1,8 @@
 import React from "react"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import Container from "@material-ui/core/Container"
-import { Header, Footer } from "dicty-components-header-footer"
+import { Footer } from "dicty-components-header-footer"
+import { Header } from "@dictybase/header"
 import { Navbar } from "dicty-components-navbar"
 import jwtDecode from "jwt-decode"
 import { useFetchRefreshToken, useFetch } from "dicty-hooks"
@@ -139,7 +140,7 @@ const App = () => {
 
   return (
     <div className={classes.body}>
-      <Header items={headerContent} render={HeaderLinks} theme={headerTheme} />
+      <Header />
       <Navbar items={formatNavbarData(navbar.data)} theme={navTheme} />
       <main className={classes.main}>
         <Container maxWidth="xl">
