@@ -17,11 +17,6 @@ import {
 } from "../../features/Authentication/AuthStore"
 import ErrorBoundary from "../../common/components/errors/ErrorBoundary"
 import {
-  headerItems,
-  loggedHeaderItems,
-  HeaderLinks,
-} from "../../common/utils/headerItems"
-import {
   footerLinks,
   footerURL,
   convertFooterData,
@@ -134,9 +129,7 @@ const App = () => {
       console.error(error)
     }
   }, [dispatch, refetch, token])
-  // useFetchRefreshToken(fetchRefreshToken, interval, delay!, isAuthenticated)
-
-  const headerContent = isAuthenticated ? loggedHeaderItems : headerItems
+  useFetchRefreshToken(fetchRefreshToken, interval, delay!, isAuthenticated)
 
   return (
     <div className={classes.body}>
