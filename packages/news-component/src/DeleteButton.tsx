@@ -11,14 +11,16 @@ const DeleteButton = () => {
   const selectedArticles = useAtomValue(selectedArticlesAtom)
   const clearArticles = useSetAtom(clearSelectedArticles)
 
-  const onClick = () => {
-    selectedArticles.forEach(async (articleSlug) => {
-      await deleteContent({
-        variables: {
-          slug: articleSlug,
-        },
-      })
-    })
+  const onClick = async () => {
+    await Promise.all(
+      selectedArticles.map((articleSlug) => {
+        return deleteContent({
+          variables: {
+            slug: articleSlug,
+          },
+        })
+      }),
+    )
     clearArticles()
     navigate("/news", { replace: true })
   }
