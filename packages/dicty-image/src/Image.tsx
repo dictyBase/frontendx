@@ -26,7 +26,7 @@ type ImageProperties = {
 
 const LoadingUI = () => <LoadingDisplay />
 const ErrorUI = () => <ErrorDisplay />
-const Noop = () => <div>error error</div>
+const Noop = () => <></>
 const Image = ({
   src,
   webpSrc,
