@@ -8057,6 +8057,11 @@ header-case@^2.0.4:
     capital-case "^1.0.4"
     tslib "^2.0.3"
 
+header@*:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/header/-/header-0.1.1.tgz#f365a5a66018058f7f9e374a1e8153360c9386b9"
+  integrity sha512-UqVUZreZFsYs6LHyVHdLLUJKMVcsp1aAbg4hzvJz1eJ7FzPaVtruHcyQb5xdqe63XleCi6uMIrUyoqmEgpX1OA==
+
 headers-polyfill@^3.1.0, headers-polyfill@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/headers-polyfill/-/headers-polyfill-3.1.2.tgz#9a4dcb545c5b95d9569592ef7ec0708aab763fbe"
