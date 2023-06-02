@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "vite",
     "dev:mock": "vite --host --mode mock",
+    "dev:seed": "vite --host --mode seed",
     "build": "vite build",
     "test": "vitest run",
     "serve": "vite preview --port 3000",
