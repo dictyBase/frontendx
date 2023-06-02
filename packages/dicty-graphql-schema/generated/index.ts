@@ -1117,7 +1117,7 @@ export type ListNewsContentQueryVariables = Exact<{
 }>;
 
 
-export type ListNewsContentQuery = { __typename?: 'Query', listContent?: Array<{ __typename?: 'Content', id: string, slug: string, content: string, name: string, updatedAt: any }> | null };
+export type ListNewsContentQuery = { __typename?: 'Query', listContent?: Array<{ __typename?: 'Content', id: string, slug: string, content: string, name: string, updatedAt: any, updatedBy: { __typename?: 'User', firstName: string, lastName: string } }> | null };
 
 export type ListOrganismsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1729,6 +1729,10 @@ export const ListNewsContentDocument = gql`
     slug
     content
     name
+    updatedBy {
+      firstName
+      lastName
+    }
     updatedAt
   }
 }

@@ -51,6 +51,10 @@ query ListNewsContent($limit: Int!) {
     slug
     content
     name
+    updatedBy {
+      firstName
+      lastName
+    }
     updatedAt
   }
 }
