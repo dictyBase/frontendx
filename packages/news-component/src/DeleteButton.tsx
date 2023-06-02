@@ -13,13 +13,13 @@ const DeleteButton = () => {
 
   const onClick = async () => {
     await Promise.all(
-      selectedArticles.map((articleSlug) => {
-        return deleteContent({
+      selectedArticles.map((articleSlug) =>
+        deleteContent({
           variables: {
             slug: articleSlug,
           },
-        })
-      }),
+        }),
+      ),
     )
     clearArticles()
     navigate("/news", { replace: true })
