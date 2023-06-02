@@ -1,5 +1,5 @@
 import { User } from "dicty-graphql-schema"
-import { MockSuperuser } from "../../mocks/MockAuthProvider"
+import { mockSuperuser } from "../../mocks/MockAuthProvider"
 import { authReducer, ActionType } from "./AuthStore"
 
 const initialState = {
@@ -21,14 +21,14 @@ describe("authReducer", () => {
         payload: {
           token: mockToken,
           provider: mockProvider,
-          user: MockSuperuser,
+          user: mockSuperuser,
         },
       }),
     ).toStrictEqual({
       isAuthenticated: true,
       token: mockToken,
       provider: mockProvider,
-      user: MockSuperuser,
+      user: mockSuperuser,
       error: undefined,
     })
   })
@@ -53,7 +53,7 @@ describe("authReducer", () => {
     const state = {
       isAuthenticated: true,
       token: "jwtxyz",
-      user: MockSuperuser,
+      user: mockSuperuser,
       provider: "google",
       error: undefined,
     }
@@ -68,7 +68,7 @@ describe("authReducer", () => {
       isAuthenticated: true,
       token: mockToken,
       provider: mockProvider,
-      user: MockSuperuser,
+      user: mockSuperuser,
       error: undefined,
     }
     const newToken = "wthjiowvnfskjkdfsbnkjadb"
@@ -78,14 +78,14 @@ describe("authReducer", () => {
         payload: {
           token: newToken,
           provider: mockProvider,
-          user: MockSuperuser,
+          user: mockSuperuser,
         },
       }),
     ).toStrictEqual({
       isAuthenticated: true,
       token: newToken,
       provider: mockProvider,
-      user: MockSuperuser,
+      user: mockSuperuser,
       error: undefined,
     })
   })
@@ -94,7 +94,7 @@ describe("authReducer", () => {
       isAuthenticated: true,
       token: mockToken,
       provider: mockProvider,
-      user: MockSuperuser,
+      user: mockSuperuser,
       error: undefined,
     }
     expect(
