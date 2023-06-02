@@ -2,15 +2,12 @@ import { Grid, Button } from "@material-ui/core"
 import { useAtom, useAtomValue } from "jotai"
 import {
   articlesListCurrentPageAtom,
-  articlesListQueryLimitAtom,
-  articlesListTotalAtom,
+  articlesPageCountAtom,
 } from "./atomConfigs"
 
 const Pagination = () => {
   const [currentPage, setCurrentPage] = useAtom(articlesListCurrentPageAtom)
-  const totalItems = useAtomValue(articlesListTotalAtom)
-  const rowsPerPage = useAtomValue(articlesListQueryLimitAtom)
-  const pageCount = Math.ceil(totalItems / rowsPerPage)
+  const pageCount = useAtomValue(articlesPageCountAtom)
 
   const handleNextPage = () => {
     setCurrentPage(Math.min(currentPage + 1, pageCount))

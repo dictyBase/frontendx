@@ -49,3 +49,6 @@ export const articlesInRangeAtom = atom((get) => {
   const end = start + get(articlesListQueryLimitAtom)
   return [start, end]
 })
+export const articlesPageCountAtom = atom((get) =>
+  Math.ceil(get(articlesListTotalAtom) / get(articlesListQueryLimitAtom)),
+)
