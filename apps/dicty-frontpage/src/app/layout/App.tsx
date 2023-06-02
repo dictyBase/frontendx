@@ -5,7 +5,7 @@ import { Footer } from "dicty-components-header-footer"
 import { Header } from "@dictybase/header"
 import { Navbar } from "dicty-components-navbar"
 import jwtDecode from "jwt-decode"
-import { useFetchRefreshToken, useFetch } from "dicty-hooks"
+import { useFetch } from "dicty-hooks"
 import {
   useGetRefreshTokenQuery,
   GetRefreshTokenQuery,
@@ -28,7 +28,7 @@ import {
   navbarURL,
   formatNavbarData,
 } from "../../common/utils/navbarItems"
-import { navTheme, headerTheme, footerTheme } from "../../common/utils/themes"
+import { navTheme, footerTheme } from "../../common/utils/themes"
 import Routes from "../routes/Routes"
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -92,22 +92,19 @@ const getTokenIntervalDelayInMS = (token: string) => {
 const App = () => {
   const [skip, setSkip] = React.useState(false)
   const {
-    state: { token, isAuthenticated },
+    state: { token },
     dispatch,
   } = useAuthStore()
   const navbar = useFetch<NavbarItems>(navbarURL, navbarItems)
   const footer = useFetch<FooterItems>(footerURL, footerLinks)
   const classes = useStyles()
-  const { loading, refetch, data } = useGetRefreshTokenQuery({
+  const { loading, data } = useGetRefreshTokenQuery({
     variables: { token },
     errorPolicy: "ignore",
     fetchPolicy: "no-cache",
     nextFetchPolicy: "no-cache",
     skip, // only run query once
   })
-  const interval = React.useRef(null)
-  const delay = getTokenIntervalDelayInMS(token)
-
   // set skip to true so the query is only run once
   // then update the refresh token in our global state
   React.useEffect(() => {
@@ -116,20 +113,6 @@ const App = () => {
       updateToken(dispatch, data.refreshToken)
     }
   }, [data, dispatch, loading])
-
-  const fetchRefreshToken = React.useCallback(async () => {
-    try {
-      const response = await refetch({ token })
-      if (response.data.refreshToken) {
-        const { data: rdata } = response
-        updateToken(dispatch, rdata.refreshToken)
-      }
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(error)
-    }
-  }, [dispatch, refetch, token])
-  useFetchRefreshToken(fetchRefreshToken, interval, delay!, isAuthenticated)
 
   return (
     <div className={classes.body}>
