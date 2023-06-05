@@ -1,0 +1,5 @@
+export * from "@dictyBase/footer/src/components/Footer"
+export * from "@dictyBase/footer/src/components/FooterLink"
+export * from "@dictyBase/footer/src/types"
+export * from "@dictyBase/footer/src/data/footerData"
+export * from "@dictyBase/footer/src/styles/footerStyles"
