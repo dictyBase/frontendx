@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react"
-import { Footer, FooterItem, FooterLink } from "@dictyBase/footer"
+import { Footer, FooterItem, FooterLink } from ".."
 
 describe("Footer", () => {
   test("render footer with no links", () => {
