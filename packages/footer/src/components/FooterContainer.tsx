@@ -1,11 +1,14 @@
 import { Box, Grid } from "@material-ui/core"
-import { FooterContainerProps } from "@dictyBase/footer/src/types"
-import { footerStyles } from "@dictyBase/footer/src/styles/footerStyles"
-import { FooterHead } from "@dictyBase/footer/src/components/FooterHead"
-import { FooterSponsors } from "@dictyBase/footer/src/components/FooterSponsors"
-import { FooterLinks } from "@dictyBase/footer/src/components/FooterLinks"
+import { FooterContainerProperties } from "../types"
+import { footerStyles } from "../styles/footerStyles"
+import { FooterHead } from "./FooterHead"
+import { FooterSponsors } from "./FooterSponsors"
+import { FooterLinks } from "./FooterLinks"
 
-export const FooterContainer = ({ links, title }: FooterContainerProps) => {
+export const FooterContainer = ({
+  links,
+  title,
+}: FooterContainerProperties) => {
   const classes = footerStyles()
 
   return (
