@@ -1,5 +1,5 @@
 import { Box, Grid } from "@material-ui/core"
-import { footerStyles } from "@dictyBase/footer/src/styles/footerStyles"
+import { footerStyles } from "../styles/footerStyles"
 
 export const FooterSponsors = () => {
   const classes = footerStyles()
