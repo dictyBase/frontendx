@@ -1,7 +1,7 @@
 import { Grid } from "@material-ui/core"
-import { FooterLinksProps } from "@dictyBase/footer/src/types"
+import { FooterLinksProperties } from "../types"
 
-export const FooterLinks = ({ links }: FooterLinksProps) => {
+export const FooterLinks = ({ links }: FooterLinksProperties) => {
   return (
     <Grid item container justifyContent="center">
       {links}
