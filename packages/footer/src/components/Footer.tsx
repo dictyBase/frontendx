@@ -1,13 +1,13 @@
 import { MuiThemeProvider } from "@material-ui/core"
-import { FooterProps } from "@dictyBase/footer/src/types"
 import { muiTheme } from "@dictyBase/navbar/src/styles/customTheme"
-import { FooterContainer } from "@dictyBase/footer/src/components/FooterContainer"
+import { FooterContainer } from "./FooterContainer"
+import { FooterProperties } from "../types"
 
 /**
  * Renders dictyBase footer. Example usage:
  * ```tsx
  * import { Footer, FooterLink } from "@dictyBase/footer"
- * 
+ *
  * <Footer title="Dicty Community Resource">
  *  <FooterLink label="Foo" url="/foo" />
  *  ...
@@ -15,7 +15,7 @@ import { FooterContainer } from "@dictyBase/footer/src/components/FooterContaine
  * </Footer>
  * ```
  */
-export const Footer = ({ theme, children, ...rest }: FooterProps) => {
+export const Footer = ({ theme, children, ...rest }: FooterProperties) => {
   const customTheme = theme ? theme : muiTheme
 
   return (
