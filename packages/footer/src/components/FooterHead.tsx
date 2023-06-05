@@ -1,6 +1,6 @@
 import { Box, Grid, Typography } from "@material-ui/core"
-import { footerStyles } from "@dictyBase/footer/src/styles/footerStyles"
-import { FooterHeadProps } from "@dictyBase/footer/src/types"
+import { footerStyles } from "../styles/footerStyles"
+import { FooterHeadProps } from "../types"
 
 export const FooterHead = ({ title }: FooterHeadProps) => {
   const classes = footerStyles()
