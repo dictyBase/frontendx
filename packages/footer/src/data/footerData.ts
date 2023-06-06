@@ -1,4 +1,4 @@
-import { FooterItem } from "./src/types"
+import { FooterItem } from "../types"
 
 export const footerData: Array<FooterItem> = [
   {
