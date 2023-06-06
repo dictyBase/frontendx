@@ -1,14 +1,9 @@
 {
-  "name": "@dictyBase/footer",
+  "name": "@dictybase/footer",
   "version": "0.0.0",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "main": "./src/index.ts",
   "sideEffects": false,
   "license": "BSD-2-Clause",
-  "files": [
-    "dist/**"
-  ],
   "scripts": {
     "test": "jest",
     "build": "tsup src/index.tsx --format esm,cjs --dts --external react --inject react-shim.js",
@@ -36,6 +31,8 @@
   "dependencies": {
     "@fontsource/roboto": "^4.5.2",
     "@material-ui/core": "^4.12.3",
+    "@dictybase/functional": "*",
+    "fp-ts": "2.16.0",
     "react-slidedown": "^2.4.7"
   },
   "lint-staged": {
