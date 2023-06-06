@@ -1,7 +1,7 @@
 import React from "react"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import Container from "@material-ui/core/Container"
-import { Footer } from "dicty-components-header-footer"
+import { Footer, footerData } from "@dictybase/footer"
 import { Header } from "@dictybase/header"
 import { Navbar } from "dicty-components-navbar"
 import jwtDecode from "jwt-decode"
@@ -17,18 +17,12 @@ import {
 } from "../../features/Authentication/AuthStore"
 import ErrorBoundary from "../../common/components/errors/ErrorBoundary"
 import {
-  footerLinks,
-  footerURL,
-  convertFooterData,
-  FooterItems,
-} from "../../common/utils/footerItems"
-import {
   navbarItems,
   NavbarItems,
   navbarURL,
   formatNavbarData,
 } from "../../common/utils/navbarItems"
-import { navTheme, footerTheme } from "../../common/utils/themes"
+import { navTheme } from "../../common/utils/themes"
 import Routes from "../routes/Routes"
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -96,7 +90,6 @@ const App = () => {
     dispatch,
   } = useAuthStore()
   const navbar = useFetch<NavbarItems>(navbarURL, navbarItems)
-  const footer = useFetch<FooterItems>(footerURL, footerLinks)
   const classes = useStyles()
   const { loading, data } = useGetRefreshTokenQuery({
     variables: { token },
@@ -125,12 +118,7 @@ const App = () => {
           </ErrorBoundary>
         </Container>
       </main>
-      {footer.data?.data && (
-        <Footer
-          links={convertFooterData(footer.data.data)}
-          theme={footerTheme}
-        />
-      )}
+      <Footer />
     </div>
   )
 }
