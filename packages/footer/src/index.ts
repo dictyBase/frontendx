@@ -1,4 +1,4 @@
-export * from "./components/Footer"
+export * from "./functional/Footer"
 export * from "./components/FooterLink"
 export * from "./types"
 export * from "./data/footerData"
