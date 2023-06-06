@@ -1,5 +1,5 @@
 import { MuiThemeProvider } from "@material-ui/core"
-import { muiTheme } from "@dictyBase/navbar/src/styles/customTheme"
+import { muiTheme } from "../styles/customTheme"
 import { FooterContainer } from "./FooterContainer"
 import { FooterProperties } from "../types"
 
@@ -15,12 +15,11 @@ import { FooterProperties } from "../types"
  * </Footer>
  * ```
  */
-export const Footer = ({ theme, children, ...rest }: FooterProperties) => {
+export const Footer = ({ theme, links, ...rest }: FooterProperties) => {
   const customTheme = theme ? theme : muiTheme
-
   return (
     <MuiThemeProvider theme={customTheme}>
-      <FooterContainer links={children} {...rest} />
+      <FooterContainer links={links} {...rest} />
     </MuiThemeProvider>
   )
 }
