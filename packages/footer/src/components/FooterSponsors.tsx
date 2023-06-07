@@ -17,11 +17,14 @@ export const FooterSponsors = () => {
           <a
             href="https://reporter.nih.gov/project-details/10024726"
             target="_blank"
-            rel="noopener">
+            rel="noopener noreferrer">
             NIH
           </a>
           /
-          <a href="https://www.nigms.nih.gov/" target="_blank" rel="noopener">
+          <a
+            href="https://www.nigms.nih.gov/"
+            target="_blank"
+            rel="noopener noreferrer">
             NIGMS
           </a>
         </em>
