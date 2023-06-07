@@ -6,6 +6,7 @@ export const FooterLink = ({ url, label }: FooterItem) => {
   const classes = footerStyles()
   return (
     <Typography
+      key={url}
       variant="body2"
       className={`${classes.link} ${classes.separator}`}>
       <a href={url}>{label}</a>
