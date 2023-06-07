@@ -66,17 +66,6 @@ const Popular = () => {
   const widgetlist = (
     <>
       <li className={classes.listItem}>
-        <a className={classes.link} href="/dictyaccess">
-          <Button
-            className={classes.button}
-            size="small"
-            variant="contained"
-            color="primary">
-            dictyAccess
-          </Button>
-        </a>
-      </li>
-      <li className={classes.listItem}>
         <a
           className={classes.link}
           href="http://dictybase.org/tools/jbrowse/?data=data/jbrowse/discoideum&loc=6:1..50011&tracks=reference,gene,transcript">
@@ -85,7 +74,7 @@ const Popular = () => {
             size="small"
             variant="contained"
             color="primary">
-            Genome Browser
+            Genome Browser (coming soon)
           </Button>
         </a>
       </li>
