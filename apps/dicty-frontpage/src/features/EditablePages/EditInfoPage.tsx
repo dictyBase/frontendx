@@ -50,9 +50,7 @@ const EditInfoPage = () => {
   const previousURL = pathname.slice(0, -5)
 
   const handleSaveClick = async (value: string) => {
-    console.log("handle Save")
     if (data?.id === undefined) {
-      console.log("no id")
       return
     }
     await updateContent({
