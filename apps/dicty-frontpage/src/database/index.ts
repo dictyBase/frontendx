@@ -1,5 +1,5 @@
 import { BrowserLevel } from "browser-level"
-import listNewsContent from "../common/data/mockListNewsContent"
+import mockContent from "../common/data/mockContent"
 import { mockSuperuser } from "../common/data/superuser"
 
 export const database = new BrowserLevel("dicty-frontpage", {
@@ -19,7 +19,7 @@ export const getContentDataByKey = async (key: string) => {
 if (import.meta.env.VITE_APP_SEED_MOCK) {
   const seed = async () => {
     database.batch(
-      listNewsContent.map((article) => ({
+      mockContent.map((article) => ({
         type: "put",
         key: article.slug,
         value: JSON.stringify({
