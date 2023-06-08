@@ -1,7 +1,7 @@
 import React from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { ThemeProvider } from "@material-ui/core/styles"
-import { Editor } from "dicty-editor"
+import { Editor } from "editor"
 import Box from "@material-ui/core/Box"
 import { ContentBySlugQuery } from "dicty-graphql-schema"
 import { appTheme } from "../../app/layout/AppProviders"

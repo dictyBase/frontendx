@@ -3,7 +3,7 @@ import { makeStyles, Theme } from "@material-ui/core"
 import Container from "@material-ui/core/Container"
 import Box from "@material-ui/core/Box"
 import { useUpdateContentMutation } from "dicty-graphql-schema"
-import { Editor } from "dicty-editor"
+import { Editor } from "editor"
 import { useAuthStore } from "../Authentication/AuthStore"
 import useAuthorization from "../../common/hooks/useAuthorization"
 import Fallback from "../../common/components/Fallback"
@@ -49,21 +49,24 @@ const EditInfoPage = () => {
   const { pathname } = location
   const previousURL = pathname.slice(0, -5)
 
-  const handleSaveClick = (value: any) => {
+  const handleSaveClick = async (value: string) => {
+    console.log("handle Save")
     if (data?.id === undefined) {
+      console.log("no id")
       return
     }
-    updateContent({
+    await updateContent({
       variables: {
         input: {
           id: data.id,
-
+          name: data.name,
+          slug: data.slug,
           updatedBy: user.id,
-          content: JSON.stringify(value),
+          content: value,
         },
       },
     })
-    setTimeout(() => navigate(previousURL), 1000)
+    navigate(previousURL)
   }
 
   const handleCancelClick = () => {

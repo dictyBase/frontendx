@@ -1,5 +1,5 @@
 import { Grid, Container, Typography } from "@material-ui/core"
-import { Editor } from "dicty-editor"
+import { Editor } from "editor"
 import NewsHeader from "./NewsHeader"
 import NewsToolbar from "./Toolbar"
 import { formatDateISOString } from "./utils"
