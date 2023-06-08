@@ -29,7 +29,6 @@ const InfoPageContainer = () => {
   const { pathname } = useLocation()
   const { name, subname } = useParams()
   const slug = getSlug(pathname, name, subname)
-
   const { loading, error, data } = useContentBySlugQuery({
     variables: {
       slug: `${NAMESPACE}-${slug}`,
