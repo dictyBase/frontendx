@@ -2,7 +2,19 @@ import { BrowserLevel } from "browser-level"
 import listNewsContent from "../common/data/mockListNewsContent"
 import { mockSuperuser } from "../common/data/superuser"
 
-const database = new BrowserLevel("dicty-frontpage", { valueEncoding: "json" })
+export const database = new BrowserLevel("dicty-frontpage", {
+  valueEncoding: "json",
+})
+
+export const getContentDataByKey = async (key: string) => {
+  try {
+    const data = await database.get(key)
+    return JSON.parse(data)
+  } catch {
+    const data = await database.get("default")
+    return JSON.parse(data)
+  }
+}
 
 if (import.meta.env.VITE_APP_SEED_MOCK) {
   const seed = async () => {
@@ -21,5 +33,3 @@ if (import.meta.env.VITE_APP_SEED_MOCK) {
 
   seed()
 }
-
-export default database
