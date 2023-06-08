@@ -61,11 +61,11 @@ const Editor = ({
       <WidthTablePlugin />
       <TableActionPlugin />
       <HistoryPlugin />
-      {content?.storageKey ? (
+      {/* {content?.storageKey ? (
         <LocalPersistencePlugin storageKey={content.storageKey} />
       ) : (
         <></>
-      )}
+      )} */}
       <Grid container direction="column">
         {editable ? (
           <Grid item>
