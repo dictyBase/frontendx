@@ -79,7 +79,7 @@
     "source-map-explorer": "^2.5.3",
     "tsconfig": "*",
     "vite": "latest",
-    "vitest": "0.31.x",
+    "vitest": "0.32.x",
     "vitest-fetch-mock": "^0.2.2",
     "wait-for-expect": "^3.0.2"
   },
