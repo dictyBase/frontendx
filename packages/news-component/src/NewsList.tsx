@@ -4,20 +4,21 @@ import NewsPreview from "./NewsPreview"
 
 type NewsListProperties = {
   articles: ListNewsContentQuery["listContent"]
+  selectable: boolean
 }
 
 /**
  * Renders a list of news articles.
  * @returns
  */
-const NewsList = ({ articles }: NewsListProperties) => {
+const NewsList = ({ articles, selectable }: NewsListProperties) => {
   if (!articles) return <div> Fallback </div>
 
   return (
     <>
       {articles.map((article) => (
         <Grid item key={article.slug}>
-          <NewsPreview article={article} />
+          <NewsPreview article={article} selectable={selectable} />
         </Grid>
       ))}
     </>

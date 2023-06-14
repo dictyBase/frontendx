@@ -7,11 +7,15 @@ import NewsList from "./NewsList"
 import NewsHeader from "./NewsHeader"
 import NewsToolbar from "./Toolbar"
 import Pagination from "./Pagination"
+
+type BrowseNewsProperties = {
+  isAuthenticated?: boolean
+}
 /**
  * Renders a list of news articles.
  * @returns
  */
-const BrowseNews = () => {
+const BrowseNews = ({ isAuthenticated = false }: BrowseNewsProperties) => {
   const articlesInRange = useAtomValue(articlesInRangeAtom)
   const setTotalArticles = useSetAtom(articlesListTotalAtom)
   const { loading, error, data, refetch } = useListNewsContentQuery()
@@ -31,13 +35,12 @@ const BrowseNews = () => {
         <Grid item>
           <NewsHeader />
         </Grid>
-        <Grid item>
-          <NewsToolbar />
-        </Grid>
+        <Grid item>{isAuthenticated ? <NewsToolbar /> : <></>}</Grid>
         {error ? <div> Error </div> : <></>}
         {loading ? <div> Loading </div> : <></>}
         {data?.listContent ? (
           <NewsList
+            selectable={isAuthenticated}
             articles={data?.listContent.slice(
               articlesInRange[0],
               articlesInRange[1],
