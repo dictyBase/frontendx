@@ -43,25 +43,21 @@ type Properties = {
 
 const generateTabs = (items: Array<Organism>) =>
   items.map((item: Organism) => (
-    <Tab
-      value={item.taxon_id}
-      label={item.scientific_name}
-      key={item.taxon_id}
-    />
+    <Tab value={item.taxonId} label={item.scientificName} key={item.taxonId} />
   ))
 
 const DownloadsDisplay = ({ data }: Properties) => {
-  const [tabValue, setTabValue] = React.useState(data[0]?.taxon_id)
+  const [tabValue, setTabValue] = React.useState(data[0]?.taxonId)
 
   const handleChange = (event: React.ChangeEvent<{}>, value: string) => {
     setTabValue(value)
   }
 
   const generateTabContainers = (items: Array<Organism>) => {
-    const filteredItems = items.filter((item) => item.taxon_id === tabValue)
+    const filteredItems = items.filter((item) => item.taxonId === tabValue)
 
     return filteredItems.map((item: Organism) => (
-      <Typography component="div" key={item.taxon_id}>
+      <Typography component="div" key={item.taxonId}>
         <Citations citations={item.citations} />
         <DownloadsTable data={item.downloads} />
       </Typography>
