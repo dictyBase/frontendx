@@ -11,7 +11,7 @@ type Download = {
 type Citation = {
   title: string
   authors: string
-  pubmed_id: string
+  pubmedId: string
   journal: string
 }
 
