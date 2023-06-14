@@ -1,67 +1,35 @@
+import { Fragment } from "react"
 import { Route, Routes as ReactRoutes } from "react-router-dom"
-import { BrowseNews, NewsPage, CreateNews, UpdateNews } from "news-component"
 import Front from "../../features/Frontpage/Front"
-import DownloadsContainer from "../../features/Downloads/DownloadsContainer"
-import About from "../../features/About/About"
-import InfoPageContainer from "../../features/EditablePages/InfoPageContainer"
-import EditInfoPage from "../../features/EditablePages/EditInfoPage"
-import AddPage from "../../features/EditablePages/AddPage"
-import Login from "../../features/Authentication/Login"
-import OauthCallback from "../../features/Authentication/OauthCallback"
-import AuthLoader from "../../features/Authentication/AuthLoader"
-import Logout from "../../features/Authentication/Logout"
 import PageNotReady from "../../common/components/PageNotReady"
 import useGoogleAnalytics from "../../common/hooks/useGoogleAnalytics"
 import PrivateRoute from "./PrivateRoute"
+import ProtectedRoute from "./ProtectedRoute"
+import { routes } from "."
+import { ACCESS } from "./types"
 
 const Routes = () => {
   useGoogleAnalytics()
-
   return (
     <ReactRoutes>
       <Route path="/">
         <Route index element={<Front />} />
-        <Route path="about" element={<About />} />
-        <Route path="downloads" element={<DownloadsContainer />} />
-        {/* Authentication routes */}
-        <Route path="login" element={<Login />} />
-        <Route path=":provider/callback" element={<OauthCallback />} />
-        <Route path="load/auth" element={<AuthLoader />} />
-        <Route
-          path="logout"
-          element={
-            <PrivateRoute>
-              <Logout />
-            </PrivateRoute>
-          }
-        />
-        {/* Editable page routes */}
-        <Route path="news" element={<BrowseNews />} />
-        <Route path="news/:slug" element={<NewsPage />} />
-        <Route path="news/:slug/edit" element={<UpdateNews />} />
-        <Route path="news/create" element={<CreateNews />} />
-        <Route path=":section/:name" element={<InfoPageContainer />} />
-        <Route path=":section/:name/edit" element={<EditInfoPage />} />
-        <Route path=":section/:name/:subname" element={<InfoPageContainer />} />
-        <Route
-          path=":section/:name/:subname/edit"
-          element={
-            <PrivateRoute>
-              <EditInfoPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="addpage"
-          element={
-            <PrivateRoute>
-              <AddPage />
-            </PrivateRoute>
-          }
-        />
-        <Route path="privacy-policy" element={<InfoPageContainer />} />
+        {routes.map(({ path, component: Component = Fragment, access }) => {
+          let element = <Component />
+
+          if (access === ACCESS.protected)
+            element = <ProtectedRoute component={Component} />
+
+          if (access === ACCESS.private)
+            element = (
+              <PrivateRoute>
+                <Component />
+              </PrivateRoute>
+            )
+
+          return <Route key={path} path={path} element={element} />
+        })}
       </Route>
-      {/* Page not found routes */}
       <Route path="*" element={<PageNotReady />} />
     </ReactRoutes>
   )
