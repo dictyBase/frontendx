@@ -18,9 +18,10 @@ type NewsPreviewProperties = {
     updatedAt: string
     content: string
   }
+  selectable: boolean
 }
 
-const NewsPreview = ({ article }: NewsPreviewProperties) => {
+const NewsPreview = ({ article, selectable }: NewsPreviewProperties) => {
   const addToSelected = useSetAtom(addSelectedArticlesAtom)
   const removefromSelected = useSetAtom(removeSelectedArticlesAtom)
   const [selected, setSelected] = useState(false)
@@ -40,13 +41,17 @@ const NewsPreview = ({ article }: NewsPreviewProperties) => {
   return (
     <Paper className={root}>
       <Grid container direction="row" wrap="nowrap">
-        <Grid item>
-          <Checkbox
-            checked={selected}
-            onChange={onChange}
-            className={checkbox}
-          />
-        </Grid>
+        {selectable ? (
+          <Grid item>
+            <Checkbox
+              checked={selected}
+              onChange={onChange}
+              className={checkbox}
+            />
+          </Grid>
+        ) : (
+          <></>
+        )}
         <Grid item>
           <>
             <Link to={article.slug}>
