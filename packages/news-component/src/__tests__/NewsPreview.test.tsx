@@ -46,3 +46,13 @@ test("When clicked, it navigates to the single news item route", async () => {
   await user.click(screen.getByRole("link"))
   expect(screen.getByText("Route Found")).toBeInTheDocument()
 })
+
+test("When the selectable prop is set to true, the component renders a checkbox", () => {
+  render(
+    <MemoryRouter>
+      <NewsPreview article={article} selectable />
+    </MemoryRouter>,
+  )
+
+  expect(screen.getByRole("checkbox")).toBeInTheDocument()
+})
