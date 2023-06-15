@@ -2,6 +2,10 @@ version: 2
 updates:
   - package-ecosystem: npm
     directory: "/"
+    ignore: 
+    - dependency-name: "react"
+    - dependency-name: "@types/react"
+    - dependency-name: "@types/node"
     schedule:
       interval: weekly
       day: saturday
