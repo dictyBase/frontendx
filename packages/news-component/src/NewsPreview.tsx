@@ -18,10 +18,13 @@ type NewsPreviewProperties = {
     updatedAt: string
     content: string
   }
-  selectable: boolean
+  selectable?: boolean
 }
 
-const NewsPreview = ({ article, selectable }: NewsPreviewProperties) => {
+const NewsPreview = ({
+  article,
+  selectable = false,
+}: NewsPreviewProperties) => {
   const addToSelected = useSetAtom(addSelectedArticlesAtom)
   const removefromSelected = useSetAtom(removeSelectedArticlesAtom)
   const [selected, setSelected] = useState(false)
