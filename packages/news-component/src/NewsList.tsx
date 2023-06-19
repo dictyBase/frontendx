@@ -15,13 +15,13 @@ const NewsList = ({ articles, selectable }: NewsListProperties) => {
   if (!articles) return <div> Fallback </div>
 
   return (
-    <>
+    <Grid container spacing={1}>
       {articles.map((article) => (
         <Grid item key={article.slug}>
           <NewsPreview article={article} selectable={selectable} />
         </Grid>
       ))}
-    </>
+    </Grid>
   )
 }
 
