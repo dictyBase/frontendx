@@ -18,6 +18,9 @@ const DisplayNews = ({ content }: DisplayNewsProperties) => (
       <Typography>{formatDateISOString(content.updatedAt)}</Typography>
     </Grid>
     <Grid item>
+      <Typography variant="h1">{content.name}</Typography>
+    </Grid>
+    <Grid item>
       <Editor
         editable={false}
         content={{
