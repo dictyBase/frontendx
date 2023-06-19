@@ -1,12 +1,9 @@
 import { useEffect } from "react"
-import { Grid, Container } from "@material-ui/core"
+import { Grid } from "@material-ui/core"
 import { useListNewsContentQuery } from "dicty-graphql-schema"
 import { useAtomValue, useSetAtom } from "jotai"
 import { articlesInRangeAtom, articlesListTotalAtom } from "./atomConfigs"
-import NewsLayout from "./NewsLayout"
 import NewsList from "./NewsList"
-import NewsHeader from "./NewsHeader"
-import NewsToolbar from "./Toolbar"
 import Pagination from "./Pagination"
 
 type BrowseNewsProperties = {
