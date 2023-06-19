@@ -1,4 +1,5 @@
-import { InfoPageContainer } from "frontpage-components"
+// import { InfoPageContainer } from "frontpage-components"
 
-// eslint-disable-next-line unicorn/prefer-export-from
+const InfoPageContainer = () => <></>
+
 export default InfoPageContainer
