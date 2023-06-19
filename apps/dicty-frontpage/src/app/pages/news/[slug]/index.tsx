@@ -1,6 +1,6 @@
+import NewsLayoutWrapper from "news-component/src/NewsLayout"
 import { NewsPage } from "news-component"
 import { ACCESS } from "../../../routes/types"
 
-// eslint-disable-next-line unicorn/prefer-export-from
-export default NewsPage
-export const access = ACCESS.public
+export default NewsLayoutWrapper(NewsPage)
+export const access = ACCESS.protected

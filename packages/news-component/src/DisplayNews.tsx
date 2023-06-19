@@ -1,7 +1,5 @@
-import { Grid, Container, Typography } from "@material-ui/core"
+import { Grid, Typography } from "@material-ui/core"
 import { Editor } from "editor"
-import NewsHeader from "./NewsHeader"
-import NewsToolbar from "./Toolbar"
 import { formatDateISOString } from "./utils"
 
 type DisplayNewsProperties = {
@@ -15,31 +13,20 @@ type DisplayNewsProperties = {
 }
 
 const DisplayNews = ({ content }: DisplayNewsProperties) => (
-  <Container>
-    <Grid container direction="column" spacing={1}>
-      <Grid item>
-        <NewsHeader />
-      </Grid>
-      <Grid item>
-        <NewsToolbar />
-      </Grid>
-      <Grid item>
-        <Typography variant="h1">{content.name}</Typography>
-      </Grid>
-      <Grid item>
-        <Typography>{formatDateISOString(content.updatedAt)}</Typography>
-      </Grid>
-      <Grid item>
-        <Editor
-          editable={false}
-          content={{
-            storageKey: content.slug,
-            editorState: content.content,
-          }}
-        />
-      </Grid>
+  <Grid container direction="column" spacing={1}>
+    <Grid item>
+      <Typography>{formatDateISOString(content.updatedAt)}</Typography>
     </Grid>
-  </Container>
+    <Grid item>
+      <Editor
+        editable={false}
+        content={{
+          storageKey: content.slug,
+          editorState: content.content,
+        }}
+      />
+    </Grid>
+  </Grid>
 )
 
 export default DisplayNews

@@ -29,9 +29,6 @@ const UpdateNews = () => {
     <Container>
       <Grid container direction="column" spacing={3}>
         <Grid item>
-          <NewsHeader />
-        </Grid>
-        <Grid item>
           <TextField
             label="Article Title"
             placeholder="Article Title"
