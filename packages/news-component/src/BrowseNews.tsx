@@ -3,6 +3,7 @@ import { Grid, Container } from "@material-ui/core"
 import { useListNewsContentQuery } from "dicty-graphql-schema"
 import { useAtomValue, useSetAtom } from "jotai"
 import { articlesInRangeAtom, articlesListTotalAtom } from "./atomConfigs"
+import NewsLayout from "./NewsLayout"
 import NewsList from "./NewsList"
 import NewsHeader from "./NewsHeader"
 import NewsToolbar from "./Toolbar"
@@ -27,37 +28,21 @@ const BrowseNews = ({ isAuthenticated = false }: BrowseNewsProperties) => {
 
   if (error) return <div> Error </div>
   if (loading) return <div> Loading </div>
-  if (!data) return <div> Fallback </div>
+  if (!data || !data.listContent) return <div> Fallback </div>
 
   return (
-    <Container>
-      <Grid container direction="column" spacing={1}>
-        <Grid item>
-          <NewsHeader />
-        </Grid>
-        <Grid item>{isAuthenticated ? <NewsToolbar /> : <></>}</Grid>
-        {error ? <div> Error </div> : <></>}
-        {loading ? <div> Loading </div> : <></>}
-        {data?.listContent ? (
-          <NewsList
-            selectable={isAuthenticated}
-            articles={data?.listContent.slice(
-              articlesInRange[0],
-              articlesInRange[1],
-            )}
-          />
-        ) : (
-          <></>
+    <>
+      <NewsList
+        selectable={isAuthenticated}
+        articles={data?.listContent.slice(
+          articlesInRange[0],
+          articlesInRange[1],
         )}
-        {data?.listContent ? (
-          <Grid item>
-            <Pagination />
-          </Grid>
-        ) : (
-          <></>
-        )}
+      />
+      <Grid item>
+        <Pagination />
       </Grid>
-    </Container>
+    </>
   )
 }
 
