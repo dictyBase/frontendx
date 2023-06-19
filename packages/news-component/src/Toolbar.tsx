@@ -16,6 +16,8 @@ const NewsToolbar = () => {
   const paths = getURLPathSegments(location.pathname)
   const lastPathSegment = paths.at(-1)
 
+  if (!paths.includes("news")) return <></>
+
   return (
     <Paper>
       <Toolbar disableGutters variant="dense" className={root}>
