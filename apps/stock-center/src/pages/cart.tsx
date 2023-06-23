@@ -1,16 +1,21 @@
-import { ShoppingCartDisplay } from "@dictybase/ui-dsc"
 import { useAtomValue } from "jotai"
-import { addedItemsAtom } from "../state"
+import { EmptyCart } from "@dictybase/ui-dsc"
+import ShoppingCartWithItems from "../components/ShoppingCartWithItems"
+import { totalItemsAtom, cartFullAtom } from "../state"
 /** ShoppingCartPage displays different UIs based on whether
  *  there are currently items in the cart. * */
-const ShoppingCartPage = () => {
-  const addedItems = useAtomValue(addedItemsAtom)
+const CartHandler = () => {
+  const items = useAtomValue(totalItemsAtom)
+  const isFull = useAtomValue(cartFullAtom)
   return (
-    <ShoppingCartDisplay
-      itemsWithQuantity={addedItems}
-      maxItemsInCart={false}
-    />
+    <>
+      {items.length > 0 ? (
+        <ShoppingCartWithItems items={items} isFull={isFull} />
+      ) : (
+        <EmptyCart />
+      )}
+    </>
   )
 }
 
-export default ShoppingCartPage
+export default CartHandler
