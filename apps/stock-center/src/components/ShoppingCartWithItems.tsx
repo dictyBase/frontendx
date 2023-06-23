@@ -1,10 +1,10 @@
 import { makeStyles } from "@material-ui/core/styles"
 import Grid from "@material-ui/core/Grid"
 import List from "@material-ui/core/List"
-import ShoppingCartItem from "./ShoppingCartItem"
-import ShoppingCartTotalCard from "./ShoppingCartTotalCard"
-import ContinueShoppingCard from "./ContinueShoppingCard"
-import { CartItemWithQuantity } from "../common/types"
+import ShoppingCartItem from "@dictybase/ui-dsc/src/cart/ShoppingCartItem"
+import ShoppingCartTotalCard from "@dictybase/ui-dsc/src/cart/ShoppingCartTotalCard"
+import ContinueShoppingCard from "@dictybase/ui-dsc/src/cart/ContinueShoppingCard"
+import { StrainItem, PlasmidItem } from "../state"
 
 const useStyles = makeStyles(() => ({
   list: {
@@ -13,16 +13,16 @@ const useStyles = makeStyles(() => ({
 }))
 
 type ShoppingCartWithItemsProperties = {
-  itemsWithQuantity: CartItemWithQuantity[]
-  maxItemsInCart: boolean
+  items: (StrainItem | PlasmidItem)[]
+  isFull: boolean
 }
 /**
  * ShoppingCartPageWithItems is the display for the cart page when there are
  * items in the cart.
  */
-export const ShoppingCartWithItems = ({
-  itemsWithQuantity,
-  maxItemsInCart,
+const ShoppingCartWithItems = ({
+  items,
+  isFull,
 }: ShoppingCartWithItemsProperties) => {
   const classes = useStyles()
 
@@ -30,15 +30,17 @@ export const ShoppingCartWithItems = ({
     <Grid container spacing={2}>
       <Grid item xs={9}>
         <List className={classes.list}>
-          {itemsWithQuantity.map((item: CartItemWithQuantity) => (
+          {items.map((item) => (
             <ShoppingCartItem key={item.id} item={item} />
           ))}
         </List>
       </Grid>
       <Grid item xs={3}>
         <ShoppingCartTotalCard />
-        {!maxItemsInCart && <ContinueShoppingCard />}
+        {!isFull && <ContinueShoppingCard />}
       </Grid>
     </Grid>
   )
 }
+
+export default ShoppingCartWithItems
