@@ -10,9 +10,13 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
+    "@dictybase/ui-dsc": "*",
     "@material-ui/core": "4.x",
     "dicty-graphql-schema": "*",
+    "frontpage-components": "*",
     "graphql": "~16.6.0",
+    "jotai": "^1.12.0",
+    "jotai-optics": "^0.2.1",
     "react": "17.x",
     "react-dom": "17.x",
     "react-router-dom": "~6.13.0"
@@ -21,8 +25,8 @@
     "@types/react": "17.x",
     "@types/react-dom": "17.x",
     "@vitejs/plugin-react": "^4.0.0",
-    "tsconfig": "*",
     "eslint-config-custom": "*",
+    "tsconfig": "*",
     "vite": "^3.x",
     "vite-plugin-swc-react-refresh": "^2.2.1"
   }
