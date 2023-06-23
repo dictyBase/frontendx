@@ -3,8 +3,10 @@ import { focusAtom } from "jotai-optics"
 import { type Strain, Plasmid } from "dicty-graphql-schema"
 
 type PurchaseProperties = { quantity: number; fee: Readonly<number> }
-type StrainItem = Pick<Strain, "id" | "summary" | "label"> & PurchaseProperties
-type PlasmidItem = Pick<Plasmid, "id" | "summary" | "name"> & PurchaseProperties
+export type StrainItem = Pick<Strain, "id" | "summary" | "label"> &
+  PurchaseProperties
+export type PlasmidItem = Pick<Plasmid, "id" | "summary" | "name"> &
+  PurchaseProperties
 
 type Cart = {
   strainItems: StrainItem[]
@@ -34,3 +36,7 @@ export const totalItemsAtom = atom((get) => [
   ...get(plasmidItemsAtom),
   ...get(strainItemsAtom),
 ])
+
+export const cartFullAtom = atom(
+  (get) => get(totalItemsAtom).length === MAX_ITEMS,
+)
