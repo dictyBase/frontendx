@@ -4,7 +4,6 @@ import { ApolloProvider } from "@apollo/client"
 import { useGraphqlClient, useApolloClientCache } from "@dictybase/data-access"
 import { listStrainsPagination } from "@dictybase/hook-dsc"
 import { routes } from "./routes"
-import StrainCatalog from "./StrainCatalog"
 
 export const App = () => {
   const client = useGraphqlClient({
@@ -23,13 +22,11 @@ export const App = () => {
     <BrowserRouter>
       <ApolloProvider client={client}>
         <Routes>
+          <Route path="/" element={<Navigate to="/strains" />} />
           {routes.map(({ path, component: Component = Fragment }) => {
             const element = <Component />
             return <Route key={path} path={path} element={element} />
           })}
-
-          <Route path="/" element={<Navigate to="/strains" />} />
-          <Route path="/strains" element={<StrainCatalog />} />
         </Routes>
       </ApolloProvider>
     </BrowserRouter>
