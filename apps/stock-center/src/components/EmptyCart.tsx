@@ -4,6 +4,7 @@ import Box from "@material-ui/core/Box"
 import Typography from "@material-ui/core/Typography"
 import Divider from "@material-ui/core/Divider"
 import Button from "@material-ui/core/Button"
+import ShoppingCartHeader from "@dictybase/ui-dsc/src/cart/ShoppingCartHeader"
 
 const useStyles = makeStyles(() => ({
   button: {
@@ -12,11 +13,12 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-export const EmptyCart = () => {
+const EmptyCart = () => {
   const classes = useStyles()
 
   return (
     <>
+      <ShoppingCartHeader />
       <Box marginTop={4} marginBottom={4}>
         <Typography variant="body1">
           Your shopping cart is empty. Please add at least one item to your cart
@@ -46,3 +48,5 @@ export const EmptyCart = () => {
     </>
   )
 }
+
+export default EmptyCart
