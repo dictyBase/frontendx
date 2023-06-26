@@ -9691,11 +9691,6 @@ jose@^4.11.4:
   resolved "https://registry.yarnpkg.com/jose/-/jose-4.14.4.tgz#59e09204e2670c3164ee24cbfe7115c6f8bff9ca"
   integrity sha512-j8GhLiKmUAh+dsFXlX1aJCbt5KMibuKb+d7j1JaOJG6s2UjX1PQlW+OKB/sD4a/5ZYF4RcmYmLSndOoU3Lt/3g==
 
-jotai-optics@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/jotai-optics/-/jotai-optics-0.2.1.tgz#52bfae043fc19fc00b0d48d1398a409ef0df9455"
-  integrity sha512-ua2YjAH+CLtvpfhlT9gT6nZyrcmXBMA4wsBficJxkAuxeIMwBXW22bN2xzT/8ewUIhB+tMiBiBqcl0hrET5VHA==
-
 jotai-optics@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/jotai-optics/-/jotai-optics-0.3.0.tgz#ae5ced595cc9f74a76b03f678d507d03a520e073"
