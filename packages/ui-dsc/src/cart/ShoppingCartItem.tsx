@@ -6,7 +6,9 @@ import Card from "@material-ui/core/Card"
 import CardHeader from "@material-ui/core/CardHeader"
 import Avatar from "@material-ui/core/Avatar"
 import ListItem from "@material-ui/core/ListItem"
+import IconButton from "@material-ui/core/IconButton"
 import Typography from "@material-ui/core/Typography"
+import ClearIcon from "@material-ui/icons/Clear"
 import strainOrPlasmid from "../utils/strainOrPlasmid"
 import { toCurrencyString } from "../utils/toCurrencyString"
 import { StrainItem } from "../types"
@@ -28,15 +30,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-type Properties = {
+type ShoppingCartItemProperties = {
   /** Individual cart item with given quantity */
   item: StrainItem
+  deleteItem: (id: string) => void
 }
 
 /**
  * ShoppingCartItem is an individual item displayed in ShoppingCartList.
  */
-const ShoppingCartItem = ({ item }: Properties) => {
+const ShoppingCartItem = ({ item, deleteItem }: ShoppingCartItemProperties) => {
   const classes = useStyles()
 
   const stock = strainOrPlasmid(item.id)
@@ -48,6 +51,13 @@ const ShoppingCartItem = ({ item }: Properties) => {
           <Avatar aria-label="stock" className={classes.avatar}>
             {stock === "strains" ? "S" : "P"}
           </Avatar>
+        }
+        action={
+          <IconButton
+            aria-label="Remove Item"
+            onClick={() => deleteItem(item.id)}>
+            <ClearIcon />
+          </IconButton>
         }
         title={
           <Typography variant="h2">
