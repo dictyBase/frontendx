@@ -17,3 +17,5 @@ const initialState: Cart = {
 }
 
 const cartAtom = atom<Cart>(initialState)
+
+export { type Cart, cartAtom }
