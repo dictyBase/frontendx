@@ -48,4 +48,4 @@ const EmptyCart = () => {
   )
 }
 
-export default EmptyCart
+export { EmptyCart }
