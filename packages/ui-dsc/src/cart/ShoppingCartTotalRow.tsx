@@ -1,4 +1,3 @@
-import React from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import Grid from "@material-ui/core/Grid"
 import Typography, { TypographyProps } from "@material-ui/core/Typography"
@@ -43,7 +42,7 @@ const ShoppingCartTotalRow = ({
           ({numItems} {items}):
         </Typography>
       </Grid>
-      <Grid item xs={2} container justify="flex-end">
+      <Grid item xs={2} container justifyContent="flex-end">
         <Typography variant={variant} component="span">
           {total}
         </Typography>
@@ -52,4 +51,4 @@ const ShoppingCartTotalRow = ({
   )
 }
 
-export default ShoppingCartTotalRow
+export { ShoppingCartTotalRow }
