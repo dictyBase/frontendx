@@ -1,42 +1,19 @@
 import { atom } from "jotai"
-import { focusAtom } from "jotai-optics"
-import { type Strain, Plasmid } from "dicty-graphql-schema"
+import { type Strain } from "dicty-graphql-schema"
 
 type PurchaseProperties = { quantity: number; fee: Readonly<number> }
-export type StrainItem = Pick<Strain, "id" | "summary" | "label"> &
-  PurchaseProperties
-export type PlasmidItem = Pick<Plasmid, "id" | "summary" | "name"> &
-  PurchaseProperties
-
-type Cart = {
-  strainItems: StrainItem[]
-  plasmidItems: PlasmidItem[]
-}
-
+type StrainItem = Pick<Strain, "id" | "summary" | "label"> & PurchaseProperties
 type CartItemLimit = Readonly<number>
 
-const MAX_ITEMS: CartItemLimit = 12
+// This is the State
+type Cart = {
+  strainItems: Array<StrainItem>
+  maxItems: CartItemLimit
+}
 
 const initialState: Cart = {
   strainItems: [],
-  plasmidItems: [],
+  maxItems: 12,
 }
 
-export const cartAtom = atom<Cart>(initialState)
-// @ts-ignore https://github.com/jotaijs/jotai-optics/issues/6
-export const plasmidItemsAtom = focusAtom(cartAtom, (optic) =>
-  optic.prop("plasmidItems"),
-)
-// @ts-ignore https://github.com/jotaijs/jotai-optics/issues/6
-export const strainItemsAtom = focusAtom(cartAtom, (optic) =>
-  optic.prop("strainItems"),
-)
-
-export const totalItemsAtom = atom((get) => [
-  ...get(plasmidItemsAtom),
-  ...get(strainItemsAtom),
-])
-
-export const cartFullAtom = atom(
-  (get) => get(totalItemsAtom).length === MAX_ITEMS,
-)
+const cartAtom = atom<Cart>(initialState)
