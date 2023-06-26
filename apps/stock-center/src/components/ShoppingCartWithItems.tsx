@@ -17,6 +17,7 @@ const useStyles = makeStyles(() => ({
 type ShoppingCartWithItemsProperties = {
   items: Cart["strainItems"]
   isFull: boolean
+  deleteItem: (id: string) => void
 }
 /**
  * ShoppingCartPageWithItems is the display for the cart page when there are
@@ -25,6 +26,7 @@ type ShoppingCartWithItemsProperties = {
 const ShoppingCartWithItems = ({
   items,
   isFull,
+  deleteItem,
 }: ShoppingCartWithItemsProperties) => {
   const classes = useStyles()
 
@@ -33,7 +35,11 @@ const ShoppingCartWithItems = ({
       <Grid item xs={9}>
         <List className={classes.list}>
           {items.map((item) => (
-            <ShoppingCartItem key={item.id} item={item} />
+            <ShoppingCartItem
+              key={item.id}
+              item={item}
+              deleteItem={deleteItem}
+            />
           ))}
         </List>
       </Grid>
@@ -45,4 +51,4 @@ const ShoppingCartWithItems = ({
   )
 }
 
-export default ShoppingCartWithItems
+export { ShoppingCartWithItems }
