@@ -4,7 +4,7 @@ import Box from "@material-ui/core/Box"
 import Typography from "@material-ui/core/Typography"
 import Divider from "@material-ui/core/Divider"
 import Button from "@material-ui/core/Button"
-import ShoppingCartHeader from "@dictybase/ui-dsc/src/cart/ShoppingCartHeader"
+import { ShoppingCartHeader } from "@dictybase/ui-dsc"
 
 const useStyles = makeStyles(() => ({
   button: {
@@ -15,7 +15,6 @@ const useStyles = makeStyles(() => ({
 
 const EmptyCart = () => {
   const classes = useStyles()
-
   return (
     <>
       <ShoppingCartHeader />
