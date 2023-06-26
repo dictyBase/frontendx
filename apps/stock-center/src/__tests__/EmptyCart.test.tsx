@@ -1,14 +1,14 @@
 import { describe, test } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { BrowserRouter as Router } from "react-router-dom"
-import EmptyCartPage from "../components/EmptyCart"
+import { EmptyCart } from "../components/EmptyCart"
 
-describe("features/ShoppingCart/EmptyCartPage", () => {
+describe("features/ShoppingCart/EmptyCart", () => {
   describe("initial component render", () => {
     test("displays empty notification", () => {
       render(
         <Router>
-          <EmptyCartPage />
+          <EmptyCart />
         </Router>,
       )
       expect(
@@ -18,7 +18,7 @@ describe("features/ShoppingCart/EmptyCartPage", () => {
     test("displays button links to catalogs", () => {
       render(
         <Router>
-          <EmptyCartPage />
+          <EmptyCart />
         </Router>,
       )
       expect(
