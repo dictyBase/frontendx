@@ -1,10 +1,12 @@
 import { makeStyles } from "@material-ui/core/styles"
 import Grid from "@material-ui/core/Grid"
 import List from "@material-ui/core/List"
-import ShoppingCartItem from "@dictybase/ui-dsc/src/cart/ShoppingCartItem"
-import ShoppingCartTotalCard from "@dictybase/ui-dsc/src/cart/ShoppingCartTotalCard"
-import ContinueShoppingCard from "@dictybase/ui-dsc/src/cart/ContinueShoppingCard"
-import { StrainItem, PlasmidItem } from "../state"
+import {
+  ShoppingCartItem,
+  ShoppingCartTotalCard,
+  ContinueShoppingCard,
+} from "@dictybase/ui-dsc"
+import { type Cart } from "../state"
 
 const useStyles = makeStyles(() => ({
   list: {
@@ -13,7 +15,7 @@ const useStyles = makeStyles(() => ({
 }))
 
 type ShoppingCartWithItemsProperties = {
-  items: (StrainItem | PlasmidItem)[]
+  items: Cart["strainItems"]
   isFull: boolean
 }
 /**
@@ -31,12 +33,13 @@ const ShoppingCartWithItems = ({
       <Grid item xs={9}>
         <List className={classes.list}>
           {items.map((item) => (
-            <ShoppingCartItem key={item.id} item={item} />
+            <div key={item.id}>ShoppingCartItem will go here</div>
+            // <ShoppingCartItem key={item.id} item={item} />
           ))}
         </List>
       </Grid>
       <Grid item xs={3}>
-        <ShoppingCartTotalCard />
+        <ShoppingCartTotalCard items={items} />
         {!isFull && <ContinueShoppingCard />}
       </Grid>
     </Grid>
