@@ -1,21 +1,51 @@
-import React from "react"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import ShoppingCartWithItems from "./components/ShoppingCartWithItems"
+import { MemoryRouter } from "react-router-dom"
+import ShoppingCartWithItems from "../components/ShoppingCartWithItems"
 
+const testItems = [
+  {
+    id: "DBS-1",
+    summary: "This is a test item",
+    label: "testStrain",
+    quantity: 9,
+    fee: 10,
+  },
+  {
+    id: "DBS-2",
+    summary: "This is another test item",
+    label: "testStrain",
+    quantity: 9,
+    fee: 15,
+  },
+  {
+    id: "DBS-3",
+    summary: "This is the last test item",
+    label: "testStrain",
+    quantity: 9,
+    fee: 19.79,
+  },
+]
 describe("features/ShoppingCart/ShoppingCartWithItems", () => {
   describe("initial render", () => {
     it("displays correct total", () => {
-      render(<ShoppingCartWithItems />)
-      // three strains ($30 each) + one plasmid ($15) = $75
-      const total = screen.getByText("$105.00")
+      render(
+        <MemoryRouter>
+          <ShoppingCartWithItems items={testItems} isFull={false} />
+        </MemoryRouter>,
+      )
+      const total = screen.getByText("$44.79")
       expect(total).toBeInTheDocument()
     })
   })
 
   describe("button clicking", () => {
     it("updates quantity on trash button click", () => {
-      render(<ShoppingCartWithItems />)
+      render(
+        <MemoryRouter>
+          <ShoppingCartWithItems items={testItems} isFull={false} />
+        </MemoryRouter>,
+      )
       const strainQuantity = screen.getAllByTestId("cart-quantity")[0]
       expect(strainQuantity).toHaveTextContent(/Qty3/)
       const trashButtons = screen.getAllByRole("button", {
