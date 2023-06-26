@@ -6,12 +6,10 @@ import Card from "@material-ui/core/Card"
 import CardHeader from "@material-ui/core/CardHeader"
 import Avatar from "@material-ui/core/Avatar"
 import ListItem from "@material-ui/core/ListItem"
-import IconButton from "@material-ui/core/IconButton"
 import Typography from "@material-ui/core/Typography"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { OutlinedDropdown } from "../common/OutlinedDropdown"
 import strainOrPlasmid from "../utils/strainOrPlasmid"
-import { CartItemWithQuantity } from "../common/types"
+import { toCurrencyString } from "../utils/toCurrencyString"
+import { StrainItem } from "../types"
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -32,16 +30,13 @@ const useStyles = makeStyles((theme) => ({
 
 type Properties = {
   /** Individual cart item with given quantity */
-  item: CartItemWithQuantity
+  item: StrainItem
 }
 
 /**
  * ShoppingCartItem is an individual item displayed in ShoppingCartList.
  */
-const removeFromCart = (x: any) => x
 const ShoppingCartItem = ({ item }: Properties) => {
-  // const { removeFromCart } = useCartItems()
-  const { handleChange, matchingItems, values } = useCartQuantity(item.id)
   const classes = useStyles()
 
   const stock = strainOrPlasmid(item.id)
@@ -54,16 +49,9 @@ const ShoppingCartItem = ({ item }: Properties) => {
             {stock === "strains" ? "S" : "P"}
           </Avatar>
         }
-        action={
-          <IconButton
-            aria-label="Remove Item"
-            onClick={() => removeFromCart(matchingItems)}>
-            <FontAwesomeIcon icon="times" />
-          </IconButton>
-        }
         title={
           <Typography variant="h2">
-            <Link to={`/${stock}/${item.id}`}>{item.name}</Link>
+            <Link to={`/${stock}/${item.id}`}>{item.label}</Link>
           </Typography>
         }
         disableTypography
@@ -80,21 +68,8 @@ const ShoppingCartItem = ({ item }: Properties) => {
               noWrap
               className={classes.fee}
               data-testid="fee">
-              ${Number(item.fee) * item.quantity}.00
+              {toCurrencyString(item.fee * item.quantity)}
             </Typography>
-          </Grid>
-          <Grid
-            item
-            xs={2}
-            container
-            justifyContent="center"
-            data-testid="cart-quantity">
-            <OutlinedDropdown
-              handleChange={handleChange}
-              dropdownValues={values}
-              inputValue={matchingItems.length}
-              label="Qty"
-            />
           </Grid>
         </Grid>
       </ListItem>
@@ -102,4 +77,4 @@ const ShoppingCartItem = ({ item }: Properties) => {
   )
 }
 
-export default ShoppingCartItem
+export { ShoppingCartItem }
