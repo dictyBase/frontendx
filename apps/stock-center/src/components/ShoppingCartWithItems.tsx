@@ -33,8 +33,7 @@ const ShoppingCartWithItems = ({
       <Grid item xs={9}>
         <List className={classes.list}>
           {items.map((item) => (
-            <div key={item.id}>ShoppingCartItem will go here</div>
-            // <ShoppingCartItem key={item.id} item={item} />
+            <ShoppingCartItem key={item.id} item={item} />
           ))}
         </List>
       </Grid>
