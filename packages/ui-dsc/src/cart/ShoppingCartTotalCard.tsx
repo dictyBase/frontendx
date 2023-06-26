@@ -1,4 +1,3 @@
-import React from "react"
 import { Link } from "react-router-dom"
 import { makeStyles } from "@material-ui/core/styles"
 import Card from "@material-ui/core/Card"
@@ -6,9 +5,9 @@ import CardActions from "@material-ui/core/CardActions"
 import Button from "@material-ui/core/Button"
 import Divider from "@material-ui/core/Divider"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import ShoppingCartTotalRow from "./ShoppingCartTotalRow"
-import { useCartStore } from "./CartStore"
-import useCartItems from "common/hooks/useCartItems"
+import { ShoppingCartTotalRow } from "./ShoppingCartTotalRow"
+import { getCartTotal } from "../utils/getCartTotal"
+import { type Cart } from "../types"
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -27,19 +26,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+type ShoppingCartTotalCardProperties = {
+  items: Cart["strainItems"]
+}
 /**
  * ShoppingCartTotalCard displays information about the cart total with a
  * link to checkout.
  */
-const ShoppingCartTotalCard = () => {
-  const {
-    state: { addedItems },
-  } = useCartStore()
-  const { getCartTotal } = useCartItems()
+const ShoppingCartTotalCard = ({ items }: ShoppingCartTotalCardProperties) => {
   const classes = useStyles()
-
-  const strains = addedItems.filter((item) => item.id.slice(0, 3) === "DBS")
-  const plasmids = addedItems.filter((item) => item.id.slice(0, 3) === "DBP")
+  const strains = items.filter((item) => item.id.slice(0, 3) === "DBS")
+  const plasmids = items.filter((item) => item.id.slice(0, 3) === "DBP")
 
   return (
     <Card className={classes.container}>
@@ -62,8 +59,8 @@ const ShoppingCartTotalCard = () => {
       <Divider className={classes.divider} />
       <ShoppingCartTotalRow
         leftValue="Total"
-        numItems={addedItems.length}
-        total={getCartTotal(addedItems)}
+        numItems={items.length}
+        total={getCartTotal(items)}
         variant="h3"
       />
       <CardActions>
@@ -83,4 +80,4 @@ const ShoppingCartTotalCard = () => {
   )
 }
 
-export default ShoppingCartTotalCard
+export { ShoppingCartTotalCard }
