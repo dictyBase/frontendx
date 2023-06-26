@@ -13,6 +13,7 @@
     "@material-ui/lab": "~4.11.3-deprecations.1",
     "@material-ui/styles": "~4.11.4",
     "@material-ui/system": "~4.12.1",
+    "dicty-graphql-schema": "*",
     "fontsource-roboto": "^4.0.0",
     "formik": "^2.2.9",
     "react": "17.x",
