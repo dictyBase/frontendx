@@ -6,7 +6,7 @@ import {
   ShoppingCartTotalCard,
   ContinueShoppingCard,
 } from "@dictybase/ui-dsc"
-import { type Cart } from "../state"
+import { type StrainItems } from "../cartState"
 
 const useStyles = makeStyles(() => ({
   list: {
@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
 }))
 
 type ShoppingCartWithItemsProperties = {
-  items: Cart["strainItems"]
+  items: StrainItems
   isFull: boolean
   deleteItem: (id: string) => void
 }
