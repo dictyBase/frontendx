@@ -3,13 +3,10 @@ import { type Strain } from "dicty-graphql-schema"
 
 type PurchaseProperties = { quantity: number; fee: Readonly<number> }
 type StrainItem = Pick<Strain, "id" | "summary" | "label"> & PurchaseProperties
+type StrainItems = Array<StrainItem>
 type CartItemLimit = Readonly<number>
 
 // This is the Cart state
-type Cart = {
-  strainItems: Array<StrainItem>
-  maxItems: CartItemLimit
-}
 
 const strainItemsAtom = atom<Array<StrainItem>>([])
 const maxItemsAtom = atom<CartItemLimit>(12)
@@ -25,4 +22,10 @@ const deleteItemAtom = atom(null, (get, set, deleteId) => {
   )
 })
 
-export { type Cart, strainItemsAtom, isFullAtom, deleteItemAtom }
+export {
+  type StrainItems,
+  type StrainItem,
+  strainItemsAtom,
+  isFullAtom,
+  deleteItemAtom,
+}
