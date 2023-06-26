@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-type Props = {
+type ShoppingCartTotalRowProperties = {
   /** Left value to display (i.e. Strains, Plasmids, Total) */
   leftValue: string
   /** Number of items in cart */
@@ -27,7 +27,7 @@ const ShoppingCartTotalRow = ({
   numItems,
   total,
   variant,
-}: Props) => {
+}: ShoppingCartTotalRowProperties) => {
   const classes = useStyles()
 
   const items = numItems > 1 ? "items" : "item"
