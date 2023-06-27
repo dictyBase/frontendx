@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 type ShoppingCartTotalCardProperties = {
+  /** An array of cart items */
   items: StrainItems
 }
 /**

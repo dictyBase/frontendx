@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 type ShoppingCartItemProperties = {
   /** Individual cart item with given quantity */
   item: StrainItem
+  /** A callback that will be run when the user clicks a delete button on a ShoppingCartItem */
   deleteItem: (id: string) => void
 }
 
