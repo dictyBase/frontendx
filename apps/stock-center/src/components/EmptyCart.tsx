@@ -13,6 +13,10 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
+/**
+ * EmptyCart is the display for the cart page when there are
+ * no items in the cart.
+ */
 const EmptyCart = () => {
   const classes = useStyles()
   return (
