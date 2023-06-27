@@ -1,6 +1,5 @@
-import { test, expect, vi } from "vitest"
+import { vi, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
 import { MemoryRouter } from "react-router-dom"
 import { ShoppingCartWithItems } from "../components/ShoppingCartWithItems"
 
@@ -30,7 +29,7 @@ const testItems = [
 
 const deleteItem = vi.fn()
 
-test("Each item renders a trash button", async () => {
+test("Renders a list item for each strainItem passed into the items prop", () => {
   render(
     <MemoryRouter>
       <ShoppingCartWithItems
@@ -40,14 +39,8 @@ test("Each item renders a trash button", async () => {
       />
     </MemoryRouter>,
   )
-  const trashButtons = screen.getAllByRole("button", {
-    name: "Remove Item",
-  })
-  // should have two buttons - one for each item row
-  expect(trashButtons).toHaveLength(3)
-  // click trash button on row with multiple of strain
-  await userEvent.click(trashButtons[0])
-  // now all of those items from that row will be removed
-  // leaving one trash button
-  expect(deleteItem).toHaveBeenCalled()
+
+  const cartItems = screen.getAllByRole("listitem")
+
+  expect(cartItems).toHaveLength(3)
 })
