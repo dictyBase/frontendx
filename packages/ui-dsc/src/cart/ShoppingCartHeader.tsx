@@ -10,6 +10,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+/**
+ * ShoppingCartHeader displays text indicating the Cart page. It also uses the Helmet component to change the
+ * the document head.
+ */
 const ShoppingCartHeader = () => {
   const classes = useStyles()
 
