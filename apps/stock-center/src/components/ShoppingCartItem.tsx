@@ -9,9 +9,10 @@ import ListItem from "@material-ui/core/ListItem"
 import IconButton from "@material-ui/core/IconButton"
 import Typography from "@material-ui/core/Typography"
 import ClearIcon from "@material-ui/icons/Clear"
-import strainOrPlasmid from "../utils/strainOrPlasmid"
-import { toCurrencyString } from "../utils/toCurrencyString"
-import { StrainItem } from "../types"
+import { type PrimitiveAtom, useAtomValue } from "jotai"
+import strainOrPlasmid from "../../../../packages/ui-dsc/src/utils/strainOrPlasmid"
+import { toCurrencyString } from "../../../../packages/ui-dsc/src/utils/toCurrencyString"
+import { StrainItem } from "../cartState"
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -32,19 +33,21 @@ const useStyles = makeStyles((theme) => ({
 
 type ShoppingCartItemProperties = {
   /** Individual cart item with given quantity */
-  item: StrainItem
+  itemAtom: PrimitiveAtom<StrainItem>
   /** A callback that will be run when the user clicks a delete button on a ShoppingCartItem */
-  deleteItem: (id: string) => void
+  deleteItem: () => void
 }
 
 /**
  * ShoppingCartItem is an individual item displayed in ShoppingCartList.
  */
-const ShoppingCartItem = ({ item, deleteItem }: ShoppingCartItemProperties) => {
+const ShoppingCartItem = ({
+  itemAtom,
+  deleteItem,
+}: ShoppingCartItemProperties) => {
+  const item = useAtomValue(itemAtom)
   const classes = useStyles()
-
   const stock = strainOrPlasmid(item.id)
-
   return (
     <Card className={classes.container}>
       <CardHeader
@@ -54,9 +57,7 @@ const ShoppingCartItem = ({ item, deleteItem }: ShoppingCartItemProperties) => {
           </Avatar>
         }
         action={
-          <IconButton
-            aria-label="Remove Item"
-            onClick={() => deleteItem(item.id)}>
+          <IconButton aria-label="Remove Item" onClick={deleteItem}>
             <ClearIcon />
           </IconButton>
         }
