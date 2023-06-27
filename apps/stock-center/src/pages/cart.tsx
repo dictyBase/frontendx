@@ -1,7 +1,7 @@
-import { useAtomValue, useSetAtom } from "jotai"
-import { EmptyCart } from "../components/EmptyCart"
-import { ShoppingCartWithItems } from "../components/ShoppingCartWithItems"
-import { strainItemsAtom, deleteItemAtom, isFullAtom } from "../cartState"
+import { useAtomValue } from "jotai"
+import { EmptyCart } from "@dictybase/ui-dsc"
+import { ShoppingCartList } from "../components/ShoppingCartList"
+import { strainItemsAtom } from "../cartState"
 
 /**
  * Displays different UI components based on whether there are currently items in the cart
@@ -10,22 +10,10 @@ import { strainItemsAtom, deleteItemAtom, isFullAtom } from "../cartState"
  */
 const CartHandler = () => {
   const items = useAtomValue(strainItemsAtom)
-  const isFull = useAtomValue(isFullAtom)
-  const deleteItem = useSetAtom(deleteItemAtom)
 
   return (
-    <>
-      {items.length > 0 ? (
-        <ShoppingCartWithItems
-          items={items}
-          isFull={isFull}
-          deleteItem={deleteItem}
-        />
-      ) : (
-        <EmptyCart />
-      )}
-    </>
+    <>{items.length > 0 ? <ShoppingCartList items={items} /> : <EmptyCart />}</>
   )
 }
 
-export { CartHandler }
+export default CartHandler
