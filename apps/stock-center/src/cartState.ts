@@ -6,9 +6,7 @@ type PurchaseProperties = { quantity: number; fee: Readonly<number> }
 type StrainItem = Pick<Strain, "id" | "summary" | "label"> & PurchaseProperties
 type StrainItems = Array<StrainItem>
 
-// This is the Cart state
 const strainItemsAtom = atom<Array<StrainItem>>([])
-
 const strainItemAtomsAtom = splitAtom(strainItemsAtom)
 
 export {
