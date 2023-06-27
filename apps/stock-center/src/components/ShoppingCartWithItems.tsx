@@ -15,17 +15,11 @@ const useStyles = makeStyles(() => ({
 }))
 
 type ShoppingCartWithItemsProperties = {
-  /**
-   * An array of cart items
-   */
+  /** An array of cart items */
   items: StrainItems
-  /**
-   * A flag indicating whether the cart is full
-   */
+  /** A flag indicating whether the cart is full */
   isFull: boolean
-  /**
-   * A callback that will be run when the user clicks a delete button on a ShoppingCartItem
-   */
+  /** A callback that will be run when the user clicks a delete button on a ShoppingCartItem */
   deleteItem: (id: string) => void
 }
 
