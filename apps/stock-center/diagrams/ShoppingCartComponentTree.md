@@ -5,21 +5,25 @@ title: Cart Component Tree
 
 flowchart TD
 
-LEGEND[Red: Stateful Component]
 A[CartHandler]
 B[ShoppingCartList]
 C[EmptyCart]
 D[ShoppingCartItem]
-E[ShoppingCartTotalCard]
-F[ShoppingCartTotalRow]
-G[Continue Shopping]
+E1[StrainTotalRow]
+E2[PlasmidTotalRow]
+E3[CumulativeTotalRow]
+F[ContinueShoppingCard]
 
-A ---> B
+A -- items --> B
 A --> C
-B --> D
-B --> E
-B --> G
-E --> F
+B ---> |strainItems, plasmidItems, items| CARD
+B -- item --> D
+B --> F
+subgraph CARD
+    E1
+    E2
+    E3
+  end
 classDef state fill:#ab3017
-class A state
+class A,B state
 ```
