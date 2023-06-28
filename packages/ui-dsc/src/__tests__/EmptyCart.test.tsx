@@ -1,7 +1,7 @@
 import { test } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { BrowserRouter as Router } from "react-router-dom"
-import { EmptyCart } from "../components/EmptyCart"
+import { EmptyCart } from "../cart/EmptyCart"
 
 test("displays empty notification", () => {
   render(
