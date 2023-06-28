@@ -1,6 +1,6 @@
 ```mermaid
 ---
-title: Ordering Flow
+title: Order Flow
 ---
 
 flowchart TD
@@ -12,9 +12,9 @@ A2[No Items]
 B["`Checkout
 /order/checkout`"]
 B1[Continue Shopping]
-C[Shipping Page]
-D[Payment Page]
-E[Submit Page]
+C[Shipping View]
+D[Payment View]
+E[Submit View]
 
 A --> A1
 A --> A2
