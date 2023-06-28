@@ -16,14 +16,13 @@ F[ContinueShoppingCard]
 
 A -- items --> B
 A --> C
-B ---> |strainItems, plasmidItems, items| CARD
 B -- item --> D
+B -->|strainItems| E1
+B -->|plasmidItems| E2
+B -->|items| E3
 B --> F
-subgraph CARD
-    E1
-    E2
-    E3
-  end
+
+
 classDef state fill:#ab3017
 class A,B state
 ```
