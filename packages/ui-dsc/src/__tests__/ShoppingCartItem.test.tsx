@@ -2,7 +2,7 @@ import { test, expect, vi } from "vitest"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { MemoryRouter } from "react-router-dom"
-import { ShoppingCartItem } from "../cart/ShoppingCartItem"
+import { CartItem } from "../cart/CartItem"
 
 const testItem = {
   id: "DBS-1",
@@ -17,7 +17,7 @@ const deleteItem = vi.fn()
 test("Each item renders a trash button", async () => {
   render(
     <MemoryRouter>
-      <ShoppingCartItem item={testItem} deleteItem={deleteItem} />
+      <CartItem item={testItem} deleteItem={deleteItem} />
     </MemoryRouter>,
   )
   const trashButton = screen.getByRole("button", {

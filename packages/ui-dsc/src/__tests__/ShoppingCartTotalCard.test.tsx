@@ -1,13 +1,13 @@
 import { test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { MemoryRouter } from "react-router-dom"
-import { ShoppingCartTotalCard } from "../cart/ShoppingCartTotalCard"
+import { CartTotalCard } from "../cart/CartTotalCard"
 import { testItems } from "./testData"
 
 test("displays correct total", () => {
   render(
     <MemoryRouter>
-      <ShoppingCartTotalCard items={testItems} />
+      <CartTotalCard items={testItems} />
     </MemoryRouter>,
   )
 
