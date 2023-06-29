@@ -3,13 +3,13 @@ import { render, screen } from "@testing-library/react"
 import { MemoryRouter } from "react-router-dom"
 import { Provider } from "jotai"
 import CartHandler from "../pages/cart"
-import { strainItemsAtom } from "../cartState"
+import { cartAtom } from "../cartState"
 import { testItems } from "../mocks/cartData"
 
 test("Renders ShoppingCartWithItems component if there are items in the cart state. Does not render EmptyShoppingCart", () => {
   render(
     <MemoryRouter>
-      <Provider initialValues={[[strainItemsAtom, testItems]]}>
+      <Provider initialValues={[[cartAtom, { strainItems: testItems }]]}>
         <CartHandler />
       </Provider>
     </MemoryRouter>,
@@ -23,7 +23,7 @@ test("Renders ShoppingCartWithItems component if there are items in the cart sta
 test("Renders EmptyShoppingCart component if there are items in the cart state. Does Not render ShoppingCartWithItems", () => {
   render(
     <MemoryRouter>
-      <Provider initialValues={[[strainItemsAtom, []]]}>
+      <Provider initialValues={[[cartAtom, { strainItems: [] }]]}>
         <CartHandler />
       </Provider>
     </MemoryRouter>,
