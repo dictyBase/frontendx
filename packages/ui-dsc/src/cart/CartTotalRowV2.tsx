@@ -22,7 +22,7 @@ type ShoppingCartTotalRowProperties = {
 /**
  * ShoppingCartTotalRow displays a single row used inside the total card.
  */
-const ShoppingCartTotalRow = ({
+const CartTotalRow = ({
   leftValue,
   items,
   variant = "inherit",
@@ -48,4 +48,4 @@ const ShoppingCartTotalRow = ({
   )
 }
 
-export { ShoppingCartTotalRow }
+export { CartTotalRow }
