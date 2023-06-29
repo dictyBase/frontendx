@@ -35,6 +35,7 @@ const removeItemAtom = atom(null, (get, set, removeId) =>
 export {
   type StrainItems,
   type StrainItem,
+  type Cart,
   cartAtom,
   strainItemsAtom,
   strainItemAtomsAtom,
