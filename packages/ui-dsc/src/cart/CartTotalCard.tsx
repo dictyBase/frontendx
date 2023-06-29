@@ -34,7 +34,7 @@ type ShoppingCartTotalCardProperties = {
  * ShoppingCartTotalCard displays information about the cart total with a
  * link to checkout.
  */
-const ShoppingCartTotalCard = ({ items }: ShoppingCartTotalCardProperties) => {
+const CartTotalCard = ({ items }: ShoppingCartTotalCardProperties) => {
   const classes = useStyles()
   const strains = items.filter((item) => item.id.slice(0, 3) === "DBS")
   const plasmids = items.filter((item) => item.id.slice(0, 3) === "DBP")
@@ -81,4 +81,4 @@ const ShoppingCartTotalCard = ({ items }: ShoppingCartTotalCardProperties) => {
   )
 }
 
-export { ShoppingCartTotalCard }
+export { CartTotalCard }
