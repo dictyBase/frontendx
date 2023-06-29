@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
  * ShoppingCartHeader displays text indicating the Cart page. It also uses the Helmet component to change the
  * the document head.
  */
-const ShoppingCartHeader = () => {
+const CartHeader = () => {
   const classes = useStyles()
 
   return (
@@ -34,4 +34,4 @@ const ShoppingCartHeader = () => {
   )
 }
 
-export { ShoppingCartHeader }
+export { CartHeader }
