@@ -40,7 +40,7 @@ type ShoppingCartItemProperties = {
 /**
  * ShoppingCartItem is an individual item displayed in ShoppingCartList.
  */
-const ShoppingCartItem = ({ item, deleteItem }: ShoppingCartItemProperties) => {
+const CartItem = ({ item, deleteItem }: ShoppingCartItemProperties) => {
   const classes = useStyles()
   const stock = strainOrPlasmid(item.id)
   return (
@@ -84,4 +84,4 @@ const ShoppingCartItem = ({ item, deleteItem }: ShoppingCartItemProperties) => {
   )
 }
 
-export { ShoppingCartItem }
+export { CartItem }
