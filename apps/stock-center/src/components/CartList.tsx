@@ -26,7 +26,7 @@ type ShoppingCartListProperties = {
  * ShoppingCartPageWithItems is the display for the cart page when there are
  * items in the cart.
  */
-const ShoppingCartList = ({ cart }: ShoppingCartListProperties) => {
+const CartList = ({ cart }: ShoppingCartListProperties) => {
   const [strainItemAtoms, dispatch] = useAtom(strainItemAtomsAtom)
   const classes = useStyles()
 
@@ -68,4 +68,4 @@ const ShoppingCartList = ({ cart }: ShoppingCartListProperties) => {
   )
 }
 
-export { ShoppingCartList }
+export { CartList }
