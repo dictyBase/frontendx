@@ -5,7 +5,7 @@ import CardActions from "@material-ui/core/CardActions"
 import Button from "@material-ui/core/Button"
 import Divider from "@material-ui/core/Divider"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { ShoppingCartTotalRow } from "./ShoppingCartTotalRow"
+import { CartTotalRow } from "./CartTotalRow"
 import { getCartTotal } from "../utils/getCartTotal"
 import { type StrainItems } from "../types"
 
@@ -42,7 +42,7 @@ const CartTotalCard = ({ items }: ShoppingCartTotalCardProperties) => {
   return (
     <Card className={classes.container}>
       {strains.length > 0 && (
-        <ShoppingCartTotalRow
+        <CartTotalRow
           leftValue="Strains"
           numItems={strains.length}
           total={getCartTotal(strains)}
@@ -50,7 +50,7 @@ const CartTotalCard = ({ items }: ShoppingCartTotalCardProperties) => {
         />
       )}
       {plasmids.length > 0 && (
-        <ShoppingCartTotalRow
+        <CartTotalRow
           leftValue="Plasmids"
           numItems={plasmids.length}
           total={getCartTotal(plasmids)}
@@ -58,7 +58,7 @@ const CartTotalCard = ({ items }: ShoppingCartTotalCardProperties) => {
         />
       )}
       <Divider className={classes.divider} />
-      <ShoppingCartTotalRow
+      <CartTotalRow
         leftValue="Total"
         numItems={items.length}
         total={getCartTotal(items)}

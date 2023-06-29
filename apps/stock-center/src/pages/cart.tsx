@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai"
 import { EmptyCart } from "@dictybase/ui-dsc"
-import { ShoppingCartList } from "../components/ShoppingCartList"
+import { ShoppingCartList } from "../components/CartList"
 import { cartAtom } from "../cartState"
 
 /**

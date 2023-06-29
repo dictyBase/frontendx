@@ -5,8 +5,8 @@ import List from "@material-ui/core/List"
 import Card from "@material-ui/core/Card"
 import {
   ContinueShoppingCard,
-  ShoppingCartItem,
-  ShoppingCartTotalRowV2,
+  CartItem,
+  CartTotalRowV2,
 } from "@dictybase/ui-dsc"
 import { useAtom } from "jotai"
 import { Cart, strainItemAtomsAtom } from "../cartState"
@@ -35,7 +35,7 @@ const CartList = ({ cart }: ShoppingCartListProperties) => {
       <Grid item xs={9}>
         <List className={classes.list}>
           {cart.strainItems.map((item, index) => (
-            <ShoppingCartItem
+            <CartItem
               item={item}
               key={item.id}
               deleteItem={() =>
@@ -51,7 +51,7 @@ const CartList = ({ cart }: ShoppingCartListProperties) => {
             .when(
               ({ strainItems }) => strainItems.length > 0,
               ({ strainItems }) => (
-                <ShoppingCartTotalRowV2
+                <CartTotalRowV2
                   leftValue="Strains"
                   items={strainItems}
                   variant="body2"
