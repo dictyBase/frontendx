@@ -12,15 +12,13 @@ import {
   ContinueShoppingCard,
   CartItem,
   CheckoutButton,
-} from "@dictybase/ui-dsc"
-import { useAtom } from "jotai"
-import { Cart, strainItemAtomsAtom } from "../cartState"
-import {
   renderStrainTotal,
   renderPlasmidTotal,
   renderStrainAndPlasmidTotals,
   renderCartTotal,
-} from "../functional"
+} from "@dictybase/ui-dsc"
+import { useAtom } from "jotai"
+import { Cart, strainItemAtomsAtom } from "../cartState"
 import { isFull } from "../isFull"
 
 const useStyles = makeStyles((theme) => ({
