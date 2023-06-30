@@ -45,16 +45,18 @@ const CartList = ({ cart }: ShoppingCartListProperties) => {
           {pipe(
             cart.strainItems,
             map((a) => of(a)),
-            Omatch(
-              () => <></>,
-              (item) => (
-                <CartItem
-                  item={item}
-                  key={item.id}
-                  deleteItem={() =>
-                    dispatch({ type: "remove", atom: strainItemAtoms[index] })
-                  }
-                />
+            map(
+              Omatch(
+                () => <></>,
+                (item) => (
+                  <CartItem
+                    item={item}
+                    key={item.id}
+                    deleteItem={() =>
+                      dispatch({ type: "remove", atom: strainItemAtoms[index] })
+                    }
+                  />
+                ),
               ),
             ),
           )}
