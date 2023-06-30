@@ -1,4 +1,6 @@
 import { match } from "ts-pattern"
+import { pipe, map } from "fp-ts/Array"
+import { of } from "fp-ts/Option"
 import { makeStyles } from "@material-ui/core/styles"
 import Grid from "@material-ui/core/Grid"
 import List from "@material-ui/core/List"
@@ -10,6 +12,11 @@ import {
 } from "@dictybase/ui-dsc"
 import { useAtom } from "jotai"
 import { Cart, strainItemAtomsAtom } from "../cartState"
+import {
+  renderPlasmidTotal,
+  renderStrainAndPlasmidTotals,
+  renderStrainTotal,
+} from "../functional"
 import { isFull } from "../isFull"
 
 const useStyles = makeStyles(() => ({
@@ -48,16 +55,19 @@ const CartList = ({ cart }: ShoppingCartListProperties) => {
       <Grid item xs={3}>
         <Card>
           {match(cart)
+            // .when(
+            //   ({ strainItems, plasmidItems }) =>
+            //     strainItems.length > 0 && plasmidItems.length > 0,
+            //   renderStrainAndPlasmidTotals,
+            // )
             .when(
               ({ strainItems }) => strainItems.length > 0,
-              ({ strainItems }) => (
-                <CartTotalRowV2
-                  leftValue="Strains"
-                  items={strainItems}
-                  variant="body2"
-                />
-              ),
+              renderStrainTotal,
             )
+            // .when(
+            //   ({ plasmidItems }) => plasmidItems.length > 0,
+            //   renderPlasmidTotal,
+            // )
             .otherwise(() => (
               <></>
             ))}
