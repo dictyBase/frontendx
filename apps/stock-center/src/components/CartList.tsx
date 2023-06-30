@@ -6,23 +6,29 @@ import { makeStyles } from "@material-ui/core/styles"
 import Grid from "@material-ui/core/Grid"
 import List from "@material-ui/core/List"
 import Card from "@material-ui/core/Card"
+import Divider from "@material-ui/core/Divider"
+import CardActions from "@material-ui/core/CardActions"
 import {
   ContinueShoppingCard,
   CartItem,
-  CartTotalRowV2,
+  CheckoutButton,
 } from "@dictybase/ui-dsc"
 import { useAtom } from "jotai"
 import { Cart, strainItemAtomsAtom } from "../cartState"
 import {
+  renderStrainTotal,
   renderPlasmidTotal,
   renderStrainAndPlasmidTotals,
-  renderStrainTotal,
+  renderCartTotal,
 } from "../functional"
 import { isFull } from "../isFull"
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   list: {
     paddingTop: "0px",
+  },
+  divider: {
+    marginBottom: theme.spacing(2),
   },
 }))
 
@@ -81,6 +87,11 @@ const CartList = ({ cart }: ShoppingCartListProperties) => {
             .otherwise(() => (
               <></>
             ))}
+          {renderCartTotal(cart)}
+          <Divider className={classes.divider} />
+          <CardActions>
+            <CheckoutButton />
+          </CardActions>
         </Card>
         {!isFull(cart.strainItems) && <ContinueShoppingCard />}
       </Grid>
