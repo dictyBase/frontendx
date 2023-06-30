@@ -1,6 +1,12 @@
 import Card from "@material-ui/core/Card"
 import { CartTotalRowV2 } from "@dictybase/ui-dsc"
 import { type Cart } from "./cartState"
+import {
+  renderStrainTotal,
+  renderPlasmidTotal,
+  renderStrainAndPlasmidTotals,
+  renderCartTotal,
+} from "./functional"
 
 type TotalRowSnippetProperties = {
   cart: Cart
@@ -8,33 +14,9 @@ type TotalRowSnippetProperties = {
 
 const TotalRowSnippet = ({ cart }: TotalRowSnippetProperties) => (
   <Card>
-    {cart.strainItems ? (
-      <CartTotalRowV2
-        variant="body2"
-        leftValue="Strains"
-        items={cart.strainItems}
-      />
-    ) : (
-      <></>
-    )}
-    {cart.plasmidItems ? (
-      <CartTotalRowV2
-        variant="body2"
-        leftValue="Plasmids"
-        items={cart.plasmidItems}
-      />
-    ) : (
-      <></>
-    )}
-    {cart.totalItems ? (
-      <CartTotalRowV2
-        variant="body2"
-        leftValue="Total"
-        items={cart.totalItems}
-      />
-    ) : (
-      <></>
-    )}
+    {cart.strainItems ? renderStrainTotal(cart) : <></>}
+    {cart.plasmidItems ? renderPlasmidTotal(cart) : <></>}
+    {cart.totalItems ? renderCartTotal(cart) : <></>}
   </Card>
 )
 
