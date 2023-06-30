@@ -16,4 +16,17 @@ const renderStrainAndPlasmidTotals = ({ strainItems, plasmidItems }: Cart) => (
   </>
 )
 
-export { renderStrainTotal, renderPlasmidTotal, renderStrainAndPlasmidTotals }
+const renderCartTotal = ({ strainItems, plasmidItems }: Cart) => (
+  <CartTotalRowV2
+    leftValue="Total"
+    items={[...strainItems, plasmidItems]}
+    variant="body2"
+  />
+)
+
+export {
+  renderStrainTotal,
+  renderPlasmidTotal,
+  renderStrainAndPlasmidTotals,
+  renderCartTotal,
+}
