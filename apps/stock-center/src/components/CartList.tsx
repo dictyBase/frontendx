@@ -1,6 +1,7 @@
 import { match } from "ts-pattern"
-import { pipe, map } from "fp-ts/Array"
-import { of } from "fp-ts/Option"
+import { pipe } from "fp-ts/function"
+import { map } from "fp-ts/Array"
+import { of, match as Omatch } from "fp-ts/Option"
 import { makeStyles } from "@material-ui/core/styles"
 import Grid from "@material-ui/core/Grid"
 import List from "@material-ui/core/List"
@@ -41,15 +42,22 @@ const CartList = ({ cart }: ShoppingCartListProperties) => {
     <Grid container spacing={2}>
       <Grid item xs={9}>
         <List className={classes.list}>
-          {cart.strainItems.map((item, index) => (
-            <CartItem
-              item={item}
-              key={item.id}
-              deleteItem={() =>
-                dispatch({ type: "remove", atom: strainItemAtoms[index] })
-              }
-            />
-          ))}
+          {pipe(
+            cart.strainItems,
+            map((a) => of(a)),
+            Omatch(
+              () => <></>,
+              (item) => (
+                <CartItem
+                  item={item}
+                  key={item.id}
+                  deleteItem={() =>
+                    dispatch({ type: "remove", atom: strainItemAtoms[index] })
+                  }
+                />
+              ),
+            ),
+          )}
         </List>
       </Grid>
       <Grid item xs={3}>
