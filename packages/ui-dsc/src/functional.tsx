@@ -1,4 +1,4 @@
-import { CartTotalRow } from "@dictybase/ui-dsc"
+import { CartTotalRow } from "./cart/CartTotalRow"
 import { type Cart } from "./types"
 import { getCartTotal } from "./utils/getCartTotal"
 
