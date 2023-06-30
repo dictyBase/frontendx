@@ -29,9 +29,6 @@ const CartTotalRow = ({
   variant = "inherit",
 }: ShoppingCartTotalRowProperties) => {
   const classes = useStyles()
-
-  const items = numItems > 1 ? "items" : "item"
-
   return (
     <Grid container className={classes.container}>
       <Grid item xs={10}>
@@ -39,7 +36,7 @@ const CartTotalRow = ({
           <strong>{leftValue}</strong> &nbsp;
         </Typography>
         <Typography variant={variant} component="span">
-          ({numItems} {items}):
+          {`${numItems} ${numItems > 1 ? "items" : "item"}`}:
         </Typography>
       </Grid>
       <Grid item xs={2} container justifyContent="flex-end">
