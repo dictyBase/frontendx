@@ -6,7 +6,7 @@ import {
   renderPlasmidTotal,
   renderStrainAndPlasmidTotals,
   renderCartTotal,
-} from "./functional"
+} from "@dictybase/ui-dsc/src/functional"
 
 type TotalRowSnippetProperties = {
   cart: Cart
