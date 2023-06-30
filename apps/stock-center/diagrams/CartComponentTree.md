@@ -14,9 +14,9 @@ E2[PlasmidTotalRow]
 E3[CumulativeTotalRow]
 F[ContinueShoppingCard]
 
-A -->|items| B
+A -->|cart| B
 A --> C
-B -->|items| D
+B -->|cart| D
 B -->|strainItems| E1
 B -->|plasmidItems| E2
 B -->|items| E3
