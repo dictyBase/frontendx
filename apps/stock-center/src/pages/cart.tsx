@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai"
 import { EmptyCart } from "@dictybase/ui-dsc"
-import { ShoppingCartList } from "../components/CartList"
+import { CartList } from "../components/CartList"
 import { cartAtom } from "../cartState"
 
 /**
@@ -13,11 +13,7 @@ const CartHandler = () => {
 
   return (
     <>
-      {cart.strainItems.length > 0 ? (
-        <ShoppingCartList cart={cart} />
-      ) : (
-        <EmptyCart />
-      )}
+      {cart.strainItems.length > 0 ? <CartList cart={cart} /> : <EmptyCart />}
     </>
   )
 }
