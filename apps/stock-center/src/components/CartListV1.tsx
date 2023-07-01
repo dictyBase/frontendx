@@ -1,7 +1,6 @@
 import { match } from "ts-pattern"
 import { pipe } from "fp-ts/function"
-import { map, mapWithIndex } from "fp-ts/Array"
-import { of, match as Omatch } from "fp-ts/Option"
+import {  mapWithIndex } from "fp-ts/Array"
 import { makeStyles } from "@material-ui/core/styles"
 import Grid from "@material-ui/core/Grid"
 import List from "@material-ui/core/List"
