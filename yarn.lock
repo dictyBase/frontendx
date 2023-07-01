@@ -3546,9 +3546,9 @@
   integrity sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==
 
 "@tsconfig/esm@^1.x":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@tsconfig/esm/-/esm-1.0.3.tgz#a32d35b93eeb5851881094444a1aca9acd064df7"
-  integrity sha512-Gp56rIc3R8ab032nXMUitmc7YIb4nAi8DQ6Qt47tuL0Ssn9LIOm+o2FQmqPu3jX4z0TsqgzWwkmVygxcq+yHYg==
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@tsconfig/esm/-/esm-1.0.4.tgz#a18e0cd1856b413901a818985ffb00ec88fddbed"
+  integrity sha512-bix9CWljCxyD06nGQRDYdmTw0wevvEDyrLKjbDocGV31JQYbfqqgMV1yFeJ9aDgorKQ9yDLrak8poiggsB5Liw==
 
 "@tsconfig/next@^1.x":
   version "1.0.5"
