@@ -4,7 +4,6 @@ import { type Strain } from "dicty-graphql-schema"
 
 type PurchaseProperties = { quantity: number; fee: Readonly<number> }
 type StrainItem = Pick<Strain, "id" | "summary" | "label"> & PurchaseProperties
-
 type Cart = {
   strainItems: Array<StrainItem>
 }
@@ -15,7 +14,6 @@ const initialCart = {
 
 const cartAtom = atom<Cart>(initialCart)
 
-// const strainItemsAtom = atom<Array<StrainItem>>([])
 const strainItemsAtom = atom(
   (get) => get(cartAtom).strainItems,
   (get, set, strainItems: Array<StrainItem>) =>
