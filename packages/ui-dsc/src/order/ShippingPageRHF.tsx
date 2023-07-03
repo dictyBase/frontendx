@@ -2,7 +2,7 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import Grid from "@material-ui/core/Grid"
 import * as Yup from "yup"
-import LeftColumn from "./LeftColumn"
+import { LeftColumn } from "./LeftColumn"
 import ShippingPageRightColumn from "./ShippingPageRightColumn"
 import { FormikValues } from "./utils/initialValues"
 
@@ -41,14 +41,14 @@ const ShippingPage = ({ formData, setFormData, nextStep }: Props) => {
 
   const onSubmit: SubmitHandler<FormikValues> = (data) => {
     console.log(data)
-    setFormData(values)
+    setFormData(data)
     nextStep()
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
-          <LeftColumn page="Shipping" countryName="country" />
+          <LeftColumn />
         </Grid>
         <Grid item xs={12} md={6}>
           <Grid container direction="column" spacing={2}>
