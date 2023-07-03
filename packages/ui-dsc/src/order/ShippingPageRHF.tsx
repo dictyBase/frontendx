@@ -1,28 +1,28 @@
+/* eslint-disable unicorn/filename-case */
 import { useForm, SubmitHandler } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import Grid from "@material-ui/core/Grid"
-import * as Yup from "yup"
+import { object, string, number } from "yup"
 import { LeftColumn } from "./LeftColumn"
 import ShippingPageRightColumn from "./ShippingPageRightColumn"
-import { FormikValues } from "./utils/initialValues"
 
-const validationSchema = Yup.object().shape({
-  firstName: Yup.string().required("* First name is required"),
-  lastName: Yup.string().required("* Last name is required"),
-  email: Yup.string().email().required("* Email is required"),
-  organization: Yup.string().required("* Organization is required"),
-  lab: Yup.string().required("* Lab/Group is required"),
-  address1: Yup.string().required("* Address is required"),
-  city: Yup.string().required("* City is required"),
-  zip: Yup.number().required("* Zip code is required"),
-  country: Yup.string().required("* Country is required"),
-  phone: Yup.string().required("* Phone number is required"),
-  shippingAccountNumber: Yup.string().required(
+const validationSchema = object().shape({
+  firstName: string().required("* First name is required"),
+  lastName: string().required("* Last name is required"),
+  email: string().email().required("* Email is required"),
+  organization: string().required("* Organization is required"),
+  lab: string().required("* Lab/Group is required"),
+  address1: string().required("* Address is required"),
+  city: string().required("* City is required"),
+  zip: number().required("* Zip code is required"),
+  country: string().required("* Country is required"),
+  phone: string().required("* Phone number is required"),
+  shippingAccountNumber: string().required(
     "* Shipping account number is required",
   ),
 })
 
-type Props = {
+type ShippingPageProperties = {
   /** Full object of form data (shipping and payment) */
   formData: FormikValues
   /** Function to set form data */
@@ -36,11 +36,10 @@ type Props = {
  * information.
  */
 
-const ShippingPage = ({ formData, setFormData, nextStep }: Props) => {
+const ShippingPage = ({ setFormData, nextStep }: ShippingPageProperties) => {
   const { handleSubmit } = useForm({ resolver: yupResolver(validationSchema) })
 
   const onSubmit: SubmitHandler<FormikValues> = (data) => {
-    console.log(data)
     setFormData(data)
     nextStep()
   }
@@ -60,4 +59,4 @@ const ShippingPage = ({ formData, setFormData, nextStep }: Props) => {
   )
 }
 
-export default ShippingPage
+export { ShippingPage }
