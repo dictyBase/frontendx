@@ -5,7 +5,7 @@ title: ShippingPge
 
 flowchart TD
 
-A[OrderForm]
+A[OrderForm -> /order]
 B[OrderFormStepper]
 C[ShippingPage]
 D[PaymentPage]
