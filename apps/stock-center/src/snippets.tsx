@@ -1,6 +1,6 @@
 import Card from "@material-ui/core/Card"
 import { CartTotalRowV2 } from "@dictybase/ui-dsc"
-import { type Cart } from "./cartState"
+import { type Cart } from "./state"
 import {
   renderStrainTotal,
   renderPlasmidTotal,

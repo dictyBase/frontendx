@@ -18,7 +18,7 @@ import {
   renderCartTotal,
 } from "@dictybase/ui-dsc"
 import { useAtom } from "jotai"
-import { Cart, strainItemAtomsAtom } from "../cartState"
+import { Cart, strainItemAtomsAtom } from "../state"
 import { isFull } from "../isFull"
 
 const useStyles = makeStyles((theme) => ({
