@@ -4,10 +4,9 @@ import { type Strain } from "dicty-graphql-schema"
 
 type PurchaseProperties = { quantity: number; fee: Readonly<number> }
 type StrainItem = Pick<Strain, "id" | "summary" | "label"> & PurchaseProperties
-type StrainItems = Array<StrainItem>
 
 type Cart = {
-  strainItems: StrainItems
+  strainItems: Array<StrainItem>
 }
 
 const initialCart = {
@@ -19,7 +18,7 @@ const cartAtom = atom<Cart>(initialCart)
 // const strainItemsAtom = atom<Array<StrainItem>>([])
 const strainItemsAtom = atom(
   (get) => get(cartAtom).strainItems,
-  (get, set, strainItems: StrainItems) =>
+  (get, set, strainItems: Array<StrainItem>) =>
     set(cartAtom, (previous) => ({ ...previous, strainItems })),
 )
 const strainItemAtomsAtom = splitAtom(strainItemsAtom)
@@ -33,7 +32,6 @@ const removeItemAtom = atom(null, (get, set, removeId) =>
 )
 
 export {
-  type StrainItems,
   type StrainItem,
   type Cart,
   cartAtom,

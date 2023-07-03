@@ -7,7 +7,7 @@ import Divider from "@material-ui/core/Divider"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { CartTotalRow } from "./CartTotalRow"
 import { getCartTotal } from "../utils/getCartTotal"
-import { type StrainItems } from "../types"
+import { type StrainItem } from "../types"
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 type ShoppingCartTotalCardProperties = {
   /** An array of cart items */
-  items: StrainItems
+  items: Array<StrainItem>
 }
 /**
  * ShoppingCartTotalCard displays information about the cart total with a
