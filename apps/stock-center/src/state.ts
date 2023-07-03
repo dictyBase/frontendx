@@ -2,13 +2,14 @@ import { atom } from "jotai"
 import { splitAtom } from "jotai/utils"
 import { type Strain } from "dicty-graphql-schema"
 
+// CART STATE
 type PurchaseProperties = { quantity: number; fee: Readonly<number> }
 type StrainItem = Pick<Strain, "id" | "summary" | "label"> & PurchaseProperties
 type Cart = {
   strainItems: Array<StrainItem>
 }
 
-const initialCart = {
+const initialCart: Cart = {
   strainItems: [],
 }
 
@@ -29,11 +30,56 @@ const removeItemAtom = atom(null, (get, set, removeId) =>
   ),
 )
 
+// ORDER STATE
+enum OrderSteps {
+  SHIPPING,
+  PAYMENT,
+  SUBMIT,
+}
+
+type OrderFormValues = {
+  firstName: string
+  lastName: string
+  email: string
+  organization: string
+  lab: string
+  address1: string
+  address2: string
+  city: string
+  state: string
+  zip: string
+  country: string
+  phone: string
+  shippingAccount: string
+  shippingAccountNumber: string
+  comments: string
+  payerFirstName: string
+  payerLastName: string
+  payerEmail: string
+  payerOrganization: string
+  payerLab: string
+  payerAddress1: string
+  payerAddress2: string
+  payerCity: string
+  payerState: string
+  payerZip: string
+  payerCountry: string
+  payerPhone: string
+  paymentMethod: string
+  purchaseOrderNum: string
+  [key: string]: string
+}
+
+const orderStepAtom = atom<OrderSteps>(OrderSteps.SHIPPING)
+
 export {
   type StrainItem,
   type Cart,
+  type OrderFormValues,
+  OrderSteps,
   cartAtom,
   strainItemsAtom,
   strainItemAtomsAtom,
   removeItemAtom,
+  orderStepAtom,
 }
