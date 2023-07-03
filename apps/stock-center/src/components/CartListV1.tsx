@@ -94,7 +94,7 @@ const renderTotalRows = (cart: Cart) => (
       //   renderPlasmidTotal,
       // )
       .otherwise(() => (
-        <></>
+        <>No items found. This page should not appear.</>
       ))}
     {renderCartTotal(cart)}
   </>
