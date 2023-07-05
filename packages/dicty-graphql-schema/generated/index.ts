@@ -7,15 +7,17 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
-  Timestamp: any;
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  Timestamp: { input: any; output: any; }
 };
 
 export type AssociatedSequences = {
@@ -23,211 +25,211 @@ export type AssociatedSequences = {
   ests: Array<NameWithLink>;
   genbankGenomicFragment?: Maybe<NameWithLink>;
   genbankMrna?: Maybe<NameWithLink>;
-  moreLink: Scalars['String'];
+  moreLink: Scalars['String']['output'];
 };
 
 export type Auth = {
   __typename?: 'Auth';
   identity: Identity;
-  token: Scalars['String'];
+  token: Scalars['String']['output'];
   user: User;
 };
 
 export type Author = {
   __typename?: 'Author';
-  firstName?: Maybe<Scalars['String']>;
-  initials?: Maybe<Scalars['String']>;
-  lastName: Scalars['String'];
-  rank?: Maybe<Scalars['String']>;
+  firstName?: Maybe<Scalars['String']['output']>;
+  initials?: Maybe<Scalars['String']['output']>;
+  lastName: Scalars['String']['output'];
+  rank?: Maybe<Scalars['String']['output']>;
 };
 
 export type BasePublication = {
-  abstract: Scalars['String'];
+  abstract: Scalars['String']['output'];
   authors: Array<Author>;
-  doi?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  issn?: Maybe<Scalars['String']>;
-  issue?: Maybe<Scalars['String']>;
-  journal: Scalars['String'];
-  pages?: Maybe<Scalars['String']>;
-  pubDate?: Maybe<Scalars['Timestamp']>;
-  pubType: Scalars['String'];
-  source: Scalars['String'];
-  status?: Maybe<Scalars['String']>;
-  title: Scalars['String'];
-  volume?: Maybe<Scalars['String']>;
+  doi?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  issn?: Maybe<Scalars['String']['output']>;
+  issue?: Maybe<Scalars['String']['output']>;
+  journal: Scalars['String']['output'];
+  pages?: Maybe<Scalars['String']['output']>;
+  pubDate?: Maybe<Scalars['Timestamp']['output']>;
+  pubType: Scalars['String']['output'];
+  source: Scalars['String']['output'];
+  status?: Maybe<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
+  volume?: Maybe<Scalars['String']['output']>;
 };
 
 export type Citation = {
   __typename?: 'Citation';
-  authors: Scalars['String'];
-  journal: Scalars['String'];
-  pubmedId: Scalars['String'];
-  title: Scalars['String'];
+  authors: Scalars['String']['output'];
+  journal: Scalars['String']['output'];
+  pubmedId: Scalars['String']['output'];
+  title: Scalars['String']['output'];
 };
 
 export type Content = {
   __typename?: 'Content';
-  content: Scalars['String'];
-  createdAt: Scalars['Timestamp'];
+  content: Scalars['String']['output'];
+  createdAt: Scalars['Timestamp']['output'];
   createdBy: User;
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  namespace: Scalars['String'];
-  slug: Scalars['String'];
-  updatedAt: Scalars['Timestamp'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  namespace: Scalars['String']['output'];
+  slug: Scalars['String']['output'];
+  updatedAt: Scalars['Timestamp']['output'];
   updatedBy: User;
 };
 
 export type CreateContentInput = {
-  content: Scalars['String'];
-  createdBy: Scalars['String'];
-  name: Scalars['String'];
-  namespace: Scalars['String'];
-  slug: Scalars['String'];
+  content: Scalars['String']['input'];
+  createdBy: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  namespace: Scalars['String']['input'];
+  slug: Scalars['String']['input'];
 };
 
 export type CreateOrderInput = {
-  comments?: InputMaybe<Scalars['String']>;
-  consumer: Scalars['String'];
-  courier: Scalars['String'];
-  courierAccount: Scalars['String'];
-  items: Array<Scalars['String']>;
-  payer: Scalars['String'];
-  payment: Scalars['String'];
-  purchaseOrderNum?: InputMaybe<Scalars['String']>;
-  purchaser: Scalars['String'];
+  comments?: InputMaybe<Scalars['String']['input']>;
+  consumer: Scalars['String']['input'];
+  courier: Scalars['String']['input'];
+  courierAccount: Scalars['String']['input'];
+  items: Array<Scalars['String']['input']>;
+  payer: Scalars['String']['input'];
+  payment: Scalars['String']['input'];
+  purchaseOrderNum?: InputMaybe<Scalars['String']['input']>;
+  purchaser: Scalars['String']['input'];
   status: StatusEnum;
 };
 
 export type CreatePermissionInput = {
-  description: Scalars['String'];
-  permission: Scalars['String'];
-  resource: Scalars['String'];
+  description: Scalars['String']['input'];
+  permission: Scalars['String']['input'];
+  resource: Scalars['String']['input'];
 };
 
 export type CreatePlasmidInput = {
-  createdBy: Scalars['String'];
-  dbxrefs?: InputMaybe<Array<Scalars['String']>>;
-  depositor?: InputMaybe<Scalars['String']>;
-  editableSummary?: InputMaybe<Scalars['String']>;
-  genbankAccession?: InputMaybe<Scalars['String']>;
-  genes?: InputMaybe<Array<Scalars['String']>>;
-  imageMap?: InputMaybe<Scalars['String']>;
-  inStock: Scalars['Boolean'];
-  keywords?: InputMaybe<Array<Scalars['String']>>;
-  name: Scalars['String'];
-  publications?: InputMaybe<Array<Scalars['String']>>;
-  sequence?: InputMaybe<Scalars['String']>;
-  summary?: InputMaybe<Scalars['String']>;
-  updatedBy: Scalars['String'];
+  createdBy: Scalars['String']['input'];
+  dbxrefs?: InputMaybe<Array<Scalars['String']['input']>>;
+  depositor?: InputMaybe<Scalars['String']['input']>;
+  editableSummary?: InputMaybe<Scalars['String']['input']>;
+  genbankAccession?: InputMaybe<Scalars['String']['input']>;
+  genes?: InputMaybe<Array<Scalars['String']['input']>>;
+  imageMap?: InputMaybe<Scalars['String']['input']>;
+  inStock: Scalars['Boolean']['input'];
+  keywords?: InputMaybe<Array<Scalars['String']['input']>>;
+  name: Scalars['String']['input'];
+  publications?: InputMaybe<Array<Scalars['String']['input']>>;
+  sequence?: InputMaybe<Scalars['String']['input']>;
+  summary?: InputMaybe<Scalars['String']['input']>;
+  updatedBy: Scalars['String']['input'];
 };
 
 export type CreateRoleInput = {
-  description: Scalars['String'];
-  role: Scalars['String'];
+  description: Scalars['String']['input'];
+  role: Scalars['String']['input'];
 };
 
 export type CreateStrainInput = {
-  characteristics?: InputMaybe<Array<Scalars['String']>>;
-  createdBy: Scalars['String'];
-  dbxrefs?: InputMaybe<Array<Scalars['String']>>;
-  depositor?: InputMaybe<Scalars['String']>;
-  editableSummary?: InputMaybe<Scalars['String']>;
-  genes?: InputMaybe<Array<Scalars['String']>>;
-  geneticModification?: InputMaybe<Scalars['String']>;
-  genotypes?: InputMaybe<Array<Scalars['String']>>;
-  inStock: Scalars['Boolean'];
-  label: Scalars['String'];
-  mutagenesisMethod?: InputMaybe<Scalars['String']>;
-  names?: InputMaybe<Array<Scalars['String']>>;
-  parent?: InputMaybe<Scalars['String']>;
-  phenotypes?: InputMaybe<Array<Scalars['String']>>;
-  plasmid?: InputMaybe<Scalars['String']>;
-  publications?: InputMaybe<Array<Scalars['String']>>;
-  species: Scalars['String'];
-  summary?: InputMaybe<Scalars['String']>;
-  systematicName: Scalars['String'];
-  updatedBy: Scalars['String'];
+  characteristics?: InputMaybe<Array<Scalars['String']['input']>>;
+  createdBy: Scalars['String']['input'];
+  dbxrefs?: InputMaybe<Array<Scalars['String']['input']>>;
+  depositor?: InputMaybe<Scalars['String']['input']>;
+  editableSummary?: InputMaybe<Scalars['String']['input']>;
+  genes?: InputMaybe<Array<Scalars['String']['input']>>;
+  geneticModification?: InputMaybe<Scalars['String']['input']>;
+  genotypes?: InputMaybe<Array<Scalars['String']['input']>>;
+  inStock: Scalars['Boolean']['input'];
+  label: Scalars['String']['input'];
+  mutagenesisMethod?: InputMaybe<Scalars['String']['input']>;
+  names?: InputMaybe<Array<Scalars['String']['input']>>;
+  parent?: InputMaybe<Scalars['String']['input']>;
+  phenotypes?: InputMaybe<Array<Scalars['String']['input']>>;
+  plasmid?: InputMaybe<Scalars['String']['input']>;
+  publications?: InputMaybe<Array<Scalars['String']['input']>>;
+  species: Scalars['String']['input'];
+  summary?: InputMaybe<Scalars['String']['input']>;
+  systematicName: Scalars['String']['input'];
+  updatedBy: Scalars['String']['input'];
 };
 
 export type CreateUserInput = {
-  city?: InputMaybe<Scalars['String']>;
-  country?: InputMaybe<Scalars['String']>;
-  email: Scalars['String'];
-  firstAddress?: InputMaybe<Scalars['String']>;
-  firstName: Scalars['String'];
-  groupName?: InputMaybe<Scalars['String']>;
-  isActive: Scalars['Boolean'];
-  lastName: Scalars['String'];
-  organization?: InputMaybe<Scalars['String']>;
-  phone?: InputMaybe<Scalars['String']>;
-  secondAddress?: InputMaybe<Scalars['String']>;
-  state?: InputMaybe<Scalars['String']>;
-  zipcode?: InputMaybe<Scalars['String']>;
+  city?: InputMaybe<Scalars['String']['input']>;
+  country?: InputMaybe<Scalars['String']['input']>;
+  email: Scalars['String']['input'];
+  firstAddress?: InputMaybe<Scalars['String']['input']>;
+  firstName: Scalars['String']['input'];
+  groupName?: InputMaybe<Scalars['String']['input']>;
+  isActive: Scalars['Boolean']['input'];
+  lastName: Scalars['String']['input'];
+  organization?: InputMaybe<Scalars['String']['input']>;
+  phone?: InputMaybe<Scalars['String']['input']>;
+  secondAddress?: InputMaybe<Scalars['String']['input']>;
+  state?: InputMaybe<Scalars['String']['input']>;
+  zipcode?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type DeleteContent = {
   __typename?: 'DeleteContent';
-  id: Scalars['ID'];
-  success: Scalars['Boolean'];
+  id: Scalars['ID']['output'];
+  success: Scalars['Boolean']['output'];
 };
 
 export type DeletePermission = {
   __typename?: 'DeletePermission';
-  id: Scalars['ID'];
-  success: Scalars['Boolean'];
+  id: Scalars['ID']['output'];
+  success: Scalars['Boolean']['output'];
 };
 
 export type DeleteRole = {
   __typename?: 'DeleteRole';
-  id: Scalars['ID'];
-  success: Scalars['Boolean'];
+  id: Scalars['ID']['output'];
+  success: Scalars['Boolean']['output'];
 };
 
 export type DeleteStock = {
   __typename?: 'DeleteStock';
-  id: Scalars['ID'];
-  success: Scalars['Boolean'];
+  id: Scalars['ID']['output'];
+  success: Scalars['Boolean']['output'];
 };
 
 export type DeleteUser = {
   __typename?: 'DeleteUser';
-  id: Scalars['ID'];
-  success: Scalars['Boolean'];
+  id: Scalars['ID']['output'];
+  success: Scalars['Boolean']['output'];
 };
 
 export type Download = {
   __typename?: 'Download';
   items: Array<DownloadItem>;
-  title: Scalars['String'];
+  title: Scalars['String']['output'];
 };
 
 export type DownloadItem = {
   __typename?: 'DownloadItem';
-  title: Scalars['String'];
-  url: Scalars['String'];
+  title: Scalars['String']['output'];
+  url: Scalars['String']['output'];
 };
 
 export type Extension = {
   __typename?: 'Extension';
-  db: Scalars['String'];
-  id: Scalars['String'];
-  name: Scalars['String'];
-  relation: Scalars['String'];
+  db: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  relation: Scalars['String']['output'];
 };
 
 export type GoAnnotation = {
   __typename?: 'GOAnnotation';
-  assignedBy: Scalars['String'];
-  date: Scalars['String'];
-  evidenceCode: Scalars['String'];
+  assignedBy: Scalars['String']['output'];
+  date: Scalars['String']['output'];
+  evidenceCode: Scalars['String']['output'];
   extensions?: Maybe<Array<Extension>>;
-  goTerm: Scalars['String'];
-  id: Scalars['String'];
-  publication: Scalars['String'];
-  qualifier: Scalars['String'];
-  type: Scalars['String'];
+  goTerm: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  publication: Scalars['String']['output'];
+  qualifier: Scalars['String']['output'];
+  type: Scalars['String']['output'];
   with?: Maybe<Array<With>>;
 };
 
@@ -236,9 +238,9 @@ export type Gene = {
   associatedSequences: AssociatedSequences;
   generalInfo: GeneralInfo;
   goas?: Maybe<Array<GoAnnotation>>;
-  id: Scalars['String'];
+  id: Scalars['String']['output'];
   links: Links;
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
   orthologs?: Maybe<Array<Orthologs>>;
   productInfo?: Maybe<Array<ProductInformation>>;
   proteinInformation?: Maybe<ProteinInformation>;
@@ -247,28 +249,28 @@ export type Gene = {
 
 export type GeneralInfo = {
   __typename?: 'GeneralInfo';
-  altGeneName?: Maybe<Array<Scalars['String']>>;
-  altProteinNames?: Maybe<Array<Scalars['String']>>;
-  description: Scalars['String'];
-  geneProduct: Scalars['String'];
-  nameDescription: Array<Scalars['String']>;
+  altGeneName?: Maybe<Array<Scalars['String']['output']>>;
+  altProteinNames?: Maybe<Array<Scalars['String']['output']>>;
+  description: Scalars['String']['output'];
+  geneProduct: Scalars['String']['output'];
+  nameDescription: Array<Scalars['String']['output']>;
 };
 
 export type GenomicCoordinates = {
   __typename?: 'GenomicCoordinates';
-  chromCoords: Scalars['String'];
-  exon: Scalars['String'];
-  localCoords: Scalars['String'];
+  chromCoords: Scalars['String']['output'];
+  exon: Scalars['String']['output'];
+  localCoords: Scalars['String']['output'];
 };
 
 export type Identity = {
   __typename?: 'Identity';
-  createdAt: Scalars['Timestamp'];
-  id: Scalars['ID'];
-  identifier: Scalars['String'];
-  provider: Scalars['String'];
-  updatedAt: Scalars['Timestamp'];
-  userId: Scalars['ID'];
+  createdAt: Scalars['Timestamp']['output'];
+  id: Scalars['ID']['output'];
+  identifier: Scalars['String']['output'];
+  provider: Scalars['String']['output'];
+  updatedAt: Scalars['Timestamp']['output'];
+  userId: Scalars['ID']['output'];
 };
 
 export type Links = {
@@ -279,17 +281,17 @@ export type Links = {
 };
 
 export type LoginInput = {
-  clientId: Scalars['String'];
-  code: Scalars['String'];
-  provider: Scalars['String'];
-  redirectUrl: Scalars['String'];
-  scopes: Scalars['String'];
-  state: Scalars['String'];
+  clientId: Scalars['String']['input'];
+  code: Scalars['String']['input'];
+  provider: Scalars['String']['input'];
+  redirectUrl: Scalars['String']['input'];
+  scopes: Scalars['String']['input'];
+  state: Scalars['String']['input'];
 };
 
 export type Logout = {
   __typename?: 'Logout';
-  success: Scalars['Boolean'];
+  success: Scalars['Boolean']['output'];
 };
 
 export type Mutation = {
@@ -347,8 +349,8 @@ export type MutationCreateRoleArgs = {
 
 
 export type MutationCreateRolePermissionRelationshipArgs = {
-  permissionId: Scalars['ID'];
-  roleId: Scalars['ID'];
+  permissionId: Scalars['ID']['input'];
+  roleId: Scalars['ID']['input'];
 };
 
 
@@ -363,38 +365,38 @@ export type MutationCreateUserArgs = {
 
 
 export type MutationCreateUserRoleRelationshipArgs = {
-  roleId: Scalars['ID'];
-  userId: Scalars['ID'];
+  roleId: Scalars['ID']['input'];
+  userId: Scalars['ID']['input'];
 };
 
 
 export type MutationDeleteContentArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type MutationDeleteContentBySlugArgs = {
-  slug: Scalars['String'];
+  slug: Scalars['String']['input'];
 };
 
 
 export type MutationDeletePermissionArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type MutationDeleteRoleArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type MutationDeleteStockArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type MutationDeleteUserArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 
@@ -409,208 +411,208 @@ export type MutationUpdateContentArgs = {
 
 
 export type MutationUpdateOrderArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
   input?: InputMaybe<UpdateOrderInput>;
 };
 
 
 export type MutationUpdatePermissionArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
   input?: InputMaybe<UpdatePermissionInput>;
 };
 
 
 export type MutationUpdatePlasmidArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
   input?: InputMaybe<UpdatePlasmidInput>;
 };
 
 
 export type MutationUpdateRoleArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
   input?: InputMaybe<UpdateRoleInput>;
 };
 
 
 export type MutationUpdateStrainArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
   input?: InputMaybe<UpdateStrainInput>;
 };
 
 
 export type MutationUpdateUserArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
   input?: InputMaybe<UpdateUserInput>;
 };
 
 export type NameWithLink = {
   __typename?: 'NameWithLink';
-  link: Scalars['String'];
-  name: Scalars['String'];
+  link: Scalars['String']['output'];
+  name: Scalars['String']['output'];
 };
 
 export type NumberOfPublicationsWithGene = {
   __typename?: 'NumberOfPublicationsWithGene';
-  numPubs: Scalars['Int'];
+  numPubs: Scalars['Int']['output'];
   publications: Array<PublicationWithGene>;
 };
 
 export type Order = {
   __typename?: 'Order';
-  comments?: Maybe<Scalars['String']>;
+  comments?: Maybe<Scalars['String']['output']>;
   consumer?: Maybe<User>;
-  courier?: Maybe<Scalars['String']>;
-  courierAccount?: Maybe<Scalars['String']>;
-  createdAt: Scalars['Timestamp'];
-  id: Scalars['ID'];
+  courier?: Maybe<Scalars['String']['output']>;
+  courierAccount?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['Timestamp']['output'];
+  id: Scalars['ID']['output'];
   items?: Maybe<Array<Stock>>;
   payer?: Maybe<User>;
-  payment?: Maybe<Scalars['String']>;
-  purchaseOrderNum?: Maybe<Scalars['String']>;
+  payment?: Maybe<Scalars['String']['output']>;
+  purchaseOrderNum?: Maybe<Scalars['String']['output']>;
   purchaser?: Maybe<User>;
   status?: Maybe<StatusEnum>;
-  updatedAt: Scalars['Timestamp'];
+  updatedAt: Scalars['Timestamp']['output'];
 };
 
 export type OrderListWithCursor = {
   __typename?: 'OrderListWithCursor';
-  limit?: Maybe<Scalars['Int']>;
-  nextCursor: Scalars['Int'];
+  limit?: Maybe<Scalars['Int']['output']>;
+  nextCursor: Scalars['Int']['output'];
   orders: Array<Order>;
-  previousCursor: Scalars['Int'];
-  totalCount: Scalars['Int'];
+  previousCursor: Scalars['Int']['output'];
+  totalCount: Scalars['Int']['output'];
 };
 
 export type Organism = {
   __typename?: 'Organism';
   citations: Array<Citation>;
   downloads: Array<Download>;
-  scientificName: Scalars['String'];
-  taxonId: Scalars['String'];
+  scientificName: Scalars['String']['output'];
+  taxonId: Scalars['String']['output'];
 };
 
 export type Orthologs = {
   __typename?: 'Orthologs';
-  geneProduct: Scalars['String'];
+  geneProduct: Scalars['String']['output'];
   id: NameWithLink;
-  source: Array<Scalars['String']>;
-  species: Scalars['String'];
+  source: Array<Scalars['String']['output']>;
+  species: Scalars['String']['output'];
   uniprotkb: NameWithLink;
 };
 
 export type Permission = {
   __typename?: 'Permission';
-  createdAt: Scalars['Timestamp'];
-  description: Scalars['String'];
-  id: Scalars['ID'];
-  level: Scalars['String'];
-  resource?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['Timestamp'];
+  createdAt: Scalars['Timestamp']['output'];
+  description: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  level: Scalars['String']['output'];
+  resource?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['Timestamp']['output'];
 };
 
 export type Phenotype = {
   __typename?: 'Phenotype';
-  assay?: Maybe<Scalars['String']>;
-  environment?: Maybe<Scalars['String']>;
-  note?: Maybe<Scalars['String']>;
-  phenotype: Scalars['String'];
+  assay?: Maybe<Scalars['String']['output']>;
+  environment?: Maybe<Scalars['String']['output']>;
+  note?: Maybe<Scalars['String']['output']>;
+  phenotype: Scalars['String']['output'];
   publication?: Maybe<Publication>;
 };
 
 export type Plasmid = Stock & {
   __typename?: 'Plasmid';
-  createdAt: Scalars['Timestamp'];
+  createdAt: Scalars['Timestamp']['output'];
   createdBy: User;
-  dbxrefs?: Maybe<Array<Scalars['String']>>;
+  dbxrefs?: Maybe<Array<Scalars['String']['output']>>;
   depositor: User;
-  editableSummary?: Maybe<Scalars['String']>;
-  genbankAccession?: Maybe<Scalars['String']>;
+  editableSummary?: Maybe<Scalars['String']['output']>;
+  genbankAccession?: Maybe<Scalars['String']['output']>;
   genes?: Maybe<Array<Gene>>;
-  id: Scalars['ID'];
-  imageMap?: Maybe<Scalars['String']>;
-  inStock: Scalars['Boolean'];
-  keywords?: Maybe<Array<Scalars['String']>>;
-  name: Scalars['String'];
+  id: Scalars['ID']['output'];
+  imageMap?: Maybe<Scalars['String']['output']>;
+  inStock: Scalars['Boolean']['output'];
+  keywords?: Maybe<Array<Scalars['String']['output']>>;
+  name: Scalars['String']['output'];
   publications?: Maybe<Array<Publication>>;
-  sequence?: Maybe<Scalars['String']>;
-  summary?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['Timestamp'];
+  sequence?: Maybe<Scalars['String']['output']>;
+  summary?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['Timestamp']['output'];
   updatedBy: User;
 };
 
 export type PlasmidListWithCursor = {
   __typename?: 'PlasmidListWithCursor';
-  limit?: Maybe<Scalars['Int']>;
-  nextCursor: Scalars['Int'];
+  limit?: Maybe<Scalars['Int']['output']>;
+  nextCursor: Scalars['Int']['output'];
   plasmids: Array<Plasmid>;
-  previousCursor: Scalars['Int'];
-  totalCount: Scalars['Int'];
+  previousCursor: Scalars['Int']['output'];
+  totalCount: Scalars['Int']['output'];
 };
 
 export type ProductInformation = {
   __typename?: 'ProductInformation';
   genomicCoords: Array<GenomicCoordinates>;
-  moreProteinData: Scalars['String'];
+  moreProteinData: Scalars['String']['output'];
   proteinCodingGene: NameWithLink;
-  proteinLength: Scalars['String'];
-  proteinMolecularWeight: Scalars['String'];
+  proteinLength: Scalars['String']['output'];
+  proteinMolecularWeight: Scalars['String']['output'];
 };
 
 export type ProteinGeneralInfo = {
   __typename?: 'ProteinGeneralInfo';
   aaComposition: NameWithLink;
-  description: Scalars['String'];
-  dictybaseId: Scalars['String'];
-  geneProduct: Scalars['String'];
-  molecularWeight: Scalars['String'];
-  note: Scalars['String'];
-  proteinExistence: Scalars['String'];
-  proteinLength: Scalars['String'];
-  subcellularLocation: Scalars['String'];
+  description: Scalars['String']['output'];
+  dictybaseId: Scalars['String']['output'];
+  geneProduct: Scalars['String']['output'];
+  molecularWeight: Scalars['String']['output'];
+  note: Scalars['String']['output'];
+  proteinExistence: Scalars['String']['output'];
+  proteinLength: Scalars['String']['output'];
+  subcellularLocation: Scalars['String']['output'];
 };
 
 export type ProteinInformation = {
   __typename?: 'ProteinInformation';
   externalLinks: Array<NameWithLink>;
   generalInfo: ProteinGeneralInfo;
-  proteinSequence: Scalars['String'];
+  proteinSequence: Scalars['String']['output'];
 };
 
 export type Publication = BasePublication & {
   __typename?: 'Publication';
-  abstract: Scalars['String'];
+  abstract: Scalars['String']['output'];
   authors: Array<Author>;
-  doi?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  issn?: Maybe<Scalars['String']>;
-  issue?: Maybe<Scalars['String']>;
-  journal: Scalars['String'];
-  pages?: Maybe<Scalars['String']>;
-  pubDate?: Maybe<Scalars['Timestamp']>;
-  pubType: Scalars['String'];
-  source: Scalars['String'];
-  status?: Maybe<Scalars['String']>;
-  title: Scalars['String'];
-  volume?: Maybe<Scalars['String']>;
+  doi?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  issn?: Maybe<Scalars['String']['output']>;
+  issue?: Maybe<Scalars['String']['output']>;
+  journal: Scalars['String']['output'];
+  pages?: Maybe<Scalars['String']['output']>;
+  pubDate?: Maybe<Scalars['Timestamp']['output']>;
+  pubType: Scalars['String']['output'];
+  source: Scalars['String']['output'];
+  status?: Maybe<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
+  volume?: Maybe<Scalars['String']['output']>;
 };
 
 export type PublicationWithGene = BasePublication & {
   __typename?: 'PublicationWithGene';
-  abstract: Scalars['String'];
+  abstract: Scalars['String']['output'];
   authors: Array<Author>;
-  doi?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  issn?: Maybe<Scalars['String']>;
-  issue?: Maybe<Scalars['String']>;
-  journal: Scalars['String'];
-  pages?: Maybe<Scalars['String']>;
-  pubDate?: Maybe<Scalars['Timestamp']>;
-  pubType: Scalars['String'];
+  doi?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  issn?: Maybe<Scalars['String']['output']>;
+  issue?: Maybe<Scalars['String']['output']>;
+  journal: Scalars['String']['output'];
+  pages?: Maybe<Scalars['String']['output']>;
+  pubDate?: Maybe<Scalars['Timestamp']['output']>;
+  pubType: Scalars['String']['output'];
   relatedGenes: Array<Gene>;
-  source: Scalars['String'];
-  status?: Maybe<Scalars['String']>;
-  title: Scalars['String'];
-  volume?: Maybe<Scalars['String']>;
+  source: Scalars['String']['output'];
+  status?: Maybe<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
+  volume?: Maybe<Scalars['String']['output']>;
 };
 
 export type Query = {
@@ -654,188 +656,188 @@ export type Query = {
 
 
 export type QueryAllOrthologsArgs = {
-  gene: Scalars['String'];
+  gene: Scalars['String']['input'];
 };
 
 
 export type QueryAllPublicationsArgs = {
-  gene: Scalars['String'];
-  limit?: InputMaybe<Scalars['Int']>;
-  sortBy?: InputMaybe<Scalars['String']>;
+  gene: Scalars['String']['input'];
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sortBy?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type QueryAllStrainsArgs = {
-  gene: Scalars['String'];
+  gene: Scalars['String']['input'];
 };
 
 
 export type QueryAssociatedSequncesArgs = {
-  gene: Scalars['String'];
+  gene: Scalars['String']['input'];
 };
 
 
 export type QueryContentArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type QueryContentBySlugArgs = {
-  slug: Scalars['String'];
+  slug: Scalars['String']['input'];
 };
 
 
 export type QueryGeneArgs = {
-  gene: Scalars['String'];
+  gene: Scalars['String']['input'];
 };
 
 
 export type QueryGeneralInformationArgs = {
-  gene: Scalars['String'];
+  gene: Scalars['String']['input'];
 };
 
 
 export type QueryLinksArgs = {
-  gene: Scalars['String'];
+  gene: Scalars['String']['input'];
 };
 
 
 export type QueryListContentArgs = {
-  limit: Scalars['Int'];
+  limit: Scalars['Int']['input'];
 };
 
 
 export type QueryListGeneProductInfoArgs = {
-  gene: Scalars['String'];
+  gene: Scalars['String']['input'];
 };
 
 
 export type QueryListOrdersArgs = {
-  cursor?: InputMaybe<Scalars['Int']>;
-  filter?: InputMaybe<Scalars['String']>;
-  limit?: InputMaybe<Scalars['Int']>;
+  cursor?: InputMaybe<Scalars['Int']['input']>;
+  filter?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type QueryListPlasmidsArgs = {
-  cursor?: InputMaybe<Scalars['Int']>;
-  filter?: InputMaybe<Scalars['String']>;
-  limit?: InputMaybe<Scalars['Int']>;
+  cursor?: InputMaybe<Scalars['Int']['input']>;
+  filter?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type QueryListPlasmidsWithAnnotationArgs = {
-  annotation: Scalars['String'];
-  cursor?: InputMaybe<Scalars['Int']>;
-  limit?: InputMaybe<Scalars['Int']>;
-  type: Scalars['String'];
+  annotation: Scalars['String']['input'];
+  cursor?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  type: Scalars['String']['input'];
 };
 
 
 export type QueryListRecentGenesArgs = {
-  limit: Scalars['Int'];
+  limit: Scalars['Int']['input'];
 };
 
 
 export type QueryListRecentPlasmidsArgs = {
-  limit: Scalars['Int'];
+  limit: Scalars['Int']['input'];
 };
 
 
 export type QueryListRecentPublicationsArgs = {
-  limit: Scalars['Int'];
+  limit: Scalars['Int']['input'];
 };
 
 
 export type QueryListRecentStrainsArgs = {
-  limit: Scalars['Int'];
+  limit: Scalars['Int']['input'];
 };
 
 
 export type QueryListStrainsArgs = {
-  cursor?: InputMaybe<Scalars['Int']>;
+  cursor?: InputMaybe<Scalars['Int']['input']>;
   filter?: InputMaybe<StrainListFilter>;
-  limit?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type QueryListStrainsWithAnnotationArgs = {
-  annotation: Scalars['String'];
-  cursor?: InputMaybe<Scalars['Int']>;
-  limit?: InputMaybe<Scalars['Int']>;
-  type: Scalars['String'];
+  annotation: Scalars['String']['input'];
+  cursor?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  type: Scalars['String']['input'];
 };
 
 
 export type QueryListUsersArgs = {
-  filter: Scalars['String'];
-  pagenum: Scalars['String'];
-  pagesize: Scalars['String'];
+  filter: Scalars['String']['input'];
+  pagenum: Scalars['String']['input'];
+  pagesize: Scalars['String']['input'];
 };
 
 
 export type QueryOrderArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type QueryOrganismArgs = {
-  taxonId: Scalars['String'];
+  taxonId: Scalars['String']['input'];
 };
 
 
 export type QueryPermissionArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type QueryPlasmidArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type QueryProteinInformationArgs = {
-  gene: Scalars['String'];
+  gene: Scalars['String']['input'];
 };
 
 
 export type QueryPublicationArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type QueryRefreshTokenArgs = {
-  token: Scalars['String'];
+  token: Scalars['String']['input'];
 };
 
 
 export type QueryRoleArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type QueryStrainArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type QueryUserArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type QueryUserByEmailArgs = {
-  email: Scalars['String'];
+  email: Scalars['String']['input'];
 };
 
 export type Role = {
   __typename?: 'Role';
-  createdAt: Scalars['Timestamp'];
-  description: Scalars['String'];
-  id: Scalars['ID'];
-  name: Scalars['String'];
+  createdAt: Scalars['Timestamp']['output'];
+  description: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
   permissions?: Maybe<Array<Permission>>;
-  updatedAt: Scalars['Timestamp'];
+  updatedAt: Scalars['Timestamp']['output'];
 };
 
 export enum StatusEnum {
@@ -846,62 +848,62 @@ export enum StatusEnum {
 }
 
 export type Stock = {
-  createdAt: Scalars['Timestamp'];
+  createdAt: Scalars['Timestamp']['output'];
   createdBy: User;
-  dbxrefs?: Maybe<Array<Scalars['String']>>;
+  dbxrefs?: Maybe<Array<Scalars['String']['output']>>;
   depositor: User;
-  editableSummary?: Maybe<Scalars['String']>;
+  editableSummary?: Maybe<Scalars['String']['output']>;
   genes?: Maybe<Array<Gene>>;
-  id: Scalars['ID'];
-  inStock: Scalars['Boolean'];
+  id: Scalars['ID']['output'];
+  inStock: Scalars['Boolean']['output'];
   publications?: Maybe<Array<Publication>>;
-  summary?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['Timestamp'];
+  summary?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['Timestamp']['output'];
   updatedBy: User;
 };
 
 export type Strain = Stock & {
   __typename?: 'Strain';
-  characteristics?: Maybe<Array<Scalars['String']>>;
-  createdAt: Scalars['Timestamp'];
+  characteristics?: Maybe<Array<Scalars['String']['output']>>;
+  createdAt: Scalars['Timestamp']['output'];
   createdBy: User;
-  dbxrefs?: Maybe<Array<Scalars['String']>>;
+  dbxrefs?: Maybe<Array<Scalars['String']['output']>>;
   depositor: User;
-  editableSummary?: Maybe<Scalars['String']>;
+  editableSummary?: Maybe<Scalars['String']['output']>;
   genes?: Maybe<Array<Gene>>;
-  geneticModification?: Maybe<Scalars['String']>;
-  genotypes?: Maybe<Array<Scalars['String']>>;
-  id: Scalars['ID'];
-  inStock: Scalars['Boolean'];
-  label: Scalars['String'];
-  mutagenesisMethod?: Maybe<Scalars['String']>;
-  names?: Maybe<Array<Scalars['String']>>;
+  geneticModification?: Maybe<Scalars['String']['output']>;
+  genotypes?: Maybe<Array<Scalars['String']['output']>>;
+  id: Scalars['ID']['output'];
+  inStock: Scalars['Boolean']['output'];
+  label: Scalars['String']['output'];
+  mutagenesisMethod?: Maybe<Scalars['String']['output']>;
+  names?: Maybe<Array<Scalars['String']['output']>>;
   parent?: Maybe<Strain>;
   phenotypes?: Maybe<Array<Phenotype>>;
-  plasmid?: Maybe<Scalars['String']>;
+  plasmid?: Maybe<Scalars['String']['output']>;
   publications?: Maybe<Array<Publication>>;
-  species: Scalars['String'];
-  summary?: Maybe<Scalars['String']>;
-  systematicName: Scalars['String'];
-  updatedAt: Scalars['Timestamp'];
+  species: Scalars['String']['output'];
+  summary?: Maybe<Scalars['String']['output']>;
+  systematicName: Scalars['String']['output'];
+  updatedAt: Scalars['Timestamp']['output'];
   updatedBy: User;
 };
 
 export type StrainListFilter = {
-  id?: InputMaybe<Scalars['ID']>;
-  inStock?: InputMaybe<Scalars['Boolean']>;
-  label?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  inStock?: InputMaybe<Scalars['Boolean']['input']>;
+  label?: InputMaybe<Scalars['String']['input']>;
   strainType: StrainType;
-  summary?: InputMaybe<Scalars['String']>;
+  summary?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type StrainListWithCursor = {
   __typename?: 'StrainListWithCursor';
-  limit?: Maybe<Scalars['Int']>;
-  nextCursor: Scalars['Int'];
-  previousCursor: Scalars['Int'];
+  limit?: Maybe<Scalars['Int']['output']>;
+  nextCursor: Scalars['Int']['output'];
+  previousCursor: Scalars['Int']['output'];
   strains: Array<Strain>;
-  totalCount: Scalars['Int'];
+  totalCount: Scalars['Int']['output'];
 };
 
 export enum StrainType {
@@ -912,121 +914,121 @@ export enum StrainType {
 }
 
 export type UpdateContentInput = {
-  content: Scalars['String'];
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  slug: Scalars['String'];
-  updatedBy: Scalars['String'];
+  content: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
+  name: Scalars['String']['input'];
+  slug: Scalars['String']['input'];
+  updatedBy: Scalars['String']['input'];
 };
 
 export type UpdateOrderInput = {
-  comments?: InputMaybe<Scalars['String']>;
-  courier?: InputMaybe<Scalars['String']>;
-  courierAccount?: InputMaybe<Scalars['String']>;
-  items?: InputMaybe<Array<Scalars['String']>>;
-  payment?: InputMaybe<Scalars['String']>;
-  purchaseOrderNum?: InputMaybe<Scalars['String']>;
+  comments?: InputMaybe<Scalars['String']['input']>;
+  courier?: InputMaybe<Scalars['String']['input']>;
+  courierAccount?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<Scalars['String']['input']>>;
+  payment?: InputMaybe<Scalars['String']['input']>;
+  purchaseOrderNum?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<StatusEnum>;
 };
 
 export type UpdatePermissionInput = {
-  description: Scalars['String'];
-  permission: Scalars['String'];
-  resource: Scalars['String'];
+  description: Scalars['String']['input'];
+  permission: Scalars['String']['input'];
+  resource: Scalars['String']['input'];
 };
 
 export type UpdatePlasmidInput = {
-  dbxrefs?: InputMaybe<Array<Scalars['String']>>;
-  depositor?: InputMaybe<Scalars['String']>;
-  editableSummary?: InputMaybe<Scalars['String']>;
-  genbankAccession?: InputMaybe<Scalars['String']>;
-  genes?: InputMaybe<Array<Scalars['String']>>;
-  imageMap?: InputMaybe<Scalars['String']>;
-  inStock?: InputMaybe<Scalars['Boolean']>;
-  keywords?: InputMaybe<Array<Scalars['String']>>;
-  name?: InputMaybe<Scalars['String']>;
-  publications?: InputMaybe<Array<Scalars['String']>>;
-  sequence?: InputMaybe<Scalars['String']>;
-  summary?: InputMaybe<Scalars['String']>;
-  updatedBy: Scalars['String'];
+  dbxrefs?: InputMaybe<Array<Scalars['String']['input']>>;
+  depositor?: InputMaybe<Scalars['String']['input']>;
+  editableSummary?: InputMaybe<Scalars['String']['input']>;
+  genbankAccession?: InputMaybe<Scalars['String']['input']>;
+  genes?: InputMaybe<Array<Scalars['String']['input']>>;
+  imageMap?: InputMaybe<Scalars['String']['input']>;
+  inStock?: InputMaybe<Scalars['Boolean']['input']>;
+  keywords?: InputMaybe<Array<Scalars['String']['input']>>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  publications?: InputMaybe<Array<Scalars['String']['input']>>;
+  sequence?: InputMaybe<Scalars['String']['input']>;
+  summary?: InputMaybe<Scalars['String']['input']>;
+  updatedBy: Scalars['String']['input'];
 };
 
 export type UpdateRoleInput = {
-  description: Scalars['String'];
-  role: Scalars['String'];
+  description: Scalars['String']['input'];
+  role: Scalars['String']['input'];
 };
 
 export type UpdateStrainInput = {
-  characteristics?: InputMaybe<Array<Scalars['String']>>;
-  dbxrefs?: InputMaybe<Array<Scalars['String']>>;
-  depositor?: InputMaybe<Scalars['String']>;
-  editableSummary?: InputMaybe<Scalars['String']>;
-  genes?: InputMaybe<Array<Scalars['String']>>;
-  geneticModification?: InputMaybe<Scalars['String']>;
-  genotypes?: InputMaybe<Array<Scalars['String']>>;
-  inStock?: InputMaybe<Scalars['Boolean']>;
-  label?: InputMaybe<Scalars['String']>;
-  mutagenesisMethod?: InputMaybe<Scalars['String']>;
-  names?: InputMaybe<Array<Scalars['String']>>;
-  parent?: InputMaybe<Scalars['String']>;
-  phenotypes?: InputMaybe<Array<Scalars['String']>>;
-  plasmid?: InputMaybe<Scalars['String']>;
-  publications?: InputMaybe<Array<Scalars['String']>>;
-  species?: InputMaybe<Scalars['String']>;
-  summary?: InputMaybe<Scalars['String']>;
-  systematicName?: InputMaybe<Scalars['String']>;
-  updatedBy: Scalars['String'];
+  characteristics?: InputMaybe<Array<Scalars['String']['input']>>;
+  dbxrefs?: InputMaybe<Array<Scalars['String']['input']>>;
+  depositor?: InputMaybe<Scalars['String']['input']>;
+  editableSummary?: InputMaybe<Scalars['String']['input']>;
+  genes?: InputMaybe<Array<Scalars['String']['input']>>;
+  geneticModification?: InputMaybe<Scalars['String']['input']>;
+  genotypes?: InputMaybe<Array<Scalars['String']['input']>>;
+  inStock?: InputMaybe<Scalars['Boolean']['input']>;
+  label?: InputMaybe<Scalars['String']['input']>;
+  mutagenesisMethod?: InputMaybe<Scalars['String']['input']>;
+  names?: InputMaybe<Array<Scalars['String']['input']>>;
+  parent?: InputMaybe<Scalars['String']['input']>;
+  phenotypes?: InputMaybe<Array<Scalars['String']['input']>>;
+  plasmid?: InputMaybe<Scalars['String']['input']>;
+  publications?: InputMaybe<Array<Scalars['String']['input']>>;
+  species?: InputMaybe<Scalars['String']['input']>;
+  summary?: InputMaybe<Scalars['String']['input']>;
+  systematicName?: InputMaybe<Scalars['String']['input']>;
+  updatedBy: Scalars['String']['input'];
 };
 
 export type UpdateUserInput = {
-  city?: InputMaybe<Scalars['String']>;
-  country?: InputMaybe<Scalars['String']>;
-  firstAddress?: InputMaybe<Scalars['String']>;
-  firstName?: InputMaybe<Scalars['String']>;
-  groupName?: InputMaybe<Scalars['String']>;
-  isActive?: InputMaybe<Scalars['Boolean']>;
-  lastName?: InputMaybe<Scalars['String']>;
-  organization?: InputMaybe<Scalars['String']>;
-  phone?: InputMaybe<Scalars['String']>;
-  secondAddress?: InputMaybe<Scalars['String']>;
-  state?: InputMaybe<Scalars['String']>;
-  zipcode?: InputMaybe<Scalars['String']>;
+  city?: InputMaybe<Scalars['String']['input']>;
+  country?: InputMaybe<Scalars['String']['input']>;
+  firstAddress?: InputMaybe<Scalars['String']['input']>;
+  firstName?: InputMaybe<Scalars['String']['input']>;
+  groupName?: InputMaybe<Scalars['String']['input']>;
+  isActive?: InputMaybe<Scalars['Boolean']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
+  organization?: InputMaybe<Scalars['String']['input']>;
+  phone?: InputMaybe<Scalars['String']['input']>;
+  secondAddress?: InputMaybe<Scalars['String']['input']>;
+  state?: InputMaybe<Scalars['String']['input']>;
+  zipcode?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type User = {
   __typename?: 'User';
-  city?: Maybe<Scalars['String']>;
-  country?: Maybe<Scalars['String']>;
-  createdAt: Scalars['Timestamp'];
-  email: Scalars['String'];
-  firstAddress?: Maybe<Scalars['String']>;
-  firstName: Scalars['String'];
-  groupName?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  isActive: Scalars['Boolean'];
-  lastName: Scalars['String'];
-  organization?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']['output']>;
+  country?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['Timestamp']['output'];
+  email: Scalars['String']['output'];
+  firstAddress?: Maybe<Scalars['String']['output']>;
+  firstName: Scalars['String']['output'];
+  groupName?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  isActive: Scalars['Boolean']['output'];
+  lastName: Scalars['String']['output'];
+  organization?: Maybe<Scalars['String']['output']>;
+  phone?: Maybe<Scalars['String']['output']>;
   roles?: Maybe<Array<Role>>;
-  secondAddress?: Maybe<Scalars['String']>;
-  state?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['Timestamp'];
-  zipcode?: Maybe<Scalars['String']>;
+  secondAddress?: Maybe<Scalars['String']['output']>;
+  state?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['Timestamp']['output'];
+  zipcode?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserList = {
   __typename?: 'UserList';
-  pageNum?: Maybe<Scalars['String']>;
-  pageSize?: Maybe<Scalars['String']>;
-  totalCount: Scalars['Int'];
+  pageNum?: Maybe<Scalars['String']['output']>;
+  pageSize?: Maybe<Scalars['String']['output']>;
+  totalCount: Scalars['Int']['output'];
   users: Array<User>;
 };
 
 export type With = {
   __typename?: 'With';
-  db: Scalars['String'];
-  id: Scalars['String'];
-  name: Scalars['String'];
+  db: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  name: Scalars['String']['output'];
 };
 
 export type LoginMutationVariables = Exact<{
