@@ -17,9 +17,9 @@ C3[AdditionalInformation]
 C4[ContinueButton]
 
 A -->|step| B
-A -..->|formData\n setFormData\n nextStep| C
-A -.->|formData\n setFormData\n nextStep| D
-A -.->|formData\n setFormData\n nextStep| E
+A -..->|setFormData\n nextStep| C
+A -.->|setFormData\n nextStep| D
+A -.->|setFormData\n nextStep| E
 
 C --> C1
 C --> C2
