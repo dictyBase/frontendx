@@ -6,7 +6,7 @@ const vitestConfig = defineConfig({
     globals: true,
     mockReset: true,
     environment: "jsdom",
-    setupFiles: "./src/__tests__/setup.ts",
+    setupFiles: "./setup.ts",
   },
 })
 
