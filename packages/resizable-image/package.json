@@ -14,10 +14,10 @@
   "devDependencies": {
     "@types/react": "17.x",
     "@types/react-dom": "17.x",
-    "@vitest/coverage-c8": "0.32.x",
+    "@vitest/coverage-v8": "0.32.x",
     "eslint-config-custom": "*",
     "tsconfig": "*",
-    "vitest": "0.31.x"
+    "vitest": "0.32.x"
   },
   "dependencies": {
     "@material-ui/core": "4.x",
