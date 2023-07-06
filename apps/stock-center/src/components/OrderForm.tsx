@@ -9,7 +9,12 @@ const OrderForm = () => {
   return (
     <>
       {match(orderStep)
-        .with(OrderSteps.SHIPPING, () => <ShippingPage />)
+        .with(OrderSteps.SHIPPING, () => (
+          <ShippingPage
+            setFormData={() => {}}
+            nextStep={() => setOrderStep((previousStep) => previousStep + 1)}
+          />
+        ))
         .with(OrderSteps.PAYMENT, () => <>PaymentPage not implemented.</>)
         .with(OrderSteps.SUBMIT, () => <>SubmitPage not implemented.</>)
         .otherwise(() => (
