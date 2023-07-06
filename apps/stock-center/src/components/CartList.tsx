@@ -1,7 +1,6 @@
 import { match } from "ts-pattern"
 import { pipe } from "fp-ts/function"
-import { map, mapWithIndex } from "fp-ts/Array"
-import { of, match as Omatch } from "fp-ts/Option"
+import { mapWithIndex } from "fp-ts/Array"
 import { makeStyles } from "@material-ui/core/styles"
 import Grid from "@material-ui/core/Grid"
 import List from "@material-ui/core/List"
@@ -13,13 +12,39 @@ import {
   CartItem,
   CheckoutButton,
   renderStrainTotal,
-  renderPlasmidTotal,
-  renderStrainAndPlasmidTotals,
+  // renderPlasmidTotal,
+  // renderStrainAndPlasmidTotals,
   renderCartTotal,
 } from "@dictybase/ui-dsc"
-import { useAtom } from "jotai"
-import { Cart, strainItemAtomsAtom } from "../state"
+import { useAtom, PrimitiveAtom } from "jotai"
+import { Cart, strainItemAtomsAtom, StrainItem } from "../state"
 import { isFull } from "../isFull"
+
+type ShoppingCartListProperties = {
+  /** An array of cart items */
+  cart: Cart
+}
+type SplitAtomAction<Item> =
+  | { type: "remove"; atom: PrimitiveAtom<Item> }
+  | {
+      type: "insert"
+      value: Item
+      before?: PrimitiveAtom<Item>
+    }
+  | {
+      type: "move"
+      atom: PrimitiveAtom<Item>
+      before?: PrimitiveAtom<Item>
+    }
+type DispatchProperties = (update: SplitAtomAction<StrainItem>) => void
+type renderCartItemsPipelineProperties = {
+  items: Array<StrainItem>
+  fn: (index: number, item: StrainItem) => JSX.Element
+}
+type renderCartItemsProperties = {
+  dispatch: DispatchProperties
+  strainItemAtoms: Array<PrimitiveAtom<StrainItem>>
+}
 
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -30,62 +55,69 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-type ShoppingCartListProperties = {
-  /** An array of cart items */
-  cart: Cart
-}
 /**
  * ShoppingCartPageWithItems is the display for the cart page when there are
  * items in the cart.
  */
+
+const renderCartItems =
+  ({ dispatch, strainItemAtoms }: renderCartItemsProperties) =>
+  // eslint-disable-next-line react/function-component-definition
+  (index: number, item: StrainItem) => {
+    const { id } = item
+    return (
+      <CartItem
+        item={item}
+        key={id}
+        deleteItem={() =>
+          dispatch({ type: "remove", atom: strainItemAtoms[index] })
+        }
+      />
+    )
+  }
+const renderCartItemsPipeline = ({
+  items,
+  fn,
+}: renderCartItemsPipelineProperties) => pipe(items, mapWithIndex(fn))
+
+const renderTotalRows = (cart: Cart) => (
+  <>
+    {match(cart)
+      // .when(
+      //   ({ strainItems, plasmidItems }) =>
+      //     strainItems.length > 0 && plasmidItems.length > 0,
+      //   renderStrainAndPlasmidTotals,
+      // )
+      .when(({ strainItems }) => strainItems.length > 0, renderStrainTotal)
+      // .when(
+      //   ({ plasmidItems }) => plasmidItems.length > 0,
+      //   renderPlasmidTotal,
+      // )
+      .otherwise(() => (
+        <>No items found. This page should not appear.</>
+      ))}
+    {renderCartTotal(cart)}
+  </>
+)
+
 const CartList = ({ cart }: ShoppingCartListProperties) => {
   const [strainItemAtoms, dispatch] = useAtom(strainItemAtomsAtom)
   const classes = useStyles()
+  const renderCartItemsFunction = renderCartItems({ dispatch, strainItemAtoms })
 
   return (
     <Grid container spacing={2}>
       <Grid item xs={9}>
         <List className={classes.list}>
-          {pipe(
-            cart.strainItems,
-            mapWithIndex((index, item) => of({ index, item })),
-            map(
-              Omatch(
-                () => <></>,
-                ({ index, item }) => (
-                  <CartItem
-                    item={item}
-                    key={item.id}
-                    deleteItem={() =>
-                      dispatch({ type: "remove", atom: strainItemAtoms[index] })
-                    }
-                  />
-                ),
-              ),
-            ),
-          )}
+          {renderCartItemsPipeline({
+            items: cart.strainItems,
+            fn: renderCartItemsFunction,
+          })}
         </List>
       </Grid>
       <Grid item xs={3}>
         <Card>
-          {match(cart)
-            // .when(
-            //   ({ strainItems, plasmidItems }) =>
-            //     strainItems.length > 0 && plasmidItems.length > 0,
-            //   renderStrainAndPlasmidTotals,
-            // )
-            .when(
-              ({ strainItems }) => strainItems.length > 0,
-              renderStrainTotal,
-            )
-            // .when(
-            //   ({ plasmidItems }) => plasmidItems.length > 0,
-            //   renderPlasmidTotal,
-            // )
-            .otherwise(() => (
-              <></>
-            ))}
-          {renderCartTotal(cart)}
+          {renderTotalRows(cart)}
           <Divider className={classes.divider} />
           <CardActions>
             <CheckoutButton />
