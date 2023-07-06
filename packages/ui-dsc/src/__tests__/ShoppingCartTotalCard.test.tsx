@@ -2,7 +2,7 @@ import { test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { MemoryRouter } from "react-router-dom"
 import { CartTotalCard } from "../cart/CartTotalCard"
-import { testItems } from "./testData"
+import { testItems } from "../common/testData"
 
 test("displays correct total", () => {
   render(
