@@ -1,10 +1,10 @@
 /* eslint-disable unicorn/filename-case */
-import { useForm, SubmitHandler } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import Grid from "@material-ui/core/Grid"
-import { object, string, number } from "yup"
+import { object, string, number, InferType } from "yup"
 import { LeftColumn } from "./LeftColumn"
-import ShippingPageRightColumn from "./ShippingPageRightColumn"
+// import ShippingPageRightColumn from "./ShippingPageRightColumn"
 
 const validationSchema = object().shape({
   firstName: string().required("* First name is required"),
@@ -22,11 +22,11 @@ const validationSchema = object().shape({
   ),
 })
 
+type ShippingFormData = InferType<typeof validationSchema>
+
 type ShippingPageProperties = {
-  /** Full object of form data (shipping and payment) */
-  formData: FormikValues
   /** Function to set form data */
-  setFormData: (arg0: FormikValues) => void
+  setFormData: (data: ShippingFormData) => void
   /** Function to move to next step */
   nextStep: () => void
 }
@@ -39,7 +39,7 @@ type ShippingPageProperties = {
 const ShippingPage = ({ setFormData, nextStep }: ShippingPageProperties) => {
   const { handleSubmit } = useForm({ resolver: yupResolver(validationSchema) })
 
-  const onSubmit: SubmitHandler<FormikValues> = (data) => {
+  const onSubmit = (data: ShippingFormData) => {
     setFormData(data)
     nextStep()
   }
@@ -51,7 +51,7 @@ const ShippingPage = ({ setFormData, nextStep }: ShippingPageProperties) => {
         </Grid>
         <Grid item xs={12} md={6}>
           <Grid container direction="column" spacing={2}>
-            <ShippingPageRightColumn />
+            {/* <ShippingPageRightColumn /> */}
           </Grid>
         </Grid>
       </Grid>
