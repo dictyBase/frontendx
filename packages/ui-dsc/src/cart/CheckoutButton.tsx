@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core"
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   checkoutButton: {
     fontWeight: 1000,
     minHeight: "50px",
