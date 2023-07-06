@@ -12,8 +12,8 @@ import {
   CartItem,
   CheckoutButton,
   renderStrainTotal,
-  renderPlasmidTotal,
-  renderStrainAndPlasmidTotals,
+  // renderPlasmidTotal,
+  // renderStrainAndPlasmidTotals,
   renderCartTotal,
 } from "@dictybase/ui-dsc"
 import { useAtom, PrimitiveAtom } from "jotai"
