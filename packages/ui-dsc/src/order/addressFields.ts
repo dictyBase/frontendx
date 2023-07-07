@@ -31,12 +31,12 @@ const addressFields = [
   },
   {
     name: "address1",
-    label: "Address",
+    label: "Address Line 1",
     required: true,
   },
   {
     name: "address2",
-    label: "Address",
+    label: "Address Line 2",
     required: false,
   },
   {
