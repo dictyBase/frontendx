@@ -7,9 +7,8 @@ updates:
     - dependency-name: "@types/react"
     - dependency-name: "@types/node"
     schedule:
-      interval: weekly
-      day: saturday
-      time: "11:00"
+      interval: daily
+      time: "8:00"
       timezone: America/Chicago
     open-pull-requests-limit: 99
   - package-ecosystem: github-actions
