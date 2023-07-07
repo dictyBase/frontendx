@@ -90,7 +90,7 @@ const matchCountry =
 
 const gridItemWrapper = (element: JSX.Element) => <Grid item>{element}</Grid>
 
-const gridContainerWrapper = (elements: JSX.Element[]) => (
+const gridContainerWrapper = (elements: Array<JSX.Element>) => (
   <Grid container alignContent="center" direction="column" spacing={2}>
     {elements}
   </Grid>
