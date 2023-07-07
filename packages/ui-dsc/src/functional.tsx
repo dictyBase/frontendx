@@ -1,5 +1,6 @@
 import Grid from "@material-ui/core/Grid"
 import TextField from "@material-ui/core/TextField"
+import { v4 as uuid4 } from "uuid"
 import { match } from "ts-pattern"
 import { map } from "fp-ts/Array"
 import { pipe } from "fp-ts/function"
@@ -88,7 +89,11 @@ const matchCountry =
         />
       ))
 
-const gridItemWrapper = (element: JSX.Element) => <Grid item>{element}</Grid>
+const gridItemWrapper = (element: JSX.Element) => (
+  <Grid key={uuid4()} item>
+    {element}
+  </Grid>
+)
 
 const gridContainerWrapper = (elements: Array<JSX.Element>) => (
   <Grid container alignContent="center" direction="column" spacing={2}>
