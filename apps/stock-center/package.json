@@ -25,7 +25,7 @@
   "devDependencies": {
     "@types/react": "17.x",
     "@types/react-dom": "17.x",
-    "@vitejs/plugin-react": "^4.0.1",
+    "@vitejs/plugin-react": "^4.0.2",
     "@vitest/coverage-c8": "0.33.x",
     "eslint-config-custom": "*",
     "jsdom": "^22.1.0",
