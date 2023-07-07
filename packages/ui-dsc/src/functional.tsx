@@ -1,6 +1,19 @@
+import Grid from "@material-ui/core/Grid"
+import TextField from "@material-ui/core/TextField"
+import { match } from "ts-pattern"
+import { map } from "fp-ts/Array"
+import { pipe } from "fp-ts/function"
+import {
+  type UseFormRegister,
+  type FieldValues,
+  type FieldErrors,
+  type Path,
+} from "react-hook-form"
 import { CartTotalRow } from "./cart/CartTotalRow"
 import { type Cart } from "./types"
 import { getCartTotal } from "./utils/getCartTotal"
+import { addressFields } from "./order/addressFields"
+import { CountryDropdown } from "./order/CountryDropdown"
 
 const renderStrainTotal = ({ strainItems }: Cart) => (
   <CartTotalRow
@@ -49,9 +62,46 @@ const renderCartTotal = ({ strainItems = [], plasmidItems = [] }: Cart) => {
   )
 }
 
+type AddressField = {
+  name: string
+  label: string
+}
+
+const matchCountry =
+  <F extends FieldValues>(
+    register: UseFormRegister<F>,
+    errors: FieldErrors<F>,
+  ) =>
+  (addressField: AddressField) =>
+    match(addressField)
+      .when(
+        ({ name }) => name === "country",
+        () => <CountryDropdown />,
+      )
+      .otherwise(({ name, label }) => (
+        <TextField
+          label={label}
+          // TODO: fix typing so we don't have to make the assumption name as Path<F>
+          {...register(name as Path<F>)}
+          error={!!errors[name]}
+          helperText={errors[name]?.message || ""}
+        />
+      ))
+
+const gridItemWrapper = (element: JSX.Element) => <Grid item>{element}</Grid>
+
+const renderAddressFields = <F extends FieldValues>(
+  register: UseFormRegister<F>,
+  errors: FieldErrors<F>,
+) => {
+  const matchCountryFunction = matchCountry(register, errors)
+  return pipe(addressFields, map(matchCountryFunction), map(gridItemWrapper))
+}
+
 export {
   renderStrainTotal,
   renderPlasmidTotal,
   renderStrainAndPlasmidTotals,
   renderCartTotal,
+  renderAddressFields,
 }
