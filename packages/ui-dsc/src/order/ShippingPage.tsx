@@ -1,10 +1,12 @@
-/* eslint-disable unicorn/filename-case */
-import { useForm } from "react-hook-form"
+import { useForm, FormProvider } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { map } from "fp-ts/Array"
+import { pipe } from "fp-ts/function"
 import Grid from "@material-ui/core/Grid"
 import { object, string, number, InferType } from "yup"
 import { LeftColumn } from "./LeftColumn"
-// import ShippingPageRightColumn from "./ShippingPageRightColumn"
+import { renderAddressFields } from "../functional"
+import { ShippingPageRightColumn } from "./ShippingPageRightColumn"
 
 const validationSchema = object().shape({
   firstName: string().required("* First name is required"),
@@ -20,6 +22,7 @@ const validationSchema = object().shape({
   shippingAccountNumber: string().required(
     "* Shipping account number is required",
   ),
+  additionalInformation: string().notRequired(),
 })
 
 type ShippingFormData = InferType<typeof validationSchema>
@@ -37,25 +40,30 @@ type ShippingPageProperties = {
  */
 
 const ShippingPage = ({ setFormData, nextStep }: ShippingPageProperties) => {
-  const { handleSubmit } = useForm({ resolver: yupResolver(validationSchema) })
+  const methods = useForm({ resolver: yupResolver(validationSchema) })
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = methods
 
   const onSubmit = (data: ShippingFormData) => {
     setFormData(data)
     nextStep()
   }
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
-          <LeftColumn />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Grid container direction="column" spacing={2}>
-            {/* <ShippingPageRightColumn /> */}
+    <FormProvider {...methods}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6}>
+            {renderAddressFields(register, errors)}
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <ShippingPageRightColumn />
           </Grid>
         </Grid>
-      </Grid>
-    </form>
+      </form>
+    </FormProvider>
   )
 }
 
