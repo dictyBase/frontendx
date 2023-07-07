@@ -7,6 +7,7 @@ import List from "@material-ui/core/List"
 import Card from "@material-ui/core/Card"
 import Divider from "@material-ui/core/Divider"
 import CardActions from "@material-ui/core/CardActions"
+import { grey } from "@material-ui/core/colors"
 import {
   ContinueShoppingCard,
   CartItem,
@@ -52,6 +53,11 @@ const useStyles = makeStyles((theme) => ({
   },
   divider: {
     marginBottom: theme.spacing(2),
+  },
+  card: {
+    padding: theme.spacing(2),
+    marginTop: theme.spacing(2),
+    backgroundColor: grey[100],
   },
 }))
 
@@ -116,7 +122,7 @@ const CartList = ({ cart }: ShoppingCartListProperties) => {
         </List>
       </Grid>
       <Grid item xs={3}>
-        <Card>
+        <Card className={classes.card}>
           {renderTotalRows(cart)}
           <Divider className={classes.divider} />
           <CardActions>
