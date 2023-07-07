@@ -11,7 +11,7 @@
     "@testing-library/jest-dom": "^5.x",
     "@testing-library/react": "^13.x",
     "@testing-library/user-event": "^14.x",
-    "prettier": "^2.x",
+    "prettier": "^3.x",
     "vitest": "0.33.x",
     "tsconfig": "*",
     "eslint-config-custom": "*"
