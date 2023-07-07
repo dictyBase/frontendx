@@ -10,6 +10,7 @@ import {
   type FieldErrors,
 } from "react-hook-form"
 import { addressFields } from "./addressFields"
+import { CountryDropdown } from "./CountryDropdown"
 
 type AddressField = {
   name: string
@@ -22,14 +23,14 @@ const matchCountry =
     match(addressField)
       .when(
         ({ name }) => name === "country",
-        () => <p>CountryField not implemented.</p>,
+        () => <CountryDropdown />,
       )
       .otherwise(({ name, label }) => (
         <TextField
           label={label}
           {...register(name)}
           error={!!errors[name]}
-          helperText={errors[name]?.type || ""}
+          helperText={errors[name]?.message || ""}
         />
       ))
 
@@ -43,7 +44,7 @@ const LeftColumn = () => {
   const matchCountryFunction = matchCountry(register, errors)
 
   return (
-    <Grid container spacing={1}>
+    <Grid container alignContent="center" direction="column" spacing={2}>
       {pipe(addressFields, map(matchCountryFunction), map(gridItemWrapper))}
     </Grid>
   )
