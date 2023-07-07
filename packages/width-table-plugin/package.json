@@ -16,7 +16,7 @@
     "@vitest/coverage-v8": "0.33.x",
     "eslint-config-custom": "*",
     "jsdom": "latest",
-    "vitest": "0.32.x",
+    "vitest": "0.33.x",
     "tsconfig": "*"
   },
   "dependencies": {
