@@ -81,7 +81,7 @@ const matchCountry =
       .otherwise(({ name, label }) => (
         <TextField
           label={label}
-          // TODO: fix typing so we don't have to make the assumption name as Path<F>
+          // TODO: fix typing so we don't have to make the assumption the property "name" satisfies Path<F>
           {...register(name as Path<F>)}
           error={!!errors[name]}
           helperText={errors[name]?.message || ""}
@@ -90,12 +90,23 @@ const matchCountry =
 
 const gridItemWrapper = (element: JSX.Element) => <Grid item>{element}</Grid>
 
+const gridContainerWrapper = (elements: JSX.Element[]) => (
+  <Grid container alignContent="center" direction="column" spacing={2}>
+    {elements}
+  </Grid>
+)
+
 const renderAddressFields = <F extends FieldValues>(
   register: UseFormRegister<F>,
   errors: FieldErrors<F>,
 ) => {
   const matchCountryFunction = matchCountry(register, errors)
-  return pipe(addressFields, map(matchCountryFunction), map(gridItemWrapper))
+  return pipe(
+    addressFields,
+    map(matchCountryFunction),
+    map(gridItemWrapper),
+    gridContainerWrapper,
+  )
 }
 
 export {
