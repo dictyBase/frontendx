@@ -32,6 +32,6 @@
     "tsconfig": "*",
     "vite": "4.x",
     "vite-plugin-swc-react-refresh": "^2.2.1",
-    "vitest": "0.31.x"
+    "vitest": "0.33.x"
   }
 }

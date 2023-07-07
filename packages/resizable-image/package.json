@@ -17,7 +17,7 @@
     "@vitest/coverage-v8": "0.33.x",
     "eslint-config-custom": "*",
     "tsconfig": "*",
-    "vitest": "0.32.x"
+    "vitest": "0.33.x"
   },
   "dependencies": {
     "@material-ui/core": "4.x",

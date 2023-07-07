@@ -17,7 +17,7 @@
     "@types/react": "17.x",
     "@vitest/coverage-v8": "0.33.x",
     "jsdom": "latest",
-    "vitest": "0.32.x",
+    "vitest": "0.33.x",
     "eslint-config-custom": "*",
     "width-table-plugin": "*"
   },
