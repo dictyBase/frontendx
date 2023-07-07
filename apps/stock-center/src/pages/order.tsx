@@ -24,4 +24,4 @@ const OrderForm = () => {
   )
 }
 
-export { OrderForm }
+export default OrderForm
