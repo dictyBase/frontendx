@@ -1,12 +1,14 @@
 import { useForm, FormProvider } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { map } from "fp-ts/Array"
-import { pipe } from "fp-ts/function"
 import Grid from "@material-ui/core/Grid"
+import Button from "@material-ui/core/Button"
+import TextField from "@material-ui/core/TextField"
 import { object, string, number, InferType } from "yup"
-import { LeftColumn } from "./LeftColumn"
 import { renderAddressFields } from "../functional"
-import { ShippingPageRightColumn } from "./ShippingPageRightColumn"
+import { PanelWrapper } from "./PanelWrapper"
+import { ContinueButton } from "./ContinueButton"
+import { AdditionalInformation } from "./AdditionalInformation"
+import { ShippingMethod } from "./ShippingMethod"
 
 const validationSchema = object().shape({
   firstName: string().required("* First name is required"),
@@ -40,7 +42,10 @@ type ShippingPageProperties = {
  */
 
 const ShippingPage = ({ setFormData, nextStep }: ShippingPageProperties) => {
-  const methods = useForm({ resolver: yupResolver(validationSchema) })
+  const methods = useForm({
+    mode: "onTouched",
+    resolver: yupResolver(validationSchema),
+  })
   const {
     handleSubmit,
     register,
@@ -54,12 +59,22 @@ const ShippingPage = ({ setFormData, nextStep }: ShippingPageProperties) => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Grid container spacing={2}>
+        <Grid container spacing={1}>
           <Grid item xs={12} md={6}>
             {renderAddressFields(register, errors)}
           </Grid>
           <Grid item xs={12} md={6}>
-            <ShippingPageRightColumn />
+            <Grid container direction="column" spacing={2}>
+              <Grid item>
+                <ShippingMethod />
+              </Grid>
+              <Grid item>
+                <AdditionalInformation />
+              </Grid>
+              <Grid item>
+                <ContinueButton />
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </form>
