@@ -15,6 +15,7 @@ import { type Cart } from "./types"
 import { getCartTotal } from "./utils/getCartTotal"
 import { addressFields } from "./order/addressFields"
 import { CountryDropdown } from "./order/CountryDropdown"
+import { PanelWrapper } from "./order/PanelWrapper"
 
 const renderStrainTotal = ({ strainItems }: Cart) => (
   <CartTotalRow
@@ -82,6 +83,9 @@ const matchCountry =
       .otherwise(({ name, label }) => (
         <TextField
           label={label}
+          fullWidth
+          margin="dense"
+          variant="outlined"
           // TODO: fix typing so we don't have to make the assumption the property "name" satisfies Path<F>
           {...register(name as Path<F>)}
           error={!!errors[name]}
@@ -96,10 +100,13 @@ const gridItemWrapper = (element: JSX.Element) => (
 )
 
 const gridContainerWrapper = (elements: Array<JSX.Element>) => (
-  <Grid container alignContent="center" direction="column" spacing={2}>
+  <Grid container alignContent="center" direction="column">
     {elements}
   </Grid>
 )
+
+const panelWrapper = (title: string) => (element: JSX.Element) =>
+  <PanelWrapper title={title}>{element}</PanelWrapper>
 
 const renderAddressFields = <F extends FieldValues>(
   register: UseFormRegister<F>,
@@ -111,6 +118,7 @@ const renderAddressFields = <F extends FieldValues>(
     map(matchCountryFunction),
     map(gridItemWrapper),
     gridContainerWrapper,
+    panelWrapper("Shipping Address"),
   )
 }
 
