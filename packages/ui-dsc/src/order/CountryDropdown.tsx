@@ -42,7 +42,9 @@ const CountryDropdown = () => {
           {...properties}
           {...register("country")}
           label="Country"
-          variant="standard"
+          variant="outlined"
+          fullWidth
+          margin="dense"
           error={!!errors["country"]}
           helperText={errors["country"]?.type || ""}
           size="medium"
