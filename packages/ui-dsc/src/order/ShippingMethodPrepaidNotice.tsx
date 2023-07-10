@@ -28,4 +28,4 @@ const ShippingMethodPrepaidNotice = () => {
   )
 }
 
-export default ShippingMethodPrepaidNotice
+export { ShippingMethodPrepaidNotice }
