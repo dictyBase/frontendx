@@ -2,8 +2,8 @@ import { match } from "ts-pattern"
 import { useState } from "react"
 import Typography from "@material-ui/core/Typography"
 import Box from "@material-ui/core/Box"
-import ShippingMethodPrepaidNotice from "./ShippingMethodPrepaidNotice"
-// import ShippingMethodRadioGroup from "./ShippingMethodRadioGroup"
+import { ShippingMethodPrepaidNotice } from "./ShippingMethodPrepaidNotice"
+import { ShippingMethodRadioGroup } from "./ShippingMethodRadioGroup"
 import { PanelWrapper } from "./PanelWrapper"
 import { TextField } from "./TextField"
 
@@ -23,10 +23,7 @@ const ShippingMethod = () => {
     <Box mt={1} mb={2} p={2}>
       <Typography variant="h3">Shipping Account:</Typography>
       <Box mt={1} />
-      {/* <ShippingMethodRadioGroup
-        setShipAccountNum={setShipAccountNum}
-        setPrepaidNotice={setPrepaidNotice}
-      /> */}
+      <ShippingMethodRadioGroup setIsPrepaid={setIsPrepaid} />
       {renderShippingNumberOrPrepaidNotce(isPrepaid)}
       <Box mt={1} />
       <Typography component="p">
