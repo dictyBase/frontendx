@@ -18,7 +18,7 @@
     "jotai": "^2.0.2",
     "jotai-optics": "^0.3.0",
     "lexical": "0.11.x",
-    "optics-ts": "^2.4.0",
+    "optics-ts": "^2.4.1",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
