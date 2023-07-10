@@ -20,16 +20,18 @@ const ShippingMethod = () => {
   const [isPrepaid, setIsPrepaid] = useState(false)
 
   return (
-    <Box mt={1} mb={2} p={2}>
-      <Typography variant="h3">Shipping Account:</Typography>
-      <Box mt={1} />
-      <ShippingMethodRadioGroup setIsPrepaid={setIsPrepaid} />
-      {renderShippingNumberOrPrepaidNotce(isPrepaid)}
-      <Box mt={1} />
-      <Typography component="p">
-        <em>Note: credit card is not allowed for shipment</em>
-      </Typography>
-    </Box>
+    <PanelWrapper title="Shipping Method">
+      <Box mt={1} mb={2} p={2}>
+        <Typography variant="h3">Shipping Account:</Typography>
+        <Box mt={1} />
+        <ShippingMethodRadioGroup setIsPrepaid={setIsPrepaid} />
+        {renderShippingNumberOrPrepaidNotce(isPrepaid)}
+        <Box mt={1} />
+        <Typography component="p">
+          <em>Note: credit card is not allowed for shipment</em>
+        </Typography>
+      </Box>
+    </PanelWrapper>
   )
 }
 
