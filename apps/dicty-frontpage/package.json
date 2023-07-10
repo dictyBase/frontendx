@@ -16,7 +16,7 @@
     "snyk-protect": "snyk protect"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.16",
+    "@apollo/client": "^3.7.17",
     "@dictybase/footer": "*",
     "@dictybase/header": "*",
     "@fortawesome/fontawesome-svg-core": "^6.3.0",

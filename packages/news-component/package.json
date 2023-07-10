@@ -6,7 +6,7 @@
   "author": "Kevin Tun",
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "@apollo/client": "^3.7.16",
+    "@apollo/client": "^3.7.17",
     "@testing-library/jest-dom": "^5.x",
     "@testing-library/react": "^12.x",
     "@testing-library/user-event": "^14.x",
