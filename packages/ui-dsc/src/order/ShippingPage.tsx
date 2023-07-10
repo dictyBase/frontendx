@@ -1,11 +1,8 @@
 import { useForm, FormProvider } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import Grid from "@material-ui/core/Grid"
-import Button from "@material-ui/core/Button"
-import TextField from "@material-ui/core/TextField"
 import { object, string, number, InferType } from "yup"
 import { renderAddressFields } from "../functional"
-import { PanelWrapper } from "./PanelWrapper"
 import { ContinueButton } from "./ContinueButton"
 import { AdditionalInformation } from "./AdditionalInformation"
 import { ShippingMethod } from "./ShippingMethod"
@@ -59,7 +56,7 @@ const ShippingPage = ({ setFormData, nextStep }: ShippingPageProperties) => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Grid container spacing={1}>
+        <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
             {renderAddressFields(register, errors)}
           </Grid>
