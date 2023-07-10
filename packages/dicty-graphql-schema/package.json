@@ -67,7 +67,7 @@
     ]
   },
   "dependencies": {
-    "@apollo/client": "^3.7.16",
+    "@apollo/client": "^3.7.17",
     "graphql": "~16.7.1",
     "graphql-tag": "^2.12.6",
     "react": "17.x",
