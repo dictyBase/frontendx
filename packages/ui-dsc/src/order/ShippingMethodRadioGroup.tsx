@@ -1,17 +1,13 @@
-import { SetStateAction } from "react"
-import { useFormikContext } from "formik"
+import { useFormContext } from "react-hook-form"
 import RadioGroup from "@material-ui/core/RadioGroup"
 import Radio from "@material-ui/core/Radio"
 import FormControlLabel from "@material-ui/core/FormControlLabel"
-import { FormikValues } from "../utils/initialValues"
 
 const couriers = ["DHL", "FedEx", "UPS"]
 
-type Props = {
-  /** Function to change shipping account number */
-  setShipAccountNum: (arg0: boolean) => void
-  /** Function to set the prepaid notice */
-  setPrepaidNotice: (arg0: boolean) => void
+type ShippingMethodRadioGroupProperties = {
+  /** Function to set shipping method */
+  setIsPrepaid: (arg0: boolean) => void
 }
 
 /**
@@ -19,29 +15,22 @@ type Props = {
  * information.
  */
 const ShippingMethodRadioGroup = ({
-  setShipAccountNum,
-  setPrepaidNotice,
-}: Props) => {
-  const { values, setFieldValue, handleChange } =
-    useFormikContext<FormikValues>()
+  setIsPrepaid,
+}: ShippingMethodRadioGroupProperties) => {
+  const { resetField, setValue } = useFormContext()
+
   const handleShipAccountChange = () => {
-    setShipAccountNum(true)
-    setPrepaidNotice(false)
-    setFieldValue("shippingAccountNumber", "")
+    setIsPrepaid(false)
+    resetField("shippingAccountNumber")
   }
 
   const handlePrepaidLabelChange = () => {
-    setShipAccountNum(false)
-    setPrepaidNotice(true)
-    setFieldValue("shippingAccountNumber", "sending prepaid shipping label")
+    setIsPrepaid(true)
+    setValue("shippingAccountNumber", "sending prepaid shipping label")
   }
 
   return (
-    <RadioGroup
-      aria-label="Shipping Account"
-      name="shippingAccount"
-      onChange={handleChange}
-      row>
+    <RadioGroup aria-label="Shipping Account" name="shippingAccount" row>
       {couriers.map((item: string) => (
         <FormControlLabel
           key={item}
@@ -63,4 +52,4 @@ const ShippingMethodRadioGroup = ({
   )
 }
 
-export default ShippingMethodRadioGroup
+export { ShippingMethodRadioGroup }
