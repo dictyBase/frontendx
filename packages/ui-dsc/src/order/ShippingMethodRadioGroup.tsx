@@ -7,7 +7,7 @@ const couriers = ["DHL", "FedEx", "UPS"]
 
 type ShippingMethodRadioGroupProperties = {
   /** Function to set shipping method */
-  setIsPrepaid: (arg0: boolean) => void
+  setIsPrepaid: (argument0: boolean) => void
 }
 
 /**
@@ -38,7 +38,7 @@ const ShippingMethodRadioGroup = ({
           control={<Radio />}
           label={item}
           onChange={handleShipAccountChange}
-          checked={values["shippingAccount"] === item}
+          // checked={values["shippingAccount"] === item}
         />
       ))}
       <FormControlLabel
@@ -46,7 +46,7 @@ const ShippingMethodRadioGroup = ({
         control={<Radio />}
         label="Send prepaid shipping label"
         onChange={handlePrepaidLabelChange}
-        checked={values["shippingAccount"] === "prepaid"}
+        // checked={values["shippingAccount"] === "prepaid"}
       />
     </RadioGroup>
   )
