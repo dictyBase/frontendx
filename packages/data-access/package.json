@@ -9,7 +9,7 @@
     "@testing-library/jest-dom": "^5.x",
     "@testing-library/react": "^13.x",
     "@testing-library/user-event": "^14.x",
-    "@types/jest": "^26.0.x",
+    "@types/jest": "^29.5.x",
     "@types/react": "17.x",
     "@types/react-dom": "17.x",
     "eslint-config-custom": "*",
