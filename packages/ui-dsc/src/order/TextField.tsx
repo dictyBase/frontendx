@@ -4,7 +4,10 @@ import MuiTextField, {
 } from "@material-ui/core/TextField"
 
 type TextFieldProperties = {
+  /** name for MUI TextField */
   name: string
+  /** label for MUI TextField */
+  label: string
   /** Margin for MUI TextField */
   margin?: string
   /** Variant for MUI TextField */
@@ -19,6 +22,7 @@ type TextFieldProperties = {
  */
 const TextField = ({
   name,
+  label,
   margin = "dense",
   variant = "outlined",
   fullWidth = true,
@@ -30,11 +34,12 @@ const TextField = ({
 
   return (
     <MuiTextField
-      {...register(name)}
+      label={label}
       type="text"
       margin={margin}
       variant={variant}
       fullWidth={fullWidth}
+      {...register(name)}
       error={!!errors[name]}
       helperText={errors[name]?.message || ""}
     />
