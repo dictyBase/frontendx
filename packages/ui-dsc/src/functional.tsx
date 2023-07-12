@@ -1,15 +1,8 @@
 import Grid from "@material-ui/core/Grid"
-import TextField from "@material-ui/core/TextField"
 import { v4 as uuid4 } from "uuid"
-import { match } from "ts-pattern"
-import { map } from "fp-ts/Array"
+import { map, filter, flatten, partition } from "fp-ts/Array"
+import * as S from "fp-ts/Separated"
 import { pipe } from "fp-ts/function"
-import {
-  type UseFormRegister,
-  type FieldValues,
-  type FieldErrors,
-  type Path,
-} from "react-hook-form"
 import { CartTotalRow } from "./cart/CartTotalRow"
 import { type Cart } from "./types"
 import { getCartTotal } from "./utils/getCartTotal"
@@ -17,6 +10,7 @@ import { addressFields } from "./order/addressFields"
 import { CountryDropdown } from "./order/CountryDropdown"
 import { PanelWrapper } from "./order/PanelWrapper"
 import { StyledGridContainer } from "./order/StyledGridContainer"
+import { TextField } from "./order/TextField"
 
 const renderStrainTotal = ({ strainItems }: Cart) => (
   <CartTotalRow
@@ -70,57 +64,47 @@ type AddressField = {
   label: string
 }
 
-const matchCountry =
-  <F extends FieldValues>(
-    register: UseFormRegister<F>,
-    errors: FieldErrors<F>,
-  ) =>
-  (addressField: AddressField) =>
-    match(addressField)
-      .when(
-        ({ name }) => name === "country",
-        () => <CountryDropdown />,
-      )
-      .otherwise(({ name, label }) => (
-        <TextField
-          label={label}
-          fullWidth
-          margin="dense"
-          variant="outlined"
-          // TODO: fix typing so we don't have to make the assumption the property "name" satisfies Path<F>
-          {...register(name as Path<F>)}
-          error={!!errors[name]}
-          helperText={errors[name]?.message || ""}
-        />
-      ))
-
 const gridItemWrapper = (element: JSX.Element) => (
   <Grid key={uuid4()} item>
     {element}
   </Grid>
 )
 
-const gridContainerWrapper = (elements: Array<JSX.Element>) => (
-  <StyledGridContainer>{elements}</StyledGridContainer>
+// eslint-disable-next-line react/function-component-definition
+const panelWrapper = (title: string) => (elements: Array<JSX.Element>) =>
+  (
+    <PanelWrapper title={title}>
+      <StyledGridContainer>{elements}</StyledGridContainer>
+    </PanelWrapper>
+  )
+
+const isCountry = ({ name }: { name: string }) => name === "country"
+
+const wrapAddressTextField = ({ name, label }: AddressField) => (
+  <TextField name={name} label={label} />
+)
+const wrapCountryDropdown = () => <CountryDropdown />
+
+const textFields = pipe(
+  addressFields,
+  partition(isCountry),
+  S.left,
+  map(wrapAddressTextField),
+)
+const countryField = pipe(
+  addressFields,
+  partition(isCountry),
+  S.right,
+  map(wrapCountryDropdown),
 )
 
-// eslint-disable-next-line react/function-component-definition
-const panelWrapper = (title: string) => (element: JSX.Element) =>
-  <PanelWrapper title={title}>{element}</PanelWrapper>
-
-const renderAddressFields = <F extends FieldValues>(
-  register: UseFormRegister<F>,
-  errors: FieldErrors<F>,
-) => {
-  const matchCountryFunction = matchCountry(register, errors)
-  return pipe(
-    addressFields,
-    map(matchCountryFunction),
+const renderAddressFields = () =>
+  pipe(
+    [textFields, countryField],
+    flatten,
     map(gridItemWrapper),
-    gridContainerWrapper,
     panelWrapper("Shipping Address"),
   )
-}
 
 export {
   renderStrainTotal,
