@@ -1,7 +1,6 @@
 import { atom } from "jotai"
 import { splitAtom } from "jotai/utils"
 import { type Strain } from "dicty-graphql-schema"
-
 // CART STATE
 type PurchaseProperties = { quantity: number; fee: Readonly<number> }
 type StrainItem = Pick<Strain, "id" | "summary" | "label"> & PurchaseProperties
@@ -37,49 +36,49 @@ enum OrderSteps {
   SUBMIT,
 }
 
-type OrderFormValues = {
-  firstName: string
-  lastName: string
-  email: string
-  organization: string
-  lab: string
-  address1: string
-  address2: string
-  city: string
-  state: string
-  zip: string
-  country: string
-  phone: string
-  shippingAccount: string
-  shippingAccountNumber: string
-  comments: string
-  payerFirstName: string
-  payerLastName: string
-  payerEmail: string
-  payerOrganization: string
-  payerLab: string
-  payerAddress1: string
-  payerAddress2: string
-  payerCity: string
-  payerState: string
-  payerZip: string
-  payerCountry: string
-  payerPhone: string
-  paymentMethod: string
-  purchaseOrderNum: string
-  [key: string]: string
+const initialFormValues = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  organization: "",
+  lab: "",
+  address1: "",
+  address2: "",
+  city: "",
+  state: "",
+  zip: "",
+  country: "",
+  phone: "",
+  shippingAccount: "",
+  shippingAccountNumber: "",
+  comments: "",
+  payerFirstName: "",
+  payerLastName: "",
+  payerEmail: "",
+  payerOrganization: "",
+  payerLab: "",
+  payerAddress1: "",
+  payerAddress2: "",
+  payerCity: "",
+  payerState: "",
+  payerZip: "",
+  payerCountry: "",
+  payerPhone: "",
+  paymentMethod: "",
+  purchaseOrderNum: "",
 }
 
+const orderFormAtom = atom(initialFormValues)
 const orderStepAtom = atom<OrderSteps>(OrderSteps.SHIPPING)
 
 export {
   type StrainItem,
   type Cart,
-  type OrderFormValues,
   OrderSteps,
   cartAtom,
   strainItemsAtom,
   strainItemAtomsAtom,
   removeItemAtom,
+  orderFormAtom,
   orderStepAtom,
 }
