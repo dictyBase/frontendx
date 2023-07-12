@@ -1,4 +1,4 @@
-type FormikValues = {
+type FormData = {
   firstName: string
   lastName: string
   email: string
@@ -31,7 +31,7 @@ type FormikValues = {
   [key: string]: string
 }
 
-const initialValues: FormikValues = {
+const initialFormValues: FormData = {
   firstName: "",
   lastName: "",
   email: "",
@@ -63,5 +63,4 @@ const initialValues: FormikValues = {
   purchaseOrderNum: "",
 }
 
-export type { FormikValues }
-export default initialValues
+export { type FormData, initialFormValues }
