@@ -1,6 +1,6 @@
 import { match } from "ts-pattern"
-import { ShippingPage } from "@dictybase/ui-dsc"
 import { useAtomValue } from "jotai"
+import { ShippingPage } from "../components/ShippingPage"
 import { orderStepAtom, OrderSteps } from "../state"
 
 const OrderForm = () => {
