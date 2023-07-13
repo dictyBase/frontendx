@@ -36,7 +36,7 @@ enum OrderSteps {
   SUBMIT,
 }
 
-const initialFormValues = {
+const initialShippingValues = {
   firstName: "",
   lastName: "",
   email: "",
@@ -52,6 +52,9 @@ const initialFormValues = {
   shippingAccount: "",
   shippingAccountNumber: "",
   comments: "",
+}
+
+const initialPaymentValues = {
   payerFirstName: "",
   payerLastName: "",
   payerEmail: "",
@@ -61,14 +64,15 @@ const initialFormValues = {
   payerAddress2: "",
   payerCity: "",
   payerState: "",
-  payerZip: "",
+  payerZip: 0,
   payerCountry: "",
   payerPhone: "",
   paymentMethod: "",
   purchaseOrderNum: "",
 }
 
-const orderFormAtom = atom(initialFormValues)
+const shippingFormAtom = atom(initialShippingValues)
+const paymentFormAtom = atom(initialPaymentValues)
 const orderStepAtom = atom<OrderSteps>(OrderSteps.SHIPPING)
 
 export {
@@ -79,6 +83,7 @@ export {
   strainItemsAtom,
   strainItemAtomsAtom,
   removeItemAtom,
-  orderFormAtom,
+  shippingFormAtom,
+  paymentFormAtom,
   orderStepAtom,
 }
