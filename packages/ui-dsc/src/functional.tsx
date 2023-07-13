@@ -1,7 +1,7 @@
 import Grid from "@material-ui/core/Grid"
 import { v4 as uuid4 } from "uuid"
 import { map, filter, flatten, partition } from "fp-ts/Array"
-import * as S from "fp-ts/Separated"
+import { left, right } from "fp-ts/Separated"
 import { pipe } from "fp-ts/function"
 import { CartTotalRow } from "./cart/CartTotalRow"
 import { type Cart } from "./types"
@@ -88,13 +88,13 @@ const wrapCountryDropdown = () => <CountryDropdown />
 const textFields = pipe(
   addressFields,
   partition(isCountry),
-  S.left,
+  left,
   map(wrapAddressTextField),
 )
 const countryField = pipe(
   addressFields,
   partition(isCountry),
-  S.right,
+  right,
   map(wrapCountryDropdown),
 )
 
