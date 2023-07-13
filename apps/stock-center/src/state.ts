@@ -46,7 +46,7 @@ const initialFormValues = {
   address2: "",
   city: "",
   state: "",
-  zip: "",
+  zip: 0,
   country: "",
   phone: "",
   shippingAccount: "",
