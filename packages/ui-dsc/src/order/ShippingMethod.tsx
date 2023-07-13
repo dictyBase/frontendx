@@ -7,10 +7,12 @@ import { ShippingMethodRadioGroup } from "./ShippingMethodRadioGroup"
 import { PanelWrapper } from "./PanelWrapper"
 import { TextField } from "./TextField"
 
-const renderShippingNumberOrPrepaidNotce = (isPrepaid: boolean) =>
+const renderShippingNumberOrPrepaidNotice = (isPrepaid: boolean) =>
   match(isPrepaid)
     .with(true, () => <ShippingMethodPrepaidNotice />)
-    .with(false, () => <TextField name="shippingAccountNumber" />)
+    .with(false, () => (
+      <TextField name="shippingAccountNumber" label="Shipping Account Number" />
+    ))
     .exhaustive()
 /**
  * ShippingMethod contains radio buttons and a text field for listing courier
@@ -25,7 +27,7 @@ const ShippingMethod = () => {
         <Typography variant="h3">Shipping Account:</Typography>
         <Box mt={1} />
         <ShippingMethodRadioGroup setIsPrepaid={setIsPrepaid} />
-        {renderShippingNumberOrPrepaidNotce(isPrepaid)}
+        {renderShippingNumberOrPrepaidNotice(isPrepaid)}
         <Box mt={1} />
         <Typography component="p">
           <em>Note: credit card is not allowed for shipment</em>
