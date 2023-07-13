@@ -43,11 +43,7 @@ const ShippingPage = ({ setFormData, nextStep }: ShippingPageProperties) => {
     mode: "onTouched",
     resolver: yupResolver(validationSchema),
   })
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = methods
+  const { handleSubmit } = methods
 
   const onSubmit = (data: ShippingFormData) => {
     setFormData(data)
@@ -58,7 +54,7 @@ const ShippingPage = ({ setFormData, nextStep }: ShippingPageProperties) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
-            {renderAddressFields(register, errors)}
+            {renderAddressFields()}
           </Grid>
           <Grid item xs={12} md={6}>
             <Grid container direction="column" spacing={2}>
