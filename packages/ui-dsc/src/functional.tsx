@@ -1,6 +1,7 @@
 import Grid from "@material-ui/core/Grid"
 import { v4 as uuid4 } from "uuid"
-import { map, filter, flatten, partition } from "fp-ts/Array"
+import { match } from "ts-pattern"
+import { map, flatten, partition } from "fp-ts/Array"
 import { left, right } from "fp-ts/Separated"
 import { pipe } from "fp-ts/function"
 import { CartTotalRow } from "./cart/CartTotalRow"
@@ -96,6 +97,15 @@ const countryField = pipe(
   partition(isCountry),
   right,
   map(wrapCountryDropdown),
+)
+
+const componentsArray = pipe(
+  addressFields,
+  map((field) =>
+    match(field)
+      .with({ name: "country" }, () => <CountryDropdown />)
+      .otherwise(({ name, label }) => <TextField name={name} label={label} />),
+  ),
 )
 
 const renderAddressFields = () =>
