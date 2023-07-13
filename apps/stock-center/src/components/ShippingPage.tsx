@@ -9,7 +9,7 @@ import {
   ShippingMethod,
 } from "@dictybase/ui-dsc"
 import { useSetAtom } from "jotai"
-import { orderFormAtom, orderStepAtom } from "../state"
+import { shippingFormAtom, orderStepAtom } from "../state"
 
 const validationSchema = object().shape({
   firstName: string().required("* First name is required"),
@@ -35,7 +35,7 @@ type ShippingFormData = InferType<typeof validationSchema>
  * information.
  */
 const ShippingPage = () => {
-  const setOrderFormData = useSetAtom(orderFormAtom)
+  const setOrderFormData = useSetAtom(shippingFormAtom)
   const setOrderStep = useSetAtom(orderStepAtom)
   const methods = useForm({
     mode: "onTouched",
