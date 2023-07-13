@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles"
 import Button from "@material-ui/core/Button"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt"
 
 const useStyles = makeStyles(() => ({
   button: {
@@ -21,7 +21,7 @@ const ContinueButton = () => {
       size="large"
       color="secondary"
       variant="contained"
-      endIcon={<FontAwesomeIcon icon="arrow-circle-right" />}
+      endIcon={<ArrowRightAltIcon />}
       className={classes.button}>
       Continue
     </Button>
