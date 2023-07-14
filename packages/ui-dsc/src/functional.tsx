@@ -99,15 +99,6 @@ const countryField = pipe(
   map(wrapCountryDropdown),
 )
 
-const componentsArray = pipe(
-  addressFields,
-  map((field) =>
-    match(field)
-      .with({ name: "country" }, () => <CountryDropdown />)
-      .otherwise(({ name, label }) => <TextField name={name} label={label} />),
-  ),
-)
-
 const renderAddressFields = () =>
   pipe(
     [textFields, countryField],
