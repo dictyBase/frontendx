@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import Grid from "@material-ui/core/Grid"
 import { object, string, number, InferType } from "yup"
 import {
-  renderAddressFields,
+  renderShippingAddressFields,
   ContinueButton,
   AdditionalInformation,
   ShippingMethod,
@@ -41,8 +41,9 @@ const ShippingPage = () => {
     mode: "onTouched",
     resolver: yupResolver(validationSchema),
   })
-  const { handleSubmit } = methods
 
+  const { handleSubmit } = methods
+  console.log(methods.getValues())
   const onSubmit = (data: ShippingFormData) => {
     setOrderFormData((previousFormData) => ({ ...previousFormData, ...data }))
     setOrderStep((previousStep) => previousStep + 1)
@@ -52,7 +53,7 @@ const ShippingPage = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
-            {renderAddressFields()}
+            {renderShippingAddressFields()}
           </Grid>
           <Grid item xs={12} md={6}>
             <Grid container direction="column" spacing={2}>
