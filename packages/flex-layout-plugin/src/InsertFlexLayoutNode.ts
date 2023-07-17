@@ -4,6 +4,7 @@ import {
   $getSelection,
   $isRangeSelection,
 } from "lexical"
+import { $isListItemNode } from "@lexical/list"
 import { $createFlexLayoutNode } from "./FlexLayoutNode"
 import {
   getTopLevelElementFromSelection,
@@ -21,6 +22,9 @@ const InsertFlexLayoutNode = () => {
   }
   const selectedPoint = getPointAtCaret(selection)
   if (!selectedPoint) return true
+
+  const textParent = selectedPoint.getNode().getParent()
+  if ($isListItemNode(textParent)) return false
 
   const selectedFlexLayoutNode = getTopLevelElementFromSelection(selection)
   if (!selectedFlexLayoutNode) return true
