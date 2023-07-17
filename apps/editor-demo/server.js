@@ -12,7 +12,6 @@ app.use(bodyParser.json())
 
 app.post("/save", async (request, response) => {
   const jsonData = JSON.stringify(request.body)
-  console.log(jsonData)
   const filePath = path.join(
     path.dirname(url.fileURLToPath(import.meta.url)),
     "json",
@@ -27,9 +26,9 @@ app.post("/save", async (request, response) => {
   })
 })
 
-// eslint-disable-next-line arrow-body-style
-const server = app.listen(3005, "0.0.0.0", () => {
-  return console.log("Server is listening...")
-})
+const server = app.listen(3005, "0.0.0.0", () =>
+  // eslint-disable-next-line no-console
+  console.log("Server is listening..."),
+)
 
 ViteExpress.bind(app, server)
