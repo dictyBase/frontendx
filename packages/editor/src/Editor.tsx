@@ -14,12 +14,14 @@ import { WidthTablePlugin } from "width-table-plugin"
 import { FlexLayoutPlugin } from "flex-layout-plugin"
 import { TableActionPlugin } from "table-action-plugin"
 import Toolbar from "editor-toolbar"
+import { TreeViewPlugin } from "./TreeViewPlugin"
 import dictyEditorConfig from "./editorConfig"
 import {
   useEditorInputStyles,
   useEditorPlaceholderStyles,
 } from "./useEditorStyles"
 import usePersistencePluginStyles from "./usePersistencePluginStyles"
+import { initialStateString } from "./initialState"
 import "./editor.css"
 
 type EditorProperties = {
@@ -27,6 +29,7 @@ type EditorProperties = {
   editable: boolean
   handleCancel?: () => void
   handleSave?: (content: string) => void
+  plugins?: Array<JSX.Element>
 }
 
 const useEditorAreaStyles = makeStyles({
@@ -40,9 +43,10 @@ const Editor = ({
   editable = false,
   handleCancel,
   handleSave,
+  plugins,
 }: EditorProperties) => {
   // eslint-disable-next-line unicorn/no-null
-  const initialEditorState = content?.editorState || null
+  const initialEditorState = content?.editorState || initialStateString || null
   const inputClasses = useEditorInputStyles()
   const placeholderClasses = useEditorPlaceholderStyles()
   const persistencePluginStyles = usePersistencePluginStyles()
@@ -55,6 +59,7 @@ const Editor = ({
         editorState: initialEditorState,
         editable,
       }}>
+      <>{plugins}</>
       <ListPlugin />
       <ImagePlugin />
       <FlexLayoutPlugin />
@@ -99,6 +104,7 @@ const Editor = ({
             <></>
           )}
         </Grid>
+        <TreeViewPlugin />
       </Grid>
     </LexicalComposer>
   )
