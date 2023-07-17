@@ -3,7 +3,6 @@ import { Editor } from "editor"
 import { JsonPlugin } from "@dictybase/json-plugin"
 
 const saveJson = async (data: any) => {
-  console.log(data)
   await fetch("/save", {
     method: "post",
     headers: {
@@ -12,6 +11,7 @@ const saveJson = async (data: any) => {
     body: JSON.stringify(data),
   })
 }
+
 const App = () => (
   <Grid container>
     <Grid item>
