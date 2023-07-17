@@ -14,7 +14,6 @@ import { WidthTablePlugin } from "width-table-plugin"
 import { FlexLayoutPlugin } from "flex-layout-plugin"
 import { TableActionPlugin } from "table-action-plugin"
 import Toolbar from "editor-toolbar"
-import { TreeViewPlugin } from "./TreeViewPlugin"
 import dictyEditorConfig from "./editorConfig"
 import {
   useEditorInputStyles,
@@ -104,7 +103,6 @@ const Editor = ({
             <></>
           )}
         </Grid>
-        <TreeViewPlugin />
       </Grid>
     </LexicalComposer>
   )
