@@ -230,7 +230,7 @@
                 "children": [
                   {
                     "detail": 0,
-                    "format": 2,
+                    "format": 8,
                     "mode": "normal",
                     "style": "",
                     "text": "UNDERLINE",
