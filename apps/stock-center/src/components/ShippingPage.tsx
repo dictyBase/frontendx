@@ -43,7 +43,6 @@ const ShippingPage = () => {
   })
 
   const { handleSubmit } = methods
-  console.log(methods.getValues())
   const onSubmit = (data: ShippingFormData) => {
     setOrderFormData((previousFormData) => ({ ...previousFormData, ...data }))
     setOrderStep((previousStep) => previousStep + 1)
