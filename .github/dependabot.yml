@@ -7,7 +7,7 @@ updates:
     - dependency-name: "@types/react"
     - dependency-name: "@types/node"
     schedule:
-      versioning-strategey: lockfile-only
+      versioning-strategy: lockfile-only
       interval: weekly
       day: saturday
       time: "16:00"
