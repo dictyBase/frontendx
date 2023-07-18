@@ -1,4 +1,4 @@
-const addressFields = [
+const shippingAddressFields = [
   {
     name: "firstName",
     label: "First Name",
@@ -61,4 +61,4 @@ const addressFields = [
   },
 ]
 
-export { addressFields }
+export { shippingAddressFields }
