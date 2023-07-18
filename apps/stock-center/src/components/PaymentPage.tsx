@@ -2,7 +2,7 @@ import { useForm, FormProvider } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import Grid from "@material-ui/core/Grid"
 import { object, string, number, InferType } from "yup"
-import { renderAddressFields } from "@dictybase/ui-dsc"
+import { renderPaymentAddressFields } from "@dictybase/ui-dsc"
 import { useSetAtom } from "jotai"
 import { paymentFormAtom, orderStepAtom } from "../state"
 
@@ -43,11 +43,11 @@ const PaymentPage = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
-            {renderAddressFields()}
+            {renderPaymentAddressFields()}
           </Grid>
           <Grid item xs={12} md={6}>
-            {/* <Grid container direction="column" spacing={2}>
-              <Grid item>
+            <Grid container direction="column" spacing={2}>
+              {/* <Grid item>
                 <ShippingMethod />
               </Grid>
               <Grid item>
@@ -55,8 +55,8 @@ const PaymentPage = () => {
               </Grid>
               <Grid item>
                 <ContinueButton />
-              </Grid>
-            </Grid> */}
+              </Grid> */}
+            </Grid>
           </Grid>
         </Grid>
       </form>
@@ -64,4 +64,4 @@ const PaymentPage = () => {
   )
 }
 
-export { PaymentPage as ShippingPage }
+export { PaymentPage }
