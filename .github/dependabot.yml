@@ -1,13 +1,13 @@
 version: 2
 updates:
   - package-ecosystem: npm
+    versioning-strategy: lockfile-only
     directory: "/"
     ignore: 
     - dependency-name: "react"
     - dependency-name: "@types/react"
     - dependency-name: "@types/node"
     schedule:
-      versioning-strategy: lockfile-only
       interval: weekly
       day: saturday
       time: "16:00"
