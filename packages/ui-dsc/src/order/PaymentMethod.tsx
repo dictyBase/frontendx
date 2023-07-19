@@ -7,10 +7,10 @@ import { TextField } from "./TextField"
 import { WaiverRequestInformation } from "./WaiverRequestInformation"
 
 enum PaymentMethods {
-  PURCHASE_ORDER_NUMBER,
-  WAIVER_REQUESTED,
-  CREDIT,
-  WIRE,
+  PURCHASE_ORDER_NUMBER = "purchaseOrder",
+  WAIVER_REQUESTED = "waiver",
+  CREDIT = "credit",
+  WIRE = "wire",
 }
 
 const renderPaymentMethod = (paymentMethod: PaymentMethods) =>
@@ -29,7 +29,7 @@ const renderPaymentMethod = (paymentMethod: PaymentMethods) =>
  * ShippingMethod contains radio buttons and a text field for listing courier
  * information.
  */
-const ShippingMethod = () => {
+const PaymentMethod = () => {
   const [paymentMethod, setPaymentMethod] = useState(
     PaymentMethods.PURCHASE_ORDER_NUMBER,
   )
@@ -49,4 +49,4 @@ const ShippingMethod = () => {
   )
 }
 
-export { ShippingMethod }
+export { PaymentMethod }
