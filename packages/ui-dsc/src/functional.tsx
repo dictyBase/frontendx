@@ -11,6 +11,7 @@ import { CountryDropdown } from "./order/CountryDropdown"
 import { PanelWrapper } from "./order/PanelWrapper"
 import { StyledGridContainer } from "./order/StyledGridContainer"
 import { TextField } from "./order/TextField"
+import { capitalizeFirstCharacter } from "./utils/stringCapitalizations"
 
 const renderStrainTotal = ({ strainItems }: Cart) => (
   <CartTotalRow
@@ -116,13 +117,10 @@ const renderShippingAddressFields = () =>
     panelWrapper("Shipping Address"),
   )
 
-const capitalizeFirstLetter = (string: string) =>
-  `${string.charAt(0).toUpperCase()}${string.slice(1)}`
-
 const appendPayer = (string: string) => `payer${string}`
 
 const convertAddressFieldName = (name: string) =>
-  pipe(name, capitalizeFirstLetter, appendPayer)
+  pipe(name, capitalizeFirstCharacter, appendPayer)
 
 const getPayerField = ({ name, label }: { name: string; label: string }) => ({
   name: convertAddressFieldName(name),
