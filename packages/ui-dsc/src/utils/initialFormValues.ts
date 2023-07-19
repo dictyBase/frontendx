@@ -13,7 +13,7 @@ type FormData = {
   phone: string
   shippingAccount: string
   shippingAccountNumber: string
-  comments: string
+  additionalInformation: string
   payerFirstName: string
   payerLastName: string
   payerEmail: string
@@ -46,7 +46,7 @@ const initialFormValues: FormData = {
   phone: "",
   shippingAccount: "",
   shippingAccountNumber: "",
-  comments: "",
+  additionalInformation: "",
   payerFirstName: "",
   payerLastName: "",
   payerEmail: "",
