@@ -15,11 +15,14 @@ const countryToFlag = (isoCode: string) => {
   return isoCode
 }
 
+type CountryDropdownProperties = {
+  fieldName: string
+}
 /**
  * CountryDropdown is an Autocomplete component for selecting a user's
  * country.
  */
-const CountryDropdown = () => {
+const CountryDropdown = ({ fieldName }: CountryDropdownProperties) => {
   const {
     register,
     formState: { errors },
@@ -40,13 +43,13 @@ const CountryDropdown = () => {
       renderInput={(properties) => (
         <TextField
           {...properties}
-          {...register("country")}
+          {...register(fieldName)}
           label="Country"
           variant="outlined"
           fullWidth
           margin="dense"
-          error={!!errors["country"]}
-          helperText={errors["country"]?.type || ""}
+          error={!!errors[fieldName]}
+          helperText={errors[fieldName]?.type || ""}
           size="medium"
         />
       )}
