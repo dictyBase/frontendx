@@ -5,6 +5,7 @@ import Box from "@material-ui/core/Box"
 import { PanelWrapper } from "./PanelWrapper"
 import { TextField } from "./TextField"
 import { WaiverRequestInformation } from "./WaiverRequestInformation"
+import { PaymentMethodRadioGroup } from "./PaymentMethodRadioGroup"
 
 enum PaymentMethods {
   PURCHASE_ORDER_NUMBER = "purchaseOrder",
@@ -39,6 +40,7 @@ const PaymentMethod = () => {
       <Box mt={1} mb={2} p={2}>
         <Typography variant="h3">Shipping Account:</Typography>
         <Box mt={1} />
+        <PaymentMethodRadioGroup setPaymentMethod={setPaymentMethod} />
         {renderPaymentMethod(paymentMethod)}
         <Box mt={1} />
         <Typography component="p">
