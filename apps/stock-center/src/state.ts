@@ -46,12 +46,12 @@ const initialShippingValues = {
   address2: "",
   city: "",
   state: "",
-  zip: 0,
+  zip: "",
   country: "",
   phone: "",
   shippingAccount: "",
   shippingAccountNumber: "",
-  comments: "",
+  additionalInformation: "",
 }
 
 const initialPaymentValues = {
@@ -64,7 +64,7 @@ const initialPaymentValues = {
   payerAddress2: "",
   payerCity: "",
   payerState: "",
-  payerZip: 0,
+  payerZip: "",
   payerCountry: "",
   payerPhone: "",
   paymentMethod: "",
