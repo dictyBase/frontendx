@@ -74,7 +74,7 @@
     "react-docgen-typescript": "^2.2.2",
     "react-styleguidist": "^13.1.0",
     "react-test-renderer": "^17.0.2",
-    "snyk": "^1.1187.0",
+    "snyk": "^1.1192.0",
     "source-map-explorer": "^2.5.3",
     "tsconfig": "*",
     "vite": "4.x",
