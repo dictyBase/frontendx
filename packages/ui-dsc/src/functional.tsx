@@ -78,7 +78,7 @@ const gridContainerWrapper = (elements: Array<JSX.Element>) => (
 const panelWrapper = (title: string) => (element: JSX.Element) =>
   <PanelWrapper title={title}>{element}</PanelWrapper>
 
-const isCountry = ({ name }: { name: string }) => name === "country"
+const isCountry = ({ name }: { name: string }) => /country/i.test(name)
 
 const wrapAddressTextField = ({ name, label }: AddressField) => (
   <TextField name={name} label={label} />
