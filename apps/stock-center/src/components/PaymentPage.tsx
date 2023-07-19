@@ -1,9 +1,15 @@
 import { useForm, FormProvider } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import Grid from "@material-ui/core/Grid"
-import { object, string, number, InferType } from "yup"
-import { renderPaymentAddressFields } from "@dictybase/ui-dsc"
-import { useSetAtom } from "jotai"
+import { object, string, InferType } from "yup"
+import {
+  PaymentMethod,
+  renderPaymentAddressFields,
+  PaymentInfoBox,
+  ContinueButton,
+} from "@dictybase/ui-dsc"
+import { useSetAtom, useAtom } from "jotai"
+import { BackButton } from "./BackButton"
 import { paymentFormAtom, orderStepAtom } from "../state"
 
 const validationSchema = object().shape({
@@ -14,9 +20,14 @@ const validationSchema = object().shape({
   payerLab: string().required("* Lab/Group is required"),
   payerAddress1: string().required("* Address is required"),
   payerCity: string().required("* City is required"),
-  payerZip: number().required("* Zip code is required"),
+  payerZip: string()
+    .required("* Zip code is required")
+    .matches(/^\d+$/, "Must be only digits")
+    .min(5, "Must be exactly 5 digits")
+    .max(5, "Must be exactly 5 digits"),
   payerCountry: string().required("* Country is required"),
   payerPhone: string().required("* Phone number is required"),
+  paymentMethod: string().oneOf(["purchaseOrder", "waiver", "credit", "wire"]),
   purchaseOrderNum: string().required("* Payment method is required"),
 })
 type PaymentFormData = InferType<typeof validationSchema>
@@ -26,14 +37,15 @@ type PaymentFormData = InferType<typeof validationSchema>
  * payment information.
  */
 const PaymentPage = () => {
-  const setPaymentFormData = useSetAtom(paymentFormAtom)
+  const [paymentFormData, setPaymentFormData] = useAtom(paymentFormAtom)
   const setOrderStep = useSetAtom(orderStepAtom)
   const methods = useForm({
     mode: "onTouched",
     resolver: yupResolver(validationSchema),
+    defaultValues: paymentFormData,
   })
   const { handleSubmit } = methods
-
+  console.log(methods.formState.errors)
   const onSubmit = (data: PaymentFormData) => {
     setPaymentFormData((previousFormData) => ({ ...previousFormData, ...data }))
     setOrderStep((previousStep) => previousStep + 1)
@@ -47,15 +59,16 @@ const PaymentPage = () => {
           </Grid>
           <Grid item xs={12} md={6}>
             <Grid container direction="column" spacing={2}>
-              {/* <Grid item>
-                <ShippingMethod />
+              <Grid item>
+                <PaymentMethod />
               </Grid>
               <Grid item>
-                <AdditionalInformation />
+                <PaymentInfoBox />
               </Grid>
               <Grid item>
+                <BackButton />
                 <ContinueButton />
-              </Grid> */}
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
