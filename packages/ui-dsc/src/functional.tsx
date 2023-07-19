@@ -84,7 +84,9 @@ const wrapAddressTextField = ({ name, label }: AddressField) => (
   <TextField name={name} label={label} />
 )
 
-const wrapCountryDropdown = () => <CountryDropdown />
+const wrapCountryDropdown = ({ name }: { name: string }) => (
+  <CountryDropdown fieldName={name} />
+)
 
 const renderAddressFields = (addressFields: Array<AddressField>) => {
   const textFields = pipe(
