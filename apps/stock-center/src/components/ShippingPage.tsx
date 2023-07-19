@@ -1,14 +1,14 @@
 import { useForm, FormProvider } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import Grid from "@material-ui/core/Grid"
-import { object, string, number, InferType } from "yup"
+import { object, string, InferType } from "yup"
 import {
   renderShippingAddressFields,
   ContinueButton,
   AdditionalInformation,
   ShippingMethod,
 } from "@dictybase/ui-dsc"
-import { useSetAtom } from "jotai"
+import { useSetAtom, useAtom } from "jotai"
 import { shippingFormAtom, orderStepAtom } from "../state"
 
 const validationSchema = object().shape({
@@ -19,13 +19,17 @@ const validationSchema = object().shape({
   lab: string().required("* Lab/Group is required"),
   address1: string().required("* Address is required"),
   city: string().required("* City is required"),
-  zip: number().required("* Zip code is required"),
+  zip: string()
+    .required("* Zip code is required")
+    .matches(/^\d+$/, "Must be only digits")
+    .min(5, "Must be exactly 5 digits")
+    .max(5, "Must be exactly 5 digits"),
   country: string().required("* Country is required"),
   phone: string().required("* Phone number is required"),
   shippingAccountNumber: string().required(
     "* Shipping account number is required",
   ),
-  additionalInformation: string().notRequired(),
+  additionalInformation: string(),
 })
 
 type ShippingFormData = InferType<typeof validationSchema>
@@ -35,16 +39,20 @@ type ShippingFormData = InferType<typeof validationSchema>
  * information.
  */
 const ShippingPage = () => {
-  const setOrderFormData = useSetAtom(shippingFormAtom)
+  const [shippingFormData, setShippingFormData] = useAtom(shippingFormAtom)
   const setOrderStep = useSetAtom(orderStepAtom)
   const methods = useForm({
     mode: "onTouched",
     resolver: yupResolver(validationSchema),
+    defaultValues: shippingFormData,
   })
 
   const { handleSubmit } = methods
   const onSubmit = (data: ShippingFormData) => {
-    setOrderFormData((previousFormData) => ({ ...previousFormData, ...data }))
+    setShippingFormData((previousFormData) => ({
+      ...previousFormData,
+      ...data,
+    }))
     setOrderStep((previousStep) => previousStep + 1)
   }
   return (
