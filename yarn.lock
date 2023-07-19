@@ -14120,10 +14120,10 @@ ts-log@^2.2.3:
   resolved "https://registry.yarnpkg.com/ts-log/-/ts-log-2.2.5.tgz#aef3252f1143d11047e2cb6f7cfaac7408d96623"
   integrity sha512-PGcnJoTBnVGy6yYNFxWVNkdcAuAMstvutN9MgDJIV6L0oG8fB+ZNNy1T+wJzah8RPGor1mZuPQkVfXNDpy9eHA==
 
-ts-pattern@^5.0.3:
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/ts-pattern/-/ts-pattern-5.0.3.tgz#bd81acab451428eeab2c9cb49eafe0ac9a2611ac"
-  integrity sha512-JMfGCcuRz0/efyv7vI71QgIp7en2n7KxQ/cFk9nlyo8eFFgsa6TEfbnKw3N5mLGo7Mf8oUwOyRpTEqXU0kuV+w==
+ts-pattern@^5.0.4:
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/ts-pattern/-/ts-pattern-5.0.4.tgz#11508e1fb09c4a65b3fa85fd297941792c0ab7d1"
+  integrity sha512-D5iVliqugv2C9541W2CNXFYNEZxr4TiHuLPuf49tKEdQFp/8y8fR0v1RExUvXkiWozKCwE7zv07C6EKxf0lKuQ==
 
 tsconfig-paths@^3.14.1:
   version "3.14.1"
