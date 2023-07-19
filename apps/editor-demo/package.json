@@ -31,7 +31,7 @@
     "lexical": "0.11.x",
     "prettier": "^2.x",
     "tsconfig": "*",
-    "typescript": "^4.9.x",
+    "typescript": "^5.0.x",
     "vite": "4.x",
     "vite-express": "^0.9.1"
   },
