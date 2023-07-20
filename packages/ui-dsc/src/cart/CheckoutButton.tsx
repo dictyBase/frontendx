@@ -18,7 +18,7 @@ const CheckoutButton = () => {
   return (
     <Button
       component={Link}
-      to="/order/checkout"
+      to="/order"
       color="secondary"
       variant="contained"
       size="large"
