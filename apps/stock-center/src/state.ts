@@ -1,6 +1,8 @@
+/* eslint-disable unicorn/no-null */
 import { atom } from "jotai"
 import { splitAtom } from "jotai/utils"
 import { type Strain } from "dicty-graphql-schema"
+
 // CART STATE
 type PurchaseProperties = { quantity: number; fee: Readonly<number> }
 type StrainItem = Pick<Strain, "id" | "summary" | "label"> & PurchaseProperties
@@ -21,7 +23,6 @@ const strainItemsAtom = atom(
 )
 const strainItemAtomsAtom = splitAtom(strainItemsAtom)
 
-// eslint-disable-next-line unicorn/no-null
 const removeItemAtom = atom(null, (get, set, removeId) =>
   set(
     strainItemsAtom,
@@ -29,11 +30,62 @@ const removeItemAtom = atom(null, (get, set, removeId) =>
   ),
 )
 
+const resetCartAtom = atom(null, (get, set) => set(cartAtom, initialCart))
+
 // ORDER STATE
 enum OrderSteps {
   SHIPPING,
   PAYMENT,
   SUBMIT,
+}
+
+type ShippingFormData = {
+  firstName: string
+  lastName: string
+  email: string
+  organization: string
+  lab: string
+  address1: string
+  address2: string
+  city: string
+  state: string
+  zip: string
+  country: string
+  phone: string
+  shippingAccount: string
+  shippingAccountNumber: string
+  additionalInformation: string
+}
+
+type PaymentFormData = {
+  payerFirstName: string
+  payerLastName: string
+  payerEmail: string
+  payerOrganization: string
+  payerLab: string
+  payerAddress1: string
+  payerAddress2: string
+  payerCity: string
+  payerState: string
+  payerZip: string
+  payerCountry: string
+  payerPhone: string
+  paymentMethod: string
+  purchaseOrderNum: string
+}
+
+type OrderState = {
+  orderID: string
+  formData: ShippingFormData & PaymentFormData
+  cartItems: Array<StrainItem>
+  cartTotal: string
+}
+
+const initialOrder: OrderState = {
+  orderID: "",
+  formData: {} as ShippingFormData & PaymentFormData,
+  cartItems: [],
+  cartTotal: "$0.00",
 }
 
 const initialShippingValues = {
@@ -73,17 +125,24 @@ const initialPaymentValues = {
 
 const shippingFormAtom = atom(initialShippingValues)
 const paymentFormAtom = atom(initialPaymentValues)
-const orderStepAtom = atom<OrderSteps>(OrderSteps.SHIPPING)
+const orderAtom = atom(initialOrder)
+const orderStepAtom = atom(OrderSteps.SHIPPING)
+const submitErrorAtom = atom(false)
 
 export {
   type StrainItem,
   type Cart,
+  type ShippingFormData,
+  type PaymentFormData,
   OrderSteps,
   cartAtom,
+  resetCartAtom,
   strainItemsAtom,
   strainItemAtomsAtom,
   removeItemAtom,
   shippingFormAtom,
   paymentFormAtom,
+  orderAtom,
   orderStepAtom,
+  submitErrorAtom,
 }
