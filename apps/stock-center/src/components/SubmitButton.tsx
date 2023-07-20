@@ -164,40 +164,39 @@ const SubmitButton = () => {
   const emptyCart = useSetAtom(resetCartAtom)
   const setSubmitError = useSetAtom(submitErrorAtom)
   const history = useNavigate()
-  // const [createOrder] = useCreateOrderMutation()
-  // const [createUser] = useCreateUserMutation()
-  // const [updateUser] = useUpdateUserMutation()
-  // const { refetch } = useUserByEmailQuery({
-  //   variables: { email: formData.email },
-  //   skip: true, // skip initial fetch, we only want to fetch on button click
-  // })
+  const [createOrder] = useCreateOrderMutation()
+  const [createUser] = useCreateUserMutation()
+  const [updateUser] = useUpdateUserMutation()
+  const { refetch } = useUserByEmailQuery({
+    variables: { email: formData.email },
+    skip: true, // skip initial fetch, we only want to fetch on button click
+  })
   const classes = useStyles()
 
   const handleSubmit = async () => {
     try {
       // update or create consumer
-      // await updateOrCreateUser(
-      //   refetch,
-      //   formData,
-      //   updateUser,
-      //   createUser,
-      //   setSubmitError,
-      //   "consumer",
-      // )
-      // // update or create payer
-      // await updateOrCreateUser(
-      //   refetch,
-      //   formData,
-      //   updateUser,
-      //   createUser,
-      //   setSubmitError,
-      //   "payer",
-      // )
-      // const orderData = await createOrder(
-      //   getOrderVariables(formData, strainItems),
-      // )
-      // const orderID = orderData?.data?.createOrder?.id
-      const orderID = "test"
+      await updateOrCreateUser(
+        refetch,
+        formData,
+        updateUser,
+        createUser,
+        setSubmitError,
+        "consumer",
+      )
+      // update or create payer
+      await updateOrCreateUser(
+        refetch,
+        formData,
+        updateUser,
+        createUser,
+        setSubmitError,
+        "payer",
+      )
+      const orderData = await createOrder(
+        getOrderVariables(formData, strainItems),
+      )
+      const orderID = orderData?.data?.createOrder?.id
       setOrder({
         orderID: orderID || "",
         formData,
