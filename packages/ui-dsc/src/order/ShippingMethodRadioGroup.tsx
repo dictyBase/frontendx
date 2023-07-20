@@ -38,7 +38,6 @@ const ShippingMethodRadioGroup = ({
           control={<Radio />}
           label={item}
           onChange={handleShipAccountChange}
-          // checked={values["shippingAccount"] === item}
         />
       ))}
       <FormControlLabel
@@ -46,7 +45,6 @@ const ShippingMethodRadioGroup = ({
         control={<Radio />}
         label="Send prepaid shipping label"
         onChange={handlePrepaidLabelChange}
-        // checked={values["shippingAccount"] === "prepaid"}
       />
     </RadioGroup>
   )
