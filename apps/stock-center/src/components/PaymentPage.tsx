@@ -45,7 +45,6 @@ const PaymentPage = () => {
     defaultValues: paymentFormData,
   })
   const { handleSubmit } = methods
-  console.log(methods.formState.errors)
   const onSubmit = (data: PaymentFormData) => {
     setPaymentFormData((previousFormData) => ({ ...previousFormData, ...data }))
     setOrderStep((previousStep) => previousStep + 1)
