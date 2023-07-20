@@ -38,14 +38,11 @@ const PaymentMethod = () => {
   return (
     <PanelWrapper title="Payment Method">
       <Box mt={1} mb={2} p={2}>
-        <Typography variant="h3">Shipping Account:</Typography>
+        <Typography variant="h3">Payment Account:</Typography>
         <Box mt={1} />
         <PaymentMethodRadioGroup setPaymentMethod={setPaymentMethod} />
         {renderPaymentMethod(paymentMethod)}
         <Box mt={1} />
-        <Typography component="p">
-          <em>Note: credit card is not allowed for shipment</em>
-        </Typography>
       </Box>
     </PanelWrapper>
   )
