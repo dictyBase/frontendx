@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 type OrderSummaryProperties = {
   /** Object containing all entered form data */
   formData: FormData
+  /** Object containing the cart items data */
   cart: Cart
 }
 
