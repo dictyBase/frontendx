@@ -1058,14 +1058,14 @@ export type UpdateContentMutationVariables = Exact<{
 export type UpdateContentMutation = { __typename?: 'Mutation', updateContent?: { __typename?: 'Content', id: string, name: string, slug: string, content: string, updatedBy: { __typename?: 'User', id: string } } | null };
 
 export type DeleteContentMutationVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 }>;
 
 
 export type DeleteContentMutation = { __typename?: 'Mutation', deleteContent?: { __typename?: 'DeleteContent', id: string, success: boolean } | null };
 
 export type DeleteContentBySlugMutationVariables = Exact<{
-  slug: Scalars['String'];
+  slug: Scalars['String']['input'];
 }>;
 
 
@@ -1086,7 +1086,7 @@ export type CreateUserMutationVariables = Exact<{
 export type CreateUserMutation = { __typename?: 'Mutation', createUser?: { __typename?: 'User', id: string } | null };
 
 export type UpdateUserMutationVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
   input: UpdateUserInput;
 }>;
 
@@ -1094,28 +1094,28 @@ export type UpdateUserMutationVariables = Exact<{
 export type UpdateUserMutation = { __typename?: 'Mutation', updateUser?: { __typename?: 'User', id: string } | null };
 
 export type GetRefreshTokenQueryVariables = Exact<{
-  token: Scalars['String'];
+  token: Scalars['String']['input'];
 }>;
 
 
 export type GetRefreshTokenQuery = { __typename?: 'Query', refreshToken?: { __typename?: 'Auth', token: string, user: { __typename?: 'User', id: string, email: string, firstName: string, lastName: string, roles?: Array<{ __typename?: 'Role', name: string, permissions?: Array<{ __typename?: 'Permission', level: string, resource?: string | null }> | null }> | null }, identity: { __typename?: 'Identity', provider: string } } | null };
 
 export type ContentBySlugQueryVariables = Exact<{
-  slug: Scalars['String'];
+  slug: Scalars['String']['input'];
 }>;
 
 
 export type ContentBySlugQuery = { __typename?: 'Query', contentBySlug?: { __typename?: 'Content', id: string, content: string, name: string, slug: string, updatedAt: any, updatedBy: { __typename?: 'User', id: string, email: string, firstName: string, lastName: string, roles?: Array<{ __typename?: 'Role', name: string, permissions?: Array<{ __typename?: 'Permission', level: string, resource?: string | null }> | null }> | null } } | null };
 
 export type ContentQueryVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 }>;
 
 
 export type ContentQuery = { __typename?: 'Query', content?: { __typename?: 'Content', id: string, content: string, name: string, slug: string, namespace: string, updatedAt: any, updatedBy: { __typename?: 'User', id: string, email: string, firstName: string, lastName: string, roles?: Array<{ __typename?: 'Role', name: string, permissions?: Array<{ __typename?: 'Permission', level: string, resource?: string | null }> | null }> | null } } | null };
 
 export type ListNewsContentQueryVariables = Exact<{
-  limit: Scalars['Int'];
+  limit: Scalars['Int']['input'];
 }>;
 
 
@@ -1127,49 +1127,49 @@ export type ListOrganismsQueryVariables = Exact<{ [key: string]: never; }>;
 export type ListOrganismsQuery = { __typename?: 'Query', listOrganisms?: Array<{ __typename?: 'Organism', taxonId: string, scientificName: string, citations: Array<{ __typename?: 'Citation', title: string, authors: string, pubmedId: string, journal: string }>, downloads: Array<{ __typename?: 'Download', title: string, items: Array<{ __typename?: 'DownloadItem', title: string, url: string }> }> }> | null };
 
 export type GeneQueryVariables = Exact<{
-  gene: Scalars['String'];
-  limit?: InputMaybe<Scalars['Int']>;
-  sortBy?: InputMaybe<Scalars['String']>;
+  gene: Scalars['String']['input'];
+  limit?: Maybe<Scalars['Int']['input']>;
+  sortBy?: Maybe<Scalars['String']['input']>;
 }>;
 
 
 export type GeneQuery = { __typename?: 'Query', allStrains?: { __typename?: 'Gene', id: string, name: string, strains?: Array<{ __typename?: 'Strain', id: string, label: string, characteristics?: Array<string> | null, inStock: boolean, phenotypes?: Array<{ __typename?: 'Phenotype', phenotype: string, publication?: { __typename?: 'Publication', id: string, title: string, journal: string, pages?: string | null, volume?: string | null, pubDate?: any | null, authors: Array<{ __typename?: 'Author', lastName: string, rank?: string | null }> } | null }> | null }> | null } | null, gene?: { __typename?: 'Gene', id: string, name: string, goas?: Array<{ __typename?: 'GOAnnotation', id: string, type: string, date: string, evidenceCode: string, goTerm: string, qualifier: string, publication: string, assignedBy: string, with?: Array<{ __typename?: 'With', id: string, db: string, name: string }> | null, extensions?: Array<{ __typename?: 'Extension', id: string, db: string, relation: string, name: string }> | null }> | null } | null, allPublications: { __typename?: 'NumberOfPublicationsWithGene', numPubs: number, publications: Array<{ __typename?: 'PublicationWithGene', id: string, doi?: string | null, title: string, journal: string, pubDate?: any | null, volume?: string | null, pages?: string | null, pubType: string, source: string, issue?: string | null, relatedGenes: Array<{ __typename?: 'Gene', id: string, name: string }>, authors: Array<{ __typename?: 'Author', lastName: string, rank?: string | null }> }> }, allOrthologs?: { __typename?: 'Gene', id: string, name: string, orthologs?: Array<{ __typename?: 'Orthologs', species: string, geneProduct: string, source: Array<string>, id: { __typename?: 'NameWithLink', name: string, link: string }, uniprotkb: { __typename?: 'NameWithLink', name: string, link: string } }> | null } | null, listGeneProductInfo?: { __typename?: 'Gene', id: string, name: string, productInfo?: Array<{ __typename?: 'ProductInformation', proteinLength: string, proteinMolecularWeight: string, moreProteinData: string, proteinCodingGene: { __typename?: 'NameWithLink', name: string, link: string }, genomicCoords: Array<{ __typename?: 'GenomicCoordinates', exon: string, localCoords: string, chromCoords: string }> }> | null } | null, generalInformation?: { __typename?: 'Gene', id: string, name: string, generalInfo: { __typename?: 'GeneralInfo', nameDescription: Array<string>, altGeneName?: Array<string> | null, geneProduct: string, altProteinNames?: Array<string> | null, description: string } } | null, associatedSequnces?: { __typename?: 'Gene', id: string, name: string, associatedSequences: { __typename?: 'AssociatedSequences', moreLink: string, genbankGenomicFragment?: { __typename?: 'NameWithLink', name: string, link: string } | null, genbankMrna?: { __typename?: 'NameWithLink', name: string, link: string } | null, ests: Array<{ __typename?: 'NameWithLink', name: string, link: string }> } } | null, links?: { __typename?: 'Gene', id: string, name: string, links: { __typename?: 'Links', expression: Array<{ __typename?: 'NameWithLink', name: string, link: string }>, colleagues: { __typename?: 'NameWithLink', name: string, link: string }, extResources: Array<{ __typename?: 'NameWithLink', name: string, link: string }> } } | null, proteinInformation?: { __typename?: 'Gene', id: string, name: string, proteinInformation?: { __typename?: 'ProteinInformation', proteinSequence: string, generalInfo: { __typename?: 'ProteinGeneralInfo', geneProduct: string, dictybaseId: string, description: string, proteinLength: string, molecularWeight: string, subcellularLocation: string, proteinExistence: string, note: string, aaComposition: { __typename?: 'NameWithLink', name: string, link: string } }, externalLinks: Array<{ __typename?: 'NameWithLink', name: string, link: string }> } | null } | null };
 
 export type ListRecentGenesQueryVariables = Exact<{
-  limit?: Scalars['Int'];
+  limit?: Scalars['Int']['input'];
 }>;
 
 
 export type ListRecentGenesQuery = { __typename?: 'Query', listRecentGenes?: Array<{ __typename?: 'Gene', id: string, name: string }> | null };
 
 export type PublicationQueryVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 }>;
 
 
 export type PublicationQuery = { __typename?: 'Query', publication?: { __typename?: 'Publication', id: string, doi?: string | null, title: string, abstract: string, journal: string, pubDate?: any | null, pages?: string | null, issue?: string | null, volume?: string | null, authors: Array<{ __typename?: 'Author', initials?: string | null, lastName: string }> } | null };
 
 export type ListRecentPublicationsQueryVariables = Exact<{
-  limit?: Scalars['Int'];
+  limit?: Scalars['Int']['input'];
 }>;
 
 
 export type ListRecentPublicationsQuery = { __typename?: 'Query', listRecentPublications?: Array<{ __typename?: 'Publication', id: string, doi?: string | null, title: string, abstract: string, journal: string, pubDate?: any | null, pages?: string | null, issue?: string | null, volume?: string | null, authors: Array<{ __typename?: 'Author', initials?: string | null, lastName: string }> }> | null };
 
 export type StrainListQueryVariables = Exact<{
-  cursor: Scalars['Int'];
-  limit: Scalars['Int'];
-  filter?: InputMaybe<StrainListFilter>;
+  cursor: Scalars['Int']['input'];
+  limit: Scalars['Int']['input'];
+  filter?: Maybe<StrainListFilter>;
 }>;
 
 
 export type StrainListQuery = { __typename?: 'Query', listStrains?: { __typename?: 'StrainListWithCursor', nextCursor: number, totalCount: number, strains: Array<{ __typename?: 'Strain', id: string, label: string, summary?: string | null, inStock: boolean }> } | null };
 
 export type ListStrainsWithPhenotypeQueryVariables = Exact<{
-  cursor: Scalars['Int'];
-  limit: Scalars['Int'];
-  type: Scalars['String'];
-  annotation: Scalars['String'];
+  cursor: Scalars['Int']['input'];
+  limit: Scalars['Int']['input'];
+  type: Scalars['String']['input'];
+  annotation: Scalars['String']['input'];
 }>;
 
 
@@ -1181,60 +1181,60 @@ export type ListBacterialStrainsQueryVariables = Exact<{ [key: string]: never; }
 export type ListBacterialStrainsQuery = { __typename?: 'Query', bacterialFoodSource?: { __typename?: 'StrainListWithCursor', totalCount: number, nextCursor: number, strains: Array<{ __typename?: 'Strain', id: string, label: string, summary?: string | null, inStock: boolean }> } | null, symbioticFarmerBacterium?: { __typename?: 'StrainListWithCursor', totalCount: number, nextCursor: number, strains: Array<{ __typename?: 'Strain', id: string, label: string, summary?: string | null, inStock: boolean }> } | null };
 
 export type ListStrainsInventoryQueryVariables = Exact<{
-  cursor: Scalars['Int'];
-  limit: Scalars['Int'];
+  cursor: Scalars['Int']['input'];
+  limit: Scalars['Int']['input'];
 }>;
 
 
 export type ListStrainsInventoryQuery = { __typename?: 'Query', listStrainsWithAnnotation?: { __typename?: 'StrainListWithCursor', totalCount: number, nextCursor: number, strains: Array<{ __typename?: 'Strain', id: string, label: string, summary?: string | null, inStock: boolean }> } | null };
 
 export type ListPlasmidsInventoryQueryVariables = Exact<{
-  cursor: Scalars['Int'];
-  limit: Scalars['Int'];
+  cursor: Scalars['Int']['input'];
+  limit: Scalars['Int']['input'];
 }>;
 
 
 export type ListPlasmidsInventoryQuery = { __typename?: 'Query', listPlasmidsWithAnnotation?: { __typename?: 'PlasmidListWithCursor', totalCount: number, nextCursor: number, plasmids: Array<{ __typename?: 'Plasmid', id: string, name: string, summary?: string | null, inStock: boolean }> } | null };
 
 export type PlasmidListFilterQueryVariables = Exact<{
-  cursor: Scalars['Int'];
-  limit: Scalars['Int'];
-  filter: Scalars['String'];
+  cursor: Scalars['Int']['input'];
+  limit: Scalars['Int']['input'];
+  filter: Scalars['String']['input'];
 }>;
 
 
 export type PlasmidListFilterQuery = { __typename?: 'Query', listPlasmids?: { __typename?: 'PlasmidListWithCursor', nextCursor: number, totalCount: number, plasmids: Array<{ __typename?: 'Plasmid', id: string, name: string, summary?: string | null, inStock: boolean }> } | null };
 
 export type PlasmidQueryVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 }>;
 
 
 export type PlasmidQuery = { __typename?: 'Query', plasmid?: { __typename?: 'Plasmid', id: string, name: string, summary?: string | null, dbxrefs?: Array<string> | null, imageMap?: string | null, sequence?: string | null, keywords?: Array<string> | null, genbankAccession?: string | null, inStock: boolean, depositor: { __typename?: 'User', firstName: string, lastName: string }, publications?: Array<{ __typename?: 'Publication', id: string, pubDate?: any | null, title: string, journal: string, volume?: string | null, pages?: string | null, doi?: string | null, authors: Array<{ __typename?: 'Author', lastName: string }> }> | null, genes?: Array<{ __typename?: 'Gene', name: string }> | null } | null };
 
 export type StrainQueryVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 }>;
 
 
 export type StrainQuery = { __typename?: 'Query', strain?: { __typename?: 'Strain', id: string, label: string, summary?: string | null, species: string, plasmid?: string | null, dbxrefs?: Array<string> | null, inStock: boolean, systematicName: string, genotypes?: Array<string> | null, mutagenesisMethod?: string | null, geneticModification?: string | null, names?: Array<string> | null, characteristics?: Array<string> | null, parent?: { __typename?: 'Strain', id: string, label: string } | null, depositor: { __typename?: 'User', firstName: string, lastName: string }, publications?: Array<{ __typename?: 'Publication', id: string, pubDate?: any | null, title: string, journal: string, volume?: string | null, pages?: string | null, doi?: string | null, authors: Array<{ __typename?: 'Author', lastName: string }> }> | null, genes?: Array<{ __typename?: 'Gene', name: string }> | null, phenotypes?: Array<{ __typename?: 'Phenotype', phenotype: string, note?: string | null, assay?: string | null, environment?: string | null, publication?: { __typename?: 'Publication', id: string, pubDate?: any | null, title: string, journal: string, volume?: string | null, pages?: string | null, authors: Array<{ __typename?: 'Author', lastName: string }> } | null }> | null } | null };
 
 export type ListRecentPlasmidsQueryVariables = Exact<{
-  limit?: Scalars['Int'];
+  limit?: Scalars['Int']['input'];
 }>;
 
 
 export type ListRecentPlasmidsQuery = { __typename?: 'Query', listRecentPlasmids?: Array<{ __typename?: 'Plasmid', id: string, createdAt: any, name: string }> | null };
 
 export type ListRecentStrainsQueryVariables = Exact<{
-  limit?: Scalars['Int'];
+  limit?: Scalars['Int']['input'];
 }>;
 
 
 export type ListRecentStrainsQuery = { __typename?: 'Query', listRecentStrains?: Array<{ __typename?: 'Strain', id: string, createdAt: any, systematicName: string }> | null };
 
 export type UserByEmailQueryVariables = Exact<{
-  email: Scalars['String'];
+  email: Scalars['String']['input'];
 }>;
 
 
