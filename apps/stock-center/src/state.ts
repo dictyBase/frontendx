@@ -134,6 +134,7 @@ export {
   type Cart,
   type ShippingFormData,
   type PaymentFormData,
+  type OrderState,
   OrderSteps,
   cartAtom,
   resetCartAtom,
