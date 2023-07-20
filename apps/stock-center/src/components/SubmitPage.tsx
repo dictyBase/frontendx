@@ -2,7 +2,7 @@ import Box from "@material-ui/core/Box"
 import { useAtomValue } from "jotai"
 import { OrderSummary } from "@dictybase/ui-dsc"
 import { BackButton } from "./BackButton"
-// import SubmitButton from "./SubmitButton"
+import { SubmitButton } from "./SubmitButton"
 import { shippingFormAtom, paymentFormAtom, cartAtom } from "../state"
 
 /**
@@ -21,10 +21,7 @@ const SubmitPage = () => {
       />
       <Box display="flex" justifyContent="flex-end">
         <BackButton />
-        {/* <SubmitButton
-          formData={{ ...shippingFormAtom, ...paymentFormAtom }}
-          setSubmitError={setSubmitError}
-        /> */}
+        <SubmitButton />
       </Box>
     </Box>
   )
