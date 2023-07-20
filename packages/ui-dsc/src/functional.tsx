@@ -136,10 +136,12 @@ const renderPaymentAddressFields = () =>
   )
 
 export {
+  isCountry,
   renderStrainTotal,
   renderPlasmidTotal,
   renderStrainAndPlasmidTotals,
   renderCartTotal,
+  renderAddressFields,
   renderShippingAddressFields,
   renderPaymentAddressFields,
 }
