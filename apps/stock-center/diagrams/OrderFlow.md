@@ -6,27 +6,29 @@ title: Order Flow
 flowchart TD
 
 A["`View Shopping Cart
-/cart`"]
+`"]
 A1[With Items]
 A2[No Items]
 B["`Checkout
-/order/checkout`"]
+`"]
 B1[Continue Shopping]
-C[Shipping View]
-D[Payment View]
-E[Submit View]
+C[Shipping Page]
+D[Payment Page]
+E[Submit Page]
+F[Confirmation Page]
+X[Previous]
 
+X -->|/cart| A
 A --> A1
 A --> A2
-A1 --> B
+A1 -->|/order| B
 A1 --> B1
 A2 --> B1
-B --> C
+B -->  C
 C --> D
 D --> E
+E --> |/order/submited/:id|F
 
-classDef page fill:#008080
-classDef view fill:#476ab0
-class A1,A2,B1,C,D,E,F view
-class A,B page
+classDef page fill:#ab3017
+class A,B,C,D,E,F page
 ```
