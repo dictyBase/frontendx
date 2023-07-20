@@ -18,7 +18,7 @@ vi.mock("react-hook-form", () => {
   }
 })
 
-describe("OrderForm/Shipping/ShippingMethodRadioGroup", () => {
+describe("ShippingMethodRadioGroup", () => {
   beforeEach(() => {
     vi.clearAllMocks()
   })
