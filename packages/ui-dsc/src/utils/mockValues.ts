@@ -13,7 +13,7 @@ const mockValues = {
   phone: "123-456-7890",
   shippingAccount: "FedEx",
   shippingAccountNumber: "99999999",
-  comments: "test comment",
+  additionalInformation: "test comment",
   payerFirstName: "Art",
   payerLastName: "Vandelay",
   payerEmail: "art@vandelayindustries.com",
@@ -30,4 +30,4 @@ const mockValues = {
   purchaseOrderNum: "99999",
 }
 
-export default mockValues
+export { mockValues }
