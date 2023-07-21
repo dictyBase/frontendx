@@ -1,4 +1,4 @@
-import { vi } from "vitest"
+import { vi, test } from "vitest"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { ShippingMethodRadioGroup } from "../order/ShippingMethodRadioGroup"
@@ -30,7 +30,7 @@ describe("ShippingMethodRadioGroup", () => {
   }
 
   describe("initial render", () => {
-    it("renders radio buttons", () => {
+    test("renders radio buttons", () => {
       render(<ShippingMethodRadioGroup {...properties} />)
       const radios = screen.getAllByRole("radio")
       expect(radios).toHaveLength(4)
@@ -38,7 +38,7 @@ describe("ShippingMethodRadioGroup", () => {
   })
 
   describe("radio button interactions", () => {
-    it("sets field value when clicking prepaid shipping label", async () => {
+    test("sets field value when clicking prepaid shipping label", async () => {
       render(<ShippingMethodRadioGroup {...properties} />)
       // click prepaid label button
       const label = screen.getByRole("radio", {
@@ -53,7 +53,7 @@ describe("ShippingMethodRadioGroup", () => {
       expect(mockSetIsPrepaid).toBeCalledTimes(1)
       expect(mockSetIsPrepaid).toBeCalledWith(true)
     })
-    it("does not set field value when clicking others", async () => {
+    test("does not set field value when clicking others", async () => {
       render(<ShippingMethodRadioGroup {...properties} />)
       // click UPS button
       const ups = screen.getByRole("radio", {

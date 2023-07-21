@@ -1,4 +1,4 @@
-import { vi } from "vitest"
+import { vi, test } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { renderAddressFields, isCountry } from "../functional"
 
@@ -30,7 +30,7 @@ describe("renderAddressFields", () => {
         required: true,
       },
     ]
-    it("displays all expected text fields", () => {
+    test("displays all expected text fields", () => {
       render(<>{renderAddressFields(properties)}</>)
       properties.forEach((item) => {
         expect(screen.getAllByText(`${item.label}`)[0]).toBeInTheDocument()
@@ -52,7 +52,7 @@ describe("renderAddressFields", () => {
         required: true,
       },
     ]
-    it("displays all expected text fields", () => {
+    test("displays all expected text fields", () => {
       render(<>{renderAddressFields(properties)}</>)
       properties.forEach((item) => {
         expect(screen.getAllByText(`${item.label}`)[0]).toBeInTheDocument()
@@ -63,11 +63,11 @@ describe("renderAddressFields", () => {
 })
 
 describe("isCountry function", () => {
-  it("should return true for expected country fields", () => {
+  test("should return true for expected country fields", () => {
     expect(isCountry({ name: "country" })).toBeTruthy()
     expect(isCountry({ name: "payerCountry" })).toBeTruthy()
   })
-  it("should return false for wrong field", () => {
+  test("should return false for wrong field", () => {
     expect(isCountry({ name: "firstName" })).toBeFalsy()
   })
 })
