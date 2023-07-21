@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import { vi } from "vitest"
+import { vi, test } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { OrderSummaryPdf } from "../order/OrderSummaryPdf"
 import { mockValues } from "../utils/mockValues"
@@ -48,7 +48,7 @@ describe("features/OrderForm/Submit/OrderSummaryPDF", () => {
     cartTotal: "$75.00",
     orderID: "123456789",
   }
-  it("should display correct items", () => {
+  test("should display correct items", () => {
     render(<OrderSummaryPdf order={order} />)
     // strain should be listed twice (matches quantity in cart)
     expect(screen.getAllByText((items[0] as StrainItem).id)).toHaveLength(2)
