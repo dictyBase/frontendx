@@ -1,4 +1,4 @@
-import { test } from "vitest"
+import { test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { BrowserRouter as Router } from "react-router-dom"
 import { EmptyCart } from "../cart/EmptyCart"

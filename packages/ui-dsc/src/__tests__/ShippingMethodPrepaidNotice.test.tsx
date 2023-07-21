@@ -1,4 +1,4 @@
-import { test } from "vitest"
+import { describe, test, expect } from "vitest"
 import { BrowserRouter } from "react-router-dom"
 import { render, screen } from "@testing-library/react"
 import { ShippingMethodPrepaidNotice } from "../order/ShippingMethodPrepaidNotice"

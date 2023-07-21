@@ -1,4 +1,4 @@
-import { test } from "vitest"
+import { test, expect } from "vitest"
 import { countryToFlag } from "../order/CountryDropdown"
 
 describe("OrderForm/countryToFlag", () => {
