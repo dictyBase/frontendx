@@ -1,14 +1,24 @@
+import { ReactNode } from "react"
 import { screen, render } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { useForm, FormProvider } from "react-hook-form"
 import { TextField } from "../order/TextField"
 
+type FormProviderWrapperProperties = {
+  children: ReactNode
+}
+
+const FormProviderWrapper = ({ children }: FormProviderWrapperProperties) => {
+  const methods = useForm()
+  return <FormProvider {...methods}>{children}</FormProvider>
+}
+
 describe("TextField", () => {
   it("renders with default props", () => {
     render(
-      <FormProvider {...useForm()}>
+      <FormProviderWrapper>
         <TextField name="test" label="Test" />
-      </FormProvider>,
+      </FormProviderWrapper>,
     )
 
     const textField = screen.getByLabelText("Test")
@@ -24,7 +34,7 @@ describe("TextField", () => {
 
   it("renders with custom props", () => {
     render(
-      <FormProvider {...useForm()}>
+      <FormProviderWrapper>
         <TextField
           name="test"
           label="Test"
@@ -33,7 +43,7 @@ describe("TextField", () => {
           fullWidth={false}
           helperText="This is a helper text"
         />
-      </FormProvider>,
+      </FormProviderWrapper>,
     )
 
     const textField = screen.getByLabelText("Test")
@@ -51,7 +61,7 @@ describe("TextField", () => {
     const ErrorMessage = () => <div>Required field</div>
 
     render(
-      <FormProvider {...useForm()}>
+      <FormProviderWrapper>
         <TextField
           name="test"
           label="Test"
@@ -61,7 +71,7 @@ describe("TextField", () => {
           error
           helperText={<ErrorMessage />}
         />
-      </FormProvider>,
+      </FormProviderWrapper>,
     )
 
     const textField = screen.getByLabelText("Test")
@@ -78,9 +88,9 @@ describe("TextField", () => {
 
   it("allows user input", () => {
     render(
-      <FormProvider {...useForm()}>
+      <FormProviderWrapper>
         <TextField name="test" label="Test" />
-      </FormProvider>,
+      </FormProviderWrapper>,
     )
 
     const textField = screen.getByLabelText("Test")
