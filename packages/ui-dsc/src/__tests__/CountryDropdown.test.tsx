@@ -28,7 +28,7 @@ const getErrors = (values: FormValues) =>
   )
 
 const resolver: Resolver<FormValues> = async (values) => ({
-  values: values.country ? values : {},
+  values,
   errors: getErrors(values),
 })
 
