@@ -4,7 +4,7 @@ import { toCurrencyString } from "./toCurrencyString"
 const getCartTotal = (items: Array<StrainItem>) => {
   const total = items
     .map((item) => item.quantity * Number(item.fee))
-    .reduce((accumulator, value) => accumulator + value)
+    .reduce((accumulator, value) => accumulator + value, 0)
   return toCurrencyString(total)
 }
 
