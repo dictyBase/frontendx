@@ -49,7 +49,7 @@ const renderStrainAndPlasmidTotals = ({ strainItems, plasmidItems }: Cart) => (
 )
 
 const renderCartTotal = ({ strainItems = [], plasmidItems = [] }: Cart) => {
-  const cumulative = [...strainItems, plasmidItems]
+  const cumulative = [...strainItems, ...plasmidItems]
   return (
     <CartTotalRow
       leftValue="Total"
