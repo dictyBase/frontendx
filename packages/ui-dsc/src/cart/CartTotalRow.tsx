@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-type ShoppingCartTotalRowProperties = {
+type CartTotalRowProperties = {
   /** Left value to display (i.e. Strains, Plasmids, Total) */
   leftValue: string
   /** Number of items in cart */
@@ -16,7 +16,7 @@ type ShoppingCartTotalRowProperties = {
   /** Total of these items */
   total: string
   /** Typography variant prop */
-  variant: TypographyProps["variant"]
+  variant?: TypographyProps["variant"]
 }
 
 /**
@@ -27,7 +27,7 @@ const CartTotalRow = ({
   numItems,
   total,
   variant = "inherit",
-}: ShoppingCartTotalRowProperties) => {
+}: CartTotalRowProperties) => {
   const classes = useStyles()
   return (
     <Grid container className={classes.container}>
@@ -36,7 +36,7 @@ const CartTotalRow = ({
           <strong>{leftValue}</strong> &nbsp;
         </Typography>
         <Typography variant={variant} component="span">
-          {`${numItems} ${numItems > 1 ? "items" : "item"}`}:
+          {`${numItems} ${numItems === 1 ? "item" : "items"}`}:
         </Typography>
       </Grid>
       <Grid item xs={2} container justifyContent="flex-end">
