@@ -49,7 +49,7 @@ const CountryDropdown = ({ fieldName }: CountryDropdownProperties) => {
           fullWidth
           margin="dense"
           error={!!errors[fieldName]}
-          helperText={errors[fieldName]?.type || ""}
+          helperText={errors[fieldName]?.message || ""}
           size="medium"
         />
       )}
