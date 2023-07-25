@@ -1,22 +1,17 @@
 ```mermaid
----
-title: Order Flow
----
 
 flowchart TD
 
-A["`View Shopping Cart
-`"]
-A1[With Items]
-A2[No Items]
-B["`Checkout
-`"]
+X([Order Flow])
+A[CartHandler]
+A1[CartList]
+A2[EmptyCart]
+B[OrderForm]
 B1[Continue Shopping]
-C[Shipping Page]
-D[Payment Page]
-E[Submit Page]
-F[Confirmation Page]
-X[Previous]
+C[ShippingPage]
+D[PaymentPage]
+E[SubmitPage]
+F[OrderConfirmation]
 
 X -->|/cart| A
 A --> A1
