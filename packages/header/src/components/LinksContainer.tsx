@@ -7,7 +7,7 @@ import {
 } from "@material-ui/icons"
 import { v4 as uuid4 } from "uuid"
 import type { Comp } from "@dictybase/functional"
-import headerStyles from "../styles/headerStyles"
+import { headerStyles } from "../styles/headerStyles"
 
 type IconType = typeof Login
 

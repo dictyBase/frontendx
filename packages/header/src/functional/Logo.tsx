@@ -29,4 +29,4 @@ const Logo = ({ title = none }: LogoProperties) => {
     getOrElse(() => <Box>error in rendering</Box>),
   )
 }
-export default Logo
+export { Logo }

@@ -36,4 +36,4 @@ const headerStyles = makeStyles({
   },
 })
 
-export default headerStyles
+export { headerStyles }

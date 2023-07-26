@@ -1,7 +1,7 @@
 import { InputAdornment, TextField } from "@material-ui/core"
 import { Search } from "@material-ui/icons"
 import type { RefObject } from "react"
-import headerStyles from "../styles/headerStyles"
+import { headerStyles } from "../styles/headerStyles"
 
 type SearchContainerProperties = {
   textFieldRef: RefObject<HTMLDivElement>
@@ -25,4 +25,4 @@ const SearchContainer = ({ textFieldRef }: SearchContainerProperties) => (
   </form>
 )
 
-export default SearchContainer
+export { SearchContainer }
