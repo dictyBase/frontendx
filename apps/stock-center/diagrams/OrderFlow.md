@@ -3,7 +3,7 @@
 flowchart TD
 
 X([Order Flow])
-A[CartHandler]
+A[CartHandler\n conditional render]
 A1[CartList]
 A2[EmptyCart]
 B[OrderForm]
@@ -24,6 +24,6 @@ C --> D
 D --> E
 E --> |/order/submited/:id|F
 
-classDef page fill:#ab3017
-class A,B,C,D,E,F page
+classDef state fill:#ab3017
+class A,B,C,D,E,F state
 ```
