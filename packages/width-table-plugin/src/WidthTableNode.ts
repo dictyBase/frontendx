@@ -76,4 +76,4 @@ class WidthTableNode extends TableNode {
   }
 }
 
-export default WidthTableNode
+export { WidthTableNode }
