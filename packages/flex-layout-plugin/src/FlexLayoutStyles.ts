@@ -6,4 +6,4 @@ const useFlexLayoutStyles = makeStyles({
   },
 })
 
-export default useFlexLayoutStyles
+export { useFlexLayoutStyles }

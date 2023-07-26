@@ -1,7 +1,7 @@
 import { createEditor } from "lexical"
 import { LexicalComposer } from "@lexical/react/LexicalComposer"
 import type { InitialConfigType } from "@lexical/react/LexicalComposer"
-import FlexLayoutNode from "./FlexLayoutNode"
+import { FlexLayoutNode } from "./FlexLayoutNode"
 
 const initialEditorStateString =
   '{"root":{"children":[{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"flex-layout","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}'
@@ -30,4 +30,4 @@ const LexicalComposerFlex = ({
   )
 }
 
-export default LexicalComposerFlex
+export { LexicalComposerFlex }
