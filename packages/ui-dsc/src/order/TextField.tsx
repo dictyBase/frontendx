@@ -26,7 +26,6 @@ const TextField = ({
   margin = "dense",
   variant = "outlined",
   fullWidth = true,
-  ...properties
 }: TextFieldProperties) => {
   const {
     register,
@@ -35,7 +34,7 @@ const TextField = ({
 
   return (
     <MuiTextField
-      {...properties}
+      id={label}
       label={label}
       type="text"
       margin={margin}
