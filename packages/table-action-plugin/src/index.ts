@@ -1,1 +1,1 @@
-export { default as TableActionPlugin } from "./TableActionPlugin"
+export { TableActionPlugin } from "./TableActionPlugin"
