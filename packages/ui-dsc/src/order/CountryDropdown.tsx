@@ -1,4 +1,3 @@
-/* eslint-disable dot-notation */
 import Autocomplete from "@material-ui/lab/Autocomplete"
 import TextField from "@material-ui/core/TextField"
 import { useFormContext } from "react-hook-form"
