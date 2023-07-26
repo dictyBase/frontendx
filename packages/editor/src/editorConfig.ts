@@ -39,4 +39,4 @@ const dictyEditorConfig = {
   onError,
 }
 
-export default dictyEditorConfig
+export { dictyEditorConfig }
