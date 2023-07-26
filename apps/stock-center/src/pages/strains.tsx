@@ -71,4 +71,5 @@ const StrainCatalog = () => {
   )
 }
 
+// eslint-disable-next-line import/no-default-export
 export default StrainCatalog
