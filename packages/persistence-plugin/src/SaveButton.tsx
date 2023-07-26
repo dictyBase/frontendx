@@ -1,7 +1,7 @@
 import { Button } from "@material-ui/core"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
-import useButtonStyles from "./useButtonStyles"
-import useButtonState from "./useButtonState"
+import { useButtonStyles } from "./useButtonStyles"
+import { useButtonState } from "./useButtonState"
 import { buttonColor, buttonIcon, buttonText } from "./buttonProperties"
 import { SAVE_LOCAL_COMMAND } from "./LocalPersistencePlugin"
 
@@ -33,4 +33,4 @@ const SaveButton = ({ handleSave }: SaveButtonProperties) => {
   )
 }
 
-export default SaveButton
+export { SaveButton }

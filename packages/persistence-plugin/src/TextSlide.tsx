@@ -14,4 +14,4 @@ const TextSlide = ({ text }: TextSlideProperties) => (
   </motion.div>
 )
 
-export default TextSlide
+export { TextSlide }
