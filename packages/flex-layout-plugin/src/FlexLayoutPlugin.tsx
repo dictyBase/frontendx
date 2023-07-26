@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { INSERT_PARAGRAPH_COMMAND, COMMAND_PRIORITY_HIGH } from "lexical"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
-import InsertFlexLayoutNode from "./InsertFlexLayoutNode"
+import { InsertFlexLayoutNode } from "./InsertFlexLayoutNode"
 
 const FlexLayoutPlugin = () => {
   const [editor] = useLexicalComposerContext()
@@ -21,4 +21,4 @@ const FlexLayoutPlugin = () => {
   return <></>
 }
 
-export default FlexLayoutPlugin
+export { FlexLayoutPlugin }

@@ -70,4 +70,4 @@ export const $createFlexLayoutNode = () => {
   return flexLayoutNode
 }
 
-export default FlexLayoutNode
+export { FlexLayoutNode }

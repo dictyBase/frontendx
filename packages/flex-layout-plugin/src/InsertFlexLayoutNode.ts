@@ -49,4 +49,4 @@ const InsertFlexLayoutNode = () => {
   return true
 }
 
-export default InsertFlexLayoutNode
+export { InsertFlexLayoutNode }
