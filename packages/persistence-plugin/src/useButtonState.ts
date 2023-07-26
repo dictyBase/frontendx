@@ -1,5 +1,5 @@
 import { useState } from "react"
-import ButtonStates from "./ButtonStates"
+import { ButtonStates } from "./ButtonStates"
 
 const useButtonState = (handleSave: () => void): [ButtonStates, () => void] => {
   const [buttonState, setButtonState] = useState<ButtonStates>("NORMAL")
@@ -26,4 +26,4 @@ const useButtonState = (handleSave: () => void): [ButtonStates, () => void] => {
   ]
 }
 
-export default useButtonState
+export { useButtonState }

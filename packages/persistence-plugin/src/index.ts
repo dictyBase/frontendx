@@ -1,5 +1,5 @@
 export {
-  default as LocalPersistencePlugin,
+  LocalPersistencePlugin,
   SAVE_LOCAL_COMMAND,
 } from "./LocalPersistencePlugin"
-export { default as SaveButton } from "./SaveButton"
+export { SaveButton } from "./SaveButton"

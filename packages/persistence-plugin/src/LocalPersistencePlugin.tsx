@@ -33,4 +33,4 @@ const LocalPersistencePlugin = ({
   return <></>
 }
 
-export default LocalPersistencePlugin
+export { LocalPersistencePlugin }

@@ -3,8 +3,8 @@ import SaveIcon from "@material-ui/icons/Save"
 import DoneIcon from "@material-ui/icons/Done"
 import ErrorIcon from "@material-ui/icons/Error"
 import { CircularProgress, PropTypes } from "@material-ui/core"
-import ButtonStates from "./ButtonStates"
-import TextSlide from "./TextSlide"
+import { ButtonStates } from "./ButtonStates"
+import { TextSlide } from "./TextSlide"
 
 export const buttonText: Record<ButtonStates, ReactNode> = {
   NORMAL: <TextSlide text="Save" />,
