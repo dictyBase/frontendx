@@ -6,10 +6,10 @@ import {
   DROP_COMMAND,
 } from "lexical"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
-import ImageNode from "./ImageNode"
+import { ImageNode } from "./ImageNode"
 import { INSERT_IMAGE_COMMAND, InsertImagePayload } from "./InsertImageCommand"
 import { onDragStart, onDrop } from "./dragHandlers"
-import insertNodeIntoFlexRow from "./InsertImageHelpers"
+import { insertNodeIntoFlexRow } from "./InsertImageHelpers"
 
 const ImagePlugin = () => {
   const [editor] = useLexicalComposerContext()
@@ -51,4 +51,4 @@ const ImagePlugin = () => {
   return <></>
 }
 
-export default ImagePlugin
+export { ImagePlugin }

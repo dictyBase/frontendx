@@ -93,4 +93,4 @@ const ImageComponent = ({
   )
 }
 
-export default ImageComponent
+export { ImageComponent }

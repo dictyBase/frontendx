@@ -6,7 +6,7 @@ import {
   SerializedLexicalNode,
   LexicalNode,
 } from "lexical"
-import ImageComponent from "./ImageComponent"
+import { ImageComponent } from "./ImageComponent"
 
 export type SerializedImageNode = Spread<
   {
@@ -135,4 +135,4 @@ class ImageNode extends DecoratorNode<JSX.Element> {
 export const $isImageNode = (node: LexicalNode): node is ImageNode =>
   node.getType() === "image"
 
-export default ImageNode
+export { ImageNode }
