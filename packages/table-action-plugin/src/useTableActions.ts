@@ -25,7 +25,7 @@ const useTableActionContext = (): [
   useSetAtom(tableActionMenuOpenAtom),
 ]
 
-export const useDeleteTable = () => {
+const useDeleteTable = () => {
   const [editor, tableCellNode, setIsOpen] = useTableActionContext()
   return () => {
     deleteTable(editor, tableCellNode)
@@ -33,7 +33,7 @@ export const useDeleteTable = () => {
   }
 }
 
-export const useInsertRow = () => {
+const useInsertRow = () => {
   const [editor, tableCellNode, setIsOpen] = useTableActionContext()
 
   const insertRowAbove = () => {
@@ -52,7 +52,7 @@ export const useInsertRow = () => {
   }
 }
 
-export const useInsertColumn = () => {
+const useInsertColumn = () => {
   const [editor, tableCellNode, setIsOpen] = useTableActionContext()
 
   const insertColumnLeft = () => {
@@ -67,7 +67,7 @@ export const useInsertColumn = () => {
 
   return { insertColumnLeft, insertColumnRight }
 }
-export const useDeleteColumn = () => {
+const useDeleteColumn = () => {
   const [editor, tableCellNode, setIsOpen] = useTableActionContext()
 
   return () => {
@@ -76,7 +76,7 @@ export const useDeleteColumn = () => {
   }
 }
 
-export const useDeleteRow = () => {
+const useDeleteRow = () => {
   const [editor, tableCellNode, setIsOpen] = useTableActionContext()
 
   return () => {
@@ -85,7 +85,7 @@ export const useDeleteRow = () => {
   }
 }
 
-export const useDisableFunctions = () => {
+const useDisableFunctions = () => {
   const [editor, tableCellNode] = useTableActionContext()
   let deleteRowDisabled = true
   let deleteColumnDisabled = true
@@ -104,4 +104,13 @@ export const useDisableFunctions = () => {
     deleteRowDisabled,
     deleteColumnDisabled,
   }
+}
+
+export {
+  useDeleteTable,
+  useInsertRow,
+  useInsertColumn,
+  useDeleteColumn,
+  useDeleteRow,
+  useDisableFunctions,
 }

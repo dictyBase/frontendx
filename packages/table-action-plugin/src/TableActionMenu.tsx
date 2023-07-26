@@ -55,4 +55,4 @@ const TableActionMenu = ({
   )
 }
 
-export default TableActionMenu
+export { TableActionMenu }

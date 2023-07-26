@@ -2,7 +2,7 @@ import React from "react"
 import { IconButton } from "@material-ui/core"
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown"
 import { useSetAtom } from "jotai"
-import useTableMenuButtonStyles from "./useTableMenuButtonStyles"
+import { useTableMenuButtonStyles } from "./useTableMenuButtonStyles"
 import { tableActionMenuOpenAtom } from "./atomConfigs"
 
 type TableActionMenuButtonProperties = {
@@ -26,4 +26,4 @@ const TableActionMenuButton = ({
   )
 }
 
-export default TableActionMenuButton
+export { TableActionMenuButton }
