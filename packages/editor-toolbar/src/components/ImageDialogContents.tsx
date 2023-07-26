@@ -82,4 +82,4 @@ const ImageDialogContents = () => {
   )
 }
 
-export default ImageDialogContents
+export { ImageDialogContents }

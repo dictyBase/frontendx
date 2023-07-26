@@ -4,7 +4,7 @@ import { $getSelection, $isRangeSelection } from "lexical"
 import { $getSelectionStyleValueForProperty } from "@lexical/selection"
 import { fontColorAtom } from "../context/atomConfigs"
 
-const useTextColorProperties = () => {
+const useFontColorProperties = () => {
   const setTextColor = useSetAtom(fontColorAtom)
 
   return useCallback(() => {
@@ -16,4 +16,4 @@ const useTextColorProperties = () => {
   }, [setTextColor])
 }
 
-export default useTextColorProperties
+export { useFontColorProperties }

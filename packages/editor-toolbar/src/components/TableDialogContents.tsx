@@ -6,8 +6,8 @@ import {
   CardActions,
   Grid,
 } from "@material-ui/core"
-import useTableFormControls from "../hooks/useTableFormControls"
-import TableDialogTextFields from "./TableDialogTextFields"
+import { useTableFormControls } from "../hooks/useTableFormControls"
+import { TableDialogTextFields } from "./TableDialogTextFields"
 
 const TableDialogContents = () => {
   const { textFieldProperties, handleConfirm } = useTableFormControls()
@@ -27,4 +27,4 @@ const TableDialogContents = () => {
   )
 }
 
-export default TableDialogContents
+export { TableDialogContents }

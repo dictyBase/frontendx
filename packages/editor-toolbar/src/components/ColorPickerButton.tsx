@@ -2,9 +2,9 @@ import { useRef } from "react"
 import FormatColorTextIcon from "@material-ui/icons/FormatColorText"
 import { IconButton, SvgIcon, Popover } from "@material-ui/core"
 import { useAtomValue, useAtom } from "jotai"
-import useToolbarItemStyles from "../hooks/useToolbarItemStyles"
+import { useToolbarItemStyles } from "../hooks/useToolbarItemStyles"
 import { fontColorAtom, colorPickerOpenAtom } from "../context/atomConfigs"
-import ColorPicker from "./ColorPicker"
+import { ColorPicker } from "./ColorPicker"
 
 const title = "Font Color"
 const COLOR_OPTIONS = [
@@ -61,4 +61,4 @@ const ColorPickerButton = () => {
   )
 }
 
-export default ColorPickerButton
+export { ColorPickerButton }

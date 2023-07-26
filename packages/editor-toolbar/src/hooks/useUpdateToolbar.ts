@@ -1,7 +1,7 @@
 import { useCallback } from "react"
-import useFontProperties from "./useFontProperties"
-import useFontColorProperties from "./useFontColorProperties"
-import useBlockTypeProperties from "./useBlockTypeProperties"
+import { useFontProperties } from "./useFontProperties"
+import { useFontColorProperties } from "./useFontColorProperties"
+import { useBlockTypeProperties } from "./useBlockTypeProperties"
 
 const useUpdateToolbar = () => {
   const updateFontProperties = useFontProperties()
@@ -19,4 +19,4 @@ const useUpdateToolbar = () => {
   ])
 }
 
-export default useUpdateToolbar
+export { useUpdateToolbar }

@@ -109,4 +109,4 @@ const useBlockFormat = (): [BlockTypes, (newBlockType: BlockTypes) => void] => {
   return [blockType, setBlockType]
 }
 
-export default useBlockFormat
+export { useBlockFormat }

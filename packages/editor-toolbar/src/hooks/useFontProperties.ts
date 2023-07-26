@@ -36,4 +36,4 @@ const useFontProperties = () => {
   }, [setIsBold, setIsItalic, setIsUnderlined, setFontSize, setFontFamily])
 }
 
-export default useFontProperties
+export { useFontProperties }

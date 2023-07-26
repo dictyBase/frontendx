@@ -1,6 +1,6 @@
 import { Grid } from "@material-ui/core"
-import useColorPickerStyles from "../hooks/useColorPickerStyles"
-import ColorOptionButton from "./ColorOptionButton"
+import { useColorPickerStyles } from "../hooks/useColorPickerStyles"
+import { ColorOptionButton } from "./ColorOptionButton"
 
 type ColorPickerProperties = {
   colorOptions: string[]
@@ -20,4 +20,4 @@ const ColorPicker = ({ colorOptions }: ColorPickerProperties) => {
   )
 }
 
-export default ColorPicker
+export { ColorPicker }

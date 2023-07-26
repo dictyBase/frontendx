@@ -28,4 +28,4 @@ const useUndo = () => {
   }, [editor])
 }
 
-export default useUndo
+export { useUndo }

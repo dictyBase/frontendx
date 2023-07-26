@@ -38,4 +38,4 @@ const useToolbarItemStyles = makeStyles({
   },
 })
 
-export default useToolbarItemStyles
+export { useToolbarItemStyles }

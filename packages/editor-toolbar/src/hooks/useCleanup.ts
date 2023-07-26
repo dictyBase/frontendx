@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { SELECTION_CHANGE_COMMAND } from "lexical"
-import useUpdateToolbar from "./useUpdateToolbar"
+import { useUpdateToolbar } from "./useUpdateToolbar"
 
 const LowPriority = 1
 const useCleanup = () => {
@@ -42,4 +42,4 @@ const useCleanup = () => {
   }, [editor, updateToolbar])
 }
 
-export default useCleanup
+export { useCleanup }

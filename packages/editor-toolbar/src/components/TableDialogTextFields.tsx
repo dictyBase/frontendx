@@ -22,4 +22,4 @@ const TableDialogTextFields = ({
   </>
 )
 
-export default TableDialogTextFields
+export { TableDialogTextFields }

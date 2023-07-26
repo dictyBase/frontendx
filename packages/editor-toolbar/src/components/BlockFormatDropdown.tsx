@@ -1,8 +1,8 @@
 import React from "react"
 import { Select, MenuItem } from "@material-ui/core"
 import { BlockTypes } from "../context/atomConfigs"
-import useToolbarItemStyles from "../hooks/useToolbarItemStyles"
-import useBlockFormat from "../hooks/useBlockFormat"
+import { useToolbarItemStyles } from "../hooks/useToolbarItemStyles"
+import { useBlockFormat } from "../hooks/useBlockFormat"
 
 const blockTypeToBlockName = {
   paragraph: "Normal",
@@ -43,4 +43,4 @@ const BlockFormatDropdown = () => {
   )
 }
 
-export default BlockFormatDropdown
+export { BlockFormatDropdown }

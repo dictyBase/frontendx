@@ -2,7 +2,7 @@ import type { LexicalEditor } from "lexical"
 import { $getSelection, $isRangeSelection } from "lexical"
 import { $patchStyleText } from "@lexical/selection"
 
-const applyStyleText = (
+const applyTextStyles = (
   editor: LexicalEditor,
   styles: Record<string, string>,
 ) => {
@@ -14,4 +14,4 @@ const applyStyleText = (
   })
 }
 
-export default applyStyleText
+export { applyTextStyles }
