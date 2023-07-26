@@ -22,7 +22,7 @@ const clearTableSelection = (
   })
 }
 
-export const deleteTable = (
+const deleteTable = (
   editor: LexicalEditor,
   tableCellNode: TableCellNode | undefined,
 ) => {
@@ -33,7 +33,7 @@ export const deleteTable = (
   })
 }
 
-export const insertRow = (
+const insertRow = (
   editor: LexicalEditor,
   tableCellNode: TableCellNode | undefined,
   { insertAfter }: { insertAfter: boolean },
@@ -46,7 +46,7 @@ export const insertRow = (
     $insertTableRow(tableNode, row, insertAfter, 1, grid)
   })
 }
-export const insertColumn = (
+const insertColumn = (
   editor: LexicalEditor,
   tableCellNode: TableCellNode | undefined,
   { insertAfter }: { insertAfter: boolean },
@@ -60,7 +60,7 @@ export const insertColumn = (
   })
 }
 
-export const deleteRow = (
+const deleteRow = (
   editor: LexicalEditor,
   tableCellNode: TableCellNode | undefined,
 ) => {
@@ -74,7 +74,7 @@ export const deleteRow = (
   })
 }
 
-export const deleteColumn = (
+const deleteColumn = (
   editor: LexicalEditor,
   tableCellNode: TableCellNode | undefined,
 ) => {
@@ -87,3 +87,5 @@ export const deleteColumn = (
     clearTableSelection(editor, tableCellNode)
   })
 }
+
+export { deleteTable, insertColumn, insertRow, deleteRow, deleteColumn }

@@ -6,4 +6,4 @@ const useTableMenuButtonStyles = makeStyles({
   },
 })
 
-export default useTableMenuButtonStyles
+export { useTableMenuButtonStyles }

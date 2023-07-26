@@ -39,4 +39,4 @@ const useSelectCurrentCell = () => {
   }, [editor, setCurrentTableCellNode])
 }
 
-export default useSelectCurrentCell
+export { useSelectCurrentCell }

@@ -1,10 +1,10 @@
 import { createPortal } from "react-dom"
 import { useAtomValue } from "jotai"
 import { selectedTableCellNode, tableActionMenuOpenAtom } from "./atomConfigs"
-import usePositionMenuButton from "./usePositionMenuButton"
-import TableActionMenuButton from "./TableActionMenuButton"
-import TableActionMenu from "./TableActionMenu"
-import useSelectCurrentCell from "./useSelectCurrentCell"
+import { usePositionMenuButton } from "./usePositionMenuButton"
+import { TableActionMenuButton } from "./TableActionMenuButton"
+import { TableActionMenu } from "./TableActionMenu"
+import { useSelectCurrentCell } from "./useSelectCurrentCell"
 
 const TableActionPlugin = () => {
   const currentTableCellNode = useAtomValue(selectedTableCellNode)
@@ -31,4 +31,4 @@ const TableActionPlugin = () => {
   return <></>
 }
 
-export default TableActionPlugin
+export { TableActionPlugin }

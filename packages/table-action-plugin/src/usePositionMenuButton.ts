@@ -36,4 +36,4 @@ const usePositionMenuButton = () => {
   return menuButtonReference
 }
 
-export default usePositionMenuButton
+export { usePositionMenuButton }
