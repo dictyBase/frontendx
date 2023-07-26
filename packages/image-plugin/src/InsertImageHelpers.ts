@@ -132,4 +132,4 @@ const insertNodeIntoFlexRow = (
   }
 }
 
-export default insertNodeIntoFlexRow
+export { insertNodeIntoFlexRow }
