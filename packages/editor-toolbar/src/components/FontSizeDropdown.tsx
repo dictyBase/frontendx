@@ -3,8 +3,8 @@ import { Select, MenuItem } from "@material-ui/core"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { useAtomValue } from "jotai"
 import { fontSizeAtom } from "../context/atomConfigs"
-import applyStyleText from "../utils/textStyles"
-import useToolbarItemStyles from "../hooks/useToolbarItemStyles"
+import { applyTextStyles } from "../utils/textStyles"
+import { useToolbarItemStyles } from "../hooks/useToolbarItemStyles"
 
 type FontSizeDropdownProperties = {
   start?: number
@@ -33,7 +33,7 @@ const FontSizeDropdown = ({
   const joinedClasses = `${classes.root} ${classes.spaced}`
 
   const onFontSizeSelect = (event: FontSizeSelectProperties) => {
-    applyStyleText(editor, { "font-size": event.target.value as string })
+    applyTextStyles(editor, { "font-size": event.target.value as string })
   }
   return (
     <Select
@@ -50,4 +50,4 @@ const FontSizeDropdown = ({
   )
 }
 
-export default FontSizeDropdown
+export { FontSizeDropdown }

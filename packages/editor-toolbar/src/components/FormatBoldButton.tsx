@@ -3,7 +3,7 @@ import { IconButton } from "@material-ui/core"
 import { FormatBold } from "@material-ui/icons"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { isBoldAtom } from "../context/atomConfigs"
-import useActiveClass from "../hooks/useActiveClass"
+import { useActiveClass } from "../hooks/useActiveClass"
 
 const title = "Format Bold"
 
@@ -24,4 +24,4 @@ const FormatBoldButton = () => {
   )
 }
 
-export default FormatBoldButton
+export { FormatBoldButton }

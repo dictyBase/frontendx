@@ -7,4 +7,4 @@ const useColorPickerStyles = makeStyles({
   },
 })
 
-export default useColorPickerStyles
+export { useColorPickerStyles }

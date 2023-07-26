@@ -50,4 +50,4 @@ const useBlockTypeProperties = () => {
   }, [editor, setBlockType])
 }
 
-export default useBlockTypeProperties
+export { useBlockTypeProperties }

@@ -3,8 +3,8 @@ import { Select, MenuItem } from "@material-ui/core"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { useAtom } from "jotai"
 import { fontFamilyAtom } from "../context/atomConfigs"
-import applyStyleText from "../utils/textStyles"
-import useToolbarItemStyles from "../hooks/useToolbarItemStyles"
+import { applyTextStyles } from "../utils/textStyles"
+import { useToolbarItemStyles } from "../hooks/useToolbarItemStyles"
 
 const defaultFontFamilyOptions = [
   "Arial",
@@ -35,7 +35,7 @@ const FontFamilyDropdown = ({
   const joinedClasses = `${classes.root} ${classes.spaced}`
 
   const onFontFamilySelect = (event: FontFamilySelectProperties) => {
-    applyStyleText(editor, { "font-family": event.target.value as string })
+    applyTextStyles(editor, { "font-family": event.target.value as string })
   }
 
   return (
@@ -53,4 +53,4 @@ const FontFamilyDropdown = ({
   )
 }
 
-export default FontFamilyDropdown
+export { FontFamilyDropdown }

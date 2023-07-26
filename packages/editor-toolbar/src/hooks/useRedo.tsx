@@ -28,4 +28,4 @@ const useRedo = () => {
   }, [editor])
 }
 
-export default useRedo
+export { useRedo }

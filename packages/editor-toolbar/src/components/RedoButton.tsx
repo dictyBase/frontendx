@@ -2,8 +2,8 @@ import { IconButton } from "@material-ui/core"
 import { Redo } from "@material-ui/icons"
 import { useAtomValue } from "jotai"
 import { canRedoAtom } from "../context/atomConfigs"
-import useToolbarItemStyles from "../hooks/useToolbarItemStyles"
-import useRedo from "../hooks/useRedo"
+import { useToolbarItemStyles } from "../hooks/useToolbarItemStyles"
+import { useRedo } from "../hooks/useRedo"
 
 const RedoButton = () => {
   const canRedo = useAtomValue(canRedoAtom)
@@ -22,4 +22,4 @@ const RedoButton = () => {
   )
 }
 
-export default RedoButton
+export { RedoButton }

@@ -43,4 +43,4 @@ const useTableFormControls = () => {
   return { rows, columns, textFieldProperties, handleConfirm }
 }
 
-export default useTableFormControls
+export { useTableFormControls }
