@@ -23,7 +23,7 @@ import {
   formatNavbarData,
 } from "../../common/utils/navbarItems"
 import { navTheme } from "../../common/utils/themes"
-import Routes from "../routes/Routes"
+import { Routes } from "../routes/Routes"
 
 const useStyles = makeStyles((theme: Theme) => ({
   main: {
