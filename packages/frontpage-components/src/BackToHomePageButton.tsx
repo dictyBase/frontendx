@@ -36,4 +36,4 @@ const BackToHomePageButton = () => {
   )
 }
 
-export default BackToHomePageButton
+export { BackToHomePageButton }
