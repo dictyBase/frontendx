@@ -1,4 +1,4 @@
-import useResizerStyles from "./useResizerStyles"
+import { useResizerStyles } from "./useResizerStyles"
 import { Direction, useResize } from "./useResize"
 
 const directions: Direction[] = ["ne", "nw", "se", "sw"]
@@ -30,4 +30,4 @@ const ImageResizer = ({ onResize }: ImageResizerProperties) => {
   )
 }
 
-export default ImageResizer
+export { ImageResizer }

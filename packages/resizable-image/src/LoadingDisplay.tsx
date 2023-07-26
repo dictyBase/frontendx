@@ -6,4 +6,4 @@ const LoadingDisplay = ({ className }: { className: string }) => (
   </Container>
 )
 
-export default LoadingDisplay
+export { LoadingDisplay }

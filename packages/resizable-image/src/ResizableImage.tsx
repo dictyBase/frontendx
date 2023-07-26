@@ -2,10 +2,10 @@ import React, { useRef, useState } from "react"
 import { useAtomValue } from "jotai"
 import { Container } from "@material-ui/core"
 import { ImageDimensionsAtom } from "./state"
-import LoadingDisplay from "./LoadingDisplay"
-import ErrorDisplay from "./ErrorDisplay"
-import ImageResizer from "./ImageResizer"
-import useImageStyles from "./useImageStyles"
+import { LoadingDisplay } from "./LoadingDisplay"
+import { ErrorDisplay } from "./ErrorDisplay"
+import { ImageResizer } from "./ImageResizer"
+import { useImageStyles } from "./useImageStyles"
 
 export type ImageProperties = {
   src: string
@@ -70,4 +70,4 @@ const ResizableImage = ({
   )
 }
 
-export default ResizableImage
+export { ResizableImage }

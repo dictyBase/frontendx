@@ -53,4 +53,4 @@ const useImageStyles = makeStyles<Theme, StyleProperties>({
   },
 })
 
-export default useImageStyles
+export { useImageStyles }
