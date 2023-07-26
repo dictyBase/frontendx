@@ -9,8 +9,8 @@ import {
   SelectState,
 } from "@dictybase/functional"
 import { imageStyles } from "./imageStyles"
-import ErrorDisplay from "./ErrorDisplay"
-import LoadingDisplay from "./LoadingDisplay"
+import { ErrorDisplay } from "./ErrorDisplay"
+import { LoadingDisplay } from "./LoadingDisplay"
 
 type ImageProperties = {
   webpSrc: string

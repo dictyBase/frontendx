@@ -10,4 +10,4 @@ const ErrorDisplay = () => (
   </Container>
 )
 
-export default ErrorDisplay
+export { ErrorDisplay }

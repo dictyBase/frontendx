@@ -10,4 +10,4 @@ const LoadingDisplay = () => {
   )
 }
 
-export default LoadingDisplay
+export { LoadingDisplay }
