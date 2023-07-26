@@ -15,4 +15,4 @@ const LexicalTestComposer = ({ children }: LexicalTestComposerProperties) => (
   <LexicalComposer initialConfig={testConfig}>{children}</LexicalComposer>
 )
 
-export default LexicalTestComposer
+export { LexicalTestComposer }

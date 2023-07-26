@@ -7,7 +7,7 @@ import {
   $createTableCellNode,
   TableCellHeaderStates,
 } from "@lexical/table"
-import WidthTableNode from "./WidthTableNode"
+import { WidthTableNode } from "./WidthTableNode"
 
 /**
  * Creates ParagraphNode with a TextNode appended to it.
@@ -113,4 +113,4 @@ const $createWidthTable = (
   return tableNode
 }
 
-export default $createWidthTable
+export { $createWidthTable }

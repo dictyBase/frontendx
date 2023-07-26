@@ -2,8 +2,8 @@ import { useEffect } from "react"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { TableCellNode, TableRowNode } from "@lexical/table"
 import { COMMAND_PRIORITY_EDITOR, createCommand } from "lexical"
-import WidthTableNode from "./WidthTableNode"
-import InsertWidthTable from "./InsertWidthTable"
+import { WidthTableNode } from "./WidthTableNode"
+import { InsertWidthTable } from "./InsertWidthTable"
 
 export const INSERT_WIDTH_TABLE_COMMAND = createCommand<{
   columns: number
@@ -33,4 +33,4 @@ const WidthTablePlugin = () => {
   return <></>
 }
 
-export default WidthTablePlugin
+export { WidthTablePlugin }

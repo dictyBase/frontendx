@@ -1,6 +1,6 @@
 import { $getSelection, $isRangeSelection } from "lexical"
 import { selectFirstTableCell } from "./helpers"
-import $createWidthTable from "./$createWidthTable"
+import { $createWidthTable } from "./$createWidthTable"
 
 type InsertWidthTablePayload = {
   columns: number
@@ -37,4 +37,4 @@ const InsertWidthTable = ({
   return true
 }
 
-export default InsertWidthTable
+export { InsertWidthTable }
