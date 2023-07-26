@@ -129,4 +129,4 @@ const Demo = () => {
   )
 }
 
-export default Demo
+export { Demo }
