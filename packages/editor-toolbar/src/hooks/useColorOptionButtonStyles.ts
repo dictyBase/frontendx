@@ -6,7 +6,8 @@ type useColorOptionButtonStylesProperties = {
 
 const useColorOptionButtonStyles = makeStyles<
   Theme,
-  useColorOptionButtonStylesProperties
+  useColorOptionButtonStylesProperties,
+  "root"
 >({
   root: {
     height: "25px",
@@ -15,9 +16,9 @@ const useColorOptionButtonStyles = makeStyles<
     backgroundColor: ({ color }) => color,
     "&:hover": {
       // Overrides default mui button hover color transition
-      backgroundColor: ({ color }) => color,
+      backgroundColor: ({ color }: { color: string }) => color,
     },
   },
 })
 
-export default useColorOptionButtonStyles
+export { useColorOptionButtonStyles }
