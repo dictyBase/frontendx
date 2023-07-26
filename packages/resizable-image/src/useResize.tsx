@@ -3,7 +3,7 @@ import { useAtom, useSetAtom } from "jotai"
 import { ImageDimensionsAtom, isResizingAtom } from "./state"
 import { initializeMouseMoveCreator } from "./resizeHelpers"
 
-export type Direction = "ne" | "nw" | "se" | "sw"
+type Direction = "ne" | "nw" | "se" | "sw"
 
 const handlerCreators = {
   ne: initializeMouseMoveCreator(true),
@@ -19,9 +19,7 @@ const handlerCreators = {
  * @param imageContainer a reference to the parent container
  * @returns an event handler for mousedown events
  */
-export const useResize = (
-  onResize: (width: number, height: number) => void,
-) => {
+const useResize = (onResize: (width: number, height: number) => void) => {
   // moveHandlerReference is used to track which moveHandler is currently registered
   // so it can be removed by onMouseUp.
   const moveHandlerReference = useRef<{
@@ -79,3 +77,5 @@ export const useResize = (
     onMouseDown,
   }
 }
+
+export { type Direction, useResize }

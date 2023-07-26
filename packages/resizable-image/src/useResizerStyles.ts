@@ -55,4 +55,4 @@ const useResizerStyles = makeStyles({
   },
 })
 
-export default useResizerStyles
+export { useResizerStyles }

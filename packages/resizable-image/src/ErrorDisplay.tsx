@@ -16,4 +16,4 @@ const ErrorDisplay = ({ className }: { className: string }) => (
   </Container>
 )
 
-export default ErrorDisplay
+export { ErrorDisplay }

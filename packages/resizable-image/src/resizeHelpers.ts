@@ -1,6 +1,6 @@
 type MouseMoveHandler = (event: MouseEvent) => void
 
-export type MouseMoveCreator = (
+type MouseMoveCreator = (
   initialValues: {
     initialX: number
     initialY: number
@@ -10,7 +10,7 @@ export type MouseMoveCreator = (
   handleResize: (width: number, height: number) => void,
 ) => MouseMoveHandler
 
-export const getNewWidth = (
+const getNewWidth = (
   initialWidth: number,
   initialX: number,
   finalX: number,
@@ -21,10 +21,10 @@ export const getNewWidth = (
   return newWidth > 0 ? newWidth : 0
 }
 
-export const getHeightFromWidth = (width: number, aspectRatio: number) =>
+const getHeightFromWidth = (width: number, aspectRatio: number) =>
   width / aspectRatio
 
-export const initializeMouseMoveCreator =
+const initializeMouseMoveCreator =
   (isEast: boolean): MouseMoveCreator =>
   (initialValues, handleResize) =>
   (event) => {
@@ -36,3 +36,11 @@ export const initializeMouseMoveCreator =
     const newHeight = getHeightFromWidth(newWidth, aspectRatio)
     handleResize(newWidth, newHeight)
   }
+
+export {
+  type MouseMoveHandler,
+  type MouseMoveCreator,
+  getNewWidth,
+  getHeightFromWidth,
+  initializeMouseMoveCreator,
+}
