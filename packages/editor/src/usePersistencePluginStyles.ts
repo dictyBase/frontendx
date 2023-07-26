@@ -9,4 +9,4 @@ const usePersistencePluginStyles = makeStyles({
   },
 })
 
-export default usePersistencePluginStyles
+export { usePersistencePluginStyles }

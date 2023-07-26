@@ -14,12 +14,12 @@ import { WidthTablePlugin } from "width-table-plugin"
 import { FlexLayoutPlugin } from "flex-layout-plugin"
 import { TableActionPlugin } from "table-action-plugin"
 import Toolbar from "editor-toolbar"
-import dictyEditorConfig from "./editorConfig"
+import { dictyEditorConfig } from "./editorConfig"
 import {
   useEditorInputStyles,
   useEditorPlaceholderStyles,
 } from "./useEditorStyles"
-import usePersistencePluginStyles from "./usePersistencePluginStyles"
+import { usePersistencePluginStyles } from "./usePersistencePluginStyles"
 import { initialStateString } from "./initialState"
 import "./editor.css"
 
@@ -108,4 +108,4 @@ const Editor = ({
   )
 }
 
-export default Editor
+export { Editor }

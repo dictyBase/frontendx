@@ -1,6 +1,6 @@
 import { createEditor, $getRoot } from "lexical"
 
-import dictyEditorConfig from "./editorConfig"
+import { dictyEditorConfig } from "./editorConfig"
 
 export const utilityEditor = createEditor(dictyEditorConfig)
 
