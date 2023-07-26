@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import Grid from "@material-ui/core/Grid"
 import { withStyles, Theme } from "@material-ui/core/styles"
-import sadDicty from "../../assets/sad-dicty.png"
+import sadDicty from "./assets/sad-dicty.png"
 
 const styles = (theme: Theme) => ({
   gridContainer: {
@@ -42,7 +42,7 @@ type State = {
  * https://reactjs.org/docs/error-boundaries.html
  */
 
-class ErrorBoundary extends Component<Properties, State> {
+class _ErrorBoundary extends Component<Properties, State> {
   constructor(properties: Properties) {
     super(properties)
     this.state = { hasError: false }
@@ -54,12 +54,12 @@ class ErrorBoundary extends Component<Properties, State> {
     return { hasError: true }
   }
 
-  componentDidCatch(error: Error, errorInfo: object) {
+  override componentDidCatch(error: Error, errorInfo: object) {
     // eslint-disable-next-line no-console
     console.error(error, errorInfo)
   }
 
-  render() {
+  override render() {
     const { hasError } = this.state
     const { children, classes } = this.props
 
@@ -91,4 +91,6 @@ class ErrorBoundary extends Component<Properties, State> {
   }
 }
 
-export default withStyles(styles)(ErrorBoundary)
+const ErrorBoundary = withStyles(styles)(_ErrorBoundary)
+
+export { ErrorBoundary }

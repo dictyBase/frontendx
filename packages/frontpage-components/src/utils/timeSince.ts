@@ -25,4 +25,4 @@ const timeSince = (date: string) => {
   return `${Math.floor(seconds)} seconds`
 }
 
-export default timeSince
+export { timeSince }

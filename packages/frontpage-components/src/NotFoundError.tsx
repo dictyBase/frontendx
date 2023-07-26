@@ -2,9 +2,9 @@ import { Link, useLocation, useParams } from "react-router-dom"
 import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import BackToHomepageButton from "./BackToHomepageButton"
+import { BackToHomePageButton } from "./BackToHomePageButton"
 import sadDicty from "./assets/sad-dicty.png"
-import useStyles from "./errorStyles"
+import { useStyles } from "./errorStyles"
 
 type Properties = {
   /** Error message to display */
@@ -42,33 +42,31 @@ const NotFoundError = ({ error }: Properties) => {
             You can try one of the links in our navbar above, or head back to
             the homepage.
           </p>
-          <BackToHomepageButton />
-          {/* {canEditPages && verifiedToken && (
-            <div>
-              <br />
-              <Link
-                className={classes.link}
-                to="/addpage"
-                state={{
-                  name,
-                  subname,
-                  url: location.pathname,
-                }}>
-                <Button
-                  className={classes.addPageButton}
-                  size="small"
-                  variant="contained"
-                  color="primary">
-                  <FontAwesomeIcon icon="plus" />
-                  &nbsp; Add a page to this route
-                </Button>
-              </Link>
-            </div>
-          )} */}
+          <BackToHomePageButton />
+          <div>
+            <br />
+            <Link
+              className={classes.link}
+              to="/addpage"
+              state={{
+                name,
+                subname,
+                url: location.pathname,
+              }}>
+              <Button
+                className={classes.addPageButton}
+                size="small"
+                variant="contained"
+                color="primary">
+                <FontAwesomeIcon icon="plus" />
+                &nbsp; Add a page to this route
+              </Button>
+            </Link>
+          </div>
         </div>
       </Grid>
     </Grid>
   )
 }
 
-export default NotFoundError
+export { NotFoundError }

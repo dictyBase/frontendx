@@ -17,4 +17,4 @@ type UpdatedByUser = Pick<User, "id" | "email" | "firstName" | "lastName"> & {
   >
 }
 
-export default UpdatedByUser
+export { type UpdatedByUser }
