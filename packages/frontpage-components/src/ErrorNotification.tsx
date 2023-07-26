@@ -26,4 +26,4 @@ const ErrorNotification = ({ error }: Properties) => {
   )
 }
 
-export default ErrorNotification
+export { ErrorNotification }

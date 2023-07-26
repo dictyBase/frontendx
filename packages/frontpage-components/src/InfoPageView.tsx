@@ -18,4 +18,4 @@ const InfoPageView = ({ data }: InfoPageViewProperties) => (
   </Box>
 )
 
-export default InfoPageView
+export { InfoPageView }

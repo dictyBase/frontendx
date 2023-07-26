@@ -3,10 +3,10 @@ import Box from "@material-ui/core/Box"
 import Tooltip from "@material-ui/core/Tooltip"
 import IconButton from "@material-ui/core/IconButton"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import timeSince from "./utils/timeSince"
-import ErrorNotification from "./ErrorNotification"
+import { timeSince } from "./utils/timeSince"
+import { ErrorNotification } from "./ErrorNotification"
 import { capitalizeFirstCharacter } from "./utils/stringCapitalizations"
-import UpdatedByUser from "./types"
+import { UpdatedByUser } from "./types"
 
 const useStyles = makeStyles((theme: Theme) => ({
   content: {
@@ -66,8 +66,6 @@ const InfoPageViewToolbar = ({ handleClick, lastUpdate, user }: Properties) => {
     ? `${capitalizeFirstCharacter(user.roles?.at(0)?.name as string)}`
     : "dictyBase User"
 
-  // const validUserExpiredToken = validUser && !verifiedToken
-
   return (
     <Box mt={2}>
       <Box className={classes.toolbar} data-testid="info-page-toolbar">
@@ -90,4 +88,4 @@ const InfoPageViewToolbar = ({ handleClick, lastUpdate, user }: Properties) => {
   )
 }
 
-export default InfoPageViewToolbar
+export { InfoPageViewToolbar }

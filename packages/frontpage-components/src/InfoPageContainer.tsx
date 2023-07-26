@@ -2,12 +2,12 @@ import { useParams, useLocation, useNavigate } from "react-router-dom"
 import { Helmet } from "react-helmet"
 import Container from "@material-ui/core/Container"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
-import Loader from "./Loader"
-import GraphQLErrorPage from "./GraphQLErrorPage"
+import { Loader } from "./Loader"
+import { GraphQLErrorPage } from "./GraphQLErrorPage"
 import { pageTitleLookup } from "./utils/pageTitleConversions"
-import InfoPageViewToolbar from "./InfoPageViewToolbar"
-import Fallback from "./Fallback"
-import InfoPageView from "./InfoPageView"
+import { InfoPageViewToolbar } from "./InfoPageViewToolbar"
+import { Fallback } from "./Fallback"
+import { InfoPageView } from "./InfoPageView"
 
 // getSlug will use the route's :subname or :name to fetch page content
 // unless the route is for the privacy policy
@@ -64,16 +64,15 @@ const InfoPageContainer = () => {
         <title>{pageTitleLookup(slug)} - dictyBase</title>
       </Helmet>
       <Container maxWidth="lg">
-        {/* <InfoPageViewToolbar
+        <InfoPageViewToolbar
           handleClick={handleClick}
           lastUpdate={data.contentBySlug.updatedAt}
           user={data.contentBySlug.updatedBy}
-        /> */}
+        />
         <InfoPageView data={data?.contentBySlug} />
       </Container>
     </>
   )
 }
 
-export { getSlug }
-export default InfoPageContainer
+export { InfoPageContainer, getSlug }
