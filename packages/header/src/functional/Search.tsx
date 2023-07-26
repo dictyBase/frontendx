@@ -1,6 +1,6 @@
 import { none, Option } from "fp-ts/Option"
-import SearchContainer from "../components/SearchContainer"
-import useSearch from "../hook/useSearch"
+import { SearchContainer } from "../components/SearchContainer"
+import { useSearch } from "../hook/useSearch"
 import type { SearchHandler } from "../helper/searchManagement"
 
 type SearchProperties = {
@@ -16,4 +16,4 @@ const Search = ({
   return <SearchContainer textFieldRef={textFieldReference} />
 }
 
-export default Search
+export { Search }

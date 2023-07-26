@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react"
 import { Option, none } from "fp-ts/Option"
 import { pipe } from "fp-ts/function"
 import { type SearchHandler, handler } from "../helper/searchManagement"
-import obsToSubs from "../helper/searchObserver"
+import { obsToSubs } from "../helper/searchObserver"
 
 const useSearch = (
   searchPath: Option<string> = none,
@@ -25,4 +25,4 @@ const useSearch = (
   return textReference
 }
 
-export default useSearch
+export { useSearch }

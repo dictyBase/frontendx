@@ -18,4 +18,4 @@ const obsToSubs = (reference: RefObject<HTMLDivElement>) =>
     filter((value) => value !== ""),
   )
 
-export default obsToSubs
+export { obsToSubs }

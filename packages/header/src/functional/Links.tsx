@@ -69,4 +69,4 @@ const Links = () =>
     getOrElse(() => <Box>error in rendering</Box>),
   )
 
-export default Links
+export { Links }
