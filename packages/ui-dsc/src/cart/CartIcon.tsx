@@ -48,4 +48,4 @@ const CartIcon = ({ items, isFull }: CartIconProperties) => {
   )
 }
 
-export default CartIcon
+export { CartIcon }
