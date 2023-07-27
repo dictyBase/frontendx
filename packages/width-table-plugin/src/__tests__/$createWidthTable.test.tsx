@@ -6,9 +6,10 @@ import {
   TableCellHeaderStates,
   $createTableRowNode,
 } from "@lexical/table"
-import WidthTableNode from "../WidthTableNode"
+import { WidthTableNode } from "../WidthTableNode"
 import { testConfig } from "../LexicalTestComposer"
-import $createWidthTable, {
+import {
+  $createWidthTable,
   createParagraphWithTextNode,
   createCellWithParagraphNode,
   createHeaderCellWithParagraphNode,
