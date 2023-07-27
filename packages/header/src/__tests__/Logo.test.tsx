@@ -2,7 +2,7 @@ import { render } from "@testing-library/react"
 import { expect, describe } from "vitest"
 import "@testing-library/jest-dom"
 import { some } from "fp-ts/Option"
-import Logo from "../functional/Logo"
+import { Logo } from "../functional/Logo"
 
 describe("functional logo", () => {
   test("should render the logo", () => {

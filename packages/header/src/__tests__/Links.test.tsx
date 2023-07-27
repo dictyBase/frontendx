@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react"
 import { expect, describe, test } from "vitest"
-import Links from "../functional/Links"
+import { Links } from "../functional/Links"
 import { iconItems } from "../components/LinksContainer"
 
 describe("functional links ", () => {
