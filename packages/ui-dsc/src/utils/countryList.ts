@@ -993,4 +993,4 @@ const countryList = [
   },
 ]
 
-export default countryList
+export { countryList }
