@@ -1,6 +1,6 @@
 import { describe, test, expect, beforeAll } from "vitest"
 import { createEditor, EditorConfig } from "lexical"
-import ImageNode, { SerializedImageNode } from "../ImageNode"
+import { ImageNode, SerializedImageNode } from "../ImageNode"
 
 const testConfig: EditorConfig = {
   namespace: "test",
