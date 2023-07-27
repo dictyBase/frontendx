@@ -73,4 +73,4 @@ const addressFieldsGenerator = (page: string) => {
   return addressFields
 }
 
-export default addressFieldsGenerator
+export { addressFieldsGenerator }
