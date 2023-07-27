@@ -17,7 +17,7 @@ import {
   getTextEdges,
   handleTextContent,
 } from "../helpers"
-import FlexLayoutNode from "../FlexLayoutNode"
+import { FlexLayoutNode } from "../FlexLayoutNode"
 
 describe("getTextEdges", () => {
   test("Returns an array containing two strings representing the substrings of a larger string split at a given offset", () => {
