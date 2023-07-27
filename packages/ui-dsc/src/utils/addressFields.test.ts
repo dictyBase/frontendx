@@ -1,4 +1,4 @@
-import addressFieldsGenerator from "./addressFields"
+import { addressFieldsGenerator } from "./addressFields"
 
 describe("OrderForm/utils/addressFieldsGenerator", () => {
   describe("function behavior", () => {
