@@ -4,4 +4,4 @@
 const strainOrPlasmid = (id: string) =>
   id.slice(0, 3) === "DBS" ? "strains" : "plasmids"
 
-export default strainOrPlasmid
+export { strainOrPlasmid }
