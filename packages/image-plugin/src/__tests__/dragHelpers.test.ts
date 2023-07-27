@@ -1,7 +1,7 @@
 import { describe, test, expect, beforeAll } from "vitest"
 import { $createNodeSelection, $setSelection, createEditor } from "lexical"
 import { getImageNodeFromSelection } from "../dragHelpers"
-import ImageNode from "../ImageNode"
+import { ImageNode } from "../ImageNode"
 
 const testConfig = {
   nodes: [ImageNode],
