@@ -1,5 +1,5 @@
 import { $isTableRowNode, $isTableCellNode } from "@lexical/table"
-import WidthTableNode from "./WidthTableNode"
+import { WidthTableNode } from "./WidthTableNode"
 
 /**
  * Selects the first cell of the first row in a given tableNode
