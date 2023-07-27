@@ -10,7 +10,7 @@ import IconButton from "@material-ui/core/IconButton"
 import Typography from "@material-ui/core/Typography"
 import ClearIcon from "@material-ui/icons/Clear"
 import { StrainItem } from "../types"
-import strainOrPlasmid from "../utils/strainOrPlasmid"
+import { strainOrPlasmid } from "../utils/strainOrPlasmid"
 import { toCurrencyString } from "../utils/toCurrencyString"
 
 const useStyles = makeStyles((theme) => ({
