@@ -12,7 +12,7 @@ type DetailsListitemProperties = {
 }
 
 /**
- * DetailsHeader used to display a single row of data for a stock item.
+ * DetailsListItem used to display a single row of data for a stock item.
  */
 
 const DetailsListItem = ({ title, content }: DetailsListitemProperties) => {
