@@ -2,13 +2,13 @@ import { test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { BrowserRouter } from "react-router-dom"
 import { Gene, Publication } from "dicty-graphql-schema"
-import { StrainPhenotypeListItem } from "../catalog/StrainPhenotypeListItem"
+import { SearchPhenotypeListItem } from "../catalog/SearchPhenotypeListItem"
 import { availableStrain, strainWithPhenotype } from "../mocks/mockStrain"
 
 test("includes expected list items", () => {
   render(
     <BrowserRouter>
-      <StrainPhenotypeListItem strain={availableStrain} />
+      <SearchPhenotypeListItem strain={availableStrain} />
     </BrowserRouter>,
   )
   // find strain descriptor
@@ -32,7 +32,7 @@ test("includes expected list items", () => {
 test("should not include publications when not passed as prop", () => {
   render(
     <BrowserRouter>
-      <StrainPhenotypeListItem strain={strainWithPhenotype} />
+      <SearchPhenotypeListItem strain={strainWithPhenotype} />
     </BrowserRouter>,
   )
   const pubDisplay = screen.queryByTestId("publication-display")
