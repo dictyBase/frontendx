@@ -2,62 +2,60 @@ import { Link } from "react-router-dom"
 import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
 import ListItem from "@material-ui/core/ListItem"
-import { makeStyles } from "@material-ui/core/styles"
-import { Strain, Gene, Publication } from "dicty-graphql-schema"
-import { GenesDisplay } from "./GenesDisplay"
+import { Phenotype } from "dicty-graphql-schema"
 import { PublicationDisplay } from "./PublicationDisplay"
-import { characterConverter } from "../utils/characterConverter"
+import { useStyles } from "./phenotypeStyles"
 
-const useStyles = makeStyles({
-  row: {
-    borderBottom: "1px solid rgba(224, 224, 224, 1)",
-    "&:hover": {
-      backgroundColor: "#eeeeee",
-    },
-  },
-  item: {
-    paddingRight: "10px",
-    fontSize: "0.9rem",
-  },
-})
-
-type StrainPhenotypeListItemProperties = {
-  strain: Strain
+type Properties = {
+  /** Phenotype data object */
+  data: Phenotype
 }
 
-const StrainPhenotypeListItem = ({
-  strain,
-}: StrainPhenotypeListItemProperties) => {
+const replaceSpaces = (phenotype: string) => phenotype.split(" ").join("+")
+
+/**
+ * PhenotypeListItem handles the display of an individual
+ * row of phenotype data.
+ */
+
+const StrainPhenotypeListItem = ({ data }: Properties) => {
   const classes = useStyles()
-
-  const publications = strain?.publications as Publication[]
-  const genes = strain?.genes as Gene[]
-
-  const pubDisplay =
-    publications && publications.length > 0 ? (
-      <PublicationDisplay publication={publications[0] as Publication} />
-    ) : (
-      <></>
-    )
 
   return (
     <ListItem className={classes.row}>
       <Grid container spacing={0} alignItems="center">
-        <Grid item sm={3} className={classes.item}>
-          <Typography variant="body2" noWrap>
-            <Link to={`/strains/${strain.id}`}>
-              {characterConverter(strain.label)}
+        <Grid item xs={3} className={classes.item}>
+          <Typography variant="body2">
+            <Link to={`/phenotypes/${replaceSpaces(data.phenotype)}`}>
+              {data.phenotype}
             </Link>
           </Typography>
         </Grid>
-        <Grid item sm={3} className={classes.item}>
-          <Typography variant="body2" noWrap>
-            <GenesDisplay genes={genes} />
+        <Grid item xs={3} className={classes.item}>
+          <Typography variant="body2">{data.note}</Typography>
+        </Grid>
+        <Grid item xs={3} className={classes.item}>
+          <Typography variant="body2">
+            {data.assay && (
+              <span>
+                <strong>Assay: </strong>
+                {data.assay}
+                <br />
+              </span>
+            )}
+            {data.environment && (
+              <span>
+                <strong>Environment: </strong>
+                {data.environment}
+              </span>
+            )}
           </Typography>
         </Grid>
-        <Grid item sm={6} className={classes.item}>
+        <Grid item xs={3} className={classes.item}>
           <Typography component="span" variant="body2">
-            {pubDisplay}
+            {data.publication && (
+              <PublicationDisplay publication={data.publication} />
+            )}
           </Typography>
         </Grid>
       </Grid>
