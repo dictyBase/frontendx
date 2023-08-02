@@ -14,4 +14,10 @@ type OrderState = {
   cartTotal: string
 }
 
-export { type StrainItem, type CartItemLimit, type Cart, type OrderState }
+export {
+  type StrainItem as CartItem,
+  type StrainItem,
+  type CartItemLimit,
+  type Cart,
+  type OrderState,
+}
