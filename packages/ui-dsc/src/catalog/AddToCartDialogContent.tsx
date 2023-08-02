@@ -3,17 +3,11 @@ import Typography from "@material-ui/core/Typography"
 import DialogContent from "@material-ui/core/DialogContent"
 import DialogContentText from "@material-ui/core/DialogContentText"
 import { strainOrPlasmid } from "../utils/strainOrPlasmid"
+import { CartItem } from "../types"
 
 type AddToCartDialogContentProperties = {
   /** Stock data */
-  data: Array<{
-    /** ID number */
-    id: string
-    /** Label/name */
-    name: string
-    /** Summary/description */
-    summary: string
-  }>
+  data: Array<Pick<CartItem, "id" | "label" | "summary">>
 }
 
 /**
@@ -27,7 +21,7 @@ const AddToCartDialogContent = ({ data }: AddToCartDialogContentProperties) => (
         <Typography gutterBottom>
           <strong>
             <Link to={`/${strainOrPlasmid(item.id)}/${item.id}`}>
-              {item.name}
+              {item.label}
             </Link>
           </strong>
         </Typography>
