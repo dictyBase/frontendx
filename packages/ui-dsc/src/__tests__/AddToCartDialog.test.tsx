@@ -7,6 +7,7 @@ import { AddToCartDialog } from "../catalog/AddToCartDialog"
 
 const setShowDialogSpy = vi.fn()
 const setCheckedItemsSpy = vi.fn()
+const setHoverSpy = vi.fn()
 
 const properties = {
   data: [
@@ -20,6 +21,7 @@ const properties = {
   ],
   setCheckedItems: setCheckedItemsSpy,
   setShowDialog: setShowDialogSpy,
+  setHover: setHoverSpy,
 }
 
 test("calls functions when clicking close button", async () => {
@@ -30,6 +32,7 @@ test("calls functions when clicking close button", async () => {
   )
   const button = screen.getByRole("button", { name: "View Cart" })
   await userEvent.click(button)
-  expect(setCheckedItemsSpy).toHaveBeenCalledTimes(1)
-  expect(setShowDialogSpy).toHaveBeenCalledTimes(1)
+  expect(setCheckedItemsSpy).toHaveBeenCalledOnce()
+  expect(setShowDialogSpy).toHaveBeenCalledOnce()
+  expect(setHoverSpy).toHaveBeenCalledOnce()
 })
