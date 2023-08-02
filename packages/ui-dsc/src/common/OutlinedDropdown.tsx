@@ -20,7 +20,7 @@ type Properties = {
  * OutlinedDropdown provides an outlined dropdown box that displays a
  * list of given values.
  */
-export const OutlinedDropdown = ({
+const OutlinedDropdown = ({
   handleChange,
   dropdownValues,
   inputValue,
@@ -66,3 +66,5 @@ export const OutlinedDropdown = ({
     </FormControl>
   )
 }
+
+export { OutlinedDropdown }
