@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/no-null */
 import { atom } from "jotai"
 import { splitAtom } from "jotai/utils"
-import { type Strain, type Scalars } from "dicty-graphql-schema"
+import { type Strain } from "dicty-graphql-schema"
 import { pipe } from "fp-ts/function"
 import { partitionMap, reduce } from "fp-ts/Array"
 import { left as Eleft, right as Eright } from "fp-ts/Either"
