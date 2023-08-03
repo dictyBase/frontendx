@@ -1,17 +1,21 @@
 /* eslint-disable unicorn/no-null */
 import { atom } from "jotai"
 import { splitAtom } from "jotai/utils"
-import { type Strain } from "dicty-graphql-schema"
-
+import { type Strain, type Scalars } from "dicty-graphql-schema"
+import { pipe } from "fp-ts/function"
+import { partitionMap, reduce } from "fp-ts/Array"
+import { left as Eleft, right as Eright } from "fp-ts/Either"
 // CART STATE
 type PurchaseProperties = { quantity: number; fee: Readonly<number> }
 type StrainItem = Pick<Strain, "id" | "summary" | "label"> & PurchaseProperties
 type Cart = {
   strainItems: Array<StrainItem>
+  maxItems: number
 }
 
 const initialCart: Cart = {
   strainItems: [],
+  maxItems: 12,
 }
 
 const cartAtom = atom<Cart>(initialCart)
@@ -23,6 +27,33 @@ const strainItemsAtom = atom(
 )
 const strainItemAtomsAtom = splitAtom(strainItemsAtom)
 
+const increaseQuantityIfPresent =
+  (newItem: StrainItem) => (cartItem: StrainItem) =>
+    cartItem.id === newItem.id
+      ? // quantity summation could probably be solved more functionally too
+        Eright({
+          ...cartItem,
+          quantity: cartItem.quantity + newItem.quantity,
+        } as StrainItem)
+      : Eleft(cartItem)
+
+const addItemAtom = atom(null, (get, set, newItem: StrainItem) => {
+  set(
+    strainItemsAtom,
+    pipe(
+      get(strainItemsAtom),
+      partitionMap(increaseQuantityIfPresent(newItem)),
+      // Find out how to make this more declarative
+      // Add check if adding would exceed max cart items
+      ({ left, right }) => ({
+        left,
+        right: right.length === 0 ? [newItem] : right,
+      }),
+      ({ left, right }) => [...left, ...right],
+    ),
+  )
+})
+
 const removeItemAtom = atom(null, (get, set, removeId) =>
   set(
     strainItemsAtom,
@@ -30,7 +61,17 @@ const removeItemAtom = atom(null, (get, set, removeId) =>
   ),
 )
 
-const resetCartAtom = atom(null, (get, set) => set(cartAtom, initialCart))
+const maxItemsAtom = atom((get) => get(cartAtom).maxItems)
+
+const isFullAtom = atom(
+  (get) =>
+    pipe(
+      get(strainItemsAtom),
+      reduce(0, (sum, item) => sum + item.quantity),
+    ) === get(maxItemsAtom),
+)
+
+const resetCartAtom = atom(null, (_, set) => set(cartAtom, initialCart))
 
 // ORDER STATE
 enum OrderSteps {
@@ -140,7 +181,9 @@ export {
   resetCartAtom,
   strainItemsAtom,
   strainItemAtomsAtom,
+  addItemAtom,
   removeItemAtom,
+  isFullAtom,
   shippingFormAtom,
   paymentFormAtom,
   orderAtom,
