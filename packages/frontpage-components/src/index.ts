@@ -1,1 +1,2 @@
-export { default as InfoPageContainer } from "./InfoPageContainer"
+export * from "./InfoPageContainer"
+export * from "./GraphQLErrorPage"
