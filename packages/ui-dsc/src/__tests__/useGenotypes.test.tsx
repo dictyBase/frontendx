@@ -1,6 +1,6 @@
 import { test, expect } from "vitest"
 import { renderHook } from "@testing-library/react-hooks"
-import { useGenotypes } from "./useGenotypes"
+import { useGenotypes } from "../catalog/useGenotypes"
 
 /**
  * Drug resistances are ["neoR", "bsR", "hygR", "tetR", "phleoR", "bleoR"]
