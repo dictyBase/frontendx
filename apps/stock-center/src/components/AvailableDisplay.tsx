@@ -1,0 +1,107 @@
+import React from "react"
+import { match } from "ts-pattern"
+import { Link } from "react-router-dom"
+import { makeStyles } from "@material-ui/core/styles"
+import Grid from "@material-ui/core/Grid"
+import { useAtomValue, useSetAtom } from "jotai"
+import {
+  SecondaryButton,
+  AddToCartDialog,
+  OutlinedDropdown,
+} from "@dictybase/ui-dsc"
+import {
+  strainItemsAtom,
+  isFullAtom,
+  StrainItem as CartItem,
+  addItemAtom,
+} from "../state"
+
+const useStyles = makeStyles(({ palette }) => ({
+  container: {
+    paddingRight: "5px",
+  },
+  quantity: {
+    marginRight: "10px",
+  },
+  maxItems: {
+    color: palette.error.main,
+    "&:hover": {
+      color: palette.error.dark,
+    },
+  },
+}))
+
+const createQuantityArray = (numberItems: number) => {
+  const qty = 13 - numberItems // quantity of items available to add to cart
+  return new Array(qty)
+    .fill(0) // fill array with meaningless values
+    .map((_, index) => index + 1) // map into new array of numbers
+    .slice(0, -1) // remove extra item from end
+}
+
+type Properties = {
+  cartData: Omit<CartItem, "quantity">
+}
+
+const AvailableDisplay = ({ cartData }: Properties) => {
+  const maxItemsInCart = useAtomValue(isFullAtom)
+  const addedItems = useAtomValue(strainItemsAtom)
+  const addToCart = useSetAtom(addItemAtom)
+  const values = createQuantityArray(addedItems.length)
+  const classes = useStyles()
+  const [quantity, setQuantity] = React.useState(values[0] as number)
+  const [showDialog, setShowDialog] = React.useState(false)
+
+  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setQuantity(Number(event.target.value))
+  }
+
+  const handleClick = () => {
+    addToCart({ ...cartData, quantity })
+    setShowDialog(true)
+    setQuantity(values[0] as number)
+  }
+
+  return (
+    <Grid item container alignItems="center" className={classes.container}>
+      {match(maxItemsInCart)
+        .with(true, () => (
+          <Link to="/information/order" className={classes.maxItems}>
+            Cart capacity is full
+          </Link>
+        ))
+        .with(false, () => (
+          <>
+            <Grid item className={classes.quantity}>
+              <OutlinedDropdown
+                label="Qty"
+                handleChange={handleChange}
+                dropdownValues={values}
+                inputValue={quantity}
+              />
+            </Grid>
+            <Grid item>
+              <SecondaryButton
+                variant="contained"
+                color="secondary"
+                onClick={handleClick}>
+                Add to Cart
+              </SecondaryButton>
+            </Grid>
+          </>
+        ))
+        .exhaustive()}
+      {match(showDialog)
+        .with(true, () => (
+          <AddToCartDialog
+            data={new Array(quantity).fill(cartData)}
+            setShowDialog={setShowDialog}
+          />
+        ))
+        .with(false, () => <></>)
+        .exhaustive()}
+    </Grid>
+  )
+}
+
+export { AvailableDisplay }
