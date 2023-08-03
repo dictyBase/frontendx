@@ -1,7 +1,7 @@
 import { vi, test, expect } from "vitest"
 import { render, screen, within } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { OutlinedDropdown } from "../common/OutlinedDropdown"
+import { OutlinedDropdown } from "../OutlinedDropdown"
 
 const handleChangeSpy = vi.fn()
 const values = [1, 2, 3, 4, 5, 6]
