@@ -7,7 +7,6 @@ import Typography from "@material-ui/core/Typography"
 import Alert from "@material-ui/lab/Alert"
 import { match, P } from "ts-pattern"
 import { AvailableDisplay } from "stock-catalog-list/src/components/AvailableDisplay"
-import { Availability } from "./Availability"
 import { CartItem } from "../types"
 
 // accessibility helper function
@@ -64,7 +63,9 @@ type Properties = {
   handleChange: (event: ChangeEvent<{}>, value: any) => void
   /** Number of phenotypes */
   phenotypeLength: number
-  cartData: CartItem
+  /** Data for the stock item */
+  cartData: Omit<CartItem, "quantity">
+  /** Boolean for whether the item is in stock */
   inStock: boolean
 }
 
@@ -134,7 +135,6 @@ const StrainDetailsCardHeader = ({
               </Alert>
             ))
             .exhaustive()}
-          <Availability cartData={cartData} inStock={inStock} />
         </Grid>
       </Grid>
     </Grid>
