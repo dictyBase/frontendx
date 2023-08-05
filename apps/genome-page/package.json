@@ -83,7 +83,7 @@
     "@types/node": "^20.4.5",
     "@types/react": "^18.0.9",
     "@types/react-fontawesome": "^1.6.5",
-    "cypress": "^12.17.2",
+    "cypress": "^12.17.3",
     "eslint": "^8.46.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-cypress": "^2.13.3",
