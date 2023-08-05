@@ -43,7 +43,7 @@
     "eslint-config-next": "^13.4.12",
     "font-awesome": "^4.7.0",
     "fontsource-roboto": "^4.0.0",
-    "fp-ts": "^2.16.0",
+    "fp-ts": "^2.16.1",
     "fp-ts-std": "^0.15.1",
     "graphql": "^16.7.1",
     "isomorphic-git": "^1.24.5",
