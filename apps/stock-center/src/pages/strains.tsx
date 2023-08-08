@@ -12,10 +12,9 @@ import {
   SearchBox,
 } from "@dictybase/ui-dsc"
 import { useIntersectionObserver } from "@dictybase/hook"
-import { useQuery } from "@apollo/client"
 import { useRef } from "react"
 import { Box } from "@material-ui/core"
-import { StrainListDocument } from "dicty-graphql-schema"
+import { useStrainListQuery } from "dicty-graphql-schema"
 import { useSearchParams } from "react-router-dom"
 
 const StrainCatalog = () => {
@@ -25,14 +24,16 @@ const StrainCatalog = () => {
     value,
     searchParams: searchParameters,
   })
-  const { loading, error, data, fetchMore } = useQuery(StrainListDocument, {
-    variables,
-  })
+  // const { loading, error, data, fetchMore } = useQuery(StrainListDocument, {
+  //   variables,
+  // })
+
+  const { loading, error, data, fetchMore } = useStrainListQuery({ variables })
   const rootReference = useRef<HTMLDivElement>(null)
   const targetReference = useRef<HTMLTableRowElement>(null)
   const onIntersection = ([entry]: IntersectionObserverEntry[]) => {
     if (!entry.isIntersecting) return
-    const { nextCursor } = data ? data[dataField] : undefined
+    const nextCursor = data?.listStrains?.nextCursor || undefined
     if (!nextCursor) return
     fetchMore({ variables: { cursor: nextCursor } })
   }
@@ -56,7 +57,7 @@ const StrainCatalog = () => {
         <CatalogListWrapper root={rootReference}>
           {loading ? <LoadingDisplay rows={10} /> : <></>}
           {error ? <ErrorDisplay error={error} /> : <></>}
-          {data?.[dataField] ? (
+          {data?.listStrains ? (
             <CatalogTableDisplay
               data={data}
               dataField={dataField}
