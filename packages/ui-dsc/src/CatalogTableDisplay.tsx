@@ -10,6 +10,9 @@ import { compose, borders, typography } from "@material-ui/system"
 import { indigo } from "@material-ui/core/colors"
 import { RefObject } from "react"
 import { v4 as uuid4 } from "uuid"
+import { pipe } from "fp-ts/function"
+import { fromNullable, getOrElse } from "fp-ts/Option"
+import { type StrainItem } from "./types"
 
 const useStyles = makeStyles({
   root: { overflowX: "initial" },
@@ -73,18 +76,22 @@ const CatalogTableHeader = ({
   </TableRow>
 )
 
-const abbreviateString = (input: string, length: number): string => {
+const abbreviateStringToLength = (length: number) => (input: string) => {
   if (input.length <= length) return input
   return input.slice(0, length)
 }
 
-const cellFunction = (item: any) => (
+const cellFunction = (item: StrainItem) => (
   <>
     <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
       {item.label}
     </StyledTableCell>
     <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
-      {`${abbreviateString(item.summary, 84)}...}`}
+      {pipe(
+        fromNullable(item.summary),
+        getOrElse(() => ""),
+        abbreviateStringToLength(84),
+      )}
     </StyledTableCell>
     <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
       {item.id}
@@ -97,33 +104,38 @@ const rowFunction = ({
   nextCursor,
   targetReference,
   lastIndex,
-}: CatalogRowFunctionProperties<HTMLTableRowElement>) =>
-  {
-    const { row } = useStyles() 
-    return strains.map((item: any, index: number) => {
-      const key = `${item.id}`
-      if (index === lastIndex && nextCursor !== 0) {
-        // last item and expected to have more data
-        return (
-          <>
-            <TableRow className={row} key={key}>{cellFunction(item)}</TableRow>
-            <TableRow className={row} key={key} ref={targetReference}>
-              <TableCell colSpan={3}>
-                <LinearProgress />
-              </TableCell>
-            </TableRow>
-          </>
-        )
-      }
-      return <TableRow className={row} key={key}>{cellFunction(item)}</TableRow>
-    })
-  }
+}: CatalogRowFunctionProperties<HTMLTableRowElement>) => {
+  const { row } = useStyles()
+  return strains.map((item: any, index: number) => {
+    const key = `${item.id}`
+    if (index === lastIndex && nextCursor !== 0) {
+      // last item and expected to have more data
+      return (
+        <>
+          <TableRow className={row} key={key}>
+            {cellFunction(item)}
+          </TableRow>
+          <TableRow className={row} key={key} ref={targetReference}>
+            <TableCell colSpan={3}>
+              <LinearProgress />
+            </TableCell>
+          </TableRow>
+        </>
+      )
+    }
+    return (
+      <TableRow className={row} key={key}>
+        {cellFunction(item)}
+      </TableRow>
+    )
+  })
+}
 
 /**
  * Displays data in tablular format in which the target DOM element is attached
  * to the penultimate table row to work in tandem with intersection observer.
  */
-export const CatalogTableDisplay = ({
+const CatalogTableDisplay = ({
   data,
   dataField,
   target: targetReference,
@@ -143,4 +155,12 @@ export const CatalogTableDisplay = ({
       </Table>
     </TableContainer>
   )
+}
+
+export {
+  abbreviateString,
+  cellFunction,
+  rowFunction,
+  CatalogTableDisplay,
+  CatalogTableHeader,
 }
