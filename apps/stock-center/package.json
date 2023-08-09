@@ -1,9 +1,11 @@
 {
   "name": "stock-catalog-list",
   "private": true,
+  "type": "module",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite --port 3003 --clearScreen false",
+    "serve": "node server.js",
     "build": "vite build",
     "lint": "TIMING=1 eslint src/**/*.tsx --fix && tsc --noEmit",
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/stock-catalog-list.json",
@@ -11,11 +13,13 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@apollo/server": "^4.9.1",
     "@dictybase/ui-dsc": "*",
     "@material-ui/core": "4.x",
+    "cors": "^2.8.5",
     "dicty-graphql-schema": "*",
     "frontpage-components": "*",
-    "graphql": "~16.7.1",
+    "graphql": "^16.7.1",
     "jotai": "^1.12.0",
     "react": "17.x",
     "react-dom": "17.x",
@@ -28,6 +32,7 @@
     "@vitejs/plugin-react": "^4.0.3",
     "@vitest/coverage-c8": "0.33.x",
     "eslint-config-custom": "*",
+    "express": "^4.18.2",
     "jsdom": "^22.1.0",
     "tsconfig": "*",
     "vite": "4.x",
