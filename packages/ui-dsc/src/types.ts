@@ -3,8 +3,8 @@ import { FormData } from "./utils/initialFormValues"
 
 type PurchaseProperties = { quantity: number; fee: Readonly<number> }
 
-type StrainCartItem = Pick<Strain, "id" | "summary" | "label"> &
-  PurchaseProperties
+type StrainItem = Pick<Strain, "id" | "summary" | "label">
+type StrainCartItem = StrainItem & PurchaseProperties
 type CartItemLimit = Readonly<number>
 type Cart = {
   strainItems: Array<StrainCartItem>
@@ -26,8 +26,9 @@ type DetailsRow = {
 }
 
 export {
-  type StrainCartItem as CartItem,
+  type StrainItem,
   type StrainCartItem,
+  type StrainCartItem as CartItem,
   type CartItemLimit,
   type Cart,
   type OrderState,
