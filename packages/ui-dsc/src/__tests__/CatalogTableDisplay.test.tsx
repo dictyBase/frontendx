@@ -5,7 +5,6 @@ import {
   cellFunction,
   rowFunction,
   CatalogTableHeader,
-  CatalogTableDisplay,
 } from "../CatalogTableDisplay"
 import { RefObject } from "react"
 
