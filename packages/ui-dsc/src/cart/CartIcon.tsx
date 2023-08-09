@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import { makeStyles } from "@material-ui/core/styles"
 import Badge from "@material-ui/core/Badge"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { StrainItem } from "../types"
+import { type StrainCartItem } from "../types"
 
 const useStyles = makeStyles(({ palette }) => ({
   cartFull: {
@@ -18,7 +18,7 @@ type CartIconProperties = {
   /**
    * An array of cart items
    */
-  items: Array<StrainItem>
+  items: Array<StrainCartItem>
   /**
    * A flag indicating whether the cart is full
    */

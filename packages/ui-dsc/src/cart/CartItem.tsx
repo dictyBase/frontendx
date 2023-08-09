@@ -9,7 +9,7 @@ import ListItem from "@material-ui/core/ListItem"
 import IconButton from "@material-ui/core/IconButton"
 import Typography from "@material-ui/core/Typography"
 import ClearIcon from "@material-ui/icons/Clear"
-import { StrainItem } from "../types"
+import { type StrainCartItem } from "../types"
 import { strainOrPlasmid } from "../utils/strainOrPlasmid"
 import { toCurrencyString } from "../utils/toCurrencyString"
 
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 type ShoppingCartItemProperties = {
   /** Individual cart item with given quantity */
-  item: StrainItem
+  item: StrainCartItem
   /** A callback that will be run when the user clicks a delete button on a ShoppingCartItem */
   deleteItem: () => void
 }
