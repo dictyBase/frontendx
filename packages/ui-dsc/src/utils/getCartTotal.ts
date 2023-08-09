@@ -1,7 +1,7 @@
-import { type StrainItem } from "../types"
+import { type StrainCartItem } from "../types"
 import { toCurrencyString } from "./toCurrencyString"
 
-const getCartTotal = (items: Array<StrainItem>) => {
+const getCartTotal = (items: Array<StrainCartItem>) => {
   const total = items
     .map((item) => item.quantity * Number(item.fee))
     .reduce((accumulator, value) => accumulator + value, 0)

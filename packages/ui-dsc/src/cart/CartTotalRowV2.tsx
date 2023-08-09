@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles"
 import Grid from "@material-ui/core/Grid"
 import Typography, { TypographyProps } from "@material-ui/core/Typography"
-import { StrainItem } from "../types"
+import { type StrainCartItem } from "../types"
 import { getCartTotal } from "../utils/getCartTotal"
 
 const useStyles = makeStyles((theme) => ({
@@ -14,7 +14,7 @@ type ShoppingCartTotalRowProperties = {
   /** Left value to display (i.e. Strains, Plasmids, Total) */
   leftValue: string
   /** Items in the cart */
-  items: Array<StrainItem>
+  items: Array<StrainCartItem>
   /** Typography variant prop */
   variant: TypographyProps["variant"]
 }

@@ -10,7 +10,7 @@ import {
 } from "@react-pdf/renderer"
 import { grey } from "@material-ui/core/colors"
 import { getShippingValues, getPaymentValues } from "../utils/getListValues"
-import { StrainItem, OrderState } from "../types"
+import { type StrainCartItem, OrderState } from "../types"
 
 const styles = StyleSheet.create({
   body: {
@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
 })
 
 // generate display for list of items in order
-const getItemsList = (items: StrainItem[]) =>
-  items.map((item: StrainItem) => (
+const getItemsList = (items: StrainCartItem[]) =>
+  items.map((item: StrainCartItem) => (
     <View key={item.id} style={styles.items}>
       <View style={styles.leftPanel}>
         <Text>{item.label}</Text>

@@ -3,7 +3,7 @@ import { vi, describe, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { OrderSummaryPdf } from "../order/OrderSummaryPdf"
 import { mockValues } from "../utils/mockValues"
-import { StrainItem } from "../types"
+import { StrainCartItem } from "../types"
 
 vi.mock("@react-pdf/renderer", async () => {
   const originalModule = (await vi.importActual(
@@ -51,9 +51,11 @@ describe("features/OrderForm/Submit/OrderSummaryPDF", () => {
   test("should display correct items", () => {
     render(<OrderSummaryPdf order={order} />)
     // strain should be listed twice (matches quantity in cart)
-    expect(screen.getAllByText((items[0] as StrainItem).id)).toHaveLength(2)
+    expect(screen.getAllByText((items[0] as StrainCartItem).id)).toHaveLength(2)
     // one plasmid
-    expect(screen.getByText((items[2] as StrainItem).id)).toBeInTheDocument()
+    expect(
+      screen.getByText((items[2] as StrainCartItem).id),
+    ).toBeInTheDocument()
     // correct total (30+30+15)
     expect(screen.getByText("$75.00")).toBeInTheDocument()
     // shows order ID

@@ -2,15 +2,17 @@ import { type Strain } from "dicty-graphql-schema"
 import { FormData } from "./utils/initialFormValues"
 
 type PurchaseProperties = { quantity: number; fee: Readonly<number> }
-type StrainItem = Pick<Strain, "id" | "summary" | "label"> & PurchaseProperties
+
+type StrainCartItem = Pick<Strain, "id" | "summary" | "label"> &
+  PurchaseProperties
 type CartItemLimit = Readonly<number>
 type Cart = {
-  strainItems: Array<StrainItem>
+  strainItems: Array<StrainCartItem>
 }
 type OrderState = {
   orderID: string
   formData: FormData
-  cartItems: Array<StrainItem>
+  cartItems: Array<StrainCartItem>
   cartTotal: string
 }
 
@@ -24,8 +26,8 @@ type DetailsRow = {
 }
 
 export {
-  type StrainItem as CartItem,
-  type StrainItem,
+  type StrainCartItem as CartItem,
+  type StrainCartItem,
   type CartItemLimit,
   type Cart,
   type OrderState,

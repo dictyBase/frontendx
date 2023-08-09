@@ -2,7 +2,7 @@ import { describe, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { OrderSummary } from "../order/OrderSummary"
 import { mockValues } from "../utils/mockValues"
-import { StrainItem } from "../types"
+import { StrainCartItem } from "../types"
 
 describe("OrderSummary", () => {
   const items = [
@@ -27,7 +27,9 @@ describe("OrderSummary", () => {
     // strain should show price for quantity of 2
     expect(screen.getAllByTestId("quantity")[0]).toHaveTextContent(/Qty: 2/)
     // one plasmid
-    expect(screen.getByText((items[1] as StrainItem).id)).toBeInTheDocument()
+    expect(
+      screen.getByText((items[1] as StrainCartItem).id),
+    ).toBeInTheDocument()
     // correct total (30+30+15)
     expect(screen.getByText("$75.00")).toBeInTheDocument()
   })
