@@ -24,10 +24,6 @@ const StrainCatalog = () => {
     value,
     searchParams: searchParameters,
   })
-  // const { loading, error, data, fetchMore } = useQuery(StrainListDocument, {
-  //   variables,
-  // })
-
   const { loading, error, data, fetchMore } = useStrainListQuery({ variables })
   const rootReference = useRef<HTMLDivElement>(null)
   const targetReference = useRef<HTMLTableRowElement>(null)
