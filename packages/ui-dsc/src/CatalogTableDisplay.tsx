@@ -38,7 +38,6 @@ const tableHeaders = ["Strain Descriptor", "Strain Summary", "Strain ID"]
 interface CatalogRowFunctionProperties<HTMLType> {
   strains: any
   nextCursor: number
-  lastIndex: number
   targetReference: RefObject<HTMLType>
 }
 
@@ -103,12 +102,11 @@ const rowFunction = ({
   strains,
   nextCursor,
   targetReference,
-  lastIndex,
 }: CatalogRowFunctionProperties<HTMLTableRowElement>) => {
   const { row } = useStyles()
   return strains.map((item: any, index: number) => {
     const key = `${item.id}`
-    if (index === lastIndex && nextCursor !== 0) {
+    if (index === strains.length - 1 && nextCursor !== 0) {
       // last item and expected to have more data
       return (
         <>
@@ -142,7 +140,6 @@ const CatalogTableDisplay = ({
 }: CatalogListProperties<HTMLTableRowElement>): JSX.Element => {
   const classes = useStyles()
   const { strains, nextCursor } = data[dataField]
-  const lastIndex = strains.length - 1
   return (
     <TableContainer className={classes.root}>
       <Table stickyHeader>
@@ -150,7 +147,7 @@ const CatalogTableDisplay = ({
           <CatalogTableHeader />
         </TableHead>
         <TableBody>
-          {rowFunction({ strains, nextCursor, targetReference, lastIndex })}
+          {rowFunction({ strains, nextCursor, targetReference })}
         </TableBody>
       </Table>
     </TableContainer>
@@ -158,7 +155,7 @@ const CatalogTableDisplay = ({
 }
 
 export {
-  abbreviateString,
+  abbreviateStringToLength,
   cellFunction,
   rowFunction,
   CatalogTableDisplay,
