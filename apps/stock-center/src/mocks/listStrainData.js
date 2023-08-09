@@ -1,6 +1,3 @@
-import { pipe } from "fp-ts/function"
-import { makeBy } from "fp-ts/Array"
-
 const generateRandomData = () => {
   const id = `DBS${Math.floor(Math.random() * 100_000)}`
   const label = `${String.fromCodePoint(
@@ -13,11 +10,11 @@ const generateRandomData = () => {
   ).toLowerCase()}r${String.fromCodePoint(
     97 + Math.floor(Math.random() * 26),
   ).toLowerCase()}vark) null mutant (β-catenin knock-out)`
-  const stock = Math.random() < 0.5
-  return { id, label, summary, stock }
+  const inStock = Math.random() < 0.5
+  console.log(id, label)
+  return { id, label, summary, inStock }
 }
 
-const generateListStrainDataOfLength = (length: number) =>
-  pipe(makeBy(length, generateRandomData))
+const generateListStrainDataOfLength = (length) => [...new Array(length)].map(() => generateRandomData())
 
 export { generateListStrainDataOfLength }
