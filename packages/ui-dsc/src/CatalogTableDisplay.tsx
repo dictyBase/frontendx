@@ -84,7 +84,7 @@ const abbreviateStringToLength = (length: number) => (input: string) => {
 const cellFunction = (item: StrainItem) => (
   <>
     <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
-      <Link to={`strain/${item.id}`}>{item.label}</Link>
+      <Link to={`/strains/${item.id}`}>{item.label}</Link>
     </StyledTableCell>
     <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
       {pipe(
