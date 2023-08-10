@@ -1,5 +1,7 @@
 import { vi, describe, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
+import { MemoryRouter, Routes, Route } from "react-router-dom"
 import {
   abbreviateStringToLength,
   cellFunction,
@@ -44,7 +46,7 @@ describe("cellFunction", () => {
   }
 
   test("renders strain data in cells", () => {
-    render(cellFunction(testStrain))
+    render(<MemoryRouter>{cellFunction(testStrain)}</MemoryRouter>)
     expect(
       screen.getByRole("cell", { name: testStrain.id }),
     ).toBeInTheDocument()
@@ -54,6 +56,18 @@ describe("cellFunction", () => {
     expect(
       screen.getByRole("cell", { name: testStrain.summary }),
     ).toBeInTheDocument()
+  })
+  test("When the cell label is clicked, the browser navigates to the strain details page", async () => {
+    render(
+      <MemoryRouter>
+        <Routes>
+          <Route path={`/strain/:id`} element={<> Strain Details</>} />
+        </Routes>
+        {cellFunction(testStrain)}
+      </MemoryRouter>,
+    )
+    await userEvent.click(screen.getByRole("link"))
+    expect(screen.getByText("Strain Details")).toBeInTheDocument()
   })
 })
 
@@ -77,21 +91,25 @@ describe("rowFunction", () => {
   ]
   test("given a strains array, render a table row for each element in the array", () => {
     render(
-      rowFunction({
-        strains: testListStrains,
-        nextCursor: 0,
-        targetReference: {} as RefObject<HTMLTableRowElement>,
-      }),
+      <MemoryRouter>
+        {rowFunction({
+          strains: testListStrains,
+          nextCursor: 0,
+          targetReference: {} as RefObject<HTMLTableRowElement>,
+        })}
+      </MemoryRouter>,
     )
     expect(screen.getAllByRole("row")).toHaveLength(testListStrains.length)
   })
   test("if nextCursor is greater than 1, render an additional table row for that indicates fetching more data", () => {
     render(
-      rowFunction({
-        strains: testListStrains,
-        nextCursor: 4,
-        targetReference: {} as RefObject<HTMLTableRowElement>,
-      }),
+      <MemoryRouter>
+        {rowFunction({
+          strains: testListStrains,
+          nextCursor: 4,
+          targetReference: {} as RefObject<HTMLTableRowElement>,
+        })}
+      </MemoryRouter>,
     )
     expect(screen.getAllByRole("row")).toHaveLength(testListStrains.length + 1)
   })
