@@ -8,6 +8,7 @@ import LinearProgress from "@material-ui/core/LinearProgress"
 import { makeStyles, styled } from "@material-ui/core/styles"
 import { compose, borders, typography } from "@material-ui/system"
 import { indigo } from "@material-ui/core/colors"
+import { Link } from "react-router-dom"
 import { RefObject } from "react"
 import { v4 as uuid4 } from "uuid"
 import { pipe } from "fp-ts/function"
@@ -83,7 +84,7 @@ const abbreviateStringToLength = (length: number) => (input: string) => {
 const cellFunction = (item: StrainItem) => (
   <>
     <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
-      {item.label}
+      <Link to={`strain/${item.id}`}>{item.label}</Link>
     </StyledTableCell>
     <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
       {pipe(
