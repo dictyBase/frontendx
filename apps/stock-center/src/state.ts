@@ -63,12 +63,15 @@ const removeItemAtom = atom(null, (get, set, removeId) =>
 
 const maxItemsAtom = atom((get) => get(cartAtom).maxItems)
 
+const currentCartQuantityAtom = atom((get) =>
+  pipe(
+    get(strainItemsAtom),
+    reduce(0, (sum, item) => sum + item.quantity),
+  ),
+)
+
 const isFullAtom = atom(
-  (get) =>
-    pipe(
-      get(strainItemsAtom),
-      reduce(0, (sum, item) => sum + item.quantity),
-    ) === get(maxItemsAtom),
+  (get) => get(currentCartQuantityAtom) === get(maxItemsAtom),
 )
 
 const resetCartAtom = atom(null, (_, set) => set(cartAtom, initialCart))
