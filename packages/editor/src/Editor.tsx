@@ -13,7 +13,7 @@ import { SaveButton } from "persistence-plugin"
 import { WidthTablePlugin } from "width-table-plugin"
 import { FlexLayoutPlugin } from "flex-layout-plugin"
 import { TableActionPlugin } from "table-action-plugin"
-import Toolbar from "editor-toolbar"
+import { DictybaseToolbar } from "editor-toolbar"
 import { dictyEditorConfig } from "./editorConfig"
 import {
   useEditorInputStyles,
@@ -73,7 +73,7 @@ const Editor = ({
       <Grid container direction="column">
         {editable ? (
           <Grid item>
-            <Toolbar />
+            <DictybaseToolbar />
           </Grid>
         ) : (
           <></>
