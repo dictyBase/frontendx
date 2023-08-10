@@ -8,6 +8,8 @@ import LinearProgress from "@material-ui/core/LinearProgress"
 import { makeStyles, styled } from "@material-ui/core/styles"
 import { compose, borders, typography } from "@material-ui/system"
 import { indigo } from "@material-ui/core/colors"
+import { AddToCartControl } from "stock-catalog-list/src/components/AddToCartControl"
+import { OutlinedDropdown } from "./OutlinedDropdown"
 import { Link } from "react-router-dom"
 import { RefObject } from "react"
 import { v4 as uuid4 } from "uuid"
@@ -95,6 +97,9 @@ const cellFunction = (item: StrainItem) => (
     </StyledTableCell>
     <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
       {item.id}
+    </StyledTableCell>
+    <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
+      <AddToCartControl />
     </StyledTableCell>
   </>
 )
