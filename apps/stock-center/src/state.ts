@@ -7,7 +7,7 @@ import { partitionMap, reduce } from "fp-ts/Array"
 import { left as Eleft, right as Eright } from "fp-ts/Either"
 
 // CART STATE
-type PurchaseProperties = { quantity: number; fee: Readonly<number> }
+type PurchaseProperties = { fee: Readonly<number> }
 type StrainItem = Pick<Strain, "id" | "summary" | "label">
 type StrainCartItem = StrainItem & PurchaseProperties
 type Cart = {
@@ -28,30 +28,15 @@ const strainItemsAtom = atom(
     set(cartAtom, (previous) => ({ ...previous, strainItems })),
 )
 const strainItemAtomsAtom = splitAtom(strainItemsAtom)
+const maxItemsAtom = atom((get) => get(cartAtom).maxItems)
 
-const increaseQuantityIfPresent =
-  (newItem: StrainCartItem) => (cartItem: StrainCartItem) =>
-    cartItem.id === newItem.id
-      ? // quantity summation could probably be solved more functionally too
-        Eright({
-          ...cartItem,
-          quantity: cartItem.quantity + newItem.quantity,
-        } as StrainCartItem)
-      : Eleft(cartItem)
-
-const addItemAtom = atom(null, (get, set, newItem: StrainCartItem) => {
+const addItemsAtom = atom(null, (get, set, newItem: StrainCartItem) => {
   set(
     strainItemsAtom,
     pipe(
       get(strainItemsAtom),
-      partitionMap(increaseQuantityIfPresent(newItem)),
-      // Find out how to make this more declarative
-      // Add check if adding would exceed max cart items
-      ({ left, right }) => ({
-        left,
-        right: right.length === 0 ? [newItem] : right,
-      }),
-      ({ left, right }) => [...left, ...right],
+      (previousState) => [...previousState, newItem],
+      (state) => state.slice(0, get(maxItemsAtom)),
     ),
   )
 })
@@ -63,12 +48,10 @@ const removeItemAtom = atom(null, (get, set, removeId) =>
   ),
 )
 
-const maxItemsAtom = atom((get) => get(cartAtom).maxItems)
-
 const currentCartQuantityAtom = atom((get) =>
   pipe(
     get(strainItemsAtom),
-    reduce(0, (sum, item) => sum + item.quantity),
+    reduce(0, (sum) => sum + 1),
   ),
 )
 
@@ -187,7 +170,7 @@ export {
   resetCartAtom,
   strainItemsAtom,
   strainItemAtomsAtom,
-  addItemAtom,
+  addItemsAtom,
   removeItemAtom,
   currentCartQuantityAtom,
   maxItemsAtom,
