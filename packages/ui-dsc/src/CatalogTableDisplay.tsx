@@ -17,6 +17,15 @@ import { fromNullable, getOrElse } from "fp-ts/Option"
 import { type Strain } from "dicty-graphql-schema"
 
 const useStyles = makeStyles({
+  listHeaders: {
+    borderBottom: "1px solid #888",
+    backgroundColor: "#f6f9fc",
+    color: "#525f7f",
+    fontWeight: 600,
+    "@media (max-width: 1024px)": {
+      fontSize: "0.85rem",
+    },
+  },
   root: { overflowX: "initial" },
   row: {
     borderBottom: "1px solid rgba(224, 224, 224, 1)",
@@ -61,19 +70,24 @@ interface CatalogTableHeaderProperties {
 
 const CatalogTableHeader = ({
   headers = tableHeaders,
-}: CatalogTableHeaderProperties) => (
-  <TableRow>
-    {headers.map((h: string) => (
-      <StyledTableCell
-        borderBottom={borderBottom}
-        fontSize="subtitle1.fontSize"
-        fontWeight="fontWeightBold"
-        key={uuid4()}>
-        {h}
-      </StyledTableCell>
-    ))}
-  </TableRow>
-)
+}: CatalogTableHeaderProperties) => {
+  const classes = useStyles()
+  // const classes = ""
+  return (
+    <TableRow>
+      {headers.map((h: string) => (
+        <StyledTableCell
+          className={classes.listHeaders}
+          borderBottom={borderBottom}
+          fontSize="subtitle1.fontSize"
+          fontWeight="fontWeightBold"
+          key={uuid4()}>
+          {h}
+        </StyledTableCell>
+      ))}
+    </TableRow>
+  )
+}
 
 const abbreviateStringToLength = (length: number) => (input: string) => {
   if (input.length <= length) return input
