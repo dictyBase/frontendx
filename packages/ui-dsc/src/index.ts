@@ -1,3 +1,4 @@
+export * from "./fees"
 export * from "./LoadingDisplay"
 export * from "./CatalogTableDisplay"
 export * from "./ErrorDisplay"
