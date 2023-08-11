@@ -5,7 +5,7 @@ import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart"
 import { useSetAtom } from "jotai"
 import { AddToCartDialog, fees } from "@dictybase/ui-dsc"
 import { Strain } from "dicty-graphql-schema"
-import { type StrainItem, addItemAtom } from "../state"
+import { type StrainItem, addItemsAtom } from "../state"
 
 const useStyles = makeStyles(({ palette }) => ({
   cartButton: {
@@ -39,12 +39,10 @@ export const AddToCartButton = ({
 }: Props) => {
   const classes = useStyles()
   const [showDialog, setShowDialog] = React.useState(false)
-  const addItem = useSetAtom(addItemAtom)
+  const addItem = useSetAtom(addItemsAtom)
 
   const handleClick = () => {
-    data.forEach((item) =>
-      addItem({ ...item, quantity: 1, fee: fees.STRAIN_FEE }),
-    )
+    data.forEach((item) => addItem({ ...item, fee: fees.STRAIN_FEE }))
     setShowDialog(true)
   }
 
