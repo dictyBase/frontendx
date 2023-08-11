@@ -5,11 +5,13 @@ import { type Strain } from "dicty-graphql-schema"
 import { pipe } from "fp-ts/function"
 import { partitionMap, reduce } from "fp-ts/Array"
 import { left as Eleft, right as Eright } from "fp-ts/Either"
+
 // CART STATE
 type PurchaseProperties = { quantity: number; fee: Readonly<number> }
-type StrainItem = Pick<Strain, "id" | "summary" | "label"> & PurchaseProperties
+type StrainItem = Pick<Strain, "id" | "summary" | "label">
+type StrainCartItem = StrainItem & PurchaseProperties
 type Cart = {
-  strainItems: Array<StrainItem>
+  strainItems: Array<StrainCartItem>
   maxItems: number
 }
 
@@ -22,22 +24,22 @@ const cartAtom = atom<Cart>(initialCart)
 
 const strainItemsAtom = atom(
   (get) => get(cartAtom).strainItems,
-  (get, set, strainItems: Array<StrainItem>) =>
+  (get, set, strainItems: Array<StrainCartItem>) =>
     set(cartAtom, (previous) => ({ ...previous, strainItems })),
 )
 const strainItemAtomsAtom = splitAtom(strainItemsAtom)
 
 const increaseQuantityIfPresent =
-  (newItem: StrainItem) => (cartItem: StrainItem) =>
+  (newItem: StrainCartItem) => (cartItem: StrainCartItem) =>
     cartItem.id === newItem.id
       ? // quantity summation could probably be solved more functionally too
         Eright({
           ...cartItem,
           quantity: cartItem.quantity + newItem.quantity,
-        } as StrainItem)
+        } as StrainCartItem)
       : Eleft(cartItem)
 
-const addItemAtom = atom(null, (get, set, newItem: StrainItem) => {
+const addItemAtom = atom(null, (get, set, newItem: StrainCartItem) => {
   set(
     strainItemsAtom,
     pipe(
@@ -121,7 +123,7 @@ type PaymentFormData = {
 type OrderState = {
   orderID: string
   formData: ShippingFormData & PaymentFormData
-  cartItems: Array<StrainItem>
+  cartItems: Array<StrainCartItem>
   cartTotal: string
 }
 
@@ -175,6 +177,7 @@ const submitErrorAtom = atom(false)
 
 export {
   type StrainItem,
+  type StrainCartItem,
   type Cart,
   type ShippingFormData,
   type PaymentFormData,
@@ -186,6 +189,8 @@ export {
   strainItemAtomsAtom,
   addItemAtom,
   removeItemAtom,
+  currentCartQuantityAtom,
+  maxItemsAtom,
   isFullAtom,
   shippingFormAtom,
   paymentFormAtom,
