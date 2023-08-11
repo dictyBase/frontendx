@@ -3,10 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { useGraphqlClient, useApolloClientCache } from "@dictybase/data-access"
 import { listStrainsPagination } from "@dictybase/hook-dsc"
 import { ApolloProvider } from "@apollo/client"
-import { Provider as JotaiProvider } from "jotai"
 import { ThemeProvider } from "./ThemeProvider"
-import { cartAtom } from "./state"
-import { testItems } from "./mocks/cartData"
 import { routes } from "./routes"
 
 export const App = () => {
@@ -25,17 +22,15 @@ export const App = () => {
   return (
     <BrowserRouter>
       <ApolloProvider client={client}>
-        <JotaiProvider initialValues={[[cartAtom, { strainItems: testItems }]]}>
-          <ThemeProvider>
-            <Routes>
-              <Route path="/" element={<Navigate to="/strains" />} />
-              {routes.map(({ path, component: Component = Fragment }) => {
-                const element = <Component />
-                return <Route key={path} path={path} element={element} />
-              })}
-            </Routes>
-          </ThemeProvider>
-        </JotaiProvider>
+        <ThemeProvider>
+          <Routes>
+            <Route path="/" element={<Navigate to="/strains" />} />
+            {routes.map(({ path, component: Component = Fragment }) => {
+              const element = <Component />
+              return <Route key={path} path={path} element={element} />
+            })}
+          </Routes>
+        </ThemeProvider>
       </ApolloProvider>
     </BrowserRouter>
   )
