@@ -12,7 +12,7 @@ import {
 import { useSetAtom, useAtomValue } from "jotai"
 import { getCartTotal } from "@dictybase/ui-dsc"
 import {
-  type StrainItem,
+  type StrainCartItem,
   type ShippingFormData,
   type PaymentFormData,
   cartAtom,
@@ -26,8 +26,8 @@ import {
 /**
  * getIDs creates a new array of just stock IDs
  */
-const getIDs = (items: Array<StrainItem>) =>
-  items.map((item: StrainItem) => item.id)
+const getIDs = (items: Array<StrainCartItem>) =>
+  items.map((item: StrainCartItem) => item.id)
 
 const getConsumerVariables = (formData: ShippingFormData) => ({
   firstName: formData.firstName,
@@ -94,7 +94,7 @@ const getUserVariables = (
  */
 const getOrderVariables = (
   formData: ShippingFormData & PaymentFormData,
-  strainItems: Array<StrainItem>,
+  strainItems: Array<StrainCartItem>,
 ) => ({
   variables: {
     input: {
