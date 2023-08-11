@@ -8,15 +8,13 @@ import LinearProgress from "@material-ui/core/LinearProgress"
 import { makeStyles, styled } from "@material-ui/core/styles"
 import { compose, borders, typography } from "@material-ui/system"
 import { indigo } from "@material-ui/core/colors"
-import { AddToCartControl } from "stock-catalog-list/src/components/AddToCartControl"
-import { AddToCartButton } from "stock-catalog-list/src/components/AddToCartButton"
+import { AddToCartButtonHandler } from "stock-catalog-list/src/components/AddToCartButtonHandler"
 import { Link } from "react-router-dom"
 import { RefObject } from "react"
 import { v4 as uuid4 } from "uuid"
 import { pipe } from "fp-ts/function"
 import { fromNullable, getOrElse } from "fp-ts/Option"
 import { type Strain } from "dicty-graphql-schema"
-import { type StrainCartItem } from "./types"
 
 const useStyles = makeStyles({
   root: { overflowX: "initial" },
@@ -31,12 +29,7 @@ const useStyles = makeStyles({
 })
 const StyledTableCell = styled(TableCell)(compose(borders, typography))
 const borderBottom = `2px solid ${indigo[700]}`
-const tableHeaders = [
-  "Strain Descriptor",
-  "Strain Summary",
-  "Strain ID",
-  "Add to Cart",
-]
+const tableHeaders = ["Strain Descriptor", "Strain Summary", "Strain ID", ""]
 
 interface CatalogRowFunctionProperties<HTMLType> {
   strains: Array<Pick<Strain, "id" | "label" | "summary" | "inStock">>
@@ -45,8 +38,7 @@ interface CatalogRowFunctionProperties<HTMLType> {
 }
 
 type StockItemCellProperties = {
-  item: StrainCartItem
-  inStock: boolean
+  item: Pick<Strain, "id" | "label" | "summary" | "inStock">
 }
 
 /**
@@ -88,28 +80,26 @@ const abbreviateStringToLength = (length: number) => (input: string) => {
   return input.slice(0, length)
 }
 
-const StockItemCell = ({ item, inStock }: StockItemCellProperties) => {
-  return (
-    <>
-      <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
-        <Link to={`/strains/${item.id}`}>{item.label}</Link>
-      </StyledTableCell>
-      <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
-        {pipe(
-          fromNullable(item.summary),
-          getOrElse(() => ""),
-          abbreviateStringToLength(84),
-        )}
-      </StyledTableCell>
-      <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
-        {item.id}
-      </StyledTableCell>
-      <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
-        <AddToCartButton data={[item]} />
-      </StyledTableCell>
-    </>
-  )
-}
+const StockItemCell = ({ item }: StockItemCellProperties) => (
+  <>
+    <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
+      <Link to={`/strains/${item.id}`}>{item.label}</Link>
+    </StyledTableCell>
+    <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
+      {pipe(
+        fromNullable(item.summary),
+        getOrElse(() => ""),
+        abbreviateStringToLength(84),
+      )}
+    </StyledTableCell>
+    <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
+      {item.id}
+    </StyledTableCell>
+    <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
+      <AddToCartButtonHandler item={item} />
+    </StyledTableCell>
+  </>
+)
 
 const rowFunction = ({
   strains,
@@ -117,17 +107,17 @@ const rowFunction = ({
   targetReference,
 }: CatalogRowFunctionProperties<HTMLTableRowElement>) => {
   const { row } = useStyles()
-  return strains.map((item: any, index: number) => {
+  return strains.map((item, index: number) => {
     const key = `${item.id}`
     if (index === strains.length - 1 && nextCursor !== 0) {
       // last item and expected to have more data
       return (
         <>
           <TableRow hover className={row} key={key}>
-            <StockItemCell item={item} inStock={item.inStock} />
+            <StockItemCell item={item} />
           </TableRow>
           <TableRow className={row} key={key} ref={targetReference}>
-            <TableCell colSpan={3}>
+            <TableCell colSpan={4}>
               <LinearProgress />
             </TableCell>
           </TableRow>
@@ -136,7 +126,7 @@ const rowFunction = ({
     }
     return (
       <TableRow hover className={row} key={key}>
-        <StockItemCell item={item} inStock={item.inStock} />
+        <StockItemCell item={item} />
       </TableRow>
     )
   })
