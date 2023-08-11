@@ -1,10 +1,11 @@
 import React from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import IconButton from "@material-ui/core/IconButton"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart"
 import { useSetAtom } from "jotai"
-import { AddToCartDialog, UnavailableButton } from "@dictybase/ui-dsc"
-import { type StrainItem, type StrainCartItem, addItemAtom } from "../state"
+import { AddToCartDialog, fees } from "@dictybase/ui-dsc"
+import { Strain } from "dicty-graphql-schema"
+import { type StrainItem, addItemAtom } from "../state"
 
 const useStyles = makeStyles(({ palette }) => ({
   cartButton: {
@@ -14,7 +15,7 @@ const useStyles = makeStyles(({ palette }) => ({
 
 type Props = {
   /** Stock data */
-  data: Array<StrainCartItem>
+  data: Array<Pick<Strain, "id" | "label" | "summary" | "inStock">>
   /** Stock inventory status */
   // inStock: boolean
   /** Function to add to checked items array */
@@ -41,7 +42,9 @@ export const AddToCartButton = ({
   const addItem = useSetAtom(addItemAtom)
 
   const handleClick = () => {
-    data.forEach((item) => addItem(item))
+    data.forEach((item) =>
+      addItem({ ...item, quantity: 1, fee: fees.STRAIN_FEE }),
+    )
     setShowDialog(true)
   }
 
@@ -52,9 +55,9 @@ export const AddToCartButton = ({
           size={size}
           className={classes.cartButton}
           onClick={handleClick}
-          title="Add"
+          title="Add to shopping cart"
           aria-label="Add to shopping cart">
-          <FontAwesomeIcon icon="cart-plus" />
+          <AddShoppingCartIcon />
         </IconButton>
       </strong>
       {showDialog && (
