@@ -1,4 +1,4 @@
-import { useAtom, useAtomValue } from "jotai"
+import { useAtomValue } from "jotai"
 import { match } from "ts-pattern"
 import { isFullAtom } from "../state"
 import { AddToCartButton } from "./AddToCartButton"
@@ -6,7 +6,7 @@ import { Strain } from "dicty-graphql-schema"
 import { UnavailableButton } from "@dictybase/ui-dsc"
 
 type AddToCartButtonHandlerProperties = {
-  item: Strain
+  item: Pick<Strain, "id" | "label" | "summary" | "inStock">
 }
 
 const AddToCartButtonHandler = ({ item }: AddToCartButtonHandlerProperties) => {
