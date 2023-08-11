@@ -3,11 +3,11 @@ import Typography from "@material-ui/core/Typography"
 import DialogContent from "@material-ui/core/DialogContent"
 import DialogContentText from "@material-ui/core/DialogContentText"
 import { strainOrPlasmid } from "../utils/strainOrPlasmid"
-import { CartItem } from "../types"
+import { type StrainItem } from "../types"
 
 type AddToCartDialogContentProperties = {
   /** Stock data */
-  data: Array<Pick<CartItem, "id" | "label" | "summary">>
+  data: Array<StrainItem>
 }
 
 /**
