@@ -18,7 +18,7 @@ import {
   renderCartTotal,
 } from "@dictybase/ui-dsc"
 import { useAtom, PrimitiveAtom } from "jotai"
-import { Cart, strainItemAtomsAtom, StrainItem } from "../state"
+import { Cart, strainItemAtomsAtom, type StrainCartItem } from "../state"
 import { isFull } from "../isFull"
 
 type ShoppingCartListProperties = {
@@ -37,14 +37,14 @@ type SplitAtomAction<Item> =
       atom: PrimitiveAtom<Item>
       before?: PrimitiveAtom<Item>
     }
-type DispatchProperties = (update: SplitAtomAction<StrainItem>) => void
+type DispatchProperties = (update: SplitAtomAction<StrainCartItem>) => void
 type renderCartItemsPipelineProperties = {
-  items: Array<StrainItem>
-  fn: (index: number, item: StrainItem) => JSX.Element
+  items: Array<StrainCartItem>
+  fn: (index: number, item: StrainCartItem) => JSX.Element
 }
 type renderCartItemsProperties = {
   dispatch: DispatchProperties
-  strainItemAtoms: Array<PrimitiveAtom<StrainItem>>
+  strainItemAtoms: Array<PrimitiveAtom<StrainCartItem>>
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
 const renderCartItems =
   ({ dispatch, strainItemAtoms }: renderCartItemsProperties) =>
   // eslint-disable-next-line react/function-component-definition
-  (index: number, item: StrainItem) => {
+  (index: number, item: StrainCartItem) => {
     const { id } = item
     return (
       <CartItem
