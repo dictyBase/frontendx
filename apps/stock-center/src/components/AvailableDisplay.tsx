@@ -13,7 +13,7 @@ import {
   strainItemsAtom,
   isFullAtom,
   type StrainCartItem as CartItem,
-  addItemAtom,
+  addItemsAtom,
 } from "../state"
 
 const useStyles = makeStyles(({ palette }) => ({
@@ -46,7 +46,7 @@ type Properties = {
 const AvailableDisplay = ({ cartData }: Properties) => {
   const maxItemsInCart = useAtomValue(isFullAtom)
   const addedItems = useAtomValue(strainItemsAtom)
-  const addToCart = useSetAtom(addItemAtom)
+  const addToCart = useSetAtom(addItemsAtom)
   const values = createQuantityArray(addedItems.length)
   const classes = useStyles()
   const [quantity, setQuantity] = React.useState(values[0] as number)

@@ -7,7 +7,7 @@ import {
 import Grid from "@material-ui/core/Grid"
 import { OutlinedDropdown, SecondaryButton } from "@dictybase/ui-dsc"
 import { useSetAtom, useAtomValue } from "jotai"
-import { addItemAtom, currentCartQuantityAtom, maxItemsAtom } from "../state"
+import { addItemsAtom, currentCartQuantityAtom, maxItemsAtom } from "../state"
 
 type AddToCartButtonProperties = {
   children?: ReactNode
@@ -16,7 +16,7 @@ type AddToCartButtonProperties = {
 const AddToCartControl = ({
   children = "Add to Cart",
 }: AddToCartButtonProperties) => {
-  const addItem = useSetAtom(addItemAtom)
+  const addItem = useSetAtom(addItemsAtom)
   const maxItems = useAtomValue(maxItemsAtom)
   const currentCartQuantity = useAtomValue(currentCartQuantityAtom)
   const allowedQuantitiesToAdd = new Array(maxItems - currentCartQuantity)
