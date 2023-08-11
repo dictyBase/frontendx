@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles"
 import IconButton from "@material-ui/core/IconButton"
 import Tooltip from "@material-ui/core/Tooltip"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import RemoveShoppingCartIcon from "@material-ui/icons/RemoveShoppingCart"
 
 const useStyles = makeStyles(() => ({
   cartFullSlash: {
@@ -26,11 +26,13 @@ export const UnavailableButton = ({ title, size = "medium" }: Props) => {
   return (
     <Tooltip title={title}>
       <span>
-        <IconButton disabled size={size} aria-label={title} color="default">
-          <span className="fa-layers fa-fw">
-            <FontAwesomeIcon icon="cart-plus" />
-            <FontAwesomeIcon icon="slash" className={classes.cartFullSlash} />
-          </span>
+        <IconButton
+          disabled
+          size={size}
+          aria-label={title}
+          color="default"
+          className={classes.cartFullSlash}>
+          <RemoveShoppingCartIcon />
         </IconButton>
       </span>
     </Tooltip>
