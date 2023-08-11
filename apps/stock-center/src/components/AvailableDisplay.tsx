@@ -12,7 +12,7 @@ import {
 import {
   strainItemsAtom,
   isFullAtom,
-  StrainItem as CartItem,
+  type StrainCartItem as CartItem,
   addItemAtom,
 } from "../state"
 
@@ -52,7 +52,7 @@ const AvailableDisplay = ({ cartData }: Properties) => {
   const [quantity, setQuantity] = React.useState(values[0] as number)
   const [showDialog, setShowDialog] = React.useState(false)
 
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuantity(Number(event.target.value))
   }
 
