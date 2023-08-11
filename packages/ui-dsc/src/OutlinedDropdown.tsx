@@ -7,7 +7,7 @@ import Select from "@material-ui/core/Select"
 
 type Properties = {
   /** Function called when selecting dropdown option */
-  handleChange: (event: React.ChangeEvent<{ value: unknown }>) => void
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
   /** List of values to display in dropdown */
   dropdownValues: Array<number>
   /** Initial value for dropdown */
