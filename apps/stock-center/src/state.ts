@@ -3,7 +3,7 @@ import { atom } from "jotai"
 import { splitAtom } from "jotai/utils"
 import { type Strain } from "dicty-graphql-schema"
 import { pipe } from "fp-ts/function"
-import { partitionMap, reduce } from "fp-ts/Array"
+import { concat, partitionMap, reduce } from "fp-ts/Array"
 import { left as Eleft, right as Eright } from "fp-ts/Either"
 
 // CART STATE
@@ -30,13 +30,11 @@ const strainItemsAtom = atom(
 const strainItemAtomsAtom = splitAtom(strainItemsAtom)
 const maxItemsAtom = atom((get) => get(cartAtom).maxItems)
 
-const addItemsAtom = atom(null, (get, set, newItem: StrainCartItem) => {
+const addItemsAtom = atom(null, (get, set, newItems: Array<StrainCartItem>) => {
   set(
     strainItemsAtom,
-    pipe(
-      get(strainItemsAtom),
-      (previousState) => [...previousState, newItem],
-      (state) => state.slice(0, get(maxItemsAtom)),
+    pipe(get(strainItemsAtom), concat(newItems), (state) =>
+      state.slice(0, get(maxItemsAtom)),
     ),
   )
 })
