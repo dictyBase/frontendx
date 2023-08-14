@@ -46,9 +46,7 @@ interface CatalogRowFunctionProperties<HTMLType> {
   targetReference: RefObject<HTMLType>
 }
 
-type StockItemCellProperties = {
-  item: Pick<Strain, "id" | "label" | "summary" | "inStock">
-}
+type cellFunctionItem = Pick<Strain, "id" | "label" | "summary" | "inStock">
 
 /**
  * The prop for {@link CatalogTableDisplay}
@@ -94,7 +92,7 @@ const abbreviateStringToLength = (length: number) => (input: string) => {
   return input.slice(0, length)
 }
 
-const StockItemCell = ({ item }: StockItemCellProperties) => (
+const cellFunction = (item: cellFunctionItem) => (
   <>
     <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
       <Link to={`/strains/${item.id}`}>{item.label}</Link>
@@ -128,7 +126,7 @@ const rowFunction = ({
       return (
         <>
           <TableRow hover className={row} key={key}>
-            <StockItemCell item={item} />
+            {cellFunction(item)}
           </TableRow>
           <TableRow className={row} key={key} ref={targetReference}>
             <TableCell colSpan={4}>
@@ -140,7 +138,7 @@ const rowFunction = ({
     }
     return (
       <TableRow hover className={row} key={key}>
-        <StockItemCell item={item} />
+        {cellFunction(item)}
       </TableRow>
     )
   })
@@ -173,7 +171,7 @@ const CatalogTableDisplay = ({
 
 export {
   abbreviateStringToLength,
-  StockItemCell as cellFunction,
+  cellFunction,
   rowFunction,
   CatalogTableDisplay,
   CatalogTableHeader,
