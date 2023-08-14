@@ -2,13 +2,13 @@ import { vi, describe, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { MemoryRouter, Routes, Route } from "react-router-dom"
+import { RefObject } from "react"
 import {
   abbreviateStringToLength,
   cellFunction,
   rowFunction,
   CatalogTableHeader,
 } from "../CatalogTableDisplay"
-import { RefObject } from "react"
 
 vi.mock("@material-ui/core/styles", async () => {
   const originalModule = (await vi.importActual(
@@ -61,7 +61,7 @@ describe("cellFunction", () => {
     render(
       <MemoryRouter>
         <Routes>
-          <Route path={`/strain/:id`} element={<> Strain Details</>} />
+          <Route path="/strain/:id" element={<> Strain Details</>} />
         </Routes>
         {cellFunction(testStrain)}
       </MemoryRouter>,
