@@ -5,6 +5,8 @@ import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart"
 import { useSetAtom } from "jotai"
 import { AddToCartDialog, fees } from "@dictybase/ui-dsc"
 import { Strain } from "dicty-graphql-schema"
+import { pipe } from "fp-ts/function"
+import { map } from "fp-ts/Array"
 import { type StrainItem, addItemsAtom } from "../state"
 
 const useStyles = makeStyles(({ palette }) => ({
@@ -13,36 +15,39 @@ const useStyles = makeStyles(({ palette }) => ({
   },
 }))
 
-type Props = {
+type Properties = {
   /** Stock data */
   data: Array<Pick<Strain, "id" | "label" | "summary" | "inStock">>
   /** Stock inventory status */
   // inStock: boolean
   /** Function to add to checked items array */
-  setCheckedItems?: (arg0: Array<StrainItem>) => void
+  setCheckedItems?: (argument0: Array<StrainItem>) => void
   /** Size of icon */
   size?: "small" | "medium" | undefined
   /** Function to toggle hover state for given item */
-  setHover?: (arg0: boolean) => void
+  setHover?: (argument0: boolean) => void
 }
 
+const appendFee = (
+  a: Pick<Strain, "id" | "label" | "summary" | "inStock">,
+) => ({ ...a, fee: fees.STRAIN_FEE })
 /**
  * AddToCartButton appears on the catalog page if the stock is available
  * for purchase.
  */
 
-export const AddToCartButton = ({
+const AddToCartButton = ({
   data,
   setHover,
   setCheckedItems,
   size = "medium",
-}: Props) => {
+}: Properties) => {
   const classes = useStyles()
   const [showDialog, setShowDialog] = React.useState(false)
-  const addItem = useSetAtom(addItemsAtom)
+  const addItems = useSetAtom(addItemsAtom)
 
   const handleClick = () => {
-    data.forEach((item) => addItem({ ...item, fee: fees.STRAIN_FEE }))
+    pipe(data, map(appendFee), addItems)
     setShowDialog(true)
   }
 
@@ -70,4 +75,4 @@ export const AddToCartButton = ({
   )
 }
 
-export default AddToCartButton
+export { AddToCartButton }
