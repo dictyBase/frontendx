@@ -36,6 +36,7 @@ module.exports = {
     "import/no-unresolved": "error",
     "import/prefer-default-export": "off",
     "import/no-default-export": "error",
+    "import/no-cycle": ["error", { ignoreExternal: true }],
     quotes: ["off", "single"],
     semi: ["error", "never"],
     "no-shadow": "off",
