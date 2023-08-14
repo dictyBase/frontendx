@@ -9,7 +9,7 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-type Properties = {
+type UnavailableButtonProperties = {
   /** Title used for button tooltip and aria-label */
   title: string
   /** Size of icon */
@@ -20,7 +20,10 @@ type Properties = {
  * is not in stock.
  */
 
-const UnavailableButton = ({ title, size = "medium" }: Properties) => {
+const UnavailableButton = ({
+  title,
+  size = "medium",
+}: UnavailableButtonProperties) => {
   const classes = useStyles()
 
   return (
