@@ -1,5 +1,6 @@
 import React from "react"
-import { mount } from "enzyme"
+import { test, expect } from "vitest"
+import { render } from "@testing-library/react"
 import Link from "../components/Link"
 
 describe("Link", () => {
@@ -20,12 +21,9 @@ describe("Link", () => {
       expect(wrapper.text()).toEqual("Test")
     })
     it("should have the correct href", () => {
-      expect(
-        wrapper
-          .find("a")
-          .getDOMNode()
-          .getAttribute("href"),
-      ).toEqual("google.com")
+      expect(wrapper.find("a").getDOMNode().getAttribute("href")).toEqual(
+        "google.com",
+      )
     })
   })
 })
