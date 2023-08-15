@@ -1,6 +1,7 @@
 // @flow
-import React from "react"
+import { FunctionComponent } from "react"
 import { styled, withTheme } from "@material-ui/styles"
+import { type Theme } from "@material-ui/core"
 
 const ListItem = styled("li")({
   display: "flex",
@@ -8,10 +9,10 @@ const ListItem = styled("li")({
     width: "100%",
   },
 })
-// eslint-disable-next-line
-const Anchor = styled(({ theme, ...other }) => <a {...other} />)({
+// eslint-disable-next-line jsx-a11y/anchor-has-content
+const Anchor = styled(({ ...other }) => <a {...other} />)({
   display: "block",
-  color: (props: any) => (props.theme.text ? props.theme.text : "white"),
+  color: (properties: any) => properties.themes.text ?? "white",
   textDecoration: "none",
   margin: "auto",
   padding: "10px",
@@ -21,29 +22,27 @@ const Anchor = styled(({ theme, ...other }) => <a {...other} />)({
   },
 })
 
-type Props = {
+type LinkProperties = {
   /** Link title */
   title: String
   /** Link URL */
   href: String
   /** Material-UI theme */
-  theme: Object
+  theme: Theme
 }
 
 /**
  * Link is used for menu items without dropdowns.
  */
 
-const Link = (props: Props) => {
-  const { title, href, theme } = props
+const Link = ({ title, href, theme }: LinkProperties) => (
+  <ListItem>
+    <Anchor href={href} alt={title} theme={theme}>
+      {title}
+    </Anchor>
+  </ListItem>
+)
 
-  return (
-    <ListItem>
-      <Anchor href={href} alt={title} theme={theme}>
-        {title}
-      </Anchor>
-    </ListItem>
-  )
-}
+const themedLink = withTheme<Theme, FunctionComponent<LinkProperties>>(Link)
 
-export default withTheme(Link)
+export { themedLink as Link }
