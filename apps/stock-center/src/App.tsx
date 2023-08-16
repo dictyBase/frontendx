@@ -8,6 +8,9 @@ import { listStrainsPagination } from "@dictybase/hook-dsc"
 import { ApolloProvider } from "@apollo/client"
 import { Header } from "@dictybase/header"
 import { Footer } from "@dictybase/footer"
+import { Navbar } from "dicty-components-navbar"
+import { navbarItems, formatNavbarData } from "./navbarItems"
+import { navTheme } from "./themes"
 import { ThemeProvider } from "./ThemeProvider"
 import { routes } from "./routes"
 
@@ -52,6 +55,7 @@ export const App = () => {
           <CssBaseline />
           <div className={classes.body}>
             <Header />
+            <Navbar items={formatNavbarData(navbarItems)} theme={navTheme} />
             <main className={classes.main}>
               <Container maxWidth="lg">
                 <Routes>
