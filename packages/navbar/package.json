@@ -17,11 +17,12 @@
     "polished": "^4.1.3"
   },
   "peerDependencies": {
-    "@material-ui/styles": "^4.x",
     "react": "^16.8.0",
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
+    "@material-ui/core": "^4.x",
+    "@material-ui/styles": "^4.x",
     "@testing-library/jest-dom": "^5.x",
     "@testing-library/react": "^12.x",
     "@testing-library/react-hooks": "^8.x",
