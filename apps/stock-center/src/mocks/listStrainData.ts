@@ -15,6 +15,6 @@ const generateRandomData = () => {
 }
 
 const generateListStrainDataOfLength = (length: number) =>
-  new Array(length).map(() => generateRandomData())
+  new Array(length).fill(0).map(() => generateRandomData())
 
 export { generateListStrainDataOfLength }
