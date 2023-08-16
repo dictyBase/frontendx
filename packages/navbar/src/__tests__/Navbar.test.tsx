@@ -1,5 +1,5 @@
 import React from "react"
-import { mount } from "enzyme"
+import { render } from "@testing-library/react"
 import Navbar from "../components/Navbar"
 import Brand from "../components/Brand"
 import Dropdown from "../components/Dropdown"

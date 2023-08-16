@@ -1,5 +1,5 @@
 import React from "react"
-import { mount } from "enzyme"
+import { render } from "@testing-library/react"
 import MenuIcon from "../components/MenuIcon"
 
 describe("Menu Icon", () => {
@@ -17,10 +17,7 @@ describe("Menu Icon", () => {
       expect(wrapper).toHaveLength(1)
     })
     it("should fire its click handler when clicked", () => {
-      wrapper
-        .find("div")
-        .first()
-        .simulate("click")
+      wrapper.find("div").first().simulate("click")
       expect(props.onClick.mock.calls.length).toBe(1)
     })
   })
