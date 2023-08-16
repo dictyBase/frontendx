@@ -1,5 +1,5 @@
 // @flow
-import { Component } from "react"
+import { Component, MouseEvent, MouseEventHandler } from "react"
 import { styled, withTheme } from "@material-ui/styles"
 
 const Toggle = styled("div")({
@@ -55,22 +55,21 @@ type Props = {
   theme: Object
 }
 
+type MenuIconProperties = {
+  open: boolean
+  onClick: MouseEventHandler<HTMLDivElement>
+  theme: Object
+}
+
 /**
  * MenuIcon is the hamburger style icon displayed on mobile view.
  */
 
-class MenuIcon extends Component<Props> {
-  render() {
-    const { open, onClick, theme } = this.props
-
-    return (
-      <Toggle role="button" onClick={onClick} open={open}>
-        <IconBarTop open={open} theme={theme} />
-        <IconBarMiddle open={open} theme={theme} />
-        <IconBarBottom open={open} theme={theme} />
-      </Toggle>
-    )
-  }
-}
-
+const MenuIcon = ({ open, onClick, theme }: MenuIconProperties) => (
+  <Toggle role="button" onClick={onClick} open={open}>
+    <IconBarTop open={open} theme={theme} />
+    <IconBarMiddle open={open} theme={theme} />
+    <IconBarBottom open={open} theme={theme} />
+  </Toggle>
+)
 export default withTheme(MenuIcon)
