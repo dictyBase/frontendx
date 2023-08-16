@@ -141,12 +141,12 @@ const Link = styled(({ theme, ...other }) => <a {...other} />)({
 })
 
 type Props = {
-  open: boolean,
-  changeDropdown: Function,
-  theme: Object,
-  title: String,
-  index: Number,
-  items: Array<Object>,
+  open: boolean
+  changeDropdown: Function
+  theme: Object
+  title: String
+  index: Number
+  items: Array<Object>
 }
 
 /**
@@ -156,6 +156,7 @@ type Props = {
 class Dropdown extends Component<Props> {
   menu: any
   list: any
+
   constructor() {
     super()
     this.state = {
