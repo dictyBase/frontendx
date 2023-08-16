@@ -12,7 +12,7 @@ const ListItem = styled("li")({
 // eslint-disable-next-line jsx-a11y/anchor-has-content
 const Anchor = styled(({ ...other }) => <a {...other} />)({
   display: "block",
-  color: (properties: any) => properties.themes.text ?? "white",
+  color: (properties: any) => properties.theme.text ?? "white",
   textDecoration: "none",
   margin: "auto",
   padding: "10px",
@@ -28,7 +28,7 @@ type LinkProperties = {
   /** Link URL */
   href: String
   /** Material-UI theme */
-  theme: Theme
+  theme: Object
 }
 
 /**
