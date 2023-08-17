@@ -1,24 +1,21 @@
-import React from "react"
-import { render } from "@testing-library/react"
-import MenuIcon from "../components/MenuIcon"
+import { vi, test, expect } from "vitest"
+import userEvent from "@testing-library/user-event"
+import { render, screen } from "@testing-library/react"
+import { MenuIcon } from "../components/MenuIcon"
 
-describe("Menu Icon", () => {
-  const props = {
-    open: false,
-    onClick: jest.fn(),
-    theme: {
-      text: "white",
-    },
-  }
-  const wrapper = mount(<MenuIcon {...props} />)
+const mockOnClick = vi.fn()
 
-  describe("initial render", () => {
-    it("renders without crashing", () => {
-      expect(wrapper).toHaveLength(1)
-    })
-    it("should fire its click handler when clicked", () => {
-      wrapper.find("div").first().simulate("click")
-      expect(props.onClick.mock.calls.length).toBe(1)
-    })
-  })
+const properties = {
+  open: false,
+  onClick: mockOnClick,
+  theme: {
+    text: "white",
+  },
+}
+
+test("should fire its click handler when clicked", async () => {
+  render(<MenuIcon {...properties} />)
+  const { click } = userEvent.setup()
+  await click(screen.getByRole("button", { hidden: true }))
+  expect(mockOnClick).toHaveBeenCalledOnce()
 })
