@@ -30,27 +30,23 @@ const IconBarTop = styled(({ ...other }) => <div {...other} />)({
       : "rotate(0deg) translate(0px, 0px)",
 })
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const IconBarMiddle = styled(({ theme, ...other }) => <div {...other} />)({
+const IconBarMiddle = styled(({ ...other }) => <div {...other} />)({
   height: "5px",
   background: ({ theme }) => theme.text ?? "white",
   margin: "3px 0px",
   transition: "all 0.1s ease",
   width: ({ open }) => (open ? "0%" : "100%"),
 })
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const IconBarBottom = styled(({ theme, open, ...other }) => <div {...other} />)(
-  {
-    height: "5px",
-    background: ({ theme }) => theme.text ?? "white",
-    margin: "3px 0px",
-    transition: "all 0.2s ease",
-    transform: ({ open }) =>
-      open
-        ? "rotate(45deg) translate(-25%, -6px)"
-        : "rotate(0deg) translate(0px, 0px)",
-  },
-)
+const IconBarBottom = styled(({ ...other }) => <div {...other} />)({
+  height: "5px",
+  background: ({ theme }) => theme.text ?? "white",
+  margin: "3px 0px",
+  transition: "all 0.2s ease",
+  transform: ({ open }) =>
+    open
+      ? "rotate(45deg) translate(-25%, -6px)"
+      : "rotate(0deg) translate(0px, 0px)",
+})
 
 type MenuIconProperties = {
   open: boolean
