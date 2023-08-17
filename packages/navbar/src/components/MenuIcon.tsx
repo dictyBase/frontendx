@@ -1,8 +1,8 @@
 // @flow
-import { Component, MouseEvent, MouseEventHandler } from "react"
-import { styled, withTheme } from "@material-ui/styles"
+import { MouseEventHandler } from "react"
+import { styled } from "@material-ui/styles"
 
-const Toggle = styled("div")({
+const Toggle = styled(({ ...other }) => <div {...other} />)({
   display: "none",
   position: "relative",
   padding: "5px",
@@ -19,41 +19,38 @@ const Toggle = styled("div")({
     display: "flex",
   },
 })
-const IconBarTop = styled(({ theme, open, ...other }) => <div {...other} />)({
+const IconBarTop = styled(({ ...other }) => <div {...other} />)({
   height: "5px",
-  background: (props) => (props.theme.text ? props.theme.text : "white"),
+  background: ({ theme }) => theme.text ?? "white",
   margin: "3px 0px",
   transition: "all 0.2s ease",
-  transform: (props) =>
-    props.open
+  transform: ({ open }) =>
+    open
       ? "rotate(-45deg) translate(-25%, 7px)"
       : "rotate(0deg) translate(0px, 0px)",
 })
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const IconBarMiddle = styled(({ theme, ...other }) => <div {...other} />)({
   height: "5px",
-  background: (props) => (props.theme.text ? props.theme.text : "white"),
+  background: ({ theme }) => theme.text ?? "white",
   margin: "3px 0px",
   transition: "all 0.1s ease",
-  width: (props) => (props.open ? "0%" : "100%"),
+  width: ({ open }) => (open ? "0%" : "100%"),
 })
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const IconBarBottom = styled(({ theme, open, ...other }) => <div {...other} />)(
   {
     height: "5px",
-    background: (theme) => (theme.text ? theme.text : "white"),
+    background: ({ theme }) => theme.text ?? "white",
     margin: "3px 0px",
     transition: "all 0.2s ease",
-    transform: (props) =>
-      props.open
+    transform: ({ open }) =>
+      open
         ? "rotate(45deg) translate(-25%, -6px)"
         : "rotate(0deg) translate(0px, 0px)",
   },
 )
-
-type Props = {
-  onClick: Function
-  open: boolean
-  theme: Object
-}
 
 type MenuIconProperties = {
   open: boolean
@@ -72,4 +69,5 @@ const MenuIcon = ({ open, onClick, theme }: MenuIconProperties) => (
     <IconBarBottom open={open} theme={theme} />
   </Toggle>
 )
-export default withTheme(MenuIcon)
+
+export { MenuIcon }
