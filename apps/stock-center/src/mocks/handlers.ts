@@ -1,11 +1,12 @@
-import { mockStrainListQuery } from "dicty-graphql-schema"
+import { mockStrainListQuery, mockStrainQuery } from "dicty-graphql-schema"
+import { availableStrain } from "@dictybase/ui-dsc"
 import { generateListStrainDataOfLength } from "./listStrainData"
 
 const mockStrainListData = generateListStrainDataOfLength(30)
 
 const handlers = [
   mockStrainListQuery((request, response, context) => {
-    const { cursor, limit, filter } = request.variables
+    const { cursor, limit } = request.variables
     const totalCount = mockStrainListData.length
     const nextCursor = cursor + limit < totalCount ? cursor + limit : 0
     const strains = mockStrainListData.slice(0, cursor + limit)
@@ -15,6 +16,13 @@ const handlers = [
       }),
     )
   }),
+  mockStrainQuery((_, response, context) =>
+    response(
+      context.data({
+        strain: availableStrain,
+      }),
+    ),
+  ),
 ]
 
 export { handlers }
