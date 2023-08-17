@@ -70,7 +70,6 @@ const CatalogTableHeader = ({
   headers = tableHeaders,
 }: CatalogTableHeaderProperties) => {
   const classes = useStyles()
-  // const classes = ""
   return (
     <TableRow>
       {headers.map((h: string) => (
