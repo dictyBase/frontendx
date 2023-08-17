@@ -18,8 +18,8 @@ const useStyles = makeStyles(({ palette }) => ({
 type Properties = {
   /** Stock data */
   data: Array<Pick<Strain, "id" | "label" | "summary" | "inStock">>
-  /** Stock inventory status */
-  // inStock: boolean
+  /** Function to toggle the AddToCartDialog */
+  setShowDialog: React.Dispatch<React.SetStateAction<boolean>>
   /** Function to add to checked items array */
   setCheckedItems?: (argument0: Array<StrainItem>) => void
   /** Size of icon */
@@ -38,12 +38,10 @@ const appendFee = (
 
 const AddToCartButton = ({
   data,
-  setHover,
-  setCheckedItems,
   size = "medium",
+  setShowDialog,
 }: Properties) => {
   const classes = useStyles()
-  const [showDialog, setShowDialog] = React.useState(false)
   const addItems = useSetAtom(addItemsAtom)
 
   const handleClick = () => {
@@ -63,14 +61,6 @@ const AddToCartButton = ({
           <AddShoppingCartIcon />
         </IconButton>
       </strong>
-      {showDialog && (
-        <AddToCartDialog
-          data={data}
-          setCheckedItems={setCheckedItems}
-          setShowDialog={setShowDialog}
-          setHover={setHover}
-        />
-      )}
     </>
   )
 }
