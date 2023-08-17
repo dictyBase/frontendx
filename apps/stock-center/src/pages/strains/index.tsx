@@ -10,10 +10,12 @@ import {
   CatalogListWrapper,
   FilterDropdown,
   SearchBox,
+  CatalogHeader,
+  AppBarHelp,
 } from "@dictybase/ui-dsc"
 import { useIntersectionObserver } from "@dictybase/hook"
 import { useRef } from "react"
-import { Box } from "@material-ui/core"
+import { Box, Grid } from "@material-ui/core"
 import { useStrainListQuery } from "dicty-graphql-schema"
 import { useSearchParams } from "react-router-dom"
 
@@ -41,14 +43,22 @@ const StrainCatalog = () => {
 
   return (
     <>
-      <Box m={2} display="flex">
-        <FilterDropdown
-          searchParamFn={setSearchParameters}
-          param={defaultFilter.param}
-          value={defaultFilter.value}
-        />
-        <SearchBox fields={Object.keys(fieldsToVariables)} key={value} />
-      </Box>
+      <CatalogHeader title="Strain Catalog" />
+      <Grid container alignItems="flex-end">
+        <Grid item>
+          <FilterDropdown
+            searchParamFn={setSearchParameters}
+            param={defaultFilter.param}
+            value={defaultFilter.value}
+          />
+        </Grid>
+        <Grid item style={{ flexGrow: 1 }}>
+          <SearchBox fields={Object.keys(fieldsToVariables)} key={value} />
+        </Grid>
+        <Grid item>
+          <AppBarHelp />
+        </Grid>
+      </Grid>
       <Box>
         <CatalogListWrapper root={rootReference}>
           {loading ? <LoadingDisplay rows={10} /> : <></>}
