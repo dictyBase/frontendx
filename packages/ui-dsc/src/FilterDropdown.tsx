@@ -15,8 +15,6 @@ const useStyles = makeStyles({
     color: deepPurple[500],
     fontWeight: 200,
     borderStyle: "none",
-    borderWidth: 2,
-    borderRadius: 12,
     boxShadow: "0px 5px 8px -3px rgba(0,0,0,0.14)",
     "&:focus": {
       borderRadius: 12,
@@ -82,24 +80,22 @@ export const FilterDropdown = ({
   }
 
   return (
-    <div>
-      <FormControl variant="outlined">
-        <Select
-          className={classes.root}
-          disableUnderline
-          MenuProps={{
-            classes: { paper: classes.paper, list: classes.list },
-            anchorOrigin: { vertical: "bottom", horizontal: "left" },
-          }}
-          onChange={handleChange}
-          value={filterValue}>
-          {items.map((object) => (
-            <MenuItem value={object.value} key={uuid4()}>
-              {object.label}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </div>
+    <FormControl fullWidth variant="outlined">
+      <Select
+        className={classes.root}
+        disableUnderline
+        MenuProps={{
+          classes: { paper: classes.paper, list: classes.list },
+          anchorOrigin: { vertical: "bottom", horizontal: "left" },
+        }}
+        onChange={handleChange}
+        value={filterValue}>
+        {items.map((object) => (
+          <MenuItem value={object.value} key={uuid4()}>
+            {object.label}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   )
 }
