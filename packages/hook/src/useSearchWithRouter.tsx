@@ -151,10 +151,11 @@ export function useSearchWithRouter({
   const renderInput = (parameters: AutocompleteRenderInputParams) => (
     <TextField
       {...parameters}
-      size="small"
+      size="medium"
       label={label}
       variant="outlined"
-      helperText={help}
+      fullWidth
+      // helperText={help}
     />
   )
 
