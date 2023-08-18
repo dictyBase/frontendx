@@ -1,18 +1,24 @@
-// @flow
-import React, { Component, forwardRef } from "react"
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  forwardRef,
+  ReactNode,
+} from "react"
 import { ThemeProvider, styled } from "@material-ui/styles"
-import Brand from "./Brand"
-import Dropdown from "./Dropdown"
-import Link from "./Link"
-import MenuIcon from "./MenuIcon"
+import { Brand } from "./Brand"
+import { Dropdown } from "./Dropdown"
+import { Link } from "./Link"
+import { MenuIcon } from "./MenuIcon"
 import { transitionToAuto, transitionFromAuto, wasClicked } from "../utils/dom"
 
 const Container = styled(
-  forwardRef(({ ...other }, ref) => <div {...other} ref={ref} />),
+  forwardRef<HTMLDivElement, { children: ReactNode }>(
+    ({ ...other }, reference) => <div {...other} ref={reference} />,
+  ),
 )({
   width: "100%",
-  zIndex: "10000",
-
+  zIndex: 10_000,
   "@media (max-width: 768px)": {
     overflow: "hidden",
     position: "initial",
@@ -26,15 +32,16 @@ const Container = styled(
 })
 
 const Nav = styled(
-  forwardRef(({ theme, ...other }, ref) => <nav {...other} ref={ref} />),
+  forwardRef<HTMLElement, { theme: any; children: ReactNode }>(
+    ({ ...other }, reference) => <nav {...other} ref={reference} />,
+  ),
 )({
   display: "flex",
   flexDirection: "row",
   flexWrap: "nowrap",
-  background: props => (props.theme.primary ? props.theme.primary : "#15317e"),
-  color: props => (props.theme.text ? props.theme.text : "white"),
-  minHeight: props => (props.theme.height ? props.theme.height + "px" : "50px"),
-
+  background: ({ theme }) => theme.primary ?? "#15317e",
+  color: ({ theme }) => theme.text ?? "white",
+  minHeight: ({ theme }) => (theme.height ? `${theme.height}px` : "50px"),
   "@media (max-width: 768px)": {
     position: "relative",
     flexDirection: "column",
@@ -43,6 +50,7 @@ const Nav = styled(
     minHeight: "100%",
   },
 })
+
 const Items = styled("ul")({
   display: "flex",
   flexDirection: "row",
@@ -51,7 +59,6 @@ const Items = styled("ul")({
   margin: 0,
   padding: 0,
   listStyleType: "none",
-
   "@media (max-width: 768px)": {
     flexDirection: "column",
     alignItems: "center",
@@ -61,7 +68,6 @@ const Items = styled("ul")({
 
 const Header = styled("li")({
   listStyleType: "none",
-
   "@media (max-width: 768px)": {
     display: "flex",
     flexDirection: "column",
@@ -71,139 +77,123 @@ const Header = styled("li")({
   },
 })
 
-type Props = {
-  items: Array<Object>,
-  brand: Object,
-  theme: Object,
-}
-type State = {
-  activeIndex: number,
-  open: boolean,
+type NavbarProperties = {
+  items: Array<{
+    dropdown: boolean
+    title: string
+    items: Array<{ name: string; href: string }>
+  }>
+  brand: { title: string; href: string }
+  theme: Object
 }
 
 /**
  * Navbar is the outer container for the navbar library.
  */
 
-export default class Navbar extends Component<Props, State> {
-  nav: any
-  icon: any
-  container: any
-  constructor() {
-    super()
-    this.state = {
-      activeIndex: -1,
-      open: false,
-    }
-  }
-  componentDidMount() {
-    document.addEventListener("click", this.handleDocumentClick)
-    // Necessary to allow container to expand to accomodate open dropdowns
-    this.container.addEventListener("transitionend", this.handleTransitionend)
-  }
-  handleTransitionend = (e: SyntheticTransitionEvent<>) => {
-    const { open } = this.state
-    if (open && e.propertyName === "height") {
-      this.container.style.height = "auto"
-    }
-  }
-  handleDocumentClick = (e: MouseEvent) => {
-    const { open } = this.state
-    if (!wasClicked(e, this.nav) && open) {
-      this.close()
-    }
-  }
-  toggle = (e: SyntheticEvent<>) => {
-    const { open } = this.state
+const Navbar = ({ items, brand, theme }: NavbarProperties) => {
+  const [activeIndex, setActiveIndex] = useState(-1)
+  const [open, setOpen] = useState(false)
+  const navReference = useRef(null)
+  // const iconReference = useRef(null)
+  const containerReference = useRef<HTMLDivElement>(null)
 
-    e.nativeEvent.stopImmediatePropagation()
-    e.preventDefault()
-    if (open) {
-      this.close()
-    } else {
-      this.open()
+  const onClose = () => {
+    setOpen(false)
+    transitionFromAuto(containerReference.current, 50)
+  }
+
+  const onOpen = () => {
+    setOpen(true)
+    transitionToAuto(containerReference.current)
+  }
+
+  const handleTransitionend = (event: TransitionEvent) => {
+    if (containerReference.current && open && event.propertyName === "height") {
+      containerReference.current.style.height = "auto"
     }
   }
-  close = () => {
-    this.setState({
-      open: false,
-      activeIndex: -1,
-    })
-    transitionFromAuto(this.container, 50)
+
+  const handleDocumentClick = (event: MouseEvent) => {
+    if (!wasClicked(event, navReference.current) && open) {
+      onClose()
+    }
   }
-  open = () => {
-    this.setState({
-      open: true,
-    })
-    transitionToAuto(this.container)
+
+  const toggle = (event: React.MouseEvent) => {
+    event.nativeEvent.stopImmediatePropagation()
+    event.preventDefault()
+
+    if (open) {
+      onClose()
+    } else {
+      onOpen()
+    }
   }
-  changeDropdown = (i: number) => {
-    this.setState({
-      activeIndex: i,
-    })
+
+  const changeDropdown = (index: number) => {
+    setActiveIndex(index)
   }
-  renderBrand = () => {
-    const { title, href } = this.props.brand
+
+  const renderBrand = () => {
+    const { title, href } = brand
+
     return <Brand title={title} href={href} />
   }
-  renderItems = () => {
-    const { activeIndex, open } = this.state
-    let { items } = this.props
-    items = items.map((item, i) => {
-      if (item.element) {
-        return React.cloneElement(item.element, {
-          ...item.element.props,
-          key: i,
-        })
-      } else if (item.dropdown) {
-        return (
-          <Dropdown
-            key={i}
-            index={i}
-            open={activeIndex === i ? true : false}
-            items={item.items}
-            title={item.title}
-            changeDropdown={this.changeDropdown}
-            controlled={true}
-          />
-        )
-      } else {
-        return <Link key={i} href={item.href} title={item.title} />
-      }
-    })
-    return <Items open={open}>{items}</Items>
-  }
-  componentWillUnmount() {
-    document.removeEventListener("click", this.handleDocumentClick)
-    this.container.removeEventListener(
-      "transitionend",
-      this.handleTransitionend,
-    )
-  }
-  render() {
-    const { theme, brand, items } = this.props
-    const { open } = this.state
 
-    return (
-      <ThemeProvider theme={theme ? theme : {}}>
-        <Container
-          open={open}
-          items={items}
-          brand={brand}
-          ref={el => (this.container = el)}>
-          <Nav open={open} theme={theme} ref={el => (this.nav = el)}>
-            <Header open={open}>
-              <MenuIcon
-                onClick={this.toggle}
-                open={open}
-                ref={el => (this.icon = el)}
-              />
-              {brand && this.renderBrand()}
-            </Header>
-            {items && this.renderItems()}
-          </Nav>
-        </Container>
-      </ThemeProvider>
-    )
-  }
+  const renderItems = () => (
+    <Items>
+      {items.map((item, index) => {
+        if (item.dropdown) {
+          return (
+            <Dropdown
+              key={item.title}
+              index={index}
+              open={activeIndex === index}
+              items={item.items}
+              title={item.title}
+              theme={theme}
+              changeDropdown={changeDropdown}
+              // controlled
+            />
+          )
+        }
+        return <Link href={item.items[0]?.href as string} title={item.title} />
+      })}
+    </Items>
+  )
+
+  useEffect(() => {
+    const currentContainer = containerReference.current
+    document.addEventListener("click", handleDocumentClick)
+    if (currentContainer) {
+      currentContainer.addEventListener("transitionend", handleTransitionend)
+    }
+
+    return () => {
+      document.removeEventListener("click", handleDocumentClick)
+      if (currentContainer) {
+        currentContainer.removeEventListener(
+          "transitionend",
+          handleTransitionend,
+        )
+      }
+    }
+  })
+
+  return (
+    <ThemeProvider theme={theme ?? {}}>
+      <Container ref={containerReference}>
+        <Nav theme={theme} ref={navReference}>
+          <Header>
+            <MenuIcon onClick={toggle} open={open} theme={theme} />
+          </Header>
+          {brand && renderBrand()}
+          {items && <Items>{renderItems()}</Items>}
+        </Nav>
+      </Container>
+    </ThemeProvider>
+  )
 }
+
+export { Navbar }
