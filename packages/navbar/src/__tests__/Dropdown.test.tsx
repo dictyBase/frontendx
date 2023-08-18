@@ -1,26 +1,28 @@
 // @flow
 import { test, expect } from "vitest"
 import { render } from "@testing-library/react"
-import Dropdown from "../components/Dropdown"
+import { Dropdown } from "../components/DropdownFC"
 
-const props = {
+const testLink = "google.com"
+
+const properties = {
   title: "Dicty Stock Center",
   links: [
     {
       name: "Link 1",
-      href: "www.google.com",
+      href: testLink,
     },
     {
       name: "Link 2",
-      href: "www.google.com",
+      href: testLink,
     },
     {
       name: "Link 3",
-      href: "www.google.com",
+      href: testLink,
     },
     {
       name: "Link 4",
-      href: "www.google.com",
+      href: testLink,
     },
   ],
   theme: {
@@ -32,12 +34,12 @@ beforeEach(() => {
   const changeDropdown = vi.fn()
   render(
     <Dropdown
-      items={props.links}
-      title={props.title}
+      items={properties.links}
+      title={properties.title}
       changeDropdown={changeDropdown}
       index={0}
       open={false}
-      theme={props.theme}
+      theme={properties.theme}
     />,
   )
 })
