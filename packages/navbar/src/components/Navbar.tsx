@@ -83,6 +83,8 @@ type NavbarProperties = {
     title: string
     items: Array<{ name: string; href: string }>
   }>
+  // | { dropdown: boolean; title: string; href: string }
+  // | { element: JSX.Element }
   brand: { title: string; href: string }
   theme: Object
 }
@@ -158,7 +160,7 @@ const Navbar = ({ items, brand, theme }: NavbarProperties) => {
             />
           )
         }
-        return <Link href={item.items[0]?.href as string} title={item.title} />
+        return <Link href={item.href as string} title={item.title} />
       })}
     </Items>
   )
