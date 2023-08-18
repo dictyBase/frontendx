@@ -1,6 +1,7 @@
 // @flow
-import { test, expect } from "vitest"
-import { render } from "@testing-library/react"
+import { vi, test, expect, afterEach, beforeEach } from "vitest"
+import { render, screen } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
 import { Dropdown } from "../components/DropdownFC"
 
 const testLink = "google.com"
@@ -30,33 +31,36 @@ const properties = {
   },
 }
 
-beforeEach(() => {
-  const changeDropdown = vi.fn()
+const mockChangeDropdown = vi.fn()
+
+test("should call changeDropdown() with its index when opened", async () => {
   render(
     <Dropdown
       items={properties.links}
       title={properties.title}
-      changeDropdown={changeDropdown}
+      changeDropdown={mockChangeDropdown}
       index={0}
       open={false}
       theme={properties.theme}
     />,
   )
+  const { click } = userEvent.setup()
+  await click(screen.getByText(/dicty stock center/i))
+  expect(mockChangeDropdown).toHaveBeenCalledOnce()
+  expect(mockChangeDropdown).toHaveBeenCalledWith(0)
 })
-afterEach(() => {
-  wrapper.unmount()
-})
-test("should render without crashing", () => {
-  expect(wrapper).toHaveLength(1)
-})
-test("should call changeDropdown() with its index when opened", () => {
-  wrapper.find("li").first().simulate("click")
-  expect(changeDropdown.mock.calls.length).toEqual(1)
-  expect(changeDropdown.mock.calls[0][0]).toBe(0)
-})
-test("should call changeDropdown() with -1 when closed", () => {
-  wrapper.setProps({ open: true })
-  wrapper.find("li").first().simulate("click")
-  expect(changeDropdown.mock.calls.length).toEqual(1)
-  expect(changeDropdown.mock.calls[0][0]).toBe(-1)
+test("should call changeDropdown() with -1 when closed", async () => {
+  render(
+    <Dropdown
+      items={properties.links}
+      title={properties.title}
+      changeDropdown={mockChangeDropdown}
+      index={0}
+      open
+      theme={properties.theme}
+    />,
+  )
+  const { click } = userEvent.setup()
+  await click(screen.getByText(/dicty stock center/i))
+  expect(mockChangeDropdown).toHaveBeenCalledWith(-1)
 })
