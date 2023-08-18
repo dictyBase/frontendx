@@ -1,9 +1,13 @@
-import React, { Component, forwardRef } from "react"
-import { styled, withTheme } from "@material-ui/styles"
+/* eslint-disable unicorn/filename-case */
+import { useState, useEffect, useRef, forwardRef, ReactNode } from "react"
+import { styled } from "@material-ui/styles"
 import { wasClicked, transitionToAuto, transitionFromAuto } from "../utils/dom"
 
 const Menu = styled(
-  forwardRef(({ theme, open, ...other }, ref) => <ul {...other} ref={ref} />),
+  forwardRef<
+    HTMLUListElement,
+    { open: boolean; theme: any; children: ReactNode }
+  >(({ ...other }, reference) => <ul {...other} ref={reference} />),
 )({
   display: "flex",
   flexDirection: "column",
@@ -13,8 +17,8 @@ const Menu = styled(
   height: "100%",
   padding: 0,
   position: "relative",
-  background: (props) =>
-    props.open && props.theme.secondary ? props.theme.secondary : "transparent",
+  background: ({ open, theme }) =>
+    open && theme.secondary ? theme.secondary : "transparent",
   transition: "all 0.2s ease",
 
   "@media (max-width: 768px)": {
@@ -22,24 +26,22 @@ const Menu = styled(
     width: "100%",
   },
 })
-const Toggle = styled(({ theme, open, ...other }) => <li {...other} />)({
+const Toggle = styled(({ ...other }) => <li {...other} />)({
   display: "block",
   cursor: "pointer",
   padding: "0px 20px 0px 10px",
   transition: "transform 0.3s ease, top 0.3s ease, bottom 0.3s ease",
-  color: (props) => (props.theme.text ? props.theme.text : "white"),
-  lineHeight: (props) => (props.theme.height ? props.theme.height : "50px"),
-
+  color: ({ theme }) => theme.text ?? "white",
+  lineHeight: ({ theme }) => theme.height ?? "50px",
   "@media (max-width: 768px)": {
     lineHeight: "initial",
     position: "relative",
     margin: 0,
   },
-
   "&::after": {
     content: "''",
     position: "absolute",
-    top: (props) => (props.open ? "9px" : "0px"),
+    top: ({ open }) => (open ? "9px" : "0px"),
     bottom: 0,
     right: "5px",
     margin: "auto",
@@ -47,22 +49,27 @@ const Toggle = styled(({ theme, open, ...other }) => <li {...other} />)({
     height: 0,
     borderLeft: "5px solid transparent",
     borderRight: "5px solid transparent",
-    borderTop: (props) =>
-      props.theme.text ? `5px solid ${props.theme.text}` : "5px solid white",
-    transform: (props) => (props.open ? "rotateX(180deg)" : "rotateX(0deg)"),
+    borderTop: ({ theme }) =>
+      theme.text ? `5px solid ${theme.text}` : "5px solid white",
+    transform: ({ open }) => (open ? "rotateX(180deg)" : "rotateX(0deg)"),
     transformOrigin: "top",
     transition: "inherit",
 
     "@media (max-width: 768px)": {
-      top: (props) => (props.open ? "19px" : "11px"),
+      top: ({ open }) => (open ? "19px" : "11px"),
       right: "25px",
-      bottom: (props) => (props.open ? "11px" : "10px"),
+      bottom: ({ open }) => (open ? "11px" : "10px"),
     },
   },
 })
 
+const CSSBorderValues = "1px solid #333"
+
 const List = styled(
-  forwardRef(({ theme, open, ...other }, ref) => <ul {...other} ref={ref} />),
+  forwardRef<
+    HTMLUListElement,
+    { open: boolean; theme: any; children: ReactNode }
+  >(({ ...other }, reference) => <ul {...other} ref={reference} />),
 )({
   position: "absolute",
   top: "100%",
@@ -77,39 +84,32 @@ const List = styled(
   listStyleType: "none",
   transition: "all 0.2s ease",
   background: "white",
-  borderLeft: (props) =>
-    props.theme.secondary
-      ? `1px solid ${props.theme.secondary}`
-      : "1px solid #333",
-  borderRight: (props) =>
-    props.theme.secondary
-      ? `1px solid ${props.theme.secondary}`
-      : "1px solid #333",
-  borderBottom: (props) =>
-    props.theme.secondary
-      ? `1px solid ${props.theme.secondary}`
-      : "1px solid #333",
-  borderBottomWidth: (props) => (props.open ? "1px" : "0px"),
+  borderLeft: ({ theme }) =>
+    theme.secondary ? `1px solid ${theme.secondary}` : CSSBorderValues,
+  borderRight: ({ theme }) =>
+    theme.secondary ? `1px solid ${theme.secondary}` : CSSBorderValues,
+  borderBottom: ({ theme }) =>
+    theme.secondary ? `1px solid ${theme.secondary}` : CSSBorderValues,
+  borderBottomWidth: ({ open }) => (open ? "1px" : "0px"),
   borderBottomRightRadius: "3px",
   borderBottomLeftRadius: "3px",
   boxShadow: "0px 6px 12px rgba(0, 0, 0, 0.3)",
-  zIndex: 10000,
+  zIndex: 10_000,
   whiteSpace: "nowrap",
 
   "@media (max-width: 768px)": {
     position: "relative",
     top: 0,
     border: "none",
-    color: (props) => (props.theme.secondary ? props.theme.secondary : "black"),
+    color: ({ theme }) => theme.secondary ?? "black",
     boxShadow: "none",
-    background: (props) =>
-      props.theme.primary ? props.theme.primary : "#15317e",
+    background: ({ theme }) => theme.primary ?? "#15317e",
   },
 })
 
-const Item = styled(({ theme, ...other }) => <li {...other} />)({
+const Item = styled(({ ...other }) => <li {...other} />)({
   position: "relative",
-  color: (props) => (props.theme.primary ? props.theme.primary : "black"),
+  color: ({ theme }) => theme.primary ?? "black",
   transition: "all 0.14s ease",
 
   "@media (max-width: 768px)": {
@@ -117,130 +117,116 @@ const Item = styled(({ theme, ...other }) => <li {...other} />)({
   },
 })
 
-// eslint-disable-next-line
-const Link = styled(({ theme, ...other }) => <a {...other} />)({
+// eslint-disable-next-line jsx-a11y/anchor-has-content
+const Link = styled(({ ...other }) => <a {...other} />)({
   textDecoration: "none",
   textAlign: "left",
   background: "white",
-  color: (props) => (props.theme.primary ? props.theme.primary : "#15317e"),
+  color: ({ theme }) => theme.primary ?? "#15317e",
   padding: "10px 10px 10px 5px",
   display: "block",
 
   "&:hover": {
     color: "white",
-    background: (props) =>
-      props.theme.primary ? props.theme.primary : "#15317e",
+    background: ({ theme }) => theme.primary ?? "#15317e",
   },
 
   "@media (max-width: 768px)": {
     padding: "10px 0px 10px 40px",
     color: "white !important",
-    background: (props) =>
-      props.theme.primary ? props.theme.primary : "#15317e",
+    background: ({ theme }) => theme.primary ?? "#15317e",
   },
 })
 
-type Props = {
+type DropdownProperties = {
   open: boolean
   changeDropdown: Function
   theme: Object
   title: String
   index: Number
-  items: Array<Object>
+  items: Array<{ name: string; href: string }>
 }
 
 /**
  * Dropdown provides a dropdown menu with a set of specified items.
  */
 
-class Dropdown extends Component<Props> {
-  menu: any
-  list: any
+const Dropdown = ({
+  open,
+  changeDropdown,
+  theme,
+  title,
+  index,
+  items,
+}: DropdownProperties) => {
+  const [width, setWidth] = useState("")
+  const menuReference = useRef(null)
+  const listReference = useRef(null)
 
-  constructor() {
-    super()
-    this.state = {
-      width: null,
+  const onClose = () => {
+    transitionFromAuto(listReference.current, 0)
+  }
+
+  const onOpen = () => {
+    transitionToAuto(listReference.current)
+  }
+
+  const handleDocumentClick = (event: any) => {
+    if (!wasClicked(event, menuReference.current) && open) {
+      event.stopImmediatePropagation()
+      onClose()
+      changeDropdown(-1)
     }
   }
-  componentWillMount() {
-    document.addEventListener("click", this.handleDocumentClick)
-  }
-  componentDidMount() {
-    this.setState({
-      width: getComputedStyle(this.list).width,
-    })
-  }
-  close = (): void => {
-    transitionFromAuto(this.list, 0)
-  }
-  open = (): void => {
-    transitionToAuto(this.list)
-  }
-  handleClick = (e: Event): void => {
-    const { open, changeDropdown, index } = this.props
+
+  const handleClick = () => {
     if (open) {
-      // If dropdown is clicked while open, set Navbar's activeIndex to -1
-      // to signify that all dropdowns are currently closed
       changeDropdown(-1)
     } else {
       changeDropdown(index)
     }
   }
-  handleDocumentClick = (e: Event): void => {
-    const { changeDropdown, open } = this.props
-    if (!wasClicked(e, this.menu) && open) {
-      e.stopImmediatePropagation()
-      this.close()
-      changeDropdown(-1)
-      return
-    }
-  }
-  renderItems = (): ?React$Element<any> => {
-    let { items, theme } = this.props
-    items = items.map((item, i) => (
-      <Item key={i} theme={theme}>
+
+  const renderItems = () =>
+    items.map((item) => (
+      <Item key={item.name} theme={theme}>
         <Link href={item.href} theme={theme}>
           {item.name}
         </Link>
       </Item>
     ))
-    return items
-  }
-  componentWillReceiveProps(nextProps: Props) {
-    const { open }: { open: Boolean } = nextProps
-    if (open) {
-      this.open()
-    } else if (!open) {
-      this.close()
-    }
-  }
-  componentWillUnmount() {
-    document.removeEventListener("click", this.handleDocumentClick)
-  }
-  render() {
-    const { title, open, theme } = this.props
-    const { width } = this.state
 
-    return (
-      <Menu
-        theme={theme}
-        open={open}
-        ref={(el) => (this.menu = el)}
-        width={width}>
-        <Toggle
-          theme={theme}
-          onClick={this.handleClick}
-          open={open}
-          width={width}>
-          {title}
-        </Toggle>
-        <List theme={theme} open={open} ref={(el) => (this.list = el)}>
-          {this.renderItems()}
-        </List>
-      </Menu>
-    )
-  }
+  useEffect(() => {
+    document.addEventListener("click", handleDocumentClick)
+    return () => {
+      document.removeEventListener("click", handleDocumentClick)
+    }
+  })
+
+  useEffect(() => {
+    if (listReference.current) {
+      setWidth(getComputedStyle(listReference.current).width)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (open) {
+      onOpen()
+    } else if (!open) {
+      onClose()
+    }
+  }, [open])
+
+  return (
+    <Menu theme={theme} open={open} ref={menuReference}>
+      <Toggle theme={theme} onClick={handleClick} open={open} width={width}>
+        {title}
+      </Toggle>
+      <List theme={theme} open={open} ref={listReference}>
+        {renderItems()}
+      </List>
+    </Menu>
+  )
 }
 
-export default withTheme(Dropdown)
+export { Dropdown }
