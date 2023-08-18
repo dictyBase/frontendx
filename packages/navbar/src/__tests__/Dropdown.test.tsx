@@ -1,8 +1,8 @@
 // @flow
-import { vi, test, expect, afterEach, beforeEach } from "vitest"
+import { vi, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { Dropdown } from "../components/DropdownFC"
+import { Dropdown } from "../components/Dropdown"
 
 const testLink = "google.com"
 
