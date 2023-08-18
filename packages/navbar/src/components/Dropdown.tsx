@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/filename-case */
 import { useState, useEffect, useRef, forwardRef, ReactNode } from "react"
 import { styled } from "@material-ui/styles"
 import { wasClicked, transitionToAuto, transitionFromAuto } from "../utils/dom"
