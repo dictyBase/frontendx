@@ -1794,9 +1794,9 @@
   integrity sha512-Ag+9YM4ocKQx9AarydN0KY2j0ErMHNIocPDrVo8zAE44xLTjEtz81OdR68/cydGtk6m6jDb5Za3r2useMzYmSw==
 
 "@fontsource/fira-code@^5.0.3", "@fontsource/fira-code@^5.0.5":
-  version "5.0.5"
-  resolved "https://registry.yarnpkg.com/@fontsource/fira-code/-/fira-code-5.0.5.tgz#528610f5666d74159541f45a7d11587e72fd3408"
-  integrity sha512-mb6eBaD0nheCaPZYllnBVsfUUuZufFtxZrF57CjmzkW2tM/G6Yag2UGjCX6vWVblHiIssmj986IDJo+R7SvnMw==
+  version "5.0.8"
+  resolved "https://registry.yarnpkg.com/@fontsource/fira-code/-/fira-code-5.0.8.tgz#d6af374e1d0226c52eb1ee3d07ed6f9543a19fd4"
+  integrity sha512-kp/tJUVnjaZeLHENMBFTTSgP2B7+/rIboeofuMfoGB40s2U0DKXNqQcOqIF5PtDhJ5QTG1LcviYXMnc1yG6oYQ==
 
 "@fontsource/lato@^4.4.2":
   version "4.5.10"
