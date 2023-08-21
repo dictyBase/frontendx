@@ -23,9 +23,9 @@ export type Scalars = {
 export type AssociatedSequences = {
   __typename?: 'AssociatedSequences';
   ests: Array<NameWithLink>;
-  genbankGenomicFragment?: Maybe<NameWithLink>;
-  genbankMrna?: Maybe<NameWithLink>;
-  moreLink: Scalars['String']['output'];
+  genbank_genomic_fragment?: Maybe<NameWithLink>;
+  genbank_mrna?: Maybe<NameWithLink>;
+  more_link: Scalars['String']['output'];
 };
 
 export type Auth = {
@@ -37,9 +37,9 @@ export type Auth = {
 
 export type Author = {
   __typename?: 'Author';
-  firstName?: Maybe<Scalars['String']['output']>;
+  first_name?: Maybe<Scalars['String']['output']>;
   initials?: Maybe<Scalars['String']['output']>;
-  lastName: Scalars['String']['output'];
+  last_name: Scalars['String']['output'];
   rank?: Maybe<Scalars['String']['output']>;
 };
 
@@ -52,8 +52,8 @@ export type BasePublication = {
   issue?: Maybe<Scalars['String']['output']>;
   journal: Scalars['String']['output'];
   pages?: Maybe<Scalars['String']['output']>;
-  pubDate?: Maybe<Scalars['Timestamp']['output']>;
-  pubType: Scalars['String']['output'];
+  pub_date?: Maybe<Scalars['Timestamp']['output']>;
+  pub_type: Scalars['String']['output'];
   source: Scalars['String']['output'];
   status?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
@@ -64,40 +64,39 @@ export type Citation = {
   __typename?: 'Citation';
   authors: Scalars['String']['output'];
   journal: Scalars['String']['output'];
-  pubmedId: Scalars['String']['output'];
+  pubmed_id: Scalars['String']['output'];
   title: Scalars['String']['output'];
 };
 
 export type Content = {
   __typename?: 'Content';
   content: Scalars['String']['output'];
-  createdAt: Scalars['Timestamp']['output'];
-  createdBy: User;
+  created_at: Scalars['Timestamp']['output'];
+  created_by: User;
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   namespace: Scalars['String']['output'];
   slug: Scalars['String']['output'];
-  updatedAt: Scalars['Timestamp']['output'];
-  updatedBy: User;
+  updated_at: Scalars['Timestamp']['output'];
+  updated_by: User;
 };
 
 export type CreateContentInput = {
   content: Scalars['String']['input'];
-  createdBy: Scalars['String']['input'];
+  created_by: Scalars['String']['input'];
   name: Scalars['String']['input'];
   namespace: Scalars['String']['input'];
-  slug: Scalars['String']['input'];
 };
 
 export type CreateOrderInput = {
   comments?: InputMaybe<Scalars['String']['input']>;
   consumer: Scalars['String']['input'];
   courier: Scalars['String']['input'];
-  courierAccount: Scalars['String']['input'];
+  courier_account: Scalars['String']['input'];
   items: Array<Scalars['String']['input']>;
   payer: Scalars['String']['input'];
   payment: Scalars['String']['input'];
-  purchaseOrderNum?: InputMaybe<Scalars['String']['input']>;
+  purchase_order_num?: InputMaybe<Scalars['String']['input']>;
   purchaser: Scalars['String']['input'];
   status: StatusEnum;
 };
@@ -109,20 +108,20 @@ export type CreatePermissionInput = {
 };
 
 export type CreatePlasmidInput = {
-  createdBy: Scalars['String']['input'];
+  created_by: Scalars['String']['input'];
   dbxrefs?: InputMaybe<Array<Scalars['String']['input']>>;
   depositor?: InputMaybe<Scalars['String']['input']>;
-  editableSummary?: InputMaybe<Scalars['String']['input']>;
-  genbankAccession?: InputMaybe<Scalars['String']['input']>;
+  editable_summary?: InputMaybe<Scalars['String']['input']>;
+  genbank_accession?: InputMaybe<Scalars['String']['input']>;
   genes?: InputMaybe<Array<Scalars['String']['input']>>;
-  imageMap?: InputMaybe<Scalars['String']['input']>;
-  inStock: Scalars['Boolean']['input'];
+  image_map?: InputMaybe<Scalars['String']['input']>;
+  in_stock: Scalars['Boolean']['input'];
   keywords?: InputMaybe<Array<Scalars['String']['input']>>;
   name: Scalars['String']['input'];
   publications?: InputMaybe<Array<Scalars['String']['input']>>;
   sequence?: InputMaybe<Scalars['String']['input']>;
   summary?: InputMaybe<Scalars['String']['input']>;
-  updatedBy: Scalars['String']['input'];
+  updated_by: Scalars['String']['input'];
 };
 
 export type CreateRoleInput = {
@@ -132,16 +131,16 @@ export type CreateRoleInput = {
 
 export type CreateStrainInput = {
   characteristics?: InputMaybe<Array<Scalars['String']['input']>>;
-  createdBy: Scalars['String']['input'];
+  created_by: Scalars['String']['input'];
   dbxrefs?: InputMaybe<Array<Scalars['String']['input']>>;
   depositor?: InputMaybe<Scalars['String']['input']>;
-  editableSummary?: InputMaybe<Scalars['String']['input']>;
+  editable_summary?: InputMaybe<Scalars['String']['input']>;
   genes?: InputMaybe<Array<Scalars['String']['input']>>;
-  geneticModification?: InputMaybe<Scalars['String']['input']>;
+  genetic_modification?: InputMaybe<Scalars['String']['input']>;
   genotypes?: InputMaybe<Array<Scalars['String']['input']>>;
-  inStock: Scalars['Boolean']['input'];
+  in_stock: Scalars['Boolean']['input'];
   label: Scalars['String']['input'];
-  mutagenesisMethod?: InputMaybe<Scalars['String']['input']>;
+  mutagenesis_method?: InputMaybe<Scalars['String']['input']>;
   names?: InputMaybe<Array<Scalars['String']['input']>>;
   parent?: InputMaybe<Scalars['String']['input']>;
   phenotypes?: InputMaybe<Array<Scalars['String']['input']>>;
@@ -149,53 +148,48 @@ export type CreateStrainInput = {
   publications?: InputMaybe<Array<Scalars['String']['input']>>;
   species: Scalars['String']['input'];
   summary?: InputMaybe<Scalars['String']['input']>;
-  systematicName: Scalars['String']['input'];
-  updatedBy: Scalars['String']['input'];
+  systematic_name: Scalars['String']['input'];
+  updated_by: Scalars['String']['input'];
 };
 
 export type CreateUserInput = {
   city?: InputMaybe<Scalars['String']['input']>;
   country?: InputMaybe<Scalars['String']['input']>;
   email: Scalars['String']['input'];
-  firstAddress?: InputMaybe<Scalars['String']['input']>;
-  firstName: Scalars['String']['input'];
-  groupName?: InputMaybe<Scalars['String']['input']>;
-  isActive: Scalars['Boolean']['input'];
-  lastName: Scalars['String']['input'];
+  first_address?: InputMaybe<Scalars['String']['input']>;
+  first_name: Scalars['String']['input'];
+  group_name?: InputMaybe<Scalars['String']['input']>;
+  is_active: Scalars['Boolean']['input'];
+  last_name: Scalars['String']['input'];
   organization?: InputMaybe<Scalars['String']['input']>;
   phone?: InputMaybe<Scalars['String']['input']>;
-  secondAddress?: InputMaybe<Scalars['String']['input']>;
+  second_address?: InputMaybe<Scalars['String']['input']>;
   state?: InputMaybe<Scalars['String']['input']>;
   zipcode?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type DeleteContent = {
   __typename?: 'DeleteContent';
-  id: Scalars['ID']['output'];
   success: Scalars['Boolean']['output'];
 };
 
 export type DeletePermission = {
   __typename?: 'DeletePermission';
-  id: Scalars['ID']['output'];
   success: Scalars['Boolean']['output'];
 };
 
 export type DeleteRole = {
   __typename?: 'DeleteRole';
-  id: Scalars['ID']['output'];
   success: Scalars['Boolean']['output'];
 };
 
 export type DeleteStock = {
   __typename?: 'DeleteStock';
-  id: Scalars['ID']['output'];
   success: Scalars['Boolean']['output'];
 };
 
 export type DeleteUser = {
   __typename?: 'DeleteUser';
-  id: Scalars['ID']['output'];
   success: Scalars['Boolean']['output'];
 };
 
@@ -221,11 +215,11 @@ export type Extension = {
 
 export type GoAnnotation = {
   __typename?: 'GOAnnotation';
-  assignedBy: Scalars['String']['output'];
+  assigned_by: Scalars['String']['output'];
   date: Scalars['String']['output'];
-  evidenceCode: Scalars['String']['output'];
+  evidence_code: Scalars['String']['output'];
   extensions?: Maybe<Array<Extension>>;
-  goTerm: Scalars['String']['output'];
+  go_term: Scalars['String']['output'];
   id: Scalars['String']['output'];
   publication: Scalars['String']['output'];
   qualifier: Scalars['String']['output'];
@@ -235,56 +229,56 @@ export type GoAnnotation = {
 
 export type Gene = {
   __typename?: 'Gene';
-  associatedSequences: AssociatedSequences;
-  generalInfo: GeneralInfo;
+  associated_sequences: AssociatedSequences;
+  general_info: GeneralInfo;
   goas?: Maybe<Array<GoAnnotation>>;
   id: Scalars['String']['output'];
   links: Links;
   name: Scalars['String']['output'];
   orthologs?: Maybe<Array<Orthologs>>;
-  productInfo?: Maybe<Array<ProductInformation>>;
-  proteinInformation?: Maybe<ProteinInformation>;
+  product_info?: Maybe<Array<ProductInformation>>;
+  protein_information?: Maybe<ProteinInformation>;
   strains?: Maybe<Array<Strain>>;
 };
 
 export type GeneralInfo = {
   __typename?: 'GeneralInfo';
-  altGeneName?: Maybe<Array<Scalars['String']['output']>>;
-  altProteinNames?: Maybe<Array<Scalars['String']['output']>>;
+  alt_gene_name?: Maybe<Array<Scalars['String']['output']>>;
+  alt_protein_names?: Maybe<Array<Scalars['String']['output']>>;
   description: Scalars['String']['output'];
-  geneProduct: Scalars['String']['output'];
-  nameDescription: Array<Scalars['String']['output']>;
+  gene_product: Scalars['String']['output'];
+  name_description: Array<Scalars['String']['output']>;
 };
 
 export type GenomicCoordinates = {
   __typename?: 'GenomicCoordinates';
-  chromCoords: Scalars['String']['output'];
+  chrom_coords: Scalars['String']['output'];
   exon: Scalars['String']['output'];
-  localCoords: Scalars['String']['output'];
+  local_coords: Scalars['String']['output'];
 };
 
 export type Identity = {
   __typename?: 'Identity';
-  createdAt: Scalars['Timestamp']['output'];
+  created_at: Scalars['Timestamp']['output'];
   id: Scalars['ID']['output'];
   identifier: Scalars['String']['output'];
   provider: Scalars['String']['output'];
-  updatedAt: Scalars['Timestamp']['output'];
-  userId: Scalars['ID']['output'];
+  updated_at: Scalars['Timestamp']['output'];
+  user_id: Scalars['ID']['output'];
 };
 
 export type Links = {
   __typename?: 'Links';
   colleagues: NameWithLink;
   expression: Array<NameWithLink>;
-  extResources: Array<NameWithLink>;
+  ext_resources: Array<NameWithLink>;
 };
 
 export type LoginInput = {
-  clientId: Scalars['String']['input'];
+  client_id: Scalars['String']['input'];
   code: Scalars['String']['input'];
   provider: Scalars['String']['input'];
-  redirectUrl: Scalars['String']['input'];
+  redirect_url: Scalars['String']['input'];
   scopes: Scalars['String']['input'];
   state: Scalars['String']['input'];
 };
@@ -306,7 +300,6 @@ export type Mutation = {
   createUser?: Maybe<User>;
   createUserRoleRelationship?: Maybe<User>;
   deleteContent?: Maybe<DeleteContent>;
-  deleteContentBySlug?: Maybe<DeleteContent>;
   deletePermission?: Maybe<DeletePermission>;
   deleteRole?: Maybe<DeleteRole>;
   deleteStock?: Maybe<DeleteStock>;
@@ -372,11 +365,6 @@ export type MutationCreateUserRoleRelationshipArgs = {
 
 export type MutationDeleteContentArgs = {
   id: Scalars['ID']['input'];
-};
-
-
-export type MutationDeleteContentBySlugArgs = {
-  slug: Scalars['String']['input'];
 };
 
 
@@ -453,7 +441,7 @@ export type NameWithLink = {
 
 export type NumberOfPublicationsWithGene = {
   __typename?: 'NumberOfPublicationsWithGene';
-  numPubs: Scalars['Int']['output'];
+  num_pubs: Scalars['Int']['output'];
   publications: Array<PublicationWithGene>;
 };
 
@@ -462,16 +450,16 @@ export type Order = {
   comments?: Maybe<Scalars['String']['output']>;
   consumer?: Maybe<User>;
   courier?: Maybe<Scalars['String']['output']>;
-  courierAccount?: Maybe<Scalars['String']['output']>;
-  createdAt: Scalars['Timestamp']['output'];
+  courier_account?: Maybe<Scalars['String']['output']>;
+  created_at: Scalars['Timestamp']['output'];
   id: Scalars['ID']['output'];
   items?: Maybe<Array<Stock>>;
   payer?: Maybe<User>;
   payment?: Maybe<Scalars['String']['output']>;
-  purchaseOrderNum?: Maybe<Scalars['String']['output']>;
+  purchase_order_num?: Maybe<Scalars['String']['output']>;
   purchaser?: Maybe<User>;
   status?: Maybe<StatusEnum>;
-  updatedAt: Scalars['Timestamp']['output'];
+  updated_at: Scalars['Timestamp']['output'];
 };
 
 export type OrderListWithCursor = {
@@ -487,13 +475,13 @@ export type Organism = {
   __typename?: 'Organism';
   citations: Array<Citation>;
   downloads: Array<Download>;
-  scientificName: Scalars['String']['output'];
-  taxonId: Scalars['String']['output'];
+  scientific_name: Scalars['String']['output'];
+  taxon_id: Scalars['String']['output'];
 };
 
 export type Orthologs = {
   __typename?: 'Orthologs';
-  geneProduct: Scalars['String']['output'];
+  gene_product: Scalars['String']['output'];
   id: NameWithLink;
   source: Array<Scalars['String']['output']>;
   species: Scalars['String']['output'];
@@ -502,12 +490,12 @@ export type Orthologs = {
 
 export type Permission = {
   __typename?: 'Permission';
-  createdAt: Scalars['Timestamp']['output'];
+  created_at: Scalars['Timestamp']['output'];
   description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-  level: Scalars['String']['output'];
+  permission: Scalars['String']['output'];
   resource?: Maybe<Scalars['String']['output']>;
-  updatedAt: Scalars['Timestamp']['output'];
+  updated_at: Scalars['Timestamp']['output'];
 };
 
 export type Phenotype = {
@@ -521,23 +509,23 @@ export type Phenotype = {
 
 export type Plasmid = Stock & {
   __typename?: 'Plasmid';
-  createdAt: Scalars['Timestamp']['output'];
-  createdBy: User;
+  created_at: Scalars['Timestamp']['output'];
+  created_by: User;
   dbxrefs?: Maybe<Array<Scalars['String']['output']>>;
   depositor: User;
-  editableSummary?: Maybe<Scalars['String']['output']>;
-  genbankAccession?: Maybe<Scalars['String']['output']>;
+  editable_summary?: Maybe<Scalars['String']['output']>;
+  genbank_accession?: Maybe<Scalars['String']['output']>;
   genes?: Maybe<Array<Gene>>;
   id: Scalars['ID']['output'];
-  imageMap?: Maybe<Scalars['String']['output']>;
-  inStock: Scalars['Boolean']['output'];
+  image_map?: Maybe<Scalars['String']['output']>;
+  in_stock: Scalars['Boolean']['output'];
   keywords?: Maybe<Array<Scalars['String']['output']>>;
   name: Scalars['String']['output'];
   publications?: Maybe<Array<Publication>>;
   sequence?: Maybe<Scalars['String']['output']>;
   summary?: Maybe<Scalars['String']['output']>;
-  updatedAt: Scalars['Timestamp']['output'];
-  updatedBy: User;
+  updated_at: Scalars['Timestamp']['output'];
+  updated_by: User;
 };
 
 export type PlasmidListWithCursor = {
@@ -551,31 +539,31 @@ export type PlasmidListWithCursor = {
 
 export type ProductInformation = {
   __typename?: 'ProductInformation';
-  genomicCoords: Array<GenomicCoordinates>;
-  moreProteinData: Scalars['String']['output'];
-  proteinCodingGene: NameWithLink;
-  proteinLength: Scalars['String']['output'];
-  proteinMolecularWeight: Scalars['String']['output'];
+  genomic_coords: Array<GenomicCoordinates>;
+  more_protein_data: Scalars['String']['output'];
+  protein_coding_gene: NameWithLink;
+  protein_length: Scalars['String']['output'];
+  protein_molecular_weight: Scalars['String']['output'];
 };
 
 export type ProteinGeneralInfo = {
   __typename?: 'ProteinGeneralInfo';
-  aaComposition: NameWithLink;
+  aa_composition: NameWithLink;
   description: Scalars['String']['output'];
-  dictybaseId: Scalars['String']['output'];
-  geneProduct: Scalars['String']['output'];
-  molecularWeight: Scalars['String']['output'];
+  dictybase_id: Scalars['String']['output'];
+  gene_product: Scalars['String']['output'];
+  molecular_weight: Scalars['String']['output'];
   note: Scalars['String']['output'];
-  proteinExistence: Scalars['String']['output'];
-  proteinLength: Scalars['String']['output'];
-  subcellularLocation: Scalars['String']['output'];
+  protein_existence: Scalars['String']['output'];
+  protein_length: Scalars['String']['output'];
+  subcellular_location: Scalars['String']['output'];
 };
 
 export type ProteinInformation = {
   __typename?: 'ProteinInformation';
-  externalLinks: Array<NameWithLink>;
-  generalInfo: ProteinGeneralInfo;
-  proteinSequence: Scalars['String']['output'];
+  external_links: Array<NameWithLink>;
+  general_info: ProteinGeneralInfo;
+  protein_sequence: Scalars['String']['output'];
 };
 
 export type Publication = BasePublication & {
@@ -588,8 +576,8 @@ export type Publication = BasePublication & {
   issue?: Maybe<Scalars['String']['output']>;
   journal: Scalars['String']['output'];
   pages?: Maybe<Scalars['String']['output']>;
-  pubDate?: Maybe<Scalars['Timestamp']['output']>;
-  pubType: Scalars['String']['output'];
+  pub_date?: Maybe<Scalars['Timestamp']['output']>;
+  pub_type: Scalars['String']['output'];
   source: Scalars['String']['output'];
   status?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
@@ -606,9 +594,9 @@ export type PublicationWithGene = BasePublication & {
   issue?: Maybe<Scalars['String']['output']>;
   journal: Scalars['String']['output'];
   pages?: Maybe<Scalars['String']['output']>;
-  pubDate?: Maybe<Scalars['Timestamp']['output']>;
-  pubType: Scalars['String']['output'];
-  relatedGenes: Array<Gene>;
+  pub_date?: Maybe<Scalars['Timestamp']['output']>;
+  pub_type: Scalars['String']['output'];
+  related_genes: Array<Gene>;
   source: Scalars['String']['output'];
   status?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
@@ -620,13 +608,14 @@ export type Query = {
   allOrthologs?: Maybe<Gene>;
   allPublications: NumberOfPublicationsWithGene;
   allStrains?: Maybe<Gene>;
-  associatedSequnces?: Maybe<Gene>;
   content?: Maybe<Content>;
   contentBySlug?: Maybe<Content>;
   gene?: Maybe<Gene>;
   generalInformation?: Maybe<Gene>;
-  links?: Maybe<Gene>;
-  listContent?: Maybe<Array<Content>>;
+  getAssociatedSequnces?: Maybe<Gene>;
+  getLinks?: Maybe<Gene>;
+  getProteinInformation?: Maybe<Gene>;
+  getRefreshToken?: Maybe<Auth>;
   listGeneProductInfo?: Maybe<Gene>;
   listOrders?: Maybe<OrderListWithCursor>;
   listOrganisms?: Maybe<Array<Organism>>;
@@ -645,9 +634,7 @@ export type Query = {
   organism?: Maybe<Organism>;
   permission?: Maybe<Permission>;
   plasmid?: Maybe<Plasmid>;
-  proteinInformation?: Maybe<Gene>;
   publication?: Maybe<Publication>;
-  refreshToken?: Maybe<Auth>;
   role?: Maybe<Role>;
   strain?: Maybe<Strain>;
   user?: Maybe<User>;
@@ -663,16 +650,11 @@ export type QueryAllOrthologsArgs = {
 export type QueryAllPublicationsArgs = {
   gene: Scalars['String']['input'];
   limit?: InputMaybe<Scalars['Int']['input']>;
-  sortBy?: InputMaybe<Scalars['String']['input']>;
+  sort_by?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type QueryAllStrainsArgs = {
-  gene: Scalars['String']['input'];
-};
-
-
-export type QueryAssociatedSequncesArgs = {
   gene: Scalars['String']['input'];
 };
 
@@ -697,13 +679,23 @@ export type QueryGeneralInformationArgs = {
 };
 
 
-export type QueryLinksArgs = {
+export type QueryGetAssociatedSequncesArgs = {
   gene: Scalars['String']['input'];
 };
 
 
-export type QueryListContentArgs = {
-  limit: Scalars['Int']['input'];
+export type QueryGetLinksArgs = {
+  gene: Scalars['String']['input'];
+};
+
+
+export type QueryGetProteinInformationArgs = {
+  gene: Scalars['String']['input'];
+};
+
+
+export type QueryGetRefreshTokenArgs = {
+  token: Scalars['String']['input'];
 };
 
 
@@ -782,7 +774,7 @@ export type QueryOrderArgs = {
 
 
 export type QueryOrganismArgs = {
-  taxonId: Scalars['String']['input'];
+  taxon_id: Scalars['String']['input'];
 };
 
 
@@ -796,18 +788,8 @@ export type QueryPlasmidArgs = {
 };
 
 
-export type QueryProteinInformationArgs = {
-  gene: Scalars['String']['input'];
-};
-
-
 export type QueryPublicationArgs = {
   id: Scalars['ID']['input'];
-};
-
-
-export type QueryRefreshTokenArgs = {
-  token: Scalars['String']['input'];
 };
 
 
@@ -832,12 +814,12 @@ export type QueryUserByEmailArgs = {
 
 export type Role = {
   __typename?: 'Role';
-  createdAt: Scalars['Timestamp']['output'];
+  created_at: Scalars['Timestamp']['output'];
   description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-  name: Scalars['String']['output'];
   permissions?: Maybe<Array<Permission>>;
-  updatedAt: Scalars['Timestamp']['output'];
+  role: Scalars['String']['output'];
+  updated_at: Scalars['Timestamp']['output'];
 };
 
 export enum StatusEnum {
@@ -848,35 +830,35 @@ export enum StatusEnum {
 }
 
 export type Stock = {
-  createdAt: Scalars['Timestamp']['output'];
-  createdBy: User;
+  created_at: Scalars['Timestamp']['output'];
+  created_by: User;
   dbxrefs?: Maybe<Array<Scalars['String']['output']>>;
   depositor: User;
-  editableSummary?: Maybe<Scalars['String']['output']>;
+  editable_summary?: Maybe<Scalars['String']['output']>;
   genes?: Maybe<Array<Gene>>;
   id: Scalars['ID']['output'];
-  inStock: Scalars['Boolean']['output'];
+  in_stock: Scalars['Boolean']['output'];
   publications?: Maybe<Array<Publication>>;
   summary?: Maybe<Scalars['String']['output']>;
-  updatedAt: Scalars['Timestamp']['output'];
-  updatedBy: User;
+  updated_at: Scalars['Timestamp']['output'];
+  updated_by: User;
 };
 
 export type Strain = Stock & {
   __typename?: 'Strain';
   characteristics?: Maybe<Array<Scalars['String']['output']>>;
-  createdAt: Scalars['Timestamp']['output'];
-  createdBy: User;
+  created_at: Scalars['Timestamp']['output'];
+  created_by: User;
   dbxrefs?: Maybe<Array<Scalars['String']['output']>>;
   depositor: User;
-  editableSummary?: Maybe<Scalars['String']['output']>;
+  editable_summary?: Maybe<Scalars['String']['output']>;
   genes?: Maybe<Array<Gene>>;
-  geneticModification?: Maybe<Scalars['String']['output']>;
+  genetic_modification?: Maybe<Scalars['String']['output']>;
   genotypes?: Maybe<Array<Scalars['String']['output']>>;
   id: Scalars['ID']['output'];
-  inStock: Scalars['Boolean']['output'];
+  in_stock: Scalars['Boolean']['output'];
   label: Scalars['String']['output'];
-  mutagenesisMethod?: Maybe<Scalars['String']['output']>;
+  mutagenesis_method?: Maybe<Scalars['String']['output']>;
   names?: Maybe<Array<Scalars['String']['output']>>;
   parent?: Maybe<Strain>;
   phenotypes?: Maybe<Array<Phenotype>>;
@@ -884,16 +866,16 @@ export type Strain = Stock & {
   publications?: Maybe<Array<Publication>>;
   species: Scalars['String']['output'];
   summary?: Maybe<Scalars['String']['output']>;
-  systematicName: Scalars['String']['output'];
-  updatedAt: Scalars['Timestamp']['output'];
-  updatedBy: User;
+  systematic_name: Scalars['String']['output'];
+  updated_at: Scalars['Timestamp']['output'];
+  updated_by: User;
 };
 
 export type StrainListFilter = {
   id?: InputMaybe<Scalars['ID']['input']>;
-  inStock?: InputMaybe<Scalars['Boolean']['input']>;
+  in_stock?: InputMaybe<Scalars['Boolean']['input']>;
   label?: InputMaybe<Scalars['String']['input']>;
-  strainType: StrainType;
+  strain_type: StrainType;
   summary?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -916,18 +898,16 @@ export enum StrainType {
 export type UpdateContentInput = {
   content: Scalars['String']['input'];
   id: Scalars['ID']['input'];
-  name: Scalars['String']['input'];
-  slug: Scalars['String']['input'];
-  updatedBy: Scalars['String']['input'];
+  updated_by: Scalars['String']['input'];
 };
 
 export type UpdateOrderInput = {
   comments?: InputMaybe<Scalars['String']['input']>;
   courier?: InputMaybe<Scalars['String']['input']>;
-  courierAccount?: InputMaybe<Scalars['String']['input']>;
+  courier_account?: InputMaybe<Scalars['String']['input']>;
   items?: InputMaybe<Array<Scalars['String']['input']>>;
   payment?: InputMaybe<Scalars['String']['input']>;
-  purchaseOrderNum?: InputMaybe<Scalars['String']['input']>;
+  purchase_order_num?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<StatusEnum>;
 };
 
@@ -940,17 +920,17 @@ export type UpdatePermissionInput = {
 export type UpdatePlasmidInput = {
   dbxrefs?: InputMaybe<Array<Scalars['String']['input']>>;
   depositor?: InputMaybe<Scalars['String']['input']>;
-  editableSummary?: InputMaybe<Scalars['String']['input']>;
-  genbankAccession?: InputMaybe<Scalars['String']['input']>;
+  editable_summary?: InputMaybe<Scalars['String']['input']>;
+  genbank_accession?: InputMaybe<Scalars['String']['input']>;
   genes?: InputMaybe<Array<Scalars['String']['input']>>;
-  imageMap?: InputMaybe<Scalars['String']['input']>;
-  inStock?: InputMaybe<Scalars['Boolean']['input']>;
+  image_map?: InputMaybe<Scalars['String']['input']>;
+  in_stock?: InputMaybe<Scalars['Boolean']['input']>;
   keywords?: InputMaybe<Array<Scalars['String']['input']>>;
   name?: InputMaybe<Scalars['String']['input']>;
   publications?: InputMaybe<Array<Scalars['String']['input']>>;
   sequence?: InputMaybe<Scalars['String']['input']>;
   summary?: InputMaybe<Scalars['String']['input']>;
-  updatedBy: Scalars['String']['input'];
+  updated_by: Scalars['String']['input'];
 };
 
 export type UpdateRoleInput = {
@@ -962,13 +942,13 @@ export type UpdateStrainInput = {
   characteristics?: InputMaybe<Array<Scalars['String']['input']>>;
   dbxrefs?: InputMaybe<Array<Scalars['String']['input']>>;
   depositor?: InputMaybe<Scalars['String']['input']>;
-  editableSummary?: InputMaybe<Scalars['String']['input']>;
+  editable_summary?: InputMaybe<Scalars['String']['input']>;
   genes?: InputMaybe<Array<Scalars['String']['input']>>;
-  geneticModification?: InputMaybe<Scalars['String']['input']>;
+  genetic_modification?: InputMaybe<Scalars['String']['input']>;
   genotypes?: InputMaybe<Array<Scalars['String']['input']>>;
-  inStock?: InputMaybe<Scalars['Boolean']['input']>;
+  in_stock?: InputMaybe<Scalars['Boolean']['input']>;
   label?: InputMaybe<Scalars['String']['input']>;
-  mutagenesisMethod?: InputMaybe<Scalars['String']['input']>;
+  mutagenesis_method?: InputMaybe<Scalars['String']['input']>;
   names?: InputMaybe<Array<Scalars['String']['input']>>;
   parent?: InputMaybe<Scalars['String']['input']>;
   phenotypes?: InputMaybe<Array<Scalars['String']['input']>>;
@@ -976,21 +956,21 @@ export type UpdateStrainInput = {
   publications?: InputMaybe<Array<Scalars['String']['input']>>;
   species?: InputMaybe<Scalars['String']['input']>;
   summary?: InputMaybe<Scalars['String']['input']>;
-  systematicName?: InputMaybe<Scalars['String']['input']>;
-  updatedBy: Scalars['String']['input'];
+  systematic_name?: InputMaybe<Scalars['String']['input']>;
+  updated_by: Scalars['String']['input'];
 };
 
 export type UpdateUserInput = {
   city?: InputMaybe<Scalars['String']['input']>;
   country?: InputMaybe<Scalars['String']['input']>;
-  firstAddress?: InputMaybe<Scalars['String']['input']>;
-  firstName?: InputMaybe<Scalars['String']['input']>;
-  groupName?: InputMaybe<Scalars['String']['input']>;
-  isActive?: InputMaybe<Scalars['Boolean']['input']>;
-  lastName?: InputMaybe<Scalars['String']['input']>;
+  first_address?: InputMaybe<Scalars['String']['input']>;
+  first_name?: InputMaybe<Scalars['String']['input']>;
+  group_name?: InputMaybe<Scalars['String']['input']>;
+  is_active?: InputMaybe<Scalars['Boolean']['input']>;
+  last_name?: InputMaybe<Scalars['String']['input']>;
   organization?: InputMaybe<Scalars['String']['input']>;
   phone?: InputMaybe<Scalars['String']['input']>;
-  secondAddress?: InputMaybe<Scalars['String']['input']>;
+  second_address?: InputMaybe<Scalars['String']['input']>;
   state?: InputMaybe<Scalars['String']['input']>;
   zipcode?: InputMaybe<Scalars['String']['input']>;
 };
@@ -999,20 +979,20 @@ export type User = {
   __typename?: 'User';
   city?: Maybe<Scalars['String']['output']>;
   country?: Maybe<Scalars['String']['output']>;
-  createdAt: Scalars['Timestamp']['output'];
+  created_at: Scalars['Timestamp']['output'];
   email: Scalars['String']['output'];
-  firstAddress?: Maybe<Scalars['String']['output']>;
-  firstName: Scalars['String']['output'];
-  groupName?: Maybe<Scalars['String']['output']>;
+  first_address?: Maybe<Scalars['String']['output']>;
+  first_name: Scalars['String']['output'];
+  group_name?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
-  isActive: Scalars['Boolean']['output'];
-  lastName: Scalars['String']['output'];
+  is_active: Scalars['Boolean']['output'];
+  last_name: Scalars['String']['output'];
   organization?: Maybe<Scalars['String']['output']>;
   phone?: Maybe<Scalars['String']['output']>;
   roles?: Maybe<Array<Role>>;
-  secondAddress?: Maybe<Scalars['String']['output']>;
+  second_address?: Maybe<Scalars['String']['output']>;
   state?: Maybe<Scalars['String']['output']>;
-  updatedAt: Scalars['Timestamp']['output'];
+  updated_at: Scalars['Timestamp']['output'];
   zipcode?: Maybe<Scalars['String']['output']>;
 };
 
@@ -1036,7 +1016,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login?: { __typename?: 'Auth', token: string, user: { __typename?: 'User', id: string, email: string, firstName: string, lastName: string, roles?: Array<{ __typename?: 'Role', name: string, permissions?: Array<{ __typename?: 'Permission', level: string, resource?: string | null }> | null }> | null }, identity: { __typename?: 'Identity', provider: string } } | null };
+export type LoginMutation = { __typename?: 'Mutation', login?: { __typename?: 'Auth', token: string, user: { __typename?: 'User', id: string, email: string, first_name: string, last_name: string, roles?: Array<{ __typename?: 'Role', role: string, permissions?: Array<{ __typename?: 'Permission', permission: string, resource?: string | null }> | null }> | null }, identity: { __typename?: 'Identity', provider: string } } | null };
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -1048,28 +1028,14 @@ export type CreateContentMutationVariables = Exact<{
 }>;
 
 
-export type CreateContentMutation = { __typename?: 'Mutation', createContent?: { __typename?: 'Content', slug: string, name: string, content: string, namespace: string, createdBy: { __typename?: 'User', id: string } } | null };
+export type CreateContentMutation = { __typename?: 'Mutation', createContent?: { __typename?: 'Content', name: string, content: string, namespace: string, created_by: { __typename?: 'User', id: string } } | null };
 
 export type UpdateContentMutationVariables = Exact<{
   input: UpdateContentInput;
 }>;
 
 
-export type UpdateContentMutation = { __typename?: 'Mutation', updateContent?: { __typename?: 'Content', id: string, name: string, slug: string, content: string, updatedBy: { __typename?: 'User', id: string } } | null };
-
-export type DeleteContentMutationVariables = Exact<{
-  id: Scalars['ID']['input'];
-}>;
-
-
-export type DeleteContentMutation = { __typename?: 'Mutation', deleteContent?: { __typename?: 'DeleteContent', id: string, success: boolean } | null };
-
-export type DeleteContentBySlugMutationVariables = Exact<{
-  slug: Scalars['String']['input'];
-}>;
-
-
-export type DeleteContentBySlugMutation = { __typename?: 'Mutation', deleteContentBySlug?: { __typename?: 'DeleteContent', id: string, success: boolean } | null };
+export type UpdateContentMutation = { __typename?: 'Mutation', updateContent?: { __typename?: 'Content', id: string, content: string, updated_by: { __typename?: 'User', id: string } } | null };
 
 export type CreateOrderMutationVariables = Exact<{
   input: CreateOrderInput;
@@ -1098,42 +1064,35 @@ export type GetRefreshTokenQueryVariables = Exact<{
 }>;
 
 
-export type GetRefreshTokenQuery = { __typename?: 'Query', refreshToken?: { __typename?: 'Auth', token: string, user: { __typename?: 'User', id: string, email: string, firstName: string, lastName: string, roles?: Array<{ __typename?: 'Role', name: string, permissions?: Array<{ __typename?: 'Permission', level: string, resource?: string | null }> | null }> | null }, identity: { __typename?: 'Identity', provider: string } } | null };
+export type GetRefreshTokenQuery = { __typename?: 'Query', getRefreshToken?: { __typename?: 'Auth', token: string, user: { __typename?: 'User', id: string, email: string, first_name: string, last_name: string, roles?: Array<{ __typename?: 'Role', role: string, permissions?: Array<{ __typename?: 'Permission', permission: string, resource?: string | null }> | null }> | null }, identity: { __typename?: 'Identity', provider: string } } | null };
 
 export type ContentBySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
 
 
-export type ContentBySlugQuery = { __typename?: 'Query', contentBySlug?: { __typename?: 'Content', id: string, content: string, name: string, slug: string, updatedAt: any, updatedBy: { __typename?: 'User', id: string, email: string, firstName: string, lastName: string, roles?: Array<{ __typename?: 'Role', name: string, permissions?: Array<{ __typename?: 'Permission', level: string, resource?: string | null }> | null }> | null } } | null };
+export type ContentBySlugQuery = { __typename?: 'Query', contentBySlug?: { __typename?: 'Content', id: string, content: string, name: string, slug: string, updated_at: any, updated_by: { __typename?: 'User', id: string, email: string, first_name: string, last_name: string, roles?: Array<{ __typename?: 'Role', role: string, permissions?: Array<{ __typename?: 'Permission', permission: string, resource?: string | null }> | null }> | null } } | null };
 
 export type ContentQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type ContentQuery = { __typename?: 'Query', content?: { __typename?: 'Content', id: string, content: string, name: string, slug: string, namespace: string, updatedAt: any, updatedBy: { __typename?: 'User', id: string, email: string, firstName: string, lastName: string, roles?: Array<{ __typename?: 'Role', name: string, permissions?: Array<{ __typename?: 'Permission', level: string, resource?: string | null }> | null }> | null } } | null };
-
-export type ListNewsContentQueryVariables = Exact<{
-  limit: Scalars['Int']['input'];
-}>;
-
-
-export type ListNewsContentQuery = { __typename?: 'Query', listContent?: Array<{ __typename?: 'Content', id: string, slug: string, content: string, name: string, updatedAt: any, updatedBy: { __typename?: 'User', firstName: string, lastName: string } }> | null };
+export type ContentQuery = { __typename?: 'Query', content?: { __typename?: 'Content', id: string, content: string, name: string, slug: string, namespace: string, updated_at: any, updated_by: { __typename?: 'User', id: string, email: string, first_name: string, last_name: string, roles?: Array<{ __typename?: 'Role', role: string, permissions?: Array<{ __typename?: 'Permission', permission: string, resource?: string | null }> | null }> | null } } | null };
 
 export type ListOrganismsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ListOrganismsQuery = { __typename?: 'Query', listOrganisms?: Array<{ __typename?: 'Organism', taxonId: string, scientificName: string, citations: Array<{ __typename?: 'Citation', title: string, authors: string, pubmedId: string, journal: string }>, downloads: Array<{ __typename?: 'Download', title: string, items: Array<{ __typename?: 'DownloadItem', title: string, url: string }> }> }> | null };
+export type ListOrganismsQuery = { __typename?: 'Query', listOrganisms?: Array<{ __typename?: 'Organism', taxon_id: string, scientific_name: string, citations: Array<{ __typename?: 'Citation', title: string, authors: string, pubmed_id: string, journal: string }>, downloads: Array<{ __typename?: 'Download', title: string, items: Array<{ __typename?: 'DownloadItem', title: string, url: string }> }> }> | null };
 
 export type GeneQueryVariables = Exact<{
   gene: Scalars['String']['input'];
-  limit?: Maybe<Scalars['Int']['input']>;
-  sortBy?: Maybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort_by?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type GeneQuery = { __typename?: 'Query', allStrains?: { __typename?: 'Gene', id: string, name: string, strains?: Array<{ __typename?: 'Strain', id: string, label: string, characteristics?: Array<string> | null, inStock: boolean, phenotypes?: Array<{ __typename?: 'Phenotype', phenotype: string, publication?: { __typename?: 'Publication', id: string, title: string, journal: string, pages?: string | null, volume?: string | null, pubDate?: any | null, authors: Array<{ __typename?: 'Author', lastName: string, rank?: string | null }> } | null }> | null }> | null } | null, gene?: { __typename?: 'Gene', id: string, name: string, goas?: Array<{ __typename?: 'GOAnnotation', id: string, type: string, date: string, evidenceCode: string, goTerm: string, qualifier: string, publication: string, assignedBy: string, with?: Array<{ __typename?: 'With', id: string, db: string, name: string }> | null, extensions?: Array<{ __typename?: 'Extension', id: string, db: string, relation: string, name: string }> | null }> | null } | null, allPublications: { __typename?: 'NumberOfPublicationsWithGene', numPubs: number, publications: Array<{ __typename?: 'PublicationWithGene', id: string, doi?: string | null, title: string, journal: string, pubDate?: any | null, volume?: string | null, pages?: string | null, pubType: string, source: string, issue?: string | null, relatedGenes: Array<{ __typename?: 'Gene', id: string, name: string }>, authors: Array<{ __typename?: 'Author', lastName: string, rank?: string | null }> }> }, allOrthologs?: { __typename?: 'Gene', id: string, name: string, orthologs?: Array<{ __typename?: 'Orthologs', species: string, geneProduct: string, source: Array<string>, id: { __typename?: 'NameWithLink', name: string, link: string }, uniprotkb: { __typename?: 'NameWithLink', name: string, link: string } }> | null } | null, listGeneProductInfo?: { __typename?: 'Gene', id: string, name: string, productInfo?: Array<{ __typename?: 'ProductInformation', proteinLength: string, proteinMolecularWeight: string, moreProteinData: string, proteinCodingGene: { __typename?: 'NameWithLink', name: string, link: string }, genomicCoords: Array<{ __typename?: 'GenomicCoordinates', exon: string, localCoords: string, chromCoords: string }> }> | null } | null, generalInformation?: { __typename?: 'Gene', id: string, name: string, generalInfo: { __typename?: 'GeneralInfo', nameDescription: Array<string>, altGeneName?: Array<string> | null, geneProduct: string, altProteinNames?: Array<string> | null, description: string } } | null, associatedSequnces?: { __typename?: 'Gene', id: string, name: string, associatedSequences: { __typename?: 'AssociatedSequences', moreLink: string, genbankGenomicFragment?: { __typename?: 'NameWithLink', name: string, link: string } | null, genbankMrna?: { __typename?: 'NameWithLink', name: string, link: string } | null, ests: Array<{ __typename?: 'NameWithLink', name: string, link: string }> } } | null, links?: { __typename?: 'Gene', id: string, name: string, links: { __typename?: 'Links', expression: Array<{ __typename?: 'NameWithLink', name: string, link: string }>, colleagues: { __typename?: 'NameWithLink', name: string, link: string }, extResources: Array<{ __typename?: 'NameWithLink', name: string, link: string }> } } | null, proteinInformation?: { __typename?: 'Gene', id: string, name: string, proteinInformation?: { __typename?: 'ProteinInformation', proteinSequence: string, generalInfo: { __typename?: 'ProteinGeneralInfo', geneProduct: string, dictybaseId: string, description: string, proteinLength: string, molecularWeight: string, subcellularLocation: string, proteinExistence: string, note: string, aaComposition: { __typename?: 'NameWithLink', name: string, link: string } }, externalLinks: Array<{ __typename?: 'NameWithLink', name: string, link: string }> } | null } | null };
+export type GeneQuery = { __typename?: 'Query', allStrains?: { __typename?: 'Gene', id: string, name: string, strains?: Array<{ __typename?: 'Strain', id: string, label: string, characteristics?: Array<string> | null, in_stock: boolean, phenotypes?: Array<{ __typename?: 'Phenotype', phenotype: string, publication?: { __typename?: 'Publication', id: string, title: string, journal: string, pages?: string | null, volume?: string | null, pub_date?: any | null, authors: Array<{ __typename?: 'Author', last_name: string, rank?: string | null }> } | null }> | null }> | null } | null, gene?: { __typename?: 'Gene', id: string, name: string, goas?: Array<{ __typename?: 'GOAnnotation', id: string, type: string, date: string, evidence_code: string, go_term: string, qualifier: string, publication: string, assigned_by: string, with?: Array<{ __typename?: 'With', id: string, db: string, name: string }> | null, extensions?: Array<{ __typename?: 'Extension', id: string, db: string, relation: string, name: string }> | null }> | null } | null, allPublications: { __typename?: 'NumberOfPublicationsWithGene', num_pubs: number, publications: Array<{ __typename?: 'PublicationWithGene', id: string, doi?: string | null, title: string, journal: string, pub_date?: any | null, volume?: string | null, pages?: string | null, pub_type: string, source: string, issue?: string | null, related_genes: Array<{ __typename?: 'Gene', id: string, name: string }>, authors: Array<{ __typename?: 'Author', last_name: string, rank?: string | null }> }> }, allOrthologs?: { __typename?: 'Gene', id: string, name: string, orthologs?: Array<{ __typename?: 'Orthologs', species: string, gene_product: string, source: Array<string>, id: { __typename?: 'NameWithLink', name: string, link: string }, uniprotkb: { __typename?: 'NameWithLink', name: string, link: string } }> | null } | null, listGeneProductInfo?: { __typename?: 'Gene', id: string, name: string, product_info?: Array<{ __typename?: 'ProductInformation', protein_length: string, protein_molecular_weight: string, more_protein_data: string, protein_coding_gene: { __typename?: 'NameWithLink', name: string, link: string }, genomic_coords: Array<{ __typename?: 'GenomicCoordinates', exon: string, local_coords: string, chrom_coords: string }> }> | null } | null, generalInformation?: { __typename?: 'Gene', id: string, name: string, general_info: { __typename?: 'GeneralInfo', name_description: Array<string>, alt_gene_name?: Array<string> | null, gene_product: string, alt_protein_names?: Array<string> | null, description: string } } | null, getAssociatedSequnces?: { __typename?: 'Gene', id: string, name: string, associated_sequences: { __typename?: 'AssociatedSequences', more_link: string, genbank_genomic_fragment?: { __typename?: 'NameWithLink', name: string, link: string } | null, genbank_mrna?: { __typename?: 'NameWithLink', name: string, link: string } | null, ests: Array<{ __typename?: 'NameWithLink', name: string, link: string }> } } | null, getLinks?: { __typename?: 'Gene', id: string, name: string, links: { __typename?: 'Links', expression: Array<{ __typename?: 'NameWithLink', name: string, link: string }>, colleagues: { __typename?: 'NameWithLink', name: string, link: string }, ext_resources: Array<{ __typename?: 'NameWithLink', name: string, link: string }> } } | null, getProteinInformation?: { __typename?: 'Gene', id: string, name: string, protein_information?: { __typename?: 'ProteinInformation', protein_sequence: string, general_info: { __typename?: 'ProteinGeneralInfo', gene_product: string, dictybase_id: string, description: string, protein_length: string, molecular_weight: string, subcellular_location: string, protein_existence: string, note: string, aa_composition: { __typename?: 'NameWithLink', name: string, link: string } }, external_links: Array<{ __typename?: 'NameWithLink', name: string, link: string }> } | null } | null };
 
 export type ListRecentGenesQueryVariables = Exact<{
   limit?: Scalars['Int']['input'];
@@ -1147,23 +1106,23 @@ export type PublicationQueryVariables = Exact<{
 }>;
 
 
-export type PublicationQuery = { __typename?: 'Query', publication?: { __typename?: 'Publication', id: string, doi?: string | null, title: string, abstract: string, journal: string, pubDate?: any | null, pages?: string | null, issue?: string | null, volume?: string | null, authors: Array<{ __typename?: 'Author', initials?: string | null, lastName: string }> } | null };
+export type PublicationQuery = { __typename?: 'Query', publication?: { __typename?: 'Publication', id: string, doi?: string | null, title: string, abstract: string, journal: string, pub_date?: any | null, pages?: string | null, issue?: string | null, volume?: string | null, authors: Array<{ __typename?: 'Author', initials?: string | null, last_name: string }> } | null };
 
 export type ListRecentPublicationsQueryVariables = Exact<{
   limit?: Scalars['Int']['input'];
 }>;
 
 
-export type ListRecentPublicationsQuery = { __typename?: 'Query', listRecentPublications?: Array<{ __typename?: 'Publication', id: string, doi?: string | null, title: string, abstract: string, journal: string, pubDate?: any | null, pages?: string | null, issue?: string | null, volume?: string | null, authors: Array<{ __typename?: 'Author', initials?: string | null, lastName: string }> }> | null };
+export type ListRecentPublicationsQuery = { __typename?: 'Query', listRecentPublications?: Array<{ __typename?: 'Publication', id: string, doi?: string | null, title: string, abstract: string, journal: string, pub_date?: any | null, pages?: string | null, issue?: string | null, volume?: string | null, authors: Array<{ __typename?: 'Author', initials?: string | null, last_name: string }> }> | null };
 
 export type StrainListQueryVariables = Exact<{
   cursor: Scalars['Int']['input'];
   limit: Scalars['Int']['input'];
-  filter?: Maybe<StrainListFilter>;
+  filter?: InputMaybe<StrainListFilter>;
 }>;
 
 
-export type StrainListQuery = { __typename?: 'Query', listStrains?: { __typename?: 'StrainListWithCursor', nextCursor: number, totalCount: number, strains: Array<{ __typename?: 'Strain', id: string, label: string, summary?: string | null, inStock: boolean }> } | null };
+export type StrainListQuery = { __typename?: 'Query', listStrains?: { __typename?: 'StrainListWithCursor', nextCursor: number, totalCount: number, strains: Array<{ __typename?: 'Strain', id: string, label: string, summary?: string | null, in_stock: boolean }> } | null };
 
 export type ListStrainsWithPhenotypeQueryVariables = Exact<{
   cursor: Scalars['Int']['input'];
@@ -1173,12 +1132,12 @@ export type ListStrainsWithPhenotypeQueryVariables = Exact<{
 }>;
 
 
-export type ListStrainsWithPhenotypeQuery = { __typename?: 'Query', listStrainsWithAnnotation?: { __typename?: 'StrainListWithCursor', totalCount: number, nextCursor: number, strains: Array<{ __typename?: 'Strain', id: string, label: string, genes?: Array<{ __typename?: 'Gene', name: string }> | null, publications?: Array<{ __typename?: 'Publication', id: string, pubDate?: any | null, title: string, journal: string, volume?: string | null, pages?: string | null, authors: Array<{ __typename?: 'Author', lastName: string }> }> | null }> } | null };
+export type ListStrainsWithPhenotypeQuery = { __typename?: 'Query', listStrainsWithAnnotation?: { __typename?: 'StrainListWithCursor', totalCount: number, nextCursor: number, strains: Array<{ __typename?: 'Strain', id: string, label: string, genes?: Array<{ __typename?: 'Gene', name: string }> | null, publications?: Array<{ __typename?: 'Publication', id: string, pub_date?: any | null, title: string, journal: string, volume?: string | null, pages?: string | null, authors: Array<{ __typename?: 'Author', last_name: string }> }> | null }> } | null };
 
 export type ListBacterialStrainsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ListBacterialStrainsQuery = { __typename?: 'Query', bacterialFoodSource?: { __typename?: 'StrainListWithCursor', totalCount: number, nextCursor: number, strains: Array<{ __typename?: 'Strain', id: string, label: string, summary?: string | null, inStock: boolean }> } | null, symbioticFarmerBacterium?: { __typename?: 'StrainListWithCursor', totalCount: number, nextCursor: number, strains: Array<{ __typename?: 'Strain', id: string, label: string, summary?: string | null, inStock: boolean }> } | null };
+export type ListBacterialStrainsQuery = { __typename?: 'Query', bacterialFoodSource?: { __typename?: 'StrainListWithCursor', totalCount: number, nextCursor: number, strains: Array<{ __typename?: 'Strain', id: string, label: string, summary?: string | null, in_stock: boolean }> } | null, symbioticFarmerBacterium?: { __typename?: 'StrainListWithCursor', totalCount: number, nextCursor: number, strains: Array<{ __typename?: 'Strain', id: string, label: string, summary?: string | null, in_stock: boolean }> } | null };
 
 export type ListStrainsInventoryQueryVariables = Exact<{
   cursor: Scalars['Int']['input'];
@@ -1186,7 +1145,7 @@ export type ListStrainsInventoryQueryVariables = Exact<{
 }>;
 
 
-export type ListStrainsInventoryQuery = { __typename?: 'Query', listStrainsWithAnnotation?: { __typename?: 'StrainListWithCursor', totalCount: number, nextCursor: number, strains: Array<{ __typename?: 'Strain', id: string, label: string, summary?: string | null, inStock: boolean }> } | null };
+export type ListStrainsInventoryQuery = { __typename?: 'Query', listStrainsWithAnnotation?: { __typename?: 'StrainListWithCursor', totalCount: number, nextCursor: number, strains: Array<{ __typename?: 'Strain', id: string, label: string, summary?: string | null, in_stock: boolean }> } | null };
 
 export type ListPlasmidsInventoryQueryVariables = Exact<{
   cursor: Scalars['Int']['input'];
@@ -1194,7 +1153,7 @@ export type ListPlasmidsInventoryQueryVariables = Exact<{
 }>;
 
 
-export type ListPlasmidsInventoryQuery = { __typename?: 'Query', listPlasmidsWithAnnotation?: { __typename?: 'PlasmidListWithCursor', totalCount: number, nextCursor: number, plasmids: Array<{ __typename?: 'Plasmid', id: string, name: string, summary?: string | null, inStock: boolean }> } | null };
+export type ListPlasmidsInventoryQuery = { __typename?: 'Query', listPlasmidsWithAnnotation?: { __typename?: 'PlasmidListWithCursor', totalCount: number, nextCursor: number, plasmids: Array<{ __typename?: 'Plasmid', id: string, name: string, summary?: string | null, in_stock: boolean }> } | null };
 
 export type PlasmidListFilterQueryVariables = Exact<{
   cursor: Scalars['Int']['input'];
@@ -1203,35 +1162,35 @@ export type PlasmidListFilterQueryVariables = Exact<{
 }>;
 
 
-export type PlasmidListFilterQuery = { __typename?: 'Query', listPlasmids?: { __typename?: 'PlasmidListWithCursor', nextCursor: number, totalCount: number, plasmids: Array<{ __typename?: 'Plasmid', id: string, name: string, summary?: string | null, inStock: boolean }> } | null };
+export type PlasmidListFilterQuery = { __typename?: 'Query', listPlasmids?: { __typename?: 'PlasmidListWithCursor', nextCursor: number, totalCount: number, plasmids: Array<{ __typename?: 'Plasmid', id: string, name: string, summary?: string | null, in_stock: boolean }> } | null };
 
 export type PlasmidQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type PlasmidQuery = { __typename?: 'Query', plasmid?: { __typename?: 'Plasmid', id: string, name: string, summary?: string | null, dbxrefs?: Array<string> | null, imageMap?: string | null, sequence?: string | null, keywords?: Array<string> | null, genbankAccession?: string | null, inStock: boolean, depositor: { __typename?: 'User', firstName: string, lastName: string }, publications?: Array<{ __typename?: 'Publication', id: string, pubDate?: any | null, title: string, journal: string, volume?: string | null, pages?: string | null, doi?: string | null, authors: Array<{ __typename?: 'Author', lastName: string }> }> | null, genes?: Array<{ __typename?: 'Gene', name: string }> | null } | null };
+export type PlasmidQuery = { __typename?: 'Query', plasmid?: { __typename?: 'Plasmid', id: string, name: string, summary?: string | null, dbxrefs?: Array<string> | null, image_map?: string | null, sequence?: string | null, keywords?: Array<string> | null, genbank_accession?: string | null, in_stock: boolean, depositor: { __typename?: 'User', first_name: string, last_name: string }, publications?: Array<{ __typename?: 'Publication', id: string, pub_date?: any | null, title: string, journal: string, volume?: string | null, pages?: string | null, doi?: string | null, authors: Array<{ __typename?: 'Author', last_name: string }> }> | null, genes?: Array<{ __typename?: 'Gene', name: string }> | null } | null };
 
 export type StrainQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type StrainQuery = { __typename?: 'Query', strain?: { __typename?: 'Strain', id: string, label: string, summary?: string | null, species: string, plasmid?: string | null, dbxrefs?: Array<string> | null, inStock: boolean, systematicName: string, genotypes?: Array<string> | null, mutagenesisMethod?: string | null, geneticModification?: string | null, names?: Array<string> | null, characteristics?: Array<string> | null, parent?: { __typename?: 'Strain', id: string, label: string } | null, depositor: { __typename?: 'User', firstName: string, lastName: string }, publications?: Array<{ __typename?: 'Publication', id: string, pubDate?: any | null, title: string, journal: string, volume?: string | null, pages?: string | null, doi?: string | null, authors: Array<{ __typename?: 'Author', lastName: string }> }> | null, genes?: Array<{ __typename?: 'Gene', name: string }> | null, phenotypes?: Array<{ __typename?: 'Phenotype', phenotype: string, note?: string | null, assay?: string | null, environment?: string | null, publication?: { __typename?: 'Publication', id: string, pubDate?: any | null, title: string, journal: string, volume?: string | null, pages?: string | null, authors: Array<{ __typename?: 'Author', lastName: string }> } | null }> | null } | null };
+export type StrainQuery = { __typename?: 'Query', strain?: { __typename?: 'Strain', id: string, label: string, summary?: string | null, species: string, plasmid?: string | null, dbxrefs?: Array<string> | null, in_stock: boolean, systematic_name: string, genotypes?: Array<string> | null, mutagenesis_method?: string | null, genetic_modification?: string | null, names?: Array<string> | null, characteristics?: Array<string> | null, parent?: { __typename?: 'Strain', id: string, label: string } | null, depositor: { __typename?: 'User', first_name: string, last_name: string }, publications?: Array<{ __typename?: 'Publication', id: string, pub_date?: any | null, title: string, journal: string, volume?: string | null, pages?: string | null, doi?: string | null, authors: Array<{ __typename?: 'Author', last_name: string }> }> | null, genes?: Array<{ __typename?: 'Gene', name: string }> | null, phenotypes?: Array<{ __typename?: 'Phenotype', phenotype: string, note?: string | null, assay?: string | null, environment?: string | null, publication?: { __typename?: 'Publication', id: string, pub_date?: any | null, title: string, journal: string, volume?: string | null, pages?: string | null, authors: Array<{ __typename?: 'Author', last_name: string }> } | null }> | null } | null };
 
 export type ListRecentPlasmidsQueryVariables = Exact<{
   limit?: Scalars['Int']['input'];
 }>;
 
 
-export type ListRecentPlasmidsQuery = { __typename?: 'Query', listRecentPlasmids?: Array<{ __typename?: 'Plasmid', id: string, createdAt: any, name: string }> | null };
+export type ListRecentPlasmidsQuery = { __typename?: 'Query', listRecentPlasmids?: Array<{ __typename?: 'Plasmid', id: string, created_at: any, name: string }> | null };
 
 export type ListRecentStrainsQueryVariables = Exact<{
   limit?: Scalars['Int']['input'];
 }>;
 
 
-export type ListRecentStrainsQuery = { __typename?: 'Query', listRecentStrains?: Array<{ __typename?: 'Strain', id: string, createdAt: any, systematicName: string }> | null };
+export type ListRecentStrainsQuery = { __typename?: 'Query', listRecentStrains?: Array<{ __typename?: 'Strain', id: string, created_at: any, systematic_name: string }> | null };
 
 export type UserByEmailQueryVariables = Exact<{
   email: Scalars['String']['input'];
@@ -1248,12 +1207,12 @@ export const LoginDocument = gql`
     user {
       id
       email
-      firstName
-      lastName
+      first_name
+      last_name
       roles {
-        name
+        role
         permissions {
-          level
+          permission
           resource
         }
       }
@@ -1325,9 +1284,8 @@ export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, L
 export const CreateContentDocument = gql`
     mutation CreateContent($input: CreateContentInput!) {
   createContent(input: $input) {
-    slug
     name
-    createdBy {
+    created_by {
       id
     }
     content
@@ -1365,9 +1323,7 @@ export const UpdateContentDocument = gql`
     mutation UpdateContent($input: UpdateContentInput!) {
   updateContent(input: $input) {
     id
-    name
-    slug
-    updatedBy {
+    updated_by {
       id
     }
     content
@@ -1400,74 +1356,6 @@ export function useUpdateContentMutation(baseOptions?: Apollo.MutationHookOption
 export type UpdateContentMutationHookResult = ReturnType<typeof useUpdateContentMutation>;
 export type UpdateContentMutationResult = Apollo.MutationResult<UpdateContentMutation>;
 export type UpdateContentMutationOptions = Apollo.BaseMutationOptions<UpdateContentMutation, UpdateContentMutationVariables>;
-export const DeleteContentDocument = gql`
-    mutation DeleteContent($id: ID!) {
-  deleteContent(id: $id) {
-    id
-    success
-  }
-}
-    `;
-export type DeleteContentMutationFn = Apollo.MutationFunction<DeleteContentMutation, DeleteContentMutationVariables>;
-
-/**
- * __useDeleteContentMutation__
- *
- * To run a mutation, you first call `useDeleteContentMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteContentMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteContentMutation, { data, loading, error }] = useDeleteContentMutation({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useDeleteContentMutation(baseOptions?: Apollo.MutationHookOptions<DeleteContentMutation, DeleteContentMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteContentMutation, DeleteContentMutationVariables>(DeleteContentDocument, options);
-      }
-export type DeleteContentMutationHookResult = ReturnType<typeof useDeleteContentMutation>;
-export type DeleteContentMutationResult = Apollo.MutationResult<DeleteContentMutation>;
-export type DeleteContentMutationOptions = Apollo.BaseMutationOptions<DeleteContentMutation, DeleteContentMutationVariables>;
-export const DeleteContentBySlugDocument = gql`
-    mutation DeleteContentBySlug($slug: String!) {
-  deleteContentBySlug(slug: $slug) {
-    id
-    success
-  }
-}
-    `;
-export type DeleteContentBySlugMutationFn = Apollo.MutationFunction<DeleteContentBySlugMutation, DeleteContentBySlugMutationVariables>;
-
-/**
- * __useDeleteContentBySlugMutation__
- *
- * To run a mutation, you first call `useDeleteContentBySlugMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteContentBySlugMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteContentBySlugMutation, { data, loading, error }] = useDeleteContentBySlugMutation({
- *   variables: {
- *      slug: // value for 'slug'
- *   },
- * });
- */
-export function useDeleteContentBySlugMutation(baseOptions?: Apollo.MutationHookOptions<DeleteContentBySlugMutation, DeleteContentBySlugMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteContentBySlugMutation, DeleteContentBySlugMutationVariables>(DeleteContentBySlugDocument, options);
-      }
-export type DeleteContentBySlugMutationHookResult = ReturnType<typeof useDeleteContentBySlugMutation>;
-export type DeleteContentBySlugMutationResult = Apollo.MutationResult<DeleteContentBySlugMutation>;
-export type DeleteContentBySlugMutationOptions = Apollo.BaseMutationOptions<DeleteContentBySlugMutation, DeleteContentBySlugMutationVariables>;
 export const CreateOrderDocument = gql`
     mutation CreateOrder($input: CreateOrderInput!) {
   createOrder(input: $input) {
@@ -1570,17 +1458,17 @@ export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>
 export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>;
 export const GetRefreshTokenDocument = gql`
     query GetRefreshToken($token: String!) {
-  refreshToken(token: $token) {
+  getRefreshToken(token: $token) {
     token
     user {
       id
       email
-      firstName
-      lastName
+      first_name
+      last_name
       roles {
-        name
+        role
         permissions {
-          level
+          permission
           resource
         }
       }
@@ -1626,16 +1514,16 @@ export const ContentBySlugDocument = gql`
     content
     name
     slug
-    updatedAt
-    updatedBy {
+    updated_at
+    updated_by {
       id
       email
-      firstName
-      lastName
+      first_name
+      last_name
       roles {
-        name
+        role
         permissions {
-          level
+          permission
           resource
         }
       }
@@ -1679,16 +1567,16 @@ export const ContentDocument = gql`
     name
     slug
     namespace
-    updatedAt
-    updatedBy {
+    updated_at
+    updated_by {
       id
       email
-      firstName
-      lastName
+      first_name
+      last_name
       roles {
-        name
+        role
         permissions {
-          level
+          permission
           resource
         }
       }
@@ -1724,58 +1612,15 @@ export function useContentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Co
 export type ContentQueryHookResult = ReturnType<typeof useContentQuery>;
 export type ContentLazyQueryHookResult = ReturnType<typeof useContentLazyQuery>;
 export type ContentQueryResult = Apollo.QueryResult<ContentQuery, ContentQueryVariables>;
-export const ListNewsContentDocument = gql`
-    query ListNewsContent($limit: Int!) {
-  listContent(limit: $limit) {
-    id
-    slug
-    content
-    name
-    updatedBy {
-      firstName
-      lastName
-    }
-    updatedAt
-  }
-}
-    `;
-
-/**
- * __useListNewsContentQuery__
- *
- * To run a query within a React component, call `useListNewsContentQuery` and pass it any options that fit your needs.
- * When your component renders, `useListNewsContentQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useListNewsContentQuery({
- *   variables: {
- *      limit: // value for 'limit'
- *   },
- * });
- */
-export function useListNewsContentQuery(baseOptions: Apollo.QueryHookOptions<ListNewsContentQuery, ListNewsContentQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ListNewsContentQuery, ListNewsContentQueryVariables>(ListNewsContentDocument, options);
-      }
-export function useListNewsContentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListNewsContentQuery, ListNewsContentQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ListNewsContentQuery, ListNewsContentQueryVariables>(ListNewsContentDocument, options);
-        }
-export type ListNewsContentQueryHookResult = ReturnType<typeof useListNewsContentQuery>;
-export type ListNewsContentLazyQueryHookResult = ReturnType<typeof useListNewsContentLazyQuery>;
-export type ListNewsContentQueryResult = Apollo.QueryResult<ListNewsContentQuery, ListNewsContentQueryVariables>;
 export const ListOrganismsDocument = gql`
     query ListOrganisms {
   listOrganisms {
-    taxonId
-    scientificName
+    taxon_id
+    scientific_name
     citations {
       title
       authors
-      pubmedId
+      pubmed_id
       journal
     }
     downloads {
@@ -1816,7 +1661,7 @@ export type ListOrganismsQueryHookResult = ReturnType<typeof useListOrganismsQue
 export type ListOrganismsLazyQueryHookResult = ReturnType<typeof useListOrganismsLazyQuery>;
 export type ListOrganismsQueryResult = Apollo.QueryResult<ListOrganismsQuery, ListOrganismsQueryVariables>;
 export const GeneDocument = gql`
-    query Gene($gene: String!, $limit: Int, $sortBy: String = "desc") {
+    query Gene($gene: String!, $limit: Int, $sort_by: String = "desc") {
   allStrains(gene: $gene) {
     id
     name
@@ -1824,7 +1669,7 @@ export const GeneDocument = gql`
       id
       label
       characteristics
-      inStock
+      in_stock
       phenotypes {
         phenotype
         publication {
@@ -1833,9 +1678,9 @@ export const GeneDocument = gql`
           journal
           pages
           volume
-          pubDate
+          pub_date
           authors {
-            lastName
+            last_name
             rank
           }
         }
@@ -1849,11 +1694,11 @@ export const GeneDocument = gql`
       id
       type
       date
-      evidenceCode
-      goTerm
+      evidence_code
+      go_term
       qualifier
       publication
-      assignedBy
+      assigned_by
       with {
         id
         db
@@ -1867,10 +1712,10 @@ export const GeneDocument = gql`
       }
     }
   }
-  allPublications(gene: $gene, limit: $limit, sortBy: $sortBy) {
-    numPubs
+  allPublications(gene: $gene, limit: $limit, sort_by: $sort_by) {
+    num_pubs
     publications {
-      relatedGenes {
+      related_genes {
         id
         name
       }
@@ -1878,14 +1723,14 @@ export const GeneDocument = gql`
       doi
       title
       journal
-      pubDate
+      pub_date
       volume
       pages
-      pubType
+      pub_type
       source
       issue
       authors {
-        lastName
+        last_name
         rank
       }
     }
@@ -1903,48 +1748,48 @@ export const GeneDocument = gql`
         name
         link
       }
-      geneProduct
+      gene_product
       source
     }
   }
   listGeneProductInfo(gene: $gene) {
     id
     name
-    productInfo {
-      proteinCodingGene {
+    product_info {
+      protein_coding_gene {
         name
         link
       }
-      proteinLength
-      proteinMolecularWeight
-      moreProteinData
-      genomicCoords {
+      protein_length
+      protein_molecular_weight
+      more_protein_data
+      genomic_coords {
         exon
-        localCoords
-        chromCoords
+        local_coords
+        chrom_coords
       }
     }
   }
   generalInformation(gene: $gene) {
     id
     name
-    generalInfo {
-      nameDescription
-      altGeneName
-      geneProduct
-      altProteinNames
+    general_info {
+      name_description
+      alt_gene_name
+      gene_product
+      alt_protein_names
       description
     }
   }
-  associatedSequnces(gene: $gene) {
+  getAssociatedSequnces(gene: $gene) {
     id
     name
-    associatedSequences {
-      genbankGenomicFragment {
+    associated_sequences {
+      genbank_genomic_fragment {
         name
         link
       }
-      genbankMrna {
+      genbank_mrna {
         name
         link
       }
@@ -1952,10 +1797,10 @@ export const GeneDocument = gql`
         name
         link
       }
-      moreLink
+      more_link
     }
   }
-  links(gene: $gene) {
+  getLinks(gene: $gene) {
     id
     name
     links {
@@ -1967,35 +1812,35 @@ export const GeneDocument = gql`
         name
         link
       }
-      extResources {
+      ext_resources {
         name
         link
       }
     }
   }
-  proteinInformation(gene: $gene) {
+  getProteinInformation(gene: $gene) {
     id
     name
-    proteinInformation {
-      generalInfo {
-        geneProduct
-        dictybaseId
+    protein_information {
+      general_info {
+        gene_product
+        dictybase_id
         description
-        proteinLength
-        molecularWeight
-        aaComposition {
+        protein_length
+        molecular_weight
+        aa_composition {
           name
           link
         }
-        subcellularLocation
-        proteinExistence
+        subcellular_location
+        protein_existence
         note
       }
-      externalLinks {
+      external_links {
         name
         link
       }
-      proteinSequence
+      protein_sequence
     }
   }
 }
@@ -2015,7 +1860,7 @@ export const GeneDocument = gql`
  *   variables: {
  *      gene: // value for 'gene'
  *      limit: // value for 'limit'
- *      sortBy: // value for 'sortBy'
+ *      sort_by: // value for 'sort_by'
  *   },
  * });
  */
@@ -2074,13 +1919,13 @@ export const PublicationDocument = gql`
     title
     abstract
     journal
-    pubDate
+    pub_date
     pages
     issue
     volume
     authors {
       initials
-      lastName
+      last_name
     }
   }
 }
@@ -2121,13 +1966,13 @@ export const ListRecentPublicationsDocument = gql`
     title
     abstract
     journal
-    pubDate
+    pub_date
     pages
     issue
     volume
     authors {
       initials
-      lastName
+      last_name
     }
   }
 }
@@ -2169,7 +2014,7 @@ export const StrainListDocument = gql`
       id
       label
       summary
-      inStock
+      in_stock
     }
   }
 }
@@ -2222,13 +2067,13 @@ export const ListStrainsWithPhenotypeDocument = gql`
       }
       publications {
         id
-        pubDate
+        pub_date
         title
         journal
         volume
         pages
         authors {
-          lastName
+          last_name
         }
       }
     }
@@ -2280,7 +2125,7 @@ export const ListBacterialStrainsDocument = gql`
       id
       label
       summary
-      inStock
+      in_stock
     }
   }
   symbioticFarmerBacterium: listStrainsWithAnnotation(
@@ -2295,7 +2140,7 @@ export const ListBacterialStrainsDocument = gql`
       id
       label
       summary
-      inStock
+      in_stock
     }
   }
 }
@@ -2332,8 +2177,8 @@ export const ListStrainsInventoryDocument = gql`
   listStrainsWithAnnotation(
     cursor: $cursor
     limit: $limit
-    type: "strainInventory"
-    annotation: "strainInventory"
+    type: "strain_inventory"
+    annotation: "strain_inventory"
   ) {
     totalCount
     nextCursor
@@ -2341,7 +2186,7 @@ export const ListStrainsInventoryDocument = gql`
       id
       label
       summary
-      inStock
+      in_stock
     }
   }
 }
@@ -2380,7 +2225,7 @@ export const ListPlasmidsInventoryDocument = gql`
   listPlasmidsWithAnnotation(
     cursor: $cursor
     limit: $limit
-    type: "plasmidInventory"
+    type: "plasmid_inventory"
     annotation: "plasmid inventory"
   ) {
     totalCount
@@ -2389,7 +2234,7 @@ export const ListPlasmidsInventoryDocument = gql`
       id
       name
       summary
-      inStock
+      in_stock
     }
   }
 }
@@ -2432,7 +2277,7 @@ export const PlasmidListFilterDocument = gql`
       id
       name
       summary
-      inStock
+      in_stock
     }
   }
 }
@@ -2474,30 +2319,30 @@ export const PlasmidDocument = gql`
     name
     summary
     depositor {
-      firstName
-      lastName
+      first_name
+      last_name
     }
     publications {
       id
-      pubDate
+      pub_date
       title
       journal
       volume
       pages
       doi
       authors {
-        lastName
+        last_name
       }
     }
     dbxrefs
     genes {
       name
     }
-    imageMap
+    image_map
     sequence
     keywords
-    genbankAccession
-    inStock
+    genbank_accession
+    in_stock
   }
 }
     `;
@@ -2541,31 +2386,31 @@ export const StrainDocument = gql`
       label
     }
     depositor {
-      firstName
-      lastName
+      first_name
+      last_name
     }
     plasmid
     dbxrefs
     publications {
       id
-      pubDate
+      pub_date
       title
       journal
       volume
       pages
       doi
       authors {
-        lastName
+        last_name
       }
     }
     genes {
       name
     }
-    inStock
-    systematicName
+    in_stock
+    systematic_name
     genotypes
-    mutagenesisMethod
-    geneticModification
+    mutagenesis_method
+    genetic_modification
     names
     characteristics
     phenotypes {
@@ -2575,13 +2420,13 @@ export const StrainDocument = gql`
       environment
       publication {
         id
-        pubDate
+        pub_date
         title
         journal
         volume
         pages
         authors {
-          lastName
+          last_name
         }
       }
     }
@@ -2620,7 +2465,7 @@ export const ListRecentPlasmidsDocument = gql`
     query ListRecentPlasmids($limit: Int! = 4) {
   listRecentPlasmids(limit: $limit) {
     id
-    createdAt
+    created_at
     name
   }
 }
@@ -2657,8 +2502,8 @@ export const ListRecentStrainsDocument = gql`
     query ListRecentStrains($limit: Int! = 4) {
   listRecentStrains(limit: $limit) {
     id
-    createdAt
-    systematicName
+    created_at
+    systematic_name
   }
 }
     `;
@@ -2745,12 +2590,12 @@ export type UserByEmailQueryResult = Apollo.QueryResult<UserByEmailQuery, UserBy
 };
       export default result;
     
-export type AssociatedSequencesKeySpecifier = ('ests' | 'genbankGenomicFragment' | 'genbankMrna' | 'moreLink' | AssociatedSequencesKeySpecifier)[];
+export type AssociatedSequencesKeySpecifier = ('ests' | 'genbank_genomic_fragment' | 'genbank_mrna' | 'more_link' | AssociatedSequencesKeySpecifier)[];
 export type AssociatedSequencesFieldPolicy = {
 	ests?: FieldPolicy<any> | FieldReadFunction<any>,
-	genbankGenomicFragment?: FieldPolicy<any> | FieldReadFunction<any>,
-	genbankMrna?: FieldPolicy<any> | FieldReadFunction<any>,
-	moreLink?: FieldPolicy<any> | FieldReadFunction<any>
+	genbank_genomic_fragment?: FieldPolicy<any> | FieldReadFunction<any>,
+	genbank_mrna?: FieldPolicy<any> | FieldReadFunction<any>,
+	more_link?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type AuthKeySpecifier = ('identity' | 'token' | 'user' | AuthKeySpecifier)[];
 export type AuthFieldPolicy = {
@@ -2758,14 +2603,14 @@ export type AuthFieldPolicy = {
 	token?: FieldPolicy<any> | FieldReadFunction<any>,
 	user?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type AuthorKeySpecifier = ('firstName' | 'initials' | 'lastName' | 'rank' | AuthorKeySpecifier)[];
+export type AuthorKeySpecifier = ('first_name' | 'initials' | 'last_name' | 'rank' | AuthorKeySpecifier)[];
 export type AuthorFieldPolicy = {
-	firstName?: FieldPolicy<any> | FieldReadFunction<any>,
+	first_name?: FieldPolicy<any> | FieldReadFunction<any>,
 	initials?: FieldPolicy<any> | FieldReadFunction<any>,
-	lastName?: FieldPolicy<any> | FieldReadFunction<any>,
+	last_name?: FieldPolicy<any> | FieldReadFunction<any>,
 	rank?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type BasePublicationKeySpecifier = ('abstract' | 'authors' | 'doi' | 'id' | 'issn' | 'issue' | 'journal' | 'pages' | 'pubDate' | 'pubType' | 'source' | 'status' | 'title' | 'volume' | BasePublicationKeySpecifier)[];
+export type BasePublicationKeySpecifier = ('abstract' | 'authors' | 'doi' | 'id' | 'issn' | 'issue' | 'journal' | 'pages' | 'pub_date' | 'pub_type' | 'source' | 'status' | 'title' | 'volume' | BasePublicationKeySpecifier)[];
 export type BasePublicationFieldPolicy = {
 	abstract?: FieldPolicy<any> | FieldReadFunction<any>,
 	authors?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2775,55 +2620,50 @@ export type BasePublicationFieldPolicy = {
 	issue?: FieldPolicy<any> | FieldReadFunction<any>,
 	journal?: FieldPolicy<any> | FieldReadFunction<any>,
 	pages?: FieldPolicy<any> | FieldReadFunction<any>,
-	pubDate?: FieldPolicy<any> | FieldReadFunction<any>,
-	pubType?: FieldPolicy<any> | FieldReadFunction<any>,
+	pub_date?: FieldPolicy<any> | FieldReadFunction<any>,
+	pub_type?: FieldPolicy<any> | FieldReadFunction<any>,
 	source?: FieldPolicy<any> | FieldReadFunction<any>,
 	status?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	volume?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type CitationKeySpecifier = ('authors' | 'journal' | 'pubmedId' | 'title' | CitationKeySpecifier)[];
+export type CitationKeySpecifier = ('authors' | 'journal' | 'pubmed_id' | 'title' | CitationKeySpecifier)[];
 export type CitationFieldPolicy = {
 	authors?: FieldPolicy<any> | FieldReadFunction<any>,
 	journal?: FieldPolicy<any> | FieldReadFunction<any>,
-	pubmedId?: FieldPolicy<any> | FieldReadFunction<any>,
+	pubmed_id?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ContentKeySpecifier = ('content' | 'createdAt' | 'createdBy' | 'id' | 'name' | 'namespace' | 'slug' | 'updatedAt' | 'updatedBy' | ContentKeySpecifier)[];
+export type ContentKeySpecifier = ('content' | 'created_at' | 'created_by' | 'id' | 'name' | 'namespace' | 'slug' | 'updated_at' | 'updated_by' | ContentKeySpecifier)[];
 export type ContentFieldPolicy = {
 	content?: FieldPolicy<any> | FieldReadFunction<any>,
-	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	created_at?: FieldPolicy<any> | FieldReadFunction<any>,
+	created_by?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	namespace?: FieldPolicy<any> | FieldReadFunction<any>,
 	slug?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedBy?: FieldPolicy<any> | FieldReadFunction<any>
+	updated_at?: FieldPolicy<any> | FieldReadFunction<any>,
+	updated_by?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type DeleteContentKeySpecifier = ('id' | 'success' | DeleteContentKeySpecifier)[];
+export type DeleteContentKeySpecifier = ('success' | DeleteContentKeySpecifier)[];
 export type DeleteContentFieldPolicy = {
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type DeletePermissionKeySpecifier = ('id' | 'success' | DeletePermissionKeySpecifier)[];
+export type DeletePermissionKeySpecifier = ('success' | DeletePermissionKeySpecifier)[];
 export type DeletePermissionFieldPolicy = {
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type DeleteRoleKeySpecifier = ('id' | 'success' | DeleteRoleKeySpecifier)[];
+export type DeleteRoleKeySpecifier = ('success' | DeleteRoleKeySpecifier)[];
 export type DeleteRoleFieldPolicy = {
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type DeleteStockKeySpecifier = ('id' | 'success' | DeleteStockKeySpecifier)[];
+export type DeleteStockKeySpecifier = ('success' | DeleteStockKeySpecifier)[];
 export type DeleteStockFieldPolicy = {
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type DeleteUserKeySpecifier = ('id' | 'success' | DeleteUserKeySpecifier)[];
+export type DeleteUserKeySpecifier = ('success' | DeleteUserKeySpecifier)[];
 export type DeleteUserFieldPolicy = {
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type DownloadKeySpecifier = ('items' | 'title' | DownloadKeySpecifier)[];
@@ -2843,66 +2683,66 @@ export type ExtensionFieldPolicy = {
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	relation?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type GOAnnotationKeySpecifier = ('assignedBy' | 'date' | 'evidenceCode' | 'extensions' | 'goTerm' | 'id' | 'publication' | 'qualifier' | 'type' | 'with' | GOAnnotationKeySpecifier)[];
+export type GOAnnotationKeySpecifier = ('assigned_by' | 'date' | 'evidence_code' | 'extensions' | 'go_term' | 'id' | 'publication' | 'qualifier' | 'type' | 'with' | GOAnnotationKeySpecifier)[];
 export type GOAnnotationFieldPolicy = {
-	assignedBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	assigned_by?: FieldPolicy<any> | FieldReadFunction<any>,
 	date?: FieldPolicy<any> | FieldReadFunction<any>,
-	evidenceCode?: FieldPolicy<any> | FieldReadFunction<any>,
+	evidence_code?: FieldPolicy<any> | FieldReadFunction<any>,
 	extensions?: FieldPolicy<any> | FieldReadFunction<any>,
-	goTerm?: FieldPolicy<any> | FieldReadFunction<any>,
+	go_term?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	publication?: FieldPolicy<any> | FieldReadFunction<any>,
 	qualifier?: FieldPolicy<any> | FieldReadFunction<any>,
 	type?: FieldPolicy<any> | FieldReadFunction<any>,
 	with?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type GeneKeySpecifier = ('associatedSequences' | 'generalInfo' | 'goas' | 'id' | 'links' | 'name' | 'orthologs' | 'productInfo' | 'proteinInformation' | 'strains' | GeneKeySpecifier)[];
+export type GeneKeySpecifier = ('associated_sequences' | 'general_info' | 'goas' | 'id' | 'links' | 'name' | 'orthologs' | 'product_info' | 'protein_information' | 'strains' | GeneKeySpecifier)[];
 export type GeneFieldPolicy = {
-	associatedSequences?: FieldPolicy<any> | FieldReadFunction<any>,
-	generalInfo?: FieldPolicy<any> | FieldReadFunction<any>,
+	associated_sequences?: FieldPolicy<any> | FieldReadFunction<any>,
+	general_info?: FieldPolicy<any> | FieldReadFunction<any>,
 	goas?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	links?: FieldPolicy<any> | FieldReadFunction<any>,
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	orthologs?: FieldPolicy<any> | FieldReadFunction<any>,
-	productInfo?: FieldPolicy<any> | FieldReadFunction<any>,
-	proteinInformation?: FieldPolicy<any> | FieldReadFunction<any>,
+	product_info?: FieldPolicy<any> | FieldReadFunction<any>,
+	protein_information?: FieldPolicy<any> | FieldReadFunction<any>,
 	strains?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type GeneralInfoKeySpecifier = ('altGeneName' | 'altProteinNames' | 'description' | 'geneProduct' | 'nameDescription' | GeneralInfoKeySpecifier)[];
+export type GeneralInfoKeySpecifier = ('alt_gene_name' | 'alt_protein_names' | 'description' | 'gene_product' | 'name_description' | GeneralInfoKeySpecifier)[];
 export type GeneralInfoFieldPolicy = {
-	altGeneName?: FieldPolicy<any> | FieldReadFunction<any>,
-	altProteinNames?: FieldPolicy<any> | FieldReadFunction<any>,
+	alt_gene_name?: FieldPolicy<any> | FieldReadFunction<any>,
+	alt_protein_names?: FieldPolicy<any> | FieldReadFunction<any>,
 	description?: FieldPolicy<any> | FieldReadFunction<any>,
-	geneProduct?: FieldPolicy<any> | FieldReadFunction<any>,
-	nameDescription?: FieldPolicy<any> | FieldReadFunction<any>
+	gene_product?: FieldPolicy<any> | FieldReadFunction<any>,
+	name_description?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type GenomicCoordinatesKeySpecifier = ('chromCoords' | 'exon' | 'localCoords' | GenomicCoordinatesKeySpecifier)[];
+export type GenomicCoordinatesKeySpecifier = ('chrom_coords' | 'exon' | 'local_coords' | GenomicCoordinatesKeySpecifier)[];
 export type GenomicCoordinatesFieldPolicy = {
-	chromCoords?: FieldPolicy<any> | FieldReadFunction<any>,
+	chrom_coords?: FieldPolicy<any> | FieldReadFunction<any>,
 	exon?: FieldPolicy<any> | FieldReadFunction<any>,
-	localCoords?: FieldPolicy<any> | FieldReadFunction<any>
+	local_coords?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type IdentityKeySpecifier = ('createdAt' | 'id' | 'identifier' | 'provider' | 'updatedAt' | 'userId' | IdentityKeySpecifier)[];
+export type IdentityKeySpecifier = ('created_at' | 'id' | 'identifier' | 'provider' | 'updated_at' | 'user_id' | IdentityKeySpecifier)[];
 export type IdentityFieldPolicy = {
-	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	created_at?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	identifier?: FieldPolicy<any> | FieldReadFunction<any>,
 	provider?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	userId?: FieldPolicy<any> | FieldReadFunction<any>
+	updated_at?: FieldPolicy<any> | FieldReadFunction<any>,
+	user_id?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type LinksKeySpecifier = ('colleagues' | 'expression' | 'extResources' | LinksKeySpecifier)[];
+export type LinksKeySpecifier = ('colleagues' | 'expression' | 'ext_resources' | LinksKeySpecifier)[];
 export type LinksFieldPolicy = {
 	colleagues?: FieldPolicy<any> | FieldReadFunction<any>,
 	expression?: FieldPolicy<any> | FieldReadFunction<any>,
-	extResources?: FieldPolicy<any> | FieldReadFunction<any>
+	ext_resources?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type LogoutKeySpecifier = ('success' | LogoutKeySpecifier)[];
 export type LogoutFieldPolicy = {
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('createContent' | 'createOrder' | 'createPermission' | 'createPlasmid' | 'createRole' | 'createRolePermissionRelationship' | 'createStrain' | 'createUser' | 'createUserRoleRelationship' | 'deleteContent' | 'deleteContentBySlug' | 'deletePermission' | 'deleteRole' | 'deleteStock' | 'deleteUser' | 'login' | 'logout' | 'updateContent' | 'updateOrder' | 'updatePermission' | 'updatePlasmid' | 'updateRole' | 'updateStrain' | 'updateUser' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('createContent' | 'createOrder' | 'createPermission' | 'createPlasmid' | 'createRole' | 'createRolePermissionRelationship' | 'createStrain' | 'createUser' | 'createUserRoleRelationship' | 'deleteContent' | 'deletePermission' | 'deleteRole' | 'deleteStock' | 'deleteUser' | 'login' | 'logout' | 'updateContent' | 'updateOrder' | 'updatePermission' | 'updatePlasmid' | 'updateRole' | 'updateStrain' | 'updateUser' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	createContent?: FieldPolicy<any> | FieldReadFunction<any>,
 	createOrder?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2914,7 +2754,6 @@ export type MutationFieldPolicy = {
 	createUser?: FieldPolicy<any> | FieldReadFunction<any>,
 	createUserRoleRelationship?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteContent?: FieldPolicy<any> | FieldReadFunction<any>,
-	deleteContentBySlug?: FieldPolicy<any> | FieldReadFunction<any>,
 	deletePermission?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteRole?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteStock?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2934,26 +2773,26 @@ export type NameWithLinkFieldPolicy = {
 	link?: FieldPolicy<any> | FieldReadFunction<any>,
 	name?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type NumberOfPublicationsWithGeneKeySpecifier = ('numPubs' | 'publications' | NumberOfPublicationsWithGeneKeySpecifier)[];
+export type NumberOfPublicationsWithGeneKeySpecifier = ('num_pubs' | 'publications' | NumberOfPublicationsWithGeneKeySpecifier)[];
 export type NumberOfPublicationsWithGeneFieldPolicy = {
-	numPubs?: FieldPolicy<any> | FieldReadFunction<any>,
+	num_pubs?: FieldPolicy<any> | FieldReadFunction<any>,
 	publications?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type OrderKeySpecifier = ('comments' | 'consumer' | 'courier' | 'courierAccount' | 'createdAt' | 'id' | 'items' | 'payer' | 'payment' | 'purchaseOrderNum' | 'purchaser' | 'status' | 'updatedAt' | OrderKeySpecifier)[];
+export type OrderKeySpecifier = ('comments' | 'consumer' | 'courier' | 'courier_account' | 'created_at' | 'id' | 'items' | 'payer' | 'payment' | 'purchase_order_num' | 'purchaser' | 'status' | 'updated_at' | OrderKeySpecifier)[];
 export type OrderFieldPolicy = {
 	comments?: FieldPolicy<any> | FieldReadFunction<any>,
 	consumer?: FieldPolicy<any> | FieldReadFunction<any>,
 	courier?: FieldPolicy<any> | FieldReadFunction<any>,
-	courierAccount?: FieldPolicy<any> | FieldReadFunction<any>,
-	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	courier_account?: FieldPolicy<any> | FieldReadFunction<any>,
+	created_at?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	items?: FieldPolicy<any> | FieldReadFunction<any>,
 	payer?: FieldPolicy<any> | FieldReadFunction<any>,
 	payment?: FieldPolicy<any> | FieldReadFunction<any>,
-	purchaseOrderNum?: FieldPolicy<any> | FieldReadFunction<any>,
+	purchase_order_num?: FieldPolicy<any> | FieldReadFunction<any>,
 	purchaser?: FieldPolicy<any> | FieldReadFunction<any>,
 	status?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
+	updated_at?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type OrderListWithCursorKeySpecifier = ('limit' | 'nextCursor' | 'orders' | 'previousCursor' | 'totalCount' | OrderListWithCursorKeySpecifier)[];
 export type OrderListWithCursorFieldPolicy = {
@@ -2963,29 +2802,29 @@ export type OrderListWithCursorFieldPolicy = {
 	previousCursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	totalCount?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type OrganismKeySpecifier = ('citations' | 'downloads' | 'scientificName' | 'taxonId' | OrganismKeySpecifier)[];
+export type OrganismKeySpecifier = ('citations' | 'downloads' | 'scientific_name' | 'taxon_id' | OrganismKeySpecifier)[];
 export type OrganismFieldPolicy = {
 	citations?: FieldPolicy<any> | FieldReadFunction<any>,
 	downloads?: FieldPolicy<any> | FieldReadFunction<any>,
-	scientificName?: FieldPolicy<any> | FieldReadFunction<any>,
-	taxonId?: FieldPolicy<any> | FieldReadFunction<any>
+	scientific_name?: FieldPolicy<any> | FieldReadFunction<any>,
+	taxon_id?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type OrthologsKeySpecifier = ('geneProduct' | 'id' | 'source' | 'species' | 'uniprotkb' | OrthologsKeySpecifier)[];
+export type OrthologsKeySpecifier = ('gene_product' | 'id' | 'source' | 'species' | 'uniprotkb' | OrthologsKeySpecifier)[];
 export type OrthologsFieldPolicy = {
-	geneProduct?: FieldPolicy<any> | FieldReadFunction<any>,
+	gene_product?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	source?: FieldPolicy<any> | FieldReadFunction<any>,
 	species?: FieldPolicy<any> | FieldReadFunction<any>,
 	uniprotkb?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type PermissionKeySpecifier = ('createdAt' | 'description' | 'id' | 'level' | 'resource' | 'updatedAt' | PermissionKeySpecifier)[];
+export type PermissionKeySpecifier = ('created_at' | 'description' | 'id' | 'permission' | 'resource' | 'updated_at' | PermissionKeySpecifier)[];
 export type PermissionFieldPolicy = {
-	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	created_at?: FieldPolicy<any> | FieldReadFunction<any>,
 	description?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	level?: FieldPolicy<any> | FieldReadFunction<any>,
+	permission?: FieldPolicy<any> | FieldReadFunction<any>,
 	resource?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
+	updated_at?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type PhenotypeKeySpecifier = ('assay' | 'environment' | 'note' | 'phenotype' | 'publication' | PhenotypeKeySpecifier)[];
 export type PhenotypeFieldPolicy = {
@@ -2995,25 +2834,25 @@ export type PhenotypeFieldPolicy = {
 	phenotype?: FieldPolicy<any> | FieldReadFunction<any>,
 	publication?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type PlasmidKeySpecifier = ('createdAt' | 'createdBy' | 'dbxrefs' | 'depositor' | 'editableSummary' | 'genbankAccession' | 'genes' | 'id' | 'imageMap' | 'inStock' | 'keywords' | 'name' | 'publications' | 'sequence' | 'summary' | 'updatedAt' | 'updatedBy' | PlasmidKeySpecifier)[];
+export type PlasmidKeySpecifier = ('created_at' | 'created_by' | 'dbxrefs' | 'depositor' | 'editable_summary' | 'genbank_accession' | 'genes' | 'id' | 'image_map' | 'in_stock' | 'keywords' | 'name' | 'publications' | 'sequence' | 'summary' | 'updated_at' | 'updated_by' | PlasmidKeySpecifier)[];
 export type PlasmidFieldPolicy = {
-	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	created_at?: FieldPolicy<any> | FieldReadFunction<any>,
+	created_by?: FieldPolicy<any> | FieldReadFunction<any>,
 	dbxrefs?: FieldPolicy<any> | FieldReadFunction<any>,
 	depositor?: FieldPolicy<any> | FieldReadFunction<any>,
-	editableSummary?: FieldPolicy<any> | FieldReadFunction<any>,
-	genbankAccession?: FieldPolicy<any> | FieldReadFunction<any>,
+	editable_summary?: FieldPolicy<any> | FieldReadFunction<any>,
+	genbank_accession?: FieldPolicy<any> | FieldReadFunction<any>,
 	genes?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	imageMap?: FieldPolicy<any> | FieldReadFunction<any>,
-	inStock?: FieldPolicy<any> | FieldReadFunction<any>,
+	image_map?: FieldPolicy<any> | FieldReadFunction<any>,
+	in_stock?: FieldPolicy<any> | FieldReadFunction<any>,
 	keywords?: FieldPolicy<any> | FieldReadFunction<any>,
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	publications?: FieldPolicy<any> | FieldReadFunction<any>,
 	sequence?: FieldPolicy<any> | FieldReadFunction<any>,
 	summary?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedBy?: FieldPolicy<any> | FieldReadFunction<any>
+	updated_at?: FieldPolicy<any> | FieldReadFunction<any>,
+	updated_by?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type PlasmidListWithCursorKeySpecifier = ('limit' | 'nextCursor' | 'plasmids' | 'previousCursor' | 'totalCount' | PlasmidListWithCursorKeySpecifier)[];
 export type PlasmidListWithCursorFieldPolicy = {
@@ -3023,33 +2862,33 @@ export type PlasmidListWithCursorFieldPolicy = {
 	previousCursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	totalCount?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ProductInformationKeySpecifier = ('genomicCoords' | 'moreProteinData' | 'proteinCodingGene' | 'proteinLength' | 'proteinMolecularWeight' | ProductInformationKeySpecifier)[];
+export type ProductInformationKeySpecifier = ('genomic_coords' | 'more_protein_data' | 'protein_coding_gene' | 'protein_length' | 'protein_molecular_weight' | ProductInformationKeySpecifier)[];
 export type ProductInformationFieldPolicy = {
-	genomicCoords?: FieldPolicy<any> | FieldReadFunction<any>,
-	moreProteinData?: FieldPolicy<any> | FieldReadFunction<any>,
-	proteinCodingGene?: FieldPolicy<any> | FieldReadFunction<any>,
-	proteinLength?: FieldPolicy<any> | FieldReadFunction<any>,
-	proteinMolecularWeight?: FieldPolicy<any> | FieldReadFunction<any>
+	genomic_coords?: FieldPolicy<any> | FieldReadFunction<any>,
+	more_protein_data?: FieldPolicy<any> | FieldReadFunction<any>,
+	protein_coding_gene?: FieldPolicy<any> | FieldReadFunction<any>,
+	protein_length?: FieldPolicy<any> | FieldReadFunction<any>,
+	protein_molecular_weight?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ProteinGeneralInfoKeySpecifier = ('aaComposition' | 'description' | 'dictybaseId' | 'geneProduct' | 'molecularWeight' | 'note' | 'proteinExistence' | 'proteinLength' | 'subcellularLocation' | ProteinGeneralInfoKeySpecifier)[];
+export type ProteinGeneralInfoKeySpecifier = ('aa_composition' | 'description' | 'dictybase_id' | 'gene_product' | 'molecular_weight' | 'note' | 'protein_existence' | 'protein_length' | 'subcellular_location' | ProteinGeneralInfoKeySpecifier)[];
 export type ProteinGeneralInfoFieldPolicy = {
-	aaComposition?: FieldPolicy<any> | FieldReadFunction<any>,
+	aa_composition?: FieldPolicy<any> | FieldReadFunction<any>,
 	description?: FieldPolicy<any> | FieldReadFunction<any>,
-	dictybaseId?: FieldPolicy<any> | FieldReadFunction<any>,
-	geneProduct?: FieldPolicy<any> | FieldReadFunction<any>,
-	molecularWeight?: FieldPolicy<any> | FieldReadFunction<any>,
+	dictybase_id?: FieldPolicy<any> | FieldReadFunction<any>,
+	gene_product?: FieldPolicy<any> | FieldReadFunction<any>,
+	molecular_weight?: FieldPolicy<any> | FieldReadFunction<any>,
 	note?: FieldPolicy<any> | FieldReadFunction<any>,
-	proteinExistence?: FieldPolicy<any> | FieldReadFunction<any>,
-	proteinLength?: FieldPolicy<any> | FieldReadFunction<any>,
-	subcellularLocation?: FieldPolicy<any> | FieldReadFunction<any>
+	protein_existence?: FieldPolicy<any> | FieldReadFunction<any>,
+	protein_length?: FieldPolicy<any> | FieldReadFunction<any>,
+	subcellular_location?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ProteinInformationKeySpecifier = ('externalLinks' | 'generalInfo' | 'proteinSequence' | ProteinInformationKeySpecifier)[];
+export type ProteinInformationKeySpecifier = ('external_links' | 'general_info' | 'protein_sequence' | ProteinInformationKeySpecifier)[];
 export type ProteinInformationFieldPolicy = {
-	externalLinks?: FieldPolicy<any> | FieldReadFunction<any>,
-	generalInfo?: FieldPolicy<any> | FieldReadFunction<any>,
-	proteinSequence?: FieldPolicy<any> | FieldReadFunction<any>
+	external_links?: FieldPolicy<any> | FieldReadFunction<any>,
+	general_info?: FieldPolicy<any> | FieldReadFunction<any>,
+	protein_sequence?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type PublicationKeySpecifier = ('abstract' | 'authors' | 'doi' | 'id' | 'issn' | 'issue' | 'journal' | 'pages' | 'pubDate' | 'pubType' | 'source' | 'status' | 'title' | 'volume' | PublicationKeySpecifier)[];
+export type PublicationKeySpecifier = ('abstract' | 'authors' | 'doi' | 'id' | 'issn' | 'issue' | 'journal' | 'pages' | 'pub_date' | 'pub_type' | 'source' | 'status' | 'title' | 'volume' | PublicationKeySpecifier)[];
 export type PublicationFieldPolicy = {
 	abstract?: FieldPolicy<any> | FieldReadFunction<any>,
 	authors?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -3059,14 +2898,14 @@ export type PublicationFieldPolicy = {
 	issue?: FieldPolicy<any> | FieldReadFunction<any>,
 	journal?: FieldPolicy<any> | FieldReadFunction<any>,
 	pages?: FieldPolicy<any> | FieldReadFunction<any>,
-	pubDate?: FieldPolicy<any> | FieldReadFunction<any>,
-	pubType?: FieldPolicy<any> | FieldReadFunction<any>,
+	pub_date?: FieldPolicy<any> | FieldReadFunction<any>,
+	pub_type?: FieldPolicy<any> | FieldReadFunction<any>,
 	source?: FieldPolicy<any> | FieldReadFunction<any>,
 	status?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	volume?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type PublicationWithGeneKeySpecifier = ('abstract' | 'authors' | 'doi' | 'id' | 'issn' | 'issue' | 'journal' | 'pages' | 'pubDate' | 'pubType' | 'relatedGenes' | 'source' | 'status' | 'title' | 'volume' | PublicationWithGeneKeySpecifier)[];
+export type PublicationWithGeneKeySpecifier = ('abstract' | 'authors' | 'doi' | 'id' | 'issn' | 'issue' | 'journal' | 'pages' | 'pub_date' | 'pub_type' | 'related_genes' | 'source' | 'status' | 'title' | 'volume' | PublicationWithGeneKeySpecifier)[];
 export type PublicationWithGeneFieldPolicy = {
 	abstract?: FieldPolicy<any> | FieldReadFunction<any>,
 	authors?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -3076,26 +2915,27 @@ export type PublicationWithGeneFieldPolicy = {
 	issue?: FieldPolicy<any> | FieldReadFunction<any>,
 	journal?: FieldPolicy<any> | FieldReadFunction<any>,
 	pages?: FieldPolicy<any> | FieldReadFunction<any>,
-	pubDate?: FieldPolicy<any> | FieldReadFunction<any>,
-	pubType?: FieldPolicy<any> | FieldReadFunction<any>,
-	relatedGenes?: FieldPolicy<any> | FieldReadFunction<any>,
+	pub_date?: FieldPolicy<any> | FieldReadFunction<any>,
+	pub_type?: FieldPolicy<any> | FieldReadFunction<any>,
+	related_genes?: FieldPolicy<any> | FieldReadFunction<any>,
 	source?: FieldPolicy<any> | FieldReadFunction<any>,
 	status?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	volume?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('allOrthologs' | 'allPublications' | 'allStrains' | 'associatedSequnces' | 'content' | 'contentBySlug' | 'gene' | 'generalInformation' | 'links' | 'listContent' | 'listGeneProductInfo' | 'listOrders' | 'listOrganisms' | 'listPermissions' | 'listPlasmids' | 'listPlasmidsWithAnnotation' | 'listRecentGenes' | 'listRecentPlasmids' | 'listRecentPublications' | 'listRecentStrains' | 'listRoles' | 'listStrains' | 'listStrainsWithAnnotation' | 'listUsers' | 'order' | 'organism' | 'permission' | 'plasmid' | 'proteinInformation' | 'publication' | 'refreshToken' | 'role' | 'strain' | 'user' | 'userByEmail' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('allOrthologs' | 'allPublications' | 'allStrains' | 'content' | 'contentBySlug' | 'gene' | 'generalInformation' | 'getAssociatedSequnces' | 'getLinks' | 'getProteinInformation' | 'getRefreshToken' | 'listGeneProductInfo' | 'listOrders' | 'listOrganisms' | 'listPermissions' | 'listPlasmids' | 'listPlasmidsWithAnnotation' | 'listRecentGenes' | 'listRecentPlasmids' | 'listRecentPublications' | 'listRecentStrains' | 'listRoles' | 'listStrains' | 'listStrainsWithAnnotation' | 'listUsers' | 'order' | 'organism' | 'permission' | 'plasmid' | 'publication' | 'role' | 'strain' | 'user' | 'userByEmail' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	allOrthologs?: FieldPolicy<any> | FieldReadFunction<any>,
 	allPublications?: FieldPolicy<any> | FieldReadFunction<any>,
 	allStrains?: FieldPolicy<any> | FieldReadFunction<any>,
-	associatedSequnces?: FieldPolicy<any> | FieldReadFunction<any>,
 	content?: FieldPolicy<any> | FieldReadFunction<any>,
 	contentBySlug?: FieldPolicy<any> | FieldReadFunction<any>,
 	gene?: FieldPolicy<any> | FieldReadFunction<any>,
 	generalInformation?: FieldPolicy<any> | FieldReadFunction<any>,
-	links?: FieldPolicy<any> | FieldReadFunction<any>,
-	listContent?: FieldPolicy<any> | FieldReadFunction<any>,
+	getAssociatedSequnces?: FieldPolicy<any> | FieldReadFunction<any>,
+	getLinks?: FieldPolicy<any> | FieldReadFunction<any>,
+	getProteinInformation?: FieldPolicy<any> | FieldReadFunction<any>,
+	getRefreshToken?: FieldPolicy<any> | FieldReadFunction<any>,
 	listGeneProductInfo?: FieldPolicy<any> | FieldReadFunction<any>,
 	listOrders?: FieldPolicy<any> | FieldReadFunction<any>,
 	listOrganisms?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -3114,53 +2954,51 @@ export type QueryFieldPolicy = {
 	organism?: FieldPolicy<any> | FieldReadFunction<any>,
 	permission?: FieldPolicy<any> | FieldReadFunction<any>,
 	plasmid?: FieldPolicy<any> | FieldReadFunction<any>,
-	proteinInformation?: FieldPolicy<any> | FieldReadFunction<any>,
 	publication?: FieldPolicy<any> | FieldReadFunction<any>,
-	refreshToken?: FieldPolicy<any> | FieldReadFunction<any>,
 	role?: FieldPolicy<any> | FieldReadFunction<any>,
 	strain?: FieldPolicy<any> | FieldReadFunction<any>,
 	user?: FieldPolicy<any> | FieldReadFunction<any>,
 	userByEmail?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type RoleKeySpecifier = ('createdAt' | 'description' | 'id' | 'name' | 'permissions' | 'updatedAt' | RoleKeySpecifier)[];
+export type RoleKeySpecifier = ('created_at' | 'description' | 'id' | 'permissions' | 'role' | 'updated_at' | RoleKeySpecifier)[];
 export type RoleFieldPolicy = {
-	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	created_at?: FieldPolicy<any> | FieldReadFunction<any>,
 	description?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	permissions?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
+	role?: FieldPolicy<any> | FieldReadFunction<any>,
+	updated_at?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type StockKeySpecifier = ('createdAt' | 'createdBy' | 'dbxrefs' | 'depositor' | 'editableSummary' | 'genes' | 'id' | 'inStock' | 'publications' | 'summary' | 'updatedAt' | 'updatedBy' | StockKeySpecifier)[];
+export type StockKeySpecifier = ('created_at' | 'created_by' | 'dbxrefs' | 'depositor' | 'editable_summary' | 'genes' | 'id' | 'in_stock' | 'publications' | 'summary' | 'updated_at' | 'updated_by' | StockKeySpecifier)[];
 export type StockFieldPolicy = {
-	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	created_at?: FieldPolicy<any> | FieldReadFunction<any>,
+	created_by?: FieldPolicy<any> | FieldReadFunction<any>,
 	dbxrefs?: FieldPolicy<any> | FieldReadFunction<any>,
 	depositor?: FieldPolicy<any> | FieldReadFunction<any>,
-	editableSummary?: FieldPolicy<any> | FieldReadFunction<any>,
+	editable_summary?: FieldPolicy<any> | FieldReadFunction<any>,
 	genes?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	inStock?: FieldPolicy<any> | FieldReadFunction<any>,
+	in_stock?: FieldPolicy<any> | FieldReadFunction<any>,
 	publications?: FieldPolicy<any> | FieldReadFunction<any>,
 	summary?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedBy?: FieldPolicy<any> | FieldReadFunction<any>
+	updated_at?: FieldPolicy<any> | FieldReadFunction<any>,
+	updated_by?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type StrainKeySpecifier = ('characteristics' | 'createdAt' | 'createdBy' | 'dbxrefs' | 'depositor' | 'editableSummary' | 'genes' | 'geneticModification' | 'genotypes' | 'id' | 'inStock' | 'label' | 'mutagenesisMethod' | 'names' | 'parent' | 'phenotypes' | 'plasmid' | 'publications' | 'species' | 'summary' | 'systematicName' | 'updatedAt' | 'updatedBy' | StrainKeySpecifier)[];
+export type StrainKeySpecifier = ('characteristics' | 'created_at' | 'created_by' | 'dbxrefs' | 'depositor' | 'editable_summary' | 'genes' | 'genetic_modification' | 'genotypes' | 'id' | 'in_stock' | 'label' | 'mutagenesis_method' | 'names' | 'parent' | 'phenotypes' | 'plasmid' | 'publications' | 'species' | 'summary' | 'systematic_name' | 'updated_at' | 'updated_by' | StrainKeySpecifier)[];
 export type StrainFieldPolicy = {
 	characteristics?: FieldPolicy<any> | FieldReadFunction<any>,
-	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	created_at?: FieldPolicy<any> | FieldReadFunction<any>,
+	created_by?: FieldPolicy<any> | FieldReadFunction<any>,
 	dbxrefs?: FieldPolicy<any> | FieldReadFunction<any>,
 	depositor?: FieldPolicy<any> | FieldReadFunction<any>,
-	editableSummary?: FieldPolicy<any> | FieldReadFunction<any>,
+	editable_summary?: FieldPolicy<any> | FieldReadFunction<any>,
 	genes?: FieldPolicy<any> | FieldReadFunction<any>,
-	geneticModification?: FieldPolicy<any> | FieldReadFunction<any>,
+	genetic_modification?: FieldPolicy<any> | FieldReadFunction<any>,
 	genotypes?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	inStock?: FieldPolicy<any> | FieldReadFunction<any>,
+	in_stock?: FieldPolicy<any> | FieldReadFunction<any>,
 	label?: FieldPolicy<any> | FieldReadFunction<any>,
-	mutagenesisMethod?: FieldPolicy<any> | FieldReadFunction<any>,
+	mutagenesis_method?: FieldPolicy<any> | FieldReadFunction<any>,
 	names?: FieldPolicy<any> | FieldReadFunction<any>,
 	parent?: FieldPolicy<any> | FieldReadFunction<any>,
 	phenotypes?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -3168,9 +3006,9 @@ export type StrainFieldPolicy = {
 	publications?: FieldPolicy<any> | FieldReadFunction<any>,
 	species?: FieldPolicy<any> | FieldReadFunction<any>,
 	summary?: FieldPolicy<any> | FieldReadFunction<any>,
-	systematicName?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedBy?: FieldPolicy<any> | FieldReadFunction<any>
+	systematic_name?: FieldPolicy<any> | FieldReadFunction<any>,
+	updated_at?: FieldPolicy<any> | FieldReadFunction<any>,
+	updated_by?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type StrainListWithCursorKeySpecifier = ('limit' | 'nextCursor' | 'previousCursor' | 'strains' | 'totalCount' | StrainListWithCursorKeySpecifier)[];
 export type StrainListWithCursorFieldPolicy = {
@@ -3180,24 +3018,24 @@ export type StrainListWithCursorFieldPolicy = {
 	strains?: FieldPolicy<any> | FieldReadFunction<any>,
 	totalCount?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type UserKeySpecifier = ('city' | 'country' | 'createdAt' | 'email' | 'firstAddress' | 'firstName' | 'groupName' | 'id' | 'isActive' | 'lastName' | 'organization' | 'phone' | 'roles' | 'secondAddress' | 'state' | 'updatedAt' | 'zipcode' | UserKeySpecifier)[];
+export type UserKeySpecifier = ('city' | 'country' | 'created_at' | 'email' | 'first_address' | 'first_name' | 'group_name' | 'id' | 'is_active' | 'last_name' | 'organization' | 'phone' | 'roles' | 'second_address' | 'state' | 'updated_at' | 'zipcode' | UserKeySpecifier)[];
 export type UserFieldPolicy = {
 	city?: FieldPolicy<any> | FieldReadFunction<any>,
 	country?: FieldPolicy<any> | FieldReadFunction<any>,
-	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	created_at?: FieldPolicy<any> | FieldReadFunction<any>,
 	email?: FieldPolicy<any> | FieldReadFunction<any>,
-	firstAddress?: FieldPolicy<any> | FieldReadFunction<any>,
-	firstName?: FieldPolicy<any> | FieldReadFunction<any>,
-	groupName?: FieldPolicy<any> | FieldReadFunction<any>,
+	first_address?: FieldPolicy<any> | FieldReadFunction<any>,
+	first_name?: FieldPolicy<any> | FieldReadFunction<any>,
+	group_name?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	isActive?: FieldPolicy<any> | FieldReadFunction<any>,
-	lastName?: FieldPolicy<any> | FieldReadFunction<any>,
+	is_active?: FieldPolicy<any> | FieldReadFunction<any>,
+	last_name?: FieldPolicy<any> | FieldReadFunction<any>,
 	organization?: FieldPolicy<any> | FieldReadFunction<any>,
 	phone?: FieldPolicy<any> | FieldReadFunction<any>,
 	roles?: FieldPolicy<any> | FieldReadFunction<any>,
-	secondAddress?: FieldPolicy<any> | FieldReadFunction<any>,
+	second_address?: FieldPolicy<any> | FieldReadFunction<any>,
 	state?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	updated_at?: FieldPolicy<any> | FieldReadFunction<any>,
 	zipcode?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type UserListKeySpecifier = ('pageNum' | 'pageSize' | 'totalCount' | 'users' | UserListKeySpecifier)[];
@@ -3468,40 +3306,6 @@ export const mockUpdateContentMutation = (resolver: ResponseResolver<GraphQLRequ
  * @param resolver a function that accepts a captured request and may return a mocked response.
  * @see https://mswjs.io/docs/basics/response-resolver
  * @example
- * mockDeleteContentMutation((req, res, ctx) => {
- *   const { id } = req.variables;
- *   return res(
- *     ctx.data({ deleteContent })
- *   )
- * })
- */
-export const mockDeleteContentMutation = (resolver: ResponseResolver<GraphQLRequest<DeleteContentMutationVariables>, GraphQLContext<DeleteContentMutation>, any>) =>
-  graphql.mutation<DeleteContentMutation, DeleteContentMutationVariables>(
-    'DeleteContent',
-    resolver
-  )
-
-/**
- * @param resolver a function that accepts a captured request and may return a mocked response.
- * @see https://mswjs.io/docs/basics/response-resolver
- * @example
- * mockDeleteContentBySlugMutation((req, res, ctx) => {
- *   const { slug } = req.variables;
- *   return res(
- *     ctx.data({ deleteContentBySlug })
- *   )
- * })
- */
-export const mockDeleteContentBySlugMutation = (resolver: ResponseResolver<GraphQLRequest<DeleteContentBySlugMutationVariables>, GraphQLContext<DeleteContentBySlugMutation>, any>) =>
-  graphql.mutation<DeleteContentBySlugMutation, DeleteContentBySlugMutationVariables>(
-    'DeleteContentBySlug',
-    resolver
-  )
-
-/**
- * @param resolver a function that accepts a captured request and may return a mocked response.
- * @see https://mswjs.io/docs/basics/response-resolver
- * @example
  * mockCreateOrderMutation((req, res, ctx) => {
  *   const { input } = req.variables;
  *   return res(
@@ -3556,7 +3360,7 @@ export const mockUpdateUserMutation = (resolver: ResponseResolver<GraphQLRequest
  * mockGetRefreshTokenQuery((req, res, ctx) => {
  *   const { token } = req.variables;
  *   return res(
- *     ctx.data({ refreshToken })
+ *     ctx.data({ getRefreshToken })
  *   )
  * })
  */
@@ -3604,23 +3408,6 @@ export const mockContentQuery = (resolver: ResponseResolver<GraphQLRequest<Conte
  * @param resolver a function that accepts a captured request and may return a mocked response.
  * @see https://mswjs.io/docs/basics/response-resolver
  * @example
- * mockListNewsContentQuery((req, res, ctx) => {
- *   const { limit } = req.variables;
- *   return res(
- *     ctx.data({ listContent })
- *   )
- * })
- */
-export const mockListNewsContentQuery = (resolver: ResponseResolver<GraphQLRequest<ListNewsContentQueryVariables>, GraphQLContext<ListNewsContentQuery>, any>) =>
-  graphql.query<ListNewsContentQuery, ListNewsContentQueryVariables>(
-    'ListNewsContent',
-    resolver
-  )
-
-/**
- * @param resolver a function that accepts a captured request and may return a mocked response.
- * @see https://mswjs.io/docs/basics/response-resolver
- * @example
  * mockListOrganismsQuery((req, res, ctx) => {
  *   return res(
  *     ctx.data({ listOrganisms })
@@ -3638,9 +3425,9 @@ export const mockListOrganismsQuery = (resolver: ResponseResolver<GraphQLRequest
  * @see https://mswjs.io/docs/basics/response-resolver
  * @example
  * mockGeneQuery((req, res, ctx) => {
- *   const { gene, limit, sortBy } = req.variables;
+ *   const { gene, limit, sort_by } = req.variables;
  *   return res(
- *     ctx.data({ allStrains, gene, allPublications, allOrthologs, listGeneProductInfo, generalInformation, associatedSequnces, links, proteinInformation })
+ *     ctx.data({ allStrains, gene, allPublications, allOrthologs, listGeneProductInfo, generalInformation, getAssociatedSequnces, getLinks, getProteinInformation })
  *   )
  * })
  */

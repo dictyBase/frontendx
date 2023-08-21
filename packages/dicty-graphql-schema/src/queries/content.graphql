@@ -4,16 +4,16 @@ query contentBySlug($slug: String!) {
     content
     name
     slug
-    updatedAt
-    updatedBy {
+    updated_at
+    updated_by {
       id
       email
-      firstName
-      lastName
+      first_name
+      last_name
       roles {
-        name
+        role
         permissions {
-          level
+          permission
           resource
         }
       }
@@ -28,33 +28,19 @@ query content($id: ID!) {
     name
     slug
     namespace
-    updatedAt
-    updatedBy {
+    updated_at
+    updated_by {
       id
       email
-      firstName
-      lastName
+      first_name
+      last_name
       roles {
-        name
+        role
         permissions {
-          level
+          permission
           resource
         }
       }
     }
-  }
-}
-
-query ListNewsContent($limit: Int!) {
-  listContent(limit: $limit) {
-    id
-    slug
-    content
-    name
-    updatedBy {
-      firstName
-      lastName
-    }
-    updatedAt
   }
 }

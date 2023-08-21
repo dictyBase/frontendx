@@ -4,29 +4,28 @@ type Gene {
   goas: [GOAnnotation!]
   strains: [Strain!]
   orthologs: [Orthologs!]
-  productInfo: [ProductInformation!]
-  # eslint-disable-next-line @graphql-eslint/no-typename-prefix
-  generalInfo: GeneralInfo!
-  associatedSequences: AssociatedSequences!
+  product_info: [ProductInformation!]
+  general_info: GeneralInfo!
+  associated_sequences: AssociatedSequences!
   links: Links!
-  proteinInformation: ProteinInformation
+  protein_information: ProteinInformation
 }
 
 type ProteinInformation {
-  generalInfo: ProteinGeneralInfo!
-  externalLinks: [NameWithLink!]!
-  proteinSequence: String!
+  general_info: ProteinGeneralInfo!
+  external_links: [NameWithLink!]!
+  protein_sequence: String!
 }
 
 type ProteinGeneralInfo {
-  geneProduct: String!
-  dictybaseId: String!
+  gene_product: String!
+  dictybase_id: String!
   description: String!
-  proteinLength: String!
-  molecularWeight: String!
-  aaComposition: NameWithLink!
-  subcellularLocation: String!
-  proteinExistence: String!
+  protein_length: String!
+  molecular_weight: String!
+  aa_composition: NameWithLink!
+  subcellular_location: String!
+  protein_existence: String!
   note: String!
 }
 
@@ -34,27 +33,27 @@ type GOAnnotation {
   id: String!
   type: String!
   date: String!
-  evidenceCode: String!
-  goTerm: String!
+  evidence_code: String!
+  go_term: String!
   qualifier: String!
   publication: String!
   with: [With!]
   extensions: [Extension!]
-  assignedBy: String!
+  assigned_by: String!
 }
 
 type ProductInformation {
-  proteinCodingGene: NameWithLink!
-  proteinLength: String!
-  proteinMolecularWeight: String!
-  moreProteinData: String!
-  genomicCoords: [GenomicCoordinates!]!
+  protein_coding_gene: NameWithLink!
+  protein_length: String!
+  protein_molecular_weight: String!
+  more_protein_data: String!
+  genomic_coords: [GenomicCoordinates!]!
 }
 
 type GenomicCoordinates {
   exon: String!
-  localCoords: String!
-  chromCoords: String!
+  local_coords: String!
+  chrom_coords: String!
 }
 
 type With {
@@ -74,29 +73,29 @@ type Orthologs {
   id: NameWithLink!
   species: String!
   uniprotkb: NameWithLink!
-  geneProduct: String!
+  gene_product: String!
   source: [String!]!
 }
 
 type GeneralInfo {
-  nameDescription: [String!]!
-  altGeneName: [String!]
-  geneProduct: String!
-  altProteinNames: [String!]
+  name_description: [String!]!
+  alt_gene_name: [String!]
+  gene_product: String!
+  alt_protein_names: [String!]
   description: String!
 }
 
 type AssociatedSequences {
-  genbankGenomicFragment: NameWithLink
-  genbankMrna: NameWithLink
+  genbank_genomic_fragment: NameWithLink
+  genbank_mrna: NameWithLink
   ests: [NameWithLink!]!
-  moreLink: String!
+  more_link: String!
 }
 
 type Links {
   expression: [NameWithLink!]!
   colleagues: NameWithLink!
-  extResources: [NameWithLink!]!
+  ext_resources: [NameWithLink!]!
 }
 
 type NameWithLink {

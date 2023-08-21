@@ -1,6 +1,6 @@
 type Organism {
-  taxonId: String!
-  scientificName: String!
+  taxon_id: String!
+  scientific_name: String!
   citations: [Citation!]!
   downloads: [Download!]!
 }
@@ -9,7 +9,7 @@ type Citation {
   authors: String!
   title: String!
   journal: String!
-  pubmedId: String!
+  pubmed_id: String!
 }
 
 type Download {
