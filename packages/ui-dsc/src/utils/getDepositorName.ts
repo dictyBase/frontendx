@@ -1,17 +1,18 @@
+/* eslint-disable camelcase */
 type Depositor = {
   /** First name of depositor */
-  firstName?: string
+  first_name?: string
   /** Last name of depositor */
-  lastName?: string
+  last_name?: string
 }
 
 /**
  * getDepositorName returns a string based on depositor data.
  */
 const getDepositorName = (depositor: Depositor) => {
-  const { firstName, lastName } = depositor
+  const { first_name, last_name } = depositor
 
-  return firstName && lastName ? `${firstName} ${lastName}` : ""
+  return first_name && last_name ? `${first_name} ${last_name}` : ""
 }
 
 export { getDepositorName }
