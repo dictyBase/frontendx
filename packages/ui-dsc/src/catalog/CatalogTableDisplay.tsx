@@ -8,7 +8,7 @@ import LinearProgress from "@material-ui/core/LinearProgress"
 import { makeStyles, styled } from "@material-ui/core/styles"
 import { compose, borders, typography } from "@material-ui/system"
 import { indigo } from "@material-ui/core/colors"
-import { AddToCartButtonHandler } from "stock-catalog-list/src/components/AddToCartButtonHandler"
+import { AddToCartButtonHandler } from "stock-center/src/components/AddToCartButtonHandler"
 import { Link } from "react-router-dom"
 import { RefObject } from "react"
 import { v4 as uuid4 } from "uuid"
@@ -127,7 +127,7 @@ const rowFunction = ({
           <TableRow hover className={row} key={key}>
             {cellFunction(item)}
           </TableRow>
-          <TableRow className={row} key={key} ref={targetReference}>
+          <TableRow className={row} key="linear-progess" ref={targetReference}>
             <TableCell colSpan={4}>
               <LinearProgress />
             </TableCell>
