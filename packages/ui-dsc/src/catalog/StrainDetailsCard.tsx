@@ -51,7 +51,7 @@ const strainRowsGenerator = (
   {
     id: 3,
     title: "Systematic Name",
-    content: data?.systematicName,
+    content: data?.systematic_name,
   },
   {
     id: 4,
@@ -61,12 +61,12 @@ const strainRowsGenerator = (
   {
     id: 5,
     title: "Genetic Modification",
-    content: data?.geneticModification,
+    content: data?.genetic_modification,
   },
   {
     id: 6,
     title: "Mutagenesis Method",
-    content: data?.mutagenesisMethod,
+    content: data?.mutagenesis_method,
   },
   {
     id: 7,
@@ -124,7 +124,7 @@ const StrainDetailsCard = ({ data }: Properties) => {
   const genes = data?.genes as Gene[]
   const depositor = data?.depositor as User
   const genotypes = data?.genotypes as string[]
-  const inStock = data?.inStock as boolean
+  const inStock = data?.in_stock as boolean
 
   const rows = strainRowsGenerator(
     data,
