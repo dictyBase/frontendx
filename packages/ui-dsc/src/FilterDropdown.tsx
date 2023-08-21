@@ -83,7 +83,6 @@ export const FilterDropdown = ({
     <FormControl fullWidth variant="outlined">
       <Select
         className={classes.root}
-        disableUnderline
         MenuProps={{
           classes: { paper: classes.paper, list: classes.list },
           anchorOrigin: { vertical: "bottom", horizontal: "left" },
