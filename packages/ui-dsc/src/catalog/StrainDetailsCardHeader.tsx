@@ -6,7 +6,7 @@ import Tab from "@material-ui/core/Tab"
 import Typography from "@material-ui/core/Typography"
 import Alert from "@material-ui/lab/Alert"
 import { match, P } from "ts-pattern"
-import { AvailableDisplay } from "stock-catalog-list/src/components/AvailableDisplay"
+import { AvailableDisplay } from "stock-center/src/components/AvailableDisplay"
 import { CartItem } from "../types"
 
 // accessibility helper function
