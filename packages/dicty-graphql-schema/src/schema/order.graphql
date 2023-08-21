@@ -1,12 +1,12 @@
 type Order {
   id: ID!
-  createdAt: Timestamp!
-  updatedAt: Timestamp!
+  created_at: Timestamp!
+  updated_at: Timestamp!
   courier: String
-  courierAccount: String
+  courier_account: String
   comments: String
   payment: String
-  purchaseOrderNum: String
+  purchase_order_num: String
   status: StatusEnum
   consumer: User
   payer: User
@@ -31,10 +31,10 @@ enum StatusEnum {
 
 input CreateOrderInput {
   courier: String!
-  courierAccount: String!
+  courier_account: String!
   comments: String
   payment: String!
-  purchaseOrderNum: String
+  purchase_order_num: String
   status: StatusEnum!
   consumer: String!
   payer: String!
@@ -44,10 +44,10 @@ input CreateOrderInput {
 
 input UpdateOrderInput {
   courier: String
-  courierAccount: String
+  courier_account: String
   comments: String
   payment: String
-  purchaseOrderNum: String
+  purchase_order_num: String
   status: StatusEnum
   items: [String!]
 }

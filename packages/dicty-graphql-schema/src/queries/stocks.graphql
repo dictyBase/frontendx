@@ -6,7 +6,7 @@ query StrainList($cursor: Int!, $limit: Int!, $filter: StrainListFilter) {
       id
       label
       summary
-      inStock
+      in_stock
     }
   }
 }
@@ -33,13 +33,13 @@ query ListStrainsWithPhenotype(
       }
       publications {
         id
-        pubDate
+        pub_date
         title
         journal
         volume
         pages
         authors {
-          lastName
+          last_name
         }
       }
     }
@@ -59,7 +59,7 @@ query ListBacterialStrains {
       id
       label
       summary
-      inStock
+      in_stock
     }
   }
 
@@ -75,7 +75,7 @@ query ListBacterialStrains {
       id
       label
       summary
-      inStock
+      in_stock
     }
   }
 }
@@ -84,8 +84,8 @@ query ListStrainsInventory($cursor: Int!, $limit: Int!) {
   listStrainsWithAnnotation(
     cursor: $cursor
     limit: $limit
-    type: "strainInventory"
-    annotation: "strainInventory"
+    type: "strain_inventory"
+    annotation: "strain_inventory"
   ) {
     totalCount
     nextCursor
@@ -93,7 +93,7 @@ query ListStrainsInventory($cursor: Int!, $limit: Int!) {
       id
       label
       summary
-      inStock
+      in_stock
     }
   }
 }
@@ -102,7 +102,7 @@ query ListPlasmidsInventory($cursor: Int!, $limit: Int!) {
   listPlasmidsWithAnnotation(
     cursor: $cursor
     limit: $limit
-    type: "plasmidInventory"
+    type: "plasmid_inventory"
     annotation: "plasmid inventory"
   ) {
     totalCount
@@ -111,7 +111,7 @@ query ListPlasmidsInventory($cursor: Int!, $limit: Int!) {
       id
       name
       summary
-      inStock
+      in_stock
     }
   }
 }
@@ -124,7 +124,7 @@ query PlasmidListFilter($cursor: Int!, $limit: Int!, $filter: String!) {
       id
       name
       summary
-      inStock
+      in_stock
     }
   }
 }
@@ -135,30 +135,30 @@ query Plasmid($id: ID!) {
     name
     summary
     depositor {
-      firstName
-      lastName
+      first_name
+      last_name
     }
     publications {
       id
-      pubDate
+      pub_date
       title
       journal
       volume
       pages
       doi
       authors {
-        lastName
+        last_name
       }
     }
     dbxrefs
     genes {
       name
     }
-    imageMap
+    image_map
     sequence
     keywords
-    genbankAccession
-    inStock
+    genbank_accession
+    in_stock
   }
 }
 
@@ -173,31 +173,31 @@ query Strain($id: ID!) {
       label
     }
     depositor {
-      firstName
-      lastName
+      first_name
+      last_name
     }
     plasmid
     dbxrefs
     publications {
       id
-      pubDate
+      pub_date
       title
       journal
       volume
       pages
       doi
       authors {
-        lastName
+        last_name
       }
     }
     genes {
       name
     }
-    inStock
-    systematicName
+    in_stock
+    systematic_name
     genotypes
-    mutagenesisMethod
-    geneticModification
+    mutagenesis_method
+    genetic_modification
     names
     characteristics
     phenotypes {
@@ -207,13 +207,13 @@ query Strain($id: ID!) {
       environment
       publication {
         id
-        pubDate
+        pub_date
         title
         journal
         volume
         pages
         authors {
-          lastName
+          last_name
         }
       }
     }
@@ -223,7 +223,7 @@ query Strain($id: ID!) {
 query ListRecentPlasmids($limit: Int! = 4) {
   listRecentPlasmids(limit: $limit) {
     id
-    createdAt
+    created_at
     name
   }
 }
@@ -231,7 +231,8 @@ query ListRecentPlasmids($limit: Int! = 4) {
 query ListRecentStrains($limit: Int! = 4) {
   listRecentStrains(limit: $limit) {
     id
-    createdAt
-    systematicName
+    created_at
+    systematic_name
   }
 }
+

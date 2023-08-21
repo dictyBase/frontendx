@@ -1,15 +1,15 @@
 query GetRefreshToken($token: String!) {
-  refreshToken(token: $token) {
+  getRefreshToken(token: $token) {
     token
     user {
       id
       email
-      firstName
-      lastName
+      first_name
+      last_name
       roles {
-        name
+        role
         permissions {
-          level
+          permission
           resource
         }
       }

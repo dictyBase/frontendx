@@ -1,4 +1,4 @@
-query Gene($gene: String!, $limit: Int, $sortBy: String = "desc") {
+query Gene($gene: String!, $limit: Int, $sort_by: String = "desc") {
   allStrains(gene: $gene) {
     id
     name
@@ -6,7 +6,7 @@ query Gene($gene: String!, $limit: Int, $sortBy: String = "desc") {
       id
       label
       characteristics
-      inStock
+      in_stock
       phenotypes {
         phenotype
         publication {
@@ -15,9 +15,9 @@ query Gene($gene: String!, $limit: Int, $sortBy: String = "desc") {
           journal
           pages
           volume
-          pubDate
+          pub_date
           authors {
-            lastName
+            last_name
             rank
           }
         }
@@ -31,11 +31,11 @@ query Gene($gene: String!, $limit: Int, $sortBy: String = "desc") {
       id
       type
       date
-      evidenceCode
-      goTerm
+      evidence_code
+      go_term
       qualifier
       publication
-      assignedBy
+      assigned_by
       with {
         id
         db
@@ -49,10 +49,10 @@ query Gene($gene: String!, $limit: Int, $sortBy: String = "desc") {
       }
     }
   }
-  allPublications(gene: $gene, limit: $limit, sortBy: $sortBy) {
-    numPubs
+  allPublications(gene: $gene, limit: $limit, sort_by: $sort_by) {
+    num_pubs
     publications {
-      relatedGenes {
+      related_genes {
         id
         name
       }
@@ -60,14 +60,14 @@ query Gene($gene: String!, $limit: Int, $sortBy: String = "desc") {
       doi
       title
       journal
-      pubDate
+      pub_date
       volume
       pages
-      pubType
+      pub_type
       source
       issue
       authors {
-        lastName
+        last_name
         rank
       }
     }
@@ -85,48 +85,48 @@ query Gene($gene: String!, $limit: Int, $sortBy: String = "desc") {
         name
         link
       }
-      geneProduct
+      gene_product
       source
     }
   }
   listGeneProductInfo(gene: $gene) {
     id
     name
-    productInfo {
-      proteinCodingGene {
+    product_info {
+      protein_coding_gene {
         name
         link
       }
-      proteinLength
-      proteinMolecularWeight
-      moreProteinData
-      genomicCoords {
+      protein_length
+      protein_molecular_weight
+      more_protein_data
+      genomic_coords {
         exon
-        localCoords
-        chromCoords
+        local_coords
+        chrom_coords
       }
     }
   }
   generalInformation(gene: $gene) {
     id
     name
-    generalInfo {
-      nameDescription
-      altGeneName
-      geneProduct
-      altProteinNames
+    general_info {
+      name_description
+      alt_gene_name
+      gene_product
+      alt_protein_names
       description
     }
   }
-  associatedSequnces(gene: $gene) {
+  getAssociatedSequnces(gene: $gene) {
     id
     name
-    associatedSequences {
-      genbankGenomicFragment {
+    associated_sequences {
+      genbank_genomic_fragment {
         name
         link
       }
-      genbankMrna {
+      genbank_mrna {
         name
         link
       }
@@ -134,10 +134,10 @@ query Gene($gene: String!, $limit: Int, $sortBy: String = "desc") {
         name
         link
       }
-      moreLink
+      more_link
     }
   }
-  links(gene: $gene) {
+  getLinks(gene: $gene) {
     id
     name
     links {
@@ -149,35 +149,35 @@ query Gene($gene: String!, $limit: Int, $sortBy: String = "desc") {
         name
         link
       }
-      extResources {
+      ext_resources {
         name
         link
       }
     }
   }
-  proteinInformation(gene: $gene) {
+  getProteinInformation(gene: $gene) {
     id
     name
-    proteinInformation {
-      generalInfo {
-        geneProduct
-        dictybaseId
+    protein_information {
+      general_info {
+        gene_product
+        dictybase_id
         description
-        proteinLength
-        molecularWeight
-        aaComposition {
+        protein_length
+        molecular_weight
+        aa_composition {
           name
           link
         }
-        subcellularLocation
-        proteinExistence
+        subcellular_location
+        protein_existence
         note
       }
-      externalLinks {
+      external_links {
         name
         link
       }
-      proteinSequence
+      protein_sequence
     }
   }
 }
