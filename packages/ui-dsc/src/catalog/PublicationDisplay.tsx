@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 // get author last names, replace last element with "&"
 // example return: "Samereier, Baumann, Meyer & Gräf (2010)"
 const listAuthors = (authors: Publication["authors"]) => {
-  const lastNames = authors?.map((author) => author?.lastName)
+  const lastNames = authors?.map((author) => author?.last_name)
   const finalName = lastNames?.pop()
   return lastNames?.length
     ? `${lastNames?.join(", ")} & ${finalName}`
@@ -59,7 +59,6 @@ type PublicationDisplayProperties = {
  */
 const PublicationDisplay = ({ publication }: PublicationDisplayProperties) => {
   const classes = useStyles()
-
   return (
     <>
       <Typography variant="body2" data-testid="publication-display">
@@ -68,7 +67,7 @@ const PublicationDisplay = ({ publication }: PublicationDisplayProperties) => {
           component="span"
           className={classes.authors}>
           {listAuthors(publication.authors)} (
-          {getYearFromTimestamp(publication.pubDate)})
+          {getYearFromTimestamp(publication.pub_date)})
         </Typography>
         {` '${publication.title}'`} <em>{publication.journal}</em>{" "}
         {getJournalInfo(
