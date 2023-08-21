@@ -120,10 +120,10 @@ const StrainDetailsCard = ({ data }: Properties) => {
   ) : (
     ""
   )
-  const publications = data?.publications as Publication[]
-  const genes = data?.genes as Gene[]
+  const publications = data?.publications as Array<Publication>
+  const genes = data?.genes as Array<Gene>
   const depositor = data?.depositor as User
-  const genotypes = data?.genotypes as string[]
+  const genotypes = data?.genotypes as Array<string>
   const inStock = data?.in_stock as boolean
 
   const rows = strainRowsGenerator(
