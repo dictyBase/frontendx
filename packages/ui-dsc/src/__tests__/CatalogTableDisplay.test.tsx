@@ -8,7 +8,7 @@ import {
   cellFunction,
   rowFunction,
   CatalogTableHeader,
-} from "../CatalogTableDisplay"
+} from "../catalog/CatalogTableDisplay"
 
 vi.mock("@material-ui/core/styles", async () => {
   const originalModule = (await vi.importActual(
@@ -16,6 +16,7 @@ vi.mock("@material-ui/core/styles", async () => {
   )) as typeof import("@material-ui/core/styles")
   return {
     ...originalModule,
+    // eslint-disable-next-line unicorn/consistent-function-scoping
     makeStyles: () => () => ({
       row: {},
     }),
