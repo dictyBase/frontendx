@@ -1,29 +1,34 @@
-import React from "react"
+/* eslint-disable camelcase */
 import { Carousel } from "react-responsive-carousel"
 import { makeStyles } from "@material-ui/core/styles"
-import ctr9 from "common/assets/slideshow-images/ctr9-mutant-DG1071.png"
-import gbqA from "common/assets/slideshow-images/gbqA-mutant-DG1120.png"
-import ggtA from "common/assets/slideshow-images/ggtA-mutant-DG1109.png"
-import tipB from "common/assets/slideshow-images/tipB-mutant-DG1036.png"
+import { Image } from "@dictybase/dicty-image"
 
-import ctr9_avif from "common/assets/slideshow-images/ctr9-mutant-DG1071.avif"
-import gbqA_avif from "common/assets/slideshow-images/gbqA-mutant-DG1120.avif"
-import ggtA_avif from "common/assets/slideshow-images/ggtA-mutant-DG1109.avif"
-import tipB_avif from "common/assets/slideshow-images/tipB-mutant-DG1036.avif"
+import ctr9 from "../assets/slideshow-images/ctr9-mutant-DG1071.png"
+import gbqA from "../assets/slideshow-images/gbqA-mutant-DG1120.png"
+import ggtA from "../assets/slideshow-images/ggtA-mutant-DG1109.png"
+import tipB from "../assets/slideshow-images/tipB-mutant-DG1036.png"
 
-import ctr9_webp from "common/assets/slideshow-images/ctr9-mutant-DG1071.webp"
-import gbqA_webp from "common/assets/slideshow-images/gbqA-mutant-DG1120.webp"
-import ggtA_webp from "common/assets/slideshow-images/ggtA-mutant-DG1109.webp"
-import tipB_webp from "common/assets/slideshow-images/tipB-mutant-DG1036.webp"
+import ctr9_avif from "../assets/slideshow-images/ctr9-mutant-DG1071.avif"
+import gbqA_avif from "../assets/slideshow-images/gbqA-mutant-DG1120.avif"
+import ggtA_avif from "../assets/slideshow-images/ggtA-mutant-DG1109.avif"
+import tipB_avif from "../assets/slideshow-images/tipB-mutant-DG1036.avif"
+
+import ctr9_webp from "../assets/slideshow-images/ctr9-mutant-DG1071.webp"
+import gbqA_webp from "../assets/slideshow-images/gbqA-mutant-DG1120.webp"
+import ggtA_webp from "../assets/slideshow-images/ggtA-mutant-DG1109.webp"
+import tipB_webp from "../assets/slideshow-images/tipB-mutant-DG1036.webp"
 
 import "react-responsive-carousel/lib/styles/carousel.min.css"
-import DictyImage from "common/components/DictyImage"
 
 const useStyles = makeStyles({
   container: {
     marginBottom: "24px",
   },
 })
+
+const genSlide = (source: string, avif: string, webp: string, alt: string) => (
+  <Image src={source} alt={alt} webpSrc={webp} avifSrc={avif} />
+)
 
 /**
  * Slideshow is an image slideshow carousel with curated dicty photos.
@@ -49,23 +54,4 @@ const Slideshow = () => {
   )
 }
 
-const genSlide = (src: string, avif: string, webp: string, alt: string) => {
-  return (
-    <DictyImage
-      src={src}
-      alt={alt}
-      nextGenSources={[
-        {
-          srcSet: webp,
-          type: "image/webp",
-        },
-        {
-          srcSet: avif,
-          type: "image/avif",
-        },
-      ]}
-    />
-  )
-}
-
-export default Slideshow
+export { Slideshow }
