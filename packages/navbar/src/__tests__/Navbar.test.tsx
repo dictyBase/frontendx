@@ -1,5 +1,6 @@
-import { test, expect } from "vitest"
+import { vi, test, expect, beforeAll } from "vitest"
 import { render, screen } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
 import { Navbar } from "../components/Navbar"
 import { Brand } from "../components/Brand"
 import { Dropdown } from "../components/Dropdown"
@@ -57,6 +58,20 @@ const properties = {
   },
   theme: {},
 }
+const mockSetOpen = vi.fn()
+
+beforeAll(() => {
+  vi.mock("react", async () => {
+    const originalModule = await vi.importActual<typeof import("react")>(
+      "react",
+    )
+    return {
+      ...originalModule,
+      useState: () => [false, mockSetOpen],
+    }
+  })
+})
+
 beforeEach(() => {
   render(<Navbar {...properties} />)
 })
@@ -81,8 +96,10 @@ test.todo("should render arbitrary elements if they are provided", () => {
 //     expect(wrapper.instance().toggle.mock.calls.length).toEqual(1)
 // })
 test.todo("should call open() if toggled while closed", () => {
-  wrapper.instance().open = jest.fn()
-  wrapper.update()
+  const { click } = userEvent.setup()
+
+  const MenuIcon = screen.getByTestId("menu-icon")
+
   wrapper.find(MenuIcon).simulate("click", nativeEvent)
   expect(wrapper.instance().open.mock.calls.length).toEqual(1)
 })
