@@ -59,7 +59,6 @@ export const App = () => {
             <main className={classes.main}>
               <Container maxWidth="lg">
                 <Routes>
-                  <Route path="/" element={<Navigate to="/strains" />} />
                   {routes.map(({ path, component: Component = Fragment }) => {
                     const element = <Component />
                     return <Route key={path} path={path} element={element} />
