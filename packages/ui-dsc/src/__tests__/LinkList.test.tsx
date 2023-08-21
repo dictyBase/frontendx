@@ -1,7 +1,7 @@
 import { expect, test } from "vitest"
 import { render, screen } from "@testing-library/react"
+import { downloadLinks } from "stock-center/src/linkLists"
 import { LinkList } from "../home/LinkList"
-import { downloadLinks } from "../linkLists"
 
 test("displays Download header", () => {
   render(<LinkList list={downloadLinks} bgColor="gray" />)
