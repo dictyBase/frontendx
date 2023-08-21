@@ -6,13 +6,13 @@ type HomeStylesProperties = {
   panelBackground?: string
 }
 
-const useStyles = makeStyles<Theme, HomeStylesProperties>((theme: Theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   panel: {
-    backgroundColor: ({ panelBackground }) =>
+    backgroundColor: ({ panelBackground }: HomeStylesProperties) =>
       panelBackground === "blue" ? blue[50] : grey[100],
     border: "1px",
     borderStyle: "solid",
-    borderColor: ({ panelBackground }) =>
+    borderColor: ({ panelBackground }: HomeStylesProperties) =>
       panelBackground === "blue" ? blue[50] : grey[100],
     marginBottom: theme.spacing(3),
     padding: theme.spacing(2),
