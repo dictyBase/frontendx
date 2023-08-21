@@ -1,4 +1,3 @@
-/* eslint-disable dot-notation */
 import { Link } from "react-router-dom"
 import Typography from "@material-ui/core/Typography"
 import { useStyles } from "./homeStyles"
@@ -52,13 +51,13 @@ const LinkList = ({ list, bgColor }: LinkListProperties) => {
   )
 
   return (
-    <div className={classes["panel"]}>
+    <div className={classes.panel}>
       {isDownloadPanel && (
         <Typography variant="h3" gutterBottom>
           Download / View
         </Typography>
       )}
-      <ul className={classes["list"]}>
+      <ul className={classes.list}>
         {list.map((link) => (
           <li key={link.name}>{getLinkType(link)}</li>
         ))}
