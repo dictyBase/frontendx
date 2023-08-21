@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { filter as RAfilter, reduce as RAreduce } from "fp-ts/ReadonlyArray"
 import { head as RNAhead } from "fp-ts/ReadonlyNonEmptyArray"
 import { keys as Rkeys } from "fp-ts/Record"
@@ -23,7 +24,7 @@ export function useConfigureStrainCatalogSearchGraphql({
   const initValues: ConfigureStrainCatalogSearchGraphql = {
     dataField: baseConfig.dataField,
     variables: {
-      filter: { strainType: StrainType.Regular },
+      filter: { strain_type: StrainType.Regular },
       ...graphqlQueryVariables,
     },
   }
