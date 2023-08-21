@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 export const App = () => {
   const classes = useStyles()
   const client = useGraphqlClient({
-    uri: import.meta.env.REACT_APP_GRAPHQL_SERVER as string,
+    uri: import.meta.env.VITE_APP_GRAPHQL_SERVER as string,
     cache: useApolloClientCache({
       customPolicies: {
         Query: {
