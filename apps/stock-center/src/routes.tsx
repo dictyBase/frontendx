@@ -8,7 +8,7 @@ type PageImport = {
 
 const parsePath = (path: string) =>
   path
-    .replaceAll(/\/src\/pages\/|\/index|\.tsx$/g, "")
+    .replaceAll(/\/src\/pages\/|\/index|index|\.tsx$/g, "")
     .replace(/\[\.{3}.+]/, "*")
     .replaceAll(/\[([^/]+)]/g, ":$1")
 
@@ -19,8 +19,10 @@ const pages: Record<string, PageImport> = import.meta.glob(
   },
 )
 
-export const routes = Object.keys(pages).map((route) => ({
+const routes = Object.keys(pages).map((route) => ({
   path: parsePath(route),
   component: pages[route].default,
   access: pages[route].access,
 }))
+
+export { routes }
