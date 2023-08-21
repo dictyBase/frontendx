@@ -37,7 +37,6 @@ export interface useSearchWithRouterProperties {
 export function useSearchWithRouter({
   fields,
   label,
-  help,
   setSearchParameters,
   searchParameters,
 }: useSearchWithRouterProperties) {
@@ -155,7 +154,6 @@ export function useSearchWithRouter({
       label={label}
       variant="outlined"
       fullWidth
-      // helperText={help}
     />
   )
 
