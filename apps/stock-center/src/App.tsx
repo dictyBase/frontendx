@@ -1,11 +1,12 @@
 import { Fragment } from "react"
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import { CssBaseline } from "@material-ui/core"
 import Container from "@material-ui/core/Container"
 import { useGraphqlClient, useApolloClientCache } from "@dictybase/data-access"
 import { listStrainsPagination } from "@dictybase/hook-dsc"
 import { ApolloProvider } from "@apollo/client"
+import "@fontsource/roboto"
 import { Header } from "@dictybase/header"
 import { Footer } from "@dictybase/footer"
 import { Navbar } from "dicty-components-navbar"
@@ -13,6 +14,7 @@ import { navbarItems, formatNavbarData } from "./navbarItems"
 import { navTheme } from "./themes"
 import { ThemeProvider } from "./ThemeProvider"
 import { routes } from "./routes"
+import { HeaderRow } from "./components/HeaderRow"
 
 const useStyles = makeStyles((theme: Theme) => ({
   main: {
@@ -58,6 +60,7 @@ export const App = () => {
             <Navbar items={formatNavbarData(navbarItems)} theme={navTheme} />
             <main className={classes.main}>
               <Container maxWidth="lg">
+                <HeaderRow />
                 <Routes>
                   {routes.map(({ path, component: Component = Fragment }) => {
                     const element = <Component />
