@@ -6,4 +6,4 @@ const useNewsHeaderStyles = makeStyles({
   },
 })
 
-export default useNewsHeaderStyles
+export { useNewsHeaderStyles }

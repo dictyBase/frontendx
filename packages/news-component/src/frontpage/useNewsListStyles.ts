@@ -8,4 +8,4 @@ const useNewsListStyles = makeStyles({
   },
 })
 
-export default useNewsListStyles
+export { useNewsListStyles }

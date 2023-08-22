@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react"
 import { Container, Grid } from "@material-ui/core"
-import NewsHeader from "./NewsHeader"
-import NewsToolbar from "./Toolbar"
+import { NewsHeader } from "./NewsHeader"
+import { NewsToolbar } from "./Toolbar"
 
 type NewsLayoutProperties = {
   isAuthenticated?: boolean
@@ -26,4 +26,4 @@ const NewsLayoutWrapper = (
     )
   }
 
-export default NewsLayoutWrapper
+export { NewsLayoutWrapper }

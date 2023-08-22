@@ -82,4 +82,4 @@ const listNewsContent = [
   },
 ]
 
-export default listNewsContent
+export { listNewsContent }

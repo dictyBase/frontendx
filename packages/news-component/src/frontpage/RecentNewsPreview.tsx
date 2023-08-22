@@ -1,8 +1,8 @@
 import { Paper, Typography, Grid } from "@material-ui/core"
 import { ListNewsContentQuery } from "dicty-graphql-schema"
 import { parseContentToText } from "editor"
-import RecentNewsPreviewMetadata from "./RecentNewsPreviewMetadata"
-import useRecentNewsPreviewStyles from "./useRecentNewsPreviewStyles"
+import { RecentNewsPreviewMetadata } from "./RecentNewsPreviewMetadata"
+import { useRecentNewsPreviewStyles } from "./useRecentNewsPreviewStyles"
 
 type ArrayElement<ArrayType extends readonly unknown[]> =
   ArrayType extends readonly (infer ElementType)[] ? ElementType : never
@@ -34,4 +34,4 @@ const RecentNewsPreview = ({ article }: NewsPreviewProperties) => {
   )
 }
 
-export default RecentNewsPreview
+export { RecentNewsPreview }

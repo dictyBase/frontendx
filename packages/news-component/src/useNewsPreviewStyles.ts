@@ -14,4 +14,4 @@ const useNewsPreviewStyles = makeStyles({
   },
 })
 
-export default useNewsPreviewStyles
+export { useNewsPreviewStyles }

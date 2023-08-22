@@ -35,4 +35,4 @@ const RecentNewsPreviewMetadata = ({
   </Grid>
 )
 
-export default RecentNewsPreviewMetadata
+export { RecentNewsPreviewMetadata }

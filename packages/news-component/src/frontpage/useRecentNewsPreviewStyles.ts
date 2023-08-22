@@ -1,9 +1,9 @@
 import { makeStyles } from "@material-ui/core"
 
-const useNewsListStyles = makeStyles({
+const useRecentNewsPreviewStyles = makeStyles({
   root: {
     padding: "1rem",
   },
 })
 
-export default useNewsListStyles
+export { useRecentNewsPreviewStyles }

@@ -32,4 +32,4 @@ const DisplayNews = ({ content }: DisplayNewsProperties) => (
   </Grid>
 )
 
-export default DisplayNews
+export { DisplayNews }

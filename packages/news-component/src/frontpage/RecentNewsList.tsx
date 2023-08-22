@@ -1,7 +1,7 @@
 import { Grid } from "@material-ui/core"
 import { ListNewsContentQuery } from "dicty-graphql-schema"
-import RecentNewsPreview from "./RecentNewsPreview"
-import useNewsListStyles from "./useNewsListStyles"
+import { RecentNewsPreview } from "./RecentNewsPreview"
+import { useNewsListStyles } from "./useNewsListStyles"
 
 type NewsListProperties = {
   articles: NonNullable<ListNewsContentQuery["listContent"]>
@@ -21,4 +21,4 @@ const RecentNewsList = ({ articles }: NewsListProperties) => {
   )
 }
 
-export default RecentNewsList
+export { RecentNewsList }

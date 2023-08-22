@@ -24,4 +24,4 @@ const useCreateNews = (title: string) => {
   return { handleCreate }
 }
 
-export default useCreateNews
+export { useCreateNews }
