@@ -21,6 +21,13 @@
           "schema": "./src/schema/*.graphql"
         },
         "rules": {
+          "@graphql-eslint/naming-convention": [
+            "error",
+            {
+              "TypeDefinition": "PascalCase",
+              "FieldDefinition": "snake_case"
+            }
+          ],
           "@graphql-eslint/require-description": "off",
           "spaced-comment": "off",
           "@graphql-eslint/no-hashtag-description": "off",
