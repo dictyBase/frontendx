@@ -1,5 +1,4 @@
 import Container from "@material-ui/core/Container"
-import Paper from "@material-ui/core/Paper"
 import { Editor } from "editor"
 // import { InfoPageContainer } from "frontpage-components"
 
