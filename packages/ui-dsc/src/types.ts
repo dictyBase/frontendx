@@ -1,7 +1,7 @@
 import { type Strain } from "dicty-graphql-schema"
 import { FormData } from "./utils/initialFormValues"
 
-type PurchaseProperties = { quantity: number; fee: Readonly<number> }
+type PurchaseProperties = { fee: Readonly<number> }
 
 type StrainItem = Pick<Strain, "id" | "summary" | "label">
 type StrainCartItem = StrainItem & PurchaseProperties
