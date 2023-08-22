@@ -6,8 +6,8 @@ type RecentNewsPreviewMetadataProperties = {
   slug: string
   name: string
   updatedBy: {
-    firstName: string
-    lastName: string
+    first_name: string
+    last_name: string
   }
   updatedAt: string
 }

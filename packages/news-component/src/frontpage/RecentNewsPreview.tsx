@@ -22,8 +22,8 @@ const RecentNewsPreview = ({ article }: NewsPreviewProperties) => {
           <RecentNewsPreviewMetadata
             slug={article.slug}
             name={article.name}
-            updatedBy={article.updatedBy}
-            updatedAt={article.updatedAt}
+            updatedBy={article.updated_by}
+            updatedAt={article.updated_at}
           />
         </Grid>
         <Grid item>
