@@ -64,7 +64,7 @@ type Properties = {
   /** Number of phenotypes */
   phenotypeLength: number
   /** Data for the stock item */
-  cartData: Omit<CartItem, "quantity">
+  cartData: CartItem
   /** Boolean for whether the item is in stock */
   inStock: boolean
 }
