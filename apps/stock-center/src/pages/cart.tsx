@@ -1,5 +1,5 @@
 import { useAtomValue } from "jotai"
-import { EmptyCart } from "@dictybase/ui-dsc"
+import { CartHeader, EmptyCart } from "@dictybase/ui-dsc"
 import { CartList } from "../components/CartList"
 import { cartAtom } from "../state"
 
@@ -13,6 +13,7 @@ const CartHandler = () => {
 
   return (
     <>
+      <CartHeader />
       {cart.strainItems.length > 0 ? <CartList cart={cart} /> : <EmptyCart />}
     </>
   )
