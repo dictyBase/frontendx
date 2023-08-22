@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import {
@@ -13,28 +14,28 @@ describe("PublicationDisplay", () => {
     const properties = {
       publication: {
         id: "20008082",
-        pubDate: "2009-12-11T00:00:00.000Z",
+        pub_date: "2009-12-11T00:00:00.000Z",
         title:
           "WD repeat domain of Dictyostelium myosin heavy chain kinase C functions in both substrate targeting and cellular localization.",
         journal: "Eukaryotic cell",
         abstract: "",
-        pubType: "",
+        pub_type: "",
         source: "",
         volume: "9",
         pages: "344-349",
         doi: "10.1128/ec.00242-09",
         authors: [
           {
-            lastName: "Franklin",
+            last_name: "Franklin",
           },
           {
-            lastName: "Hyatt",
+            last_name: "Hyatt",
           },
           {
-            lastName: "Chowdhury",
+            last_name: "Chowdhury",
           },
           {
-            lastName: "Steimle",
+            last_name: "Steimle",
           },
         ],
       },
@@ -58,16 +59,16 @@ describe("PublicationDisplay", () => {
 describe("listAuthors", () => {
   const authors = [
     {
-      lastName: "Franklin",
+      last_name: "Franklin",
     },
     {
-      lastName: "Hyatt",
+      last_name: "Hyatt",
     },
     {
-      lastName: "Chowdhury",
+      last_name: "Chowdhury",
     },
     {
-      lastName: "Steimle",
+      last_name: "Steimle",
     },
   ]
 
