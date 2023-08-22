@@ -235,4 +235,3 @@ query ListRecentStrains($limit: Int! = 4) {
     systematic_name
   }
 }
-
