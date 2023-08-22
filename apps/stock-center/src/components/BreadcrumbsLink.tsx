@@ -12,7 +12,7 @@ const breadcrumbNameMap: { [key: string]: string } = {
   "/phenotypes": "Phenotypes",
 }
 
-const nonClickableRoutes = ["phenotypes"]
+const nonClickableRoutes = new Set(["phenotypes"])
 
 type BreadcrumbsLinkProperties = {
   /** Pathname from URL (i.e. information) */
@@ -25,7 +25,7 @@ type BreadcrumbsLinkProperties = {
  */
 
 const BreadcrumbsLink = ({ pathname }: BreadcrumbsLinkProperties) => {
-  if (nonClickableRoutes.includes(pathname)) {
+  if (nonClickableRoutes.has(pathname)) {
     return (
       <Typography color="textPrimary" data-testid="breadcrumbs-text">
         {capitalizeFirstCharacter(pathname)}
