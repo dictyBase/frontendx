@@ -44,3 +44,17 @@ query content($id: ID!) {
     }
   }
 }
+
+query ListNewsContent($limit: Int!) {
+  listContent(limit: $limit) {
+    id
+    slug
+    content
+    name
+    updated_by {
+      first_name
+      last_name
+    }
+    updated_at
+  }
+}
