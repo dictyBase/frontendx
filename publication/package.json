@@ -19,7 +19,6 @@
     "styleguide": "FAST_REFRESH=false styleguidist server",
     "styleguide:build": "FAST_REFRESH=false styleguidist build",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "postinstall": "husky install",
     "re:build": "rescript",
     "re:watch": "rescript build -w",
     "re:start": "rescript build -w",
@@ -97,11 +96,5 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "lint-staged": {
-    "src/**/*.{js,jsx,json,css,tsx,ts}": [
-      "prettier --no-semi --trailing-comma all --jsx-bracket-same-line true --write",
-      "git add"
-    ]
-  }
+  ]
 }

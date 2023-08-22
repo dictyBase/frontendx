@@ -4373,7 +4373,6 @@ dezalgo@^1.0.0:
 
 dicty-components-header-footer@dictybase/dicty-components-header-footer#11.0.1:
   version "11.0.0"
-  uid "5c7ddac694004331ff666a7843fae5fec98c5a2a"
   resolved "https://codeload.github.com/dictybase/dicty-components-header-footer/tar.gz/5c7ddac694004331ff666a7843fae5fec98c5a2a"
 
 dicty-components-login@dictybase/dicty-components-login#4.1.1:
@@ -4391,7 +4390,6 @@ dicty-components-login@dictybase/dicty-components-login#4.1.1:
 
 dicty-graphql-schema@dictybase/dicty-graphql-schema#v1.10.0:
   version "1.9.0"
-  uid "804e0c93f4ddd028884860fe69a934c4bf76ddfe"
   resolved "https://codeload.github.com/dictybase/dicty-graphql-schema/tar.gz/804e0c93f4ddd028884860fe69a934c4bf76ddfe"
   dependencies:
     "@apollo/client" "^3.7.0"
@@ -5998,11 +5996,6 @@ humanize-ms@^1.2.1:
   integrity sha512-Fl70vYtsAFb/C06PTS9dZBo7ihau+Tu/DNCk/OyHhea07S+aeMWpFFkUaXRa8fI+ScZbEI8dfSxwY7gxZ9SAVQ==
   dependencies:
     ms "^2.0.0"
-
-husky@8:
-  version "8.0.3"
-  resolved "https://registry.yarnpkg.com/husky/-/husky-8.0.3.tgz#4936d7212e46d1dea28fef29bb3a108872cd9184"
-  integrity sha512-+dQSyqPh4x1hlO1swXBiNb2HzTDN1I2IGLQx1GrBuiqFJfoMrnZWwVmatvSiO+Iz8fBUnf+lekwNo4c2LlXItg==
 
 hyphenate-style-name@^1.0.3:
   version "1.0.4"
