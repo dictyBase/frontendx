@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { makeStyles } from "@material-ui/core/styles"
 import Badge from "@material-ui/core/Badge"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons"
 import { type StrainCartItem } from "../types"
 
 const useStyles = makeStyles(({ palette }) => ({
@@ -40,7 +41,7 @@ const CartIcon = ({ items, isFull }: CartIconProperties) => {
           badgeContent={items.length}
           showZero
           color="primary">
-          <FontAwesomeIcon icon="shopping-cart" size="2x" />
+          <FontAwesomeIcon icon={faShoppingCart} size="2x" />
         </Badge>
       </Link>
       {isFull && <span className={classes.cartFull}>* cart full</span>}
