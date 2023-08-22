@@ -178,9 +178,9 @@ input UpdatePlasmidInput {
 }
 
 enum StrainType {
-  ALL 
-  REGULAR 
-  GWDI 
+  ALL
+  REGULAR
+  GWDI
   BACTERIAL
 }
 
