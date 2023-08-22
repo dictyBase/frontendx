@@ -3,12 +3,11 @@ import { atom } from "jotai"
 import { splitAtom } from "jotai/utils"
 import { type Strain } from "dicty-graphql-schema"
 import { pipe } from "fp-ts/function"
-import { concat, partitionMap, reduce } from "fp-ts/Array"
-import { left as Eleft, right as Eright } from "fp-ts/Either"
+import { concat, reduce } from "fp-ts/Array"
 
 // CART STATE
 type PurchaseProperties = { fee: Readonly<number> }
-type StrainItem = Pick<Strain, "id" | "summary" | "label">
+type StrainItem = Pick<Strain, "id" | "summary" | "label" | "in_stock">
 type StrainCartItem = StrainItem & PurchaseProperties
 type Cart = {
   strainItems: Array<StrainCartItem>
