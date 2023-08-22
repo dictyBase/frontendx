@@ -1,6 +1,5 @@
-FROM node:lts-alpine3.17
+FROM node:lts-bullseye-slim
 
-RUN apk update && apk add samurai
 
 ENV NEXT_PUBLIC_BASENAME="/publication"
 ENV NEXT_PUBLIC_GA_TRACKING_ID=""
@@ -9,6 +8,8 @@ ENV NEXT_PUBLIC_FOOTER_JSON='https://raw.githubusercontent.com/dictyBase/migrati
 ENV NEXT_PUBLIC_NAVBAR_JSON='https://raw.githubusercontent.com/dictyBase/migration-data/master/navbar/navbar.json'
 ENV NEXT_PUBLIC_DEPLOY_ENV="development"
 ENV CLIENT_KEYS='https://raw.githubusercontent.com/dictybase-playground/client-keys/2.0.1/clientConfig.sidd.js'
+
+RUN apt-get -qq update 
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
