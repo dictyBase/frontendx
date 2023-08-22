@@ -31,6 +31,7 @@ const convertBreadcrumbTitle = (crumb: string) => {
       title = "Add Page"
       break
     default:
+      // eslint-disable-next-line no-case-declarations
       const cleanString = crumb.replaceAll("+", " ").replaceAll("-", " ")
       /** don't return uppercase words if crumb is for phenotype
        * i.e. abolished+protein+phosphorylation
@@ -54,6 +55,7 @@ const Breadcrumbs = () => {
   // get list of pathnames, filter out empty strings
   const pathnames: Array<string> = location.pathname
     .split("/")
+    // eslint-disable-next-line unicorn/prefer-native-coercion-functions
     .filter((x: string) => x)
 
   return (
