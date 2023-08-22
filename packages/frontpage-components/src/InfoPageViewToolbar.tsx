@@ -4,7 +4,7 @@ import Tooltip from "@material-ui/core/Tooltip"
 import IconButton from "@material-ui/core/IconButton"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { timeSince } from "./utils/timeSince"
-import { ErrorNotification } from "./ErrorNotification"
+// import { ErrorNotification } from "./ErrorNotification"
 import { capitalizeFirstCharacter } from "./utils/stringCapitalizations"
 import { UpdatedByUser } from "./types"
 
@@ -44,8 +44,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-const error =
-  "Your login token has expired. Please log out and then log back in to regain full user access."
+// const error =
+//   "Your login token has expired. Please log out and then log back in to regain full user access."
 
 type Properties = {
   /** Timestamp for when this content was last updated */
@@ -61,7 +61,7 @@ type Properties = {
 const InfoPageViewToolbar = ({ handleClick, lastUpdate, user }: Properties) => {
   const classes = useStyles()
 
-  const fullName = `${user.firstName} ${user.lastName}`
+  const fullName = `${user.first_name} ${user.last_name}`
   const role = user.roles?.at(0)?.name
     ? `${capitalizeFirstCharacter(user.roles?.at(0)?.name as string)}`
     : "dictyBase User"
