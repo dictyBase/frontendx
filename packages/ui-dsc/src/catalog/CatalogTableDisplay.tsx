@@ -41,12 +41,12 @@ const borderBottom = `2px solid ${indigo[700]}`
 const tableHeaders = ["Strain Descriptor", "Strain Summary", "Strain ID", ""]
 
 interface CatalogRowFunctionProperties<HTMLType> {
-  strains: Array<Pick<Strain, "id" | "label" | "summary" | "inStock">>
+  strains: Array<Pick<Strain, "id" | "label" | "summary" | "in_stock">>
   nextCursor: number
   targetReference: RefObject<HTMLType>
 }
 
-type cellFunctionItem = Pick<Strain, "id" | "label" | "summary" | "inStock">
+type cellFunctionItem = Pick<Strain, "id" | "label" | "summary" | "in_stock">
 
 /**
  * The prop for {@link CatalogTableDisplay}
