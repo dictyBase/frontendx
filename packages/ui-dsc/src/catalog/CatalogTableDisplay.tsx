@@ -182,7 +182,7 @@ const CatalogTableDisplay = ({
 export {
   abbreviateStringToLength,
   cellFunction,
-  Rows as rowFunction,
+  Rows,
   CatalogTableDisplay,
   CatalogTableHeader,
 }
