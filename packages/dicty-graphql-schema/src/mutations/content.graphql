@@ -18,3 +18,9 @@ mutation UpdateContent($input: UpdateContentInput!) {
     content
   }
 }
+
+mutation DeleteContentBySlug($slug: String!) {
+  deleteContentBySlug(slug: $slug) {
+    success
+  }
+}
