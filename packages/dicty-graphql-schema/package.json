@@ -21,14 +21,9 @@
           "schema": "./src/schema/*.graphql"
         },
         "rules": {
-          "@graphql-eslint/naming-convention": [
-            "error",
-            {
-              "TypeDefinition": "PascalCase",
-              "FieldDefinition": "snake_case"
-            }
-          ],
+          "@graphql-eslint/naming-convention": "off",
           "@graphql-eslint/require-description": "off",
+          "@graphql-eslint/no-typename-prefix": "off",
           "spaced-comment": "off",
           "@graphql-eslint/no-hashtag-description": "off",
           "@graphql-eslint/strict-id-in-types": [
@@ -36,9 +31,9 @@
             {
               "acceptedIdNames": [
                 "id",
-                "taxonId",
-                "pubmedId",
-                "dictybaseId"
+                "taxon_id",
+                "pubmed_id",
+                "dictybase_id"
               ],
               "acceptedIdTypes": [
                 "ID",
@@ -64,7 +59,12 @@
                   "Download",
                   "DownloadItem",
                   "Links",
-                  "NameWithLink"
+                  "NameWithLink",
+                  "DeleteContent",
+                  "DeletePermission",
+                  "DeleteRole",
+                  "DeleteStock",
+                  "DeleteUser"
                 ]
               }
             }
