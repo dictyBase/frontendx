@@ -1,5 +1,7 @@
 FROM node:lts-alpine3.17
 
+RUN apk update && apk add samurai
+
 ENV NEXT_PUBLIC_BASENAME="/publication"
 ENV NEXT_PUBLIC_GA_TRACKING_ID=""
 ENV NEXT_PUBLIC_GRAPHQL_SERVER=https://graphql.dictybase.dev
