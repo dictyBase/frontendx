@@ -29,4 +29,4 @@ const useUpdateNews = (
   return { handleUpdate }
 }
 
-export default useUpdateNews
+export { useUpdateNews }

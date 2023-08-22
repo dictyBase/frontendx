@@ -7,4 +7,4 @@ const useCheckboxStyles = makeStyles({
   },
 })
 
-export default useCheckboxStyles
+export { useCheckboxStyles }

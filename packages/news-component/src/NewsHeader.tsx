@@ -1,5 +1,5 @@
 import { Grid, Typography } from "@material-ui/core"
-import DynamicBreadCrumbs from "./DynamicBreadCrumbs"
+import { DynamicBreadCrumbs } from "./DynamicBreadCrumbs"
 
 const NewsHeader = () => (
   <Grid container spacing={3} alignItems="center">
@@ -14,4 +14,4 @@ const NewsHeader = () => (
   </Grid>
 )
 
-export default NewsHeader
+export { NewsHeader }

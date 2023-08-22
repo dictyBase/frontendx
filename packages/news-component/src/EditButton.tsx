@@ -6,7 +6,7 @@ type EditbuttonProperties = {
   slug: string
 }
 
-const Editbutton = ({ slug }: EditbuttonProperties) => {
+const EditButton = ({ slug }: EditbuttonProperties) => {
   const navigate = useNavigate()
 
   const onClick = () => {
@@ -20,4 +20,4 @@ const Editbutton = ({ slug }: EditbuttonProperties) => {
   )
 }
 
-export default Editbutton
+export { EditButton }

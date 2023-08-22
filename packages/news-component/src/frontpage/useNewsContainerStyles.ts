@@ -4,4 +4,4 @@ const useNewsContainerStyles = makeStyles({
   root: {},
 })
 
-export default useNewsContainerStyles
+export { useNewsContainerStyles }

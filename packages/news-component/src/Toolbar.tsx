@@ -2,10 +2,10 @@ import { Toolbar, Paper, Checkbox } from "@material-ui/core"
 import { useLocation, useParams } from "react-router-dom"
 import { useAtomValue } from "jotai"
 import { selectedArticlesAtom } from "./atomConfigs"
-import CreateButton from "./CreateButton"
-import DeleteButton from "./DeleteButton"
-import EditButton from "./EditButton"
-import useToolbarStyles from "./useToolbarStyles"
+import { CreateButton } from "./CreateButton"
+import { DeleteButton } from "./DeleteButton"
+import { EditButton } from "./EditButton"
+import { useToolbarStyles } from "./useToolbarStyles"
 import { getURLPathSegments } from "./utils"
 
 const NewsToolbar = () => {
@@ -36,4 +36,4 @@ const NewsToolbar = () => {
   )
 }
 
-export default NewsToolbar
+export { NewsToolbar }

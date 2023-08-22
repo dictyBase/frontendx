@@ -15,4 +15,4 @@ const CancelButton = () => {
   )
 }
 
-export default CancelButton
+export { CancelButton }

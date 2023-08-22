@@ -3,7 +3,7 @@ import { Paper, Typography, Grid, Checkbox } from "@material-ui/core"
 import { Link } from "react-router-dom"
 import { parseContentToText } from "editor"
 import { useSetAtom } from "jotai"
-import useNewsPreviewStyles from "./useNewsPreviewStyles"
+import { useNewsPreviewStyles } from "./useNewsPreviewStyles"
 import { formatDateISOString } from "./utils"
 import {
   addSelectedArticlesAtom,
@@ -69,4 +69,4 @@ const NewsPreview = ({
   )
 }
 
-export default NewsPreview
+export { NewsPreview }

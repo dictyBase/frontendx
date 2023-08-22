@@ -1,6 +1,6 @@
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { useParams } from "react-router-dom"
-import DisplayNews from "./DisplayNews"
+import { DisplayNews } from "./DisplayNews"
 
 const NewsPage = () => {
   const { slug } = useParams()
@@ -16,4 +16,4 @@ const NewsPage = () => {
   return <DisplayNews content={data.contentBySlug} />
 }
 
-export default NewsPage
+export { NewsPage }

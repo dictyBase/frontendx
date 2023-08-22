@@ -3,8 +3,8 @@ import { Grid } from "@material-ui/core"
 import { useListNewsContentQuery } from "dicty-graphql-schema"
 import { useAtomValue, useSetAtom } from "jotai"
 import { articlesInRangeAtom, articlesListTotalAtom } from "./atomConfigs"
-import NewsList from "./NewsList"
-import Pagination from "./Pagination"
+import { NewsList } from "./NewsList"
+import { Pagination } from "./Pagination"
 
 type BrowseNewsProperties = {
   isAuthenticated?: boolean
@@ -43,4 +43,4 @@ const BrowseNews = ({ isAuthenticated = false }: BrowseNewsProperties) => {
   )
 }
 
-export default BrowseNews
+export { BrowseNews }

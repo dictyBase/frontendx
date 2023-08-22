@@ -7,4 +7,4 @@ const useToolbarStyles = makeStyles({
   },
 })
 
-export default useToolbarStyles
+export { useToolbarStyles }

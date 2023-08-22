@@ -32,4 +32,4 @@ const DeleteButton = () => {
   )
 }
 
-export default DeleteButton
+export { DeleteButton }

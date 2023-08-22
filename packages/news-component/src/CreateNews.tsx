@@ -2,8 +2,8 @@ import { useState, ChangeEvent } from "react"
 import { Grid, Container, TextField } from "@material-ui/core"
 import { useNavigate } from "react-router-dom"
 import { Editor } from "editor"
-import NewsHeader from "./NewsHeader"
-import useCreateNews from "./useCreateNews"
+import { NewsHeader } from "./NewsHeader"
+import { useCreateNews } from "./useCreateNews"
 
 const CreateNews = () => {
   const [title, setTitle] = useState("")
@@ -44,4 +44,4 @@ const CreateNews = () => {
   )
 }
 
-export default CreateNews
+export { CreateNews }

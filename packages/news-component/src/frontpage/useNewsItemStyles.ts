@@ -7,4 +7,4 @@ const useNewsItemStyles = makeStyles({
   },
 })
 
-export default useNewsItemStyles
+export { useNewsItemStyles }

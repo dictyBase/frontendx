@@ -12,4 +12,4 @@ const useInitialContentData = () => {
   return data?.contentBySlug
 }
 
-export default useInitialContentData
+export { useInitialContentData }

@@ -1,6 +1,6 @@
 import { Grid } from "@material-ui/core"
 import { ListNewsContentQuery } from "dicty-graphql-schema"
-import NewsPreview from "./NewsPreview"
+import { NewsPreview } from "./NewsPreview"
 
 type NewsListProperties = {
   articles: ListNewsContentQuery["listContent"]
@@ -25,4 +25,4 @@ const NewsList = ({ articles, selectable }: NewsListProperties) => {
   )
 }
 
-export default NewsList
+export { NewsList }

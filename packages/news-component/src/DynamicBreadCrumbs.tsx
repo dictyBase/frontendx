@@ -23,4 +23,4 @@ const DynamicBreadCrumbs = () => {
   )
 }
 
-export default DynamicBreadCrumbs
+export { DynamicBreadCrumbs }
