@@ -616,6 +616,7 @@ export type Query = {
   getLinks?: Maybe<Gene>;
   getProteinInformation?: Maybe<Gene>;
   getRefreshToken?: Maybe<Auth>;
+  listContent?: Maybe<Array<Content>>;
   listGeneProductInfo?: Maybe<Gene>;
   listOrders?: Maybe<OrderListWithCursor>;
   listOrganisms?: Maybe<Array<Organism>>;
@@ -696,6 +697,11 @@ export type QueryGetProteinInformationArgs = {
 
 export type QueryGetRefreshTokenArgs = {
   token: Scalars['String']['input'];
+};
+
+
+export type QueryListContentArgs = {
+  limit: Scalars['Int']['input'];
 };
 
 
@@ -1079,6 +1085,13 @@ export type ContentQueryVariables = Exact<{
 
 
 export type ContentQuery = { __typename?: 'Query', content?: { __typename?: 'Content', id: string, content: string, name: string, slug: string, namespace: string, updated_at: any, updated_by: { __typename?: 'User', id: string, email: string, first_name: string, last_name: string, roles?: Array<{ __typename?: 'Role', role: string, permissions?: Array<{ __typename?: 'Permission', permission: string, resource?: string | null }> | null }> | null } } | null };
+
+export type ListNewsContentQueryVariables = Exact<{
+  limit: Scalars['Int']['input'];
+}>;
+
+
+export type ListNewsContentQuery = { __typename?: 'Query', listContent?: Array<{ __typename?: 'Content', id: string, slug: string, content: string, name: string, updated_at: any, updated_by: { __typename?: 'User', first_name: string, last_name: string } }> | null };
 
 export type ListOrganismsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1612,6 +1625,49 @@ export function useContentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Co
 export type ContentQueryHookResult = ReturnType<typeof useContentQuery>;
 export type ContentLazyQueryHookResult = ReturnType<typeof useContentLazyQuery>;
 export type ContentQueryResult = Apollo.QueryResult<ContentQuery, ContentQueryVariables>;
+export const ListNewsContentDocument = gql`
+    query ListNewsContent($limit: Int!) {
+  listContent(limit: $limit) {
+    id
+    slug
+    content
+    name
+    updated_by {
+      first_name
+      last_name
+    }
+    updated_at
+  }
+}
+    `;
+
+/**
+ * __useListNewsContentQuery__
+ *
+ * To run a query within a React component, call `useListNewsContentQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListNewsContentQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListNewsContentQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useListNewsContentQuery(baseOptions: Apollo.QueryHookOptions<ListNewsContentQuery, ListNewsContentQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListNewsContentQuery, ListNewsContentQueryVariables>(ListNewsContentDocument, options);
+      }
+export function useListNewsContentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListNewsContentQuery, ListNewsContentQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListNewsContentQuery, ListNewsContentQueryVariables>(ListNewsContentDocument, options);
+        }
+export type ListNewsContentQueryHookResult = ReturnType<typeof useListNewsContentQuery>;
+export type ListNewsContentLazyQueryHookResult = ReturnType<typeof useListNewsContentLazyQuery>;
+export type ListNewsContentQueryResult = Apollo.QueryResult<ListNewsContentQuery, ListNewsContentQueryVariables>;
 export const ListOrganismsDocument = gql`
     query ListOrganisms {
   listOrganisms {
@@ -2923,7 +2979,7 @@ export type PublicationWithGeneFieldPolicy = {
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	volume?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('allOrthologs' | 'allPublications' | 'allStrains' | 'content' | 'contentBySlug' | 'gene' | 'generalInformation' | 'getAssociatedSequnces' | 'getLinks' | 'getProteinInformation' | 'getRefreshToken' | 'listGeneProductInfo' | 'listOrders' | 'listOrganisms' | 'listPermissions' | 'listPlasmids' | 'listPlasmidsWithAnnotation' | 'listRecentGenes' | 'listRecentPlasmids' | 'listRecentPublications' | 'listRecentStrains' | 'listRoles' | 'listStrains' | 'listStrainsWithAnnotation' | 'listUsers' | 'order' | 'organism' | 'permission' | 'plasmid' | 'publication' | 'role' | 'strain' | 'user' | 'userByEmail' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('allOrthologs' | 'allPublications' | 'allStrains' | 'content' | 'contentBySlug' | 'gene' | 'generalInformation' | 'getAssociatedSequnces' | 'getLinks' | 'getProteinInformation' | 'getRefreshToken' | 'listContent' | 'listGeneProductInfo' | 'listOrders' | 'listOrganisms' | 'listPermissions' | 'listPlasmids' | 'listPlasmidsWithAnnotation' | 'listRecentGenes' | 'listRecentPlasmids' | 'listRecentPublications' | 'listRecentStrains' | 'listRoles' | 'listStrains' | 'listStrainsWithAnnotation' | 'listUsers' | 'order' | 'organism' | 'permission' | 'plasmid' | 'publication' | 'role' | 'strain' | 'user' | 'userByEmail' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	allOrthologs?: FieldPolicy<any> | FieldReadFunction<any>,
 	allPublications?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2936,6 +2992,7 @@ export type QueryFieldPolicy = {
 	getLinks?: FieldPolicy<any> | FieldReadFunction<any>,
 	getProteinInformation?: FieldPolicy<any> | FieldReadFunction<any>,
 	getRefreshToken?: FieldPolicy<any> | FieldReadFunction<any>,
+	listContent?: FieldPolicy<any> | FieldReadFunction<any>,
 	listGeneProductInfo?: FieldPolicy<any> | FieldReadFunction<any>,
 	listOrders?: FieldPolicy<any> | FieldReadFunction<any>,
 	listOrganisms?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -3401,6 +3458,23 @@ export const mockContentBySlugQuery = (resolver: ResponseResolver<GraphQLRequest
 export const mockContentQuery = (resolver: ResponseResolver<GraphQLRequest<ContentQueryVariables>, GraphQLContext<ContentQuery>, any>) =>
   graphql.query<ContentQuery, ContentQueryVariables>(
     'content',
+    resolver
+  )
+
+/**
+ * @param resolver a function that accepts a captured request and may return a mocked response.
+ * @see https://mswjs.io/docs/basics/response-resolver
+ * @example
+ * mockListNewsContentQuery((req, res, ctx) => {
+ *   const { limit } = req.variables;
+ *   return res(
+ *     ctx.data({ listContent })
+ *   )
+ * })
+ */
+export const mockListNewsContentQuery = (resolver: ResponseResolver<GraphQLRequest<ListNewsContentQueryVariables>, GraphQLContext<ListNewsContentQuery>, any>) =>
+  graphql.query<ListNewsContentQuery, ListNewsContentQueryVariables>(
+    'ListNewsContent',
     resolver
   )
 

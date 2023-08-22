@@ -4,6 +4,7 @@ type Query {
   # Content queries
   content(id: ID!): Content
   contentBySlug(slug: String!): Content
+  listContent(limit: Int!): [Content!]
   # Download page queries
   organism(taxon_id: String!): Organism
   listOrganisms: [Organism!]
