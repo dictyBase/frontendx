@@ -1,41 +1,19 @@
 /* eslint-disable camelcase */
 import { useState } from "react"
-import { useAtomValue } from "jotai"
-import { findFirst } from "fp-ts/Array"
-import { match as Omatch } from "fp-ts/Option"
 import { match } from "ts-pattern"
-import { pipe } from "fp-ts/function"
 import { Strain } from "dicty-graphql-schema"
 import { UnavailableButton, AddToCartDialog } from "@dictybase/ui-dsc"
 import { AddToCartButton } from "./AddToCartButton"
-import { isFullAtom, strainItemsAtom } from "../state"
 import { RemoveFromCartButton } from "./RemoveFromCartButton"
+import { useCartItemProperties } from "../hooks/useCartItemProperties"
 
 type AddToCartButtonHandlerProperties = {
   item: Pick<Strain, "id" | "label" | "summary" | "in_stock">
 }
 
-const useStockProperties = (
-  item: Pick<Strain, "id" | "label" | "summary" | "in_stock">,
-) => {
-  const isFull = useAtomValue(isFullAtom)
-  const itemsInCart = useAtomValue(strainItemsAtom)
-  const isInCart = pipe(
-    itemsInCart,
-    findFirst((cartItem) => item.id === cartItem.id),
-    Omatch(
-      () => false,
-      () => true,
-    ),
-  )
-  const { in_stock } = item
-
-  return { isFull, in_stock, isInCart }
-}
-
 const AddToCartButtonHandler = ({ item }: AddToCartButtonHandlerProperties) => {
   const [showDialog, setShowDialog] = useState(false)
-  const { in_stock, isFull, isInCart } = useStockProperties(item)
+  const { in_stock, isFull, isInCart } = useCartItemProperties(item)
   return (
     <>
       {match({ in_stock, isFull, isInCart })
