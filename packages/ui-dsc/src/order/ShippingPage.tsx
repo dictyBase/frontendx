@@ -42,6 +42,7 @@ const ShippingPage = ({ setFormData, nextStep }: ShippingPageProperties) => {
   const methods = useForm({
     mode: "onTouched",
     resolver: yupResolver(validationSchema),
+    shouldFocusError: false,
   })
   const { handleSubmit } = methods
 

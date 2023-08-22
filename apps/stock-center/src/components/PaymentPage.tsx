@@ -43,6 +43,7 @@ const PaymentPage = () => {
     mode: "onTouched",
     resolver: yupResolver(validationSchema),
     defaultValues: paymentFormData,
+    shouldFocusError: false,
   })
   const { handleSubmit } = methods
   const onSubmit = (data: PaymentFormData) => {
