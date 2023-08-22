@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { vi, describe, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
@@ -6,7 +7,7 @@ import { RefObject } from "react"
 import {
   abbreviateStringToLength,
   cellFunction,
-  rowFunction,
+  Rows,
   CatalogTableHeader,
 } from "../catalog/CatalogTableDisplay"
 
@@ -41,9 +42,10 @@ describe("abbreviateStringToLength", () => {
 
 describe("cellFunction", () => {
   const testStrain = {
-    id: "test id",
-    label: "test label",
-    summary: "test summary",
+    id: "test_id",
+    label: "test_label",
+    summary: "test_summary",
+    in_stock: true,
   }
 
   test("renders strain data in cells", () => {
@@ -62,7 +64,7 @@ describe("cellFunction", () => {
     render(
       <MemoryRouter>
         <Routes>
-          <Route path="/strain/:id" element={<> Strain Details</>} />
+          <Route path="/strains/:id" element={<> Strain Details </>} />
         </Routes>
         {cellFunction(testStrain)}
       </MemoryRouter>,
@@ -78,26 +80,29 @@ describe("rowFunction", () => {
       id: "test id 1",
       label: "test label 1",
       summary: "test summary 1",
+      in_stock: true,
     },
     {
       id: "test id 2",
       label: "test label 2",
       summary: "test summary 2",
+      in_stock: true,
     },
     {
       id: "test id 3",
       label: "test label 3",
       summary: "test summary 3",
+      in_stock: true,
     },
   ]
   test("given a strains array, render a table row for each element in the array", () => {
     render(
       <MemoryRouter>
-        {rowFunction({
-          strains: testListStrains,
-          nextCursor: 0,
-          targetReference: {} as RefObject<HTMLTableRowElement>,
-        })}
+        <Rows
+          strains={testListStrains}
+          nextCursor={0}
+          targetReference={{} as RefObject<HTMLTableRowElement>}
+        />
       </MemoryRouter>,
     )
     expect(screen.getAllByRole("row")).toHaveLength(testListStrains.length)
@@ -105,11 +110,11 @@ describe("rowFunction", () => {
   test("if nextCursor is greater than 1, render an additional table row for that indicates fetching more data", () => {
     render(
       <MemoryRouter>
-        {rowFunction({
-          strains: testListStrains,
-          nextCursor: 4,
-          targetReference: {} as RefObject<HTMLTableRowElement>,
-        })}
+        <Rows
+          strains={testListStrains}
+          nextCursor={4}
+          targetReference={{} as RefObject<HTMLTableRowElement>}
+        />
       </MemoryRouter>,
     )
     expect(screen.getAllByRole("row")).toHaveLength(testListStrains.length + 1)
