@@ -54,6 +54,6 @@ test("displays expected data", async () => {
   // shows depositor
   const { depositor } = strainWithPhenotype
   expect(
-    screen.getByText(`${depositor.firstName} ${depositor.lastName}`),
+    screen.getByText(`${depositor.first_name} ${depositor.last_name}`),
   ).toBeInTheDocument()
 })
