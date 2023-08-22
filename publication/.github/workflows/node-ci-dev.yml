@@ -1,16 +1,16 @@
-name: Node CI Develop
+name: Continuos integration
 on:
   push:
     branches:
       - develop
 jobs:
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: set up node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16.13.1
+          node-version: 'lts'
       - name: check out code
         uses: actions/checkout@v3
       - name: rename config file
@@ -28,8 +28,14 @@ jobs:
         env:
           CI: true
       - name: upload test coverage to codecov
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+        uses: codecov/codecov-action@v3
       - name: run build
         run: yarn build
+  call-docker-build:
+    needs: test
+    uses: dictyBase/workflows/.github/workflows/docker-build-push-custom.yaml@develop
+    secrets: inherit
+    with:
+      repository: ${{ github.repository }}
+      ref: ${{ github.ref_name }}
+      dockerfile: "docker/Dockerfile.dev"
