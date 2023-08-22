@@ -16,8 +16,12 @@ COPY tsconfig.json ./
 COPY yarn.lock ./
 RUN yarn
 
-ADD src src
+ADD common common
+ADD components components
+ADD pages pages
 ADD public public
+ADD styles styles
+ADD docker docker
 ADD $CLIENT_KEYS /usr/src/app/common/utils/clientConfig.js
 RUN yarn build
 
