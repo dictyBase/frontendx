@@ -66,8 +66,8 @@ const InfoPageContainer = () => {
       <Container maxWidth="lg">
         <InfoPageViewToolbar
           handleClick={handleClick}
-          lastUpdate={data.contentBySlug.updatedAt}
-          user={data.contentBySlug.updatedBy}
+          lastUpdate={data.contentBySlug.updated_at}
+          user={data.contentBySlug.updated_by}
         />
         <InfoPageView data={data?.contentBySlug} />
       </Container>
