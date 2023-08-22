@@ -1,10 +1,11 @@
+/* eslint-disable camelcase */
 import { getDepositorName } from "../utils/getDepositorName"
 
 describe("features/Stocks/Details/utils/getDepositorName", () => {
   it("should return full name", () => {
     const depositor = {
-      firstName: "Jackie",
-      lastName: "Chiles",
+      first_name: "Jackie",
+      last_name: "Chiles",
     }
     expect(getDepositorName(depositor)).toEqual("Jackie Chiles")
   })
