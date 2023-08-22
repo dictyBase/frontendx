@@ -2,6 +2,7 @@ import React from "react"
 import Alert from "@material-ui/lab/Alert"
 import IconButton from "@material-ui/core/IconButton"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faCopy } from "@fortawesome/free-solid-svg-icons"
 import { makeStyles } from "@material-ui/core/styles"
 
 const useStyles = makeStyles(() => ({
@@ -51,7 +52,7 @@ const DetailsHeaderCopyIcon = ({ id }: DetailsHeaderCopyIconProperties) => {
         size="small"
         title="Copy ID to clipboard"
         aria-label="copy icon">
-        <FontAwesomeIcon icon="copy" size="xs" />
+        <FontAwesomeIcon icon={faCopy} size="xs" />
       </IconButton>
       <div className={classes.id}>
         {snackbarOpen && (
