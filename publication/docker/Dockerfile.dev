@@ -22,7 +22,7 @@ ADD pages pages
 ADD public public
 ADD styles styles
 ADD docker docker
-ADD $CLIENT_KEYS /usr/src/app/common/utils/clientConfig.js
+ADD $CLIENT_KEYS ./common/utils/clientConfig.js
 RUN yarn build
 
 FROM node:lts-bullseye-slim as runner
