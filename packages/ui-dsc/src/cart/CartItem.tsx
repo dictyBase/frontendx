@@ -75,7 +75,7 @@ const CartItem = ({ item, deleteItem }: ShoppingCartItemProperties) => {
               noWrap
               className={classes.fee}
               data-testid="fee">
-              {toCurrencyString(item.fee * item.quantity)}
+              {toCurrencyString(item.fee)}
             </Typography>
           </Grid>
         </Grid>
