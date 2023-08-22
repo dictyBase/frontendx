@@ -75,11 +75,9 @@ const OrderSummary = ({ formData, cart }: OrderSummaryProperties) => {
               className={classes.quantity}
               variant="body2"
               data-testid="quantity">
-              Qty: {item.quantity}
+              {/* Qty: {item.quantity} */}
             </Typography>
-            <Typography variant="body1">
-              ${Number(item.fee) * item.quantity}.00
-            </Typography>
+            <Typography variant="body1">${Number(item.fee)}.00</Typography>
           </ListItem>
         ))}
         <ListItem className={classes.listItem}>
