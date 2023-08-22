@@ -112,35 +112,42 @@ const cellFunction = (item: cellFunctionItem) => (
   </>
 )
 
-const rowFunction = ({
+const Rows = ({
   strains,
   nextCursor,
   targetReference,
 }: CatalogRowFunctionProperties<HTMLTableRowElement>) => {
   const { row } = useStyles()
-  return strains.map((item, index: number) => {
-    const key = `${item.id}`
-    if (index === strains.length - 1 && nextCursor !== 0) {
-      // last item and expected to have more data
-      return (
-        <>
+  return (
+    <>
+      {strains.map((item, index: number) => {
+        const key = `${item.id}`
+        if (index === strains.length - 1 && nextCursor !== 0) {
+          // last item and expected to have more data
+          return (
+            <>
+              <TableRow hover className={row} key={key}>
+                {cellFunction(item)}
+              </TableRow>
+              <TableRow
+                className={row}
+                key="linear-progess"
+                ref={targetReference}>
+                <TableCell colSpan={4}>
+                  <LinearProgress />
+                </TableCell>
+              </TableRow>
+            </>
+          )
+        }
+        return (
           <TableRow hover className={row} key={key}>
             {cellFunction(item)}
           </TableRow>
-          <TableRow className={row} key="linear-progess" ref={targetReference}>
-            <TableCell colSpan={4}>
-              <LinearProgress />
-            </TableCell>
-          </TableRow>
-        </>
-      )
-    }
-    return (
-      <TableRow hover className={row} key={key}>
-        {cellFunction(item)}
-      </TableRow>
-    )
-  })
+        )
+      })}
+    </>
+  )
 }
 
 /**
@@ -161,7 +168,11 @@ const CatalogTableDisplay = ({
           <CatalogTableHeader />
         </TableHead>
         <TableBody>
-          {rowFunction({ strains, nextCursor, targetReference })}
+          <Rows
+            strains={strains}
+            nextCursor={nextCursor}
+            targetReference={targetReference}
+          />
         </TableBody>
       </Table>
     </TableContainer>
@@ -171,7 +182,7 @@ const CatalogTableDisplay = ({
 export {
   abbreviateStringToLength,
   cellFunction,
-  rowFunction,
+  Rows as rowFunction,
   CatalogTableDisplay,
   CatalogTableHeader,
 }
