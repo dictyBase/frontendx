@@ -1,10 +1,16 @@
 version: 2
 updates:
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: weekly
-    day: saturday
-    time: "11:00"
-    timezone: America/Chicago
-  open-pull-requests-limit: 99
+  - package-ecosystem: npm
+    versioning-strategy: lockfile-only
+    directory: "/"
+    ignore: 
+    - dependency-name: "react"
+    - dependency-name: "@types/react"
+    - dependency-name: "@types/node"
+    - dependency-name: "next"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "16:00"
+      timezone: America/Chicago
+    open-pull-requests-limit: 2
