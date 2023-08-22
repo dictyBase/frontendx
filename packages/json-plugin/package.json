@@ -26,7 +26,6 @@
     "react-dom": "17.x"
   },
   "scripts": {
-    "lint": "TIMING=1 eslint src --fix",
-    "test": "vitest run"
+    "lint": "TIMING=1 eslint src --fix"
   }
 }
