@@ -2,6 +2,7 @@ import { makeStyles } from "@material-ui/core/styles"
 import { grey } from "@material-ui/core/colors"
 import Typography from "@material-ui/core/Typography"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
 import { Publication } from "dicty-graphql-schema"
 
 const useStyles = makeStyles({
@@ -77,7 +78,7 @@ const PublicationDisplay = ({ publication }: PublicationDisplayProperties) => {
         <a
           href={getPubLink(publication.id, publication?.doi as string)}
           title="Visit publication page">
-          <FontAwesomeIcon icon="external-link-alt" size="sm" />
+          <FontAwesomeIcon icon={faExternalLinkAlt} size="sm" />
         </a>
       </Typography>
     </>
