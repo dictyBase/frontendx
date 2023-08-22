@@ -14,9 +14,9 @@ import {
 // import { useAuthStore } from "features/Authentication/AuthStore"
 import {
   downloadLinks,
-  infoLinks,
+  // infoLinks,
   materialsLinks,
-  miscLinks,
+  // miscLinks,
 } from "../linkLists"
 // import EditorHolder from "./EditorHolder"
 
