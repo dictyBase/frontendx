@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { useState } from "react"
 import { useAtomValue } from "jotai"
 import { findFirst } from "fp-ts/Array"
@@ -11,11 +12,11 @@ import { isFullAtom, strainItemsAtom } from "../state"
 import { RemoveFromCartButton } from "./RemoveFromCartButton"
 
 type AddToCartButtonHandlerProperties = {
-  item: Pick<Strain, "id" | "label" | "summary" | "inStock">
+  item: Pick<Strain, "id" | "label" | "summary" | "in_stock">
 }
 
 const useStockProperties = (
-  item: Pick<Strain, "id" | "label" | "summary" | "inStock">,
+  item: Pick<Strain, "id" | "label" | "summary" | "in_stock">,
 ) => {
   const isFull = useAtomValue(isFullAtom)
   const itemsInCart = useAtomValue(strainItemsAtom)
@@ -27,18 +28,18 @@ const useStockProperties = (
       () => true,
     ),
   )
-  const { inStock } = item
+  const { in_stock } = item
 
-  return { isFull, inStock, isInCart }
+  return { isFull, in_stock, isInCart }
 }
 
 const AddToCartButtonHandler = ({ item }: AddToCartButtonHandlerProperties) => {
   const [showDialog, setShowDialog] = useState(false)
-  const { inStock, isFull, isInCart } = useStockProperties(item)
+  const { in_stock, isFull, isInCart } = useStockProperties(item)
   return (
     <>
-      {match({ inStock, isFull, isInCart })
-        .with({ inStock: false }, () => (
+      {match({ in_stock, isFull, isInCart })
+        .with({ in_stock: false }, () => (
           <UnavailableButton
             title="Item is currently unavailable"
             size="medium"
@@ -48,7 +49,7 @@ const AddToCartButtonHandler = ({ item }: AddToCartButtonHandlerProperties) => {
         .with({ isFull: true }, () => (
           <UnavailableButton title="Shopping cart is full" size="medium" />
         ))
-        .with({ isFull: false, inStock: true }, () => (
+        .with({ isFull: false, in_stock: true }, () => (
           <AddToCartButton data={[item]} setShowDialog={setShowDialog} />
         ))
         .otherwise(() => (
