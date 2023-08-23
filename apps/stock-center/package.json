@@ -14,9 +14,14 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "editor": "*",
+    "editor-toolbar": "*",
     "@dictybase/ui-dsc": "*",
     "@dictybase/footer": "*",
     "@dictybase/header": "*",
+    "@dictybase/data-access": "*",
+    "@dictybase/hook-dsc": "*",
+    "@dictybase/hook": "*",
     "@material-ui/core": "4.x",
     "dicty-components-navbar": "github:dictyBase/dicty-components-navbar#2.0.0",
     "dicty-graphql-schema": "*",
@@ -24,6 +29,7 @@
     "jotai": "^1.12.0",
     "react": "17.x",
     "react-dom": "17.x",
+    "react-helmet": "^6.1.0",
     "react-router-dom": "~6.14.2",
     "ts-pattern": "^5.0.4"
   },
