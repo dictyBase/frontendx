@@ -25,18 +25,28 @@ const CountryDropdown = ({ fieldName }: CountryDropdownProperties) => {
   const {
     register,
     formState: { errors },
+    getValues,
   } = useFormContext()
+
+  // Since the Autocomplete component itself is not registered with React Form Hook,
+  // its value is not automatically set. The code below gets the country object corresponding to
+  // the current form value. This country object is passed into Autocomplete's value prop.
+  const autoCompleteValue = countryList.find(
+    (country) => country.label === getValues(fieldName),
+  )
+
   return (
     <Autocomplete
       id="country"
+      value={autoCompleteValue}
       aria-label="country"
       size="medium"
       options={countryList}
-      getOptionLabel={(option) => option.label}
+      getOptionLabel={(option) => option?.label as string}
       renderOption={(option) => (
         <span>
-          {countryToFlag(option.code)}&nbsp;
-          {option.label}
+          {countryToFlag(option?.code as string)}&nbsp;
+          {option?.label}
         </span>
       )}
       renderInput={(properties) => (
@@ -56,4 +66,5 @@ const CountryDropdown = ({ fieldName }: CountryDropdownProperties) => {
   )
 }
 
-export { CountryDropdown, countryToFlag }
+// export { CountryDropdown, countryToFlag }
+export { CountryDropdown }
