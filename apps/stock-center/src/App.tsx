@@ -51,7 +51,7 @@ export const App = () => {
     }),
   })
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.VITE_APP_BASENAME}>
       <ApolloProvider client={client}>
         <ThemeProvider>
           <CssBaseline />
