@@ -1,0 +1,33 @@
+name: continuos integration
+on:
+  push:
+    branches:
+      - develop
+jobs:
+  test:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: set up node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: check out code
+        uses: actions/checkout@v3
+      - name: rename config file
+        run: mv apps/dicty-frontpage/src/common/utils/clientConfig.sample.ts apps/dicty-frontpage/src/common/utils/clientConfig.ts
+      - name: install
+        run: yarn install
+      - name: unit tests
+        run: yarn coverage
+      - name: upload test coverage to codecov
+        uses: codecov/codecov-action@v3
+  call-docker-build:
+    needs: test
+    uses: dictyBase/workflows/.github/workflows/docker-build-push-repo.yaml@develop
+    secrets: inherit
+    with:
+      repository: ${{ github.repository }}
+      ref: ${{ github.ref_name }}
+      dockerfile: "docker/Dockerfile.stock-center"
+      dockerrepo: "dictybase/stock-center"
