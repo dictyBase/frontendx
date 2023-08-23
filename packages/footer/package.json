@@ -7,10 +7,7 @@
   "scripts": {
     "test": "vitest run",
     "coverage": "vitest run --coverage",
-    "build": "tsup src/index.tsx --format esm,cjs --dts --external react --inject react-shim.js",
-    "dev": "tsup src/index.tsx --format esm,cjs --watch --dts --external react --inject react-shim.js",
-    "lint": "TIMING=1 eslint src --fix",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.1",
