@@ -11,6 +11,7 @@ const viteConfig = defineConfig({
   server: {
     port: 3000,
   },
+  base: "/stockcenter"
 })
 
 const vitestConfig = defineVitestConfig({
