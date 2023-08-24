@@ -1,6 +1,9 @@
+import { useState, type ChangeEvent } from "react"
 import { useForm, FormProvider } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import Grid from "@material-ui/core/Grid"
+import Checkbox from "@material-ui/core/Checkbox"
+import FormControlLabel from "@material-ui/core/FormControlLabel"
 import { object, string, InferType } from "yup"
 import {
   PaymentMethod,
@@ -8,9 +11,17 @@ import {
   PaymentInfoBox,
   ContinueButton,
 } from "@dictybase/ui-dsc"
-import { useSetAtom, useAtom } from "jotai"
+import { pipe } from "fp-ts/function"
+import { toArray } from "fp-ts/Record"
+import { useSetAtom, useAtom, useAtomValue } from "jotai"
 import { BackButton } from "./BackButton"
-import { paymentFormAtom, orderStepAtom } from "../state"
+import {
+  initialPaymentValues,
+  paymentFormAtom,
+  orderStepAtom,
+  shippingFormAtom,
+  type ShippingFormData,
+} from "../state"
 
 const validationSchema = object().shape({
   payerFirstName: string().required("* First name is required"),
@@ -32,27 +43,44 @@ const validationSchema = object().shape({
 })
 type PaymentFormData = InferType<typeof validationSchema>
 
+const convertShippingAddressToPaymentAddressValues = (
+  shippingFormData: ShippingFormData,
+) => pipe(shippingFormData, toArray)
 /**
  * PaymentPage is the display component for when the user is entering
  * payment information.
  */
 const PaymentPage = () => {
+  const [useShippingAddress, setUseShippingAddress] = useState(false)
   const [paymentFormData, setPaymentFormData] = useAtom(paymentFormAtom)
+  const shippingFormData = useAtomValue(shippingFormAtom)
   const setOrderStep = useSetAtom(orderStepAtom)
   const methods = useForm({
     mode: "onSubmit",
     reValidateMode: "onBlur",
     resolver: yupResolver(validationSchema),
-    defaultValues: paymentFormData,
+    resetOptions: {
+      keepDirtyValues: true,
+      keepErrors: true,
+    },
   })
   const { handleSubmit } = methods
   const onSubmit = (data: PaymentFormData) => {
     setPaymentFormData((previousFormData) => ({ ...previousFormData, ...data }))
     setOrderStep((previousStep) => previousStep + 1)
   }
+
+  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setUseShippingAddress(event.target.checked)
+  }
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <FormControlLabel
+          label="Use shipping address"
+          control={<Checkbox onChange={onChange} value={useShippingAddress} />}
+        />
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
             {renderPaymentAddressFields()}
