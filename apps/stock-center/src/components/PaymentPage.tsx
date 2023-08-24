@@ -13,6 +13,7 @@ import {
 } from "@dictybase/ui-dsc"
 import { pipe } from "fp-ts/function"
 import { toArray } from "fp-ts/Record"
+import { map } from "fp-ts/Array"
 import { useSetAtom, useAtom, useAtomValue } from "jotai"
 import { BackButton } from "./BackButton"
 import {
