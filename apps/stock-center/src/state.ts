@@ -173,6 +173,7 @@ export {
   maxItemsAtom,
   isFullAtom,
   shippingFormAtom,
+  initialPaymentValues,
   paymentFormAtom,
   orderAtom,
   orderStepAtom,
