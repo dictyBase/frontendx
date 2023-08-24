@@ -40,7 +40,8 @@ const PaymentPage = () => {
   const [paymentFormData, setPaymentFormData] = useAtom(paymentFormAtom)
   const setOrderStep = useSetAtom(orderStepAtom)
   const methods = useForm({
-    mode: "onTouched",
+    mode: "onSubmit",
+    reValidateMode: "onBlur",
     resolver: yupResolver(validationSchema),
     defaultValues: paymentFormData,
     shouldFocusError: false,
