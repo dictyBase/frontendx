@@ -6,7 +6,11 @@ vi.mock("react-hook-form", () => {
   const originalModule = vi.importActual("react-hook-form")
 
   return {
-    useFormContext: () => ({ register: vi.fn(), formState: { errors: {} } }),
+    useFormContext: () => ({
+      register: vi.fn(),
+      formState: { errors: {} },
+      getValues: () => {},
+    }),
     ...originalModule,
   }
 })
