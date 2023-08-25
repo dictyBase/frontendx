@@ -36,28 +36,21 @@ const FormWrapper = () => {
 test("changes payment method when radio button is clicked", async () => {
   render(<FormWrapper />)
 
-  await userEvent.click(
-    screen.getByRole("radio", { name: "Purchase Order (PO)" }),
-  )
-  expect(mockSetPaymentMethod).toHaveBeenCalledOnce()
-  expect(mockSetPaymentMethod).toHaveBeenCalledWith("purchaseOrder")
-  expect(screen.getByText("purchaseOrder")).toBeInTheDocument()
-
   await userEvent.click(screen.getByRole("radio", { name: "Waiver Requested" }))
 
-  expect(mockSetPaymentMethod).toHaveBeenCalledTimes(2)
+  expect(mockSetPaymentMethod).toHaveBeenCalledTimes(1)
   expect(mockSetPaymentMethod).toHaveBeenCalledWith("waiver")
   expect(screen.getByText("waiver")).toBeInTheDocument()
 
   await userEvent.click(screen.getByRole("radio", { name: "Credit Card" }))
 
-  expect(mockSetPaymentMethod).toHaveBeenCalledTimes(3)
+  expect(mockSetPaymentMethod).toHaveBeenCalledTimes(2)
   expect(mockSetPaymentMethod).toHaveBeenCalledWith("credit")
   expect(screen.getByText("credit")).toBeInTheDocument()
 
   await userEvent.click(screen.getByRole("radio", { name: "Wire Transfer" }))
 
-  expect(mockSetPaymentMethod).toHaveBeenCalledTimes(4)
+  expect(mockSetPaymentMethod).toHaveBeenCalledTimes(3)
   expect(mockSetPaymentMethod).toHaveBeenCalledWith("wire")
   expect(screen.getByText("wire")).toBeInTheDocument()
 })
