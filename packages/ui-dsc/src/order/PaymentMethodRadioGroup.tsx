@@ -41,10 +41,15 @@ type PaymentMethodRadioGroupProperties = {
 const PaymentMethodRadioGroup = ({
   setPaymentMethod,
 }: PaymentMethodRadioGroupProperties) => {
-  const { register } = useFormContext()
+  const { register, setValue, resetField } = useFormContext()
   const onChange = ({
     currentTarget: { value },
   }: ChangeEvent<HTMLInputElement>) => {
+    if (value === PaymentMethods.PURCHASE_ORDER_NUMBER) {
+      resetField("purchaseOrderNum")
+    } else {
+      setValue("purchaseOrderNum", "N/A", { shouldDirty: true })
+    }
     setPaymentMethod(value as PaymentMethods)
   }
   return (
