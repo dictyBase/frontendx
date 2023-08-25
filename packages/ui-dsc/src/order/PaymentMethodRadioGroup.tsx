@@ -48,7 +48,11 @@ const PaymentMethodRadioGroup = ({
     setPaymentMethod(value as PaymentMethods)
   }
   return (
-    <RadioGroup aria-label="Payment Method" onChange={onChange} row>
+    <RadioGroup
+      aria-label="Payment Method"
+      defaultValue={PaymentMethods.PURCHASE_ORDER_NUMBER}
+      onChange={onChange}
+      row>
       {radioValues.map((item) => (
         <FormControlLabel
           {...register("paymentMethod")}
