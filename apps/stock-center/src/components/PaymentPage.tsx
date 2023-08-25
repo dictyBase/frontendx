@@ -10,11 +10,12 @@ import {
   renderPaymentAddressFields,
   PaymentInfoBox,
   ContinueButton,
+  convertToPayerField,
 } from "@dictybase/ui-dsc"
 import { pipe } from "fp-ts/function"
-import { toArray } from "fp-ts/Record"
-import { map } from "fp-ts/Array"
-import { useSetAtom, useAtom, useAtomValue } from "jotai"
+import { toArray, deleteAt, fromEntries } from "fp-ts/Record"
+import { map as Amap } from "fp-ts/Array"
+import { useSetAtom, useAtomValue } from "jotai"
 import { BackButton } from "./BackButton"
 import {
   initialPaymentValues,
@@ -39,26 +40,46 @@ const validationSchema = object().shape({
     .max(5, "Must be exactly 5 digits"),
   payerCountry: string().required("* Country is required"),
   payerPhone: string().required("* Phone number is required"),
-  paymentMethod: string().oneOf(["purchaseOrder", "waiver", "credit", "wire"]),
+  paymentMethod: string()
+    .required()
+    .oneOf(["purchaseOrder", "waiver", "credit", "wire"]),
   purchaseOrderNum: string().required("* Payment method is required"),
 })
 type PaymentFormData = InferType<typeof validationSchema>
 
-const convertShippingAddressToPaymentAddressValues = (
-  shippingFormData: ShippingFormData,
-) => pipe(shippingFormData, toArray)
+const getFilledPaymentFormData = (shippingFormData: ShippingFormData) => {
+  const paymentAddress = pipe(
+    shippingFormData,
+    deleteAt("shippingAccount"),
+    deleteAt("shippingAccountNumber"),
+    deleteAt("additionalInformation"),
+    toArray,
+    Amap(([k, v]): [keyof Partial<ShippingFormData>, string] => [
+      convertToPayerField(k) as keyof ShippingFormData,
+      v,
+    ]),
+    fromEntries,
+  )
+  return { ...initialPaymentValues, ...paymentAddress }
+}
+
 /**
  * PaymentPage is the display component for when the user is entering
  * payment information.
  */
 const PaymentPage = () => {
   const [useShippingAddress, setUseShippingAddress] = useState(false)
-  const [paymentFormData, setPaymentFormData] = useAtom(paymentFormAtom)
+  const setPaymentFormData = useSetAtom(paymentFormAtom)
   const shippingFormData = useAtomValue(shippingFormAtom)
   const setOrderStep = useSetAtom(orderStepAtom)
+  const paymentAddressValues = useShippingAddress
+    ? getFilledPaymentFormData(shippingFormData)
+    : initialPaymentValues
+
   const methods = useForm({
     mode: "onSubmit",
     reValidateMode: "onBlur",
+    values: paymentAddressValues,
     resolver: yupResolver(validationSchema),
     resetOptions: {
       keepDirtyValues: true,
@@ -66,6 +87,7 @@ const PaymentPage = () => {
     },
   })
   const { handleSubmit } = methods
+
   const onSubmit = (data: PaymentFormData) => {
     setPaymentFormData((previousFormData) => ({ ...previousFormData, ...data }))
     setOrderStep((previousStep) => previousStep + 1)
