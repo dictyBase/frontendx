@@ -6,12 +6,12 @@ import { pipe } from "fp-ts/function"
 import { CartTotalRow } from "./cart/CartTotalRow"
 import { type Cart } from "./types"
 import { getCartTotal } from "./utils/getCartTotal"
+import { convertToPayerField } from "./utils/convertToPayerField"
 import { shippingAddressFields } from "./order/addressFields"
 import { CountryDropdown } from "./order/CountryDropdown"
 import { PanelWrapper } from "./order/PanelWrapper"
 import { StyledGridContainer } from "./order/StyledGridContainer"
 import { TextField } from "./order/TextField"
-import { capitalizeFirstCharacter } from "./utils/stringCapitalizations"
 
 const renderStrainTotal = ({ strainItems }: Cart) => (
   <CartTotalRow
@@ -117,13 +117,8 @@ const renderShippingAddressFields = () =>
     panelWrapper("Shipping Address"),
   )
 
-const appendPayer = (string: string) => `payer${string}`
-
-const convertAddressFieldName = (name: string) =>
-  pipe(name, capitalizeFirstCharacter, appendPayer)
-
 const getPayerField = ({ name, label }: { name: string; label: string }) => ({
-  name: convertAddressFieldName(name),
+  name: convertToPayerField(name),
   label,
 })
 
