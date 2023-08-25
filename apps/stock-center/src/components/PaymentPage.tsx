@@ -102,7 +102,9 @@ const PaymentPage = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControlLabel
           label="Use shipping address"
-          control={<Checkbox onChange={onChange} value={useShippingAddress} />}
+          control={
+            <Checkbox onChange={onChange} checked={useShippingAddress} />
+          }
         />
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
