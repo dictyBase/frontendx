@@ -30,7 +30,11 @@ const ShippingMethodRadioGroup = ({
   }
 
   return (
-    <RadioGroup aria-label="Shipping Account" name="shippingAccount" row>
+    <RadioGroup
+      aria-label="Shipping Account"
+      defaultValue={couriers[0]}
+      name="shippingAccount"
+      row>
       {couriers.map((item: string) => (
         <FormControlLabel
           key={item}
