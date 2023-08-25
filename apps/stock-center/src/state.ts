@@ -114,7 +114,7 @@ const initialOrder: OrderState = {
   cartTotal: "$0.00",
 }
 
-const initialShippingValues = {
+const initialShippingValues: ShippingFormData = {
   firstName: "",
   lastName: "",
   email: "",
@@ -132,7 +132,7 @@ const initialShippingValues = {
   additionalInformation: "",
 }
 
-const initialPaymentValues = {
+const initialPaymentValues: PaymentFormData = {
   payerFirstName: "",
   payerLastName: "",
   payerEmail: "",
