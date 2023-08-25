@@ -15,7 +15,7 @@ import {
 import { pipe } from "fp-ts/function"
 import { toArray, deleteAt, fromEntries } from "fp-ts/Record"
 import { map as Amap } from "fp-ts/Array"
-import { useSetAtom, useAtomValue } from "jotai"
+import { useAtom, useSetAtom, useAtomValue } from "jotai"
 import { BackButton } from "./BackButton"
 import {
   initialPaymentValues,
@@ -69,12 +69,12 @@ const getFilledPaymentFormData = (shippingFormData: ShippingFormData) => {
  */
 const PaymentPage = () => {
   const [useShippingAddress, setUseShippingAddress] = useState(false)
-  const setPaymentFormData = useSetAtom(paymentFormAtom)
+  const [paymentFormData, setPaymentFormData] = useAtom(paymentFormAtom)
   const shippingFormData = useAtomValue(shippingFormAtom)
   const setOrderStep = useSetAtom(orderStepAtom)
   const paymentAddressValues = useShippingAddress
     ? getFilledPaymentFormData(shippingFormData)
-    : initialPaymentValues
+    : paymentFormData
 
   const methods = useForm({
     mode: "onSubmit",
