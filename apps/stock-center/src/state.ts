@@ -127,7 +127,7 @@ const initialShippingValues: ShippingFormData = {
   zip: "",
   country: "",
   phone: "",
-  shippingAccount: "",
+  shippingAccount: "DHL",
   shippingAccountNumber: "",
   additionalInformation: "",
 }
@@ -145,7 +145,7 @@ const initialPaymentValues: PaymentFormData = {
   payerZip: "",
   payerCountry: "",
   payerPhone: "",
-  paymentMethod: "",
+  paymentMethod: "purchaseOrder",
   purchaseOrderNum: "",
 }
 
