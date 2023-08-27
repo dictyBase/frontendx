@@ -26,6 +26,7 @@ const validationSchema = object().shape({
     .max(5, "Must be exactly 5 digits"),
   country: string().required("* Country is required"),
   phone: string().required("* Phone number is required"),
+  shippingAccount: string().required("* Shipping account is required"),
   shippingAccountNumber: string().required(
     "* Shipping account number is required",
   ),
@@ -45,7 +46,7 @@ const ShippingPage = () => {
     mode: "onSubmit",
     reValidateMode: "onBlur",
     resolver: yupResolver(validationSchema),
-    defaultValues: shippingFormData,
+    values: shippingFormData,
   })
 
   const { handleSubmit } = methods
