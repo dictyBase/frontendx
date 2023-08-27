@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { makeStyles } from "@material-ui/core/styles"
 import Button from "@material-ui/core/Button"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -30,35 +31,35 @@ const getIDs = (items: Array<StrainCartItem>) =>
   items.map((item: StrainCartItem) => item.id)
 
 const getConsumerVariables = (formData: ShippingFormData) => ({
-  firstName: formData.firstName,
-  lastName: formData.lastName,
+  first_name: formData.firstName,
+  last_name: formData.lastName,
   email: formData.email,
   organization: formData.organization,
-  groupName: formData.lab,
-  firstAddress: formData.address1,
-  secondAddress: formData.address2,
+  group_name: formData.lab,
+  first_address: formData.address1,
+  second_address: formData.address2,
   city: formData.city,
   state: formData.state,
   zipcode: formData.zip,
   country: formData.country,
   phone: formData.phone,
-  isActive: true,
+  is_active: true,
 })
 
 const getPayerVariables = (formData: PaymentFormData) => ({
-  firstName: formData.payerFirstName,
-  lastName: formData.payerLastName,
+  first_name: formData.payerFirstName,
+  last_name: formData.payerLastName,
   email: formData.payerEmail,
   organization: formData.payerOrganization,
-  groupName: formData.payerLab,
-  firstAddress: formData.payerAddress1,
-  secondAddress: formData.payerAddress2,
+  group_name: formData.payerLab,
+  first_address: formData.payerAddress1,
+  second_address: formData.payerAddress2,
   city: formData.payerCity,
   state: formData.payerState,
   zipcode: formData.payerZip,
   country: formData.payerCountry,
   phone: formData.payerPhone,
-  isActive: true,
+  is_active: true,
 })
 
 /**
@@ -99,10 +100,10 @@ const getOrderVariables = (
   variables: {
     input: {
       courier: formData.shippingAccount,
-      courierAccount: formData.shippingAccountNumber,
+      courier_account: formData.shippingAccountNumber,
       comments: formData.additionalInformation,
       payment: formData.paymentMethod,
-      purchaseOrderNum: formData.purchaseOrderNum,
+      purchase_order_num: formData.purchaseOrderNum,
       status: StatusEnum.InPreparation,
       consumer: formData.email,
       payer: formData.payerEmail,
