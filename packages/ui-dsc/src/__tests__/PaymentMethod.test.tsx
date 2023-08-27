@@ -9,6 +9,7 @@ vi.mock("react-hook-form", () => {
   return {
     ...originalModule,
     useFormContext: () => ({
+      getValues: () => "purchaseOrder",
       setValue: () => {},
       resetField: () => {},
       register: () => {},
