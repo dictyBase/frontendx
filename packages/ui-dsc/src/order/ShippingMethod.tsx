@@ -2,6 +2,7 @@ import { match } from "ts-pattern"
 import { useState } from "react"
 import Typography from "@material-ui/core/Typography"
 import Box from "@material-ui/core/Box"
+import { useFormContext } from "react-hook-form"
 import { ShippingMethodPrepaidNotice } from "./ShippingMethodPrepaidNotice"
 import { ShippingMethodRadioGroup } from "./ShippingMethodRadioGroup"
 import { PanelWrapper } from "./PanelWrapper"
@@ -19,8 +20,10 @@ const renderShippingNumberOrPrepaidNotice = (isPrepaid: boolean) =>
  * information.
  */
 const ShippingMethod = () => {
-  const [isPrepaid, setIsPrepaid] = useState(false)
-
+  const { getValues } = useFormContext()
+  const [isPrepaid, setIsPrepaid] = useState(
+    getValues("shippingAccount") === "prepaid",
+  )
   return (
     <PanelWrapper title="Shipping Method">
       <Box mt={1} mb={2} p={2}>
