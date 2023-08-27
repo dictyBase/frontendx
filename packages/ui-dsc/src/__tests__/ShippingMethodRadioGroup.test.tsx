@@ -14,6 +14,8 @@ vi.mock("react-hook-form", () => {
     useFormContext: () => ({
       resetField: mockResetFieldValue,
       setValue: mockSetValue,
+      getValues: () => "DHL",
+      register: () => {},
     }),
   }
 })
