@@ -46,6 +46,7 @@ const ShippingMethodRadioGroup = ({
         />
       ))}
       <FormControlLabel
+        {...register("shippingAccount")}
         value="prepaid"
         control={<Radio />}
         label="Send prepaid shipping label"
