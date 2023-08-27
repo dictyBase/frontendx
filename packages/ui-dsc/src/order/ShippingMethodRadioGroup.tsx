@@ -17,7 +17,7 @@ type ShippingMethodRadioGroupProperties = {
 const ShippingMethodRadioGroup = ({
   setIsPrepaid,
 }: ShippingMethodRadioGroupProperties) => {
-  const { register, resetField, setValue } = useFormContext()
+  const { register, resetField, setValue, getValues } = useFormContext()
 
   const handleShipAccountChange = () => {
     setIsPrepaid(false)
@@ -32,7 +32,7 @@ const ShippingMethodRadioGroup = ({
   return (
     <RadioGroup
       aria-label="Shipping Account"
-      defaultValue={couriers[0]}
+      defaultValue={getValues("shippingAccount")}
       name="shippingAccount"
       row>
       {couriers.map((item: string) => (
