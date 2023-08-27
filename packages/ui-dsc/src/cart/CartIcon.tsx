@@ -39,6 +39,7 @@ const CartIcon = ({ items, isFull }: CartIconProperties) => {
         <Badge
           classes={{ colorPrimary: classes.colorPrimary }}
           badgeContent={items.length}
+          overlap="rectangular"
           showZero
           color="primary">
           <FontAwesomeIcon icon={faShoppingCart} size="2x" />
