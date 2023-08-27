@@ -2,6 +2,7 @@ import { match } from "ts-pattern"
 import { useState } from "react"
 import Typography from "@material-ui/core/Typography"
 import Box from "@material-ui/core/Box"
+import { useFormContext } from "react-hook-form"
 import { PanelWrapper } from "./PanelWrapper"
 import { TextField } from "./TextField"
 import { WaiverRequestInformation } from "./WaiverRequestInformation"
@@ -31,9 +32,8 @@ const renderPaymentMethod = (paymentMethod: PaymentMethods) =>
  * information.
  */
 const PaymentMethod = () => {
-  const [paymentMethod, setPaymentMethod] = useState(
-    PaymentMethods.PURCHASE_ORDER_NUMBER,
-  )
+  const { getValues } = useFormContext()
+  const [paymentMethod, setPaymentMethod] = useState(getValues("paymentMethod"))
 
   return (
     <PanelWrapper title="Payment Method">
