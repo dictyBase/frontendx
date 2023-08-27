@@ -41,7 +41,7 @@ type PaymentMethodRadioGroupProperties = {
 const PaymentMethodRadioGroup = ({
   setPaymentMethod,
 }: PaymentMethodRadioGroupProperties) => {
-  const { register, setValue, resetField } = useFormContext()
+  const { register, getValues, setValue, resetField } = useFormContext()
   const onChange = ({
     currentTarget: { value },
   }: ChangeEvent<HTMLInputElement>) => {
@@ -55,7 +55,7 @@ const PaymentMethodRadioGroup = ({
   return (
     <RadioGroup
       aria-label="Payment Method"
-      defaultValue={PaymentMethods.PURCHASE_ORDER_NUMBER}
+      defaultValue={getValues("paymentMethod")}
       onChange={onChange}
       row>
       {radioValues.map((item) => (
