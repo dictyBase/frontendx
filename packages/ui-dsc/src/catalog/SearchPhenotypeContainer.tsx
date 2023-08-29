@@ -1,15 +1,13 @@
 import React from "react"
 import { Helmet } from "react-helmet"
 import { useParams } from "react-router-dom"
-import { useQuery, ApolloQueryResult } from "@apollo/client"
 import { makeStyles } from "@material-ui/core/styles"
 import Grid from "@material-ui/core/Grid"
-import { ListStrainsWithPhenotypeDocument } from "dicty-graphql-schema"
+import { useListStrainsWithPhenotypeQuery } from "dicty-graphql-schema"
 import { GraphQLErrorPage } from "frontpage-components"
 import { DetailsLoader } from "./DetailsLoader"
 import { SearchResultsHeader } from "./SearchResultsHeader"
 import { SearchPhenotypeList } from "./SearchPhenotypeList"
-import { ListStrainsWithAnnotation } from "common/graphql/pagination"
 
 const useStyles = makeStyles({
   container: {
@@ -28,52 +26,44 @@ const useStyles = makeStyles({
 // i.e. "abolished+protein+phosphorylation" = "abolished protein phosphorylation"
 const cleanQuery = (phenotype: string) => phenotype.split("+").join(" ")
 
-type ListData = {
-  /** Object returned from fetching list data */
-  listStrainsWithAnnotation: ListStrainsWithAnnotation
-}
-
 /**
  * Custom hook to handle all fetching/refetching logic
  * */
 const useListStrainsWithPhenotype = (phenotype: string) => {
   const [hasMore, setHasMore] = React.useState(true)
   const [isLoadingMore, setIsLoadingMore] = React.useState(false)
-  const [prevCursor, setPrevCursor] = React.useState(null)
-  const { loading, error, data, fetchMore } = useQuery(
-    ListStrainsWithPhenotypeDocument,
-    {
-      variables: {
-        cursor: 0,
-        limit: 50,
-        type: "phenotype",
-        annotation: phenotype,
-      },
-      errorPolicy: "all",
+  const [previousCursor, setPreviousCursor] = React.useState(0)
+  const { loading, error, data, fetchMore } = useListStrainsWithPhenotypeQuery({
+    variables: {
+      cursor: 0,
+      limit: 50,
+      type: "phenotype",
+      annotation: phenotype,
     },
-  )
+    errorPolicy: "all",
+  })
 
   const loadMoreItems = async () => {
-    const newCursor = data.listStrainsWithAnnotation.nextCursor
+    const newCursor = data?.listStrainsWithAnnotation?.nextCursor ?? 0
     // need to check for same cursor to prevent extra fetching
     // https://github.com/apollographql/apollo-client/issues/5901
-    if (newCursor === prevCursor || newCursor === 0) {
+    if (newCursor === previousCursor || newCursor === 0) {
       return
     }
-    setPrevCursor(newCursor)
+    setPreviousCursor(newCursor)
     setIsLoadingMore(true)
-    const res: ApolloQueryResult<ListData> = await fetchMore({
+    const result = await fetchMore({
       variables: {
-        cursor: data.listStrainsWithAnnotation.nextCursor,
+        cursor: newCursor,
         limit: 50,
         type: "phenotype",
         annotation: phenotype,
       },
     })
-    if (res.data) {
+    if (result.data) {
       setIsLoadingMore(false)
     }
-    if (res.data.listStrainsWithAnnotation.nextCursor === 0) {
+    if (result.data?.listStrainsWithAnnotation?.nextCursor === 0) {
       setHasMore(false)
     }
   }
@@ -95,13 +85,13 @@ const useListStrainsWithPhenotype = (phenotype: string) => {
 const SearchPhenotypeContainer = () => {
   const classes = useStyles()
   const { name } = useParams()
-  const phenotype = cleanQuery(name ? name : "")
+  const phenotype = cleanQuery(name ?? "")
   const { loading, error, data, loadMoreItems, hasMore, isLoadingMore } =
     useListStrainsWithPhenotype(phenotype)
 
   if (loading) return <DetailsLoader />
 
-  if (error && !data) {
+  if (error) {
     return <GraphQLErrorPage error={error} />
   }
 
@@ -125,8 +115,8 @@ const SearchPhenotypeContainer = () => {
             loadMore={loadMoreItems}
             hasMore={hasMore}
             isLoadingMore={isLoadingMore}
-            data={data.listStrainsWithAnnotation.strains}
-            totalCount={data.listStrainsWithAnnotation.totalCount}
+            data={data?.listStrainsWithAnnotation?.strains}
+            totalCount={data.listStrainsWithAnnotation?.totalCount}
           />
         </Grid>
       </Grid>
