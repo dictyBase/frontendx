@@ -3,7 +3,11 @@ import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
 import ListItem from "@material-ui/core/ListItem"
 import { makeStyles } from "@material-ui/core/styles"
-import { Strain, Gene, Publication } from "dicty-graphql-schema"
+import {
+  ListStrainsWithPhenotypeQuery,
+  Gene,
+  Publication,
+} from "dicty-graphql-schema"
 import { GenesDisplay } from "./GenesDisplay"
 import { PublicationDisplay } from "./PublicationDisplay"
 import { characterConverter } from "../utils/characterConverter"
@@ -22,7 +26,9 @@ const useStyles = makeStyles({
 })
 
 type SearchPhenotypeListItemProperties = {
-  strain: Strain
+  strain: NonNullable<
+    ListStrainsWithPhenotypeQuery["listStrainsWithAnnotation"]
+  >["strains"][number]
 }
 
 const SearchPhenotypeListItem = ({
