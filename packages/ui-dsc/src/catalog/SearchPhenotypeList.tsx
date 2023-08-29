@@ -4,7 +4,7 @@ import Paper from "@material-ui/core/Paper"
 import List from "@material-ui/core/List"
 import CircularProgress from "@material-ui/core/CircularProgress"
 import { useIntersectionObserver } from "dicty-hooks"
-import { Strain } from "dicty-graphql-schema"
+import { ListStrainsWithPhenotypeQuery } from "dicty-graphql-schema"
 import { SearchPhenotypeListHeader } from "./SearchPhenotypeListHeader"
 import { SearchPhenotypeListItem } from "./SearchPhenotypeListItem"
 
@@ -28,7 +28,9 @@ const useStyles = makeStyles(({ palette }) => ({
 
 type SearchPhenotypeListProperties = {
   /** Array of strains with given phenotype */
-  data: Array<Strain>
+  data: NonNullable<
+    ListStrainsWithPhenotypeQuery["listStrainsWithAnnotation"]
+  >["strains"]
   /** Function to load more data */
   loadMore: () => void
   /** Indicator for having more content */
@@ -64,7 +66,7 @@ const SearchPhenotypeList = ({
       <Paper>
         <SearchPhenotypeListHeader />
         <List className={classes.list}>
-          {data.map((item: Strain) => (
+          {data.map((item) => (
             <SearchPhenotypeListItem key={item.id} strain={item} />
           ))}
           <div ref={ref} />
