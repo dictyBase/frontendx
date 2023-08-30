@@ -89,10 +89,12 @@ const SearchPhenotypeContainer = () => {
   const phenotype = cleanQuery(name ?? "")
   const { loading, error, data, loadMoreItems, hasMore, isLoadingMore } =
     useListStrainsWithPhenotype(phenotype)
-
+  console.log(loading, error, data)
   return match({ loading, e: error, d: data })
     .with({ loading: true }, () => <DetailsLoader />)
-    .with({ e: P.not(undefined) }, ({ e }) => <GraphQLErrorPage error={e} />)
+    .with({ e: P.not(undefined), d: undefined }, ({ e }) => (
+      <GraphQLErrorPage error={e} />
+    ))
     .with(
       {
         d: {
@@ -133,6 +135,7 @@ const SearchPhenotypeContainer = () => {
         </>
       ),
     )
+    .otherwise(() => <></>)
 }
 
 export { SearchPhenotypeContainer }
