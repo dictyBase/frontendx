@@ -1,40 +1,44 @@
+import { vi, describe, test, expect, type Mock } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { InMemoryCache } from "@apollo/client"
 import { MockedProvider } from "@apollo/client/testing"
 import { BrowserRouter } from "react-router-dom"
-import SearchPhenotypeContainer from "../catalog/SearchPhenotypeContainer"
 import { ListStrainsWithPhenotypeDocument } from "dicty-graphql-schema"
-import { first50, second50, lastItems } from "./mockData"
-import { listStrainsWithAnnotationPagination } from "common/graphql/pagination"
+import { listStrainsWithAnnotationPagination } from "@dictybase/hook-dsc"
+import { SearchPhenotypeContainer } from "../catalog/SearchPhenotypeContainer"
+import { first50, second50, lastItems } from "../mocks/mockSearchData"
 import { MockAuthProvider } from "common/utils/testing"
 
-const mockParams = "abolished+protein+phosphorylation"
+const mockParameters = "abolished+protein+phosphorylation"
+const annotationString = "abolished protein phosphorylation"
 
 // https://stackoverflow.com/questions/58117890/how-to-test-components-using-new-react-router-hooks
-jest.mock("react-router-dom", () => {
-  const originalModule = jest.requireActual("react-router-dom")
+vi.mock("react-router-dom", async () => {
+  const originalModule = await vi.importActual<
+    typeof import("react-router-dom")
+  >("react-router-dom")
   return {
     ...originalModule,
     useParams: () => ({
-      name: mockParams,
+      name: mockParameters,
     }),
   }
 })
 
 describe("features/Stocks/SearchResults/PhenotypeContainer", () => {
   const window = global as any
-  let mockObserve: jest.Mock
-  let mockDisconnect: jest.Mock
+  let mockObserve: Mock
+  let mockDisconnect: Mock
   beforeEach(() => {
-    mockObserve = jest.fn()
-    mockDisconnect = jest.fn()
+    mockObserve = vi.fn()
+    mockDisconnect = vi.fn()
   })
   beforeAll(() => {
-    window.IntersectionObserver = jest.fn((callback, options) => ({
+    window.IntersectionObserver = vi.fn((callback, options) => ({
       observe: mockObserve,
       disconnect: mockDisconnect,
     }))
-    jest.setTimeout(30000)
+    vi.setTimeout(30_000)
   })
 
   describe("initial render with small data set", () => {
@@ -46,7 +50,7 @@ describe("features/Stocks/SearchResults/PhenotypeContainer", () => {
             cursor: 0,
             limit: 50,
             type: "phenotype",
-            annotation: "abolished protein phosphorylation",
+            annotation: annotationString,
           },
         },
         result: {
@@ -105,14 +109,14 @@ describe("features/Stocks/SearchResults/PhenotypeContainer", () => {
             cursor: 0,
             limit: 50,
             type: "phenotype",
-            annotation: "abolished protein phosphorylation",
+            annotation: annotationString,
           },
         },
         result: {
           data: {
             listStrainsWithAnnotation: {
               totalCount: 50,
-              nextCursor: 123456,
+              nextCursor: 123_456,
               strains: first50,
             },
           },
@@ -122,17 +126,17 @@ describe("features/Stocks/SearchResults/PhenotypeContainer", () => {
         request: {
           query: ListStrainsWithPhenotypeDocument,
           variables: {
-            cursor: 123456,
+            cursor: 123_456,
             limit: 50,
             type: "phenotype",
-            annotation: "abolished protein phosphorylation",
+            annotation: annotationString,
           },
         },
         result: {
           data: {
             listStrainsWithAnnotation: {
               totalCount: 50,
-              nextCursor: 987654,
+              nextCursor: 987_654,
               strains: second50,
             },
           },
@@ -142,10 +146,10 @@ describe("features/Stocks/SearchResults/PhenotypeContainer", () => {
         request: {
           query: ListStrainsWithPhenotypeDocument,
           variables: {
-            cursor: 987654,
+            cursor: 987_654,
             limit: 50,
             type: "phenotype",
-            annotation: "abolished protein phosphorylation",
+            annotation: annotationString,
           },
         },
         result: {
@@ -172,12 +176,12 @@ describe("features/Stocks/SearchResults/PhenotypeContainer", () => {
       expect(screen.getByTestId("skeleton-loader")).toBeInTheDocument()
 
       // wait for data to load...
-      const firstRow = await screen.findByText(first50[0].label)
+      const firstRow = await screen.findByText((first50[0] as any).label)
       expect(firstRow).toBeInTheDocument()
-      const lastRow = await screen.findByText(first50[49].label)
+      const lastRow = await screen.findByText((first50[49] as any).label)
       expect(lastRow).toBeInTheDocument()
 
-      const row51 = screen.queryByText(second50[0].label)
+      const row51 = screen.queryByText((second50[0] as any).label)
       expect(row51).not.toBeInTheDocument()
 
       const listItems = await screen.findAllByRole("listitem")
@@ -224,7 +228,7 @@ describe("features/Stocks/SearchResults/PhenotypeContainer", () => {
             cursor: 0,
             limit: 50,
             type: "phenotype",
-            annotation: "abolished protein phosphorylation",
+            annotation: annotationString,
           },
         },
         result: {
@@ -254,8 +258,8 @@ describe("features/Stocks/SearchResults/PhenotypeContainer", () => {
       expect(screen.getByTestId("skeleton-loader")).toBeInTheDocument()
 
       // wait for error message to load...
-      const errorMsg = await screen.findByText(/Page Not Found/)
-      expect(errorMsg).toBeInTheDocument()
+      const errorMessage = await screen.findByText(/Page Not Found/)
+      expect(errorMessage).toBeInTheDocument()
     })
   })
 })
