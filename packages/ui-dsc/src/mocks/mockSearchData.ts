@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const first50 = [
   {
     id: "DBS0266721",
