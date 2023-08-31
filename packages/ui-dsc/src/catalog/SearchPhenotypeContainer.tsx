@@ -90,49 +90,58 @@ const SearchPhenotypeContainer = () => {
   const { loading, error, data, loadMoreItems, hasMore, isLoadingMore } =
     useListStrainsWithPhenotype(phenotype)
 
-  return match({ loading, e: error, d: data })
-    .with({ loading: true }, () => <DetailsLoader />)
-    .with({ e: P.not(undefined) }, ({ e }) => <GraphQLErrorPage error={e} />)
-    .with(
-      {
-        d: {
-          listStrainsWithAnnotation: {
-            totalCount: P.select("totalCount"),
-            strains: P.select("strains"),
+  return (
+    <>
+      {match({ loading, e: error, d: data })
+        .with({ loading: true }, () => <DetailsLoader />)
+        .with({ e: P.not(undefined) }, ({ e }) => (
+          <GraphQLErrorPage error={e} />
+        ))
+        .with(
+          {
+            d: {
+              listStrainsWithAnnotation: {
+                totalCount: P.select("totalCount"),
+                strains: P.select("strains"),
+              },
+            },
           },
-        },
-      },
-      ({ totalCount, strains }) => (
-        <>
-          <Helmet>
-            <title>
-              Phenotype Search Results for {phenotype} - Dicty Stock Center
-            </title>
-            <meta
-              name="description"
-              content={`Dicty Stock Center search results for strains with ${phenotype}`}
-            />
-          </Helmet>
-          <Grid container className={classes.container}>
-            <Grid item xs={12} className={classes.gridItem}>
-              <SearchResultsHeader
-                property="Phenotype"
-                description={phenotype}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <SearchPhenotypeList
-                loadMore={loadMoreItems}
-                hasMore={hasMore}
-                isLoadingMore={isLoadingMore}
-                data={strains}
-                totalCount={totalCount}
-              />
-            </Grid>
-          </Grid>
-        </>
-      ),
-    )
+          ({ totalCount, strains }) => (
+            <>
+              <Helmet>
+                <title>
+                  Phenotype Search Results for {phenotype} - Dicty Stock Center
+                </title>
+                <meta
+                  name="description"
+                  content={`Dicty Stock Center search results for strains with ${phenotype}`}
+                />
+              </Helmet>
+              <Grid container className={classes.container}>
+                <Grid item xs={12} className={classes.gridItem}>
+                  <SearchResultsHeader
+                    property="Phenotype"
+                    description={phenotype}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <SearchPhenotypeList
+                    loadMore={loadMoreItems}
+                    hasMore={hasMore}
+                    isLoadingMore={isLoadingMore}
+                    data={strains}
+                    totalCount={totalCount}
+                  />
+                </Grid>
+              </Grid>
+            </>
+          ),
+        )
+        .otherwise(() => (
+          <></>
+        ))}
+    </>
+  )
 }
 
 export { SearchPhenotypeContainer }
