@@ -1,4 +1,7 @@
-import { StrainListQuery } from "dicty-graphql-schema"
+import {
+  StrainListQuery,
+  ListStrainsWithPhenotypeQuery,
+} from "dicty-graphql-schema"
 import { Lens } from "monocle-ts"
 import { getMonoid } from "fp-ts/Array"
 import { left, right, match } from "fp-ts/Either"
@@ -8,6 +11,12 @@ type StrainList = Pick<StrainListQuery, "listStrains">["listStrains"]
 type NotEmptyStrainList = NonNullable<StrainList>
 type StrainListPair = [StrainList, NotEmptyStrainList]
 type Strains = Pick<NotEmptyStrainList, "strains">["strains"][number]
+
+type ListStrainsWithAnnotation = Pick<
+  ListStrainsWithPhenotypeQuery,
+  "listStrainsWithAnnotation"
+>["listStrainsWithAnnotation"]
+type NotEmptyListStrainsWithAnnotation = NonNullable<ListStrainsWithAnnotation>
 
 const whichStrains = ([existS, inS]: StrainListPair) =>
   existS ? right([existS, inS]) : left(inS)
@@ -34,4 +43,31 @@ const listStrainsPagination = () => ({
   },
 })
 
-export { listStrainsPagination }
+const listStrainsWithAnnotationPagination = () => ({
+  keyArgs: ["type", "annotation"],
+  merge(
+    existing: NotEmptyListStrainsWithAnnotation,
+    incoming: NotEmptyListStrainsWithAnnotation,
+  ) {
+    let strains: NotEmptyListStrainsWithAnnotation["strains"] = []
+    let totalCount: NotEmptyListStrainsWithAnnotation["totalCount"] = 0
+    if (existing) {
+      strains = [...strains, ...existing.strains]
+      totalCount = existing.totalCount
+    }
+    if (incoming) {
+      strains = [...strains, ...incoming.strains]
+      totalCount += incoming.totalCount
+    }
+    return {
+      ...incoming,
+      strains,
+      totalCount,
+    }
+  },
+  read(existing: NotEmptyListStrainsWithAnnotation) {
+    return existing
+  },
+})
+
+export { listStrainsPagination, listStrainsWithAnnotationPagination }
