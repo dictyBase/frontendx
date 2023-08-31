@@ -2,6 +2,7 @@ import { makeStyles, Theme } from "@material-ui/core/styles"
 import { blue } from "@material-ui/core/colors"
 import Button from "@material-ui/core/Button"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faExternalLink } from "@fortawesome/free-solid-svg-icons"
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -55,7 +56,7 @@ const LinkTag = ({ item, route }: LinkTagProperties) => {
       classes={{ root: classes.root, label: classes.label }}>
       {item}
       <FontAwesomeIcon
-        icon="external-link-alt"
+        icon={faExternalLink}
         className={classes.icon}
         size="sm"
       />
