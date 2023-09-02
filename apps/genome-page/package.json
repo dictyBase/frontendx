@@ -91,7 +91,7 @@
     "eslint-plugin-prettier": "^5.0.0",
     "husky": "8",
     "lint-staged": "^13.1.2",
-    "msw": "^1.2.4",
+    "msw": "^1.2.5",
     "prettier": "^3.0.3",
     "react-docgen-typescript": "^2.2.1",
     "react-styleguidist": "^13.1.1",
