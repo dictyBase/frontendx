@@ -1,7 +1,7 @@
-import { vi, describe, test, expect, type Mock } from "vitest"
+import { vi, describe, test, expect, beforeAll, beforeEach } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { InMemoryCache } from "@apollo/client"
-import { MockedProvider } from "@apollo/client/testing"
+import { MockedProvider, MockedResponse } from "@apollo/client/testing"
 import { BrowserRouter } from "react-router-dom"
 import {
   ListStrainsWithPhenotypeDocument,
@@ -31,30 +31,20 @@ vi.mock("react-router-dom", async () => {
     }),
   }
 })
-
-window.IntersectionObserver = vi.fn(() => {
-  console.log("IntersectionObserver mocked")
-  return {
-    disconnect: vi.fn(),
-    observe: vi.fn(),
-  }
+const skeletonLoaderString = "skeleton-loader"
+const IntersectionObserverMock = vi.fn()
+IntersectionObserverMock.prototype.observe = vi.fn()
+IntersectionObserverMock.prototype.disconnect = vi.fn()
+beforeAll(() => {
+  IntersectionObserverMock.mockImplementation((callback) => {
+    callback([{ isIntersecting: false }])
+  })
+})
+beforeEach(() => {
+  vi.stubGlobal("IntersectionObserver", IntersectionObserverMock)
 })
 
 describe("features/Stocks/SearchResults/PhenotypeContainer", () => {
-  beforeAll(() => {
-    vi.useFakeTimers()
-    //   const IntersectionObserverMock = vi.fn()
-    //   IntersectionObserverMock.prototype.constructor = vi.fn(
-    //     (callback, options) => {
-    //       console.log("SOMETHING IS RUNNING")
-    //       callback([{ isIntersecting: true }])
-    //     },
-    //   )
-    //   IntersectionObserverMock.prototype.observe = vi.fn()
-    //   IntersectionObserverMock.prototype.disconnect = vi.fn()
-    //   vi.stubGlobal("IntersectionObserver", IntersectionObserverMock)
-  })
-
   describe("initial render with small data set", () => {
     const mocks = [
       {
@@ -87,7 +77,7 @@ describe("features/Stocks/SearchResults/PhenotypeContainer", () => {
         </MockedProvider>,
       )
       // displays loading skeleton first
-      expect(screen.getByTestId("skeleton-loader")).toBeInTheDocument()
+      expect(screen.getByTestId(skeletonLoaderString)).toBeInTheDocument()
 
       // wait for data to load...
       const firstRow = await screen.findByText(
@@ -193,7 +183,7 @@ describe("features/Stocks/SearchResults/PhenotypeContainer", () => {
       )
 
       // displays loading skeleton first
-      expect(screen.getByTestId("skeleton-loader")).toBeInTheDocument()
+      expect(screen.getByTestId(skeletonLoaderString)).toBeInTheDocument()
 
       // wait for data to load...
       const firstRow = await screen.findByText((first50[0] as any).label)
@@ -211,14 +201,10 @@ describe("features/Stocks/SearchResults/PhenotypeContainer", () => {
       expect(screen.getByText(/Displaying 50 results/)).toBeInTheDocument()
     })
 
-    test.only("should render next 50 results when intersection observer is visible", async () => {
-      // window.IntersectionObserver = vi.fn((callback, options) => {
-      //   callback([{ isIntersecting: true }])
-      //   return {
-      //     observe: mockObserve,
-      //     disconnect: mockDisconnect,
-      //   }
-      // })
+    test("should render next 50 results when intersection observer is visible", async () => {
+      IntersectionObserverMock.mockImplementation((callback) => {
+        callback([{ isIntersecting: true }])
+      })
       render(
         <MockedProvider mocks={mocks} addTypename cache={cache}>
           <BrowserRouter>
@@ -226,7 +212,6 @@ describe("features/Stocks/SearchResults/PhenotypeContainer", () => {
           </BrowserRouter>
         </MockedProvider>,
       )
-
       // next 50 results should be included since isIntersecting is true
       const firstRowSecondSet = await screen.findByText(
         (second50[0] as StrainWithAnnotation).label,
@@ -243,47 +228,50 @@ describe("features/Stocks/SearchResults/PhenotypeContainer", () => {
     })
   })
 
-  //   describe("error handling", () => {
-  //     const mocks = [
-  //       {
-  //         request: {
-  //           query: ListStrainsWithPhenotypeDocument,
-  //           variables: {
-  //             cursor: 0,
-  //             limit: 50,
-  //             type: "phenotype",
-  //             annotation: annotationString,
-  //           },
-  //         },
-  //         result: {
-  //           errors: [
-  //             {
-  //               message: "Page Not Found",
-  //               path: [],
-  //               extensions: { code: "NotFound" },
-  //               locations: undefined,
-  //               nodes: undefined,
-  //               source: undefined,
-  //               positions: undefined,
-  //               originalError: undefined,
-  //               name: "",
-  //             },
-  //           ],
-  //         },
-  //       },
-  //     ]
-  //     test("displays error message", async () => {
-  //       render(
-  //         <MockAuthProvider mocks={mocks}>
-  //           <SearchPhenotypeContainer />
-  //         </MockAuthProvider>,
-  //       )
-  //       // displays loading skeleton first
-  //       expect(screen.getByTestId("skeleton-loader")).toBeInTheDocument()
+  describe("error handling", () => {
+    const mocks = [
+      {
+        request: {
+          query: ListStrainsWithPhenotypeDocument,
+          variables: {
+            cursor: 0,
+            limit: 50,
+            type: "phenotype",
+            annotation: annotationString,
+          },
+        },
+        result: {
+          errors: [
+            {
+              message: "Page Not Found",
+              path: [],
+              extensions: { code: "NotFound" },
+              locations: undefined,
+              nodes: undefined,
+              source: undefined,
+              positions: undefined,
+              originalError: undefined,
+              name: "",
+            },
+          ],
+        },
+      },
+    ]
+    test("displays error message", async () => {
+      render(
+        <MockedProvider
+          mocks={mocks as unknown as ReadonlyArray<MockedResponse>}>
+          <BrowserRouter>
+            <SearchPhenotypeContainer />
+          </BrowserRouter>
+        </MockedProvider>,
+      )
+      // displays loading skeleton first
+      expect(screen.getByTestId(skeletonLoaderString)).toBeInTheDocument()
 
-  //       // wait for error message to load...
-  //       const errorMessage = await screen.findByText(/Page Not Found/)
-  //       expect(errorMessage).toBeInTheDocument()
-  //     })
-  //   })
+      // wait for error message to load...
+      const errorMessage = await screen.findByText(/Page Not Found/)
+      expect(errorMessage).toBeInTheDocument()
+    })
+  })
 })
