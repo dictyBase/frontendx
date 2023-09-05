@@ -18,6 +18,7 @@ type StrainWithAnnotation = NonNullable<
 
 const mockParameters = "abolished+protein+phosphorylation"
 const annotationString = "abolished protein phosphorylation"
+const skeletonLoaderString = "skeleton-loader"
 
 // https://stackoverflow.com/questions/58117890/how-to-test-components-using-new-react-router-hooks
 vi.mock("react-router-dom", async () => {
@@ -31,10 +32,11 @@ vi.mock("react-router-dom", async () => {
     }),
   }
 })
-const skeletonLoaderString = "skeleton-loader"
+
 const IntersectionObserverMock = vi.fn()
 IntersectionObserverMock.prototype.observe = vi.fn()
 IntersectionObserverMock.prototype.disconnect = vi.fn()
+
 beforeAll(() => {
   IntersectionObserverMock.mockImplementation((callback) => {
     callback([{ isIntersecting: false }])
