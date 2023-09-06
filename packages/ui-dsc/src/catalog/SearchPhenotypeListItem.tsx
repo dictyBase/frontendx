@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import { match } from "ts-pattern"
 import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
 import ListItem from "@material-ui/core/ListItem"
@@ -39,13 +40,6 @@ const SearchPhenotypeListItem = ({
   const publications = strain?.publications as Publication[]
   const genes = (strain?.genes as Gene[]) ?? []
 
-  const pubDisplay =
-    publications && publications.length > 0 ? (
-      <PublicationDisplay publication={publications[0] as Publication} />
-    ) : (
-      <></>
-    )
-
   return (
     <ListItem className={classes.row}>
       <Grid container spacing={0} alignItems="center">
@@ -63,7 +57,14 @@ const SearchPhenotypeListItem = ({
         </Grid>
         <Grid item sm={6} className={classes.item}>
           <Typography component="span" variant="body2">
-            {pubDisplay}
+            {match(publications.length > 0)
+              .with(true, () => (
+                <PublicationDisplay
+                  publication={publications[0] as Publication}
+                />
+              ))
+              .with(false, () => <></>)
+              .exhaustive()}
           </Typography>
         </Grid>
       </Grid>
