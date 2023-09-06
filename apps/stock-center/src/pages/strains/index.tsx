@@ -29,8 +29,9 @@ const StrainCatalog = () => {
   const { loading, error, data, fetchMore } = useStrainListQuery({ variables })
   const rootReference = useRef<HTMLDivElement>(null)
   const targetReference = useRef<HTMLTableRowElement>(null)
+
   const onIntersection = ([entry]: IntersectionObserverEntry[]) => {
-    if (!entry.isIntersecting) return
+    if (!entry.isIntersecting || loading) return
     const nextCursor = data?.listStrains?.nextCursor || undefined
     if (!nextCursor) return
     fetchMore({ variables: { cursor: nextCursor } })
