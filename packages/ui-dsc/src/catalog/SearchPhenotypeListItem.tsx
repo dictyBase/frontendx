@@ -37,7 +37,7 @@ const SearchPhenotypeListItem = ({
   const classes = useStyles()
 
   const publications = strain?.publications as Publication[]
-  const genes = strain?.genes as Gene[]
+  const genes = (strain?.genes as Gene[]) ?? []
 
   const pubDisplay =
     publications && publications.length > 0 ? (
