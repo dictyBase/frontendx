@@ -10,6 +10,7 @@ import { pipe } from "fp-ts/function"
 type StrainList = Pick<StrainListQuery, "listStrains">["listStrains"]
 type NotEmptyStrainList = NonNullable<StrainList>
 type StrainListPair = [StrainList, NotEmptyStrainList]
+type NotEmptyStrainListPair = [NotEmptyStrainList, NotEmptyStrainList]
 type Strains = Pick<NotEmptyStrainList, "strains">["strains"][number]
 
 type ListStrainsWithAnnotation = Pick<
@@ -19,14 +20,14 @@ type ListStrainsWithAnnotation = Pick<
 type NotEmptyListStrainsWithAnnotation = NonNullable<ListStrainsWithAnnotation>
 
 const whichStrains = ([existS, inS]: StrainListPair) =>
-  existS ? right([existS, inS]) : left(inS)
+  existS ? right([existS, inS] as NotEmptyStrainListPair) : left(inS)
 
 const listStrainsPagination = () => ({
   keyArgs: ["filter"],
   merge(existing: StrainList, incoming: NotEmptyStrainList) {
     const strainLens = Lens.fromProp<NotEmptyStrainList>()("strains")
     const mergeStrains = getMonoid<Strains>()
-    const rightFunction = ([existS, inS]: Array<NotEmptyStrainList>) => {
+    const rightFunction = ([existS, inS]: NotEmptyStrainListPair) => {
       // eslint-disable-next-line unicorn/prefer-spread
       const mstrains = mergeStrains.concat(existS.strains, inS.strains)
       return strainLens.set(mstrains)(incoming)
