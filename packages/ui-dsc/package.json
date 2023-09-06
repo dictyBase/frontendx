@@ -15,6 +15,7 @@
     "@material-ui/system": "~4.12.1",
     "@react-pdf/renderer": "~3.0.0",
     "dicty-graphql-schema": "*",
+    "dicty-hooks": "dictybase/dicty-hooks#3.0.0",
     "fp-ts": "2.16.0",
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
