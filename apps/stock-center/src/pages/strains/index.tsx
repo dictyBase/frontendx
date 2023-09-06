@@ -62,7 +62,7 @@ const StrainCatalog = () => {
       </Grid>
       <Box>
         <CatalogListWrapper root={rootReference}>
-          {loading ? <LoadingDisplay rows={10} /> : <></>}
+          {loading && !data ? <LoadingDisplay rows={10} /> : <></>}
           {error ? <ErrorDisplay error={error} /> : <></>}
           {data?.listStrains ? (
             <CatalogTableDisplay
