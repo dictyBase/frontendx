@@ -43,7 +43,6 @@ const useListStrainsWithPhenotype = (phenotype: string) => {
     },
     errorPolicy: "all",
   })
-
   const loadMoreItems = async () => {
     const newCursor = data?.listStrainsWithAnnotation?.nextCursor ?? 0
     // need to check for same cursor to prevent extra fetching
@@ -94,7 +93,7 @@ const SearchPhenotypeContainer = () => {
     <>
       {match({ loading, e: error, d: data })
         .with({ loading: true }, () => <DetailsLoader />)
-        .with({ e: P.not(undefined) }, ({ e }) => (
+        .with({ e: P.not(undefined), d: undefined }, ({ e }) => (
           <GraphQLErrorPage error={e} />
         ))
         .with(
