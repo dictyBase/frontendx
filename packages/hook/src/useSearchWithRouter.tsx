@@ -85,6 +85,8 @@ export function useSearchWithRouter({
     switch (true) {
       case !["change", "keydown"].includes(event.type):
         return
+      case hasTag:
+        return
       case reason === "input":
         setHasTag(false)
         setInput({ user: newInputValue, userCopy: newInputValue })
