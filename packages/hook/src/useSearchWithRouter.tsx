@@ -80,19 +80,23 @@ export function useSearchWithRouter({
     newInputValue: string,
     reason: string,
   ): void => {
-    if (!["change", "keydown"].includes(event.type)) return
-    if (reason === "input") {
-      setHasTag(false)
-      setInput({ user: newInputValue, userCopy: newInputValue })
-      return
-    }
-    setInput((state) => ({ ...state, user: emptyString }))
-    setHasTag(true)
     const lastValue = value.at(-1)
-    if (lastValue) {
-      setActiveChipValue(`${lastValue}:${input.userCopy}`)
-      searchParameters.append(lastValue, input.userCopy)
-      setSearchParameters(searchParameters)
+
+    switch (true) {
+      case !["change", "keydown"].includes(event.type):
+        return
+      case reason === "input":
+        setHasTag(false)
+        setInput({ user: newInputValue, userCopy: newInputValue })
+        return
+      default:
+        setInput((state) => ({ ...state, user: emptyString }))
+        setHasTag(true)
+        if (lastValue) {
+          setActiveChipValue(`${lastValue}:${input.userCopy}`)
+          searchParameters.append(lastValue, input.userCopy)
+          setSearchParameters(searchParameters)
+        }
     }
   }
 
