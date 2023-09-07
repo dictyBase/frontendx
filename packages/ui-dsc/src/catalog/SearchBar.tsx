@@ -11,7 +11,7 @@ type SearchBarProperties = {
 }
 
 const SearchBar = ({ value, setSearchParameters }: SearchBarProperties) => (
-  <>
+  <Grid container>
     <Grid item>
       <FilterDropdown
         searchParamFn={setSearchParameters}
@@ -25,7 +25,7 @@ const SearchBar = ({ value, setSearchParameters }: SearchBarProperties) => (
     <Grid item>
       <AppBarHelp />
     </Grid>
-  </>
+  </Grid>
 )
 
 export { SearchBar }
