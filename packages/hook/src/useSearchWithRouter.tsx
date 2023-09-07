@@ -40,7 +40,7 @@ export function useSearchWithRouter({
   setSearchParameters,
   searchParameters,
 }: useSearchWithRouterProperties) {
-  const [hasTag, setHasTag] = useState<boolean>(false)
+  const [isAcceptingInput, setIsAcceptingInput] = useState<boolean>(false)
   const [value, setValue] = useState<Array<string>>([])
   const [previousChipValue, setPreviousChipValue] = useState<string[]>([])
   const [activeChipValue, setActiveChipValue] = useState<string>(emptyString)
@@ -60,7 +60,7 @@ export function useSearchWithRouter({
           setPreviousChipValue((state) => [...state, activeChipValue])
           setActiveChipValue(emptyString)
         }
-        setHasTag(false)
+        setIsAcceptingInput(true)
         setValue(values)
         break
       case "create-option":
@@ -85,15 +85,15 @@ export function useSearchWithRouter({
     switch (true) {
       case !["change", "keydown"].includes(event.type):
         return
-      case hasTag:
+      case !isAcceptingInput:
         return
       case reason === "input":
-        setHasTag(false)
+        setIsAcceptingInput(true)
         setInput({ user: newInputValue, userCopy: newInputValue })
         return
       default:
         setInput((state) => ({ ...state, user: emptyString }))
-        setHasTag(true)
+        setIsAcceptingInput(false)
         if (lastValue) {
           setActiveChipValue(`${lastValue}:${input.userCopy}`)
           searchParameters.append(lastValue, input.userCopy)
@@ -123,31 +123,31 @@ export function useSearchWithRouter({
    * Callback for rendering the chips
    */
   const renderTags = (values: string[]): ReactNode => {
-    if (hasTag) {
-      return [...previousChipValue, activeChipValue]
-        .filter((o) => o !== emptyString)
-        .map((o) => (
-          <Chip
-            onDelete={() => onDeleteChip(o)}
-            label={o}
-            key={uuid4()}
-            size="small"
-          />
-        ))
+    if (isAcceptingInput) {
+      return (
+        <>
+          {previousChipValue.map((o) => (
+            <Chip
+              onDelete={() => onDeleteChip(o)}
+              size="small"
+              key={uuid4()}
+              label={o}
+            />
+          ))}
+          <div>{`${values.at(-1)}:`}</div>
+        </>
+      )
     }
-    return (
-      <>
-        {previousChipValue.map((o) => (
-          <Chip
-            onDelete={() => onDeleteChip(o)}
-            size="small"
-            key={uuid4()}
-            label={o}
-          />
-        ))}
-        <div>{`${values.at(-1)}:`}</div>
-      </>
-    )
+    return [...previousChipValue, activeChipValue]
+      .filter((o) => o !== emptyString)
+      .map((o) => (
+        <Chip
+          onDelete={() => onDeleteChip(o)}
+          label={o}
+          key={uuid4()}
+          size="small"
+        />
+      ))
   }
 
   /**
