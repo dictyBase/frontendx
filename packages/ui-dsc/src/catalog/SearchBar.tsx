@@ -7,10 +7,9 @@ import { AppBarHelp } from "./AppBarHelp"
 
 type SearchBarProperties = {
   setSearchParameters: SetURLSearchParameters
-  value: string
 }
 
-const SearchBar = ({ value, setSearchParameters }: SearchBarProperties) => (
+const SearchBar = ({ setSearchParameters }: SearchBarProperties) => (
   <Grid container>
     <Grid item>
       <FilterDropdown
@@ -20,7 +19,7 @@ const SearchBar = ({ value, setSearchParameters }: SearchBarProperties) => (
       />
     </Grid>
     <Grid item style={{ flexGrow: 1 }}>
-      <SearchBox fields={Object.keys(fieldsToVariables)} key={value} />
+      <SearchBox fields={Object.keys(fieldsToVariables)} />
     </Grid>
     <Grid item>
       <AppBarHelp />
