@@ -1,21 +1,17 @@
 import {
   useConfigureStrainCatalogSearchGraphql,
   defaultFilter,
-  fieldsToVariables,
 } from "@dictybase/hook-dsc"
 import {
   LoadingDisplay,
   CatalogTableDisplay,
   ErrorDisplay,
+  SearchBar,
   CatalogListWrapper,
-  FilterDropdown,
-  SearchBox,
   CatalogHeader,
-  AppBarHelp,
 } from "@dictybase/ui-dsc"
 import { useIntersectionObserver } from "@dictybase/hook"
 import { useRef } from "react"
-import { Box, Grid } from "@material-ui/core"
 import { useStrainListQuery } from "dicty-graphql-schema"
 import { useSearchParams } from "react-router-dom"
 
@@ -45,36 +41,20 @@ const StrainCatalog = () => {
   return (
     <>
       <CatalogHeader title="Strain Catalog" />
-      <Grid container alignItems="flex-end">
-        <Grid item>
-          <FilterDropdown
-            searchParamFn={setSearchParameters}
-            param={defaultFilter.param}
-            value={defaultFilter.value}
+      <SearchBar setSearchParameters={setSearchParameters} />
+      <CatalogListWrapper root={rootReference}>
+        {loading && !data ? <LoadingDisplay rows={10} /> : <></>}
+        {error ? <ErrorDisplay error={error} /> : <></>}
+        {data?.listStrains ? (
+          <CatalogTableDisplay
+            data={data}
+            dataField={dataField}
+            target={targetReference}
           />
-        </Grid>
-        <Grid item style={{ flexGrow: 1 }}>
-          <SearchBox fields={Object.keys(fieldsToVariables)} key={value} />
-        </Grid>
-        <Grid item>
-          <AppBarHelp />
-        </Grid>
-      </Grid>
-      <Box>
-        <CatalogListWrapper root={rootReference}>
-          {loading && !data ? <LoadingDisplay rows={10} /> : <></>}
-          {error ? <ErrorDisplay error={error} /> : <></>}
-          {data?.listStrains ? (
-            <CatalogTableDisplay
-              data={data}
-              dataField={dataField}
-              target={targetReference}
-            />
-          ) : (
-            <></>
-          )}
-        </CatalogListWrapper>
-      </Box>
+        ) : (
+          <></>
+        )}
+      </CatalogListWrapper>
     </>
   )
 }
