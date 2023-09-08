@@ -1,3 +1,4 @@
+import { P, match } from "ts-pattern"
 import {
   useConfigureStrainCatalogSearchGraphql,
   defaultFilter,
@@ -50,17 +51,24 @@ const StrainCatalog = () => {
       <CatalogHeader title="Strain Catalog" />
       <SearchBar setSearchParameters={setSearchParameters} />
       <CatalogListWrapper root={rootReference}>
-        {loading && !data ? <LoadingDisplay rows={10} /> : <></>}
-        {error ? <ErrorDisplay error={error} /> : <></>}
-        {data?.listStrains ? (
-          <CatalogTableDisplay
-            data={data}
-            dataField={dataField}
-            target={targetReference}
-          />
-        ) : (
-          <></>
-        )}
+        {match({ data, loading, error })
+          .with(
+            { data: P.select({ listStrains: P.not(undefined) }) },
+            (data_) => (
+              <CatalogTableDisplay
+                data={data_}
+                dataField={dataField}
+                target={targetReference}
+              />
+            ),
+          )
+          .with({ loading: true }, () => <LoadingDisplay rows={10} />)
+          .with({ error: P.select({ message: P.string }) }, (error_) => (
+            <ErrorDisplay error={error_} />
+          ))
+          .otherwise(() => (
+            <></>
+          ))}
       </CatalogListWrapper>
     </>
   )
