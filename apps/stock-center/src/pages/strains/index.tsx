@@ -1,8 +1,8 @@
-import { P, match } from "ts-pattern"
 import {
   useConfigureStrainCatalogSearchGraphql,
   defaultFilter,
 } from "@dictybase/hook-dsc"
+import { P, match } from "ts-pattern"
 import {
   LoadingDisplay,
   CatalogTableDisplay,
