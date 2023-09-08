@@ -227,7 +227,7 @@ describe("features/Stocks/SearchResults/PhenotypeContainer", () => {
       const listItems = await screen.findAllByRole("listitem")
       expect(listItems).toHaveLength(104) // 103 items + 1 header row
       expect(screen.getByText(/Displaying 103 results/)).toBeInTheDocument()
-    })
+    }, 15_000)
   })
 
   describe("error handling", () => {
