@@ -27,10 +27,17 @@ const StrainCatalog = () => {
   const targetReference = useRef<HTMLTableRowElement>(null)
 
   const onIntersection = ([entry]: IntersectionObserverEntry[]) => {
-    if (!entry.isIntersecting || loading) return
-    const nextCursor = data?.listStrains?.nextCursor || undefined
-    if (!nextCursor) return
-    fetchMore({ variables: { cursor: nextCursor } })
+    const nextCursor = data?.listStrains?.nextCursor
+    switch (true) {
+      case !nextCursor:
+        return
+      case loading:
+        return
+      case !entry.isIntersecting:
+        return
+      default:
+        fetchMore({ variables: { cursor: nextCursor } })
+    }
   }
   useIntersectionObserver({
     target: targetReference,
