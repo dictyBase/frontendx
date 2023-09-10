@@ -63,11 +63,11 @@ class FlexLayoutNode extends ElementNode {
 export const $isFlexLayoutNode = (node: LexicalNode): node is FlexLayoutNode =>
   node.getType() === nodeTypeName
 
-export const $createFlexLayoutNode = () => {
+const $createFlexLayoutNode = () => {
   const paragraphNode = $createParagraphNode()
   const flexLayoutNode = new FlexLayoutNode()
   flexLayoutNode.append(paragraphNode)
   return flexLayoutNode
 }
 
-export { FlexLayoutNode }
+export { FlexLayoutNode, $createFlexLayoutNode }
