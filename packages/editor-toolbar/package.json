@@ -14,6 +14,7 @@
     "@lexical/react": "0.11.x",
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
+    "flex-layout-plugin": "*",
     "image-plugin": "*",
     "jotai": "^2.0.2",
     "jotai-optics": "^0.3.0",
