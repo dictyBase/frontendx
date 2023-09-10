@@ -13,7 +13,7 @@ export enum FontFamily {
 }
 
 export enum BlockTypes {
-  PARAGRAPH = "paragraph",
+  PARAGRAPH = "flex-layout",
   HEADING_ONE = "h1",
   HEADING_TWO = "h2",
   HEADING_THREE = "h3",
