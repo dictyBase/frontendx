@@ -33,19 +33,17 @@ const useBlockTypeProperties = () => {
     const elementKey = element.getKey()
     const elementDOM = editor.getElementByKey(elementKey)
 
-    if (elementDOM) {
-      if ($isListNode(element)) {
-        const parentList = getParentList(anchorNode)
-        const type = parentList
-          ? parentList.getListType()
-          : element.getListType()
-        setBlockType(type as BlockTypes)
-      } else {
-        const type = $isHeadingNode(element)
-          ? element.getTag()
-          : element.getType()
-        setBlockType(type as BlockTypes)
-      }
+    if (!elementDOM) return
+
+    if ($isListNode(element)) {
+      const parentList = getParentList(anchorNode)
+      const type = parentList ? parentList.getListType() : element.getListType()
+      setBlockType(type as BlockTypes)
+    } else {
+      const type = $isHeadingNode(element)
+        ? element.getTag()
+        : element.getType()
+      setBlockType(type as BlockTypes)
     }
   }, [editor, setBlockType])
 }
