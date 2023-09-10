@@ -5,7 +5,7 @@ import { useToolbarItemStyles } from "../hooks/useToolbarItemStyles"
 import { useBlockFormat } from "../hooks/useBlockFormat"
 
 const blockTypeToBlockName = {
-  paragraph: "Normal",
+  "flex-layout": "Normal",
   h1: "Heading 1",
   h2: "Heading 2",
   h3: "Heading 3",
