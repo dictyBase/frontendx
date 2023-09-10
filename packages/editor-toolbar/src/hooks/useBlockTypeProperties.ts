@@ -26,25 +26,25 @@ const useBlockTypeProperties = () => {
 
   return useCallback(() => {
     const selection = $getSelection()
-    if ($isRangeSelection(selection)) {
-      const anchorNode = selection.anchor.getNode()
-      const element = getElementFromAnchor(anchorNode)
-      const elementKey = element.getKey()
-      const elementDOM = editor.getElementByKey(elementKey)
+    if (!$isRangeSelection(selection)) return
 
-      if (elementDOM) {
-        if ($isListNode(element)) {
-          const parentList = getParentList(anchorNode)
-          const type = parentList
-            ? parentList.getListType()
-            : element.getListType()
-          setBlockType(type as BlockTypes)
-        } else {
-          const type = $isHeadingNode(element)
-            ? element.getTag()
-            : element.getType()
-          setBlockType(type as BlockTypes)
-        }
+    const anchorNode = selection.anchor.getNode()
+    const element = getElementFromAnchor(anchorNode)
+    const elementKey = element.getKey()
+    const elementDOM = editor.getElementByKey(elementKey)
+
+    if (elementDOM) {
+      if ($isListNode(element)) {
+        const parentList = getParentList(anchorNode)
+        const type = parentList
+          ? parentList.getListType()
+          : element.getListType()
+        setBlockType(type as BlockTypes)
+      } else {
+        const type = $isHeadingNode(element)
+          ? element.getTag()
+          : element.getType()
+        setBlockType(type as BlockTypes)
       }
     }
   }, [editor, setBlockType])
