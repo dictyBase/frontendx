@@ -24,7 +24,10 @@ import { initialStateString } from "./initialState"
 import "./editor.css"
 
 type EditorProperties = {
-  content?: { storageKey: string; editorState: InitialEditorStateType }
+  content?: {
+    storageKey: string | undefined
+    editorState: InitialEditorStateType
+  }
   editable: boolean
   handleCancel?: () => void
   handleSave?: (content: string) => void
