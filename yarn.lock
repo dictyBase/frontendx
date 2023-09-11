@@ -1798,41 +1798,6 @@
   resolved "https://registry.yarnpkg.com/@fontsource/fira-code/-/fira-code-5.0.8.tgz#d6af374e1d0226c52eb1ee3d07ed6f9543a19fd4"
   integrity sha512-kp/tJUVnjaZeLHENMBFTTSgP2B7+/rIboeofuMfoGB40s2U0DKXNqQcOqIF5PtDhJ5QTG1LcviYXMnc1yG6oYQ==
 
-"@fontsource/lato@^4.4.2":
-  version "4.5.10"
-  resolved "https://registry.yarnpkg.com/@fontsource/lato/-/lato-4.5.10.tgz#1ab3d33282e605886e4a8b4c32b1f230a4cb5ea6"
-  integrity sha512-2hYR6r661Cq9B8zugtu6yxuOKqrVhAgfOSaPSq8XoxbC4ebsl0KOTy/vPoP+9U7JuQVLfrmikirW4a9Z0nDUug==
-
-"@fontsource/merriweather@^4.4.2":
-  version "4.5.14"
-  resolved "https://registry.yarnpkg.com/@fontsource/merriweather/-/merriweather-4.5.14.tgz#17b634fe3892e25f345954fe34df252730b96080"
-  integrity sha512-kDMIAokOvE9bYf+CDmEWzV3xtR8cRJlw/BipjhxqD9MIRZfU348cZ8xhHhmPXmxRiEjZLor4xxHXqps7eCvGQg==
-
-"@fontsource/montserrat@^4.4.2":
-  version "4.5.14"
-  resolved "https://registry.yarnpkg.com/@fontsource/montserrat/-/montserrat-4.5.14.tgz#5f4bfc5e7f234a986d94d9e7e7193f852e6971e3"
-  integrity sha512-fTvrteVzuFUePhr4QYBGoK8G/YHLJ3IhF1HhKg0AxcFvZajJT7rM7ULdmKLSd2PkX44R3aaFZq1zDbmjbGGI+w==
-
-"@fontsource/roboto-condensed@^4.4.2":
-  version "4.5.9"
-  resolved "https://registry.yarnpkg.com/@fontsource/roboto-condensed/-/roboto-condensed-4.5.9.tgz#70582d0d70acf02323bdeb603e108b836030b42e"
-  integrity sha512-ql4sQq+h8puBVildZ5ssjYf8DWDONYDe3PD3Bu/p1ZW9GnRETRNPPcCTs/q62HIl3QimwwkiKWynn6wZhQaetg==
-
-"@fontsource/roboto-mono@^4.4.2":
-  version "4.5.10"
-  resolved "https://registry.yarnpkg.com/@fontsource/roboto-mono/-/roboto-mono-4.5.10.tgz#197fc2d5fa9c25fd7ad9dcccb2705663f2409850"
-  integrity sha512-KrJdmkqz6DszT2wV/bbhXef4r0hV3B0vw2mAqei8A2kRnvq+gcJLmmIeQ94vu9VEXrUQzos5M9lH1TAAXpRphw==
-
-"@fontsource/roboto-slab@^4.4.2":
-  version "4.5.11"
-  resolved "https://registry.yarnpkg.com/@fontsource/roboto-slab/-/roboto-slab-4.5.11.tgz#fb5290d3d5c9ca6974e6b3a20441a30114d9e47b"
-  integrity sha512-0HXK8WNvZZg4vglhUY4ySBmlh+wnO1JsGcPfCaxDhY24gtRf2POmmeNpSxKFjjQTDV8BiYDXF2H9p15d/6c/YA==
-
-"@fontsource/roboto@^4.4.2":
-  version "4.5.8"
-  resolved "https://registry.yarnpkg.com/@fontsource/roboto/-/roboto-4.5.8.tgz#56347764786079838faf43f0eeda22dd7328437f"
-  integrity sha512-CnD7zLItIzt86q4Sj3kZUiLcBk1dSk81qcqgMGaZe7SQ1P8hFNxhMl5AZthK1zrDM5m74VVhaOpuMGIL4gagaA==
-
 "@fontsource/roboto@^5.0.5", "@fontsource/roboto@~5.0.5":
   version "5.0.5"
   resolved "https://registry.yarnpkg.com/@fontsource/roboto/-/roboto-5.0.5.tgz#56e4b2af0d684d6e33e311f307adb958fcf8eabd"
@@ -3953,11 +3918,6 @@
   dependencies:
     "@types/ms" "*"
 
-"@types/esrever@^0.2.0":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@types/esrever/-/esrever-0.2.1.tgz#9ff5155ef412848270ead4aaa611a8cdadcb9ab0"
-  integrity sha512-vRLFhQxGVkyUF7opxv66MQHoRSOBkbbitj1OGd6My4XR6HwCorUZxSiJejF3s4OxmEFTjfRRGwm6GUhuQETP6Q==
-
 "@types/express-serve-static-core@*", "@types/express-serve-static-core@^4.17.33":
   version "4.17.33"
   resolved "https://registry.yarnpkg.com/@types/express-serve-static-core/-/express-serve-static-core-4.17.33.tgz#de35d30a9d637dc1450ad18dd583d75d5733d543"
@@ -4024,11 +3984,6 @@
   dependencies:
     "@types/through" "*"
     rxjs "^7.2.0"
-
-"@types/is-hotkey@^0.1.1":
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/@types/is-hotkey/-/is-hotkey-0.1.7.tgz#30ec6d4234895230b576728ef77e70a52962f3b3"
-  integrity sha512-yB5C7zcOM7idwYZZ1wKQ3pTfjA9BbvFqRWvKB46GFddxnJtHwi/b9y84ykQtxQPg5qhdpg4Q/kWU3EGoCTmLzQ==
 
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0", "@types/istanbul-lib-coverage@^2.0.1":
   version "2.0.4"
@@ -4112,11 +4067,6 @@
   dependencies:
     "@types/fined" "*"
     "@types/node" "*"
-
-"@types/lodash@^4.14.149":
-  version "4.14.194"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.194.tgz#b71eb6f7a0ff11bff59fc987134a093029258a76"
-  integrity sha512-r22s9tAS7imvBt2lyHC9B8AGwWnXaYb1tY09oyLkXDs4vArpYJzw09nj8MLx5VfciBPGIb+ZwG0ssYnEPJxn/g==
 
 "@types/mdast@^3.0.0":
   version "3.0.11"
@@ -6093,11 +6043,6 @@ compression@^1.7.4:
     safe-buffer "5.1.2"
     vary "~1.1.2"
 
-compute-scroll-into-view@^1.0.20:
-  version "1.0.20"
-  resolved "https://registry.yarnpkg.com/compute-scroll-into-view/-/compute-scroll-into-view-1.0.20.tgz#1768b5522d1172754f5d0c9b02de3af6be506a43"
-  integrity sha512-UCB0ioiyj8CRjtrvaceBLqqhZCVP+1B8+NWQhmdsm0VXOJtobBCf1dBQmebCCo34qZmUwZfIH2MZLqNHazrfjg==
-
 concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
@@ -6624,23 +6569,6 @@ dicty-components-login@dictybase/dicty-components-login#4.1.1:
   dependencies:
     polished "^3.4.1"
 
-dicty-components-page-editor@dictybase/dicty-components-page-editor#3.1.2:
-  version "3.1.2"
-  resolved "https://codeload.github.com/dictybase/dicty-components-page-editor/tar.gz/b4c56931aa5978d80dda6dc99fd75f713778be1b"
-  dependencies:
-    "@fontsource/lato" "^4.4.2"
-    "@fontsource/merriweather" "^4.4.2"
-    "@fontsource/montserrat" "^4.4.2"
-    "@fontsource/roboto" "^4.4.2"
-    "@fontsource/roboto-condensed" "^4.4.2"
-    "@fontsource/roboto-mono" "^4.4.2"
-    "@fontsource/roboto-slab" "^4.4.2"
-    react-colorful "^5.3.0"
-    slate "0.63.0"
-    slate-history "0.62.0"
-    slate-hyperscript "0.62.0"
-    slate-react "0.65.2"
-
 dicty-hooks@dictybase/dicty-hooks#3.0.0:
   version "3.0.0"
   resolved "https://codeload.github.com/dictybase/dicty-hooks/tar.gz/ba8c51064bed30bc514d80dc38cb25b12f1db142"
@@ -6676,11 +6604,6 @@ dir-glob@^3.0.1:
   integrity sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==
   dependencies:
     path-type "^4.0.0"
-
-direction@^1.0.3:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/direction/-/direction-1.0.4.tgz#2b86fb686967e987088caf8b89059370d4837442"
-  integrity sha512-GYqKi1aH7PJXxdhTeZBFrg8vUBeKXi+cNprXsC1kpJcbcVnV9wBsrOu1cQEdG0WeQwlfHiy3XvnKfIrJ2R0NzQ==
 
 dns-equal@^1.0.0:
   version "1.0.0"
@@ -7580,11 +7503,6 @@ esrecurse@^4.3.0:
   integrity sha512-KmfKL3b6G+RXvP8N1vr3Tq1kL/oCFgn2NYXEtqP8/L3pKapUA4G8cFVaoF3SU323CD4XypR/ffioHmkti6/Tag==
   dependencies:
     estraverse "^5.2.0"
-
-esrever@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/esrever/-/esrever-0.2.0.tgz#96e9d28f4f1b1a76784cd5d490eaae010e7407b8"
-  integrity sha512-1e9YJt6yQkyekt2BUjTky7LZWWVyC2cIpgdnsTAvMcnzXIZvlW/fTMPkxBcZoYhgih4d+EC+iw+yv9GIkz7vrw==
 
 estraverse@^4.1.1, estraverse@^4.2.0:
   version "4.3.0"
@@ -8919,16 +8837,6 @@ immediate@~3.0.5:
   resolved "https://registry.yarnpkg.com/immediate/-/immediate-3.0.6.tgz#9db1dbd0faf8de6fbe0f5dd5e56bb606280de69b"
   integrity sha512-XXOFtyqDjNDAQxVfYxuF7g9Il/IbWmmlQg2MYKOH8ExIT1qg6xc4zyS3HaEEATgs1btfzxq15ciUiY7gjSXRGQ==
 
-immer@^7.0.0:
-  version "7.0.15"
-  resolved "https://registry.yarnpkg.com/immer/-/immer-7.0.15.tgz#dc3bc6db87401659d2e737c67a21b227c484a4ad"
-  integrity sha512-yM7jo9+hvYgvdCQdqvhCNRRio0SCXc8xDPzA25SvKWa7b1WVPjLwQs1VYU5JPXjcJPTqAa5NP5dqpORGYBQ2AA==
-
-immer@^8.0.1:
-  version "8.0.4"
-  resolved "https://registry.yarnpkg.com/immer/-/immer-8.0.4.tgz#3a21605a4e2dded852fb2afd208ad50969737b7a"
-  integrity sha512-jMfL18P+/6P6epANRvRk6q8t+3gGhqsJ9EuJ25AXE+9bNTYtssvzeYbEd0mXRYWCmmXSIbnlpz6vd6iJlmGGGQ==
-
 immer@^9.0.7:
   version "9.0.21"
   resolved "https://registry.yarnpkg.com/immer/-/immer-9.0.21.tgz#1e025ea31a40f24fb064f1fef23e931496330176"
@@ -9279,11 +9187,6 @@ is-hexadecimal@^1.0.0:
   resolved "https://registry.yarnpkg.com/is-hexadecimal/-/is-hexadecimal-1.0.4.tgz#cc35c97588da4bd49a8eedd6bc4082d44dcb23a7"
   integrity sha512-gyPJuv83bHMpocVYoqof5VDiZveEoGoFL8m3BXNb2VW8Xs+rz9kqO8LOQ5DH6EsuvilT1ApazU0pyl+ytbPtlw==
 
-is-hotkey@^0.1.6:
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/is-hotkey/-/is-hotkey-0.1.8.tgz#6b1f4b2d0e5639934e20c05ed24d623a21d36d25"
-  integrity sha512-qs3NZ1INIS+H+yeo7cD9pDfwYV/jqRh1JG9S9zYrNudkoUQg7OL7ziXqRKu+InFjUIDoP2o6HIkLYMh1pcWgyQ==
-
 is-in-browser@^1.0.2, is-in-browser@^1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/is-in-browser/-/is-in-browser-1.1.3.tgz#56ff4db683a078c6082eb95dad7dc62e1d04f835"
@@ -9390,11 +9293,6 @@ is-plain-object@^2.0.3, is-plain-object@^2.0.4:
   integrity sha512-h5PpgXkWitc38BBMYawTYMWJHFZJVnBquFE57xFpjB8pJFiF6gZ+bU+WyI/yqXiFR5mdLsgYNaPe8uao6Uv9Og==
   dependencies:
     isobject "^3.0.1"
-
-is-plain-object@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/is-plain-object/-/is-plain-object-3.0.1.tgz#662d92d24c0aa4302407b0d45d21f2251c85f85b"
-  integrity sha512-Xnpx182SBMrr/aBik8y+GuR4U1L9FqMSojwDQwPMmxyC6bvEqly9UBCxhauBF5vNh2gwWJNX6oDV7O+OM4z34g==
 
 is-plain-object@^5.0.0:
   version "5.0.0"
@@ -10765,7 +10663,7 @@ lodash.upperfirst@4.3.1:
   resolved "https://registry.yarnpkg.com/lodash.upperfirst/-/lodash.upperfirst-4.3.1.tgz#1365edf431480481ef0d1c68957a5ed99d49f7ce"
   integrity sha512-sReKOYJIJf74dhJONhU4e0/shzi1trVbSWDOhKYE5XV2O+H7Sb2Dihwuc7xWxVl+DgFPyTqIN3zMfT9cq5iWDg==
 
-lodash@^4.17.15, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.17.4, lodash@^4.7.0, lodash@~4.17.0:
+lodash@^4.17.15, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.7.0, lodash@~4.17.0:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -12380,11 +12278,6 @@ react-app-polyfill@^3.0.0:
     regenerator-runtime "^0.13.9"
     whatwg-fetch "^3.6.2"
 
-react-colorful@^5.3.0:
-  version "5.6.1"
-  resolved "https://registry.yarnpkg.com/react-colorful/-/react-colorful-5.6.1.tgz#7dc2aed2d7c72fac89694e834d179e32f3da563b"
-  integrity sha512-1exovf0uGTGyq5mXQT0zgQ80uvj2PCwvF8zY1RN9/vbJVSjSo3fsB/4L3ObbF7u70NduSiK4xu4Y6q1MHoUGEw==
-
 react-dev-utils@^12.0.0:
   version "12.0.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-12.0.1.tgz#ba92edb4a1f379bd46ccd6bcd4e7bc398df33e73"
@@ -13277,13 +13170,6 @@ scripts@*:
   resolved "https://registry.yarnpkg.com/scripts/-/scripts-0.1.0.tgz#3eb19713b5ad1f58bc3e39ce63606d6beaa00693"
   integrity sha512-URMy4uj80+USxik0E+P7OeagdYGRM6vJQ+8zADRRNjcoIVdouxB7B60P4G4y20TizSGXdE0nAW5sSM1IIXa3hw==
 
-scroll-into-view-if-needed@^2.2.20:
-  version "2.2.31"
-  resolved "https://registry.yarnpkg.com/scroll-into-view-if-needed/-/scroll-into-view-if-needed-2.2.31.tgz#d3c482959dc483e37962d1521254e3295d0d1587"
-  integrity sha512-dGCXy99wZQivjmjIqihaBQNjryrz5rueJY7eHfTdyWEiR4ttYpsajb14rn9s5d4DY4EcY6+4+U/maARBXJedkA==
-  dependencies:
-    compute-scroll-into-view "^1.0.20"
-
 scuid@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/scuid/-/scuid-1.1.0.tgz#d3f9f920956e737a60f72d0e4ad280bf324d5dab"
@@ -13541,47 +13427,6 @@ slash@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-4.0.0.tgz#2422372176c4c6c5addb5e2ada885af984b396a7"
   integrity sha512-3dOsAHXXUkQTpOYcoAxLIorMTp4gIQr5IW3iVb7A7lFIp0VHhnynm9izx6TssdrIcVIESAlVjtnO2K8bg+Coew==
-
-slate-history@0.62.0:
-  version "0.62.0"
-  resolved "https://registry.yarnpkg.com/slate-history/-/slate-history-0.62.0.tgz#facd2e1ef249f979ecc0d0811d280515877d9352"
-  integrity sha512-nE3fihtHV7kUrDO3zNb+DWzQVUg59uKCZVt0r9GafZLiHB98n0X+qqtcjFHerDPDRPkHgqM8UL4wh1jhL4WzmA==
-  dependencies:
-    immer "^7.0.0"
-    is-plain-object "^3.0.0"
-
-slate-hyperscript@0.62.0:
-  version "0.62.0"
-  resolved "https://registry.yarnpkg.com/slate-hyperscript/-/slate-hyperscript-0.62.0.tgz#ff6f86e94936fbf90f8ec07d2ae8fbcd7e45a927"
-  integrity sha512-PbtxrrIr4qPvtPmKli4/FnvQFjf8zmnF0kyNeDQGHvUzpHnsoSYHM/i4POye3/qt5d8WGukiJBPL03QsIW+SIw==
-  dependencies:
-    is-plain-object "^3.0.0"
-
-slate-react@0.65.2:
-  version "0.65.2"
-  resolved "https://registry.yarnpkg.com/slate-react/-/slate-react-0.65.2.tgz#71ca66f7b9c6d4ffaffb291494b85ce0398c1530"
-  integrity sha512-EweSDd7zehKsirLzwr6iPRArVMr8RgSm3DPboeUEdCBTawdQddXHt1niUmXtb+XzefCqGdOybKkkiXGAOKel8Q==
-  dependencies:
-    "@types/is-hotkey" "^0.1.1"
-    "@types/lodash" "^4.14.149"
-    direction "^1.0.3"
-    is-hotkey "^0.1.6"
-    is-plain-object "^3.0.0"
-    lodash "^4.17.4"
-    scroll-into-view-if-needed "^2.2.20"
-    tiny-invariant "1.0.6"
-
-slate@0.63.0:
-  version "0.63.0"
-  resolved "https://registry.yarnpkg.com/slate/-/slate-0.63.0.tgz#63a50c45a8971d350a3ebeef25e10cd9fa5c7726"
-  integrity sha512-np24XIRsGbwVgKQR6DWLorTRQD7arUKiztCKsepBNiYtMxHqjR76i2nJA6pdGn6Vj9q88Afi9eYwCsfnzy2hBA==
-  dependencies:
-    "@types/esrever" "^0.2.0"
-    esrever "^0.2.0"
-    fast-deep-equal "^3.1.3"
-    immer "^8.0.1"
-    is-plain-object "^3.0.0"
-    tiny-warning "^1.0.3"
 
 slice-ansi@^3.0.0:
   version "3.0.0"
@@ -14243,12 +14088,7 @@ tiny-inflate@^1.0.0, tiny-inflate@^1.0.3:
   resolved "https://registry.yarnpkg.com/tiny-inflate/-/tiny-inflate-1.0.3.tgz#122715494913a1805166aaf7c93467933eea26c4"
   integrity sha512-pkY1fj1cKHb2seWDy0B16HeWyczlJA9/WW3u3c4z/NiWDsO3DOU5D7nhTLE9CF0yXv/QZFY7sEJmj24dK+Rrqw==
 
-tiny-invariant@1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.0.6.tgz#b3f9b38835e36a41c843a3b0907a5a7b3755de73"
-  integrity sha512-FOyLWWVjG+aC0UqG76V53yAWdXfH8bO6FNmyZOuUrzDzK8DI3/JRY25UD7+g49JWM1LXwymsKERB+DzI0dTEQA==
-
-tiny-warning@^1.0.2, tiny-warning@^1.0.3:
+tiny-warning@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/tiny-warning/-/tiny-warning-1.0.3.tgz#94a30db453df4c643d0fd566060d60a875d84754"
   integrity sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA==
