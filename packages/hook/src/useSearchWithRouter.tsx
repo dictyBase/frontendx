@@ -40,7 +40,7 @@ export function useSearchWithRouter({
   setSearchParameters,
   searchParameters,
 }: useSearchWithRouterProperties) {
-  // Determines whether the input field is in a state accepting user input
+  // Determines whether the input field is in a state of accepting user input
   const [isAcceptingInput, setIsAcceptingInput] = useState<boolean>(false)
   // Holds the list of field names the user selected from the dropdown
   const [value, setValue] = useState<Array<string>>([])
