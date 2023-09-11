@@ -47,7 +47,10 @@ const SpecialThanks = () => {
         ))
         .with({ loading: true }, () => <LoadingDisplay />)
         .with({ error: P.not(undefined) }, () => (
-          <div>Error retrieving technical summary information</div>
+          <div>Error retrieving special thanks information</div>
+        ))
+        .otherwise(() => (
+          <></>
         ))}
     </>
   )
