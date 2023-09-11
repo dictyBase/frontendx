@@ -40,14 +40,20 @@ export function useSearchWithRouter({
   setSearchParameters,
   searchParameters,
 }: useSearchWithRouterProperties) {
+  // Determines whether the input field is in a state accepting user input
   const [isAcceptingInput, setIsAcceptingInput] = useState<boolean>(false)
+  // Holds the list of field names the user selected from the dropdown
   const [value, setValue] = useState<Array<string>>([])
+  // Holds the previously created chips (field:value pairs).
   const [previousChipValue, setPreviousChipValue] = useState<string[]>([])
+  // Holding the currently active chip's value.
   const [activeChipValue, setActiveChipValue] = useState<string>(emptyString)
+  // Track the current input from the user and a copy of it.
   const [input, setInput] = useState<inputProperties>({
     user: emptyString,
     userCopy: emptyString,
   })
+
   const filterFields = () => fields.filter((o) => !value.includes(o))
 
   /**
@@ -59,6 +65,7 @@ export function useSearchWithRouter({
       ? values.filter((v) => v !== value.at(-1))
       : values
     switch (reason) {
+      // Handle when a list option is selected
       case "select-option":
         if (activeChipValue) {
           setPreviousChipValue((state) => [...state, activeChipValue])
@@ -86,14 +93,18 @@ export function useSearchWithRouter({
   ): void => {
     const lastValue = value.at(-1)
     switch (true) {
+      // If the event type is not either change or keydown, return.
       case !["change", "keydown"].includes(event.type):
         return
+      // If not accepting input return
       case !isAcceptingInput:
         return
+      // Setting input value
       case reason === "input":
         setIsAcceptingInput(true)
         setInput({ user: newInputValue, userCopy: newInputValue })
         return
+      // Clear inputs for new addition
       default:
         setInput((state) => ({ ...state, user: emptyString }))
         setIsAcceptingInput(false)
@@ -111,10 +122,12 @@ export function useSearchWithRouter({
   const onDeleteChip = (chipValue: string) => {
     const [optValue] = chipValue.split(":")
     setValue(value.filter((v) => v !== optValue))
+    // If chip's value is a part of the URL parameters, delete it
     if (optValue) {
       searchParameters.delete(optValue)
     }
     setSearchParameters(searchParameters)
+    // If the chip being deleted is the one that's active, reset activeChipValue
     if (chipValue === activeChipValue) {
       setActiveChipValue(emptyString)
       return
