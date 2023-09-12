@@ -60,10 +60,6 @@ export function useSearchWithRouter({
    * Callback that gets fired when one option from dropdown gets selected
    */
   const onChange = (_: any, values: string[], reason: string): void => {
-    // If the most recent value is "active" (acceptingInput), that means the search term has not been "committed", so remove it from the values.
-    const newFieldValues = isAcceptingInput
-      ? values.filter((v) => v !== value.at(-1))
-      : values
     switch (reason) {
       // Handle when a list option is selected
       case "select-option":
@@ -72,7 +68,7 @@ export function useSearchWithRouter({
           setActiveChipValue(emptyString)
         }
         setIsAcceptingInput(true)
-        setValue(newFieldValues)
+        setValue(values)
         break
       case "create-option":
         break
