@@ -35,7 +35,6 @@ export interface useSearchWithRouterProperties {
  * @see {@link https://v4.mui.com/api/autocomplete}
  */
 export function useSearchWithRouter({
-  fields,
   label,
   setSearchParameters,
   searchParameters,
@@ -54,7 +53,8 @@ export function useSearchWithRouter({
     userCopy: emptyString,
   })
 
-  const filterFields = () => fields.filter((o) => !value.includes(o))
+  const filterFields = (options: Array<String>) =>
+    isAcceptingInput ? [] : options.filter((o) => !value.includes(o))
 
   /**
    * Callback that gets fired when one option from dropdown gets selected
@@ -180,6 +180,7 @@ export function useSearchWithRouter({
   )
 
   return {
+    isAcceptingInput,
     value,
     input,
     setValue,
