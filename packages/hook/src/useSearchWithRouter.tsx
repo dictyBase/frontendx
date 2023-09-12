@@ -97,10 +97,9 @@ export function useSearchWithRouter({
         return
       // Setting input value
       case reason === "input":
-        setIsAcceptingInput(true)
         setInput({ user: newInputValue, userCopy: newInputValue })
         return
-      // Clear inputs for new addition
+      // Clear inputs and create a chip for the completed field
       default:
         setInput((state) => ({ ...state, user: emptyString }))
         setIsAcceptingInput(false)
