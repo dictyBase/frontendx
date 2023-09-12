@@ -104,7 +104,7 @@ export function useSearchWithRouter({
         setInput((state) => ({ ...state, user: emptyString }))
         setIsAcceptingInput(false)
         if (lastValue) {
-          setActiveChipValue(`${lastValue}:${input.userCopy}`)
+          setActiveChipValue(`${lastValue}: ${input.userCopy}`)
           searchParameters.append(lastValue, input.userCopy)
           setSearchParameters(searchParameters)
         }
