@@ -5,7 +5,7 @@ import Select from "@material-ui/core/Select"
 import MenuItem from "@material-ui/core/MenuItem"
 import { deepPurple } from "@material-ui/core/colors"
 import { useConfigureStrainCatalogSearchDropdown } from "@dictybase/hook-dsc"
-import { useSearchParams, type SetURLSearchParams } from "react-router-dom"
+import { useSearchParams } from "react-router-dom"
 import { v4 as uuid4 } from "uuid"
 
 const useStyles = makeStyles({
