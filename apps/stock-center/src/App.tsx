@@ -4,7 +4,10 @@ import { makeStyles, Theme } from "@material-ui/core/styles"
 import { CssBaseline } from "@material-ui/core"
 import Container from "@material-ui/core/Container"
 import { useGraphqlClient, useApolloClientCache } from "@dictybase/data-access"
-import { listStrainsPagination } from "@dictybase/hook-dsc"
+import {
+  listStrainsPagination,
+  listStrainsWithAnnotationPagination,
+} from "@dictybase/hook-dsc"
 import { ApolloProvider } from "@apollo/client"
 import "@fontsource/roboto"
 import { Header } from "@dictybase/header"
@@ -45,6 +48,7 @@ export const App = () => {
         Query: {
           fields: {
             listStrains: listStrainsPagination(),
+            listStrainsWithAnnotation: listStrainsWithAnnotationPagination(),
           },
         },
       },
