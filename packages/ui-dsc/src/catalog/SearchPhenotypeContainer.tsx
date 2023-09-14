@@ -128,7 +128,7 @@ const SearchPhenotypeContainer = () => {
               <GraphQLErrorPage error={error_} />
             ))
             .otherwise(() => (
-              <></>
+              <> This message should not appear. </>
             ))}
         </Grid>
       </Grid>
