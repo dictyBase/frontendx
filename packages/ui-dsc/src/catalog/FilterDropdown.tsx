@@ -5,7 +5,7 @@ import Select from "@material-ui/core/Select"
 import MenuItem from "@material-ui/core/MenuItem"
 import { deepPurple } from "@material-ui/core/colors"
 import { useConfigureStrainCatalogSearchDropdown } from "@dictybase/hook-dsc"
-import { type SetURLSearchParams } from "react-router-dom"
+import { useSearchParams, type SetURLSearchParams } from "react-router-dom"
 import { v4 as uuid4 } from "uuid"
 
 const useStyles = makeStyles({
@@ -52,8 +52,6 @@ const useStyles = makeStyles({
  * The props for {@link FilterDropdown}
  */
 export interface FilterDropdownProperties {
-  /** value for filter parameter */
-  searchParamFn: SetURLSearchParams
   value: string
   param: string
 }
@@ -62,21 +60,20 @@ export interface FilterDropdownProperties {
  * Displays a dropdown menu of the given items. Selecting any particular item
  * will append its filter parameter in the query parameter of browser's url.
  */
-export const FilterDropdown = ({
-  searchParamFn,
-  param,
-  value,
-}: FilterDropdownProperties) => {
+export const FilterDropdown = ({ param, value }: FilterDropdownProperties) => {
   const classes = useStyles()
-  const [filterValue, setFilterValue] = useState<string>(value)
+  const [searchParameters, setSearchParameters] = useSearchParams()
+  const [filterValue, setFilterValue] = useState<string>(
+    searchParameters.get(param) || value,
+  )
   const items = useConfigureStrainCatalogSearchDropdown()
 
   useEffect(() => {
-    searchParamFn((previousParameters) => {
+    setSearchParameters((previousParameters) => {
       previousParameters.set(param, filterValue)
       return [...previousParameters.entries()]
     })
-  }, [searchParamFn, param, filterValue])
+  }, [setSearchParameters, param, filterValue])
 
   const handleChange = (
     event: React.ChangeEvent<{ name?: string; value: unknown }>,
