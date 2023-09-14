@@ -91,14 +91,10 @@ const SearchPhenotypeContainer = () => {
 
   return (
     <>
-      {match({ loading, e: error, d: data })
-        .with({ loading: true }, () => <DetailsLoader />)
-        .with({ e: P.not(undefined), d: undefined }, ({ e }) => (
-          <GraphQLErrorPage error={e} />
-        ))
+      {match({ loading, error, data })
         .with(
           {
-            d: {
+            data: {
               listStrainsWithAnnotation: {
                 totalCount: P.select("totalCount"),
                 strains: P.select("strains"),
@@ -136,6 +132,10 @@ const SearchPhenotypeContainer = () => {
             </>
           ),
         )
+        .with({ loading: true }, () => <DetailsLoader />)
+        .with({ error: P.select(P.not(undefined)) }, (error_) => (
+          <GraphQLErrorPage error={error_} />
+        ))
         .otherwise(() => (
           <></>
         ))}
