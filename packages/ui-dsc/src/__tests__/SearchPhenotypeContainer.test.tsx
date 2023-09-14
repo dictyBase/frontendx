@@ -215,6 +215,7 @@ describe("features/Stocks/SearchResults/PhenotypeContainer", () => {
         </MockedProvider>,
       )
       // next 50 results should be included since isIntersecting is true
+
       const firstRowSecondSet = await screen.findByText(
         (second50[0] as StrainWithAnnotation).label,
       )
@@ -270,10 +271,41 @@ describe("features/Stocks/SearchResults/PhenotypeContainer", () => {
       )
       // displays loading skeleton first
       expect(screen.getByTestId(skeletonLoaderString)).toBeInTheDocument()
-
       // wait for error message to load...
       const errorMessage = await screen.findByText(/Page Not Found/)
       expect(errorMessage).toBeInTheDocument()
     })
+  })
+  describe("fallback", () => {
+    test("returns an empty JSX fragment if there loading, data, and error are undefined", () => {
+      const mocks = [
+        {
+          request: {
+            query: ListStrainsWithPhenotypeDocument,
+            variables: {
+              cursor: 0,
+              limit: 50,
+              type: "phenotype",
+              annotation: annotationString,
+            },
+          },
+          result: {
+            data: undefined,
+            error: undefined,
+          },
+        },
+      ]
+      render(
+        <MockedProvider
+          mocks={mocks as unknown as ReadonlyArray<MockedResponse>}>
+          <BrowserRouter>
+            <SearchPhenotypeContainer />
+          </BrowserRouter>
+        </MockedProvider>,
+      )
+    })
+    expect(screen.queryByTestId(skeletonLoaderString)).toBeNull()
+    expect(screen.queryByText(/Page Not Found/)).toBeNull()
+    expect(screen.queryByRole("list")).toBeNull()
   })
 })
