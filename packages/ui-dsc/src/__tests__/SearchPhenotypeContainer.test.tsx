@@ -277,24 +277,23 @@ describe("features/Stocks/SearchResults/PhenotypeContainer", () => {
     })
   })
   describe("fallback", () => {
-    test("returns an empty JSX fragment if there loading, data, and error are undefined", () => {
-      const mocks = [
-        {
-          request: {
-            query: ListStrainsWithPhenotypeDocument,
-            variables: {
-              cursor: 0,
-              limit: 50,
-              type: "phenotype",
-              annotation: annotationString,
-            },
-          },
-          result: {
-            data: undefined,
-            error: undefined,
+    const mocks = [
+      {
+        request: {
+          query: ListStrainsWithPhenotypeDocument,
+          variables: {
+            cursor: 0,
+            limit: 50,
+            type: "phenotype",
+            annotation: annotationString,
           },
         },
-      ]
+        result: {
+          errors: undefined,
+        },
+      },
+    ]
+    test("returns a fallback message if there loading, data, and error are undefined", async () => {
       render(
         <MockedProvider
           mocks={mocks as unknown as ReadonlyArray<MockedResponse>}>
@@ -303,9 +302,10 @@ describe("features/Stocks/SearchResults/PhenotypeContainer", () => {
           </BrowserRouter>
         </MockedProvider>,
       )
+      const fallbackMessage = await screen.findByText(
+        /This message should not appear/,
+      )
+      expect(fallbackMessage).toBeInTheDocument()
     })
-    expect(screen.queryByTestId(skeletonLoaderString)).toBeNull()
-    expect(screen.queryByText(/Page Not Found/)).toBeNull()
-    expect(screen.queryByRole("list")).toBeNull()
   })
 })
