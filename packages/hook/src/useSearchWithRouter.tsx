@@ -9,7 +9,7 @@ import { inputProperties } from "./types"
 
 const emptyString: Readonly<string> = ""
 
-const parseSearchParameters = (
+const getInitialSearchValues = (
   searchParameters: URLSearchParams,
   fields: Array<string>,
 ) => {
@@ -65,7 +65,7 @@ export function useSearchWithRouter({
     initialSelectedFields,
     initialPreviousChipValue,
     initialActiveChipValue,
-  } = parseSearchParameters(searchParameters, fields)
+  } = getInitialSearchValues(searchParameters, fields)
 
   // Determines whether the input field is in a state of accepting user input
   const [isAcceptingInput, setIsAcceptingInput] = useState<boolean>(false)
