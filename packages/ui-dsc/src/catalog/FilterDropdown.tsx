@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import FormControl from "@material-ui/core/FormControl"
 import Select from "@material-ui/core/Select"
@@ -71,12 +71,15 @@ export const FilterDropdown = ({
   const [filterValue, setFilterValue] = useState<string>(value)
   const items = useConfigureStrainCatalogSearchDropdown()
 
+  useEffect(() => {
+    searchParamFn({ [param]: filterValue })
+  }, [filterValue, searchParamFn, param])
+
   const handleChange = (
     event: React.ChangeEvent<{ name?: string; value: unknown }>,
   ) => {
     const newValue = event.target.value as string
     setFilterValue(newValue)
-    searchParamFn({ [param]: newValue })
   }
 
   return (
