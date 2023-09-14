@@ -17,7 +17,7 @@ import { useStrainListQuery } from "dicty-graphql-schema"
 import { useSearchParams } from "react-router-dom"
 
 const StrainCatalog = () => {
-  const [searchParameters, setSearchParameters] = useSearchParams()
+  const [searchParameters] = useSearchParams()
   const value = searchParameters.get(defaultFilter.param) ?? defaultFilter.value
   const { dataField, variables } = useConfigureStrainCatalogSearchGraphql({
     value,
@@ -49,7 +49,7 @@ const StrainCatalog = () => {
   return (
     <>
       <CatalogHeader title="Strain Catalog" />
-      <SearchBar setSearchParameters={setSearchParameters} />
+      <SearchBar />
       <CatalogListWrapper root={rootReference}>
         {match({ data, loading, error })
           .with(
