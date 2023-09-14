@@ -5,7 +5,7 @@ import Select from "@material-ui/core/Select"
 import MenuItem from "@material-ui/core/MenuItem"
 import { deepPurple } from "@material-ui/core/colors"
 import { useConfigureStrainCatalogSearchDropdown } from "@dictybase/hook-dsc"
-import { SetURLSearchParameters } from "@dictybase/hook"
+import { type SetURLSearchParams } from "react-router-dom"
 import { v4 as uuid4 } from "uuid"
 
 const useStyles = makeStyles({
@@ -53,7 +53,7 @@ const useStyles = makeStyles({
  */
 export interface FilterDropdownProperties {
   /** value for filter parameter */
-  searchParamFn: SetURLSearchParameters
+  searchParamFn: SetURLSearchParams
   value: string
   param: string
 }
@@ -72,8 +72,11 @@ export const FilterDropdown = ({
   const items = useConfigureStrainCatalogSearchDropdown()
 
   useEffect(() => {
-    searchParamFn({ [param]: filterValue })
-  }, [filterValue, searchParamFn, param])
+    searchParamFn((previousParameters) => {
+      previousParameters.set(param, filterValue)
+      return [...previousParameters.entries()]
+    })
+  }, [searchParamFn, param, filterValue])
 
   const handleChange = (
     event: React.ChangeEvent<{ name?: string; value: unknown }>,
