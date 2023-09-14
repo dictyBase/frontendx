@@ -1,12 +1,12 @@
 import { Grid } from "@material-ui/core"
 import { defaultFilter, fieldsToVariables } from "@dictybase/hook-dsc"
-import { SetURLSearchParameters } from "@dictybase/hook"
+import { type SetURLSearchParams } from "react-router-dom"
 import { FilterDropdown } from "./FilterDropdown"
 import { SearchBox } from "./SearchBox"
 import { AppBarHelp } from "./AppBarHelp"
 
 type SearchBarProperties = {
-  setSearchParameters: SetURLSearchParameters
+  setSearchParameters: SetURLSearchParams
 }
 
 const SearchBar = ({ setSearchParameters }: SearchBarProperties) => (
