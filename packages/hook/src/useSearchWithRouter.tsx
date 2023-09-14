@@ -85,7 +85,7 @@ export function useSearchWithRouter({
     userCopy: emptyString,
   })
 
-  const filterFields = (options: Array<String>) =>
+  const filterFields = (options: Array<string>) =>
     isAcceptingInput ? [] : options.filter((o) => !value.includes(o))
 
   /**
