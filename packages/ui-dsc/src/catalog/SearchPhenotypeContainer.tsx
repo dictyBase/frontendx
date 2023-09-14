@@ -27,6 +27,14 @@ const useStyles = makeStyles({
 // i.e. "abolished+protein+phosphorylation" = "abolished protein phosphorylation"
 const cleanQuery = (phenotype: string) => phenotype.split("+").join(" ")
 
+const dataPattern = {
+  data: {
+    listStrainsWithAnnotation: {
+      totalCount: P.select("totalCount"),
+      strains: P.select("strains"),
+    },
+  },
+}
 /**
  * Custom hook to handle all fetching/refetching logic
  * */
@@ -106,27 +114,15 @@ const SearchPhenotypeContainer = () => {
         </Grid>
         <Grid item xs={12}>
           {match({ loading, error, data })
-            .with(
-              {
-                data: {
-                  listStrainsWithAnnotation: {
-                    totalCount: P.select("totalCount"),
-                    strains: P.select("strains"),
-                  },
-                },
-              },
-              ({ totalCount, strains }) => (
-                <>
-                  <SearchPhenotypeList
-                    loadMore={loadMoreItems}
-                    hasMore={hasMore}
-                    isLoadingMore={isLoadingMore}
-                    data={strains}
-                    totalCount={totalCount}
-                  />
-                </>
-              ),
-            )
+            .with(dataPattern, ({ totalCount, strains }) => (
+              <SearchPhenotypeList
+                loadMore={loadMoreItems}
+                hasMore={hasMore}
+                isLoadingMore={isLoadingMore}
+                data={strains}
+                totalCount={totalCount}
+              />
+            ))
             .with({ loading: true }, () => <DetailsLoader />)
             .with({ error: P.select(P.not(undefined)) }, (error_) => (
               <GraphQLErrorPage error={error_} />
