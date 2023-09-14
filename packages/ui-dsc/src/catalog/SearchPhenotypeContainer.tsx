@@ -91,35 +91,32 @@ const SearchPhenotypeContainer = () => {
 
   return (
     <>
-      {match({ loading, error, data })
-        .with(
-          {
-            data: {
-              listStrainsWithAnnotation: {
-                totalCount: P.select("totalCount"),
-                strains: P.select("strains"),
+      <Helmet>
+        <title>
+          Phenotype Search Results for {phenotype} - Dicty Stock Center
+        </title>
+        <meta
+          name="description"
+          content={`Dicty Stock Center search results for strains with ${phenotype}`}
+        />
+      </Helmet>
+      <Grid container className={classes.container}>
+        <Grid item xs={12} className={classes.gridItem}>
+          <SearchResultsHeader property="Phenotype" description={phenotype} />
+        </Grid>
+        <Grid item xs={12}>
+          {match({ loading, error, data })
+            .with(
+              {
+                data: {
+                  listStrainsWithAnnotation: {
+                    totalCount: P.select("totalCount"),
+                    strains: P.select("strains"),
+                  },
+                },
               },
-            },
-          },
-          ({ totalCount, strains }) => (
-            <>
-              <Helmet>
-                <title>
-                  Phenotype Search Results for {phenotype} - Dicty Stock Center
-                </title>
-                <meta
-                  name="description"
-                  content={`Dicty Stock Center search results for strains with ${phenotype}`}
-                />
-              </Helmet>
-              <Grid container className={classes.container}>
-                <Grid item xs={12} className={classes.gridItem}>
-                  <SearchResultsHeader
-                    property="Phenotype"
-                    description={phenotype}
-                  />
-                </Grid>
-                <Grid item xs={12}>
+              ({ totalCount, strains }) => (
+                <>
                   <SearchPhenotypeList
                     loadMore={loadMoreItems}
                     hasMore={hasMore}
@@ -127,18 +124,18 @@ const SearchPhenotypeContainer = () => {
                     data={strains}
                     totalCount={totalCount}
                   />
-                </Grid>
-              </Grid>
-            </>
-          ),
-        )
-        .with({ loading: true }, () => <DetailsLoader />)
-        .with({ error: P.select(P.not(undefined)) }, (error_) => (
-          <GraphQLErrorPage error={error_} />
-        ))
-        .otherwise(() => (
-          <></>
-        ))}
+                </>
+              ),
+            )
+            .with({ loading: true }, () => <DetailsLoader />)
+            .with({ error: P.select(P.not(undefined)) }, (error_) => (
+              <GraphQLErrorPage error={error_} />
+            ))
+            .otherwise(() => (
+              <></>
+            ))}
+        </Grid>
+      </Grid>
     </>
   )
 }
