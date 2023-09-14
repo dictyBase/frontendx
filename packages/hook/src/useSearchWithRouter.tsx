@@ -1,11 +1,40 @@
 import { useState, ReactNode } from "react"
+import { pipe } from "fp-ts/function"
+import { map, filter, reduce } from "fp-ts/Array"
+import { useSearchParams } from "react-router-dom"
 import { AutocompleteRenderInputParams } from "@material-ui/lab"
 import { TextField, Chip } from "@material-ui/core"
 import { v4 as uuid4 } from "uuid"
-import { inputProperties, SetURLSearchParameters } from "./types"
+import { inputProperties } from "./types"
 
 const emptyString: Readonly<string> = ""
 
+const parseSearchParameters = (
+  searchParameters: URLSearchParams,
+  fields: Array<string>,
+) => {
+  const filteredParameters = pipe(
+    [...searchParameters.entries()],
+    filter(([k]) => fields.includes(k)),
+    reduce([] as Array<[string, string]>, (b, parameter) =>
+      b.findIndex(([k]) => k === parameter[0]) === -1 ? [...b, parameter] : b,
+    ),
+  )
+  const chipPairs = pipe(
+    filteredParameters,
+    map(([k, v]) => `${k}: ${v}`),
+  )
+
+  return {
+    initialSelectedFields: pipe(
+      filteredParameters,
+      map(([k]) => k),
+    ),
+    initialPreviousChipValue:
+      chipPairs.length > 1 ? chipPairs.slice(0, -1) : [],
+    initialActiveChipValue: chipPairs.at(-1) ?? "",
+  }
+}
 /**
  * The prop type for {@link useSearchWithRouter}
  */
@@ -16,13 +45,6 @@ export interface useSearchWithRouterProperties {
   label: string
   /** The list of fields for searching */
   fields: string[]
-  /** The react-router [function]{@link https://reactrouter.com/docs/en/v6/api#usesearchparams}
-   * which allows to change the search params of the browser's url
-   */
-  setSearchParameters: SetURLSearchParameters
-  /** The {@link https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams | URLSearchParams object}
-   */
-  searchParameters: URLSearchParams
 }
 
 /**
@@ -36,17 +58,27 @@ export interface useSearchWithRouterProperties {
  */
 export function useSearchWithRouter({
   label,
-  setSearchParameters,
-  searchParameters,
+  fields,
 }: useSearchWithRouterProperties) {
+  const [searchParameters, setSearchParameters] = useSearchParams()
+  const {
+    initialSelectedFields,
+    initialPreviousChipValue,
+    initialActiveChipValue,
+  } = parseSearchParameters(searchParameters, fields)
+
   // Determines whether the input field is in a state of accepting user input
   const [isAcceptingInput, setIsAcceptingInput] = useState<boolean>(false)
   // Holds the list of field names the user selected from the dropdown
-  const [value, setValue] = useState<Array<string>>([])
+  const [value, setValue] = useState<Array<string>>(initialSelectedFields)
   // Holds the previously created chips (field:value pairs).
-  const [previousChipValue, setPreviousChipValue] = useState<string[]>([])
+  const [previousChipValue, setPreviousChipValue] = useState<string[]>(
+    initialPreviousChipValue,
+  )
   // Holding the currently active chip's value.
-  const [activeChipValue, setActiveChipValue] = useState<string>(emptyString)
+  const [activeChipValue, setActiveChipValue] = useState<string>(
+    initialActiveChipValue,
+  )
   // Track the current input from the user and a copy of it.
   const [input, setInput] = useState<inputProperties>({
     user: emptyString,
