@@ -1,5 +1,4 @@
 import { Autocomplete } from "@material-ui/lab"
-import { useSearchParams } from "react-router-dom"
 import { useSearchWithRouter } from "@dictybase/hook"
 
 export const defaultLabel = "Search (Click for available fields to search)"
@@ -28,7 +27,6 @@ export const SearchBox = ({
   label = defaultLabel,
   help = defaultHelp,
 }: SearchBoxProperties) => {
-  const [searchParameters, setSearchParameters] = useSearchParams()
   const {
     input,
     value,
@@ -41,8 +39,6 @@ export const SearchBox = ({
     fields,
     label,
     help,
-    setSearchParameters,
-    searchParameters,
   })
 
   return (
