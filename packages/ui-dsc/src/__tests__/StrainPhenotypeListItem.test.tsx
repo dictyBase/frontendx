@@ -1,7 +1,7 @@
 import { test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { Phenotype, Publication } from "dicty-graphql-schema"
-import { MemoryRouter } from "react-router"
+import { MemoryRouter } from "react-router-dom"
 import { StrainPhenotypeListItem } from "../catalog/StrainPhenotypeListItem"
 
 const mockData: Phenotype = {
