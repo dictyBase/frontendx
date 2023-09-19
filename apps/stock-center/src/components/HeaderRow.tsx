@@ -3,6 +3,7 @@ import { CartIcon } from "@dictybase/ui-dsc"
 import { useAtomValue } from "jotai"
 import { Breadcrumbs } from "./Breadcrumbs"
 import { isFullAtom, strainItemsAtom } from "../state"
+import { Outlet } from "react-router-dom"
 /**
  * This is the cart component that displays between the Navbar and body content on every page.
  * It has a cart icon with the current number of added items next to it.
@@ -13,14 +14,17 @@ const HeaderRow = () => {
   const strainItems = useAtomValue(strainItemsAtom)
 
   return (
-    <Grid container justifyContent="space-between" alignItems="center">
-      <Grid item>
-        <Breadcrumbs />
+    <>
+      <Grid container justifyContent="space-between" alignItems="center">
+        <Grid item>
+          <Breadcrumbs />
+        </Grid>
+        <Grid item>
+          <CartIcon isFull={isFull} items={strainItems} />
+        </Grid>
       </Grid>
-      <Grid item>
-        <CartIcon isFull={isFull} items={strainItems} />
-      </Grid>
-    </Grid>
+      <Outlet />
+    </>
   )
 }
 
