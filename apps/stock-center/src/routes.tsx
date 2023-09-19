@@ -25,8 +25,8 @@ const routeObject = Object.keys(pages).map((route) => {
   return { path: parsePath(route), element: <Element /> }
 })
 
-const router = createBrowserRouter(routeObject, {
+const dscRouter = createBrowserRouter(routeObject, {
   basename: import.meta.env.VITE_APP_BASENAME,
 })
 
-export { router }
+export { dscRouter }
