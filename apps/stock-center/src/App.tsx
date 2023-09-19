@@ -17,7 +17,6 @@ import { navbarItems, formatNavbarData } from "./navbarItems"
 import { navTheme } from "./themes"
 import { ThemeProvider } from "./ThemeProvider"
 import { dscRouter } from "./routes"
-import { HeaderRow } from "./components/HeaderRow"
 
 const useStyles = makeStyles((theme: Theme) => ({
   main: {
@@ -63,7 +62,6 @@ export const App = () => {
           <Navbar items={formatNavbarData(navbarItems)} theme={navTheme} />
           <main className={classes.main}>
             <Container maxWidth="lg">
-              <HeaderRow />
               <RouterProvider router={dscRouter} />
             </Container>
           </main>
