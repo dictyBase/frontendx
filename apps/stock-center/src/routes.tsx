@@ -1,5 +1,6 @@
 import { type FunctionComponent } from "react"
 import { ACCESS } from "./types"
+import { createBrowserRouter } from "react-router-dom"
 
 type PageImport = {
   default: FunctionComponent
@@ -10,7 +11,7 @@ const parsePath = (path: string) =>
   path
     .replace(/^(?:\/src\/pages\/index\.tsx)$/, "/")
     .replace(/\[\.{3}.+]/, "*")
-.replace(/\[(.+)\]/, ':$1')
+    .replace(/\[(.+)\]/, ":$1")
 
 const pages: Record<string, PageImport> = import.meta.glob(
   "/src/pages/**/**/*.tsx",
@@ -19,10 +20,13 @@ const pages: Record<string, PageImport> = import.meta.glob(
   },
 )
 
-const routes = Object.keys(pages).map((route) => ({
-  path: parsePath(route),
-  component: pages[route].default,
-  access: pages[route].access,
-}))
+const routeObject = Object.keys(pages).map((route) => {
+  const Element = pages[route].default
+  return { path: parsePath(route), element: <Element /> }
+})
 
-export { routes }
+const router = createBrowserRouter(routeObject, {
+  basename: import.meta.env.VITE_APP_BASENAME,
+})
+
+export { router }
