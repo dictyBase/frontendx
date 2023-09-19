@@ -8,9 +8,9 @@ type PageImport = {
 
 const parsePath = (path: string) =>
   path
-    .replaceAll(/\/src\/pages\/|\/index|index|\.tsx$/g, "")
+    .replace(/^(?:\/src\/pages\/index\.tsx)$/, "/")
     .replace(/\[\.{3}.+]/, "*")
-    .replaceAll(/\[([^/]+)]/g, ":$1")
+.replace(/\[(.+)\]/, ':$1')
 
 const pages: Record<string, PageImport> = import.meta.glob(
   "/src/pages/**/**/*.tsx",
