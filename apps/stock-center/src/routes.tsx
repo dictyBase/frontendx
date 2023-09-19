@@ -1,6 +1,7 @@
 import { type FunctionComponent } from "react"
 import { ACCESS } from "./types"
 import { createBrowserRouter } from "react-router-dom"
+import { HeaderRow } from "./components/HeaderRow"
 
 type PageImport = {
   default: FunctionComponent
@@ -9,7 +10,7 @@ type PageImport = {
 
 const parsePath = (path: string) =>
   path
-    .replace(/^(?:\/src\/pages\/index\.tsx)$/, "/")
+    .replace(/\/src\/pages|index|\.tsx$/g, "")
     .replace(/\[\.{3}.+]/, "*")
     .replace(/\[(.+)\]/, ":$1")
 
@@ -20,12 +21,15 @@ const pages: Record<string, PageImport> = import.meta.glob(
   },
 )
 
-const routeObject = Object.keys(pages).map((route) => {
-  const Element = pages[route].default
-  return { path: parsePath(route), element: <Element /> }
-})
+const routeObject = () => {
+  const routeChildren = Object.keys(pages).map((route) => {
+    const Element = pages[route].default
+    return { path: parsePath(route), element: <Element /> }
+  })
+  return [{ element: <HeaderRow />, children: routeChildren }]
+}
 
-const dscRouter = createBrowserRouter(routeObject, {
+const dscRouter = createBrowserRouter(routeObject(), {
   basename: import.meta.env.VITE_APP_BASENAME,
 })
 
