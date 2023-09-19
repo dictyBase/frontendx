@@ -16,6 +16,12 @@ import { navbarItems, formatNavbarData } from "./navbarItems"
 import { navTheme } from "./themes"
 import { ThemeProvider } from "./ThemeProvider"
 import { dscRouter } from "./routes"
+import { LogtoProvider, LogtoConfig } from "@logto/react"
+
+const logtoConf: LogtoConfig = {
+  endpoint: import.meta.env.LOGTO_ENDPOINT,
+  appId: import.meta.env.LOGTO_APPID,
+}
 
 const useStyles = makeStyles((theme: Theme) => ({
   main: {
@@ -54,21 +60,21 @@ export const App = () => {
   })
   return (
     <ApolloProvider client={client}>
-      <ThemeProvider>
-        <CssBaseline />
-        <div className={classes.body}>
-          <Header />
-          <Navbar items={formatNavbarData(navbarItems)} theme={navTheme} />
-          <main className={classes.main}>
-            <Container maxWidth="lg">
-              <RouterProvider router={dscRouter} />
-            </Container>
-          </main>
-          <Footer />
-        </div>
-      </ThemeProvider>
+      <LogtoProvider config={logtoConf}>
+        <ThemeProvider>
+          <CssBaseline />
+          <div className={classes.body}>
+            <Header />
+            <Navbar items={formatNavbarData(navbarItems)} theme={navTheme} />
+            <main className={classes.main}>
+              <Container maxWidth="lg">
+                <RouterProvider router={dscRouter} />
+              </Container>
+            </main>
+            <Footer />
+          </div>
+        </ThemeProvider>
+      </LogtoProvider>
     </ApolloProvider>
   )
 }
-
-
