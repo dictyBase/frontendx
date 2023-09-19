@@ -1,5 +1,4 @@
-import { Fragment } from "react"
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { RouterProvider } from "react-router-dom"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import { CssBaseline } from "@material-ui/core"
 import Container from "@material-ui/core/Container"
@@ -17,7 +16,7 @@ import { NotFoundError } from "@dictybase/ui-dsc"
 import { navbarItems, formatNavbarData } from "./navbarItems"
 import { navTheme } from "./themes"
 import { ThemeProvider } from "./ThemeProvider"
-import { routes } from "./routes"
+import { dscRouter } from "./routes"
 import { HeaderRow } from "./components/HeaderRow"
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -56,29 +55,21 @@ export const App = () => {
     }),
   })
   return (
-    <BrowserRouter basename={import.meta.env.VITE_APP_BASENAME}>
-      <ApolloProvider client={client}>
-        <ThemeProvider>
-          <CssBaseline />
-          <div className={classes.body}>
-            <Header />
-            <Navbar items={formatNavbarData(navbarItems)} theme={navTheme} />
-            <main className={classes.main}>
-              <Container maxWidth="lg">
-                <HeaderRow />
-                <Routes>
-                  {routes.map(({ path, component: Component = Fragment }) => {
-                    const element = <Component />
-                    return <Route key={path} path={path} element={element} />
-                  })}
-                  <Route path="*" element={<NotFoundError />} />
-                </Routes>
-              </Container>
-            </main>
-            <Footer />
-          </div>
-        </ThemeProvider>
-      </ApolloProvider>
-    </BrowserRouter>
+    <ApolloProvider client={client}>
+      <ThemeProvider>
+        <CssBaseline />
+        <div className={classes.body}>
+          <Header />
+          <Navbar items={formatNavbarData(navbarItems)} theme={navTheme} />
+          <main className={classes.main}>
+            <Container maxWidth="lg">
+              <HeaderRow />
+              <RouterProvider router={dscRouter} />
+            </Container>
+          </main>
+          <Footer />
+        </div>
+      </ThemeProvider>
+    </ApolloProvider>
   )
 }
