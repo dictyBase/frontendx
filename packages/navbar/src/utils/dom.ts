@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable no-param-reassign */
 // @flow
-export const transitionFromAuto = (element: any, endHeight: number) => {
+export const transitionFromAuto = (element: HTMLElement, endHeight: number) => {
   element.style.height = getComputedStyle(element).height
   // Force repaint
   // eslint-disable-next-line no-unused-expressions
