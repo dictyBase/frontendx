@@ -1,46 +1,8 @@
 // import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { P, match } from "ts-pattern"
 import { Editor } from "editor"
+import { mockContent } from "../mocks/mockContent"
 // import { PanelLoader } from "./PanelLoader"
-
-const temporaryContent = {
-  root: {
-    children: [
-      {
-        children: [
-          {
-            children: [
-              {
-                detail: 0,
-                format: 2,
-                mode: "normal",
-                style: "font-size: 20px;",
-                text: "Content coming soon!",
-                type: "text",
-                version: 1,
-              },
-            ],
-            direction: "ltr",
-            format: "",
-            indent: 0,
-            type: "paragraph",
-            version: 1,
-          },
-        ],
-        direction: "ltr",
-        format: "",
-        indent: 0,
-        type: "flex-layout",
-        version: 1,
-      },
-    ],
-    direction: "ltr",
-    format: "",
-    indent: 0,
-    type: "root",
-    version: 1,
-  },
-}
 
 type EditablePanelProperties = {
   /** The slug name for the data to fetch */
@@ -69,7 +31,7 @@ const EditablePanel = ({ slug, skeletonCount }: EditablePanelProperties) => (
     {match({
       loading: false,
       error: undefined,
-      data: { contentBySlug: { content: temporaryContent, slug: "home" } },
+      data: { contentBySlug: { content: mockContent, slug: "home" } },
     })
       .with(
         {
@@ -82,6 +44,7 @@ const EditablePanel = ({ slug, skeletonCount }: EditablePanelProperties) => (
         },
         ({ content, slug_ }) => (
           <Editor
+            data-testid="editor"
             editable={false}
             content={{
               editorState: JSON.stringify(content),
