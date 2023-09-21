@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { ReactNode } from "react"
 import { vi, describe, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
@@ -25,6 +26,7 @@ describe("features/OrderForm/Submit/OrderSummaryPDF", () => {
       label: "HL501/X55",
       summary: "heterozygote diploid tester strain; Parents: HL501 and X55",
       quantity: 1,
+      in_stock: true,
     },
     {
       fee: 30,
@@ -32,6 +34,7 @@ describe("features/OrderForm/Submit/OrderSummaryPDF", () => {
       label: "HL501/X55",
       summary: "heterozygote diploid tester strain; Parents: HL501 and X55",
       quantity: 1,
+      in_stock: true,
     },
     {
       fee: 15,
@@ -40,6 +43,7 @@ describe("features/OrderForm/Submit/OrderSummaryPDF", () => {
       summary:
         "The construct was made by sub-cloning the DDB_G0267476 promoter as a 655 bp XbaI/BglII fragment into XbaI/BglII restricted pDdGal-17. This fragment consists of the region -632_+24 bp from the DDB_G0267476 start and restriction sites. This includes the full intergenic region before DDB_G0267476. The construct drives the expression of β-gal when activated; parental vector: pDdGAI-17; vector length: 9137 bp.",
       quantity: 1,
+      in_stock: true,
     },
   ]
   const order = {

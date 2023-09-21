@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { expect, test } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { MemoryRouter } from "react-router-dom"
@@ -8,11 +9,13 @@ const cartItems = [
     id: "DBS123",
     label: "test1",
     fee: 30,
+    in_stock: true,
   },
   {
     id: "DBP456",
     label: "test2",
     fee: 15,
+    in_stock: true,
   },
 ]
 test("correctly indicates items in cart", () => {

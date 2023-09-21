@@ -22,6 +22,7 @@ const renderStrainTotal = ({ strainItems }: Cart) => (
   />
 )
 
+// @ts-ignore
 const renderPlasmidTotal = ({ plasmidItems }: Cart) => (
   <CartTotalRow
     leftValue="Plasmids"
@@ -31,6 +32,7 @@ const renderPlasmidTotal = ({ plasmidItems }: Cart) => (
   />
 )
 
+// @ts-ignore
 const renderStrainAndPlasmidTotals = ({ strainItems, plasmidItems }: Cart) => (
   <>
     <CartTotalRow
@@ -47,6 +49,8 @@ const renderStrainAndPlasmidTotals = ({ strainItems, plasmidItems }: Cart) => (
     />
   </>
 )
+
+// @ts-ignore
 
 const renderCartTotal = ({ strainItems = [], plasmidItems = [] }: Cart) => {
   const cumulative = [...strainItems, ...plasmidItems]

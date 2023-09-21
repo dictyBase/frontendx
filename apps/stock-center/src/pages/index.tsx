@@ -51,11 +51,11 @@ const Homepage = () => {
             Welcome to Dicty Stock Center (DSC)
           </Typography>
         </Grid>
-        {/* <Grid item xs={12} className={classes.intro}>
+        <Grid item xs={12} className={classes.intro}>
           <EditorHolder minHeight="140px">
             <EditablePanel slug="dsc-intro" skeletonCount={5} />
           </EditorHolder>
-        </Grid> */}
+        </Grid>
         {/* <HomepageColumn
           components={[
             <EditorHolder minHeight="300px">

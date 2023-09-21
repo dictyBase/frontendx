@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { describe, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { OrderSummary } from "../order/OrderSummary"
@@ -12,6 +13,7 @@ describe("OrderSummary", () => {
       id: "DBS0351365",
       label: "HL501/X55",
       summary: "heterozygote diploid tester strain; Parents: HL501 and X55",
+      in_stock: true,
     },
     {
       fee: 15,
@@ -20,6 +22,7 @@ describe("OrderSummary", () => {
       label: "pSigK/lacZ",
       summary:
         "The construct was made by sub-cloning the DDB_G0267476 promoter as a 655 bp XbaI/BglII fragment into XbaI/BglII restricted pDdGal-17. This fragment consists of the region -632_+24 bp from the DDB_G0267476 start and restriction sites. This includes the full intergenic region before DDB_G0267476. The construct drives the expression of β-gal when activated; parental vector: pDdGAI-17; vector length: 9137 bp.",
+      in_stock: true,
     },
   ]
   test("should display correct items", () => {

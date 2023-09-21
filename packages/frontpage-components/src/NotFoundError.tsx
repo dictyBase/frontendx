@@ -23,6 +23,7 @@ type Parameters_ = {
  */
 
 // While not currently used in the component, sometimes NotFoundError is invoked by other components that provide it an error prop, so the parameter will not be removed for now.
+// @ts-ignore
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const NotFoundError = ({ error }: Properties) => {
   const { name, subname } = useParams<Parameters_>()

@@ -23,7 +23,7 @@ const cartAtom = atom<Cart>(initialCart)
 
 const strainItemsAtom = atom(
   (get) => get(cartAtom).strainItems,
-  (get, set, strainItems: Array<StrainCartItem>) =>
+  (_, set, strainItems: Array<StrainCartItem>) =>
     set(cartAtom, (previous) => ({ ...previous, strainItems })),
 )
 const strainItemAtomsAtom = splitAtom(strainItemsAtom)
