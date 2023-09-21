@@ -44,7 +44,6 @@ const EditablePanel = ({ slug, skeletonCount }: EditablePanelProperties) => (
         },
         ({ content, slug_ }) => (
           <Editor
-            data-testid="editor"
             editable={false}
             content={{
               editorState: JSON.stringify(content),
