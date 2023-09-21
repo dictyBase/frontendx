@@ -140,6 +140,8 @@ const StrainDetailsCard = ({ data }: Properties) => {
     label: data?.label as string,
     summary: data?.summary as string,
     fee: fees.STRAIN_FEE,
+    // eslint-disable-next-line camelcase
+    in_stock: true,
   }
 
   const phenotypes = data?.phenotypes as Phenotype[]
@@ -158,7 +160,10 @@ const StrainDetailsCard = ({ data }: Properties) => {
   return (
     <Box textAlign="center" mb={3}>
       {match(numberPhenotypes)
-        .with(P.number.gt(0), () => header)
+        .with(
+          P.when((c) => c > 0),
+          () => header,
+        )
         .otherwise(() => (
           <></>
         ))}
@@ -166,11 +171,14 @@ const StrainDetailsCard = ({ data }: Properties) => {
         <Grid container>
           <List className={classes.list}>
             {match(numberPhenotypes)
-              .with(P.number.lt(1), () => (
-                <ListItem divider className={classes.cardHeader}>
-                  {header}
-                </ListItem>
-              ))
+              .with(
+                P.when((c) => c < 1),
+                () => (
+                  <ListItem divider className={classes.cardHeader}>
+                    {header}
+                  </ListItem>
+                ),
+              )
               .otherwise(() => (
                 <></>
               ))}

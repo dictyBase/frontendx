@@ -1,16 +1,15 @@
-import { vi, test, expect, beforeEach } from "vitest"
+import { test, expect, beforeEach } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { MemoryRouter } from "react-router-dom"
 import { SearchBar } from "../catalog/SearchBar"
 
-const setSearchParameters = vi.fn()
 const defaultDropdownValue = "Regular Strains"
 const catalogHelpButtonName = "Learn more about the stock catalog page"
 
 beforeEach(() => {
   render(
     <MemoryRouter>
-      <SearchBar setSearchParameters={setSearchParameters} />
+      <SearchBar />
     </MemoryRouter>,
   )
 })

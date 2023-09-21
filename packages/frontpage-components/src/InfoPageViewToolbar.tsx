@@ -62,8 +62,8 @@ const InfoPageViewToolbar = ({ handleClick, lastUpdate, user }: Properties) => {
   const classes = useStyles()
 
   const fullName = `${user.first_name} ${user.last_name}`
-  const role = user.roles?.at(0)?.name
-    ? `${capitalizeFirstCharacter(user.roles?.at(0)?.name as string)}`
+  const role = user.roles?.at(0)?.role
+    ? `${capitalizeFirstCharacter(user.roles?.at(0)?.role as string)}`
     : "dictyBase User"
 
   return (

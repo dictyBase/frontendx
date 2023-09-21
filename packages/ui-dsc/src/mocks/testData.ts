@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const testItems = [
   {
     id: "DBS-1",
@@ -5,6 +6,7 @@ const testItems = [
     label: "testStrain",
     quantity: 1,
     fee: 10,
+    in_stock: true,
   },
   {
     id: "DBS-2",
@@ -12,6 +14,7 @@ const testItems = [
     label: "testStrain",
     quantity: 1,
     fee: 15,
+    in_stock: true,
   },
   {
     id: "DBS-3",
@@ -19,6 +22,7 @@ const testItems = [
     label: "testStrain",
     quantity: 1,
     fee: 19.79,
+    in_stock: true,
   },
 ]
 

@@ -10,6 +10,8 @@ const testItem = {
   label: "testStrain",
   quantity: 1,
   fee: 10,
+  // eslint-disable-next-line camelcase
+  in_stock: true,
 }
 
 const deleteItem = vi.fn()

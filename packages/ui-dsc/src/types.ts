@@ -3,7 +3,7 @@ import { FormData } from "./utils/initialFormValues"
 
 type PurchaseProperties = { fee: Readonly<number> }
 
-type StrainItem = Pick<Strain, "id" | "summary" | "label">
+type StrainItem = Pick<Strain, "id" | "summary" | "label" | "in_stock">
 type StrainCartItem = StrainItem & PurchaseProperties
 type CartItemLimit = Readonly<number>
 type Cart = {

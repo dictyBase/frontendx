@@ -1,20 +1,12 @@
 import { test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { useSearchParams, BrowserRouter } from "react-router-dom"
+import { BrowserRouter } from "react-router-dom"
 import { FilterDropdown } from "../catalog/FilterDropdown"
 
-const FilterDropdownWrapper = () => {
-  const [, setSearchParameters] = useSearchParams()
-
-  return (
-    <FilterDropdown
-      searchParamFn={setSearchParameters}
-      param="group"
-      value="regular"
-    />
-  )
-}
+const FilterDropdownWrapper = () => (
+  <FilterDropdown param="group" value="regular" />
+)
 
 test("It renders with the initial option passed to the `value` prop", () => {
   render(

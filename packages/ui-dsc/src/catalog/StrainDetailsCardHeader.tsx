@@ -94,31 +94,36 @@ const StrainDetailsCardHeader = ({
         <Grid item>
           {match(phenotypeLength)
             .with(0, () => <Typography variant="h2">Strain Details</Typography>)
-            .with(P.number.gt(0), () => (
-              <Tabs
-                value={value}
-                onChange={handleChange}
-                classes={{ indicator: classes.indicator }}
-                aria-label="strain details tabs">
-                <Tab
-                  classes={tabStyles}
-                  label={
-                    <Typography variant="body1">Strain Details</Typography>
-                  }
-                  {...a11yProperties(0)}
-                />
-                <Tab
-                  classes={tabStyles}
-                  label={
-                    <Typography variant="body1">
-                      Phenotypes
-                      <span className={classes.number}>{phenotypeLength}</span>
-                    </Typography>
-                  }
-                  {...a11yProperties(1)}
-                />
-              </Tabs>
-            ))
+            .with(
+              P.when((c) => c > 0),
+              () => (
+                <Tabs
+                  value={value}
+                  onChange={handleChange}
+                  classes={{ indicator: classes.indicator }}
+                  aria-label="strain details tabs">
+                  <Tab
+                    classes={tabStyles}
+                    label={
+                      <Typography variant="body1">Strain Details</Typography>
+                    }
+                    {...a11yProperties(0)}
+                  />
+                  <Tab
+                    classes={tabStyles}
+                    label={
+                      <Typography variant="body1">
+                        Phenotypes
+                        <span className={classes.number}>
+                          {phenotypeLength}
+                        </span>
+                      </Typography>
+                    }
+                    {...a11yProperties(1)}
+                  />
+                </Tabs>
+              ),
+            )
             .otherwise(() => (
               <></>
             ))}

@@ -1,6 +1,5 @@
 import { test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
-import { TypographyProps } from "@material-ui/core/Typography"
 import { CartTotalRow } from "../cart/CartTotalRow"
 
 test("should render the leftValue, numItems, and total correctly", () => {
@@ -8,6 +7,7 @@ test("should render the leftValue, numItems, and total correctly", () => {
     leftValue: "Strains",
     numItems: 5,
     total: "10.99",
+    variant: "inherit" as "inherit",
   }
 
   render(<CartTotalRow {...properties} />)
@@ -26,7 +26,7 @@ test("should have the proper variant for Typography components", () => {
     leftValue: "Plasmids",
     numItems: 0,
     total: "0.00",
-    variant: "h6" as TypographyProps["variant"],
+    variant: "h6" as "h6",
   }
 
   render(<CartTotalRow {...properties} />)
