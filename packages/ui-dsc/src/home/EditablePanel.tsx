@@ -1,4 +1,5 @@
 import { useContentBySlugQuery } from "dicty-graphql-schema"
+import { P, match } from "ts-pattern"
 import { Editor } from "editor"
 import { PanelLoader } from "./PanelLoader"
 
@@ -23,15 +24,33 @@ const EditablePanel = ({ slug, skeletonCount }: EditablePanelProperties) => {
     fetchPolicy: "cache-and-network",
   })
 
-  if (loading) {
-    return <PanelLoader skeletonCount={skeletonCount} />
-  }
-
-  if (error) {
-    return <div>Error fetching data</div>
-  }
-
-  return <Editor content={{ editorState: data?.contentBySlug }} />
+  return (
+    <>
+      {match({ loading, error, data })
+        .with(
+          {
+            data: {
+              contentBySlug: {
+                content: P.select("content", P.not(undefined)),
+                slug: P.select("slug_", P.string),
+              },
+            },
+          },
+          ({ content, slug_ }) => (
+            <Editor
+              editable={false}
+              content={{ editorState: content, storageKey: slug_ }}
+            />
+          ),
+        )
+        .with({ loading: true }, () => (
+          <PanelLoader skeletonCount={skeletonCount} />
+        ))
+        .with({ error: P.not(undefined) }, () => (
+          <div>Error fetching data</div>
+        ))}
+    </>
+  )
 }
 
 export { EditablePanel }
