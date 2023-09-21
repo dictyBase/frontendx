@@ -40,7 +40,6 @@ const iconItems: Array<IconItemProperty> = [
     key: uuid4(),
   },
   { href: "/about", title: "About dictybase", Icon: Info, key: uuid4() },
-  { href: "/login", title: "Login", Icon: Login, key: uuid4() },
 ]
 
 const Title = ({ title }: { title: string }) => (
@@ -56,6 +55,7 @@ const LinksIconButton = ({ children, href }: IconButtonProperties) => (
     {children}
   </IconButton>
 )
+
 
 const LinksContainer = ({ children }: LinksContainerProperties) => (
   <Box className={headerStyles().linksContainer}>{children}</Box>
