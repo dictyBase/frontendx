@@ -6,6 +6,8 @@ import {
   LinkList,
   Slideshow,
   useStyles,
+  EditablePanel,
+  EditorHolder,
 } from "@dictybase/ui-dsc"
 // import { Availability } from "./Availability"
 // import OtherMaterials from "./OtherMaterials"
