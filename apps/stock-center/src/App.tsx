@@ -20,8 +20,8 @@ import { dscRouter } from "./routes"
 import { LogtoProvider, LogtoConfig } from "@logto/react"
 
 const logtoConf: LogtoConfig = {
-  endpoint: import.meta.env.LOGTO_ENDPOINT,
-  appId: import.meta.env.LOGTO_APPID,
+  endpoint: import.meta.env.VITE_LOGTO_ENDPOINT,
+  appId: import.meta.env.VITE_LOGTO_APPID,
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
