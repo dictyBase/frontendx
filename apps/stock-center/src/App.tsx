@@ -9,7 +9,6 @@ import {
 } from "@dictybase/hook-dsc"
 import { ApolloProvider } from "@apollo/client"
 import "@fontsource/roboto"
-import { Header } from "@dictybase/header"
 import { Footer } from "@dictybase/footer"
 import { Navbar } from "@dictybase/navbar"
 import { NotFoundError } from "@dictybase/ui-dsc"
@@ -18,6 +17,7 @@ import { navTheme } from "./themes"
 import { ThemeProvider } from "./ThemeProvider"
 import { dscRouter } from "./routes"
 import { LogtoProvider, LogtoConfig } from "@logto/react"
+import { HeaderWithAuth } from "./components/auth/HeaderWithAuth"
 
 const logtoConf: LogtoConfig = {
   endpoint: import.meta.env.VITE_LOGTO_ENDPOINT,
@@ -65,7 +65,7 @@ export const App = () => {
         <ThemeProvider>
           <CssBaseline />
           <div className={classes.body}>
-            <Header />
+            <HeaderWithAuth />
             <Navbar items={formatNavbarData(navbarItems)} theme={navTheme} />
             <main className={classes.main}>
               <Container maxWidth="lg">
