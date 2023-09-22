@@ -19,7 +19,9 @@ const conditonalHandler = (logtoCase: logtoHookProperties) => {
       P.when(({ isAuthenticated }) => isAuthenticated),
       () => <Header LoginOut={logoutHandler(homePath)} />,
     )
-    .otherwise(() => <Header LoginOut={loginHandler(callbackPath)} />)
+    .otherwise(() => (
+      <Header LoginOut={loginHandler(callbackPath)} />
+    ))
 }
 
 const HeaderWithAuth = () => {
