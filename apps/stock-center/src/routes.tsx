@@ -8,6 +8,9 @@ type PageImport = {
   access: ACCESS
 }
 
+const callbackPath = `${import.meta.env.VITE_APP_BASENAME}/callback`
+const homePath = `${import.meta.env.VITE_APP_BASENAME}/`
+
 const parsePath = (path: string) =>
   path
     .replace(/\/src\/pages|index|\.tsx$/g, "")
@@ -33,4 +36,4 @@ const dscRouter = createBrowserRouter(routeObject(), {
   basename: import.meta.env.VITE_APP_BASENAME,
 })
 
-export { dscRouter }
+export { dscRouter, callbackPath, homePath }
