@@ -7,16 +7,14 @@ type LogoutButtonProperties = { url: string }
 const LogoutButton = ({ url }: LogoutButtonProperties) => {
   const { signOut } = useLogto()
   return (
-    <>
+    <IconButton
+      className={headerStyles().linksButton}
+      onClick={() => signOut(url)}>
       <Typography variant="subtitle2">Logout</Typography>
-      <IconButton
-        className={headerStyles().linksButton}
-        onClick={() => signOut(url)}>
-        <SvgIcon className={headerStyles().linksIcon}>
-          <path d="M22 12L18 8V11H10V13H18V16M20 18A10 10 0 1 1 20 6H17.27A8 8 0 1 0 17.27 18Z" />
-        </SvgIcon>
-      </IconButton>
-    </>
+      <SvgIcon className={headerStyles().linksIcon}>
+        <path d="M22 12L18 8V11H10V13H18V16M20 18A10 10 0 1 1 20 6H17.27A8 8 0 1 0 17.27 18Z" />
+      </SvgIcon>
+    </IconButton>
   )
 }
 
