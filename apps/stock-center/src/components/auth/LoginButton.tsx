@@ -1,18 +1,22 @@
 import { useLogto } from "@logto/react"
 import { headerStyles } from "@dictybase/header"
-import { IconButton } from "@material-ui/core"
-import { ExitToApp as Login } from "@material-ui/icons"
+import { IconButton, SvgIcon, Typography } from "@material-ui/core"
 
 type LoginButtonProperties = { url: string }
 
 const LoginButton = ({ url }: LoginButtonProperties) => {
   const { signIn } = useLogto()
   return (
-    <IconButton
-      className={headerStyles().linksButton}
-      onClick={() => signIn(url)}>
-      <Login className={headerStyles().linksIcon} />
-    </IconButton>
+    <>
+      <Typography variant="subtitle2">Login</Typography>
+      <IconButton
+        className={headerStyles().linksButton}
+        onClick={() => signIn(url)}>
+        <SvgIcon className={headerStyles().linksIcon}>
+          <path d="M14 12L10 8V11H2V13H10V16M22 12A10 10 0 0 1 2.46 15H4.59A8 8 0 1 0 4.59 9H2.46A10 10 0 0 1 22 12Z" />
+        </SvgIcon>
+      </IconButton>
+    </>
   )
 }
 
