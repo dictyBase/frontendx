@@ -8,8 +8,8 @@ type PageImport = {
   access: ACCESS
 }
 
-const callbackPath = `${import.meta.env.VITE_APP_BASENAME}/callback`
-const homePath = `${import.meta.env.VITE_APP_BASENAME}/`
+const callbackPath = `http://${window.location.host}${import.meta.env.VITE_APP_BASENAME}/callback`
+const homePath = `http://${window.location.host}${import.meta.env.VITE_APP_BASENAME}/`
 
 const parsePath = (path: string) =>
   path
