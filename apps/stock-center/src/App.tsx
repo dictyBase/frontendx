@@ -13,6 +13,7 @@ import "@fontsource/roboto"
 import { Header } from "@dictybase/header"
 import { Footer } from "@dictybase/footer"
 import { Navbar } from "dicty-components-navbar"
+import { NotFoundError } from "@dictybase/ui-dsc"
 import { navbarItems, formatNavbarData } from "./navbarItems"
 import { navTheme } from "./themes"
 import { ThemeProvider } from "./ThemeProvider"
@@ -70,6 +71,7 @@ export const App = () => {
                     const element = <Component />
                     return <Route key={path} path={path} element={element} />
                   })}
+                  <Route path="*" element={<NotFoundError />} />
                 </Routes>
               </Container>
             </main>
