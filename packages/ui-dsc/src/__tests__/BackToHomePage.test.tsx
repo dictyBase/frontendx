@@ -2,7 +2,7 @@ import { test, expect } from "vitest"
 import userEvent from "@testing-library/user-event"
 import { render, screen } from "@testing-library/react"
 import { MemoryRouter, Route, Routes } from "react-router-dom"
-import { BackToHomePage } from "../order/BackToHomePage"
+import { BackToHomePage } from "../BackToHomePage"
 
 const App = () => (
   <MemoryRouter>
