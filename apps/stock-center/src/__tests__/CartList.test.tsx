@@ -10,7 +10,7 @@ test("Renders a list item for each strainItem passed into the items prop", () =>
   render(
     <MemoryRouter>
       <Provider initialValues={[[cartAtom, { strainItems: testItems }]]}>
-        <CartList cart={{ strainItems: testItems }} />
+        <CartList cart={{ strainItems: testItems, maxItems: 12 }} />
       </Provider>
     </MemoryRouter>,
   )
