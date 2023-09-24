@@ -18,6 +18,7 @@ import { ThemeProvider } from "./ThemeProvider"
 import { dscRouter } from "./routes"
 import { LogtoProvider, LogtoConfig } from "@logto/react"
 import { HeaderWithAuth } from "./components/auth/HeaderWithAuth"
+import { LoadingDisplay } from "@dictybase/ui-dsc"
 
 const logtoConf: LogtoConfig = {
   endpoint: import.meta.env.VITE_LOGTO_ENDPOINT,
@@ -69,7 +70,10 @@ export const App = () => {
             <Navbar items={formatNavbarData(navbarItems)} theme={navTheme} />
             <main className={classes.main}>
               <Container maxWidth="lg">
-                <RouterProvider router={dscRouter} />
+                <RouterProvider
+                  router={dscRouter}
+                  fallbackElement={<LoadingDisplay rows={6} />}
+                />
               </Container>
             </main>
             <Footer />
