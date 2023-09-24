@@ -1,9 +1,13 @@
 import { useHandleSignInCallback } from "@logto/react"
 import { LoadingDisplay } from "@dictybase/ui-dsc"
+import { useNavigate } from "react-router-dom"
 
 const Callback = () => {
-  const { isLoading } = useHandleSignInCallback(() => {})
-  isLoading ? <LoadingDisplay rows={5} /> : <></>
+  const navigate = useNavigate()
+  const { isLoading } = useHandleSignInCallback(() => {
+    navigate("/")
+  })
+  return isLoading ? <LoadingDisplay rows={5} /> : <></>
 }
 
 export default Callback
