@@ -5,9 +5,8 @@ import { BrowserRouter, useLocation } from "react-router-dom"
 import { Breadcrumbs } from "../components/Breadcrumbs"
 
 vi.mock("react-router-dom", async () => {
-  const originalModule = await vi.importActual<
-    typeof import("react-router-dom")
-  >("react-router-dom")
+  const originalModule =
+    await vi.importActual<typeof import("react-router-dom")>("react-router-dom")
   return {
     ...originalModule,
     useLocation: vi.fn(),
