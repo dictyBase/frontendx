@@ -22,9 +22,8 @@ const skeletonLoaderString = "skeleton-loader"
 
 // https://stackoverflow.com/questions/58117890/how-to-test-components-using-new-react-router-hooks
 vi.mock("react-router-dom", async () => {
-  const originalModule = await vi.importActual<
-    typeof import("react-router-dom")
-  >("react-router-dom")
+  const originalModule =
+    await vi.importActual<typeof import("react-router-dom")>("react-router-dom")
   return {
     ...originalModule,
     useParams: () => ({
