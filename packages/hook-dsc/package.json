@@ -15,8 +15,7 @@
     "@types/react-dom": "17.x",
     "eslint-config-custom": "*",
     "jsdom": "latest",
-    "tsconfig": "*",
-    "vitest": "0.33.x"
+    "tsconfig": "*"
   },
   "dependencies": {
     "@apollo/client": "3.7.17",
