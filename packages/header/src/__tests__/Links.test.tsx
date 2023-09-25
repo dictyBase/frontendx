@@ -7,9 +7,7 @@ import { IconButton, SvgIcon, Typography } from "@material-ui/core"
 const LoginButton = () => {
   return (
     <IconButton href="/goofy">
-      <Typography variant="subtitle2" style={{ display: "flex" }}>
-        Login
-      </Typography>
+      <Typography>Login</Typography>
       <SvgIcon>
         <path d="M14" />
       </SvgIcon>
@@ -19,13 +17,19 @@ const LoginButton = () => {
 
 describe("functional links ", () => {
   test("should generate the links ", () => {
-    const { getAllByRole } = render(<Links LoginOut={<LoginButton />} />)
+    const { getAllByRole, getByRole } = render(
+      <Links LoginOut={<LoginButton />} />,
+    )
     expect(getAllByRole("link")).toHaveLength(iconItems.length + 1)
+    expect(getByRole("link", { name: "Login" })).toHaveAttribute(
+      "href",
+      "/goofy",
+    )
   })
   test.each(iconItems)(
     "should have link $href with title $title",
     ({ href, title }) => {
-      const { getByRole } = render(<Links />)
+      const { getByRole } = render(<Links LoginOut={<p />} />)
       expect(getByRole("link", { name: title })).toHaveAttribute("href", href)
     },
   )
