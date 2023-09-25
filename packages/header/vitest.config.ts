@@ -7,5 +7,8 @@ export default defineConfig({
     globals: true,
     setupFiles: "./setup.ts",
     mockReset: true,
+    coverage: {
+      provider: "v8"
+    }
   },
 })
