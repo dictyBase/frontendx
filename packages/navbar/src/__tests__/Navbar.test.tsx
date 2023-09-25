@@ -63,9 +63,8 @@ const mockSetOpen = vi.fn()
 
 beforeAll(() => {
   vi.mock("react", async () => {
-    const originalModule = await vi.importActual<typeof import("react")>(
-      "react",
-    )
+    const originalModule =
+      await vi.importActual<typeof import("react")>("react")
     return {
       ...originalModule,
       useState: () => [false, mockSetOpen],
@@ -92,49 +91,3 @@ test("should render the correct number of dropdowns", () => {
 test("should render arbitrary elements if they are provided", () => {
   expect(screen.getByText(/Arbitrary Element/)).toBeInTheDocument()
 })
-// test.todo('should call toggle() when the menu icon is clicked', () => {
-//     wrapper.instance().toggle = jest.fn()
-//     wrapper.update()
-//     wrapper.find(MenuIcon).simulate('click')
-//     expect(wrapper.instance().toggle.mock.calls.length).toEqual(1)
-// })
-// test.todo("should call open() if toggled while closed", () => {
-//   const { click } = userEvent.setup()
-
-//   const MenuIcon = screen.getByTestId("menu-icon")
-
-//   wrapper.find(MenuIcon).simulate("click", nativeEvent)
-//   expect(wrapper.instance().open.mock.calls.length).toEqual(1)
-// })
-// test.todo("should call close() if toggled while open", () => {
-//   wrapper.instance().close = jest.fn()
-//   wrapper.update()
-//   wrapper.setState({ open: true })
-//   wrapper.find(MenuIcon).simulate("click", nativeEvent)
-//   expect(wrapper.instance().close.mock.calls.length).toEqual(1)
-// })
-// test.todo(
-//   "should set its active index to that of any dropdown that is opened",
-//   () => {
-//     wrapper.find(Dropdown).first().find("li").first().simulate("click")
-//     expect(wrapper.state("activeIndex")).toEqual(0)
-//   },
-// )
-// test.todo(
-//   "should set its active index to that of any dropdown that is opened while another dropdown is open",
-//   () => {
-//     wrapper.setState({ activeIndex: 1 })
-//     wrapper.find(Dropdown).first().find("li").first().simulate("click")
-//     expect(wrapper.state("activeIndex")).toEqual(0)
-//   },
-// )
-// test.todo("should set its active index to -1 if a dropdown is closed", () => {
-//   wrapper.setState({ activeIndex: 0 })
-//   wrapper.find(Dropdown).first().find("li").first().simulate("click")
-//   expect(wrapper.state("activeIndex")).toEqual(-1)
-// })
-// test.todo("should set its active index to -1 if it is closed", () => {
-//   wrapper.setState({ activeIndex: 0, open: true })
-//   wrapper.find(MenuIcon).simulate("click", nativeEvent)
-//   expect(wrapper.state("activeIndex")).toEqual(-1)
-// })
