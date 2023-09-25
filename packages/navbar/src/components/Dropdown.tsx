@@ -163,14 +163,17 @@ const Dropdown = ({
   const listReference = useRef(null)
 
   const onClose = () => {
+    if (!listReference.current) return
     transitionFromAuto(listReference.current, 0)
   }
 
   const onOpen = () => {
+    if (!listReference.current) return
     transitionToAuto(listReference.current)
   }
 
   const handleDocumentClick = (event: any) => {
+    if (!menuReference.current) return
     if (!wasClicked(event, menuReference.current) && open) {
       event.stopImmediatePropagation()
       onClose()
