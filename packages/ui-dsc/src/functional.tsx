@@ -80,8 +80,9 @@ const gridContainerWrapper = (elements: Array<JSX.Element>) => (
 )
 
 // eslint-disable-next-line react/function-component-definition
-const panelWrapper = (title: string) => (element: JSX.Element) =>
+const panelWrapper = (title: string) => (element: JSX.Element) => (
   <PanelWrapper title={title}>{element}</PanelWrapper>
+)
 
 const isCountry = ({ name }: { name: string }) => /country/i.test(name)
 
