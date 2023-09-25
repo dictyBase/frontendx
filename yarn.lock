@@ -2651,7 +2651,7 @@
     prop-types "^15.7.2"
     react-is "^16.8.0 || ^17.0.0"
 
-"@material-ui/styles@^4.11.4", "@material-ui/styles@^4.11.5", "@material-ui/styles@~4.11.4":
+"@material-ui/styles@^4.11.4", "@material-ui/styles@^4.11.5", "@material-ui/styles@^4.x", "@material-ui/styles@~4.11.4":
   version "4.11.5"
   resolved "https://registry.yarnpkg.com/@material-ui/styles/-/styles-4.11.5.tgz#19f84457df3aafd956ac863dbe156b1d88e2bbfb"
   integrity sha512-o/41ot5JJiUsIETME9wVLAJrmIWL3j0R0Bj2kCOLbSfqEkKf0fmaPt+5vtblUh5eXr2S+J/8J3DaCb10+CzPGA==
@@ -3795,7 +3795,7 @@
   dependencies:
     "@types/react" "^17"
 
-"@types/react-dom@17.x", "@types/react-dom@<18.0.0", "@types/react-dom@^17.0.11", "@types/react-dom@^17.x":
+"@types/react-dom@17.x", "@types/react-dom@<18.0.0", "@types/react-dom@^17", "@types/react-dom@^17.0.11", "@types/react-dom@^17.x":
   version "17.0.20"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.20.tgz#e0c8901469d732b36d8473b40b679ad899da1b53"
   integrity sha512-4pzIjSxDueZZ90F52mU3aPoogkHIoSIDG+oQ+wQK7Cy2B9S+MvOqY0uEA/qawKz381qrEDkvpwyt8Bm31I8sbA==
@@ -11770,6 +11770,13 @@ polished@^3.4.1:
   integrity sha512-pQKtpZGmsZrW8UUpQMAnR7s3ppHeMQVNyMDKtUyKwuvDmklzcEyM5Kllb3JyE/sE/x7arDmyd35i+4vp99H6sQ==
   dependencies:
     "@babel/runtime" "^7.12.5"
+
+polished@^4.1.3:
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/polished/-/polished-4.2.2.tgz#2529bb7c3198945373c52e34618c8fe7b1aa84d1"
+  integrity sha512-Sz2Lkdxz6F2Pgnpi9U5Ng/WdWAUZxmHrNPoVlm3aAemxoy2Qy7LGjQg4uf8qKelDAUW94F4np3iH2YPf2qefcQ==
+  dependencies:
+    "@babel/runtime" "^7.17.8"
 
 popmotion@11.0.3:
   version "11.0.3"
