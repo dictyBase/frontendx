@@ -175,10 +175,16 @@ export function useSearchWithRouter({
               size="small"
               key={uuid4()}
               label={o}
+              color="primary"
+              style={{ marginRight: "2px" }}
             />
           ))}
-          <Chip size="small" key={uuid4()} label={`${values.at(-1)}:`} />
-          {/* <div>{`${values.at(-1)}:`}</div> */}
+          <Chip
+            size="small"
+            key={uuid4()}
+            label={`${values.at(-1)}:`}
+            color="primary"
+          />
         </>
       )
     }
@@ -190,6 +196,8 @@ export function useSearchWithRouter({
           label={o}
           key={uuid4()}
           size="small"
+          color="primary"
+          style={{ marginRight: "2px" }}
         />
       ))
   }
@@ -208,7 +216,9 @@ export function useSearchWithRouter({
     />
   )
 
-  const renderOption = (option: string) => <Chip label={option} size="small" />
+  const renderOption = (option: string) => (
+    <Chip style={{ borderRadius: "4px" }} label={option} color="primary" />
+  )
 
   return {
     isAcceptingInput,
