@@ -86,6 +86,8 @@ const CatalogTableHeader = ({
   )
 }
 
+const appendEllipses = (input: string) => `${input}...`
+
 const abbreviateStringToLength = (length: number) => (input: string) => {
   if (input.length <= length) return input
   return input.slice(0, length)
@@ -101,6 +103,7 @@ const cellFunction = (item: cellFunctionItem) => (
         fromNullable(item.summary),
         getOrElse(() => ""),
         abbreviateStringToLength(84),
+        appendEllipses,
       )}
     </StyledTableCell>
     <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
