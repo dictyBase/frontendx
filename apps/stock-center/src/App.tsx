@@ -6,11 +6,11 @@ import {
 } from "@dictybase/hook-dsc"
 import { ApolloProvider } from "@apollo/client"
 import "@fontsource/roboto"
-import { ThemeProvider } from "./ThemeProvider"
 import { LogtoProvider, LogtoConfig } from "@logto/react"
+import { ThemeProvider } from "./ThemeProvider"
 import { DscApp } from "./components/DscApp"
 
-const logtoConf: LogtoConfig = {
+const logtoConfig: LogtoConfig = {
   endpoint: import.meta.env.VITE_LOGTO_ENDPOINT,
   appId: import.meta.env.VITE_LOGTO_APPID,
 }
@@ -31,7 +31,7 @@ export const App = () => {
   })
   return (
     <ApolloProvider client={client}>
-      <LogtoProvider config={logtoConf}>
+      <LogtoProvider config={logtoConfig}>
         <ThemeProvider>
           <CssBaseline />
           <DscApp />
