@@ -35,6 +35,7 @@ export const SearchBox = ({
     renderTags,
     filterFields,
     renderInput,
+    renderOption,
   } = useSearchWithRouter({
     fields,
     label,
@@ -54,6 +55,7 @@ export const SearchBox = ({
       options={fields}
       renderTags={renderTags}
       renderInput={renderInput}
+      renderOption={renderOption}
       selectOnFocus
       value={value}
     />
