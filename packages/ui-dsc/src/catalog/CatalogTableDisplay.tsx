@@ -13,6 +13,7 @@ import { Link } from "react-router-dom"
 import { RefObject } from "react"
 import { v4 as uuid4 } from "uuid"
 import { pipe } from "fp-ts/function"
+import { slice, trimRight } from "fp-ts/string"
 import { fromNullable, getOrElse } from "fp-ts/Option"
 import { type Strain } from "dicty-graphql-schema"
 
@@ -90,7 +91,8 @@ const appendEllipses = (input: string) => `${input}...`
 
 const abbreviateStringToLength = (length: number) => (input: string) => {
   if (input.length <= length) return input
-  return input.slice(0, length)
+
+  return pipe(input, slice(0, length), trimRight, appendEllipses)
 }
 
 const cellFunction = (item: cellFunctionItem) => (
@@ -103,7 +105,6 @@ const cellFunction = (item: cellFunctionItem) => (
         fromNullable(item.summary),
         getOrElse(() => ""),
         abbreviateStringToLength(84),
-        appendEllipses,
       )}
     </StyledTableCell>
     <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
