@@ -177,7 +177,8 @@ export function useSearchWithRouter({
               label={o}
             />
           ))}
-          <div>{`${values.at(-1)}:`}</div>
+          <Chip size="small" key={uuid4()} label={`${values.at(-1)}:`} />
+          {/* <div>{`${values.at(-1)}:`}</div> */}
         </>
       )
     }
@@ -199,12 +200,15 @@ export function useSearchWithRouter({
   const renderInput = (parameters: AutocompleteRenderInputParams) => (
     <TextField
       {...parameters}
+      value=""
       size="medium"
       label={label}
       variant="outlined"
       fullWidth
     />
   )
+
+  const renderOption = (option: string) => <Chip label={option} size="small" />
 
   return {
     isAcceptingInput,
@@ -216,5 +220,6 @@ export function useSearchWithRouter({
     renderTags,
     filterFields,
     renderInput,
+    renderOption,
   }
 }
