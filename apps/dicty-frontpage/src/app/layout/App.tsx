@@ -3,7 +3,7 @@ import { makeStyles, Theme } from "@material-ui/core/styles"
 import Container from "@material-ui/core/Container"
 import { Footer } from "@dictybase/footer"
 import { Header } from "@dictybase/header"
-import { Navbar } from "dicty-components-navbar"
+import { Navbar } from "@dictybase/navbar"
 import jwtDecode from "jwt-decode"
 import { useFetch } from "dicty-hooks"
 import {
