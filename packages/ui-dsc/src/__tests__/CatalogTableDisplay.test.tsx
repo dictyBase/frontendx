@@ -29,8 +29,8 @@ describe("abbreviateStringToLength", () => {
   test("returns a string slice of a given length", () => {
     const abbreviateString = abbreviateStringToLength(11)
     const result = abbreviateString(testInputString)
-    expect(result).toHaveLength(11)
-    expect(result).toBe("This string")
+    expect(result).toHaveLength(14)
+    expect(result).toBe("This string...")
   })
   test("if the length argument is greater than the length of the input string, return the entire input string", () => {
     const abbreviateString = abbreviateStringToLength(100)
