@@ -8,6 +8,7 @@ import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
 import { ReadonlyNonEmptyArray, head, last } from "fp-ts/ReadonlyNonEmptyArray"
 import { Button } from "@material-ui/core"
+import { Button, Box } from "@material-ui/core"
 import { PersonSharp } from "@material-ui/icons"
 
 type LogoutButtonProperties = {
@@ -28,16 +29,17 @@ const nameToUpperInitial = (fullName: string) =>
 const LogoutButton = ({ url, name }: LogoutButtonProperties) => {
   const { signOut } = useLogto()
   return (
-    <div>
+    <Box display="flex" flexDirection="column-reverse" justifyContent="center">
       <Button
         disableElevation
+        className={classes.indigo}
         variant="contained"
         color="primary"
         endIcon={<PersonSharp />}
         onClick={() => signOut(url)}>
         {nameToUpperInitial(name)}
       </Button>
-    </div>
+    </Box>
   )
 }
 
