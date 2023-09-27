@@ -1,20 +1,34 @@
 import { useLogto } from "@logto/react"
 import { headerStyles } from "@dictybase/header"
-import { IconButton, SvgIcon, Typography } from "@material-ui/core"
+import {
+  split as splitString,
+  slice as sliceString,
+  toUpperCase,
+} from "fp-ts/string"
+import { pipe } from "fp-ts/function"
+import { map as Amap } from "fp-ts/Array"
+import { ReadonlyNonEmptyArray, head, last } from "fp-ts/ReadonlyNonEmptyArray"
 
-type LogoutButtonProperties = { url: string }
+type LogoutButtonProperties = {
+  url: string
+  name: string
+}
 
-const LogoutButton = ({ url }: LogoutButtonProperties) => {
+
+const firstLast = (nameArry: ReadonlyNonEmptyArray<string>) => [
+  head(nameArry),
+  last(nameArry),
+]
+const upperFirst = (fullname: string) =>
+  pipe(fullname, sliceString(0, 1), toUpperCase)
+
+const nameToUpperInitial = (fullName: string) =>
+  pipe(fullName, splitString(" "), firstLast, Amap(upperFirst)).join("")
+
+const LogoutButton = ({ url, name }: LogoutButtonProperties) => {
   const { signOut } = useLogto()
+
   return (
-    <IconButton
-      className={headerStyles().linksButton}
-      onClick={() => signOut(url)}>
-      <Typography variant="subtitle2">Logout</Typography>
-      <SvgIcon className={headerStyles().linksIcon}>
-        <path d="M22 12L18 8V11H10V13H18V16M20 18A10 10 0 1 1 20 6H17.27A8 8 0 1 0 17.27 18Z" />
-      </SvgIcon>
-    </IconButton>
   )
 }
 
