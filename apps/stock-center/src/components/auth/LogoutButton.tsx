@@ -7,14 +7,22 @@ import {
 import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
 import { ReadonlyNonEmptyArray, head, last } from "fp-ts/ReadonlyNonEmptyArray"
-import { Button } from "@material-ui/core"
 import { Button, Box } from "@material-ui/core"
 import { PersonSharp } from "@material-ui/icons"
+import { makeStyles, Theme } from "@material-ui/core/styles"
+import { indigo } from "@material-ui/core/colors"
 
 type LogoutButtonProperties = {
   url: string
   name: string
 }
+
+const useStyles = makeStyles((theme: Theme) => ({
+  indigo: {
+    color: theme.palette.getContrastText(indigo[200]),
+    backgroundColor: indigo[200],
+  },
+}))
 
 const firstLast = (nameArry: ReadonlyNonEmptyArray<string>) => [
   head(nameArry),
@@ -28,6 +36,7 @@ const nameToUpperInitial = (fullName: string) =>
 
 const LogoutButton = ({ url, name }: LogoutButtonProperties) => {
   const { signOut } = useLogto()
+  const classes = useStyles()
   return (
     <Box display="flex" flexDirection="column-reverse" justifyContent="center">
       <Button
