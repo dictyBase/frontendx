@@ -1,5 +1,5 @@
 import { dscRouter } from "../../routes"
-import { useLogto } from "@logto/react"
+import { useLogto, UserInfoResponse } from "@logto/react"
 import {
   split as splitString,
   slice as sliceString,
@@ -16,7 +16,7 @@ import { useState, MouseEvent } from "react"
 
 type LogoutButtonProperties = {
   url: string
-  name: string
+  user: UserInfoResponse
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -36,7 +36,7 @@ const upperFirst = (fullname: string) =>
 const nameToUpperInitial = (fullName: string) =>
   pipe(fullName, splitString(" "), firstLast, Amap(upperFirst)).join("")
 
-const LogoutButton = ({ url, name }: LogoutButtonProperties) => {
+const LogoutButton = ({ url, user }: LogoutButtonProperties) => {
   const [menuElem, setMenuElem] = useState<HTMLElement | null>(null)
   const { signOut } = useLogto()
   const classes = useStyles()
@@ -52,14 +52,16 @@ const LogoutButton = ({ url, name }: LogoutButtonProperties) => {
         variant="contained"
         endIcon={<PersonSharp />}
         onClick={handleClick}>
-        {nameToUpperInitial(name)}
+        {nameToUpperInitial(user.name as string)}
       </Button>
       <Menu
         anchorEl={menuElem}
         open={Boolean(menuElem)}
         onClose={handleClose}
         keepMounted>
-        <MenuItem onClick={() => dscRouter.navigate("/user/show")}>Profile</MenuItem>
+        <MenuItem onClick={() => dscRouter.navigate("/user/show")}>
+          Profile
+        </MenuItem>
         <MenuItem onClick={() => signOut(url)}>Logout</MenuItem>
       </Menu>
     </Box>
