@@ -37,6 +37,10 @@
     "@types/node": "18.16.x",
     "tsx": "latest"
   },
+  "resolutions": {
+    "@types/react": "17.x",
+    "@types/react-dom": "17.x"
+  },
   "engines": {
     "node": ">=18.0.0"
   },
