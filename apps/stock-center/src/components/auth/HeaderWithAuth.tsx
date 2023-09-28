@@ -15,7 +15,7 @@ type logtoHookProperties = {
 
 const loginHandler = (url: string) => <LoginButton url={url} />
 const logoutHandler = (url: string, user?: UserInfoResponse) => (
-  <LogoutButton url={url} name={user?.name as string} />
+  <LogoutButton url={url} user={user as UserInfoResponse} />
 )
 const conditonalHandler = (logtoCase: logtoHookProperties) =>
   match(logtoCase)
