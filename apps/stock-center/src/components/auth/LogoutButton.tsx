@@ -39,8 +39,13 @@ const upperFirst = (fullname: string) =>
 const nameToUpperInitial = (fullName: string) =>
   pipe(fullName, splitString(" "), firstLast, Amap(upperFirst)).join("")
 
-const tooltipInfo = (user: UserInfoResponse) =>
-  `DCR account ${user.name} ${user.email}`
+const tooltipInfo = (user: UserInfoResponse) => (
+  <>
+    DCR account<br/>
+    <b>{user.name}</b><br/>
+    <i>{user.email}</i>
+  </>
+)
 
 const LogoutButton = ({ url, user }: LogoutButtonProperties) => {
   const [menuElem, setMenuElem] = useState<HTMLElement | null>(null)
