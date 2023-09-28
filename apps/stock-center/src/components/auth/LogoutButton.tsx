@@ -1,3 +1,4 @@
+import { dscRouter } from "../../routes"
 import { useLogto } from "@logto/react"
 import {
   split as splitString,
@@ -7,10 +8,11 @@ import {
 import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
 import { ReadonlyNonEmptyArray, head, last } from "fp-ts/ReadonlyNonEmptyArray"
-import { Button, Box } from "@material-ui/core"
+import { Button, Box, Menu, MenuItem } from "@material-ui/core"
 import { PersonSharp } from "@material-ui/icons"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import { indigo } from "@material-ui/core/colors"
+import { useState, MouseEvent } from "react"
 
 type LogoutButtonProperties = {
   url: string
@@ -35,19 +37,31 @@ const nameToUpperInitial = (fullName: string) =>
   pipe(fullName, splitString(" "), firstLast, Amap(upperFirst)).join("")
 
 const LogoutButton = ({ url, name }: LogoutButtonProperties) => {
+  const [menuElem, setMenuElem] = useState<HTMLElement | null>(null)
   const { signOut } = useLogto()
   const classes = useStyles()
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) =>
+    setMenuElem(event.currentTarget)
+  const handleClose = () => setMenuElem(null)
+
   return (
     <Box display="flex" flexDirection="column-reverse" justifyContent="center">
       <Button
         disableElevation
         className={classes.indigo}
         variant="contained"
-        color="primary"
         endIcon={<PersonSharp />}
-        onClick={() => signOut(url)}>
+        onClick={handleClick}>
         {nameToUpperInitial(name)}
       </Button>
+      <Menu
+        anchorEl={menuElem}
+        open={Boolean(menuElem)}
+        onClose={handleClose}
+        keepMounted>
+        <MenuItem onClick={() => dscRouter.navigate("/user/show")}>Profile</MenuItem>
+        <MenuItem onClick={() => signOut(url)}>Logout</MenuItem>
+      </Menu>
     </Box>
   )
 }
