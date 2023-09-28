@@ -13,6 +13,7 @@ import { DscApp } from "./components/DscApp"
 const logtoConfig: LogtoConfig = {
   endpoint: import.meta.env.VITE_LOGTO_ENDPOINT,
   appId: import.meta.env.VITE_LOGTO_APPID,
+  scopes: ["openid", "profile", "email"],
 }
 
 export const App = () => {
