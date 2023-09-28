@@ -41,8 +41,10 @@ const nameToUpperInitial = (fullName: string) =>
 
 const tooltipInfo = (user: UserInfoResponse) => (
   <>
-    DCR account<br/>
-    <b>{user.name}</b><br/>
+    DCR account
+    <br />
+    <b>{user.name}</b>
+    <br />
     <i>{user.email}</i>
   </>
 )
@@ -75,7 +77,8 @@ const LogoutButton = ({ url, user }: LogoutButtonProperties) => {
         open={Boolean(menuElem)}
         onClose={handleClose}
         keepMounted>
-        <MenuItem onClick={() => dscRouter.navigate("/user/show")}>
+        <MenuItem
+          onClick={() => dscRouter.navigate("/user/show", { state: user })}>
           Profile
         </MenuItem>
         <MenuItem onClick={() => signOut(url)}>Logout</MenuItem>
