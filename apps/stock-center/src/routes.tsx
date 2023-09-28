@@ -2,14 +2,22 @@ import { type FunctionComponent } from "react"
 import { ACCESS } from "./types"
 import { createBrowserRouter } from "react-router-dom"
 import { HeaderRow } from "./components/HeaderRow"
+import { reduce } from "fp-ts/ReadonlyNonEmptyArray"
 
 type PageImport = {
   default: FunctionComponent
   access: ACCESS
 }
 
-const callbackPath = `http://${window.location.host}${import.meta.env.VITE_APP_BASENAME}/callback`
-const homePath = `http://${window.location.host}${import.meta.env.VITE_APP_BASENAME}/`
+const concatPath = reduce(
+  `http://${window.location.host}`,
+  (acc: string, curr: string) => acc.concat(curr),
+)
+const callbackPath = concatPath([
+  import.meta.env.VITE_APP_BASENAME,
+  "/callback",
+])
+const homePath = concatPath([import.meta.env.VITE_APP_BASENAME])
 
 const parsePath = (path: string) =>
   path
