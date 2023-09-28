@@ -1,6 +1,13 @@
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { UserInfoResponse } from "@logto/react"
-import { Box, Grid, Typography, IconButton, Divider } from "@material-ui/core"
+import {
+  Box,
+  Grid,
+  Typography,
+  IconButton,
+  Divider,
+  Button,
+} from "@material-ui/core"
 import { MoodSharp } from "@material-ui/icons"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 
@@ -16,6 +23,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const Show = () => {
   const classes = useStyles()
+  const navigate = useNavigate()
   const location = useLocation()
   const user = location.state as UserInfoResponse
   return (
@@ -48,6 +56,13 @@ const Show = () => {
           <Typography variant="h4" gutterBottom>
             {user?.phone_number}
           </Typography>
+          <Button
+            variant="contained"
+            size="small"
+            color="primary"
+            onClick={() => navigate("/user/edit", { state: user })}>
+            Edit
+          </Button>
         </Grid>
       </Grid>
     </Box>
