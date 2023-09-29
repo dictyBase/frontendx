@@ -132,26 +132,20 @@ function packageActions() {
     },
     {
       type: "copy",
+      src: "plop-templates/packages/vitest.config.ts",
+      dest: "packages/{{dashCase name}}/src/vitest.config.ts",
+      skipIfExists: true,
+    },
+    {
+      type: "copy",
+      src: "plop-templates/packages/setup.ts",
+      dest: "packages/{{dashCase name}}/src/setup.ts",
+      skipIfExists: true,
+    },
+    {
+      type: "copy",
       src: "plop-templates/packages/index.txt",
       dest: "packages/{{dashCase name}}/src/index.ts",
-      skipIfExists: true,
-    },
-    {
-      type: "copy",
-      src: "plop-templates/packages/react-shim.js",
-      dest: "packages/{{dashCase name}}/react-shim.js",
-      skipIfExists: true,
-    },
-    {
-      type: "copy",
-      src: "plop-templates/packages/.swcrc",
-      dest: "packages/{{dashCase name}}/.swcrc",
-      skipIfExists: true,
-    },
-    {
-      type: "copy",
-      src: "plop-templates/packages/.prettierrc",
-      dest: "packages/{{dashCase name}}/.prettierrc",
       skipIfExists: true,
     },
     { type: "message", group: "package", folder: "packages" },
