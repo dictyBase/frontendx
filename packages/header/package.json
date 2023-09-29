@@ -28,7 +28,7 @@
   "dependencies": {
     "@dictybase/dicty-image": "*",
     "@dictybase/functional": "*",
-    "@fontsource/roboto": "~5.0.5",
+    "@fontsource/roboto": "^5.0.8",
     "@material-ui/core": "^4.x",
     "@material-ui/icons": "^4.x",
     "@material-ui/lab": "^4.11.3-deprecations.1",
