@@ -4,22 +4,11 @@ import { map, filter, reduce } from "fp-ts/Array"
 import { useSearchParams } from "react-router-dom"
 import { AutocompleteRenderInputParams } from "@material-ui/lab"
 import { TextField, Chip } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
 import { v4 as uuid4 } from "uuid"
+import { FieldOption } from "@dictybase/ui-dsc"
 import { inputProperties } from "./types"
 
 const emptyString: Readonly<string> = ""
-
-const useFieldOptionStyles = makeStyles({
-  root: {
-    borderRadius: "4px",
-  },
-})
-
-const FieldOption = ({ label }: { label: string }) => {
-  const { root } = useFieldOptionStyles()
-  return <Chip className={root} size="small" color="primary" label={label} />
-}
 
 const getInitialSearchValues = (
   searchParameters: URLSearchParams,
