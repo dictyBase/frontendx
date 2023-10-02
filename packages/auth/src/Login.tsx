@@ -6,4 +6,4 @@ const Login = () => {
   return isAuthenticated ? <Navigate to="/" /> : <Navigate to="/callback" />
 }
 
-export default Login
+export { Login }
