@@ -11,25 +11,13 @@
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/toolbar.json"
   },
   "dependencies": {
-    "@lexical/react": "0.11.x",
-    "@material-ui/core": "^4.12.4",
-    "@material-ui/icons": "^4.11.3",
-    "flex-layout-plugin": "*",
-    "image-plugin": "*",
-    "jotai": "^2.0.2",
     "jotai-optics": "^0.3.0",
-    "lexical": "0.11.x",
     "optics-ts": "^2.4.1",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "image-plugin": "*"
   },
   "devDependencies": {
     "@testing-library/react": "^12.x",
     "@testing-library/jest-dom": "^5.x",
-    "@types/react-dom": "^17.x",
-    "@types/react": "17.0.52",
-    "@vitest/coverage-v8": "0.33.x",
-    "jsdom": "^22.1.0",
     "vitest": "0.33.x",
     "eslint-config-custom": "*",
     "tsconfig": "*"
