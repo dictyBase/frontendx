@@ -2,8 +2,7 @@ import { type FunctionComponent } from "react"
 import { ACCESS } from "./types"
 import { createBrowserRouter, RouteObject } from "react-router-dom"
 import { HeaderRow } from "./components/HeaderRow"
-import { Protected } from "./components/auth/Protected"
-import { Callback, Login } from "auth"
+import { Callback, Login, Protected } from "auth"
 
 type PageImport = {
   default: FunctionComponent
