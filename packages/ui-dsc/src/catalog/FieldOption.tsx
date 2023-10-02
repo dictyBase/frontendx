@@ -14,7 +14,18 @@ const useFieldOptionStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-const FieldOption = ({ label }: { label: string }) => {
+type FieldOptionProperties = {
+  /**
+   * The label text of the component
+   */
+  label: string
+}
+
+/**
+ * This component is used in the Searchbox component. It is used for displaying the field options
+ * in the Autocomplete component as well as the `active chip value` for the Autocomplete's tags.
+ */
+const FieldOption = ({ label }: FieldOptionProperties) => {
   const { root } = useFieldOptionStyles()
   return <Chip className={root} size="small" color="primary" label={label} />
 }
