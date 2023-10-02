@@ -6,16 +6,19 @@ const headerStyles = makeStyles({
     gap: 2,
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
   },
   logoTitle: {
     fontStyle: "italic",
     color: "hsl(210, 100%, 25%)",
     fontWeight: 410,
+    marginLeft: "1rem",
   },
   logoContainer: {
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
+    marginTop: "1rem",
   },
   search: {
     flexBasis: "25%",
