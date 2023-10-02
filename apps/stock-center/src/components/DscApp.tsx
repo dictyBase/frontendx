@@ -5,7 +5,7 @@ import { RouterProvider } from "react-router-dom"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import { Navbar } from "dicty-components-navbar"
 import { navbarItems, formatNavbarData } from "../navbarItems"
-import { HeaderWithAuth } from "./auth/HeaderWithAuth"
+import { HeaderWithAuth } from "auth"
 import { dscRouter } from "../routes"
 import { navTheme } from "../themes"
 
@@ -33,7 +33,7 @@ const DscApp = () => {
   const classes = useStyles()
   return (
     <div className={classes.body}>
-      <HeaderWithAuth />
+      <HeaderWithAuth clientRouter={dscRouter} />
       <Navbar items={formatNavbarData(navbarItems)} theme={navTheme} />
       <main className={classes.main}>
         <Container maxWidth="lg">
