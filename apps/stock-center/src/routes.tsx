@@ -4,6 +4,7 @@ import { createBrowserRouter, RouteObject } from "react-router-dom"
 import { HeaderRow } from "./components/HeaderRow"
 import { reduce } from "fp-ts/ReadonlyNonEmptyArray"
 import { Protected } from "./components/auth/Protected"
+import { Callback, Login } from "auth"
 
 type PageImport = {
   default: FunctionComponent
@@ -18,7 +19,7 @@ const callbackPath = concatPath([
   import.meta.env.VITE_APP_BASENAME,
   "/callback",
 ])
-const homePath = concatPath([import.meta.env.VITE_APP_BASENAME,"/"])
+const homePath = concatPath([import.meta.env.VITE_APP_BASENAME, "/"])
 
 const parsePath = (path: string) =>
   path
@@ -50,6 +51,8 @@ const routeObject = () => {
     element: <Protected />,
     children: routeChildrenWithAuth,
   })
+  routeChildren.push({ path: "/callback", element: <Callback /> })
+  routeChildren.push({ path: "/login", element: <Login /> })
   return [{ element: <HeaderRow />, children: routeChildren }]
 }
 

@@ -10,4 +10,4 @@ const Callback = () => {
   return isLoading ? <LoadingDisplay rows={5} /> : <></>
 }
 
-export default Callback
+export { Callback }
