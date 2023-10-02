@@ -14,38 +14,23 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "jotai": "^1.12.0",
+    "react-helmet": "^6.1.0",
     "@dictybase/data-access": "*",
     "@dictybase/footer": "*",
-    "@dictybase/header": "*",
     "@dictybase/hook": "*",
     "@dictybase/hook-dsc": "*",
     "@dictybase/ui-dsc": "*",
-    "@logto/react": "^2.1.1",
-    "@material-ui/core": "4.x",
-    "dicty-components-navbar": "github:dictyBase/dicty-components-navbar#2.0.0",
-    "dicty-graphql-schema": "*",
     "editor": "*",
-    "editor-toolbar": "*",
-    "frontpage-components": "*",
-    "jotai": "^1.12.0",
-    "react": "17.x",
-    "react-dom": "17.x",
-    "react-helmet": "^6.1.0",
-    "react-router-dom": "~6.14.2",
-    "ts-pattern": "4.x"
+    "auth": "*"
   },
   "devDependencies": {
-    "@types/react": "17.x",
-    "@types/react-dom": "17.x",
     "@vitejs/plugin-react": "^4.0.3",
-    "@vitest/coverage-c8": "0.33.x",
-    "eslint-config-custom": "*",
-    "jsdom": "^22.1.0",
-    "msw": "^1.2.3",
-    "tsconfig": "*",
-    "vite": "4.x",
     "vite-plugin-swc-react-refresh": "^2.2.1",
-    "vitest": "0.33.x"
+    "msw": "^1.2.3",
+    "vite": "4.x",
+    "tsconfig": "*",
+    "eslint-config-custom": "*"
   },
   "msw": {
     "workerDirectory": "public"
