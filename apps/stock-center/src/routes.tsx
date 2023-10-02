@@ -2,7 +2,6 @@ import { type FunctionComponent } from "react"
 import { ACCESS } from "./types"
 import { createBrowserRouter, RouteObject } from "react-router-dom"
 import { HeaderRow } from "./components/HeaderRow"
-import { reduce } from "fp-ts/ReadonlyNonEmptyArray"
 import { Protected } from "./components/auth/Protected"
 import { Callback, Login } from "auth"
 
@@ -10,16 +9,6 @@ type PageImport = {
   default: FunctionComponent
   access: ACCESS
 }
-
-const concatPath = reduce(
-  `http://${window.location.host}`,
-  (acc: string, curr: string) => acc.concat(curr),
-)
-const callbackPath = concatPath([
-  import.meta.env.VITE_APP_BASENAME,
-  "/callback",
-])
-const homePath = concatPath([import.meta.env.VITE_APP_BASENAME, "/"])
 
 const parsePath = (path: string) =>
   path
@@ -60,4 +49,4 @@ const dscRouter = createBrowserRouter(routeObject(), {
   basename: import.meta.env.VITE_APP_BASENAME,
 })
 
-export { dscRouter, callbackPath, homePath }
+export { dscRouter }
