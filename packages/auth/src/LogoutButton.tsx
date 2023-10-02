@@ -6,11 +6,6 @@ import { indigo } from "@material-ui/core/colors"
 import { useState, MouseEvent } from "react"
 import { Router as RemixRouter } from "@remix-run/router"
 import {
-  split as splitString,
-  slice as sliceString,
-  toUpperCase,
-} from "fp-ts/string"
-import {
   Option,
   none as Onone,
   match as Omatch,
@@ -18,8 +13,7 @@ import {
   of as Oof,
 } from "fp-ts/Option"
 import { pipe } from "fp-ts/function"
-import { map as Amap } from "fp-ts/Array"
-import { ReadonlyNonEmptyArray, head, last } from "fp-ts/ReadonlyNonEmptyArray"
+import { nameToUpperInitial } from "./functional"
 
 type LogoutButtonProperties = {
   url: string
@@ -38,16 +32,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     maxWidth: 200,
   },
 }))
-
-const firstLast = (nameArry: ReadonlyNonEmptyArray<string>) => [
-  head(nameArry),
-  last(nameArry),
-]
-const upperFirst = (fullname: string) =>
-  pipe(fullname, sliceString(0, 1), toUpperCase)
-
-const nameToUpperInitial = (fullName: string) =>
-  pipe(fullName, splitString(" "), firstLast, Amap(upperFirst)).join("")
 
 const tooltipInfo = (user: UserInfoResponse) => (
   <>
