@@ -8,17 +8,9 @@
     "lint": "eslint --ext .jsx,.js,.ts,.tsx src/"
   },
   "dependencies": {
-    "@lexical/react": "0.11.x",
-    "@material-ui/core": "^4.12.4",
-    "@material-ui/icons": "^4.11.3",
-    "lexical": "0.11.x",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
     "react-router-dom": "^6.14.2",
     "editor-toolbar": "*",
-    "image-plugin": "*",
     "persistence-plugin": "*",
-    "resizable-image": "*",
     "width-table-plugin": "*",
     "table-action-plugin": "*"
   },
