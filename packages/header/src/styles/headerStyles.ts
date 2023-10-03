@@ -6,7 +6,6 @@ const headerStyles = makeStyles({
     gap: 2,
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
   },
   logoTitle: {
     fontStyle: "italic",
