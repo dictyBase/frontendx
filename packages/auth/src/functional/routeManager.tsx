@@ -62,4 +62,5 @@ export {
   protectedRoutes,
   buildMergedRoutes,
   type dynamicRoutesProperties,
+  ACCESS,
 }
