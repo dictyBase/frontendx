@@ -1,11 +1,18 @@
 import { type FunctionComponent } from "react"
-import { ACCESS } from "../types"
 import { RouteObject } from "react-router-dom"
-import { Callback, Login, Protected } from "auth"
+import { Callback } from "../Callback"
+import { Login } from "../Login"
+import { Protected } from "../Protected"
 import { collect as Rcollect, filter as Rfilter } from "fp-ts/Record"
 import { Ord } from "fp-ts/string"
 import { append as Arpend } from "fp-ts/Array"
 import { pipe } from "fp-ts/function"
+
+enum ACCESS {
+  public,
+  protected,
+  private,
+}
 
 type PageComponentData = {
   default: FunctionComponent
