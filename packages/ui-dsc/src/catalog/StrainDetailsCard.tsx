@@ -140,7 +140,7 @@ const StrainDetailsCard = ({ data }: Properties) => {
     label: data?.label as string,
     summary: data?.summary as string,
     fee: fees.STRAIN_FEE,
-    // eslint-disable-next-line camelcase
+
     in_stock: true,
   }
 

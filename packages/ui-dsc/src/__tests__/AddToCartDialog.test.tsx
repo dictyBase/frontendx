@@ -17,7 +17,7 @@ const properties = {
       summary: "test summary",
       fee: fees.STRAIN_FEE,
       quantity: 1,
-      // eslint-disable-next-line camelcase
+
       in_stock: true,
     },
   ],

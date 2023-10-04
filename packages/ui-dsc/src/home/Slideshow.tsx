@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { Carousel } from "react-responsive-carousel"
 import { makeStyles } from "@material-ui/core/styles"
 import { Image } from "@dictybase/dicty-image"

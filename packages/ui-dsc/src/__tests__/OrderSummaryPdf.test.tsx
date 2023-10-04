@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { ReactNode } from "react"
 import { vi, describe, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
