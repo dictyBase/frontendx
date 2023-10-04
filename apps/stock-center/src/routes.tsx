@@ -3,11 +3,21 @@ import { ACCESS } from "./types"
 import { createBrowserRouter, RouteObject } from "react-router-dom"
 import { HeaderRow } from "./components/HeaderRow"
 import { Callback, Login, Protected } from "auth"
+import { collect as Rcollect, filter as Rfilter } from "fp-ts/Record"
+import { Ord } from "fp-ts/string"
+import { append as Arpend } from "fp-ts/Array"
+import { bind, let as Olet, of, Do, match } from "fp-ts/Option"
+import { pipe } from "fp-ts/function"
 
-type PageImport = {
+type PageImportData = {
   default: FunctionComponent
   access: ACCESS
 }
+type mergedRoutesProperties = {
+  publicR: Array<RouteObject>
+  protectedR: Array<RouteObject>
+}
+type dynamicRoutesProperties = Record<string, PageImportData>
 
 const parsePath = (path: string) =>
   path
@@ -15,36 +25,59 @@ const parsePath = (path: string) =>
     .replace(/\[\.{3}.+]/, "*")
     .replace(/\[(.+)\]/, ":$1")
 
-const pages: Record<string, PageImport> = import.meta.glob(
+const dynamicRoutes: dynamicRoutesProperties = import.meta.glob(
   "/src/pages/**/**/*.tsx",
   {
     eager: true,
   },
 )
 
-const routeObject = () => {
-  const routeChildren: Array<RouteObject> = Object.keys(pages)
-    .filter((route) => pages[route].access != ACCESS.protected)
-    .map((route) => {
-      const Element = pages[route].default
-      return { path: parsePath(route), element: <Element /> }
-    })
-  const routeChildrenWithAuth: Array<RouteObject> = Object.keys(pages)
-    .filter((route) => pages[route].access == ACCESS.protected)
-    .map((route) => {
-      const Element = pages[route].default
-      return { path: parsePath(route), element: <Element /> }
-    })
-  routeChildren.push({
-    element: <Protected />,
-    children: routeChildrenWithAuth,
-  })
-  routeChildren.push({ path: "/callback", element: <Callback /> })
-  routeChildren.push({ path: "/login", element: <Login /> })
-  return [{ element: <HeaderRow />, children: routeChildren }]
+const routeData = (route: string, value: PageImportData) => {
+  const Element = value.default
+  return { path: parsePath(route), element: <Element /> }
 }
 
-const dscRouter = createBrowserRouter(routeObject(), {
+const publicRoutes = (allRoutes: dynamicRoutesProperties): Array<RouteObject> =>
+  pipe(
+    allRoutes,
+    Rfilter((v) => v.access !== ACCESS.protected),
+    Rcollect(Ord)(routeData),
+  )
+const protectedRoutes = (
+  allRoutes: dynamicRoutesProperties,
+): Array<RouteObject> =>
+  pipe(
+    allRoutes,
+    Rfilter((v) => v.access === ACCESS.protected),
+    Rcollect(Ord)(routeData),
+  )
+const mergedRoutes = ({ publicR, protectedR }: mergedRoutesProperties) =>
+  pipe(
+    publicR,
+    Arpend({ children: protectedR, element: <Protected /> } as RouteObject),
+    Arpend({ path: "/callback", element: <Callback /> } as RouteObject),
+    Arpend({ path: "/login", element: <Login /> } as RouteObject),
+  )
+
+const routeDefinition = (allRoutes: dynamicRoutesProperties) =>
+  pipe(
+    Do,
+    bind("publicR", () => of(publicRoutes(allRoutes))),
+    bind("protectedR", () => of(protectedRoutes(allRoutes))),
+    Olet("mergedR", mergedRoutes),
+    Olet("finalR", ({ mergedR }) =>
+      Array.of({
+        element: <HeaderRow />,
+        children: mergedR,
+      }),
+    ),
+    match(
+      () => [],
+      ({ finalR }) => finalR,
+    ),
+  ) as Array<RouteObject>
+
+const dscRouter = createBrowserRouter(routeDefinition(dynamicRoutes), {
   basename: import.meta.env.VITE_APP_BASENAME,
 })
 
