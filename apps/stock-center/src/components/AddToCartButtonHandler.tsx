@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { useState } from "react"
 import { match } from "ts-pattern"
 import { Strain } from "dicty-graphql-schema"

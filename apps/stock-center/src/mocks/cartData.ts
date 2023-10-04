@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 const testItems = [
   {
     id: "DBS-1",

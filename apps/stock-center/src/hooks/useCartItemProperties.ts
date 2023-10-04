@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { useAtomValue } from "jotai"
 import { findFirst } from "fp-ts/Array"
 import { match as Omatch } from "fp-ts/Option"
