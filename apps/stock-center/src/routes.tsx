@@ -9,7 +9,7 @@ import { append as Arpend } from "fp-ts/Array"
 import { bind, let as Olet, of, Do, match } from "fp-ts/Option"
 import { pipe } from "fp-ts/function"
 
-type PageImportData = {
+type PageComponentData = {
   default: FunctionComponent
   access: ACCESS
 }
@@ -17,9 +17,9 @@ type mergedRoutesProperties = {
   publicR: Array<RouteObject>
   protectedR: Array<RouteObject>
 }
-type dynamicRoutesProperties = Record<string, PageImportData>
+type dynamicRoutesProperties = Record<string, PageComponentData>
 
-const parsePath = (path: string) =>
+const pathParts = (path: string) =>
   path
     .replace(/\/src\/pages|index|\.tsx$/g, "")
     .replace(/\[\.{3}.+]/, "*")
@@ -32,16 +32,16 @@ const dynamicRoutes: dynamicRoutesProperties = import.meta.glob(
   },
 )
 
-const routeData = (route: string, value: PageImportData) => {
-  const Element = value.default
-  return { path: parsePath(route), element: <Element /> }
+const mapToRouteObject = (route: string, value: PageComponentData) => {
+  const PageComponent = value.default
+  return { path: pathParts(route), element: <PageComponent /> }
 }
 
 const publicRoutes = (allRoutes: dynamicRoutesProperties): Array<RouteObject> =>
   pipe(
     allRoutes,
     Rfilter((v) => v.access !== ACCESS.protected),
-    Rcollect(Ord)(routeData),
+    Rcollect(Ord)(mapToRouteObject),
   )
 const protectedRoutes = (
   allRoutes: dynamicRoutesProperties,
@@ -49,9 +49,9 @@ const protectedRoutes = (
   pipe(
     allRoutes,
     Rfilter((v) => v.access === ACCESS.protected),
-    Rcollect(Ord)(routeData),
+    Rcollect(Ord)(mapToRouteObject),
   )
-const mergedRoutes = ({ publicR, protectedR }: mergedRoutesProperties) =>
+const buildMergedRoutes = ({ publicR, protectedR }: mergedRoutesProperties) =>
   pipe(
     publicR,
     Arpend({ children: protectedR, element: <Protected /> } as RouteObject),
@@ -59,13 +59,13 @@ const mergedRoutes = ({ publicR, protectedR }: mergedRoutesProperties) =>
     Arpend({ path: "/login", element: <Login /> } as RouteObject),
   )
 
-const routeDefinition = (allRoutes: dynamicRoutesProperties) =>
+const createRouteDefinition = (allRoutes: dynamicRoutesProperties) =>
   pipe(
     Do,
-    bind("publicR", () => of(publicRoutes(allRoutes))),
-    bind("protectedR", () => of(protectedRoutes(allRoutes))),
-    Olet("mergedR", mergedRoutes),
-    Olet("finalR", ({ mergedR }) =>
+    bind("publicR", () => pipe(allRoutes, publicRoutes, of)),
+    bind("protectedR", () => pipe(allRoutes, protectedRoutes, of)),
+    Olet("mergedR", buildMergedRoutes),
+    Olet("finalRoutes", ({ mergedR }) =>
       Array.of({
         element: <HeaderRow />,
         children: mergedR,
@@ -73,11 +73,11 @@ const routeDefinition = (allRoutes: dynamicRoutesProperties) =>
     ),
     match(
       () => [],
-      ({ finalR }) => finalR,
+      ({ finalRoutes }) => finalRoutes,
     ),
   ) as Array<RouteObject>
 
-const dscRouter = createBrowserRouter(routeDefinition(dynamicRoutes), {
+const dscRouter = createBrowserRouter(createRouteDefinition(dynamicRoutes), {
   basename: import.meta.env.VITE_APP_BASENAME,
 })
 
