@@ -23,10 +23,7 @@ const createRouteDefinition = (allRoutes: dynamicRoutesProperties) =>
     bind("protectedR", () => pipe(allRoutes, protectedRoutes, of)),
     Olet("mergedR", buildMergedRoutes),
     Olet("finalRoutes", ({ mergedR }) =>
-      Array.of({
-        element: <HeaderRow />,
-        children: mergedR,
-      }),
+      pipe({ element: <HeaderRow />, children: mergedR }, Array.of),
     ),
     match(
       () => [],
