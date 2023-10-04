@@ -7,7 +7,7 @@ import {
   publicRoutes,
   protectedRoutes,
   buildMergedRoutes,
-} from "./functional/routeManager"
+} from "auth"
 
 const dynamicRoutes: dynamicRoutesProperties = import.meta.glob(
   "/src/pages/**/**/*.tsx",
