@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core"
 import { MoodSharp } from "@material-ui/icons"
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import { ACCESS } from "../../types"
+import { ACCESS } from "auth"
 
 const useStyles = makeStyles((theme: Theme) => ({
   divider: {
