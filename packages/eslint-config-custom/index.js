@@ -33,27 +33,35 @@ module.exports = {
     },
   },
   rules: {
-    "import/no-unresolved": "error",
-    "import/prefer-default-export": "off",
-    "import/no-default-export": "error",
-    "import/no-cycle": ["error", { ignoreExternal: true }],
+    camelcase: "off",
     quotes: ["off", "single"],
     semi: ["error", "never"],
     "no-shadow": "off",
     "no-unused-vars": "off",
     "no-undef": "off",
     "no-underscore-dangle": "off",
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        selector: "default", format: ["camelCase", "PascalCase", "UPPER_CASE"], leadingUnderscore: 'allow',
+        trailingUnderscore: 'allow',
+      },
+      { selector: "property", format: null },
+      {
+        "selector": "variable",
+        "modifiers": ["destructured"],
+        "format": null
+      }
+    ],
     "@typescript-eslint/no-shadow": ["error"],
     "@typescript-eslint/no-unused-vars": [
       "error",
       { args: "after-used", ignoreRestSiblings: false },
     ],
-    "react/jsx-filename-extension": [
-      "warn",
-      {
-        extensions: [".tsx", ".ts"],
-      },
-    ],
+    "import/no-unresolved": "error",
+    "import/prefer-default-export": "off",
+    "import/no-default-export": "error",
+    "import/no-cycle": ["error", { ignoreExternal: true }],
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -64,15 +72,22 @@ module.exports = {
         tsx: "never",
       },
     ],
-    "react/require-default-props": "off",
-    "react/jsx-no-useless-fragment": "off",
-    "react/react-in-jsx-scope": "off",
     "react/function-component-definition": [
       "warn",
       {
         namedComponents: "arrow-function",
       },
     ],
+    "react/jsx-filename-extension": [
+      "warn",
+      {
+        extensions: [".tsx", ".ts"],
+      },
+    ],
+    "react/jsx-no-useless-fragment": "off",
+    "react/jsx-props-no-spreading": ["off", { explicitSpread: "ignore" }],
+    "react/react-in-jsx-scope": "off",
+    "react/require-default-props": "off",
     "filenames/match-regex": "off",
     "github/array-foreach": "off",
     "unicorn/no-array-for-each": "off",
@@ -95,6 +110,5 @@ module.exports = {
     ],
     "unicorn/no-new-array": "off",
     "unicorn/switch-case-braces": ["error", "avoid"],
-    "react/jsx-props-no-spreading": ["off", { explicitSpread: "ignore" }],
   },
 }
