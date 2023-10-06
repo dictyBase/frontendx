@@ -69,25 +69,20 @@ type AddressField = {
   label: string
 }
 
-const gridItemWrapper = (element: JSX.Element) => (
-  <Grid key={uuid4()} item>
-    {element}
-  </Grid>
-)
-
 const gridContainerWrapper = (elements: Array<JSX.Element>) => (
   <StyledGridContainer>{elements}</StyledGridContainer>
 )
 
 // eslint-disable-next-line react/function-component-definition
-const panelWrapper = (title: string) => (element: JSX.Element) => (
+const panelWrapper = (title: string) => (element: JSX.Element) =>
   <PanelWrapper title={title}>{element}</PanelWrapper>
-)
 
 const isCountry = ({ name }: { name: string }) => /country/i.test(name)
 
 const wrapAddressTextField = ({ name, label }: AddressField) => (
-  <TextField name={name} label={label} />
+  <Grid key={name} item>
+    <TextField name={name} label={label} />
+  </Grid>
 )
 
 const wrapCountryDropdown = ({ name }: { name: string }) => (
@@ -107,12 +102,7 @@ const renderAddressFields = (addressFields: Array<AddressField>) => {
     right,
     map(wrapCountryDropdown),
   )
-  return pipe(
-    [textFields, countryField],
-    flatten,
-    map(gridItemWrapper),
-    gridContainerWrapper,
-  )
+  return pipe([textFields, countryField], flatten, gridContainerWrapper)
 }
 
 const renderShippingAddressFields = () =>
