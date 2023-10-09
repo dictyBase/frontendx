@@ -1,5 +1,4 @@
 import Grid from "@material-ui/core/Grid"
-import { v4 as uuid4 } from "uuid"
 import { map, flatten, partition } from "fp-ts/Array"
 import { left, right } from "fp-ts/Separated"
 import { pipe } from "fp-ts/function"
@@ -74,8 +73,9 @@ const gridContainerWrapper = (elements: Array<JSX.Element>) => (
 )
 
 // eslint-disable-next-line react/function-component-definition
-const panelWrapper = (title: string) => (element: JSX.Element) =>
+const panelWrapper = (title: string) => (element: JSX.Element) => (
   <PanelWrapper title={title}>{element}</PanelWrapper>
+)
 
 const isCountry = ({ name }: { name: string }) => /country/i.test(name)
 
