@@ -1,4 +1,4 @@
-import { useFormContext } from "react-hook-form"
+import { useFormContext, Controller } from "react-hook-form"
 import MuiTextField, {
   TextFieldProps as MuiTextFieldProperties,
 } from "@material-ui/core/TextField"
@@ -17,7 +17,7 @@ type TextFieldProperties = {
 } & MuiTextFieldProperties
 
 /**
- * TextField is a wrapper component that puts all Formik and MUI props
+ * TextField is a wrapper component that puts all react-hook-form and MUI props
  * on the Material-UI TextField component.
  */
 const TextField = ({
@@ -28,21 +28,27 @@ const TextField = ({
   fullWidth = true,
 }: TextFieldProperties) => {
   const {
-    register,
+    control,
     formState: { errors },
   } = useFormContext()
 
   return (
-    <MuiTextField
-      id={label}
-      label={label}
-      type="text"
-      margin={margin}
-      variant={variant}
-      fullWidth={fullWidth}
-      {...register(name)}
-      error={!!errors[name]}
-      helperText={errors[name]?.message || ""}
+    <Controller
+      name={name}
+      control={control}
+      render={({ field }) => (
+        <MuiTextField
+          id={label}
+          label={label}
+          type="text"
+          margin={margin}
+          variant={variant}
+          fullWidth={fullWidth}
+          {...field}
+          error={!!errors[name]}
+          helperText={errors[name]?.message || ""}
+        />
+      )}
     />
   )
 }
