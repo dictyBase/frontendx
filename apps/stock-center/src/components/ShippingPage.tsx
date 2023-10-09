@@ -43,8 +43,7 @@ const ShippingPage = () => {
   const [shippingFormData, setShippingFormData] = useAtom(shippingFormAtom)
   const setOrderStep = useSetAtom(orderStepAtom)
   const methods = useForm({
-    mode: "onSubmit",
-    reValidateMode: "onBlur",
+    mode: "onTouched",
     resolver: yupResolver(validationSchema),
     values: shippingFormData,
   })
