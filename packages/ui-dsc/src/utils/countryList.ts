@@ -1,3 +1,8 @@
+type CountryOption = {
+  code: string
+  label: string
+}
+
 const countryList = [
   {
     code: "AF",
@@ -993,4 +998,4 @@ const countryList = [
   },
 ]
 
-export { countryList }
+export { countryList, type CountryOption }
