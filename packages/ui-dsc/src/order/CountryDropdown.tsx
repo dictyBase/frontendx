@@ -1,7 +1,7 @@
 import Autocomplete from "@material-ui/lab/Autocomplete"
 import TextField from "@material-ui/core/TextField"
-import { useFormContext } from "react-hook-form"
-import { countryList } from "../utils/countryList"
+import { useController } from "react-hook-form"
+import { countryList, CountryOption } from "../utils/countryList"
 
 // ISO 3166-1 alpha-2 https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
 const countryToFlag = (isoCode: string) => {
@@ -23,21 +23,31 @@ type CountryDropdownProperties = {
  */
 const CountryDropdown = ({ fieldName }: CountryDropdownProperties) => {
   const {
-    register,
+    field: { onChange, onBlur, value, name, ref },
     formState: { errors },
-    getValues,
-  } = useFormContext()
+  } = useController({
+    name: fieldName,
+  })
 
-  // Since the Autocomplete component itself is not registered with React Form Hook,
-  // its value is not automatically set. The code below gets the country object corresponding to
-  // the current form value. This country object is passed into Autocomplete's value prop.
   const autoCompleteValue = countryList.find(
-    (country) => country.label === getValues(fieldName),
-  )
+    (country) => country.label === value,
+  ) ?? { code: "", label: "" }
+
+  const handleChange = (
+    _,
+    optionValue: CountryOption | null,
+    reason: string,
+  ) => {
+    if (!optionValue) return
+    if (reason !== "select-option") return
+    onChange(optionValue.label)
+  }
 
   return (
     <Autocomplete
       id="country"
+      onBlur={onBlur}
+      onChange={handleChange}
       value={autoCompleteValue}
       aria-label="country"
       size="medium"
@@ -52,7 +62,8 @@ const CountryDropdown = ({ fieldName }: CountryDropdownProperties) => {
       renderInput={(properties) => (
         <TextField
           {...properties}
-          {...register(fieldName)}
+          name={name}
+          ref={ref}
           label="Country"
           variant="outlined"
           fullWidth
