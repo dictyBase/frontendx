@@ -44,9 +44,9 @@ const TextField = ({
           margin={margin}
           variant={variant}
           fullWidth={fullWidth}
-          {...field}
           error={!!errors[name]}
           helperText={errors[name]?.message || ""}
+          {...field}
         />
       )}
     />
