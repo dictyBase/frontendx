@@ -1,19 +1,18 @@
-import { vi, describe, test, expect } from "vitest"
+import { describe, test, expect } from "vitest"
+import { ReactNode } from "react"
+import { useForm, FormProvider } from "react-hook-form"
 import { render, screen } from "@testing-library/react"
 import { renderAddressFields, isCountry } from "../functional"
 
-vi.mock("react-hook-form", () => {
-  const originalModule = vi.importActual("react-hook-form")
+type FormWrapperProperties = {
+  children: ReactNode
+}
 
-  return {
-    useFormContext: () => ({
-      register: vi.fn(),
-      formState: { errors: {} },
-      getValues: () => {},
-    }),
-    ...originalModule,
-  }
-})
+const FormWrapper = ({ children }: FormWrapperProperties) => {
+  const methods = useForm()
+
+  return <FormProvider {...methods}>{children}</FormProvider>
+}
 
 describe("renderAddressFields", () => {
   describe("initial render with country", () => {
@@ -35,7 +34,7 @@ describe("renderAddressFields", () => {
       },
     ]
     test("displays all expected text fields", () => {
-      render(<>{renderAddressFields(properties)}</>)
+      render(<FormWrapper>{renderAddressFields(properties)}</FormWrapper>)
       properties.forEach((item) => {
         expect(screen.getAllByText(`${item.label}`)[0]).toBeInTheDocument()
       })
@@ -57,7 +56,7 @@ describe("renderAddressFields", () => {
       },
     ]
     test("displays all expected text fields", () => {
-      render(<>{renderAddressFields(properties)}</>)
+      render(<FormWrapper>{renderAddressFields(properties)}</FormWrapper>)
       properties.forEach((item) => {
         expect(screen.getAllByText(`${item.label}`)[0]).toBeInTheDocument()
       })
