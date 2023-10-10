@@ -1,39 +1,48 @@
-import { vi, describe, test, expect } from "vitest"
+import { ReactNode } from "react"
+import { useForm, FormProvider } from "react-hook-form"
+import { describe, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { ShippingMethod } from "../order/ShippingMethod"
 
-vi.mock("react-hook-form", () => {
-  const originalModule = vi.importActual("react-hook-form")
+type FormWrapperProperties = {
+  children: ReactNode
+}
 
-  return {
-    ...originalModule,
-    useFormContext: () => ({
-      getValues: () => "shippingAccount",
-      setValue: () => {},
-      resetField: () => {},
-      register: () => {},
-      formState: { errors: {} },
-    }),
-  }
-})
+const FormWrapper = ({ children }: FormWrapperProperties) => {
+  const methods = useForm()
+
+  return <FormProvider {...methods}>{children}</FormProvider>
+}
 
 describe("initial render", () => {
   test("renders four radio buttons", () => {
-    render(<ShippingMethod />)
+    render(
+      <FormWrapper>
+        <ShippingMethod />
+      </FormWrapper>,
+    )
     const radios = screen.getAllByRole("radio")
     expect(radios).toHaveLength(4)
   })
 
   test("renders one text field", () => {
-    render(<ShippingMethod />)
+    render(
+      <FormWrapper>
+        <ShippingMethod />
+      </FormWrapper>,
+    )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
   })
 })
 
 describe("radio button interactions", () => {
   test("removes textbox when clicking prepaid", async () => {
-    render(<ShippingMethod />)
+    render(
+      <FormWrapper>
+        <ShippingMethod />
+      </FormWrapper>,
+    )
     const waiver = screen.getByRole("radio", {
       name: "Send prepaid shipping label",
     })
