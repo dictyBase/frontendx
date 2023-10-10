@@ -20,7 +20,7 @@ const getErrors = (values: FormValues) =>
   pipe(
     values,
     convertToObjectArray,
-    filter(([, value]) => value === ""),
+    filter(([, value]) => !value),
     map(([fieldName]) => ({
       [fieldName]: { type: "required", message: `${fieldName} is required` },
     })),
