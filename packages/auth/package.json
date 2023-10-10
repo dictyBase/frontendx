@@ -14,8 +14,7 @@
   },
   "dependencies": {
     "@dictybase/header": "*",
-    "@logto/browser": "^2.1.2",
-    "@logto/react": "^2.1.1",
+    "@logto/react": "^2.1.2",
     "react-router-dom": "^6.14.2",
     "ts-pattern": "4.x"
   },

@@ -2620,40 +2620,40 @@
   dependencies:
     "@lexical/offset" "0.11.3"
 
-"@logto/browser@^2.1.0":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@logto/browser/-/browser-2.1.1.tgz#835351a93c2baed51fbc6ec40087b4eaf6e3e851"
-  integrity sha512-lxh2ShyM93XrKMAJXboytaklsNjGup59vQC6z+ECCbkvUEeVrThjgjrqs26opf7xya3G91Mr+yyLSxXiE02QOQ==
+"@logto/browser@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@logto/browser/-/browser-2.1.2.tgz#e47eff4d5ceb101c980f6ad715205582a8adbeef"
+  integrity sha512-LADZHT7LTyiWDwWmBwh3qAtOg+IVEjfaFKBTB/RQBc5T9xYO4q4JcyW1XgpMlkc0uLqOtW3uOGztUVs0ugi6/g==
   dependencies:
-    "@logto/client" "^2.2.2"
+    "@logto/client" "^2.2.3"
     "@silverhand/essentials" "^2.6.2"
     js-base64 "^3.7.4"
 
-"@logto/client@^2.2.2":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@logto/client/-/client-2.2.2.tgz#7819b0b5305bca7fd68733d861230da046d04508"
-  integrity sha512-dx3i6qt+3o0IC8LFifSU7AIe+cU3P8gvlXdAPI/bAxb0GVqB05fpsRd+GTnt2gCwq4FcSPYiicIU0Y3MF6afOg==
+"@logto/client@^2.2.3":
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/@logto/client/-/client-2.2.3.tgz#e792b6088419aa9e50907e21c378a04637ae4055"
+  integrity sha512-xq4LhQ6ItbukAHgsMDcgfspTpdpO5sSfSEugpOrGP/nLwzGTfBO78OSUfMdBQEDr5+3SRmONuSjUBBwssOLINA==
   dependencies:
-    "@logto/js" "^2.1.2"
+    "@logto/js" "^2.1.3"
     "@silverhand/essentials" "^2.6.2"
     camelcase-keys "^7.0.1"
     jose "^4.13.2"
 
-"@logto/js@^2.1.2":
+"@logto/js@^2.1.3":
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/@logto/js/-/js-2.1.3.tgz#38b22c67576a7e68e3e470f0a715e75eee5ca421"
+  integrity sha512-TOuoC5gHx/SfY5gcGSBfw63x5TpM6Lm/9J5y0Jy003Z1DZARUlpz0KbzyCVAIC/+6qIefkmNPHKl1rq9MB/hog==
+  dependencies:
+    "@silverhand/essentials" "^2.6.2"
+    camelcase-keys "^7.0.1"
+    jose "^4.13.2"
+
+"@logto/react@^2.1.2":
   version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@logto/js/-/js-2.1.2.tgz#cbc322d330adfee5f020c9e30fd049c18ff9de17"
-  integrity sha512-A3GC85ru41A3gOz0DIJDCA/O1VyigD8v9BR0YDkOQLDeUzT09oEuI8qeX5deIbjSPtTvZLNMbBIiilVdynQtFQ==
+  resolved "https://registry.yarnpkg.com/@logto/react/-/react-2.1.2.tgz#8b0a56bebbda5f71c6ed6cb89f9cee764ef32de3"
+  integrity sha512-4Fz5GG5N7y9ynYVutuLZgBornkVccaxG1vmAOxt233wfFPmNzESJ+TlYGe2FbngC7z9xfT6c7f9Q+1LZQmrzVg==
   dependencies:
-    "@silverhand/essentials" "^2.6.2"
-    camelcase-keys "^7.0.1"
-    jose "^4.13.2"
-
-"@logto/react@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@logto/react/-/react-2.1.1.tgz#1b1fb6999bf2befe5de4e51303d13c25d3898a10"
-  integrity sha512-/Z/jT91DDSgsQhKoUo4bvToHzJUu3V6mVsLFmc6gKdcj+qEf583gUNbjEnPQRscUYDsbggzSXgS5RLy74kJLCg==
-  dependencies:
-    "@logto/browser" "^2.1.0"
+    "@logto/browser" "^2.1.2"
     "@silverhand/essentials" "^2.6.2"
 
 "@material-ui/core@4.12.x", "@material-ui/core@4.x", "@material-ui/core@^4.12.3", "@material-ui/core@^4.12.4", "@material-ui/core@^4.x":
