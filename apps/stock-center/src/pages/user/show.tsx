@@ -1,5 +1,4 @@
 import { useLocation, useNavigate } from "react-router-dom"
-import { UserInfoResponse } from "@logto/react"
 import {
   Box,
   Grid,
@@ -11,6 +10,9 @@ import {
 import { MoodSharp } from "@material-ui/icons"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import { ACCESS } from "auth"
+import { match } from "fp-ts/Array"
+import { pipe } from "fp-ts/function"
+import { UserWithRoles } from "auth"
 
 const useStyles = makeStyles((theme: Theme) => ({
   divider: {
@@ -26,7 +28,7 @@ const Show = () => {
   const classes = useStyles()
   const navigate = useNavigate()
   const location = useLocation()
-  const user = location.state as UserInfoResponse
+  const user = location.state as UserWithRoles
   return (
     <Box mt={4}>
       <Box display="flex" flexDirection="row" justifyContent="center">
@@ -64,6 +66,15 @@ const Show = () => {
             onClick={() => navigate("/user/edit", { state: user })}>
             Edit
           </Button>
+        </Grid>
+        <Grid item xs={12}>
+          {pipe(
+            user.roles,
+            match(
+              () => <h2>No roles for user</h2>,
+              (roles) => <h2>User roles {roles.join(" ")}</h2>,
+            ),
+          )}
         </Grid>
       </Grid>
     </Box>
