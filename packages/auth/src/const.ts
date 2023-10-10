@@ -1,4 +1,9 @@
 import { reduce } from "fp-ts/ReadonlyNonEmptyArray"
+import { UserInfoResponse } from "@logto/react"
+
+type UserWithRoles = UserInfoResponse & {
+  roles: Array<string>
+}
 
 const concatPath = reduce(
   `http://${window.location.host}`,
@@ -11,4 +16,4 @@ const callbackPath = concatPath([
 ])
 const homePath = concatPath([import.meta.env.VITE_APP_BASENAME, "/"])
 
-export { callbackPath, homePath }
+export { callbackPath, homePath, type UserWithRoles }
