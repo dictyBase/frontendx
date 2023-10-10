@@ -1,11 +1,12 @@
 import { Header } from "@dictybase/header"
 import { match, P } from "ts-pattern"
-import { useLogto, UserInfoResponse } from "@logto/react"
+import { useLogto } from "@logto/react"
 import { useState, useEffect } from "react"
 import { Router as RemixRouter } from "@remix-run/router"
 import { LoginButton } from "./LoginButton"
 import { LogoutButton } from "./LogoutButton"
 import { callbackPath, homePath } from "./const"
+import { type UserWithRoles } from "auth"
 
 type HeaderWithAuthProperties = {
   clientRouter: RemixRouter
@@ -15,7 +16,7 @@ type logtoHookProperties = HeaderWithAuthProperties & {
   error: Error | undefined
   isAuthenticated: boolean
   isLoading: boolean
-  user: UserInfoResponse | undefined
+  user: UserWithRoles | undefined
 }
 
 const conditonalHandler = (logtoCase: logtoHookProperties) =>
@@ -28,7 +29,7 @@ const conditonalHandler = (logtoCase: logtoHookProperties) =>
         const LoginOut = (
           <LogoutButton
             url={homePath}
-            user={user as UserInfoResponse}
+            user={user as UserWithRoles}
             clientRouter={clientRouter}
           />
         )
@@ -38,17 +39,18 @@ const conditonalHandler = (logtoCase: logtoHookProperties) =>
     .otherwise(() => <Header LoginOut={<LoginButton url={callbackPath} />} />)
 
 const HeaderWithAuth = ({ clientRouter }: HeaderWithAuthProperties) => {
-  const { isAuthenticated, isLoading, error, fetchUserInfo } = useLogto()
-  const [user, setUser] = useState<UserInfoResponse>()
+  const { isAuthenticated, isLoading, error, fetchUserInfo, getAccessToken } =
+    useLogto()
+  const [user, setUser] = useState<UserWithRoles>()
   useEffect(() => {
     const handleUserInformation = async () => {
       if (isAuthenticated) {
         const authUser = await fetchUserInfo()
-        setUser(authUser)
+        setUser(authUser as UserWithRoles)
       }
     }
     handleUserInformation()
-  }, [fetchUserInfo, isAuthenticated])
+  }, [fetchUserInfo, isAuthenticated, getAccessToken])
   return conditonalHandler({
     isAuthenticated,
     isLoading,

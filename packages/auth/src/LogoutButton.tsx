@@ -1,4 +1,4 @@
-import { useLogto, UserInfoResponse } from "@logto/react"
+import { useLogto } from "@logto/react"
 import { Button, Box, Menu, MenuItem, Tooltip } from "@material-ui/core"
 import { PersonSharp } from "@material-ui/icons"
 import { makeStyles, Theme } from "@material-ui/core/styles"
@@ -13,11 +13,12 @@ import {
   of as Oof,
 } from "fp-ts/Option"
 import { pipe } from "fp-ts/function"
+import { type UserWithRoles } from "auth"
 import { nameToUpperInitial } from "./functional"
 
 type LogoutButtonProperties = {
   url: string
-  user: UserInfoResponse
+  user: UserWithRoles
   clientRouter: RemixRouter
 }
 
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-const tooltipInfo = (user: UserInfoResponse) => (
+const tooltipInfo = (user: UserWithRoles) => (
   <>
     DCR account
     <br />
