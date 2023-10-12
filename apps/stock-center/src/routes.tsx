@@ -1,5 +1,4 @@
 import { createBrowserRouter, RouteObject } from "react-router-dom"
-import { HeaderRow } from "./components/HeaderRow"
 import { bind, let as Olet, of, Do, match } from "fp-ts/Option"
 import { pipe } from "fp-ts/function"
 import {
@@ -8,6 +7,7 @@ import {
   protectedRoutes,
   buildMergedRoutes,
 } from "auth"
+import { HeaderRow } from "./components/HeaderRow"
 
 const dynamicRoutes: dynamicRoutesProperties = import.meta.glob(
   "/src/pages/**/**/*.tsx",
