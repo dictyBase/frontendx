@@ -28,7 +28,7 @@ type roleProperties = {
   description: string
 }
 
-const resolveAccessTokesn = (client: LogtoClient) =>
+const resolveAccessTokens = (client: LogtoClient) =>
   pipe(
     TEtryCatch(() => client.getIdToken(), toError),
     TEmap((token) => token as string),
@@ -64,23 +64,28 @@ const roleNames = (roles: Array<roleProperties>) =>
 
 const fetchRoles = ({ userId, endpoint, client }: fetchRolesProperties) =>
   pipe(
-    resolveAccessTokesn(client),
+    resolveAccessTokens(client),
     TEflatMap((accessToken) => rolesFromAPI({ userId, endpoint, accessToken })),
     TEflatMap(toJson),
     TEmap(roleNames),
   )
 
 const useRole = ({ endpoint, userId }: useRoleProperties) => {
-  const client = new LogtoClient({
-    endpoint: endpoint,
-    appId: import.meta.env.VITE_LOGTO_APPID,
-  })
+  const client = useMemo(
+    () =>
+      new LogtoClient({
+        endpoint,
+        appId: import.meta.env.VITE_LOGTO_APPID,
+      }),
+    [endpoint],
+  )
   const [eitherRoles, setEitherRoles] = useState<Either<Error, Array<string>>>(
     Eof(Aof("")),
   )
-  const fetchRoleCallback = useMemo(() => {
-    return fetchRoles({ endpoint, userId, client })
-  }, [endpoint, userId, client])
+  const fetchRoleCallback = useMemo(
+    () => fetchRoles({ endpoint, userId, client }),
+    [endpoint, userId, client],
+  )
 
   useEffect(() => {
     const runner = async () => setEitherRoles(await fetchRoleCallback())
@@ -88,6 +93,7 @@ const useRole = ({ endpoint, userId }: useRoleProperties) => {
       const token = await client.getAccessToken(
         "https://content.dictybase.dev/api",
       )
+      // eslint-disable-next-line no-console
       console.log("token token %s", token)
     }
     runner()
