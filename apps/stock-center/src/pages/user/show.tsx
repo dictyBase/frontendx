@@ -14,7 +14,7 @@ import { match } from "fp-ts/Array"
 import { pipe } from "fp-ts/function"
 import { UserWithRoles } from "auth"
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useShowStyles = makeStyles((theme: Theme) => ({
   divider: {
     border: "1px",
     height: "3px",
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 const Show = () => {
-  const classes = useStyles()
+  const classes = useShowStyles()
   const navigate = useNavigate()
   const location = useLocation()
   const user = location.state as UserWithRoles
