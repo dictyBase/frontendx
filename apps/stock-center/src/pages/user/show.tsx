@@ -9,10 +9,9 @@ import {
 } from "@material-ui/core"
 import { MoodSharp } from "@material-ui/icons"
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import { ACCESS } from "auth"
+import { ACCESS, UserWithRoles } from "auth"
 import { match } from "fp-ts/Array"
 import { pipe } from "fp-ts/function"
-import { UserWithRoles } from "auth"
 
 const useStyles = makeStyles((theme: Theme) => ({
   divider: {
