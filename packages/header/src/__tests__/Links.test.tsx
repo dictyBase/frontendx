@@ -1,19 +1,17 @@
 import { render } from "@testing-library/react"
 import { expect, describe, test } from "vitest"
+import { IconButton, SvgIcon, Typography } from "@material-ui/core"
 import { Links } from "../functional/Links"
 import { iconItems } from "../components/LinksContainer"
-import { IconButton, SvgIcon, Typography } from "@material-ui/core"
 
-const LoginButton = () => {
-  return (
-    <IconButton href="/goofy">
-      <Typography>Login</Typography>
-      <SvgIcon>
-        <path d="M14" />
-      </SvgIcon>
-    </IconButton>
-  )
-}
+const LoginButton = () => (
+  <IconButton href="/goofy">
+    <Typography>Login</Typography>
+    <SvgIcon>
+      <path d="M14" />
+    </SvgIcon>
+  </IconButton>
+)
 
 describe("functional links ", () => {
   test("should generate the links ", () => {
