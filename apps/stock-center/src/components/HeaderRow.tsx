@@ -1,9 +1,9 @@
 import Grid from "@material-ui/core/Grid"
 import { CartIcon } from "@dictybase/ui-dsc"
 import { useAtomValue } from "jotai"
+import { Outlet } from "react-router-dom"
 import { Breadcrumbs } from "./Breadcrumbs"
 import { isFullAtom, strainItemsAtom } from "../state"
-import { Outlet } from "react-router-dom"
 /**
  * This is the cart component that displays between the Navbar and body content on every page.
  * It has a cart icon with the current number of added items next to it.
