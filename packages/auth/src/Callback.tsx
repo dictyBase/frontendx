@@ -1,6 +1,6 @@
 import { useHandleSignInCallback } from "@logto/react"
-import { LoadingDisplay } from "./LoadingDisplay"
 import { useNavigate } from "react-router-dom"
+import { LoadingDisplay } from "./LoadingDisplay"
 
 const Callback = () => {
   const navigate = useNavigate()
