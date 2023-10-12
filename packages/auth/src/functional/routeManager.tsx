@@ -26,9 +26,9 @@ type dynamicRoutesProperties = Record<string, PageComponentData>
 
 const pathParts = (path: string) =>
   path
-    .replace(/\/src\/pages|index|\.tsx$/g, "")
+    .replaceAll(/\/src\/pages|index|\.tsx$/g, "")
     .replace(/\[\.{3}.+]/, "*")
-    .replace(/\[(.+)\]/, ":$1")
+    .replace(/\[(.+)]/, ":$1")
 
 const mapToRouteObject = (route: string, value: PageComponentData) => {
   const PageComponent = value.default
