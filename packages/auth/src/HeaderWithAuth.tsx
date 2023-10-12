@@ -3,10 +3,10 @@ import { match, P } from "ts-pattern"
 import { useLogto } from "@logto/react"
 import { useState, useEffect } from "react"
 import { Router as RemixRouter } from "@remix-run/router"
+import { type UserWithRoles } from "auth"
 import { LoginButton } from "./LoginButton"
 import { LogoutButton } from "./LogoutButton"
 import { callbackPath, homePath } from "./const"
-import { type UserWithRoles } from "auth"
 
 type HeaderWithAuthProperties = {
   clientRouter: RemixRouter
