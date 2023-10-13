@@ -8,7 +8,7 @@
     "lint": "eslint --ext .jsx,.js,.ts,.tsx src/"
   },
   "dependencies": {
-    "react-router-dom": "^6.14.2",
+    "react-router-dom": "~6.14.2",
     "editor-toolbar": "*",
     "persistence-plugin": "*",
     "width-table-plugin": "*",

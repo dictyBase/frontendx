@@ -15,15 +15,14 @@
   "dependencies": {
     "@dictybase/header": "*",
     "@logto/react": "^2.1.2",
-    "react-router-dom": "^6.14.2",
+    "react-router-dom": "~6.14.2",
     "ts-pattern": "4.x"
   },
   "scripts": {
-    "test": "vitest run",
     "test:watch": "vitest watch",
     "coverage": "vitest run --coverage",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
-    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/header.json"
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/auth.json"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",
