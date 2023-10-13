@@ -9,5 +9,6 @@ const Edit = () => {
   return <Typography variant="h1">Edit {user.name}</Typography>
 }
 
+// eslint-disable-next-line import/no-default-export
 export default Edit
 export const access = ACCESS.protected
