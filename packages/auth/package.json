@@ -19,8 +19,6 @@
     "ts-pattern": "4.x"
   },
   "scripts": {
-    "test:watch": "vitest watch",
-    "coverage": "vitest run --coverage",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/auth.json"
   },
