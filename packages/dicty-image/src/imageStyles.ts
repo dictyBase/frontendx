@@ -15,7 +15,6 @@ const imageStyles = makeStyles<Theme, StyleProperties>({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "black",
   },
   image: {
     width: "100%",
