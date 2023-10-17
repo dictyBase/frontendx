@@ -7,13 +7,13 @@ import PublicationBody from "components/PublicationBody"
 import useStyles from "styles/publicationStyles"
 import { make as PublicationHeader } from "components/PublicationHeader.bs"
 
-interface PublicationPageProps {
+interface PublicationPageProperties {
   publication: Publication
 }
 
-const PublicationPage = ({ publication }: PublicationPageProps) => {
+const PublicationPage = ({ publication }: PublicationPageProperties) => {
   const classes = useStyles()
-  const title = publication.title
+  const { title } = publication
 
   return (
     <Grid container>

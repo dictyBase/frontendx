@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-type Props = {
+type Properties = {
   title: string
 }
 
@@ -22,7 +22,7 @@ type Props = {
  * SocialLinks contains links to share the publication via social media.
  */
 
-export const SocialLinks = ({ title }: Props) => {
+export const SocialLinks = ({ title }: Properties) => {
   const classes = useStyles()
   const url = window.location.href
 

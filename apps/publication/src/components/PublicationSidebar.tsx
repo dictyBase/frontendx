@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-type Props = {
+type Properties = {
   doi: string | undefined | null
 }
 
@@ -30,7 +30,7 @@ type Props = {
  * LeftSidebar is the main component for the left sidebar on an individual publication page.
  */
 
-export const PublicationSidebar = ({ doi }: Props) => {
+export const PublicationSidebar = ({ doi }: Properties) => {
   const classes = useStyles()
   const doiURL = `https://doi.org/${doi}`
 

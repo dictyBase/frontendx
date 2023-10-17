@@ -2,9 +2,9 @@ import React from "react"
 import Box from "@material-ui/core/Box"
 import Typography from "@material-ui/core/Typography"
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import JournalDataItem from "./JournalDataItem"
 import { addDays, format, parseISO } from "date-fns"
 import { Publication } from "dicty-graphql-schema"
+import JournalDataItem from "./JournalDataItem"
 
 const useStyles = makeStyles((theme: Theme) => ({
   journal: {
@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-interface JournalDataProps {
+interface JournalDataProperties {
   data: Publication
 }
 
@@ -21,7 +21,7 @@ interface JournalDataProps {
  * JournalData displays general data related to the publication.
  */
 
-export const JournalData = ({ data }: JournalDataProps) => {
+export const JournalData = ({ data }: JournalDataProperties) => {
   const { id, doi, pub_date, journal, pages, issue, volume } = data
 
   const classes = useStyles()

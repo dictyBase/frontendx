@@ -29,18 +29,18 @@ const createOauthURL = (config: Config) => {
   let url = `${config.authorizationEndpoint}?client_id=${config.clientId}`
   url += `&scope=${config.scopes.join(config.scopeDelimiter)}`
   if (config.requiredUrlParams) {
-    url += formatURLParams(config.requiredUrlParams)
+    url += formatURLParameters(config.requiredUrlParams)
   }
   if (config.optionalUrlParams) {
-    url += formatURLParams(config.optionalUrlParams)
+    url += formatURLParameters(config.optionalUrlParams)
   }
   url += `&redirect_uri=${config.redirectUrl}`
   return url
 }
 
-const formatURLParams = (params: Array<Array<string>>) => {
+const formatURLParameters = (parameters: Array<Array<string>>) => {
   let url = ""
-  params.forEach((element) => {
+  parameters.forEach((element) => {
     url += `&${element[0]}=${element[1]}`
   })
   return url

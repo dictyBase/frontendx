@@ -3,7 +3,7 @@ import Box from "@material-ui/core/Box"
 import Typography from "@material-ui/core/Typography"
 import { Maybe } from "dicty-graphql-schema"
 
-type Props = {
+type Properties = {
   title: string
   url: string
   content?: Maybe<string>
@@ -13,7 +13,7 @@ type Props = {
  * JournalDataItem displays an item of journal data (i.e. PMID: 123456)
  */
 
-export const JournalDataItem = ({ title, url, content }: Props) => {
+export const JournalDataItem = ({ title, url, content }: Properties) => {
   if (!content) return <></>
 
   return (
