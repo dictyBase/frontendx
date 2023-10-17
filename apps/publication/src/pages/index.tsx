@@ -1,6 +1,6 @@
 import React from "react"
 import { useRouter } from "next/router"
-import PublicationLoader from "../components/PublicationLoader"
+import PublicationLoader from "../src/components/PublicationLoader"
 
 const Home = () => {
   const router = useRouter()

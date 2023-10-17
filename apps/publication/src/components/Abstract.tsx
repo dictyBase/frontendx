@@ -3,14 +3,14 @@ import Box from "@material-ui/core/Box"
 import Typography from "@material-ui/core/Typography"
 import Divider from "@material-ui/core/Divider"
 
-type Props = {
+type Properties = {
   abstract: string
 }
 
 /**
  * Displays the abstract of the publication.
  */
-export const Abstract = ({ abstract }: Props) => {
+export const Abstract = ({ abstract }: Properties) => {
   const body =
     abstract === "" ? (
       <></>

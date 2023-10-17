@@ -7,11 +7,11 @@ import Abstract from "components/Abstract"
 import FullTextLinks from "components/FullTextLinks"
 import { Publication } from "dicty-graphql-schema"
 
-interface PublicationBodyProps {
+interface PublicationBodyProperties {
   publication: Publication
 }
 
-export const PublicationBody = ({ publication }: PublicationBodyProps) => {
+export const PublicationBody = ({ publication }: PublicationBodyProperties) => {
   const url = `https://doi.org/${publication.doi}`
 
   return (
