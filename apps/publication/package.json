@@ -26,6 +26,7 @@
     "@apollo/client": "^3.6.9",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "@dictybase/navbar": "*",
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/styles": "^4.11.5",
