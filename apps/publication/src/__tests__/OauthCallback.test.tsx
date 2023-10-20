@@ -23,7 +23,7 @@ describe("components/auth/OauthCallback", () => {
 
       render(<OauthCallback />)
       expect(
-        screen.getByText(/Transferring to login system ......../),
+        screen.getByText("Transferring to login system ........"),
       ).toBeInTheDocument()
     })
   })
