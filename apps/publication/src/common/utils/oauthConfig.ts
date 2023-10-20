@@ -1,4 +1,7 @@
+// @ts-ignore
+// eslint-disable-next-line import/no-unresolved, import/extensions
 import clientConfig from "./clientConfig"
+
 type Config = {
   name: string
   url: string
@@ -22,7 +25,7 @@ type Auth = {
   [index: string]: any
 }
 
-const url = typeof window !== "undefined" ? window.location.origin : ""
+const url = typeof window === "undefined" ? "" : window.location.origin
 
 const oauthConfig: Auth = {
   google: {
@@ -64,4 +67,4 @@ const oauthConfig: Auth = {
   },
 }
 
-export default oauthConfig
+export { oauthConfig }

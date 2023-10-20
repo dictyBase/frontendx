@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useMemo } from "react"
 import { User } from "dicty-graphql-schema"
 
 enum ActionType {
@@ -31,7 +31,7 @@ const initialState = {
   token: "",
   user: {} as User,
   provider: "",
-  error: null,
+  error: undefined,
 }
 
 type Action =
@@ -49,42 +49,40 @@ type Action =
       payload: AuthPayload
     }
 
-type AuthStateContextProps = {
+type AuthStateContextProperties = {
   state: AuthState
   dispatch: React.Dispatch<Action>
 }
 
-const AuthContext = React.createContext({} as AuthStateContextProps)
+const AuthContext = React.createContext({} as AuthStateContextProperties)
 
 const authReducer = (state: AuthState, action: Action) => {
   switch (action.type) {
     case ActionType.LOGIN:
-      const token = action.payload.token
       return {
         ...state,
-        isAuthenticated: token !== "" ? true : false,
-        token,
+        isAuthenticated: action.payload.token !== "",
+        token: action.payload.token,
         user: action.payload.user,
         provider: action.payload.provider,
-        error: null,
+        error: undefined,
       }
-    case ActionType.LOGIN_ERROR: {
+    case ActionType.LOGIN_ERROR:
       return {
         ...state,
         error: action.payload.error,
       }
-    }
+
     case ActionType.LOGOUT:
       return initialState
     case ActionType.UPDATE_TOKEN:
-      const newToken = action.payload.token
       return {
         ...state,
         isAuthenticated: true,
-        token: newToken,
+        token: action.payload.token,
         user: action.payload.user,
         provider: action.payload.provider,
-        error: null,
+        error: undefined,
       }
     default:
       return state
@@ -96,12 +94,8 @@ const authReducer = (state: AuthState, action: Action) => {
  */
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = React.useReducer(authReducer, initialState)
-
-  return (
-    <AuthContext.Provider value={{ state, dispatch }}>
-      {children}
-    </AuthContext.Provider>
-  )
+  const value = useMemo(() => ({ state, dispatch }), [state, dispatch])
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
 
 /**

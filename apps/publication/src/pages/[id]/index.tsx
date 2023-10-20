@@ -1,9 +1,9 @@
 import React from "react"
 import { useRouter } from "next/router"
 import { Publication, usePublicationQuery } from "dicty-graphql-schema"
-import PublicationLoader from "components/PublicationLoader"
-import ErrorPage from "components/errors/ErrorPage"
-import PublicationPage from "components/PublicationPage"
+import { PublicationLoader } from "../../components/PublicationLoader"
+import { ErrorPage } from "../../components/errors/ErrorPage"
+import { PublicationPage } from "../../components/PublicationPage"
 
 /**
  * Renders the publication page given a publication id
@@ -27,4 +27,5 @@ const PublicationPageWrapper = () => {
   )
 }
 
+// eslint-disable-next-line import/no-default-export
 export default PublicationPageWrapper
