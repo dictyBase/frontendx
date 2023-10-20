@@ -1,3 +1,4 @@
+/* eslint-disable turbo/no-undeclared-env-vars */
 import React from "react"
 import {
   ApolloClient,
@@ -13,17 +14,16 @@ import version from "dicty-graphql-schema/package.json"
 const SCHEMA_VERSION_KEY = "publication-apollo-schema-version"
 const PUBLICATION_CACHE_KEY = "publication-apollo-cache-persist"
 
-const mutationList = ["Logout"]
+const mutationList = new Set(["Logout"])
 
-const isMutation = (value: string) => {
-  if (mutationList.includes(value)) {
-    return true
-  }
-  return false
-}
+const isMutation = (value: string) => !!mutationList.has(value)
 
-const getGraphQLServer = (url: string, deployEnv: string, origin: string) => {
-  if (deployEnv === "staging" && origin === "https://dictycr.org") {
+const getGraphQLServer = (
+  url: string,
+  deployEnvironment: string,
+  origin: string,
+) => {
+  if (deployEnvironment === "staging" && origin === "https://dictycr.org") {
     return process.env.NEXT_PUBLIC_ALT_GRAPHQL_SERVER
   }
   return url
@@ -42,6 +42,7 @@ const authLink = setContext((request, { headers }) => {
 })
 
 const createApolloLink = (server: string): ApolloLink =>
+  // eslint-disable-next-line unicorn/prefer-spread
   authLink.concat(
     createHttpLink({
       uri: `${server}/graphql`,
@@ -95,5 +96,4 @@ const useCreateApolloClient = () => {
   return { client, cacheInitializing }
 }
 
-export { isMutation, getGraphQLServer }
-export default useCreateApolloClient
+export { isMutation, getGraphQLServer, useCreateApolloClient }

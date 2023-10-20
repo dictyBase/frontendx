@@ -2,7 +2,7 @@ import React from "react"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import Container from "@material-ui/core/Container"
 import { Header, Footer } from "dicty-components-header-footer"
-import { Navbar } from "dicty-components-navbar"
+import { Navbar } from "@dictybase/navbar"
 import jwtDecode from "jwt-decode"
 import { useFetchRefreshToken, useFetch } from "dicty-hooks"
 import {
@@ -10,26 +10,22 @@ import {
   GetRefreshTokenQuery,
   User,
 } from "dicty-graphql-schema"
-import { useAuthStore, ActionType } from "components/auth/AuthStore"
-import ErrorBoundary from "components/errors/ErrorBoundary"
-import {
-  headerItems,
-  loggedHeaderItems,
-  HeaderLinks,
-} from "components/layout/HeaderItems"
+import { useAuthStore, ActionType } from "../auth/AuthStore"
+import ErrorBoundary from "../errors/ErrorBoundary"
+import { headerItems, loggedHeaderItems, HeaderLinks } from "./HeaderItems"
 import {
   footerLinks,
   footerURL,
   convertFooterData,
   FooterItems,
-} from "common/utils/footerItems"
-import { navTheme, headerTheme, footerTheme } from "common/utils/themes"
+} from "../../common/utils/footerItems"
+import { navTheme, headerTheme, footerTheme } from "../../common/utils/themes"
 import {
   navbarItems,
   NavbarItems,
   navbarURL,
   formatNavbarData,
-} from "common/utils/navbarItems"
+} from "../../common/utils/navbarItems"
 
 const useStyles = makeStyles((theme: Theme) => ({
   main: {
@@ -61,7 +57,7 @@ type Action = {
 }
 
 const updateToken = (
-  dispatch: (arg0: Action) => void,
+  dispatch: (argument0: Action) => void,
   data: GetRefreshTokenQuery["getRefreshToken"],
 ) =>
   dispatch({
@@ -80,8 +76,9 @@ const getTokenIntervalDelayInMS = (token: string) => {
   const decodedToken = jwtDecode(token) as any
   const currentTime = new Date(Date.now())
   const jwtTime = new Date(decodedToken.exp * 1000)
-  const timeDiffInMins = (+jwtTime - +currentTime) / 60000
+  const timeDiffInMins = (+jwtTime - +currentTime) / 60_000
   // all this to say we want the delay to be two minutes before the JWT expires
+  // eslint-disable-next-line consistent-return
   return (timeDiffInMins - 2) * 60 * 1000
 }
 
@@ -98,7 +95,7 @@ const App = ({ children }: { children: React.ReactNode }) => {
   const footer = useFetch<FooterItems>(footerURL, footerLinks)
   const classes = useStyles()
   const { loading, refetch, data } = useGetRefreshTokenQuery({
-    variables: { token: token },
+    variables: { token },
     errorPolicy: "ignore",
     fetchPolicy: "no-cache",
     nextFetchPolicy: "no-cache",
@@ -118,12 +115,13 @@ const App = ({ children }: { children: React.ReactNode }) => {
 
   const fetchRefreshToken = React.useCallback(async () => {
     try {
-      const res = await refetch({ token: token })
-      if (res.data.getRefreshToken) {
-        const { data } = res
-        updateToken(dispatch, data.getRefreshToken)
+      const response = await refetch({ token })
+      if (response.data.getRefreshToken) {
+        const { data: _data } = response
+        updateToken(dispatch, _data.getRefreshToken)
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error)
     }
   }, [dispatch, refetch, token])
@@ -150,4 +148,4 @@ const App = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-export default App
+export { App }
