@@ -1,7 +1,9 @@
+/* eslint-disable turbo/no-undeclared-env-vars */
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import { OauthCallback } from "../components/auth/OauthCallback"
 
+// eslint-disable-next-line import/no-commonjs, unicorn/prefer-module
 const useRouter = jest.spyOn(require("next/router"), "useRouter")
 
 describe("components/auth/OauthCallback", () => {
