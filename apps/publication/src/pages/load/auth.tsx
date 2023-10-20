@@ -1,5 +1,5 @@
 import React from "react"
-import AuthLoader from "../../components/auth/AuthLoader"
+import { AuthLoader } from "../../components/auth/AuthLoader"
 
 const AuthPage = () => <AuthLoader />
 
