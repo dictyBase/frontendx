@@ -1,7 +1,7 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import { data } from "./mocks/mockdata"
-import PublicationPage from "../components/PublicationPage"
+import { PublicationPage } from "../components/PublicationPage"
 
 describe("components/PublicationPage", () => {
   describe("initial render", () => {

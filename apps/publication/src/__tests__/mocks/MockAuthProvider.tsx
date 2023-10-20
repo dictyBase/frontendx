@@ -1,9 +1,10 @@
+/* eslint-disable camelcase */
 import React from "react"
 import { MockedProvider, MockedResponse } from "@apollo/client/testing"
 import { User } from "dicty-graphql-schema"
-import { AuthContext, authReducer } from "components/auth/AuthStore"
+import { AuthContext, authReducer } from "../../components/auth/AuthStore"
 
-type AuthProps = {
+type AuthProperties = {
   children: React.ReactNode
   mocks: ReadonlyArray<MockedResponse>
   user?: User
@@ -17,23 +18,23 @@ const MockSuperuser = {
   last_name: "Vandelay",
   email: "george@vandelayindustries.com",
   is_active: true,
-  created_at: 123456,
-  updated_at: 678900,
+  created_at: 123_456,
+  updated_at: 678_900,
   roles: [
     {
       id: "1",
       role: "superuser",
       description: "total power!",
-      created_at: 123456,
-      updated_at: 678900,
+      created_at: 123_456,
+      updated_at: 678_900,
       permissions: [
         {
           id: "1",
           permission: "test",
           description: "a test permission",
           resource: "testresource",
-          created_at: 123456,
-          updated_at: 678900,
+          created_at: 123_456,
+          updated_at: 678_900,
         },
       ],
     },
@@ -51,15 +52,16 @@ const MockAuthProvider = ({
   mocks,
   user = MockSuperuser,
   validToken = true,
-}: AuthProps) => {
+}: AuthProperties) => {
   const [state, dispatch] = React.useReducer(authReducer, {
     token: validToken ? activeToken : expiredToken,
-    user: user,
+    user,
     provider: "google",
     isAuthenticated: true,
-    error: null,
+    error: undefined,
   })
   return (
+    // eslint-disable-next-line react/jsx-no-constructed-context-values
     <AuthContext.Provider value={{ state, dispatch }}>
       <MockedProvider mocks={mocks} addTypename={false}>
         {children}
@@ -68,5 +70,4 @@ const MockAuthProvider = ({
   )
 }
 
-export { MockSuperuser }
-export default MockAuthProvider
+export { MockAuthProvider, MockSuperuser }

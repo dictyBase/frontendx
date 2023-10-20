@@ -1,5 +1,5 @@
-import { make as PublicationHeader } from "../components/PublicationHeader.bs"
 import { render, screen } from "@testing-library/react"
+import { PublicationHeader } from "../components/PublicationHeader"
 
 describe("componets/PublicationHeader", () => {
   it("should show header", () => {

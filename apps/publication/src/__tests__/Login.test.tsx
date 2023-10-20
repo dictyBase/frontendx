@@ -1,11 +1,13 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import Login, {
+import userEvent from "@testing-library/user-event"
+import { ApolloError } from "@apollo/client"
+import {
+  Login,
   createOauthURL,
   generateErrorDisplayMessage,
 } from "../components/Login"
-import MockAuthProvider from "./mocks/MockAuthProvider"
-import userEvent from "@testing-library/user-event"
+import { MockAuthProvider } from "./mocks/MockAuthProvider"
 
 describe("features/Authentication/Login", () => {
   const globalAny = global as any
@@ -80,7 +82,7 @@ describe("features/Authentication/Login", () => {
       )
     })
     it("should return expected URL without URL params", () => {
-      const configNoParams = {
+      const configNoParameters = {
         name: "Review",
         url: "/forrest/macneil",
         authorizationEndpoint: "https://testendpoint.com/auth",
@@ -90,7 +92,7 @@ describe("features/Authentication/Login", () => {
         scopeDelimiter: " ",
         popupOptions: { width: 1020, height: 633 },
       }
-      expect(createOauthURL(configNoParams)).toBe(
+      expect(createOauthURL(configNoParameters)).toBe(
         "https://testendpoint.com/auth?client_id=testID&scope=email&redirect_uri=https://localhost:3000/review/callback",
       )
     })
@@ -121,12 +123,14 @@ describe("features/Authentication/Login", () => {
         ],
         clientErrors: [],
       }
-      expect(generateErrorDisplayMessage(error)).toEqual("Network Error")
+      expect(
+        generateErrorDisplayMessage(error as unknown as ApolloError),
+      ).toEqual("Network Error")
     })
     it("should return appropriate error if user not found", () => {
       const error = {
         message: "",
-        networkError: null,
+        networkError: undefined,
         extraInfo: {},
         name: "",
         graphQLErrors: [
@@ -147,14 +151,14 @@ describe("features/Authentication/Login", () => {
         ],
         clientErrors: [],
       }
-      expect(generateErrorDisplayMessage(error)).toContain(
-        "Could not find user account",
-      )
+      expect(
+        generateErrorDisplayMessage(error as unknown as ApolloError),
+      ).toContain("Could not find user account")
     })
     it("should return generic error if not network or not found error", () => {
       const error = {
         message: "",
-        networkError: null,
+        networkError: undefined,
         extraInfo: {},
         name: "",
         graphQLErrors: [
@@ -172,7 +176,9 @@ describe("features/Authentication/Login", () => {
         ],
         clientErrors: [],
       }
-      expect(generateErrorDisplayMessage(error)).toContain("Could not log in")
+      expect(
+        generateErrorDisplayMessage(error as unknown as ApolloError),
+      ).toContain("Could not log in")
     })
   })
 })

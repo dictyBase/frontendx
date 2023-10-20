@@ -1,8 +1,9 @@
+/* eslint-disable camelcase */
 import React from "react"
 import { render, waitFor } from "@testing-library/react"
 import { LoginDocument } from "dicty-graphql-schema"
-import OauthSignHandler from "../components/auth/OauthSignHandler"
-import MockAuthProvider from "./mocks/MockAuthProvider"
+import { OauthSignHandler } from "../components/auth/OauthSignHandler"
+import { MockAuthProvider } from "./mocks/MockAuthProvider"
 import clientConfig from "../common/utils/clientConfig"
 
 const mockHistoryPush = jest.fn()
@@ -23,13 +24,13 @@ describe("components/auth/OauthSignHandler", () => {
   const map = {
     message: (any: any) => {},
   }
-  globalAny.addEventListener = jest.fn((event, cb) => {
+  globalAny.addEventListener = jest.fn((event, callback) => {
     // @ts-ignore
-    map[event] = cb
+    map[event] = callback
   })
-  globalAny.removeEventListener = jest.fn((event, cb) => {
+  globalAny.removeEventListener = jest.fn((event, callback) => {
     // @ts-ignore
-    map[event] = cb
+    map[event] = callback
   })
 
   // variables used in both graphql mock and event data mock
@@ -47,7 +48,7 @@ describe("components/auth/OauthSignHandler", () => {
             client_id: clientConfig.google.clientId,
             redirect_url: redirectUrl,
             state: "state",
-            code: code,
+            code,
             scopes: "email",
             provider: "google",
           },
@@ -86,13 +87,11 @@ describe("components/auth/OauthSignHandler", () => {
     },
   ]
 
-  const MockComponent = ({ mocks }: any) => {
-    return (
-      <MockAuthProvider mocks={mocks}>
-        <OauthSignHandler />
-      </MockAuthProvider>
-    )
-  }
+  const MockComponent = ({ mocks }: any) => (
+    <MockAuthProvider mocks={mocks}>
+      <OauthSignHandler />
+    </MockAuthProvider>
+  )
 
   beforeEach(() => {
     loginMutationCalled = false
