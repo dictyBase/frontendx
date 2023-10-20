@@ -1,6 +1,4 @@
-// @ts-ignore
-// eslint-disable-next-line import/no-unresolved, import/extensions
-import clientConfig from "./clientConfig"
+import { clientConfig } from "./clientConfig"
 
 type Config = {
   name: string
