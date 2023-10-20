@@ -1,9 +1,9 @@
 import type { AppProps } from "next/app"
-import AppProviders from "components/layout/AppProviders"
 import CssBaseline from "@material-ui/core/CssBaseline"
-import App from "components/layout/App"
 import Head from "next/head"
-import { AuthProvider } from "components/auth/AuthStore"
+import { AppProviders } from "../components/layout/AppProviders"
+import { App } from "../components/layout/App"
+import { AuthProvider } from "../components/auth/AuthStore"
 
 const PublicationApp = ({ Component, pageProps }: AppProps) => (
   <AuthProvider>
@@ -29,4 +29,4 @@ const PublicationApp = ({ Component, pageProps }: AppProps) => (
   </AuthProvider>
 )
 
-export default PublicationApp
+export { PublicationApp }
