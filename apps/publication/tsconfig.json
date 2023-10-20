@@ -1,39 +1,16 @@
 {
-  "compilerOptions": {
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": "./",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "module": "esnext",
-    "moduleResolution": "node",
-    "outDir": "build",
-    "noUnusedLocals": false,
-    "resolveJsonModule": true,
-    "rootDir": "./",
-    "skipLibCheck": true,
-    "strict": true,
-    "target": "es5",
-    "noEmit": true,
-    "downlevelIteration": true,
-    "noFallthroughCasesInSwitch": true,
-    "incremental": true
-  },
   "exclude": [
     "node_modules"
   ],
+  "extends": "tsconfig/vite.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "incremental": true,
+    "esModuleInterop": true,
+    "jsx": "preserve"
+  },
   "include": [
-    "pages",
-    "components",
-    "common",
-    "__tests__/mocks",
-    "styles"
+    "src"
   ]
 }
