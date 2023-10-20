@@ -70,7 +70,6 @@
     "react-docgen-typescript": "^2.1.1",
     "react-styleguidist": "^11.1.6",
     "rescript": "^9.1.4",
-    "semantic-release": "^19.0.5",
     "source-map-explorer": "^2.5.3",
     "tsconfig": "*"
   },
