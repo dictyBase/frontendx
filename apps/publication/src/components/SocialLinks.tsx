@@ -22,7 +22,7 @@ type Properties = {
  * SocialLinks contains links to share the publication via social media.
  */
 
-export const SocialLinks = ({ title }: Properties) => {
+const SocialLinks = ({ title }: Properties) => {
   const classes = useStyles()
   const url = window.location.href
 
@@ -47,4 +47,4 @@ export const SocialLinks = ({ title }: Properties) => {
   )
 }
 
-export default SocialLinks
+export { SocialLinks }

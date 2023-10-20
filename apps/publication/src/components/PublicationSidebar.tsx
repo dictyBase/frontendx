@@ -1,6 +1,6 @@
 import React from "react"
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import CallMadeIcon from "@mui/icons-material/CallMade"
+import CallMadeIcon from "@material-ui/icons/CallMade"
 import { Box } from "@material-ui/core"
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -30,7 +30,7 @@ type Properties = {
  * LeftSidebar is the main component for the left sidebar on an individual publication page.
  */
 
-export const PublicationSidebar = ({ doi }: Properties) => {
+const PublicationSidebar = ({ doi }: Properties) => {
   const classes = useStyles()
   const doiURL = `https://doi.org/${doi}`
 
@@ -45,7 +45,7 @@ export const PublicationSidebar = ({ doi }: Properties) => {
           <Box display="flex">
             Full text
             <CallMadeIcon
-              sx={{ marginLeft: "10px", width: "0.8em", height: "0.8em" }}
+            // sx={{ marginLeft: "10px", width: "0.8em", height: "0.8em" }}
             />
           </Box>
         </a>
@@ -54,4 +54,4 @@ export const PublicationSidebar = ({ doi }: Properties) => {
   )
 }
 
-export default PublicationSidebar
+export { PublicationSidebar }
