@@ -10,7 +10,7 @@ type Properties = {
 /**
  * Displays the abstract of the publication.
  */
-export const Abstract = ({ abstract }: Properties) => {
+const Abstract = ({ abstract }: Properties) => {
   const body =
     abstract === "" ? (
       <></>
@@ -31,4 +31,4 @@ export const Abstract = ({ abstract }: Properties) => {
   )
 }
 
-export default Abstract
+export { Abstract }

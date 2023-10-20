@@ -8,10 +8,10 @@ import {
   LinkedInButton,
   OrcidButton,
 } from "dicty-components-login"
-import oauthConfig from "common/utils/oauthConfig"
-import ErrorNotification from "components/errors/ErrorNotification"
-import { useAuthStore } from "components/auth/AuthStore"
-import OauthSignHandler from "components/auth/OauthSignHandler"
+import oauthConfig from "../common/utils/oauthConfig"
+import ErrorNotification from "./errors/ErrorNotification"
+import { useAuthStore } from "./auth/AuthStore"
+import OauthSignHandler from "./auth/OauthSignHandler"
 
 type Config = {
   name: string
@@ -25,6 +25,14 @@ type Config = {
   optionalUrlParams?: Array<Array<string>>
 }
 
+const formatURLParameters = (parameters: Array<Array<string>>) => {
+  let url = ""
+  parameters.forEach((element) => {
+    url += `&${element[0]}=${element[1]}`
+  })
+  return url
+}
+
 const createOauthURL = (config: Config) => {
   let url = `${config.authorizationEndpoint}?client_id=${config.clientId}`
   url += `&scope=${config.scopes.join(config.scopeDelimiter)}`
@@ -35,14 +43,6 @@ const createOauthURL = (config: Config) => {
     url += formatURLParameters(config.optionalUrlParams)
   }
   url += `&redirect_uri=${config.redirectUrl}`
-  return url
-}
-
-const formatURLParameters = (parameters: Array<Array<string>>) => {
-  let url = ""
-  parameters.forEach((element) => {
-    url += `&${element[0]}=${element[1]}`
-  })
   return url
 }
 
@@ -100,19 +100,19 @@ const Login = () => {
         {error && <ErrorNotification error={message} />}
         <Box mb={2} fontWeight={900}>
           <OrcidButton
-            handleClick={(event: MouseEvent) => openOauthWindow("orcid")}
+            handleClick={() => openOauthWindow("orcid")}
             text="Sign in with ORCID"
           />
         </Box>
         <Box mb={2}>
           <GoogleButton
-            handleClick={(event: MouseEvent) => openOauthWindow("google")}
+            handleClick={() => openOauthWindow("google")}
             text="Sign in with Google"
           />
         </Box>
         <Box mb={6}>
           <LinkedInButton
-            handleClick={(event: MouseEvent) => openOauthWindow("linkedin")}
+            handleClick={() => openOauthWindow("linkedin")}
             text="Sign in with LinkedIn"
           />
         </Box>
@@ -122,5 +122,4 @@ const Login = () => {
   )
 }
 
-export { createOauthURL, generateErrorDisplayMessage } // for testing purposes
-export default Login
+export { Login, createOauthURL, generateErrorDisplayMessage } // for testing purposes

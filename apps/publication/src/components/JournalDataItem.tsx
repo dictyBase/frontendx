@@ -13,7 +13,7 @@ type Properties = {
  * JournalDataItem displays an item of journal data (i.e. PMID: 123456)
  */
 
-export const JournalDataItem = ({ title, url, content }: Properties) => {
+const JournalDataItem = ({ title, url, content }: Properties) => {
   if (!content) return <></>
 
   return (
@@ -26,4 +26,4 @@ export const JournalDataItem = ({ title, url, content }: Properties) => {
   )
 }
 
-export default JournalDataItem
+export { JournalDataItem }

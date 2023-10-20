@@ -4,7 +4,7 @@ import Typography from "@material-ui/core/Typography"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import { addDays, format, parseISO } from "date-fns"
 import { Publication } from "dicty-graphql-schema"
-import JournalDataItem from "./JournalDataItem"
+import { JournalDataItem } from "./JournalDataItem"
 
 const useStyles = makeStyles((theme: Theme) => ({
   journal: {
@@ -21,7 +21,8 @@ interface JournalDataProperties {
  * JournalData displays general data related to the publication.
  */
 
-export const JournalData = ({ data }: JournalDataProperties) => {
+const JournalData = ({ data }: JournalDataProperties) => {
+  // eslint-disable-next-line camelcase
   const { id, doi, pub_date, journal, pages, issue, volume } = data
 
   const classes = useStyles()
@@ -51,4 +52,4 @@ export const JournalData = ({ data }: JournalDataProperties) => {
   )
 }
 
-export default JournalData
+export { JournalData }
