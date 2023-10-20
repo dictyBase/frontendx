@@ -4,23 +4,18 @@
   "private": true,
   "homepage": "/publication",
   "scripts": {
-    "dev": "next dev",
+    "dev": "vite",
     "build": "next build",
     "start": "next start",
     "test": "jest",
     "test-coverage": "jest --coverage",
     "tsc": "tsc",
-    "lint": "TIMING=1 eslint src/**/*.tsx --fix && tsc --noEmit",
+    "lint": "TIMING=1 eslint src/  --ext .ts --ext .tsx --fix && tsc --noEmit",
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/publication.json",
     "pre-commit": "lint-staged",
-    "semantic-release": "semantic-release",
     "styleguide": "FAST_REFRESH=false styleguidist server",
     "styleguide:build": "FAST_REFRESH=false styleguidist build",
-    "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "re:build": "rescript",
-    "re:watch": "rescript build -w",
-    "re:start": "rescript build -w",
-    "re:clean": "rescript clean -with-deps"
+    "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
@@ -28,6 +23,8 @@
     "@emotion/styled": "^11.8.1",
     "@dictybase/navbar": "*",
     "@material-ui/icons": "^4.11.2",
+    "@mui/material": "^5.2.8",
+    "@mui/icons-material": "^5.3.1",
     "@rescript/react": "^0.10.3",
     "apollo3-cache-persist": "^0.14.1",
     "date-fns": "^2.30.0",
@@ -46,7 +43,6 @@
     "react-loading-skeleton": "^3.0.1",
     "react-router": "^5.2.0",
     "react-router-dom": "^6.0.2",
-    "react-scripts": "^4.0.2",
     "string.prototype.includes": "^2.0.0"
   },
   "devDependencies": {
@@ -69,7 +65,6 @@
     "prettier": "^2.5.1",
     "react-docgen-typescript": "^2.1.1",
     "react-styleguidist": "^11.1.6",
-    "rescript": "^9.1.4",
     "source-map-explorer": "^2.5.3",
     "tsconfig": "*"
   },
