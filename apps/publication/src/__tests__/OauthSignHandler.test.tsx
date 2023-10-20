@@ -4,11 +4,12 @@ import { render, waitFor } from "@testing-library/react"
 import { LoginDocument } from "dicty-graphql-schema"
 import { OauthSignHandler } from "../components/auth/OauthSignHandler"
 import { MockAuthProvider } from "./mocks/MockAuthProvider"
-import clientConfig from "../common/utils/clientConfig"
+import { clientConfig } from "../common/utils/clientConfig"
 
-const mockHistoryPush = jest.fn()
+// const mockHistoryPush = jest.fn()
 
 jest.mock("next/router", () => {
+  // eslint-disable-next-line unicorn/consistent-function-scoping
   const useRouter = () => ({
     push: (value: string) => value,
   })
@@ -22,7 +23,8 @@ describe("components/auth/OauthSignHandler", () => {
   // set up mocks for window event listeners
   const globalAny = global as any
   const map = {
-    message: (any: any) => {},
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    message: (message: any) => {},
   }
   globalAny.addEventListener = jest.fn((event, callback) => {
     // @ts-ignore
@@ -87,8 +89,8 @@ describe("components/auth/OauthSignHandler", () => {
     },
   ]
 
-  const MockComponent = ({ mocks }: any) => (
-    <MockAuthProvider mocks={mocks}>
+  const MockComponent = ({ mocks: _mocks }: any) => (
+    <MockAuthProvider mocks={_mocks}>
       <OauthSignHandler />
     </MockAuthProvider>
   )
