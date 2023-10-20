@@ -12,11 +12,11 @@ interface AuthorsProperties {
 const Authors = ({ authors }: AuthorsProperties) => (
   <Box pb={2}>
     {authors.map((author, index) => (
-      <span key={index}>
-        {`${(index ? ", " : "") + author?.last_name} ${author?.initials}`}
+      <span key={`${author?.last_name}-${author?.first_name}`}>
+        {`${index ? ", " : ""}${author?.last_name} ${author?.initials}`}
       </span>
     ))}
   </Box>
 )
 
-export default Authors
+export { Authors }
