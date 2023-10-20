@@ -21,7 +21,7 @@ const styles = (theme: Theme) => ({
   },
 })
 
-type Props = {
+type Properties = {
   /** Material-UI styling */
   classes: {
     gridContainer: string
@@ -42,15 +42,18 @@ type State = {
  * https://reactjs.org/docs/error-boundaries.html
  */
 
-class ErrorBoundary extends Component<Props, State> {
+class ErrorBoundary extends Component<Properties, State> {
+  // eslint-disable-next-line react/state-in-constructor
   state = { hasError: false }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   static getDerivedStateFromError(error: Error) {
     // Update state so the next render will show the fallback UI.
     return { hasError: true }
   }
 
   componentDidCatch(error: Error, errorInfo: object) {
+    // eslint-disable-next-line no-console
     console.error(error, errorInfo)
   }
 
@@ -85,4 +88,5 @@ class ErrorBoundary extends Component<Props, State> {
   }
 }
 
+// eslint-disable-next-line import/no-default-export
 export default withStyles(styles)(ErrorBoundary)

@@ -1,3 +1,4 @@
+/* eslint-disable turbo/no-undeclared-env-vars */
 import React, { useEffect } from "react"
 import Box from "@material-ui/core/Box"
 import Typography from "@material-ui/core/Typography"
@@ -13,14 +14,14 @@ const OauthCallback = () => {
   useEffect(() => {
     window.opener?.postMessage(
       {
-        query: location.search,
-        provider: provider,
+        query: window.location.search,
+        provider,
         url: `${window.location.origin}/${process.env.NEXT_PUBLIC_BASENAME}${pathname}`,
       },
       window.location.toString(),
     )
     window.close()
-  }, [location.pathname, location.search, provider])
+  }, [pathname, provider])
 
   return (
     <Box textAlign="center">
@@ -31,4 +32,4 @@ const OauthCallback = () => {
   )
 }
 
-export default OauthCallback
+export { OauthCallback }

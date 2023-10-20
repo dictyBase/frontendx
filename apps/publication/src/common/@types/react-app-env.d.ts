@@ -1,7 +1,10 @@
+/* eslint-disable unicorn/filename-case */
+/* eslint-disable unicorn/prevent-abbreviations */
 import "typescript"
+
 declare global {
   namespace NodeJS {
-    interface ProcessEnv {
+    interface ProcessEnvironment {
       NODE_ENV: "development" | "production"
       NEXT_PUBLIC_BASENAME: string
       NEXT_PUBLIC_GA_TRACKING_ID: string
