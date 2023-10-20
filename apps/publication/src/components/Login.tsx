@@ -9,7 +9,7 @@ import {
   OrcidButton,
 } from "dicty-components-login"
 import oauthConfig from "../common/utils/oauthConfig"
-import ErrorNotification from "./errors/ErrorNotification"
+import { ErrorNotification } from "./errors/ErrorNotification"
 import { useAuthStore } from "./auth/AuthStore"
 import OauthSignHandler from "./auth/OauthSignHandler"
 
