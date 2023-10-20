@@ -1,6 +1,6 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import PublicationLoader from "../components/PublicationLoader"
+import { PublicationLoader } from "../components/PublicationLoader"
 
 describe("components/PublicationLoader", () => {
   it("should render publication loader", () => {

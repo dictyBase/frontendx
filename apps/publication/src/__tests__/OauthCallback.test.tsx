@@ -1,6 +1,6 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import OauthCallback from "../components/auth/OauthCallback"
+import { OauthCallback } from "../components/auth/OauthCallback"
 
 const useRouter = jest.spyOn(require("next/router"), "useRouter")
 

@@ -1,7 +1,7 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import App from "../components/layout/App"
-import MockAuthProvider from "./mocks/MockAuthProvider"
+import { App } from "../components/layout/App"
+import { MockAuthProvider } from "./mocks/MockAuthProvider"
 
 describe("components/layout/App", () => {
   it("should render h1 element", () => {
