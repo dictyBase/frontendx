@@ -2,7 +2,7 @@ import React from "react"
 import { ApolloProvider } from "@apollo/client"
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles"
 import CircularProgress from "@material-ui/core/CircularProgress"
-import useCreateApolloClient from "common/hooks/useCreateApolloClient"
+import { useCreateApolloClient } from "../../common/hooks/useCreateApolloClient"
 
 const muiTheme = createMuiTheme({
   palette: {
@@ -75,4 +75,4 @@ const AppProviders = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-export default AppProviders
+export { AppProviders }

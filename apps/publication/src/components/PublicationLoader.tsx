@@ -1,10 +1,10 @@
 import React from "react"
 import Grid from "@material-ui/core/Grid"
-import { make as PublicationHeader } from "components/PublicationHeader.bs"
-import useStyles from "styles/publicationStyles"
 import { Skeleton } from "@mui/material"
+import { make as PublicationHeader } from "./PublicationHeader.bs"
+import useStyles from "../styles/publicationStyles"
 
-export const PublicationLoader = () => {
+const PublicationLoader = () => {
   const classes = useStyles()
 
   return (
@@ -34,4 +34,4 @@ export const PublicationLoader = () => {
   )
 }
 
-export default PublicationLoader
+export { PublicationLoader }

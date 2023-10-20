@@ -2,7 +2,7 @@ import React from "react"
 import Box from "@material-ui/core/Box"
 import Typography from "@material-ui/core/Typography"
 import Divider from "@material-ui/core/Divider"
-import CallMadeIcon from "@mui/icons-material/CallMade"
+import CallMadeIcon from "@material-ui/icons/CallMade"
 
 type Properties = {
   url: string
@@ -12,7 +12,7 @@ type Properties = {
  * FullTextLinks displays links to the full text of the publication.
  */
 
-export const FullTextLinks = ({ url }: Properties) => (
+const FullTextLinks = ({ url }: Properties) => (
   <Box pb={2}>
     <Typography variant="h2">Full Text Links</Typography>
     <Divider />
@@ -21,7 +21,7 @@ export const FullTextLinks = ({ url }: Properties) => (
         <Box pt={2} pb={2} display="flex">
           Read article at publisher&apos;s site
           <CallMadeIcon
-            sx={{ marginLeft: "7px", width: "0.7em", height: "0.7em" }}
+          // sx={{ marginLeft: "7px", width: "0.7em", height: "0.7em" }}
           />
         </Box>
       </a>
@@ -29,4 +29,4 @@ export const FullTextLinks = ({ url }: Properties) => (
   </Box>
 )
 
-export default FullTextLinks
+export { FullTextLinks }

@@ -1,17 +1,17 @@
 import React from "react"
 import { Box, Typography } from "@material-ui/core"
-import Authors from "components/Authors"
-import JournalData from "components/JournalData"
-import SocialLinks from "components/SocialLinks"
-import Abstract from "components/Abstract"
-import FullTextLinks from "components/FullTextLinks"
 import { Publication } from "dicty-graphql-schema"
+import { Authors } from "./Authors"
+import { JournalData } from "./JournalData"
+import { SocialLinks } from "./SocialLinks"
+import { Abstract } from "./Abstract"
+import { FullTextLinks } from "./FullTextLinks"
 
 interface PublicationBodyProperties {
   publication: Publication
 }
 
-export const PublicationBody = ({ publication }: PublicationBodyProperties) => {
+const PublicationBody = ({ publication }: PublicationBodyProperties) => {
   const url = `https://doi.org/${publication.doi}`
 
   return (
@@ -31,4 +31,4 @@ export const PublicationBody = ({ publication }: PublicationBodyProperties) => {
   )
 }
 
-export default PublicationBody
+export { PublicationBody }

@@ -1,9 +1,9 @@
 import React from "react"
 import { useApolloClient } from "@apollo/client"
 import { useLogoutMutation } from "dicty-graphql-schema"
-import { useAuthStore, ActionType } from "components/auth/AuthStore"
 import { useRouter } from "next/router"
 import { Box, Typography } from "@material-ui/core"
+import { useAuthStore, ActionType } from "./auth/AuthStore"
 
 /**
  * Logout handles the user logout process.
@@ -31,7 +31,7 @@ const Logout = () => {
     client.resetStore()
     // redirect to home
     router.push("/")
-  }, [dispatch, logout, client])
+  }, [dispatch, logout, client, router])
 
   return (
     <Box display="flex" flexDirection="column" justifyContent="center">
@@ -42,4 +42,4 @@ const Logout = () => {
   )
 }
 
-export default Logout
+export { Logout }
