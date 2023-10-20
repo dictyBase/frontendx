@@ -1,8 +1,8 @@
 import React from "react"
 import Grid from "@material-ui/core/Grid"
 import { Skeleton } from "@mui/material"
-import { make as PublicationHeader } from "./PublicationHeader.bs"
-import useStyles from "../styles/publicationStyles"
+import { PublicationHeader } from "./PublicationHeader"
+import { useStyles } from "../styles/publicationStyles"
 
 const PublicationLoader = () => {
   const classes = useStyles()

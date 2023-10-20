@@ -1,9 +1,10 @@
+/* eslint-disable camelcase */
 import React from "react"
-import querystring from "querystring"
+import querystring from "node:querystring"
 import { useLoginMutation, User } from "dicty-graphql-schema"
-import { useAuthStore, ActionType } from "components/auth/AuthStore"
-import oauthConfig from "common/utils/oauthConfig"
 import { useRouter } from "next/router"
+import { useAuthStore, ActionType } from "./AuthStore"
+import { oauthConfig } from "../../common/utils/oauthConfig"
 
 type LoginEventData = {
   /** Third-party provider (orcid, google, linkedin) */
@@ -18,7 +19,7 @@ const getLoginInputVariables = (data: LoginEventData) => {
   const provider = (oauthConfig as any)[data.provider]
   const parsed = querystring.parse(data.query.replace("?", ""))
 
-  const variables = {
+  return {
     input: {
       client_id: provider.clientId,
       redirect_url: data.url,
@@ -28,8 +29,6 @@ const getLoginInputVariables = (data: LoginEventData) => {
       provider: data.provider,
     },
   }
-
-  return variables
 }
 
 /**
@@ -51,15 +50,15 @@ const OauthSignHandler = () => {
       }
       router.push("/load/auth")
       try {
-        const { data } = await login({
+        const { data: _data } = await login({
           variables: getLoginInputVariables(event.data),
         })
         dispatch({
           type: ActionType.LOGIN,
           payload: {
-            token: data?.login?.token as string,
-            user: data?.login?.user as User,
-            provider: data?.login?.identity.provider as string,
+            token: _data?.login?.token as string,
+            user: _data?.login?.user as User,
+            provider: _data?.login?.identity.provider as string,
           },
         })
         router.push("/")
@@ -67,7 +66,7 @@ const OauthSignHandler = () => {
         dispatch({
           type: ActionType.LOGIN_ERROR,
           payload: {
-            error: error,
+            error,
           },
         })
         router.push("/login")
@@ -77,9 +76,9 @@ const OauthSignHandler = () => {
     return () => {
       window.removeEventListener("message", onMessage)
     }
-  }, [data, dispatch, history, login])
+  }, [data, dispatch, login, router])
 
-  return null
+  return <></>
 }
 
-export default OauthSignHandler
+export { OauthSignHandler }
