@@ -2,8 +2,8 @@ import React from "react"
 import { Helmet } from "react-helmet"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { makeStyles } from "@material-ui/core/styles"
-import TechnicalSummary from "./TechnicalSummary"
-import SpecialThanks from "./SpecialThanks"
+import { TechnicalSummary } from "./TechnicalSummary"
+import { SpecialThanks } from "./SpecialThanks"
 
 const useStyles = makeStyles({
   container: {
