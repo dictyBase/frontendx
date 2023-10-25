@@ -22,19 +22,18 @@ type logtoHookProperties = HeaderWithAuthProperties & {
 const conditonalHandler = (logtoCase: logtoHookProperties) =>
   match(logtoCase)
     .with(
-      P.when(({ isAuthenticated, user }) =>
-        isAuthenticated && user ? isAuthenticated : false,
+      P.when(({ isAuthenticated, user }) => isAuthenticated && user),
+      ({ user, clientRouter }) => (
+        <Header
+          LoginOut={
+            <LogoutButton
+              url={homePath}
+              user={user as UserWithRoles}
+              clientRouter={clientRouter}
+            />
+          }
+        />
       ),
-      ({ user, clientRouter }) => {
-        const LoginOut = (
-          <LogoutButton
-            url={homePath}
-            user={user as UserWithRoles}
-            clientRouter={clientRouter}
-          />
-        )
-        return <Header LoginOut={LoginOut} />
-      },
     )
     .otherwise(() => <Header LoginOut={<LoginButton url={callbackPath} />} />)
 
