@@ -92,5 +92,4 @@ const AppProviders = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-export { appTheme }
-export default AppProviders
+export { appTheme, AppProviders }
