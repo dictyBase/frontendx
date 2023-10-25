@@ -1,7 +1,7 @@
 import { MouseEvent } from "react"
 import { Button, Tooltip } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
-import { PersonSharp } from "@material-ui/icons"
+import { AccountBox } from "@material-ui/icons"
 import { nameToUpperInitial } from "./functional"
 import { type UserWithRoles } from "./const"
 
@@ -44,7 +44,8 @@ const UserDisplayButton = ({
       <Button
         disableElevation
         className={classes.linksButton}
-        endIcon={<PersonSharp />}
+        size="large"
+        endIcon={<AccountBox style={{ fontSize: "2.4rem" }} />}
         onClick={handleClick}>
         {nameToUpperInitial(user.name as string)}
       </Button>
