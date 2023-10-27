@@ -24,8 +24,8 @@ if (import.meta.env.VITE_APP_SEED_MOCK) {
         key: article.slug,
         value: JSON.stringify({
           ...article,
-          createdBy: mockSuperuser,
-          updatedBy: mockSuperuser,
+          created_by: mockSuperuser,
+          updated_by: mockSuperuser,
         }),
       })),
     )
