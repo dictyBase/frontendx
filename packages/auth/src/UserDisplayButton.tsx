@@ -1,6 +1,8 @@
+/* eslint-disable react/function-component-definition */
 import { MouseEvent } from "react"
+import { styled } from "@material-ui/styles"
+import { pipe } from "fp-ts/function"
 import { Button, Tooltip } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
 import { AccountBox } from "@material-ui/icons"
 import { nameToUpperInitial } from "./functional"
 import { type UserWithRoles } from "./const"
@@ -20,37 +22,41 @@ const tooltipInfo = (user: UserWithRoles) => (
   </>
 )
 
-const useStyles = makeStyles(() => ({
-  tooltipWidth: {
-    maxWidth: 200,
-  },
-  linksButton: {
-    display: "flex",
-    flexDirection: "column",
-    color: "hsl(210, 100%, 25%)",
-  },
-}))
+const UserToolTip = styled(Tooltip)({ maxWidth: 200 })
+
+const UserButton = styled(Button)({
+  display: "flex",
+  flexDirection: "column",
+  color: "hsl(210, 100%, 25%)",
+})
+
+const tooltipWrapper =
+  (user: UserWithRoles) => (children: React.ReactElement<any, any>) => (
+    <UserToolTip title={tooltipInfo(user)} placement="bottom-start">
+      {children}
+    </UserToolTip>
+  )
+
+const buttonWrapper =
+  (handleClick: (event: MouseEvent<HTMLButtonElement>) => void) =>
+  (text: string) => (
+    <UserButton
+      disableElevation
+      size="large"
+      endIcon={<AccountBox style={{ fontSize: "2.4rem" }} />}
+      onClick={handleClick}>
+      {text}
+    </UserButton>
+  )
 
 const UserDisplayButton = ({
   user,
   handleClick,
-}: UserDisplayButtonProperties) => {
-  const classes = useStyles()
-  return (
-    <Tooltip
-      title={tooltipInfo(user)}
-      placement="bottom-start"
-      classes={{ tooltip: classes.tooltipWidth }}>
-      <Button
-        disableElevation
-        className={classes.linksButton}
-        size="large"
-        endIcon={<AccountBox style={{ fontSize: "2.4rem" }} />}
-        onClick={handleClick}>
-        {nameToUpperInitial(user.name as string)}
-      </Button>
-    </Tooltip>
+}: UserDisplayButtonProperties) =>
+  pipe(
+    nameToUpperInitial(user.name as string),
+    buttonWrapper(handleClick),
+    tooltipWrapper(user),
   )
-}
 
 export { UserDisplayButton }
