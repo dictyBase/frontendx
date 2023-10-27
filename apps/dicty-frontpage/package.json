@@ -7,6 +7,7 @@
     "dev:seed": "vite --host --mode seed",
     "build": "vite build",
     "serve": "vite preview --port 3000",
+    "test": "vitest run",
     "coverage": "vitest run --coverage",
     "lint": "eslint --ext .jsx,.js,.ts,.tsx src/",
     "styleguide": "FAST_REFRESH=false styleguidist server",
@@ -15,6 +16,7 @@
     "snyk-protect": "snyk protect"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.17",
     "@dictybase/footer": "*",
     "@dictybase/navbar": "*",
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
