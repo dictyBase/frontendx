@@ -6,12 +6,13 @@ import { useNewsContainerStyles } from "./useNewsContainerStyles"
 
 const RecentNewsContainer = () => {
   const { root } = useNewsContainerStyles()
-  const { error, loading, data, refetch } = useListNewsContentQuery()
+  const { error, loading, data, refetch } = useListNewsContentQuery({
+    variables: { limit: 10 },
+  })
 
   useEffect(() => {
     refetch()
   })
-
   return (
     <Grid container spacing={1} direction="column" className={root}>
       <Grid item>
