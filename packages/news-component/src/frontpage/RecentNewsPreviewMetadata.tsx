@@ -30,7 +30,7 @@ const RecentNewsPreviewMetadata = ({
       </Grid>
     </Grid>
     <Grid item>
-      <Typography>{`by ${updatedBy.firstName} ${updatedBy.lastName}`}</Typography>
+      <Typography>{`by ${updatedBy.first_name} ${updatedBy.last_name}`}</Typography>
     </Grid>
   </Grid>
 )
