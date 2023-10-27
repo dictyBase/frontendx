@@ -59,7 +59,6 @@
     "lint-staged": "^12.4.0",
     "prettier": "^2.5.1",
     "react-docgen-typescript": "^2.1.1",
-    "react-styleguidist": "^11.1.6",
     "source-map-explorer": "^2.5.3",
     "tsconfig": "*"
   },
