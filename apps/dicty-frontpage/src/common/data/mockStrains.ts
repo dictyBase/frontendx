@@ -29,4 +29,4 @@ const listRecentStrains = [
   },
 ]
 
-export default listRecentStrains
+export { listRecentStrains }

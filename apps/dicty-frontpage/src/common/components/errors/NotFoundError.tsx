@@ -2,10 +2,10 @@ import { Link, useLocation, useParams } from "react-router-dom"
 import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import BackToHomepageButton from "../BackToHomepageButton"
-import useAuthorization from "../../hooks/useAuthorization"
+import { BackToHomepageButton } from "../BackToHomepageButton"
+import { useAuthorization } from "../../hooks/useAuthorization"
 import sadDicty from "../../assets/sad-dicty.png"
-import useStyles from "./errorStyles"
+import { useStyles } from "./errorStyles"
 
 type Properties = {
   /** Error message to display */
@@ -73,4 +73,4 @@ const NotFoundError = ({ error }: Properties) => {
   )
 }
 
-export default NotFoundError
+export { NotFoundError }

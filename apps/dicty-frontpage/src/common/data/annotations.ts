@@ -3,4 +3,4 @@ const annotations = {
   papers: ["30612939", "31067156", "30771446", "31100984"],
 }
 
-export default annotations
+export { annotations }

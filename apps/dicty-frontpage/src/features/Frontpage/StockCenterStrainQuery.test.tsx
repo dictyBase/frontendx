@@ -3,8 +3,8 @@ import { useListRecentStrainsQuery } from "dicty-graphql-schema"
 import { ApolloError } from "@apollo/client"
 import { vi } from "vitest"
 import type { Mock } from "vitest"
-import listRecentStrains from "../../common/data/mockStrains"
-import StockCenterStrainQuery from "./StockCenterStrainQuery"
+import { listRecentStrains } from "../../common/data/mockStrains"
+import { StockCenterStrainQuery } from "./StockCenterStrainQuery"
 
 vi.mock("dicty-graphql-schema", () => {
   // eslint-disable-next-line @typescript-eslint/no-shadow

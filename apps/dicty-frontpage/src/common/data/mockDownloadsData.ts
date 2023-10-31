@@ -172,4 +172,5 @@ const downloads = [
   },
 ]
 
-export default [{ taxonId, scientificName, citations, downloads }]
+const listOrganisms = [{ taxonId, scientificName, citations, downloads }]
+export { listOrganisms }

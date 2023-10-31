@@ -37,4 +37,4 @@ const OauthCallback = () => {
   )
 }
 
-export default OauthCallback
+export { OauthCallback }

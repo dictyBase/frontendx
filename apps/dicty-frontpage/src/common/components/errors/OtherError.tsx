@@ -2,8 +2,8 @@ import React from "react"
 import Grid from "@material-ui/core/Grid"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import sadDicty from "../../assets/sad-dicty.png"
-import ErrorMessage from "./ErrorMessage"
-import useStyles from "./errorStyles"
+import { ErrorMessage } from "./ErrorMessage"
+import { useStyles } from "./errorStyles"
 
 /**
  * UI display when there is a general error.
@@ -27,4 +27,4 @@ const OtherError = () => {
   )
 }
 
-export default OtherError
+export { OtherError }

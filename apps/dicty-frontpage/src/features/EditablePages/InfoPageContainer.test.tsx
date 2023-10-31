@@ -3,16 +3,15 @@ import { render, screen } from "@testing-library/react"
 import { ContentBySlugDocument } from "dicty-graphql-schema"
 import { vi } from "vitest"
 import { Location } from "history"
-import MockAuthProvider from "../../mocks/MockAuthProvider"
-import InfoPageContainer, { getSlug } from "./InfoPageContainer"
+import { MockAuthProvider } from "../../mocks/MockAuthProvider"
+import { InfoPageContainer, getSlug } from "./InfoPageContainer"
 
 window.getSelection = vi.fn()
 const mockName = "payment"
 
 vi.mock("react-router-dom", async () => {
-  const originalModule = await vi.importActual<
-    typeof import("react-router-dom")
-  >("react-router-dom")
+  const originalModule =
+    await vi.importActual<typeof import("react-router-dom")>("react-router-dom")
   return {
     ...originalModule,
     useParams: () => ({

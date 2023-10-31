@@ -69,4 +69,4 @@ const PapersItem = ({ data }: PaperContainerProperties) => {
   return <>{recentPublications}</>
 }
 
-export default PapersItem
+export { PapersItem }

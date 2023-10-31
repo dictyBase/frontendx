@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 export const testPermission = {
   id: "1",
   level: "test",

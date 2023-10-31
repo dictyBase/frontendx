@@ -3,4 +3,4 @@ const stockcenter = {
   strains: ["Mad52", "grlD-/[act15]:grlD", "grlD-", "ase1A-"],
 }
 
-export default stockcenter
+export { stockcenter }

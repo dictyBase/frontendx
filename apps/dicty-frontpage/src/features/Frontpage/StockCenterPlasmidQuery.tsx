@@ -1,9 +1,9 @@
 import React from "react"
 import { useListRecentPlasmidsQuery } from "dicty-graphql-schema"
-import Loader from "../../common/components/Loader"
-import Fallback from "../../common/components/Fallback"
-import GraphQLErrorPage from "../../common/components/errors/GraphQLErrorPage"
-import StockCenterItem from "./StockCenterItem"
+import { Loader } from "../../common/components/Loader"
+import { Fallback } from "../../common/components/Fallback"
+import { GraphQLErrorPage } from "../../common/components/errors/GraphQLErrorPage"
+import { StockCenterItem } from "./StockCenterItem"
 
 /** Widget that displays the most recent plasmids and strains in the Stock Center */
 const StockCenterPlasmidQuery = () => {
@@ -19,4 +19,4 @@ const StockCenterPlasmidQuery = () => {
   return <Fallback />
 }
 
-export default StockCenterPlasmidQuery
+export { StockCenterPlasmidQuery }

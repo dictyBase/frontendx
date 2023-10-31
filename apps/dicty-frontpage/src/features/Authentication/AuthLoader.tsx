@@ -23,4 +23,4 @@ const AuthLoader = () => (
   </Box>
 )
 
-export default AuthLoader
+export { AuthLoader }

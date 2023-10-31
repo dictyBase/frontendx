@@ -102,4 +102,4 @@ const mockContent = [
   },
 ]
 
-export default mockContent
+export { mockContent }

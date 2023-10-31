@@ -2,8 +2,8 @@ import React from "react"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { vi } from "vitest"
-import MockAuthProvider from "../../mocks/MockAuthProvider"
-import InfoPageViewToolbar from "./InfoPageViewToolbar"
+import { MockAuthProvider } from "../../mocks/MockAuthProvider"
+import { InfoPageViewToolbar } from "./InfoPageViewToolbar"
 
 describe("EditablePages/InfoPageViewToolbar", () => {
   describe("user has editing permission and verified token", () => {

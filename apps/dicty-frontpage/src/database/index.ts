@@ -1,5 +1,6 @@
+/* eslint-disable camelcase */
 import { BrowserLevel } from "browser-level"
-import mockContent from "../common/data/mockContent"
+import { mockContent } from "../common/data/mockContent"
 import { mockSuperuser } from "../common/data/superuser"
 
 export const database = new BrowserLevel("dicty-frontpage", {

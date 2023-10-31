@@ -4,7 +4,7 @@ import { Footer } from "@dictybase/footer"
 import { Navbar } from "@dictybase/navbar"
 import { HeaderWithAuth } from "auth"
 import { useFetch } from "dicty-hooks"
-import ErrorBoundary from "../../common/components/errors/ErrorBoundary"
+import { ErrorBoundary } from "../../common/components/errors/ErrorBoundary"
 import {
   navbarItems,
   NavbarItems,

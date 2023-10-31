@@ -2,7 +2,7 @@ import React from "react"
 import { render, screen } from "@testing-library/react"
 import { BrowserRouter } from "react-router-dom"
 import { vi } from "vitest"
-import OauthCallback from "./OauthCallback"
+import { OauthCallback } from "./OauthCallback"
 
 describe("features/Authentication/OauthCallback", () => {
   const globalAny = global as any

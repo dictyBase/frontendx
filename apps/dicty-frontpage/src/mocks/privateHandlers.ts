@@ -107,4 +107,4 @@ const privateHandlers = [
   }),
 ]
 
-export default privateHandlers
+export { privateHandlers }

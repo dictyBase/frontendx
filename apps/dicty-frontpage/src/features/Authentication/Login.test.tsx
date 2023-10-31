@@ -2,8 +2,8 @@ import React from "react"
 import { render, screen } from "@testing-library/react"
 import { vi } from "vitest"
 import userEvent from "@testing-library/user-event"
-import MockAuthProvider from "../../mocks/MockAuthProvider"
-import Login, { createOauthURL, generateErrorDisplayMessage } from "./Login"
+import { MockAuthProvider } from "../../mocks/MockAuthProvider"
+import { Login, createOauthURL, generateErrorDisplayMessage } from "./Login"
 
 describe("features/Authentication/Login", () => {
   const globalAny = global as any

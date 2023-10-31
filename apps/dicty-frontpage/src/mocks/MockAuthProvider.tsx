@@ -46,6 +46,5 @@ const MockAuthProvider = ({
   )
 }
 
-export default MockAuthProvider
-
+export { MockAuthProvider }
 export { mockSuperuser } from "../common/data/superuser"

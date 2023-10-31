@@ -5,8 +5,8 @@ import Box from "@material-ui/core/Box"
 import { useUpdateContentMutation } from "dicty-graphql-schema"
 import { Editor } from "editor"
 import { useAuthStore } from "../Authentication/AuthStore"
-import useAuthorization from "../../common/hooks/useAuthorization"
-import Fallback from "../../common/components/Fallback"
+import { useAuthorization } from "../../common/hooks/useAuthorization"
+import { Fallback } from "../../common/components/Fallback"
 
 const useStyles = makeStyles((theme: Theme) => ({
   editor: {
@@ -87,4 +87,4 @@ const EditInfoPage = () => {
   )
 }
 
-export default EditInfoPage
+export { EditInfoPage }

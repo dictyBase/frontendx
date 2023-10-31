@@ -48,4 +48,4 @@ const useStyles = makeStyles(({ palette }) => ({
   },
 }))
 
-export default useStyles
+export { useStyles }

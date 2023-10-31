@@ -8,9 +8,9 @@ import {
   LinkedInButton,
   OrcidButton,
 } from "dicty-components-login"
-import OauthSignHandler from "./OauthSignHandler"
-import oauthConfig from "../../common/utils/oauthConfig"
-import ErrorNotification from "./ErrorNotification"
+import { OauthSignHandler } from "./OauthSignHandler"
+import { oauthConfig } from "../../common/utils/oauthConfig"
+import { ErrorNotification } from "./ErrorNotification"
 import { useAuthStore } from "./AuthStore"
 
 type Config = {
@@ -121,5 +121,4 @@ const Login = () => {
   )
 }
 
-export { createOauthURL, generateErrorDisplayMessage } // for testing purposes
-export default Login
+export { Login, createOauthURL, generateErrorDisplayMessage } // for testing purposes

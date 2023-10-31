@@ -82,4 +82,4 @@ const About = () => {
   )
 }
 
-export default About
+export { About }

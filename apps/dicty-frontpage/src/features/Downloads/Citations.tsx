@@ -49,4 +49,4 @@ const Citations = ({ citations }: Properties) => {
   )
 }
 
-export default Citations
+export { Citations }

@@ -12,11 +12,11 @@ import {
 } from "dicty-graphql-schema"
 import { database, getContentDataByKey } from "../database"
 import { mockSuperuser } from "../common/data/superuser"
-import listRecentPublications from "../common/data/mockPublications"
-import listRecentPlasmids from "../common/data/mockPlasmids"
-import listRecentStrains from "../common/data/mockStrains"
-import listRecentGenes from "../common/data/mockGenes"
-import listOrganisms from "../common/data/mockDownloadsData"
+import { listRecentPublications } from "../common/data/mockPublications"
+import { listRecentPlasmids } from "../common/data/mockPlasmids"
+import { listRecentStrains } from "../common/data/mockStrains"
+import { listRecentGenes } from "../common/data/mockGenes"
+import { listOrganisms } from "../common/data/mockDownloadsData"
 
 const databaseErrorMessage = "Database Error."
 
@@ -143,4 +143,4 @@ const publicHandlers = [
   }),
 ]
 
-export default publicHandlers
+export { publicHandlers }

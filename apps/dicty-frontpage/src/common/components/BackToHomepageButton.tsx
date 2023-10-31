@@ -21,7 +21,7 @@ const useStyles = makeStyles({
  * BackToHomePageButton is a simple button that links back to the homepage.
  */
 
-const BackToHomePageButton = () => {
+const BackToHomepageButton = () => {
   const classes = useStyles()
 
   return (
@@ -37,4 +37,4 @@ const BackToHomePageButton = () => {
   )
 }
 
-export default BackToHomePageButton
+export { BackToHomepageButton }

@@ -37,4 +37,4 @@ const papers = [
   },
 ]
 
-export default papers
+export { papers }

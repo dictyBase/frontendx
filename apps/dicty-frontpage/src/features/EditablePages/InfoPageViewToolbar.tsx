@@ -4,12 +4,12 @@ import Box from "@material-ui/core/Box"
 import Tooltip from "@material-ui/core/Tooltip"
 import IconButton from "@material-ui/core/IconButton"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import ErrorNotification from "../Authentication/ErrorNotification"
-import timeSince from "../../common/utils/timeSince"
-import useAuthorization from "../../common/hooks/useAuthorization"
+import { ErrorNotification } from "../Authentication/ErrorNotification"
+import { timeSince } from "../../common/utils/timeSince"
+import { useAuthorization } from "../../common/hooks/useAuthorization"
 import { capitalizeFirstCharacter } from "../../common/utils/stringCapitalizations"
 import { useAuthStore } from "../Authentication/AuthStore"
-import UpdatedByUser from "./types"
+import { UpdatedByUser } from "./types"
 
 const useStyles = makeStyles((theme: Theme) => ({
   content: {
@@ -104,4 +104,4 @@ const InfoPageViewToolbar = ({ handleClick, lastUpdate, user }: Properties) => {
   )
 }
 
-export default InfoPageViewToolbar
+export { InfoPageViewToolbar }
