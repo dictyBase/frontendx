@@ -91,4 +91,6 @@ class ErrorBoundary extends Component<Properties, State> {
   }
 }
 
-export default withStyles(styles)(ErrorBoundary)
+const StyledErrorBoundary = withStyles(styles)(ErrorBoundary)
+
+export { StyledErrorBoundary as ErrorBoundary }

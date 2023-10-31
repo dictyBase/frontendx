@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react"
-import Slideshow from "./Slideshow"
+import { Slideshow } from "./Slideshow"
 
 describe("feature/Frontpage/Slideshow", () => {
   render(<Slideshow />)

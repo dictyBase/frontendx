@@ -78,4 +78,4 @@ const listRecentPublications = [
   },
 ]
 
-export default listRecentPublications
+export { listRecentPublications }

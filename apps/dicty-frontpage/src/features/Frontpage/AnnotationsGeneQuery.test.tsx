@@ -3,8 +3,8 @@ import { useListRecentGenesQuery } from "dicty-graphql-schema"
 import { ApolloError } from "@apollo/client"
 import { vi } from "vitest"
 import type { Mock } from "vitest"
-import AnnotationsGeneQuery from "./AnnotationsGeneQuery"
-import listRecentGenes from "../../common/data/mockGenes"
+import { AnnotationsGeneQuery } from "./AnnotationsGeneQuery"
+import { listRecentGenes } from "../../common/data/mockGenes"
 
 vi.mock("dicty-graphql-schema", () => {
   // eslint-disable-next-line @typescript-eslint/no-shadow

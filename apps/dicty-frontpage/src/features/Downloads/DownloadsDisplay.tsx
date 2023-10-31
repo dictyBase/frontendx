@@ -8,9 +8,9 @@ import Typography from "@material-ui/core/Typography"
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles"
 import { Organism } from "dicty-graphql-schema"
 import { appTheme } from "../../app/layout/AppProviders"
-import Citations from "./Citations"
-import DownloadsTable from "./DownloadsTable"
-import DownloadsHeader from "./DownloadsHeader"
+import { Citations } from "./Citations"
+import { DownloadsTable } from "./DownloadsTable"
+import { DownloadsHeader } from "./DownloadsHeader"
 
 // create theme with our standard tab overrides
 const muiTheme = createTheme({
@@ -92,4 +92,4 @@ const DownloadsDisplay = ({ data }: Properties) => {
   )
 }
 
-export default DownloadsDisplay
+export { DownloadsDisplay }

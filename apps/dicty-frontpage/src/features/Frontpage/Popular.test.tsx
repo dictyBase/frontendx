@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react"
-import Popular from "./Popular"
+import { Popular } from "./Popular"
 
 describe("feature/Frontpage/Popular", () => {
   render(<Popular />)

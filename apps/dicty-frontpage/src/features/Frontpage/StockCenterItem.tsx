@@ -3,7 +3,7 @@ import {
   ListRecentPlasmidsQuery,
   ListRecentStrainsQuery,
 } from "dicty-graphql-schema"
-import Fallback from "../../common/components/Fallback"
+import { Fallback } from "../../common/components/Fallback"
 
 const useStyles = makeStyles({
   listItem: {
@@ -17,7 +17,7 @@ interface PlasmidItemProperties {
   type: "Plasmid" | "Strain"
 }
 
-const PlasmidItem = ({ data, type }: PlasmidItemProperties) => {
+const StockCenterItem = ({ data, type }: PlasmidItemProperties) => {
   const classes = useStyles()
 
   if (type === "Plasmid") {
@@ -40,4 +40,4 @@ const PlasmidItem = ({ data, type }: PlasmidItemProperties) => {
   return <Fallback />
 }
 
-export default PlasmidItem
+export { StockCenterItem }

@@ -1,8 +1,8 @@
 import { makeStyles } from "@material-ui/core/styles"
 import Grid from "@material-ui/core/Grid"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import StockCenterStrainQuery from "./StockCenterStrainQuery"
-import StockCenterPlasmidQuery from "./StockCenterPlasmidQuery"
+import { StockCenterStrainQuery } from "./StockCenterStrainQuery"
+import { StockCenterPlasmidQuery } from "./StockCenterPlasmidQuery"
 
 const useStyles = makeStyles({
   listItem: {
@@ -137,4 +137,4 @@ const StockCenter = () => {
   )
 }
 
-export default StockCenter
+export { StockCenter }

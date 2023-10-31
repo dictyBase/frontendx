@@ -4,4 +4,4 @@ const clientConfig = {
   orcid: { clientId: "xxxxxxxxxxxxxxxxxx" },
 }
 
-export default clientConfig
+export { clientConfig }

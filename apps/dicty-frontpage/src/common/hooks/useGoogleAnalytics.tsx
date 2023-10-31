@@ -35,4 +35,4 @@ const useGoogleAnalytics = () => {
   }, [location.pathname, location.search])
 }
 
-export default useGoogleAnalytics
+export { useGoogleAnalytics }

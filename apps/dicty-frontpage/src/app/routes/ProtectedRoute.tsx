@@ -12,4 +12,4 @@ const ProtectedRoute = ({ component: Component }: ProtectedRouteProperties) => {
   return <Component isAuthenticated={isAuthenticated} />
 }
 
-export default ProtectedRoute
+export { ProtectedRoute }

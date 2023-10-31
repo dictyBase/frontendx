@@ -25,4 +25,4 @@ const Loader = () => (
   </Grid>
 )
 
-export default Loader
+export { Loader }

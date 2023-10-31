@@ -32,4 +32,4 @@ const PrivateRoute = ({ children }: PrivateRouteProperties) => {
   return children
 }
 
-export default PrivateRoute
+export { PrivateRoute }

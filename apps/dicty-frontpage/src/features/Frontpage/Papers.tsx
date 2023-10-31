@@ -2,7 +2,7 @@ import React from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import Grid from "@material-ui/core/Grid"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import PapersQuery from "./PapersQuery"
+import { PapersQuery } from "./PapersQuery"
 
 const useStyles = makeStyles({
   container: {
@@ -98,4 +98,4 @@ const Papers = () => {
   )
 }
 
-export default Papers
+export { Papers }

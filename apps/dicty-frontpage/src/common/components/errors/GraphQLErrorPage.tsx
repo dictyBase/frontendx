@@ -1,9 +1,9 @@
 /* eslint-disable unicorn/filename-case */
 import { ApolloError } from "@apollo/client"
-import ServerError from "./ServerError"
-import NotFoundError from "./NotFoundError"
-import OtherError from "./OtherError"
-import Fallback from "../Fallback"
+import { ServerError } from "./ServerError"
+import { NotFoundError } from "./NotFoundError"
+import { OtherError } from "./OtherError"
+import { Fallback } from "../Fallback"
 
 type Properties = {
   /** GraphQL error object */
@@ -47,4 +47,4 @@ const GraphQLErrorPage = ({ error }: Properties) => {
   return <OtherError />
 }
 
-export default GraphQLErrorPage
+export { GraphQLErrorPage }

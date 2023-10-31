@@ -2,8 +2,8 @@ import React from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import Grid from "@material-ui/core/Grid"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import AnnotationsGeneQuery from "./AnnotationsGeneQuery"
-import PapersQuery from "./PapersQuery"
+import { AnnotationsGeneQuery } from "./AnnotationsGeneQuery"
+import { PapersQuery } from "./PapersQuery"
 
 const useStyles = makeStyles({
   mainContainer: {
@@ -100,4 +100,4 @@ const Annotations = () => {
   )
 }
 
-export default Annotations
+export { Annotations }

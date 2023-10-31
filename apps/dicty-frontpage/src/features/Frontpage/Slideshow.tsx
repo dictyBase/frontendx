@@ -89,4 +89,4 @@ const Slideshow = () => {
   )
 }
 
-export default Slideshow
+export { Slideshow }

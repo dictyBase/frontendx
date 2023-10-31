@@ -1,5 +1,5 @@
 import { vi } from "vitest"
-import timeSince from "./timeSince"
+import { timeSince } from "./timeSince"
 
 describe("common/utils/timeSince", () => {
   const currentDate = new Date("2020-01-02T11:01:58.135Z")

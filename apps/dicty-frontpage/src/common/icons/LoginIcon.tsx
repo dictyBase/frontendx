@@ -11,4 +11,4 @@ const LoginIcon = (properties: LoginIconProperties = defaultProperties) => (
   </SvgIcon>
 )
 
-export default LoginIcon
+export { LoginIcon }

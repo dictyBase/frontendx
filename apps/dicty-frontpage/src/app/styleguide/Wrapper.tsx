@@ -2,7 +2,7 @@ import React from "react"
 import { ApolloProvider } from "@apollo/client"
 import { BrowserRouter } from "react-router-dom"
 import { AuthProvider } from "../../features/Authentication/AuthStore"
-import useCreateApolloClient from "../../common/hooks/useCreateApolloClient"
+import { useCreateApolloClient } from "../../common/hooks/useCreateApolloClient"
 
 /**
  * This is a wrapper component used for all styleguidist documentation.
@@ -20,4 +20,4 @@ const Wrapper = ({ children }: any) => {
   )
 }
 
-export default Wrapper
+export { Wrapper }

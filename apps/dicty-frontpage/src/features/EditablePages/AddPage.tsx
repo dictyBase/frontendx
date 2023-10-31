@@ -4,10 +4,10 @@ import Typography from "@material-ui/core/Typography"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import { useCreateContentMutation } from "dicty-graphql-schema"
 import { Editor } from "editor"
-import ErrorNotification from "../Authentication/ErrorNotification"
+import { ErrorNotification } from "../Authentication/ErrorNotification"
 import { useAuthStore } from "../Authentication/AuthStore"
-import useAuthorization from "../../common/hooks/useAuthorization"
-import NAMESPACE from "../../common/constants/namespace"
+import { useAuthorization } from "../../common/hooks/useAuthorization"
+import { NAMESPACE } from "../../common/constants/namespace"
 
 const useStyles = makeStyles((theme: Theme) => ({
   banner: {
@@ -92,4 +92,4 @@ const AddPage = () => {
   )
 }
 
-export default AddPage
+export { AddPage }

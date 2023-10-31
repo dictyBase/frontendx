@@ -5,8 +5,8 @@ import { Editor } from "editor"
 import Box from "@material-ui/core/Box"
 import { ContentBySlugQuery } from "dicty-graphql-schema"
 import { appTheme } from "../../app/layout/AppProviders"
-import InfoPageViewToolbar from "./InfoPageViewToolbar"
-import Fallback from "../../common/components/Fallback"
+import { InfoPageViewToolbar } from "./InfoPageViewToolbar"
+import { Fallback } from "../../common/components/Fallback"
 
 type Properties = {
   /** Page content object */
@@ -47,4 +47,4 @@ const InfoPageView = ({ data }: Properties) => {
   )
 }
 
-export default InfoPageView
+export { InfoPageView }

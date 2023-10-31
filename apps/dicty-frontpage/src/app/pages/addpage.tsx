@@ -1,4 +1,4 @@
-import AddPage from "../../features/EditablePages/AddPage"
+import { AddPage } from "../../features/EditablePages/AddPage"
 import { ACCESS } from "../routes/types"
 
 // eslint-disable-next-line unicorn/prefer-export-from, import/no-default-export

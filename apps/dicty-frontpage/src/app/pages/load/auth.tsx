@@ -1,4 +1,4 @@
-import AuthLoader from "../../../features/Authentication/AuthLoader"
+import { AuthLoader } from "../../../features/Authentication/AuthLoader"
 import { ACCESS } from "../../routes/types"
 
 // eslint-disable-next-line unicorn/prefer-export-from, import/no-default-export

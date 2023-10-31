@@ -21,4 +21,4 @@ const listRecentPlasmids = [
   },
 ]
 
-export default listRecentPlasmids
+export { listRecentPlasmids }

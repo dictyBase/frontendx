@@ -2,7 +2,7 @@ import React from "react"
 import { useNavigate } from "react-router-dom"
 import { useLoginMutation, User } from "dicty-graphql-schema"
 import { useAuthStore, ActionType } from "./AuthStore"
-import oauthConfig from "../../common/utils/oauthConfig"
+import { oauthConfig } from "../../common/utils/oauthConfig"
 
 type LoginEventData = {
   /** Third-party provider (orcid, google, linkedin) */
@@ -83,4 +83,4 @@ const OauthSignHandler = () => {
   return null
 }
 
-export default OauthSignHandler
+export { OauthSignHandler }

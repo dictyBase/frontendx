@@ -1,6 +1,6 @@
-import publicHandlers from "./publicHandlers"
-import privateHandlers from "./privateHandlers"
+import { publicHandlers } from "./publicHandlers"
+import { privateHandlers } from "./privateHandlers"
 
 const handlers = [...publicHandlers, ...privateHandlers]
 
-export default handlers
+export { handlers }

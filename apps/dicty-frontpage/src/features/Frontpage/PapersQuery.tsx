@@ -1,9 +1,9 @@
 import { useListRecentPublicationsQuery } from "dicty-graphql-schema"
-import GraphQLErrorPage from "../../common/components/errors/GraphQLErrorPage"
-import Loader from "../../common/components/Loader"
-import Fallback from "../../common/components/Fallback"
-import AnnotationsItem from "./AnnotationsItem"
-import PapersItem from "./PapersItem"
+import { GraphQLErrorPage } from "../../common/components/errors/GraphQLErrorPage"
+import { Loader } from "../../common/components/Loader"
+import { Fallback } from "../../common/components/Fallback"
+import { AnnotationsItem } from "./AnnotationsItem"
+import { PapersItem } from "./PapersItem"
 
 interface PapersQueryProperties {
   parent: String
@@ -24,4 +24,4 @@ const PapersQuery = ({ parent }: PapersQueryProperties) => {
   return <Fallback />
 }
 
-export default PapersQuery
+export { PapersQuery }

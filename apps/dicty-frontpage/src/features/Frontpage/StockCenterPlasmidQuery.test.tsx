@@ -3,8 +3,8 @@ import { useListRecentPlasmidsQuery } from "dicty-graphql-schema"
 import { ApolloError } from "@apollo/client"
 import { vi } from "vitest"
 import type { Mock } from "vitest"
-import listRecentPlasmids from "../../common/data/mockPlasmids"
-import StockCenterPlasmidQuery from "./StockCenterPlasmidQuery"
+import { listRecentPlasmids } from "../../common/data/mockPlasmids"
+import { StockCenterPlasmidQuery } from "./StockCenterPlasmidQuery"
 
 vi.mock("dicty-graphql-schema", () => {
   // eslint-disable-next-line @typescript-eslint/no-shadow

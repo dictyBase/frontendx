@@ -99,4 +99,4 @@ const DownloadsTable = ({ data }: Properties) => {
   )
 }
 
-export default DownloadsTable
+export { DownloadsTable }

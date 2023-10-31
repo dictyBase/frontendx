@@ -30,4 +30,4 @@ const DownloadsHeader = () => {
   )
 }
 
-export default DownloadsHeader
+export { DownloadsHeader }

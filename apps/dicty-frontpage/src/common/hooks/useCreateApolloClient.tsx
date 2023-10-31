@@ -84,5 +84,4 @@ const useCreateApolloClient = () => {
   return { client, cacheInitializing }
 }
 
-export { isMutation, getGraphQLServer }
-export default useCreateApolloClient
+export { useCreateApolloClient, isMutation, getGraphQLServer }

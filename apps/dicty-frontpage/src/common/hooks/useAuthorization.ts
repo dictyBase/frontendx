@@ -59,5 +59,4 @@ const useAuthorization = () => {
   return { user: state.user, canEditPages, verifiedToken }
 }
 
-export { verifyToken, verifyPermissions }
-export default useAuthorization
+export { useAuthorization, verifyToken, verifyPermissions }

@@ -2,11 +2,11 @@ import { Helmet } from "react-helmet"
 import Grid from "@material-ui/core/Grid"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import { RecentNewsContainer } from "news-component"
-import Slideshow from "./Slideshow"
-import Papers from "./Papers"
-import Popular from "./Popular"
-import Annotations from "./Annotations"
-import StockCenter from "./StockCenter"
+import { Slideshow } from "./Slideshow"
+import { Papers } from "./Papers"
+import { Popular } from "./Popular"
+import { Annotations } from "./Annotations"
+import { StockCenter } from "./StockCenter"
 
 const useStyles = makeStyles((theme: Theme) => ({
   topItem: {
@@ -58,4 +58,4 @@ const Front = () => {
   )
 }
 
-export default Front
+export { Front }

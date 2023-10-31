@@ -3,12 +3,12 @@ import { useParams, useLocation } from "react-router-dom"
 import { Helmet } from "react-helmet"
 import Container from "@material-ui/core/Container"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
-import Loader from "../../common/components/Loader"
-import GraphQLErrorPage from "../../common/components/errors/GraphQLErrorPage"
-import NAMESPACE from "../../common/constants/namespace"
+import { Loader } from "../../common/components/Loader"
+import { GraphQLErrorPage } from "../../common/components/errors/GraphQLErrorPage"
+import { NAMESPACE } from "../../common/constants/namespace"
 import { pageTitleLookup } from "../../common/utils/pageTitleConversions"
-import Fallback from "../../common/components/Fallback"
-import InfoPageView from "./InfoPageView"
+import { Fallback } from "../../common/components/Fallback"
+import { InfoPageView } from "./InfoPageView"
 
 // getSlug will use the route's :subname or :name to fetch page content
 // unless the route is for the privacy policy
@@ -60,5 +60,4 @@ const InfoPageContainer = () => {
   )
 }
 
-export { getSlug }
-export default InfoPageContainer
+export { getSlug, InfoPageContainer }

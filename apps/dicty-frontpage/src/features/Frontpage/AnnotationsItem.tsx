@@ -3,7 +3,7 @@ import {
   ListRecentPublicationsQuery,
   ListRecentGenesQuery,
 } from "dicty-graphql-schema"
-import Fallback from "../../common/components/Fallback"
+import { Fallback } from "../../common/components/Fallback"
 
 const useStyles = makeStyles({
   listItem: {
@@ -20,7 +20,7 @@ interface AnnotationsItemProperties {
 }
 
 /** Widget that displays the most recent annotations for genes and papers */
-const Annotations = ({ data, type }: AnnotationsItemProperties) => {
+const AnnotationsItem = ({ data, type }: AnnotationsItemProperties) => {
   const classes = useStyles()
 
   if (type === "publications") {
@@ -59,4 +59,4 @@ const Annotations = ({ data, type }: AnnotationsItemProperties) => {
   return <Fallback />
 }
 
-export default Annotations
+export { AnnotationsItem }

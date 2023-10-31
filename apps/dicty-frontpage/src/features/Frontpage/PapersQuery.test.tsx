@@ -3,8 +3,8 @@ import { vi } from "vitest"
 import type { Mock } from "vitest"
 import { useListRecentPublicationsQuery } from "dicty-graphql-schema"
 import { ApolloError } from "@apollo/client"
-import PapersQuery from "./PapersQuery"
-import listRecentPublications from "../../common/data/mockPublications"
+import { PapersQuery } from "./PapersQuery"
+import { listRecentPublications } from "../../common/data/mockPublications"
 
 vi.mock("dicty-graphql-schema", () => {
   // eslint-disable-next-line @typescript-eslint/no-shadow

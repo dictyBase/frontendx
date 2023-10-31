@@ -63,4 +63,4 @@ const PageNotReady = () => {
   )
 }
 
-export default PageNotReady
+export { PageNotReady }
