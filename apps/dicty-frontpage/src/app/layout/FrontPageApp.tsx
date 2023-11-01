@@ -1,10 +1,10 @@
 import { makeStyles, Theme } from "@material-ui/core/styles"
+import { Outlet } from "react-router-dom"
 import Container from "@material-ui/core/Container"
 import { Footer } from "@dictybase/footer"
 import { Navbar } from "@dictybase/navbar"
 import { HeaderWithAuth } from "auth"
 import { useFetch } from "dicty-hooks"
-import { ErrorBoundary } from "../../common/components/errors/ErrorBoundary"
 import {
   navbarItems,
   NavbarItems,
@@ -12,7 +12,6 @@ import {
   formatNavbarData,
 } from "../../common/utils/navbarItems"
 import { navTheme } from "../../common/utils/themes"
-import { Routes } from "../routes/Routes"
 
 const useStyles = makeStyles((theme: Theme) => ({
   main: {
@@ -41,16 +40,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 const FrontPageApp = () => {
   const navbar = useFetch<NavbarItems>(navbarURL, navbarItems)
   const classes = useStyles()
-
   return (
     <div className={classes.body}>
       <HeaderWithAuth />
       <Navbar items={formatNavbarData(navbar.data)} theme={navTheme} />
       <main className={classes.main}>
         <Container maxWidth="xl">
-          <ErrorBoundary>
-            <Routes />
-          </ErrorBoundary>
+          <Outlet />
         </Container>
       </main>
       <Footer />
