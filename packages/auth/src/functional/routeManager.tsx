@@ -28,7 +28,7 @@ const pathParts = (path: string) =>
   path
     .replaceAll(/\/src\/pages|index|\.tsx$/g, "")
     .replace(/\[\.{3}.+]/, "*")
-    .replace(/\[(.+)]/, ":$1")
+    .replaceAll(/\[(\w+)]/g, ":$1")
 
 const mapToRouteObject = (route: string, value: PageComponentData) => {
   const PageComponent = value.default
