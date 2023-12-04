@@ -1,0 +1,3 @@
+```jsx
+<OntologyLoader gene="sadA" />
+```
