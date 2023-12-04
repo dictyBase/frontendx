@@ -1,15 +1,9 @@
 import { connect, type Client } from "@dagger.io/dagger"
-
-/**
- * This program -> Dagger Engine -> Runs Pipelines
- */
-
 // Creates the dagger client
 connect(
-  // Client refers to the Dagger client,
   async (client: Client) => {
     // get reference to local project
-    const source = client.host().directory("..", { exclude: ["node_modules/"] })
+    const source = client.host().directory("./", { exclude: ["node_modules/"] })
 
     const nodeContainer = client.container().from("node:18")
 
@@ -19,8 +13,8 @@ connect(
       .withWorkdir("/src")
       .withExec(["yarn"])
 
-    // run tests
-    await runner.withExec(["yarn", "lint:out"]).sync()
+    // setup testing
+    await runner.withExec(["yarn", "test"]).stdout()
   },
   { LogOutput: process.stderr },
 )
