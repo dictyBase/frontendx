@@ -22,20 +22,23 @@
     "doc:watch": "typedoc --tsconfig typedoc-tsconfig.json --watch",
     "create:package": "plop package",
     "create:app": "plop app",
-    "generate:schema": "turbo run generate"
+    "generate:schema": "turbo run generate",
+    "dagger": "dagger run node --loader ts-node/esm ./dagger.mts"
   },
   "devDependencies": {
+    "@dagger.io/dagger": "^0.9.3",
+    "@types/node": "18.16.x",
     "browserlist": "latest",
     "eslint-config-custom": "*",
     "plop": "3.x",
     "prettier": "2.x",
+    "ts-node": "^10.9.1",
+    "tsx": "latest",
     "turbo": "^1.10.12",
     "typedoc": "0.23.x",
     "typedoc-plugin-coverage": "2.x",
     "typedoc-plugin-mermaid": "1.x",
-    "typedoc-plugin-resolve-crossmodule-references": "0.x",
-    "@types/node": "18.16.x",
-    "tsx": "latest"
+    "typedoc-plugin-resolve-crossmodule-references": "0.x"
   },
   "resolutions": {
     "@types/react": "17.x",
