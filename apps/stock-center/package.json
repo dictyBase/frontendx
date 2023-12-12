@@ -22,7 +22,6 @@
     "@dictybase/navbar": "*",
     "@dictybase/hook-dsc": "*",
     "@dictybase/ui-dsc": "*",
-    "editor": "*",
     "auth": "*"
   },
   "devDependencies": {
