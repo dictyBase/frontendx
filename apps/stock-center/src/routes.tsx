@@ -5,6 +5,7 @@ import {
   type dynamicRoutesProperties,
   publicRoutes,
   protectedRoutes,
+  privateRoutes,
   buildMergedRoutes,
 } from "auth"
 import { HeaderRow } from "./components/HeaderRow"
@@ -21,6 +22,7 @@ const createRouteDefinition = (allRoutes: dynamicRoutesProperties) =>
     Do,
     bind("publicR", () => pipe(allRoutes, publicRoutes, of)),
     bind("protectedR", () => pipe(allRoutes, protectedRoutes, of)),
+    bind("privateR", () => pipe(allRoutes, privateRoutes, of)),
     Olet("mergedR", buildMergedRoutes),
     Olet("finalRoutes", ({ mergedR }) =>
       pipe({ element: <HeaderRow />, children: mergedR }, Array.of),
