@@ -7,6 +7,8 @@ import { pipe } from "fp-ts/function"
 import { Callback } from "../Callback"
 import { Login } from "../Login"
 import { Protected } from "../Protected"
+import { Private } from "../Private"
+import { usePermify } from "@permify/react-role"
 
 enum ACCESS {
   public,
@@ -17,10 +19,12 @@ enum ACCESS {
 type PageComponentData = {
   default: FunctionComponent
   access: ACCESS
+  roles?: Array<string>
 }
 type mergedRoutesProperties = {
   publicR: Array<RouteObject>
   protectedR: Array<RouteObject>
+  privateR: Array<RouteObject>
 }
 type dynamicRoutesProperties = Record<string, PageComponentData>
 
@@ -32,6 +36,13 @@ const pathParts = (path: string) =>
 
 const mapToRouteObject = (route: string, value: PageComponentData) => {
   const PageComponent = value.default
+  const { roles } = value
+  if (roles) {
+    return {
+      element: <Private roles={roles} />,
+      children: [{ path: pathParts(route), element: <PageComponent /> }],
+    }
+  }
   return { path: pathParts(route), element: <PageComponent /> }
 }
 
@@ -39,6 +50,14 @@ const publicRoutes = (allRoutes: dynamicRoutesProperties): Array<RouteObject> =>
   pipe(
     allRoutes,
     Rfilter((v) => v.access !== ACCESS.protected),
+    Rcollect(Ord)(mapToRouteObject),
+  )
+const privateRoutes = (
+  allRoutes: dynamicRoutesProperties,
+): Array<RouteObject> =>
+  pipe(
+    allRoutes,
+    Rfilter((v) => v.access === ACCESS.private),
     Rcollect(Ord)(mapToRouteObject),
   )
 const protectedRoutes = (
@@ -49,10 +68,15 @@ const protectedRoutes = (
     Rfilter((v) => v.access === ACCESS.protected),
     Rcollect(Ord)(mapToRouteObject),
   )
-const buildMergedRoutes = ({ publicR, protectedR }: mergedRoutesProperties) =>
+const buildMergedRoutes = ({
+  publicR,
+  protectedR,
+  privateR,
+}: mergedRoutesProperties) =>
   pipe(
     publicR,
     Arpend({ children: protectedR, element: <Protected /> } as RouteObject),
+    Arpend({ children: privateR, element: <Protected /> } as RouteObject),
     Arpend({ path: "/callback", element: <Callback /> } as RouteObject),
     Arpend({ path: "/login", element: <Login /> } as RouteObject),
   )
@@ -60,6 +84,7 @@ const buildMergedRoutes = ({ publicR, protectedR }: mergedRoutesProperties) =>
 export {
   publicRoutes,
   protectedRoutes,
+  privateRoutes,
   buildMergedRoutes,
   type dynamicRoutesProperties,
   ACCESS,
