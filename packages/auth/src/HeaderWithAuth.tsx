@@ -3,7 +3,7 @@ import { match, P } from "ts-pattern"
 import { useLogto } from "@logto/react"
 import { useState, useEffect } from "react"
 import { Router as RemixRouter } from "@remix-run/router"
-import { type UserWithRoles } from "auth"
+import { type UserWithRoles } from "./const"
 import { LoginButton } from "./LoginButton"
 import { LogoutButton } from "./LogoutButton"
 import { callbackPath, homePath } from "./const"
@@ -40,12 +40,12 @@ const conditonalHandler = (logtoCase: logtoHookProperties) =>
 const HeaderWithAuth = ({ clientRouter }: HeaderWithAuthProperties) => {
   const { isAuthenticated, isLoading, error, fetchUserInfo, getAccessToken } =
     useLogto()
-  const [user, setUser] = useState<UserWithRoles>()
+  const [user, setAuthUser] = useState<UserWithRoles>()
   useEffect(() => {
     const handleUserInformation = async () => {
       if (isAuthenticated) {
-        const authUser = await fetchUserInfo()
-        setUser(authUser as UserWithRoles)
+        const authUser = (await fetchUserInfo()) as UserWithRoles
+        setAuthUser(authUser)
       }
     }
     handleUserInformation()
