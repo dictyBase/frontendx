@@ -1,5 +1,6 @@
 import Container from "@material-ui/core/Container"
 import { Editor } from "editor"
+import { ACCESS } from "auth"
 
 const temporaryContent = {
   root: {
@@ -54,3 +55,5 @@ const InfoPageContainer = () => (
 
 // eslint-disable-next-line import/no-default-export
 export default InfoPageContainer
+export const access = ACCESS.private
+export const roles = "content-admin"
