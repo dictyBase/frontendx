@@ -8,7 +8,6 @@ import { Callback } from "../Callback"
 import { Login } from "../Login"
 import { Protected } from "../Protected"
 import { Private } from "../Private"
-import { usePermify } from "@permify/react-role"
 
 enum ACCESS {
   public,
