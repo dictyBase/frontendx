@@ -38,7 +38,7 @@ const conditionalRouting = (props: ConditionalRouteProperteies) =>
       ({ checkAuthorization }) => checkAuthorization,
       () => <Outlet />,
     )
-    .otherwise(() => <Navigate to="/" />)
+    .otherwise(() => <Navigate to="/unauthorized" />)
 
 /**
  * The `Private` component is a functional component that renders a private route based on user roles.
