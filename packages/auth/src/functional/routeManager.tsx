@@ -8,6 +8,7 @@ import { Callback } from "../Callback"
 import { Login } from "../Login"
 import { Protected } from "../Protected"
 import { Private } from "../Private"
+import { UnAuthorized } from "../UnAuthorized"
 
 enum ACCESS {
   public,
@@ -131,6 +132,7 @@ const buildMergedRoutes = ({
     Arpend({ children: privateR, element: <Protected /> } as RouteObject),
     Arpend({ path: "/callback", element: <Callback /> } as RouteObject),
     Arpend({ path: "/login", element: <Login /> } as RouteObject),
+    Arpend({ path: "/unauthorized", element: <UnAuthorized /> } as RouteObject),
   )
 
 export {
