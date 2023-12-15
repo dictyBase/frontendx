@@ -43,7 +43,7 @@ const conditionalRouting = (props: ConditionalRouteProperteies) =>
 /**
  * The `Private` component is a functional component that renders a private route based on user roles.
  * It takes an object `roles` as a prop, which is of type `PrivateProperties`.
- * 
+ *
  * @example
  * // Single role
  * <Private roles={['admin']}>
@@ -66,7 +66,7 @@ const Private = ({ roles }: PrivateProperties) => {
   const [checkAuthorization, setAuthorization] = useState<boolean>(false)
   const [isLoading, setLoading] = useState<boolean>(true)
   useEffect(() => {
-    const authCheck = async () => {
+    const authCheck = async (roles: Array<string>) => {
       const authUser = (await fetchUserInfo()) as UserWithRoles
       if (authUser) {
         const resp = getEq(Eq).equals(authUser.roles, roles)
@@ -74,8 +74,8 @@ const Private = ({ roles }: PrivateProperties) => {
       }
       setLoading(false)
     }
-    authCheck()
-  }, [])
+    authCheck(roles)
+  }, [roles])
   return conditionalRouting({ isLoading, checkAuthorization })
 }
 
