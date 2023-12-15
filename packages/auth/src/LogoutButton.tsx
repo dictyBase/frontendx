@@ -14,19 +14,53 @@ import { UserDisplayButton } from "./UserDisplayButton"
 import { ProfileMenuItem } from "./ProfileMenuItem"
 import { LogoutMenuItem } from "./LogoutMenuItem"
 
+/**
+ * LogoutButtonProperties interface represents the props passed to the LogoutButton component.
+ * @interface LogoutButtonProperties
+ * @property {string} url - The redirect URL after logging out.
+ * @property {User} user - The user object to display in the user display button.
+ * @property {ClientRouter} clientRouter - The client router object used for navigation.
+ */
 type LogoutButtonProperties = {
   url: string
   user: UserWithRoles
   clientRouter: RemixRouter
 }
 
-const LogoutButton = ({ url, user, clientRouter }: LogoutButtonProperties) => {
+/**
+ * LogoutButton component renders a logout button with a dropdown menu.
+ */
+const LogoutButton = ({
+  url,
+  user,
+  clientRouter,
+}: LogoutButtonProperties): JSX.Element => {
+  /**
+   * menuElement state represents the current menu element, wrapped in an Option type.
+   */
   const [menuElement, setMenuElement] = useState<Option<HTMLElement>>(Onone)
-  const getMenuElement = () => pipe(menuElement, toNullable) as HTMLElement
-  const handleClose = () => setMenuElement(Onone)
-  const handleClick = (event: MouseEvent<HTMLElement>) =>
+
+  /**
+   * getMenuElement is a utility function that converts the menuElement from an Option type to HTMLElement.
+   */
+  const getMenuElement = (): HTMLElement =>
+    pipe(menuElement, toNullable) as HTMLElement
+
+  /**
+   * handleClose is a handler function that sets the menuElement to Onone, closing the menu.
+   */
+  const handleClose = (): void => setMenuElement(Onone)
+
+  /**
+   * handleClick is a handler function that sets the menuElement to the clicked element, opening the menu.
+   */
+  const handleClick = (event: MouseEvent<HTMLElement>): void =>
     setMenuElement(Oof(event.currentTarget))
-  const isOpen = pipe(
+
+  /**
+   * isOpen represents the state of the menu, whether it is open or closed.
+   */
+  const isOpen: boolean = pipe(
     menuElement,
     Omatch(
       () => false,

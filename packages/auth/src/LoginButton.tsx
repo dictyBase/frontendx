@@ -4,6 +4,9 @@ import { IconButton, SvgIcon, Typography } from "@material-ui/core"
 
 type LoginButtonProperties = { url: string }
 
+/**
+ * Renders a login button component.
+ */
 const LoginButton = ({ url }: LoginButtonProperties) => {
   const { signIn } = useLogto()
   return (

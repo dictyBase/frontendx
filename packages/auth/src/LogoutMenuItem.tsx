@@ -11,15 +11,27 @@ const useStyles = makeStyles({
   },
 })
 
+/**
+ * LogoutMenuItemProperties interface represents the props for the LogoutMenuItem component.
+ * @param redirectPath - The path to redirect to after signing out.
+ */
 type LogoutMenuItemProperties = {
   redirectPath: string
 }
 
+/**
+ * LogoutMenuItem is a functional component that renders a logout menu item.
+ */
 const LogoutMenuItem = ({ redirectPath }: LogoutMenuItemProperties) => {
   const { signOut } = useLogto()
   const { listIcon } = useStyles()
+
+  const handleClick = () => {
+    signOut(redirectPath)
+  }
+
   return (
-    <MenuItem onClick={() => signOut(redirectPath)}>
+    <MenuItem onClick={handleClick}>
       <ListItemIcon className={listIcon}>
         <MeetingRoom />
       </ListItemIcon>
