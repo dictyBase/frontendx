@@ -1,3 +1,8 @@
+type LinkProperties = {
+  name: string
+  to: string
+}
+
 const downloadLinks = [
   {
     name: "Phenotype Ontology",
@@ -82,4 +87,10 @@ const miscLinks = [
   },
 ]
 
-export { downloadLinks, infoLinks, materialsLinks, miscLinks }
+export {
+  downloadLinks,
+  infoLinks,
+  materialsLinks,
+  miscLinks,
+  type LinkProperties,
+}
