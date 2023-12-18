@@ -2,8 +2,6 @@ import { Helmet } from "react-helmet"
 import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
 import {
-  HomepageColumn,
-  LinkList,
   Slideshow,
   useStyles,
   EditablePanel,
@@ -32,22 +30,12 @@ const metaDesc =
 
 const Homepage = () => {
   const classes = useStyles({})
-  // const {
-  //   state: { isAuthenticated, user },
-  // } = useAuthStore()
-  // const fullName = `${user?.first_name} ${user?.last_name}`
-
   return (
     <div>
       <Helmet>
         <title>Dicty Stock Center</title>
         <meta name="description" content={metaDesc} />
       </Helmet>
-      {/* {isAuthenticated && (
-        <span>
-          <h3>Hello, {`${fullName}!`}</h3>
-        </span>
-      )} */}
       <Grid container justifyContent="space-between" spacing={3}>
         <Grid item className={classes.header}>
           <Typography variant="h1">
@@ -74,7 +62,9 @@ const Homepage = () => {
             <RouterLink to={to}>{name}</RouterLink>
           ))}
         </Grid>
-        {/* <HomepageColumn
+      </Grid>
+    </div>
+        /* <HomepageColumn
           components={[
             <EditorHolder minHeight="300px">
               <EditablePanel slug="dsc-about" skeletonCount={10} />
@@ -89,9 +79,7 @@ const Homepage = () => {
             <OtherMaterials />,
             <StandardOperatingProcedures />,
           ]}
-        /> */}
-      </Grid>
-    </div>
+        /> */
   )
 }
 
