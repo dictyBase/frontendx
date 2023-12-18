@@ -20,6 +20,7 @@ import {
   materialsLinks,
   // miscLinks,
 } from "../linkLists"
+import { Link as RouterLink } from "react-router-dom"
 // import EditorHolder from "./EditorHolder"
 
 const metaDesc =
@@ -58,6 +59,21 @@ const Homepage = () => {
             <EditablePanel slug="dsc-intro" skeletonCount={5} />
           </EditorHolder>
         </Grid>
+        <Grid item xs={4}>
+          <Slideshow />
+        </Grid>
+        <Grid container item xs={4} direction="column">
+          <Typography variant="h2">Catalogs/Materials</Typography>
+          {materialsLinks.map(({ name, to }) => (
+            <RouterLink to={to}>{name}</RouterLink>
+          ))}
+        </Grid>
+        <Grid container item xs={4} direction="column">
+          <Typography variant="h2">Downloads</Typography>
+          {downloadLinks.map(({ name, to }) => (
+            <RouterLink to={to}>{name}</RouterLink>
+          ))}
+        </Grid>
         {/* <HomepageColumn
           components={[
             <EditorHolder minHeight="300px">
@@ -74,13 +90,6 @@ const Homepage = () => {
             <StandardOperatingProcedures />,
           ]}
         /> */}
-        <HomepageColumn
-          components={[
-            <Slideshow />,
-            <LinkList list={materialsLinks} bgColor="gray" />,
-            <LinkList list={downloadLinks} bgColor="gray" />,
-          ]}
-        />
       </Grid>
     </div>
   )
