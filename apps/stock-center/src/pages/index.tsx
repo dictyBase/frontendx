@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet"
+import { v4 as uuid4 } from "uuid"
 import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
 import {
@@ -53,18 +54,22 @@ const Homepage = () => {
         <Grid container item xs={4} direction="column">
           <Typography variant="h2">Catalogs/Materials</Typography>
           {materialsLinks.map(({ name, to }) => (
-            <RouterLink to={to}>{name}</RouterLink>
+            <RouterLink key={uuid4()} to={to}>
+              {name}
+            </RouterLink>
           ))}
         </Grid>
         <Grid container item xs={4} direction="column">
           <Typography variant="h2">Downloads</Typography>
           {downloadLinks.map(({ name, to }) => (
-            <RouterLink to={to}>{name}</RouterLink>
+            <RouterLink key={uuid4()} to={to}>
+              {name}
+            </RouterLink>
           ))}
         </Grid>
       </Grid>
     </div>
-        /* <HomepageColumn
+    /* <HomepageColumn
           components={[
             <EditorHolder minHeight="300px">
               <EditablePanel slug="dsc-about" skeletonCount={10} />
