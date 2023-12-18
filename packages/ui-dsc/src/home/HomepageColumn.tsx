@@ -1,30 +1,30 @@
-import React from "react"
-import Grid from "@material-ui/core/Grid"
-import { useStyles } from "./homeStyles"
+import { Link as RouterLink } from "react-router-dom"
+import { v4 as uuid4 } from "uuid"
+import Typography from "@material-ui/core/Typography"
+
+type LinkProperties = {
+  name: string
+  to: string
+}
 
 type HomepageColumnProperties = {
-  components: Array<React.ReactNode>
+  title: string
+  entries: Array<LinkProperties>
 }
 
 /**
  * HomepageColumn handles formatting for each column on the homepage.
  */
-
-const HomepageColumn = ({ components }: HomepageColumnProperties) => {
-  const classes = useStyles({})
-  const content = components.map((item: React.ReactNode, index: number) => (
-    // eslint-disable-next-line react/no-array-index-key
-    <Grid item key={index}>
-      {item}
-    </Grid>
-  ))
-
+const HomepageColumn = ({ title, entries }: HomepageColumnProperties) => {
   return (
-    <Grid item xs={12} sm={4} className={classes.column}>
-      <Grid container direction="column" spacing={1}>
-        {content}
-      </Grid>
-    </Grid>
+    <>
+      <Typography variant="h2">{title}</Typography>
+      {entries.map(({ name, to }) => (
+        <RouterLink key={uuid4()} to={to}>
+          {name}
+        </RouterLink>
+      ))}
+    </>
   )
 }
 
