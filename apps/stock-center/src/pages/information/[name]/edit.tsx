@@ -56,4 +56,4 @@ const InfoPageContainer = () => (
 // eslint-disable-next-line import/no-default-export
 export default InfoPageContainer
 export const access = ACCESS.private
-export const roles = "content-admin"
+export const roles = ["user-user", "content-admin"]
