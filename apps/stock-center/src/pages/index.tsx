@@ -1,5 +1,4 @@
 import { Helmet } from "react-helmet"
-import { v4 as uuid4 } from "uuid"
 import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
 import {
@@ -7,6 +6,7 @@ import {
   useStyles,
   EditablePanel,
   EditorHolder,
+  HomepageColumn,
 } from "@dictybase/ui-dsc"
 // import { Availability } from "./Availability"
 // import OtherMaterials from "./OtherMaterials"
@@ -19,7 +19,6 @@ import {
   materialsLinks,
   // miscLinks,
 } from "../linkLists"
-import { Link as RouterLink } from "react-router-dom"
 // import EditorHolder from "./EditorHolder"
 
 const metaDesc =
@@ -48,24 +47,19 @@ const Homepage = () => {
             <EditablePanel slug="dsc-intro" skeletonCount={5} />
           </EditorHolder>
         </Grid>
-        <Grid item xs={4}>
-          <Slideshow />
-        </Grid>
-        <Grid container item xs={4} direction="column">
-          <Typography variant="h2">Catalogs/Materials</Typography>
-          {materialsLinks.map(({ name, to }) => (
-            <RouterLink key={uuid4()} to={to}>
-              {name}
-            </RouterLink>
-          ))}
-        </Grid>
-        <Grid container item xs={4} direction="column">
-          <Typography variant="h2">Downloads</Typography>
-          {downloadLinks.map(({ name, to }) => (
-            <RouterLink key={uuid4()} to={to}>
-              {name}
-            </RouterLink>
-          ))}
+        <Grid container item xs={12} spacing={4} justifyContent="flex-start">
+          <Grid item xs={4}>
+            <Slideshow />
+          </Grid>
+          <Grid container item xs={4} direction="column">
+            <HomepageColumn
+              title="Catalogs/Materials"
+              entries={materialsLinks}
+            />
+          </Grid>
+          <Grid container item xs={4} direction="column">
+            <HomepageColumn title="Downloads" entries={downloadLinks} />
+          </Grid>
         </Grid>
       </Grid>
     </div>
