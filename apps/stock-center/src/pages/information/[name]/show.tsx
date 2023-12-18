@@ -40,7 +40,7 @@ const temporaryContent = {
   },
 }
 
-const InfoPageContainer = () => (
+const Show = () => (
   <Container>
     <Editor
       content={{
@@ -53,4 +53,4 @@ const InfoPageContainer = () => (
 )
 
 // eslint-disable-next-line import/no-default-export
-export default InfoPageContainer
+export default Show
