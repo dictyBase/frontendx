@@ -20,7 +20,7 @@ const matchRoles = (given: Array<string>, expected: Array<string>) => {
   }
   return pipe(
     expected,
-    every((v) => pipe(expected, elem(Eq)(v))),
+    every((v) => pipe(given, elem(Eq)(v))),
   )
 }
 
