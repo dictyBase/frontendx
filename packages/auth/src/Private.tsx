@@ -1,14 +1,11 @@
 import { Navigate, Outlet } from "react-router-dom"
-import { useLogto } from "@logto/react"
-import { useState, useEffect } from "react"
 import { match } from "ts-pattern"
-import { type UserWithRoles } from "./const"
 import { LoadingDisplay } from "@dictybase/ui-dsc"
-import { matchEntries } from "./functional"
+import { useAuthorization } from "./useAuthorization"
 
 type ConditionalRouteProperteies = {
   isLoading: boolean
-  checkAuthorization: boolean
+  isAuthorized: boolean
 }
 
 type PrivateProperties = { roles: Array<string> }
@@ -34,7 +31,7 @@ const conditionalRouting = (props: ConditionalRouteProperteies) =>
       () => <LoadingDisplay rows={6} />,
     )
     .when(
-      ({ checkAuthorization }) => checkAuthorization,
+      ({ isAuthorized }) => isAuthorized,
       () => <Outlet />,
     )
     .otherwise(() => <Navigate to="/unauthorized" />)
@@ -61,20 +58,8 @@ const conditionalRouting = (props: ConditionalRouteProperteies) =>
  * </Private>
  */
 const Private = ({ roles }: PrivateProperties) => {
-  const { fetchUserInfo } = useLogto()
-  const [checkAuthorization, setAuthorization] = useState<boolean>(false)
-  const [isLoading, setLoading] = useState<boolean>(true)
-  useEffect(() => {
-    const authCheck = async (roles: Array<string>) => {
-      const authUser = (await fetchUserInfo()) as UserWithRoles
-      if (authUser) {
-        setAuthorization(matchEntries(authUser.roles, roles))
-      }
-      setLoading(false)
-    }
-    authCheck(roles)
-  }, [roles])
-  return conditionalRouting({ isLoading, checkAuthorization })
+  const { isLoading, isAuthorized } = useAuthorization({ entries: roles })
+  return conditionalRouting({ isLoading, isAuthorized })
 }
 
 export { Private }
