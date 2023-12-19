@@ -2,27 +2,16 @@ import {
   split as splitString,
   slice as sliceString,
   toUpperCase,
-  Eq,
 } from "fp-ts/string"
-import { map as Amap, getEq, elem, every } from "fp-ts/Array"
+import { map as Amap } from "fp-ts/Array"
 import { ReadonlyNonEmptyArray, head, last } from "fp-ts/ReadonlyNonEmptyArray"
 import { pipe } from "fp-ts/function"
 
 /**
  * Matches the given array of roles against the expected array of roles.
  */
-const matchRoles = (given: Array<string>, expected: Array<string>) => {
-  switch (true) {
-    case expected.length > given.length:
-      return false
-    case expected.length == given.length:
-      return getEq(Eq).equals(expected, given)
-  }
-  return pipe(
-    expected,
-    every((v) => pipe(given, elem(Eq)(v))),
-  )
-}
+const matchEntries = (given: Array<string>, expected: Array<string>) =>
+  given.every((entry) => expected.includes(entry))
 
 const firstLast = (nameArray: ReadonlyNonEmptyArray<string>) => [
   head(nameArray), // Returns the first element of the nameArray
@@ -44,4 +33,4 @@ const nameToUpperInitial = (fullName: string) =>
     Amap(upperFirst), // Applies the upperFirst function to each word in the array
   ).join("") // Joins the array of uppercased initials into a single string
 
-export { nameToUpperInitial, matchRoles }
+export { nameToUpperInitial, matchEntries }
