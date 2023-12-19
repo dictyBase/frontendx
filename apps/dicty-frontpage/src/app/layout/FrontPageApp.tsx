@@ -1,3 +1,4 @@
+import { RouterProvider } from "react-router-dom"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import Container from "@material-ui/core/Container"
 import { Footer } from "@dictybase/footer"
@@ -12,7 +13,7 @@ import {
   formatNavbarData,
 } from "../../common/utils/navbarItems"
 import { navTheme } from "../../common/utils/themes"
-import { Routes } from "../routes/Routes"
+import { frontpageRouter } from "../../routes"
 
 const useStyles = makeStyles((theme: Theme) => ({
   main: {
@@ -49,7 +50,7 @@ const FrontPageApp = () => {
       <main className={classes.main}>
         <Container maxWidth="xl">
           <ErrorBoundary>
-            <Routes />
+            <RouterProvider router={frontpageRouter} />
           </ErrorBoundary>
         </Container>
       </main>
