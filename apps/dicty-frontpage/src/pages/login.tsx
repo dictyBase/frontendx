@@ -1,5 +1,5 @@
-import { Login } from "../../features/Authentication/Login"
-import { ACCESS } from "../routes/types"
+import { Login } from "../features/Authentication/Login"
+import { ACCESS } from "../app/routes/types"
 
 // eslint-disable-next-line unicorn/prefer-export-from, import/no-default-export
 export default Login
