@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { match } from "ts-pattern"
 import { type UserWithRoles } from "./const"
 import { LoadingDisplay } from "@dictybase/ui-dsc"
-import { matchRoles } from "./functional"
+import { matchEntries } from "./functional"
 
 type ConditionalRouteProperteies = {
   isLoading: boolean
@@ -68,7 +68,7 @@ const Private = ({ roles }: PrivateProperties) => {
     const authCheck = async (roles: Array<string>) => {
       const authUser = (await fetchUserInfo()) as UserWithRoles
       if (authUser) {
-        setAuthorization(matchRoles(authUser.roles, roles))
+        setAuthorization(matchEntries(authUser.roles, roles))
       }
       setLoading(false)
     }
