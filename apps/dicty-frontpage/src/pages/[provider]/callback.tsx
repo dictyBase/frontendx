@@ -1,5 +1,5 @@
-import { OauthCallback } from "../../../features/Authentication/OauthCallback"
-import { ACCESS } from "../../routes/types"
+import { OauthCallback } from "../../features/Authentication/OauthCallback"
+import { ACCESS } from "../../app/routes/types"
 
 // eslint-disable-next-line unicorn/prefer-export-from, import/no-default-export
 export default OauthCallback
