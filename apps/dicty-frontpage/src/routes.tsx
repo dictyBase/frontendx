@@ -16,7 +16,6 @@ const dynamicRoutes: dynamicRoutesProperties = import.meta.glob(
   },
 )
 
-console.log(dynamicRoutes)
 const createRouteDefinition = (allRoutes: dynamicRoutesProperties) =>
   pipe(
     Do,
@@ -29,7 +28,6 @@ const createRouteDefinition = (allRoutes: dynamicRoutesProperties) =>
       ({ mergedR }) => mergedR,
     ),
   )
-console.log(createRouteDefinition(dynamicRoutes))
 
 const frontpageRouter = createBrowserRouter(
   createRouteDefinition(dynamicRoutes),
