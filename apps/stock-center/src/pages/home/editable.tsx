@@ -42,7 +42,7 @@ const EditableHomepage = () => {
         </Grid>
         <Grid container item xs={12} spacing={4} justifyContent="flex-start">
           <Slide />
-          <CatalogLinks />
+          <CatalogLinks isAuthorized={true} />
           <FileLinks />
         </Grid>
       </Grid>
