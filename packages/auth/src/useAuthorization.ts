@@ -24,7 +24,7 @@ const useAuthorization = ({ entries }: useAuthorizationProperties) => {
       const authUser = (await fetchUserInfo()) as UserWithRoles
       if (authUser) {
         // Set the authorization based on matching the user's roles with the entries
-        setAuthorization(matchEntries(authUser.roles, entries))
+        setAuthorization(matchEntries(entries, authUser.roles))
       }
       // Set the loading state to false once the authorization check is completed
       setLoading(false)
