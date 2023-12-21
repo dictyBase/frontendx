@@ -1,6 +1,6 @@
 import Container from "@material-ui/core/Container"
 import { Editor } from "editor"
-import { of, match } from "fp-ts/Option"
+import { fromNullable, match } from "fp-ts/Option"
 import { pipe } from "fp-ts/function"
 
 const sampleText =
@@ -51,7 +51,7 @@ type IntroEditorProperties = {
 
 const IntroEditor = ({ isEditable }: IntroEditorProperties) => {
   const optIsEditable = pipe(
-    of(isEditable),
+    fromNullable(isEditable),
     match(
       () => false,
       () => true,
