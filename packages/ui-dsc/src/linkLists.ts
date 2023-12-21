@@ -43,7 +43,7 @@ const infoLinks = [
 
 const additionalMaterial = {
   name: "Additional Materials",
-  to: "/information/additional-materials",
+  to: "/information/additional-materials/show",
 }
 
 const additionalMaterialAuth = {
