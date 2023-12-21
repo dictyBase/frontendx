@@ -41,6 +41,16 @@ const infoLinks = [
   },
 ]
 
+const additionalMaterial = {
+  name: "Additional Materials",
+  to: "/information/additional-materials",
+}
+
+const additionalMaterialAuth = {
+  name: "Additional Materials",
+  to: "/information/additional-materials/editable",
+}
+
 const materialsLinks = [
   {
     name: "Strain Catalog",
@@ -53,10 +63,6 @@ const materialsLinks = [
   {
     name: "Bacterial Strains",
     to: "/strains?filter=bacterial",
-  },
-  {
-    name: "Additional Materials",
-    to: "/information/additional-materials",
   },
   {
     name: "GWDI Catalog",
@@ -92,5 +98,7 @@ export {
   infoLinks,
   materialsLinks,
   miscLinks,
+  additionalMaterial,
+  additionalMaterialAuth,
   type LinkProperties,
 }
