@@ -1,4 +1,5 @@
 import Container from "@material-ui/core/Container"
+import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
 import { Link as RouterLink } from "react-router-dom"
 import { Editor } from "editor"
@@ -46,8 +47,22 @@ const temporaryContent = {
 type EditableProperties = { href: string }
 
 const Editable = ({ href }: EditableProperties) => (
-  <Container>
-    <Button component={RouterLink} to={href}>Edit</Button>
+  <Grid
+    container
+    item
+    xs={12}
+    spacing={3}
+    alignItems="flex-end"
+    style={{ marginTop: "20px" }}
+    direction="column">
+    <Button
+      color="primary"
+      variant="contained"
+      component={RouterLink}
+      style={{ width: "15%" }}
+      to={href}>
+      Edit Content
+    </Button>
     <Editor
       content={{
         storageKey: "",
@@ -55,7 +70,7 @@ const Editable = ({ href }: EditableProperties) => (
       }}
       editable={false}
     />
-  </Container>
+  </Grid>
 )
 
 // eslint-disable-next-line import/no-default-export
