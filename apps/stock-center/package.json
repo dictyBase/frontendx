@@ -23,7 +23,8 @@
     "@dictybase/hook-dsc": "*",
     "@dictybase/ui-dsc": "*",
     "editor": "*",
-    "auth": "*"
+    "auth": "*",
+    "ui-user": "*"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.0.3",
