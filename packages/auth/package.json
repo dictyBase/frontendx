@@ -26,5 +26,11 @@
     "entryPoint": "./src/index.ts",
     "displayName": "dictybase/auth",
     "readmeFile": "./README.md"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "custom"
+    ]
   }
 }
