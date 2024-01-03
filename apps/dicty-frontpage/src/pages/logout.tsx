@@ -1,5 +1,5 @@
-import { Logout } from "../../features/Authentication/Logout"
-import { ACCESS } from "../routes/types"
+import { Logout } from "../features/Authentication/Logout"
+import { ACCESS } from "../app/routes/types"
 
 // eslint-disable-next-line unicorn/prefer-export-from, import/no-default-export
 export default Logout

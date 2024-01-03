@@ -1,8 +1,7 @@
-import { BrowseNews } from "news-component"
 import { NewsLayoutWrapper } from "news-component/src/NewsLayout"
-import { ACCESS } from "../../routes/types"
+import { NewsPage } from "news-component"
+import { ACCESS } from "../../../app/routes/types"
 
 // eslint-disable-next-line import/no-default-export
-export default NewsLayoutWrapper(BrowseNews)
-
+export default NewsLayoutWrapper(NewsPage)
 export const access = ACCESS.protected
