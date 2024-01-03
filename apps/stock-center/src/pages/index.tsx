@@ -1,6 +1,6 @@
 import Grid from "@material-ui/core/Grid"
-import { useStyles } from "@dictybase/ui-dsc"
 import {
+  useStyles,
   Title,
   Heading,
   IntroEditor,
