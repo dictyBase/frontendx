@@ -19,12 +19,12 @@ const useAuthorization = ({ entries }: useAuthorizationProperties) => {
 
   useEffect(() => {
     // Function to check user authorization
-    const authCheck = async (entries: Array<string>) => {
+    const authCheck = async (records: Array<string>) => {
       // Fetch the user information and cast it to UserWithRoles type
       const authUser = (await fetchUserInfo()) as UserWithRoles
       if (authUser) {
         // Set the authorization based on matching the user's roles with the entries
-        setAuthorization(matchEntries(entries, authUser.roles))
+        setAuthorization(matchEntries(records, authUser.roles))
       }
       // Set the loading state to false once the authorization check is completed
       setLoading(false)
@@ -32,7 +32,7 @@ const useAuthorization = ({ entries }: useAuthorizationProperties) => {
     // Perform the authorization check when the entries array changes
     authCheck(entries)
     // Only re-run the effect when the entries array changes
-  }, [entries])
+  }, [entries, fetchUserInfo])
   // Return the authorization status and loading state
   return { isAuthorized, isLoading }
 }
