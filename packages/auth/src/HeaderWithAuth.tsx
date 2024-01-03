@@ -62,7 +62,7 @@ const conditonalHandler = (logtoCase: logtoHookProperties) =>
  */
 const HeaderWithAuth = ({ clientRouter }: HeaderWithAuthProperties) => {
   // Destructure properties from the useLogto() hook
-  const { isAuthenticated, isLoading, error, fetchUserInfo, getAccessToken , getIdTokenClaims} =
+  const { isAuthenticated, isLoading, error, fetchUserInfo, getAccessToken } =
     useLogto()
 
   // Define state for the authenticated user
