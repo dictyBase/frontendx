@@ -3,7 +3,7 @@ import Box from "@material-ui/core/Box"
 import Typography from "@material-ui/core/Typography"
 import Button from "@material-ui/core/Button"
 import ErrorIcon from "@mui/icons-material/Error"
-import sadDicty from "./assets/sad-dicty.png";
+import sadDicty from "./assets/sad-dicty.png"
 
 const useStyles = makeStyles((theme) => ({
   root: {
