@@ -15,7 +15,6 @@
     "tsconfig": "*"
   },
   "scripts": {
-    "lint": "TIMING=1 eslint src/**/*.tsx --fix && tsc --noEmit",
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/ui-dsc.json",
     "coverage": "vitest run --coverage"
   },
@@ -23,5 +22,11 @@
     "entryPoint": "./src/index.ts",
     "displayName": "ui-user",
     "readmeFile": "./README.md"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "custom"
+    ]
   }
 }
