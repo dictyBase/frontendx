@@ -24,8 +24,8 @@ type PrivateProperties = { roles: Array<string> }
  *
  * The `.otherwise` method is called when none of the previous cases match. In this case, it renders a `Navigate` component with a `to` prop set to "/".
  */
-const conditionalRouting = (props: ConditionalRouteProperteies) =>
-  match(props)
+const conditionalRouting = (properties: ConditionalRouteProperteies) =>
+  match(properties)
     .when(
       ({ isLoading }) => isLoading,
       () => <LoadingDisplay rows={6} />,
