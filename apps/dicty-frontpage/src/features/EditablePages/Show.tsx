@@ -22,6 +22,7 @@ const Show = () => {
       { data: { contentBySlug: P.select({ content: P.string }) } },
       (content) => <ContentView data={content} />,
     )
+    .otherwise(() => <> This message should not appear. </>)
 }
 
 export { Show }
