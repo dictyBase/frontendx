@@ -15,17 +15,15 @@ type HomepageColumnProperties = {
 /**
  * HomepageColumn handles formatting for each column on the homepage.
  */
-const HomepageColumn = ({ title, entries }: HomepageColumnProperties) => {
-  return (
-    <>
-      <Typography variant="h2">{title}</Typography>
-      {entries.map(({ name, to }) => (
-        <RouterLink key={uuid4()} to={to}>
-          {name}
-        </RouterLink>
-      ))}
-    </>
-  )
-}
+const HomepageColumn = ({ title, entries }: HomepageColumnProperties) => (
+  <>
+    <Typography variant="h2">{title}</Typography>
+    {entries.map(({ name, to }) => (
+      <RouterLink key={uuid4()} to={to}>
+        {name}
+      </RouterLink>
+    ))}
+  </>
+)
 
 export { HomepageColumn }

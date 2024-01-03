@@ -1,12 +1,12 @@
 import Grid from "@material-ui/core/Grid"
+import { fromNullable, match } from "fp-ts/Option"
+import { pipe } from "fp-ts/function"
 import { HomepageColumn } from "./HomepageColumn"
 import {
   materialsLinks,
   additionalMaterial,
   additionalMaterialAuth,
 } from "../linkLists"
-import { fromNullable, match } from "fp-ts/Option"
-import { pipe } from "fp-ts/function"
 
 type CatalogLinksProperties = {
   isAuthorized?: boolean

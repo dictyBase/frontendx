@@ -1,5 +1,5 @@
-import { Slideshow } from "./Slideshow"
 import Grid from "@material-ui/core/Grid"
+import { Slideshow } from "./Slideshow"
 
 const Slide = () => (
   <Grid item xs={4}>
