@@ -20,11 +20,13 @@ const Show = () => {
   const user = location.state as UserWithRoles
   return (
     <Box mt={4}>
-      <Box display="flex" flexDirection="row" justifyContent="center">
-        <Typography variant="h1" gutterBottom>
-          DCR user profile
-        </Typography>
-      </Box>
+      <Grid container direction="row" justifyContent="center">
+        <Grid item>
+          <Typography variant="h1" gutterBottom>
+            DCR user profile
+          </Typography>
+        </Grid>
+      </Grid>
       <Divider variant="inset" className={classes.divider} />
       <Grid
         container
@@ -32,19 +34,13 @@ const Show = () => {
         justifyContent="center"
         spacing={1}
         className={classes.userGrid}>
-        <Grid item xs={4} container direction="row" justifyContent="flex-end">
+        <Grid item xs={4} container direction="column" alignItems="center">
           <Avatar />
         </Grid>
-        <Grid
-          item
-          xs={4}
-          container
-          direction="column"
-          justifyContent="center"
-          alignItems="baseline">
+        <Grid item xs={4} container direction="column" alignItems="flex-start">
           <Information user={user} />
         </Grid>
-        <Grid item container direction="column" xs={4}>
+        <Grid item xs={4} container direction="column" alignItems="flex-start">
           <EditablePagesList />
         </Grid>
       </Grid>
