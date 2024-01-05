@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom"
 import { Box, Grid, Divider } from "@material-ui/core"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import { ACCESS, UserWithRoles, displayOnAuthorzied, matchEntries } from "auth"
-import { Avatar, Information, EditablePagesList, Title } from "ui-user"
+import { Avatar, Information, EditablePagesList, Title, NoPages } from "ui-user"
 
 const useStyles = makeStyles((theme: Theme) => ({
   divider: {
@@ -42,7 +42,7 @@ const Show = () => {
           {displayOnAuthorzied({
             isAuthorized: matchEntries(user.roles, ["content-admin"]),
             authorized: <EditablePagesList />,
-            unauthorized: <b>Nothing to display</b>,
+            unauthorized: <NoPages />,
           })}
         </Grid>
       </Grid>
