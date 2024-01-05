@@ -15,6 +15,7 @@
     "tsconfig": "*"
   },
   "scripts": {
+    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/ui-dsc.json",
     "coverage": "vitest run --coverage"
   },
