@@ -11,7 +11,9 @@ import { pipe } from "fp-ts/function"
  * Matches the given array of roles against the expected array of roles.
  */
 const matchEntries = (given: Array<string>, expected: Array<string>) =>
-  given.every((entry) => expected.includes(entry))
+  expected.length < given.length
+    ? expected.every((entry) => given.includes(entry))
+    : given.every((entry) => expected.includes(entry))
 
 const firstLast = (nameArray: ReadonlyNonEmptyArray<string>) => [
   head(nameArray), // Returns the first element of the nameArray
