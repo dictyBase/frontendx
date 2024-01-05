@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom"
 import { Box, Grid, Typography, Divider } from "@material-ui/core"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import { ACCESS, UserWithRoles } from "auth"
-import { Avatar, Information } from "ui-user"
+import { Avatar, Information, EditablePagesList } from "ui-user"
 
 const useStyles = makeStyles((theme: Theme) => ({
   divider: {
@@ -26,18 +26,26 @@ const Show = () => {
         </Typography>
       </Box>
       <Divider variant="inset" className={classes.divider} />
-      <Grid container spacing={3} className={classes.userGrid}>
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        spacing={1}
+        className={classes.userGrid}>
         <Grid item xs={4} container direction="row" justifyContent="flex-end">
           <Avatar />
         </Grid>
         <Grid
           item
-          xs={8}
+          xs={4}
           container
           direction="column"
           justifyContent="center"
           alignItems="baseline">
           <Information user={user} />
+        </Grid>
+        <Grid item container direction="column" xs={4}>
+          <EditablePagesList />
         </Grid>
       </Grid>
     </Box>
