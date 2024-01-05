@@ -1,8 +1,8 @@
 import { useLocation } from "react-router-dom"
-import { Box, Grid, Typography, Divider } from "@material-ui/core"
+import { Box, Grid, Divider } from "@material-ui/core"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import { ACCESS, UserWithRoles, displayOnAuthorzied, matchEntries } from "auth"
-import { Avatar, Information, EditablePagesList } from "ui-user"
+import { Avatar, Information, EditablePagesList, Title } from "ui-user"
 
 const useStyles = makeStyles((theme: Theme) => ({
   divider: {
@@ -22,9 +22,7 @@ const Show = () => {
     <Box mt={4}>
       <Grid container direction="row" justifyContent="center">
         <Grid item>
-          <Typography variant="h1" gutterBottom>
-            DCR user profile
-          </Typography>
+          <Title />
         </Grid>
       </Grid>
       <Divider variant="inset" className={classes.divider} />
