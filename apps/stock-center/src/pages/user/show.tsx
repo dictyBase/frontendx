@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom"
 import { Box, Grid, Typography, Divider } from "@material-ui/core"
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import { ACCESS, UserWithRoles } from "auth"
+import { ACCESS, UserWithRoles, displayOnAuthorzied, matchEntries } from "auth"
 import { Avatar, Information, EditablePagesList } from "ui-user"
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -15,9 +15,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 const Show = () => {
-  const classes = useStyles()
   const location = useLocation()
   const user = location.state as UserWithRoles
+  const classes = useStyles()
   return (
     <Box mt={4}>
       <Grid container direction="row" justifyContent="center">
@@ -41,7 +41,11 @@ const Show = () => {
           <Information user={user} />
         </Grid>
         <Grid item xs={4} container direction="column" alignItems="flex-start">
-          <EditablePagesList />
+          {displayOnAuthorzied({
+            isAuthorized: matchEntries(user.roles, ["content-admin"]),
+            authorized: <EditablePagesList />,
+            unauthorized: <b>Nothing to display</b>,
+          })}
         </Grid>
       </Grid>
     </Box>
