@@ -1,4 +1,5 @@
-import { Typography, Button } from "@material-ui/core"
+import { Typography, Button, Paper } from "@material-ui/core"
+import { makeStyles, Theme } from "@material-ui/core/styles"
 import { UserWithRoles } from "auth"
 import { useNavigate } from "react-router-dom"
 
@@ -6,10 +7,17 @@ type InformationProperties = {
   user: UserWithRoles
 }
 
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    padding: theme.spacing(3),
+  },
+}))
+
 const Information = ({ user }: InformationProperties) => {
   const navigate = useNavigate()
+  const classes = useStyles()
   return (
-    <>
+    <Paper elevation={3} className={classes.root}>
       <Typography variant="h2" gutterBottom>
         {user?.name}
       </Typography>
@@ -26,7 +34,7 @@ const Information = ({ user }: InformationProperties) => {
         onClick={() => navigate("/user/edit", { state: user })}>
         Edit
       </Button>
-    </>
+    </Paper>
   )
 }
 
