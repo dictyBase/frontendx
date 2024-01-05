@@ -3,7 +3,7 @@ import { match } from "ts-pattern"
 import { LoadingDisplay } from "@dictybase/ui-dsc"
 import { useAuthorization } from "./useAuthorization"
 
-type ConditionalRouteProperteies = {
+type ConditionalRouteProperties = {
   isLoading: boolean
   isAuthorized: boolean
 }
@@ -24,8 +24,8 @@ type PrivateProperties = { roles: Array<string> }
  *
  * The `.otherwise` method is called when none of the previous cases match. In this case, it renders a `Navigate` component with a `to` prop set to "/".
  */
-const conditionalRouting = (properties: ConditionalRouteProperteies) =>
-  match(properties)
+const conditionalRouting = (property: ConditionalRouteProperties) =>
+  match(property)
     .when(
       ({ isLoading }) => isLoading,
       () => <LoadingDisplay rows={6} />,
