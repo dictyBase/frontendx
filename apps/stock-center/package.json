@@ -35,5 +35,11 @@
   },
   "msw": {
     "workerDirectory": "public"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "custom"
+    ]
   }
 }
