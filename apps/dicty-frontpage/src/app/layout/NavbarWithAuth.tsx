@@ -1,7 +1,6 @@
 import { Navbar, formatNavbarData } from "@dictybase/navbar"
 import { match } from "ts-pattern"
 import { displayOnAuthorzied, useAuthorization } from "auth"
-import { Loader } from "../../common/components/Loader"
 import { navTheme } from "../../common/utils/themes"
 import authNavbarData from "../../common/data/authNavbarData.json"
 
@@ -13,7 +12,7 @@ const NavbarWithAuth = () => {
   })
 
   return match(isLoading)
-    .with(true, () => <Loader />)
+    .with(true, () => <></>)
     .with(false, () =>
       displayOnAuthorzied({
         isAuthorized,
