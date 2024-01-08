@@ -7,11 +7,14 @@ import React, {
 } from "react"
 import { match, P } from "ts-pattern"
 import { ThemeProvider, styled } from "@material-ui/styles"
+import { pipe } from "fp-ts/function"
+import { fromNullable, getOrElse } from "fp-ts/Option"
 import { Brand } from "./Brand"
 import { Dropdown } from "./Dropdown"
 import { Link } from "./Link"
 import { MenuIcon } from "./MenuIcon"
 import { transitionToAuto, transitionFromAuto, wasClicked } from "../utils/dom"
+import { navbarItems, formatNavbarData } from "../navbarItems"
 
 const Container = styled(
   forwardRef<HTMLDivElement, { children: ReactNode }>(
@@ -79,7 +82,7 @@ const Header = styled("li")({
 })
 
 type NavbarProperties = {
-  items: Array<
+  items?: Array<
     | {
         dropdown: boolean
         title: string
@@ -101,6 +104,7 @@ const Navbar = ({ items, brand, theme }: NavbarProperties) => {
   const [open, setOpen] = useState(false)
   const navReference = useRef<HTMLElement>(null)
   // const iconReference = useRef(null)
+
   const containerReference = useRef<HTMLDivElement>(null)
 
   const onClose = () => {
@@ -152,42 +156,56 @@ const Navbar = ({ items, brand, theme }: NavbarProperties) => {
     return <Brand title={title} href={href} />
   }
 
-  const renderItems = () => (
-    <Items>
-      {items.map((item, index) =>
-        match(item)
-          .with(
-            {
-              dropdown: true,
-              items: P.select("items_", P.not(undefined)),
-              title: P.select("title", P.string),
-            },
-            ({ items_, title }) => (
-              <Dropdown
-                key={title}
-                index={index}
-                open={activeIndex === index}
-                items={items_}
-                title={title}
-                theme={theme}
-                changeDropdown={changeDropdown}
-                // controlled
-              />
-            ),
-          )
-          .with(
-            {
-              dropdown: false,
-              href: P.select("href", P.string),
-              title: P.select("title", P.string),
-            },
-            ({ href, title }) => <Link href={href as string} title={title} />,
-          )
-          .with({ element: P.select(P.not(undefined)) }, (element) => element)
-          .otherwise(() => <> This message should not appear.</>),
-      )}
-    </Items>
-  )
+  const renderItems = () => {
+    const dropdownItems = pipe(
+      items,
+      fromNullable,
+      getOrElse(
+        () =>
+          formatNavbarData(navbarItems) as NonNullable<
+            NavbarProperties["items"]
+          >,
+      ),
+    )
+    return (
+      <Items>
+        {dropdownItems.map((item, index) =>
+          match(item)
+            .with(
+              {
+                dropdown: true,
+                items: P.select(
+                  "items_",
+                  P.array({ name: P.string, href: P.string }),
+                ),
+                title: P.select("title", P.string),
+              },
+              ({ items_, title }) => (
+                <Dropdown
+                  key={title}
+                  index={index}
+                  open={activeIndex === index}
+                  items={items_}
+                  title={title}
+                  theme={theme}
+                  changeDropdown={changeDropdown}
+                />
+              ),
+            )
+            .with(
+              {
+                dropdown: false,
+                href: P.select("href", P.string),
+                title: P.select("title", P.string),
+              },
+              ({ href, title }) => <Link href={href as string} title={title} />,
+            )
+            .with({ element: P.select(P.not(undefined)) }, (element) => element)
+            .otherwise(() => <> This message should not appear.</>),
+        )}
+      </Items>
+    )
+  }
 
   useEffect(() => {
     const currentContainer = containerReference.current
