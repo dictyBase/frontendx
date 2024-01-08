@@ -1,10 +1,10 @@
 [
   {
-    "url": "/research/techniques",
+    "url": "/research/techniques/editable",
     "label": "Techniques"
   },
   {
-    "url": "/research/teach",
+    "url": "/research/teach/editable",
     "label": "Teaching Protocols"
   },
   {
@@ -20,19 +20,19 @@
     "label": "DictyAccess"
   },
   {
-    "url": "/community/conference",
+    "url": "/community/conference/editable",
     "label": "Conference"
   },
   {
-    "url": "/community/labs",
+    "url": "/community/labs/editable",
     "label": "Labs"
   },
   {
-    "url": "/about",
+    "url": "/about/editable",
     "label": "About"
   },
   {
-    "url": "/stockcenter/contact",
+    "url": "/stockcenter/contact/editable",
     "label": "Contact"
   }
 ]
