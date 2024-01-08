@@ -91,7 +91,7 @@ type NavbarProperties = {
     | { dropdown: boolean; title: string; href: string }
     | { element: JSX.Element }
   >
-  brand: { title: string; href: string }
+  brand?: { title: string; href: string }
   theme: Object
 }
 
@@ -151,6 +151,7 @@ const Navbar = ({ items, brand, theme }: NavbarProperties) => {
   }
 
   const renderBrand = () => {
+    if (!brand) return <></>
     const { title, href } = brand
 
     return <Brand title={title} href={href} />
