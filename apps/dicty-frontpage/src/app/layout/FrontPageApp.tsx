@@ -5,13 +5,6 @@ import { HeaderWithAuth } from "auth"
 import { NavbarWithAuth } from "./NavbarWithAuth"
 import { FooterWithAuth } from "./FooterWithAuth"
 import { ErrorBoundary } from "../../common/components/errors/ErrorBoundary"
-import {
-  navbarItems,
-  NavbarItems,
-  navbarURL,
-  formatNavbarData,
-} from "../../common/utils/navbarItems"
-import { navTheme } from "../../common/utils/themes"
 import { frontpageRouter } from "../../routes"
 
 const useStyles = makeStyles((theme: Theme) => ({
