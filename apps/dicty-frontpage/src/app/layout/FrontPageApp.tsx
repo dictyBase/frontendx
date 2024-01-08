@@ -1,9 +1,9 @@
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import Container from "@material-ui/core/Container"
-import { Footer } from "@dictybase/footer"
 import { Navbar } from "@dictybase/navbar"
 import { HeaderWithAuth } from "auth"
 import { useFetch } from "dicty-hooks"
+import { FooterWithAuth } from "./FooterWithAuth"
 import { ErrorBoundary } from "../../common/components/errors/ErrorBoundary"
 import {
   navbarItems,
@@ -53,7 +53,7 @@ const FrontPageApp = () => {
           </ErrorBoundary>
         </Container>
       </main>
-      <Footer />
+      <FooterWithAuth />
     </div>
   )
 }
