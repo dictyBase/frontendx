@@ -45,7 +45,7 @@ const FrontPageApp = () => {
 
   return (
     <div className={classes.body}>
-      <HeaderWithAuth />
+      <HeaderWithAuth clientRouter={frontpageRouter} />
       <Navbar items={formatNavbarData(navbar.data)} theme={navTheme} />
       <main className={classes.main}>
         <Container maxWidth="xl">
