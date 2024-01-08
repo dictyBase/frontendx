@@ -10,7 +10,6 @@ const FooterWithAuth = () => {
   const { isAuthorized, isLoading } = useAuthorization({
     entries: authorizedRoles,
   })
-  console.log(isAuthorized)
   return match(isLoading)
     .with(true, () => <Loader />)
     .with(false, () =>
