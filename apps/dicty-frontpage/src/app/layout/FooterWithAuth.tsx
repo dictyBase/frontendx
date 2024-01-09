@@ -4,11 +4,12 @@ import { displayOnAuthorzied, useAuthorization } from "auth"
 import { Loader } from "../../common/components/Loader"
 import authFooterData from "../../common/data/authFooterData.json"
 
+const authorizedRoles = ["content-admin"]
+
 const FooterWithAuth = () => {
   const { isAuthorized, isLoading } = useAuthorization({
-    entries: ["content-admin"],
+    entries: authorizedRoles,
   })
-
   return match(isLoading)
     .with(true, () => <Loader />)
     .with(false, () =>
