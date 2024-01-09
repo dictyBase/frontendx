@@ -5,9 +5,11 @@ import { Loader } from "../../common/components/Loader"
 import { navTheme } from "../../common/utils/themes"
 import authNavbarData from "../../common/data/authNavbarData.json"
 
+const authorizedRoles = ["content-admin"]
+
 const NavbarWithAuth = () => {
   const { isAuthorized, isLoading } = useAuthorization({
-    entries: ["content-admin"],
+    entries: authorizedRoles,
   })
 
   return match(isLoading)
