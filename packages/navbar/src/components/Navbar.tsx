@@ -234,7 +234,7 @@ const Navbar = ({ items, brand, theme }: NavbarProperties) => {
             <MenuIcon onClick={toggle} open={open} theme={theme} />
           </Header>
           {brand && renderBrand()}
-          {items && <Items>{renderItems()}</Items>}
+          {renderItems()}
         </Nav>
       </Container>
     </ThemeProvider>
