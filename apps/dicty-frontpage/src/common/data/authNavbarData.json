@@ -50,23 +50,23 @@
         "items": [
           {
             "label": "Dicty Art",
-            "link": "/explore/art/navbar"
+            "link": "/explore/art/editable"
           },
           {
             "label": "Gallery",
-            "link": "/explore/gallery/navbar"
+            "link": "/explore/gallery/editable"
           },
           {
             "label": "Learn About Dicty",
-            "link": "/explore/learn/navbar"
+            "link": "/explore/learn/editable"
           },
           {
             "label": "Teaching Protocols",
-            "link": "/explore/teach/navbar"
+            "link": "/explore/teach/editable"
           },
           {
             "label": "Useful Links",
-            "link": "/explore/links/navbar"
+            "link": "/explore/links/editable"
           }
         ]
       }
