@@ -3,7 +3,7 @@ import { match } from "ts-pattern"
 import { displayOnAuthorzied, useAuthorization } from "auth"
 import { Loader } from "../../common/components/Loader"
 import { navTheme } from "../../common/utils/themes"
-import authFooterData from "../../common/data/authNavbarData.json"
+import authNavbarData from "../../common/data/authNavbarData.json"
 
 const NavbarWithAuth = () => {
   const { isAuthorized, isLoading } = useAuthorization({
@@ -16,7 +16,7 @@ const NavbarWithAuth = () => {
       displayOnAuthorzied({
         isAuthorized,
         authorized: (
-          <Navbar items={formatNavbarData(authFooterData)} theme={navTheme} />
+          <Navbar items={formatNavbarData(authNavbarData)} theme={navTheme} />
         ),
         unauthorized: <Navbar theme={navTheme} />,
       }),
