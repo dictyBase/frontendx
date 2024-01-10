@@ -1,6 +1,5 @@
 import { ACCESS } from "auth"
 import Grid from "@material-ui/core/Grid"
-import { useStyles } from "@dictybase/ui-dsc"
 import {
   Title,
   Heading,
@@ -8,6 +7,7 @@ import {
   Slide,
   CatalogLinks,
   FileLinks,
+  useStyles,
 } from "@dictybase/ui-dsc"
 
 /**
@@ -26,11 +26,11 @@ const EditHomepage = () => {
           xs={12}
           className={classes.intro}
           direction="column">
-          <IntroEditor isEditable={true}/>
+          <IntroEditor isEditable />
         </Grid>
         <Grid container item xs={12} spacing={4} justifyContent="flex-start">
           <Slide />
-          <CatalogLinks isAuthorized={true} />
+          <CatalogLinks isAuthorized />
           <FileLinks />
         </Grid>
       </Grid>
