@@ -8,7 +8,7 @@ import { Logo } from "./Logo"
 import { Links } from "./Links"
 import { Search } from "./Search"
 
-type HeaderProperties = { LoginOut: Comp }
+type HeaderProperties = { links: Array<Comp> }
 
 const boxWrapper = (children: Comp) => (
   <Box className={headerStyles().header}>{children}</Box>
@@ -29,13 +29,13 @@ const boxWrapper = (children: Comp) => (
  * )
  * ```
  */
-const Header = ({ LoginOut }: HeaderProperties) =>
+const Header = ({ links }: HeaderProperties) =>
   pipe(
     // An array of JSX components
     [
       <Logo key={uuid4()} />,
       <Search key={uuid4()} />,
-      <Links key={uuid4()} LoginOut={LoginOut} />,
+      <Links key={uuid4()} links={links} />,
     ],
     // Converts the array of JSX components into a Option monad
     fromChildren,
