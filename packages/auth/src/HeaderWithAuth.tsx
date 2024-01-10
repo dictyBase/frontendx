@@ -41,23 +41,6 @@ type logtoHookProperties = HeaderWithAuthProperties & {
  * If the user is not authenticated or does not exist, it renders a Header component with a LoginButton component.
  *
  */
-// const conditonalHandler = (authCase: logtoHookProperties) =>
-//   match(authCase)
-//     .with(
-//       P.when(({ isAuthenticated, user }) => isAuthenticated && user),
-//       ({ user, clientRouter }) => (
-//         <Header
-//           LoginOut={
-//             <LogoutButton
-//               url={homePath}
-//               user={user as UserWithRoles}
-//               clientRouter={clientRouter}
-//             />
-//           }
-//         />
-//       ),
-//     )
-//     .otherwise(() => <Header LoginOut={<LoginButton url={callbackPath} />} />)
 const conditonalHandler = (authCase: logtoHookProperties) =>
   match(authCase)
     .with(
