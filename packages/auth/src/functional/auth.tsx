@@ -7,7 +7,7 @@ type ConditionalRouteProperties = {
   unauthorized: Comp
 }
 
-const displayOnAuthorzied = (property: ConditionalRouteProperties) =>
+const displayOnAuthorized = (property: ConditionalRouteProperties) =>
   match(property)
     .when(
       ({ isAuthorized }) => isAuthorized,
@@ -15,4 +15,4 @@ const displayOnAuthorzied = (property: ConditionalRouteProperties) =>
     )
     .otherwise(({ unauthorized }) => <>{unauthorized}</>)
 
-export { displayOnAuthorzied }
+export { displayOnAuthorized }
