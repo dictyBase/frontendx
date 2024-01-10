@@ -1,6 +1,6 @@
 import { Footer } from "@dictybase/footer"
 import { match } from "ts-pattern"
-import { displayOnAuthorzied, useAuthorization, authFooterData } from "auth"
+import { displayOnAuthorized, useAuthorization, authFooterData } from "auth"
 import { Loader } from "../../common/components/Loader"
 
 const authorizedRoles = ["content-admin"]
@@ -12,7 +12,7 @@ const FooterWithAuth = () => {
   return match(isLoading)
     .with(true, () => <Loader />)
     .with(false, () =>
-      displayOnAuthorzied({
+      displayOnAuthorized({
         isAuthorized,
         authorized: <Footer data={authFooterData} />,
         unauthorized: <Footer />,
