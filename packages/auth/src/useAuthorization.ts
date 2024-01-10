@@ -16,6 +16,7 @@ const useAuthorization = ({ entries }: useAuthorizationProperties) => {
   // Initialize state variables
   const [isAuthorized, setAuthorization] = useState<boolean>(false)
   const [isLoading, setLoading] = useState<boolean>(true)
+  const [user, setUser] = useState<UserWithRoles>()
 
   useEffect(() => {
     // Function to check user authorization
@@ -29,6 +30,7 @@ const useAuthorization = ({ entries }: useAuthorizationProperties) => {
       if (authUser) {
         // Set the authorization based on matching the user's roles with the entries
         setAuthorization(matchEntries(records, authUser.roles))
+        setUser(authUser)
       }
       // Set the loading state to false once the authorization check is completed
       setLoading(false)
@@ -38,7 +40,7 @@ const useAuthorization = ({ entries }: useAuthorizationProperties) => {
     // Only re-run the effect when the entries array changes
   }, [entries, fetchUserInfo, isAuthenticated])
   // Return the authorization status and loading state
-  return { isAuthorized, isLoading }
+  return { isAuthenticated, isAuthorized, isLoading, user }
 }
 
 export { useAuthorization }
