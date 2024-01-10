@@ -1,9 +1,8 @@
 import { Navbar, formatNavbarData } from "@dictybase/navbar"
 import { match } from "ts-pattern"
-import { displayOnAuthorzied, useAuthorization } from "auth"
+import { displayOnAuthorzied, useAuthorization, authNavbarData } from "auth"
 import { Loader } from "../../common/components/Loader"
 import { navTheme } from "../../common/utils/themes"
-import authNavbarData from "../../common/data/authNavbarData.json"
 
 const authorizedRoles = ["content-admin"]
 
