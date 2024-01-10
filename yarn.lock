@@ -58,7 +58,7 @@
     tslib "^2.3.0"
     zen-observable-ts "^1.2.5"
 
-"@apollo/client@^3.7.10", "@apollo/client@^3.8.8":
+"@apollo/client@^3.7.10":
   version "3.8.8"
   resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.8.8.tgz#1a004b2e6de4af38668249a7d7790f6a3431e475"
   integrity sha512-omjd9ryGDkadZrKW6l5ktUAdS4SNaFOccYQ4ZST0HLW83y8kQaSZOCTNlpkoBUK8cv6qP8+AxOKwLm2ho8qQ+Q==
@@ -8782,8 +8782,8 @@ dicty-graphql-schema@dictyBase/dicty-graphql-schema:
   version "1.9.0"
   resolved "https://codeload.github.com/dictyBase/dicty-graphql-schema/tar.gz/0829dbaf20c08fcb112113d7f2f7d5c9bc207cbc"
   dependencies:
-    "@apollo/client" "^3.7.0"
-    graphql "^16.6.0"
+    "@apollo/client" "^3.8.8"
+    graphql "^16.8.1"
     graphql-tag "^2.12.6"
     react "17.x"
     react-dom "17.x"
