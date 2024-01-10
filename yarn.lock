@@ -2380,40 +2380,40 @@
   dependencies:
     "@lexical/offset" "0.11.3"
 
-"@logto/browser@^2.1.2":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@logto/browser/-/browser-2.1.2.tgz#e47eff4d5ceb101c980f6ad715205582a8adbeef"
-  integrity sha512-LADZHT7LTyiWDwWmBwh3qAtOg+IVEjfaFKBTB/RQBc5T9xYO4q4JcyW1XgpMlkc0uLqOtW3uOGztUVs0ugi6/g==
+"@logto/browser@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@logto/browser/-/browser-2.2.1.tgz#82abf90ea88240f6b665e362298c72243227e64e"
+  integrity sha512-SooFjYxWUALzHflqVMM11OfNKOA/6NUAj35Me/galRCFKHYA6xotjI92UrGr3mUjZg5SIh/Sm3TEDHH8HrzHVw==
   dependencies:
-    "@logto/client" "^2.2.3"
+    "@logto/client" "^2.3.1"
     "@silverhand/essentials" "^2.6.2"
     js-base64 "^3.7.4"
 
-"@logto/client@^2.2.3":
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/@logto/client/-/client-2.2.3.tgz#e792b6088419aa9e50907e21c378a04637ae4055"
-  integrity sha512-xq4LhQ6ItbukAHgsMDcgfspTpdpO5sSfSEugpOrGP/nLwzGTfBO78OSUfMdBQEDr5+3SRmONuSjUBBwssOLINA==
+"@logto/client@^2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@logto/client/-/client-2.3.1.tgz#fd81ca91ed95c5faaca930c665bfc9f000b35c3c"
+  integrity sha512-LNNnMYLy9372T6EqWlEHqUSl16r4si897fZkehCv8zEY4DPD3fpZAp348/hC8ifNTL3NEZUuOQsjP/fF6fImbA==
   dependencies:
-    "@logto/js" "^2.1.3"
+    "@logto/js" "^3.0.0"
     "@silverhand/essentials" "^2.6.2"
     camelcase-keys "^7.0.1"
-    jose "^4.13.2"
+    jose "^5.0.0"
 
-"@logto/js@^2.1.3":
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/@logto/js/-/js-2.1.3.tgz#38b22c67576a7e68e3e470f0a715e75eee5ca421"
-  integrity sha512-TOuoC5gHx/SfY5gcGSBfw63x5TpM6Lm/9J5y0Jy003Z1DZARUlpz0KbzyCVAIC/+6qIefkmNPHKl1rq9MB/hog==
+"@logto/js@^3.0.0":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@logto/js/-/js-3.0.1.tgz#085e1aa6a1529d2665162dba8c9785932c06575c"
+  integrity sha512-vsU6mH5oiiW3k00pMyVA4V31K2Bd0rOT9qWch2l5e5o1yCQLJ3zUIOjGjChu3m2TRu1d920iiUpZU3Lzf6Pwdw==
   dependencies:
     "@silverhand/essentials" "^2.6.2"
     camelcase-keys "^7.0.1"
-    jose "^4.13.2"
+    jose "^5.0.0"
 
 "@logto/react@^2.1.2":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@logto/react/-/react-2.1.2.tgz#8b0a56bebbda5f71c6ed6cb89f9cee764ef32de3"
-  integrity sha512-4Fz5GG5N7y9ynYVutuLZgBornkVccaxG1vmAOxt233wfFPmNzESJ+TlYGe2FbngC7z9xfT6c7f9Q+1LZQmrzVg==
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/@logto/react/-/react-2.2.3.tgz#934862b81819a685bfe4e545708d48ae9ca191c5"
+  integrity sha512-FfXP64jMYL26yaBU0cW2lhXmnr+M6kARLf/R9TPAsxu9wSt//CfOC2rfCro5vC5JArfdFxKsrw+Uua1NfETM3A==
   dependencies:
-    "@logto/browser" "^2.1.2"
+    "@logto/browser" "^2.2.1"
     "@silverhand/essentials" "^2.6.2"
 
 "@material-ui/core@4.12.x", "@material-ui/core@4.x", "@material-ui/core@^4.12.3", "@material-ui/core@^4.12.4", "@material-ui/core@^4.x":
@@ -9352,10 +9352,10 @@ jest@^29.6.2:
     import-local "^3.0.2"
     jest-cli "^29.7.0"
 
-jose@^4.13.2:
-  version "4.14.6"
-  resolved "https://registry.yarnpkg.com/jose/-/jose-4.14.6.tgz#94dca1d04a0ad8c6bff0998cdb51220d473cc3af"
-  integrity sha512-EqJPEUlZD0/CSUMubKtMaYUOtWe91tZXTWMJZoKSbLk+KtdhNdcvppH8lA9XwVu2V4Ailvsj0GBZJ2ZwDjfesQ==
+jose@^5.0.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/jose/-/jose-5.2.0.tgz#d0ffd7f7e31253f633eefb190a930cd14a916995"
+  integrity sha512-oW3PCnvyrcm1HMvGTzqjxxfnEs9EoFOFWi2HsEGhlFVOXxTE3K9GKWVMFoFw06yPUqwpvEWic1BmtUZBI/tIjw==
 
 jotai-optics@^0.3.0:
   version "0.3.1"
