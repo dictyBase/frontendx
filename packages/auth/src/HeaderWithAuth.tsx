@@ -1,12 +1,14 @@
 import { Header } from "@dictybase/header"
 import { match, P } from "ts-pattern"
-import { useLogto } from "@logto/react"
-import { useState, useEffect } from "react"
+import { pipe } from "fp-ts/function"
+import { append } from "fp-ts/Array"
 import { Router as RemixRouter } from "@remix-run/router"
 import { type UserWithRoles } from "./const"
 import { LoginButton } from "./LoginButton"
 import { LogoutButton } from "./LogoutButton"
 import { callbackPath, homePath } from "./const"
+import { useAuthorization } from "./useAuthorization"
+import { defaultHeaderLinks, authorizedHeaderLinks } from "./headerLinks"
 
 /**
  * @description Represents the properties required for the HeaderWithAuth component.
@@ -27,8 +29,8 @@ type HeaderWithAuthProperties = {
  * @property {UserWithRoles | undefined} [user] - An optional object representing a user with roles.
  */
 type logtoHookProperties = HeaderWithAuthProperties & {
-  error: Error | undefined
   isAuthenticated: boolean
+  isAuthorized: boolean
   isLoading: boolean
   user: UserWithRoles | undefined
 }
@@ -39,56 +41,81 @@ type logtoHookProperties = HeaderWithAuthProperties & {
  * If the user is not authenticated or does not exist, it renders a Header component with a LoginButton component.
  *
  */
-const conditonalHandler = (logtoCase: logtoHookProperties) =>
-  match(logtoCase)
+// const conditonalHandler = (authCase: logtoHookProperties) =>
+//   match(authCase)
+//     .with(
+//       P.when(({ isAuthenticated, user }) => isAuthenticated && user),
+//       ({ user, clientRouter }) => (
+//         <Header
+//           LoginOut={
+//             <LogoutButton
+//               url={homePath}
+//               user={user as UserWithRoles}
+//               clientRouter={clientRouter}
+//             />
+//           }
+//         />
+//       ),
+//     )
+//     .otherwise(() => <Header LoginOut={<LoginButton url={callbackPath} />} />)
+const conditonalHandler = (authCase: logtoHookProperties) =>
+  match(authCase)
     .with(
-      P.when(({ isAuthenticated, user }) => isAuthenticated && user),
-      ({ user, clientRouter }) => (
-        <Header
-          LoginOut={
+      {
+        isAuthorized: true,
+        isAuthenticated: true,
+        user: P.not(undefined),
+      },
+      ({ user, clientRouter }) =>
+        pipe(
+          authorizedHeaderLinks,
+          append(
             <LogoutButton
               url={homePath}
               user={user as UserWithRoles}
               clientRouter={clientRouter}
-            />
-          }
-        />
-      ),
+            />,
+          ),
+        ),
     )
-    .otherwise(() => <Header LoginOut={<LoginButton url={callbackPath} />} />)
+    .with(
+      {
+        isAuthorized: false,
+        isAuthenticated: true,
+        user: P.not(undefined),
+      },
+      ({ user, clientRouter }) =>
+        pipe(
+          defaultHeaderLinks,
+          append(
+            <LogoutButton
+              url={homePath}
+              user={user as UserWithRoles}
+              clientRouter={clientRouter}
+            />,
+          ),
+        ),
+    )
+    .otherwise(() =>
+      pipe(defaultHeaderLinks, append(<LoginButton url={callbackPath} />)),
+    )
 
+const authorizedRole = ["content-admin"]
 /**
  * HeaderWithAuth is a React component that renders a header with authentication information.
  */
 const HeaderWithAuth = ({ clientRouter }: HeaderWithAuthProperties) => {
-  // Destructure properties from the useLogto() hook
-  const { isAuthenticated, isLoading, error, fetchUserInfo, getAccessToken } =
-    useLogto()
-
-  // Define state for the authenticated user
-  const [user, setAuthUser] = useState<UserWithRoles>()
-
-  // Fetch user information upon component mount or when dependencies change
-  useEffect(() => {
-    const handleUserInformation = async () => {
-      if (isAuthenticated) {
-        // Fetch user info and cast result to UserWithRoles type
-        const authUser = (await fetchUserInfo()) as UserWithRoles
-        setAuthUser(authUser)
-      }
-    }
-    // Call the handleUserInformation function
-    handleUserInformation()
-  }, [fetchUserInfo, isAuthenticated, getAccessToken])
-
-  // Return the result of the conditonalHandler function
-  return conditonalHandler({
-    isAuthenticated,
+  const { isLoading, isAuthenticated, isAuthorized, user } = useAuthorization({
+    entries: authorizedRole,
+  })
+  const links = conditonalHandler({
     isLoading,
-    error,
+    isAuthenticated,
+    isAuthorized,
     user,
     clientRouter,
   })
+  return <Header links={links} />
 }
 
 export { HeaderWithAuth }
