@@ -40,3 +40,8 @@ cypress/screenshots
 .turbo
 
 .eslintcache
+
+# dicty-frontpage
+clientConfig.ts
+clientConfig.js
+.envrc
