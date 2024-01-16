@@ -6,6 +6,6 @@ const pathParts = (path: string) =>
   path
     .replaceAll(/\/src\/pages|index|\.tsx$/g, "")
     .replace(/\[\.{3}.+]/, "*")
-    .replaceAll(/\[(\w+)]/, ":$1")
+    .replaceAll(/\[(\w+)]/g, ":$1")
 
 export { pathParts }
