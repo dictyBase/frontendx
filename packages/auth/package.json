@@ -20,7 +20,8 @@
   },
   "scripts": {
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
-    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/auth.json"
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/auth.json",
+    "test": "vitest run"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",
