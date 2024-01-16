@@ -4,7 +4,7 @@
  */
 const pathParts = (path: string) =>
   path
-    .replaceAll(/\/src\/pages|index|\.tsx$/g, "")
+    .replaceAll(/\/src\/pages|\/index|\.tsx$/g, "")
     .replace(/\[\.{3}.+]/, "*")
     .replaceAll(/\[(\w+)]/g, ":$1")
 
