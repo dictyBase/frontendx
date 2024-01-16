@@ -9,6 +9,7 @@ import { Login } from "../Login"
 import { Protected } from "../Protected"
 import { Private } from "../Private"
 import { UnAuthorized } from "../UnAuthorized"
+import { pathParts } from "../pathParts"
 
 enum ACCESS {
   public,
@@ -55,16 +56,6 @@ type mergedRoutesProperties = {
 }
 
 type dynamicRoutesProperties = Record<string, PageComponentData>
-
-/**
- * This function takes a path and returns the modified path parts.
- * It replaces specific patterns in the path string with desired values.
- */
-const pathParts = (path: string) =>
-  path
-    .replaceAll(/\/src\/pages|index|\.tsx$/g, "")
-    .replace(/\[\.{3}.+]/, "*")
-    .replace(/\[(.+)]/, ":$1")
 
 /**
  * Maps a route and its corresponding page component data to a route object.
