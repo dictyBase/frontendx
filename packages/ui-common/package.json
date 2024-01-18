@@ -1,0 +1,40 @@
+{
+  "name": "ui-common",
+  "version": "0.0.0",
+  "description": "React component for dictybase applications",
+  "main": "./src/index.ts",
+  "author": "Kevin Tun",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "@types/react": "^17.x",
+    "@types/react-dom": "^17.x",
+    "@testing-library/jest-dom": "^5.x",
+    "@testing-library/react": "^12.x",
+    "@testing-library/user-event": "^14.x",
+    "vitest": "0.33.x",
+    "@vitest/coverage-v8": "^0.34.5",
+    "tsconfig": "*",
+    "eslint-config-custom": "*"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.x",
+    "@material-ui/icons": "^4.x",
+    "@material-ui/lab": "^4.11.3-deprecations.1",
+    "@fontsource/roboto": "^5.0.8",
+    "react": "17.x",
+    "react-dom": "17.x",
+    "fp-ts": "^2.16.0"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "coverage": "vitest run --coverage",
+    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/header.json"
+  },
+  "typedoc": {
+    "entryPoint": "./src/index.ts",
+    "displayName": "ui-common",
+    "readmeFile": "./README.md"
+  }
+}
