@@ -30,7 +30,7 @@ C2 --> E2 -->|navigate| F2 --> G2 -->|data|H2 -->|data|I2
 H2 --> J2 -->|navigate| A2
 
 classDef regularUser stroke:green,stroke-width:2px
-classDef authorizedUser stroke:#f3e35d,stroke-width:2px
+classDef authorizedUser stroke:yellow,stroke-width:2px
 
 class A,B,C,D regularUser
 class A2,B2,C2,D2,E2,F2,G2,H2,I2,J2 authorizedUser
