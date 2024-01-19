@@ -1,14 +1,12 @@
-import { useParams } from "react-router-dom"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { ContentView } from "./ContentView"
-import { getSlug } from "../../common/utils/getSlug"
+import { useSlug } from "../../common/utils/useSlug"
 import { GraphQLErrorPage } from "../../common/components/errors/GraphQLErrorPage"
 import { Loader } from "../../common/components/Loader"
 
 const Show = () => {
-  const { name, subname } = useParams()
-  const slug = getSlug({ name, subname })
+  const slug = useSlug()
   const { loading, error, data } = useContentBySlugQuery({
     variables: { slug },
   })
