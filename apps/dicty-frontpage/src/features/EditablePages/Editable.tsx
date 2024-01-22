@@ -5,7 +5,7 @@ import { match, P } from "ts-pattern"
 import { GraphQLErrorPage } from "../../common/components/errors/GraphQLErrorPage"
 import { EditableView } from "./EditableView"
 import { Loader } from "../../common/components/Loader"
-import { useSlug } from "../../common/utils/useSlug"
+import { useSlug } from "../../common/hooks/useSlug"
 import { hasNotFoundError } from "../../common/utils/hasNotFoundError"
 
 const Editable = () => {
