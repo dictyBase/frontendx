@@ -50,23 +50,23 @@ const navbarItems = {
         items: [
           {
             label: "Dicty Art",
-            link: "/explore/art",
+            link: "/explore/art/show",
           },
           {
             label: "Gallery",
-            link: "/explore/gallery",
+            link: "/explore/gallery/show",
           },
           {
             label: "Learn About Dicty",
-            link: "/explore/learn",
+            link: "/explore/learn/show",
           },
           {
             label: "Teaching Protocols",
-            link: "/explore/teach",
+            link: "/explore/teach/show",
           },
           {
             label: "Useful Links",
-            link: "/explore/links",
+            link: "/explore/links/show",
           },
         ],
       },
@@ -79,27 +79,27 @@ const navbarItems = {
         items: [
           {
             label: "Techniques",
-            link: "/research/techniques",
+            link: "/research/techniques/show",
           },
           {
             label: "Anatomy Ontology",
-            link: "/research/ontology",
+            link: "/research/ontology/show",
           },
           {
             label: "Codon Bias Table",
-            link: "/research/codon",
+            link: "/research/codon/show",
           },
           {
             label: "Nomenclature Guidelines",
-            link: "/research/nomenclature",
+            link: "/research/nomenclature/show",
           },
           {
             label: "Phenotyping",
-            link: "/research/phenotype",
+            link: "/research/phenotype/show",
           },
           {
             label: "Axenic Strain History",
-            link: "/research/strain-history",
+            link: "/research/strain-history/show",
           },
         ],
       },
@@ -124,19 +124,19 @@ const navbarItems = {
           },
           {
             label: "Order Information",
-            link: "/stockcenter/information/order",
+            link: "/stockcenter/information/order/show",
           },
           {
             label: "Deposit Information",
-            link: "/stockcenter/information/deposit",
+            link: "/stockcenter/information/deposit/show",
           },
           {
             label: "Payment Information",
-            link: "/stockcenter/information/payment",
+            link: "/stockcenter/information/payment/show",
           },
           {
             label: "FAQ",
-            link: "/stockcenter/information/faq",
+            link: "/stockcenter/information/faq/show",
           },
           {
             label: "Standard Operating Procedures",
@@ -153,31 +153,31 @@ const navbarItems = {
         items: [
           {
             label: "Cite Us",
-            link: "/community/citation",
+            link: "/community/citation/show",
           },
           {
             label: "Dicty Annual Conferences",
-            link: "/community/conference",
+            link: "/community/conference/show",
           },
           {
             label: "Dicty Email Forum",
-            link: "/community/listserv",
+            link: "/community/listserv/show",
           },
           {
             label: "Dicty Labs",
-            link: "/community/labs",
+            link: "/community/labs/show",
           },
           {
             label: "History",
-            link: "/community/history",
+            link: "/community/history/show",
           },
           {
             label: "Jobs",
-            link: "/community/jobs",
+            link: "/community/jobs/show",
           },
           {
             label: "Community Annotations",
-            link: "/community/annotations",
+            link: "/community/annotations/show",
           },
         ],
       },

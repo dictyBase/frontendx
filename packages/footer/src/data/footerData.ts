@@ -2,11 +2,11 @@ import { FooterItem } from "../types"
 
 export const footerData: Array<FooterItem> = [
   {
-    url: "/research/techniques",
+    url: "/research/techniques/show",
     label: "Techniques",
   },
   {
-    url: "/research/teach",
+    url: "/research/teach/show",
     label: "Teaching Protocols",
   },
   {
@@ -22,19 +22,19 @@ export const footerData: Array<FooterItem> = [
     label: "DictyAccess",
   },
   {
-    url: "/community/conference",
+    url: "/community/conference/show",
     label: "Conference",
   },
   {
-    url: "/community/labs",
+    url: "/community/labs/show",
     label: "Labs",
   },
   {
-    url: "/about",
+    url: "/about/show",
     label: "About",
   },
   {
-    url: "/stockcenter/contact",
+    url: "/stockcenter/contact/show",
     label: "Contact",
   },
 ]

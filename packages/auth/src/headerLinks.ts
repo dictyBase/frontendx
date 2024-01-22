@@ -4,7 +4,7 @@ import { v4 as uuid4 } from "uuid"
 
 const authorizedIconItems = [
   {
-    href: "/community/citation/editable",
+    href: "/community/citation/show",
     title: "Cite Us",
     Icon: Add,
     key: uuid4(),
@@ -16,7 +16,7 @@ const authorizedIconItems = [
     key: uuid4(),
   },
   {
-    href: "/about/editable",
+    href: "/about/show",
     title: "About dictybase",
     Icon: Info,
     key: uuid4(),
