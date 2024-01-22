@@ -3,6 +3,7 @@ import { match, P } from "ts-pattern"
 type ContentPageRouteParameters = {
   name?: string
   subname?: string
+  lastSegment?: string
 }
 
 /**
@@ -15,6 +16,7 @@ const getSlug = (routeParameters: ContentPageRouteParameters): string =>
   match(routeParameters)
     .with({ subname: P.select(P.string) }, (subname) => subname)
     .with({ name: P.select(P.string) }, (name) => name)
+    .with({ lastSegment: P.select(P.string) }, (lastSegment) => lastSegment)
     .otherwise(() => "")
 
 export { getSlug }
