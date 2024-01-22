@@ -5,7 +5,7 @@ import { match, P } from "ts-pattern"
 import { GraphQLErrorPage } from "../../common/components/errors/GraphQLErrorPage"
 import { EditView } from "./EditView"
 import { Loader } from "../../common/components/Loader"
-import { useSlug } from "../../common/utils/useSlug"
+import { useSlug } from "../../common/hooks/useSlug"
 import { hasNotFoundError } from "../../common/utils/hasNotFoundError"
 
 const Edit = () => {

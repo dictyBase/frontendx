@@ -1,7 +1,7 @@
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { ContentView } from "./ContentView"
-import { useSlug } from "../../common/utils/useSlug"
+import { useSlug } from "../../common/hooks/useSlug"
 import { GraphQLErrorPage } from "../../common/components/errors/GraphQLErrorPage"
 import { Loader } from "../../common/components/Loader"
 
