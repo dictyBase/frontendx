@@ -57,7 +57,7 @@ const createTaskEitherFetch = (url: string): TaskEither<string, Response> =>
     ),
   )
 
-const parseRSSResponse = (response: Response) =>
+const parseResponseToString = (response: Response) =>
   pipe(
     TEtryCatch(
       () => response.text(),
@@ -104,7 +104,7 @@ const useFetchPublications = (url: string) => {
       await pipe(
         url,
         createTaskEitherFetch,
-        TEchain(parseRSSResponse),
+        TEchain(parseResponseToString),
         TEmap(extractPublicationItems),
         TEtapError((e) => {
           setError(e)
@@ -122,7 +122,7 @@ const useFetchPublications = (url: string) => {
 // pipe(
 //   RSS_URL,
 //   createTaskEitherFetch,
-//   TEchain(parseRSSResponse),
+//   TEchain(parseResponseToString),
 //   TEmap(extractPublicationItems),
 // )().then((a) => console.log(a))
 
