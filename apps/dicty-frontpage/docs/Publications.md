@@ -8,7 +8,8 @@ note: loading and error handling for Paper component is currently omitted
 flowchart TD
 
 A[Papers]
-B[SinglePaper]
+B[PapersView]
+C[SinglePaper]
 H["useFetchPublication()"]
 H1(["fetch XML String"])
 H2(["Parse string -> XMLDocument"])
@@ -17,7 +18,8 @@ H4(["NodeList -> PublicationItem[]"])
 R(["{ data, loading, error }"])
 
 A --> H
-A ------->|"single publication item"| B
+A ---->|data| B
+B ---->|"single publication item"|C
 
 H --> H1 -->|data| H2 --> H3 --> H4 --> R
 H1 -->|error| R --> A
