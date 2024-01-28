@@ -1,37 +1,30 @@
-/* eslint-disable unicorn/prefer-query-selector */
 import { useState, useEffect } from "react"
-import { pipe, flow } from "fp-ts/function"
-import { type Task, map as Tmap } from "fp-ts/Task"
+import { pipe, constVoid } from "fp-ts/function"
 import {
+  of as Oof,
+  Do as ODo,
+  bind as Obind,
   fromNullable,
   getOrElse as OgetOrElse,
   map as Omap,
+  Applicative as OApplicative,
 } from "fp-ts/Option"
-import { map as Amap } from "fp-ts/Array"
+import { map as Amap, sequence } from "fp-ts/Array"
 import {
   type TaskEither,
-  of as TEof,
   map as TEmap,
   match as TEmatch,
   tryCatch as TEtryCatch,
-  chain as TEchain,
-  getOrElse as TEgetOrElse,
-  tap as TEtap,
-  tapError as TEtapError,
-  left as TEleft,
-  right as TEright,
+  flatMap as TEflatMap,
 } from "fp-ts/TaskEither"
-import { type Either, left as Eleft, right as Eright } from "fp-ts/Either"
-
-const RSS_URL =
-  "https://pubmed.ncbi.nlm.nih.gov/rss/search/1xSjLNP-2lGAmjK0hZKzE4pxRxyAAh7BAEFNc5kyVReacTxspv/?limit=15&utm_campaign=pubmed-2&fc=20231211102630"
+import { left as Eleft, right as Eright } from "fp-ts/Either"
 
 type PublicationItem = {
-  title: string
-  authors: Array<string>
-  description: string
-  publishDate: string
-  link: string
+  readonly title: string
+  readonly authors: Array<string>
+  readonly description: string
+  readonly publishDate: string
+  readonly link: string
 }
 
 /**
@@ -53,7 +46,9 @@ const createTaskEitherFetch = (url: string): TaskEither<string, Response> =>
       (response) =>
         response.status === 200
           ? Eright(response)
-          : Eleft(`HTTP Error ${response.status}: ${response.statusText}`),
+          : Eleft(
+              `Invalid Response. HTTP Code ${response.status}: ${response.statusText}`,
+            ),
     ),
   )
 
@@ -65,65 +60,102 @@ const parseResponseToString = (response: Response) =>
     ),
   )
 
-const resolveQuerySelector = flow(
-  fromNullable<Element | null>,
-  Omap(({ innerHTML }) => innerHTML),
-  OgetOrElse(() => ""),
-)
+const extractItems = (xmlString: string): Array<Element> => [
+  ...new window.DOMParser()
+    .parseFromString(xmlString, "text/xml")
+    .querySelectorAll("item"),
+]
 
-const resolveQuerySelectorAll = flow(
-  (a: HTMLCollectionOf<Element>) => [...a],
-  Amap(({ innerHTML }) => innerHTML),
-)
-
-const extractPublicationItems = (xmlString: string): Array<PublicationItem> =>
+const getInnerHTML = (element: Element | null) =>
   pipe(
-    xmlString,
-    (a) => new window.DOMParser().parseFromString(a, "text/xml"),
-    (b) => b.querySelectorAll("item"),
-    (c) => [...c],
-    Amap((fa) => ({
-      title: pipe(fa.querySelector("title"), resolveQuerySelector),
-      authors: pipe(
-        fa.getElementsByTagName("dc:creator"),
-        resolveQuerySelectorAll,
-      ),
-      description: pipe(fa.querySelector("description"), resolveQuerySelector),
-      publishDate: pipe(fa.querySelector("date"), resolveQuerySelector),
-      link: pipe(fa.querySelector("link"), resolveQuerySelector),
-    })),
+    element,
+    fromNullable,
+    Omap(({ innerHTML }) => innerHTML),
+  )
+
+const getElementsByTagName = (authors: HTMLCollectionOf<Element>) =>
+  pipe(
+    authors,
+    (a) => [...a],
+    Amap(({ innerHTML }) => innerHTML),
+  )
+
+const getItemProperties = (item: Element) =>
+  pipe(
+    ODo,
+    Obind("title", () => getInnerHTML(item.querySelector("title"))),
+    Obind("publishDate", () => getInnerHTML(item.querySelector("date"))),
+    Obind("link", () => getInnerHTML(item.querySelector("link"))),
+    Obind("description", () => getInnerHTML(item.querySelector("description"))),
+    Obind("authors", () =>
+      // eslint-disable-next-line unicorn/prefer-query-selector
+      Oof(getElementsByTagName(item.getElementsByTagName("dc:creator"))),
+    ),
+  )
+
+const mapElementsToPublicationItems = (elements: Array<Element>) =>
+  pipe(
+    elements,
+    Amap(getItemProperties),
+    sequence(OApplicative),
+    OgetOrElse(() => [] as Array<PublicationItem>),
   )
 
 const useFetchPublications = (url: string) => {
-  const [loading, setLoading] = useState(false)
-  const [data, setData] = useState<Array<PublicationItem>>([])
-  const [error, setError] = useState("")
+  const [fetchState, setFetchState] = useState({
+    loading: true,
+    data: [] as Array<PublicationItem>,
+    error: "",
+  })
 
   useEffect(() => {
+    let componentMounted = true
     const getPublicationItems = async () => {
       await pipe(
         url,
         createTaskEitherFetch,
-        TEchain(parseResponseToString),
-        TEmap(extractPublicationItems),
-        TEtapError((e) => {
-          setError(e)
-          return TEleft(e)
-        }),
-        TEtap((a) => {
-          setData(a)
-          return TEright(a)
-        }),
+        TEflatMap(parseResponseToString),
+        TEmap(extractItems),
+        TEmap(mapElementsToPublicationItems),
+        TEmatch(
+          (_error) => {
+            if (componentMounted) {
+              setFetchState((previousState) => ({
+                ...previousState,
+                error: _error,
+              }))
+            }
+            return constVoid
+          },
+          (a) => {
+            if (componentMounted) {
+              setFetchState((previousState) => ({
+                ...previousState,
+                data: a,
+              }))
+            }
+            return constVoid
+          },
+        ),
       )()
+      setFetchState((previousState) => ({
+        ...previousState,
+        loading: false,
+      }))
+    }
+    getPublicationItems()
+    return () => {
+      componentMounted = false
     }
   })
+  return fetchState
 }
 
 // pipe(
 //   RSS_URL,
 //   createTaskEitherFetch,
-//   TEchain(parseResponseToString),
+//   TEflatMap(parseResponseToString),
 //   TEmap(extractPublicationItems),
 // )().then((a) => console.log(a))
 
-export { useFetchPublications }
+export { type PublicationItem, useFetchPublications }
