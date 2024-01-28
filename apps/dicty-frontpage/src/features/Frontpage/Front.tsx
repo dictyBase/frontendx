@@ -4,6 +4,7 @@ import { makeStyles, Theme } from "@material-ui/core/styles"
 // import { RecentNewsContainer } from "news-component"
 import { Slideshow } from "./Slideshow"
 import { Papers } from "./Papers"
+import { LatestPapers } from "./LatestPapers"
 import { Popular } from "./Popular"
 import { Annotations } from "./Annotations"
 import { StockCenter } from "./StockCenter"
@@ -44,7 +45,7 @@ const Front = () => {
           {/* <RecentNewsContainer /> */}
         </Grid>
         <Grid item className={classes.topItem} xs={12} lg={6} xl={4}>
-          <Papers />
+          <LatestPapers />
         </Grid>
         <Grid item className={classes.topItem} xs={12} sm={6} lg={3}>
           <Popular />
