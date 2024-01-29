@@ -70,14 +70,14 @@ const getInnerHTML = (element: Element | null) =>
   pipe(
     element,
     fromNullable,
-    Omap(({ innerHTML }) => innerHTML),
+    Omap(({ textContent }) => textContent),
   )
 
 const getElementsByTagName = (authors: HTMLCollectionOf<Element>) =>
   pipe(
     authors,
     (a) => [...a],
-    Amap(({ innerHTML }) => innerHTML),
+    Amap(({ textContent }) => Oof(textContent)),
   )
 
 const getItemProperties = (item: Element) =>
@@ -147,7 +147,7 @@ const useFetchPublications = (url: string) => {
     return () => {
       componentMounted = false
     }
-  })
+  }, [url])
   return fetchState
 }
 
