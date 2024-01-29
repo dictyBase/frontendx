@@ -6,8 +6,7 @@ const useStyles = makeStyles({
   listItem: {
     listStyle: "none",
     marginBottom: "10px",
-    maxHeight: "5rem",
-    // boxSizing: "border-box",
+    flexBasis: "5rem",
   },
   leadText: {
     color: "#0b3861",
