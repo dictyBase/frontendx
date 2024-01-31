@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { pipe, constVoid } from "fp-ts/function"
 import {
+  of as Oof,
   fromNullable,
   getOrElse as OgetOrElse,
   Applicative as OApplicative,
@@ -8,8 +9,16 @@ import {
   map as Omap,
   Do as ODo,
   let as Olet,
+  bind as Obind,
+  bindTo as ObindTo,
 } from "fp-ts/Option"
-import { map as Amap, sequence, filter as Afilter, head } from "fp-ts/Array"
+import {
+  map as Amap,
+  sequence,
+  filter as Afilter,
+  head,
+  compact,
+} from "fp-ts/Array"
 import {
   type TaskEither,
   map as TEmap,
@@ -78,14 +87,14 @@ const getElementText = (element: Element | null) =>
     OgetOrElse(() => ""),
   )
 
-const itemPropertyExtractor = (element: ParentNode) => (selector: string) =>
+const itemPropertyExtractor = (element: Element) => (selector: string) =>
   pipe(
     element.querySelector(selector),
     fromNullable,
     OflatMap(({ textContent }) => fromNullable(textContent)),
   )
 
-const itemPropertyExtractorAll = (element: ParentNode) => (selector: string) =>
+const itemPropertyExtractorAll = (element: Element) => (selector: string) =>
   pipe(
     element.querySelectorAll(selector),
     (a) => [...a],
@@ -113,34 +122,19 @@ const getPubmedId = (identifiers: Array<string>) =>
 
 const getItemProperties = (item: Element) =>
   pipe(
-    IDo,
-    Ilet("getProperty", () => itemPropertyExtractor(item)),
-    Ilet("getProperties", () => itemPropertyExtractorAll(item)),
-    Ilet("title", ({ getProperty }) => getProperty("title")),
-    Ilet("publishDate", ({ getProperty }) => getProperty("date")),
-    Ilet("description", ({ getProperty }) => getProperty("description")),
-    Ilet("link", ({ getProperty }) => getProperty("link")),
-    Ilet("journal", ({ getProperty }) => getProperty("*|source")),
-    Ilet("authors", ({ getProperties }) => getProperties("*|creator")),
-    Ilet("identifiers", ({ getProperties }) => getProperties("*|identifier")),
-    Ilet("pubmedId", ({ identifiers }) => getPubmedId(identifiers)),
-    ({
-      title,
-      publishDate,
-      description,
-      link,
-      journal,
-      authors,
-      pubmedId,
-    }) => ({
-      title,
-      publishDate,
-      description,
-      link,
-      journal,
-      authors,
-      pubmedId,
-    }),
+    item,
+    Oof,
+    ObindTo("_item"),
+    Olet("getProperty", ({ _item }) => itemPropertyExtractor(_item)),
+    Olet("getProperties", ({ _item }) => itemPropertyExtractorAll(_item)),
+    Obind("title", ({ getProperty }) => getProperty("title")),
+    Obind("publishDate", ({ getProperty }) => getProperty("date")),
+    Obind("description", ({ getProperty }) => getProperty("description")),
+    Obind("link", ({ getProperty }) => getProperty("link")),
+    Obind("journal", ({ getProperty }) => getProperty("*|source")),
+    Obind("authors", ({ getProperties }) => getProperties("*|creator")),
+    Obind("identifiers", ({ getProperties }) => getProperties("*|identifier")),
+    Olet("pubmedId", ({ identifiers }) => getPubmedId(identifiers)),
   )
 // const getItemProperties = (item: Element) => ({
 //   title: getElementText(item.querySelector("title")),
@@ -153,12 +147,7 @@ const getItemProperties = (item: Element) =>
 // })
 
 const mapElementsToPublicationItems = (elements: Array<Element>) =>
-  pipe(
-    elements,
-    Amap(getItemProperties),
-    // sequence(OApplicative),
-    // OgetOrElse(() => [] as Array<PublicationItem>),
-  )
+  pipe(elements, Amap(getItemProperties), compact)
 
 const useFetchPublications = (url: string) => {
   const [fetchState, setFetchState] = useState({
