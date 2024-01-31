@@ -1,12 +1,12 @@
 import { Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { type PublicationItem } from "../../common/hooks/useFetchPublications"
+import { createCitation } from "../../common/utils/citation"
 
 const useStyles = makeStyles({
   listItem: {
     listStyle: "none",
     marginBottom: "10px",
-    flexBasis: "5rem",
   },
   leadText: {
     color: "#0b3861",
@@ -40,11 +40,7 @@ const LatestPaperItem = ({ data }: LatestPaperItemProperties) => {
     useStyles()
   return (
     <li className={listItem}>
-      <Typography className={mainContent}>{data.title}</Typography>
-      <br />
-      <Typography className={sourceContent}>
-        <a href={data.link}>Pubmed</a>
-      </Typography>
+      <Typography className={mainContent}>{createCitation(data)}</Typography>
     </li>
   )
 }
