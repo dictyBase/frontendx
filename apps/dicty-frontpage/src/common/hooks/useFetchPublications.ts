@@ -5,8 +5,11 @@ import {
   getOrElse as OgetOrElse,
   Applicative as OApplicative,
   flatMap as OflatMap,
+  map as Omap,
+  Do as ODo,
+  let as Olet,
 } from "fp-ts/Option"
-import { map as Amap, sequence } from "fp-ts/Array"
+import { map as Amap, sequence, filter as Afilter, head } from "fp-ts/Array"
 import {
   type TaskEither,
   map as TEmap,
@@ -14,7 +17,9 @@ import {
   tryCatch as TEtryCatch,
   flatMap as TEflatMap,
 } from "fp-ts/TaskEither"
+import { Do as IDo, let as Ilet } from "fp-ts/Identity"
 import { left as Eleft, right as Eright } from "fp-ts/Either"
+import { startsWith, replace } from "fp-ts/lib/string"
 
 type PublicationItem = {
   publishDate: string
@@ -23,6 +28,7 @@ type PublicationItem = {
   description: string
   link: string
   journal: string
+  pubmedId: string
 }
 
 /**
@@ -72,6 +78,21 @@ const getElementText = (element: Element | null) =>
     OgetOrElse(() => ""),
   )
 
+const itemPropertyExtractor = (element: ParentNode) => (selector: string) =>
+  pipe(
+    element.querySelector(selector),
+    fromNullable,
+    OflatMap(({ textContent }) => fromNullable(textContent)),
+  )
+
+const itemPropertyExtractorAll = (element: ParentNode) => (selector: string) =>
+  pipe(
+    element.querySelectorAll(selector),
+    (a) => [...a],
+    Amap(({ textContent }) => fromNullable(textContent)),
+    sequence(OApplicative),
+  )
+
 const mapElementsToTextContent = (elements: NodeListOf<Element>) =>
   pipe(
     elements,
@@ -81,26 +102,55 @@ const mapElementsToTextContent = (elements: NodeListOf<Element>) =>
     OgetOrElse(() => [] as Array<string>),
   )
 
-// const getItemProperties = (item: Element) =>
-//   pipe(
-//     ODo,
-//     Olet("title", () => getInnerHTML(item.querySelector("title"))),
-//     Obind("publishDate", () => getInnerHTML(item.querySelector("date"))),
-//     Obind("link", () => getInnerHTML(item.querySelector("link"))),
-//     Obind("description", () => getInnerHTML(item.querySelector("description"))),
-//     Obind("authors", () =>
-//       // eslint-disable-next-line unicorn/prefer-query-selector
-//       Oof(getElementsByTagName(item.getElementsByTagName("dc:creator"))),
-//     ),
-//   )
-const getItemProperties = (item: Element) => ({
-  title: getElementText(item.querySelector("title")),
-  publishDate: getElementText(item.querySelector("date")),
-  link: getElementText(item.querySelector("link")),
-  description: getElementText(item.querySelector("description")),
-  authors: mapElementsToTextContent(item.querySelectorAll("*|creator")),
-  journal: getElementText(item.querySelector("*|source")),
-})
+const getPubmedId = (identifiers: Array<string>) =>
+  pipe(
+    identifiers,
+    Afilter(startsWith("pmid")),
+    head,
+    Omap(replace(/pmid:/, "")),
+    OgetOrElse(() => ""),
+  )
+
+const getItemProperties = (item: Element) =>
+  pipe(
+    IDo,
+    Ilet("getProperty", () => itemPropertyExtractor(item)),
+    Ilet("getProperties", () => itemPropertyExtractorAll(item)),
+    Ilet("title", ({ getProperty }) => getProperty("title")),
+    Ilet("publishDate", ({ getProperty }) => getProperty("date")),
+    Ilet("description", ({ getProperty }) => getProperty("description")),
+    Ilet("link", ({ getProperty }) => getProperty("link")),
+    Ilet("journal", ({ getProperty }) => getProperty("*|source")),
+    Ilet("authors", ({ getProperties }) => getProperties("*|creator")),
+    Ilet("identifiers", ({ getProperties }) => getProperties("*|identifier")),
+    Ilet("pubmedId", ({ identifiers }) => getPubmedId(identifiers)),
+    ({
+      title,
+      publishDate,
+      description,
+      link,
+      journal,
+      authors,
+      pubmedId,
+    }) => ({
+      title,
+      publishDate,
+      description,
+      link,
+      journal,
+      authors,
+      pubmedId,
+    }),
+  )
+// const getItemProperties = (item: Element) => ({
+//   title: getElementText(item.querySelector("title")),
+//   publishDate: getElementText(item.querySelector("date")),
+//   link: getElementText(item.querySelector("link")),
+//   description: getElementText(item.querySelector("description")),
+//   authors: mapElementsToTextContent(item.querySelectorAll("*|creator")),
+//   journal: getElementText(item.querySelector("*|source")),
+//   id: mapElementsToTextContent(item.querySelectorAll("*|identifier")),
+// })
 
 const mapElementsToPublicationItems = (elements: Array<Element>) =>
   pipe(
@@ -116,6 +166,7 @@ const useFetchPublications = (url: string) => {
     data: [] as Array<PublicationItem>,
     error: "",
   })
+  console.log(fetchState.data[0])
   useEffect(() => {
     let componentMounted = true
     const getPublicationItems = async () => {
@@ -131,6 +182,7 @@ const useFetchPublications = (url: string) => {
               setFetchState((previousState) => ({
                 ...previousState,
                 error: _error,
+                loading: false,
               }))
             }
             return constVoid
@@ -140,16 +192,13 @@ const useFetchPublications = (url: string) => {
               setFetchState((previousState) => ({
                 ...previousState,
                 data: a,
+                loading: false,
               }))
             }
             return constVoid
           },
         ),
       )()
-      setFetchState((previousState) => ({
-        ...previousState,
-        loading: false,
-      }))
     }
     getPublicationItems()
     return () => {
