@@ -1,6 +1,5 @@
 import { pipe } from "fp-ts/function"
-import { isSome } from "fp-ts/Option"
-import { map as Amap, last, filter as Afilter } from "fp-ts/Array"
+import { map as Amap, last, compact } from "fp-ts/Array"
 import { match } from "ts-pattern"
 import { type PublicationItem } from "../hooks/useFetchPublications"
 
@@ -9,24 +8,25 @@ const getAuthorsString = (authors: Array<string>) =>
     authors,
     Amap((a) => a.split(" ")),
     Amap(last),
-    Afilter(isSome),
-    Amap(({ value }) => value),
-    (a) =>
-      match(a.length)
+    compact,
+    (lastNames) =>
+      match(lastNames.length)
         .when(
           (l) => l === 1,
-          () => a[0],
+          () => lastNames[0],
         )
         .when(
           (l) => l === 2,
-          () => `${a[0]} & ${a[1]}`,
+          () => `${lastNames[0]} & ${lastNames[1]}`,
         )
         .when(
           (l) => l >= 3,
-          () => `${a[0]} et al`,
+          () => `${lastNames[0]} et al`,
         )
         .otherwise(() => `Unexpected Error`),
   )
+
+const removeTags = (string: string) => string.replaceAll(/<\/?\w+>/g, "")
 
 const getPublicationYear = (publicationDate: string) =>
   new Date(publicationDate).getFullYear()
@@ -39,6 +39,6 @@ const createCitation = ({
 }: PublicationItem) =>
   `${getAuthorsString(authors)}. (${getPublicationYear(
     publishDate,
-  )}). ${title}. ${journal}`
+  )}). ${removeTags(title)}. ${journal}`
 
-export { createCitation }
+export { createCitation, getAuthorsString, removeTags, getPublicationYear }
