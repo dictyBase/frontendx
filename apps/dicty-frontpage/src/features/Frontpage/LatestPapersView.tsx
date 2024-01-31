@@ -10,14 +10,12 @@ type LatestPapersProperties = {
 
 const useStyles = makeStyles({
   container: {
-    // zIndex: -4,
     textAlign: "left",
     paddingBottom: "10px",
     backgroundColor: "#eff8fb",
     borderRadius: "15px",
     boxSizing: "border-box",
     marginBottom: "10px",
-    // overflow: "hidden",
     "@media (max-width: 768px)": {
       height: "350px",
     },
@@ -88,7 +86,7 @@ const LatestPapersView = ({ data }: LatestPapersProperties) => {
         </Grid>
       </Box>
       <Grid container component="ul" className={listBox}>
-        {data.slice(0, 6).map((p) => (
+        {data.slice(0, 3).map((p) => (
           <Grid item>
             <LatestPaperItem data={p} />
           </Grid>
