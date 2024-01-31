@@ -1,13 +1,10 @@
 import { useState, useEffect } from "react"
 import { pipe, constVoid } from "fp-ts/function"
 import {
-  of as Oof,
-  Do as ODo,
-  bind as Obind,
   fromNullable,
   getOrElse as OgetOrElse,
-  map as Omap,
   Applicative as OApplicative,
+  flatMap as OflatMap,
 } from "fp-ts/Option"
 import { map as Amap, sequence } from "fp-ts/Array"
 import {
@@ -20,11 +17,12 @@ import {
 import { left as Eleft, right as Eright } from "fp-ts/Either"
 
 type PublicationItem = {
-  readonly title: string
-  readonly authors: Array<string>
-  readonly description: string
-  readonly publishDate: string
-  readonly link: string
+  publishDate: string
+  title: string
+  authors: Array<string>
+  description: string
+  link: string
+  journal: string
 }
 
 /**
@@ -66,39 +64,50 @@ const extractItems = (xmlString: string): Array<Element> => [
     .querySelectorAll("item"),
 ]
 
-const getInnerHTML = (element: Element | null) =>
+const getElementText = (element: Element | null) =>
   pipe(
     element,
     fromNullable,
-    Omap(({ textContent }) => textContent),
+    OflatMap(({ textContent }) => fromNullable(textContent)),
+    OgetOrElse(() => ""),
   )
 
-const getElementsByTagName = (authors: HTMLCollectionOf<Element>) =>
+const mapElementsToTextContent = (elements: NodeListOf<Element>) =>
   pipe(
-    authors,
+    elements,
     (a) => [...a],
-    Amap(({ textContent }) => Oof(textContent)),
+    Amap(({ textContent }) => fromNullable(textContent)),
+    sequence(OApplicative),
+    OgetOrElse(() => [] as Array<string>),
   )
 
-const getItemProperties = (item: Element) =>
-  pipe(
-    ODo,
-    Obind("title", () => getInnerHTML(item.querySelector("title"))),
-    Obind("publishDate", () => getInnerHTML(item.querySelector("date"))),
-    Obind("link", () => getInnerHTML(item.querySelector("link"))),
-    Obind("description", () => getInnerHTML(item.querySelector("description"))),
-    Obind("authors", () =>
-      // eslint-disable-next-line unicorn/prefer-query-selector
-      Oof(getElementsByTagName(item.getElementsByTagName("dc:creator"))),
-    ),
-  )
+// const getItemProperties = (item: Element) =>
+//   pipe(
+//     ODo,
+//     Olet("title", () => getInnerHTML(item.querySelector("title"))),
+//     Obind("publishDate", () => getInnerHTML(item.querySelector("date"))),
+//     Obind("link", () => getInnerHTML(item.querySelector("link"))),
+//     Obind("description", () => getInnerHTML(item.querySelector("description"))),
+//     Obind("authors", () =>
+//       // eslint-disable-next-line unicorn/prefer-query-selector
+//       Oof(getElementsByTagName(item.getElementsByTagName("dc:creator"))),
+//     ),
+//   )
+const getItemProperties = (item: Element) => ({
+  title: getElementText(item.querySelector("title")),
+  publishDate: getElementText(item.querySelector("date")),
+  link: getElementText(item.querySelector("link")),
+  description: getElementText(item.querySelector("description")),
+  authors: mapElementsToTextContent(item.querySelectorAll("*|creator")),
+  journal: getElementText(item.querySelector("*|source")),
+})
 
 const mapElementsToPublicationItems = (elements: Array<Element>) =>
   pipe(
     elements,
     Amap(getItemProperties),
-    sequence(OApplicative),
-    OgetOrElse(() => [] as Array<PublicationItem>),
+    // sequence(OApplicative),
+    // OgetOrElse(() => [] as Array<PublicationItem>),
   )
 
 const useFetchPublications = (url: string) => {
@@ -107,7 +116,6 @@ const useFetchPublications = (url: string) => {
     data: [] as Array<PublicationItem>,
     error: "",
   })
-
   useEffect(() => {
     let componentMounted = true
     const getPublicationItems = async () => {
@@ -150,12 +158,5 @@ const useFetchPublications = (url: string) => {
   }, [url])
   return fetchState
 }
-
-// pipe(
-//   RSS_URL,
-//   createTaskEitherFetch,
-//   TEflatMap(parseResponseToString),
-//   TEmap(extractPublicationItems),
-// )().then((a) => console.log(a))
 
 export { type PublicationItem, useFetchPublications }
