@@ -1,5 +1,6 @@
 import { Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
+import { Link } from "react-router-dom"
 import { type PublicationItem } from "../../common/hooks/useFetchPublications"
 import { createCitation } from "../../common/utils/citation"
 
@@ -14,8 +15,8 @@ const useStyles = makeStyles({
   },
   mainContent: {
     paddingRight: "10px",
-    fontWeight: "bold",
-    fontStyle: "italic",
+    // fontWeight: "bold",
+    // fontStyle: "italic",
   },
   sourceContent: {
     color: "#0b3861",
@@ -36,11 +37,12 @@ type LatestPaperItemProperties = {
 }
 
 const LatestPaperItem = ({ data }: LatestPaperItemProperties) => {
-  const { mainContent, listItem, sourceContent, sourceTitle, link } =
-    useStyles()
+  const { mainContent, listItem } = useStyles()
   return (
     <li className={listItem}>
-      <Typography className={mainContent}>{createCitation(data)}</Typography>
+      <Typography className={mainContent}>
+        <Link to={`/publication/${data.pubmedId}`}>{createCitation(data)}</Link>
+      </Typography>
     </li>
   )
 }
