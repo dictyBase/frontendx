@@ -1,5 +1,7 @@
 import { Grid, Box, Container, Typography } from "@material-ui/core"
+import { Skeleton } from "@material-ui/lab"
 import { makeStyles } from "@material-ui/styles"
+import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { LatestPaperItem } from "./LatestPaperItem"
 import { type PublicationItem } from "../../common/hooks/useFetchPublications"
@@ -17,7 +19,7 @@ const useStyles = makeStyles({
     boxSizing: "border-box",
     marginBottom: "10px",
     "@media (max-width: 768px)": {
-      height: "350px",
+      // height: "350px",
     },
   },
   title: {
@@ -59,21 +61,16 @@ const useStyles = makeStyles({
     color: "#428bca",
   },
   bottomLink: {
-    color: "#0b3861",
-    fontSize: "11px",
-    fontStyle: "italic",
+    textDecoration: "underline",
     fontWeight: "normal",
-    textAlign: "center",
+    textAlign: "right",
     paddingBottom: "10px",
 
-    "@media (min-width: 1400px)": {
-      paddingTop: "30px",
-      fontSize: "12px",
-    },
+    "@media (min-width: 1400px)": {},
   },
 })
 
-const LatestPapersView = ({ data }: LatestPapersProperties) => {
+const LatestPapersLoader = () => {
   const { container, header, title, listBox } = useStyles()
   return (
     <Container className={container}>
@@ -85,10 +82,16 @@ const LatestPapersView = ({ data }: LatestPapersProperties) => {
           <span className={title}>LATEST PAPERS</span>
         </Grid>
       </Box>
-      <Grid container component="ul" className={listBox}>
-        {data.slice(0, 3).map((p) => (
+      <Grid
+        container
+        direction="column"
+        spacing={1}
+        component="ul"
+        className={listBox}>
+        {new Array(3).fill(0).map(() => (
           <Grid item>
-            <LatestPaperItem data={p} />
+            <Skeleton height={40} />
+            <Skeleton height={40} />
           </Grid>
         ))}
       </Grid>
@@ -96,4 +99,30 @@ const LatestPapersView = ({ data }: LatestPapersProperties) => {
   )
 }
 
-export { LatestPapersView }
+const LatestPapersView = ({ data }: LatestPapersProperties) => {
+  const { container, header, title, listBox, bottomLink } = useStyles()
+  return (
+    <Container className={container}>
+      <Box className={header}>
+        <Grid container>
+          <Typography className={title}>
+            <FontAwesomeIcon icon="paperclip" size="sm" />
+          </Typography>
+          <span className={title}>LATEST PAPERS</span>
+        </Grid>
+      </Box>
+      <Grid container direction="column" component="ul" className={listBox}>
+        {data.slice(0, 3).map((p) => (
+          <Grid item>
+            <LatestPaperItem data={p} />
+          </Grid>
+        ))}
+      </Grid>
+      <Container className={bottomLink}>
+        <Link to="/publication"> Read more </Link>
+      </Container>
+    </Container>
+  )
+}
+
+export { LatestPapersView, LatestPapersLoader }
