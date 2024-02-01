@@ -1,5 +1,7 @@
 import { pipe } from "fp-ts/function"
 import { map as Amap, last, compact } from "fp-ts/Array"
+import { bindTo, let as Ilet } from "fp-ts/Identity"
+import { slice, trimRight } from "fp-ts/string"
 import { match } from "ts-pattern"
 import { type PublicationItem } from "../hooks/useFetchPublications"
 
@@ -34,6 +36,20 @@ const getPublicationYear = (publicationDate: string) =>
 const limitCharacters = (text: string, limit: number) =>
   text.length > limit ? `${text.slice(0, limit).trimEnd()}..` : text
 
+const formatTitle = (title: string) =>
+  pipe(
+    title,
+    bindTo("initial"),
+    Ilet("withoutTags", ({ initial }) => removeTags(initial)),
+    Ilet("shortened", ({ withoutTags }) =>
+      pipe(withoutTags, slice(0, 90), trimRight),
+    ),
+    Ilet("final", ({ shortened, withoutTags }) =>
+      shortened === withoutTags ? `${shortened}.` : `${shortened}...`,
+    ),
+    ({ final }) => `"${final}"`,
+  )
+
 const createCitation = ({
   authors,
   publishDate,
@@ -42,7 +58,7 @@ const createCitation = ({
 }: PublicationItem) =>
   `${getAuthorsString(authors)}. (${getPublicationYear(
     publishDate,
-  )}). "${limitCharacters(removeTags(title), 100)}." ${journal}`
+  )}). "${limitCharacters(removeTags(title), 90)}." ${journal}`
 
 export {
   createCitation,
@@ -50,4 +66,5 @@ export {
   removeTags,
   getPublicationYear,
   limitCharacters,
+  formatTitle,
 }
