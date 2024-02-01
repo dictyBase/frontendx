@@ -31,6 +31,9 @@ const removeTags = (string: string) => string.replaceAll(/<\/?\w+>/g, "")
 const getPublicationYear = (publicationDate: string) =>
   new Date(publicationDate).getFullYear()
 
+const limitCharacters = (text: string, limit: number) =>
+  text.length > limit ? `${text.slice(0, limit).trimEnd()}..` : text
+
 const createCitation = ({
   authors,
   publishDate,
@@ -39,6 +42,12 @@ const createCitation = ({
 }: PublicationItem) =>
   `${getAuthorsString(authors)}. (${getPublicationYear(
     publishDate,
-  )}). ${removeTags(title)}. ${journal}`
+  )}). "${limitCharacters(removeTags(title), 100)}." ${journal}`
 
-export { createCitation, getAuthorsString, removeTags, getPublicationYear }
+export {
+  createCitation,
+  getAuthorsString,
+  removeTags,
+  getPublicationYear,
+  limitCharacters,
+}
