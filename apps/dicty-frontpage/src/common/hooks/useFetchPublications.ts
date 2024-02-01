@@ -79,14 +79,6 @@ const extractItems = (xmlString: string): Array<Element> => [
     .querySelectorAll("item"),
 ]
 
-const getElementText = (element: Element | null) =>
-  pipe(
-    element,
-    fromNullable,
-    OflatMap(({ textContent }) => fromNullable(textContent)),
-    OgetOrElse(() => ""),
-  )
-
 const itemPropertyExtractor = (element: Element) => (selector: string) =>
   pipe(
     element.querySelector(selector),
@@ -102,22 +94,12 @@ const itemPropertyExtractorAll = (element: Element) => (selector: string) =>
     sequence(OApplicative),
   )
 
-const mapElementsToTextContent = (elements: NodeListOf<Element>) =>
-  pipe(
-    elements,
-    (a) => [...a],
-    Amap(({ textContent }) => fromNullable(textContent)),
-    sequence(OApplicative),
-    OgetOrElse(() => [] as Array<string>),
-  )
-
 const getPubmedId = (identifiers: Array<string>) =>
   pipe(
     identifiers,
     Afilter(startsWith("pmid")),
     head,
     Omap(replace(/pmid:/, "")),
-    OgetOrElse(() => ""),
   )
 
 const getItemProperties = (item: Element) =>
@@ -134,17 +116,8 @@ const getItemProperties = (item: Element) =>
     Obind("journal", ({ getProperty }) => getProperty("*|source")),
     Obind("authors", ({ getProperties }) => getProperties("*|creator")),
     Obind("identifiers", ({ getProperties }) => getProperties("*|identifier")),
-    Olet("pubmedId", ({ identifiers }) => getPubmedId(identifiers)),
+    Obind("pubmedId", ({ identifiers }) => getPubmedId(identifiers)),
   )
-// const getItemProperties = (item: Element) => ({
-//   title: getElementText(item.querySelector("title")),
-//   publishDate: getElementText(item.querySelector("date")),
-//   link: getElementText(item.querySelector("link")),
-//   description: getElementText(item.querySelector("description")),
-//   authors: mapElementsToTextContent(item.querySelectorAll("*|creator")),
-//   journal: getElementText(item.querySelector("*|source")),
-//   id: mapElementsToTextContent(item.querySelectorAll("*|identifier")),
-// })
 
 const mapElementsToPublicationItems = (elements: Array<Element>) =>
   pipe(elements, Amap(getItemProperties), compact)
@@ -155,7 +128,6 @@ const useFetchPublications = (url: string) => {
     data: [] as Array<PublicationItem>,
     error: "",
   })
-  console.log(fetchState.data[0])
   useEffect(() => {
     let componentMounted = true
     const getPublicationItems = async () => {
