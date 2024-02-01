@@ -1,8 +1,14 @@
-import { Typography } from "@material-ui/core"
+import { Box, Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { Link } from "react-router-dom"
 import { type PublicationItem } from "../../common/hooks/useFetchPublications"
-import { createCitation } from "../../common/utils/citation"
+import {
+  getAuthorsString,
+  getPublicationYear,
+  removeTags,
+  limitCharacters,
+  formatTitle,
+} from "../../common/utils/citation"
 
 const useStyles = makeStyles({
   listItem: {
@@ -14,9 +20,9 @@ const useStyles = makeStyles({
     paddingRight: "10px",
   },
   mainContent: {
-    paddingRight: "10px",
-    // fontWeight: "bold",
-    // fontStyle: "italic",
+    "&:hover": {
+      textDecoration: "underline",
+    },
   },
   sourceContent: {
     color: "#0b3861",
@@ -38,11 +44,20 @@ type LatestPaperItemProperties = {
 
 const LatestPaperItem = ({ data }: LatestPaperItemProperties) => {
   const { mainContent, listItem } = useStyles()
+  const authors = getAuthorsString(data.authors)
+  const date = getPublicationYear(data.publishDate)
+  const title = formatTitle(data.title)
+  const { journal, pubmedId } = data
   return (
     <li className={listItem}>
-      <Typography className={mainContent}>
-        <Link to={`/publication/${data.pubmedId}`}>{createCitation(data)}</Link>
-      </Typography>
+      <Box className={mainContent}>
+        <Link to={`/publication/${pubmedId}`}>
+          <Typography>
+            {`${authors}. (${date}). ${title} `}
+            <em>{journal}</em>
+          </Typography>
+        </Link>
+      </Box>
     </li>
   )
 }
