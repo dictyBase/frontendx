@@ -5,8 +5,6 @@ import { type PublicationItem } from "../../common/hooks/useFetchPublications"
 import {
   getAuthorsString,
   getPublicationYear,
-  removeTags,
-  limitCharacters,
   formatTitle,
 } from "../../common/utils/citation"
 
@@ -46,12 +44,15 @@ const LatestPaperItem = ({ data }: LatestPaperItemProperties) => {
   const { mainContent, listItem } = useStyles()
   const authors = getAuthorsString(data.authors)
   const date = getPublicationYear(data.publishDate)
-  const title = formatTitle(data.title)
+  const title = formatTitle(data.title).withEllipses
   const { journal, pubmedId } = data
   return (
     <li className={listItem}>
       <Box className={mainContent}>
-        <Link to={`/publication/${pubmedId}`}>
+        <Link
+          to={`/publication/${
+            import.meta.env.VITE_PUBLICATION_URL
+          }/${pubmedId}`}>
           <Typography>
             {`${authors}. (${date}). ${title} `}
             <em>{journal}</em>
