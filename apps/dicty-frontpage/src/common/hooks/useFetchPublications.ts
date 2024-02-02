@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { pipe, constVoid } from "fp-ts/function"
 import {
   of as Oof,
-  fromNullable,
+  fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
   Applicative as OApplicative,
   flatMap as OflatMap,
@@ -14,21 +14,35 @@ import {
 } from "fp-ts/Option"
 import {
   map as Amap,
-  sequence,
+  sequence as Asequence,
   filter as Afilter,
-  head,
-  compact,
+  head as Ahead,
+  compact as Acompact,
 } from "fp-ts/Array"
 import {
+  fromArray as NEAfromArray,
+  filter as NEAfilter,
+  map as NEAmap,
+  sequence as NEAsequence,
+} from "fp-ts/NonEmptyArray"
+import {
+  Do as TEDo,
+  bind as TEbind,
+  let as TElet,
   type TaskEither,
   map as TEmap,
   match as TEmatch,
   tryCatch as TEtryCatch,
   flatMap as TEflatMap,
+  filterOrElse as TEfilterOrElse,
 } from "fp-ts/TaskEither"
-import { Do as IDo, let as Ilet } from "fp-ts/Identity"
-import { left as Eleft, right as Eright } from "fp-ts/Either"
-import { startsWith, replace } from "fp-ts/lib/string"
+import { type Either, bindTo as EbindTo, let as Elet } from "fp-ts/Either"
+import {
+  startsWith as SstartsWith,
+  replace as Sreplace,
+  empty as Sempty,
+} from "fp-ts/lib/string"
+import { match } from "ts-pattern"
 
 type PublicationItem = {
   publishDate: string
@@ -52,16 +66,12 @@ const createTaskEitherFetch = (url: string): TaskEither<string, Response> =>
   pipe(
     TEtryCatch(
       () => fetch(url),
-      (reason) => `${reason}`,
+      (toError) => `${toError}`,
     ),
-    TEmatch(
-      (error) => Eleft(error),
+    TEfilterOrElse(
+      (response) => response.status === 200,
       (response) =>
-        response.status === 200
-          ? Eright(response)
-          : Eleft(
-              `Invalid Response. HTTP Code ${response.status}: ${response.statusText}`,
-            ),
+        `Invalid Response. HTTP Code ${response.status}: ${response.statusText}`,
     ),
   )
 
@@ -69,7 +79,7 @@ const parseResponseToString = (response: Response) =>
   pipe(
     TEtryCatch(
       () => response.text(),
-      (reason) => `${reason}`,
+      (toError) => `${toError}`,
     ),
   )
 
@@ -82,24 +92,39 @@ const extractItems = (xmlString: string): Array<Element> => [
 const itemPropertyExtractor = (element: Element) => (selector: string) =>
   pipe(
     element.querySelector(selector),
-    fromNullable,
-    OflatMap(({ textContent }) => fromNullable(textContent)),
+    OfromNullable,
+    OflatMap(({ textContent }) => OfromNullable(textContent)),
   )
 
 const itemPropertyExtractorAll = (element: Element) => (selector: string) =>
   pipe(
-    element.querySelectorAll(selector),
-    (a) => [...a],
-    Amap(({ textContent }) => fromNullable(textContent)),
-    sequence(OApplicative),
+    [...element.querySelectorAll(selector)],
+    Amap(({ textContent }) => OfromNullable(textContent)),
+    Asequence(OApplicative),
   )
+
+// const itemPropertyExtractorAll = (element: Element) => (selector: string) =>
+//   pipe(
+//     [...element.querySelectorAll(selector)],
+//     Oof,
+//     ObindTo("Aelement"),
+//     Obind("NEAelement", ({ Aelement }) => NEAfromArray(Aelement)),
+//     Obind("NEAtextContent", ({ NEAelement }) =>
+//       pipe(
+//         NEAelement,
+//         NEAmap(({ textContent }) => OfromNullable(textContent)),
+//         NEAsequence(OApplicative),
+//       ),
+//     ),
+//     Omap(({ NEAtextContent }) => NEAtextContent),
+//   )
 
 const getPubmedId = (identifiers: Array<string>) =>
   pipe(
     identifiers,
-    Afilter(startsWith("pmid")),
-    head,
-    Omap(replace(/pmid:/, "")),
+    Afilter(SstartsWith("pmid")),
+    Ahead,
+    Omap(Sreplace(/pmid:/, Sempty)),
   )
 
 const getItemProperties = (item: Element) =>
@@ -120,43 +145,51 @@ const getItemProperties = (item: Element) =>
   )
 
 const mapElementsToPublicationItems = (elements: Array<Element>) =>
-  pipe(elements, Amap(getItemProperties), compact)
+  pipe(elements, Amap(getItemProperties), Acompact)
 
 const useFetchPublications = (url: string) => {
   const [fetchState, setFetchState] = useState({
     loading: true,
     data: [] as Array<PublicationItem>,
-    error: "",
+    error: Sempty,
   })
   useEffect(() => {
     let componentMounted = true
     const getPublicationItems = async () => {
       await pipe(
-        url,
-        createTaskEitherFetch,
-        TEflatMap(parseResponseToString),
-        TEmap(extractItems),
-        TEmap(mapElementsToPublicationItems),
+        TEDo,
+        TEbind("response", () => createTaskEitherFetch(url)),
+        TEbind("xmlString", ({ response }) => parseResponseToString(response)),
+        TElet("itemElements", ({ xmlString }) => extractItems(xmlString)),
+        TElet("publicationItems", ({ itemElements }) =>
+          mapElementsToPublicationItems(itemElements),
+        ),
         TEmatch(
-          (_error) => {
-            if (componentMounted) {
-              setFetchState((previousState) => ({
-                ...previousState,
-                error: _error,
-                loading: false,
-              }))
-            }
-            return constVoid
+          (errorString) => {
+            match(componentMounted)
+              .with(false, () => constVoid)
+              .with(true, () => {
+                setFetchState((previousState) => ({
+                  ...previousState,
+                  error: errorString,
+                  loading: false,
+                }))
+                return constVoid
+              })
+              .exhaustive()
           },
-          (a) => {
-            if (componentMounted) {
-              setFetchState((previousState) => ({
-                ...previousState,
-                data: a,
-                loading: false,
-              }))
-            }
-            return constVoid
+          ({ publicationItems }) => {
+            match(componentMounted)
+              .with(false, () => constVoid)
+              .with(true, () => {
+                setFetchState((previousState) => ({
+                  ...previousState,
+                  data: publicationItems,
+                  loading: false,
+                }))
+                return constVoid
+              })
+              .exhaustive()
           },
         ),
       )()
