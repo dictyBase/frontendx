@@ -36,18 +36,16 @@ const getPublicationYear = (publicationDate: string) =>
 const limitCharacters = (text: string, limit: number) =>
   text.length > limit ? `${text.slice(0, limit).trimEnd()}..` : text
 
+// add check for already ending in punctation
 const formatTitle = (title: string) =>
   pipe(
     title,
     bindTo("initial"),
-    Ilet("withoutTags", ({ initial }) => removeTags(initial)),
-    Ilet("shortened", ({ withoutTags }) =>
-      pipe(withoutTags, slice(0, 90), trimRight),
+    Ilet("full", ({ initial }) => removeTags(initial)),
+    Ilet("shortened", ({ full }) => pipe(full, slice(0, 90), trimRight)),
+    Ilet("withEllipses", ({ shortened, full }) =>
+      shortened === full ? `${shortened}.` : `${shortened}...`,
     ),
-    Ilet("final", ({ shortened, withoutTags }) =>
-      shortened === withoutTags ? `${shortened}.` : `${shortened}...`,
-    ),
-    ({ final }) => `"${final}"`,
   )
 
 const createCitation = ({
