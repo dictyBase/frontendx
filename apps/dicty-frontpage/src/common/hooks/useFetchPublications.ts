@@ -18,6 +18,7 @@ import {
   compact as Acompact,
 } from "fp-ts/Array"
 import {
+  type NonEmptyArray,
   fromArray as NEAfromArray,
   filter as NEAfilter,
   map as NEAmap,
@@ -31,6 +32,7 @@ import {
   match as TEmatch,
   tryCatch as TEtryCatch,
   filterOrElse as TEfilterOrElse,
+  fromOption as TEfromOption,
 } from "fp-ts/TaskEither"
 import {
   startsWith as SstartsWith,
@@ -78,11 +80,14 @@ const parseResponseToString = (response: Response) =>
     ),
   )
 
-const extractItems = (xmlString: string): Array<Element> => [
-  ...new window.DOMParser()
-    .parseFromString(xmlString, "text/xml")
-    .querySelectorAll("item"),
-]
+const extractItems = (xmlString: string) => {
+  const itemElements = [
+    ...new window.DOMParser()
+      .parseFromString(xmlString, "text/xml")
+      .querySelectorAll("item"),
+  ]
+  return NEAfromArray(itemElements)
+}
 
 const itemPropertyExtractor = (element: Element) => (selector: string) =>
   pipe(
@@ -155,7 +160,13 @@ const useFetchPublications = (url: string) => {
         TEDo,
         TEbind("response", () => createTaskEitherFetch(url)),
         TEbind("xmlString", ({ response }) => parseResponseToString(response)),
-        TElet("itemElements", ({ xmlString }) => extractItems(xmlString)),
+        TEbind("itemElements", ({ xmlString }) =>
+          pipe(
+            xmlString,
+            extractItems,
+            TEfromOption(() => "No Publication Items found."),
+          ),
+        ),
         TElet("publicationItems", ({ itemElements }) =>
           mapElementsToPublicationItems(itemElements),
         ),
