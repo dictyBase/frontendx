@@ -3,11 +3,9 @@ import { pipe, constVoid } from "fp-ts/function"
 import {
   of as Oof,
   fromNullable as OfromNullable,
-  getOrElse as OgetOrElse,
   Applicative as OApplicative,
   flatMap as OflatMap,
   map as Omap,
-  Do as ODo,
   let as Olet,
   bind as Obind,
   bindTo as ObindTo,
@@ -30,13 +28,10 @@ import {
   bind as TEbind,
   let as TElet,
   type TaskEither,
-  map as TEmap,
   match as TEmatch,
   tryCatch as TEtryCatch,
-  flatMap as TEflatMap,
   filterOrElse as TEfilterOrElse,
 } from "fp-ts/TaskEither"
-import { type Either, bindTo as EbindTo, let as Elet } from "fp-ts/Either"
 import {
   startsWith as SstartsWith,
   replace as Sreplace,
@@ -48,7 +43,7 @@ type PublicationItem = {
   publishDate: string
   title: string
   authors: Array<string>
-  description: string
+  abstract: string
   link: string
   journal: string
   pubmedId: string
@@ -127,16 +122,16 @@ const getPubmedId = (identifiers: Array<string>) =>
     Omap(Sreplace(/pmid:/, Sempty)),
   )
 
-const getItemProperties = (item: Element) =>
+const getItemProperties = (itemElement: Element) =>
   pipe(
-    item,
+    itemElement,
     Oof,
-    ObindTo("_item"),
-    Olet("getProperty", ({ _item }) => itemPropertyExtractor(_item)),
-    Olet("getProperties", ({ _item }) => itemPropertyExtractorAll(_item)),
+    ObindTo("item"),
+    Olet("getProperty", ({ item }) => itemPropertyExtractor(item)),
+    Olet("getProperties", ({ item }) => itemPropertyExtractorAll(item)),
     Obind("title", ({ getProperty }) => getProperty("title")),
     Obind("publishDate", ({ getProperty }) => getProperty("date")),
-    Obind("description", ({ getProperty }) => getProperty("description")),
+    Obind("abstract", ({ getProperty }) => getProperty("description")),
     Obind("link", ({ getProperty }) => getProperty("link")),
     Obind("journal", ({ getProperty }) => getProperty("*|source")),
     Obind("authors", ({ getProperties }) => getProperties("*|creator")),
