@@ -48,6 +48,7 @@ type PublicationItem = {
   abstract: string
   link: string
   journal: string
+  identifiers: Array<string>
   pubmedId: string
 }
 
@@ -80,14 +81,16 @@ const parseResponseToString = (response: Response) =>
     ),
   )
 
-const extractItems = (xmlString: string) => {
-  const itemElements = [
-    ...new window.DOMParser()
-      .parseFromString(xmlString, "text/xml")
-      .querySelectorAll("item"),
-  ]
-  return NEAfromArray(itemElements)
-}
+const extractItems = (xmlString: string) =>
+  pipe(
+    [
+      ...new window.DOMParser()
+        .parseFromString(xmlString, "text/xml")
+        .querySelectorAll("item"),
+    ],
+    NEAfromArray,
+    TEfromOption(() => "No Publication Items found."),
+  )
 
 const itemPropertyExtractor = (element: Element) => (selector: string) =>
   pipe(
@@ -160,13 +163,7 @@ const useFetchPublications = (url: string) => {
         TEDo,
         TEbind("response", () => createTaskEitherFetch(url)),
         TEbind("xmlString", ({ response }) => parseResponseToString(response)),
-        TEbind("itemElements", ({ xmlString }) =>
-          pipe(
-            xmlString,
-            extractItems,
-            TEfromOption(() => "No Publication Items found."),
-          ),
-        ),
+        TEbind("itemElements", ({ xmlString }) => extractItems(xmlString)),
         TElet("publicationItems", ({ itemElements }) =>
           mapElementsToPublicationItems(itemElements),
         ),
