@@ -10,6 +10,10 @@ type LatestPapersProperties = {
   data: Array<PublicationItem>
 }
 
+type LatestPapersErrorProperties = {
+  error: string
+}
+
 const useStyles = makeStyles({
   container: {
     textAlign: "left",
@@ -18,9 +22,7 @@ const useStyles = makeStyles({
     borderRadius: "15px",
     boxSizing: "border-box",
     marginBottom: "10px",
-    "@media (max-width: 768px)": {
-      // height: "350px",
-    },
+    "@media (max-width: 768px)": {},
   },
   title: {
     paddingLeft: "5px",
@@ -68,6 +70,13 @@ const useStyles = makeStyles({
 
     "@media (min-width: 1400px)": {},
   },
+  errorContainer: {
+    height: "300px",
+  },
+  errorText: {
+    fontStyle: "italic",
+    color: "#75746f",
+  },
 })
 
 const LatestPapersLoader = () => {
@@ -99,6 +108,23 @@ const LatestPapersLoader = () => {
   )
 }
 
+const LatestPapersError = ({ error }: LatestPapersErrorProperties) => {
+  const { container, errorContainer, errorText } = useStyles()
+  return (
+    <Grid
+      container
+      justifyContent="center"
+      alignItems="center"
+      className={`${errorContainer} ${container}`}>
+      <Grid item>
+        <Typography className={errorText} color="error">
+          {error}
+        </Typography>
+      </Grid>
+    </Grid>
+  )
+}
+
 const LatestPapersView = ({ data }: LatestPapersProperties) => {
   const { container, header, title, listBox, bottomLink } = useStyles()
   return (
@@ -125,4 +151,4 @@ const LatestPapersView = ({ data }: LatestPapersProperties) => {
   )
 }
 
-export { LatestPapersView, LatestPapersLoader }
+export { LatestPapersView, LatestPapersLoader, LatestPapersError }
