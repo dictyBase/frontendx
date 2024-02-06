@@ -1,2 +1,2 @@
-const NAMESPACE = "dfp"
+const NAMESPACE = "frontpage"
 export { NAMESPACE }
