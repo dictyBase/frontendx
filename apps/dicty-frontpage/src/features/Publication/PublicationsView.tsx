@@ -10,14 +10,12 @@ type PublicationsViewProperties = {
 const useStyles = makeStyles({
   container: {
     textAlign: "left",
-    paddingBottom: "10px",
-    backgroundColor: "#eff8fb",
+    padding: "0px 6rem 1rem 6rem",
+    // backgroundColor: "#eff8fb",
     borderRadius: "15px",
     boxSizing: "border-box",
     marginBottom: "10px",
-    "@media (max-width: 768px)": {
-      // height: "350px",
-    },
+    "@media (max-width: 768px)": {},
   },
   title: {
     paddingLeft: "5px",
@@ -50,14 +48,6 @@ const useStyles = makeStyles({
       fontSize: "16px",
     },
   },
-  bottomLink: {
-    textDecoration: "underline",
-    fontWeight: "normal",
-    textAlign: "right",
-    paddingBottom: "10px",
-
-    "@media (min-width: 1400px)": {},
-  },
 })
 
 const PublicationsView = ({ data }: PublicationsViewProperties) => {
@@ -66,14 +56,14 @@ const PublicationsView = ({ data }: PublicationsViewProperties) => {
     <Container className={container}>
       <Box className={header}>
         <Typography variant="h1" align="center">
-          Publications
+          Latest Publications
         </Typography>
       </Box>
       <Grid
         container
-        spacing={1}
+        spacing={2}
         direction="column"
-        component="ul"
+        component="ol"
         className={listBox}>
         {data.map((p) => (
           <Grid key={p.pubmedId} item>
