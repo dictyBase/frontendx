@@ -4,7 +4,13 @@ import { useNavigate } from "react-router-dom"
 const EditButton = () => {
   const navigate = useNavigate()
 
-  return <Button onClick={() => navigate("edit")} />
+  return (
+    <Button
+      variant="contained"
+      onClick={() => navigate("../edit", { relative: "path" })}>
+      Edit
+    </Button>
+  )
 }
 
 export { EditButton }
