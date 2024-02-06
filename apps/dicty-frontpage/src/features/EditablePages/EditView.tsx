@@ -11,10 +11,10 @@ const EditView = ({ data }: ContentViewProperties) => {
   const navigate = useNavigate()
   const onSave = async () => {
     // update content mutation
-    navigate("../editable")
+    navigate("../editable", { relative: "path" })
   }
   const onCancel = () => {
-    navigate("../editable")
+    navigate("../editable", { relative: "path" })
   }
 
   return (
