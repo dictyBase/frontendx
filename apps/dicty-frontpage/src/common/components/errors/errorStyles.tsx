@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles"
 
-const useStyles = makeStyles(({ palette }) => ({
+const useStyles = makeStyles({
   error400: {
     backgroundColor: "#eff8fb",
     textAlign: "center",
@@ -32,20 +32,10 @@ const useStyles = makeStyles(({ palette }) => ({
     margin: "0 auto",
     display: "table",
   },
-  addPageButton: {
-    width: "25%",
-    marginTop: "25px",
-    padding: "25px",
-    textTransform: "none",
-    backgroundColor: palette.secondary.main,
-    "&:hover": {
-      backgroundColor: palette.secondary.dark,
-    },
-  },
   link: {
     color: "#428bca",
     textDecoration: "none",
   },
-}))
+})
 
 export { useStyles }
