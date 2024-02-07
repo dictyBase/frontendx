@@ -1,10 +1,12 @@
-import { useParams } from "react-router-dom"
+import { Navigate } from "react-router-dom"
 import { gql, useQuery } from "@apollo/client"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
+import { pipe } from "fp-ts/function"
 import { match, P } from "ts-pattern"
 import { ContentView } from "./ContentView"
 import { NAMESPACE } from "../../common/constants/namespace"
 import { useSlug } from "../../common/hooks/useSlug"
+import { hasNotFoundError } from "../../common/utils/hasNotFoundError"
 import { GraphQLErrorPage } from "../../common/components/errors/GraphQLErrorPage"
 import { Loader } from "../../common/components/Loader"
 
@@ -34,6 +36,10 @@ const Show = () => {
     .with({ error: P.select(P.not(undefined)) }, (error_) => (
       <GraphQLErrorPage error={error_} />
     ))
+    .when(
+      ({ error: error_ }) => pipe(error_, hasNotFoundError),
+      () => <Navigate to="../notfound" replace relative="path" />,
+    )
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
       (content) => <ContentView data={content} />,
