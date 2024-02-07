@@ -7,6 +7,7 @@ const useStyles = makeStyles({
   button: {
     width: "25%",
     padding: "20px",
+    marginTop: "25px",
     textTransform: "none",
     backgroundColor: "#15317e",
     color: "#e3e3e3",
@@ -29,7 +30,7 @@ const BackToHomepageButton = () => {
       component={Link}
       to="/"
       className={classes.button}
-      size="small"
+      size="large"
       variant="contained"
       color="primary">
       Back to Homepage
