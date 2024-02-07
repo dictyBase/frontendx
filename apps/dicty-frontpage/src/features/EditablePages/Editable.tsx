@@ -40,7 +40,7 @@ const Editable = () => {
     )
     .when(
       ({ error: error_ }) => pipe(error_, hasNotFoundError),
-      () => <Navigate to="../addpage" replace relative="path" />,
+      () => <Navigate to="../notfoundauth" replace relative="path" />,
     )
     .with({ error: P.select(P.not(undefined)) }, (error_) => (
       <GraphQLErrorPage error={error_} />
