@@ -1,5 +1,4 @@
 import { Navigate } from "react-router-dom"
-import { gql, useQuery } from "@apollo/client"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { NAMESPACE } from "../../common/constants/namespace"
@@ -9,26 +8,11 @@ import { Loader } from "../../common/components/Loader"
 import { useSlug } from "../../common/hooks/useSlug"
 import { hasNotFoundError } from "../../common/utils/hasNotFoundError"
 
-const QUERY = gql`
-  query contentBySlug($slug: String!) {
-    contentBySlug(slug: $slug) {
-      id
-      content
-      name
-      slug
-      updated_at
-      __typename
-    }
-  }
-`
-
 const Edit = () => {
   const slug = useSlug()
-  // const result = useContentBySlugQuery({
-  //   variables: { slug },
-  // })
-  const result = useQuery(QUERY, {
+  const result = useContentBySlugQuery({
     variables: { slug: `${NAMESPACE}-${slug}` },
+    errorPolicy: "all",
   })
 
   return match(result)
