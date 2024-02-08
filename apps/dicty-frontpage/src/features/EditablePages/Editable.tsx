@@ -1,49 +1,32 @@
 import { Navigate } from "react-router-dom"
-import { gql, useQuery } from "@apollo/client"
-import { NAMESPACE } from "../../common/constants/namespace"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { pipe } from "fp-ts/function"
 import { match, P } from "ts-pattern"
+import { NAMESPACE } from "../../common/constants/namespace"
 import { GraphQLErrorPage } from "../../common/components/errors/GraphQLErrorPage"
 import { EditableView } from "./EditableView"
 import { Loader } from "../../common/components/Loader"
 import { useSlug } from "../../common/hooks/useSlug"
 import { hasNotFoundError } from "../../common/utils/hasNotFoundError"
 
-const QUERY = gql`
-  query contentBySlug($slug: String!) {
-    contentBySlug(slug: $slug) {
-      id
-      content
-      name
-      slug
-      updated_at
-      __typename
-    }
-  }
-`
-
 const Editable = () => {
   const slug = useSlug()
-  // const { loading, error, data } = useContentBySlugQuery({
-  //   variables: { slug },
-  // })
-  const { loading, error, data } = useQuery(QUERY, {
+  const result = useContentBySlugQuery({
     variables: { slug: `${NAMESPACE}-${slug}` },
+    errorPolicy: "all",
   })
-
-  return match({ loading, error, data })
+  return match(result)
     .with({ loading: true }, () => <Loader />)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
       (content) => <EditableView data={content} />,
     )
     .when(
-      ({ error: error_ }) => pipe(error_, hasNotFoundError),
+      ({ error }) => pipe(error, hasNotFoundError),
       () => <Navigate to="../notfoundauth" replace relative="path" />,
     )
-    .with({ error: P.select(P.not(undefined)) }, (error_) => (
-      <GraphQLErrorPage error={error_} />
+    .with({ error: P.select(P.not(undefined)) }, (error) => (
+      <GraphQLErrorPage error={error} />
     ))
     .otherwise(() => <> This message should not appear </>)
 }
