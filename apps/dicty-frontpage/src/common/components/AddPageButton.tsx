@@ -1,7 +1,6 @@
 import Button from "@material-ui/core/Button"
-import { useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { makeStyles } from "@material-ui/core/styles"
-import { useSlug } from "../hooks/useSlug"
 
 const useStyles = makeStyles(({ palette }) => ({
   addPageButton: {
@@ -17,21 +16,17 @@ const useStyles = makeStyles(({ palette }) => ({
 }))
 
 /**
- * BackToHomePageButton is a simple button that links back to the homepage.
+ * AddPageButton is a simple button that links to the /addpage route.
  */
 
 const AddPageButton = () => {
-  const slug = useSlug()
   const { addPageButton } = useStyles()
-  const navigate = useNavigate()
-
-  const onClick = () => {
-    navigate("../addpage", { relative: "path", state: { slug } })
-  }
 
   return (
     <Button
-      onClick={onClick}
+      component={Link}
+      to="../addpage"
+      relative="path"
       className={addPageButton}
       size="large"
       variant="contained"
