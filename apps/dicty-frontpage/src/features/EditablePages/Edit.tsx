@@ -1,9 +1,8 @@
 import { Navigate } from "react-router-dom"
 import { gql, useQuery } from "@apollo/client"
-import { NAMESPACE } from "../../common/constants/namespace"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
-import { pipe } from "fp-ts/function"
 import { match, P } from "ts-pattern"
+import { NAMESPACE } from "../../common/constants/namespace"
 import { GraphQLErrorPage } from "../../common/components/errors/GraphQLErrorPage"
 import { EditView } from "./EditView"
 import { Loader } from "../../common/components/Loader"
@@ -25,25 +24,25 @@ const QUERY = gql`
 
 const Edit = () => {
   const slug = useSlug()
-  // const { loading, error, data } = useContentBySlugQuery({
+  // const result = useContentBySlugQuery({
   //   variables: { slug },
   // })
-  const { loading, error, data } = useQuery(QUERY, {
+  const result = useQuery(QUERY, {
     variables: { slug: `${NAMESPACE}-${slug}` },
   })
 
-  return match({ loading, error, data })
+  return match(result)
     .with({ loading: true }, () => <Loader />)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
       (content) => <EditView data={content} />,
     )
     .when(
-      ({ error: error_ }) => pipe(error_, hasNotFoundError),
-      () => <Navigate to="../addpage" replace relative="path" />,
+      ({ error }) => hasNotFoundError(error),
+      () => <Navigate to="../notFoundAuth" replace relative="path" />,
     )
-    .with({ error: P.select(P.not(undefined)) }, (error_) => (
-      <GraphQLErrorPage error={error_} />
+    .with({ error: P.select(P.not(undefined)) }, (error) => (
+      <GraphQLErrorPage error={error} />
     ))
     .otherwise(() => <> This message should not appear </>)
 }
