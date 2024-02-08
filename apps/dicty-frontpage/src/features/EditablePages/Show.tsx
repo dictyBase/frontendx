@@ -1,7 +1,6 @@
 import { Navigate } from "react-router-dom"
 import { gql, useQuery } from "@apollo/client"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
-import { pipe } from "fp-ts/function"
 import { match, P } from "ts-pattern"
 import { ContentView } from "./ContentView"
 import { NAMESPACE } from "../../common/constants/namespace"
@@ -28,16 +27,16 @@ const Show = () => {
   // const { loading, error, data } = useContentBySlugQuery({
   //   variables: { slug },
   // })
-  const { loading, error, data } = useQuery(QUERY, {
+  const result = useQuery(QUERY, {
     variables: { slug: `${NAMESPACE}-${slug}` },
   })
-  return match({ loading, error, data })
+  return match(result)
     .with({ loading: true }, () => <Loader />)
     .with({ error: P.select(P.not(undefined)) }, (error_) => (
       <GraphQLErrorPage error={error_} />
     ))
     .when(
-      ({ error: error_ }) => pipe(error_, hasNotFoundError),
+      ({ error }) => hasNotFoundError(error),
       () => <Navigate to="../notfound" replace relative="path" />,
     )
     .with(
