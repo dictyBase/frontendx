@@ -1,5 +1,4 @@
 import { Navigate } from "react-router-dom"
-import { gql, useQuery } from "@apollo/client"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { ContentView } from "./ContentView"
@@ -9,39 +8,24 @@ import { hasNotFoundError } from "../../common/utils/hasNotFoundError"
 import { GraphQLErrorPage } from "../../common/components/errors/GraphQLErrorPage"
 import { Loader } from "../../common/components/Loader"
 
-const QUERY = gql`
-  query contentBySlug($slug: String!) {
-    contentBySlug(slug: $slug) {
-      id
-      content
-      name
-      slug
-      updated_at
-      __typename
-    }
-  }
-`
-
 const Show = () => {
   const slug = useSlug()
-  // const { loading, error, data } = useContentBySlugQuery({
-  //   variables: { slug },
-  // })
-  const result = useQuery(QUERY, {
+  const result = useContentBySlugQuery({
     variables: { slug: `${NAMESPACE}-${slug}` },
+    errorPolicy: "all",
   })
   return match(result)
     .with({ loading: true }, () => <Loader />)
-    .with({ error: P.select(P.not(undefined)) }, (error_) => (
-      <GraphQLErrorPage error={error_} />
+    .with(
+      { data: { contentBySlug: P.select({ content: P.string }) } },
+      (content) => <ContentView data={content} />,
+    )
+    .with({ error: P.select(P.not(undefined)) }, (error) => (
+      <GraphQLErrorPage error={error} />
     ))
     .when(
       ({ error }) => hasNotFoundError(error),
       () => <Navigate to="../notfound" replace relative="path" />,
-    )
-    .with(
-      { data: { contentBySlug: P.select({ content: P.string }) } },
-      (content) => <ContentView data={content} />,
     )
     .otherwise(() => <> This message should not appear. </>)
 }
