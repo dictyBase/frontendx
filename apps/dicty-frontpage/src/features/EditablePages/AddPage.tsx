@@ -1,9 +1,13 @@
+import { useState, useEffect } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
-import Box from "@material-ui/core/Box"
+import { Container, Box } from "@material-ui/core"
 import Typography from "@material-ui/core/Typography"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import { useCreateContentMutation } from "dicty-graphql-schema"
 import { Editor } from "editor"
+import { type UserInfoResponse, useLogto } from "@logto/react"
+import { useSlug } from "../../common/hooks/useSlug"
+import { useContentPath } from "../../common/hooks/useContentPath"
 import { ErrorNotification } from "../Authentication/ErrorNotification"
 import { useAuthStore } from "../Authentication/AuthStore"
 import { useAuthorization } from "../../common/hooks/useAuthorization"
@@ -31,12 +35,12 @@ const error =
 
 const AddPage = () => {
   const location = useLocation()
-  const slug = location.state?.subname || location.state?.name
-
-  const {
-    state: { token },
-  } = useAuthStore()
-  const { user, canEditPages, verifiedToken } = useAuthorization()
+  const slug = useSlug()
+  const contentPath = useContentPath()
+  const { fetchUserInfo, getAccessToken, isAuthenticated } = useLogto()
+  console.log(isAuthenticated)
+  const [token, setToken] = useState<string>()
+  const [user, setUser] = useState<UserInfoResponse>()
   const navigate = useNavigate()
   const classes = useStyles()
   const [createContent] = useCreateContentMutation({
@@ -47,6 +51,12 @@ const AddPage = () => {
     },
   })
 
+  useEffect(() => {
+    const getUserData = async () => {
+      fetchUserInfo()
+    }
+  })
+
   const previousURL = location.state.url
 
   const handleSaveClick = (value: any) => {
@@ -54,8 +64,8 @@ const AddPage = () => {
       variables: {
         input: {
           name: slug,
-          slug,
-          createdBy: user.id,
+          // eslint-disable-next-line camelcase
+          created_by: user.id,
           content: JSON.stringify(value),
           namespace: NAMESPACE,
         },
@@ -67,28 +77,26 @@ const AddPage = () => {
   }
 
   const handleCancelClick = () => {
-    navigate(previousURL)
+    navigate("../notfoundauth", { relative: "path" })
   }
 
   return (
-    <>
-      {canEditPages && !verifiedToken && <ErrorNotification error={error} />}
+    <Container>
+      {/* {canEditPages && !verifiedToken && <ErrorNotification error={error} />} */}
       <Box mb={2} className={classes.banner}>
         <Box mb={2}>
           <Typography variant="h2" gutterBottom>
             Add Editable Page for Route:
           </Typography>
         </Box>
-        <Typography variant="h3">{previousURL}</Typography>
+        <Typography variant="h3">{contentPath}</Typography>
       </Box>
-      <Box width="80%" m="auto">
-        <Editor
-          handleSave={handleSaveClick}
-          handleCancel={handleCancelClick}
-          editable
-        />
-      </Box>
-    </>
+      <Editor
+        handleSave={handleSaveClick}
+        handleCancel={handleCancelClick}
+        editable
+      />
+    </Container>
   )
 }
 
