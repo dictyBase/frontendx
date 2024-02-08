@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom"
 import { useState, useEffect } from "react"
+import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { type UserInfoResponse, useLogto } from "@logto/react"
-import { gql, useQuery } from "@apollo/client"
 import { match, P } from "ts-pattern"
 import { NAMESPACE } from "../../common/constants/namespace"
 import { Loader } from "../../common/components/Loader"
@@ -10,25 +10,22 @@ import { useSlug } from "../../common/hooks/useSlug"
 import { hasNotFoundError } from "../../common/utils/hasNotFoundError"
 import { AddPageView } from "./AddPageView"
 
-const QUERY = gql`
-  query contentBySlug($slug: String!) {
-    contentBySlug(slug: $slug) {
-      id
-      content
-      name
-      slug
-      updated_at
-      __typename
-    }
-  }
-`
-
 const AddPage = () => {
   const slug = useSlug()
-  const result = useQuery(QUERY, {
+  const {
+    loading: gqlLoading,
+    data,
+    error,
+  } = useContentBySlugQuery({
     variables: { slug: `${NAMESPACE}-${slug}` },
+    errorPolicy: "all",
   })
-  const { fetchUserInfo, getAccessToken, isAuthenticated } = useLogto()
+  const {
+    fetchUserInfo,
+    getAccessToken,
+    isAuthenticated,
+    isLoading: logToLoading,
+  } = useLogto()
   const [token, setToken] = useState<string>()
   const [user, setUser] = useState<UserInfoResponse>()
 
@@ -46,19 +43,26 @@ const AddPage = () => {
     getUserData()
   }, [fetchUserInfo, getAccessToken, isAuthenticated])
 
-  return match({ ...result, token, user })
+  return match({
+    data,
+    error,
+    token,
+    user,
+    loading: gqlLoading || logToLoading,
+  })
     .with({ loading: true }, () => <Loader />)
     .with({ data: { contentBySlug: P.select({ content: P.string }) } }, () => (
       <Navigate to="../editable" replace relative="path" />
     ))
     .when(
-      ({ error }) => hasNotFoundError(error) && token && user?.sub,
+      ({ error: apolloError }) =>
+        hasNotFoundError(apolloError) && token && user?.sub,
       () => (
         <AddPageView token={token as string} userId={user?.sub as string} />
       ),
     )
-    .with({ error: P.select(P.not(undefined)) }, (error) => (
-      <GraphQLErrorPage error={error} />
+    .with({ error: P.select(P.not(undefined)) }, (apolloError) => (
+      <GraphQLErrorPage error={apolloError} />
     ))
     .otherwise(() => <> This message should not appear </>)
 }
