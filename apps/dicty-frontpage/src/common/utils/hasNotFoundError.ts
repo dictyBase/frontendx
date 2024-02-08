@@ -1,22 +1,31 @@
-import { type GraphQLErrors, type ApolloError } from "@apollo/client/errors"
+import { type ApolloError } from "@apollo/client/errors"
 import { pipe } from "fp-ts/function"
+import { exists as ROAexists } from "fp-ts/lib/ReadonlyArray"
 import {
-  fromArray,
-  filter as readonlyArrayFilter,
-  isNonEmpty,
-} from "fp-ts/lib/ReadonlyArray"
-import { getOrElse, fromNullable } from "fp-ts/Option"
+  bindTo as ObindTo,
+  let as Olet,
+  getOrElse as OgetOrElse,
+  fromNullable as OfromNullable,
+  map as Omap,
+} from "fp-ts/Option"
 
 const hasNotFoundError = (apolloError: ApolloError | undefined) =>
   pipe(
     apolloError,
-    fromNullable,
-    getOrElse(() => ({
-      graphQLErrors: fromArray([]) as GraphQLErrors,
-    })),
-    ({ graphQLErrors }) => graphQLErrors,
-    readonlyArrayFilter((gqlError) => gqlError.extensions?.code === "NotFound"),
-    isNonEmpty,
+    OfromNullable,
+    ObindTo("apolloError"),
+    Olet(
+      "graphQLErrors",
+      ({ apolloError: { graphQLErrors } }) => graphQLErrors,
+    ),
+    Olet("notFound", ({ graphQLErrors }) =>
+      pipe(
+        graphQLErrors,
+        ROAexists((gqlError) => gqlError.extensions?.code === "NotFound"),
+      ),
+    ),
+    Omap(({ notFound }) => notFound),
+    OgetOrElse(() => false),
   )
 
 export { hasNotFoundError }
