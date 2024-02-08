@@ -1,103 +1,66 @@
+import { Navigate } from "react-router-dom"
 import { useState, useEffect } from "react"
-import { useNavigate, useLocation } from "react-router-dom"
-import { Container, Box } from "@material-ui/core"
-import Typography from "@material-ui/core/Typography"
-import { makeStyles, Theme } from "@material-ui/core/styles"
-import { useCreateContentMutation } from "dicty-graphql-schema"
-import { Editor } from "editor"
 import { type UserInfoResponse, useLogto } from "@logto/react"
-import { useSlug } from "../../common/hooks/useSlug"
-import { useContentPath } from "../../common/hooks/useContentPath"
-import { ErrorNotification } from "../Authentication/ErrorNotification"
-import { useAuthStore } from "../Authentication/AuthStore"
-import { useAuthorization } from "../../common/hooks/useAuthorization"
+import { gql, useQuery } from "@apollo/client"
+import { match, P } from "ts-pattern"
 import { NAMESPACE } from "../../common/constants/namespace"
+import { Loader } from "../../common/components/Loader"
+import { GraphQLErrorPage } from "../../common/components/errors/GraphQLErrorPage"
+import { useSlug } from "../../common/hooks/useSlug"
+import { hasNotFoundError } from "../../common/utils/hasNotFoundError"
+import { AddPageView } from "./AddPageView"
 
-const useStyles = makeStyles((theme: Theme) => ({
-  banner: {
-    minHeight: "45px",
-    textAlign: "center",
-    paddingTop: theme.spacing(5),
-    paddingLeft: theme.spacing(2.5),
-    paddingRight: theme.spacing(2.5),
-    paddingBottom: theme.spacing(2.5),
-    backgroundColor: "#eee",
-    marginBottom: "20px",
-  },
-}))
-
-const error =
-  "Your login token is expired. Please log out and then log back in to regain full user access."
-
-/**
- * This is the view component so an authorized user can add a new page.
- */
+const QUERY = gql`
+  query contentBySlug($slug: String!) {
+    contentBySlug(slug: $slug) {
+      id
+      content
+      name
+      slug
+      updated_at
+      __typename
+    }
+  }
+`
 
 const AddPage = () => {
-  const location = useLocation()
   const slug = useSlug()
-  const contentPath = useContentPath()
+  const result = useQuery(QUERY, {
+    variables: { slug: `${NAMESPACE}-${slug}` },
+  })
   const { fetchUserInfo, getAccessToken, isAuthenticated } = useLogto()
-  console.log(isAuthenticated)
   const [token, setToken] = useState<string>()
   const [user, setUser] = useState<UserInfoResponse>()
-  const navigate = useNavigate()
-  const classes = useStyles()
-  const [createContent] = useCreateContentMutation({
-    context: {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-  })
 
   useEffect(() => {
     const getUserData = async () => {
-      fetchUserInfo()
+      if (!isAuthenticated) return
+      setToken(
+        await getAccessToken(
+          import.meta.env.VITE_APP_LOGTO_API_SECOND_RESOURCE,
+        ),
+      )
+      setUser(await fetchUserInfo())
     }
-  })
 
-  const previousURL = location.state.url
+    getUserData()
+  }, [fetchUserInfo, getAccessToken, isAuthenticated])
 
-  const handleSaveClick = (value: any) => {
-    createContent({
-      variables: {
-        input: {
-          name: slug,
-          // eslint-disable-next-line camelcase
-          created_by: user.id,
-          content: JSON.stringify(value),
-          namespace: NAMESPACE,
-        },
-      },
-    })
-    setTimeout(() => {
-      navigate(previousURL)
-    }, 800)
-  }
-
-  const handleCancelClick = () => {
-    navigate("../notfoundauth", { relative: "path" })
-  }
-
-  return (
-    <Container>
-      {/* {canEditPages && !verifiedToken && <ErrorNotification error={error} />} */}
-      <Box mb={2} className={classes.banner}>
-        <Box mb={2}>
-          <Typography variant="h2" gutterBottom>
-            Add Editable Page for Route:
-          </Typography>
-        </Box>
-        <Typography variant="h3">{contentPath}</Typography>
-      </Box>
-      <Editor
-        handleSave={handleSaveClick}
-        handleCancel={handleCancelClick}
-        editable
-      />
-    </Container>
-  )
+  return match({ ...result, token, user })
+    .with({ loading: true }, () => <Loader />)
+    .with({ data: { contentBySlug: P.select({ content: P.string }) } }, () => (
+      <Navigate to="../editable" replace relative="path" />
+    ))
+    .when(
+      ({ error }) => hasNotFoundError(error) && token && user?.sub,
+      () => (
+        <AddPageView token={token as string} userId={user?.sub as string} />
+      ),
+    )
+    .with({ error: P.select(P.not(undefined)) }, (error) => (
+      <GraphQLErrorPage error={error} />
+    ))
+    .otherwise(() => <> This message should not appear </>)
 }
 
 export { AddPage }
