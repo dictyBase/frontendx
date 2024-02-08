@@ -11,7 +11,7 @@ type IconItemProperty = {
 
 const defaultIconItems: Array<IconItemProperty> = [
   {
-    href: "/community/citation",
+    href: "/community/citation/show",
     title: "Cite Us",
     Icon: Add,
     key: uuid4(),
@@ -22,7 +22,7 @@ const defaultIconItems: Array<IconItemProperty> = [
     Icon: Download,
     key: uuid4(),
   },
-  { href: "/about", title: "About dictybase", Icon: Info, key: uuid4() },
+  { href: "/about/show", title: "About dictybase", Icon: Info, key: uuid4() },
 ]
 
 export { defaultIconItems }
