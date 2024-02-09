@@ -6,7 +6,7 @@ type UserWithRoles = UserInfoResponse & {
 }
 
 const concatPath = reduce(
-  `http://${window.location.host}`,
+  `${window.location.protocol}://${window.location.host}`,
   (accumulator: string, current: string) => `${accumulator}${current}`,
 )
 
