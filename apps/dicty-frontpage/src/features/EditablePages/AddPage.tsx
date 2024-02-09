@@ -19,6 +19,7 @@ const AddPage = () => {
   } = useContentBySlugQuery({
     variables: { slug: `${NAMESPACE}-${slug}` },
     errorPolicy: "all",
+    fetchPolicy: "network-only",
   })
   const {
     fetchUserInfo,
@@ -28,7 +29,6 @@ const AddPage = () => {
   } = useLogto()
   const [token, setToken] = useState<string>()
   const [user, setUser] = useState<UserInfoResponse>()
-
   useEffect(() => {
     const getUserData = async () => {
       if (!isAuthenticated) return
