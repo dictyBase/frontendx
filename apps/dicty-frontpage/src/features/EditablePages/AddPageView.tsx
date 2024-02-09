@@ -45,21 +45,27 @@ const AddPageView = ({ userId, token }: AddPageViewProperties) => {
     },
   })
 
-  const handleSaveClick = (value: any) => {
-    createContent({
-      variables: {
-        input: {
-          name: slug,
-          // eslint-disable-next-line camelcase
-          created_by: userId,
-          content: JSON.stringify(value),
-          namespace: NAMESPACE,
+  const handleSaveClick = async (value: any) => {
+    try {
+      await createContent({
+        variables: {
+          input: {
+            name: slug,
+            // eslint-disable-next-line camelcase
+            created_by: userId,
+            content: JSON.stringify(value),
+            namespace: NAMESPACE,
+          },
         },
-      },
-    })
-    setTimeout(() => {
+      })
+      navigate("../editable", { relative: "path" })
+    } catch (createContentError) {
+      console.log(createContentError)
       navigate("../notfoundauth", { relative: "path" })
-    }, 800)
+    }
+    // setTimeout(() => {
+    console.log("Done?")
+    // }, 800)
   }
 
   const handleCancelClick = () => {
