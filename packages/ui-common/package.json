@@ -17,6 +17,8 @@
     "eslint-config-custom": "*"
   },
   "dependencies": {
+    "editor": "*",
+    "dicty-graphql-schema": "dictybase/dicty-graphql-schema",
     "@material-ui/core": "^4.x",
     "@material-ui/icons": "^4.x",
     "@material-ui/lab": "^4.11.3-deprecations.1",
