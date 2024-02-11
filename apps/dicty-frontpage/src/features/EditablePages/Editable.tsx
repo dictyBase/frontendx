@@ -13,6 +13,7 @@ const Editable = () => {
   const slug = useSlug()
   const result = useContentBySlugQuery({
     variables: { slug: `${NAMESPACE}-${slug}` },
+    fetchPolicy: "cache-and-network",
     errorPolicy: "all",
   })
   return match(result)
