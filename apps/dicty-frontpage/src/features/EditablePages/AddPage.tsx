@@ -3,15 +3,17 @@ import { useState, useEffect } from "react"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { type UserInfoResponse, useLogto } from "@logto/react"
 import { match, P } from "ts-pattern"
+import { AddPageView } from "@dictybase/ui-common"
 import { NAMESPACE } from "../../common/constants/namespace"
 import { Loader } from "../../common/components/Loader"
 import { GraphQLErrorPage } from "../../common/components/errors/GraphQLErrorPage"
 import { useSlug } from "../../common/hooks/useSlug"
+import { useContentPath } from "../../common/hooks/useContentPath"
 import { hasNotFoundError } from "../../common/utils/hasNotFoundError"
-import { AddPageView } from "./AddPageView"
 
 const AddPage = () => {
   const slug = useSlug()
+  const contentPath = useContentPath()
   const {
     loading: gqlLoading,
     data,
@@ -58,7 +60,13 @@ const AddPage = () => {
       ({ error: apolloError }) =>
         hasNotFoundError(apolloError) && token && user?.sub,
       () => (
-        <AddPageView token={token as string} userId={user?.sub as string} />
+        <AddPageView
+          token={token as string}
+          userId={user?.email as string}
+          namespace={NAMESPACE}
+          slug={slug}
+          contentPath={contentPath}
+        />
       ),
     )
     .with({ error: P.select(P.not(undefined)) }, (apolloError) => (
