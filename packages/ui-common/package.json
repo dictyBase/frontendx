@@ -1,5 +1,5 @@
 {
-  "name": "ui-common",
+  "name": "@dictybase/ui-common",
   "version": "0.0.0",
   "description": "React component for dictybase applications",
   "main": "./src/index.ts",
