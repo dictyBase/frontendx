@@ -11,7 +11,7 @@ type useAuthorizationProperties = { entries: Array<string> }
  */
 const useAuthorization = ({ entries }: useAuthorizationProperties) => {
   // Fetch the user information using the useLogto hook
-  const { fetchUserInfo, isAuthenticated, isLoading: logtoLoading } = useLogto()
+  const { fetchUserInfo, isAuthenticated } = useLogto()
 
   // Initialize state variables
   const [isAuthorized, setAuthorization] = useState<boolean>(false)
