@@ -1,6 +1,7 @@
-import { Navigate, Outlet } from "react-router-dom"
+import { Outlet } from "react-router-dom"
 import { match } from "ts-pattern"
 import { LoadingDisplay } from "@dictybase/ui-dsc"
+import { UnAuthorized } from "./UnAuthorized"
 import { useAuthorization } from "./useAuthorization"
 
 type ConditionalRouteProperties = {
@@ -34,7 +35,7 @@ const conditionalRouting = (property: ConditionalRouteProperties) =>
       ({ isAuthorized }) => isAuthorized,
       () => <Outlet />,
     )
-    .otherwise(() => <Navigate to="/unauthorized" />)
+    .otherwise(() => <UnAuthorized />)
 
 /**
  * The `Private` component is a functional component that renders a private route based on user roles.
