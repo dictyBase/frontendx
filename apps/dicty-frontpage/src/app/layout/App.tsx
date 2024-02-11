@@ -12,7 +12,9 @@ const logtoConfig: LogtoConfig = {
     UserScope.Phone,
     UserScope.CustomData,
     UserScope.Identities,
+    "write:content",
     "edit:content",
+    "delete:content",
     "roles",
   ],
   resources: [
