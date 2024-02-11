@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
-import { ContentView } from "./ContentView"
+import { ContentView } from "@dictybase/ui-common"
 import { NAMESPACE } from "../../common/constants/namespace"
 import { useSlug } from "../../common/hooks/useSlug"
 import { hasNotFoundError } from "../../common/utils/hasNotFoundError"
