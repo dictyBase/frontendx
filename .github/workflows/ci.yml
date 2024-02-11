@@ -11,7 +11,7 @@ jobs:
       - name: set up node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20.x
       - name: check out code
         uses: actions/checkout@v4
       - name: rename config file
@@ -22,7 +22,16 @@ jobs:
         run: yarn coverage
       - name: upload test coverage to codecov
         uses: codecov/codecov-action@v3
-  call-docker-build:
+  call-frontpage-docker-build:
+    needs: test
+    uses: dictyBase/workflows/.github/workflows/docker-build-push-repo.yaml@develop
+    secrets: inherit
+    with:
+      repository: ${{ github.repository }}
+      ref: ${{ github.ref_name }}
+      dockerfile: "docker/Dockerfile.frontpage"
+      dockerrepo: "dictybase/dicty-frontpage"
+  call-dsc-docker-build:
     needs: test
     uses: dictyBase/workflows/.github/workflows/docker-build-push-repo.yaml@develop
     secrets: inherit
