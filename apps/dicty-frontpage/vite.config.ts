@@ -9,8 +9,9 @@ import { defineConfig as defineVitestConfig } from "vitest/config"
 const viteConfig = defineConfig({
   plugins: [react()],
   server: {
-    port: 3000,
+    port: 3003,
   },
+  base: "/stockcenter",
 })
 
 const vitestConfig = defineVitestConfig({
@@ -21,4 +22,5 @@ const vitestConfig = defineVitestConfig({
   },
 })
 
+// eslint-disable-next-line import/no-default-export
 export default mergeConfig(viteConfig, vitestConfig)
