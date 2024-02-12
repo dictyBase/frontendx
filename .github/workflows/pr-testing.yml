@@ -20,4 +20,4 @@ jobs:
       - name: unit tests
         run: yarn coverage
       - name: upload test coverage to codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
