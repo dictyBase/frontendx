@@ -8,6 +8,7 @@ WORKDIR /app
 RUN yarn global add turbo
 COPY . .
 RUN mv /app/apps/dicty-frontpage/.env.development /app/apps/dicty-frontpage/.env.production
+RUN mv /app/apps/dicty-frontpage/src/common/utils/clientConfig.sample.ts /app/apps/dicty-frontpage/src/common/utils/clientConfig.ts
 RUN turbo prune --scope=dicty-frontpage --docker
 
 # Add lockfile and package.json's of isolated subworkspace
