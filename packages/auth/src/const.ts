@@ -12,11 +12,11 @@ const concatPath = reduce(
 
 const callbackPath =
   import.meta.env.VITE_APP_BASENAME === "/"
-    ? "/callback"
+    ? concatPath(["/callback"])
     : concatPath([import.meta.env.VITE_APP_BASENAME, "/callback"])
 const homePath =
   import.meta.env.VITE_APP_BASENAME === "/"
-    ? "/"
+    ? concatPath(["/"])
     : concatPath([import.meta.env.VITE_APP_BASENAME, "/"])
 
 export { callbackPath, homePath, type UserWithRoles }
