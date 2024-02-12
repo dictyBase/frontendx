@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom"
 import { match } from "ts-pattern"
-import { LoadingDisplay } from "@dictybase/ui-dsc"
+import { LoadingDisplay } from "@dictybase/ui-common"
 import { UnAuthorized } from "./UnAuthorized"
 import { useAuthorization } from "./useAuthorization"
 
