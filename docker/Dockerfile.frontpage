@@ -28,7 +28,7 @@ COPY --from=builder /app/out/full/ .
 RUN yarn turbo run build --filter=dicty-frontpage
 
 
-FROM golang:1.20.7-alpine3.18
+FROM golang:1.21.7-alpine3.19
 
 RUN apk update \
   && apk add git \
