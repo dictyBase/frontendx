@@ -14,6 +14,9 @@ const callbackPath =
   import.meta.env.VITE_APP_BASENAME === "/"
     ? "/callback"
     : concatPath([import.meta.env.VITE_APP_BASENAME, "/callback"])
-const homePath = concatPath([import.meta.env.VITE_APP_BASENAME, "/"])
+const homePath =
+  import.meta.env.VITE_APP_BASENAME === "/"
+    ? "/"
+    : concatPath([import.meta.env.VITE_APP_BASENAME, "/"])
 
 export { callbackPath, homePath, type UserWithRoles }
