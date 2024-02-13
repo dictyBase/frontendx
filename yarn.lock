@@ -39,7 +39,7 @@
     tslib "^2.3.0"
     zen-observable-ts "^1.2.5"
 
-"@apollo/client@^3.6.9", "@apollo/client@^3.7.0":
+"@apollo/client@^3.6.9":
   version "3.8.6"
   resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.8.6.tgz#d90f2a9b0147d8fc96c7a867588b5b2165cc4085"
   integrity sha512-FnHg3vhQP8tQzgBs6oTJCFFIbovelDGYujj6MK7CJneiHf62TJstCIO0Ot4A1h7XrgFEtgl8a/OgajQWqrTuYw==
@@ -58,7 +58,7 @@
     tslib "^2.3.0"
     zen-observable-ts "^1.2.5"
 
-"@apollo/client@^3.7.10", "@apollo/client@^3.8.8":
+"@apollo/client@^3.7.10":
   version "3.8.9"
   resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.8.9.tgz#0e4ac133eb04c63e618138c1ebf273d9f110a4d0"
   integrity sha512-IcQDFEEPc9+PEQsxhxQvsoQ04BRarOzi/Ila5PcniRSDeKJWgY22dnp6+V1i1fWXRDVd1ybdvze4sFESDVQUCQ==
@@ -89,6 +89,26 @@
     hoist-non-react-statics "^3.3.2"
     optimism "^0.17.5"
     prop-types "^15.7.2"
+    response-iterator "^0.2.6"
+    symbol-observable "^4.0.0"
+    ts-invariant "^0.10.3"
+    tslib "^2.3.0"
+    zen-observable-ts "^1.2.5"
+
+"@apollo/client@^3.9.4":
+  version "3.9.4"
+  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.9.4.tgz#a0230ce42a4d0c26c9f75f2a10c0f330f3ef135c"
+  integrity sha512-Ip6dxjshDT2Dp6foLASTnKBW45Fytew/5JZutZwgc78hVrrGpO9UtZA9xteHXYdap0wIgCxCfeIQwbSu1ZdQpw==
+  dependencies:
+    "@graphql-typed-document-node/core" "^3.1.1"
+    "@wry/caches" "^1.0.0"
+    "@wry/equality" "^0.5.6"
+    "@wry/trie" "^0.5.0"
+    graphql-tag "^2.12.6"
+    hoist-non-react-statics "^3.3.2"
+    optimism "^0.18.0"
+    prop-types "^15.7.2"
+    rehackt "0.0.4"
     response-iterator "^0.2.6"
     symbol-observable "^4.0.0"
     ts-invariant "^0.10.3"
@@ -7684,32 +7704,12 @@ dicty-components-login@dictybase/dicty-components-login#4.1.1:
   dependencies:
     polished "^3.4.1"
 
-dicty-graphql-schema@dictyBase/dicty-graphql-schema:
-  version "1.9.0"
-  resolved "https://codeload.github.com/dictyBase/dicty-graphql-schema/tar.gz/c6f1952403f10c20e7d702bf9a3480ac57c0ceff"
+dicty-graphql-schema@dictybase/dicty-graphql-schema#1.11.0:
+  version "1.11.0"
+  resolved "https://codeload.github.com/dictybase/dicty-graphql-schema/tar.gz/39f81e2b8c4d0bbe5c4075228940df267c31baf6"
   dependencies:
-    "@apollo/client" "^3.8.8"
+    "@apollo/client" "^3.9.4"
     graphql "^16.8.1"
-    graphql-tag "^2.12.6"
-    react "17.x"
-    react-dom "17.x"
-
-dicty-graphql-schema@dictybase/dicty-graphql-schema:
-  version "1.9.0"
-  resolved "https://codeload.github.com/dictybase/dicty-graphql-schema/tar.gz/3db44dd533ac0a6240e2669707a7b5d849a27a6b"
-  dependencies:
-    "@apollo/client" "^3.7.0"
-    graphql "^16.6.0"
-    graphql-tag "^2.12.6"
-    react "17.x"
-    react-dom "17.x"
-
-dicty-graphql-schema@dictybase/dicty-graphql-schema#v1.10.0:
-  version "1.9.0"
-  resolved "https://codeload.github.com/dictybase/dicty-graphql-schema/tar.gz/804e0c93f4ddd028884860fe69a934c4bf76ddfe"
-  dependencies:
-    "@apollo/client" "^3.7.0"
-    graphql "^16.6.0"
     graphql-tag "^2.12.6"
     react "17.x"
     react-dom "17.x"
@@ -9906,7 +9906,7 @@ graphql-tag@^2.12.6:
   dependencies:
     tslib "^2.1.0"
 
-graphql@16.8.x, graphql@^16.6.0, graphql@^16.8.1:
+graphql@16.8.x, graphql@^16.8.1:
   version "16.8.1"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-16.8.1.tgz#1930a965bef1170603702acdb68aedd3f3cf6f07"
   integrity sha512-59LZHPdGZVh695Ud9lRzPBVTtlX9ZCV150Er2W43ro37wVof0ctenSaskPPjN7lVTIN8mSZt8PHUNKZuNQUuxw==
@@ -16467,6 +16467,11 @@ regjsparser@^0.9.1:
   integrity sha512-dQUtn90WanSNl+7mQKcXAgZxvUe7Z0SqXlgzv0za4LwiUhyzBC58yQO3liFoUgu8GiJVInAhJjkj1N0EtQ5nkQ==
   dependencies:
     jsesc "~0.5.0"
+
+rehackt@0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/rehackt/-/rehackt-0.0.4.tgz#dca5498e1f6c81d3d610ff2abfb3c3feec6afce8"
+  integrity sha512-xFroSGCbMEK/cTJVhq+c8l/AzIeMeojVyLqtZmr2jmIAFvePjapkCSGg9MnrcNk68HPaMxGf+Ndqozotu78ITw==
 
 remark-parse@^10.0.0:
   version "10.0.2"
