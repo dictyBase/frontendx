@@ -12,7 +12,11 @@ import { hasNotFoundError } from "../../common/utils/hasNotFoundError"
 
 const Edit = () => {
   const slug = useSlug()
-  const result = useContentBySlugQuery({
+  const {
+    loading: gqlLoading,
+    data,
+    error,
+  } = useContentBySlugQuery({
     variables: { slug: `${NAMESPACE}-${slug}` },
     errorPolicy: "all",
   })
@@ -38,7 +42,13 @@ const Edit = () => {
     getUserData()
   }, [fetchUserInfo, getAccessToken, isAuthenticated])
 
-  return match(result)
+  return match({
+    data,
+    error,
+    token,
+    user,
+    loading: gqlLoading || logToLoading,
+  })
     .with({ loading: true }, () => <Loader />)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
@@ -51,11 +61,11 @@ const Edit = () => {
       ),
     )
     .when(
-      ({ error }) => hasNotFoundError(error),
+      ({ error: apolloError }) => hasNotFoundError(apolloError),
       () => <Navigate to="../notFoundAuth" replace relative="path" />,
     )
-    .with({ error: P.select(P.not(undefined)) }, (error) => (
-      <GraphQLErrorPage error={error} />
+    .with({ error: P.select(P.not(undefined)) }, (apolloError) => (
+      <GraphQLErrorPage error={apolloError} />
     ))
     .otherwise(() => <> This message should not appear </>)
 }
