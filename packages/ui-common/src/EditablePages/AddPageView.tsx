@@ -54,7 +54,7 @@ const AddPageView = ({
             name: slug,
             // eslint-disable-next-line camelcase
             created_by: userId,
-            content: JSON.stringify(value),
+            content: value,
             namespace,
           },
         },
