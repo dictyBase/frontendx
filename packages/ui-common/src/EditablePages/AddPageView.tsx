@@ -60,8 +60,8 @@ const AddPageView = ({
         },
       })
       navigate("../editable", { relative: "path" })
-    } catch (error) {
-      console.error(error)
+    } catch {
+      // Toggle some error notification
     }
   }
 
