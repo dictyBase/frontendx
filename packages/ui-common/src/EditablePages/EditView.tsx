@@ -34,8 +34,8 @@ const EditView = ({ data, userId, token }: ContentViewProperties) => {
         },
       })
       navigate("../editable", { relative: "path" })
-    } catch (error) {
-      console.error(error)
+    } catch {
+      // Toggle some error notification
     }
   }
   const onCancel = () => {
