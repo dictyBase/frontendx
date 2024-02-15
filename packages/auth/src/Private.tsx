@@ -28,12 +28,12 @@ type PrivateProperties = { roles: Array<string> }
 const conditionalRouting = (property: ConditionalRouteProperties) =>
   match(property)
     .when(
-      ({ isLoading }) => isLoading,
-      () => <LoadingDisplay rows={6} />,
-    )
-    .when(
       ({ isAuthorized }) => isAuthorized,
       () => <Outlet />,
+    )
+    .when(
+      ({ isLoading }) => isLoading,
+      () => <LoadingDisplay rows={6} />,
     )
     .otherwise(() => <UnAuthorized />)
 
