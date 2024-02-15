@@ -60,8 +60,8 @@ const AddPageView = ({
         },
       })
       navigate("../editable", { relative: "path" })
-    } catch {
-      navigate("../notfoundauth", { relative: "path" })
+    } catch (error) {
+      console.error(error)
     }
   }
 
