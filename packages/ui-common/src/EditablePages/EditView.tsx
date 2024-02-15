@@ -33,7 +33,7 @@ const EditView = ({ data, userId, token }: ContentViewProperties) => {
           },
         },
       })
-      // navigate("../editable", { relative: "path" })
+      navigate("../editable", { relative: "path" })
     } catch (error) {
       console.error(error)
     }
