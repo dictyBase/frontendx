@@ -39,7 +39,6 @@ const Edit = () => {
     user,
     loading,
   })
-    .with({ loading: true }, () => <EditableContentLoadingDisplay />)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
       (content) => (
@@ -50,6 +49,7 @@ const Edit = () => {
         />
       ),
     )
+    .with({ loading: true }, () => <EditableContentLoadingDisplay />)
     .when(
       ({ error: apolloError }) => hasNotFoundError(apolloError),
       () => <Navigate to="../notFoundAuth" replace relative="path" />,
