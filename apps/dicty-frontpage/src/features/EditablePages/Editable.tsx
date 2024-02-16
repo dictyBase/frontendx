@@ -19,11 +19,11 @@ const Editable = () => {
     fetchPolicy: "cache-and-network",
   })
   return match(result)
-    .with({ loading: true }, () => <EditableContentLoadingDisplay />)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
       (content) => <EditableView data={content} />,
     )
+    .with({ loading: true }, () => <EditableContentLoadingDisplay />)
     .when(
       ({ error }) => pipe(error, hasNotFoundError),
       () => <Navigate to="../notfoundauth" replace relative="path" />,
