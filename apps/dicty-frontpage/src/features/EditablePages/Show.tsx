@@ -1,12 +1,14 @@
 import { Navigate } from "react-router-dom"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
-import { ContentView } from "@dictybase/ui-common"
+import {
+  ContentView,
+  EditableContentLoadingDisplay,
+} from "@dictybase/ui-common"
 import { NAMESPACE } from "../../common/constants/namespace"
 import { useSlug } from "../../common/hooks/useSlug"
 import { hasNotFoundError } from "../../common/utils/hasNotFoundError"
 import { GraphQLErrorPage } from "../../common/components/errors/GraphQLErrorPage"
-import { Loader } from "../../common/components/Loader"
 
 const Show = () => {
   const slug = useSlug()
@@ -15,7 +17,7 @@ const Show = () => {
     errorPolicy: "all",
   })
   return match(result)
-    .with({ loading: true }, () => <Loader />)
+    .with({ loading: true }, () => <EditableContentLoadingDisplay />)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
       (content) => <ContentView data={content} />,
