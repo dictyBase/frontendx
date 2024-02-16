@@ -4,7 +4,7 @@ import { LoadingDisplay } from "../LoadingDisplay"
 /**
  * Loading component intended for use in editable content pages.
  */
-const EditableLoader = () => (
+const EditableContentLoadingDisplay = () => (
   <Container>
     <LoadingDisplay rows={1} height={100} />
     <br />
@@ -16,4 +16,4 @@ const EditableLoader = () => (
   </Container>
 )
 
-export { EditableLoader }
+export { EditableContentLoadingDisplay }
