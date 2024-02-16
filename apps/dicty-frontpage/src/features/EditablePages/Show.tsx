@@ -17,11 +17,11 @@ const Show = () => {
     errorPolicy: "all",
   })
   return match(result)
-    .with({ loading: true }, () => <EditableContentLoadingDisplay />)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
       (content) => <ContentView data={content} />,
     )
+    .with({ loading: true }, () => <EditableContentLoadingDisplay />)
     .with({ error: P.select(P.not(undefined)) }, (error) => (
       <GraphQLErrorPage error={error} />
     ))
