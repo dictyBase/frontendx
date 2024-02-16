@@ -3,9 +3,11 @@ import { useState, useEffect } from "react"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { type UserInfoResponse, useLogto } from "@logto/react"
 import { match, P } from "ts-pattern"
-import { AddPageView } from "@dictybase/ui-common"
+import {
+  AddPageView,
+  EditableContentLoadingDisplay,
+} from "@dictybase/ui-common"
 import { NAMESPACE } from "../../common/constants/namespace"
-import { Loader } from "../../common/components/Loader"
 import { GraphQLErrorPage } from "../../common/components/errors/GraphQLErrorPage"
 import { useSlug } from "../../common/hooks/useSlug"
 import { useContentPath } from "../../common/hooks/useContentPath"
@@ -14,21 +16,12 @@ import { hasNotFoundError } from "../../common/utils/hasNotFoundError"
 const AddPage = () => {
   const slug = useSlug()
   const contentPath = useContentPath()
-  const {
-    loading: gqlLoading,
-    data,
-    error,
-  } = useContentBySlugQuery({
+  const { loading, data, error } = useContentBySlugQuery({
     variables: { slug: `${NAMESPACE}-${slug}` },
     errorPolicy: "all",
     fetchPolicy: "network-only",
   })
-  const {
-    fetchUserInfo,
-    getAccessToken,
-    isAuthenticated,
-    isLoading: logToLoading,
-  } = useLogto()
+  const { fetchUserInfo, getAccessToken, isAuthenticated } = useLogto()
   const [token, setToken] = useState<string>()
   const [user, setUser] = useState<UserInfoResponse>()
   useEffect(() => {
@@ -50,15 +43,14 @@ const AddPage = () => {
     error,
     token,
     user,
-    loading: gqlLoading || logToLoading,
+    loading,
   })
-    .with({ loading: true }, () => <Loader />)
+    .with({ loading: true }, () => <EditableContentLoadingDisplay />)
     .with({ data: { contentBySlug: P.select({ content: P.string }) } }, () => (
       <Navigate to="../editable" replace relative="path" />
     ))
     .when(
-      ({ error: apolloError }) =>
-        hasNotFoundError(apolloError) && token && user?.sub,
+      ({ error: apolloError }) => hasNotFoundError(apolloError),
       () => (
         <AddPageView
           token={token as string}
