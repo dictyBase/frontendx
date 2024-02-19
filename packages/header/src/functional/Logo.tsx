@@ -2,7 +2,6 @@ import { fromChildren, composeChildren } from "@dictybase/functional"
 import { Box } from "@material-ui/core"
 import { pipe } from "fp-ts/function"
 import { Option, getOrElse, map as Omap, none } from "fp-ts/Option"
-import { v4 as uuid4 } from "uuid"
 import {
   ImgContainer,
   TitleContainer,
@@ -19,10 +18,7 @@ const Logo = ({ title = none }: LogoProperties) => {
     getOrElse(() => "Dicty Community Resource"),
   )
   return pipe(
-    [
-      <ImgContainer key={uuid4()} />,
-      <TitleContainer key={uuid4()} title={logoTitle} />,
-    ],
+    [<ImgContainer key={1} />, <TitleContainer key={2} title={logoTitle} />],
     fromChildren,
     composeChildren,
     Omap((children) => <LogoContainer>{children}</LogoContainer>),
