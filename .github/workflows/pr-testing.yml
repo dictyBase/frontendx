@@ -11,8 +11,6 @@ jobs:
           node-version: 18
       - name: check out code
         uses: actions/checkout@v4
-      - name: rename frontpage config file
-        run: mv apps/dicty-frontpage/src/common/utils/clientConfig.sample.ts apps/dicty-frontpage/src/common/utils/clientConfig.ts
       - name: rename publication config file
         run: mv apps/publication/src/common/utils/clientConfig.sample.ts apps/publication/src/common/utils/clientConfig.ts
       - name: install
