@@ -80,7 +80,7 @@ const mapToRouteObject = (route: string, value: PageComponentData) => {
 const publicRoutes = (allRoutes: dynamicRoutesProperties): Array<RouteObject> =>
   pipe(
     allRoutes,
-    Rfilter((v) => v.access !== ACCESS.protected),
+    Rfilter((v) => v.access === ACCESS.public),
     Rcollect(Ord)(mapToRouteObject),
   )
 
