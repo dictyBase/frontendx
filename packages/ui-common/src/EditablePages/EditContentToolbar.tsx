@@ -2,6 +2,7 @@ import { makeStyles, Theme } from "@material-ui/core/styles"
 import { Box, Tooltip, IconButton, Grid } from "@material-ui/core"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { ContentBySlugQuery } from "dicty-graphql-schema"
+import { useNavigate } from "react-router-dom"
 import { timeSince } from "../timeSince"
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -44,42 +45,40 @@ type Properties = {
   lastUpdate: string
   /** User object for who last updated this content */
   user: NonNullable<ContentBySlugQuery["contentBySlug"]>["updated_by"]
-  /** Function to execute when user clicks edit icon */
-  handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 /** Displays the info page data that was fetched from the InfoPageContainer component */
 
-const EditContentToolbar = ({ handleClick, lastUpdate, user }: Properties) => {
+const EditContentToolbar = ({ lastUpdate, user }: Properties) => {
+  const navigate = useNavigate()
   const classes = useStyles()
-
   const fullName = `${user.first_name} ${user.last_name}`
+  const handleClick = () => {
+    navigate("../edit", { relative: "path" })
+  }
 
   return (
-    <Box mt={2}>
-      <Grid
-        container
-        justifyContent="space-between"
-        className={classes.toolbar}
-        data-testid="info-page-toolbar">
-        <Grid item>
-          <Box component="span" className={classes.text}>
-            <strong>
-              <FontAwesomeIcon className={classes.icon} icon="user" />{" "}
-              {fullName}
-            </strong>{" "}
-            edited {timeSince(lastUpdate)} ago
-          </Box>
-        </Grid>
-        <Grid item>
-          <Tooltip title="Edit Page" placement="bottom">
-            <IconButton className={classes.icon} onClick={handleClick}>
-              <FontAwesomeIcon icon="pencil-alt" />
-            </IconButton>
-          </Tooltip>
-        </Grid>
+    <Grid
+      container
+      justifyContent="space-between"
+      className={classes.toolbar}
+      data-testid="info-page-toolbar">
+      <Grid item>
+        <Box component="span" className={classes.text}>
+          <strong>
+            <FontAwesomeIcon className={classes.icon} icon="user" /> {fullName}
+          </strong>{" "}
+          edited {timeSince(lastUpdate)} ago
+        </Box>
       </Grid>
-    </Box>
+      <Grid item>
+        <Tooltip title="Edit Page" placement="bottom">
+          <IconButton className={classes.icon} onClick={handleClick}>
+            <FontAwesomeIcon icon="pencil-alt" />
+          </IconButton>
+        </Tooltip>
+      </Grid>
+    </Grid>
   )
 }
 
