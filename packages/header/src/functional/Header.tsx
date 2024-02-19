@@ -1,5 +1,4 @@
 import { Box } from "@material-ui/core"
-import { v4 as uuid4 } from "uuid"
 import { fromChildren, composeChildren, type Comp } from "@dictybase/functional"
 import { pipe } from "fp-ts/function"
 import { map as Omap, getOrElse } from "fp-ts/Option"
@@ -32,11 +31,7 @@ const boxWrapper = (children: Comp) => (
 const Header = ({ links }: HeaderProperties) =>
   pipe(
     // An array of JSX components
-    [
-      <Logo key={uuid4()} />,
-      <Search key={uuid4()} />,
-      <Links key={uuid4()} links={links} />,
-    ],
+    [<Logo key={1} />, <Search key={2} />, <Links key={3} links={links} />],
     // Converts the array of JSX components into a Option monad
     fromChildren,
     // Composes the array to a single JSX component
