@@ -8,7 +8,14 @@ const contentBySlugData = {
   content: lexicalEditorState,
   name: "Test Title",
   slug: "testnamespace-test",
+  created_at: "2020-01-01T17:50:12.427Z",
   updated_at: "2020-01-01T17:50:12.427Z",
+  created_by: {
+    id: "3c4d",
+    email: "rusty@holzer.com",
+    first_name: "Rusty",
+    last_name: "Holzer",
+  },
   updated_by: {
     id: "3c4d",
     email: "rusty@holzer.com",
