@@ -1,4 +1,27 @@
-import { Container, Grid, Box, Typography } from "@material-ui/core"
+import { useState } from "react"
+import { pipe } from "fp-ts/function"
+import {
+  upsertAt as RupsertAt,
+  map as Rmap,
+  toArray as RtoArray,
+} from "fp-ts/Record"
+import { sort as Asort } from "fp-ts/Array"
+import { Ord, contramap } from "fp-ts/Ord"
+import { Ord as NOrd } from "fp-ts/number"
+import { map as Mmap } from "fp-ts/Map"
+import { snd as Tsnd } from "fp-ts/Tuple"
+
+import { filter as Afilter, sort } from "fp-ts/Array"
+import { bindTo as ObindTo, bind as Obind, let as Olet } from "fp-ts/Option"
+import { bindTo as IbindTo, bind as Ibind, let as Ilet } from "fp-ts/Identity"
+import {
+  Container,
+  Grid,
+  Box,
+  Typography,
+  Tabs,
+  TabPanel,
+} from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { SinglePublication } from "./SinglePublication"
 import { type PublicationItem } from "../../common/hooks/useFetchPublications"
@@ -6,6 +29,34 @@ import { type PublicationItem } from "../../common/hooks/useFetchPublications"
 type PublicationsViewProperties = {
   data: Array<PublicationItem>
 }
+const createPublishDatePredicate =
+  (timeInSeconds: number) => (item: PublicationItem) =>
+    new Date(item.publishDate).getTime() / 1000 < timeInSeconds
+
+// const TimeIntervalsToSeconds = new Map([
+//   ["All", () => true],
+//   ["Last Three Days", createPublishDatePredicate(3 * 24 * 60 * 60)],
+//   ["Last Week", createPublishDatePredicate(7 * 24 * 60 * 60)],
+//   ["Last Month", createPublishDatePredicate(31 * 24 * 60 * 60)],
+// ])
+// const TimeIntervalsToSeconds = {
+//   all: {
+//     text: "All",
+//     predicate: () => true,
+//   },
+//   threeDays: {
+//     text: "Last Three Days",
+//     predicate: createTimePredicate(3 * 24 * 60 * 60),
+//   },
+//   oneWeek: {
+//     text: "Last Week",
+//     predicate: createTimePredicate(7 * 24 * 60 * 60),
+//   },
+//   oneMonth: {
+//     text: "Last Month",
+//     predicate: createTimePredicate(31 * 24 * 60 * 60),
+//   },
+// }
 
 const useStyles = makeStyles({
   container: {
@@ -50,7 +101,31 @@ const useStyles = makeStyles({
   },
 })
 
+const timeIntervalsToSeconds = {
+  "Last Three Days": 3 * 24 * 60 * 60,
+  "Last Week": 7 * 24 * 60 * 60,
+  "Last Month": 31 * 24 * 60 * 60,
+}
+
+const ordByTime: Ord<[string, number]> = pipe(
+  NOrd,
+  contramap((tuple) => Tsnd(tuple)),
+)
+
 const PublicationsView = ({ data }: PublicationsViewProperties) => {
+  const sortedPublications = pipe(
+    timeIntervalsToSeconds,
+    Rmap((seconds) => Afilter(createPublishDatePredicate(seconds))(data)),
+    RupsertAt("All", data),
+  )
+  const orderedTimeIntervals = pipe(
+    timeIntervalsToSeconds,
+    RtoArray,
+    Asort(ordByTime),
+  )
+  const [timeFrame, setTimeFrame] =
+    useState<keyof typeof sortedPublications>("all")
+
   const { container, listBox, header } = useStyles()
   return (
     <Container className={container}>
@@ -59,13 +134,14 @@ const PublicationsView = ({ data }: PublicationsViewProperties) => {
           Latest Publications
         </Typography>
       </Box>
+      <>{}</>
       <Grid
         container
         spacing={2}
         direction="column"
         component="ol"
         className={listBox}>
-        {data.map((p) => (
+        {sortedPublications[timeFrame].data.map((p) => (
           <Grid key={p.pubmedId} item>
             <SinglePublication data={p} />
           </Grid>
