@@ -15,6 +15,8 @@ import { FlexLayoutPlugin } from "flex-layout-plugin"
 import { TableActionPlugin } from "table-action-plugin"
 import { DictybaseToolbar } from "editor-toolbar"
 import { dictyEditorConfig } from "./editorConfig"
+import { FunctionComponent } from "react"
+// import { WithEditor } from "./WithEditor"
 import {
   useEditorInputStyles,
   useEditorPlaceholderStyles,
@@ -31,6 +33,7 @@ type EditorProperties = {
   editable: boolean
   handleCancel?: () => void
   handleSave?: (content: string) => void
+  toolbar?: FunctionComponent<{ children: Array<JSX.Element> }>
   plugins?: Array<JSX.Element>
 }
 
@@ -43,6 +46,7 @@ const useEditorAreaStyles = makeStyles({
 const Editor = ({
   content,
   editable = false,
+  toolbar: Toolbar,
   handleCancel,
   handleSave,
   plugins,
@@ -74,6 +78,18 @@ const Editor = ({
         <></>
       )} */}
       <Grid container direction="column">
+        {/* <Grid item className={persistencePluginStyles.root}> */}
+        {Toolbar && handleSave && handleCancel ? (
+          <Toolbar>
+            <SaveButton handleSave={handleSave} />
+            <Button variant="contained" onClick={handleCancel}>
+              Cancel
+            </Button>
+          </Toolbar>
+        ) : (
+          <></>
+        )}
+        {/* </Grid> */}
         {editable ? (
           <Grid item>
             <DictybaseToolbar />
@@ -95,16 +111,6 @@ const Editor = ({
               }
             />
           </Container>
-        </Grid>
-        <Grid item className={persistencePluginStyles.root}>
-          {handleSave ? <SaveButton handleSave={handleSave} /> : <></>}
-          {handleCancel ? (
-            <Button variant="contained" onClick={handleCancel}>
-              Cancel
-            </Button>
-          ) : (
-            <></>
-          )}
         </Grid>
       </Grid>
     </LexicalComposer>
