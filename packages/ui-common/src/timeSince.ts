@@ -10,7 +10,7 @@ import { getOrElse as OgetOrElse } from "fp-ts//Option"
 import { Ord as NOrd } from "fp-ts/number"
 import { contramap, Ord } from "fp-ts/lib/Ord"
 
-const ordTimeValue: Ord<[string, number]> = pipe(
+const ordByTimeValue: Ord<[string, number]> = pipe(
   NOrd,
   contramap((tuple) => Tsnd(tuple)),
 )
@@ -29,18 +29,18 @@ const timeSince = (date: string) => {
 
   return pipe(
     unitMap,
-    // Map the seconds since the given date to each of the time units in the unit map
-    Amap(TmapSnd((t) => secondsElapsed / t)),
+    // convert secondsElapsed into each time unit
+    Amap(TmapSnd((unit) => secondsElapsed / unit)),
     // Filter out the units where the value is less than 1
     Afilter((tuple) => Tsnd(tuple) >= 1),
     // Sort the array by numerical value of the time units
-    Asort(ordTimeValue),
-    // Remove decimals from time values
-    Amap(TmapSnd((t) => Math.floor(t))),
+    Asort(ordByTimeValue),
     // Get the unit with the lowest numerical value
     Ahead,
     // If there are no time units whose value is at least 1, use seconds.
     OgetOrElse(() => ["second", secondsElapsed] as [string, number]),
+    // Remove decimals from the time value
+    TmapSnd((t) => Math.floor(t)),
     (tuple) =>
       Tsnd(tuple) === 1
         ? `${Tsnd(tuple)} ${Tfst(tuple)}`
