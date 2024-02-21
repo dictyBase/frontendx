@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { Container } from "@material-ui/core"
 import { useNavigate } from "react-router-dom"
 import {
@@ -5,6 +6,7 @@ import {
   useUpdateContentMutation,
 } from "dicty-graphql-schema"
 import { Editor } from "editor"
+import { createToolbarWrapper } from "./createToolbarWrapper"
 
 type ContentViewProperties = {
   data: NonNullable<ContentBySlugQuery["contentBySlug"]>
@@ -13,6 +15,7 @@ type ContentViewProperties = {
 }
 
 const EditView = ({ data, userId, token }: ContentViewProperties) => {
+  const { id, updated_by, updated_at, slug, content } = data
   const [updateContent] = useUpdateContentMutation({
     context: {
       headers: {
@@ -21,15 +24,14 @@ const EditView = ({ data, userId, token }: ContentViewProperties) => {
     },
   })
   const navigate = useNavigate()
-  const onSave = async (value: any) => {
+  const onSave = async (contentValue: string) => {
     try {
       await updateContent({
         variables: {
           input: {
-            id: data.id,
-            // eslint-disable-next-line camelcase
+            id,
             updated_by: userId,
-            content: value,
+            content: contentValue,
           },
         },
       })
@@ -42,13 +44,20 @@ const EditView = ({ data, userId, token }: ContentViewProperties) => {
     navigate("../editable", { relative: "path" })
   }
 
+  const Toolbar = createToolbarWrapper(
+    updated_at,
+    updated_by.first_name,
+    updated_by.last_name,
+  )
+
   return (
     <Container>
       <Editor
+        toolbar={Toolbar}
         handleSave={onSave}
         handleCancel={onCancel}
         editable
-        content={{ storageKey: data.slug, editorState: data.content }}
+        content={{ storageKey: slug, editorState: content }}
       />
     </Container>
   )
