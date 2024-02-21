@@ -1,3 +1,4 @@
+import { FunctionComponent } from "react"
 import {
   InitialEditorStateType,
   LexicalComposer,
@@ -7,7 +8,7 @@ import { ContentEditable } from "@lexical/react/LexicalContentEditable"
 import { ListPlugin } from "@lexical/react/LexicalListPlugin"
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin"
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary"
-import { Grid, Container, Button, makeStyles } from "@material-ui/core"
+import { Grid, Container, Button, makeStyles, Theme } from "@material-ui/core"
 import { ImagePlugin } from "image-plugin"
 import { SaveButton } from "persistence-plugin"
 import { WidthTablePlugin } from "width-table-plugin"
@@ -15,7 +16,6 @@ import { FlexLayoutPlugin } from "flex-layout-plugin"
 import { TableActionPlugin } from "table-action-plugin"
 import { DictybaseToolbar } from "editor-toolbar"
 import { dictyEditorConfig } from "./editorConfig"
-import { FunctionComponent } from "react"
 // import { WithEditor } from "./WithEditor"
 import {
   useEditorInputStyles,
@@ -37,7 +37,11 @@ type EditorProperties = {
   plugins?: Array<JSX.Element>
 }
 
-const useEditorAreaStyles = makeStyles({
+const useEditorAreaStyles = makeStyles<Theme, EditorProperties>({
+  container: {
+    overflowY: ({ editable }) => (editable ? "scroll" : "initial"),
+    height: ({ editable }) => (editable ? "70vh" : "auto"),
+  },
   root: {
     position: "relative",
   },
@@ -56,7 +60,7 @@ const Editor = ({
   const inputClasses = useEditorInputStyles()
   const placeholderClasses = useEditorPlaceholderStyles()
   const persistencePluginStyles = usePersistencePluginStyles()
-  const editorAreaClasses = useEditorAreaStyles()
+  const editorAreaClasses = useEditorAreaStyles({ editable })
 
   return (
     <LexicalComposer
@@ -98,19 +102,21 @@ const Editor = ({
           <></>
         )}
         <Grid item>
-          <Container disableGutters className={editorAreaClasses.root}>
-            <RichTextPlugin
-              ErrorBoundary={LexicalErrorBoundary}
-              contentEditable={
-                <ContentEditable className={inputClasses.root} />
-              }
-              placeholder={
-                <div className={placeholderClasses.root}>
-                  Enter some text...
-                </div>
-              }
-            />
-          </Container>
+          <div className={editorAreaClasses.container}>
+            <Container disableGutters className={editorAreaClasses.root}>
+              <RichTextPlugin
+                ErrorBoundary={LexicalErrorBoundary}
+                contentEditable={
+                  <ContentEditable className={inputClasses.root} />
+                }
+                placeholder={
+                  <div className={placeholderClasses.root}>
+                    Enter some text...
+                  </div>
+                }
+              />
+            </Container>
+          </div>
         </Grid>
       </Grid>
     </LexicalComposer>
