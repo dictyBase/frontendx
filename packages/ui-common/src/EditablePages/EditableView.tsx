@@ -2,7 +2,7 @@
 import { Container } from "@material-ui/core"
 import { type ContentBySlugQuery } from "dicty-graphql-schema"
 import { Editor } from "editor"
-import { EditContentToolbar } from "./EditContentToolbar"
+import { EditableContentToolbar } from "./EditableContentToolbar"
 
 type EditableViewProperties = {
   data: NonNullable<ContentBySlugQuery["contentBySlug"]>
@@ -13,7 +13,7 @@ const EditableView = ({ data }: EditableViewProperties) => {
 
   return (
     <Container>
-      <EditContentToolbar user={updated_by} lastUpdate={updated_at} />
+      <EditableContentToolbar user={updated_by} lastUpdate={updated_at} />
       <Editor
         editable={false}
         content={{ storageKey: slug, editorState: content }}
