@@ -15,11 +15,6 @@ const useStyles = makeStyles({
     color: "#0b3861",
     paddingRight: "10px",
   },
-  mainContent: {
-    // "&:hover": {
-    //   textDecoration: "underline",
-    // },
-  },
   sourceContent: {
     color: "#0b3861",
   },
@@ -38,13 +33,13 @@ type SinglePublicationProperties = {
 }
 
 const SinglePublication = ({ data }: SinglePublicationProperties) => {
-  const { mainContent, listItem, link } = useStyles()
+  const { mainContent, link } = useStyles()
   const authors = getAuthorsCitationString(data.authors)
   const date = getPublicationYear(data.publishDate)
   const title = formatTitle(data.title).full
   const { abstract, journal, identifiers, pubmedId } = data
   return (
-    <li className={listItem}>
+    <li>
       <Grid container direction="column" className={mainContent}>
         <Grid item>
           <Typography variant="h2" color="primary">
