@@ -1,27 +1,24 @@
-import { useState } from "react"
+import React, { useState } from "react"
 import { pipe } from "fp-ts/function"
 import {
   upsertAt as RupsertAt,
   map as Rmap,
   toArray as RtoArray,
 } from "fp-ts/Record"
-import { sort as Asort } from "fp-ts/Array"
+import {
+  map as Amap,
+  sort as Asort,
+  filter as Afilter,
+  concat as Aconcat,
+  prepend as Aprepend,
+} from "fp-ts/Array"
+import { map as Mmap } from "fp-ts/Map"
 import { Ord, contramap } from "fp-ts/Ord"
 import { Ord as NOrd } from "fp-ts/number"
-import { map as Mmap } from "fp-ts/Map"
-import { snd as Tsnd } from "fp-ts/Tuple"
-
-import { filter as Afilter, sort } from "fp-ts/Array"
-import { bindTo as ObindTo, bind as Obind, let as Olet } from "fp-ts/Option"
-import { bindTo as IbindTo, bind as Ibind, let as Ilet } from "fp-ts/Identity"
-import {
-  Container,
-  Grid,
-  Box,
-  Typography,
-  Tabs,
-  TabPanel,
-} from "@material-ui/core"
+import { Ord as SOrd } from "fp-ts/string"
+import { snd as Tsnd, fst as Tfst, mapSnd as TmapSnd } from "fp-ts/Tuple"
+import { Container, Grid, Box, Typography, Tab, Tabs } from "@material-ui/core"
+import { TabPanel } from "@dictybase/ui-dsc/src/catalog/TabPanel"
 import { makeStyles } from "@material-ui/core/styles"
 import { SinglePublication } from "./SinglePublication"
 import { type PublicationItem } from "../../common/hooks/useFetchPublications"
@@ -29,34 +26,6 @@ import { type PublicationItem } from "../../common/hooks/useFetchPublications"
 type PublicationsViewProperties = {
   data: Array<PublicationItem>
 }
-const createPublishDatePredicate =
-  (timeInSeconds: number) => (item: PublicationItem) =>
-    new Date(item.publishDate).getTime() / 1000 < timeInSeconds
-
-// const TimeIntervalsToSeconds = new Map([
-//   ["All", () => true],
-//   ["Last Three Days", createPublishDatePredicate(3 * 24 * 60 * 60)],
-//   ["Last Week", createPublishDatePredicate(7 * 24 * 60 * 60)],
-//   ["Last Month", createPublishDatePredicate(31 * 24 * 60 * 60)],
-// ])
-// const TimeIntervalsToSeconds = {
-//   all: {
-//     text: "All",
-//     predicate: () => true,
-//   },
-//   threeDays: {
-//     text: "Last Three Days",
-//     predicate: createTimePredicate(3 * 24 * 60 * 60),
-//   },
-//   oneWeek: {
-//     text: "Last Week",
-//     predicate: createTimePredicate(7 * 24 * 60 * 60),
-//   },
-//   oneMonth: {
-//     text: "Last Month",
-//     predicate: createTimePredicate(31 * 24 * 60 * 60),
-//   },
-// }
 
 const useStyles = makeStyles({
   container: {
@@ -75,17 +44,6 @@ const useStyles = makeStyles({
     verticalAlign: "top",
     textAlign: "left",
   },
-  header: {
-    color: "black",
-    fontSize: "20px",
-    padding: "15px 30px 0px 35px",
-
-    "@media (max-width: 767px)": {
-      fontSize: "24px",
-      textAlign: "right",
-      padding: "20px 5px 20px 15px",
-    },
-  },
   listBox: {
     padding: "0px 25px 10px 25px",
     fontSize: "13px",
@@ -99,32 +57,51 @@ const useStyles = makeStyles({
       fontSize: "16px",
     },
   },
+  header: {
+    color: "black",
+    fontSize: "20px",
+    padding: "15px 30px 15px 35px",
+
+    "@media (max-width: 767px)": {
+      fontSize: "24px",
+      textAlign: "right",
+      padding: "20px 5px 20px 15px",
+    },
+  },
 })
 
+const createPublishDatePredicate =
+  (timeInSeconds: number) => (item: PublicationItem) =>
+    (Date.now() - new Date(item.publishDate).getTime()) / 1000 < timeInSeconds
+
 const timeIntervalsToSeconds = {
-  "Last Three Days": 3 * 24 * 60 * 60,
-  "Last Week": 7 * 24 * 60 * 60,
-  "Last Month": 31 * 24 * 60 * 60,
+  "Past Three Days": 3 * 24 * 60 * 60,
+  "Past Week": 7 * 24 * 60 * 60,
+  "Past Month": 31 * 24 * 60 * 60,
+  "Past Three Months": 3 * 31 * 24 * 60 * 60,
 }
 
-const ordByTime: Ord<[string, number]> = pipe(
+const ordByTime: Ord<
+  [keyof typeof timeIntervalsToSeconds, Array<PublicationItem>]
+> = pipe(
   NOrd,
-  contramap((tuple) => Tsnd(tuple)),
+  contramap((tuple) => timeIntervalsToSeconds[Tfst(tuple)]),
 )
 
 const PublicationsView = ({ data }: PublicationsViewProperties) => {
   const sortedPublications = pipe(
     timeIntervalsToSeconds,
-    Rmap((seconds) => Afilter(createPublishDatePredicate(seconds))(data)),
-    RupsertAt("All", data),
-  )
-  const orderedTimeIntervals = pipe(
-    timeIntervalsToSeconds,
+    Rmap((time) => createPublishDatePredicate(time)),
     RtoArray,
+    Amap(TmapSnd((predicate) => Afilter(predicate)(data))),
     Asort(ordByTime),
+    Aprepend(["All", data] as [string, Array<PublicationItem>]),
   )
-  const [timeFrame, setTimeFrame] =
-    useState<keyof typeof sortedPublications>("all")
+  const [tab, setTab] = useState(0)
+
+  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+    setTab(newValue)
+  }
 
   const { container, listBox, header } = useStyles()
   return (
@@ -134,14 +111,18 @@ const PublicationsView = ({ data }: PublicationsViewProperties) => {
           Latest Publications
         </Typography>
       </Box>
-      <>{}</>
+      <Tabs value={tab} onChange={handleChange}>
+        {sortedPublications.map((interval) => (
+          <Tab label={Tfst(interval)} />
+        ))}
+      </Tabs>
       <Grid
         container
         spacing={2}
         direction="column"
         component="ol"
         className={listBox}>
-        {sortedPublications[timeFrame].data.map((p) => (
+        {sortedPublications[tab][1].map((p) => (
           <Grid key={p.pubmedId} item>
             <SinglePublication data={p} />
           </Grid>
