@@ -1,24 +1,16 @@
 import React, { useState } from "react"
 import { pipe } from "fp-ts/function"
-import {
-  upsertAt as RupsertAt,
-  map as Rmap,
-  toArray as RtoArray,
-} from "fp-ts/Record"
+import { map as Rmap, toArray as RtoArray } from "fp-ts/Record"
 import {
   map as Amap,
   sort as Asort,
   filter as Afilter,
-  concat as Aconcat,
   prepend as Aprepend,
 } from "fp-ts/Array"
-import { map as Mmap } from "fp-ts/Map"
 import { Ord, contramap } from "fp-ts/Ord"
 import { Ord as NOrd } from "fp-ts/number"
-import { Ord as SOrd } from "fp-ts/string"
-import { snd as Tsnd, fst as Tfst, mapSnd as TmapSnd } from "fp-ts/Tuple"
+import { fst as Tfst, mapSnd as TmapSnd } from "fp-ts/Tuple"
 import { Container, Grid, Box, Typography, Tab, Tabs } from "@material-ui/core"
-import { TabPanel } from "@dictybase/ui-dsc/src/catalog/TabPanel"
 import { makeStyles } from "@material-ui/core/styles"
 import { SinglePublication } from "./SinglePublication"
 import { type PublicationItem } from "../../common/hooks/useFetchPublications"
@@ -113,7 +105,7 @@ const PublicationsView = ({ data }: PublicationsViewProperties) => {
       </Box>
       <Tabs value={tab} onChange={handleChange}>
         {sortedPublications.map((interval) => (
-          <Tab label={Tfst(interval)} />
+          <Tab label={Tfst(interval)} key={Tfst(interval)} />
         ))}
       </Tabs>
       <Grid
