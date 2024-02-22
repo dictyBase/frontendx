@@ -1,13 +1,7 @@
-import {
-  Box,
-  Grid,
-  Typography,
-  Card,
-  CardHeader,
-  CardContent,
-  CardActions,
-} from "@material-ui/core"
+import { Grid, Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
+import { intercalate as Aintercalate } from "fp-ts/Array"
+import { Monoid as SMonoid } from "fp-ts/string"
 import { Link } from "react-router-dom"
 import { type PublicationItem } from "../../common/hooks/useFetchPublications"
 import {
@@ -54,17 +48,25 @@ const SinglePublication = ({ data }: SinglePublicationProperties) => {
       <Grid container direction="column" className={mainContent}>
         <Grid item>
           <Typography variant="h2" color="primary">
-            {`${title}`}
+            <Link
+              className={link}
+              to={`/publication/${
+                import.meta.env.VITE_PUBLICATION_URL
+              }/${pubmedId}`}>
+              {title}
+            </Link>
           </Typography>
         </Grid>
         <Grid item>
           <Typography>{authors}</Typography>
         </Grid>
         <Grid item>
-          <Typography>{journal}</Typography>
+          <Typography>
+            <em>{journal}</em>
+          </Typography>
         </Grid>
         <Grid item>
-          <Typography>{identifiers}</Typography>
+          <Typography>{Aintercalate(SMonoid)(" ")(identifiers)}</Typography>
         </Grid>
         <Grid item>
           <Typography>{abstract}</Typography>
