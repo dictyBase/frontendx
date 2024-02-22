@@ -1,10 +1,10 @@
 import { Container } from "@material-ui/core"
-import { LoadingDisplay } from "../LoadingDisplay"
+import { LoadingDisplay } from "./LoadingDisplay"
 
 /**
  * Loading component intended for use in editable content pages.
  */
-const EditableContentLoadingDisplay = () => (
+const FullPageLoadingDisplay = () => (
   <Container>
     <LoadingDisplay rows={1} height={100} />
     <br />
@@ -16,4 +16,4 @@ const EditableContentLoadingDisplay = () => (
   </Container>
 )
 
-export { EditableContentLoadingDisplay }
+export { FullPageLoadingDisplay }
