@@ -2,10 +2,7 @@ import { Navigate } from "react-router-dom"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { pipe } from "fp-ts/function"
 import { match, P } from "ts-pattern"
-import {
-  EditableView,
-  EditableContentLoadingDisplay,
-} from "@dictybase/ui-common"
+import { EditableView, FullPageLoadingDisplay } from "@dictybase/ui-common"
 import { NAMESPACE } from "../../common/constants/namespace"
 import { GraphQLErrorPage } from "../../common/components/errors/GraphQLErrorPage"
 import { useSlug } from "../../common/hooks/useSlug"
@@ -23,7 +20,7 @@ const Editable = () => {
       { data: { contentBySlug: P.select({ content: P.string }) } },
       (content) => <EditableView data={content} />,
     )
-    .with({ loading: true }, () => <EditableContentLoadingDisplay />)
+    .with({ loading: true }, () => <FullPageLoadingDisplay />)
     .when(
       ({ error }) => pipe(error, hasNotFoundError),
       () => <Navigate to="../notfoundauth" replace relative="path" />,
