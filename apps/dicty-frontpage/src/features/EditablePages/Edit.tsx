@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { type UserInfoResponse, useLogto } from "@logto/react"
-import { EditView, EditableContentLoadingDisplay } from "@dictybase/ui-common"
+import { EditView, FullPageLoadingDisplay } from "@dictybase/ui-common"
 import { match, P } from "ts-pattern"
 import { NAMESPACE } from "../../common/constants/namespace"
 import { GraphQLErrorPage } from "../../common/components/errors/GraphQLErrorPage"
@@ -49,7 +49,7 @@ const Edit = () => {
         />
       ),
     )
-    .with({ loading: true }, () => <EditableContentLoadingDisplay />)
+    .with({ loading: true }, () => <FullPageLoadingDisplay />)
     .when(
       ({ error: apolloError }) => hasNotFoundError(apolloError),
       () => <Navigate to="../notFoundAuth" replace relative="path" />,

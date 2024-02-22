@@ -3,10 +3,7 @@ import { useState, useEffect } from "react"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { type UserInfoResponse, useLogto } from "@logto/react"
 import { match, P } from "ts-pattern"
-import {
-  AddPageView,
-  EditableContentLoadingDisplay,
-} from "@dictybase/ui-common"
+import { AddPageView, FullPageLoadingDisplay } from "@dictybase/ui-common"
 import { NAMESPACE } from "../../common/constants/namespace"
 import { GraphQLErrorPage } from "../../common/components/errors/GraphQLErrorPage"
 import { useSlug } from "../../common/hooks/useSlug"
@@ -45,7 +42,7 @@ const AddPage = () => {
     user,
     loading,
   })
-    .with({ loading: true }, () => <EditableContentLoadingDisplay />)
+    .with({ loading: true }, () => <FullPageLoadingDisplay />)
     .with({ data: { contentBySlug: P.select({ content: P.string }) } }, () => (
       <Navigate to="../editable" replace relative="path" />
     ))
