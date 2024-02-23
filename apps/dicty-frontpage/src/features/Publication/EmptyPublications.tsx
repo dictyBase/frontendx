@@ -1,13 +1,8 @@
 import { Typography, Grid } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 
-type EmptyPublicationsProperties = {
-  range: string
-}
-
 const useEmptyPublicationStyles = makeStyles((theme) => ({
   container: {
-    // backgroundColor: theme.palette.grey[400],
     height: "400px",
     marginTop: "30px",
     marginBottom: "50px",
@@ -16,10 +11,18 @@ const useEmptyPublicationStyles = makeStyles((theme) => ({
   },
   item: {
     textAlign: "center",
-    // padding: "100px 100px 100px 100px",
   },
 }))
 
+type EmptyPublicationsProperties = {
+  /* A description of the time frame specified by the user */
+  range: string
+}
+/**
+ * display a message when there are no publications available for a given range.
+ * It renders a container with a fixed height and a grey background color. Inside the
+ * container, it displays a centered message with the range for which there are no publications.
+ */
 const EmptyPublications = ({ range }: EmptyPublicationsProperties) => {
   const { container, item } = useEmptyPublicationStyles()
   return (
