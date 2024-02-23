@@ -1,14 +1,11 @@
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import { Box, Tooltip, IconButton, Grid } from "@material-ui/core"
+import { Box, Tooltip, Grid } from "@material-ui/core"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { ContentBySlugQuery } from "dicty-graphql-schema"
-import { useNavigate } from "react-router-dom"
+import { EditButton } from "./EditButton"
 import { timeSince } from "../timeSince"
 
 const useStyles = makeStyles((theme: Theme) => ({
-  content: {
-    marginLeft: "auto",
-  },
   toolbar: {
     backgroundColor: "#fafafa",
     borderRadius: "2px",
@@ -47,35 +44,30 @@ type Properties = {
   user: NonNullable<ContentBySlugQuery["contentBySlug"]>["updated_by"]
 }
 
-/** Displays the info page data that was fetched from the InfoPageContainer component */
-
+/** Toolbar that displays the user who last updated the content and how long ago they updated it.
+ *  It also displays an Edit button that navigates to the edit page.
+ */
 const EditableContentToolbar = ({ lastUpdate, user }: Properties) => {
-  const navigate = useNavigate()
-  const classes = useStyles()
+  const { toolbar, text, icon } = useStyles()
   const fullName = `${user.first_name} ${user.last_name}`
-  const handleClick = () => {
-    navigate("../edit", { relative: "path" })
-  }
 
   return (
     <Grid
       container
       justifyContent="space-between"
-      className={classes.toolbar}
+      className={toolbar}
       data-testid="info-page-toolbar">
       <Grid item>
-        <Box component="span" className={classes.text}>
+        <Box component="span" className={text}>
           <strong>
-            <FontAwesomeIcon className={classes.icon} icon="user" /> {fullName}
+            <FontAwesomeIcon className={icon} icon="user" /> {fullName}
           </strong>{" "}
           edited {timeSince(lastUpdate)} ago
         </Box>
       </Grid>
       <Grid item>
         <Tooltip title="Edit Page" placement="bottom">
-          <IconButton className={classes.icon} onClick={handleClick}>
-            <FontAwesomeIcon icon="pencil-alt" />
-          </IconButton>
+          <EditButton />
         </Tooltip>
       </Grid>
     </Grid>
