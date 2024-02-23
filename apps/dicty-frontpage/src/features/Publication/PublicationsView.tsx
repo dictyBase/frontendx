@@ -10,10 +10,6 @@ import { makeStyles } from "@material-ui/core/styles"
 import { PublicationsList } from "./PublicationsList"
 import { type PublicationItem } from "../../common/hooks/useFetchPublications"
 
-type PublicationsViewProperties = {
-  data: Array<PublicationItem>
-}
-
 const useStyles = makeStyles({
   container: {
     textAlign: "left",
@@ -40,6 +36,11 @@ const useStyles = makeStyles({
   },
 })
 
+/**
+ * Defines a predicate function that checks if an item is older than a specified time in seconds.
+ * @param timeInSeconds - The time threshold in seconds.
+ * @returns A function that takes a PublicationItem and returns a boolean indicating if the item is older than the specified time.
+ */
 const olderThanPredicate = (timeInSeconds: number) => (item: PublicationItem) =>
   (Date.now() - new Date(item.publishDate).getTime()) / 1000 > timeInSeconds
 
@@ -50,11 +51,26 @@ const timeIntervalsToSeconds = {
   "Older Than Three Months": 3 * 31 * 24 * 60 * 60,
 }
 
+/**
+ * Orders time intervals based on the number of seconds.
+ */
 const ordByTime: Ord<keyof typeof timeIntervalsToSeconds> = pipe(
   NOrd,
   contramap((key) => timeIntervalsToSeconds[key]),
 )
 
+/**
+ * Represents a React component for displaying publications.
+ * @param data - Array of PublicationItem objects.
+ */
+type PublicationsViewProperties = {
+  data: Array<PublicationItem>
+}
+
+/**
+ * Displays a list of publications. It renders tabs that allow
+ * users to view a subset of the publications in a given time frame.
+ */
 const PublicationsView = ({ data }: PublicationsViewProperties) => {
   const sortedPublications = pipe(
     timeIntervalsToSeconds,
