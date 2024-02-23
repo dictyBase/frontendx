@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom"
 import { match } from "ts-pattern"
-import { LoadingDisplay } from "@dictybase/ui-common"
+import { FullPageLoadingDisplay } from "@dictybase/ui-common"
 import { UnAuthorized } from "./UnAuthorized"
 import { useAuthorization } from "./useAuthorization"
 
@@ -19,7 +19,7 @@ type PrivateProperties = { roles: Array<string> }
  * The `match` function is a utility function that allows for conditional routing based on the properties of the `props` object.
  * It takes in the `props` object and uses a series of `.when` methods to define different cases based on the properties of the `props` object.
  *
- * The first `.when` case checks if the `isLoading` property of the `props` object is truthy. If it is, it renders a `LoadingDisplay` component with `rows` prop set to 6.
+ * The first `.when` case checks if the `isLoading` property of the `props` object is truthy. If it is, it renders a `FullPageLoadingDisplay` component with `rows` prop set to 6.
  *
  * The second `.when` case checks if the `checkAuthorization` property of the `props` object is truthy. If it is, it renders an `Outlet` component.
  *
@@ -33,7 +33,7 @@ const conditionalRouting = (property: ConditionalRouteProperties) =>
     )
     .when(
       ({ isLoading }) => isLoading,
-      () => <LoadingDisplay rows={6} />,
+      () => <FullPageLoadingDisplay />,
     )
     .otherwise(() => <UnAuthorized />)
 
