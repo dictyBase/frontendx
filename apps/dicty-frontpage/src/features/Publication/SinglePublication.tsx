@@ -1,12 +1,11 @@
-import { Grid, Typography } from "@material-ui/core"
+import { Box, Grid, Typography } from "@material-ui/core"
+import { DateDisplay } from "@dictybase/ui-common"
 import { makeStyles } from "@material-ui/core/styles"
-import { intercalate as Aintercalate } from "fp-ts/Array"
-import { Monoid as SMonoid } from "fp-ts/string"
 import { Link } from "react-router-dom"
+import { PublicationLinks } from "./PublicationLinks"
 import { type PublicationItem } from "../../common/hooks/useFetchPublications"
 import {
   getAuthorsCitationString,
-  getPublicationYear,
   formatTitle,
 } from "../../common/utils/citation"
 
@@ -33,40 +32,40 @@ type SinglePublicationProperties = {
 }
 
 const SinglePublication = ({ data }: SinglePublicationProperties) => {
-  const { mainContent, link } = useStyles()
-  const authors = getAuthorsCitationString(data.authors)
-  const date = getPublicationYear(data.publishDate)
+  const { abstract, journal, identifiers, pubmedId, publishDate, authors } =
+    data
+  const { link } = useStyles()
+  const authorString = getAuthorsCitationString(authors)
   const title = formatTitle(data.title).full
-  const { abstract, journal, identifiers, pubmedId } = data
   return (
     <li>
-      <Grid container direction="column" className={mainContent}>
-        <Grid item>
-          <Typography variant="h2" color="primary">
-            <Link
-              className={link}
-              to={`/publication/${
-                import.meta.env.VITE_PUBLICATION_URL
-              }/${pubmedId}`}>
-              {title}
-            </Link>
-          </Typography>
+      <Box>
+        <Typography variant="h2" color="primary">
+          <Link
+            className={link}
+            to={`/publication/${
+              import.meta.env.VITE_PUBLICATION_URL
+            }/${pubmedId}`}>
+            {title}
+          </Link>
+        </Typography>
+        <Typography>{authorString}</Typography>
+        <Grid container spacing={1}>
+          <Grid item>
+            <Typography display="inline">
+              <em>{journal}</em>
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography> | </Typography>
+          </Grid>
+          <Grid item>
+            <DateDisplay dateString={dateString} />
+          </Grid>
         </Grid>
-        <Grid item>
-          <Typography>{authors}</Typography>
-        </Grid>
-        <Grid item>
-          <Typography>
-            <em>{journal}</em>
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Typography>{Aintercalate(SMonoid)(" ")(identifiers)}</Typography>
-        </Grid>
-        <Grid item>
-          <Typography>{abstract}</Typography>
-        </Grid>
-      </Grid>
+        <PublicationLinks identifiers={identifiers} />
+        <Typography>{abstract}</Typography>
+      </Box>
     </li>
   )
 }
