@@ -1,18 +1,13 @@
 import React, { useState } from "react"
 import { pipe } from "fp-ts/function"
-import { map as Rmap, toArray as RtoArray } from "fp-ts/Record"
-import {
-  map as Amap,
-  sort as Asort,
-  filter as Afilter,
-  prepend as Aprepend,
-} from "fp-ts/Array"
+import { DictyTab, DictyTabs } from "@dictybase/ui-common"
+import { map as Rmap, keys as Rkeys } from "fp-ts/Record"
+import { sort as Asort, filter as Afilter } from "fp-ts/Array"
 import { Ord, contramap } from "fp-ts/Ord"
 import { Ord as NOrd } from "fp-ts/number"
-import { fst as Tfst, mapSnd as TmapSnd } from "fp-ts/Tuple"
-import { Container, Grid, Box, Typography, Tab, Tabs } from "@material-ui/core"
+import { Container, Box, Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
-import { SinglePublication } from "./SinglePublication"
+import { PublicationsList } from "./PublicationsList"
 import { type PublicationItem } from "../../common/hooks/useFetchPublications"
 
 type PublicationsViewProperties = {
@@ -27,32 +22,15 @@ const useStyles = makeStyles({
     borderRadius: "15px",
     boxSizing: "border-box",
     marginBottom: "10px",
-    "@media (max-width: 768px)": {},
-  },
-  title: {
-    paddingLeft: "5px",
-    color: "#086a87",
-    fontSize: "20px",
-    verticalAlign: "top",
-    textAlign: "left",
-  },
-  listBox: {
-    padding: "0px 25px 10px 25px",
-    fontSize: "13px",
-    overflow: "hidden",
-    marginBottom: "5px",
-    marginTop: "12px",
-    "@media (max-width: 992px) and (min-width: 767px)": {
-      fontSize: "10px",
-    },
     "@media (max-width: 768px)": {
-      fontSize: "16px",
+      padding: "0 0 0 0",
     },
   },
+
   header: {
     color: "black",
     fontSize: "20px",
-    padding: "15px 30px 15px 35px",
+    padding: "15px 35px 15px 35px",
 
     "@media (max-width: 767px)": {
       fontSize: "24px",
@@ -62,40 +40,38 @@ const useStyles = makeStyles({
   },
 })
 
-const createPublishDatePredicate =
-  (timeInSeconds: number) => (item: PublicationItem) =>
-    (Date.now() - new Date(item.publishDate).getTime()) / 1000 < timeInSeconds
+const olderThanPredicate = (timeInSeconds: number) => (item: PublicationItem) =>
+  (Date.now() - new Date(item.publishDate).getTime()) / 1000 > timeInSeconds
 
 const timeIntervalsToSeconds = {
-  "Past Three Days": 3 * 24 * 60 * 60,
-  "Past Week": 7 * 24 * 60 * 60,
-  "Past Month": 31 * 24 * 60 * 60,
-  "Past Three Months": 3 * 31 * 24 * 60 * 60,
+  All: 0,
+  "Older Than One Week": 7 * 24 * 60 * 60,
+  "Older Than One Month": 31 * 24 * 60 * 60,
+  "Older Than Three Months": 3 * 31 * 24 * 60 * 60,
 }
 
-const ordByTime: Ord<
-  [keyof typeof timeIntervalsToSeconds, Array<PublicationItem>]
-> = pipe(
+const ordByTime: Ord<keyof typeof timeIntervalsToSeconds> = pipe(
   NOrd,
-  contramap((tuple) => timeIntervalsToSeconds[Tfst(tuple)]),
+  contramap((key) => timeIntervalsToSeconds[key]),
 )
 
 const PublicationsView = ({ data }: PublicationsViewProperties) => {
   const sortedPublications = pipe(
     timeIntervalsToSeconds,
-    Rmap((time) => createPublishDatePredicate(time)),
-    RtoArray,
-    Amap(TmapSnd((predicate) => Afilter(predicate)(data))),
-    Asort(ordByTime),
-    Aprepend(["All", data] as [string, Array<PublicationItem>]),
+    Rmap((time) => Afilter(olderThanPredicate(time))(data)),
   )
-  const [tab, setTab] = useState(0)
+  const tabs = pipe(timeIntervalsToSeconds, Rkeys, Asort(ordByTime))
 
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setTab(newValue)
+  const [currentTab, setCurrentTab] = useState(tabs[0])
+
+  const handleChange = (
+    event: React.ChangeEvent<{}>,
+    newValue: keyof typeof timeIntervalsToSeconds,
+  ) => {
+    setCurrentTab(newValue)
   }
 
-  const { container, listBox, header } = useStyles()
+  const { container, header } = useStyles()
   return (
     <Container className={container}>
       <Box className={header}>
@@ -103,23 +79,15 @@ const PublicationsView = ({ data }: PublicationsViewProperties) => {
           Latest Publications
         </Typography>
       </Box>
-      <Tabs value={tab} onChange={handleChange}>
-        {sortedPublications.map((interval) => (
-          <Tab label={Tfst(interval)} key={Tfst(interval)} />
+      <DictyTabs value={currentTab} onChange={handleChange}>
+        {tabs.map((value) => (
+          <DictyTab value={value} label={value} key={value} />
         ))}
-      </Tabs>
-      <Grid
-        container
-        spacing={2}
-        direction="column"
-        component="ol"
-        className={listBox}>
-        {sortedPublications[tab][1].map((p) => (
-          <Grid key={p.pubmedId} item>
-            <SinglePublication data={p} />
-          </Grid>
-        ))}
-      </Grid>
+      </DictyTabs>
+      <PublicationsList
+        sortedPublications={sortedPublications}
+        currentTab={currentTab}
+      />
     </Container>
   )
 }
