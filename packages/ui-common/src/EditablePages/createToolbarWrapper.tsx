@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginBottom: theme.spacing(2),
     width: "100%",
     alignItems: "center",
-    minHeight: "4rem",
   },
   label: {
     marginLeft: "auto",
