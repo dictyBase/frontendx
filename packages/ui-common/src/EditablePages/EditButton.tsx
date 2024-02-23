@@ -7,6 +7,7 @@ const EditButton = () => {
   return (
     <Button
       variant="contained"
+      color="primary"
       onClick={() => navigate("../edit", { relative: "path" })}>
       Edit
     </Button>
