@@ -3,11 +3,14 @@ import { useState, useEffect } from "react"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { type UserInfoResponse, useLogto } from "@logto/react"
 import { match, P } from "ts-pattern"
-import { AddPageView, FullPageLoadingDisplay } from "@dictybase/ui-common"
+import {
+  AddPageView,
+  FullPageLoadingDisplay,
+  contentPageErrorMatcher,
+} from "@dictybase/ui-common"
 import { NAMESPACE } from "../../common/constants/namespace"
 import { useSlug } from "../../common/hooks/useSlug"
 import { useContentPath } from "../../common/hooks/useContentPath"
-import { contentPageErrorMatcher } from "../../common/utils/contentPageErrorMatcher"
 
 const AddPage = () => {
   const slug = useSlug()
