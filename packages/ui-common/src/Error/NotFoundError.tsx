@@ -6,11 +6,6 @@ import { BackToHomepageButton } from "../BackToHomepageButton"
 import sadDicty from "../assets/sad-dicty.png"
 import { useStyles } from "./errorStyles"
 
-type Properties = {
-  /** Error message to display */
-  error: string
-}
-
 type Parameters_ = {
   /** Name param in URL */
   name: string
@@ -22,10 +17,7 @@ type Parameters_ = {
  * UI display when an item was not found.
  */
 
-// While not currently used in the component, sometimes NotFoundError is invoked by other components that provide it an error prop, so the parameter will not be removed for now.
-// @ts-ignore
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const NotFoundError = ({ error }: Properties) => {
+const NotFoundError = () => {
   const { name, subname } = useParams<Parameters_>()
   const location = useLocation()
   const classes = useStyles()
