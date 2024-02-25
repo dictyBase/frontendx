@@ -2,19 +2,15 @@ import { Navigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { type UserInfoResponse, useLogto } from "@logto/react"
-import {
-  EditView,
-  FullPageLoadingDisplay,
-  GraphQLErrorPage,
-} from "@dictybase/ui-common"
+import { EditView, FullPageLoadingDisplay } from "@dictybase/ui-common"
 import { match, P } from "ts-pattern"
 import { NAMESPACE } from "../../common/constants/namespace"
 import { useSlug } from "../../common/hooks/useSlug"
-import { hasNotFoundError } from "../../common/utils/hasNotFoundError"
+import { contentPageErrorMatcher } from "../../common/utils/contentPageErrorMatcher"
 
 const Edit = () => {
   const slug = useSlug()
-  const { loading, data, error } = useContentBySlugQuery({
+  const result = useContentBySlugQuery({
     variables: { slug: `${NAMESPACE}-${slug}` },
     errorPolicy: "all",
   })
@@ -36,30 +32,26 @@ const Edit = () => {
   }, [fetchUserInfo, getAccessToken, isAuthenticated])
 
   return match({
-    data,
-    error,
     token,
     user,
-    loading,
+    ...result,
   })
     .with(
-      { data: { contentBySlug: P.select({ content: P.string }) } },
-      (content) => (
-        <EditView
-          data={content}
-          userId={user?.email as string}
-          token={token as string}
-        />
+      {
+        data: { contentBySlug: P.select("content", { content: P.string }) },
+        user: { email: P.select("userId", P.string) },
+        token: P.select("authToken", P.string),
+      },
+      ({ content, userId, authToken }) => (
+        <EditView data={content} userId={userId} token={authToken} />
       ),
     )
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
-    .when(
-      ({ error: apolloError }) => hasNotFoundError(apolloError),
-      () => <Navigate to="../notFoundAuth" replace relative="path" />,
+    .with({ error: P.select(P.not(undefined)) }, (error) =>
+      contentPageErrorMatcher(error, () => (
+        <Navigate to="../notfoundauth" replace relative="path" />
+      )),
     )
-    .with({ error: P.select(P.not(undefined)) }, (apolloError) => (
-      <GraphQLErrorPage error={apolloError} />
-    ))
     .otherwise(() => <> This message should not appear </>)
 }
 
