@@ -1,10 +1,13 @@
 import { Navigate } from "react-router-dom"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
-import { EditableView, FullPageLoadingDisplay } from "@dictybase/ui-common"
+import {
+  contentPageErrorMatcher,
+  EditableView,
+  FullPageLoadingDisplay,
+} from "@dictybase/ui-common"
 import { NAMESPACE } from "../../common/constants/namespace"
 import { useSlug } from "../../common/hooks/useSlug"
-import { contentPageErrorMatcher } from "../../common/utils/contentPageErrorMatcher"
 
 const Editable = () => {
   const slug = useSlug()
