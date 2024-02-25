@@ -3,20 +3,16 @@ import { useState, useEffect } from "react"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { type UserInfoResponse, useLogto } from "@logto/react"
 import { match, P } from "ts-pattern"
-import {
-  AddPageView,
-  FullPageLoadingDisplay,
-  GraphQLErrorPage,
-} from "@dictybase/ui-common"
+import { AddPageView, FullPageLoadingDisplay } from "@dictybase/ui-common"
 import { NAMESPACE } from "../../common/constants/namespace"
 import { useSlug } from "../../common/hooks/useSlug"
 import { useContentPath } from "../../common/hooks/useContentPath"
-import { hasNotFoundError } from "../../common/utils/hasNotFoundError"
+import { contentPageErrorMatcher } from "../../common/utils/contentPageErrorMatcher"
 
 const AddPage = () => {
   const slug = useSlug()
   const contentPath = useContentPath()
-  const { loading, data, error } = useContentBySlugQuery({
+  const result = useContentBySlugQuery({
     variables: { slug: `${NAMESPACE}-${slug}` },
     errorPolicy: "all",
     fetchPolicy: "network-only",
@@ -39,19 +35,16 @@ const AddPage = () => {
   }, [fetchUserInfo, getAccessToken, isAuthenticated])
 
   return match({
-    data,
-    error,
     token,
     user,
-    loading,
+    ...result,
   })
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
     .with({ data: { contentBySlug: P.select({ content: P.string }) } }, () => (
       <Navigate to="../editable" replace relative="path" />
     ))
-    .when(
-      ({ error: apolloError }) => hasNotFoundError(apolloError),
-      () => (
+    .with({ error: P.select(P.not(undefined)) }, (error) =>
+      contentPageErrorMatcher(error, () => (
         <AddPageView
           token={token as string}
           userId={user?.email as string}
@@ -59,11 +52,8 @@ const AddPage = () => {
           slug={slug}
           contentPath={contentPath}
         />
-      ),
+      )),
     )
-    .with({ error: P.select(P.not(undefined)) }, (apolloError) => (
-      <GraphQLErrorPage error={apolloError} />
-    ))
     .otherwise(() => <> This message should not appear </>)
 }
 
