@@ -1,11 +1,14 @@
 import { Navigate } from "react-router-dom"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
-import { ContentView, FullPageLoadingDisplay } from "@dictybase/ui-common"
+import {
+  ContentView,
+  FullPageLoadingDisplay,
+  GraphQLErrorPage,
+} from "@dictybase/ui-common"
 import { NAMESPACE } from "../../common/constants/namespace"
 import { useSlug } from "../../common/hooks/useSlug"
 import { hasNotFoundError } from "../../common/utils/hasNotFoundError"
-import { GraphQLErrorPage } from "../../common/components/errors/GraphQLErrorPage"
 
 const Show = () => {
   const slug = useSlug()

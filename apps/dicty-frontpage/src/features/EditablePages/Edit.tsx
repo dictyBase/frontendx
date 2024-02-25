@@ -2,10 +2,13 @@ import { Navigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { type UserInfoResponse, useLogto } from "@logto/react"
-import { EditView, FullPageLoadingDisplay } from "@dictybase/ui-common"
+import {
+  EditView,
+  FullPageLoadingDisplay,
+  GraphQLErrorPage,
+} from "@dictybase/ui-common"
 import { match, P } from "ts-pattern"
 import { NAMESPACE } from "../../common/constants/namespace"
-import { GraphQLErrorPage } from "../../common/components/errors/GraphQLErrorPage"
 import { useSlug } from "../../common/hooks/useSlug"
 import { hasNotFoundError } from "../../common/utils/hasNotFoundError"
 
