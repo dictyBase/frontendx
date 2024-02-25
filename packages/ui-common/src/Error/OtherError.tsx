@@ -1,6 +1,6 @@
 import Grid from "@material-ui/core/Grid"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import sadDicty from "./assets/sad-dicty.png"
+import sadDicty from "../assets/sad-dicty.png"
 import { ErrorMessage } from "./ErrorMessage"
 import { useStyles } from "./errorStyles"
 
