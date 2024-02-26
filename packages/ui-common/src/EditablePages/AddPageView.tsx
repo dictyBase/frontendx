@@ -1,22 +1,8 @@
 import { useNavigate } from "react-router-dom"
-import { Container, Box } from "@material-ui/core"
-import Typography from "@material-ui/core/Typography"
-import { makeStyles, Theme } from "@material-ui/core/styles"
+import { Container } from "@material-ui/core"
 import { useCreateContentMutation } from "dicty-graphql-schema"
 import { Editor } from "editor"
-
-const useStyles = makeStyles((theme: Theme) => ({
-  banner: {
-    minHeight: "45px",
-    textAlign: "center",
-    paddingTop: theme.spacing(5),
-    paddingLeft: theme.spacing(2.5),
-    paddingRight: theme.spacing(2.5),
-    paddingBottom: theme.spacing(2.5),
-    backgroundColor: "#eee",
-    marginBottom: "20px",
-  },
-}))
+import { createAddPageToolbar } from "./createAddPageToolbar"
 
 type AddPageViewProperties = {
   userId: string
@@ -37,7 +23,6 @@ const AddPageView = ({
   contentPath,
 }: AddPageViewProperties) => {
   const navigate = useNavigate()
-  const classes = useStyles()
   const [createContent] = useCreateContentMutation({
     context: {
       headers: {
@@ -71,15 +56,8 @@ const AddPageView = ({
 
   return (
     <Container>
-      <Box mb={2} className={classes.banner}>
-        <Box mb={2}>
-          <Typography variant="h2" gutterBottom>
-            Add Editable Page for Route:
-          </Typography>
-        </Box>
-        <Typography variant="h3">{contentPath}</Typography>
-      </Box>
       <Editor
+        toolbar={createAddPageToolbar(contentPath)}
         handleSave={handleSaveClick}
         handleCancel={handleCancelClick}
         editable
