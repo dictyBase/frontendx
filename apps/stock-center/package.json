@@ -21,6 +21,7 @@
     "@dictybase/navbar": "*",
     "@dictybase/hook-dsc": "*",
     "@dictybase/ui-dsc": "*",
+    "@dictybase/ui-common": "*",
     "editor": "*",
     "auth": "*",
     "ui-user": "*"
