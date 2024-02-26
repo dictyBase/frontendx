@@ -1,7 +1,7 @@
-import { NotFoundErrorAuth } from "../../common/components/errors/NotFoundErrorAuth"
-import { ACCESS } from "../../app/routes/types"
+import { ACCESS } from "auth"
+import { NotFoundErrorAuth } from "@dictybase/ui-common"
 
 // eslint-disable-next-line unicorn/prefer-export-from, import/no-default-export
 export default NotFoundErrorAuth
-export const access = ACCESS.public
+export const access = ACCESS.private
 export const roles = ["content-admin"]
