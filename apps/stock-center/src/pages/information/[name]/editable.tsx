@@ -1,78 +1,37 @@
-import Grid from "@material-ui/core/Grid"
-import Button from "@material-ui/core/Button"
-import { Link as RouterLink } from "react-router-dom"
-import { Editor } from "editor"
+import { Navigate } from "react-router-dom"
+import { useContentBySlugQuery } from "dicty-graphql-schema"
+import { match, P } from "ts-pattern"
+import {
+  contentPageErrorMatcher,
+  EditableView,
+  FullPageLoadingDisplay,
+} from "@dictybase/ui-common"
 import { ACCESS } from "auth"
+import { NAMESPACE } from "../../../namespace"
+import { useSlug } from "../../../hooks/useSlug"
 
-const temporaryContent = {
-  root: {
-    children: [
-      {
-        children: [
-          {
-            children: [
-              {
-                detail: 0,
-                format: 2,
-                mode: "normal",
-                style: "font-size: 20px;",
-                text: "Content coming soon!",
-                type: "text",
-                version: 1,
-              },
-            ],
-            direction: "ltr",
-            format: "",
-            indent: 0,
-            type: "paragraph",
-            version: 1,
-          },
-        ],
-        direction: "ltr",
-        format: "",
-        indent: 0,
-        type: "flex-layout",
-        version: 1,
-      },
-    ],
-    direction: "ltr",
-    format: "",
-    indent: 0,
-    type: "root",
-    version: 1,
-  },
+const Editable = () => {
+  const slug = useSlug()
+  const result = useContentBySlugQuery({
+    variables: { slug: `${NAMESPACE}-${slug}` },
+    errorPolicy: "all",
+    fetchPolicy: "cache-and-network",
+  })
+  return match(result)
+    .with(
+      { data: { contentBySlug: P.select({ content: P.string }) } },
+      (content) => <EditableView data={content} />,
+    )
+    .with({ loading: true }, () => <FullPageLoadingDisplay />)
+    .with({ error: P.select(P.not(undefined)) }, (error) =>
+      contentPageErrorMatcher(error, () => (
+        <Navigate to="../notfoundauth" replace relative="path" />
+      )),
+    )
+    .otherwise(() => <> This message should not appear </>)
 }
-
-type EditableProperties = { href: string }
-
-const Editable = ({ href }: EditableProperties) => (
-  <Grid
-    container
-    item
-    xs={12}
-    spacing={3}
-    alignItems="flex-end"
-    style={{ marginTop: "20px" }}
-    direction="column">
-    <Button
-      color="primary"
-      variant="contained"
-      component={RouterLink}
-      style={{ width: "15%" }}
-      to={href}>
-      Edit Content
-    </Button>
-    <Editor
-      content={{
-        storageKey: "",
-        editorState: JSON.stringify(temporaryContent),
-      }}
-      editable={false}
-    />
-  </Grid>
-)
 
 // eslint-disable-next-line import/no-default-export
 export default Editable
 export const access = ACCESS.private
-export const roles = ["user-user", "content-admin"]
+export const roles = ["content-admin"]
