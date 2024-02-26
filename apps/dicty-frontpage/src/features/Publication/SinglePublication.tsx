@@ -2,7 +2,6 @@ import { Box, Grid, Typography } from "@material-ui/core"
 import { DateDisplay } from "@dictybase/ui-common"
 import { makeStyles } from "@material-ui/core/styles"
 import { Link } from "react-router-dom"
-import { PublicationLinks } from "./PublicationLinks"
 import { type PublicationItem } from "../../common/hooks/useFetchPublications"
 import {
   getAuthorsCitationString,
@@ -32,8 +31,7 @@ type SinglePublicationProperties = {
 }
 
 const SinglePublication = ({ data }: SinglePublicationProperties) => {
-  const { abstract, journal, identifiers, pubmedId, publishDate, authors } =
-    data
+  const { abstract, journal, pubmedId, publishDate, authors } = data
   const { link } = useStyles()
   const authorString = getAuthorsCitationString(authors)
   const title = formatTitle(data.title).full
