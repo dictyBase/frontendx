@@ -1,11 +1,10 @@
 import { RouterProvider } from "react-router-dom"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import Container from "@material-ui/core/Container"
-import { HeaderWithAuth } from "auth"
-import { NavbarWithAuth } from "./NavbarWithAuth"
-import { FooterWithAuth } from "./FooterWithAuth"
+import { HeaderWithAuth, NavbarWithAuth, FooterWithAuth } from "auth"
 import { ErrorBoundary } from "../../common/components/errors/ErrorBoundary"
 import { frontpageRouter } from "../../routes"
+import { navTheme } from "../../common/utils/themes"
 
 const useStyles = makeStyles((theme: Theme) => ({
   main: {
@@ -37,7 +36,7 @@ const FrontPageApp = () => {
   return (
     <div className={classes.body}>
       <HeaderWithAuth clientRouter={frontpageRouter} />
-      <NavbarWithAuth />
+      <NavbarWithAuth theme={navTheme} />
       <main className={classes.main}>
         <Container maxWidth="xl">
           <ErrorBoundary>
