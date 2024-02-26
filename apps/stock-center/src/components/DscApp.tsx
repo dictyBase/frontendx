@@ -1,11 +1,8 @@
 import Container from "@material-ui/core/Container"
 import { LoadingDisplay } from "@dictybase/ui-dsc"
-import { Footer } from "@dictybase/footer"
 import { RouterProvider } from "react-router-dom"
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import { Navbar } from "@dictybase/navbar"
-import { HeaderWithAuth } from "auth"
-import { navbarItems, formatNavbarData } from "../navbarItems"
+import { HeaderWithAuth, NavbarWithAuth, FooterWithAuth } from "auth"
 import { dscRouter } from "../routes"
 import { navTheme } from "../themes"
 
@@ -34,7 +31,7 @@ const DscApp = () => {
   return (
     <div className={classes.body}>
       <HeaderWithAuth clientRouter={dscRouter} />
-      <Navbar items={formatNavbarData(navbarItems)} theme={navTheme} />
+      <NavbarWithAuth theme={navTheme} />
       <main className={classes.main}>
         <Container maxWidth="lg">
           <RouterProvider
@@ -43,7 +40,7 @@ const DscApp = () => {
           />
         </Container>
       </main>
-      <Footer />
+      <FooterWithAuth />
     </div>
   )
 }
