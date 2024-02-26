@@ -63,7 +63,6 @@ const SinglePublication = ({ data }: SinglePublicationProperties) => {
             <DateDisplay dateString={publishDate} />
           </Grid>
         </Grid>
-        <PublicationLinks identifiers={identifiers} />
         <Typography>{abstract}</Typography>
       </Box>
     </li>
