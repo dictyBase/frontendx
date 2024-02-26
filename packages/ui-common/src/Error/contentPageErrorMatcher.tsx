@@ -9,14 +9,12 @@ const contentPageErrorMatcher = (
 ) =>
   match(apolloError)
     .with({ networkError: P.not(P.nullish) }, () => <ServerError />)
-    .with(
-      { graphQLErrors: P.select(P.array({ extensions: P.string })) },
-      (errors) =>
-        // eslint-disable-next-line dot-notation
-        match(errors[0]?.extensions["code"])
-          .with("Unavailable", () => <ServerError />)
-          .with("NotFound", notFoundHandler)
-          .otherwise(() => <OtherError />),
+    .with({ graphQLErrors: P.select() }, (errors) =>
+      // eslint-disable-next-line dot-notation
+      match(errors[0]?.extensions["code"])
+        .with("Unavailable", () => <ServerError />)
+        .with("NotFound", notFoundHandler)
+        .otherwise(() => <OtherError />),
     )
     .otherwise(() => <OtherError />)
 
