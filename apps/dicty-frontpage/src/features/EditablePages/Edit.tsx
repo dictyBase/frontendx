@@ -41,9 +41,9 @@ const Edit = () => {
   })
     .with(
       {
-        data: { contentBySlug: P.select("content", { content: P.string }) },
+        data: { contentBySlug: P.select({ content: P.string }) },
       },
-      ({ content }) => (
+      (content) => (
         <EditView
           data={content}
           userId={user?.email as string}
