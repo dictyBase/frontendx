@@ -42,12 +42,14 @@ const Edit = () => {
   })
     .with(
       {
-        data: { contentBySlug: P.select("content", { content: P.string }) },
-        user: { email: P.select("userId", P.string) },
-        token: P.select("authToken", P.string),
+        data: { contentBySlug: P.select({ content: P.string }) },
       },
-      ({ content, userId, authToken }) => (
-        <EditView data={content} userId={userId} token={authToken} />
+      (content) => (
+        <EditView
+          data={content}
+          userId={user?.email as string}
+          token={token as string}
+        />
       ),
     )
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
