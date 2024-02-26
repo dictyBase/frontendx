@@ -1,56 +1,35 @@
-import Container from "@material-ui/core/Container"
-import { Editor } from "editor"
+import { Navigate } from "react-router-dom"
+import { useContentBySlugQuery } from "dicty-graphql-schema"
+import { match, P } from "ts-pattern"
+import {
+  ContentView,
+  FullPageLoadingDisplay,
+  contentPageErrorMatcher,
+} from "@dictybase/ui-common"
+import { ACCESS } from "auth"
+import { NAMESPACE } from "../../../namespace"
+import { useSlug } from "../../../hooks/useSlug"
 
-const temporaryContent = {
-  root: {
-    children: [
-      {
-        children: [
-          {
-            children: [
-              {
-                detail: 0,
-                format: 2,
-                mode: "normal",
-                style: "font-size: 20px;",
-                text: "Content coming soon!",
-                type: "text",
-                version: 1,
-              },
-            ],
-            direction: "ltr",
-            format: "",
-            indent: 0,
-            type: "paragraph",
-            version: 1,
-          },
-        ],
-        direction: "ltr",
-        format: "",
-        indent: 0,
-        type: "flex-layout",
-        version: 1,
-      },
-    ],
-    direction: "ltr",
-    format: "",
-    indent: 0,
-    type: "root",
-    version: 1,
-  },
+const Show = () => {
+  const slug = useSlug()
+  const result = useContentBySlugQuery({
+    variables: { slug: `${NAMESPACE}-${slug}` },
+    errorPolicy: "all",
+  })
+  return match(result)
+    .with(
+      { data: { contentBySlug: P.select({ content: P.string }) } },
+      (content) => <ContentView data={content} />,
+    )
+    .with({ loading: true }, () => <FullPageLoadingDisplay />)
+    .with({ error: P.select(P.not(undefined)) }, (error) =>
+      contentPageErrorMatcher(error, () => (
+        <Navigate to="../notfound" replace relative="path" />
+      )),
+    )
+    .otherwise(() => <> This message should not appear. </>)
 }
-
-const Show = () => (
-  <Container>
-    <Editor
-      content={{
-        storageKey: "",
-        editorState: JSON.stringify(temporaryContent),
-      }}
-      editable={false}
-    />
-  </Container>
-)
 
 // eslint-disable-next-line import/no-default-export
 export default Show
+export const access = ACCESS.public
