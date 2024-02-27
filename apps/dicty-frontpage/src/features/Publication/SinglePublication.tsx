@@ -39,11 +39,7 @@ const SinglePublication = ({ data }: SinglePublicationProperties) => {
     <li>
       <Box>
         <Typography variant="h2" color="primary">
-          <Link
-            className={link}
-            to={`/publication/${
-              import.meta.env.VITE_PUBLICATION_URL
-            }/${pubmedId}`}>
+          <Link className={link} to={`/publication/${pubmedId}`}>
             {title}
           </Link>
         </Typography>
