@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom"
-import { Container } from "@material-ui/core"
 import { useCreateContentMutation } from "dicty-graphql-schema"
 import { Editor } from "editor"
 import { createAddPageToolbar } from "./createAddPageToolbar"
@@ -55,14 +54,12 @@ const AddPageView = ({
   }
 
   return (
-    <Container>
-      <Editor
-        toolbar={createAddPageToolbar(contentPath)}
-        handleSave={handleSaveClick}
-        handleCancel={handleCancelClick}
-        editable
-      />
-    </Container>
+    <Editor
+      toolbar={createAddPageToolbar(contentPath)}
+      handleSave={handleSaveClick}
+      handleCancel={handleCancelClick}
+      editable
+    />
   )
 }
 
