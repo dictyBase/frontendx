@@ -1,3 +1,3 @@
-const NAMESPACE = "dsc"
+const NAMESPACE = "stockcenter"
 
 export { NAMESPACE }
