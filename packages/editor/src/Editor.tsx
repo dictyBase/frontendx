@@ -40,7 +40,7 @@ type EditorProperties = {
 const useEditorAreaStyles = makeStyles<Theme, EditorProperties>({
   container: {
     overflowY: ({ editable }) => (editable ? "scroll" : "initial"),
-    height: ({ editable }) => (editable ? "70vh" : "auto"),
+    maxHeight: ({ editable }) => (editable ? "70vh" : "auto"),
   },
   root: {
     position: "relative",
