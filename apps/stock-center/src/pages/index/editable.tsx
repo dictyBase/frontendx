@@ -7,7 +7,7 @@ import {
   CatalogLinks,
   FileLinks,
 } from "@dictybase/ui-dsc"
-import { EditableView, LoadingDisplay } from "@dictybase/ui-common"
+import { EditableView, LoadingDisplay, OtherError } from "@dictybase/ui-common"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { ACCESS } from "auth"
@@ -15,7 +15,7 @@ import { NAMESPACE } from "../../namespace"
 /**
  * Homepage is the main homepage component for DSC.
  */
-const Homepage = () => {
+const EditableHomepage = () => {
   const result = useContentBySlugQuery({
     variables: { slug: `${NAMESPACE}-intro` },
   })
@@ -34,7 +34,7 @@ const Homepage = () => {
             )
             .with({ loading: true }, () => <LoadingDisplay rows={4} />)
             .with({ error: P.select(P.not(undefined)) }, (error) => (
-              <>error display</>
+              <OtherError />
             ))
             .otherwise(() => (
               <> This message should not appear. </>
@@ -51,6 +51,6 @@ const Homepage = () => {
 }
 
 // eslint-disable-next-line import/no-default-export
-export default Homepage
+export default EditableHomepage
 export const access = ACCESS.private
 export const roles = ["content-admin"]
