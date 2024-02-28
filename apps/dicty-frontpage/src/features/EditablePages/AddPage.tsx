@@ -1,13 +1,12 @@
 import { Navigate } from "react-router-dom"
-import { useState, useEffect } from "react"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
-import { type UserInfoResponse, useLogto } from "@logto/react"
 import { match, P } from "ts-pattern"
 import {
   AddPageView,
   FullPageLoadingDisplay,
   contentPageErrorMatcher,
 } from "@dictybase/ui-common"
+import { useTokenAndUser } from "auth"
 import { NAMESPACE } from "../../common/constants/namespace"
 import { useSlug } from "../../common/hooks/useSlug"
 import { useContentPath } from "../../common/hooks/useContentPath"
@@ -20,23 +19,9 @@ const AddPage = () => {
     errorPolicy: "all",
     fetchPolicy: "network-only",
   })
-  const { fetchUserInfo, getAccessToken, isAuthenticated } = useLogto()
-  const [token, setToken] = useState<string>()
-  const [user, setUser] = useState<UserInfoResponse>()
-  useEffect(() => {
-    const getUserData = async () => {
-      if (!isAuthenticated) return
-      setToken(
-        await getAccessToken(
-          import.meta.env.VITE_APP_LOGTO_API_SECOND_RESOURCE,
-        ),
-      )
-      setUser(await fetchUserInfo())
-    }
-
-    getUserData()
-  }, [fetchUserInfo, getAccessToken, isAuthenticated])
-
+  const { token, user } = useTokenAndUser(
+    import.meta.env.VITE_APP_LOGTO_API_SECOND_RESOURCE,
+  )
   return match({
     token,
     user,
