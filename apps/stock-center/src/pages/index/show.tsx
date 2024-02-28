@@ -34,9 +34,7 @@ const ShowHomepage = () => {
               (content) => <ContentView data={content} />,
             )
             .with({ loading: true }, () => <LoadingDisplay rows={4} />)
-            .with({ error: P.select(P.not(undefined)) }, (error) => (
-              <OtherError />
-            ))
+            .with({ error: P.not(undefined) }, () => <OtherError />)
             .otherwise(() => (
               <> This message should not appear. </>
             ))}
