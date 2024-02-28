@@ -3,7 +3,6 @@ import {
   useStyles,
   Title,
   Heading,
-  IntroEditor,
   Slide,
   CatalogLinks,
   FileLinks,
@@ -11,6 +10,7 @@ import {
 import { ContentView, LoadingDisplay } from "@dictybase/ui-common"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
+import { ACCESS } from "auth"
 import { NAMESPACE } from "../../namespace"
 
 /**
@@ -53,3 +53,4 @@ const Homepage = () => {
 
 // eslint-disable-next-line import/no-default-export
 export default Homepage
+export const access = ACCESS.public
