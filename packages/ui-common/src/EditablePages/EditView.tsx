@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-import { Container } from "@material-ui/core"
 import { useNavigate } from "react-router-dom"
 import {
   type ContentBySlugQuery,
@@ -51,15 +50,13 @@ const EditView = ({ data, userId, token }: ContentViewProperties) => {
   )
 
   return (
-    <Container>
-      <Editor
-        toolbar={Toolbar}
-        handleSave={onSave}
-        handleCancel={onCancel}
-        editable
-        content={{ storageKey: slug, editorState: content }}
-      />
-    </Container>
+    <Editor
+      toolbar={Toolbar}
+      handleSave={onSave}
+      handleCancel={onCancel}
+      editable
+      content={{ storageKey: slug, editorState: content }}
+    />
   )
 }
 
