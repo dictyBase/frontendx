@@ -112,7 +112,7 @@
         "items": [
           {
             "label": "Stock Center Home",
-            "link": "/stockcenter"
+            "link": "/stockcenter/editable"
           },
           {
             "label": "Strain Catalog",
