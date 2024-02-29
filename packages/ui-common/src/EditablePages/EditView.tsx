@@ -1,63 +1,17 @@
-/* eslint-disable camelcase */
-import { useNavigate } from "react-router-dom"
-import {
-  type ContentBySlugQuery,
-  useUpdateContentMutation,
-} from "dicty-graphql-schema"
-import { Editor } from "editor"
-import { createToolbarWrapper } from "./createToolbarWrapper"
+import { Container } from "@material-ui/core"
+import { type ContentBySlugQuery } from "dicty-graphql-schema"
+import { EditEditor } from "./EditEditor"
 
-type ContentViewProperties = {
+type EditViewProperties = {
   data: NonNullable<ContentBySlugQuery["contentBySlug"]>
   userId: string
   token: string
 }
 
-const EditView = ({ data, userId, token }: ContentViewProperties) => {
-  const { id, updated_by, updated_at, slug, content } = data
-  const [updateContent] = useUpdateContentMutation({
-    context: {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-  })
-  const navigate = useNavigate()
-  const onSave = async (contentValue: string) => {
-    try {
-      await updateContent({
-        variables: {
-          input: {
-            id,
-            updated_by: userId,
-            content: contentValue,
-          },
-        },
-      })
-      navigate("../editable", { relative: "path" })
-    } catch {
-      // Toggle some error notification
-    }
-  }
-  const onCancel = () => {
-    navigate("../editable", { relative: "path" })
-  }
-
-  const Toolbar = createToolbarWrapper(
-    updated_at,
-    updated_by.first_name,
-    updated_by.last_name,
-  )
-
-  return (
-    <Editor
-      toolbar={Toolbar}
-      handleSave={onSave}
-      handleCancel={onCancel}
-      editable
-      content={{ storageKey: slug, editorState: content }}
-    />
-  )
-}
+const EditView = ({ data, userId, token }: EditViewProperties) => (
+  <Container>
+    <EditEditor data={data} userId={userId} token={token} />
+  </Container>
+)
 
 export { EditView }
