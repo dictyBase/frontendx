@@ -7,7 +7,7 @@ import {
   CatalogLinks,
   FileLinks,
 } from "@dictybase/ui-dsc"
-import { EditView, LoadingDisplay, OtherError } from "@dictybase/ui-common"
+import { EditEditor, LoadingDisplay, OtherError } from "@dictybase/ui-common"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { ACCESS, useTokenAndUser } from "auth"
@@ -33,7 +33,7 @@ const EditHomepage = () => {
             .with(
               { data: { contentBySlug: P.select({ content: P.string }) } },
               (content) => (
-                <EditView
+                <EditEditor
                   data={content}
                   userId={user?.email as string}
                   token={token as string}

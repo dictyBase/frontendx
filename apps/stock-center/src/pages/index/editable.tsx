@@ -7,7 +7,11 @@ import {
   CatalogLinks,
   FileLinks,
 } from "@dictybase/ui-dsc"
-import { EditableView, LoadingDisplay, OtherError } from "@dictybase/ui-common"
+import {
+  EditableEditor,
+  LoadingDisplay,
+  OtherError,
+} from "@dictybase/ui-common"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { ACCESS } from "auth"
@@ -30,7 +34,7 @@ const EditableHomepage = () => {
           {match(result)
             .with(
               { data: { contentBySlug: P.select({ content: P.string }) } },
-              (content) => <EditableView data={content} />,
+              (content) => <EditableEditor data={content} />,
             )
             .with({ loading: true }, () => <LoadingDisplay rows={4} />)
             .with({ error: P.not(undefined) }, () => <OtherError />)

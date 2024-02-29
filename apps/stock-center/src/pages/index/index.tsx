@@ -7,7 +7,7 @@ import {
   CatalogLinks,
   FileLinks,
 } from "@dictybase/ui-dsc"
-import { ContentView, LoadingDisplay, OtherError } from "@dictybase/ui-common"
+import { LoadingDisplay, OtherError, ContentEditor } from "@dictybase/ui-common"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { ACCESS } from "auth"
@@ -31,7 +31,7 @@ const ShowHomepage = () => {
           {match(result)
             .with(
               { data: { contentBySlug: P.select({ content: P.string }) } },
-              (content) => <ContentView data={content} />,
+              (content) => <ContentEditor data={content} />,
             )
             .with({ loading: true }, () => <LoadingDisplay rows={4} />)
             .with({ error: P.not(undefined) }, () => <OtherError />)
