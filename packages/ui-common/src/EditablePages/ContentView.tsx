@@ -1,5 +1,6 @@
+import { Container } from "@material-ui/core"
 import { type ContentBySlugQuery } from "dicty-graphql-schema"
-import { Editor } from "editor"
+import { ContentEditor } from "./ContentEditor"
 
 type ContentViewProperties = {
   data: NonNullable<ContentBySlugQuery["contentBySlug"]>
@@ -11,10 +12,9 @@ type ContentViewProperties = {
  * @returns The rendered ContentView component.
  */
 const ContentView = ({ data }: ContentViewProperties) => (
-  <Editor
-    editable={false}
-    content={{ storageKey: data.slug, editorState: data.content }}
-  />
+  <Container>
+    <ContentEditor data={data} />
+  </Container>
 )
 
 export { ContentView }
