@@ -38,7 +38,7 @@ const FrontPageApp = () => {
       <HeaderWithAuth clientRouter={frontpageRouter} />
       <NavbarWithAuth theme={navTheme} />
       <main className={classes.main}>
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
           <ErrorBoundary>
             <RouterProvider router={frontpageRouter} />
           </ErrorBoundary>
