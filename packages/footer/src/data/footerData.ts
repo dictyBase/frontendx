@@ -1,16 +1,19 @@
+/* eslint-disable dot-notation */
 import { FooterItem } from "../types"
 
 export const footerData: Array<FooterItem> = [
   {
-    url: "/research/techniques/show",
+    url: `${
+      import.meta.env["VITE_APP_FRONTPAGE_URL"]
+    }/research/techniques/show`,
     label: "Techniques",
   },
   {
-    url: "/research/teach/show",
+    url: `${import.meta.env["VITE_APP_FRONTPAGE_URL"]}/research/teach/show`,
     label: "Teaching Protocols",
   },
   {
-    url: "/stockcenter",
+    url: `${import.meta.env["VITE_APP_STOCKCENTER_URL"]}/stockcenter`,
     label: "Dicty Stock Center",
   },
   {
@@ -22,19 +25,23 @@ export const footerData: Array<FooterItem> = [
     label: "DictyAccess",
   },
   {
-    url: "/community/conference/show",
+    url: `${
+      import.meta.env["VITE_APP_FRONTPAGE_URL"]
+    }/community/conference/show`,
     label: "Conference",
   },
   {
-    url: "/community/labs/show",
+    url: `${import.meta.env["VITE_APP_FRONTPAGE_URL"]}/community/labs/show`,
     label: "Labs",
   },
   {
-    url: "/about/show",
+    url: `${import.meta.env["VITE_APP_FRONTPAGE_URL"]}/about/show`,
     label: "About",
   },
   {
-    url: "/stockcenter/contact/show",
+    url: `${
+      import.meta.env["VITE_APP_STOCKCENTER_URL"]
+    }/stockcenter/contact/show`,
     label: "Contact",
   },
 ]
