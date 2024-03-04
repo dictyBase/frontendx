@@ -145,7 +145,7 @@ const LatestPapersView = ({ data }: LatestPapersProperties) => {
         ))}
       </Grid>
       <Container className={bottomLink}>
-        <Link to="/publication"> More Papers </Link>
+        <Link to="/papers"> More Papers </Link>
       </Container>
     </Container>
   )
