@@ -1,6 +1,7 @@
+/* eslint-disable react/no-array-index-key */
 import { Grid, Box, Container, Typography } from "@material-ui/core"
-import { Skeleton } from "@material-ui/lab"
 import { makeStyles } from "@material-ui/styles"
+import { LoadingDisplay } from "@dictybase/ui-common"
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { LatestPaperItem } from "./LatestPaperItem"
@@ -97,10 +98,9 @@ const LatestPapersLoader = () => {
         spacing={1}
         component="ul"
         className={listBox}>
-        {new Array(3).fill(0).map(() => (
-          <Grid item>
-            <Skeleton height={40} />
-            <Skeleton height={40} />
+        {new Array(3).fill(0).map((element, index) => (
+          <Grid key={index} item>
+            <LoadingDisplay rows={2} height={40} />
           </Grid>
         ))}
       </Grid>
@@ -139,7 +139,7 @@ const LatestPapersView = ({ data }: LatestPapersProperties) => {
       </Box>
       <Grid container direction="column" component="ul" className={listBox}>
         {data.slice(0, 3).map((p) => (
-          <Grid item>
+          <Grid key={p.pubmedId} item>
             <LatestPaperItem data={p} />
           </Grid>
         ))}
