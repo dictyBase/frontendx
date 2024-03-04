@@ -1,7 +1,7 @@
 import { Footer } from "@dictybase/footer"
 import { displayOnAuthorized } from "./functional/auth"
 import { useAuthorization } from "./useAuthorization"
-import authFooterData from "./data/authFooterData.json"
+import { authFooterItems } from "./data/authFooterData"
 
 const authorizedRoles = ["content-admin"]
 
@@ -11,7 +11,7 @@ const FooterWithAuth = () => {
   })
   return displayOnAuthorized({
     isAuthorized,
-    authorized: <Footer data={authFooterData} />,
+    authorized: <Footer data={authFooterItems} />,
     unauthorized: <Footer />,
   })
 }
