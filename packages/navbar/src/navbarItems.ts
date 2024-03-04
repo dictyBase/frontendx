@@ -1,3 +1,4 @@
+/* eslint-disable dot-notation */
 const navbarItems = {
   data: [
     {
@@ -50,23 +51,33 @@ const navbarItems = {
         items: [
           {
             label: "Dicty Art",
-            link: "/explore/art/show",
+            link: `${
+              import.meta.env["VITE_APP_FRONTPAGE_URL"]
+            }/explore/art/show`,
           },
           {
             label: "Gallery",
-            link: "/explore/gallery/show",
+            link: `${
+              import.meta.env["VITE_APP_FRONTPAGE_URL"]
+            }/explore/gallery/show`,
           },
           {
             label: "Learn About Dicty",
-            link: "/explore/learn/show",
+            link: `${
+              import.meta.env["VITE_APP_FRONTPAGE_URL"]
+            }/explore/learn/show`,
           },
           {
             label: "Teaching Protocols",
-            link: "/explore/teach/show",
+            link: `${
+              import.meta.env["VITE_APP_FRONTPAGE_URL"]
+            }/explore/teach/show`,
           },
           {
             label: "Useful Links",
-            link: "/explore/links/show",
+            link: `${
+              import.meta.env["VITE_APP_FRONTPAGE_URL"]
+            }/explore/links/show`,
           },
         ],
       },
@@ -79,27 +90,39 @@ const navbarItems = {
         items: [
           {
             label: "Techniques",
-            link: "/research/techniques/show",
+            link: `${
+              import.meta.env["VITE_APP_FRONTPAGE_URL"]
+            }/research/techniques/show`,
           },
           {
             label: "Anatomy Ontology",
-            link: "/research/ontology/show",
+            link: `${
+              import.meta.env["VITE_APP_FRONTPAGE_URL"]
+            }/research/ontology/show`,
           },
           {
             label: "Codon Bias Table",
-            link: "/research/codon/show",
+            link: `${
+              import.meta.env["VITE_APP_FRONTPAGE_URL"]
+            }/research/codon/show`,
           },
           {
             label: "Nomenclature Guidelines",
-            link: "/research/nomenclature/show",
+            link: `${
+              import.meta.env["VITE_APP_FRONTPAGE_URL"]
+            }/research/nomenclature/show`,
           },
           {
             label: "Phenotyping",
-            link: "/research/phenotype/show",
+            link: `${
+              import.meta.env["VITE_APP_FRONTPAGE_URL"]
+            }/research/phenotype/show`,
           },
           {
             label: "Axenic Strain History",
-            link: "/research/strain-history/show",
+            link: `${
+              import.meta.env["VITE_APP_FRONTPAGE_URL"]
+            }/research/strain-history/show`,
           },
         ],
       },
@@ -112,31 +135,43 @@ const navbarItems = {
         items: [
           {
             label: "Stock Center Home",
-            link: "/stockcenter",
+            link: `${import.meta.env["VITE_APP_STOCKCENTER_URL"]}/stockcenter`,
           },
           {
             label: "Strain Catalog",
-            link: "/stockcenter/strains",
+            link: `${
+              import.meta.env["VITE_APP_STOCKCENTER_URL"]
+            }/stockcenter/strains`,
           },
           {
             label: "Plasmid Catalog",
-            link: "/stockcenter/plasmids",
+            link: `${
+              import.meta.env["VITE_APP_STOCKCENTER_URL"]
+            }/stockcenter/plasmids`,
           },
           {
             label: "Order Information",
-            link: "/stockcenter/information/order/show",
+            link: `${
+              import.meta.env["VITE_APP_STOCKCENTER_URL"]
+            }/stockcenter/information/order/show`,
           },
           {
             label: "Deposit Information",
-            link: "/stockcenter/information/deposit/show",
+            link: `${
+              import.meta.env["VITE_APP_STOCKCENTER_URL"]
+            }/stockcenter/information/deposit/show`,
           },
           {
             label: "Payment Information",
-            link: "/stockcenter/information/payment/show",
+            link: `${
+              import.meta.env["VITE_APP_STOCKCENTER_URL"]
+            }/stockcenter/information/payment/show`,
           },
           {
             label: "FAQ",
-            link: "/stockcenter/information/faq/show",
+            link: `${
+              import.meta.env["VITE_APP_STOCKCENTER_URL"]
+            }/stockcenter/information/faq/show`,
           },
           {
             label: "Standard Operating Procedures",
@@ -153,31 +188,45 @@ const navbarItems = {
         items: [
           {
             label: "Cite Us",
-            link: "/community/citation/show",
+            link: `${
+              import.meta.env["VITE_APP_FRONTPAGE_URL"]
+            }/community/citation/show`,
           },
           {
             label: "Dicty Annual Conferences",
-            link: "/community/conference/show",
+            link: `${
+              import.meta.env["VITE_APP_FRONTPAGE_URL"]
+            }/community/conference/show`,
           },
           {
             label: "Dicty Email Forum",
-            link: "/community/listserv/show",
+            link: `${
+              import.meta.env["VITE_APP_FRONTPAGE_URL"]
+            }/community/listserv/show`,
           },
           {
             label: "Dicty Labs",
-            link: "/community/labs/show",
+            link: `${
+              import.meta.env["VITE_APP_FRONTPAGE_URL"]
+            }/community/labs/show`,
           },
           {
             label: "History",
-            link: "/community/history/show",
+            link: `${
+              import.meta.env["VITE_APP_FRONTPAGE_URL"]
+            }/community/history/show`,
           },
           {
             label: "Jobs",
-            link: "/community/jobs/show",
+            link: `${
+              import.meta.env["VITE_APP_FRONTPAGE_URL"]
+            }/community/jobs/show`,
           },
           {
             label: "Community Annotations",
-            link: "/community/annotations/show",
+            link: `${
+              import.meta.env["VITE_APP_FRONTPAGE_URL"]
+            }/community/annotations/show`,
           },
         ],
       },
