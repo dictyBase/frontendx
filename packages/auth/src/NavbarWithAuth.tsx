@@ -1,7 +1,7 @@
 import { Navbar, formatNavbarData } from "@dictybase/navbar"
 import { displayOnAuthorized } from "./functional/auth"
 import { useAuthorization } from "./useAuthorization"
-import authNavbarData from "./data/authNavbarData.json"
+import { authNavbarItems } from "./data/authNavbarData"
 
 const authorizedRoles = ["content-admin"]
 
@@ -17,7 +17,7 @@ const NavbarWithAuth = ({ theme = {} }: NavbarWithAuthProperties) => {
   return displayOnAuthorized({
     isAuthorized,
     authorized: (
-      <Navbar items={formatNavbarData(authNavbarData)} theme={theme} />
+      <Navbar items={formatNavbarData(authNavbarItems)} theme={theme} />
     ),
     unauthorized: <Navbar theme={theme} />,
   })
