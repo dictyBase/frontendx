@@ -4,7 +4,7 @@
   "type": "module",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite --port 3003 --clearScreen false",
+    "dev": "vite --clearScreen false",
     "dev:mock": "yarn dev --mode mock",
     "serve": "node server.js",
     "build": "vite build",

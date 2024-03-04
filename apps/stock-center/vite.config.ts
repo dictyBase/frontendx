@@ -9,7 +9,7 @@ import { defineConfig as defineVitestConfig } from "vitest/config"
 const viteConfig = defineConfig({
   plugins: [react()],
   server: {
-    port: 3000,
+    port: 3003,
   },
   base: "/stockcenter",
 })
