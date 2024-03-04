@@ -11,5 +11,3 @@ export * from "./functional"
 export * from "./useRole"
 export * from "./useAuthorization"
 export * from "./useTokenAndUser"
-
-export { default as authFooterData } from "./data/authFooterData.json"
