@@ -125,7 +125,7 @@ const LatestPapersError = ({ refetch }: LatestPapersErrorProperties) => {
       </Grid>
       <Grid item>
         <Button endIcon={<ReplayIcon />} onClick={refetch}>
-          Refetch
+          Retry
         </Button>
       </Grid>
     </Grid>
