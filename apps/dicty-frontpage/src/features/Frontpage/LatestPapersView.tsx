@@ -1,5 +1,6 @@
 /* eslint-disable react/no-array-index-key */
-import { Grid, Box, Container, Typography } from "@material-ui/core"
+import { Grid, Box, Container, Typography, Button } from "@material-ui/core"
+import ReplayIcon from "@material-ui/icons/Replay"
 import { makeStyles } from "@material-ui/styles"
 import { LoadingDisplay } from "@dictybase/ui-common"
 import { Link } from "react-router-dom"
@@ -12,7 +13,7 @@ type LatestPapersProperties = {
 }
 
 type LatestPapersErrorProperties = {
-  error: string
+  refetch: () => void
 }
 
 const useStyles = makeStyles({
@@ -108,18 +109,24 @@ const LatestPapersLoader = () => {
   )
 }
 
-const LatestPapersError = ({ error }: LatestPapersErrorProperties) => {
+const LatestPapersError = ({ refetch }: LatestPapersErrorProperties) => {
   const { container, errorContainer, errorText } = useStyles()
   return (
     <Grid
       container
       justifyContent="center"
       alignItems="center"
+      direction="column"
       className={`${errorContainer} ${container}`}>
       <Grid item>
         <Typography className={errorText} color="error">
-          {error}
+          There was a problem loading the latest papers.
         </Typography>
+      </Grid>
+      <Grid item>
+        <Button endIcon={<ReplayIcon />} onClick={refetch}>
+          Refetch
+        </Button>
       </Grid>
     </Grid>
   )
