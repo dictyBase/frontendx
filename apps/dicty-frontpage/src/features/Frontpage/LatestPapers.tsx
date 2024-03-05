@@ -16,7 +16,7 @@ const LatestPapers = () => {
     )
     .when(
       ({ error }) => error.length > 0,
-      ({ error }) => <LatestPapersError error={error} />,
+      ({ refetch }) => <LatestPapersError refetch={refetch} />,
     )
     .otherwise(() => <> This message should not appear. </>)
 }
