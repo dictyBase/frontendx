@@ -2,4 +2,5 @@ import { Login } from "components/features/Authentication/Login"
 
 const LoginPage = () => <Login />
 
-export { LoginPage }
+// eslint-disable-next-line import/no-default-export
+export default LoginPage

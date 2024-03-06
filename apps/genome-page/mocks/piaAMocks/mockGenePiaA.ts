@@ -1,5 +1,5 @@
 import { GeneQuery } from "dicty-graphql-schema"
-import { mockProteinInformation } from "./mocks/mockProteinInformation"
+import { mockProteinInformation } from "mocks/mockProteinInformation"
 import { mockLinksPiaA } from "./mockLinksPiaA"
 import { mockAssociatedPiaA } from "./mockAssociatedPiaA"
 import { mockGeneralInfoPiaA } from "./mockGeneralInfoPiaA"

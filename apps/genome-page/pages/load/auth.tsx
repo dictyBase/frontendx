@@ -2,4 +2,5 @@ import { AuthLoader } from "components/features/Authentication/AuthLoader"
 
 const AuthLoaderPage = () => <AuthLoader />
 
-export { AuthLoaderPage }
+// eslint-disable-next-line import/no-default-export
+export default AuthLoaderPage

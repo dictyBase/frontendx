@@ -39,4 +39,4 @@ const GenomePageApp = ({ Component, pageProps }: AppProps) => {
   )
 }
 
-export { GenomePageApp }
+export default GenomePageApp

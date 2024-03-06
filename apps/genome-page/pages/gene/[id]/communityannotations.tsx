@@ -7,7 +7,8 @@ import FS from "@isomorphic-git/lightning-fs"
 import { cloneGithubWiki } from "../../../common/hooks/useGithubWiki"
 import { toOutput, WikiContentEither } from "../../../common/hooks/WikiDisplay"
 
-export { function }  Gene() {
+// eslint-disable-next-line import/no-default-export
+export default function Gene() {
   const router = useRouter()
 
   // markdown file that will be retrieved from the wiki

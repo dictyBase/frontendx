@@ -27,4 +27,5 @@ const ProteinInformationPageWrapper = () => {
   )
 }
 
-export { ProteinInformationPageWrapper }
+// eslint-disable-next-line import/no-default-export
+export default ProteinInformationPageWrapper

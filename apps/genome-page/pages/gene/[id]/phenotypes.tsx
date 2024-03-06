@@ -24,4 +24,5 @@ const PhenotypesPageWrapper = () => {
   )
 }
 
-export { PhenotypesPageWrapper }
+// eslint-disable-next-line import/no-default-export
+export default PhenotypesPageWrapper
