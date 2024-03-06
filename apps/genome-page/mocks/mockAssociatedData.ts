@@ -16,4 +16,4 @@ const mockAssociatedData: AssociatedSequences = {
   ] as NameWithLink[],
 }
 
-export default mockAssociatedData
+export { mockAssociatedData }

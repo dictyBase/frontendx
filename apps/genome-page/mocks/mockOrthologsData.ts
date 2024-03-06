@@ -21,4 +21,4 @@ const mockOrthologsData: IMockOrthologsData = {
   ],
 }
 
-export default mockOrthologsData
+export { mockOrthologsData }

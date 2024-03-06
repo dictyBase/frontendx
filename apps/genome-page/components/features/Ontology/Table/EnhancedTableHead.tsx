@@ -53,4 +53,4 @@ const EnhancedTableHead = ({ onRequestSort, order, orderBy }: any) => {
   )
 }
 
-export default EnhancedTableHead
+export { EnhancedTableHead }

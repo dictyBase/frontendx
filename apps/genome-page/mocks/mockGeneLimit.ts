@@ -58,4 +58,4 @@ const mockGeneLimit: GeneQuery = {
     protein_information: mockProteinInformation,
   },
 }
-export default mockGeneLimit
+export { mockGeneLimit }

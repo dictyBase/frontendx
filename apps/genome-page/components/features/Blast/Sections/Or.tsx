@@ -1,24 +1,22 @@
 import { Typography, Grid } from "@material-ui/core"
 
-const Or = () => {
-  return (
-    <Grid
-      item
-      xs={1}
-      md={1}
+const Or = () => (
+  <Grid
+    item
+    xs={1}
+    md={1}
+    style={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    }}>
+    <Typography
       style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        fontSize: "16px",
       }}>
-      <Typography
-        style={{
-          fontSize: "16px",
-        }}>
-        OR
-      </Typography>
-    </Grid>
-  )
-}
+      OR
+    </Typography>
+  </Grid>
+)
 
-export default Or
+export { Or }

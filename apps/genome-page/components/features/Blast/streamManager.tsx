@@ -4,11 +4,11 @@ import { ChangeEvent, MutableRefObject, useState, useEffect } from "react"
 
 type InputEvent = ChangeEvent<HTMLInputElement>
 
-interface StreamManagerProps {
+interface StreamManagerProperties {
   element: MutableRefObject<HTMLInputElement>
 }
 
-export function useStreamManager({ element }: StreamManagerProps) {
+export function useStreamManager({ element }: StreamManagerProperties) {
   const [streamer, setStreamer] = useState<Observable<string>>()
   useEffect(() => {
     const obs = fromEvent<InputEvent>(

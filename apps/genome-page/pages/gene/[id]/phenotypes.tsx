@@ -24,4 +24,4 @@ const PhenotypesPageWrapper = () => {
   )
 }
 
-export default PhenotypesPageWrapper
+export { PhenotypesPageWrapper }

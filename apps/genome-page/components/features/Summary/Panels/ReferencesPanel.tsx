@@ -7,12 +7,12 @@ import {
   TableContainer,
   TableRow,
 } from "@material-ui/core"
-import useStyles from "../../../../styles/dataTableStyles"
 import OtherError from "components/errors/OtherError"
 import { commaSeparateWithAnd } from "common/utils/strings"
 import Image from "next/image"
+import useStyles from "../../../../styles/dataTableStyles"
 
-type Props = {
+type Properties = {
   /** Array of GO annotations for a particular gene */
   gene: GeneQuery
 }
@@ -20,18 +20,18 @@ type Props = {
 /**
  * Panel to display Gene Ontology Annotations on the Gene Summary page.
  */
-const ReferencesPanel = ({ gene }: Props) => {
+const ReferencesPanel = ({ gene }: Properties) => {
   const classes = useStyles()
 
   if (!gene.allPublications?.publications) return <OtherError />
-  const publications = gene.allPublications.publications
+  const { publications } = gene.allPublications
 
   return (
     <TableContainer component={Paper} className={classes.root}>
       <Table aria-label="summary-references-table">
         <TableBody>
-          {publications.map((publication, i) => (
-            <TableRow key={i}>
+          {publications.map((publication, index) => (
+            <TableRow key={index}>
               <TableCell className={classes.cell}>
                 <b>
                   {commaSeparateWithAnd(
@@ -82,4 +82,4 @@ const ReferencesPanel = ({ gene }: Props) => {
   )
 }
 
-export default ReferencesPanel
+export { ReferencesPanel }

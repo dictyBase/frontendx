@@ -11,11 +11,11 @@ import {
 } from "@material-ui/core"
 import { MutableRefObject, useState } from "react"
 
-interface GeneOrIdProps {
+interface GeneOrIdProperties {
   sequenceElement: MutableRefObject<HTMLInputElement>
 }
 
-const GeneOrID = ({ sequenceElement }: GeneOrIdProps) => {
+const GeneOrID = ({ sequenceElement }: GeneOrIdProperties) => {
   const classes = useStyles()
 
   const [sequenceOptions] = useState<string[]>([
@@ -78,13 +78,13 @@ const GeneOrID = ({ sequenceElement }: GeneOrIdProps) => {
             <Select
               native
               id="sequence-select-id"
-              defaultValue={"Please Select a Sequence Type"}
+              defaultValue="Please Select a Sequence Type"
               inputProps={{ style: { fontSize: 12, minWidth: 200 } }}
               variant="outlined"
               ref={sequenceElement}>
-              {sequenceOptions.map((val, index) => (
-                <option value={val} key={index}>
-                  {val}
+              {sequenceOptions.map((value, index) => (
+                <option value={value} key={index}>
+                  {value}
                 </option>
               ))}
             </Select>
@@ -95,4 +95,4 @@ const GeneOrID = ({ sequenceElement }: GeneOrIdProps) => {
   )
 }
 
-export default GeneOrID
+export { GeneOrID }

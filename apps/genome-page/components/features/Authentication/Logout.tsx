@@ -36,4 +36,4 @@ const Logout = () => {
   return <Link href="/" />
 }
 
-export default Logout
+export { Logout }

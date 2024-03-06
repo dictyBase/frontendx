@@ -31,4 +31,4 @@ const mockLinksData: Links = {
   ] as NameWithLink[],
 }
 
-export default mockLinksData
+export { mockLinksData }

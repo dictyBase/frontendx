@@ -2,7 +2,7 @@ const convertNameToURL = (name: string, id: string) => {
   if (name.includes(" ")) {
     return `https://www.ebi.ac.uk/QuickGO/term/GO:${id}`
   }
-  if (name.match(/^([A-Z0-9]*$)/)) {
+  if (/^([\dA-Z]*$)/.test(name)) {
     return `https://www.uniprot.org/uniprot/${id}`
   }
   return `/gene/${name}`
@@ -12,10 +12,10 @@ const convertNameToURL = (name: string, id: string) => {
  * This is a helper function to generate links for the With and Extensions columns of the GOA table.
  */
 
-const withLinkGenerator = (id: string, db: string, name?: string) => {
+const withLinkGenerator = (id: string, database: string, name?: string) => {
   if (name) return convertNameToURL(name, id)
 
-  switch (db) {
+  switch (database) {
     case "CHEBI":
       return `https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:${id}`
     case "DDANAT":
@@ -59,4 +59,4 @@ const withLinkGenerator = (id: string, db: string, name?: string) => {
   }
 }
 
-export default withLinkGenerator
+export { withLinkGenerator }

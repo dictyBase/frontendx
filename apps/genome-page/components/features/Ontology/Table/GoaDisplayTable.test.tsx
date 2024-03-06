@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import React from "react"
 import { fireEvent, render, screen, within } from "@testing-library/react"
 import GoaDisplayTable from "./GoaDisplayTable"

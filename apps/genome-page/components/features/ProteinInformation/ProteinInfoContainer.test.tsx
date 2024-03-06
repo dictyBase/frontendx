@@ -1,8 +1,9 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import ProteinInfoContainer from "./ProteinInfoContainer"
 import { GeneQuery } from "dicty-graphql-schema"
 import mockGene from "mocks/mockGene"
+import ProteinInfoContainer from "./ProteinInfoContainer"
+
 const useRouter = jest.spyOn(require("next/router"), "useRouter")
 
 describe("features/ProteinInformation/ProteinInfoContainer", () => {

@@ -6,18 +6,18 @@ import ItemDisplay from "components/panels/ItemDisplay"
 import RightDisplay from "components/panels/RightDisplay"
 import { panelGenerator } from "common/utils/panelGenerator"
 
-type Props = {
+type Properties = {
   gene: GeneQuery
 }
 
 /**
  * Panel to display General Info on the Product Information page.
  */
-const ProteinGeneralInfo = ({ gene }: Props) => {
+const ProteinGeneralInfo = ({ gene }: Properties) => {
   if (!gene.getProteinInformation?.protein_information) return <OtherError />
   const gen_info = gene.getProteinInformation?.protein_information?.general_info
 
-  let output = panelGenerator(
+  const output = panelGenerator(
     [
       { id: "Gene Product", value: gen_info?.gene_product },
       { id: "dictyBase ID", value: gen_info?.dictybase_id },
@@ -35,16 +35,14 @@ const ProteinGeneralInfo = ({ gene }: Props) => {
 
   return (
     <div>
-      {output?.map((item, key) => {
-        return (
-          <ItemDisplay key={key}>
-            <LeftDisplay>{item.leftDisplay}</LeftDisplay>
-            <RightDisplay>{item.rightDisplay}</RightDisplay>
-          </ItemDisplay>
-        )
-      })}
+      {output?.map((item, key) => (
+        <ItemDisplay key={key}>
+          <LeftDisplay>{item.leftDisplay}</LeftDisplay>
+          <RightDisplay>{item.rightDisplay}</RightDisplay>
+        </ItemDisplay>
+      ))}
     </div>
   )
 }
 
-export default ProteinGeneralInfo
+export { ProteinGeneralInfo }

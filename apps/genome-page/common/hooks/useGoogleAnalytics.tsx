@@ -13,10 +13,10 @@ const useGoogleAnalytics = () => {
         const trackingID = process.env.NEXT_PUBLIC_GA_TRACKING_ID
         const basename = process.env.NEXT_PUBLIC_BASENAME
         const page = basename + router.pathname
-        let ReactGA = module.default
+        const ReactGA = module.default
 
         ReactGA.initialize(trackingID)
-        ReactGA.set({ page: page, anonymizeIp: true })
+        ReactGA.set({ page, anonymizeIp: true })
         ReactGA.pageview(page)
 
         // also make sure to detect pageviews from bfcache
@@ -26,8 +26,8 @@ const useGoogleAnalytics = () => {
             ReactGA.pageview(page)
           }
         })
-      } catch (e) {
-        console.error("could not load react-ga module", JSON.stringify(e))
+      } catch (error) {
+        console.error("could not load react-ga module", JSON.stringify(error))
       }
     }
 
@@ -37,4 +37,4 @@ const useGoogleAnalytics = () => {
   }, [router.pathname])
 }
 
-export default useGoogleAnalytics
+export { useGoogleAnalytics }

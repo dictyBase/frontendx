@@ -27,4 +27,4 @@ const ProteinInformationPageWrapper = () => {
   )
 }
 
-export default ProteinInformationPageWrapper
+export { ProteinInformationPageWrapper }

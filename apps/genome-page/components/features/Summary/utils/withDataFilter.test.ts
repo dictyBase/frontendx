@@ -1,29 +1,29 @@
 import withDataFilter, { emptyArray } from "./withDataFilter"
 
-const testArr = (db: string) => [
+const testArray = (database: string) => [
   {
     id: "123456",
-    db: db,
+    db: database,
     name: "test1",
   },
   {
     id: "987654",
-    db: db,
+    db: database,
     name: "test2",
   },
   {
     id: "999999",
-    db: db,
+    db: database,
     name: "test3",
   },
 ]
 
-const dictyBase = testArr("dictyBase")
-const UniProtKB = testArr("UniProtKB")
-const MGI = testArr("MGI")
-const RGD = testArr("RGD")
-const SGD = testArr("SGD")
-const PomBase = testArr("PomBase")
+const dictyBase = testArray("dictyBase")
+const UniProtKB = testArray("UniProtKB")
+const MGI = testArray("MGI")
+const RGD = testArray("RGD")
+const SGD = testArray("SGD")
+const PomBase = testArray("PomBase")
 
 describe("features/Summary/utils/withDataFilter", () => {
   describe("emptyArray function", () => {

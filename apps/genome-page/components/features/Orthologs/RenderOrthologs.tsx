@@ -1,12 +1,12 @@
 import OtherError from "components/errors/OtherError"
-import OrthologsRow from "./OrthologsRow"
 import { Orthologs } from "dicty-graphql-schema"
+import OrthologsRow from "./OrthologsRow"
 
-interface RenderOrthologsProps {
+interface RenderOrthologsProperties {
   ortholog: Orthologs
 }
 
-const RenderOrthologs = ({ ortholog }: RenderOrthologsProps) => {
+const RenderOrthologs = ({ ortholog }: RenderOrthologsProperties) => {
   if (!ortholog) return <OtherError />
   return (
     <OrthologsRow
@@ -19,4 +19,4 @@ const RenderOrthologs = ({ ortholog }: RenderOrthologsProps) => {
   )
 }
 
-export default RenderOrthologs
+export { RenderOrthologs }

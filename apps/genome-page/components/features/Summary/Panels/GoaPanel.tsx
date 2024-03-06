@@ -1,18 +1,18 @@
-import GoaPanelContent from "./GoaPanelContent"
 import ItemDisplay from "components/panels/ItemDisplay"
 import LeftDisplay from "components/panels/LeftDisplay"
 import RightDisplay from "components/panels/RightDisplay"
 import { GeneQuery, GoAnnotation } from "dicty-graphql-schema"
 import OtherError from "components/errors/OtherError"
+import GoaPanelContent from "./GoaPanelContent"
 
 type GOType = "molecular_function" | "biological_process" | "cellular_component"
 
-const dataFilter = (arr: Array<GoAnnotation>, type: GOType) => {
+const dataFilter = (array: Array<GoAnnotation>, type: GOType) => {
   // get the attributes from specified type
-  const attr = arr.filter((item) => item.type === type)
+  const attribute = array.filter((item) => item.type === type)
 
   // get the five most recent EXP annotations
-  const expChecker = attr
+  const expChecker = attribute
     .filter(
       (item) =>
         item.evidence_code === "IMP" ||
@@ -26,13 +26,13 @@ const dataFilter = (arr: Array<GoAnnotation>, type: GOType) => {
     .slice(0, 5)
 
   // get five most recent manual
-  const manualChecker = attr
+  const manualChecker = attribute
     .filter((item) => item.evidence_code !== "IEA")
     .sort((a, b) => b.date.localeCompare(a.date))
     .slice(0, 5)
 
   // get five most recent electronic
-  const electronicChecker = attr
+  const electronicChecker = attribute
     .filter((item) => item.evidence_code === "IEA")
     .sort((a, b) => b.date.localeCompare(a.date))
     .slice(0, 5)
@@ -40,8 +40,8 @@ const dataFilter = (arr: Array<GoAnnotation>, type: GOType) => {
   // check if EXP array is empty
   // if it is, return manual
   // if manual is empty, return electronic
-  if (!Array.isArray(expChecker) || !expChecker.length) {
-    if (!Array.isArray(manualChecker) || !manualChecker.length) {
+  if (!Array.isArray(expChecker) || expChecker.length === 0) {
+    if (!Array.isArray(manualChecker) || manualChecker.length === 0) {
       return electronicChecker
     }
     return manualChecker
@@ -49,7 +49,7 @@ const dataFilter = (arr: Array<GoAnnotation>, type: GOType) => {
   return expChecker
 }
 
-type Props = {
+type Properties = {
   /** Array of GO annotations for a particular gene */
   data: GeneQuery
 }
@@ -57,9 +57,9 @@ type Props = {
 /**
  * Panel to display Gene Ontology Annotations on the Gene Summary page.
  */
-const GoaPanel = ({ data }: Props) => {
+const GoaPanel = ({ data }: Properties) => {
   if (!data.gene || !data.gene.goas) return <OtherError />
-  const goas = data.gene.goas
+  const { goas } = data.gene
 
   return (
     <div>
@@ -97,4 +97,4 @@ const GoaPanel = ({ data }: Props) => {
   )
 }
 
-export default GoaPanel
+export { GoaPanel }

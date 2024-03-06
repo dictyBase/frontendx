@@ -15,7 +15,7 @@ const OauthCallback = () => {
     window.opener?.postMessage(
       {
         query: location.search,
-        provider: provider,
+        provider,
         url: `${window.location.origin}/${process.env.NEXT_PUBLIC_BASENAME}${pathname}`,
       },
       window.location.toString(),
@@ -32,4 +32,4 @@ const OauthCallback = () => {
   )
 }
 
-export default OauthCallback
+export { OauthCallback }

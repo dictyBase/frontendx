@@ -27,4 +27,4 @@ const BlastPageWrapper = () => {
   )
 }
 
-export default BlastPageWrapper
+export { BlastPageWrapper }

@@ -13,17 +13,21 @@ import version from "dicty-graphql-schema/package.json"
 const SCHEMA_VERSION_KEY = "gene-apollo-schema-version"
 const GENE_CACHE_KEY = "gene-apollo-cache-persist"
 
-const mutationList = ["Logout"]
+const mutationList = new Set(["Logout"])
 
 const isMutation = (value: string) => {
-  if (mutationList.includes(value)) {
+  if (mutationList.has(value)) {
     return true
   }
   return false
 }
 
-const getGraphQLServer = (url: string, deployEnv: string, origin: string) => {
-  if (deployEnv === "staging" && origin === "https://dictycr.org") {
+const getGraphQLServer = (
+  url: string,
+  deployEnvironment: string,
+  origin: string,
+) => {
+  if (deployEnvironment === "staging" && origin === "https://dictycr.org") {
     return process.env.NEXT_PUBLIC_ALT_GRAPHQL_SERVER
   }
   return url
@@ -94,4 +98,4 @@ const useCreateApolloClient = () => {
 }
 
 export { isMutation, getGraphQLServer }
-export default useCreateApolloClient
+export { useCreateApolloClient }

@@ -1,10 +1,10 @@
 // group of functions that receives an git url and provides a promise to resolve it to its
 // markdown component
 import { pipe, flow } from "fp-ts/lib/function"
-import * as E from "fp-ts/lib/Either"
-import * as TE from "fp-ts/lib/TaskEither"
+import { toError } from "fp-ts/lib/Either"
+import { of, tryCatch, chain, map, mapLeft } from "fp-ts/lib/TaskEither"
 import { clone } from "isomorphic-git"
-import * as S from "fp-ts/string"
+import { Semigroup } from "fp-ts/string"
 import { intercalate } from "fp-ts/Semigroup"
 import http from "isomorphic-git/http/web"
 import FS from "@isomorphic-git/lightning-fs"
@@ -17,55 +17,55 @@ export interface DirFileProps {
 }
 
 // The main wrapper function or hook
-export function cloneGithubWiki(props: DirFileProps) {
-  const defaultCloneParams = {
-    http: http,
-    fs: props.browserFS,
+export function cloneGithubWiki(properties: DirFileProps) {
+  const defaultCloneParameters = {
+    http,
+    fs: properties.browserFS,
     corsProxy: "https://cors.isomorphic-git.org",
   }
-  const defaultSep = "/"
+  const defaultSeparator = "/"
 
   // function that converts the data to a monad that handle promise
-  const wrapper = (props: DirFileProps) => TE.of(props)
+  const wrapper = (properties_: DirFileProps) => of(properties_)
 
   // function that runs the clone api and returns a promise, handles both the
   // success and error conditons.
   const executeCloneRepo = ({ dir, url, file }: DirFileProps) =>
-    TE.tryCatch(async () => {
-      await clone({ dir, url, ...defaultCloneParams })
+    tryCatch(async () => {
+      await clone({ dir, url, ...defaultCloneParameters })
       return { dir, url, file } as DirFileProps
-    }, E.toError)
+    }, toError)
   // const errLogger = TE.fromIOK(Console.error)
   // const infoLogger = TE.fromIOK(Console.info)
 
   // function that extract the error message from the Error object
-  const errMsgExtract = (err: Error) => err.message
+  const errorMessageExtract = (error: Error) => error.message
 
   // function that constructs the markdown file path inside the git repo
   const addPath = ({ dir, file }: DirFileProps) => {
-    const pathDelimGroup = pipe(S.Semigroup, intercalate(defaultSep))
+    const pathDelimGroup = pipe(Semigroup, intercalate(defaultSeparator))
     return pathDelimGroup.concat(dir, file)
   }
 
   // function that read the markdown file from the git repo. Also handles the error.
   const readFileFromRepo = (path: string) =>
-    TE.tryCatch(async () => {
-      const buffer = await props.browserFS.promises.readFile(path, {
+    tryCatch(async () => {
+      const buffer = await properties.browserFS.promises.readFile(path, {
         encoding: "utf8",
       })
       return buffer.toString()
-    }, E.toError)
+    }, toError)
 
   // construct a pipeline from all the functions
   const payload = flow(
     wrapper,
-    TE.chain(executeCloneRepo),
+    chain(executeCloneRepo),
     // TE.chainFirstIOK(infoLogger),
-    TE.map(addPath),
+    map(addPath),
     // TE.chainFirstIOK(infoLogger),
-    TE.chain(readFileFromRepo),
+    chain(readFileFromRepo),
     // TE.chainFirstIOK(infoLogger),
-    TE.mapLeft(errMsgExtract),
+    mapLeft(errorMessageExtract),
   )
-  return payload(props)
+  return payload(properties)
 }

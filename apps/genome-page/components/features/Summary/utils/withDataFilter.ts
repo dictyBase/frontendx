@@ -1,41 +1,42 @@
 import { With } from "dicty-graphql-schema"
 
-const emptyArray = (arr: Array<With>) => !Array.isArray(arr) || !arr.length
+const emptyArray = (array: Array<With>) =>
+  !Array.isArray(array) || array.length === 0
 
 // function to filter the With data
-const withDataFilter = (arr: Array<With>) => {
-  let finalArr = arr
+const withDataFilter = (array: Array<With>) => {
+  let finalArray = array
   // filter by db type
-  const dictyBase = arr.filter((item) => item.db === "dictyBase").slice(0, 2)
-  const uniProtKB = arr.filter((item) => item.db === "UniProtKB").slice(0, 2)
-  const MGI = arr.filter((item) => item.db === "MGI").slice(0, 2)
-  const RGD = arr.filter((item) => item.db === "RGD").slice(0, 2)
-  const SGD = arr.filter((item) => item.db === "SGD").slice(0, 2)
-  const PomBase = arr.filter((item) => item.db === "PomBase").slice(0, 2)
+  const dictyBase = array.filter((item) => item.db === "dictyBase").slice(0, 2)
+  const uniProtKB = array.filter((item) => item.db === "UniProtKB").slice(0, 2)
+  const MGI = array.filter((item) => item.db === "MGI").slice(0, 2)
+  const RGD = array.filter((item) => item.db === "RGD").slice(0, 2)
+  const SGD = array.filter((item) => item.db === "SGD").slice(0, 2)
+  const PomBase = array.filter((item) => item.db === "PomBase").slice(0, 2)
 
   // order of preference to display With data
   // dictyBase => UniProt => MGI => RGD => SGD => PomBase
   if (!emptyArray(dictyBase)) {
-    finalArr = dictyBase
+    finalArray = dictyBase
   }
   if (!emptyArray(uniProtKB)) {
-    finalArr = uniProtKB
+    finalArray = uniProtKB
   }
   if (!emptyArray(MGI)) {
-    finalArr = MGI
+    finalArray = MGI
   }
   if (!emptyArray(RGD)) {
-    finalArr = RGD
+    finalArray = RGD
   }
   if (!emptyArray(SGD)) {
-    finalArr = SGD
+    finalArray = SGD
   }
   if (!emptyArray(PomBase)) {
-    finalArr = PomBase
+    finalArray = PomBase
   }
 
-  return finalArr
+  return finalArray
 }
 
 export { emptyArray }
-export default withDataFilter
+export { withDataFilter }

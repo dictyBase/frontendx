@@ -33,4 +33,4 @@ const useStyles = makeStyles({
   },
 })
 
-export default useStyles
+export { useStyles }

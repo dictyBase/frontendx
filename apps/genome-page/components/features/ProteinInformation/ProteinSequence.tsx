@@ -5,14 +5,14 @@ import LeftDisplay from "components/panels/LeftDisplay"
 import ItemDisplay from "components/panels/ItemDisplay"
 import RightDisplay from "components/panels/RightDisplay"
 
-type Props = {
+type Properties = {
   gene: GeneQuery
 }
 
 /**
  * Panel to display Protein Sequence on the Protein Information page.
  */
-const ProteinSequence = ({ gene }: Props) => {
+const ProteinSequence = ({ gene }: Properties) => {
   if (!gene.getProteinInformation?.protein_information) return <OtherError />
   const sequence =
     gene.getProteinInformation?.protein_information.protein_sequence
@@ -27,4 +27,4 @@ const ProteinSequence = ({ gene }: Props) => {
   )
 }
 
-export default ProteinSequence
+export { ProteinSequence }

@@ -6,8 +6,8 @@ import {
 } from "dicty-graphql-schema"
 import React from "react"
 import Image from "next/image"
-import { commaSeparate } from "./strings"
 import TableDisplay from "components/panels/GenomicCoordsTable"
+import { commaSeparate } from "./strings"
 
 interface PanelReturnType {
   leftDisplay: string
@@ -24,7 +24,7 @@ interface PanelReturnType {
     | undefined
 }
 
-interface PanelReqProps {
+interface PanelRequestProperties {
   id: string
   value:
     | string
@@ -46,11 +46,11 @@ interface PanelReqProps {
   - Associated Sequence Panel
 */
 const panelGenerator = (
-  arrayOfChildSections: PanelReqProps[],
+  arrayOfChildSections: PanelRequestProperties[],
   type: string,
   gene: GeneQuery,
 ) => {
-  let returnArray: PanelReturnType[] = []
+  const returnArray: PanelReturnType[] = []
   if (!gene[type as keyof GeneQuery]) {
     /* Check to see if section exists */
     return
@@ -58,7 +58,7 @@ const panelGenerator = (
 
   arrayOfChildSections.forEach((element) => {
     if (element.value !== null && element.value !== undefined) {
-      let entry = {
+      const entry = {
         leftDisplay: element.id,
         rightDisplay: returnPanelContentById(element.id, element.value, gene),
       }
@@ -89,8 +89,8 @@ const returnPanelContentById = (
     case "Gene Name":
       return value
     case "Name Description":
-      return (value as string[]).map((desc, i) => (
-        <React.Fragment key={i}>
+      return (value as string[]).map((desc, index) => (
+        <React.Fragment key={index}>
           {desc}
           <br />
         </React.Fragment>
@@ -102,8 +102,8 @@ const returnPanelContentById = (
     case "Gene Product":
       return value
     case "Alternative Protein Names":
-      return (value as string[]).map((name, i) => (
-        <React.Fragment key={i}>
+      return (value as string[]).map((name, index) => (
+        <React.Fragment key={index}>
           {name}
           <br />
         </React.Fragment>
@@ -123,9 +123,9 @@ const returnPanelContentById = (
             width={30}
             height={30}
           />
-          {"(Curator reviewed)"}
+          (Curator reviewed)
           <br />
-          {"Derived from gene prediction. Supported by mRNA."}
+          Derived from gene prediction. Supported by mRNA.
         </>
       )
     case "Protein Length":
@@ -137,11 +137,11 @@ const returnPanelContentById = (
         <a href={value as string}>Protein sequence, domains and much more...</a>
       )
     case "Genomic Coords.":
-      return <TableDisplay data={value as GenomicCoordinates[]}></TableDisplay>
+      return <TableDisplay data={value as GenomicCoordinates[]} />
     /* Links Panel */
     case "Expression":
-      return (value as NameWithLink[]).map((item, i) => (
-        <a href={item.link} key={i}>
+      return (value as NameWithLink[]).map((item, index) => (
+        <a href={item.link} key={index}>
           {item.name} |{" "}
         </a>
       ))
@@ -152,8 +152,8 @@ const returnPanelContentById = (
         </a>
       )
     case "External Resources":
-      return (value as NameWithLink[]).map((item, i) => (
-        <a href={item.link} key={i}>
+      return (value as NameWithLink[]).map((item, index) => (
+        <a href={item.link} key={index}>
           {item.name} |{" "}
         </a>
       ))
@@ -173,8 +173,8 @@ const returnPanelContentById = (
     case "ESTs":
       return (
         <>
-          {(value as AssociatedSequences).ests.map((item, i) => (
-            <React.Fragment key={i}>
+          {(value as AssociatedSequences).ests.map((item, index) => (
+            <React.Fragment key={index}>
               <a href={item.link}>{item.name}</a>
               &nbsp;&nbsp;&nbsp;
             </React.Fragment>

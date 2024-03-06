@@ -13,15 +13,15 @@ import OtherError from "components/errors/OtherError"
 import useStyles from "../../../styles/dataTableStyles"
 import RenderPhenotypes from "./RenderPhenotypes"
 
-interface PhenotypesDataTableProps {
+interface PhenotypesDataTableProperties {
   data: GeneQuery
 }
 
-const PhenotypesDataTable = ({ data }: PhenotypesDataTableProps) => {
+const PhenotypesDataTable = ({ data }: PhenotypesDataTableProperties) => {
   const classes = useStyles()
 
   if (!data.allStrains) return <OtherError />
-  const allStrains = data.allStrains
+  const { allStrains } = data
 
   return (
     <TableContainer component={Paper} className={classes.root}>
@@ -38,8 +38,8 @@ const PhenotypesDataTable = ({ data }: PhenotypesDataTableProps) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {allStrains.strains?.map((strain, i) => (
-            <RenderPhenotypes strain={strain} key={`strain#${i}`} />
+          {allStrains.strains?.map((strain, index) => (
+            <RenderPhenotypes strain={strain} key={`strain#${index}`} />
           ))}
         </TableBody>
       </Table>
@@ -47,4 +47,4 @@ const PhenotypesDataTable = ({ data }: PhenotypesDataTableProps) => {
   )
 }
 
-export default PhenotypesDataTable
+export { PhenotypesDataTable }

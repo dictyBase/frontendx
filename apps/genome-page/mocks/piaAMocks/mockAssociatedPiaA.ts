@@ -39,4 +39,4 @@ const mockAssociatedPiaA: AssociatedSequences = {
     "http://dictybase.org/db/cgi-bin/more_est.pl?feature_id=179785&gene_name=piaA",
 }
 
-export default mockAssociatedPiaA
+export { mockAssociatedPiaA }

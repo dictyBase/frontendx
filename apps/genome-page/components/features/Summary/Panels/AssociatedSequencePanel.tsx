@@ -6,7 +6,7 @@ import { GeneQuery } from "dicty-graphql-schema"
 import OtherError from "components/errors/OtherError"
 import { panelGenerator } from "common/utils/panelGenerator"
 
-type Props = {
+type Properties = {
   /** Array of GO annotations for a particular gene */
   data: GeneQuery
 }
@@ -14,11 +14,11 @@ type Props = {
 /**
  * Panel to display Associated Sequence Panel on the Gene Summary page.
  */
-const AssociatedSequencePanel = ({ data }: Props) => {
+const AssociatedSequencePanel = ({ data }: Properties) => {
   if (!data.getAssociatedSequnces) return <OtherError />
   const associated_seq = data.getAssociatedSequnces
 
-  let output = panelGenerator(
+  const output = panelGenerator(
     [
       {
         id: "GenBank Genomic Fragment",
@@ -36,16 +36,14 @@ const AssociatedSequencePanel = ({ data }: Props) => {
 
   return (
     <div>
-      {output?.map((item, key) => {
-        return (
-          <ItemDisplay key={key}>
-            <LeftDisplay>{item.leftDisplay}</LeftDisplay>
-            <RightDisplay>{item.rightDisplay}</RightDisplay>
-          </ItemDisplay>
-        )
-      })}
+      {output?.map((item, key) => (
+        <ItemDisplay key={key}>
+          <LeftDisplay>{item.leftDisplay}</LeftDisplay>
+          <RightDisplay>{item.rightDisplay}</RightDisplay>
+        </ItemDisplay>
+      ))}
     </div>
   )
 }
 
-export default AssociatedSequencePanel
+export { AssociatedSequencePanel }

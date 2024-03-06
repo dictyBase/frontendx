@@ -7,7 +7,7 @@ import { Typography, Grid, AppBar, Box } from "@mui/material"
 import Head from "next/head"
 
 const getTabValue = (pathname: string) => {
-  const subroute = pathname.split("/").splice(-1).join()
+  const subroute = pathname.split("/").splice(-1).join(",")
 
   switch (subroute) {
     case "blast":
@@ -29,14 +29,14 @@ const getTabValue = (pathname: string) => {
   }
 }
 
-type Props = {
+type Properties = {
   children: React.ReactNode
   gene: string
   title: string
   description: string
 }
 
-const Layout = ({ children, gene, title, description }: Props) => {
+const Layout = ({ children, gene, title, description }: Properties) => {
   const router = useRouter()
   const [tabValue, setTabValue] = React.useState(getTabValue(router.pathname))
 
@@ -91,4 +91,4 @@ const Layout = ({ children, gene, title, description }: Props) => {
 }
 
 export { getTabValue }
-export default Layout
+export { Layout }

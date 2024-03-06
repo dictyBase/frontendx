@@ -5,14 +5,14 @@ import LeftDisplay from "components/panels/LeftDisplay"
 import ItemDisplay from "components/panels/ItemDisplay"
 import RightDisplay from "components/panels/RightDisplay"
 
-type Props = {
+type Properties = {
   gene: GeneQuery
 }
 
 /**
  * Panel to display Protein Links on the Protein Information page.
  */
-const ProteinLinks = ({ gene }: Props) => {
+const ProteinLinks = ({ gene }: Properties) => {
   if (!gene.getProteinInformation?.protein_information) return <OtherError />
   const links = gene.getProteinInformation?.protein_information.external_links
 
@@ -21,8 +21,8 @@ const ProteinLinks = ({ gene }: Props) => {
       <ItemDisplay>
         <LeftDisplay>External Links</LeftDisplay>
         <RightDisplay>
-          {links.map((item, i) => (
-            <a key={i} href={item.link}>
+          {links.map((item, index) => (
+            <a key={index} href={item.link}>
               {item.name} &nbsp; &nbsp; &nbsp;
             </a>
           ))}
@@ -32,4 +32,4 @@ const ProteinLinks = ({ gene }: Props) => {
   )
 }
 
-export default ProteinLinks
+export { ProteinLinks }

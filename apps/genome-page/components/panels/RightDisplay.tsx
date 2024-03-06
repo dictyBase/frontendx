@@ -31,4 +31,4 @@ const RightDisplay = ({ children }: any) => {
   )
 }
 
-export default RightDisplay
+export { RightDisplay }

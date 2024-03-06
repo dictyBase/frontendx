@@ -58,4 +58,4 @@ const mockGene: GeneQuery = {
     protein_information: mockProteinInformation,
   },
 }
-export default mockGene
+export { mockGene }

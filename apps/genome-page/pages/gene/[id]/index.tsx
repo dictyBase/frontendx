@@ -28,4 +28,4 @@ const GenomePageWrapper = () => {
   )
 }
 
-export default GenomePageWrapper
+export { GenomePageWrapper }

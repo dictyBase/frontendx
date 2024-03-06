@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react"
 import PanelWrapper from "./PanelWrapper"
 
 describe("components/panels/PanelWrapper", () => {
-  const Child = () => <React.Fragment>child component</React.Fragment>
+  const Child = () => <>child component</>
   const renderComponent = () => {
     render(
       <PanelWrapper title="GO Annotations">

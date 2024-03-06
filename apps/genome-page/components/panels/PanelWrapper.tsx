@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-type Props = {
+type Properties = {
   /** Any content to display inside the panel */
   children: any
   /** Route to link the View All button to */
@@ -52,7 +52,7 @@ type Props = {
  * It is used for every panel on the gene summary page.
  */
 
-const PanelWrapper = ({ title, route, children }: Props) => {
+const PanelWrapper = ({ title, route, children }: Properties) => {
   const classes = useStyles()
 
   return (
@@ -61,7 +61,7 @@ const PanelWrapper = ({ title, route, children }: Props) => {
         <AccordionSummary
           className={classes.summary}
           expandIcon={<ExpandMoreIcon className={classes.icon} />}>
-          <Typography component={"span"} className={classes.heading}>
+          <Typography component="span" className={classes.heading}>
             {title}
             {route && (
               <Link href={route}>
@@ -78,4 +78,4 @@ const PanelWrapper = ({ title, route, children }: Props) => {
   )
 }
 
-export default PanelWrapper
+export { PanelWrapper }

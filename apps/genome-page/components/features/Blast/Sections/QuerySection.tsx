@@ -23,4 +23,4 @@ const QuerySection = () => {
   )
 }
 
-export default QuerySection
+export { QuerySection }

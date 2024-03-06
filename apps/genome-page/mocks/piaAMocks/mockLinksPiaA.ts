@@ -43,4 +43,4 @@ const mockLinksPiaA: Links = {
   ] as NameWithLink[],
 }
 
-export default mockLinksPiaA
+export { mockLinksPiaA }

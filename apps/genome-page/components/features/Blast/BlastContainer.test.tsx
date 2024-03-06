@@ -1,8 +1,10 @@
 import { render, screen } from "@testing-library/react"
-import BlastContainer from "./BlastContainer"
 import { GeneQuery } from "dicty-graphql-schema"
 import mockGene from "mocks/mockGene"
+import BlastContainer from "./BlastContainer"
+
 const useRouter = jest.spyOn(require("next/router"), "useRouter")
+
 const gene = "sadA"
 const pathname = `gene/${gene}/phenotypes`
 
@@ -17,7 +19,7 @@ describe("features/blast/BlastContainer", () => {
   it("should render blast page", async () => {
     useRouter.mockImplementation(() => ({
       query: { gene: "sadA" },
-      pathname: pathname,
+      pathname,
     }))
     render(<BlastContainer gene={mockGene as GeneQuery} />)
 

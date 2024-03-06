@@ -9,7 +9,7 @@ import { RemoveShoppingCart, ShoppingCart } from "@material-ui/icons"
 import { commaSeparate, commaSeparateWithAnd } from "common/utils/strings"
 import OtherError from "components/errors/OtherError"
 
-interface PhenotypeRowProps {
+interface PhenotypeRowProperties {
   id: string
   strain?: string
   characteristics?: string[] | null | undefined
@@ -40,7 +40,7 @@ interface PhenotypeRowProps {
 const renderInStock = (in_stock: boolean) => (
   <Tooltip title={in_stock ? "Strain available" : "Strain unavailable"}>
     <>
-      <IconButton size="small" disabled={in_stock ? false : true}>
+      <IconButton size="small" disabled={!in_stock}>
         {in_stock ? <ShoppingCart color="secondary" /> : <RemoveShoppingCart />}
       </IconButton>
     </>
@@ -53,8 +53,8 @@ const PhenotypeRow = ({
   characteristics,
   phenotype,
   in_stock,
-}: PhenotypeRowProps) => {
-  const publication = phenotype.publication
+}: PhenotypeRowProperties) => {
+  const { publication } = phenotype
   if (!publication) return <OtherError />
 
   const { authors, title, journal, pages } = publication
@@ -63,7 +63,7 @@ const PhenotypeRow = ({
   return (
     <TableRow>
       <TableCell>
-        {in_stock !== undefined ? renderInStock(in_stock) : <></>}
+        {in_stock === undefined ? <></> : renderInStock(in_stock)}
       </TableCell>
       <TableCell>
         {strain ? (
@@ -90,4 +90,4 @@ const PhenotypeRow = ({
   )
 }
 
-export default PhenotypeRow
+export { PhenotypeRow }

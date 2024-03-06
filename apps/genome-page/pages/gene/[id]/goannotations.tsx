@@ -27,4 +27,4 @@ const OntologyPageWrapper = () => {
   )
 }
 
-export default OntologyPageWrapper
+export { OntologyPageWrapper }

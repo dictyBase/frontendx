@@ -1,7 +1,5 @@
 import Logout from "components/features/Authentication/Logout"
 
-const LogoutPage = () => {
-  return <Logout />
-}
+const LogoutPage = () => <Logout />
 
-export default LogoutPage
+export { LogoutPage }

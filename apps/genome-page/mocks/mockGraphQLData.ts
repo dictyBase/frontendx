@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 // mock data response for sadA gene
 const mockGraphQLData = {
   data: {
@@ -294,4 +295,4 @@ const mockGraphQLData = {
   },
 }
 
-export default mockGraphQLData
+export { mockGraphQLData }

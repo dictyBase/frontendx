@@ -23,4 +23,4 @@ const pubLinkGenerator = (id: string) => {
   return id
 }
 
-export default pubLinkGenerator
+export { pubLinkGenerator }

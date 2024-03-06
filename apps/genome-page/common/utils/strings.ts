@@ -5,15 +5,11 @@
  * @param initialValue
  * @returns String with elements separated by a comma
  */
-const commaSeparate = (array: string[], initialValue?: string): string => {
-  return array.reduce(
-    (prev, cur, i, _) => {
-      if (i === 0) return cur
-      return `${prev}, ${cur}`
-    },
-    initialValue ? initialValue : "",
-  )
-}
+const commaSeparate = (array: string[], initialValue?: string): string =>
+  array.reduce((previous, current, index, _) => {
+    if (index === 0) return current
+    return `${previous}, ${current}`
+  }, initialValue || "")
 
 /**
  * Given an array of strings, return a single string with elements separated by a comma and an "&"
@@ -26,15 +22,12 @@ const commaSeparateWithAnd = (
   array: string[],
   initialValue?: string,
 ): string => {
-  const len = array.length
-  return array.reduce(
-    (prev, cur, i, _) => {
-      if (i === 0) return cur
-      if (i === len - 1) return `${prev} & ${cur}`
-      return `${prev}, ${cur}`
-    },
-    initialValue ? initialValue : "",
-  )
+  const length_ = array.length
+  return array.reduce((previous, current, index, _) => {
+    if (index === 0) return current
+    if (index === length_ - 1) return `${previous} & ${current}`
+    return `${previous}, ${current}`
+  }, initialValue || "")
 }
 
 export { commaSeparate, commaSeparateWithAnd }

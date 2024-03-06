@@ -89,4 +89,4 @@ const AppProviders = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-export default AppProviders
+export { AppProviders }

@@ -11,26 +11,26 @@ const Loader = () => (
     data-testid="skeleton-loader"
     role="loader">
     <Grid item xs={12}>
-      {[...Array(10)].map((item, key) => (
+      {[...new Array(10)].map((item, key) => (
         <Skeleton key={key} animation="wave" />
       ))}
       <br />
       <br />
-      {[...Array(10)].map((item, key) => (
+      {[...new Array(10)].map((item, key) => (
         <Skeleton key={key} animation="wave" />
       ))}
       <br />
       <br />
-      {[...Array(10)].map((item, key) => (
+      {[...new Array(10)].map((item, key) => (
         <Skeleton key={key} animation="wave" />
       ))}
       <br />
       <br />
-      {[...Array(5)].map((item, key) => (
+      {[...new Array(5)].map((item, key) => (
         <Skeleton key={key} animation="wave" />
       ))}
     </Grid>
   </Grid>
 )
 
-export default Loader
+export { Loader }

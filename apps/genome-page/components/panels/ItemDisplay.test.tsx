@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react"
 import ItemDisplay from "./ItemDisplay"
 
 describe("components/panels/ItemDisplay", () => {
-  const Child = () => <React.Fragment>child component</React.Fragment>
+  const Child = () => <>child component</>
 
   it("should render children", () => {
     render(

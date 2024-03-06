@@ -9,10 +9,10 @@ import WikiError from "./WikiError"
  * GO annotations page.
  */
 
-interface WikiContainerProps {
+interface WikiContainerProperties {
   markdown?: string
 }
-const WikiContainer = ({ markdown }: WikiContainerProps) => {
+const WikiContainer = ({ markdown }: WikiContainerProperties) => {
   const classes = useStyles()
 
   const { query } = useRouter()
@@ -39,4 +39,4 @@ const WikiContainer = ({ markdown }: WikiContainerProps) => {
   )
 }
 
-export default WikiContainer
+export { WikiContainer }
