@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import { GoAnnotation } from "dicty-graphql-schema"
 
 interface IMockOntologyData {
