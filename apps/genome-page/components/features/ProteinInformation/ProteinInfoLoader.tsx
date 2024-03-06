@@ -7,17 +7,17 @@ import { Box, Skeleton } from "@mui/material"
 const ProteinInfoLoader = () => (
   <Box data-testid="skeleton-loader">
     <Box mt="10px">
-      {[...new Array(5)].map((item, key) => (
+      {new Array(5).map((item, key) => (
         <Skeleton key={key} animation="wave" />
       ))}
       <br />
       <br />
-      {[...new Array(5)].map((item, key) => (
+      {new Array(5).map((item, key) => (
         <Skeleton key={key} animation="wave" />
       ))}
       <br />
       <br />
-      {[...new Array(5)].map((item, key) => (
+      {new Array(5).map((item, key) => (
         <Skeleton key={key} animation="wave" />
       ))}
     </Box>
