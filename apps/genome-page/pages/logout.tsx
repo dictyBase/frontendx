@@ -2,4 +2,5 @@ import { Logout } from "components/features/Authentication/Logout"
 
 const LogoutPage = () => <Logout />
 
-export { LogoutPage }
+// eslint-disable-next-line import/no-default-export
+export default LogoutPage

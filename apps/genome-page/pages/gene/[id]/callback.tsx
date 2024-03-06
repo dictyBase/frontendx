@@ -2,4 +2,5 @@ import { OauthCallback } from "components/features/Authentication/OauthCallback"
 
 const OauthCallbackPage = () => <OauthCallback />
 
-export { OauthCallbackPage }
+// eslint-disable-next-line import/no-default-export
+export default OauthCallbackPage
