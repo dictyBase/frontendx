@@ -1,6 +1,6 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import PageNotReady from "./PageNotReady"
+import { PageNotReady } from "./PageNotReady"
 
 describe("components/PageNotReady", () => {
   it("should render sad dicty image", () => {

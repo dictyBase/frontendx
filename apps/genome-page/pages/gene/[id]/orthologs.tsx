@@ -1,8 +1,8 @@
-import GraphQLErrorPage from "components/errors/GraphQLErrorPage"
-import OrthologsLoader from "components/features/Orthologs/OrthologsLoader"
+import { GraphQLErrorPage } from "components/errors/GraphQLErrorPage"
+import { OrthologsLoader } from "components/features/Orthologs/OrthologsLoader"
 import { useRouter } from "next/router"
 import { useGeneQuery, GeneQuery } from "dicty-graphql-schema"
-import OrthologsContainer from "components/features/Orthologs/OrthologsContainer"
+import { OrthologsContainer } from "components/features/Orthologs/OrthologsContainer"
 
 /*
     Renders the Orthologs page given a gene id

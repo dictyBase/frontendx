@@ -1,6 +1,6 @@
-import PhenotypesContainer from "components/features/Phenotypes/PhenotypesContainer"
-import GraphQLErrorPage from "components/errors/GraphQLErrorPage"
-import PhenotypesLoader from "components/features/Phenotypes/PhenotypesLoader"
+import { PhenotypesContainer } from "components/features/Phenotypes/PhenotypesContainer"
+import { GraphQLErrorPage } from "components/errors/GraphQLErrorPage"
+import { PhenotypesLoader } from "components/features/Phenotypes/PhenotypesLoader"
 import { useGeneQuery, GeneQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
 /*

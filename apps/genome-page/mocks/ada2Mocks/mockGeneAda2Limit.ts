@@ -1,13 +1,13 @@
 import { GeneQuery } from "dicty-graphql-schema"
-import mockGeneralInfoPiaA from "mocks/piaAMocks/mockGeneralInfoPiaA"
-import mockLinksPiaA from "mocks/piaAMocks/mockLinksPiaA"
-import mockOrthologsPiaA from "mocks/piaAMocks/mockOrthologsPiaA"
-import mockProductInfoPiaA from "mocks/piaAMocks/mockProductInfoPIaA"
-import mockReferencesPiaA from "mocks/piaAMocks/mockReferencesPiaA"
-import mockProteinInformation from "mocks/mockProteinInformation"
-import mockAssociatedAda2 from "./mockAssociatedAda2"
-import mockOntologyAda2 from "./mockOntologyAda2"
-import mockPhenotypesAda2 from "./mockPhenotypesAda2"
+import { mockGeneralInfoPiaA } from "mocks/piaAMocks/mockGeneralInfoPiaA"
+import { mockLinksPiaA } from "mocks/piaAMocks/mockLinksPiaA"
+import { mockOrthologsPiaA } from "mocks/piaAMocks/mockOrthologsPiaA"
+import { mockProductInfoPiaA } from "mocks/piaAMocks/mockProductInfoPIaA"
+import { mockReferencesPiaA } from "mocks/piaAMocks/mockReferencesPiaA"
+import { mockProteinInformation } from "mocks/mockProteinInformation"
+import { mockAssociatedAda2 } from "./mockAssociatedAda2"
+import { mockOntologyAda2 } from "./mockOntologyAda2"
+import { mockPhenotypesAda2 } from "./mockPhenotypesAda2"
 
 const mockGeneAda2Limit: GeneQuery = {
   gene: {

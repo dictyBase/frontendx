@@ -1,8 +1,8 @@
 import React from "react"
 import { ApolloError } from "@apollo/client"
-import ServerError from "./ServerError"
-import NotFoundError from "./NotFoundError"
-import OtherError from "./OtherError"
+import { ServerError } from "./ServerError"
+import { NotFoundError } from "./NotFoundError"
+import { OtherError } from "./OtherError"
 
 type Properties = {
   /** GraphQL error object */

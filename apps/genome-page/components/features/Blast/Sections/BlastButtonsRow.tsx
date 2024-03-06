@@ -1,4 +1,4 @@
-import useStyles from "styles/geneOrIDSection"
+import { useStyles } from "styles/geneOrIDSection"
 import { Card, Button, Grid } from "@material-ui/core"
 
 const BlastButtonsRow = () => {

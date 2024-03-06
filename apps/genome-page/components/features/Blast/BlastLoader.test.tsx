@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react"
 import React from "react"
-import BlastLoader from "./BlastLoader"
+import { BlastLoader } from "./BlastLoader"
 
 const gene = "sadA"
 

@@ -7,7 +7,7 @@ import {
 } from "@material-ui/core"
 import { RemoveShoppingCart, ShoppingCart } from "@material-ui/icons"
 import { commaSeparate, commaSeparateWithAnd } from "common/utils/strings"
-import OtherError from "components/errors/OtherError"
+import { OtherError } from "components/errors/OtherError"
 
 interface PhenotypeRowProperties {
   id: string

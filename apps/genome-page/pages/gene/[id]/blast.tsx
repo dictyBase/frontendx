@@ -1,6 +1,6 @@
-import BlastContainer from "components/features/Blast/BlastContainer"
-import GraphQLErrorPage from "components/errors/GraphQLErrorPage"
-import BlastLoader from "components/features/Blast/BlastLoader"
+import { BlastContainer } from "components/features/Blast/BlastContainer"
+import { GraphQLErrorPage } from "components/errors/GraphQLErrorPage"
+import { BlastLoader } from "components/features/Blast/BlastLoader"
 import { useRouter } from "next/router"
 import { useGeneQuery, GeneQuery } from "dicty-graphql-schema"
 

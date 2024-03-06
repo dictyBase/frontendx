@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react"
-import Or from "./Or"
+import { Or } from "./Or"
 
 const useRouter = jest.spyOn(require("next/router"), "useRouter")
 

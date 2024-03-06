@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react"
-import QuerySection from "./QuerySection"
+import { QuerySection } from "./QuerySection"
 
 const useRouter = jest.spyOn(require("next/router"), "useRouter")
 

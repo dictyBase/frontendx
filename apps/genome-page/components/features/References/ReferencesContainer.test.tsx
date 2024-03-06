@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react"
 import { GeneQuery } from "dicty-graphql-schema"
-import mockGene from "mocks/mockGene"
-import ReferencesContainer from "./ReferencesContainer"
+import { mockGene } from "mocks/mockGene"
+import { ReferencesContainer } from "./ReferencesContainer"
 
 const useRouter = jest.spyOn(require("next/router"), "useRouter")
 

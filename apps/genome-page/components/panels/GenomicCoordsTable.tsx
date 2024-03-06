@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
 import { GenomicCoordinates } from "dicty-graphql-schema"
 import { makeStyles } from "@material-ui/core/styles"
-import OtherError from "components/errors/OtherError"
+import { OtherError } from "components/errors/OtherError"
 
 type TableDisplayProperties = {
   /** Array of Genomic Coordinates for a particular gene */

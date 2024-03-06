@@ -1,6 +1,6 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import WikiLoader from "./WikiLoader"
+import { WikiLoader } from "./WikiLoader"
 
 const useRouter = jest.spyOn(require("next/router"), "useRouter")
 

@@ -1,6 +1,6 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import ProteinInfoLoader from "./ProteinInfoLoader"
+import { ProteinInfoLoader } from "./ProteinInfoLoader"
 
 const useRouter = jest.spyOn(require("next/router"), "useRouter")
 

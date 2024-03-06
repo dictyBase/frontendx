@@ -1,7 +1,7 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import { ApolloError } from "@apollo/client"
-import GraphQLErrorPage from "./GraphQLErrorPage"
+import { GraphQLErrorPage } from "./GraphQLErrorPage"
 import {
   mockNotFoundError,
   mockOtherError,

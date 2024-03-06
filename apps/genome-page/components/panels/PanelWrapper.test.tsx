@@ -1,6 +1,6 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import PanelWrapper from "./PanelWrapper"
+import { PanelWrapper } from "./PanelWrapper"
 
 describe("components/panels/PanelWrapper", () => {
   const Child = () => <>child component</>

@@ -1,6 +1,6 @@
-import OntologyContainer from "components/features/Ontology/OntologyContainer"
-import GraphQLErrorPage from "components/errors/GraphQLErrorPage"
-import OntologyLoader from "components/features/Ontology/OntologyLoader"
+import { OntologyContainer } from "components/features/Ontology/OntologyContainer"
+import { GraphQLErrorPage } from "components/errors/GraphQLErrorPage"
+import { OntologyLoader } from "components/features/Ontology/OntologyLoader"
 import { useRouter } from "next/router"
 import { useGeneQuery, GeneQuery } from "dicty-graphql-schema"
 

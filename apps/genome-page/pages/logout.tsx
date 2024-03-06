@@ -1,4 +1,4 @@
-import Logout from "components/features/Authentication/Logout"
+import { Logout } from "components/features/Authentication/Logout"
 
 const LogoutPage = () => <Logout />
 

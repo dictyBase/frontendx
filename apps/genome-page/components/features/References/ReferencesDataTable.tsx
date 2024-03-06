@@ -1,4 +1,4 @@
-import OtherError from "components/errors/OtherError"
+import { OtherError } from "components/errors/OtherError"
 import { GeneQuery } from "dicty-graphql-schema"
 import {
   Paper,
@@ -9,8 +9,8 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core"
-import useStyles from "../../../styles/dataTableStyles"
-import PublicationRow from "./PublicationRow"
+import { useStyles } from "../../../styles/dataTableStyles"
+import { PublicationRow } from "./PublicationRow"
 
 interface Properties {
   data: GeneQuery

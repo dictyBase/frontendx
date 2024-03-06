@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react"
 import React from "react"
-import PhenotypesLoader from "./PhenotypesLoader"
+import { PhenotypesLoader } from "./PhenotypesLoader"
 
 const gene = "sadA"
 

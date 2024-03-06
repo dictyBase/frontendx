@@ -4,9 +4,9 @@ import Table from "@material-ui/core/Table"
 import TableBody from "@material-ui/core/TableBody"
 import Paper from "@material-ui/core/Paper"
 import { GoAnnotation } from "dicty-graphql-schema"
-import EnhancedTableHead from "./EnhancedTableHead"
-import GoaDisplayTableRow from "./GoaDisplayTableRow"
-import getSorting from "./utils/getSorting"
+import { EnhancedTableHead } from "./EnhancedTableHead"
+import { GoaDisplayTableRow } from "./GoaDisplayTableRow"
+import { getSorting } from "./utils/getSorting"
 
 const useStyles = makeStyles({
   root: {

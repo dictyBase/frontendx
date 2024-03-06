@@ -8,9 +8,9 @@ import {
   TableRow,
 } from "@material-ui/core"
 import { GeneQuery } from "dicty-graphql-schema"
-import OtherError from "components/errors/OtherError"
-import useStyles from "../../../styles/dataTableStyles"
-import RenderOrthologs from "./RenderOrthologs"
+import { OtherError } from "components/errors/OtherError"
+import { useStyles } from "../../../styles/dataTableStyles"
+import { RenderOrthologs } from "./RenderOrthologs"
 
 interface OrthologsDataTableProperties {
   data: GeneQuery

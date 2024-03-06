@@ -1,4 +1,4 @@
-import AuthLoader from "components/features/Authentication/AuthLoader"
+import { AuthLoader } from "components/features/Authentication/AuthLoader"
 
 const AuthLoaderPage = () => <AuthLoader />
 

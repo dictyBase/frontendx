@@ -1,6 +1,6 @@
-import GraphQLErrorPage from "components/errors/GraphQLErrorPage"
-import ProteinInfoLoader from "components/features/ProteinInformation/ProteinInfoLoader"
-import ProteinInfoContainer from "components/features/ProteinInformation/ProteinInfoContainer"
+import { GraphQLErrorPage } from "components/errors/GraphQLErrorPage"
+import { ProteinInfoLoader } from "components/features/ProteinInformation/ProteinInfoLoader"
+import { ProteinInfoContainer } from "components/features/ProteinInformation/ProteinInfoContainer"
 import { useRouter } from "next/router"
 import { useGeneQuery, GeneQuery } from "dicty-graphql-schema"
 

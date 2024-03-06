@@ -1,4 +1,4 @@
-import OauthCallback from "components/features/Authentication/OauthCallback"
+import { OauthCallback } from "components/features/Authentication/OauthCallback"
 
 const OauthCallbackPage = () => <OauthCallback />
 
