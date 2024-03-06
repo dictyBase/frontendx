@@ -5,7 +5,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select"
 import { Observable } from "rxjs"
 import { programToDatabaseMock } from "../mocks/relatonalMockData"
 
-interface BlastDatabaseRowProps {
+interface BlastDatabaseRowProperties {
   organismElement: MutableRefObject<HTMLInputElement>
   databaseElement: MutableRefObject<HTMLInputElement>
   sequenceStream: Observable<string>
@@ -19,7 +19,7 @@ const BlastDatabaseRow = ({
   sequenceStream,
   organismElement,
   databaseElement,
-}: BlastDatabaseRowProps) => {
+}: BlastDatabaseRowProperties) => {
   const classes = useStyles()
 
   const [currentProgram, setCurrentProgram] = useState<string>(
@@ -97,9 +97,9 @@ const BlastDatabaseRow = ({
               inputProps={{ style: { fontSize: 12, minWidth: 400 } }}
               variant="outlined"
               ref={organismElement}>
-              {organismOptions.map((val, index) => (
-                <option value={val} key={index}>
-                  {val}
+              {organismOptions.map((value, index) => (
+                <option value={value} key={index}>
+                  {value}
                 </option>
               ))}
             </Select>
@@ -114,13 +114,13 @@ const BlastDatabaseRow = ({
             <Select
               native
               id="database-select-id"
-              defaultValue={"Please Select a Database"}
+              defaultValue="Please Select a Database"
               inputProps={{ style: { fontSize: 12, minWidth: 400 } }}
               variant="outlined"
               ref={databaseElement}>
-              {databaseOptions.map((val, index) => (
-                <option value={val} key={index}>
-                  {val}
+              {databaseOptions.map((value, index) => (
+                <option value={value} key={index}>
+                  {value}
                 </option>
               ))}
             </Select>
@@ -131,4 +131,4 @@ const BlastDatabaseRow = ({
   )
 }
 
-export default BlastDatabaseRow
+export { BlastDatabaseRow }

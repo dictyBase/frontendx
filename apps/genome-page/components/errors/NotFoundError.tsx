@@ -1,11 +1,11 @@
 import React from "react"
 import Grid from "@material-ui/core/Grid"
+import Image from "next/image"
 import ErrorMessage from "./ErrorMessage"
 import useStyles from "../../styles/errorStyles"
-import Image from "next/image"
 
-type Props = {
-  /** Error message to display*/
+type Properties = {
+  /** Error message to display */
   error: string
 }
 
@@ -13,7 +13,7 @@ type Props = {
  * UI display when an item was not found.
  */
 
-const NotFoundError = ({ error }: Props) => {
+const NotFoundError = ({ error }: Properties) => {
   const classes = useStyles()
 
   return (
@@ -40,4 +40,4 @@ const NotFoundError = ({ error }: Props) => {
   )
 }
 
-export default NotFoundError
+export { NotFoundError }

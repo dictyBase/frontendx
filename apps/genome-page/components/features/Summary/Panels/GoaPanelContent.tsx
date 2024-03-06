@@ -1,9 +1,9 @@
 import React from "react"
-import withDataFilter from "../utils/withDataFilter"
 import { GoAnnotation, Extension, With } from "dicty-graphql-schema"
 import WithExtensionLink from "components/features/Ontology/Table/WithExtensionLink"
+import withDataFilter from "../utils/withDataFilter"
 
-type Props = {
+type Properties = {
   /** Individual GO Annotation */
   data: GoAnnotation
 }
@@ -12,8 +12,9 @@ type Props = {
  * The content that goes in the right side of the GOA panel on the summary page.
  */
 
-const GoaPanelContent = ({ data }: Props) => {
-  let withData, extensionsData
+const GoaPanelContent = ({ data }: Properties) => {
+  let withData
+  let extensionsData
 
   if (data.with !== null && data.with !== undefined) {
     withData = withDataFilter(data.with).map((xref: With, index: number) => (
@@ -27,22 +28,22 @@ const GoaPanelContent = ({ data }: Props) => {
   if (data.extensions !== null && data.extensions !== undefined) {
     extensionsData = data.extensions
       .slice(0, 2)
-      .map((ext: Extension, index: number) => (
+      .map((extension: Extension, index: number) => (
         <React.Fragment key={index}>
           {" "}
-          <em>{ext.relation}</em> <WithExtensionLink item={ext} />{" "}
+          <em>{extension.relation}</em> <WithExtensionLink item={extension} />{" "}
         </React.Fragment>
       ))
   }
 
   return (
-    <React.Fragment>
+    <>
       {data.go_term}
       {withData}
       {extensionsData} ({data.evidence_code})
       <br />
-    </React.Fragment>
+    </>
   )
 }
 
-export default GoaPanelContent
+export { GoaPanelContent }

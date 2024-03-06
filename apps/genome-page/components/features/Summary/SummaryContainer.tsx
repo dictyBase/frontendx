@@ -8,7 +8,7 @@ import {
   createRouteFromString,
 } from "../../../common/utils/containerGenerator"
 
-interface SummaryContainerProps {
+interface SummaryContainerProperties {
   gene: GeneQuery
 }
 
@@ -21,7 +21,7 @@ interface ChildContent {
   child: JSX.Element | undefined
 }
 
-const SummaryContainer = ({ gene }: SummaryContainerProps) => {
+const SummaryContainer = ({ gene }: SummaryContainerProperties) => {
   const { query } = useRouter()
   const geneId = query.id as string
 
@@ -43,19 +43,17 @@ const SummaryContainer = ({ gene }: SummaryContainerProps) => {
             ],
             gene,
           ) as ChildContent[]
-        ).map((item, key) => {
-          return (
-            <PanelWrapper
-              key={key}
-              title={createRouteFromString(item!.panelProps.title, gene)}
-              route={createRouteFromString(item!.panelProps.route, gene)}>
-              {item!.child}
-            </PanelWrapper>
-          )
-        })}
+        ).map((item, key) => (
+          <PanelWrapper
+            key={key}
+            title={createRouteFromString(item!.panelProps.title, gene)}
+            route={createRouteFromString(item!.panelProps.route, gene)}>
+            {item!.child}
+          </PanelWrapper>
+        ))}
       </Typography>
     </Layout>
   )
 }
 
-export default SummaryContainer
+export { SummaryContainer }

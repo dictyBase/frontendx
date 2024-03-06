@@ -24,7 +24,7 @@ type Auth = {
 }
 
 const basename = process.env.NEXT_PUBLIC_BASENAME
-const url = typeof window !== "undefined" ? window.location.origin : ""
+const url = typeof window === "undefined" ? "" : window.location.origin
 
 const oauthConfig: Auth = {
   google: {
@@ -66,4 +66,4 @@ const oauthConfig: Auth = {
   },
 }
 
-export default oauthConfig
+export { oauthConfig }

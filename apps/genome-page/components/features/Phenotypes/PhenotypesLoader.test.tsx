@@ -6,7 +6,7 @@ const gene = "sadA"
 
 jest.mock("next/router", () => {
   const useRouter = () => {
-    push: (value: string) => value
+    ;(value: string) => value
   }
   return {
     useRouter,

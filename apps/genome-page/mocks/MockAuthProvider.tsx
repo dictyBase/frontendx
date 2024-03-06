@@ -6,7 +6,7 @@ import {
   authReducer,
 } from "components/features/Authentication/AuthStore"
 
-type AuthProps = {
+type AuthProperties = {
   children: React.ReactNode
   mocks: ReadonlyArray<MockedResponse>
   user?: User
@@ -20,23 +20,23 @@ const MockSuperuser = {
   last_name: "Vandelay",
   email: "george@vandelayindustries.com",
   is_active: true,
-  created_at: 123456,
-  updated_at: 678900,
+  created_at: 123_456,
+  updated_at: 678_900,
   roles: [
     {
       id: "1",
       role: "superuser",
       description: "total power!",
-      created_at: 123456,
-      updated_at: 678900,
+      created_at: 123_456,
+      updated_at: 678_900,
       permissions: [
         {
           id: "1",
           permission: "test",
           description: "a test permission",
           resource: "testresource",
-          created_at: 123456,
-          updated_at: 678900,
+          created_at: 123_456,
+          updated_at: 678_900,
         },
       ],
     },
@@ -54,10 +54,10 @@ const MockAuthProvider = ({
   mocks,
   user = MockSuperuser,
   validToken = true,
-}: AuthProps) => {
+}: AuthProperties) => {
   const [state, dispatch] = React.useReducer(authReducer, {
     token: validToken ? activeToken : expiredToken,
-    user: user,
+    user,
     provider: "google",
     isAuthenticated: true,
     error: null,
@@ -72,4 +72,4 @@ const MockAuthProvider = ({
 }
 
 export { MockSuperuser }
-export default MockAuthProvider
+export { MockAuthProvider }

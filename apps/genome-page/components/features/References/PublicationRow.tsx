@@ -1,7 +1,7 @@
 import { Chip, TableCell, TableRow } from "@material-ui/core"
 import { commaSeparateWithAnd } from "common/utils/strings"
 
-interface PublicationRowProps {
+interface PublicationRowProperties {
   publication: {
     __typename?: "PublicationWithGene"
     id: string
@@ -23,32 +23,28 @@ interface PublicationRowProps {
   }
 }
 
-const PublicationRow = ({ publication }: PublicationRowProps) => {
-  return (
-    <TableRow>
-      <TableCell>
-        <b>
-          {commaSeparateWithAnd(publication.authors.map((a) => a.last_name))}
-        </b>
-        &nbsp; &apos;{publication.title}&apos; &nbsp;
-        <i>{publication.journal}</i>
-        &nbsp;
-        {publication.pages}
-      </TableCell>
+const PublicationRow = ({ publication }: PublicationRowProperties) => (
+  <TableRow>
+    <TableCell>
+      <b>{commaSeparateWithAnd(publication.authors.map((a) => a.last_name))}</b>
+      &nbsp; &apos;{publication.title}&apos; &nbsp;
+      <i>{publication.journal}</i>
+      &nbsp;
+      {publication.pages}
+    </TableCell>
 
-      <TableCell>
-        {publication.related_genes.map((gene, i) => (
-          <Chip
-            key={i}
-            label={gene.name}
-            size="small"
-            style={{ margin: "0px 5px 5px 0px" }}
-            variant="outlined"
-          />
-        ))}
-      </TableCell>
-    </TableRow>
-  )
-}
+    <TableCell>
+      {publication.related_genes.map((gene, index) => (
+        <Chip
+          key={index}
+          label={gene.name}
+          size="small"
+          style={{ margin: "0px 5px 5px 0px" }}
+          variant="outlined"
+        />
+      ))}
+    </TableCell>
+  </TableRow>
+)
 
-export default PublicationRow
+export { PublicationRow }

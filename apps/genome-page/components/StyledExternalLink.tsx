@@ -13,7 +13,7 @@ const useStyles = makeStyles({
   },
 })
 
-type Props = {
+type Properties = {
   /** URL the link points to */
   href: string
   /** Content of the link */
@@ -24,7 +24,7 @@ type Props = {
  * Styled link that opens to a new window.
  */
 
-const StyledExternalLink = ({ href, content }: Props) => {
+const StyledExternalLink = ({ href, content }: Properties) => {
   const classes = useStyles()
 
   return (
@@ -38,4 +38,4 @@ const StyledExternalLink = ({ href, content }: Props) => {
   )
 }
 
-export default StyledExternalLink
+export { StyledExternalLink }

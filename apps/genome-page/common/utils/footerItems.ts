@@ -28,8 +28,7 @@ const footerLinks = {
       type: "link",
       id: "4",
       attributes: {
-        url:
-          "http://dictybase.org/tools/jbrowse/?data=data%2Fjbrowse%2Fdiscoideum&loc=6%3A1..50022&tracks=reference%2Cgene%2Ctranscript&highlight=",
+        url: "http://dictybase.org/tools/jbrowse/?data=data%2Fjbrowse%2Fdiscoideum&loc=6%3A1..50022&tracks=reference%2Cgene%2Ctranscript&highlight=",
         description: "Genome Browser",
       },
     },

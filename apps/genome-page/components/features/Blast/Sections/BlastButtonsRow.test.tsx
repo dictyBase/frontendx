@@ -1,6 +1,8 @@
 import { render, screen } from "@testing-library/react"
 import BlastButtonsRow from "./BlastButtonsRow"
+
 const useRouter = jest.spyOn(require("next/router"), "useRouter")
+
 const gene = "sadA"
 const pathname = `gene/${gene}/phenotypes`
 
@@ -15,7 +17,7 @@ describe("features/blast/Sections/BlastButtonsRow", () => {
   it("should render blast buttons row", async () => {
     useRouter.mockImplementation(() => ({
       query: { gene: "sadA" },
-      pathname: pathname,
+      pathname,
     }))
     render(<BlastButtonsRow />)
 

@@ -42,21 +42,21 @@ const WikiLoader = () => (
       </AppBar>
     </MuiThemeProvider>
     <Box mt="10px">
-      {[...Array(5)].map((item, key) => (
+      {[...new Array(5)].map((item, key) => (
         <Skeleton key={key} animation="wave" />
       ))}
       <br />
       <br />
-      {[...Array(5)].map((item, key) => (
+      {[...new Array(5)].map((item, key) => (
         <Skeleton key={key} animation="wave" />
       ))}
       <br />
       <br />
-      {[...Array(5)].map((item, key) => (
+      {[...new Array(5)].map((item, key) => (
         <Skeleton key={key} animation="wave" />
       ))}
     </Box>
   </Box>
 )
 
-export default WikiLoader
+export { WikiLoader }

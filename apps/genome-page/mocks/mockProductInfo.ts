@@ -30,4 +30,4 @@ const mockProductInfo: ProductInformation[] = [
   },
 ]
 
-export default mockProductInfo
+export { mockProductInfo }

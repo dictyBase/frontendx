@@ -1,7 +1,9 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import WikiContainer from "./WikiContainer"
+
 const useRouter = jest.spyOn(require("next/router"), "useRouter")
+
 const gene = "ada2"
 
 describe("CommunityAnnotations/WikiContainer", () => {
@@ -12,7 +14,7 @@ describe("CommunityAnnotations/WikiContainer", () => {
         id: gene,
       },
     }))
-    render(<WikiContainer markdown={"Test"} />)
+    render(<WikiContainer markdown="Test" />)
 
     // Should Render Tab
     expect(screen.getByText("Annotations")).toBeInTheDocument()

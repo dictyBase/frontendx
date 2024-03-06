@@ -1,6 +1,7 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import OauthCallback from "./OauthCallback"
+
 const useRouter = jest.spyOn(require("next/router"), "useRouter")
 
 describe("features/Authentication/OauthCallback", () => {
@@ -20,7 +21,7 @@ describe("features/Authentication/OauthCallback", () => {
       }))
       render(<OauthCallback />)
       expect(
-        screen.getByText(/Transferring to login system ......../),
+        screen.getByText(/Transfer{2}ing to login system .{8}/),
       ).toBeInTheDocument()
     })
   })

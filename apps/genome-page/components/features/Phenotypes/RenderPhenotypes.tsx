@@ -1,6 +1,6 @@
 import PhenotypeRow from "./PhenotypeRow"
 
-interface RenderPhenotypesProps {
+interface RenderPhenotypesProperties {
   strain: {
     __typename?: "Strain"
     id: string
@@ -34,25 +34,23 @@ interface RenderPhenotypesProps {
   }
 }
 
-const RenderPhenotypes = ({ strain }: RenderPhenotypesProps) => {
-  return (
-    <>
-      {strain.phenotypes?.map((phenotype, index) =>
-        index === 0 ? (
-          <PhenotypeRow
-            id={strain.id}
-            strain={strain.label}
-            characteristics={strain.characteristics}
-            phenotype={phenotype}
-            in_stock={strain.in_stock}
-            key={index}
-          />
-        ) : (
-          <PhenotypeRow id={strain.id} phenotype={phenotype} key={index} />
-        ),
-      )}
-    </>
-  )
-}
+const RenderPhenotypes = ({ strain }: RenderPhenotypesProperties) => (
+  <>
+    {strain.phenotypes?.map((phenotype, index) =>
+      index === 0 ? (
+        <PhenotypeRow
+          id={strain.id}
+          strain={strain.label}
+          characteristics={strain.characteristics}
+          phenotype={phenotype}
+          in_stock={strain.in_stock}
+          key={index}
+        />
+      ) : (
+        <PhenotypeRow id={strain.id} phenotype={phenotype} key={index} />
+      ),
+    )}
+  </>
+)
 
-export default RenderPhenotypes
+export { RenderPhenotypes }

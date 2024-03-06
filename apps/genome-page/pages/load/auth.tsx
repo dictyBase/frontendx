@@ -1,7 +1,5 @@
 import AuthLoader from "components/features/Authentication/AuthLoader"
 
-const AuthLoaderPage = () => {
-  return <AuthLoader />
-}
+const AuthLoaderPage = () => <AuthLoader />
 
-export default AuthLoaderPage
+export { AuthLoaderPage }

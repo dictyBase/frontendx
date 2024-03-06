@@ -1,17 +1,17 @@
 import Typography from "@material-ui/core/Typography"
-import OntologyTabLayout from "./OntologyTabLayout"
 import Layout from "components/layout/Layout"
 import { GeneQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
+import OntologyTabLayout from "./OntologyTabLayout"
 /**
  * Container component that issues a GraphQL query to get gene data for the
  * GO annotations page.
  */
 
-interface OntologyContainerProps {
+interface OntologyContainerProperties {
   gene: GeneQuery
 }
-const OntologyContainer = ({ gene }: OntologyContainerProps) => {
+const OntologyContainer = ({ gene }: OntologyContainerProperties) => {
   const { query } = useRouter()
   const geneId = query.id as string
 
@@ -27,4 +27,4 @@ const OntologyContainer = ({ gene }: OntologyContainerProps) => {
   )
 }
 
-export default OntologyContainer
+export { OntologyContainer }

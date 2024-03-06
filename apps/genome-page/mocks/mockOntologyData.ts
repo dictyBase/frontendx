@@ -291,4 +291,4 @@ const mockOntologyData: IMockOntologyData = {
   ],
 }
 
-export default mockOntologyData
+export { mockOntologyData }

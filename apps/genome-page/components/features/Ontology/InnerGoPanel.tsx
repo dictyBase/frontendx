@@ -1,11 +1,11 @@
 import React from "react"
 import Grid from "@material-ui/core/Grid"
-import GoaDisplayTable from "./Table/GoaDisplayTable"
 import PanelWrapper from "components/panels/PanelWrapper"
 import Typography from "@material-ui/core/Typography"
 import { GoAnnotation } from "dicty-graphql-schema"
+import GoaDisplayTable from "./Table/GoaDisplayTable"
 
-type Props = {
+type Properties = {
   /** GO Annotations */
   data: GoAnnotation[]
 }
@@ -14,7 +14,7 @@ type Props = {
  * Displays the inside of GO Tab panels
  */
 
-const InnerGoPanel = ({ data }: Props) => {
+const InnerGoPanel = ({ data }: Properties) => {
   // set variables that represent filtered arrays for use in each row
   const molecular = data.filter((item) => item.type === "molecular_function")
   const biological = data.filter((item) => item.type === "biological_process")
@@ -45,4 +45,4 @@ const InnerGoPanel = ({ data }: Props) => {
   )
 }
 
-export default InnerGoPanel
+export { InnerGoPanel }

@@ -2,7 +2,7 @@ import StyledExternalLink from "components/StyledExternalLink"
 import withLinkGenerator from "common/utils/withLinkGenerator"
 import { With, Extension } from "dicty-graphql-schema"
 
-type Props = {
+type Properties = {
   /** Individual With or Extension item for a given annotation */
   item: Extension | With
 }
@@ -11,7 +11,7 @@ type Props = {
  * This handles the display for With or Extension links.
  */
 
-const WithExtensionLink = ({ item }: Props) => {
+const WithExtensionLink = ({ item }: Properties) => {
   let link = (
     <StyledExternalLink
       href={withLinkGenerator(item.id, item.db)}
@@ -31,4 +31,4 @@ const WithExtensionLink = ({ item }: Props) => {
   return link
 }
 
-export default WithExtensionLink
+export { WithExtensionLink }

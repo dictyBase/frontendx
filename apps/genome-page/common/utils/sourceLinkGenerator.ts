@@ -21,4 +21,4 @@ const sourceLinkGenerator = (id: string) => {
   }
 }
 
-export default sourceLinkGenerator
+export { sourceLinkGenerator }

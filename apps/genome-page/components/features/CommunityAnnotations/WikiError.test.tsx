@@ -1,7 +1,9 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import WikiError from "./WikiError"
+
 const useRouter = jest.spyOn(require("next/router"), "useRouter")
+
 const gene = "sadA"
 
 describe("CommunityAnnotations/WikiError", () => {
@@ -9,7 +11,7 @@ describe("CommunityAnnotations/WikiError", () => {
     useRouter.mockImplementation(() => ({
       pathname: `gene/${gene}/communityannotations`,
     }))
-    render(<WikiError error={"Mock Error"} />)
+    render(<WikiError error="Mock Error" />)
 
     // Image should load
     expect(screen.getByAltText("Sad Dicty Logo")).toBeInTheDocument()

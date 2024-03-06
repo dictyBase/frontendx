@@ -9,4 +9,4 @@ function getSorting<Key extends keyof any>(
     : (a, b) => (a[orderBy] < b[orderBy] ? -1 : 1)
 }
 
-export default getSorting
+export { getSorting }

@@ -28,4 +28,4 @@ const BlastButtonsRow = () => {
   )
 }
 
-export default BlastButtonsRow
+export { BlastButtonsRow }

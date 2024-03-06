@@ -34,4 +34,4 @@ const mockProductInfoPiaA: ProductInformation[] = [
   },
 ]
 
-export default mockProductInfoPiaA
+export { mockProductInfoPiaA }

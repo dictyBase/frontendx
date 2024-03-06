@@ -12,15 +12,15 @@ import {
 import useStyles from "../../../styles/dataTableStyles"
 import PublicationRow from "./PublicationRow"
 
-interface Props {
+interface Properties {
   data: GeneQuery
 }
 
-const ReferencesDataTable = ({ data }: Props) => {
+const ReferencesDataTable = ({ data }: Properties) => {
   const classes = useStyles()
 
   if (!data.allPublications?.publications) return <OtherError />
-  const publications = data.allPublications.publications
+  const { publications } = data.allPublications
 
   return (
     <TableContainer component={Paper} className={classes.root}>
@@ -33,8 +33,8 @@ const ReferencesDataTable = ({ data }: Props) => {
         </TableHead>
 
         <TableBody>
-          {publications.map((publication, i) => (
-            <PublicationRow publication={publication} key={i} />
+          {publications.map((publication, index) => (
+            <PublicationRow publication={publication} key={index} />
           ))}
         </TableBody>
       </Table>
@@ -42,4 +42,4 @@ const ReferencesDataTable = ({ data }: Props) => {
   )
 }
 
-export default ReferencesDataTable
+export { ReferencesDataTable }

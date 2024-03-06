@@ -1,7 +1,5 @@
 import Login from "components/features/Authentication/Login"
 
-const LoginPage = () => {
-  return <Login />
-}
+const LoginPage = () => <Login />
 
-export default LoginPage
+export { LoginPage }

@@ -8,18 +8,18 @@ import { SvgIconProps } from "@material-ui/core/SvgIcon"
 import LogoutIcon from "@mui/icons-material/Logout"
 import LoginIcon from "@mui/icons-material/Login"
 
-type LinkIconProps = {
-  link: LinkProps
+type LinkIconProperties = {
+  link: LinkProperties
 }
 
-type LinkProps = {
+type LinkProperties = {
   isRouter?: boolean
   text: string
   icon: React.ReactElement<SvgIconProps>
   url: string
 }
 
-const LinkIcon = ({ link }: LinkIconProps) => (
+const LinkIcon = ({ link }: LinkIconProperties) => (
   <div style={{ textAlign: "center" }}>
     {link.icon}
     <br />
@@ -27,27 +27,25 @@ const LinkIcon = ({ link }: LinkIconProps) => (
   </div>
 )
 
-const HeaderLinks = ({ items }: { items: LinkProps[] }) => {
-  return (
-    <React.Fragment>
-      {items.map((link: LinkProps, i: number) =>
-        link.isRouter ? (
-          <div key={i} style={{ padding: "15px" }}>
-            <Link href={link.url} passHref>
-              <a>
-                <LinkIcon link={link} />
-              </a>
-            </Link>
-          </div>
-        ) : (
-          <HeaderLink key={i} href={link.url}>
-            <LinkIcon key={i} link={link} />
-          </HeaderLink>
-        ),
-      )}
-    </React.Fragment>
-  )
-}
+const HeaderLinks = ({ items }: { items: LinkProperties[] }) => (
+  <>
+    {items.map((link: LinkProperties, index: number) =>
+      link.isRouter ? (
+        <div key={index} style={{ padding: "15px" }}>
+          <Link href={link.url} passHref>
+            <a>
+              <LinkIcon link={link} />
+            </a>
+          </Link>
+        </div>
+      ) : (
+        <HeaderLink key={index} href={link.url}>
+          <LinkIcon key={index} link={link} />
+        </HeaderLink>
+      ),
+    )}
+  </>
+)
 
 const headerItems = [
   {

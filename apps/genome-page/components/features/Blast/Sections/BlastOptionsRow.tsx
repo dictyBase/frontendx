@@ -130,9 +130,10 @@ const BlastOptionsRow = () => {
         </Grid>
         <Grid item xs={12} md={8}>
           <Typography className={classes.boldText}>
-            {
-              "Because of resource limits, when BLASTing against the Chromosomal database with filtering off, the filtering is actually set to 'm D' which turns off filtering for extending hits, but leaves filtering on when building the initial words."
-            }
+            Because of resource limits, when BLASTing against the Chromosomal
+            database with filtering off, the filtering is actually set to 'm D'
+            which turns off filtering for extending hits, but leaves filtering
+            on when building the initial words.
           </Typography>
         </Grid>
       </Card>
@@ -140,4 +141,4 @@ const BlastOptionsRow = () => {
   )
 }
 
-export default BlastOptionsRow
+export { BlastOptionsRow }

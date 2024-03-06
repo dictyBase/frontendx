@@ -9,10 +9,10 @@ describe("qualifierFormatter", () => {
       JSON.stringify(qualifierFormatter("NOT|acts_upstream_of_or_within")),
     ).toBe(
       JSON.stringify(
-        <React.Fragment>
+        <>
           <strong>NOT </strong>
           <em>acts_upstream_of_or_within</em>
-        </React.Fragment>,
+        </>,
       ),
     )
   })

@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import { GoAnnotation } from "dicty-graphql-schema"
 
 interface IMockOntologyData {
@@ -292,4 +293,4 @@ const mockOntologyAda2: IMockOntologyData = {
   ],
 }
 
-export default mockOntologyAda2
+export { mockOntologyAda2 }

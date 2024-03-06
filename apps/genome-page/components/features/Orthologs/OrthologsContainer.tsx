@@ -1,13 +1,13 @@
 import Typography from "@material-ui/core/Typography"
 import Layout from "components/layout/Layout"
 import { GeneQuery } from "dicty-graphql-schema"
-import OrthologsDataTable from "./OrthologsDataTable"
 import { useRouter } from "next/router"
+import OrthologsDataTable from "./OrthologsDataTable"
 
-interface OrthologsContainerProps {
+interface OrthologsContainerProperties {
   gene: GeneQuery
 }
-const OrthologsContainer = ({ gene }: OrthologsContainerProps) => {
+const OrthologsContainer = ({ gene }: OrthologsContainerProperties) => {
   const { query } = useRouter()
   const geneId = query.id as string
 
@@ -23,4 +23,4 @@ const OrthologsContainer = ({ gene }: OrthologsContainerProps) => {
   )
 }
 
-export default OrthologsContainer
+export { OrthologsContainer }

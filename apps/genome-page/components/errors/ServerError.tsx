@@ -22,4 +22,4 @@ const ServerError = () => {
   )
 }
 
-export default ServerError
+export { ServerError }

@@ -1,8 +1,9 @@
 /// <reference types="next" />
 import "typescript"
+
 declare global {
   namespace NodeJS {
-    interface ProcessEnv {
+    interface ProcessEnvironment {
       NEXT_PUBLIC_BASENAME: string
       NEXT_PUBLIC_GA_TRACKING_ID: string
       NEXT_PUBLIC_NAVBAR_JSON: string

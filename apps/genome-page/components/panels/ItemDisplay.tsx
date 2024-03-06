@@ -25,4 +25,4 @@ const ItemDisplay = ({ children }: any) => {
   )
 }
 
-export default ItemDisplay
+export { ItemDisplay }

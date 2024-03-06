@@ -2,7 +2,7 @@ import { PublicationWithGene, Gene } from "dicty-graphql-schema"
 
 const mockReferencesData: PublicationWithGene[] = [
   {
-    related_genes: Array<Gene>(),
+    related_genes: new Array<Gene>(),
     id: "17968",
     authors: [
       { last_name: "Kamprad", first_name: "", initials: "", rank: "" },
@@ -67,7 +67,10 @@ const mockReferencesData: PublicationWithGene[] = [
       { id: "DDB_G0289073", name: "csaA" } as Gene,
     ],
     id: "13217",
-    authors: [{ last_name: "Wu", first_name: "", initials: "", rank: "" }, { last_name: "Janetopoulos", first_name: "", initials: "", rank: "" }],
+    authors: [
+      { last_name: "Wu", first_name: "", initials: "", rank: "" },
+      { last_name: "Janetopoulos", first_name: "", initials: "", rank: "" },
+    ],
     title:
       "The G alpha subunit G?8 inhibits proliferation, promotes adhesion and regulates cell differentiation.",
     journal: "Dev. Biol.",
@@ -152,7 +155,10 @@ const mockReferencesData: PublicationWithGene[] = [
   {
     related_genes: [{ id: "DDB_G0289483", name: "ctxA" } as Gene],
     id: "12499361",
-    authors: [{ last_name: "Kowal", first_name: "", initials: "", rank: "" }, { last_name: "Chisholm", first_name: "", initials: "", rank: "" }],
+    authors: [
+      { last_name: "Kowal", first_name: "", initials: "", rank: "" },
+      { last_name: "Chisholm", first_name: "", initials: "", rank: "" },
+    ],
     title:
       "Uncovering a role for the Dictyostelium discoideum SadA protein in cell-substrate adhesion: A Role for the Tail.",
     journal: "Eukaryotic cell",
@@ -178,7 +184,9 @@ const mockReferencesData: PublicationWithGene[] = [
       { id: "DDB_G0276077", name: "mlcR" } as Gene,
     ],
     id: "11404",
-    authors: [{ last_name: "Tsujioka", first_name: "", initials: "", rank: "" }],
+    authors: [
+      { last_name: "Tsujioka", first_name: "", initials: "", rank: "" },
+    ],
     title: "Cell migration in multicellular environments.",
     journal: "Dev. Growth Differ.",
     pages: "53:528-37",
@@ -202,7 +210,10 @@ const mockReferencesData: PublicationWithGene[] = [
       { id: "DDB_G0280531", name: "tgrC1" } as Gene,
     ],
     id: "236",
-    authors: [{ last_name: "Abedin", first_name: "", initials: "", rank: "" }, { last_name: "King", first_name: "", initials: "", rank: "" }],
+    authors: [
+      { last_name: "Abedin", first_name: "", initials: "", rank: "" },
+      { last_name: "King", first_name: "", initials: "", rank: "" },
+    ],
     title: "Diverse evolutionary paths to cell adhesion.",
     journal: "Trends Cell Biol",
     pages: "20:734-42",
@@ -262,7 +273,10 @@ const mockReferencesData: PublicationWithGene[] = [
       { id: "DDB_G0292322", name: "DDB_G0292322" } as Gene,
     ],
     id: "459",
-    authors: [{ last_name: "Cosson", first_name: "", initials: "", rank: "" }, { last_name: "Soldati", first_name: "", initials: "", rank: "" }],
+    authors: [
+      { last_name: "Cosson", first_name: "", initials: "", rank: "" },
+      { last_name: "Soldati", first_name: "", initials: "", rank: "" },
+    ],
     title: "Eat, kill or die: when amoeba meets bacteria.",
     journal: "Curr Opin Microbiol",
     pages: "11:271-6",
@@ -345,7 +359,10 @@ const mockReferencesData: PublicationWithGene[] = [
       { id: "DDB_G0293834", name: "wasA" } as Gene,
     ],
     id: "1732",
-    authors: [{ last_name: "Williams", first_name: "", initials: "", rank: "" }, { last_name: "Harwood", first_name: "", initials: "", rank: "" }],
+    authors: [
+      { last_name: "Williams", first_name: "", initials: "", rank: "" },
+      { last_name: "Harwood", first_name: "", initials: "", rank: "" },
+    ],
     title: "Cell polarity and Dictyostelium development.",
     journal: "Curr Opin Microbiol",
     pages: "6:621-7",
@@ -360,7 +377,7 @@ const mockReferencesData: PublicationWithGene[] = [
     status: "",
   } as PublicationWithGene,
   {
-    related_genes: Array<Gene>(),
+    related_genes: new Array<Gene>(),
     id: "12499361",
     authors: [
       { last_name: "Fey", first_name: "", initials: "", rank: "" },
@@ -383,4 +400,4 @@ const mockReferencesData: PublicationWithGene[] = [
   } as PublicationWithGene,
 ]
 
-export default mockReferencesData
+export { mockReferencesData }

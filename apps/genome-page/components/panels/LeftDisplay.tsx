@@ -35,4 +35,4 @@ const LeftDisplay = ({ children }: any) => {
   )
 }
 
-export default LeftDisplay
+export { LeftDisplay }

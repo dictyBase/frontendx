@@ -2,13 +2,13 @@ import React from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import TableCell from "@material-ui/core/TableCell"
 import TableRow from "@material-ui/core/TableRow"
-import WithExtensionLink from "./WithExtensionLink"
 import pubLinkGenerator from "common/utils/pubLinkGenerator"
 import dateConverter from "common/utils/dateConverter"
 import qualifierFormatter from "common/utils/qualifierFormatter"
 import sourceLinkGenerator from "common/utils/sourceLinkGenerator"
 import StyledExternalLink from "components/StyledExternalLink"
 import { GoAnnotation, With, Extension } from "dicty-graphql-schema"
+import WithExtensionLink from "./WithExtensionLink"
 
 const useStyles = makeStyles({
   row: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   },
 })
 
-type Props = {
+type Properties = {
   /** Individual GO Annotation */
   item: GoAnnotation
 }
@@ -27,7 +27,7 @@ type Props = {
  * The display table used inside each panel in the GO tabs.
  */
 
-const GoaDisplayTableRow = ({ item }: Props) => {
+const GoaDisplayTableRow = ({ item }: Properties) => {
   const classes = useStyles()
 
   return (
@@ -70,4 +70,4 @@ const GoaDisplayTableRow = ({ item }: Props) => {
   )
 }
 
-export default GoaDisplayTableRow
+export { GoaDisplayTableRow }

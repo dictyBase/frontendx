@@ -27,4 +27,4 @@ const OrthologsPageWrapper = () => {
   )
 }
 
-export default OrthologsPageWrapper
+export { OrthologsPageWrapper }

@@ -24,4 +24,4 @@ const ReferencesPageWrapper = () => {
   )
 }
 
-export default ReferencesPageWrapper
+export { ReferencesPageWrapper } 

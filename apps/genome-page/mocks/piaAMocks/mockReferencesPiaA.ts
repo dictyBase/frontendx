@@ -2,7 +2,7 @@ import { PublicationWithGene, Gene } from "dicty-graphql-schema"
 
 const mockReferencesPiaA: PublicationWithGene[] = [
   {
-    related_genes: Array<Gene>(),
+    related_genes: new Array<Gene>(),
     id: "17968",
     authors: [
       { last_name: "Kamprad", first_name: "", initials: "", rank: "" },
@@ -377,7 +377,7 @@ const mockReferencesPiaA: PublicationWithGene[] = [
     status: "",
   } as PublicationWithGene,
   {
-    related_genes: Array<Gene>(),
+    related_genes: new Array<Gene>(),
     id: "12499361",
     authors: [
       { last_name: "Fey", first_name: "", initials: "", rank: "" },
@@ -400,4 +400,4 @@ const mockReferencesPiaA: PublicationWithGene[] = [
   } as PublicationWithGene,
 ]
 
-export default mockReferencesPiaA
+export { mockReferencesPiaA }

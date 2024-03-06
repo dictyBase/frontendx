@@ -64,7 +64,7 @@ type Action = {
 }
 
 const updateToken = (
-  dispatch: (arg0: Action) => void,
+  dispatch: (argument0: Action) => void,
   data: GetRefreshTokenQuery["getRefreshToken"],
 ) =>
   dispatch({
@@ -83,7 +83,7 @@ const getTokenIntervalDelayInMS = (token: string) => {
   const decodedToken = jwtDecode(token) as any
   const currentTime = new Date(Date.now())
   const jwtTime = new Date(decodedToken.exp * 1000)
-  const timeDiffInMins = (+jwtTime - +currentTime) / 60000
+  const timeDiffInMins = (+jwtTime - +currentTime) / 60_000
   // all this to say we want the delay to be two minutes before the JWT expires
   return (timeDiffInMins - 2) * 60 * 1000
 }
@@ -102,7 +102,7 @@ const App = ({ children }: { children: React.ReactNode }) => {
   const footer = useFetch<FooterItems>(footerURL, footerLinks)
   const classes = useStyles()
   const { loading, refetch, data } = useGetRefreshTokenQuery({
-    variables: { token: token },
+    variables: { token },
     errorPolicy: "ignore",
     fetchPolicy: "cache-and-network",
     nextFetchPolicy: "cache-and-network",
@@ -122,7 +122,7 @@ const App = ({ children }: { children: React.ReactNode }) => {
 
   const fetchRefreshToken = React.useCallback(async () => {
     try {
-      const res = await refetch({ token: token })
+      const res = await refetch({ token })
       if (res.data.getRefreshToken) {
         const { data } = res
         updateToken(dispatch, data.getRefreshToken)
@@ -154,4 +154,4 @@ const App = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-export default App
+export { App }

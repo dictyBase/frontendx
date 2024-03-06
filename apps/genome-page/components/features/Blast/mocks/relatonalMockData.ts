@@ -1,4 +1,5 @@
-let programToDatabaseMock: { [key: string]: { [key: string]: string[] } } = {
+/* eslint-disable sonarjs/no-duplicate-string */
+const programToDatabaseMock: { [key: string]: { [key: string]: string[] } } = {
   "Please Select a Program": {
     "Please Select an Organism": [""],
     All: [
@@ -154,7 +155,7 @@ let programToDatabaseMock: { [key: string]: { [key: string]: string[] } } = {
   },
 }
 
-let programOptionsMock: { [key: string]: string[] } = {
+const programOptionsMock: { [key: string]: string[] } = {
   "Please Select a Sequence Type": [
     "Please Select a Program",
     "blastn - DNA query to DNA database",

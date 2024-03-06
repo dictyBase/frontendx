@@ -1,8 +1,8 @@
 import React from "react"
 import Grid from "@material-ui/core/Grid"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import ErrorMessage from "./ErrorMessage"
 import Image from "next/image"
+import ErrorMessage from "./ErrorMessage"
 import useStyles from "../../styles/errorStyles"
 
 /**
@@ -32,4 +32,4 @@ const OtherError = () => {
   )
 }
 
-export default OtherError
+export { OtherError }

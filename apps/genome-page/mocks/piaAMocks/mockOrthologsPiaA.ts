@@ -107,4 +107,4 @@ const mockOrthologsPiaA: IMockOrthologsData = {
   ],
 }
 
-export default mockOrthologsPiaA
+export { mockOrthologsPiaA }

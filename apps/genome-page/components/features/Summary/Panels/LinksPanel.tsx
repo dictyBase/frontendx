@@ -6,7 +6,7 @@ import { GeneQuery } from "dicty-graphql-schema"
 import OtherError from "components/errors/OtherError"
 import { panelGenerator } from "common/utils/panelGenerator"
 
-type Props = {
+type Properties = {
   /** Array of GO annotations for a particular gene */
   data: GeneQuery
 }
@@ -14,11 +14,11 @@ type Props = {
 /**
  * Panel to display Links Panel on the Gene Summary page.
  */
-const LinkPanel = ({ data }: Props) => {
+const LinkPanel = ({ data }: Properties) => {
   if (!data.getLinks?.links) return <OtherError />
-  const links = data.getLinks.links
+  const { links } = data.getLinks
 
-  let output = panelGenerator(
+  const output = panelGenerator(
     [
       { id: "Expression", value: links.expression },
       { id: "dictyBase Colleagues", value: links.colleagues },
@@ -30,16 +30,14 @@ const LinkPanel = ({ data }: Props) => {
 
   return (
     <div>
-      {output?.map((item, key) => {
-        return (
-          <ItemDisplay key={key}>
-            <LeftDisplay>{item.leftDisplay}</LeftDisplay>
-            <RightDisplay>{item.rightDisplay}</RightDisplay>
-          </ItemDisplay>
-        )
-      })}
+      {output?.map((item, key) => (
+        <ItemDisplay key={key}>
+          <LeftDisplay>{item.leftDisplay}</LeftDisplay>
+          <RightDisplay>{item.rightDisplay}</RightDisplay>
+        </ItemDisplay>
+      ))}
     </div>
   )
 }
 
-export default LinkPanel
+export { LinkPanel }

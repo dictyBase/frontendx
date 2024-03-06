@@ -33,4 +33,4 @@ const mockAssociatedAda2: AssociatedSequences = {
     "http://dictybase.org/db/cgi-bin/more_est.pl?feature_id=186572&gene_name=ada2",
 }
 
-export default mockAssociatedAda2
+export { mockAssociatedAda2 }

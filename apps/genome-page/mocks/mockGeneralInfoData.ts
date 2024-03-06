@@ -12,4 +12,4 @@ const mockGeneralInfoData: GeneralInfo = {
     "EGF repeat-containing 9 transmembrane molecule involved in substrate adhesion",
 }
 
-export default mockGeneralInfoData
+export { mockGeneralInfoData }

@@ -1,9 +1,9 @@
 import React from "react"
 import { useRouter } from "next/router"
-import querystring from "querystring"
+import querystring from "node:querystring"
 import { useLoginMutation, User } from "dicty-graphql-schema"
-import { useAuthStore, ActionType } from "./AuthStore"
 import oauthConfig from "common/utils/oauthConfig"
+import { useAuthStore, ActionType } from "./AuthStore"
 
 type LoginEventData = {
   /** Third-party provider (orcid, google, linkedin) */
@@ -18,7 +18,7 @@ const getLoginInputVariables = (data: LoginEventData) => {
   const provider = (oauthConfig as any)[data.provider]
   const parsed = querystring.parse(data.query.replace("?", ""))
 
-  const variables = {
+  return {
     input: {
       client_id: provider.clientId,
       redirect_url: data.url,
@@ -28,8 +28,6 @@ const getLoginInputVariables = (data: LoginEventData) => {
       provider: data.provider,
     },
   }
-
-  return variables
 }
 
 /**
@@ -66,7 +64,7 @@ const OauthSignHandler = () => {
         dispatch({
           type: ActionType.LOGIN_ERROR,
           payload: {
-            error: error,
+            error,
           },
         })
         router.push("/login")
@@ -81,4 +79,4 @@ const OauthSignHandler = () => {
   return null
 }
 
-export default OauthSignHandler
+export { OauthSignHandler }

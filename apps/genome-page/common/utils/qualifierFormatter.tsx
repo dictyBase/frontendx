@@ -1,19 +1,19 @@
 /**
  * Helper function to handle GO qualifiers formatting
  */
-const qualifierFormatter = (str: string) => {
+const qualifierFormatter = (string_: string) => {
   // remove pipe after NOT
-  let converted = str.replace("NOT|", "NOT ")
+  const converted = string_.replace("NOT|", "NOT ")
 
-  if (converted.substring(0, 3) === "NOT") {
+  if (converted.slice(0, 3) === "NOT") {
     return (
       <>
         <strong>NOT </strong>
-        <em>{converted.substring(4)}</em>
+        <em>{converted.slice(4)}</em>
       </>
     )
   }
   return <em>{converted}</em>
 }
 
-export default qualifierFormatter
+export { qualifierFormatter }

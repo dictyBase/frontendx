@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import { Strain } from "dicty-graphql-schema"
 
 /**
@@ -393,4 +394,4 @@ const mockPhenotypesData: { strains: Strain[] } = {
   ],
 }
 
-export default mockPhenotypesData
+export { mockPhenotypesData }

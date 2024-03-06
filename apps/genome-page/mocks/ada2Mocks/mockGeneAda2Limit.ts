@@ -4,10 +4,10 @@ import mockLinksPiaA from "mocks/piaAMocks/mockLinksPiaA"
 import mockOrthologsPiaA from "mocks/piaAMocks/mockOrthologsPiaA"
 import mockProductInfoPiaA from "mocks/piaAMocks/mockProductInfoPIaA"
 import mockReferencesPiaA from "mocks/piaAMocks/mockReferencesPiaA"
+import mockProteinInformation from "mocks/mockProteinInformation"
 import mockAssociatedAda2 from "./mockAssociatedAda2"
 import mockOntologyAda2 from "./mockOntologyAda2"
 import mockPhenotypesAda2 from "./mockPhenotypesAda2"
-import mockProteinInformation from "mocks/mockProteinInformation"
 
 const mockGeneAda2Limit: GeneQuery = {
   gene: {
@@ -58,4 +58,4 @@ const mockGeneAda2Limit: GeneQuery = {
     protein_information: mockProteinInformation,
   },
 }
-export default mockGeneAda2Limit
+export { mockGeneAda2Limit }

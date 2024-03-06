@@ -16,19 +16,19 @@ interface ChildContent {
   child: JSX.Element | undefined
 }
 
-interface ContainerProps {
+interface ContainerProperties {
   id: string
   title: string
   route: string
 }
 
 interface SummaryContainerTypes {
-  generalInformation: ContainerProps
-  gene: ContainerProps
-  listGeneProductInfo: ContainerProps
-  getAssociatedSequnces: ContainerProps
-  getLinks: ContainerProps
-  allPublications: ContainerProps
+  generalInformation: ContainerProperties
+  gene: ContainerProperties
+  listGeneProductInfo: ContainerProperties
+  getAssociatedSequnces: ContainerProperties
+  getLinks: ContainerProperties
+  allPublications: ContainerProperties
 }
 
 /*
@@ -37,8 +37,8 @@ interface SummaryContainerTypes {
    - arrayOfSections: string[], an array of section ID's from the gene graphql query. You can console.log(gene) to understand.
    - gene: GeneQuery, the GraphQL query that was made
 */
-const containerGenerator = (arrayOfSections: string[], gene: GeneQuery) => {
-  return arrayOfSections.map((sectionId) => {
+const containerGenerator = (arrayOfSections: string[], gene: GeneQuery) =>
+  arrayOfSections.map((sectionId) => {
     if (gene[sectionId as keyof GeneQuery]) {
       return {
         panelProps:
@@ -50,7 +50,6 @@ const containerGenerator = (arrayOfSections: string[], gene: GeneQuery) => {
       }
     }
   }) as ChildContent[]
-}
 
 /* An object that contains the Props of PanelWrapper for the respective sectionId */
 const SummaryContainerContent = {
@@ -96,7 +95,7 @@ const SummaryContainerContent = {
 const returnComponentByName = (id: string, gene: GeneQuery) => {
   switch (id) {
     case "generalInformation":
-      return <GeneralInfoPanel gene={gene}></GeneralInfoPanel>
+      return <GeneralInfoPanel gene={gene} />
     case "gene":
       return <GoaPanel data={gene} />
     case "listGeneProductInfo":
@@ -108,7 +107,6 @@ const returnComponentByName = (id: string, gene: GeneQuery) => {
     case "allPublications":
       return <ReferencesPanel gene={gene} />
     default:
-      return
   }
 }
 
@@ -119,10 +117,10 @@ const returnComponentByName = (id: string, gene: GeneQuery) => {
 */
 const createRouteFromString = (link: string, gene: GeneQuery) => {
   if ("/gene/${geneId}/references") {
-    let numPubs = gene.allPublications.num_pubs.toString()
-    link = link.replace("${gene.allPublications.num_pubs}", numPubs)
+    const numberPubs = gene.allPublications.num_pubs.toString()
+    link = link.replace("${gene.allPublications.num_pubs}", numberPubs)
   }
-  let geneName = gene.gene!.name!.toString()
+  const geneName = gene.gene!.name!.toString()
   link = link.replace("${geneId}", geneName)
   return link
 }

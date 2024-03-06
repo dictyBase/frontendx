@@ -3,10 +3,10 @@ import { makeStyles } from "@material-ui/core/styles"
 import Table from "@material-ui/core/Table"
 import TableBody from "@material-ui/core/TableBody"
 import Paper from "@material-ui/core/Paper"
+import { GoAnnotation } from "dicty-graphql-schema"
 import EnhancedTableHead from "./EnhancedTableHead"
 import GoaDisplayTableRow from "./GoaDisplayTableRow"
 import getSorting from "./utils/getSorting"
-import { GoAnnotation } from "dicty-graphql-schema"
 
 const useStyles = makeStyles({
   root: {
@@ -24,7 +24,7 @@ const useStyles = makeStyles({
 
 type Order = "asc" | "desc"
 
-type Props = {
+type Properties = {
   /** GO Annotations */
   data: GoAnnotation[]
 }
@@ -33,7 +33,7 @@ type Props = {
  * The display table used inside each panel in the GO tabs.
  */
 
-const GoaDisplayTable = ({ data }: Props) => {
+const GoaDisplayTable = ({ data }: Properties) => {
   const [tableOrder, setTableOrder] = React.useState<Order>("desc")
   const [tableSortBy, setTableSortBy] = React.useState("date")
   const classes = useStyles()
@@ -76,4 +76,4 @@ const GoaDisplayTable = ({ data }: Props) => {
   )
 }
 
-export default GoaDisplayTable
+export { GoaDisplayTable }

@@ -1,4 +1,5 @@
 import { GeneQuery } from "dicty-graphql-schema"
+import mockProteinInformation from "mocks/mockProteinInformation"
 import mockLinksPiaA from "./mockLinksPiaA"
 import mockAssociatedPiaA from "./mockAssociatedPiaA"
 import mockGeneralInfoPiaA from "./mockGeneralInfoPiaA"
@@ -7,7 +8,6 @@ import mockOntologyPiaA from "./mockOntologyPiaA"
 import mockOrthologsPiaA from "./mockOrthologsPiaA"
 import mockReferencesPiaA from "./mockReferencesPiaA"
 import mockPhenotypesPiaA from "./mockPhenotypesPiaA"
-import mockProteinInformation from "mocks/mockProteinInformation"
 
 const mockGenePiaALimit: GeneQuery = {
   gene: {
@@ -58,4 +58,4 @@ const mockGenePiaALimit: GeneQuery = {
     protein_information: mockProteinInformation,
   },
 }
-export default mockGenePiaALimit
+export { mockGenePiaALimit }

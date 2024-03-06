@@ -1,12 +1,12 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
+import { ApolloError } from "@apollo/client"
 import GraphQLErrorPage from "./GraphQLErrorPage"
 import {
   mockNotFoundError,
   mockOtherError,
   mockUnavailableError,
 } from "../features/Authentication/mockGraphQLError"
-import { ApolloError } from "@apollo/client"
 
 const errorFormat = (error: any): ApolloError => ({
   message: "Error!",
@@ -23,15 +23,15 @@ describe("components/errors/GraphQLErrorPage", () => {
       <GraphQLErrorPage error={errorFormat(mockNotFoundError.errors[0])} />,
     )
 
-    const errorMsg = screen.getByText(/Could not find gene with ID banana/)
-    expect(errorMsg).toBeInTheDocument()
+    const errorMessage = screen.getByText(/Could not find gene with ID banana/)
+    expect(errorMessage).toBeInTheDocument()
   })
 
   it("should render other error", () => {
     render(<GraphQLErrorPage error={errorFormat(mockOtherError.errors[0])} />)
 
-    const errorMsg = screen.getByText(/Error/)
-    expect(errorMsg).toBeInTheDocument()
+    const errorMessage = screen.getByText(/Error/)
+    expect(errorMessage).toBeInTheDocument()
     expect(
       screen.getByRole("img", { name: "Sad Dicty Logo" }),
     ).toBeInTheDocument()
@@ -42,7 +42,7 @@ describe("components/errors/GraphQLErrorPage", () => {
       <GraphQLErrorPage error={errorFormat(mockUnavailableError.errors[0])} />,
     )
 
-    const errorMsg = screen.getByText(/Sorry! There was a server error./)
-    expect(errorMsg).toBeInTheDocument()
+    const errorMessage = screen.getByText(/Sorry! There was a server error./)
+    expect(errorMessage).toBeInTheDocument()
   })
 })

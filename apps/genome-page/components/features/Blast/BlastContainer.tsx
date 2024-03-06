@@ -4,6 +4,7 @@ import { GeneQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
 import useStyles from "styles/blastContainerStyles"
 import { Paper, Container, Grid } from "@material-ui/core"
+import { Observable } from "rxjs"
 import QuerySection from "./Sections/QuerySection"
 import GeneOrID from "./Sections/GeneOrID"
 import Or from "./Sections/Or"
@@ -12,41 +13,39 @@ import BlastDatabaseRow from "./Sections/BlastDatabaseRow"
 import BlastButtonsRow from "./Sections/BlastButtonsRow"
 import BlastOptionsRow from "./Sections/BlastOptionsRow"
 import { useStreamManager } from "./streamManager"
-import {} from "react"
-import { Observable } from "rxjs"
 
-interface BlastContainerProps {
+interface BlastContainerProperties {
   gene: GeneQuery
 }
-const BlastContainer = ({ gene }: BlastContainerProps) => {
+const BlastContainer = ({ gene }: BlastContainerProperties) => {
   const classes = useStyles()
   const { query } = useRouter()
   const geneId = query.id as string
 
-  const selectSequenceEl = useRef<HTMLInputElement>(
+  const selectSequenceElement = useRef<HTMLInputElement>(
     null,
   ) as MutableRefObject<HTMLInputElement>
-  const selectProgramEl = useRef<HTMLInputElement>(
+  const selectProgramElement = useRef<HTMLInputElement>(
     null,
   ) as MutableRefObject<HTMLInputElement>
 
-  const selectOrganismEl = useRef<HTMLInputElement>(
+  const selectOrganismElement = useRef<HTMLInputElement>(
     null,
   ) as MutableRefObject<HTMLInputElement>
-  const selectDatabaseEl = useRef<HTMLInputElement>(
+  const selectDatabaseElement = useRef<HTMLInputElement>(
     null,
   ) as MutableRefObject<HTMLInputElement>
 
   const organismStream = useStreamManager({
-    element: selectOrganismEl,
+    element: selectOrganismElement,
   }) as Observable<string>
 
   const programStream = useStreamManager({
-    element: selectProgramEl,
+    element: selectProgramElement,
   }) as Observable<string>
 
   const sequenceStream = useStreamManager({
-    element: selectSequenceEl,
+    element: selectSequenceElement,
   }) as Observable<string>
 
   return (
@@ -58,17 +57,17 @@ const BlastContainer = ({ gene }: BlastContainerProps) => {
         <Grid container spacing={2}>
           <QuerySection />
           <Or />
-          <GeneOrID sequenceElement={selectSequenceEl} />
+          <GeneOrID sequenceElement={selectSequenceElement} />
           <BlastProgramRow
-            programElement={selectProgramEl}
+            programElement={selectProgramElement}
             sequenceStream={sequenceStream}
           />
           <BlastDatabaseRow
             organismStream={organismStream}
             sequenceStream={sequenceStream}
             programStream={programStream}
-            organismElement={selectOrganismEl}
-            databaseElement={selectDatabaseEl}
+            organismElement={selectOrganismElement}
+            databaseElement={selectDatabaseElement}
           />
           <BlastButtonsRow />
           <BlastOptionsRow />
@@ -78,4 +77,4 @@ const BlastContainer = ({ gene }: BlastContainerProps) => {
   )
 }
 
-export default BlastContainer
+export { BlastContainer }
