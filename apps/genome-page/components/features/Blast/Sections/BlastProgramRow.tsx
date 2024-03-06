@@ -1,4 +1,4 @@
-import useStyles from "styles/geneOrIDSection"
+import { useStyles } from "styles/geneOrIDSection"
 import { Typography, Card, Box, Grid } from "@material-ui/core"
 import { MutableRefObject, useEffect, useState } from "react"
 import { Observable } from "rxjs"

@@ -1,10 +1,10 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import MockAuthProvider from "mocks/MockAuthProvider"
+import { MockAuthProvider } from "mocks/MockAuthProvider"
 import userEvent from "@testing-library/user-event"
 import { ApolloError } from "@apollo/client"
 import { GraphQLError, GraphQLFormattedError } from "graphql"
-import oauthConfig from "common/utils/oauthConfig"
+import { oauthConfig } from "common/utils/oauthConfig"
 import Login, { createOauthURL, generateErrorDisplayMessage } from "./Login"
 
 describe("features/Authentication/Login", () => {

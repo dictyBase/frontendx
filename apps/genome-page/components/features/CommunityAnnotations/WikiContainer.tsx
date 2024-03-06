@@ -1,9 +1,9 @@
-import Layout from "components/layout/Layout"
+import { Layout } from "components/layout/Layout"
 import { useRouter } from "next/router"
 import ReactMarkDown from "react-markdown"
 import { Paper, Container, Typography } from "@material-ui/core"
-import useStyles from "../../../styles/dataTableStyles"
-import WikiError from "./WikiError"
+import { useStyles } from "../../../styles/dataTableStyles"
+import { WikiError } from "./WikiError"
 /**
  * Container component that issues a GraphQL query to get gene data for the
  * GO annotations page.

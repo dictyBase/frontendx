@@ -1,13 +1,13 @@
 import { GeneQuery } from "dicty-graphql-schema"
-import mockProteinInformation from "mocks/mockProteinInformation"
-import mockLinksPiaA from "./mockLinksPiaA"
-import mockAssociatedPiaA from "./mockAssociatedPiaA"
-import mockGeneralInfoPiaA from "./mockGeneralInfoPiaA"
-import mockProductInfoPiaA from "./mockProductInfoPIaA"
-import mockOntologyPiaA from "./mockOntologyPiaA"
-import mockOrthologsPiaA from "./mockOrthologsPiaA"
-import mockReferencesPiaA from "./mockReferencesPiaA"
-import mockPhenotypesPiaA from "./mockPhenotypesPiaA"
+import { mockProteinInformation } from "mocks/mockProteinInformation"
+import { mockLinksPiaA } from "./mockLinksPiaA"
+import { mockAssociatedPiaA } from "./mockAssociatedPiaA"
+import { mockGeneralInfoPiaA } from "./mockGeneralInfoPiaA"
+import { mockProductInfoPiaA } from "./mockProductInfoPIaA"
+import { mockOntologyPiaA } from "./mockOntologyPiaA"
+import { mockOrthologsPiaA } from "./mockOrthologsPiaA"
+import { mockReferencesPiaA } from "./mockReferencesPiaA"
+import { mockPhenotypesPiaA } from "./mockPhenotypesPiaA"
 
 const mockGenePiaALimit: GeneQuery = {
   gene: {

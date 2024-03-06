@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react"
 import { GeneQuery } from "dicty-graphql-schema"
-import mockGene from "mocks/mockGene"
-import mockGenePiaA from "mocks/piaAMocks/mockGenePiaA"
-import GeneralInfoPanel from "./GeneralInfoPanel"
+import { mockGene } from "mocks/mockGene"
+import { mockGenePiaA } from "mocks/piaAMocks/mockGenePiaA"
+import { GeneralInfoPanel } from "./GeneralInfoPanel"
 
 describe("features/References/ReferencesContainer", () => {
   beforeEach(() => jest.clearAllMocks())

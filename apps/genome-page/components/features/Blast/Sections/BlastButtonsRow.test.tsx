@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react"
-import BlastButtonsRow from "./BlastButtonsRow"
+import { BlastButtonsRow } from "./BlastButtonsRow"
 
 const useRouter = jest.spyOn(require("next/router"), "useRouter")
 

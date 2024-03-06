@@ -1,8 +1,8 @@
 import Typography from "@material-ui/core/Typography"
-import Layout from "components/layout/Layout"
+import { Layout } from "components/layout/Layout"
 import { GeneQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
-import OrthologsDataTable from "./OrthologsDataTable"
+import { OrthologsDataTable } from "./OrthologsDataTable"
 
 interface OrthologsContainerProperties {
   gene: GeneQuery

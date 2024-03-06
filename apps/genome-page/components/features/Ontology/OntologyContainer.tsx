@@ -1,8 +1,8 @@
 import Typography from "@material-ui/core/Typography"
-import Layout from "components/layout/Layout"
+import { Layout } from "components/layout/Layout"
 import { GeneQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
-import OntologyTabLayout from "./OntologyTabLayout"
+import { OntologyTabLayout } from "./OntologyTabLayout"
 /**
  * Container component that issues a GraphQL query to get gene data for the
  * GO annotations page.

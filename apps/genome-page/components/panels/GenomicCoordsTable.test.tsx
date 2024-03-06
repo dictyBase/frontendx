@@ -1,7 +1,7 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import GenomicCoordsTable from "./GenomicCoordsTable"
-import mockProductInfo from "../../mocks/mockProductInfo"
+import { mockProductInfo } from "../../mocks/mockProductInfo"
 
 describe("components/panels/GenomicCoordsTable", () => {
   const product_info = [...mockProductInfo]

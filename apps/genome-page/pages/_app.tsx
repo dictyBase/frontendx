@@ -4,9 +4,9 @@ import CssBaseline from "@material-ui/core/CssBaseline"
 import type { AppProps } from "next/app"
 import Head from "next/head"
 import { AuthProvider } from "components/features/Authentication/AuthStore"
-import AppProviders from "components/layout/AppProviders"
-import App from "components/layout/App"
-import useGoogleAnalytics from "common/hooks/useGoogleAnalytics"
+import { AppProviders } from "components/layout/AppProviders"
+import { App } from "components/layout/App"
+import { useGoogleAnalytics } from "common/hooks/useGoogleAnalytics"
 
 const GenomePageApp = ({ Component, pageProps }: AppProps) => {
   useGoogleAnalytics()

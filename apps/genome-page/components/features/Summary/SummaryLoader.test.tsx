@@ -1,6 +1,6 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import SummaryLoader from "./SummaryLoader"
+import { SummaryLoader } from "./SummaryLoader"
 
 const useRouter = jest.spyOn(require("next/router"), "useRouter")
 

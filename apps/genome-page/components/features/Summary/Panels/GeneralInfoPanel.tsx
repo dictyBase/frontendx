@@ -1,9 +1,9 @@
 import React from "react"
 import { GeneQuery } from "dicty-graphql-schema"
-import OtherError from "components/errors/OtherError"
-import LeftDisplay from "components/panels/LeftDisplay"
-import ItemDisplay from "components/panels/ItemDisplay"
-import RightDisplay from "components/panels/RightDisplay"
+import { OtherError } from "components/errors/OtherError"
+import { LeftDisplay } from "components/panels/LeftDisplay"
+import { ItemDisplay } from "components/panels/ItemDisplay"
+import { RightDisplay } from "components/panels/RightDisplay"
 import { panelGenerator } from "common/utils/panelGenerator"
 
 type Properties = {

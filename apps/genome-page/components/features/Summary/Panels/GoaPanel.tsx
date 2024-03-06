@@ -1,9 +1,9 @@
-import ItemDisplay from "components/panels/ItemDisplay"
-import LeftDisplay from "components/panels/LeftDisplay"
-import RightDisplay from "components/panels/RightDisplay"
+import { ItemDisplay } from "components/panels/ItemDisplay"
+import { LeftDisplay } from "components/panels/LeftDisplay"
+import { RightDisplay } from "components/panels/RightDisplay"
 import { GeneQuery, GoAnnotation } from "dicty-graphql-schema"
-import OtherError from "components/errors/OtherError"
-import GoaPanelContent from "./GoaPanelContent"
+import { OtherError } from "components/errors/OtherError"
+import { GoaPanelContent } from "./GoaPanelContent"
 
 type GOType = "molecular_function" | "biological_process" | "cellular_component"
 

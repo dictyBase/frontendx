@@ -1,6 +1,6 @@
-import SummaryContainer from "components/features/Summary/SummaryContainer"
-import SummaryLoader from "components/features/Summary/SummaryLoader"
-import GraphQLErrorPage from "components/errors/GraphQLErrorPage"
+import { SummaryContainer } from "components/features/Summary/SummaryContainer"
+import { SummaryLoader } from "components/features/Summary/SummaryLoader"
+import { GraphQLErrorPage } from "components/errors/GraphQLErrorPage"
 import { useRouter } from "next/router"
 import { useGeneQuery, GeneQuery } from "dicty-graphql-schema"
 

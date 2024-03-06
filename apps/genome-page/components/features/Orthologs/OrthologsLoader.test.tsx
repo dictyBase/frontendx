@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react"
 import React from "react"
-import OrthologsLoader from "./OrthologsLoader"
+import { OrthologsLoader } from "./OrthologsLoader"
 
 const gene = "sadA"
 

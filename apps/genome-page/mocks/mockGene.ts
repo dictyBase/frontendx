@@ -1,13 +1,13 @@
 import { GeneQuery } from "dicty-graphql-schema"
-import mockOntologyData from "./mockOntologyData"
-import mockOrthologsData from "./mockOrthologsData"
-import mockPhenotypesData from "./mockPhenotypesData"
-import mockReferencesData from "./mockReferencesData"
-import mockProductInfo from "./mockProductInfo"
-import mockGeneralInfoData from "./mockGeneralInfoData"
-import mockAssociatedData from "./mockAssociatedData"
-import mockLinksData from "./mockLinksData"
-import mockProteinInformation from "./mockProteinInformation"
+import { mockOntologyData } from "./mockOntologyData"
+import { mockOrthologsData } from "./mockOrthologsData"
+import { mockPhenotypesData } from "./mockPhenotypesData"
+import { mockReferencesData } from "./mockReferencesData"
+import { mockProductInfo } from "./mockProductInfo"
+import { mockGeneralInfoData } from "./mockGeneralInfoData"
+import { mockAssociatedData } from "./mockAssociatedData"
+import { mockLinksData } from "./mockLinksData"
+import { mockProteinInformation } from "./mockProteinInformation"
 
 const mockGene: GeneQuery = {
   gene: {

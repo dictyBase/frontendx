@@ -1,8 +1,8 @@
 import Typography from "@material-ui/core/Typography"
-import Layout from "components/layout/Layout"
+import { Layout } from "components/layout/Layout"
 import { GeneQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
-import ReferencesDataTable from "./ReferencesDataTable"
+import { ReferencesDataTable } from "./ReferencesDataTable"
 
 interface ReferencesContainerProperties {
   gene: GeneQuery

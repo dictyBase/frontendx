@@ -1,7 +1,7 @@
 import React from "react"
 import { GoAnnotation, Extension, With } from "dicty-graphql-schema"
-import WithExtensionLink from "components/features/Ontology/Table/WithExtensionLink"
-import withDataFilter from "../utils/withDataFilter"
+import { WithExtensionLink } from "components/features/Ontology/Table/WithExtensionLink"
+import { withDataFilter } from "../utils/withDataFilter"
 
 type Properties = {
   /** Individual GO Annotation */

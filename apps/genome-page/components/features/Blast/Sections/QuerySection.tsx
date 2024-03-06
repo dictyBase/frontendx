@@ -1,4 +1,4 @@
-import useStyles from "styles/querySection"
+import { useStyles } from "styles/querySection"
 import { Box, Card, Typography, Grid } from "@material-ui/core"
 
 const QuerySection = () => {

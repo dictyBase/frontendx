@@ -1,4 +1,4 @@
-import OtherError from "components/errors/OtherError"
+import { OtherError } from "components/errors/OtherError"
 import { Orthologs } from "dicty-graphql-schema"
 import OrthologsRow from "./OrthologsRow"
 

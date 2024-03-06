@@ -1,7 +1,7 @@
 import React from "react"
 import Grid from "@material-ui/core/Grid"
 import Image from "next/image"
-import useStyles from "../../../styles/errorStyles"
+import { useStyles } from "../../../styles/errorStyles"
 
 type Properties = {
   /** Error message to display */

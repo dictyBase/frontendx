@@ -1,7 +1,7 @@
 import React from "react"
 import { ApolloProvider } from "@apollo/client"
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles"
-import useCreateApolloClient from "common/hooks/useCreateApolloClient"
+import { useCreateApolloClient } from "common/hooks/useCreateApolloClient"
 import CircularProgress from "@material-ui/core/CircularProgress"
 
 const muiTheme = createTheme({

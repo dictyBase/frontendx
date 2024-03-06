@@ -1,4 +1,4 @@
-import PhenotypeRow from "./PhenotypeRow"
+import { PhenotypeRow } from "./PhenotypeRow"
 
 interface RenderPhenotypesProperties {
   strain: {

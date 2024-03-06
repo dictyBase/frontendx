@@ -2,8 +2,8 @@ import React from "react"
 import Grid from "@material-ui/core/Grid"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Image from "next/image"
-import ErrorMessage from "./ErrorMessage"
-import useStyles from "../../styles/errorStyles"
+import { ErrorMessage } from "./ErrorMessage"
+import { useStyles } from "../../styles/errorStyles"
 
 /**
  * UI display when there is a general error.

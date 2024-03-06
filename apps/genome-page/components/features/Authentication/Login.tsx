@@ -8,9 +8,9 @@ import {
   LinkedInButton,
   OrcidButton,
 } from "dicty-components-login"
-import oauthConfig from "common/utils/oauthConfig"
-import OauthSignHandler from "./OauthSignHandler"
-import ErrorNotification from "./ErrorNotification"
+import { oauthConfig } from "common/utils/oauthConfig"
+import { OauthSignHandler } from "./OauthSignHandler"
+import { ErrorNotification } from "./ErrorNotification"
 import { useAuthStore } from "./AuthStore"
 
 type Config = {

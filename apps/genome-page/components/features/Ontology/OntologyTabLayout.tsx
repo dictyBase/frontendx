@@ -5,8 +5,8 @@ import Tab from "@material-ui/core/Tab"
 import Typography from "@material-ui/core/Typography"
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles"
 import { GoAnnotation, GeneQuery } from "dicty-graphql-schema"
-import OtherError from "components/errors/OtherError"
-import InnerGoPanel from "./InnerGoPanel"
+import { OtherError } from "components/errors/OtherError"
+import { InnerGoPanel } from "./InnerGoPanel"
 
 const muiTheme = createTheme({
   overrides: {

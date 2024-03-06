@@ -2,7 +2,7 @@ import React from "react"
 import { useRouter } from "next/router"
 import querystring from "node:querystring"
 import { useLoginMutation, User } from "dicty-graphql-schema"
-import oauthConfig from "common/utils/oauthConfig"
+import { oauthConfig } from "common/utils/oauthConfig"
 import { useAuthStore, ActionType } from "./AuthStore"
 
 type LoginEventData = {

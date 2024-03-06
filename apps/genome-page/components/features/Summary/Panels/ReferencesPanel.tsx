@@ -7,10 +7,10 @@ import {
   TableContainer,
   TableRow,
 } from "@material-ui/core"
-import OtherError from "components/errors/OtherError"
+import { OtherError } from "components/errors/OtherError"
 import { commaSeparateWithAnd } from "common/utils/strings"
 import Image from "next/image"
-import useStyles from "../../../../styles/dataTableStyles"
+import { useStyles } from "../../../../styles/dataTableStyles"
 
 type Properties = {
   /** Array of GO annotations for a particular gene */

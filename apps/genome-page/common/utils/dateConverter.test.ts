@@ -1,4 +1,4 @@
-import dateConverter from "common/utils/dateConverter"
+import { dateConverter } from "common/utils/dateConverter"
 
 describe("dateConverter", () => {
   it("returns date in expected format", () => {

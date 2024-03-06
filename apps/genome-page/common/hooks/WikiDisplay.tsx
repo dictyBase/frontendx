@@ -1,8 +1,8 @@
 // group of functions that maps the markdown content/error to the corresponding react component
 import * as E from "fp-ts/Either"
 import { guard } from "fp-ts-std/Function"
-import WikiContainer from "../../components/features/CommunityAnnotations/WikiContainer"
-import WikiLoader from "../../components/features/CommunityAnnotations/WikiLoader"
+import { WikiContainer } from "../../components/features/CommunityAnnotations/WikiContainer"
+import { WikiLoader } from "../../components/features/CommunityAnnotations/WikiLoader"
 
 interface WikiContentProperties {
   markdown?: string

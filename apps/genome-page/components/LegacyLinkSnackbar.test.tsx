@@ -1,6 +1,6 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import LegacyLinkSnackbar from "./LegacyLinkSnackbar"
+import { LegacyLinkSnackbar } from "./LegacyLinkSnackbar"
 
 describe("components/LegacyLinkSnackbar", () => {
   it("should render correct legacy URL", () => {

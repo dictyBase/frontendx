@@ -6,7 +6,7 @@ import {
 } from "dicty-graphql-schema"
 import React from "react"
 import Image from "next/image"
-import TableDisplay from "components/panels/GenomicCoordsTable"
+import { TableDisplay } from "components/panels/GenomicCoordsTable"
 import { commaSeparate } from "./strings"
 
 interface PanelReturnType {
