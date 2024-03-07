@@ -21,8 +21,8 @@ const ProteinLinks = ({ gene }: Properties) => {
       <ItemDisplay>
         <LeftDisplay>External Links</LeftDisplay>
         <RightDisplay>
-          {links.map((item, index) => (
-            <a key={index} href={item.link}>
+          {links.map((item) => (
+            <a key={item.link} href={item.link}>
               {item.name} &nbsp; &nbsp; &nbsp;
             </a>
           ))}

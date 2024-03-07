@@ -30,8 +30,8 @@ const ReferencesPanel = ({ gene }: Properties) => {
     <TableContainer component={Paper} className={classes.root}>
       <Table aria-label="summary-references-table">
         <TableBody>
-          {publications.map((publication, index) => (
-            <TableRow key={index}>
+          {publications.map((publication) => (
+            <TableRow key={publication.id}>
               <TableCell className={classes.cell}>
                 <b>
                   {commaSeparateWithAnd(

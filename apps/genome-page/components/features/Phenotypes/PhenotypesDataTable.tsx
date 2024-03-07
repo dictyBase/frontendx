@@ -38,8 +38,8 @@ const PhenotypesDataTable = ({ data }: PhenotypesDataTableProperties) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {allStrains.strains?.map((strain, index) => (
-            <RenderPhenotypes strain={strain} key={`strain#${index}`} />
+          {allStrains.strains?.map((strain) => (
+            <RenderPhenotypes strain={strain} key={strain.id} />
           ))}
         </TableBody>
       </Table>

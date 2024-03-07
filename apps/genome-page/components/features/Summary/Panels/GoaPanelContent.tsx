@@ -17,8 +17,8 @@ const GoaPanelContent = ({ data }: Properties) => {
   let extensionsData
 
   if (data.with !== null && data.with !== undefined) {
-    withData = withDataFilter(data.with).map((xref: With, index: number) => (
-      <React.Fragment key={index}>
+    withData = withDataFilter(data.with).map((xref: With) => (
+      <React.Fragment key={xref.id}>
         {" "}
         <em>with</em> <WithExtensionLink item={xref} />
       </React.Fragment>
@@ -26,14 +26,12 @@ const GoaPanelContent = ({ data }: Properties) => {
   }
 
   if (data.extensions !== null && data.extensions !== undefined) {
-    extensionsData = data.extensions
-      .slice(0, 2)
-      .map((extension: Extension, index: number) => (
-        <React.Fragment key={index}>
-          {" "}
-          <em>{extension.relation}</em> <WithExtensionLink item={extension} />{" "}
-        </React.Fragment>
-      ))
+    extensionsData = data.extensions.slice(0, 2).map((extension: Extension) => (
+      <React.Fragment key={extension.id}>
+        {" "}
+        <em>{extension.relation}</em> <WithExtensionLink item={extension} />{" "}
+      </React.Fragment>
+    ))
   }
 
   return (

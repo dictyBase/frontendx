@@ -33,8 +33,8 @@ const ReferencesDataTable = ({ data }: Properties) => {
         </TableHead>
 
         <TableBody>
-          {publications.map((publication, index) => (
-            <PublicationRow publication={publication} key={index} />
+          {publications.map((publication) => (
+            <PublicationRow publication={publication} key={publication.id} />
           ))}
         </TableBody>
       </Table>

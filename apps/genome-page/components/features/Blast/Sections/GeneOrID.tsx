@@ -82,8 +82,8 @@ const GeneOrID = ({ sequenceElement }: GeneOrIdProperties) => {
               inputProps={{ style: { fontSize: 12, minWidth: 200 } }}
               variant="outlined"
               ref={sequenceElement}>
-              {sequenceOptions.map((value, index) => (
-                <option value={value} key={index}>
+              {sequenceOptions.map((value) => (
+                <option value={value} key={value}>
                   {value}
                 </option>
               ))}

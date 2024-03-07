@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import Grid from "@material-ui/core/Grid"
 import { Skeleton } from "@mui/material"
 
