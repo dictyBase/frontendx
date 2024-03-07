@@ -113,8 +113,8 @@ const returnPanelContentById = (
  */
   switch (id) {
     case "Name Description":
-      return (value as string[]).map((desc, index) => (
-        <React.Fragment key={index}>
+      return (value as string[]).map((desc) => (
+        <React.Fragment key={desc}>
           {desc}
           <br />
         </React.Fragment>
@@ -122,8 +122,8 @@ const returnPanelContentById = (
     case "Alternative Gene Names":
       return <i>{commaSeparate(value as string[])}</i>
     case "Alternative Protein Names":
-      return (value as string[]).map((name, index) => (
-        <React.Fragment key={index}>
+      return (value as string[]).map((name) => (
+        <React.Fragment key={name}>
           {name}
           <br />
         </React.Fragment>
@@ -159,8 +159,8 @@ const returnPanelContentById = (
     /* Links Panel */
     case "Expression":
     case "External Resources":
-      return (value as NameWithLink[]).map((item, index) => (
-        <a href={item.link} key={index}>
+      return (value as NameWithLink[]).map((item) => (
+        <a href={item.link} key={item.link}>
           {item.name} |{" "}
         </a>
       ))
@@ -178,8 +178,8 @@ const returnPanelContentById = (
     case "ESTs":
       return (
         <>
-          {(value as AssociatedSequences).ests.map((item, index) => (
-            <React.Fragment key={index}>
+          {(value as AssociatedSequences).ests.map((item) => (
+            <React.Fragment key={item.link}>
               <a href={item.link}>{item.name}</a>
               &nbsp;&nbsp;&nbsp;
             </React.Fragment>
