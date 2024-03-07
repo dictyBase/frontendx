@@ -3,6 +3,7 @@ import { GeneQuery } from "dicty-graphql-schema"
 import { mockGene } from "mocks/mockGene"
 import { PhenotypesContainer } from "./PhenotypesContainer"
 
+// eslint-disable-next-line import/no-commonjs, unicorn/prefer-module -- ESM not supported by default as of Jest 29
 const useRouter = jest.spyOn(require("next/router"), "useRouter")
 
 const gene = "sadA"

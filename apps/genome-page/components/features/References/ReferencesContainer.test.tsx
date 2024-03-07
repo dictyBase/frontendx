@@ -3,7 +3,10 @@ import { GeneQuery } from "dicty-graphql-schema"
 import { mockGene } from "mocks/mockGene"
 import { ReferencesContainer } from "./ReferencesContainer"
 
-const useRouter = jest.spyOn(require("next/router"), "useRouter")
+const setUpMocks = async () => {}
+
+import("next/router").then((module) => jest.spyOn(modules, "useRouter"))
+const useRouter = setUpMocks()
 
 const gene = "sadA"
 const pathname = `gene/${gene}/references`

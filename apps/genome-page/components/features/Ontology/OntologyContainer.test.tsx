@@ -4,6 +4,7 @@ import { GeneQuery } from "dicty-graphql-schema"
 import { mockGene } from "mocks/mockGene"
 import { OntologyContainer } from "./OntologyContainer"
 
+// eslint-disable-next-line import/no-commonjs, unicorn/prefer-module -- ESM not supported by default as of Jest 29
 const useRouter = jest.spyOn(require("next/router"), "useRouter")
 
 describe("features/Ontology/OntologyContainer", () => {

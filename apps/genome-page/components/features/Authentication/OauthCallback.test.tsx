@@ -2,6 +2,7 @@ import React from "react"
 import { render, screen } from "@testing-library/react"
 import { OauthCallback } from "./OauthCallback"
 
+// eslint-disable-next-line import/no-commonjs, unicorn/prefer-module -- ESM not supported by default as of Jest 29
 const useRouter = jest.spyOn(require("next/router"), "useRouter")
 
 describe("features/Authentication/OauthCallback", () => {

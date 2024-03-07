@@ -3,6 +3,7 @@ import { GeneQuery } from "dicty-graphql-schema"
 import { mockGene } from "mocks/mockGene"
 import { SummaryContainer } from "./SummaryContainer"
 
+// eslint-disable-next-line import/no-commonjs, unicorn/prefer-module -- ESM not supported by default as of Jest 29
 const useRouter = jest.spyOn(require("next/router"), "useRouter")
 
 describe("features/Summary/SummaryContainer", () => {
