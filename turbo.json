@@ -1,5 +1,16 @@
 {
   "$schema": "https://turborepo.org/schema.json",
+  "globalEnv": [
+    "NEXT_PUBLIC_GRAPHQL_SERVER",
+    "NEXT_PUBLIC_BASENAME",
+    "NEXT_PUBLIC_GA_TRACKING_ID",
+    "NEXT_PUBLIC_GRAPHQL_SERVER",
+    "NEXT_PUBLIC_ALT_GRAPHQL_SERVER",
+    "NEXT_PUBLIC_FOOTER_JSON",
+    "NEXT_PUBLIC_NAVBAR_JSON",
+    "NEXT_PUBLIC_MOCK_SERVER",
+    "NEXT_PUBLIC_DEPLOY_ENV"
+  ],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
