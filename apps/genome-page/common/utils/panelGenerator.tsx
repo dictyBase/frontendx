@@ -9,34 +9,6 @@ import Image from "next/image"
 import { TableDisplay } from "components/panels/GenomicCoordsTable"
 import { commaSeparate } from "./strings"
 
-interface PanelReturnType {
-  leftDisplay: string
-  rightDisplay:
-    | string
-    | string[]
-    | JSX.Element
-    | JSX.Element[]
-    | NameWithLink
-    | NameWithLink[]
-    | GenomicCoordinates[]
-    | AssociatedSequences
-    | null
-    | undefined
-}
-
-interface PanelRequestProperties {
-  id: string
-  value:
-    | string
-    | string[]
-    | NameWithLink
-    | NameWithLink[]
-    | GenomicCoordinates[]
-    | AssociatedSequences
-    | null
-    | undefined
-}
-
 type ContentId =
   | "Gene Name"
   | "Name Description"
@@ -64,6 +36,34 @@ type ContentId =
   | "Subcellular location"
   | "Protein existence"
 
+interface PanelReturnType {
+  leftDisplay: string
+  rightDisplay:
+    | string
+    | string[]
+    | JSX.Element
+    | JSX.Element[]
+    | NameWithLink
+    | NameWithLink[]
+    | GenomicCoordinates[]
+    | AssociatedSequences
+    | null
+    | undefined
+}
+
+interface PanelRequestProperties {
+  id: ContentId
+  value:
+    | string
+    | string[]
+    | NameWithLink
+    | NameWithLink[]
+    | GenomicCoordinates[]
+    | AssociatedSequences
+    | null
+    | undefined
+}
+
 const returnPanelContentById = (
   id: ContentId,
   value:
@@ -73,7 +73,7 @@ const returnPanelContentById = (
     | NameWithLink[]
     | GenomicCoordinates[]
     | AssociatedSequences,
-  gene: GeneQuery,
+  // gene: GeneQuery,
 ) => {
   /*
   Why switch over map
@@ -186,7 +186,9 @@ const panelGenerator = (
     if (element.value !== null && element.value !== undefined) {
       const entry = {
         leftDisplay: element.id,
-        rightDisplay: returnPanelContentById(element.id, element.value, gene),
+        rightDisplay: returnPanelContentById(element.id, element.value),
+        // GeneQuery data is currently not used by returnPanelContentById, so it will not be passed for now.
+        // rightDisplay: returnPanelContentById(element.id, element.value, gene),
       }
       returnArray.push(entry)
     }
