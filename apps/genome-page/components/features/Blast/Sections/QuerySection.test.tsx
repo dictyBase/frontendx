@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react"
 import { QuerySection } from "./QuerySection"
 
+// eslint-disable-next-line import/no-commonjs, unicorn/prefer-module -- ESM not supported by default as of Jest 29
 const useRouter = jest.spyOn(require("next/router"), "useRouter")
 
 const gene = "sadA"
