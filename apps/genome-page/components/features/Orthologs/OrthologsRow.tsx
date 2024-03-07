@@ -2,7 +2,7 @@ import { TableRow, TableCell, Box } from "@material-ui/core"
 import { commaSeparate } from "common/utils/strings"
 import { Orthologs } from "dicty-graphql-schema"
 
-const PhenotypeRow = ({
+const OrthologsRow = ({
   id,
   species,
   uniprotkb,
@@ -38,4 +38,4 @@ const PhenotypeRow = ({
   </TableRow>
 )
 
-export { PhenotypeRow }
+export { OrthologsRow }
