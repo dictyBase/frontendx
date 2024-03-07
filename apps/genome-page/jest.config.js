@@ -22,7 +22,7 @@ const customJestConfig = {
   resetMocks: false,
   moduleNameMapper: {
     "react-markdown":
-      "<rootDir>/components/features/CommunityAnnotations/mocks/react-markdown.js",
+      "<rootDir>/components/features/CommunityAnnotations/mocks/react-markdown.tsx",
   },
 }
 
