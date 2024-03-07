@@ -43,9 +43,9 @@ const SummaryContainer = ({ gene }: SummaryContainerProperties) => {
             ],
             gene,
           ) as ChildContent[]
-        ).map((item, key) => (
+        ).map((item) => (
           <PanelWrapper
-            key={key}
+            key={item.panelProps.id}
             title={createRouteFromString(item!.panelProps.title, gene)}
             route={createRouteFromString(item!.panelProps.route, gene)}>
             {item!.child}

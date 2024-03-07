@@ -44,10 +44,14 @@ const RenderPhenotypes = ({ strain }: RenderPhenotypesProperties) => (
           characteristics={strain.characteristics}
           phenotype={phenotype}
           in_stock={strain.in_stock}
-          key={index}
+          key={phenotype.phenotype}
         />
       ) : (
-        <PhenotypeRow id={strain.id} phenotype={phenotype} key={index} />
+        <PhenotypeRow
+          id={strain.id}
+          phenotype={phenotype}
+          key={phenotype.phenotype}
+        />
       ),
     )}
   </>

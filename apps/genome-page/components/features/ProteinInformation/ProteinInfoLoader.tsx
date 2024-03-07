@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import { createTheme } from "@material-ui/core/styles"
 import { Box, Skeleton } from "@mui/material"
 

@@ -66,31 +66,25 @@ const GoaPanel = ({ data }: Properties) => {
       <ItemDisplay>
         <LeftDisplay>Molecular Function</LeftDisplay>
         <RightDisplay>
-          {dataFilter(goas, "molecular_function").map(
-            (item: GoAnnotation, index: number) => (
-              <GoaPanelContent key={index} data={item} />
-            ),
-          )}
+          {dataFilter(goas, "molecular_function").map((item: GoAnnotation) => (
+            <GoaPanelContent key={item.id} data={item} />
+          ))}
         </RightDisplay>
       </ItemDisplay>
       <ItemDisplay>
         <LeftDisplay>Biological Process</LeftDisplay>
         <RightDisplay>
-          {dataFilter(goas, "biological_process").map(
-            (item: GoAnnotation, index: number) => (
-              <GoaPanelContent key={index} data={item} />
-            ),
-          )}
+          {dataFilter(goas, "biological_process").map((item: GoAnnotation) => (
+            <GoaPanelContent key={item.id} data={item} />
+          ))}
         </RightDisplay>
       </ItemDisplay>
       <ItemDisplay>
         <LeftDisplay>Cellular Component</LeftDisplay>
         <RightDisplay>
-          {dataFilter(goas, "cellular_component").map(
-            (item: GoAnnotation, index: number) => (
-              <GoaPanelContent key={index} data={item} />
-            ),
-          )}
+          {dataFilter(goas, "cellular_component").map((item: GoAnnotation) => (
+            <GoaPanelContent key={item.id} data={item} />
+          ))}
         </RightDisplay>
       </ItemDisplay>
     </div>

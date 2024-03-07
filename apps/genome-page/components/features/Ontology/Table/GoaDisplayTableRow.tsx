@@ -27,27 +27,27 @@ type Properties = {
  * The display table used inside each panel in the GO tabs.
  */
 
-const GoaDisplayTableRow = ({ item }: Properties) => {
+const GoaDisplayTableRow = ({ item: annotationItem }: Properties) => {
   const classes = useStyles()
 
   return (
     <TableRow className={classes.row} data-testid="table-row">
       <TableCell component="th" scope="row">
-        {qualifierFormatter(item.qualifier)} {item.go_term}
+        {qualifierFormatter(annotationItem.qualifier)} {annotationItem.go_term}
       </TableCell>
       <TableCell>
-        {item.extensions?.map((item: Extension, index: number) => (
-          <React.Fragment key={index}>
+        {annotationItem.extensions?.map((item: Extension) => (
+          <React.Fragment key={item.id}>
             {" "}
             <em>{item.relation}</em> (<WithExtensionLink item={item} />)
             <br />
           </React.Fragment>
         ))}
       </TableCell>
-      <TableCell>{item.evidence_code}</TableCell>
+      <TableCell>{annotationItem.evidence_code}</TableCell>
       <TableCell>
-        {item.with?.map((item: With, index: number) => (
-          <React.Fragment key={index}>
+        {annotationItem.with?.map((item: With) => (
+          <React.Fragment key={item.id}>
             <WithExtensionLink item={item} />
             <br />
           </React.Fragment>
@@ -55,15 +55,15 @@ const GoaDisplayTableRow = ({ item }: Properties) => {
       </TableCell>
       <TableCell>
         <StyledExternalLink
-          href={pubLinkGenerator(item.publication)}
-          content={item.publication}
+          href={pubLinkGenerator(annotationItem.publication)}
+          content={annotationItem.publication}
         />
       </TableCell>
-      <TableCell>{dateConverter(item.date)}</TableCell>
+      <TableCell>{dateConverter(annotationItem.date)}</TableCell>
       <TableCell>
         <StyledExternalLink
-          href={sourceLinkGenerator(item.assigned_by)}
-          content={item.assigned_by}
+          href={sourceLinkGenerator(annotationItem.assigned_by)}
+          content={annotationItem.assigned_by}
         />
       </TableCell>
     </TableRow>

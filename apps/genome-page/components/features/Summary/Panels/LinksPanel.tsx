@@ -30,8 +30,8 @@ const LinkPanel = ({ data }: Properties) => {
 
   return (
     <div>
-      {output?.map((item, key) => (
-        <ItemDisplay key={key}>
+      {output?.map((item) => (
+        <ItemDisplay key={item.leftDisplay}>
           <LeftDisplay>{item.leftDisplay}</LeftDisplay>
           <RightDisplay>{item.rightDisplay}</RightDisplay>
         </ItemDisplay>

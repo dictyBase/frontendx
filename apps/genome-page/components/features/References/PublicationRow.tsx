@@ -34,9 +34,9 @@ const PublicationRow = ({ publication }: PublicationRowProperties) => (
     </TableCell>
 
     <TableCell>
-      {publication.related_genes.map((gene, index) => (
+      {publication.related_genes.map((gene) => (
         <Chip
-          key={index}
+          key={gene.id}
           label={gene.name}
           size="small"
           style={{ margin: "0px 5px 5px 0px" }}

@@ -35,8 +35,8 @@ const OrthologsDataTable = ({ data }: OrthologsDataTableProperties) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {allOrthologs.orthologs?.map((ortholog, index) => (
-            <RenderOrthologs ortholog={ortholog} key={`ortholog#${index}`} />
+          {allOrthologs.orthologs?.map((ortholog) => (
+            <RenderOrthologs ortholog={ortholog} key={ortholog.id.link} />
           ))}
         </TableBody>
       </Table>
