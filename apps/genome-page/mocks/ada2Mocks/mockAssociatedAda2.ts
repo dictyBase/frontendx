@@ -1,8 +1,8 @@
 import { AssociatedSequences, NameWithLink } from "dicty-graphql-schema"
 
 const mockAssociatedAda2: AssociatedSequences = {
-  genbank_genomic_fragment: null,
-  genbank_mrna: null,
+  genbank_genomic_fragment: undefined,
+  genbank_mrna: undefined,
   ests: [
     {
       name: "DDB0117409",
