@@ -7,14 +7,18 @@ import { AuthProvider } from "components/features/Authentication/AuthStore"
 import { AppProviders } from "components/layout/AppProviders"
 import { App } from "components/layout/App"
 import { useGoogleAnalytics } from "common/hooks/useGoogleAnalytics"
+import { enableMock } from "mocks"
+
+// Activate MSW
+const main = async () => {
+  if (process.env.NEXT_PUBLIC_MOCK_SERVER === "on") {
+    await enableMock()
+  }
+}
+main()
 
 const GenomePageApp = ({ Component, pageProps }: AppProps) => {
   useGoogleAnalytics()
-  // Activate MSW
-  // Utilizing this approach: https://github.com/vercel/next.js/tree/canary/examples/with-msw
-  if (process.env.NEXT_PUBLIC_MOCK_SERVER === "on") {
-    require("../mocks")
-  }
 
   return (
     <AuthProvider>
@@ -39,4 +43,5 @@ const GenomePageApp = ({ Component, pageProps }: AppProps) => {
   )
 }
 
+// eslint-disable-next-line import/no-default-export
 export default GenomePageApp
