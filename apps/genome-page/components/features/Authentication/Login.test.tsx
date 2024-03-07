@@ -5,7 +5,7 @@ import userEvent from "@testing-library/user-event"
 import { ApolloError } from "@apollo/client"
 import { GraphQLError, GraphQLFormattedError } from "graphql"
 import { oauthConfig } from "common/utils/oauthConfig"
-import Login, { createOauthURL, generateErrorDisplayMessage } from "./Login"
+import { Login, createOauthURL, generateErrorDisplayMessage } from "./Login"
 
 describe("features/Authentication/Login", () => {
   const globalAny = global as any
