@@ -38,5 +38,4 @@ const withDataFilter = (array: Array<With>) => {
   return finalArray
 }
 
-export { emptyArray }
-export { withDataFilter }
+export { emptyArray, withDataFilter }

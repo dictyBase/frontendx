@@ -1,4 +1,4 @@
-import withDataFilter, { emptyArray } from "./withDataFilter"
+import { withDataFilter, emptyArray } from "./withDataFilter"
 
 const testArray = (database: string) => [
   {
