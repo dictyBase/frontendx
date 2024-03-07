@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import React from "react"
 import { MockedProvider, MockedResponse } from "@apollo/client/testing"
 import { User } from "dicty-graphql-schema"
