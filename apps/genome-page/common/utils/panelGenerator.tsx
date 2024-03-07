@@ -37,6 +37,32 @@ interface PanelRequestProperties {
     | undefined
 }
 
+type ContentId =
+  | "Gene Name"
+  | "Name Description"
+  | "Alternative Gene Names"
+  | "Alternative Protein Names"
+  | "Description"
+  | "Protein Coding Gene"
+  | "Protein Length"
+  | "Molecular Weight"
+  | "More Protein Data"
+  | "Genomic Coords."
+  | "Expression"
+  | "External Resources"
+  | "dictyBase Colleagues"
+  | "GenBank Genomic Fragment"
+  | "GenBank mRNA"
+  | "AA Composition"
+  | "ESTs"
+  | "Note"
+  | "Gene Product"
+  | "dictyBase ID"
+  | "Description"
+  | "Protein Length"
+  | "Molecular Weight"
+  | "Subcellular location"
+  | "Protein existence"
 /*
   This function will take in props and return the Panel Items
   Integrated Panels:
@@ -70,7 +96,7 @@ const panelGenerator = (
 }
 
 const returnPanelContentById = (
-  id: string,
+  id: ContentId,
   value:
     | string
     | string[]
@@ -86,8 +112,6 @@ const returnPanelContentById = (
   Using Type Assertion because this function will know what to return
  */
   switch (id) {
-    case "Gene Name":
-      return value
     case "Name Description":
       return (value as string[]).map((desc, index) => (
         <React.Fragment key={index}>
@@ -97,10 +121,6 @@ const returnPanelContentById = (
       ))
     case "Alternative Gene Names":
       return <i>{commaSeparate(value as string[])}</i>
-    case "Gene ID":
-      return value
-    case "Gene Product":
-      return value
     case "Alternative Protein Names":
       return (value as string[]).map((name, index) => (
         <React.Fragment key={index}>
@@ -108,8 +128,6 @@ const returnPanelContentById = (
           <br />
         </React.Fragment>
       ))
-    case "Description":
-      return value
     /* Product Info Panel */
     case "Protein Coding Gene":
       return (
@@ -140,17 +158,6 @@ const returnPanelContentById = (
       return <TableDisplay data={value as GenomicCoordinates[]} />
     /* Links Panel */
     case "Expression":
-      return (value as NameWithLink[]).map((item, index) => (
-        <a href={item.link} key={index}>
-          {item.name} |{" "}
-        </a>
-      ))
-    case "dictyBase Colleagues":
-      return (
-        <a href={(value as NameWithLink).link}>
-          {(value as NameWithLink).name}
-        </a>
-      )
     case "External Resources":
       return (value as NameWithLink[]).map((item, index) => (
         <a href={item.link} key={index}>
@@ -158,18 +165,16 @@ const returnPanelContentById = (
         </a>
       ))
     /* Associated Sequence Panel */
+    case "dictyBase Colleagues":
     case "GenBank Genomic Fragment":
-      return (
-        <a href={(value as NameWithLink).link}>
-          {(value as NameWithLink).name}
-        </a>
-      )
     case "GenBank mRNA":
+    case "AA Composition":
       return (
         <a href={(value as NameWithLink).link}>
           {(value as NameWithLink).name}
         </a>
       )
+
     case "ESTs":
       return (
         <>
@@ -182,29 +187,10 @@ const returnPanelContentById = (
           <a href={(value as AssociatedSequences).more_link}>more..</a>
         </>
       )
-    // Protein General Info
-    case "Gene Product":
-      return value
-    case "dictyBase ID":
-      return value
-    case "Description":
-      return value
-    case "Protein Length":
-      return value
-    case "Molecular Weight":
-      return value
-    case "AA Composition":
-      return (
-        <a href={(value as NameWithLink).link}>
-          {(value as NameWithLink).name}
-        </a>
-      )
-    case "Subcellular location":
-      return value
-    case "Protein existence":
-      return value
     case "Note":
       return <strong>{value as string}</strong>
+    default:
+      return value
   }
 }
 
