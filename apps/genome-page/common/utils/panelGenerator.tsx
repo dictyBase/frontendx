@@ -179,7 +179,7 @@ const panelGenerator = (
   const returnArray: PanelReturnType[] = []
   if (!gene[type as keyof GeneQuery]) {
     /* Check to see if section exists */
-    return
+    return []
   }
 
   arrayOfChildSections.forEach((element) => {
