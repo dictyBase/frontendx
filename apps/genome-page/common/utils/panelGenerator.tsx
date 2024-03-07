@@ -63,37 +63,6 @@ type ContentId =
   | "Molecular Weight"
   | "Subcellular location"
   | "Protein existence"
-/*
-  This function will take in props and return the Panel Items
-  Integrated Panels:
-  - General Info Panel
-  - Product Info Panel
-  = Links Panel
-  - Associated Sequence Panel
-*/
-const panelGenerator = (
-  arrayOfChildSections: PanelRequestProperties[],
-  type: string,
-  gene: GeneQuery,
-) => {
-  const returnArray: PanelReturnType[] = []
-  if (!gene[type as keyof GeneQuery]) {
-    /* Check to see if section exists */
-    return
-  }
-
-  arrayOfChildSections.forEach((element) => {
-    if (element.value !== null && element.value !== undefined) {
-      const entry = {
-        leftDisplay: element.id,
-        rightDisplay: returnPanelContentById(element.id, element.value, gene),
-      }
-      returnArray.push(entry)
-    }
-  })
-
-  return returnArray
-}
 
 const returnPanelContentById = (
   id: ContentId,
@@ -192,6 +161,38 @@ const returnPanelContentById = (
     default:
       return value
   }
+}
+
+/*
+  This function will take in props and return the Panel Items
+  Integrated Panels:
+  - General Info Panel
+  - Product Info Panel
+  = Links Panel
+  - Associated Sequence Panel
+*/
+const panelGenerator = (
+  arrayOfChildSections: PanelRequestProperties[],
+  type: string,
+  gene: GeneQuery,
+) => {
+  const returnArray: PanelReturnType[] = []
+  if (!gene[type as keyof GeneQuery]) {
+    /* Check to see if section exists */
+    return
+  }
+
+  arrayOfChildSections.forEach((element) => {
+    if (element.value !== null && element.value !== undefined) {
+      const entry = {
+        leftDisplay: element.id,
+        rightDisplay: returnPanelContentById(element.id, element.value, gene),
+      }
+      returnArray.push(entry)
+    }
+  })
+
+  return returnArray
 }
 
 export { panelGenerator }
