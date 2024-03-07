@@ -1,4 +1,4 @@
-import react, { MutableRefObject, useState, useEffect, useRef } from "react"
+import { MutableRefObject, useState, useEffect } from "react"
 import { useStyles } from "styles/geneOrIDSection"
 import { Typography, Card, Box, Grid } from "@material-ui/core"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
@@ -46,8 +46,8 @@ const BlastDatabaseRow = ({
   )
 
   useEffect(() => {
-    if (!sequenceStream) return
-    const subscription = sequenceStream.subscribe((content) => {
+    if (!sequenceStream) return () => {}
+    const subscription = sequenceStream.subscribe(() => {
       setDatabaseOptions(
         programToDatabaseMock["Please Select a Program"][selectOrganismValue],
       )
@@ -57,7 +57,7 @@ const BlastDatabaseRow = ({
   }, [selectOrganismValue, sequenceStream])
 
   useEffect(() => {
-    if (!programStream) return
+    if (!programStream) return () => {}
     const subscription = programStream.subscribe((content) => {
       setCurrentProgram(content)
       setDatabaseOptions(programToDatabaseMock[content][selectOrganismValue])
@@ -66,7 +66,7 @@ const BlastDatabaseRow = ({
   }, [programStream, selectOrganismValue])
 
   useEffect(() => {
-    if (!organismStream) return
+    if (!organismStream) return () => {}
     const subscription = organismStream.subscribe((content) => {
       setDatabaseOptions(programToDatabaseMock[currentProgram][content])
     })
@@ -91,14 +91,14 @@ const BlastDatabaseRow = ({
               native
               id="organism-select-id"
               defaultValue="Dictyostelium discoideum"
-              onChange={(e: SelectChangeEvent) => {
-                setSelectOrganismValue(e.target.value as string)
+              onChange={(error: SelectChangeEvent) => {
+                setSelectOrganismValue(error.target.value as string)
               }}
               inputProps={{ style: { fontSize: 12, minWidth: 400 } }}
               variant="outlined"
               ref={organismElement}>
-              {organismOptions.map((value, index) => (
-                <option value={value} key={index}>
+              {organismOptions.map((value) => (
+                <option value={value} key={value}>
                   {value}
                 </option>
               ))}
@@ -118,8 +118,8 @@ const BlastDatabaseRow = ({
               inputProps={{ style: { fontSize: 12, minWidth: 400 } }}
               variant="outlined"
               ref={databaseElement}>
-              {databaseOptions.map((value, index) => (
-                <option value={value} key={index}>
+              {databaseOptions.map((value) => (
+                <option value={value} key={value}>
                   {value}
                 </option>
               ))}
