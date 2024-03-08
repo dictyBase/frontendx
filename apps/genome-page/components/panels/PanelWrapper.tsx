@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme: Theme) =>
       color: "#96dfff",
       marginLeft: 40,
       textDecoration: "none",
+      "&:hover": {
+        color: "#FFFF00",
+      },
     },
   }),
 )
@@ -65,7 +68,7 @@ const PanelWrapper = ({ title, route, children }: Properties) => {
             {title}
             {route && (
               <Link href={route}>
-                <a className={classes.link}>View All</a>
+                <span className={classes.link}>View All</span>
               </Link>
             )}
           </Typography>

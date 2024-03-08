@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles"
 import InfoIcon from "@material-ui/icons/Info"
 import LaunchIcon from "@material-ui/icons/Launch"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   root: {
     backgroundColor: "#f5f5f5",
     marginBottom: "20px",
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   linkIcon: {
     verticalAlign: "middle",
   },
-}))
+})
 
 type Properties = {
   /** Gene used to link to legacy page */

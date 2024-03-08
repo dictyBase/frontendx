@@ -8,6 +8,7 @@ describe("withLinkGenerator", () => {
     })
     it("returns local URL if given gene ID", () => {
       expect(function_("Q54QB1", "UniprotKB", "DDB_G0272608")).toBe(
+        // eslint-disable-next-line sonarjs/no-duplicate-string
         "/gene/DDB_G0272608",
       )
     })

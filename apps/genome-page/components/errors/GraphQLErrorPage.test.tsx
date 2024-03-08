@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/filename-case */
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import { ApolloError } from "@apollo/client"
@@ -11,6 +12,7 @@ import {
 const errorFormat = (error: any): ApolloError => ({
   message: "Error!",
   graphQLErrors: [error],
+  // eslint-disable-next-line unicorn/no-null
   networkError: null,
   extraInfo: undefined,
   name: "",

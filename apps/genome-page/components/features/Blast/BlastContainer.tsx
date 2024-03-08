@@ -1,6 +1,5 @@
 import React, { useRef, MutableRefObject } from "react"
 import { Layout } from "components/layout/Layout"
-import { GeneQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
 import { useStyles } from "styles/blastContainerStyles"
 import { Paper, Container, Grid } from "@material-ui/core"
@@ -14,10 +13,7 @@ import { BlastButtonsRow } from "./Sections/BlastButtonsRow"
 import { BlastOptionsRow } from "./Sections/BlastOptionsRow"
 import { useStreamManager } from "./streamManager"
 
-interface BlastContainerProperties {
-  gene: GeneQuery
-}
-const BlastContainer = ({ gene }: BlastContainerProperties) => {
+const BlastContainer = () => {
   const classes = useStyles()
   const { query } = useRouter()
   const geneId = query.id as string

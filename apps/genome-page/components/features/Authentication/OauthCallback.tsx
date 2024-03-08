@@ -14,7 +14,7 @@ const OauthCallback = () => {
   useEffect(() => {
     window.opener?.postMessage(
       {
-        query: location.search,
+        query: window.location.search,
         provider,
         url: `${window.location.origin}/${process.env.NEXT_PUBLIC_BASENAME}${pathname}`,
       },

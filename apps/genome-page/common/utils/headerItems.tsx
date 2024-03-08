@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react"
 import { HeaderLink } from "dicty-components-header-footer"
 import Link from "next/link"
@@ -8,15 +9,15 @@ import { SvgIconProps } from "@material-ui/core/SvgIcon"
 import LogoutIcon from "@mui/icons-material/Logout"
 import LoginIcon from "@mui/icons-material/Login"
 
-type LinkIconProperties = {
-  link: LinkProperties
-}
-
 type LinkProperties = {
   isRouter?: boolean
   text: string
   icon: React.ReactElement<SvgIconProps>
   url: string
+}
+
+type LinkIconProperties = {
+  link: LinkProperties
 }
 
 const LinkIcon = ({ link }: LinkIconProperties) => (

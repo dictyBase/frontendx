@@ -15,12 +15,7 @@ const GENE_CACHE_KEY = "gene-apollo-cache-persist"
 
 const mutationList = new Set(["Logout"])
 
-const isMutation = (value: string) => {
-  if (mutationList.has(value)) {
-    return true
-  }
-  return false
-}
+const isMutation = (value: string) => mutationList.has(value)
 
 const getGraphQLServer = (
   url: string,
@@ -28,7 +23,7 @@ const getGraphQLServer = (
   origin: string,
 ) => {
   if (deployEnvironment === "staging" && origin === "https://dictycr.org") {
-    return process.env.NEXT_PUBLIC_ALT_GRAPHQL_SERVER
+    return process.env.NEXT_PUBLIC_ALT_GRAPHQL_SERVER as string
   }
   return url
 }
@@ -46,6 +41,7 @@ const authLink = setContext((request, { headers }) => {
 })
 
 const createApolloLink = (server: string): ApolloLink =>
+  // eslint-disable-next-line unicorn/prefer-spread -- this .concat is not Array.concat
   authLink.concat(
     createHttpLink({
       uri: `${server}/graphql`,
@@ -59,8 +55,8 @@ const useCreateApolloClient = () => {
 
   React.useEffect(() => {
     const server = getGraphQLServer(
-      process.env.NEXT_PUBLIC_GRAPHQL_SERVER,
-      process.env.NEXT_PUBLIC_DEPLOY_ENV,
+      process.env.NEXT_PUBLIC_GRAPHQL_SERVER as string,
+      process.env.NEXT_PUBLIC_DEPLOY_ENV as string,
       window.location.origin,
     )
     setLink(createApolloLink(server))

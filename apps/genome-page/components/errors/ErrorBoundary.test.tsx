@@ -2,7 +2,7 @@ import React from "react"
 import { render, screen } from "@testing-library/react"
 import { ErrorBoundary } from "./ErrorBoundary"
 
-const ErrComponent = () => {
+const ErrorComponent = () => {
   React.useEffect(() => {
     throw new Error("My error")
   }, [])
@@ -15,7 +15,7 @@ describe("components/errors/ErrorBoundary", () => {
   it("should render error component", () => {
     render(
       <ErrorBoundary>
-        <ErrComponent />
+        <ErrorComponent />
       </ErrorBoundary>,
     )
 

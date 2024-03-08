@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useMemo } from "react"
 import { User } from "dicty-graphql-schema"
 
 enum ActionType {
@@ -31,7 +31,7 @@ const initialState = {
   token: "",
   user: {} as User,
   provider: "",
-  error: null,
+  error: undefined,
 }
 
 type Action =
@@ -58,16 +58,17 @@ const AuthContext = React.createContext({} as AuthStateContextProperties)
 
 const authReducer = (state: AuthState, action: Action) => {
   switch (action.type) {
-    case ActionType.LOGIN:
-      const { token } = action.payload
+    case ActionType.LOGIN: {
+      const { token, user, provider } = action.payload
       return {
         ...state,
         isAuthenticated: token !== "",
         token,
-        user: action.payload.user,
-        provider: action.payload.provider,
-        error: null,
+        user,
+        provider,
+        error: undefined,
       }
+    }
     case ActionType.LOGIN_ERROR:
       return {
         ...state,
@@ -76,16 +77,17 @@ const authReducer = (state: AuthState, action: Action) => {
 
     case ActionType.LOGOUT:
       return initialState
-    case ActionType.UPDATE_TOKEN:
-      const newToken = action.payload.token
+    case ActionType.UPDATE_TOKEN: {
+      const { token, user, provider } = action.payload
       return {
         ...state,
         isAuthenticated: true,
-        token: newToken,
-        user: action.payload.user,
-        provider: action.payload.provider,
-        error: null,
+        token,
+        user,
+        provider,
+        error: undefined,
       }
+    }
     default:
       return state
   }
@@ -96,9 +98,13 @@ const authReducer = (state: AuthState, action: Action) => {
  */
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = React.useReducer(authReducer, initialState)
+  const authContextValue = useMemo(
+    () => ({ state, dispatch }),
+    [state, dispatch],
+  )
 
   return (
-    <AuthContext.Provider value={{ state, dispatch }}>
+    <AuthContext.Provider value={authContextValue}>
       {children}
     </AuthContext.Provider>
   )

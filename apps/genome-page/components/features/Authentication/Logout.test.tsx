@@ -1,11 +1,12 @@
+/* eslint-disable no-console */
 import React from "react"
 import { render } from "@testing-library/react"
-import { useRouter } from "next/router"
 import { Logout } from "./Logout"
 
 const mockHistoryPush = jest.fn()
 
 jest.mock("next/router", () => {
+  // eslint-disable-next-line  unicorn/consistent-function-scoping
   const useRouter = () => ({
     push: (value: string) => value,
   })

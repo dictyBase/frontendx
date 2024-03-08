@@ -3,8 +3,7 @@ import { render, screen } from "@testing-library/react"
 import { MockAuthProvider } from "mocks/MockAuthProvider"
 import userEvent from "@testing-library/user-event"
 import { ApolloError } from "@apollo/client"
-import { GraphQLError, GraphQLFormattedError } from "graphql"
-import { oauthConfig } from "common/utils/oauthConfig"
+import { GraphQLFormattedError } from "graphql"
 import { Login, createOauthURL, generateErrorDisplayMessage } from "./Login"
 
 describe("features/Authentication/Login", () => {
@@ -131,6 +130,7 @@ describe("features/Authentication/Login", () => {
     it("should return appropriate error if user not found", () => {
       const error: ApolloError = {
         message: "",
+        // eslint-disable-next-line unicorn/no-null
         networkError: null,
         extraInfo: {},
         name: "",
@@ -163,6 +163,7 @@ describe("features/Authentication/Login", () => {
     it("should return generic error if not network or not found error", () => {
       const error: ApolloError = {
         message: "",
+        // eslint-disable-next-line unicorn/no-null
         networkError: null,
         extraInfo: {},
         name: "",

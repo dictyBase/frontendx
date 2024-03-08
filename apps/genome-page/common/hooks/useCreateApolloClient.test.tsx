@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import { isMutation, getGraphQLServer } from "./useCreateApolloClient"
 
 describe("isMutation function", () => {
