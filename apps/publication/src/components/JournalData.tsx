@@ -22,7 +22,6 @@ interface JournalDataProperties {
  */
 
 const JournalData = ({ data }: JournalDataProperties) => {
-  // eslint-disable-next-line camelcase
   const { id, doi, pub_date, journal, pages, issue, volume } = data
 
   const classes = useStyles()

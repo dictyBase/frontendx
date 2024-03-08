@@ -1,4 +1,3 @@
-/* eslint-disable turbo/no-undeclared-env-vars */
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import { OauthCallback } from "../components/auth/OauthCallback"

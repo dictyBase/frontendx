@@ -1,4 +1,3 @@
-/* eslint-disable turbo/no-undeclared-env-vars */
 import React, { useEffect } from "react"
 import Box from "@material-ui/core/Box"
 import Typography from "@material-ui/core/Typography"
