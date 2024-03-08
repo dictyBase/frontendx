@@ -36,7 +36,6 @@ const AddPageEditor = ({
         variables: {
           input: {
             name: slug,
-            // eslint-disable-next-line camelcase
             created_by: userId,
             content: value,
             namespace,
