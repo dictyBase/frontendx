@@ -3,8 +3,14 @@ import React from "react"
 import { render, waitFor } from "@testing-library/react"
 import { LoginDocument } from "dicty-graphql-schema"
 import { MockAuthProvider } from "mocks/MockAuthProvider"
-import { clientConfig } from "common/utils/clientConfig"
 import { OauthSignHandler } from "./OauthSignHandler"
+
+const clientConfig = {
+  facebook: { clientId: "xxxxxxxxxxxxxxx" },
+  google: { clientId: "xxxxxxxxxxxxxxxxxx" },
+  linkedin: { clientId: "xxxxxxxxxxxxxxxxxx" },
+  orcid: { clientId: "xxxxxxxxxxxxxxxxxx" },
+}
 
 jest.mock("next/router", () => {
   const useRouter = () => ({
