@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { filter as RAfilter, reduce as RAreduce } from "fp-ts/ReadonlyArray"
 import { head as RNAhead } from "fp-ts/ReadonlyNonEmptyArray"
 import { keys as Rkeys } from "fp-ts/Record"

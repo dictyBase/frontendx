@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import React from "react"
 import querystring from "node:querystring"
 import { useLoginMutation, User } from "dicty-graphql-schema"

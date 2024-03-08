@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import React from "react"
 import { render, waitFor } from "@testing-library/react"
 import { LoginDocument } from "dicty-graphql-schema"

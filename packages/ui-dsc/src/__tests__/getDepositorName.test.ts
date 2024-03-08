@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { getDepositorName } from "../utils/getDepositorName"
 
 describe("features/Stocks/Details/utils/getDepositorName", () => {

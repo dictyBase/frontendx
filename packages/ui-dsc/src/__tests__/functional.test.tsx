@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { describe, expect, test } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { renderStrainTotal } from "../functional"

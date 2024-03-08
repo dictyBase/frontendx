@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { StrainListDocument, StrainType } from "dicty-graphql-schema"
 import { SearchConfigMember, BaseConfigMember } from "./types"
 

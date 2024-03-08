@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { type ContentBySlugQuery } from "dicty-graphql-schema"
 import { Editor } from "editor"
 import { EditableContentToolbar } from "./EditableContentToolbar"
