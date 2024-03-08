@@ -23,7 +23,7 @@ const getGraphQLServer = (
   origin: string,
 ) => {
   if (deployEnvironment === "staging" && origin === "https://dictycr.org") {
-    return process.env.NEXT_PUBLIC_ALT_GRAPHQL_SERVER as string
+    return process.env.NEXT_PUBLIC_ALT_GRAPHQL_SERVER
   }
   return url
 }
@@ -55,8 +55,8 @@ const useCreateApolloClient = () => {
 
   React.useEffect(() => {
     const server = getGraphQLServer(
-      process.env.NEXT_PUBLIC_GRAPHQL_SERVER as string,
-      process.env.NEXT_PUBLIC_DEPLOY_ENV as string,
+      process.env.NEXT_PUBLIC_GRAPHQL_SERVER,
+      process.env.NEXT_PUBLIC_DEPLOY_ENV,
       window.location.origin,
     )
     setLink(createApolloLink(server))
