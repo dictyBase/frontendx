@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 import { useState, useEffect, useMemo } from "react"
 import { right, left, fold } from "fp-ts/Either"
-import * as TE from "fp-ts/TaskEither"
+import { type TaskEither } from "fp-ts/TaskEither"
 import { pipe } from "fp-ts/lib/function"
 import FS from "@isomorphic-git/lightning-fs"
 import { cloneGithubWiki } from "../../../common/hooks/useGithubWiki"
@@ -37,7 +37,7 @@ export default function Gene() {
 
   // resolves the promise, returns the content or the error
   useEffect(() => {
-    const prog = async (function_: TE.TaskEither<string, string>) =>
+    const prog = async (function_: TaskEither<string, string>) =>
       pipe(await function_(), fold(errorSet, contentSet))
     prog(wikiFunction)
   }, [wikiFunction])

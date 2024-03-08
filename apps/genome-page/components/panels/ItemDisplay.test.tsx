@@ -2,9 +2,8 @@ import React from "react"
 import { render, screen } from "@testing-library/react"
 import { ItemDisplay } from "./ItemDisplay"
 
+const Child = () => <>child component</>
 describe("components/panels/ItemDisplay", () => {
-  const Child = () => <>child component</>
-
   it("should render children", () => {
     render(
       <ItemDisplay>

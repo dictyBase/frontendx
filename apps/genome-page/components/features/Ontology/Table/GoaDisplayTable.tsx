@@ -67,8 +67,8 @@ const GoaDisplayTable = ({ data }: Properties) => {
         <TableBody>
           {data
             .sort(getSorting(tableOrder, tableSortBy))
-            .map((item: GoAnnotation, index: number) => (
-              <GoaDisplayTableRow key={index} item={item} />
+            .map((item: GoAnnotation) => (
+              <GoaDisplayTableRow key={item.id} item={item} />
             ))}
         </TableBody>
       </Table>

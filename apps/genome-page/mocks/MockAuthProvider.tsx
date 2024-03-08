@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useMemo } from "react"
 import { MockedProvider, MockedResponse } from "@apollo/client/testing"
 import { User } from "dicty-graphql-schema"
 import {
@@ -60,10 +60,14 @@ const MockAuthProvider = ({
     user,
     provider: "google",
     isAuthenticated: true,
-    error: null,
+    error: undefined,
   })
+  const authContextValue = useMemo(
+    () => ({ state, dispatch }),
+    [state, dispatch],
+  )
   return (
-    <AuthContext.Provider value={{ state, dispatch }}>
+    <AuthContext.Provider value={authContextValue}>
       <MockedProvider mocks={mocks} addTypename={false}>
         {children}
       </MockedProvider>

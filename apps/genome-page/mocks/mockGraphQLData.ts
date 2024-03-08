@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/filename-case */
 /* eslint-disable sonarjs/no-duplicate-string */
 // mock data response for sadA gene
 const mockGraphQLData = {

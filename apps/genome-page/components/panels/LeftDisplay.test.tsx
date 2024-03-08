@@ -2,9 +2,8 @@ import React from "react"
 import { render, screen } from "@testing-library/react"
 import { LeftDisplay } from "./LeftDisplay"
 
+const Child = () => <>child component</>
 describe("components/panels/LeftDisplay", () => {
-  const Child = () => <>child component</>
-
   it("should render children", () => {
     render(
       <LeftDisplay>

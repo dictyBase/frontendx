@@ -122,12 +122,13 @@ const App = ({ children }: { children: React.ReactNode }) => {
 
   const fetchRefreshToken = React.useCallback(async () => {
     try {
-      const res = await refetch({ token })
-      if (res.data.getRefreshToken) {
-        const { data } = res
-        updateToken(dispatch, data.getRefreshToken)
+      const response = await refetch({ token })
+      if (response.data.getRefreshToken) {
+        const { data: refetchData } = response
+        updateToken(dispatch, refetchData.getRefreshToken)
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error)
     }
   }, [dispatch, refetch, token])

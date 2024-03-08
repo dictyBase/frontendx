@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   error400: {
     backgroundColor: "#eff8fb",
     textAlign: "center",
@@ -32,6 +32,6 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 auto",
     display: "table",
   },
-}))
+})
 
 export { useStyles }

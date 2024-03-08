@@ -24,7 +24,7 @@ const mockGeneLimit: GeneQuery = {
   },
   allPublications: {
     num_pubs: 14,
-    publications: [...mockReferencesData.slice(0, 3)],
+    publications: mockReferencesData.slice(0, 3),
   },
   allOrthologs: {
     __typename: "Gene",

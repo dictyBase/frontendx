@@ -2,8 +2,8 @@ import React from "react"
 import { render, screen } from "@testing-library/react"
 import { PanelWrapper } from "./PanelWrapper"
 
+const Child = () => <>child component</>
 describe("components/panels/PanelWrapper", () => {
-  const Child = () => <>child component</>
   const renderComponent = () => {
     render(
       <PanelWrapper title="GO Annotations">
