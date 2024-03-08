@@ -1,26 +1,17 @@
 import { pipe } from "fp-ts/function"
-import { getOrElse as OgetOrElse } from "fp-ts/Option"
 import {
   map as Amap,
   last,
   compact as Acompact,
   intersperse as Aintersperse,
-  foldLeft as AfoldLeft,
-  foldMap as AfoldMap,
   reduce as Areduce,
-  splitAt as AsplitAt,
-  updateAt as AupdateAt,
-  zero as Azero,
 } from "fp-ts/Array"
 import {
   type NonEmptyArray,
-  splitAt as NEAsplitAt,
   last as NEAlast,
   init as NEAinit,
-  intersperse as NEAintersperse,
 } from "fp-ts/NonEmptyArray"
 import { bindTo as IbindTo, let as Ilet } from "fp-ts/Identity"
-import { Do as ODo, bind as Obind, let as Olet } from "fp-ts/Option"
 import { slice, trimRight } from "fp-ts/string"
 import { match } from "ts-pattern"
 import { type PublicationItem } from "../hooks/useFetchPublications"
