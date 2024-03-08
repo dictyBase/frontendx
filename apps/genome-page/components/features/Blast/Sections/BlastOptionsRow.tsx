@@ -1,4 +1,4 @@
-import { useStyles } from "styles/geneOrIDSection"
+import { useStyles } from "styles/geneOrIdSection"
 import {
   Typography,
   Card,

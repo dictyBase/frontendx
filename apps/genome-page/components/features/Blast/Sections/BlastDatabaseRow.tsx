@@ -1,5 +1,5 @@
 import { MutableRefObject, useState, useEffect } from "react"
-import { useStyles } from "styles/geneOrIDSection"
+import { useStyles } from "styles/geneOrIdSection"
 import { Typography, Card, Box, Grid } from "@material-ui/core"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
 import { Observable } from "rxjs"
