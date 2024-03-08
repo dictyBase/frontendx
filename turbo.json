@@ -1,6 +1,7 @@
 {
   "$schema": "https://turborepo.org/schema.json",
   "globalEnv": [
+    "NODE_ENV",
     "NEXT_PUBLIC_GRAPHQL_SERVER",
     "NEXT_PUBLIC_BASENAME",
     "NEXT_PUBLIC_GA_TRACKING_ID",
