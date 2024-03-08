@@ -10,7 +10,7 @@ const useGoogleAnalytics = () => {
     const setGoogleAnalytics = async () => {
       try {
         const module = await import("react-ga")
-        const trackingID = process.env.NEXT_PUBLIC_GA_TRACKING_ID
+        const trackingID = process.env.NEXT_PUBLIC_GA_TRACKING_ID as string
         const basename = process.env.NEXT_PUBLIC_BASENAME
         const page = basename + router.pathname
         const ReactGA = module.default
@@ -27,6 +27,7 @@ const useGoogleAnalytics = () => {
           }
         })
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error("could not load react-ga module", JSON.stringify(error))
       }
     }

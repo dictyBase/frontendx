@@ -22,17 +22,20 @@ module.exports = {
       files: ["*.ts", "*.tsx"],
     },
   ],
+  ignorePatterns: ["next-env.d.ts"],
   settings: {
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"],
     },
     "import/resolver": {
       typescript: {
+        project: ["apps/genome-page/tsconfig.json"],
         alwaysTryTypes: true,
       },
     },
   },
   rules: {
+    camelcase: "off",
     "import/no-unresolved": "error",
     "import/prefer-default-export": "off",
     "import/no-default-export": "error",

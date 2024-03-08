@@ -48,15 +48,15 @@ const OauthSignHandler = () => {
       }
       router.push("/load/auth")
       try {
-        const { data } = await login({
+        const { data: loginData } = await login({
           variables: getLoginInputVariables(event.data),
         })
         dispatch({
           type: ActionType.LOGIN,
           payload: {
-            token: data?.login?.token as string,
-            user: data?.login?.user as User,
-            provider: data?.login?.identity.provider as string,
+            token: loginData?.login?.token as string,
+            user: loginData?.login?.user as User,
+            provider: loginData?.login?.identity.provider as string,
           },
         })
         router.push("/")
@@ -76,6 +76,7 @@ const OauthSignHandler = () => {
     }
   }, [data, dispatch, login, router])
 
+  // eslint-disable-next-line unicorn/no-null
   return null
 }
 

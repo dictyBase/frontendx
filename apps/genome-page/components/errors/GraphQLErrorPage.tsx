@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/filename-case */
 import React from "react"
 import { ApolloError } from "@apollo/client"
 import { ServerError } from "./ServerError"
@@ -15,10 +16,9 @@ type Properties = {
  */
 
 const GraphQLErrorPage = ({ error }: Properties) => {
-  if (!error || !error.message) return null
+  if (!error || !error.message) return <></>
 
   if (error.networkError) {
-    console.error(error.networkError)
     return <ServerError />
   }
 
@@ -43,10 +43,6 @@ const GraphQLErrorPage = ({ error }: Properties) => {
   }
 
   return <OtherError />
-}
-
-GraphQLErrorPage.defaultProps = {
-  error: {},
 }
 
 export { GraphQLErrorPage }

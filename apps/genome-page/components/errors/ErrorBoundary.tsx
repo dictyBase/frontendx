@@ -43,14 +43,18 @@ type State = {
  */
 
 class ErrorBoundary extends Component<Properties, State> {
-  state = { hasError: false }
+  constructor(properties: Properties) {
+    super(properties)
+    this.state = { hasError: false }
+  }
 
-  static getDerivedStateFromError(error: Error) {
+  static getDerivedStateFromError() {
     // Update state so the next render will show the fallback UI.
     return { hasError: true }
   }
 
   componentDidCatch(error: Error, errorInfo: object) {
+    // eslint-disable-next-line no-console
     console.error(error, errorInfo)
   }
 

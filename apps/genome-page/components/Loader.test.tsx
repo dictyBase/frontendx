@@ -5,6 +5,6 @@ import { Loader } from "components/Loader"
 describe("components/Loader", () => {
   it("should render Loader", () => {
     render(<Loader />)
-    expect(screen.getByRole("loader")).toBeInTheDocument()
+    expect(screen.getByTestId("skeleton-loader")).toBeInTheDocument()
   })
 })

@@ -30,7 +30,7 @@ const Logout = () => {
       type: ActionType.LOGOUT,
     })
     client.resetStore()
-    // eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, logout, client])
 
   return <Link href="/" />

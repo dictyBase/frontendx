@@ -78,7 +78,7 @@ const updateToken = (
 
 const getTokenIntervalDelayInMS = (token: string) => {
   if (token === "") {
-    return
+    return 60
   }
   const decodedToken = jwtDecode(token) as any
   const currentTime = new Date(Date.now())

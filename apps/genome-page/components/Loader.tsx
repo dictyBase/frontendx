@@ -6,11 +6,7 @@ import { Skeleton } from "@mui/material"
  * Loader is the default loading skeleton component.
  */
 const Loader = () => (
-  <Grid
-    container
-    justifyContent="center"
-    data-testid="skeleton-loader"
-    role="loader">
+  <Grid container justifyContent="center" data-testid="skeleton-loader">
     <Grid item xs={12}>
       {new Array(10).map((item, key) => (
         <Skeleton key={key} animation="wave" />

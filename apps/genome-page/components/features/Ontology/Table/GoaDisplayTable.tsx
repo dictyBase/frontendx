@@ -67,8 +67,9 @@ const GoaDisplayTable = ({ data }: Properties) => {
         <TableBody>
           {data
             .sort(getSorting(tableOrder, tableSortBy))
-            .map((item: GoAnnotation) => (
-              <GoaDisplayTableRow key={item.id} item={item} />
+            .map((item: GoAnnotation, index: number) => (
+              // eslint-disable-next-line react/no-array-index-key -- passing index as key is necessary for sorting, for some reason. Maybe because .sort mutates the array in place?
+              <GoaDisplayTableRow key={index} item={item} />
             ))}
         </TableBody>
       </Table>
