@@ -1,4 +1,9 @@
-import { clientConfig } from "./clientConfig"
+const clientConfig = {
+  facebook: { clientId: "xxxxxxxxxxxxxxx" },
+  google: { clientId: "xxxxxxxxxxxxxxxxxx" },
+  linkedin: { clientId: "xxxxxxxxxxxxxxxxxx" },
+  orcid: { clientId: "xxxxxxxxxxxxxxxxxx" },
+}
 
 type Config = {
   name: string
