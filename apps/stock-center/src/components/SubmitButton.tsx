@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { makeStyles } from "@material-ui/core/styles"
 import Button from "@material-ui/core/Button"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"

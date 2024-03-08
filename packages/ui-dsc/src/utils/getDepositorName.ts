@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 type Depositor = {
   /** First name of depositor */
   first_name?: string

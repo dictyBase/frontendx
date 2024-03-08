@@ -13,8 +13,10 @@ export type StyleProperties = {
 const useImageStyles = makeStyles<Theme, StyleProperties>({
   root: {
     position: "relative",
-    height: ({ height: currentHeight }) => `${currentHeight}px`,
-    width: ({ width: currentWidth }) => `${currentWidth}px`,
+    height: ({ height: currentHeight }) =>
+      currentHeight ? `${currentHeight}px` : "auto",
+    width: ({ width: currentWidth }) =>
+      currentWidth ? `${currentWidth}px` : "auto",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",

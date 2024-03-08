@@ -1,5 +1,4 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-/* eslint-disable camelcase */
 const first50 = [
   {
     id: "DBS0266721",

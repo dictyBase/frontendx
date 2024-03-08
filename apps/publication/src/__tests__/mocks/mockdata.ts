@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { Publication } from "dicty-graphql-schema"
 
 const data: { publication: Publication } = {

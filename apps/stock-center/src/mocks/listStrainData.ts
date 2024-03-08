@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 const generateRandomData = () => {
   const id = `DBS${Math.floor(Math.random() * 100_000)}`
   const label = `${String.fromCodePoint(

@@ -1,5 +1,6 @@
 import { type ContentBySlugQuery } from "dicty-graphql-schema"
 import { Editor } from "editor"
+import x from "./testContent.json"
 
 type ContentEditorProperties = {
   data: NonNullable<ContentBySlugQuery["contentBySlug"]>
@@ -13,7 +14,7 @@ type ContentEditorProperties = {
 const ContentEditor = ({ data }: ContentEditorProperties) => (
   <Editor
     editable={false}
-    content={{ storageKey: data.slug, editorState: data.content }}
+    content={{ storageKey: data.slug, editorState: JSON.stringify(x) }}
   />
 )
 

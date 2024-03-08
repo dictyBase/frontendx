@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 /* eslint-disable sonarjs/no-duplicate-string */
 import { Strain, Gene, Publication, Phenotype } from "dicty-graphql-schema"
 
