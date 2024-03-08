@@ -1,5 +1,5 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-/* eslint-disable turbo/no-undeclared-env-vars */
+
 import {
   isMutation,
   getGraphQLServer,
