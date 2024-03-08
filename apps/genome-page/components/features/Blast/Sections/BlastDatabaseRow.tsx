@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import { MutableRefObject, useState, useEffect } from "react"
 import { useStyles } from "styles/geneOrIdSection"
 import { Typography, Card, Box, Grid } from "@material-ui/core"
@@ -91,8 +92,8 @@ const BlastDatabaseRow = ({
               native
               id="organism-select-id"
               defaultValue="Dictyostelium discoideum"
-              onChange={(error: SelectChangeEvent) => {
-                setSelectOrganismValue(error.target.value as string)
+              onChange={(event: SelectChangeEvent) => {
+                setSelectOrganismValue(event.target.value as string)
               }}
               inputProps={{ style: { fontSize: 12, minWidth: 400 } }}
               variant="outlined"

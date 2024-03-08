@@ -24,7 +24,7 @@ const mockGeneAda2Limit: GeneQuery = {
   },
   allPublications: {
     num_pubs: 40,
-    publications: [...mockReferencesPiaA.slice(0, 3)],
+    publications: mockReferencesPiaA.slice(0, 3),
   },
   allOrthologs: {
     __typename: "Gene",

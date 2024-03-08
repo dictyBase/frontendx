@@ -5,7 +5,7 @@ import { Observable } from "rxjs"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
 import { programOptionsMock } from "../mocks/relatonalMockData"
 
-interface BlastProgramRow {
+interface BlastProgramRowProperties {
   programElement: MutableRefObject<HTMLInputElement>
   sequenceStream: Observable<string>
 }
@@ -13,7 +13,7 @@ interface BlastProgramRow {
 const BlastProgramRow = ({
   programElement,
   sequenceStream,
-}: BlastProgramRow) => {
+}: BlastProgramRowProperties) => {
   const classes = useStyles()
 
   const [programOptions, setProgramOptions] = useState<string[]>(
@@ -23,7 +23,7 @@ const BlastProgramRow = ({
   const [option, setOption] = useState<string>("Please Select a Program")
 
   useEffect(() => {
-    if (!sequenceStream) return
+    if (!sequenceStream) return () => {}
     const subscription = sequenceStream.subscribe((content) => {
       setProgramOptions(programOptionsMock[content])
     })
@@ -48,12 +48,12 @@ const BlastProgramRow = ({
               defaultValue="Please Select a Program"
               inputProps={{ style: { fontSize: 12, minWidth: 400 } }}
               value={option}
-              onChange={(e: SelectChangeEvent) => {
-                setOption(e.target.value as string)
+              onChange={(event: SelectChangeEvent) => {
+                setOption(event.target.value as string)
               }}
               ref={programElement}>
-              {programOptions.map((value, index) => (
-                <option value={value} key={index}>
+              {programOptions.map((value) => (
+                <option value={value} key={value}>
                   {value}
                 </option>
               ))}
