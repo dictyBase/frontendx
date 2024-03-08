@@ -3,10 +3,8 @@ import { GeneQuery } from "dicty-graphql-schema"
 import { mockGene } from "mocks/mockGene"
 import { ReferencesContainer } from "./ReferencesContainer"
 
-const setUpMocks = async () => {}
-
-import("next/router").then((module) => jest.spyOn(modules, "useRouter"))
-const useRouter = setUpMocks()
+// eslint-disable-next-line import/no-commonjs, unicorn/prefer-module -- ESM not supported by default as of Jest 29
+const useRouter = jest.spyOn(require("next/router"), "useRouter")
 
 const gene = "sadA"
 const pathname = `gene/${gene}/references`
