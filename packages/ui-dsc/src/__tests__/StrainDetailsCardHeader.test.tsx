@@ -14,7 +14,7 @@ const properties = {
     label: "test1",
     summary: "this is the best test strain in the world",
     fee: fees.STRAIN_FEE,
-    // eslint-disable-next-line camelcase
+
     in_stock: true,
     quantity: 1,
   },
