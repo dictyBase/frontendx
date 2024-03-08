@@ -59,7 +59,7 @@ const Editor = ({
   const initialEditorState = content?.editorState || initialStateString || null
   const inputClasses = useEditorInputStyles()
   const placeholderClasses = useEditorPlaceholderStyles()
-  const persistencePluginStyles = usePersistencePluginStyles()
+  // const persistencePluginStyles = usePersistencePluginStyles()
   const editorAreaClasses = useEditorAreaStyles({ editable })
 
   return (
