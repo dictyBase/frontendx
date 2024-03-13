@@ -1,28 +1,29 @@
-import {
-  useConfigureStrainCatalogSearchGraphql,
-  defaultFilter,
-} from "@dictybase/hook-dsc"
+import { useMemo, useRef } from "react"
+import { getStrainListConfiguration, defaultFilter } from "@dictybase/hook-dsc"
 import { P, match } from "ts-pattern"
 import {
   LoadingDisplay,
-  CatalogTableDisplay,
+  StrainCatalogTableDisplay,
   ErrorDisplay,
   SearchBar,
   CatalogListWrapper,
   CatalogHeader,
 } from "@dictybase/ui-dsc"
 import { useIntersectionObserver } from "@dictybase/hook"
-import { useRef } from "react"
 import { useStrainListQuery } from "dicty-graphql-schema"
 import { useSearchParams } from "react-router-dom"
 
 const StrainCatalog = () => {
   const [searchParameters] = useSearchParams()
   const value = searchParameters.get(defaultFilter.param) ?? defaultFilter.value
-  const { dataField, variables } = useConfigureStrainCatalogSearchGraphql({
-    value,
-    searchParams: searchParameters,
-  })
+  const { dataField, variables } = useMemo(
+    () =>
+      getStrainListConfiguration({
+        value,
+        searchParams: searchParameters,
+      }),
+    [value, searchParameters],
+  )
   const { loading, error, data, fetchMore } = useStrainListQuery({ variables })
   const rootReference = useRef<HTMLDivElement>(null)
   const targetReference = useRef<HTMLTableRowElement>(null)
@@ -55,7 +56,7 @@ const StrainCatalog = () => {
           .with(
             { data: P.select({ listStrains: P.not(undefined) }) },
             (data_) => (
-              <CatalogTableDisplay
+              <StrainCatalogTableDisplay
                 data={data_}
                 dataField={dataField}
                 target={targetReference}
