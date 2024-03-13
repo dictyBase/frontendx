@@ -14,7 +14,7 @@ import { useCartItemProperties } from "../hooks/useCartItemProperties"
 import {
   strainItemsAtom,
   type StrainCartItem as CartItem,
-  addItemsAtom,
+  addStrainItemsAtom,
   removeItemAtom,
 } from "../state"
 
@@ -48,7 +48,7 @@ type Properties = {
 const AvailableDisplay = ({ cartData }: Properties) => {
   const cartItemProperties = useCartItemProperties(cartData)
   const addedItems = useAtomValue(strainItemsAtom)
-  const addToCart = useSetAtom(addItemsAtom)
+  const addToCart = useSetAtom(addStrainItemsAtom)
   const removeFromCart = useSetAtom(removeItemAtom)
   const values = createQuantityArray(addedItems.length)
   const classes = useStyles()
