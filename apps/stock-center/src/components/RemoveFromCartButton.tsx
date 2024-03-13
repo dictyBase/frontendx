@@ -2,7 +2,8 @@ import IconButton from "@material-ui/core/IconButton"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import { useSetAtom } from "jotai"
 import DeleteIcon from "@material-ui/icons/Delete"
-import { StrainItem, removeItemAtom } from "../state"
+import { removeItemAtom } from "../state"
+import type { StrainItem, PlasmidItem } from "../types"
 
 const useStyles = makeStyles((theme: Theme) => ({
   button: {
@@ -11,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 type RemoveFromCartButtonProperties = {
-  item: StrainItem
+  item: StrainItem | PlasmidItem
 }
 
 /**
