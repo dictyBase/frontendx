@@ -1,9 +1,17 @@
-import { type Strain } from "dicty-graphql-schema"
+import type { Strain, Plasmid } from "dicty-graphql-schema"
 import { FormData } from "./utils/initialFormValues"
 
 type PurchaseProperties = { fee: Readonly<number> }
 
-type StrainItem = Pick<Strain, "id" | "summary" | "label" | "in_stock">
+type StrainItem = Pick<
+  Strain,
+  "__typename" | "id" | "summary" | "label" | "in_stock"
+>
+type PlasmidItem = Pick<
+  Plasmid,
+  "__typename" | "id" | "summary" | "name" | "in_stock"
+>
+type CatalogItem = StrainItem | PlasmidItem
 type StrainCartItem = StrainItem & PurchaseProperties
 type CartItemLimit = Readonly<number>
 type Cart = {
@@ -27,6 +35,8 @@ type DetailsRow = {
 
 export {
   type StrainItem,
+  type PlasmidItem,
+  type CatalogItem,
   type StrainCartItem,
   type StrainCartItem as CartItem,
   type CartItemLimit,
