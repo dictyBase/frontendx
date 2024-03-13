@@ -1,21 +1,25 @@
 /* eslint-disable unicorn/no-null */
 import { atom } from "jotai"
 import { splitAtom } from "jotai/utils"
-import { type Strain } from "dicty-graphql-schema"
 import { pipe } from "fp-ts/function"
 import { concat, reduce } from "fp-ts/Array"
+import type { StrainItem, PlasmidItem } from "./types"
 
 // CART STATE
 type PurchaseProperties = { fee: Readonly<number> }
-type StrainItem = Pick<Strain, "id" | "summary" | "label" | "in_stock">
 type StrainCartItem = StrainItem & PurchaseProperties
+type PlasmidCartItem = PlasmidItem & PurchaseProperties
+type CartItem = StrainCartItem | PlasmidCartItem
+
 type Cart = {
+  plasmidItems: Array<PlasmidCartItem>
   strainItems: Array<StrainCartItem>
   maxItems: number
 }
 
 const initialCart: Cart = {
   strainItems: [],
+  plasmidItems: [],
   maxItems: 12,
 }
 
@@ -26,17 +30,48 @@ const strainItemsAtom = atom(
   (_, set, strainItems: Array<StrainCartItem>) =>
     set(cartAtom, (previous) => ({ ...previous, strainItems })),
 )
+
+const plasmidItemsAtom = atom(
+  (get) => get(cartAtom).plasmidItems,
+  (_, set, plasmidItems: Array<PlasmidCartItem>) =>
+    set(cartAtom, (previous) => ({ ...previous, plasmidItems })),
+)
+
 const strainItemAtomsAtom = splitAtom(strainItemsAtom)
+
 const maxItemsAtom = atom((get) => get(cartAtom).maxItems)
 
-const addItemsAtom = atom(null, (get, set, newItems: Array<StrainCartItem>) => {
-  set(
-    strainItemsAtom,
-    pipe(get(strainItemsAtom), concat(newItems), (state) =>
-      state.slice(0, get(maxItemsAtom)),
-    ),
-  )
-})
+const remainingCartSpaceAtom = atom(
+  (get) =>
+    get(maxItemsAtom) -
+    (get(strainItemsAtom).length + get(plasmidItemsAtom).length),
+)
+
+const addStrainItemsAtom = atom(
+  null,
+  (get, set, newItems: Array<StrainCartItem>) => {
+    set(
+      strainItemsAtom,
+      pipe(
+        get(strainItemsAtom),
+        concat(newItems.slice(0, get(remainingCartSpaceAtom))),
+      ),
+    )
+  },
+)
+
+const addPlasmidItemsAtom = atom(
+  null,
+  (get, set, newItems: Array<PlasmidCartItem>) => {
+    set(
+      plasmidItemsAtom,
+      pipe(
+        get(plasmidItemsAtom),
+        concat(newItems.slice(0, get(remainingCartSpaceAtom))),
+      ),
+    )
+  },
+)
 
 const removeItemAtom = atom(null, (get, set, removeId) =>
   set(
@@ -156,7 +191,6 @@ const orderStepAtom = atom(OrderSteps.SHIPPING)
 const submitErrorAtom = atom(false)
 
 export {
-  type StrainItem,
   type StrainCartItem,
   type Cart,
   type ShippingFormData,
@@ -167,7 +201,8 @@ export {
   resetCartAtom,
   strainItemsAtom,
   strainItemAtomsAtom,
-  addItemsAtom,
+  addStrainItemsAtom,
+  addPlasmidItemsAtom,
   removeItemAtom,
   currentCartQuantityAtom,
   maxItemsAtom,
