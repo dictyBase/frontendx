@@ -15,7 +15,8 @@ import { v4 as uuid4 } from "uuid"
 import { pipe } from "fp-ts/function"
 import { slice, trimRight } from "fp-ts/string"
 import { fromNullable, getOrElse } from "fp-ts/Option"
-import { type Strain } from "dicty-graphql-schema"
+import { match, P } from "ts-pattern"
+import type { CatalogItem, StrainItem, PlasmidItem } from "../types"
 
 const useStyles = makeStyles({
   listHeaders: {
@@ -42,15 +43,15 @@ const borderBottom = `2px solid ${indigo[700]}`
 const tableHeaders = ["Strain Descriptor", "Strain Summary", "Strain ID", ""]
 
 interface CatalogRowFunctionProperties<HTMLType> {
-  strains: Array<Pick<Strain, "id" | "label" | "summary" | "in_stock">>
+  items: Array<CatalogItem>
   nextCursor: number
   targetReference: RefObject<HTMLType>
 }
 
-type cellFunctionItem = Pick<Strain, "id" | "label" | "summary" | "in_stock">
+type cellFunctionItem = StrainItem | PlasmidItem
 
 /**
- * The prop for {@link CatalogTableDisplay}
+ * The prop for {@link StrainCatalogTableDisplay}
  */
 export interface CatalogListProperties<T> {
   /** data for display */
@@ -95,38 +96,53 @@ const abbreviateStringToLength = (length: number) => (input: string) => {
   return pipe(input, slice(0, length), trimRight, appendEllipses)
 }
 
-const cellFunction = (item: cellFunctionItem) => (
-  <>
-    <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
-      <Link to={`/strains/${item.id}`}>{item.label}</Link>
-    </StyledTableCell>
-    <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
-      {pipe(
-        fromNullable(item.summary),
-        getOrElse(() => ""),
-        abbreviateStringToLength(84),
-      )}
-    </StyledTableCell>
-    <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
-      {item.id}
-    </StyledTableCell>
-    <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
-      <AddToCartButtonHandler item={item} />
-    </StyledTableCell>
-  </>
-)
+const cellFunction = (item: cellFunctionItem) => {
+  const { itemPathSegment, itemIdentifier } = match(item)
+    .with({ name: P.string }, (plasmid) => ({
+      itemPathSegment: "plasmids",
+      itemIdentifier: plasmid.name,
+    }))
+    .with({ label: P.string }, (strain) => ({
+      itemPathSegment: "strains",
+      itemIdentifier: strain.label,
+    }))
+    .otherwise(() => ({
+      itemPathSegment: "",
+      itemIdentifier: "",
+    }))
+  return (
+    <>
+      <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
+        <Link to={`/${itemPathSegment}/${item.id}`}>{itemIdentifier}</Link>
+      </StyledTableCell>
+      <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
+        {pipe(
+          fromNullable(item.summary),
+          getOrElse(() => ""),
+          abbreviateStringToLength(84),
+        )}
+      </StyledTableCell>
+      <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
+        {item.id}
+      </StyledTableCell>
+      <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
+        <AddToCartButtonHandler item={item} />
+      </StyledTableCell>
+    </>
+  )
+}
 
 const Rows = ({
-  strains,
+  items,
   nextCursor,
   targetReference,
 }: CatalogRowFunctionProperties<HTMLTableRowElement>) => {
   const { row } = useStyles()
   return (
     <>
-      {strains.map((item, index: number) => {
+      {items.map((item, index: number) => {
         const key = `${item.id}`
-        if (index === strains.length - 1 && nextCursor !== 0) {
+        if (index === items.length - 1 && nextCursor !== 0) {
           // last item and expected to have more data
           return (
             <>
@@ -158,7 +174,7 @@ const Rows = ({
  * Displays data in tablular format in which the target DOM element is attached
  * to the penultimate table row to work in tandem with intersection observer.
  */
-const CatalogTableDisplay = ({
+const StrainCatalogTableDisplay = ({
   data,
   dataField,
   target: targetReference,
@@ -173,7 +189,39 @@ const CatalogTableDisplay = ({
         </TableHead>
         <TableBody>
           <Rows
-            strains={strains}
+            items={strains}
+            nextCursor={nextCursor}
+            targetReference={targetReference}
+          />
+        </TableBody>
+      </Table>
+    </TableContainer>
+  )
+}
+
+const PlasmidCatalogTableDisplay = ({
+  data,
+  dataField,
+  target: targetReference,
+}: CatalogListProperties<HTMLTableRowElement>): JSX.Element => {
+  const classes = useStyles()
+  const { plasmids, nextCursor } = data[dataField]
+  return (
+    <TableContainer className={classes.root}>
+      <Table stickyHeader>
+        <TableHead>
+          <CatalogTableHeader
+            headers={[
+              "Plasmid Descriptor",
+              "Plasmid Summary",
+              "Plasmid ID",
+              "",
+            ]}
+          />
+        </TableHead>
+        <TableBody>
+          <Rows
+            items={plasmids}
             nextCursor={nextCursor}
             targetReference={targetReference}
           />
@@ -187,6 +235,7 @@ export {
   abbreviateStringToLength,
   cellFunction,
   Rows,
-  CatalogTableDisplay,
+  StrainCatalogTableDisplay,
+  PlasmidCatalogTableDisplay,
   CatalogTableHeader,
 }
