@@ -4,10 +4,11 @@ import IconButton from "@material-ui/core/IconButton"
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart"
 import { useSetAtom } from "jotai"
 import { fees } from "@dictybase/ui-dsc"
-import { Strain } from "dicty-graphql-schema"
 import { pipe } from "fp-ts/function"
 import { map } from "fp-ts/Array"
-import { addItemsAtom } from "../state"
+import { match, P } from "ts-pattern"
+import { addStrainItemsAtom, addPlasmidItemsAtom } from "../state"
+import type { StrainItem, PlasmidItem, CatalogItem } from "../types"
 
 const useStyles = makeStyles(({ palette }) => ({
   cartButton: {
@@ -17,32 +18,47 @@ const useStyles = makeStyles(({ palette }) => ({
 
 type Properties = {
   /** Stock data */
-  data: Array<Pick<Strain, "id" | "label" | "summary" | "in_stock">>
+  items: Array<CatalogItem>
   /** Function to toggle the AddToCartDialog */
   setShowDialog: React.Dispatch<React.SetStateAction<boolean>>
   /** Size of icon */
   size?: "small" | "medium" | undefined
 }
 
-const appendFee = (
-  a: Pick<Strain, "id" | "label" | "summary" | "in_stock">,
-) => ({ ...a, fee: fees.STRAIN_FEE })
+const appendStrainFee = (strainItem: StrainItem) => ({
+  ...strainItem,
+  fee: fees.STRAIN_FEE,
+})
+const appendPlasmidFee = (plasmidItem: PlasmidItem) => ({
+  ...plasmidItem,
+  fee: fees.PLASMID_FEE,
+})
+
 /**
  * AddToCartButton appears on the catalog page if the stock is available
  * for purchase.
  */
 
 const AddToCartButton = ({
-  data,
+  items,
   size = "medium",
   setShowDialog,
 }: Properties) => {
   const classes = useStyles()
-  const addItems = useSetAtom(addItemsAtom)
+  const addStrainItems = useSetAtom(addStrainItemsAtom)
+  const addPlasmidItems = useSetAtom(addPlasmidItemsAtom)
 
   const handleClick = () => {
-    pipe(data, map(appendFee), addItems)
-    setShowDialog(true)
+    match(items)
+      .with(P.array({ __typename: "Strain" }), (strainItems) => {
+        pipe(strainItems, map(appendStrainFee), addStrainItems)
+        setShowDialog(true)
+      })
+      .with(P.array({ __typename: "Plasmid" }), (plasmidItems) => {
+        pipe(plasmidItems, map(appendPlasmidFee), addPlasmidItems)
+        setShowDialog(true)
+      })
+      .otherwise(() => {})
   }
 
   return (
