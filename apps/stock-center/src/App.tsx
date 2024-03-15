@@ -2,6 +2,7 @@ import { CssBaseline } from "@material-ui/core"
 import { useGraphqlClient, useApolloClientCache } from "@dictybase/data-access"
 import {
   listStrainsPagination,
+  listPlasmidsPagination,
   listStrainsWithAnnotationPagination,
 } from "@dictybase/hook-dsc"
 import { ApolloProvider } from "@apollo/client"
@@ -38,6 +39,7 @@ export const App = () => {
         Query: {
           fields: {
             listStrains: listStrainsPagination(),
+            listPlasmids: listPlasmidsPagination(),
             listStrainsWithAnnotation: listStrainsWithAnnotationPagination(),
           },
         },
