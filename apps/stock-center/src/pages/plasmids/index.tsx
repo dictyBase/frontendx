@@ -20,10 +20,12 @@ const PlasmidCatalog = () => {
   const { loading, error, data, fetchMore } = usePlasmidListFilterQuery({
     variables: { ...graphqlQueryVariables, filter: "" },
   })
+
   const rootReference = useRef<HTMLDivElement>(null)
   const targetReference = useRef<HTMLTableRowElement>(null)
-
+  // console.log(loading, error, data)
   const onIntersection = ([entry]: IntersectionObserverEntry[]) => {
+    // console.log("intersecting?")
     const nextCursor = data?.listPlasmids?.nextCursor
     switch (true) {
       case !nextCursor:
