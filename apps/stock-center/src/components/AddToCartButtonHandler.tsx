@@ -1,14 +1,13 @@
 import { useState } from "react"
 import { match } from "ts-pattern"
-import { Strain } from "dicty-graphql-schema"
 import { UnavailableButton, AddToCartDialog } from "@dictybase/ui-dsc"
 import { AddToCartButton } from "./AddToCartButton"
 import { RemoveFromCartButton } from "./RemoveFromCartButton"
 import { useCartItemProperties } from "../hooks/useCartItemProperties"
-import type { StrainItem, PlasmidItem } from "../types"
+import type { CatalogItem } from "../types"
 
 type AddToCartButtonHandlerProperties = {
-  item: StrainItem | PlasmidItem
+  item: CatalogItem
 }
 
 const AddToCartButtonHandler = ({ item }: AddToCartButtonHandlerProperties) => {
