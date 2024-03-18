@@ -97,23 +97,23 @@ const abbreviateStringToLength = (length: number) => (input: string) => {
 }
 
 const cellFunction = (item: cellFunctionItem) => {
-  const { itemPathSegment, itemIdentifier } = match(item)
+  const { itemPathSegment, itemDescriptor } = match(item)
     .with({ name: P.string }, (plasmid) => ({
       itemPathSegment: "plasmids",
-      itemIdentifier: plasmid.name,
+      itemDescriptor: plasmid.name,
     }))
     .with({ label: P.string }, (strain) => ({
       itemPathSegment: "strains",
-      itemIdentifier: strain.label,
+      itemDescriptor: strain.label,
     }))
     .otherwise(() => ({
       itemPathSegment: "",
-      itemIdentifier: "",
+      itemDescriptor: "",
     }))
   return (
     <>
       <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
-        <Link to={`/${itemPathSegment}/${item.id}`}>{itemIdentifier}</Link>
+        <Link to={`/${itemPathSegment}/${item.id}`}>{itemDescriptor}</Link>
       </StyledTableCell>
       <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
         {pipe(
