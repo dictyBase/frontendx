@@ -6,7 +6,7 @@ import { RefObject } from "react"
 import {
   abbreviateStringToLength,
   cellFunction,
-  Rows,
+  CatalogRows,
   CatalogTableHeader,
 } from "../catalog/CatalogTableDisplay"
 
@@ -97,7 +97,7 @@ describe("rowFunction", () => {
   test("given a strains array, render a table row for each element in the array", () => {
     render(
       <MemoryRouter>
-        <Rows
+        <CatalogRows
           strains={testListStrains}
           nextCursor={0}
           targetReference={{} as RefObject<HTMLTableRowElement>}
@@ -109,7 +109,7 @@ describe("rowFunction", () => {
   test("if nextCursor is greater than 1, render an additional table row for that indicates fetching more data", () => {
     render(
       <MemoryRouter>
-        <Rows
+        <CatalogRows
           strains={testListStrains}
           nextCursor={4}
           targetReference={{} as RefObject<HTMLTableRowElement>}
