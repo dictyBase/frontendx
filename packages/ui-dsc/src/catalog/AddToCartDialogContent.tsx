@@ -2,12 +2,12 @@ import { Link } from "react-router-dom"
 import Typography from "@material-ui/core/Typography"
 import DialogContent from "@material-ui/core/DialogContent"
 import DialogContentText from "@material-ui/core/DialogContentText"
-import { strainOrPlasmid } from "../utils/strainOrPlasmid"
-import { type StrainItem } from "../types"
+import { type CatalogItem } from "../types"
+import { getCatalogItemDescriptor } from "../utils/getCatalogItemDescriptor"
 
 type AddToCartDialogContentProperties = {
   /** Stock data */
-  data: Array<StrainItem>
+  data: Array<CatalogItem>
 }
 
 /**
@@ -16,21 +16,22 @@ type AddToCartDialogContentProperties = {
 
 const AddToCartDialogContent = ({ data }: AddToCartDialogContentProperties) => (
   <DialogContent>
-    {data.map((item) => (
-      <DialogContentText key={item.id}>
-        <Typography gutterBottom>
-          <strong>
-            <Link to={`/${strainOrPlasmid(item.id)}/${item.id}`}>
-              {item.label}
-            </Link>
-          </strong>
-        </Typography>
-        <Typography gutterBottom>
-          <em>{item.summary}</em>
-        </Typography>
-        <Typography variant="body2">{item.id}</Typography>
-      </DialogContentText>
-    ))}
+    {data.map((item) => {
+      const { itemPath, itemDescriptor } = getCatalogItemDescriptor(item)
+      return (
+        <DialogContentText key={item.id}>
+          <Typography gutterBottom>
+            <strong>
+              <Link to={`/${itemPath}/${item.id}`}>{itemDescriptor}</Link>
+            </strong>
+          </Typography>
+          <Typography gutterBottom>
+            <em>{item.summary}</em>
+          </Typography>
+          <Typography variant="body2">{item.id}</Typography>
+        </DialogContentText>
+      )
+    })}
   </DialogContent>
 )
 
