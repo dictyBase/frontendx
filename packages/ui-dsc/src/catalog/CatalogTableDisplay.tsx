@@ -15,8 +15,8 @@ import { v4 as uuid4 } from "uuid"
 import { pipe } from "fp-ts/function"
 import { slice, trimRight } from "fp-ts/string"
 import { fromNullable, getOrElse } from "fp-ts/Option"
-import { match, P } from "ts-pattern"
 import type { CatalogItem, StrainItem, PlasmidItem } from "../types"
+import { getCatalogItemDescriptor } from "../utils/getCatalogItemDescriptor"
 
 const useStyles = makeStyles({
   listHeaders: {
@@ -97,23 +97,11 @@ const abbreviateStringToLength = (length: number) => (input: string) => {
 }
 
 const cellFunction = (item: cellFunctionItem) => {
-  const { itemPathSegment, itemDescriptor } = match(item)
-    .with({ name: P.string }, (plasmid) => ({
-      itemPathSegment: "plasmids",
-      itemDescriptor: plasmid.name,
-    }))
-    .with({ label: P.string }, (strain) => ({
-      itemPathSegment: "strains",
-      itemDescriptor: strain.label,
-    }))
-    .otherwise(() => ({
-      itemPathSegment: "",
-      itemDescriptor: "",
-    }))
+  const { itemPath, itemDescriptor } = getCatalogItemDescriptor(item)
   return (
     <>
       <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
-        <Link to={`/${itemPathSegment}/${item.id}`}>{itemDescriptor}</Link>
+        <Link to={`/${itemPath}/${item.id}`}>{itemDescriptor}</Link>
       </StyledTableCell>
       <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
         {pipe(
@@ -132,7 +120,7 @@ const cellFunction = (item: cellFunctionItem) => {
   )
 }
 
-const Rows = ({
+const CatalogRows = ({
   items,
   nextCursor,
   targetReference,
@@ -188,7 +176,7 @@ const StrainCatalogTableDisplay = ({
           <CatalogTableHeader />
         </TableHead>
         <TableBody>
-          <Rows
+          <CatalogRows
             items={strains}
             nextCursor={nextCursor}
             targetReference={targetReference}
@@ -220,7 +208,7 @@ const PlasmidCatalogTableDisplay = ({
           />
         </TableHead>
         <TableBody>
-          <Rows
+          <CatalogRows
             items={plasmids}
             nextCursor={nextCursor}
             targetReference={targetReference}
@@ -234,7 +222,7 @@ const PlasmidCatalogTableDisplay = ({
 export {
   abbreviateStringToLength,
   cellFunction,
-  Rows,
+  CatalogRows,
   StrainCatalogTableDisplay,
   PlasmidCatalogTableDisplay,
   CatalogTableHeader,
