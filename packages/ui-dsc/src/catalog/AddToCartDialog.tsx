@@ -2,13 +2,13 @@ import Dialog from "@material-ui/core/Dialog"
 import { DialogTitleDisplay } from "./DialogTitleDisplay"
 import { AddToCartDialogContent } from "./AddToCartDialogContent"
 import { AddToCartDialogActions } from "./AddToCartDialogActions"
-import { StrainItem } from "../types"
+import { CatalogItem } from "../types"
 
 type Properties = {
   /** Strain data */
-  data: Array<StrainItem>
+  data: Array<CatalogItem>
   /** Function to add to checked items array */
-  setCheckedItems?: (argument0: Array<StrainItem>) => void
+  setCheckedItems?: (argument0: Array<CatalogItem>) => void
   /** Function to display dialog box after adding item to cart */
   setShowDialog: (argument0: boolean) => void
   /** Function to toggle hover state for given item */
