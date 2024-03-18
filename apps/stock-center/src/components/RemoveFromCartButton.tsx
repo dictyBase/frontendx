@@ -3,7 +3,7 @@ import { makeStyles, Theme } from "@material-ui/core/styles"
 import { useSetAtom } from "jotai"
 import DeleteIcon from "@material-ui/icons/Delete"
 import { removeItemAtom } from "../state"
-import type { StrainItem, PlasmidItem } from "../types"
+import type { CatalogItem } from "../types"
 
 const useStyles = makeStyles((theme: Theme) => ({
   button: {
@@ -12,13 +12,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 type RemoveFromCartButtonProperties = {
-  item: StrainItem | PlasmidItem
+  item: CatalogItem
 }
 
 /**
  * RemoveFromCartButton is the icon used for removing an item from the cart.
  */
-
 const RemoveFromCartButton = ({ item }: RemoveFromCartButtonProperties) => {
   const removeItem = useSetAtom(removeItemAtom)
   const classes = useStyles()
