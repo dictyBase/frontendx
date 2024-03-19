@@ -1,9 +1,10 @@
+import { useMemo } from "react"
 import { Grid, makeStyles } from "@material-ui/core"
 import { CartIcon } from "@dictybase/ui-dsc"
 import { useAtomValue } from "jotai"
 import { Outlet } from "react-router-dom"
 import { Breadcrumbs } from "./Breadcrumbs"
-import { isFullAtom, strainItemsAtom } from "../state"
+import { isFullAtom, strainItemsAtom, plasmidItemsAtom } from "../state"
 
 const useStyles = makeStyles({
   container: {
@@ -17,6 +18,11 @@ const useStyles = makeStyles({
 const HeaderRow = () => {
   const isFull = useAtomValue(isFullAtom)
   const strainItems = useAtomValue(strainItemsAtom)
+  const plasmidItems = useAtomValue(plasmidItemsAtom)
+  const cartItems = useMemo(
+    () => [...strainItems, ...plasmidItems],
+    [strainItems, plasmidItems],
+  )
   const { container } = useStyles()
 
   return (
@@ -30,7 +36,7 @@ const HeaderRow = () => {
           <Breadcrumbs />
         </Grid>
         <Grid item>
-          <CartIcon isFull={isFull} items={strainItems} />
+          <CartIcon isFull={isFull} items={cartItems} />
         </Grid>
       </Grid>
       <Outlet />
