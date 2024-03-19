@@ -17,6 +17,49 @@ type CatalogCartItem = CatalogItem & PurchaseProperties
 type CartItemLimit = Readonly<number>
 type Cart = {
   strainItems: Array<StrainCartItem>
+  plasmidItems: Array<PlasmidCartItem>
+}
+
+type ShippingFormData = {
+  firstName: string
+  lastName: string
+  email: string
+  organization: string
+  lab: string
+  address1: string
+  address2: string
+  city: string
+  state: string
+  zip: string
+  country: string
+  phone: string
+  shippingAccount: string
+  shippingAccountNumber: string
+  additionalInformation: string
+}
+
+type PaymentFormData = {
+  payerFirstName: string
+  payerLastName: string
+  payerEmail: string
+  payerOrganization: string
+  payerLab: string
+  payerAddress1: string
+  payerAddress2: string
+  payerCity: string
+  payerState: string
+  payerZip: string
+  payerCountry: string
+  payerPhone: string
+  paymentMethod: string
+  purchaseOrderNum: string
+}
+
+type OrderState = {
+  orderID: string
+  formData: ShippingFormData & PaymentFormData
+  cartItems: Array<StrainCartItem>
+  cartTotal: string
 }
 
 export {
@@ -29,4 +72,7 @@ export {
   type CatalogCartItem,
   type CartItemLimit,
   type Cart,
+  type ShippingFormData,
+  type PaymentFormData,
+  type OrderState,
 }
