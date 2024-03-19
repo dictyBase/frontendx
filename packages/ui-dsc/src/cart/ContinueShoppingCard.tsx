@@ -41,7 +41,18 @@ const ContinueShoppingCard = () => {
         fullWidth
         startIcon={<FontAwesomeIcon icon="share" />}
         className={classes.continueBtn}>
-        Continue Shopping
+        Strains Catalog
+      </Button>
+      <Button
+        component={Link}
+        to="/plasmids"
+        color="default"
+        variant="contained"
+        size="large"
+        fullWidth
+        startIcon={<FontAwesomeIcon icon="share" />}
+        className={classes.continueBtn}>
+        Plasmids Catalog
       </Button>
     </Card>
   )
