@@ -11,12 +11,8 @@ import {
   // OutlinedDropdown,
 } from "@dictybase/ui-dsc"
 import { useCartItemProperties } from "../hooks/useCartItemProperties"
-import {
-  strainItemsAtom,
-  type StrainCartItem as CartItem,
-  addStrainItemsAtom,
-  removeItemAtom,
-} from "../state"
+import { strainItemsAtom, addStrainItemsAtom, removeItemAtom } from "../state"
+import type { StrainCartItem } from "../types"
 
 const useStyles = makeStyles(({ palette }) => ({
   container: {
@@ -42,7 +38,7 @@ const createQuantityArray = (numberItems: number) => {
 }
 
 type Properties = {
-  cartData: CartItem
+  cartData: StrainCartItem
 }
 
 const AvailableDisplay = ({ cartData }: Properties) => {

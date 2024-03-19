@@ -22,8 +22,8 @@ import {
   paymentFormAtom,
   orderStepAtom,
   shippingFormAtom,
-  type ShippingFormData,
 } from "../state"
+import { type ShippingFormData } from "../types"
 
 const validationSchema = object().shape({
   payerFirstName: string().required("* First name is required"),
