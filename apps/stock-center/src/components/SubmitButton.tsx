@@ -12,9 +12,6 @@ import {
 import { useSetAtom, useAtomValue } from "jotai"
 import { getCartTotal } from "@dictybase/ui-dsc"
 import {
-  type StrainCartItem,
-  type ShippingFormData,
-  type PaymentFormData,
   cartAtom,
   resetCartAtom,
   shippingFormAtom,
@@ -22,6 +19,11 @@ import {
   orderAtom,
   submitErrorAtom,
 } from "../state"
+import {
+  type StrainCartItem,
+  type ShippingFormData,
+  type PaymentFormData,
+} from "../types"
 
 /**
  * getIDs creates a new array of just stock IDs
