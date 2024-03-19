@@ -13,10 +13,12 @@ type PlasmidItem = Pick<
 >
 type CatalogItem = StrainItem | PlasmidItem
 type StrainCartItem = StrainItem & PurchaseProperties
+type PlasmidCartItem = PlasmidItem & PurchaseProperties
 type CatalogCartItem = CatalogItem & PurchaseProperties
 type CartItemLimit = Readonly<number>
 type Cart = {
   strainItems: Array<StrainCartItem>
+  plasmidItems: Array<PlasmidCartItem>
 }
 type OrderState = {
   orderID: string
