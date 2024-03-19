@@ -16,7 +16,7 @@ import { pipe } from "fp-ts/function"
 import { slice, trimRight } from "fp-ts/string"
 import { fromNullable, getOrElse } from "fp-ts/Option"
 import type { CatalogItem, StrainItem, PlasmidItem } from "../types"
-import { getCatalogItemDescriptor } from "../utils/getCatalogItemDescriptor"
+import { getCatalogItemPathAndDescriptor } from "../utils/getCatalogItemPathAndDescriptor"
 
 const useStyles = makeStyles({
   listHeaders: {
@@ -97,7 +97,7 @@ const abbreviateStringToLength = (length: number) => (input: string) => {
 }
 
 const cellFunction = (item: cellFunctionItem) => {
-  const { itemPath, itemDescriptor } = getCatalogItemDescriptor(item)
+  const { itemPath, itemDescriptor } = getCatalogItemPathAndDescriptor(item)
   return (
     <>
       <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">

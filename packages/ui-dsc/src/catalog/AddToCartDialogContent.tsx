@@ -3,7 +3,7 @@ import Typography from "@material-ui/core/Typography"
 import DialogContent from "@material-ui/core/DialogContent"
 import DialogContentText from "@material-ui/core/DialogContentText"
 import { type CatalogItem } from "../types"
-import { getCatalogItemDescriptor } from "../utils/getCatalogItemDescriptor"
+import { getCatalogItemPathAndDescriptor } from "../utils/getCatalogItemPathAndDescriptor"
 
 type AddToCartDialogContentProperties = {
   /** Stock data */
@@ -17,7 +17,7 @@ type AddToCartDialogContentProperties = {
 const AddToCartDialogContent = ({ data }: AddToCartDialogContentProperties) => (
   <DialogContent>
     {data.map((item) => {
-      const { itemPath, itemDescriptor } = getCatalogItemDescriptor(item)
+      const { itemPath, itemDescriptor } = getCatalogItemPathAndDescriptor(item)
       return (
         <DialogContentText key={item.id}>
           <Typography gutterBottom>
