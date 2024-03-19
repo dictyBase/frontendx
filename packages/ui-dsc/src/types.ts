@@ -13,6 +13,7 @@ type PlasmidItem = Pick<
 >
 type CatalogItem = StrainItem | PlasmidItem
 type StrainCartItem = StrainItem & PurchaseProperties
+type CatalogCartItem = CatalogItem & PurchaseProperties
 type CartItemLimit = Readonly<number>
 type Cart = {
   strainItems: Array<StrainCartItem>
@@ -39,6 +40,7 @@ export {
   type CatalogItem,
   type StrainCartItem,
   type StrainCartItem as CartItem,
+  type CatalogCartItem,
   type CartItemLimit,
   type Cart,
   type OrderState,
