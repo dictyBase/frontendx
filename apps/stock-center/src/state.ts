@@ -3,12 +3,13 @@ import { atom } from "jotai"
 import { splitAtom } from "jotai/utils"
 import { pipe } from "fp-ts/function"
 import { concat, reduce } from "fp-ts/Array"
-import type { StrainItem, PlasmidItem } from "./types"
-
-// CART STATE
-type PurchaseProperties = { fee: Readonly<number> }
-type StrainCartItem = StrainItem & PurchaseProperties
-type PlasmidCartItem = PlasmidItem & PurchaseProperties
+import type {
+  StrainCartItem,
+  PlasmidCartItem,
+  PaymentFormData,
+  ShippingFormData,
+  OrderState,
+} from "./types"
 
 type Cart = {
   plasmidItems: Array<PlasmidCartItem>
@@ -100,48 +101,6 @@ enum OrderSteps {
   SUBMIT,
 }
 
-type ShippingFormData = {
-  firstName: string
-  lastName: string
-  email: string
-  organization: string
-  lab: string
-  address1: string
-  address2: string
-  city: string
-  state: string
-  zip: string
-  country: string
-  phone: string
-  shippingAccount: string
-  shippingAccountNumber: string
-  additionalInformation: string
-}
-
-type PaymentFormData = {
-  payerFirstName: string
-  payerLastName: string
-  payerEmail: string
-  payerOrganization: string
-  payerLab: string
-  payerAddress1: string
-  payerAddress2: string
-  payerCity: string
-  payerState: string
-  payerZip: string
-  payerCountry: string
-  payerPhone: string
-  paymentMethod: string
-  purchaseOrderNum: string
-}
-
-type OrderState = {
-  orderID: string
-  formData: ShippingFormData & PaymentFormData
-  cartItems: Array<StrainCartItem>
-  cartTotal: string
-}
-
 const initialOrder: OrderState = {
   orderID: "",
   formData: {} as ShippingFormData & PaymentFormData,
@@ -191,11 +150,7 @@ const orderStepAtom = atom(OrderSteps.SHIPPING)
 const submitErrorAtom = atom(false)
 
 export {
-  type StrainCartItem,
   type Cart,
-  type ShippingFormData,
-  type PaymentFormData,
-  type OrderState,
   OrderSteps,
   cartAtom,
   resetCartAtom,
