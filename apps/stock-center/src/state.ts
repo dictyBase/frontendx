@@ -9,7 +9,6 @@ import type { StrainItem, PlasmidItem } from "./types"
 type PurchaseProperties = { fee: Readonly<number> }
 type StrainCartItem = StrainItem & PurchaseProperties
 type PlasmidCartItem = PlasmidItem & PurchaseProperties
-type CartItem = StrainCartItem | PlasmidCartItem
 
 type Cart = {
   plasmidItems: Array<PlasmidCartItem>
@@ -38,6 +37,7 @@ const plasmidItemsAtom = atom(
 )
 
 const strainItemAtomsAtom = splitAtom(strainItemsAtom)
+const plasmidItemAtomsAtom = splitAtom(plasmidItemsAtom)
 
 const maxItemsAtom = atom((get) => get(cartAtom).maxItems)
 
@@ -201,6 +201,8 @@ export {
   resetCartAtom,
   strainItemsAtom,
   strainItemAtomsAtom,
+  plasmidItemsAtom,
+  plasmidItemAtomsAtom,
   addStrainItemsAtom,
   addPlasmidItemsAtom,
   removeItemAtom,
