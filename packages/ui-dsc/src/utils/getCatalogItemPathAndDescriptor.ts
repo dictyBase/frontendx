@@ -16,4 +16,4 @@ const getCatalogItemPathAndDescriptor = (item: CatalogItem) =>
       itemDescriptor: "",
     }))
 
-export { getCatalogItemPathAndDescriptor as getCatalogItemDescriptor }
+export { getCatalogItemPathAndDescriptor }
