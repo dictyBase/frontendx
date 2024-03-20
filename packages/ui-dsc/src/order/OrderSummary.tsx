@@ -5,6 +5,7 @@ import List from "@material-ui/core/List"
 import ListItem from "@material-ui/core/ListItem"
 import ListItemText from "@material-ui/core/ListItemText"
 import Divider from "@material-ui/core/Divider"
+import { OrderSummaryListItems } from "./OrderSummaryListItems"
 import { getShippingValues, getPaymentValues } from "../utils/getListValues"
 import { type FormData } from "../utils/initialFormValues"
 import { getCartTotal } from "../utils/getCartTotal"
@@ -58,28 +59,7 @@ const OrderSummary = ({ formData, cart }: OrderSummaryProperties) => {
         Order Summary
       </Typography>
       <List disablePadding>
-        {cart.strainItems.map((item) => (
-          <ListItem className={classes.listItem} key={item.id}>
-            <ListItemText
-              primary={item.label}
-              secondary={
-                <>
-                  <Typography noWrap>
-                    <em>{item.summary}</em>
-                  </Typography>
-                  <Typography>{item.id}</Typography>
-                </>
-              }
-            />
-            <Typography
-              className={classes.quantity}
-              variant="body2"
-              data-testid="quantity">
-              {/* Qty: {item.quantity} */}
-            </Typography>
-            <Typography variant="body1">${Number(item.fee)}.00</Typography>
-          </ListItem>
-        ))}
+        <OrderSummaryListItems cart={cart} />
         <ListItem className={classes.listItem}>
           <ListItemText
             disableTypography
@@ -90,7 +70,7 @@ const OrderSummary = ({ formData, cart }: OrderSummaryProperties) => {
             }
           />
           <Typography variant="h3" className={classes.total}>
-            {getCartTotal(cart.strainItems)}
+            {getCartTotal([...cart.strainItems, ...cart.plasmidItems])}
           </Typography>
         </ListItem>
       </List>
