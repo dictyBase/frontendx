@@ -2,10 +2,12 @@
 import { atom } from "jotai"
 import { splitAtom } from "jotai/utils"
 import { pipe } from "fp-ts/function"
+import { match } from "ts-pattern"
 import { concat, reduce } from "fp-ts/Array"
 import type {
   StrainCartItem,
   PlasmidCartItem,
+  CatalogItem,
   PaymentFormData,
   ShippingFormData,
   OrderState,
@@ -74,12 +76,22 @@ const addPlasmidItemsAtom = atom(
   },
 )
 
-const removeItemAtom = atom(null, (get, set, removeId) =>
-  set(
-    strainItemsAtom,
-    get(strainItemsAtom).filter((item) => item.id !== removeId),
-  ),
-)
+const removeItemAtom = atom(null, (get, set, removedItem: CatalogItem) => {
+  match(removedItem)
+    .with({ __typename: "Strain" }, () =>
+      set(
+        strainItemsAtom,
+        get(strainItemsAtom).filter((item) => item.id !== removedItem.id),
+      ),
+    )
+    .with({ __typename: "Plasmid" }, () =>
+      set(
+        plasmidItemsAtom,
+        get(plasmidItemsAtom).filter((item) => item.id !== removedItem.id),
+      ),
+    )
+    .otherwise(() => {})
+})
 
 const currentCartQuantityAtom = atom((get) =>
   pipe(
