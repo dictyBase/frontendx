@@ -19,17 +19,13 @@ import {
   orderAtom,
   submitErrorAtom,
 } from "../state"
-import type {
-  StrainCartItem,
-  ShippingFormData,
-  PaymentFormData,
-} from "../types"
+import type { CatalogItem, ShippingFormData, PaymentFormData } from "../types"
 
 /**
  * getIDs creates a new array of just stock IDs
  */
-const getIDs = (items: Array<StrainCartItem>) =>
-  items.map((item: StrainCartItem) => item.id)
+const getIDs = (items: Array<CatalogItem>) =>
+  items.map((item: CatalogItem) => item.id)
 
 const getConsumerVariables = (formData: ShippingFormData) => ({
   first_name: formData.firstName,
@@ -96,7 +92,7 @@ const getUserVariables = (
  */
 const getOrderVariables = (
   formData: ShippingFormData & PaymentFormData,
-  strainItems: Array<StrainCartItem>,
+  strainItems: Array<CatalogItem>,
 ) => ({
   variables: {
     input: {
@@ -158,7 +154,8 @@ const useStyles = makeStyles(() => ({
  * necessary logic for GraphQL queries and mutations.
  */
 const SubmitButton = () => {
-  const { strainItems } = useAtomValue(cartAtom)
+  const { strainItems, plasmidItems } = useAtomValue(cartAtom)
+  const allItems = [...strainItems, ...plasmidItems]
   const shippingFormData = useAtomValue(shippingFormAtom)
   const paymentFormData = useAtomValue(paymentFormAtom)
   const setOrder = useSetAtom(orderAtom)
@@ -195,15 +192,13 @@ const SubmitButton = () => {
         setSubmitError,
         "payer",
       )
-      const orderData = await createOrder(
-        getOrderVariables(formData, strainItems),
-      )
+      const orderData = await createOrder(getOrderVariables(formData, allItems))
       const orderID = orderData?.data?.createOrder?.id
       setOrder({
         orderID: orderID || "",
         formData,
-        cartItems: strainItems,
-        cartTotal: getCartTotal(strainItems),
+        cartItems: allItems,
+        cartTotal: getCartTotal(allItems),
       })
       history(`/order/submitted/${orderID}`)
       emptyCart()
