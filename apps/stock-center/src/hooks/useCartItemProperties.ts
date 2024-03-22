@@ -1,23 +1,31 @@
 import { useAtomValue } from "jotai"
-import { findFirst } from "fp-ts/Array"
-import { match as Omatch } from "fp-ts/Option"
+import { elem } from "fp-ts/Array"
+import { type Eq, contramap } from "fp-ts/Eq"
+import { Eq as sEq } from "fp-ts/string"
 import { pipe } from "fp-ts/function"
-import { isFullAtom, strainItemsAtom } from "../state"
-import type { StrainItem, PlasmidItem } from "../types"
+import { match } from "ts-pattern"
+import { isFullAtom, cartAtom } from "../state"
+import type { CatalogItem } from "../types"
 
-const useCartItemProperties = (item: StrainItem | PlasmidItem) => {
+const itemEq: Eq<CatalogItem> = pipe(
+  sEq,
+  contramap((item) => item.id),
+)
+
+const useCartItemProperties = (catalogItem: CatalogItem) => {
   const isFull = useAtomValue(isFullAtom)
-  const itemsInCart = useAtomValue(strainItemsAtom)
-  const isInCart = pipe(
-    itemsInCart,
-    findFirst((cartItem) => item.id === cartItem.id),
-    Omatch(
-      () => false,
-      () => true,
-    ),
-  )
-  const { in_stock } = item
+  const cart = useAtomValue(cartAtom)
 
+  const isInCart = match(catalogItem)
+    .with({ __typename: "Strain" }, (item) =>
+      pipe(cart.strainItems, elem(itemEq)(item)),
+    )
+    .with({ __typename: "Plasmid" }, (item) =>
+      pipe(cart.plasmidItems, elem(itemEq)(item)),
+    )
+    .otherwise(() => false)
+
+  const { in_stock } = catalogItem
   return { isFull, in_stock, isInCart }
 }
 
