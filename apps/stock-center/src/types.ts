@@ -58,7 +58,7 @@ type PaymentFormData = {
 type OrderState = {
   orderID: string
   formData: ShippingFormData & PaymentFormData
-  cartItems: Array<StrainCartItem>
+  cartItems: Array<CatalogCartItem>
   cartTotal: string
 }
 
