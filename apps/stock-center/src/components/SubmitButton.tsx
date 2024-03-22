@@ -19,10 +19,10 @@ import {
   orderAtom,
   submitErrorAtom,
 } from "../state"
-import {
-  type StrainCartItem,
-  type ShippingFormData,
-  type PaymentFormData,
+import type {
+  StrainCartItem,
+  ShippingFormData,
+  PaymentFormData,
 } from "../types"
 
 /**
