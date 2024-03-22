@@ -23,7 +23,7 @@ const RemoveFromCartButton = ({ item }: RemoveFromCartButtonProperties) => {
   const classes = useStyles()
 
   const handleClick = () => {
-    removeItem(item.id)
+    removeItem(item)
   }
 
   return (
