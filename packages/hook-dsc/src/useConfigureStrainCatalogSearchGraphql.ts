@@ -1,4 +1,9 @@
-import { filter as RAfilter, reduce as RAreduce } from "fp-ts/ReadonlyArray"
+import {
+  filter as RAfilter,
+  reduce as RAreduce,
+  head as RAhead,
+} from "fp-ts/ReadonlyArray"
+import { getOrElse as OgetOrElse } from "fp-ts/Option"
 import { head as RNAhead } from "fp-ts/ReadonlyNonEmptyArray"
 import { keys as Rkeys } from "fp-ts/Record"
 import { flow, pipe } from "fp-ts/function"
@@ -16,7 +21,7 @@ import {
   ConfigureStrainCatalogSearchGraphql,
 } from "./types"
 
-export function useConfigureStrainCatalogSearchGraphql({
+export function getStrainListConfiguration({
   searchParams,
   value,
 }: StrainCatalogSearchProperties) {
@@ -37,27 +42,30 @@ export function useConfigureStrainCatalogSearchGraphql({
   const filterStrainConfig = (config: SearchConfigMember) =>
     config.value === value
   const dataFieldLens = Lens.fromProp<SearchConfigMember>()("dataField")
-  const graphqlLens = Lens.fromProp<SearchConfigMember>()("graphqlFilter")
-  // @ts-ignore
-  const basePipe = flow(RAfilter(filterStrainConfig), RNAhead)
-  // @ts-ignore
+  const graphqlFilterLens = Lens.fromProp<SearchConfigMember>()("graphqlFilter")
+  const basePipe = flow(
+    RAfilter(filterStrainConfig),
+    RAhead,
+    OgetOrElse(() => RNAhead(strainConfig())),
+  )
   const dataFieldPipe = pipe(strainConfig(), basePipe, dataFieldLens.get)
-  // @ts-ignore
-  const graphqlPipe = pipe(strainConfig(), basePipe, graphqlLens.get)
-  const filterPipe = pipe(
+  const strainTypeFilterPipe = pipe(
+    strainConfig(),
+    basePipe,
+    graphqlFilterLens.get,
+  )
+  const additionalfiltersPipe = pipe(
     fieldsToVariables,
     Rkeys,
     RAfilter((field) => searchParams.has(field)),
     RAreduce({}, (accumulator, field: string) => ({
       ...accumulator,
-      // @ts-ignore
-      [fieldsToVariables[field]]: searchParams.get(field),
+      [fieldsToVariables[field] as string]: searchParams.get(field),
     })),
   )
   return pipe(
     initValues,
     strainCatalogDataFieldLens.set(dataFieldPipe),
-    // @ts-ignore
-    filterLens.set({ ...graphqlPipe, ...filterPipe }),
+    filterLens.set({ ...strainTypeFilterPipe, ...additionalfiltersPipe }),
   )
 }

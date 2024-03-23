@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles"
 import Badge from "@material-ui/core/Badge"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons"
-import { type StrainCartItem } from "../types"
+import { type CatalogCartItem } from "../types"
 
 const useStyles = makeStyles(({ palette }) => ({
   cartFull: {
@@ -19,7 +19,7 @@ type CartIconProperties = {
   /**
    * An array of cart items
    */
-  items: Array<StrainCartItem>
+  items: Array<CatalogCartItem>
   /**
    * A flag indicating whether the cart is full
    */

@@ -1,13 +1,13 @@
 import { useState } from "react"
 import { match } from "ts-pattern"
-import { Strain } from "dicty-graphql-schema"
 import { UnavailableButton, AddToCartDialog } from "@dictybase/ui-dsc"
 import { AddToCartButton } from "./AddToCartButton"
 import { RemoveFromCartButton } from "./RemoveFromCartButton"
 import { useCartItemProperties } from "../hooks/useCartItemProperties"
+import type { CatalogItem } from "../types"
 
 type AddToCartButtonHandlerProperties = {
-  item: Pick<Strain, "id" | "label" | "summary" | "in_stock">
+  item: CatalogItem
 }
 
 const AddToCartButtonHandler = ({ item }: AddToCartButtonHandlerProperties) => {
@@ -27,7 +27,7 @@ const AddToCartButtonHandler = ({ item }: AddToCartButtonHandlerProperties) => {
           <UnavailableButton title="Shopping cart is full" size="medium" />
         ))
         .with({ isFull: false, in_stock: true }, () => (
-          <AddToCartButton data={[item]} setShowDialog={setShowDialog} />
+          <AddToCartButton items={[item]} setShowDialog={setShowDialog} />
         ))
         .otherwise(() => (
           <></>

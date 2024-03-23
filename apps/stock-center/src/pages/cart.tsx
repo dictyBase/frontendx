@@ -1,8 +1,8 @@
 import { useAtomValue } from "jotai"
 import { CartHeader, EmptyCart } from "@dictybase/ui-dsc"
+import { match } from "ts-pattern"
 import { CartList } from "../components/CartList"
 import { cartAtom } from "../state"
-
 /**
  * Displays different UI components based on whether there are currently items in the cart
  *
@@ -14,7 +14,14 @@ const CartHandler = () => {
   return (
     <>
       <CartHeader />
-      {cart.strainItems.length > 0 ? <CartList cart={cart} /> : <EmptyCart />}
+      {match(cart)
+        .when(
+          (c) => c.strainItems.length > 0 || c.plasmidItems.length > 0,
+          (c) => <CartList cart={c} />,
+        )
+        .otherwise(() => (
+          <EmptyCart />
+        ))}
     </>
   )
 }

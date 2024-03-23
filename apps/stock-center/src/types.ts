@@ -1,5 +1,4 @@
 import type { Strain, Plasmid } from "dicty-graphql-schema"
-import { FormData } from "./utils/initialFormValues"
 
 type PurchaseProperties = { fee: Readonly<number> }
 
@@ -20,20 +19,47 @@ type Cart = {
   strainItems: Array<StrainCartItem>
   plasmidItems: Array<PlasmidCartItem>
 }
-type OrderState = {
-  orderID: string
-  formData: FormData
-  cartItems: Array<StrainCartItem>
-  cartTotal: string
+
+type ShippingFormData = {
+  firstName: string
+  lastName: string
+  email: string
+  organization: string
+  lab: string
+  address1: string
+  address2: string
+  city: string
+  state: string
+  zip: string
+  country: string
+  phone: string
+  shippingAccount: string
+  shippingAccountNumber: string
+  additionalInformation: string
 }
 
-type DetailsRow = {
-  /** Data object ID */
-  id: number
-  /** Title for row */
-  title: string
-  /** Content to display in row */
-  content: string | JSX.Element | JSX.Element[] | undefined | null
+type PaymentFormData = {
+  payerFirstName: string
+  payerLastName: string
+  payerEmail: string
+  payerOrganization: string
+  payerLab: string
+  payerAddress1: string
+  payerAddress2: string
+  payerCity: string
+  payerState: string
+  payerZip: string
+  payerCountry: string
+  payerPhone: string
+  paymentMethod: string
+  purchaseOrderNum: string
+}
+
+type OrderState = {
+  orderID: string
+  formData: ShippingFormData & PaymentFormData
+  cartItems: Array<CatalogCartItem>
+  cartTotal: string
 }
 
 export {
@@ -41,10 +67,12 @@ export {
   type PlasmidItem,
   type CatalogItem,
   type StrainCartItem,
+  type PlasmidCartItem,
   type StrainCartItem as CartItem,
   type CatalogCartItem,
   type CartItemLimit,
   type Cart,
+  type ShippingFormData,
+  type PaymentFormData,
   type OrderState,
-  type DetailsRow,
 }

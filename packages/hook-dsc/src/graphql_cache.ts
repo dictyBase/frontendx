@@ -1,6 +1,7 @@
 import {
   StrainListQuery,
   ListStrainsWithPhenotypeQuery,
+  PlasmidListFilterQuery,
 } from "dicty-graphql-schema"
 import { Lens } from "monocle-ts"
 import { getMonoid } from "fp-ts/Array"
@@ -13,6 +14,12 @@ type StrainListPair = [StrainList, NotEmptyStrainList]
 type NotEmptyStrainListPair = [NotEmptyStrainList, NotEmptyStrainList]
 type Strains = Pick<NotEmptyStrainList, "strains">["strains"][number]
 
+type PlasmidList = Pick<PlasmidListFilterQuery, "listPlasmids">["listPlasmids"]
+type NotEmptyPlasmidList = NonNullable<PlasmidList>
+type PlasmidListPair = [PlasmidList, NotEmptyPlasmidList]
+type NotEmptyPlasmidListPair = [NotEmptyPlasmidList, NotEmptyPlasmidList]
+type Plasmids = Pick<NotEmptyPlasmidList, "plasmids">["plasmids"][number]
+
 type ListStrainsWithAnnotation = Pick<
   ListStrainsWithPhenotypeQuery,
   "listStrainsWithAnnotation"
@@ -21,6 +28,9 @@ type NotEmptyListStrainsWithAnnotation = NonNullable<ListStrainsWithAnnotation>
 
 const whichStrains = ([existS, inS]: StrainListPair) =>
   existS ? right([existS, inS] as NotEmptyStrainListPair) : left(inS)
+
+const whichPlasmids = ([existP, inP]: PlasmidListPair) =>
+  existP ? right([existP, inP] as NotEmptyPlasmidListPair) : left(inP)
 
 const listStrainsPagination = () => ({
   keyArgs: ["filter"],
@@ -40,6 +50,28 @@ const listStrainsPagination = () => ({
     )
   },
   read(existing: NotEmptyStrainList) {
+    return existing
+  },
+})
+
+const listPlasmidsPagination = () => ({
+  keyArgs: ["filter"],
+  merge(existing: PlasmidList, incoming: NotEmptyPlasmidList) {
+    const plasmidLens = Lens.fromProp<NotEmptyPlasmidList>()("plasmids")
+    const mergeStrains = getMonoid<Plasmids>()
+    const rightFunction = ([existS, inS]: NotEmptyPlasmidListPair) => {
+      // eslint-disable-next-line unicorn/prefer-spread
+      const mplasmids = mergeStrains.concat(existS.plasmids, inS.plasmids)
+      return plasmidLens.set(mplasmids)(incoming)
+    }
+    const leftFunction = (inP: NotEmptyPlasmidList) => inP
+    return pipe(
+      [existing, incoming],
+      whichPlasmids,
+      match(leftFunction, rightFunction),
+    )
+  },
+  read(existing: NotEmptyPlasmidList) {
     return existing
   },
 })
@@ -71,4 +103,8 @@ const listStrainsWithAnnotationPagination = () => ({
   },
 })
 
-export { listStrainsPagination, listStrainsWithAnnotationPagination }
+export {
+  listStrainsPagination,
+  listStrainsWithAnnotationPagination,
+  listPlasmidsPagination,
+}

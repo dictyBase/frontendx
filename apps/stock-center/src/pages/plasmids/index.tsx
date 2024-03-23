@@ -1,35 +1,32 @@
-import { useMemo, useRef } from "react"
-import { getStrainListConfiguration, defaultFilter } from "@dictybase/hook-dsc"
+import {
+  getStrainListConfiguration,
+  defaultFilter,
+  graphqlQueryVariables,
+} from "@dictybase/hook-dsc"
 import { P, match } from "ts-pattern"
 import {
   LoadingDisplay,
-  StrainCatalogTableDisplay,
+  PlasmidCatalogTableDisplay,
   ErrorDisplay,
   SearchBar,
   CatalogListWrapper,
   CatalogHeader,
 } from "@dictybase/ui-dsc"
 import { useIntersectionObserver } from "@dictybase/hook"
-import { useStrainListQuery } from "dicty-graphql-schema"
-import { useSearchParams } from "react-router-dom"
+import { useRef } from "react"
+import { usePlasmidListFilterQuery } from "dicty-graphql-schema"
 
-const StrainCatalog = () => {
-  const [searchParameters] = useSearchParams()
-  const value = searchParameters.get(defaultFilter.param) ?? defaultFilter.value
-  const { dataField, variables } = useMemo(
-    () =>
-      getStrainListConfiguration({
-        value,
-        searchParams: searchParameters,
-      }),
-    [value, searchParameters],
-  )
-  const { loading, error, data, fetchMore } = useStrainListQuery({ variables })
+const PlasmidCatalog = () => {
+  const { loading, error, data, fetchMore } = usePlasmidListFilterQuery({
+    variables: { ...graphqlQueryVariables, filter: "" },
+  })
+
   const rootReference = useRef<HTMLDivElement>(null)
   const targetReference = useRef<HTMLTableRowElement>(null)
-
+  // console.log(loading, error, data)
   const onIntersection = ([entry]: IntersectionObserverEntry[]) => {
-    const nextCursor = data?.listStrains?.nextCursor
+    // console.log("intersecting?")
+    const nextCursor = data?.listPlasmids?.nextCursor
     switch (true) {
       case !nextCursor:
         return
@@ -49,16 +46,16 @@ const StrainCatalog = () => {
 
   return (
     <>
-      <CatalogHeader title="Strain Catalog" />
-      <SearchBar />
+      <CatalogHeader title="Plasmid Catalog" />
+      {/* <SearchBar /> */}
       <CatalogListWrapper root={rootReference}>
         {match({ data, loading, error })
           .with(
-            { data: P.select({ listStrains: P.not(undefined) }) },
+            { data: P.select({ listPlasmids: P.not(undefined) }) },
             (data_) => (
-              <StrainCatalogTableDisplay
+              <PlasmidCatalogTableDisplay
                 data={data_}
-                dataField={dataField}
+                dataField="listPlasmids"
                 target={targetReference}
               />
             ),
@@ -76,4 +73,4 @@ const StrainCatalog = () => {
 }
 
 // eslint-disable-next-line import/no-default-export
-export default StrainCatalog
+export default PlasmidCatalog

@@ -1,21 +1,27 @@
 /* eslint-disable unicorn/no-null */
 import { atom } from "jotai"
 import { splitAtom } from "jotai/utils"
-import { type Strain } from "dicty-graphql-schema"
 import { pipe } from "fp-ts/function"
+import { match } from "ts-pattern"
 import { concat, reduce } from "fp-ts/Array"
+import type {
+  StrainCartItem,
+  PlasmidCartItem,
+  CatalogItem,
+  PaymentFormData,
+  ShippingFormData,
+  OrderState,
+} from "./types"
 
-// CART STATE
-type PurchaseProperties = { fee: Readonly<number> }
-type StrainItem = Pick<Strain, "id" | "summary" | "label" | "in_stock">
-type StrainCartItem = StrainItem & PurchaseProperties
 type Cart = {
+  plasmidItems: Array<PlasmidCartItem>
   strainItems: Array<StrainCartItem>
   maxItems: number
 }
 
 const initialCart: Cart = {
   strainItems: [],
+  plasmidItems: [],
   maxItems: 12,
 }
 
@@ -26,24 +32,66 @@ const strainItemsAtom = atom(
   (_, set, strainItems: Array<StrainCartItem>) =>
     set(cartAtom, (previous) => ({ ...previous, strainItems })),
 )
+
+const plasmidItemsAtom = atom(
+  (get) => get(cartAtom).plasmidItems,
+  (_, set, plasmidItems: Array<PlasmidCartItem>) =>
+    set(cartAtom, (previous) => ({ ...previous, plasmidItems })),
+)
+
 const strainItemAtomsAtom = splitAtom(strainItemsAtom)
+const plasmidItemAtomsAtom = splitAtom(plasmidItemsAtom)
+
 const maxItemsAtom = atom((get) => get(cartAtom).maxItems)
 
-const addItemsAtom = atom(null, (get, set, newItems: Array<StrainCartItem>) => {
-  set(
-    strainItemsAtom,
-    pipe(get(strainItemsAtom), concat(newItems), (state) =>
-      state.slice(0, get(maxItemsAtom)),
-    ),
-  )
-})
-
-const removeItemAtom = atom(null, (get, set, removeId) =>
-  set(
-    strainItemsAtom,
-    get(strainItemsAtom).filter((item) => item.id !== removeId),
-  ),
+const remainingCartSpaceAtom = atom(
+  (get) =>
+    get(maxItemsAtom) -
+    (get(strainItemsAtom).length + get(plasmidItemsAtom).length),
 )
+
+const addStrainItemsAtom = atom(
+  null,
+  (get, set, newItems: Array<StrainCartItem>) => {
+    set(
+      strainItemsAtom,
+      pipe(
+        get(strainItemsAtom),
+        concat(newItems.slice(0, get(remainingCartSpaceAtom))),
+      ),
+    )
+  },
+)
+
+const addPlasmidItemsAtom = atom(
+  null,
+  (get, set, newItems: Array<PlasmidCartItem>) => {
+    set(
+      plasmidItemsAtom,
+      pipe(
+        get(plasmidItemsAtom),
+        concat(newItems.slice(0, get(remainingCartSpaceAtom))),
+      ),
+    )
+  },
+)
+
+const removeItemAtom = atom(null, (get, set, removedItem: CatalogItem) => {
+  match(removedItem)
+    .with({ __typename: "Strain" }, () =>
+      set(
+        strainItemsAtom,
+        get(strainItemsAtom).filter((item) => item.id !== removedItem.id),
+      ),
+    )
+    .with({ __typename: "Plasmid" }, () =>
+      set(
+        plasmidItemsAtom,
+        get(plasmidItemsAtom).filter((item) => item.id !== removedItem.id),
+      ),
+    )
+    .otherwise(() => {})
+})
 
 const currentCartQuantityAtom = atom((get) =>
   pipe(
@@ -63,48 +111,6 @@ enum OrderSteps {
   SHIPPING,
   PAYMENT,
   SUBMIT,
-}
-
-type ShippingFormData = {
-  firstName: string
-  lastName: string
-  email: string
-  organization: string
-  lab: string
-  address1: string
-  address2: string
-  city: string
-  state: string
-  zip: string
-  country: string
-  phone: string
-  shippingAccount: string
-  shippingAccountNumber: string
-  additionalInformation: string
-}
-
-type PaymentFormData = {
-  payerFirstName: string
-  payerLastName: string
-  payerEmail: string
-  payerOrganization: string
-  payerLab: string
-  payerAddress1: string
-  payerAddress2: string
-  payerCity: string
-  payerState: string
-  payerZip: string
-  payerCountry: string
-  payerPhone: string
-  paymentMethod: string
-  purchaseOrderNum: string
-}
-
-type OrderState = {
-  orderID: string
-  formData: ShippingFormData & PaymentFormData
-  cartItems: Array<StrainCartItem>
-  cartTotal: string
 }
 
 const initialOrder: OrderState = {
@@ -156,18 +162,16 @@ const orderStepAtom = atom(OrderSteps.SHIPPING)
 const submitErrorAtom = atom(false)
 
 export {
-  type StrainItem,
-  type StrainCartItem,
   type Cart,
-  type ShippingFormData,
-  type PaymentFormData,
-  type OrderState,
   OrderSteps,
   cartAtom,
   resetCartAtom,
   strainItemsAtom,
   strainItemAtomsAtom,
-  addItemsAtom,
+  plasmidItemsAtom,
+  plasmidItemAtomsAtom,
+  addStrainItemsAtom,
+  addPlasmidItemsAtom,
   removeItemAtom,
   currentCartQuantityAtom,
   maxItemsAtom,

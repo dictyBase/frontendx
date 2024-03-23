@@ -9,8 +9,8 @@ import ListItem from "@material-ui/core/ListItem"
 import IconButton from "@material-ui/core/IconButton"
 import Typography from "@material-ui/core/Typography"
 import ClearIcon from "@material-ui/icons/Clear"
-import { type StrainCartItem } from "../types"
-import { strainOrPlasmid } from "../utils/strainOrPlasmid"
+import type { CatalogCartItem } from "../types"
+import { getCatalogItemPathAndDescriptor } from "../utils/getCatalogItemPathAndDescriptor"
 import { toCurrencyString } from "../utils/toCurrencyString"
 
 const useStyles = makeStyles((theme) => ({
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 type ShoppingCartItemProperties = {
   /** Individual cart item with given quantity */
-  item: StrainCartItem
+  item: CatalogCartItem
   /** A callback that will be run when the user clicks a delete button on a ShoppingCartItem */
   deleteItem: () => void
 }
@@ -42,13 +42,13 @@ type ShoppingCartItemProperties = {
  */
 const CartItem = ({ item, deleteItem }: ShoppingCartItemProperties) => {
   const classes = useStyles()
-  const stock = strainOrPlasmid(item.id)
+  const { itemPath, itemDescriptor } = getCatalogItemPathAndDescriptor(item)
   return (
     <Card className={classes.container}>
       <CardHeader
         avatar={
           <Avatar aria-label="stock" className={classes.avatar}>
-            {stock === "strains" ? "S" : "P"}
+            {itemPath === "strains" ? "S" : "P"}
           </Avatar>
         }
         action={
@@ -58,7 +58,7 @@ const CartItem = ({ item, deleteItem }: ShoppingCartItemProperties) => {
         }
         title={
           <Typography variant="h2">
-            <Link to={`/${stock}/${item.id}`}>{item.label}</Link>
+            <Link to={`/${itemPath}/${item.id}`}>{itemDescriptor}</Link>
           </Typography>
         }
         disableTypography
