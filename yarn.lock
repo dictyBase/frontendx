@@ -2713,41 +2713,40 @@
   dependencies:
     "@lexical/offset" "0.11.3"
 
-"@logto/browser@^2.2.1":
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/@logto/browser/-/browser-2.2.1.tgz#82abf90ea88240f6b665e362298c72243227e64e"
-  integrity sha512-SooFjYxWUALzHflqVMM11OfNKOA/6NUAj35Me/galRCFKHYA6xotjI92UrGr3mUjZg5SIh/Sm3TEDHH8HrzHVw==
+"@logto/browser@^2.2.2":
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/@logto/browser/-/browser-2.2.4.tgz#c1b8b48da9f98f8285ad9017bdfe7267e11ca3a0"
+  integrity sha512-GLvXyBjb3TA77OnGR1Xe3uAnBkbV9nfX3kr8cQYv1KAdq5LxR+VacaFaDYGXN+yxBsewJBnqBbN2nY+pMeSc4A==
   dependencies:
-    "@logto/client" "^2.3.1"
-    "@silverhand/essentials" "^2.6.2"
+    "@logto/client" "^2.6.0"
+    "@silverhand/essentials" "^2.8.7"
     js-base64 "^3.7.4"
 
-"@logto/client@^2.3.1":
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/@logto/client/-/client-2.3.1.tgz#fd81ca91ed95c5faaca930c665bfc9f000b35c3c"
-  integrity sha512-LNNnMYLy9372T6EqWlEHqUSl16r4si897fZkehCv8zEY4DPD3fpZAp348/hC8ifNTL3NEZUuOQsjP/fF6fImbA==
+"@logto/client@^2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@logto/client/-/client-2.6.0.tgz#b8346d9c23855f33a3e918ac60e72a08d5b89892"
+  integrity sha512-wlrQy+2Fm5rBvRih4Q9+e+v3MT3MGzIqNdm9CmdQay3BakYU057p21eg4POO8eTyzgJ7An05TjXTskzj+UknXg==
   dependencies:
-    "@logto/js" "^3.0.0"
-    "@silverhand/essentials" "^2.6.2"
+    "@logto/js" "^4.1.0"
+    "@silverhand/essentials" "^2.8.7"
     camelcase-keys "^7.0.1"
-    jose "^5.0.0"
+    jose "^5.2.2"
 
-"@logto/js@^3.0.0":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@logto/js/-/js-3.0.1.tgz#085e1aa6a1529d2665162dba8c9785932c06575c"
-  integrity sha512-vsU6mH5oiiW3k00pMyVA4V31K2Bd0rOT9qWch2l5e5o1yCQLJ3zUIOjGjChu3m2TRu1d920iiUpZU3Lzf6Pwdw==
+"@logto/js@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@logto/js/-/js-4.1.0.tgz#ed700fcbe51ba18796c6719a2ac2718707d67a8d"
+  integrity sha512-gjcwxCWdOKaFd7FZDSOZJa+oYm+Ohq/lkxGLvObJ2kYst3Wr//ySJhArbqPgQLkxCPfAaRe6kPsnPBpsK2lUxQ==
   dependencies:
-    "@silverhand/essentials" "^2.6.2"
+    "@silverhand/essentials" "^2.8.7"
     camelcase-keys "^7.0.1"
-    jose "^5.0.0"
 
 "@logto/react@^2.1.2":
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/@logto/react/-/react-2.2.3.tgz#934862b81819a685bfe4e545708d48ae9ca191c5"
-  integrity sha512-FfXP64jMYL26yaBU0cW2lhXmnr+M6kARLf/R9TPAsxu9wSt//CfOC2rfCro5vC5JArfdFxKsrw+Uua1NfETM3A==
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/@logto/react/-/react-2.2.4.tgz#1d651af2a12b647c409ff954ef43539e5568e5a8"
+  integrity sha512-Mdqxrpv46YBtk0zMsxuMPZPBGSPj7MLNXwXEQycW0tjT4mr7SurEc89yBcfY0gnIecoVx76tC3By4FeLI6bTWQ==
   dependencies:
-    "@logto/browser" "^2.2.1"
-    "@silverhand/essentials" "^2.6.2"
+    "@logto/browser" "^2.2.2"
+    "@silverhand/essentials" "^2.8.7"
 
 "@material-ui/core@4.12.x", "@material-ui/core@4.x", "@material-ui/core@^4.12.3", "@material-ui/core@^4.12.4", "@material-ui/core@^4.x":
   version "4.12.4"
@@ -4072,10 +4071,10 @@
   resolved "https://registry.yarnpkg.com/@sideway/pinpoint/-/pinpoint-2.0.0.tgz#cff8ffadc372ad29fd3f78277aeb29e632cc70df"
   integrity sha512-RNiOoTPkptFtSVzQevY/yWtZwf/RxyVnPy/OcA9HBM3MlGDnBEYL5B41H0MTn0Uec8Hi+2qUtTfG2WWZBmMejQ==
 
-"@silverhand/essentials@^2.6.2":
-  version "2.8.4"
-  resolved "https://registry.yarnpkg.com/@silverhand/essentials/-/essentials-2.8.4.tgz#8ee4cb1bb1f068440658e83c5dc91e22bcb60478"
-  integrity sha512-VaI00QyD2trA7n7/wHNcGNGRXoSr8dUGs/hQCu4Rju4Edl3vso7CeCXdfGU2aNDuT2uMs75of6Ph8gqVJhWlYQ==
+"@silverhand/essentials@^2.8.7":
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/@silverhand/essentials/-/essentials-2.9.0.tgz#95f7ac6fe8624bb4114cc3588778414fb56f80be"
+  integrity sha512-n9mSO/gsLj0GRFXBRNhaQLRK6qbn6pBnKjMQdFwweKgT12ODBXpgkpXohpOBqSofnoaCQWqiDAT6xpCy/5dMIg==
 
 "@sinclair/typebox@^0.27.8":
   version "0.27.8"
@@ -12535,10 +12534,10 @@ joi@^17.11.0:
     "@sideway/formula" "^3.0.1"
     "@sideway/pinpoint" "^2.0.0"
 
-jose@^5.0.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/jose/-/jose-5.2.0.tgz#d0ffd7f7e31253f633eefb190a930cd14a916995"
-  integrity sha512-oW3PCnvyrcm1HMvGTzqjxxfnEs9EoFOFWi2HsEGhlFVOXxTE3K9GKWVMFoFw06yPUqwpvEWic1BmtUZBI/tIjw==
+jose@^5.2.2:
+  version "5.2.3"
+  resolved "https://registry.yarnpkg.com/jose/-/jose-5.2.3.tgz#071c87f9fe720cff741a403c8080b69bfe13164a"
+  integrity sha512-KUXdbctm1uHVL8BYhnyHkgp3zDX5KW8ZhAKVFEfUbU2P8Alpzjb+48hHvjOdQIyPshoblhzsuqOwEEAbtHVirA==
 
 jotai-optics@^0.3.0:
   version "0.3.1"
