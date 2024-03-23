@@ -24,7 +24,13 @@ const whichStrains = ([existS, inS]: StrainListPair) =>
 
 const listStrainsPagination = () => ({
   keyArgs: ["filter"],
-  merge(existing: StrainList, incoming: NotEmptyStrainList) {
+  merge(
+    existing: StrainList,
+    incoming: NotEmptyStrainList,
+    { args: { cursor } }: { args: { cursor: number } },
+  ) {
+    if (existing?.nextCursor && existing?.nextCursor !== cursor)
+      return { ...existing }
     const strainLens = Lens.fromProp<NotEmptyStrainList>()("strains")
     const mergeStrains = getMonoid<Strains>()
     const rightFunction = ([existS, inS]: NotEmptyStrainListPair) => {
