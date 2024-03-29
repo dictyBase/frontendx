@@ -30,7 +30,7 @@ describe("ContinueShoppingCard", () => {
     expect(screen.getByText("Strain Catalog")).toBeInTheDocument()
   })
 
-  test("should render a Button with the text 'Plasmids Catalog' that links user to the /strains route", async () => {
+  test("should render a Button with the text 'Plasmids Catalog' that links user to the /plasmids route", async () => {
     render(<App />)
     const buttonElement = screen.getByText("Plasmids Catalog")
 
