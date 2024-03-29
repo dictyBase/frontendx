@@ -1,6 +1,4 @@
 import {
-  getStrainListConfiguration,
-  defaultFilter,
   graphqlQueryVariables,
 } from "@dictybase/hook-dsc"
 import { P, match } from "ts-pattern"
@@ -8,7 +6,6 @@ import {
   LoadingDisplay,
   PlasmidCatalogTableDisplay,
   ErrorDisplay,
-  SearchBar,
   CatalogListWrapper,
   CatalogHeader,
 } from "@dictybase/ui-dsc"
