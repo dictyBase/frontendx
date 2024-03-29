@@ -2,10 +2,10 @@ import { describe, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { OrderSummary } from "../order/OrderSummary"
 import { mockValues } from "../utils/mockValues"
-import { StrainCartItem } from "../types"
+import { StrainCartItem, PlasmidCartItem } from "../types"
 
 describe("OrderSummary", () => {
-  const items = [
+  const strainItems = [
     {
       fee: 30,
       quantity: 1,
@@ -14,6 +14,8 @@ describe("OrderSummary", () => {
       summary: "heterozygote diploid tester strain; Parents: HL501 and X55",
       in_stock: true,
     },
+  ]
+  const plasmidItems = [
     {
       fee: 15,
       quantity: 1,
@@ -25,18 +27,21 @@ describe("OrderSummary", () => {
     },
   ]
   test("should display correct items", () => {
-    render(<OrderSummary formData={mockValues} cart={{ strainItems: items }} />)
+    render(<OrderSummary formData={mockValues} cart={{ strainItems, plasmidItems }} />)
     // strain should show price for quantity of 2
     // expect(screen.getAllByTestId("quantity")[0]).toHaveTextContent(/Qty: 2/)
     // one plasmid
     expect(
-      screen.getByText((items[1] as StrainCartItem).id),
+      screen.getByText((strainItems[0] as StrainCartItem).id),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText((plasmidItems[0] as PlasmidCartItem).id),
     ).toBeInTheDocument()
     // correct total (30+30+15)
     expect(screen.getByText("$45.00")).toBeInTheDocument()
   })
   test("should display correct address formatting", () => {
-    render(<OrderSummary formData={mockValues} cart={{ strainItems: items }} />)
+    render(<OrderSummary formData={mockValues} cart={{ strainItems, plasmidItems }} />)
     // shipping and payment address are the same
     const addresses = screen.getAllByText(/New York City, NY, USA 10001/)
     expect(addresses).toHaveLength(2)

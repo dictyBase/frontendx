@@ -98,7 +98,7 @@ describe("rowFunction", () => {
     render(
       <MemoryRouter>
         <CatalogRows
-          strains={testListStrains}
+          items={testListStrains}
           nextCursor={0}
           targetReference={{} as RefObject<HTMLTableRowElement>}
         />
@@ -110,7 +110,7 @@ describe("rowFunction", () => {
     render(
       <MemoryRouter>
         <CatalogRows
-          strains={testListStrains}
+          items={testListStrains}
           nextCursor={4}
           targetReference={{} as RefObject<HTMLTableRowElement>}
         />
