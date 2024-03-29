@@ -1,6 +1,4 @@
-import {
-  graphqlQueryVariables,
-} from "@dictybase/hook-dsc"
+import { graphqlQueryVariables } from "@dictybase/hook-dsc"
 import { P, match } from "ts-pattern"
 import {
   LoadingDisplay,
