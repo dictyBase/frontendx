@@ -27,7 +27,12 @@ describe("OrderSummary", () => {
     },
   ]
   test("should display correct items", () => {
-    render(<OrderSummary formData={mockValues} cart={{ strainItems, plasmidItems }} />)
+    render(
+      <OrderSummary
+        formData={mockValues}
+        cart={{ strainItems, plasmidItems }}
+      />,
+    )
     // strain should show price for quantity of 2
     // expect(screen.getAllByTestId("quantity")[0]).toHaveTextContent(/Qty: 2/)
     // one plasmid
@@ -41,7 +46,12 @@ describe("OrderSummary", () => {
     expect(screen.getByText("$45.00")).toBeInTheDocument()
   })
   test("should display correct address formatting", () => {
-    render(<OrderSummary formData={mockValues} cart={{ strainItems, plasmidItems }} />)
+    render(
+      <OrderSummary
+        formData={mockValues}
+        cart={{ strainItems, plasmidItems }}
+      />,
+    )
     // shipping and payment address are the same
     const addresses = screen.getAllByText(/New York City, NY, USA 10001/)
     expect(addresses).toHaveLength(2)
