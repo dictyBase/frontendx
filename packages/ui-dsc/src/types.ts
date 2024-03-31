@@ -41,6 +41,7 @@ export {
   type PlasmidItem,
   type CatalogItem,
   type StrainCartItem,
+  type PlasmidCartItem,
   type StrainCartItem as CartItem,
   type CatalogCartItem,
   type CartItemLimit,
