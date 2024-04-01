@@ -3,11 +3,14 @@ import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { MemoryRouter, Routes, Route } from "react-router-dom"
 import { RefObject } from "react"
+import { pipe } from "fp-ts/function"
+import { map as Amap } from "fp-ts/Array"
 import {
   abbreviateStringToLength,
   cellFunction,
   CatalogRows,
   CatalogTableHeader,
+  PlasmidCatalogTableDisplay,
 } from "../catalog/CatalogTableDisplay"
 import { mockPlasmids } from "../mocks/mockPlasmids"
 
@@ -154,4 +157,27 @@ describe("CatalogTableHeader", () => {
     ).toBeInTheDocument()
     expect(screen.getByRole("cell", { name: "Strain ID" })).toBeInTheDocument()
   })
+})
+
+describe("PlasmidCatalogTableDisplay", () => {
+  const testCases = pipe(
+    mockPlasmids,
+    Amap(({ name }) => name),
+  )
+  const mockPlasmidData = { listPlasmids: { plasmids: mockPlasmids } }
+  test.each(testCases)(
+    "properly displays row with name of plasmid: %s",
+    (a) => {
+      render(
+        <MemoryRouter>
+          <PlasmidCatalogTableDisplay
+            data={mockPlasmidData}
+            dataField="listPlasmids"
+            target={{} as RefObject<HTMLTableRowElement>}
+          />
+        </MemoryRouter>,
+      )
+      expect(screen.getByText(a)).toBeInTheDocument()
+    },
+  )
 })
