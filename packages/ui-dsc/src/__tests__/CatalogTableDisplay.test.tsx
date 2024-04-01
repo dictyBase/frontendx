@@ -133,7 +133,7 @@ describe("rowFunction", () => {
     )
     expect(screen.getAllByRole("row")).toHaveLength(testListStrains.length + 1)
   })
-}) 
+})
 
 describe("CatalogTableHeader", () => {
   const tableHeaders = ["cell 1", "cell 2", "cell 3"]
@@ -155,4 +155,3 @@ describe("CatalogTableHeader", () => {
     expect(screen.getByRole("cell", { name: "Strain ID" })).toBeInTheDocument()
   })
 })
-
