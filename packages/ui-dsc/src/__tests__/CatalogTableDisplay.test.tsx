@@ -9,6 +9,7 @@ import {
   CatalogRows,
   CatalogTableHeader,
 } from "../catalog/CatalogTableDisplay"
+import { mockPlasmids } from "../mocks/mockPlasmids"
 
 vi.mock("@material-ui/core/styles", async () => {
   const originalModule = (await vi.importActual(
@@ -94,6 +95,19 @@ describe("rowFunction", () => {
       in_stock: true,
     },
   ]
+  test("given a plasmid array, render a table row for each element in the array", () => {
+    render(
+      <MemoryRouter>
+        <CatalogRows
+          items={mockPlasmids}
+          nextCursor={0}
+          targetReference={{} as RefObject<HTMLTableRowElement>}
+        />
+      </MemoryRouter>,
+    )
+    expect(screen.getAllByRole("row")).toHaveLength(mockPlasmids.length)
+  })
+
   test("given a strains array, render a table row for each element in the array", () => {
     render(
       <MemoryRouter>
@@ -106,6 +120,7 @@ describe("rowFunction", () => {
     )
     expect(screen.getAllByRole("row")).toHaveLength(testListStrains.length)
   })
+
   test("if nextCursor is greater than 1, render an additional table row for that indicates fetching more data", () => {
     render(
       <MemoryRouter>
@@ -118,7 +133,7 @@ describe("rowFunction", () => {
     )
     expect(screen.getAllByRole("row")).toHaveLength(testListStrains.length + 1)
   })
-})
+}) 
 
 describe("CatalogTableHeader", () => {
   const tableHeaders = ["cell 1", "cell 2", "cell 3"]
@@ -140,3 +155,4 @@ describe("CatalogTableHeader", () => {
     expect(screen.getByRole("cell", { name: "Strain ID" })).toBeInTheDocument()
   })
 })
+
