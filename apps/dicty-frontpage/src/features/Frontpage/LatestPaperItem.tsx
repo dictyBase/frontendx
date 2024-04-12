@@ -41,6 +41,7 @@ const LatestPaperItem = ({ data }: LatestPaperItemProperties) => {
         <Typography className={mainContent}>
           <Link
             className={link}
+            reloadDocument
             to={`${import.meta.env.VITE_APP_PUBLICATION_URL}/${pubmedId}`}>
             {`${authors}. (${date}). `}
           </Link>
