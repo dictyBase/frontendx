@@ -39,7 +39,9 @@ const LatestPaperItem = ({ data }: LatestPaperItemProperties) => {
     <li className={listItem}>
       <Box className={mainContent}>
         <Typography className={mainContent}>
-          <Link className={link} to={`/publication/${pubmedId}`}>
+          <Link
+            className={link}
+            to={`${import.meta.env.VITE_APP_PUBLICATION_URL}/${pubmedId}`}>
             {`${authors}. (${date}). `}
           </Link>
           {`${title} `}
