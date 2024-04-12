@@ -135,43 +135,39 @@ const authNavbarItems = {
         items: [
           {
             label: "Stock Center Home",
-            link: `${import.meta.env["VITE_APP_STOCKCENTER_URL"]}/stockcenter`,
+            link: `${import.meta.env["VITE_APP_STOCKCENTER_URL"]}`,
           },
           {
             label: "Strain Catalog",
-            link: `${
-              import.meta.env["VITE_APP_STOCKCENTER_URL"]
-            }/stockcenter/strains`,
+            link: `${import.meta.env["VITE_APP_STOCKCENTER_URL"]}/strains`,
           },
           {
             label: "Plasmid Catalog",
-            link: `${
-              import.meta.env["VITE_APP_STOCKCENTER_URL"]
-            }/stockcenter/plasmids`,
+            link: `${import.meta.env["VITE_APP_STOCKCENTER_URL"]}/plasmids`,
           },
           {
             label: "Order Information",
             link: `${
               import.meta.env["VITE_APP_STOCKCENTER_URL"]
-            }/stockcenter/information/order/editable`,
+            }/information/order/editable`,
           },
           {
             label: "Deposit Information",
             link: `${
               import.meta.env["VITE_APP_STOCKCENTER_URL"]
-            }/stockcenter/information/deposit/editable`,
+            }/information/deposit/editable`,
           },
           {
             label: "Payment Information",
             link: `${
               import.meta.env["VITE_APP_STOCKCENTER_URL"]
-            }/stockcenter/information/payment/editable`,
+            }/information/payment/editable`,
           },
           {
             label: "FAQ",
             link: `${
               import.meta.env["VITE_APP_STOCKCENTER_URL"]
-            }/stockcenter/information/faq/editable`,
+            }/information/faq/editable`,
           },
           {
             label: "Standard Operating Procedures",
