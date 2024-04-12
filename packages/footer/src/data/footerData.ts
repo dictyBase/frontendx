@@ -13,7 +13,7 @@ export const footerData: Array<FooterItem> = [
     label: "Teaching Protocols",
   },
   {
-    url: `${import.meta.env["VITE_APP_STOCKCENTER_URL"]}/stockcenter`,
+    url: `${import.meta.env["VITE_APP_STOCKCENTER_URL"]}`,
     label: "Dicty Stock Center",
   },
   {
@@ -39,9 +39,7 @@ export const footerData: Array<FooterItem> = [
     label: "About",
   },
   {
-    url: `${
-      import.meta.env["VITE_APP_STOCKCENTER_URL"]
-    }/stockcenter/contact/show`,
+    url: `${import.meta.env["VITE_APP_STOCKCENTER_URL"]}/contact/show`,
     label: "Contact",
   },
 ]

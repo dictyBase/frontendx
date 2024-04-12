@@ -11,7 +11,7 @@ const authFooterItems = [
     label: "Teaching Protocols",
   },
   {
-    url: `${import.meta.env["VITE_APP_STOCKCENTER_URL"]}/stockcenter`,
+    url: `${import.meta.env["VITE_APP_STOCKCENTER_URL"]}`,
     label: "Dicty Stock Center",
   },
   {
@@ -37,9 +37,7 @@ const authFooterItems = [
     label: "About",
   },
   {
-    url: `${
-      import.meta.env["VITE_APP_STOCKCENTER_URL"]
-    }/stockcenter/contact/editable`,
+    url: `${import.meta.env["VITE_APP_STOCKCENTER_URL"]}/contact/editable`,
     label: "Contact",
   },
 ]
