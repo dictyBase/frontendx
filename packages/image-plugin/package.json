@@ -16,8 +16,10 @@
     "tsconfig": "*"
   },
   "dependencies": {
+    "dicty-graphql-schema": "dictybase/dicty-graphql-schema",
     "flex-layout-plugin": "*",
-    "resizable-image": "*"
+    "resizable-image": "*",
+    "ts-pattern": "4.x"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",
