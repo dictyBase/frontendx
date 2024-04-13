@@ -21,7 +21,6 @@ import {
   useEditorInputStyles,
   useEditorPlaceholderStyles,
 } from "./useEditorStyles"
-import { usePersistencePluginStyles } from "./usePersistencePluginStyles"
 import { initialStateString } from "./initialState"
 import "./editor.css"
 
@@ -102,8 +101,8 @@ const Editor = ({
           <></>
         )}
         <Grid item>
-          <div className={editorAreaClasses.container}>
-            <Container disableGutters className={editorAreaClasses.root}>
+          <div className={editorAreaClasses["container"]}>
+            <Container disableGutters className={editorAreaClasses["root"]!}>
               <RichTextPlugin
                 ErrorBoundary={LexicalErrorBoundary}
                 contentEditable={
