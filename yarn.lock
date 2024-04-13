@@ -95,26 +95,6 @@
     tslib "^2.3.0"
     zen-observable-ts "^1.2.5"
 
-"@apollo/client@^3.9.4":
-  version "3.9.11"
-  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.9.11.tgz#737e5c35c21d6f3b78423033ad81837a8a6992e0"
-  integrity sha512-H7e9m7cRcFO93tokwzqrsbnfKorkpV24xU30hFH5u2g6B+c1DMo/ouyF/YrBPdrTzqxQCjTUmds/FLmJ7626GA==
-  dependencies:
-    "@graphql-typed-document-node/core" "^3.1.1"
-    "@wry/caches" "^1.0.0"
-    "@wry/equality" "^0.5.6"
-    "@wry/trie" "^0.5.0"
-    graphql-tag "^2.12.6"
-    hoist-non-react-statics "^3.3.2"
-    optimism "^0.18.0"
-    prop-types "^15.7.2"
-    rehackt "0.0.6"
-    response-iterator "^0.2.6"
-    symbol-observable "^4.0.0"
-    ts-invariant "^0.10.3"
-    tslib "^2.3.0"
-    zen-observable-ts "^1.2.5"
-
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4", "@babel/code-frame@^7.12.13", "@babel/code-frame@^7.22.13":
   version "7.22.13"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.22.13.tgz#e3c1c099402598483b7a8c46a721d1038803755e"
@@ -7782,22 +7762,12 @@ dicty-components-login@dictybase/dicty-components-login#4.1.1:
   dependencies:
     polished "^3.4.1"
 
-dicty-graphql-schema@dictybase/dicty-graphql-schema:
-  version "1.12.0"
-  resolved "https://codeload.github.com/dictybase/dicty-graphql-schema/tar.gz/58f87d8878a019a99f4ba2b3bc7d2fc69619199d"
+"dicty-graphql-schema@https://github.com/dictyBase/dicty-graphql-schema#v1.14.0":
+  version "1.14.0"
+  resolved "https://github.com/dictyBase/dicty-graphql-schema#87425100dee095178fe609ee5e7f7636fb2fded3"
   dependencies:
     graphql "^16.8.1"
     msw "^2.2.13"
-
-dicty-graphql-schema@dictybase/dicty-graphql-schema#1.11.0:
-  version "1.11.0"
-  resolved "https://codeload.github.com/dictybase/dicty-graphql-schema/tar.gz/39f81e2b8c4d0bbe5c4075228940df267c31baf6"
-  dependencies:
-    "@apollo/client" "^3.9.4"
-    graphql "^16.8.1"
-    graphql-tag "^2.12.6"
-    react "17.x"
-    react-dom "17.x"
 
 dicty-hooks@dictybase/dicty-hooks#3.0.0:
   version "3.0.0"
@@ -16602,11 +16572,6 @@ regjsparser@^0.9.1:
   integrity sha512-dQUtn90WanSNl+7mQKcXAgZxvUe7Z0SqXlgzv0za4LwiUhyzBC58yQO3liFoUgu8GiJVInAhJjkj1N0EtQ5nkQ==
   dependencies:
     jsesc "~0.5.0"
-
-rehackt@0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/rehackt/-/rehackt-0.0.6.tgz#7a0a2247f2295e7548915417e44fbbf03bf004f4"
-  integrity sha512-l3WEzkt4ntlEc/IB3/mF6SRgNHA6zfQR7BlGOgBTOmx7IJJXojDASav+NsgXHFjHn+6RmwqsGPFgZpabWpeOdw==
 
 remark-parse@^10.0.0:
   version "10.0.2"

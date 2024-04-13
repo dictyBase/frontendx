@@ -25,17 +25,17 @@
     "generate:schema": "turbo run generate"
   },
   "devDependencies": {
+    "@types/node": "18.16.x",
     "browserlist": "latest",
     "eslint-config-custom": "*",
     "plop": "3.x",
     "prettier": "2.x",
+    "tsx": "latest",
     "turbo": "^1.10.12",
     "typedoc": "0.23.x",
     "typedoc-plugin-coverage": "2.x",
     "typedoc-plugin-mermaid": "1.x",
-    "typedoc-plugin-resolve-crossmodule-references": "0.x",
-    "@types/node": "18.16.x",
-    "tsx": "latest"
+    "typedoc-plugin-resolve-crossmodule-references": "0.x"
   },
   "resolutions": {
     "@types/react": "17.x",
