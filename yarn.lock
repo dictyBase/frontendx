@@ -4208,9 +4208,9 @@
   integrity sha512-bix9CWljCxyD06nGQRDYdmTw0wevvEDyrLKjbDocGV31JQYbfqqgMV1yFeJ9aDgorKQ9yDLrak8poiggsB5Liw==
 
 "@tsconfig/next@^2.x":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@tsconfig/next/-/next-2.0.1.tgz#5c552b808fd3448701a7dcd1de80a52c393795f0"
-  integrity sha512-8Za+6fv85ipdoO1u/Xknyurab8T92LbS0/KzRB0/GHvPh3xl0L4yf5+VmSxXNwjF1uS/xLSqf+BPhfaqasCpZw==
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@tsconfig/next/-/next-2.0.3.tgz#e2b273136175a85749d8ed4ec434a84c43db209d"
+  integrity sha512-b4aKvmdWnv9aUy+NStUFlefirk3SItW20OJtbi5/ue9oMRaQtUYbN5zsr7OmV3rlx6Gp6h7A82gPoCXhrNGVPQ==
 
 "@tsconfig/node18-strictest-esm@^1.x":
   version "1.0.1"
