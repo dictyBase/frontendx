@@ -2,7 +2,10 @@ import { useNavigate } from "react-router-dom"
 import {
   type ContentBySlugQuery,
   useUpdateContentMutation,
+  useUploadFileMutation
 } from "dicty-graphql-schema"
+import { pipe } from "fp-ts/function"
+import { match as Omatch, fromNullable as OfromNullable } from "fp-ts/Option"
 import { Editor } from "editor"
 import { createToolbarWrapper } from "./createToolbarWrapper"
 
@@ -21,7 +24,22 @@ const EditEditor = ({ data, userId, token }: EditEditorProperties) => {
       },
     },
   })
+  const [uploadImage] = useUploadFileMutation({
+    context: {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  })
   const navigate = useNavigate()
+  const onImageUpload = async (file: File) => {
+    const { data } = await uploadImage({ variables: { file } })  
+    return pipe(
+      data,
+      OfromNullable,
+      Omatch(() => '', ({uploadFile}) => uploadFile.url)
+    )
+  }
   const onSave = async (contentValue: string) => {
     try {
       await updateContent({
