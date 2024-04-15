@@ -1,6 +1,7 @@
 import { useState, ChangeEvent } from "react"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import {
+  Input,
   Button,
   CardHeader,
   Card,
@@ -13,23 +14,26 @@ import { useSetAtom } from "jotai"
 import { INSERT_IMAGE_COMMAND } from "image-plugin"
 import { insertImageDialogOpenAtom } from "../context/atomConfigs"
 
-const ImageDialogContents = () => {
+type ImageDialogContentsProperties = {
+  handleImageUpload: (file: File) => Promise<string>
+}
+
+const ImageDialogContents = ({
+  handleImageUpload,
+}: ImageDialogContentsProperties) => {
   const [editor] = useLexicalComposerContext()
   const setIsDialogOpen = useSetAtom(insertImageDialogOpenAtom)
-  const [url, setUrl] = useState("")
   const [altText, setAltText] = useState("")
-
-  const handleUrlChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target
-    setUrl(value)
-  }
+  const [selectedFile, setSelectedFile] = useState<File>()
 
   const handleAltTextChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target
     setAltText(value)
   }
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
+    if (!selectedFile) return
+    const url = await handleImageUpload(selectedFile)
     editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
       source: url,
       alt: altText,
@@ -55,11 +59,13 @@ const ImageDialogContents = () => {
         <CardHeader title="Insert Image" />
         <Grid container direction="column" spacing={1}>
           <Grid item>
-            <TextField
-              fullWidth
-              label="Image URL"
-              value={url}
-              onChange={handleUrlChange}
+            <input
+              type="file"
+              onChange={({ target: { validity, files } }) => {
+                if (validity.valid && files && files[0]) {
+                  setSelectedFile(files[0])
+                }
+              }}
             />
           </Grid>
           <Grid item>
