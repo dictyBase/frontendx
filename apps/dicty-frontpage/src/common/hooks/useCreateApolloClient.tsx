@@ -1,5 +1,6 @@
 import React from "react"
 import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client"
+import createUploadLink from "apollo-upload-client/createUploadLink.mjs"
 import { setContext } from "@apollo/client/link/context"
 import { CachePersistor, LocalForageWrapper } from "apollo3-cache-persist"
 import localForage from "localforage"
@@ -43,9 +44,8 @@ const server = getGraphQLServer(
 
 // eslint-disable-next-line unicorn/prefer-spread
 const link = authLink.concat(
-  createHttpLink({
+  createUploadLink({
     uri: `${server}/graphql`,
-    credentials: "include",
   }),
 )
 
