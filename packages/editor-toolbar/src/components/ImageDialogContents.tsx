@@ -1,7 +1,6 @@
 import { useState, ChangeEvent } from "react"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import {
-  Input,
   Button,
   CardHeader,
   Card,
@@ -43,16 +42,6 @@ const ImageDialogContents = ({
     setIsDialogOpen(false)
   }
 
-  const handleUseSample = () => {
-    editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
-      source: "src/assets/sample.jpg",
-      alt: altText,
-      width: 250,
-      height: 250,
-    })
-    setIsDialogOpen(false)
-  }
-
   return (
     <Card>
       <CardContent>
@@ -78,9 +67,6 @@ const ImageDialogContents = ({
           </Grid>
         </Grid>
       </CardContent>
-      <CardActions>
-        <Button onClick={handleUseSample}> Insert Sample </Button>
-      </CardActions>
       <CardActions>
         <Button onClick={handleConfirm}> Confirm </Button>
       </CardActions>
