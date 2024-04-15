@@ -66,7 +66,9 @@ const Editor = ({
   handleSave,
   handleImageUpload,
   plugins,
-}: (EditorProperties & ReadProperties) | (EditorProperties & EditProperties)) => {
+}:
+  | (EditorProperties & ReadProperties)
+  | (EditorProperties & EditProperties)) => {
   // eslint-disable-next-line unicorn/no-null
   const initialEditorState = content?.editorState || initialStateString || null
   const inputClasses = useEditorInputStyles()
@@ -114,7 +116,9 @@ const Editor = ({
           <></>
         )}
         <Grid item>
+          {/* eslint-disable-next-line dot-notation */}
           <div className={editorAreaClasses["container"]}>
+            {/* eslint-disable-next-line dot-notation */}
             <Container disableGutters className={editorAreaClasses["root"]!}>
               <RichTextPlugin
                 ErrorBoundary={LexicalErrorBoundary}
