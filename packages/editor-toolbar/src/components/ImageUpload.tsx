@@ -14,8 +14,12 @@ const ImageUpload = ({ handleImageUpload }: ImageUploadProperties) => {
   const onClick = async () => {
     if (!selectedFile) return
     const source = await handleImageUpload(selectedFile)
-    editor.dispatchCommand(INSERT_IMAGE_COMMAND, { source, width: 400, height: 400 })
-}
+    editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
+      source,
+      width: 400,
+      height: 400,
+    })
+  }
 
   return (
     <Container>
