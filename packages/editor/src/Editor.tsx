@@ -29,14 +29,26 @@ type EditorProperties = {
     storageKey: string | undefined
     editorState: InitialEditorStateType
   }
-  editable: boolean
-  handleCancel?: () => void
-  handleSave?: (content: string) => void
-  toolbar?: FunctionComponent<{ children: Array<JSX.Element> }>
   plugins?: Array<JSX.Element>
 }
 
-const useEditorAreaStyles = makeStyles<Theme, EditorProperties>({
+type EditProperties = {
+  editable: true
+  toolbar: FunctionComponent<{ children: Array<JSX.Element> }>
+  handleCancel: () => void
+  handleSave: (content: string) => void
+  handleImageUpload: (file: File) => Promise<string>
+}
+
+type ReadProperties = {
+  editable: false
+  toolbar?: never
+  handleCancel?: never
+  handleSave?: never
+  handleImageUpload?: never
+}
+
+const useEditorAreaStyles = makeStyles<Theme, { editable: boolean }>({
   container: {
     overflowY: ({ editable }) => (editable ? "scroll" : "initial"),
     maxHeight: ({ editable }) => (editable ? "70vh" : "auto"),
@@ -52,8 +64,9 @@ const Editor = ({
   toolbar: Toolbar,
   handleCancel,
   handleSave,
+  handleImageUpload,
   plugins,
-}: EditorProperties) => {
+}: (EditorProperties & ReadProperties) | (EditorProperties & EditProperties)) => {
   // eslint-disable-next-line unicorn/no-null
   const initialEditorState = content?.editorState || initialStateString || null
   const inputClasses = useEditorInputStyles()
@@ -82,7 +95,7 @@ const Editor = ({
       )} */}
       <Grid container direction="column">
         {/* <Grid item className={persistencePluginStyles.root}> */}
-        {Toolbar && handleSave && handleCancel ? (
+        {handleSave && handleCancel ? (
           <Toolbar>
             <SaveButton handleSave={handleSave} />
             <Button variant="contained" onClick={handleCancel}>
@@ -93,9 +106,9 @@ const Editor = ({
           <></>
         )}
         {/* </Grid> */}
-        {editable ? (
+        {handleImageUpload ? (
           <Grid item>
-            <DictybaseToolbar />
+            <DictybaseToolbar handleImageUpload={handleImageUpload} />
           </Grid>
         ) : (
           <></>
