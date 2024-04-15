@@ -17,7 +17,9 @@ type DictybaseToolbarProperties = {
   handleImageUpload: (file: File) => Promise<string>
 }
 
-const DictybaseToolbar = ({ handleImageUpload }: DictybaseToolbarProperties) => {
+const DictybaseToolbar = ({
+  handleImageUpload,
+}: DictybaseToolbarProperties) => {
   useCleanup()
   const { root } = useToolbarStyles()
   return (

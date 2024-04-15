@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom"
 import {
   type ContentBySlugQuery,
   useUpdateContentMutation,
-  useUploadFileMutation
+  useUploadFileMutation,
 } from "dicty-graphql-schema"
 import { pipe } from "fp-ts/function"
 import { match as Omatch, fromNullable as OfromNullable } from "fp-ts/Option"
@@ -33,11 +33,14 @@ const EditEditor = ({ data, userId, token }: EditEditorProperties) => {
   })
   const navigate = useNavigate()
   const onImageUpload = async (file: File) => {
-    const { data } = await uploadImage({ variables: { file } })  
+    const { data: uploadData } = await uploadImage({ variables: { file } })
     return pipe(
-      data,
+      uploadData,
       OfromNullable,
-      Omatch(() => '', ({uploadFile}) => uploadFile.url)
+      Omatch(
+        () => "",
+        ({ uploadFile }) => uploadFile.url,
+      ),
     )
   }
   const onSave = async (contentValue: string) => {
@@ -71,6 +74,7 @@ const EditEditor = ({ data, userId, token }: EditEditorProperties) => {
       toolbar={Toolbar}
       handleSave={onSave}
       handleCancel={onCancel}
+      handleImageUpload={onImageUpload}
       editable
       content={{ storageKey: slug, editorState: content }}
     />
