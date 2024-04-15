@@ -1,7 +1,4 @@
-import {
-  mockStrainListQuery,
-  mockStrainQuery,
-} from "dicty-graphql-schema/introspection/mocks"
+import { mockStrainListQuery, mockStrainQuery } from "dicty-graphql-schema"
 import { availableStrain } from "@dictybase/ui-dsc"
 import { generateListStrainDataOfLength } from "./listStrainData"
 
