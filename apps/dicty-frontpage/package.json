@@ -21,6 +21,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
+    "apollo-upload-client": "^18.0.1",
     "apollo3-cache-persist": "^0.14.1",
     "auth": "*",
     "browser-level": "^1.0.1",
@@ -35,14 +36,14 @@
     "history": "^5.3.0",
     "jwt-decode": "^3.0.0",
     "localforage": "^1.10.0",
+    "nanoid": "~5.0.3",
     "news-component": "*",
     "react-app-polyfill": "^3.0.0",
     "react-ga": "^3.3.1",
     "react-helmet": "^6.1.0",
     "react-loading-skeleton": "^3.3.1",
     "react-responsive-carousel": "^3.2.23",
-    "twitter-fetcher": "^18.0.4",
-    "nanoid": "~5.0.3"
+    "twitter-fetcher": "^18.0.4"
   },
   "devDependencies": {
     "@material-ui/styles": "^4.11.4",
