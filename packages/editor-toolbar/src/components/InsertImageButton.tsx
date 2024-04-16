@@ -1,4 +1,4 @@
-import { Button, Dialog } from "@material-ui/core"
+import { Button } from "@material-ui/core"
 import AddIcon from "@material-ui/icons/Add"
 import { useAtom } from "jotai"
 import { insertImageDialogOpenAtom } from "../context/atomConfigs"
@@ -21,7 +21,10 @@ const InsertImageButton = ({
         startIcon={<AddIcon />}>
         Image
       </Button>
-      <ImageUploadDialog open={isDialogOpen} handleImageUpload={handleImageUpload} />
+      <ImageUploadDialog
+        open={isDialogOpen}
+        handleImageUpload={handleImageUpload}
+      />
     </>
   )
 }
