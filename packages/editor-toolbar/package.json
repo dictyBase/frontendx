@@ -11,6 +11,7 @@
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/toolbar.json"
   },
   "dependencies": {
+    "fp-ts": "^2.16.0",
     "jotai-optics": "^0.3.0",
     "optics-ts": "^2.4.1",
     "image-plugin": "*"
