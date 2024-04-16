@@ -31,10 +31,10 @@ type fileError = {
 
 const useStyles = makeStyles({ input: { display: "flex" } })
 
-const validateFile = (file: File) => {
-  return match(file)
+const validateFile = (file: File) =>
+  match(file)
     .when(
-      ({ size }) => size > 500000,
+      ({ size }) => size > 500_000,
       () =>
         some({
           errorMessage:
@@ -42,7 +42,6 @@ const validateFile = (file: File) => {
         }),
     )
     .otherwise(() => none)
-}
 
 type ImageUploadDialogProperties = {
   handleImageUpload: (file: File) => Promise<string>
@@ -77,7 +76,7 @@ const ImageUploadDialog = ({
     try {
       const url = await handleImageUpload(files[0])
       setImageSource(url)
-    } catch (error) {
+    } catch {
       setError(some({ errorMessage: "Could not upload image to the server" }))
     } finally {
       setLoading(false)
