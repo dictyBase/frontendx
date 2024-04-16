@@ -1,5 +1,8 @@
 import { useNavigate } from "react-router-dom"
-import { useCreateContentMutation, useUploadFileMutation } from "dicty-graphql-schema"
+import {
+  useCreateContentMutation,
+  useUploadFileMutation,
+} from "dicty-graphql-schema"
 import { pipe } from "fp-ts/function"
 import { match as Omatch, fromNullable as OfromNullable } from "fp-ts/Option"
 import { Editor } from "editor"
@@ -81,6 +84,7 @@ const AddPageEditor = ({
       handleImageUpload={onImageUpload}
       editable
     />
-  ) }
+  )
+}
 
 export { AddPageEditor }
