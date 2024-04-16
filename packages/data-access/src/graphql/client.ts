@@ -4,10 +4,10 @@ import {
   ApolloCache,
   DefaultOptions,
   ApolloLink,
-  HttpLink,
   InMemoryCache,
   from,
 } from "@apollo/client"
+import createUploadLink from "apollo-upload-client/createUploadLink.mjs"
 
 /**
  * The props for {@link useGraphqlClient}
@@ -34,7 +34,6 @@ export const apolloOptions: DefaultOptions = {
     notifyOnNetworkStatusChange: true,
   },
 }
-
 /**
  * A react hook for getting a fully configured apollo client.
  * The client is instantiated only once during the mounting of
@@ -47,13 +46,12 @@ export function useGraphqlClient({
   cache = new InMemoryCache(),
 }: useGraphqlClientProperties): ApolloClient<NormalizedCacheObject> {
   // const [client, setClient] = useState<ApolloClient<NormalizedCacheObject>>()
-  const httpClient = new HttpLink({
+  const uploadLink = createUploadLink({
     uri,
-    headers: { "X-GraphQL-Method": "Query" },
   })
   const link = errorHandler
-    ? from([errorHandler, httpClient])
-    : from([httpClient])
+    ? from([errorHandler, uploadLink])
+    : from([uploadLink])
   return new ApolloClient({
     link,
     cache,
