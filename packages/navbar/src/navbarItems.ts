@@ -135,43 +135,39 @@ const navbarItems = {
         items: [
           {
             label: "Stock Center Home",
-            link: `${import.meta.env["VITE_APP_STOCKCENTER_URL"]}/stockcenter`,
+            link: `${import.meta.env["VITE_APP_STOCKCENTER_URL"]}`,
           },
           {
             label: "Strain Catalog",
-            link: `${
-              import.meta.env["VITE_APP_STOCKCENTER_URL"]
-            }/stockcenter/strains`,
+            link: `${import.meta.env["VITE_APP_STOCKCENTER_URL"]}/strains`,
           },
           {
             label: "Plasmid Catalog",
-            link: `${
-              import.meta.env["VITE_APP_STOCKCENTER_URL"]
-            }/stockcenter/plasmids`,
+            link: `${import.meta.env["VITE_APP_STOCKCENTER_URL"]}/plasmids`,
           },
           {
             label: "Order Information",
             link: `${
               import.meta.env["VITE_APP_STOCKCENTER_URL"]
-            }/stockcenter/information/order/show`,
+            }/information/order/show`,
           },
           {
             label: "Deposit Information",
             link: `${
               import.meta.env["VITE_APP_STOCKCENTER_URL"]
-            }/stockcenter/information/deposit/show`,
+            }/information/deposit/show`,
           },
           {
             label: "Payment Information",
             link: `${
               import.meta.env["VITE_APP_STOCKCENTER_URL"]
-            }/stockcenter/information/payment/show`,
+            }/information/payment/show`,
           },
           {
             label: "FAQ",
             link: `${
               import.meta.env["VITE_APP_STOCKCENTER_URL"]
-            }/stockcenter/information/faq/show`,
+            }/information/faq/show`,
           },
           {
             label: "Standard Operating Procedures",
