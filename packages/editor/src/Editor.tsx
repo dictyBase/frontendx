@@ -37,7 +37,6 @@ type EditProperties = {
   toolbar: FunctionComponent<{ children: Array<JSX.Element> }>
   handleCancel: () => void
   handleSave: (content: string) => void
-  handleImageUpload: (file: File) => Promise<string>
 }
 
 type ReadProperties = {
@@ -45,7 +44,6 @@ type ReadProperties = {
   toolbar?: never
   handleCancel?: never
   handleSave?: never
-  handleImageUpload?: never
 }
 
 const useEditorAreaStyles = makeStyles<Theme, { editable: boolean }>({
@@ -64,7 +62,6 @@ const Editor = ({
   toolbar: Toolbar,
   handleCancel,
   handleSave,
-  handleImageUpload,
   plugins,
 }:
   | (EditorProperties & ReadProperties)
@@ -108,9 +105,9 @@ const Editor = ({
           <></>
         )}
         {/* </Grid> */}
-        {handleImageUpload ? (
+        {editable ? (
           <Grid item>
-            <DictybaseToolbar handleImageUpload={handleImageUpload} />
+            <DictybaseToolbar />
           </Grid>
         ) : (
           <></>

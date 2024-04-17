@@ -4,13 +4,7 @@ import { useAtom } from "jotai"
 import { insertImageDialogOpenAtom } from "../context/atomConfigs"
 import { ImageUploadDialog } from "./ImageUploadDialog"
 
-type InsertImageButtonProperties = {
-  handleImageUpload: (file: File) => Promise<string>
-}
-
-const InsertImageButton = ({
-  handleImageUpload,
-}: InsertImageButtonProperties) => {
+const InsertImageButton = () => {
   const [isDialogOpen, setIsDialogOpen] = useAtom(insertImageDialogOpenAtom)
 
   return (
@@ -21,10 +15,7 @@ const InsertImageButton = ({
         startIcon={<AddIcon />}>
         Image
       </Button>
-      <ImageUploadDialog
-        open={isDialogOpen}
-        handleImageUpload={handleImageUpload}
-      />
+      <ImageUploadDialog open={isDialogOpen} />
     </>
   )
 }
