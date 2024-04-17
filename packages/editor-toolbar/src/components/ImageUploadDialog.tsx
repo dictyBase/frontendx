@@ -38,7 +38,7 @@ import { insertImageDialogOpenAtom } from "../context/atomConfigs"
 
 const useStyles = makeStyles({ input: { display: "flex" } })
 
-const fileSizePredicate = (file: File) => file.size < 2_000_000
+const fileSizePredicate = (file: File) => file.size < 1_000_000
 
 type ImageUploadDialogProperties = {
   handleImageUpload: (file: File) => Promise<string>
@@ -56,7 +56,7 @@ const getEitherValidFile = (files: FileList | null) =>
     Emap(({ selectedFile }) => selectedFile),
     EfilterOrElse(
       fileSizePredicate,
-      () => "The chosen image is too large. It must be smaller than 2MB",
+      () => "The chosen image is too large. It must be smaller than 1MB",
     ),
   )
 
