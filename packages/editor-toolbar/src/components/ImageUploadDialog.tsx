@@ -69,6 +69,20 @@ const renderValidationError = (error: Option<string>) =>
     ),
   )
 
+const renderUploadStatus = ({
+  loading,
+  error,
+}: {
+  loading: boolean
+  error: { message: string } | undefined
+}) =>
+  match({ loading, error })
+    .with({ error: P.not(undefined) }, () => (
+      <Typography color="error">Could not upload file to server</Typography>
+    ))
+    .with({ loading: true }, () => <CircularProgress />)
+    .otherwise(() => <></>)
+
 const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
   const { getAccessToken } = useLogto()
   const [editor] = useLexicalComposerContext()
@@ -144,16 +158,7 @@ const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
         />
         {renderValidationError(fileValidationError)}
         <DialogActions>
-          {match({ loading, error })
-            .with({ error: P.not(undefined) }, () => (
-              <Typography color="error">
-                Could not upload file to server
-              </Typography>
-            ))
-            .with({ loading: true }, () => <CircularProgress />)
-            .otherwise(() => (
-              <></>
-            ))}
+          {renderUploadStatus({ error, loading })}
           <Button type="button" disabled={!canInsert} onClick={onClick}>
             Insert Image
           </Button>
