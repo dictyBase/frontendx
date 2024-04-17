@@ -65,7 +65,7 @@ const renderValidationError = (error: Option<string>) =>
     error,
     Omatch(
       () => <></>,
-      (e) => <Typography color="error">{e}</Typography>,
+      (someError) => <Typography color="error">{someError}</Typography>,
     ),
   )
 
@@ -105,8 +105,8 @@ const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
       files,
       getEitherValidFile,
       Ematch(
-        (error) => {
-          setValidationError(some(error))
+        (validationError) => {
+          setValidationError(some(validationError))
         },
         async (file) => {
           const token = await getAccessToken(
