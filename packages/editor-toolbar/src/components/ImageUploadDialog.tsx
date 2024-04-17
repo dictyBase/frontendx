@@ -49,8 +49,8 @@ const getEitherValidFile = (files: FileList | null) =>
   pipe(
     files,
     OfromNullable,
-    ObindTo("files"),
-    Olet("presentFiles", ({ files }) => Array.from(files)),
+    ObindTo("fileList"),
+    Olet("presentFiles", ({ fileList }) => [ ...fileList ]),
     Obind("selectedFile", ({ presentFiles }) => Ahead(presentFiles)),
     EfromOption(() => "No file selected"),
     Emap(({ selectedFile }) => selectedFile),
