@@ -41,7 +41,6 @@ const useStyles = makeStyles({ input: { display: "flex" } })
 const fileSizePredicate = (file: File) => file.size < 1_000_000
 
 type ImageUploadDialogProperties = {
-  handleImageUpload: (file: File) => Promise<string>
   open: boolean
 }
 
@@ -50,7 +49,7 @@ const getEitherValidFile = (files: FileList | null) =>
     files,
     OfromNullable,
     ObindTo("fileList"),
-    Olet("presentFiles", ({ fileList }) => [ ...fileList ]),
+    Olet("presentFiles", ({ fileList }) => [...fileList]),
     Obind("selectedFile", ({ presentFiles }) => Ahead(presentFiles)),
     EfromOption(() => "No file selected"),
     Emap(({ selectedFile }) => selectedFile),

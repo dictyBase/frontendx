@@ -13,13 +13,7 @@ import { InsertImageButton } from "./components/InsertImageButton"
 import { useCleanup } from "./hooks/useCleanup"
 import { useToolbarStyles } from "./hooks/useToolbarStyles"
 
-type DictybaseToolbarProperties = {
-  handleImageUpload: (file: File) => Promise<string>
-}
-
-const DictybaseToolbar = ({
-  handleImageUpload,
-}: DictybaseToolbarProperties) => {
+const DictybaseToolbar = () => {
   useCleanup()
   const { root } = useToolbarStyles()
   return (
@@ -34,7 +28,7 @@ const DictybaseToolbar = ({
       <FormatUnderlineButton />
       <ColorPickerButton />
       <InsertTableButton />
-      <InsertImageButton handleImageUpload={handleImageUpload} />
+      <InsertImageButton />
     </ToolBar>
   )
 }
