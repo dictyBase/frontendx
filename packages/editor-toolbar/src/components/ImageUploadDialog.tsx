@@ -144,12 +144,16 @@ const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
         />
         {renderValidationError(fileValidationError)}
         <DialogActions>
-          {error ? (
-            <Typography color="error">{error.message}</Typography>
-          ) : (
-            <></>
-          )}
-          {loading ? <CircularProgress /> : <></>}
+          {match({ loading, error })
+            .with({ error: P.not(undefined) }, () => (
+              <Typography color="error">
+                Could not upload file to server
+              </Typography>
+            ))
+            .with({ loading: true }, () => <CircularProgress />)
+            .otherwise(() => (
+              <></>
+            ))}
           <Button type="button" disabled={!canInsert} onClick={onClick}>
             Insert Image
           </Button>
