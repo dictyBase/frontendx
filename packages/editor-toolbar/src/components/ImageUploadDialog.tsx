@@ -10,24 +10,31 @@ import {
   Input,
   makeStyles,
 } from "@material-ui/core"
-import { useState } from "react"
+import { FetchResult } from "@apollo/client"
+import { useUploadFileMutation, UploadFileMutation } from "dicty-graphql-schema"
+import { useLogto } from "@logto/react"
 import { useSetAtom } from "jotai"
 import { pipe } from "fp-ts/function"
+import { head as Ahead } from "fp-ts/Array"
 import {
-  Option,
-  some,
-  none,
-  isSome,
-  map as Omap,
-  getOrElse as OgetOrElse,
-} from "fp-ts/Option"
-import { match } from "ts-pattern"
+  left as Eleft,
+  right as Eright,
+  fromOption as EfromOption,
+  map as Emap,
+  filterOrElse as EfilterOrElse,
+} from "fp-ts/Either"
+import {
+  left as TEleft,
+  right as TEright,
+  fromOption as TEfromOption,
+  map as TEmap,
+  filterOrElse as TEfilterOrElse,
+  flatMap as TEflatMap,
+  tryCatch as TEtryCatch,
+} from "fp-ts/TaskEither"
+import { match, P } from "ts-pattern"
 import { INSERT_IMAGE_COMMAND } from "image-plugin"
 import { insertImageDialogOpenAtom } from "../context/atomConfigs"
-
-type fileError = {
-  errorMessage: string
-}
 
 const useStyles = makeStyles({ input: { display: "flex" } })
 
@@ -36,67 +43,96 @@ const validateFile = (file: File) =>
     .when(
       ({ size }) => size > 500_000,
       () =>
-        some({
-          errorMessage:
+        Eleft({
+          message:
             "The chosen image is too large. It must be smaller than 0.5MB",
         }),
     )
-    .otherwise(() => none)
+    .otherwise((file) => Eright(file))
+
+const fileSizePredicate = (file: File) => file.size > 500_000
+
+const mutationResultToTaskEither = (result: FetchResult<UploadFileMutation>) =>
+  match(result)
+    .with({ data: { uploadFile: { url: P.select(P.string) } } }, (url) =>
+      TEright(url),
+    )
+    .with({ errors: P.not(undefined) }, () => TEleft("Something went wrong"))
+    .otherwise(() => TEleft("Unexpected Error"))
 
 type ImageUploadDialogProperties = {
   handleImageUpload: (file: File) => Promise<string>
   open: boolean
 }
 
-const ImageUploadDialog = ({
-  handleImageUpload,
-  open,
-}: ImageUploadDialogProperties) => {
+const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
+  const { getAccessToken } = useLogto()
   const [editor] = useLexicalComposerContext()
   const setDialogDisplay = useSetAtom(insertImageDialogOpenAtom)
-  const [imageSource, setImageSource] = useState<string>("")
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<Option<fileError>>(none)
+  const [uploadImage, { error, loading, data }] = useUploadFileMutation()
   const { input } = useStyles()
 
   const onChange: React.ChangeEventHandler<HTMLInputElement> = async ({
     target: { validity, files },
   }) => {
-    if (!validity.valid || !files || !files[0]) {
+    if (!validity.valid || !files) {
       return
     }
-    setImageSource("")
-    setError(none)
-    const otherValidationErrors = validateFile(files[0])
-    if (isSome(otherValidationErrors)) {
-      setError(otherValidationErrors)
-      return
-    }
-    setLoading(true)
-    try {
-      const url = await handleImageUpload(files[0])
-      setImageSource(url)
-    } catch {
-      setError(some({ errorMessage: "Could not upload image to the server" }))
-    } finally {
-      setLoading(false)
-    }
+    const fileUpload = pipe(
+      Array.from(files),
+      Ahead,
+      TEfromOption(() => "No file selected"),
+      TEfilterOrElse(
+        fileSizePredicate,
+        () => "The chosen image is too large. It must be smaller than 0.5MB",
+      ),
+      TEflatMap((file: File) =>
+        TEtryCatch(
+          () => {
+            const token = getAccessToken(
+              import.meta.env.VITE_APP_LOGTO_API_SECOND_RESOURCE,
+            )
+            const a = uploadImage({
+              variables: { file },
+              context: { headers: { Authorization: `Bearer ${token}` } },
+            })
+            return a
+          },
+          () => "Could not upload image to server",
+        ),
+      ),
+      TEflatMap(mutationResultToTaskEither),
+    )
+
+    //    const otherValidationErrors = validateFile(files[0])
+    //    if (isSome(otherValidationErrors)) {
+    //      return
+    //    }
+    //    const token = await getAccessToken(
+    //      import.meta.env.VITE_APP_LOGTO_API_SECOND_RESOURCE,
+    //    )
+    //    uploadImage({
+    //      variables: { file: files[0] },
+    //      context: { headers: { Authorization: `Bearer ${token}` } },
+    //    })
   }
+
   const handleClose = () => {
     if (loading) return
-    setImageSource("")
-    setError(none)
     setDialogDisplay(false)
   }
 
   const onClick = () => {
-    if (!imageSource) return
-    editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
-      source: imageSource,
-      width: 300,
-      height: 300,
-    })
-    handleClose()
+    match({ data })
+      .with({ data: { uploadFile: { url: P.select(P.string) } } }, (url) => {
+        editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
+          source: url,
+          width: 300,
+          height: 300,
+        })
+        handleClose()
+      })
+      .otherwise(() => {})
   }
 
   return (
@@ -114,6 +150,7 @@ const ImageUploadDialog = ({
           inputProps={{ accept: "image/*" }}
         />
         <DialogActions>
+          {/*
           {pipe(
             error,
             Omap(({ errorMessage }) => (
@@ -121,8 +158,9 @@ const ImageUploadDialog = ({
             )),
             OgetOrElse(() => <></>),
           )}
+          */}
           {loading ? <CircularProgress /> : <></>}
-          <Button type="button" disabled={!imageSource} onClick={onClick}>
+          <Button type="button" onClick={onClick}>
             Submit
           </Button>
         </DialogActions>
