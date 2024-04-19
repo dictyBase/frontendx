@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
+import type { LexicalEditor } from "lexical"
 import {
   Dialog,
   DialogTitle,
@@ -11,7 +12,10 @@ import {
   Input,
   makeStyles,
 } from "@material-ui/core"
-import { useUploadFileMutation } from "dicty-graphql-schema"
+import {
+  useUploadFileMutation,
+  UploadFileMutationHookResult,
+} from "dicty-graphql-schema"
 import { useLogto } from "@logto/react"
 import { useSetAtom } from "jotai"
 import { pipe } from "fp-ts/function"
@@ -20,37 +24,26 @@ import {
   of as Oof,
   map as Omap,
   fromNullable as OfromNullable,
-  bindTo as ObindTo,
-  bind as Obind,
-  let as Olet,
   none,
   some,
   Option,
-  match as Omatch,
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
 import {
-  left as Eleft, 
+  left as Eleft,
   right as Eright,
-  isLeft as EisLeft, 
+  isLeft as EisLeft,
   isRight as EisRight,
   fromOption as EfromOption,
-  map as Emap,
-  filterOrElse as EfilterOrElse,
   match as Ematch,
   Either,
-  mapLeft as EmapLeft,
   bindTo as EbindTo,
   bind as Ebind,
   let as Elet,
 } from "fp-ts/Either"
 import {
   tryCatch as TEtryCatch,
-  flatMap as TEflatMap,
-  bindTo as TEbindTo,
-  let as TElet,
   bind as TEbind,
-  map as TEmap,
   fromEither as TEfromEither,
   right as TEright,
   left as TEleft,
@@ -61,20 +54,19 @@ import { insertImageDialogOpenAtom } from "../context/atomConfigs"
 
 const useStyles = makeStyles({ input: { display: "flex" } })
 
-const fileSizePredicate = (file: File) => file.size < 1_000_000
-
 enum ErrorType {
   VALIDITY_ERROR,
-  AUTHORIZATION_FAILURE,
+  ACCESS_TOKEN_ERROR,
   UPLOAD_FAILURE,
   MISSING_URL,
-  EDITOR_INSERTION
+  EDITOR_INSERTION,
 }
+
 type ImageUploadDialogProperties = {
   open: boolean
 }
 
-type ImageSuccessStates = {
+type ImageSuccessState = {
   validFile: File
 }
 
@@ -83,13 +75,36 @@ type ErrorState = {
   errorType: ErrorType
 }
 
-const emptyFileListError = { errorType: ErrorType.VALIDITY_ERROR, message: "File list is empty" }
-const noFileSelectedError = { errorType: ErrorType.VALIDITY_ERROR, message: "No file selected" }
-const overFileSizeLimitError = { errorType: ErrorType.VALIDITY_ERROR, message: "Chosen image is too large. It must be smaller than 1MB." }
-const authorizationFailureError = { errorType: ErrorType.AUTHORIZATION_FAILURE, message: "Authorization failed" }
-const uploadFailure = { errorType: ErrorType.UPLOAD_FAILURE, message: "Could not upload image to server" }
-const missingUrlError = { errorType: ErrorType.MISSING_URL, message: "Image url missing" }
-const editorInsertionError = { errorType: ErrorType.EDITOR_INSERTION, message: "Could not insert image into editor" }
+const FILE_SIZE_LIMIT = 1_000_000
+
+const emptyFileListError = {
+  errorType: ErrorType.VALIDITY_ERROR,
+  message: "File list is empty",
+}
+const noFileSelectedError = {
+  errorType: ErrorType.VALIDITY_ERROR,
+  message: "No file selected",
+}
+const overFileSizeLimitError = {
+  errorType: ErrorType.VALIDITY_ERROR,
+  message: "Chosen image is too large. It must be smaller than 1MB.",
+}
+const accessTokenError = {
+  errorType: ErrorType.ACCESS_TOKEN_ERROR,
+  message: "Could not get access token",
+}
+const uploadFailure = {
+  errorType: ErrorType.UPLOAD_FAILURE,
+  message: "Could not upload image to server",
+}
+const missingUrlError = {
+  errorType: ErrorType.MISSING_URL,
+  message: "Image url missing",
+}
+const editorInsertionError = {
+  errorType: ErrorType.EDITOR_INSERTION,
+  message: "Could not insert image into editor",
+}
 
 const EgetValidFile = (files: FileList | null) =>
   pipe(
@@ -106,33 +121,33 @@ const EgetValidFile = (files: FileList | null) =>
       ),
     ),
     Ebind("validFile", ({ selectedFile }) =>
-      selectedFile.size < 1_000_000 ? Eright(selectedFile) : Eleft(overFileSizeLimitError)
+      selectedFile.size < FILE_SIZE_LIMIT
+        ? Eright(selectedFile)
+        : Eleft(overFileSizeLimitError),
     ),
-    Oof
+    Oof,
   )
 
-const renderError = (imageState: Option<Either<ErrorState, ImageSuccessStates>>) =>
+const renderError = (
+  imageState: Option<Either<ErrorState, ImageSuccessState>>,
+) =>
   pipe(
     imageState,
     Omap(
       Ematch(
-        (someError) => <Typography color="error">{someError.message}</Typography>,
+        (someError) => (
+          <Typography color="error">{someError.message}</Typography>
+        ),
         () => <></>,
       ),
     ),
     OgetOrElse(() => <></>),
   )
 
-const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
-  const { getAccessToken } = useLogto()
-  const [editor] = useLexicalComposerContext()
-  const setDialogDisplay = useSetAtom(insertImageDialogOpenAtom)
-  const [uploadImage, { loading, reset }] = useUploadFileMutation()
-  const [imageState, setImageState] =
-    useState<Option<Either<ErrorState, ImageSuccessStates>>>(none)
-  const { input } = useStyles()
-
-  const canInsert = pipe(
+const isValidFile = (
+  imageState: Option<Either<ErrorState, ImageSuccessState>>,
+) =>
+  pipe(
     imageState,
     Omap(
       Ematch(
@@ -142,68 +157,53 @@ const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
     ),
     OgetOrElse(() => false),
   )
-  const onChange: React.ChangeEventHandler<HTMLInputElement> = async ({
-    target: { files },
-  }) => {
-    reset()
-    setImageState(none)
-    pipe(files, EgetValidFile, setImageState)
-  }
-const handleClose = () => {
-    if (loading) return
-    setDialogDisplay(false)
-    setImageState(none)
-    reset()
-  }
 
-  const onSubmit = () => {
+const createImageUploadFunction =
+  (
+    editor: LexicalEditor,
+    getAccessToken: (resource?: string | undefined) => Promise<string>,
+    uploadImage: UploadFileMutationHookResult[0],
+  ) =>
+  (imageState: Option<Either<ErrorState, ImageSuccessState>>) => {
     pipe(
       imageState,
-      Omap((eitherImageState) =>
-        pipe(
-          eitherImageState,
-          TEfromEither,
-          TEbind("token", () =>
-            TEtryCatch(
-              () =>
-                getAccessToken(
-                  import.meta.env.VITE_APP_LOGTO_API_SECOND_RESOURCE,
-                ),
-              () => authorizationFailureError,
-            ),
-          ),
-          TEbind("uploadResult", ({  validFile, token }) =>
-            TEtryCatch(
-              () =>
-                uploadImage({
-                  variables: { file: validFile },
-                  context: { headers: { Authorization: `Bearer ${token}` } },
-                }),
-              () => uploadFailure,
-            ),
-          ),
-          TEbind("url", ({ uploadResult }) =>
-            match(uploadResult)
-              .with(
-                { data: { uploadFile: { url: P.select(P.string) } } },
-                (url) => TEright(url),
-              )
-              .otherwise(() => TEleft(missingUrlError)),
-          ),
-          TEbind("insertImage", ({ url }) => {
-            const editorUpdate = editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
-              source: url,
-              width: 300,
-              height: 300,
-            })
-            return match(editorUpdate)
-              .with(true, () => TEright(true))
-              .with(false, () => TEleft(editorInsertionError))
-              .exhaustive()
-          }),
+      OgetOrElse(() => Eleft(noFileSelectedError)),
+      TEfromEither,
+      TEbind("token", () =>
+        TEtryCatch(
+          () =>
+            getAccessToken(import.meta.env.VITE_APP_LOGTO_API_SECOND_RESOURCE),
+          () => accessTokenError,
         ),
       ),
-      OgetOrElse(() => TEleft(noFileSelectedError)),
+      TEbind("uploadResult", ({ validFile, token }) =>
+        TEtryCatch(
+          () =>
+            uploadImage({
+              variables: { file: validFile },
+              context: { headers: { Authorization: `Bearer ${token}` } },
+            }),
+          () => uploadFailure,
+        ),
+      ),
+      TEbind("url", ({ uploadResult }) =>
+        match(uploadResult)
+          .with({ data: { uploadFile: { url: P.select(P.string) } } }, (url) =>
+            TEright(url),
+          )
+          .otherwise(() => TEleft(missingUrlError)),
+      ),
+      TEbind("insertImage", ({ url }) => {
+        const editorUpdate = editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
+          source: url,
+          width: 300,
+          height: 300,
+        })
+        return match(editorUpdate)
+          .with(true, () => TEright(true))
+          .with(false, () => TEleft(editorInsertionError))
+          .exhaustive()
+      }),
       async (uploadTask) => {
         const result = await uploadTask()
         if (EisLeft(result)) {
@@ -216,6 +216,33 @@ const handleClose = () => {
       },
     )
   }
+const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
+  const { getAccessToken } = useLogto()
+  const [editor] = useLexicalComposerContext()
+  const setDialogDisplay = useSetAtom(insertImageDialogOpenAtom)
+  const [uploadImage, { loading, reset }] = useUploadFileMutation()
+  const [imageState, setImageState] =
+    useState<Option<Either<ErrorState, ImageSuccessState>>>(none)
+  const { input } = useStyles()
+
+  const canSubmit = isValidFile(imageState)
+
+  const onChange: React.ChangeEventHandler<HTMLInputElement> = async ({
+    target: { files },
+  }) => {
+    reset()
+    setImageState(none)
+    pipe(files, EgetValidFile, setImageState)
+  }
+
+  const handleClose = () => {
+    if (loading) return
+    setDialogDisplay(false)
+    setImageState(none)
+    reset()
+  }
+
+  const onSubmit = () => {}
 
   return (
     <Dialog open={open} onClose={handleClose}>
@@ -234,7 +261,7 @@ const handleClose = () => {
         {renderError(imageState)}
         <DialogActions>
           {loading ? <CircularProgress /> : <></>}
-          <Button type="button" disabled={!canInsert} onClick={onSubmit}>
+          <Button type="button" disabled={!canSubmit} onClick={onSubmit}>
             Insert Image
           </Button>
         </DialogActions>
