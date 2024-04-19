@@ -17,6 +17,7 @@ import { useSetAtom } from "jotai"
 import { pipe } from "fp-ts/function"
 import { head as Ahead } from "fp-ts/Array"
 import {
+  map as Omap,
   fromNullable as OfromNullable,
   bindTo as ObindTo,
   bind as Obind,
@@ -25,13 +26,27 @@ import {
   some,
   Option,
   match as Omatch,
+  getOrElse as OgetOrElse,
 } from "fp-ts/Option"
 import {
   fromOption as EfromOption,
   map as Emap,
   filterOrElse as EfilterOrElse,
   match as Ematch,
+  Either,
+  mapLeft as EmapLeft,
 } from "fp-ts/Either"
+import {
+  tryCatch as TEtryCatch,
+  flatMap as TEflatMap,
+  bindTo as TEbindTo,
+  let as TElet,
+  bind as TEbind,
+  map as TEmap,
+  fromEither as TEfromEither,
+  right as TEright,
+  left as TEleft,
+} from "fp-ts/TaskEither"
 import { match, P } from "ts-pattern"
 import { INSERT_IMAGE_COMMAND } from "image-plugin"
 import { insertImageDialogOpenAtom } from "../context/atomConfigs"
@@ -44,101 +59,137 @@ type ImageUploadDialogProperties = {
   open: boolean
 }
 
+type ImageSuccessStates = {
+  validFile: File
+
+}
 const getEitherValidFile = (files: FileList | null) =>
   pipe(
     files,
     OfromNullable,
     ObindTo("fileList"),
     Olet("presentFiles", ({ fileList }) => [...fileList]),
-    Obind("selectedFile", ({ presentFiles }) => Ahead(presentFiles)),
-    EfromOption(() => "No file selected"),
-    Emap(({ selectedFile }) => selectedFile),
-    EfilterOrElse(
-      fileSizePredicate,
-      () => "The chosen image is too large. It must be smaller than 1MB",
+    Olet("selectedFile", ({ presentFiles }) =>
+      pipe(
+        presentFiles,
+        Ahead,
+        EfromOption(() => "No file selected"),
+      ),
     ),
+    Olet("validFile", ({ selectedFile }) =>
+      pipe(
+        selectedFile,
+        EfilterOrElse(
+          fileSizePredicate,
+          () => "The chosen image is too large. It must be smaller than 1MB.",
+        ),
+      ),
+    ),
+    Omap(({ validFile }) => validFile),
   )
 
-const renderValidationError = (error: Option<string>) =>
+const renderError = (imageState: Option<Either<string, File>>) =>
   pipe(
-    error,
-    Omatch(
-      () => <></>,
-      (someError) => <Typography color="error">{someError}</Typography>,
+    imageState,
+    Omap(
+      Ematch(
+        (someError) => <Typography color="error">{someError}</Typography>,
+        () => <></>,
+      ),
     ),
+    OgetOrElse(() => <></>),
   )
-
-const renderUploadStatus = ({
-  loading,
-  error,
-}: {
-  loading: boolean
-  error: { message: string } | undefined
-}) =>
-  match({ loading, error })
-    .with({ error: P.not(undefined) }, () => (
-      <Typography color="error">Could not upload file to server</Typography>
-    ))
-    .with({ loading: true }, () => <CircularProgress />)
-    .otherwise(() => <></>)
 
 const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
   const { getAccessToken } = useLogto()
   const [editor] = useLexicalComposerContext()
   const setDialogDisplay = useSetAtom(insertImageDialogOpenAtom)
-  const [uploadImage, { error, loading, data, reset }] = useUploadFileMutation()
-  const [fileValidationError, setValidationError] =
-    useState<Option<string>>(none)
+  const [uploadImage, { loading, reset }] = useUploadFileMutation()
+  const [imageState, setImageState] =
+    useState<Option<Either<string, File>>>(none)
   const { input } = useStyles()
-
-  const canInsert = match({ error, loading, data })
-    .with({ data: { uploadFile: { url: P.string } } }, () => true)
-    .otherwise(() => false)
-
+  console.log(imageState)
+  const canInsert = pipe(
+    imageState,
+    Omap(
+      Ematch(
+        () => false,
+        () => true,
+      ),
+    ),
+    OgetOrElse(() => false),
+  )
   const onChange: React.ChangeEventHandler<HTMLInputElement> = async ({
     target: { files },
   }) => {
     reset()
-    setValidationError(none)
-    pipe(
-      files,
-      getEitherValidFile,
-      Ematch(
-        (validationError) => {
-          setValidationError(some(validationError))
-        },
-        async (file) => {
-          const token = await getAccessToken(
-            import.meta.env.VITE_APP_LOGTO_API_SECOND_RESOURCE,
-          )
-          uploadImage({
-            variables: { file },
-            context: { headers: { Authorization: `Bearer ${token}` } },
-          })
-        },
-      ),
-    )
+    setImageState(none)
+    pipe(files, getEitherValidFile, setImageState)
   }
 
   const handleClose = () => {
     if (loading) return
     setDialogDisplay(false)
-    setValidationError(none)
+    setImageState(none)
     reset()
   }
 
-  const onClick = () => {
-    match({ data })
-      .with({ data: { uploadFile: { url: P.select(P.string) } } }, (url) => {
-        editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
-          source: url,
-          width: 300,
-          height: 300,
-        })
-        handleClose()
-      })
-      .otherwise(() => {})
-    reset()
+  const onSubmit = () => {
+    pipe(
+      imageState,
+      Omap((eitherImageFile) =>
+        pipe(
+          eitherImageFile,
+          TEfromEither,
+          TEbindTo("file"),
+          TEbind("token", () =>
+            TEtryCatch(
+              () =>
+                getAccessToken(
+                  import.meta.env.VITE_APP_LOGTO_API_SECOND_RESOURCE,
+                ),
+              () => "Authorization failed",
+            ),
+          ),
+          TEbind("uploadResult", ({ file, token }) =>
+            TEtryCatch(
+              () =>
+                uploadImage({
+                  variables: { file },
+                  context: { headers: { Authorization: `Bearer ${token}` } },
+                }),
+              () => "Could not upload image to server",
+            ),
+          ),
+          TEbind("url", ({ uploadResult }) =>
+            match(uploadResult)
+              .with(
+                { data: { uploadFile: { url: P.select(P.string) } } },
+                (url) => TEright(url),
+              )
+              .otherwise(() => TEleft("Image url missing")),
+          ),
+          TEbind("insertImage", ({ url }) => {
+            const editorUpdate = editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
+              source: url,
+              width: 300,
+              height: 300,
+            })
+            return match(editorUpdate)
+              .with(true, () => TEright(true))
+              .with(false, () => TEleft("Could not insert image into editor"))
+              .exhaustive()
+          }),
+          TEmap(({ file }) => file),
+        ),
+      ),
+      OgetOrElse(() => TEleft("No file is selected")),
+      async (uploadTask) => {
+        const result = await uploadTask()
+        setImageState(some(result))
+        setDialogDisplay(false)
+      },
+    )
   }
 
   return (
@@ -155,10 +206,10 @@ const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
           className={input}
           inputProps={{ accept: "image/*" }}
         />
-        {renderValidationError(fileValidationError)}
+        {renderError(imageState)}
         <DialogActions>
-          {renderUploadStatus({ error, loading })}
-          <Button type="button" disabled={!canInsert} onClick={onClick}>
+          {loading ? <CircularProgress /> : <></>}
+          <Button type="button"  onClick={onSubmit}>
             Insert Image
           </Button>
         </DialogActions>
