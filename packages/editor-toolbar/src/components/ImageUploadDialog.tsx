@@ -9,7 +9,6 @@ import {
   Typography,
   CircularProgress,
   Input,
-  makeStyles,
 } from "@material-ui/core"
 import { useUploadFileMutation } from "dicty-graphql-schema"
 import { useLogto } from "@logto/react"
@@ -31,8 +30,6 @@ type ImageUploadDialogProperties = {
   open: boolean
 }
 
-const useStyles = makeStyles({ input: { display: "flex" } })
-
 const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
   const { getAccessToken } = useLogto()
   const [editor] = useLexicalComposerContext()
@@ -40,7 +37,6 @@ const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
   const [uploadImage, { loading, reset }] = useUploadFileMutation()
   const [imageState, setImageState] =
     useState<Option<Either<ErrorState, ImageSuccessState>>>(none)
-  const { input } = useStyles()
 
   const canSubmit = isValidFile(imageState)
 
@@ -82,7 +78,6 @@ const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
           id="image-upload"
           onChange={onChange}
           fullWidth
-          className={input}
           inputProps={{ accept: "image/*" }}
         />
         {renderError(imageState)}
