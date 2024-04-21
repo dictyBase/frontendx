@@ -161,10 +161,14 @@ const isValidFile = (
 const createImageUploadFunction =
   (
     editor: LexicalEditor,
-    getAccessToken: (resource?: string | undefined) => Promise<string | undefined>,
+    getAccessToken: (
+      resource?: string | undefined,
+    ) => Promise<string | undefined>,
     uploadImage: UploadFileMutationHookResult[0],
-    setImageState: React.Dispatch<React.SetStateAction<Option<Either<ErrorState, ImageSuccessState>>>>,
-    setDialogDisplay: any
+    setImageState: React.Dispatch<
+      React.SetStateAction<Option<Either<ErrorState, ImageSuccessState>>>
+    >,
+    setDialogDisplay: any,
   ) =>
   (imageState: Option<Either<ErrorState, ImageSuccessState>>) => {
     pipe(
@@ -245,10 +249,16 @@ const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
     reset()
   }
 
-  const uploadFunction = createImageUploadFunction(editor, getAccessToken, uploadImage, setImageState, setDialogDisplay)
+  const uploadFunction = createImageUploadFunction(
+    editor,
+    getAccessToken,
+    uploadImage,
+    setImageState,
+    setDialogDisplay,
+  )
 
   const onSubmit = () => {
-    uploadFunction(imageState) 
+    uploadFunction(imageState)
   }
 
   return (
