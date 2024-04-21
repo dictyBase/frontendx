@@ -161,8 +161,10 @@ const isValidFile = (
 const createImageUploadFunction =
   (
     editor: LexicalEditor,
-    getAccessToken: (resource?: string | undefined) => Promise<string>,
+    getAccessToken: (resource?: string | undefined) => Promise<string | undefined>,
     uploadImage: UploadFileMutationHookResult[0],
+    setImageState: React.Dispatch<React.SetStateAction<Option<Either<ErrorState, ImageSuccessState>>>>,
+    setDialogDisplay: any
   ) =>
   (imageState: Option<Either<ErrorState, ImageSuccessState>>) => {
     pipe(
@@ -216,6 +218,7 @@ const createImageUploadFunction =
       },
     )
   }
+
 const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
   const { getAccessToken } = useLogto()
   const [editor] = useLexicalComposerContext()
@@ -242,7 +245,11 @@ const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
     reset()
   }
 
-  const onSubmit = () => {}
+  const uploadFunction = createImageUploadFunction(editor, getAccessToken, uploadImage, setImageState, setDialogDisplay)
+
+  const onSubmit = () => {
+    uploadFunction(imageState) 
+  }
 
   return (
     <Dialog open={open} onClose={handleClose}>
