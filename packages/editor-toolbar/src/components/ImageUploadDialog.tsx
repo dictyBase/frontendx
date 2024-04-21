@@ -29,6 +29,7 @@ import {
   Option,
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
+import { map as Tmap } from "fp-ts/Task"
 import {
   left as Eleft,
   right as Eright,
@@ -158,70 +159,68 @@ const isValidFile = (
     OgetOrElse(() => false),
   )
 
-const createImageUploadFunction =
-  (
-    editor: LexicalEditor,
-    getAccessToken: (
-      resource?: string | undefined,
-    ) => Promise<string | undefined>,
-    uploadImage: UploadFileMutationHookResult[0],
-    setImageState: React.Dispatch<
-      React.SetStateAction<Option<Either<ErrorState, ImageSuccessState>>>
-    >,
-    setDialogDisplay: any,
-  ) =>
-  (imageState: Option<Either<ErrorState, ImageSuccessState>>) => {
-    pipe(
-      imageState,
-      OgetOrElse(() => Eleft(noFileSelectedError)),
-      TEfromEither,
-      TEbind("token", () =>
-        TEtryCatch(
-          () =>
-            getAccessToken(import.meta.env.VITE_APP_LOGTO_API_SECOND_RESOURCE),
-          () => accessTokenError,
-        ),
+const createImageUploadFunction = (
+  editor: LexicalEditor,
+  getAccessToken: (
+    resource?: string | undefined,
+  ) => Promise<string | undefined>,
+  uploadImage: UploadFileMutationHookResult[0],
+  setImageState: React.Dispatch<
+    React.SetStateAction<Option<Either<ErrorState, ImageSuccessState>>>
+  >,
+  setDialogDisplay: any,
+  imageState: Option<Either<ErrorState, ImageSuccessState>>,
+) =>
+  pipe(
+    imageState,
+    OgetOrElse(() => Eleft(noFileSelectedError)),
+    TEfromEither,
+    TEbind("token", () =>
+      TEtryCatch(
+        () =>
+          getAccessToken(import.meta.env.VITE_APP_LOGTO_API_SECOND_RESOURCE),
+        () => accessTokenError,
       ),
-      TEbind("uploadResult", ({ validFile, token }) =>
-        TEtryCatch(
-          () =>
-            uploadImage({
-              variables: { file: validFile },
-              context: { headers: { Authorization: `Bearer ${token}` } },
-            }),
-          () => uploadFailure,
-        ),
+    ),
+    TEbind("uploadResult", ({ validFile, token }) =>
+      TEtryCatch(
+        () =>
+          uploadImage({
+            variables: { file: validFile },
+            context: { headers: { Authorization: `Bearer ${token}` } },
+          }),
+        () => uploadFailure,
       ),
-      TEbind("url", ({ uploadResult }) =>
-        match(uploadResult)
-          .with({ data: { uploadFile: { url: P.select(P.string) } } }, (url) =>
-            TEright(url),
-          )
-          .otherwise(() => TEleft(missingUrlError)),
-      ),
-      TEbind("insertImage", ({ url }) => {
-        const editorUpdate = editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
-          source: url,
-          width: 300,
-          height: 300,
-        })
-        return match(editorUpdate)
-          .with(true, () => TEright(true))
-          .with(false, () => TEleft(editorInsertionError))
-          .exhaustive()
-      }),
-      async (uploadTask) => {
-        const result = await uploadTask()
-        if (EisLeft(result)) {
-          setImageState(some(result))
-        }
-        if (EisRight(result)) {
-          setImageState(some(result))
-          setDialogDisplay(false)
-        }
-      },
-    )
-  }
+    ),
+    TEbind("url", ({ uploadResult }) =>
+      match(uploadResult)
+        .with({ data: { uploadFile: { url: P.select(P.string) } } }, (url) =>
+          TEright(url),
+        )
+        .otherwise(() => TEleft(missingUrlError)),
+    ),
+    TEbind("insertImage", ({ url }) => {
+      const editorUpdate = editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
+        source: url,
+        width: 300,
+        height: 300,
+      })
+      return match(editorUpdate)
+        .with(true, () => TEright(true))
+        .with(false, () => TEleft(editorInsertionError))
+        .exhaustive()
+    }),
+    Tmap((uploadTask) => {
+      const result = uploadTask
+      if (EisLeft(result)) {
+        setImageState(some(result))
+      }
+      if (EisRight(result)) {
+        setImageState(some(result))
+        setDialogDisplay(false)
+      }
+    }),
+  )
 
 const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
   const { getAccessToken } = useLogto()
@@ -249,16 +248,16 @@ const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
     reset()
   }
 
-  const uploadFunction = createImageUploadFunction(
-    editor,
-    getAccessToken,
-    uploadImage,
-    setImageState,
-    setDialogDisplay,
-  )
-
   const onSubmit = () => {
-    uploadFunction(imageState)
+    const uploadFunction = createImageUploadFunction(
+      editor,
+      getAccessToken,
+      uploadImage,
+      setImageState,
+      setDialogDisplay,
+      imageState,
+    )
+    uploadFunction()
   }
 
   return (
