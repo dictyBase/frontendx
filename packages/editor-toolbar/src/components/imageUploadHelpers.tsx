@@ -84,7 +84,9 @@ const editorInsertionError = {
 
 const EgetValidFile = (files: FileList | null) =>
   pipe(
-    files, OfromNullable, EfromOption(() => emptyFileListError),
+    files,
+    OfromNullable,
+    EfromOption(() => emptyFileListError),
     EbindTo("fileList"),
     Elet("presentFiles", ({ fileList }) => [...fileList]),
     Ebind("selectedFile", ({ presentFiles }) =>
