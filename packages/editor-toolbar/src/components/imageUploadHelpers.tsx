@@ -1,10 +1,6 @@
 import type { LexicalEditor } from "lexical"
-import {
-  Typography,
-} from "@material-ui/core"
-import {
-  UploadFileMutationHookResult,
-} from "dicty-graphql-schema"
+import { Typography } from "@material-ui/core"
+import { UploadFileMutationHookResult } from "dicty-graphql-schema"
 import { pipe } from "fp-ts/function"
 import { head as Ahead } from "fp-ts/Array"
 import {
@@ -88,9 +84,7 @@ const editorInsertionError = {
 
 const EgetValidFile = (files: FileList | null) =>
   pipe(
-    files,
-    OfromNullable,
-    EfromOption(() => emptyFileListError),
+    files, OfromNullable, EfromOption(() => emptyFileListError),
     EbindTo("fileList"),
     Elet("presentFiles", ({ fileList }) => [...fileList]),
     Ebind("selectedFile", ({ presentFiles }) =>
@@ -123,19 +117,20 @@ const isValidFile = (
   )
 
 const renderError = (
-    imageState: Option<Either<ErrorState, ImageSuccessState>>
-) => pipe(
+  imageState: Option<Either<ErrorState, ImageSuccessState>>,
+) =>
+  pipe(
     imageState,
     Omap(
-        Ematch(
-            (someError) => (
-                <Typography color="error">{someError.message}</Typography>
-            ),
-            () => <></>
-        )
+      Ematch(
+        (someError) => (
+          <Typography color="error">{someError.message}</Typography>
+        ),
+        () => <></>,
+      ),
     ),
-    OgetOrElse(() => <></>)
-);
+    OgetOrElse(() => <></>),
+  )
 
 const createImageUploadFunction = (
   editor: LexicalEditor,
@@ -199,11 +194,11 @@ const createImageUploadFunction = (
     }),
   )
 
-export { 
+export {
   EgetValidFile,
   isValidFile,
   renderError,
   createImageUploadFunction,
   type ErrorState,
-  type ImageSuccessState
+  type ImageSuccessState,
 }
