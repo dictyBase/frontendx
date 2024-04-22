@@ -2,6 +2,7 @@ import {
   $createRangeSelection,
   $getNearestNodeFromDOMNode,
   $getSelection,
+  $isParagraphNode,
   LexicalEditor,
   LexicalNode,
   TextNode,
@@ -81,6 +82,17 @@ const getFlexLayoutNodeFromSelection = () => {
   return undefined
 }
 
+const getParagraphNodeFromSelection = () => {
+  const selection = $getSelection()
+  const nodes = selection?.getNodes()
+  if (!nodes) return undefined
+  const paragraphNode = nodes.find((node) =>
+    $isParagraphNode(node),
+  )
+  if (paragraphNode) return paragraphNode
+  return undefined
+}
+
 /**
  * If the selection caret is closer to the left boundary of the paragraph element,
  * the new node will be inserted as the first child of the paragraph. Otherwise,
@@ -119,8 +131,13 @@ const insertNodeIntoFlexRow = (
   x?: number,
 ) => {
   const targetFlexLayoutNode = getFlexLayoutNodeFromSelection()
-  if (!targetFlexLayoutNode) return
-  const targetParagraph = targetFlexLayoutNode.getParagraphNodeOrThrow()
+  let targetParagraph
+  if (targetFlexLayoutNode) {
+    targetParagraph = targetFlexLayoutNode.getParagraphNodeOrThrow()
+  } else {
+    targetParagraph = getParagraphNodeFromSelection() 
+  }
+  if (!targetParagraph) return
   const paragraphElement = getElementFromLexicalNode(editor, targetParagraph)
   if (!paragraphElement) return
   const { left, right } = paragraphElement.getBoundingClientRect()
