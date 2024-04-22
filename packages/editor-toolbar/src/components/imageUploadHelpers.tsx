@@ -8,6 +8,7 @@ import {
   map as Omap,
   fromNullable as OfromNullable,
   some,
+  none,
   Option,
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
@@ -190,7 +191,7 @@ const createImageUploadFunction = (
         setImageState(some(result))
       }
       if (EisRight(result)) {
-        setImageState(some(result))
+        setImageState(none)
         setDialogDisplay(false)
       }
     }),
