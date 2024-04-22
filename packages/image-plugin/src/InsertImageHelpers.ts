@@ -86,9 +86,7 @@ const getParagraphNodeFromSelection = () => {
   const selection = $getSelection()
   const nodes = selection?.getNodes()
   if (!nodes) return undefined
-  const paragraphNode = nodes.find((node) =>
-    $isParagraphNode(node),
-  )
+  const paragraphNode = nodes.find((node) => $isParagraphNode(node))
   if (paragraphNode) return paragraphNode
   return undefined
 }
@@ -135,7 +133,7 @@ const insertNodeIntoFlexRow = (
   if (targetFlexLayoutNode) {
     targetParagraph = targetFlexLayoutNode.getParagraphNodeOrThrow()
   } else {
-    targetParagraph = getParagraphNodeFromSelection() 
+    targetParagraph = getParagraphNodeFromSelection()
   }
   if (!targetParagraph) return
   const paragraphElement = getElementFromLexicalNode(editor, targetParagraph)
