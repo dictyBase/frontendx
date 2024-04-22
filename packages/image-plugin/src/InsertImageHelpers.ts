@@ -129,12 +129,9 @@ const insertNodeIntoFlexRow = (
   x?: number,
 ) => {
   const targetFlexLayoutNode = getFlexLayoutNodeFromSelection()
-  let targetParagraph
-  if (targetFlexLayoutNode) {
-    targetParagraph = targetFlexLayoutNode.getParagraphNodeOrThrow()
-  } else {
-    targetParagraph = getParagraphNodeFromSelection()
-  }
+  let targetParagraph = targetFlexLayoutNode
+    ? targetFlexLayoutNode.getParagraphNodeOrThrow()
+    : getParagraphNodeFromSelection()
   if (!targetParagraph) return
   const paragraphElement = getElementFromLexicalNode(editor, targetParagraph)
   if (!paragraphElement) return
