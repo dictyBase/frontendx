@@ -140,21 +140,24 @@ const renderError = (
     OgetOrElse(() => <></>),
   )
 
-const resolveDimensions = (src: string) => {
-  return new Promise<{ height: number, width: number}>((resolve, reject) => {
-    const imageElement = new Image() 
-    imageElement.src = src
-  // eslint-disable-next-line unicorn/prefer-add-event-listener
-    imageElement.onload = () => resolve({ height: imageElement.naturalHeight, width: imageElement.naturalWidth })
-  // eslint-disable-next-line unicorn/prefer-add-event-listener
+const resolveDimensions = (source: string) =>
+  new Promise<{ height: number; width: number }>((resolve, reject) => {
+    const imageElement = new Image()
+    imageElement.src = source
+    // eslint-disable-next-line unicorn/prefer-add-event-listener
+    imageElement.onload = () =>
+      resolve({
+        height: imageElement.naturalHeight,
+        width: imageElement.naturalWidth,
+      })
+    // eslint-disable-next-line unicorn/prefer-add-event-listener
     imageElement.onerror = reject
   })
-}
 
-const TEresolveDimensions = (url: string) => 
+const TEresolveDimensions = (url: string) =>
   TEtryCatch(
     () => resolveDimensions(url),
-    () => imageLoadError 
+    () => imageLoadError,
   )
 
 const createImageUploadFunction = (
@@ -199,11 +202,10 @@ const createImageUploadFunction = (
     ),
     TEbind("dimensions", ({ url }) => TEresolveDimensions(url)),
     TEbind("insertImage", ({ url, dimensions }) => {
-
       const editorUpdate = editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
         source: url,
         height: dimensions.height,
-        width: dimensions.width
+        width: dimensions.width,
       })
       return match(editorUpdate)
         .with(true, () => TEright(true))
