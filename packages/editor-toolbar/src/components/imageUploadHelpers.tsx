@@ -40,6 +40,7 @@ enum ErrorType {
   ACCESS_TOKEN_ERROR,
   UPLOAD_FAILURE,
   MISSING_URL,
+  IMAGE_LOAD_ERROR,
   EDITOR_INSERTION,
 }
 
@@ -77,6 +78,10 @@ const uploadFailure = {
 const missingUrlError = {
   errorType: ErrorType.MISSING_URL,
   message: "Image url missing",
+}
+const imageLoadError = {
+  errorType: ErrorType.IMAGE_LOAD_ERROR,
+  message: "Could not load image",
 }
 const editorInsertionError = {
   errorType: ErrorType.EDITOR_INSERTION,
@@ -135,6 +140,21 @@ const renderError = (
     OgetOrElse(() => <></>),
   )
 
+const resolveDimensions = (src: string) => {
+  return new Promise<{ height: number, width: number}>((resolve, reject) => {
+    const imageElement = new Image() 
+    imageElement.src = src
+    imageElement.onload = () => resolve({ height: imageElement.naturalHeight, width: imageElement.naturalWidth })
+    imageElement.onerror = reject
+  })
+}
+
+const TEresolveDimensions = (url: string) => 
+  TEtryCatch(
+    () => resolveDimensions(url),
+    () => imageLoadError 
+  )
+
 const createImageUploadFunction = (
   editor: LexicalEditor,
   getAccessToken: (
@@ -175,11 +195,13 @@ const createImageUploadFunction = (
         )
         .otherwise(() => TEleft(missingUrlError)),
     ),
-    TEbind("insertImage", ({ url }) => {
+    TEbind("dimensions", ({ url }) => TEresolveDimensions(url)),
+    TEbind("insertImage", ({ url, dimensions }) => {
+
       const editorUpdate = editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
         source: url,
-        width: 300,
-        height: 300,
+        height: dimensions.height,
+        width: dimensions.width
       })
       return match(editorUpdate)
         .with(true, () => TEright(true))
