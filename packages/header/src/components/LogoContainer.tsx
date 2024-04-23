@@ -30,9 +30,7 @@ const TitleContainer = ({ title }: { title: string }) => (
 
 const LogoContainer = ({ children }: ReactChildrenProperty) => (
   <Box className={headerStyles().logoContainer}>
-    <a href={import.meta.env["VITE_APP_FRONTPAGE_URL"]}>
-      {children}
-    </a>
+    <a href={import.meta.env["VITE_APP_FRONTPAGE_URL"]}>{children}</a>
   </Box>
 )
 
