@@ -2,8 +2,8 @@ import { makeStyles } from "@material-ui/core"
 
 const useResizerStyles = makeStyles({
   root: {
-    height: "6px",
-    width: "6px",
+    height: "12px",
+    width: "12px",
     position: "absolute",
     backgroundColor: "rgb(60, 132, 244)",
     border: "1px solid #fff",
