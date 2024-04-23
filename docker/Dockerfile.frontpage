@@ -1,13 +1,14 @@
 FROM node:lts-alpine3.18 AS base
 
 FROM base AS builder
+ARG BUILD_STATE="development"
 RUN apk update
 RUN apk add --no-cache libc6-compat 
 # Set working directory
 WORKDIR /app
 RUN yarn global add turbo
 COPY . .
-RUN mv /app/apps/dicty-frontpage/.env.development /app/apps/dicty-frontpage/.env.production
+RUN mv /app/apps/dicty-frontpage/.env.${BUILD_STATE} /app/apps/dicty-frontpage/.env.production
 RUN turbo prune --scope=dicty-frontpage --docker
 
 # Add lockfile and package.json's of isolated subworkspace
