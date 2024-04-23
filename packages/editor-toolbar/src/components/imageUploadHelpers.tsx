@@ -144,7 +144,9 @@ const resolveDimensions = (src: string) => {
   return new Promise<{ height: number, width: number}>((resolve, reject) => {
     const imageElement = new Image() 
     imageElement.src = src
+  // eslint-disable-next-line unicorn/prefer-add-event-listener
     imageElement.onload = () => resolve({ height: imageElement.naturalHeight, width: imageElement.naturalWidth })
+  // eslint-disable-next-line unicorn/prefer-add-event-listener
     imageElement.onerror = reject
   })
 }
