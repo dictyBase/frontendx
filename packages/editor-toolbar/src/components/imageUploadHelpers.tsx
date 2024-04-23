@@ -28,6 +28,7 @@ import {
 import {
   tryCatch as TEtryCatch,
   bind as TEbind,
+  let as TElet,
   fromEither as TEfromEither,
   right as TEright,
   left as TEleft,
@@ -160,6 +161,15 @@ const TEresolveDimensions = (url: string) =>
     () => imageLoadError,
   )
 
+const scaleDimensions = (
+  { height, width }: { height: number; width: number },
+  baseWidth: number,
+) => {
+  const aspectRatio = width / height
+  const newHeight = baseWidth / aspectRatio
+  return { height: newHeight, width: baseWidth }
+}
+
 const createImageUploadFunction = (
   editor: LexicalEditor,
   getAccessToken: (
@@ -201,11 +211,14 @@ const createImageUploadFunction = (
         .otherwise(() => TEleft(missingUrlError)),
     ),
     TEbind("dimensions", ({ url }) => TEresolveDimensions(url)),
-    TEbind("insertImage", ({ url, dimensions }) => {
+    TElet("scaledDimensions", ({ dimensions }) =>
+      scaleDimensions(dimensions, 400),
+    ),
+    TEbind("insertImage", ({ url, scaledDimensions }) => {
       const editorUpdate = editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
         source: url,
-        height: dimensions.height,
-        width: dimensions.width,
+        height: scaledDimensions.height,
+        width: scaledDimensions.width,
       })
       return match(editorUpdate)
         .with(true, () => TEright(true))
