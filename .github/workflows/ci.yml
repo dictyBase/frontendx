@@ -38,3 +38,12 @@ jobs:
       ref: ${{ github.ref_name }}
       dockerfile: "docker/Dockerfile.stock-center"
       dockerrepo: "dictybase/stock-center"
+  call-publication-docker-build:
+    needs: test
+    uses: dictyBase/workflows/.github/workflows/docker-build-push-mode.yaml@develop
+    secrets: inherit
+    with:
+      repository: ${{ github.repository }}
+      ref: ${{ github.ref_name }}
+      dockerfile: "docker/Dockerfile.publication"
+      dockerrepo: "dictybase/publication"
