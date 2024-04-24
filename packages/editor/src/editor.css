@@ -57,3 +57,8 @@
   border: 1px solid rgb(156, 156, 156);
   border-collapse: collapse;
 }
+
+.editor-flex-layout {
+  /* justify-content: center; */
+  column-gap: 10px;
+}
