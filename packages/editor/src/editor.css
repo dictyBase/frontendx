@@ -11,6 +11,10 @@
   border-top-right-radius: 10px;
 }
 
+.editor-text-base {
+  flex-grow: 1;
+}
+
 .editor-text-bold {
   font-weight: bold;
 }
@@ -59,6 +63,5 @@
 }
 
 .editor-flex-layout {
-  /* justify-content: center; */
   column-gap: 10px;
 }
