@@ -9,7 +9,6 @@ export type StyleProperties = {
   loading: boolean
   error: boolean
 }
-
 const useImageStyles = makeStyles<Theme, StyleProperties>({
   root: {
     position: "relative",
@@ -21,6 +20,7 @@ const useImageStyles = makeStyles<Theme, StyleProperties>({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "black",
+    marginBottom: "5px",
   },
   image: {
     aspectRatio: "1",
