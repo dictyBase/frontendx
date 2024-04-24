@@ -16,6 +16,7 @@ const editorTheme = {
   table: "editor-table",
   tableCell: "editor-tablecell",
   tableCellHeader: "editor-tablecell-head",
+  flexLayout: "editor-flex-layout"
 }
 
 const onError = (error: Error) => {
