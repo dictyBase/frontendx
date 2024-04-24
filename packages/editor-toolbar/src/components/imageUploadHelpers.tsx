@@ -66,7 +66,7 @@ const noFileSelectedError = {
 }
 const overFileSizeLimitError = {
   errorType: ErrorType.VALIDITY_ERROR,
-  message: "Chosen image is too large. It must be smaller than 1MB.",
+  message: "Chosen file size is too large. It must be smaller than 1MB.",
 }
 const accessTokenError = {
   errorType: ErrorType.ACCESS_TOKEN_ERROR,
@@ -143,7 +143,9 @@ const renderError = (
 
 const resolveDimensions = (source: string) =>
   new Promise<{ height: number; width: number }>((resolve, reject) => {
+    console.log(source)
     const imageElement = new Image()
+    console.log(imageElement)
     imageElement.src = source
     // eslint-disable-next-line unicorn/prefer-add-event-listener
     imageElement.onload = () =>
@@ -240,6 +242,9 @@ export {
   EgetValidFile,
   isValidFile,
   renderError,
+  resolveDimensions, 
+  TEresolveDimensions,
+  scaleDimensions,
   createImageUploadFunction,
   type ErrorState,
   type ImageSuccessState,
