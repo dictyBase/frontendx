@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
+import { makeStyles } from "@material-ui/core"
 import {
   Dialog,
   DialogTitle,
@@ -30,6 +31,14 @@ type ImageUploadDialogProperties = {
   open: boolean
 }
 
+const useImageUploadDialogStyles = makeStyles({
+  helpText: {
+    marginTop: "5px",
+    color: "hsl(241, 5%, 50%)",
+    fontStyle: "italic",
+  },
+})
+
 const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
   const { getAccessToken } = useLogto()
   const [editor] = useLexicalComposerContext()
@@ -37,7 +46,7 @@ const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
   const [uploadImage, { loading, reset }] = useUploadFileMutation()
   const [imageState, setImageState] =
     useState<Option<Either<ErrorState, ImageSuccessState>>>(none)
-
+  const { helpText } = useImageUploadDialogStyles()
   const canSubmit = isValidFile(imageState)
 
   const onChange: React.ChangeEventHandler<HTMLInputElement> = async ({
@@ -80,14 +89,15 @@ const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
           fullWidth
           inputProps={{ accept: "image/*" }}
         />
+        <Typography className={helpText}>* Must be smaller than 1MB</Typography>
         {renderError(imageState)}
-        <DialogActions>
-          {loading ? <CircularProgress /> : <></>}
-          <Button type="button" disabled={!canSubmit} onClick={onSubmit}>
-            Insert Image
-          </Button>
-        </DialogActions>
       </DialogContent>
+      <DialogActions>
+        {loading ? <CircularProgress /> : <></>}
+        <Button type="button" disabled={!canSubmit} onClick={onSubmit}>
+          Insert Image
+        </Button>
+      </DialogActions>
     </Dialog>
   )
 }
