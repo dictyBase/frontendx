@@ -102,9 +102,9 @@ const getParagraphNodeFromSelection = () => {
 
 const getFlexParagraphNodeFromSelection = () => {
   const selection = $getSelection()
-  const nodes = selection?.getNodes()
+  const selectedNodes = selection?.getNodes()
   return pipe(
-    nodes,
+    selectedNodes,
     OfromNullable,
     ObindTo("nodes"),
     Obind("node", ({ nodes }) => Ahead(nodes)),
@@ -116,8 +116,7 @@ const getTextNodeFromSelection = () => {
   const selection = $getSelection()
   const nodes = selection?.getNodes()
   if (!nodes) return undefined
-  const textNode = nodes.find((node) => $isTextNode(node))
-  return textNode
+  return nodes.find((node) => $isTextNode(node))
 }
 
 /**
