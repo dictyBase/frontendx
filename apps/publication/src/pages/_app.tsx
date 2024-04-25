@@ -29,4 +29,5 @@ const PublicationApp = ({ Component, pageProps }: AppProps) => (
   </AuthProvider>
 )
 
-export { PublicationApp }
+// eslint-disable-next-line import/no-default-export
+export default PublicationApp
