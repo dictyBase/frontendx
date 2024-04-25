@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
-import { makeStyles } from "@material-ui/core"
 import {
+  makeStyles,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -89,7 +89,6 @@ const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
   }
 
   const onSelect: React.ChangeEventHandler<HTMLInputElement> = ({ target }) => {
-    console.log(target.value)
     setAlignment(target.value as Alignment)
   }
 
@@ -109,7 +108,7 @@ const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
         <Typography className={helpText}>* Must be smaller than 1MB</Typography>
         <FormControl>
           <FormLabel> Alignment </FormLabel>
-          <RadioGroup value={alignment} onChange={onSelect} >
+          <RadioGroup value={alignment} onChange={onSelect}>
             <FormControlLabel
               value={Alignment.LEFT}
               control={<Radio />}
