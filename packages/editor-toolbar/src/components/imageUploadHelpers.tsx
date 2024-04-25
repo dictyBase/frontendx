@@ -182,6 +182,7 @@ const createImageUploadFunction = (
   setImageState: React.Dispatch<
     React.SetStateAction<Option<Either<ErrorState, ImageSuccessState>>>
   >,
+  alignment: "left" | "right",
   setDialogDisplay: any,
 ) =>
   pipe(
@@ -221,6 +222,7 @@ const createImageUploadFunction = (
         source: url,
         height: scaledDimensions.height,
         width: scaledDimensions.width,
+        alignment
       })
       return match(editorUpdate)
         .with(true, () => TEright(true))
