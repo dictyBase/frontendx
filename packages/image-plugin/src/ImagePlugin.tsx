@@ -55,9 +55,7 @@ const ImagePlugin = () => {
               }),
             )
           }),
-          OgetOrElse(() => {
-            return false
-          }),
+          OgetOrElse(() => false),
         )
       },
       COMMAND_PRIORITY_EDITOR,
