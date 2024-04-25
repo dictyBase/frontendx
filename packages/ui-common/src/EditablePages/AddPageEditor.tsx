@@ -1,7 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import {
-  useCreateContentMutation,
-} from "dicty-graphql-schema"
+import { useCreateContentMutation } from "dicty-graphql-schema"
 import { Editor } from "editor"
 import { createAddPageToolbar } from "./createAddPageToolbar"
 
