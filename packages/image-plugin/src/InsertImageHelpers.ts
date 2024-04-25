@@ -7,19 +7,17 @@ import {
   LexicalEditor,
   LexicalNode,
   TextNode,
+  ParagraphNode,
 } from "lexical"
 import { pipe } from "fp-ts/function"
 import { head as Ahead } from "fp-ts/Array"
 import {
   map as Omap,
-  match as Omatch,
   fromNullable as OfromNullable,
-  getOrElse as OgetOrElse,
   bindTo as ObindTo,
   bind as Obind,
-  let as Olet,
 } from "fp-ts/Option"
-import { $isFlexLayoutNode } from "flex-layout-plugin"
+import { $isFlexLayoutNode, FlexLayoutNode } from "flex-layout-plugin"
 
 const getDifference = (first: number, second: number) =>
   Math.abs(first - second)
@@ -84,45 +82,49 @@ export const getRangeSelectionFromPoint = (x: number, y: number) => {
 const getElementFromLexicalNode = (editor: LexicalEditor, node: LexicalNode) =>
   editor.getElementByKey(node.getKey())
 
+const getNearestFlexLayoutAncestor = (
+  node: LexicalNode,
+): FlexLayoutNode | undefined => {
+  if (node.getType() === "root") return undefined
+  if ($isFlexLayoutNode(node)) return node
+  const parent = node.getParent()
+  if (!parent) return undefined
+  return getNearestFlexLayoutAncestor(parent)
+}
+
+const getNearestParagraphAncestor = (
+  node: LexicalNode,
+): ParagraphNode | undefined => {
+  if (node.getType() === "root") return undefined
+  if ($isParagraphNode(node)) return node
+  const parent = node.getParent()
+  if (!parent) return undefined
+  return getNearestParagraphAncestor(parent)
+}
+
 const getFlexLayoutNodeFromSelection = () => {
   const selection = $getSelection()
-  let node = selection?.getNodes()[0]
-  while (node && node.getType() !== "root") {
-    if ($isFlexLayoutNode(node)) return node
-    node = node.getParentOrThrow()
-  }
-  return undefined
+  const node = selection?.getNodes()[0]
+  if (!node) return undefined
+  return getNearestFlexLayoutAncestor(node)
 }
 
 const getParagraphNodeFromSelection = () => {
   const selection = $getSelection()
-  const nodes = selection?.getNodes()
-  if (!nodes) return undefined
-  const paragraphNode = nodes.find((node) => $isParagraphNode(node))
-  if (paragraphNode) return paragraphNode
-  return undefined
+  const node = selection?.getNodes()[0]
+  if (!node) return undefined
+  return getNearestParagraphAncestor(node)
 }
 
 const getFlexParagraphNodeFromSelection = () => {
   const selection = $getSelection()
-  const nodes = selection?.getNodes()
+  const selectionNodes = selection?.getNodes()
   return pipe(
-    nodes,
+    selectionNodes,
     OfromNullable,
     ObindTo("nodes"),
     Obind("node", ({ nodes }) => Ahead(nodes)),
-//    Olet("parents", ({ node }) => node.getParents()),
-//    (a) => {
-//      console.log(a)
-//      return a
-//    },
-//    Obind("flexParagraphNode", ({ parents }) =>
-//      OfromNullable(
-//        parents.find((node) => node.getType() === "flex-paragraph"),
-//      ),
-//    ),
-//    Omap(({ flexParagraphNode }) => flexParagraphNode)
-    Omap(({ node }) => node)
+    Omap(({ node }) => node),
   )
 }
 
@@ -130,8 +132,7 @@ const getTextNodeFromSelection = () => {
   const selection = $getSelection()
   const nodes = selection?.getNodes()
   if (!nodes) return undefined
-  const textNode = nodes.find((node) => $isTextNode(node))
-  return textNode
+  return nodes.find((node) => $isTextNode(node))
 }
 
 /**
@@ -191,4 +192,7 @@ export {
   insertNodeIntoFlexRow,
   getFlexParagraphNodeFromSelection,
   getTextNodeFromSelection,
+  getParagraphNodeFromSelection,
+  getFlexLayoutNodeFromSelection,
+  getNearestFlexLayoutAncestor,
 }
