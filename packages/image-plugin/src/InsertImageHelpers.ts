@@ -12,12 +12,9 @@ import { pipe } from "fp-ts/function"
 import { head as Ahead } from "fp-ts/Array"
 import {
   map as Omap,
-  match as Omatch,
   fromNullable as OfromNullable,
-  getOrElse as OgetOrElse,
   bindTo as ObindTo,
   bind as Obind,
-  let as Olet,
 } from "fp-ts/Option"
 import { $isFlexLayoutNode } from "flex-layout-plugin"
 
@@ -111,17 +108,6 @@ const getFlexParagraphNodeFromSelection = () => {
     OfromNullable,
     ObindTo("nodes"),
     Obind("node", ({ nodes }) => Ahead(nodes)),
-    //    Olet("parents", ({ node }) => node.getParents()),
-    //    (a) => {
-    //      console.log(a)
-    //      return a
-    //    },
-    //    Obind("flexParagraphNode", ({ parents }) =>
-    //      OfromNullable(
-    //        parents.find((node) => node.getType() === "flex-paragraph"),
-    //      ),
-    //    ),
-    //    Omap(({ flexParagraphNode }) => flexParagraphNode)
     Omap(({ node }) => node),
   )
 }
