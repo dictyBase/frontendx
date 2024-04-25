@@ -3,6 +3,11 @@ import { makeStyles, Theme } from "@material-ui/core/styles"
 import Container from "@material-ui/core/Container"
 import { Header, Footer } from "dicty-components-header-footer"
 import { Navbar } from "@dictybase/navbar"
+import { pipe } from "fp-ts/function"
+import {
+  fromNullable as OfromNullable,
+  getOrElse as OgetOrElse,
+} from "fp-ts/Option"
 import ErrorBoundary from "../errors/ErrorBoundary"
 import { headerItems, HeaderLinks } from "./HeaderItems"
 import { footerLinks, convertFooterData } from "../../common/utils/footerItems"
@@ -33,13 +38,25 @@ const useStyles = makeStyles((theme: Theme) => ({
  */
 const App = ({ children }: { children: React.ReactNode }) => {
   const classes = useStyles()
-  // const headerContent = isAuthenticated ? loggedHeaderItems : headerItems
   const headerContent = headerItems
-
+  const frontPageUrl = pipe(
+    process.env.NEXT_PUBLIC_FRONTPAGE_URL,
+    OfromNullable,
+    OgetOrElse(() => ""),
+  )
+  const stockCenterUrl = pipe(
+    process.env.NEXT_PUBLIC_STOCKCENTER_URL,
+    OfromNullable,
+    OgetOrElse(() => ""),
+  )
   return (
     <div className={classes.body}>
       <Header items={headerContent} render={HeaderLinks} theme={headerTheme} />
-      <Navbar theme={navTheme} />
+      <Navbar
+        frontPageUrl={frontPageUrl}
+        stockCenterUrl={stockCenterUrl}
+        theme={navTheme}
+      />
       <main className={classes.main}>
         <Container>
           <ErrorBoundary>{children}</ErrorBoundary>
