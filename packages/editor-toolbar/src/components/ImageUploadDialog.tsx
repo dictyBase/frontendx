@@ -10,6 +10,11 @@ import {
   Typography,
   CircularProgress,
   Input,
+  FormControl,
+  FormLabel,
+  FormControlLabel,
+  RadioGroup,
+  Radio,
 } from "@material-ui/core"
 import { useUploadFileMutation } from "dicty-graphql-schema"
 import { useLogto } from "@logto/react"
@@ -31,6 +36,11 @@ type ImageUploadDialogProperties = {
   open: boolean
 }
 
+enum Alignment {
+  LEFT = "left",
+  RIGHT = "right",
+}
+
 const useImageUploadDialogStyles = makeStyles({
   helpText: {
     marginTop: "5px",
@@ -46,6 +56,7 @@ const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
   const [uploadImage, { loading, reset }] = useUploadFileMutation()
   const [imageState, setImageState] =
     useState<Option<Either<ErrorState, ImageSuccessState>>>(none)
+  const [alignment, setAlignment] = useState<Alignment>(Alignment.LEFT)
   const { helpText } = useImageUploadDialogStyles()
   const canSubmit = isValidFile(imageState)
 
@@ -71,9 +82,15 @@ const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
       uploadImage,
       imageState,
       setImageState,
+      alignment,
       setDialogDisplay,
     )
     uploadFunction()
+  }
+
+  const onSelect: React.ChangeEventHandler<HTMLInputElement> = ({ target }) => {
+    console.log(target.value)
+    setAlignment(target.value as Alignment)
   }
 
   return (
@@ -90,6 +107,21 @@ const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
           inputProps={{ accept: "image/*" }}
         />
         <Typography className={helpText}>* Must be smaller than 1MB</Typography>
+        <FormControl>
+          <FormLabel> Alignment </FormLabel>
+          <RadioGroup value={alignment} onChange={onSelect} >
+            <FormControlLabel
+              value={Alignment.LEFT}
+              control={<Radio />}
+              label="left"
+            />
+            <FormControlLabel
+              value={Alignment.RIGHT}
+              control={<Radio />}
+              label="right"
+            />
+          </RadioGroup>
+        </FormControl>
         {renderError(imageState)}
       </DialogContent>
       <DialogActions>
