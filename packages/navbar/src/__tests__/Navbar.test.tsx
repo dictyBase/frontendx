@@ -73,7 +73,7 @@ beforeAll(() => {
 })
 
 beforeEach(() => {
-  render(<Navbar {...properties} />)
+  render(<Navbar frontPageUrl="" stockCenterUrl="" {...properties} />)
 })
 
 test("should render a brand if one is specified", () => {
