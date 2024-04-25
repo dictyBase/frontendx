@@ -9,7 +9,6 @@ export type StyleProperties = {
   loading: boolean
   error: boolean
 }
-
 const useImageStyles = makeStyles<Theme, StyleProperties>({
   root: {
     position: "relative",
