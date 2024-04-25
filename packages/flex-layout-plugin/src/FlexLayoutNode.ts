@@ -50,6 +50,7 @@ class FlexLayoutNode extends ElementNode {
   override createDOM(config: EditorConfig) {
     const div = document.createElement("div")
     div.style.display = "flex"
+    div.style.columnGap = "10px"
     const { theme } = config
     // eslint-disable-next-line dot-notation
     const className = theme["flexLayout"]
