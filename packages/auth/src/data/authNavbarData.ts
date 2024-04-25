@@ -1,5 +1,7 @@
-/* eslint-disable dot-notation */
-const authNavbarItems = {
+const createAuthNavbarItems = (
+  frontPageUrl: string,
+  stockCenterUrl: string,
+) => ({
   data: [
     {
       type: "genomes",
@@ -51,33 +53,23 @@ const authNavbarItems = {
         items: [
           {
             label: "Dicty Art",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/explore/art/editable`,
+            link: `${frontPageUrl}/explore/art/editable`,
           },
           {
             label: "Gallery",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/explore/gallery/editable`,
+            link: `${frontPageUrl}/explore/gallery/editable`,
           },
           {
             label: "Learn About Dicty",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/explore/learn/editable`,
+            link: `${frontPageUrl}/explore/learn/editable`,
           },
           {
             label: "Teaching Protocols",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/explore/teach/editable`,
+            link: `${frontPageUrl}/explore/teach/editable`,
           },
           {
             label: "Useful Links",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/explore/links/editable`,
+            link: `${frontPageUrl}/explore/links/editable`,
           },
         ],
       },
@@ -90,39 +82,27 @@ const authNavbarItems = {
         items: [
           {
             label: "Techniques",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/research/techniques/editable`,
+            link: `${frontPageUrl}/research/techniques/editable`,
           },
           {
             label: "Anatomy Ontology",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/research/ontology/editable`,
+            link: `${frontPageUrl}/research/ontology/editable`,
           },
           {
             label: "Codon Bias Table",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/research/codon/editable`,
+            link: `${frontPageUrl}/research/codon/editable`,
           },
           {
             label: "Nomenclature Guidelines",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/research/nomenclature/editable`,
+            link: `${frontPageUrl}/research/nomenclature/editable`,
           },
           {
             label: "Phenotyping",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/research/phenotype/editable`,
+            link: `${frontPageUrl}/research/phenotype/editable`,
           },
           {
             label: "Axenic Strain History",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/research/strain-history/editable`,
+            link: `${frontPageUrl}/research/strain-history/editable`,
           },
         ],
       },
@@ -135,39 +115,31 @@ const authNavbarItems = {
         items: [
           {
             label: "Stock Center Home",
-            link: `${import.meta.env["VITE_APP_STOCKCENTER_URL"]}`,
+            link: `${stockCenterUrl}`,
           },
           {
             label: "Strain Catalog",
-            link: `${import.meta.env["VITE_APP_STOCKCENTER_URL"]}/strains`,
+            link: `${stockCenterUrl}/strains`,
           },
           {
             label: "Plasmid Catalog",
-            link: `${import.meta.env["VITE_APP_STOCKCENTER_URL"]}/plasmids`,
+            link: `${stockCenterUrl}/plasmids`,
           },
           {
             label: "Order Information",
-            link: `${
-              import.meta.env["VITE_APP_STOCKCENTER_URL"]
-            }/information/order/editable`,
+            link: `${stockCenterUrl}/information/order/editable`,
           },
           {
             label: "Deposit Information",
-            link: `${
-              import.meta.env["VITE_APP_STOCKCENTER_URL"]
-            }/information/deposit/editable`,
+            link: `${stockCenterUrl}/information/deposit/editable`,
           },
           {
             label: "Payment Information",
-            link: `${
-              import.meta.env["VITE_APP_STOCKCENTER_URL"]
-            }/information/payment/editable`,
+            link: `${stockCenterUrl}/information/payment/editable`,
           },
           {
             label: "FAQ",
-            link: `${
-              import.meta.env["VITE_APP_STOCKCENTER_URL"]
-            }/information/faq/editable`,
+            link: `${stockCenterUrl}/information/faq/editable`,
           },
           {
             label: "Standard Operating Procedures",
@@ -184,50 +156,36 @@ const authNavbarItems = {
         items: [
           {
             label: "Cite Us",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/community/citation/editable`,
+            link: `${frontPageUrl}/community/citation/editable`,
           },
           {
             label: "Dicty Annual Conferences",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/community/conference/editable`,
+            link: `${frontPageUrl}/community/conference/editable`,
           },
           {
             label: "Dicty Email Forum",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/community/listserv/editable`,
+            link: `${frontPageUrl}/community/listserv/editable`,
           },
           {
             label: "Dicty Labs",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/community/labs/editable`,
+            link: `${frontPageUrl}/community/labs/editable`,
           },
           {
             label: "History",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/community/history/editable`,
+            link: `${frontPageUrl}/community/history/editable`,
           },
           {
             label: "Jobs",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/community/jobs/editable`,
+            link: `${frontPageUrl}/community/jobs/editable`,
           },
           {
             label: "Community Annotations",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/community/annotations/editable`,
+            link: `${frontPageUrl}/community/annotations/editable`,
           },
         ],
       },
     },
   ],
-}
+})
 
-export { authNavbarItems }
+export { createAuthNavbarItems }
