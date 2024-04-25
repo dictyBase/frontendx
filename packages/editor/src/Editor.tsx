@@ -66,7 +66,8 @@ const Editor = ({
   | (EditorProperties & ReadProperties)
   | (EditorProperties & EditProperties)) => {
   // eslint-disable-next-line unicorn/no-null
-  const initialEditorState = content?.editorState || null
+  const initialEditorState = content?.editorState || initialStateString || null
+  console.log(initialEditorState)
   const inputClasses = useEditorInputStyles()
   const placeholderClasses = useEditorPlaceholderStyles()
   // const persistencePluginStyles = usePersistencePluginStyles()
