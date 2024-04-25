@@ -5,7 +5,6 @@ import { TableCellNode, TableRowNode } from "@lexical/table"
 import { LinkNode } from "@lexical/link"
 import { ImageNode } from "image-plugin"
 import { WidthTableNode } from "width-table-plugin"
-import { FlexParagraphNode } from "./FlexParagraphNode"
 
 const editorTheme = {
   paragraph: "editor-paragraph",
@@ -18,7 +17,6 @@ const editorTheme = {
   table: "editor-table",
   tableCell: "editor-tablecell",
   tableCellHeader: "editor-tablecell-head",
-  flexLayout: "editor-flex-layout",
 }
 
 const onError = (error: Error) => {
@@ -39,8 +37,6 @@ const dictyEditorConfig = {
     TableCellNode,
     TableRowNode,
     WidthTableNode,
-    FlexParagraphNode,
-    { replace: ParagraphNode, with: () => new FlexParagraphNode() },
   ],
   onError,
 }
