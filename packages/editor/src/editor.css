@@ -30,8 +30,9 @@
 .editor-paragraph {
   margin: 0;
   margin-bottom: 8px;
-  position: relative;
   display: flex;
+  position: relative;
+  column-gap: 10px;
 }
 
 .editor-paragraph:last-child {
@@ -61,8 +62,4 @@
 .editor-tablecell {
   border: 1px solid rgb(156, 156, 156);
   border-collapse: collapse;
-}
-
-.editor-flex-layout {
-  column-gap: 10px;
 }
