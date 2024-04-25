@@ -28,6 +28,7 @@ import {
 import {
   tryCatch as TEtryCatch,
   bind as TEbind,
+  let as TElet,
   fromEither as TEfromEither,
   right as TEright,
   left as TEleft,
@@ -65,7 +66,7 @@ const noFileSelectedError = {
 }
 const overFileSizeLimitError = {
   errorType: ErrorType.VALIDITY_ERROR,
-  message: "Chosen image is too large. It must be smaller than 1MB.",
+  message: "Chosen file size is too large. It must be smaller than 1MB.",
 }
 const accessTokenError = {
   errorType: ErrorType.ACCESS_TOKEN_ERROR,
@@ -142,7 +143,9 @@ const renderError = (
 
 const resolveDimensions = (source: string) =>
   new Promise<{ height: number; width: number }>((resolve, reject) => {
+    console.log(source)
     const imageElement = new Image()
+    console.log(imageElement)
     imageElement.src = source
     // eslint-disable-next-line unicorn/prefer-add-event-listener
     imageElement.onload = () =>
@@ -160,6 +163,15 @@ const TEresolveDimensions = (url: string) =>
     () => imageLoadError,
   )
 
+const scaleDimensions = (
+  { height, width }: { height: number; width: number },
+  baseWidth: number,
+) => {
+  const aspectRatio = width / height
+  const newHeight = baseWidth / aspectRatio
+  return { height: newHeight, width: baseWidth }
+}
+
 const createImageUploadFunction = (
   editor: LexicalEditor,
   getAccessToken: (
@@ -170,6 +182,7 @@ const createImageUploadFunction = (
   setImageState: React.Dispatch<
     React.SetStateAction<Option<Either<ErrorState, ImageSuccessState>>>
   >,
+  alignment: "left" | "right",
   setDialogDisplay: any,
 ) =>
   pipe(
@@ -201,11 +214,15 @@ const createImageUploadFunction = (
         .otherwise(() => TEleft(missingUrlError)),
     ),
     TEbind("dimensions", ({ url }) => TEresolveDimensions(url)),
-    TEbind("insertImage", ({ url, dimensions }) => {
+    TElet("scaledDimensions", ({ dimensions }) =>
+      scaleDimensions(dimensions, 400),
+    ),
+    TEbind("insertImage", ({ url, scaledDimensions }) => {
       const editorUpdate = editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
         source: url,
-        height: dimensions.height,
-        width: dimensions.width,
+        height: scaledDimensions.height,
+        width: scaledDimensions.width,
+        alignment
       })
       return match(editorUpdate)
         .with(true, () => TEright(true))
@@ -227,6 +244,9 @@ export {
   EgetValidFile,
   isValidFile,
   renderError,
+  resolveDimensions, 
+  TEresolveDimensions,
+  scaleDimensions,
   createImageUploadFunction,
   type ErrorState,
   type ImageSuccessState,

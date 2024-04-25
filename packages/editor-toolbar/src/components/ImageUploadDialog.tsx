@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
+import { makeStyles } from "@material-ui/core"
 import {
   Dialog,
   DialogTitle,
@@ -9,6 +10,11 @@ import {
   Typography,
   CircularProgress,
   Input,
+  FormControl,
+  FormLabel,
+  FormControlLabel,
+  RadioGroup,
+  Radio,
 } from "@material-ui/core"
 import { useUploadFileMutation } from "dicty-graphql-schema"
 import { useLogto } from "@logto/react"
@@ -30,6 +36,19 @@ type ImageUploadDialogProperties = {
   open: boolean
 }
 
+enum Alignment {
+  LEFT = "left",
+  RIGHT = "right",
+}
+
+const useImageUploadDialogStyles = makeStyles({
+  helpText: {
+    marginTop: "5px",
+    color: "hsl(241, 5%, 50%)",
+    fontStyle: "italic",
+  },
+})
+
 const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
   const { getAccessToken } = useLogto()
   const [editor] = useLexicalComposerContext()
@@ -37,7 +56,8 @@ const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
   const [uploadImage, { loading, reset }] = useUploadFileMutation()
   const [imageState, setImageState] =
     useState<Option<Either<ErrorState, ImageSuccessState>>>(none)
-
+  const [alignment, setAlignment] = useState<Alignment>(Alignment.LEFT)
+  const { helpText } = useImageUploadDialogStyles()
   const canSubmit = isValidFile(imageState)
 
   const onChange: React.ChangeEventHandler<HTMLInputElement> = async ({
@@ -62,9 +82,15 @@ const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
       uploadImage,
       imageState,
       setImageState,
+      alignment,
       setDialogDisplay,
     )
     uploadFunction()
+  }
+
+  const onSelect: React.ChangeEventHandler<HTMLInputElement> = ({ target }) => {
+    console.log(target.value)
+    setAlignment(target.value as Alignment)
   }
 
   return (
@@ -80,14 +106,30 @@ const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
           fullWidth
           inputProps={{ accept: "image/*" }}
         />
+        <Typography className={helpText}>* Must be smaller than 1MB</Typography>
+        <FormControl>
+          <FormLabel> Alignment </FormLabel>
+          <RadioGroup value={alignment} onChange={onSelect} >
+            <FormControlLabel
+              value={Alignment.LEFT}
+              control={<Radio />}
+              label="left"
+            />
+            <FormControlLabel
+              value={Alignment.RIGHT}
+              control={<Radio />}
+              label="right"
+            />
+          </RadioGroup>
+        </FormControl>
         {renderError(imageState)}
-        <DialogActions>
-          {loading ? <CircularProgress /> : <></>}
-          <Button type="button" disabled={!canSubmit} onClick={onSubmit}>
-            Insert Image
-          </Button>
-        </DialogActions>
       </DialogContent>
+      <DialogActions>
+        {loading ? <CircularProgress /> : <></>}
+        <Button type="button" disabled={!canSubmit} onClick={onSubmit}>
+          Insert Image
+        </Button>
+      </DialogActions>
     </Dialog>
   )
 }

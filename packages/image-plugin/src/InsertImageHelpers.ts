@@ -3,10 +3,22 @@ import {
   $getNearestNodeFromDOMNode,
   $getSelection,
   $isParagraphNode,
+  $isTextNode,
   LexicalEditor,
   LexicalNode,
   TextNode,
 } from "lexical"
+import { pipe } from "fp-ts/function"
+import { head as Ahead } from "fp-ts/Array"
+import {
+  map as Omap,
+  match as Omatch,
+  fromNullable as OfromNullable,
+  getOrElse as OgetOrElse,
+  bindTo as ObindTo,
+  bind as Obind,
+  let as Olet,
+} from "fp-ts/Option"
 import { $isFlexLayoutNode } from "flex-layout-plugin"
 
 const getDifference = (first: number, second: number) =>
@@ -91,6 +103,37 @@ const getParagraphNodeFromSelection = () => {
   return undefined
 }
 
+const getFlexParagraphNodeFromSelection = () => {
+  const selection = $getSelection()
+  const nodes = selection?.getNodes()
+  return pipe(
+    nodes,
+    OfromNullable,
+    ObindTo("nodes"),
+    Obind("node", ({ nodes }) => Ahead(nodes)),
+//    Olet("parents", ({ node }) => node.getParents()),
+//    (a) => {
+//      console.log(a)
+//      return a
+//    },
+//    Obind("flexParagraphNode", ({ parents }) =>
+//      OfromNullable(
+//        parents.find((node) => node.getType() === "flex-paragraph"),
+//      ),
+//    ),
+//    Omap(({ flexParagraphNode }) => flexParagraphNode)
+    Omap(({ node }) => node)
+  )
+}
+
+const getTextNodeFromSelection = () => {
+  const selection = $getSelection()
+  const nodes = selection?.getNodes()
+  if (!nodes) return undefined
+  const textNode = nodes.find((node) => $isTextNode(node))
+  return textNode
+}
+
 /**
  * If the selection caret is closer to the left boundary of the paragraph element,
  * the new node will be inserted as the first child of the paragraph. Otherwise,
@@ -144,4 +187,8 @@ const insertNodeIntoFlexRow = (
   }
 }
 
-export { insertNodeIntoFlexRow }
+export {
+  insertNodeIntoFlexRow,
+  getFlexParagraphNodeFromSelection,
+  getTextNodeFromSelection,
+}
