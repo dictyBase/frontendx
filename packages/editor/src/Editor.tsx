@@ -20,7 +20,6 @@ import {
   useEditorInputStyles,
   useEditorPlaceholderStyles,
 } from "./useEditorStyles"
-import { initialStateString } from "./initialState"
 import "./editor.css"
 
 type EditorProperties = {
@@ -66,8 +65,7 @@ const Editor = ({
   | (EditorProperties & ReadProperties)
   | (EditorProperties & EditProperties)) => {
   // eslint-disable-next-line unicorn/no-null
-  const initialEditorState = content?.editorState || initialStateString || null
-  console.log(initialEditorState)
+  const initialEditorState = content?.editorState || null
   const inputClasses = useEditorInputStyles()
   const placeholderClasses = useEditorPlaceholderStyles()
   // const persistencePluginStyles = usePersistencePluginStyles()
