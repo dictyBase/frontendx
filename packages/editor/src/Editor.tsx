@@ -12,7 +12,6 @@ import { Grid, Container, Button, makeStyles, Theme } from "@material-ui/core"
 import { ImagePlugin } from "image-plugin"
 import { SaveButton } from "persistence-plugin"
 import { WidthTablePlugin } from "width-table-plugin"
-import { FlexLayoutPlugin } from "flex-layout-plugin"
 import { TableActionPlugin } from "table-action-plugin"
 import { DictybaseToolbar } from "editor-toolbar"
 import { TreeViewPlugin } from "./TreeViewPlugin"
@@ -67,7 +66,7 @@ const Editor = ({
   | (EditorProperties & ReadProperties)
   | (EditorProperties & EditProperties)) => {
   // eslint-disable-next-line unicorn/no-null
-  const initialEditorState = content?.editorState || initialStateString || null
+  const initialEditorState = content?.editorState || null
   const inputClasses = useEditorInputStyles()
   const placeholderClasses = useEditorPlaceholderStyles()
   // const persistencePluginStyles = usePersistencePluginStyles()
@@ -83,7 +82,6 @@ const Editor = ({
       <>{plugins}</>
       <ListPlugin />
       <ImagePlugin />
-      <FlexLayoutPlugin />
       <WidthTablePlugin />
       <TableActionPlugin />
       <HistoryPlugin />
