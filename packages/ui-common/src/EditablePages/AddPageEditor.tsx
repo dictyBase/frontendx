@@ -1,10 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import {
   useCreateContentMutation,
-  useUploadFileMutation,
 } from "dicty-graphql-schema"
-import { pipe } from "fp-ts/function"
-import { match as Omatch, fromNullable as OfromNullable } from "fp-ts/Option"
 import { Editor } from "editor"
 import { createAddPageToolbar } from "./createAddPageToolbar"
 
@@ -34,13 +31,6 @@ const AddPageEditor = ({
       },
     },
   })
-  const [uploadImage] = useUploadFileMutation({
-    context: {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-  })
 
   const handleSaveClick = async (value: any) => {
     try {
@@ -60,18 +50,6 @@ const AddPageEditor = ({
     }
   }
 
-  const onImageUpload = async (file: File) => {
-    const { data: uploadData } = await uploadImage({ variables: { file } })
-    return pipe(
-      uploadData,
-      OfromNullable,
-      Omatch(
-        () => "",
-        ({ uploadFile }) => uploadFile.url,
-      ),
-    )
-  }
-
   const handleCancelClick = () => {
     navigate("../notfoundauth", { relative: "path" })
   }
@@ -81,7 +59,6 @@ const AddPageEditor = ({
       toolbar={createAddPageToolbar(contentPath)}
       handleSave={handleSaveClick}
       handleCancel={handleCancelClick}
-      handleImageUpload={onImageUpload}
       editable
     />
   )
