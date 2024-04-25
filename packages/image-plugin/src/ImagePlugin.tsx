@@ -33,7 +33,6 @@ const ImagePlugin = () => {
     const unregisterInsertImage = editor.registerCommand(
       INSERT_IMAGE_COMMAND,
       (payload: InsertImagePayload) => {
-        console.log(payload)
         const imageNode = new ImageNode(payload)
         const textNode = getTextNodeFromSelection()
         return pipe(
