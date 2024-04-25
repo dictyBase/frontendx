@@ -6,7 +6,7 @@ export type InsertImagePayload = {
   width: number
   height: number
   key?: string
-  x?: number
+  alignment: "left" | "right"
 }
 
 export const INSERT_IMAGE_COMMAND = createCommand<InsertImagePayload>()
