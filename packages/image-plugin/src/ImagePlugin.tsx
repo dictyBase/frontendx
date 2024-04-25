@@ -11,19 +11,15 @@ import {
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
   orElse as OorElse,
-  match as Omatch,
   map as Omap,
-  bindTo as ObindTo,
-  bind as Obind,
-  let as Olet,
 } from "fp-ts/Option"
 import { match } from "ts-pattern"
 import { ImageNode } from "./ImageNode"
 import { INSERT_IMAGE_COMMAND, InsertImagePayload } from "./InsertImageCommand"
 import { onDragStart, onDrop } from "./dragHandlers"
 import {
-  getTextNodeFromSelection,
-  getFlexParagraphNodeFromSelection,
+  getParagraphNodeFromSelection,
+  getFlexLayoutNodeFromSelection,
 } from "./InsertImageHelpers"
 
 const ImagePlugin = () => {
@@ -37,32 +33,30 @@ const ImagePlugin = () => {
     const unregisterInsertImage = editor.registerCommand(
       INSERT_IMAGE_COMMAND,
       (payload: InsertImagePayload) => {
-        console.log(payload)
         const imageNode = new ImageNode(payload)
-        const textNode = getTextNodeFromSelection()
+        const paragraphNode = getParagraphNodeFromSelection()
         return pipe(
-          textNode,
+          paragraphNode,
           OfromNullable,
-          Omap((someTextNode) => {
+          Omap((someParagraphNode) => {
             match(payload.alignment)
-              .with("left", () => someTextNode.insertBefore(imageNode))
-              .with("right", () => someTextNode.insertAfter(imageNode))
-              .otherwise(() => someTextNode.insertBefore(imageNode))
+              .with("left", () => someParagraphNode.insertBefore(imageNode))
+              .with("right", () => someParagraphNode.insertAfter(imageNode))
+              .otherwise(() => someParagraphNode.insertBefore(imageNode))
             return true
           }),
           OorElse(() => {
-            const OflexParagraph = getFlexParagraphNodeFromSelection()
+            const flexParagraph = getFlexLayoutNodeFromSelection()
             return pipe(
-              OflexParagraph,
+              flexParagraph,
+              OfromNullable,
               Omap((someFlexParagraph) => {
                 someFlexParagraph.append(imageNode)
                 return true
               }),
             )
           }),
-          OgetOrElse(() => {
-            return false
-          }),
+          OgetOrElse(() => false),
         )
       },
       COMMAND_PRIORITY_EDITOR,
