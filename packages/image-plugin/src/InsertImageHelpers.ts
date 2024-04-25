@@ -111,18 +111,18 @@ const getFlexParagraphNodeFromSelection = () => {
     OfromNullable,
     ObindTo("nodes"),
     Obind("node", ({ nodes }) => Ahead(nodes)),
-//    Olet("parents", ({ node }) => node.getParents()),
-//    (a) => {
-//      console.log(a)
-//      return a
-//    },
-//    Obind("flexParagraphNode", ({ parents }) =>
-//      OfromNullable(
-//        parents.find((node) => node.getType() === "flex-paragraph"),
-//      ),
-//    ),
-//    Omap(({ flexParagraphNode }) => flexParagraphNode)
-    Omap(({ node }) => node)
+    //    Olet("parents", ({ node }) => node.getParents()),
+    //    (a) => {
+    //      console.log(a)
+    //      return a
+    //    },
+    //    Obind("flexParagraphNode", ({ parents }) =>
+    //      OfromNullable(
+    //        parents.find((node) => node.getType() === "flex-paragraph"),
+    //      ),
+    //    ),
+    //    Omap(({ flexParagraphNode }) => flexParagraphNode)
+    Omap(({ node }) => node),
   )
 }
 
