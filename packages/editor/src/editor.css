@@ -25,6 +25,7 @@
 
 .editor-paragraph {
   margin: 0;
+  flex-grow: 1;
   margin-bottom: 8px;
   position: relative;
 }
