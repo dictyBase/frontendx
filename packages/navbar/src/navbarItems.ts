@@ -1,13 +1,4 @@
-/* eslint-disable dot-notation */
-const frontPageUrl = import.meta.env
-  ? import.meta.env["VITE_APP_FRONTPAGE_URL"]
-  : process.env["NEXT_PUBLIC_FRONTPAGE_URL"]
-
-const stockCenterUrl = import.meta.env
-  ? import.meta.env["VITE_APP_STOCKCENTER_URL"]
-  : process.env["NEXT_PUBLIC_STOCKCENTER_URL"]
-
-const navbarItems = {
+const createNavbarItems = (frontPageUrl: string, stockCenterUrl: string) => ({
   data: [
     {
       type: "genomes",
@@ -192,7 +183,7 @@ const navbarItems = {
       },
     },
   ],
-}
+})
 
 type Item = {
   label: string
@@ -232,4 +223,4 @@ const formatNavbarData = (json: NavbarItems) =>
   }))
 
 export type { NavbarItems }
-export { navbarItems, formatNavbarData }
+export { createNavbarItems, formatNavbarData }
