@@ -14,7 +14,7 @@ import { Dropdown } from "./Dropdown"
 import { Link } from "./Link"
 import { MenuIcon } from "./MenuIcon"
 import { transitionToAuto, transitionFromAuto, wasClicked } from "../utils/dom"
-import { navbarItems, formatNavbarData } from "../navbarItems"
+import { formatNavbarData, createNavbarItems } from "../navbarItems"
 
 const Container = styled(
   forwardRef<HTMLDivElement, { children: ReactNode }>(
@@ -82,6 +82,8 @@ const Header = styled("li")({
 })
 
 type NavbarProperties = {
+  frontPageUrl: string
+  stockCenterUrl: string
   items?: Array<
     | {
         dropdown: boolean
@@ -99,7 +101,13 @@ type NavbarProperties = {
  * Navbar is the outer container for the navbar library.
  */
 
-const Navbar = ({ items, brand, theme }: NavbarProperties) => {
+const Navbar = ({
+  frontPageUrl,
+  stockCenterUrl,
+  items,
+  brand,
+  theme,
+}: NavbarProperties) => {
   const [activeIndex, setActiveIndex] = useState(-1)
   const [open, setOpen] = useState(false)
   const navReference = useRef<HTMLElement>(null)
@@ -163,9 +171,9 @@ const Navbar = ({ items, brand, theme }: NavbarProperties) => {
       fromNullable,
       getOrElse(
         () =>
-          formatNavbarData(navbarItems) as NonNullable<
-            NavbarProperties["items"]
-          >,
+          formatNavbarData(
+            createNavbarItems(frontPageUrl, stockCenterUrl),
+          ) as NonNullable<NavbarProperties["items"]>,
       ),
     )
     return (
