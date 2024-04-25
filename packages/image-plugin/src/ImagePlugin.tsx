@@ -11,11 +11,7 @@ import {
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
   orElse as OorElse,
-  match as Omatch,
   map as Omap,
-  bindTo as ObindTo,
-  bind as Obind,
-  let as Olet,
 } from "fp-ts/Option"
 import { match } from "ts-pattern"
 import { ImageNode } from "./ImageNode"
