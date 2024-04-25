@@ -20,9 +20,6 @@ const useImageStyles = makeStyles<Theme, StyleProperties>({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "black",
-    marginBottom: "10px",
-    marginLeft: "10px",
-    marginRight: "10px",
   },
   image: {
     aspectRatio: "1",
