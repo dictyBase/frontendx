@@ -143,9 +143,7 @@ const renderError = (
 
 const resolveDimensions = (source: string) =>
   new Promise<{ height: number; width: number }>((resolve, reject) => {
-    console.log(source)
     const imageElement = new Image()
-    console.log(imageElement)
     imageElement.src = source
     // eslint-disable-next-line unicorn/prefer-add-event-listener
     imageElement.onload = () =>
@@ -222,7 +220,7 @@ const createImageUploadFunction = (
         source: url,
         height: scaledDimensions.height,
         width: scaledDimensions.width,
-        alignment
+        alignment,
       })
       return match(editorUpdate)
         .with(true, () => TEright(true))
@@ -244,7 +242,7 @@ export {
   EgetValidFile,
   isValidFile,
   renderError,
-  resolveDimensions, 
+  resolveDimensions,
   TEresolveDimensions,
   scaleDimensions,
   createImageUploadFunction,
