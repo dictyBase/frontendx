@@ -5,6 +5,8 @@ import {
   createHttpLink,
   ApolloLink,
 } from "@apollo/client"
+import { pipe } from "fp-ts/function"
+import { fromNullable as OfromNullable, match as Omatch } from "fp-ts/Option"
 import { setContext } from "@apollo/client/link/context"
 import { CachePersistor, LocalForageWrapper } from "apollo3-cache-persist"
 import localForage from "localforage"
@@ -55,12 +57,21 @@ const useCreateApolloClient = () => {
 
   // Set ApolloLink in useEffect. See: https://frontend-digest.com/why-is-window-not-defined-in-nextjs-44daf7b4604e
   React.useEffect(() => {
-    const server = getGraphQLServer(
-      process.env.NEXT_PUBLIC_GRAPHQL_SERVER,
-      process.env.NEXT_PUBLIC_DEPLOY_ENV,
-      window.location.origin,
+    const server =
+      process.env.NEXT_PUBLIC_DEPLOY_ENV === "staging"
+        ? process.env.NEXT_PUBLIC_ALT_GRAPHQL_SERVER
+        : process.env.NEXT_PUBLIC_GRAPHQL_SERVER
+
+    pipe(
+      server,
+      OfromNullable,
+      Omatch(
+        () => {},
+        (someServer) => {
+          setLink(createApolloLink(someServer))
+        },
+      ),
     )
-    setLink(createApolloLink(server))
   }, [])
 
   React.useEffect(() => {

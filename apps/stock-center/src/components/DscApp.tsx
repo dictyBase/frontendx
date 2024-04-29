@@ -31,7 +31,11 @@ const DscApp = () => {
   return (
     <div className={classes.body}>
       <HeaderWithAuth clientRouter={dscRouter} />
-      <NavbarWithAuth theme={navTheme} />
+      <NavbarWithAuth
+        frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
+        stockCenterUrl={import.meta.env.VITE_APP_STOCKCENTER_URL}
+        theme={navTheme}
+      />
       <main className={classes.main}>
         <Container maxWidth="lg">
           <RouterProvider

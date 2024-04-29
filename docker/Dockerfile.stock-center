@@ -1,13 +1,14 @@
 FROM node:lts-alpine3.18 AS base
 
 FROM base AS builder
+ARG BUILD_STATE="development"
 RUN apk update
 RUN apk add --no-cache libc6-compat
 # Set working directory
 WORKDIR /app
 RUN yarn global add turbo
 COPY . .
-RUN mv /app/apps/stock-center/.env.development /app/apps/stock-center/.env.production
+RUN mv /app/apps/stock-center/.env.${BUILD_STATE} /app/apps/stock-center/.env.production
 RUN turbo prune --scope=stock-center --docker
 
 # Add lockfile and package.json's of isolated subworkspace

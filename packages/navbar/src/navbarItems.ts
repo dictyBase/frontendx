@@ -1,5 +1,4 @@
-/* eslint-disable dot-notation */
-const navbarItems = {
+const createNavbarItems = (frontPageUrl: string, stockCenterUrl: string) => ({
   data: [
     {
       type: "genomes",
@@ -51,33 +50,23 @@ const navbarItems = {
         items: [
           {
             label: "Dicty Art",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/explore/art/show`,
+            link: `${frontPageUrl}/explore/art/show`,
           },
           {
             label: "Gallery",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/explore/gallery/show`,
+            link: `${frontPageUrl}/explore/gallery/show`,
           },
           {
             label: "Learn About Dicty",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/explore/learn/show`,
+            link: `${frontPageUrl}/explore/learn/show`,
           },
           {
             label: "Teaching Protocols",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/explore/teach/show`,
+            link: `${frontPageUrl}/explore/teach/show`,
           },
           {
             label: "Useful Links",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/explore/links/show`,
+            link: `${frontPageUrl}/explore/links/show`,
           },
         ],
       },
@@ -90,39 +79,27 @@ const navbarItems = {
         items: [
           {
             label: "Techniques",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/research/techniques/show`,
+            link: `${frontPageUrl}/research/techniques/show`,
           },
           {
             label: "Anatomy Ontology",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/research/ontology/show`,
+            link: `${frontPageUrl}/research/ontology/show`,
           },
           {
             label: "Codon Bias Table",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/research/codon/show`,
+            link: `${frontPageUrl}/research/codon/show`,
           },
           {
             label: "Nomenclature Guidelines",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/research/nomenclature/show`,
+            link: `${frontPageUrl}/research/nomenclature/show`,
           },
           {
             label: "Phenotyping",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/research/phenotype/show`,
+            link: `${frontPageUrl}/research/phenotype/show`,
           },
           {
             label: "Axenic Strain History",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/research/strain-history/show`,
+            link: `${frontPageUrl}/research/strain-history/show`,
           },
         ],
       },
@@ -135,39 +112,31 @@ const navbarItems = {
         items: [
           {
             label: "Stock Center Home",
-            link: `${import.meta.env["VITE_APP_STOCKCENTER_URL"]}`,
+            link: `${stockCenterUrl}`,
           },
           {
             label: "Strain Catalog",
-            link: `${import.meta.env["VITE_APP_STOCKCENTER_URL"]}/strains`,
+            link: `${stockCenterUrl}/strains`,
           },
           {
             label: "Plasmid Catalog",
-            link: `${import.meta.env["VITE_APP_STOCKCENTER_URL"]}/plasmids`,
+            link: `${stockCenterUrl}/plasmids`,
           },
           {
             label: "Order Information",
-            link: `${
-              import.meta.env["VITE_APP_STOCKCENTER_URL"]
-            }/information/order/show`,
+            link: `${stockCenterUrl}/information/order/show`,
           },
           {
             label: "Deposit Information",
-            link: `${
-              import.meta.env["VITE_APP_STOCKCENTER_URL"]
-            }/information/deposit/show`,
+            link: `${stockCenterUrl}/information/deposit/show`,
           },
           {
             label: "Payment Information",
-            link: `${
-              import.meta.env["VITE_APP_STOCKCENTER_URL"]
-            }/information/payment/show`,
+            link: `${stockCenterUrl}/information/payment/show`,
           },
           {
             label: "FAQ",
-            link: `${
-              import.meta.env["VITE_APP_STOCKCENTER_URL"]
-            }/information/faq/show`,
+            link: `${stockCenterUrl}/information/faq/show`,
           },
           {
             label: "Standard Operating Procedures",
@@ -184,51 +153,37 @@ const navbarItems = {
         items: [
           {
             label: "Cite Us",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/community/citation/show`,
+            link: `${frontPageUrl}/community/citation/show`,
           },
           {
             label: "Dicty Annual Conferences",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/community/conference/show`,
+            link: `${frontPageUrl}/community/conference/show`,
           },
           {
             label: "Dicty Email Forum",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/community/listserv/show`,
+            link: `${frontPageUrl}/community/listserv/show`,
           },
           {
             label: "Dicty Labs",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/community/labs/show`,
+            link: `${frontPageUrl}/community/labs/show`,
           },
           {
             label: "History",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/community/history/show`,
+            link: `${frontPageUrl}/community/history/show`,
           },
           {
             label: "Jobs",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/community/jobs/show`,
+            link: `${frontPageUrl}/community/jobs/show`,
           },
           {
             label: "Community Annotations",
-            link: `${
-              import.meta.env["VITE_APP_FRONTPAGE_URL"]
-            }/community/annotations/show`,
+            link: `${frontPageUrl}/community/annotations/show`,
           },
         ],
       },
     },
   ],
-}
+})
 
 type Item = {
   label: string
@@ -268,4 +223,4 @@ const formatNavbarData = (json: NavbarItems) =>
   }))
 
 export type { NavbarItems }
-export { navbarItems, formatNavbarData }
+export { createNavbarItems, formatNavbarData }
