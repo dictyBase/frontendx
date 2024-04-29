@@ -36,7 +36,7 @@ RUN apk update \
   && cd static-server \
   && go build -o /usr/local/bin/app 
 WORKDIR /www
-COPY --from=installer /app/apps/publication/dist ./
+COPY --from=installer /app/apps/publication/.next ./
 ENV PORT 3000
 EXPOSE 3000
 ENTRYPOINT ["/usr/local/bin/app", "run", "-f", "/www", "-p", "3000", "--sf", "/assets"]
