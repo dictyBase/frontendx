@@ -41,7 +41,8 @@
     "react-loading-skeleton": "^3.0.1",
     "react-router": "^5.2.0",
     "react-router-dom": "^6.0.2",
-    "string.prototype.includes": "^2.0.0"
+    "string.prototype.includes": "^2.0.0",
+    "ts-pattern": "4.x"
   },
   "devDependencies": {
     "@types/jest": "29.5.3",
