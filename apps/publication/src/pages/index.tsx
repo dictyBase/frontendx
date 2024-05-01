@@ -1,11 +1,14 @@
 import React from "react"
 import { useRouter } from "next/router"
+import { match } from "ts-pattern"
 import { PublicationLoader } from "../components/PublicationLoader"
 
 const Home = () => {
   const router = useRouter()
   React.useEffect(() => {
-    router.push("/26088819")
+    match(router.asPath)
+      .with("/", () => router.replace("/26088819"))
+      .otherwise((publicationId) => router.replace(publicationId))
   }, [router])
 
   return <PublicationLoader />
