@@ -5,6 +5,7 @@ import { PublicationLoader } from "../components/PublicationLoader"
 
 const Home = () => {
   const router = useRouter()
+
   React.useEffect(() => {
     match(router.asPath)
       .with("/", () => router.replace("/26088819"))
