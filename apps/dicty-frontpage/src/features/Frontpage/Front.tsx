@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet"
-import Grid from "@material-ui/core/Grid"
+import { Box, Grid, Container } from "@material-ui/core"
 import { makeStyles, Theme } from "@material-ui/core/styles"
-// import { RecentNewsContainer } from "news-component"
+import { DictyNews } from "frontpage-components"
 import { Slideshow } from "./Slideshow"
 import { LatestPapers } from "./LatestPapers"
 import { Popular } from "./Popular"
@@ -17,6 +17,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   bottomItem: {
     padding: "1px 2px 1px 2px",
   },
+  main: {
+    [theme.breakpoints.up("xl")]: {
+      maxWidth: "90%",
+    },
+  },
 }))
 
 /** This is the frontpage component that appears when the user hits the "/" route. */
@@ -25,7 +30,7 @@ const Front = () => {
   const classes = useStyles()
 
   return (
-    <div>
+    <Container maxWidth="xl" className={classes.main}>
       <Helmet>
         <title>
           dictyBase - your central resource for Dictyostelid genomics
@@ -36,23 +41,26 @@ const Front = () => {
         />
       </Helmet>
       <Grid container justifyContent="center">
-        <Grid item className={classes.topItem} sm={12} md={6} xl={5}>
+        <Grid item className={classes.topItem} sm={12} md={6} xl={6}>
           <Slideshow />
         </Grid>
-        <Grid item className={classes.topItem} sm={12} md={6} xl={5}>
-          {/* <RecentNewsContainer /> */}
+        <Grid item className={classes.topItem} sm={12} md={6} xl={6}>
+          <DictyNews />
         </Grid>
-        <Grid item className={classes.topItem} xs={12} lg={6} xl={4}>
+        <Grid item className={classes.topItem} xs={12} xl={12}>
           <LatestPapers />
         </Grid>
-        <Grid item className={classes.topItem} xs={12} sm={6} lg={3}>
+        <Grid item className={classes.topItem} xs={12} sm={4} lg={4} xl={4}>
           <Popular />
         </Grid>
-        <Grid item className={classes.topItem} xs={12} sm={6} lg={3}>
+        <Grid item className={classes.topItem} xs={12} sm={4} lg={4} xl={4}>
           <StockCenter />
         </Grid>
+        <Grid item className={classes.topItem} xs={12} sm={4} lg={4} xl={4}>
+          <Box style={{ backgroundColor: "grey", height: "300px" }}></Box>
+        </Grid>
       </Grid>
-    </div>
+    </Container>
   )
 }
 
