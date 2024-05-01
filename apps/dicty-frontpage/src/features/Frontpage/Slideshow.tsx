@@ -6,10 +6,6 @@ import tubulin from "../../common/assets/frontCarousel/dicty-tubulin-centrosom.p
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 
 const useStyles = makeStyles({
-  container: {
-    marginTop: "10px",
-    marginBottom: "10px",
-  },
   imgWrapper: {
     height: "440px",
     "@media (max-width: 768px)": {
@@ -68,7 +64,7 @@ const Slideshow = () => {
   const classes = useStyles()
 
   return (
-    <div className={classes.container}>
+    <div>
       <Carousel
         showStatus={false}
         showThumbs={false}
