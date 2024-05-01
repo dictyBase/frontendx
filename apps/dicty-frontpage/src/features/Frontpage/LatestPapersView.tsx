@@ -4,6 +4,12 @@ import ReplayIcon from "@material-ui/icons/Replay"
 import { makeStyles } from "@material-ui/styles"
 import { LoadingDisplay } from "@dictybase/ui-common"
 import { Link } from "react-router-dom"
+import { pipe } from "fp-ts/function"
+import {
+  takeLeft as AtakeLeft,
+  map as Amap,
+  makeBy as AmakeBy,
+} from "fp-ts/Array"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { LatestPaperItem } from "./LatestPaperItem"
 import { type PublicationItem } from "../../common/hooks/useFetchPublications"
@@ -99,11 +105,14 @@ const LatestPapersLoader = () => {
         spacing={1}
         component="ul"
         className={listBox}>
-        {new Array(3).fill(0).map((element, index) => (
-          <Grid key={index} item>
-            <LoadingDisplay rows={2} height={40} />
-          </Grid>
-        ))}
+        {pipe(
+          AmakeBy(3, (i) => i),
+          Amap((i) => (
+            <Grid key={i} item>
+              <LoadingDisplay rows={2} height={40} />
+            </Grid>
+          )),
+        )}
       </Grid>
     </Container>
   )
@@ -145,13 +154,13 @@ const LatestPapersView = ({ data }: LatestPapersProperties) => {
         </Grid>
       </Box>
       <Grid container direction="column" component="ul" className={listBox}>
-        {data.slice(0, 3).map((p) => (
-          <Grid key={p.pubmedId} item>
-            <LatestPaperItem data={p} />
-          </Grid>
-        ))}
+        {pipe(
+          data,
+          AtakeLeft(5),
+          Amap((p) => <LatestPaperItem data={p} />),
+        )}
       </Grid>
-      <Container className={bottomLink}>
+      <Container maxWidth="xl" className={bottomLink}>
         <Link to="/papers"> More Papers </Link>
       </Container>
     </Container>
