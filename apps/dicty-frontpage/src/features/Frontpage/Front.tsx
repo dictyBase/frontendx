@@ -5,7 +5,6 @@ import { makeStyles, Theme } from "@material-ui/core/styles"
 import { Slideshow } from "./Slideshow"
 import { LatestPapers } from "./LatestPapers"
 import { Popular } from "./Popular"
-import { Annotations } from "./Annotations"
 import { StockCenter } from "./StockCenter"
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -51,7 +50,6 @@ const Front = () => {
         </Grid>
         <Grid item className={classes.topItem} xs={12} sm={6} lg={3}>
           <StockCenter />
-          <Annotations />
         </Grid>
       </Grid>
     </div>
