@@ -84,7 +84,7 @@ const useStyles = makeStyles({
 const LatestPapersLoader = () => {
   const { container, header, title, listBox } = useStyles()
   return (
-    <Container className={container}>
+    <Container maxWidth={false} className={container}>
       <Box className={header}>
         <Grid container>
           <Typography className={title}>
@@ -135,7 +135,7 @@ const LatestPapersError = ({ refetch }: LatestPapersErrorProperties) => {
 const LatestPapersView = ({ data }: LatestPapersProperties) => {
   const { container, header, title, listBox, bottomLink } = useStyles()
   return (
-    <Container className={container}>
+    <Container maxWidth={false} className={container}>
       <Box className={header}>
         <Grid container>
           <Typography className={title}>
