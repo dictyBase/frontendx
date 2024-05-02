@@ -1,13 +1,11 @@
 import { Grid, makeStyles } from "@material-ui/core"
-import deepOrange from "@material-ui/core/colors/deepOrange"
 import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
 import { RecentStockItem } from "./RecentStockItem"
 import { recentStrainItems } from "./recentStockItemsData"
 
 const useRecentStrainItemStyles = makeStyles({
-  root: {
-  }
+  root: {},
 })
 const RecentStrainItems = () => {
   const { root } = useRecentStrainItemStyles()
@@ -15,8 +13,8 @@ const RecentStrainItems = () => {
     <Grid container className={root}>
       {pipe(
         recentStrainItems,
-        Amap(({ name, dateAdded }) => (
-          <RecentStockItem name={name} dateAdded={dateAdded} />
+        Amap(({ id, name, dateAdded }) => (
+          <RecentStockItem id={id} name={name} dateAdded={dateAdded} />
         )),
       )}
     </Grid>
