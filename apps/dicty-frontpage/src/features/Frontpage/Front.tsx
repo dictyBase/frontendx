@@ -56,7 +56,7 @@ const Front = () => {
           <RecentUpdates />
         </Grid>
         <Grid item className={classes.topItem} xs={12} sm={4} lg={4} xl={4}>
-          <ComingSoon text="Recent Annotations coming soon!" height="325px" />
+          <ComingSoon text="Recent Annotations coming soon!" height="390px" />
         </Grid>
       </Grid>
     </Container>
