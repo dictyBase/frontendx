@@ -10,8 +10,8 @@ const useTitleBoxStyles = makeStyles((theme) => ({
     backgroundColor: "#81b6e8",
     color: "#0a2238",
     columnGap: "0.5rem",
-    borderTopLeftRadius: "5px",
-    borderTopRightRadius: "5px",
+    borderTopLeftRadius: "10px",
+    borderTopRightRadius: "10px",
     alignText: "center"
   },
   title: {
