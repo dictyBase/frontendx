@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet"
 import { Box, Grid, Container } from "@material-ui/core"
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import { DictyNews } from "frontpage-components"
+import { DictyNews, RecentUpdates } from "frontpage-components"
 import { Slideshow } from "./Slideshow"
 import { LatestPapers } from "./LatestPapers"
 import { Popular } from "./Popular"
@@ -54,10 +54,10 @@ const Front = () => {
           <Popular />
         </Grid>
         <Grid item className={classes.topItem} xs={12} sm={4} lg={4} xl={4}>
-          <StockCenter />
+          <RecentUpdates />
         </Grid>
         <Grid item className={classes.topItem} xs={12} sm={4} lg={4} xl={4}>
-          <Box style={{ backgroundColor: "grey", height: "300px" }}></Box>
+          <Box style={{ backgroundColor: "grey", height: "325px" }}></Box>
         </Grid>
       </Grid>
     </Container>
