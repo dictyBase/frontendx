@@ -1,22 +1,22 @@
 const recentStrainItems = [
   {
     id: "DBS0236123",
-    name: "HAD213",
+    name: "aarA-/[act15]:GFP-mhcA",
     dateAdded: "yesterday",
   },
   {
     id: "DBS0236123",
-    name: "RAD301",
+    name: "nhe1-",
     dateAdded: "3 days ago",
   },
   {
     id: "DBS0236123",
-    name: "TUN410",
+    name: "V30233",
     dateAdded: "last week",
   },
   {
     id: "DBS0236123",
-    name: "DTP5012",
+    name: "Dictyostelium gargantuum",
     dateAdded: "2 weeks ago",
   },
 ]
