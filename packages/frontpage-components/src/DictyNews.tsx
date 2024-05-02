@@ -8,19 +8,19 @@ const DictyNews = () => (
       <Grid item>
         <Typography variant="h1">Dicty News</Typography>
       </Grid>
-      <Grid item>
-        {pipe(
-          AmakeBy(6, (i) => i),
-          Amap(() => (
+      {pipe(
+        AmakeBy(5, (i) => i),
+        Amap(() => (
+          <Grid item>
             <Typography>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
               nisi ut aliquip ex ea commodo consequat.
             </Typography>
-          )),
-        )}
-      </Grid>
+          </Grid>
+        )),
+      )}
     </Grid>
   </Box>
 )
