@@ -1,11 +1,10 @@
 import { Helmet } from "react-helmet"
 import { Box, Grid, Container } from "@material-ui/core"
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import { DictyNews, RecentUpdates } from "frontpage-components"
+import { DictyNews, RecentUpdates, ComingSoon } from "frontpage-components"
 import { Slideshow } from "./Slideshow"
 import { LatestPapers } from "./LatestPapers"
 import { Popular } from "./Popular"
-import { StockCenter } from "./StockCenter"
 
 const useStyles = makeStyles((theme: Theme) => ({
   topItem: {
@@ -57,7 +56,7 @@ const Front = () => {
           <RecentUpdates />
         </Grid>
         <Grid item className={classes.topItem} xs={12} sm={4} lg={4} xl={4}>
-          <Box style={{ backgroundColor: "grey", height: "325px" }}></Box>
+          <ComingSoon text="Recent Annotations coming soon!" height="325px" />
         </Grid>
       </Grid>
     </Container>
