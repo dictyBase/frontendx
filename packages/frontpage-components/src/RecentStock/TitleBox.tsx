@@ -3,14 +3,16 @@ import { ReactElement } from "react"
 
 const useTitleBoxStyles = makeStyles((theme) => ({
   container: {
-    height: "3rem",
-    // backgroundColor: theme.palette.primary.main,
-    backgroundColor: "#005ab3",
-    // backgroundColor: "#b2ddec",
-    color: "#eef6ff",
+    paddingTop: ".75rem",
+    paddingBottom: ".75rem",
+    paddingLeft: ".75rem",
+    paddingRight: ".75rem",
+    backgroundColor: "#81b6e8",
+    color: "#0a2238",
     columnGap: "0.5rem",
     borderTopLeftRadius: "5px",
     borderTopRightRadius: "5px",
+    alignText: "center"
   },
   title: {
     fontWeight: "normal",
