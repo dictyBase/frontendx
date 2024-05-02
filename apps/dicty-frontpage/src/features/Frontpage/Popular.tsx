@@ -66,11 +66,21 @@ const Popular = () => {
   const widgetlist = (
     <>
       <li className={classes.listItem}>
+        <a className={classes.link} href={`${import.meta.env.VITE_APP_STOCKCENTER_URL}`}>
+          <Button className={classes.altButton}
+            size="small"
+            variant="contained"
+            color="primary">
+            Dicty Stock Center
+          </Button>
+        </a>
+      </li>
+      <li className={classes.listItem}>
         <a
           className={classes.link}
           href="http://dictybase.org/tools/jbrowse/?data=data/jbrowse/discoideum&loc=6:1..50011&tracks=reference,gene,transcript">
           <Button
-            className={classes.altButton}
+            className={classes.button}
             size="small"
             variant="contained"
             color="primary">
@@ -81,22 +91,11 @@ const Popular = () => {
       <li className={classes.listItem}>
         <a className={classes.link} href="/gene/gflB">
           <Button
-            className={classes.button}
-            size="small"
-            variant="contained"
-            color="primary">
-            Gene Page (in progress)
-          </Button>
-        </a>
-      </li>
-      <li className={classes.listItem}>
-        <a className={classes.link} href="/stockcenter">
-          <Button
             className={classes.altButton}
             size="small"
             variant="contained"
             color="primary">
-            Dicty Stock Center
+            Gene Page (in progress)
           </Button>
         </a>
       </li>
