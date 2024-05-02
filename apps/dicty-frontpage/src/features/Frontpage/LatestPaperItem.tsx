@@ -31,10 +31,10 @@ type LatestPaperItemProperties = {
 
 const LatestPaperItem = ({ data }: LatestPaperItemProperties) => {
   const { mainContent, listItem, link } = useStyles()
-  const authors = getAuthorsCitationString(data.authors, { limit: 3 })
-  const date = getPublicationYear(data.publishDate)
-  const title = formatTitle(data.title).withEllipses
-  const { journal, pubmedId } = data
+  const { authors, journal, pubmedId, publishDate, title } = data
+  const formattedAuthorString = getAuthorsCitationString(authors, { limit: 3 })
+  const formattedTitle = formatTitle(title).full
+  const publicationYear = getPublicationYear(publishDate)
   return (
     <li className={listItem}>
       <Box className={mainContent}>
@@ -43,9 +43,9 @@ const LatestPaperItem = ({ data }: LatestPaperItemProperties) => {
             className={link}
             reloadDocument
             to={`${import.meta.env.VITE_APP_PUBLICATION_URL}/${pubmedId}`}>
-            {`${authors}. (${date}). `}
+            {`${formattedAuthorString}. (${publicationYear}). `}
           </Link>
-          {`${title} `}
+          {`${formattedTitle} `}
           <em>{journal}</em>
         </Typography>
       </Box>
