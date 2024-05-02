@@ -1,5 +1,4 @@
 import { Grid, makeStyles, Typography } from "@material-ui/core"
-import teal from "@material-ui/core/colors/teal"
 
 type ItemRowProperties = {
   id: string
@@ -8,19 +7,20 @@ type ItemRowProperties = {
 }
 
 const useRecentStockItemStyles = makeStyles({
-  row: {
-    flexBasis: "20%",
+  idContainer: {
+    flexGrow: 1,
+    textAlign: "left",
   },
   idText: {
-    flexGrow: 2,
     textDecoration: "underline",
-    textAlign: "left"
+    "&:hover": {
+      color: "red",
+    },
   },
-  nameText: {
-    flexGrow: 1,
-    textAlign: "left"
+  nameContainer: {
+    textAlign: "left",
   },
-  date: {
+  dateContainer: {
     flexGrow: 1,
     textAlign: "right",
     fontStyle: "italic",
@@ -28,16 +28,18 @@ const useRecentStockItemStyles = makeStyles({
 })
 
 const RecentStockItem = ({ id, name, dateAdded }: ItemRowProperties) => {
-  const { row, idText, nameText, date } = useRecentStockItemStyles()
+  const { idContainer, idText, nameContainer, dateContainer } = useRecentStockItemStyles()
   return (
     <Grid container justifyContent="center">
-      <Grid item className={`${row} ${idText}`}>
-        <Typography variant="body1"><a>{id}</a></Typography>
+      <Grid item className={idContainer} sm={3}>
+        <a href="#">
+          <Typography className={idText} variant="body1">{id}</Typography>
+        </a>
       </Grid>
-      <Grid item className={`${row} ${nameText}`}>
+      <Grid item className={nameContainer} sm={6}>
         <Typography variant="body1">{name}</Typography>
       </Grid>
-      <Grid item className={`${row} ${date}`}>
+      <Grid item className={dateContainer} sm={3}>
         <Typography variant="body2">{dateAdded}</Typography>
       </Grid>
     </Grid>
