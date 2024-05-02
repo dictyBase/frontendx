@@ -2,27 +2,38 @@ import { Grid, makeStyles, Typography } from "@material-ui/core"
 import teal from "@material-ui/core/colors/teal"
 
 type ItemRowProperties = {
+  id: string
   name: string
   dateAdded: string
 }
 
 const useRecentStockItemStyles = makeStyles({
   row: {
-    flexGrow: 1,
+    flexBasis: "20%",
+  },
+  idText: {
+    flexGrow: 2,
+    textDecoration: "underline",
+    textAlign: "left"
   },
   nameText: {
-    // color: teal[900],
+    flexGrow: 1,
+    textAlign: "left"
   },
   date: {
+    flexGrow: 1,
     textAlign: "right",
     fontStyle: "italic",
   },
 })
 
-const RecentStockItem = ({ name, dateAdded }: ItemRowProperties) => {
-  const { row, nameText, date } = useRecentStockItemStyles()
+const RecentStockItem = ({ id, name, dateAdded }: ItemRowProperties) => {
+  const { row, idText, nameText, date } = useRecentStockItemStyles()
   return (
-    <Grid container alignItems="center">
+    <Grid container justifyContent="center">
+      <Grid item className={`${row} ${idText}`}>
+        <Typography variant="body1"><a>{id}</a></Typography>
+      </Grid>
       <Grid item className={`${row} ${nameText}`}>
         <Typography variant="body1">{name}</Typography>
       </Grid>
