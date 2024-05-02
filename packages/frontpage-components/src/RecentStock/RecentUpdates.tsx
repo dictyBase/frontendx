@@ -1,11 +1,7 @@
-import {
-  Container,
-  Grid,
-  Typography,
-  makeStyles,
-} from "@material-ui/core"
+import { Container, Grid, Typography, makeStyles } from "@material-ui/core"
 import { TitleBox } from "./TitleBox"
 import { RecentStrainItems } from "./RecentStrainItems"
+import { RecentPlasmidItems } from "./RecentPlasmidItems"
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart"
 import blue from "@material-ui/core/colors/blue"
 
@@ -17,7 +13,8 @@ const useRecentUpdateStyles = makeStyles((theme) => ({
   inner: {
     paddingTop: "5px",
     paddingBottom: "10px",
-  }
+    color: "#04313f",
+  },
 }))
 
 const RecentUpdates = () => {
@@ -26,7 +23,7 @@ const RecentUpdates = () => {
     <Container disableGutters className={main}>
       <TitleBox content="New Stock Center Items" icon={<ShoppingCartIcon />} />
       <Container className={inner}>
-        <Grid spacing={1} justifyContent="center" container>
+        <Grid spacing={1} justifyContent="flex-start" container>
           <Grid item>
             <Typography variant="h3"> Strains </Typography>
           </Grid>
@@ -37,7 +34,7 @@ const RecentUpdates = () => {
             <Typography variant="h3"> Plasmids </Typography>
           </Grid>
           <Grid item>
-            <RecentStrainItems />
+            <RecentPlasmidItems />
           </Grid>
         </Grid>
       </Container>
