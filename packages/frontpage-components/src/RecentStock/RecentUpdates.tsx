@@ -1,9 +1,8 @@
-import { Container, Grid, Typography, makeStyles } from "@material-ui/core"
+import { Container, Grid, makeStyles } from "@material-ui/core"
 import { TitleBox } from "./TitleBox"
 import { RecentStrainItems } from "./RecentStrainItems"
 import { RecentPlasmidItems } from "./RecentPlasmidItems"
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart"
-import blue from "@material-ui/core/colors/blue"
 
 const useRecentUpdateStyles = makeStyles((theme) => ({
   main: {
