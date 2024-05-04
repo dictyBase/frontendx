@@ -1,7 +1,21 @@
-import { Container, Grid, Typography, makeStyles } from "@material-ui/core"
+import { Link } from "react-router-dom"
+import {
+  Container,
+  Grid,
+  Typography,
+  Button,
+  makeStyles,
+} from "@material-ui/core"
+import { pipe } from "fp-ts/function"
+import { map as Amap } from "fp-ts/Array"
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart"
+import SearchIcon from "@material-ui/icons/Search"
+import TableChartIcon from "@material-ui/icons/TableChart"
 
-const useFeaturedStyles = makeStyles((theme) => ({
+const useFeaturedStyles = makeStyles({
   main: {
+    height: "100%",
+    paddingTop: "1rem",
     borderRadius: "10px",
     backgroundColor: "#eff8fb",
   },
@@ -10,32 +24,56 @@ const useFeaturedStyles = makeStyles((theme) => ({
     paddingBottom: "10px",
     color: "#04313f",
   },
-}))
+  link: {
+    textDecoration: "underline"
+  }
+})
+
+const featuredLinks = [
+  {
+    icon: <ShoppingCartIcon />,
+    name: "Dicty Stock Center",
+    to: `${import.meta.env.VITE_APP_STOCKCENTER_URL}`,
+    description: "Central repository for Dictyostelium discoideum strains.",
+  },
+  {
+    icon: <SearchIcon />,
+    name: "Genome Browser",
+    to: "/#",
+    description:
+      "Search using a sequence name, gene name, locus, or other landmark.",
+  },
+  {
+    icon: <TableChartIcon />,
+    name: "Gene Page",
+    to: "/#",
+    description:
+      "Provides extensive information about a given gene, including links to all its associated sequences, such as Curated Models, Gene Predictions, GenBank Sequences, and ESTs.",
+  },
+]
 
 const Featured = () => {
-  const { main, inner } = useFeaturedStyles()
+  const { main, inner, link } = useFeaturedStyles()
   return (
     <Container disableGutters className={main}>
       <Container className={inner}>
         <Grid spacing={1} direction="column" container>
           <Grid item>
-            <Typography variant="h1"> Featured </Typography>
+            <Typography color="secondary" variant="h1">Featured</Typography>
           </Grid>
-          <Grid item>
-            <a href="#">
-              <Typography> Dicty Stock Center </Typography>
-            </a>
-          </Grid>
-          <Grid item>
-            <a href="#">
-              <Typography> Gene Browser </Typography>
-            </a>
-          </Grid>
-          <Grid item>
-            <a href="#">
-              <Typography> Gene Page </Typography>
-            </a>
-          </Grid>
+          {pipe(
+            featuredLinks,
+            Amap(({ icon, name, to, description }) => (
+              <Grid item>
+                <Link to={to}>
+                  <Button color="primary" startIcon={icon}>
+                    <Typography className={link} variant="h2">{name}</Typography>
+                  </Button>
+                </Link>
+                <Typography>{description}</Typography>
+              </Grid>
+            )),
+          )}
         </Grid>
       </Container>
     </Container>
