@@ -1,5 +1,14 @@
 /* eslint-disable react/no-array-index-key */
-import { Grid, Box, Container, Typography, Button } from "@material-ui/core"
+import {
+  Grid,
+  Box,
+  Container,
+  Typography,
+  Button,
+  IconButton,
+  Theme,
+} from "@material-ui/core"
+import DoubleArrowIcon from "@material-ui/icons/DoubleArrow"
 import ReplayIcon from "@material-ui/icons/Replay"
 import { makeStyles } from "@material-ui/styles"
 import { LoadingDisplay } from "@dictybase/ui-common"
@@ -22,15 +31,14 @@ type LatestPapersErrorProperties = {
   refetch: () => void
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
   container: {
     textAlign: "left",
     paddingBottom: "10px",
     backgroundColor: "#eff8fb",
+    color: "#04313f",
     borderRadius: "15px",
     boxSizing: "border-box",
-    marginBottom: "10px",
-    "@media (max-width: 768px)": {},
   },
   title: {
     paddingLeft: "5px",
@@ -67,13 +75,14 @@ const useStyles = makeStyles({
     },
   },
   link: {
-    textDecoration: "none",
-    color: "#428bca",
+    color: theme.palette.primary.main,
+    "&:hover": {
+      backgroundColor: "inherit",
+      color: "red",
+    },
   },
   bottomLink: {
-    textDecoration: "underline",
     fontWeight: "normal",
-    textAlign: "right",
     paddingBottom: "10px",
 
     "@media (min-width: 1400px)": {},
@@ -85,7 +94,7 @@ const useStyles = makeStyles({
     fontStyle: "italic",
     color: "#75746f",
   },
-})
+}))
 
 const LatestPapersLoader = () => {
   const { container, header, title, listBox } = useStyles()
@@ -141,18 +150,36 @@ const LatestPapersError = ({ refetch }: LatestPapersErrorProperties) => {
   )
 }
 
+const LatestPapersTitle = () => {
+  const { header, title } = useStyles()
+  return (
+    <Box className={header}>
+      <Grid container>
+        <Typography className={title}>
+          <FontAwesomeIcon icon="paperclip" size="sm" />
+        </Typography>
+        <span className={title}>LATEST PAPERS</span>
+      </Grid>
+    </Box>
+  )
+}
+
+const MorePapersLink = () => {
+  const { link } = useStyles()
+  return (
+    <Link to="/papers">
+      <Button className={link} endIcon={<DoubleArrowIcon />}>
+        <Typography variant="h2"> More Papers </Typography>
+      </Button>
+    </Link>
+  )
+}
+
 const LatestPapersView = ({ data }: LatestPapersProperties) => {
-  const { container, header, title, listBox, bottomLink } = useStyles()
+  const { container, listBox, bottomLink } = useStyles()
   return (
     <Container maxWidth={false} className={container}>
-      <Box className={header}>
-        <Grid container>
-          <Typography className={title}>
-            <FontAwesomeIcon icon="paperclip" size="sm" />
-          </Typography>
-          <span className={title}>LATEST PAPERS</span>
-        </Grid>
-      </Box>
+      <LatestPapersTitle />
       <Grid container direction="column" component="ul" className={listBox}>
         {pipe(
           data,
@@ -160,9 +187,11 @@ const LatestPapersView = ({ data }: LatestPapersProperties) => {
           Amap((p) => <LatestPaperItem data={p} />),
         )}
       </Grid>
-      <Container maxWidth="xl" className={bottomLink}>
-        <Link to="/papers"> More Papers </Link>
-      </Container>
+      <Grid container justifyContent="flex-end" className={bottomLink}>
+        <Grid item>
+          <MorePapersLink />
+        </Grid>
+      </Grid>
     </Container>
   )
 }
