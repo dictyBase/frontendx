@@ -22,7 +22,8 @@
     "@material-ui/lab": "^4.11.3-deprecations.1",
     "fp-ts": "^2.16.0",
     "react": "17.x",
-    "react-dom": "17.x"
+    "react-dom": "17.x",
+    "react-router-dom": "~6.14.2"
   },
   "scripts": {
     "lint": "TIMING=1 eslint src --fix"
