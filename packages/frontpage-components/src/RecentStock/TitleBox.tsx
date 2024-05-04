@@ -18,6 +18,9 @@ const useTitleBoxStyles = makeStyles((theme) => ({
     fontWeight: "normal",
   },
   titleIcon: {
+    "& svg": {
+      display: "block"
+    }
   }
 }))
 
