@@ -7,7 +7,8 @@ type ComingSoonProperties = {
 
 const useComingSoonStyles = makeStyles<Theme, { height: string }, "root">({
   root: {
-    height: ({ height }) => height,
+    height: "100%",
+    padding: "4rem 4rem 4rem 4rem",
     backgroundColor: "#9eb5cb",
     color: "#0d2235",
     borderRadius: "10px",
