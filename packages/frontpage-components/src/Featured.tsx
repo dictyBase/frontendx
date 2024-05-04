@@ -16,17 +16,14 @@ const useFeaturedStyles = makeStyles({
   main: {
     height: "100%",
     paddingTop: "1rem",
+    paddingBottom: "1rem",
     borderRadius: "10px",
     backgroundColor: "#eff8fb",
-  },
-  inner: {
-    paddingTop: "10px",
-    paddingBottom: "10px",
     color: "#04313f",
   },
   link: {
-    textDecoration: "underline"
-  }
+    textDecoration: "underline",
+  },
 })
 
 const featuredLinks = [
@@ -53,29 +50,31 @@ const featuredLinks = [
 ]
 
 const Featured = () => {
-  const { main, inner, link } = useFeaturedStyles()
+  const { main, link } = useFeaturedStyles()
   return (
-    <Container disableGutters className={main}>
-      <Container className={inner}>
-        <Grid spacing={1} direction="column" container>
-          <Grid item>
-            <Typography color="secondary" variant="h1">Featured</Typography>
-          </Grid>
-          {pipe(
-            featuredLinks,
-            Amap(({ icon, name, to, description }) => (
-              <Grid item>
-                <Link to={to}>
-                  <Button color="primary" startIcon={icon}>
-                    <Typography className={link} variant="h2">{name}</Typography>
-                  </Button>
-                </Link>
-                <Typography>{description}</Typography>
-              </Grid>
-            )),
-          )}
+    <Container className={main}>
+      <Grid spacing={1} direction="column" container>
+        <Grid item>
+          <Typography color="secondary" variant="h1">
+            Featured
+          </Typography>
         </Grid>
-      </Container>
+        {pipe(
+          featuredLinks,
+          Amap(({ icon, name, to, description }) => (
+            <Grid item>
+              <Link to={to}>
+                <Button color="primary" startIcon={icon}>
+                  <Typography className={link} variant="h2">
+                    {name}
+                  </Typography>
+                </Button>
+              </Link>
+              <Typography>{description}</Typography>
+            </Grid>
+          )),
+        )}
+      </Grid>
     </Container>
   )
 }
