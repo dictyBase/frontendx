@@ -2,9 +2,9 @@ import { Container, Grid, makeStyles } from "@material-ui/core"
 import { TitleBox } from "./TitleBox"
 import { RecentStrainItems } from "./RecentStrainItems"
 import { RecentPlasmidItems } from "./RecentPlasmidItems"
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart"
+import NewReleasesIcon from '@material-ui/icons/NewReleases'
 
-const useRecentUpdateStyles = makeStyles((theme) => ({
+const useRecentUpdateStyles = makeStyles({
   main: {
     borderRadius: "10px",
     backgroundColor: "#eff8fb",
@@ -14,13 +14,13 @@ const useRecentUpdateStyles = makeStyles((theme) => ({
     paddingBottom: "10px",
     color: "#04313f",
   },
-}))
+})
 
 const RecentUpdates = () => {
   const { main, inner } = useRecentUpdateStyles()
   return (
     <Container disableGutters className={main}>
-      <TitleBox content="New Stock Center Items" icon={<ShoppingCartIcon />} />
+      <TitleBox content="New Stock Center Items" icon={<NewReleasesIcon />} />
       <Container className={inner}>
         <Grid direction="column" container>
           <Grid item>
