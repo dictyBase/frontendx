@@ -8,7 +8,7 @@ type ItemRowProperties = {
 
 const useRecentStockItemStyles = makeStyles({
   idContainer: {
-    flexGrow: 1,
+    // flexGrow: 1,
     textAlign: "left",
   },
   idText: {
@@ -17,29 +17,39 @@ const useRecentStockItemStyles = makeStyles({
       color: "red",
     },
   },
+  spacer: {
+    //flexBasis: "2rem"
+    width: "2rem"
+  },
   nameContainer: {
     textAlign: "left",
+    // paddingLeft: "3rem",
+    flexGrow: 1
   },
   dateContainer: {
-    flexGrow: 1,
+    // flexGrow: 1,
     textAlign: "right",
     fontStyle: "italic",
   },
 })
 
 const RecentStockItem = ({ id, name, dateAdded }: ItemRowProperties) => {
-  const { idContainer, idText, nameContainer, dateContainer } = useRecentStockItemStyles()
+  const { idContainer, spacer, idText, nameContainer, dateContainer } =
+    useRecentStockItemStyles()
   return (
-    <Grid container justifyContent="center">
-      <Grid item className={idContainer} sm={3}>
+    <Grid container>
+      <Grid item className={idContainer}>
         <a href="#">
-          <Typography className={idText} variant="body1">{id}</Typography>
+          <Typography className={idText} variant="body1">
+            {id}
+          </Typography>
         </a>
       </Grid>
-      <Grid item className={nameContainer} sm={6}>
+      <Grid item className={spacer} />
+      <Grid item className={nameContainer}>
         <Typography variant="body1">{name}</Typography>
       </Grid>
-      <Grid item className={dateContainer} sm={3}>
+      <Grid item className={dateContainer}>
         <Typography variant="body2">{dateAdded}</Typography>
       </Grid>
     </Grid>
