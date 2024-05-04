@@ -9,7 +9,6 @@ import {
 } from "frontpage-components"
 import { Slideshow } from "./Slideshow"
 import { LatestPapers } from "./LatestPapers"
-import { Popular } from "./Popular"
 
 const useStyles = makeStyles((theme: Theme) => ({
   topItem: {
