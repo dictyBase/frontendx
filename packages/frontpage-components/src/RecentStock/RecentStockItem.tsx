@@ -8,7 +8,6 @@ type ItemRowProperties = {
 
 const useRecentStockItemStyles = makeStyles({
   idContainer: {
-    // flexGrow: 1,
     textAlign: "left",
   },
   idText: {
@@ -18,16 +17,13 @@ const useRecentStockItemStyles = makeStyles({
     },
   },
   spacer: {
-    //flexBasis: "2rem"
-    width: "2rem"
+    width: "2rem",
   },
   nameContainer: {
     textAlign: "left",
-    // paddingLeft: "3rem",
-    flexGrow: 1
+    flexGrow: 1,
   },
   dateContainer: {
-    // flexGrow: 1,
     textAlign: "right",
     fontStyle: "italic",
   },
@@ -39,7 +35,7 @@ const RecentStockItem = ({ id, name, dateAdded }: ItemRowProperties) => {
   return (
     <Grid container>
       <Grid item className={idContainer}>
-        <a href="#">
+        <a href={`${import.meta.env.VITE_APP_STOCKCENTER_URL}`}>
           <Typography className={idText} variant="body1">
             {id}
           </Typography>
