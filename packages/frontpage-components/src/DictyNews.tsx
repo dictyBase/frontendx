@@ -9,7 +9,7 @@ const DictyNews = () => (
         <Typography variant="h1">Dicty News</Typography>
       </Grid>
       {pipe(
-        AmakeBy(5, (i) => i),
+        AmakeBy(5, (index) => index),
         Amap(() => (
           <Grid item>
             <Typography>
