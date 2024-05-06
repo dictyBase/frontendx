@@ -10,8 +10,8 @@ const DictyNews = () => (
       </Grid>
       {pipe(
         AmakeBy(5, (index) => index),
-        Amap(() => (
-          <Grid item>
+        Amap((key) => (
+          <Grid key={key} item>
             <Typography>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
