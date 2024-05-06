@@ -6,7 +6,7 @@ import { recentPlasmidItems } from "./recentStockItemsData"
 
 const useRecentPlasmidItemStyles = makeStyles({
   root: {
-    rowGap: "0.25rem"
+    rowGap: "0.25rem",
   },
 })
 
