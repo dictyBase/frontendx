@@ -6,7 +6,7 @@ import { recentStrainItems } from "./recentStockItemsData"
 
 const useRecentStrainItemStyles = makeStyles({
   root: {
-    rowGap: "0.25rem"
+    rowGap: "0.25rem",
   },
 })
 const RecentStrainItems = () => {
