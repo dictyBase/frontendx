@@ -33,7 +33,7 @@ const logtoConfig: LogtoConfig = {
 
 export const App = () => {
   const client = useGraphqlClient({
-    uri: `${import.meta.env.VITE_APP_GRAPHQL_SERVER}/graphql` ,
+    uri: `${import.meta.env.VITE_APP_GRAPHQL_SERVER}/graphql`,
     cache: useApolloClientCache({
       customPolicies: {
         Query: {
