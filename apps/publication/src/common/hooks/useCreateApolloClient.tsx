@@ -57,11 +57,8 @@ const useCreateApolloClient = () => {
 
   // Set ApolloLink in useEffect. See: https://frontend-digest.com/why-is-window-not-defined-in-nextjs-44daf7b4604e
   React.useEffect(() => {
-    const server =
-      process.env.NEXT_PUBLIC_DEPLOY_ENV === "staging"
-        ? process.env.NEXT_PUBLIC_ALT_GRAPHQL_SERVER
-        : process.env.NEXT_PUBLIC_GRAPHQL_SERVER
-
+    const server = process.env.NEXT_PUBLIC_GRAPHQL_SERVER
+    console.log(server)
     pipe(
       server,
       OfromNullable,
