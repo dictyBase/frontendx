@@ -65,8 +65,6 @@ type Properties = {
   phenotypeLength: number
   /** Data for the stock item */
   cartData: CartItem
-  /** Boolean for whether the item is in stock */
-  inStock: boolean
 }
 
 /** StrainDetailsCardHeader displays the header at the top of the  card
@@ -78,7 +76,6 @@ const StrainDetailsCardHeader = ({
   handleChange,
   phenotypeLength,
   cartData,
-  inStock,
 }: Properties) => {
   const classes = useStyles()
 
@@ -129,7 +126,7 @@ const StrainDetailsCardHeader = ({
             ))}
         </Grid>
         <Grid item>
-          {match(inStock)
+          {match(cartData.in_stock)
             .with(true, () => <AvailableDisplay cartData={cartData} />)
             .with(false, () => (
               <Alert
