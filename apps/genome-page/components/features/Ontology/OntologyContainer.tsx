@@ -1,6 +1,6 @@
 import Typography from "@material-ui/core/Typography"
 import { Layout } from "components/layout/Layout"
-import { GeneQuery } from "dicty-graphql-schema"
+import { GeneOntologyAnnotationQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
 import { OntologyTabLayout } from "./OntologyTabLayout"
 /**
@@ -9,7 +9,7 @@ import { OntologyTabLayout } from "./OntologyTabLayout"
  */
 
 interface OntologyContainerProperties {
-  gene: GeneQuery
+  gene: GeneOntologyAnnotationQuery
 }
 const OntologyContainer = ({ gene }: OntologyContainerProperties) => {
   const { query } = useRouter()
