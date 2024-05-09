@@ -55,6 +55,7 @@
     "monocle-ts": "^2.3.13",
     "newtype-ts": "^0.3.5",
     "next": "^12.2.1",
+    "next-transpile-modules": "^10.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-fontawesome": "^1.7.1",
