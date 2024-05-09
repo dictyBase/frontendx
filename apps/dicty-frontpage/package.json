@@ -2,6 +2,7 @@
   "name": "dicty-frontpage",
   "version": "0.0.0",
   "scripts": {
+    "e2e": "playwright test",
     "dev": "vite",
     "dev:mock": "vite --host --mode mock",
     "dev:seed": "vite --host --mode seed",
