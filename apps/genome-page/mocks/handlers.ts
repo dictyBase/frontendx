@@ -1,4 +1,5 @@
 import { graphql } from "msw"
+import { mockGeneOntologyAnnotationQuery } from "dicty-graphql-schema"
 import { mockGene } from "./mockGene"
 import { mockGeneLimit } from "./mockGeneLimit"
 import { mockGenePiaA } from "./piaAMocks/mockGenePiaA"
