@@ -80,7 +80,7 @@ const Featured = () => {
           featuredLinks,
           Amap(({ icon, name, to, description, disabled }) => (
             <Grid item>
-                <Link to={to} className={disabled ? disabledLink : ""}>
+                <Link to={to} reloadDocument className={disabled ? disabledLink : ""}>
                   <Button disabled={disabled} color="primary" startIcon={icon}>
                     <Typography className={link} variant="h2">
                       {name}
