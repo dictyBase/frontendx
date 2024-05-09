@@ -1,21 +1,19 @@
-import { pipe } from "fp-ts/function"
-import { map as Amap } from "fp-ts/Array"
 import { test, expect } from "@playwright/test"
 
 const contentRoutes = [
   {
-    tab: "Explore",
-    links: [
+    name: "Explore",
+    pages: [
       "Dicty Art",
       "Gallery",
       "Learn About Dicty",
-      "Teaching Protocol",
+      "Teaching Protocols",
       "Useful Links",
     ],
   },
   {
-    tab: "Research",
-    links: [
+    name: "Research",
+    pages: [
       "Techniques",
       "Anatomy Ontology",
       "Codon Bias Table",
@@ -25,8 +23,8 @@ const contentRoutes = [
     ],
   },
   {
-    tab: "Community",
-    links: [
+    name: "Community",
+    pages: [
       "Cite Us",
       "Dicty Annual Conferences",
       "Dicty Email Forum",
@@ -38,22 +36,20 @@ const contentRoutes = [
   },
 ]
 
-for (const dropdown of contentRoutes) {
-  for (const pageName of dropdown.links) {
+for (const group of contentRoutes) {
+  for (const pageName of group.pages) {
     test(`${pageName} page is properly rendered`, async ({ page }) => {
       await page.goto("http://localhost:3004/")
       await page
         .getByRole("navigation")
-        .getByText(dropdown.tab, { exact: true })
+        .getByText(group.name, { exact: true })
         .click()
       await page
         .getByRole("navigation")
-        .getByRole("link", { name: pageName })
+        .getByRole("link", { name: pageName, exact: true })
         .click()
       const editor = page.locator("[data-lexical-editor]")
       await expect(editor).toBeAttached()
     })
   }
 }
-//  const editor = page.locator("[data-lexical-editor]")
-//  await expect(editor).toBeAttached()
