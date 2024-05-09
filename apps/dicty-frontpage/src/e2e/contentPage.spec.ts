@@ -36,10 +36,12 @@ const contentRoutes = [
   },
 ]
 
+const BASE_URL = process.env.FRONTPAGE_URL || "http://localhost:3004"
+
 for (const group of contentRoutes) {
   for (const pageName of group.pages) {
     test(`${pageName} page is properly rendered`, async ({ page }) => {
-      await page.goto("http://localhost:3004/")
+      await page.goto(BASE_URL)
       await page
         .getByRole("navigation")
         .getByText(group.name, { exact: true })
