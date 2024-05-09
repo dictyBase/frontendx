@@ -104,7 +104,7 @@ const strainRowsGenerator = (
 ]
 
 type Properties = {
-  data: StrainQuery["strain"]
+  data: NonNullable<StrainQuery["strain"]>
 }
 
 const StrainDetailsCard = ({ data }: Properties) => {
@@ -115,16 +115,16 @@ const StrainDetailsCard = ({ data }: Properties) => {
     setTabValue(newValue)
   }
 
-  const parent = data?.parent ? (
+  const parent = data.parent ? (
     <Link to={`/strains/${data.parent.id}`}>{data.parent.label}</Link>
   ) : (
     ""
   )
-  const publications = data?.publications as Array<Publication>
-  const genes = data?.genes as Array<Gene>
-  const depositor = data?.depositor as User
-  const genotypes = data?.genotypes as Array<string>
-  const inStock = data?.in_stock as boolean
+  const publications = data.publications as Array<Publication>
+  const genes = data.genes as Array<Gene>
+  const depositor = data.depositor as User
+  const genotypes = data.genotypes as Array<string>
+  const inStock = data.in_stock as boolean
 
   const rows = strainRowsGenerator(
     data,
@@ -136,15 +136,14 @@ const StrainDetailsCard = ({ data }: Properties) => {
   )
 
   const cartData = {
-    id: data?.id as string,
-    label: data?.label as string,
-    summary: data?.summary as string,
+    id: data.id as string,
+    label: data.label as string,
+    summary: data.summary as string,
     fee: fees.STRAIN_FEE,
-
-    in_stock: true,
+    in_stock: data.in_stock,
   }
 
-  const phenotypes = data?.phenotypes as Phenotype[]
+  const phenotypes = data.phenotypes as Phenotype[]
   const numberPhenotypes = phenotypes.length
 
   const header = (
