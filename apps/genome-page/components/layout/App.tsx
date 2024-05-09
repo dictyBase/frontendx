@@ -6,8 +6,6 @@ import { Navbar } from "dicty-components-navbar"
 import jwtDecode from "jwt-decode"
 import { useFetchRefreshToken, useFetch } from "dicty-hooks"
 import {
-  useGetRefreshTokenQuery,
-  GetRefreshTokenQuery,
   User,
 } from "dicty-graphql-schema"
 import { ErrorBoundary } from "components/errors/ErrorBoundary"
@@ -54,28 +52,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-type Action = {
-  type: ActionType.UPDATE_TOKEN
-  payload: {
-    provider: string
-    token: string
-    user: User
-  }
-}
-
-const updateToken = (
-  dispatch: (argument0: Action) => void,
-  data: GetRefreshTokenQuery["getRefreshToken"],
-) =>
-  dispatch({
-    type: ActionType.UPDATE_TOKEN,
-    payload: {
-      provider: data?.identity.provider as string,
-      token: data?.token as string,
-      user: data?.user as User,
-    },
-  })
-
 const getTokenIntervalDelayInMS = (token: string) => {
   if (token === "") {
     return 60
@@ -93,48 +69,11 @@ const getTokenIntervalDelayInMS = (token: string) => {
  */
 
 const App = ({ children }: { children: React.ReactNode }) => {
-  const [skip, setSkip] = React.useState(false)
-  const {
-    state: { token, isAuthenticated },
-    dispatch,
-  } = useAuthStore()
   const navbar = useFetch<NavbarItems>(navbarURL, navbarItems)
   const footer = useFetch<FooterItems>(footerURL, footerLinks)
   const classes = useStyles()
-  const { loading, refetch, data } = useGetRefreshTokenQuery({
-    variables: { token },
-    errorPolicy: "ignore",
-    fetchPolicy: "cache-and-network",
-    nextFetchPolicy: "cache-and-network",
-    skip, // only run query once
-  })
-  const interval = React.useRef(null)
-  const delay = getTokenIntervalDelayInMS(token)
-
-  // set skip to true so the query is only run once
-  // then update the refresh token in our global state
-  React.useEffect(() => {
-    if (!loading && data && data.getRefreshToken) {
-      setSkip(true)
-      updateToken(dispatch, data.getRefreshToken)
-    }
-  }, [data, dispatch, loading])
-
-  const fetchRefreshToken = React.useCallback(async () => {
-    try {
-      const response = await refetch({ token })
-      if (response.data.getRefreshToken) {
-        const { data: refetchData } = response
-        updateToken(dispatch, refetchData.getRefreshToken)
-      }
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(error)
-    }
-  }, [dispatch, refetch, token])
-  useFetchRefreshToken(fetchRefreshToken, interval, delay!, isAuthenticated)
-
-  const headerContent = isAuthenticated ? loggedHeaderItems : headerItems
+  // const headerContent = isAuthenticated ? loggedHeaderItems : headerItems
+  const headerContent = headerItems
 
   return (
     <div className={classes.body}>
