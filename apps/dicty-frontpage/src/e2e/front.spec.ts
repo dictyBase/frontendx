@@ -1,15 +1,15 @@
 import { test, expect } from "@playwright/test"
 
-const frontpageUrl = "http://localhost:3004" 
+const BASE_URL = process.env.FRONTPAGE_URL || "http://localhost:3004" 
 
 test("has title", async ({ page }) => {
-  await page.goto(frontpageUrl)
+  await page.goto(BASE_URL)
 
   await expect(page).toHaveTitle(/dictyBase/)
 })
 
 test(" title", async ({ page }) => {
-  await page.goto(frontpageUrl)
+  await page.goto(BASE_URL)
 
   await expect(page).toHaveTitle(/dictyBase/)
 })
