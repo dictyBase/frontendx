@@ -19,3 +19,7 @@ jobs:
         run: yarn coverage
       - name: upload test coverage to codecov
         uses: codecov/codecov-action@v3
+      - name: Install Playwright
+        run: yarn playwright install
+      - name: Run E2E Tests 
+        run: yarn e2e:local
