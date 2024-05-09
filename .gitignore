@@ -9,10 +9,10 @@ node_modules
 coverage
 
 # E2E testing
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
+**/test-results/
+**/playwright-report/
+**/blob-report/
+**/playwright/.cache/
 
 # next.js
 .next/
