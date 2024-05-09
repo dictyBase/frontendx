@@ -6,7 +6,6 @@ import {
   Typography,
   Button,
   makeStyles,
-  Tooltip,
 } from "@material-ui/core"
 import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
@@ -31,8 +30,6 @@ const useFeaturedStyles = makeStyles({
   disabledLink: {
     pointerEvents: "none",
   },
-  toolTip: {
-  }
 })
 
 type FeaturedLink = {
