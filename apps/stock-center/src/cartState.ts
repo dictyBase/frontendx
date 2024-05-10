@@ -9,9 +9,6 @@ import type {
   StrainCartItem,
   PlasmidCartItem,
   CatalogItem,
-  PaymentFormData,
-  ShippingFormData,
-  OrderState,
 } from "./types"
 
 type Cart = {
@@ -112,64 +109,8 @@ const isFullAtom = atom(
 
 const resetCartAtom = atom(null, (_, set) => set(cartAtom, initialCart))
 
-// ORDER STATE
-enum OrderSteps {
-  SHIPPING,
-  PAYMENT,
-  SUBMIT,
-}
-
-const initialOrder: OrderState = {
-  orderID: "",
-  formData: {} as ShippingFormData & PaymentFormData,
-  cartItems: [],
-  cartTotal: "$0.00",
-}
-
-const initialShippingValues: ShippingFormData = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  organization: "",
-  lab: "",
-  address1: "",
-  address2: "",
-  city: "",
-  state: "",
-  zip: "",
-  country: "",
-  phone: "",
-  shippingAccount: "DHL",
-  shippingAccountNumber: "",
-  additionalInformation: "",
-}
-
-const initialPaymentValues: PaymentFormData = {
-  payerFirstName: "",
-  payerLastName: "",
-  payerEmail: "",
-  payerOrganization: "",
-  payerLab: "",
-  payerAddress1: "",
-  payerAddress2: "",
-  payerCity: "",
-  payerState: "",
-  payerZip: "",
-  payerCountry: "",
-  payerPhone: "",
-  paymentMethod: "purchaseOrder",
-  purchaseOrderNum: "",
-}
-
-const shippingFormAtom = atom(initialShippingValues)
-const paymentFormAtom = atom(initialPaymentValues)
-const orderAtom = atom(initialOrder)
-const orderStepAtom = atom(OrderSteps.SHIPPING)
-const submitErrorAtom = atom(false)
-
 export {
   type Cart,
-  OrderSteps,
   cartAtom,
   resetCartAtom,
   strainItemsAtom,
@@ -182,10 +123,4 @@ export {
   currentCartQuantityAtom,
   maxItemsAtom,
   isFullAtom,
-  shippingFormAtom,
-  initialPaymentValues,
-  paymentFormAtom,
-  orderAtom,
-  orderStepAtom,
-  submitErrorAtom,
 }
