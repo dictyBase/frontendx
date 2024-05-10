@@ -3,13 +3,13 @@ import { atom } from "jotai"
 import { splitAtom } from "jotai/utils"
 import { pipe } from "fp-ts/function"
 import { match } from "ts-pattern"
-import { concat as Aconcat, reduce as Areduce, uniq as Auniq } from "fp-ts/Array"
+import {
+  concat as Aconcat,
+  reduce as Areduce,
+  uniq as Auniq,
+} from "fp-ts/Array"
 import { fromEquals } from "fp-ts/Eq"
-import type {
-  StrainCartItem,
-  PlasmidCartItem,
-  CatalogItem,
-} from "./types"
+import type { StrainCartItem, PlasmidCartItem, CatalogItem } from "./types"
 
 type Cart = {
   plasmidItems: Array<PlasmidCartItem>
@@ -59,7 +59,7 @@ const addStrainItemsAtom = atom(
       pipe(
         get(strainItemsAtom),
         Aconcat(newItems.slice(0, get(remainingCartSpaceAtom))),
-        Auniq(strainEq)
+        Auniq(strainEq),
       ),
     )
   },
@@ -73,7 +73,7 @@ const addPlasmidItemsAtom = atom(
       pipe(
         get(plasmidItemsAtom),
         Aconcat(newItems.slice(0, get(remainingCartSpaceAtom))),
-        Auniq(plasmidEq)
+        Auniq(plasmidEq),
       ),
     )
   },
