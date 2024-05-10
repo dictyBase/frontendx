@@ -76,7 +76,6 @@ const PaymentPage = () => {
     ? getFilledPaymentFormData(shippingFormData)
     : paymentFormData
 
-  console.log(shippingFormData, paymentAddressValues)
   const methods = useForm({
     mode: "onSubmit",
     reValidateMode: "onBlur",
