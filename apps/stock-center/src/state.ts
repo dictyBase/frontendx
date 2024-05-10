@@ -3,7 +3,8 @@ import { atom } from "jotai"
 import { splitAtom } from "jotai/utils"
 import { pipe } from "fp-ts/function"
 import { match } from "ts-pattern"
-import { concat, reduce } from "fp-ts/Array"
+import { concat as Aconcat, reduce as Areduce, uniq as Auniq } from "fp-ts/Array"
+import { fromEquals } from "fp-ts/Eq"
 import type {
   StrainCartItem,
   PlasmidCartItem,
@@ -50,6 +51,9 @@ const remainingCartSpaceAtom = atom(
     (get(strainItemsAtom).length + get(plasmidItemsAtom).length),
 )
 
+const strainEq = fromEquals<StrainCartItem>((a, b) => a.id === b.id)
+const plasmidEq = fromEquals<PlasmidCartItem>((a, b) => a.id === b.id)
+
 const addStrainItemsAtom = atom(
   null,
   (get, set, newItems: Array<StrainCartItem>) => {
@@ -57,7 +61,8 @@ const addStrainItemsAtom = atom(
       strainItemsAtom,
       pipe(
         get(strainItemsAtom),
-        concat(newItems.slice(0, get(remainingCartSpaceAtom))),
+        Aconcat(newItems.slice(0, get(remainingCartSpaceAtom))),
+        Auniq(strainEq)
       ),
     )
   },
@@ -70,7 +75,8 @@ const addPlasmidItemsAtom = atom(
       plasmidItemsAtom,
       pipe(
         get(plasmidItemsAtom),
-        concat(newItems.slice(0, get(remainingCartSpaceAtom))),
+        Aconcat(newItems.slice(0, get(remainingCartSpaceAtom))),
+        Auniq(plasmidEq)
       ),
     )
   },
@@ -96,7 +102,7 @@ const removeItemAtom = atom(null, (get, set, removedItem: CatalogItem) => {
 const currentCartQuantityAtom = atom((get) =>
   pipe(
     get(strainItemsAtom),
-    reduce(0, (sum) => sum + 1),
+    Areduce(0, (sum) => sum + 1),
   ),
 )
 
