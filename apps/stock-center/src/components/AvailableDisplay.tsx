@@ -62,7 +62,7 @@ const AvailableDisplay = ({ cartData }: Properties) => {
   }
 
   const handleRemoveFromCart = () => {
-    removeFromCart(cartData.id)
+    removeFromCart(cartData)
   }
 
   return (
