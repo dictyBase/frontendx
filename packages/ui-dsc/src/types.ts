@@ -23,7 +23,7 @@ type Cart = {
 type OrderState = {
   orderID: string
   formData: FormData
-  cartItems: Array<StrainCartItem>
+  cartItems: Array<CatalogCartItem>
   cartTotal: string
 }
 
@@ -42,7 +42,6 @@ export {
   type CatalogItem,
   type StrainCartItem,
   type PlasmidCartItem,
-  type StrainCartItem as CartItem,
   type CatalogCartItem,
   type CartItemLimit,
   type Cart,
