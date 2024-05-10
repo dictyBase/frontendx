@@ -8,8 +8,8 @@ import {
   Link,
   StyleSheet,
 } from "@react-pdf/renderer"
-import { getCatalogItemDescriptor } from "../utils/getCatalogItemDescriptor"
 import { grey } from "@material-ui/core/colors"
+import { getCatalogItemDescriptor } from "../utils/getCatalogItemDescriptor"
 import { getShippingValues, getPaymentValues } from "../utils/getListValues"
 import { type CatalogCartItem, OrderState } from "../types"
 
@@ -143,7 +143,10 @@ const OrderSummaryPdf = ({ order }: OrderSummaryPDFProperties) => {
             <View style={styles.row}>
               <Text>
                 Payment information is available at the
-                <Link src={`${import.meta.env.VITE_APP_STOCKCENTER_URL}/information/payment`}>
+                <Link
+                  src={`${
+                    import.meta.env.VITE_APP_STOCKCENTER_URL
+                  }/information/payment`}>
                   DSC website.
                 </Link>
               </Text>

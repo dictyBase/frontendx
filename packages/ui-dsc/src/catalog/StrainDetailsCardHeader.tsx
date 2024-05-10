@@ -118,7 +118,8 @@ const StrainDetailsCardHeader = ({
                     }
                     {...a11yProperties(1)}
                   />
-                </Tabs>),
+                </Tabs>
+              ),
             )
             .otherwise(() => (
               <></>
