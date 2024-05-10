@@ -15,7 +15,6 @@ const itemEq: Eq<CatalogItem> = pipe(
 const useCartItemProperties = (catalogItem: CatalogItem) => {
   const isFull = useAtomValue(isFullAtom)
   const cart = useAtomValue(cartAtom)
-
   const isInCart = match(catalogItem)
     .with({ __typename: "Strain" }, (item) =>
       pipe(cart.strainItems, elem(itemEq)(item)),
