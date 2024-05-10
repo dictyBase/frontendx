@@ -8,9 +8,10 @@ import {
   Link,
   StyleSheet,
 } from "@react-pdf/renderer"
+import { getCatalogItemDescriptor } from "../utils/getCatalogItemDescriptor"
 import { grey } from "@material-ui/core/colors"
 import { getShippingValues, getPaymentValues } from "../utils/getListValues"
-import { type StrainCartItem, OrderState } from "../types"
+import { type CatalogCartItem, OrderState } from "../types"
 
 const styles = StyleSheet.create({
   body: {
@@ -69,11 +70,11 @@ const styles = StyleSheet.create({
 })
 
 // generate display for list of items in order
-const getItemsList = (items: StrainCartItem[]) =>
-  items.map((item: StrainCartItem) => (
+const getItemsList = (items: CatalogCartItem[]) =>
+  items.map((item: CatalogCartItem) => (
     <View key={item.id} style={styles.items}>
       <View style={styles.leftPanel}>
-        <Text>{item.label}</Text>
+        <Text>{getCatalogItemDescriptor(item)}</Text>
         <Text style={styles.id}>{item.id}</Text>
       </View>
       <View style={styles.rightPanel}>
@@ -142,7 +143,7 @@ const OrderSummaryPdf = ({ order }: OrderSummaryPDFProperties) => {
             <View style={styles.row}>
               <Text>
                 Payment information is available at the
-                <Link src="https://dictycr.org/stockcenter/information/payment">
+                <Link src={`${import.meta.env.VITE_APP_STOCKCENTER_URL}/information/payment`}>
                   DSC website.
                 </Link>
               </Text>
