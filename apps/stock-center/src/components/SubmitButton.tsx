@@ -17,10 +17,7 @@ import {
   orderAtom,
   submitErrorAtom,
 } from "../orderState"
-import {
-  cartAtom,
-  resetCartAtom,
-} from "../cartState"
+import { cartAtom, resetCartAtom } from "../cartState"
 import type { CatalogItem, ShippingFormData, PaymentFormData } from "../types"
 
 /**

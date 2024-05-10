@@ -1,10 +1,5 @@
-/* eslint-disable unicorn/no-null */
 import { atom } from "jotai"
-import type {
-  PaymentFormData,
-  ShippingFormData,
-  OrderState,
-} from "./types"
+import type { PaymentFormData, ShippingFormData, OrderState } from "./types"
 
 enum OrderSteps {
   SHIPPING,
