@@ -7,7 +7,7 @@ import Typography from "@material-ui/core/Typography"
 import Alert from "@material-ui/lab/Alert"
 import { match, P } from "ts-pattern"
 import { AvailableDisplay } from "stock-center/src/components/AvailableDisplay"
-import { CartItem } from "../types"
+import { StrainCartItem } from "../types"
 
 // accessibility helper function
 const a11yProperties = (index: number) => ({
@@ -64,7 +64,7 @@ type Properties = {
   /** Number of phenotypes */
   phenotypeLength: number
   /** Data for the stock item */
-  cartData: CartItem
+  cartData: StrainCartItem
 }
 
 /** StrainDetailsCardHeader displays the header at the top of the  card
@@ -118,8 +118,7 @@ const StrainDetailsCardHeader = ({
                     }
                     {...a11yProperties(1)}
                   />
-                </Tabs>
-              ),
+                </Tabs>),
             )
             .otherwise(() => (
               <></>
