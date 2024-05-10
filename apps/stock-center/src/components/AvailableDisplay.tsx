@@ -11,7 +11,7 @@ import {
   // OutlinedDropdown,
 } from "@dictybase/ui-dsc"
 import { useCartItemProperties } from "../hooks/useCartItemProperties"
-import { strainItemsAtom, addStrainItemsAtom, removeItemAtom } from "../state"
+import { strainItemsAtom, addStrainItemsAtom, removeItemAtom } from "../cartState"
 import type { StrainCartItem } from "../types"
 
 const useStyles = makeStyles(({ palette }) => ({

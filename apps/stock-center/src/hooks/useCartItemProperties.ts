@@ -4,7 +4,7 @@ import { type Eq, contramap } from "fp-ts/Eq"
 import { Eq as sEq } from "fp-ts/string"
 import { pipe } from "fp-ts/function"
 import { match } from "ts-pattern"
-import { isFullAtom, cartAtom } from "../state"
+import { isFullAtom, cartAtom } from "../cartState"
 import type { CatalogItem } from "../types"
 
 const itemEq: Eq<CatalogItem> = pipe(

@@ -18,7 +18,7 @@ import {
   renderCartTotal,
 } from "@dictybase/ui-dsc"
 import { useAtom, useAtomValue, type PrimitiveAtom } from "jotai"
-import { Cart, strainItemAtomsAtom, plasmidItemAtomsAtom } from "../state"
+import { Cart, strainItemAtomsAtom, plasmidItemAtomsAtom } from "../cartState"
 import type { PlasmidCartItem, StrainCartItem } from "../types"
 import { isFull } from "../isFull"
 

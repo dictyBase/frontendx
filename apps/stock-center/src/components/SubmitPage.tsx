@@ -3,7 +3,8 @@ import { useAtomValue } from "jotai"
 import { OrderSummary } from "@dictybase/ui-dsc"
 import { BackButton } from "./BackButton"
 import { SubmitButton } from "./SubmitButton"
-import { shippingFormAtom, paymentFormAtom, cartAtom } from "../state"
+import { cartAtom } from "../cartState"
+import { shippingFormAtom, paymentFormAtom } from "../orderState"
 
 /**
  * SubmitPage is the final page the user sees before submitting the order.

@@ -22,7 +22,7 @@ import {
   paymentFormAtom,
   orderStepAtom,
   shippingFormAtom,
-} from "../state"
+} from "../orderState"
 import { type ShippingFormData } from "../types"
 
 const validationSchema = object().shape({
@@ -76,6 +76,7 @@ const PaymentPage = () => {
     ? getFilledPaymentFormData(shippingFormData)
     : paymentFormData
 
+  console.log(shippingFormData, paymentAddressValues)
   const methods = useForm({
     mode: "onSubmit",
     reValidateMode: "onBlur",

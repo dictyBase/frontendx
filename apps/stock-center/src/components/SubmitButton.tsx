@@ -12,13 +12,15 @@ import {
 import { useSetAtom, useAtomValue } from "jotai"
 import { getCartTotal } from "@dictybase/ui-dsc"
 import {
-  cartAtom,
-  resetCartAtom,
   shippingFormAtom,
   paymentFormAtom,
   orderAtom,
   submitErrorAtom,
-} from "../state"
+} from "../orderState"
+import {
+  cartAtom,
+  resetCartAtom,
+} from "../cartState"
 import type { CatalogItem, ShippingFormData, PaymentFormData } from "../types"
 
 /**

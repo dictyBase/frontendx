@@ -2,7 +2,7 @@ import IconButton from "@material-ui/core/IconButton"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import { useSetAtom } from "jotai"
 import DeleteIcon from "@material-ui/icons/Delete"
-import { removeItemAtom } from "../state"
+import { removeItemAtom } from "../cartState"
 import type { CatalogItem } from "../types"
 
 const useStyles = makeStyles((theme: Theme) => ({

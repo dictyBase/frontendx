@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react"
 import { MemoryRouter } from "react-router-dom"
 import { Provider } from "jotai"
 import CartHandler from "../pages/cart"
-import { cartAtom } from "../state"
+import { cartAtom } from "../cartState"
 import { testItems } from "../mocks/cartData"
 
 test("Renders ShoppingCartWithItems component if there are items in the cart state. Does not render EmptyShoppingCart", () => {
