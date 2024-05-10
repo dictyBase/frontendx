@@ -124,7 +124,6 @@ const StrainDetailsCard = ({ data }: Properties) => {
   const genes = data.genes as Array<Gene>
   const depositor = data.depositor as User
   const genotypes = data.genotypes as Array<string>
-  const inStock = data.in_stock as boolean
 
   const rows = strainRowsGenerator(
     data,
@@ -136,8 +135,9 @@ const StrainDetailsCard = ({ data }: Properties) => {
   )
 
   const cartData = {
-    id: data.id as string,
-    label: data.label as string,
+    __typename: data.__typename as "Strain",
+    id: data.id,
+    label: data.label,
     summary: data.summary as string,
     fee: fees.STRAIN_FEE,
     in_stock: data.in_stock,
@@ -152,7 +152,6 @@ const StrainDetailsCard = ({ data }: Properties) => {
       handleChange={handleChange}
       phenotypeLength={numberPhenotypes}
       cartData={cartData}
-      inStock={inStock}
     />
   )
 
