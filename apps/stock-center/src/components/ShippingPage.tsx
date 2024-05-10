@@ -9,7 +9,7 @@ import {
   ShippingMethod,
 } from "@dictybase/ui-dsc"
 import { useSetAtom, useAtom } from "jotai"
-import { shippingFormAtom, orderStepAtom } from "../state"
+import { shippingFormAtom, orderStepAtom } from "../orderState"
 
 const validationSchema = object().shape({
   firstName: string().required("* First name is required"),

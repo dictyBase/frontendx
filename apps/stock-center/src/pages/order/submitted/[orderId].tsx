@@ -10,7 +10,7 @@ import {
   BackToHomePage,
 } from "@dictybase/ui-dsc"
 import { useAtomValue } from "jotai"
-import { orderAtom } from "../../../state"
+import { orderAtom } from "../../../orderState"
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {

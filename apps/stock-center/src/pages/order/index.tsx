@@ -4,7 +4,7 @@ import { OrderFormStepper } from "@dictybase/ui-dsc"
 import { ShippingPage } from "../../components/ShippingPage"
 import { PaymentPage } from "../../components/PaymentPage"
 import { SubmitPage } from "../../components/SubmitPage"
-import { orderStepAtom, OrderSteps } from "../../state"
+import { orderStepAtom, OrderSteps } from "../../orderState"
 
 const OrderForm = () => {
   const orderStep = useAtomValue(orderStepAtom)

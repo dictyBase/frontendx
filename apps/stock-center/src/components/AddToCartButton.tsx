@@ -7,7 +7,7 @@ import { fees } from "@dictybase/ui-dsc"
 import { pipe } from "fp-ts/function"
 import { map } from "fp-ts/Array"
 import { match, P } from "ts-pattern"
-import { addStrainItemsAtom, addPlasmidItemsAtom } from "../state"
+import { addStrainItemsAtom, addPlasmidItemsAtom } from "../cartState"
 import type { StrainItem, PlasmidItem, CatalogItem } from "../types"
 
 const useStyles = makeStyles(({ palette }) => ({
