@@ -1,7 +1,7 @@
 import { ListItemNode, ListNode } from "@lexical/list"
 import { HeadingNode, QuoteNode } from "@lexical/rich-text"
 import { TableCellNode, TableRowNode } from "@lexical/table"
-import { LinkNode } from "@lexical/link"
+import { LinkNode, AutoLinkNode } from "@lexical/link"
 import { ImageNode } from "image-plugin"
 import { WidthTableNode } from "width-table-plugin"
 import { FlexLayoutNode } from "flex-layout-plugin"
@@ -32,6 +32,7 @@ const dictyEditorConfig = {
     ListItemNode,
     ListNode,
     LinkNode,
+    AutoLinkNode,
     ImageNode,
     TableCellNode,
     TableRowNode,
