@@ -15,11 +15,11 @@ jobs:
         run: mv apps/publication/src/common/utils/clientConfig.sample.ts apps/publication/src/common/utils/clientConfig.ts
       - name: install
         run: yarn install --ignore-engines
+      - name: install playwright
+        run: yarn playwright install --with-deps
       - name: unit tests
         run: yarn coverage
       - name: upload test coverage to codecov
         uses: codecov/codecov-action@v3
-      - name: Install Playwright
-        run: yarn playwright install --with-deps
       - name: Run E2E Tests 
         run: yarn e2e:local
