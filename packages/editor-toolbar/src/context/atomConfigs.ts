@@ -45,6 +45,7 @@ export const formatAtom = atom({
   fontColor: "hsl(0, 0%, 0%)",
   fontFamily: FontFamily.ARIAL,
   blockType: BlockTypes.PARAGRAPH,
+  isLink: false,
 })
 export const isBoldAtom = focusAtom(formatAtom, (optic) => optic.prop("isBold"))
 export const isItalicAtom = focusAtom(formatAtom, (optic) =>
@@ -66,6 +67,8 @@ export const fontColorAtom = focusAtom(formatAtom, (optic) =>
 export const blockTypeAtom = focusAtom(formatAtom, (optic) =>
   optic.prop("blockType"),
 )
+
+export const isLinkAtom = focusAtom(formatAtom, (optic) => optic.prop("isLink"))
 
 const historyAtom = atom({
   canUndo: false,
