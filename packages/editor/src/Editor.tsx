@@ -6,6 +6,7 @@ import {
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin"
 import { ContentEditable } from "@lexical/react/LexicalContentEditable"
 import { ListPlugin } from "@lexical/react/LexicalListPlugin"
+import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin"
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin"
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary"
 import { Grid, Container, Button, makeStyles, Theme } from "@material-ui/core"
@@ -82,6 +83,7 @@ const Editor = ({
       }}>
       <>{plugins}</>
       <ListPlugin />
+      <LinkPlugin />
       <ImagePlugin />
       <FlexLayoutPlugin />
       <WidthTablePlugin />
