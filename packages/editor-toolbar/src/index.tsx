@@ -10,6 +10,7 @@ import { FormatUnderlineButton } from "./components/FormatUnderlineButton"
 import { ColorPickerButton } from "./components/ColorPickerButton"
 import { InsertTableButton } from "./components/InsertTableButton"
 import { InsertImageButton } from "./components/InsertImageButton"
+import { InsertLinkButton } from "./components/InsertLinkButton"
 import { useCleanup } from "./hooks/useCleanup"
 import { useToolbarStyles } from "./hooks/useToolbarStyles"
 
@@ -27,6 +28,7 @@ const DictybaseToolbar = () => {
       <FormatItalicButton />
       <FormatUnderlineButton />
       <ColorPickerButton />
+      <InsertLinkButton />
       <InsertTableButton />
       <InsertImageButton />
     </ToolBar>
