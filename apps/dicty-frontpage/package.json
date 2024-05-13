@@ -46,7 +46,8 @@
     "react-helmet": "^6.1.0",
     "react-loading-skeleton": "^3.3.1",
     "react-responsive-carousel": "^3.2.23",
-    "twitter-fetcher": "^18.0.4"
+    "twitter-fetcher": "^18.0.4",
+    "ui-user": "*"
   },
   "devDependencies": {
     "@material-ui/styles": "^4.11.4",
