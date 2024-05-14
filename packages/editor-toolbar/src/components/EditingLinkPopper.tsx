@@ -53,21 +53,19 @@ const EditingLinkPopper = () => {
   const [editor] = useLexicalComposerContext()
   const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null)
   const isLink = useAtomValue(isLinkAtom)
-  const shouldAppear = MonoidAll.concat(isLink as boolean, editor.isEditable())
-
+  const isOpen = MonoidAll.concat(isLink as boolean, editor.isEditable())
+// anchorElement needs to be set before open
   useEffect(() => {
     editor.registerUpdateListener(({ editorState }) => {
       editorState.read(() => {
         setAnchorElement(pipe(editor, getAnchorElement, OtoNullable))
-        console.log("popper")
-        console.log(shouldAppear)
       })
     })
   }, [editor, setAnchorElement])
 
-  console.log(anchorElement)
+    console.log(anchorElement)
   return (
-    <Popper anchorEl={anchorElement} open={shouldAppear}>
+    <Popper id="#test" anchorEl={anchorElement} open={isOpen}>
       <TextField />
     </Popper>
   )
