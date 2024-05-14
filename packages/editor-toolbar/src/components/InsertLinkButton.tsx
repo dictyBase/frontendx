@@ -1,3 +1,4 @@
+import { useRef } from "react"
 import { IconButton } from "@material-ui/core"
 import InsertLinkIcon from "@material-ui/icons/InsertLink"
 import { TOGGLE_LINK_COMMAND } from "@lexical/link"
@@ -12,6 +13,7 @@ const InsertLinkButton = () => {
   const [editor] = useLexicalComposerContext()
   const [isLink, setIsLink] = useAtom(isLinkAtom)
   const isActive = useActiveClass(isLinkAtom)
+  const ref = useRef(null)
 
   const onClick = () => {
     editor.update(() => {
@@ -28,10 +30,10 @@ const InsertLinkButton = () => {
 
   return (
     <>
-      <IconButton className={isActive} onClick={onClick}>
+      <IconButton ref={ref} className={isActive} onClick={onClick}>
         <InsertLinkIcon />
       </IconButton>
-      <EditingLinkPopper />
+      <EditingLinkPopper anchorElement={ref.current}/>
     </>
   )
 }
