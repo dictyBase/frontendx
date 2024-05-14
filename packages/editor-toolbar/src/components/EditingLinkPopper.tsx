@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Popper, TextField } from "@material-ui/core"
+import { Popper, TextField, Paper } from "@material-ui/core"
 import { $getSelection } from "lexical"
 import { useAtomValue } from "jotai"
 import { $isLinkNode, LinkNode } from "@lexical/link"
@@ -49,25 +49,30 @@ const getAnchorElement = (editor: LexicalEditor) => {
   )
 }
 
-const EditingLinkPopper = () => {
+type EditingLinkPopper = {
+  anchorElement: HTMLElement | null
+}
+
+const EditingLinkPopper = ({ anchorElement }: EditingLinkPopper) => {
   const [editor] = useLexicalComposerContext()
-  const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null)
+  // const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null)
   const isLink = useAtomValue(isLinkAtom)
   const isOpen = MonoidAll.concat(isLink as boolean, editor.isEditable())
+  console.log(anchorElement)
 // anchorElement needs to be set before open
-  useEffect(() => {
-    editor.registerUpdateListener(({ editorState }) => {
-      editorState.read(() => {
-        setAnchorElement(pipe(editor, getAnchorElement, OtoNullable))
-      })
-    })
-  }, [editor, setAnchorElement])
-
-    console.log(anchorElement)
+ // useEffect(() => {
+ //   editor.registerUpdateListener(({ editorState }) => {
+ //     editorState.read(() => {
+ //       setAnchorElement(pipe(editor, getAnchorElement, OtoNullable))
+ //     })
+ //   })
+ // }, [editor, setAnchorElement])
   return (
-    <Popper id="#test" anchorEl={anchorElement} open={isOpen}>
-      <TextField />
-    </Popper>
+      <Popper anchorEl={anchorElement} open={isOpen}>
+        <Paper>
+          <TextField />
+        </Paper>
+      </Popper>
   )
 }
 
