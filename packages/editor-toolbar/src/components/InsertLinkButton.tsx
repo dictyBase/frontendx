@@ -79,7 +79,10 @@ const InsertLinkButton = () => {
 
   return (
     <>
-      <IconButton ref={buttonReference} title="Insert Link" onClick={handleClick}>
+      <IconButton
+        ref={buttonReference}
+        title="Insert Link"
+        onClick={handleClick}>
         <InsertLinkIcon />
       </IconButton>
       <Popper anchorEl={buttonReference.current} open={isMenuOpen}>
