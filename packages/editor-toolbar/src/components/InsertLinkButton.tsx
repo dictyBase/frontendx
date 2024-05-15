@@ -28,7 +28,7 @@ const InsertLinkButton = () => {
   const [isInvalidURL, setIsInvalidURL] = useState(false)
   const [linkText, setLinkText] = useState("")
   const [hrefText, setHrefText] = useState("")
-  const buttonRef = useRef(null)
+  const buttonReference = useRef(null)
   const { popper } = useInsertLinkButtonStyles()
 
   const handleClick = () => {
@@ -79,10 +79,10 @@ const InsertLinkButton = () => {
 
   return (
     <>
-      <IconButton ref={buttonRef} title="Insert Link" onClick={handleClick}>
+      <IconButton ref={buttonReference} title="Insert Link" onClick={handleClick}>
         <InsertLinkIcon />
       </IconButton>
-      <Popper anchorEl={buttonRef.current} open={isMenuOpen}>
+      <Popper anchorEl={buttonReference.current} open={isMenuOpen}>
         <Paper className={popper}>
           <Grid container alignItems="center" spacing={2} direction="column">
             <Grid item>
