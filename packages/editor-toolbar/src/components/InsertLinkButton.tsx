@@ -50,9 +50,10 @@ const InsertLinkButton = () => {
 
   const handleSubmit = pipe(
     IOEtryCatch(
+      // implement URL validation here
       () => {},
       () => {
-        return setIsInvalidURL(true)
+        setIsInvalidURL(true)
       },
     ),
     IOEmap(() => {
@@ -67,7 +68,6 @@ const InsertLinkButton = () => {
       setIsMenuOpen(false)
       setLinkText("")
       setHrefText("")
-
     }),
   )
 
