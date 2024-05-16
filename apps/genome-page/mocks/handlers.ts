@@ -10,9 +10,21 @@ export const handlers = [
   mockGeneOntologyAnnotationQuery((request, response, context) => {
     const { gene } = request.variables
     return match(gene)
-      .with("sadA", () => response(context.data({ geneOntologyAnnotation: mockGene.gene.goas })))
-      .with("piaA", () => response(context.data({ geneOntologyAnnotation: mockGenePiaA.gene.goas })))
-      .with("ada2", () => response(context.data({ geneOntologyAnnotation: mockGeneAda2.gene.goas })))
-      .otherwise((unmockedGene) => response(context.errors([{ message: `No mock for ${unmockedGene}` }])))
+      .with("sadA", () =>
+        response(context.data({ geneOntologyAnnotation: mockGene.gene.goas })),
+      )
+      .with("piaA", () =>
+        response(
+          context.data({ geneOntologyAnnotation: mockGenePiaA.gene.goas }),
+        ),
+      )
+      .with("ada2", () =>
+        response(
+          context.data({ geneOntologyAnnotation: mockGeneAda2.gene.goas }),
+        ),
+      )
+      .otherwise((unmockedGene) =>
+        response(context.errors([{ message: `No mock for ${unmockedGene}` }])),
+      )
   }),
 ]
