@@ -9,9 +9,9 @@ import { OntologyTabLayout } from "./OntologyTabLayout"
  */
 
 interface OntologyContainerProperties {
-  gene: GeneOntologyAnnotationQuery
+  goas: NonNullable<GeneOntologyAnnotationQuery["geneOntologyAnnotation"]>
 }
-const OntologyContainer = ({ gene }: OntologyContainerProperties) => {
+const OntologyContainer = ({ goas }: OntologyContainerProperties) => {
   const { query } = useRouter()
   const geneId = query.id as string
 
@@ -19,9 +19,10 @@ const OntologyContainer = ({ gene }: OntologyContainerProperties) => {
     <Layout
       gene={geneId}
       title={`GO Annotations for ${geneId}`}
-      description={`Gene Ontology Annotations for ${geneId}`}>
+      description={`Gene Ontology Annotations for ${geneId}`}
+    >
       <Typography component="div">
-        <OntologyTabLayout data={gene} />{" "}
+        <OntologyTabLayout goas={goas} />{" "}
       </Typography>
     </Layout>
   )
