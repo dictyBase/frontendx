@@ -22,11 +22,21 @@ const OntologyPageWrapper = () => {
   return (
     <>
       {match(result)
-        .with({ loading: true }, () => <OntologyLoader />) 
-        .with({ error: P.select(P.not(undefined)) }, (error) => <GraphQLErrorPage error={error} />) 
-        .with({ data: { geneOntologyAnnotation: P.select(P.array({ id: P.string })) }}, (goas) => <OntologyContainer goas={goas} />) 
-        .otherwise(() => <> This message should not appear. </>)
-      }
+        .with({ loading: true }, () => <OntologyLoader />)
+        .with({ error: P.select(P.not(undefined)) }, (error) => (
+          <GraphQLErrorPage error={error} />
+        ))
+        .with(
+          {
+            data: {
+              geneOntologyAnnotation: P.select(P.array({ id: P.string })),
+            },
+          },
+          (goas) => <OntologyContainer goas={goas} />,
+        )
+        .otherwise(() => (
+          <> This message should not appear. </>
+        ))}
     </>
   )
 }

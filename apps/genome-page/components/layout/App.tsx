@@ -4,18 +4,10 @@ import Container from "@material-ui/core/Container"
 import { Header, Footer } from "dicty-components-header-footer"
 import { Navbar } from "dicty-components-navbar"
 import jwtDecode from "jwt-decode"
-import { useFetchRefreshToken, useFetch } from "dicty-hooks"
-import {
-  User,
-} from "dicty-graphql-schema"
+import { useFetch } from "dicty-hooks"
 import { ErrorBoundary } from "components/errors/ErrorBoundary"
 import {
-  useAuthStore,
-  ActionType,
-} from "components/features/Authentication/AuthStore"
-import {
   headerItems,
-  loggedHeaderItems,
   HeaderLinks,
 } from "common/utils/headerItems"
 import {

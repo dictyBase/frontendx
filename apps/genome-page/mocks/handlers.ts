@@ -1,8 +1,8 @@
 import { mockGeneOntologyAnnotationQuery } from "dicty-graphql-schema"
+import { match } from "ts-pattern"
 import { mockGene } from "./mockGene"
 import { mockGenePiaA } from "./piaAMocks/mockGenePiaA"
 import { mockGeneAda2 } from "./ada2Mocks/mockGeneAda2"
-import { match } from "ts-pattern"
 
 export const handlers = [
   // Handles the Gene query: https://github.com/dictyBase/dicty-graphql-schema/blob/develop/src/queries/gene.graphql
