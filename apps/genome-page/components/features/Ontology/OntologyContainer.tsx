@@ -19,8 +19,7 @@ const OntologyContainer = ({ goas }: OntologyContainerProperties) => {
     <Layout
       gene={geneId}
       title={`GO Annotations for ${geneId}`}
-      description={`Gene Ontology Annotations for ${geneId}`}
-    >
+      description={`Gene Ontology Annotations for ${geneId}`}>
       <Typography component="div">
         <OntologyTabLayout goas={goas} />{" "}
       </Typography>
