@@ -16,7 +16,7 @@
     "tsconfig": "*"
   },
   "dependencies": {
-    "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.14.1",
+    "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.15.0",
     "flex-layout-plugin": "*",
     "fp-ts": "2.x",
     "resizable-image": "*",
