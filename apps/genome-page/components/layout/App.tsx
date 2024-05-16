@@ -6,10 +6,7 @@ import { Navbar } from "dicty-components-navbar"
 import jwtDecode from "jwt-decode"
 import { useFetch } from "dicty-hooks"
 import { ErrorBoundary } from "components/errors/ErrorBoundary"
-import {
-  headerItems,
-  HeaderLinks,
-} from "common/utils/headerItems"
+import { headerItems, HeaderLinks } from "common/utils/headerItems"
 import {
   footerLinks,
   footerURL,
@@ -43,18 +40,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
 }))
-
-const getTokenIntervalDelayInMS = (token: string) => {
-  if (token === "") {
-    return 60
-  }
-  const decodedToken = jwtDecode(token) as any
-  const currentTime = new Date(Date.now())
-  const jwtTime = new Date(decodedToken.exp * 1000)
-  const timeDiffInMins = (+jwtTime - +currentTime) / 60_000
-  // all this to say we want the delay to be two minutes before the JWT expires
-  return (timeDiffInMins - 2) * 60 * 1000
-}
 
 /**
  * App is responsible for the main layout of the entire application.
