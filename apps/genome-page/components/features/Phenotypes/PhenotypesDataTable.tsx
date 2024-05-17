@@ -8,20 +8,19 @@ import {
   TableRow,
 } from "@material-ui/core"
 import ShoppingCart from "@material-ui/icons/ShoppingCart"
-import { GeneQuery } from "dicty-graphql-schema"
+import { Strain } from "dicty-graphql-schema"
 import { OtherError } from "components/errors/OtherError"
 import { useStyles } from "../../../styles/dataTableStyles"
 import { RenderPhenotypes } from "./RenderPhenotypes"
 
 interface PhenotypesDataTableProperties {
-  data: GeneQuery
+  strains: Array<Strain>
 }
 
-const PhenotypesDataTable = ({ data }: PhenotypesDataTableProperties) => {
+const PhenotypesDataTable = ({ strains }: PhenotypesDataTableProperties) => {
   const classes = useStyles()
 
-  if (!data.allStrains) return <OtherError />
-  const { allStrains } = data
+  if (!strains) return <OtherError />
 
   return (
     <TableContainer component={Paper} className={classes.root}>
@@ -38,7 +37,7 @@ const PhenotypesDataTable = ({ data }: PhenotypesDataTableProperties) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {allStrains.strains?.map((strain) => (
+          {strains.map((strain) => (
             <RenderPhenotypes strain={strain} key={strain.id} />
           ))}
         </TableBody>
