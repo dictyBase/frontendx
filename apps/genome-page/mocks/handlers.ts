@@ -1,30 +1,52 @@
-import { mockGeneOntologyAnnotationQuery } from "dicty-graphql-schema"
+import { mockGeneOntologyAnnotationQuery, mockListStrainsWithGeneQuery } from "dicty-graphql-schema/types/mocks"
 import { match } from "ts-pattern"
-import { mockGene } from "./mockGene"
-import { mockGenePiaA } from "./piaAMocks/mockGenePiaA"
-import { mockGeneAda2 } from "./ada2Mocks/mockGeneAda2"
+import { mockOntologyData } from "./mockOntologyData"
+import { mockOntologyPiaA } from "./piaAMocks/mockOntologyPiaA"
+import { mockOntologyAda2 } from "./ada2Mocks/mockOntologyAda2"
+import { mockPhenotypesData } from "./mockPhenotypesData"
+import { mockPhenotypesPiaA } from "./piaAMocks/mockPhenotypesPiaA"
+import { mockPhenotypesAda2 } from "./ada2Mocks/mockPhenotypesAda2"
 
 export const handlers = [
   // Handles the Gene query: https://github.com/dictyBase/dicty-graphql-schema/blob/develop/src/queries/gene.graphql
   // Implementation details here: https://github.com/dictyBase/genomepage/pull/825#issuecomment-977246804
-  mockGeneOntologyAnnotationQuery((request, response, context) => {
-    const { gene } = request.variables
+  mockGeneOntologyAnnotationQuery((request, response, context) => { const { gene } = request.variables
     return match(gene)
       .with("sadA", () =>
-        response(context.data({ geneOntologyAnnotation: mockGene.gene.goas })),
+        response(context.data({ geneOntologyAnnotation: mockOntologyData.goas })),
       )
       .with("piaA", () =>
         response(
-          context.data({ geneOntologyAnnotation: mockGenePiaA.gene.goas }),
+          context.data({ geneOntologyAnnotation: mockOntologyPiaA.goas }),
         ),
       )
       .with("ada2", () =>
         response(
-          context.data({ geneOntologyAnnotation: mockGeneAda2.gene.goas }),
+          context.data({ geneOntologyAnnotation: mockOntologyAda2.goas }),
         ),
       )
       .otherwise((unmockedGene) =>
         response(context.errors([{ message: `No mock for ${unmockedGene}` }])),
       )
   }),
+  mockListStrainsWithGeneQuery((request, response, context) => {
+    const { gene } = request.variables
+    return match(gene)
+      .with("sadA", () =>
+        response(context.data({ listStrainsWithGene: mockPhenotypesData.strains })),
+      )
+      .with("piaA", () =>
+        response(
+          context.data({ listStrainsWithGene: mockPhenotypesPiaA.strains }),
+        ),
+      )
+      .with("ada2", () =>
+        response(
+          context.data({ listStrainsWithGene: mockPhenotypesAda2.strains }),
+        ),
+      )
+      .otherwise((unmockedGene) =>
+        response(context.errors([{ message: `No mock for ${unmockedGene}` }])),
+      )
+  })
 ]
