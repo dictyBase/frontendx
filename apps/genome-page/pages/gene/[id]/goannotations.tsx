@@ -11,7 +11,6 @@ import { match, P } from "ts-pattern"
 const OntologyPageWrapper = () => {
   const { query } = useRouter()
   const gene = query.id as string
-
   const result = useGeneOntologyAnnotationQuery({
     variables: {
       gene,
@@ -19,26 +18,20 @@ const OntologyPageWrapper = () => {
     fetchPolicy: "cache-and-network",
   })
 
-  return (
-    <>
-      {match(result)
-        .with({ loading: true }, () => <OntologyLoader />)
-        .with({ error: P.select(P.not(undefined)) }, (error) => (
-          <GraphQLErrorPage error={error} />
-        ))
-        .with(
-          {
-            data: {
-              geneOntologyAnnotation: P.select(P.array({ id: P.string })),
-            },
-          },
-          (goas) => <OntologyContainer goas={goas} />,
-        )
-        .otherwise(() => (
-          <> This message should not appear. </>
-        ))}
-    </>
-  )
+  return match(result)
+    .with({ loading: true }, () => <OntologyLoader />)
+    .with({ error: P.select(P.not(undefined)) }, (error) => (
+      <GraphQLErrorPage error={error} />
+    ))
+    .with(
+      {
+        data: {
+          geneOntologyAnnotation: P.select(P.array({ id: P.string })),
+        },
+      },
+      (goas) => <OntologyContainer goas={goas} />,
+    )
+    .otherwise(() => <> This message should not appear. </>)
 }
 
 // eslint-disable-next-line import/no-default-export
