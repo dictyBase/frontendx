@@ -1,5 +1,5 @@
 import { OtherError } from "components/errors/OtherError"
-import { GeneQuery } from "dicty-graphql-schema"
+import { ListPublicationsWithGeneQuery } from "dicty-graphql-schema"
 import {
   Paper,
   Table,
@@ -13,14 +13,11 @@ import { useStyles } from "../../../styles/dataTableStyles"
 import { PublicationRow } from "./PublicationRow"
 
 interface Properties {
-  data: GeneQuery
+  publications: NonNullable<ListPublicationsWithGeneQuery["listPublicationsWithGene"]>
 }
 
-const ReferencesDataTable = ({ data }: Properties) => {
+const ReferencesDataTable = ({ publications }: Properties) => {
   const classes = useStyles()
-
-  if (!data.allPublications?.publications) return <OtherError />
-  const { publications } = data.allPublications
 
   return (
     <TableContainer component={Paper} className={classes.root}>
@@ -31,7 +28,6 @@ const ReferencesDataTable = ({ data }: Properties) => {
             <TableCell>Other Genes Mentioned</TableCell>
           </TableRow>
         </TableHead>
-
         <TableBody>
           {publications.map((publication) => (
             <PublicationRow publication={publication} key={publication.id} />
