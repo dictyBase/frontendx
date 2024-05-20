@@ -1,7 +1,7 @@
 {
   "name": "persistence-plugin",
   "version": "0.0.0",
-  "descripton": "Persistence plugin for dictybase text editor",
+  "description": "Persistence plugin for dictybase text editor",
   "main": "src/index.ts",
   "author": "Kevin Tun",
   "license": "BSD-2-Clause",
