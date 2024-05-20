@@ -19,7 +19,7 @@
     "jsdom": "latest",
     "vitest": "0.33.x",
     "eslint-config-custom": "*",
-    "width-table-plugin": "*"
+    "@dictybase/width-table-plugin": "*"
   },
   "dependencies": {
     "@lexical/react": "0.11.x",
