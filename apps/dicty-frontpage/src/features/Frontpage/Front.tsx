@@ -6,7 +6,7 @@ import {
   RecentUpdates,
   ComingSoon,
   Featured,
-} from "frontpage-components"
+} from "@dictybase/ui-frontpage"
 import { Slideshow } from "./Slideshow"
 import { LatestPapers } from "./LatestPapers"
 
