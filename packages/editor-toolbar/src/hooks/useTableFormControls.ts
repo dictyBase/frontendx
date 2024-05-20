@@ -1,5 +1,5 @@
 import { useState, ChangeEvent } from "react"
-import { INSERT_WIDTH_TABLE_COMMAND } from "width-table-plugin"
+import { INSERT_WIDTH_TABLE_COMMAND } from "@dictybase/width-table-plugin"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { useSetAtom } from "jotai"
 import { insertTableDialogOpenAtom } from "../context/atomConfigs"

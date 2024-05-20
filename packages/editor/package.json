@@ -11,7 +11,7 @@
     "react-router-dom": "~6.14.2",
     "@dictybase/editor-toolbar": "*",
     "@dictybase/persistence-plugin": "*",
-    "width-table-plugin": "*",
+    "@dictybase/width-table-plugin": "*",
     "@dictybase/table-action-plugin": "*"
   },
   "devDependencies": {
