@@ -10,7 +10,7 @@
   "dependencies": {
     "react-router-dom": "~6.14.2",
     "@dictybase/editor-toolbar": "*",
-    "persistence-plugin": "*",
+    "@dictybase/persistence-plugin": "*",
     "width-table-plugin": "*",
     "table-action-plugin": "*"
   },
