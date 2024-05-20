@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react"
-import { Provider, useAtomValue } from "jotai"
+import { Provider, useAtomValue, createStore } from "jotai"
 import { $getNodeByKey, CLICK_COMMAND, COMMAND_PRIORITY_LOW } from "lexical"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { useLexicalNodeSelection } from "@lexical/react/useLexicalNodeSelection"
@@ -35,6 +35,11 @@ const ImageComponent = ({
   const isResizing = useAtomValue(isResizingAtom)
   const [isSelected, setSelected, clearSelection] =
     useLexicalNodeSelection(nodeKey)
+  const imageDimensionStore = createStore()
+  imageDimensionStore.set(ImageDimensionsAtom, {
+    width: initialWidth,
+    height: initialHeight,
+  })
 
   const onResize = (width: number, height: number) => {
     editor.update(() => {
@@ -75,10 +80,7 @@ const ImageComponent = ({
     }
   })
   return (
-    <Provider
-      initialValues={[
-        [ImageDimensionsAtom, { width: initialWidth, height: initialHeight }],
-      ]}>
+    <Provider store={imageDimensionStore}>
       <ResizableImage
         src={src}
         imageReference={imageReference}
