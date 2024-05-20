@@ -1,4 +1,3 @@
-import { OtherError } from "components/errors/OtherError"
 import { ListPublicationsWithGeneQuery } from "dicty-graphql-schema"
 import {
   Paper,
@@ -13,7 +12,9 @@ import { useStyles } from "../../../styles/dataTableStyles"
 import { PublicationRow } from "./PublicationRow"
 
 interface Properties {
-  publications: NonNullable<ListPublicationsWithGeneQuery["listPublicationsWithGene"]>
+  publications: NonNullable<
+    ListPublicationsWithGeneQuery["listPublicationsWithGene"]
+  >
 }
 
 const ReferencesDataTable = ({ publications }: Properties) => {
