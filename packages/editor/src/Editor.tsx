@@ -14,7 +14,7 @@ import { ImagePlugin } from "@dictybase/image-plugin"
 import { SaveButton } from "@dictybase/persistence-plugin"
 import { WidthTablePlugin } from "width-table-plugin"
 import { FlexLayoutPlugin } from "@dictybase/flex-layout-plugin"
-import { TableActionPlugin } from "table-action-plugin"
+import { TableActionPlugin } from "@dictybase/table-action-plugin"
 import { DictybaseToolbar } from "@dictybase/editor-toolbar"
 import { dictyEditorConfig } from "./editorConfig"
 import {

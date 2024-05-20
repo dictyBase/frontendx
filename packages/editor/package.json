@@ -12,7 +12,7 @@
     "@dictybase/editor-toolbar": "*",
     "@dictybase/persistence-plugin": "*",
     "width-table-plugin": "*",
-    "table-action-plugin": "*"
+    "@dictybase/table-action-plugin": "*"
   },
   "devDependencies": {
     "@types/react": "17.0.52",
