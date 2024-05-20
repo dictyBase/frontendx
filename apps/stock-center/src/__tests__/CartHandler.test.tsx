@@ -1,15 +1,18 @@
 import { test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { MemoryRouter } from "react-router-dom"
-import { Provider } from "jotai"
+import { Provider, createStore } from "jotai"
 import CartHandler from "../pages/cart"
 import { cartAtom } from "../cartState"
 import { testItems } from "../mocks/cartData"
 
+const store = createStore()
+
 test("Renders ShoppingCartWithItems component if there are items in the cart state. Does not render EmptyShoppingCart", () => {
+  store.set(cartAtom, { strainItems: testItems, plasmidItems: [], maxItems: 12 })
   render(
     <MemoryRouter>
-      <Provider initialValues={[[cartAtom, { strainItems: testItems }]]}>
+      <Provider store={store}>
         <CartHandler />
       </Provider>
     </MemoryRouter>,
@@ -21,9 +24,10 @@ test("Renders ShoppingCartWithItems component if there are items in the cart sta
 })
 
 test("Renders EmptyShoppingCart component if there are items in the cart state. Does Not render ShoppingCartWithItems", () => {
+  store.set(cartAtom, { strainItems: [], plasmidItems: [], maxItems: 12 })
   render(
     <MemoryRouter>
-      <Provider initialValues={[[cartAtom, { strainItems: [] }]]}>
+      <Provider store={store}>
         <CartHandler />
       </Provider>
     </MemoryRouter>,
