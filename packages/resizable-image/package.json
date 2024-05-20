@@ -1,5 +1,5 @@
 {
-  "name": "resizable-image",
+  "name": "@dictybase/resizable-image",
   "version": "0.0.0",
   "description": "resizable image component for dictybase text editor",
   "main": "src/index.ts",
@@ -9,7 +9,7 @@
     "test": "vitest run",
     "coverage": "vitest run --coverage",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
-    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/resizable-image.json"
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/@dictybase/resizable-image.json"
   },
   "devDependencies": {
     "@types/react": "17.x",
