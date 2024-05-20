@@ -7,7 +7,7 @@ import {
   protectedRoutes,
   privateRoutes,
   buildMergedRoutes,
-} from "auth"
+} from "@dictybase/auth"
 import { HeaderRow } from "./components/HeaderRow"
 
 const dynamicRoutes: dynamicRoutesProperties = import.meta.glob(

@@ -6,7 +6,7 @@ import {
   FullPageLoadingDisplay,
   contentPageErrorMatcher,
 } from "@dictybase/ui-common"
-import { ACCESS, useTokenAndUser } from "auth"
+import { ACCESS, useTokenAndUser } from "@dictybase/auth"
 import { NAMESPACE } from "../../../namespace"
 import { useSlug } from "../../../hooks/useSlug"
 import { useContentPath } from "../../../hooks/useContentPath"

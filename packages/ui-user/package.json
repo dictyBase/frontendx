@@ -6,7 +6,7 @@
   "author": "Siddhartha Basu",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "auth": "*"
+    "@dictybase/auth": "*"
   },
   "devDependencies": {
     "@vitest/coverage-v8": "^0.34.5",

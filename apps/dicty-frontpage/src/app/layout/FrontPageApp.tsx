@@ -1,7 +1,7 @@
 import { RouterProvider } from "react-router-dom"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import Container from "@material-ui/core/Container"
-import { HeaderWithAuth, NavbarWithAuth, FooterWithAuth } from "auth"
+import { HeaderWithAuth, NavbarWithAuth, FooterWithAuth } from "@dictybase/auth"
 import { ErrorBoundary } from "../../common/components/errors/ErrorBoundary"
 import { frontpageRouter } from "../../routes"
 import { navTheme } from "../../common/utils/themes"

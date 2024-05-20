@@ -7,7 +7,7 @@ import {
   protectedRoutes,
   privateRoutes,
   buildMergedRoutes,
-} from "auth"
+} from "@dictybase/auth"
 
 const dynamicRoutes: dynamicRoutesProperties = import.meta.glob(
   "/src/pages/**/**/*.tsx",

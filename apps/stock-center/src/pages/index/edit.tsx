@@ -10,7 +10,7 @@ import {
 import { EditEditor, LoadingDisplay, OtherError } from "@dictybase/ui-common"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
-import { ACCESS, useTokenAndUser } from "auth"
+import { ACCESS, useTokenAndUser } from "@dictybase/auth"
 import { NAMESPACE } from "../../namespace"
 /**
  * Homepage is the main homepage component for DSC.

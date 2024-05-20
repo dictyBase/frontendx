@@ -6,7 +6,7 @@ import {
   contentPageErrorMatcher,
 } from "@dictybase/ui-common"
 import { match, P } from "ts-pattern"
-import { useTokenAndUser } from "auth"
+import { useTokenAndUser } from "@dictybase/auth"
 import { NAMESPACE } from "../../common/constants/namespace"
 import { useSlug } from "../../common/hooks/useSlug"
 

@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom"
 import { FullPageLoadingDisplay } from "@dictybase/ui-common"
 import { match } from "ts-pattern"
-import { useAuthorization, ACCESS } from "auth"
+import { useAuthorization, ACCESS } from "@dictybase/auth"
 
 const RoleRedirect = () => {
   const { isLoading, isAuthorized } = useAuthorization({

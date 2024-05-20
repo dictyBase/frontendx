@@ -21,7 +21,7 @@
     "@dictybase/ui-dsc": "*",
     "@dictybase/ui-common": "*",
     "editor": "*",
-    "auth": "*",
+    "@dictybase/auth": "*",
     "ui-user": "*"
   },
   "devDependencies": {

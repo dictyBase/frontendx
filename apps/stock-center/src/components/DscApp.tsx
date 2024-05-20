@@ -2,7 +2,7 @@ import Container from "@material-ui/core/Container"
 import { LoadingDisplay } from "@dictybase/ui-dsc"
 import { RouterProvider } from "react-router-dom"
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import { HeaderWithAuth, NavbarWithAuth, FooterWithAuth } from "auth"
+import { HeaderWithAuth, NavbarWithAuth, FooterWithAuth } from "@dictybase/auth"
 import { dscRouter } from "../routes"
 import { navTheme } from "../themes"
 
