@@ -5,10 +5,14 @@ import { useRouter } from "next/router"
 import { ReferencesDataTable } from "./ReferencesDataTable"
 
 interface ReferencesContainerProperties {
-  publications: NonNullable<ListPublicationsWithGeneQuery["listPublicationsWithGene"]>
+  publications: NonNullable<
+    ListPublicationsWithGeneQuery["listPublicationsWithGene"]
+  >
 }
 
-const ReferencesContainer = ({ publications }: ReferencesContainerProperties) => {
+const ReferencesContainer = ({
+  publications,
+}: ReferencesContainerProperties) => {
   const { query } = useRouter()
   const geneId = query.id as string
 
@@ -16,7 +20,8 @@ const ReferencesContainer = ({ publications }: ReferencesContainerProperties) =>
     <Layout
       gene={geneId}
       title={`References for ${geneId}`}
-      description={`Gene references for ${geneId}`}>
+      description={`Gene references for ${geneId}`}
+    >
       <Typography component="div">
         {" "}
         <ReferencesDataTable publications={publications} />
