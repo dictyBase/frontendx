@@ -20,7 +20,7 @@
     "@dictybase/hook-dsc": "*",
     "@dictybase/ui-dsc": "*",
     "@dictybase/ui-common": "*",
-    "editor": "*",
+    "@dictybase/editor": "*",
     "@dictybase/auth": "*",
     "ui-user": "*"
   },

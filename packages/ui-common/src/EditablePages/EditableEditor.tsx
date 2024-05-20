@@ -1,5 +1,5 @@
 import { type ContentBySlugQuery } from "dicty-graphql-schema"
-import { Editor } from "editor"
+import { Editor } from "@dictybase/editor"
 import { EditableContentToolbar } from "./EditableContentToolbar"
 
 type EditableEditorProperties = {
