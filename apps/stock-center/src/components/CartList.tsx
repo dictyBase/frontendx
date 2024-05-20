@@ -18,14 +18,15 @@ import {
   renderCartTotal,
 } from "@dictybase/ui-dsc"
 import { useAtom, useAtomValue, type PrimitiveAtom } from "jotai"
-import { Cart, strainItemAtomsAtom, plasmidItemAtomsAtom } from "../cartState"
+import {
+  Cart,
+  cartAtom,
+  strainItemAtomsAtom,
+  plasmidItemAtomsAtom,
+  isFullAtom,
+} from "../cartState"
 import type { PlasmidCartItem, StrainCartItem } from "../types"
-import { isFull } from "../isFull"
 
-type ShoppingCartListProperties = {
-  /** An array of cart items */
-  cart: Cart
-}
 type SplitAtomAction<Item> =
   | { type: "remove"; atom: PrimitiveAtom<Item> }
   | {
@@ -106,9 +107,11 @@ const renderTotalRows = (cart: Cart) => (
   </>
 )
 
-const CartList = ({ cart }: ShoppingCartListProperties) => {
+const CartList = () => {
   const [strainItemAtoms, dispatchS] = useAtom(strainItemAtomsAtom)
   const [plasmidItemAtoms, dispatchP] = useAtom(plasmidItemAtomsAtom)
+  const cart = useAtomValue(cartAtom)
+  const isFull = useAtomValue(isFullAtom)
   const classes = useStyles()
 
   return (
@@ -145,7 +148,10 @@ const CartList = ({ cart }: ShoppingCartListProperties) => {
             <CheckoutButton />
           </CardActions>
         </Card>
-        {!isFull(cart.strainItems) && <ContinueShoppingCard />}
+        {match(isFull)
+          .with(false, () => <ContinueShoppingCard />)
+          .with(true, () => <></>)
+          .exhaustive()}
       </Grid>
     </Grid>
   )
