@@ -2,7 +2,8 @@ import { ReferencesContainer } from "components/features/References/ReferencesCo
 import { GraphQLErrorPage } from "components/errors/GraphQLErrorPage"
 import { ReferencesLoader } from "components/features/References/ReferencesLoader"
 import { useRouter } from "next/router"
-import { useGeneQuery, GeneQuery } from "dicty-graphql-schema"
+import { useListPublicationsWithGeneQuery } from "dicty-graphql-schema"
+import { match, P } from "ts-pattern"
 
 /*
     Renders References given a gene id
@@ -10,18 +11,25 @@ import { useGeneQuery, GeneQuery } from "dicty-graphql-schema"
 const ReferencesPageWrapper = () => {
   const { query } = useRouter()
   const gene = query.id as string
-  const { loading, error, data } = useGeneQuery({
+  const result = useListPublicationsWithGeneQuery({
     variables: {
       gene,
     },
   })
-  return (
-    <>
-      {loading ? <ReferencesLoader /> : <></>}
-      {error ? <GraphQLErrorPage error={error} /> : <></>}
-      {data ? <ReferencesContainer gene={data as GeneQuery} /> : <></>}
-    </>
-  )
+  return match(result)
+    .with({ loading: true }, () => <ReferencesLoader />)
+    .with({ error: P.select(P.not(undefined)) }, (error) => (
+      <GraphQLErrorPage error={error} />
+    ))
+    .with(
+      {
+        data: {
+          listPublicationsWithGene: P.select(P.array({ id: P.string })),
+        },
+      },
+      (publications) => <ReferencesContainer publications={publications} />,
+    )
+    .otherwise(() => <> This message should not appear. </>)
 }
 
 // eslint-disable-next-line import/no-default-export
