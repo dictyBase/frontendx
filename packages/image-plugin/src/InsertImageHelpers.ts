@@ -17,7 +17,7 @@ import {
   bindTo as ObindTo,
   bind as Obind,
 } from "fp-ts/Option"
-import { $isFlexLayoutNode, FlexLayoutNode } from "flex-layout-plugin"
+import { $isFlexLayoutNode, FlexLayoutNode } from "@dictybase/flex-layout-plugin"
 
 const getDifference = (first: number, second: number) =>
   Math.abs(first - second)

@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.17.0",
-    "flex-layout-plugin": "*",
+    "@dictybase/flex-layout-plugin": "*",
     "fp-ts": "2.x",
     "resizable-image": "*",
     "ts-pattern": "4.x"

@@ -13,7 +13,7 @@ import {
 import { $wrapNodes } from "@lexical/selection"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { useAtomValue } from "jotai"
-import { $createFlexLayoutNode } from "flex-layout-plugin"
+import { $createFlexLayoutNode } from "@dictybase/flex-layout-plugin"
 import { blockTypeAtom, BlockTypes } from "../context/atomConfigs"
 
 const formatParagraph = (
