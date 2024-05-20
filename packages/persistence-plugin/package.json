@@ -7,7 +7,7 @@
   "license": "BSD-2-Clause",
   "scripts": {
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
-    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/@dictybase/persistence-plugin.json"
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/persistence-plugin.json"
   },
   "devDependencies": {
     "@types/react": "17.x",
