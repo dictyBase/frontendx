@@ -3,7 +3,7 @@ import {
   type ContentBySlugQuery,
   useUpdateContentMutation,
 } from "dicty-graphql-schema"
-import { Editor } from "editor"
+import { Editor } from "@dictybase/editor"
 import { createToolbarWrapper } from "./createToolbarWrapper"
 
 type EditEditorProperties = {

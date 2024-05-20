@@ -1,6 +1,6 @@
 import { Paper, Typography, Grid } from "@material-ui/core"
 import { ListNewsContentQuery } from "dicty-graphql-schema"
-import { parseContentToText } from "editor"
+import { parseContentToText } from "@dictybase/editor"
 import { RecentNewsPreviewMetadata } from "./RecentNewsPreviewMetadata"
 import { useRecentNewsPreviewStyles } from "./useRecentNewsPreviewStyles"
 

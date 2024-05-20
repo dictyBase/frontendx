@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { useCreateContentMutation } from "dicty-graphql-schema"
-import { Editor } from "editor"
+import { Editor } from "@dictybase/editor"
 import { createAddPageToolbar } from "./createAddPageToolbar"
 
 type AddPageEditorProperties = {

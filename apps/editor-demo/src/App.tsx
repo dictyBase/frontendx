@@ -1,5 +1,5 @@
 import Grid from "@material-ui/core/Grid"
-import { Editor } from "editor"
+import { Editor } from "@dictybase/editor"
 import { JsonPlugin } from "@dictybase/json-plugin"
 
 const saveJson = async (data: any) => {

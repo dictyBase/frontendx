@@ -1,7 +1,7 @@
 import { useState, ChangeEvent } from "react"
 import { Grid, Container, TextField } from "@material-ui/core"
 import { useNavigate } from "react-router-dom"
-import { Editor } from "editor"
+import { Editor } from "@dictybase/editor"
 import { useUpdateNews } from "./useUpdateNews"
 import { useInitialContentData } from "./useInitialContentData"
 

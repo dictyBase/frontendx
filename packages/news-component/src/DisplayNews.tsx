@@ -1,5 +1,5 @@
 import { Grid, Typography } from "@material-ui/core"
-import { Editor } from "editor"
+import { Editor } from "@dictybase/editor"
 import { formatDateISOString } from "./utils"
 
 type DisplayNewsProperties = {

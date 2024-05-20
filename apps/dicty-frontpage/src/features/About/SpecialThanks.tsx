@@ -2,7 +2,7 @@ import React from "react"
 import Skeleton from "react-loading-skeleton"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
-import { Editor } from "editor"
+import { Editor } from "@dictybase/editor"
 import { NAMESPACE } from "../../common/constants/namespace"
 
 const dataPattern = {
