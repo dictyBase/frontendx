@@ -1,7 +1,12 @@
 import { useLocation } from "react-router-dom"
 import { Box, Grid, Divider } from "@material-ui/core"
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import { ACCESS, UserWithRoles, displayOnAuthorized, matchEntries } from "@dictybase/auth"
+import {
+  ACCESS,
+  UserWithRoles,
+  displayOnAuthorized,
+  matchEntries,
+} from "@dictybase/auth"
 import { Avatar, Information, EditablePagesList, Title, NoPages } from "ui-user"
 
 const useStyles = makeStyles((theme: Theme) => ({
