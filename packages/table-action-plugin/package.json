@@ -1,5 +1,5 @@
 {
-  "name": "table-action-plugin",
+  "name": "@dictybase/table-action-plugin",
   "version": "0.0.0",
   "description": "Table Action plugin for dictybase text editor",
   "main": "src/index.ts",
