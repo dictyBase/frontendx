@@ -1,14 +1,14 @@
 import Typography from "@material-ui/core/Typography"
 import { Layout } from "components/layout/Layout"
-import { GeneQuery } from "dicty-graphql-schema"
+import { ListPublicationsWithGeneQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
 import { ReferencesDataTable } from "./ReferencesDataTable"
 
 interface ReferencesContainerProperties {
-  gene: GeneQuery
+  publications: NonNullable<ListPublicationsWithGeneQuery["listPublicationsWithGene"]>
 }
 
-const ReferencesContainer = ({ gene }: ReferencesContainerProperties) => {
+const ReferencesContainer = ({ publications }: ReferencesContainerProperties) => {
   const { query } = useRouter()
   const geneId = query.id as string
 
@@ -19,7 +19,7 @@ const ReferencesContainer = ({ gene }: ReferencesContainerProperties) => {
       description={`Gene references for ${geneId}`}>
       <Typography component="div">
         {" "}
-        <ReferencesDataTable data={gene} />
+        <ReferencesDataTable publications={publications} />
       </Typography>
     </Layout>
   )
