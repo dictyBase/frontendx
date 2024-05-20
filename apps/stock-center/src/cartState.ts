@@ -4,8 +4,9 @@ import { splitAtom } from "jotai/utils"
 import { pipe } from "fp-ts/function"
 import { match } from "ts-pattern"
 import {
+  size as Asize,
   concat as Aconcat,
-  reduce as Areduce,
+  concatW as AconcatW,
   uniq as Auniq,
 } from "fp-ts/Array"
 import { fromEquals } from "fp-ts/Eq"
@@ -97,10 +98,7 @@ const removeItemAtom = atom(null, (get, set, removedItem: CatalogItem) => {
 })
 
 const currentCartQuantityAtom = atom((get) =>
-  pipe(
-    get(strainItemsAtom),
-    Areduce(0, (sum) => sum + 1),
-  ),
+  pipe(get(strainItemsAtom), AconcatW(get(plasmidItemsAtom)), Asize),
 )
 
 const isFullAtom = atom(
