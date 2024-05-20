@@ -16,26 +16,20 @@ const PhenotypesPageWrapper = () => {
     },
   })
 
-  return (
-    <>
-      {match(result)
-        .with({ loading: true }, () => <PhenotypesLoader />)
-        .with({ error: P.select(P.not(undefined)) }, (error) => (
-          <GraphQLErrorPage error={error} />
-        ))
-        .with(
-          {
-            data: {
-              listStrainsWithGene: P.select(P.array({ id: P.string })),
-            },
-          },
-          (strains) => <PhenotypesContainer strains={strains} />,
-        )
-        .otherwise(() => (
-          <> This message should not appear. </>
-        ))}
-    </>
-  )
+  return match(result)
+    .with({ loading: true }, () => <PhenotypesLoader />)
+    .with({ error: P.select(P.not(undefined)) }, (error) => (
+      <GraphQLErrorPage error={error} />
+    ))
+    .with(
+      {
+        data: {
+          listStrainsWithGene: P.select(P.array({ id: P.string })),
+        },
+      },
+      (strains) => <PhenotypesContainer strains={strains} />,
+    )
+    .otherwise(() => <> This message should not appear. </>)
 }
 
 // eslint-disable-next-line import/no-default-export
