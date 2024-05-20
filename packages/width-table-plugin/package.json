@@ -1,5 +1,5 @@
 {
-  "name": "width-table-plugin",
+  "name": "@dictybase/width-table-plugin",
   "version": "0.0.0",
   "description": "Table Plugin for dictybase text editor",
   "main": "src/index.ts",
