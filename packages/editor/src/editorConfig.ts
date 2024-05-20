@@ -4,7 +4,7 @@ import { TableCellNode, TableRowNode } from "@lexical/table"
 import { LinkNode } from "@lexical/link"
 import { ImageNode } from "image-plugin"
 import { WidthTableNode } from "width-table-plugin"
-import { FlexLayoutNode } from "flex-layout-plugin"
+import { FlexLayoutNode } from "@dictybase/flex-layout-plugin"
 
 const editorTheme = {
   paragraph: "editor-paragraph",
