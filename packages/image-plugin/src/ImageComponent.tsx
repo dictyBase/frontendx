@@ -7,7 +7,7 @@ import {
   ResizableImage,
   ImageDimensionsAtom,
   isResizingAtom,
-} from "resizable-image"
+} from "@dictybase/resizable-image"
 
 export type ImageComponentProperties = {
   src: string
