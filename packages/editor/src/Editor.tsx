@@ -15,7 +15,7 @@ import { SaveButton } from "persistence-plugin"
 import { WidthTablePlugin } from "width-table-plugin"
 import { FlexLayoutPlugin } from "flex-layout-plugin"
 import { TableActionPlugin } from "table-action-plugin"
-import { DictybaseToolbar } from "editor-toolbar"
+import { DictybaseToolbar } from "@dictybase/editor-toolbar"
 import { dictyEditorConfig } from "./editorConfig"
 import {
   useEditorInputStyles,
