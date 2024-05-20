@@ -16,7 +16,7 @@
     "fp-ts": "^2.16.0",
     "jotai-optics": "^0.3.0",
     "optics-ts": "^2.4.1",
-    "image-plugin": "*",
+    "@dictybase/image-plugin": "*",
     "ts-pattern": "4.x"
   },
   "devDependencies": {

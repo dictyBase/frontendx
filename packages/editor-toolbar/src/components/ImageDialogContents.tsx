@@ -10,7 +10,7 @@ import {
   Grid,
 } from "@material-ui/core"
 import { useSetAtom } from "jotai"
-import { INSERT_IMAGE_COMMAND } from "image-plugin"
+import { INSERT_IMAGE_COMMAND } from "@dictybase/image-plugin"
 import { insertImageDialogOpenAtom } from "../context/atomConfigs"
 
 type ImageDialogContentsProperties = {

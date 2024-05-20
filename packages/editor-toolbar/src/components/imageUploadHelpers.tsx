@@ -34,7 +34,7 @@ import {
   left as TEleft,
 } from "fp-ts/TaskEither"
 import { match, P } from "ts-pattern"
-import { INSERT_IMAGE_COMMAND } from "image-plugin"
+import { INSERT_IMAGE_COMMAND } from "@dictybase/image-plugin"
 
 enum ErrorType {
   VALIDITY_ERROR,
