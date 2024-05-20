@@ -1,7 +1,7 @@
 {
   "name": "@dictybase/flex-layout-plugin",
   "version": "0.0.0",
-  "descripton": "Flex Layout plugin for dictybase text editor",
+  "description": "Flex Layout plugin for dictybase text editor",
   "main": "src/index.ts",
   "author": "Kevin Tun",
   "license": "BSD-2-Clause",

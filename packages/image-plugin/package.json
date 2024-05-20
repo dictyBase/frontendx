@@ -1,7 +1,7 @@
 {
   "name": "@dictybase/image-plugin",
   "version": "0.0.0",
-  "descripton": "Image plugin for dictybase text editor",
+  "description": "Image plugin for dictybase text editor",
   "main": "src/index.ts",
   "author": "Kevin Tun",
   "license": "BSD-2-Clause",

@@ -1,7 +1,7 @@
 {
   "name": "table-action-plugin",
   "version": "0.0.0",
-  "descripton": "Table Action plugin for dictybase text editor",
+  "description": "Table Action plugin for dictybase text editor",
   "main": "src/index.ts",
   "author": "Kevin Tun",
   "license": "BSD-2-Clause",
