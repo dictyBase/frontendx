@@ -12,7 +12,6 @@ import { mockPhenotypesPiaA } from "./piaAMocks/mockPhenotypesPiaA"
 import { mockPhenotypesAda2 } from "./ada2Mocks/mockPhenotypesAda2"
 import { mockReferencesData } from "./mockReferencesData"
 import { mockReferencesPiaA } from "./piaAMocks/mockReferencesPiaA"
-import { mockReferencesAda2 } from "strains  ./ada2Mocks/mockReferencesAda2"
 
 export const handlers = [
   // Handles the Gene query: https://github.com/dictyBase/dicty-graphql-schema/blob/develop/src/queries/gene.graphql
