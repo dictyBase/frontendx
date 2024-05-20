@@ -8,13 +8,13 @@ import {
   TableRow,
 } from "@material-ui/core"
 import ShoppingCart from "@material-ui/icons/ShoppingCart"
-import { Strain } from "dicty-graphql-schema"
+import { ListStrainsWithGeneQuery } from "dicty-graphql-schema"
 import { OtherError } from "components/errors/OtherError"
 import { useStyles } from "../../../styles/dataTableStyles"
 import { RenderPhenotypes } from "./RenderPhenotypes"
 
 interface PhenotypesDataTableProperties {
-  strains: Array<Strain>
+  strains: ListStrainsWithGeneQuery["listStrainsWithGene"]
 }
 
 const PhenotypesDataTable = ({ strains }: PhenotypesDataTableProperties) => {
