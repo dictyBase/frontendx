@@ -9,18 +9,15 @@ import {
 } from "@material-ui/core"
 import ShoppingCart from "@material-ui/icons/ShoppingCart"
 import { ListStrainsWithGeneQuery } from "dicty-graphql-schema"
-import { OtherError } from "components/errors/OtherError"
 import { useStyles } from "../../../styles/dataTableStyles"
 import { RenderPhenotypes } from "./RenderPhenotypes"
 
 interface PhenotypesDataTableProperties {
-  strains: ListStrainsWithGeneQuery["listStrainsWithGene"]
+  strains: NonNullable<ListStrainsWithGeneQuery["listStrainsWithGene"]>
 }
 
 const PhenotypesDataTable = ({ strains }: PhenotypesDataTableProperties) => {
   const classes = useStyles()
-
-  if (!strains) return <OtherError />
 
   return (
     <TableContainer component={Paper} className={classes.root}>
