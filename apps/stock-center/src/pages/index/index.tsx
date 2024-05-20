@@ -10,7 +10,7 @@ import {
 import { LoadingDisplay, OtherError, ContentEditor } from "@dictybase/ui-common"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
-import { ACCESS } from "auth"
+import { ACCESS } from "@dictybase/auth"
 import { NAMESPACE } from "../../namespace"
 
 /**

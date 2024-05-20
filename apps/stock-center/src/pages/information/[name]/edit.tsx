@@ -5,7 +5,7 @@ import {
   FullPageLoadingDisplay,
   contentPageErrorMatcher,
 } from "@dictybase/ui-common"
-import { ACCESS, useTokenAndUser } from "auth"
+import { ACCESS, useTokenAndUser } from "@dictybase/auth"
 import { match, P } from "ts-pattern"
 import { NAMESPACE } from "../../../namespace"
 import { useSlug } from "../../../hooks/useSlug"

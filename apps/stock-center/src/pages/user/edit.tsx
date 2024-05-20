@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom"
 import { UserInfoResponse } from "@logto/react"
 import { Typography } from "@material-ui/core"
-import { ACCESS } from "auth"
+import { ACCESS } from "@dictybase/auth"
 
 const Edit = () => {
   const location = useLocation()

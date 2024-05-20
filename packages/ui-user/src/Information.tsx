@@ -1,6 +1,6 @@
 import { Typography, Button, Paper } from "@material-ui/core"
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import { UserWithRoles } from "auth"
+import { UserWithRoles } from "@dictybase/auth"
 import { useNavigate } from "react-router-dom"
 
 type InformationProperties = {
