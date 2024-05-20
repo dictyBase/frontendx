@@ -1,6 +1,6 @@
 import { describe, test, expect, beforeAll } from "vitest"
 import { render, screen } from "@testing-library/react"
-import { ColorPicker } from "./ColorPicker"
+import { ColorPicker } from "../components/ColorPicker"
 import { LexicalTestComposer } from "../utils/LexicalTestComposer"
 
 const colorOptions = [
