@@ -12,8 +12,7 @@ import { pipe } from "fp-ts/function"
 import { makeBy as AmakeBy, map as Amap } from "fp-ts/Array"
 
 const useDictyNewsStyles = makeStyles((theme) => ({
-  root: {
-  },
+  root: {},
   main: {
     height: "440px",
   },
