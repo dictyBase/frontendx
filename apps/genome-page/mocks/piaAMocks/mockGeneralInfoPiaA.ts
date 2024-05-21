@@ -1,9 +1,9 @@
-import { GeneralInfo } from "dicty-graphql-schema"
+import { GeneGeneralInfo } from "dicty-graphql-schema"
 
 /**
  * Reference: http://dictybase.org/gene/piaA
  */
-const mockGeneralInfoPiaA: GeneralInfo = {
+const mockGeneralInfoPiaA: GeneGeneralInfo = {
   name_description: [
     "pia = PIAnissimo",
     "rictor = Rapamycin-Insensitive Companion of mTOR",
