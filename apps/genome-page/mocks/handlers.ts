@@ -2,6 +2,7 @@ import {
   mockGeneOntologyAnnotationQuery,
   mockListStrainsWithGeneQuery,
   mockListPublicationsWithGeneQuery,
+  mockGeneGeneralInformationQuery,
 } from "dicty-graphql-schema/types/mocks"
 import { match } from "ts-pattern"
 import { mockOntologyData } from "./mockOntologyData"
@@ -12,6 +13,8 @@ import { mockPhenotypesPiaA } from "./piaAMocks/mockPhenotypesPiaA"
 import { mockPhenotypesAda2 } from "./ada2Mocks/mockPhenotypesAda2"
 import { mockReferencesData } from "./mockReferencesData"
 import { mockReferencesPiaA } from "./piaAMocks/mockReferencesPiaA"
+import { mockGeneralInfoData } from "./mockGeneralInfoData"
+import { mockGeneralInfoPiaA } from "./piaAMocks/mockGeneralInfoPiaA"
 
 export const handlers = [
   // Handles the Gene query: https://github.com/dictyBase/dicty-graphql-schema/blob/develop/src/queries/gene.graphql
@@ -82,4 +85,26 @@ export const handlers = [
         response(context.errors([{ message: `No mock for ${unmockedGene}` }])),
       )
   }),
+  mockGeneGeneralInformationQuery((request, response, context) => {
+    const { gene } = request.variables
+    return match(gene)
+      .with("sadA", () =>
+        response(
+          context.data({ geneGeneralInformation: mockGeneralInfoData }),
+        ),
+      )
+      .with("piaA", () =>
+        response(
+          context.data({ geneGeneralInformation: mockGeneralInfoPiaA }),
+        ),
+      )
+      .with("ada2", () =>
+        response(
+          context.data({ geneGeneralInformation: mockGeneralInfoPiaA }),
+        ),
+      )
+      .otherwise((unmockedGene) =>
+        response(context.errors([{ message: `No mock for ${unmockedGene}` }])),
+      )
+  })
 ]
