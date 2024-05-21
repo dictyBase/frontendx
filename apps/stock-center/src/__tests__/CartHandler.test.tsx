@@ -9,7 +9,11 @@ import { testItems } from "../mocks/cartData"
 const store = createStore()
 
 test("Renders ShoppingCartWithItems component if there are items in the cart state. Does not render EmptyShoppingCart", () => {
-  store.set(cartAtom, { strainItems: testItems, plasmidItems: [], maxItems: 12 })
+  store.set(cartAtom, {
+    strainItems: testItems,
+    plasmidItems: [],
+    maxItems: 12,
+  })
   render(
     <MemoryRouter>
       <Provider store={store}>

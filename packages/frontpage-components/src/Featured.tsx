@@ -67,7 +67,7 @@ const featuredLinks: Array<FeaturedLink> = [
 ]
 
 const Featured = () => {
-  const { main, link, disabledLink} = useFeaturedStyles()
+  const { main, link, disabledLink } = useFeaturedStyles()
   return (
     <Container className={main}>
       <Grid spacing={1} direction="column" container>
@@ -80,13 +80,16 @@ const Featured = () => {
           featuredLinks,
           Amap(({ icon, name, to, description, disabled }) => (
             <Grid item>
-                <Link to={to} reloadDocument className={disabled ? disabledLink : ""}>
-                  <Button disabled={disabled} color="primary" startIcon={icon}>
-                    <Typography className={link} variant="h2">
-                      {name}
-                    </Typography>
-                  </Button>
-                </Link>
+              <Link
+                to={to}
+                reloadDocument
+                className={disabled ? disabledLink : ""}>
+                <Button disabled={disabled} color="primary" startIcon={icon}>
+                  <Typography className={link} variant="h2">
+                    {name}
+                  </Typography>
+                </Button>
+              </Link>
               <Typography>{description}</Typography>
             </Grid>
           )),
