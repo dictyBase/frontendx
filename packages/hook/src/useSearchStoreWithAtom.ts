@@ -1,5 +1,5 @@
 import { atom, useAtom } from "jotai"
-import { focusAtom } from "jotai/optics"
+import { focusAtom } from "jotai-optics"
 import { selectAtom, useResetAtom, atomWithReset } from "jotai/utils"
 
 interface Chip {
