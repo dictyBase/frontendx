@@ -1,9 +1,9 @@
-import { GeneralInfo } from "dicty-graphql-schema"
+import { GeneGeneralInfo } from "dicty-graphql-schema"
 
 /**
  * Reference: http://dictybase.org/gene/piaA
  */
-const mockGeneralInfoData: GeneralInfo = {
+const mockGeneralInfoData: GeneGeneralInfo = {
   name_description: ["sadA = Substrate ADhesion"],
   alt_gene_name: undefined,
   gene_product: "substrate adhesion molecule",
