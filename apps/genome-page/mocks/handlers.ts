@@ -89,22 +89,16 @@ export const handlers = [
     const { gene } = request.variables
     return match(gene)
       .with("sadA", () =>
-        response(
-          context.data({ geneGeneralInformation: mockGeneralInfoData }),
-        ),
+        response(context.data({ geneGeneralInformation: mockGeneralInfoData })),
       )
       .with("piaA", () =>
-        response(
-          context.data({ geneGeneralInformation: mockGeneralInfoPiaA }),
-        ),
+        response(context.data({ geneGeneralInformation: mockGeneralInfoPiaA })),
       )
       .with("ada2", () =>
-        response(
-          context.data({ geneGeneralInformation: mockGeneralInfoPiaA }),
-        ),
+        response(context.data({ geneGeneralInformation: mockGeneralInfoPiaA })),
       )
       .otherwise((unmockedGene) =>
         response(context.errors([{ message: `No mock for ${unmockedGene}` }])),
       )
-  })
+  }),
 ]
