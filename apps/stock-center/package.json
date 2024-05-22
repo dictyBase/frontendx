@@ -14,7 +14,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "jotai": "^1.12.0",
+    "jotai": "^2.0.0",
     "react-helmet": "^6.1.0",
     "@dictybase/data-access": "*",
     "@dictybase/hook": "*",

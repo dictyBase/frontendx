@@ -22,7 +22,7 @@
   "dependencies": {
     "@material-ui/core": "4.x",
     "@material-ui/icons": "4.x",
-    "jotai": "^2.0.2",
+    "jotai": "^2.0.0",
     "react": "17.x"
   },
   "typedoc": {

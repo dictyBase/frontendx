@@ -13,7 +13,7 @@
     "@types/node": "^18.16.0",
     "@types/react": "^17.x",
     "@types/react-dom": "^17.x",
-    "jotai": "~1.6.1",
+    "jotai": "^2.0.0",
     "optics-ts": "~2.4.1",
     "tsconfig": "*",
     "eslint-config-custom": "*",
