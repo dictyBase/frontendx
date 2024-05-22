@@ -9,7 +9,6 @@ interface SummaryContainerProperties {
   geneSummary: GeneSummaryQuery
 }
 
-
 const SummaryContainer = ({ geneSummary }: SummaryContainerProperties) => {
   const { query } = useRouter()
   const { geneGeneralInformation } = geneSummary
@@ -18,10 +17,9 @@ const SummaryContainer = ({ geneSummary }: SummaryContainerProperties) => {
     <Layout
       gene={geneId}
       title={`Gene Summary for ${geneId}`}
-      description={`Gene information for ${geneId}`}
-    >
+      description={`Gene information for ${geneId}`}>
       <Typography component="div">
-        <PanelWrapper title="General Information" route="test">
+        <PanelWrapper title="General Information">
           <GeneralInfoPanel generalInformation={geneGeneralInformation} />
         </PanelWrapper>
       </Typography>
