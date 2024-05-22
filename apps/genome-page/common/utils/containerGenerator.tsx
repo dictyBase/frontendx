@@ -99,7 +99,10 @@ const returnComponentByName = (id: string, gene: GeneQuery) => {
    - arrayOfSections: string[], an array of section ID's from the gene graphql query. You can console.log(gene) to understand.
    - gene: GeneQuery, the GraphQL query that was made
 */
-const containerGenerator = (arrayOfSections: string[], gene: GeneGeneralInformationQuery) =>
+const containerGenerator = (
+  arrayOfSections: string[],
+  gene: GeneGeneralInformationQuery,
+) =>
   arrayOfSections
     .filter((sectionId) => sectionId in gene)
     .map((sectionId) => ({
