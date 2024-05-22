@@ -2,7 +2,7 @@ import {
   mockGeneOntologyAnnotationQuery,
   mockListStrainsWithGeneQuery,
   mockListPublicationsWithGeneQuery,
-  mockGeneGeneralInformationQuery,
+  mockGeneSummaryQuery,
 } from "dicty-graphql-schema/types/mocks"
 import { match } from "ts-pattern"
 import { mockOntologyData } from "./mockOntologyData"
@@ -85,7 +85,7 @@ export const handlers = [
         response(context.errors([{ message: `No mock for ${unmockedGene}` }])),
       )
   }),
-  mockGeneGeneralInformationQuery((request, response, context) => {
+  mockGeneSummaryQuery((request, response, context) => {
     const { gene } = request.variables
     return match(gene)
       .with("sadA", () =>

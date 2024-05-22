@@ -4,6 +4,7 @@ import { GeneGeneralInfo } from "dicty-graphql-schema"
  * Reference: http://dictybase.org/gene/piaA
  */
 const mockGeneralInfoPiaA: GeneGeneralInfo = {
+  id: "DDB_G0277399",
   name_description: [
     "pia = PIAnissimo",
     "rictor = Rapamycin-Insensitive Companion of mTOR",
