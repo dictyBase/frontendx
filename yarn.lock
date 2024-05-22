@@ -12461,20 +12461,10 @@ jotai-optics@^0.3.0:
   resolved "https://registry.yarnpkg.com/jotai-optics/-/jotai-optics-0.3.1.tgz#7ff38470551429460cc41d9cd1320193665354e0"
   integrity sha512-KibUx9IneM2hGWGIYGs/v0KCxU985lg7W2c6dt5RodJCB2XPbmok8rkkLmdVk9+fKsn2shkPMi+AG8XzHgB3+w==
 
-jotai@^1.12.0:
-  version "1.13.1"
-  resolved "https://registry.yarnpkg.com/jotai/-/jotai-1.13.1.tgz#20cc46454cbb39096b12fddfa635b873b3668236"
-  integrity sha512-RUmH1S4vLsG3V6fbGlKzGJnLrDcC/HNb5gH2AeA9DzuJknoVxSGvvg8OBB7lke+gDc4oXmdVsaKn/xDUhWZ0vw==
-
-jotai@^2.0.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/jotai/-/jotai-2.4.2.tgz#85610d82d247a7b19de7cce82e8d3ddf007f8d4d"
-  integrity sha512-90jXVOd9h6gi5JXk558M+wnJfaaVN2WegcNOCfiFbWboNaDl6DkRgiY/K1oeqTfYJmq8yM7XPsL99LAvcOPqhw==
-
-jotai@~1.6.1:
-  version "1.6.7"
-  resolved "https://registry.yarnpkg.com/jotai/-/jotai-1.6.7.tgz#d5bdc747b66e369f1d1e859dad8bcda85acb946f"
-  integrity sha512-MxAm86FYHm6asU3O1hbTKOWpPMP5oI8zNlgFRpZBB85cX79psF2eRb7ZqdGewOgYUUUKAlzZ+sH0IM7Pea6MkA==
+jotai@^2.0.0:
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/jotai/-/jotai-2.8.0.tgz#5a6585cd5576c400c2c5f8e157b83ad2ba70b2ab"
+  integrity sha512-yZNMC36FdLOksOr8qga0yLf14miCJlEThlp5DeFJNnqzm2+ZG7wLcJzoOyij5K6U6Xlc5ljQqPDlJRgqW0Y18g==
 
 joycon@^3.0.1:
   version "3.1.1"
