@@ -5,7 +5,7 @@ import { GoaPanel } from "components/features/Summary/Panels/GoaPanel"
 import { LinkPanel } from "components/features/Summary/Panels/LinksPanel"
 import { ProductInfoPanel } from "components/features/Summary/Panels/ProductInfoPanel"
 import { ReferencesPanel } from "components/features/Summary/Panels/ReferencesPanel"
-import { GeneQuery } from "dicty-graphql-schema"
+import { GeneGeneralInformationQuery } from "dicty-graphql-schema"
 import React from "react"
 
 interface ChildContent {
@@ -24,7 +24,7 @@ interface ContainerProperties {
 }
 
 interface SummaryContainerTypes {
-  generalInformation: ContainerProperties
+  geneGeneralInformation: ContainerProperties
   gene: ContainerProperties
   listGeneProductInfo: ContainerProperties
   getAssociatedSequnces: ContainerProperties
@@ -34,8 +34,8 @@ interface SummaryContainerTypes {
 
 /* An object that contains the Props of PanelWrapper for the respective sectionId */
 const SummaryContainerContent = {
-  generalInformation: {
-    id: "generalInformation",
+  geneGeneralInformation: {
+    id: "geneGeneralInformation",
     title: "General Information",
     // eslint-disable-next-line sonarjs/no-duplicate-string
     route: "/gene/${geneId}/",
@@ -76,7 +76,7 @@ const SummaryContainerContent = {
 */
 const returnComponentByName = (id: string, gene: GeneQuery) => {
   switch (id) {
-    case "generalInformation":
+    case "geneGeneralInformation":
       return <GeneralInfoPanel gene={gene} />
     case "gene":
       return <GoaPanel data={gene} />
@@ -99,7 +99,7 @@ const returnComponentByName = (id: string, gene: GeneQuery) => {
    - arrayOfSections: string[], an array of section ID's from the gene graphql query. You can console.log(gene) to understand.
    - gene: GeneQuery, the GraphQL query that was made
 */
-const containerGenerator = (arrayOfSections: string[], gene: GeneQuery) =>
+const containerGenerator = (arrayOfSections: string[], gene: GeneGeneralInformationQuery) =>
   arrayOfSections
     .filter((sectionId) => sectionId in gene)
     .map((sectionId) => ({
