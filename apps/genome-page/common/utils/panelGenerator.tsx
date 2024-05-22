@@ -197,4 +197,4 @@ const panelGenerator = (
   return returnArray
 }
 
-export { panelGenerator }
+export { type ContentId, panelGenerator, returnPanelContentById }
