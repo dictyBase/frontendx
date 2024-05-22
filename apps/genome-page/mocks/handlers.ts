@@ -85,17 +85,33 @@ export const handlers = [
         response(context.errors([{ message: `No mock for ${unmockedGene}` }])),
       )
   }),
+
   mockGeneSummaryQuery((request, response, context) => {
     const { gene } = request.variables
     return match(gene)
       .with("sadA", () =>
-        response(context.data({ geneGeneralInformation: mockGeneralInfoData })),
+        response(
+          context.data({
+            geneGeneralInformation: mockGeneralInfoData,
+            geneOntologyAnnotation: mockOntologyData.goas,
+          }),
+        ),
       )
       .with("piaA", () =>
-        response(context.data({ geneGeneralInformation: mockGeneralInfoPiaA })),
+        response(
+          context.data({
+            geneGeneralInformation: mockGeneralInfoPiaA,
+            geneOntologyAnnotation: mockOntologyPiaA.goas,
+          }),
+        ),
       )
       .with("ada2", () =>
-        response(context.data({ geneGeneralInformation: mockGeneralInfoPiaA })),
+        response(
+          context.data({
+            geneGeneralInformation: mockGeneralInfoPiaA,
+            geneOntologyAnnotation: mockOntologyAda2.goas,
+          }),
+        ),
       )
       .otherwise((unmockedGene) =>
         response(context.errors([{ message: `No mock for ${unmockedGene}` }])),
