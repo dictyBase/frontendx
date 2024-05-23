@@ -4,6 +4,7 @@ import { Layout } from "components/layout/Layout"
 import { GeneSummaryQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
 import { GeneralInfoPanel } from "components/features/Summary/Panels/GeneralInfoPanel"
+import { GoaPanel } from "components/features/Summary/Panels/GoaPanel"
 
 interface SummaryContainerProperties {
   geneSummary: GeneSummaryQuery
@@ -11,8 +12,9 @@ interface SummaryContainerProperties {
 
 const SummaryContainer = ({ geneSummary }: SummaryContainerProperties) => {
   const { query } = useRouter()
-  const { geneGeneralInformation } = geneSummary
+  const { geneGeneralInformation, geneOntologyAnnotation } = geneSummary
   const geneId = query.id as string
+  console.log(geneSummary)
   return (
     <Layout
       gene={geneId}
@@ -21,6 +23,9 @@ const SummaryContainer = ({ geneSummary }: SummaryContainerProperties) => {
       <Typography component="div">
         <PanelWrapper title="General Information">
           <GeneralInfoPanel generalInformation={geneGeneralInformation} />
+        </PanelWrapper>
+        <PanelWrapper title="Gene Ontology Annotations">
+          <GoaPanel goas={geneOntologyAnnotation} />
         </PanelWrapper>
       </Typography>
     </Layout>
