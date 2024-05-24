@@ -2,7 +2,6 @@ import { GeneSummaryQuery } from "dicty-graphql-schema"
 import { pipe } from "fp-ts/function"
 import { map as Amap, head as Ahead } from "fp-ts/Array"
 import {
-  Do as ODo,
   bind as Obind,
   bindTo as ObindTo,
   let as Olet,
