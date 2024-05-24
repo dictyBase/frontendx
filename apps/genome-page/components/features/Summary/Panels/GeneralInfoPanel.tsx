@@ -12,7 +12,7 @@ type Properties = {
   generalInformation: GeneSummaryQuery["geneGeneralInformation"]
 }
 
-type PanelRowData = { order: number; id: ContentId; value: string[] | string }
+type PanelRowData = { id: ContentId; value: string[] | string }
 
 /**
  * Panel to display Product Info on the Gene Summary page.
