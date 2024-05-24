@@ -15,6 +15,8 @@ import { mockReferencesData } from "./mockReferencesData"
 import { mockReferencesPiaA } from "./piaAMocks/mockReferencesPiaA"
 import { mockGeneralInfoData } from "./mockGeneralInfoData"
 import { mockGeneralInfoPiaA } from "./piaAMocks/mockGeneralInfoPiaA"
+import { mockProductInfo } from "./mockProductInfo"
+import { mockProductInfoPiaA } from "./piaAMocks/mockProductInfoPIaA"
 
 export const handlers = [
   // Handles the Gene query: https://github.com/dictyBase/dicty-graphql-schema/blob/develop/src/queries/gene.graphql
@@ -94,6 +96,7 @@ export const handlers = [
           context.data({
             geneGeneralInformation: mockGeneralInfoData,
             geneOntologyAnnotation: mockOntologyData.goas,
+            listGeneProductInformation: mockProductInfo
           }),
         ),
       )
@@ -102,6 +105,7 @@ export const handlers = [
           context.data({
             geneGeneralInformation: mockGeneralInfoPiaA,
             geneOntologyAnnotation: mockOntologyPiaA.goas,
+            listGeneProductInformation: mockProductInfoPiaA
           }),
         ),
       )
@@ -110,6 +114,7 @@ export const handlers = [
           context.data({
             geneGeneralInformation: mockGeneralInfoPiaA,
             geneOntologyAnnotation: mockOntologyAda2.goas,
+            listGeneProductInformation: mockProductInfoPiaA
           }),
         ),
       )
