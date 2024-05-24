@@ -18,7 +18,11 @@ interface SummaryContainerProperties {
 
 const SummaryContainer = ({ geneSummary }: SummaryContainerProperties) => {
   const { query } = useRouter()
-  const { geneGeneralInformation, geneOntologyAnnotation, listGeneProductInformation } = geneSummary
+  const {
+    geneGeneralInformation,
+    geneOntologyAnnotation,
+    listGeneProductInformation,
+  } = geneSummary
   const geneId = query.id as string
   return (
     <Layout
@@ -33,7 +37,9 @@ const SummaryContainer = ({ geneSummary }: SummaryContainerProperties) => {
           <GoaPanel goas={geneOntologyAnnotation} />
         </PanelWrapper>
         <PanelWrapper title="Gene Product Information">
-          <ProductInfoPanel geneProductInformation={listGeneProductInformation} />
+          <ProductInfoPanel
+            geneProductInformation={listGeneProductInformation}
+          />
         </PanelWrapper>
       </Typography>
     </Layout>
