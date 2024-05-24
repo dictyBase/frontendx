@@ -1,43 +1,40 @@
-import { GeneQuery } from "dicty-graphql-schema"
+import { GeneSummaryQuery } from "dicty-graphql-schema"
+import { pipe } from "fp-ts/function"
+import { map as Amap, head as Ahead } from "fp-ts/Array"
+import { map as Omap } from "fp-ts/Option"
 import { OtherError } from "components/errors/OtherError"
 import { LeftDisplay } from "components/panels/LeftDisplay"
 import { ItemDisplay } from "components/panels/ItemDisplay"
 import { RightDisplay } from "components/panels/RightDisplay"
-import { panelGenerator } from "common/utils/panelGenerator"
+import { ContentId, returnPanelContentById } from "common/utils/panelGenerator"
 
 type Properties = {
   /** Array of GO annotations for a particular gene */
-  gene: GeneQuery
+  geneProductInformation: GeneSummaryQuery["listGeneProductInformation"]
 }
 
 /**
  * Panel to display Product Info on the Gene Summary page.
  */
-const ProductInfoPanel = ({ gene }: Properties) => {
-  if (!gene.listGeneProductInfo?.product_info) return <OtherError />
-  const productInfo = gene.listGeneProductInfo.product_info[0]
-
-  const output = panelGenerator(
-    [
+const ProductInfoPanel = ({ geneProductInformation }: Properties) => {
+  if (!geneProductInformation) return <OtherError />
+  const productInformation = geneProductInformation[0]
+  return pipe(
+    productInformation,
+    (productInfo): Array<{ id: ContentId; value: any }> => [
       { id: "Protein Coding Gene", value: productInfo.protein_coding_gene },
       { id: "Protein Length", value: productInfo.protein_length },
       { id: "Molecular Weight", value: productInfo.protein_molecular_weight },
       { id: "More Protein Data", value: productInfo.more_protein_data },
       { id: "Genomic Coords.", value: productInfo.genomic_coords },
     ],
-    "generalInformation",
-    gene,
-  )
-
-  return (
-    <div>
-      {output?.map((item) => (
-        <ItemDisplay key={item.leftDisplay}>
-          <LeftDisplay>{item.leftDisplay}</LeftDisplay>
-          <RightDisplay>{item.rightDisplay}</RightDisplay>
-        </ItemDisplay>
-      ))}
-    </div>
+    Amap(({ id, value }) => (
+      <ItemDisplay key={id}>
+        <LeftDisplay>{id}</LeftDisplay>
+        <RightDisplay>{returnPanelContentById(id, value)}</RightDisplay>
+      </ItemDisplay>
+    )),
+    (children) => <div>{children}</div>,
   )
 }
 
