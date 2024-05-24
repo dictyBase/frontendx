@@ -2,6 +2,13 @@ import React from "react"
 import { GeneSummaryQuery } from "dicty-graphql-schema"
 import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
+import {
+  bindTo as ObindTo,
+  let as Olet,
+  map as Omap,
+  fromNullable as OfromNullable,
+  getOrElse as OgetOrElse,
+} from "fp-ts/Option"
 import { ContentId, returnPanelContentById } from "common/utils/panelGenerator"
 import { OtherError } from "components/errors/OtherError"
 import { LeftDisplay } from "components/panels/LeftDisplay"
@@ -17,43 +24,40 @@ type PanelRowData = { id: ContentId; value: string[] | string }
 /**
  * Panel to display Product Info on the Gene Summary page.
  */
-const GeneralInfoPanel = ({ generalInformation }: Properties) => {
-  if (!generalInformation) return <OtherError />
-  const {
-    id: gene_id,
-    name_description,
-    alt_gene_name,
-    gene_product,
-    alt_protein_names,
-    description,
-  } = generalInformation
-  return (
-    <div>
-      {pipe(
+const GeneralInfoPanel = ({ generalInformation }: Properties) =>
+  pipe(
+    generalInformation,
+    OfromNullable,
+    ObindTo("info"),
+    Olet(
+      "displayItems",
+      ({ info }): Array<{ id: ContentId; value: any }> =>
         [
-          { id: "Name Description", value: name_description },
-          { id: "Alternative Gene Names", value: alt_gene_name },
-          { id: "dictyBase ID", value: gene_id },
-          { id: "Gene Product", value: gene_product },
+          { id: "Name Description", value: info.name_description },
+          { id: "Alternative Gene Names", value: info.alt_gene_name },
+          { id: "dictyBase ID", value: info.id },
+          { id: "Gene Product", value: info.gene_product },
           {
             id: "Alternative Protein Names",
-            value: alt_protein_names,
+            value: info.alt_protein_names,
           },
-          { id: "Description", value: description },
+          { id: "Description", value: info.description },
         ] as Array<PanelRowData>,
-        Amap(({ id, value }) => ({
-          id,
-          value: returnPanelContentById(id, value),
-        })),
-        Amap((item) => (
-          <ItemDisplay key={item.id}>
-            <LeftDisplay>{item.id}</LeftDisplay>
-            <RightDisplay>{item.value}</RightDisplay>
+    ),
+    Olet("element", ({ displayItems }) =>
+      pipe(
+        displayItems,
+        Amap(({ id, value }) => (
+          <ItemDisplay key={id}>
+            <LeftDisplay>{id}</LeftDisplay>
+            <RightDisplay>{returnPanelContentById(id, value)}</RightDisplay>
           </ItemDisplay>
         )),
-      )}
-    </div>
+        (children) => <div>{children}</div>,
+      ),
+    ),
+    Omap(({ element }) => element),
+    OgetOrElse(() => <OtherError />),
   )
-}
 
 export { GeneralInfoPanel }
