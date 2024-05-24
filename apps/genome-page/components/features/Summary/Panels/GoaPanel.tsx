@@ -1,7 +1,7 @@
 import { ItemDisplay } from "components/panels/ItemDisplay"
 import { LeftDisplay } from "components/panels/LeftDisplay"
 import { RightDisplay } from "components/panels/RightDisplay"
-import { GeneSummaryQuery, GoAnnotation } from "dicty-graphql-schema"
+import { GeneSummaryQuery } from "dicty-graphql-schema"
 import { OtherError } from "components/errors/OtherError"
 import { GoaPanelContent } from "./GoaPanelContent"
 
