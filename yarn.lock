@@ -7714,9 +7714,9 @@ dicty-components-login@dictybase/dicty-components-login#4.1.1:
   dependencies:
     polished "^3.4.1"
 
-"dicty-graphql-schema@https://github.com/dictyBase/dicty-graphql-schema#v1.18.2":
-  version "1.18.2"
-  resolved "https://github.com/dictyBase/dicty-graphql-schema#0b8983517eb3d8ef679b33a76af65ff3d5756953"
+"dicty-graphql-schema@https://github.com/dictyBase/dicty-graphql-schema#v1.19.1":
+  version "1.19.1"
+  resolved "https://github.com/dictyBase/dicty-graphql-schema#41b9ef9a82986fda82249304936617819e6d5bd6"
   dependencies:
     graphql "^16.8.1"
 
