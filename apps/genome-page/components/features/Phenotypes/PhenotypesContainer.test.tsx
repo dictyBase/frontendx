@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react"
-import { GeneQuery } from "dicty-graphql-schema"
-import { mockGene } from "mocks/mockGene"
+import { mockPhenotypesData } from "mocks/mockPhenotypesData"
 import { PhenotypesContainer } from "./PhenotypesContainer"
 
 // eslint-disable-next-line import/no-commonjs, unicorn/prefer-module -- ESM not supported by default as of Jest 29
@@ -22,7 +21,7 @@ describe("features/Phenotypes/PhenotypesContainer", () => {
       query: { gene: "sadA" },
       pathname,
     }))
-    render(<PhenotypesContainer gene={mockGene as GeneQuery} />)
+    render(<PhenotypesContainer strains={mockPhenotypesData.strains} />)
 
     expect(screen.getByText("Strain")).toBeInTheDocument()
     expect(screen.getByText("Characteristics")).toBeInTheDocument()
