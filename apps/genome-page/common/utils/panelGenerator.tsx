@@ -147,7 +147,7 @@ const returnPanelContentById = (
     case "ESTs":
       return (
         <>
-          {(value as AssociatedSequences).ests.map((item) => (
+          {(value as NameWithLink[]).map((item) => (
             <React.Fragment key={item.link}>
               <a href={item.link}>{item.name}</a>
               &nbsp;&nbsp;&nbsp;
