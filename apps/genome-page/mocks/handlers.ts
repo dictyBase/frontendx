@@ -17,6 +17,7 @@ import { mockGeneralInfoData } from "./mockGeneralInfoData"
 import { mockGeneralInfoPiaA } from "./piaAMocks/mockGeneralInfoPiaA"
 import { mockProductInfo } from "./mockProductInfo"
 import { mockProductInfoPiaA } from "./piaAMocks/mockProductInfoPIaA"
+import { mockAssociatedData } from "./mockAssociatedData"
 
 export const handlers = [
   // Handles the Gene query: https://github.com/dictyBase/dicty-graphql-schema/blob/develop/src/queries/gene.graphql
@@ -97,6 +98,7 @@ export const handlers = [
             geneGeneralInformation: mockGeneralInfoData,
             geneOntologyAnnotation: mockOntologyData.goas,
             listGeneProductInformation: mockProductInfo,
+            associatedSequences: mockAssociatedData,
           }),
         ),
       )
