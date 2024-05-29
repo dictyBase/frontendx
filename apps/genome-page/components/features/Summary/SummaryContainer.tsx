@@ -6,6 +6,7 @@ import { useRouter } from "next/router"
 import { GeneralInfoPanel } from "components/features/Summary/Panels/GeneralInfoPanel"
 import { GoaPanel } from "components/features/Summary/Panels/GoaPanel"
 import { ProductInfoPanel } from "components/features/Summary/Panels/ProductInfoPanel"
+import { AssociatedSequencePanel } from "components/features/Summary/Panels/AssociatedSequencePanel"
 
 interface SummaryContainerProperties {
   geneSummary: GeneSummaryQuery
@@ -22,6 +23,7 @@ const SummaryContainer = ({ geneSummary }: SummaryContainerProperties) => {
     geneGeneralInformation,
     geneOntologyAnnotation,
     listGeneProductInformation,
+    associatedSequences,
   } = geneSummary
   const geneId = query.id as string
   return (
@@ -40,6 +42,9 @@ const SummaryContainer = ({ geneSummary }: SummaryContainerProperties) => {
           <ProductInfoPanel
             geneProductInformation={listGeneProductInformation}
           />
+        </PanelWrapper>
+        <PanelWrapper title="Associated Sequences">
+          <AssociatedSequencePanel associatedSequences={associatedSequences} />
         </PanelWrapper>
       </Typography>
     </Layout>
