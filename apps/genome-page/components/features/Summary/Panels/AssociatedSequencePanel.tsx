@@ -23,9 +23,8 @@ type Properties = {
 /**
  * Panel to display Associated Sequence Panel on the Gene Summary page.
  */
-const AssociatedSequencePanel = ({ associatedSequences }: Properties) => {
-  console.log(associatedSequences)
-  return pipe(
+const AssociatedSequencePanel = ({ associatedSequences }: Properties) =>
+  pipe(
     associatedSequences,
     OfromNullable,
     ObindTo("assocSeq"),
@@ -63,6 +62,5 @@ const AssociatedSequencePanel = ({ associatedSequences }: Properties) => {
     Omap(({ element }) => element),
     OgetOrElse(() => <OtherError />),
   )
-}
 
 export { AssociatedSequencePanel }
