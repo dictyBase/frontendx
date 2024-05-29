@@ -29,22 +29,28 @@ const ProductInfoPanel = ({ geneProductInformation }: Properties) =>
     OfromNullable,
     ObindTo("geneProduct"),
     Obind("firstGeneProduct", ({ geneProduct }) => Ahead(geneProduct)),
-    Olet(
-      "displayItems",
-      ({ firstGeneProduct }): Array<{ id: ContentId; value: any }> => [
-        {
-          id: "Protein Coding Gene",
-          value: firstGeneProduct.protein_coding_gene,
-        },
-        { id: "Protein Length", value: firstGeneProduct.protein_length },
-        {
-          id: "Molecular Weight",
-          value: firstGeneProduct.protein_molecular_weight,
-        },
-        { id: "More Protein Data", value: firstGeneProduct.more_protein_data },
-        { id: "Genomic Coords.", value: firstGeneProduct.genomic_coords },
-      ],
-    ),
+    Olet("displayItems", ({ firstGeneProduct }) => [
+      {
+        id: "Protein Coding Gene" as ContentId,
+        value: firstGeneProduct.protein_coding_gene,
+      },
+      {
+        id: "Protein Length" as ContentId,
+        value: firstGeneProduct.protein_length,
+      },
+      {
+        id: "Molecular Weight" as ContentId,
+        value: firstGeneProduct.protein_molecular_weight,
+      },
+      {
+        id: "More Protein Data" as ContentId,
+        value: firstGeneProduct.more_protein_data,
+      },
+      {
+        id: "Genomic Coords." as ContentId,
+        value: firstGeneProduct.genomic_coords,
+      },
+    ]),
     Olet("element", ({ displayItems }) =>
       pipe(
         displayItems,
