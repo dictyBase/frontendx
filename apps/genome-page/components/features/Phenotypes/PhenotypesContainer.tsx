@@ -5,7 +5,7 @@ import { useRouter } from "next/router"
 import { PhenotypesDataTable } from "./PhenotypesDataTable"
 
 interface PhenotypesContainerProperties {
-  strains: ListStrainsWithGeneQuery["listStrainsWithGene"]
+  strains: NonNullable<ListStrainsWithGeneQuery["listStrainsWithGene"]>
 }
 const PhenotypesContainer = ({ strains }: PhenotypesContainerProperties) => {
   const { query } = useRouter()
