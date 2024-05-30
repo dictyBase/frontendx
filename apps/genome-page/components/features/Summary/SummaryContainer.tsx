@@ -22,8 +22,6 @@ const SummaryContainer = ({ geneSummary }: SummaryContainerProperties) => {
   const {
     geneGeneralInformation,
     geneOntologyAnnotation,
-    listGeneProductInformation,
-    associatedSequences,
   } = geneSummary
   const geneId = query.id as string
   return (
@@ -37,14 +35,6 @@ const SummaryContainer = ({ geneSummary }: SummaryContainerProperties) => {
         </PanelWrapper>
         <PanelWrapper title="Gene Ontology Annotations">
           <GoaPanel goas={geneOntologyAnnotation} />
-        </PanelWrapper>
-        <PanelWrapper title="Gene Product Information">
-          <ProductInfoPanel
-            geneProductInformation={listGeneProductInformation}
-          />
-        </PanelWrapper>
-        <PanelWrapper title="Associated Sequences">
-          <AssociatedSequencePanel associatedSequences={associatedSequences} />
         </PanelWrapper>
       </Typography>
     </Layout>
