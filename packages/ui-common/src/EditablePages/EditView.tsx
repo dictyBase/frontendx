@@ -5,12 +5,12 @@ import { EditEditor } from "./EditEditor"
 type EditViewProperties = {
   data: NonNullable<ContentBySlugQuery["contentBySlug"]>
   userId: string
-  token: string
+  getAccessToken: (resource?: string) => Promise<string | undefined>
 }
 
-const EditView = ({ data, userId, token }: EditViewProperties) => (
+const EditView = ({ data, userId, getAccessToken }: EditViewProperties) => (
   <Container>
-    <EditEditor data={data} userId={userId} token={token} />
+    <EditEditor data={data} userId={userId} getAccessToken={getAccessToken} />
   </Container>
 )
 
