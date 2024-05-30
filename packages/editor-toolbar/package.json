@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@logto/react": "^2.1.2",
-    "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.20.0",
+    "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.21.0",
     "fp-ts": "^2.16.0",
     "jotai-optics": "^0.3.0",
     "optics-ts": "^2.4.1",
