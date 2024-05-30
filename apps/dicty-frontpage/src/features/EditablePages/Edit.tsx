@@ -27,7 +27,6 @@ const Edit = () => {
 
     getUserData()
   }, [fetchUserInfo, getAccessToken, isAuthenticated])
-  console.log(result)
   return match({
     getAccessToken,
     user,
