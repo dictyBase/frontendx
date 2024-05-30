@@ -1,14 +1,36 @@
 import { useNavigate } from "react-router-dom"
 import { useCreateContentMutation } from "dicty-graphql-schema"
 import { Editor } from "@dictybase/editor"
+import { pipe } from "fp-ts/function"
+import {
+  Do as TEDo,
+  let as TElet,
+  bind as TEbind,
+  tryCatch as TEtryCatch,
+} from "fp-ts/TaskEither"
 import { createAddPageToolbar } from "./createAddPageToolbar"
 
 type AddPageEditorProperties = {
   userId: string
-  token: string
+  getAccessToken: (resource?: string) => Promise<string | undefined>
   namespace: string
   slug: string
   contentPath: string
+}
+
+enum ErrorType {
+  ACCESS_TOKEN_ERROR,
+  CREATE_FAILURE,
+}
+
+const accessTokenError = {
+  errorType: ErrorType.ACCESS_TOKEN_ERROR,
+  message: "Could not get access token",
+}
+
+const createFailureError = {
+  errorType: ErrorType.CREATE_FAILURE,
+  message: "Could not create content",
 }
 
 /**
@@ -16,36 +38,45 @@ type AddPageEditorProperties = {
  */
 const AddPageEditor = ({
   userId,
-  token,
+  getAccessToken,
   namespace,
   slug,
   contentPath,
 }: AddPageEditorProperties) => {
   const navigate = useNavigate()
-  const [createContent] = useCreateContentMutation({
-    context: {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-  })
+  const [createContent] = useCreateContentMutation()
 
-  const handleSaveClick = async (value: any) => {
-    try {
-      await createContent({
-        variables: {
-          input: {
-            name: slug,
-            created_by: userId,
-            content: value,
-            namespace,
-          },
-        },
-      })
-      navigate("../editable", { relative: "path" })
-    } catch {
-      // Toggle some error notification
-    }
+  const handleSaveClick = async (contentValue: string) => {
+    const createTask = pipe(
+      TEDo,
+      TElet("newContent", () => contentValue),
+      TEbind("token", () =>
+        TEtryCatch(
+          () =>
+            getAccessToken(import.meta.env.VITE_APP_LOGTO_API_SECOND_RESOURCE),
+          () => accessTokenError,
+        ),
+      ),
+      TEbind("create", ({ newContent, token }) =>
+        TEtryCatch(
+          () =>
+            createContent({
+              variables: {
+                input: {
+                  name: slug,
+                  namespace,
+                  created_by: userId,
+                  content: newContent,
+                },
+              },
+              context: { headers: { Authorization: `Bearer ${token}` } },
+            }),
+          () => createFailureError,
+        ),
+      ),
+    )
+    await createTask()
+    navigate("../editable", { relative: "path" })
   }
 
   const handleCancelClick = () => {
