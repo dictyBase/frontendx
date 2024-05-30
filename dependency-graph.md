@@ -20,11 +20,9 @@ flowchart TD
     WP[width-table-plugin]
     TP[table-action-plugin]
 
-    A --> B
-    A --> UIC
+    A ---> B
     A --> UIF
     A --> UIU
-    A --> J
 
     B --> D
     B --> G
@@ -36,7 +34,6 @@ flowchart TD
     G --> F
     G --> DI
 
-    UIC --> I
     UIC --> J
     
     J --> ET
