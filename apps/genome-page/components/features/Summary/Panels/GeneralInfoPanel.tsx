@@ -34,12 +34,11 @@ const GeneralInfoPanel = ({ generalInformation }: Properties) =>
       ({ info }): Array<{ id: ContentId; value: any }> =>
         [
           { id: "Name Description", value: info.name_description },
-          { id: "Alternative Gene Names", value: info.alt_gene_name },
           { id: "dictyBase ID", value: info.id },
           { id: "Gene Product", value: info.gene_product },
           {
             id: "Alternative Protein Names",
-            value: info.alt_protein_names,
+            value: info.synonyms,
           },
           { id: "Description", value: info.description },
         ] as Array<PanelRowData>,
