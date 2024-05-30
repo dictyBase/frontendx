@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react"
+import { useLogto, UserInfoResponse } from "@logto/react"
 import { Navigate } from "react-router-dom"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
@@ -6,7 +8,7 @@ import {
   FullPageLoadingDisplay,
   contentPageErrorMatcher,
 } from "@dictybase/ui-common"
-import { ACCESS, useTokenAndUser } from "@dictybase/auth"
+import { ACCESS } from "@dictybase/auth"
 import { NAMESPACE } from "../../../namespace"
 import { useSlug } from "../../../hooks/useSlug"
 import { useContentPath } from "../../../hooks/useContentPath"
@@ -19,11 +21,19 @@ const AddPage = () => {
     errorPolicy: "all",
     fetchPolicy: "network-only",
   })
-  const { token, user } = useTokenAndUser(
-    import.meta.env.VITE_APP_LOGTO_API_SECOND_RESOURCE,
-  )
+  const { fetchUserInfo, getAccessToken, isAuthenticated } = useLogto()
+  const [user, setUser] = useState<UserInfoResponse>()
+  useEffect(() => {
+    const getUserData = async () => {
+      if (!isAuthenticated) return
+      setUser(await fetchUserInfo())
+    }
+
+    getUserData()
+  }, [fetchUserInfo, getAccessToken, isAuthenticated])
+
   return match({
-    token,
+    getAccessToken,
     user,
     ...result,
   })
@@ -34,7 +44,7 @@ const AddPage = () => {
     .with({ error: P.select(P.not(undefined)) }, (error) =>
       contentPageErrorMatcher(error, () => (
         <AddPageView
-          token={token as string}
+          getAccessToken={getAccessToken}
           userId={user?.email as string}
           namespace={NAMESPACE}
           slug={slug}
