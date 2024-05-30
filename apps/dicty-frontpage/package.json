@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.17",
-    "@dictybase/ui-common": "*",
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
@@ -31,7 +30,6 @@
     "dicty-components-header-footer": "dictybase/dicty-components-header-footer#11.0.1",
     "dicty-components-login": "dictybase/dicty-components-login#4.1.1",
     "dicty-hooks": "dictybase/dicty-hooks#3.0.0",
-    "@dictybase/editor": "*",
     "font-awesome": "^4.7.0",
     "fontsource-roboto": "^4.0.0",
     "fp-ts": "^2.16.0",
