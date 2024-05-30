@@ -3,7 +3,7 @@ import { AddPageEditor } from "./AddPageEditor"
 
 type AddPageViewProperties = {
   userId: string
-  token: string
+  getAccessToken: (resource?: string) => Promise<string | undefined>
   namespace: string
   slug: string
   contentPath: string
@@ -14,7 +14,7 @@ type AddPageViewProperties = {
  */
 const AddPageView = ({
   userId,
-  token,
+  getAccessToken,
   namespace,
   slug,
   contentPath,
@@ -22,7 +22,7 @@ const AddPageView = ({
   <Container>
     <AddPageEditor
       userId={userId}
-      token={token}
+      getAccessToken={getAccessToken}
       contentPath={contentPath}
       slug={slug}
       namespace={namespace}
