@@ -60,10 +60,12 @@ flowchart TD
     B[auth]
     C[data-access]
     D[footer]
+    DI[dicty-image]
     E[hook]
     F[hook-dsc]
     G[header]
     H[ui-dsc]
+    UIC[ui-common]
     I[dicty-graphql-schema]
     J[editor]
     K[navbar]
@@ -79,11 +81,9 @@ flowchart TD
 
     A --> C
     A --> B
-    A --> D
     A --> E
     A --> F
     A --> H
-    A --> K
     H --> FC
     H ---> J
     H --> I
@@ -94,7 +94,11 @@ flowchart TD
     J --> WP
     J --> ET
     J --> TP
+    B --> D
     B --> G
+    B --> K
+    B --> UIC
     G --> DF
+    G ---> DI
     D --> DF
 ```
