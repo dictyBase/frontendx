@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { GeneQuery } from "dicty-graphql-schema"
+import { GeneSummaryQuery } from "dicty-graphql-schema"
 import {
   Paper,
   Table,
@@ -15,17 +15,16 @@ import { useStyles } from "../../../../styles/dataTableStyles"
 
 type Properties = {
   /** Array of GO annotations for a particular gene */
-  gene: GeneQuery
+  publications: GeneSummaryQuery["listPublicationsWithGene"]
 }
 
 /**
  * Panel to display Gene Ontology Annotations on the Gene Summary page.
  */
-const ReferencesPanel = ({ gene }: Properties) => {
+const ReferencesPanel = ({ publications }: Properties) => {
   const classes = useStyles()
 
-  if (!gene.allPublications?.publications) return <OtherError />
-  const { publications } = gene.allPublications
+  if (!publications) return <OtherError />
 
   return (
     <TableContainer component={Paper} className={classes.root}>
