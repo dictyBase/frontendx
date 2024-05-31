@@ -47,7 +47,7 @@ const ReferencesPanel = ({ publications }: Properties) => {
               <TableCell className={classes.cellIcons}>
                 <a
                   className={classes.icon}
-                  href={`http://dictybase.org/publication/${publication.id}`}>
+                  href={`${process.env.NEXT_PUBLIC_PUBLICATION_URL}/${publication.id}`}>
                   <Image
                     src="/refDicty.gif"
                     alt="Ref Dicty"
