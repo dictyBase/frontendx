@@ -30,13 +30,11 @@ type ContentId =
 
 const returnPanelContentById = (
   id: ContentId,
-  value:
-    | string
-    | string[]
-//    | NameWithLink
-//    | NameWithLink[]
-//    | GenomicCoordinates[]
-//    | AssociatedSequences,
+  value: string | string[],
+  //    | NameWithLink
+  //    | NameWithLink[]
+  //    | GenomicCoordinates[]
+  //    | AssociatedSequences,
   // gene: GeneQuery,
 ) => {
   /*
@@ -62,23 +60,23 @@ const returnPanelContentById = (
         </React.Fragment>
       ))
     /* Product Info Panel */
-//    case "Protein Coding Gene":
-//      return (
-//        <>
-//          <a href={(value as NameWithLink).link}>
-//            {(value as NameWithLink).name}
-//          </a>
-//          <Image
-//            src="/icon_yes_green.png"
-//            alt="Yes Icon"
-//            width={30}
-//            height={30}
-//          />
-//          (Curator reviewed)
-//          <br />
-//          Derived from gene prediction. Supported by mRNA.
-//        </>
-//      )
+    //    case "Protein Coding Gene":
+    //      return (
+    //        <>
+    //          <a href={(value as NameWithLink).link}>
+    //            {(value as NameWithLink).name}
+    //          </a>
+    //          <Image
+    //            src="/icon_yes_green.png"
+    //            alt="Yes Icon"
+    //            width={30}
+    //            height={30}
+    //          />
+    //          (Curator reviewed)
+    //          <br />
+    //          Derived from gene prediction. Supported by mRNA.
+    //        </>
+    //      )
     case "Protein Length":
       return value as string
     case "Molecular Weight":
@@ -87,39 +85,39 @@ const returnPanelContentById = (
       return (
         <a href={value as string}>Protein sequence, domains and much more...</a>
       )
-//    case "Genomic Coords.":
-//      return <TableDisplay data={value as GenomicCoordinates[]} />
+    //    case "Genomic Coords.":
+    //      return <TableDisplay data={value as GenomicCoordinates[]} />
     /* Links Panel */
-    case "Expression":
-//    case "External Resources":
-//      return (value as NameWithLink[]).map((item) => (
-//        <a href={item.link} key={item.link}>
-//          {item.name} |{" "}
-//        </a>
-//      ))
+    //    case "Expression":
+    //    case "External Resources":
+    //      return (value as NameWithLink[]).map((item) => (
+    //        <a href={item.link} key={item.link}>
+    //          {item.name} |{" "}
+    //        </a>
+    //      ))
     /* Associated Sequence Panel */
-    case "dictyBase Colleagues":
-    case "GenBank Genomic Fragment":
-    case "GenBank mRNA":
-//    case "AA Composition":
-//      return (
-//        <a href={(value as NameWithLink).link}>
-//          {(value as NameWithLink).name}
-//        </a>
-//      )
-//
-//    case "ESTs":
-//      return (
-//        <>
-//          {(value as NameWithLink[]).map((item) => (
-//            <React.Fragment key={item.link}>
-//              <a href={item.link}>{item.name}</a>
-//              &nbsp;&nbsp;&nbsp;
-//            </React.Fragment>
-//          ))}
-//          <a href={(value as AssociatedSequences).more_link}>more..</a>
-//        </>
-//      )
+    //    case "dictyBase Colleagues":
+    //    case "GenBank Genomic Fragment":
+    //    case "GenBank mRNA":
+    //    case "AA Composition":
+    //      return (
+    //        <a href={(value as NameWithLink).link}>
+    //          {(value as NameWithLink).name}
+    //        </a>
+    //      )
+    //
+    //    case "ESTs":
+    //      return (
+    //        <>
+    //          {(value as NameWithLink[]).map((item) => (
+    //            <React.Fragment key={item.link}>
+    //              <a href={item.link}>{item.name}</a>
+    //              &nbsp;&nbsp;&nbsp;
+    //            </React.Fragment>
+    //          ))}
+    //          <a href={(value as AssociatedSequences).more_link}>more..</a>
+    //        </>
+    //      )
     case "Note":
       return <strong>{value as string}</strong>
     default:
@@ -127,4 +125,30 @@ const returnPanelContentById = (
   }
 }
 
-export { type ContentId, returnPanelContentById }
+const panelGenerator = (
+  arrayOfChildSections: any[],
+  type: string,
+  gene: any,
+) => {
+  const returnArray: any[] = []
+  if (!gene[type]) {
+    /* Check to see if section exists */
+    return []
+  }
+
+  arrayOfChildSections.forEach((element) => {
+    if (element.value !== null && element.value !== undefined) {
+      const entry = {
+        leftDisplay: element.id,
+        rightDisplay: returnPanelContentById(element.id, element.value),
+        // GeneQuery data is currently not used by returnPanelContentById, so it will not be passed for now.
+        // rightDisplay: returnPanelContentById(element.id, element.value, gene),
+      }
+      returnArray.push(entry)
+    }
+  })
+
+  return returnArray
+}
+
+export { type ContentId, panelGenerator, returnPanelContentById }
