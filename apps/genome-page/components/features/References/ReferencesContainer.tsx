@@ -22,7 +22,6 @@ const ReferencesContainer = ({
       title={`References for ${geneId}`}
       description={`Gene references for ${geneId}`}>
       <Typography component="div">
-        {" "}
         <ReferencesDataTable publications={publications} />
       </Typography>
     </Layout>
