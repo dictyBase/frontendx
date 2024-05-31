@@ -7,7 +7,7 @@ const pubLinkGenerator = (id: string) => {
 
   if (id.includes("PMID")) {
     idnum = id.slice(5)
-    return `/publication/${idnum}`
+    return `${process.env.NEXT_PUBLIC_PUBLICATION_URL}/${idnum}`
   }
 
   if (id.includes("GO_REF")) {
