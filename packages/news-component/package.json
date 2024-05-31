@@ -23,7 +23,7 @@
     "@material-ui/icons": "^4.x",
     "@material-ui/lab": "^4.11.3-deprecations.1",
     "@dictybase/editor": "*",
-    "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.21.0",
+    "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.22.0",
     "jotai": "^2.0.0",
     "lexical": "0.11.x",
     "react": "17.x",
