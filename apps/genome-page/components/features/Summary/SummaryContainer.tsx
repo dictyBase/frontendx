@@ -28,22 +28,19 @@ const SummaryContainer = ({ geneSummary }: SummaryContainerProperties) => {
     <Layout
       gene={geneId}
       title={`Gene Summary for ${geneId}`}
-      description={`Gene information for ${geneId}`}
-    >
+      description={`Gene information for ${geneId}`}>
       <Typography component="div">
         <PanelWrapper title="General Information">
           <GeneralInfoPanel generalInformation={geneGeneralInformation} />
         </PanelWrapper>
         <PanelWrapper
           route={`${geneId}/goannotations`}
-          title="Gene Ontology Annotations"
-        >
+          title="Gene Ontology Annotations">
           <GoaPanel goas={geneOntologyAnnotation} />
         </PanelWrapper>
         <PanelWrapper
           route={`${geneId}/references`}
-          title={`Publications (${publicationLimit} of ${listPublicationsWithGene.length}) `}
-        >
+          title={`Publications (${publicationLimit} of ${listPublicationsWithGene.length}) `}>
           <ReferencesPanel publications={partialPublicationsList} />
         </PanelWrapper>
       </Typography>
