@@ -10,20 +10,20 @@ const getTabValue = (pathname: string) => {
   const subroute = pathname.split("/").splice(-1).join(",")
 
   switch (subroute) {
-//    case "blast":
-//      return 7
-//    case "communityannotations":
-//      return 6
-//    case "references":
-//      return 5
-//    case "phenotypes":
-//      return 4
-//    case "orthologs":
-//      return 3
-//    case "goannotations":
-//      return 2
-//    case "proteininformation":
-//      return 1
+    //    case "blast":
+    //      return 7
+    //    case "communityannotations":
+    //      return 6
+    //    case "references":
+    //      return 5
+    //    case "phenotypes":
+    //      return 4
+    //    case "orthologs":
+    //      return 3
+    //    case "goannotations":
+    //      return 2
+    //    case "proteininformation":
+    //      return 1
     case "references":
       return 3
     case "phenotypes":
@@ -80,7 +80,7 @@ const Layout = ({ children, gene, title, description }: Properties) => {
             */}
             <Link href={`/gene/${gene}/phenotypes`} passHref>
               <Tab label="Phenotypes" />
-            </Link> 
+            </Link>
             <Link href={`/gene/${gene}/references`} passHref>
               <Tab label="References" />
             </Link>
