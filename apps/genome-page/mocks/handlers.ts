@@ -94,6 +94,7 @@ export const handlers = [
           context.data({
             geneGeneralInformation: mockGeneralInfoData,
             geneOntologyAnnotation: mockOntologyData.goas,
+            listPublicationsWithGene: mockReferencesData,
           }),
         ),
       )
@@ -102,6 +103,7 @@ export const handlers = [
           context.data({
             geneGeneralInformation: mockGeneralInfoPiaA,
             geneOntologyAnnotation: mockOntologyPiaA.goas,
+            listPublicationsWithGene: mockReferencesPiaA,
           }),
         ),
       )
@@ -110,6 +112,7 @@ export const handlers = [
           context.data({
             geneGeneralInformation: mockGeneralInfoPiaA,
             geneOntologyAnnotation: mockOntologyAda2.goas,
+            listPublicationsWithGene: mockReferencesPiaA,
           }),
         ),
       )
