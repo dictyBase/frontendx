@@ -12,11 +12,6 @@ interface SummaryContainerProperties {
   geneSummary: GeneSummaryQuery
 }
 
-//    "listGeneProductInfo",
-//    "getAssociatedSequnces",
-//    "getLinks",
-//    "allPublications",
-
 const SummaryContainer = ({ geneSummary }: SummaryContainerProperties) => {
   const { query } = useRouter()
   const {
