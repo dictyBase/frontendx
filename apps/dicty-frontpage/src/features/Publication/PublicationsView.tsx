@@ -3,7 +3,12 @@ import { pipe } from "fp-ts/function"
 import { DictyTab, DictyTabs } from "@dictybase/ui-common"
 import { map as Rmap, keys as Rkeys } from "fp-ts/Record"
 import { sort as Asort } from "fp-ts/Array"
-import { Ord, contramap, reverse as ORDreverse } from "fp-ts/Ord"
+import {
+  Ord,
+  contramap,
+  reverse as ORDreverse,
+} from "fp-ts/Ord"
+import { Ord as SOrd } from "fp-ts/string"
 import { Ord as NOrd } from "fp-ts/number"
 import { Container, Box, Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
@@ -41,16 +46,50 @@ const ordByOldest: Ord<PublicationItem> = pipe(
     new Date(publicationItem.publishDate).getTime(),
   ),
 )
-
 const ordByNewest: Ord<PublicationItem> = pipe(ordByOldest, ORDreverse)
+const ordByTitle: Ord<PublicationItem> = pipe(
+  SOrd,
+  contramap((publicationItem) => publicationItem.title),
+)
+const ordByTitleReverse: Ord<PublicationItem> = pipe(ordByTitle, ORDreverse)
 
-const sortingFunctions = {
+const orderFunctions = {
   "Newest First": (publications: Array<PublicationItem>) =>
     pipe(publications, Asort(ordByNewest)),
   "Oldest First": (publications: Array<PublicationItem>) =>
     pipe(publications, Asort(ordByOldest)),
+  "Title (A - Z)": (publications: Array<PublicationItem>) =>
+    pipe(publications, Asort(ordByTitle)),
+  "Title (Z - A)": (publications: Array<PublicationItem>) =>
+    pipe(publications, Asort(ordByTitleReverse)),
+  "Shuffle": (publications: Array<PublicationItem>) => {
+    // 1. assign unique random number from 0 to N -1 to each item in the array 
+    const shuffled: Array<PublicationItem> = new Array(publications.length)
+    const getRandomIndex = () => Math.floor(Math.random() * publications.length) 
+    // 2. if a number has been rolled, re-roll 
+    for (let i = 0; i < publications.length; i++) {
+      let randomIndex = getRandomIndex() 
+      console.log(randomIndex)
+      console.log(shuffled[randomIndex])
+      while (shuffled[randomIndex]) randomIndex = (randomIndex + 1) % shuffled.length
+      shuffled[randomIndex] = publications[i] 
+    }
+    return shuffled
+  }
 }
 
+const tabOrder = {
+  "Newest First": 0,
+  "Oldest First": 1,
+  "Title (A - Z)": 2,
+  "Title (Z - A)": 3,
+  Shuffle: 4,
+}
+
+const ordTabByAZ: Ord<keyof typeof orderFunctions> = pipe(
+  NOrd,
+  contramap((tabName) => tabOrder[tabName]),
+)
 /**
  * Represents a React component for displaying publications.
  * @param data - Array of PublicationItem objects.
@@ -65,15 +104,15 @@ type PublicationsViewProperties = {
  */
 const PublicationsView = ({ data }: PublicationsViewProperties) => {
   const sortedPublications = pipe(
-    sortingFunctions,
-    Rmap((fn) => fn(data)),
+    orderFunctions,
+    Rmap((sortFn) => sortFn(data)),
   )
-  const tabs = pipe(sortingFunctions, Rkeys)
+  const tabs = pipe(orderFunctions, Rkeys, Asort(ordTabByAZ))
   const [currentTab, setCurrentTab] = useState(tabs[0])
 
   const handleChange = (
     event: React.ChangeEvent<{}>,
-    newValue: keyof typeof sortingFunctions,
+    newValue: keyof typeof orderFunctions,
   ) => {
     setCurrentTab(newValue)
   }
