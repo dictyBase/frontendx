@@ -1,5 +1,6 @@
 import React from "react"
 import { ApolloProvider } from "@apollo/client"
+import { LogtoProvider, LogtoConfig, UserScope } from "@logto/react"
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles"
 import { useCreateApolloClient } from "common/hooks/useCreateApolloClient"
 import CircularProgress from "@material-ui/core/CircularProgress"
@@ -75,6 +76,25 @@ const muiTheme = createTheme({
   },
 })
 
+const logtoConfig: LogtoConfig = {
+  endpoint: process.env.NEXT_PUBLIC_LOGTO_ENDPOINT,
+  appId: process.env.NEXT_PUBLIC_LOGTO_APPID,
+  scopes: [
+    UserScope.Profile,
+    UserScope.Email,
+    UserScope.Phone,
+    UserScope.CustomData,
+    UserScope.Identities,
+    "write:content",
+    "edit:content",
+    "delete:content",
+    "roles",
+  ],
+  resources: [
+    process.env.NEXT_PUBLIC_LOGTO_API_FIRST_RESOURCE,
+    process.env.NEXT_PUBLIC_LOGTO_API_SECOND_RESOURCE,
+  ],
+}
 const AppProviders = ({ children }: { children: React.ReactNode }) => {
   const { client, cacheInitializing } = useCreateApolloClient()
 
@@ -83,9 +103,11 @@ const AppProviders = ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <ApolloProvider client={client}>
-      <MuiThemeProvider theme={muiTheme}>{children}</MuiThemeProvider>
-    </ApolloProvider>
+    <LogtoProvider config={logtoConfig}>
+      <ApolloProvider client={client}>
+        <MuiThemeProvider theme={muiTheme}>{children}</MuiThemeProvider>
+      </ApolloProvider>
+    </LogtoProvider>
   )
 }
 
