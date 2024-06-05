@@ -16,6 +16,10 @@ declare global {
       NEXT_PUBLIC_MOCK_SERVER: "on" | "off"
       // used to differentiate between deploy environments, specifically for using correct GraphQL URL
       NEXT_PUBLIC_DEPLOY_ENV: "development" | "staging" | "production"
+      NEXT_PUBLIC_LOGTO_API_FIRST_RESOURCE: string
+      NEXT_PUBLIC_LOGTO_API_SECOND_RESOURCE: string
+      NEXT_PUBLIC_LOGTO_ENDPOINT: string
+      NEXT_PUBLIC_LOGTO_APPID: string
     }
   }
 }
