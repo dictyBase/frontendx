@@ -22,11 +22,7 @@ const nextConfig = {
   },
 }
 
-// eslint-disable-next-line import/no-commonjs, unicorn/prefer-module
-const withTM = transpileModules([
-  "@dictybase/navbar",
-  "dicty-graphql-schema",
-])
+const withTM = transpileModules(["@dictybase/navbar", "dicty-graphql-schema", "@logto/react"])
 
 // eslint-disable-next-line import/no-default-export
 export default withTM(nextConfig)
