@@ -3,7 +3,6 @@ import "fontsource-roboto"
 import CssBaseline from "@material-ui/core/CssBaseline"
 import type { AppProps } from "next/app"
 import Head from "next/head"
-import { AuthProvider } from "components/features/Authentication/AuthStore"
 import { AppProviders } from "components/layout/AppProviders"
 import { App } from "components/layout/App"
 import { useGoogleAnalytics } from "common/hooks/useGoogleAnalytics"
@@ -21,7 +20,6 @@ const GenomePageApp = ({ Component, pageProps }: AppProps) => {
   useGoogleAnalytics()
 
   return (
-    <AuthProvider>
       <AppProviders>
         <CssBaseline />
         <App>
@@ -39,7 +37,6 @@ const GenomePageApp = ({ Component, pageProps }: AppProps) => {
           <Component {...pageProps} />
         </App>
       </AppProviders>
-    </AuthProvider>
   )
 }
 
