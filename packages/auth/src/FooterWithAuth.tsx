@@ -1,18 +1,31 @@
+import { pipe } from "fp-ts/function"
 import { Footer } from "@dictybase/footer"
 import { displayOnAuthorized } from "./functional/auth"
 import { useAuthorization } from "./useAuthorization"
-import { authFooterItems } from "./data/authFooterData"
+import { createAuthFooterItems, createFooterItems } from "./data/authFooterData"
 
 const authorizedRoles = ["content-admin"]
 
-const FooterWithAuth = () => {
+type FooterWithAuthProperties = {
+  frontPageUrl: string
+  stockCenterUrl: string
+}
+
+const FooterWithAuth = ({
+  frontPageUrl,
+  stockCenterUrl,
+}: FooterWithAuthProperties) => {
   const { isAuthorized } = useAuthorization({
     entries: authorizedRoles,
   })
   return displayOnAuthorized({
     isAuthorized,
-    authorized: <Footer data={authFooterItems} />,
-    unauthorized: <Footer />,
+    authorized: (
+      <Footer data={createAuthFooterItems({ frontPageUrl, stockCenterUrl })} />
+    ),
+    unauthorized: (
+      <Footer data={createFooterItems({ frontPageUrl, stockCenterUrl })} />
+    ),
   })
 }
 
