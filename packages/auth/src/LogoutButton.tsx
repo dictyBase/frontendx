@@ -1,6 +1,5 @@
 import { Box, Menu } from "@material-ui/core"
 import { useState, MouseEvent } from "react"
-import { Router as RemixRouter } from "@remix-run/router"
 import {
   Option,
   none as Onone,
@@ -19,12 +18,11 @@ import { LogoutMenuItem } from "./LogoutMenuItem"
  * @interface LogoutButtonProperties
  * @property {string} url - The redirect URL after logging out.
  * @property {User} user - The user object to display in the user display button.
- * @property {ClientRouter} clientRouter - The client router object used for navigation.
  */
 type LogoutButtonProperties = {
   url: string
+  frontPageUrl: string
   user: UserWithRoles
-  clientRouter: RemixRouter
 }
 
 /**
@@ -32,8 +30,8 @@ type LogoutButtonProperties = {
  */
 const LogoutButton = ({
   url,
+  frontPageUrl,
   user,
-  clientRouter,
 }: LogoutButtonProperties): JSX.Element => {
   /**
    * menuElement state represents the current menu element, wrapped in an Option type.
@@ -78,7 +76,7 @@ const LogoutButton = ({
         onClose={handleClose}
         keepMounted>
         <ProfileMenuItem
-          onClick={() => clientRouter.navigate("/user/show", { state: user })}
+          onClick={() => window.location.assign(`${frontPageUrl}/user/show`)}
         />
         <LogoutMenuItem redirectPath={url} />
       </Menu>
