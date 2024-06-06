@@ -14,12 +14,12 @@ import { INSERT_IMAGE_COMMAND } from "./InsertImageCommand"
 // with the user's cursor. This can make it difficult to see where the image is
 // being moved precisely. The drag image can be replaced with transparent image
 // below
-const TRANSPARENT_IMAGE =
-  "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-const img = document.createElement("img")
-img.src = TRANSPARENT_IMAGE
 
 export const onDragStart = (event: DragEvent) => {
+  const TRANSPARENT_IMAGE =
+    "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+  const img = document.createElement("img")
+  img.src = TRANSPARENT_IMAGE
   event.dataTransfer?.setDragImage(img, 0, 0)
   return true
 }
