@@ -5,6 +5,8 @@ declare global {
   namespace NodeJS {
     // eslint-disable-next-line unicorn/prevent-abbreviations
     interface ProcessEnv {
+      NEXT_PUBLIC_FRONTPAGE_URL: string
+      NEXT_PUBLIC_STOCKCENTER_URL: string
       NEXT_PUBLIC_BASENAME: string
       NEXT_PUBLIC_GA_TRACKING_ID: string
       NEXT_PUBLIC_NAVBAR_JSON: string
