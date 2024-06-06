@@ -30,7 +30,10 @@ const DscApp = () => {
   const classes = useStyles()
   return (
     <div className={classes.body}>
-      <HeaderWithAuth clientRouter={dscRouter} />
+      <HeaderWithAuth
+        frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
+        basename={import.meta.env.VITE_APP_BASENAME}
+      />
       <NavbarWithAuth
         frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
         stockCenterUrl={import.meta.env.VITE_APP_STOCKCENTER_URL}
@@ -44,7 +47,10 @@ const DscApp = () => {
           />
         </Container>
       </main>
-      <FooterWithAuth />
+      <FooterWithAuth
+        frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
+        stockCenterUrl={import.meta.env.VITE_APP_STOCKCENTER_URL}
+      />
     </div>
   )
 }
