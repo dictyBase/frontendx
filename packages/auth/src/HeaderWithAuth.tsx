@@ -2,7 +2,7 @@ import { pipe } from "fp-ts/function"
 import { append } from "fp-ts/Array"
 import { match, P } from "ts-pattern"
 import { Header } from "@dictybase/header"
-import { type UserWithRoles } from "./const"
+import { type UserWithRoles, getCallbackPath, getHomePath } from "./const"
 import { LoginButton } from "./LoginButton"
 import { LogoutButton } from "./LogoutButton"
 import { useAuthorization } from "./useAuthorization"
@@ -58,7 +58,7 @@ const conditonalHandler = (authCase: logtoHookProperties) =>
           createAuthorizedHeaderIcons,
           append(
             <LogoutButton
-              url={`${window.location.protocol}//${window.location.host}${basename}`}
+              url={getHomePath(basename)}
               frontPageUrl={frontPageUrl}
               user={user as UserWithRoles}
             />,
@@ -77,7 +77,7 @@ const conditonalHandler = (authCase: logtoHookProperties) =>
           createDefaultHeaderIcons,
           append(
             <LogoutButton
-              url={`${window.location.protocol}//${window.location.host}${basename}`}
+              url={getHomePath(basename)}
               frontPageUrl={frontPageUrl}
               user={user as UserWithRoles}
             />,
@@ -88,13 +88,7 @@ const conditonalHandler = (authCase: logtoHookProperties) =>
       pipe(
         frontPageUrl,
         createDefaultHeaderIcons,
-        append(
-          <LoginButton
-            url={`${window.location.protocol}//${window.location.host}${
-              basename === "/" ? "/callback" : `${basename}/callback`
-            }`}
-          />,
-        ),
+        append(<LoginButton url={getCallbackPath(basename)} />),
       ),
     )
 
