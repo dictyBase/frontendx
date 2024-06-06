@@ -1,5 +1,4 @@
 export * from "./functional/Footer"
 export * from "./components/FooterLink"
 export * from "./types"
-export * from "./data/footerData"
 export * from "./styles/footerStyles"
