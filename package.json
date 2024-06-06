@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev --filter=dicty-frontpage --filter=stock-center --filter=publication --parallel",
+    "dev": "turbo run dev --filter=dicty-frontpage --filter=stock-center --filter=publication --filter=genomepage --parallel",
     "dev:mock": "turbo run dev:mock --filter dicty-frontpage",
     "e2e:local": "turbo run e2e:local",
     "test": "turbo run test",
