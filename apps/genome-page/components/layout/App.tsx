@@ -1,24 +1,9 @@
 import React from "react"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import Container from "@material-ui/core/Container"
-import { Header, Footer } from "dicty-components-header-footer"
-import { Navbar } from "dicty-components-navbar"
-import { useFetch } from "dicty-hooks"
+import { HeaderWithAuth, NavbarWithAuth, FooterWithAuth } from "@dictybase/auth"
 import { ErrorBoundary } from "components/errors/ErrorBoundary"
-import { headerItems, HeaderLinks } from "common/utils/headerItems"
-import {
-  footerLinks,
-  footerURL,
-  convertFooterData,
-  FooterItems,
-} from "common/utils/footerItems"
-import {
-  navbarItems,
-  NavbarItems,
-  navbarURL,
-  formatNavbarData,
-} from "common/utils/navbarItems"
-import { navTheme, headerTheme, footerTheme } from "common/utils/themes"
+import { navTheme } from "common/utils/themes"
 
 const useStyles = makeStyles((theme: Theme) => ({
   main: {
@@ -45,27 +30,27 @@ const useStyles = makeStyles((theme: Theme) => ({
  */
 
 const App = ({ children }: { children: React.ReactNode }) => {
-  const navbar = useFetch<NavbarItems>(navbarURL, navbarItems)
-  const footer = useFetch<FooterItems>(footerURL, footerLinks)
   const classes = useStyles()
-  // const headerContent = isAuthenticated ? loggedHeaderItems : headerItems
-  const headerContent = headerItems
-
   return (
     <div className={classes.body}>
-      <Header items={headerContent} render={HeaderLinks} theme={headerTheme} />
-      <Navbar items={formatNavbarData(navbar.data)} theme={navTheme} />
+      <HeaderWithAuth
+        frontPageUrl={process.env.NEXT_PUBLIC_FRONTPAGE_URL}
+        basename={process.env.NEXT_PUBLIC_BASENAME}
+      />
+      <NavbarWithAuth
+        frontPageUrl={process.env.NEXT_PUBLIC_FRONTPAGE_URL}
+        stockCenterUrl={process.env.NEXT_PUBLIC_STOCKCENTER_URL}
+        theme={navTheme}
+      />
       <main className={classes.main}>
         <Container maxWidth="xl">
           <ErrorBoundary>{children}</ErrorBoundary>
         </Container>
       </main>
-      {footer.data?.data && (
-        <Footer
-          links={convertFooterData(footer.data.data)}
-          theme={footerTheme}
-        />
-      )}
+      <FooterWithAuth
+        frontPageUrl={process.env.NEXT_PUBLIC_FRONTPAGE_URL}
+        stockCenterUrl={process.env.NEXT_PUBLIC_STOCKCENTER_URL}
+      />
     </div>
   )
 }
