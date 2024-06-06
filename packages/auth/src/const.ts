@@ -1,22 +1,31 @@
-import { reduce } from "fp-ts/ReadonlyNonEmptyArray"
+import { pipe } from "fp-ts/function"
+import { reduce as Areduce } from "fp-ts/Array"
 import { UserInfoResponse } from "@logto/react"
 
 type UserWithRoles = UserInfoResponse & {
   roles: Array<string>
 }
 
-const concatPath = reduce(
-  `${window.location.protocol}//${window.location.host}`,
-  (accumulator: string, current: string) => `${accumulator}${current}`,
-)
+const getCallbackPath = (basename: string) => {
+  const segments = basename === "/" ? ["/callback"] : [basename, "/callback"]
+  return pipe(
+    segments,
+    Areduce(
+      `${window.location.protocol}//${window.location.host}`,
+      (accumulator: string, current: string) => `${accumulator}${current}`,
+    ),
+  )
+}
 
-const callbackPath =
-  import.meta.env.VITE_APP_BASENAME === "/"
-    ? concatPath(["/callback"])
-    : concatPath([import.meta.env.VITE_APP_BASENAME, "/callback"])
-const homePath =
-  import.meta.env.VITE_APP_BASENAME === "/"
-    ? concatPath(["/"])
-    : concatPath([import.meta.env.VITE_APP_BASENAME, "/"])
+const getHomePath = (basename: string) => {
+  const segments = basename === "/" ? ["/"] : [basename, "/"]
+  return pipe(
+    segments,
+    Areduce(
+      `${window.location.protocol}//${window.location.host}`,
+      (accumulator: string, current: string) => `${accumulator}${current}`,
+    ),
+  )
+}
 
-export { callbackPath, homePath, type UserWithRoles }
+export { getCallbackPath, getHomePath, type UserWithRoles }
