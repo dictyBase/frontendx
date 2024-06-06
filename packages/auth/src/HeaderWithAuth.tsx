@@ -1,7 +1,7 @@
-import { Header } from "@dictybase/header"
-import { match, P } from "ts-pattern"
 import { pipe } from "fp-ts/function"
 import { append } from "fp-ts/Array"
+import { match, P } from "ts-pattern"
+import { Header } from "@dictybase/header"
 import { type UserWithRoles } from "./const"
 import { LoginButton } from "./LoginButton"
 import { LogoutButton } from "./LogoutButton"
@@ -104,7 +104,7 @@ const authorizedRole = ["content-admin"]
  */
 const HeaderWithAuth = ({
   frontPageUrl,
-  basename: baseUrl,
+  basename,
 }: HeaderWithAuthProperties) => {
   const { isLoading, isAuthenticated, isAuthorized, user } = useAuthorization({
     entries: authorizedRole,
@@ -115,7 +115,7 @@ const HeaderWithAuth = ({
     isAuthorized,
     user,
     frontPageUrl,
-    basename: baseUrl,
+    basename,
   })
   return <Header links={links} />
 }
