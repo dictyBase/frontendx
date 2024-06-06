@@ -35,7 +35,10 @@ const FrontPageApp = () => {
 
   return (
     <div className={classes.body}>
-      <HeaderWithAuth clientRouter={frontpageRouter} />
+      <HeaderWithAuth
+        frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
+        basename={import.meta.env.VITE_APP_BASENAME}
+      />
       <NavbarWithAuth
         frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
         stockCenterUrl={import.meta.env.VITE_APP_STOCKCENTER_URL}
@@ -48,7 +51,10 @@ const FrontPageApp = () => {
           </ErrorBoundary>
         </Container>
       </main>
-      <FooterWithAuth />
+      <FooterWithAuth
+        frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
+        stockCenterUrl={import.meta.env.VITE_APP_STOCKCENTER_URL}
+      />
     </div>
   )
 }
