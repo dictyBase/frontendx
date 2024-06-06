@@ -2,21 +2,24 @@ import { Header } from "@dictybase/header"
 import { match, P } from "ts-pattern"
 import { pipe } from "fp-ts/function"
 import { append } from "fp-ts/Array"
-import { Router as RemixRouter } from "@remix-run/router"
 import { type UserWithRoles } from "./const"
 import { LoginButton } from "./LoginButton"
 import { LogoutButton } from "./LogoutButton"
-import { callbackPath, homePath } from "./const"
 import { useAuthorization } from "./useAuthorization"
-import { defaultHeaderLinks, authorizedHeaderLinks } from "./headerLinks"
+import {
+  createDefaultHeaderIcons,
+  createAuthorizedHeaderIcons,
+} from "./headerLinks"
 
 /**
  * @description Represents the properties required for the HeaderWithAuth component.
  * @typedef {object} HeaderWithAuthProperties
- * @property {RemixRouter} clientRouter - The client router instance used for navigation.
+ * @property {string} frontPageUrl - The url for the Front Page application.
+ * @property {string} baseUrl - The base url for the application that is rendering the header.
  */
 type HeaderWithAuthProperties = {
-  clientRouter: RemixRouter
+  frontPageUrl: string
+  basename: string
 }
 
 /**
@@ -49,14 +52,15 @@ const conditonalHandler = (authCase: logtoHookProperties) =>
         isAuthenticated: true,
         user: P.not(undefined),
       },
-      ({ user, clientRouter }) =>
+      ({ user, frontPageUrl, basename }) =>
         pipe(
-          authorizedHeaderLinks,
+          frontPageUrl,
+          createAuthorizedHeaderIcons,
           append(
             <LogoutButton
-              url={homePath}
+              url={`${window.location.protocol}//${window.location.host}${basename}`}
+              frontPageUrl={frontPageUrl}
               user={user as UserWithRoles}
-              clientRouter={clientRouter}
             />,
           ),
         ),
@@ -67,27 +71,41 @@ const conditonalHandler = (authCase: logtoHookProperties) =>
         isAuthenticated: true,
         user: P.not(undefined),
       },
-      ({ user, clientRouter }) =>
+      ({ user, frontPageUrl, basename }) =>
         pipe(
-          defaultHeaderLinks,
+          frontPageUrl,
+          createDefaultHeaderIcons,
           append(
             <LogoutButton
-              url={homePath}
+              url={`${window.location.protocol}//${window.location.host}${basename}`}
+              frontPageUrl={frontPageUrl}
               user={user as UserWithRoles}
-              clientRouter={clientRouter}
             />,
           ),
         ),
     )
-    .otherwise(() =>
-      pipe(defaultHeaderLinks, append(<LoginButton url={callbackPath} />)),
+    .otherwise(({ frontPageUrl, basename }) =>
+      pipe(
+        frontPageUrl,
+        createDefaultHeaderIcons,
+        append(
+          <LoginButton
+            url={`${window.location.protocol}//${window.location.host}${
+              basename === "/" ? "/callback" : `${basename}/callback`
+            }`}
+          />,
+        ),
+      ),
     )
 
 const authorizedRole = ["content-admin"]
 /**
  * HeaderWithAuth is a React component that renders a header with authentication information.
  */
-const HeaderWithAuth = ({ clientRouter }: HeaderWithAuthProperties) => {
+const HeaderWithAuth = ({
+  frontPageUrl,
+  basename: baseUrl,
+}: HeaderWithAuthProperties) => {
   const { isLoading, isAuthenticated, isAuthorized, user } = useAuthorization({
     entries: authorizedRole,
   })
@@ -96,7 +114,8 @@ const HeaderWithAuth = ({ clientRouter }: HeaderWithAuthProperties) => {
     isAuthenticated,
     isAuthorized,
     user,
-    clientRouter,
+    frontPageUrl,
+    basename: baseUrl,
   })
   return <Header links={links} />
 }
