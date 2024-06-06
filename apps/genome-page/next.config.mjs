@@ -22,7 +22,25 @@ const nextConfig = {
   },
 }
 
-const withTM = transpileModules(["@dictybase/navbar", "dicty-graphql-schema", "@logto/react"])
+const withTM = transpileModules([
+  "@dictybase/navbar",
+  "@dictybase/header",
+  "@dictybase/footer",
+  "@dictybase/auth",
+  "@dictybase/dicty-image",
+  "@dictybase/functional",
+  "@dictybase/ui-common",
+  "@dictybase/image-plugin",
+  "@dictybase/editor",
+  "@dictybase/editor-toolbar",
+  "@dictybase/table-action-plugin",
+  "@dictybase/width-table-plugin",
+  "@dictybase/persistence-plugin",
+  "@dictybase/flex-layout-plugin",
+  "@dictybase/resizable-image",
+  "dicty-graphql-schema",
+  "@logto/react",
+])
 
 // eslint-disable-next-line import/no-default-export
 export default withTM(nextConfig)
