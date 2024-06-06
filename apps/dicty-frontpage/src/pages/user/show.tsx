@@ -1,8 +1,16 @@
-import { useLocation } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { useLogto } from "@logto/react"
+import { match, P } from "ts-pattern"
+import {
+  UserWithRoles,
+  ACCESS,
+  displayOnAuthorized,
+  matchEntries,
+} from "@dictybase/auth"
 import { Box, Grid, Divider } from "@material-ui/core"
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import { ACCESS, UserWithRoles, displayOnAuthorized, matchEntries } from "@dictybase/auth"
 import { Avatar, Information, EditablePagesList, Title, NoPages } from "ui-user"
+import { FullPageLoadingDisplay } from "@dictybase/ui-common"
 
 const useStyles = makeStyles((theme: Theme) => ({
   divider: {
@@ -14,9 +22,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-const Show = () => {
-  const location = useLocation()
-  const user = location.state as UserWithRoles
+type UserViewProperties = {
+  user: UserWithRoles
+}
+const UserView = ({ user }: UserViewProperties) => {
   const classes = useStyles()
   return (
     <Box mt={4}>
@@ -48,6 +57,23 @@ const Show = () => {
       </Grid>
     </Box>
   )
+}
+
+const Show = () => {
+  const { fetchUserInfo, isLoading } = useLogto()
+  const [user, setUser] = useState<UserWithRoles>()
+
+  useEffect(() => {
+    const getUserInfo = async () => {
+      setUser((await fetchUserInfo()) as UserWithRoles)
+    }
+    getUserInfo()
+  }, [fetchUserInfo])
+
+  return match({ user, isLoading })
+    .with({ user: P.not(undefined) }, (input) => <UserView user={input.user} />)
+    .with({ isLoading: true }, () => <FullPageLoadingDisplay />)
+    .otherwise(() => <> This should not appear. </>)
 }
 
 // eslint-disable-next-line import/no-default-export
