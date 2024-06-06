@@ -1,4 +1,3 @@
-import { pipe } from "fp-ts/function"
 import { Footer } from "@dictybase/footer"
 import { displayOnAuthorized } from "./functional/auth"
 import { useAuthorization } from "./useAuthorization"
