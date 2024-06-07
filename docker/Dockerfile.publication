@@ -6,7 +6,7 @@ RUN apk update
 RUN apk add --no-cache libc6-compat 
 # Set working directory
 WORKDIR /app
-RUN yarn global add turbo
+RUN yarn global add turbo@1.13.3
 COPY . .
 RUN mv /app/apps/publication/.env.${BUILD_STATE} /app/apps/publication/.env.production
 RUN turbo prune --scope=publication --docker
