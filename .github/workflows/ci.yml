@@ -24,28 +24,28 @@ jobs:
           token: ${{ secrets.CODECOV }}
   call-frontpage-docker-build:
     needs: test
-    uses: dictyBase/workflows/.github/workflows/docker-build-push-mode.yaml@develop
+    uses: dictyBase/workflows/.github/workflows/docker-publish.yaml@main
     secrets: inherit
     with:
       repository: ${{ github.repository }}
       ref: ${{ github.ref_name }}
+      image: dicty-frontpage
       dockerfile: "docker/Dockerfile.frontpage"
-      dockerrepo: "dictybase/dicty-frontpage"
   call-dsc-docker-build:
     needs: test
-    uses: dictyBase/workflows/.github/workflows/docker-build-push-mode.yaml@develop
+    uses: dictyBase/workflows/.github/workflows/docker-publish.yaml@main
     secrets: inherit
     with:
       repository: ${{ github.repository }}
       ref: ${{ github.ref_name }}
-      dockerfile: "docker/Dockerfile.stock-center"
-      dockerrepo: "dictybase/stock-center"
+      image: stock-center
+      dockerfile: docker/Dockerfile.stock-center
   call-publication-docker-build:
     needs: test
-    uses: dictyBase/workflows/.github/workflows/docker-build-push-mode.yaml@develop
+    uses: dictyBase/workflows/.github/workflows/docker-publish.yaml@main
     secrets: inherit
     with:
       repository: ${{ github.repository }}
       ref: ${{ github.ref_name }}
       dockerfile: "docker/Dockerfile.publication"
-      dockerrepo: "dictybase/publication"
+      image: publication
