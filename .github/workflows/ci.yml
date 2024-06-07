@@ -19,7 +19,9 @@ jobs:
       - name: unit tests
         run: yarn coverage
       - name: upload test coverage to codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
+        with: 
+          token: ${{ secrets.CODECOV }}
   call-frontpage-docker-build:
     needs: test
     uses: dictyBase/workflows/.github/workflows/docker-build-push-mode.yaml@develop
