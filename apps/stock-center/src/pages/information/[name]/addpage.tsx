@@ -4,10 +4,10 @@ import { Navigate } from "react-router-dom"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import {
-  AddPageView,
   FullPageLoadingDisplay,
   contentPageErrorMatcher,
 } from "@dictybase/ui-common"
+import { AddPageView } from "@dictybase/editor"
 import { ACCESS } from "@dictybase/auth"
 import { NAMESPACE } from "../../../namespace"
 import { useSlug } from "../../../hooks/useSlug"
