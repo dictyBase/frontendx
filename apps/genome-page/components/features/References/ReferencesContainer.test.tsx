@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react"
-import { GeneQuery } from "dicty-graphql-schema"
-import { mockGene } from "mocks/mockGene"
+import { mockReferencesData } from "mocks/mockReferencesData"
 import { ReferencesContainer } from "./ReferencesContainer"
 
 // eslint-disable-next-line import/no-commonjs, unicorn/prefer-module -- ESM not supported by default as of Jest 29
@@ -22,7 +21,7 @@ describe("features/References/ReferencesContainer", () => {
       query: { id: gene },
       pathname,
     }))
-    render(<ReferencesContainer gene={mockGene as GeneQuery} />)
+    render(<ReferencesContainer publications={mockReferencesData} />)
 
     // Renders skeleton loading
     expect(screen.getByText("Reference")).toBeInTheDocument()
