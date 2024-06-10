@@ -4,10 +4,10 @@ import { useLogto, UserInfoResponse } from "@logto/react"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import {
-  AddPageView,
   FullPageLoadingDisplay,
   contentPageErrorMatcher,
 } from "@dictybase/ui-common"
+import { AddPageView } from "@dictybase/editor"
 import { NAMESPACE } from "../../common/constants/namespace"
 import { useSlug } from "../../common/hooks/useSlug"
 import { useContentPath } from "../../common/hooks/useContentPath"
