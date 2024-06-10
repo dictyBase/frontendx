@@ -7,11 +7,8 @@ import {
   CatalogLinks,
   FileLinks,
 } from "@dictybase/ui-dsc"
-import {
-  EditableEditor,
-  LoadingDisplay,
-  OtherError,
-} from "@dictybase/ui-common"
+import { LoadingDisplay, OtherError } from "@dictybase/ui-common"
+import { EditableEditor } from "@dictybase/editor"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { ACCESS } from "@dictybase/auth"

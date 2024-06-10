@@ -7,8 +7,9 @@ import {
   CatalogLinks,
   FileLinks,
 } from "@dictybase/ui-dsc"
-import { LoadingDisplay, OtherError, ContentEditor } from "@dictybase/ui-common"
+import { LoadingDisplay, OtherError } from "@dictybase/ui-common"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
+import { ContentEditor } from "@dictybase/editor"
 import { match, P } from "ts-pattern"
 import { ACCESS } from "@dictybase/auth"
 import { NAMESPACE } from "../../namespace"

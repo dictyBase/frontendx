@@ -9,7 +9,8 @@ import {
   CatalogLinks,
   FileLinks,
 } from "@dictybase/ui-dsc"
-import { EditEditor, LoadingDisplay, OtherError } from "@dictybase/ui-common"
+import { LoadingDisplay, OtherError } from "@dictybase/ui-common"
+import { EditEditor } from "@dictybase/editor"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { ACCESS } from "@dictybase/auth"
