@@ -3,10 +3,10 @@ import { Navigate } from "react-router-dom"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { useLogto, UserInfoResponse } from "@logto/react"
 import {
-  EditView,
   FullPageLoadingDisplay,
   contentPageErrorMatcher,
 } from "@dictybase/ui-common"
+import { EditView } from "@dictybase/editor"
 import { match, P } from "ts-pattern"
 import { NAMESPACE } from "../../common/constants/namespace"
 import { useSlug } from "../../common/hooks/useSlug"

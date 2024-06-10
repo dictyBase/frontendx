@@ -3,9 +3,9 @@ import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import {
   contentPageErrorMatcher,
-  EditableView,
   FullPageLoadingDisplay,
 } from "@dictybase/ui-common"
+import { EditableView } from "@dictybase/editor"
 import { NAMESPACE } from "../../common/constants/namespace"
 import { useSlug } from "../../common/hooks/useSlug"
 
