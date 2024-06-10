@@ -1,14 +1,13 @@
 import { render, screen } from "@testing-library/react"
-import { GeneQuery } from "dicty-graphql-schema"
-import { mockGene } from "mocks/mockGene"
-import { mockGenePiaA } from "mocks/piaAMocks/mockGenePiaA"
+import { mockGeneralInfoData } from "mocks/mockGeneralInfoData"
+import { mockGeneralInfoPiaA } from "mocks/piaAMocks/mockGeneralInfoPiaA"
 import { GeneralInfoPanel } from "./GeneralInfoPanel"
 
 describe("features/References/ReferencesContainer", () => {
   beforeEach(() => jest.clearAllMocks())
 
   it("should render sadA", () => {
-    render(<GeneralInfoPanel gene={mockGene as GeneQuery} />)
+    render(<GeneralInfoPanel generalInformation={mockGeneralInfoData} />)
 
     // Gene Name
     expect(screen.getByText(/Gene Name/)).toBeInTheDocument()
@@ -32,7 +31,7 @@ describe("features/References/ReferencesContainer", () => {
   })
 
   it("should render piaA", () => {
-    render(<GeneralInfoPanel gene={mockGenePiaA as GeneQuery} />)
+    render(<GeneralInfoPanel generalInformation={mockGeneralInfoPiaA} />)
 
     // Gene Name
     expect(screen.getByText("Gene Name")).toBeInTheDocument()
