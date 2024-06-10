@@ -31,13 +31,6 @@ const withTM = transpileModules([
   "@dictybase/functional",
   "@dictybase/ui-common",
   "@dictybase/image-plugin",
-  "@dictybase/editor",
-  "@dictybase/editor-toolbar",
-  "@dictybase/table-action-plugin",
-  "@dictybase/width-table-plugin",
-  "@dictybase/persistence-plugin",
-  "@dictybase/flex-layout-plugin",
-  "@dictybase/resizable-image",
   "dicty-graphql-schema",
   "@logto/react",
 ])
