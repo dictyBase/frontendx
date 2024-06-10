@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react"
-import { mockGene } from "mocks/mockGene"
 import { BlastContainer } from "./BlastContainer"
 
 // eslint-disable-next-line import/no-commonjs, unicorn/prefer-module -- ESM not supported by default as of Jest 29
@@ -22,7 +21,7 @@ describe("features/blast/BlastContainer", () => {
       pathname,
     }))
     render(<BlastContainer />)
-    
+
     // Blast Database Row
     expect(screen.getByText("BLAST Database")).toBeInTheDocument()
     expect(screen.getByText("Select Organism")).toBeInTheDocument()
