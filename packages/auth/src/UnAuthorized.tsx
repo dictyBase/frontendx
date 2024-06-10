@@ -3,7 +3,6 @@ import Box from "@material-ui/core/Box"
 import Typography from "@material-ui/core/Typography"
 import Button from "@material-ui/core/Button"
 import ErrorIcon from "@material-ui/icons/Error"
-import sadDicty from "./assets/sad-dicty.png"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,7 +38,10 @@ const UnAuthorized = () => {
       justifyContent="center"
       textAlign="center">
       <Box className={classes.container}>
-        <img src={sadDicty} alt="Sad Dicty -- HTTP Error" />
+        <img
+          src="https://storage.dictybase.dev/editor/assets/2024-06-10/bd362d90-6a23-44a3-a5b4-fbaaaa5117bd"
+          alt="Sad Dicty -- HTTP Error"
+        />
         <Typography className={classes.text} variant="h1">
           <ErrorIcon /> UnAuthorized
         </Typography>
