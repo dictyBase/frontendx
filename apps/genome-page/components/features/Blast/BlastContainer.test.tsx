@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react"
-import { GeneQuery } from "dicty-graphql-schema"
 import { mockGene } from "mocks/mockGene"
 import { BlastContainer } from "./BlastContainer"
 
@@ -22,10 +21,8 @@ describe("features/blast/BlastContainer", () => {
       query: { gene: "sadA" },
       pathname,
     }))
-    render(<BlastContainer gene={mockGene as GeneQuery} />)
-
-    expect(screen.getAllByText("BLAST").length).toBe(2)
-
+    render(<BlastContainer />)
+    
     // Blast Database Row
     expect(screen.getByText("BLAST Database")).toBeInTheDocument()
     expect(screen.getByText("Select Organism")).toBeInTheDocument()
