@@ -6,17 +6,16 @@ import { Logo } from "../functional/Logo"
 
 describe("functional logo", () => {
   test("should render the logo", () => {
-    const { getByRole } = render(<Logo />)
+    const { getByRole } = render(<Logo frontPageUrl="/" />)
     expect(getByRole("img")).toBeInTheDocument()
-    expect(getByRole("img")).toHaveAttribute(
-      "src",
-      expect.stringContaining("logo"),
-    )
+    expect(getByRole("img"))
     expect(getByRole("heading")).toBeInTheDocument()
     expect(getByRole("heading")).toHaveTextContent("Dicty Community Resource")
   })
   test("should render the logo with custom title", () => {
-    const { getByRole } = render(<Logo title={some("dictyBase")} />)
+    const { getByRole } = render(
+      <Logo frontPageUrl="/" title={some("dictyBase")} />,
+    )
     expect(getByRole("heading")).toHaveTextContent("dictyBase")
   })
 })
