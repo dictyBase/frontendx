@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import Grid from "@material-ui/core/Grid"
 import { withStyles, Theme } from "@material-ui/core/styles"
-import sadDicty from "../assets/sad-dicty.png"
 
 const styles = (theme: Theme) => ({
   gridContainer: {
@@ -71,7 +70,10 @@ class _ErrorBoundary extends Component<Properties, State> {
           justifyContent="center">
           <Grid item xs={6} className={classes.paper}>
             <div style={{ textAlign: "center" }}>
-              <img src={sadDicty} alt="Sad Dicty Logo" />
+              <img
+                src="https://storage.dictybase.dev/editor/assets/2024-06-10/bd362d90-6a23-44a3-a5b4-fbaaaa5117bd"
+                alt="Sad Dicty Logo"
+              />
               <h2>Sorry! There was an error loading this page.</h2>
               <p>Something went wrong behind the scenes.</p>
               <p>
