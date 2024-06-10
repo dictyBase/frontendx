@@ -1,7 +1,6 @@
 import { Grid, Typography, Container } from "@material-ui/core"
 import { BackToHomepageButton } from "../BackToHomepageButton"
 import { AddPageButton } from "../AddPageButton"
-import sadDicty from "../assets/sad-dicty.png"
 import { useStyles } from "./errorStyles"
 
 /**
@@ -15,7 +14,10 @@ const NotFoundErrorAuth = () => {
     <Grid container className={classes.mainGrid} justifyContent="center">
       <Grid item xs={10} md={8}>
         <Container className={classes.error400}>
-          <img src={sadDicty} alt="Sad Dicty -- Page Not Found" />
+          <img
+            src="https://storage.dictybase.dev/editor/assets/2024-06-10/bd362d90-6a23-44a3-a5b4-fbaaaa5117bd"
+            alt="Sad Dicty -- Page Not Found"
+          />
           <Typography variant="h2" gutterBottom>
             Page Not Found
           </Typography>
