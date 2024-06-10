@@ -111,7 +111,7 @@ const HeaderWithAuth = ({
     frontPageUrl,
     basename,
   })
-  return <Header links={links} />
+  return <Header frontPageUrl={frontPageUrl} links={links} />
 }
 
 export { HeaderWithAuth }
