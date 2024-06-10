@@ -17,6 +17,7 @@
   "dependencies": {
     "@apollo/client": "^3.7.17",
     "@dictybase/auth": "*",
+    "@dictybase/editor": "*",
     "@dictybase/ui-frontpage": "*",
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
