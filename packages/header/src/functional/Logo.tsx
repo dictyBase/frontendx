@@ -10,9 +10,10 @@ import {
 
 interface LogoProperties {
   title?: Option<string>
+  frontPageUrl: string
 }
 
-const Logo = ({ title = none }: LogoProperties) => {
+const Logo = ({ title = none, frontPageUrl }: LogoProperties) => {
   const logoTitle = pipe(
     title,
     getOrElse(() => "Dicty Community Resource"),
@@ -21,7 +22,9 @@ const Logo = ({ title = none }: LogoProperties) => {
     [<ImgContainer key={1} />, <TitleContainer key={2} title={logoTitle} />],
     fromChildren,
     composeChildren,
-    Omap((children) => <LogoContainer>{children}</LogoContainer>),
+    Omap((children) => (
+      <LogoContainer frontPageUrl={frontPageUrl}>{children}</LogoContainer>
+    )),
     getOrElse(() => <Box>error in rendering</Box>),
   )
 }
