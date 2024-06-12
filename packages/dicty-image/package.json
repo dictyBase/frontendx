@@ -6,17 +6,11 @@
   "author": "Siddhartha Basu",
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "@types/jest": "^26.0.x",
     "@types/react": "17.*",
     "@types/react-dom": "17.0.18",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/user-event": "^14.5.1",
-    "jest": "^26.x",
     "tsconfig": "*",
     "eslint-config-custom": "*",
-    "@swc/core": "^1.x",
-    "@swc/jest": "^0.x"
+    "@swc/core": "^1.x"
   },
   "dependencies": {
     "@material-ui/core": "^4.12.4",
