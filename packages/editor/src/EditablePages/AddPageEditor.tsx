@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom"
 import { useCreateContentMutation } from "dicty-graphql-schema"
-import { Editor } from "@dictybase/editor"
 import { pipe } from "fp-ts/function"
 import {
   Do as TEDo,
@@ -8,6 +7,7 @@ import {
   bind as TEbind,
   tryCatch as TEtryCatch,
 } from "fp-ts/TaskEither"
+import { Editor } from "../Editor"
 import { createAddPageToolbar } from "./createAddPageToolbar"
 
 type AddPageEditorProperties = {
