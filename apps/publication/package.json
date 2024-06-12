@@ -32,7 +32,6 @@
     "dicty-hooks": "dictybase/dicty-hooks#3.0.0",
     "element-remove": "^1.0.4",
     "fontsource-roboto": "^4.0.0",
-    "jwt-decode": "^3.0.0",
     "localforage": "1.10.*",
     "next": "^12.2.1",
     "next-transpile-modules": "^9.0",
@@ -46,7 +45,6 @@
   },
   "devDependencies": {
     "@types/jest": "29.5.3",
-    "@types/jwt-decode": "^3.1.0",
     "@types/node": "20.5.1",
     "@types/react-fontawesome": "^1.6.8",
     "@types/react-helmet": "^6.1.6",
