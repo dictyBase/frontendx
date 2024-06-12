@@ -18,7 +18,7 @@
     "@dictybase/table-action-plugin": "*"
   },
   "devDependencies": {
-    "@types/react": "17.0.52",
+    "@types/react": "17.*",
     "@types/react-dom": "17.0.18",
     "@vitejs/plugin-react": "^4.0.3",
     "tsconfig": "*",

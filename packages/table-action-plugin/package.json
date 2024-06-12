@@ -14,7 +14,7 @@
   "devDependencies": {
     "@testing-library/dom": "^7.21.4",
     "@testing-library/user-event": "^14.5.1",
-    "@types/react": "17.x",
+    "@types/react": "17.*",
     "@vitest/coverage-v8": "^0.34.5",
     "jsdom": "latest",
     "vitest": "0.33.x",
