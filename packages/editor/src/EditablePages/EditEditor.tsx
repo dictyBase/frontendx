@@ -10,7 +10,7 @@ import {
   bind as TEbind,
   tryCatch as TEtryCatch,
 } from "fp-ts/TaskEither"
-import { Editor } from "@dictybase/editor"
+import { Editor } from "../Editor"
 import { createToolbarWrapper } from "./createToolbarWrapper"
 
 type EditEditorProperties = {

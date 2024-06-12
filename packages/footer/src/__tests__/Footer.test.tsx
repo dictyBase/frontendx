@@ -20,7 +20,7 @@ const testData = [
     label: "Genome Browser",
   },
 ]
-  
+
 test("renders footer with links of footer data", () => {
   render(<Footer data={testData} />)
 
