@@ -11,6 +11,7 @@ const customJestConfig = {
   // So jsdom uses the browser implementation. See: https://stackoverflow.com/questions/69227566/consider-using-the-jsdom-test-environment
   // testEnvironment: "jsdom",
   testEnvironment: "jest-environment-jsdom-global",
+  setupFiles: ["./jest.setupEnv.js"],
   setupFilesAfterEnv: ["./jest.setup.js"],
   modulePaths: ["./", "node_modules"],
   testPathIgnorePatterns: [],
