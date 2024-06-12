@@ -6,25 +6,25 @@
   "author": "Siddhartha Basu",
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.x",
-    "@testing-library/react": "^12.x",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.x",
-    "@testing-library/user-event": "^14.x",
+    "@testing-library/user-event": "^14.5.1",
     "@types/node": "^18.16.0",
     "@types/react": "17.x",
-    "@types/react-dom": "17.x",
+    "@types/react-dom": "17.0.18",
     "eslint-config-custom": "*",
     "jsdom": "latest",
     "tsconfig": "*"
   },
   "dependencies": {
-    "@apollo/client": "3.7.17",
+    "@apollo/client": "3.8.4",
     "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.22.1",
-    "fp-ts": "2.16.0",
+    "fp-ts": "^2.16.1",
     "fp-ts-std": "^0.17.1",
     "monocle-ts": "^2.3.13",
-    "react": "17.x",
-    "react-dom": "17.x"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "scripts": {
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
