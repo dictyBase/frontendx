@@ -8,14 +8,7 @@ const useRouter = jest.spyOn(require("next/router"), "useRouter")
 const gene = "sadA"
 const pathname = `gene/${gene}/references`
 
-jest.mock("dicty-graphql-schema", () => {
-  const useGeneQuery = jest.fn()
-  return { useGeneQuery }
-})
-
 describe("features/References/ReferencesContainer", () => {
-  beforeEach(() => jest.clearAllMocks())
-
   it("should render data", () => {
     useRouter.mockImplementation(() => ({
       query: { id: gene },

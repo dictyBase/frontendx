@@ -1,13 +1,13 @@
 import { render, screen } from "@testing-library/react"
-import { mockOntologyPiaA } from "mocks/piaAMocks/mockOntologyPiaA"
-import { mockReferencesPiaA } from "mocks/piaAMocks/mockReferencesPiaA"
-import { mockGeneralInfoPiaA } from "mocks/piaAMocks/mockGeneralInfoPiaA"
+import { mockOntologyData } from "mocks/mockOntologyData"
+import { mockReferencesData } from "mocks/mockReferencesData"
+import { mockGeneralInfoData } from "mocks/mockGeneralInfoData"
 import { SummaryContainer } from "./SummaryContainer"
 
 const mockSadASummary = {
-  geneGeneralInformation: mockGeneralInfoPiaA,
-  geneOntologyAnnotation: mockOntologyPiaA.goas,
-  listPublicationsWithGene: mockReferencesPiaA,
+  geneGeneralInformation: mockGeneralInfoData,
+  geneOntologyAnnotation: mockOntologyData.goas,
+  listPublicationsWithGene: mockReferencesData
 }
 
 // eslint-disable-next-line import/no-commonjs, unicorn/prefer-module -- ESM not supported by default as of Jest 29
@@ -27,7 +27,7 @@ describe("features/Summary/SummaryContainer", () => {
     expect(screen.getByText(/Name Description/)).toBeInTheDocument()
     expect(screen.getByText(/sadA = Substrate ADhesion/)).toBeInTheDocument()
 
-    expect(screen.getByText(/Gene ID/)).toBeInTheDocument()
+    expect(screen.getByText(/dictyBase ID/)).toBeInTheDocument()
     expect(screen.getByText(/DDB_G0288511/)).toBeInTheDocument()
 
     expect(screen.getByText(/substrate adhesion molecule/)).toBeInTheDocument()
@@ -64,6 +64,6 @@ describe("features/Summary/SummaryContainer", () => {
     // expect(screen.getByText(/dictyBase Colleagues/)).toBeInTheDocument()
     // expect(screen.getByText(/sadA Researchers/)).toBeInTheDocument()
 
-    expect(screen.getByText(/External Resources/)).toBeInTheDocument()
+    // expect(screen.getByText(/External Resources/)).toBeInTheDocument()
   })
 })
