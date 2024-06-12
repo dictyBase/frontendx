@@ -23,7 +23,6 @@ const SummaryContainer = ({ geneSummary }: SummaryContainerProperties) => {
     0,
     publicationLimit,
   )
-  console.log(geneSummary)
   const geneId = query.id as string
   return (
     <Layout

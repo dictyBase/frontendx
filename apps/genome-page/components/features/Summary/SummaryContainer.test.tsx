@@ -7,7 +7,7 @@ import { SummaryContainer } from "./SummaryContainer"
 const mockSadASummary = {
   geneGeneralInformation: mockGeneralInfoData,
   geneOntologyAnnotation: mockOntologyData.goas,
-  listPublicationsWithGene: mockReferencesData
+  listPublicationsWithGene: mockReferencesData,
 }
 
 // eslint-disable-next-line import/no-commonjs, unicorn/prefer-module -- ESM not supported by default as of Jest 29
