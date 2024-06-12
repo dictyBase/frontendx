@@ -2,7 +2,7 @@ import { pubLinkGenerator } from "common/utils/pubLinkGenerator"
 
 describe("pubLinkGenerator", () => {
   it("returns correct URL for PMID", () => {
-    expect(pubLinkGenerator("PMID:12345")).toBe("/publication/12345")
+    expect(pubLinkGenerator("PMID:12345")).toBe(`${process.env.NEXT_PUBLIC_PUBLICATION_URL}/12345`)
   })
   it("returns correct URL for GO_REF", () => {
     expect(pubLinkGenerator("GO_REF:1234567")).toBe(

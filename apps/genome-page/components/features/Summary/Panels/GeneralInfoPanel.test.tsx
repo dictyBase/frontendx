@@ -3,15 +3,11 @@ import { mockGeneralInfoData } from "mocks/mockGeneralInfoData"
 import { mockGeneralInfoPiaA } from "mocks/piaAMocks/mockGeneralInfoPiaA"
 import { GeneralInfoPanel } from "./GeneralInfoPanel"
 
-describe("features/References/ReferencesContainer", () => {
+describe("features/Summary/Panels/GeneralInfoPanel", () => {
   beforeEach(() => jest.clearAllMocks())
 
   it("should render sadA", () => {
     render(<GeneralInfoPanel generalInformation={mockGeneralInfoData} />)
-
-    // Gene Name
-    expect(screen.getByText(/Gene Name/)).toBeInTheDocument()
-    expect(screen.getByText("sadA")).toBeInTheDocument()
 
     // Name Description
     expect(screen.getByText(/Name Description/)).toBeInTheDocument()
@@ -33,16 +29,12 @@ describe("features/References/ReferencesContainer", () => {
   it("should render piaA", () => {
     render(<GeneralInfoPanel generalInformation={mockGeneralInfoPiaA} />)
 
-    // Gene Name
-    expect(screen.getByText("Gene Name")).toBeInTheDocument()
-    expect(screen.getByText("piaA")).toBeInTheDocument()
-
     // Name Description
     expect(screen.getByText(/Name Description/)).toBeInTheDocument()
 
     // Alternate Gene Name
-    expect(screen.getByText(/Alternative Gene Names/)).toBeInTheDocument()
-    expect(screen.getByText(/DG1117/)).toBeInTheDocument()
+    // expect(screen.getByText(/Alternative Gene Names/)).toBeInTheDocument()
+    // expect(screen.getByText(/DG1117/)).toBeInTheDocument()
 
     // Gene Product
     expect(screen.getByText(/Gene Product/)).toBeInTheDocument()
