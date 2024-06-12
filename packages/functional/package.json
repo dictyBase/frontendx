@@ -6,7 +6,7 @@
   "author": "Siddhartha Basu",
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "@types/react": "^17.x",
+    "@types/react": "17.*",
     "@types/react-dom": "17.0.18",
     "tsconfig": "*",
     "eslint-config-custom": "*"
