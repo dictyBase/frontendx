@@ -6,23 +6,23 @@
   "author": "Kevin Tun",
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.x",
-    "@testing-library/react": "^12.x",
-    "@testing-library/user-event": "^14.x",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/user-event": "^14.5.1",
     "@types/react": "^17.x",
-    "@types/react-dom": "^17.x",
+    "@types/react-dom": "17.0.18",
     "eslint-config-custom": "*",
     "prettier": "^2.x",
     "tsconfig": "*"
   },
   "dependencies": {
     "@lexical/react": "0.11.x",
-    "@material-ui/core": "^4.x",
-    "@material-ui/icons": "^4.x",
-    "@material-ui/lab": "^4.11.3-deprecations.1",
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
+    "@material-ui/lab": "~4.11.3-deprecations.1",
     "lexical": "0.11.x",
-    "react": "17.x",
-    "react-dom": "17.x"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "scripts": {
     "lint": "TIMING=1 eslint src --fix"

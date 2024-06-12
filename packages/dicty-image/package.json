@@ -8,10 +8,10 @@
   "devDependencies": {
     "@types/jest": "^26.0.x",
     "@types/react": "^17.x",
-    "@types/react-dom": "^17.x",
-    "@testing-library/jest-dom": "^5.x",
-    "@testing-library/react": "^12.x",
-    "@testing-library/user-event": "^14.x",
+    "@types/react-dom": "17.0.18",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/user-event": "^14.5.1",
     "jest": "^26.x",
     "tsconfig": "*",
     "eslint-config-custom": "*",
@@ -19,12 +19,12 @@
     "@swc/jest": "^0.x"
   },
   "dependencies": {
-    "@material-ui/core": "^4.x",
-    "@material-ui/icons": "^4.x",
-    "@material-ui/lab": "^4.11.3-deprecations.1",
-    "react": "17.x",
-    "react-dom": "17.x",
-    "fp-ts": "2.16.0"
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
+    "@material-ui/lab": "~4.11.3-deprecations.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "fp-ts": "^2.16.1"
   },
   "scripts": {
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
