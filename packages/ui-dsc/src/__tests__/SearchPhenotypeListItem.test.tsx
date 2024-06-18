@@ -5,21 +5,32 @@ import { Gene, Publication } from "dicty-graphql-schema"
 import { SearchPhenotypeListItem } from "../catalog/SearchPhenotypeListItem"
 import { availableStrain, strainWithPhenotype } from "../mocks/mockStrain"
 
-test("includes expected list items", () => {
+test("expects strain descriptor", () => {
   render(
     <BrowserRouter>
       <SearchPhenotypeListItem strain={availableStrain} />
     </BrowserRouter>,
   )
-  // find strain descriptor
   const label = screen.getByText(availableStrain.label)
   expect(label).toBeInTheDocument()
-  // find associated genes
-  const genes = availableStrain?.genes as Gene[]
-  test.each(genes)("Gene name is displayed", ({ name }) => {
-    expect(screen.getByText(name)).toBeInTheDocument()
-  })
-  // find pub link
+})
+
+const genes = availableStrain?.genes as Gene[]
+test.each(genes)("Gene name is displayed", ({ name }) => {
+  render(
+    <BrowserRouter>
+      <SearchPhenotypeListItem strain={availableStrain} />
+    </BrowserRouter>,
+  )
+  expect(screen.getByText(name)).toBeInTheDocument()
+})
+
+test("renders publication link", () => {
+  render(
+    <BrowserRouter>
+      <SearchPhenotypeListItem strain={availableStrain} />
+    </BrowserRouter>,
+  )
   const links = screen.getAllByRole("link")
   const pubLink = links[2]
   const pub = availableStrain?.publications as Array<Publication>
