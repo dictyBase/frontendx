@@ -22,7 +22,7 @@
   "devDependencies": {
     "@testing-library/react": "^12.1.5",
     "@testing-library/jest-dom": "^5.17.0",
-    "vitest": "0.33.x",
+    "vitest": "1.x",
     "eslint-config-custom": "*",
     "tsconfig": "*"
   }

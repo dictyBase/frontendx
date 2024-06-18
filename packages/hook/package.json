@@ -17,7 +17,7 @@
     "optics-ts": "~2.4.1",
     "tsconfig": "*",
     "eslint-config-custom": "*",
-    "vitest": "0.33.x",
+    "vitest": "1.x",
     "jsdom": "latest"
   },
   "dependencies": {

@@ -27,6 +27,6 @@
     "eslint-config-custom": "*",
     "jsdom": "latest",
     "tsconfig": "*",
-    "vitest": "0.33.x"
+    "vitest": "1.x"
   }
 }
