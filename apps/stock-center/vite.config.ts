@@ -2,8 +2,7 @@
 /// <reference types="vite/client" />
 
 import react from "@vitejs/plugin-react"
-import { defineConfig, mergeConfig } from "vite"
-import { defineConfig as defineVitestConfig } from "vitest/config"
+import { defineConfig } from "vite"
 
 // https://vitejs.dev/config/
 const viteConfig = defineConfig({
@@ -12,9 +11,6 @@ const viteConfig = defineConfig({
     port: 3003,
   },
   base: "/stockcenter",
-})
-
-const vitestConfig = defineVitestConfig({
   test: {
     globals: true,
     environment: "jsdom",
@@ -23,4 +19,4 @@ const vitestConfig = defineVitestConfig({
 })
 
 // eslint-disable-next-line import/no-default-export
-export default mergeConfig(viteConfig, vitestConfig)
+export default viteConfig
