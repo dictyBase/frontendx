@@ -99,12 +99,6 @@ function appActions() {
     },
     {
       type: "copy",
-      src: "plop-templates/apps/src/hooks/useCreateApolloClient.txt",
-      dest: "apps/{{dashCase name}}/src/hooks/useCreateApolloClient.tsx",
-      skipIfExists: true,
-    },
-    {
-      type: "copy",
       src: "plop-templates/apps/src/utils/themes.txt",
       dest: "apps/{{dashCase name}}/src/utils/themes.ts",
       skipIfExists: true,
