@@ -1,5 +1,5 @@
-const fs = require("fs")
-const path = require("path")
+const fs = require("node:fs")
+const path = require("node:path")
 const chalk = require("chalk")
 
 function appPrompts() {
@@ -18,7 +18,7 @@ function appPrompts() {
       type: "input",
       name: "description",
       message: "Description of the package >",
-      default: "NextJs based dictybase applications",
+      default: "Vite based dictybase applications",
     },
     {
       type: "input",
@@ -50,21 +50,75 @@ function appActions() {
       skipIfExists: true,
     },
     {
-      type: "copy",
-      src: "plop-templates/apps/next-env-d.txt",
-      dest: "apps/{{dashCase name}}/next-env.d.ts",
+      type: "add",
+      templateFile: "plop-templates/apps/vite.config.txt",
+      path: "apps/{{dashCase name}}/vite.config.ts",
+      skipIfExists: true,
+    },
+    {
+      type: "add",
+      templateFile: "plop-templates/apps/index.hbs",
+      path: "apps/{{dashCase name}}/index.html",
       skipIfExists: true,
     },
     {
       type: "copy",
-      src: "plop-templates/apps/next-config.txt",
-      dest: "apps/{{dashCase name}}/next.config.js",
+      src: "plop-templates/apps/src/App.txt",
+      dest: "apps/{{dashCase name}}/src/App.tsx",
       skipIfExists: true,
     },
     {
       type: "copy",
-      src: "plop-templates/apps/index.txt",
-      dest: "apps/{{dashCase name}}/pages/index.tsx",
+      src: "plop-templates/apps/src/AppProviders.txt",
+      dest: "apps/{{dashCase name}}/src/AppProviders.tsx",
+      skipIfExists: true,
+    },
+    {
+      type: "copy",
+      src: "plop-templates/apps/src/Layout.txt",
+      dest: "apps/{{dashCase name}}/src/Layout.tsx",
+      skipIfExists: true,
+    },
+    {
+      type: "copy",
+      src: "plop-templates/apps/src/index.txt",
+      dest: "apps/{{dashCase name}}/src/index.tsx",
+      skipIfExists: true,
+    },
+    {
+      type: "copy",
+      src: "plop-templates/apps/src/routes.txt",
+      dest: "apps/{{dashCase name}}/src/routes.tsx",
+      skipIfExists: true,
+    },
+    {
+      type: "copy",
+      src: "plop-templates/apps/src/pages/index.txt",
+      dest: "apps/{{dashCase name}}/src/pages/index.tsx",
+      skipIfExists: true,
+    },
+    {
+      type: "copy",
+      src: "plop-templates/apps/src/hooks/useCreateApolloClient.txt",
+      dest: "apps/{{dashCase name}}/src/hooks/useCreateApolloClient.tsx",
+      skipIfExists: true,
+    },
+    {
+      type: "copy",
+      src: "plop-templates/apps/src/utils/themes.txt",
+      dest: "apps/{{dashCase name}}/src/utils/themes.ts",
+      skipIfExists: true,
+    },
+    {
+      type: "copy",
+      src: "plop-templates/apps/.env.development.txt",
+      dest: "apps/{{dashCase name}}/.env.development",
+      skipIfExists: true,
+    },
+    {
+      type: "copy",
+      src: "plop-templates/apps/.env.development.local.txt",
+      dest: "apps/{{dashCase name}}/.env.development.local",
       skipIfExists: true,
     },
     { type: "message", group: "app", folder: "apps" },
@@ -154,11 +208,11 @@ function packageActions() {
 
 function messageAction(plop) {
   plop.setActionType("message", (answers, config, plop) => {
-    const pkg = plop.renderString("{{lowerCase name}}", answers)
+    const package_ = plop.renderString("{{lowerCase name}}", answers)
     const dir = plop.renderString("{{dashCase name}}", answers)
     console.log(
       chalk.cyan(`create ${config.group}`) +
-        chalk.yellowBright(` @dictybase/${pkg} `) +
+        chalk.yellowBright(` @dictybase/${package_} `) +
         chalk.cyan("in") +
         chalk.yellowBright(` ${config.folder}/${dir} `) +
         chalk.cyan("folder"),
@@ -168,15 +222,13 @@ function messageAction(plop) {
 
 function copyAction(plop) {
   plop.setActionType("copy", (answers, config, plop) => {
-    const src = plop.renderString(config.src, answers)
-    const dest = plop.renderString(config.dest, answers)
-    if (config.skipIfExists) {
-      if (fs.existsSync(dest)) {
-        return
-      }
+    const source = plop.renderString(config.src, answers)
+    const destination = plop.renderString(config.dest, answers)
+    if (config.skipIfExists && fs.existsSync(destination)) {
+      return
     }
-    fs.mkdirSync(path.dirname(dest), { recursive: true })
-    fs.copyFileSync(src, dest)
+    fs.mkdirSync(path.dirname(destination), { recursive: true })
+    fs.copyFileSync(source, destination)
   })
 }
 
