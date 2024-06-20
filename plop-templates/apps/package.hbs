@@ -4,39 +4,27 @@
   "description": "{{description}}",
   "author": "{{author}}",
   "license": "{{license}}",
+  "scripts": {
+    "e2e:local": "FRONTPAGE_URL=http://localhost:3004 && playwright test",
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview --port 3000",
+    "coverage": "vitest run --coverage"
+  },
   "devDependencies": {
-    "@types/jest": "^26.0.x",
     "@types/react": "17.x",
     "@types/react-dom": "17.x",
     "prettier": "^2.x",
     "next-transpile-modules": "^9.x",
     "typescript": "^4.5.x",
     "eslint": "^7.32.x",
-    "jest": "^26.x",
-    "gentype": "^4.3.0",
-    "rescript": "^9.1.4",
     "config": "*",
-    "tsconfig": "*"
+    "tsconfig": "*",
+    "vite": "4.x"
   },
   "dependencies": {
+    "@dictybase/auth": "*",
     "react": "17.x",
-    "react-dom": "17.x",
-    "next": "^12.x"
-  },
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "test": "jest",
-    "re:build": "rescript",
-    "re:watch": "rescript build -w",
-    "re:start": "rescript build -w",
-    "re:clean": "rescript clean -with-deps"
-  },
-  "eslintConfig": {
-    "extends": [
-      "config/eslint-preset"
-    ]
+    "react-dom": "17.x"
   }
 }
