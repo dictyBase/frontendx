@@ -4,7 +4,7 @@ import { MuiThemeProvider, createTheme } from "@material-ui/core/styles"
 import CircularProgress from "@material-ui/core/CircularProgress"
 import { LogtoProvider, LogtoConfig, UserScope } from "@logto/react"
 import { CssBaseline } from "@material-ui/core"
-import { useCreateApolloClient } from "./hooks/useCreateApolloClient"
+import { useGraphqlClient } from "@dictybase/data-access"
 
 const logtoConfig: LogtoConfig = {
   endpoint: import.meta.env.VITE_LOGTO_ENDPOINT,
@@ -96,11 +96,9 @@ const appTheme = createTheme({
 })
 
 const AppProviders = ({ children }: { children: React.ReactNode }) => {
-  const { client, cacheInitializing } = useCreateApolloClient()
-
-  if (cacheInitializing) {
-    return <CircularProgress />
-  }
+  const client = useGraphqlClient({
+    uri: `${import.meta.env.VITE_APP_GRAPHQL_SERVER}/graphql`,
+  })
 
   return (
     <ApolloProvider client={client}>
