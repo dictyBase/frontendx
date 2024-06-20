@@ -24,8 +24,8 @@
     "formik": "^2.2.9",
     "fp-ts": "^2.16.1",
     "@dictybase/ui-frontpage": "*",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "17.*",
+    "react-dom": "17.*",
     "react-hook-form": "^7.45.2",
     "react-loading-skeleton": "^3.3.1",
     "react-responsive-carousel": "^3.2.23",
@@ -40,12 +40,12 @@
     "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^14.5.1",
     "@types/react": "17.*",
-    "@types/react-dom": "17.0.18",
+    "@types/react-dom": "17.*",
     "@types/uuid": "^9.0.2",
     "eslint-config-custom": "*",
     "jsdom": "latest",
     "tsconfig": "*",
-    "vitest": "1.x"
+    "vitest": "0.33.*"
   },
   "resolutions": {
     "@types/react": "17.x",

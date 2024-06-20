@@ -12,7 +12,7 @@
     "@testing-library/user-event": "^14.5.1",
     "@types/node": "^20.12.10",
     "@types/react": "17.*",
-    "@types/react-dom": "17.0.18",
+    "@types/react-dom": "17.*",
     "eslint-config-custom": "*",
     "jsdom": "latest",
     "tsconfig": "*"
@@ -23,8 +23,8 @@
     "fp-ts": "^2.16.1",
     "fp-ts-std": "^0.17.1",
     "monocle-ts": "^2.3.13",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react": "17.*",
+    "react-dom": "17.*"
   },
   "scripts": {
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",

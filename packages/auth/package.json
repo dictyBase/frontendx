@@ -10,7 +10,7 @@
     "eslint-config-custom": "*",
     "tsconfig": "*",
     "vite": "4.x",
-    "vitest": "1.x"
+    "vitest": "0.33.*"
   },
   "dependencies": {
     "@dictybase/header": "*",

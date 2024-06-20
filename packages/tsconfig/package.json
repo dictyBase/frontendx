@@ -6,6 +6,6 @@
     "@tsconfig/next": "^2.x",
     "@tsconfig/node18-strictest-esm": "^1.x",
     "@tsconfig/vite-react": "^1.x",
-    "typescript": "^4.9"
+    "typescript": "4.*"
   }
 }
