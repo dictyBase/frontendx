@@ -13,10 +13,10 @@
   },
   "devDependencies": {
     "@types/react": "17.*",
-    "@types/react-dom": "17.0.18",
+    "@types/react-dom": "17.*",
     "@vitest/coverage-v8": "^0.34.5",
     "jsdom": "latest",
-    "vitest": "1.x",
+    "vitest": "0.33.*",
     "eslint-config-custom": "*",
     "tsconfig": "*"
   },
@@ -26,8 +26,8 @@
     "@material-ui/icons": "^4.11.3",
     "jotai": "^2.0.0",
     "lexical": "0.11.x",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "17.*",
+    "react-dom": "17.*",
     "yjs": "^13.6.7"
   },
   "typedoc": {
