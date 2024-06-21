@@ -1,7 +1,13 @@
 import { match } from "ts-pattern"
 import { FullPageLoadingDisplay } from "@dictybase/ui-common"
 import { PublicationsView } from "./PublicationsView"
-import { useListContentByNamespace } from "dicty-graphql-schema"
+import { useListContentByNamespace, ListContentByNamespace } from "dicty-graphql-schema"
+
+type NewsViewProperties = {
+  data: 
+}
+
+const NewsView = () => <></>
 
 const News = () => {
   const fetchState = useListNewsContentByNamespace({ variables: { namspace: "news" })
@@ -14,7 +20,7 @@ const News = () => {
     )
     .when(
       ({ data }) => data.length > 0,
-      ({ data }) => <PublicationsView data={data} />,
+      ({ data }) => <NewsView data={data} />,
     )
     .otherwise(() => <> This message should not appear. </>)
 }
