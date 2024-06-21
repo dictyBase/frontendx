@@ -1,5 +1,5 @@
 import Grid from "@material-ui/core/Grid"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import ErrorIcon from "@material-ui/icons/Error"
 import { ErrorMessage } from "./ErrorMessage"
 import { useStyles } from "./errorStyles"
 
@@ -19,7 +19,8 @@ const OtherError = () => {
             alt="Sad Dicty -- HTTP Error"
           />
           <h1>
-            <FontAwesomeIcon icon="exclamation-circle" /> Error
+            <ErrorIcon />
+            Error
           </h1>
           <ErrorMessage />
         </div>
