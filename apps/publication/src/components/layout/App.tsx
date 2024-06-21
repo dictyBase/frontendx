@@ -1,17 +1,9 @@
 import React from "react"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import Container from "@material-ui/core/Container"
-import { Header, Footer } from "dicty-components-header-footer"
-import { Navbar } from "@dictybase/navbar"
-import { pipe } from "fp-ts/function"
-import {
-  fromNullable as OfromNullable,
-  getOrElse as OgetOrElse,
-} from "fp-ts/Option"
+import { HeaderWithAuth, NavbarWithAuth, FooterWithAuth } from "@dictybase/auth"
 import ErrorBoundary from "../errors/ErrorBoundary"
-import { headerItems, HeaderLinks } from "./HeaderItems"
-import { footerLinks, convertFooterData } from "../../common/utils/footerItems"
-import { navTheme, headerTheme, footerTheme } from "../../common/utils/themes"
+import { navTheme } from "../../common/utils/themes"
 
 const useStyles = makeStyles((theme: Theme) => ({
   main: {
@@ -38,23 +30,16 @@ const useStyles = makeStyles((theme: Theme) => ({
  */
 const App = ({ children }: { children: React.ReactNode }) => {
   const classes = useStyles()
-  const headerContent = headerItems
-  const frontPageUrl = pipe(
-    process.env.NEXT_PUBLIC_FRONTPAGE_URL,
-    OfromNullable,
-    OgetOrElse(() => ""),
-  )
-  const stockCenterUrl = pipe(
-    process.env.NEXT_PUBLIC_STOCKCENTER_URL,
-    OfromNullable,
-    OgetOrElse(() => ""),
-  )
+
   return (
     <div className={classes.body}>
-      <Header items={headerContent} render={HeaderLinks} theme={headerTheme} />
-      <Navbar
-        frontPageUrl={frontPageUrl}
-        stockCenterUrl={stockCenterUrl}
+      <HeaderWithAuth
+        frontPageUrl={process.env.NEXT_PUBLIC_FRONTPAGE_URL}
+        basename={process.env.NEXT_PUBLIC_BASENAME}
+      />
+      <NavbarWithAuth
+        frontPageUrl={process.env.NEXT_PUBLIC_FRONTPAGE_URL}
+        stockCenterUrl={process.env.NEXT_PUBLIC_STOCKCENTER_URL}
         theme={navTheme}
       />
       <main className={classes.main}>
@@ -62,7 +47,10 @@ const App = ({ children }: { children: React.ReactNode }) => {
           <ErrorBoundary>{children}</ErrorBoundary>
         </Container>
       </main>
-      <Footer links={convertFooterData(footerLinks.data)} theme={footerTheme} />
+      <FooterWithAuth
+        frontPageUrl={process.env.NEXT_PUBLIC_FRONTPAGE_URL}
+        stockCenterUrl={process.env.NEXT_PUBLIC_STOCKCENTER_URL}
+      />
     </div>
   )
 }
