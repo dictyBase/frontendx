@@ -30,7 +30,6 @@ const withTM = transpileModules([
   "@dictybase/dicty-image",
   "@dictybase/functional",
   "@dictybase/ui-common",
-  "@dictybase/image-plugin",
   "dicty-graphql-schema",
   "@logto/react",
 ])
