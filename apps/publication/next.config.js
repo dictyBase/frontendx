@@ -9,7 +9,6 @@ const withTM = require("next-transpile-modules")([
   "@dictybase/dicty-image",
   "@dictybase/functional",
   "@dictybase/ui-common",
-  "@dictybase/image-plugin",
   "dicty-graphql-schema",
   "@logto/react",
 ])
