@@ -1,8 +1,22 @@
-// import { BrowseNews } from "news-component"
-// import { NewsLayoutWrapper } from "news-component/src/NewsLayout"
-// import { ACCESS } from "../../routes/types"
+import { match } from "ts-pattern"
+import { FullPageLoadingDisplay } from "@dictybase/ui-common"
+import { PublicationsView } from "./PublicationsView"
+import { useListContentByNamespace } from "dicty-graphql-schema"
 
-// // eslint-disable-next-line import/no-default-export
-// export default NewsLayoutWrapper(BrowseNews)
+const News = () => {
+  const fetchState = useListNewsContentByNamespace({ variables: { namspace: "news" })
 
-// export const access = ACCESS.protected
+  return match(fetchState)
+    .with({ loading: true }, () => <FullPageLoadingDisplay />)
+    .when(
+      ({ error }) => error.length > 0,
+      ({ error }) => <>{error}</>,
+    )
+    .when(
+      ({ data }) => data.length > 0,
+      ({ data }) => <PublicationsView data={data} />,
+    )
+    .otherwise(() => <> This message should not appear. </>)
+}
+
+export { News }
