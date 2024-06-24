@@ -29,6 +29,7 @@
     "apollo3-cache-persist": "^0.14.1",
     "browser-level": "^1.0.1",
     "core-js": "^3.31.1",
+    "date-fns": "^2.30.0",
     "dicty-components-header-footer": "dictybase/dicty-components-header-footer#11.0.1",
     "dicty-components-login": "dictybase/dicty-components-login#4.1.1",
     "dicty-hooks": "dictybase/dicty-hooks#3.0.0",
