@@ -3,11 +3,7 @@ import { pipe } from "fp-ts/function"
 import { DictyTab, DictyTabs } from "@dictybase/ui-common"
 import { map as Rmap, keys as Rkeys } from "fp-ts/Record"
 import { sort as Asort } from "fp-ts/Array"
-import {
-  Ord,
-  contramap,
-  reverse as ORDreverse,
-} from "fp-ts/Ord"
+import { Ord, contramap, reverse as ORDreverse } from "fp-ts/Ord"
 import { Ord as SOrd } from "fp-ts/string"
 import { Ord as NOrd } from "fp-ts/number"
 import { Container, Box, Typography } from "@material-ui/core"
@@ -62,20 +58,21 @@ const orderFunctions = {
     pipe(publications, Asort(ordByTitle)),
   "Title (Z - A)": (publications: Array<PublicationItem>) =>
     pipe(publications, Asort(ordByTitleReverse)),
-  "Shuffle": (publications: Array<PublicationItem>) => {
-    // 1. assign unique random number from 0 to N -1 to each item in the array 
+  Shuffle: (publications: Array<PublicationItem>) => {
+    // 1. assign unique random number from 0 to N -1 to each item in the array
     const shuffled: Array<PublicationItem> = new Array(publications.length)
-    const getRandomIndex = () => Math.floor(Math.random() * publications.length) 
-    // 2. if a number has been rolled, re-roll 
-    for (let i = 0; i < publications.length; i++) {
-      let randomIndex = getRandomIndex() 
-      console.log(randomIndex)
-      console.log(shuffled[randomIndex])
-      while (shuffled[randomIndex]) randomIndex = (randomIndex + 1) % shuffled.length
-      shuffled[randomIndex] = publications[i] 
+    const getRandomIndex = () => Math.floor(Math.random() * publications.length)
+    // 2. if a number has been rolled, re-roll
+    // eslint-disable-next-line unicorn/no-for-loop
+    for (let index = 0; index < publications.length; index += 1) {
+      let randomIndex = getRandomIndex()
+      while (shuffled[randomIndex]) {
+        randomIndex = (randomIndex + 1) % shuffled.length
+      }
+      shuffled[randomIndex] = publications[index]
     }
     return shuffled
-  }
+  },
 }
 
 const tabOrder = {
@@ -86,7 +83,7 @@ const tabOrder = {
   Shuffle: 4,
 }
 
-const ordTabByAZ: Ord<keyof typeof orderFunctions> = pipe(
+const ordTab: Ord<keyof typeof orderFunctions> = pipe(
   NOrd,
   contramap((tabName) => tabOrder[tabName]),
 )
@@ -105,9 +102,9 @@ type PublicationsViewProperties = {
 const PublicationsView = ({ data }: PublicationsViewProperties) => {
   const sortedPublications = pipe(
     orderFunctions,
-    Rmap((sortFn) => sortFn(data)),
+    Rmap((sortFunction) => sortFunction(data)),
   )
-  const tabs = pipe(orderFunctions, Rkeys, Asort(ordTabByAZ))
+  const tabs = pipe(orderFunctions, Rkeys, Asort(ordTab))
   const [currentTab, setCurrentTab] = useState(tabs[0])
 
   const handleChange = (
