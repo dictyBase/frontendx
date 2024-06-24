@@ -7,7 +7,7 @@ import { App } from "./app/layout/App"
 const main = async () => {
   // Activate MSW
   if (import.meta.env.VITE_APP_DEPLOY_ENV === "mock") {
-    const { default: worker } = await import("./mocks/browser")
+    const { worker } = await import("./mocks/browser")
     await worker.start()
   }
 
