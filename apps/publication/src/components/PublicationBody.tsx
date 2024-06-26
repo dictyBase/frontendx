@@ -13,13 +13,11 @@ interface PublicationBodyProperties {
 
 const PublicationBody = ({ publication }: PublicationBodyProperties) => {
   const url = `https://doi.org/${publication.doi}`
-
+  const titleContent = { __html: publication.title }
   return (
     <Box pt={3}>
       <Box pb={2}>
-        <Typography variant="h1">
-          <b>{publication.title}</b>
-        </Typography>
+        <Typography dangerouslySetInnerHTML={titleContent} variant="h1" />
       </Box>
 
       <Authors authors={publication.authors} />
