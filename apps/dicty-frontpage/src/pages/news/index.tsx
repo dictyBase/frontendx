@@ -73,7 +73,9 @@ const NewsView = ({ contentList }: NewsViewProperties) => {
             News
           </Typography>
         </Box>
-        <Grid container spacing={4}>{items}</Grid>
+        <Grid container spacing={4}>
+          {items}
+        </Grid>
       </Container>
     ),
   )
@@ -85,7 +87,9 @@ const News = () => {
   })
   return match(fetchState)
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
-    .with({ error: P.select(P.not(undefined)) }, (error) => <>{error.message}</>)
+    .with({ error: P.select(P.not(undefined)) }, (error) => (
+      <>{error.message}</>
+    ))
     .with(
       {
         data: {
