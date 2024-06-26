@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { useAuthorizedCreateContent } from "../../common/utils/useAuthorizedCreateContent"
-import { Grid, Box, Theme, Typography } from "@material-ui/core"
+import { Container, Grid, Box, Theme, Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { FunctionComponent } from "react"
 import { ACCESS } from "@dictybase/auth"
@@ -86,15 +86,18 @@ const CreateNews = () => {
   }
 
   return (
-    <Editor
-      editable
-      toolbar={CreateNewsToolbar}
-      handleCancel={handleCancel}
-      handleSave={handleSave}
-    />
+    <Container>
+      <Editor
+        editable
+        toolbar={CreateNewsToolbar}
+        handleCancel={handleCancel}
+        handleSave={handleSave}
+      />
+    </Container>
   )
 }
 
 // eslint-disable-next-line import/no-default-export
 export default CreateNews
+export const roles = ["content-admin"]
 export const access = ACCESS.private
