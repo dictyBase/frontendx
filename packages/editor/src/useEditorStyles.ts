@@ -1,8 +1,10 @@
-import { makeStyles } from "@material-ui/core"
+import { makeStyles, Theme } from "@material-ui/core"
 
-export const useEditorInputStyles = makeStyles({
-  root: {
-    minHeight: "150px",
+const useEditorAreaStyles = makeStyles<Theme, { editable: boolean }>({
+  container: {
+    overflowY: ({ editable }) => (editable ? "scroll" : "initial"),
+    maxHeight: ({ editable }) => (editable ? "70vh" : "auto"),
+    minHeight: ({ editable }) => (editable ? "150px" : "auto"),
     resize: "none",
     fontSize: "15px",
     position: "relative",
@@ -11,9 +13,12 @@ export const useEditorInputStyles = makeStyles({
     padding: "15px 10px",
     caretColor: "#444",
   },
+  root: {
+    position: "relative",
+  },
 })
 
-export const useEditorPlaceholderStyles = makeStyles({
+const useEditorPlaceholderStyles = makeStyles({
   root: {
     color: "#999",
     overflow: "hidden",
@@ -27,3 +32,5 @@ export const useEditorPlaceholderStyles = makeStyles({
     pointerEvents: "none",
   },
 })
+
+export { useEditorAreaStyles, useEditorPlaceholderStyles }
