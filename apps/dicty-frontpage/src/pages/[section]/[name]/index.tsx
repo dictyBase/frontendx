@@ -3,9 +3,11 @@ import { FullPageLoadingDisplay } from "@dictybase/ui-common"
 import { match } from "ts-pattern"
 import { useAuthorization, ACCESS } from "@dictybase/auth"
 
+const authorizedRoles = ["content-admin"]
+
 const RoleRedirect = () => {
   const { isLoading, isAuthorized } = useAuthorization({
-    entries: ["content-admin"],
+    entries: authorizedRoles,
   })
   return match({ isLoading, isAuthorized })
     .with({ isAuthorized: true, isLoading: true }, () => (
