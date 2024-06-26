@@ -1,4 +1,4 @@
-import { Container, Box, Typography } from "@material-ui/core"
+import { Container, Box, Typography, Grid } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { Link } from "react-router-dom"
 import { pipe } from "fp-ts/function"
@@ -45,13 +45,12 @@ type NewsItemProperties = {
 
 const NewsItem = ({ id, content, updated_at }: NewsItemProperties) => (
   <Box>
-    <Link to={id}>
-      <Typography>{pipe(updated_at, parseISO, format("PPPP"))}</Typography>
-      <Editor
-        content={{ storageKey: "test", editorState: content }}
-        editable={false}
-      />
-    </Link>
+    <Typography>{pipe(updated_at, parseISO, format("PPPP"))}</Typography>
+    <Editor
+      content={{ storageKey: "test", editorState: content }}
+      editable={false}
+    />
+    <Link to={id}> Read more </Link>
   </Box>
 )
 
@@ -66,6 +65,7 @@ const NewsView = ({ contentList }: NewsViewProperties) => {
     Amap(({ id, content, updated_at }) => (
       <NewsItem key={id} id={id} updated_at={updated_at} content={content} />
     )),
+    Amap((item) => <Grid item>{item}</Grid>),
     (items) => (
       <Container className={container}>
         <Box className={header}>
@@ -73,7 +73,7 @@ const NewsView = ({ contentList }: NewsViewProperties) => {
             News
           </Typography>
         </Box>
-        <>{items}</>
+        <Grid container spacing={4}>{items}</Grid>
       </Container>
     ),
   )
@@ -85,7 +85,7 @@ const News = () => {
   })
   return match(fetchState)
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
-    .with({ error: P.select(P.not(undefined)) }, (error) => <>{error}</>)
+    .with({ error: P.select(P.not(undefined)) }, (error) => <>{error.message}</>)
     .with(
       {
         data: {
