@@ -43,7 +43,7 @@ const UnAuthorized = () => {
           alt="Sad Dicty -- HTTP Error"
         />
         <Typography className={classes.text} variant="h1">
-          <ErrorIcon /> UnAuthorized
+          <ErrorIcon /> Unauthorized
         </Typography>
         <Typography variant="body1" className={classes.text}>
           You are not authorized to access this page
