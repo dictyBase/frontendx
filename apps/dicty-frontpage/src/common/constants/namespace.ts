@@ -1,2 +1,4 @@
 const NAMESPACE = "frontpage"
-export { NAMESPACE }
+const NEWS_NAMESPACE = "news"
+
+export { NAMESPACE, NEWS_NAMESPACE }
