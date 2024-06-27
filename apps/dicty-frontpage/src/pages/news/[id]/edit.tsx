@@ -12,6 +12,7 @@ import { makeStyles } from "@material-ui/core/styles"
 import { FunctionComponent } from "react"
 import { ACCESS } from "@dictybase/auth"
 import { Editor } from "@dictybase/editor"
+import { NEWS_NAMESPACE } from "../../../common/constants/namespace"
 import { useAuthorizedUpdateContent } from "../../../common/utils/useAuthorizedUpdateContent"
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -110,12 +111,11 @@ const UpdateNews = ({ contentId, content }: UpdateNewsProperties) => {
     </Container>
   )
 }
-const NAMESPACE = "news"
 
 const UpdatePage = () => {
   const slug = useSlug()
   const result = useContentBySlugQuery({
-    variables: { slug: `${NAMESPACE}-${slug}` },
+    variables: { slug: `${NEWS_NAMESPACE}-${slug}` },
     errorPolicy: "none",
   })
   return match(result)
