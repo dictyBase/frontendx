@@ -20,7 +20,7 @@ export const superuserProperties = {
   first_name: "Art",
   last_name: "Vandelay",
   email: "george@vandelayindustries.com",
-  isActive: true,
+  is_active: true,
   created_at: "123_456",
   updated_at: "678_900",
 }
