@@ -38,19 +38,19 @@ const useStyles = makeStyles({
 })
 
 type NewsItemProperties = {
-  id: string
+  name: string
   content: string
   updated_at: string
 }
 
-const NewsItem = ({ id, content, updated_at }: NewsItemProperties) => (
+const NewsItem = ({ name, content, updated_at }: NewsItemProperties) => (
   <Box>
     <Typography>{pipe(updated_at, parseISO, format("PPPP"))}</Typography>
     <Editor
       content={{ storageKey: "test", editorState: content }}
       editable={false}
     />
-    <Link to={id}> Read more </Link>
+    <Link to={name}> Read more </Link>
   </Box>
 )
 
@@ -62,8 +62,13 @@ const NewsView = ({ contentList }: NewsViewProperties) => {
   const { container, header } = useStyles()
   return pipe(
     contentList,
-    Amap(({ id, content, updated_at }) => (
-      <NewsItem key={id} id={id} updated_at={updated_at} content={content} />
+    Amap(({ id, name, content, updated_at }) => (
+      <NewsItem
+        key={id}
+        name={name}
+        updated_at={updated_at}
+        content={content}
+      />
     )),
     Amap((item) => <Grid item>{item}</Grid>),
     (items) => (
