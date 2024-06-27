@@ -13,7 +13,7 @@ import { useSlug } from "../../../common/hooks/useSlug"
 
 const NAMESPACE = "news"
 
-const NewsShow = () => {
+const ShowNews = () => {
   const slug = useSlug()
   const result = useContentBySlugQuery({
     variables: { slug: `${NAMESPACE}-${slug}` },
@@ -34,5 +34,5 @@ const NewsShow = () => {
 }
 
 // eslint-disable-next-line import/no-default-export
-export default NewsShow
+export default ShowNews
 export const access = ACCESS.public
