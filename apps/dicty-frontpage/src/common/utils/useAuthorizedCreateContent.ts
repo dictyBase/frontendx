@@ -35,7 +35,7 @@ const useAuthorizedCreateContent = (namespace: string, name: string) => {
   const { getAccessToken, fetchUserInfo } = useLogto()
   const [createContent] = useCreateContentMutation()
 
-  const authorizedCreateContent = (content: string) => {
+  return (content: string) => {
     const task = pipe(
       TEDo,
       TElet("newContent", () => content),
@@ -83,11 +83,10 @@ const useAuthorizedCreateContent = (namespace: string, name: string) => {
           () => createFailureError,
         ),
       ),
-      TEmap(({ create }) => create)
+      TEmap(({ create }) => create),
     )
     return task()
   }
-  return authorizedCreateContent
 }
 
 export { useAuthorizedCreateContent }
