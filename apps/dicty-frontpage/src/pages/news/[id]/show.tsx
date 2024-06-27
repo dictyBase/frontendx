@@ -1,4 +1,3 @@
-import { Navigate } from "react-router-dom"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import {
@@ -8,15 +7,13 @@ import {
 } from "@dictybase/ui-common"
 import { ContentView } from "@dictybase/editor"
 import { ACCESS } from "@dictybase/auth"
-// import { NAMESPACE } from "../../../common/constants/namespace"
+import { NEWS_NAMESPACE } from "../../../common/constants/namespace"
 import { useSlug } from "../../../common/hooks/useSlug"
-
-const NAMESPACE = "news"
 
 const ShowNews = () => {
   const slug = useSlug()
   const result = useContentBySlugQuery({
-    variables: { slug: `${NAMESPACE}-${slug}` },
+    variables: { slug: `${NEWS_NAMESPACE}-${slug}` },
     errorPolicy: "none",
   })
   return match(result)
