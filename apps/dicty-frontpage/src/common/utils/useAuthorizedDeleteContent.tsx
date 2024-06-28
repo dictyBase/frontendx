@@ -20,10 +20,10 @@ const accessTokenError = {
 
 const deleteFailureError = {
   errorType: ErrorType.DELETE_FAILURE,
-  message: "Could not update content",
+  message: "Could not delete content",
 }
 
-const useAuthorizedUpdateContent = (contentId: string) => {
+const useAuthorizedDeleteContent = (contentId: string) => {
   const { getAccessToken } = useLogto()
   const [deleteContent] = useDeleteContentMutation()
 
@@ -55,4 +55,4 @@ const useAuthorizedUpdateContent = (contentId: string) => {
   }
 }
 
-export { useAuthorizedUpdateContent }
+export { useAuthorizedDeleteContent }
