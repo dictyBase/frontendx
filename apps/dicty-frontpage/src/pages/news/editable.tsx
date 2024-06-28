@@ -51,7 +51,9 @@ const EditableNewsItem = ({
   updated_at,
 }: NewsItemProperties) => (
   <Box>
-    <Typography>{pipe(updated_at, parseISO, format("PPPP"))}</Typography>
+    <Typography variant="h2">
+      {pipe(updated_at, parseISO, format("PPPP"))}
+    </Typography>
     <Editor
       content={{ storageKey: "test", editorState: content }}
       editable={false}
