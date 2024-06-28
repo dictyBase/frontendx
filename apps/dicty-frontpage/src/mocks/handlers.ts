@@ -4,6 +4,7 @@ import {
   mockCreateContentMutation,
   mockContentBySlugQuery,
   mockUpdateContentMutation,
+  mockDeleteContentMutation,
   Content,
 } from "dicty-graphql-schema/types/mocks"
 import { formatISO } from "date-fns"
@@ -62,6 +63,15 @@ const handlers = [
       })
       const updateContent = await database.get(id)
       return response(context.data({ updateContent }))
+    } catch {
+      return response(context.status(500))
+    }
+  }),
+  mockDeleteContentMutation(async (request, response, context) => {
+    const { id } = request.variables
+    try {
+      await database.del(id)
+      return response(context.data({ deleteContent: { success: true } }))
     } catch {
       return response(context.status(500))
     }
