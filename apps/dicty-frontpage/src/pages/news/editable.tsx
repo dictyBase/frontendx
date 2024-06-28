@@ -100,10 +100,6 @@ const EditableNews = () => {
     fetchPolicy: "cache-and-network",
   })
   return match(fetchState)
-    .with({ loading: true }, () => <FullPageLoadingDisplay />)
-    .with({ error: P.select(P.not(undefined)) }, (error) => (
-      <>{error.message}</>
-    ))
     .with(
       {
         data: {
@@ -112,6 +108,10 @@ const EditableNews = () => {
       },
       (contentList) => <NewsView contentList={contentList} />,
     )
+    .with({ loading: true }, () => <FullPageLoadingDisplay />)
+    .with({ error: P.select(P.not(undefined)) }, (error) => (
+      <>{error.message}</>
+    ))
     .otherwise(() => <> This message should not appear. </>)
 }
 
