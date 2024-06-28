@@ -7,7 +7,7 @@ const dateCompare = (first: Date, second: Date): Ordering =>
   match<{ first: Date; second: Date }, Ordering>({ first, second })
     .when(
       ({ first: f, second: s }) => isAfter(f, s),
-      () => 1,
+      () => -1,
     )
     .when(
       ({ first: f, second: s }) => isEqual(f, s),
@@ -15,7 +15,7 @@ const dateCompare = (first: Date, second: Date): Ordering =>
     )
     .when(
       ({ first: f, second: s }) => isBefore(f, s),
-      () => -1,
+      () => 1,
     )
     .otherwise(() => 0)
 
