@@ -2,16 +2,19 @@ import { Container, Box, Typography, Grid } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { Link } from "react-router-dom"
 import { pipe } from "fp-ts/function"
-import { map as Amap } from "fp-ts/Array"
+import { map as Amap, sort as Asort } from "fp-ts/Array"
+import { Ord, contramap } from "fp-ts/Ord"
 import { match, P } from "ts-pattern"
 import { FullPageLoadingDisplay } from "@dictybase/ui-common"
 import { Editor } from "@dictybase/editor"
 import {
   useListContentByNamespaceQuery,
   ListContentByNamespaceQuery,
+  Content,
 } from "dicty-graphql-schema"
 import { parseISO, format } from "date-fns/fp"
 import { NEWS_NAMESPACE } from "../../common/constants/namespace"
+import { ordByDate } from "../../common/utils/ordByDate"
 
 const useStyles = makeStyles({
   container: {
@@ -61,10 +64,16 @@ type NewsViewProperties = {
   contentList: ListContentByNamespaceQuery["listContentByNamespace"]
 }
 
+const OrdByNewest: Ord<Pick<Content, "updated_at">> = pipe(
+  ordByDate,
+  contramap((content) => pipe(content.updated_at, parseISO)),
+)
+
 const NewsView = ({ contentList }: NewsViewProperties) => {
   const { container, header } = useStyles()
   return pipe(
     contentList,
+    Asort(OrdByNewest),
     Amap(({ id, name, content, updated_at }) => (
       <NewsItem
         key={id}
@@ -81,7 +90,7 @@ const NewsView = ({ contentList }: NewsViewProperties) => {
             News
           </Typography>
         </Box>
-        <Grid container spacing={4}>
+        <Grid direction="column" container spacing={4}>
           {items}
         </Grid>
       </Container>
