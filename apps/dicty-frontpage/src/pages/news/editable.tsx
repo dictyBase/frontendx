@@ -13,6 +13,7 @@ import {
 import { parseISO, format } from "date-fns/fp"
 import { ACCESS } from "@dictybase/auth"
 import { NEWS_NAMESPACE } from "../../common/constants/namespace"
+import { NewsListActionBar } from "../../common/components/NewsListActionBar"
 
 const useStyles = makeStyles({
   container: {
@@ -86,6 +87,7 @@ const NewsView = ({ contentList }: NewsViewProperties) => {
             News
           </Typography>
         </Box>
+        <NewsListActionBar />
         <Grid container spacing={4}>
           {items}
         </Grid>
