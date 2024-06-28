@@ -11,6 +11,7 @@ import {
   ListContentByNamespaceQuery,
 } from "dicty-graphql-schema"
 import { parseISO, format } from "date-fns/fp"
+import { NEWS_NAMESPACE } from "../../common/constants/namespace"
 
 const useStyles = makeStyles({
   container: {
@@ -88,7 +89,7 @@ const NewsView = ({ contentList }: NewsViewProperties) => {
 
 const News = () => {
   const fetchState = useListContentByNamespaceQuery({
-    variables: { namespace: "news" },
+    variables: { namespace: NEWS_NAMESPACE },
   })
   return match(fetchState)
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
