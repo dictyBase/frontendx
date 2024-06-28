@@ -92,6 +92,7 @@ const NewsView = ({ contentList }: NewsViewProperties) => {
 const News = () => {
   const fetchState = useListContentByNamespaceQuery({
     variables: { namespace: NEWS_NAMESPACE },
+    fetchPolicy: "cache-and-network",
   })
   return match(fetchState)
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
