@@ -1,5 +1,8 @@
-import { Grid, Box, Theme, makeStyles } from "@material-ui/core"
 import { FunctionComponent } from "react"
+import { Grid, Box, Theme, makeStyles } from "@material-ui/core"
+import { pipe } from "fp-ts/function"
+import { mapWithIndex as AmapWithIndex } from "fp-ts/Array"
+import { match as Bmatch } from "fp-ts/boolean"
 
 const useStyles = makeStyles((theme: Theme) => ({
   content: {
@@ -38,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const ActionBar: FunctionComponent<{
   descriptionElement: JSX.Element
-  children: Array<JSX.Element>
+  children: Array<JSX.Element> | JSX.Element
 }> = ({ descriptionElement, children }) => {
   const { toolbar, text } = useStyles()
   return (
@@ -54,12 +57,22 @@ const ActionBar: FunctionComponent<{
       </Grid>
       <Grid item>
         <Grid container spacing={1}>
-          {children.map((child, index) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <Grid key={index} item>
-              {child}
-            </Grid>
-          ))}
+          {pipe(
+            children,
+            Array.isArray,
+            Bmatch(
+              () => children,
+              () =>
+                pipe(
+                  children as Array<JSX.Element>,
+                  AmapWithIndex((index, child) => (
+                    <Grid item key={index}>
+                      {child}
+                    </Grid>
+                  )),
+                ),
+            ),
+          )}
         </Grid>
       </Grid>
     </Grid>
