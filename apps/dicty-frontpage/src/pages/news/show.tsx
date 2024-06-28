@@ -90,7 +90,7 @@ const NewsView = ({ contentList }: NewsViewProperties) => {
             News
           </Typography>
         </Box>
-        <Grid direction="column" container spacing={4}>
+        <Grid container direction="column" spacing={4}>
           {items}
         </Grid>
       </Container>
