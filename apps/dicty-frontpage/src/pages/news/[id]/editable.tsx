@@ -12,11 +12,13 @@ import { ACCESS } from "@dictybase/auth"
 import { NEWS_NAMESPACE } from "../../../common/constants/namespace"
 import { useSlug } from "../../../common/hooks/useSlug"
 import { ActionBar } from "../../../common/components/ActionBar"
+import { DeleteButton } from "../../../common/components/DeleteButton"
 
 type EditableViewProperties = {
   content: string
+  id: string
 }
-const EditableView = ({ content }: EditableViewProperties) => {
+const EditableView = ({ content, id }: EditableViewProperties) => {
   const navigate = useNavigate()
   const handleEdit = async () => {
     navigate("../edit", { relative: "path" })
@@ -25,6 +27,7 @@ const EditableView = ({ content }: EditableViewProperties) => {
   const toolbar = (
     <ActionBar descriptionElement={<Typography>Write News</Typography>}>
       <Button onClick={handleEdit}> Edit </Button>
+      <DeleteButton id={id} />
     </ActionBar>
   )
   return (
@@ -45,8 +48,8 @@ const Editable = () => {
 
   return match(result)
     .with(
-      { data: { contentBySlug: { content: P.select(P.string) } } },
-      (content) => <EditableView content={content} />,
+      { data: { contentBySlug: P.select({ content: P.string }) } },
+      ({ id, content }) => <EditableView id={id} content={content} />,
     )
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
     .with({ error: P.select(P.not(undefined)) }, (error) =>
