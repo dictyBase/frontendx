@@ -44,7 +44,11 @@ type NewsItemProperties = {
   updated_at: string
 }
 
-const EditableNewsItem = ({ name, content, updated_at }: NewsItemProperties) => (
+const EditableNewsItem = ({
+  name,
+  content,
+  updated_at,
+}: NewsItemProperties) => (
   <Box>
     <Typography>{pipe(updated_at, parseISO, format("PPPP"))}</Typography>
     <Editor
