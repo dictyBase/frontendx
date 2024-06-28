@@ -10,7 +10,6 @@ import {
 import { formatISO } from "date-fns"
 import { NAMESPACE } from "../common/constants/namespace"
 import { superuserProperties } from "../common/data/superuser"
-import { generateMockNews } from "./generateMockNews"
 
 const database = new BrowserLevel<string, Content>(NAMESPACE, {
   valueEncoding: "json",
@@ -76,9 +75,9 @@ const handlers = [
       return response(context.status(500))
     }
   }),
-  mockListContentByNamespaceQuery((_, response, context) => {
-    const mockNews = generateMockNews(15)
-    return response(context.data({ listContentByNamespace: mockNews }))
+  mockListContentByNamespaceQuery(async (_, response, context) => {
+    const listContentByNamespace  = await database.values().all()
+    return response(context.data({ listContentByNamespace }))
   }),
 ]
 
