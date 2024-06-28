@@ -10,7 +10,7 @@ import { ACCESS } from "@dictybase/auth"
 import { NEWS_NAMESPACE } from "../../../common/constants/namespace"
 import { useSlug } from "../../../common/hooks/useSlug"
 
-const ShowNews = () => {
+const Show = () => {
   const slug = useSlug()
   const result = useContentBySlugQuery({
     variables: { slug: `${NEWS_NAMESPACE}-${slug}` },
@@ -31,5 +31,5 @@ const ShowNews = () => {
 }
 
 // eslint-disable-next-line import/no-default-export
-export default ShowNews
+export default Show
 export const access = ACCESS.public
