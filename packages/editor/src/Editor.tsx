@@ -1,5 +1,4 @@
 /* eslint-disable dot-notation */
-import { FunctionComponent } from "react"
 import {
   InitialEditorStateType,
   LexicalComposer,
@@ -10,9 +9,8 @@ import { ListPlugin } from "@lexical/react/LexicalListPlugin"
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin"
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin"
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary"
-import { Grid, Button } from "@material-ui/core"
+import { Grid } from "@material-ui/core"
 import { ImagePlugin } from "@dictybase/image-plugin"
-import { SaveButton } from "@dictybase/persistence-plugin"
 import { WidthTablePlugin } from "@dictybase/width-table-plugin"
 import { FlexLayoutPlugin } from "@dictybase/flex-layout-plugin"
 import { TableActionPlugin } from "@dictybase/table-action-plugin"
@@ -31,32 +29,17 @@ type EditorProperties = {
     editorState: InitialEditorStateType
   }
   plugins?: Array<JSX.Element>
-}
-
-type EditProperties = {
-  editable: true
-  toolbar: FunctionComponent<{ children: Array<JSX.Element> }>
-  handleCancel: () => void
-  handleSave: (content: string) => void
-}
-
-type ReadProperties = {
-  editable: false
-  toolbar?: never
-  handleCancel?: never
-  handleSave?: never
+  editable?: boolean
+  toolbar?: JSX.Element
 }
 
 const Editor = ({
   content,
   editable = false,
-  toolbar: Toolbar,
-  handleCancel,
-  handleSave,
+  toolbar,
   plugins,
-}:
-  | (EditorProperties & ReadProperties)
-  | (EditorProperties & EditProperties)) => {
+}: EditorProperties
+               ) => {
   // eslint-disable-next-line unicorn/no-null
   const initialEditorState = content?.editorState || initialStateString || null
   const placeholderClasses = useEditorPlaceholderStyles()
@@ -85,17 +68,7 @@ const Editor = ({
       )} */}
       <Grid container direction="column">
         {/* <Grid item className={persistencePluginStyles.root}> */}
-        {handleSave && handleCancel ? (
-          <Toolbar>
-            <SaveButton handleSave={handleSave} />
-            <Button variant="contained" onClick={handleCancel}>
-              Cancel
-            </Button>
-          </Toolbar>
-        ) : (
-          <></>
-        )}
-        {/* </Grid> */}
+        {toolbar ? toolbar : <></>} 
         {editable ? (
           <Grid item>
             <DictybaseToolbar />
