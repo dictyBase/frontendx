@@ -19,6 +19,7 @@ const dateCompare = (first: Date, second: Date): Ordering =>
     )
     .otherwise(() => 0)
 
+// Orders Dates by newest first
 const ordByDate = fromCompare(dateCompare)
 
 export { ordByDate }
