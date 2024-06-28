@@ -11,7 +11,7 @@ const Create = () => {
   const newsContentName = crypto.randomUUID()
 
   const handleCancel = async () => {
-    navigate("..", { relative: "path" })
+    navigate("/news/editable")
   }
 
   const actionBar = (
