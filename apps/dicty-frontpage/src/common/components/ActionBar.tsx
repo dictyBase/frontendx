@@ -61,7 +61,7 @@ const ActionBar: FunctionComponent<{
             children,
             Array.isArray,
             Bmatch(
-              () => children,
+              () => [<Grid item>{children}</Grid>],
               () =>
                 pipe(
                   children as Array<JSX.Element>,
