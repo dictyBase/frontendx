@@ -8,7 +8,7 @@ import {
   privateRoutes,
   buildMergedRoutes,
 } from "@dictybase/auth"
-import { NotFoundError } from "@dictybase/ui-common"
+import { OtherError } from "@dictybase/ui-common"
 
 const dynamicRoutes: dynamicRoutesProperties = import.meta.glob(
   "/src/pages/**/**/*.tsx",
@@ -25,7 +25,7 @@ const createRouteDefinition = (allRoutes: dynamicRoutesProperties) =>
     bind("privateR", () => pipe(allRoutes, privateRoutes, of)),
     Olet("mergedR", buildMergedRoutes),
     Olet("finalR", ({ mergedR }) => [
-      { errorElement: <NotFoundError />, children: mergedR },
+      { errorElement: <OtherError />, children: mergedR },
     ]),
     match(
       () => [] as Array<RouteObject>,
