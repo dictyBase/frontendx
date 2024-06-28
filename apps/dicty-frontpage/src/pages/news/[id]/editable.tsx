@@ -45,7 +45,7 @@ const Editable = () => {
 
   return match(result)
     .with(
-      { data: { contentBySlug: ({ content: P.select(P.string) }) } },
+      { data: { contentBySlug: { content: P.select(P.string) } } },
       (content) => <EditableView content={content} />,
     )
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
