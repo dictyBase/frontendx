@@ -23,11 +23,15 @@ const EditableView = ({ content, id }: EditableViewProperties) => {
   const handleEdit = async () => {
     navigate("../edit", { relative: "path" })
   }
+  const handleReturn = () => {
+    navigate("/news/editable")
+  }
 
   const toolbar = (
     <ActionBar descriptionElement={<Typography>Edit News</Typography>}>
       <Button onClick={handleEdit}> Edit </Button>
       <DeleteButton id={id} />
+      <Button onClick={handleReturn}> All News </Button>
     </ActionBar>
   )
   return (
