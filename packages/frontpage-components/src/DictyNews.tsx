@@ -5,11 +5,18 @@ import {
   Button,
   makeStyles,
 } from "@material-ui/core"
+import { match, P } from "ts-pattern"
+import {
+  useListContentByNamespaceQuery,
+  ListContentByNamespaceQuery,
+} from "dicty-graphql-schema"
+import { parseContentToText } from "@dictybase/editor"
 import AnnouncementIcon from "@material-ui/icons/Announcement"
 import DoubleArrowIcon from "@material-ui/icons/DoubleArrow"
 import { Link } from "react-router-dom"
 import { pipe } from "fp-ts/function"
-import { makeBy as AmakeBy, map as Amap } from "fp-ts/Array"
+import { slice as Sslice } from "fp-ts/string"
+import { map as Amap } from "fp-ts/Array"
 
 const useDictyNewsStyles = makeStyles((theme) => ({
   root: {},
@@ -60,20 +67,23 @@ const DictyNewsTitle = () => {
   )
 }
 
-const NewsList = () => (
+type NewsListProperties = {
+  contentList: ListContentByNamespaceQuery["listContentByNamespace"]
+}
+
+const NewsList = ({ contentList }: NewsListProperties) => (
   <Grid container spacing={1} direction="column">
     {pipe(
-      AmakeBy(7, (index) => index),
-      Amap((key) => (
-        <Grid key={key} item>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </Typography>
-        </Grid>
-      )),
+      contentList,
+      Amap(({ id, content, updated_at }) => {
+        const previewText = pipe(content, parseContentToText, Sslice(0, 400))
+        return (
+          <Grid key={id} item>
+            <Typography variant="h3">{updated_at}</Typography>
+            <Typography>{`${previewText}...`}</Typography>
+          </Grid>
+        )
+      }),
     )}
   </Grid>
 )
@@ -95,6 +105,10 @@ const MoreNewsLink = () => {
 
 const DictyNews = () => {
   const { root, main, newsListItem } = useDictyNewsStyles()
+  const fetchState = useListContentByNamespaceQuery({
+    variables: { namespace: "news" },
+    fetchPolicy: "cache-and-network",
+  })
   return (
     <Container className={root}>
       <Grid
@@ -107,7 +121,24 @@ const DictyNews = () => {
           <DictyNewsTitle />
         </Grid>
         <Grid item className={newsListItem}>
-          <NewsList />
+          {match(fetchState)
+            .with(
+              {
+                data: {
+                  listContentByNamespace: P.select(
+                    P.array({ content: P.string }),
+                  ),
+                },
+              },
+              (contentList) => <NewsList contentList={contentList} />,
+            )
+            .with({ loading: true }, () => <> Loading </>)
+            .with({ error: P.select(P.not(undefined)) }, (error) => (
+              <>{error.message}</>
+            ))
+            .otherwise(() => (
+              <> This message should not appear. </>
+            ))}
         </Grid>
         <Grid item>
           <MoreNewsLink />
