@@ -6,7 +6,7 @@ import { JournalData } from "./JournalData"
 import { SocialLinks } from "./SocialLinks"
 import { Abstract } from "./Abstract"
 import { FullTextLinks } from "./FullTextLinks"
-import { parseFormattedStringToDOMElements } from "../common/utils/parseFormattedStringToDOMElements"
+import { parseFormattedStringToDomElements } from "../common/utils/parseFormattedStringToDomElements"
 
 interface PublicationBodyProperties {
   publication: Publication
@@ -18,7 +18,7 @@ const PublicationBody = ({ publication }: PublicationBodyProperties) => {
     <Box pt={3}>
       <Box pb={2}>
         <Typography variant="h1">
-          {parseFormattedStringToDOMElements(publication.title)}
+          {parseFormattedStringToDomElements(publication.title)}
         </Typography>
       </Box>
 
