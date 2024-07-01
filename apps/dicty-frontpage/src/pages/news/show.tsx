@@ -2,16 +2,17 @@ import { Container, Box, Typography, Grid } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { Link } from "react-router-dom"
 import { pipe } from "fp-ts/function"
+import { slice as Sslice } from "fp-ts/string"
 import { map as Amap, sort as Asort } from "fp-ts/Array"
 import { Ord, contramap } from "fp-ts/Ord"
 import { match, P } from "ts-pattern"
 import { FullPageLoadingDisplay } from "@dictybase/ui-common"
-import { Editor } from "@dictybase/editor"
 import {
   useListContentByNamespaceQuery,
   ListContentByNamespaceQuery,
   Content,
 } from "dicty-graphql-schema"
+import { parseContentToText } from "@dictybase/editor"
 import { parseISO, format } from "date-fns/fp"
 import { NEWS_NAMESPACE } from "../../common/constants/namespace"
 import { ordByDate } from "../../common/utils/ordByDate"
@@ -47,18 +48,24 @@ type NewsItemProperties = {
   updated_at: string
 }
 
-const NewsItem = ({ name, content, updated_at }: NewsItemProperties) => (
-  <Box>
-    <Typography variant="h2">
-      {pipe(updated_at, parseISO, format("PPPP"))}
-    </Typography>
-    <Editor
-      content={{ storageKey: "test", editorState: content }}
-      editable={false}
-    />
-    <Link to={`../news/${name}/show`}> Read more </Link>
-  </Box>
-)
+const NewsItem = ({ name, content, updated_at }: NewsItemProperties) => {
+    const previewText = pipe(content, parseContentToText, Sslice(0, 400))
+    return (
+        <Grid container spacing={2} direction="column">
+          <Grid item>
+            <Typography variant="h2">
+              {pipe(updated_at, parseISO, format("PPPP"))}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography>
+              {`${previewText}...`}
+              <Link to={`../news/${name}/show`}> Read more </Link>
+            </Typography>
+          </Grid>
+        </Grid>
+    )
+}
 
 type NewsViewProperties = {
   contentList: ListContentByNamespaceQuery["listContentByNamespace"]
