@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { Grid, Theme, makeStyles, IconButton } from "@material-ui/core"
+import { Grid, Theme, makeStyles, Button } from "@material-ui/core"
 import CreateIcon from "@material-ui/icons/Create"
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -7,9 +7,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginLeft: "auto",
   },
   toolbar: {
-    backgroundColor: "#fafafa",
-    borderRadius: "2px",
-    border: "1px solid #ddd",
+    // backgroundColor: "#fafafa",
+    // borderRadius: "2px",
+    // border: "1px solid #ddd",
     padding: theme.spacing(1),
     marginBottom: theme.spacing(2),
     width: "100%",
@@ -46,13 +46,12 @@ const NewsListActionBar = () => {
   return (
     <Grid
       container
-      justifyContent="space-between"
       className={toolbar}
       data-testid="info-page-toolbar">
       <Grid item>
-        <IconButton onClick={handleClick}>
-          <CreateIcon />
-        </IconButton>
+        <Button startIcon={<CreateIcon />} variant="contained" color="primary" onClick={handleClick}>
+          Create 
+        </Button>
       </Grid>
     </Grid>
   )
