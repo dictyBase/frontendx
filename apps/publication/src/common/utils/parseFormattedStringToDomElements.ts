@@ -11,7 +11,7 @@ import { map as RNEAmap } from "fp-ts/ReadonlyNonEmptyArray"
 
 const supportedTags = ["i", "b", "sup", "sub", "h1", "h2", "h3", "h4"]
 
-const parseFormattedStringToDOMElements = (
+const parseFormattedStringToDomElements = (
   s: string,
 ): DOMElement<DOMAttributes<Element>, Element>[] => {
   const formatTagRegex = pipe(
@@ -34,7 +34,7 @@ const parseFormattedStringToDOMElements = (
         matches[1],
         // eslint-disable-next-line unicorn/no-null
         null,
-        parseFormattedStringToDOMElements(matches[2]),
+        parseFormattedStringToDomElements(matches[2]),
       ),
     ),
   )
@@ -54,4 +54,4 @@ const parseFormattedStringToDOMElements = (
   return final
 }
 
-export { parseFormattedStringToDOMElements }
+export { parseFormattedStringToDomElements }
