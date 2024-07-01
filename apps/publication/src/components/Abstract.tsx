@@ -2,10 +2,10 @@ import React from "react"
 import Box from "@material-ui/core/Box"
 import Typography from "@material-ui/core/Typography"
 import Divider from "@material-ui/core/Divider"
-import { Do as IDo, bind as Ibind } from "fp-ts/Identity"
 import { pipe } from "fp-ts/function"
 import { isEmpty as SisEmpty } from "fp-ts/string"
 import { match as Bmatch } from "fp-ts/boolean"
+import { parseFormattedStringToDOMElements } from "../common/utils/parseFormattedStringToDOMElements"
 
 type Properties = {
   abstract: string
@@ -20,15 +20,15 @@ const Abstract = ({ abstract }: Properties) =>
     SisEmpty,
     Bmatch(
       () =>
-        pipe({ __html: abstract }, (abstractContent) => (
+        pipe(
           <>
             <Typography variant="h2">Abstract</Typography>
             <Divider />
             <Box pt={2} pb={2}>
-              <div dangerouslySetInnerHTML={abstractContent} />
+              {parseFormattedStringToDOMElements(abstract)}
             </Box>
-          </>
-        )),
+          </>,
+        ),
       () => <></>,
     ),
     (inner) => (
