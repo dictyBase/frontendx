@@ -18,20 +18,17 @@ const parseFormattedStringToDOMElements = (
     supportedTags,
     Amap((tag) => `<(${tag})>(.+?)<\\/${tag}>`),
     Aintercalate(SMonoid)("|"),
-    (s) => new RegExp(s, "g"),
+    (exp) => new RegExp(exp, "g"),
   )
   const splitRegex = pipe(
     supportedTags,
     Amap((tag) => `<${tag}>.+?<\\/${tag}>`),
     Aintercalate(SMonoid)("|"),
-    (s) => new RegExp(s, "g"),
+    (exp) => new RegExp(exp, "g"),
   )
   const formattedTextElements = pipe(
     [...s.matchAll(formatTagRegex)],
     Amap((matches) => pipe(matches, Amap(OfromNullable), Acompact)),
-    (a) => {
-      return a
-    },
     Amap((matches) =>
       createElement(
         matches[1],
