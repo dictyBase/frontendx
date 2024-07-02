@@ -1,7 +1,7 @@
 import { Button } from "@material-ui/core"
 import { useNavigate } from "react-router-dom"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
-import { useAuthorizedUpdateContent } from "../utils/useAuthorizedUpdateContent"
+import { useAuthorizedUpdateContent } from "../hooks/useAuthorizedUpdateContent"
 
 type UpdateButtonProperties = {
   contentId: string

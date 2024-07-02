@@ -1,7 +1,7 @@
 import { Button } from "@material-ui/core"
 import { useNavigate } from "react-router-dom"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
-import { useAuthorizedCreateContent } from "../utils/useAuthorizedCreateContent"
+import { useAuthorizedCreateContent } from "../hooks/useAuthorizedCreateContent"
 
 type CreateButtonProperties = {
   namespace: string

@@ -1,6 +1,6 @@
 import { Button } from "@material-ui/core"
 import { useNavigate } from "react-router-dom"
-import { useAuthorizedDeleteContent } from "../utils/useAuthorizedDeleteContent"
+import { useAuthorizedDeleteContent } from "../hooks/useAuthorizedDeleteContent"
 
 type DeleteButtonProperties = {
   id: string
