@@ -6,6 +6,7 @@
     "dev": "vite",
     "dev:mock": "vite --host --mode mock",
     "dev:seed": "vite --host --mode seed",
+    "test": "vitest run",
     "build": "vite build",
     "serve": "vite preview --port 3000",
     "coverage": "vitest run --coverage",
