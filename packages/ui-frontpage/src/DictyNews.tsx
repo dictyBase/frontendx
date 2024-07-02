@@ -93,7 +93,7 @@ const MoreNewsLink = () => {
   return (
     <Grid justifyContent="flex-end" container>
       <Grid item>
-        <Link to="/#">
+        <Link to="/news">
           <Button className={link} endIcon={<DoubleArrowIcon />}>
             <Typography variant="h2"> More News </Typography>
           </Button>
