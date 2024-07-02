@@ -17,6 +17,7 @@ import { Link } from "react-router-dom"
 import { pipe } from "fp-ts/function"
 import { slice as Sslice } from "fp-ts/string"
 import { map as Amap } from "fp-ts/Array"
+import { parseISO, format } from "date-fns/fp"
 
 const useDictyNewsStyles = makeStyles((theme) => ({
   root: {},
@@ -79,8 +80,18 @@ const NewsList = ({ contentList }: NewsListProperties) => (
         const previewText = pipe(content, parseContentToText, Sslice(0, 400))
         return (
           <Grid key={id} item>
-            <Typography variant="h3">{updated_at}</Typography>
-            <Typography>{`${previewText}...`}</Typography>
+            <Grid spacing={1} container>
+              <Grid item>
+                <Link to={`/news/${id}`}>
+                  <Typography variant="h3">
+                    {pipe(updated_at, parseISO, format("PPPP"))}
+                  </Typography>
+                </Link>
+              </Grid>
+              <Grid item>
+                <Typography>{`${previewText}...`}</Typography>
+              </Grid>
+            </Grid>
           </Grid>
         )
       }),
