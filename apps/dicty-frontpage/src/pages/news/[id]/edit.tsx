@@ -61,5 +61,6 @@ const Edit = () => {
 }
 // eslint-disable-next-line import/no-default-export
 export default Edit
+export { EditView }
 export const roles = ["content-admin"]
 export const access = ACCESS.private
