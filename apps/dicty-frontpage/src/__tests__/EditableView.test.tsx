@@ -40,7 +40,7 @@ describe("Editable View", () => {
     const textbox = screen.getByRole("textbox")
     expect(textbox).toBeInTheDocument()
   })
-  test('renders a button with the text "edit" that navigates to `/news/:id/edit` when clicked', async () => {
+  test('renders a button with the text "Edit" that navigates to `/news/:id/edit` when clicked', async () => {
     const user = userEvent.setup()
     const router = createMemoryRouter(routeConfiguration, {
       initialEntries: [editableRoute],

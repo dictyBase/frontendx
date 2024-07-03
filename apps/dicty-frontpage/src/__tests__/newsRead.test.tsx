@@ -52,7 +52,7 @@ vi.mock("@dictybase/ui-common", async (importOriginal) => {
   }
 })
 
-describe("Show Component", () => {
+describe("/news/:id/show", () => {
   test('renders an element with a "textbox" role when useContentBySlugQuery returns valid data', () => {
     mockUseContentBySlugQuery.mockReturnValue({
       data: mockContentBySlugQueryData,

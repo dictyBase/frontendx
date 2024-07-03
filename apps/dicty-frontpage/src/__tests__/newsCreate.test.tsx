@@ -26,7 +26,7 @@ vi.mock("../common/hooks/useAuthorizedCreateContent", () => ({
   useAuthorizedCreateContent: () => mockAuthorizedCreateContent,
 }))
 
-describe("Create Component", () => {
+describe("/news/create", () => {
   test('renders an element with the "textbox" role', () => {
     const router = createMemoryRouter(routeConfiguration, {
       initialEntries: [createRoute],
