@@ -43,6 +43,7 @@ const EditableView = ({ content, id }: EditableViewProperties) => {
     </Container>
   )
 }
+
 const Editable = () => {
   const slug = useSlug()
   const result = useContentBySlugQuery({
@@ -57,14 +58,13 @@ const Editable = () => {
     )
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
     .with({ error: P.select(P.not(undefined)) }, (error) =>
-      contentPageErrorMatcher(error, () => (
-        <NotFoundError />
-      )),
+      contentPageErrorMatcher(error, () => <NotFoundError />),
     )
     .otherwise(() => <> This message should not appear. </>)
 }
 
 // eslint-disable-next-line import/no-default-export
 export default Editable
+export { EditableView }
 export const roles = ["content-admin"]
 export const access = ACCESS.private

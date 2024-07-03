@@ -49,22 +49,22 @@ type NewsItemProperties = {
 }
 
 const NewsItem = ({ name, content, updated_at }: NewsItemProperties) => {
-    const previewText = pipe(content, parseContentToText, Sslice(0, 400))
-    return (
-        <Grid container spacing={2} direction="column">
-          <Grid item>
-            <Typography variant="h2">
-              {pipe(updated_at, parseISO, format("PPPP"))}
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography>
-              {`${previewText}...`}
-              <Link to={`../news/${name}/show`}> Read more </Link>
-            </Typography>
-          </Grid>
-        </Grid>
-    )
+  const previewText = pipe(content, parseContentToText, Sslice(0, 400))
+  return (
+    <Grid container spacing={2} direction="column">
+      <Grid item>
+        <Typography variant="h2">
+          {pipe(updated_at, parseISO, format("PPPP"))}
+        </Typography>
+      </Grid>
+      <Grid item>
+        <Typography>
+          {`${previewText}...`}
+          <Link to={`../news/${name}/show`}> Read more </Link>
+        </Typography>
+      </Grid>
+    </Grid>
+  )
 }
 
 type NewsViewProperties = {

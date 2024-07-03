@@ -17,22 +17,18 @@ const Show = () => {
     variables: { slug: `${NEWS_NAMESPACE}-${slug}` },
     errorPolicy: "none",
   })
-  console.log(result)
   return match(result)
     .with(
       { data: { contentBySlug: { content: P.select(P.string) } } },
-      (content) => 
+      (content) => (
         <Container>
-          <Editor
-            content={{ storageKey: undefined, editorState: content }}
-          />
+          <Editor content={{ storageKey: undefined, editorState: content }} />
         </Container>
+      ),
     )
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
     .with({ error: P.select(P.not(undefined)) }, (error) =>
-      contentPageErrorMatcher(error, () => (
-        <NotFoundError />
-      )),
+      contentPageErrorMatcher(error, () => <NotFoundError />),
     )
     .otherwise(() => <> This message should not appear. </>)
 }
