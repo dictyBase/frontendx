@@ -1,5 +1,6 @@
 import { RouterProvider, createMemoryRouter } from "react-router-dom"
 import { ContentBySlugQuery } from "dicty-graphql-schema"
+import userEvent from "@testing-library/user-event"
 import { render, screen } from "@testing-library/react"
 import { describe, test, vi } from "vitest"
 import Editable from "../pages/news/[id]/editable"
@@ -40,14 +41,29 @@ const routeConfiguration = [
     path: editableRoute,
     element: <Editable />,
   },
+  {
+    path: "/news/:id/edit",
+    element: <> Edit News Route </>,
+  },
+  {
+    path: "/news/editable",
+    element: <> Editable News List Route </>,
+  },
 ]
 
-const { mockUseContentBySlugQuery, mockContentPageErrorMatcher } = vi.hoisted(
-  () => ({
-    mockUseContentBySlugQuery: vi.fn(),
-    mockContentPageErrorMatcher: vi.fn(() => <> intended error </>),
-  }),
-)
+const {
+  mockAuthorizedDeleteContent,
+  mockUseContentBySlugQuery,
+  mockContentPageErrorMatcher,
+} = vi.hoisted(() => ({
+  mockUseContentBySlugQuery: vi.fn(),
+  mockContentPageErrorMatcher: vi.fn(() => <> intended error </>),
+  mockAuthorizedDeleteContent: vi.fn(() => ({ success: true })),
+}))
+
+vi.mock("../common/hooks/useAuthorizedDeleteContent", () => ({
+  useAuthorizedDeleteContent: () => mockAuthorizedDeleteContent,
+}))
 
 vi.mock("dicty-graphql-schema", () => ({
   useContentBySlugQuery: mockUseContentBySlugQuery,
@@ -62,22 +78,7 @@ vi.mock("@dictybase/ui-common", async (importOriginal) => {
   }
 })
 
-describe("EditableComponent", () => {
-  test('renders an element with a "textbox" role when useContentBySlugQuery returns valid data', () => {
-    mockUseContentBySlugQuery.mockReturnValue({
-      data: mockContentBySlugQueryData,
-      loading: false,
-      error: undefined,
-    })
-
-    const router = createMemoryRouter(routeConfiguration, {
-      initialEntries: [editableRoute],
-    })
-    render(<RouterProvider router={router} />)
-    const textbox = screen.getByRole("textbox")
-    expect(textbox).toBeInTheDocument()
-  })
-
+describe("/news/:id/editable", () => {
   test('renders an element with the testId "skeleton" when useContentBySlugQuery returns loading = true', () => {
     mockUseContentBySlugQuery.mockReturnValue({
       data: undefined,
@@ -106,5 +107,75 @@ describe("EditableComponent", () => {
     render(<RouterProvider router={router} />)
     const errorComponent = screen.getByText("intended error")
     expect(errorComponent).toBeInTheDocument()
+  })
+  test('renders an element with a "textbox" role when useContentBySlugQuery returns valid data', () => {
+    mockUseContentBySlugQuery.mockReturnValue({
+      data: mockContentBySlugQueryData,
+      loading: false,
+      error: undefined,
+    })
+
+    const router = createMemoryRouter(routeConfiguration, {
+      initialEntries: [editableRoute],
+    })
+    render(<RouterProvider router={router} />)
+    const textbox = screen.getByRole("textbox")
+    expect(textbox).toBeInTheDocument()
+  })
+
+  test('renders a button with the text "Edit" that navigates to `/news/:id/edit` when clicked', async () => {
+    mockUseContentBySlugQuery.mockReturnValue({
+      data: mockContentBySlugQueryData,
+      loading: false,
+      error: undefined,
+    })
+    const user = userEvent.setup()
+    const router = createMemoryRouter(routeConfiguration, {
+      initialEntries: [editableRoute],
+    })
+
+    render(<RouterProvider router={router} />)
+    const editButton = screen.getByText("Edit")
+    expect(editButton).toBeInTheDocument()
+
+    await user.click(editButton)
+    expect(screen.getByText("Edit News Route")).toBeInTheDocument()
+  })
+  test('renders a button with the text "Cancel" that navigates to `/news/editable` when clicked', async () => {
+    mockUseContentBySlugQuery.mockReturnValue({
+      data: mockContentBySlugQueryData,
+      loading: false,
+      error: undefined,
+    })
+    const user = userEvent.setup()
+    const router = createMemoryRouter(routeConfiguration, {
+      initialEntries: [editableRoute],
+    })
+
+    render(<RouterProvider router={router} />)
+    const allNewsButton = screen.getByText("All News")
+    expect(allNewsButton).toBeInTheDocument()
+
+    await user.click(allNewsButton)
+    expect(screen.getByText("Editable News List Route")).toBeInTheDocument()
+  })
+  test('renders a button with the text "Delete" that calls deleteContent mutation and navigates to `/news/editable` when clicked', async () => {
+    mockUseContentBySlugQuery.mockReturnValue({
+      data: mockContentBySlugQueryData,
+      loading: false,
+      error: undefined,
+    })
+    const user = userEvent.setup()
+    const router = createMemoryRouter(routeConfiguration, {
+      initialEntries: [editableRoute],
+    })
+
+    render(<RouterProvider router={router} />)
+    const deleteButton = screen.getByText("Delete")
+    expect(deleteButton).toBeInTheDocument()
+
+    await user.click(deleteButton)
+    expect(mockAuthorizedDeleteContent).toHaveBeenCalled()
+    expect(screen.getByText("Editable News List Route")).toBeInTheDocument()
   })
 })
