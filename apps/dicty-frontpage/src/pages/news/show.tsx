@@ -6,6 +6,7 @@ import { slice as Sslice } from "fp-ts/string"
 import { map as Amap, sort as Asort } from "fp-ts/Array"
 import { Ord, contramap } from "fp-ts/Ord"
 import { match, P } from "ts-pattern"
+import { ACCESS } from "@dictybase/auth"
 import { FullPageLoadingDisplay } from "@dictybase/ui-common"
 import {
   useListContentByNamespaceQuery,
@@ -127,4 +128,7 @@ const News = () => {
 }
 
 // eslint-disable-next-line import/no-default-export
+export { NewsItem, NewsView }
 export default News
+export const access = ACCESS.public
+
