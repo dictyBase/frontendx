@@ -1,5 +1,6 @@
 import { RouterProvider, createMemoryRouter } from "react-router-dom"
 import { ContentBySlugQuery } from "dicty-graphql-schema"
+import { MockedProvider } from "@apollo/client/testing"
 import userEvent from "@testing-library/user-event"
 import { render, screen } from "@testing-library/react"
 import { describe, test, vi } from "vitest"
@@ -57,14 +58,14 @@ const {
   mockContentPageErrorMatcher: vi.fn(() => <> intended error </>),
 }))
 
-vi.mock("dicty-graphql-schema", () => ({
-  useContentBySlugQuery: mockUseContentBySlugQuery,
-  useDeleteContentMutation: vi.fn(() => [() => ({ success: true })]),
-  useUploadFileMutation: vi.fn(() => [
-    () => {},
-    { loading: false, reset: () => {} },
-  ]),
-}))
+vi.mock("dicty-graphql-schema", async (importOriginal) => {
+  const originalModule =
+    await importOriginal<typeof import("dicty-graphql-schema")>()
+  return {
+    ...originalModule,
+    useContentBySlugQuery: mockUseContentBySlugQuery,
+  }
+})
 
 vi.mock("@dictybase/ui-common", async (importOriginal) => {
   const module = await importOriginal<typeof import("@dictybase/ui-common")>()
@@ -89,7 +90,11 @@ describe("/news/:id/editable", () => {
     const router = createMemoryRouter(routeConfiguration, {
       initialEntries: [editRoute],
     })
-    render(<RouterProvider router={router} />)
+    render(
+      <MockedProvider>
+        <RouterProvider router={router} />
+      </MockedProvider>,
+    )
     const skeleton = screen.getAllByTestId("skeleton")
     expect(skeleton.length).toBeGreaterThan(0)
   })
@@ -104,7 +109,11 @@ describe("/news/:id/editable", () => {
     const router = createMemoryRouter(routeConfiguration, {
       initialEntries: [editRoute],
     })
-    render(<RouterProvider router={router} />)
+    render(
+      <MockedProvider>
+        <RouterProvider router={router} />
+      </MockedProvider>,
+    )
     const errorComponent = screen.getByText("intended error")
     expect(errorComponent).toBeInTheDocument()
   })
@@ -118,7 +127,11 @@ describe("/news/:id/editable", () => {
     const router = createMemoryRouter(routeConfiguration, {
       initialEntries: [editRoute],
     })
-    render(<RouterProvider router={router} />)
+    render(
+      <MockedProvider>
+        <RouterProvider router={router} />
+      </MockedProvider>,
+    )
     const textbox = screen.getByRole("textbox")
     expect(textbox).toBeInTheDocument()
   })
@@ -133,7 +146,11 @@ describe("/news/:id/editable", () => {
       initialEntries: [editRoute],
     })
 
-    render(<RouterProvider router={router} />)
+    render(
+      <MockedProvider>
+        <RouterProvider router={router} />
+      </MockedProvider>,
+    )
     const cancelButton = screen.getByText("Cancel")
     expect(cancelButton).toBeInTheDocument()
 
@@ -145,7 +162,11 @@ describe("/news/:id/editable", () => {
     const router = createMemoryRouter(routeConfiguration, {
       initialEntries: [editRoute],
     })
-    render(<RouterProvider router={router} />)
+    render(
+      <MockedProvider>
+        <RouterProvider router={router} />
+      </MockedProvider>,
+    )
     const saveButton = screen.getByText("Save")
     expect(saveButton).toBeInTheDocument()
     await user.click(saveButton)
