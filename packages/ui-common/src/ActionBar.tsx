@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 const ActionBar: FunctionComponent<{
-  descriptionElement: JSX.Element
+  descriptionElement?: JSX.Element
   children: Array<JSX.Element> | JSX.Element
 }> = ({ descriptionElement, children }) => {
   const { toolbar, text } = useStyles()
