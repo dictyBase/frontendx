@@ -1,6 +1,4 @@
-import { useState, useEffect } from "react"
 import { Navigate } from "react-router-dom"
-import { useLogto, UserInfoResponse } from "@logto/react"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import {
@@ -20,20 +18,7 @@ const AddPage = () => {
     errorPolicy: "all",
     fetchPolicy: "network-only",
   })
-  const { fetchUserInfo, getAccessToken, isAuthenticated } = useLogto()
-  const [user, setUser] = useState<UserInfoResponse>()
-  useEffect(() => {
-    const getUserData = async () => {
-      if (!isAuthenticated) return
-      setUser(await fetchUserInfo())
-    }
-
-    getUserData()
-  }, [fetchUserInfo, getAccessToken, isAuthenticated])
-
   return match({
-    getAccessToken,
-    user,
     ...result,
   })
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
