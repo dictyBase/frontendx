@@ -1,4 +1,5 @@
 export * from "./LoadingDisplay"
+export * from "./ActionBar"
 export * from "./FullPageLoadingDisplay"
 export * from "./DateDisplay"
 export * from "./DictyTab"
