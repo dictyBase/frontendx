@@ -8,10 +8,10 @@ import {
   FileLinks,
 } from "@dictybase/ui-dsc"
 import { LoadingDisplay, OtherError } from "@dictybase/ui-common"
-import { EditableEditor } from "@dictybase/editor"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { ACCESS } from "@dictybase/auth"
+import { EditableView } from "../../components/EditableView"
 import { NAMESPACE } from "../../namespace"
 /**
  * Homepage is the main homepage component for DSC.
@@ -31,7 +31,7 @@ const EditableHomepage = () => {
           {match(result)
             .with(
               { data: { contentBySlug: P.select({ content: P.string }) } },
-              (content) => <EditableEditor data={content} />,
+              (data) => <EditableView data={data} />,
             )
             .with({ loading: true }, () => <LoadingDisplay rows={4} />)
             .with({ error: P.not(undefined) }, () => <OtherError />)
