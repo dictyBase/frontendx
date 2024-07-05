@@ -1,14 +1,15 @@
 import { Navigate } from "react-router-dom"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
+import { Container } from "@material-ui/core"
 import {
   contentPageErrorMatcher,
   FullPageLoadingDisplay,
 } from "@dictybase/ui-common"
-import { EditableView } from "@dictybase/editor"
 import { ACCESS } from "@dictybase/auth"
 import { NAMESPACE } from "../../../namespace"
 import { useSlug } from "../../../hooks/useSlug"
+import { EditableView } from "../../../components/EditableView"
 
 const Editable = () => {
   const slug = useSlug()
@@ -20,7 +21,11 @@ const Editable = () => {
   return match(result)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
-      (content) => <EditableView data={content} />,
+      (contentBySlug) => (
+        <Container>
+          <EditableView data={contentBySlug} />
+        </Container>
+      ),
     )
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
     .with({ error: P.select(P.not(undefined)) }, (error) =>

@@ -1,14 +1,13 @@
-import { useState, useEffect } from "react"
-import { useLogto, UserInfoResponse } from "@logto/react"
 import { Navigate } from "react-router-dom"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
+import { Container } from "@material-ui/core"
 import {
   FullPageLoadingDisplay,
   contentPageErrorMatcher,
 } from "@dictybase/ui-common"
-import { AddPageView } from "@dictybase/editor"
 import { ACCESS } from "@dictybase/auth"
+import { AddPageView } from "../../../components/AddPageView"
 import { NAMESPACE } from "../../../namespace"
 import { useSlug } from "../../../hooks/useSlug"
 import { useContentPath } from "../../../hooks/useContentPath"
@@ -21,20 +20,7 @@ const AddPage = () => {
     errorPolicy: "all",
     fetchPolicy: "network-only",
   })
-  const { fetchUserInfo, getAccessToken, isAuthenticated } = useLogto()
-  const [user, setUser] = useState<UserInfoResponse>()
-  useEffect(() => {
-    const getUserData = async () => {
-      if (!isAuthenticated) return
-      setUser(await fetchUserInfo())
-    }
-
-    getUserData()
-  }, [fetchUserInfo, getAccessToken, isAuthenticated])
-
   return match({
-    getAccessToken,
-    user,
     ...result,
   })
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
@@ -43,13 +29,13 @@ const AddPage = () => {
     ))
     .with({ error: P.select(P.not(undefined)) }, (error) =>
       contentPageErrorMatcher(error, () => (
-        <AddPageView
-          getAccessToken={getAccessToken}
-          userId={user?.email as string}
-          namespace={NAMESPACE}
-          slug={slug}
-          contentPath={contentPath}
-        />
+        <Container>
+          <AddPageView
+            namespace={NAMESPACE}
+            name={slug}
+            contentPath={contentPath}
+          />
+        </Container>
       )),
     )
     .otherwise(() => <> This message should not appear </>)
