@@ -84,7 +84,7 @@ const NewsList = ({ contentList }: NewsListProperties) => (
         const previewText = pipe(content, parseContentToText, Sslice(0, 400))
         return (
           <Grid key={id} item>
-            <Grid spacing={1} container>
+            <Grid spacing={1} container direction="column">
               <Grid item>
                 <Link to={`/news/${id}`}>
                   <Typography variant="h3">
