@@ -9,9 +9,9 @@ import {
 } from "@dictybase/ui-dsc"
 import { LoadingDisplay, OtherError } from "@dictybase/ui-common"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
-import { ContentEditor } from "@dictybase/editor"
 import { match, P } from "ts-pattern"
 import { ACCESS } from "@dictybase/auth"
+import { ShowView } from "../../components/ShowView"
 import { NAMESPACE } from "../../namespace"
 
 /**
@@ -32,7 +32,7 @@ const ShowHomepage = () => {
           {match(result)
             .with(
               { data: { contentBySlug: P.select({ content: P.string }) } },
-              (content) => <ContentEditor data={content} />,
+              (data) => <ShowView data={data} />,
             )
             .with({ loading: true }, () => <LoadingDisplay rows={4} />)
             .with({ error: P.not(undefined) }, () => <OtherError />)

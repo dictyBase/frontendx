@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react"
-import { useLogto, UserInfoResponse } from "@logto/react"
 import Grid from "@material-ui/core/Grid"
 import {
   useStyles,
@@ -10,10 +8,10 @@ import {
   FileLinks,
 } from "@dictybase/ui-dsc"
 import { LoadingDisplay, OtherError } from "@dictybase/ui-common"
-import { EditEditor } from "@dictybase/editor"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { ACCESS } from "@dictybase/auth"
+import { EditView } from "../../components/EditView"
 import { NAMESPACE } from "../../namespace"
 /**
  * Homepage is the main homepage component for DSC.
@@ -22,16 +20,6 @@ const EditHomepage = () => {
   const result = useContentBySlugQuery({
     variables: { slug: `${NAMESPACE}-intro` },
   })
-  const { fetchUserInfo, getAccessToken, isAuthenticated } = useLogto()
-  const [user, setUser] = useState<UserInfoResponse>()
-  useEffect(() => {
-    const getUserData = async () => {
-      if (!isAuthenticated) return
-      setUser(await fetchUserInfo())
-    }
-
-    getUserData()
-  }, [fetchUserInfo, getAccessToken, isAuthenticated])
   const classes = useStyles({})
   return (
     <>
@@ -42,13 +30,7 @@ const EditHomepage = () => {
           {match({ ...result })
             .with(
               { data: { contentBySlug: P.select({ content: P.string }) } },
-              (content) => (
-                <EditEditor
-                  data={content}
-                  userId={user?.email as string}
-                  getAccessToken={getAccessToken}
-                />
-              ),
+              (content) => <EditView data={content} />,
             )
             .with({ loading: true }, () => <LoadingDisplay rows={4} />)
             .with({ error: P.not(undefined) }, () => <OtherError />)
