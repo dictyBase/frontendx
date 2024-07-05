@@ -20,6 +20,7 @@ const database = new BrowserLevel<string, Content>(NAMESPACE, {
 const handlers = [
   mockCreateContentMutation(async (request, response, context) => {
     const { name, content, namespace, created_by } = request.variables.input
+    if (namespace !== "news") return request.passthrough()
     const contentAdmin = { ...superuserProperties, email: created_by }
     const now = formatISO(new Date())
     try {
