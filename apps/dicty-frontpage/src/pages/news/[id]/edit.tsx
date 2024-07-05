@@ -6,13 +6,13 @@ import {
   NotFoundError,
   FullPageLoadingDisplay,
   contentPageErrorMatcher,
+  ActionBar,
 } from "@dictybase/ui-common"
 import { ACCESS } from "@dictybase/auth"
 import { Editor } from "@dictybase/editor"
 import { useSlug } from "../../../common/hooks/useSlug"
 import { NEWS_NAMESPACE } from "../../../common/constants/namespace"
 import { UpdateButton } from "../../../common/components/UpdateButton"
-import { ActionBar } from "../../../common/components/ActionBar"
 
 type EditViewProperties = {
   contentId: string

@@ -6,12 +6,12 @@ import {
   NotFoundError,
   FullPageLoadingDisplay,
   contentPageErrorMatcher,
+  ActionBar,
 } from "@dictybase/ui-common"
 import { Editor } from "@dictybase/editor"
 import { ACCESS } from "@dictybase/auth"
 import { NEWS_NAMESPACE } from "../../../common/constants/namespace"
 import { useSlug } from "../../../common/hooks/useSlug"
-import { ActionBar } from "../../../common/components/ActionBar"
 import { DeleteButton } from "../../../common/components/DeleteButton"
 
 type EditableViewProperties = {
