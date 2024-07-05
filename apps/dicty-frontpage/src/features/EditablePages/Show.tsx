@@ -5,7 +5,7 @@ import {
   FullPageLoadingDisplay,
   contentPageErrorMatcher,
 } from "@dictybase/ui-common"
-import { ContentView } from "@dictybase/editor"
+import { ShowView } from "./ShowView"
 import { NAMESPACE } from "../../common/constants/namespace"
 import { useSlug } from "../../common/hooks/useSlug"
 
@@ -18,7 +18,7 @@ const Show = () => {
   return match(result)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
-      (content) => <ContentView data={content} />,
+      (content) => <ShowView data={content} />,
     )
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
     .with({ error: P.select(P.not(undefined)) }, (error) =>
