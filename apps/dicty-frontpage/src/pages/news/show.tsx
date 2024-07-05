@@ -17,6 +17,7 @@ import { parseContentToText } from "@dictybase/editor"
 import { parseISO, format } from "date-fns/fp"
 import { NEWS_NAMESPACE } from "../../common/constants/namespace"
 import { ordByDate } from "../../common/utils/ordByDate"
+import { EmptyNewsView } from "../../common/components/EmptyNewsView"
 
 const useStyles = makeStyles({
   container: {
@@ -115,6 +116,14 @@ const News = () => {
     .with(
       {
         data: {
+          listContentByNamespace: [],
+        },
+      },
+      () => <EmptyNewsView />,
+    )
+    .with(
+      {
+        data: {
           listContentByNamespace: P.select(P.array({ content: P.string })),
         },
       },
@@ -127,8 +136,7 @@ const News = () => {
     .otherwise(() => <> This message should not appear. </>)
 }
 
-// eslint-disable-next-line import/no-default-export
 export { NewsItem, NewsView }
+// eslint-disable-next-line import/no-default-export
 export default News
 export const access = ACCESS.public
-
