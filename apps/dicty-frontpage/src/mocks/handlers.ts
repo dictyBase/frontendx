@@ -10,6 +10,7 @@ import {
 import { formatISO } from "date-fns"
 import { pipe } from "fp-ts/function"
 import { startsWith as SstartsWith } from "fp-ts/string"
+import { filter as Afilter } from "fp-ts/Array"
 import { NAMESPACE } from "../common/constants/namespace"
 import { superuserProperties } from "../common/data/superuser"
 
@@ -82,7 +83,8 @@ const handlers = [
   }),
   mockListContentByNamespaceQuery(async (_, response, context) => {
     const listContentByNamespace  = await database.values().all()
-    return response(context.data({ listContentByNamespace }))
+    const newsContent = pipe(listContentByNamespace, Afilter(({ namespace }) => namespace === "news"))
+    return response(context.data({ listContentByNamespace: newsContent }))
   }),
 ]
 
