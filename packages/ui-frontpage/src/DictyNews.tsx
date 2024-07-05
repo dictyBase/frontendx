@@ -41,6 +41,10 @@ const useDictyNewsStyles = makeStyles((theme) => ({
   },
   newsListItem: {
     overflow: "auto",
+    flexGrow: 1,
+  },
+  emptyNewsList: {
+    height: "100%",
   },
   link: {
     color: theme.palette.primary.main,
@@ -99,6 +103,27 @@ const NewsList = ({ contentList }: NewsListProperties) => (
   </Grid>
 )
 
+const EmptyNewsList = () => {
+  const { emptyNewsList } = useDictyNewsStyles()
+  return (
+    <Grid
+      container
+      direction="column"
+      justifyContent="center"
+      className={emptyNewsList}>
+      <Grid item>
+        <Grid container justifyContent="center">
+          <Grid item>
+            <Typography variant="h3">
+              There are currently no news items
+            </Typography>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
+  )
+}
+
 const MoreNewsLink = () => {
   const { link } = useDictyNewsStyles()
   return (
@@ -133,6 +158,14 @@ const DictyNews = () => {
         </Grid>
         <Grid item className={newsListItem}>
           {match(fetchState)
+            .with(
+              {
+                data: {
+                  listContentByNamespace: [],
+                },
+              },
+              () => <EmptyNewsList />,
+            )
             .with(
               {
                 data: {
