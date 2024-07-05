@@ -17,6 +17,7 @@ import { ACCESS } from "@dictybase/auth"
 import { parseContentToText } from "@dictybase/editor"
 import { NEWS_NAMESPACE } from "../../common/constants/namespace"
 import { NewsListActionBar } from "../../common/components/NewsListActionBar"
+import { EmptyNewsViewAuth } from "../../common/components/EmptyNewsViewAuth"
 import { ordByDate } from "../../common/utils/ordByDate"
 
 const useStyles = makeStyles({
@@ -118,6 +119,14 @@ const EditableNews = () => {
     fetchPolicy: "cache-and-network",
   })
   return match(fetchState)
+    .with(
+      {
+        data: {
+          listContentByNamespace: [],
+        },
+      },
+      () => <EmptyNewsViewAuth />,
+    )
     .with(
       {
         data: {
