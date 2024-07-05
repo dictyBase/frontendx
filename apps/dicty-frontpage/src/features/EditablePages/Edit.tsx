@@ -6,8 +6,8 @@ import {
   FullPageLoadingDisplay,
   contentPageErrorMatcher,
 } from "@dictybase/ui-common"
-import { EditView } from "@dictybase/editor"
 import { match, P } from "ts-pattern"
+import { EditView } from "./EditView"
 import { NAMESPACE } from "../../common/constants/namespace"
 import { useSlug } from "../../common/hooks/useSlug"
 
@@ -27,22 +27,12 @@ const Edit = () => {
 
     getUserData()
   }, [fetchUserInfo, getAccessToken, isAuthenticated])
-  return match({
-    getAccessToken,
-    user,
-    ...result,
-  })
+  return match(result)
     .with(
       {
         data: { contentBySlug: P.select({ content: P.string }) },
       },
-      (content) => (
-        <EditView
-          data={content}
-          userId={user?.email as string}
-          getAccessToken={getAccessToken}
-        />
-      ),
+      (content) => <EditView data={content} />,
     )
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
     .with({ error: P.select(P.not(undefined)) }, (error) =>

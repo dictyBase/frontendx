@@ -5,7 +5,7 @@ import {
   contentPageErrorMatcher,
   FullPageLoadingDisplay,
 } from "@dictybase/ui-common"
-import { EditableView } from "@dictybase/editor"
+import { EditableView } from "./EditableView"
 import { NAMESPACE } from "../../common/constants/namespace"
 import { useSlug } from "../../common/hooks/useSlug"
 
@@ -19,7 +19,7 @@ const Editable = () => {
   return match(result)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
-      (content) => <EditableView data={content} />,
+      (contentBySlug) => <EditableView data={contentBySlug} />,
     )
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
     .with({ error: P.select(P.not(undefined)) }, (error) =>
