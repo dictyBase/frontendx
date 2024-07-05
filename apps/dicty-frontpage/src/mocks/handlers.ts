@@ -8,6 +8,8 @@ import {
   Content,
 } from "dicty-graphql-schema/types/mocks"
 import { formatISO } from "date-fns"
+import { pipe } from "fp-ts/function"
+import { startsWith as SstartsWith } from "fp-ts/string"
 import { NAMESPACE } from "../common/constants/namespace"
 import { superuserProperties } from "../common/data/superuser"
 
@@ -41,6 +43,8 @@ const handlers = [
   }),
   mockContentBySlugQuery(async (request, response, context) => {
     const { slug } = request.variables
+    const isNewsNamespace = pipe(slug, SstartsWith("news"))
+    if (!isNewsNamespace) return request.passthrough()
     try {
       const allNews = await database.values().all()
       const contentBySlug = allNews.find((content) => content.slug === slug)
@@ -63,7 +67,7 @@ const handlers = [
       const updateContent = await database.get(id)
       return response(context.data({ updateContent }))
     } catch {
-      return response(context.status(500))
+      return request.passthrough()
     }
   }),
   mockDeleteContentMutation(async (request, response, context) => {
