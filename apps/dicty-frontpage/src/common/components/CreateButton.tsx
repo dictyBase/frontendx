@@ -20,7 +20,11 @@ const CreateButton = ({ namespace, name }: CreateButtonProperties) => {
     navigate("../editable", { relative: "path" })
   }
 
-  return <Button onClick={handleUpdate}> Save </Button>
+  return (
+    <Button variant="contained" color="primary" onClick={handleUpdate}>
+      Save
+    </Button>
+  )
 }
 
 export { CreateButton }
