@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom"
 import { Container, Button, Typography } from "@material-ui/core"
 import { ACCESS } from "@dictybase/auth"
 import { Editor } from "@dictybase/editor"
-import { ActionBar } from "../../common/components/ActionBar"
+import { ActionBar } from "@dictybase/ui-common"
 import { CreateButton } from "../../common/components/CreateButton"
 import { NEWS_NAMESPACE } from "../../common/constants/namespace"
 
@@ -17,7 +17,9 @@ const Create = () => {
   const actionBar = (
     <ActionBar descriptionElement={<Typography>Write News</Typography>}>
       <CreateButton namespace={NEWS_NAMESPACE} name={newsContentName} />
-      <Button onClick={handleCancel}> Cancel </Button>
+      <Button variant="contained" onClick={handleCancel}>
+        Cancel
+      </Button>
     </ActionBar>
   )
   return (
