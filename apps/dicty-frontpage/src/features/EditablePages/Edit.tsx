@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react"
 import { Navigate } from "react-router-dom"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
-import { useLogto, UserInfoResponse } from "@logto/react"
 import {
   FullPageLoadingDisplay,
   contentPageErrorMatcher,
@@ -17,16 +15,6 @@ const Edit = () => {
     variables: { slug: `${NAMESPACE}-${slug}` },
     errorPolicy: "all",
   })
-  const { fetchUserInfo, getAccessToken, isAuthenticated } = useLogto()
-  const [user, setUser] = useState<UserInfoResponse>()
-  useEffect(() => {
-    const getUserData = async () => {
-      if (!isAuthenticated) return
-      setUser(await fetchUserInfo())
-    }
-
-    getUserData()
-  }, [fetchUserInfo, getAccessToken, isAuthenticated])
   return match(result)
     .with(
       {
