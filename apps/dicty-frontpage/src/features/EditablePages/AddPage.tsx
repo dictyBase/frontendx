@@ -7,7 +7,7 @@ import {
   FullPageLoadingDisplay,
   contentPageErrorMatcher,
 } from "@dictybase/ui-common"
-import { AddPageView } from "@dictybase/editor"
+import { AddPageView } from "./AddPageView"
 import { NAMESPACE } from "../../common/constants/namespace"
 import { useSlug } from "../../common/hooks/useSlug"
 import { useContentPath } from "../../common/hooks/useContentPath"
@@ -43,10 +43,8 @@ const AddPage = () => {
     .with({ error: P.select(P.not(undefined)) }, (error) =>
       contentPageErrorMatcher(error, () => (
         <AddPageView
-          getAccessToken={getAccessToken}
-          userId={user?.email as string}
           namespace={NAMESPACE}
-          slug={slug}
+          name={slug}
           contentPath={contentPath}
         />
       )),
