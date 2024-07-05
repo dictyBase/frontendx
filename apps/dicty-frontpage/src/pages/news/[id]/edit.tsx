@@ -28,7 +28,9 @@ const EditView = ({ contentId, content }: EditViewProperties) => {
   const toolbar = (
     <ActionBar descriptionElement={<Typography>Editing News</Typography>}>
       <UpdateButton contentId={contentId} />
-      <Button onClick={handleCancel}> Cancel </Button>
+      <Button variant="contained" onClick={handleCancel}>
+        Cancel
+      </Button>
     </ActionBar>
   )
   return (

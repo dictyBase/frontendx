@@ -29,9 +29,13 @@ const EditableView = ({ content, id }: EditableViewProperties) => {
 
   const toolbar = (
     <ActionBar descriptionElement={<Typography>Edit News</Typography>}>
-      <Button onClick={handleEdit}> Edit </Button>
+      <Button color="primary" variant="contained" onClick={handleEdit}>
+        Edit
+      </Button>
       <DeleteButton id={id} />
-      <Button onClick={handleReturn}> All News </Button>
+      <Button variant="contained" onClick={handleReturn}>
+        All News{" "}
+      </Button>
     </ActionBar>
   )
   return (
