@@ -44,13 +44,13 @@ const NewsListActionBar = () => {
     navigate("/news/create")
   }
   return (
-    <Grid
-      container
-      className={toolbar}
-      data-testid="info-page-toolbar">
+    <Grid container className={toolbar} data-testid="info-page-toolbar">
       <Grid item>
-        <Button startIcon={<CreateIcon />} variant="contained" color="primary" onClick={handleClick}>
-          Create 
+        <Button
+          startIcon={<CreateIcon />}
+          color="primary"
+          onClick={handleClick}>
+          Create
         </Button>
       </Grid>
     </Grid>
