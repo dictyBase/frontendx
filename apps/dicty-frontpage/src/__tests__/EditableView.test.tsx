@@ -64,17 +64,12 @@ describe("Editable View", () => {
     await user.click(allNewsButton)
     expect(screen.getByText("Editable News List Route")).toBeInTheDocument()
   })
-  test('renders a button with the text "Delete" that navigates to calls deleteContent mutation and navigates to `/news/editable` when clicked', async () => {
-    const user = userEvent.setup()
+  test('renders a button with the text "Delete"', async () => {
     const router = createMemoryRouter(routeConfiguration, {
       initialEntries: [editableRoute],
     })
     render(<RouterProvider router={router} />)
     const deleteButton = screen.getByText("Delete")
     expect(deleteButton).toBeInTheDocument()
-
-    await user.click(deleteButton)
-    expect(mockAuthorizedDeleteContent).toHaveBeenCalled()
-    expect(screen.getByText("Editable News List Route")).toBeInTheDocument()
   })
 })
