@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom"
-import { Container, Typography, Button } from "@material-ui/core"
+import { Grid, Container, Typography, Button } from "@material-ui/core"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
+import { pipe } from "fp-ts/function"
+import { parseISO, format } from "date-fns/fp"
 import {
   NotFoundError,
   FullPageLoadingDisplay,
@@ -15,11 +17,12 @@ import { NEWS_NAMESPACE } from "../../../common/constants/namespace"
 import { UpdateButton } from "../../../common/components/UpdateButton"
 
 type EditViewProperties = {
-  contentId: string
   content: string
+  contentId: string
+  updated_at: string
 }
 
-const EditView = ({ contentId, content }: EditViewProperties) => {
+const EditView = ({ contentId, content, updated_at }: EditViewProperties) => {
   const navigate = useNavigate()
   const handleCancel = async () => {
     navigate("../editable", { relative: "path" })
@@ -35,11 +38,20 @@ const EditView = ({ contentId, content }: EditViewProperties) => {
   )
   return (
     <Container>
-      <Editor
-        content={{ storageKey: undefined, editorState: content }}
-        editable
-        toolbar={toolbar}
-      />
+        <Grid container direction="column" spacing={2}>
+          <Grid item>
+            <Typography variant="h2">
+              {pipe(updated_at, parseISO, format("PPPP"))}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Editor
+              content={{ storageKey: undefined, editorState: content }}
+              editable
+              toolbar={toolbar}
+            />
+          </Grid>
+        </Grid>
     </Container>
   )
 }
@@ -53,7 +65,7 @@ const Edit = () => {
   return match(result)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
-      ({ id, content }) => <EditView contentId={id} content={content} />,
+      ({ id, content, updated_at }) => <EditView contentId={id} content={content} updated_at={updated_at} />,
     )
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
     .with({ error: P.select(P.not(undefined)) }, (error) =>
