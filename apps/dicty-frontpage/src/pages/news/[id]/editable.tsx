@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { Container, Typography, Button } from "@material-ui/core"
+import { Grid, Container, Typography, Button } from "@material-ui/core"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { some } from "fp-ts/Option"
@@ -50,13 +50,19 @@ const EditableView = ({ content, id, updated_at }: EditableViewProperties) => {
   return (
     <Provider store={contentStore}>
       <Container>
-        <Typography variant="h2">
-          {pipe(updated_at, parseISO, format("PPPP"))}
-        </Typography>
-        <Editor
-          content={{ storageKey: undefined, editorState: content }}
-          toolbar={toolbar}
-        />
+        <Grid container direction="column" spacing={2}>
+          <Grid item>
+            <Typography variant="h2">
+              {pipe(updated_at, parseISO, format("PPPP"))}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Editor
+              content={{ storageKey: undefined, editorState: content }}
+              toolbar={toolbar}
+            />
+          </Grid>
+        </Grid>
       </Container>
     </Provider>
   )
