@@ -5,7 +5,6 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
-  Typography,
 } from "@material-ui/core"
 import { DeleteButton } from "./DeleteButton"
 
@@ -18,7 +17,7 @@ const DeleteDialog = ({ open, onClose }: DeleteDialogProperties) => {
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>
-        <Typography variant="h1"> Delete Content </Typography>
+        Delete Content
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
