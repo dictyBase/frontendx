@@ -12,6 +12,8 @@ import {
 } from "@dictybase/ui-common"
 import { Editor } from "@dictybase/editor"
 import { ACCESS } from "@dictybase/auth"
+import { pipe } from "fp-ts/function"
+import { parseISO, format } from "date-fns/fp"
 import { NEWS_NAMESPACE } from "../../../common/constants/namespace"
 import { useSlug } from "../../../common/hooks/useSlug"
 import { DeleteDialogButton } from "../../../common/components/DeleteDialogButton"
@@ -20,8 +22,9 @@ import { contentIdAtom } from "../../../state"
 type EditableViewProperties = {
   content: string
   id: string
+  updated_at: string
 }
-const EditableView = ({ content, id }: EditableViewProperties) => {
+const EditableView = ({ content, id, updated_at }: EditableViewProperties) => {
   const navigate = useNavigate()
   const handleEdit = async () => {
     navigate("../edit", { relative: "path" })
@@ -47,6 +50,9 @@ const EditableView = ({ content, id }: EditableViewProperties) => {
   return (
     <Provider store={contentStore}>
       <Container>
+        <Typography variant="h2">
+          {pipe(updated_at, parseISO, format("PPPP"))}
+        </Typography>
         <Editor
           content={{ storageKey: undefined, editorState: content }}
           toolbar={toolbar}
@@ -65,7 +71,7 @@ const Editable = () => {
   return match(result)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
-      ({ id, content }) => <EditableView id={id} content={content} />,
+      ({ id, content, updated_at }) => <EditableView id={id} content={content} updated_at={updated_at} />,
     )
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
     .with({ error: P.select(P.not(undefined)) }, (error) =>
