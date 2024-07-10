@@ -1,6 +1,8 @@
 import { Button, makeStyles } from "@material-ui/core"
 import { useNavigate } from "react-router-dom"
 import { useAuthorizedDeleteContent } from "../hooks/useAuthorizedDeleteContent"
+import { useAtomValue } from "jotai"
+import { contentIdAtom } from "../../state"
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -8,15 +10,13 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.error.contrastText,
   },
 }))
-type DeleteButtonProperties = {
-  id: string
-}
 
-const DeleteButton = ({ id }: DeleteButtonProperties) => {
+const DeleteButton = () => {
   const { button } = useStyles()
   const navigate = useNavigate()
+  const id = useAtomValue(contentIdAtom)
   const authorizedDeleteContent = useAuthorizedDeleteContent(id)
-
+  console.log(id)
   const handleDelete = async () => {
     // handle error / success state
     await authorizedDeleteContent()
