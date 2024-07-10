@@ -7,9 +7,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginLeft: "auto",
   },
   toolbar: {
-    // backgroundColor: "#fafafa",
-    // borderRadius: "2px",
-    // border: "1px solid #ddd",
     padding: theme.spacing(1),
     marginBottom: theme.spacing(2),
     width: "100%",
