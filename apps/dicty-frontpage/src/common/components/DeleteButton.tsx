@@ -16,7 +16,6 @@ const DeleteButton = () => {
   const navigate = useNavigate()
   const id = useAtomValue(contentIdAtom)
   const authorizedDeleteContent = useAuthorizedDeleteContent(id)
-  console.log(id)
   const handleDelete = async () => {
     // handle error / success state
     await authorizedDeleteContent()
