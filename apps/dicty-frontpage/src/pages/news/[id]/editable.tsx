@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom"
 import { Container, Typography, Button } from "@material-ui/core"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
+import { some } from "fp-ts/Option"
+import { Provider, createStore } from "jotai"
 import {
   NotFoundError,
   FullPageLoadingDisplay,
@@ -12,7 +14,8 @@ import { Editor } from "@dictybase/editor"
 import { ACCESS } from "@dictybase/auth"
 import { NEWS_NAMESPACE } from "../../../common/constants/namespace"
 import { useSlug } from "../../../common/hooks/useSlug"
-import { DeleteButton } from "../../../common/components/DeleteButton"
+import { DeleteDialogButton } from "../../../common/components/DeleteDialogButton"
+import { contentIdAtom } from "../../../state"
 
 type EditableViewProperties = {
   content: string
@@ -27,24 +30,29 @@ const EditableView = ({ content, id }: EditableViewProperties) => {
     navigate("/news/editable")
   }
 
+  const contentStore = createStore()
+  contentStore.set(contentIdAtom, some(id))
+
   const toolbar = (
     <ActionBar descriptionElement={<Typography>Edit News</Typography>}>
       <Button color="primary" variant="contained" onClick={handleEdit}>
         Edit
       </Button>
-      <DeleteButton id={id} />
+      <DeleteDialogButton />
       <Button variant="contained" onClick={handleReturn}>
-        All News{" "}
+        All News
       </Button>
     </ActionBar>
   )
   return (
-    <Container>
-      <Editor
-        content={{ storageKey: undefined, editorState: content }}
-        toolbar={toolbar}
-      />
-    </Container>
+    <Provider store={contentStore}>
+      <Container>
+        <Editor
+          content={{ storageKey: undefined, editorState: content }}
+          toolbar={toolbar}
+        />
+      </Container>
+    </Provider>
   )
 }
 
@@ -54,7 +62,6 @@ const Editable = () => {
     variables: { slug: `${NEWS_NAMESPACE}-${slug}` },
     errorPolicy: "none",
   })
-
   return match(result)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
