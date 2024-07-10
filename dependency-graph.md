@@ -23,6 +23,7 @@ flowchart TD
     A ---> B
     A --> UIF
     A --> UIU
+    A --> J
 
     B --> D
     B --> G
@@ -33,8 +34,6 @@ flowchart TD
 
     G --> F
     G --> DI
-
-    UIC --> J
     
     J --> ET
     J --> PP
