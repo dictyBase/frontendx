@@ -12,7 +12,13 @@ const editRoute = "/news/:id/edit"
 const routeConfiguration = [
   {
     path: editRoute,
-    element: <EditView contentId="1" content={CONTENT_STRING} />,
+    element: (
+      <EditView
+        contentId="1"
+        content={CONTENT_STRING}
+        updated_at={new Date().toISOString()}
+      />
+    ),
   },
   {
     path: "/news/:id/editable",
@@ -20,16 +26,13 @@ const routeConfiguration = [
   },
 ]
 
-const {
-  mockAuthorizedUpdateContent,
-} = vi.hoisted(() => ({
+const { mockAuthorizedUpdateContent } = vi.hoisted(() => ({
   mockAuthorizedUpdateContent: vi.fn(),
 }))
 
 vi.mock("../common/hooks/useAuthorizedUpdateContent", () => ({
   useAuthorizedUpdateContent: () => mockAuthorizedUpdateContent,
 }))
-
 
 describe("Edit View", () => {
   test('renders an element with a "textbox" role when useContentBySlugQuery returns valid data', () => {

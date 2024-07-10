@@ -11,7 +11,13 @@ const editableRoute = "/news/:id/editable"
 const routeConfiguration = [
   {
     path: editableRoute,
-    element: <EditableView id="1" content={CONTENT_STRING} />,
+    element: (
+      <EditableView
+        id="1"
+        content={CONTENT_STRING}
+        updated_at={new Date().toISOString()}
+      />
+    ),
   },
   {
     path: "/news/:id/edit",
