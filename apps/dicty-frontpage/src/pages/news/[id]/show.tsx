@@ -1,5 +1,5 @@
 import { useContentBySlugQuery } from "dicty-graphql-schema"
-import { Container } from "@material-ui/core"
+import { Typography, Container } from "@material-ui/core"
 import { match, P } from "ts-pattern"
 import {
   NotFoundError,
@@ -8,6 +8,8 @@ import {
 } from "@dictybase/ui-common"
 import { ACCESS } from "@dictybase/auth"
 import { Editor } from "@dictybase/editor"
+import { pipe } from "fp-ts/function"
+import { parseISO, format } from "date-fns/fp"
 import { NEWS_NAMESPACE } from "../../../common/constants/namespace"
 import { useSlug } from "../../../common/hooks/useSlug"
 
@@ -19,9 +21,12 @@ const Show = () => {
   })
   return match(result)
     .with(
-      { data: { contentBySlug: { content: P.select(P.string) } } },
-      (content) => (
+      { data: { contentBySlug: P.select({ content: (P.string) }) } },
+      ({ content, updated_at }) => (
         <Container>
+          <Typography variant="h2">
+            {pipe(updated_at, parseISO, format("PPPP"))}
+          </Typography>
           <Editor content={{ storageKey: undefined, editorState: content }} />
         </Container>
       ),
