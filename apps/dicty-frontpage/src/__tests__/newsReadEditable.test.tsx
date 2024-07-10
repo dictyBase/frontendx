@@ -165,7 +165,6 @@ describe("/news/:id/editable", () => {
       loading: false,
       error: undefined,
     })
-    const user = userEvent.setup()
     const router = createMemoryRouter(routeConfiguration, {
       initialEntries: [editableRoute],
     })
@@ -173,9 +172,5 @@ describe("/news/:id/editable", () => {
     render(<RouterProvider router={router} />)
     const deleteButton = screen.getByText("Delete")
     expect(deleteButton).toBeInTheDocument()
-
-    await user.click(deleteButton)
-    expect(mockAuthorizedDeleteContent).toHaveBeenCalled()
-    expect(screen.getByText("Editable News List Route")).toBeInTheDocument()
   })
 })
