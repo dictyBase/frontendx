@@ -15,7 +15,7 @@ const routeConfiguration = [
       <EditableView
         id="1"
         content={CONTENT_STRING}
-        updated_at={new Date().toISOString()}
+        updated_at="2024-07-10T12:55:26-05:00"
       />
     ),
   },
@@ -38,6 +38,13 @@ vi.mock("../common/hooks/useAuthorizedDeleteContent", () => ({
 }))
 
 describe("Editable View", () => {
+  test("renders the date of the content's last updated", () => {
+    const router = createMemoryRouter(routeConfiguration, {
+      initialEntries: [editableRoute],
+    })
+    render(<RouterProvider router={router} />)
+    expect(screen.getByText("Wednesday, July 10th, 2024")).toBeInTheDocument()
+  })
   test('renders an element with a "textbox" role when useContentBySlugQuery returns valid data', () => {
     const router = createMemoryRouter(routeConfiguration, {
       initialEntries: [editableRoute],

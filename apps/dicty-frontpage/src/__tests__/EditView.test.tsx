@@ -16,7 +16,7 @@ const routeConfiguration = [
       <EditView
         contentId="1"
         content={CONTENT_STRING}
-        updated_at={new Date().toISOString()}
+        updated_at="2024-07-10T12:55:26-05:00"
       />
     ),
   },
@@ -35,6 +35,17 @@ vi.mock("../common/hooks/useAuthorizedUpdateContent", () => ({
 }))
 
 describe("Edit View", () => {
+  test("renders the date of the content's last updated", () => {
+    const router = createMemoryRouter(routeConfiguration, {
+      initialEntries: [editRoute],
+    })
+    render(
+      <MockedProvider>
+        <RouterProvider router={router} />
+      </MockedProvider>,
+    )
+    expect(screen.getByText("Wednesday, July 10th, 2024")).toBeInTheDocument()
+  })
   test('renders an element with a "textbox" role when useContentBySlugQuery returns valid data', () => {
     const router = createMemoryRouter(routeConfiguration, {
       initialEntries: [editRoute],
