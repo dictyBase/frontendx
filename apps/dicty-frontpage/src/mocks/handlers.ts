@@ -82,8 +82,11 @@ const handlers = [
     }
   }),
   mockListContentByNamespaceQuery(async (_, response, context) => {
-    const listContentByNamespace  = await database.values().all()
-    const newsContent = pipe(listContentByNamespace, Afilter(({ namespace }) => namespace === "news"))
+    const listContentByNamespace = await database.values().all()
+    const newsContent = pipe(
+      listContentByNamespace,
+      Afilter(({ namespace }) => namespace === "news"),
+    )
     return response(context.data({ listContentByNamespace: newsContent }))
   }),
 ]
