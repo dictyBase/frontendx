@@ -6,6 +6,7 @@ interface ImportMetaEnv {
   VITE_APP_BASENAME: string
   VITE_APP_FRONTPAGE_URL: string
   VITE_APP_STOCKCENTER_URL: string
+  VITE_GA_TRACKING_ID: string
 }
 
 interface ImportMeta {
