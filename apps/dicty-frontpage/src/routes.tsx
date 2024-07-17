@@ -9,6 +9,7 @@ import {
   buildMergedRoutes,
 } from "@dictybase/auth"
 import { OtherError } from "@dictybase/ui-common"
+import { GoogleAnalyticsWrapper } from "./GoogleAnalyticsWrapper"
 
 const dynamicRoutes: dynamicRoutesProperties = import.meta.glob(
   "/src/pages/**/**/*.tsx",
@@ -25,7 +26,7 @@ const createRouteDefinition = (allRoutes: dynamicRoutesProperties) =>
     bind("privateR", () => pipe(allRoutes, privateRoutes, of)),
     Olet("mergedR", buildMergedRoutes),
     Olet("finalR", ({ mergedR }) => [
-      { errorElement: <OtherError />, children: mergedR },
+      { element: <GoogleAnalyticsWrapper />, errorElement: <OtherError />, children: mergedR },
     ]),
     match(
       () => [] as Array<RouteObject>,
