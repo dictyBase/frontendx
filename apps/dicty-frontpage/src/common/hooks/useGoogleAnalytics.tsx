@@ -9,18 +9,17 @@ const useGoogleAnalytics = () => {
   React.useEffect(() => {
     const setGoogleAnalytics = async () => {
       try {
-        const module = await import("react-ga")
+        const { default: ReactGA } = await import("react-ga4")
+        console.log(ReactGA)
         const page = location.pathname + location.search
-        const ReactGA = module.default
-        ReactGA.initialize(import.meta.env.REACT_APP_GA_TRACKING_ID)
-        ReactGA.set({ page, anonymizeIp: true })
-        ReactGA.pageview(page)
+        ReactGA.initialize([{ trackingId: import.meta.env.VITE_GA_TRACKING_ID }])
+        ReactGA.send({ hitType: "pageview", page })
 
         // also make sure to detect pageviews from bfcache
         // https://web.dev/bfcache/#how-bfcache-affects-analytics-and-performance-measurement
         window.addEventListener("pageshow", (event) => {
           if (event.persisted === true) {
-            ReactGA.pageview(page)
+            ReactGA.send({ hitType: "pageview", page })
           }
         })
       } catch (error) {
@@ -28,7 +27,7 @@ const useGoogleAnalytics = () => {
         console.error("could not load react-ga module", JSON.stringify(error))
       }
     }
-
+    console.log(import.meta.env.DEPLOY_ENV)
     if (import.meta.env.DEPLOY_ENV === "production") {
       setGoogleAnalytics()
     }
