@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import {
   Grid,
   Box,
@@ -39,7 +38,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: "#04313f",
     borderRadius: "15px",
     boxSizing: "border-box",
-    boxShadow: "0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)"
+    boxShadow:
+      "0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)",
   },
   title: {
     paddingLeft: "5px",
@@ -116,9 +116,9 @@ const LatestPapersLoader = () => {
         component="ul"
         className={listBox}>
         {pipe(
-          AmakeBy(3, (i) => i),
-          Amap((i) => (
-            <Grid key={i} item>
+          AmakeBy(3, (index) => index),
+          Amap((index) => (
+            <Grid key={index} item>
               <LoadingDisplay rows={2} height={40} />
             </Grid>
           )),
