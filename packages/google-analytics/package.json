@@ -1,21 +1,21 @@
 {
-  "name": "google-analytics",
+  "name": "@dictybase/google-analytics",
   "version": "0.0.0",
   "description": "Function to initialize google analytics in applications",
   "main": "./src/initializeGoogleAnalytics.ts",
   "author": "Kevin Tun",
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.x",
-    "@testing-library/react": "^12.x",
-    "@testing-library/user-event": "^14.x",
-    "vitest": "^0.33.0",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/user-event": "^14.5.1",
+    "vitest": "0.33.*",
     "@vitest/coverage-v8": "^0.34.5",
     "tsconfig": "*",
     "eslint-config-custom": "*"
   },
   "dependencies": {
-    "fp-ts": "^2.16.0"
+    "fp-ts": "^2.16.1"
   },
   "scripts": {
     "test": "vitest run",
