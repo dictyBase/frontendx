@@ -8,7 +8,8 @@ const useGoogleAnalytics = () => {
     const runGA = () => {
       if (DEPLOY_ENV !== "production") return
       try {
-        if (!VITE_GA_TRACKING_ID) throw new Error("No google analytics tracking ID provided")
+        if (!VITE_GA_TRACKING_ID)
+          throw new Error("No google analytics tracking ID provided")
         initializeGoogleAnalytics(VITE_GA_TRACKING_ID)
       } catch (error) {
         console.error("Could not initialize Google Analytics\n", error)
