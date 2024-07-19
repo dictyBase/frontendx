@@ -7,7 +7,7 @@ import {
   bind as TEbind,
   tryCatch as TEtryCatch,
   map as TEmap,
-  fromOption as TEfromOption
+  fromOption as TEfromOption,
 } from "fp-ts/TaskEither"
 
 enum ErrorType {
@@ -38,7 +38,12 @@ const useAuthorizedDeleteContent = (contentId: Option<string>) => {
   return () => {
     const task = pipe(
       TEDo,
-      TEbind("id", () => pipe(contentId, TEfromOption(() => missingContentIdError))),
+      TEbind("id", () =>
+        pipe(
+          contentId,
+          TEfromOption(() => missingContentIdError),
+        ),
+      ),
       TEbind("token", () =>
         TEtryCatch(
           () =>
@@ -51,7 +56,7 @@ const useAuthorizedDeleteContent = (contentId: Option<string>) => {
           () =>
             deleteContent({
               variables: {
-                id
+                id,
               },
               context: { headers: { Authorization: `Bearer ${token}` } },
             }),
