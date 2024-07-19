@@ -21,7 +21,7 @@ const Show = () => {
   })
   return match(result)
     .with(
-      { data: { contentBySlug: P.select({ content: (P.string) }) } },
+      { data: { contentBySlug: P.select({ content: P.string }) } },
       ({ content, updated_at }) => (
         <Container>
           <Typography variant="h2">
