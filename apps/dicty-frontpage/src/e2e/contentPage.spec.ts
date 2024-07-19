@@ -1,9 +1,6 @@
 import { test, expect } from "@playwright/test"
 import { pipe } from "fp-ts/function"
-import {
-  flatten as Aflatten,
-  map as Amap,
-} from "fp-ts/Array"
+import { flatten as Aflatten, map as Amap } from "fp-ts/Array"
 
 const contentRoutes = [
   {
@@ -49,16 +46,15 @@ const toRouteObject = ({
 }: {
   name: string
   pages: Array<string>
-}) => {
-  return pipe(
+}) =>
+  pipe(
     pages,
     Amap((pageName) => ({ group: name, pageName })),
   )
-}
 
 const pages = pipe(
   contentRoutes,
-  Amap((e) => toRouteObject(e)),
+  Amap((element) => toRouteObject(element)),
   Aflatten,
 )
 
