@@ -1,4 +1,9 @@
 import { test, expect } from "@playwright/test"
+import { pipe } from "fp-ts/function"
+import {
+  flatten as Aflatten,
+  map as Amap,
+} from "fp-ts/Array"
 
 const contentRoutes = [
   {
@@ -38,13 +43,33 @@ const contentRoutes = [
 
 const BASE_URL = process.env.FRONTPAGE_URL || "http://localhost:3004"
 
-for (const group of contentRoutes) {
-  for (const pageName of group.pages) {
+const toRouteObject = ({
+  name,
+  pages,
+}: {
+  name: string
+  pages: Array<string>
+}) => {
+  return pipe(
+    pages,
+    Amap((pageName) => ({ group: name, pageName })),
+  )
+}
+
+const pages = pipe(
+  contentRoutes,
+  Amap((e) => toRouteObject(e)),
+  Aflatten,
+)
+
+pipe(
+  pages,
+  Amap(({ group, pageName }) => {
     test(`${pageName} page is properly rendered`, async ({ page }) => {
       await page.goto(BASE_URL)
       await page
         .getByRole("navigation")
-        .getByText(group.name, { exact: true })
+        .getByText(group, { exact: true })
         .click()
       await page
         .getByRole("navigation")
@@ -53,5 +78,5 @@ for (const group of contentRoutes) {
       const editor = page.locator("[data-lexical-editor]")
       await expect(editor).toBeAttached()
     })
-  }
-}
+  }),
+)
