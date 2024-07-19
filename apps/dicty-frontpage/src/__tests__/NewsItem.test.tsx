@@ -22,7 +22,7 @@ describe("NewsItem", () => {
     render(<RouterProvider router={router} />)
   }
 
-  test("renders a link to `/news/${name}/show`", () => {
+  test("renders a link to `/news/:name/show`", () => {
     renderNewsItem()
     expect(screen.getByRole("link", { name: /read more/i })).toHaveAttribute(
       "href",

@@ -20,7 +20,7 @@ const contentList = AmakeBy(listLength, (index) => ({
 }))
 
 describe("NewsView", () => {
-  test("renders a link to `/news/${name}/show`", () => {
+  test("renders a link to `/news/:name/show`", () => {
     const router = createMemoryRouter([
       {
         index: true,
