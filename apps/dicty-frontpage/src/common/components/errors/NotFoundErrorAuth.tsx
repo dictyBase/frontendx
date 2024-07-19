@@ -1,4 +1,4 @@
-import { Grid, Typography, Container, Button } from "@material-ui/core"
+import { Grid, Typography, Container } from "@material-ui/core"
 import { BackToHomepageButton } from "../BackToHomepageButton"
 import { AddPageButton } from "../AddPageButton"
 import sadDicty from "../../assets/sad-dicty.png"
