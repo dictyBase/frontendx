@@ -38,20 +38,20 @@ const EditView = ({ contentId, content, updated_at }: EditViewProperties) => {
   )
   return (
     <Container>
-        <Grid container direction="column" spacing={2}>
-          <Grid item>
-            <Typography variant="h2">
-              {pipe(updated_at, parseISO, format("PPPP"))}
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Editor
-              content={{ storageKey: undefined, editorState: content }}
-              editable
-              toolbar={toolbar}
-            />
-          </Grid>
+      <Grid container direction="column" spacing={2}>
+        <Grid item>
+          <Typography variant="h2">
+            {pipe(updated_at, parseISO, format("PPPP"))}
+          </Typography>
         </Grid>
+        <Grid item>
+          <Editor
+            content={{ storageKey: undefined, editorState: content }}
+            editable
+            toolbar={toolbar}
+          />
+        </Grid>
+      </Grid>
     </Container>
   )
 }
@@ -65,7 +65,9 @@ const Edit = () => {
   return match(result)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
-      ({ id, content, updated_at }) => <EditView contentId={id} content={content} updated_at={updated_at} />,
+      ({ id, content, updated_at }) => (
+        <EditView contentId={id} content={content} updated_at={updated_at} />
+      ),
     )
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
     .with({ error: P.select(P.not(undefined)) }, (error) =>

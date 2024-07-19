@@ -77,7 +77,9 @@ const Editable = () => {
   return match(result)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
-      ({ id, content, updated_at }) => <EditableView id={id} content={content} updated_at={updated_at} />,
+      ({ id, content, updated_at }) => (
+        <EditableView id={id} content={content} updated_at={updated_at} />
+      ),
     )
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
     .with({ error: P.select(P.not(undefined)) }, (error) =>
