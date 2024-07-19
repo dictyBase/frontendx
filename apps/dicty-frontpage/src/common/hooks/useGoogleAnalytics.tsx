@@ -1,38 +1,21 @@
-import React from "react"
-import { useLocation } from "react-router-dom"
+import { useEffect } from "react"
+import { initializeGoogleAnalytics } from "@dictybase/google-analytics"
 
-// useGoogleAnalytics is a hook to initialize GA tracking
-// currently using a universal analytics tag
 const useGoogleAnalytics = () => {
-  const location = useLocation()
+  const { DEPLOY_ENV, VITE_GA_TRACKING_ID } = import.meta.env
 
-  React.useEffect(() => {
-    const setGoogleAnalytics = async () => {
+  useEffect(() => {
+    const runGA = () => {
+      if (DEPLOY_ENV !== "production") return
       try {
-        const module = await import("react-ga")
-        const page = location.pathname + location.search
-        const ReactGA = module.default
-        ReactGA.initialize(import.meta.env.REACT_APP_GA_TRACKING_ID)
-        ReactGA.set({ page, anonymizeIp: true })
-        ReactGA.pageview(page)
-
-        // also make sure to detect pageviews from bfcache
-        // https://web.dev/bfcache/#how-bfcache-affects-analytics-and-performance-measurement
-        window.addEventListener("pageshow", (event) => {
-          if (event.persisted === true) {
-            ReactGA.pageview(page)
-          }
-        })
+        if (!VITE_GA_TRACKING_ID) throw new Error("No google analytics tracking ID provided")
+        initializeGoogleAnalytics(VITE_GA_TRACKING_ID)
       } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error("could not load react-ga module", JSON.stringify(error))
+        console.error("Could not initialize Google Analytics\n", error)
       }
     }
-
-    if (import.meta.env.DEPLOY_ENV === "production") {
-      setGoogleAnalytics()
-    }
-  }, [location.pathname, location.search])
+    runGA()
+  }, [DEPLOY_ENV, VITE_GA_TRACKING_ID])
 }
 
 export { useGoogleAnalytics }
