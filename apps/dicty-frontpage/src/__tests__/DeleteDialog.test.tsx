@@ -24,7 +24,7 @@ test("When open = true, the dialog should be closed", async () => {
   const router = createMemoryRouter([
     {
       index: true,
-      element: <DeleteDialog open={true} onClose={() => {}} />,
+      element: <DeleteDialog open onClose={() => {}} />,
     },
   ])
   render(
@@ -40,7 +40,7 @@ test("Shows a delete button when open", async () => {
   const router = createMemoryRouter([
     {
       index: true,
-      element: <DeleteDialog open={true} onClose={() => {}} />,
+      element: <DeleteDialog open onClose={() => {}} />,
     },
   ])
   render(
@@ -56,7 +56,7 @@ test("Shows a cancel button when open", async () => {
   const router = createMemoryRouter([
     {
       index: true,
-      element: <DeleteDialog open={true} onClose={() => {}} />,
+      element: <DeleteDialog open onClose={() => {}} />,
     },
   ])
   render(
