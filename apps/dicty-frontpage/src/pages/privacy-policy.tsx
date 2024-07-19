@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/filename-case */
 import { About } from "../features/About/About"
-import { ACCESS } from "../app/routes/types"
+import { ACCESS } from "@dictybase/auth"
 
 // eslint-disable-next-line unicorn/prefer-export-from, import/no-default-export
 export default About
