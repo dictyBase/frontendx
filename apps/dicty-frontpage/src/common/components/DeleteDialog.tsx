@@ -13,23 +13,19 @@ type DeleteDialogProperties = {
   onClose: () => void
 }
 
-const DeleteDialog = ({ open, onClose }: DeleteDialogProperties) => {
-  return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>
-        Delete Content
-      </DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          Are you sure you want to delete this content?
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <DeleteButton />
-        <Button onClick={onClose}> Cancel </Button>
-      </DialogActions>
-    </Dialog>
-  )
-}
+const DeleteDialog = ({ open, onClose }: DeleteDialogProperties) => (
+  <Dialog open={open} onClose={onClose}>
+    <DialogTitle>Delete Content</DialogTitle>
+    <DialogContent>
+      <DialogContentText>
+        Are you sure you want to delete this content?
+      </DialogContentText>
+    </DialogContent>
+    <DialogActions>
+      <DeleteButton />
+      <Button onClick={onClose}> Cancel </Button>
+    </DialogActions>
+  </Dialog>
+)
 
 export { DeleteDialog }
