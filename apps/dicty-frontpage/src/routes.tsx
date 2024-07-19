@@ -25,7 +25,7 @@ const createRouteDefinition = (allRoutes: dynamicRoutesProperties) =>
     bind("privateR", () => pipe(allRoutes, privateRoutes, of)),
     Olet("mergedR", buildMergedRoutes),
     Olet("finalR", ({ mergedR }) => [
-      { errorElement: <OtherError />, children: mergedR, },
+      { errorElement: <OtherError />, children: mergedR },
     ]),
     match(
       () => [] as Array<RouteObject>,
