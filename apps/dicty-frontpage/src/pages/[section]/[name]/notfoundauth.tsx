@@ -1,5 +1,5 @@
 import { NotFoundErrorAuth } from "../../../common/components/errors/NotFoundErrorAuth"
-import { ACCESS } from "../../../app/routes/types"
+import { ACCESS } from "@dictybase/auth"
 
 // eslint-disable-next-line unicorn/prefer-export-from, import/no-default-export
 export default NotFoundErrorAuth
