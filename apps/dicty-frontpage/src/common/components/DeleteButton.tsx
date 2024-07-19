@@ -1,7 +1,7 @@
 import { Button, makeStyles } from "@material-ui/core"
 import { useNavigate } from "react-router-dom"
-import { useAuthorizedDeleteContent } from "../hooks/useAuthorizedDeleteContent"
 import { useAtomValue } from "jotai"
+import { useAuthorizedDeleteContent } from "../hooks/useAuthorizedDeleteContent"
 import { contentIdAtom } from "../../state"
 
 const useStyles = makeStyles((theme) => ({
