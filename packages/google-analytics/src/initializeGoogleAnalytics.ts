@@ -15,9 +15,16 @@ const initializeGoogleAnalytics = (trackingId: string) => {
   window.gtag = function gtag() {
     window.dataLayer.push(arguments)
   }
-
   window.gtag("js", new Date())
   window.gtag("config", trackingId) 
+
+  // https://web.dev/articles/bfcache#analytics 
+  window.addEventListener("pageshow", (event) => {
+    if (event.persisted === true) {
+      const { protocol, hostname, pathname } = window.location
+      window.gtag("event", "page_view", { page_location: protocol + hostname + pathname })
+    }
+  })
 }
 
 export { initializeGoogleAnalytics }
