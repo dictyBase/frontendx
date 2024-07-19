@@ -19,6 +19,7 @@
     "@apollo/client": "3.8.4",
     "@dictybase/auth": "*",
     "@dictybase/editor": "*",
+    "@dictybase/google-analytics": "*",
     "@dictybase/ui-frontpage": "*",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
