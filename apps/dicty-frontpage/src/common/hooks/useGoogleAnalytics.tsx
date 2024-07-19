@@ -12,6 +12,7 @@ const useGoogleAnalytics = () => {
           throw new Error("No google analytics tracking ID provided")
         initializeGoogleAnalytics(VITE_GA_TRACKING_ID)
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error("Could not initialize Google Analytics\n", error)
       }
     }
