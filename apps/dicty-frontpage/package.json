@@ -9,6 +9,8 @@
     "test": "vitest run",
     "build": "vite build",
     "serve": "vite preview --port 3000",
+    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx --cache",
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/dicty-frontpage.json",
     "coverage": "vitest run --coverage",
     "styleguide": "FAST_REFRESH=false styleguidist server",
     "styleguide:build": "FAST_REFRESH=false styleguidist build",
