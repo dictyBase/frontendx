@@ -66,8 +66,11 @@ const Popular = () => {
   const widgetlist = (
     <>
       <li className={classes.listItem}>
-        <a className={classes.link} href={`${import.meta.env.VITE_APP_STOCKCENTER_URL}`}>
-          <Button className={classes.altButton}
+        <a
+          className={classes.link}
+          href={`${import.meta.env.VITE_APP_STOCKCENTER_URL}`}>
+          <Button
+            className={classes.altButton}
             size="small"
             variant="contained"
             color="primary">
