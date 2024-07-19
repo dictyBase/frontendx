@@ -9,7 +9,6 @@ const RoleRedirect = () => {
   const { isLoading, isAuthorized } = useAuthorization({
     entries: authorizedRoles,
   })
-  console.log(isAuthorized)
   return match({ isLoading, isAuthorized })
     .with({ isAuthorized: true, isLoading: true }, () => (
       <Navigate to="editable" replace />
