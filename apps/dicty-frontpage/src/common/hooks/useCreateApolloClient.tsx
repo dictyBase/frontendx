@@ -1,5 +1,5 @@
 import React from "react"
-import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client"
+import { ApolloClient, InMemoryCache } from "@apollo/client"
 import createUploadLink from "apollo-upload-client/createUploadLink.mjs"
 import { setContext } from "@apollo/client/link/context"
 import { CachePersistor, LocalForageWrapper } from "apollo3-cache-persist"
