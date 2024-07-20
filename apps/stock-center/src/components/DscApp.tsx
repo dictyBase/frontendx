@@ -5,6 +5,7 @@ import { makeStyles, Theme } from "@material-ui/core/styles"
 import { HeaderWithAuth, NavbarWithAuth, FooterWithAuth } from "@dictybase/auth"
 import { dscRouter } from "../routes"
 import { navTheme } from "../themes"
+import { useGoogleAnalytics } from "../hooks/useGoogleAnalytics"
 
 const useStyles = makeStyles((theme: Theme) => ({
   main: {
@@ -27,6 +28,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 const DscApp = () => {
+  useGoogleAnalytics()
   const classes = useStyles()
   return (
     <div className={classes.body}>
