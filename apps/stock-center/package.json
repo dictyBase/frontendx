@@ -17,6 +17,7 @@
     "jotai": "^2.0.0",
     "react-helmet": "^6.1.0",
     "@dictybase/data-access": "*",
+    "@dictybase/google-analytics": "*",
     "@dictybase/hook": "*",
     "@dictybase/hook-dsc": "*",
     "@dictybase/ui-dsc": "*",
