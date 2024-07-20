@@ -17,7 +17,7 @@ afterEach(() => {
 
 test("Does not load Google Analytics in a non-production environment", () => {
   import.meta.env.VITE_DEPLOY_ENV = "testing"
-  import.meta.env.VITE_GA_TRACKING_ID = "ABC"
+  import.meta.env.VITE_GA_TRACKING_ID = "G-XXXXXXXXXX"
   render(<Wrapper />)
 
   expect(window.gtag).toBeUndefined()
@@ -25,7 +25,7 @@ test("Does not load Google Analytics in a non-production environment", () => {
 
 test("Loads Google Analytics in production environment", () => {
   import.meta.env.VITE_DEPLOY_ENV = "production"
-  import.meta.env.VITE_GA_TRACKING_ID = "ABC"
+  import.meta.env.VITE_GA_TRACKING_ID = "G-XXXXXXXXXX"
   render(<Wrapper />)
 
   expect(window.gtag).toBeDefined()
