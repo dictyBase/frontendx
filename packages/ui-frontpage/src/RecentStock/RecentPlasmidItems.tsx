@@ -20,7 +20,7 @@ const RecentPlasmidItems = () => {
       {pipe(
         recentPlasmidItems,
         Amap(({ id, name, dateAdded }) => (
-          <RecentStockItem id={id} name={name} dateAdded={dateAdded} />
+          <RecentStockItem key={id} id={id} name={name} dateAdded={dateAdded} />
         )),
       )}
     </Grid>

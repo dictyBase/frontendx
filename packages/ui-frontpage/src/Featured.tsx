@@ -79,7 +79,7 @@ const Featured = () => {
         {pipe(
           featuredLinks,
           Amap(({ icon, name, to, description, disabled }) => (
-            <Grid item>
+            <Grid key={name} item>
               <Link
                 to={to}
                 reloadDocument
