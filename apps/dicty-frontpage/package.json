@@ -43,7 +43,6 @@
     "localforage": "1.10.*",
     "nanoid": "~5.0.3",
     "react-app-polyfill": "^3.0.0",
-    "react-ga": "^3.3.1",
     "react-helmet": "^6.1.0",
     "react-loading-skeleton": "^3.3.1",
     "react-responsive-carousel": "^3.2.23",
