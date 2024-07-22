@@ -4,6 +4,7 @@ import Container from "@material-ui/core/Container"
 import { HeaderWithAuth, NavbarWithAuth, FooterWithAuth } from "@dictybase/auth"
 import ErrorBoundary from "../errors/ErrorBoundary"
 import { navTheme } from "../../common/utils/themes"
+import { useGoogleAnalytics } from "../../common/hooks/useGoogleAnalytics"
 
 const useStyles = makeStyles((theme: Theme) => ({
   main: {
@@ -30,6 +31,7 @@ const useStyles = makeStyles((theme: Theme) => ({
  */
 const App = ({ children }: { children: React.ReactNode }) => {
   const classes = useStyles()
+  useGoogleAnalytics()
 
   return (
     <div className={classes.body}>
