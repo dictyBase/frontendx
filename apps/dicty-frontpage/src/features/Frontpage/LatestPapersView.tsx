@@ -184,7 +184,7 @@ const LatestPapersView = ({ data }: LatestPapersProperties) => {
         {pipe(
           data,
           AtakeLeft(5),
-          Amap((p) => <LatestPaperItem data={p} />),
+          Amap((p) => <LatestPaperItem key={p.pubmedId} data={p} />),
         )}
       </Grid>
       <Grid container justifyContent="flex-end" className={bottomLink}>
