@@ -41,4 +41,3 @@ test("Does not load Google Analytics if there is no tracking ID", () => {
   expect(window.gtag).toBeUndefined()
   expect(mockConsoleError).toHaveBeenCalled()
 })
-
