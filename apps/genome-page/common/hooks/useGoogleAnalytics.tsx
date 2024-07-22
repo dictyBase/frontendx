@@ -1,41 +1,21 @@
-import React from "react"
-import { useRouter } from "next/router"
+import { useEffect } from "react"
+import { initializeGoogleAnalytics } from "@dictybase/google-analytics"
 
-// useGoogleAnalytics is a hook to initialize GA tracking
-// currently using a universal analytics tag
 const useGoogleAnalytics = () => {
-  const router = useRouter()
-
-  React.useEffect(() => {
-    const setGoogleAnalytics = async () => {
+  useEffect(() => {
+    const runGA = () => {
+      if (process.env.NEXT_PUBLIC_DEPLOY_ENV !== "production") return
       try {
-        const module = await import("react-ga")
-        const trackingID = process.env.NEXT_PUBLIC_GA_TRACKING_ID as string
-        const basename = process.env.NEXT_PUBLIC_BASENAME
-        const page = basename + router.pathname
-        const ReactGA = module.default
-
-        ReactGA.initialize(trackingID)
-        ReactGA.set({ page, anonymizeIp: true })
-        ReactGA.pageview(page)
-
-        // also make sure to detect pageviews from bfcache
-        // https://web.dev/bfcache/#how-bfcache-affects-analytics-and-performance-measurement
-        window.addEventListener("pageshow", (event) => {
-          if (event.persisted === true) {
-            ReactGA.pageview(page)
-          }
-        })
+        if (!process.env.NEXT_PUBLIC_GA_TRACKING_ID)
+          throw new Error("No google analytics tracking ID provided")
+        initializeGoogleAnalytics(process.env.NEXT_PUBLIC_GA_TRACKING_ID)
       } catch (error) {
         // eslint-disable-next-line no-console
-        console.error("could not load react-ga module", JSON.stringify(error))
+        console.error("Could not initialize Google Analytics\n", error)
       }
     }
-
-    if (process.env.NODE_ENV === "production") {
-      setGoogleAnalytics()
-    }
-  }, [router.pathname])
+    runGA()
+  }, [])
 }
 
 export { useGoogleAnalytics }
