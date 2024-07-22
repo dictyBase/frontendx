@@ -1,7 +1,7 @@
 declare global {
   interface Window {
     dataLayer: Array<any>
-    gtag: (...args: any) => void
+    gtag: (...arguments_: any) => void
   }
 }
 
@@ -12,17 +12,19 @@ const initializeGoogleAnalytics = (trackingId: string) => {
   document.body.append(script)
 
   window.dataLayer = window.dataLayer || []
-  window.gtag = function gtag() {
-    window.dataLayer.push(arguments)
+  window.gtag = function gtag(...arguments_) {
+    window.dataLayer.push(arguments_)
   }
   window.gtag("js", new Date())
-  window.gtag("config", trackingId) 
+  window.gtag("config", trackingId)
 
-  // https://web.dev/articles/bfcache#analytics 
+  // https://web.dev/articles/bfcache#analytics
   window.addEventListener("pageshow", (event) => {
     if (event.persisted === true) {
       const { protocol, hostname, pathname } = window.location
-      window.gtag("event", "page_view", { page_location: protocol + hostname + pathname })
+      window.gtag("event", "page_view", {
+        page_location: protocol + hostname + pathname,
+      })
     }
   })
 }
