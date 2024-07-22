@@ -18,6 +18,7 @@
   "dependencies": {
     "@apollo/client": "3.8.4",
     "@dictybase/auth": "*",
+    "@dictybase/google-analytics": "*",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@material-ui/icons": "^4.11.3",
@@ -35,7 +36,6 @@
     "localforage": "1.10.*",
     "next": "^12.2.1",
     "next-transpile-modules": "^9.0",
-    "react-ga": "^3.3.1",
     "react-helmet": "^6.1.0",
     "react-loading-skeleton": "^3.3.1",
     "react-router": "^5.2.0",
