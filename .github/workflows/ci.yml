@@ -37,7 +37,7 @@ jobs:
       project: frontend_application
       application_type: frontend
   call-stockcenter-deploy:
-    needs: test
+    needs: call-frontpage-deploy
     uses: dictyBase/workflows/.github/workflows/composite-deploy.yaml@develop
     secrets: inherit
     with:
@@ -51,7 +51,7 @@ jobs:
       project: frontend_application
       application_type: frontend
   call-publication-deploy:
-    needs: test
+    needs: call-stockcenter-deploy
     uses: dictyBase/workflows/.github/workflows/composite-deploy.yaml@develop
     secrets: inherit
     with:
