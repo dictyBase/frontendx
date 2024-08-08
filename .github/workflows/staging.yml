@@ -4,30 +4,47 @@ on:
     branches:
       - staging
 jobs:
-  call-frontpage-docker-build:
-    uses: dictyBase/workflows/.github/workflows/docker-build-push-mode.yaml@develop
+  call-frontpage-deploy:
+    uses: dictyBase/workflows/.github/workflows/composite-deploy.yaml@develop
     secrets: inherit
     with:
+      app: frontpage
       repository: ${{ github.repository }}
       ref: ${{ github.ref_name }}
+      docker_image: dicty-frontpage
       dockerfile: "docker/Dockerfile.frontpage"
-      dockerrepo: "dictybase/dicty-frontpage"
-      build_state: staging
-  call-dsc-docker-build:
-    uses: dictyBase/workflows/.github/workflows/docker-build-push-mode.yaml@develop
+      cluster: ${{ vars.DEV_STAGING_CLUSTER }}
+      cluster_state_storage: ${{ vars.DEV_STAGING_KOPS_STATE_STORAGE }}
+      project: frontend_application
+      application_type: frontend
+      environment: staging
+  call-stockcenter-deploy:
+    needs: call-frontpage-deploy
+    uses: dictyBase/workflows/.github/workflows/composite-deploy.yaml@develop
     secrets: inherit
     with:
-      build_state: staging
+      app: stockcenter
       repository: ${{ github.repository }}
       ref: ${{ github.ref_name }}
-      dockerfile: "docker/Dockerfile.stock-center"
-      dockerrepo: "dictybase/stock-center"
-  call-publication-docker-build:
-    uses: dictyBase/workflows/.github/workflows/docker-build-push-mode.yaml@develop
+      docker_image: stock-center
+      dockerfile: docker/Dockerfile.stock-center
+      cluster: ${{ vars.DEV_STAGING_CLUSTER }}
+      cluster_state_storage: ${{ vars.DEV_STAGING_KOPS_STATE_STORAGE }}
+      project: frontend_application
+      application_type: frontend
+      environment: staging
+  call-publication-deploy:
+    needs: call-stockcenter-deploy
+    uses: dictyBase/workflows/.github/workflows/composite-deploy.yaml@develop
     secrets: inherit
     with:
-      build_state: staging
+      app: publication
       repository: ${{ github.repository }}
       ref: ${{ github.ref_name }}
-      dockerfile: "docker/Dockerfile.publication"
-      dockerrepo: "dictybase/publication"
+      dockerfile: docker/Dockerfile.publication
+      docker_image: publication
+      cluster: ${{ vars.DEV_STAGING_CLUSTER }}
+      cluster_state_storage: ${{ vars.DEV_STAGING_KOPS_STATE_STORAGE }}
+      project: frontend_application
+      application_type: frontend
+      environment: staging
