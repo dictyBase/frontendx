@@ -22,30 +22,45 @@ jobs:
         uses: codecov/codecov-action@v4
         with: 
           token: ${{ secrets.CODECOV }}
-  call-frontpage-docker-build:
+  call-frontpage-deploy:
     needs: test
-    uses: dictyBase/workflows/.github/workflows/docker-publish.yaml@main
+    uses: dictyBase/workflows/.github/workflows/composite-deploy.yaml@develop
     secrets: inherit
     with:
+      app: frontpage
       repository: ${{ github.repository }}
       ref: ${{ github.ref_name }}
-      image: dicty-frontpage
+      docker_image: dicty-frontpage
       dockerfile: "docker/Dockerfile.frontpage"
-  call-dsc-docker-build:
+      cluster: ${{ vars.DEV_STAGING_CLUSTER }}
+      cluster_state_storage: ${{ vars.DEV_STAGING_KOPS_STATE_STORAGE }}
+      project: frontend_application
+      application_type: frontend
+  call-stockcenter-deploy:
     needs: test
-    uses: dictyBase/workflows/.github/workflows/docker-publish.yaml@main
+    uses: dictyBase/workflows/.github/workflows/composite-deploy.yaml@develop
     secrets: inherit
     with:
+      app: stockcenter
       repository: ${{ github.repository }}
       ref: ${{ github.ref_name }}
-      image: stock-center
+      docker_image: stock-center
       dockerfile: docker/Dockerfile.stock-center
-  call-publication-docker-build:
+      cluster: ${{ vars.DEV_STAGING_CLUSTER }}
+      cluster_state_storage: ${{ vars.DEV_STAGING_KOPS_STATE_STORAGE }}
+      project: frontend_application
+      application_type: frontend
+  call-publication-deploy:
     needs: test
-    uses: dictyBase/workflows/.github/workflows/docker-publish.yaml@main
+    uses: dictyBase/workflows/.github/workflows/composite-deploy.yaml@develop
     secrets: inherit
     with:
+      app: publication
       repository: ${{ github.repository }}
       ref: ${{ github.ref_name }}
-      dockerfile: "docker/Dockerfile.publication"
-      image: publication
+      dockerfile: docker/Dockerfile.publication
+      docker_image: publication
+      cluster: ${{ vars.DEV_STAGING_CLUSTER }}
+      cluster_state_storage: ${{ vars.DEV_STAGING_KOPS_STATE_STORAGE }}
+      project: frontend_application
+      application_type: frontend
