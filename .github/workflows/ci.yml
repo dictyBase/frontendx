@@ -22,44 +22,16 @@ jobs:
         uses: codecov/codecov-action@v4
         with: 
           token: ${{ secrets.CODECOV }}
-  call-frontpage-deploy:
+  call-deploy:
     needs: test
     uses: dictyBase/workflows/.github/workflows/composite-deploy.yaml@develop
     secrets: inherit
     with:
-      app: frontpage
+      app: frontpage:stockcenter:publication
       repository: ${{ github.repository }}
       ref: ${{ github.ref_name }}
-      docker_image: dicty-frontpage
-      dockerfile: "docker/Dockerfile.frontpage"
-      cluster: ${{ vars.DEV_STAGING_CLUSTER }}
-      cluster_state_storage: ${{ vars.DEV_STAGING_KOPS_STATE_STORAGE }}
-      project: frontend_application
-      application_type: frontend
-  call-stockcenter-deploy:
-    needs: call-frontpage-deploy
-    uses: dictyBase/workflows/.github/workflows/composite-deploy.yaml@develop
-    secrets: inherit
-    with:
-      app: stockcenter
-      repository: ${{ github.repository }}
-      ref: ${{ github.ref_name }}
-      docker_image: stock-center
-      dockerfile: docker/Dockerfile.stock-center
-      cluster: ${{ vars.DEV_STAGING_CLUSTER }}
-      cluster_state_storage: ${{ vars.DEV_STAGING_KOPS_STATE_STORAGE }}
-      project: frontend_application
-      application_type: frontend
-  call-publication-deploy:
-    needs: call-stockcenter-deploy
-    uses: dictyBase/workflows/.github/workflows/composite-deploy.yaml@develop
-    secrets: inherit
-    with:
-      app: publication
-      repository: ${{ github.repository }}
-      ref: ${{ github.ref_name }}
-      dockerfile: docker/Dockerfile.publication
-      docker_image: publication
+      docker_image: dicty-frontpage:stock-center:publication
+      dockerfile: docker/Dockerfile.frontpage:docker/Dockerfile.stock-center:docker/Dockerfile.publication
       cluster: ${{ vars.DEV_STAGING_CLUSTER }}
       cluster_state_storage: ${{ vars.DEV_STAGING_KOPS_STATE_STORAGE }}
       project: frontend_application
