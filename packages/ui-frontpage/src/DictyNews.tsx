@@ -18,6 +18,7 @@ import { pipe } from "fp-ts/function"
 import { slice as Sslice } from "fp-ts/string"
 import { map as Amap } from "fp-ts/Array"
 import { parseISO, format } from "date-fns/fp"
+import { truncateString } from "./utils/truncateString"
 
 const useDictyNewsStyles = makeStyles((theme) => ({
   root: {},
@@ -93,7 +94,7 @@ const NewsList = ({ contentList }: NewsListProperties) => (
                 </Link>
               </Grid>
               <Grid item>
-                <Typography>{`${previewText}...`}</Typography>
+                <Typography>{truncateString(previewText, 300)}</Typography>
               </Grid>
             </Grid>
           </Grid>
