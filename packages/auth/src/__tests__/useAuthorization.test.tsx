@@ -30,7 +30,8 @@ test("A user without a matching role is unauthorized", async () => {
     isAuthenticated: true,
   })
 
-  render(<TestComponent authorizedRoles={["admin"]} />)
+  const { getByText } = render(<TestComponent authorizedRoles={["admin"]} />)
+  expect(getByText("LOADING")).toBeInTheDocument()
   expect(await screen.findByText("UNAUTHORIZED")).toBeInTheDocument()
 })
 
@@ -40,6 +41,7 @@ test("A user with a matching role is authorized", async () => {
     isAuthenticated: true,
   })
 
-  render(<TestComponent authorizedRoles={["admin"]} />)
+  const { getByText } = render(<TestComponent authorizedRoles={["admin"]} />)
+  expect(getByText("LOADING")).toBeInTheDocument()
   expect(await screen.findByText("AUTHORIZED")).toBeInTheDocument()
 })
