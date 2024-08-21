@@ -80,13 +80,13 @@ const NewsList = ({ contentList }: NewsListProperties) => (
   <Grid container spacing={1} direction="column">
     {pipe(
       contentList,
-      Amap(({ id, content, updated_at }) => {
+      Amap(({ name, content, updated_at }) => {
         const previewText = pipe(content, parseContentToText, Sslice(0, 400))
         return (
-          <Grid key={id} item>
+          <Grid key={name} item>
             <Grid spacing={1} container direction="column">
               <Grid item>
-                <Link to={`/news/${id}`}>
+                <Link to={`/news/${name}`}>
                   <Typography variant="h3">
                     {pipe(updated_at, parseISO, format("PPPP"))}
                   </Typography>
