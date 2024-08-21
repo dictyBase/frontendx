@@ -1,6 +1,8 @@
 import { test, expect, vi } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { useAuthorization } from "../useAuthorization"
+import { render, screen } from "@testing-library/react"
+import { useAuthorization } from "../useAuthorization"
 
 const mockUseLogto = vi.hoisted(() => vi.fn())
 
@@ -30,8 +32,8 @@ test("A user without a matching role is unauthorized", async () => {
     isAuthenticated: true,
   })
 
-  const { getByText } = render(<TestComponent authorizedRoles={["admin"]} />)
-  expect(getByText("LOADING")).toBeInTheDocument()
+  render(<TestComponent authorizedRoles={["admin"]} />)
+  expect(screen.getByText("LOADING")).toBeInTheDocument()
   expect(await screen.findByText("UNAUTHORIZED")).toBeInTheDocument()
 })
 
@@ -41,7 +43,7 @@ test("A user with a matching role is authorized", async () => {
     isAuthenticated: true,
   })
 
-  const { getByText } = render(<TestComponent authorizedRoles={["admin"]} />)
-  expect(getByText("LOADING")).toBeInTheDocument()
+  render(<TestComponent authorizedRoles={["admin"]} />)
+  expect(screen.getByText("LOADING")).toBeInTheDocument()
   expect(await screen.findByText("AUTHORIZED")).toBeInTheDocument()
 })
