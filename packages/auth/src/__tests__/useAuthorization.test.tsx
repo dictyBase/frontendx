@@ -20,8 +20,8 @@ const TestComponent = ({
   const { isAuthorized, isLoading } = useAuthorization({
     entries: authorizedRoles,
   })
-  if (isLoading) return <> LOADING </>
-  return <>{isAuthorized ? "AUTHORIZED" : "UNAUTHORIZED"}</>
+  if (isLoading) return <div>LOADING</div>
+  return <div>{isAuthorized ? "AUTHORIZED" : "UNAUTHORIZED"}</div>
 }
 
 test("A user without a matching role is unauthorized", () => {
@@ -30,8 +30,8 @@ test("A user without a matching role is unauthorized", () => {
     isAuthenticated: true,
   })
 
-  render(<TestComponent authorizedRoles={["admin"]} />)
-  expect(screen.getByText("UNAUTHORIZED")).toBeInTheDocument()
+  await render(<TestComponent authorizedRoles={["admin"]} />)
+  expect(await screen.findByText("UNAUTHORIZED")).toBeInTheDocument()
 })
 
 test("A user with a matching role is authorized", () => {
@@ -40,6 +40,6 @@ test("A user with a matching role is authorized", () => {
     isAuthenticated: true,
   })
 
-  render(<TestComponent authorizedRoles={["admin"]} />)
-  expect(screen.getByText("AUTHORIZED")).toBeInTheDocument()
+  await render(<TestComponent authorizedRoles={["admin"]} />)
+  expect(await screen.findByText("AUTHORIZED")).toBeInTheDocument()
 })
