@@ -1,8 +1,6 @@
 import { test, expect, vi } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { useAuthorization } from "../useAuthorization"
-import { render, screen } from "@testing-library/react"
-import { useAuthorization } from "../useAuthorization"
 
 const mockUseLogto = vi.hoisted(() => vi.fn())
 
