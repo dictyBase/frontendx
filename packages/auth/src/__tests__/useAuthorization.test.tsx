@@ -24,22 +24,22 @@ const TestComponent = ({
   return <div>{isAuthorized ? "AUTHORIZED" : "UNAUTHORIZED"}</div>
 }
 
-test("A user without a matching role is unauthorized", () => {
+test("A user without a matching role is unauthorized", async () => {
   mockUseLogto.mockReturnValue({
     fetchUserInfo: async () => ({ roles: ["user"] }),
     isAuthenticated: true,
   })
 
-  await render(<TestComponent authorizedRoles={["admin"]} />)
+  render(<TestComponent authorizedRoles={["admin"]} />)
   expect(await screen.findByText("UNAUTHORIZED")).toBeInTheDocument()
 })
 
-test("A user with a matching role is authorized", () => {
+test("A user with a matching role is authorized", async () => {
   mockUseLogto.mockReturnValue({
     fetchUserInfo: async () => ({ roles: ["admin"] }),
     isAuthenticated: true,
   })
 
-  await render(<TestComponent authorizedRoles={["admin"]} />)
+  render(<TestComponent authorizedRoles={["admin"]} />)
   expect(await screen.findByText("AUTHORIZED")).toBeInTheDocument()
 })
