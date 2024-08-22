@@ -1,12 +1,11 @@
 import { firstLast, upperFirst, nameToUpperInitial } from "../functional"
 
-// Test for firstLast function
 describe("firstLast", () => {
-  it("should return the first and last character of a string", () => {
-    expect(firstLast("hello")).toBe("ho")
-    expect(firstLast("world")).toBe("wd")
-    expect(firstLast("a")).toBe("aa")
-    expect(firstLast("")).toBe("")
+  it("should return an array containing the first and last elements of the input array", () => {
+    expect(firstLast(["apple", "banana", "cherry"])).toEqual(["apple", "cherry"])
+    expect(firstLast(["dog", "cat", "mouse", "elephant"])).toEqual(["dog", "elephant"])
+    expect(firstLast(["one"])).toEqual(["one", "one"])
+    expect(firstLast([])).toEqual([])
   })
 })
 
