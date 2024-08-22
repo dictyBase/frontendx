@@ -24,6 +24,18 @@ const TestComponent = ({
   return <div>{isAuthorized ? "AUTHORIZED" : "UNAUTHORIZED"}</div>
 }
 
+test("fetchUserInfo is not called if isAuthenticated is false", async () => {
+  const fetchUserInfoMock = vi.fn()
+  mockUseLogto.mockReturnValue({
+    fetchUserInfo: fetchUserInfoMock,
+    isAuthenticated: false,
+  })
+
+  render(<TestComponent authorizedRoles={["admin"]} />)
+  expect(screen.getByText("UNAUTHORIZED")).toBeInTheDocument()
+  expect(fetchUserInfoMock).not.toHaveBeenCalled()
+})
+
 test("A user without a matching role is unauthorized", async () => {
   mockUseLogto.mockReturnValue({
     fetchUserInfo: async () => ({ roles: ["user"] }),
