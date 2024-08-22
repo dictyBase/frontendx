@@ -35,4 +35,4 @@ const nameToUpperInitial = (fullName: string) =>
     Amap(upperFirst), // Applies the upperFirst function to each word in the array
   ).join("") // Joins the array of uppercased initials into a single string
 
-export { nameToUpperInitial, matchEntries }
+export { firstLast, upperFirst, nameToUpperInitial, matchEntries }
