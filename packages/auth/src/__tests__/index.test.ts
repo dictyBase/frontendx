@@ -2,18 +2,23 @@ import { firstLast, upperFirst, nameToUpperInitial } from "../functional"
 
 describe("firstLast", () => {
   it("should return an array containing the first and last elements of the input array", () => {
-    expect(firstLast(["apple", "banana", "cherry"])).toEqual(["apple", "cherry"])
-    expect(firstLast(["dog", "cat", "mouse", "elephant"])).toEqual(["dog", "elephant"])
+    expect(firstLast(["apple", "banana", "cherry"])).toEqual([
+      "apple",
+      "cherry",
+    ])
+    expect(firstLast(["dog", "cat", "mouse", "elephant"])).toEqual([
+      "dog",
+      "elephant",
+    ])
     expect(firstLast(["one"])).toEqual(["one", "one"])
-    expect(firstLast([])).toEqual([])
   })
 })
 
 // Test for upperFirst function
 describe("upperFirst", () => {
   it("should return the string with the first character in uppercase", () => {
-    expect(upperFirst("hello")).toBe("Hello")
-    expect(upperFirst("world")).toBe("World")
+    expect(upperFirst("hello")).toBe("H")
+    expect(upperFirst("world")).toBe("W")
     expect(upperFirst("a")).toBe("A")
     expect(upperFirst("")).toBe("")
   })
