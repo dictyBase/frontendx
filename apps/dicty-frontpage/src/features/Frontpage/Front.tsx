@@ -1,14 +1,10 @@
 import { Helmet } from "react-helmet"
 import { Grid, Container } from "@material-ui/core"
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import {
-  DictyNews,
-  RecentUpdates,
-  ComingSoon,
-  Featured,
-} from "@dictybase/ui-frontpage"
+import { RecentUpdates, ComingSoon, Featured } from "@dictybase/ui-frontpage"
 import { Slideshow } from "./Slideshow"
 import { LatestPapers } from "./LatestPapers"
+import { DictyNewsWithAuth } from "./DictyNewsWithAuth"
 
 const useStyles = makeStyles((theme: Theme) => ({
   topItem: {
@@ -48,7 +44,7 @@ const Front = () => {
           <Slideshow />
         </Grid>
         <Grid item className={classes.topItem} sm={12} md={6} xl={6}>
-          <DictyNews />
+          <DictyNewsWithAuth />
         </Grid>
         <Grid item className={classes.topItem} xs={12} xl={12}>
           <LatestPapers />
