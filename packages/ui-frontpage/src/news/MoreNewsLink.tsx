@@ -28,4 +28,4 @@ const MoreNewsLink = () => {
   )
 }
 
-export default MoreNewsLink
+export { MoreNewsLink }

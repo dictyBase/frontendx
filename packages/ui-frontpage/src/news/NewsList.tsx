@@ -1,12 +1,12 @@
 import { Grid, Typography } from "@material-ui/core"
+import { ListContentByNamespaceQuery } from "dicty-graphql-schema"
 import { Link } from "react-router-dom"
 import { pipe } from "fp-ts/function"
 import { slice as Sslice } from "fp-ts/string"
 import { map as Amap } from "fp-ts/Array"
 import { parseISO, format } from "date-fns/fp"
 import { parseContentToText } from "@dictybase/editor"
-import { truncateString } from "./utils/truncateString"
-import { ListContentByNamespaceQuery } from "dicty-graphql-schema"
+import { truncateString } from "../utils/truncateString"
 
 type NewsListProperties = {
   contentList: ListContentByNamespaceQuery["listContentByNamespace"]
@@ -39,4 +39,4 @@ const NewsList = ({ contentList }: NewsListProperties) => (
   </Grid>
 )
 
-export default NewsList
+export { NewsList }

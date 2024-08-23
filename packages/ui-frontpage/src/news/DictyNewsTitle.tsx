@@ -2,11 +2,11 @@ import { Grid, Typography } from "@material-ui/core"
 import AnnouncementIcon from "@material-ui/icons/Announcement"
 import { makeStyles } from "@material-ui/core/styles"
 
-const useDictyNewsStyles = makeStyles((theme) => ({
+const useDictyNewsStyles = makeStyles({
   newsIcon: {
     display: "block",
   },
-}))
+})
 
 const DictyNewsTitle = () => {
   const { newsIcon } = useDictyNewsStyles()
@@ -22,4 +22,4 @@ const DictyNewsTitle = () => {
   )
 }
 
-export default DictyNewsTitle
+export { DictyNewsTitle }
