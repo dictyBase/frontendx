@@ -11,14 +11,10 @@ import {
   ListContentByNamespaceQuery,
 } from "dicty-graphql-schema"
 import { parseContentToText } from "@dictybase/editor"
-import AnnouncementIcon from "@material-ui/icons/Announcement"
-import DoubleArrowIcon from "@material-ui/icons/DoubleArrow"
-import { Link } from "react-router-dom"
-import { pipe } from "fp-ts/function"
-import { slice as Sslice } from "fp-ts/string"
-import { map as Amap } from "fp-ts/Array"
-import { parseISO, format } from "date-fns/fp"
-import { truncateString } from "./utils/truncateString"
+import DictyNewsTitle from "./DictyNewsTitle"
+import NewsList from "./NewsList"
+import EmptyNewsList from "./EmptyNewsList"
+import MoreNewsLink from "./MoreNewsLink"
 
 const useDictyNewsStyles = makeStyles((theme) => ({
   root: {},
@@ -44,101 +40,7 @@ const useDictyNewsStyles = makeStyles((theme) => ({
     overflow: "auto",
     flexGrow: 1,
   },
-  emptyNewsList: {
-    height: "100%",
-  },
-  link: {
-    color: theme.palette.primary.main,
-    "&:hover": {
-      backgroundColor: "inherit",
-      color: "red",
-    },
-  },
-  newsIcon: {
-    display: "block",
-  },
 }))
-
-const DictyNewsTitle = () => {
-  const { newsIcon } = useDictyNewsStyles()
-  return (
-    <Grid container spacing={1} alignItems="center">
-      <Grid item>
-        <Typography variant="h1">Dicty News</Typography>
-      </Grid>
-      <Grid item>
-        <AnnouncementIcon className={newsIcon} />
-      </Grid>
-    </Grid>
-  )
-}
-
-type NewsListProperties = {
-  contentList: ListContentByNamespaceQuery["listContentByNamespace"]
-}
-
-const NewsList = ({ contentList }: NewsListProperties) => (
-  <Grid container spacing={1} direction="column">
-    {pipe(
-      contentList,
-      Amap(({ name, content, updated_at }) => {
-        const previewText = pipe(content, parseContentToText, Sslice(0, 400))
-        return (
-          <Grid key={name} item>
-            <Grid spacing={1} container direction="column">
-              <Grid item>
-                <Link to={`/news/${name}`}>
-                  <Typography variant="h3">
-                    {pipe(updated_at, parseISO, format("PPPP"))}
-                  </Typography>
-                </Link>
-              </Grid>
-              <Grid item>
-                <Typography>{truncateString(previewText, 300)}</Typography>
-              </Grid>
-            </Grid>
-          </Grid>
-        )
-      }),
-    )}
-  </Grid>
-)
-
-const EmptyNewsList = () => {
-  const { emptyNewsList } = useDictyNewsStyles()
-  return (
-    <Grid
-      container
-      direction="column"
-      justifyContent="center"
-      className={emptyNewsList}>
-      <Grid item>
-        <Grid container justifyContent="center">
-          <Grid item>
-            <Typography variant="h3">
-              There are currently no news items
-            </Typography>
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
-  )
-}
-
-const MoreNewsLink = () => {
-  const { link } = useDictyNewsStyles()
-  return (
-    <Grid justifyContent="flex-end" container>
-      <Grid item>
-        <Link to="/news">
-          <Button className={link} endIcon={<DoubleArrowIcon />}>
-            <Typography variant="h2"> More News </Typography>
-          </Button>
-        </Link>
-      </Grid>
-    </Grid>
-  )
-}
 
 const DictyNews = () => {
   const { root, main, newsListItem } = useDictyNewsStyles()
