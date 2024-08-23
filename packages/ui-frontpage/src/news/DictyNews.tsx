@@ -1,22 +1,12 @@
-import {
-  Container,
-  Typography,
-  Grid,
-  Button,
-  makeStyles,
-} from "@material-ui/core"
+import { Container, Grid, makeStyles } from "@material-ui/core"
 import { match, P } from "ts-pattern"
-import {
-  useListContentByNamespaceQuery,
-  ListContentByNamespaceQuery,
-} from "dicty-graphql-schema"
-import { parseContentToText } from "@dictybase/editor"
-import DictyNewsTitle from "./DictyNewsTitle"
-import NewsList from "./NewsList"
-import EmptyNewsList from "./EmptyNewsList"
-import MoreNewsLink from "./MoreNewsLink"
+import { useListContentByNamespaceQuery } from "dicty-graphql-schema"
+import { DictyNewsTitle } from "./DictyNewsTitle"
+import { NewsList } from "./NewsList"
+import { EmptyNewsList } from "./EmptyNewsList"
+import { MoreNewsLink } from "./MoreNewsLink"
 
-const useDictyNewsStyles = makeStyles((theme) => ({
+const useDictyNewsStyles = makeStyles({
   root: {},
   main: {
     height: "440px",
@@ -40,7 +30,7 @@ const useDictyNewsStyles = makeStyles((theme) => ({
     overflow: "auto",
     flexGrow: 1,
   },
-}))
+})
 
 const DictyNews = () => {
   const { root, main, newsListItem } = useDictyNewsStyles()

@@ -1,11 +1,11 @@
 import { Grid, Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 
-const useDictyNewsStyles = makeStyles((theme) => ({
+const useDictyNewsStyles = makeStyles({
   emptyNewsList: {
     height: "100%",
   },
-}))
+})
 
 const EmptyNewsList = () => {
   const { emptyNewsList } = useDictyNewsStyles()
@@ -28,4 +28,4 @@ const EmptyNewsList = () => {
   )
 }
 
-export default EmptyNewsList
+export { EmptyNewsList }
