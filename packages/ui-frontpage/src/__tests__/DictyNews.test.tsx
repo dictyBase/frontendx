@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react"
 import { describe, it, expect } from "vitest"
-import { DictyNews } from "../src/news/DictyNews"
 import { MockedProvider } from "@apollo/client/testing"
 import { ListContentByNamespaceDocument } from "dicty-graphql-schema"
+import { DictyNews } from "../news/DictyNews"
 
 const mocks = [
   {
@@ -13,7 +13,11 @@ const mocks = [
     result: {
       data: {
         listContentByNamespace: [
-          { name: "news1", content: "Content 1", updated_at: "2024-08-23T00:00:00Z" },
+          {
+            name: "news1",
+            content: "Content 1",
+            updated_at: "2024-08-23T00:00:00Z",
+          },
         ],
       },
     },
@@ -25,7 +29,7 @@ describe("DictyNews", () => {
     render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <DictyNews />
-      </MockedProvider>
+      </MockedProvider>,
     )
     expect(await screen.findByText("August 23, 2024")).toBeInTheDocument()
     expect(screen.getByText("Content 1")).toBeInTheDocument()
