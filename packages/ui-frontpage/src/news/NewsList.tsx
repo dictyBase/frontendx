@@ -22,7 +22,7 @@ const NewsList = ({ contentList }: NewsListProperties) => (
           <Grid key={name} item>
             <Grid spacing={1} container direction="column">
               <Grid item>
-                <Link to={`/news/${name}`}>
+                <Link to={`/news/${name}/show`}>
                   <Typography variant="h3">
                     {pipe(updated_at, parseISO, format("PPPP"))}
                   </Typography>
