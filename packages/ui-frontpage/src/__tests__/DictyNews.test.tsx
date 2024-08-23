@@ -32,11 +32,9 @@ describe("DictyNews", () => {
     })
 
     render(
-      <RouterProvider router={router}>
       <MockedProvider mocks={mocks} addTypename={false}>
-        <DictyNews />
-      </MockedProvider>
-      </RouterProvider>,
+        <RouterProvider router={router} />
+      </MockedProvider>,
     )
     expect(await screen.findByText("August 23, 2024")).toBeInTheDocument()
     expect(screen.getByText("Content 1")).toBeInTheDocument()
