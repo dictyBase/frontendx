@@ -3,6 +3,7 @@ import { describe, it, expect } from "vitest"
 import { MockedProvider } from "@apollo/client/testing"
 import { ListContentByNamespaceDocument } from "dicty-graphql-schema"
 import { AuthorizedDictyNews } from "../news/AuthorizedDictyNews"
+import { RouterProvider, createMemoryRouter } from "react-router-dom"
 
 const mocks = [
   {
@@ -26,7 +27,14 @@ const mocks = [
 
 describe("AuthorizedDictyNews", () => {
   it("renders authorized news list", async () => {
+    const router = createMemoryRouter([{ path: "/", element: <AuthorizedDictyNews /> }], {
+      initialEntries: ["/"],
+    })
+
     render(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <RouterProvider router={router} />
+      </MockedProvider>,
       <MockedProvider mocks={mocks} addTypename={false}>
         <AuthorizedDictyNews />
       </MockedProvider>,
