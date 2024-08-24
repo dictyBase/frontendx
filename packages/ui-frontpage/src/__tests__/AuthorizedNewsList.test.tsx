@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react"
+import { ListContentByNamespaceQuery } from "dicty-graphql-schema"
 import { describe, it, expect } from "vitest"
 import { BrowserRouter } from "react-router-dom"
 import { AuthorizedNewsList } from "../news/AuthorizedNewsList"
@@ -54,10 +55,14 @@ describe("AuthorizedNewsList", () => {
     ]
     render(
       <BrowserRouter>
-        <AuthorizedNewsList contentList={contentList} />
+        <AuthorizedNewsList
+          contentList={
+            contentList as ListContentByNamespaceQuery["listContentByNamespace"]
+          }
+        />
       </BrowserRouter>,
     )
-    expect(screen.getByText("August 23rd, 2024")).toBeInTheDocument()
+    expect(screen.getByText("Friday, August 23rd, 2024")).toBeInTheDocument()
     expect(screen.getByText(expectedText)).toBeInTheDocument()
   })
 })
