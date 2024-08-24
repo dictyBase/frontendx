@@ -56,7 +56,6 @@ describe("NewsList", () => {
     ]
     const user = userEvent.setup()
     render(
-      <MemoryRouter initialEntries={["/"]}>
       <BrowserRouter>
         <NewsList
           contentList={
@@ -67,7 +66,9 @@ describe("NewsList", () => {
     )
     expect(screen.getByText("Friday, August 23rd, 2024")).toBeInTheDocument()
     expect(screen.getByText(expectedText)).toBeInTheDocument()
-    const link = screen.getByRole("link", { name: /friday, august 23rd, 2024/i })
+    const link = screen.getByRole("link", {
+      name: /friday, august 23rd, 2024/i,
+    })
     expect(link).toBeInTheDocument()
 
     await user.click(link)
