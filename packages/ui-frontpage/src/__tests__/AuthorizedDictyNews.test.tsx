@@ -44,6 +44,28 @@ const mockContent = {
     version: 1,
   },
 }
+const mockData = {
+  id: "1",
+  name: "news1",
+  slug: "news-1",
+  namespace: "news",
+  content: JSON.stringify(mockContent),
+  created_at: "2024-08-22T00:00:00Z",
+  updated_at: "2024-08-23T00:00:00Z",
+  created_by: {
+    id: "user1",
+    email: "user1@example.com",
+    first_name: "User",
+    last_name: "One",
+  },
+  updated_by: {
+    id: "user2",
+    email: "user2@example.com",
+    first_name: "User",
+    last_name: "Two",
+  },
+}
+
 const mocks = [
   {
     request: {
@@ -54,9 +76,7 @@ const mocks = [
       data: {
         listContentByNamespace: [
           {
-            name: "news1",
-            content: JSON.stringify(mockContent),
-            updated_at: "2024-08-23T00:00:00Z",
+            ...mockData,
           },
         ],
       },
