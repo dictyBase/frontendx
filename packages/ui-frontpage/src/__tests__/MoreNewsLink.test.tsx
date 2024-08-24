@@ -21,6 +21,7 @@ const router = createMemoryRouter(routes, {
 describe("MoreNewsLink", () => {
   it("renders the More News link", () => {
     render(<RouterProvider router={router} />)
-    expect(screen.getByText("More News")).toBeInTheDocument()
+    const link = screen.getByRole("link", { name: /more news/i })
+    expect(link).toBeInTheDocument()
   })
 })
