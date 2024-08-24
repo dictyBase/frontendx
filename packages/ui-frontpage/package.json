@@ -13,7 +13,8 @@
     "@types/react-dom": "17.*",
     "eslint-config-custom": "*",
     "prettier": "3.*",
-    "tsconfig": "*"
+    "tsconfig": "*",
+    "vitest": "0.33.*"
   },
   "dependencies": {
     "@apollo/client": "3.8.4",
@@ -27,6 +28,7 @@
     "react-router-dom": "~6.14.2"
   },
   "scripts": {
-    "lint": "TIMING=1 eslint src --fix"
+    "lint": "TIMING=1 eslint src --fix",
+    "test": "TZ=UTC vitest run"
   }
 }
