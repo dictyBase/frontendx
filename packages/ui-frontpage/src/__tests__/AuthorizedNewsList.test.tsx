@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react"
 import { ListContentByNamespaceQuery } from "dicty-graphql-schema"
 import { describe, it, expect } from "vitest"
-import { BrowserRouter } from "react-router-dom"
+import { RouterProvider, createMemoryRouter } from "react-router-dom"
+import userEvent from "@testing-library/user-event"
 import { AuthorizedNewsList } from "../news/AuthorizedNewsList"
 
 const expectedText = "Rice & Beans"
@@ -44,25 +45,48 @@ const mockContent = {
   },
 }
 
+const contentList = [
+  {
+    name: "news1",
+    content: JSON.stringify(mockContent),
+    updated_at: "2024-08-23T00:00:00Z",
+  },
+]
+
+const routes = [
+  {
+    path: "/",
+    element: (
+      <AuthorizedNewsList
+        contentList={
+          contentList as ListContentByNamespaceQuery["listContentByNamespace"]
+        }
+      />
+    ),
+  },
+  {
+    path: "/news/:id/editable",
+    element: <div>Mock News Editable Page</div>,
+  },
+]
+
+const router = createMemoryRouter(routes, {
+  initialEntries: ["/"],
+})
+
 describe("AuthorizedNewsList", () => {
-  it("renders authorized news items", () => {
-    const contentList = [
-      {
-        name: "news1",
-        content: JSON.stringify(mockContent),
-        updated_at: "2024-08-23T00:00:00Z",
-      },
-    ]
-    render(
-      <BrowserRouter>
-        <AuthorizedNewsList
-          contentList={
-            contentList as ListContentByNamespaceQuery["listContentByNamespace"]
-          }
-        />
-      </BrowserRouter>,
-    )
+  it("renders news items and navigates on link click", async () => {
+    const user = userEvent.setup()
+    render(<RouterProvider router={router} />)
     expect(screen.getByText("Friday, August 23rd, 2024")).toBeInTheDocument()
     expect(screen.getByText(expectedText)).toBeInTheDocument()
+
+    const link = screen.getByRole("link", {
+      name: /friday, august 23rd, 2024/i,
+    })
+    expect(link).toBeInTheDocument()
+
+    await user.click(link)
+    expect(screen.getByText("Mock News Editable Page")).toBeInTheDocument()
   })
 })
