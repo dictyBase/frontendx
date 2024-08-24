@@ -1,9 +1,8 @@
 import { render, screen } from "@testing-library/react"
+import { ListContentByNamespaceQuery } from "dicty-graphql-schema"
 import { describe, it, expect } from "vitest"
 import { BrowserRouter } from "react-router-dom"
 import { NewsList } from "../news/NewsList"
-
-import { ListContentByNamespaceQuery } from "dicty-graphql-schema"
 
 const expectedText = "Rice & Beans"
 const mockContent = {
@@ -47,7 +46,7 @@ const mockContent = {
 
 describe("NewsList", () => {
   it("renders news items", () => {
-    const contentList: ListContentByNamespaceQuery["listContentByNamespace"] = [
+    const contentList = [
       {
         name: "news1",
         content: JSON.stringify(mockContent),
@@ -56,7 +55,11 @@ describe("NewsList", () => {
     ]
     render(
       <BrowserRouter>
-        <NewsList contentList={contentList} />
+        <NewsList
+          contentList={
+            contentList as ListContentByNamespaceQuery["listContentByNamespace"]
+          }
+        />
       </BrowserRouter>,
     )
     expect(screen.getByText("Friday, August 23rd, 2024")).toBeInTheDocument()
