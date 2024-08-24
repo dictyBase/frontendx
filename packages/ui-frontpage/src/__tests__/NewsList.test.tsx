@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react"
 import { ListContentByNamespaceQuery } from "dicty-graphql-schema"
 import { describe, it, expect } from "vitest"
-import { BrowserRouter, MemoryRouter } from "react-router-dom"
+import { RouterProvider, createMemoryRouter } from "react-router-dom"
 import userEvent from "@testing-library/user-event"
 import { NewsList } from "../news/NewsList"
 
@@ -54,15 +54,22 @@ describe("NewsList", () => {
         updated_at: "2024-08-23T00:00:00Z",
       },
     ]
-    const user = userEvent.setup()
+    const routes = [
+      {
+        path: "/",
+        element: <NewsList contentList={contentList as ListContentByNamespaceQuery["listContentByNamespace"]} />,
+      },
+      {
+        path: "/news/:name/show",
+        element: <div>Mock News Show Page</div>,
+      },
+    ]
+
+    const router = createMemoryRouter(routes, {
+      initialEntries: ["/"],
+    })
     render(
-      <BrowserRouter>
-        <NewsList
-          contentList={
-            contentList as ListContentByNamespaceQuery["listContentByNamespace"]
-          }
-        />
-      </BrowserRouter>,
+      <RouterProvider router={router} />
     )
     expect(screen.getByText("Friday, August 23rd, 2024")).toBeInTheDocument()
     expect(screen.getByText(expectedText)).toBeInTheDocument()
