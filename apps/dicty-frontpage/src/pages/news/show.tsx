@@ -6,7 +6,7 @@ import { map as Amap, sort as Asort } from "fp-ts/Array"
 import { Ord, contramap } from "fp-ts/Ord"
 import { match, P } from "ts-pattern"
 import { ACCESS } from "@dictybase/auth"
-import { FullPageLoadingDisplay } from "@dictybase/ui-common"
+import { FullPageLoadingDisplay, OtherError } from "@dictybase/ui-common"
 import {
   useListContentByNamespaceQuery,
   ListContentByNamespaceQuery,
@@ -127,8 +127,8 @@ const News = () => {
       (contentList) => <NewsView contentList={contentList} />,
     )
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
-    .with({ error: P.select(P.not(undefined)) }, (error) => (
-      <>{error.message}</>
+    .with({ error: P.select(P.not(undefined)) }, () => (
+      <EmptyNewsView />
     ))
     .otherwise(() => <> This message should not appear. </>)
 }
