@@ -1,28 +1,37 @@
 import { Grid, Typography } from "@material-ui/core"
+import NotInterestedIcon from '@material-ui/icons/NotInterested'
 import { makeStyles } from "@material-ui/core/styles"
+import grey from '@material-ui/core/colors/grey'
 
 const useDictyNewsStyles = makeStyles({
-  emptyNewsList: {
+  list: {
     height: "100%",
+    color: grey[500],
+  },
+  icon: {
+    fontSize: "50px"
+  },
+  text: {
+    fontSize: "24px"
   },
 })
 
 const EmptyNewsList = () => {
-  const { emptyNewsList } = useDictyNewsStyles()
+  const { list, icon, text } = useDictyNewsStyles()
   return (
     <Grid
       container
       direction="column"
       justifyContent="center"
-      className={emptyNewsList}>
+      alignItems="center"
+      className={list}>
+      <Grid item >
+        <NotInterestedIcon className={icon} />
+      </Grid>
       <Grid item>
-        <Grid container justifyContent="center">
-          <Grid item>
-            <Typography variant="h3">
-              There are currently no news items
-            </Typography>
-          </Grid>
-        </Grid>
+        <Typography className={text}>
+          There are currently no news items
+        </Typography>
       </Grid>
     </Grid>
   )
