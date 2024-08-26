@@ -5,6 +5,7 @@ import { DictyNewsTitle } from "./DictyNewsTitle"
 import { NewsList } from "./NewsList"
 import { EmptyNewsList } from "./EmptyNewsList"
 import { MoreNewsLink } from "./MoreNewsLink"
+import { NewsLoader } from "./NewsLoader"
 
 const useDictyNewsStyles = makeStyles({
   root: {},
@@ -69,9 +70,9 @@ const DictyNews = () => {
               },
               (contentList) => <NewsList contentList={contentList} />,
             )
-            .with({ loading: true }, () => <> Loading </>)
-            .with({ error: P.select(P.not(undefined)) }, (error) => (
-              <>{error.message}</>
+            .with({ loading: true }, () => <NewsLoader />)
+            .with({ error: P.select(P.not(undefined)) }, () => (
+              <EmptyNewsList />
             ))
             .otherwise(() => (
               <> This message should not appear. </>
