@@ -1,14 +1,14 @@
 import { describe, test, expect } from "vitest"
 import { MockedProvider } from "@apollo/client/testing"
 import { render, screen } from "@testing-library/react"
-import { useListContentByNamespaceQuery } from "dicty-graphql-schema"
+import { ListContentByNamespaceDocument } from "dicty-graphql-schema"
 import News from "../pages/news/show"
 import { NEWS_NAMESPACE } from "../common/constants/namespace"
 
 const mocks = [
   {
     request: {
-      query: useListContentByNamespaceQuery,
+      query: ListContentByNamespaceDocument,
       variables: { namespace: NEWS_NAMESPACE },
     },
     result: {
