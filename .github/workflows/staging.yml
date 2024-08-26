@@ -18,3 +18,4 @@ jobs:
       project: frontend_application
       application_type: frontend
       environment: staging
+      stack: staging
