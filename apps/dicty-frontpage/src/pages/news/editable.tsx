@@ -5,7 +5,7 @@ import { pipe } from "fp-ts/function"
 import { map as Amap, sort as Asort } from "fp-ts/Array"
 import { Ord, contramap } from "fp-ts/Ord"
 import { match, P } from "ts-pattern"
-import { FullPageLoadingDisplay, OtherError } from "@dictybase/ui-common"
+import { FullPageLoadingDisplay } from "@dictybase/ui-common"
 import {
   useListContentByNamespaceQuery,
   ListContentByNamespaceQuery,
@@ -133,9 +133,7 @@ const EditableNews = () => {
       (contentList) => <NewsView contentList={contentList} />,
     )
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
-    .with({ error: P.select(P.not(undefined)) }, () => (
-      <EmptyNewsViewAuth />
-    ))
+    .with({ error: P.select(P.not(undefined)) }, () => <EmptyNewsViewAuth />)
     .otherwise(() => <> This message should not appear. </>)
 }
 
