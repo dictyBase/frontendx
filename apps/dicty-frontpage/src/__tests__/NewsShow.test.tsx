@@ -1,9 +1,9 @@
 import { describe, test, expect } from "vitest"
 import { MockedProvider } from "@apollo/client/testing"
 import { render, screen } from "@testing-library/react"
-import News from "../pages/news/show"
-import { NEWS_NAMESPACE } from "../../common/constants/namespace"
 import { useListContentByNamespaceQuery } from "dicty-graphql-schema"
+import News from "../pages/news/show"
+import { NEWS_NAMESPACE } from "../common/constants/namespace"
 
 const mocks = [
   {
@@ -53,7 +53,9 @@ describe("News Component", () => {
       </MockedProvider>,
     )
 
-    expect(await screen.findByText(/this message should not appear/i)).toBeInTheDocument()
+    expect(
+      await screen.findByText(/this message should not appear/i),
+    ).toBeInTheDocument()
   })
 
   test("renders empty state", async () => {
@@ -77,7 +79,9 @@ describe("News Component", () => {
       </MockedProvider>,
     )
 
-    expect(await screen.findByText(/there are currently no news items/i)).toBeInTheDocument()
+    expect(
+      await screen.findByText(/there are currently no news items/i),
+    ).toBeInTheDocument()
   })
 
   test("renders news items", async () => {
