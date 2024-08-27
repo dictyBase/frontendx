@@ -46,8 +46,9 @@ const NewsListActionBar = () => {
         <Button
           startIcon={<CreateIcon />}
           color="primary"
+          variant="outlined"
           onClick={handleClick}>
-          Create
+          Write News Article
         </Button>
       </Grid>
     </Grid>
