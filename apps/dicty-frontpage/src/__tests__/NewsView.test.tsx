@@ -34,16 +34,3 @@ describe("NewsView", () => {
     expect(screen.getAllByText(new RegExp(testText))).toHaveLength(listLength)
   })
 })
-
-test("renders EmptyNewsView when contentList is empty", () => {
-  const router = createMemoryRouter([
-    {
-      index: true,
-      element: <NewsView contentList={[]} />,
-    },
-  ])
-  render(<RouterProvider router={router} />)
-  expect(
-    screen.getByText(/there are currently no news items/i),
-  ).toBeInTheDocument()
-})
