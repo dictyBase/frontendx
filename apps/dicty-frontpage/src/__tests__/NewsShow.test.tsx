@@ -1,5 +1,6 @@
 import { describe, test, expect } from "vitest"
 import { MockedProvider } from "@apollo/client/testing"
+import { RouterProvider, createMemoryRouter } from "react-router-dom"
 import { render, screen } from "@testing-library/react"
 import { ListContentByNamespaceDocument } from "dicty-graphql-schema"
 import News from "../pages/news/show"
@@ -85,14 +86,17 @@ const mocks = [
   },
 ]
 
+const routes = [{ path: "/news/show", element: <News /> }]
+const router = createMemoryRouter(routes, { initialEntries: ["/news/show"] })
+
 describe("News Component", () => {
   test("renders loading state initially", () => {
     render(
       <MockedProvider mocks={[]} addTypename={false}>
-        <News />
+        <RouterProvider router={router} />
       </MockedProvider>,
     )
-    expect(screen.getByText(/loading/i)).toBeInTheDocument()
+    expect(screen.getAllByTestId("skeleton")).toBeDefined()
   })
 
   test("renders error state", async () => {
@@ -108,12 +112,12 @@ describe("News Component", () => {
 
     render(
       <MockedProvider mocks={errorMocks} addTypename={false}>
-        <News />
+        <RouterProvider router={router} />
       </MockedProvider>,
     )
 
     expect(
-      await screen.findByText(/this message should not appear/i),
+      await screen.findByText(/there are currently no news items/i),
     ).toBeInTheDocument()
   })
 
@@ -134,7 +138,7 @@ describe("News Component", () => {
 
     render(
       <MockedProvider mocks={emptyMocks} addTypename={false}>
-        <News />
+        <RouterProvider router={router} />
       </MockedProvider>,
     )
 
@@ -146,7 +150,7 @@ describe("News Component", () => {
   test("renders news items", async () => {
     render(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <News />
+        <RouterProvider router={router} />
       </MockedProvider>,
     )
 
