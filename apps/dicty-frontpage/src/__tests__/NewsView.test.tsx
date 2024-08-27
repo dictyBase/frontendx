@@ -44,6 +44,6 @@ test("renders EmptyNewsView when contentList is empty", () => {
   ])
   render(<RouterProvider router={router} />)
   expect(
-    screen.getByText(/this message should not appear/i),
+    screen.getByText(/there are currently no news items/i),
   ).toBeInTheDocument()
 })
