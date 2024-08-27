@@ -1,8 +1,8 @@
 import { Container, Grid, makeStyles } from "@material-ui/core"
 import { match, P } from "ts-pattern"
 import { useListContentByNamespaceQuery } from "dicty-graphql-schema"
-import { DictyNewsTitle } from "./DictyNewsTitle"
-import { AuthorizedEmptyNewsList } from "./AuthorizedEmptyNewsList"
+import { AuthorizedDictyNewsTitle } from "./AuthorizedDictyNewsTitle"
+import { EmptyNewsList } from "./EmptyNewsList"
 import { AuthorizedNewsList } from "./AuthorizedNewsList"
 import { AuthorizedMoreNewsLink } from "./AuthorizedMoreNewsLink"
 import { NewsLoader } from "./NewsLoader"
@@ -48,7 +48,7 @@ const AuthorizedDictyNews = () => {
         wrap="nowrap"
         className={main}>
         <Grid item>
-          <DictyNewsTitle />
+          <AuthorizedDictyNewsTitle />
         </Grid>
         <Grid item className={newsListItem}>
           {match(fetchState)
@@ -58,7 +58,7 @@ const AuthorizedDictyNews = () => {
                   listContentByNamespace: [],
                 },
               },
-              () => <AuthorizedEmptyNewsList />,
+              () => <EmptyNewsList />,
             )
             .with(
               {
@@ -72,7 +72,7 @@ const AuthorizedDictyNews = () => {
             )
             .with({ loading: true }, () => <NewsLoader />)
             .with({ error: P.select(P.not(undefined)) }, () => (
-              <AuthorizedEmptyNewsList />
+              <EmptyNewsList />
             ))
             .otherwise(() => (
               <> This message should not appear. </>
