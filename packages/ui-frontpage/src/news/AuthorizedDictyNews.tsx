@@ -1,7 +1,7 @@
 import { Container, Grid, makeStyles } from "@material-ui/core"
 import { match, P } from "ts-pattern"
 import { useListContentByNamespaceQuery } from "dicty-graphql-schema"
-import { DictyNewsTitle } from "./DictyNewsTitle"
+import { AuthorizedDictyNewsTitle } from "./AuthorizedDictyNewsTitle"
 import { AuthorizedEmptyNewsList } from "./AuthorizedEmptyNewsList"
 import { AuthorizedNewsList } from "./AuthorizedNewsList"
 import { AuthorizedMoreNewsLink } from "./AuthorizedMoreNewsLink"
@@ -48,7 +48,7 @@ const AuthorizedDictyNews = () => {
         wrap="nowrap"
         className={main}>
         <Grid item>
-          <DictyNewsTitle />
+          <AuthorizedDictyNewsTitle />
         </Grid>
         <Grid item className={newsListItem}>
           {match(fetchState)
