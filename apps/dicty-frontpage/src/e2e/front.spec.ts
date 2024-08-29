@@ -10,11 +10,12 @@ test("has title", async ({ page }) => {
 
 test("All Links are working", async ({ page }) => {
   await page.goto(BASE_URL)
-  page.on("response", (response) => {
-    expect(response).toBeOk()
-  })
-  for (const link of await page.getByRole("link").all()) {
-    console.log(link)
-    await link.click()
+  const links = await page.getByRole("link").all()
+  for (const link of links) {
+    const [response] = await Promise.all([
+      page.waitForResponse((response) => response.status() === 200),
+      link.click(),
+    ])
+    expect(response.status()).toBe(200)
   }
 })
