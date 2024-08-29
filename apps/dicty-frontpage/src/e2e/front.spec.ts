@@ -8,8 +8,13 @@ test("has title", async ({ page }) => {
   await expect(page).toHaveTitle(/dictyBase/)
 })
 
-test(" title", async ({ page }) => {
+test("All Links are working", async ({ page }) => {
   await page.goto(BASE_URL)
-
-  await expect(page).toHaveTitle(/dictyBase/)
+  page.on("response", (response) => {
+    expect(response).toBeOk()
+  })
+  for (const link of await page.getByRole("link").all()) {
+    console.log(link)
+    await link.click()
+  }
 })
