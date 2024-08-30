@@ -1,4 +1,4 @@
-import { Typography, Grid } from "@material-ui/core"
+import { Typography, Grid, Checkbox } from "@material-ui/core"
 import { Link } from "react-router-dom"
 import { pipe } from "fp-ts/function"
 import { parseISO, format } from "date-fns/fp"
@@ -16,20 +16,27 @@ const EditableNewsItem = ({
   content,
   updated_at,
 }: NewsItemProperties) => (
-  <Link to={`../news/${name}/editable`}>
-    <Grid container spacing={2} direction="column">
-      <Grid item>
-        <Typography variant="h2">
-          {pipe(updated_at, parseISO, format("PPPP"))}
-        </Typography>
-      </Grid>
-      <Grid item>
-        <Typography color="textPrimary">
-          {truncateString(parseContentToText(content), 400)}
-        </Typography>
-      </Grid>
+  <Grid container direction="row" wrap="nowrap">
+    <Grid item>
+      <Checkbox />
     </Grid>
-  </Link>
+    <Grid item>
+      <Link to={`../news/${name}/editable`}>
+        <Grid container spacing={2} direction="column">
+          <Grid item>
+            <Typography variant="h2">
+              {pipe(updated_at, parseISO, format("PPPP"))}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography color="textPrimary">
+              {truncateString(parseContentToText(content), 400)}
+            </Typography>
+          </Grid>
+        </Grid>
+      </Link>
+    </Grid>
+  </Grid>
 )
 
 export { EditableNewsItem }
