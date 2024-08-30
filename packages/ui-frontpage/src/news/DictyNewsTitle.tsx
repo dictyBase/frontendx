@@ -13,7 +13,7 @@ const DictyNewsTitle = () => {
   return (
     <Grid container spacing={1} alignItems="center">
       <Grid item>
-        <Typography variant="h1">Dicty Community Resource News</Typography>
+        <Typography variant="h1">DCR News</Typography>
       </Grid>
       <Grid item>
         <AnnouncementIcon className={newsIcon} />
