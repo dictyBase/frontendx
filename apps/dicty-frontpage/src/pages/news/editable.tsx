@@ -26,7 +26,6 @@ const useStyles = makeStyles({
     padding: "0px 6rem 1rem 6rem",
     borderRadius: "15px",
     boxSizing: "border-box",
-    marginBottom: "10px",
     "@media (max-width: 768px)": {
       padding: "0 0 0 0",
     },
@@ -55,21 +54,24 @@ const EditableNewsItem = ({
   name,
   content,
   updated_at,
-}: NewsItemProperties) => (
-  <Grid container spacing={2} direction="column">
-    <Grid item>
-      <Typography variant="h2">
-        {pipe(updated_at, parseISO, format("PPPP"))}
-      </Typography>
-    </Grid>
-    <Grid item>
-      <Typography>
-        {truncateString(parseContentToText(content), 400)}
-        <Link to={`../news/${name}/editable`}> Read more </Link>
-      </Typography>
-    </Grid>
-  </Grid>
-)
+}: NewsItemProperties) => {
+  return (
+    <Link to={`../news/${name}/editable`}>
+      <Grid container spacing={2} direction="column">
+        <Grid item>
+          <Typography variant="h2">
+            {pipe(updated_at, parseISO, format("PPPP"))}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography color="textPrimary">
+            {truncateString(parseContentToText(content), 400)}
+          </Typography>
+        </Grid>
+      </Grid>
+    </Link>
+  )
+}
 
 type NewsViewProperties = {
   contentList: ListContentByNamespaceQuery["listContentByNamespace"]
@@ -101,9 +103,15 @@ const NewsView = ({ contentList }: NewsViewProperties) => {
             Dicty Community Resource News
           </Typography>
         </Box>
-        <NewsListActionBar />
-        <Grid container direction="column" spacing={7}>
-          {items}
+        <Grid container direction="row">
+          <Grid item xl={1} lg={1}>
+            <NewsListActionBar />
+          </Grid>
+          <Grid item xl={11} lg={11}>
+            <Grid container direction="column" spacing={7}>
+              {items}
+            </Grid>
+          </Grid>
         </Grid>
       </Container>
     ),
@@ -116,6 +124,7 @@ const EditableNews = () => {
     fetchPolicy: "cache-and-network",
   })
   return match(fetchState)
+    .with({ loading: true }, () => <FullPageLoadingDisplay />)
     .with(
       {
         data: {
@@ -132,7 +141,6 @@ const EditableNews = () => {
       },
       (contentList) => <NewsView contentList={contentList} />,
     )
-    .with({ loading: true }, () => <FullPageLoadingDisplay />)
     .with({ error: P.select(P.not(undefined)) }, () => <EmptyNewsViewAuth />)
     .otherwise(() => <> This message should not appear. </>)
 }
