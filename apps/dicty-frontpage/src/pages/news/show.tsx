@@ -30,12 +30,11 @@ const useStyles = makeStyles({
       padding: "0 0 0 0",
     },
   },
-
   header: {
     color: "black",
     fontSize: "20px",
     padding: "15px 35px 15px 35px",
-
+    marginBottom: "10px",
     "@media (max-width: 767px)": {
       fontSize: "24px",
       textAlign: "right",
@@ -93,7 +92,7 @@ const NewsView = ({ contentList }: NewsViewProperties) => {
       <Container className={container}>
         <Box className={header}>
           <Typography variant="h1" align="center">
-            News
+            Dicty Community Resource News
           </Typography>
         </Box>
         <Grid container direction="column" spacing={7}>
