@@ -15,6 +15,7 @@ const NewsListActionBar = () => {
   return (
     <Grid
       container
+      spacing={2}
       direction="column"
       className={toolbar}
       data-testid="info-page-toolbar">
