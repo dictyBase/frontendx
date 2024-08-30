@@ -1,6 +1,6 @@
 import { Typography, Grid, CircularProgress } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
-import grey from '@material-ui/core/colors/grey'
+import grey from "@material-ui/core/colors/grey"
 
 const useNewsLoaderStyles = makeStyles({
   list: {
@@ -8,7 +8,7 @@ const useNewsLoaderStyles = makeStyles({
     color: grey[500],
   },
   text: {
-    fontSize: "24px"
+    fontSize: "24px",
   },
 })
 
@@ -21,12 +21,10 @@ const NewsLoader = () => {
       justifyContent="center"
       alignItems="center"
       className={list}>
-      <Grid item >
+      <Grid item>
         <CircularProgress />
       </Grid>
-        <Typography className={text}>
-          Loading News...
-        </Typography>
+      <Typography className={text}>Loading News...</Typography>
     </Grid>
   )
 }
