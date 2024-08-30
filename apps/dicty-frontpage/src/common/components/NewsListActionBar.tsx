@@ -1,4 +1,4 @@
-import { Grid, Theme, makeStyles, Button } from "@material-ui/core"
+import { Grid, Theme, makeStyles } from "@material-ui/core"
 import { WriteNewsButton } from "@dictybase/ui-frontpage"
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -13,7 +13,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 const NewsListActionBar = () => {
   const { toolbar } = useStyles()
   return (
-    <Grid container direction="column" className={toolbar} data-testid="info-page-toolbar">
+    <Grid
+      container
+      direction="column"
+      className={toolbar}
+      data-testid="info-page-toolbar">
       <Grid item>
         <WriteNewsButton />
       </Grid>
