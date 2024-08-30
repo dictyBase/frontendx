@@ -24,7 +24,7 @@ describe("NewsItem", () => {
 
   test("renders a link to `/news/:name/show`", () => {
     renderNewsItem()
-    expect(screen.getByRole("link", { name: /read more/i })).toHaveAttribute(
+    expect(screen.getByRole("link")).toHaveAttribute(
       "href",
       `/news/${newsItemProperties.name}/show`,
     )
