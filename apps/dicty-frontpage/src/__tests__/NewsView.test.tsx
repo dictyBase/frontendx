@@ -28,9 +28,7 @@ describe("NewsView", () => {
       },
     ])
     render(<RouterProvider router={router} />)
-    expect(screen.getAllByRole("link", { name: /read more/i })).toHaveLength(
-      listLength,
-    )
+    expect(screen.getAllByRole("link")).toHaveLength(listLength)
     expect(screen.getAllByText(new RegExp(testText))).toHaveLength(listLength)
   })
 })
