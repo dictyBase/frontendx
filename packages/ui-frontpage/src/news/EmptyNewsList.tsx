@@ -1,7 +1,7 @@
 import { Grid, Typography } from "@material-ui/core"
-import NotInterestedIcon from '@material-ui/icons/NotInterested'
+import NotInterestedIcon from "@material-ui/icons/NotInterested"
 import { makeStyles } from "@material-ui/core/styles"
-import grey from '@material-ui/core/colors/grey'
+import grey from "@material-ui/core/colors/grey"
 
 const useDictyNewsStyles = makeStyles({
   list: {
@@ -9,10 +9,10 @@ const useDictyNewsStyles = makeStyles({
     color: grey[500],
   },
   icon: {
-    fontSize: "50px"
+    fontSize: "50px",
   },
   text: {
-    fontSize: "24px"
+    fontSize: "24px",
   },
 })
 
@@ -25,7 +25,7 @@ const EmptyNewsList = () => {
       justifyContent="center"
       alignItems="center"
       className={list}>
-      <Grid item >
+      <Grid item>
         <NotInterestedIcon className={icon} />
       </Grid>
       <Grid item>

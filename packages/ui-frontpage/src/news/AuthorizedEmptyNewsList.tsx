@@ -1,5 +1,5 @@
 import { Grid, Button } from "@material-ui/core"
-import CreateIcon from '@material-ui/icons/Create'
+import CreateIcon from "@material-ui/icons/Create"
 import { makeStyles } from "@material-ui/core/styles"
 import { useNavigate } from "react-router-dom"
 
@@ -22,10 +22,15 @@ const AuthorizedEmptyNewsList = () => {
       justifyContent="center"
       alignItems="center"
       className={list}>
-      <Grid item >
-        <Button color="primary" size="large" variant="outlined" startIcon={<CreateIcon />} onClick={handleClick}>
+      <Grid item>
+        <Button
+          color="primary"
+          size="large"
+          variant="outlined"
+          startIcon={<CreateIcon />}
+          onClick={handleClick}>
           Write the first news item
-        </Button >
+        </Button>
       </Grid>
     </Grid>
   )
