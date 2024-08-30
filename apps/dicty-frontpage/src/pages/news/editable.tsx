@@ -1,6 +1,5 @@
 import { Container, Box, Typography, Grid } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
-import { Link } from "react-router-dom"
 import { pipe } from "fp-ts/function"
 import { map as Amap, sort as Asort } from "fp-ts/Array"
 import { Ord, contramap } from "fp-ts/Ord"
@@ -11,13 +10,11 @@ import {
   ListContentByNamespaceQuery,
   Content,
 } from "dicty-graphql-schema"
-import { parseISO, format } from "date-fns/fp"
+import { parseISO } from "date-fns/fp"
 import { ACCESS } from "@dictybase/auth"
-import { parseContentToText } from "@dictybase/editor"
 import { NEWS_NAMESPACE } from "../../common/constants/namespace"
 import { NewsListActionBar } from "../../common/components/NewsListActionBar"
 import { EmptyNewsViewAuth } from "../../common/components/EmptyNewsViewAuth"
-import { truncateString } from "../../common/utils/truncateString"
 import { ordByDate } from "../../common/utils/ordByDate"
 
 const useStyles = makeStyles({
@@ -48,29 +45,6 @@ type NewsItemProperties = {
   name: string
   content: string
   updated_at: string
-}
-
-const EditableNewsItem = ({
-  name,
-  content,
-  updated_at,
-}: NewsItemProperties) => {
-  return (
-    <Link to={`../news/${name}/editable`}>
-      <Grid container spacing={2} direction="column">
-        <Grid item>
-          <Typography variant="h2">
-            {pipe(updated_at, parseISO, format("PPPP"))}
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Typography color="textPrimary">
-            {truncateString(parseContentToText(content), 400)}
-          </Typography>
-        </Grid>
-      </Grid>
-    </Link>
-  )
 }
 
 type NewsViewProperties = {
