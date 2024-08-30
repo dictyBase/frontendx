@@ -15,6 +15,7 @@ import { ACCESS } from "@dictybase/auth"
 import { NEWS_NAMESPACE } from "../../common/constants/namespace"
 import { NewsListActionBar } from "../../common/components/NewsListActionBar"
 import { EmptyNewsViewAuth } from "../../common/components/EmptyNewsViewAuth"
+import { EditableNewsItem } from "../../common/components/EditableNewsItem"
 import { ordByDate } from "../../common/utils/ordByDate"
 
 const useStyles = makeStyles({
@@ -40,12 +41,6 @@ const useStyles = makeStyles({
     },
   },
 })
-
-type NewsItemProperties = {
-  name: string
-  content: string
-  updated_at: string
-}
 
 type NewsViewProperties = {
   contentList: ListContentByNamespaceQuery["listContentByNamespace"]
