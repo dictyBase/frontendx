@@ -25,7 +25,6 @@ const useStyles = makeStyles({
     padding: "0px 6rem 1rem 6rem",
     borderRadius: "15px",
     boxSizing: "border-box",
-    marginBottom: "10px",
     "@media (max-width: 768px)": {
       padding: "0 0 0 0",
     },
@@ -50,19 +49,20 @@ type NewsItemProperties = {
 }
 
 const NewsItem = ({ name, content, updated_at }: NewsItemProperties) => (
-  <Grid container spacing={2} direction="column">
-    <Grid item>
-      <Typography variant="h2">
-        {pipe(updated_at, parseISO, format("PPPP"))}
-      </Typography>
+  <Link to={`../news/${name}/show`}>
+    <Grid container spacing={2} direction="column">
+      <Grid item>
+        <Typography variant="h2">
+          {pipe(updated_at, parseISO, format("PPPP"))}
+        </Typography>
+      </Grid>
+      <Grid item>
+        <Typography color="textPrimary">
+          {truncateString(parseContentToText(content), 400)}
+        </Typography>
+      </Grid>
     </Grid>
-    <Grid item>
-      <Typography>
-        {truncateString(parseContentToText(content), 400)}
-        <Link to={`../news/${name}/show`}> Read more </Link>
-      </Typography>
-    </Grid>
-  </Grid>
+  </Link>
 )
 
 type NewsViewProperties = {
