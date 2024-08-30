@@ -20,7 +20,7 @@ const EmptyNewsView = () => {
     <Container>
       <Grid className={header}>
         <Typography variant="h1" align="center">
-          News
+          Dicty Community Resource News
         </Typography>
       </Grid>
       <Grid justifyContent="center" container>

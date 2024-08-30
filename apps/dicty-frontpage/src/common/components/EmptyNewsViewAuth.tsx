@@ -33,7 +33,7 @@ const EmptyNewsViewAuth = () => {
       <Grid container direction="column" alignItems="center" spacing={5}>
         <Grid item className={header}>
           <Typography variant="h1" align="center">
-            News
+            Dicty Community Resource News
           </Typography>
         </Grid>
         <Grid item>
