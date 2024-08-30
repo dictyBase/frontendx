@@ -98,7 +98,7 @@ const NewsView = ({ contentList }: NewsViewProperties) => {
       <Container className={container}>
         <Box className={header}>
           <Typography variant="h1" align="center">
-            News
+            Dicty Community Resource News
           </Typography>
         </Box>
         <NewsListActionBar />
