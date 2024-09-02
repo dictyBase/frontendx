@@ -1,3 +1,6 @@
+import { useState } from "react"
+import { pipe } from "fp-ts/function"
+import { match as Ematch } from "fp-ts/Either"
 import { Button } from "@material-ui/core"
 import { useNavigate } from "react-router-dom"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
@@ -8,19 +11,34 @@ type UpdateButtonProperties = {
 }
 
 const UpdateButton = ({ contentId }: UpdateButtonProperties) => {
+  const [isLoading, setIsLoading] = useState(false)
   const [editor] = useLexicalComposerContext()
   const navigate = useNavigate()
   const authorizedUpdateContent = useAuthorizedUpdateContent(contentId)
 
   const handleUpdate = async () => {
     // handle error / success state
+    setIsLoading(true)
     const contentValue = JSON.stringify(editor.getEditorState().toJSON())
-    await authorizedUpdateContent(contentValue)
-    navigate("../editable", { relative: "path" })
+    pipe(
+      await authorizedUpdateContent(contentValue),
+      Ematch(
+        () => {
+          setIsLoading(false)
+        },
+        () => {
+          navigate("../editable", { relative: "path" })
+        },
+      ),
+    )
   }
 
   return (
-    <Button variant="contained" color="primary" onClick={handleUpdate}>
+    <Button
+      variant="contained"
+      color="primary"
+      disabled={isLoading}
+      onClick={handleUpdate}>
       Save
     </Button>
   )
