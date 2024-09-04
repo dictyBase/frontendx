@@ -90,8 +90,7 @@
     "prettier": "3.*",
     "react-docgen-typescript": "^2.2.2",
     "react-styleguidist": "^13.1.1",
-    "semantic-release": "^19.0.5",
-    "start-server-and-test": "^2.0.3"
+    "semantic-release": "^19.0.5"
   },
   "browserslist": {
     "production": [
