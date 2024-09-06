@@ -153,7 +153,7 @@ describe("/news/:id/editable", () => {
     })
 
     render(<RouterProvider router={router} />)
-    const allNewsButton = screen.getByText("All News")
+    const allNewsButton = screen.getByText("Browse News")
     expect(allNewsButton).toBeInTheDocument()
 
     await user.click(allNewsButton)
