@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom"
 import { Grid, Container, Typography, Button } from "@material-ui/core"
-import ViewListRoundedIcon from "@material-ui/icons/ViewListRounded"
 import { useContentBySlugQuery, User } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { pipe } from "fp-ts/function"
