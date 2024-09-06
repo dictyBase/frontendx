@@ -9,12 +9,19 @@ import {
   append as Aappend,
 } from "fp-ts/Array"
 import { Eq as SEq } from "fp-ts/string"
-import { selectedNewsArticlesAtom } from "../../state"
-import { Typography, Grid, Checkbox } from "@material-ui/core"
+import {
+  Typography,
+  Grid,
+  Checkbox,
+  List,
+  ListItem,
+  ListItemIcon,
+} from "@material-ui/core"
 import { Link } from "react-router-dom"
 import { parseISO, format } from "date-fns/fp"
 import { parseContentToText } from "@dictybase/editor"
 import { truncateString } from "../utils/truncateString"
+import { selectedNewsArticlesAtom } from "../../state"
 
 type NewsItemProperties = {
   id: string
@@ -42,7 +49,7 @@ const EditableNewsItem = ({
     setSelectedNewsArticles(
       pipe(
         selectedNewsArticles,
-        Afilter((e) => e !== id),
+        Afilter((element) => element !== id),
       ),
     )
   }
@@ -54,27 +61,20 @@ const EditableNewsItem = ({
   }
 
   return (
-    <Grid container direction="row" wrap="nowrap">
-      <Grid item>
-        <Checkbox checked={isChecked} onChange={handleChange} />
+    <Link to={`../news/${name}/editable`}>
+      <Grid container spacing={2} direction="column">
+        <Grid item>
+          <Typography variant="h2">
+            {pipe(updated_at, parseISO, format("PPPP"))}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography color="textPrimary">
+            {truncateString(parseContentToText(content), 400)}
+          </Typography>
+        </Grid>
       </Grid>
-      <Grid item>
-        <Link to={`../news/${name}/editable`}>
-          <Grid container spacing={2} direction="column">
-            <Grid item>
-              <Typography variant="h2">
-                {pipe(updated_at, parseISO, format("PPPP"))}
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Typography color="textPrimary">
-                {truncateString(parseContentToText(content), 400)}
-              </Typography>
-            </Grid>
-          </Grid>
-        </Link>
-      </Grid>
-    </Grid>
+    </Link>
   )
 }
 
