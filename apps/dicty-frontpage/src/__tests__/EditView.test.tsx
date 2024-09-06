@@ -16,7 +16,8 @@ const routeConfiguration = [
       <EditView
         contentId="1"
         content={CONTENT_STRING}
-        updated_at="2024-07-10T12:55:26-05:00"
+        createdAt="2024-07-10T12:55:26-05:00"
+        updatedBy={{ first_name: "Lucy", last_name: "the Dog" }}
       />
     ),
   },

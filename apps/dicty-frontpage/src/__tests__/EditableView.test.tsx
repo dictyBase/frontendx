@@ -15,7 +15,7 @@ const routeConfiguration = [
       <EditableView
         id="1"
         content={CONTENT_STRING}
-        updated_at="2024-07-10T12:55:26-05:00"
+        createdAt="2024-07-10T12:55:26-05:00"
       />
     ),
   },
@@ -71,7 +71,7 @@ describe("Editable View", () => {
       initialEntries: [editableRoute],
     })
     render(<RouterProvider router={router} />)
-    const allNewsButton = screen.getByText("All News")
+    const allNewsButton = screen.getByText("Browse News")
     expect(allNewsButton).toBeInTheDocument()
 
     await user.click(allNewsButton)
