@@ -45,15 +45,15 @@ const useStyles = makeStyles({
 type NewsItemProperties = {
   name: string
   content: string
-  updated_at: string
+  createdAt: string
 }
 
-const NewsItem = ({ name, content, updated_at }: NewsItemProperties) => (
+const NewsItem = ({ name, content, createdAt }: NewsItemProperties) => (
   <Link to={`../news/${name}/show`}>
     <Grid container spacing={2} direction="column">
       <Grid item>
         <Typography variant="h2">
-          {pipe(updated_at, parseISO, format("PPPP"))}
+          {pipe(createdAt, parseISO, format("PPPP"))}
         </Typography>
       </Grid>
       <Grid item>
@@ -69,9 +69,9 @@ type NewsViewProperties = {
   contentList: ListContentByNamespaceQuery["listContentByNamespace"]
 }
 
-const OrdByNewest: Ord<Pick<Content, "updated_at">> = pipe(
+const OrdByNewest: Ord<Pick<Content, "created_at">> = pipe(
   ordByDate,
-  contramap((content) => pipe(content.updated_at, parseISO)),
+  contramap((content) => pipe(content.created_at, parseISO)),
 )
 
 const NewsView = ({ contentList }: NewsViewProperties) => {
@@ -79,13 +79,8 @@ const NewsView = ({ contentList }: NewsViewProperties) => {
   return pipe(
     contentList,
     Asort(OrdByNewest),
-    Amap(({ id, name, content, updated_at }) => (
-      <NewsItem
-        key={id}
-        name={name}
-        updated_at={updated_at}
-        content={content}
-      />
+    Amap(({ id, name, content, created_at }) => (
+      <NewsItem key={id} name={name} createdAt={created_at} content={content} />
     )),
     Amap((item) => <Grid item>{item}</Grid>),
     (items) => (

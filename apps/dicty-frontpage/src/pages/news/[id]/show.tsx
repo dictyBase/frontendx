@@ -1,10 +1,12 @@
 import { useContentBySlugQuery } from "dicty-graphql-schema"
-import { Typography, Container } from "@material-ui/core"
+import { Typography, Container, Grid } from "@material-ui/core"
 import { match, P } from "ts-pattern"
 import {
   NotFoundError,
   FullPageLoadingDisplay,
   contentPageErrorMatcher,
+  CopyLinkButton,
+  BrowseNewsButton,
 } from "@dictybase/ui-common"
 import { ACCESS } from "@dictybase/auth"
 import { Editor } from "@dictybase/editor"
@@ -22,11 +24,21 @@ const Show = () => {
   return match(result)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
-      ({ content, updated_at }) => (
+      ({ content, created_at }) => (
         <Container>
-          <Typography variant="h2">
-            {pipe(updated_at, parseISO, format("PPPP"))}
-          </Typography>
+          <Grid spacing={1} container alignItems="baseline">
+            <Grid item>
+              <Typography variant="h2">
+                {pipe(created_at, parseISO, format("PPPP"))}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <CopyLinkButton />
+            </Grid>
+            <Grid item>
+              <BrowseNewsButton />
+            </Grid>
+          </Grid>
           <Editor content={{ storageKey: undefined, editorState: content }} />
         </Container>
       ),

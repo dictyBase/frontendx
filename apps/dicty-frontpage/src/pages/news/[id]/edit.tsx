@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { Grid, Container, Typography, Button } from "@material-ui/core"
-import { useContentBySlugQuery } from "dicty-graphql-schema"
+import ViewListRoundedIcon from "@material-ui/icons/ViewListRounded"
+import { useContentBySlugQuery, User } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { pipe } from "fp-ts/function"
 import { parseISO, format } from "date-fns/fp"
@@ -9,6 +10,8 @@ import {
   FullPageLoadingDisplay,
   contentPageErrorMatcher,
   ActionBar,
+  CopyLinkButton,
+  BrowseNewsButton,
 } from "@dictybase/ui-common"
 import { ACCESS } from "@dictybase/auth"
 import { Editor } from "@dictybase/editor"
@@ -19,17 +22,26 @@ import { UpdateButton } from "../../../common/components/UpdateButton"
 type EditViewProperties = {
   content: string
   contentId: string
-  updated_at: string
+  createdAt: string
+  updatedBy: Pick<User, "first_name" | "last_name">
 }
 
-const EditView = ({ contentId, content, updated_at }: EditViewProperties) => {
+const EditView = ({
+  contentId,
+  content,
+  createdAt,
+  updatedBy,
+}: EditViewProperties) => {
   const navigate = useNavigate()
   const handleCancel = async () => {
     navigate("../editable", { relative: "path" })
   }
-
+  const lastEditor = `${updatedBy.first_name} ${updatedBy.last_name}`
   const toolbar = (
-    <ActionBar descriptionElement={<Typography>Editing News</Typography>}>
+    <ActionBar
+      descriptionElement={
+        <Typography>Last updated by {lastEditor}</Typography>
+      }>
       <UpdateButton contentId={contentId} />
       <Button variant="contained" onClick={handleCancel}>
         Cancel
@@ -40,9 +52,19 @@ const EditView = ({ contentId, content, updated_at }: EditViewProperties) => {
     <Container>
       <Grid container direction="column" spacing={2}>
         <Grid item>
-          <Typography variant="h2">
-            {pipe(updated_at, parseISO, format("PPPP"))}
-          </Typography>
+          <Grid spacing={1} container alignItems="baseline">
+            <Grid item>
+              <Typography variant="h2">
+                {pipe(createdAt, parseISO, format("PPPP"))}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <CopyLinkButton />
+            </Grid>
+            <Grid item>
+              <BrowseNewsButton />
+            </Grid>
+          </Grid>
         </Grid>
         <Grid item>
           <Editor
@@ -65,8 +87,13 @@ const Edit = () => {
   return match(result)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
-      ({ id, content, updated_at }) => (
-        <EditView contentId={id} content={content} updated_at={updated_at} />
+      ({ id, content, created_at, updated_by }) => (
+        <EditView
+          contentId={id}
+          content={content}
+          createdAt={created_at}
+          updatedBy={updated_by}
+        />
       ),
     )
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
