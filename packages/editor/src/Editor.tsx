@@ -38,8 +38,7 @@ const Editor = ({
   editable = false,
   toolbar,
   plugins,
-}: EditorProperties
-               ) => {
+}: EditorProperties) => {
   // eslint-disable-next-line unicorn/no-null
   const initialEditorState = content?.editorState || initialStateString || null
   const placeholderClasses = useEditorPlaceholderStyles()
@@ -66,9 +65,9 @@ const Editor = ({
       ) : (
         <></>
       )} */}
-      <Grid container direction="column">
+      <Grid container spacing={1} direction="column">
         {/* <Grid item className={persistencePluginStyles.root}> */}
-        {toolbar ? toolbar : <></>} 
+        {toolbar ? <Grid item>{toolbar}</Grid> : <></>}
         {editable ? (
           <Grid item>
             <DictybaseToolbar />

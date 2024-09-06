@@ -9,6 +9,8 @@ import {
   FullPageLoadingDisplay,
   contentPageErrorMatcher,
   ActionBar,
+  CopyLinkButton,
+  BrowseNewsButton,
 } from "@dictybase/ui-common"
 import { Editor } from "@dictybase/editor"
 import { ACCESS } from "@dictybase/auth"
@@ -22,17 +24,13 @@ import { contentIdAtom } from "../../../state"
 type EditableViewProperties = {
   content: string
   id: string
-  updated_at: string
+  createdAt: string
 }
-const EditableView = ({ content, id, updated_at }: EditableViewProperties) => {
+const EditableView = ({ content, id, createdAt }: EditableViewProperties) => {
   const navigate = useNavigate()
   const handleEdit = async () => {
     navigate("../edit", { relative: "path" })
   }
-  const handleReturn = () => {
-    navigate("/news/editable")
-  }
-
   const contentStore = createStore()
   contentStore.set(contentIdAtom, some(id))
 
@@ -42,9 +40,6 @@ const EditableView = ({ content, id, updated_at }: EditableViewProperties) => {
         Edit
       </Button>
       <DeleteDialogButton />
-      <Button variant="contained" onClick={handleReturn}>
-        All News
-      </Button>
     </ActionBar>
   )
   return (
@@ -52,9 +47,19 @@ const EditableView = ({ content, id, updated_at }: EditableViewProperties) => {
       <Container>
         <Grid container direction="column" spacing={2}>
           <Grid item>
-            <Typography variant="h2">
-              {pipe(updated_at, parseISO, format("PPPP"))}
-            </Typography>
+            <Grid spacing={1} container alignItems="baseline">
+              <Grid item>
+                <Typography variant="h2">
+                  {pipe(createdAt, parseISO, format("PPPP"))}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <CopyLinkButton />
+              </Grid>
+              <Grid item>
+                <BrowseNewsButton />
+              </Grid>
+            </Grid>
           </Grid>
           <Grid item>
             <Editor
@@ -77,8 +82,8 @@ const Editable = () => {
   return match(result)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
-      ({ id, content, updated_at }) => (
-        <EditableView id={id} content={content} updated_at={updated_at} />
+      ({ id, content, created_at }) => (
+        <EditableView id={id} content={content} createdAt={created_at} />
       ),
     )
     .with({ loading: true }, () => <FullPageLoadingDisplay />)

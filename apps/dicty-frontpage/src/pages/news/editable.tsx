@@ -46,9 +46,9 @@ type NewsViewProperties = {
   contentList: ListContentByNamespaceQuery["listContentByNamespace"]
 }
 
-const OrdByNewest: Ord<Pick<Content, "updated_at">> = pipe(
+const OrdByNewest: Ord<Pick<Content, "created_at">> = pipe(
   ordByDate,
-  contramap((content) => pipe(content.updated_at, parseISO)),
+  contramap((content) => pipe(content.created_at, parseISO)),
 )
 
 const NewsView = ({ contentList }: NewsViewProperties) => {
@@ -56,11 +56,11 @@ const NewsView = ({ contentList }: NewsViewProperties) => {
   return pipe(
     contentList,
     Asort(OrdByNewest),
-    Amap(({ id, name, content, updated_at }) => (
+    Amap(({ id, name, content, created_at }) => (
       <EditableNewsItem
         key={id}
         name={name}
-        updated_at={updated_at}
+        updated_at={created_at}
         content={content}
       />
     )),
