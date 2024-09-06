@@ -8,7 +8,7 @@ const CONTENT_STRING = `{"root":{"children":[{"children":[{"detail":0,"format":0
 const newsItemProperties = {
   name: "test-news",
   content: CONTENT_STRING,
-  updated_at: "2022-01-01T00:00:00.000Z",
+  createdAt: "2022-01-01T00:00:00.000Z",
 }
 
 describe("NewsItem", () => {
