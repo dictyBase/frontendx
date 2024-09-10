@@ -7613,7 +7613,7 @@ expect@^29.0.0, expect@^29.7.0:
     jest-message-util "^29.7.0"
     jest-util "^29.7.0"
 
-express@^4.17.3, express@^4.18.2:
+express@^4.17.3:
   version "4.19.2"
   resolved "https://registry.yarnpkg.com/express/-/express-4.19.2.tgz#e25437827a3aa7f2a827bc8171bbbb664a356465"
   integrity sha512-5T6nhjsT+EOMzuck8JjBHARTHfMht0POzlA60WV2pMD3gyXw2LZnZ+ueGdNxG+0calOJcWKbpFcuzLZ91YWq9Q==
@@ -15523,13 +15523,6 @@ vite-compatible-readable-stream@^3.6.1:
     inherits "^2.0.3"
     string_decoder "^1.1.1"
     util-deprecate "^1.0.1"
-
-vite-express@^0.9.2:
-  version "0.9.2"
-  resolved "https://registry.yarnpkg.com/vite-express/-/vite-express-0.9.2.tgz#49ef9a5bf7c6cde8001272ee9c7f87e2a79104c6"
-  integrity sha512-kfrx5qPj3Fn1KicqW4TLnRPGTuqVHwXTItX3o38qMzYUh2NAGWL2uak9eNnk+IQN5vXXzE57Prie+1YeVICEEA==
-  dependencies:
-    picocolors "^1.0.0"
 
 vite-node@0.33.0:
   version "0.33.0"
