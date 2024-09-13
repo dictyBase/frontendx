@@ -1,4 +1,7 @@
-import { StrainAutocomplete } from "@dictybase/ui-dsc"
+import { PhenotypeInputPanel } from "@dictybase/ui-dsc"
+import { Grid } from "@material-ui/core"
 
-// eslint-disable-next-line unicorn/prefer-export-from, import/no-default-export
-export default StrainAutocomplete
+const AddPhenotypePage = () => <Grid container />
+
+// eslint-disable-next-line import/no-default-export, unicorn/prefer-export-from
+export default PhenotypeInputPanel
