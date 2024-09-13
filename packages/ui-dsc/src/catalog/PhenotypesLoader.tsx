@@ -1,6 +1,4 @@
-import { Container } from "@material-ui/core"
 import { useStrainQuery, Strain } from "dicty-graphql-schema"
-import { FullPageLoadingDisplay } from "@dictybase/ui-common"
 import { match, P } from "ts-pattern"
 import { ExistingPhenotypeList } from "./ExistingPhenotypesList"
 
