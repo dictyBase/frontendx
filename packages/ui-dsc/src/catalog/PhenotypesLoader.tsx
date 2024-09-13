@@ -11,7 +11,7 @@ type PhenotypesLoaderProperties = {
 const PhenotypesLoader = ({ strainId }: PhenotypesLoaderProperties) => {
   const result = useStrainQuery({ variables: { id: strainId } })
   return match(result)
-    .with({ loading: true }, () => <FullPageLoadingDisplay />)
+    .with({ loading: true }, () => <> loading </>)
     .with({ error: P.not(undefined) }, () => <> error </>)
     .with(
       {
