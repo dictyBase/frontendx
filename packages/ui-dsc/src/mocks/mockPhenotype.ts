@@ -14,16 +14,16 @@ const mockPhenotypes = [
       pages: "5235-5239",
       authors: [
         {
-          lastName: "Gliksman",
+          last_name: "Gliksman",
         },
         {
-          lastName: "Santoyo",
+          last_name: "Santoyo",
         },
         {
-          lastName: "Novak",
+          last_name: "Novak",
         },
         {
-          lastName: "Titus",
+          last_name: "Titus",
         },
       ],
     },
@@ -43,16 +43,16 @@ const mockPhenotypes = [
       pages: "5235-5239",
       authors: [
         {
-          lastName: "Gliksman",
+          last_name: "Gliksman",
         },
         {
-          lastName: "Santoyo",
+          last_name: "Santoyo",
         },
         {
-          lastName: "Novak",
+          last_name: "Novak",
         },
         {
-          lastName: "Titus",
+          last_name: "Titus",
         },
       ],
     },
@@ -70,16 +70,16 @@ const mockPhenotypes = [
       pages: "5235-5239",
       authors: [
         {
-          lastName: "Gliksman",
+          last_name: "Gliksman",
         },
         {
-          lastName: "Santoyo",
+          last_name: "Santoyo",
         },
         {
-          lastName: "Novak",
+          last_name: "Novak",
         },
         {
-          lastName: "Titus",
+          last_name: "Titus",
         },
       ],
     },
