@@ -2,7 +2,7 @@ import {
   mockStrainListQuery,
   mockStrainQuery,
 } from "dicty-graphql-schema/types/mocks"
-import { availableStrain } from "@dictybase/ui-dsc"
+import { availableStrain, mockPhenotypes } from "@dictybase/ui-dsc"
 import { generateListStrainDataOfLength } from "./listStrainData"
 
 const mockStrainListData = generateListStrainDataOfLength(30)
@@ -22,7 +22,7 @@ const handlers = [
   mockStrainQuery((_, response, context) =>
     response(
       context.data({
-        strain: availableStrain,
+        strain: { ...availableStrain, phenotypes: mockPhenotypes },
       }),
     ),
   ),
