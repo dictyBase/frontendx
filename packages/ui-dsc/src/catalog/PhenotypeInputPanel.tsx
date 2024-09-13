@@ -1,4 +1,4 @@
-import { Paper, Container, Grid, makeStyles } from "@material-ui/core"
+import { Paper, Container, Grid, Button, makeStyles } from "@material-ui/core"
 import { StrainAutocomplete } from "./StrainAutocomplete"
 import { PhenotypeAutocomplete } from "./PhenotypeAutocomplete"
 import { PhenotypeNotesField } from "./PhenotypeNotesField"
@@ -32,6 +32,11 @@ const PhenotypeInputPanel = () => {
           </Grid>
           <Grid item>
             <PhenotypeNotesField />
+          </Grid>
+          <Grid item>
+            <Button variant="contained" color="primary">
+              Add
+            </Button>
           </Grid>
         </Grid>
       </Container>
