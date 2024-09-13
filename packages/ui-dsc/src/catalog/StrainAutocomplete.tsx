@@ -1,6 +1,6 @@
 import { useState, useEffect, ChangeEvent } from "react"
 import { Autocomplete } from "@material-ui/lab"
-import TextField from "@material-ui/core/TextField"
+import { TextField, CircularProgress } from "@material-ui/core"
 import { match, P } from "ts-pattern"
 import { useStrainListLazyQuery, StrainType } from "dicty-graphql-schema"
 
@@ -24,6 +24,12 @@ const StrainAutocomplete = () => {
     fetchStrains()
   }, [getStrains, searchLabel])
 
+  const handleTextFieldChange = ({
+    target: { value },
+  }: ChangeEvent<HTMLInputElement>) => {
+    setSearchLabel(value)
+  }
+
   const options = match(data)
     .with(
       {
@@ -33,11 +39,11 @@ const StrainAutocomplete = () => {
     )
     .otherwise(() => [])
 
-  const handleTextFieldChange = ({
-    target: { value },
-  }: ChangeEvent<HTMLInputElement>) => {
-    setSearchLabel(value)
-  }
+  const endAdornment = match(loading)
+    .with(true, () => <CircularProgress />)
+    .with(false, () => <></>)
+    .exhaustive()
+
   return (
     <Autocomplete
       options={options}
@@ -45,9 +51,19 @@ const StrainAutocomplete = () => {
       renderInput={(parameters) => (
         <TextField
           {...parameters}
-          size="medium"
+          size="small"
+          label="Strain"
           variant="outlined"
           onChange={handleTextFieldChange}
+          InputProps={{
+            ...parameters.InputProps,
+            endAdornment: (
+              <>
+                {endAdornment}
+                {parameters.InputProps.endAdornment}
+              </>
+            ),
+          }}
         />
       )}
     />
