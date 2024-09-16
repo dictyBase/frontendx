@@ -1,33 +1,26 @@
 import { useState, useEffect, ChangeEvent } from "react"
+import { useFormContext } from "react-hook-form"
 import { Autocomplete } from "@material-ui/lab"
 import { TextField, CircularProgress } from "@material-ui/core"
 import { match, P } from "ts-pattern"
 import { useStrainListLazyQuery, StrainType } from "dicty-graphql-schema"
 
 const PhenotypeAutocomplete = () => {
-  const [searchLabel, setSearchLabel] = useState("")
   const [getStrains, { data, loading, error }] = useStrainListLazyQuery()
-
-  useEffect(() => {
-    const fetchStrains = async () => {
-      getStrains({
-        variables: {
-          cursor: 10,
-          limit: 10,
-          filter: {
-            strain_type: StrainType.All,
-            label: searchLabel,
-          },
-        },
-      })
-    }
-    fetchStrains()
-  }, [getStrains, searchLabel])
 
   const handleTextFieldChange = ({
     target: { value },
   }: ChangeEvent<HTMLInputElement>) => {
-    setSearchLabel(value)
+    getStrains({
+      variables: {
+        cursor: 10,
+        limit: 10,
+        filter: {
+          strain_type: StrainType.All,
+          label: value,
+        },
+      },
+    })
   }
 
   const options = match(data)
