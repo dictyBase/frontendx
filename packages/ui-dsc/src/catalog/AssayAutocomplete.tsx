@@ -48,7 +48,7 @@ const AssayAutocomplete = () => {
       {
         listPhenotypeAssays: P.select(P.array(P.string)),
       },
-      (assys) => assys,
+      (assays) => assays,
     )
     .otherwise(() => [])
 
