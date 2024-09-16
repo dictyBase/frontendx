@@ -12,6 +12,7 @@ const PhenotypeAutocomplete = () => {
     formState: { errors },
   } = useController({ name: "phenotype" })
   const [getStrains, { data, loading, error }] = useStrainListLazyQuery()
+
   const handleAutocompleteChange = (
     _: ChangeEvent<{}>,
     changeValue: string,
