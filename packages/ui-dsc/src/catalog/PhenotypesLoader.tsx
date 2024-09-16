@@ -1,6 +1,6 @@
 import { useStrainQuery, Strain } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
-import { ExistingPhenotypeList } from "./ExistingPhenotypesList"
+import { ExistingPhenotypeList } from "./ExistingPhenotypeList"
 
 type PhenotypesLoaderProperties = {
   strainId: Strain["id"]
