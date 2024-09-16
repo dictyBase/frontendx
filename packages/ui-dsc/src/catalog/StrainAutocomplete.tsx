@@ -15,7 +15,12 @@ const StrainAutocomplete = () => {
   const handleAutocompleteChange = (
     _: ChangeEvent<{}>,
     value: { id: string } | null,
-    reason: "select-option" | "clear" | "create-option" | "remove-option",
+    reason:
+      | "select-option"
+      | "clear"
+      | "create-option"
+      | "remove-option"
+      | "blur",
   ) => {
     match(reason)
       .with("clear", () => {
