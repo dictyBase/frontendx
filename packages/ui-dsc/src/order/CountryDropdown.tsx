@@ -1,3 +1,4 @@
+import { ChangeEvent } from "react"
 import Autocomplete from "@material-ui/lab/Autocomplete"
 import TextField from "@material-ui/core/TextField"
 import { useController } from "react-hook-form"
@@ -34,7 +35,7 @@ const CountryDropdown = ({ fieldName }: CountryDropdownProperties) => {
   ) ?? { code: "", label: "" }
 
   const handleChange = (
-    _,
+    _: ChangeEvent<{}>,
     optionValue: CountryOption | null,
     reason: string,
   ) => {
