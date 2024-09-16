@@ -4,15 +4,14 @@ import { useController } from "react-hook-form"
 import { Autocomplete } from "@material-ui/lab"
 import { TextField, CircularProgress } from "@material-ui/core"
 import { match, P } from "ts-pattern"
-import { useStrainListLazyQuery, StrainType } from "dicty-graphql-schema"
+import { useListPhenotypesLazyQuery } from "dicty-graphql-schema"
 
 const PhenotypeAutocomplete = () => {
   const {
     field: { value, onChange, onBlur },
     formState: { errors },
   } = useController({ name: "phenotype" })
-  const [getStrains, { data, loading, error }] = useStrainListLazyQuery()
-
+  const [getPhenotypes, { data, loading, error }] = useListPhenotypesLazyQuery()
   const handleAutocompleteChange = (
     _: ChangeEvent<{}>,
     changeValue: string,
@@ -35,14 +34,9 @@ const PhenotypeAutocomplete = () => {
   const handleTextFieldChange = ({
     target: { value: textFieldValue },
   }: ChangeEvent<HTMLInputElement>) => {
-    getStrains({
+    getPhenotypes({
       variables: {
-        cursor: 10,
-        limit: 10,
-        filter: {
-          strain_type: StrainType.All,
-          label: textFieldValue,
-        },
+        search: textFieldValue,
       },
     })
   }
@@ -50,14 +44,14 @@ const PhenotypeAutocomplete = () => {
   const options = match(data)
     .with(
       {
-        listStrains: { strains: P.select(P.array({ label: P.string })) },
+        listPhenotypes: P.select(P.array(P.string)),
       },
-      (strains) => strains,
+      (phenotypes) => phenotypes,
     )
     .otherwise(() => [])
 
   const endAdornment = match(loading)
-    .with(true, () => <CircularProgress />)
+    .with(true, () => <CircularProgress size="1rem" />)
     .with(false, () => <></>)
     .exhaustive()
 
@@ -67,7 +61,7 @@ const PhenotypeAutocomplete = () => {
       options={options}
       onBlur={onBlur}
       onChange={handleAutocompleteChange}
-      getOptionLabel={(option) => option.label}
+      getOptionLabel={(option) => option}
       renderInput={(parameters) => (
         <TextField
           {...parameters}
