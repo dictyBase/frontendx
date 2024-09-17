@@ -27,7 +27,7 @@ const PhenotypeAutocomplete = () => {
         onChange(changeValue)
       })
       .with("clear", () => {
-        onChange(changeValue)
+        onChange("")
       })
       .otherwise(() => {})
   }
