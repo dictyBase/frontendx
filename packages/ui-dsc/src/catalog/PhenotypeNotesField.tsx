@@ -1,15 +1,20 @@
 import { TextField } from "@material-ui/core"
+import { useFormContext } from "react-hook-form"
 
-const PhenotypeNotesField = () => (
-  <TextField
-    fullWidth
-    multiline
-    variant="outlined"
-    id="phenotype-notes"
-    label="Notes"
-    minRows={4}
-    maxRows={4}
-  />
-)
+const PhenotypeNotesField = () => {
+  const { register } = useFormContext()
+  return (
+    <TextField
+      {...register("note")}
+      fullWidth
+      multiline
+      variant="outlined"
+      id="phenotype-note"
+      label="Note"
+      minRows={4}
+      maxRows={4}
+    />
+  )
+}
 
 export { PhenotypeNotesField }
