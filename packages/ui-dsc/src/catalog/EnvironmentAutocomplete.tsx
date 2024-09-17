@@ -24,12 +24,13 @@ const EnvironmentAutocomplete = () => {
       | "remove-option"
       | "blur",
   ) => {
+    console.log(reason, changeValue)
     match(reason)
       .with("select-option", () => {
         onChange(changeValue)
       })
       .with("clear", () => {
-        onChange(changeValue)
+        onChange("")
       })
       .otherwise(() => {})
   }
