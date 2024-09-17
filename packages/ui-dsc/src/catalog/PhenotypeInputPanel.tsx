@@ -27,7 +27,7 @@ const schemaValidation = object().shape({
   environment: string(),
   assay: string(),
   publication: string().required("* Publication is required"),
-  notes: string(),
+  note: string(),
 })
 
 const PhenotypeInputPanel = () => {
