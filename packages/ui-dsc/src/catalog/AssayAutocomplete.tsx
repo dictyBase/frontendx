@@ -29,7 +29,7 @@ const AssayAutocomplete = () => {
         onChange(changeValue)
       })
       .with("clear", () => {
-        onChange(changeValue)
+        onChange("")
       })
       .otherwise(() => {})
   }
