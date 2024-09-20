@@ -23,7 +23,7 @@ const usePhenotypeValidation = () => {
             data,
             OfromNullable,
             OmatchW(
-              () => context.createError({ message: "* Publication not found"}),
+              () => context.createError({ message: "* Reference Publication not found"}),
               () => true,
             ),
           )
