@@ -11,8 +11,7 @@ const AssayAutocomplete = () => {
     field: { value, onChange, onBlur },
     formState: { errors },
   } = useController({ name: "assay" })
-  const [getAssays, { data, loading, error }] =
-    useListPhenotypeAssaysLazyQuery()
+  const [getAssays, { data, loading }] = useListPhenotypeAssaysLazyQuery()
 
   const handleAutocompleteChange = (
     _: ChangeEvent<{}>,

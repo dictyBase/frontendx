@@ -11,7 +11,7 @@ const EnvironmentAutocomplete = () => {
     field: { value, onChange, onBlur },
     formState: { errors },
   } = useController({ name: "environment" })
-  const [getEnvironments, { data, loading, error }] =
+  const [getEnvironments, { data, loading }] =
     useListPhenotypeEnvironmentsLazyQuery()
 
   const handleAutocompleteChange = (
