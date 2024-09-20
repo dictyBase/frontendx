@@ -9,7 +9,7 @@ import { useStrainListLazyQuery, StrainType } from "dicty-graphql-schema"
 import { selectedStrainIdAtom } from "../addPhenotypeState"
 
 const StrainAutocomplete = () => {
-  const [getStrains, { data, loading, error }] = useStrainListLazyQuery()
+  const [getStrains, { data, loading }] = useStrainListLazyQuery()
   const setSelectedStrainId = useSetAtom(selectedStrainIdAtom)
 
   const handleAutocompleteChange = (

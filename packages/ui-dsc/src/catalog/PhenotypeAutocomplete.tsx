@@ -11,7 +11,7 @@ const PhenotypeAutocomplete = () => {
     field: { value, onChange, onBlur },
     formState: { errors },
   } = useController({ name: "phenotype" })
-  const [getPhenotypes, { data, loading, error }] = useListPhenotypesLazyQuery()
+  const [getPhenotypes, { data, loading }] = useListPhenotypesLazyQuery()
   const handleAutocompleteChange = (
     _: ChangeEvent<{}>,
     changeValue: string,
