@@ -5,14 +5,10 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core"
-import { useForm, FormProvider, SubmitHandler } from "react-hook-form"
-import { object, boolean, string, InferType } from "yup"
-import { yupResolver } from "@hookform/resolvers/yup"
-import { PhenotypeAutocomplete } from "./PhenotypeAutocomplete"
-import { EnvironmentAutocomplete } from "./EnvironmentAutocomplete"
-import { AssayAutocomplete } from "./AssayAutocomplete"
-import { PhenotypeNotesField } from "./PhenotypeNotesField"
-import { PhenotypeReferencePanel } from "./PhenotypeReferencePanel"
+import { FormProvider, SubmitHandler } from "react-hook-form"
+import { InferType } from "yup"
+import { AddPhenotypeFormContent } from "./AddPhenotypeFormContent"
+import { usePhenotypeValidation } from "./usePhenotypeValidation"
 
 const useStyles = makeStyles({
   root: {
@@ -21,66 +17,36 @@ const useStyles = makeStyles({
   },
 })
 
-const schemaValidation = object().shape({
-  phenotype: string().required("* Phenotype is required"),
-  environment: string(),
-  assay: string(),
-  hasPublication: boolean(),
-  publication: string().required("* Reference Publication is required"),
-  note: string(),
-})
-
 const AddPhenotypeForm = () => {
-  const methods = useForm({
-    mode: "onTouched",
-    resolver: yupResolver(schemaValidation),
-    defaultValues: {
-      phenotype: "",
-      environment: "",
-      assay: "",
-      publication: "",
-      hasPublication: false,
-      note: "",
-    },
-  })
   const { root } = useStyles()
+  const { methods, schemaValidation } = usePhenotypeValidation()
+
   const onSubmit: SubmitHandler<InferType<typeof schemaValidation>> = (
     data,
   ) => {
-    console.log("submit")
     console.log(data)
   }
-  const onClick = () => {
-    console.log(methods.getValues())
-  }
+
   return (
     <FormProvider {...methods}>
       <Container className={root}>
-        <Typography variant="h3"> Add Phenotype </Typography>
-        <Grid container direction="row" spacing={2} wrap="nowrap">
+        <Grid container direction="column" spacing={1}>
           <Grid item>
-            <Grid container direction="column" spacing={2}>
-              <Grid item>
-                <PhenotypeAutocomplete />
-              </Grid>
-              <Grid item>
-                <EnvironmentAutocomplete />
-              </Grid>
-              <Grid item>
-                <AssayAutocomplete />
-              </Grid>
-              <Grid item>
-                <PhenotypeNotesField />
-              </Grid>
-              <Grid item>
-                <Button variant="contained" color="primary" onClick={onClick}>
-                  Add
-                </Button>
-              </Grid>
-            </Grid>
+            <Typography variant="h3"> Add Phenotype </Typography>
           </Grid>
           <Grid item>
-            <PhenotypeReferencePanel />
+            <AddPhenotypeFormContent />
+          </Grid>
+          <Grid item>
+            <Grid container justifyContent="flex-end">
+              <Button
+                variant="contained"
+                color="primary"
+                disabled={!methods.formState.isValid}
+                onClick={methods.handleSubmit(onSubmit)}>
+                Add
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
       </Container>
