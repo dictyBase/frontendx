@@ -67,7 +67,7 @@ const PhenotypeAutocomplete = () => {
           {...parameters}
           name="phenotype"
           size="small"
-          label="Phenotype"
+          label="* Phenotype"
           variant="outlined"
           error={!!errors["phenotype"]}
           helperText={errors["phenotype"]?.message || ""}
