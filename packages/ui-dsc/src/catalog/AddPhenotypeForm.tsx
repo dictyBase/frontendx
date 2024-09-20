@@ -6,9 +6,14 @@ import {
   makeStyles,
 } from "@material-ui/core"
 import { FormProvider, SubmitHandler } from "react-hook-form"
+import { useAddStrainPhenotypeMutation } from "dicty-graphql-schema"
 import { InferType } from "yup"
 import { AddPhenotypeFormContent } from "./AddPhenotypeFormContent"
 import { usePhenotypeValidation } from "./usePhenotypeValidation"
+
+type AddPhenotypeFormProperties = {
+  strainId: string
+}
 
 const useStyles = makeStyles({
   root: {
@@ -17,14 +22,15 @@ const useStyles = makeStyles({
   },
 })
 
-const AddPhenotypeForm = () => {
+const AddPhenotypeForm = ({ strainId }: AddPhenotypeFormProperties) => {
   const { root } = useStyles()
   const { methods, schemaValidation } = usePhenotypeValidation()
+  const [addPhenotype, result] = useAddStrainPhenotypeMutation()
 
   const onSubmit: SubmitHandler<InferType<typeof schemaValidation>> = (
     data,
   ) => {
-    console.log(data)
+    addPhenotype({ variables: { strainId, input: {} }})
   }
 
   return (
