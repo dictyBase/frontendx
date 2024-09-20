@@ -1,30 +1,33 @@
-import { Container } from "@material-ui/core"
-import { PublicationQueryResult } from "dicty-graphql-schema"
+import { useFormContext } from "react-hook-form"
+import { usePublicationQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
-import { PublicationDisplay } from "./PublicationDisplay"
+import { PhenotypeReferenceDetailsDisplay } from "./PhenotypeReferenceDetailsDisplay"
+import { PhenotypeReferenceDetailsEmpty } from "./PhenotypeReferenceDetailsEmpty"
+import { PhenotypeReferenceDetailsError } from "./PhenotypeReferenceDetailsError"
+import { PhenotypeReferenceDetailsLoading } from "./PhenotypeReferenceDetailsLoading"
 
-type PhenotypeReferenceDetailsProperties = {
-  result: PublicationQueryResult
+const PhenotypeReferenceDetails = () => {
+  const { watch } = useFormContext()
+  const publicationInput = watch("publication")
+  const isEmptyInput = publicationInput.length === 0
+  const result = usePublicationQuery({
+    skip: isEmptyInput,
+    variables: { id: publicationInput },
+  })
+
+  if (isEmptyInput) return <PhenotypeReferenceDetailsEmpty />
+  return match(result)
+    .with({ error: P.not(undefined) }, () => (
+      <PhenotypeReferenceDetailsError publicationId={publicationInput} />
+    ))
+    .with({ loading: true }, () => <PhenotypeReferenceDetailsLoading />)
+    .with(
+      { data: { publication: P.select({ id: P.string }) } },
+      (publication) => (
+        <PhenotypeReferenceDetailsDisplay publication={publication} />
+      ),
+    )
+    .otherwise(() => <>This message should not appear</>)
 }
-
-const PhenotypeReferenceDetails = ({
-  result,
-}: PhenotypeReferenceDetailsProperties) => (
-  <Container>
-    {match(result)
-      .with({ called: false }, () => (
-        <Container> Enter a Publication ID </Container>
-      ))
-      .with({ error: P.not(undefined) }, () => <Container> error </Container>)
-      .with({ loading: true }, () => <Container> loading </Container>)
-      .with(
-        { data: { publication: P.select({ id: P.string }) } },
-        (publication) => <PublicationDisplay publication={publication} />,
-      )
-      .otherwise(() => (
-        <>This message should not appear</>
-      ))}
-  </Container>
-)
 
 export { PhenotypeReferenceDetails }
