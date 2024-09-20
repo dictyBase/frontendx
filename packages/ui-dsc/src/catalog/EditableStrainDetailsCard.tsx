@@ -190,7 +190,7 @@ const EditableStrainDetailsCard = ({ data }: Properties) => {
               ))}
             </TabPanel>
             <TabPanel value={tabValue} index={1}>
-              <EditableStrainPhenotypeList phenotypes={phenotypes} />
+              <EditableStrainPhenotypeList strainId={data.id} phenotypes={phenotypes} />
             </TabPanel>
           </List>
         </Grid>

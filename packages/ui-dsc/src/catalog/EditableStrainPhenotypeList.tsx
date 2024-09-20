@@ -11,6 +11,7 @@ import { AddPhenotypeForm } from "./AddPhenotypeForm"
 import { useStyles } from "./phenotypeStyles"
 
 type Properties = {
+  strainId: string
   phenotypes: Array<Phenotype>
 }
 
@@ -23,7 +24,7 @@ const byPhenotype: Ord<Phenotype> = pipe(
  * PhenotypeList provides a list of phenotypes for a given strain.
  */
 
-const EditableStrainPhenotypeList = ({ phenotypes }: Properties) => {
+const EditableStrainPhenotypeList = ({ strainId, phenotypes }: Properties) => {
   const [isOpen, setIsOpen] = useState(false)
   const classes = useStyles()
   const handleClick = () => {
@@ -44,7 +45,7 @@ const EditableStrainPhenotypeList = ({ phenotypes }: Properties) => {
       )}
       <Button onClick={handleClick}>Add Phenotype </Button>
       <Dialog open={isOpen} onClose={handleClose}>
-        <AddPhenotypeForm />
+        <AddPhenotypeForm strainId={strainId} />
       </Dialog>
     </Paper>
   )
