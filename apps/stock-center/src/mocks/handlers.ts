@@ -9,6 +9,11 @@ import {
 import { availableStrain, mockPhenotypes } from "@dictybase/ui-dsc"
 import { generateListStrainDataOfLength } from "./listStrainData"
 
+const wait = (ms: number) =>
+  new Promise((resolve) => {
+    setTimeout(resolve, ms)
+  })
+
 const mockPublication = {
   id: "2",
   doi: "/publication/31067156",
@@ -82,8 +87,8 @@ const handlers = [
       }),
     ),
   ),
-  mockPublicationQuery((request, response, context) => {
-    console.log(request.variables, mockPublication.id)
+  mockPublicationQuery(async (request, response, context) => {
+    await wait(1500)
     if (request.variables.id === mockPublication.id) {
       return response(
         context.data({
