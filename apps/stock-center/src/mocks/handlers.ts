@@ -5,6 +5,7 @@ import {
   mockListPhenotypeEnvironmentsQuery,
   mockListPhenotypeAssaysQuery,
   mockPublicationQuery,
+  mockAddStrainPhenotypeMutation,
 } from "dicty-graphql-schema/types/mocks"
 import { availableStrain, mockPhenotypes } from "@dictybase/ui-dsc"
 import { generateListStrainDataOfLength } from "./listStrainData"
@@ -21,7 +22,7 @@ const mockPublication = {
     "Force balances between interphase centrosomes, as revealed by laser ablation.",
   abstract: "",
   journal: "Mol. Biol. Cell mbcE19010034",
-  pub_date: "",
+  pub_date: "2011-10-10T14:48:00",
   pages: "",
   issue: "",
   volume: "",
@@ -30,7 +31,7 @@ const mockPublication = {
     { last_name: "Sikirzhytski" },
     { last_name: "Tikhonenko" },
     { last_name: "Cobani" },
-    { last_name: "Khodjakov & Koonce (2019)" },
+    { last_name: "Khodjakov & Koonce" },
   ],
 }
 const mockStrainListData = generateListStrainDataOfLength(30)
@@ -97,6 +98,21 @@ const handlers = [
       )
     }
     return response(context.status(500))
+  }),
+
+  mockAddStrainPhenotypeMutation(async (request, response, context) => {
+    await wait(1500)
+    return response(
+      context.data({
+        addStrainPhenotype: {
+          id: request.variables.strainId,
+          label: "test_strain_label",
+          phenotypes: [
+            { ...request.variables.input, publication: mockPublication },
+          ],
+        },
+      }),
+    )
   }),
 ]
 
