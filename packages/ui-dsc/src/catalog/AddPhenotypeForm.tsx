@@ -1,18 +1,24 @@
+import { Dispatch, SetStateAction } from "react"
 import {
   Container,
   Grid,
   Button,
   Typography,
   makeStyles,
+  CircularProgress,
 } from "@material-ui/core"
+import { pipe } from "fp-ts/function"
+import { match as Bmatch } from "fp-ts/boolean"
 import { FormProvider, SubmitHandler } from "react-hook-form"
 import { useAddStrainPhenotypeMutation } from "dicty-graphql-schema"
+import { Strain } from "dicty-graphql-schema/types/query"
 import { InferType } from "yup"
 import { AddPhenotypeFormContent } from "./AddPhenotypeFormContent"
 import { usePhenotypeValidation } from "./usePhenotypeValidation"
 
 type AddPhenotypeFormProperties = {
   strainId: string
+  setOpen: Dispatch<SetStateAction<boolean>>
 }
 
 const useStyles = makeStyles({
@@ -22,15 +28,32 @@ const useStyles = makeStyles({
   },
 })
 
-const AddPhenotypeForm = ({ strainId }: AddPhenotypeFormProperties) => {
+const AddPhenotypeForm = ({
+  strainId,
+  setOpen,
+}: AddPhenotypeFormProperties) => {
   const { root } = useStyles()
   const { methods, schemaValidation } = usePhenotypeValidation()
-  const [addPhenotype, result] = useAddStrainPhenotypeMutation()
+  const [addPhenotype] = useAddStrainPhenotypeMutation({
+    refetchQueries: [Strain],
+  })
 
-  const onSubmit: SubmitHandler<InferType<typeof schemaValidation>> = (
+  const disableSubmit =
+    !methods.formState.isValid || methods.formState.isSubmitting
+
+  const buttonStartIcon = pipe(
+    methods.formState.isSubmitting,
+    Bmatch(
+      () => <></>,
+      () => <CircularProgress size={20} color="secondary" />,
+    ),
+  )
+
+  const onSubmit: SubmitHandler<InferType<typeof schemaValidation>> = async (
     data,
   ) => {
-    addPhenotype({ variables: { strainId, input: {} }})
+    await addPhenotype({ variables: { strainId, input: data } })
+    setOpen(false)
   }
 
   return (
@@ -46,9 +69,10 @@ const AddPhenotypeForm = ({ strainId }: AddPhenotypeFormProperties) => {
           <Grid item>
             <Grid container justifyContent="flex-end">
               <Button
+                startIcon={buttonStartIcon}
                 variant="contained"
                 color="primary"
-                disabled={!methods.formState.isValid}
+                disabled={disableSubmit}
                 onClick={methods.handleSubmit(onSubmit)}>
                 Add
               </Button>
