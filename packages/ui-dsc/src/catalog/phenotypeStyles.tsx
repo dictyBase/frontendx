@@ -28,6 +28,9 @@ const useStyles = makeStyles({
   button: {
     color: "#004080",
   },
+  bottom: {
+    padding: "0.25rem",
+  },
 })
 
 export { useStyles }
