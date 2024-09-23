@@ -1,4 +1,4 @@
-import { Grid, GridSize } from "@material-ui/core"
+import { Grid, GridSize, makeStyles } from "@material-ui/core"
 import { PhenotypeLeftPanel } from "./PhenotypeLeftPanel"
 import { PhenotypeReferencePanel } from "./PhenotypeReferencePanel"
 
@@ -18,15 +18,24 @@ const gridItemSizingRight: { [key: string]: GridSize } = {
   xl: 7,
 }
 
-const AddPhenotypeFormContent = () => (
-  <Grid container direction="row" spacing={2} wrap="nowrap">
-    <Grid {...gridItemSizingLeft} item>
-      <PhenotypeLeftPanel />
-    </Grid>
-    <Grid {...gridItemSizingRight} item>
-      <PhenotypeReferencePanel />
-    </Grid>
-  </Grid>
-)
+const useAddPhenotypeFormContentProperties = makeStyles({
+  right: {
+    width: "20rem"
+  }
+})
+
+const AddPhenotypeFormContent = () => {
+  const { right } = useAddPhenotypeFormContentProperties()
+    return (
+        <Grid container direction="row" spacing={2} wrap="nowrap">
+            <Grid {...gridItemSizingLeft} item>
+                <PhenotypeLeftPanel />
+            </Grid>
+            <Grid className={right} {...gridItemSizingRight} item>
+                <PhenotypeReferencePanel />
+            </Grid>
+        </Grid>
+    )
+}
 
 export { AddPhenotypeFormContent }
