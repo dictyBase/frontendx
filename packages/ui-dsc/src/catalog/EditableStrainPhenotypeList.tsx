@@ -3,7 +3,8 @@ import { Ord as sOrd } from "fp-ts/string"
 import { pipe } from "fp-ts/function"
 import { contramap, Ord } from "fp-ts/lib/Ord"
 import { sort, map } from "fp-ts/Array"
-import { Paper, Button, Dialog } from "@material-ui/core"
+import { Grid, Paper, Button, Dialog } from "@material-ui/core"
+import ControlPointIcon from "@material-ui/icons/ControlPoint"
 import { Phenotype } from "dicty-graphql-schema"
 import { StrainPhenotypeListHeader } from "./StrainPhenotypeListHeader"
 import { StrainPhenotypeListItem } from "./StrainPhenotypeListItem"
@@ -43,9 +44,19 @@ const EditableStrainPhenotypeList = ({ strainId, phenotypes }: Properties) => {
           <StrainPhenotypeListItem key={phenotype.phenotype} data={phenotype} />
         )),
       )}
-      <Button onClick={handleClick}>Add Phenotype </Button>
+      <Grid container className={classes.bottom}>
+        <Grid item>
+          <Button
+            color="primary"
+            variant="contained"
+            startIcon={<ControlPointIcon />}
+            onClick={handleClick}>
+            Add Phenotype
+          </Button>
+        </Grid>
+      </Grid>
       <Dialog open={isOpen} onClose={handleClose}>
-        <AddPhenotypeForm strainId={strainId} />
+        <AddPhenotypeForm setOpen={setIsOpen} strainId={strainId} />
       </Dialog>
     </Paper>
   )
