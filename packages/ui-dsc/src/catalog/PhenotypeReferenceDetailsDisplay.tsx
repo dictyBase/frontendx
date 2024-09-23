@@ -1,10 +1,9 @@
 import { makeStyles } from "@material-ui/core/styles"
 import { grey, green } from "@material-ui/core/colors"
 import { Container, Grid, Typography } from "@material-ui/core"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
-import { Publication } from "dicty-graphql-schema"
+import { Publication, PublicationQuery } from "dicty-graphql-schema"
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline"
+import OpenInNewIcon from "@material-ui/icons/OpenInNew"
 
 const useStyles = makeStyles({
   root: {
@@ -58,7 +57,7 @@ const getJournalInfo = (volume: string, pages: string) => {
 
 type PublicationDisplayProperties = {
   /** Individual publications */
-  publication: Publication
+  publication: NonNullable<PublicationQuery["publication"]>
 }
 
 /**
@@ -91,7 +90,7 @@ const PhenotypeReferenceDetailsDisplay = ({
           <a
             href={getPubLink(publication.id, publication?.doi as string)}
             title="Visit publication page">
-            <FontAwesomeIcon icon={faExternalLinkAlt} size="sm" />
+            <OpenInNewIcon fontSize="small" />
           </a>
         </Grid>
       </Grid>
