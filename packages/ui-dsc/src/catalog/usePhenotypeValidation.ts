@@ -9,28 +9,32 @@ import { yupResolver } from "@hookform/resolvers/yup"
 const usePhenotypeValidation = () => {
   const [getPublication] = usePublicationLazyQuery()
 
-  const schemaValidation = useMemo(() =>
-    object().shape({
-      phenotype: string().required("* Phenotype is required"),
-      environment: string(),
-      assay: string(),
-      publication: string()
-        .required("* Reference Publication is required")
-        .test(async (value, context) => {
-          if (value.length === 0) return false
-          const { data } = await getPublication({ variables: { id: value } })
-          return pipe(
-            data,
-            OfromNullable,
-            OmatchW(
-              () => context.createError({ message: "* Reference Publication not found"}),
-              () => true,
-            ),
-          )
-        }),
-      note: string(),
-    }),
-    [getPublication]
+  const schemaValidation = useMemo(
+    () =>
+      object().shape({
+        phenotype: string().required("* Phenotype is required"),
+        environment: string().default(""),
+        assay: string().default(""),
+        publication: string()
+          .required("* Reference Publication is required")
+          .test(async (value, context) => {
+            if (value.length === 0) return false
+            const { data } = await getPublication({ variables: { id: value } })
+            return pipe(
+              data,
+              OfromNullable,
+              OmatchW(
+                () =>
+                  context.createError({
+                    message: "* Reference Publication not found",
+                  }),
+                () => true,
+              ),
+            )
+          }),
+        note: string(),
+      }),
+    [getPublication],
   )
 
   const methods = useForm({
