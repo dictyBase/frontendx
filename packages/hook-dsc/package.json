@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@apollo/client": "3.8.4",
-    "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.25.0",
+    "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.26.0",
     "fp-ts": "^2.16.1",
     "fp-ts-std": "^0.17.1",
     "monocle-ts": "^2.3.13",

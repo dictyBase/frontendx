@@ -17,7 +17,7 @@
     "@material-ui/styles": "^4.11.5",
     "@material-ui/system": "~4.12.1",
     "@react-pdf/renderer": "~3.0.0",
-    "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.25.0",
+    "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.26.0",
     "dicty-hooks": "dictybase/dicty-hooks#3.0.0",
     "@dictybase/editor": "*",
     "fontsource-roboto": "^4.0.0",
