@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { Helmet } from "react-helmet"
 import { useParams } from "react-router-dom"
 import Box from "@material-ui/core/Box"
@@ -14,6 +15,7 @@ import { StrainDetailsCard } from "./StrainDetailsCard"
  */
 const StrainDetailsContainer = () => {
   const { id } = useParams()
+  const [tabValue, setTabValue] = useState(0)
   const { loading, error, data } = useStrainQuery({
     variables: { id: `${id}` },
     errorPolicy: "ignore",
@@ -41,7 +43,7 @@ const StrainDetailsContainer = () => {
       {data?.strain && (
         <>
           <DetailsHeader id={data.strain.id} name={data.strain.label} />
-          <StrainDetailsCard data={data.strain} />
+          <StrainDetailsCard data={data.strain} tabValue={tabValue} setTabValue={setTabValue} />
         </>
       )}
     </Box>
