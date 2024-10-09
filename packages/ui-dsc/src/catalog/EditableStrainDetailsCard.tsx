@@ -105,11 +105,12 @@ const strainRowsGenerator = (
 
 type Properties = {
   data: NonNullable<StrainQuery["strain"]>
+  tabValue: number
+  setTabValue: React.Dispatch<React.SetStateAction<number>>
 }
 
-const EditableStrainDetailsCard = ({ data }: Properties) => {
+const EditableStrainDetailsCard = ({ data, tabValue, setTabValue }: Properties) => {
   const classes = useStyles()
-  const [tabValue, setTabValue] = React.useState(0)
 
   const handleChange = (_: React.ChangeEvent<{}>, newValue: number) => {
     setTabValue(newValue)
