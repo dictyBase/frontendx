@@ -20,22 +20,22 @@ const gridItemSizingRight: { [key: string]: GridSize } = {
 
 const useAddPhenotypeFormContentProperties = makeStyles({
   right: {
-    width: "20rem"
-  }
+    width: "20rem",
+  },
 })
 
 const AddPhenotypeFormContent = () => {
   const { right } = useAddPhenotypeFormContentProperties()
-    return (
-        <Grid container direction="row" spacing={2} wrap="nowrap">
-            <Grid {...gridItemSizingLeft} item>
-                <PhenotypeLeftPanel />
-            </Grid>
-            <Grid className={right} {...gridItemSizingRight} item>
-                <PhenotypeReferencePanel />
-            </Grid>
-        </Grid>
-    )
+  return (
+    <Grid container direction="row" spacing={2} wrap="nowrap">
+      <Grid {...gridItemSizingLeft} item>
+        <PhenotypeLeftPanel />
+      </Grid>
+      <Grid className={right} {...gridItemSizingRight} item>
+        <PhenotypeReferencePanel />
+      </Grid>
+    </Grid>
+  )
 }
 
 export { AddPhenotypeFormContent }
