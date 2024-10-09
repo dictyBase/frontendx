@@ -1,5 +1,11 @@
 import { blue } from "@material-ui/core/colors"
-import { Container, Typography, Grid, CircularProgress, makeStyles } from "@material-ui/core"
+import {
+  Container,
+  Typography,
+  Grid,
+  CircularProgress,
+  makeStyles,
+} from "@material-ui/core"
 
 const useStyles = makeStyles({
   root: {
@@ -17,7 +23,7 @@ const PhenotypeReferenceDetailsLoading = () => {
     <Container className={classes.root}>
       <Grid container spacing={1} alignItems="center" wrap="nowrap">
         <Grid item>
-          <CircularProgress thickness={5.4} size={20}/>
+          <CircularProgress thickness={5.4} size={20} />
         </Grid>
         <Grid item>
           <Typography variant="body2">Searching Publications...</Typography>

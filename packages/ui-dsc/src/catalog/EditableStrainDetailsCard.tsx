@@ -109,7 +109,11 @@ type Properties = {
   setTabValue: React.Dispatch<React.SetStateAction<number>>
 }
 
-const EditableStrainDetailsCard = ({ data, tabValue, setTabValue }: Properties) => {
+const EditableStrainDetailsCard = ({
+  data,
+  tabValue,
+  setTabValue,
+}: Properties) => {
   const classes = useStyles()
 
   const handleChange = (_: React.ChangeEvent<{}>, newValue: number) => {
@@ -191,7 +195,10 @@ const EditableStrainDetailsCard = ({ data, tabValue, setTabValue }: Properties) 
               ))}
             </TabPanel>
             <TabPanel value={tabValue} index={1}>
-              <EditableStrainPhenotypeList strainId={data.id} phenotypes={phenotypes} />
+              <EditableStrainPhenotypeList
+                strainId={data.id}
+                phenotypes={phenotypes}
+              />
             </TabPanel>
           </List>
         </Grid>

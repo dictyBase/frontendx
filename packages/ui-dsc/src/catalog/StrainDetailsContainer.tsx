@@ -43,7 +43,11 @@ const StrainDetailsContainer = () => {
       {data?.strain && (
         <>
           <DetailsHeader id={data.strain.id} name={data.strain.label} />
-          <StrainDetailsCard data={data.strain} tabValue={tabValue} setTabValue={setTabValue} />
+          <StrainDetailsCard
+            data={data.strain}
+            tabValue={tabValue}
+            setTabValue={setTabValue}
+          />
         </>
       )}
     </Box>
