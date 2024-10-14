@@ -45,3 +45,5 @@ yarn-error.log*
 clientConfig.ts
 clientConfig.js
 .envrc
+
+.aider*
