@@ -14,7 +14,6 @@ import { LoadingDisplay } from "./LoadingDisplay"
 
 type ImageProperties = {
   webpSrc: string
-  avifSrc: string
   src: string
   alt?: string
   height?: string
@@ -30,7 +29,6 @@ const Noop = () => <></>
 const Image = ({
   src,
   webpSrc,
-  avifSrc,
   alt,
   height = "100%",
   width = "100%",
@@ -52,7 +50,6 @@ const Image = ({
         className={image!}
         onLoad={() => setStatus(success("loaded image"))}
         onError={() => setStatus(error("error in loading image"))}>
-        <source srcSet={avifSrc} type="image/avif" />
         <source srcSet={webpSrc} type="image/webp" />
         <img
           src={src}
