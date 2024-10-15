@@ -51,10 +51,10 @@ const featuredLinks: Array<FeaturedLink> = [
   {
     icon: <SearchIcon />,
     name: "Genome Browser",
-    to: "/#",
+    to: "http://dictybase.org/tools/jbrowse",
     description:
-      "Search using a sequence name, gene name, locus, or other landmark. (Coming Soon)",
-    disabled: true,
+      "Search using a sequence name, gene name, locus, or other landmark.",
+    disabled: false,
   },
   {
     icon: <TableChartIcon />,
