@@ -14,15 +14,7 @@ interface ReactChildrenProperty {
 const ImgContainer = () => {
   const png = resolveImage(LogoPng)
   const webp = resolveImage(LogoWebp)
-  return (
-    <Image
-      src={png}
-      webpSrc={webp}
-      height="10vh"
-      width="90%"
-      fit="fill"
-    />
-  )
+  return <Image src={png} webpSrc={webp} height="10vh" width="90%" fit="fill" />
 }
 
 const TitleContainer = ({ title }: { title: string }) => (
