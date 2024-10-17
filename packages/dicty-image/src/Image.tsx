@@ -13,6 +13,7 @@ import { ErrorDisplay } from "./ErrorDisplay"
 import { LoadingDisplay } from "./LoadingDisplay"
 
 type ImageProperties = {
+  avifSrc: string
   webpSrc: string
   src: string
   alt?: string
@@ -28,6 +29,7 @@ const ErrorUI = () => <ErrorDisplay />
 const Noop = () => <></>
 const Image = ({
   src,
+  avifSrc,
   webpSrc,
   alt,
   height = "100%",
@@ -51,6 +53,7 @@ const Image = ({
         onLoad={() => setStatus(success("loaded image"))}
         onError={() => setStatus(error("error in loading image"))}>
         <source srcSet={webpSrc} type="image/webp" />
+        <source srcSet={avifSrc} type="image/avif" />
         <img
           src={src}
           alt={alt}
