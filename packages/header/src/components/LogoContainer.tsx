@@ -15,7 +15,8 @@ const ImgContainer = () => (
     avifSrc="https://storage.dictybase.dev/editor/assets/2024-10-17/04cea154-6be4-4c78-9d29-0b328cd67b0e"
     height="10vh"
     width="90%"
-    fit="fill" />
+    fit="fill"
+  />
 )
 
 const TitleContainer = ({ title }: { title: string }) => (
