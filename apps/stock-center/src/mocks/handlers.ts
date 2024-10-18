@@ -1,3 +1,4 @@
+import { HttpResponse } from "msw"
 import {
   mockStrainListQuery,
   mockStrainQuery,
@@ -37,82 +38,77 @@ const mockPublication = {
 const mockStrainListData = generateListStrainDataOfLength(30)
 
 const handlers = [
-  mockStrainListQuery((request, response, context) => {
-    const { cursor, limit } = request.variables
+  mockStrainListQuery(({ variables }) => {
+    const { cursor, limit } = variables
     const totalCount = mockStrainListData.length
     const nextCursor = cursor + limit < totalCount ? cursor + limit : 0
     const strains = mockStrainListData.slice(0, cursor + limit)
-    return response(
-      context.data({
-        listStrains: { strains, nextCursor, totalCount },
-      }),
-    )
+    return HttpResponse.json({
+      data: { listStrains: { strains, nextCursor, totalCount } },
+    })
   }),
-  mockStrainQuery((_, response, context) =>
-    response(
-      context.data({
-        strain: { ...availableStrain, phenotypes: mockPhenotypes },
-      }),
-    ),
+  mockStrainQuery(() =>
+    HttpResponse.json({
+      data: { strain: { ...availableStrain, phenotypes: mockPhenotypes } },
+    }),
   ),
-  mockListPhenotypesQuery((_, response, context) =>
-    response(
-      context.data({
+  mockListPhenotypesQuery(() =>
+    HttpResponse.json({
+      data: {
         listPhenotypes: [
           "aberrant cell motility in response to calcium ion",
           "decreased cell migration to prestalk region",
           "abolished endocytic recycling",
         ],
-      }),
-    ),
+      },
+    }),
   ),
-  mockListPhenotypeEnvironmentsQuery((_, response, context) =>
-    response(
-      context.data({
+  mockListPhenotypeEnvironmentsQuery(() =>
+    HttpResponse.json({
+      data: {
         listPhenotypeEnvironments: [
           "Environment 1",
           "Environment 2",
           "Environment 3",
         ],
-      }),
-    ),
+      },
+    }),
   ),
-  mockListPhenotypeAssaysQuery((_, response, context) =>
-    response(
-      context.data({
+  mockListPhenotypeAssaysQuery(() =>
+    HttpResponse.json({
+      data: {
         listPhenotypeAssays: [
           "western blot",
           "northern blot",
           "confocal microscopy",
         ],
-      }),
-    ),
+      },
+    }),
   ),
-  mockPublicationQuery(async (request, response, context) => {
+  mockPublicationQuery(async ({ variables }) => {
     await wait(1500)
-    if (request.variables.id === mockPublication.id) {
-      return response(
-        context.data({
-          publication: mockPublication,
-        }),
-      )
+    if (variables.id === mockPublication.id) {
+      return HttpResponse.json({
+        data: { publication: mockPublication },
+      })
     }
-    return response(context.status(500))
+    return HttpResponse.json(
+      { errors: [{ message: "Internal Server Error" }] },
+      { status: 500 },
+    )
   }),
 
-  mockAddStrainPhenotypeMutation(async (request, response, context) => {
+  mockAddStrainPhenotypeMutation(async ({ variables }) => {
     await wait(1500)
-    return response(
-      context.data({
+    return HttpResponse.json({
+      data: {
         addStrainPhenotype: {
-          id: request.variables.strainId,
+          id: variables.strainId,
           label: "test_strain_label",
-          phenotypes: [
-            { ...request.variables.input, publication: mockPublication },
-          ],
+          phenotypes: [{ ...variables.input, publication: mockPublication }],
         },
-      }),
-    )
+      },
+    })
   }),
 ]
 
