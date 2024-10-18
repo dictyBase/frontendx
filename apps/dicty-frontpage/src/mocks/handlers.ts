@@ -1,3 +1,4 @@
+import { HttpResponse, passthrough } from "msw"
 import { BrowserLevel } from "browser-level"
 import {
   mockListContentByNamespaceQuery,
@@ -18,10 +19,12 @@ const database = new BrowserLevel<string, Content>(NAMESPACE, {
   valueEncoding: "json",
 })
 
+const errorMessage = "Internal Server Error"
+
 const handlers = [
-  mockCreateContentMutation(async (request, response, context) => {
-    const { name, content, namespace, created_by } = request.variables.input
-    if (namespace !== "news") return request.passthrough()
+  mockCreateContentMutation(async ({ variables }) => {
+    const { name, content, namespace, created_by } = variables.input
+    if (namespace !== "news") return passthrough()
     const contentAdmin = { ...superuserProperties, email: created_by }
     const now = formatISO(new Date())
     try {
@@ -38,26 +41,36 @@ const handlers = [
         updated_at: now,
       })
       const created = await database.get(name)
-      return response(context.data({ createContent: created }))
+      return HttpResponse.json({ data: { createContent: created } })
     } catch {
-      return response(context.status(500))
+      return HttpResponse.json(
+        { errors: [{ message: errorMessage }] },
+        { status: 500 },
+      )
     }
   }),
-  mockContentBySlugQuery(async (request, response, context) => {
-    const { slug } = request.variables
+  mockContentBySlugQuery(async ({ variables }) => {
+    const { slug } = variables
     const isNewsNamespace = pipe(slug, SstartsWith("news"))
-    if (!isNewsNamespace) return request.passthrough()
+    if (!isNewsNamespace) return passthrough()
     try {
       const allNews = await database.values().all()
       const contentBySlug = allNews.find((content) => content.slug === slug)
-      if (!contentBySlug) return response(context.status(404))
-      return response(context.data({ contentBySlug }))
+      if (!contentBySlug)
+        return HttpResponse.json(
+          { errors: [{ message: "Content not found" }] },
+          { status: 404 },
+        )
+      return HttpResponse.json({ data: { contentBySlug } })
     } catch {
-      return response(context.status(500))
+      return HttpResponse.json(
+        { errors: [{ message: errorMessage }] },
+        { status: 500 },
+      )
     }
   }),
-  mockUpdateContentMutation(async (request, response, context) => {
-    const { id, content, updated_by } = request.variables.input
+  mockUpdateContentMutation(async ({ variables }) => {
+    const { id, content, updated_by } = variables.input
     try {
       const existingContent = await database.get(id)
       await database.put(id, {
@@ -67,27 +80,30 @@ const handlers = [
         updated_at: formatISO(new Date()),
       })
       const updateContent = await database.get(id)
-      return response(context.data({ updateContent }))
+      return HttpResponse.json({ data: { updateContent } })
     } catch {
-      return request.passthrough()
+      return passthrough()
     }
   }),
-  mockDeleteContentMutation(async (request, response, context) => {
-    const { id } = request.variables
+  mockDeleteContentMutation(async ({ variables }) => {
+    const { id } = variables
     try {
       await database.del(id)
-      return response(context.data({ deleteContent: { success: true } }))
+      return HttpResponse.json({ data: { deleteContent: { success: true } } })
     } catch {
-      return response(context.status(500))
+      return HttpResponse.json(
+        { errors: [{ message: errorMessage }] },
+        { status: 500 },
+      )
     }
   }),
-  mockListContentByNamespaceQuery(async (_, response, context) => {
+  mockListContentByNamespaceQuery(async () => {
     const listContentByNamespace = await database.values().all()
     const newsContent = pipe(
       listContentByNamespace,
       Afilter(({ namespace }) => namespace === "news"),
     )
-    return response(context.data({ listContentByNamespace: newsContent }))
+    return HttpResponse.json({ data: { listContentByNamespace: newsContent } })
   }),
 ]
 
