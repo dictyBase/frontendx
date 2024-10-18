@@ -1,10 +1,10 @@
+import { HttpResponse } from "msw"
 import {
   mockGeneOntologyAnnotationQuery,
   mockListStrainsWithGeneQuery,
   mockListPublicationsWithGeneQuery,
   mockGeneSummaryQuery,
 } from "dicty-graphql-schema/types/mocks"
-import { match } from "ts-pattern"
 import { mockOntologyData } from "./mockOntologyData"
 import { mockOntologyPiaA } from "./piaAMocks/mockOntologyPiaA"
 import { mockOntologyAda2 } from "./ada2Mocks/mockOntologyAda2"
@@ -19,105 +19,103 @@ import { mockGeneralInfoPiaA } from "./piaAMocks/mockGeneralInfoPiaA"
 export const handlers = [
   // Handles the Gene query: https://github.com/dictyBase/dicty-graphql-schema/blob/develop/src/queries/gene.graphql
   // Implementation details here: https://github.com/dictyBase/genomepage/pull/825#issuecomment-977246804
-  mockGeneOntologyAnnotationQuery((request, response, context) => {
-    const { gene } = request.variables
-    return match(gene)
-      .with("sadA", () =>
-        response(
-          context.data({ geneOntologyAnnotation: mockOntologyData.goas }),
-        ),
-      )
-      .with("piaA", () =>
-        response(
-          context.data({ geneOntologyAnnotation: mockOntologyPiaA.goas }),
-        ),
-      )
-      .with("ada2", () =>
-        response(
-          context.data({ geneOntologyAnnotation: mockOntologyAda2.goas }),
-        ),
-      )
-      .otherwise((unmockedGene) =>
-        response(context.errors([{ message: `No mock for ${unmockedGene}` }])),
-      )
+  mockGeneOntologyAnnotationQuery(({ variables }) => {
+    const { gene } = variables
+    switch (gene) {
+      case "sadA":
+        return HttpResponse.json({
+          data: { data: { geneOntologyAnnotation: mockOntologyData.goas } },
+        })
+      case "piaA":
+        return HttpResponse.json({
+          data: { data: { geneOntologyAnnotation: mockOntologyPiaA.goas } },
+        })
+      case "ada2":
+        return HttpResponse.json({
+          data: { data: { geneOntologyAnnotation: mockOntologyAda2.goas } },
+        })
+      default:
+        return HttpResponse.json({
+          errors: [{ message: `No mock for ${gene}` }],
+        })
+    }
   }),
-  mockListStrainsWithGeneQuery((request, response, context) => {
-    const { gene } = request.variables
-    return match(gene)
-      .with("sadA", () =>
-        response(
-          context.data({ listStrainsWithGene: mockPhenotypesData.strains }),
-        ),
-      )
-      .with("piaA", () =>
-        response(
-          context.data({ listStrainsWithGene: mockPhenotypesPiaA.strains }),
-        ),
-      )
-      .with("ada2", () =>
-        response(
-          context.data({ listStrainsWithGene: mockPhenotypesAda2.strains }),
-        ),
-      )
-      .otherwise((unmockedGene) =>
-        response(context.errors([{ message: `No mock for ${unmockedGene}` }])),
-      )
+  mockListStrainsWithGeneQuery(({ variables }) => {
+    const { gene } = variables
+    switch (gene) {
+      case "sadA":
+        return HttpResponse.json({
+          data: { data: { listStrainsWithGene: mockPhenotypesData.strains } },
+        })
+      case "piaA":
+        return HttpResponse.json({
+          data: { data: { listStrainsWithGene: mockPhenotypesPiaA.strains } },
+        })
+      case "ada2":
+        return HttpResponse.json({
+          data: { data: { listStrainsWithGene: mockPhenotypesAda2.strains } },
+        })
+      default:
+        return HttpResponse.json({
+          errors: [{ message: `No mock for ${gene}` }],
+        })
+    }
   }),
-  mockListPublicationsWithGeneQuery((request, response, context) => {
-    const { gene } = request.variables
-    return match(gene)
-      .with("sadA", () =>
-        response(
-          context.data({ listPublicationsWithGene: mockReferencesData }),
-        ),
-      )
-      .with("piaA", () =>
-        response(
-          context.data({ listPublicationsWithGene: mockReferencesPiaA }),
-        ),
-      )
-      .with("ada2", () =>
-        response(
-          context.data({ listPublicationsWithGene: mockReferencesPiaA }),
-        ),
-      )
-      .otherwise((unmockedGene) =>
-        response(context.errors([{ message: `No mock for ${unmockedGene}` }])),
-      )
+  mockListPublicationsWithGeneQuery(({ variables }) => {
+    const { gene } = variables
+    switch (gene) {
+      case "sadA":
+        return HttpResponse.json({
+          data: { data: { listPublicationsWithGene: mockReferencesData } },
+        })
+      case "piaA" || "ada2":
+        return HttpResponse.json({
+          data: { data: { listPublicationsWithGene: mockReferencesPiaA } },
+        })
+      default:
+        return HttpResponse.json({
+          errors: [{ message: `No mock for ${gene}` }],
+        })
+    }
   }),
 
-  mockGeneSummaryQuery((request, response, context) => {
-    const { gene } = request.variables
-    return match(gene)
-      .with("sadA", () =>
-        response(
-          context.data({
-            geneGeneralInformation: mockGeneralInfoData,
-            geneOntologyAnnotation: mockOntologyData.goas,
-            listPublicationsWithGene: mockReferencesData,
-          }),
-        ),
-      )
-      .with("piaA", () =>
-        response(
-          context.data({
-            geneGeneralInformation: mockGeneralInfoPiaA,
-            geneOntologyAnnotation: mockOntologyPiaA.goas,
-            listPublicationsWithGene: mockReferencesPiaA,
-          }),
-        ),
-      )
-      .with("ada2", () =>
-        response(
-          context.data({
-            geneGeneralInformation: mockGeneralInfoPiaA,
-            geneOntologyAnnotation: mockOntologyAda2.goas,
-            listPublicationsWithGene: mockReferencesPiaA,
-          }),
-        ),
-      )
-      .otherwise((unmockedGene) =>
-        response(context.errors([{ message: `No mock for ${unmockedGene}` }])),
-      )
+  mockGeneSummaryQuery(({ variables }) => {
+    const { gene } = variables
+    switch (gene) {
+      case "sadA":
+        return HttpResponse.json({
+          data: {
+            data: {
+              geneGeneralInformation: mockGeneralInfoData,
+              geneOntologyAnnotation: mockOntologyData.goas,
+              listPublicationsWithGene: mockReferencesData,
+            },
+          },
+        })
+      case "piaA":
+        return HttpResponse.json({
+          data: {
+            data: {
+              geneGeneralInformation: mockGeneralInfoPiaA,
+              geneOntologyAnnotation: mockOntologyPiaA.goas,
+              listPublicationsWithGene: mockReferencesPiaA,
+            },
+          },
+        })
+      case "ada2":
+        return HttpResponse.json({
+          data: {
+            data: {
+              geneGeneralInformation: mockGeneralInfoPiaA,
+              geneOntologyAnnotation: mockOntologyAda2.goas,
+              listPublicationsWithGene: mockReferencesPiaA,
+            },
+          },
+        })
+      default:
+        return HttpResponse.json({
+          errors: [{ message: `No mock for ${gene}` }],
+        })
+    }
   }),
 ]
