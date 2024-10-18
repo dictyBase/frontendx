@@ -59,6 +59,7 @@ const NewsView = ({ contentList }: NewsViewProperties) => {
     Amap(({ id, name, content, created_at }) => (
       <EditableNewsItem
         key={id}
+        id={id}
         name={name}
         updated_at={created_at}
         content={content}
