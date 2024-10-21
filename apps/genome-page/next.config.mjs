@@ -6,6 +6,9 @@ import transpileModules from "next-transpile-modules"
 const nextConfig = {
   // /* config options here */
   // basePath: "",
+  images: {
+    unoptimized: true,
+  },
   async redirects() {
     return [
       {
