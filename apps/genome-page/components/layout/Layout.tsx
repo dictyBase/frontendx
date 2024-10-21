@@ -64,24 +64,24 @@ const Layout = ({ children, gene, title, description }: Properties) => {
         </Box>
         <AppBar position="static">
           <Tabs value={tabValue} onChange={handleChange} variant="scrollable">
-            <Link href={`/gene/${gene}`} passHref>
+            <Link href={`/${gene}`} passHref>
               <Tab label="Gene Summary" />
             </Link>
             {/* <Link href={`/gene/${gene}/proteininformation`} passHref>
               <Tab label="Protein Information" />
             </Link>
             */}
-            <Link href={`/gene/${gene}/goannotations`} passHref>
+            <Link href={`/${gene}/goannotations`} passHref>
               <Tab label="Gene Ontology" />
             </Link>
             {/* <Link href={`/gene/${gene}/orthologs`} passHref>
               <Tab label="Orthologs" />
             </Link>
             */}
-            <Link href={`/gene/${gene}/phenotypes`} passHref>
+            <Link href={`/${gene}/phenotypes`} passHref>
               <Tab label="Phenotypes" />
             </Link>
-            <Link href={`/gene/${gene}/references`} passHref>
+            <Link href={`/${gene}/references`} passHref>
               <Tab label="References" />
             </Link>
             {/* <Link href={`/gene/${gene}/communityannotations`} passHref>
