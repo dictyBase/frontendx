@@ -15,8 +15,8 @@ import { map as RNEAmap } from "fp-ts/ReadonlyNonEmptyArray"
 const supportedTags = ["i", "b", "sup", "sub", "h1", "h2", "h3", "h4"]
 
 const parseIrregularTags = (s: string) =>
-  pipe(s.replaceAll(new RegExp(/&lt;/g), "<"), (next) =>
-    next.replaceAll(new RegExp(/&gt;/g), ">"),
+  pipe(s.replaceAll(/&lt;/g, "<"), (next) =>
+    next.replaceAll(/&gt;/g, ">"),
   )
 
 const parseFormattedStringToDomElements = (
