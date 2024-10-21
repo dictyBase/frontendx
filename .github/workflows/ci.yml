@@ -22,47 +22,47 @@ jobs:
         uses: codecov/codecov-action@v4
         with: 
           token: ${{ secrets.CODECOV }}
-  call-frontpage-docker-build:
-    needs: test
-    uses: dictyBase/workflows/.github/workflows/build-publish-image.yaml@develop
-    secrets: inherit
-    with:
-      repository: ${{ github.repository }}
-      ref: ${{ github.ref_name }}
-      image: dicty-frontpage
-      dockerfile: "docker/Dockerfile.frontpage"
-      namespace: "dictybase"
-  call-dsc-docker-build:
-    needs: test
-    uses: dictyBase/workflows/.github/workflows/build-publish-image.yaml@develop
-    secrets: inherit
-    with:
-      repository: ${{ github.repository }}
-      ref: ${{ github.ref_name }}
-      image: stock-center
-      dockerfile: docker/Dockerfile.stock-center
-      namespace: "dictybase"
-  call-publication-docker-build:
-    needs: test
-    uses: dictyBase/workflows/.github/workflows/build-publish-image.yaml@develop
-    secrets: inherit
-    with:
-      repository: ${{ github.repository }}
-      ref: ${{ github.ref_name }}
-      dockerfile: "docker/Dockerfile.publication"
-      image: publication
-      namespace: "dictybase"
-    # call-deploy:
-    #   needs: test
-    #   uses: dictyBase/workflows/.github/workflows/composite-deploy.yaml@develop
-    #   secrets: inherit
-    #   with:
-    #     app: frontpage:stockcenter:publication
-    #     repository: ${{ github.repository }}
-    #     ref: ${{ github.ref_name }}
-    #     docker_image: dicty-frontpage:stock-center:publication
-    #     dockerfile: docker/Dockerfile.frontpage:docker/Dockerfile.stock-center:docker/Dockerfile.publication
-    #     cluster: ${{ vars.DEV_STAGING_CLUSTER }}
-    #     cluster_state_storage: ${{ vars.DEV_STAGING_KOPS_STATE_STORAGE }}
-    #     project: frontend_application
-    #     application_type: frontend
+          #  call-frontpage-docker-build:
+          #    needs: test
+          #    uses: dictyBase/workflows/.github/workflows/build-publish-image.yaml@develop
+          #    secrets: inherit
+          #    with:
+          #      repository: ${{ github.repository }}
+          #      ref: ${{ github.ref_name }}
+          #      image: dicty-frontpage
+          #      dockerfile: "docker/Dockerfile.frontpage"
+          #      namespace: "dictybase"
+          #  call-dsc-docker-build:
+          #    needs: test
+          #    uses: dictyBase/workflows/.github/workflows/build-publish-image.yaml@develop
+          #    secrets: inherit
+          #    with:
+          #      repository: ${{ github.repository }}
+          #      ref: ${{ github.ref_name }}
+          #      image: stock-center
+          #      dockerfile: docker/Dockerfile.stock-center
+          #      namespace: "dictybase"
+          #  call-publication-docker-build:
+          #    needs: test
+          #    uses: dictyBase/workflows/.github/workflows/build-publish-image.yaml@develop
+          #    secrets: inherit
+          #    with:
+          #      repository: ${{ github.repository }}
+          #      ref: ${{ github.ref_name }}
+          #      dockerfile: "docker/Dockerfile.publication"
+          #      image: publication
+          #      namespace: "dictybase"
+    call-deploy:
+      needs: test
+      uses: dictyBase/workflows/.github/workflows/composite-deploy.yaml@develop
+      secrets: inherit
+      with:
+        app: frontpage:stockcenter:publication
+        repository: ${{ github.repository }}
+        ref: ${{ github.ref_name }}
+        docker_image: dicty-frontpage:stock-center:publication
+        dockerfile: docker/Dockerfile.frontpage:docker/Dockerfile.stock-center:docker/Dockerfile.publication
+        cluster: ${{ vars.DEV_STAGING_CLUSTER }}
+        cluster_state_storage: ${{ vars.DEV_STAGING_KOPS_STATE_STORAGE }}
+        project: frontend_application
+        application_type: frontend
