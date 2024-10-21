@@ -1,6 +1,6 @@
 import { createElement, DOMElement, DOMAttributes } from "react"
 import { pipe } from "fp-ts/function"
-import { split as Ssplit, Monoid as SMonoid } from "fp-ts/string"
+import { replace as Sreplace, split as Ssplit, Monoid as SMonoid } from "fp-ts/string"
 import {
   map as Amap,
   compact as Acompact,
@@ -11,15 +11,27 @@ import { map as RNEAmap } from "fp-ts/ReadonlyNonEmptyArray"
 
 const supportedTags = ["i", "b", "sup", "sub", "h1", "h2", "h3", "h4"]
 
+const preprocessIrregularTags = (s: string) => {
+  const openSquareBracketRegexp = new RegExp(/&lt;/g)
+  const closeSquareBracketRegexp = new RegExp(/&gt;/g)
+  return pipe(
+    s.replaceAll(openSquareBracketRegexp, "<"),
+    (next) => next.replaceAll(closeSquareBracketRegexp, ">")
+  )
+}
+
 const parseFormattedStringToDomElements = (
   s: string,
 ): DOMElement<DOMAttributes<Element>, Element>[] => {
+  const normalizedString = preprocessIrregularTags(s) 
+  // Regular Expression used to capture the text content in format tags.
   const formatTagRegex = pipe(
     supportedTags,
     Amap((tag) => `<(${tag})>(.+?)<\\/${tag}>`),
     Aintercalate(SMonoid)("|"),
     (exp) => new RegExp(exp, "g"),
   )
+  // Regular Expression used to capture the text content in format tags.
   const splitRegex = pipe(
     supportedTags,
     Amap((tag) => `<${tag}>.+?<\\/${tag}>`),
@@ -27,7 +39,7 @@ const parseFormattedStringToDomElements = (
     (exp) => new RegExp(exp, "g"),
   )
   const formattedTextElements = pipe(
-    [...s.matchAll(formatTagRegex)],
+    [...normalizedString.matchAll(formatTagRegex)],
     Amap((matches) => pipe(matches, Amap(OfromNullable), Acompact)),
     Amap((matches) =>
       createElement(
@@ -40,7 +52,7 @@ const parseFormattedStringToDomElements = (
   )
 
   const unformattedTextElements = pipe(
-    s,
+    normalizedString,
     Ssplit(splitRegex),
     // eslint-disable-next-line unicorn/no-null
     RNEAmap((text) => createElement("span", null, text)),
