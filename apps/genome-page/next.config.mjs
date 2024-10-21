@@ -5,7 +5,7 @@ import transpileModules from "next-transpile-modules"
  */
 const nextConfig = {
   // /* config options here */
-  // basePath: "",
+  basePath: "/gene",
   images: {
     unoptimized: true,
   },
