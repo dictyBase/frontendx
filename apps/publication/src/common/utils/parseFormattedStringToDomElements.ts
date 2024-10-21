@@ -1,7 +1,6 @@
 import { createElement, DOMElement, DOMAttributes } from "react"
 import { pipe } from "fp-ts/function"
 import {
-  replace as Sreplace,
   split as Ssplit,
   Monoid as SMonoid,
 } from "fp-ts/string"
