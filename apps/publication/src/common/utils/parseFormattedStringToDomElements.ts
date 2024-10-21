@@ -1,6 +1,10 @@
 import { createElement, DOMElement, DOMAttributes } from "react"
 import { pipe } from "fp-ts/function"
-import { replace as Sreplace, split as Ssplit, Monoid as SMonoid } from "fp-ts/string"
+import {
+  replace as Sreplace,
+  split as Ssplit,
+  Monoid as SMonoid,
+} from "fp-ts/string"
 import {
   map as Amap,
   compact as Acompact,
@@ -11,15 +15,15 @@ import { map as RNEAmap } from "fp-ts/ReadonlyNonEmptyArray"
 
 const supportedTags = ["i", "b", "sup", "sub", "h1", "h2", "h3", "h4"]
 
-const parseIrregularTags = (s: string) => pipe(
-    s.replaceAll(new RegExp(/&lt;/g), "<"),
-    (next) => next.replaceAll(new RegExp(/&gt;/g), ">")
-)
+const parseIrregularTags = (s: string) =>
+  pipe(s.replaceAll(new RegExp(/&lt;/g), "<"), (next) =>
+    next.replaceAll(new RegExp(/&gt;/g), ">"),
+  )
 
 const parseFormattedStringToDomElements = (
   s: string,
 ): DOMElement<DOMAttributes<Element>, Element>[] => {
-  const normalizedString = parseIrregularTags(s) 
+  const normalizedString = parseIrregularTags(s)
   // Regular Expression used to capture the text content in format tags.
   const formatTagRegex = pipe(
     supportedTags,
