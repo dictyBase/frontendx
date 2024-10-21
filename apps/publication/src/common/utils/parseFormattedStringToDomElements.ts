@@ -1,9 +1,6 @@
 import { createElement, DOMElement, DOMAttributes } from "react"
 import { pipe } from "fp-ts/function"
-import {
-  split as Ssplit,
-  Monoid as SMonoid,
-} from "fp-ts/string"
+import { split as Ssplit, Monoid as SMonoid } from "fp-ts/string"
 import {
   map as Amap,
   compact as Acompact,
@@ -15,9 +12,7 @@ import { map as RNEAmap } from "fp-ts/ReadonlyNonEmptyArray"
 const supportedTags = ["i", "b", "sup", "sub", "h1", "h2", "h3", "h4"]
 
 const parseIrregularTags = (s: string) =>
-  pipe(s.replaceAll(/&lt;/g, "<"), (next) =>
-    next.replaceAll(/&gt;/g, ">"),
-  )
+  pipe(s.replaceAll(/&lt;/g, "<"), (next) => next.replaceAll(/&gt;/g, ">"))
 
 const parseFormattedStringToDomElements = (
   s: string,
