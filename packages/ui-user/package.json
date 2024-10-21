@@ -10,9 +10,9 @@
   },
   "devDependencies": {
     "@vitest/coverage-v8": "^0.34.5",
-    "vitest": "0.33.*",
     "eslint-config-custom": "*",
-    "tsconfig": "*"
+    "tsconfig": "*",
+    "vitest": "0.33.*"
   },
   "scripts": {
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",

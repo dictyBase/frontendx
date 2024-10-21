@@ -12,14 +12,14 @@
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/table-action-plugin.json"
   },
   "devDependencies": {
+    "@dictybase/width-table-plugin": "*",
     "@testing-library/dom": "^8.20.0",
     "@testing-library/user-event": "^14.5.1",
     "@types/react": "17.*",
     "@vitest/coverage-v8": "^0.34.5",
-    "jsdom": "latest",
-    "vitest": "0.33.*",
     "eslint-config-custom": "*",
-    "@dictybase/width-table-plugin": "*"
+    "jsdom": "latest",
+    "vitest": "0.33.*"
   },
   "dependencies": {
     "@lexical/react": "0.11.x",

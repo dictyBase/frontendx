@@ -12,9 +12,9 @@
   "devDependencies": {
     "@types/react": "17.*",
     "@types/react-dom": "17.*",
-    "vitest": "0.33.*",
     "eslint-config-custom": "*",
-    "tsconfig": "*"
+    "tsconfig": "*",
+    "vitest": "0.33.*"
   },
   "dependencies": {
     "@lexical/react": "0.11.x",

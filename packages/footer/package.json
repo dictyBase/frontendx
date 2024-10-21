@@ -14,18 +14,18 @@
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.5.1",
     "@types/uuid": "^9.0.2",
-    "ts-jest": "^27.1.3",
-    "tsup": "^5.10.1",
-    "vitest": "0.33.*",
+    "config": "*",
     "jsdom": "latest",
     "scripts": "*",
-    "config": "*",
-    "tsconfig": "*"
+    "ts-jest": "^27.1.3",
+    "tsconfig": "*",
+    "tsup": "^5.10.1",
+    "vitest": "0.33.*"
   },
   "dependencies": {
+    "@dictybase/functional": "*",
     "@fontsource/roboto": "^5.0.8",
     "@material-ui/core": "^4.12.4",
-    "@dictybase/functional": "*",
     "react-slidedown": "^2.4.7",
     "uuid": "9.x"
   },
