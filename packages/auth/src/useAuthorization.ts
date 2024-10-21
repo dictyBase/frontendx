@@ -11,17 +11,14 @@ type useAuthorizationProperties = { entries: Array<string> }
  */
 const useAuthorization = ({ entries }: useAuthorizationProperties) => {
   // Fetch the user information using the useLogto hook
-  const { fetchUserInfo, isAuthenticated } = useLogto()
-
+  const { fetchUserInfo, isAuthenticated, isLoading } = useLogto()
   // Initialize state variables
   const [isAuthorized, setAuthorization] = useState<boolean>(false)
-  const [isLoading, setLoading] = useState<boolean>(true)
   const [user, setUser] = useState<UserWithRoles>()
   useEffect(() => {
     // Function to check user authorization
     const authCheck = async (records: Array<string>) => {
       if (!isAuthenticated) {
-        setLoading(false)
         return
       }
       // Fetch the user information and cast it to UserWithRoles type
@@ -31,7 +28,6 @@ const useAuthorization = ({ entries }: useAuthorizationProperties) => {
         setAuthorization(matchEntries(records, authUser.roles))
         setUser(authUser)
       }
-      setLoading(false)
     }
     // Perform the authorization check when the entries array changes
     authCheck(entries)
