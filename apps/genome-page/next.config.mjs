@@ -9,20 +9,6 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/gene/sadA",
-        permanent: true,
-      },
-      {
-        source: "/gene",
-        destination: "/gene/sadA",
-        permanent: true,
-      },
-    ]
-  },
 }
 
 const withTM = transpileModules([
