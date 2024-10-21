@@ -11,7 +11,7 @@ import { map as RNEAmap } from "fp-ts/ReadonlyNonEmptyArray"
 
 const supportedTags = ["i", "b", "sup", "sub", "h1", "h2", "h3", "h4"]
 
-const preprocessIrregularTags = (s: string) => pipe(
+const parseIrregularTags = (s: string) => pipe(
     s.replaceAll(new RegExp(/&lt;/g), "<"),
     (next) => next.replaceAll(new RegExp(/&gt;/g), ">")
 )
@@ -19,7 +19,7 @@ const preprocessIrregularTags = (s: string) => pipe(
 const parseFormattedStringToDomElements = (
   s: string,
 ): DOMElement<DOMAttributes<Element>, Element>[] => {
-  const normalizedString = preprocessIrregularTags(s) 
+  const normalizedString = parseIrregularTags(s) 
   // Regular Expression used to capture the text content in format tags.
   const formatTagRegex = pipe(
     supportedTags,
