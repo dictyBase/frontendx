@@ -24,15 +24,15 @@ export const handlers = [
     switch (gene) {
       case "sadA":
         return HttpResponse.json({
-          data: { data: { geneOntologyAnnotation: mockOntologyData.goas } },
+          data: { geneOntologyAnnotation: mockOntologyData.goas },
         })
       case "piaA":
         return HttpResponse.json({
-          data: { data: { geneOntologyAnnotation: mockOntologyPiaA.goas } },
+          data: { geneOntologyAnnotation: mockOntologyPiaA.goas },
         })
       case "ada2":
         return HttpResponse.json({
-          data: { data: { geneOntologyAnnotation: mockOntologyAda2.goas } },
+          data: { geneOntologyAnnotation: mockOntologyAda2.goas },
         })
       default:
         return HttpResponse.json({
@@ -45,15 +45,15 @@ export const handlers = [
     switch (gene) {
       case "sadA":
         return HttpResponse.json({
-          data: { data: { listStrainsWithGene: mockPhenotypesData.strains } },
+          data: { listStrainsWithGene: mockPhenotypesData.strains },
         })
       case "piaA":
         return HttpResponse.json({
-          data: { data: { listStrainsWithGene: mockPhenotypesPiaA.strains } },
+          data: { listStrainsWithGene: mockPhenotypesPiaA.strains },
         })
       case "ada2":
         return HttpResponse.json({
-          data: { data: { listStrainsWithGene: mockPhenotypesAda2.strains } },
+          data: { listStrainsWithGene: mockPhenotypesAda2.strains },
         })
       default:
         return HttpResponse.json({
@@ -66,11 +66,11 @@ export const handlers = [
     switch (gene) {
       case "sadA":
         return HttpResponse.json({
-          data: { data: { listPublicationsWithGene: mockReferencesData } },
+          data: { listPublicationsWithGene: mockReferencesData },
         })
       case "piaA" || "ada2":
         return HttpResponse.json({
-          data: { data: { listPublicationsWithGene: mockReferencesPiaA } },
+          data: { listPublicationsWithGene: mockReferencesPiaA },
         })
       default:
         return HttpResponse.json({
@@ -85,32 +85,26 @@ export const handlers = [
       case "sadA":
         return HttpResponse.json({
           data: {
-            data: {
               geneGeneralInformation: mockGeneralInfoData,
               geneOntologyAnnotation: mockOntologyData.goas,
               listPublicationsWithGene: mockReferencesData,
-            },
           },
         })
       case "piaA":
         return HttpResponse.json({
           data: {
-            data: {
               geneGeneralInformation: mockGeneralInfoPiaA,
               geneOntologyAnnotation: mockOntologyPiaA.goas,
               listPublicationsWithGene: mockReferencesPiaA,
-            },
           },
         })
       case "ada2":
         return HttpResponse.json({
-          data: {
             data: {
               geneGeneralInformation: mockGeneralInfoPiaA,
               geneOntologyAnnotation: mockOntologyAda2.goas,
               listPublicationsWithGene: mockReferencesPiaA,
             },
-          },
         })
       default:
         return HttpResponse.json({
