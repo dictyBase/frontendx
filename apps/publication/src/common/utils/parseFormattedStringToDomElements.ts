@@ -11,14 +11,10 @@ import { map as RNEAmap } from "fp-ts/ReadonlyNonEmptyArray"
 
 const supportedTags = ["i", "b", "sup", "sub", "h1", "h2", "h3", "h4"]
 
-const preprocessIrregularTags = (s: string) => {
-  const openSquareBracketRegexp = new RegExp(/&lt;/g)
-  const closeSquareBracketRegexp = new RegExp(/&gt;/g)
-  return pipe(
-    s.replaceAll(openSquareBracketRegexp, "<"),
-    (next) => next.replaceAll(closeSquareBracketRegexp, ">")
-  )
-}
+const preprocessIrregularTags = (s: string) => pipe(
+    s.replaceAll(new RegExp(/&lt;/g), "<"),
+    (next) => next.replaceAll(new RegExp(/&gt;/g), ">")
+)
 
 const parseFormattedStringToDomElements = (
   s: string,
