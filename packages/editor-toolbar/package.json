@@ -11,19 +11,19 @@
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/toolbar.json"
   },
   "dependencies": {
+    "@dictybase/image-plugin": "*",
     "@logto/react": "^2.1.2",
     "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.27.0",
     "fp-ts": "^2.16.1",
     "jotai-optics": "^0.3.0",
     "optics-ts": "~2.4.1",
-    "@dictybase/image-plugin": "*",
     "ts-pattern": "4.x"
   },
   "devDependencies": {
-    "@testing-library/react": "^12.1.5",
     "@testing-library/jest-dom": "^5.17.0",
-    "vitest": "0.33.*",
+    "@testing-library/react": "^12.1.5",
     "eslint-config-custom": "*",
-    "tsconfig": "*"
+    "tsconfig": "*",
+    "vitest": "0.33.*"
   }
 }

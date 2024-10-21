@@ -11,18 +11,18 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "react-router-dom": "~6.14.2",
     "@dictybase/editor-toolbar": "*",
     "@dictybase/persistence-plugin": "*",
+    "@dictybase/table-action-plugin": "*",
     "@dictybase/width-table-plugin": "*",
-    "@dictybase/table-action-plugin": "*"
+    "react-router-dom": "~6.14.2"
   },
   "devDependencies": {
     "@types/react": "17.*",
     "@types/react-dom": "17.*",
     "@vitejs/plugin-react": "^4.0.3",
-    "tsconfig": "*",
     "eslint-config-custom": "*",
+    "tsconfig": "*",
     "vitest": "0.33.*"
   }
 }

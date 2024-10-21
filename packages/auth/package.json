@@ -13,9 +13,9 @@
     "vitest": "0.33.*"
   },
   "dependencies": {
+    "@dictybase/footer": "*",
     "@dictybase/header": "*",
     "@dictybase/navbar": "*",
-    "@dictybase/footer": "*",
     "@dictybase/ui-common": "*",
     "@logto/react": "^2.1.2",
     "react-router-dom": "~6.14.2",

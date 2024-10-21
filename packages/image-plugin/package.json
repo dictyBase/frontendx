@@ -16,10 +16,10 @@
     "tsconfig": "*"
   },
   "dependencies": {
-    "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.27.0",
     "@dictybase/flex-layout-plugin": "*",
-    "fp-ts": "^2.16.1",
     "@dictybase/resizable-image": "*",
+    "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.27.0",
+    "fp-ts": "^2.16.1",
     "ts-pattern": "4.x"
   },
   "typedoc": {

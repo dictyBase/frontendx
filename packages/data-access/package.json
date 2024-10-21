@@ -18,8 +18,8 @@
   },
   "dependencies": {
     "@apollo/client": "3.8.4",
-    "apollo3-cache-persist": "^0.14.1",
     "apollo-upload-client": "^18.0.1",
+    "apollo3-cache-persist": "^0.14.1",
     "localforage": "1.10.*",
     "react": "17.*",
     "react-dom": "17.*"

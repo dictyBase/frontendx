@@ -26,11 +26,11 @@
     "generate:schema": "turbo run generate"
   },
   "devDependencies": {
-    "@types/node": "18.16.x",
+    "@types/node": "^20.12.10",
     "browserlist": "latest",
     "eslint-config-custom": "*",
     "plop": "3.x",
-    "prettier": "2.x",
+    "prettier": "3.*",
     "tsx": "latest",
     "turbo": "^1.10.12",
     "typedoc": "0.23.x",

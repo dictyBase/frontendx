@@ -14,25 +14,25 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "jotai": "^2.0.0",
-    "react-helmet": "^6.1.0",
+    "@dictybase/auth": "*",
     "@dictybase/data-access": "*",
+    "@dictybase/editor": "*",
     "@dictybase/google-analytics": "*",
     "@dictybase/hook": "*",
     "@dictybase/hook-dsc": "*",
-    "@dictybase/ui-dsc": "*",
     "@dictybase/ui-common": "*",
-    "@dictybase/editor": "*",
-    "@dictybase/auth": "*",
+    "@dictybase/ui-dsc": "*",
+    "jotai": "^2.0.0",
+    "react-helmet": "^6.1.0",
     "ui-user": "*"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.0.3",
-    "vite-plugin-swc-react-refresh": "^2.2.1",
+    "eslint-config-custom": "*",
     "msw": "2.x",
-    "vite": "4.x",
     "tsconfig": "*",
-    "eslint-config-custom": "*"
+    "vite": "4.x",
+    "vite-plugin-swc-react-refresh": "^2.2.1"
   },
   "msw": {
     "workerDirectory": "public"
