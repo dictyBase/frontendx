@@ -10,7 +10,7 @@ import {
   contentPageErrorMatcher,
   ActionBar,
   CopyLinkButton,
-  BrowseNewsButton,
+  BrowseEditableNewsButton,
 } from "@dictybase/ui-common"
 import { Editor } from "@dictybase/editor"
 import { ACCESS } from "@dictybase/auth"
@@ -57,7 +57,7 @@ const EditableView = ({ content, id, createdAt }: EditableViewProperties) => {
                 <CopyLinkButton />
               </Grid>
               <Grid item>
-                <BrowseNewsButton />
+                <BrowseEditableNewsButton />
               </Grid>
             </Grid>
           </Grid>
