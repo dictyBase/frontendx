@@ -14,6 +14,7 @@ const errorFormat = (error: any): ApolloError => ({
   graphQLErrors: [error],
   // eslint-disable-next-line unicorn/no-null
   networkError: null,
+  protocolErrors: [],
   extraInfo: undefined,
   name: "",
   clientErrors: [],
