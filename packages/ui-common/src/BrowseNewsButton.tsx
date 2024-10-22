@@ -6,7 +6,7 @@ const BrowseNewsButton = () => {
   const navigate = useNavigate()
 
   const handleReturn = () => {
-    navigate("/news/editable")
+    navigate("/news/show")
   }
   return (
     <Button
