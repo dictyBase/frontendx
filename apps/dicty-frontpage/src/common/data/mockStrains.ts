@@ -4,28 +4,28 @@ const listRecentStrains = [
 
     createdAt: "123",
 
-    systematicName: "Mad52",
+    systematic_name: "Mad52",
   },
   {
     id: "2",
 
     createdAt: "123",
 
-    systematicName: "grlD-/[act15]:grlD",
+    systematic_name: "grlD-/[act15]:grlD",
   },
   {
     id: "3",
 
     createdAt: "123",
 
-    systematicName: "grlD-",
+    systematic_name: "grlD-",
   },
   {
     id: "4",
 
     createdAt: "123",
 
-    systematicName: "ase1A-",
+    systematic_name: "ase1A-",
   },
 ]
 
