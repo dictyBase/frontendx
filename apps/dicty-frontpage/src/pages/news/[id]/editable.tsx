@@ -31,6 +31,7 @@ const EditableView = ({ content, id, createdAt }: EditableViewProperties) => {
   const handleEdit = async () => {
     navigate("../edit", { relative: "path" })
   }
+  // This state makes the news id available to the news DeleteButton
   const contentStore = createStore()
   contentStore.set(contentIdAtom, some(id))
 
