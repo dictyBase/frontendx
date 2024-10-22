@@ -17,7 +17,7 @@
     "vitest": "0.33.*"
   },
   "dependencies": {
-    "@apollo/client": "3.8.4",
+    "@apollo/client": "3.x",
     "apollo-upload-client": "^18.0.1",
     "apollo3-cache-persist": "^0.14.1",
     "localforage": "1.10.*",

@@ -16,7 +16,7 @@
     "tsc": "tsc"
   },
   "dependencies": {
-    "@apollo/client": "3.8.4",
+    "@apollo/client": "3.x",
     "@dictybase/auth": "*",
     "@dictybase/google-analytics": "*",
     "@emotion/react": "^11.11.1",

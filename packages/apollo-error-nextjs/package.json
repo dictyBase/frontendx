@@ -18,7 +18,7 @@
     "vitest": "0.33.*"
   },
   "dependencies": {
-    "@apollo/client": "3.8.4",
+    "@apollo/client": "3.x",
     "next": "^12.2.1",
     "react": "17.*",
     "react-dom": "17.*"

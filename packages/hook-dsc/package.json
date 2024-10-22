@@ -18,7 +18,7 @@
     "tsconfig": "*"
   },
   "dependencies": {
-    "@apollo/client": "3.8.4",
+    "@apollo/client": "3.x",
     "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.27.0",
     "fp-ts": "^2.16.1",
     "fp-ts-std": "^0.17.1",
