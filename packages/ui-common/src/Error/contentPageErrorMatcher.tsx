@@ -24,6 +24,7 @@ const contentPageErrorMatcher = (
         Omatch(
           () => <OtherError />,
           (extension) =>
+            // eslint-disable-next-line dot-notation
             match(extension["code"])
               .with("Unavailable", () => <ServerError />)
               .with("NotFound", notFoundHandler)
