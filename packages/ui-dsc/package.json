@@ -6,7 +6,7 @@
   "author": "Siddhartha Basu",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "@apollo/client": "3.8.4",
+    "@apollo/client": "3.x",
     "@dictybase/editor": "*",
     "@dictybase/ui-common": "*",
     "@dictybase/ui-frontpage": "*",
