@@ -37,7 +37,6 @@ export const onDrop = (event: DragEvent, editor: LexicalEditor) => {
   const selection = getRangeSelectionFromPoint(event.clientX, event.clientY)
   if (!selection) return false
   $setSelection(selection)
-
   editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
     source: imageNode.__source,
     width: imageNode.__width,
@@ -45,6 +44,5 @@ export const onDrop = (event: DragEvent, editor: LexicalEditor) => {
     key: imageNode.__key,
     alignment: "left",
   })
-  imageNode.remove()
   return true
 }
