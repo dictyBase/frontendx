@@ -1,4 +1,3 @@
-import { ChangeEvent, Dispatch, SetStateAction } from "react"
 import { InputLabel, Select, MenuItem, FormControl, makeStyles } from "@material-ui/core"
 import { useFormContext } from "react-hook-form"
 
@@ -10,17 +9,13 @@ enum Section {
   INFORMATION = "DSC Information",
 }
 
-type SectionSelectProperties = {
-  setSection: Dispatch<SetStateAction<Section>>
-}
-
 const useStyles = makeStyles({
   select: {
     minWidth: "9rem",
   },
 })
 
-const SectionSelect = ({ setSection }: SectionSelectProperties) => {
+const SectionSelect = () => {
   const { select } = useStyles()
   const { register } = useFormContext()
   return (
@@ -30,6 +25,7 @@ const SectionSelect = ({ setSection }: SectionSelectProperties) => {
         id="section-select"
         label="Section"
         autoWidth
+        defaultValue=""
         className={select}
         {...register("section")}>
         <MenuItem value={Section.EXPLORE}>{Section.EXPLORE}</MenuItem>
