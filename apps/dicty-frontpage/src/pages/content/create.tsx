@@ -81,10 +81,10 @@ const Controls = () => {
             <SectionSelect section={section} setSection={setSection} />
           </Grid>
           <Grid item>
-            <TextField name="name" variant="outlined" />
+            <TextField label="Name" name="name" variant="outlined" />
           </Grid>
           <Grid item>
-            <TextField name="subname" variant="outlined" />
+            <TextField label="Subname" name="subname" variant="outlined" />
           </Grid>
         </Grid>
       </Paper>
