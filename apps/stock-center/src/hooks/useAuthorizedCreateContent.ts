@@ -31,11 +31,11 @@ const createFailureError = {
   message: "Could not create content",
 }
 
-const useAuthorizedCreateContent = (namespace: string, name: string) => {
+const useAuthorizedCreateContent = () => {
   const { getAccessToken, fetchUserInfo } = useLogto()
   const [createContent] = useCreateContentMutation()
 
-  return (content: string) => {
+  return (content: string, namespace: string, name: string) => {
     const task = pipe(
       TEDo,
       TElet("newContent", () => content),

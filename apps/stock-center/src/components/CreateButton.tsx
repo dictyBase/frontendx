@@ -11,12 +11,12 @@ type CreateButtonProperties = {
 const CreateButton = ({ namespace, name }: CreateButtonProperties) => {
   const [editor] = useLexicalComposerContext()
   const navigate = useNavigate()
-  const authorizedCreateContent = useAuthorizedCreateContent(namespace, name)
+  const authorizedCreateContent = useAuthorizedCreateContent()
 
   const handleUpdate = async () => {
     // handle error / success state
     const contentValue = JSON.stringify(editor.getEditorState().toJSON())
-    await authorizedCreateContent(contentValue)
+    await authorizedCreateContent(contentValue, namespace, name)
     navigate("../editable", { relative: "path" })
   }
 
