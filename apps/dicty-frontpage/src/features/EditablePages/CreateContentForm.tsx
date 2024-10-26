@@ -1,6 +1,7 @@
 import { FunctionComponent } from "react"
+import { pipe } from "fp-ts/function"
 import { isEmpty as SisEmpty } from "fp-ts/string"
-import { MonoidAny } from "fp-ts/boolean"
+import { match as Bmatch, MonoidAny } from "fp-ts/boolean"
 import {
   Button,
   TextField,
@@ -8,13 +9,19 @@ import {
   Paper,
   Grid,
   makeStyles,
+  CircularProgress,
 } from "@material-ui/core"
-import { yupResolver } from "@hookform/resolvers/yup"
-import { object, string, InferType } from "yup"
-import { useForm, FormProvider, SubmitHandler } from "react-hook-form"
+import { InferType } from "yup"
+import { FormProvider, SubmitHandler } from "react-hook-form"
 import { SectionSelect } from "./SectionSelect"
+import {
+  useCreateContentForm,
+  validationSchema,
+  useAvailableContentSlugValidation,
+} from "../../common/hooks/useCreateContentForm"
 import { getCreateContentSlug } from "../../common/utils/getCreateContentSlug"
-import { useValidateCreateContent } from "../../common/hooks/useValidateCreateContent"
+import { matchContentNamespace } from "../../common/utils/matchContentNamespace"
+import { useCreateContentFromEditor } from "../../common/hooks/useCreateContentFromEditor"
 
 const useStyles = makeStyles({
   root: {
@@ -27,9 +34,11 @@ const useStyles = makeStyles({
 
 const CreateContentForm: FunctionComponent = () => {
   const { root } = useStyles()
-  const methods = useValidateCreateContent()
+  const checkAvailable = useAvailableContentSlugValidation()
+  const createContent = useCreateContentFromEditor()
+  const methods = useCreateContentForm()
   const {
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitting },
   } = methods
   const sectionValue = methods.watch("section")
   const nameValue = methods.watch("name")
@@ -37,11 +46,30 @@ const CreateContentForm: FunctionComponent = () => {
     SisEmpty(sectionValue),
     SisEmpty(nameValue),
   )
-  const onSubmit: SubmitHandler<InferType<typeof validationSchema>> = (
-    data,
-  ) => {
-    console.log(data)
-    console.log("submit success")
+  const buttonLoading = pipe(
+    isSubmitting,
+    Bmatch(
+      () => <></>,
+      () => <CircularProgress size={20} color="secondary" />,
+    ),
+  )
+  const onSubmit: SubmitHandler<InferType<typeof validationSchema>> = async ({
+    section,
+    name,
+    subname,
+  }) => {
+    const namespace = matchContentNamespace(section)
+    const slug = getCreateContentSlug({ name, subname })
+    const { isAvailable } = await checkAvailable(namespace, slug)
+    pipe(
+      isAvailable,
+      Bmatch(
+        () => {
+          createContent(namespace, slug)
+        },
+        () => {},
+      ),
+    )
   }
 
   return (
@@ -72,6 +100,7 @@ const CreateContentForm: FunctionComponent = () => {
             </Grid>
             <Grid item>
               <Button
+                startIcon={buttonLoading}
                 variant="contained"
                 color="primary"
                 disabled={!isValid}
