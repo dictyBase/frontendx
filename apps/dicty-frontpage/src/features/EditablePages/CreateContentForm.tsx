@@ -14,6 +14,7 @@ import { object, string, InferType } from "yup"
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form"
 import { SectionSelect } from "./SectionSelect"
 import { getCreateContentSlug } from "../../common/utils/getCreateContentSlug"
+import { useValidateCreateContent } from "../../common/hooks/useValidateCreateContent"
 
 const useStyles = makeStyles({
   root: {
@@ -24,30 +25,13 @@ const useStyles = makeStyles({
   },
 })
 
-const validationSchema = object()
-  .shape({
-    section: string().required("* Section is required"),
-    name: string().required("* Name is required"),
-    subname: string(),
-  })
-  .test("createContentPage", "Content already exists", async (data) => {
-    const slug = getCreateContentSlug(data)
-    console.log(slug)
-    return !!slug
-  })
-
 const CreateContentForm: FunctionComponent = () => {
   const { root } = useStyles()
-  const methods = useForm({
-    mode: "onTouched",
-    resolver: yupResolver(validationSchema),
-    defaultValues: { section: "", name: "", subname: "" },
-  })
+  const methods = useValidateCreateContent()
   const {
     formState: { errors, isValid },
   } = methods
   const sectionValue = methods.watch("section")
-
   const nameValue = methods.watch("name")
   const subnameDisabled = MonoidAny.concat(
     SisEmpty(sectionValue),
