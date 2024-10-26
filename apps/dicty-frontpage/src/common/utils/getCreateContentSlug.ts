@@ -1,14 +1,12 @@
 import { match, P } from "ts-pattern"
 
-type ContentPageRouteParameters = {
+type Segements = {
   name: string
   subname?: string
 }
 
-const getCreateContentSlug = (
-  routeParameters: ContentPageRouteParameters,
-): string =>
-  match(routeParameters)
+const getCreateContentSlug = (segments: Segements): string =>
+  match(segments)
     .with(
       { subname: P.select(P.intersection(P.string, P.not(""))) },
       (subname) => subname as string,
