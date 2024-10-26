@@ -12,7 +12,7 @@ enum Namespace {
   STOCKCENTER = "stockcenter",
 }
 
-const matchContentNamespace = (section: Section): string =>
+const matchContentNamespace = (section: string): string =>
   match(section)
     .with(Section.INFORMATION, () => Namespace.STOCKCENTER)
     .otherwise(() => Namespace.FRONTPAGE)
