@@ -1,7 +1,10 @@
 import { FunctionComponent } from "react"
 import { pipe } from "fp-ts/function"
+import { useNavigate } from "react-router-dom"
 import { isEmpty as SisEmpty } from "fp-ts/string"
 import { match as Bmatch, MonoidAny } from "fp-ts/boolean"
+import { match as Ematch } from "fp-ts/Either"
+import { match, P } from "ts-pattern"
 import {
   Button,
   TextField,
@@ -17,7 +20,6 @@ import { SectionSelect } from "./SectionSelect"
 import {
   useCreateContentForm,
   validationSchema,
-  useAvailableContentSlugValidation,
 } from "../../common/hooks/useCreateContentForm"
 import { getCreateContentSlug } from "../../common/utils/getCreateContentSlug"
 import { matchContentNamespace } from "../../common/utils/matchContentNamespace"
@@ -34,7 +36,7 @@ const useStyles = makeStyles({
 
 const CreateContentForm: FunctionComponent = () => {
   const { root } = useStyles()
-  const checkAvailable = useAvailableContentSlugValidation()
+  const navigate = useNavigate()
   const createContent = useCreateContentFromEditor()
   const methods = useCreateContentForm()
   const {
@@ -60,14 +62,14 @@ const CreateContentForm: FunctionComponent = () => {
   }) => {
     const namespace = matchContentNamespace(section)
     const slug = getCreateContentSlug({ name, subname })
-    const { isAvailable } = await checkAvailable(namespace, slug)
+    const mutationState = await createContent(namespace, slug)
     pipe(
-      isAvailable,
-      Bmatch(
+      mutationState,
+      Ematch(
+        ({ message }) => {},
         () => {
-          createContent(namespace, slug)
+          navigate(`/${section}/${name}/${subname}/editable`)
         },
-        () => {},
       ),
     )
   }
@@ -84,6 +86,7 @@ const CreateContentForm: FunctionComponent = () => {
               <TextField
                 {...methods.register("name")}
                 error={!!errors.name}
+                helperText={errors.name?.message}
                 label="* Name"
                 name="name"
                 variant="outlined"
@@ -92,6 +95,7 @@ const CreateContentForm: FunctionComponent = () => {
             <Grid item>
               <TextField
                 {...methods.register("subname")}
+                error={!!errors.subname}
                 label="Subname"
                 name="subname"
                 variant="outlined"
