@@ -4,9 +4,11 @@ import {
   Select,
   MenuItem,
   FormControl,
+  FormHelperText,
   makeStyles,
 } from "@material-ui/core"
 import { useFormContext } from "react-hook-form"
+import { getFormErrorMessage } from "../../common/utils/getFormErrorMessage"
 
 enum Section {
   EMPTY = "",
@@ -33,7 +35,7 @@ const renderValue = (section: unknown) =>
 const SectionSelect = () => {
   const { formControl } = useStyles()
   const { register, getFieldState } = useFormContext()
-  const { invalid } = getFieldState("section")
+  const { invalid, error } = getFieldState("section")
   return (
     <FormControl
       fullWidth
@@ -61,6 +63,7 @@ const SectionSelect = () => {
           {renderValue(Section.INFORMATION)}
         </MenuItem>
       </Select>
+      <FormHelperText>{getFormErrorMessage(error)}</FormHelperText>
     </FormControl>
   )
 }
