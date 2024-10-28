@@ -17,14 +17,31 @@ import {
 } from "fp-ts/ReadonlyArray"
 import { useContentBySlugLazyQuery } from "dicty-graphql-schema"
 
+const noSpaceErrorMessage = "* May not contain spaces"
+const noHyphenErrorMessage = '* May not contain hyphens ("-")'
+const noSlashErrorMesasage = '* May not contain slashes ("/" or "\\")'
+
 const validationSchema = object().shape({
   section: string()
     .required("* Section is required")
+    .ensure()
+    .matches(/^((?!(\s)).)*$/, noSpaceErrorMessage)
+    .matches(/^((?!(-)).)*$/, noHyphenErrorMessage)
+    .matches(/^((?!(\/|\\)).)*$/, noSlashErrorMesasage)
     .lowercase("Section must be lowercase"),
   name: string()
     .required("* Name is required")
+    .ensure()
+    .matches(/^((?!(\s)).)*$/, noSpaceErrorMessage)
+    .matches(/^((?!(-)).)*$/, noHyphenErrorMessage)
+    .matches(/^((?!(\/|\\)).)*$/, noSlashErrorMesasage)
     .lowercase("Name must be lowercase"),
-  subname: string().lowercase("subname must be lowercase"),
+  subname: string()
+    .ensure()
+    .matches(/^((?!(\s)).)*$/, noSpaceErrorMessage)
+    .matches(/^((?!(-)).)*$/, noHyphenErrorMessage)
+    .matches(/^((?!(\/|\\)).)*$/, noSlashErrorMesasage)
+    .lowercase("subname must be lowercase"),
 })
 
 const useCreateContentForm = () =>
