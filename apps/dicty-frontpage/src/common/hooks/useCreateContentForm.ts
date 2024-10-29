@@ -20,6 +20,7 @@ import { useContentBySlugLazyQuery } from "dicty-graphql-schema"
 const noSpaceErrorMessage = "* May not contain spaces"
 const noHyphenErrorMessage = '* May not contain hyphens ("-")'
 const noSlashErrorMesasage = '* May not contain slashes ("/" or "\\")'
+const restrictedCharactersMessage = '* May not contain ""#", %", "&", or "?"'
 
 const validationSchema = object().shape({
   section: string()
@@ -28,6 +29,7 @@ const validationSchema = object().shape({
     .matches(/^((?!(\s)).)*$/, noSpaceErrorMessage)
     .matches(/^((?!(-)).)*$/, noHyphenErrorMessage)
     .matches(/^((?!(\/|\\)).)*$/, noSlashErrorMesasage)
+    .matches(/^((?!([#%&?])).)*$/, restrictedCharactersMessage)
     .lowercase("Section must be lowercase"),
   name: string()
     .required("* Name is required")
@@ -35,12 +37,14 @@ const validationSchema = object().shape({
     .matches(/^((?!(\s)).)*$/, noSpaceErrorMessage)
     .matches(/^((?!(-)).)*$/, noHyphenErrorMessage)
     .matches(/^((?!(\/|\\)).)*$/, noSlashErrorMesasage)
+    .matches(/^((?!([#%&?])).)*$/, restrictedCharactersMessage)
     .lowercase("Name must be lowercase"),
   subname: string()
     .ensure()
     .matches(/^((?!(\s)).)*$/, noSpaceErrorMessage)
     .matches(/^((?!(-)).)*$/, noHyphenErrorMessage)
     .matches(/^((?!(\/|\\)).)*$/, noSlashErrorMesasage)
+    .matches(/^((?!([#%&?])).)*$/, restrictedCharactersMessage)
     .lowercase("subname must be lowercase"),
 })
 
