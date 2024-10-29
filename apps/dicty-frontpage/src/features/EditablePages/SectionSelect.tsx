@@ -15,7 +15,6 @@ enum Section {
   EXPLORE = "explore",
   RESEARCH = "research",
   COMMUNITY = "community",
-  INFORMATION = "information",
 }
 
 const useStyles = makeStyles({
@@ -29,7 +28,6 @@ const renderValue = (section: unknown) =>
     .with(Section.EXPLORE, () => "Explore")
     .with(Section.RESEARCH, () => "Research")
     .with(Section.COMMUNITY, () => "Community")
-    .with(Section.INFORMATION, () => "DSC Information")
     .otherwise(() => "")
 
 const SectionSelect = () => {
@@ -58,9 +56,6 @@ const SectionSelect = () => {
         </MenuItem>
         <MenuItem value={Section.COMMUNITY}>
           {renderValue(Section.COMMUNITY)}
-        </MenuItem>
-        <MenuItem value={Section.INFORMATION}>
-          {renderValue(Section.INFORMATION)}
         </MenuItem>
       </Select>
       <FormHelperText>{getFormErrorMessage(error)}</FormHelperText>
