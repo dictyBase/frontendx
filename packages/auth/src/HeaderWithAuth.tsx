@@ -5,6 +5,7 @@ import { Header } from "@dictybase/header"
 import { type UserWithRoles, getCallbackPath, getHomePath } from "./const"
 import { LoginButton } from "./LoginButton"
 import { LogoutButton } from "./LogoutButton"
+import { AuthorizedLogoutButton } from "./AuthorizedLogoutButton"
 import { useAuthorization } from "./useAuthorization"
 import {
   createDefaultHeaderIcons,
@@ -57,7 +58,7 @@ const conditonalHandler = (authCase: logtoHookProperties) =>
           frontPageUrl,
           createAuthorizedHeaderIcons,
           append(
-            <LogoutButton
+            <AuthorizedLogoutButton
               url={getHomePath(basename)}
               frontPageUrl={frontPageUrl}
               user={user as UserWithRoles}
