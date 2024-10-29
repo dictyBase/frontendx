@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { pipe } from "fp-ts/function"
 import { useNavigate } from "react-router-dom"
-import { match as Bmatch } from "fp-ts/boolean"
 import { match as Ematch } from "fp-ts/Either"
 import { match, P } from "ts-pattern"
 import {
@@ -9,7 +8,6 @@ import {
   Paper,
   Grid,
   makeStyles,
-  CircularProgress,
   Snackbar,
   IconButton,
 } from "@material-ui/core"
@@ -44,23 +42,10 @@ const useStyles = makeStyles({
 const CreateContentForm = () => {
   const [open, setOpen] = useState(false)
   const [createContentError, setCreateContentError] = useState("")
-  const handleClose = () => {
-    setOpen(false)
-  }
   const { root } = useStyles()
   const navigate = useNavigate()
   const createContent = useCreateContentFromEditor()
   const methods = useCreateContentForm()
-  const {
-    formState: { isValid, isSubmitting },
-  } = methods
-  const buttonLoading = pipe(
-    isSubmitting,
-    Bmatch(
-      () => <></>,
-      () => <CircularProgress size={20} color="secondary" />,
-    ),
-  )
   const onSubmit: SubmitHandler<InferType<typeof validationSchema>> = async ({
     section,
     name,
@@ -99,6 +84,10 @@ const CreateContentForm = () => {
         },
       ),
     )
+  }
+
+  const handleClose = () => {
+    setOpen(false)
   }
 
   const onCancel = () => {
