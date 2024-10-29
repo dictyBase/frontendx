@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react"
+import { useState } from "react"
 import { pipe } from "fp-ts/function"
 import { useNavigate } from "react-router-dom"
 import { isEmpty as SisEmpty } from "fp-ts/string"
@@ -13,7 +13,11 @@ import {
   Grid,
   makeStyles,
   CircularProgress,
+  Snackbar,
+  IconButton,
 } from "@material-ui/core"
+import { Alert, AlertTitle } from "@material-ui/lab"
+import CloseIcon from "@material-ui/icons/Close"
 import { InferType } from "yup"
 import { FormProvider, SubmitHandler } from "react-hook-form"
 import { SectionSelect } from "./SectionSelect"
@@ -23,6 +27,11 @@ import {
 } from "../../common/hooks/useCreateContentForm"
 import { getCreateContentSlug } from "../../common/utils/getCreateContentSlug"
 import { matchContentNamespace } from "../../common/utils/matchContentNamespace"
+import { getPagePath } from "../../common/utils/getPagePath"
+import {
+  getGraphqlErrorCode,
+  mapCodeToMessage,
+} from "../../common/utils/getGraphqlErrorCode"
 import { useCreateContentFromEditor } from "../../common/hooks/useCreateContentFromEditor"
 
 const useStyles = makeStyles({
@@ -34,7 +43,12 @@ const useStyles = makeStyles({
   },
 })
 
-const CreateContentForm: FunctionComponent = () => {
+const CreateContentForm = () => {
+  const [open, setOpen] = useState(false)
+  const [createContentError, setCreateContentError] = useState("")
+  const handleClose = () => {
+    setOpen(false)
+  }
   const { root } = useStyles()
   const navigate = useNavigate()
   const createContent = useCreateContentFromEditor()
@@ -62,13 +76,34 @@ const CreateContentForm: FunctionComponent = () => {
   }) => {
     const namespace = matchContentNamespace(section)
     const slug = getCreateContentSlug({ name, subname })
-    const mutationState = await createContent(namespace, slug)
+    const eitherMutation = await createContent(namespace, slug)
     pipe(
-      mutationState,
+      eitherMutation,
       Ematch(
-        ({ message }) => {},
-        () => {
-          navigate(`/${section}/${name}/${subname}/editable`)
+        ({ message }) => {
+          setCreateContentError(message)
+          setOpen(true)
+        },
+        (mutationState) => {
+          match(mutationState)
+            .with(
+              {
+                data: { createContent: P.select({ content: P.string }) },
+              },
+              () => {
+                navigate(`/${getPagePath(section, name, subname)}/editable`)
+              },
+            )
+            .with({ errors: P.select(P.not(undefined)) }, (graphQLErrors) => {
+              pipe(
+                graphQLErrors,
+                getGraphqlErrorCode,
+                mapCodeToMessage,
+                setCreateContentError,
+              )
+              setOpen(true)
+            })
+            .otherwise(() => {})
         },
       ),
     )
@@ -122,6 +157,22 @@ const CreateContentForm: FunctionComponent = () => {
           </Grid>
         </Paper>
       </Container>
+      <Snackbar
+        open={open}
+        onClose={handleClose}
+        autoHideDuration={5000}
+        action={
+          <IconButton size="small" color="inherit" onClick={handleClose}>
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        }>
+        <Alert onClose={handleClose} severity="error">
+          <AlertTitle>
+            <b> Error </b>
+          </AlertTitle>
+          {createContentError}
+        </Alert>
+      </Snackbar>
     </FormProvider>
   )
 }
