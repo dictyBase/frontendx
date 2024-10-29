@@ -1,13 +1,11 @@
 import { useState } from "react"
 import { pipe } from "fp-ts/function"
 import { useNavigate } from "react-router-dom"
-import { isEmpty as SisEmpty } from "fp-ts/string"
-import { match as Bmatch, MonoidAny } from "fp-ts/boolean"
+import { match as Bmatch } from "fp-ts/boolean"
 import { match as Ematch } from "fp-ts/Either"
 import { match, P } from "ts-pattern"
 import {
   Button,
-  TextField,
   Container,
   Paper,
   Grid,
@@ -20,7 +18,8 @@ import { Alert, AlertTitle } from "@material-ui/lab"
 import CloseIcon from "@material-ui/icons/Close"
 import { InferType } from "yup"
 import { FormProvider, SubmitHandler } from "react-hook-form"
-import { SectionSelect } from "./SectionSelect"
+import { ContentPathInputs } from "./ContentPathInputs"
+import { CreateContentFormButtons } from "./CreateContentFormButtons"
 import {
   useCreateContentForm,
   validationSchema,
@@ -54,14 +53,8 @@ const CreateContentForm = () => {
   const createContent = useCreateContentFromEditor()
   const methods = useCreateContentForm()
   const {
-    formState: { errors, isValid, isSubmitting },
+    formState: { isValid, isSubmitting },
   } = methods
-  const sectionValue = methods.watch("section")
-  const nameValue = methods.watch("name")
-  const subnameDisabled = MonoidAny.concat(
-    SisEmpty(sectionValue),
-    SisEmpty(nameValue),
-  )
   const buttonLoading = pipe(
     isSubmitting,
     Bmatch(
@@ -109,50 +102,23 @@ const CreateContentForm = () => {
     )
   }
 
+  const onCancel = () => {
+    navigate("/")
+  }
+
   return (
     <FormProvider {...methods}>
       <Container>
         <Paper className={root}>
           <Grid container spacing={2} alignItems="center">
             <Grid item>
-              <SectionSelect />
+              <ContentPathInputs />
             </Grid>
             <Grid item>
-              <TextField
-                {...methods.register("name")}
-                error={!!errors.name}
-                helperText={errors.name?.message}
-                label="* Name"
-                name="name"
-                variant="outlined"
+              <CreateContentFormButtons
+                onSubmit={onSubmit}
+                onCancel={onCancel}
               />
-            </Grid>
-            <Grid item>
-              <TextField
-                {...methods.register("subname")}
-                error={!!errors.subname}
-                label="Subname"
-                name="subname"
-                variant="outlined"
-                disabled={subnameDisabled}
-              />
-            </Grid>
-            <Grid item>
-              <Button
-                startIcon={buttonLoading}
-                variant="contained"
-                color="primary"
-                disabled={!isValid}
-                onClick={methods.handleSubmit(onSubmit)}>
-                Create
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                variant="contained"
-                onClick={methods.handleSubmit(onSubmit)}>
-                Cancel
-              </Button>
             </Grid>
           </Grid>
         </Paper>
