@@ -13,8 +13,6 @@ jobs:
         uses: actions/checkout@v4
       - name: install
         run: yarn install --ignore-engines
-      - name: rename publication config file
-        run: mv apps/publication/src/common/utils/clientConfig.sample.ts apps/publication/src/common/utils/clientConfig.ts
       - name: generate eslint report
         run: yarn lint:out
       - name: merge all eslint reports
