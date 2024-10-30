@@ -8,13 +8,11 @@ import {
   makeStyles,
 } from "@material-ui/core"
 import { useFormContext } from "react-hook-form"
-import { getFormErrorMessage } from "../../common/utils/getFormErrorMessage"
+import { getFormErrorMessage } from "../getFormErrorMessage"
 
 enum Section {
   EMPTY = "",
-  EXPLORE = "explore",
-  RESEARCH = "research",
-  COMMUNITY = "community",
+  INFORMATION = "information",
 }
 
 const useStyles = makeStyles({
@@ -25,9 +23,7 @@ const useStyles = makeStyles({
 
 const renderValue = (section: unknown) =>
   match(section as Section)
-    .with(Section.EXPLORE, () => "Explore")
-    .with(Section.RESEARCH, () => "Research")
-    .with(Section.COMMUNITY, () => "Community")
+    .with(Section.INFORMATION, () => "DSC Information")
     .otherwise(() => "")
 
 const SectionSelect = () => {
@@ -48,14 +44,8 @@ const SectionSelect = () => {
         defaultValue={Section.EMPTY}
         renderValue={renderValue}
         {...register("section")}>
-        <MenuItem value={Section.EXPLORE}>
-          {renderValue(Section.EXPLORE)}
-        </MenuItem>
-        <MenuItem value={Section.RESEARCH}>
-          {renderValue(Section.RESEARCH)}
-        </MenuItem>
-        <MenuItem value={Section.COMMUNITY}>
-          {renderValue(Section.COMMUNITY)}
+        <MenuItem value={Section.INFORMATION}>
+          {renderValue(Section.INFORMATION)}
         </MenuItem>
       </Select>
       <FormHelperText>{getFormErrorMessage(error)}</FormHelperText>
