@@ -1,22 +1,14 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { pipe } from "fp-ts/function"
 import { useNavigate } from "react-router-dom"
 import { match as Ematch } from "fp-ts/Either"
 import { match, P } from "ts-pattern"
-import {
-  Container,
-  Paper,
-  Grid,
-  makeStyles,
-  Snackbar,
-  IconButton,
-} from "@material-ui/core"
-import { Alert, AlertTitle } from "@material-ui/lab"
-import CloseIcon from "@material-ui/icons/Close"
+import { Container, Paper, Grid, makeStyles } from "@material-ui/core"
 import { InferType } from "yup"
 import { FormProvider, SubmitHandler } from "react-hook-form"
 import { ContentPathInputs } from "./ContentPathInputs"
 import { CreateContentFormButtons } from "./CreateContentFormButtons"
+import { ErrorSnackbar } from "./ErrorSnackbar"
 import {
   useCreateContentForm,
   validationSchema,
@@ -34,9 +26,6 @@ const useStyles = makeStyles({
   root: {
     padding: "0.5rem",
   },
-  grid: {
-    alignContent: "baseline",
-  },
 })
 
 const CreateContentForm = () => {
@@ -46,6 +35,15 @@ const CreateContentForm = () => {
   const navigate = useNavigate()
   const createContent = useCreateContentFromEditor()
   const methods = useCreateContentForm()
+  useEffect(() => {
+    const handler = (event: BeforeUnloadEvent) => {
+      event.preventDefault()
+    }
+    window.addEventListener("beforeunload", handler)
+    return () => {
+      window.removeEventListener("beforeunload", handler)
+    }
+  }, [])
   const onSubmit: SubmitHandler<InferType<typeof validationSchema>> = async ({
     section,
     name,
@@ -111,22 +109,11 @@ const CreateContentForm = () => {
           </Grid>
         </Paper>
       </Container>
-      <Snackbar
+      <ErrorSnackbar
         open={open}
-        onClose={handleClose}
-        autoHideDuration={5000}
-        action={
-          <IconButton size="small" color="inherit" onClick={handleClose}>
-            <CloseIcon fontSize="small" />
-          </IconButton>
-        }>
-        <Alert onClose={handleClose} severity="error">
-          <AlertTitle>
-            <b> Error </b>
-          </AlertTitle>
-          {createContentError}
-        </Alert>
-      </Snackbar>
+        handleClose={handleClose}
+        message={createContentError}
+      />
     </FormProvider>
   )
 }
