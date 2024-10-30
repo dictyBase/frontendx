@@ -6,21 +6,21 @@ import { match, P } from "ts-pattern"
 import { Container, Paper, Grid, makeStyles } from "@material-ui/core"
 import { InferType } from "yup"
 import { FormProvider, SubmitHandler } from "react-hook-form"
+import { ErrorSnackbar } from "@dictybase/ui-common"
 import { ContentPathInputs } from "./ContentPathInputs"
 import { CreateContentFormButtons } from "./CreateContentFormButtons"
-import { ErrorSnackbar } from "./ErrorSnackbar"
 import {
   useCreateContentForm,
   validationSchema,
 } from "../../common/hooks/useCreateContentForm"
+import { useCreateContentFromEditor } from "../../common/hooks/useCreateContentFromEditor"
 import { getCreateContentSlug } from "../../common/utils/getCreateContentSlug"
-import { matchContentNamespace } from "../../common/utils/matchContentNamespace"
 import { getPagePath } from "../../common/utils/getPagePath"
+import { matchContentNamespace } from "../../common/utils/matchContentNamespace"
 import {
   getGraphqlErrorCode,
   mapCodeToMessage,
 } from "../../common/utils/getGraphqlErrorCode"
-import { useCreateContentFromEditor } from "../../common/hooks/useCreateContentFromEditor"
 
 const useStyles = makeStyles({
   root: {
