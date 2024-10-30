@@ -80,9 +80,7 @@ const AuthorizedLogoutButton = ({
           onClick={() => window.location.assign(`${frontPageUrl}/user/show`)}
         />
         <ContentManagerMenuItem
-          onClick={() =>
-            window.location.assign(`${frontPageUrl}/content/create`)
-          }
+          onClick={() => window.location.assign(`${url}content/create`)}
         />
         <LogoutMenuItem redirectPath={url} />
       </Menu>
