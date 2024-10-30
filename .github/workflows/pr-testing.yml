@@ -58,7 +58,7 @@ jobs:
       - name: Set Up Environment
         run: mv apps/stock-center/.env.development apps/stock-center/.env.production
       - name: Prune Application
-        run: yarn turbo prune --scope=stock-center
+        run: turbo prune --scope=stock-center
       - name: Open Output Directory
         run: cd out
       - name: Install Dependencies
@@ -81,7 +81,7 @@ jobs:
       - name: Set Up Environment
         run: mv apps/genomepage/.env.development apps/genomepage/.env.production
       - name: Prune Application
-        run: yarn turbo prune --scope=genomepage
+        run: turbo prune --scope=genomepage
       - name: Open Output Directory
         run: cd out
       - name: Install Dependencies
@@ -104,7 +104,7 @@ jobs:
       - name: Set Up Environment
         run: mv apps/publication/.env.development apps/publication/.env.production
       - name: Prune Application
-        run: yarn turbo prune --scope=publication
+        run: turbo prune --scope=publication
       - name: Open Output Directory
         run: cd out
       - name: Install Dependencies
