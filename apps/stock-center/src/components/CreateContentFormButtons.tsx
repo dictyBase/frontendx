@@ -3,7 +3,7 @@ import { InferType } from "yup"
 import { useFormContext, SubmitHandler } from "react-hook-form"
 import { match as Bmatch } from "fp-ts/boolean"
 import { pipe } from "fp-ts/function"
-import { validationSchema } from "../../common/hooks/useCreateContentForm"
+import { validationSchema } from "../useCreateContentForm"
 
 type CreateContentFormButtonsProperties = {
   onSubmit: SubmitHandler<InferType<typeof validationSchema>>
