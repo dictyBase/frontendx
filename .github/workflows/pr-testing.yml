@@ -33,7 +33,7 @@ jobs:
       - name: Install Turbo
         run: yarn global add turbo@1.13.3
       - name: Set Up Environment
-        run: mv /app/apps/dicty-frontpage/.env.development /app/apps/dicty-frontpage/.env.production
+        run: mv apps/dicty-frontpage/.env.development apps/dicty-frontpage/.env.production
       - name: Prune Application
         run: turbo prune --scope=dicty-frontpage
       - name: Open Output Directory
@@ -56,7 +56,7 @@ jobs:
       - name: Install Turbo
         run: yarn global add turbo@1.13.3
       - name: Set Up Environment
-        run: mv /app/apps/stock-center/.env.development /app/apps/stock-center/.env.production
+        run: mv apps/stock-center/.env.development apps/stock-center/.env.production
       - name: Prune Application
         run: yarn turbo prune --scope=stock-center
       - name: Open Output Directory
@@ -79,7 +79,7 @@ jobs:
       - name: Install Turbo
         run: yarn global add turbo@1.13.3
       - name: Set Up Environment
-        run: mv /app/apps/genomepage/.env.development /app/apps/genomepage/.env.production
+        run: mv apps/genomepage/.env.development apps/genomepage/.env.production
       - name: Prune Application
         run: yarn turbo prune --scope=genomepage
       - name: Open Output Directory
@@ -102,7 +102,7 @@ jobs:
       - name: Install Turbo
         run: yarn global add turbo@1.13.3
       - name: Set Up Environment
-        run: mv /app/apps/publication/.env.development /app/apps/publication/.env.production
+        run: mv apps/publication/.env.development apps/publication/.env.production
       - name: Prune Application
         run: yarn turbo prune --scope=publication
       - name: Open Output Directory
