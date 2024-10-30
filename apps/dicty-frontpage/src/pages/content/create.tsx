@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { Container, } from "@material-ui/core"
+import { Container } from "@material-ui/core"
 import { Editor } from "@dictybase/editor"
 import { ACCESS } from "@dictybase/auth"
 import { CreateContentForm } from "../../features/EditablePages/CreateContentForm"
