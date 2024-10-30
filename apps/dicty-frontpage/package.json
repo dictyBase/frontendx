@@ -44,6 +44,7 @@
     "nanoid": "~5.0.3",
     "react-app-polyfill": "^3.0.0",
     "react-helmet": "^6.1.0",
+    "react-hook-form": "^7.45.2",
     "react-loading-skeleton": "^3.3.1",
     "react-responsive-carousel": "^3.2.23",
     "twitter-fetcher": "^18.0.4",
