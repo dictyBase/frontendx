@@ -13,7 +13,7 @@ const headerStyles = makeStyles({
     fontStyle: "italic",
     color: "hsl(210, 100%, 25%)",
     fontWeight: 410,
-    marginLeft: "1rem",
+    marginLeft: "1rem !important",
   },
   logoContainer: {
     display: "flex",
@@ -27,11 +27,11 @@ const headerStyles = makeStyles({
     flexDirection: "column",
     justifyContent: "center",
   },
-  linksIcon: { fontSize: "2.2rem" },
+  linksIcon: { fontSize: "2.2rem !important" },
   linksButton: {
     display: "flex",
     flexDirection: "column",
-    color: "hsl(210, 100%, 25%)",
+    color: "hsl(210, 100%, 25%) !important",
   },
   linksContainer: {
     display: "flex",
