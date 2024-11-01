@@ -2,7 +2,6 @@ name: Building (Pull Request)
 on: [pull_request, workflow_dispatch]
 jobs:
   build-frontpage:
-    needs: test
     name: Build Frontpage
     runs-on: ubuntu-latest
     steps:
@@ -25,7 +24,6 @@ jobs:
       - name: Build Application
         run: yarn turbo run build --filter=dicty-frontpage
   build-stock-center:
-    needs: test
     name: Build Stock Center
     runs-on: ubuntu-latest
     steps:
@@ -48,7 +46,6 @@ jobs:
       - name: Build Application
         run: yarn turbo run build --filter=stock-center
   build-genomepage:
-    needs: test
     name: Build Genome Page
     runs-on: ubuntu-latest
     steps:
@@ -71,7 +68,6 @@ jobs:
       - name: Build Application
         run: yarn turbo run build --filter=genomepage
   build-publication:
-    needs: test
     name: Build Publication
     runs-on: ubuntu-latest
     steps:
