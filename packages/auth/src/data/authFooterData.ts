@@ -23,7 +23,7 @@ const createAuthFooterItems = ({
     label: "Genome Browser",
   },
   {
-    url: "/dictyaccess",
+    url: `${frontPageUrl}/dictyaccess`,
     label: "DictyAccess",
   },
   {
@@ -65,7 +65,7 @@ const createFooterItems = ({
     label: "Genome Browser",
   },
   {
-    url: "/dictyaccess",
+    url: `${frontPageUrl}/dictyaccess`,
     label: "DictyAccess",
   },
   {
