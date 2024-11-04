@@ -102,8 +102,11 @@ const News = () => {
   const fetchState = useListContentByNamespaceQuery({
     variables: { namespace: NEWS_NAMESPACE },
     fetchPolicy: "cache-and-network",
+    nextFetchPolicy: "cache-only",
   })
   return match(fetchState)
+    .with({ loading: true }, () => <FullPageLoadingDisplay />)
+    .with({ error: P.select(P.not(undefined)) }, () => <EmptyNewsView />)
     .with(
       {
         data: {
@@ -120,8 +123,6 @@ const News = () => {
       },
       (contentList) => <NewsView contentList={contentList} />,
     )
-    .with({ loading: true }, () => <FullPageLoadingDisplay />)
-    .with({ error: P.select(P.not(undefined)) }, () => <EmptyNewsView />)
     .otherwise(() => <> This message should not appear. </>)
 }
 
