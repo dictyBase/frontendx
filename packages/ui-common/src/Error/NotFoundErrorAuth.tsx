@@ -15,7 +15,7 @@ const NotFoundErrorAuth = () => {
       <Grid item xs={10} md={8}>
         <Container className={classes.error400}>
           <img
-            src="https://storage.dictybase.dev/editor/assets/2024-06-10/bd362d90-6a23-44a3-a5b4-fbaaaa5117bd"
+            src="https://storage.dictybase.dev/editor/assets/2024-11-04/0627257c-9ce3-4f02-b000-9e16ef5b1062"
             alt="Sad Dicty -- Page Not Found"
           />
           <Typography variant="h2" gutterBottom>

@@ -71,7 +71,7 @@ class _ErrorBoundary extends Component<Properties, State> {
           <Grid item xs={6} className={classes.paper}>
             <div style={{ textAlign: "center" }}>
               <img
-                src="https://storage.dictybase.dev/editor/assets/2024-06-10/bd362d90-6a23-44a3-a5b4-fbaaaa5117bd"
+                src="https://storage.dictybase.dev/editor/assets/2024-11-04/0627257c-9ce3-4f02-b000-9e16ef5b1062"
                 alt="Sad Dicty Logo"
               />
               <h2>Sorry! There was an error loading this page.</h2>
