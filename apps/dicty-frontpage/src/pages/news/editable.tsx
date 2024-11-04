@@ -91,9 +91,11 @@ const EditableNews = () => {
   const fetchState = useListContentByNamespaceQuery({
     variables: { namespace: NEWS_NAMESPACE },
     fetchPolicy: "cache-and-network",
+    nextFetchPolicy: "cache-only",
   })
   return match(fetchState)
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
+    .with({ error: P.select(P.not(undefined)) }, () => <EmptyNewsViewAuth />)
     .with(
       {
         data: {
@@ -110,7 +112,6 @@ const EditableNews = () => {
       },
       (contentList) => <NewsView contentList={contentList} />,
     )
-    .with({ error: P.select(P.not(undefined)) }, () => <EmptyNewsViewAuth />)
     .otherwise(() => <> This message should not appear. </>)
 }
 
