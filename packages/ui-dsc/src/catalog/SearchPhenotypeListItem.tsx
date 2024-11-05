@@ -1,5 +1,12 @@
 import { Link } from "react-router-dom"
-import { match } from "ts-pattern"
+import { pipe } from "fp-ts/function"
+import { match as Bmatch } from "fp-ts/boolean"
+import {
+  fromNullable as OfromNullable,
+  map as Omap,
+  getOrElse as OgetOrElse,
+} from "fp-ts/Option"
+import { isNonEmpty as AisNonEmpty } from "fp-ts/Array"
 import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
 import ListItem from "@material-ui/core/ListItem"
@@ -26,6 +33,27 @@ const useStyles = makeStyles({
   },
 })
 
+const toPublicationComponent = (
+  publications: NonNullable<
+    ListStrainsWithPhenotypeQuery["listStrainsWithAnnotation"]
+  >["strains"][number]["publications"],
+) =>
+  pipe(
+    publications,
+    OfromNullable,
+    Omap((pubArray) =>
+      pipe(
+        pubArray,
+        AisNonEmpty,
+        Bmatch(
+          () => <></>,
+          () => <PublicationDisplay publication={pubArray[0] as Publication} />,
+        ),
+      ),
+    ),
+    OgetOrElse(() => <></>),
+  )
+
 type SearchPhenotypeListItemProperties = {
   strain: NonNullable<
     ListStrainsWithPhenotypeQuery["listStrainsWithAnnotation"]
@@ -37,7 +65,7 @@ const SearchPhenotypeListItem = ({
 }: SearchPhenotypeListItemProperties) => {
   const classes = useStyles()
 
-  const publications = strain?.publications as Publication[]
+  const publications = strain?.publications
   const genes = (strain?.genes as Gene[]) ?? []
 
   return (
@@ -57,14 +85,7 @@ const SearchPhenotypeListItem = ({
         </Grid>
         <Grid item sm={6} className={classes.item}>
           <Typography component="span" variant="body2">
-            {match(publications.length > 0)
-              .with(true, () => (
-                <PublicationDisplay
-                  publication={publications[0] as Publication}
-                />
-              ))
-              .with(false, () => <></>)
-              .exhaustive()}
+            {toPublicationComponent(publications)}
           </Typography>
         </Grid>
       </Grid>
