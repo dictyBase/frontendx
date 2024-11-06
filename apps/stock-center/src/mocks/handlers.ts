@@ -2,14 +2,17 @@ import { HttpResponse } from "msw"
 import {
   mockStrainListQuery,
   mockStrainQuery,
+  mockPlasmidQuery,
+  mockPlasmidListFilterQuery,
   mockListPhenotypesQuery,
   mockListPhenotypeEnvironmentsQuery,
   mockListPhenotypeAssaysQuery,
   mockPublicationQuery,
   mockAddStrainPhenotypeMutation,
 } from "dicty-graphql-schema/types/mocks"
-import { availableStrain, mockPhenotypes } from "@dictybase/ui-dsc"
+import { availableStrain, mockPhenotypes, mockPlasmid } from "@dictybase/ui-dsc"
 import { generateListStrainDataOfLength } from "./listStrainData"
+import { generateListPlasmidDataOfLength } from "./listPlasmidData"
 
 const wait = (ms: number) =>
   new Promise((resolve) => {
@@ -36,6 +39,7 @@ const mockPublication = {
   ],
 }
 const mockStrainListData = generateListStrainDataOfLength(30)
+const mockPlasmidListData = generateListPlasmidDataOfLength(30)
 
 const handlers = [
   mockStrainListQuery(({ variables }) => {
@@ -47,9 +51,23 @@ const handlers = [
       data: { listStrains: { strains, nextCursor, totalCount } },
     })
   }),
+  mockPlasmidListFilterQuery(({ variables }) => {
+    const { cursor, limit } = variables
+    const totalCount = mockPlasmidListData.length
+    const nextCursor = cursor + limit < totalCount ? cursor + limit : 0
+    const plasmids = mockPlasmidListData.slice(0, cursor + limit)
+    return HttpResponse.json({
+      data: { listPlasmids: { plasmids, nextCursor, totalCount } },
+    })
+  }),
   mockStrainQuery(() =>
     HttpResponse.json({
       data: { strain: { ...availableStrain, phenotypes: mockPhenotypes } },
+    }),
+  ),
+  mockPlasmidQuery(() =>
+    HttpResponse.json({
+      data: { plasmid: { ...mockPlasmid, publications: [mockPublication] } },
     }),
   ),
   mockListPhenotypesQuery(() =>
@@ -97,7 +115,6 @@ const handlers = [
       { status: 500 },
     )
   }),
-
   mockAddStrainPhenotypeMutation(async ({ variables }) => {
     await wait(1500)
     return HttpResponse.json({
