@@ -51,7 +51,17 @@ const getJournalInfo = (volume: string, pages: string) => {
 
 type PublicationDisplayProperties = {
   /** Individual publications */
-  publication: Publication
+  publication: Pick<
+    Publication,
+    | "id"
+    | "pub_date"
+    | "journal"
+    | "title"
+    | "authors"
+    | "volume"
+    | "pages"
+    | "doi"
+  >
 }
 
 /**
@@ -76,7 +86,7 @@ const PublicationDisplay = ({ publication }: PublicationDisplayProperties) => {
           publication?.pages as string,
         )}
         <a
-          href={getPubLink(publication.id, publication?.doi as string)}
+          href={getPubLink(publication.id, publication.doi as string)}
           title="Visit publication page">
           <FontAwesomeIcon icon={faExternalLinkAlt} size="sm" />
         </a>
