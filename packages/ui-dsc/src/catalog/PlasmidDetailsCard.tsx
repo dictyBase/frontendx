@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom"
 import { pipe } from "fp-ts/function"
 import {
   fromNullable as OfromNullable,
@@ -9,7 +8,7 @@ import Grid from "@material-ui/core/Grid"
 import Card from "@material-ui/core/Card"
 import List from "@material-ui/core/List"
 import ListItem from "@material-ui/core/ListItem"
-import { Gene, PlasmidQuery, Publication, User } from "dicty-graphql-schema"
+import { PlasmidQuery, User } from "dicty-graphql-schema"
 import { fees } from "../fees"
 import { PlasmidDetailsCardHeader } from "./PlasmidDetailsCardHeader"
 import { DetailsListItem } from "./DetailsListItem"
@@ -72,6 +71,11 @@ const PlasmidDetailsCard = ({ plasmid }: Properties) => {
       () => [] as NonNullable<NonNullable<PlasmidQuery["plasmid"]>["genes"]>,
     ),
   )
+  const summary = pipe(
+    plasmid.summary,
+    OfromNullable,
+    OgetOrElse(() => ""),
+  )
 
   const depositor = plasmid.depositor as User
 
@@ -83,10 +87,10 @@ const PlasmidDetailsCard = ({ plasmid }: Properties) => {
   )
 
   const cartData = {
-    __typename: plasmid.__typename,
+    __typename: plasmid.__typename as "Plasmid",
     id: plasmid.id,
     name: plasmid.name,
-    summary: plasmid.summary as string,
+    summary,
     fee: fees.STRAIN_FEE,
     in_stock: plasmid.in_stock,
   }
