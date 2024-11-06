@@ -3,7 +3,7 @@ import { LinkTag } from "./LinkTag"
 
 type GenesDisplayProperties = {
   /** List of gene IDs */
-  genes: Gene[]
+  genes: Array<Omit<Gene, "id">>
 }
 
 /**
@@ -17,7 +17,7 @@ const GenesDisplay = ({ genes }: GenesDisplayProperties) => {
   return (
     <>
       {genes.map((gene) => (
-        <LinkTag key={gene.id} item={gene.name} route="gene" />
+        <LinkTag key={gene.name} item={gene.name} route="gene" />
       ))}
     </>
   )
