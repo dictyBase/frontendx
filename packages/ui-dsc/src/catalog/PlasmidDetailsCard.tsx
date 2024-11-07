@@ -1,51 +1,91 @@
 import { pipe } from "fp-ts/function"
+import { Monoid as SMonoid } from "fp-ts/string"
 import {
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
+  map as Omap,
 } from "fp-ts/Option"
+import { map as Amap, intercalate as Aintercalate } from "fp-ts/Array"
 import Box from "@material-ui/core/Box"
 import Grid from "@material-ui/core/Grid"
 import Card from "@material-ui/core/Card"
 import List from "@material-ui/core/List"
 import ListItem from "@material-ui/core/ListItem"
-import { PlasmidQuery, User } from "dicty-graphql-schema"
+import { PlasmidQuery } from "dicty-graphql-schema"
 import { fees } from "../fees"
 import { PlasmidDetailsCardHeader } from "./PlasmidDetailsCardHeader"
 import { DetailsListItem } from "./DetailsListItem"
 import { useStyles } from "./styles"
 import { GenesDisplay } from "./GenesDisplay"
 import { PublicationDisplay } from "./PublicationDisplay"
+import { PlasmidSequenceDisplay } from "./PlasmidSequenceDisplay"
 import { getDepositorName } from "../utils/getDepositorName"
 
-const plasmidRowsGenerator = (
-  data: PlasmidQuery["plasmid"],
-  depositor: string,
-  publications: NonNullable<
-    NonNullable<PlasmidQuery["plasmid"]>["publications"]
-  >,
-  genes: JSX.Element,
-) => [
+const plasmidRowsGenerator = ({
+  name,
+  summary,
+  keywords,
+  sequence,
+  genes,
+  genbank_accession,
+  depositor,
+  publications,
+}: NonNullable<PlasmidQuery["plasmid"]>) => [
   {
     title: "Plasmid Descriptor",
-    content: data?.name,
+    content: name,
   },
   {
     title: "Plasmid Summary",
-    content: data?.summary,
+    content: summary,
   },
   {
-    title: "Associated Gene(s)",
-    content: genes,
+    title: "Key Words",
+    content: pipe(
+      keywords,
+      OfromNullable,
+      Omap(Aintercalate(SMonoid)(",")),
+      OgetOrElse(() => ""),
+    ),
+  },
+  {
+    title: "GenBank Accession Number",
+    content: genbank_accession,
   },
   {
     title: "Depositor",
-    content: depositor,
+    content: getDepositorName(depositor),
+  },
+  {
+    title: "Associated Gene(s)",
+    content: pipe(
+      genes,
+      OfromNullable,
+      OgetOrElse(
+        () => [] as NonNullable<NonNullable<PlasmidQuery["plasmid"]>["genes"]>,
+      ),
+      (g) => <GenesDisplay genes={g} />,
+    ),
+  },
+  {
+    title: "Sequence",
+    content: pipe(
+      sequence,
+      OfromNullable,
+      Omap((s) => <PlasmidSequenceDisplay sequence={s} />),
+      OgetOrElse(() => <></>),
+    ),
   },
   {
     title: "Reference(s)",
-    content: publications.map((item) => (
-      <PublicationDisplay publication={item} key={item.id} />
-    )),
+    content: pipe(
+      publications,
+      OfromNullable,
+      Omap(
+        Amap((item) => <PublicationDisplay publication={item} key={item.id} />),
+      ),
+      OgetOrElse(() => [] as Array<JSX.Element>),
+    ),
   },
 ]
 
@@ -56,34 +96,10 @@ type Properties = {
 const PlasmidDetailsCard = ({ plasmid }: Properties) => {
   const classes = useStyles()
 
-  const publications = pipe(
-    plasmid.publications,
-    OfromNullable,
-    OgetOrElse(
-      () =>
-        [] as NonNullable<NonNullable<PlasmidQuery["plasmid"]>["publications"]>,
-    ),
-  )
-  const genes = pipe(
-    plasmid.genes,
-    OfromNullable,
-    OgetOrElse(
-      () => [] as NonNullable<NonNullable<PlasmidQuery["plasmid"]>["genes"]>,
-    ),
-  )
   const summary = pipe(
     plasmid.summary,
     OfromNullable,
     OgetOrElse(() => ""),
-  )
-
-  const depositor = plasmid.depositor as User
-
-  const rows = plasmidRowsGenerator(
-    plasmid,
-    getDepositorName(depositor),
-    publications,
-    <GenesDisplay genes={genes} />,
   )
 
   const cartData = {
@@ -96,6 +112,7 @@ const PlasmidDetailsCard = ({ plasmid }: Properties) => {
   }
 
   const header = <PlasmidDetailsCardHeader cartData={cartData} />
+  const rows = plasmidRowsGenerator(plasmid)
 
   return (
     <Box textAlign="center" mb={3}>
