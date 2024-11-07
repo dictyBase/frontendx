@@ -1,11 +1,10 @@
 import { pipe } from "fp-ts/function"
-import { Monoid as SMonoid } from "fp-ts/string"
 import {
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
   map as Omap,
 } from "fp-ts/Option"
-import { map as Amap, intercalate as Aintercalate } from "fp-ts/Array"
+import { map as Amap } from "fp-ts/Array"
 import Box from "@material-ui/core/Box"
 import Grid from "@material-ui/core/Grid"
 import Card from "@material-ui/core/Card"
@@ -91,7 +90,6 @@ const PlasmidDetailsCard = ({ plasmid }: Properties) => {
     OfromNullable,
     OgetOrElse(() => ""),
   )
-
   const cartData = {
     __typename: plasmid.__typename as "Plasmid",
     id: plasmid.id,
@@ -101,24 +99,21 @@ const PlasmidDetailsCard = ({ plasmid }: Properties) => {
     in_stock: plasmid.in_stock,
   }
 
-  const header = <PlasmidDetailsCardHeader cartData={cartData} />
-  const rows = plasmidRowsGenerator(plasmid)
-
   return (
     <Box textAlign="center" mb={3}>
       <Card raised>
         <Grid container>
           <List className={classes.list}>
             <ListItem divider className={classes.cardHeader}>
-              {header}
+              <PlasmidDetailsCardHeader cartData={cartData} />
             </ListItem>
-            {rows.map((row) => (
-              <DetailsListItem
-                title={row.title}
-                content={row.content}
-                key={row.title}
-              />
-            ))}
+            {pipe(
+              plasmid,
+              plasmidRowsGenerator,
+              Amap(({ title, content }) => (
+                <DetailsListItem title={title} content={content} key={title} />
+              )),
+            )}
           </List>
         </Grid>
       </Card>
