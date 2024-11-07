@@ -24,7 +24,6 @@ import { getDepositorName } from "../utils/getDepositorName"
 const plasmidRowsGenerator = ({
   name,
   summary,
-  keywords,
   sequence,
   genes,
   genbank_accession,
@@ -38,15 +37,6 @@ const plasmidRowsGenerator = ({
   {
     title: "Plasmid Summary",
     content: summary,
-  },
-  {
-    title: "Key Words",
-    content: pipe(
-      keywords,
-      OfromNullable,
-      Omap(Aintercalate(SMonoid)(",")),
-      OgetOrElse(() => ""),
-    ),
   },
   {
     title: "GenBank Accession Number",
