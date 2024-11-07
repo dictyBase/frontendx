@@ -34,14 +34,19 @@ const useStyles = makeStyles({
 })
 
 const ExpandButton = ({ onClick }: { onClick: () => void }) => (
-  <IconButton onClick={onClick}>
-    <ExpandMoreIcon />
-  </IconButton>
+  <Tooltip title={<Typography variant="caption">Expand</Typography>}>
+    <IconButton onClick={onClick}>
+      <ExpandMoreIcon />
+    </IconButton>
+  </Tooltip>
 )
+
 const CollapseButton = ({ onClick }: { onClick: () => void }) => (
-  <IconButton onClick={onClick}>
-    <ExpandLessIcon />
-  </IconButton>
+  <Tooltip title={<Typography variant="caption">Collapse</Typography>}>
+    <IconButton onClick={onClick}>
+      <ExpandLessIcon />
+    </IconButton>
+  </Tooltip>
 )
 
 const CopyTextButton = ({ text }: { text: string }) => {
