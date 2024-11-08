@@ -6,7 +6,7 @@ import Tab from "@material-ui/core/Tab"
 import Typography from "@material-ui/core/Typography"
 import Alert from "@material-ui/lab/Alert"
 import { match, P } from "ts-pattern"
-import { AvailableDisplay } from "stock-center/src/components/AvailableDisplay"
+import { StrainAvailableDisplay } from "stock-center/src/components/StrainAvailableDisplay"
 import { StrainCartItem } from "../types"
 
 // accessibility helper function
@@ -127,7 +127,7 @@ const StrainDetailsCardHeader = ({
         </Grid>
         <Grid item>
           {match(cartData.in_stock)
-            .with(true, () => <AvailableDisplay cartData={cartData} />)
+            .with(true, () => <StrainAvailableDisplay cartData={cartData} />)
             .with(false, () => (
               <Alert
                 classes={{ message: classes.message }}

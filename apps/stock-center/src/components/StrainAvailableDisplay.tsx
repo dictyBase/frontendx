@@ -29,7 +29,7 @@ type Properties = {
   cartData: StrainCartItem
 }
 
-const AvailableDisplay = ({ cartData }: Properties) => {
+const StrainAvailableDisplay = ({ cartData }: Properties) => {
   const cartItemProperties = useCartItemProperties(cartData)
   const addToCart = useSetAtom(addStrainItemsAtom)
   const removeFromCart = useSetAtom(removeItemAtom)
@@ -87,4 +87,4 @@ const AvailableDisplay = ({ cartData }: Properties) => {
   )
 }
 
-export { AvailableDisplay }
+export { StrainAvailableDisplay }
