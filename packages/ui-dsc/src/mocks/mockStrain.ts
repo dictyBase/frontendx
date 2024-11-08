@@ -22,6 +22,7 @@ const mockDepositor = {
 }
 
 const availableStrain = {
+  __typename: "Strain",
   type: "strain",
   label: "aarA-",
   id: "DBS0236123",
