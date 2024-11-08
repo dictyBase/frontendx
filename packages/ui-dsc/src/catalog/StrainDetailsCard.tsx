@@ -1,17 +1,25 @@
 import React from "react"
+import { pipe } from "fp-ts/function"
+import { Ord as SOrd, Monoid as SMonoid } from "fp-ts/string"
+import {
+  fromNullable as OfromNullable,
+  getOrElse as OgetOrElse,
+  map as Omap,
+  flatMap as OflatMap,
+} from "fp-ts/Option"
+import {
+  map as Amap,
+  head as Ahead,
+  sort as Asort,
+  intercalate as Aintercalate,
+} from "fp-ts/Array"
 import { Link } from "react-router-dom"
 import Box from "@material-ui/core/Box"
 import Grid from "@material-ui/core/Grid"
 import Card from "@material-ui/core/Card"
 import List from "@material-ui/core/List"
 import ListItem from "@material-ui/core/ListItem"
-import {
-  Gene,
-  StrainQuery,
-  Phenotype,
-  Publication,
-  User,
-} from "dicty-graphql-schema"
+import { StrainQuery, Phenotype } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { fees } from "../fees"
 import { StrainDetailsCardHeader } from "./StrainDetailsCardHeader"
@@ -25,81 +33,126 @@ import { GenotypesDisplay } from "./GenotypesDisplay"
 import { getDepositorName } from "../utils/getDepositorName"
 import { DetailsRow } from "../types"
 
-const strainRowsGenerator = (
-  data: StrainQuery["strain"],
-  parent: string | JSX.Element,
-  depositor: string,
-  publications: Publication[],
-  genes: JSX.Element,
-  genotypes: JSX.Element,
-) => [
+const strainRowsGenerator = ({
+  label,
+  names,
+  summary,
+  systematic_name,
+  characteristics,
+  genetic_modification,
+  mutagenesis_method,
+  parent,
+  plasmid,
+  genes,
+  genotypes,
+  species,
+  depositor,
+  publications,
+}: NonNullable<StrainQuery["strain"]>) => [
   {
     id: 0,
     title: "Strain Descriptor",
-    content: data?.label,
+    content: label,
   },
   {
     id: 1,
     title: "Strain Names",
-    content: data?.names?.slice().sort().join(", "),
+    content: pipe(
+      names,
+      OfromNullable,
+      Omap(Asort(SOrd)),
+      Omap(Aintercalate(SMonoid)(", ")),
+      OgetOrElse(() => ""),
+    ),
   },
   {
     id: 2,
     title: "Strain Summary",
-    content: data?.summary,
+    content: summary,
   },
   {
     id: 3,
     title: "Systematic Name",
-    content: data?.systematic_name,
+    content: systematic_name,
   },
   {
     id: 4,
     title: "Strain Characteristics",
-    content: data?.characteristics?.slice().sort().join(", "),
+    content: pipe(
+      characteristics,
+      OfromNullable,
+      Omap(Asort(SOrd)),
+      Omap(Aintercalate(SMonoid)(", ")),
+      OgetOrElse(() => ""),
+    ),
   },
   {
     id: 5,
     title: "Genetic Modification",
-    content: data?.genetic_modification,
+    content: genetic_modification,
   },
   {
     id: 6,
     title: "Mutagenesis Method",
-    content: data?.mutagenesis_method,
+    content: mutagenesis_method,
   },
   {
     id: 7,
     title: "Parental Strain",
-    content: parent,
+    content: pipe(
+      parent,
+      OfromNullable,
+      Omap(({ id, label: parentLabel }) => (
+        <Link to={`/strains/${id}`}>{parentLabel}</Link>
+      )),
+      OgetOrElse(() => <></>),
+    ),
   },
   {
     id: 8,
     title: "Plasmid",
-    content: data?.plasmid,
+    content: plasmid,
   },
   {
     id: 9,
     title: "Associated Gene(s)",
-    content: genes,
+    content: pipe(
+      genes,
+      OfromNullable,
+      OgetOrElse(
+        () => [] as NonNullable<NonNullable<StrainQuery["strain"]>["genes"]>,
+      ),
+      (g) => <GenesDisplay genes={g} />,
+    ),
   },
   {
     id: 10,
     title: "Genotype",
-    content: genotypes,
+    content: pipe(
+      genotypes,
+      OfromNullable,
+      OflatMap(Ahead),
+      Omap((g) => <GenotypesDisplay genotypes={g} />),
+      OgetOrElse(() => <></>),
+    ),
   },
-  { id: 11, title: "Species", content: data?.species },
+  { id: 11, title: "Species", content: species },
   {
     id: 12,
     title: "Depositor",
-    content: depositor,
+    content: getDepositorName(depositor),
   },
   {
     id: 13,
     title: "Reference(s)",
-    content: publications.map((item) => (
-      <PublicationDisplay publication={item} key={item.id} />
-    )),
+    content: pipe(
+      publications,
+      OfromNullable,
+      Omap(
+        Amap((item) => <PublicationDisplay publication={item} key={item.id} />),
+      ),
+      OgetOrElse(() => [] as Array<JSX.Element>),
+    ),
   },
 ]
 
@@ -116,24 +169,7 @@ const StrainDetailsCard = ({ data, tabValue, setTabValue }: Properties) => {
     setTabValue(newValue)
   }
 
-  const parent = data.parent ? (
-    <Link to={`/strains/${data.parent.id}`}>{data.parent.label}</Link>
-  ) : (
-    ""
-  )
-  const publications = data.publications as Array<Publication>
-  const genes = data.genes as Array<Gene>
-  const depositor = data.depositor as User
-  const genotypes = data.genotypes as Array<string>
-
-  const rows = strainRowsGenerator(
-    data,
-    parent,
-    getDepositorName(depositor),
-    publications,
-    <GenesDisplay genes={genes} />,
-    <GenotypesDisplay genotypes={genotypes[0] as string} />,
-  )
+  const rows = strainRowsGenerator(data)
 
   const cartData = {
     __typename: data.__typename as "Strain",
