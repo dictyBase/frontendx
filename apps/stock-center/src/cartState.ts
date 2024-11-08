@@ -2,7 +2,7 @@
 import { atom } from "jotai"
 import { splitAtom } from "jotai/utils"
 import { pipe } from "fp-ts/function"
-import { match } from "ts-pattern"
+import { match, P } from "ts-pattern"
 import {
   size as Asize,
   concat as Aconcat,
@@ -80,6 +80,44 @@ const addPlasmidItemsAtom = atom(
   },
 )
 
+const addCartItemsAtom = atom(
+  null,
+  (get, set, newItems: Array<PlasmidCartItem | StrainCartItem>) => {
+    match(newItems)
+      .with(P.array({ __typename: "Strain" }), () =>
+        set(
+          strainItemsAtom,
+          pipe(
+            get(strainItemsAtom),
+            Aconcat(
+              newItems.slice(
+                0,
+                get(remainingCartSpaceAtom),
+              ) as Array<StrainCartItem>,
+            ),
+            Auniq(strainEq),
+          ),
+        ),
+      )
+      .with(P.array({ __typename: "Plasmid" }), () =>
+        set(
+          plasmidItemsAtom,
+          pipe(
+            get(plasmidItemsAtom),
+            Aconcat(
+              newItems.slice(
+                0,
+                get(remainingCartSpaceAtom),
+              ) as Array<PlasmidCartItem>,
+            ),
+            Auniq(plasmidEq),
+          ),
+        ),
+      )
+      .otherwise(() => {})
+  },
+)
+
 const removeItemAtom = atom(null, (get, set, removedItem: CatalogItem) => {
   match(removedItem)
     .with({ __typename: "Strain" }, () =>
@@ -117,6 +155,7 @@ export {
   plasmidItemAtomsAtom,
   addStrainItemsAtom,
   addPlasmidItemsAtom,
+  addCartItemsAtom,
   removeItemAtom,
   currentCartQuantityAtom,
   maxItemsAtom,
