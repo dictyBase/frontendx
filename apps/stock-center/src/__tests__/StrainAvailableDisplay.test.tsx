@@ -1,7 +1,7 @@
 import { test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { MemoryRouter } from "react-router-dom"
-import { AvailableDisplay } from "../components/AvailableDisplay"
+import { StrainAvailableDisplay } from "../components/StrainAvailableDisplay"
 
 test("should display capacity full message when reaching 12 items in cart", async () => {
   const cartData = {
@@ -14,7 +14,7 @@ test("should display capacity full message when reaching 12 items in cart", asyn
 
   render(
     <MemoryRouter>
-      <AvailableDisplay cartData={cartData} />
+      <StrainAvailableDisplay cartData={cartData} />
     </MemoryRouter>,
   )
   const cartButton = screen.getByText(/Add to Cart/)
