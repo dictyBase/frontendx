@@ -119,10 +119,8 @@ const strainRowsGenerator = ({
     content: pipe(
       genes,
       OfromNullable,
-      OgetOrElse(
-        () => [] as NonNullable<NonNullable<StrainQuery["strain"]>["genes"]>,
-      ),
-      (g) => <GenesDisplay genes={g} />,
+      Omap((g) => <GenesDisplay genes={g} />),
+      OgetOrElse(() => <></>),
     ),
   },
   {
