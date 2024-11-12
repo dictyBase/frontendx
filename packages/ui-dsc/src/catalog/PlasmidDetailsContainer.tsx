@@ -40,7 +40,6 @@ const PlasmidDetailsContainer = () => {
   const { id } = useParams()
   const result = usePlasmidQuery({
     variables: { id: `${id}` },
-    errorPolicy: "ignore",
     fetchPolicy: "cache-and-network",
   })
 
