@@ -78,7 +78,7 @@ const PublicationDisplay = ({ publication }: PublicationDisplayProperties) => {
         {getYearFromTimestamp(publication.pub_date)})
       </Typography>
       {" "}
-      {parseFormattedStringToDomElements(publication.title)} <em>{publication.journal}</em>
+      {"'"}{parseFormattedStringToDomElements(publication.title)}{"'"} <em>{publication.journal}</em>
       {" "}
       {getJournalInfo(
         publication?.volume as string,
