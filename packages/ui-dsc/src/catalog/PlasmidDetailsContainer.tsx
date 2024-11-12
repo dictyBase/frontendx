@@ -54,4 +54,4 @@ const PlasmidDetailsContainer = () => {
     .otherwise(() => <> This message should not appear. </>)
 }
 
-export { PlasmidDetailsContainer }
+export { PlasmidDetailsContainer, PlasmidDetails }
