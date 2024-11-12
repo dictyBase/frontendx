@@ -18,7 +18,7 @@ const SummaryContainer = ({ geneSummary }: SummaryContainerProperties) => {
     geneOntologyAnnotation,
     listPublicationsWithGene,
   } = geneSummary
-  const publicationLimit = Math.min(5, listPublicationsWithGene.length)
+  const publicationLimit = 5
   const partialPublicationsList = listPublicationsWithGene.slice(
     0,
     publicationLimit,
@@ -40,7 +40,7 @@ const SummaryContainer = ({ geneSummary }: SummaryContainerProperties) => {
         </PanelWrapper>
         <PanelWrapper
           route={`${geneId}/references`}
-          title={`Publications (${publicationLimit} of ${listPublicationsWithGene.length}) `}>
+          title={`Publications (${partialPublicationsList.length} of ${listPublicationsWithGene.length}) `}>
           <ReferencesPanel publications={partialPublicationsList} />
         </PanelWrapper>
       </Typography>
