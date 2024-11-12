@@ -6,6 +6,8 @@ import { mockPlasmid } from "../mocks/mockPlasmid"
 describe("PlasmidDetails", () => {
   test("Renders name of plasmid", () => {
     render(<PlasmidDetails plasmid={mockPlasmid} />)
+    expect(
+      screen.getByRole("heading", { name: mockPlasmid.name }),
+    ).toBeInTheDocument()
   })
-  expect(screen.getByText(mockPlasmid.name)).toBeInTheDocument()
 })
