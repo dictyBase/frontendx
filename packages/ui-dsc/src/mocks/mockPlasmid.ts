@@ -14,6 +14,6 @@ const mockPlasmid = {
   genes: mockGenes,
   genbank_accession: "1234",
   publications: mockPublications,
-  sequence: mockPlasmidSequence
+  sequence: mockPlasmidSequence,
 }
 export { mockPlasmid }
