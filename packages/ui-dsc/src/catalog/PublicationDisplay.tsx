@@ -77,7 +77,7 @@ const PublicationDisplay = ({ publication }: PublicationDisplayProperties) => {
         {listAuthors(publication.authors)} (
         {getYearFromTimestamp(publication.pub_date)})
       </Typography>{" "}
-      &lsquo;{parseFormattedStringToDomElements(publication.title)}&rsquo;{" "}
+      &apos;{parseFormattedStringToDomElements(publication.title)}&apos;{" "}
       <em>{publication.journal}</em>{" "}
       {getJournalInfo(
         publication?.volume as string,
