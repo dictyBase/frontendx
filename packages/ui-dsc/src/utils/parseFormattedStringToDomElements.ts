@@ -3,7 +3,7 @@ import {
   DOMElement,
   DOMAttributes,
   DetailedReactHTMLElement,
-  HTMLAttributes
+  HTMLAttributes,
 } from "react"
 import { pipe } from "fp-ts/function"
 import { split as Ssplit, Monoid as SMonoid } from "fp-ts/string"
@@ -60,8 +60,19 @@ const parseFormattedStringToDomElements = (
   const final = []
   // eslint-disable-next-line unicorn/no-for-loop
   for (let index = 0; index < unformattedTextElements.length; index += 1) {
-    final.push(unformattedTextElements[index] as DetailedReactHTMLElement<HTMLAttributes<HTMLElement>, HTMLElement>)
-    if (formattedTextElements[index]) final.push(formattedTextElements[index] as DOMElement<DOMAttributes<Element>, Element>)
+    final.push(
+      unformattedTextElements[index] as DetailedReactHTMLElement<
+        HTMLAttributes<HTMLElement>,
+        HTMLElement
+      >,
+    )
+    if (formattedTextElements[index])
+      final.push(
+        formattedTextElements[index] as DOMElement<
+          DOMAttributes<Element>,
+          Element
+        >,
+      )
   }
   return final
 }
