@@ -30,7 +30,10 @@ const validationSchema = object().shape({
   shippingAccountNumber: string().required(
     "* Shipping account number is required",
   ),
-  additionalInformation: string(),
+  additionalInformation: string().max(
+    500,
+    "May contain 500 characters at most",
+  ),
 })
 
 type ShippingFormData = InferType<typeof validationSchema>
