@@ -35,7 +35,7 @@ const useStyles = makeStyles({
 
 const ExpandButton = ({ onClick }: { onClick: () => void }) => (
   <Tooltip title={<Typography variant="caption">Expand</Typography>}>
-    <IconButton onClick={onClick}>
+    <IconButton aria-label="sequence-expand" onClick={onClick}>
       <ExpandMoreIcon />
     </IconButton>
   </Tooltip>
@@ -43,7 +43,7 @@ const ExpandButton = ({ onClick }: { onClick: () => void }) => (
 
 const CollapseButton = ({ onClick }: { onClick: () => void }) => (
   <Tooltip title={<Typography variant="caption">Collapse</Typography>}>
-    <IconButton onClick={onClick}>
+    <IconButton aria-label="sequence-collapse" onClick={onClick}>
       <ExpandLessIcon />
     </IconButton>
   </Tooltip>
@@ -68,7 +68,7 @@ const CopyTextButton = ({ text }: { text: string }) => {
           {textCopied ? "Text Copied!" : "Copy text to clipboard"}
         </Typography>
       }>
-      <IconButton onClick={handleClick}>
+      <IconButton aria-label="sequence-copy" onClick={handleClick}>
         <FileCopyOutlinedIcon />
       </IconButton>
     </Tooltip>
