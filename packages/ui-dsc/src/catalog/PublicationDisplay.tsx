@@ -71,27 +71,22 @@ type PublicationDisplayProperties = {
 const PublicationDisplay = ({ publication }: PublicationDisplayProperties) => {
   const classes = useStyles()
   return (
-    <>
-      <Typography variant="body2" data-testid="publication-display">
-        <Typography
-          variant="body2"
-          component="span"
-          className={classes.authors}>
-          {listAuthors(publication.authors)} (
-          {getYearFromTimestamp(publication.pub_date)})
-        </Typography>
-        {` '${publication.title}'`} <em>{publication.journal}</em>{" "}
-        {getJournalInfo(
-          publication?.volume as string,
-          publication?.pages as string,
-        )}
-        <a
-          href={getPubLink(publication.id, publication.doi as string)}
-          title="Visit publication page">
-          <FontAwesomeIcon icon={faExternalLinkAlt} size="sm" />
-        </a>
+    <Typography variant="body2" data-testid="publication-display">
+      <Typography variant="body2" component="span" className={classes.authors}>
+        {listAuthors(publication.authors)} (
+        {getYearFromTimestamp(publication.pub_date)})
       </Typography>
-    </>
+      {` '${publication.title}'`} <em>{publication.journal}</em>{" "}
+      {getJournalInfo(
+        publication?.volume as string,
+        publication?.pages as string,
+      )}
+      <a
+        href={getPubLink(publication.id, publication.doi as string)}
+        title="Visit publication page">
+        <FontAwesomeIcon icon={faExternalLinkAlt} size="sm" />
+      </a>
+    </Typography>
   )
 }
 
