@@ -95,7 +95,7 @@ const PlasmidDetailsCard = ({ plasmid }: Properties) => {
     id: plasmid.id,
     name: plasmid.name,
     summary,
-    fee: fees.STRAIN_FEE,
+    fee: fees.PLASMID_FEE,
     in_stock: plasmid.in_stock,
   }
 
