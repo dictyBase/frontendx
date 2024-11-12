@@ -18,7 +18,7 @@ const SummaryContainer = ({ geneSummary }: SummaryContainerProperties) => {
     geneOntologyAnnotation,
     listPublicationsWithGene,
   } = geneSummary
-  const publicationLimit = 5
+  const publicationLimit = Math.min(5, listPublicationsWithGene.length)
   const partialPublicationsList = listPublicationsWithGene.slice(
     0,
     publicationLimit,
