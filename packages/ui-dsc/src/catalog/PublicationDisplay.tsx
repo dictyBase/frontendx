@@ -76,15 +76,13 @@ const PublicationDisplay = ({ publication }: PublicationDisplayProperties) => {
       <Typography variant="body2" component="span" className={classes.authors}>
         {listAuthors(publication.authors)} (
         {getYearFromTimestamp(publication.pub_date)})
-      </Typography>
-      {" "}
-      {"'"}{parseFormattedStringToDomElements(publication.title)}{"'"} <em>{publication.journal}</em>
-      {" "}
+      </Typography>{" "}
+      &lsquo;{parseFormattedStringToDomElements(publication.title)}&rsquo;{" "}
+      <em>{publication.journal}</em>{" "}
       {getJournalInfo(
         publication?.volume as string,
         publication?.pages as string,
-      )}
-      {" "}
+      )}{" "}
       <a
         href={getPubLink(publication.id, publication.doi as string)}
         title="Visit publication page">
