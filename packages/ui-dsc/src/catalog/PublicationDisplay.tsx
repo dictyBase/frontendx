@@ -4,6 +4,7 @@ import Typography from "@material-ui/core/Typography"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
 import { Publication } from "dicty-graphql-schema"
+import { parseFormattedStringToDomElements } from "@dictybase/ui-dsc"
 
 const useStyles = makeStyles({
   authors: {
@@ -76,11 +77,14 @@ const PublicationDisplay = ({ publication }: PublicationDisplayProperties) => {
         {listAuthors(publication.authors)} (
         {getYearFromTimestamp(publication.pub_date)})
       </Typography>
-      {` '${publication.title}'`} <em>{publication.journal}</em>{" "}
+      {" "}
+      {parseFormattedStringToDomElements(publication.title)} <em>{publication.journal}</em>
+      {" "}
       {getJournalInfo(
         publication?.volume as string,
         publication?.pages as string,
       )}
+      {" "}
       <a
         href={getPubLink(publication.id, publication.doi as string)}
         title="Visit publication page">
