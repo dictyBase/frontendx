@@ -4,7 +4,7 @@ import Typography from "@material-ui/core/Typography"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
 import { Publication } from "dicty-graphql-schema"
-import { parseFormattedStringToDomElements } from "@dictybase/ui-dsc"
+import { parseFormattedStringToDomElements } from "../utils/parseFormattedStringToDomElements"
 
 const useStyles = makeStyles({
   authors: {
