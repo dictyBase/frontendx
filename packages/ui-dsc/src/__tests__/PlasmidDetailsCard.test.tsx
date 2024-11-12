@@ -1,67 +1,75 @@
-import { describe, it, expect } from "vitest"
-import { render, screen } from "@testing-library/react"
+import { describe, test, expect } from "vitest"
+import { render, screen, getDefaultNormalizer } from "@testing-library/react"
 import { PlasmidDetailsCard } from "../catalog/PlasmidDetailsCard"
 import { mockPlasmid } from "../mocks/mockPlasmid"
+import { getDepositorName } from "../utils/getDepositorName"
 
 describe("PlasmidDetailsCard", () => {
-  it("renders plasmid descriptor correctly", () => {
+  test("renders plasmid descriptor correctly", () => {
     render(<PlasmidDetailsCard plasmid={mockPlasmid} />)
     expect(screen.getByText(mockPlasmid.name)).toBeInTheDocument()
   })
 
-  it("renders plasmid summary correctly", () => {
+  test("renders plasmid summary correctly", () => {
     render(<PlasmidDetailsCard plasmid={mockPlasmid} />)
     expect(screen.getByText(mockPlasmid.summary)).toBeInTheDocument()
   })
 
-  it("renders GenBank accession number correctly", () => {
+  test("renders GenBank accession number correctly", () => {
     render(<PlasmidDetailsCard plasmid={mockPlasmid} />)
     expect(screen.getByText(mockPlasmid.genbank_accession)).toBeInTheDocument()
   })
 
-  it("renders depositor name correctly", () => {
+  test("renders depositor name correctly", () => {
     render(<PlasmidDetailsCard plasmid={mockPlasmid} />)
-    expect(screen.getByText(mockPlasmid.depositor.name)).toBeInTheDocument()
+    expect(
+      screen.getByText(getDepositorName(mockPlasmid.depositor)),
+    ).toBeInTheDocument()
   })
 
-  it("renders associated genes correctly", () => {
+  test("renders associated genes correctly", () => {
     render(<PlasmidDetailsCard plasmid={mockPlasmid} />)
     mockPlasmid.genes.forEach((gene) => {
       expect(screen.getByText(gene.name)).toBeInTheDocument()
     })
   })
 
-  it("renders plasmid sequence correctly if available", () => {
+  test("renders plasmid sequence correctly if available", async () => {
     render(<PlasmidDetailsCard plasmid={mockPlasmid} />)
-    expect(screen.getByText(/Sequence/i)).toBeInTheDocument()
-    expect(screen.getByText(mockPlasmid.sequence)).toBeInTheDocument()
+    expect(screen.getByText(/^Sequence$/)).toBeInTheDocument()
+    expect(
+      screen.getByText(mockPlasmid.sequence, {
+        normalizer: getDefaultNormalizer({ collapseWhitespace: false }),
+      }),
+    ).toBeInTheDocument()
   })
 
-  it("renders references correctly", () => {
+  test("renders references correctly", () => {
     render(<PlasmidDetailsCard plasmid={mockPlasmid} />)
     mockPlasmid.publications.forEach((pub) => {
-      expect(screen.getByText(pub.title)).toBeInTheDocument()
+      expect(screen.getByText(new RegExp(pub.title))).toBeInTheDocument()
     })
   })
 
-  it("handles missing genes gracefully", () => {
+  test("handles missing genes gracefully", () => {
+    // eslint-disable-next-line unicorn/no-null
     const plasmidWithoutGenes = { ...mockPlasmid, genes: null }
     render(<PlasmidDetailsCard plasmid={plasmidWithoutGenes} />)
     expect(screen.getByText("Associated Gene(s)")).toBeInTheDocument()
-    // Add more assertions if necessary
   })
 
-  it("handles missing sequence gracefully", () => {
+  test("handles missing sequence gracefully", () => {
+    // eslint-disable-next-line unicorn/no-null
     const plasmidWithoutSequence = { ...mockPlasmid, sequence: null }
     render(<PlasmidDetailsCard plasmid={plasmidWithoutSequence} />)
     expect(screen.getByText("Sequence")).toBeInTheDocument()
     expect(screen.queryByText(mockPlasmid.sequence)).not.toBeInTheDocument()
   })
 
-  it("handles missing publications gracefully", () => {
+  test("handles missing publications gracefully", () => {
     const plasmidWithoutPublications = { ...mockPlasmid, publications: [] }
     render(<PlasmidDetailsCard plasmid={plasmidWithoutPublications} />)
-    expect(screen.queryByText(/Reference\(s\)/i)).toBeInTheDocument()
+    expect(screen.queryByText(/reference\(s\)/i)).toBeInTheDocument()
     // Further assertions to ensure no publications are displayed
   })
 })
