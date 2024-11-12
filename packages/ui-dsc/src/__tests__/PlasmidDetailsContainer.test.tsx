@@ -4,7 +4,7 @@ import { PlasmidDetails } from "../catalog/PlasmidDetailsContainer"
 import { mockPlasmid } from "../mocks/mockPlasmid"
 
 describe("PlasmidDetails", () => {
-  test("Renders name of plasmid", () => {
+  test("Renders heading with name of plasmid", () => {
     render(<PlasmidDetails plasmid={mockPlasmid} />)
     expect(
       screen.getByRole("heading", { name: mockPlasmid.name }),
