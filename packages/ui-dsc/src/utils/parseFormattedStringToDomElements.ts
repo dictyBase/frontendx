@@ -57,7 +57,7 @@ const interleaf = <A, B>(leading: readonly A[], trailing: readonly B[]) => {
 
 /**
  * Parses a string containing formatting tags and returns an array of formatted and unformatted DOM elements.
- * 
+ *
  * The function first normalizes the input string by replacing HTML entities with their corresponding characters.
  * It then uses regular expressions to capture the formatted text (with tags) and unformatted text.
  * The formatted text is parsed recursively to create nested DOM elements.
