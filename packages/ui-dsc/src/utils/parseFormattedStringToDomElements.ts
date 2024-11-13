@@ -11,14 +11,18 @@ import { fromNullable as OfromNullable } from "fp-ts/Option"
 import { map as RNEAmap } from "fp-ts/ReadonlyNonEmptyArray"
 import { match } from "ts-pattern"
 
+// List of supported HTML tags for formatting
 const supportedTags = ["i", "b", "sup", "sub", "h1", "h2", "h3", "h4"]
 
+// Helper functions to check if a number is even or odd
 const isEven = (n: number) => n % 2 === 0
 const isOdd = (n: number) => n % 2 !== 0
 
+// Function to replace HTML entities with their corresponding characters
 const parseIrregularTags = (s: string) =>
   pipe(s.replaceAll("&lt;", "<"), (next) => next.replaceAll("&gt;", ">"))
 
+// Function to interleave two arrays
 // Assumes that both trailing and leading arrays do not contain any nullish values
 const interleaf = <A, B>(leading: readonly A[], trailing: readonly B[]) => {
   const totalLength = leading.length + trailing.length
@@ -53,6 +57,12 @@ const interleaf = <A, B>(leading: readonly A[], trailing: readonly B[]) => {
 
 /**
  * Parses a string containing formatting tags and returns an array of formatted and unformatted DOM elements.
+ * 
+ * The function first normalizes the input string by replacing HTML entities with their corresponding characters.
+ * It then uses regular expressions to capture the formatted text (with tags) and unformatted text.
+ * The formatted text is parsed recursively to create nested DOM elements.
+ * The unformatted text is wrapped in <span> elements.
+ * Finally, the formatted and unformatted elements are interleaved to create the final array of DOM elements.
  */
 const parseFormattedStringToDomElements = (
   s: string,
