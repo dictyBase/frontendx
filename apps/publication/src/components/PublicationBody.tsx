@@ -6,7 +6,7 @@ import { JournalData } from "./JournalData"
 import { SocialLinks } from "./SocialLinks"
 import { Abstract } from "./Abstract"
 import { FullTextLinks } from "./FullTextLinks"
-import { parseFormattedStringToDomElements } from "../common/utils/parseFormattedStringToDomElements"
+import { parseFormattedStringToDomElements } from "@dictybase/ui-common"
 
 interface PublicationBodyProperties {
   publication: Publication
