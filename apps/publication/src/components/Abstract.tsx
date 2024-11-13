@@ -5,7 +5,7 @@ import Divider from "@material-ui/core/Divider"
 import { pipe } from "fp-ts/function"
 import { isEmpty as SisEmpty } from "fp-ts/string"
 import { match as Bmatch } from "fp-ts/boolean"
-import { parseFormattedStringToDomElements } from "../common/utils/parseFormattedStringToDomElements"
+import { parseFormattedStringToDomElements } from "@dictybase/ui-common"
 
 type Properties = {
   abstract: string
