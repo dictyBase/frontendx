@@ -32,22 +32,22 @@ const interleave = (leading: readonly any[], trailing: readonly any[]) => {
 
   return AmakeBy(totalLength, (index) =>
     match(index)
-      .when(isEven, () => {
-        if (leading[cursorL]) {
-          const next = leading[cursorL]
-          cursorL += 1
-          return next
-        }
+      .when((i) => isEven(i) && leading[cursorL], () => {
+        const next = leading[cursorL]
+        cursorL += 1
+        return next
+      })
+      .when((i) => isEven(i) && trailing[cursorT], () => {
         const next = trailing[cursorT]
         cursorT += 1
         return next
       })
-      .when(isOdd, () => {
-        if (trailing[cursorT]) {
-          const next = trailing[cursorT]
-          cursorT += 1
-          return next
-        }
+      .when((i) => isOdd(i) && trailing[cursorT], () => {
+        const next = trailing[cursorT]
+        cursorT += 1
+        return next
+      })
+      .when((i) => isOdd(i) && leading[cursorL], () => {
         const next = leading[cursorL]
         cursorL += 1
         return next
