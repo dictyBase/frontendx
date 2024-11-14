@@ -8,7 +8,7 @@
     "build": "next build && next export -o ./dist",
     "start": "next start",
     "test": "jest",
-    "test-coverage": "jest --coverage",
+    "coverage": "jest --coverage",
     "start-production": "next start",
     "start:mock": "NEXT_PUBLIC_MOCK_SERVER=on next dev",
     "lint": "eslint  ./ --ext .ts --ext .tsx",
