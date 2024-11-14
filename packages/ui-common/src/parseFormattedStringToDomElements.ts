@@ -25,12 +25,12 @@ const parseIrregularTags = (s: string) =>
 
 // Function to interleave two arrays
 // Assumes that both trailing and leading arrays do not contain any nullish values
-const interleave = <A, B>(leading: readonly A[], trailing: readonly B[]) => {
+const interleave = (leading: readonly any[], trailing: readonly any[]) => {
   const totalLength = leading.length + trailing.length
   let cursorL = 0
   let cursorT = 0
 
-  return AmakeBy<A | B | undefined>(totalLength, (index) =>
+  return AmakeBy(totalLength, (index) =>
     match(index)
       .when(isEven, () => {
         if (leading[cursorL]) {
