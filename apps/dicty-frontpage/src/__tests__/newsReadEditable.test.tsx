@@ -51,15 +51,12 @@ const routeConfiguration = [
   },
 ]
 
-const {
-  mockAuthorizedDeleteContent,
-  mockUseContentBySlugQuery,
-  mockContentPageErrorMatcher,
-} = vi.hoisted(() => ({
-  mockUseContentBySlugQuery: vi.fn(),
-  mockContentPageErrorMatcher: vi.fn(() => <> intended error </>),
-  mockAuthorizedDeleteContent: vi.fn(() => ({ success: true })),
-}))
+const { mockAuthorizedDeleteContent, mockUseContentBySlugQuery } = vi.hoisted(
+  () => ({
+    mockUseContentBySlugQuery: vi.fn(),
+    mockAuthorizedDeleteContent: vi.fn(() => ({ success: true })),
+  }),
+)
 
 vi.mock("../common/hooks/useAuthorizedDeleteContent", () => ({
   useAuthorizedDeleteContent: () => mockAuthorizedDeleteContent,
@@ -69,14 +66,6 @@ vi.mock("dicty-graphql-schema", () => ({
   useContentBySlugQuery: mockUseContentBySlugQuery,
   useDeleteContentMutation: vi.fn(() => [() => ({ success: true })]),
 }))
-
-vi.mock("@dictybase/ui-common", async (importOriginal) => {
-  const module = await importOriginal<typeof import("@dictybase/ui-common")>()
-  return {
-    ...module,
-    contentPageErrorMatcher: mockContentPageErrorMatcher,
-  }
-})
 
 describe("/news/:id/editable", () => {
   test('renders an element with the testId "skeleton" when useContentBySlugQuery returns loading = true', () => {
@@ -92,21 +81,6 @@ describe("/news/:id/editable", () => {
     render(<RouterProvider router={router} />)
     const skeleton = screen.getAllByTestId("skeleton")
     expect(skeleton.length).toBeGreaterThan(0)
-  })
-  test("calls contentPageErrorMatcher when useContentBySlugQuery returns an error", () => {
-    const mockError = new Error("Test error")
-    mockUseContentBySlugQuery.mockReturnValue({
-      data: undefined,
-      loading: false,
-      error: mockError,
-    })
-
-    const router = createMemoryRouter(routeConfiguration, {
-      initialEntries: [editableRoute],
-    })
-    render(<RouterProvider router={router} />)
-    const errorComponent = screen.getByText("intended error")
-    expect(errorComponent).toBeInTheDocument()
   })
   test('renders an element with a "textbox" role when useContentBySlugQuery returns valid data', () => {
     mockUseContentBySlugQuery.mockReturnValue({

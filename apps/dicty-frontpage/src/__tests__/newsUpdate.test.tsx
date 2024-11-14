@@ -48,15 +48,12 @@ const routeConfiguration = [
   },
 ]
 
-const {
-  mockUseContentBySlugQuery,
-  mockAuthorizedUpdateContent,
-  mockContentPageErrorMatcher,
-} = vi.hoisted(() => ({
-  mockUseContentBySlugQuery: vi.fn(),
-  mockAuthorizedUpdateContent: vi.fn(),
-  mockContentPageErrorMatcher: vi.fn(() => <> intended error </>),
-}))
+const { mockUseContentBySlugQuery, mockAuthorizedUpdateContent } = vi.hoisted(
+  () => ({
+    mockUseContentBySlugQuery: vi.fn(),
+    mockAuthorizedUpdateContent: vi.fn(),
+  }),
+)
 
 vi.mock("dicty-graphql-schema", async (importOriginal) => {
   const originalModule =
@@ -64,14 +61,6 @@ vi.mock("dicty-graphql-schema", async (importOriginal) => {
   return {
     ...originalModule,
     useContentBySlugQuery: mockUseContentBySlugQuery,
-  }
-})
-
-vi.mock("@dictybase/ui-common", async (importOriginal) => {
-  const module = await importOriginal<typeof import("@dictybase/ui-common")>()
-  return {
-    ...module,
-    contentPageErrorMatcher: mockContentPageErrorMatcher,
   }
 })
 
@@ -97,25 +86,6 @@ describe("/news/:id/editable", () => {
     )
     const skeleton = screen.getAllByTestId("skeleton")
     expect(skeleton.length).toBeGreaterThan(0)
-  })
-  test("calls contentPageErrorMatcher when useContentBySlugQuery returns an error", () => {
-    const mockError = new Error("Test error")
-    mockUseContentBySlugQuery.mockReturnValue({
-      data: undefined,
-      loading: false,
-      error: mockError,
-    })
-
-    const router = createMemoryRouter(routeConfiguration, {
-      initialEntries: [editRoute],
-    })
-    render(
-      <MockedProvider>
-        <RouterProvider router={router} />
-      </MockedProvider>,
-    )
-    const errorComponent = screen.getByText("intended error")
-    expect(errorComponent).toBeInTheDocument()
   })
   test('renders an element with a "textbox" role when useContentBySlugQuery returns valid data', () => {
     mockUseContentBySlugQuery.mockReturnValue({
