@@ -5,9 +5,8 @@ import { match, P } from "ts-pattern"
 import { pipe } from "fp-ts/function"
 import { parseISO, format } from "date-fns/fp"
 import {
-  NotFoundError,
   FullPageLoadingDisplay,
-  contentPageErrorMatcher,
+  GraphQLErrorPage,
   ActionBar,
   CopyLinkButton,
   BrowseNewsButton,
@@ -96,9 +95,9 @@ const Edit = () => {
       ),
     )
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
-    .with({ error: P.select(P.not(undefined)) }, (error) =>
-      contentPageErrorMatcher(error, () => <NotFoundError />),
-    )
+    .with({ error: P.select(P.not(undefined)) }, (error) => (
+      <GraphQLErrorPage error={error} />
+    ))
     .otherwise(() => <> This message should not appear. </>)
 }
 // eslint-disable-next-line import/no-default-export

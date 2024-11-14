@@ -2,9 +2,8 @@ import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { Typography, Container, Grid } from "@material-ui/core"
 import { match, P } from "ts-pattern"
 import {
-  NotFoundError,
   FullPageLoadingDisplay,
-  contentPageErrorMatcher,
+  GraphQLErrorPage,
   CopyLinkButton,
   BrowseNewsButton,
 } from "@dictybase/ui-common"
@@ -44,9 +43,9 @@ const Show = () => {
       ),
     )
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
-    .with({ error: P.select(P.not(undefined)) }, (error) =>
-      contentPageErrorMatcher(error, () => <NotFoundError />),
-    )
+    .with({ error: P.select(P.not(P.nullish)) }, (error) => (
+      <GraphQLErrorPage error={error} />
+    ))
     .otherwise(() => <> This message should not appear. </>)
 }
 
