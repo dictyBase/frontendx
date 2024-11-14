@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-null */
 import { createElement, DOMElement, DOMAttributes } from "react"
 import { pipe } from "fp-ts/function"
 import { split as Ssplit, Monoid as SMonoid } from "fp-ts/string"
@@ -88,7 +89,6 @@ const parseFormattedStringToDomElements = (
     Amap((matches) =>
       createElement(
         matches[1] as string,
-        // eslint-disable-next-line unicorn/no-null
         null,
         parseFormattedStringToDomElements(matches[2] as string),
       ),
@@ -98,7 +98,6 @@ const parseFormattedStringToDomElements = (
   const unformattedTextElements = pipe(
     normalizedString,
     Ssplit(splitRegex),
-    // eslint-disable-next-line unicorn/no-null
     RNEAmap((text) => createElement("span", null, text)),
   )
   return pipe(
