@@ -25,33 +25,48 @@ const parseIrregularTags = (s: string) =>
 
 // Function to interleave two arrays
 // Assumes that both trailing and leading arrays do not contain any nullish values
-const interleave = (leading: readonly any[], trailing: readonly any[]) => {
+const interleave = <A, B>(
+  leading: readonly A[],
+  trailing: readonly B[],
+): Array<A | B | undefined> => {
   const totalLength = leading.length + trailing.length
   let cursorL = 0
   let cursorT = 0
 
   return AmakeBy(totalLength, (index) =>
     match(index)
-      .when((i) => isEven(i) && leading[cursorL], () => {
-        const next = leading[cursorL]
-        cursorL += 1
-        return next
-      })
-      .when((i) => isEven(i) && trailing[cursorT], () => {
-        const next = trailing[cursorT]
-        cursorT += 1
-        return next
-      })
-      .when((i) => isOdd(i) && trailing[cursorT], () => {
-        const next = trailing[cursorT]
-        cursorT += 1
-        return next
-      })
-      .when((i) => isOdd(i) && leading[cursorL], () => {
-        const next = leading[cursorL]
-        cursorL += 1
-        return next
-      })
+      .when(
+        (currentIndex) => isEven(currentIndex) && leading[cursorL],
+        () => {
+          const next = leading[cursorL]
+          cursorL += 1
+          return next
+        },
+      )
+      .when(
+        (currentIndex) => isEven(currentIndex) && trailing[cursorT],
+        () => {
+          const next = trailing[cursorT]
+          cursorT += 1
+          return next
+        },
+      )
+      .when(
+        (currentIndex) => isOdd(currentIndex) && trailing[cursorT],
+        () => {
+          const next = trailing[cursorT]
+          cursorT += 1
+          return next
+        },
+      )
+      .when(
+        (currentIndex) => isOdd(currentIndex) && leading[cursorL],
+        () => {
+          const next = leading[cursorL]
+          cursorL += 1
+          return next
+        },
+      )
       .otherwise(() => undefined),
   )
 }
