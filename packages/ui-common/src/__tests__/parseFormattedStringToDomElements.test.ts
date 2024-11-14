@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { describe, test } from "vitest"
-import { parseFormattedStringToDomElements } from "../utils/parseFormattedStringToDomElements"
+import { parseFormattedStringToDomElements } from "../parseFormattedStringToDomElements"
 
 describe("parseFormattedStringToDomElements", () => {
   test("should parse a string with no formatting tags", () => {
