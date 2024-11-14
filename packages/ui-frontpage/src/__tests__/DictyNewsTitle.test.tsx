@@ -5,6 +5,6 @@ import { DictyNewsTitle } from "../news/DictyNewsTitle"
 describe("DictyNewsTitle", () => {
   it("renders the Dicty News title", () => {
     render(<DictyNewsTitle />)
-    expect(screen.getByText("Dicty News")).toBeInTheDocument()
+    expect(screen.getByText("DCR News")).toBeInTheDocument()
   })
 })
