@@ -5,9 +5,8 @@ import { match, P } from "ts-pattern"
 import { some } from "fp-ts/Option"
 import { Provider, createStore } from "jotai"
 import {
-  NotFoundError,
   FullPageLoadingDisplay,
-  contentPageErrorMatcher,
+  GraphQLErrorPage,
   ActionBar,
   CopyLinkButton,
   BrowseEditableNewsButton,
@@ -88,9 +87,9 @@ const Editable = () => {
       ),
     )
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
-    .with({ error: P.select(P.not(undefined)) }, (error) =>
-      contentPageErrorMatcher(error, () => <NotFoundError />),
-    )
+    .with({ error: P.select(P.not(undefined)) }, (error) => (
+      <GraphQLErrorPage error={error} />
+    ))
     .otherwise(() => <> This message should not appear. </>)
 }
 
