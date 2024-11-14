@@ -102,7 +102,7 @@ const parseFormattedStringToDomElements = (
     RNEAmap((text) => createElement("span", null, text)),
   )
   return pipe(
-    interleaf(unformattedTextElements, formattedTextElements),
+    interleave(unformattedTextElements, formattedTextElements),
     Amap(OfromNullable),
     Acompact,
   )
