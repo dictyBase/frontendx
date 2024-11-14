@@ -1,6 +1,6 @@
 import React from "react"
 import { useListOrganismsQuery, Organism } from "dicty-graphql-schema"
-import { GraphQLErrorPage } from "../../common/components/errors/GraphQLErrorPage"
+import { GraphQLErrorPage } from "@dictybase/ui-common"
 import { DownloadsDisplay } from "./DownloadsDisplay"
 import { DownloadsLoader } from "./DownloadsLoader"
 

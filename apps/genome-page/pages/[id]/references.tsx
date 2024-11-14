@@ -1,5 +1,5 @@
 import { ReferencesContainer } from "components/features/References/ReferencesContainer"
-import { GraphQLErrorPage } from "components/errors/GraphQLErrorPage"
+import { GraphQLErrorPage } from "@dictybase/ui-common"
 import { ReferencesLoader } from "components/features/References/ReferencesLoader"
 import { useRouter } from "next/router"
 import { useListPublicationsWithGeneQuery } from "dicty-graphql-schema"

@@ -1,5 +1,5 @@
 import { PhenotypesContainer } from "components/features/Phenotypes/PhenotypesContainer"
-import { GraphQLErrorPage } from "components/errors/GraphQLErrorPage"
+import { GraphQLErrorPage } from "@dictybase/ui-common"
 import { PhenotypesLoader } from "components/features/Phenotypes/PhenotypesLoader"
 import { useListStrainsWithGeneQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"

@@ -1,6 +1,6 @@
 import { SummaryContainer } from "components/features/Summary/SummaryContainer"
 import { SummaryLoader } from "components/features/Summary/SummaryLoader"
-import { GraphQLErrorPage } from "components/errors/GraphQLErrorPage"
+import { GraphQLErrorPage } from "@dictybase/ui-common"
 import { useRouter } from "next/router"
 import { useGeneSummaryQuery } from "dicty-graphql-schema"
 
