@@ -1,0 +1,5 @@
+# parseFormattedStringToDomElements Refactor
+
+```code
+
+```
