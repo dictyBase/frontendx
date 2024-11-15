@@ -26,14 +26,14 @@ const isOdd = (n: number) => n % 2 !== 0
 /**
  * Function to interleave the elements of two arrays of type Array<ReactNode>
  * Assumptions:
- *  - plaintext array will always be one element longer than secondary
+ *  - plaintext array will always be one element longer than htmlTags array
  */
-const interleave = (plaintext: Array<ReactNode>, formatted: Array<ReactNode>) =>
+const interleave = (plaintext: Array<ReactNode>, htmlTags: Array<ReactNode>) =>
   // Constructs an array whose length is equal to the total of both input arrays.
-  AmakeBy(plaintext.length + formatted.length, (index) =>
+  AmakeBy(plaintext.length + htmlTags.length, (index) =>
     match(index)
       .when(isEven, () => plaintext[index / 2])
-      .when(isOdd, () => formatted[Math.floor(index / 2)])
+      .when(isOdd, () => htmlTags[Math.floor(index / 2)])
       .otherwise(() => undefined),
   )
 
