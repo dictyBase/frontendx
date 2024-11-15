@@ -26,10 +26,8 @@ const parseIrregularTags = (s: string) =>
 
 // Function to interleave two arrays
 // Assumes that both primaryArray and secondaryArray do not contain any nullish values
-const interleave = (
-  primary: Array<ReactNode>,
-  secondary: Array<ReactNode>, // Constructs an array whose length is equal to the total of both input arrays.
-) =>
+const interleave = (primary: Array<ReactNode>, secondary: Array<ReactNode>) =>
+  // Constructs an array whose length is equal to the total of both input arrays.
   AmakeBy(primary.length + secondary.length, (index) =>
     match(index)
       .when(isEven, () => primary[index / 2])
