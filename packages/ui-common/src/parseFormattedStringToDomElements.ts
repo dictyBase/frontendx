@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/no-null */
-import { createElement, DOMElement, DOMAttributes } from "react"
+import { ReactNode, createElement } from "react"
 import { pipe } from "fp-ts/function"
 import { split as Ssplit, Monoid as SMonoid } from "fp-ts/string"
 import {
@@ -10,6 +10,7 @@ import {
 } from "fp-ts/Array"
 import { fromNullable as OfromNullable } from "fp-ts/Option"
 import { map as RNEAmap } from "fp-ts/ReadonlyNonEmptyArray"
+import { toArray as RAtoArray } from "fp-ts/ReadonlyArray"
 import { match } from "ts-pattern"
 
 // List of supported HTML tags for formatting
@@ -24,52 +25,17 @@ const parseIrregularTags = (s: string) =>
   pipe(s.replaceAll("&lt;", "<"), (next) => next.replaceAll("&gt;", ">"))
 
 // Function to interleave two arrays
-// Assumes that both trailing and leading arrays do not contain any nullish values
-const interleave = <A, B>(
-  leading: readonly A[],
-  trailing: readonly B[],
-): Array<A | B | undefined> => {
-  const totalLength = leading.length + trailing.length
-  let cursorL = 0
-  let cursorT = 0
-
-  return AmakeBy(totalLength, (index) =>
+// Assumes that both primaryArray and secondaryArray do not contain any nullish values
+const interleave = (
+  primary: Array<ReactNode>,
+  secondary: Array<ReactNode>, // Constructs an array whose length is equal to the total of both input arrays.
+) =>
+  AmakeBy(primary.length + secondary.length, (index) =>
     match(index)
-      .when(
-        (currentIndex) => isEven(currentIndex) && leading[cursorL],
-        () => {
-          const next = leading[cursorL]
-          cursorL += 1
-          return next
-        },
-      )
-      .when(
-        (currentIndex) => isEven(currentIndex) && trailing[cursorT],
-        () => {
-          const next = trailing[cursorT]
-          cursorT += 1
-          return next
-        },
-      )
-      .when(
-        (currentIndex) => isOdd(currentIndex) && trailing[cursorT],
-        () => {
-          const next = trailing[cursorT]
-          cursorT += 1
-          return next
-        },
-      )
-      .when(
-        (currentIndex) => isOdd(currentIndex) && leading[cursorL],
-        () => {
-          const next = leading[cursorL]
-          cursorL += 1
-          return next
-        },
-      )
+      .when(isEven, () => primary[index / 2])
+      .when(isOdd, () => secondary[Math.floor(index / 2)])
       .otherwise(() => undefined),
   )
-}
 
 /**
  * Parses a string that contains format tags and returns an array of formatted and unformatted DOM elements.
@@ -80,9 +46,7 @@ const interleave = <A, B>(
  * The unformatted text is wrapped in <span> elements.
  * Finally, the formatted and unformatted elements are interleaved to create the final array of DOM elements.
  */
-const parseFormattedStringToDomElements = (
-  s: string,
-): DOMElement<DOMAttributes<Element>, Element>[] => {
+const parseFormattedStringToDomElements = (s: string): Array<ReactNode> => {
   const normalizedString = parseIrregularTags(s)
   // Regular Expression used to capture the format tag names and the text content inside those format tags.
   const formatTagRegex = pipe(
@@ -114,7 +78,9 @@ const parseFormattedStringToDomElements = (
     normalizedString,
     Ssplit(splitRegex),
     RNEAmap((text) => createElement("span", null, text)),
+    RAtoArray,
   )
+
   return pipe(
     interleave(unformattedTextElements, formattedTextElements),
     Amap(OfromNullable),
