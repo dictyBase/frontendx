@@ -9,29 +9,31 @@ import {
   intercalate as Aintercalate,
 } from "fp-ts/Array"
 import { fromNullable as OfromNullable } from "fp-ts/Option"
-import { map as RNEAmap } from "fp-ts/ReadonlyNonEmptyArray"
 import { toArray as RAtoArray } from "fp-ts/ReadonlyArray"
 import { match } from "ts-pattern"
 
 // List of supported HTML tags for formatting
 const supportedTags = ["i", "b", "sup", "sub", "h1", "h2", "h3", "h4"]
 
-// Helper functions to check if a number is even or odd
-const isEven = (n: number) => n % 2 === 0
-const isOdd = (n: number) => n % 2 !== 0
-
 // Function to replace HTML entities with their corresponding characters
 const parseIrregularTags = (s: string) =>
   pipe(s.replaceAll("&lt;", "<"), (next) => next.replaceAll("&gt;", ">"))
 
-// Function to interleave two arrays
-// Assumes that both primaryArray and secondaryArray do not contain any nullish values
-const interleave = (primary: Array<ReactNode>, secondary: Array<ReactNode>) =>
+// Helper functions to check if a number is even or odd
+const isEven = (n: number) => n % 2 === 0
+const isOdd = (n: number) => n % 2 !== 0
+
+/**
+ * Function to interleave the elements of two arrays of type Array<ReactNode>
+ * Assumptions:
+ *  - plaintext array will always be one element longer than secondary
+ */
+const interleave = (plaintext: Array<ReactNode>, formatted: Array<ReactNode>) =>
   // Constructs an array whose length is equal to the total of both input arrays.
-  AmakeBy(primary.length + secondary.length, (index) =>
+  AmakeBy(plaintext.length + formatted.length, (index) =>
     match(index)
-      .when(isEven, () => primary[index / 2])
-      .when(isOdd, () => secondary[Math.floor(index / 2)])
+      .when(isEven, () => plaintext[index / 2])
+      .when(isOdd, () => formatted[Math.floor(index / 2)])
       .otherwise(() => undefined),
   )
 
@@ -75,7 +77,6 @@ const parseFormattedStringToDomElements = (s: string): Array<ReactNode> => {
   const unformattedTextElements = pipe(
     normalizedString,
     Ssplit(splitRegex),
-    RNEAmap((text) => createElement("span", null, text)),
     RAtoArray,
   )
 
