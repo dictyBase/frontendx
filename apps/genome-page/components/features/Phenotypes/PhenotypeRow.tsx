@@ -69,7 +69,8 @@ const PhenotypeRow = ({
         {strain ? (
           <>
             <Box>
-              <a href={`${process.env.NEXT_PUBLIC_STOCKCENTER_URL}/${id}`}>
+              <a
+                href={`${process.env.NEXT_PUBLIC_STOCKCENTER_URL}/strains/${id}`}>
                 {strain}
               </a>
             </Box>
