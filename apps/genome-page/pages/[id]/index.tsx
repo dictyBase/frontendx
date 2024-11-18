@@ -1,5 +1,5 @@
 import { SummaryContainer } from "components/features/Summary/SummaryContainer"
-import { SummaryLoader } from "components/features/Summary/SummaryLoader"
+import { Loader } from "components/Loader"
 import { GraphQLErrorPage } from "@dictybase/ui-common"
 import { useRouter } from "next/router"
 import { useGeneSummaryQuery } from "dicty-graphql-schema"
@@ -19,7 +19,7 @@ const GenomePageWrapper = () => {
   })
   return (
     <>
-      {loading ? <SummaryLoader /> : <></>}
+      {loading ? <Loader /> : <></>}
       {error ? <GraphQLErrorPage error={error} /> : <></>}
       {data ? <SummaryContainer geneSummary={data} /> : <></>}
     </>
