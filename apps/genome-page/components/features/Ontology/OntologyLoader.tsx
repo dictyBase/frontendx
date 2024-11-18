@@ -38,7 +38,7 @@ const OntologyLoader = () => {
       gene={geneId}
       title={`GO Annotations for ${geneId}`}
       description={`Gene Ontology Annotations for ${geneId}`}>
-      <Box data-testid="skeleton-loader">
+      <Box>
         <MuiThemeProvider theme={skeletonTheme}>
           <AppBar position="static">
             <Tabs value={0}>
