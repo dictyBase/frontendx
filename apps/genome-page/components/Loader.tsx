@@ -1,33 +1,16 @@
-/* eslint-disable react/no-array-index-key */
-import Grid from "@material-ui/core/Grid"
-import { Skeleton } from "@mui/material"
+import { makeBy as AmakeBy } from "fp-ts/Array"
+import { Skeleton } from "@material-ui/lab"
+import Box from "@material-ui/core/Box"
 
 /**
  * Loader is the default loading skeleton component.
  */
 const Loader = () => (
-  <Grid container justifyContent="center" data-testid="skeleton-loader">
-    <Grid item xs={12}>
-      {new Array(10).map((item, key) => (
-        <Skeleton key={key} animation="wave" />
-      ))}
-      <br />
-      <br />
-      {new Array(10).map((item, key) => (
-        <Skeleton key={key} animation="wave" />
-      ))}
-      <br />
-      <br />
-      {new Array(10).map((item, key) => (
-        <Skeleton key={key} animation="wave" />
-      ))}
-      <br />
-      <br />
-      {new Array(5).map((item, key) => (
-        <Skeleton key={key} animation="wave" />
-      ))}
-    </Grid>
-  </Grid>
+  <Box mt="10px" data-testid="skeleton-loader">
+    {AmakeBy(12, (key) => (
+      <Skeleton height={50} key={key} animation="wave" />
+    ))}
+  </Box>
 )
 
 export { Loader }
