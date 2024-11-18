@@ -1,4 +1,5 @@
-import { Skeleton } from "@mui/material"
+import { makeBy as AmakeBy } from "fp-ts/Array"
+import { Skeleton } from "@material-ui/lab"
 import Box from "@material-ui/core/Box"
 
 /**
@@ -6,9 +7,8 @@ import Box from "@material-ui/core/Box"
  */
 const PhenotypesLoader = () => (
   <Box mt="10px" data-testid="skeleton-loader">
-    {new Array(10).map((item, key) => (
-      // eslint-disable-next-line react/no-array-index-key
-      <Skeleton key={key} animation="wave" />
+    {AmakeBy(10, (key) => (
+      <Skeleton height={50} key={key} animation="wave" />
     ))}
   </Box>
 )
