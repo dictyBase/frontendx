@@ -7,7 +7,7 @@ import Box from "@material-ui/core/Box"
  */
 const PhenotypesLoader = () => (
   <Box mt="10px" data-testid="skeleton-loader">
-    {AmakeBy(10, (key) => (
+    {AmakeBy(12, (key) => (
       <Skeleton height={50} key={key} animation="wave" />
     ))}
   </Box>
