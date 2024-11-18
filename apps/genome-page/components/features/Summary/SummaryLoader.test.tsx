@@ -2,16 +2,16 @@ import React from "react"
 import { render, screen } from "@testing-library/react"
 import { SummaryLoader } from "./SummaryLoader"
 
-// eslint-disable-next-line import/no-commonjs, unicorn/prefer-module -- ESM not supported by default as of Jest 29
-const useRouter = jest.spyOn(require("next/router"), "useRouter")
-
-const gene = "DDB_G123456"
+jest.mock("next/router", () => {
+  const useRouter = jest.fn(() => ({
+    query: { id: "DDB_G123456" },
+    pathname: "",
+  }))
+  return { useRouter }
+})
 
 describe("components/SummaryLoader", () => {
   it("should render skeleton loader", () => {
-    useRouter.mockImplementation(() => ({
-      query: { id: gene },
-    }))
     render(<SummaryLoader />)
     expect(screen.getByTestId("skeleton-loader")).toBeInTheDocument()
   })
