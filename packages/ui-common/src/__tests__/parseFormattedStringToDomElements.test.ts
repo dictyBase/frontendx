@@ -9,7 +9,14 @@ describe("parseFormattedStringToDomElements", () => {
     expect(result).toHaveLength(1)
     expect(result[0]).toBe(input)
   })
-
+  test("should parse a string with only formatting tags", () => {
+    const input = "<b>All of this is bold</b>"
+    const result = parseFormattedStringToDomElements(input)
+    expect(result).toHaveLength(3)
+    expect(result[1].type).toBe("b")
+    expect(result[1].props.children).toHaveLength(1)
+    expect(result[1].props.children[0]).toBe("All of this is bold")
+  })
   test("should parse a string with a single formatting tag", () => {
     const input = "This is <b>bold</b> text"
     const result = parseFormattedStringToDomElements(input)
