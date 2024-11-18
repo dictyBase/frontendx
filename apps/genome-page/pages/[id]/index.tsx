@@ -1,5 +1,5 @@
 import { SummaryContainer } from "components/features/Summary/SummaryContainer"
-import { Loader } from "components/Loader"
+import { SummaryLoader } from "components/features/Summary/SummaryLoader"
 import { GraphQLErrorPage } from "@dictybase/ui-common"
 import { useRouter } from "next/router"
 import { useGeneSummaryQuery } from "dicty-graphql-schema"
@@ -18,7 +18,7 @@ const GenomePageWrapper = () => {
     fetchPolicy: "cache-and-network",
   })
   return match(result)
-    .with({ loading: true }, () => <Loader />)
+    .with({ loading: true }, () => <SummaryLoader />)
     .with({ error: P.select(P.not(undefined)) }, (error) => (
       <GraphQLErrorPage error={error} />
     ))

@@ -1,15 +1,21 @@
-import { Box, Skeleton } from "@mui/material"
+import { useRouter } from "next/router"
+import { Layout } from "components/layout/Layout"
+import { Loader } from "components/Loader"
 
 /**
  * Loading screen for Summary page
  */
-const SummaryLoader = () => (
-  <Box mt="10px" data-testid="skeleton-loader">
-    {new Array(10).map((item, key) => (
-      // eslint-disable-next-line react/no-array-index-key
-      <Skeleton key={key} animation="wave" />
-    ))}
-  </Box>
-)
+const SummaryLoader = () => {
+  const { query } = useRouter()
+  const geneId = query.id as string
+  return (
+    <Layout
+      gene={geneId}
+      title={`GO Annotations for ${geneId}`}
+      description={`Gene Ontology Annotations for ${geneId}`}>
+      <Loader />
+    </Layout>
+  )
+}
 
 export { SummaryLoader }

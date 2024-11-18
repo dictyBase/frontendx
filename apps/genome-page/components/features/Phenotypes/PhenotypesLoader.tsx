@@ -1,16 +1,21 @@
-import { makeBy as AmakeBy } from "fp-ts/Array"
-import { Skeleton } from "@material-ui/lab"
-import Box from "@material-ui/core/Box"
+import { useRouter } from "next/router"
+import { Layout } from "components/layout/Layout"
+import { Loader } from "components/Loader"
 
 /**
- * Loading screen for Phenotypes page
+ * Loading screen for Summary page
  */
-const PhenotypesLoader = () => (
-  <Box mt="10px" data-testid="skeleton-loader">
-    {AmakeBy(12, (key) => (
-      <Skeleton height={50} key={key} animation="wave" />
-    ))}
-  </Box>
-)
+const PhenotypesLoader = () => {
+  const { query } = useRouter()
+  const geneId = query.id as string
+  return (
+    <Layout
+      gene={geneId}
+      title={`Phenotypes for ${geneId}`}
+      description={`Gene phenotypes for ${geneId}`}>
+      <Loader />
+    </Layout>
+  )
+}
 
 export { PhenotypesLoader }

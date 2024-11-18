@@ -1,6 +1,6 @@
 import { PhenotypesContainer } from "components/features/Phenotypes/PhenotypesContainer"
+import { PhenotypesLoader } from "components/features/Phenotypes/PhenotypesLoader"
 import { GraphQLErrorPage } from "@dictybase/ui-common"
-import { Loader } from "components/Loader"
 import { useListStrainsWithGeneQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
 import { match, P } from "ts-pattern"
@@ -17,7 +17,7 @@ const PhenotypesPageWrapper = () => {
   })
 
   return match(result)
-    .with({ loading: true }, () => <Loader />)
+    .with({ loading: true }, () => <PhenotypesLoader />)
     .with({ error: P.select(P.not(undefined)) }, (error) => (
       <GraphQLErrorPage error={error} />
     ))
