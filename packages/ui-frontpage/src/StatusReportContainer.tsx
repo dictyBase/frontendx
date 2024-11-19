@@ -5,11 +5,10 @@ import { StatusReportDisplay } from "./StatusReportDisplay"
 
 const StatusReportContainer = () => {
   const data = useDictyStatus()
-  console.log(data)
   return pipe(
     data,
     Omatch(
-      () => <> Unavailable </>,
+      () => <></>,
       (summaries) => <StatusReportDisplay summaries={summaries} />,
     ),
   )
