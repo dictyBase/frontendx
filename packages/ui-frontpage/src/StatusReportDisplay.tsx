@@ -25,8 +25,7 @@ type StatusReportDisplayProperties = {
 
 const useStyles = makeStyles({
   primary: {
-    paddingLeft: "0.5rem",
-    paddingRight: "0.5rem",
+    padding: "1rem",
   },
   text: {
     fontFamily: "'Nimbus Mono PS', 'Courier New', monospace",
@@ -34,37 +33,39 @@ const useStyles = makeStyles({
 })
 
 const StatusReportDisplay = ({ summaries }: StatusReportDisplayProperties) => {
-  const { text } = useStyles()
+  const { text, primary } = useStyles()
   return (
-    <Grid container spacing={2} alignItems="center">
-      <Grid item>
-        <Link to="https://status.dictybase.dev/">
-          <Typography variant="h3" className={text}>
-            Live Site Status
-          </Typography>
-        </Link>
+    <Paper elevation={3} className={primary}>
+      <Grid container spacing={2} alignItems="center">
+        <Grid item>
+          <Link to="https://status.dictybase.dev/">
+            <Typography variant="h3" className={text}>
+              Live Site Status
+            </Typography>
+          </Link>
+        </Grid>
+        {pipe(
+          summaries,
+          Amap(({ name, status }) => {
+            const resolvedName = pipe(
+              SiteNames,
+              Rlookup(name),
+              OgetOrElse(() => name),
+            )
+            const nameSegment = pipe(name, StoLowerCase, Sreplace(/\s/g, "-"))
+            const url = SMonoid.concat(
+              "https://status.dictybase.dev/history/",
+              nameSegment,
+            )
+            return (
+              <Grid item>
+                <StatusReport name={resolvedName} url={url} status={status} />
+              </Grid>
+            )
+          }),
+        )}
       </Grid>
-      {pipe(
-        summaries,
-        Amap(({ name, status }) => {
-          const resolvedName = pipe(
-            SiteNames,
-            Rlookup(name),
-            OgetOrElse(() => name),
-          )
-          const nameSegment = pipe(name, StoLowerCase, Sreplace(/\s/g, "-"))
-          const url = SMonoid.concat(
-            "https://status.dictybase.dev/history/",
-            nameSegment,
-          )
-          return (
-            <Grid item>
-              <StatusReport name={resolvedName} url={url} status={status} />
-            </Grid>
-          )
-        }),
-      )}
-    </Grid>
+    </Paper>
   )
 }
 
