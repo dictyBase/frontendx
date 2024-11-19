@@ -1,7 +1,12 @@
 import { Helmet } from "react-helmet"
 import { Grid, Container } from "@material-ui/core"
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import { RecentUpdates, ComingSoon, Featured } from "@dictybase/ui-frontpage"
+import {
+  RecentUpdates,
+  ComingSoon,
+  Featured,
+  StatusReportContainer,
+} from "@dictybase/ui-frontpage"
 import { Slideshow } from "./Slideshow"
 import { LatestPapers } from "./LatestPapers"
 import { DictyNewsWithAuth } from "./DictyNewsWithAuth"
@@ -40,6 +45,9 @@ const Front = () => {
         />
       </Helmet>
       <Grid container justifyContent="center">
+        <Grid item className={classes.topItem} sm={12} md={12} xl={12}>
+          <StatusReportContainer />
+        </Grid>
         <Grid item className={classes.topItem} sm={12} md={6} xl={6}>
           <Slideshow />
         </Grid>
