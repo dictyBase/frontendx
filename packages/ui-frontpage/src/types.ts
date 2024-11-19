@@ -17,4 +17,15 @@ type UpdatedByUser = Pick<User, "id" | "email" | "first_name" | "last_name"> & {
   >
 }
 
-export { type UpdatedByUser }
+enum Status {
+  UP = "up",
+  DOWN = "down",
+}
+
+type UptimeProperties = {
+  name: string
+  url: string
+  status: Status
+}
+
+export { type UpdatedByUser, type UptimeProperties, Status }
