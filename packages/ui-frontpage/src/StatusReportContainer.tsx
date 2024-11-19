@@ -1,7 +1,7 @@
 import { pipe } from "fp-ts/function"
 import { match as Omatch } from "fp-ts/Option"
 import { useDictyStatus } from "./hooks/useDictyStatus"
-import { StatusReportDisplay } from "./StatusReportDisplay"
+import { StatusPopover } from "./StatusPopover"
 
 const StatusReportContainer = () => {
   const data = useDictyStatus()
@@ -9,7 +9,7 @@ const StatusReportContainer = () => {
     data,
     Omatch(
       () => <></>,
-      (summaries) => <StatusReportDisplay summaries={summaries} />,
+      (summaries) => <StatusPopover summaries={summaries} />,
     ),
   )
 }

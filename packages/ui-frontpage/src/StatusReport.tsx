@@ -8,23 +8,14 @@ import { UptimeProperties, Status } from "./types"
 
 const useStyles = makeStyles({
   root: {
-    paddingLeft: "0.8rem",
-    paddingRight: "0.8rem",
+    // paddingLeft: "0.8rem",
+    // paddingRight: "0.8rem",
+    color: "black",
     paddingTop: "0.2rem",
     paddingBottom: "0.2rem",
-    borderRadius: "0.75rem",
     transition: "background-color 0.2s ease-in-out",
-    backgroundColor: ({ status }: { status: Status }) =>
-      match(status)
-        .with(Status.UP, () => lightGreen[50])
-        .with(Status.DOWN, () => "orange")
-        .exhaustive(),
     "&:hover": {
-      backgroundColor: ({ status }: { status: Status }) =>
-        match(status)
-          .with(Status.UP, () => lightGreen[100])
-          .with(Status.DOWN, () => "orange")
-          .exhaustive(),
+      backgroundColor: "grey",
     },
   },
   statusGrid: {
@@ -57,22 +48,18 @@ const StatusReport = ({ name, url, status }: UptimeProperties) => {
   })
   return (
     <Link to={url}>
-      <Paper variant="outlined" className={root}>
-        <Grid container spacing={1}>
-          <Grid item>
-            <Typography className={text}>{name}</Typography>
-          </Grid>
-          <Grid item>
-            <Divider flexItem orientation="vertical" />
-          </Grid>
-          <Grid item>
-            <Typography className={statusText}>UP</Typography>
-          </Grid>
-          <Grid item className={statusGrid}>
-            <CheckCircleIcon className={statusIndicator} />
-          </Grid>
+      <Grid
+        container
+        spacing={1}
+        justifyContent="space-between"
+        className={root}>
+        <Grid item>
+          <Typography className={text}>{name}</Typography>
         </Grid>
-      </Paper>
+        <Grid item className={statusGrid}>
+          <CheckCircleIcon className={statusIndicator} />
+        </Grid>
+      </Grid>
     </Link>
   )
 }
