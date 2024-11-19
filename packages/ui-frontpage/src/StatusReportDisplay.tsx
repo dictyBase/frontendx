@@ -36,7 +36,7 @@ const StatusReportDisplay = ({ summaries }: StatusReportDisplayProperties) => {
   const { text, primary } = useStyles()
   return (
     <Paper elevation={3} className={primary}>
-      <Grid container spacing={2} alignItems="center">
+      <Grid container direction="column" spacing={2} alignItems="center">
         <Grid item>
           <Link to="https://status.dictybase.dev/">
             <Typography variant="h3" className={text}>
