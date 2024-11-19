@@ -1,4 +1,5 @@
-import { makeStyles, Typography, Grid } from "@material-ui/core"
+import { Link } from "react-router-dom"
+import { makeStyles, Paper, Typography, Grid } from "@material-ui/core"
 import { pipe } from "fp-ts/function"
 import {
   replace as Sreplace,
@@ -23,6 +24,10 @@ type StatusReportDisplayProperties = {
 }
 
 const useStyles = makeStyles({
+  primary: {
+    paddingLeft: "0.5rem",
+    paddingRight: "0.5rem",
+  },
   text: {
     fontFamily: "'Nimbus Mono PS', 'Courier New', monospace",
   },
@@ -31,9 +36,13 @@ const useStyles = makeStyles({
 const StatusReportDisplay = ({ summaries }: StatusReportDisplayProperties) => {
   const { text } = useStyles()
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} alignItems="center">
       <Grid item>
-        <Typography className={text}>Live Site Status</Typography>
+        <Link to="https://status.dictybase.dev/">
+          <Typography variant="h3" className={text}>
+            Live Site Status
+          </Typography>
+        </Link>
       </Grid>
       {pipe(
         summaries,
