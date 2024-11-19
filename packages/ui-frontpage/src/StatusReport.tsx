@@ -8,8 +8,6 @@ import { UptimeProperties, Status } from "./types"
 
 const useStyles = makeStyles({
   root: {
-    // paddingLeft: "0.8rem",
-    // paddingRight: "0.8rem",
     color: "black",
     paddingTop: "0.2rem",
     paddingBottom: "0.2rem",
