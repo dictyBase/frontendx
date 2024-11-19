@@ -3,18 +3,34 @@ import { match } from "ts-pattern"
 import { makeStyles, Paper, Grid, Typography, Divider } from "@material-ui/core"
 import CheckCircleIcon from "@material-ui/icons/CheckCircle"
 import green from "@material-ui/core/colors/green"
+import lightGreen from "@material-ui/core/colors/lightGreen"
 import { UptimeProperties, Status } from "./types"
 
 const useStyles = makeStyles({
   root: {
-    paddingLeft: "0.5rem",
-    paddingRight: "0.5rem",
+    paddingLeft: "0.8rem",
+    paddingRight: "0.8rem",
+    paddingTop: "0.2rem",
+    paddingBottom: "0.2rem",
+    borderRadius: "0.75rem",
+    transition: "background-color 0.2s ease-in-out",
+    backgroundColor: ({ status }: { status: Status }) =>
+      match(status)
+        .with(Status.UP, () => lightGreen[50])
+        .with(Status.DOWN, () => "orange")
+        .exhaustive(),
+    "&:hover": {
+      backgroundColor: ({ status }: { status: Status }) =>
+        match(status)
+          .with(Status.UP, () => lightGreen[100])
+          .with(Status.DOWN, () => "orange")
+          .exhaustive(),
+    },
   },
   statusGrid: {
     lineHeight: 0,
   },
   statusIndicator: {
-    // filter: "blur(1px)",
     color: ({ status }: { status: Status }) =>
       match(status)
         .with(Status.UP, () => green[700])
@@ -41,13 +57,13 @@ const StatusReport = ({ name, url, status }: UptimeProperties) => {
   })
   return (
     <Link to={url}>
-      <Paper elevation={2} className={root}>
+      <Paper variant="outlined" className={root}>
         <Grid container spacing={1}>
           <Grid item>
             <Typography className={text}>{name}</Typography>
           </Grid>
           <Grid item>
-            <Divider orientation="vertical" />
+            <Divider flexItem orientation="vertical" />
           </Grid>
           <Grid item>
             <Typography className={statusText}>UP</Typography>
