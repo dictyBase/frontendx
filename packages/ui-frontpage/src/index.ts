@@ -1,6 +1,7 @@
 export * from "./ComingSoon"
 export * from "./Featured"
 export * from "./RecentStock/RecentUpdates"
+export * from "./StatusReportContainer"
 export * from "./news/DictyNews"
 export * from "./news/WriteNewsButton"
 export * from "./news/AuthorizedDictyNews"
