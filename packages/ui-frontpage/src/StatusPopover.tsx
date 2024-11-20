@@ -1,78 +1,53 @@
-import React from "react"
 import { Link } from "react-router-dom"
-import { Typography, Popover, Grid, makeStyles } from "@material-ui/core"
+import { Typography, Tooltip, Grid, makeStyles } from "@material-ui/core"
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord"
+import grey from "@material-ui/core/colors/grey"
 import { UptimeProperties } from "./types"
 import { StatusList } from "./StatusList"
 
-const useStyles = makeStyles((theme) => ({
-  popover: {
-    pointerEvents: "none",
+const useStyles = makeStyles({
+  tooltip: {
+    backgroundColor: "white",
+    paddingLeft: 0,
+    paddingRight: 0,
+    boxShadow: `${grey[500]} 1px 1px 3px`,
   },
-  paper: {
-    padding: theme.spacing(1),
+  root: {
+    width: "fit-content",
   },
-}))
+  text: {
+    color: "green",
+    textDecoration: "underline",
+  },
+  indicator: {
+    color: "green",
+  },
+})
 
 type StatusListProperties = {
   summaries: Array<UptimeProperties>
 }
+
 const StatusPopover = ({ summaries }: StatusListProperties) => {
-  const classes = useStyles()
-  const [anchorElement, setAnchorElement] = React.useState(null)
-
-  const handlePopoverOpen = (event) => {
-    setAnchorElement(event.currentTarget)
-  }
-
-  const handlePopoverClose = () => {
-    setAnchorElement(null)
-  }
-
-  const open = Boolean(anchorElement)
-
+  const { root, text, indicator, tooltip } = useStyles()
   return (
-    <div>
-      <Link to="https://status.dictybase.dev/">
-        <Grid
-          style={{ color: "green", textDecoration: "underline" }}
-          container
-          alignItems="center">
-          <Grid item>
-            <Typography
-              variant="h3"
-              aria-owns={open ? "mouse-over-popover" : undefined}
-              aria-haspopup="true"
-              onMouseEnter={handlePopoverOpen}
-              onMouseLeave={handlePopoverClose}>
+    <Tooltip
+      interactive
+      title={<StatusList summaries={summaries} />}
+      classes={{ tooltip }}>
+      <Grid container alignItems="flex-start" className={root}>
+        <Grid item>
+          <Link to="https://status.dictybase.dev/">
+            <Typography variant="h3" className={text}>
               Live Site Status
             </Typography>
-          </Grid>
-          <FiberManualRecordIcon />
-          <Grid item />
+          </Link>
         </Grid>
-      </Link>
-      <Popover
-        id="mouse-over-popover"
-        className={classes.popover}
-        classes={{
-          paper: classes.paper,
-        }}
-        open={open}
-        anchorEl={anchorElement}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
-        }}
-        onClose={handlePopoverClose}
-        disableRestoreFocus>
-        <StatusList summaries={summaries} />
-      </Popover>
-    </div>
+        <Grid item>
+          <FiberManualRecordIcon className={indicator} />
+        </Grid>
+      </Grid>
+    </Tooltip>
   )
 }
 
