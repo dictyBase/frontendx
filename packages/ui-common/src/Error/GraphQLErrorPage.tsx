@@ -27,9 +27,9 @@ const GraphQLErrorPage = ({ error }: GraphQlErrorPageProperties) =>
   match(error)
     .with({ networkError: P.not(P.nullish) }, () => <ServerError />)
     .with({ graphQLErrors: P.select(P.not(P.nullish)) }, (errors) => {
-      const primaryError = pipe(
-        errors,
-        RAhead,
+      const primaryError = pipe(errors, RAhead)
+      const primaryErrorCode = pipe(
+        primaryError,
         OflatMap(({ extensions }) =>
           pipe(
             extensions,
@@ -40,10 +40,15 @@ const GraphQLErrorPage = ({ error }: GraphQlErrorPageProperties) =>
         ),
         OgetOrElse(() => ""),
       )
-      return match(primaryError)
+      const primaryErrorMessage = pipe(
+        primaryError,
+        Omap(({ message }) => message),
+        OgetOrElse(() => ""),
+      )
+      return match(primaryErrorCode)
         .with("Unavailable", () => <ServerError />)
         .with("NotFound", () => <NotFoundError />)
-        .otherwise(() => <OtherError />)
+        .otherwise(() => <OtherError message={primaryErrorMessage} />)
     })
     .otherwise(() => <OtherError />)
 
