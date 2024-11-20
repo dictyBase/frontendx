@@ -1,5 +1,11 @@
-import Grid from "@material-ui/core/Grid"
+import { Grid } from "@material-ui/core"
 import ErrorIcon from "@material-ui/icons/Error"
+import { pipe } from "fp-ts/function"
+import {
+  map as Omap,
+  fromNullable as OfromNullable,
+  getOrElse as OgetOrElse,
+} from "fp-ts/Option"
 import { ErrorMessage } from "./ErrorMessage"
 import { useStyles } from "./errorStyles"
 
@@ -7,7 +13,11 @@ import { useStyles } from "./errorStyles"
  * UI display when there is a general error.
  */
 
-const OtherError = () => {
+type OtherErrorProperties = {
+  message?: string
+}
+
+const OtherError = ({ message }: OtherErrorProperties) => {
   const classes = useStyles()
 
   return (
@@ -22,6 +32,12 @@ const OtherError = () => {
             <ErrorIcon />
             Error
           </h1>
+          {pipe(
+            message,
+            OfromNullable,
+            Omap((m) => <div className={classes.description}>{m}</div>),
+            OgetOrElse(() => <></>),
+          )}
           <ErrorMessage />
         </div>
       </Grid>
