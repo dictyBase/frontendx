@@ -1,12 +1,4 @@
-import { Link } from "react-router-dom"
-import {
-  makeStyles,
-  Paper,
-  Typography,
-  Grid,
-  Menu,
-  MenuItem,
-} from "@material-ui/core"
+import { makeStyles, Grid } from "@material-ui/core"
 import { pipe } from "fp-ts/function"
 import {
   replace as Sreplace,
@@ -28,7 +20,7 @@ const SiteNames = {
 
 const useStyles = makeStyles({
   primary: {
-    padding: "1rem",
+    backgroundColor: "white",
   },
   text: {
     fontFamily: "'Nimbus Mono PS', 'Courier New', monospace",
@@ -42,7 +34,7 @@ type StatusListProperties = {
 const StatusList = ({ summaries }: StatusListProperties) => {
   const { primary } = useStyles()
   return (
-    <Grid container direction="column" spacing={2}>
+    <Grid container direction="column" className={primary}>
       {pipe(
         summaries,
         Amap(({ name, status }) => {
