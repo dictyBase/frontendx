@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles"
-import { indigo, grey } from "@material-ui/core/colors"
+import { deepPurple, grey } from "@material-ui/core/colors"
 
 const useStyles = makeStyles(({ palette }) => ({
   error400: {
@@ -51,13 +51,12 @@ const useStyles = makeStyles(({ palette }) => ({
     fontFamily: "'Nimbus Mono PS', 'Courier New', monospace",
     color: grey[800],
     padding: "1rem",
-    backgroundColor: indigo[50],
+    backgroundColor: deepPurple[50],
     maxWidth: "20rem",
     margin: "auto",
     borderRadius: "7px",
     fontStyle: "italic",
     border: `1px solid ${grey[400]}`,
-    // boxShadow: `${grey[800]} 1px 1px 2px`,
   },
 }))
 
