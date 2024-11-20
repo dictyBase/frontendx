@@ -1,9 +1,18 @@
 import { Link } from "react-router-dom"
 import { Typography, Tooltip, Grid, makeStyles } from "@material-ui/core"
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord"
-import grey from "@material-ui/core/colors/grey"
-import { UptimeProperties } from "./types"
+import { grey, green, yellow, red } from "@material-ui/core/colors"
+import { match, P } from "ts-pattern"
+import { pipe } from "fp-ts/function"
+import { map as Amap } from "fp-ts/Array"
+import { UptimeProperties, Status } from "./types"
 import { StatusList } from "./StatusList"
+
+enum AggregateStatus {
+  UP = "up",
+  DOWN = "down",
+  PARTIAL = "partial",
+}
 
 const useStyles = makeStyles({
   tooltip: {
@@ -16,11 +25,21 @@ const useStyles = makeStyles({
     width: "fit-content",
   },
   text: {
-    color: "green",
+    color: ({ status }: { status: AggregateStatus }) =>
+      match(status)
+        .with(AggregateStatus.UP, () => green[500])
+        .with(AggregateStatus.PARTIAL, () => yellow[900])
+        .with(AggregateStatus.DOWN, () => red[900])
+        .exhaustive(),
     textDecoration: "underline",
   },
   indicator: {
-    color: "green",
+    color: ({ status }: { status: AggregateStatus }) =>
+      match(status)
+        .with(AggregateStatus.UP, () => green[500])
+        .with(AggregateStatus.PARTIAL, () => yellow[700])
+        .with(AggregateStatus.DOWN, () => red[900])
+        .exhaustive(),
   },
 })
 
@@ -29,22 +48,33 @@ type StatusListProperties = {
 }
 
 const StatusPopover = ({ summaries }: StatusListProperties) => {
-  const { root, text, indicator, tooltip } = useStyles()
+  const aggregateStatus = pipe(
+    summaries,
+    Amap(({ status }) => status),
+    (statuses) =>
+      match(statuses)
+        .with(P.array(Status.UP), () => AggregateStatus.UP)
+        .with(P.array(Status.DOWN), () => AggregateStatus.DOWN)
+        .otherwise(() => AggregateStatus.PARTIAL),
+  )
+  const { root, text, indicator, tooltip } = useStyles({
+    status: aggregateStatus,
+  })
   return (
     <Tooltip
       interactive
       title={<StatusList summaries={summaries} />}
       classes={{ tooltip }}>
-      <Grid container alignItems="flex-start" className={root}>
+      <Grid container spacing={1} alignItems="flex-start" className={root}>
+        <Grid item>
+          <FiberManualRecordIcon className={indicator} />
+        </Grid>
         <Grid item>
           <Link to="https://status.dictybase.dev/">
             <Typography variant="h3" className={text}>
               Live Site Status
             </Typography>
           </Link>
-        </Grid>
-        <Grid item>
-          <FiberManualRecordIcon className={indicator} />
         </Grid>
       </Grid>
     </Tooltip>
