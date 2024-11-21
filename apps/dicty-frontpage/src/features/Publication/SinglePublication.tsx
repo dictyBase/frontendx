@@ -1,14 +1,26 @@
-import { Box, Grid, Typography } from "@material-ui/core"
+import {
+  makeStyles,
+  Card,
+  CardContent,
+  Chip,
+  Box,
+  Grid,
+  Typography,
+} from "@material-ui/core"
 import { DateDisplay } from "@dictybase/ui-common"
-import { makeStyles } from "@material-ui/core/styles"
+import { pipe } from "fp-ts/function"
+import { map as Amap } from "fp-ts/Array"
+import { parseISO, format } from "date-fns/fp"
 import { Link } from "react-router-dom"
+import { grey, indigo, blue, lightBlue } from "@material-ui/core/colors"
 import { type PublicationItem } from "../../common/hooks/useFetchPublications"
 import {
   getAuthorsCitationString,
   formatTitle,
+  shortenAllNames,
 } from "../../common/utils/citation"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   leadText: {
     color: "#0b3861",
     paddingRight: "10px",
@@ -17,14 +29,46 @@ const useStyles = makeStyles({
     color: "#0b3861",
   },
   sourceTitle: {
-    paddingTop: "7px",
-    fontWeight: "bold",
+    fontWeight: 800,
     textAlign: "center",
   },
   link: {
     fontSize: "22px",
   },
-})
+  card: {
+    borderLeft: `10px solid ${theme.palette.primary.main}`,
+    boxShadow: theme.shadows[4],
+    padding: "1rem",
+  },
+  title: {
+    fontWeight: 600,
+    fontSize: "24px",
+    fontFamily: "ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif",
+  },
+  pos: {
+    color: grey[700],
+    marginBottom: theme.spacing(1),
+  },
+  identifiers: {
+    color: theme.palette.primary.main,
+    marginBottom: theme.spacing(2),
+  },
+  authors: {
+    marginBottom: theme.spacing(1),
+  },
+  chip: {
+    backgroundColor: lightBlue[50],
+  },
+  abstractHeading: {
+    fontWeight: 600,
+    fontSize: "20px",
+    fontFamily: "ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif",
+  },
+  abstract: {
+    fontSize: "16px",
+    marginBottom: theme.spacing(2),
+  },
+}))
 
 type SinglePublicationProperties = {
   data: PublicationItem
@@ -32,37 +76,39 @@ type SinglePublicationProperties = {
 
 const SinglePublication = ({ data }: SinglePublicationProperties) => {
   const { abstract, journal, pubmedId, publishDate, authors } = data
-  const { link } = useStyles()
-  const authorString = getAuthorsCitationString(authors)
+  const classes = useStyles()
+  const formattedAuthors = shortenAllNames(authors)
   const title = formatTitle(data.title).full
+  const formattedDate = pipe(publishDate, parseISO, format("PPP"))
   return (
-    <li>
-      <Box>
-        <Typography variant="h2" color="primary">
-          <Link
-            className={link}
-            reloadDocument
-            to={`${import.meta.env.VITE_APP_PUBLICATION_URL}/${pubmedId}`}>
-            {title}
-          </Link>
+    <Card className={classes.card}>
+      <CardContent>
+        <Typography gutterBottom className={classes.title}>
+          {title}
         </Typography>
-        <Typography>{authorString}</Typography>
-        <Grid container spacing={1}>
-          <Grid item>
-            <Typography display="inline">
-              <em>{journal}</em>
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography> | </Typography>
-          </Grid>
-          <Grid item>
-            <DateDisplay dateString={publishDate} />
-          </Grid>
+        <Typography
+          className={
+            classes.pos
+          }>{`Published in ${journal}, ${formattedDate}`}</Typography>
+        <Typography className={classes.identifiers}>
+          PMID: {pubmedId}
+        </Typography>
+        <Grid container spacing={1} className={classes.authors}>
+          {pipe(
+            formattedAuthors,
+            Amap((author) => (
+              <Grid item>
+                <Chip size="small" label={author} className={classes.chip} />
+              </Grid>
+            )),
+          )}
         </Grid>
-        <Typography>{abstract}</Typography>
-      </Box>
-    </li>
+        <Typography className={classes.abstractHeading}>Abstract</Typography>
+        <Typography variant="body2" className={classes.abstract}>
+          {abstract}
+        </Typography>
+      </CardContent>
+    </Card>
   )
 }
 
