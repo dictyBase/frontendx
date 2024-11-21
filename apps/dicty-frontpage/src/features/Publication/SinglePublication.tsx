@@ -3,22 +3,15 @@ import {
   Card,
   CardContent,
   Chip,
-  Box,
   Grid,
   Typography,
 } from "@material-ui/core"
-import { DateDisplay } from "@dictybase/ui-common"
 import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
 import { parseISO, format } from "date-fns/fp"
-import { Link } from "react-router-dom"
-import { grey, indigo, blue, lightBlue } from "@material-ui/core/colors"
+import { grey, lightBlue } from "@material-ui/core/colors"
 import { type PublicationItem } from "../../common/hooks/useFetchPublications"
-import {
-  getAuthorsCitationString,
-  formatTitle,
-  shortenAllNames,
-} from "../../common/utils/citation"
+import { formatTitle, shortenAllNames } from "../../common/utils/citation"
 
 const useStyles = makeStyles((theme) => ({
   leadText: {
