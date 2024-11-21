@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom"
 import {
   makeStyles,
+  Button,
   Card,
   CardContent,
+  CardActions,
   Chip,
   Grid,
   Typography,
@@ -10,7 +11,7 @@ import {
 import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
 import { parseISO, format } from "date-fns/fp"
-import { grey, lightBlue } from "@material-ui/core/colors"
+import { grey, blueGrey, lightBlue } from "@material-ui/core/colors"
 import { type PublicationItem } from "../../common/hooks/useFetchPublications"
 import { formatTitle, shortenAllNames } from "../../common/utils/citation"
 
@@ -33,6 +34,10 @@ const useStyles = makeStyles((theme) => ({
     borderLeft: `10px solid ${theme.palette.primary.main}`,
     boxShadow: theme.shadows[4],
     paddingLeft: "1rem",
+    paddingRight: "1rem",
+  },
+  cardActions: {
+    // justifyContent: "flex-end",
   },
   title: {
     fontWeight: 600,
@@ -45,12 +50,13 @@ const useStyles = makeStyles((theme) => ({
   },
   identifiers: {
     color: theme.palette.primary.main,
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(1),
   },
   authors: {
     marginBottom: theme.spacing(1),
   },
   chip: {
+    color: blueGrey[800],
     border: `1px solid ${grey[200]}`,
     backgroundColor: lightBlue[50],
   },
@@ -61,7 +67,14 @@ const useStyles = makeStyles((theme) => ({
   },
   abstract: {
     fontSize: "16px",
+    fontFamily:
+      "ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'",
     marginBottom: theme.spacing(2),
+    color: blueGrey[900],
+  },
+  button: {
+    width: "12rem",
+    borderRadius: "1rem",
   },
 }))
 
@@ -75,6 +88,11 @@ const SinglePublication = ({ data }: SinglePublicationProperties) => {
   const formattedAuthors = shortenAllNames(authors)
   const title = formatTitle(data.title).full
   const formattedDate = pipe(publishDate, parseISO, format("PPP"))
+  const onClick = () => {
+    window.location.assign(
+      `${import.meta.env.VITE_APP_PUBLICATION_URL}/${pubmedId}`,
+    )
+  }
   return (
     <Card className={classes.card}>
       <CardContent>
@@ -102,6 +120,11 @@ const SinglePublication = ({ data }: SinglePublicationProperties) => {
         <Typography variant="body2" className={classes.abstract}>
           {abstract}
         </Typography>
+        <CardActions className={classes.cardActions} onClick={onClick}>
+          <Button className={classes.button} variant="contained">
+            Read More
+          </Button>
+        </CardActions>
       </CardContent>
     </Card>
   )
