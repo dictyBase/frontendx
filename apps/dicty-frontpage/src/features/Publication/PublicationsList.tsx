@@ -50,7 +50,7 @@ const PublicationsList = ({
           (publications) => (
             <Grid
               container
-              spacing={3}
+              spacing={2}
               direction="column"
               component="ol"
               className={listBox}>
