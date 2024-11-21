@@ -10,7 +10,6 @@ import {
   type NonEmptyArray,
   last as NEAlast,
   init as NEAinit,
-  map as NEAmap,
 } from "fp-ts/NonEmptyArray"
 import {
   head as RNEAhead,
