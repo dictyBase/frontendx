@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import {
   makeStyles,
   Card,
@@ -31,14 +32,14 @@ const useStyles = makeStyles((theme) => ({
   card: {
     borderLeft: `10px solid ${theme.palette.primary.main}`,
     boxShadow: theme.shadows[4],
-    padding: "1rem",
+    paddingLeft: "1rem",
   },
   title: {
     fontWeight: 600,
     fontSize: "24px",
     fontFamily: "ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif",
   },
-  pos: {
+  publication: {
     color: grey[700],
     marginBottom: theme.spacing(1),
   },
@@ -50,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
   },
   chip: {
+    border: `1px solid ${grey[200]}`,
     backgroundColor: lightBlue[50],
   },
   abstractHeading: {
@@ -81,7 +83,7 @@ const SinglePublication = ({ data }: SinglePublicationProperties) => {
         </Typography>
         <Typography
           className={
-            classes.pos
+            classes.publication
           }>{`Published in ${journal}, ${formattedDate}`}</Typography>
         <Typography className={classes.identifiers}>
           PMID: {pubmedId}
