@@ -17,10 +17,6 @@ const ReferencesPageWrapper = () => {
     },
   })
   return match(result)
-    .with({ loading: true }, () => <ReferencesLoader />)
-    .with({ error: P.select(P.not(undefined)) }, (error) => (
-      <GraphQLErrorPage error={error} />
-    ))
     .with(
       {
         data: {
@@ -29,6 +25,10 @@ const ReferencesPageWrapper = () => {
       },
       (publications) => <ReferencesContainer publications={publications} />,
     )
+    .with({ loading: true }, () => <ReferencesLoader />)
+    .with({ error: P.select(P.not(undefined)) }, (error) => (
+      <GraphQLErrorPage error={error} />
+    ))
     .otherwise(() => <> This message should not appear. </>)
 }
 

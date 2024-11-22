@@ -19,10 +19,6 @@ const OntologyPageWrapper = () => {
   })
 
   return match(result)
-    .with({ loading: true }, () => <OntologyLoader />)
-    .with({ error: P.select(P.not(undefined)) }, (error) => (
-      <GraphQLErrorPage error={error} />
-    ))
     .with(
       {
         data: {
@@ -31,6 +27,10 @@ const OntologyPageWrapper = () => {
       },
       (goas) => <OntologyContainer goas={goas} />,
     )
+    .with({ loading: true }, () => <OntologyLoader />)
+    .with({ error: P.select(P.not(undefined)) }, (error) => (
+      <GraphQLErrorPage error={error} />
+    ))
     .otherwise(() => <> This message should not appear. </>)
 }
 
