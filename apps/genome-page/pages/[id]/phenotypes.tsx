@@ -17,10 +17,6 @@ const PhenotypesPageWrapper = () => {
   })
 
   return match(result)
-    .with({ loading: true }, () => <PhenotypesLoader />)
-    .with({ error: P.select(P.not(undefined)) }, (error) => (
-      <GraphQLErrorPage error={error} />
-    ))
     .with(
       {
         data: {
@@ -29,6 +25,10 @@ const PhenotypesPageWrapper = () => {
       },
       (strains) => <PhenotypesContainer strains={strains} />,
     )
+    .with({ loading: true }, () => <PhenotypesLoader />)
+    .with({ error: P.select(P.not(undefined)) }, (error) => (
+      <GraphQLErrorPage error={error} />
+    ))
     .otherwise(() => <> This message should not appear. </>)
 }
 

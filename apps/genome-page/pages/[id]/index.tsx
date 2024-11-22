@@ -18,16 +18,16 @@ const GenomePageWrapper = () => {
     fetchPolicy: "cache-and-network",
   })
   return match(result)
-    .with({ loading: true }, () => <SummaryLoader />)
-    .with({ error: P.select(P.not(undefined)) }, (error) => (
-      <GraphQLErrorPage error={error} />
-    ))
     .with(
       {
         data: P.select(P.not(P.nullish)),
       },
       (data) => <SummaryContainer geneSummary={data} />,
     )
+    .with({ loading: true }, () => <SummaryLoader />)
+    .with({ error: P.select(P.not(undefined)) }, (error) => (
+      <GraphQLErrorPage error={error} />
+    ))
     .otherwise(() => <> This message should not appear. </>)
 }
 
