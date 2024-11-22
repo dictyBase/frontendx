@@ -41,7 +41,7 @@ export interface apolloClientCacheProperties {
  */
 export function useApolloClientCache({
   customPolicies,
-  storage,
+  storage = storageType.LOCAL,
   key,
 }: apolloClientCacheProperties) {
   const mc = useMemo(
@@ -81,7 +81,10 @@ export function useApolloClientCache({
         default:
           break
       }
-      if (!persistor) return
+      if (!persistor) {
+        setIsInitializing(false)
+        return
+      }
       const currentVersion = await localForage.getItem(SCHEMA_VERSION_KEY)
       if (currentVersion === version) {
         // If the current version matches the latest version,
