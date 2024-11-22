@@ -2,7 +2,11 @@ import React from "react"
 import { ApolloProvider } from "@apollo/client"
 import { LogtoProvider, LogtoConfig, UserScope } from "@logto/react"
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles"
-import { useCreateApolloClient } from "common/hooks/useCreateApolloClient"
+import {
+  useGraphqlClient,
+  useApolloClientCache,
+  storageType,
+} from "@dictybase/data-access"
 import CircularProgress from "@material-ui/core/CircularProgress"
 
 const muiTheme = createTheme({
@@ -95,10 +99,17 @@ const logtoConfig: LogtoConfig = {
     process.env.NEXT_PUBLIC_LOGTO_API_SECOND_RESOURCE,
   ],
 }
-const AppProviders = ({ children }: { children: React.ReactNode }) => {
-  const { client, cacheInitializing } = useCreateApolloClient()
 
-  if (cacheInitializing) {
+const cacheOptions = {
+  storage: storageType.INDEX,
+  key: "DICTY-GENEPAGE",
+}
+
+const AppProviders = ({ children }: { children: React.ReactNode }) => {
+  const { cache, isInitializing } = useApolloClientCache(cacheOptions)
+  const client = useGraphqlClient({ uri: `${process.env.NEXT_PUBLIC_GRAPHQL_SERVER}/graphql`, cache })
+
+  if (isInitializing) {
     return <CircularProgress />
   }
 
