@@ -13,4 +13,4 @@ const authLink = setContext((request, { headers }) => {
   }
 })
 
-export { authLink }
+export { isMutation, authLink }
