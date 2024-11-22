@@ -107,7 +107,10 @@ const cacheOptions = {
 
 const AppProviders = ({ children }: { children: React.ReactNode }) => {
   const { cache, isInitializing } = useApolloClientCache(cacheOptions)
-  const client = useGraphqlClient({ uri: `${process.env.NEXT_PUBLIC_GRAPHQL_SERVER}/graphql`, cache })
+  const client = useGraphqlClient({
+    uri: `${process.env.NEXT_PUBLIC_GRAPHQL_SERVER}/graphql`,
+    cache,
+  })
 
   if (isInitializing) {
     return <CircularProgress />
