@@ -8,6 +8,7 @@ import {
   from,
 } from "@apollo/client"
 import createUploadLink from "apollo-upload-client/createUploadLink.mjs"
+import { authLink } from "./authLink"
 
 /**
  * The props for {@link useGraphqlClient}
@@ -50,8 +51,8 @@ export function useGraphqlClient({
     uri,
   })
   const link = errorHandler
-    ? from([errorHandler, uploadLink])
-    : from([uploadLink])
+    ? from([errorHandler, authLink, uploadLink])
+    : from([authLink, uploadLink])
   return new ApolloClient({
     link,
     cache,
