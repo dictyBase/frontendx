@@ -1,4 +1,4 @@
-import { CssBaseline } from "@material-ui/core"
+import { CssBaseline, CircularProgress } from "@material-ui/core"
 import { useGraphqlClient, useApolloClientCache } from "@dictybase/data-access"
 import {
   listStrainsPagination,
@@ -31,21 +31,27 @@ const logtoConfig: LogtoConfig = {
   ],
 }
 
+const cacheOptions = {
+  customPolicies: {
+    Query: {
+      fields: {
+        listStrains: listStrainsPagination(),
+        listPlasmids: listPlasmidsPagination(),
+        listStrainsWithAnnotation: listStrainsWithAnnotationPagination(),
+      },
+    },
+  },
+}
+
 export const App = () => {
+  const { cache, isInitializing } = useApolloClientCache(cacheOptions)
   const client = useGraphqlClient({
     uri: `${import.meta.env.VITE_APP_GRAPHQL_SERVER}/graphql`,
-    cache: useApolloClientCache({
-      customPolicies: {
-        Query: {
-          fields: {
-            listStrains: listStrainsPagination(),
-            listPlasmids: listPlasmidsPagination(),
-            listStrainsWithAnnotation: listStrainsWithAnnotationPagination(),
-          },
-        },
-      },
-    }),
+    cache,
   })
+  if (isInitializing) {
+    return <CircularProgress />
+  }
   return (
     <ApolloProvider client={client}>
       <LogtoProvider config={logtoConfig}>
