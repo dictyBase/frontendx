@@ -1,5 +1,9 @@
 import { CssBaseline, CircularProgress } from "@material-ui/core"
-import { useGraphqlClient, useApolloClientCache } from "@dictybase/data-access"
+import {
+  useGraphqlClient,
+  useApolloClientCache,
+  storageType,
+} from "@dictybase/data-access"
 import {
   listStrainsPagination,
   listPlasmidsPagination,
@@ -32,6 +36,8 @@ const logtoConfig: LogtoConfig = {
 }
 
 const cacheOptions = {
+  storage: storageType.INDEX,
+  key: "DICTY-STOCKCENTER",
   customPolicies: {
     Query: {
       fields: {
