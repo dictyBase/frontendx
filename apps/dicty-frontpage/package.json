@@ -20,6 +20,7 @@
   "dependencies": {
     "@apollo/client": "3.x",
     "@dictybase/auth": "*",
+    "@dictybase/data-access": "*",
     "@dictybase/editor": "*",
     "@dictybase/google-analytics": "*",
     "@dictybase/ui-frontpage": "*",
