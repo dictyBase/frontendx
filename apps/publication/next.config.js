@@ -3,6 +3,7 @@ const base = "/publication"
 // eslint-disable-next-line import/no-commonjs, unicorn/prefer-module
 const withTM = require("next-transpile-modules")([
   "@dictybase/auth",
+  "@dictybase/data-access",
   "@dictybase/dicty-image",
   "@dictybase/footer",
   "@dictybase/functional",
