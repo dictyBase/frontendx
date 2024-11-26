@@ -24,6 +24,8 @@
     "@dictybase/google-analytics": "*",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@fontsource-variable/inter-tight": "^5.1.0",
+    "@fontsource-variable/playfair-display": "^5.1.0",
     "@material-ui/icons": "^4.11.3",
     "@mui/icons-material": "^5.14.19",
     "@mui/material": "^5.14.19",
