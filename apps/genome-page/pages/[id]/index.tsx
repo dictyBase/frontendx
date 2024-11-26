@@ -16,6 +16,7 @@ const GenomePageWrapper = () => {
       gene,
     },
     fetchPolicy: "cache-and-network",
+    nextFetchPolicy: "cache-only",
   })
   return match(result)
     .with(

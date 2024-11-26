@@ -20,6 +20,7 @@ const StrainDetailsContainer = () => {
     variables: { id: `${id}` },
     errorPolicy: "ignore",
     fetchPolicy: "cache-and-network",
+    nextFetchPolicy: "cache-first",
   })
 
   if (loading) return <DetailsLoader />
