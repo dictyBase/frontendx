@@ -14,6 +14,8 @@ const PhenotypesPageWrapper = () => {
     variables: {
       gene,
     },
+    fetchPolicy: "cache-and-network",
+    nextFetchPolicy: "cache-only",
   })
 
   return match(result)
