@@ -13,7 +13,8 @@ import { map as Amap } from "fp-ts/Array"
 import { parseISO, format } from "date-fns/fp"
 import { grey, blueGrey, lightBlue } from "@material-ui/core/colors"
 import { type PublicationItem } from "../../common/hooks/useFetchPublications"
-import { formatTitle, shortenAllNames } from "../../common/utils/citation"
+import { shortenAllNames } from "@dictybase/ui-common"
+import { formatTitle } from "../../common/utils/citation"
 
 const useStyles = makeStyles((theme) => ({
   leadText: {
