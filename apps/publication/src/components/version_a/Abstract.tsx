@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(0.5)
   },
   body: {
+    lineHeight: 1.5,
     fontFamily: "'Inter Tight Variable', sans-serif",
   },
 }))
@@ -33,10 +34,8 @@ const Abstract = ({ abstract }: Properties) => {
           <>
             <Typography variant="h2" className={classes.title}>Abstract</Typography>
             <Divider />
-            <Box pt={2}>
-              <Typography variant="body1" className={classes.body}>
+            <Box pt={2} className={classes.body} >
                 {parseFormattedStringToDomElements(abstract)}
-              </Typography>
             </Box>
           </>,
         ),
