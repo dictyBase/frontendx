@@ -40,7 +40,9 @@ const AuthorizedNewsList = ({ contentList }: NewsListProperties) => {
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Typography color="textPrimary">{truncateString(previewText, 300)}</Typography>
+                    <Typography color="textPrimary">
+                      {truncateString(previewText, 300)}
+                    </Typography>
                   </Grid>
                 </Grid>
               </Link>
