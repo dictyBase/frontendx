@@ -5,6 +5,8 @@ import { HeaderWithAuth, NavbarWithAuth, FooterWithAuth } from "@dictybase/auth"
 import ErrorBoundary from "../errors/ErrorBoundary"
 import { navTheme } from "../../common/utils/themes"
 import { useGoogleAnalytics } from "../../common/hooks/useGoogleAnalytics"
+import "@fontsource-variable/playfair-display"
+import "@fontsource-variable/inter-tight"
 
 const useStyles = makeStyles((theme: Theme) => ({
   main: {
