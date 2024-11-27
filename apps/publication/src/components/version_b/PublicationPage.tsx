@@ -14,7 +14,6 @@ interface PublicationPageProperties {
 const PublicationPage = ({ publication }: PublicationPageProperties) => {
   const classes = useStyles()
   const { title, doi } = publication
-  console.log(publication)
   return (
     <>
       <Head>
@@ -29,7 +28,7 @@ const PublicationPage = ({ publication }: PublicationPageProperties) => {
           <PublicationSidebar doi={doi} title={title} />
         </Grid>
         <Grid item md={11}>
-          <Grid container direction="column" className={classes.content}>
+          <Grid container direction="column">
             <Grid item className={classes.header}>
               <PublicationHeader publication={publication} />
             </Grid>

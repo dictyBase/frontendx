@@ -1,6 +1,6 @@
 import React from "react"
 import { makeStyles, Theme, Grid } from "@material-ui/core"
-import { indigo, blue, grey, cyan } from "@material-ui/core/colors"
+import { indigo, grey, cyan } from "@material-ui/core/colors"
 import CallMadeIcon from "@material-ui/icons/CallMade"
 import EmailIcon from "@material-ui/icons/Email"
 

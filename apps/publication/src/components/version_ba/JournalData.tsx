@@ -6,7 +6,6 @@ import { isEmpty as SisEmpty } from "fp-ts/string"
 import {
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
-  Option,
 } from "fp-ts/Option"
 import { match as Bmatch } from "fp-ts/boolean"
 import { makeStyles, Theme } from "@material-ui/core/styles"
@@ -50,7 +49,6 @@ const JournalData = ({ data }: JournalDataProperties) => {
   const { id, doi, pub_date, journal, pages, issue, volume } = data
   const classes = useStyles()
   const formattedIssue = formatIssue(issue)
-  console.log(issue, formattedIssue)
   const pubmedURL = `https://pubmed.gov/${id}`
   const doiURL = `https://doi.org/${doi}`
   // convert ISO 8601 string to Date format

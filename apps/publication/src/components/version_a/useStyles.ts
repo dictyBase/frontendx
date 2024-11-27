@@ -1,10 +1,10 @@
 import { makeStyles } from "@material-ui/core/styles"
-import { blueGrey } from "@material-ui/core/colors"
 
 const useStyles = makeStyles((theme) => ({
-  header: {
-    padding: theme.spacing(2),
-    boxShadow: `0 4px 4px ${blueGrey[200]} `,
+  container: {
+    columnGap: theme.spacing(1.5),
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(6),
   },
   sidebar: {
     [theme.breakpoints.down("sm")]: {
