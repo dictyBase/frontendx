@@ -31,7 +31,7 @@ const JournalData = ({ data }: JournalDataProperties) => {
   const day = addDays(parseISO(pub_date), 1)
   // convert Date to desired display format
   const date = format(day, "d MMM yyyy")
-  
+
   return (
     <Box pb={2}>
       <Box>
