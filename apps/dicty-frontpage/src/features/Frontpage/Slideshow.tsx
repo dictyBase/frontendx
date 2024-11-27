@@ -51,7 +51,7 @@ const imageData = [
   {
     src: tubulin,
     title:
-      "Triple stained and fixed Dictyostelium cells: apha-tubulin (green), centrosome (red, appears yellow due to colocalization with tubulin), nuclei (blue)",
+      "Triple stained and fixed Dictyostelium cells: alpha-tubulin (green), centrosome (red, appears yellow due to colocalization with tubulin), nuclei (blue)",
     description: "Courtesy of Ralph Gräf, Potsdam University",
   },
 ]
