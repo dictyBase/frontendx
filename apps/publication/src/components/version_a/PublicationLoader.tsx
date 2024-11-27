@@ -2,7 +2,7 @@ import React from "react"
 import Grid from "@material-ui/core/Grid"
 import { Skeleton } from "@mui/material"
 import { PublicationHeader } from "./PublicationHeader"
-import { useStyles } from "../styles/publicationStyles"
+import { useStyles } from "./useStyles"
 
 const PublicationLoader = () => {
   const classes = useStyles()

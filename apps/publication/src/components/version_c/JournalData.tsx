@@ -6,7 +6,6 @@ import { isEmpty as SisEmpty } from "fp-ts/string"
 import {
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
-  Option,
 } from "fp-ts/Option"
 import { match as Bmatch } from "fp-ts/boolean"
 import { makeStyles, Theme } from "@material-ui/core/styles"

@@ -1,6 +1,5 @@
 import React from "react"
 import { makeStyles, Box, Typography } from "@material-ui/core"
-import { blue, indigo, cyan, teal } from "@material-ui/core/colors"
 import { Publication } from "dicty-graphql-schema"
 import { parseFormattedStringToDomElements } from "@dictybase/ui-common"
 import { Authors } from "./Authors"

@@ -1,10 +1,6 @@
 import React from "react"
-import { makeStyles, Box, Typography, Divider, Card } from "@material-ui/core"
-import { blue } from "@material-ui/core/colors"
+import { makeStyles, Card } from "@material-ui/core"
 import { Publication } from "dicty-graphql-schema"
-import { parseFormattedStringToDomElements } from "@dictybase/ui-common"
-import { Authors } from "./Authors"
-import { JournalData } from "./JournalData"
 import { Abstract } from "./Abstract"
 
 const useStyles = makeStyles((theme) => ({

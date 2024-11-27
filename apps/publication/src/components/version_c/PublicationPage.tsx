@@ -1,8 +1,7 @@
 import React from "react"
-import { Box, Grid, Container } from "@material-ui/core"
+import { Box, Container } from "@material-ui/core"
 import { Publication } from "dicty-graphql-schema"
 import Head from "next/head"
-import { PublicationSidebar } from "./PublicationSidebar"
 import { PublicationBody } from "./PublicationBody"
 import { useStyles } from "./useStyles"
 

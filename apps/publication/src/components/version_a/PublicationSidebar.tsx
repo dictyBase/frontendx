@@ -1,8 +1,7 @@
 import React from "react"
-import { makeStyles, Theme, Grid, Box } from "@material-ui/core"
+import { makeStyles, Theme, Grid } from "@material-ui/core"
 import { blue, grey } from "@material-ui/core/colors"
 import CallMadeIcon from "@material-ui/icons/CallMade"
-import ShareIcon from "@material-ui/icons/Share"
 import EmailIcon from "@material-ui/icons/Email"
 
 const useStyles = makeStyles((theme: Theme) => ({
