@@ -42,7 +42,7 @@ const App = ({ children }: { children: React.ReactNode }) => {
         theme={navTheme}
       />
       <main>
-          <ErrorBoundary>{children}</ErrorBoundary>
+        <ErrorBoundary>{children}</ErrorBoundary>
       </main>
       <FooterWithAuth
         frontPageUrl={process.env.NEXT_PUBLIC_FRONTPAGE_URL}

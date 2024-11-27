@@ -17,7 +17,7 @@ const useStyles = makeStyles({
   },
   body: {
     fontFamily: "'Inter Variable', sans-serif",
-  }
+  },
 })
 
 interface PublicationBodyProperties {

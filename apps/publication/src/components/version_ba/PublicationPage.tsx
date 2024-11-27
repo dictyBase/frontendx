@@ -26,8 +26,19 @@ const PublicationPage = ({ publication }: PublicationPageProperties) => {
         <Grid item md={1} className={classes.sidebar}>
           <PublicationSidebar doi={doi} title={title} />
         </Grid>
-        <Grid item md={11}>
+        <Grid item md={5}>
           <PublicationBody publication={publication} />
+        </Grid>
+        <Grid item md={6}>
+          <div
+            style={{
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}>
+            LLM features here?
+          </div>
         </Grid>
       </Grid>
     </>

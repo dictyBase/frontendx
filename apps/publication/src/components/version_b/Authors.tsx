@@ -23,22 +23,26 @@ const useStyles = makeStyles((theme) => ({
  */
 const Authors = ({ authors }: AuthorsProperties) => {
   const classes = useStyles()
-    return (
-      <Box mb={1}>
-        <Grid container spacing={1}>
-            {pipe(
-                authors,
-                Amap(OfromNullable),
-                Acompact,
-                Amap(({ initials, last_name }) => (
-                    <Grid item>
-                        <Chip size="medium" label={`${initials} ${last_name}`} className={classes.chip} />
-                    </Grid>
-                ))
-            )}
-        </Grid>
-      </Box>
-    )
+  return (
+    <Box mb={1}>
+      <Grid container spacing={1}>
+        {pipe(
+          authors,
+          Amap(OfromNullable),
+          Acompact,
+          Amap(({ initials, last_name }) => (
+            <Grid item>
+              <Chip
+                size="medium"
+                label={`${initials} ${last_name}`}
+                className={classes.chip}
+              />
+            </Grid>
+          )),
+        )}
+      </Grid>
+    </Box>
+  )
 }
 
 export { Authors }

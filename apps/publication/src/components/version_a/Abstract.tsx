@@ -8,7 +8,7 @@ import { parseFormattedStringToDomElements } from "@dictybase/ui-common"
 const useStyles = makeStyles((theme) => ({
   title: {
     fontFamily: "'Playfair Display Variable', serif",
-    marginBottom: theme.spacing(0.5)
+    marginBottom: theme.spacing(0.5),
   },
   body: {
     lineHeight: 1.5,
@@ -32,20 +32,18 @@ const Abstract = ({ abstract }: Properties) => {
       () =>
         pipe(
           <>
-            <Typography variant="h2" className={classes.title}>Abstract</Typography>
+            <Typography variant="h2" className={classes.title}>
+              Abstract
+            </Typography>
             <Divider />
-            <Box pt={2} className={classes.body} >
-                {parseFormattedStringToDomElements(abstract)}
+            <Box pt={2} className={classes.body}>
+              {parseFormattedStringToDomElements(abstract)}
             </Box>
           </>,
         ),
       () => <></>,
     ),
-    (inner) => (
-      <Box pt={2}>
-        {inner}
-      </Box>
-    ),
+    (inner) => <Box pt={2}>{inner}</Box>,
   )
 }
 

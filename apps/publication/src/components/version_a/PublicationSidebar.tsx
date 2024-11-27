@@ -1,10 +1,9 @@
 import React from "react"
-import { makeStyles, Theme, Grid } from "@material-ui/core"
+import { makeStyles, Theme, Grid, Box } from "@material-ui/core"
 import { blue, grey } from "@material-ui/core/colors"
 import CallMadeIcon from "@material-ui/icons/CallMade"
 import ShareIcon from "@material-ui/icons/Share"
 import EmailIcon from "@material-ui/icons/Email"
-import { Box } from "@material-ui/core"
 
 const useStyles = makeStyles((theme: Theme) => ({
   link: {
@@ -57,8 +56,7 @@ const PublicationSidebar = ({ doi, title }: Properties) => {
           href={doiURL}
           target="_blank"
           rel="noopener noreferrer"
-          className={classes.link}
-        >
+          className={classes.link}>
           <Grid container direction="column" alignItems="center">
             <Grid item>
               <CallMadeIcon />
@@ -72,8 +70,7 @@ const PublicationSidebar = ({ doi, title }: Properties) => {
           href={`mailto:?subject=${title}&body=I thought you might find this article interesting: ${url}`}
           target="_blank"
           rel="noopener noreferrer"
-          className={classes.link}
-        >
+          className={classes.link}>
           <Grid container direction="column" alignItems="center">
             <Grid item>
               <EmailIcon />

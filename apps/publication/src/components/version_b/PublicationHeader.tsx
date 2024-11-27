@@ -1,6 +1,6 @@
 import React from "react"
 import { makeStyles, Box, Typography, Divider } from "@material-ui/core"
-import { blue } from "@material-ui/core/colors" 
+import { blue } from "@material-ui/core/colors"
 import { Publication } from "dicty-graphql-schema"
 import { parseFormattedStringToDomElements } from "@dictybase/ui-common"
 import { Authors } from "./Authors"
@@ -19,15 +19,15 @@ interface PublicationBodyProperties {
 const PublicationHeader = ({ publication }: PublicationBodyProperties) => {
   const classes = useStyles()
   return (
-      <Box mt={2}>
-        <Box mb={2}>
-          <Typography variant="h1" className={classes.title}>
-            {parseFormattedStringToDomElements(publication.title)}
-          </Typography>
-        </Box>
-        <Authors authors={publication.authors} />
-        <JournalData data={publication} />
+    <Box mt={2}>
+      <Box mb={2}>
+        <Typography variant="h1" className={classes.title}>
+          {parseFormattedStringToDomElements(publication.title)}
+        </Typography>
       </Box>
+      <Authors authors={publication.authors} />
+      <JournalData data={publication} />
+    </Box>
   )
 }
 
