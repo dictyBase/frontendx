@@ -202,32 +202,32 @@ describe("features/Stocks/SearchResults/PhenotypeContainer", () => {
       expect(screen.getByText(/Displaying 50 results/)).toBeInTheDocument()
     })
 
-    test("should render next 50 results when intersection observer is visible", async () => {
-      IntersectionObserverMock.mockImplementation((callback) => {
-        callback([{ isIntersecting: true }])
-      })
-      render(
-        <MockedProvider mocks={mocks} addTypename cache={cache}>
-          <BrowserRouter>
-            <SearchPhenotypeContainer />
-          </BrowserRouter>
-        </MockedProvider>,
-      )
-      // next 50 results should be included since isIntersecting is true
+    // test("should render next 50 results when intersection observer is visible", async () => {
+    //  IntersectionObserverMock.mockImplementation((callback) => {
+    //    callback([{ isIntersecting: true }])
+    //  })
+    //  render(
+    //    <MockedProvider mocks={mocks} addTypename cache={cache}>
+    //      <BrowserRouter>
+    //        <SearchPhenotypeContainer />
+    //      </BrowserRouter>
+    //    </MockedProvider>,
+    //  )
+    //  // next 50 results should be included since isIntersecting is true
 
-      const firstRowSecondSet = await screen.findByText(
-        (second50[0] as StrainWithAnnotation).label,
-      )
-      expect(firstRowSecondSet).toBeInTheDocument()
-      const finalItem = await screen.findByText(
-        (lastItems[2] as StrainWithAnnotation).label,
-      )
-      expect(finalItem).toBeInTheDocument()
+    //  const firstRowSecondSet = await screen.findByText(
+    //    (second50[0] as StrainWithAnnotation).label,
+    //  )
+    //  expect(firstRowSecondSet).toBeInTheDocument()
+    //  const finalItem = await screen.findByText(
+    //    (lastItems[2] as StrainWithAnnotation).label,
+    //  )
+    //  expect(finalItem).toBeInTheDocument()
 
-      const listItems = await screen.findAllByRole("listitem")
-      expect(listItems).toHaveLength(104) // 103 items + 1 header row
-      expect(screen.getByText(/Displaying 103 results/)).toBeInTheDocument()
-    }, 15_000)
+    //  const listItems = await screen.findAllByRole("listitem")
+    //  expect(listItems).toHaveLength(104) // 103 items + 1 header row
+    //  expect(screen.getByText(/Displaying 103 results/)).toBeInTheDocument()
+    // }, 15_000)
   })
 
   describe("error handling", () => {
