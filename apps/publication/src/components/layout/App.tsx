@@ -1,6 +1,5 @@
 import React from "react"
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import Container from "@material-ui/core/Container"
 import { HeaderWithAuth, NavbarWithAuth, FooterWithAuth } from "@dictybase/auth"
 import ErrorBoundary from "../errors/ErrorBoundary"
 import { navTheme } from "../../common/utils/themes"
@@ -9,10 +8,6 @@ import "@fontsource-variable/playfair-display"
 import "@fontsource-variable/inter-tight"
 
 const useStyles = makeStyles((theme: Theme) => ({
-  main: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(4),
-  },
   body: {
     fontSize: "16px",
     color: "#333",
@@ -46,10 +41,8 @@ const App = ({ children }: { children: React.ReactNode }) => {
         stockCenterUrl={process.env.NEXT_PUBLIC_STOCKCENTER_URL}
         theme={navTheme}
       />
-      <main className={classes.main}>
-        <Container>
+      <main>
           <ErrorBoundary>{children}</ErrorBoundary>
-        </Container>
       </main>
       <FooterWithAuth
         frontPageUrl={process.env.NEXT_PUBLIC_FRONTPAGE_URL}
