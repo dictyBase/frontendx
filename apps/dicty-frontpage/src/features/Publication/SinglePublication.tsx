@@ -12,8 +12,8 @@ import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
 import { parseISO, format } from "date-fns/fp"
 import { grey, blueGrey, lightBlue } from "@material-ui/core/colors"
-import { type PublicationItem } from "../../common/hooks/useFetchPublications"
 import { shortenAllNames } from "@dictybase/ui-common"
+import { type PublicationItem } from "../../common/hooks/useFetchPublications"
 import { formatTitle } from "../../common/utils/citation"
 
 const useStyles = makeStyles((theme) => ({
