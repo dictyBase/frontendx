@@ -1,17 +1,13 @@
 import React from "react"
 import Grid from "@material-ui/core/Grid"
 import { Skeleton } from "@mui/material"
-import { PublicationHeader } from "./PublicationHeader"
-import { useStyles } from "../styles/publicationStyles"
+import { useStyles } from "./useStyles"
 
 const PublicationLoader = () => {
   const classes = useStyles()
 
   return (
     <Grid container justify="center" spacing={2} data-testid="skeleton-loader">
-      <Grid item xs={12}>
-        <PublicationHeader />
-      </Grid>
       <Grid item xs={12} sm={2} className={classes.sidebar}>
         <Skeleton variant="text" width="60%" animation="wave" />
         <Skeleton variant="text" width="40%" animation="wave" />
