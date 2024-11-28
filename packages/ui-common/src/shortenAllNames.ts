@@ -1,7 +1,5 @@
 import { pipe } from "fp-ts/function"
-import {
-  map as Amap,
-} from "fp-ts/Array"
+import { map as Amap } from "fp-ts/Array"
 import {
   head as RNEAhead,
   last as RNEAlast,
