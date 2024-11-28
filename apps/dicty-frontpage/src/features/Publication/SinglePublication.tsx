@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontWeight: 600,
     fontSize: "24px",
-    fontFamily: "ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif",
+    fontFamily: "'Playfair Display Variable', serif",
   },
   publication: {
     color: grey[700],
@@ -64,12 +64,11 @@ const useStyles = makeStyles((theme) => ({
   abstractHeading: {
     fontWeight: 600,
     fontSize: "20px",
-    fontFamily: "ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif",
+    fontFamily: "'Playfair Display Variable', serif",
   },
   abstract: {
     fontSize: "16px",
-    fontFamily:
-      "ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'",
+    fontFamily: "'Inter Tight Variable', sans-serif",
     marginBottom: theme.spacing(2),
     color: blueGrey[900],
   },
