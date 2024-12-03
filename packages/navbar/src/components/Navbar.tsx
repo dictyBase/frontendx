@@ -43,6 +43,8 @@ const Nav = styled(
   display: "flex",
   flexDirection: "row",
   flexWrap: "nowrap",
+  position: "relative",
+  zIndex: 999,
   background: ({ theme }) => theme.primary ?? "#15317e",
   color: ({ theme }) => theme.text ?? "white",
   minHeight: ({ theme }) => (theme.height ? `${theme.height}px` : "50px"),
