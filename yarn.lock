@@ -2232,6 +2232,11 @@
   resolved "https://registry.yarnpkg.com/@fontsource-variable/inter-tight/-/inter-tight-5.1.0.tgz#d65fa3d9013fc419cc7b20c87e9a58eeeda7f866"
   integrity sha512-yUSW6LxZmHtbOvyWcQE73q/GbXp19WeVVF3HlKgRXIYjWjOzkR30N73myM/sDWqG4YyflYz/TRVJrzXOMSozag==
 
+"@fontsource-variable/inter@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@fontsource-variable/inter/-/inter-5.1.0.tgz#8174c56d3a24ef20a7dd4ae3bb0c3df2ea1f5f70"
+  integrity sha512-Wj2dUGP0vUpxRGQTXQTCNJO+aLcFcQm+gUPXfj/aS877bQkEPBPv9JvZJpwdm2vzelt8NTZ+ausKlBCJjh2XIg==
+
 "@fontsource-variable/playfair-display@^5.1.0":
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/@fontsource-variable/playfair-display/-/playfair-display-5.1.0.tgz#2d05d4d26e3c7d56ef1e64ae18eda3ec3c77f2e0"
