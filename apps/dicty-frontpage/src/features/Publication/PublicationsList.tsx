@@ -7,7 +7,6 @@ import { type PublicationItem } from "../../common/hooks/useFetchPublications"
 
 const useStyles = makeStyles({
   listBox: {
-    padding: "0px 25px 10px 25px",
     fontSize: "13px",
     overflow: "hidden",
     marginBottom: "5px",
@@ -52,7 +51,6 @@ const PublicationsList = ({
               container
               spacing={2}
               direction="column"
-              component="ol"
               className={listBox}>
               {publications.map((p) => (
                 <Grid key={p.pubmedId} item>

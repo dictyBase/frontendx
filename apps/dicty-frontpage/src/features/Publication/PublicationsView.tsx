@@ -6,12 +6,17 @@ import { sort as Asort } from "fp-ts/Array"
 import { Ord, contramap, reverse as ORDreverse } from "fp-ts/Ord"
 import { Ord as SOrd } from "fp-ts/string"
 import { Ord as NOrd } from "fp-ts/number"
-import { Container, Box, Typography } from "@material-ui/core"
+import { Container, Box, Typography, Card } from "@material-ui/core"
+import { grey, blueGrey } from "@material-ui/core/colors"
 import { makeStyles } from "@material-ui/core/styles"
 import { PublicationsList } from "./PublicationsList"
 import { type PublicationItem } from "../../common/hooks/useFetchPublications"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
+  background: {
+    paddingTop: theme.spacing(2),
+    backgroundColor: grey[100],
+  },
   container: {
     textAlign: "left",
     padding: "0px 6rem 1rem 6rem",
@@ -24,7 +29,7 @@ const useStyles = makeStyles({
   },
 
   header: {
-    color: "black",
+    color: grey[800],
     fontSize: "20px",
     padding: "15px 35px 15px 35px",
 
@@ -34,7 +39,7 @@ const useStyles = makeStyles({
       padding: "20px 5px 20px 15px",
     },
   },
-})
+}))
 
 const ordByOldest: Ord<PublicationItem> = pipe(
   NOrd,
@@ -114,24 +119,26 @@ const PublicationsView = ({ data }: PublicationsViewProperties) => {
     setCurrentTab(newValue)
   }
 
-  const { container, header } = useStyles()
+  const { background, container, header } = useStyles()
   return (
-    <Container className={container}>
-      <Box className={header}>
-        <Typography variant="h1" align="center">
-          Latest Publications
-        </Typography>
-      </Box>
-      <DictyTabs value={currentTab} onChange={handleChange}>
-        {tabs.map((value) => (
-          <DictyTab value={value} label={value} key={value} />
-        ))}
-      </DictyTabs>
-      <PublicationsList
-        sortedPublications={sortedPublications}
-        currentTab={currentTab}
-      />
-    </Container>
+    <Box className={background}>
+      <Container className={container}>
+        <Box className={header}>
+          <Typography variant="h1" align="center">
+            Latest Publications
+          </Typography>
+        </Box>
+        <DictyTabs value={currentTab} onChange={handleChange}>
+          {tabs.map((value) => (
+            <DictyTab value={value} label={value} key={value} />
+          ))}
+        </DictyTabs>
+        <PublicationsList
+          sortedPublications={sortedPublications}
+          currentTab={currentTab}
+        />
+      </Container>
+    </Box>
   )
 }
 
