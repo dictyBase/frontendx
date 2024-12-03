@@ -18,8 +18,10 @@ import { EmptyNewsViewAuth } from "../../common/components/EmptyNewsViewAuth"
 import { EditableNewsItem } from "../../common/components/EditableNewsItem"
 import { ordByDate } from "../../common/utils/ordByDate"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   container: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(4),
     textAlign: "left",
     padding: "0px 6rem 1rem 6rem",
     borderRadius: "15px",
@@ -28,7 +30,6 @@ const useStyles = makeStyles({
       padding: "0 0 0 0",
     },
   },
-
   header: {
     color: "black",
     fontSize: "20px",
@@ -40,7 +41,7 @@ const useStyles = makeStyles({
       padding: "20px 5px 20px 15px",
     },
   },
-})
+}))
 
 type NewsViewProperties = {
   contentList: ListContentByNamespaceQuery["listContentByNamespace"]
