@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   },
   link: {
     textDecoration: "none",
-    fontWeight: "bold",
+    fontWeight: 500,
     "&:hover": {
       textDecoration: "underline",
     },
