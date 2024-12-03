@@ -1,9 +1,7 @@
 import {
   makeStyles,
-  Button,
   Card,
   CardContent,
-  CardActions,
   Chip,
   Grid,
   Typography,
@@ -11,7 +9,7 @@ import {
 import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
 import { parseISO, format } from "date-fns/fp"
-import { grey, blueGrey, lightBlue } from "@material-ui/core/colors"
+import { grey, blueGrey, lightBlue, orange } from "@material-ui/core/colors"
 import { shortenAllNames } from "@dictybase/ui-common"
 import { type PublicationItem } from "../../common/hooks/useFetchPublications"
 import { formatTitle } from "../../common/utils/citation"
@@ -32,10 +30,15 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "22px",
   },
   card: {
-    borderLeft: `10px solid ${theme.palette.primary.main}`,
+    borderLeft: `5px solid ${theme.palette.primary.main}`,
     boxShadow: theme.shadows[4],
     paddingLeft: "1rem",
     paddingRight: "1rem",
+    transition: "border-left 0.1s ease-in-out",
+    "&:hover": {
+      borderLeft: `5px solid ${orange[900]}`,
+      cursor: "pointer",
+    }
   },
   cardActions: {
     // justifyContent: "flex-end",
@@ -94,7 +97,7 @@ const SinglePublication = ({ data }: SinglePublicationProperties) => {
     )
   }
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} onClick={onClick}>
       <CardContent>
         <Typography gutterBottom className={classes.title}>
           {title}
@@ -120,11 +123,6 @@ const SinglePublication = ({ data }: SinglePublicationProperties) => {
         <Typography variant="body2" className={classes.abstract}>
           {abstract}
         </Typography>
-        <CardActions className={classes.cardActions} onClick={onClick}>
-          <Button className={classes.button} variant="contained">
-            Read More
-          </Button>
-        </CardActions>
       </CardContent>
     </Card>
   )
