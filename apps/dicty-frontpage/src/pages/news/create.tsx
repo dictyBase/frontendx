@@ -1,12 +1,20 @@
 import { useNavigate } from "react-router-dom"
-import { Container, Button, Typography } from "@material-ui/core"
+import { makeStyles, Container, Button, Typography } from "@material-ui/core"
 import { ACCESS } from "@dictybase/auth"
 import { Editor } from "@dictybase/editor"
 import { ActionBar } from "@dictybase/ui-common"
 import { CreateButton } from "../../common/components/CreateButton"
 import { NEWS_NAMESPACE } from "../../common/constants/namespace"
 
+const useStyles = makeStyles((theme) => ({
+  container: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(4),
+  }
+}))
+
 const Create = () => {
+  const classes = useStyles()
   const navigate = useNavigate()
   const newsContentName = crypto.randomUUID()
 
@@ -23,7 +31,7 @@ const Create = () => {
     </ActionBar>
   )
   return (
-    <Container>
+    <Container className={classes.container}>
       <Editor editable toolbar={actionBar} />
     </Container>
   )

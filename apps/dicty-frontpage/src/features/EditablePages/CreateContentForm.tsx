@@ -22,16 +22,20 @@ import {
   mapCodeToMessage,
 } from "../../common/utils/getGraphqlErrorCode"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     padding: "0.5rem",
   },
-})
+  container: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(4),
+  },
+}))
 
 const CreateContentForm = () => {
   const [open, setOpen] = useState(false)
   const [createContentError, setCreateContentError] = useState("")
-  const { root } = useStyles()
+  const { container, root } = useStyles()
   const navigate = useNavigate()
   const createContent = useCreateContentFromEditor()
   const methods = useCreateContentForm()
@@ -94,7 +98,7 @@ const CreateContentForm = () => {
 
   return (
     <FormProvider {...methods}>
-      <Container>
+      <Container className={container}>
         <Paper className={root}>
           <Grid container spacing={2} alignItems="center">
             <Grid item>

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { Grid, Container, Typography, Button } from "@material-ui/core"
+import { makeStyles, Grid, Container, Typography, Button } from "@material-ui/core"
 import { useContentBySlugQuery, User } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { pipe } from "fp-ts/function"
@@ -17,6 +17,13 @@ import { useSlug } from "../../../common/hooks/useSlug"
 import { NEWS_NAMESPACE } from "../../../common/constants/namespace"
 import { UpdateButton } from "../../../common/components/UpdateButton"
 
+const useStyles = makeStyles((theme) => ({
+  container: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(4),
+  }
+}))
+
 type EditViewProperties = {
   content: string
   contentId: string
@@ -30,6 +37,7 @@ const EditView = ({
   createdAt,
   updatedBy,
 }: EditViewProperties) => {
+  const classes = useStyles()
   const navigate = useNavigate()
   const handleCancel = async () => {
     navigate("../editable", { relative: "path" })
@@ -47,7 +55,7 @@ const EditView = ({
     </ActionBar>
   )
   return (
-    <Container>
+    <Container className={classes.container}>
       <Grid container direction="column" spacing={2}>
         <Grid item>
           <Grid spacing={1} container alignItems="baseline">

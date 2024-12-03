@@ -22,6 +22,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: "1px 2px 1px 2px",
   },
   main: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(4),
     [theme.breakpoints.up("xl")]: {
       maxWidth: "90%",
     },
