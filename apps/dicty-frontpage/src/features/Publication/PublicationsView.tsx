@@ -15,7 +15,7 @@ import { type PublicationItem } from "../../common/hooks/useFetchPublications"
 const useStyles = makeStyles((theme) => ({
   background: {
     paddingTop: theme.spacing(2),
-    backgroundColor: grey[100],
+    backgroundColor: grey[50],
   },
   container: {
     textAlign: "left",
