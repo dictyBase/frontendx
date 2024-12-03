@@ -8,7 +8,7 @@ import { Abstract } from "./Abstract"
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(3),
   },
   title: {
     fontFamily: "'Playfair Display Variable', serif",
