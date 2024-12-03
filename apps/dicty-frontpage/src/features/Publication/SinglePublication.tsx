@@ -31,7 +31,10 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     borderLeft: `5px solid ${theme.palette.primary.main}`,
-    boxShadow: theme.shadows[4],
+    borderRight: `1px solid ${grey[400]}`,
+    borderTop: `1px solid ${grey[400]}`,
+    borderBottom: `1px solid ${grey[400]}`,
+    // boxShadow: theme.shadows[4],
     paddingLeft: "1rem",
     paddingRight: "1rem",
     transition: "border-left 0.1s ease-in-out",
@@ -39,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
       borderLeft: `5px solid ${orange[900]}`,
       cursor: "pointer",
     }
+  },
+  cardContent: {
+    padding: theme.spacing(3),
   },
   cardActions: {
     // justifyContent: "flex-end",
@@ -71,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
   },
   abstract: {
     fontSize: "16px",
-    fontFamily: "'Inter Tight Variable', sans-serif",
+    // fontFamily: "'Inter Tight Variable', sans-serif",
     marginBottom: theme.spacing(2),
     color: blueGrey[900],
   },
@@ -97,8 +103,8 @@ const SinglePublication = ({ data }: SinglePublicationProperties) => {
     )
   }
   return (
-    <Card className={classes.card} onClick={onClick}>
-      <CardContent>
+    <Card elevation={0} className={classes.card} onClick={onClick}>
+      <CardContent className={classes.cardContent}>
         <Typography gutterBottom className={classes.title}>
           {title}
         </Typography>
@@ -120,7 +126,7 @@ const SinglePublication = ({ data }: SinglePublicationProperties) => {
           )}
         </Grid>
         <Typography className={classes.abstractHeading}>Abstract</Typography>
-        <Typography variant="body2" className={classes.abstract}>
+        <Typography variant="body1" className={classes.abstract}>
           {abstract}
         </Typography>
       </CardContent>
