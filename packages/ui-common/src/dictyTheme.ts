@@ -1,6 +1,6 @@
 import { createTheme } from "@material-ui/core"
 import "@fontsource/poppins"
-import "@fontsource/inter"
+import "@fontsource-variable/inter"
 
 const dictyTheme = createTheme({
   // use color tool for palette -- https://material.io/resources/color/
@@ -27,6 +27,9 @@ const dictyTheme = createTheme({
       textTransform: "none",
     },
     body1: {
+      fontFamily: "'Inter Variable', sans-serif"
+    },
+    body2: {
       fontFamily: "'Inter Variable', sans-serif"
     },
     h1: {
