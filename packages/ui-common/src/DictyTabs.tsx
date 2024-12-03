@@ -7,6 +7,7 @@ const useStyles = makeStyles({
   },
   flexContainer: {
     gap: "15px",
+    padding: "5px",
   },
 })
 
