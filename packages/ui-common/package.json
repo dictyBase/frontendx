@@ -17,6 +17,8 @@
     "vitest": "0.33.*"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.1.0",
+    "@fontsource/poppins": "^5.1.0",
     "@fontsource/roboto": "^5.0.8",
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
