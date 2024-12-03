@@ -1,0 +1,34 @@
+import { useRouter } from "next/router"
+import { Publication, usePublicationQuery } from "dicty-graphql-schema"
+import { match, P } from "ts-pattern"
+import { PublicationLoader } from "../../components/PublicationLoader"
+import { ErrorPage } from "../../components/errors/ErrorPage"
+import { PublicationPage } from "../../components/version_ab/PublicationPage"
+
+/**
+ * Renders the publication page given a publication id
+ */
+const PublicationPageWrapper = () => {
+  const { query } = useRouter()
+  const id = query.id as string
+
+  const result = usePublicationQuery({
+    variables: { id },
+  })
+
+  return match(result)
+    .with(
+      {
+        data: P.select(P.not(P.nullish)),
+      },
+      (data) => (
+        <PublicationPage publication={data.publication as Publication} />
+      ),
+    )
+    .with({ loading: true }, () => <PublicationLoader />)
+    .with({ error: P.not(P.nullish) }, () => <ErrorPage />)
+    .otherwise(() => <> This message should not appear. </>)
+}
+
+// eslint-disable-next-line import/no-default-export
+export default PublicationPageWrapper
