@@ -1,7 +1,7 @@
 import React from "react"
 import { Skeleton } from "@mui/material"
-import { PublicationHeader } from "./PublicationHeader"
 import { Grid, makeStyles } from "@material-ui/core"
+import { PublicationHeader } from "./PublicationHeader"
 
 const useStyles = makeStyles((theme) => ({
   sidebar: {

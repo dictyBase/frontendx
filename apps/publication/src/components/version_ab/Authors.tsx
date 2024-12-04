@@ -1,6 +1,6 @@
 import React from "react"
 import { makeStyles, Grid, Chip, Box } from "@material-ui/core"
-import { blueGrey, lightBlue, orange } from "@material-ui/core/colors"
+import { blueGrey, lightBlue } from "@material-ui/core/colors"
 import { pipe } from "fp-ts/function"
 import { map as Amap, compact as Acompact } from "fp-ts/Array"
 import { fromNullable as OfromNullable } from "fp-ts/Option"

@@ -1,5 +1,5 @@
 import React from "react"
-import { makeStyles, Card, Box, Typography } from "@material-ui/core"
+import { makeStyles, Box, Typography } from "@material-ui/core"
 import { Publication } from "dicty-graphql-schema"
 import { parseFormattedStringToDomElements } from "@dictybase/ui-common"
 import { Authors } from "./Authors"
@@ -25,16 +25,16 @@ interface PublicationBodyProperties {
 const PublicationBody = ({ publication }: PublicationBodyProperties) => {
   const classes = useStyles()
   return (
-      <Box className={classes.container}>
-        <Box mb={2}>
-          <Typography variant="h1" className={classes.title}>
-            {parseFormattedStringToDomElements(publication.title)}
-          </Typography>
-        </Box>
-        <Authors authors={publication.authors} />
-        <JournalData data={publication} />
-        <Abstract abstract={publication.abstract} />
+    <Box className={classes.container}>
+      <Box mb={2}>
+        <Typography variant="h1" className={classes.title}>
+          {parseFormattedStringToDomElements(publication.title)}
+        </Typography>
       </Box>
+      <Authors authors={publication.authors} />
+      <JournalData data={publication} />
+      <Abstract abstract={publication.abstract} />
+    </Box>
   )
 }
 
