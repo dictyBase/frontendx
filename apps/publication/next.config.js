@@ -18,4 +18,7 @@ const withTM = require("next-transpile-modules")([
 module.exports = withTM({
   basePath: base,
   swcMinify: true,
+  images: {
+    unoptimized: true,
+  },
 })
