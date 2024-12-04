@@ -5,7 +5,7 @@ import Head from "next/head"
 import { PublicationSidebar } from "./PublicationSidebar"
 import { PublicationBody } from "./PublicationBody"
 import { makeStyles } from "@material-ui/core/styles"
-import { blueGrey, grey, teal, cyan } from "@material-ui/core/colors"
+import { grey } from "@material-ui/core/colors"
 
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -21,8 +21,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }))
-
-export { useStyles }
 
 interface PublicationPageProperties {
   publication: Publication

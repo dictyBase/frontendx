@@ -1,8 +1,16 @@
 import React from "react"
-import Grid from "@material-ui/core/Grid"
 import { Skeleton } from "@mui/material"
 import { PublicationHeader } from "./PublicationHeader"
-import { useStyles } from "./useStyles"
+import { Grid, makeStyles } from "@material-ui/core"
+import { grey } from "@material-ui/core/colors"
+
+const useStyles = makeStyles((theme) => ({
+  sidebar: {
+    [theme.breakpoints.down("sm")]: {
+      textAlign: "center",
+    },
+  },
+}))
 
 const PublicationLoader = () => {
   const classes = useStyles()
