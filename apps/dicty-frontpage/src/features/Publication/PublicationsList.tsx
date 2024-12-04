@@ -47,11 +47,7 @@ const PublicationsList = ({
         Amatch(
           () => <EmptyPublications range={currentTab} />,
           (publications) => (
-            <Grid
-              container
-              spacing={2}
-              direction="column"
-              className={listBox}>
+            <Grid container spacing={2} direction="column" className={listBox}>
               {publications.map((p) => (
                 <Grid key={p.pubmedId} item>
                   <SinglePublication data={p} />

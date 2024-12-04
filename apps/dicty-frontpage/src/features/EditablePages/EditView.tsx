@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(4),
-  }
+  },
 }))
 
 type EditActionBarProperties = {

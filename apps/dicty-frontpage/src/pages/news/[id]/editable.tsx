@@ -1,5 +1,11 @@
 import { useNavigate } from "react-router-dom"
-import { makeStyles, Grid, Container, Typography, Button } from "@material-ui/core"
+import {
+  makeStyles,
+  Grid,
+  Container,
+  Typography,
+  Button,
+} from "@material-ui/core"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { some } from "fp-ts/Option"
@@ -24,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(4),
-  }
+  },
 }))
 
 type EditableViewProperties = {
