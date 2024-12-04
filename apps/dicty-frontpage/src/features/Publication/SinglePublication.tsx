@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       borderLeft: `5px solid ${orange[900]}`,
       cursor: "pointer",
-    }
+    },
   },
   cardContent: {
     padding: theme.spacing(3),

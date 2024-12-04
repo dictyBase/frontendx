@@ -1,6 +1,6 @@
 import React from "react"
 import { ApolloProvider } from "@apollo/client"
-import { MuiThemeProvider, createTheme } from "@material-ui/core/styles"
+import { MuiThemeProvider } from "@material-ui/core/styles"
 import CircularProgress from "@material-ui/core/CircularProgress"
 import {
   useGraphqlClient,
@@ -28,4 +28,5 @@ const AppProviders = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-export { dictyTheme as appTheme, AppProviders }
+export { AppProviders }
+export { dictyTheme as appTheme } from "@dictybase/ui-common"
