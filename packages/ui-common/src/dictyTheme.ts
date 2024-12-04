@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import { createTheme } from "@material-ui/core"
 import "@fontsource/poppins"
 import "@fontsource-variable/inter"
@@ -27,22 +28,22 @@ const dictyTheme = createTheme({
       textTransform: "none",
     },
     body1: {
-      fontFamily: "'Inter Variable', sans-serif"
+      fontFamily: "'Inter Variable', sans-serif",
     },
     body2: {
-      fontFamily: "'Inter Variable', sans-serif"
+      fontFamily: "'Inter Variable', sans-serif",
     },
     h1: {
       fontSize: "2.00em",
-      fontFamily: "'Poppins', sans-serif"
+      fontFamily: "'Poppins', sans-serif",
     },
     h2: {
       fontSize: "1.50em",
-      fontFamily: "'Poppins', sans-serif"
+      fontFamily: "'Poppins', sans-serif",
     },
     h3: {
       fontSize: "1.17em",
-      fontFamily: "'Poppins', sans-serif"
+      fontFamily: "'Poppins', sans-serif",
     },
     h4: {
       fontSize: "1.00em",
