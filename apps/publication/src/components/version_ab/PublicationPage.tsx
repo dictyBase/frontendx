@@ -2,10 +2,10 @@ import React from "react"
 import { Grid, Container, Box } from "@material-ui/core"
 import { Publication } from "dicty-graphql-schema"
 import Head from "next/head"
-import { PublicationSidebar } from "./PublicationSidebar"
-import { PublicationBody } from "./PublicationBody"
 import { makeStyles } from "@material-ui/core/styles"
 import { grey } from "@material-ui/core/colors"
+import { PublicationSidebar } from "./PublicationSidebar"
+import { PublicationBody } from "./PublicationBody"
 
 const useStyles = makeStyles((theme) => ({
   background: {

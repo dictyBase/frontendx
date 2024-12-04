@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     textDecoration: "none",
     color: blue[900],
     "&:hover": {
-      color: orange[900]
+      color: orange[900],
     },
   },
   section: {
