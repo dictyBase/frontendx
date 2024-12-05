@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "e2e:local": "FRONTPAGE_URL=http://localhost:3004 && playwright test",
+    "e2e": "FRONTPAGE_URL=https://dictybase.dev && playwright test",
     "dev": "vite",
     "dev:mock": "vite --host --mode mock",
     "dev:seed": "vite --host --mode seed",
