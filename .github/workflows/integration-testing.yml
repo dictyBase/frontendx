@@ -16,7 +16,7 @@ jobs:
       - name: Install Playwright
         run: yarn playwright install --with-deps
       - name: Integration Tests
-        run: yarn coverage
+        run: yarn e2e
       - name: Upload Test Coverage to Codecov
         uses: codecov/codecov-action@v5
         with: 
