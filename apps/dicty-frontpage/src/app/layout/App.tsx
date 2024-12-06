@@ -3,7 +3,6 @@ import { CssBaseline } from "@material-ui/core"
 import { AppProviders } from "./AppProviders"
 import { FrontPageApp } from "./FrontPageApp"
 import "@fontsource-variable/playfair-display"
-import "@fontsource-variable/inter-tight"
 
 const logtoConfig: LogtoConfig = {
   endpoint: import.meta.env.VITE_LOGTO_ENDPOINT,
