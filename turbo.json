@@ -36,8 +36,8 @@
     },
     "test": {},
     "test:watch": {},
-    "e2e:local": {
-      "env": ["FRONTPAGE_URL"]
+    "e2e": {
+      "env": ["BASE_URL"]
     },
     "coverage": {},
     "generate": {}
