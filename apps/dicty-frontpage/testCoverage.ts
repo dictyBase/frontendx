@@ -1,6 +1,7 @@
 import { pipe } from "fp-ts/function"
+import { replace as Sreplace } from "fp-ts/string"
 import { map as Amap, filter as Afilter } from "fp-ts/Array"
-import { mkdir, writeFile } from "node:fs/promises"
+import { mkdir, writeFile, rm } from "node:fs/promises"
 import path from "node:path"
 import { test as base } from "@playwright/test"
 
@@ -23,6 +24,13 @@ const test = base.extend({
   page: async ({ page }, use, testInfo) => {
     const coverageDirectory = "./coverage"
     const sourceDirectory = "./src"
+    try {
+      await rm(coverageDirectory)
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error)
+    }
+
     await page.coverage.startJSCoverage()
     await use(page)
     const coverage = await page.coverage.stopJSCoverage()
@@ -43,8 +51,9 @@ const test = base.extend({
       // eslint-disable-next-line no-console
       console.error(error)
     }
+    const fileName = pipe(testInfo.title, Sreplace(/\s+/g, "-"))
     await writeFile(
-      path.join(coverageDirectory, `${testInfo.title}.json`),
+      path.join(coverageDirectory, `${fileName}.json`),
       JSON.stringify({ result: sourceCoverage }),
     )
   },
