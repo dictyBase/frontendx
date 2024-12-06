@@ -38,8 +38,6 @@ const contentRoutes = [
   },
 ]
 
-const BASE_URL = process.env.FRONTPAGE_URL || "http://localhost:3004"
-
 const toRouteObject = ({
   name,
   pages,
@@ -62,7 +60,7 @@ pipe(
   pages,
   Amap(({ group, pageName }) => {
     test(`${pageName} page is properly rendered`, async ({ page }) => {
-      await page.goto(BASE_URL)
+      await page.goto("/")
       await page
         .getByRole("navigation")
         .getByText(group, { exact: true })
