@@ -37,9 +37,11 @@
     "test": {},
     "test:watch": {},
     "e2e": {
-      "env": ["BASE_URL"]
+      "env": ["BASE_URL"],
+      "cache": false
     },
     "coverage": {},
+    "coverage-report": {},
     "generate": {}
   }
 }
