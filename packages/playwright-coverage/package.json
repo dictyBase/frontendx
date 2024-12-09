@@ -13,10 +13,6 @@
     "@playwright/test": "^1.44.0",
     "fp-ts": "^2.16.0"
   },
-  "scripts": {
-    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
-    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/header.json"
-  },
   "typedoc": {
     "entryPoint": "./src/index.ts",
     "displayName": "playwright-coverage",
