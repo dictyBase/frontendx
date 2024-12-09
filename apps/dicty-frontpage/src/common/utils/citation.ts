@@ -95,7 +95,7 @@ const getPublicationYear = (publicationDate: string) =>
   new Date(publicationDate).getFullYear()
 
 const limitCharacters = (text: string, limit: number) =>
-  text.length > limit ? `${text.slice(0, limit).trimEnd()}..` : text
+  text.length > limit ? `${text.slice(0, limit).trimEnd()}...` : text
 
 // add check for already ending in punctation
 const formatTitle = (title: string) =>
