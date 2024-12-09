@@ -1,11 +1,10 @@
 import React from "react"
-import { Grid, Container, Box } from "@material-ui/core"
+import { makeStyles, Grid, Container, Box } from "@material-ui/core"
 import { Publication } from "dicty-graphql-schema"
 import Head from "next/head"
-import { makeStyles } from "@material-ui/core/styles"
-import { grey } from "@material-ui/core/colors"
 import { PublicationSidebar } from "./PublicationSidebar"
 import { PublicationBody } from "./PublicationBody"
+import { grey } from "@material-ui/core/colors"
 
 const useStyles = makeStyles((theme) => ({
   background: {
