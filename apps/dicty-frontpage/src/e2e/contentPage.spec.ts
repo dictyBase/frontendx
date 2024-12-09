@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test"
+import { test, expect } from "playwright-coverage"
 import { pipe } from "fp-ts/function"
 import { flatten as Aflatten, map as Amap } from "fp-ts/Array"
 
