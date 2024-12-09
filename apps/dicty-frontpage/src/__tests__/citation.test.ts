@@ -43,20 +43,20 @@ describe("getAuthorsCitationString", () => {
 
 describe("getPublicationYear", () => {
   it("should return the year from the given date string", () => {
-    const dateStr = "2022-05-15T12:34:56Z"
-    expect(getPublicationYear(dateStr)).toBe(2022)
+    const dateString = "2022-05-15T12:34:56Z"
+    expect(getPublicationYear(dateString)).toBe(2022)
   })
 })
 
 describe("limitCharacters", () => {
   it("should return the original string if it is shorter than the limit", () => {
-    const str = "Short string"
-    expect(limitCharacters(str, 20)).toBe("Short string")
+    const string_ = "Short string"
+    expect(limitCharacters(string_, 20)).toBe("Short string")
   })
 
   it("should limit the string and add ellipsis if it is longer than the limit", () => {
-    const str = "This is a longer string"
-    expect(limitCharacters(str, 20)).toBe("This is a longer str...")
+    const string_ = "This is a longer string"
+    expect(limitCharacters(string_, 20)).toBe("This is a longer str...")
   })
 })
 
@@ -84,7 +84,15 @@ describe("shortenName", () => {
 
 describe("shortenAllNames", () => {
   it("should shorten all names in the array", () => {
-    const names = ["John David Smith", "Emily Jane Johnson", "Michael Lee Brown"]
-    expect(shortenAllNames(names)).toEqual(["JD Smith", "EJ Johnson", "ML Brown"])
+    const names = [
+      "John David Smith",
+      "Emily Jane Johnson",
+      "Michael Lee Brown",
+    ]
+    expect(shortenAllNames(names)).toEqual([
+      "JD Smith",
+      "EJ Johnson",
+      "ML Brown",
+    ])
   })
 })
