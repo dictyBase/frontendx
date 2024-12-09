@@ -9,7 +9,7 @@ describe("JournalDataItem", () => {
         title="dictyBase"
         url="https://example.com"
         content="123456"
-      />
+      />,
     )
 
     expect(getByText(/dictyBase/)).toBeInTheDocument()
@@ -18,7 +18,7 @@ describe("JournalDataItem", () => {
 
   it("does not render when content is missing", () => {
     const { container } = render(
-      <JournalDataItem title="PMID" url="https://example.com" />
+      <JournalDataItem title="PMID" url="https://example.com" />,
     )
 
     expect(container).toBeEmptyDOMElement()
