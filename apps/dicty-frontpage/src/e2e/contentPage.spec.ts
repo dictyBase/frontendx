@@ -74,3 +74,10 @@ pipe(
     })
   }),
 )
+
+test("The base route redirects unauthorized users to ./show", async ({
+  page,
+}) => {
+  await page.goto("/research/techniques")
+  await expect(page).toHaveURL("/research/techniques/show")
+})
