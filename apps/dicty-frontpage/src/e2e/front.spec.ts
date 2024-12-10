@@ -1,4 +1,4 @@
-import { test, expect } from "playwright-coverage"
+import { test, expect } from "./baseFixtures"
 
 test("has title", async ({ page }) => {
   await page.goto("/")
