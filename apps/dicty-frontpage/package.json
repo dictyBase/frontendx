@@ -52,6 +52,7 @@
     "react-responsive-carousel": "^3.2.23",
     "twitter-fetcher": "^18.0.4",
     "ui-user": "*",
+    "vite-plugin-istanbul": "4.x",
     "yup": "1.2.x"
   },
   "devDependencies": {
