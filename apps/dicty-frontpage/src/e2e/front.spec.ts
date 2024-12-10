@@ -14,12 +14,12 @@ test("Dicty News component is displayed", async ({ page }) => {
 
 test("Dicty News renders link to /news", async ({ page }) => {
   await page.goto("/")
-  await page.getByRole("link", { name: "More News"}).click()
+  await page.getByRole("link", { name: "More News" }).click()
   await expect(page).toHaveURL(/^.*\/news(\/(show|editable))?$/)
 })
 
 test("Latest Papers renders link to /papers", async ({ page }) => {
   await page.goto("/")
-  await page.getByRole("link", { name: "More Papers"}).click()
+  await page.getByRole("link", { name: "More Papers" }).click()
   await expect(page).toHaveURL(/^.*\/papers$/)
 })
