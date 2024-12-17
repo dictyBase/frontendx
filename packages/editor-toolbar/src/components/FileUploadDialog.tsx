@@ -14,22 +14,36 @@ import {
 import { useUploadFileMutation } from "dicty-graphql-schema"
 import { useLogto } from "@logto/react"
 import { useSetAtom } from "jotai"
-import { pipe } from "fp-ts/function"
-import { none, Option } from "fp-ts/Option"
-import { Either } from "fp-ts/Either"
-import { insertImageDialogOpenAtom } from "../context/atomConfigs"
+import { pipe, constVoid, hole } from "fp-ts/function"
+import { MonoidAll as BMonoidAll } from "fp-ts/boolean"
+import { head as Ahead } from "fp-ts/Array"
 import {
-  renderError,
-  EgetValidFile,
-  createImageUploadFunction,
-  isValidFile,
-  type ErrorState,
-  type ImageSuccessState,
-} from "./imageUploadHelpers"
+  isSome,
+  isNone,
+  none,
+  Option,
+  fromNullable as OfromNullable,
+  map as Omap,
+  flatMap as OflatMap,
+  getOrElse as OgetOrElse,
+} from "fp-ts/Option"
+import { insertImageDialogOpenAtom } from "../context/atomConfigs"
+import { getFileError, ErrorState } from "./fileUploadHelpers"
+import { createFileUploadFunction } from "./createUploadFileFunction"
 
 type FileUploadDialogProperties = {
   open: boolean
 }
+
+const fallbackFunction = () => constVoid
+const renderError = (Oerror: Option<ErrorState>) =>
+  pipe(
+    Oerror,
+    Omap((someError) => (
+      <Typography color="error">{someError.message}</Typography>
+    )),
+    OgetOrElse(() => <></>),
+  )
 
 const useImageUploadDialogStyles = makeStyles({
   helpText: {
@@ -40,39 +54,50 @@ const useImageUploadDialogStyles = makeStyles({
 })
 
 const FileUploadDialog = ({ open }: FileUploadDialogProperties) => {
-  const [selectedFile, setSelectedFile] =
-    useState<Option<Either<ErrorState, ImageSuccessState>>>(none)
+  const [selectedFile, setSelectedFile] = useState<Option<File>>(none)
   const [fileError, setFileError] = useState<Option<ErrorState>>(none)
+  const canSubmit = BMonoidAll.concat(isSome(selectedFile), isNone(fileError))
+
   const { getAccessToken } = useLogto()
-  const [editor] = useLexicalComposerContext()
-  const setDialogDisplay = useSetAtom(insertImageDialogOpenAtom)
   const [uploadFile, { loading, reset }] = useUploadFileMutation()
+
+  const setDialogDisplay = useSetAtom(insertImageDialogOpenAtom)
   const { helpText } = useImageUploadDialogStyles()
-  const canSubmit = isValidFile(selectedFile)
+
+  const [editor] = useLexicalComposerContext()
 
   const onFileChange: React.ChangeEventHandler<HTMLInputElement> = async ({
     target: { files },
   }) => {
     reset()
-    pipe(files, EgetValidFile, setSelectedFile)
+    // get the file selected by the user
+    const selected = pipe(
+      files,
+      OfromNullable,
+      Omap(Array.from<File>),
+      OflatMap(Ahead),
+    )
+    // set the error state of the file
+    pipe(selectedFile, OflatMap(getFileError), setFileError)
+    // set the file state
+    setSelectedFile(selected)
   }
 
   const handleClose = () => {
     if (loading) return
     setDialogDisplay(false)
     setSelectedFile(none)
+    setFileError(none)
     reset()
   }
 
   const onSubmit = () => {
-    const uploadFunction = createImageUploadFunction(
-      editor,
-      getAccessToken,
-      uploadFile,
+    const uploadFunction = pipe(
       selectedFile,
-      setSelectedFile,
-      alignment,
-      setDialogDisplay,
+      Omap((someFile) =>
+        createFileUploadFunction(someFile, uploadFile, getAccessToken),
+      ),
+      OgetOrElse(() => constVoid),
     )
     uploadFunction()
   }
@@ -85,12 +110,12 @@ const FileUploadDialog = ({ open }: FileUploadDialogProperties) => {
       <DialogContent>
         <Input type="file" id="file-upload" onChange={onFileChange} fullWidth />
         <Typography className={helpText}>* Must be smaller than 1MB</Typography>
-        {renderError(selectedFile)}
+        {renderError(fileError)}
       </DialogContent>
       <DialogActions>
         {loading ? <CircularProgress /> : <></>}
         <Button type="button" disabled={!canSubmit} onClick={onSubmit}>
-          Insert Image
+          Upload File
         </Button>
       </DialogActions>
     </Dialog>
