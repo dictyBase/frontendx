@@ -42,7 +42,7 @@ const isValidFile = (file: File) => file.size < FILE_SIZE_LIMIT
  * 3. File is uploaded
  * 4. GraphQL mutation returns uploaded file url to user
  */
-const createUploadFileFunction = (
+const createFileUploadFunction = (
   file: File,
   uploadMutation: UploadFileMutationHookResult[0],
   getAccessToken: (
@@ -79,4 +79,4 @@ const createUploadFileFunction = (
     ),
   )
 
-export { createUploadFileFunction }
+export { createFileUploadFunction }
