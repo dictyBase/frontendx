@@ -14,12 +14,14 @@ import {
 import { useUploadFileMutation } from "dicty-graphql-schema"
 import { useLogto } from "@logto/react"
 import { useSetAtom } from "jotai"
-import { pipe, constVoid, hole } from "fp-ts/function"
+import { pipe } from "fp-ts/function"
 import { MonoidAll as BMonoidAll } from "fp-ts/boolean"
 import { head as Ahead } from "fp-ts/Array"
+import { match as Ematch } from "fp-ts/Either"
 import {
   isSome,
   isNone,
+  some,
   none,
   Option,
   fromNullable as OfromNullable,
@@ -35,7 +37,6 @@ type FileUploadDialogProperties = {
   open: boolean
 }
 
-const fallbackFunction = () => constVoid
 const renderError = (Oerror: Option<ErrorState>) =>
   pipe(
     Oerror,
@@ -56,6 +57,7 @@ const useImageUploadDialogStyles = makeStyles({
 const FileUploadDialog = ({ open }: FileUploadDialogProperties) => {
   const [selectedFile, setSelectedFile] = useState<Option<File>>(none)
   const [fileError, setFileError] = useState<Option<ErrorState>>(none)
+  const [fileUrl, setFileUrl] = useState<string>("")
   const canSubmit = BMonoidAll.concat(isSome(selectedFile), isNone(fileError))
 
   const { getAccessToken } = useLogto()
@@ -74,7 +76,7 @@ const FileUploadDialog = ({ open }: FileUploadDialogProperties) => {
     const selected = pipe(
       files,
       OfromNullable,
-      Omap(Array.from<File>),
+      Omap((someFiles) => [...someFiles]),
       OflatMap(Ahead),
     )
     // set the error state of the file
@@ -91,15 +93,25 @@ const FileUploadDialog = ({ open }: FileUploadDialogProperties) => {
     reset()
   }
 
-  const onSubmit = () => {
-    const uploadFunction = pipe(
+  const onSubmit = async () => {
+    if (!canSubmit) return
+    const uploadFunction = createFileUploadFunction(
       selectedFile,
-      Omap((someFile) =>
-        createFileUploadFunction(someFile, uploadFile, getAccessToken),
-      ),
-      OgetOrElse(() => constVoid),
+      uploadFile,
+      getAccessToken,
     )
-    uploadFunction()
+    const result = await uploadFunction()
+    pipe(
+      result,
+      Ematch(
+        (error) => {
+          setFileError(some(error))
+        },
+        (fileUpload) => {
+          setFileUrl(fileUpload.url)
+        },
+      ),
+    )
   }
 
   return (
