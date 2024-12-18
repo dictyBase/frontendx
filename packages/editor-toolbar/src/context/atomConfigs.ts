@@ -80,6 +80,7 @@ export const canRedoAtom = focusAtom(historyAtom, (optic) =>
 
 export const openAtom = atom({
   insertImage: false,
+  uploadFile: false,
   insertTable: false,
   tableActions: false,
   colorPicker: false,
@@ -90,6 +91,9 @@ export const insertTableDialogOpenAtom = focusAtom(openAtom, (optic) =>
 )
 export const insertImageDialogOpenAtom = focusAtom(openAtom, (optic) =>
   optic.prop("insertImage"),
+)
+export const uploadFileDialogOpenAtom = focusAtom(openAtom, (optic) =>
+  optic.prop("uploadFile"),
 )
 export const tableActionMenuOpenAtom = focusAtom(openAtom, (optic) =>
   optic.prop("tableActions"),
