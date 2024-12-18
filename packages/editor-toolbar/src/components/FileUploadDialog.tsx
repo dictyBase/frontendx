@@ -29,7 +29,7 @@ import {
   flatMap as OflatMap,
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
-import { insertImageDialogOpenAtom } from "../context/atomConfigs"
+import { uploadFileDialogOpenAtom } from "../context/atomConfigs"
 import { getFileError, ErrorState } from "./fileUploadHelpers"
 import { createFileUploadFunction } from "./createUploadFileFunction"
 
@@ -63,7 +63,7 @@ const FileUploadDialog = ({ open }: FileUploadDialogProperties) => {
   const { getAccessToken } = useLogto()
   const [uploadFile, { loading, reset }] = useUploadFileMutation()
 
-  const setDialogDisplay = useSetAtom(insertImageDialogOpenAtom)
+  const setDialogDisplay = useSetAtom(uploadFileDialogOpenAtom)
   const { helpText } = useImageUploadDialogStyles()
 
   const [editor] = useLexicalComposerContext()
@@ -80,7 +80,7 @@ const FileUploadDialog = ({ open }: FileUploadDialogProperties) => {
       OflatMap(Ahead),
     )
     // set the error state of the file
-    pipe(selectedFile, OflatMap(getFileError), setFileError)
+    pipe(selected, OflatMap(getFileError), setFileError)
     // set the file state
     setSelectedFile(selected)
   }
@@ -121,7 +121,9 @@ const FileUploadDialog = ({ open }: FileUploadDialogProperties) => {
       </DialogTitle>
       <DialogContent>
         <Input type="file" id="file-upload" onChange={onFileChange} fullWidth />
-        <Typography className={helpText}>* Must be smaller than 1MB</Typography>
+        <Typography className={helpText}>
+          * File size may not exceed 10MB
+        </Typography>
         {renderError(fileError)}
       </DialogContent>
       <DialogActions>
