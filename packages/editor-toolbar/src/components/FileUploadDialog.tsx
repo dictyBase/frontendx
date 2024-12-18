@@ -67,15 +67,13 @@ const FileUploadDialog = ({ open }: FileUploadDialogProperties) => {
   }
 
   const onSubmit = async () => {
-    if (!canSubmit) return
     const uploadFunction = createFileUploadFunction(
       selectedFile,
       uploadFile,
       getAccessToken,
     )
-    const result = await uploadFunction()
     pipe(
-      result,
+      await uploadFunction(),
       EmapLeft((error) => {
         setFileError(some(error))
       }),
