@@ -1,15 +1,17 @@
 import { pipe } from "fp-ts/function"
 import {
   Do as TEDo,
-  let as TElet,
   bind as TEbind,
   tryCatch as TEtryCatch,
-  of as TEof,
-  filterOrElse as TEfilterOrElse,
   fromOption as EfromOption,
 } from "fp-ts/TaskEither"
-import { fromNullable as OfromNullable, map as Omap } from "fp-ts/Option"
+import {
+  Option,
+  fromNullable as OfromNullable,
+  map as Omap,
+} from "fp-ts/Option"
 import { UploadFileMutationHookResult } from "dicty-graphql-schema"
+import { accessTokenError, uploadFailureError } from "./fileUploadHelpers"
 
 enum ErrorType {
   VALIDITY_ERROR,
@@ -17,24 +19,10 @@ enum ErrorType {
   UPLOAD_FAILURE,
 }
 
-const overFileSizeLimitError = {
+const noFileSelectedError = {
   errorType: ErrorType.VALIDITY_ERROR,
-  message: "Chosen file size is too large. It must be smaller than 1MB.",
+  message: "No file selected",
 }
-
-const accessTokenError = {
-  errorType: ErrorType.ACCESS_TOKEN_ERROR,
-  message: "Could not get access token",
-}
-
-const uploadFailureError = {
-  errorType: ErrorType.UPLOAD_FAILURE,
-  message: "Could not upload image to server",
-}
-
-const FILE_SIZE_LIMIT = 10_000_000
-
-const isValidFile = (file: File) => file.size < FILE_SIZE_LIMIT
 
 /**
  * 1. User inputs file
@@ -43,7 +31,7 @@ const isValidFile = (file: File) => file.size < FILE_SIZE_LIMIT
  * 4. GraphQL mutation returns uploaded file url to user
  */
 const createFileUploadFunction = (
-  file: File,
+  file: Option<File>,
   uploadMutation: UploadFileMutationHookResult[0],
   getAccessToken: (
     resource?: string | undefined,
@@ -51,7 +39,12 @@ const createFileUploadFunction = (
 ) =>
   pipe(
     TEDo,
-    TElet("selectedFile", () => file),
+    TEbind("selectedFile", () =>
+      pipe(
+        file,
+        EfromOption(() => noFileSelectedError),
+      ),
+    ),
     TEbind("token", () =>
       TEtryCatch(
         () =>
@@ -69,7 +62,7 @@ const createFileUploadFunction = (
         () => uploadFailureError,
       ),
     ),
-    TElet("url", ({ uploadResult }) =>
+    TEbind("url", ({ uploadResult }) =>
       pipe(
         uploadResult.data,
         OfromNullable,
