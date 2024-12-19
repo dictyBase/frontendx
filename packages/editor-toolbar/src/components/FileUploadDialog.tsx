@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { Dialog } from "@material-ui/core"
 import { useUploadFileMutation } from "dicty-graphql-schema"
 import { useLogto } from "@logto/react"
