@@ -11,16 +11,20 @@ import { head as Ahead } from "fp-ts/Array"
 import { mapLeft as EmapLeft } from "fp-ts/Either"
 import {
   isSome,
-  isNone,
   some,
   none,
   Option,
   fromNullable as OfromNullable,
   map as Omap,
   flatMap as OflatMap,
+  getOrElse as OgetOrElse,
 } from "fp-ts/Option"
 import { uploadFileDialogOpenAtom } from "../context/atomConfigs"
-import { getFileError, ErrorState } from "./fileUploadHelpers"
+import {
+  getFileValidationError,
+  ErrorState,
+  isValidFile,
+} from "./fileUploadHelpers"
 import { InsertUrl } from "./InsertUrl"
 import { Upload } from "./Upload"
 import { createFileUploadFunction } from "./createUploadFileFunction"
@@ -32,14 +36,18 @@ type FileUploadDialogProperties = {
 const FileUploadDialog = ({ open }: FileUploadDialogProperties) => {
   const [selectedFile, setSelectedFile] = useState<Option<File>>(none)
   const [fileError, setFileError] = useState<Option<ErrorState>>(none)
-  const canSubmit = BMonoidAll.concat(isSome(selectedFile), isNone(fileError))
-
+  const canSubmit = BMonoidAll.concat(
+    isSome(selectedFile),
+    pipe(
+      selectedFile,
+      Omap(isValidFile),
+      OgetOrElse(() => false),
+    ),
+  )
   const { getAccessToken } = useLogto()
   const [uploadFile, { data, loading, reset }] = useUploadFileMutation()
 
   const setDialogDisplay = useSetAtom(uploadFileDialogOpenAtom)
-
-  const [editor] = useLexicalComposerContext()
 
   const onFileChange: React.ChangeEventHandler<HTMLInputElement> = async ({
     target: { files },
@@ -53,7 +61,7 @@ const FileUploadDialog = ({ open }: FileUploadDialogProperties) => {
       OflatMap(Ahead),
     )
     // set the error state of the file
-    pipe(selected, OflatMap(getFileError), setFileError)
+    pipe(selected, OflatMap(getFileValidationError), setFileError)
     // set the file state
     setSelectedFile(selected)
   }
@@ -83,7 +91,7 @@ const FileUploadDialog = ({ open }: FileUploadDialogProperties) => {
     <Dialog open={open} onClose={handleClose}>
       {match(data)
         .with({ uploadFile: { url: P.select(P.string) } }, (url) => (
-          <InsertUrl fileUrl={url} />
+          <InsertUrl handleClose={handleClose} fileUrl={url} />
         ))
         .otherwise(() => (
           <Upload
