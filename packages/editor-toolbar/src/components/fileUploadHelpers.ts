@@ -1,23 +1,10 @@
-import { pipe } from "fp-ts/function"
-import { head as Ahead } from "fp-ts/Array"
+import { pipe, apply } from "fp-ts/function"
+import { MonoidAll as BMonoidAll } from "fp-ts/boolean"
+import { map as Amap, reduce as Areduce } from "fp-ts/Array"
+import { some, none } from "fp-ts/Option"
 import {
-  some,
-  none,
-  of as Oof,
-  map as Omap,
-  fromNullable as OfromNullable,
-  Option,
-  getOrElse as OgetOrElse,
-} from "fp-ts/Option"
-import {
-  left as Eleft,
   right as Eright,
-  fromOption as EfromOption,
   match as Ematch,
-  Either,
-  bindTo as EbindTo,
-  bind as Ebind,
-  let as Elet,
   filterOrElse as EfilterOrElse,
 } from "fp-ts/Either"
 
@@ -28,10 +15,6 @@ enum ErrorType {
   MISSING_URL,
   IMAGE_LOAD_ERROR,
   EDITOR_INSERTION,
-}
-
-type ImageSuccessState = {
-  validFile: File
 }
 
 type ErrorState = {
@@ -71,7 +54,14 @@ const missingUrlError = {
 const fileSizeCheck = (fileSize: number) => (file: File) =>
   file.size <= fileSize
 
-const getFileError = (file: File) =>
+const isValidFile = (file: File) =>
+  pipe(
+    [fileSizeCheck(FILE_SIZE_LIMIT)],
+    Amap(apply(file)),
+    Areduce(true, BMonoidAll.concat),
+  )
+
+const getFileValidationError = (file: File) =>
   pipe(
     Eright(file),
     EfilterOrElse(fileSizeCheck(FILE_SIZE_LIMIT), () => overFileSizeLimitError),
@@ -81,42 +71,6 @@ const getFileError = (file: File) =>
     ),
   )
 
-const EgetValidFile = (files: FileList | null) =>
-  pipe(
-    files,
-    OfromNullable,
-    EfromOption(() => emptyFileListError),
-    EbindTo("fileList"),
-    Elet("presentFiles", ({ fileList }) => [...fileList]),
-    Ebind("selectedFile", ({ presentFiles }) =>
-      pipe(
-        presentFiles,
-        Ahead,
-        EfromOption(() => noFileSelectedError),
-      ),
-    ),
-    Ebind("validFile", ({ selectedFile }) =>
-      selectedFile.size < FILE_SIZE_LIMIT
-        ? Eright(selectedFile)
-        : Eleft(overFileSizeLimitError),
-    ),
-    Oof,
-  )
-
-const isValidFile = (
-  imageState: Option<Either<ErrorState, ImageSuccessState>>,
-) =>
-  pipe(
-    imageState,
-    Omap(
-      Ematch(
-        ({ errorType }) => errorType !== ErrorType.VALIDITY_ERROR,
-        ({ validFile }) => !!validFile,
-      ),
-    ),
-    OgetOrElse(() => false),
-  )
-
 export {
   emptyFileListError,
   noFileSelectedError,
@@ -124,9 +78,8 @@ export {
   overFileSizeLimitError,
   uploadFailureError,
   missingUrlError,
-  getFileError,
-  EgetValidFile,
+  fileSizeCheck,
+  getFileValidationError,
   isValidFile,
   type ErrorState,
-  type ImageSuccessState,
 }
