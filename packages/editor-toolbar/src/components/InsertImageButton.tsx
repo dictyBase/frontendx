@@ -1,5 +1,5 @@
 import { Button } from "@material-ui/core"
-import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined'
+import ImageOutlinedIcon from "@material-ui/icons/ImageOutlined"
 import { useAtom } from "jotai"
 import { insertImageDialogOpenAtom } from "../context/atomConfigs"
 import { ImageUploadDialog } from "./ImageUploadDialog"
