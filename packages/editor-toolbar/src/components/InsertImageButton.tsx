@@ -1,5 +1,5 @@
 import { Button } from "@material-ui/core"
-import AddIcon from "@material-ui/icons/Add"
+import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined'
 import { useAtom } from "jotai"
 import { insertImageDialogOpenAtom } from "../context/atomConfigs"
 import { ImageUploadDialog } from "./ImageUploadDialog"
@@ -12,7 +12,7 @@ const InsertImageButton = () => {
       <Button
         variant="text"
         onClick={() => setIsDialogOpen(true)}
-        startIcon={<AddIcon />}>
+        startIcon={<ImageOutlinedIcon />}>
         Image
       </Button>
       <ImageUploadDialog open={isDialogOpen} />
