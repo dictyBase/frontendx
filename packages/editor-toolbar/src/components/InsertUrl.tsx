@@ -94,6 +94,7 @@ const InsertUrl = ({
           <Grid item>
             <TextField
               label="Link Text"
+              autoFocus
               fullWidth
               variant="outlined"
               value={linkText}
