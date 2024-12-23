@@ -1,6 +1,6 @@
 import { useState, ChangeEventHandler } from "react"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
-import { $createTextNode, $getSelection } from "lexical"
+import { $createTextNode, $getSelection, $getRoot } from "lexical"
 import { $createLinkNode } from "@lexical/link"
 import {
   TextField,
@@ -10,28 +10,16 @@ import {
   DialogActions,
   Button,
   Typography,
-  makeStyles,
 } from "@material-ui/core"
-import { blue, grey } from "@material-ui/core/colors"
 import { pipe } from "fp-ts/function"
 import {
-  Option,
+  orElse as OorElse,
   fromNullable as OfromNullable,
   map as Omap,
 } from "fp-ts/Option"
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: theme.spacing(3),
-    backgroundColor: blue[100],
-    borderRadius: "0.625rem",
-    border: `1px solid ${grey[500]}`,
-  },
-}))
-
 type InsertUrlProperties = {
   fileUrl: string
-  selectedFile: Option<File>
   handleClose: () => void
   handleClearForm: () => void
 }
@@ -43,7 +31,6 @@ const InsertUrl = ({
 }: InsertUrlProperties) => {
   const [linkText, setLinkText] = useState("Click to Download")
   const [editor] = useLexicalComposerContext()
-  const classes = useStyles()
   const onChange: ChangeEventHandler<HTMLInputElement> = ({
     currentTarget: { value },
   }) => {
@@ -59,13 +46,16 @@ const InsertUrl = ({
         $getSelection(),
         (selection) => selection,
         OfromNullable,
-        // OorElse(() =>
-        //   pipe(
-        //     $getRoot().getChildren().find(),
-        //     Ahead,
-        //     Omap((textNode) => textNode.select()),
-        //   ),
-        // ),
+        OorElse(() =>
+          pipe(
+            $getRoot()
+              .getChildren()
+              .find((node) => node.getType() === "paragraph"),
+            OfromNullable,
+            // eslint-disable-next-line dot-notation
+            Omap((textNode) => textNode["select"]()),
+          ),
+        ),
         Omap((selection) => {
           const linkNode = $createLinkNode(fileUrl)
           const textNode = $createTextNode(linkText)
