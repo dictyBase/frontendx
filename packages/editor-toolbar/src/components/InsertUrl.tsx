@@ -3,7 +3,6 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { $createTextNode, $getSelection } from "lexical"
 import { $createLinkNode } from "@lexical/link"
 import {
-  Box,
   TextField,
   Grid,
   DialogTitle,
@@ -15,7 +14,11 @@ import {
 } from "@material-ui/core"
 import { blue, grey } from "@material-ui/core/colors"
 import { pipe } from "fp-ts/function"
-import { fromNullable as OfromNullable, map as Omap } from "fp-ts/Option"
+import {
+  Option,
+  fromNullable as OfromNullable,
+  map as Omap,
+} from "fp-ts/Option"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,17 +31,26 @@ const useStyles = makeStyles((theme) => ({
 
 type InsertUrlProperties = {
   fileUrl: string
+  selectedFile: Option<File>
   handleClose: () => void
+  handleClearForm: () => void
 }
 
-const InsertUrl = ({ fileUrl, handleClose }: InsertUrlProperties) => {
-  const [linkText, setLinkText] = useState(fileUrl)
+const InsertUrl = ({
+  fileUrl,
+  handleClose,
+  handleClearForm,
+}: InsertUrlProperties) => {
+  const [linkText, setLinkText] = useState("Click to Download")
   const [editor] = useLexicalComposerContext()
   const classes = useStyles()
   const onChange: ChangeEventHandler<HTMLInputElement> = ({
     currentTarget: { value },
   }) => {
     setLinkText(value)
+  }
+  const onCancel = () => {
+    handleClearForm()
   }
 
   const onSubmit = () => {
@@ -63,18 +75,21 @@ const InsertUrl = ({ fileUrl, handleClose }: InsertUrlProperties) => {
       )
     })
     setLinkText("")
+    handleClearForm()
     handleClose()
   }
 
   return (
     <>
       <DialogTitle disableTypography>
-        <Typography variant="h3"> Edit and Insert Link </Typography>
+        <Typography variant="h2"> Link Text </Typography>
       </DialogTitle>
       <DialogContent>
         <Grid container direction="column" spacing={3}>
           <Grid item>
-            <Box className={classes.root}>{fileUrl}</Box>
+            <Typography variant="body1">
+              Edit how the link to the file will be displayed
+            </Typography>
           </Grid>
           <Grid item>
             <TextField
@@ -88,7 +103,14 @@ const InsertUrl = ({ fileUrl, handleClose }: InsertUrlProperties) => {
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button type="button" onClick={onSubmit}>
+        <Button variant="contained" type="button" onClick={onCancel}>
+          Cancel
+        </Button>
+        <Button
+          variant="contained"
+          color="secondary"
+          type="button"
+          onClick={onSubmit}>
           Insert Link
         </Button>
       </DialogActions>
