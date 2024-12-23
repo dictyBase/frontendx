@@ -1,7 +1,10 @@
 import { ChangeEventHandler } from "react"
 import {
+  Box,
+  Grid,
   CircularProgress,
   Input,
+  InputLabel,
   DialogTitle,
   DialogContent,
   DialogActions,
@@ -9,8 +12,16 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core"
+import InsertDriveFileIconOutlined from "@material-ui/icons/InsertDriveFileOutlined"
+import { grey } from "@material-ui/core/colors"
 import { pipe } from "fp-ts/function"
-import { Option, map as Omap, getOrElse as OgetOrElse } from "fp-ts/Option"
+import { match as Bmatch } from "fp-ts/boolean"
+import {
+  Option,
+  map as Omap,
+  getOrElse as OgetOrElse,
+  isSome,
+} from "fp-ts/Option"
 import { ErrorState } from "./fileUploadHelpers"
 
 const renderError = (Oerror: Option<ErrorState>) =>
@@ -22,15 +33,24 @@ const renderError = (Oerror: Option<ErrorState>) =>
     OgetOrElse(() => <></>),
   )
 
-const useImageUploadDialogStyles = makeStyles({
+const useFileUploadDialogStyles = makeStyles((theme) => ({
+  nativeInput: {
+    display: "none",
+  },
   helpText: {
     marginTop: "5px",
     color: "hsl(241, 5%, 50%)",
     fontStyle: "italic",
   },
-})
+  selectedFile: {
+    padding: theme.spacing(2),
+    backgroundColor: grey[200],
+    borderRadius: "0.3125rem",
+  },
+}))
 
 type UploadProperties = {
+  fileName: Option<string>
   fileError: Option<ErrorState>
   loading: boolean
   canSubmit: boolean
@@ -39,30 +59,92 @@ type UploadProperties = {
 }
 
 const Upload = ({
+  fileName,
   fileError,
   loading,
   canSubmit,
   onSubmit,
   onFileChange,
 }: UploadProperties) => {
-  const { helpText } = useImageUploadDialogStyles()
+  const { helpText, nativeInput, selectedFile } = useFileUploadDialogStyles()
   return (
     <>
       <DialogTitle disableTypography>
-        <Typography variant="h3"> Choose a File to Upload </Typography>
+        <Typography variant="h3"> Choose a file to upload </Typography>
       </DialogTitle>
       <DialogContent>
-        <Input type="file" id="file-upload" onChange={onFileChange} fullWidth />
-        <Typography className={helpText}>
-          * File size may not exceed 10MB
-        </Typography>
-        {renderError(fileError)}
+        <Grid container direction="column" spacing={1}>
+          {pipe(
+            fileName,
+            Omap((name) => (
+              <Grid item>
+                <Box className={selectedFile}>
+                  <Grid container spacing={1} alignItems="center">
+                    <Grid item>
+                      <InsertDriveFileIconOutlined />
+                    </Grid>
+                    <Grid item>
+                      <Typography>{name}</Typography>
+                    </Grid>
+                  </Grid>
+                </Box>
+              </Grid>
+            )),
+            OgetOrElse(() => <></>),
+          )}
+          <Grid item>
+            <InputLabel htmlFor="file-upload">
+              <Button
+                fullWidth
+                size="large"
+                variant="contained"
+                color="secondary"
+                component="span">
+                {pipe(
+                  fileName,
+                  isSome,
+                  Bmatch(
+                    () => "Choose a file",
+                    () => "Choose a different file",
+                  ),
+                )}
+              </Button>
+            </InputLabel>
+            <Input
+              type="file"
+              id="file-upload"
+              onChange={onFileChange}
+              fullWidth
+              className={nativeInput}
+            />
+          </Grid>
+          <Grid item>
+            <Typography className={helpText}>
+              * File size may not exceed 10MB
+            </Typography>
+          </Grid>
+          <Grid item>{renderError(fileError)}</Grid>
+        </Grid>
       </DialogContent>
       <DialogActions>
-        {loading ? <CircularProgress /> : <></>}
-        <Button type="button" disabled={!canSubmit} onClick={onSubmit}>
-          Upload File
-        </Button>
+        {pipe(
+          loading,
+          Bmatch(
+            () => <></>,
+            () => <CircularProgress />,
+          ),
+        )}
+        {pipe(
+          canSubmit,
+          Bmatch(
+            () => <></>,
+            () => (
+              <Button type="button" disabled={!canSubmit} onClick={onSubmit}>
+                Upload
+              </Button>
+            ),
+          ),
+        )}
       </DialogActions>
     </>
   )
