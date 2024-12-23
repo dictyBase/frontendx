@@ -139,7 +139,11 @@ const Upload = ({
           Bmatch(
             () => <></>,
             () => (
-              <Button type="button" disabled={!canSubmit} onClick={onSubmit}>
+              <Button
+                type="button"
+                variant="contained"
+                disabled={!canSubmit}
+                onClick={onSubmit}>
                 Upload
               </Button>
             ),
