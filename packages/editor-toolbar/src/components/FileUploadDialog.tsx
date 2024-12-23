@@ -5,11 +5,9 @@ import { useLogto } from "@logto/react"
 import { useSetAtom } from "jotai"
 import { match, P } from "ts-pattern"
 import { pipe } from "fp-ts/function"
-import { MonoidAll as BMonoidAll } from "fp-ts/boolean"
 import { head as Ahead } from "fp-ts/Array"
 import { mapLeft as EmapLeft } from "fp-ts/Either"
 import {
-  isSome,
   some,
   none,
   Option,
@@ -35,14 +33,16 @@ type FileUploadDialogProperties = {
 const FileUploadDialog = ({ open }: FileUploadDialogProperties) => {
   const [selectedFile, setSelectedFile] = useState<Option<File>>(none)
   const [fileError, setFileError] = useState<Option<ErrorState>>(none)
-  const canSubmit = BMonoidAll.concat(
-    isSome(selectedFile),
-    pipe(
-      selectedFile,
-      Omap(isValidFile),
-      OgetOrElse(() => false),
-    ),
+  const fileName = pipe(
+    selectedFile,
+    Omap(({ name }) => name),
   )
+  const canSubmit = pipe(
+    selectedFile,
+    Omap(isValidFile),
+    OgetOrElse(() => false),
+  )
+
   const { getAccessToken } = useLogto()
   const [uploadFile, { data, loading, reset }] = useUploadFileMutation()
 
@@ -68,6 +68,9 @@ const FileUploadDialog = ({ open }: FileUploadDialogProperties) => {
   const handleClose = () => {
     if (loading) return
     setDialogDisplay(false)
+  }
+
+  const handleClearForm = () => {
     setSelectedFile(none)
     setFileError(none)
     reset()
@@ -86,17 +89,23 @@ const FileUploadDialog = ({ open }: FileUploadDialogProperties) => {
       }),
     )
   }
+
   return (
     <Dialog open={open} onClose={handleClose}>
       {match(data)
         .with({ uploadFile: { url: P.select(P.string) } }, (url) => (
-          <InsertUrl handleClose={handleClose} fileUrl={url} />
+          <InsertUrl
+            handleClose={handleClose}
+            handleClearForm={handleClearForm}
+            fileUrl={url}
+          />
         ))
         .otherwise(() => (
           <Upload
+            fileName={fileName}
+            fileError={fileError}
             loading={loading}
             canSubmit={canSubmit}
-            fileError={fileError}
             onFileChange={onFileChange}
             onSubmit={onSubmit}
           />
