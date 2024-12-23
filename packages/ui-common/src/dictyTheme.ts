@@ -26,6 +26,7 @@ const dictyTheme = createTheme({
   typography: {
     button: {
       textTransform: "none",
+      fontFamily: "'Poppins', sans-serif",
     },
     body1: {
       fontFamily: "'Inter Variable', sans-serif",
