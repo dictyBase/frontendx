@@ -1,5 +1,5 @@
 import { Button } from "@material-ui/core"
-import AddIcon from "@material-ui/icons/Add"
+import AttachFileIcon from "@material-ui/icons/AttachFile"
 import { useAtom } from "jotai"
 import { uploadFileDialogOpenAtom } from "../context/atomConfigs"
 import { FileUploadDialog } from "./FileUploadDialog"
@@ -12,7 +12,7 @@ const UploadFileButton = () => {
       <Button
         variant="text"
         onClick={() => setIsDialogOpen(true)}
-        startIcon={<AddIcon />}>
+        startIcon={<AttachFileIcon />}>
         File
       </Button>
       <FileUploadDialog open={isDialogOpen} />
