@@ -1,5 +1,5 @@
 import { type ContentBySlugQuery } from "dicty-graphql-schema"
-import { Editor } from "@dictybase/editor"
+import { Editor, EditorContainer } from "@dictybase/editor"
 
 type ShowViewProperties = {
   data: NonNullable<ContentBySlugQuery["contentBySlug"]>
@@ -13,10 +13,12 @@ type ShowViewProperties = {
 const ShowView = ({ data }: ShowViewProperties) => {
   const { slug, content } = data
   return (
-    <Editor
-      editable={false}
-      content={{ storageKey: slug, editorState: content }}
-    />
+    <EditorContainer>
+      <Editor
+        editable={false}
+        content={{ storageKey: slug, editorState: content }}
+      />
+    </EditorContainer>
   )
 }
 
