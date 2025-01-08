@@ -1,12 +1,11 @@
-import { Container } from "@material-ui/core"
-import { Editor } from "@dictybase/editor"
+import { Editor, EditorContainer } from "@dictybase/editor"
 import { ACCESS } from "@dictybase/auth"
 import { CreateContentForm } from "../../features/EditablePages/CreateContentForm"
 
 const CreateContentView = () => (
-  <Container>
+  <EditorContainer>
     <Editor editable toolbar={<CreateContentForm />} />
-  </Container>
+  </EditorContainer>
 )
 
 // eslint-disable-next-line import/no-default-export
