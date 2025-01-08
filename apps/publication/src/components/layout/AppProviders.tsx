@@ -1,7 +1,7 @@
 import React from "react"
 import { ApolloProvider } from "@apollo/client"
 import { LogtoProvider, LogtoConfig, UserScope } from "@logto/react"
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles"
+import { MuiThemeProvider, createTheme } from "@material-ui/core/styles"
 import CircularProgress from "@material-ui/core/CircularProgress"
 import {
   useGraphqlClient,
@@ -9,7 +9,7 @@ import {
   storageType,
 } from "@dictybase/data-access"
 
-const muiTheme = createMuiTheme({
+const muiTheme = createTheme({
   palette: {
     primary: {
       main: "#004080",
