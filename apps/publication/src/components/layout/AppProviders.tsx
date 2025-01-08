@@ -1,7 +1,7 @@
 import React from "react"
 import { ApolloProvider } from "@apollo/client"
 import { LogtoProvider, LogtoConfig, UserScope } from "@logto/react"
-import { MuiThemeProvider, createTheme } from "@material-ui/core/styles"
+import { MuiThemeProvider } from "@material-ui/core/styles"
 import CircularProgress from "@material-ui/core/CircularProgress"
 import {
   useGraphqlClient,
