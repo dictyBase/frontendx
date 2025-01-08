@@ -1,0 +1,28 @@
+
+name: Lighthouse report 
+on: [deployment_status]
+jobs:
+  lighthouse-report-dev:
+    runs-on: ubuntu-latest
+    if: |
+      github.event.deployment_status.state == 'success'
+    steps:
+      - name: checkout code 
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.deployment.ref }}
+      - name: setup nodejs
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.11.0
+      - name: install lhci 
+        run: npm i -g @lhci/cli@0.14.x
+      - name: run develop report
+        if: contains(github.event.deployment.payload, 'develop')
+        env:
+          LHCI_BUILD_CONTEXT__CURRENT_BRANCH: develop
+        run: lhci autorun --config lighthouse/${{ github.event.deployment.environment}}.yml 
+      - name: run report
+        env:
+          LHCI_BUILD_CONTEXT__CURRENT_BRANCH: ${{ github.event.deployment.ref }}
+        run: lhci autorun --config lighthouse/${{ github.event.deployment.environment}}.yml

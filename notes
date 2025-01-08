@@ -1,0 +1,38 @@
+Packages / Apps with react
+
+   - [] genomepage
+   - [] image-component-demo
+   - [] @dictybase#apollo-error-nextjs
+   - [] @dictybase#apollo-error-react-router
+   - [] @dictybase#data-access
+   - [] @dictybase#dicty-image
+   - [] @dictybase#flex-layout-plugin
+   - [] @dictybase#functional
+   - [] @dictybase#hook-dsc
+   - [] @dictybase#hook
+   - [] @dictybase#json-plugin
+   - [] @dictybase#navbar
+   - [] @dictybase#persistence-plugin
+   - [] @dictybase#resizable-image
+   - [] @dictybase#table-action-plugin
+   - [] @dictybase#ui-common
+   - [] @dictybase#ui-dsc
+   - [] @dictybase#ui-frontpage
+   - [] @dictybase#width-table-plugin
+# Incompatible Dependencies
+  - @material-ui/core
+
+# Concurrent React
+  - Concurrency features are opt-in
+  - Rendering is interruptible
+    - Update may be paused or aborted altogether
+  - Waits to mutate DOM until the tree has been fully evaluated
+    - seamless update
+    - screens can be updated in the background
+    - does not block main thread
+      - UI can respond to user input while rendering
+
+# Automatic Batching
+  - Updates inside promises, timeouts, native event handlers are batched
+
+# Transitions

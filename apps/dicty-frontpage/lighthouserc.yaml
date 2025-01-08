@@ -1,0 +1,4 @@
+ci:
+  collect:
+    url: https://dictybase.dev
+    target: lhci

@@ -1,13 +1,5 @@
-import { makeStyles, Container } from "@material-ui/core"
 import { type ContentBySlugQuery } from "dicty-graphql-schema"
-import { Editor } from "@dictybase/editor"
-
-const useStyles = makeStyles((theme) => ({
-  container: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(4),
-  },
-}))
+import { Editor, EditorContainer } from "@dictybase/editor"
 
 type ShowViewProperties = {
   data: NonNullable<ContentBySlugQuery["contentBySlug"]>
@@ -20,14 +12,13 @@ type ShowViewProperties = {
  */
 const ShowView = ({ data }: ShowViewProperties) => {
   const { slug, content } = data
-  const classes = useStyles()
   return (
-    <Container className={classes.container}>
+    <EditorContainer>
       <Editor
         editable={false}
         content={{ storageKey: slug, editorState: content }}
       />
-    </Container>
+    </EditorContainer>
   )
 }
 

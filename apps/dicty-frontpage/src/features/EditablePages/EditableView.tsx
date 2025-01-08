@@ -1,18 +1,11 @@
-import { makeStyles, Container, Button } from "@material-ui/core"
+import { Button } from "@material-ui/core"
 import PersonIcon from "@material-ui/icons/Person"
 import { useNavigate } from "react-router-dom"
 import { type ContentBySlugQuery } from "dicty-graphql-schema"
-import { Editor } from "@dictybase/editor"
+import { Editor, EditorContainer } from "@dictybase/editor"
 import { ActionBar } from "@dictybase/ui-common"
 import { timeSince } from "../../common/utils/timeSince"
 import { truncateEmail } from "../../common/utils/truncateEmail"
-
-const useStyles = makeStyles((theme) => ({
-  container: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(4),
-  },
-}))
 
 type EditableActionBarProperties = {
   editedBy: string
@@ -53,7 +46,7 @@ const EditableView = ({ data }: EditableViewProperties) => {
   const editedBy = truncateEmail(updated_by.email)
   const classes = useStyles()
   return (
-    <Container className={classes.container}>
+    <EditorContainer>
       <Editor
         toolbar={
           <EditableActionBar editedBy={editedBy} updatedAt={updated_at} />
@@ -61,7 +54,7 @@ const EditableView = ({ data }: EditableViewProperties) => {
         editable={false}
         content={{ storageKey: slug, editorState: content }}
       />
-    </Container>
+    </EditorContainer>
   )
 }
 
