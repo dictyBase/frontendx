@@ -24,7 +24,7 @@ const ContentManagerMenuItem = ({
       <ListItemIcon className={listIcon}>
         <PostAddIcon />
       </ListItemIcon>
-      <ListItemText> Manage Content </ListItemText>
+      <ListItemText> Add Content </ListItemText>
     </MenuItem>
   )
 }
