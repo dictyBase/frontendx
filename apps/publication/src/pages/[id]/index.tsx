@@ -1,10 +1,9 @@
-import React from "react"
 import { useRouter } from "next/router"
 import { Publication, usePublicationQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { PublicationLoader } from "../../components/PublicationLoader"
 import { ErrorPage } from "../../components/errors/ErrorPage"
-import { PublicationPage } from "../../components/PublicationPage"
+import { PublicationPage } from "../../components/version_ab/PublicationPage"
 
 /**
  * Renders the publication page given a publication id
