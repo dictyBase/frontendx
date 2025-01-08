@@ -45,8 +45,8 @@ type Properties = {
 }
 const useStyles = makeStyles({
   title: {
-    textAlign: "center"
-  }
+    textAlign: "center",
+  },
 })
 
 const Layout = ({ children, gene, title, description }: Properties) => {
