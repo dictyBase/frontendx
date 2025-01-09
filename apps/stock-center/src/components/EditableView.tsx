@@ -5,14 +5,15 @@ import { type ContentBySlugQuery } from "dicty-graphql-schema"
 import { Editor } from "@dictybase/editor"
 import { ActionBar } from "@dictybase/ui-common"
 import { timeSince } from "../timeSince"
+import { truncateEmail } from "../truncateEmail"
 
 type EditableActionBarProperties = {
-  fullName: string
+  editedBy: string
   updatedAt: string
 }
 
 const EditableActionBar = ({
-  fullName,
+  editedBy,
   updatedAt,
 }: EditableActionBarProperties) => {
   const navigate = useNavigate()
@@ -21,7 +22,7 @@ const EditableActionBar = ({
       descriptionElement={
         <>
           <strong>
-            <PersonIcon /> {fullName}
+            <PersonIcon /> {editedBy}
           </strong>{" "}
           edited {timeSince(updatedAt)} ago
         </>
@@ -42,11 +43,10 @@ type EditableViewProperties = {
 
 const EditableView = ({ data }: EditableViewProperties) => {
   const { updated_at, updated_by, content, slug } = data
-  const fullName = `${updated_by.first_name} ${updated_by.last_name}`
-
+  const editedBy = truncateEmail(updated_by.email)
   return (
     <Editor
-      toolbar={<EditableActionBar fullName={fullName} updatedAt={updated_at} />}
+      toolbar={<EditableActionBar editedBy={editedBy} updatedAt={updated_at} />}
       editable={false}
       content={{ storageKey: slug, editorState: content }}
     />
