@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom"
 import { makeStyles, Container, Button } from "@material-ui/core"
-import { replace as Sreplace } from "fp-ts/string"
 import PersonIcon from "@material-ui/icons/Person"
 import { ActionBar } from "@dictybase/ui-common"
 import { Editor } from "@dictybase/editor"
