@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom"
 import { makeStyles, Container, Button } from "@material-ui/core"
+import { replace as Sreplace } from "fp-ts/string"
 import PersonIcon from "@material-ui/icons/Person"
 import { ActionBar } from "@dictybase/ui-common"
 import { Editor } from "@dictybase/editor"
 import { type ContentBySlugQuery } from "dicty-graphql-schema"
 import { UpdateButton } from "../../common/components/UpdateButton"
 import { timeSince } from "../../common/utils/timeSince"
+import { truncateEmail } from "../../common/utils/truncateEmail"
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -15,14 +17,14 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 type EditActionBarProperties = {
-  fullName: string
+  editedBy: string
   updatedAt: string
   contentId: string
 }
 
 const EditActionBar = ({
   contentId,
-  fullName,
+  editedBy,
   updatedAt,
 }: EditActionBarProperties) => {
   const navigate = useNavigate()
@@ -34,7 +36,7 @@ const EditActionBar = ({
       descriptionElement={
         <>
           <strong>
-            <PersonIcon /> {fullName}
+            <PersonIcon /> {editedBy}
           </strong>{" "}
           edited {timeSince(updatedAt)} ago
         </>
@@ -52,7 +54,7 @@ type EditViewProperties = {
 const EditView = ({ data }: EditViewProperties) => {
   const classes = useStyles()
   const { id, updated_at, updated_by, content } = data
-  const fullName = `${updated_by.first_name} ${updated_by.last_name}`
+  const editedBy = truncateEmail(updated_by.email)
   return (
     <Container className={classes.container}>
       <Editor
@@ -62,7 +64,7 @@ const EditView = ({ data }: EditViewProperties) => {
           <EditActionBar
             contentId={id}
             updatedAt={updated_at}
-            fullName={fullName}
+            editedBy={editedBy}
           />
         }
       />
