@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/no-null */
 import { atom } from "jotai"
-import { splitAtom } from "jotai/utils"
+import { splitAtom, atomWithStorage } from "jotai/utils"
 import { pipe } from "fp-ts/function"
 import { match, P } from "ts-pattern"
 import {
@@ -10,6 +10,7 @@ import {
   uniq as Auniq,
 } from "fp-ts/Array"
 import { fromEquals } from "fp-ts/Eq"
+import { version as currentSchemaVersion } from "dicty-graphql-schema/package.json"
 import type { StrainCartItem, PlasmidCartItem, CatalogItem } from "./types"
 
 type Cart = {
@@ -24,10 +25,27 @@ const initialCart: Cart = {
   maxItems: 12,
 }
 
-const cartAtom = atom<Cart>(initialCart)
+if (
+  localStorage.getItem(import.meta.env.VITE_DICTY_SCHEMA_VERSION) !==
+  currentSchemaVersion
+) {
+  localStorage.setItem(
+    import.meta.env.VITE_DICTY_SCHEMA_VERSION,
+    currentSchemaVersion,
+  )
+  localStorage.removeItem(import.meta.env.VITE_DICTY_CART_KEY)
+}
+
+const cartAtom = atomWithStorage(
+  import.meta.env.VITE_DICTY_CART_KEY,
+  initialCart,
+)
 
 const strainItemsAtom = atom(
-  (get) => get(cartAtom).strainItems,
+  (get) => {
+    const { strainItems } = get(cartAtom)
+    return strainItems
+  },
   (_, set, strainItems: Array<StrainCartItem>) =>
     set(cartAtom, (previous) => ({ ...previous, strainItems })),
 )
