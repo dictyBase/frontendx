@@ -30,7 +30,7 @@ const Authors = ({ authors }: AuthorsProperties) => {
           Amap(OfromNullable),
           Acompact,
           Amap(({ initials, last_name }) => (
-            <Grid item>
+            <Grid key={`${initials}-${last_name}`} item>
               <Chip
                 size="medium"
                 label={`${initials} ${last_name}`}
