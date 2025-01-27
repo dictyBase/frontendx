@@ -1,9 +1,21 @@
 import React from "react"
 import { Skeleton } from "@mui/material"
-import { Grid, makeStyles } from "@material-ui/core"
-import { PublicationHeader } from "./PublicationHeader"
+import { Container, Box, Grid, makeStyles } from "@material-ui/core"
+import { makeBy as AmakeBy } from "fp-ts/Array"
+import { grey } from "@material-ui/core/colors"
+import { PublicationSidebarLoader } from "./PublicationSidebarLoader"
 
 const useStyles = makeStyles((theme) => ({
+  container: {
+    padding: theme.spacing(3),
+  },
+  background: {
+    backgroundColor: grey[100],
+  },
+  foreground: {
+    backgroundColor: "white",
+    boxShadow: `2px 2px 7px ${grey[300]}, -2px 2px 7px ${grey[300]}`,
+  },
   sidebar: {
     [theme.breakpoints.down("sm")]: {
       textAlign: "center",
@@ -15,29 +27,27 @@ const PublicationLoader = () => {
   const classes = useStyles()
 
   return (
-    <Grid container justify="center" spacing={2} data-testid="skeleton-loader">
-      <Grid item xs={12}>
-        <PublicationHeader />
-      </Grid>
-      <Grid item xs={12} sm={2} className={classes.sidebar}>
-        <Skeleton variant="text" width="60%" animation="wave" />
-        <Skeleton variant="text" width="40%" animation="wave" />
-      </Grid>
-      <Grid item xs={12} sm={10}>
-        <Skeleton variant="text" height="35px" animation="wave" />
-        <Skeleton variant="text" width="60%" height="35px" animation="wave" />
-        <br />
-        <Skeleton variant="text" width="40%" height="25px" animation="wave" />
-        <Skeleton variant="text" width="45%" height="25px" animation="wave" />
-        <Skeleton variant="text" width="30%" height="25px" animation="wave" />
-        <br />
-        <br />
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((index) => (
-          <Skeleton variant="text" key={index} animation="wave" />
-        ))}
-        <Skeleton variant="text" animation="wave" width="80%" />
-      </Grid>
-    </Grid>
+    <Box className={classes.background}>
+      <Container disableGutters className={classes.foreground}>
+        <Grid container direction="row">
+          <Grid item xs={12} sm={12} md={1} className={classes.sidebar}>
+            <PublicationSidebarLoader />
+          </Grid>
+          <Grid item xs={12} sm={12} md={10}>
+            <Box className={classes.container}>
+              <Skeleton height="100px" />
+              {AmakeBy(3, (index) => (
+                <Skeleton key={`a-${index}`} height="40px" />
+              ))}
+              <br />
+              {AmakeBy(8, (index) => (
+                <Skeleton key={`b-${index}`} height="40px" />
+              ))}
+            </Box>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
   )
 }
 
