@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 import { Publication, usePublicationQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
-import { PublicationLoader } from "../../components/PublicationLoader"
+import { PublicationLoader } from "../../components/version_ab/PublicationLoader"
 import { ErrorPage } from "../../components/errors/ErrorPage"
 import { PublicationPage } from "../../components/version_ab/PublicationPage"
 
