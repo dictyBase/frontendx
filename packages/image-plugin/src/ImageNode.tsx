@@ -124,7 +124,7 @@ class ImageNode extends DecoratorNode<JSX.Element> {
         alt={this.__alt}
         initialWidth={this.__width}
         initialHeight={this.__height}
-        fit="cover"
+        fit="fill"
         easing="cubic-bezier(0.7, 0, 0.6, 1)"
         duration={2000}
       />
