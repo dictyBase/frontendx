@@ -35,13 +35,21 @@ const PublicationLoader = () => {
           </Grid>
           <Grid item xs={12} sm={12} md={10}>
             <Box className={classes.container}>
-              <Skeleton height="100px" />
+              <Skeleton data-testid="skeleton-loader" height="100px" />
               {AmakeBy(3, (index) => (
-                <Skeleton key={`a-${index}`} height="40px" />
+                <Skeleton
+                  data-testid="skeleton-loader"
+                  key={`a-${index}`}
+                  height="40px"
+                />
               ))}
               <br />
               {AmakeBy(8, (index) => (
-                <Skeleton key={`b-${index}`} height="40px" />
+                <Skeleton
+                  data-testid="skeleton-loader"
+                  key={`b-${index}`}
+                  height="40px"
+                />
               ))}
             </Box>
           </Grid>
