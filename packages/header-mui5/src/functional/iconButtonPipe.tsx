@@ -1,4 +1,4 @@
-import { Box } from "@material-ui/core"
+import { Box } from "@mui/material"
 import { pipe } from "fp-ts/function"
 import { v4 as uuid4 } from "uuid"
 import { map as Amap, let as Alet, bindTo } from "fp-ts/Array"

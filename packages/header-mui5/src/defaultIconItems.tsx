@@ -1,4 +1,4 @@
-import { Add, Info, ArrowDownward as Download } from "@material-ui/icons"
+import { Add, Info, ArrowDownward as Download } from "@mui/icons-material"
 import { v4 as uuid4 } from "uuid"
 import { IconType } from "./types"
 

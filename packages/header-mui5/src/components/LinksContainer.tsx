@@ -1,5 +1,5 @@
-import { Box, Typography, IconButton } from "@material-ui/core"
-import { ExitToApp as Login } from "@material-ui/icons"
+import { Box, Typography, IconButton } from "@mui/material"
+import { ExitToApp as Login } from "@mui/icons-material"
 import type { Comp } from "@dictybase/functional"
 import { headerStyles } from "../styles/headerStyles"
 
@@ -22,7 +22,7 @@ const LinksIcon = ({ Icon }: { Icon: IconType }) => (
 )
 
 const LinksIconButton = ({ children, href }: IconButtonProperties) => (
-  <IconButton className={headerStyles().linksButton} href={href}>
+  <IconButton className={headerStyles().linksButton} href={href} size="large">
     {children}
   </IconButton>
 )

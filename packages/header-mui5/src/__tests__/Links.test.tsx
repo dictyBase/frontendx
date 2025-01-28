@@ -1,12 +1,12 @@
 import { render } from "@testing-library/react"
 import { expect, describe, test } from "vitest"
-import { IconButton, SvgIcon, Typography } from "@material-ui/core"
+import { IconButton, SvgIcon, Typography } from "@mui/material"
 import { Links } from "../functional/Links"
 import { createDefaultIconItems } from "../defaultIconItems"
 import { iconButtonPipe } from "../functional/iconButtonPipe"
 
 const LoginButton = () => (
-  <IconButton href="/goofy">
+  <IconButton href="/goofy" size="large">
     <Typography>Login</Typography>
     <SvgIcon>
       <path d="M14" />
