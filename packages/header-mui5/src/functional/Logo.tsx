@@ -1,5 +1,5 @@
 import { fromChildren, composeChildren } from "@dictybase/functional"
-import { Box } from "@material-ui/core"
+import { Box } from "@mui/material"
 import { pipe } from "fp-ts/function"
 import { Option, getOrElse, map as Omap, none } from "fp-ts/Option"
 import {

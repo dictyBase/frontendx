@@ -1,5 +1,5 @@
-import { InputAdornment, TextField } from "@material-ui/core"
-import { Search } from "@material-ui/icons"
+import { InputAdornment, TextField } from "@mui/material"
+import { Search } from "@mui/icons-material"
 import type { RefObject } from "react"
 import { headerStyles } from "../styles/headerStyles"
 

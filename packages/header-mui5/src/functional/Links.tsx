@@ -1,4 +1,4 @@
-import { Box } from "@material-ui/core"
+import { Box } from "@mui/material"
 import { pipe } from "fp-ts/function"
 import { map as Omap, getOrElse } from "fp-ts/Option"
 import { fromChildren, composeChildren, Comp } from "@dictybase/functional"
