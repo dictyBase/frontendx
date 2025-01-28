@@ -28,6 +28,7 @@
     "@dictybase/functional": "*",
     "@fontsource/roboto": "^5.0.8",
     "@mui/material": "5.*",
+    "@mui/styles": "5.*",
     "@mui/icons-material": "5.*",
     "@mui/lab": "~5.0.0-alpha.175",
     "fp-ts-std": "^0.17.1",
