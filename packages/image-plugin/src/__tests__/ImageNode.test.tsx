@@ -1,5 +1,12 @@
-import { describe, test, expect, beforeAll } from "vitest"
-import { createEditor, EditorConfig } from "lexical"
+import { vi, describe, test, expect, beforeAll } from "vitest"
+import { useEffect } from "react"
+import { screen, render } from "@testing-library/react"
+import { createEditor, EditorConfig, $getRoot } from "lexical"
+import { LexicalComposer } from "@lexical/react/LexicalComposer"
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
+import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin"
+import { ContentEditable } from "@lexical/react/LexicalContentEditable"
+import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import { ImageNode, SerializedImageNode } from "../ImageNode"
 
 const testConfig: EditorConfig = {
@@ -109,5 +116,37 @@ describe("ImageNode", () => {
   })
   test("implements a createDOM method that returns an HTMLElement", () => {
     expect(imageNodeWrapperElement).toBeInstanceOf(HTMLElement)
+  })
+  // Needs a test for the ImageNode component's fit property being "fill"
+  // The component should be rendered in the test editor
+  test("the image's `fit` property is set to `fill`", async () => {
+    const Inner = () => {
+      const [editor] = useLexicalComposerContext()
+      editor.update(() => {
+        $getRoot().append(
+          new ImageNode({
+            source: "test.jpg",
+            width: initialImageWidth,
+            height: initialImageHeight,
+          }),
+        )
+      })
+      return <></>
+    }
+    render(
+      <LexicalComposer
+        initialConfig={{
+          ...testConfig,
+          onError: () => {},
+          nodes: [ImageNode],
+        }}>
+        <RichTextPlugin
+          contentEditable={<ContentEditable />}
+          placeholder={<></>}
+          ErrorBoundary={LexicalErrorBoundary} />
+        <Inner />
+      </LexicalComposer>,
+    )
+    expect(await screen.findByRole("img")).toHaveStyle("object-fit: fill")
   })
 })
