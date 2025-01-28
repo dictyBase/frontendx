@@ -1,12 +1,11 @@
-import { vi, describe, test, expect, beforeAll } from "vitest"
-import { useEffect } from "react"
+import { describe, test, expect, beforeAll } from "vitest"
 import { screen, render } from "@testing-library/react"
 import { createEditor, EditorConfig, $getRoot } from "lexical"
 import { LexicalComposer } from "@lexical/react/LexicalComposer"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin"
 import { ContentEditable } from "@lexical/react/LexicalContentEditable"
-import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
+import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary"
 import { ImageNode, SerializedImageNode } from "../ImageNode"
 
 const testConfig: EditorConfig = {
@@ -143,7 +142,8 @@ describe("ImageNode", () => {
         <RichTextPlugin
           contentEditable={<ContentEditable />}
           placeholder={<></>}
-          ErrorBoundary={LexicalErrorBoundary} />
+          ErrorBoundary={LexicalErrorBoundary}
+        />
         <Inner />
       </LexicalComposer>,
     )
