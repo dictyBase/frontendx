@@ -14,7 +14,6 @@ const ImgContainer = () => (
     webpSrc="https://storage.dictybase.dev/editor/assets/2024-10-17/2382123c-8448-4f47-b991-06c1384d2c82"
     avifSrc="https://storage.dictybase.dev/editor/assets/2024-10-17/04cea154-6be4-4c78-9d29-0b328cd67b0e"
     height="5.8rem"
-    width="90%"
     fit="fill"
   />
 )
