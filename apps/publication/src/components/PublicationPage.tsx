@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   background: {
     backgroundColor: grey[100],
   },
-  foreground: {
+  foregrond: {
     backgroundColor: "white",
     boxShadow: `2px 2px 7px ${grey[300]}, -2px 2px 7px ${grey[300]}`,
   },
