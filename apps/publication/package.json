@@ -27,8 +27,6 @@
     "@fontsource-variable/inter-tight": "^5.1.0",
     "@fontsource-variable/playfair-display": "^5.1.0",
     "@material-ui/icons": "^4.11.3",
-    "@mui/icons-material": "^5.14.19",
-    "@mui/material": "^5.14.19",
     "@rescript/react": "^0.10.3",
     "apollo3-cache-persist": "^0.14.1",
     "date-fns": "^2.30.0",
