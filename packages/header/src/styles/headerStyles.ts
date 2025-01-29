@@ -19,6 +19,7 @@ const headerStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
+    flexShrink: 0,
     marginTop: "1rem",
   },
   search: {
