@@ -39,7 +39,6 @@ const PublicationPage = ({ publication }: PublicationPageProperties) => {
               content={`dictyBase literature page for title ${title}`}
             />
           </Head>
-
           <Grid item xs={12} sm={12} md={1} className={classes.sidebar}>
             <PublicationSidebar doi={doi} title={title} />
           </Grid>
