@@ -1,5 +1,5 @@
 import React from "react"
-import { Skeleton } from "@mui/material"
+import { Skeleton } from "@material-ui/lab"
 import { Container, Box, Grid, makeStyles } from "@material-ui/core"
 import { makeBy as AmakeBy } from "fp-ts/Array"
 import { grey } from "@material-ui/core/colors"
