@@ -1,7 +1,21 @@
 import { Box, Typography, IconButton } from "@material-ui/core"
+import { makeStyles } from "@material-ui/core/styles"
 import { ExitToApp as Login } from "@material-ui/icons"
 import type { Comp } from "@dictybase/functional"
-import { headerStyles } from "../styles/headerStyles"
+
+const useLinksStyles = makeStyles({
+  container: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 2,
+  },
+  button: {
+    display: "flex",
+    flexDirection: "column",
+    color: "hsl(210, 100%, 25%)",
+  },
+  icon: { fontSize: "2.2rem" },
+})
 
 type IconType = typeof Login
 
@@ -18,17 +32,17 @@ const Title = ({ title }: { title: string }) => (
 )
 
 const LinksIcon = ({ Icon }: { Icon: IconType }) => (
-  <Icon className={headerStyles().linksIcon} />
+  <Icon className={useLinksStyles().icon} />
 )
 
 const LinksIconButton = ({ children, href }: IconButtonProperties) => (
-  <IconButton className={headerStyles().linksButton} href={href}>
+  <IconButton className={useLinksStyles().button} href={href}>
     {children}
   </IconButton>
 )
 
 const LinksContainer = ({ children }: LinksContainerProperties) => (
-  <Box className={headerStyles().linksContainer}>{children}</Box>
+  <Box className={useLinksStyles().container}>{children}</Box>
 )
 
 export { Title, LinksIcon, LinksIconButton, LinksContainer }
