@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react"
 import { makeStyles, Paper, Box, Container } from "@material-ui/core"
-import { grey } from "@material-ui/core/colors"
+import { grey, blue } from "@material-ui/core/colors"
 
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -11,6 +11,18 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(2),
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(4),
+    borderStyle: "none solid",
+    borderColor: blue[50],
+    borderWidth: "4rem",
+    borderRadius: 0,
+    [theme.breakpoints.down("md")]: {
+      border: "none",
+    },
+  },
+  container: {
+    [theme.breakpoints.down("md")]: {
+      padding: 0,
+    },
   },
 }))
 
@@ -19,7 +31,7 @@ const EditorContainer: FunctionComponent = ({ children }) => {
 
   return (
     <Box className={classes.background}>
-      <Container>
+      <Container maxWidth="lg">
         <Paper elevation={3} className={classes.paper}>
           {children}
         </Paper>
