@@ -2,10 +2,10 @@ import { Box } from "@material-ui/core"
 import { fromChildren, composeChildren, type Comp } from "@dictybase/functional"
 import { pipe } from "fp-ts/function"
 import { map as Omap, getOrElse } from "fp-ts/Option"
-import { headerStyles } from "../styles/headerStyles"
 import { Logo } from "./Logo"
 import { Links } from "./Links"
 import { Search } from "./Search"
+import { headerStyles } from "../styles/headerStyles"
 
 type HeaderProperties = {
   links: Array<Comp>
