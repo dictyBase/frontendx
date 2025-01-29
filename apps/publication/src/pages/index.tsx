@@ -1,7 +1,7 @@
 import React from "react"
 import { useRouter } from "next/router"
 import { match } from "ts-pattern"
-import { PublicationLoader } from "../components/version_ab/PublicationLoader"
+import { PublicationLoader } from "../components/PublicationLoader"
 
 const Home = () => {
   const router = useRouter()
