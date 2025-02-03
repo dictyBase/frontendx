@@ -2,7 +2,6 @@ import { makeStyles } from "@material-ui/core/styles"
 
 const useStyles = makeStyles({
   error400: {
-    backgroundColor: "#eff8fb",
     textAlign: "center",
     paddingTop: 30,
     paddingBottom: 30,
