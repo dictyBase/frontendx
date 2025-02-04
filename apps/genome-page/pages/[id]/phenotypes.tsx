@@ -1,5 +1,5 @@
 import { PhenotypesContainer } from "components/features/Phenotypes/PhenotypesContainer"
-import { PhenotypesLoader } from "components/features/Phenotypes/PhenotypesLoader"
+import { Loader } from "components/Loader"
 import { Layout } from "components/layout/Layout"
 import { NoDataDisplay } from "components/NoDataDisplay"
 import { GraphQLErrorPage } from "components/errors/GraphQLErrorPage"
@@ -42,7 +42,7 @@ const PhenotypesPageWrapper = () => {
           },
           (strains) => <PhenotypesContainer strains={strains} />,
         )
-        .with({ loading: true }, () => <PhenotypesLoader />)
+        .with({ loading: true }, () => <Loader />)
         .with({ error: P.select(P.not(undefined)) }, (error) => (
           <GraphQLErrorPage error={error} />
         ))
