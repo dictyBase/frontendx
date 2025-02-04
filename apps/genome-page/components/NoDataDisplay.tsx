@@ -1,7 +1,7 @@
 import Paper from "@material-ui/core/Paper"
 import Typography from "@material-ui/core/Typography"
 import Grid from "@material-ui/core/Grid"
-import SentimentDissatisfiedIcon from "@material-ui/icons/SentimentDissatisfied"
+import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline"
 import { makeStyles } from "@material-ui/core/styles"
 import { blue, grey } from "@material-ui/core/colors"
 
@@ -35,10 +35,10 @@ const NoDataDisplay = ({ query, geneId }: NoDataDisplayProperties) => {
         alignItems="center"
       >
         <Grid item>
-          <SentimentDissatisfiedIcon className={classes.icon} />
+          <RemoveCircleOutlineIcon className={classes.icon} />
         </Grid>
         <Grid item>
-          <Typography variant="h2">{`No ${query} data for ${geneId}`}</Typography>
+          <Typography variant="h2">{`No ${query} for ${geneId}`}</Typography>
         </Grid>
       </Grid>
     </Paper>
