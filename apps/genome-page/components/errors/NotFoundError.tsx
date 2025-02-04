@@ -1,5 +1,6 @@
 import React from "react"
 import Grid from "@material-ui/core/Grid"
+import Paper from "@material-ui/core/Paper"
 import Image from "next/image"
 import { ErrorMessage } from "./ErrorMessage"
 import { useStyles } from "../../styles/errorStyles"
@@ -18,10 +19,11 @@ const NotFoundError = ({ error }: Properties) => {
 
   return (
     <Grid container className={classes.mainGrid} justifyContent="center">
+    <Grid container justifyContent="center">
       <Grid item xs={10} md={8}>
         <div className={classes.error400}>
           <Image
-            src="/sad-dicty.png"
+            src="https://storage.dictybase.dev/editor/assets/2024-11-04/0627257c-9ce3-4f02-b000-9e16ef5b1062"
             alt="Sad Dicty Logo"
             width="350px"
             height="200%"
