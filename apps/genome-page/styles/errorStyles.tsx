@@ -13,8 +13,9 @@ const useStyles = makeStyles({
     textAlign: "center",
     paddingTop: 40,
     paddingBottom: 40,
-    marginBottom: 30,
     borderRadius: 5,
+    marginTop: "3rem",
+    marginBottom: "3rem",
     color: "#e3e3e3",
   },
   link500: {
