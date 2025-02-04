@@ -1,6 +1,7 @@
 import { OntologyContainer } from "components/features/Ontology/OntologyContainer"
 import { GraphQLErrorPage } from "components/errors/GraphQLErrorPage"
 import { Layout } from "components/layout/Layout"
+import { NoDataDisplay } from "components/NoDataDisplay"
 import { OntologyLoader } from "components/features/Ontology/OntologyLoader"
 import { useRouter } from "next/router"
 import { useGeneOntologyAnnotationQuery } from "dicty-graphql-schema"
@@ -28,6 +29,13 @@ const OntologyPageWrapper = () => {
     >
       {match(result)
         .with(
+          {
+            data: {
+              geneOntologyAnnotation: [],
+            },
+          },
+          () => <NoDataDisplay query="Go Annotations" geneId={gene} />,
+        )
         .with(
           {
             data: {
