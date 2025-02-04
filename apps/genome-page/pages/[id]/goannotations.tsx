@@ -1,5 +1,6 @@
 import { OntologyContainer } from "components/features/Ontology/OntologyContainer"
 import { GraphQLErrorPage } from "components/errors/GraphQLErrorPage"
+import { Layout } from "components/layout/Layout"
 import { OntologyLoader } from "components/features/Ontology/OntologyLoader"
 import { useRouter } from "next/router"
 import { useGeneOntologyAnnotationQuery } from "dicty-graphql-schema"
@@ -19,20 +20,31 @@ const OntologyPageWrapper = () => {
     nextFetchPolicy: "cache-only",
   })
 
-  return match(result)
-    .with(
-      {
-        data: {
-          geneOntologyAnnotation: P.select(P.array({ id: P.string })),
-        },
-      },
-      (goas) => <OntologyContainer goas={goas} />,
-    )
-    .with({ loading: true }, () => <OntologyLoader />)
-    .with({ error: P.select(P.not(undefined)) }, (error) => (
-      <GraphQLErrorPage error={error} />
-    ))
-    .otherwise(() => <> This message should not appear. </>)
+  return (
+    <Layout
+      gene={gene}
+      title={`Phenotypes for ${gene}`}
+      description={`Gene phenotypes for ${gene}`}
+    >
+      {match(result)
+        .with(
+        .with(
+          {
+            data: {
+              geneOntologyAnnotation: P.select(P.array({ id: P.string })),
+            },
+          },
+          (goas) => <OntologyContainer goas={goas} />,
+        )
+        .with({ loading: true }, () => <OntologyLoader />)
+        .with({ error: P.select(P.not(undefined)) }, (error) => (
+          <GraphQLErrorPage error={error} />
+        ))
+        .otherwise(() => (
+          <> This message should not appear. </>
+        ))}
+    </Layout>
+  )
 }
 
 // eslint-disable-next-line import/no-default-export
