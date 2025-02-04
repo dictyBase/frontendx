@@ -18,7 +18,6 @@ const NotFoundError = ({ error }: Properties) => {
   const classes = useStyles()
 
   return (
-    <Grid container className={classes.mainGrid} justifyContent="center">
     <Grid container justifyContent="center">
       <Grid item xs={10} md={8}>
         <div className={classes.error400}>
