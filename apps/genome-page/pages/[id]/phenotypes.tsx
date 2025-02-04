@@ -1,5 +1,6 @@
 import { PhenotypesContainer } from "components/features/Phenotypes/PhenotypesContainer"
 import { PhenotypesLoader } from "components/features/Phenotypes/PhenotypesLoader"
+import { Layout } from "components/layout/Layout"
 import { GraphQLErrorPage } from "components/errors/GraphQLErrorPage"
 import { useListStrainsWithGeneQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
@@ -18,20 +19,29 @@ const PhenotypesPageWrapper = () => {
     nextFetchPolicy: "cache-only",
   })
 
-  return match(result)
-    .with(
-      {
-        data: {
-          listStrainsWithGene: P.select(P.array({ id: P.string })),
-        },
-      },
-      (strains) => <PhenotypesContainer strains={strains} />,
-    )
-    .with({ loading: true }, () => <PhenotypesLoader />)
-    .with({ error: P.select(P.not(undefined)) }, (error) => (
-      <GraphQLErrorPage error={error} />
-    ))
-    .otherwise(() => <> This message should not appear. </>)
+  return (
+    <Layout
+      gene={gene}
+      title={`Phenotypes for ${gene}`}
+      description={`Gene phenotypes for ${gene}`}>
+      {match(result)
+        .with(
+          {
+            data: {
+              listStrainsWithGene: P.select(P.array({ id: P.string })),
+            },
+          },
+          (strains) => <PhenotypesContainer strains={strains} />,
+        )
+        .with({ loading: true }, () => <PhenotypesLoader />)
+        .with({ error: P.select(P.not(undefined)) }, (error) => (
+          <GraphQLErrorPage error={error} />
+        ))
+        .otherwise(() => (
+          <> This message should not appear. </>
+        ))}
+    </Layout>
+  )
 }
 
 // eslint-disable-next-line import/no-default-export
