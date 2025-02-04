@@ -1,6 +1,7 @@
 import { PhenotypesContainer } from "components/features/Phenotypes/PhenotypesContainer"
 import { PhenotypesLoader } from "components/features/Phenotypes/PhenotypesLoader"
 import { Layout } from "components/layout/Layout"
+import { NoDataDisplay } from "components/NoDataDisplay"
 import { GraphQLErrorPage } from "components/errors/GraphQLErrorPage"
 import { useListStrainsWithGeneQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
@@ -25,6 +26,14 @@ const PhenotypesPageWrapper = () => {
       title={`Phenotypes for ${gene}`}
       description={`Gene phenotypes for ${gene}`}>
       {match(result)
+        .with(
+          {
+            data: {
+              listStrainsWithGene: P.union([], P.array({ phenotypes: []})),
+            },
+          },
+          () => <NoDataDisplay query="Phenotypes" geneId={gene} />,
+        )
         .with(
           {
             data: {
