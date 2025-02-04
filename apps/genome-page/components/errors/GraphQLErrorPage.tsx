@@ -10,11 +10,11 @@ import {
 } from "fp-ts/Option"
 import { match, P } from "ts-pattern"
 import Paper from "@material-ui/core/Paper"
+import { makeStyles } from "@material-ui/core/styles"
+import { blue, grey } from "@material-ui/core/colors"
 import { ServerError } from "./ServerError"
 import { NotFoundError } from "./NotFoundError"
 import { OtherError } from "./OtherError"
-import { makeStyles } from "@material-ui/core/styles"
-import { blue, grey } from "@material-ui/core/colors"
 
 const useStyles = makeStyles({
   container: {
@@ -67,7 +67,9 @@ const GraphQLErrorPage = ({ error }: GraphQlErrorPageProperties) => {
           )
           return match(primaryErrorCode)
             .with("Unavailable", () => <ServerError />)
-            .with("NotFound", () => <NotFoundError error={primaryErrorMessage}/>)
+            .with("NotFound", () => (
+              <NotFoundError error={primaryErrorMessage} />
+            ))
             .otherwise(() => <OtherError />)
         })
         .otherwise(() => (

@@ -32,8 +32,7 @@ const NoDataDisplay = ({ query, geneId }: NoDataDisplayProperties) => {
         container
         direction="column"
         justifyContent="center"
-        alignItems="center"
-      >
+        alignItems="center">
         <Grid item>
           <RemoveCircleOutlineIcon className={classes.icon} />
         </Grid>

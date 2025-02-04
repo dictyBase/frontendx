@@ -32,16 +32,16 @@ const SummaryContainer = ({ geneSummary }: SummaryContainerProperties) => {
       </PanelWrapper>
       <PanelWrapper
         route={`${geneId}/goannotations`}
-        title="Gene Ontology Annotations"
-      >
+        title="Gene Ontology Annotations">
         <GoaPanel goas={geneOntologyAnnotation} />
       </PanelWrapper>
       <PanelWrapper
         route={`${geneId}/references`}
-        title={`Publications (${partialPublicationsList.length} of ${listPublicationsWithGene.length}) `}
-      >
+        title={`Publications (${partialPublicationsList.length} of ${listPublicationsWithGene.length}) `}>
         {match(partialPublicationsList)
-          .with([], () => <NoDataDisplay query="publications" geneId={geneId}/>)
+          .with([], () => (
+            <NoDataDisplay query="publications" geneId={geneId} />
+          ))
           .otherwise((publications) => (
             <ReferencesPanel publications={publications} />
           ))}

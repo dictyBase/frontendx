@@ -11,7 +11,7 @@ interface OntologyContainerProperties {
 }
 const OntologyContainer = ({ goas }: OntologyContainerProperties) => (
   <Typography component="div">
-      <OntologyTabLayout goas={goas} />
+    <OntologyTabLayout goas={goas} />
   </Typography>
 )
 
