@@ -1,0 +1,48 @@
+import Paper from "@material-ui/core/Paper"
+import Typography from "@material-ui/core/Typography"
+import Grid from "@material-ui/core/Grid"
+import SentimentDissatisfiedIcon from "@material-ui/icons/SentimentDissatisfied"
+import { makeStyles } from "@material-ui/core/styles"
+import { blue, grey } from "@material-ui/core/colors"
+
+const useStyles = makeStyles({
+  container: {
+    backgroundColor: blue[50],
+    color: grey[600],
+  },
+  grid: {
+    minHeight: "10rem",
+  },
+  icon: {
+    fontSize: "4rem",
+  },
+})
+
+type NoDataDisplayProperties = {
+  query: string
+  geneId: string
+}
+
+const NoDataDisplay = ({ query, geneId }: NoDataDisplayProperties) => {
+  const classes = useStyles()
+  return (
+    <Paper className={classes.container}>
+      <Grid
+        className={classes.grid}
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Grid item>
+          <SentimentDissatisfiedIcon className={classes.icon} />
+        </Grid>
+        <Grid item>
+          <Typography variant="h2">{`No ${query} data for ${geneId}`}</Typography>
+        </Grid>
+      </Grid>
+    </Paper>
+  )
+}
+
+export { NoDataDisplay }
