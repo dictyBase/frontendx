@@ -2,9 +2,11 @@ import Typography from "@material-ui/core/Typography"
 import { PanelWrapper } from "components/panels/PanelWrapper"
 import { GeneSummaryQuery } from "dicty-graphql-schema"
 import { useRouter } from "next/router"
+import { match } from "ts-pattern"
 import { GeneralInfoPanel } from "components/features/Summary/Panels/GeneralInfoPanel"
 import { GoaPanel } from "components/features/Summary/Panels/GoaPanel"
 import { ReferencesPanel } from "components/features/Summary/Panels/ReferencesPanel"
+import { NoDataDisplay } from "components/NoDataDisplay"
 
 interface SummaryContainerProperties {
   geneSummary: GeneSummaryQuery
@@ -38,7 +40,11 @@ const SummaryContainer = ({ geneSummary }: SummaryContainerProperties) => {
         route={`${geneId}/references`}
         title={`Publications (${partialPublicationsList.length} of ${listPublicationsWithGene.length}) `}
       >
-        <ReferencesPanel publications={partialPublicationsList} />
+        {match(partialPublicationsList)
+          .with([], () => <NoDataDisplay query="publications" geneId={geneId}/>)
+          .otherwise((publications) => (
+            <ReferencesPanel publications={publications} />
+          ))}
       </PanelWrapper>
     </Typography>
   )
