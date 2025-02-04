@@ -29,7 +29,7 @@ const PhenotypesPageWrapper = () => {
         .with(
           {
             data: {
-              listStrainsWithGene: P.union([], P.array({ phenotypes: []})),
+              listStrainsWithGene: P.union([], P.array({ phenotypes: [] })),
             },
           },
           () => <NoDataDisplay query="Phenotypes" geneId={gene} />,

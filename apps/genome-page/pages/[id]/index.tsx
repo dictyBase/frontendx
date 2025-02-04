@@ -24,8 +24,7 @@ const GenomePageWrapper = () => {
     <Layout
       gene={gene}
       title={`Gene Summary for ${gene}`}
-      description={`Gene information for ${gene}`}
-    >
+      description={`Gene information for ${gene}`}>
       {match(result)
         .with(
           {
