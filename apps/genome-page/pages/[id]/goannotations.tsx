@@ -1,5 +1,5 @@
 import { OntologyContainer } from "components/features/Ontology/OntologyContainer"
-import { GraphQLErrorPage } from "@dictybase/ui-common"
+import { GraphQLErrorPage } from "components/errors/GraphQLErrorPage"
 import { OntologyLoader } from "components/features/Ontology/OntologyLoader"
 import { useRouter } from "next/router"
 import { useGeneOntologyAnnotationQuery } from "dicty-graphql-schema"
