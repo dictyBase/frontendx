@@ -31,7 +31,7 @@ const GenomePageWrapper = () => {
           {
             data: P.nullish,
           },
-          () => <NoDataDisplay query="Gene Summary" geneId={gene}/>,
+          () => <NoDataDisplay query="Gene Summary" geneId={gene} />,
         )
         .with(
           {
