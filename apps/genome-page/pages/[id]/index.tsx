@@ -1,5 +1,5 @@
 import { SummaryContainer } from "components/features/Summary/SummaryContainer"
-import { SummaryLoader } from "components/features/Summary/SummaryLoader"
+import { Loader } from "components/Loader"
 import { GraphQLErrorPage } from "components/errors/GraphQLErrorPage"
 import { Layout } from "components/layout/Layout"
 import { NoDataDisplay } from "components/NoDataDisplay"
@@ -39,7 +39,7 @@ const GenomePageWrapper = () => {
           },
           (data) => <SummaryContainer geneSummary={data} />,
         )
-        .with({ loading: true }, () => <SummaryLoader />)
+        .with({ loading: true }, () => <Loader />)
         .with({ error: P.select(P.not(undefined)) }, (error) => (
           <GraphQLErrorPage error={error} />
         ))

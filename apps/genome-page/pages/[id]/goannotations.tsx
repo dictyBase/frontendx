@@ -2,7 +2,7 @@ import { OntologyContainer } from "components/features/Ontology/OntologyContaine
 import { GraphQLErrorPage } from "components/errors/GraphQLErrorPage"
 import { Layout } from "components/layout/Layout"
 import { NoDataDisplay } from "components/NoDataDisplay"
-import { OntologyLoader } from "components/features/Ontology/OntologyLoader"
+import { Loader } from "components/Loader"
 import { useRouter } from "next/router"
 import { useGeneOntologyAnnotationQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
@@ -44,7 +44,7 @@ const OntologyPageWrapper = () => {
           },
           (goas) => <OntologyContainer goas={goas} />,
         )
-        .with({ loading: true }, () => <OntologyLoader />)
+        .with({ loading: true }, () => <Loader />)
         .with({ error: P.select(P.not(undefined)) }, (error) => (
           <GraphQLErrorPage error={error} />
         ))

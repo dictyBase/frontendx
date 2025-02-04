@@ -2,7 +2,7 @@ import { ReferencesContainer } from "components/features/References/ReferencesCo
 import { GraphQLErrorPage } from "@dictybase/ui-common"
 import { Layout } from "components/layout/Layout"
 import { NoDataDisplay } from "components/NoDataDisplay"
-import { ReferencesLoader } from "components/features/References/ReferencesLoader"
+import { Loader } from "components/Loader"
 import { useRouter } from "next/router"
 import { useListPublicationsWithGeneQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
@@ -42,7 +42,7 @@ const ReferencesPageWrapper = () => {
           },
           (publications) => <ReferencesContainer publications={publications} />,
         )
-        .with({ loading: true }, () => <ReferencesLoader />)
+        .with({ loading: true }, () => <Loader />)
         .with({ error: P.select(P.not(undefined)) }, (error) => (
           <GraphQLErrorPage error={error} />
         ))
