@@ -24,8 +24,8 @@ const OntologyPageWrapper = () => {
   return (
     <Layout
       gene={gene}
-      title={`Phenotypes for ${gene}`}
-      description={`Gene phenotypes for ${gene}`}
+      title={`GO Annotations for ${gene}`}
+      description={`Gene Ontology Annotations for ${gene}`}
     >
       {match(result)
         .with(
