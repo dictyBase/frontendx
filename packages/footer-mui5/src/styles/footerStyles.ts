@@ -1,4 +1,4 @@
-import makeStyles from '@mui/styles/makeStyles';
+import makeStyles from "@mui/styles/makeStyles"
 
 export const footerStyles = makeStyles((theme) => ({
   footer: {
@@ -21,7 +21,7 @@ export const footerStyles = makeStyles((theme) => ({
     },
   },
   support: {
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down("md")]: {
       justifyContent: "center",
     },
   },
