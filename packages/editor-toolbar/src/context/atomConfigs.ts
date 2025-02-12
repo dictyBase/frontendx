@@ -14,7 +14,7 @@ export enum FontFamily {
 }
 
 type FontOption = {
-  name: string,
+  name: string
   value: FontFamily | null
 }
 export const defaultFont = { name: "Default", value: FontFamily.DEFAULT }
@@ -59,7 +59,7 @@ export const formatAtom = atom({
   isUnderlined: false,
   fontSize: FontSizes[5],
   fontColor: "hsl(0, 0%, 0%)",
-  fontFamily: fontFamilyOptions[0] as FontOption, 
+  fontFamily: fontFamilyOptions[0] as FontOption,
   blockType: BlockTypes.PARAGRAPH,
 })
 export const isBoldAtom = focusAtom(formatAtom, (optic) => optic.prop("isBold"))
