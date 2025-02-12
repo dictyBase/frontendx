@@ -20,10 +20,8 @@ const FontFamilyDropdown = () => {
   const joinedClasses = `${classes.root} ${classes.spaced}`
 
   const onFontFamilySelect = (event: FontFamilySelectProperties) => {
-    console.log(event.target.value)
     applyTextStyles(editor, { "font-family": event.target.value as string })
   }
-  console.log(fontFamily)
   return (
     <Select
       title={title}
