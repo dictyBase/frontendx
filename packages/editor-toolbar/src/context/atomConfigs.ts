@@ -10,7 +10,23 @@ export enum FontFamily {
   TIMES_NEW_ROMAN = "Times New Roman",
   TREBUCHET_MS = "Trebuchet MS",
   VERDANA = "Verdana",
+  DEFAULT = "Default",
 }
+
+type FontOption = {
+  name: string,
+  value: FontFamily | null
+}
+export const defaultFont = { name: "Default", value: FontFamily.DEFAULT }
+export const fontFamilyOptions: Array<FontOption> = [
+  defaultFont,
+  { name: "Arial", value: FontFamily.ARIAL },
+  { name: "Courier New", value: FontFamily.COURIER_NEW },
+  { name: "Georgia", value: FontFamily.GEORGIA },
+  { name: "Times New Roman", value: FontFamily.TIMES_NEW_ROMAN },
+  { name: "Trebuchet MS", value: FontFamily.TREBUCHET_MS },
+  { name: "Verdana", value: FontFamily.VERDANA },
+]
 
 export enum BlockTypes {
   PARAGRAPH = "flex-layout",
@@ -43,7 +59,7 @@ export const formatAtom = atom({
   isUnderlined: false,
   fontSize: FontSizes[5],
   fontColor: "hsl(0, 0%, 0%)",
-  fontFamily: FontFamily.ARIAL,
+  fontFamily: fontFamilyOptions[0] as FontOption, 
   blockType: BlockTypes.PARAGRAPH,
 })
 export const isBoldAtom = focusAtom(formatAtom, (optic) => optic.prop("isBold"))
