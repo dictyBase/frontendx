@@ -7,6 +7,7 @@ import { applyTextStyles } from "../utils/textStyles"
 import { useToolbarItemStyles } from "../hooks/useToolbarItemStyles"
 
 const defaultFontFamilyOptions = [
+  "Inter Variable",
   "Arial",
   "Courier New",
   "Georgia",
