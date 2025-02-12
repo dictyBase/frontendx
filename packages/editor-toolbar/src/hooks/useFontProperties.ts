@@ -2,13 +2,17 @@ import { useSetAtom } from "jotai"
 import { useCallback } from "react"
 import { $getSelection, $isRangeSelection } from "lexical"
 import { $getSelectionStyleValueForProperty } from "@lexical/selection"
+import { pipe } from "fp-ts/function"
+import { findFirst as RAfindFirst } from "fp-ts/ReadonlyArray"
+import { match as Omatch } from "fp-ts/Option"
 import {
   isBoldAtom,
   isItalicAtom,
   isUnderlinedAtom,
   fontSizeAtom,
   fontFamilyAtom,
-  FontFamily,
+  fontFamilyOptions,
+  defaultFont,
 } from "../context/atomConfigs"
 
 const useFontProperties = () => {
@@ -26,12 +30,21 @@ const useFontProperties = () => {
     setFontSize(
       $getSelectionStyleValueForProperty(selection, "font-size", "15px"),
     )
-    setFontFamily(
-      $getSelectionStyleValueForProperty(
-        selection,
-        "font-family",
-        "Arial",
-      ) as FontFamily,
+    const selectedFontValue = $getSelectionStyleValueForProperty(
+      selection,
+      "font-family",
+    )
+    pipe(
+      fontFamilyOptions,
+      RAfindFirst((fontOption) => fontOption.value === selectedFontValue),
+      Omatch(
+        () => {
+          setFontFamily(defaultFont)
+        },
+        (selected) => {
+          setFontFamily(selected)
+        },
+      ),
     )
   }, [setIsBold, setIsItalic, setIsUnderlined, setFontSize, setFontFamily])
 }
