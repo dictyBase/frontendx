@@ -8,6 +8,9 @@ import { NAMESPACE } from "../../common/constants/namespace"
 const useStyles = makeStyles({
   root: {
     backgroundColor: purple[50],
+    // backgroundColor: purple[50],
+    // boxShadow:
+    // "0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)",
     color: "#04313f",
     padding: "1rem",
     borderRadius: "16px",
