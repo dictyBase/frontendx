@@ -20,10 +20,10 @@ export enum FontFamily {
 const DEFAULT_FONT = FontFamily.INTER_VARIABLE
 
 const fonts = [
-  { name: "Inter Variable", value: FontFamily.INTER_VARIABLE },
   { name: "Arial", value: FontFamily.ARIAL },
   { name: "Courier New", value: FontFamily.COURIER_NEW },
   { name: "Georgia", value: FontFamily.GEORGIA },
+  { name: "Inter Variable", value: FontFamily.INTER_VARIABLE },
   { name: "Times New Roman", value: FontFamily.TIMES_NEW_ROMAN },
   { name: "Trebuchet MS", value: FontFamily.TREBUCHET_MS },
   { name: "Verdana", value: FontFamily.VERDANA },
