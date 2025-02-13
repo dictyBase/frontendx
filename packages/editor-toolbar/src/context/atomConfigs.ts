@@ -13,6 +13,22 @@ export enum FontFamily {
   VERDANA = "Verdana",
 }
 
+/* Used to 
+ 1. initialized the atom value
+ 2. define style of text in initial editor state
+*/
+const DEFAULT_FONT = FontFamily.INTER_VARIABLE
+
+const fonts = [
+  { name: "Inter Variable", value: FontFamily.INTER_VARIABLE },
+  { name: "Arial", value: FontFamily.ARIAL },
+  { name: "Courier New", value: FontFamily.COURIER_NEW },
+  { name: "Georgia", value: FontFamily.GEORGIA },
+  { name: "Times New Roman", value: FontFamily.TIMES_NEW_ROMAN },
+  { name: "Trebuchet MS", value: FontFamily.TREBUCHET_MS },
+  { name: "Verdana", value: FontFamily.VERDANA },
+]
+
 export enum BlockTypes {
   PARAGRAPH = "flex-layout",
   HEADING_ONE = "h1",
@@ -44,7 +60,7 @@ export const formatAtom = atom({
   isUnderlined: false,
   fontSize: FontSizes[5],
   fontColor: "hsl(0, 0%, 0%)",
-  fontFamily: FontFamily.INTER_VARIABLE,
+  fontFamily: DEFAULT_FONT,
   blockType: BlockTypes.PARAGRAPH,
 })
 export const isBoldAtom = focusAtom(formatAtom, (optic) => optic.prop("isBold"))
@@ -102,3 +118,5 @@ export const tableActionMenuOpenAtom = focusAtom(openAtom, (optic) =>
 export const colorPickerOpenAtom = focusAtom(openAtom, (optic) =>
   optic.prop("colorPicker"),
 )
+
+export { fonts, DEFAULT_FONT }
