@@ -2,34 +2,16 @@ import React from "react"
 import { Select, MenuItem } from "@material-ui/core"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { useAtom } from "jotai"
-import { fontFamilyAtom } from "../context/atomConfigs"
+import { fontFamilyAtom, fonts } from "../context/atomConfigs"
 import { applyTextStyles } from "../utils/textStyles"
 import { useToolbarItemStyles } from "../hooks/useToolbarItemStyles"
-
-const defaultFontFamilyOptions = [
-  "Inter Variable",
-  "Arial",
-  "Courier New",
-  "Georgia",
-  "Times New Roman",
-  "Trebuchet MS",
-  "Verdana",
-]
 
 type FontFamilySelectProperties = React.ChangeEvent<{
   name?: string | undefined
   value: unknown
 }>
 
-type FontFamilyDropdownProperties = {
-  fontOptions?: typeof defaultFontFamilyOptions
-}
-
-const title = "Font Family"
-
-const FontFamilyDropdown = ({
-  fontOptions = defaultFontFamilyOptions,
-}: FontFamilyDropdownProperties) => {
+const FontFamilyDropdown = () => {
   const [fontFamily] = useAtom(fontFamilyAtom)
   const [editor] = useLexicalComposerContext()
   const classes = useToolbarItemStyles()
@@ -41,13 +23,12 @@ const FontFamilyDropdown = ({
 
   return (
     <Select
-      title={title}
-      className={joinedClasses}
+      title="Font Family"      className={joinedClasses}
       onChange={onFontFamilySelect}
       value={fontFamily}>
-      {fontOptions.map((option) => (
-        <MenuItem key={option} value={option}>
-          {option}
+      {fonts.map((option) => (
+        <MenuItem key={option.name} value={option.value}>
+          {option.name}
         </MenuItem>
       ))}
     </Select>
