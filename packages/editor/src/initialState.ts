@@ -1,3 +1,4 @@
+import { DEFAULT_FONT } from "@dictybase/editor-toolbar"
 /* eslint-disable unicorn/no-null */
 const initialState = {
   root: {
@@ -10,7 +11,7 @@ const initialState = {
                 detail: 0,
                 format: 0,
                 mode: "normal",
-                style: "font-family: Inter Variable;",
+                style: `font-family: ${DEFAULT_FONT};`,
                 text: "",
                 type: "text",
                 version: 1
