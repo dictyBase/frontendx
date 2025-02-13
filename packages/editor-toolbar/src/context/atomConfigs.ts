@@ -44,7 +44,7 @@ export const formatAtom = atom({
   isUnderlined: false,
   fontSize: FontSizes[5],
   fontColor: "hsl(0, 0%, 0%)",
-  fontFamily: FontFamily.ARIAL,
+  fontFamily: FontFamily.INTER_VARIABLE,
   blockType: BlockTypes.PARAGRAPH,
 })
 export const isBoldAtom = focusAtom(formatAtom, (optic) => optic.prop("isBold"))
