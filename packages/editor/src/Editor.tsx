@@ -11,6 +11,7 @@ import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin"
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary"
 import { Grid } from "@material-ui/core"
 import { pipe } from "fp-ts/function"
+import { match as Bmatch } from "fp-ts/boolean"
 import {
   getOrElse as OgetOrElse,
   fromNullable as OfromNullable,
@@ -53,7 +54,6 @@ const Editor = ({
     OgetOrElse(() => initialStateString as InitialEditorStateType),
   )
   const placeholderClasses = useEditorPlaceholderStyles()
-  // const persistencePluginStyles = usePersistencePluginStyles()
   const editorAreaClasses = useEditorAreaStyles({ editable })
 
   return (
@@ -71,20 +71,22 @@ const Editor = ({
       <WidthTablePlugin />
       <TableActionPlugin />
       <HistoryPlugin />
-      {/* {content?.storageKey ? (
-        <LocalPersistencePlugin storageKey={content.storageKey} />
-      ) : (
-        <></>
-      )} */}
       <Grid container spacing={1} direction="column">
-        {/* <Grid item className={persistencePluginStyles.root}> */}
-        {toolbar ? <Grid item>{toolbar}</Grid> : <></>}
-        {editable ? (
-          <Grid item>
-            <DictybaseToolbar />
-          </Grid>
-        ) : (
-          <></>
+        {pipe(
+          toolbar,
+          OfromNullable,
+          Omap((tb) => <Grid item>{tb}</Grid>),
+        )}
+        {pipe(
+          editable,
+          Bmatch(
+            () => <></>,
+            () => (
+              <Grid item>
+                <DictybaseToolbar />
+              </Grid>
+            ),
+          ),
         )}
         <Grid item>
           <div>
