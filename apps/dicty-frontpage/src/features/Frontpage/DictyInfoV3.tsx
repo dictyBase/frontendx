@@ -1,21 +1,18 @@
-import { Box, makeStyles } from "@material-ui/core"
+import { Typography, Box, makeStyles } from "@material-ui/core"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { Editor } from "@dictybase/editor"
-import { purple } from "@material-ui/core/colors"
+import { teal } from "@material-ui/core/colors"
 import { NAMESPACE } from "../../common/constants/namespace"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: purple[50],
-    // backgroundColor: purple[50],
-    // boxShadow:
-    // "0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)",
+    backgroundColor: teal[50],
     color: "#04313f",
-    padding: "1rem",
-    borderRadius: "16px",
+    padding: theme.spacing(3),
+    borderRadius: theme.spacing(2),
   },
-})
+}))
 
 const DictyInfo = () => {
   const result = useContentBySlugQuery({
@@ -27,6 +24,7 @@ const DictyInfo = () => {
       { data: { contentBySlug: P.select({ content: P.string }) } },
       ({ content, slug }) => (
         <Box className={classes.root}>
+          <Typography color="secondary" variant="h2"> Dictyostelium discoideum</Typography>
           <Editor content={{ editorState: content, storageKey: slug }} />
         </Box>
       ),
