@@ -1,4 +1,5 @@
 import { Typography, Box, makeStyles } from "@material-ui/core"
+import { LoadingDisplay } from "@dictybase/ui-common"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { Editor } from "@dictybase/editor"
@@ -24,13 +25,20 @@ const DictyInfo = () => {
       { data: { contentBySlug: P.select({ content: P.string }) } },
       ({ content, slug }) => (
         <Box className={classes.root}>
-          <Typography color="secondary" variant="h2"> Dictyostelium discoideum</Typography>
+          <Typography color="secondary" variant="h2">
+            {" "}
+            Dictyostelium discoideum
+          </Typography>
           <Editor content={{ editorState: content, storageKey: slug }} />
         </Box>
       ),
     )
     .with({ data: { contentBySlug: P.nullish } }, () => <></>)
-    .with({ loading: true }, () => <></>)
+    .with({ loading: true }, () => (
+      <Box className={classes.root}>
+        <LoadingDisplay rows={5} />
+      </Box>
+    ))
     .with({ error: P.select(P.not(undefined)) }, () => <></>)
     .otherwise(() => <> This message should not appear. </>)
 }
