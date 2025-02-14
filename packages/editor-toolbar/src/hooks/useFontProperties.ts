@@ -9,6 +9,7 @@ import {
   fontSizeAtom,
   fontFamilyAtom,
   FontFamily,
+  DEFAULT_FONT,
 } from "../context/atomConfigs"
 
 const useFontProperties = () => {
@@ -30,7 +31,7 @@ const useFontProperties = () => {
       $getSelectionStyleValueForProperty(
         selection,
         "font-family",
-        "Arial",
+        DEFAULT_FONT,
       ) as FontFamily,
     )
   }, [setIsBold, setIsItalic, setIsUnderlined, setFontSize, setFontFamily])
