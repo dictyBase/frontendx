@@ -10,6 +10,12 @@ import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin"
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin"
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary"
 import { Grid } from "@material-ui/core"
+import { pipe } from "fp-ts/function"
+import {
+  getOrElse as OgetOrElse,
+  fromNullable as OfromNullable,
+  map as Omap,
+} from "fp-ts/Option"
 import { ImagePlugin } from "@dictybase/image-plugin"
 import { WidthTablePlugin } from "@dictybase/width-table-plugin"
 import { FlexLayoutPlugin } from "@dictybase/flex-layout-plugin"
@@ -40,7 +46,12 @@ const Editor = ({
   plugins,
 }: EditorProperties) => {
   // eslint-disable-next-line unicorn/no-null
-  const initialEditorState = content?.editorState || initialStateString || null
+  const initialEditorState = pipe(
+    content,
+    OfromNullable,
+    Omap(({ editorState }) => editorState),
+    OgetOrElse(() => initialStateString as InitialEditorStateType),
+  )
   const placeholderClasses = useEditorPlaceholderStyles()
   // const persistencePluginStyles = usePersistencePluginStyles()
   const editorAreaClasses = useEditorAreaStyles({ editable })
