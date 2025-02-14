@@ -23,7 +23,8 @@ const FontFamilyDropdown = () => {
 
   return (
     <Select
-      title="Font Family"      className={joinedClasses}
+      title="Font Family"
+      className={joinedClasses}
       onChange={onFontFamilySelect}
       value={fontFamily}>
       {fonts.map((option) => (
