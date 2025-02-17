@@ -1,10 +1,9 @@
 import { Typography, Box, makeStyles } from "@material-ui/core"
 import { LoadingDisplay } from "@dictybase/ui-common"
-import { useContentBySlugQuery } from "dicty-graphql-schema"
+import { ContentBySlugQueryHookResult } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { Editor } from "@dictybase/editor"
 import { teal } from "@material-ui/core/colors"
-import { NAMESPACE } from "./namespace"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,10 +14,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const DictyInfo = () => {
-  const result = useContentBySlugQuery({
-    variables: { slug: `${NAMESPACE}-info` },
-  })
+type DictyInfoProperties = {
+  result: ContentBySlugQueryHookResult
+}
+
+const DictyInfo = ({ result }: DictyInfoProperties) => {
   const classes = useStyles()
   return match(result)
     .with(
