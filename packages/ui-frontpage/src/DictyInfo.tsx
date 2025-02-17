@@ -4,7 +4,7 @@ import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { Editor } from "@dictybase/editor"
 import { teal } from "@material-ui/core/colors"
-import { NAMESPACE } from "../../common/constants/namespace"
+import { NAMESPACE } from "./namespace"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,7 +26,6 @@ const DictyInfo = () => {
       ({ content, slug }) => (
         <Box className={classes.root}>
           <Typography color="secondary" variant="h2">
-            {" "}
             Dictyostelium discoideum
           </Typography>
           <Editor content={{ editorState: content, storageKey: slug }} />
