@@ -9,7 +9,7 @@ import {
 } from "@dictybase/ui-frontpage"
 import { Slideshow } from "./Slideshow"
 import { LatestPapers } from "./LatestPapers"
-import { DictyInfo } from "./DictyInfo"
+import { DictyInfoWithAuth } from "./DictyInfoWithAuth"
 import { DictyNewsWithAuth } from "./DictyNewsWithAuth"
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -58,7 +58,7 @@ const Front = () => {
           <DictyNewsWithAuth />
         </Grid>
         <Grid item className={classes.topItem} xs={12} xl={12}>
-          <DictyInfo />
+          <DictyInfoWithAuth />
         </Grid>
         <Grid item className={classes.topItem} xs={12} xl={12}>
           <LatestPapers />
