@@ -76,6 +76,7 @@ const Editor = ({
           toolbar,
           OfromNullable,
           Omap((tb) => <Grid item>{tb}</Grid>),
+          OgetOrElse(() => <></>)
         )}
         {pipe(
           editable,
