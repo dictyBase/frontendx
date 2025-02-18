@@ -15,7 +15,7 @@ const AuthorizedHeading = () => {
     <Grid item className={classes.header}>
       <Typography variant="h1">
         Welcome to Dicty Stock Center (DSC)
-        <IconButton size="medium" onClick={onClick}>
+        <IconButton aria-label="Edit DSC Intro" size="medium" onClick={onClick}>
           <EditIcon className={classes.icon} />
         </IconButton>
       </Typography>
