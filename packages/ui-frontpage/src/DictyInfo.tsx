@@ -1,9 +1,9 @@
-import { Typography, Box, makeStyles } from "@material-ui/core"
+import { Box, makeStyles } from "@material-ui/core"
 import { LoadingDisplay } from "@dictybase/ui-common"
 import { ContentBySlugQueryHookResult } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
-import { Editor } from "@dictybase/editor"
 import { teal } from "@material-ui/core/colors"
+import { DictyInfoDisplay } from "./DictyInfoDisplay"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,14 +23,7 @@ const DictyInfo = ({ result }: DictyInfoProperties) => {
   return match(result)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
-      ({ content, slug }) => (
-        <Box className={classes.root}>
-          <Typography color="secondary" variant="h2">
-            Dictyostelium discoideum
-          </Typography>
-          <Editor content={{ editorState: content, storageKey: slug }} />
-        </Box>
-      ),
+      ({ content, slug }) => <DictyInfoDisplay content={content} slug={slug} />,
     )
     .with({ data: { contentBySlug: P.nullish } }, () => <></>)
     .with({ loading: true }, () => (
