@@ -1,7 +1,6 @@
 import { atom } from "jotai"
 import { focusAtom } from "jotai-optics"
 
-export type ButtonStates = "NORMAL" | "LOADING" | "DONE" | "ERROR"
 
 export enum FontFamily {
   INTER_VARIABLE = "Inter Variable",
