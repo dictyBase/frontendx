@@ -10,6 +10,10 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     borderRadius: theme.spacing(2),
   },
+  icon: {
+    paddingBottom: 0,
+    paddingTop: 0,
+  },
 }))
 
 type AuthorizedDictyInfoDisplayProperties = {
@@ -26,7 +30,7 @@ const AuthorizedDictyInfoDisplay = ({
     <Box className={classes.root}>
       <Typography color="secondary" variant="h2">
         Dictyostelium discoideum
-        <IconButton color="secondary" size="small">
+        <IconButton color="secondary" size="small" className={classes.icon}>
           <EditIcon />
         </IconButton>
       </Typography>
