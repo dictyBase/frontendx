@@ -12,8 +12,8 @@ const DictyInfoWithAuth = () => {
   })
   const { isAuthorized } = useAuthorization({ entries: authorizedRoles })
   return match(isAuthorized)
-    .with(true, () => <AuthorizedDictyInfo result={result}/>)
-    .with(false, () => <DictyInfo result={result} />)
+    .with(true, () => <AuthorizedDictyInfo queryResult={result}/>)
+    .with(false, () => <DictyInfo queryResult={result} />)
     .exhaustive()
 }
 
