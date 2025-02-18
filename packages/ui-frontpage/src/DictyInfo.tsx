@@ -15,12 +15,12 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 type DictyInfoProperties = {
-  result: ContentBySlugQueryHookResult
+  queryResult: ContentBySlugQueryHookResult
 }
 
-const DictyInfo = ({ result }: DictyInfoProperties) => {
+const DictyInfo = ({ queryResult }: DictyInfoProperties) => {
   const classes = useStyles()
-  return match(result)
+  return match(queryResult)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
       ({ content, slug }) => <DictyInfoDisplay content={content} slug={slug} />,
