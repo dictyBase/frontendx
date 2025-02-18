@@ -7,7 +7,7 @@ import {
   FileLinks,
 } from "@dictybase/ui-dsc"
 import { ACCESS } from "@dictybase/auth"
-import { StockCenterInfoWithAuth } from "../../components/StockCenterInfoWithAuth"
+import { StockCenterInfoWithAuth } from "../components/StockCenterInfoWithAuth"
 
 /**
  * Homepage is the main homepage component for DSC.
