@@ -1,7 +1,10 @@
 import { render, screen } from "@testing-library/react"
 import { describe, it, expect } from "vitest"
 import { MockedProvider } from "@apollo/client/testing"
-import { ListContentByNamespaceDocument } from "dicty-graphql-schema"
+import {
+  ListContentByNamespaceDocument,
+  useListContentByNamespaceQuery,
+} from "dicty-graphql-schema"
 import { RouterProvider, createMemoryRouter } from "react-router-dom"
 import { AuthorizedDictyNews } from "../news/AuthorizedDictyNews"
 
@@ -84,14 +87,18 @@ const mocks = [
   },
 ]
 
+const Wrapper = () => {
+  const queryResult = useListContentByNamespaceQuery({
+    variables: { namespace: "news" },
+  })
+  return <AuthorizedDictyNews queryResult={queryResult} />
+}
+
 describe("AuthorizedDictyNews", () => {
   it("renders authorized news list", async () => {
-    const router = createMemoryRouter(
-      [{ path: "/", element: <AuthorizedDictyNews /> }],
-      {
-        initialEntries: ["/"],
-      },
-    )
+    const router = createMemoryRouter([{ path: "/", element: <Wrapper /> }], {
+      initialEntries: ["/"],
+    })
 
     render(
       <MockedProvider mocks={mocks} addTypename={false}>
