@@ -35,7 +35,6 @@ enum BlockTypes {
   QUOTE = "quote",
 }
 
-
 const formatAtom = atom({
   isBold: false,
   isItalic: false,

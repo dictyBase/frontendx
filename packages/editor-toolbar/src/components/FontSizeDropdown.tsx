@@ -21,7 +21,7 @@ const title = "Font Size"
 const genFontSize = (start: number, end: number) =>
   [...new Array(end - start + 1).keys()]
     .map((x) => x + start)
-    .map((x) => ({ value: `${x}px`, label: `${x}`}))
+    .map((x) => ({ value: `${x}px`, label: `${x}` }))
 
 const FontSizeDropdown = ({
   start = 10,
