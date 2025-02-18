@@ -1,4 +1,9 @@
-import { makeStyles, Theme } from "@material-ui/core/styles"
+import { pipe } from "fp-ts/function"
+import {
+  fromNullable as OfromNullable,
+  getOrElse as OgetOrElse,
+} from "fp-ts/Option"
+import { makeStyles } from "@material-ui/core/styles"
 import { blue, grey } from "@material-ui/core/colors"
 
 type HomeStylesProperties = {
@@ -6,7 +11,7 @@ type HomeStylesProperties = {
   panelBackground?: string
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   panel: {
     backgroundColor: ({ panelBackground }: HomeStylesProperties) =>
       panelBackground === "blue" ? blue[50] : grey[100],
@@ -44,6 +49,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   column: {
     paddingTop: theme.spacing(1),
+  },
+  icon: {
+    fontSize: pipe(
+      theme.typography.h2.fontSize,
+      OfromNullable,
+      OgetOrElse(
+        () => "24px" as NonNullable<typeof theme.typography.h2.fontSize>,
+      ),
+    ),
   },
 }))
 
