@@ -1,8 +1,7 @@
 import { atom } from "jotai"
 import { focusAtom } from "jotai-optics"
 
-
-export enum FontFamily {
+enum FontFamily {
   INTER_VARIABLE = "Inter Variable",
   ARIAL = "Arial",
   COURIER_NEW = "Courier New",
@@ -12,10 +11,6 @@ export enum FontFamily {
   VERDANA = "Verdana",
 }
 
-/* Used to 
- 1. initialized the atom value
- 2. define style of text in initial editor state
-*/
 const DEFAULT_FONT = FontFamily.INTER_VARIABLE
 
 const fonts = [
@@ -28,7 +23,7 @@ const fonts = [
   { name: "Verdana", value: FontFamily.VERDANA },
 ]
 
-export enum BlockTypes {
+enum BlockTypes {
   PARAGRAPH = "flex-layout",
   HEADING_ONE = "h1",
   HEADING_TWO = "h2",
@@ -53,7 +48,7 @@ const FontSizes = [
   "20px",
 ]
 
-export const formatAtom = atom({
+const formatAtom = atom({
   isBold: false,
   isItalic: false,
   isUnderlined: false,
@@ -62,39 +57,13 @@ export const formatAtom = atom({
   fontFamily: DEFAULT_FONT,
   blockType: BlockTypes.PARAGRAPH,
 })
-export const isBoldAtom = focusAtom(formatAtom, (optic) => optic.prop("isBold"))
-export const isItalicAtom = focusAtom(formatAtom, (optic) =>
-  optic.prop("isItalic"),
-)
-export const isUnderlinedAtom = focusAtom(formatAtom, (optic) =>
-  optic.prop("isUnderlined"),
-)
-export const fontFamilyAtom = focusAtom(formatAtom, (optic) =>
-  optic.prop("fontFamily"),
-)
-export const fontSizeAtom = focusAtom(formatAtom, (optic) =>
-  optic.prop("fontSize"),
-)
-export const fontColorAtom = focusAtom(formatAtom, (optic) =>
-  optic.prop("fontColor"),
-)
-
-export const blockTypeAtom = focusAtom(formatAtom, (optic) =>
-  optic.prop("blockType"),
-)
 
 const historyAtom = atom({
   canUndo: false,
   canRedo: false,
 })
-export const canUndoAtom = focusAtom(historyAtom, (optic) =>
-  optic.prop("canUndo"),
-)
-export const canRedoAtom = focusAtom(historyAtom, (optic) =>
-  optic.prop("canRedo"),
-)
 
-export const openAtom = atom({
+const openAtom = atom({
   insertImage: false,
   uploadFile: false,
   insertTable: false,
@@ -102,20 +71,55 @@ export const openAtom = atom({
   colorPicker: false,
 })
 
-export const insertTableDialogOpenAtom = focusAtom(openAtom, (optic) =>
+const isBoldAtom = focusAtom(formatAtom, (optic) => optic.prop("isBold"))
+const isItalicAtom = focusAtom(formatAtom, (optic) => optic.prop("isItalic"))
+const isUnderlinedAtom = focusAtom(formatAtom, (optic) =>
+  optic.prop("isUnderlined"),
+)
+const fontFamilyAtom = focusAtom(formatAtom, (optic) =>
+  optic.prop("fontFamily"),
+)
+const fontSizeAtom = focusAtom(formatAtom, (optic) => optic.prop("fontSize"))
+const fontColorAtom = focusAtom(formatAtom, (optic) => optic.prop("fontColor"))
+
+const blockTypeAtom = focusAtom(formatAtom, (optic) => optic.prop("blockType"))
+
+const canUndoAtom = focusAtom(historyAtom, (optic) => optic.prop("canUndo"))
+const canRedoAtom = focusAtom(historyAtom, (optic) => optic.prop("canRedo"))
+
+const insertTableDialogOpenAtom = focusAtom(openAtom, (optic) =>
   optic.prop("insertTable"),
 )
-export const insertImageDialogOpenAtom = focusAtom(openAtom, (optic) =>
+const insertImageDialogOpenAtom = focusAtom(openAtom, (optic) =>
   optic.prop("insertImage"),
 )
-export const uploadFileDialogOpenAtom = focusAtom(openAtom, (optic) =>
+const uploadFileDialogOpenAtom = focusAtom(openAtom, (optic) =>
   optic.prop("uploadFile"),
 )
-export const tableActionMenuOpenAtom = focusAtom(openAtom, (optic) =>
+const tableActionMenuOpenAtom = focusAtom(openAtom, (optic) =>
   optic.prop("tableActions"),
 )
-export const colorPickerOpenAtom = focusAtom(openAtom, (optic) =>
+const colorPickerOpenAtom = focusAtom(openAtom, (optic) =>
   optic.prop("colorPicker"),
 )
 
-export { fonts, DEFAULT_FONT }
+export {
+  fonts,
+  DEFAULT_FONT,
+  FontFamily,
+  BlockTypes,
+  isBoldAtom,
+  isItalicAtom,
+  isUnderlinedAtom,
+  fontFamilyAtom,
+  fontSizeAtom,
+  fontColorAtom,
+  blockTypeAtom,
+  canUndoAtom,
+  canRedoAtom,
+  insertTableDialogOpenAtom,
+  insertImageDialogOpenAtom,
+  uploadFileDialogOpenAtom,
+  tableActionMenuOpenAtom,
+  colorPickerOpenAtom,
+}
