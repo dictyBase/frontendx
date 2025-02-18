@@ -1,6 +1,6 @@
 import { Container, Grid, makeStyles } from "@material-ui/core"
 import { match, P } from "ts-pattern"
-import { useListContentByNamespaceQuery } from "dicty-graphql-schema"
+import { ListContentByNamespaceQueryHookResult } from "dicty-graphql-schema"
 import { DictyNewsTitle } from "./DictyNewsTitle"
 import { NewsList } from "./NewsList"
 import { EmptyNewsList } from "./EmptyNewsList"
@@ -33,12 +33,12 @@ const useDictyNewsStyles = makeStyles({
   },
 })
 
-const DictyNews = () => {
+type DictyNewsProperties = {
+  queryResult: ListContentByNamespaceQueryHookResult
+}
+
+const DictyNews = ({ queryResult }: DictyNewsProperties) => {
   const { root, main, newsListItem } = useDictyNewsStyles()
-  const fetchState = useListContentByNamespaceQuery({
-    variables: { namespace: "news" },
-    fetchPolicy: "cache-and-network",
-  })
   return (
     <Container className={root}>
       <Grid
@@ -51,7 +51,7 @@ const DictyNews = () => {
           <DictyNewsTitle />
         </Grid>
         <Grid item className={newsListItem}>
-          {match(fetchState)
+          {match(queryResult)
             .with(
               {
                 data: {
