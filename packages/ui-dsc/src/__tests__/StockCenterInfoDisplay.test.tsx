@@ -21,6 +21,8 @@ describe("StockCenterInfoDisplay", () => {
         slug="mock-slug"
       />,
     )
-    expect(screen.getByText("Welcome to Dicty Stock Center (DSC)")).toBeInTheDocument()
+    expect(
+      screen.getByText("Welcome to Dicty Stock Center (DSC)"),
+    ).toBeInTheDocument()
   })
 })
