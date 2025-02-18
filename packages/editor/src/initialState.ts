@@ -1,4 +1,4 @@
-import { DEFAULT_FONT } from "@dictybase/editor-toolbar"
+import { DEFAULT_FONT, DEFAULT_FONT_SIZE } from "@dictybase/editor-toolbar"
 /* eslint-disable unicorn/no-null */
 const initialState = {
   root: {
@@ -11,7 +11,7 @@ const initialState = {
                 detail: 0,
                 format: 0,
                 mode: "normal",
-                style: `font-family: ${DEFAULT_FONT};`,
+                style: `font-family: ${DEFAULT_FONT}; font-size: ${DEFAULT_FONT_SIZE}`,
                 text: "",
                 type: "text",
                 version: 1
