@@ -50,6 +50,10 @@ const useStyles = makeStyles((theme) => ({
   column: {
     paddingTop: theme.spacing(1),
   },
+  iconButton: {
+    paddingBottom: 0,
+    paddingTop: 0,
+  },
   icon: {
     fontSize: pipe(
       theme.typography.h2.fontSize,
