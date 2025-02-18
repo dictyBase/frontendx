@@ -12,6 +12,7 @@ enum FontFamily {
 }
 
 const DEFAULT_FONT = FontFamily.INTER_VARIABLE
+const DEFAULT_FONT_SIZE = "15px"
 
 const fonts = [
   { name: "Arial", value: FontFamily.ARIAL },
@@ -34,25 +35,12 @@ enum BlockTypes {
   QUOTE = "quote",
 }
 
-const FontSizes = [
-  "10px",
-  "11px",
-  "12px",
-  "13px",
-  "14px",
-  "15px",
-  "16px",
-  "17px",
-  "18px",
-  "19px",
-  "20px",
-]
 
 const formatAtom = atom({
   isBold: false,
   isItalic: false,
   isUnderlined: false,
-  fontSize: FontSizes[5],
+  fontSize: DEFAULT_FONT_SIZE,
   fontColor: "hsl(0, 0%, 0%)",
   fontFamily: DEFAULT_FONT,
   blockType: BlockTypes.PARAGRAPH,
@@ -106,6 +94,7 @@ const colorPickerOpenAtom = focusAtom(openAtom, (optic) =>
 export {
   fonts,
   DEFAULT_FONT,
+  DEFAULT_FONT_SIZE,
   FontFamily,
   BlockTypes,
   isBoldAtom,
