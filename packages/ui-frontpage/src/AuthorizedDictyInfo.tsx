@@ -5,6 +5,7 @@ import { ContentBySlugQueryHookResult } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { Editor } from "@dictybase/editor"
 import { teal } from "@material-ui/core/colors"
+import { AuthorizedDictyInfoDisplay } from "./AuthorizedDictyInfoDisplay"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,15 +26,7 @@ const AuthorizedDictyInfo = ({ result }: AuthorizedDictyInfoProperties) => {
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
       ({ content, slug }) => (
-        <Box className={classes.root}>
-          <Typography color="secondary" variant="h2">
-            Dictyostelium discoideum
-            <IconButton color="secondary" size="small">
-              <EditIcon />
-            </IconButton>
-          </Typography>
-          <Editor content={{ editorState: content, storageKey: slug }} />
-        </Box>
+        <AuthorizedDictyInfoDisplay content={content} slug={slug} />
       ),
     )
     .with({ data: { contentBySlug: P.nullish } }, () => <></>)
