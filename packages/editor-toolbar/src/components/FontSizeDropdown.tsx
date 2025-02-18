@@ -21,7 +21,7 @@ const title = "Font Size"
 const genFontSize = (start: number, end: number) =>
   [...new Array(end - start + 1).keys()]
     .map((x) => x + start)
-    .map((x) => [`${x}px`, `${x}`])
+    .map((x) => ({ value: `${x}px`, label: `${x}`}))
 
 const FontSizeDropdown = ({
   start = 10,
@@ -41,9 +41,9 @@ const FontSizeDropdown = ({
       className={joinedClasses}
       onChange={onFontSizeSelect}
       value={fontSize}>
-      {genFontSize(start, end).map(([option, size]) => (
-        <MenuItem key={option} value={option}>
-          {size}
+      {genFontSize(start, end).map(({ value, label }) => (
+        <MenuItem key={label} value={value}>
+          {label}
         </MenuItem>
       ))}
     </Select>
