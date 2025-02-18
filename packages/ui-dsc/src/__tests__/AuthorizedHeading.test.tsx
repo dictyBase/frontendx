@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react"
 import { describe, it, expect } from "vitest"
-import { MockedProvider } from "@apollo/client/testing"
 import { RouterProvider, createMemoryRouter } from "react-router-dom"
 import userEvent from "@testing-library/user-event"
 import { AuthorizedHeading } from "../home/AuthorizedHeading"
