@@ -26,7 +26,11 @@ const ShowHomepage = () => {
   return (
     <>
       <Title />
-      <Grid container justifyContent="space-between" spacing={3}>
+      <Grid
+        container
+        direction="column"
+        justifyContent="space-between"
+        spacing={3}>
         <Heading />
         <Grid item xs={12} className={classes.intro}>
           {match(result)
