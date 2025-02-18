@@ -1,9 +1,7 @@
-import { Typography, Box, IconButton, makeStyles } from "@material-ui/core"
-import EditIcon from "@material-ui/icons/Edit"
+import { Box, makeStyles } from "@material-ui/core"
 import { LoadingDisplay } from "@dictybase/ui-common"
 import { ContentBySlugQueryHookResult } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
-import { Editor } from "@dictybase/editor"
 import { teal } from "@material-ui/core/colors"
 import { AuthorizedDictyInfoDisplay } from "./AuthorizedDictyInfoDisplay"
 
