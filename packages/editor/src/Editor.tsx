@@ -46,7 +46,6 @@ const Editor = ({
   toolbar,
   plugins,
 }: EditorProperties) => {
-  // eslint-disable-next-line unicorn/no-null
   const initialEditorState = pipe(
     content,
     OfromNullable,
@@ -76,7 +75,7 @@ const Editor = ({
           toolbar,
           OfromNullable,
           Omap((tb) => <Grid item>{tb}</Grid>),
-          OgetOrElse(() => <></>)
+          OgetOrElse(() => <></>),
         )}
         {pipe(
           editable,
