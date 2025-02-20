@@ -37,7 +37,9 @@ type AuthorizedDictyNewsProperties = {
   queryResult: ListContentByNamespaceQueryHookResult
 }
 
-const AuthorizedDictyNews = ({ queryResult }: AuthorizedDictyNewsProperties) => {
+const AuthorizedDictyNews = ({
+  queryResult,
+}: AuthorizedDictyNewsProperties) => {
   const { root, main, newsListItem } = useDictyNewsStyles()
   return (
     <Container className={root}>
