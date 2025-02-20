@@ -7,15 +7,15 @@ const initialState = {
         children: [
           {
             children: [
-              { 
+              {
                 detail: 0,
                 format: 0,
                 mode: "normal",
                 style: `font-family: ${DEFAULT_FONT}; font-size: ${DEFAULT_FONT_SIZE}`,
                 text: "",
                 type: "text",
-                version: 1
-              }
+                version: 1,
+              },
             ],
             direction: null,
             format: "",
