@@ -66,7 +66,10 @@ class ErrorBoundary extends Component<Properties, State> {
         <Grid className={classes.gridContainer} container justify="center">
           <Grid item xs={6} className={classes.paper}>
             <div style={{ textAlign: "center" }}>
-              <img src="sad-dicty.png" alt="Sad Dicty Logo" />
+              <img
+                src="https://storage.dictybase.dev/editor/assets/2024-11-04/0627257c-9ce3-4f02-b000-9e16ef5b1062"
+                alt="Sad Dicty Logo"
+              />
               <Typography variant="h2">
                 Sorry! There was an error loading this page.
               </Typography>
