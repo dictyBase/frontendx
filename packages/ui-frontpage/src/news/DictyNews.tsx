@@ -1,21 +1,8 @@
 import { Container, Grid, makeStyles } from "@material-ui/core"
-import { pipe } from "fp-ts/function"
-import {
-  takeLeft as AtakeLeft,
-  sort as Asort,
-  reverse as Areverse,
-} from "fp-ts/Array"
-import { match, P } from "ts-pattern"
-import {
-  ListContentByNamespaceQueryHookResult,
-  ListContentByNamespaceQuery,
-} from "dicty-graphql-schema"
+import { ListContentByNamespaceQueryHookResult } from "dicty-graphql-schema"
 import { DictyNewsTitle } from "./DictyNewsTitle"
-import { NewsList } from "./NewsList"
-import { EmptyNewsList } from "./EmptyNewsList"
 import { MoreNewsLink } from "./MoreNewsLink"
-import { NewsLoader } from "./NewsLoader"
-import { ordByUpdatedAt } from "../utils/ordByUpdatedAt"
+import { DictyNewsDisplay } from "./DictyNewsDisplay"
 
 const useDictyNewsStyles = makeStyles({
   main: {
@@ -42,13 +29,6 @@ const useDictyNewsStyles = makeStyles({
   },
 })
 
-const renderNewsList = (
-  newsList: ListContentByNamespaceQuery["listContentByNamespace"],
-) =>
-  pipe(newsList, Asort(ordByUpdatedAt), Areverse, AtakeLeft(3), (list) => (
-    <NewsList contentList={list} />
-  ))
-
 type DictyNewsProperties = {
   queryResult: ListContentByNamespaceQueryHookResult
 }
@@ -67,32 +47,7 @@ const DictyNews = ({ queryResult }: DictyNewsProperties) => {
           <DictyNewsTitle />
         </Grid>
         <Grid item className={newsListItem}>
-          {match(queryResult)
-            .with(
-              {
-                data: {
-                  listContentByNamespace: [],
-                },
-              },
-              () => <EmptyNewsList />,
-            )
-            .with(
-              {
-                data: {
-                  listContentByNamespace: P.select(
-                    P.array({ content: P.string }),
-                  ),
-                },
-              },
-              renderNewsList,
-            )
-            .with({ loading: true }, () => <NewsLoader />)
-            .with({ error: P.select(P.not(undefined)) }, () => (
-              <EmptyNewsList />
-            ))
-            .otherwise(() => (
-              <> This message should not appear. </>
-            ))}
+          <DictyNewsDisplay queryResult={queryResult} />
         </Grid>
         <Grid item>
           <MoreNewsLink />
