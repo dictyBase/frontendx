@@ -2,7 +2,7 @@ import { Container, Grid, makeStyles } from "@material-ui/core"
 import { pipe } from "fp-ts/function"
 import { takeLeft as AtakeLeft, sort as Asort, reverse as Areverse } from "fp-ts/Array"
 import { match, P } from "ts-pattern"
-import { ListContentByNamespaceQueryHookResult } from "dicty-graphql-schema"
+import { ListContentByNamespaceQueryHookResult, ListContentByNamespaceQuery } from "dicty-graphql-schema"
 import { DictyNewsTitle } from "./DictyNewsTitle"
 import { NewsList } from "./NewsList"
 import { EmptyNewsList } from "./EmptyNewsList"
@@ -34,6 +34,8 @@ const useDictyNewsStyles = makeStyles({
     flexGrow: 1,
   },
 })
+
+const renderNewsList = (newsList: ListContentByNamespaceQuery["listContentByNamespace"]) => pipe(newsList, Asort(ordByUpdatedAt), Areverse, AtakeLeft(3), (list) => <NewsList contentList={list} />)
 
 type DictyNewsProperties = {
   queryResult: ListContentByNamespaceQueryHookResult
@@ -70,7 +72,7 @@ const DictyNews = ({ queryResult }: DictyNewsProperties) => {
                   ),
                 },
               },
-              (contentList) => pipe(contentList, Asort(ordByUpdatedAt), Areverse, AtakeLeft(3), (list) => <NewsList contentList={list} />),
+              renderNewsList
             )
             .with({ loading: true }, () => <NewsLoader />)
             .with({ error: P.select(P.not(undefined)) }, () => (
