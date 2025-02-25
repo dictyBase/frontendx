@@ -1,4 +1,6 @@
 import { Container, Grid, makeStyles } from "@material-ui/core"
+import { pipe } from "fp-ts/function"
+import { takeLeft as AtakeLeft, sort as Asort, reverse as Areverse } from "fp-ts/Array"
 import { match, P } from "ts-pattern"
 import { ListContentByNamespaceQueryHookResult } from "dicty-graphql-schema"
 import { DictyNewsTitle } from "./DictyNewsTitle"
@@ -6,6 +8,7 @@ import { NewsList } from "./NewsList"
 import { EmptyNewsList } from "./EmptyNewsList"
 import { MoreNewsLink } from "./MoreNewsLink"
 import { NewsLoader } from "./NewsLoader"
+import { ordByUpdatedAt } from "../utils/ordByUpdatedAt"
 
 const useDictyNewsStyles = makeStyles({
   main: {
@@ -67,7 +70,7 @@ const DictyNews = ({ queryResult }: DictyNewsProperties) => {
                   ),
                 },
               },
-              (contentList) => <NewsList contentList={contentList} />,
+              (contentList) => pipe(contentList, Asort(ordByUpdatedAt), Areverse, AtakeLeft(3), (list) => <NewsList contentList={list} />),
             )
             .with({ loading: true }, () => <NewsLoader />)
             .with({ error: P.select(P.not(undefined)) }, () => (
