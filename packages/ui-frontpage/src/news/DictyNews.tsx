@@ -8,7 +8,6 @@ import { MoreNewsLink } from "./MoreNewsLink"
 import { NewsLoader } from "./NewsLoader"
 
 const useDictyNewsStyles = makeStyles({
-  root: {},
   main: {
     height: "440px",
   },
@@ -38,9 +37,9 @@ type DictyNewsProperties = {
 }
 
 const DictyNews = ({ queryResult }: DictyNewsProperties) => {
-  const { root, main, newsListItem } = useDictyNewsStyles()
+  const { main, newsListItem } = useDictyNewsStyles()
   return (
-    <Container className={root}>
+    <Container>
       <Grid
         direction="column"
         spacing={1}
