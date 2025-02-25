@@ -1,24 +1,10 @@
 import { Container, Grid, makeStyles } from "@material-ui/core"
-import { match, P } from "ts-pattern"
-import { pipe } from "fp-ts/function"
-import {
-  takeLeft as AtakeLeft,
-  sort as Asort,
-  reverse as Areverse,
-} from "fp-ts/Array"
-import {
-  ListContentByNamespaceQueryHookResult,
-  ListContentByNamespaceQuery,
-} from "dicty-graphql-schema"
+import { ListContentByNamespaceQueryHookResult } from "dicty-graphql-schema"
 import { AuthorizedDictyNewsTitle } from "./AuthorizedDictyNewsTitle"
-import { EmptyNewsList } from "./EmptyNewsList"
-import { AuthorizedNewsList } from "./AuthorizedNewsList"
 import { AuthorizedMoreNewsLink } from "./AuthorizedMoreNewsLink"
-import { NewsLoader } from "./NewsLoader"
-import { ordByUpdatedAt } from "../utils/ordByUpdatedAt"
+import { AuthorizedDictyNewsDisplay } from "./AuthorizedDictyNewsDisplay"
 
 const useDictyNewsStyles = makeStyles({
-  root: {},
   main: {
     height: "440px",
   },
@@ -43,13 +29,6 @@ const useDictyNewsStyles = makeStyles({
   },
 })
 
-const renderAuthorizedNewsList = (
-  newsList: ListContentByNamespaceQuery["listContentByNamespace"],
-) =>
-  pipe(newsList, Asort(ordByUpdatedAt), Areverse, AtakeLeft(3), (list) => (
-    <AuthorizedNewsList contentList={list} />
-  ))
-
 type AuthorizedDictyNewsProperties = {
   queryResult: ListContentByNamespaceQueryHookResult
 }
@@ -57,9 +36,9 @@ type AuthorizedDictyNewsProperties = {
 const AuthorizedDictyNews = ({
   queryResult,
 }: AuthorizedDictyNewsProperties) => {
-  const { root, main, newsListItem } = useDictyNewsStyles()
+  const { main, newsListItem } = useDictyNewsStyles()
   return (
-    <Container className={root}>
+    <Container>
       <Grid
         direction="column"
         spacing={1}
@@ -70,32 +49,7 @@ const AuthorizedDictyNews = ({
           <AuthorizedDictyNewsTitle />
         </Grid>
         <Grid item className={newsListItem}>
-          {match(queryResult)
-            .with(
-              {
-                data: {
-                  listContentByNamespace: [],
-                },
-              },
-              () => <EmptyNewsList />,
-            )
-            .with(
-              {
-                data: {
-                  listContentByNamespace: P.select(
-                    P.array({ content: P.string }),
-                  ),
-                },
-              },
-              renderAuthorizedNewsList,
-            )
-            .with({ loading: true }, () => <NewsLoader />)
-            .with({ error: P.select(P.not(undefined)) }, () => (
-              <EmptyNewsList />
-            ))
-            .otherwise(() => (
-              <> This message should not appear. </>
-            ))}
+          <AuthorizedDictyNewsDisplay queryResult={queryResult} />
         </Grid>
         <Grid item>
           <AuthorizedMoreNewsLink />
