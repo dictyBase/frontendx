@@ -1,11 +1,21 @@
 import { Container, Grid, makeStyles } from "@material-ui/core"
 import { match, P } from "ts-pattern"
-import { ListContentByNamespaceQueryHookResult } from "dicty-graphql-schema"
+import { pipe } from "fp-ts/function"
+import {
+  takeLeft as AtakeLeft,
+  sort as Asort,
+  reverse as Areverse,
+} from "fp-ts/Array"
+import {
+  ListContentByNamespaceQueryHookResult,
+  ListContentByNamespaceQuery,
+} from "dicty-graphql-schema"
 import { AuthorizedDictyNewsTitle } from "./AuthorizedDictyNewsTitle"
 import { EmptyNewsList } from "./EmptyNewsList"
 import { AuthorizedNewsList } from "./AuthorizedNewsList"
 import { AuthorizedMoreNewsLink } from "./AuthorizedMoreNewsLink"
 import { NewsLoader } from "./NewsLoader"
+import { ordByUpdatedAt } from "../utils/ordByUpdatedAt"
 
 const useDictyNewsStyles = makeStyles({
   root: {},
@@ -32,6 +42,13 @@ const useDictyNewsStyles = makeStyles({
     flexGrow: 1,
   },
 })
+
+const renderAuthorizedNewsList = (
+  newsList: ListContentByNamespaceQuery["listContentByNamespace"],
+) =>
+  pipe(newsList, Asort(ordByUpdatedAt), Areverse, AtakeLeft(3), (list) => (
+    <AuthorizedNewsList contentList={list} />
+  ))
 
 type AuthorizedDictyNewsProperties = {
   queryResult: ListContentByNamespaceQueryHookResult
@@ -70,7 +87,7 @@ const AuthorizedDictyNews = ({
                   ),
                 },
               },
-              (contentList) => <AuthorizedNewsList contentList={contentList} />,
+              renderAuthorizedNewsList,
             )
             .with({ loading: true }, () => <NewsLoader />)
             .with({ error: P.select(P.not(undefined)) }, () => (
