@@ -2,7 +2,7 @@ import { Container, Grid, makeStyles } from "@material-ui/core"
 import { ListContentByNamespaceQueryHookResult } from "dicty-graphql-schema"
 import { AuthorizedDictyNewsTitle } from "./AuthorizedDictyNewsTitle"
 import { AuthorizedMoreNewsLink } from "./AuthorizedMoreNewsLink"
-import { AuthorizedDictyNewsDisplay } from "./AuthorizedDictyNewsDisplay"
+import { AuthorizedDictyNewsContent } from "./AuthorizedDictyNewsContent"
 
 const useDictyNewsStyles = makeStyles({
   main: {
@@ -49,7 +49,7 @@ const AuthorizedDictyNews = ({
           <AuthorizedDictyNewsTitle />
         </Grid>
         <Grid item className={newsListItem}>
-          <AuthorizedDictyNewsDisplay queryResult={queryResult} />
+          <AuthorizedDictyNewsContent queryResult={queryResult} />
         </Grid>
         <Grid item>
           <AuthorizedMoreNewsLink />
