@@ -14,7 +14,7 @@ import { EmptyNewsList } from "./EmptyNewsList"
 import { NewsLoader } from "./NewsLoader"
 import { ordByUpdatedAt } from "../utils/ordByUpdatedAt"
 
-type AuthorizedDictyNewsDisplayProperties = {
+type DictyNewsContentProperties = {
   queryResult: ListContentByNamespaceQueryHookResult
 }
 
@@ -25,9 +25,9 @@ const renderNewsList = (
     <NewsList contentList={list} />
   ))
 
-const DictyNewsDisplay = ({
+const DictyNewsContent = ({
   queryResult,
-}: AuthorizedDictyNewsDisplayProperties) =>
+}: DictyNewsContentProperties) =>
   match(queryResult)
     .with(
       {
@@ -49,4 +49,4 @@ const DictyNewsDisplay = ({
     .with({ error: P.select(P.not(undefined)) }, () => <EmptyNewsList />)
     .otherwise(() => <> This message should not appear. </>)
 
-export { DictyNewsDisplay }
+export { DictyNewsContent }
