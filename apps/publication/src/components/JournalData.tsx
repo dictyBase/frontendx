@@ -4,12 +4,13 @@ import Typography from "@material-ui/core/Typography"
 import { pipe } from "fp-ts/function"
 import { isEmpty as SisEmpty } from "fp-ts/string"
 import {
+  map as Omap,
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
 import { match as Bmatch } from "fp-ts/boolean"
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import { addDays, format, parseISO } from "date-fns"
+import { format, addDays, parseISO } from "date-fns/fp"
 import { Publication } from "dicty-graphql-schema"
 import { JournalDataItem } from "./JournalDataItem"
 
@@ -53,17 +54,29 @@ const JournalData = ({ data }: JournalDataProperties) => {
   const doiURL = `https://doi.org/${doi}`
   // convert ISO 8601 string to Date format
   // otherwise the 00:00:00.000Z causes it to return the previous day
-  const day = addDays(parseISO(pub_date), 1)
-  // convert Date to desired display format
-  const date = format(day, "PPP")
   return (
     <Box mt={2}>
       <Box pb={1}>
         <Typography variant="h3" component="span" className={classes.text}>
-          {`Published on `}
+          {`Published `}
         </Typography>
+        {pipe(
+          pub_date,
+          OfromNullable,
+          Omap((date) =>
+            pipe(date, parseISO, addDays(1), format("PPP"), (formattedDate) => (
+              <Typography
+                variant="h3"
+                component="span"
+                className={classes.text}>
+                {`on ${formattedDate} `}
+              </Typography>
+            )),
+          ),
+          OgetOrElse(() => <></>),
+        )}
         <Typography variant="h3" component="span" className={classes.text}>
-          {`${date} in `}
+          {`in `}
         </Typography>
         <Typography variant="h3" component="span" className={classes.journal}>
           {journal},
