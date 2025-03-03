@@ -104,6 +104,10 @@ const createAuthNavbarItems = (
             label: "Axenic Strain History",
             link: `${frontPageUrl}/research/strain-history/editable`,
           },
+          {
+            label: "Track Maxima",
+            link: `${frontPageUrl}/research/trackmaxima/editable`,
+          },
         ],
       },
     },
