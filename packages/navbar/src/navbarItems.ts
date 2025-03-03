@@ -101,6 +101,10 @@ const createNavbarItems = (frontPageUrl: string, stockCenterUrl: string) => ({
             label: "Axenic Strain History",
             link: `${frontPageUrl}/research/strain-history/show`,
           },
+          {
+            label: "Track Maxima",
+            link: `${frontPageUrl}/research/trackmaxima/show`,
+          },
         ],
       },
     },
