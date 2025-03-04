@@ -1,20 +1,15 @@
-import { match } from "ts-pattern"
 import { pipe } from "fp-ts/function"
-import { keys as Rkeys } from "fp-ts/Record"
 import {
   Monoid as SMonoid,
   split as Ssplit,
   isEmpty as SisEmpty,
-  replace as Sreplace,
 } from "fp-ts/string"
 import {
   filter as RAfilter,
   map as RAmap,
   init as RAinit,
   last as RAlast,
-  dropLeft as RAdropLeft,
   takeLeft as RAtakeLeft,
-  findIndex as RAfindIndex,
   intercalate as RAintercalate,
 } from "fp-ts/ReadonlyArray"
 import {
@@ -70,26 +65,6 @@ const convertBreadcrumbTitle = (crumb: string) => {
 }
 
 const roleSegments = new Set(["show", "editable", "edit"])
-const omitSegments = new Set(["index"])
-const dynamicRoutes = import.meta.glob("/src/pages/**/**/*.tsx", {
-  eager: true,
-})
-const pages = pipe(
-  dynamicRoutes,
-  Rkeys,
-  RAmap((path) =>
-    pipe(
-      path,
-      Ssplit("/"),
-      RAdropLeft(3),
-      RAmap(Sreplace(/\.\w+/, "")),
-      RAmap(Sreplace(/\[\w+]/, "*")),
-      RAfilter((segment) => !roleSegments.has(segment)),
-      RAfilter((segment) => !omitSegments.has(segment)),
-    ),
-  ),
-)
-
 /**
  * Breadcrumbs displays navigation breadcrumbs for the DSC app.
  * 1. Get the pathname.
