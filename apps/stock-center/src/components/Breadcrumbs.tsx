@@ -1,3 +1,27 @@
+import { match } from "ts-pattern"
+import { pipe } from "fp-ts/function"
+import { keys as Rkeys } from "fp-ts/Record"
+import {
+  Monoid as SMonoid,
+  split as Ssplit,
+  isEmpty as SisEmpty,
+  replace as Sreplace,
+} from "fp-ts/string"
+import {
+  filter as RAfilter,
+  map as RAmap,
+  init as RAinit,
+  last as RAlast,
+  dropLeft as RAdropLeft,
+  takeLeft as RAtakeLeft,
+  findIndex as RAfindIndex,
+  intercalate as RAintercalate,
+} from "fp-ts/ReadonlyArray"
+import {
+  getOrElse as OgetOrElse,
+  match as Omatch,
+  map as Omap,
+} from "fp-ts/Option"
 import { makeStyles } from "@material-ui/core/styles"
 import MuiBreadCrumbs from "@material-ui/core/Breadcrumbs"
 import Link from "@material-ui/core/Link"
@@ -45,19 +69,74 @@ const convertBreadcrumbTitle = (crumb: string) => {
   return title
 }
 
+const roleSegments = new Set(["show", "editable", "edit"])
+const omitSegments = new Set(["index"])
+const dynamicRoutes = import.meta.glob("/src/pages/**/**/*.tsx", {
+  eager: true,
+})
+const pages = pipe(
+  dynamicRoutes,
+  Rkeys,
+  RAmap((path) =>
+    pipe(
+      path,
+      Ssplit("/"),
+      RAdropLeft(3),
+      RAmap(Sreplace(/\.\w+/, "")),
+      RAmap(Sreplace(/\[\w+]/, "*")),
+      RAfilter((segment) => !roleSegments.has(segment)),
+      RAfilter((segment) => !omitSegments.has(segment)),
+    ),
+  ),
+)
+
 /**
  * Breadcrumbs displays navigation breadcrumbs for the DSC app.
+ * 1. Get the pathname.
+ * 2. Separate into array of pathnames delimited by `/`.
+ * 3. Filter out empty strings.
+ * 4. Filter out role-based route segments.
+ * 5. A segment should be rendered as a Link if:
+ *      - It is not the final segment.
+ *      - If it represents an existing page.
+ * 6. Otherwise, render it as plain text.
  */
-
 const Breadcrumbs = () => {
   const classes = useStyles()
   const location = useLocation()
-  // get list of pathnames, filter out empty strings
-  const pathnames: Array<string> = location.pathname
-    .split("/")
-    // eslint-disable-next-line unicorn/prefer-native-coercion-functions
-    .filter((x: string) => x)
-
+  const pathnames = pipe(
+    location.pathname,
+    Ssplit("/"),
+    RAfilter((s) => !SisEmpty(s)),
+    RAfilter((s) => !roleSegments.has(s)),
+  )
+  const initialSegments = pipe(
+    pathnames,
+    RAinit,
+    OgetOrElse(() => [] as readonly string[]),
+    // Each path segment should be rendered as either plain text or a link.
+    RAmap((s) => {
+      const path = pipe(
+        pathnames,
+        RAtakeLeft(pathnames.indexOf(s) + 1),
+        RAintercalate(SMonoid)("/"),
+      )
+      return <BreadcrumbsLink key={s} name={s} path={path} />
+    }),
+  )
+  const lastSegment = pipe(
+    pathnames,
+    RAlast,
+    Omap(convertBreadcrumbTitle),
+    Omatch(
+      () => <></>,
+      (s) => (
+        <Typography key={s} color="textPrimary" data-testid="breadcrumbs-last">
+          {s}
+        </Typography>
+      ),
+    ),
+  )
   return (
     <MuiBreadCrumbs aria-label="breadcrumb">
       {pathnames.length > 0 && (
@@ -70,19 +149,8 @@ const Breadcrumbs = () => {
           DSC Home
         </Link>
       )}
-      {pathnames.map((pathname, index) => {
-        const isLast = index === pathnames.length - 1
-        return isLast ? (
-          <Typography
-            key={pathname}
-            color="textPrimary"
-            data-testid="breadcrumbs-last">
-            {convertBreadcrumbTitle(pathname)}
-          </Typography>
-        ) : (
-          <BreadcrumbsLink key={pathname} pathname={pathname} />
-        )
-      })}
+      {initialSegments}
+      {lastSegment}
     </MuiBreadCrumbs>
   )
 }
