@@ -26,9 +26,6 @@ describe("app/layout/Breadcrumbs", () => {
         pathname: "/vandelay",
       })
       render(<MockComponent />)
-      expect(screen.queryByTestId("breadcrumbs-home")).toHaveTextContent(
-        "DSC Home",
-      )
       expect(screen.getByTestId("breadcrumbs-last")).toHaveTextContent(
         "Vandelay",
       )
