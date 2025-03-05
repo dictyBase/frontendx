@@ -14,7 +14,6 @@ type DictyLinkAttributes = LinkAttributes & {
 
 class DictyLinkNode extends LinkNode {
   __download: null | string
-
   constructor(url: string, attributes?: DictyLinkAttributes, key?: NodeKey) {
     super(url, attributes, key)
     const filename = pipe(
@@ -27,6 +26,10 @@ class DictyLinkNode extends LinkNode {
       ),
     )
     this.__download = filename
+  }
+
+  static override getType() {
+    return "dicty-link"
   }
 
   setDownload(filename: string) {
