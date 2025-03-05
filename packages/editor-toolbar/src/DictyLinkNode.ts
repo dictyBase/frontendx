@@ -70,12 +70,10 @@ class DictyLinkNode extends LinkNode {
     config: EditorConfig,
   ) {
     const isUpdated = super.updateDOM(previousNode, anchor, config)
-    // If new value and previous value of download are the same, do nothing.
-    // If the new value is null, remove the attribute.
-    // Otherwise, the new value is non-null and different, so set the anchor's download attribute to the new value.
     pipe(
       this.__download !== previousNode.__download,
       Bmatch(
+        // If new value and previous value of download are the same, do nothing.
         () => {},
         () => {
           pipe(
@@ -83,8 +81,10 @@ class DictyLinkNode extends LinkNode {
             OfromNullable,
             Omatch(
               () => {
+              // If the new value is null, remove the attribute.
                 anchor.removeAttribute("download")
               },
+              // Otherwise, the new value is non-null and different, so set the anchor's download attribute to the new value.
               (nextDownloadValue) => {
                 anchor.download === nextDownloadValue
               },
