@@ -52,16 +52,16 @@ const FileUploadDialog = ({ open }: FileUploadDialogProperties) => {
     target: { files },
   }) => {
     reset()
-    // get the file selected by the user
+    // Get the file selected by the user.
     const selected = pipe(
       files,
       OfromNullable,
       Omap((someFiles) => [...someFiles]),
       OflatMap(Ahead),
     )
-    // set the error state of the file
+    // Set the error state of the file.
     pipe(selected, OflatMap(getFileValidationError), setFileError)
-    // set the file state
+    // Set the file state.
     setSelectedFile(selected)
   }
 
