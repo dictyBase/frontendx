@@ -1,5 +1,5 @@
 import { EditorConfig, NodeKey } from "lexical"
-import { LinkNode, LinkAttributes } from "@lexical/link"
+import { LinkNode, LinkAttributes, SerializedLinkNode } from "@lexical/link"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import {
@@ -92,6 +92,7 @@ class DictyLinkNode extends LinkNode {
     )
     return isUpdated
   }
+  //override importJSON(serializedNode: ) {}
 }
 
 export { DictyLinkNode }
