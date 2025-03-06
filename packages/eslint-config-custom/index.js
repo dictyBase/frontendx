@@ -22,7 +22,7 @@ module.exports = {
       files: ["*.ts", "*.tsx"],
     },
   ],
-  ignorePatterns: ["next-env.d.ts"],
+  ignorePatterns: ["node_modules", "next-env.d.ts"],
   settings: {
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"],
