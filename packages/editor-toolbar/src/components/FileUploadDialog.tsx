@@ -98,6 +98,7 @@ const FileUploadDialog = ({ open }: FileUploadDialogProperties) => {
             handleClose={handleClose}
             handleClearForm={handleClearForm}
             fileUrl={url}
+            initialFileName={pipe(fileName, OgetOrElse(() => ""))}
           />
         ))
         .otherwise(() => (
