@@ -9,7 +9,11 @@ import {
 } from "fp-ts/Option"
 
 type DictyLinkAttributes = LinkAttributes & {
-  download?: null | string
+  download: null | string
+}
+
+type SerializedDownloadLinkNode = Required<SerializedLinkNode> & {
+  download: null | string
 }
 
 class DictyLinkNode extends LinkNode {
@@ -81,7 +85,7 @@ class DictyLinkNode extends LinkNode {
             OfromNullable,
             Omatch(
               () => {
-              // If the new value is null, remove the attribute.
+                // If the new value is null, remove the attribute.
                 anchor.removeAttribute("download")
               },
               // Otherwise, the new value is non-null and different, so set the anchor's download attribute to the new value.
@@ -95,7 +99,31 @@ class DictyLinkNode extends LinkNode {
     )
     return isUpdated
   }
-  //override importJSON(serializedNode: ) {}
+
+  override exportJSON() {
+    console.log(this.getType())
+    return {
+      ...super.exportJSON(),
+      type: this.getType(),
+      download: this.getDownload(),
+    }
+  }
+
+  static override importJSON(serializedNode: SerializedDownloadLinkNode) {
+    const node = $createDictyLinkNode(serializedNode.url, {
+      rel: serializedNode.rel,
+      target: serializedNode.target,
+      title: serializedNode.title,
+      download: serializedNode.download,
+    })
+    node.setFormat(serializedNode.format)
+    node.setIndent(serializedNode.indent)
+    node.setDirection(serializedNode.direction)
+    return node
+  }
 }
 
-export { DictyLinkNode }
+const $createDictyLinkNode = (url: string, attributes: DictyLinkAttributes) =>
+  new DictyLinkNode(url, attributes)
+
+export { DictyLinkNode, $createDictyLinkNode }
