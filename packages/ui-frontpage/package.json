@@ -29,6 +29,7 @@
   },
   "scripts": {
     "lint": "TIMING=1 eslint src --fix",
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/ui-frontpage.json",
     "test": "TZ=UTC vitest run",
     "coverage": "TZ=UTC vitest run --coverage"
   }
