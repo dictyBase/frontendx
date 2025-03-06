@@ -25,9 +25,7 @@ const renderNewsList = (
     <NewsList contentList={list} />
   ))
 
-const DictyNewsContent = ({
-  queryResult,
-}: DictyNewsContentProperties) =>
+const DictyNewsContent = ({ queryResult }: DictyNewsContentProperties) =>
   match(queryResult)
     .with(
       {
