@@ -9,7 +9,7 @@ import {
 } from "fp-ts/Option"
 
 type DictyLinkAttributes = LinkAttributes & {
-  download: null | string
+  download?: null | string
 }
 
 type SerializedDownloadLinkNode = Required<SerializedLinkNode> & {
