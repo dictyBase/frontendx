@@ -8,7 +8,7 @@ import {
   match as Omatch,
 } from "fp-ts/Option"
 
-type DictyLinkAttributes = LinkAttributes & {
+type DownloadLinkAttributes = LinkAttributes & {
   download?: null | string
 }
 
@@ -16,10 +16,10 @@ type SerializedDownloadLinkNode = Required<SerializedLinkNode> & {
   download: null | string
 }
 
-class DictyLinkNode extends LinkNode {
+class DownloadLinkNode extends LinkNode {
   __download: null | string
 
-  constructor(url: string, attributes?: DictyLinkAttributes, key?: NodeKey) {
+  constructor(url: string, attributes?: DownloadLinkAttributes, key?: NodeKey) {
     super(url, attributes, key)
     const filename = pipe(
       attributes,
@@ -35,7 +35,7 @@ class DictyLinkNode extends LinkNode {
   }
 
   static override getType() {
-    return "dicty-link"
+    return "download-link"
   }
 
   setDownload(filename: string) {
@@ -48,14 +48,14 @@ class DictyLinkNode extends LinkNode {
     return self.__download
   }
 
-  static override clone(node: DictyLinkNode) {
+  static override clone(node: DownloadLinkNode) {
     const cloneAttributes = {
       rel: node.__rel,
       target: node.__target,
       title: node.__title,
       download: node.__download,
     }
-    return new DictyLinkNode(node.__url, cloneAttributes, node.__key)
+    return new DownloadLinkNode(node.__url, cloneAttributes, node.__key)
   }
 
   override createDOM(config: EditorConfig) {
@@ -74,7 +74,7 @@ class DictyLinkNode extends LinkNode {
   }
 
   override updateDOM(
-    previousNode: DictyLinkNode,
+    previousNode: DownloadLinkNode,
     anchor: HTMLAnchorElement,
     config: EditorConfig,
   ) {
@@ -115,7 +115,7 @@ class DictyLinkNode extends LinkNode {
   }
 
   static override importJSON(serializedNode: SerializedDownloadLinkNode) {
-    const node = new DictyLinkNode(serializedNode.url, {
+    const node = new DownloadLinkNode(serializedNode.url, {
       rel: serializedNode.rel,
       target: serializedNode.target,
       title: serializedNode.title,
@@ -128,7 +128,9 @@ class DictyLinkNode extends LinkNode {
   }
 }
 
-const $createDictyLinkNode = (url: string, attributes: DictyLinkAttributes) =>
-  new DictyLinkNode(url, attributes)
+const $createDownloadLinkNode = (
+  url: string,
+  attributes: DownloadLinkAttributes,
+) => new DownloadLinkNode(url, attributes)
 
-export { DictyLinkNode, $createDictyLinkNode }
+export { DownloadLinkNode, $createDownloadLinkNode }
