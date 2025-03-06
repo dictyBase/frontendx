@@ -16,7 +16,7 @@ import {
   fromNullable as OfromNullable,
   map as Omap,
 } from "fp-ts/Option"
-import { $createDictyLinkNode } from "../DictyLinkNode"
+import { $createDownloadLinkNode } from "../DownloadLinkNode"
 
 type InsertUrlProperties = {
   fileUrl: string
@@ -65,7 +65,9 @@ const InsertUrl = ({
           ),
         ),
         Omap((selection) => {
-          const linkNode = $createDictyLinkNode(fileUrl, { download: fileName })
+          const linkNode = $createDownloadLinkNode(fileUrl, {
+            download: fileName,
+          })
           const textNode = $createTextNode(linkText)
           linkNode.append(textNode)
           selection.insertNodes([linkNode])
