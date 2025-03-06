@@ -17,24 +17,33 @@ import {
   fromNullable as OfromNullable,
   map as Omap,
 } from "fp-ts/Option"
+import { $createDictyLinkNode } from "../DictyLinkNode"
 
 type InsertUrlProperties = {
   fileUrl: string
+  initialFileName: string
   handleClose: () => void
   handleClearForm: () => void
 }
 
 const InsertUrl = ({
   fileUrl,
+  initialFileName,
   handleClose,
   handleClearForm,
 }: InsertUrlProperties) => {
   const [linkText, setLinkText] = useState("Click to Download")
+  const [fileName, setFileName] = useState(initialFileName)
   const [editor] = useLexicalComposerContext()
-  const onChange: ChangeEventHandler<HTMLInputElement> = ({
+  const onChangeLinkText: ChangeEventHandler<HTMLInputElement> = ({
     currentTarget: { value },
   }) => {
     setLinkText(value)
+  }
+  const onChangeFileName: ChangeEventHandler<HTMLInputElement> = ({
+    currentTarget: { value },
+  }) => {
+    setFileName(value)
   }
   const onCancel = () => {
     handleClearForm()
@@ -57,14 +66,16 @@ const InsertUrl = ({
           ),
         ),
         Omap((selection) => {
-          const linkNode = $createLinkNode(fileUrl)
+          const linkNode = $createDictyLinkNode(fileUrl, { download: fileName })
           const textNode = $createTextNode(linkText)
+          console.log(linkNode)
           linkNode.append(textNode)
           selection.insertNodes([linkNode])
         }),
       )
     })
     setLinkText("")
+    setFileName("")
     handleClearForm()
     handleClose()
   }
@@ -88,7 +99,16 @@ const InsertUrl = ({
               fullWidth
               variant="outlined"
               value={linkText}
-              onChange={onChange}
+              onChange={onChangeLinkText}
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              label="File Name"
+              fullWidth
+              variant="outlined"
+              value={fileName}
+              onChange={onChangeFileName}
             />
           </Grid>
         </Grid>
