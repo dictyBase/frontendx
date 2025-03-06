@@ -1,7 +1,6 @@
 import { useState, ChangeEventHandler } from "react"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { $createTextNode, $getSelection, $getRoot } from "lexical"
-import { $createLinkNode } from "@lexical/link"
 import {
   TextField,
   Grid,
@@ -68,7 +67,6 @@ const InsertUrl = ({
         Omap((selection) => {
           const linkNode = $createDictyLinkNode(fileUrl, { download: fileName })
           const textNode = $createTextNode(linkText)
-          console.log(linkNode)
           linkNode.append(textNode)
           selection.insertNodes([linkNode])
         }),
