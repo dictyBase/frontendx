@@ -18,6 +18,7 @@ type SerializedDownloadLinkNode = Required<SerializedLinkNode> & {
 
 class DictyLinkNode extends LinkNode {
   __download: null | string
+
   constructor(url: string, attributes?: DictyLinkAttributes, key?: NodeKey) {
     super(url, attributes, key)
     const filename = pipe(
@@ -68,6 +69,7 @@ class DictyLinkNode extends LinkNode {
     )
     return element
   }
+
   override updateDOM(
     previousNode: DictyLinkNode,
     anchor: HTMLAnchorElement,
