@@ -60,6 +60,7 @@ class DownloadLinkNode extends LinkNode {
 
   override createDOM(config: EditorConfig) {
     const element = super.createDOM(config)
+    element.href = `blob:${element.href}`
     pipe(
       this.__download,
       OfromNullable,
