@@ -83,13 +83,13 @@ const InsertUrl = ({
   return (
     <>
       <DialogTitle disableTypography>
-        <Typography variant="h2"> Link Text </Typography>
+        <Typography variant="h2"> File Link Display </Typography>
       </DialogTitle>
       <DialogContent>
         <Grid container direction="column" spacing={3}>
           <Grid item>
             <Typography variant="body1">
-              Edit how the link to the file will be displayed
+              Change how the link will be displayed
             </Typography>
           </Grid>
           <Grid item>
@@ -100,6 +100,7 @@ const InsertUrl = ({
               variant="outlined"
               value={linkText}
               onChange={onChangeLinkText}
+              helperText="The text of the link that will be displayed"
             />
           </Grid>
           <Grid item>
@@ -109,6 +110,7 @@ const InsertUrl = ({
               variant="outlined"
               value={fileName}
               onChange={onChangeFileName}
+              helperText="The name of the file that will be downloaded"
             />
           </Grid>
         </Grid>
