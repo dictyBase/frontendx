@@ -26,6 +26,7 @@ class DictyLinkNode extends LinkNode {
       OfromNullable,
       OflatMap(({ download }) => OfromNullable(download)),
       Omatch(
+        // eslint-disable-next-line unicorn/no-null
         () => null,
         (f) => f,
       ),
@@ -64,7 +65,9 @@ class DictyLinkNode extends LinkNode {
       OfromNullable,
       Omatch(
         () => {},
-        (download) => (element.download = download),
+        (download) => {
+          element.download = download
+        },
       ),
     )
     return element
@@ -92,7 +95,8 @@ class DictyLinkNode extends LinkNode {
               },
               // Otherwise, the new value is non-null and different, so set the anchor's download attribute to the new value.
               (nextDownloadValue) => {
-                anchor.download === nextDownloadValue
+                // eslint-disable-next-line no-param-reassign
+                anchor.download = nextDownloadValue
               },
             ),
           )
@@ -103,7 +107,6 @@ class DictyLinkNode extends LinkNode {
   }
 
   override exportJSON() {
-    console.log(this.getType())
     return {
       ...super.exportJSON(),
       type: this.getType(),
@@ -112,7 +115,7 @@ class DictyLinkNode extends LinkNode {
   }
 
   static override importJSON(serializedNode: SerializedDownloadLinkNode) {
-    const node = $createDictyLinkNode(serializedNode.url, {
+    const node = new DictyLinkNode(serializedNode.url, {
       rel: serializedNode.rel,
       target: serializedNode.target,
       title: serializedNode.title,
