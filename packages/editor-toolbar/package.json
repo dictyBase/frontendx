@@ -25,5 +25,11 @@
     "eslint-config-custom": "*",
     "tsconfig": "*",
     "vitest": "0.33.*"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "custom"
+    ]
   }
 }
