@@ -41,11 +41,11 @@ const dictyEditorConfig = {
     {
       replace: LinkNode,
       with: (node: LinkNode) => {
-      const attributes = {
-        rel: node.__rel,
-        target: node.__target,
-        title: node.__title,
-      }
+        const attributes = {
+          rel: node.__rel,
+          target: node.__target,
+          title: node.__title,
+        }
         return new DictyLinkNode(node.__url, attributes)
       },
       withKlass: DictyLinkNode,
