@@ -1,4 +1,4 @@
-import { useState, ChangeEventHandler } from "react"
+import { useState } from "react"
 import { Dialog } from "@material-ui/core"
 import { useUploadFileMutation } from "dicty-graphql-schema"
 import { useLogto } from "@logto/react"
