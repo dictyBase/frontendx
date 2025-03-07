@@ -30,6 +30,11 @@ const noFileSelectedError = {
  * 2. File is validated (size, type?)
  * 3. File is uploaded
  * 4. GraphQL mutation returns uploaded file url to user
+ *
+ * @param file The file to be uploaded
+ * @param uploadAsName The name that the file will be saved as in the storage bucket
+ * @param uploadMutation The mutation function
+ * @param getAccessToken The `logto` function to fetch the user's access token
  */
 const createFileUploadFunction = (
   file: Option<File>,
