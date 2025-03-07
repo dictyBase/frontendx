@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { Dialog } from "@mui/material"
+import { useState, ChangeEventHandler } from "react"
+import { Dialog } from "@material-ui/core"
 import { useUploadFileMutation } from "dicty-graphql-schema"
 import { useLogto } from "@logto/react"
 import { useSetAtom } from "jotai"
@@ -36,6 +36,12 @@ const FileUploadDialog = ({ open }: FileUploadDialogProperties) => {
   const fileName = pipe(
     selectedFile,
     Omap(({ name }) => name),
+  )
+  const [uploadAsFileName, setUploadAsFileName] = useState(
+    pipe(
+      fileName,
+      OgetOrElse(() => ""),
+    ),
   )
   const canSubmit = pipe(
     selectedFile,
@@ -79,6 +85,7 @@ const FileUploadDialog = ({ open }: FileUploadDialogProperties) => {
   const onSubmit = async () => {
     const uploadFunction = createFileUploadFunction(
       selectedFile,
+      uploadAsFileName,
       uploadFile,
       getAccessToken,
     )
@@ -104,6 +111,8 @@ const FileUploadDialog = ({ open }: FileUploadDialogProperties) => {
           <Upload
             fileName={fileName}
             fileError={fileError}
+            uploadAsName={uploadAsFileName}
+            setUploadAsName={setUploadAsFileName}
             loading={loading}
             canSubmit={canSubmit}
             onFileChange={onFileChange}
