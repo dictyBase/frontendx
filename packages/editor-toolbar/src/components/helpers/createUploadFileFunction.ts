@@ -2,6 +2,7 @@ import { pipe } from "fp-ts/function"
 import {
   Do as TEDo,
   bind as TEbind,
+  let as TElet,
   tryCatch as TEtryCatch,
   fromOption as EfromOption,
 } from "fp-ts/TaskEither"
@@ -32,6 +33,7 @@ const noFileSelectedError = {
  */
 const createFileUploadFunction = (
   file: Option<File>,
+  uploadAsName: string,
   uploadMutation: UploadFileMutationHookResult[0],
   getAccessToken: (
     resource?: string | undefined,
@@ -45,6 +47,7 @@ const createFileUploadFunction = (
         EfromOption(() => noFileSelectedError),
       ),
     ),
+    TElet("uploadName", () => uploadAsName),
     TEbind("token", () =>
       TEtryCatch(
         () =>
@@ -52,11 +55,11 @@ const createFileUploadFunction = (
         () => accessTokenError,
       ),
     ),
-    TEbind("uploadResult", ({ selectedFile, token }) =>
+    TEbind("uploadResult", ({ selectedFile, token, uploadName }) =>
       TEtryCatch(
         () =>
           uploadMutation({
-            variables: { file: selectedFile },
+            variables: { file: selectedFile, name: uploadName },
             context: { headers: { Authorization: `Bearer ${token}` } },
           }),
         () => uploadFailureError,
