@@ -5,7 +5,6 @@ import { LinkNode } from "@lexical/link"
 import { ImageNode } from "@dictybase/image-plugin"
 import { WidthTableNode } from "@dictybase/width-table-plugin"
 import { FlexLayoutNode } from "@dictybase/flex-layout-plugin"
-import { DownloadLinkNode } from "@dictybase/editor-toolbar"
 
 const editorTheme = {
   paragraph: "editor-paragraph",
@@ -30,6 +29,7 @@ const dictyEditorConfig = {
   nodes: [
     HeadingNode,
     QuoteNode,
+    LinkNode,
     ListItemNode,
     ListNode,
     ImageNode,
@@ -37,19 +37,6 @@ const dictyEditorConfig = {
     TableRowNode,
     WidthTableNode,
     FlexLayoutNode,
-    DownloadLinkNode,
-    {
-      replace: LinkNode,
-      with: (node: LinkNode) => {
-        const attributes = {
-          rel: node.__rel,
-          target: node.__target,
-          title: node.__title,
-        }
-        return new DownloadLinkNode(node.__url, attributes)
-      },
-      withKlass: DownloadLinkNode,
-    },
   ],
   onError,
 }
