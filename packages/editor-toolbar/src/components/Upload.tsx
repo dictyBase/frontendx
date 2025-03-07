@@ -1,4 +1,4 @@
-import { useState, ChangeEventHandler } from "react"
+import { useState, ChangeEventHandler, Dispatch, SetStateAction } from "react"
 import {
   Grid,
   TextField,
@@ -47,6 +47,8 @@ const useFileUploadDialogStyles = makeStyles({
 type UploadProperties = {
   fileName: Option<string>
   fileError: Option<ErrorState>
+  uploadAsName: string
+  setUploadAsName: Dispatch<SetStateAction<string>>
   loading: boolean
   canSubmit: boolean
   onSubmit: () => void
@@ -55,12 +57,20 @@ type UploadProperties = {
 const Upload = ({
   fileName,
   fileError,
+  uploadAsName,
+  setUploadAsName,
   loading,
   canSubmit,
   onSubmit,
   onFileChange,
 }: UploadProperties) => {
   const { helpText, nativeInput } = useFileUploadDialogStyles()
+
+  const onUploadAsNameChange: ChangeEventHandler<HTMLInputElement> = ({
+    currentTarget: { value },
+  }) => {
+    setUploadAsName(value)
+  }
   return (
     <>
       <DialogTitle variant="h3">Choose a file to upload</DialogTitle>
@@ -102,7 +112,25 @@ const Upload = ({
             />
           </Grid>
           <Grid item>
-            <Typography sx={styles.helpText}>
+            {pipe(
+              fileName,
+              Omatch(
+                () => <></>,
+                () => (
+                  <TextField
+                    label="File Name"
+                    fullWidth
+                    variant="outlined"
+                    value={uploadAsName}
+                    onChange={onUploadAsNameChange}
+                    helperText="The name of the file that will be downloaded"
+                  />
+                ),
+              ),
+            )}
+          </Grid>
+          <Grid item>
+            <Typography className={helpText}>
               * File size may not exceed 10MB
             </Typography>
           </Grid>
