@@ -21,6 +21,7 @@ import {
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
 import { SelectedFile } from "./SelectedFile"
+import { UploadButton } from "./UploadButton"
 import { ErrorState } from "./fileUploadHelpers"
 
 const renderError = (Oerror: Option<ErrorState>) =>
@@ -120,15 +121,7 @@ const Upload = ({
           canSubmit,
           Bmatch(
             () => <></>,
-            () => (
-              <Button
-                type="button"
-                variant="contained"
-                disabled={!canSubmit}
-                onClick={onSubmit}>
-                Upload
-              </Button>
-            ),
+            () => <UploadButton onSubmit={onSubmit} />,
           ),
         )}
       </DialogActions>
