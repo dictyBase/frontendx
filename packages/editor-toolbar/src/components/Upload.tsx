@@ -19,7 +19,6 @@ import {
   map as Omap,
   match as Omatch,
   getOrElse as OgetOrElse,
-  isSome,
 } from "fp-ts/Option"
 import { SelectedFile } from "./SelectedFile"
 import { ErrorState } from "./fileUploadHelpers"
@@ -86,8 +85,7 @@ const Upload = ({
                 component="span">
                 {pipe(
                   fileName,
-                  isSome,
-                  Bmatch(
+                  Omatch(
                     () => "Choose a file",
                     () => "Choose a different file",
                   ),
