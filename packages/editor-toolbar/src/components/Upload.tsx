@@ -1,7 +1,7 @@
-import { ChangeEventHandler } from "react"
+import { useState, ChangeEventHandler } from "react"
 import {
-  Box,
   Grid,
+  TextField,
   CircularProgress,
   Input,
   InputLabel,
@@ -10,18 +10,19 @@ import {
   DialogActions,
   Button,
   Typography,
-} from "@mui/material"
-import InsertDriveFileIconOutlined from "@mui/icons-material/InsertDriveFileOutlined"
-import { grey } from "@mui/material/colors"
+  makeStyles,
+} from "@material-ui/core"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import {
   Option,
   map as Omap,
+  match as Omatch,
   getOrElse as OgetOrElse,
   isSome,
 } from "fp-ts/Option"
-import { ErrorState } from "./helpers/fileUploadHelpers"
+import { SelectedFile } from "./SelectedFile"
+import { ErrorState } from "./fileUploadHelpers"
 
 const renderError = (Oerror: Option<ErrorState>) =>
   pipe(
@@ -32,7 +33,7 @@ const renderError = (Oerror: Option<ErrorState>) =>
     OgetOrElse(() => <></>),
   )
 
-const useFileUploadDialogStyles = () => ({
+const useFileUploadDialogStyles = makeStyles({
   nativeInput: {
     display: "none",
   },
@@ -40,11 +41,6 @@ const useFileUploadDialogStyles = () => ({
     marginTop: "5px",
     color: "hsl(241, 5%, 50%)",
     fontStyle: "italic",
-  },
-  selectedFile: {
-    padding: "16px",
-    backgroundColor: grey[200],
-    borderRadius: "0.3125rem",
   },
 })
 
@@ -56,7 +52,6 @@ type UploadProperties = {
   onSubmit: () => void
   onFileChange: ChangeEventHandler<HTMLInputElement>
 }
-
 const Upload = ({
   fileName,
   fileError,
@@ -65,7 +60,7 @@ const Upload = ({
   onSubmit,
   onFileChange,
 }: UploadProperties) => {
-  const styles = useFileUploadDialogStyles()
+  const { helpText, nativeInput } = useFileUploadDialogStyles()
   return (
     <>
       <DialogTitle variant="h3">Choose a file to upload</DialogTitle>
@@ -76,21 +71,10 @@ const Upload = ({
         <Grid container direction="column" spacing={1}>
           {pipe(
             fileName,
-            Omap((name) => (
-              <Grid item>
-                <Box sx={styles.selectedFile}>
-                  <Grid container spacing={1} alignItems="center">
-                    <Grid item>
-                      <InsertDriveFileIconOutlined />
-                    </Grid>
-                    <Grid item>
-                      <Typography>{name}</Typography>
-                    </Grid>
-                  </Grid>
-                </Box>
-              </Grid>
-            )),
-            OgetOrElse(() => <></>),
+            Omatch(
+              () => <></>,
+              (name) => <SelectedFile filename={name} />,
+            ),
           )}
           <Grid item>
             <InputLabel htmlFor="file-upload">
