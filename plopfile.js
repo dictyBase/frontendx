@@ -199,6 +199,31 @@ function packageActions() {
     { type: "message", group: "package", folder: "packages" },
   ]
 }
+function componentPrompts() {
+  return [
+    {
+      type: "input",
+      name: "name",
+      message: "Name of the React component",
+    },
+    {
+      type: "input",
+      name: "destination",
+      message: "Directory of the React component",
+    },
+  ]
+}
+
+function componentActions() {
+  return [
+    {
+      type: "add",
+      templateFile: "plop-templates/reactComponent.hbs",
+      path: "{{ destination }}/{{ name }}.tsx",
+      skipIfExists: true,
+    },
+  ]
+}
 
 function messageAction(plop) {
   plop.setActionType("message", (answers, config, plop) => {
@@ -239,5 +264,10 @@ module.exports = function (plop) {
     description: "generate app boilerplate",
     prompts: appPrompts(),
     actions: appActions(),
+  })
+  plop.setGenerator("component", {
+    description: "generate React component scaffold",
+    prompts: componentPrompts(),
+    actions: componentActions(),
   })
 }

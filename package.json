@@ -27,6 +27,7 @@
     "doc:watch": "typedoc --tsconfig typedoc-tsconfig.json --watch",
     "create:package": "plop package",
     "create:app": "plop app",
+    "create:component": "plop component",
     "generate:schema": "turbo run generate"
   },
   "devDependencies": {
