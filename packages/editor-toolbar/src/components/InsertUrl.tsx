@@ -1,6 +1,7 @@
 import { useState, ChangeEventHandler } from "react"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { $createTextNode, $getSelection, $getRoot } from "lexical"
+import { $createLinkNode } from "@lexical/link"
 import {
   TextField,
   Grid,
@@ -16,33 +17,24 @@ import {
   fromNullable as OfromNullable,
   map as Omap,
 } from "fp-ts/Option"
-import { $createDownloadLinkNode } from "../DownloadLinkNode"
 
 type InsertUrlProperties = {
   fileUrl: string
-  initialFileName: string
   handleClose: () => void
   handleClearForm: () => void
 }
 
 const InsertUrl = ({
   fileUrl,
-  initialFileName,
   handleClose,
   handleClearForm,
 }: InsertUrlProperties) => {
   const [linkText, setLinkText] = useState("Click to Download")
-  const [fileName, setFileName] = useState(initialFileName)
   const [editor] = useLexicalComposerContext()
-  const onChangeLinkText: ChangeEventHandler<HTMLInputElement> = ({
+  const onChange: ChangeEventHandler<HTMLInputElement> = ({
     currentTarget: { value },
   }) => {
     setLinkText(value)
-  }
-  const onChangeFileName: ChangeEventHandler<HTMLInputElement> = ({
-    currentTarget: { value },
-  }) => {
-    setFileName(value)
   }
   const onCancel = () => {
     handleClearForm()
@@ -65,9 +57,7 @@ const InsertUrl = ({
           ),
         ),
         Omap((selection) => {
-          const linkNode = $createDownloadLinkNode(fileUrl, {
-            download: fileName,
-          })
+          const linkNode = $createLinkNode(fileUrl)
           const textNode = $createTextNode(linkText)
           linkNode.append(textNode)
           selection.insertNodes([linkNode])
@@ -75,7 +65,6 @@ const InsertUrl = ({
       )
     })
     setLinkText("")
-    setFileName("")
     handleClearForm()
     handleClose()
   }
@@ -83,13 +72,13 @@ const InsertUrl = ({
   return (
     <>
       <DialogTitle disableTypography>
-        <Typography variant="h2"> File Link Display </Typography>
+        <Typography variant="h2"> Link Text </Typography>
       </DialogTitle>
       <DialogContent>
         <Grid container direction="column" spacing={3}>
           <Grid item>
             <Typography variant="body1">
-              Change how the link will be displayed
+              Edit how the link to the file will be displayed
             </Typography>
           </Grid>
           <Grid item>
@@ -99,18 +88,7 @@ const InsertUrl = ({
               fullWidth
               variant="outlined"
               value={linkText}
-              onChange={onChangeLinkText}
-              helperText="The text of the link that will be displayed"
-            />
-          </Grid>
-          <Grid item>
-            <TextField
-              label="File Name"
-              fullWidth
-              variant="outlined"
-              value={fileName}
-              onChange={onChangeFileName}
-              helperText="The name of the file that will be downloaded"
+              onChange={onChange}
             />
           </Grid>
         </Grid>
