@@ -1,6 +1,6 @@
 import React from "react"
 import { pipe } from "fp-ts/function"
-import { Ord as SOrd, Monoid as SMonoid } from "fp-ts/string"
+import { Ord as SOrd, Monoid as SMonoid, isEmpty } from "fp-ts/string"
 import {
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
@@ -9,6 +9,8 @@ import {
 } from "fp-ts/Option"
 import {
   map as Amap,
+  filter as Afilter,
+  match as Amatch,
   head as Ahead,
   sort as Asort,
   intercalate as Aintercalate,
@@ -119,8 +121,14 @@ const strainRowsGenerator = ({
     content: pipe(
       genes,
       OfromNullable,
-      Omap((g) => <GenesDisplay genes={g} />),
-      OgetOrElse(() => <></>),
+      OgetOrElse(
+        () => [] as NonNullable<NonNullable<StrainQuery["strain"]>["genes"]>,
+      ),
+      Afilter(({ name }) => !isEmpty(name)),
+      Amatch(
+        () => <></>,
+        (g) => <GenesDisplay genes={g} />,
+      ),
     ),
   },
   {
@@ -166,7 +174,6 @@ const StrainDetailsCard = ({ data, tabValue, setTabValue }: Properties) => {
   const handleChange = (_: React.ChangeEvent<{}>, newValue: number) => {
     setTabValue(newValue)
   }
-
   const rows = strainRowsGenerator(data)
 
   const cartData = {
