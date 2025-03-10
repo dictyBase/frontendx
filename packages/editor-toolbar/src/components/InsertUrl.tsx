@@ -18,6 +18,7 @@ import {
   map as Omap,
 } from "fp-ts/Option"
 
+const initialLinkText = "Click to Download"
 type InsertUrlProperties = {
   fileUrl: string
   handleClose: () => void
@@ -29,7 +30,7 @@ const InsertUrl = ({
   handleClose,
   handleClearForm,
 }: InsertUrlProperties) => {
-  const [linkText, setLinkText] = useState("Click to Download")
+  const [linkText, setLinkText] = useState(initialLinkText)
   const [editor] = useLexicalComposerContext()
   const onChange: ChangeEventHandler<HTMLInputElement> = ({
     currentTarget: { value },
@@ -64,7 +65,7 @@ const InsertUrl = ({
         }),
       )
     })
-    setLinkText("")
+    setLinkText(initialLinkText)
     handleClearForm()
     handleClose()
   }
