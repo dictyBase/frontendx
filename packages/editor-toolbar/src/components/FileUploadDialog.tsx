@@ -5,7 +5,6 @@ import { match, P } from "ts-pattern"
 import { uploadFileDialogOpenAtom } from "../context/atomConfigs"
 import { InsertUrl } from "./InsertUrl"
 import { Upload } from "./Upload"
-import { useValidateUploadName } from "./fileUploadHelpers"
 
 type FileUploadDialogProperties = {
   open: boolean
