@@ -8,8 +8,8 @@ import { TextField } from "@material-ui/core"
 import { UseFormRegister, FieldErrors } from "react-hook-form"
 
 type UploadAsFieldProperties = {
-  register: UseFormRegister<{ uploadName: string }>
-  errors: FieldErrors<{ uploadName: string }>
+  register: UseFormRegister<{ uploadName?: string }>
+  errors: FieldErrors<{ uploadName?: any }>
 }
 
 const initialHelpText = "Specify the name you want to upload the file as"
