@@ -1,3 +1,6 @@
+import { object, string } from "yup"
+import { useForm } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
 import { pipe, apply } from "fp-ts/function"
 import { MonoidAll as BMonoidAll } from "fp-ts/boolean"
 import { map as Amap, reduce as Areduce } from "fp-ts/Array"
@@ -71,7 +74,20 @@ const getFileValidationError = (file: File) =>
     ),
   )
 
+const validationSchema = object().shape({
+  uploadName: string().required(
+    "* You must specify a name to upload the file as",
+  ),
+})
+
+const useValidateUploadName = () =>
+  useForm({
+    mode: "onTouched",
+    resolver: yupResolver(validationSchema),
+  })
+
 export {
+  useValidateUploadName,
   emptyFileListError,
   noFileSelectedError,
   accessTokenError,
