@@ -9,18 +9,12 @@ type GenesDisplayProperties = {
 /**
  * GenesDisplay provides a list of genes displayed as link tags.
  */
-const GenesDisplay = ({ genes }: GenesDisplayProperties) => {
-  if (genes.length === 0) {
-    return <></>
-  }
-
-  return (
-    <>
-      {genes.map((gene) => (
-        <LinkTag key={gene.name} item={gene.name} route="gene" />
-      ))}
-    </>
-  )
-}
+const GenesDisplay = ({ genes }: GenesDisplayProperties) => (
+  <>
+    {genes.map((gene) => (
+      <LinkTag key={gene.name} item={gene.name} route="gene" />
+    ))}
+  </>
+)
 
 export { GenesDisplay }
