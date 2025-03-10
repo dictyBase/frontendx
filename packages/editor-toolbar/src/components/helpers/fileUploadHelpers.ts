@@ -74,6 +74,8 @@ const getFileValidationError = (file: File) =>
     ),
   )
 
+const maximumCharacters = 50
+const excessiveLengthMessage = `* May not exceed ${maximumCharacters} characters`
 const invalidNameMessage = "* Invalid file name"
 const restrictedCharactersMessage =
   '* May not contain the characters: # [ ] * ? : " < > |'
@@ -81,6 +83,7 @@ const restrictedCharactersMessage =
 const validationSchema = object().shape({
   uploadName: string()
     .required("* Upload name may not be empty")
+    .max(maximumCharacters, excessiveLengthMessage)
     .matches(/^((?!(["#:<>?[\]|])).)*$/, restrictedCharactersMessage)
     .not([".", ".."], invalidNameMessage),
 })
