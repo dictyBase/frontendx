@@ -74,10 +74,15 @@ const getFileValidationError = (file: File) =>
     ),
   )
 
+const invalidNameMessage = "* Invalid file name"
+const restrictedCharactersMessage =
+  '* May not contain the characters: # [ ] * ? : " < > |'
+
 const validationSchema = object().shape({
-  uploadName: string().required(
-    "* You must specify a name to upload the file as",
-  ),
+  uploadName: string()
+    .required("* Upload name may not be empty")
+    .matches(/^((?!(["#:<>?[\]|])).)*$/, restrictedCharactersMessage)
+    .not([".", ".."], invalidNameMessage),
 })
 
 const useValidateUploadName = () =>
