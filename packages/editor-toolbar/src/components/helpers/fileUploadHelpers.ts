@@ -87,7 +87,7 @@ const validationSchema = object().shape({
 
 const useValidateUploadName = () =>
   useForm({
-    mode: "onTouched",
+    mode: "onChange",
     resolver: yupResolver(validationSchema),
   })
 
