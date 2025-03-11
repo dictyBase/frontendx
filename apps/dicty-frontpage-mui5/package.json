@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@apollo/client": "3.x",
-    "@dictybase/auth": "*",
+    "@dictybase/auth-mui5": "*",
     "@dictybase/data-access": "*",
     "@dictybase/editor": "*",
     "@dictybase/google-analytics": "*",
