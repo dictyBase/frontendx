@@ -4,7 +4,7 @@ import { useSetAtom } from "jotai"
 import { match, P } from "ts-pattern"
 import { uploadFileDialogOpenAtom } from "../context/atomConfigs"
 import { InsertUrl } from "./InsertUrl"
-import { Upload } from "./Upload"
+import { SelectAndUpload } from "./SelectAndUpload"
 
 type FileUploadDialogProperties = {
   open: boolean
@@ -35,7 +35,10 @@ const FileUploadDialog = ({ open }: FileUploadDialogProperties) => {
           />
         ))
         .otherwise(() => (
-          <Upload mutationFunction={uploadFileMutation} loading={loading} />
+          <SelectAndUpload
+            mutationFunction={uploadFileMutation}
+            loading={loading}
+          />
         ))}
     </Dialog>
   )
