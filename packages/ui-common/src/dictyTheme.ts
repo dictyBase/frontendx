@@ -1,9 +1,9 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import { createTheme } from "@material-ui/core"
+import { createTheme, ThemeOptions } from "@material-ui/core"
 import "@fontsource/poppins"
 import "@fontsource-variable/inter"
 
-const dictyTheme = createTheme({
+const dictyThemeOptions: ThemeOptions = {
   // use color tool for palette -- https://material.io/resources/color/
   palette: {
     primary: {
@@ -81,6 +81,8 @@ const dictyTheme = createTheme({
       },
     },
   },
-})
+}
 
-export { dictyTheme }
+const dictyTheme = createTheme(dictyThemeOptions)
+
+export { dictyTheme, dictyThemeOptions }
