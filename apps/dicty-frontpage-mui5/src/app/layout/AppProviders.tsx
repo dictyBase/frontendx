@@ -1,7 +1,7 @@
 import React from "react"
 import { ApolloProvider } from "@apollo/client"
 import { MuiThemeProvider } from "@material-ui/core/styles"
-import { ThemeProvider as MUI5ThemeProvider } from "@mui/styles"
+import { ThemeProvider as MUI5ThemeProvider, createTheme, adaptV4Theme } from "@mui/material/styles"
 import CircularProgress from "@material-ui/core/CircularProgress"
 import {
   useGraphqlClient,
@@ -9,6 +9,62 @@ import {
   storageType,
 } from "@dictybase/data-access"
 import { dictyTheme } from "@dictybase/ui-common"
+
+const dictyThemeMUI5 = createTheme({
+  // use color tool for palette -- https://material.io/resources/color/
+  palette: {
+    primary: {
+      main: "#004080",
+      light: "#476ab0",
+      dark: "#001b53",
+      contrastText: "#fff",
+    },
+    secondary: {
+      main: "#008080",
+      light: "#4cb0af",
+      dark: "#005354",
+    },
+    error: {
+      main: "#b2102f",
+      light: "#ea4f58",
+      dark: "#7b0008",
+    },
+  },
+  typography: {
+    fontFamily: "'Inter Variable', sans-serif",
+    button: {
+      textTransform: "none",
+      fontFamily: "'Poppins', sans-serif",
+    },
+    body1: {
+      fontFamily: "'Inter Variable', sans-serif",
+    },
+    body2: {
+      fontFamily: "'Inter Variable', sans-serif",
+    },
+    h1: {
+      fontSize: "2.00em",
+      fontFamily: "'Poppins', sans-serif",
+    },
+    h2: {
+      fontSize: "1.50em",
+      fontFamily: "'Poppins', sans-serif",
+    },
+    h3: {
+      fontSize: "1.17em",
+      fontFamily: "'Poppins', sans-serif",
+    },
+    h4: {
+      fontSize: "1.00em",
+    },
+    h5: {
+      fontSize: "0.83em",
+    },
+    h6: {
+      fontSize: "0.67em",
+    },
+  },
+})
 
 const AppProviders = ({ children }: { children: React.ReactNode }) => {
   const { cache, isInitializing } = useApolloClientCache({
@@ -24,7 +80,7 @@ const AppProviders = ({ children }: { children: React.ReactNode }) => {
   }
   return (
     <ApolloProvider client={client}>
-      <MUI5ThemeProvider theme={dictyTheme}>
+      <MUI5ThemeProvider theme={dictyThemeMUI5}>
         <MuiThemeProvider theme={dictyTheme}>{children}</MuiThemeProvider>
       </MUI5ThemeProvider>
     </ApolloProvider>
