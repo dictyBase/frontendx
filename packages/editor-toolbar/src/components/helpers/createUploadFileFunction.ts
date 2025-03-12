@@ -6,24 +6,9 @@ import {
   tryCatch as TEtryCatch,
   fromOption as EfromOption,
 } from "fp-ts/TaskEither"
-import {
-  Option,
-  fromNullable as OfromNullable,
-  map as Omap,
-} from "fp-ts/Option"
+import { fromNullable as OfromNullable, map as Omap } from "fp-ts/Option"
 import { UploadFileMutationHookResult } from "dicty-graphql-schema"
 import { accessTokenError, uploadFailureError } from "./fileUploadHelpers"
-
-enum ErrorType {
-  VALIDITY_ERROR,
-  ACCESS_TOKEN_ERROR,
-  UPLOAD_FAILURE,
-}
-
-const noFileSelectedError = {
-  errorType: ErrorType.VALIDITY_ERROR,
-  message: "No file selected",
-}
 
 /**
  * 1. User inputs file
@@ -37,7 +22,7 @@ const noFileSelectedError = {
  * @param getAccessToken The `logto` function to fetch the user's access token
  */
 const createFileUploadFunction = (
-  file: Option<File>,
+  file: File,
   uploadAsName: string,
   uploadMutation: UploadFileMutationHookResult[0],
   getAccessToken: (
@@ -46,12 +31,7 @@ const createFileUploadFunction = (
 ) =>
   pipe(
     TEDo,
-    TEbind("selectedFile", () =>
-      pipe(
-        file,
-        EfromOption(() => noFileSelectedError),
-      ),
-    ),
+    TElet("selectedFile", () => pipe(file)),
     TElet("uploadName", () => uploadAsName),
     TEbind("token", () =>
       TEtryCatch(
