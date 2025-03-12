@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { Dispatch, SetStateAction } from "react"
+import { UseFormReturn } from "react-hook-form"
 import {
   Grid,
   CircularProgress,
@@ -14,28 +15,19 @@ import {
 import { useLogto } from "@logto/react"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch, MonoidAll as BMonoidAll } from "fp-ts/boolean"
-import { head as Ahead } from "fp-ts/Array"
 import { match as Ematch } from "fp-ts/Either"
 import {
   Option,
   some,
   none,
   map as Omap,
-  flatMap as OflatMap,
-  match as Omatch,
-  fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
 import { UploadFileMutationFn } from "dicty-graphql-schema"
 import { SelectedFile } from "./SelectedFile"
 import { UploadButton } from "./UploadButton"
 import { UploadAsField } from "./UploadAsField"
-import {
-  isValidFile,
-  ErrorState,
-  getFileValidationError,
-  useValidateUploadName,
-} from "./fileUploadHelpers"
+import { isValidFile, ErrorState } from "./fileUploadHelpers"
 import { createFileUploadFunction } from "./createUploadFileFunction"
 
 const renderError = (Oerror: Option<ErrorState>) =>
@@ -61,51 +53,34 @@ const useFileUploadDialogStyles = makeStyles({
 type UploadProperties = {
   loading: boolean
   mutationFunction: UploadFileMutationFn
+  selectedFile: File
+  setSelectedFile: Dispatch<SetStateAction<Option<File>>>
+  fileError: Option<ErrorState>
+  setFileError: Dispatch<SetStateAction<Option<ErrorState>>>
+  validationMethods: UseFormReturn<{ uploadName?: any }>
+  onFileChange: React.ChangeEventHandler<HTMLInputElement>
 }
-const Upload = ({ loading, mutationFunction }: UploadProperties) => {
+const Upload = ({
+  loading,
+  mutationFunction,
+  selectedFile,
+  setSelectedFile,
+  fileError,
+  setFileError,
+  validationMethods,
+  onFileChange,
+}: UploadProperties) => {
   const { getAccessToken } = useLogto()
   const {
     register,
     handleSubmit,
     getValues,
-    setValue,
     formState: { isValid, errors },
-  } = useValidateUploadName()
-  const [selectedFile, setSelectedFile] = useState<Option<File>>(none)
-  const [fileError, setFileError] = useState<Option<ErrorState>>(none)
-  const fileName = pipe(
-    selectedFile,
-    Omap(({ name }) => name),
+  } = validationMethods
+  const filename = selectedFile.name
+  const canSubmit = pipe(selectedFile, isValidFile, (b) =>
+    BMonoidAll.concat(isValid, b),
   )
-  const canSubmit = pipe(
-    selectedFile,
-    Omap(isValidFile),
-    OgetOrElse(() => false),
-    (b) => BMonoidAll.concat(isValid, b),
-  )
-  const onFileChange: React.ChangeEventHandler<HTMLInputElement> = async ({
-    target: { files },
-  }) => {
-    // Get the file selected by the user.
-    const selected = pipe(
-      files,
-      OfromNullable,
-      Omap((someFiles) => [...someFiles]),
-      OflatMap(Ahead),
-    )
-    pipe(
-      selected,
-      Omap(({ name }) => name),
-      OgetOrElse(() => ""),
-      (uploadName) => {
-        setValue("uploadName", uploadName)
-      },
-    )
-    // Set the error state of the file.
-    pipe(selected, OflatMap(getFileValidationError), setFileError)
-    // Set the file state.
-    setSelectedFile(selected)
-  }
 
   const onSubmit = async () => {
     const uploadFunction = createFileUploadFunction(
@@ -132,27 +107,14 @@ const Upload = ({ loading, mutationFunction }: UploadProperties) => {
 
   return (
     <>
-      <DialogTitle variant="h3">Choose a file to upload</DialogTitle>
-      <DialogContent
-        sx={{
-          padding: "16px 24px",
-        }}>
-        <Grid container direction="column" spacing={1}>
-          {pipe(
-            fileName,
-            Omatch(
-              () => <></>,
-              (name) => <SelectedFile filename={name} />,
-            ),
-          )}
+      <DialogTitle disableTypography>
+        <Typography variant="h3"> Choose a file to upload </Typography>
+      </DialogTitle>
+      <DialogContent>
+        <Grid container direction="column" spacing={2}>
+          <SelectedFile filename={filename} />
           <Grid item>
-            {pipe(
-              fileName,
-              Omatch(
-                () => <></>,
-                () => <UploadAsField register={register} errors={errors} />,
-              ),
-            )}
+            <UploadAsField register={register} errors={errors} />
           </Grid>
           <Grid item>
             <InputLabel htmlFor="file-upload">
@@ -162,13 +124,7 @@ const Upload = ({ loading, mutationFunction }: UploadProperties) => {
                 variant="contained"
                 color="secondary"
                 component="span">
-                {pipe(
-                  fileName,
-                  Omatch(
-                    () => "Choose a file",
-                    () => "Choose a different file",
-                  ),
-                )}
+                Choose a different file
               </Button>
             </InputLabel>
             <Input
@@ -195,18 +151,10 @@ const Upload = ({ loading, mutationFunction }: UploadProperties) => {
             () => <CircularProgress />,
           ),
         )}
-        {pipe(
-          fileName,
-          Omatch(
-            () => <></>,
-            () => (
-              <UploadButton
-                onSubmit={handleSubmit(onSubmit)}
-                isDisabled={!canSubmit}
-              />
-            ),
-          ),
-        )}
+        <UploadButton
+          onSubmit={handleSubmit(onSubmit)}
+          isDisabled={!canSubmit}
+        />
       </DialogActions>
     </>
   )
