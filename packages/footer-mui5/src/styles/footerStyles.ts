@@ -1,6 +1,6 @@
-import makeStyles from "@mui/styles/makeStyles"
+import { makeStyles } from 'tss-react/mui';
 
-export const footerStyles = makeStyles((theme) => ({
+export const footerStyles = makeStyles()((theme) => ({
   footer: {
     backgroundColor: theme.palette.primary.main,
     fontFamily: `${theme.typography.fontFamily}!important`,
@@ -37,4 +37,4 @@ export const footerStyles = makeStyles((theme) => ({
       },
     },
   },
-}))
+}));
