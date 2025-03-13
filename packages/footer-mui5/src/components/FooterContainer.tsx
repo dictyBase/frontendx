@@ -3,7 +3,7 @@ import { FooterContainerProperties } from "../types"
 import { footerStyles } from "../styles/footerStyles"
 
 export const FooterContainer = ({ children }: FooterContainerProperties) => {
-  const classes = footerStyles()
+  const { classes } = footerStyles()
 
   return (
     <footer className={classes.footer}>
