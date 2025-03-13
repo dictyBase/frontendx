@@ -1,6 +1,10 @@
 import { RouterProvider } from "react-router-dom"
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import { HeaderWithAuth, NavbarWithAuth, FooterWithAuth } from "@dictybase/auth-mui5"
+import {
+  HeaderWithAuth,
+  NavbarWithAuth,
+  FooterWithAuth,
+} from "@dictybase/auth-mui5"
 import { useGoogleAnalytics } from "../../common/hooks/useGoogleAnalytics"
 import { ErrorBoundary } from "../../common/components/errors/ErrorBoundary"
 import { frontpageRouter } from "../../routes"
