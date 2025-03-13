@@ -2,7 +2,7 @@ import { Box, Grid } from "@mui/material"
 import { footerStyles } from "../styles/footerStyles"
 
 export const FooterSponsors = () => {
-  const classes = footerStyles()
+  const { classes } = footerStyles()
 
   return (
     <Grid

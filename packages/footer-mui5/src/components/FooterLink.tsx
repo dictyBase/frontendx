@@ -3,7 +3,7 @@ import { FooterItem } from "../types"
 import { footerStyles } from "../styles/footerStyles"
 
 export const FooterLink = ({ url, label }: FooterItem) => {
-  const classes = footerStyles()
+  const { classes } = footerStyles()
   return (
     <Typography
       key={url}
