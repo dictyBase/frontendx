@@ -3,7 +3,7 @@ import { footerStyles } from "../styles/footerStyles"
 import { FooterHeadProperties } from "../types"
 
 export const FooterHead = ({ title }: FooterHeadProperties) => {
-  const classes = footerStyles()
+  const { classes } = footerStyles()
 
   return (
     <Grid item xs={12}>
