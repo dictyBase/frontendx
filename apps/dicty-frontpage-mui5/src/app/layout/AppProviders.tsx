@@ -1,7 +1,10 @@
 import React from "react"
 import { ApolloProvider } from "@apollo/client"
 import { MuiThemeProvider } from "@material-ui/core/styles"
-import { ThemeProvider as MUI5ThemeProvider, createTheme, adaptV4Theme } from "@mui/material/styles"
+import {
+  ThemeProvider as MUI5ThemeProvider,
+  createTheme,
+} from "@mui/material/styles"
 import CircularProgress from "@material-ui/core/CircularProgress"
 import {
   useGraphqlClient,
@@ -9,6 +12,9 @@ import {
   storageType,
 } from "@dictybase/data-access"
 import { dictyTheme } from "@dictybase/ui-common"
+
+const bodyFontFamily = "'Inter Variable', sans-serif"
+const headerFontFamily = "'Poppins', sans-serif"
 
 const dictyThemeMUI5 = createTheme({
   // use color tool for palette -- https://material.io/resources/color/
@@ -31,28 +37,28 @@ const dictyThemeMUI5 = createTheme({
     },
   },
   typography: {
-    fontFamily: "'Inter Variable', sans-serif",
+    fontFamily: bodyFontFamily,
     button: {
       textTransform: "none",
-      fontFamily: "'Poppins', sans-serif",
+      fontFamily: headerFontFamily,
     },
     body1: {
-      fontFamily: "'Inter Variable', sans-serif",
+      fontFamily: bodyFontFamily,
     },
     body2: {
-      fontFamily: "'Inter Variable', sans-serif",
+      fontFamily: bodyFontFamily,
     },
     h1: {
       fontSize: "2.00em",
-      fontFamily: "'Poppins', sans-serif",
+      fontFamily: headerFontFamily,
     },
     h2: {
       fontSize: "1.50em",
-      fontFamily: "'Poppins', sans-serif",
+      fontFamily: headerFontFamily,
     },
     h3: {
       fontSize: "1.17em",
-      fontFamily: "'Poppins', sans-serif",
+      fontFamily: headerFontFamily,
     },
     h4: {
       fontSize: "1.00em",
@@ -62,6 +68,34 @@ const dictyThemeMUI5 = createTheme({
     },
     h6: {
       fontSize: "0.67em",
+    },
+  },
+  components: {
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+        },
+      },
+    },
+    MuiTabs: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#cce6ff",
+          color: "#000",
+        },
+        indicator: {
+          backgroundColor: "#858780",
+        },
+      },
+    },
+    MuiCssBaseline: {
+      styleOverrides: {
+        a: {
+          textDecoration: "none",
+          color: "#004080",
+        },
+      },
     },
   },
 })
