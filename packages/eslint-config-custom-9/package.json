@@ -8,6 +8,9 @@
     "eslint": "^9.22.0",
     "eslint-config-turbo": "^2.4.4",
     "eslint-plugin-github": "^5.1.8",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-sonarjs": "^3.0.2",
+    "eslint-plugin-unicorn": "^57.0.0",
     "tsconfig": "*"
   }
 }
