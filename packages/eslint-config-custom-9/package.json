@@ -1,0 +1,11 @@
+{
+  "name": "eslint-config-custom-9",
+  "version": "0.0.0",
+  "license": "BSD-2-Clause",
+  "main": "index.js",
+  "type": "module",
+  "devDependencies": {
+    "eslint": "^9.22.0",
+    "eslint-plugin-turbo": "^2.4.4"
+  }
+}
