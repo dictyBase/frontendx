@@ -6,6 +6,8 @@
   "type": "module",
   "devDependencies": {
     "eslint": "^9.22.0",
-    "eslint-plugin-turbo": "^2.4.4"
+    "eslint-config-turbo": "^2.4.4",
+    "eslint-plugin-github": "^5.1.8",
+    "tsconfig": "*"
   }
 }
