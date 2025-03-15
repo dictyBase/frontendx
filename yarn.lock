@@ -2253,9 +2253,9 @@
   integrity sha512-51UJAHznXiGkchEOT5AYFuIy9N9m1JE7YxcdOtY0H4SKgzK9YYGKpeCXv3dz2e1gAd+BP2TyR0QXNnVjgeCbgw==
 
 "@fontsource/fira-code@^5.0.5":
-  version "5.0.16"
-  resolved "https://registry.yarnpkg.com/@fontsource/fira-code/-/fira-code-5.0.16.tgz#a85f1836ddc38b6ea81feeade110d7ae31f0bc6d"
-  integrity sha512-mOAs/sgZz+ETOB4foFnOnbewQDJpByvR4h/pLmgkWVn/gbA8Tlb4wUSWK4QFc+SKmHaDJsT/wgWjDUcxssZn7w==
+  version "5.2.5"
+  resolved "https://registry.yarnpkg.com/@fontsource/fira-code/-/fira-code-5.2.5.tgz#8ed9744955b487fa6fa76ab1747b19ecbb15e54b"
+  integrity sha512-Rn9PJoyfRr5D6ukEhZpzhpD+rbX2rtoz9QjkOuGxqFxrL69fQvhadMUBxQIOuTF4sTTkPRSKlAEpPjTKaI12QA==
 
 "@fontsource/poppins@^5.1.0":
   version "5.1.0"
