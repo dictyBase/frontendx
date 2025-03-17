@@ -10,32 +10,6 @@
 
 This is the [Publication](https://dictycr.org/publication/26088819) application to display publication information at dictyBase.
 
-## Cloud Native Development
-
-All dictyBase development is now done with cloud native development in mind. It is expected
-that you have your own [Kubernetes](https://kubernetes.io/) cluster running. Documentation
-for the cloud deployment process can be found at the [dictyBase Developer Docs](https://dictybase-docker.github.io/developer-docs).
-
-To deploy an application manually, you can leave a `/deploy` comment inside of a pull request
-or issue.
-
-## Local Development
-
-In order for this application's login system to work locally, you will need to
-configure the list of providers.
-
-- Copy the provided sample [clientConfig.sample.ts](common/utils/clientConfig.sample.ts) file
-  to **clientConfig.ts** in the same folder.
-- Add any provider names and their corresponding client IDs.
-- All providers should have a matching counterpart in the
-  [oauthConfig.ts](common/utils/oauthConfig.ts) file. Enter all of the
-  configuration parameters for every new provider in that file.
-
-```
-$ cp common/utils/oauthConfig.sample.ts common/utils/oauthConfig.ts
-```
-
-After setting up the login providers, run `yarn`, to install the dependencies and finally, `yarn dev` to run the server in watch mode.
 
 ## Backend Requirements
 
