@@ -46,3 +46,8 @@ clientConfig.js
 .envrc
 
 .aider*
+
+# repomix
+.repomixignore
+repomix-output.txt
+repomix.config.json
