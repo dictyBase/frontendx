@@ -16,29 +16,64 @@
 
 This is the [Genomepage](https://dictycr.org/gene/gflB) web application to display genomic information at dictyBase.
 
-## Cloud Native Development
+## Overview
 
-All dictyBase development is now done with cloud native development in mind. It is expected
-that you have your own [Kubernetes](https://kubernetes.io/) cluster running. Documentation
-for the cloud deployment process can be found [here](https://github.com/dictyBase/Migration/tree/master/deployment).
+The Genomepage application provides a comprehensive interface for viewing gene information in Dictyostelium and related species. It presents detailed gene data including general information, gene ontology annotations, phenotypes, and literature references.
 
-The general idea is that after every git commit a new Docker image is built based on that commit,
-pushed to Docker Hub, then the corresponding Helm chart is upgraded with that image tag
-inside your cluster.
+## Technology Stack
 
-## Local Development
+- **Next.js**: React framework for server-rendered applications
+- **Material-UI**: Component library for consistent styling
+- **Apollo Client**: GraphQL client for data fetching
+- **fp-ts**: Functional programming utilities for type-safe functional programming
+- **Logto**: Authentication provider
 
-In order for this application to work locally, you will need to configure the list of
-login providers.
+## Application Structure
 
-- Copy the provided sample [clientConfig.sample.ts](common/utils/clientConfig.sample.ts) file
-  to **clientConfig.ts** in the same folder.
-- Add any provider names and their corresponding client IDs.
-- All providers should have a matching counterpart in the
-  [oauthConfig.ts](common/utils/oauthConfig.ts) file. Fill up all of the
-  configuration parameters for every new provider in that file.
+The application is organized into several key areas:
 
-After setting up the login providers, you can run `yarn install` and `yarn dev` as usual.
+### Pages
+
+- **Gene Summary (`/[id]`)**: Main gene information page showing general data, GO annotations, and references
+- **GO Annotations (`/[id]/goannotations`)**: Detailed gene ontology annotations
+- **Phenotypes (`/[id]/phenotypes`)**: Strain phenotypes associated with the gene
+- **References (`/[id]/references`)**: Literature references related to the gene
+- **BLAST (`/[id]/blast`)**: BLAST search interface for sequence analysis
+
+### Features
+
+- **Gene Information Display**: Shows comprehensive gene data including:
+  - General information (gene name, description, product)
+  - Gene ontology annotations
+  - Associated phenotypes
+  - Literature references
+- **Data Filtering**: Filter and sort gene-related data
+- **BLAST Integration**: Interface for running BLAST searches
+- **Responsive Design**: Adapts to different screen sizes
+
+### Key Components
+
+- **SummaryContainer**: Main component for displaying gene summary information
+- **OntologyContainer**: Displays gene ontology annotations with filtering options
+- **PhenotypesContainer**: Shows phenotypes associated with the gene
+- **ReferencesContainer**: Displays literature references
+- **BlastContainer**: Interface for BLAST sequence analysis
+
+## Data Organization
+
+The gene data is organized into several panels:
+
+- **General Information**: Basic gene details
+- **Gene Ontology Annotations**: Molecular function, biological process, and cellular component annotations
+- **Phenotypes**: Strain phenotypes with references
+- **References**: Publications related to the gene
+
+## Authorization Levels
+
+The application supports different levels of access:
+
+- **Public**: All gene information is viewable by all users
+- **Authenticated**: Some features may require authentication
 
 ## Backend Requirements
 
