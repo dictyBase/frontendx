@@ -1,7 +1,9 @@
-/* eslint-disable sonarjs/no-duplicate-string */
 import { createTheme, ThemeOptions } from "@material-ui/core"
 import "@fontsource/poppins"
 import "@fontsource-variable/inter"
+
+const bodyFontFamily = "'Inter Variable', sans-serif"
+const headerFontFamily = "'Poppins', sans-serif"
 
 const dictyThemeOptions: ThemeOptions = {
   // use color tool for palette -- https://material.io/resources/color/
@@ -24,37 +26,46 @@ const dictyThemeOptions: ThemeOptions = {
     },
   },
   typography: {
-    fontFamily: "'Inter Variable', sans-serif",
+    fontFamily: bodyFontFamily,
     button: {
       textTransform: "none",
-      fontFamily: "'Poppins', sans-serif",
+      fontFamily: headerFontFamily,
     },
     body1: {
-      fontFamily: "'Inter Variable', sans-serif",
+      fontFamily: bodyFontFamily,
     },
     body2: {
-      fontFamily: "'Inter Variable', sans-serif",
+      fontFamily: bodyFontFamily,
+    },
+    subtitle1: {
+      fontFamily: bodyFontFamily,
+    },
+    subtitle2: {
+      fontFamily: bodyFontFamily,
     },
     h1: {
       fontSize: "2.00em",
-      fontFamily: "'Poppins', sans-serif",
+      fontFamily: headerFontFamily,
     },
     h2: {
       fontSize: "1.50em",
-      fontFamily: "'Poppins', sans-serif",
+      fontFamily: headerFontFamily,
     },
     h3: {
       fontSize: "1.17em",
-      fontFamily: "'Poppins', sans-serif",
+      fontFamily: headerFontFamily,
     },
     h4: {
       fontSize: "1.00em",
+      fontFamily: headerFontFamily,
     },
     h5: {
       fontSize: "0.83em",
+      fontFamily: headerFontFamily,
     },
     h6: {
       fontSize: "0.67em",
+      fontFamily: headerFontFamily,
     },
   },
   overrides: {
