@@ -28,7 +28,6 @@
     "@emotion/styled": "^11.3.0",
     "@fontsource/roboto": "^5.0.8",
     "@mui/material": "5.*",
-    "@mui/styles": "5.*",
     "react-slidedown": "^2.4.7",
     "tss-react": "^4.9.15",
     "uuid": "9.x"
