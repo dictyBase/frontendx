@@ -1,7 +1,7 @@
 import { pipe } from "fp-ts/function"
 import { append } from "fp-ts/Array"
 import { match, P } from "ts-pattern"
-import { Header } from "@dictybase/header-mui5"
+import { Header } from "@dictybase/header"
 import { type UserWithRoles, getCallbackPath, getHomePath } from "./const"
 import { LoginButton } from "./LoginButton"
 import { LogoutButton } from "./LogoutButton"
