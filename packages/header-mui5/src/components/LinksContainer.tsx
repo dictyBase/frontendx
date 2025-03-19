@@ -22,7 +22,10 @@ const LinksIcon = ({ Icon }: { Icon: IconType }) => (
 )
 
 const LinksIconButton = ({ children, href }: IconButtonProperties) => (
-  <IconButton className={headerStyles().classes.linksButton} href={href} size="large">
+  <IconButton
+    className={headerStyles().classes.linksButton}
+    href={href}
+    size="large">
     {children}
   </IconButton>
 )
