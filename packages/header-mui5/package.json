@@ -21,6 +21,7 @@
     "eslint-config-custom": "*",
     "jsdom": "latest",
     "tsconfig": "*",
+    "tss-react": "^4.9.15",
     "vitest": "0.33.*"
   },
   "dependencies": {

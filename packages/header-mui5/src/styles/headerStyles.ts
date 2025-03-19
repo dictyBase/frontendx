@@ -1,6 +1,6 @@
-import makeStyles from "@mui/styles/makeStyles"
+import { makeStyles } from "tss-react/mui"
 
-const headerStyles = makeStyles({
+const headerStyles = makeStyles()({
   header: {
     display: "flex",
     gap: 2,
