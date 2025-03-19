@@ -48,6 +48,12 @@ const dictyThemeMUI5 = createTheme({
     body2: {
       fontFamily: bodyFontFamily,
     },
+    subtitle1: {
+      fontFamily: bodyFontFamily,
+    },
+    subtitle2: {
+      fontFamily: bodyFontFamily,
+    },
     h1: {
       fontSize: "2.00em",
       fontFamily: headerFontFamily,
@@ -62,12 +68,15 @@ const dictyThemeMUI5 = createTheme({
     },
     h4: {
       fontSize: "1.00em",
+      fontFamily: headerFontFamily,
     },
     h5: {
       fontSize: "0.83em",
+      fontFamily: headerFontFamily,
     },
     h6: {
       fontSize: "0.67em",
+      fontFamily: headerFontFamily,
     },
   },
   components: {
