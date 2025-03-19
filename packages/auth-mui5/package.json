@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@dictybase/footer-mui5": "*",
-    "@dictybase/header": "*",
+    "@dictybase/header-mui5": "*",
     "@dictybase/navbar": "*",
     "@dictybase/ui-common": "*",
     "@logto/react": "^2.1.2",
