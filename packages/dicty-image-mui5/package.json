@@ -1,0 +1,51 @@
+{
+  "name": "@dictybase/dicty-image-mui5",
+  "version": "0.0.0",
+  "description": "Image component for dictybase applications",
+  "main": "./src/index.ts",
+  "author": "Siddhartha Basu",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "@swc/core": "^1.x",
+    "@types/react": "17.*",
+    "@types/react-dom": "17.*",
+    "eslint-config-custom": "*",
+    "tsconfig": "*"
+  },
+  "dependencies": {
+    "@mui/material": "5.*",
+    "@mui/icons-material": "5.*",
+    "@mui/lab": "~5.0.0-alpha.175",
+    "fp-ts": "^2.16.1",
+    "react": "17.*",
+    "react-dom": "17.*",
+    "tss-react": "^4.9.15"
+  },
+  "scripts": {
+    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/dicty-image.json"
+  },
+  "jest": {
+    "testEnvironment": "jest-environment-jsdom",
+    "testPathIgnorePatterns": [
+      "src/e2e/"
+    ],
+    "coveragePathIgnorePatterns": [
+      "dist/",
+      "src/data/",
+      "src/types/",
+      "src/e2e/",
+      "src/styles/"
+    ],
+    "transform": {
+      "^.+\\.(t|j)sx?$": [
+        "@swc/jest"
+      ]
+    }
+  },
+  "typedoc": {
+    "entryPoint": "./src/index.ts",
+    "displayName": "@dictybase/dicty-image",
+    "readmeFile": "./README.md"
+  }
+}
