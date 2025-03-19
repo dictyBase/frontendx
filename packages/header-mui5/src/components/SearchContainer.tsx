@@ -8,7 +8,7 @@ type SearchContainerProperties = {
 }
 
 const SearchContainer = ({ textFieldRef }: SearchContainerProperties) => (
-  <form noValidate autoComplete="off" className={headerStyles().search}>
+  <form noValidate autoComplete="off" className={headerStyles().classes.search}>
     <TextField
       id="search-input"
       label="Guided Search"
