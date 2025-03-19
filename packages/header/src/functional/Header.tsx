@@ -13,7 +13,9 @@ type HeaderProperties = {
 }
 
 const boxWrapper = (children: Comp) => (
-  <Box className={headerStyles().header}>{children}</Box>
+  <Box component="header" className={headerStyles().header}>
+    {children}
+  </Box>
 )
 
 /**
