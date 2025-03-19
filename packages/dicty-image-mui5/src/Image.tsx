@@ -39,7 +39,9 @@ const Image = ({
   duration = 750,
 }: ImageProperties) => {
   const [status, setStatus] = useState<SelectState<string, string>>(loading())
-  const { root, image } = imageStyles({
+  const {
+    classes: { root, image },
+  } = imageStyles({
     height,
     width,
     fit,
