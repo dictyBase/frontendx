@@ -25,7 +25,7 @@
     "vitest": "0.33.*"
   },
   "dependencies": {
-    "@dictybase/dicty-image": "*",
+    "@dictybase/dicty-image-mui5": "*",
     "@dictybase/functional": "*",
     "@fontsource/roboto": "^5.0.8",
     "@mui/material": "5.*",
