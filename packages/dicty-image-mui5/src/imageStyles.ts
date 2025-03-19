@@ -8,8 +8,12 @@ type StyleProperties = {
   easing: string
 }
 
-const imageStyles = makeStyles<StyleProperties>()(
-  (_, { height, width, fit, duration, easing }) => ({
+const imageStyles = makeStyles<StyleProperties>()((
+  _,
+  { height, width, fit, duration, easing },
+) => {
+  console.log(height, width)
+  return {
     root: {
       height,
       width,
@@ -39,8 +43,8 @@ const imageStyles = makeStyles<StyleProperties>()(
         opacity: 1,
       },
     },
-  }),
-)
+  }
+})
 
 const iconStyles = makeStyles()({
   icons: {
