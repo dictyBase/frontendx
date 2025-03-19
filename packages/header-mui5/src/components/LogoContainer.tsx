@@ -20,13 +20,13 @@ const ImgContainer = () => (
 )
 
 const TitleContainer = ({ title }: { title: string }) => (
-  <Typography variant="subtitle1" className={headerStyles().logoTitle}>
+  <Typography variant="subtitle1" className={headerStyles().classes.logoTitle}>
     {title}
   </Typography>
 )
 
 const LogoContainer = ({ children, frontPageUrl }: ReactChildrenProperty) => (
-  <div className={headerStyles().logoContainer}>
+  <div className={headerStyles().classes.logoContainer}>
     <a href={frontPageUrl}>{children}</a>
   </div>
 )
