@@ -1,1 +1,1 @@
-![Lexical Diagram](docs/core-conceptual-view.drawio.svg)
+![Lexical Diagram](./core-conceptual-view.drawio.svg)
