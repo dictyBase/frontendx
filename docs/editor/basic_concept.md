@@ -1,5 +1,7 @@
 # Lexical at a Glance
 
+This guide assumes that you are familiar with building UI with React. 
+
 ![Lexical Diagram](lexical-concept-diagram.drawio.svg)
 
 ## How It Works
@@ -9,6 +11,10 @@ The **Editor Instance** is the central hub that connects to a DOM element and or
 ```js
 editor.update(() => {
   // Make changes to the editor state here
+  // All $-prefixed functions must be called within this context
+  const root = $getRoot();
+  const paragraph = $createParagraphNode();
+  root.append(paragraph);
 });
 ```
 
@@ -26,3 +32,13 @@ After an update, the **DOM Reconciler** efficiently applies only the necessary c
 4. State updates → DOM changes
 
 Plugins and extensions hook into this flow using **Listeners** and **Commands** without needing to directly manipulate the DOM.
+
+## Toolbar Button Example
+
+A typical pattern for extending Lexical involves:
+
+1. Create a command with `createCommand()`
+2. Create a button that dispatches the command
+3. Register a command listener in a plugin that updates the editor state
+
+See the `packages/editor-toolbar/src/examples` folder for a complete example of a capitalize button.
