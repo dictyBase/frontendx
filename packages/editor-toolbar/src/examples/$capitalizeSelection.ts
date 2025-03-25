@@ -2,7 +2,7 @@ import { RangeSelection, TextNode } from "lexical"
 
 /**
  * This function is a $ (dollar) function. It is a convention of lexical which indicates that the function
- * must be called in an update context, e.g. in the editor.update() callback or command listener.
+ * must be called in an update context, e.g. in the editor.update() callback or command handler.
  */
 const $capitalizeSelection = (selection: RangeSelection) => {
   // Apply capitalization to each selected node
