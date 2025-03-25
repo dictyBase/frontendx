@@ -2,6 +2,8 @@
 
 This guide walks through the process of adding a new feature to the Lexical editor toolbar, using the capitalize feature as an example.
 
+See the `packages/editor-toolbar/src/examples` folder for the files that this guide refers to.
+
 ## Overview
 
 Adding a new toolbar feature in Lexical typically involves these components:
