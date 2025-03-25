@@ -1,15 +1,15 @@
-# Implementing a New Editor Toolbar Feature
+# Implementing a Text Capitalization Feature in Lexical
 
-This guide walks through the process of adding a new feature to the Lexical editor toolbar, using the capitalize feature as an example.
+This guide walks through the process of adding a text capitalization feature to a Lexical editor toolbar.
 
-See the `packages/editor-toolbar/src/examples` folder for the files that this guide refers to.
+See the `packages/editor-toolbar/src/examples` folder for the complete code.
 
 ## Overview
 
-Adding a new toolbar feature in Lexical typically involves these components:
+Adding the capitalize feature to Lexical involves these components:
 
-1. **Command** - Defines the action to be performed
-2. **Utility Function** - Implements the actual functionality
+1. **Command** - Defines the capitalization action
+2. **Utility Function** - Implements the text capitalization logic
 3. **Button Component** - UI element that triggers the command
 4. **Plugin** - Registers the command handler with the editor
 5. **Integration** - Adding the button and plugin to your editor
@@ -19,162 +19,169 @@ Adding a new toolbar feature in Lexical typically involves these components:
 First, define a command using Lexical's `createCommand()`:
 
 ```typescript
-// myFeatureCommand.ts
+// capitalizeCommand.ts
 import { createCommand } from "lexical"
 
-const MY_FEATURE_COMMAND = createCommand()
+const CAPITALIZE_SELECTION_COMMAND = createCommand()
 
-export { MY_FEATURE_COMMAND }
+export { CAPITALIZE_SELECTION_COMMAND }
 ```
 
-Commands are the communication system in Lexical that connect UI interactions to editor state changes.
+This command will be the communication channel between your button and the editor.
 
 ## Step 2: Create a Utility Function
 
-Next, implement the core functionality in a utility function. By convention, functions that operate within Lexical's editor context are prefixed with `$`:
+Next, implement the capitalization functionality in a utility function:
 
 ```typescript
-// $myFeatureFunction.ts
+// $capitalizeSelection.ts
 import { RangeSelection, TextNode } from "lexical"
 
-/**
- * This function must be called in an update context (editor.update() or command handler)
- */
-const $myFeatureFunction = (selection: RangeSelection) => {
-  // Implement your feature logic here
+const $capitalizeSelection = (selection: RangeSelection) => {
+  // Apply capitalization to each selected node
   selection.getNodes().forEach((node) => {
     if (node instanceof TextNode) {
-      // Modify the node as needed
-      // Example: node.setTextContent(transformedText)
+      // Get the text portions that are within the selection
+      const textContent = node.getTextContent()
+      const capitalized = textContent.toUpperCase()
+
+      // Replace the text with capitalized version
+      node.setTextContent(capitalized)
     }
   })
 }
 
-export { $myFeatureFunction }
+export { $capitalizeSelection }
 ```
+
+Note the `$` prefix, which is a Lexical convention indicating this function must be called within an editor update context.
 
 ## Step 3: Create a Button Component
 
 Create a React component for your toolbar button:
 
 ```typescript
-// MyFeatureButton.tsx
-import { Button } from "@material-ui/core" // or your UI library
+// CapitalizeButton.tsx
+import { Button } from "@material-ui/core"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
-import { MY_FEATURE_COMMAND } from "./myFeatureCommand"
+import { CAPITALIZE_SELECTION_COMMAND } from "./capitalizeCommand"
 
-const MyFeatureButton = () => {
+const CapitalizeButton = () => {
   const [editor] = useLexicalComposerContext()
   
   const onClick = () => {
-    editor.dispatchCommand(MY_FEATURE_COMMAND, undefined)
-    // Pass payload if needed: editor.dispatchCommand(MY_FEATURE_COMMAND, payload)
+    editor.dispatchCommand(CAPITALIZE_SELECTION_COMMAND, undefined)
   }
   
-  return <Button onClick={onClick}>My Feature</Button>
+  return <Button onClick={onClick}>Capitalize</Button>
 }
 
-export { MyFeatureButton }
+export { CapitalizeButton }
 ```
+
+This button:
+1. Gets access to the editor using `useLexicalComposerContext()`
+2. Dispatches our command when clicked
+3. Renders a simple button with "Capitalize" text
 
 ## Step 4: Create a Plugin
 
 Create a React component that registers your command handler:
 
 ```typescript
-// MyFeaturePlugin.tsx
+// CapitalizePlugin.tsx
 import { useEffect } from "react"
 import { $getSelection, $isRangeSelection } from "lexical"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
-import { MY_FEATURE_COMMAND } from "./myFeatureCommand"
-import { $myFeatureFunction } from "./$myFeatureFunction"
+import { CAPITALIZE_SELECTION_COMMAND } from "./capitalizeCommand"
+import { $capitalizeSelection } from "./$capitalizeSelection"
 
-const MyFeaturePlugin = () => {
+const CapitalizePlugin = () => {
   const [editor] = useLexicalComposerContext()
 
-  useEffect(() => {
-    // Register the command handler
-    return editor.registerCommand(
-      MY_FEATURE_COMMAND,
-      () => {
-        const selection = $getSelection()
-        
-        // Validate selection
-        if (!$isRangeSelection(selection)) {
-          return false
-        }
-        
-        // Apply your feature
-        $myFeatureFunction(selection)
-        
-        // Return true to indicate command was handled
-        return true
-      },
-      // Priority (lower number = higher priority)
-      1
-    )
-  }, [editor])
+  useEffect(
+    () =>
+      // Register the command listener
+      editor.registerCommand(
+        CAPITALIZE_SELECTION_COMMAND,
+        () => {
+          // Get the current selection
+          const selection = $getSelection()
 
-  // Plugin components can return UI elements or null
-  return null
+          // Only process if we have a range selection (text is selected)
+          if (!$isRangeSelection(selection)) {
+            return false
+          }
+
+          $capitalizeSelection(selection)
+          return true
+        },
+        // Set priority (lower number = higher priority)
+        1
+      ),
+    [editor]
+  )
+
+  return <></>
 }
 
-export { MyFeaturePlugin }
+export { CapitalizePlugin }
 ```
+
+The plugin:
+1. Gets access to the editor
+2. Registers a command handler in a `useEffect` hook
+3. When the command is received, it:
+   - Gets the current selection
+   - Validates it's a range selection (text is selected)
+   - Calls our utility function to capitalize the text
+   - Returns `true` to indicate the command was handled
 
 ## Step 5: Integrate with Your Editor
 
 Finally, add your button to the toolbar and your plugin to the editor:
 
 ```tsx
+// ExampleEditor.tsx
 import { LexicalComposer } from "@lexical/react/LexicalComposer"
 import { ContentEditable } from "@lexical/react/LexicalContentEditable"
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin"
-import { MyFeatureButton } from "./MyFeatureButton"
-import { MyFeaturePlugin } from "./MyFeaturePlugin"
+import { CapitalizeButton } from "./CapitalizeButton"
+import { CapitalizePlugin } from "./CapitalizePlugin"
 
-const Editor = () => {
+const ExampleEditor = () => {
   const initialConfig = {
-    namespace: "MyEditor",
+    namespace: "CapitalizeExample",
     theme: {},
-    onError: (error) => console.error(error),
+    onError: () => {},
   }
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
       <div className="editor-container">
         <div className="editor-toolbar">
-          {/* Add your button here */}
-          <MyFeatureButton />
+          <CapitalizeButton />
         </div>
         <RichTextPlugin
           contentEditable={<ContentEditable />}
-          placeholder={<div>Enter some text...</div>}
+          placeholder={<div>Enter some text</div>}
         />
-        {/* Add your plugin here */}
-        <MyFeaturePlugin />
+        {/* Register the capitalize plugin */}
+        <CapitalizePlugin />
       </div>
     </LexicalComposer>
   )
 }
+
+export { ExampleEditor }
 ```
 
-## Advanced Considerations
+## How It Works: The Complete Flow
 
-1. **Command Payload**: If your feature needs additional data, pass it when dispatching the command.
-2. **Selection Types**: Handle different selection types (range, node, grid) as needed.
-3. **Node Types**: Consider how your feature should interact with different node types.
-4. **Undo/Redo**: Lexical handles this automatically for changes made within an update.
-5. **UI State**: For toggleable features, you may need to track state to update button appearance.
-
-## Example: Capitalize Feature
-
-For a complete working example, see the capitalize feature implementation in the `packages/editor-toolbar/src/examples` directory:
-
-- `capitalizeCommand.ts` - Defines the command
-- `$capitalizeSelection.ts` - Implements the text capitalization
-- `CapitalizeButton.tsx` - Provides the UI button
-- `CapitalizePlugin.tsx` - Registers the command handler
-- `ExampleEditor.tsx` - Shows the complete integration
-
-This pattern can be adapted for various editor features like text formatting, inserting elements, or applying custom transformations to selected content.
+1. User selects text in the editor
+2. User clicks the "Capitalize" button
+3. Button dispatches the `CAPITALIZE_SELECTION_COMMAND`
+4. Plugin's command handler receives the command
+5. Handler validates the selection and calls `$capitalizeSelection`
+6. The utility function transforms the text to uppercase
+7. Lexical's reconciler updates the DOM to show the capitalized text
