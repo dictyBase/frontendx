@@ -2,7 +2,7 @@
   "name": "dicty-frontpage-mui5",
   "version": "0.0.0",
   "scripts": {
-    "e2e": "BASE_URL=http://localhost:3004 playwright test",
+    "e2e": "BASE_URL=http://localhost:3005 playwright test",
     "coverage-report": "npx nyc@17 report --reporter=lcov",
     "dev": "vite",
     "dev:mock": "vite --host --mode mock",
