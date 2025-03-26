@@ -27,6 +27,12 @@ const headerStyles = makeStyles()({
     flexDirection: "column",
     justifyContent: "center",
   },
+  searchBox: {
+    backgroundColor: "rgba(0, 0, 0, 0.09)",
+  },
+  searchIcon: {
+    color: "rgba(0, 0, 0, 0.87)",
+  },
   linksIcon: { fontSize: "2.2rem" },
   linksButton: {
     display: "flex",
