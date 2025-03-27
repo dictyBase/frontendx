@@ -14,8 +14,8 @@ const SearchContainer = ({ textFieldRef }: SearchContainerProperties) => (
       label="Guided Search"
       variant="filled"
       ref={textFieldRef}
-      className={headerStyles().classes.searchBox}
       InputProps={{
+        className: headerStyles().classes.searchBox,
         endAdornment: (
           <InputAdornment position="end">
             <Search className={headerStyles().classes.searchIcon} />
