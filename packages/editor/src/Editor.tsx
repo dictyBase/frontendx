@@ -68,7 +68,7 @@ const Editor = ({
       <ImagePlugin />
       <FlexLayoutPlugin />
       <WidthTablePlugin />
-      <TableActionPlugin />
+      <TableActionPlugin isEditing={editable} />
       <HistoryPlugin />
       <Grid container spacing={1} direction="column">
         {pipe(
