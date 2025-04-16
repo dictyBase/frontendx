@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { pipe } from "fp-ts/function"
 import { useNavigate } from "react-router-dom"
 import { match as Ematch } from "fp-ts/Either"
@@ -29,15 +29,7 @@ const CreateContentForm = () => {
   const navigate = useNavigate()
   const createContent = useCreateContentFromEditor()
   const methods = useCreateContentForm()
-  useEffect(() => {
-    const handler = (event: BeforeUnloadEvent) => {
-      event.preventDefault()
-    }
-    window.addEventListener("beforeunload", handler)
-    return () => {
-      window.removeEventListener("beforeunload", handler)
-    }
-  }, [])
+
   const onSubmit: SubmitHandler<InferType<typeof validationSchema>> = async ({
     section,
     name,
