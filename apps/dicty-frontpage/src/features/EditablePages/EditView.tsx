@@ -3,6 +3,7 @@ import { makeStyles, Container, Button } from "@material-ui/core"
 import PersonIcon from "@material-ui/icons/Person"
 import { ActionBar } from "@dictybase/ui-common"
 import { Editor } from "@dictybase/editor"
+import { useConfirmNavigation } from "@dictybase/hook"
 import { type ContentBySlugQuery } from "dicty-graphql-schema"
 import { UpdateButton } from "../../common/components/UpdateButton"
 import { timeSince } from "../../common/utils/timeSince"
@@ -26,6 +27,7 @@ const EditActionBar = ({
   editedBy,
   updatedAt,
 }: EditActionBarProperties) => {
+  useConfirmNavigation()
   const navigate = useNavigate()
   const handleCancel = async () => {
     navigate("../editable", { relative: "path" })
