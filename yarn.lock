@@ -2238,9 +2238,9 @@
   integrity sha512-kym7SodPp8/wloecOpcmSnWJsK7M0E5Wg8UcFA+uO4B9s5d0ywXOEro/8HM9x0rW+TljRzul/14UYz3TleT3ig==
 
 "@fontsource-variable/inter-tight@^5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@fontsource-variable/inter-tight/-/inter-tight-5.1.0.tgz#d65fa3d9013fc419cc7b20c87e9a58eeeda7f866"
-  integrity sha512-yUSW6LxZmHtbOvyWcQE73q/GbXp19WeVVF3HlKgRXIYjWjOzkR30N73myM/sDWqG4YyflYz/TRVJrzXOMSozag==
+  version "5.2.5"
+  resolved "https://registry.yarnpkg.com/@fontsource-variable/inter-tight/-/inter-tight-5.2.5.tgz#dc4b173d6376ec97080bf9f6cafc4a62682cfe24"
+  integrity sha512-f7WqR3BQ7YmWT+3i1bR1mqQ1FoIDCfmwKRTENEARFRtkhhR4JPxzF+rB3T75AjZ+dTjIx/nO47LOQDLFWAwJWA==
 
 "@fontsource-variable/inter@^5.1.0":
   version "5.1.0"
@@ -5113,9 +5113,9 @@
     "@types/react" "*"
 
 "@types/react@*", "@types/react@17.*", "@types/react@17.x":
-  version "17.0.83"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.83.tgz#b477c56387b74279281149dcf5ba2a1e2216d131"
-  integrity sha512-l0m4ArKJvmFtR4e8UmKrj1pB4tUgOhJITf+mADyF/p69Ts1YAR/E+G9XEM0mHXKVRa1dQNHseyyDNzeuAXfXQw==
+  version "17.0.85"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.85.tgz#1f1abf89083e731d82469a3a59ec57ea93cc476b"
+  integrity sha512-5oBDUsRDsrYq4DdyHaL99gE1AJCfuDhyxqF6/55fvvOIRkp1PpKuwJ+aMiGJR+GJt7YqMNclPROTHF20vY2cXA==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "^0.16"
