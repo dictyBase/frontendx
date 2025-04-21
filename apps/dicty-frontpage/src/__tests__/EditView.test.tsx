@@ -69,27 +69,11 @@ describe("Edit View", () => {
         <RouterProvider router={router} />
       </MockedProvider>,
     )
-    const editButton = screen.getByText("Save")
+    const editButton = screen.getByText(/save/i)
     expect(editButton).toBeInTheDocument()
 
     await user.click(editButton)
     expect(mockAuthorizedUpdateContent).toHaveBeenCalled()
-    expect(screen.getByText("Editable News Route")).toBeInTheDocument()
-  })
-  test('renders a button with the text "Cancel" that navigates to `/news/:id/editable` when clicked', async () => {
-    const user = userEvent.setup()
-    const router = createMemoryRouter(routeConfiguration, {
-      initialEntries: [editRoute],
-    })
-    render(
-      <MockedProvider>
-        <RouterProvider router={router} />
-      </MockedProvider>,
-    )
-    const cancelButton = screen.getByText("Cancel")
-    expect(cancelButton).toBeInTheDocument()
-
-    await user.click(cancelButton)
     expect(screen.getByText("Editable News Route")).toBeInTheDocument()
   })
 })

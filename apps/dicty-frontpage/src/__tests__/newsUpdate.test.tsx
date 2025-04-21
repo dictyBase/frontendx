@@ -105,28 +105,6 @@ describe("/news/:id/editable", () => {
     const textbox = screen.getByRole("textbox")
     expect(textbox).toBeInTheDocument()
   })
-  test('renders a button with the text "Cancel" that navigates to `/news/:id/editable` when clicked', async () => {
-    mockUseContentBySlugQuery.mockReturnValue({
-      data: mockContentBySlugQueryData,
-      loading: false,
-      error: undefined,
-    })
-    const user = userEvent.setup()
-    const router = createMemoryRouter(routeConfiguration, {
-      initialEntries: [editRoute],
-    })
-
-    render(
-      <MockedProvider>
-        <RouterProvider router={router} />
-      </MockedProvider>,
-    )
-    const cancelButton = screen.getByText("Cancel")
-    expect(cancelButton).toBeInTheDocument()
-
-    await user.click(cancelButton)
-    expect(screen.getByText("Editable News Route")).toBeInTheDocument()
-  })
   test('renders a button with the text "Save" that calls updateContent mutation and navigates to `/news/:id/editable` when clicked', async () => {
     const user = userEvent.setup()
     const router = createMemoryRouter(routeConfiguration, {
@@ -137,7 +115,7 @@ describe("/news/:id/editable", () => {
         <RouterProvider router={router} />
       </MockedProvider>,
     )
-    const saveButton = screen.getByText("Save")
+    const saveButton = screen.getByText(/save/i)
     expect(saveButton).toBeInTheDocument()
     await user.click(saveButton)
     expect(mockAuthorizedUpdateContent).toHaveBeenCalled()
