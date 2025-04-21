@@ -16,6 +16,11 @@ enum ErrorType {
   UPDATE_FAILURE,
 }
 
+type UpdateContentError = {
+  errorType: ErrorType
+  message: string
+}
+
 const userInfoError = {
   errorType: ErrorType.USER_INFO_ERROR,
   message: "Could not get user info",
@@ -81,10 +86,21 @@ const useAuthorizedUpdateContent = (contentId: string) => {
           () => updateFailureError,
         ),
       ),
-      TEmap(({ update }) => update),
+      TEbind("data", ({ update }) =>
+        pipe(
+          update.data,
+          OfromNullable,
+          TEfromOption(() => updateFailureError),
+        ),
+      ),
+      TEmap(({ data }) => data),
     )
     return task()
   }
 }
 
-export { useAuthorizedUpdateContent }
+export {
+  updateFailureError,
+  useAuthorizedUpdateContent,
+  type UpdateContentError,
+}
