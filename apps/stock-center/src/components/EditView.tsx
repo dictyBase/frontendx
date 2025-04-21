@@ -6,8 +6,8 @@ import { useConfirmNavigation } from "@dictybase/hook"
 import { ContentBySlugQuery } from "dicty-graphql-schema"
 import { useState } from "react"
 import { Alert } from "@material-ui/lab"
-import { match, P } from "ts-pattern"
-import { Option, some, none } from "fp-ts/Option"
+import { pipe } from "fp-ts/function"
+import { Option, some, none, match as Omatch } from "fp-ts/Option"
 import { truncateEmail } from "../truncateEmail"
 import { timeSince } from "../timeSince"
 import { UpdateButton } from "./UpdateButton"
@@ -57,13 +57,15 @@ const EditActionBar = ({
       }>
       <UpdateButton contentId={contentId} />
       <Snackbar open={isOpen} onClose={handleClose} autoHideDuration={3000}>
-        {match(errorMessage)
-          .with(P.string, () => (
-            <Alert severity="error"> Could not autosave progress. </Alert>
-          ))
-          .otherwise(() => (
-            <Alert severity="success"> Work Saved. </Alert>
-          ))}
+        {pipe(
+          errorMessage,
+          Omatch(
+            () => <Alert severity="success"> Work Saved. </Alert>,
+            () => (
+              <Alert severity="error"> Could not autosave progress. </Alert>
+            ),
+          ),
+        )}
       </Snackbar>
     </ActionBar>
   )
