@@ -1,14 +1,16 @@
-import { useNavigate } from "react-router-dom"
+import { useState } from "react"
 import {
   makeStyles,
   Grid,
   Container,
   Typography,
-  Button,
+  Snackbar,
 } from "@material-ui/core"
+import { Alert } from "@material-ui/lab"
 import { useContentBySlugQuery, User } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { pipe } from "fp-ts/function"
+import { Option, some, none } from "fp-ts/Option"
 import { parseISO, format } from "date-fns/fp"
 import {
   FullPageLoadingDisplay,
@@ -19,9 +21,11 @@ import {
 } from "@dictybase/ui-common"
 import { ACCESS } from "@dictybase/auth"
 import { Editor } from "@dictybase/editor"
+import { useConfirmNavigation } from "@dictybase/hook"
 import { useSlug } from "../../../common/hooks/useSlug"
 import { NEWS_NAMESPACE } from "../../../common/constants/namespace"
 import { UpdateButton } from "../../../common/components/UpdateButton"
+import { useAutoSave } from "../../../common/hooks/useAutoSave"
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -30,11 +34,56 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+type EditActionBarProperties = {
+  contentId: string
+  lastEditor: string
+}
+
+const EditActionBar = ({ contentId, lastEditor }: EditActionBarProperties) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const [errorMessage, setErrorMessage] = useState<Option<string>>(none)
+
+  const handleClose = () => {
+    setIsOpen(false)
+    setErrorMessage(none)
+  }
+
+  useAutoSave({
+    contentId,
+    onError: (error) => {
+      setErrorMessage(some(error.message))
+      setIsOpen(true)
+    },
+    onSuccess: () => {
+      setErrorMessage(none)
+      setIsOpen(true)
+    },
+  })
+
+  return (
+    <ActionBar
+      descriptionElement={
+        <Typography>Last updated by {lastEditor}</Typography>
+      }>
+      <UpdateButton contentId={contentId} />
+      <Snackbar open={isOpen} onClose={handleClose} autoHideDuration={3000}>
+        {match(errorMessage)
+          .with(P.string, () => (
+            <Alert severity="error"> Could not autosave progress. </Alert>
+          ))
+          .otherwise(() => (
+            <Alert severity="success"> Work Saved. </Alert>
+          ))}
+      </Snackbar>
+    </ActionBar>
+  )
+}
+
 type EditViewProperties = {
   content: string
   contentId: string
   createdAt: string
-  updatedBy: Pick<User, "first_name" | "last_name">
+  updatedBy: Pick<User, "email">
 }
 
 const EditView = ({
@@ -44,21 +93,10 @@ const EditView = ({
   updatedBy,
 }: EditViewProperties) => {
   const classes = useStyles()
-  const navigate = useNavigate()
-  const handleCancel = async () => {
-    navigate("../editable", { relative: "path" })
-  }
-  const lastEditor = `${updatedBy.first_name} ${updatedBy.last_name}`
+  useConfirmNavigation()
+  const lastEditor = updatedBy.email
   const toolbar = (
-    <ActionBar
-      descriptionElement={
-        <Typography>Last updated by {lastEditor}</Typography>
-      }>
-      <UpdateButton contentId={contentId} />
-      <Button variant="contained" onClick={handleCancel}>
-        Cancel
-      </Button>
-    </ActionBar>
+    <EditActionBar contentId={contentId} lastEditor={lastEditor} />
   )
   return (
     <Container className={classes.container}>
