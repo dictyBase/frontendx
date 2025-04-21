@@ -10,7 +10,7 @@ import { Alert } from "@material-ui/lab"
 import { useContentBySlugQuery, User } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { pipe } from "fp-ts/function"
-import { Option, some, none } from "fp-ts/Option"
+import { Option, some, none, match as Omatch } from "fp-ts/Option"
 import { parseISO, format } from "date-fns/fp"
 import {
   FullPageLoadingDisplay,
@@ -67,13 +67,15 @@ const EditActionBar = ({ contentId, lastEditor }: EditActionBarProperties) => {
       }>
       <UpdateButton contentId={contentId} />
       <Snackbar open={isOpen} onClose={handleClose} autoHideDuration={3000}>
-        {match(errorMessage)
-          .with(P.string, () => (
-            <Alert severity="error"> Could not autosave progress. </Alert>
-          ))
-          .otherwise(() => (
-            <Alert severity="success"> Work Saved. </Alert>
-          ))}
+        {pipe(
+          errorMessage,
+          Omatch(
+            () => <Alert severity="success"> Work Saved. </Alert>,
+            () => (
+              <Alert severity="error"> Could not autosave progress. </Alert>
+            ),
+          ),
+        )}
       </Snackbar>
     </ActionBar>
   )
