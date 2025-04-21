@@ -21,7 +21,7 @@ const UpdateButton = ({ contentId }: UpdateButtonProperties) => {
 
   return (
     <Button variant="contained" color="primary" onClick={handleUpdate}>
-      Save and Exit
+      Save & Exit
     </Button>
   )
 }
