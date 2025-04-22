@@ -1,9 +1,11 @@
 import { RouterProvider, createMemoryRouter } from "react-router-dom"
 import { MockedProvider } from "@apollo/client/testing"
-import { render, screen } from "@testing-library/react"
+import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { vi, describe, test } from "vitest"
+import { vi, describe, test, beforeEach, afterEach } from "vitest"
+import { Right, Left } from "fp-ts/Either"
 import { EditView } from "../pages/news/[id]/edit"
+import { updateFailureError } from "../common/hooks/useAuthorizedUpdateContent"
 
 const CONTENT_STRING = `{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"Annual International Dictyostelium Conference","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"heading","version":1,"tag":"h1"},{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"International conferences dedicated to ","type":"text","version":1},{"detail":0,"format":2,"mode":"normal","style":"","text":"Dictyostelium","type":"text","version":1},{"detail":0,"format":0,"mode":"normal","style":"","text":" started in  1977 with the meeting in Sardinia, and continued on a roughly 3-year  cycle into the 1980's. However, as the field became more active, more  local meetings sprang up to fill the gaps in the cycle. Notable amongst  these was an annual series in the UK, which gradually became more  international. By the late 1980's with the successive meetings at  Amsterdam, Oxford, Airlie and Cambridge, the current pattern of annual  meetings was established. Interestingly in the late 1990's as the field  expanded further, local meetings were re-started in several countries.     ","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"flex-layout","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}`
 
@@ -27,12 +29,23 @@ const routeConfiguration = [
   },
 ]
 
-const { mockAuthorizedUpdateContent } = vi.hoisted(() => ({
+const { mockAuthorizedUpdateContent, mockAutoSave } = vi.hoisted(() => ({
   mockAuthorizedUpdateContent: vi.fn(),
+  mockAutoSave: vi.fn(),
 }))
 
-vi.mock("../common/hooks/useAuthorizedUpdateContent", () => ({
-  useAuthorizedUpdateContent: () => mockAuthorizedUpdateContent,
+vi.mock("../common/hooks/useAuthorizedUpdateContent", async () => {
+  const actual = await vi.importActual<
+    typeof import("../common/hooks/useAuthorizedUpdateContent")
+  >("../common/hooks/useAuthorizedUpdateContent")
+  return {
+    ...actual,
+    useAuthorizedUpdateContent: () => mockAuthorizedUpdateContent,
+  }
+})
+
+vi.mock("../common/hooks/useAutoSave", async () => ({
+  useAutoSave: (properties) => mockAutoSave(properties),
 }))
 
 describe("Edit View", () => {
@@ -47,6 +60,7 @@ describe("Edit View", () => {
     )
     expect(screen.getByText("Wednesday, July 10th, 2024")).toBeInTheDocument()
   })
+
   test('renders an element with a "textbox" role when useContentBySlugQuery returns valid data', () => {
     const router = createMemoryRouter(routeConfiguration, {
       initialEntries: [editRoute],
@@ -59,6 +73,7 @@ describe("Edit View", () => {
     const textbox = screen.getByRole("textbox")
     expect(textbox).toBeInTheDocument()
   })
+
   test('renders a button with the text "Save" that navigates to `/news/:id/editable` when clicked', async () => {
     const user = userEvent.setup()
     const router = createMemoryRouter(routeConfiguration, {
@@ -75,5 +90,80 @@ describe("Edit View", () => {
     await user.click(editButton)
     expect(mockAuthorizedUpdateContent).toHaveBeenCalled()
     expect(screen.getByText("Editable News Route")).toBeInTheDocument()
+  })
+
+  test("shows success alert when auto-save succeeds", async () => {
+    vi.useFakeTimers()
+
+    // Simulate a successful auto-save
+    let savedCallback
+    mockAutoSave.mockImplementation(({ onSuccess }) => {
+      savedCallback = onSuccess
+    })
+
+    const router = createMemoryRouter(routeConfiguration, {
+      initialEntries: [editRoute],
+    })
+
+    render(
+      <MockedProvider>
+        <RouterProvider router={router} />
+      </MockedProvider>,
+    )
+
+    // Trigger the success callback (simulating a successful auto-save)
+    savedCallback()
+
+    // Check that success alert appears
+    await waitFor(() => {
+      expect(screen.getByText("Work Saved.")).toBeInTheDocument()
+    })
+
+    // Alert should disappear after a delay
+    vi.advanceTimersByTime(3000)
+    await waitFor(() => {
+      expect(screen.queryByText("Work Saved.")).not.toBeInTheDocument()
+    })
+    vi.clearAllMocks()
+    vi.useRealTimers()
+  })
+
+  test("shows error alert when auto-save fails", async () => {
+    vi.useFakeTimers()
+    // Simulate a failed auto-save
+    let errorCallback
+    mockAutoSave.mockImplementation(({ onError }) => {
+      errorCallback = onError
+    })
+
+    const router = createMemoryRouter(routeConfiguration, {
+      initialEntries: [editRoute],
+    })
+
+    render(
+      <MockedProvider>
+        <RouterProvider router={router} />
+      </MockedProvider>,
+    )
+
+    // Trigger the error callback (simulating a failed auto-save)
+    errorCallback(updateFailureError)
+
+    // Check that error alert appears
+    await waitFor(() => {
+      expect(
+        screen.getByText("Could not autosave progress."),
+      ).toBeInTheDocument()
+    })
+
+    // Alert should disappear after a delay
+    vi.advanceTimersByTime(3000)
+    await waitFor(() => {
+      expect(
+        screen.queryByText("Could not autosave progress."),
+      ).not.toBeInTheDocument()
+    })
+    vi.clearAllMocks()
+    vi.useRealTimers()
   })
 })
