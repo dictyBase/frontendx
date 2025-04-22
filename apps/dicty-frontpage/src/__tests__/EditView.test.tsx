@@ -1,11 +1,13 @@
 import { RouterProvider, createMemoryRouter } from "react-router-dom"
 import { MockedProvider } from "@apollo/client/testing"
-import { render, screen, waitFor } from "@testing-library/react"
+import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { vi, describe, test, beforeEach, afterEach } from "vitest"
-import { Right, Left } from "fp-ts/Either"
+import { vi, describe, test } from "vitest"
 import { EditView } from "../pages/news/[id]/edit"
-import { updateFailureError } from "../common/hooks/useAuthorizedUpdateContent"
+import {
+  updateFailureError,
+  UpdateContentError,
+} from "../common/hooks/useAuthorizedUpdateContent"
 
 const CONTENT_STRING = `{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"Annual International Dictyostelium Conference","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"heading","version":1,"tag":"h1"},{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"International conferences dedicated to ","type":"text","version":1},{"detail":0,"format":2,"mode":"normal","style":"","text":"Dictyostelium","type":"text","version":1},{"detail":0,"format":0,"mode":"normal","style":"","text":" started in  1977 with the meeting in Sardinia, and continued on a roughly 3-year  cycle into the 1980's. However, as the field became more active, more  local meetings sprang up to fill the gaps in the cycle. Notable amongst  these was an annual series in the UK, which gradually became more  international. By the late 1980's with the successive meetings at  Amsterdam, Oxford, Airlie and Cambridge, the current pattern of annual  meetings was established. Interestingly in the late 1990's as the field  expanded further, local meetings were re-started in several countries.     ","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"flex-layout","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}`
 
@@ -45,7 +47,13 @@ vi.mock("../common/hooks/useAuthorizedUpdateContent", async () => {
 })
 
 vi.mock("../common/hooks/useAutoSave", async () => ({
-  useAutoSave: (properties) => mockAutoSave(properties),
+  useAutoSave: ({
+    onSuccess,
+    onError,
+  }: {
+    onSuccess: () => void
+    onError: () => void
+  }) => mockAutoSave({ onSuccess, onError }),
 }))
 
 describe("Edit View", () => {
@@ -96,7 +104,7 @@ describe("Edit View", () => {
     vi.useFakeTimers()
 
     // Simulate a successful auto-save
-    let savedCallback
+    let savedCallback: () => void
     mockAutoSave.mockImplementation(({ onSuccess }) => {
       savedCallback = onSuccess
     })
@@ -111,19 +119,15 @@ describe("Edit View", () => {
       </MockedProvider>,
     )
 
-    // Trigger the success callback (simulating a successful auto-save)
+    // @ts-ignore
     savedCallback()
 
     // Check that success alert appears
-    await waitFor(() => {
-      expect(screen.getByText("Work Saved.")).toBeInTheDocument()
-    })
+    expect(screen.getByText("Work Saved.")).toBeInTheDocument()
 
     // Alert should disappear after a delay
-    vi.advanceTimersByTime(3000)
-    await waitFor(() => {
-      expect(screen.queryByText("Work Saved.")).not.toBeInTheDocument()
-    })
+    vi.advanceTimersByTime(4000)
+    expect(screen.queryByText("Work Saved.")).not.toBeInTheDocument()
     vi.clearAllMocks()
     vi.useRealTimers()
   })
@@ -131,7 +135,7 @@ describe("Edit View", () => {
   test("shows error alert when auto-save fails", async () => {
     vi.useFakeTimers()
     // Simulate a failed auto-save
-    let errorCallback
+    let errorCallback: (error: UpdateContentError) => void
     mockAutoSave.mockImplementation(({ onError }) => {
       errorCallback = onError
     })
@@ -147,22 +151,17 @@ describe("Edit View", () => {
     )
 
     // Trigger the error callback (simulating a failed auto-save)
+    // @ts-ignore
     errorCallback(updateFailureError)
 
     // Check that error alert appears
-    await waitFor(() => {
-      expect(
-        screen.getByText("Could not autosave progress."),
-      ).toBeInTheDocument()
-    })
+    expect(screen.getByText("Could not autosave progress.")).toBeInTheDocument()
 
     // Alert should disappear after a delay
     vi.advanceTimersByTime(3000)
-    await waitFor(() => {
-      expect(
-        screen.queryByText("Could not autosave progress."),
-      ).not.toBeInTheDocument()
-    })
+    expect(
+      screen.queryByText("Could not autosave progress."),
+    ).not.toBeInTheDocument()
     vi.clearAllMocks()
     vi.useRealTimers()
   })
