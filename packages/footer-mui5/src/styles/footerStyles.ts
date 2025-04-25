@@ -1,4 +1,4 @@
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 
 export const footerStyles = makeStyles()((theme) => ({
   footer: {
@@ -37,4 +37,4 @@ export const footerStyles = makeStyles()((theme) => ({
       },
     },
   },
-}));
+}))
