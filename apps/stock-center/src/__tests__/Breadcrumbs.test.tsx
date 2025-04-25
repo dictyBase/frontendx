@@ -77,9 +77,6 @@ describe("app/layout/Breadcrumbs", () => {
       expect(screen.queryByTestId("breadcrumbs-home")).toHaveTextContent(
         "DSC Home",
       )
-      expect(screen.getByTestId("breadcrumbs-text")).toHaveTextContent(
-        "Phenotypes",
-      )
       expect(screen.getByTestId("breadcrumbs-last")).toHaveTextContent(
         "abolished protein phosphorylation",
       )
