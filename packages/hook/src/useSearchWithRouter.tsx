@@ -5,7 +5,7 @@ import { useSearchParams } from "react-router-dom"
 import { AutocompleteRenderInputParams } from "@material-ui/lab"
 import { TextField, Chip } from "@material-ui/core"
 import { v4 as uuid4 } from "uuid"
-import { FieldOption } from "@dictybase/ui-dsc"
+import { FieldOption } from "./FieldOption"
 import { inputProperties } from "./types"
 
 const emptyString: Readonly<string> = ""
