@@ -23,6 +23,7 @@
     "@dictybase/data-access": "*",
     "@dictybase/editor": "*",
     "@dictybase/google-analytics": "*",
+    "@dictybase/hook": "*",
     "@dictybase/ui-frontpage": "*",
     "@fontsource-variable/playfair-display": "^5.1.0",
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
