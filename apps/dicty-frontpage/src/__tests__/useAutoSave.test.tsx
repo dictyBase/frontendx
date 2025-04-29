@@ -2,13 +2,30 @@ import { vi, test, expect, describe, beforeEach, afterEach } from "vitest"
 import { renderHook, act } from "@testing-library/react-hooks"
 import { left, right } from "fp-ts/Either"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
-import { useAutoSave } from "../common/hooks/useAutoSave"
+import { LazyQueryResultTuple } from "@apollo/client"
 import {
-  updateFailureError,
-  useAuthorizedUpdateContent,
-} from "../common/hooks/useAuthorizedUpdateContent"
+  ContentBySlugQuery,
+  ContentBySlugQueryResult,
+  ContentBySlugQueryVariables,
+  useContentBySlugLazyQuery,
+} from "dicty-graphql-schema"
+import { useAutoSave } from "../common/hooks/useAutoSave"
+import { useAuthorizedUpdateContent } from "../common/hooks/useAuthorizedUpdateContent"
+import { updateFailureError } from "../common/constants/types"
+import {
+  mockContentA,
+  mockContentB,
+  mockContentBySlugQueryData,
+} from "../mocks/mockContent"
 
 // Import the mocked modules
+vi.mock("dicty-graphql-schema", () => ({
+  useContentBySlugLazyQuery: vi.fn(() => [
+    () => ({
+      data: { contentBySlug: mockContentBySlugQueryData },
+    }),
+  ]),
+}))
 
 // Mock the dependencies
 vi.mock("@lexical/react/LexicalComposerContext", () => ({
@@ -17,15 +34,12 @@ vi.mock("@lexical/react/LexicalComposerContext", () => ({
 
 vi.mock("../common/hooks/useAuthorizedUpdateContent", () => ({
   useAuthorizedUpdateContent: vi.fn(),
-  updateFailureError: {
-    errorType: 2,
-    message: "Could not update content",
-  },
 }))
 
 describe("useAutoSave", () => {
   // Test configuration
   const contentId = "test-content-id"
+  const contentSlug = "test-content"
   const saveInterval = 1000 // 1 second for faster tests
   // We'll get the actual contentValue from the mocked JSON.stringify
 
@@ -35,13 +49,12 @@ describe("useAutoSave", () => {
   const mockAuthorizedUpdateContent = vi.fn()
   const mockGetEditorState = vi.fn()
   const mockToJSON = vi.fn()
-  const mockStringify = vi.spyOn(JSON, "stringify")
 
   beforeEach(() => {
     vi.clearAllMocks()
 
     // Setup mock editor
-    mockToJSON.mockReturnValue({ editorState: "test-content" })
+    mockToJSON.mockReturnValue(JSON.parse(mockContentB))
     mockGetEditorState.mockReturnValue({ toJSON: mockToJSON })
     vi.mocked(useLexicalComposerContext).mockReturnValue([
       { getEditorState: mockGetEditorState },
@@ -51,9 +64,6 @@ describe("useAutoSave", () => {
     vi.mocked(useAuthorizedUpdateContent).mockReturnValue(
       mockAuthorizedUpdateContent,
     )
-
-    // Mock JSON.stringify
-    mockStringify.mockReturnValue('{"editorState":"test-content"}')
 
     // Setup timers
     vi.useFakeTimers()
@@ -73,6 +83,7 @@ describe("useAutoSave", () => {
     renderHook(() =>
       useAutoSave({
         contentId,
+        contentSlug,
         onError: mockOnError,
         onSuccess: mockOnSuccess,
         saveInterval,
@@ -98,6 +109,7 @@ describe("useAutoSave", () => {
     renderHook(() =>
       useAutoSave({
         contentId,
+        contentSlug,
         onError: mockOnError,
         onSuccess: mockOnSuccess,
         saveInterval,
@@ -115,6 +127,42 @@ describe("useAutoSave", () => {
     expect(mockOnSuccess).not.toHaveBeenCalled()
   })
 
+  test("does not attempt to save content if it has not changed", async () => {
+    mockAuthorizedUpdateContent.mockResolvedValue(left(updateFailureError))
+    expect(vi.isMockFunction(useContentBySlugLazyQuery)).toBe(true)
+    vi.mocked(useContentBySlugLazyQuery).mockReturnValue([
+      () =>
+        Promise.resolve({
+          data: {
+            contentBySlug: {
+              content: mockContentA,
+            } as ContentBySlugQuery,
+          },
+        } as ContentBySlugQueryResult),
+      [] as unknown as ContentBySlugQueryResult,
+    ] as LazyQueryResultTuple<ContentBySlugQuery, ContentBySlugQueryVariables>)
+    // Render the hook
+    renderHook(() =>
+      useAutoSave({
+        contentId,
+        contentSlug,
+        onError: mockOnError,
+        onSuccess: mockOnSuccess,
+        saveInterval,
+      }),
+    )
+
+    // Fast-forward timer to trigger auto-save
+    await act(async () => {
+      vi.advanceTimersByTime(saveInterval)
+    })
+
+    // Verify behavior
+    expect(mockAuthorizedUpdateContent).not.toHaveBeenCalled()
+    expect(mockOnError).not.toHaveBeenCalled()
+    expect(mockOnSuccess).not.toHaveBeenCalled()
+  })
+
   test("clears interval on unmount", async () => {
     // Setup spy on clearInterval
     const clearIntervalSpy = vi.spyOn(global, "clearInterval")
@@ -123,6 +171,7 @@ describe("useAutoSave", () => {
     const { unmount } = renderHook(() =>
       useAutoSave({
         contentId,
+        contentSlug,
         onError: mockOnError,
         onSuccess: mockOnSuccess,
         saveInterval,
@@ -144,6 +193,7 @@ describe("useAutoSave", () => {
     renderHook(() =>
       useAutoSave({
         contentId,
+        contentSlug,
         onError: mockOnError,
         onSuccess: mockOnSuccess,
         saveInterval,
