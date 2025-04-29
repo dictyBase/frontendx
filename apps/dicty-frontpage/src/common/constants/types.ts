@@ -1,32 +1,60 @@
-const EDIT_PAGE = "EDIT_PAGE"
-const SAVE_PAGE_REQUEST = "SAVE_PAGE_REQUEST"
-const SAVE_PAGE_SUCCESS = "SAVE_PAGE_SUCCESS"
-const SAVE_PAGE_FAILURE = "SAVE_PAGE_FAILURE"
-const FETCH_PAGE_REQUEST = "FETCH_PAGE_REQUEST"
-const FETCH_PAGE_SUCCESS = "FETCH_PAGE_SUCCESS"
-const FETCH_PAGE_FAILURE = "FETCH_PAGE_FAILURE"
+enum ErrorType {
+  MISSING_CONTENT_ID,
+  ACCESS_TOKEN_ERROR,
+  USER_INFO_ERROR,
+  CREATE_FAILURE,
+  FETCH_FAILURE,
+  UPDATE_FAILURE,
+  DELETE_FAILURE,
+}
 
-const FETCH_DOWNLOAD_TABS_REQUEST = "FETCH_DOWNLOAD_TABS_REQUEST"
-const FETCH_DOWNLOAD_TABS_SUCCESS = "FETCH_DOWNLOAD_TABS_SUCCESS"
-const FETCH_DOWNLOAD_TABS_FAILURE = "FETCH_DOWNLOAD_TABS_FAILURE"
-const FETCH_DOWNLOAD_CONTENT_REQUEST = "FETCH_DOWNLOAD_CONTENT_REQUEST"
-const FETCH_DOWNLOAD_CONTENT_SUCCESS = "FETCH_DOWNLOAD_CONTENT_SUCCESS"
-const FETCH_DOWNLOAD_CONTENT_FAILURE = "FETCH_DOWNLOAD_CONTENT_FAILURE"
-const CHANGE_TAB = "CHANGE_TAB"
+type ContentError = {
+  errorType: ErrorType
+  message: string
+}
+
+const missingContentIdError = {
+  errorType: ErrorType.MISSING_CONTENT_ID,
+  message: "Content ID missing",
+}
+
+const userInfoError = {
+  errorType: ErrorType.USER_INFO_ERROR,
+  message: "Could not get user info",
+}
+
+const accessTokenError = {
+  errorType: ErrorType.ACCESS_TOKEN_ERROR,
+  message: "Could not get access token",
+}
+
+const createFailureError = {
+  errorType: ErrorType.CREATE_FAILURE,
+  message: "Could not create content",
+}
+
+const fetchContentError = {
+  errorType: ErrorType.FETCH_FAILURE,
+  message: "Could not fetch content",
+}
+
+const updateFailureError = {
+  errorType: ErrorType.UPDATE_FAILURE,
+  message: "Could not update content",
+}
+
+const deleteFailureError = {
+  errorType: ErrorType.DELETE_FAILURE,
+  message: "Could not delete content",
+}
 
 export {
-  EDIT_PAGE,
-  SAVE_PAGE_REQUEST,
-  SAVE_PAGE_SUCCESS,
-  SAVE_PAGE_FAILURE,
-  FETCH_PAGE_FAILURE,
-  FETCH_PAGE_REQUEST,
-  FETCH_PAGE_SUCCESS,
-  FETCH_DOWNLOAD_CONTENT_FAILURE,
-  FETCH_DOWNLOAD_CONTENT_REQUEST,
-  FETCH_DOWNLOAD_CONTENT_SUCCESS,
-  FETCH_DOWNLOAD_TABS_FAILURE,
-  FETCH_DOWNLOAD_TABS_REQUEST,
-  FETCH_DOWNLOAD_TABS_SUCCESS,
-  CHANGE_TAB,
+  type ContentError,
+  missingContentIdError,
+  userInfoError,
+  accessTokenError,
+  createFailureError,
+  updateFailureError,
+  fetchContentError,
+  deleteFailureError,
 }
