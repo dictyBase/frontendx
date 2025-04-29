@@ -6,9 +6,11 @@ import { left, right } from "fp-ts/Either"
 import { useLogto } from "@logto/react"
 import { useUpdateContentMutation } from "dicty-graphql-schema"
 import { useAuthorizedUpdateContent } from "../common/hooks/useAuthorizedUpdateContent"
-
-const UPDATE_ERROR_MESSAGE = "Could not update content"
-const USER_ERROR_MESSAGE = "Could not get user info"
+import {
+  updateFailureError,
+  userInfoError,
+  accessTokenError,
+} from "../common/constants/types"
 
 // Mock the @logto/react module
 vi.mock("@logto/react", () => ({
@@ -100,12 +102,7 @@ describe("useAuthorizedUpdateContent", () => {
     const updateResult = await updateFunction(contentValue)
 
     // Verify we got the expected error
-    expect(updateResult).toEqual(
-      left({
-        errorType: 1, // USER_INFO_ERROR
-        message: USER_ERROR_MESSAGE,
-      }),
-    )
+    expect(updateResult).toEqual(left(userInfoError))
 
     // Verify we did call fetchUserInfo
     expect(mockFetchUserInfo).toHaveBeenCalled()
@@ -123,12 +120,7 @@ describe("useAuthorizedUpdateContent", () => {
     const updateResult = await updateFunction(contentValue)
 
     // Verify we got the expected error
-    expect(updateResult).toEqual(
-      left({
-        errorType: 1, // USER_INFO_ERROR
-        message: USER_ERROR_MESSAGE,
-      }),
-    )
+    expect(updateResult).toEqual(left(userInfoError))
   })
 
   test("returns USER_INFO_ERROR when userInfo has no email", async () => {
@@ -141,12 +133,7 @@ describe("useAuthorizedUpdateContent", () => {
     const updateResult = await updateFunction(contentValue)
 
     // Verify we got the expected error
-    expect(updateResult).toEqual(
-      left({
-        errorType: 1, // USER_INFO_ERROR
-        message: USER_ERROR_MESSAGE,
-      }),
-    )
+    expect(updateResult).toEqual(left(userInfoError))
   })
 
   test("returns ACCESS_TOKEN_ERROR when getAccessToken fails", async () => {
@@ -161,12 +148,7 @@ describe("useAuthorizedUpdateContent", () => {
     const updateResult = await updateFunction(contentValue)
 
     // Verify we got the expected error
-    expect(updateResult).toEqual(
-      left({
-        errorType: 0, // ACCESS_TOKEN_ERROR
-        message: "Could not get access token",
-      }),
-    )
+    expect(updateResult).toEqual(left(accessTokenError))
 
     // Verify we did call fetchUserInfo but not updateContent
     expect(mockFetchUserInfo).toHaveBeenCalled()
@@ -185,12 +167,7 @@ describe("useAuthorizedUpdateContent", () => {
     const updateResult = await updateFunction(contentValue)
 
     // Verify we got the expected error
-    expect(updateResult).toEqual(
-      left({
-        errorType: 2, // UPDATE_FAILURE
-        message: UPDATE_ERROR_MESSAGE,
-      }),
-    )
+    expect(updateResult).toEqual(left(updateFailureError))
 
     // Verify we did call fetchUserInfo and getAccessToken
     expect(mockFetchUserInfo).toHaveBeenCalled()
@@ -208,12 +185,7 @@ describe("useAuthorizedUpdateContent", () => {
     const updateResult = await updateFunction(contentValue)
 
     // Verify we got the expected error
-    expect(updateResult).toEqual(
-      left({
-        errorType: 2, // UPDATE_FAILURE
-        message: UPDATE_ERROR_MESSAGE,
-      }),
-    )
+    expect(updateResult).toEqual(left(updateFailureError))
   })
 
   test("returns UPDATE_FAILURE when update succeeds but data is null", async () => {
@@ -228,11 +200,6 @@ describe("useAuthorizedUpdateContent", () => {
     const updateResult = await updateFunction(contentValue)
 
     // Verify we got the expected error
-    expect(updateResult).toEqual(
-      left({
-        errorType: 2, // UPDATE_FAILURE
-        message: UPDATE_ERROR_MESSAGE,
-      }),
-    )
+    expect(updateResult).toEqual(left(updateFailureError))
   })
 })
