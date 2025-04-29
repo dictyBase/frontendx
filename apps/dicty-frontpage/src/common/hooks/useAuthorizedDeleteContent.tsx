@@ -9,27 +9,11 @@ import {
   map as TEmap,
   fromOption as TEfromOption,
 } from "fp-ts/TaskEither"
-
-enum ErrorType {
-  MISSING_CONTENT_ID,
-  ACCESS_TOKEN,
-  DELETE_FAILURE,
-}
-
-const missingContentIdError = {
-  errorType: ErrorType.MISSING_CONTENT_ID,
-  message: "Could not get access token",
-}
-
-const accessTokenError = {
-  errorType: ErrorType.ACCESS_TOKEN,
-  message: "Could not get access token",
-}
-
-const deleteFailureError = {
-  errorType: ErrorType.DELETE_FAILURE,
-  message: "Could not delete content",
-}
+import {
+  missingContentIdError,
+  accessTokenError,
+  deleteFailureError,
+} from "../constants/types"
 
 const useAuthorizedDeleteContent = (contentId: Option<string>) => {
   const { getAccessToken } = useLogto()

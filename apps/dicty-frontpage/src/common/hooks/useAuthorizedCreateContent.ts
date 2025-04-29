@@ -10,26 +10,11 @@ import {
   fromOption as TEfromOption,
 } from "fp-ts/TaskEither"
 import { fromNullable as OfromNullable } from "fp-ts/Option"
-
-enum ErrorType {
-  ACCESS_TOKEN_ERROR,
-  USER_INFO_ERROR,
-  CREATE_FAILURE,
-}
-const userInfoError = {
-  errorType: ErrorType.USER_INFO_ERROR,
-  message: "Could not get user info",
-}
-
-const accessTokenError = {
-  errorType: ErrorType.ACCESS_TOKEN_ERROR,
-  message: "Could not get access token",
-}
-
-const createFailureError = {
-  errorType: ErrorType.CREATE_FAILURE,
-  message: "Could not create content",
-}
+import {
+  userInfoError,
+  accessTokenError,
+  createFailureError,
+} from "../constants/types"
 
 const useAuthorizedCreateContent = () => {
   const { getAccessToken, fetchUserInfo } = useLogto()
