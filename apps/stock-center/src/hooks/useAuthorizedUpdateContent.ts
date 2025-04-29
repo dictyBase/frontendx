@@ -9,32 +9,7 @@ import {
   fromOption as TEfromOption,
 } from "fp-ts/TaskEither"
 import { fromNullable as OfromNullable } from "fp-ts/Option"
-
-enum ErrorType {
-  ACCESS_TOKEN_ERROR,
-  USER_INFO_ERROR,
-  UPDATE_FAILURE,
-}
-
-type UpdateContentError = {
-  errorType: ErrorType
-  message: string
-}
-
-const userInfoError = {
-  errorType: ErrorType.USER_INFO_ERROR,
-  message: "Could not get user info",
-}
-
-const accessTokenError = {
-  errorType: ErrorType.ACCESS_TOKEN_ERROR,
-  message: "Could not get access token",
-}
-
-const updateFailureError = {
-  errorType: ErrorType.UPDATE_FAILURE,
-  message: "Could not update content",
-}
+import { userInfoError, accessTokenError, updateFailureError } from "../types"
 
 const useAuthorizedUpdateContent = (contentId: string) => {
   const { getAccessToken, fetchUserInfo } = useLogto()
@@ -99,8 +74,4 @@ const useAuthorizedUpdateContent = (contentId: string) => {
   }
 }
 
-export {
-  updateFailureError,
-  useAuthorizedUpdateContent,
-  type UpdateContentError,
-}
+export { useAuthorizedUpdateContent }
