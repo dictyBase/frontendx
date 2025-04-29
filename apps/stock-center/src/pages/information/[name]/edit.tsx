@@ -1,6 +1,5 @@
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { FullPageLoadingDisplay, GraphQLErrorPage } from "@dictybase/ui-common"
-import { useConfirmNavigation } from "@dictybase/hook"
 import { Container } from "@material-ui/core"
 import { ACCESS } from "@dictybase/auth"
 import { match, P } from "ts-pattern"
@@ -9,7 +8,6 @@ import { NAMESPACE } from "../../../namespace"
 import { useSlug } from "../../../hooks/useSlug"
 
 const Edit = () => {
-  useConfirmNavigation()
   const slug = useSlug()
   const result = useContentBySlugQuery({
     variables: { slug: `${NAMESPACE}-${slug}` },
