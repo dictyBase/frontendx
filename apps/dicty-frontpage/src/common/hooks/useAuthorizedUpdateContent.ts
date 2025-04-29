@@ -15,17 +15,6 @@ import {
   updateFailureError,
 } from "../constants/types"
 
-enum ErrorType {
-  ACCESS_TOKEN_ERROR,
-  USER_INFO_ERROR,
-  UPDATE_FAILURE,
-}
-
-type UpdateContentError = {
-  errorType: ErrorType
-  message: string
-}
-
 const useAuthorizedUpdateContent = (contentId: string) => {
   const { getAccessToken, fetchUserInfo } = useLogto()
   const [updateContent] = useUpdateContentMutation()
@@ -89,4 +78,4 @@ const useAuthorizedUpdateContent = (contentId: string) => {
   }
 }
 
-export { useAuthorizedUpdateContent, type UpdateContentError }
+export { useAuthorizedUpdateContent }
