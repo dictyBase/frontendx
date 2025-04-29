@@ -14,13 +14,15 @@ import { UpdateButton } from "./UpdateButton"
 import { useAutoSave } from "../hooks/useAutoSave"
 
 type EditActionBarProperties = {
+  contentId: string
+  contentSlug: string
   editedBy: string
   updatedAt: string
-  contentId: string
 }
 
 const EditActionBar = ({
   contentId,
+  contentSlug,
   editedBy,
   updatedAt,
 }: EditActionBarProperties) => {
@@ -35,6 +37,7 @@ const EditActionBar = ({
 
   useAutoSave({
     contentId,
+    contentSlug,
     onError: (error) => {
       setErrorMessage(some(error.message))
       setIsOpen(true)
@@ -76,7 +79,7 @@ type EditViewProperties = {
 }
 
 const EditView = ({ data }: EditViewProperties) => {
-  const { id, updated_at, updated_by, content } = data
+  const { id, updated_at, updated_by, content, slug } = data
   const editedBy = truncateEmail(updated_by.email)
   return (
     <Editor
@@ -85,6 +88,7 @@ const EditView = ({ data }: EditViewProperties) => {
       toolbar={
         <EditActionBar
           contentId={id}
+          contentSlug={slug}
           updatedAt={updated_at}
           editedBy={editedBy}
         />
