@@ -10,6 +10,7 @@ const Edit = () => {
   const result = useContentBySlugQuery({
     variables: { slug: `${NAMESPACE}-${slug}` },
     errorPolicy: "all",
+    fetchPolicy: "cache-and-network",
   })
   return match(result)
     .with(
