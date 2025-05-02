@@ -1,5 +1,7 @@
 export * from "./LoadingDisplay"
 export * from "./ActionBar"
+export * from "./PendingChanges"
+export * from "./ProgressSaved"
 export * from "./FullPageLoadingDisplay"
 export * from "./DateDisplay"
 export * from "./DictyTab"
