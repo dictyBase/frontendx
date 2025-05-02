@@ -1,26 +1,18 @@
 import { useState, useEffect, useRef } from "react"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { pipe } from "fp-ts/function"
-import { match as Ematch } from "fp-ts/Either"
 import { Option, none, some, map as Omap } from "fp-ts/Option"
-import { useAuthorizedUpdateContent } from "./useAuthorizedUpdateContent"
-import { ContentError } from "../constants/types"
+import { useAuthorizedUpdateContentWithStates } from "./useAuthorizedUpdateContentWithStates"
 
 type useAutoSaveProperties = {
   contentId: string
-  contentSlug: string
-  onError: (error: ContentError) => void
-  onSuccess: () => void
 }
 
-const useAutoSave = ({
-  contentId,
-  onError,
-  onSuccess,
-}: useAutoSaveProperties) => {
+const useAutoSave = ({ contentId }: useAutoSaveProperties) => {
   const [editor] = useLexicalComposerContext()
-  const [isSaved, setIsSaved] = useState(true)
-  const authorizedUpdateContent = useAuthorizedUpdateContent(contentId)
+  const [waiting, isWaiting] = useState(false)
+  const [authorizedUpdateContent, { loading, error, data, reset }] =
+    useAuthorizedUpdateContentWithStates(contentId)
   const timeoutIdReference = useRef<Option<NodeJS.Timeout>>(none)
   useEffect(() => {
     const cleanupListener = editor.registerUpdateListener(
@@ -28,22 +20,14 @@ const useAutoSave = ({
         const previousEditorContent = JSON.stringify(prevEditorState.toJSON())
         const editorContent = JSON.stringify(editorState.toJSON())
         if (previousEditorContent === editorContent) return
-        setIsSaved(false)
+
+        isWaiting(true)
         pipe(timeoutIdReference.current, Omap(clearTimeout))
+        reset()
+
         const timeoutId = setTimeout(async () => {
-          pipe(
-            await authorizedUpdateContent(editorContent),
-            Ematch(
-              (error) => {
-                onError(error)
-                setIsSaved(false)
-              },
-              () => {
-                onSuccess()
-                setIsSaved(true)
-              },
-            ),
-          )
+          isWaiting(false)
+          await authorizedUpdateContent(editorContent)
         }, 1500)
         timeoutIdReference.current = some(timeoutId)
       },
@@ -51,7 +35,7 @@ const useAutoSave = ({
     return () => {
       cleanupListener()
     }
-  }, [authorizedUpdateContent, editor, onError, onSuccess])
+  }, [authorizedUpdateContent, editor, reset])
 
   useEffect(
     () => () => {
@@ -59,7 +43,7 @@ const useAutoSave = ({
     },
     [],
   )
-  return isSaved
+  return { waiting, loading, error, data }
 }
 
 export { useAutoSave }
