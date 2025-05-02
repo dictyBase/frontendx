@@ -10,7 +10,7 @@ type useAutoSaveProperties = {
 
 const useAutoSave = ({ contentId }: useAutoSaveProperties) => {
   const [editor] = useLexicalComposerContext()
-  const [waiting, isWaiting] = useState(false)
+  const [waiting, setWaiting] = useState(false)
   const [authorizedUpdateContent, { loading, error, data, reset }] =
     useAuthorizedUpdateContentWithStates(contentId)
   const timeoutIdReference = useRef<Option<NodeJS.Timeout>>(none)
@@ -21,12 +21,12 @@ const useAutoSave = ({ contentId }: useAutoSaveProperties) => {
         const editorContent = JSON.stringify(editorState.toJSON())
         if (previousEditorContent === editorContent) return
 
-        isWaiting(true)
+        setWaiting(true)
         pipe(timeoutIdReference.current, Omap(clearTimeout))
         reset()
 
         const timeoutId = setTimeout(async () => {
-          isWaiting(false)
+          setWaiting(false)
           await authorizedUpdateContent(editorContent)
         }, 1000)
         timeoutIdReference.current = some(timeoutId)
