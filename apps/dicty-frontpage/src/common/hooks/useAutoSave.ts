@@ -28,7 +28,7 @@ const useAutoSave = ({ contentId }: useAutoSaveProperties) => {
         const timeoutId = setTimeout(async () => {
           isWaiting(false)
           await authorizedUpdateContent(editorContent)
-        }, 1500)
+        }, 1000)
         timeoutIdReference.current = some(timeoutId)
       },
     )
