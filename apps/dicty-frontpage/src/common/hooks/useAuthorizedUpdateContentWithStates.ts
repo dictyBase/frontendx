@@ -1,4 +1,3 @@
-import { useMemo } from "react"
 import { pipe } from "fp-ts/function"
 import { useLogto } from "@logto/react"
 import {
