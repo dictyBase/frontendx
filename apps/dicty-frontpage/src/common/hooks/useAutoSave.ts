@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { pipe } from "fp-ts/function"
 import { match as Ematch } from "fp-ts/Either"
-import { Option, none, some, match as Omatch, map as Omap } from "fp-ts/Option"
+import { Option, none, some, map as Omap } from "fp-ts/Option"
 import { useAuthorizedUpdateContent } from "./useAuthorizedUpdateContent"
 import { ContentError } from "../constants/types"
 
@@ -19,7 +19,7 @@ const useAutoSave = ({
   onSuccess,
 }: useAutoSaveProperties) => {
   const [editor] = useLexicalComposerContext()
-  const [isUnsaved, setIsUnsaved] = useState(false)
+  const [isSaved, setIsSaved] = useState(true)
   const authorizedUpdateContent = useAuthorizedUpdateContent(contentId)
   const timeoutIdReference = useRef<Option<NodeJS.Timeout>>(none)
   useEffect(() => {
@@ -28,6 +28,7 @@ const useAutoSave = ({
         const previousEditorContent = JSON.stringify(prevEditorState.toJSON())
         const editorContent = JSON.stringify(editorState.toJSON())
         if (previousEditorContent === editorContent) return
+        setIsSaved(false)
         pipe(timeoutIdReference.current, Omap(clearTimeout))
         const timeoutId = setTimeout(async () => {
           pipe(
@@ -35,9 +36,11 @@ const useAutoSave = ({
             Ematch(
               (error) => {
                 onError(error)
+                setIsSaved(false)
               },
               () => {
                 onSuccess()
+                setIsSaved(true)
               },
             ),
           )
@@ -56,6 +59,7 @@ const useAutoSave = ({
     },
     [],
   )
+  return isSaved
 }
 
 export { useAutoSave }
