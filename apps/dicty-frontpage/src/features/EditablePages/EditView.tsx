@@ -1,12 +1,27 @@
-import { useState } from "react"
-import { makeStyles, Container, Snackbar } from "@material-ui/core"
-import { Alert } from "@material-ui/lab"
+import { useState, useEffect } from "react"
+import { makeStyles, Container } from "@material-ui/core"
 import PersonIcon from "@material-ui/icons/Person"
 import { pipe } from "fp-ts/function"
-import { Option, some, none, match as Omatch } from "fp-ts/Option"
-import { ActionBar } from "@dictybase/ui-common"
+import { match as Bmatch } from "fp-ts/boolean"
+import {
+  Option,
+  some,
+  none,
+  fromNullable as OfromNullable,
+  getOrElse as OgetOrElse,
+  map as Omap,
+  match as Omatch,
+} from "fp-ts/Option"
+import { formatDistance } from "date-fns"
+import {
+  ActionBar,
+  PendingChanges,
+  WaitingChanges,
+  ProgressSaved,
+  ExitEditingButton,
+} from "@dictybase/ui-common"
+import { match, P } from "ts-pattern"
 import { Editor } from "@dictybase/editor"
-import { useConfirmNavigation } from "@dictybase/hook"
 import { type ContentBySlugQuery } from "dicty-graphql-schema"
 import { UpdateButton } from "../../common/components/UpdateButton"
 import { timeSince } from "../../common/utils/timeSince"
@@ -33,25 +48,8 @@ const EditActionBar = ({
   editedBy,
   updatedAt,
 }: EditActionBarProperties) => {
-  useConfirmNavigation()
-  const [isOpen, setIsOpen] = useState(false)
-  const [errorMessage, setErrorMessage] = useState<Option<string>>(none)
-
-  const handleClose = () => {
-    setIsOpen(false)
-  }
-
-  useAutoSave({
+  const autosaveStates = useAutoSave({
     contentId,
-    contentSlug,
-    onError: (error) => {
-      setErrorMessage(some(error.message))
-      setIsOpen(true)
-    },
-    onSuccess: () => {
-      setErrorMessage(none)
-      setIsOpen(true)
-    },
   })
 
   return (
@@ -61,21 +59,24 @@ const EditActionBar = ({
           <strong>
             <PersonIcon /> {editedBy}
           </strong>{" "}
-          edited {timeSince(updatedAt)} ago
+          updated {formatDistance(new Date(updatedAt), new Date())} ago
         </>
       }>
-      <UpdateButton contentId={contentId} />
-      <Snackbar open={isOpen} onClose={handleClose} autoHideDuration={3000}>
-        {pipe(
-          errorMessage,
-          Omatch(
-            () => <Alert severity="success"> Work Saved. </Alert>,
-            () => (
-              <Alert severity="error"> Could not autosave progress. </Alert>
-            ),
-          ),
-        )}
-      </Snackbar>
+      {match(autosaveStates)
+        .with(
+          {
+            data: { updateContent: { content: P.string } },
+          },
+          () => <ProgressSaved />,
+        )
+        .with({ waiting: true }, () => <WaitingChanges />)
+        .with({ loading: true }, () => <PendingChanges />)
+        .with({ error: P.not(undefined) }, () => <>error</>)
+        .otherwise(() => (
+          <></>
+        ))}
+      <UpdateButton contentId={contentId} canSave={false} />
+      <ExitEditingButton />
     </ActionBar>
   )
 }
