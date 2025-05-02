@@ -1,15 +1,23 @@
-import { Grid, Typography } from "@material-ui/core"
-import LoopIcon from "@material-ui/icons/Loop"
+import { makeStyles } from "@material-ui/core"
+import AutorenewIcon from "@material-ui/icons/Autorenew"
 
-const PendingChanges = () => (
-  <Grid container direction="row" alignItems="center" spacing={1}>
-    <Grid item>
-      <LoopIcon />
-    </Grid>
-    <Grid item>
-      <Typography> Saving... </Typography>
-    </Grid>
-  </Grid>
-)
+const useStyles = makeStyles({
+  spinner: {
+    animation: "$spin 1.5s linear infinite",
+  },
+  "@keyframes spin": {
+    "0%": {
+      transform: "rotate(0deg)",
+    },
+    "100%": {
+      transform: "rotate(360deg)",
+    },
+  },
+})
+
+const PendingChanges = () => {
+  const { spinner } = useStyles()
+  return <AutorenewIcon className={spinner} />
+}
 
 export { PendingChanges }
