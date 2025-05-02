@@ -55,7 +55,7 @@ const ActionBar: FunctionComponent<{
         </Box>
       </Grid>
       <Grid item>
-        <Grid container spacing={1}>
+        <Grid container spacing={1} alignItems="center">
           {pipe(
             children,
             Array.isArray,
