@@ -1,30 +1,26 @@
 import CloudDoneIcon from "@material-ui/icons/CloudDone"
 import { Grid, Typography, makeStyles } from "@material-ui/core"
+import { green } from "@material-ui/core/colors"
 
 const useStyles = makeStyles({
-  fadeOut: {
-    animation: "$fadeAway 0.25s forwards",
-    animationDelay: "0.3s",
+  text: {
+    color: green[800],
+    fontWeight: 600,
   },
-  "@keyframes fadeAway": {
-    "0%": {
-      opacity: 1,
-    },
-    "100%": {
-      opacity: 0,
-    },
+  icon: {
+    color: green[900],
   },
 })
 
 const ProgressSaved = () => {
-  const { fadeOut } = useStyles()
+  const { text, icon } = useStyles()
   return (
     <Grid alignItems="center" container spacing={1} wrap="nowrap">
       <Grid item>
-        <Typography className={fadeOut}> Saved </Typography>
+        <Typography className={text}>Saved</Typography>
       </Grid>
       <Grid item>
-        <CloudDoneIcon />
+        <CloudDoneIcon className={icon} />
       </Grid>
     </Grid>
   )
