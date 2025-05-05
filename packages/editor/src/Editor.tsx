@@ -40,7 +40,7 @@ type EditorProperties = {
   plugins?: Array<JSX.Element>
   editable?: boolean
   toolbar?: JSX.Element
-  handleChange: (editorState: EditorState) => void
+  handleChange?: (editorState: EditorState) => void
 }
 
 const Editor = ({
