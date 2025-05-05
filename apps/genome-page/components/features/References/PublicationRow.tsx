@@ -1,6 +1,10 @@
 import { useRouter } from "next/router"
+import { pipe } from "fp-ts/function"
+import { match as Bmatch } from "fp-ts/boolean"
+import { map as Amap, takeLeft as AtakeLeft } from "fp-ts/Array"
 import { Chip, TableCell, TableRow } from "@material-ui/core"
 import { commaSeparateWithAnd } from "common/utils/strings"
+import { SeeAllGenesChip } from "./SeeAllGenesChip"
 
 interface PublicationRowProperties {
   publication: {
@@ -36,9 +40,8 @@ const PublicationRow = ({ publication }: PublicationRowProperties) => {
         <i>{publication.journal}</i>
         ,&nbsp;{publication.pages}
       </TableCell>
-
       <TableCell>
-        {publication.related_genes.map((gene) => (
+        {pipe(publication.related_genes, AtakeLeft(5), Amap((gene) => (
           <Chip
             clickable
             onClick={() => router.push(`/${gene.name}`)}
@@ -48,7 +51,14 @@ const PublicationRow = ({ publication }: PublicationRowProperties) => {
             style={{ margin: "0px 5px 5px 0px" }}
             variant="outlined"
           />
-        ))}
+        )))}
+        {pipe(
+          publication.related_genes.length > 5,
+          Bmatch(
+            () => <></>,
+            () => <SeeAllGenesChip />,
+          ),
+        )}
       </TableCell>
     </TableRow>
   )
