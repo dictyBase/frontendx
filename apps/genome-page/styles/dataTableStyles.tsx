@@ -25,7 +25,7 @@ const useStyles = makeStyles({
     width: "100px",
   },
   referenceColumn: {
-    minWidth: "40%",
+    minWidth: "70%",
   },
 })
 
