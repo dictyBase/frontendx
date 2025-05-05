@@ -1,99 +1,105 @@
-import { Snackbar } from "@material-ui/core"
+import { ApolloError } from "@apollo/client"
+import { makeStyles, Container } from "@material-ui/core"
 import PersonIcon from "@material-ui/icons/Person"
-import { ActionBar } from "@dictybase/ui-common"
+import { formatDistance } from "date-fns"
+import {
+  ActionBar,
+  PendingChanges,
+  WaitingChanges,
+  ProgressSaved,
+  ExitEditingButton,
+  SavingError,
+} from "@dictybase/ui-common"
+import { match, P } from "ts-pattern"
 import { Editor } from "@dictybase/editor"
-import { useConfirmNavigation } from "@dictybase/hook"
-import { ContentBySlugQuery } from "dicty-graphql-schema"
-import { useState } from "react"
-import { Alert } from "@material-ui/lab"
-import { pipe } from "fp-ts/function"
-import { Option, some, none, match as Omatch } from "fp-ts/Option"
-import { truncateEmail } from "../truncateEmail"
-import { timeSince } from "../timeSince"
+import {
+  type ContentBySlugQuery,
+  UpdateContentMutation,
+} from "dicty-graphql-schema"
 import { UpdateButton } from "./UpdateButton"
+import { truncateEmail } from "../truncateEmail"
 import { useAutoSave } from "../hooks/useAutoSave"
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(4),
+  },
+}))
 
 type EditActionBarProperties = {
   contentId: string
-  contentSlug: string
   editedBy: string
   updatedAt: string
+  autosaveState: {
+    waiting: boolean
+    loading: boolean
+    error: ApolloError | undefined
+    data: UpdateContentMutation | null | undefined
+  }
 }
 
 const EditActionBar = ({
   contentId,
-  contentSlug,
   editedBy,
   updatedAt,
-}: EditActionBarProperties) => {
-  useConfirmNavigation()
-  const [isOpen, setIsOpen] = useState(false)
-  const [errorMessage, setErrorMessage] = useState<Option<string>>(none)
-
-  const handleClose = () => {
-    setIsOpen(false)
-    setErrorMessage(none)
-  }
-
-  useAutoSave({
-    contentId,
-    contentSlug,
-    onError: (error) => {
-      setErrorMessage(some(error.message))
-      setIsOpen(true)
-    },
-    onSuccess: () => {
-      setErrorMessage(none)
-      setIsOpen(true)
-    },
-  })
-
-  return (
-    <ActionBar
-      descriptionElement={
-        <>
-          <strong>
-            <PersonIcon /> {editedBy}
-          </strong>{" "}
-          edited {timeSince(updatedAt)} ago
-        </>
-      }>
-      <UpdateButton contentId={contentId} />
-      <Snackbar open={isOpen} onClose={handleClose} autoHideDuration={3000}>
-        {pipe(
-          errorMessage,
-          Omatch(
-            () => <Alert severity="success"> Work Saved. </Alert>,
-            () => (
-              <Alert severity="error"> Could not autosave progress. </Alert>
-            ),
-          ),
-        )}
-      </Snackbar>
-    </ActionBar>
-  )
-}
+  autosaveState,
+}: EditActionBarProperties) => (
+  <ActionBar
+    descriptionElement={
+      <>
+        <strong>
+          <PersonIcon /> {editedBy}
+        </strong>{" "}
+        updated {formatDistance(new Date(updatedAt), new Date())} ago
+      </>
+    }>
+    {match(autosaveState)
+      .with(
+        {
+          data: { updateContent: { content: P.string } },
+        },
+        () => <ProgressSaved />,
+      )
+      .with({ waiting: true }, () => <WaitingChanges />)
+      .with({ loading: true }, () => <PendingChanges />)
+      .with({ error: P.not(undefined) }, () => <SavingError />)
+      .otherwise(() => (
+        <></>
+      ))}
+    <UpdateButton contentId={contentId} canSave={autosaveState.waiting} />
+    <ExitEditingButton />
+  </ActionBar>
+)
 
 type EditViewProperties = {
   data: NonNullable<ContentBySlugQuery["contentBySlug"]>
 }
 
 const EditView = ({ data }: EditViewProperties) => {
-  const { id, updated_at, updated_by, content, slug } = data
+  const classes = useStyles()
+  const { id, updated_at, updated_by, content } = data
+  const [handleChange, autosaveState] = useAutoSave({
+    contentId: id,
+  })
+
   const editedBy = truncateEmail(updated_by.email)
   return (
-    <Editor
-      content={{ storageKey: undefined, editorState: content }}
-      editable
-      toolbar={
-        <EditActionBar
-          contentId={id}
-          contentSlug={slug}
-          updatedAt={updated_at}
-          editedBy={editedBy}
-        />
-      }
-    />
+    <Container className={classes.container}>
+      <Editor
+        content={{ storageKey: undefined, editorState: content }}
+        editable
+        handleChange={handleChange}
+        toolbar={
+          <EditActionBar
+            contentId={id}
+            updatedAt={updated_at}
+            editedBy={editedBy}
+            autosaveState={autosaveState}
+          />
+        }
+      />
+    </Container>
   )
 }
 
