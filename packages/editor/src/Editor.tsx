@@ -1,4 +1,5 @@
 /* eslint-disable dot-notation */
+import { EditorState } from "lexical"
 import {
   InitialEditorStateType,
   LexicalComposer,
@@ -9,6 +10,7 @@ import { ListPlugin } from "@lexical/react/LexicalListPlugin"
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin"
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin"
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary"
+import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin"
 import { Grid } from "@material-ui/core"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
@@ -38,6 +40,7 @@ type EditorProperties = {
   plugins?: Array<JSX.Element>
   editable?: boolean
   toolbar?: JSX.Element
+  handleChange: (editorState: EditorState) => void
 }
 
 const Editor = ({
@@ -45,6 +48,7 @@ const Editor = ({
   editable = false,
   toolbar,
   plugins,
+  handleChange,
 }: EditorProperties) => {
   const initialEditorState = pipe(
     content,
@@ -70,11 +74,17 @@ const Editor = ({
       <WidthTablePlugin />
       <TableActionPlugin isEditing={editable} />
       <HistoryPlugin />
-      <Grid container spacing={1} direction="column">
         {pipe(
           toolbar,
           OfromNullable,
           Omap((tb) => <Grid item>{tb}</Grid>),
+          OgetOrElse(() => <></>),
+        )}
+      <Grid container spacing={1} direction="column">
+        {pipe(
+          handleChange,
+          OfromNullable,
+          Omap((handler) => <OnChangePlugin ignoreSelectionChange={true} onChange={handler}/>),
           OgetOrElse(() => <></>),
         )}
         {pipe(
@@ -93,7 +103,7 @@ const Editor = ({
             <RichTextPlugin
               ErrorBoundary={LexicalErrorBoundary}
               contentEditable={
-                <ContentEditable className={editorAreaClasses["container"]} />
+                <ContentEditable id="content-editor" className={editorAreaClasses["container"]} />
               }
               placeholder={
                 <div className={placeholderClasses.root}>
