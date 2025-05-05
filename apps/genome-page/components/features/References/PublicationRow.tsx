@@ -1,3 +1,4 @@
+import { useRouter } from "next/router"
 import { Chip, TableCell, TableRow } from "@material-ui/core"
 import { commaSeparateWithAnd } from "common/utils/strings"
 
@@ -23,28 +24,35 @@ interface PublicationRowProperties {
   }
 }
 
-const PublicationRow = ({ publication }: PublicationRowProperties) => (
-  <TableRow>
-    <TableCell>
-      <b>{commaSeparateWithAnd(publication.authors.map((a) => a.last_name))}</b>
-      &nbsp; &apos;{publication.title}&apos; &nbsp;
-      <i>{publication.journal}</i>
-      &nbsp;
-      {publication.pages}
-    </TableCell>
+const PublicationRow = ({ publication }: PublicationRowProperties) => {
+  const router = useRouter()
+  return (
+    <TableRow>
+      <TableCell>
+        <b>
+          {commaSeparateWithAnd(publication.authors.map((a) => a.last_name))}
+        </b>
+        &nbsp; &apos;{publication.title}&apos; &nbsp;
+        <i>{publication.journal}</i>
+        &nbsp;
+        {publication.pages}
+      </TableCell>
 
-    <TableCell>
-      {publication.related_genes.map((gene) => (
-        <Chip
-          key={gene.id}
-          label={gene.name}
-          size="small"
-          style={{ margin: "0px 5px 5px 0px" }}
-          variant="outlined"
-        />
-      ))}
-    </TableCell>
-  </TableRow>
-)
+      <TableCell>
+        {publication.related_genes.map((gene) => (
+          <Chip
+            clickable
+            onClick={() => router.push(`/${gene.name}`)}
+            key={gene.id}
+            label={gene.name}
+            size="small"
+            style={{ margin: "0px 5px 5px 0px" }}
+            variant="outlined"
+          />
+        ))}
+      </TableCell>
+    </TableRow>
+  )
+}
 
 export { PublicationRow }
