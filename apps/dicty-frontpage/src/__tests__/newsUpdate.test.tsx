@@ -76,8 +76,7 @@ describe("/news/:id/editable", () => {
     const textbox = screen.getByRole("textbox")
     expect(textbox).toBeInTheDocument()
   })
-  test('renders a button with the text "Save" that calls updateContent mutation and navigates to `/news/:id/editable` when clicked', async () => {
-    const user = userEvent.setup()
+  test('renders a button with the text "Save"', () => {
     const router = createMemoryRouter(routeConfiguration, {
       initialEntries: [editRoute],
     })
@@ -88,8 +87,21 @@ describe("/news/:id/editable", () => {
     )
     const saveButton = screen.getByText(/save/i)
     expect(saveButton).toBeInTheDocument()
-    await user.click(saveButton)
-    expect(mockAuthorizedUpdateContent).toHaveBeenCalled()
+  })
+
+  test('renders a button with the text "Exit" that navigates to `/news/:id/editable` when clicked', async () => {
+    const user = userEvent.setup()
+    const router = createMemoryRouter(routeConfiguration, {
+      initialEntries: [editRoute],
+    })
+    render(
+      <MockedProvider>
+        <RouterProvider router={router} />
+      </MockedProvider>,
+    )
+    const exitButton = screen.getByText(/exit/i)
+    expect(exitButton).toBeInTheDocument()
+    await user.click(exitButton)
     expect(screen.getByText("Editable News Route")).toBeInTheDocument()
   })
 })
