@@ -80,7 +80,14 @@ const useAuthorizedUpdateContentWithStates = (contentId: string) => {
             () => updateFailureError,
           ),
         ),
-        TEmap(({ update }) => update),
+        TEbind("data", ({ update }) =>
+          pipe(
+            update.data,
+            OfromNullable,
+            TEfromOption(() => updateFailureError),
+          ),
+        ),
+        TEmap(({ data }) => data),
       )
       return task()
     },
