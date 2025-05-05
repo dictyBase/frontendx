@@ -24,6 +24,9 @@ const useStyles = makeStyles({
     textAlign: "right",
     width: "100px",
   },
+  referenceColumn: {
+    minWidth: "30%",
+  },
 })
 
 export { useStyles }
