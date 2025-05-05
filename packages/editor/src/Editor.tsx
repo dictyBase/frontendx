@@ -74,17 +74,19 @@ const Editor = ({
       <WidthTablePlugin />
       <TableActionPlugin isEditing={editable} />
       <HistoryPlugin />
-        {pipe(
-          toolbar,
-          OfromNullable,
-          Omap((tb) => <Grid item>{tb}</Grid>),
-          OgetOrElse(() => <></>),
-        )}
+      {pipe(
+        toolbar,
+        OfromNullable,
+        Omap((tb) => <Grid item>{tb}</Grid>),
+        OgetOrElse(() => <></>),
+      )}
       <Grid container spacing={1} direction="column">
         {pipe(
           handleChange,
           OfromNullable,
-          Omap((handler) => <OnChangePlugin ignoreSelectionChange={true} onChange={handler}/>),
+          Omap((handler) => (
+            <OnChangePlugin ignoreSelectionChange onChange={handler} />
+          )),
           OgetOrElse(() => <></>),
         )}
         {pipe(
@@ -103,7 +105,10 @@ const Editor = ({
             <RichTextPlugin
               ErrorBoundary={LexicalErrorBoundary}
               contentEditable={
-                <ContentEditable id="content-editor" className={editorAreaClasses["container"]} />
+                <ContentEditable
+                  id="content-editor"
+                  className={editorAreaClasses["container"]}
+                />
               }
               placeholder={
                 <div className={placeholderClasses.root}>
