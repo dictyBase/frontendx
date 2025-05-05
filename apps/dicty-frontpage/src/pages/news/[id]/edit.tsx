@@ -1,30 +1,32 @@
-import { useState } from "react"
+import { makeStyles, Grid, Container, Typography } from "@material-ui/core"
 import {
-  makeStyles,
-  Grid,
-  Container,
-  Typography,
-  Snackbar,
-} from "@material-ui/core"
-import { Alert } from "@material-ui/lab"
-import { useContentBySlugQuery, User } from "dicty-graphql-schema"
+  useContentBySlugQuery,
+  User,
+  UpdateContentMutation,
+} from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { pipe } from "fp-ts/function"
-import { Option, some, none, match as Omatch } from "fp-ts/Option"
-import { parseISO, format } from "date-fns/fp"
+import { parseISO, format, formatDistance } from "date-fns/fp"
 import {
   FullPageLoadingDisplay,
   GraphQLErrorPage,
   ActionBar,
   CopyLinkButton,
   BrowseNewsButton,
+  PendingChanges,
+  WaitingChanges,
+  ProgressSaved,
+  ExitEditingButton,
+  SavingError,
 } from "@dictybase/ui-common"
 import { ACCESS } from "@dictybase/auth"
 import { Editor } from "@dictybase/editor"
-import { useConfirmNavigation } from "@dictybase/hook"
+import { ApolloError } from "@apollo/client"
+import PersonIcon from "@material-ui/icons/Person"
 import { useSlug } from "../../../common/hooks/useSlug"
 import { NEWS_NAMESPACE } from "../../../common/constants/namespace"
 import { UpdateButton } from "../../../common/components/UpdateButton"
+import { truncateEmail } from "../../../common/utils/truncateEmail"
 import { useAutoSave } from "../../../common/hooks/useAutoSave"
 
 const useStyles = makeStyles((theme) => ({
@@ -36,56 +38,55 @@ const useStyles = makeStyles((theme) => ({
 
 type EditActionBarProperties = {
   contentId: string
-  lastEditor: string
-}
-
-const EditActionBar = ({ contentId, lastEditor }: EditActionBarProperties) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [errorMessage, setErrorMessage] = useState<Option<string>>(none)
-
-  const handleClose = () => {
-    setIsOpen(false)
-    setErrorMessage(none)
+  editedBy: string
+  updatedAt: string
+  autosaveState: {
+    waiting: boolean
+    loading: boolean
+    error: ApolloError | undefined
+    data: UpdateContentMutation | null | undefined
   }
-
-  useAutoSave({
-    contentId,
-    onError: (error) => {
-      setErrorMessage(some(error.message))
-      setIsOpen(true)
-    },
-    onSuccess: () => {
-      setErrorMessage(none)
-      setIsOpen(true)
-    },
-  })
-
-  return (
-    <ActionBar
-      descriptionElement={
-        <Typography>Last updated by {lastEditor}</Typography>
-      }>
-      <UpdateButton contentId={contentId} />
-      <Snackbar open={isOpen} onClose={handleClose} autoHideDuration={3000}>
-        {pipe(
-          errorMessage,
-          Omatch(
-            () => <Alert severity="success"> Work Saved. </Alert>,
-            () => (
-              <Alert severity="error"> Could not autosave progress. </Alert>
-            ),
-          ),
-        )}
-      </Snackbar>
-    </ActionBar>
-  )
 }
+
+const EditActionBar = ({
+  contentId,
+  editedBy,
+  updatedAt,
+  autosaveState,
+}: EditActionBarProperties) => (
+  <ActionBar
+    descriptionElement={
+      <>
+        <strong>
+          <PersonIcon /> {editedBy}
+        </strong>{" "}
+        updated {formatDistance(new Date(updatedAt), new Date())} ago
+      </>
+    }>
+    {match(autosaveState)
+      .with(
+        {
+          data: { updateContent: { content: P.string } },
+        },
+        () => <ProgressSaved />,
+      )
+      .with({ waiting: true }, () => <WaitingChanges />)
+      .with({ loading: true }, () => <PendingChanges />)
+      .with({ error: P.not(undefined) }, () => <SavingError />)
+      .otherwise(() => (
+        <></>
+      ))}
+    <UpdateButton contentId={contentId} canSave={autosaveState.waiting} />
+    <ExitEditingButton />
+  </ActionBar>
+)
 
 type EditViewProperties = {
   content: string
   contentId: string
   createdAt: string
   updatedBy: Pick<User, "email">
+  updatedAt: string
 }
 
 const EditView = ({
@@ -93,12 +94,20 @@ const EditView = ({
   content,
   createdAt,
   updatedBy,
+  updatedAt,
 }: EditViewProperties) => {
+  const [handleChange, autosaveState] = useAutoSave({
+    contentId,
+  })
   const classes = useStyles()
-  useConfirmNavigation()
-  const lastEditor = updatedBy.email
+  const lastEditor = truncateEmail(updatedBy.email)
   const toolbar = (
-    <EditActionBar contentId={contentId} lastEditor={lastEditor} />
+    <EditActionBar
+      contentId={contentId}
+      editedBy={lastEditor}
+      updatedAt={updatedAt}
+      autosaveState={autosaveState}
+    />
   )
   return (
     <Container className={classes.container}>
@@ -123,6 +132,7 @@ const EditView = ({
             content={{ storageKey: undefined, editorState: content }}
             editable
             toolbar={toolbar}
+            handleChange={handleChange}
           />
         </Grid>
       </Grid>
@@ -139,12 +149,13 @@ const Edit = () => {
   return match(result)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
-      ({ id, content, created_at, updated_by }) => (
+      ({ id, content, created_at, updated_by, updated_at }) => (
         <EditView
           contentId={id}
           content={content}
           createdAt={created_at}
           updatedBy={updated_by}
+          updatedAt={updated_at}
         />
       ),
     )
