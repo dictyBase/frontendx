@@ -28,6 +28,8 @@ interface PublicationRowProperties {
   }
 }
 
+const GENES_LIMIT = 5
+
 const PublicationRow = ({ publication }: PublicationRowProperties) => {
   const router = useRouter()
   return (
@@ -41,7 +43,7 @@ const PublicationRow = ({ publication }: PublicationRowProperties) => {
         ,&nbsp;{publication.pages}
       </TableCell>
       <TableCell>
-        {pipe(publication.related_genes, AtakeLeft(5), Amap((gene) => (
+        {pipe(publication.related_genes, AtakeLeft(GENES_LIMIT), Amap((gene) => (
           <Chip
             clickable
             onClick={() => router.push(`/${gene.name}`)}
@@ -53,7 +55,7 @@ const PublicationRow = ({ publication }: PublicationRowProperties) => {
           />
         )))}
         {pipe(
-          publication.related_genes.length > 5,
+          publication.related_genes.length > GENES_LIMIT,
           Bmatch(
             () => <></>,
             () => <SeeAllGenesChip />,
