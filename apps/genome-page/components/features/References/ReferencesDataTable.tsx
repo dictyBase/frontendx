@@ -25,7 +25,7 @@ const ReferencesDataTable = ({ publications }: Properties) => {
       <Table aria-label="phenotypes-table">
         <TableHead className={classes.head}>
           <TableRow className={classes.headRow}>
-            <TableCell>Reference</TableCell>
+            <TableCell className={classes.referenceColumn}>Reference</TableCell>
             <TableCell>Other Genes Mentioned</TableCell>
           </TableRow>
         </TableHead>
