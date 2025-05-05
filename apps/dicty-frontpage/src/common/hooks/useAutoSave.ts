@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from "react"
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
+import { EditorState } from "lexical"
+import { ApolloError } from "@apollo/client"
 import { pipe } from "fp-ts/function"
 import { Option, none, some, map as Omap } from "fp-ts/Option"
+import { UpdateContentMutation } from "dicty-graphql-schema"
 import { useAuthorizedUpdateContentWithStates } from "./useAuthorizedUpdateContentWithStates"
 
 /**
@@ -22,10 +24,17 @@ type useAutoSaveProperties = {
  * @param contentId - The ID of the content being edited
  * @returns Object containing state information about the save operation
  */
-const useAutoSave = ({ contentId }: useAutoSaveProperties) => {
-  // Get access to the Lexical editor instance
-  const [editor] = useLexicalComposerContext()
-
+const useAutoSave = ({
+  contentId,
+}: useAutoSaveProperties): [
+  (editorState: EditorState) => void,
+  {
+    waiting: boolean
+    loading: boolean
+    error: ApolloError | undefined
+    data: UpdateContentMutation | null | undefined
+  },
+] => {
   // State to indicate content has changed and is waiting to be saved
   const [waiting, setWaiting] = useState(false)
 
@@ -36,47 +45,32 @@ const useAutoSave = ({ contentId }: useAutoSaveProperties) => {
   // Reference to the debounce timeout - wrapped in Option for fp-ts safety
   const timeoutIdReference = useRef<Option<NodeJS.Timeout>>(none)
 
-  useEffect(() => {
-    // Register a listener for editor state changes
-    const cleanupListener = editor.registerUpdateListener(
-      ({ editorState, prevEditorState }) => {
-        // Convert editor states to JSON strings for comparison
-        const previousEditorContent = JSON.stringify(prevEditorState.toJSON())
-        const editorContent = JSON.stringify(editorState.toJSON())
+  const handleChange = (editorState: EditorState) => {
+    // Convert editor states to JSON strings for comparison
+    const editorContent = JSON.stringify(editorState.toJSON())
 
-        // Skip saving if content hasn't changed
-        if (previousEditorContent === editorContent) return
+    // Set waiting state to true to show pending changes in UI
+    setWaiting(true)
 
-        // Set waiting state to true to show pending changes in UI
-        setWaiting(true)
+    // Clear any existing timeout to implement debouncing
+    // This prevents rapid-fire saves when typing quickly
+    pipe(timeoutIdReference.current, Omap(clearTimeout))
 
-        // Clear any existing timeout to implement debouncing
-        // This prevents rapid-fire saves when typing quickly
-        pipe(timeoutIdReference.current, Omap(clearTimeout))
+    // Reset any previous mutation state
+    reset()
 
-        // Reset any previous mutation state
-        reset()
+    // Set a new timeout to save after 1 second of inactivity
+    const timeoutId = setTimeout(async () => {
+      // Update UI state before saving
+      setWaiting(false)
 
-        // Set a new timeout to save after 1 second of inactivity
-        const timeoutId = setTimeout(async () => {
-          // Update UI state before saving
-          setWaiting(false)
+      // Save the content using the authorized update function
+      await authorizedUpdateContent(editorContent)
+    }, 1000)
 
-          // Save the content using the authorized update function
-          await authorizedUpdateContent(editorContent)
-        }, 1000)
-
-        // Store the timeout ID for potential cancellation
-        timeoutIdReference.current = some(timeoutId)
-      },
-    )
-
-    // Clean up the editor listener when the component unmounts
-    // or when dependencies change
-    return () => {
-      cleanupListener()
-    }
-  }, [authorizedUpdateContent, editor, reset])
+    // Store the timeout ID for potential cancellation
+    timeoutIdReference.current = some(timeoutId)
+  }
 
   // Additional cleanup effect to clear any pending timeouts on unmount
   useEffect(
@@ -87,12 +81,15 @@ const useAutoSave = ({ contentId }: useAutoSaveProperties) => {
   )
 
   // Return states that can be used for UI feedback
-  return {
-    waiting, // Content has changed and is waiting to be saved
-    loading, // Save operation is in progress
-    error, // Error occurred during save
-    data, // Result data from successful save
-  }
+  return [
+    handleChange,
+    {
+      waiting, // Content has changed and is waiting to be saved
+      loading, // Save operation is in progress
+      error, // Error occurred during save
+      data, // Result data from successful save
+    },
+  ]
 }
 
 export { useAutoSave }
