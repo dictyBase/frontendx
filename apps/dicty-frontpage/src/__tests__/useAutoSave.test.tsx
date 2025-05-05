@@ -1,71 +1,46 @@
 import { vi, test, expect, describe, beforeEach, afterEach } from "vitest"
 import { renderHook, act } from "@testing-library/react-hooks"
-import { left, right } from "fp-ts/Either"
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
-import { LazyQueryResultTuple } from "@apollo/client"
-import {
-  ContentBySlugQuery,
-  ContentBySlugQueryResult,
-  ContentBySlugQueryVariables,
-  useContentBySlugLazyQuery,
-} from "dicty-graphql-schema"
+import { EditorState } from "lexical"
+import { useAuthorizedUpdateContentWithStates } from "../common/hooks/useAuthorizedUpdateContentWithStates"
 import { useAutoSave } from "../common/hooks/useAutoSave"
-import { useAuthorizedUpdateContent } from "../common/hooks/useAuthorizedUpdateContent"
-import { updateFailureError } from "../common/constants/types"
-import {
-  mockContentA,
-  mockContentB,
-  mockContentBySlugQueryData,
-} from "../mocks/mockContent"
-
-// Import the mocked modules
-vi.mock("dicty-graphql-schema", () => ({
-  useContentBySlugLazyQuery: vi.fn(() => [
-    () => ({
-      data: { contentBySlug: mockContentBySlugQueryData },
-    }),
-  ]),
-}))
 
 // Mock the dependencies
-vi.mock("@lexical/react/LexicalComposerContext", () => ({
-  useLexicalComposerContext: vi.fn(),
-}))
-
-vi.mock("../common/hooks/useAuthorizedUpdateContent", () => ({
-  useAuthorizedUpdateContent: vi.fn(),
+vi.mock("../common/hooks/useAuthorizedUpdateContentWithStates", () => ({
+  useAuthorizedUpdateContentWithStates: vi.fn(),
 }))
 
 describe("useAutoSave", () => {
   // Test configuration
   const contentId = "test-content-id"
-  const contentSlug = "test-content"
-  const saveInterval = 1000 // 1 second for faster tests
-  // We'll get the actual contentValue from the mocked JSON.stringify
+  const mockEditorState = { toJSON: vi.fn() } as unknown as EditorState
 
-  // Mock functions
-  const mockOnError = vi.fn()
-  const mockOnSuccess = vi.fn()
+  // Mock functions and data
   const mockAuthorizedUpdateContent = vi.fn()
-  const mockGetEditorState = vi.fn()
-  const mockToJSON = vi.fn()
+  const mockReset = vi.fn()
+  let mockHookResult: any
 
   beforeEach(() => {
     vi.clearAllMocks()
 
-    // Setup mock editor
-    mockToJSON.mockReturnValue(JSON.parse(mockContentB))
-    mockGetEditorState.mockReturnValue({ toJSON: mockToJSON })
-    vi.mocked(useLexicalComposerContext).mockReturnValue([
-      { getEditorState: mockGetEditorState },
-    ] as any)
+    // Setup mock editor state
+    mockEditorState.toJSON.mockReturnValue({
+      root: { children: [{ text: "test content" }] },
+    })
 
-    // Setup mock authorized update content
-    vi.mocked(useAuthorizedUpdateContent).mockReturnValue(
+    // Setup mock authorized update content with states
+    mockHookResult = {
+      loading: false,
+      error: undefined,
+      data: undefined,
+      reset: mockReset,
+    }
+
+    vi.mocked(useAuthorizedUpdateContentWithStates).mockReturnValue([
       mockAuthorizedUpdateContent,
-    )
+      mockHookResult,
+    ])
 
-    // Setup timers
+    // Setup timers for debounce testing
     vi.useFakeTimers()
   })
 
@@ -75,148 +50,138 @@ describe("useAutoSave", () => {
     vi.restoreAllMocks()
   })
 
-  test("calls onSuccess when authorizedUpdateContent resolves with right", async () => {
-    // Mock successful update
-    mockAuthorizedUpdateContent.mockResolvedValue(right({ id: contentId }))
+  test("returns a handler function and state object", () => {
+    const { result } = renderHook(() => useAutoSave({ contentId }))
 
-    // Render the hook
-    renderHook(() =>
-      useAutoSave({
-        contentId,
-        contentSlug,
-        onError: mockOnError,
-        onSuccess: mockOnSuccess,
-        saveInterval,
-      }),
-    )
+    // Check return structure
+    expect(Array.isArray(result.current)).toBe(true)
+    expect(result.current.length).toBe(2)
+    expect(typeof result.current[0]).toBe("function")
+    expect(typeof result.current[1]).toBe("object")
 
-    // Fast-forward timer to trigger auto-save
-    await act(async () => {
-      vi.advanceTimersByTime(saveInterval)
-    })
-
-    // Verify behavior
-    expect(mockAuthorizedUpdateContent).toHaveBeenCalled()
-    expect(mockOnSuccess).toHaveBeenCalledTimes(1)
-    expect(mockOnError).not.toHaveBeenCalled()
+    // Check state object properties
+    const stateObject = result.current[1]
+    expect(stateObject).toHaveProperty("waiting")
+    expect(stateObject).toHaveProperty("loading")
+    expect(stateObject).toHaveProperty("error")
+    expect(stateObject).toHaveProperty("data")
   })
 
-  test("calls onError when authorizedUpdateContent resolves with left", async () => {
-    // Mock failed update
-    mockAuthorizedUpdateContent.mockResolvedValue(left(updateFailureError))
+  test("sets waiting state to true when handleChange is called", () => {
+    const { result } = renderHook(() => useAutoSave({ contentId }))
 
-    // Render the hook
-    renderHook(() =>
-      useAutoSave({
-        contentId,
-        contentSlug,
-        onError: mockOnError,
-        onSuccess: mockOnSuccess,
-        saveInterval,
-      }),
-    )
+    // Get the handler function
+    const handleChange = result.current[0]
 
-    // Fast-forward timer to trigger auto-save
-    await act(async () => {
-      vi.advanceTimersByTime(saveInterval)
+    // Call the handler
+    act(() => {
+      handleChange(mockEditorState)
     })
 
-    // Verify behavior
-    expect(mockAuthorizedUpdateContent).toHaveBeenCalled()
-    expect(mockOnError).toHaveBeenCalledWith(updateFailureError)
-    expect(mockOnSuccess).not.toHaveBeenCalled()
+    // Check waiting state is true
+    expect(result.current[1].waiting).toBe(true)
   })
 
-  test("does not attempt to save content if it has not changed", async () => {
-    mockAuthorizedUpdateContent.mockResolvedValue(left(updateFailureError))
-    expect(vi.isMockFunction(useContentBySlugLazyQuery)).toBe(true)
-    vi.mocked(useContentBySlugLazyQuery).mockReturnValue([
-      () =>
-        Promise.resolve({
-          data: {
-            contentBySlug: {
-              content: mockContentA,
-            } as ContentBySlugQuery,
-          },
-        } as ContentBySlugQueryResult),
-      [] as unknown as ContentBySlugQueryResult,
-    ] as LazyQueryResultTuple<ContentBySlugQuery, ContentBySlugQueryVariables>)
-    // Render the hook
-    renderHook(() =>
-      useAutoSave({
-        contentId,
-        contentSlug,
-        onError: mockOnError,
-        onSuccess: mockOnSuccess,
-        saveInterval,
-      }),
-    )
+  test("calls authorizedUpdateContent after debounce delay", async () => {
+    const { result } = renderHook(() => useAutoSave({ contentId }))
 
-    // Fast-forward timer to trigger auto-save
-    await act(async () => {
-      vi.advanceTimersByTime(saveInterval)
+    // Get the handler function
+    const handleChange = result.current[0]
+
+    // Call the handler
+    act(() => {
+      handleChange(mockEditorState)
     })
 
-    // Verify behavior
+    // Check that reset was called
+    expect(mockReset).toHaveBeenCalled()
+
+    // Fast-forward timer to trigger the save
+    await act(async () => {
+      vi.advanceTimersByTime(1000)
+    })
+
+    // Check that authorizedUpdateContent was called with the stringified editor state
+    expect(mockAuthorizedUpdateContent).toHaveBeenCalledWith(
+      JSON.stringify(mockEditorState.toJSON()),
+    )
+
+    // Check that waiting state is false
+    expect(result.current[1].waiting).toBe(false)
+  })
+
+  test("debounces multiple calls to handleChange", async () => {
+    const { result } = renderHook(() => useAutoSave({ contentId }))
+    const handleChange = result.current[0]
+
+    // Call handler multiple times in quick succession
+    act(() => {
+      handleChange(mockEditorState)
+    })
+
+    // Check reset called once
+    expect(mockReset).toHaveBeenCalledTimes(1)
+
+    // Call again quickly
+    act(() => {
+      handleChange(mockEditorState)
+    })
+
+    // Check reset called twice (once per handleChange call)
+    expect(mockReset).toHaveBeenCalledTimes(2)
+
+    // Fast-forward timer halfway - nothing should happen yet
+    await act(async () => {
+      vi.advanceTimersByTime(500)
+    })
+
+    // Verify authorizedUpdateContent not called yet
     expect(mockAuthorizedUpdateContent).not.toHaveBeenCalled()
-    expect(mockOnError).not.toHaveBeenCalled()
-    expect(mockOnSuccess).not.toHaveBeenCalled()
+
+    // Fast-forward timer to completion - only ONE authorizedUpdateContent call should happen
+    await act(async () => {
+      vi.advanceTimersByTime(500) // Total time: 1000ms
+    })
+
+    // Verify authorizedUpdateContent called exactly once
+    expect(mockAuthorizedUpdateContent).toHaveBeenCalledTimes(1)
   })
 
-  test("clears interval on unmount", async () => {
-    // Setup spy on clearInterval
-    const clearIntervalSpy = vi.spyOn(global, "clearInterval")
+  test("clears timeout on unmount", () => {
+    // Setup spy on clearTimeout
+    const clearTimeoutSpy = vi.spyOn(global, "clearTimeout")
 
     // Render the hook
-    const { unmount } = renderHook(() =>
-      useAutoSave({
-        contentId,
-        contentSlug,
-        onError: mockOnError,
-        onSuccess: mockOnSuccess,
-        saveInterval,
-      }),
-    )
+    const { result, unmount } = renderHook(() => useAutoSave({ contentId }))
+
+    // Call the handler to set a timeout
+    act(() => {
+      result.current[0](mockEditorState)
+    })
 
     // Unmount to trigger cleanup
     unmount()
 
-    // Verify interval was cleared
-    expect(clearIntervalSpy).toHaveBeenCalled()
+    // Verify clearTimeout was called
+    expect(clearTimeoutSpy).toHaveBeenCalled()
   })
 
-  test("auto-saves at regular intervals", async () => {
-    // Mock successful update
-    mockAuthorizedUpdateContent.mockResolvedValue(right({ id: contentId }))
+  test("exposes loading, error and data states from useAuthorizedUpdateContentWithStates", () => {
+    // Setup mock result with specific states
+    const mockData = { updateContent: { content: "updated content" } }
+    const mockError = new Error("test error")
+
+    mockHookResult.loading = true
+    mockHookResult.error = mockError
+    mockHookResult.data = mockData
 
     // Render the hook
-    renderHook(() =>
-      useAutoSave({
-        contentId,
-        contentSlug,
-        onError: mockOnError,
-        onSuccess: mockOnSuccess,
-        saveInterval,
-      }),
-    )
+    const { result } = renderHook(() => useAutoSave({ contentId }))
 
-    // Fast-forward timer multiple times
-    await act(async () => {
-      vi.advanceTimersByTime(saveInterval)
-    })
-    expect(mockAuthorizedUpdateContent).toHaveBeenCalledTimes(1)
-    expect(mockOnSuccess).toHaveBeenCalledTimes(1)
-
-    await act(async () => {
-      vi.advanceTimersByTime(saveInterval)
-    })
-    expect(mockAuthorizedUpdateContent).toHaveBeenCalledTimes(2)
-    expect(mockOnSuccess).toHaveBeenCalledTimes(2)
-
-    await act(async () => {
-      vi.advanceTimersByTime(saveInterval)
-    })
-    expect(mockAuthorizedUpdateContent).toHaveBeenCalledTimes(3)
-    expect(mockOnSuccess).toHaveBeenCalledTimes(3)
+    // Check states are passed through correctly
+    expect(result.current[1].loading).toBe(true)
+    expect(result.current[1].error).toBe(mockError)
+    expect(result.current[1].data).toBe(mockData)
   })
 })
+
