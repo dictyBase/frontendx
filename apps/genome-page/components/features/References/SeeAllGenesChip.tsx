@@ -1,11 +1,10 @@
 import { Chip } from "@material-ui/core"
 import { useSetAtom } from "jotai"
 import { some } from "fp-ts/Option"
-import { PublicationWithGene } from "dicty-graphql-schema"
-import { selectedPublication } from "./state"
+import { SelectedPublication, selectedPublication } from "./state"
 
 type SeeAllGenesChipProperties = {
-  publication: Pick<PublicationWithGene, "id" | "related_genes">
+  publication: SelectedPublication
 }
 
 const SeeAllGenesChip = ({ publication }: SeeAllGenesChipProperties) => {
