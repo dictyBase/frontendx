@@ -43,18 +43,6 @@ const MentionedGenes = ({ publication }: MentionedGenesProperties) => {
    * 2. Chunk into array of =< N sized arrays
    * 3. render each into a row of size =< N
    */
-  const a = pipe(
-    publication.related_genes,
-    AchunksOf(7),
-    Amap((genesChunk) => (
-      <TableRow>
-        {pipe(
-          genesChunk,
-          Amap((gene) => <TableCell>{gene}</TableCell>),
-        )}
-      </TableRow>
-    )),
-  )
   return (
     <Paper>
       <Grid container direction="column">
@@ -70,6 +58,7 @@ const MentionedGenes = ({ publication }: MentionedGenesProperties) => {
               {pipe(
                 publication.related_genes,
                 AchunksOf(7),
+                // note: add key
                 Amap((genesChunk) => (
                   <TableRow>
                     {pipe(
