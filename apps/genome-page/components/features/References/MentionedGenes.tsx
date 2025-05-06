@@ -57,7 +57,7 @@ const MentionedGenes = ({ publication }: MentionedGenesProperties) => {
             <TableBody>
               {pipe(
                 publication.related_genes,
-                AchunksOf(7),
+                AchunksOf(12),
                 // note: add key
                 Amap((genesChunk) => (
                   <TableRow>
