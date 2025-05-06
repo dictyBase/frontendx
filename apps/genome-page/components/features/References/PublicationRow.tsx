@@ -34,8 +34,7 @@ const PublicationRow = ({ publication }: PublicationRowProperties) => {
         </b>
         &nbsp; &apos;{publication.title}&apos; &nbsp;
         <i>{publication.journal}</i>
-        &nbsp;
-        {publication.pages}
+        ,&nbsp;{publication.pages}
       </TableCell>
 
       <TableCell>
