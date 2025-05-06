@@ -79,4 +79,3 @@ describe("PublicationRow", () => {
     expect(mockPush).toHaveBeenCalledTimes(2)
   })
 })
-
