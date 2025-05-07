@@ -1,5 +1,4 @@
 import React from "react"
-import { useRouter } from "next/router"
 import Link from "next/link"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
@@ -8,36 +7,15 @@ import { makeStyles } from "@material-ui/core/styles"
 import { Grid, AppBar, Box } from "@mui/material"
 import Head from "next/head"
 
-const getTabValue = (pathname: string) => {
-  const subroute = pathname.split("/").splice(-1).join(",")
-
-  switch (subroute) {
-    //    case "blast":
-    //      return 7
-    //    case "communityannotations":
-    //      return 6
-    //    case "references":
-    //      return 5
-    //    case "phenotypes":
-    //      return 4
-    //    case "orthologs":
-    //      return 3
-    //    case "goannotations":
-    //      return 2
-    //    case "proteininformation":
-    //      return 1
-    case "references":
-      return 3
-    case "phenotypes":
-      return 2
-    case "goannotations":
-      return 1
-    default:
-      return 0
-  }
+enum TabValues {
+  SUMMARY,
+  GOANNOTATIONS,
+  PHENOTYPES,
+  REFERENCES,
 }
 
 type Properties = {
+  tabValue: TabValues
   children: React.ReactNode
   gene: string
   title: string
@@ -49,14 +27,14 @@ const useStyles = makeStyles({
   },
 })
 
-const Layout = ({ children, gene, title, description }: Properties) => {
-  const router = useRouter()
-  const [tabValue, setTabValue] = React.useState(getTabValue(router.pathname))
+const Layout = ({
+  tabValue,
+  children,
+  gene,
+  title,
+  description,
+}: Properties) => {
   const classes = useStyles()
-
-  const handleChange = (event: React.ChangeEvent<{}>, value: number) => {
-    setTabValue(value)
-  }
 
   return (
     <Grid container justifyContent="center">
@@ -71,7 +49,7 @@ const Layout = ({ children, gene, title, description }: Properties) => {
           </Typography>
         </Box>
         <AppBar position="static">
-          <Tabs value={tabValue} onChange={handleChange} variant="scrollable">
+          <Tabs value={tabValue} variant="scrollable">
             <Link href={`/${gene}`} passHref>
               <Tab label="Gene Summary" />
             </Link>
@@ -108,5 +86,4 @@ const Layout = ({ children, gene, title, description }: Properties) => {
   )
 }
 
-export { getTabValue }
-export { Layout }
+export { TabValues, Layout }
