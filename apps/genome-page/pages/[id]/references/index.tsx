@@ -1,6 +1,6 @@
 import { ReferencesContainer } from "components/features/References/ReferencesContainer"
 import { GraphQLErrorPage } from "@dictybase/ui-common"
-import { Layout } from "components/layout/Layout"
+import { Layout, TabValues } from "components/layout/Layout"
 import { NoDataDisplay } from "components/NoDataDisplay"
 import { Loader } from "components/Loader"
 import { useRouter } from "next/router"
@@ -22,6 +22,7 @@ const ReferencesPageWrapper = () => {
   })
   return (
     <Layout
+      tabValue={TabValues.REFERENCES}
       gene={geneId}
       title={`References for ${geneId}`}
       description={`Gene references for ${geneId}`}>
