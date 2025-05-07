@@ -43,22 +43,26 @@ const PublicationRow = ({ publication }: PublicationRowProperties) => {
         ,&nbsp;{publication.pages}
       </TableCell>
       <TableCell>
-        {pipe(publication.related_genes, AtakeLeft(GENES_LIMIT), Amap((gene) => (
-          <Chip
-            clickable
-            onClick={() => router.push(`/${gene.name}`)}
-            key={gene.id}
-            label={gene.name}
-            size="small"
-            style={{ margin: "0px 5px 5px 0px" }}
-            variant="outlined"
-          />
-        )))}
+        {pipe(
+          publication.related_genes,
+          AtakeLeft(GENES_LIMIT),
+          Amap((gene) => (
+            <Chip
+              clickable
+              onClick={() => router.push(`/${gene.name}`)}
+              key={gene.id}
+              label={gene.name}
+              size="small"
+              style={{ margin: "0px 5px 5px 0px" }}
+              variant="outlined"
+            />
+          )),
+        )}
         {pipe(
           publication.related_genes.length > GENES_LIMIT,
           Bmatch(
             () => <></>,
-            () => <SeeAllGenesChip publication={publication}/>,
+            () => <SeeAllGenesChip publicationId={publication.id} geneCount={publication.related_genes.length} />,
           ),
         )}
       </TableCell>
