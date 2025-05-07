@@ -1,27 +1,27 @@
+import { useRouter } from "next/router"
 import { Chip } from "@material-ui/core"
-import { useSetAtom } from "jotai"
-import { some } from "fp-ts/Option"
-import { SelectedPublication, selectedPublication } from "./state"
 
 type SeeAllGenesChipProperties = {
-  publication: SelectedPublication
+  publicationId: string
+  publicationCount: number
 }
 
-const SeeAllGenesChip = ({ publication }: SeeAllGenesChipProperties) => {
-  const setPublication = useSetAtom(selectedPublication)
+const SeeAllGenesChip = ({ publicationId }: SeeAllGenesChipProperties) => {
+  const router = useRouter()
+  const geneId = router.query.id as string
   const handleClick = () => {
-    setPublication(some(publication))
+    router.push(`/${geneId}/references/${publicationId}`)
   }
   return (
-    <Chip
-      clickable
-      key="see-all"
-      label="See all"
-      size="small"
-      color="secondary"
-      onClick={handleClick}
-      style={{ margin: "0px 5px 5px 0px" }}
-    />
+      <Chip
+        clickable
+        key="see-all"
+        label="See all"
+        size="small"
+        color="secondary"
+        onClick={handleClick}
+        style={{ margin: "0px 5px 5px 0px" }}
+      />
   )
 }
 
