@@ -1,5 +1,5 @@
 import { Grid, Typography } from "@material-ui/core"
-import { SelectedPublication } from "./state"
+import { SelectedPublication } from "common/@types"
 
 type PublicationInfoProperties = {
   publication: SelectedPublication
