@@ -1,7 +1,7 @@
 import { pipe } from "fp-ts/function"
 import { findFirst as AfindFirst } from "fp-ts/Array"
 import { match as Omatch } from "fp-ts/Option"
-import { MentionedGenes } from "components/features/References/MentionedGenes"
+import { RelatedGenesContainer } from "components/features/References/RelatedGenesContainer"
 import { GraphQLErrorPage } from "@dictybase/ui-common"
 import { Layout, TabValues } from "components/layout/Layout"
 import { NoDataDisplay } from "components/NoDataDisplay"
@@ -51,7 +51,7 @@ const RelatedGenesWrapper = () => {
               AfindFirst((publication) => publication.id === publicationId),
               Omatch(
                 () => <></>,
-                (p) => <MentionedGenes publication={p} />,
+                (p) => <RelatedGenesContainer publication={p} />,
               ),
             ),
         )
