@@ -2,7 +2,6 @@ import { useRouter } from "next/router"
 import {
   Paper,
   Grid,
-  Chip,
   IconButton,
   makeStyles,
   TableContainer,
@@ -11,11 +10,9 @@ import {
   TableCell,
 } from "@material-ui/core"
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace"
-import { useSetAtom } from "jotai"
 import { pipe } from "fp-ts/function"
-import { none } from "fp-ts/Option"
 import { map as Amap, chunksOf as AchunksOf } from "fp-ts/Array"
-import { SelectedPublication, selectedPublication } from "./state"
+import { SelectedPublication } from "./state"
 import { PublicationInfo } from "./PublicationInfo"
 
 type MentionedGenesProperties = {
@@ -32,11 +29,10 @@ const useStyles = makeStyles({
 })
 
 const MentionedGenes = ({ publication }: MentionedGenesProperties) => {
-  const setPublication = useSetAtom(selectedPublication)
   const classes = useStyles()
   const router = useRouter()
   const handleReturn = () => {
-    setPublication(none)
+    router.back()
   }
   /*
    * 1. Sort alphabetically
