@@ -10,12 +10,10 @@ interface ReferencesContainerProperties {
 
 const ReferencesContainer = ({
   publications,
-}: ReferencesContainerProperties) => {
-  return (
-    <Typography component="div">
-      <ReferencesDataTable publications={publications} />
-    </Typography>
-  )
-}
+}: ReferencesContainerProperties) => (
+  <Typography component="div">
+    <ReferencesDataTable publications={publications} />
+  </Typography>
+)
 
 export { ReferencesContainer }

@@ -62,7 +62,12 @@ const PublicationRow = ({ publication }: PublicationRowProperties) => {
           publication.related_genes.length > GENES_LIMIT,
           Bmatch(
             () => <></>,
-            () => <SeeAllGenesChip publicationId={publication.id} geneCount={publication.related_genes.length} />,
+            () => (
+              <SeeAllGenesChip
+                publicationId={publication.id}
+                geneCount={publication.related_genes.length}
+              />
+            ),
           ),
         )}
       </TableCell>
