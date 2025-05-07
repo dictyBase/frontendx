@@ -11,8 +11,12 @@ import {
 } from "@material-ui/core"
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace"
 import { pipe } from "fp-ts/function"
-import { map as Amap, chunksOf as AchunksOf } from "fp-ts/Array"
-import { SelectedPublication } from "./state"
+import {
+  map as Amap,
+  mapWithIndex as AmapWithIndex,
+  chunksOf as AchunksOf,
+} from "fp-ts/Array"
+import { SelectedPublication } from "common/@types"
 import { PublicationInfo } from "./PublicationInfo"
 
 type MentionedGenesProperties = {
@@ -28,7 +32,7 @@ const useStyles = makeStyles({
   },
 })
 
-const MentionedGenes = ({ publication }: MentionedGenesProperties) => {
+const RelatedGenesContainer = ({ publication }: MentionedGenesProperties) => {
   const classes = useStyles()
   const router = useRouter()
   const handleReturn = () => {
@@ -54,9 +58,8 @@ const MentionedGenes = ({ publication }: MentionedGenesProperties) => {
               {pipe(
                 publication.related_genes,
                 AchunksOf(12),
-                // note: add key
-                Amap((genesChunk) => (
-                  <TableRow>
+                AmapWithIndex((index, genesChunk) => (
+                  <TableRow key={index}>
                     {pipe(
                       genesChunk,
                       Amap((gene) => (
@@ -85,4 +88,4 @@ const MentionedGenes = ({ publication }: MentionedGenesProperties) => {
   )
 }
 
-export { MentionedGenes }
+export { RelatedGenesContainer }
