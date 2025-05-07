@@ -1,6 +1,6 @@
 import { PhenotypesContainer } from "components/features/Phenotypes/PhenotypesContainer"
 import { Loader } from "components/Loader"
-import { Layout } from "components/layout/Layout"
+import { Layout, TabValues } from "components/layout/Layout"
 import { NoDataDisplay } from "components/NoDataDisplay"
 import { GraphQLErrorPage } from "components/errors/GraphQLErrorPage"
 import { useListStrainsWithGeneQuery } from "dicty-graphql-schema"
@@ -22,6 +22,7 @@ const PhenotypesPageWrapper = () => {
 
   return (
     <Layout
+      tabValue={TabValues.PHENOTYPES}
       gene={gene}
       title={`Phenotypes for ${gene}`}
       description={`Gene phenotypes for ${gene}`}>
