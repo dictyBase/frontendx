@@ -1,7 +1,7 @@
 import { SummaryContainer } from "components/features/Summary/SummaryContainer"
 import { Loader } from "components/Loader"
 import { GraphQLErrorPage } from "components/errors/GraphQLErrorPage"
-import { Layout } from "components/layout/Layout"
+import { Layout, TabValues } from "components/layout/Layout"
 import { NoDataDisplay } from "components/NoDataDisplay"
 import { useRouter } from "next/router"
 import { useGeneSummaryQuery } from "dicty-graphql-schema"
@@ -22,6 +22,7 @@ const GenomePageWrapper = () => {
   })
   return (
     <Layout
+      tabValue={TabValues.SUMMARY}
       gene={gene}
       title={`Gene Summary for ${gene}`}
       description={`Gene information for ${gene}`}>

@@ -1,6 +1,6 @@
 import { OntologyContainer } from "components/features/Ontology/OntologyContainer"
 import { GraphQLErrorPage } from "components/errors/GraphQLErrorPage"
-import { Layout } from "components/layout/Layout"
+import { Layout, TabValues } from "components/layout/Layout"
 import { NoDataDisplay } from "components/NoDataDisplay"
 import { Loader } from "components/Loader"
 import { useRouter } from "next/router"
@@ -23,6 +23,7 @@ const OntologyPageWrapper = () => {
 
   return (
     <Layout
+      tabValue={TabValues.REFERENCES}
       gene={gene}
       title={`GO Annotations for ${gene}`}
       description={`Gene Ontology Annotations for ${gene}`}>
