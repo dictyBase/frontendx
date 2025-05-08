@@ -19,14 +19,14 @@ const useStyles = makeStyles({
 })
 
 const RelatedGenesHeader = ({
-  publication: { title, authors, journal, pages },
+  publication: { title, authors, journal, pages, related_genes },
 }: RelatedGenesHeaderProperties) => {
   const classes = useStyles()
   return (
     <Grid container direction="column" justifyContent="center">
       <Grid item>
         <Typography variant="h4" className={classes.text}>
-          Genes mentioned in &nbsp;
+          <b>{related_genes.length}</b> Genes mentioned in &nbsp;
         </Typography>
         <Grid item />
         <Grid item className={classes.main}>
