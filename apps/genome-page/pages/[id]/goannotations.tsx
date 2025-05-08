@@ -23,7 +23,7 @@ const OntologyPageWrapper = () => {
 
   return (
     <Layout
-      tabValue={TabValues.REFERENCES}
+      tabValue={TabValues.GOANNOTATIONS}
       gene={gene}
       title={`GO Annotations for ${gene}`}
       description={`Gene Ontology Annotations for ${gene}`}>
