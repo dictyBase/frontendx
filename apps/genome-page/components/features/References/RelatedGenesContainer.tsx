@@ -1,24 +1,7 @@
-import { useRouter } from "next/router"
-import {
-  Paper,
-  Grid,
-  IconButton,
-  makeStyles,
-  TableContainer,
-  TableBody,
-  TableRow,
-  TableCell,
-} from "@material-ui/core"
-import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace"
-import { pipe } from "fp-ts/function"
-import {
-  map as Amap,
-  mapWithIndex as AmapWithIndex,
-  chunksOf as AchunksOf,
-} from "fp-ts/Array"
+import { Paper, Grid, makeStyles } from "@material-ui/core"
 import { SelectedPublication } from "common/@types"
-import { PublicationInfo } from "./PublicationInfo"
-import { RelatedGenesDisplay } from "./RelatedGenesDisplay"
+import { RelatedGenesContent } from "./RelatedGenesContent"
+import { RelatedGenesNavigation } from "./RelatedGenesNavigation"
 
 type MentionedGenesProperties = {
   publication: SelectedPublication
@@ -27,30 +10,29 @@ type MentionedGenesProperties = {
 const useStyles = makeStyles({
   withPadding: {
     padding: "1rem",
+    paddingBottom: "2rem",
   },
-  returnButton: {
-    position: "absolute",
+  genes: {
+    alignSelf: "center",
+    paddingBottom: "2rem",
+  },
+  spacer: {
+    flex: "1 1 0%",
   },
 })
 
 const RelatedGenesContainer = ({ publication }: MentionedGenesProperties) => {
   const classes = useStyles()
-  const router = useRouter()
-  const handleReturn = () => {
-    router.back()
-  }
   return (
-    <Paper>
-      <Grid container direction="column">
-        <Grid item className={classes.withPadding}>
-          <IconButton className={classes.returnButton}>
-            <KeyboardBackspaceIcon onClick={handleReturn} />
-          </IconButton>
-          <PublicationInfo publication={publication} />
+    <Paper className={classes.withPadding}>
+      <Grid container direction="row">
+        <Grid item className={classes.spacer}>
+          <RelatedGenesNavigation />
         </Grid>
         <Grid item>
-          <RelatedGenesDisplay genes={publication.related_genes} />
+          <RelatedGenesContent publication={publication} />
         </Grid>
+        <Grid item className={classes.spacer} />
       </Grid>
     </Paper>
   )
