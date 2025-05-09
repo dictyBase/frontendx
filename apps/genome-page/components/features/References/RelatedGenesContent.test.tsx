@@ -98,4 +98,3 @@ describe("RelatedGenesContent", () => {
     expect(gridItem).toHaveAttribute("class")
   })
 })
-
