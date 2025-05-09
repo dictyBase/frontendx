@@ -53,31 +53,15 @@ const Layout = ({
             <Link href={`/${gene}`} passHref>
               <Tab label="Gene Summary" />
             </Link>
-            {/* <Link href={`/gene/${gene}/proteininformation`} passHref>
-              <Tab label="Protein Information" />
-            </Link>
-            */}
             <Link href={`/${gene}/goannotations`} passHref>
               <Tab label="Gene Ontology" />
             </Link>
-            {/* <Link href={`/gene/${gene}/orthologs`} passHref>
-              <Tab label="Orthologs" />
-            </Link>
-            */}
             <Link href={`/${gene}/phenotypes`} passHref>
               <Tab label="Phenotypes" />
             </Link>
             <Link href={`/${gene}/references`} passHref>
               <Tab label="References" />
             </Link>
-            {/* <Link href={`/gene/${gene}/communityannotations`} passHref>
-              <Tab label="Annotations" />
-            </Link>
-            */}
-            {/* <Link href={`/gene/${gene}/blast`} passHref>
-              <Tab label="BLAST" />
-            </Link>
-            */}
           </Tabs>
         </AppBar>
         {children}
