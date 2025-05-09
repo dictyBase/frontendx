@@ -1,6 +1,4 @@
 import React, { useRef, MutableRefObject } from "react"
-import { Layout } from "components/layout/Layout"
-import { useRouter } from "next/router"
 import { useStyles } from "styles/blastContainerStyles"
 import { Paper, Container, Grid } from "@material-ui/core"
 import { Observable } from "rxjs"
