@@ -11,6 +11,8 @@ jest.mock("next/router", () => ({
   }),
 }))
 
+const SEE_10_TEXT = "See all 10"
+
 describe("SeeAllGenesChip", () => {
   const publicationId = "pub123"
   const geneCount = 10
@@ -25,7 +27,7 @@ describe("SeeAllGenesChip", () => {
     )
 
     // Check if the chip with the correct text is rendered
-    expect(screen.getByText("See all 10")).toBeInTheDocument()
+    expect(screen.getByText(SEE_10_TEXT)).toBeInTheDocument()
   })
 
   it("navigates to the publication references page when clicked", async () => {
@@ -35,7 +37,7 @@ describe("SeeAllGenesChip", () => {
     )
 
     // Get chip and click it
-    const chip = screen.getByText("See all 10")
+    const chip = screen.getByText(SEE_10_TEXT)
     await user.click(chip)
 
     // Verify router was called with the correct path
@@ -67,7 +69,7 @@ describe("SeeAllGenesChip", () => {
       />,
     )
 
-    const chip = screen.getByText("See all 10")
+    const chip = screen.getByText(SEE_10_TEXT)
     await user.click(chip)
 
     expect(mockPush).toHaveBeenCalledWith("/geneA/references/pub456")
