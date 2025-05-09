@@ -77,4 +77,3 @@ describe("RelatedGenesDisplay", () => {
     expect(chips).toHaveLength(mockGenes.length)
   })
 })
-

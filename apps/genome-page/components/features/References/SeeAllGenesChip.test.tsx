@@ -75,4 +75,3 @@ describe("SeeAllGenesChip", () => {
     expect(mockPush).toHaveBeenCalledWith("/geneA/references/pub456")
   })
 })
-

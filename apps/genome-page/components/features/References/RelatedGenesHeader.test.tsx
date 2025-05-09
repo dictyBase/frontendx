@@ -89,4 +89,3 @@ describe("RelatedGenesHeader", () => {
     ).toBeInTheDocument()
   })
 })
-
