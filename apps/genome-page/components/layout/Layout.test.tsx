@@ -37,4 +37,3 @@ describe("Layout", () => {
     expect(referencesTab).toHaveAttribute("href", "/dscA/references")
   })
 })
-
