@@ -1,6 +1,7 @@
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, ChangeEventHandler, useState } from "react"
 import { pipe } from "fp-ts/function"
-import { chunksOf as AchunksOf } from "fp-ts/Array"
+import { startsWith as SstartsWith, includes as Sincludes } from "fp-ts/string"
+import { chunksOf as AchunksOf, filter as Afilter } from "fp-ts/Array"
 import { Grid } from "@material-ui/core"
 import Pagination from "@material-ui/lab/Pagination"
 import { Gene } from "dicty-graphql-schema"
@@ -16,23 +17,30 @@ type Properties = { genes: Array<Gene> }
  */
 const RelatedGenesPager = ({ genes }: Properties) => {
   const [page, setPage] = useState(1)
-  const handleChange = (_: ChangeEvent<unknown>, pageNumber: number) => {
-    setPage(pageNumber)
-  }
-  const geneChunks = pipe(genes, AchunksOf(GENES_PER_PAGE))
+  const [filter, setFilter] = useState("")
+  const filteredGenes = pipe(genes, Afilter(({ name }) => Sincludes(filter)(name)))
+  const geneChunks = pipe(filteredGenes, AchunksOf(GENES_PER_PAGE))
   const pageCount = geneChunks.length
   const currentChunk = geneChunks[page - 1]
+
+  const handlePageChange = (_: ChangeEvent<unknown>, pageNumber: number) => {
+    setPage(pageNumber)
+  }
+
+  const handleFilterChange: ChangeEventHandler<HTMLInputElement> = ({ currentTarget: { value }}) => {
+    setFilter(value)
+  }
 
   return (
     <Grid container direction="column" spacing={2}>
       <Grid item>
-        <RelatedGenesControls />
+        <RelatedGenesControls filter={filter} onChange={handleFilterChange}/>
       </Grid>
       <Grid item>
         <RelatedGenesDisplay genes={currentChunk} />
       </Grid>
       <Grid item>
-        <Pagination count={pageCount} page={page} onChange={handleChange} />
+        <Pagination count={pageCount} page={page} onChange={handlePageChange} />
       </Grid>
     </Grid>
   )
