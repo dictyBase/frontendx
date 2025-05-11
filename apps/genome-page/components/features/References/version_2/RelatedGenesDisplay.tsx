@@ -1,16 +1,20 @@
 import { makeStyles, Grid } from "@material-ui/core"
 import { blueGrey } from "@material-ui/core/colors"
 import { pipe } from "fp-ts/function"
-import { mapWithIndex as AmapWithIndex } from "fp-ts/Array"
+import { map as Amap, mapWithIndex as AmapWithIndex, makeBy as AmakeBy } from "fp-ts/Array"
 import { Gene } from "dicty-graphql-schema"
 import { GeneChip } from "./GeneChip"
+import { GeneChipFiller } from "./GeneChipFiller"
 
-type RelatedGenesProperties = { genes: Array<Gene> }
+type RelatedGenesProperties = {
+  genes: Array<Gene>
+  maxCount: number
+}
 
 const useStyles = makeStyles((theme) => ({
   container: {
     width: "100%",
-    margin: "auto"
+    margin: "auto",
   },
   item: {
     flexBasis: "25%",
@@ -23,15 +27,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const RelatedGenesDisplay = ({ genes }: RelatedGenesProperties) => {
+const filler = { _tag: "filler" }
+
+const RelatedGenesDisplay = ({ genes, maxCount }: RelatedGenesProperties) => {
   const classes = useStyles()
   return (
     <Grid container spacing={2} className={classes.container}>
       {pipe(
         genes,
-        AmapWithIndex((index, gene) => (
+        Amap((gene) => (
+          <Grid item className={classes.item} key={gene.id}>
+            <GeneChip gene={gene} />
+          </Grid>
+        )),
+      )}
+      {pipe(
+        AmakeBy(maxCount - genes.length, () => filler),
+        AmapWithIndex((index, _) => (
           <Grid item className={classes.item} key={index}>
-            <GeneChip key={gene.id} gene={gene} />
+            <GeneChipFiller />
           </Grid>
         )),
       )}
