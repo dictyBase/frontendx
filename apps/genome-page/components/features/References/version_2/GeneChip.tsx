@@ -25,7 +25,6 @@ const GeneChip = ({ gene }: GeneChipProperties) => {
     <Chip
       clickable
       onClick={() => router.push(`/${gene.name}`)}
-      key={gene.id}
       label={gene.name}
       size="medium"
       variant="outlined"
