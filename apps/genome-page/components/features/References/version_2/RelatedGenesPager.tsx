@@ -65,7 +65,12 @@ const RelatedGenesPager = ({ genes }: Properties) => {
       className={classes.container}
     >
       <Grid item>
-        <RelatedGenesControls filter={filter} onChange={handleFilterChange} />
+        <RelatedGenesControls
+          filteredGeneCount={filteredGenes.length}
+          totalGeneCount={genes.length}
+          filter={filter}
+          onChange={handleFilterChange}
+        />
       </Grid>
       <Grid item className={classes.displayGrid}>
         {pipe(
