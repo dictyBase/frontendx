@@ -30,20 +30,20 @@ const PhenotypesPageWrapper = () => {
         .with(
           {
             data: {
-              listStrainsWithGene: P.union([], P.array({ phenotypes: [] })),
-            },
-          },
-          () => <NoDataDisplay query="Phenotypes" geneId={gene} />,
-        )
-        .with(
-          {
-            data: {
               listStrainsWithGene: P.select(P.array({ id: P.string })),
             },
           },
           (strains) => <PhenotypesContainer strains={strains} />,
         )
         .with({ loading: true }, () => <Loader />)
+        .with(
+          {
+            data: {
+              listStrainsWithGene: P.union([], P.array({ phenotypes: [] })),
+            },
+          },
+          () => <NoDataDisplay query="Phenotypes" geneId={gene} />,
+        )
         .with({ error: P.select(P.not(undefined)) }, (error) => (
           <GraphQLErrorPage error={error} />
         ))

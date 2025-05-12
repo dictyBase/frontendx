@@ -30,15 +30,15 @@ const GenomePageWrapper = () => {
         .with({ loading: true }, () => <Loader />)
         .with(
           {
-            data: P.nullish,
-          },
-          () => <NoDataDisplay query="Gene Summary" geneId={gene} />,
-        )
-        .with(
-          {
             data: P.select(P.not(P.nullish)),
           },
           (data) => <SummaryContainer geneSummary={data} />,
+        )
+        .with(
+          {
+            data: P.nullish,
+          },
+          () => <NoDataDisplay query="Gene Summary" geneId={gene} />,
         )
         .with({ error: P.select(P.not(undefined)) }, (error) => (
           <GraphQLErrorPage error={error} />

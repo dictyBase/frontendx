@@ -31,20 +31,20 @@ const OntologyPageWrapper = () => {
         .with(
           {
             data: {
-              geneOntologyAnnotation: [],
-            },
-          },
-          () => <NoDataDisplay query="Go Annotations" geneId={gene} />,
-        )
-        .with(
-          {
-            data: {
               geneOntologyAnnotation: P.select(P.array({ id: P.string })),
             },
           },
           (goas) => <OntologyContainer goas={goas} />,
         )
         .with({ loading: true }, () => <Loader />)
+        .with(
+          {
+            data: {
+              geneOntologyAnnotation: [],
+            },
+          },
+          () => <NoDataDisplay query="Go Annotations" geneId={gene} />,
+        )
         .with({ error: P.select(P.not(undefined)) }, (error) => (
           <GraphQLErrorPage error={error} />
         ))
