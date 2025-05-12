@@ -27,6 +27,7 @@ const GenomePageWrapper = () => {
       title={`Gene Summary for ${gene}`}
       description={`Gene information for ${gene}`}>
       {match(result)
+        .with({ loading: true }, () => <Loader />)
         .with(
           {
             data: P.nullish,
@@ -39,7 +40,6 @@ const GenomePageWrapper = () => {
           },
           (data) => <SummaryContainer geneSummary={data} />,
         )
-        .with({ loading: true }, () => <Loader />)
         .with({ error: P.select(P.not(undefined)) }, (error) => (
           <GraphQLErrorPage error={error} />
         ))
