@@ -1,6 +1,6 @@
 import { ChangeEvent, ChangeEventHandler, useState } from "react"
 import { pipe } from "fp-ts/function"
-import { includes as Sincludes, Ord as SOrd } from "fp-ts/string"
+import { includes as Sincludes, Ord as SOrd, toLowerCase } from "fp-ts/string"
 import { Ord, contramap } from "fp-ts/Ord"
 import {
   chunksOf as AchunksOf,
@@ -15,6 +15,7 @@ import { Gene } from "dicty-graphql-schema"
 import { RelatedGenesDisplay } from "./RelatedGenesDisplay"
 import { EmptyGenesDisplay } from "./EmptyGenesDisplay"
 import { RelatedGenesControls } from "./RelatedGenesControls"
+import { GeneGroups } from "./GeneGroupSelect"
 
 const ordByGeneName: Ord<Gene> = pipe(
   SOrd,
@@ -36,6 +37,12 @@ const useStyles = makeStyles({
   },
 })
 
+const groupPredicates = {
+  [GeneGroups.ALL]: () => true,
+  [GeneGroups.NAMED]: ({ name }: Gene) => !Sincludes("DDB_")(name),
+  [GeneGroups.UNNAMED]: ({ name }: Gene) => Sincludes("DDB_")(name),
+}
+
 type Properties = { genes: Array<Gene> }
 /**
  * The RelatedGenesPager component is responsible for handling the logic of paginating through the list of related_genes
@@ -44,9 +51,11 @@ type Properties = { genes: Array<Gene> }
 const RelatedGenesPager = ({ genes }: Properties) => {
   const [page, setPage] = useState(1)
   const [filter, setFilter] = useState("")
+  const [group, setGroup] = useState(GeneGroups.ALL)
   const filteredGenes = pipe(
     genes,
-    Afilter(({ id, name }) => Sincludes(filter)(name) || Sincludes(filter)(id)),
+    Afilter(groupPredicates[group]),
+    Afilter(({ id, name }) => Sincludes(toLowerCase(filter))(toLowerCase(name)) || Sincludes(toLowerCase(filter))(toLowerCase(id))),
   )
   const geneChunks = pipe(
     filteredGenes,
@@ -57,6 +66,13 @@ const RelatedGenesPager = ({ genes }: Properties) => {
 
   const handlePageChange = (_: ChangeEvent<unknown>, pageNumber: number) => {
     setPage(pageNumber)
+  }
+
+  const handleGroupChange: ChangeEventHandler<{ value: unknown }> = ({
+    target: { value },
+  }) => {
+    setGroup(value as GeneGroups)
+    setPage(1)
   }
 
   const handleFilterChange: ChangeEventHandler<HTMLInputElement> = ({
@@ -72,13 +88,16 @@ const RelatedGenesPager = ({ genes }: Properties) => {
       container
       direction="column"
       spacing={2}
-      className={classes.container}>
+      className={classes.container}
+    >
       <Grid item>
         <RelatedGenesControls
           filteredGeneCount={filteredGenes.length}
           totalGeneCount={genes.length}
           filter={filter}
-          onChange={handleFilterChange}
+          onFilterChange={handleFilterChange}
+          group={group}
+          onGroupChange={handleGroupChange}
         />
       </Grid>
       <Grid item className={classes.displayGrid}>
