@@ -6,13 +6,18 @@ import {
   IconButton,
   makeStyles,
 } from "@material-ui/core"
+import { teal } from "@material-ui/core/colors"
 import FilterListIcon from '@material-ui/icons/FilterList';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   container: {
     padding: "1rem",
+    backgroundColor: teal[50],
   },
-})
+  textField: {
+    backgroundColor: theme.palette.background.paper
+  }
+}))
 
 type RelatedGenesControlsProperties = {
  filter: string
@@ -36,6 +41,7 @@ const RelatedGenesControls = ({ filter, onChange }: RelatedGenesControlsProperti
             ),
           }}
           onChange={onChange}
+          className={classes.textField}
         />
       </Box>
     </Paper>
