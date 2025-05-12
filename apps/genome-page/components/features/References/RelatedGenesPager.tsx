@@ -87,7 +87,7 @@ const RelatedGenesPager = ({ genes }: Properties) => {
           geneChunks,
           Alookup(page - 1),
           Omatch(
-            () => <EmptyGenesDisplay />,
+            () => <EmptyGenesDisplay maxCount={GENES_PER_PAGE} />,
             (chunk) => (
               <RelatedGenesDisplay genes={chunk} maxCount={GENES_PER_PAGE} />
             ),
