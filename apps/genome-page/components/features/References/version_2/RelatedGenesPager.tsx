@@ -21,6 +21,9 @@ const useStyles = makeStyles({
   container: {
     width: "100%",
   },
+  pager: {
+    alignSelf: "center",
+  },
 })
 
 type Properties = { genes: Array<Gene> }
@@ -66,11 +69,13 @@ const RelatedGenesPager = ({ genes }: Properties) => {
           Alookup(page - 1),
           Omatch(
             () => <EmptyGenesDisplay />,
-            (genes) => <RelatedGenesDisplay genes={genes} maxCount={GENES_PER_PAGE} />,
+            (genes) => (
+              <RelatedGenesDisplay genes={genes} maxCount={GENES_PER_PAGE} />
+            ),
           ),
         )}
       </Grid>
-      <Grid item>
+      <Grid item className={classes.pager}>
         {pipe(
           pageCount > 0,
           Bmatch(
