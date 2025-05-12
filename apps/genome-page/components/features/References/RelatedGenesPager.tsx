@@ -94,21 +94,9 @@ const RelatedGenesPager = ({ genes }: Properties) => {
           ),
         )}
       </Grid>
-      {pipe(
-        pageCount > 0,
-        Bmatch(
-          () => <></>,
-          () => (
-            <Grid item className={classes.pager}>
-              <Pagination
-                count={pageCount}
-                page={page}
-                onChange={handlePageChange}
-              />
-            </Grid>
-          ),
-        ),
-      )}
+      <Grid item className={classes.pager}>
+        <Pagination count={pageCount} page={page} onChange={handlePageChange} />
+      </Grid>
     </Grid>
   )
 }
