@@ -22,16 +22,21 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   text: {
-    color: teal[900]
+    color: teal[900],
+    fontWeight: 500
   }
 }))
 
 type RelatedGenesControlsProperties = {
+  totalGeneCount: number
+  filteredGeneCount: number
   filter: string
   onChange: ChangeEventHandler<HTMLInputElement>
 }
 
 const RelatedGenesControls = ({
+  totalGeneCount,
+  filteredGeneCount,
   filter,
   onChange,
 }: RelatedGenesControlsProperties) => {
@@ -56,7 +61,7 @@ const RelatedGenesControls = ({
           />
         </Grid>
         <Grid item>
-          <Typography className={classes.text}> Showing 72 Genes </Typography>
+          <Typography className={classes.text}> {filteredGeneCount} of {totalGeneCount} Genes </Typography>
         </Grid>
       </Grid>
     </Paper>
