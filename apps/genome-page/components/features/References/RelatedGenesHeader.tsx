@@ -2,6 +2,7 @@ import { Grid, Typography, makeStyles } from "@material-ui/core"
 import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
 import { grey } from "@material-ui/core/colors"
+import { parseFormattedStringToDomElements } from "@dictybase/ui-common"
 import { commaSeparateWithAnd } from "common/utils/strings"
 import { SelectedPublication } from "common/@types"
 
@@ -31,7 +32,7 @@ const RelatedGenesHeader = ({
         <Grid item />
         <Grid item className={classes.main}>
           <Typography variant="h2">
-            {title} <i>{journal}</i>, {pages}
+            {parseFormattedStringToDomElements(title)} <i>{journal}</i>, {pages}
           </Typography>
         </Grid>
         <Grid item>
