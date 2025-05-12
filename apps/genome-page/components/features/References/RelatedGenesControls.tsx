@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core"
 import { teal } from "@material-ui/core/colors"
 import FilterListIcon from "@material-ui/icons/FilterList"
+import { GeneGroupSelect, GeneGroups } from "./GeneGroupSelect"
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -31,14 +32,18 @@ type RelatedGenesControlsProperties = {
   totalGeneCount: number
   filteredGeneCount: number
   filter: string
-  onChange: ChangeEventHandler<HTMLInputElement>
+  onFilterChange: ChangeEventHandler<HTMLInputElement>
+  group: GeneGroups,
+  onGroupChange: ChangeEventHandler<{ value: unknown }>
 }
 
 const RelatedGenesControls = ({
   totalGeneCount,
   filteredGeneCount,
   filter,
-  onChange,
+  onFilterChange,
+  group,
+  onGroupChange,
 }: RelatedGenesControlsProperties) => {
   const classes = useStyles()
   return (
@@ -60,14 +65,16 @@ const RelatedGenesControls = ({
                 </IconButton>
               ),
             }}
-            onChange={onChange}
+            onChange={onFilterChange}
             className={classes.textField}
           />
         </Grid>
         <Grid item>
+          <GeneGroupSelect value={group} onChange={onGroupChange} />
+        </Grid>
+        <Grid item>
           <Typography className={classes.text}>
-            {" "}
-            {filteredGeneCount} of {totalGeneCount} Genes{" "}
+            {filteredGeneCount} of {totalGeneCount} Genes
           </Typography>
         </Grid>
       </Grid>
