@@ -21,6 +21,10 @@ const useStyles = makeStyles({
   container: {
     width: "100%",
   },
+  displayGrid: {
+    paddingLeft: "0 !important",
+    paddingRight: "0 !important",
+  },
   pager: {
     alignSelf: "center",
   },
@@ -63,7 +67,7 @@ const RelatedGenesPager = ({ genes }: Properties) => {
       <Grid item>
         <RelatedGenesControls filter={filter} onChange={handleFilterChange} />
       </Grid>
-      <Grid item>
+      <Grid item className={classes.displayGrid}>
         {pipe(
           geneChunks,
           Alookup(page - 1),
