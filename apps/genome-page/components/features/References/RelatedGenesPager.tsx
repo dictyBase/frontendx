@@ -1,5 +1,6 @@
 import { ChangeEvent, ChangeEventHandler, useState } from "react"
 import { pipe } from "fp-ts/function"
+import { MonoidAny as BMonoidAny } from "fp-ts/boolean"
 import { includes as Sincludes, Ord as SOrd, toLowerCase } from "fp-ts/string"
 import { Ord, contramap } from "fp-ts/Ord"
 import {
@@ -43,6 +44,9 @@ const groupPredicates = {
   [GeneGroups.UNNAMED]: ({ name }: Gene) => Sincludes("DDB_")(name),
 }
 
+const caseInsensitiveIncludes = (filter: string) => (term: string) =>
+  pipe(term, toLowerCase, Sincludes(toLowerCase(filter)))
+
 type Properties = { genes: Array<Gene> }
 /**
  * The RelatedGenesPager component is responsible for handling the logic of paginating through the list of related_genes
@@ -52,10 +56,16 @@ const RelatedGenesPager = ({ genes }: Properties) => {
   const [page, setPage] = useState(1)
   const [filter, setFilter] = useState("")
   const [group, setGroup] = useState(GeneGroups.ALL)
+
   const filteredGenes = pipe(
     genes,
     Afilter(groupPredicates[group]),
-    Afilter(({ id, name }) => Sincludes(toLowerCase(filter))(toLowerCase(name)) || Sincludes(toLowerCase(filter))(toLowerCase(id))),
+    Afilter(({ id, name }) =>
+      BMonoidAny.concat(
+        pipe(name, caseInsensitiveIncludes(filter)),
+        pipe(id, caseInsensitiveIncludes(filter)),
+      ),
+    ),
   )
   const geneChunks = pipe(
     filteredGenes,
