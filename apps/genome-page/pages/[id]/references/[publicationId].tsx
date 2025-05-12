@@ -11,7 +11,9 @@ import { useListPublicationsWithGeneQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 
 /*
-    Renders the related genes of a publication associated with a given gene id
+    Displays a page showing all genes related to a specific publication
+    for a given gene ID. Fetches publication data and renders the
+    RelatedGenesContainer component when data is available.
 */
 const RelatedGenesWrapper = () => {
   const { query } = useRouter()
