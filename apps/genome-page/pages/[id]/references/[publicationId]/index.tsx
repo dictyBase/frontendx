@@ -34,14 +34,6 @@ const RelatedGenesWrapper = () => {
         .with(
           {
             data: {
-              listPublicationsWithGene: [],
-            },
-          },
-          () => <NoDataDisplay query="References" geneId={geneId} />,
-        )
-        .with(
-          {
-            data: {
               listPublicationsWithGene: P.select(P.array({ id: P.string })),
             },
           },
@@ -56,6 +48,14 @@ const RelatedGenesWrapper = () => {
             ),
         )
         .with({ loading: true }, () => <Loader />)
+        .with(
+          {
+            data: {
+              listPublicationsWithGene: [],
+            },
+          },
+          () => <NoDataDisplay query="References" geneId={geneId} />,
+        )
         .with({ error: P.select(P.not(undefined)) }, (error) => (
           <GraphQLErrorPage error={error} />
         ))
