@@ -3,6 +3,7 @@ import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import { map as Amap, takeLeft as AtakeLeft } from "fp-ts/Array"
 import { Chip, TableCell, TableRow } from "@material-ui/core"
+import { parseFormattedStringToDomElements } from "@dictybase/ui-common"
 import { commaSeparateWithAnd } from "common/utils/strings"
 import { SeeAllGenesChip } from "./SeeAllGenesChip"
 
@@ -38,7 +39,8 @@ const PublicationRow = ({ publication }: PublicationRowProperties) => {
         <b>
           {commaSeparateWithAnd(publication.authors.map((a) => a.last_name))}
         </b>
-        &nbsp; &apos;{publication.title}&apos; &nbsp;
+        &nbsp; &apos;{parseFormattedStringToDomElements(publication.title)}
+        &apos; &nbsp;
         <i>{publication.journal}</i>
         ,&nbsp;{publication.pages}
       </TableCell>
