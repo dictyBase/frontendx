@@ -33,7 +33,7 @@ type RelatedGenesControlsProperties = {
   filteredGeneCount: number
   filter: string
   onFilterChange: ChangeEventHandler<HTMLInputElement>
-  group: GeneGroups,
+  group: GeneGroups
   onGroupChange: ChangeEventHandler<{ value: unknown }>
 }
 
