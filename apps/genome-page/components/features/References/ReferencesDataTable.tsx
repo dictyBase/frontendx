@@ -8,7 +8,7 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core"
-import { useStyles } from "../../../styles/dataTableStyles"
+import { useStyles } from "styles/dataTableStyles"
 import { PublicationRow } from "./PublicationRow"
 
 interface Properties {
