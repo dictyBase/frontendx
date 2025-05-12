@@ -65,7 +65,7 @@ describe("RelatedGenesContent", () => {
 
     // Check if RelatedGenesDisplay was called with the correct props
     expect(RelatedGenesDisplay).toHaveBeenCalledWith(
-      { genes: mockPublication.related_genes },
+      { genes: mockPublication.related_genes, maxCount: 16 },
       expect.anything(),
     )
   })
