@@ -3,16 +3,17 @@ import userEvent from "@testing-library/user-event"
 import { RelatedGenesNavigation } from "./RelatedGenesNavigation"
 
 // Mock the useRouter hook
-const mockBack = jest.fn()
+const mockPush = jest.fn()
 jest.mock("next/router", () => ({
   useRouter: () => ({
-    back: mockBack,
+    push: mockPush,
+    query: { id: "1" }
   }),
 }))
 
 describe("RelatedGenesNavigation", () => {
   beforeEach(() => {
-    mockBack.mockClear()
+    mockPush.mockClear()
   })
 
   it("renders a back button", () => {
@@ -27,7 +28,7 @@ describe("RelatedGenesNavigation", () => {
     expect(icon).toBeInTheDocument()
   })
 
-  it("calls router.back() when the button is clicked", async () => {
+  it("calls router.push() when the button is clicked", async () => {
     const user = userEvent.setup()
     render(<RelatedGenesNavigation />)
 
@@ -36,6 +37,6 @@ describe("RelatedGenesNavigation", () => {
     await user.click(backButton)
 
     // Verify router.back was called
-    expect(mockBack).toHaveBeenCalledTimes(1)
+    expect(mockPush).toHaveBeenCalledTimes(1)
   })
 })
