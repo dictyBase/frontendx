@@ -1,11 +1,13 @@
 import { ChangeEvent, ChangeEventHandler, useState } from "react"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
-import { includes as Sincludes } from "fp-ts/string"
+import { includes as Sincludes, Ord as SOrd } from "fp-ts/string"
+import { Ord, contramap } from "fp-ts/Ord"
 import {
   chunksOf as AchunksOf,
   filter as Afilter,
   lookup as Alookup,
+  sort as Asort,
 } from "fp-ts/Array"
 import { match as Omatch } from "fp-ts/Option"
 import { Grid, makeStyles } from "@material-ui/core"
@@ -14,6 +16,8 @@ import { Gene } from "dicty-graphql-schema"
 import { RelatedGenesDisplay } from "./RelatedGenesDisplay"
 import { EmptyGenesDisplay } from "./EmptyGenesDisplay"
 import { RelatedGenesControls } from "./RelatedGenesControls"
+
+const ordByGeneName: Ord<Gene> = pipe(SOrd, contramap(({ name }) => name))
 
 const GENES_PER_PAGE = 16
 
@@ -42,7 +46,7 @@ const RelatedGenesPager = ({ genes }: Properties) => {
     genes,
     Afilter(({ id, name }) => Sincludes(filter)(name) || Sincludes(filter)(id)),
   )
-  const geneChunks = pipe(filteredGenes, AchunksOf(GENES_PER_PAGE))
+  const geneChunks = pipe(filteredGenes, Asort(ordByGeneName), AchunksOf(GENES_PER_PAGE))
   const pageCount = geneChunks.length
 
   const handlePageChange = (_: ChangeEvent<unknown>, pageNumber: number) => {
