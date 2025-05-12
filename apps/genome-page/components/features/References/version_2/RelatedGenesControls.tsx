@@ -23,8 +23,8 @@ const useStyles = makeStyles((theme) => ({
   },
   text: {
     color: teal[900],
-    fontWeight: 500
-  }
+    fontWeight: 500,
+  },
 }))
 
 type RelatedGenesControlsProperties = {
@@ -43,7 +43,11 @@ const RelatedGenesControls = ({
   const classes = useStyles()
   return (
     <Paper className={classes.surface}>
-      <Grid container alignItems="center" spacing={2} className={classes.container}>
+      <Grid
+        container
+        alignItems="center"
+        spacing={2}
+        className={classes.container}>
         <Grid item>
           <TextField
             value={filter}
@@ -61,7 +65,10 @@ const RelatedGenesControls = ({
           />
         </Grid>
         <Grid item>
-          <Typography className={classes.text}> {filteredGeneCount} of {totalGeneCount} Genes </Typography>
+          <Typography className={classes.text}>
+            {" "}
+            {filteredGeneCount} of {totalGeneCount} Genes{" "}
+          </Typography>
         </Grid>
       </Grid>
     </Paper>

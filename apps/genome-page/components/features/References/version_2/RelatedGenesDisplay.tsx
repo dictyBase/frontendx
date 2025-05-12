@@ -1,7 +1,11 @@
 import { makeStyles, Grid } from "@material-ui/core"
 import { blueGrey } from "@material-ui/core/colors"
 import { pipe } from "fp-ts/function"
-import { map as Amap, mapWithIndex as AmapWithIndex, makeBy as AmakeBy } from "fp-ts/Array"
+import {
+  map as Amap,
+  mapWithIndex as AmapWithIndex,
+  makeBy as AmakeBy,
+} from "fp-ts/Array"
 import { Gene } from "dicty-graphql-schema"
 import { GeneChip } from "./GeneChip"
 import { GeneChipFiller } from "./GeneChipFiller"
@@ -43,7 +47,7 @@ const RelatedGenesDisplay = ({ genes, maxCount }: RelatedGenesProperties) => {
       )}
       {pipe(
         AmakeBy(maxCount - genes.length, () => filler),
-        AmapWithIndex((index, _) => (
+        AmapWithIndex((index) => (
           <Grid item className={classes.item} key={index}>
             <GeneChipFiller />
           </Grid>
