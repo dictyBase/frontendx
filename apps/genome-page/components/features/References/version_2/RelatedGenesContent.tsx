@@ -9,17 +9,15 @@ type RelatedGenesContentProperties = {
 
 const RelatedGenesContent = ({
   publication,
-}: RelatedGenesContentProperties) => {
-  return (
-    <Grid container direction="column" alignItems="stretch" spacing={3}>
-      <Grid item>
-        <RelatedGenesHeader publication={publication} />
-      </Grid>
-      <Grid item>
-        <RelatedGenesPager genes={publication.related_genes} />
-      </Grid>
+}: RelatedGenesContentProperties) => (
+  <Grid container direction="column" alignItems="stretch" spacing={3}>
+    <Grid item>
+      <RelatedGenesHeader publication={publication} />
     </Grid>
-  )
-}
+    <Grid item>
+      <RelatedGenesPager genes={publication.related_genes} />
+    </Grid>
+  </Grid>
+)
 
 export { RelatedGenesContent }

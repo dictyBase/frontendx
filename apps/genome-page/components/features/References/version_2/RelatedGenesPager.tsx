@@ -17,7 +17,10 @@ import { RelatedGenesDisplay } from "./RelatedGenesDisplay"
 import { EmptyGenesDisplay } from "./EmptyGenesDisplay"
 import { RelatedGenesControls } from "./RelatedGenesControls"
 
-const ordByGeneName: Ord<Gene> = pipe(SOrd, contramap(({ name }) => name))
+const ordByGeneName: Ord<Gene> = pipe(
+  SOrd,
+  contramap(({ name }) => name),
+)
 
 const GENES_PER_PAGE = 16
 
@@ -46,7 +49,11 @@ const RelatedGenesPager = ({ genes }: Properties) => {
     genes,
     Afilter(({ id, name }) => Sincludes(filter)(name) || Sincludes(filter)(id)),
   )
-  const geneChunks = pipe(filteredGenes, Asort(ordByGeneName), AchunksOf(GENES_PER_PAGE))
+  const geneChunks = pipe(
+    filteredGenes,
+    Asort(ordByGeneName),
+    AchunksOf(GENES_PER_PAGE),
+  )
   const pageCount = geneChunks.length
 
   const handlePageChange = (_: ChangeEvent<unknown>, pageNumber: number) => {
@@ -66,8 +73,7 @@ const RelatedGenesPager = ({ genes }: Properties) => {
       container
       direction="column"
       spacing={2}
-      className={classes.container}
-    >
+      className={classes.container}>
       <Grid item>
         <RelatedGenesControls
           filteredGeneCount={filteredGenes.length}
@@ -82,8 +88,8 @@ const RelatedGenesPager = ({ genes }: Properties) => {
           Alookup(page - 1),
           Omatch(
             () => <EmptyGenesDisplay />,
-            (genes) => (
-              <RelatedGenesDisplay genes={genes} maxCount={GENES_PER_PAGE} />
+            (chunk) => (
+              <RelatedGenesDisplay genes={chunk} maxCount={GENES_PER_PAGE} />
             ),
           ),
         )}

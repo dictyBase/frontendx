@@ -32,7 +32,7 @@ const EmptyGenesDisplay = () => {
           <RemoveCircleOutlineIcon className={classes.icon} />
         </Grid>
         <Grid item>
-          <Typography variant="h2">{`No genes found`}</Typography>
+          <Typography variant="h2">No genes found</Typography>
         </Grid>
       </Grid>
     </Paper>

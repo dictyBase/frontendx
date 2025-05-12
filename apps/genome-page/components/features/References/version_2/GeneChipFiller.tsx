@@ -10,19 +10,13 @@ const useStyles = makeStyles({
     paddingLeft: "0rem",
     paddingTop: "1rem",
     paddingBottom: "1rem",
-    backgroundColor: blueGrey[50]
+    backgroundColor: blueGrey[50],
   },
 })
 
-
 const GeneChipFiller = () => {
   const classes = useStyles()
-  return (
-    <Chip
-      size="medium"
-      className={classes.chip}
-    />
-  )
+  return <Chip size="medium" className={classes.chip} />
 }
 
 export { GeneChipFiller }
