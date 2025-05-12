@@ -8,7 +8,7 @@ const useStyles = makeStyles({
     minWidth: "100%",
     minHeight: "5rem",
     justifyContent: "start",
-    boxShadow: `1px 1px 1px ${blueGrey[300]}`,
+    boxShadow: `1px 1px 1px ${blueGrey[200]}`,
     fontSize: "24px",
     paddingLeft: "0rem",
     paddingTop: "1rem",
