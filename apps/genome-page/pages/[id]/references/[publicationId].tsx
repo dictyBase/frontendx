@@ -1,7 +1,7 @@
 import { pipe } from "fp-ts/function"
 import { findFirst as AfindFirst } from "fp-ts/Array"
 import { match as Omatch } from "fp-ts/Option"
-import { RelatedGenesContainer } from "components/features/References/version_2/RelatedGenesContainer"
+import { RelatedGenesContainer } from "components/features/References/RelatedGenesContainer"
 import { GraphQLErrorPage } from "@dictybase/ui-common"
 import { Layout, TabValues } from "components/layout/Layout"
 import { NoDataDisplay } from "components/NoDataDisplay"
