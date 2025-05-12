@@ -4,8 +4,9 @@ import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace"
 
 const RelatedGenesNavigation = () => {
   const router = useRouter()
+  const geneId = router.query.id as string
   const handleClick = () => {
-    router.back()
+    router.push(`/${geneId}/references/`)
   }
   return (
     <Box>
