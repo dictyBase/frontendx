@@ -35,7 +35,7 @@ const RelatedGenesControls = ({ filter, onChange }: RelatedGenesControlsProperti
           variant="outlined"
           InputProps={{
             startAdornment: (
-              <IconButton>
+              <IconButton disabled>
                 <FilterListIcon />
               </IconButton>
             ),
