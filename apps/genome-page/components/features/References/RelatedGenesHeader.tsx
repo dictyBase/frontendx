@@ -24,26 +24,25 @@ const RelatedGenesHeader = ({
 }: RelatedGenesHeaderProperties) => {
   const classes = useStyles()
   return (
-    <Grid container direction="column" justifyContent="center">
+    <Grid container direction="column" spacing={1}>
       <Grid item>
         <Typography variant="h4" className={classes.text}>
           <b>{related_genes.length}</b> Genes mentioned in &nbsp;
         </Typography>
-        <Grid item />
-        <Grid item className={classes.main}>
-          <Typography variant="h2">
-            {parseFormattedStringToDomElements(title)} <i>{journal}</i>, {pages}
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Typography variant="body1">
-            {pipe(
-              authors,
-              Amap((author) => author.last_name),
-              commaSeparateWithAnd,
-            )}
-          </Typography>
-        </Grid>
+      </Grid>
+      <Grid item className={classes.main}>
+        <Typography variant="h2">
+          {parseFormattedStringToDomElements(title)} <i>{journal}</i>, {pages}
+        </Typography>
+      </Grid>
+      <Grid item>
+        <Typography variant="body1">
+          {pipe(
+            authors,
+            Amap((author) => author.last_name),
+            commaSeparateWithAnd,
+          )}
+        </Typography>
       </Grid>
     </Grid>
   )
