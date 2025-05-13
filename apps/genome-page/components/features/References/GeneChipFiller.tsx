@@ -16,7 +16,13 @@ const useStyles = makeStyles({
 
 const GeneChipFiller = () => {
   const classes = useStyles()
-  return <Chip size="medium" className={classes.chip} />
+  return (
+    <Chip
+      data-testid="gene-chip-filler"
+      size="medium"
+      className={classes.chip}
+    />
+  )
 }
 
 export { GeneChipFiller }
