@@ -1,35 +1,34 @@
 import Typography from "@material-ui/core/Typography"
 import { PanelWrapper } from "components/panels/PanelWrapper"
-import { GeneSummaryQuery } from "dicty-graphql-schema"
+import { QueryResult } from "@apollo/client"
+import {
+  Exact,
+  GeneGeneralInformationSummaryQuery,
+  GeneOntologyAnnotationSummaryQuery,
+  ListPublicationsWithGeneSummaryQuery,
+} from "dicty-graphql-schema"
 import { useRouter } from "next/router"
 import { match } from "ts-pattern"
 import { GeneralInfoPanel } from "components/features/Summary/Panels/GeneralInfoPanel"
+import { GeneralInfoQuery } from "components/features/Summary/Panels/GeneralInfoQuery"
 import { GoaPanel } from "components/features/Summary/Panels/GoaPanel"
 import { ReferencesPanel } from "components/features/Summary/Panels/ReferencesPanel"
 import { NoDataDisplay } from "components/NoDataDisplay"
 
-interface SummaryContainerProperties {
-  geneSummary: GeneSummaryQuery
-}
-
-const SummaryContainer = ({ geneSummary }: SummaryContainerProperties) => {
+const SummaryContainer = () => {
   const { query } = useRouter()
-  const {
-    geneGeneralInformation,
-    geneOntologyAnnotation,
-    listPublicationsWithGene,
-  } = geneSummary
   const publicationLimit = 5
-  const partialPublicationsList = listPublicationsWithGene.slice(
-    0,
-    publicationLimit,
-  )
+  // const partialPublicationsList = listPublicationsWithGene.slice(
+  //   0,
+  //   publicationLimit,
+  // )
   const geneId = query.id as string
   return (
     <Typography component="div">
       <PanelWrapper title="General Information">
-        <GeneralInfoPanel generalInformation={geneGeneralInformation} />
+        <GeneralInfoQuery />
       </PanelWrapper>
+      {/*
       <PanelWrapper
         route={`${geneId}/goannotations`}
         title="Gene Ontology Annotations">
@@ -46,6 +45,7 @@ const SummaryContainer = ({ geneSummary }: SummaryContainerProperties) => {
             <ReferencesPanel publications={publications} />
           ))}
       </PanelWrapper>
+          */}
     </Typography>
   )
 }
