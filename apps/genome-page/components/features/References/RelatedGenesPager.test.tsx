@@ -2,10 +2,6 @@ import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { RelatedGenesPager } from "./RelatedGenesPager"
 
-jest.mock("./EmptyGenesDisplay", () => ({
-  EmptyGenesDisplay: () => <div>No Matching Genes</div>,
-}))
-
 // Create mock data with enough genes to span multiple pages
 // Pad the numbers in gene names with leading zeros to ensure proper alphanumeric sorting
 const generateMockGenes = (count: number) =>
