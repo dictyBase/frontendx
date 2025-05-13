@@ -1,22 +1,19 @@
 import React from "react"
-import { GeneSummaryQuery } from "dicty-graphql-schema"
+import { GeneGeneralInformationSummaryQuery } from "dicty-graphql-schema"
 import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
 import {
-  bindTo as ObindTo,
-  let as Olet,
   map as Omap,
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
 import { ContentId, returnPanelContentById } from "common/utils/panelGenerator"
-import { OtherError } from "components/errors/OtherError"
 import { LeftDisplay } from "components/panels/LeftDisplay"
 import { ItemDisplay } from "components/panels/ItemDisplay"
 import { RightDisplay } from "components/panels/RightDisplay"
 
 type Properties = {
-  generalInformation: GeneSummaryQuery["geneGeneralInformation"]
+  generalInformation: GeneGeneralInformationSummaryQuery["geneGeneralInformation"]
 }
 
 type PanelRowData = { id: ContentId; value: string[] | string }
@@ -28,35 +25,54 @@ const GeneralInfoPanel = ({ generalInformation }: Properties) =>
   pipe(
     generalInformation,
     OfromNullable,
-    ObindTo("info"),
-    Olet(
-      "displayItems",
-      ({ info }): Array<{ id: ContentId; value: any }> =>
+    Omap(
+      (info) =>
         [
-          { id: "Name Description", value: info.name_description },
+          {
+            id: "Name Description",
+            value: pipe(
+              info.name_description,
+              Amap(OfromNullable),
+              Amap(OgetOrElse(() => "")),
+            ),
+          },
           { id: "dictyBase ID", value: info.id },
-          { id: "Gene Product", value: info.gene_product },
+          {
+            id: "Gene Product",
+            value: pipe(
+              info.gene_product,
+              OfromNullable,
+              OgetOrElse(() => ""),
+            ),
+          },
           {
             id: "Alternative Protein Names",
-            value: info.synonyms,
+            value: pipe(
+              info.synonyms,
+              Amap(OfromNullable),
+              Amap(OgetOrElse(() => "")),
+            ),
           },
-          { id: "Description", value: info.description },
+          {
+            id: "Description",
+            value: pipe(
+              info.description,
+              OfromNullable,
+              OgetOrElse(() => ""),
+            ),
+          },
         ] as Array<PanelRowData>,
     ),
-    Olet("element", ({ displayItems }) =>
-      pipe(
-        displayItems,
-        Amap(({ id, value }) => (
-          <ItemDisplay key={id}>
-            <LeftDisplay>{id}</LeftDisplay>
-            <RightDisplay>{returnPanelContentById(id, value)}</RightDisplay>
-          </ItemDisplay>
-        )),
-        (children) => <div>{children}</div>,
-      ),
+    Omap(
+      Amap(({ id, value }) => (
+        <ItemDisplay key={id}>
+          <LeftDisplay>{id}</LeftDisplay>
+          <RightDisplay>{returnPanelContentById(id, value)}</RightDisplay>
+        </ItemDisplay>
+      )),
     ),
-    Omap(({ element }) => element),
-    OgetOrElse(() => <OtherError />),
+    Omap((children) => <div>{children}</div>),
+    OgetOrElse(() => <></>),
   )
 
 export { GeneralInfoPanel }
