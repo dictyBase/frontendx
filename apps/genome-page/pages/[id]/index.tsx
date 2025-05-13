@@ -4,7 +4,6 @@ import { GraphQLErrorPage } from "components/errors/GraphQLErrorPage"
 import { Layout, TabValues } from "components/layout/Layout"
 import { NoDataDisplay } from "components/NoDataDisplay"
 import { useRouter } from "next/router"
-import { useGeneSummaryQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 
 /**
@@ -13,39 +12,13 @@ import { match, P } from "ts-pattern"
 const GenomePageWrapper = () => {
   const { query } = useRouter()
   const gene = query.id as string
-  const result = useGeneSummaryQuery({
-    variables: {
-      gene,
-    },
-    fetchPolicy: "cache-and-network",
-    nextFetchPolicy: "cache-only",
-  })
   return (
     <Layout
       tabValue={TabValues.SUMMARY}
       gene={gene}
       title={`Gene Summary for ${gene}`}
       description={`Gene information for ${gene}`}>
-      {match(result)
-        .with({ loading: true }, () => <Loader />)
-        .with(
-          {
-            data: P.select(P.not(P.nullish)),
-          },
-          (data) => <SummaryContainer geneSummary={data} />,
-        )
-        .with(
-          {
-            data: P.nullish,
-          },
-          () => <NoDataDisplay query="Gene Summary" geneId={gene} />,
-        )
-        .with({ error: P.select(P.not(undefined)) }, (error) => (
-          <GraphQLErrorPage error={error} />
-        ))
-        .otherwise(() => (
-          <> This message should not appear. </>
-        ))}
+      <SummaryContainer />
     </Layout>
   )
 }
