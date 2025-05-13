@@ -9,7 +9,7 @@ const gene = "sadA"
 const pathname = `gene/${gene}/references`
 
 describe("features/References/ReferencesContainer", () => {
-  it("should render data", () => {
+  test("should render data", () => {
     useRouter.mockImplementation(() => ({
       query: { id: gene },
       pathname,

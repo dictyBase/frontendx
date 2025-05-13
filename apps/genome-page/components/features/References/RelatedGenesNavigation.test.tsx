@@ -16,7 +16,7 @@ describe("RelatedGenesNavigation", () => {
     mockPush.mockClear()
   })
 
-  it("renders a back button", () => {
+  test("renders a back button", () => {
     render(<RelatedGenesNavigation />)
 
     // Check if the back button is rendered
@@ -28,7 +28,7 @@ describe("RelatedGenesNavigation", () => {
     expect(icon).toBeInTheDocument()
   })
 
-  it("calls router.push() when the button is clicked", async () => {
+  test("calls router.push() when the button is clicked", async () => {
     const user = userEvent.setup()
     render(<RelatedGenesNavigation />)
 

@@ -21,7 +21,7 @@ describe("SeeAllGenesChip", () => {
     mockPush.mockClear()
   })
 
-  it("renders the chip with correct text", () => {
+  test("renders the chip with correct text", () => {
     render(
       <SeeAllGenesChip publicationId={publicationId} geneCount={geneCount} />,
     )
@@ -30,7 +30,7 @@ describe("SeeAllGenesChip", () => {
     expect(screen.getByText(SEE_10_TEXT)).toBeInTheDocument()
   })
 
-  it("navigates to the publication references page when clicked", async () => {
+  test("navigates to the publication references page when clicked", async () => {
     const user = userEvent.setup()
     render(
       <SeeAllGenesChip publicationId={publicationId} geneCount={geneCount} />,
@@ -45,7 +45,7 @@ describe("SeeAllGenesChip", () => {
     expect(mockPush).toHaveBeenCalledWith("/geneA/references/pub123")
   })
 
-  it("displays the correct count when geneCount changes", () => {
+  test("displays the correct count when geneCount changes", () => {
     const { rerender } = render(
       <SeeAllGenesChip publicationId={publicationId} geneCount={15} />,
     )
@@ -58,7 +58,7 @@ describe("SeeAllGenesChip", () => {
     expect(screen.getByText("See all 20")).toBeInTheDocument()
   })
 
-  it("maintains the same publicationId for navigation when clicked", async () => {
+  test("maintains the same publicationId for navigation when clicked", async () => {
     const user = userEvent.setup()
     const newPublicationId = "pub456"
 
