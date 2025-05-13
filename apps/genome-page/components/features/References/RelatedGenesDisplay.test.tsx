@@ -29,7 +29,7 @@ describe("RelatedGenesDisplay", () => {
     mockPush.mockClear()
   })
 
-  it("renders all gene chips correctly", () => {
+  test("renders all gene chips correctly", () => {
     render(<RelatedGenesDisplay genes={mockGenes} maxCount={12} />)
 
     // Check if all gene chips are rendered
@@ -38,7 +38,7 @@ describe("RelatedGenesDisplay", () => {
     })
   })
 
-  it("navigates to gene page when a chip is clicked", async () => {
+  test("navigates to gene page when a chip is clicked", async () => {
     const user = userEvent.setup()
     render(<RelatedGenesDisplay genes={mockGenes} maxCount={12} />)
 
@@ -51,7 +51,7 @@ describe("RelatedGenesDisplay", () => {
     expect(mockPush).toHaveBeenCalledWith("/geneA")
   })
 
-  it("renders gene chips in a grid layout", () => {
+  test("renders gene chips in a grid layout", () => {
     render(<RelatedGenesDisplay genes={mockGenes} maxCount={12} />)
 
     // Check if the grid container exists
@@ -63,7 +63,7 @@ describe("RelatedGenesDisplay", () => {
     expect(gridItems.length).toBe(12) // 9 genes + 3 fillers
   })
 
-  it("creates chips that are clickable", () => {
+  test("creates chips that are clickable", () => {
     render(<RelatedGenesDisplay genes={mockGenes} maxCount={12} />)
 
     // All gene chips should have the clickable attribute
@@ -71,7 +71,7 @@ describe("RelatedGenesDisplay", () => {
     expect(chips).toHaveLength(mockGenes.length)
   })
 
-  it("adds filler chips to complete the grid", () => {
+  test("adds filler chips to complete the grid", () => {
     render(<RelatedGenesDisplay genes={mockGenes.slice(0, 5)} maxCount={8} />)
 
     // There should be 5 gene chips and 3 filler chips

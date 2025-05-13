@@ -22,7 +22,7 @@ describe("RelatedGenesHeader", () => {
     ] as Array<Gene>,
   }
 
-  it("displays publication title, journal, and pages correctly", () => {
+  test("displays publication title, journal, and pages correctly", () => {
     render(<RelatedGenesHeader publication={mockPublication} />)
 
     // Check if title is rendered
@@ -43,7 +43,7 @@ describe("RelatedGenesHeader", () => {
     ).toBeInTheDocument()
   })
 
-  it("displays authors correctly with commaSeparateWithAnd function", () => {
+  test("displays authors correctly with commaSeparateWithAnd function", () => {
     render(<RelatedGenesHeader publication={mockPublication} />)
 
     // Check if authors are rendered in the expected format: "Smith, Johnson & Williams"
@@ -59,7 +59,7 @@ describe("RelatedGenesHeader", () => {
     ).toBeInTheDocument()
   })
 
-  it("handles a single author correctly", () => {
+  test("handles a single author correctly", () => {
     const singleAuthorPublication = {
       ...mockPublication,
       authors: [{ last_name: "Smith" }],
@@ -71,7 +71,7 @@ describe("RelatedGenesHeader", () => {
     expect(screen.getByText("Smith")).toBeInTheDocument()
   })
 
-  it("handles multiple related genes correctly", () => {
+  test("handles multiple related genes correctly", () => {
     // Create a publication with more related genes
     const manyGenesPublication = {
       ...mockPublication,

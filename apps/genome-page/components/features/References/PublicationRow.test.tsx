@@ -33,7 +33,7 @@ describe("PublicationRow", () => {
     mockPush.mockClear()
   })
 
-  it("renders publication details correctly", () => {
+  test("renders publication details correctly", () => {
     render(<PublicationRow publication={mockPublication} />)
 
     // Check if the publication details are rendered correctly
@@ -48,7 +48,7 @@ describe("PublicationRow", () => {
     expect(screen.getByText("geneC")).toBeInTheDocument()
   })
 
-  it("navigates to the correct gene route when a gene chip is clicked", async () => {
+  test("navigates to the correct gene route when a gene chip is clicked", async () => {
     const user = userEvent.setup()
     render(<PublicationRow publication={mockPublication} />)
 
@@ -61,7 +61,7 @@ describe("PublicationRow", () => {
     expect(mockPush).toHaveBeenCalledWith("/geneB")
   })
 
-  it("navigates to different gene routes when different chips are clicked", async () => {
+  test("navigates to different gene routes when different chips are clicked", async () => {
     const user = userEvent.setup()
     render(<PublicationRow publication={mockPublication} />)
 
