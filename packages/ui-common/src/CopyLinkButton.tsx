@@ -1,4 +1,6 @@
 import { useState } from "react"
+import { pipe } from "fp-ts/function"
+import { replace as Sreplace } from "fp-ts/string"
 import { Typography, IconButton, Tooltip } from "@material-ui/core"
 import LinkRoundedIcon from "@material-ui/icons/LinkRounded"
 
@@ -9,7 +11,7 @@ const CopyLinkButton = () => {
   }
 
   const handleClick = async () => {
-    const url = window.location.href
+    const url = pipe(window.location.href, Sreplace(/\b(edit|editable)\b/i, "show"))
     // eslint-disable-next-line compat/compat
     await window.navigator.clipboard.writeText(url)
     setLinkCopied(true)
