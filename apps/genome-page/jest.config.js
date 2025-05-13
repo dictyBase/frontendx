@@ -14,7 +14,6 @@ const customJestConfig = {
   setupFiles: ["./jest.setupEnv.js"],
   setupFilesAfterEnv: ["./jest.setup.js"],
   modulePaths: ["./", "node_modules"],
-  testPathIgnorePatterns: [],
   coveragePathIgnorePatterns: ["common/hooks/"],
   collectCoverageFrom: [
     "**/components/**/*.{ts,tsx}",
@@ -24,6 +23,7 @@ const customJestConfig = {
   moduleNameMapper: {
     "react-markdown":
       "<rootDir>/components/features/CommunityAnnotations/mocks/react-markdown.tsx",
+    "@fontsource(.*)": "<rootDir>/styleMock.js",
   },
 }
 
