@@ -93,4 +93,3 @@ describe("RelatedGenesControls", () => {
     expect(mockProperties.onGroupChange).toHaveBeenCalled()
   })
 })
-
