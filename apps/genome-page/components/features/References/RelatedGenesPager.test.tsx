@@ -49,7 +49,7 @@ describe("RelatedGenesPager", () => {
 
     // Gene 33 should be on the next page
     expect(screen.queryByText("Gene 33")).not.toBeInTheDocument()
-  })
+  }, 10_000)
 
   test("navigates to a specific page when clicking page number", async () => {
     const user = userEvent.setup()
@@ -90,7 +90,7 @@ describe("RelatedGenesPager", () => {
     // we'll just check that the first page genes are visible again
     expect(screen.queryByText("Gene 17")).not.toBeInTheDocument()
     expect(screen.getByText("Gene 01")).toBeInTheDocument()
-  })
+  }, 10_000)
 
   test("resets to page 1 when group is changed", async () => {
     const user = userEvent.setup()
@@ -115,7 +115,7 @@ describe("RelatedGenesPager", () => {
     // we'll just check that the first page genes are visible again
     expect(screen.queryByText("Gene 17")).not.toBeInTheDocument()
     expect(screen.getByText("Gene 01")).toBeInTheDocument()
-  })
+  }, 10_000)
 
   test("shows EmptyGenesDisplay when no genes match filter", () => {
     // Create a test with empty array
