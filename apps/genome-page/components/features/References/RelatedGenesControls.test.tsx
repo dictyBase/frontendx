@@ -3,6 +3,8 @@ import userEvent from "@testing-library/user-event"
 import { RelatedGenesControls } from "./RelatedGenesControls"
 import { GeneGroups } from "./GeneGroupSelect"
 
+const filterGenesText = "Filter Genes"
+
 describe("RelatedGenesControls", () => {
   const mockProperties = {
     totalGeneCount: 100,
@@ -21,7 +23,7 @@ describe("RelatedGenesControls", () => {
     render(<RelatedGenesControls {...mockProperties} />)
 
     // Check for filter text field
-    expect(screen.getByPlaceholderText("Filter Genes")).toBeInTheDocument()
+    expect(screen.getByPlaceholderText(filterGenesText)).toBeInTheDocument()
 
     // Check for gene count text
     expect(screen.getByText("50 of 100 Genes")).toBeInTheDocument()
@@ -48,7 +50,7 @@ describe("RelatedGenesControls", () => {
     const user = userEvent.setup()
     render(<RelatedGenesControls {...mockProperties} />)
 
-    const filterInput = screen.getByPlaceholderText("Filter Genes")
+    const filterInput = screen.getByPlaceholderText(filterGenesText)
     await user.type(filterInput, "abc")
 
     expect(mockProperties.onFilterChange).toHaveBeenCalled()
@@ -62,7 +64,7 @@ describe("RelatedGenesControls", () => {
     render(<RelatedGenesControls {...customProperties} />)
 
     const filterInput = screen.getByPlaceholderText(
-      "Filter Genes",
+      filterGenesText,
     ) as HTMLInputElement
     expect(filterInput.value).toBe("test-filter")
   })
