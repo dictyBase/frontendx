@@ -20,7 +20,7 @@ const useStyles = makeStyles({
 const EmptyGenesOverlay = () => {
   const classes = useStyles()
   return (
-    <Box className={classes.container}>
+    <Box data-testid="empty-genes-overlay" className={classes.container}>
       <Grid
         justifyContent="center"
         alignItems="center"
