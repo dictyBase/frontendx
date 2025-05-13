@@ -9,4 +9,3 @@ describe("EmptyGenesOverlay", () => {
     expect(screen.getByText("No Matching Genes")).toBeInTheDocument()
   })
 })
-

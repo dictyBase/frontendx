@@ -24,4 +24,3 @@ describe("EmptyGenesDisplay", () => {
     expect(fillers).toHaveLength(0)
   })
 })
-
