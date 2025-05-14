@@ -16,6 +16,7 @@ const GoaQuery = () => {
     },
     fetchPolicy: "cache-and-network",
     nextFetchPolicy: "cache-only",
+    errorPolicy: "all",
   })
   return (
     <PanelWrapper

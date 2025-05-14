@@ -16,6 +16,7 @@ const GeneralInfoQuery = () => {
     },
     fetchPolicy: "cache-and-network",
     nextFetchPolicy: "cache-only",
+    errorPolicy: "all",
   })
   return (
     <PanelWrapper title="General Information">

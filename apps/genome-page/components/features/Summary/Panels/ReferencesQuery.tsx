@@ -16,6 +16,7 @@ const ReferencesQuery = () => {
     },
     fetchPolicy: "cache-and-network",
     nextFetchPolicy: "cache-only",
+    errorPolicy: "all",
   })
   return match(result)
     .with({ loading: true }, () => (
