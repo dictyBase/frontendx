@@ -1,11 +1,11 @@
 import { useRouter } from "next/router"
 import { useGeneGeneralInformationSummaryQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
-import { NoDataDisplay } from "components/NoDataDisplay"
 import { Loader } from "components/Loader"
 import { GraphQLErrorPage } from "components/errors/GraphQLErrorPage"
 import { PanelWrapper } from "components/panels/PanelWrapper"
 import { GeneralInfoPanel } from "./GeneralInfoPanel"
+import { NoDataPanel } from "./NoDataPanel"
 
 const GeneralInfoQuery = () => {
   const { query } = useRouter()
@@ -37,7 +37,7 @@ const GeneralInfoQuery = () => {
           {
             data: P.nullish,
           },
-          () => <NoDataDisplay query="Gene Summary" geneId={gene} />,
+          () => <NoDataPanel query="Gene Summary" geneId={gene} />,
         )
         .otherwise(() => (
           <> This message should not appear. </>
