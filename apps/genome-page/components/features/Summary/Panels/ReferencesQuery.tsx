@@ -26,7 +26,16 @@ const ReferencesQuery = () => {
     ))
     .with(
       {
-        data: { listPublicationsWithGene: P.select(P.not(P.nullish)) },
+        data: {
+          listPublicationsWithGene: P.select(
+            P.array({
+              id: P.string,
+              title: P.string,
+              journal: P.string,
+              authors: P.array({ last_name: P.string }),
+            }),
+          ),
+        },
       },
       (publications) => {
         const publicationLimit = 5
