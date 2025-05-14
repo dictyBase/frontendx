@@ -1,53 +1,14 @@
 import Typography from "@material-ui/core/Typography"
-import { PanelWrapper } from "components/panels/PanelWrapper"
-import { QueryResult } from "@apollo/client"
-import {
-  Exact,
-  GeneGeneralInformationSummaryQuery,
-  GeneOntologyAnnotationSummaryQuery,
-  ListPublicationsWithGeneSummaryQuery,
-} from "dicty-graphql-schema"
-import { useRouter } from "next/router"
-import { match } from "ts-pattern"
-import { GeneralInfoPanel } from "components/features/Summary/Panels/GeneralInfoPanel"
 import { GeneralInfoQuery } from "components/features/Summary/Panels/GeneralInfoQuery"
-import { GoaPanel } from "components/features/Summary/Panels/GoaPanel"
-import { ReferencesPanel } from "components/features/Summary/Panels/ReferencesPanel"
-import { NoDataDisplay } from "components/NoDataDisplay"
+import { GoaQuery } from "components/features/Summary/Panels/GoaQuery"
+import { ReferencesQuery } from "components/features/Summary/Panels/ReferencesQuery"
 
-const SummaryContainer = () => {
-  const { query } = useRouter()
-  const publicationLimit = 5
-  // const partialPublicationsList = listPublicationsWithGene.slice(
-  //   0,
-  //   publicationLimit,
-  // )
-  const geneId = query.id as string
-  return (
-    <Typography component="div">
-      <PanelWrapper title="General Information">
-        <GeneralInfoQuery />
-      </PanelWrapper>
-      {/*
-      <PanelWrapper
-        route={`${geneId}/goannotations`}
-        title="Gene Ontology Annotations">
-        <GoaPanel goas={geneOntologyAnnotation} />
-      </PanelWrapper>
-      <PanelWrapper
-        route={`${geneId}/references`}
-        title={`Publications (${partialPublicationsList.length} of ${listPublicationsWithGene.length}) `}>
-        {match(partialPublicationsList)
-          .with([], () => (
-            <NoDataDisplay query="publications" geneId={geneId} />
-          ))
-          .otherwise((publications) => (
-            <ReferencesPanel publications={publications} />
-          ))}
-      </PanelWrapper>
-          */}
-    </Typography>
-  )
-}
+const SummaryContainer = () => (
+  <Typography component="div">
+    <GeneralInfoQuery />
+    <GoaQuery />
+    <ReferencesQuery />
+  </Typography>
+)
 
 export { SummaryContainer }
