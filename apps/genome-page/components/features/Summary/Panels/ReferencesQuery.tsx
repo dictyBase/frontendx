@@ -1,10 +1,10 @@
 import { useRouter } from "next/router"
 import { useListPublicationsWithGeneSummaryQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
-import { NoDataDisplay } from "components/NoDataDisplay"
 import { Loader } from "components/Loader"
 import { GraphQLErrorPage } from "components/errors/GraphQLErrorPage"
 import { PanelWrapper } from "components/panels/PanelWrapper"
+import { NoDataPanel } from "./NoDataPanel"
 import { ReferencesPanel } from "./ReferencesPanel"
 
 const ReferencesQuery = () => {
@@ -51,7 +51,7 @@ const ReferencesQuery = () => {
       },
       () => (
         <PanelWrapper route={`${gene}/references`} title="Publications">
-          <NoDataDisplay query="References" geneId={gene} />
+          <NoDataPanel query="References" geneId={gene} />
         </PanelWrapper>
       ),
     )

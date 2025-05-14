@@ -1,10 +1,10 @@
 import { useRouter } from "next/router"
 import { useGeneOntologyAnnotationSummaryQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
-import { NoDataDisplay } from "components/NoDataDisplay"
 import { Loader } from "components/Loader"
 import { GraphQLErrorPage } from "components/errors/GraphQLErrorPage"
 import { PanelWrapper } from "components/panels/PanelWrapper"
+import { NoDataPanel } from "./NoDataPanel"
 import { GoaPanel } from "./GoaPanel"
 
 const GoaQuery = () => {
@@ -37,7 +37,7 @@ const GoaQuery = () => {
           {
             data: P.nullish,
           },
-          () => <NoDataDisplay query="GO Annotations" geneId={gene} />,
+          () => <NoDataPanel query="GO Annotations" geneId={gene} />,
         )
         .otherwise(() => (
           <> This message should not appear. </>
