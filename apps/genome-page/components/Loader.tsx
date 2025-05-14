@@ -15,12 +15,12 @@ const useStyles = makeStyles({
 /**
  * Loader is the default loading skeleton component.
  */
-const Loader = () => {
+const Loader = ({ rows = 12 }: { rows?: number }) => {
   const classes = useStyles()
   return (
     <Paper className={classes.container}>
       <Box data-testid="skeleton-loader">
-        {AmakeBy(12, (key) => (
+        {AmakeBy(rows, (key) => (
           <Skeleton height={50} key={key} animation="wave" />
         ))}
       </Box>
