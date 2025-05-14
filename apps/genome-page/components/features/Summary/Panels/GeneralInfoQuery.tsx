@@ -21,7 +21,7 @@ const GeneralInfoQuery = () => {
   return (
     <PanelWrapper title="General Information">
       {match(result)
-        .with({ loading: true }, () => <Loader />)
+        .with({ loading: true }, () => <Loader rows={5} />)
         .with(
           {
             data: { geneGeneralInformation: P.select(P.not(P.nullish)) },
