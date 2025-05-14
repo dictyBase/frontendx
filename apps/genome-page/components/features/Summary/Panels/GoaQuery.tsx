@@ -23,7 +23,7 @@ const GoaQuery = () => {
       route={`${gene}/goannotations`}
       title="Gene Ontology Annotations">
       {match(result)
-        .with({ loading: true }, () => <Loader />)
+        .with({ loading: true }, () => <Loader rows={3} />)
         .with(
           {
             data: { geneOntologyAnnotation: P.select(P.not(P.nullish)) },
