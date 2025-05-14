@@ -1,14 +1,15 @@
 import { ItemDisplay } from "components/panels/ItemDisplay"
 import { LeftDisplay } from "components/panels/LeftDisplay"
 import { RightDisplay } from "components/panels/RightDisplay"
-import { GeneSummaryQuery } from "dicty-graphql-schema"
-import { OtherError } from "components/errors/OtherError"
+import { GeneOntologyAnnotationSummaryQuery } from "dicty-graphql-schema"
 import { GoaPanelContent } from "./GoaPanelContent"
 
 type GOType = "molecular_function" | "biological_process" | "cellular_component"
 
 const dataFilter = (
-  array: NonNullable<GeneSummaryQuery["geneOntologyAnnotation"]>,
+  array: NonNullable<
+    GeneOntologyAnnotationSummaryQuery["geneOntologyAnnotation"]
+  >,
   type: GOType,
 ) => {
   // get the attributes from specified type
@@ -54,43 +55,41 @@ const dataFilter = (
 
 type Properties = {
   /** Array of GO annotations for a particular gene */
-  goas: GeneSummaryQuery["geneOntologyAnnotation"]
+  goas: NonNullable<
+    GeneOntologyAnnotationSummaryQuery["geneOntologyAnnotation"]
+  >
 }
 
 /**
  * Panel to display Gene Ontology Annotations on the Gene Summary page.
  */
-const GoaPanel = ({ goas }: Properties) => {
-  if (!goas) return <OtherError />
-
-  return (
-    <div>
-      <ItemDisplay>
-        <LeftDisplay>Molecular Function</LeftDisplay>
-        <RightDisplay>
-          {dataFilter(goas, "molecular_function").map((item) => (
-            <GoaPanelContent key={item.id} goa={item} />
-          ))}
-        </RightDisplay>
-      </ItemDisplay>
-      <ItemDisplay>
-        <LeftDisplay>Biological Process</LeftDisplay>
-        <RightDisplay>
-          {dataFilter(goas, "biological_process").map((item) => (
-            <GoaPanelContent key={item.id} goa={item} />
-          ))}
-        </RightDisplay>
-      </ItemDisplay>
-      <ItemDisplay>
-        <LeftDisplay>Cellular Component</LeftDisplay>
-        <RightDisplay>
-          {dataFilter(goas, "cellular_component").map((item) => (
-            <GoaPanelContent key={item.id} goa={item} />
-          ))}
-        </RightDisplay>
-      </ItemDisplay>
-    </div>
-  )
-}
+const GoaPanel = ({ goas }: Properties) => (
+  <div>
+    <ItemDisplay>
+      <LeftDisplay>Molecular Function</LeftDisplay>
+      <RightDisplay>
+        {dataFilter(goas, "molecular_function").map((item) => (
+          <GoaPanelContent key={item.id} goa={item} />
+        ))}
+      </RightDisplay>
+    </ItemDisplay>
+    <ItemDisplay>
+      <LeftDisplay>Biological Process</LeftDisplay>
+      <RightDisplay>
+        {dataFilter(goas, "biological_process").map((item) => (
+          <GoaPanelContent key={item.id} goa={item} />
+        ))}
+      </RightDisplay>
+    </ItemDisplay>
+    <ItemDisplay>
+      <LeftDisplay>Cellular Component</LeftDisplay>
+      <RightDisplay>
+        {dataFilter(goas, "cellular_component").map((item) => (
+          <GoaPanelContent key={item.id} goa={item} />
+        ))}
+      </RightDisplay>
+    </ItemDisplay>
+  </div>
+)
 
 export { GoaPanel }
