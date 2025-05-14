@@ -1,11 +1,11 @@
 import React from "react"
-import { GeneSummaryQuery, Extension, With } from "dicty-graphql-schema"
+import { GeneOntologyAnnotationSummaryQuery, Extension, With } from "dicty-graphql-schema"
 import { WithExtensionLink } from "components/features/Ontology/Table/WithExtensionLink"
 import { withDataFilter } from "../utils/withDataFilter"
 
 type Properties = {
   /** Individual GO Annotation */
-  goa: NonNullable<GeneSummaryQuery["geneOntologyAnnotation"]>[0]
+  goa: NonNullable<GeneOntologyAnnotationSummaryQuery["geneOntologyAnnotation"]>[0]
 }
 
 /**
