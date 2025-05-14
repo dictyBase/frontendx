@@ -47,7 +47,7 @@ const ReferencesQuery = () => {
     ))
     .with(
       {
-        data: P.nullish,
+        data: P.union(P.nullish, { listPublicationsWithGene: [] }),
       },
       () => (
         <PanelWrapper route={`${gene}/references`} title="Publications">
