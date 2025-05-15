@@ -170,28 +170,15 @@ const ErrorPanel = ({
           {/* Left Column - Logo and Icon */}
           <Grid item xs={12} md={4} className={classes.logoContainer}>
             <Image
-              src="/dicty-logo.png"
-              alt="dictyBase Logo"
-              width={150}
-              height={60}
+              src="https://storage.dictybase.dev/editor/assets/2024-11-04/0627257c-9ce3-4f02-b000-9e16ef5b1062"
+              alt="Sad Dicty"
+              height="300"
+              width="300"
+              objectFit="contain"
               onError={() => {
                 // Fallback handled by next/image
               }}
             />
-            <div className={classes.iconContainer}>
-              <svg
-                className={classes.warningIcon}
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </div>
           </Grid>
 
           {/* Right Column - Error Details */}
