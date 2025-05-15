@@ -1,10 +1,13 @@
 import { render, screen } from "@testing-library/react"
-import { MockedProvider } from "@apollo/client/testing"
 import { mockReferencesData } from "mocks/mockReferencesData"
 import { ReferencesQuery } from "./ReferencesQuery"
 
+// Constants to avoid duplicated strings
+const GRAPHQL_SCHEMA_MODULE = "dicty-graphql-schema"
+const PANEL_WRAPPER_TESTID = "panel-wrapper"
+
 // Mock GraphQL document to avoid importing from dicty-graphql-schema
-jest.mock("dicty-graphql-schema", () => ({
+jest.mock(GRAPHQL_SCHEMA_MODULE, () => ({
   ListPublicationsWithGeneSummaryDocument: {},
   useListPublicationsWithGeneSummaryQuery: jest.fn(),
 }))
@@ -19,7 +22,7 @@ jest.mock("next/router", () => ({
 // Mock the PanelWrapper component
 jest.mock("components/panels/PanelWrapper", () => ({
   PanelWrapper: ({ children, title }: any) => (
-    <div data-testid="panel-wrapper">
+    <div data-testid={PANEL_WRAPPER_TESTID}>
       <h2>{title}</h2>
       <div>{children}</div>
     </div>
@@ -31,23 +34,25 @@ describe("features/Summary/Panels/ReferencesQuery", () => {
 
   it("should render loading state initially", async () => {
     // Mock the hook implementation for this test
-    const useQueryMock =
-      require("dicty-graphql-schema").useListPublicationsWithGeneSummaryQuery
-    useQueryMock.mockReturnValue({ loading: true })
+    const { useListPublicationsWithGeneSummaryQuery } = jest.requireMock(
+      GRAPHQL_SCHEMA_MODULE,
+    )
+    useListPublicationsWithGeneSummaryQuery.mockReturnValue({ loading: true })
 
     render(<ReferencesQuery />)
 
     // Should show title with Publications
     expect(screen.getByText("Publications")).toBeInTheDocument()
     // Should show loader
-    expect(screen.getByTestId("panel-wrapper")).toBeInTheDocument()
+    expect(screen.getByTestId(PANEL_WRAPPER_TESTID)).toBeInTheDocument()
   })
 
   it("should render publications data when query returns results", async () => {
     // Mock the hook implementation for this test
-    const useQueryMock =
-      require("dicty-graphql-schema").useListPublicationsWithGeneSummaryQuery
-    useQueryMock.mockReturnValue({
+    const { useListPublicationsWithGeneSummaryQuery } = jest.requireMock(
+      GRAPHQL_SCHEMA_MODULE,
+    )
+    useListPublicationsWithGeneSummaryQuery.mockReturnValue({
       loading: false,
       data: {
         listPublicationsWithGene: mockReferencesData.slice(0, 5),
@@ -57,7 +62,7 @@ describe("features/Summary/Panels/ReferencesQuery", () => {
     render(<ReferencesQuery />)
 
     // Wait for data to load
-    await screen.findByTestId("panel-wrapper")
+    await screen.findByTestId(PANEL_WRAPPER_TESTID)
 
     // Should show title with count
     expect(
@@ -67,9 +72,10 @@ describe("features/Summary/Panels/ReferencesQuery", () => {
 
   it("should render no data panel when query returns empty results", async () => {
     // Mock the hook implementation for this test
-    const useQueryMock =
-      require("dicty-graphql-schema").useListPublicationsWithGeneSummaryQuery
-    useQueryMock.mockReturnValue({
+    const { useListPublicationsWithGeneSummaryQuery } = jest.requireMock(
+      GRAPHQL_SCHEMA_MODULE,
+    )
+    useListPublicationsWithGeneSummaryQuery.mockReturnValue({
       loading: false,
       data: {
         listPublicationsWithGene: [],
@@ -88,14 +94,15 @@ describe("features/Summary/Panels/ReferencesQuery", () => {
     render(<ReferencesQuery />)
 
     // Wait for query to complete
-    await screen.findByTestId("panel-wrapper")
+    await screen.findByTestId(PANEL_WRAPPER_TESTID)
   })
 
   it("should render error page when query fails", async () => {
     // Mock the hook implementation for this test
-    const useQueryMock =
-      require("dicty-graphql-schema").useListPublicationsWithGeneSummaryQuery
-    useQueryMock.mockReturnValue({
+    const { useListPublicationsWithGeneSummaryQuery } = jest.requireMock(
+      GRAPHQL_SCHEMA_MODULE,
+    )
+    useListPublicationsWithGeneSummaryQuery.mockReturnValue({
       loading: false,
       error: new Error("An error occurred"),
     })
@@ -110,6 +117,6 @@ describe("features/Summary/Panels/ReferencesQuery", () => {
     render(<ReferencesQuery />)
 
     // Wait for error to appear
-    await screen.findByTestId("panel-wrapper")
+    await screen.findByTestId(PANEL_WRAPPER_TESTID)
   })
 })

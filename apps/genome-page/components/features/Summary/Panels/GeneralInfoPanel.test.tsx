@@ -93,11 +93,11 @@ describe("features/Summary/Panels/GeneralInfoPanel", () => {
   })
 
   it("should handle missing or null values in the data", () => {
-    // Create a mock with some null/undefined values
+    // Create a mock with some undefined values
     const mockWithMissingData = {
       ...mockGeneralInfoData,
-      gene_product: null, // Test null gene product
-      description: null, // Test null description
+      gene_product: undefined, // Test undefined gene product
+      description: undefined, // Test undefined description
     }
 
     render(<GeneralInfoPanel generalInformation={mockWithMissingData} />)
