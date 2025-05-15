@@ -3,7 +3,6 @@ import {
   mockGeneOntologyAnnotationQuery,
   mockListStrainsWithGeneQuery,
   mockListPublicationsWithGeneQuery,
-  mockGeneSummaryQuery,
 } from "dicty-graphql-schema/types/mocks"
 import { mockOntologyData } from "./mockOntologyData"
 import { mockOntologyPiaA } from "./piaAMocks/mockOntologyPiaA"
@@ -71,40 +70,6 @@ export const handlers = [
       case "piaA" || "ada2":
         return HttpResponse.json({
           data: { listPublicationsWithGene: mockReferencesPiaA },
-        })
-      default:
-        return HttpResponse.json({
-          errors: [{ message: `No mock for ${gene}` }],
-        })
-    }
-  }),
-
-  mockGeneSummaryQuery(({ variables }) => {
-    const { gene } = variables
-    switch (gene) {
-      case "sadA":
-        return HttpResponse.json({
-          data: {
-            geneGeneralInformation: mockGeneralInfoData,
-            geneOntologyAnnotation: mockOntologyData.goas,
-            listPublicationsWithGene: mockReferencesData,
-          },
-        })
-      case "piaA":
-        return HttpResponse.json({
-          data: {
-            geneGeneralInformation: mockGeneralInfoPiaA,
-            geneOntologyAnnotation: mockOntologyPiaA.goas,
-            listPublicationsWithGene: mockReferencesPiaA,
-          },
-        })
-      case "ada2":
-        return HttpResponse.json({
-          data: {
-            geneGeneralInformation: mockGeneralInfoPiaA,
-            geneOntologyAnnotation: mockOntologyAda2.goas,
-            listPublicationsWithGene: mockReferencesPiaA,
-          },
         })
       default:
         return HttpResponse.json({
