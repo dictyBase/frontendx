@@ -4,6 +4,7 @@ import Typography from "@material-ui/core/Typography"
 import Paper from "@material-ui/core/Paper"
 import Button from "@material-ui/core/Button"
 import Grid from "@material-ui/core/Grid"
+import Box from "@material-ui/core/Box"
 import RefreshIcon from "@material-ui/icons/Refresh"
 import HomeIcon from "@material-ui/icons/Home"
 import Link from "next/link"
@@ -22,6 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: "#003366", // Dark blue color
       color: theme.palette.common.white,
       padding: theme.spacing(1.5, 2),
+      textAlign: "center",
     },
     headerTitle: {
       fontSize: theme.typography.pxToRem(18),
@@ -30,6 +32,10 @@ const useStyles = makeStyles((theme: Theme) =>
     content: {
       backgroundColor: "#F5F8FA", // Light gray background
       padding: theme.spacing(3),
+    },
+    gridContainer: {
+      display: "flex",
+      justifyContent: "center",
     },
     iconContainer: {
       display: "flex",
@@ -41,30 +47,30 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: "50%",
       border: "2px solid #FBC02D", // Yellow border
       margin: "0 auto",
-      [theme.breakpoints.up("md")]: {
-        margin: 0,
-      },
     },
     warningIcon: {
       width: "48px",
       height: "48px",
       color: "#FBC02D", // Yellow warning color
     },
-    textAlignCenter: {
+    contentWrapper: {
+      maxWidth: "500px",
+      margin: "0 auto",
+    },
+    textCenter: {
       textAlign: "center",
-      [theme.breakpoints.up("md")]: {
-        textAlign: "left",
-      },
     },
     errorTitle: {
       fontSize: "1.25rem",
       fontWeight: 500,
       color: "#0A4A88", // Medium blue
       marginBottom: theme.spacing(1.5),
+      textAlign: "center",
     },
     messageText: {
       color: theme.palette.text.secondary,
       marginBottom: theme.spacing(2.5),
+      textAlign: "center",
     },
     contactBox: {
       backgroundColor: theme.palette.background.paper,
@@ -72,6 +78,7 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: theme.shape.borderRadius,
       padding: theme.spacing(2),
       marginBottom: theme.spacing(2.5),
+      textAlign: "center",
     },
     emailText: {
       fontSize: theme.typography.pxToRem(14),
@@ -84,22 +91,13 @@ const useStyles = makeStyles((theme: Theme) =>
         textDecoration: "underline",
       },
     },
-    buttonGrid: {
-      [theme.breakpoints.down("xs")]: {
-        flexDirection: "column",
-        "& > div": {
-          width: "100%",
-          marginLeft: 0,
-          marginRight: 0,
-          marginBottom: theme.spacing(1.5),
-        },
-      },
-    },
     buttonContainer: {
       display: "flex",
       justifyContent: "center",
-      [theme.breakpoints.up("md")]: {
-        justifyContent: "flex-start",
+      gap: theme.spacing(2),
+      [theme.breakpoints.down("xs")]: {
+        flexDirection: "column",
+        gap: theme.spacing(1.5),
       },
     },
     refreshButton: {
@@ -108,10 +106,10 @@ const useStyles = makeStyles((theme: Theme) =>
       "&:hover": {
         backgroundColor: "#003366", // Dark blue
       },
-      width: "100%",
+      minWidth: "160px",
     },
     homeButton: {
-      width: "100%",
+      minWidth: "160px",
     },
     buttonIcon: {
       marginRight: theme.spacing(0.5),
@@ -130,8 +128,7 @@ type Properties = {
 
 /**
  * ErrorPanelV2B component displays error information in a simplified panel
- * that matches the dictyBase design system. This is version 2B with
- * Material-UI Grid layout.
+ * that matches the dictyBase design system. This version uses centered layout.
  */
 const ErrorPanelV2B = ({
   title = "Sorry, something went wrong.",
@@ -146,27 +143,9 @@ const ErrorPanelV2B = ({
 
   return (
     <div className={classes.content}>
-      <Grid container spacing={3} alignItems="flex-start">
-        {/* Left - Icon */}
-        <Grid item xs={12} md={2} container justifyContent="center">
-          <div className={classes.iconContainer}>
-            <svg
-              className={classes.warningIcon}
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </div>
-        </Grid>
-
-        {/* Right - Content */}
-        <Grid item xs={12} md={10} className={classes.textAlignCenter}>
+      <Grid container direction="column" spacing={3} alignItems="center">
+        {/* Content */}
+        <Grid item xs={12} className={classes.contentWrapper}>
           <Typography variant="h3" className={classes.errorTitle}>
             {title}
           </Typography>
@@ -178,57 +157,24 @@ const ErrorPanelV2B = ({
           <Paper variant="outlined" className={classes.contactBox}>
             <Typography variant="body2" className={classes.emailText}>
               If this problem persists, please email us at{" "}
-              <a href={`mailto:${supportEmail}`} className={classes.emailLink}>
+              <a
+                href={`mailto:${supportEmail}`}
+                className={classes.emailLink}>
                 {supportEmail}
               </a>
             </Typography>
           </Paper>
 
-          <Grid
-            container
-            spacing={2}
-            className={classes.buttonGrid}
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Grid
-              item
-              xs={12}
-              sm={6}
-              md={4}
-              className={classes.buttonContainer}
-            >
-              <Button
-                variant="contained"
-                className={classes.refreshButton}
-                onClick={handleRefresh}
-                startIcon={<RefreshIcon className={classes.buttonIcon} />}
-                size="medium"
-              >
-                Refresh Page
-              </Button>
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              sm={6}
-              md={4}
-              className={classes.buttonContainer}
-            >
-              <Link href="/" passHref>
-                <Button
-                  variant="outlined"
-                  color="default"
-                  component="a"
-                  className={classes.homeButton}
-                  startIcon={<HomeIcon className={classes.buttonIcon} />}
-                  size="medium"
-                >
-                  Return to Homepage
-                </Button>
-              </Link>
-            </Grid>
-          </Grid>
+          <Box className={classes.buttonContainer}>
+            <Button
+              variant="contained"
+              className={classes.refreshButton}
+              onClick={handleRefresh}
+              startIcon={<RefreshIcon className={classes.buttonIcon} />}
+              size="medium">
+              Refresh Page
+            </Button>
+          </Box>
         </Grid>
       </Grid>
     </div>
