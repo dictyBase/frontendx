@@ -1,10 +1,13 @@
 import { render, screen } from "@testing-library/react"
-import { MockedProvider } from "@apollo/client/testing"
 import { mockGeneralInfoData } from "mocks/mockGeneralInfoData"
 import { GeneralInfoQuery } from "./GeneralInfoQuery"
 
+// Constants to avoid duplicated strings
+const GRAPHQL_SCHEMA_MODULE = "dicty-graphql-schema"
+const PANEL_WRAPPER_TESTID = "panel-wrapper"
+
 // Mock GraphQL document to avoid importing from dicty-graphql-schema
-jest.mock("dicty-graphql-schema", () => ({
+jest.mock(GRAPHQL_SCHEMA_MODULE, () => ({
   GeneGeneralInformationSummaryDocument: {},
   useGeneGeneralInformationSummaryQuery: jest.fn(),
 }))
@@ -19,7 +22,7 @@ jest.mock("next/router", () => ({
 // Mock the PanelWrapper component
 jest.mock("components/panels/PanelWrapper", () => ({
   PanelWrapper: ({ children, title }: any) => (
-    <div data-testid="panel-wrapper">
+    <div data-testid={PANEL_WRAPPER_TESTID}>
       <h2>{title}</h2>
       <div>{children}</div>
     </div>
@@ -31,23 +34,25 @@ describe("features/Summary/Panels/GeneralInfoQuery", () => {
 
   it("should render loading state initially", async () => {
     // Mock the hook implementation for this test
-    const useQueryMock =
-      require("dicty-graphql-schema").useGeneGeneralInformationSummaryQuery
-    useQueryMock.mockReturnValue({ loading: true })
+    const { useGeneGeneralInformationSummaryQuery } = jest.requireMock(
+      GRAPHQL_SCHEMA_MODULE,
+    )
+    useGeneGeneralInformationSummaryQuery.mockReturnValue({ loading: true })
 
     render(<GeneralInfoQuery />)
 
     // Should show title
     expect(screen.getByText("General Information")).toBeInTheDocument()
     // Should show loader
-    expect(screen.getByTestId("panel-wrapper")).toBeInTheDocument()
+    expect(screen.getByTestId(PANEL_WRAPPER_TESTID)).toBeInTheDocument()
   })
 
   it("should render general information when query returns results", async () => {
     // Mock the hook implementation for this test
-    const useQueryMock =
-      require("dicty-graphql-schema").useGeneGeneralInformationSummaryQuery
-    useQueryMock.mockReturnValue({
+    const { useGeneGeneralInformationSummaryQuery } = jest.requireMock(
+      GRAPHQL_SCHEMA_MODULE,
+    )
+    useGeneGeneralInformationSummaryQuery.mockReturnValue({
       loading: false,
       data: {
         geneGeneralInformation: mockGeneralInfoData,
@@ -57,7 +62,7 @@ describe("features/Summary/Panels/GeneralInfoQuery", () => {
     render(<GeneralInfoQuery />)
 
     // Wait for data to load
-    await screen.findByTestId("panel-wrapper")
+    await screen.findByTestId(PANEL_WRAPPER_TESTID)
 
     // Should show title
     expect(screen.getByText("General Information")).toBeInTheDocument()
@@ -65,12 +70,13 @@ describe("features/Summary/Panels/GeneralInfoQuery", () => {
 
   it("should render no data panel when query returns null", async () => {
     // Mock the hook implementation for this test
-    const useQueryMock =
-      require("dicty-graphql-schema").useGeneGeneralInformationSummaryQuery
-    useQueryMock.mockReturnValue({
+    const { useGeneGeneralInformationSummaryQuery } = jest.requireMock(
+      GRAPHQL_SCHEMA_MODULE,
+    )
+    useGeneGeneralInformationSummaryQuery.mockReturnValue({
       loading: false,
       data: {
-        geneGeneralInformation: null,
+        geneGeneralInformation: undefined,
       },
     })
 
@@ -86,14 +92,15 @@ describe("features/Summary/Panels/GeneralInfoQuery", () => {
     render(<GeneralInfoQuery />)
 
     // Wait for query to complete
-    await screen.findByTestId("panel-wrapper")
+    await screen.findByTestId(PANEL_WRAPPER_TESTID)
   })
 
   it("should render error page when query fails", async () => {
     // Mock the hook implementation for this test
-    const useQueryMock =
-      require("dicty-graphql-schema").useGeneGeneralInformationSummaryQuery
-    useQueryMock.mockReturnValue({
+    const { useGeneGeneralInformationSummaryQuery } = jest.requireMock(
+      GRAPHQL_SCHEMA_MODULE,
+    )
+    useGeneGeneralInformationSummaryQuery.mockReturnValue({
       loading: false,
       error: new Error("An error occurred"),
     })
@@ -108,6 +115,6 @@ describe("features/Summary/Panels/GeneralInfoQuery", () => {
     render(<GeneralInfoQuery />)
 
     // Wait for error to appear
-    await screen.findByTestId("panel-wrapper")
+    await screen.findByTestId(PANEL_WRAPPER_TESTID)
   })
 })
