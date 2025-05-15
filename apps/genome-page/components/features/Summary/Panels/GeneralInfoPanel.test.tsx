@@ -3,19 +3,50 @@ import { mockGeneralInfoData } from "mocks/mockGeneralInfoData"
 import { mockGeneralInfoPiaA } from "mocks/piaAMocks/mockGeneralInfoPiaA"
 import { GeneralInfoPanel } from "./GeneralInfoPanel"
 
+// Mock the ItemDisplay component
+jest.mock("components/panels/ItemDisplay", () => ({
+  ItemDisplay: ({ children }: any) => (
+    <div data-testid="item-display">{children}</div>
+  ),
+}))
+
+// Mock the LeftDisplay component
+jest.mock("components/panels/LeftDisplay", () => ({
+  LeftDisplay: ({ children }: any) => (
+    <div data-testid="left-display">{children}</div>
+  ),
+}))
+
+// Mock the RightDisplay component
+jest.mock("components/panels/RightDisplay", () => ({
+  RightDisplay: ({ children }: any) => (
+    <div data-testid="right-display">{children}</div>
+  ),
+}))
+
 describe("features/Summary/Panels/GeneralInfoPanel", () => {
   beforeEach(() => jest.clearAllMocks())
 
-  it("should render sadA", () => {
+  it("should render sadA general information", () => {
     render(<GeneralInfoPanel generalInformation={mockGeneralInfoData} />)
+
+    // Check that the correct number of ItemDisplay components are rendered
+    expect(screen.getAllByTestId("item-display")).toHaveLength(5)
 
     // Name Description
     expect(screen.getByText(/Name Description/)).toBeInTheDocument()
     expect(screen.getByText("sadA = Substrate ADhesion")).toBeInTheDocument()
 
+    // dictyBase ID
+    expect(screen.getByText("dictyBase ID")).toBeInTheDocument()
+    expect(screen.getByText("DDB_G0288511")).toBeInTheDocument()
+
     // Gene Product
     expect(screen.getByText(/Gene Product/)).toBeInTheDocument()
     expect(screen.getByText("substrate adhesion molecule")).toBeInTheDocument()
+
+    // Alternative Protein Names - sadA doesn't have any, but section should still exist
+    expect(screen.getByText(/Alternative Protein Names/)).toBeInTheDocument()
 
     // Description
     expect(screen.getByText("Description")).toBeInTheDocument()
@@ -26,15 +57,17 @@ describe("features/Summary/Panels/GeneralInfoPanel", () => {
     ).toBeInTheDocument()
   })
 
-  it("should render piaA", () => {
+  it("should render piaA with multiple name descriptions and alternative protein names", () => {
     render(<GeneralInfoPanel generalInformation={mockGeneralInfoPiaA} />)
 
-    // Name Description
+    // Name Description - piaA has multiple name descriptions
     expect(screen.getByText(/Name Description/)).toBeInTheDocument()
+    expect(screen.getByText(/pia = PIAnissimo/i)).toBeInTheDocument()
+    expect(screen.getByText(/rictor = Rapamycin-Insensitive Companion of mTOR/i)).toBeInTheDocument()
 
-    // Alternate Gene Name
-    // expect(screen.getByText(/Alternative Gene Names/)).toBeInTheDocument()
-    // expect(screen.getByText(/DG1117/)).toBeInTheDocument()
+    // dictyBase ID
+    expect(screen.getByText("dictyBase ID")).toBeInTheDocument()
+    expect(screen.getByText("DDB_G0277399")).toBeInTheDocument()
 
     // Gene Product
     expect(screen.getByText(/Gene Product/)).toBeInTheDocument()
@@ -55,5 +88,25 @@ describe("features/Summary/Panels/GeneralInfoPanel", () => {
         "required for receptor-mediated activation of adenylyl cyclase; component of the TORC2 (Tor complex 2) with Tor, Lst8, and Rip3 that plays a role in regulation of adenylate cyclase (ACA) and protein kinase B (PKB) activation during aggregation",
       ),
     ).toBeInTheDocument()
+  })
+
+  it("should handle missing or null values in the data", () => {
+    // Create a mock with some null/undefined values
+    const mockWithMissingData = {
+      ...mockGeneralInfoData,
+      gene_product: null, // Test null gene product
+      description: null, // Test null description
+    }
+
+    render(<GeneralInfoPanel generalInformation={mockWithMissingData} />)
+
+    // Gene Product - should render empty string for null value
+    expect(screen.getByText(/Gene Product/)).toBeInTheDocument()
+    
+    // Description - should render empty string for null value  
+    expect(screen.getByText("Description")).toBeInTheDocument()
+    
+    // All sections should still be present
+    expect(screen.getAllByTestId("item-display")).toHaveLength(5)
   })
 })
