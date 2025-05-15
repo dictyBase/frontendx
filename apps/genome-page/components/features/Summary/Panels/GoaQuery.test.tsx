@@ -7,7 +7,7 @@ const GRAPHQL_SCHEMA_MODULE = "dicty-graphql-schema"
 const PANEL_WRAPPER_TESTID = "panel-wrapper"
 
 // Mock GraphQL document to avoid importing from dicty-graphql-schema
-jest.mock(GRAPHQL_SCHEMA_MODULE, () => ({
+jest.mock("dicty-graphql-schema", () => ({
   GeneOntologyAnnotationSummaryDocument: {},
   useGeneOntologyAnnotationSummaryQuery: jest.fn(),
 }))
