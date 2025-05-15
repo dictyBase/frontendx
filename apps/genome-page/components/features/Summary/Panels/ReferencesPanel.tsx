@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { GeneSummaryQuery } from "dicty-graphql-schema"
+import { ListPublicationsWithGeneSummaryQuery } from "dicty-graphql-schema"
 import {
   Paper,
   Table,
@@ -15,7 +15,7 @@ import { useStyles } from "../../../../styles/dataTableStyles"
 
 type Properties = {
   /** Array of GO annotations for a particular gene */
-  publications: GeneSummaryQuery["listPublicationsWithGene"]
+  publications: ListPublicationsWithGeneSummaryQuery["listPublicationsWithGene"]
 }
 
 /**
