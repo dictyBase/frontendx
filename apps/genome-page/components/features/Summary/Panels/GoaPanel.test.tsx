@@ -1,0 +1,118 @@
+import { render, screen } from "@testing-library/react"
+import { mockOntologyData } from "mocks/mockOntologyData"
+import { GoaPanel } from "./GoaPanel"
+
+// Mock any GraphQL schema types that might be imported
+jest.mock("dicty-graphql-schema", () => ({
+  GeneOntologyAnnotationSummaryQuery: {}
+}))
+
+// Mock the ItemDisplay component
+jest.mock("components/panels/ItemDisplay", () => ({
+  ItemDisplay: ({ children }: any) => (
+    <div data-testid="item-display">{children}</div>
+  ),
+}))
+
+// Mock the LeftDisplay component
+jest.mock("components/panels/LeftDisplay", () => ({
+  LeftDisplay: ({ children }: any) => (
+    <div data-testid="left-display">{children}</div>
+  ),
+}))
+
+// Mock the RightDisplay component
+jest.mock("components/panels/RightDisplay", () => ({
+  RightDisplay: ({ children }: any) => (
+    <div data-testid="right-display">{children}</div>
+  ),
+}))
+
+// Mock the GoaPanelContent component
+jest.mock("./GoaPanelContent", () => ({
+  GoaPanelContent: ({ goa }: any) => (
+    <div data-testid="goa-panel-content">{goa.go_term}</div>
+  ),
+}))
+
+describe("features/Summary/Panels/GoaPanel", () => {
+  it("should render all GO sections", () => {
+    render(<GoaPanel goas={mockOntologyData.goas} />)
+    
+    // Check that we have all three GO sections
+    expect(screen.getByText("Molecular Function")).toBeInTheDocument()
+    expect(screen.getByText("Biological Process")).toBeInTheDocument()
+    expect(screen.getByText("Cellular Component")).toBeInTheDocument()
+    
+    // Check that ItemDisplay components were rendered
+    expect(screen.getAllByTestId("item-display")).toHaveLength(3)
+    
+    // Check that LeftDisplay components were rendered
+    expect(screen.getAllByTestId("left-display")).toHaveLength(3)
+    
+    // Check that RightDisplay components were rendered
+    expect(screen.getAllByTestId("right-display")).toHaveLength(3)
+  })
+  
+  it("should filter and display molecular function annotations", () => {
+    render(<GoaPanel goas={mockOntologyData.goas} />)
+    
+    // There is one molecular function annotation with evidence code IPI in test data
+    expect(screen.getByText("protein binding")).toBeInTheDocument()
+  })
+  
+  it("should filter and display biological process annotations", () => {
+    render(<GoaPanel goas={mockOntologyData.goas} />)
+    
+    // There are multiple biological process annotations with evidence code IMP, should display 5 most recent
+    const bioProcessItems = mockOntologyData.goas
+      .filter(item => item.type === "biological_process" && ["IMP", "IGI", "IDA", "IPI", "IEP", "EXP"].includes(item.evidence_code))
+      .sort((a, b) => b.date.localeCompare(a.date))
+      .slice(0, 5)
+      .map(item => item.go_term)
+    
+    // Check that at least one biological process term is displayed
+    expect(screen.getByText(bioProcessItems[0])).toBeInTheDocument()
+  })
+  
+  it("should filter and display cellular component annotations", () => {
+    render(<GoaPanel goas={mockOntologyData.goas} />)
+    
+    // There are cellular component annotations with evidence code IDA, should display them
+    const cellularItems = mockOntologyData.goas
+      .filter(item => item.type === "cellular_component" && ["IMP", "IGI", "IDA", "IPI", "IEP", "EXP"].includes(item.evidence_code))
+      .sort((a, b) => b.date.localeCompare(a.date))
+      .slice(0, 5)
+      .map(item => item.go_term)
+    
+    // Check that at least one cellular component term is displayed
+    expect(screen.getByText(cellularItems[0])).toBeInTheDocument()
+  })
+  
+  it("should use manual annotations if no experimental annotations", () => {
+    // Create mock data with no experimental annotations for molecular function
+    const mockDataNoExp = {
+      goas: [
+        {
+          id: "test1",
+          type: "molecular_function",
+          date: "20211010",
+          evidence_code: "ISS", // not experimental
+          go_term: "test manual annotation",
+          qualifier: "enables",
+          publication: "PMID:12345678",
+          assigned_by: "dictyBase",
+          with: [],
+          extensions: [],
+          __typename: "GOAnnotation",
+        },
+        ...mockOntologyData.goas.filter(g => g.type !== "molecular_function"),
+      ],
+    }
+    
+    render(<GoaPanel goas={mockDataNoExp.goas} />)
+    
+    // Should show the manual annotation since there's no experimental one
+    expect(screen.getByText("test manual annotation")).toBeInTheDocument()
+  })
+})
