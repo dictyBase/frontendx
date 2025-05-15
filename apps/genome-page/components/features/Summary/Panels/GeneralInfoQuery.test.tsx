@@ -6,7 +6,7 @@ import { GeneralInfoQuery } from "./GeneralInfoQuery"
 // Mock GraphQL document to avoid importing from dicty-graphql-schema
 jest.mock("dicty-graphql-schema", () => ({
   GeneGeneralInformationSummaryDocument: {},
-  useGeneGeneralInformationSummaryQuery: jest.fn()
+  useGeneGeneralInformationSummaryQuery: jest.fn(),
 }))
 
 // Mock useRouter
@@ -31,9 +31,10 @@ describe("features/Summary/Panels/GeneralInfoQuery", () => {
 
   it("should render loading state initially", async () => {
     // Mock the hook implementation for this test
-    const useQueryMock = require("dicty-graphql-schema").useGeneGeneralInformationSummaryQuery;
-    useQueryMock.mockReturnValue({ loading: true });
-    
+    const useQueryMock =
+      require("dicty-graphql-schema").useGeneGeneralInformationSummaryQuery
+    useQueryMock.mockReturnValue({ loading: true })
+
     render(<GeneralInfoQuery />)
 
     // Should show title
@@ -44,32 +45,34 @@ describe("features/Summary/Panels/GeneralInfoQuery", () => {
 
   it("should render general information when query returns results", async () => {
     // Mock the hook implementation for this test
-    const useQueryMock = require("dicty-graphql-schema").useGeneGeneralInformationSummaryQuery;
-    useQueryMock.mockReturnValue({ 
+    const useQueryMock =
+      require("dicty-graphql-schema").useGeneGeneralInformationSummaryQuery
+    useQueryMock.mockReturnValue({
       loading: false,
       data: {
-        geneGeneralInformation: mockGeneralInfoData 
-      }
-    });
-    
+        geneGeneralInformation: mockGeneralInfoData,
+      },
+    })
+
     render(<GeneralInfoQuery />)
 
     // Wait for data to load
     await screen.findByTestId("panel-wrapper")
-    
+
     // Should show title
     expect(screen.getByText("General Information")).toBeInTheDocument()
   })
 
   it("should render no data panel when query returns null", async () => {
     // Mock the hook implementation for this test
-    const useQueryMock = require("dicty-graphql-schema").useGeneGeneralInformationSummaryQuery;
-    useQueryMock.mockReturnValue({ 
+    const useQueryMock =
+      require("dicty-graphql-schema").useGeneGeneralInformationSummaryQuery
+    useQueryMock.mockReturnValue({
       loading: false,
       data: {
-        geneGeneralInformation: null 
-      }
-    });
+        geneGeneralInformation: null,
+      },
+    })
 
     // Mock NoDataPanel
     jest.mock("./NoDataPanel", () => ({
@@ -88,11 +91,12 @@ describe("features/Summary/Panels/GeneralInfoQuery", () => {
 
   it("should render error page when query fails", async () => {
     // Mock the hook implementation for this test
-    const useQueryMock = require("dicty-graphql-schema").useGeneGeneralInformationSummaryQuery;
-    useQueryMock.mockReturnValue({ 
+    const useQueryMock =
+      require("dicty-graphql-schema").useGeneGeneralInformationSummaryQuery
+    useQueryMock.mockReturnValue({
       loading: false,
-      error: new Error("An error occurred")
-    });
+      error: new Error("An error occurred"),
+    })
 
     // Mock GraphQLErrorPage
     jest.mock("components/errors/GraphQLErrorPage", () => ({

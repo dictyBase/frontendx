@@ -6,7 +6,7 @@ import { ReferencesQuery } from "./ReferencesQuery"
 // Mock GraphQL document to avoid importing from dicty-graphql-schema
 jest.mock("dicty-graphql-schema", () => ({
   ListPublicationsWithGeneSummaryDocument: {},
-  useListPublicationsWithGeneSummaryQuery: jest.fn()
+  useListPublicationsWithGeneSummaryQuery: jest.fn(),
 }))
 
 // Mock useRouter
@@ -31,9 +31,10 @@ describe("features/Summary/Panels/ReferencesQuery", () => {
 
   it("should render loading state initially", async () => {
     // Mock the hook implementation for this test
-    const useQueryMock = require("dicty-graphql-schema").useListPublicationsWithGeneSummaryQuery;
-    useQueryMock.mockReturnValue({ loading: true });
-    
+    const useQueryMock =
+      require("dicty-graphql-schema").useListPublicationsWithGeneSummaryQuery
+    useQueryMock.mockReturnValue({ loading: true })
+
     render(<ReferencesQuery />)
 
     // Should show title with Publications
@@ -44,32 +45,36 @@ describe("features/Summary/Panels/ReferencesQuery", () => {
 
   it("should render publications data when query returns results", async () => {
     // Mock the hook implementation for this test
-    const useQueryMock = require("dicty-graphql-schema").useListPublicationsWithGeneSummaryQuery;
-    useQueryMock.mockReturnValue({ 
+    const useQueryMock =
+      require("dicty-graphql-schema").useListPublicationsWithGeneSummaryQuery
+    useQueryMock.mockReturnValue({
       loading: false,
       data: {
-        listPublicationsWithGene: mockReferencesData.slice(0, 5)
-      }
-    });
-    
+        listPublicationsWithGene: mockReferencesData.slice(0, 5),
+      },
+    })
+
     render(<ReferencesQuery />)
 
     // Wait for data to load
     await screen.findByTestId("panel-wrapper")
-    
+
     // Should show title with count
-    expect(await screen.findByText(/Publications \(5 of 5\)/)).toBeInTheDocument()
+    expect(
+      await screen.findByText(/Publications \(5 of 5\)/),
+    ).toBeInTheDocument()
   })
 
   it("should render no data panel when query returns empty results", async () => {
     // Mock the hook implementation for this test
-    const useQueryMock = require("dicty-graphql-schema").useListPublicationsWithGeneSummaryQuery;
-    useQueryMock.mockReturnValue({ 
+    const useQueryMock =
+      require("dicty-graphql-schema").useListPublicationsWithGeneSummaryQuery
+    useQueryMock.mockReturnValue({
       loading: false,
       data: {
-        listPublicationsWithGene: []
-      }
-    });
+        listPublicationsWithGene: [],
+      },
+    })
 
     // Mock NoDataPanel
     jest.mock("./NoDataPanel", () => ({
@@ -88,11 +93,12 @@ describe("features/Summary/Panels/ReferencesQuery", () => {
 
   it("should render error page when query fails", async () => {
     // Mock the hook implementation for this test
-    const useQueryMock = require("dicty-graphql-schema").useListPublicationsWithGeneSummaryQuery;
-    useQueryMock.mockReturnValue({ 
+    const useQueryMock =
+      require("dicty-graphql-schema").useListPublicationsWithGeneSummaryQuery
+    useQueryMock.mockReturnValue({
       loading: false,
-      error: new Error("An error occurred")
-    });
+      error: new Error("An error occurred"),
+    })
 
     // Mock GraphQLErrorPage
     jest.mock("components/errors/GraphQLErrorPage", () => ({

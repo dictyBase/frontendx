@@ -6,7 +6,7 @@ import { GoaQuery } from "./GoaQuery"
 // Mock GraphQL document to avoid importing from dicty-graphql-schema
 jest.mock("dicty-graphql-schema", () => ({
   GeneOntologyAnnotationSummaryDocument: {},
-  useGeneOntologyAnnotationSummaryQuery: jest.fn()
+  useGeneOntologyAnnotationSummaryQuery: jest.fn(),
 }))
 
 // Mock useRouter
@@ -31,9 +31,10 @@ describe("features/Summary/Panels/GoaQuery", () => {
 
   it("should render loading state initially", async () => {
     // Mock the hook implementation for this test
-    const useQueryMock = require("dicty-graphql-schema").useGeneOntologyAnnotationSummaryQuery;
-    useQueryMock.mockReturnValue({ loading: true });
-    
+    const useQueryMock =
+      require("dicty-graphql-schema").useGeneOntologyAnnotationSummaryQuery
+    useQueryMock.mockReturnValue({ loading: true })
+
     render(<GoaQuery />)
 
     // Should show title
@@ -44,32 +45,34 @@ describe("features/Summary/Panels/GoaQuery", () => {
 
   it("should render GO annotations when query returns results", async () => {
     // Mock the hook implementation for this test
-    const useQueryMock = require("dicty-graphql-schema").useGeneOntologyAnnotationSummaryQuery;
-    useQueryMock.mockReturnValue({ 
+    const useQueryMock =
+      require("dicty-graphql-schema").useGeneOntologyAnnotationSummaryQuery
+    useQueryMock.mockReturnValue({
       loading: false,
       data: {
-        geneOntologyAnnotation: mockOntologyData.goas
-      }
-    });
-    
+        geneOntologyAnnotation: mockOntologyData.goas,
+      },
+    })
+
     render(<GoaQuery />)
 
     // Wait for data to load
     await screen.findByTestId("panel-wrapper")
-    
+
     // Should show title
     expect(screen.getByText("Gene Ontology Annotations")).toBeInTheDocument()
   })
 
   it("should render no data panel when query returns null", async () => {
     // Mock the hook implementation for this test
-    const useQueryMock = require("dicty-graphql-schema").useGeneOntologyAnnotationSummaryQuery;
-    useQueryMock.mockReturnValue({ 
+    const useQueryMock =
+      require("dicty-graphql-schema").useGeneOntologyAnnotationSummaryQuery
+    useQueryMock.mockReturnValue({
       loading: false,
       data: {
-        geneOntologyAnnotation: null
-      }
-    });
+        geneOntologyAnnotation: null,
+      },
+    })
 
     // Mock NoDataPanel
     jest.mock("./NoDataPanel", () => ({
@@ -88,11 +91,12 @@ describe("features/Summary/Panels/GoaQuery", () => {
 
   it("should render error page when query fails", async () => {
     // Mock the hook implementation for this test
-    const useQueryMock = require("dicty-graphql-schema").useGeneOntologyAnnotationSummaryQuery;
-    useQueryMock.mockReturnValue({ 
+    const useQueryMock =
+      require("dicty-graphql-schema").useGeneOntologyAnnotationSummaryQuery
+    useQueryMock.mockReturnValue({
       loading: false,
-      error: new Error("An error occurred")
-    });
+      error: new Error("An error occurred"),
+    })
 
     // Mock GraphQLErrorPage
     jest.mock("components/errors/GraphQLErrorPage", () => ({
