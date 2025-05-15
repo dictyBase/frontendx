@@ -62,8 +62,10 @@ describe("features/Summary/Panels/GeneralInfoPanel", () => {
 
     // Name Description - piaA has multiple name descriptions
     expect(screen.getByText(/Name Description/)).toBeInTheDocument()
-    expect(screen.getByText(/pia = PIAnissimo/i)).toBeInTheDocument()
-    expect(screen.getByText(/rictor = Rapamycin-Insensitive Companion of mTOR/i)).toBeInTheDocument()
+    expect(screen.getByText(/pia = pianissimo/i)).toBeInTheDocument()
+    expect(
+      screen.getByText(/rictor = rapamycin-insensitive companion of mtor/i),
+    ).toBeInTheDocument()
 
     // dictyBase ID
     expect(screen.getByText("dictyBase ID")).toBeInTheDocument()
@@ -102,10 +104,10 @@ describe("features/Summary/Panels/GeneralInfoPanel", () => {
 
     // Gene Product - should render empty string for null value
     expect(screen.getByText(/Gene Product/)).toBeInTheDocument()
-    
-    // Description - should render empty string for null value  
+
+    // Description - should render empty string for null value
     expect(screen.getByText("Description")).toBeInTheDocument()
-    
+
     // All sections should still be present
     expect(screen.getAllByTestId("item-display")).toHaveLength(5)
   })
