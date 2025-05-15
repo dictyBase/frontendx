@@ -178,20 +178,26 @@ const ErrorPanelC = ({
         <Grid container alignItems="stretch" spacing={2}>
           <Grid item xs={12} sm={6}>
             <Paper variant="outlined" className={classes.errorBox}>
-              <Typography variant="subtitle2" color="primary" gutterBottom>
-                Error Details
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                {details}
-              </Typography>
-              <Button
-                variant="contained"
-                className={classes.refreshButton}
-                onClick={handleRefresh}
-                startIcon={<RefreshIcon className={classes.buttonIcon} />}
-              >
-                Refresh Page
-              </Button>
+              <Grid container direction="column" spacing={2}>
+                <Grid item>
+                  <Typography variant="subtitle2" color="primary" gutterBottom>
+                    Error Details
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    {details}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    className={classes.refreshButton}
+                    onClick={handleRefresh}
+                    startIcon={<RefreshIcon className={classes.buttonIcon} />}
+                  >
+                    Retry
+                  </Button>
+                </Grid>
+              </Grid>
             </Paper>
           </Grid>
           <Grid item xs={12} sm={6}>
