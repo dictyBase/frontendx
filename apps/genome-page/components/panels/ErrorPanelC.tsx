@@ -5,13 +5,13 @@ import Paper from "@material-ui/core/Paper"
 import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
 import RefreshIcon from "@material-ui/icons/Refresh"
-import HomeIcon from "@material-ui/icons/Home"
-import Link from "next/link"
+import { grey } from "@material-ui/core/colors" 
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       padding: "2rem",
+      backgroundColor: grey[100],
     },
     heading: {
       fontSize: theme.typography.pxToRem(15),
