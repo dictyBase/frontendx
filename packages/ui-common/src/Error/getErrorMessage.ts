@@ -1,8 +1,11 @@
 import { ApolloError } from "@apollo/client"
-import { GraphQLErrorExtensions } from "graphql"
+import { GraphQLErrorExtensions, GraphQLFormattedError } from "graphql"
 import { pipe } from "fp-ts/function"
-import { head as RAhead } from "fp-ts/ReadonlyArray"
-import { lookup as Rlookup } from "fp-ts/Record"
+import {
+  head as RAhead,
+  isNonEmpty as RAisNonEmpty,
+  findFirst as RAfindFirst,
+} from "fp-ts/ReadonlyArray"
 import {
   Option,
   none,
@@ -10,16 +13,14 @@ import {
   map as Omap,
   flatMap as OflatMap,
   fromNullable as OfromNullable,
-  getOrElse as OgetOrElse,
   match as Omatch,
 } from "fp-ts/Option"
 import { match, P } from "ts-pattern"
 
-// some of these error messages do not correspond
 enum ErrorMessage {
   NETWORK = "The server encountered an unexpected error",
-  PROTOCOL = "The requested resource is unavailable",
-  CLIENT = "The requested resource is unavailable",
+  PROTOCOL = "There was an issue with the request",
+  CLIENT = "There was an issue with the request",
   GQL_UNAVAILABLE = "The requested resource is unavailable",
   GQL_NOT_FOUND = "The requested resource was not found",
   DEFAULT = "An unexpected error occurred.",
@@ -37,30 +38,40 @@ const getCodeFromExtensions = (extensions: Array<GraphQLErrorExtensions>) =>
     Omap((extensions) => pipe(extensions["code"] as string)),
   )
 
-const getErrorMessage = (error: ApolloError): ErrorResult =>
-  match(error)
-    .with({ cause: { message: "networkError" } }, ({ networkError }) => ({
-      message: ErrorMessage.NETWORK,
-      code: pipe(
-        networkError,
-        OfromNullable,
-        OflatMap((error) =>
-          match(error)
-            .with({ statusCode: P.select(P.number) }, (code) => some(code))
-            .otherwise(() => none),
+const getErrorMessage = (error: ApolloError): ErrorResult => {
+  return match(error)
+    .with({ networkError: P.select(P.not(P.nullish)) }, (networkError) => {
+      return {
+        message: ErrorMessage.NETWORK,
+        code: pipe(
+          networkError,
+          OfromNullable,
+          OflatMap((error) =>
+            match(error)
+              .with({ statusCode: P.select(P.number) }, (code) => some(code))
+              .otherwise(() => none),
+          ),
+          Omap(String),
         ),
-        Omap(String)
-      ),
-    }))
+      }
+    })
     .with(
       {
-        cause: {
-          message: "graphQLError",
-          extensions: P.select(P.array(P.any)),
-        },
+        graphQLErrors: P.select(P.when((errors) => RAisNonEmpty(errors))),
       },
-      (extensions) => {
-        const primaryErrorCode = getCodeFromExtensions(extensions)
+      (gqlErrors) => {
+        const Oerror = pipe(
+          gqlErrors,
+          RAfindFirst((error) => error.hasOwnProperty("extensions")),
+        ) as Option<
+          Required<Pick<GraphQLFormattedError, "extensions">> &
+            Omit<GraphQLFormattedError, "extensions">
+        >
+        const primaryErrorCode = pipe(
+          Oerror,
+          // @ts-ignore
+          Omap(({ extensions }) => extensions.code as string),
+        )
         return pipe(
           primaryErrorCode,
           Omatch(
@@ -85,22 +96,32 @@ const getErrorMessage = (error: ApolloError): ErrorResult =>
     )
     .with(
       {
-        cause: {
-          message: "protocolError",
-          extensions: P.select(P.array(P.any)),
-        },
+        protocolErrors: P.select(P.when((errors) => RAisNonEmpty(errors))),
       },
-      (extensions) => {
+      (protocolErrors) => {
         return {
           message: ErrorMessage.PROTOCOL,
-          code: getCodeFromExtensions(extensions),
+          code: pipe(
+            protocolErrors,
+            RAhead,
+            OflatMap(({ extensions }) => OfromNullable(extensions)),
+            OflatMap(getCodeFromExtensions),
+          ),
         }
       },
     )
-    .with({ cause: { message: "clientError" } }, () => ({
-      message: ErrorMessage.CLIENT,
-      code: none,
-    }))
-    .otherwise(() => ({ message: ErrorMessage.DEFAULT, code: none }))
+    .with(
+      { clientErrors: P.select(P.when((errors) => RAisNonEmpty(errors))) },
+      () => {
+        return {
+          message: ErrorMessage.CLIENT,
+          code: none,
+        }
+      },
+    )
+    .otherwise(() => {
+      return { message: ErrorMessage.DEFAULT, code: none }
+    })
+}
 
 export { getErrorMessage }
