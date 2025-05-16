@@ -8,7 +8,6 @@ import {
   TableContainer,
   TableRow,
 } from "@material-ui/core"
-import { OtherError } from "components/errors/OtherError"
 import { commaSeparateWithAnd } from "common/utils/strings"
 import { parseFormattedStringToDomElements } from "@dictybase/ui-common"
 import Image from "next/image"
@@ -24,8 +23,6 @@ type Properties = {
  */
 const ReferencesPanel = ({ publications }: Properties) => {
   const classes = useStyles()
-
-  if (!publications) return <OtherError />
 
   return (
     <TableContainer component={Paper} className={classes.root}>
