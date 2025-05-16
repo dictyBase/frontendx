@@ -21,7 +21,7 @@ enum ErrorMessage {
   NETWORK = "The server encountered an unexpected error",
   PROTOCOL = "There was an issue with the request",
   CLIENT = "There was an issue with the request",
-  GQL_UNAVAILABLE = "The requested resource is unavailable",
+  GQL_UNAVAILABLE = "The requested resource is unavailable. This is probably an invalid ID. Try a different one.",
   GQL_NOT_FOUND = "The requested resource was not found",
   DEFAULT = "An unexpected error occurred.",
 }
