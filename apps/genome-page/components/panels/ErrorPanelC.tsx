@@ -142,6 +142,7 @@ type Properties = {
   details?: string
   /** Email address for support contact */
   supportEmail?: string
+  retry: () => {}
 }
 
 /**
@@ -153,11 +154,12 @@ const ErrorPanelC = ({
   message = "We encountered an unexpected server error while processing your request.",
   details = "The server encountered an internal error and was unable to complete your request.",
   supportEmail = "dictybase@northwestern.edu",
+  retry,
 }: Properties) => {
   const classes = useStyles()
 
   const handleRefresh = () => {
-    window.location.reload()
+    retry()
   }
 
   return (
