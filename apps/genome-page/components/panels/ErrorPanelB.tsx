@@ -159,99 +159,98 @@ const ErrorPanelB = ({
   }
 
   return (
-        <Grid container direction="column" alignItems="stretch" className={classes.root}>
-          {/* Right Column - Error Details */}
-          <Grid item>
-            <Typography variant="h3" className={classes.errorTitle}>
-              {title}
+    <Grid
+      container
+      direction="column"
+      alignItems="stretch"
+      className={classes.root}>
+      {/* Right Column - Error Details */}
+      <Grid item>
+        <Typography variant="h3" className={classes.errorTitle}>
+          {title}
+        </Typography>
+      </Grid>
+      <Grid item>
+        <Typography variant="body1" color="textSecondary" paragraph>
+          {message}
+        </Typography>
+      </Grid>
+      <Grid item>
+        <Paper variant="outlined" className={classes.errorBox}>
+          <Typography variant="subtitle2" color="primary" gutterBottom>
+            Error Details
+          </Typography>
+          <Typography variant="body2" color="textSecondary">
+            {details}
+          </Typography>
+        </Paper>
+      </Grid>
+      <Grid item>
+        <div className={classes.helpSection}>
+          <div>
+            <Typography variant="subtitle2" color="primary" gutterBottom>
+              What you can try:
             </Typography>
-          </Grid>
-          <Grid item>
-            <Typography variant="body1" color="textSecondary" paragraph>
-              {message}
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Paper variant="outlined" className={classes.errorBox}>
-              <Typography variant="subtitle2" color="primary" gutterBottom>
-                Error Details
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                {details}
-              </Typography>
-            </Paper>
-          </Grid>
-          <Grid item>
-            <div className={classes.helpSection}>
-              <div>
-                <Typography variant="subtitle2" color="primary" gutterBottom>
-                  What you can try:
-                </Typography>
-                <div>
-                  <div className={classes.listItem}>
-                    <CheckCircleIcon
-                      fontSize="small"
-                      className={classes.listIcon}
-                    />
-                    <Typography variant="body2">Refresh the page</Typography>
-                  </div>
-                  <div className={classes.listItem}>
-                    <CheckCircleIcon
-                      fontSize="small"
-                      className={classes.listIcon}
-                    />
-                    <Typography variant="body2">
-                      Check your internet connection
-                    </Typography>
-                  </div>
-                  <div className={classes.listItem}>
-                    <CheckCircleIcon
-                      fontSize="small"
-                      className={classes.listIcon}
-                    />
-                    <Typography variant="body2">Try again later</Typography>
-                  </div>
-                </div>
+            <div>
+              <div className={classes.listItem}>
+                <CheckCircleIcon
+                  fontSize="small"
+                  className={classes.listIcon}
+                />
+                <Typography variant="body2">Refresh the page</Typography>
               </div>
+              <div className={classes.listItem}>
+                <CheckCircleIcon
+                  fontSize="small"
+                  className={classes.listIcon}
+                />
+                <Typography variant="body2">
+                  Check your internet connection
+                </Typography>
+              </div>
+              <div className={classes.listItem}>
+                <CheckCircleIcon
+                  fontSize="small"
+                  className={classes.listIcon}
+                />
+                <Typography variant="body2">Try again later</Typography>
+              </div>
+            </div>
+          </div>
 
-              <Paper variant="outlined" className={classes.infoBox}>
-                <Typography variant="subtitle2" color="primary" gutterBottom>
-                  Need assistance?
-                </Typography>
-                <Typography variant="body2" color="textSecondary" paragraph>
-                  If this problem persists, please email us at:
-                </Typography>
-                <a
-                  href={`mailto:${supportEmail}`}
-                  className={classes.emailLink}
-                >
-                  {supportEmail}
-                </a>
-              </Paper>
-            </div>
-          </Grid>
-          <Grid item>
-            <div className={classes.buttonContainer}>
-              <Button
-                variant="contained"
-                className={classes.refreshButton}
-                onClick={handleRefresh}
-                startIcon={<RefreshIcon className={classes.buttonIcon} />}
-              >
-                Refresh Page
-              </Button>
-              <Link href="/">
-                <Button
-                  variant="outlined"
-                  className={classes.homeButton}
-                  startIcon={<HomeIcon className={classes.buttonIcon} />}
-                >
-                  Return to Homepage
-                </Button>
-              </Link>
-            </div>
-          </Grid>
-        </Grid>
+          <Paper variant="outlined" className={classes.infoBox}>
+            <Typography variant="subtitle2" color="primary" gutterBottom>
+              Need assistance?
+            </Typography>
+            <Typography variant="body2" color="textSecondary" paragraph>
+              If this problem persists, please email us at:
+            </Typography>
+            <a href={`mailto:${supportEmail}`} className={classes.emailLink}>
+              {supportEmail}
+            </a>
+          </Paper>
+        </div>
+      </Grid>
+      <Grid item>
+        <div className={classes.buttonContainer}>
+          <Button
+            variant="contained"
+            className={classes.refreshButton}
+            onClick={handleRefresh}
+            startIcon={<RefreshIcon className={classes.buttonIcon} />}>
+            Refresh Page
+          </Button>
+          <Link href="/">
+            <Button
+              variant="outlined"
+              className={classes.homeButton}
+              startIcon={<HomeIcon className={classes.buttonIcon} />}>
+              Return to Homepage
+            </Button>
+          </Link>
+        </div>
+      </Grid>
+    </Grid>
   )
 }
 

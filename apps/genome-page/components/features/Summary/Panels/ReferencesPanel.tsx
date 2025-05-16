@@ -47,8 +47,7 @@ const ReferencesPanel = ({ publications }: Properties) => {
               <TableCell className={classes.cellIcons}>
                 <a
                   className={classes.icon}
-                  href={`${process.env.NEXT_PUBLIC_PUBLICATION_URL}/${publication.id}`}
-                >
+                  href={`${process.env.NEXT_PUBLIC_PUBLICATION_URL}/${publication.id}`}>
                   <Image
                     src="/refDicty.gif"
                     alt="Ref Dicty"
@@ -58,8 +57,7 @@ const ReferencesPanel = ({ publications }: Properties) => {
                 </a>
                 <a
                   className={classes.icon}
-                  href={`https://pubmed.ncbi.nlm.nih.gov/${publication.issue}/`}
-                >
+                  href={`https://pubmed.ncbi.nlm.nih.gov/${publication.issue}/`}>
                   <Image
                     src="/refPubmed.gif"
                     alt="Ref Dicty"

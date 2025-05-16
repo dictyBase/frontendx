@@ -145,69 +145,67 @@ const ErrorPanelV2 = ({
   }
 
   return (
-      <div className={classes.content}>
-        <div className={classes.flexContainer}>
-          {/* Left - Icon */}
-          <div className={classes.iconWrapper}>
-            <div className={classes.iconContainer}>
-              <svg
-                className={classes.warningIcon}
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor">
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </div>
-          </div>
-
-          {/* Right - Content */}
-          <div className={classes.contentWrapper}>
-            <Typography variant="h3" className={classes.errorTitle}>
-              {title}
-            </Typography>
-
-            <Typography variant="body1" className={classes.messageText}>
-              {message}
-            </Typography>
-
-            <Paper variant="outlined" className={classes.contactBox}>
-              <Typography variant="body2" className={classes.emailText}>
-                If this problem persists, please email us at{" "}
-                <a
-                  href={`mailto:${supportEmail}`}
-                  className={classes.emailLink}>
-                  {supportEmail}
-                </a>
-              </Typography>
-            </Paper>
-
-            <Box className={classes.buttonContainer}>
-              <Button
-                variant="contained"
-                className={classes.refreshButton}
-                onClick={handleRefresh}
-                startIcon={<RefreshIcon className={classes.buttonIcon} />}
-                size="medium">
-                Refresh Page
-              </Button>
-              <Link href="/" passHref>
-                <Button
-                  variant="outlined"
-                  color="default"
-                  component="a"
-                  startIcon={<HomeIcon className={classes.buttonIcon} />}
-                  size="medium">
-                  Return to Homepage
-                </Button>
-              </Link>
-            </Box>
+    <div className={classes.content}>
+      <div className={classes.flexContainer}>
+        {/* Left - Icon */}
+        <div className={classes.iconWrapper}>
+          <div className={classes.iconContainer}>
+            <svg
+              className={classes.warningIcon}
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor">
+              <path
+                fillRule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z"
+                clipRule="evenodd"
+              />
+            </svg>
           </div>
         </div>
+
+        {/* Right - Content */}
+        <div className={classes.contentWrapper}>
+          <Typography variant="h3" className={classes.errorTitle}>
+            {title}
+          </Typography>
+
+          <Typography variant="body1" className={classes.messageText}>
+            {message}
+          </Typography>
+
+          <Paper variant="outlined" className={classes.contactBox}>
+            <Typography variant="body2" className={classes.emailText}>
+              If this problem persists, please email us at{" "}
+              <a href={`mailto:${supportEmail}`} className={classes.emailLink}>
+                {supportEmail}
+              </a>
+            </Typography>
+          </Paper>
+
+          <Box className={classes.buttonContainer}>
+            <Button
+              variant="contained"
+              className={classes.refreshButton}
+              onClick={handleRefresh}
+              startIcon={<RefreshIcon className={classes.buttonIcon} />}
+              size="medium">
+              Refresh Page
+            </Button>
+            <Link href="/" passHref>
+              <Button
+                variant="outlined"
+                color="default"
+                component="a"
+                startIcon={<HomeIcon className={classes.buttonIcon} />}
+                size="medium">
+                Return to Homepage
+              </Button>
+            </Link>
+          </Box>
+        </div>
       </div>
+    </div>
   )
 }
 
