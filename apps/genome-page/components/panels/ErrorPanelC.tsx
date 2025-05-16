@@ -5,7 +5,8 @@ import Paper from "@material-ui/core/Paper"
 import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
 import RefreshIcon from "@material-ui/icons/Refresh"
-import { grey } from "@material-ui/core/colors" 
+import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline"
+import { grey } from "@material-ui/core/colors"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,7 +24,8 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: "0px",
     },
     icon: {
-      color: "#fff",
+      color: theme.palette.primary.main,
+      fontSize: "4rem"
     },
     details: {
       padding: 0,
@@ -167,12 +169,19 @@ const ErrorPanelC = ({
       spacing={1}
     >
       <Grid item>
-        <Typography variant="h3" className={classes.errorTitle}>
-          {title}
-        </Typography>
-        <Typography variant="body1" color="textSecondary" paragraph>
-          {message}
-        </Typography>
+        <Grid container spacing={2}>
+          <Grid item>
+            <ErrorOutlineIcon className={classes.icon}/>
+          </Grid>
+          <Grid item>
+            <Typography variant="h3" className={classes.errorTitle}>
+              {title}
+            </Typography>
+            <Typography variant="body1" color="textSecondary" paragraph>
+              {message}
+            </Typography>
+          </Grid>
+        </Grid>
       </Grid>
       <Grid item>
         <Grid container alignItems="stretch" spacing={2}>
