@@ -21,7 +21,7 @@ enum ErrorMessage {
   NETWORK = "The server encountered an unexpected error",
   PROTOCOL = "There was an issue with the request",
   CLIENT = "There was an issue with the request",
-  GQL_UNAVAILABLE = "The requested resource is unavailable. This is probably an invalid ID. Try a different one.",
+  GQL_UNAVAILABLE = "The requested resource is unavailable",
   GQL_NOT_FOUND = "The requested resource was not found",
   DEFAULT = "An unexpected error occurred.",
 }
@@ -31,30 +31,29 @@ type ErrorResult = {
   code: Option<string>
 }
 
-const getCodeFromExtensions = (extensions: Array<GraphQLErrorExtensions>) =>
+const getCodeFromExtensions = (extensionsArr: Array<GraphQLErrorExtensions>) =>
   pipe(
-    extensions,
+    extensionsArr,
     RAhead,
-    Omap((extensions) => pipe(extensions["code"] as string)),
+    // @ts-ignore
+    Omap((extensions) => pipe(extensions.code as string)),
   )
 
-const getErrorMessage = (error: ApolloError): ErrorResult => {
-  return match(error)
-    .with({ networkError: P.select(P.not(P.nullish)) }, (networkError) => {
-      return {
-        message: ErrorMessage.NETWORK,
-        code: pipe(
-          networkError,
-          OfromNullable,
-          OflatMap((error) =>
-            match(error)
-              .with({ statusCode: P.select(P.number) }, (code) => some(code))
-              .otherwise(() => none),
-          ),
-          Omap(String),
+const getErrorMessage = (error: ApolloError): ErrorResult =>
+  match(error)
+    .with({ networkError: P.select(P.not(P.nullish)) }, (networkError) => ({
+      message: ErrorMessage.NETWORK,
+      code: pipe(
+        networkError,
+        OfromNullable,
+        OflatMap((someNetworkError) =>
+          match(someNetworkError)
+            .with({ statusCode: P.select(P.number) }, (code) => some(code))
+            .otherwise(() => none),
         ),
-      }
-    })
+        Omap(String),
+      ),
+    }))
     .with(
       {
         graphQLErrors: P.select(P.when((errors) => RAisNonEmpty(errors))),
@@ -62,7 +61,7 @@ const getErrorMessage = (error: ApolloError): ErrorResult => {
       (gqlErrors) => {
         const Oerror = pipe(
           gqlErrors,
-          RAfindFirst((error) => error.hasOwnProperty("extensions")),
+          RAfindFirst((gqlError) => Object.prototype.hasOwnProperty.call(gqlError, "extensions")),
         ) as Option<
           Required<Pick<GraphQLFormattedError, "extensions">> &
             Omit<GraphQLFormattedError, "extensions">
@@ -98,30 +97,23 @@ const getErrorMessage = (error: ApolloError): ErrorResult => {
       {
         protocolErrors: P.select(P.when((errors) => RAisNonEmpty(errors))),
       },
-      (protocolErrors) => {
-        return {
-          message: ErrorMessage.PROTOCOL,
-          code: pipe(
-            protocolErrors,
-            RAhead,
-            OflatMap(({ extensions }) => OfromNullable(extensions)),
-            OflatMap(getCodeFromExtensions),
-          ),
-        }
-      },
+      (protocolErrors) => ({
+        message: ErrorMessage.PROTOCOL,
+        code: pipe(
+          protocolErrors,
+          RAhead,
+          OflatMap(({ extensions }) => OfromNullable(extensions)),
+          OflatMap(getCodeFromExtensions),
+        ),
+      }),
     )
     .with(
       { clientErrors: P.select(P.when((errors) => RAisNonEmpty(errors))) },
-      () => {
-        return {
-          message: ErrorMessage.CLIENT,
-          code: none,
-        }
-      },
+      () => ({
+        message: ErrorMessage.CLIENT,
+        code: none,
+      }),
     )
-    .otherwise(() => {
-      return { message: ErrorMessage.DEFAULT, code: none }
-    })
-}
+    .otherwise(() => ({ message: ErrorMessage.DEFAULT, code: none }))
 
 export { getErrorMessage }

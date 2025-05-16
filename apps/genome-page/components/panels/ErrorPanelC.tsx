@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     icon: {
       color: theme.palette.primary.main,
-      fontSize: "4rem"
+      fontSize: "4rem",
     },
     details: {
       padding: 0,
@@ -168,12 +168,11 @@ const ErrorPanelC = ({
       direction="column"
       alignItems="stretch"
       className={classes.root}
-      spacing={1}
-    >
+      spacing={1}>
       <Grid item>
         <Grid container spacing={2}>
           <Grid item>
-            <ErrorOutlineIcon className={classes.icon}/>
+            <ErrorOutlineIcon className={classes.icon} />
           </Grid>
           <Grid item>
             <Typography variant="h3" className={classes.errorTitle}>
@@ -203,8 +202,7 @@ const ErrorPanelC = ({
                     variant="contained"
                     className={classes.refreshButton}
                     onClick={handleRefresh}
-                    startIcon={<RefreshIcon className={classes.buttonIcon} />}
-                  >
+                    startIcon={<RefreshIcon className={classes.buttonIcon} />}>
                     Retry
                   </Button>
                 </Grid>

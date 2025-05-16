@@ -1,3 +1,4 @@
+import { getErrorMessage } from "@dictybase/ui-common"
 import { useRouter } from "next/router"
 import { useListPublicationsWithGeneSummaryQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
@@ -6,7 +7,6 @@ import { ErrorPanelC } from "components/panels/ErrorPanelC"
 import { PanelWrapper } from "components/panels/PanelWrapper"
 import { NoDataPanel } from "./NoDataPanel"
 import { ReferencesPanel } from "./ReferencesPanel"
-import { getErrorMessage } from "../utils/getErrorMessage"
 
 const ReferencesQuery = () => {
   const { query } = useRouter()
@@ -44,8 +44,7 @@ const ReferencesQuery = () => {
         return (
           <PanelWrapper
             route={`${gene}/references`}
-            title={`Publications (${partialPublicationsList.length} of ${publications.length}) `}
-          >
+            title={`Publications (${partialPublicationsList.length} of ${publications.length}) `}>
             <ReferencesPanel publications={partialPublicationsList} />
           </PanelWrapper>
         )

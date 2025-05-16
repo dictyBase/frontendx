@@ -241,8 +241,7 @@ const ErrorPanel = ({
                 </Typography>
                 <a
                   href={`mailto:${supportEmail}`}
-                  className={classes.emailLink}
-                >
+                  className={classes.emailLink}>
                   {supportEmail}
                 </a>
               </Paper>
@@ -253,16 +252,14 @@ const ErrorPanel = ({
                 variant="contained"
                 className={classes.refreshButton}
                 onClick={handleRefresh}
-                startIcon={<RefreshIcon className={classes.buttonIcon} />}
-              >
+                startIcon={<RefreshIcon className={classes.buttonIcon} />}>
                 Refresh Page
               </Button>
               <Link href="/">
                 <Button
                   variant="outlined"
                   className={classes.homeButton}
-                  startIcon={<HomeIcon className={classes.buttonIcon} />}
-                >
+                  startIcon={<HomeIcon className={classes.buttonIcon} />}>
                   Return to Homepage
                 </Button>
               </Link>
