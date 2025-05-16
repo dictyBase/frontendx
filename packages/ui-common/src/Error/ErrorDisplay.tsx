@@ -7,6 +7,7 @@ import RefreshIcon from "@material-ui/icons/Refresh"
 import HomeIcon from "@material-ui/icons/Home"
 import CheckCircleIcon from "@material-ui/icons/CheckCircle"
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline"
+import { grey } from "@material-ui/core/colors"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -14,6 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       padding: "2rem",
+      backgroundColor: grey[100],
     },
     heading: {
       fontSize: theme.typography.pxToRem(15),
