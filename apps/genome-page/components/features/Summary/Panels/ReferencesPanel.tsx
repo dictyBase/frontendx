@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core"
 import { OtherError } from "components/errors/OtherError"
 import { commaSeparateWithAnd } from "common/utils/strings"
+import { parseFormattedStringToDomElements } from "@dictybase/ui-common"
 import Image from "next/image"
 import { useStyles } from "../../../../styles/dataTableStyles"
 
@@ -38,7 +39,9 @@ const ReferencesPanel = ({ publications }: Properties) => {
                     publication.authors.map((a) => a.last_name),
                   )}
                 </b>
-                &nbsp; &apos;{publication.title}&apos; &nbsp;
+                &nbsp; &apos;
+                {parseFormattedStringToDomElements(publication.title)}&apos;
+                &nbsp;
                 <i>{publication.journal}</i>
                 &nbsp;
                 {publication.pages}
@@ -47,7 +50,8 @@ const ReferencesPanel = ({ publications }: Properties) => {
               <TableCell className={classes.cellIcons}>
                 <a
                   className={classes.icon}
-                  href={`${process.env.NEXT_PUBLIC_PUBLICATION_URL}/${publication.id}`}>
+                  href={`${process.env.NEXT_PUBLIC_PUBLICATION_URL}/${publication.id}`}
+                >
                   <Image
                     src="/refDicty.gif"
                     alt="Ref Dicty"
@@ -57,7 +61,8 @@ const ReferencesPanel = ({ publications }: Properties) => {
                 </a>
                 <a
                   className={classes.icon}
-                  href={`https://pubmed.ncbi.nlm.nih.gov/${publication.issue}/`}>
+                  href={`https://pubmed.ncbi.nlm.nih.gov/${publication.issue}/`}
+                >
                   <Image
                     src="/refPubmed.gif"
                     alt="Ref Dicty"
