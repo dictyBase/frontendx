@@ -148,6 +148,13 @@ type Properties = {
 }
 
 /**
+ * Handles refresh button click
+ */
+const handleRefresh = () => {
+  window.location.reload()
+}
+
+/**
  * ErrorPanel component displays error information in a styled panel
  * that matches the dictyBase design system.
  */
@@ -158,10 +165,6 @@ const ErrorPanel = ({
   supportEmail = "dictybase@northwestern.edu",
 }: Properties) => {
   const classes = useStyles()
-
-  const handleRefresh = () => {
-    window.location.reload()
-  }
 
   return (
     <div className={classes.root}>

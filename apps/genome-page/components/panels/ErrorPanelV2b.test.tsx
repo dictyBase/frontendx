@@ -1,7 +1,7 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { ErrorPanelV2B } from "./ErrorPanelV2B"
+import { ErrorPanelV2B } from "./ErrorPanelV2b"
 
 // Mock next/link
 jest.mock("next/link", () => ({
@@ -13,7 +13,7 @@ jest.mock("next/link", () => ({
     children: React.ReactNode
     href: string
   }) => (
-    <a href={href} onClick={(e) => e.preventDefault()}>
+    <a href={href} onClick={(event) => event.preventDefault()}>
       {children}
     </a>
   ),

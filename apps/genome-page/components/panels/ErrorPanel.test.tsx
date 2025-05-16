@@ -7,7 +7,7 @@ import { ErrorPanel } from "./ErrorPanel"
 jest.mock("next/image", () => ({
   __esModule: true,
   default: (properties: any) => (
-    // eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element
+    // eslint-disable-next-line jsx-a11y/alt-text
     <img {...properties} />
   ),
 }))
@@ -22,7 +22,7 @@ jest.mock("next/link", () => ({
     children: React.ReactNode
     href: string
   }) => (
-    <a href={href} onClick={(e) => e.preventDefault()}>
+    <a href={href} onClick={(event) => event.preventDefault()}>
       {children}
     </a>
   ),

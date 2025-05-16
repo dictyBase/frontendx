@@ -7,7 +7,6 @@ import Button from "@material-ui/core/Button"
 import RefreshIcon from "@material-ui/icons/Refresh"
 import HomeIcon from "@material-ui/icons/Home"
 import CheckCircleIcon from "@material-ui/icons/CheckCircle"
-import Image from "next/image"
 import Link from "next/link"
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -143,6 +142,13 @@ type Properties = {
 }
 
 /**
+ * Handle page refresh when the refresh button is clicked
+ */
+const handleRefresh = () => {
+  window.location.reload()
+}
+
+/**
  * ErrorPanel component displays error information in a styled panel
  * that matches the dictyBase design system.
  */
@@ -153,10 +159,6 @@ const ErrorPanelB = ({
   supportEmail = "dictybase@northwestern.edu",
 }: Properties) => {
   const classes = useStyles()
-
-  const handleRefresh = () => {
-    window.location.reload()
-  }
 
   return (
     <Grid
