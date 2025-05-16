@@ -5,7 +5,6 @@ import Tab from "@material-ui/core/Tab"
 import Typography from "@material-ui/core/Typography"
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles"
 import { GoAnnotation } from "dicty-graphql-schema"
-import { OtherError } from "components/errors/OtherError"
 import { InnerGoPanel } from "./InnerGoPanel"
 
 const muiTheme = createTheme({
@@ -39,8 +38,6 @@ type Properties = {
  */
 const OntologyTabLayout = ({ goas }: Properties) => {
   const [tabValue, setTabValue] = React.useState(0)
-
-  if (!goas) return <OtherError />
 
   // set variables for filtered arrays based on evidence code
   const experimental = goas.filter(
