@@ -6,8 +6,6 @@ import Button from "@material-ui/core/Button"
 import Grid from "@material-ui/core/Grid"
 import Box from "@material-ui/core/Box"
 import RefreshIcon from "@material-ui/icons/Refresh"
-import HomeIcon from "@material-ui/icons/Home"
-import Link from "next/link"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -117,6 +115,10 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
+const handleRefresh = () => {
+  window.location.reload()
+}
+
 type Properties = {
   /** Title of the error panel */
   title?: string
@@ -137,10 +139,6 @@ const ErrorPanelV2B = ({
 }: Properties) => {
   const classes = useStyles()
 
-  const handleRefresh = () => {
-    window.location.reload()
-  }
-
   return (
     <div className={classes.content}>
       <Grid container direction="column" spacing={3} alignItems="center">
@@ -157,9 +155,7 @@ const ErrorPanelV2B = ({
           <Paper variant="outlined" className={classes.contactBox}>
             <Typography variant="body2" className={classes.emailText}>
               If this problem persists, please email us at{" "}
-              <a
-                href={`mailto:${supportEmail}`}
-                className={classes.emailLink}>
+              <a href={`mailto:${supportEmail}`} className={classes.emailLink}>
                 {supportEmail}
               </a>
             </Typography>
