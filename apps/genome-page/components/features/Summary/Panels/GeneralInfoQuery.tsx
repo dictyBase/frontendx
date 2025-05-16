@@ -2,10 +2,11 @@ import { useRouter } from "next/router"
 import { useGeneGeneralInformationSummaryQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { Loader } from "components/Loader"
-import { GraphQLErrorPage } from "components/errors/GraphQLErrorPage"
+import { ErrorPanelC } from "components/panels/ErrorPanelC"
 import { PanelWrapper } from "components/panels/PanelWrapper"
 import { GeneralInfoPanel } from "./GeneralInfoPanel"
 import { NoDataPanel } from "./NoDataPanel"
+import { getErrorMessage } from "../utils/getErrorMessage"
 
 const GeneralInfoQuery = () => {
   const { query } = useRouter()
@@ -31,7 +32,7 @@ const GeneralInfoQuery = () => {
           ),
         )
         .with({ error: P.select(P.not(P.nullish)) }, (error) => (
-          <GraphQLErrorPage error={error} />
+          <ErrorPanelC retry={result.refetch} details={getErrorMessage(error).message}/>
         ))
         .with(
           {
