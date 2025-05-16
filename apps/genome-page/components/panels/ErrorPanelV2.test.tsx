@@ -13,7 +13,7 @@ jest.mock("next/link", () => ({
     children: React.ReactNode
     href: string
   }) => (
-    <a href={href} onClick={(e) => e.preventDefault()}>
+    <a href={href} onClick={(event) => event.preventDefault()}>
       {children}
     </a>
   ),
