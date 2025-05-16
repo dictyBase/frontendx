@@ -1,6 +1,8 @@
 import { ApolloError } from "@apollo/client"
+import { GraphQLErrorExtensions } from "graphql"
 import { pipe } from "fp-ts/function"
 import { head as RAhead } from "fp-ts/ReadonlyArray"
+import { lookup as Rlookup } from "fp-ts/Record"
 import {
   Option,
   none,
@@ -13,13 +15,13 @@ import {
 } from "fp-ts/Option"
 import { match, P } from "ts-pattern"
 
+// some of these error messages do not correspond
 enum ErrorMessage {
-  NETWORK = "The requested resource is unavailable",
-  NETWORK_SERVER = "The server encountered an unexpected error",
+  NETWORK = "The server encountered an unexpected error",
   PROTOCOL = "The requested resource is unavailable",
   CLIENT = "The requested resource is unavailable",
-  UNAVAILABLE = "The requested resource is unavailable",
-  NOT_FOUND = "The requested resource was not found",
+  GQL_UNAVAILABLE = "The requested resource is unavailable",
+  GQL_NOT_FOUND = "The requested resource was not found",
   DEFAULT = "An unexpected error occurred.",
 }
 
@@ -28,11 +30,27 @@ type ErrorResult = {
   code: Option<string>
 }
 
+const getCodeFromExtensions = (extensions: Array<GraphQLErrorExtensions>) =>
+  pipe(
+    extensions,
+    RAhead,
+    Omap((extensions) => pipe(extensions["code"] as string)),
+  )
+
 const getErrorMessage = (error: ApolloError): ErrorResult =>
   match(error)
-    .with({ cause: { message: "networkError" } }, () => ({
+    .with({ cause: { message: "networkError" } }, ({ networkError }) => ({
       message: ErrorMessage.NETWORK,
-      code: none,
+      code: pipe(
+        networkError,
+        OfromNullable,
+        OflatMap((error) =>
+          match(error)
+            .with({ statusCode: P.select(P.number) }, (code) => some(code))
+            .otherwise(() => none),
+        ),
+        Omap(String)
+      ),
     }))
     .with(
       {
@@ -42,11 +60,7 @@ const getErrorMessage = (error: ApolloError): ErrorResult =>
         },
       },
       (extensions) => {
-        const primaryErrorCode = pipe(
-          extensions,
-          RAhead,
-          Omap((extensions) => pipe(extensions["code"] as string)),
-        )
+        const primaryErrorCode = getCodeFromExtensions(extensions)
         return pipe(
           primaryErrorCode,
           Omatch(
@@ -54,11 +68,11 @@ const getErrorMessage = (error: ApolloError): ErrorResult =>
             (code) =>
               match(code)
                 .with("Unavailable", () => ({
-                  message: ErrorMessage.UNAVAILABLE,
+                  message: ErrorMessage.GQL_UNAVAILABLE,
                   code: primaryErrorCode,
                 }))
                 .with("NotFound", () => ({
-                  message: ErrorMessage.NOT_FOUND,
+                  message: ErrorMessage.GQL_NOT_FOUND,
                   code: primaryErrorCode,
                 }))
                 .otherwise(() => ({
@@ -77,12 +91,10 @@ const getErrorMessage = (error: ApolloError): ErrorResult =>
         },
       },
       (extensions) => {
-        const primaryErrorCode = pipe(
-          extensions,
-          RAhead,
-          Omap((extensions) => pipe(extensions["code"] as string)),
-        )
-        return { message: ErrorMessage.PROTOCOL, code: primaryErrorCode }
+        return {
+          message: ErrorMessage.PROTOCOL,
+          code: getCodeFromExtensions(extensions),
+        }
       },
     )
     .with({ cause: { message: "clientError" } }, () => ({
