@@ -31,9 +31,11 @@ type ErrorResult = {
   code: Option<string>
 }
 
-const getCodeFromExtensions = (extensionsArr: Array<GraphQLErrorExtensions>) =>
+const getCodeFromExtensions = (
+  extensionsArray: Array<GraphQLErrorExtensions>,
+) =>
   pipe(
-    extensionsArr,
+    extensionsArray,
     RAhead,
     // @ts-ignore
     Omap((extensions) => pipe(extensions.code as string)),
@@ -61,7 +63,9 @@ const getErrorMessage = (error: ApolloError): ErrorResult =>
       (gqlErrors) => {
         const Oerror = pipe(
           gqlErrors,
-          RAfindFirst((gqlError) => Object.prototype.hasOwnProperty.call(gqlError, "extensions")),
+          RAfindFirst((gqlError) =>
+            Object.prototype.hasOwnProperty.call(gqlError, "extensions"),
+          ),
         ) as Option<
           Required<Pick<GraphQLFormattedError, "extensions">> &
             Omit<GraphQLFormattedError, "extensions">

@@ -8,8 +8,6 @@ import HomeIcon from "@material-ui/icons/Home"
 import CheckCircleIcon from "@material-ui/icons/CheckCircle"
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline"
 import { grey } from "@material-ui/core/colors"
-import Image from "next/image"
-import Link from "next/link"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     icon: {
       color: theme.palette.primary.main,
-      fontSize: "4rem"
+      fontSize: "4rem",
     },
     details: {
       padding: 0,
@@ -157,10 +155,6 @@ const ErrorDisplay = ({
 }: Properties) => {
   const classes = useStyles()
 
-  const handleRefresh = () => {
-    window.location.reload()
-  }
-
   return (
     <Grid
       container
@@ -244,18 +238,16 @@ const ErrorDisplay = ({
           <Button
             variant="contained"
             className={classes.refreshButton}
-            onClick={handleRefresh}
+            onClick={() => window.location.reload()}
             startIcon={<RefreshIcon className={classes.buttonIcon} />}>
             Refresh Page
           </Button>
-          <Link href="/">
-            <Button
-              variant="outlined"
-              className={classes.homeButton}
-              startIcon={<HomeIcon className={classes.buttonIcon} />}>
-              Return to Homepage
-            </Button>
-          </Link>
+          <Button
+            variant="outlined"
+            className={classes.homeButton}
+            startIcon={<HomeIcon className={classes.buttonIcon} />}>
+            Return to Homepage
+          </Button>
         </div>
       </Grid>
     </Grid>

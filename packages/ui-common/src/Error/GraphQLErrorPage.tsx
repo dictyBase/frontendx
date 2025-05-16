@@ -1,14 +1,5 @@
 /* eslint-disable unicorn/filename-case */
 import { ApolloError } from "@apollo/client"
-import { pipe } from "fp-ts/function"
-import { head as RAhead } from "fp-ts/ReadonlyArray"
-import {
-  map as Omap,
-  flatMap as OflatMap,
-  fromNullable as OfromNullable,
-  getOrElse as OgetOrElse,
-} from "fp-ts/Option"
-import { match, P } from "ts-pattern"
 import Paper from "@material-ui/core/Paper"
 import { makeStyles } from "@material-ui/core/styles"
 import { blue, grey } from "@material-ui/core/colors"
