@@ -107,16 +107,14 @@ describe("features/Summary/Panels/ReferencesQuery", () => {
       error: new Error("An error occurred"),
     })
 
-    // Mock GraphQLErrorPage
-    jest.mock("components/errors/GraphQLErrorPage", () => ({
-      GraphQLErrorPage: ({ error }: any) => (
-        <div data-testid="graphql-error">{error.message}</div>
-      ),
-    }))
-
     render(<ReferencesQuery />)
 
     // Wait for error to appear
     await screen.findByTestId(PANEL_WRAPPER_TESTID)
+    expect(
+      screen.getByText(
+        "We encountered an unexpected error while processing your request.",
+      ),
+    ).toBeInTheDocument()
   })
 })
