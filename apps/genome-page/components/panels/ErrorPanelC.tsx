@@ -151,7 +151,7 @@ type Properties = {
  */
 const ErrorPanelC = ({
   title = "Sorry, something went wrong.",
-  message = "We encountered an unexpected server error while processing your request.",
+  message = "We encountered an unexpected error while processing your request.",
   details = "The server encountered an internal error and was unable to complete your request.",
   supportEmail = "dictybase@northwestern.edu",
   retry,
