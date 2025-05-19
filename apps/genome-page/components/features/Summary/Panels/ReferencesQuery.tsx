@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import { useListPublicationsWithGeneSummaryQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { Loader } from "components/Loader"
-import { ErrorPanelC } from "components/panels/ErrorPanelC"
+import { ErrorPanel } from "components/panels/ErrorPanel"
 import { PanelWrapper } from "components/panels/PanelWrapper"
 import { NoDataPanel } from "./NoDataPanel"
 import { ReferencesPanel } from "./ReferencesPanel"
@@ -52,7 +52,7 @@ const ReferencesQuery = () => {
     )
     .with({ error: P.select(P.not(P.nullish)) }, (error) => (
       <PanelWrapper route={`${gene}/references`} title="Publications">
-        <ErrorPanelC
+        <ErrorPanel
           retry={result.refetch}
           details={getErrorMessage(error).message}
         />
