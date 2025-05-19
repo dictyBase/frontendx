@@ -18,9 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: grey[100],
     },
     heading: {
-      fontSize: theme.typography.pxToRem(15),
-      fontWeight: "normal",
-      color: "#fff",
+      alignSelf: "center"
     },
     summary: {
       backgroundColor: "#004080", // Using the theme primary color
@@ -166,15 +164,16 @@ const ErrorDisplay = ({
       container
       direction="column"
       alignItems="stretch"
+      spacing={1}
       className={classes.root}>
       {/* Right Column - Error Details */}
-      <Grid item>
+      <Grid item className={classes.heading}>
         <Grid container spacing={2}>
           <Grid item>
             <ErrorOutlineIcon className={classes.icon} />
           </Grid>
           <Grid item>
-            <Typography variant="h3" className={classes.errorTitle}>
+            <Typography variant="h2" className={classes.errorTitle}>
               {title}
             </Typography>
             <Typography variant="body1" color="textSecondary" paragraph>
