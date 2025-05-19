@@ -13,6 +13,8 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       padding: "2rem",
+      paddingLeft: "15rem",
+      paddingRight: "15rem",
       backgroundColor: grey[100],
     },
     heading: {
