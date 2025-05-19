@@ -11,6 +11,9 @@ const ErrorPageWrapper = ({ error }: ErrorPageWrapperProperties) => {
   const handleNavigateHome = () => {
     router.push(process.env.NEXT_PUBLIC_FRONTPAGE_URL)
   }
+  const handleReload = () => {
+    router.reload
+  }
   return (
     <GraphQLErrorPage error={error} handleNavigateHome={handleNavigateHome} />
   )

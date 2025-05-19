@@ -144,6 +144,7 @@ type Properties = {
   /** Email address for support contact */
   supportEmail?: string
   handleNavigateHome: () => void
+  handleReload: () => void
 }
 
 /**
@@ -156,6 +157,7 @@ const ErrorDisplay = ({
   details = "The server encountered an internal error and was unable to complete your request.",
   supportEmail = "dictybase@northwestern.edu",
   handleNavigateHome,
+  handleReload
 }: Properties) => {
   const classes = useStyles()
 
@@ -242,7 +244,7 @@ const ErrorDisplay = ({
           <Button
             variant="contained"
             className={classes.refreshButton}
-            onClick={() => window.location.reload()}
+            onClick={handleReload}
             startIcon={<RefreshIcon className={classes.buttonIcon} />}>
             Refresh Page
           </Button>

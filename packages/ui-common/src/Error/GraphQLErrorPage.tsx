@@ -23,18 +23,27 @@ type GraphQlErrorPageProperties = {
   /** GraphQL error object */
   error: ApolloError
   handleNavigateHome: () => void
+  handleReload: () => void
 }
 
 /**
  * Displays any errors found when issuing a GraphQL query or mutation.
  */
-const GraphQLErrorPage = ({ error, handleNavigateHome }: GraphQlErrorPageProperties) => {
+const GraphQLErrorPage = ({
+  error,
+  handleNavigateHome,
+  handleReload,
+}: GraphQlErrorPageProperties) => {
   const classes = useStyles()
 
   const { message } = getErrorMessage(error)
   return (
     <Paper className={classes.container}>
-      <ErrorDisplay details={message} handleNavigateHome={handleNavigateHome} />
+      <ErrorDisplay
+        details={message}
+        handleNavigateHome={handleNavigateHome}
+        handleReload={handleReload}
+      />
     </Paper>
   )
 }
