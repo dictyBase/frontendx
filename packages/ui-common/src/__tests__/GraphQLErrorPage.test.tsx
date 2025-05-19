@@ -1,13 +1,15 @@
 /* eslint-disable unicorn/filename-case */
 import { test, describe, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
+import { ApolloError } from "@apollo/client"
 import {
   mockNotFoundError,
   mockOtherError,
   mockUnavailableError,
 } from "../mocks/mockGraphQLError"
 import { GraphQLErrorPage } from "../Error/GraphQLErrorPage"
-import { ApolloError } from "@apollo/client"
+
+const errorDetailsString = "Error Details"
 
 describe("GraphQLErrorPage", () => {
   test("should render the component with Not Found error message", () => {
@@ -20,7 +22,7 @@ describe("GraphQLErrorPage", () => {
     render(<GraphQLErrorPage error={apolloError} />)
 
     // Check that the error message is displayed correctly
-    expect(screen.getByText("Error Details")).toBeInTheDocument()
+    expect(screen.getByText(errorDetailsString)).toBeInTheDocument()
     expect(
       screen.getByText("The requested resource was not found"),
     ).toBeInTheDocument()
@@ -36,7 +38,7 @@ describe("GraphQLErrorPage", () => {
     render(<GraphQLErrorPage error={apolloError} />)
 
     // Check that the error message is displayed correctly
-    expect(screen.getByText("Error Details")).toBeInTheDocument()
+    expect(screen.getByText(errorDetailsString)).toBeInTheDocument()
     expect(
       screen.getByText("The requested resource is unavailable"),
     ).toBeInTheDocument()
@@ -52,7 +54,7 @@ describe("GraphQLErrorPage", () => {
     render(<GraphQLErrorPage error={apolloError} />)
 
     // Check that the default error message is displayed correctly
-    expect(screen.getByText("Error Details")).toBeInTheDocument()
+    expect(screen.getByText(errorDetailsString)).toBeInTheDocument()
     expect(
       screen.getByText("An unexpected error occurred."),
     ).toBeInTheDocument()
@@ -67,7 +69,7 @@ describe("GraphQLErrorPage", () => {
     render(<GraphQLErrorPage error={apolloError} />)
 
     // Check that the network error message is displayed correctly
-    expect(screen.getByText("Error Details")).toBeInTheDocument()
+    expect(screen.getByText(errorDetailsString)).toBeInTheDocument()
     expect(
       screen.getByText("The server encountered an unexpected error"),
     ).toBeInTheDocument()
@@ -89,7 +91,7 @@ describe("GraphQLErrorPage", () => {
         "We encountered an error while processing your request.",
       ),
     ).toBeInTheDocument()
-    expect(screen.getByText("Error Details")).toBeInTheDocument()
+    expect(screen.getByText(errorDetailsString)).toBeInTheDocument()
     expect(
       screen.getByText("The requested resource was not found"),
     ).toBeInTheDocument()

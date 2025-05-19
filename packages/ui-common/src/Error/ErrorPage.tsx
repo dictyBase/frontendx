@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/filename-case */
 import { ApolloError } from "@apollo/client"
 import Paper from "@material-ui/core/Paper"
 import { makeStyles } from "@material-ui/core/styles"
