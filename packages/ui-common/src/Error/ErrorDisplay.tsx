@@ -1,4 +1,4 @@
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles"
+import { makeStyles, Theme } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography"
 import Paper from "@material-ui/core/Paper"
 import Grid from "@material-ui/core/Grid"
@@ -9,128 +9,110 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle"
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline"
 import { grey } from "@material-ui/core/colors"
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      padding: "2rem",
-      paddingLeft: "15rem",
-      paddingRight: "15rem",
-      backgroundColor: grey[100],
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    padding: "2rem",
+    paddingLeft: "15rem",
+    paddingRight: "15rem",
+    backgroundColor: grey[100],
+  },
+  heading: {
+    alignSelf: "center",
+  },
+  icon: {
+    color: theme.palette.primary.main,
+    fontSize: "4rem",
+  },
+  logoContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRight: `1px solid ${theme.palette.divider}`,
+    padding: theme.spacing(3),
+    [theme.breakpoints.down("sm")]: {
+      borderRight: "none",
+      borderBottom: `1px solid ${theme.palette.divider}`,
     },
-    heading: {
-      alignSelf: "center"
+  },
+  iconContainer: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "96px",
+    height: "96px",
+    backgroundColor: "#FFF9C4", // Light yellow background
+    borderRadius: "50%",
+    border: "2px solid #FBC02D", // Yellow border
+    marginTop: theme.spacing(3),
+  },
+  errorTitle: {
+    fontSize: "1.25rem",
+    fontWeight: 500,
+    color: "#004080",
+    marginBottom: theme.spacing(2),
+  },
+  errorBox: {
+    backgroundColor: theme.palette.background.paper,
+    border: `1px solid ${theme.palette.divider}`,
+    borderRadius: theme.shape.borderRadius,
+    padding: theme.spacing(2),
+    marginBottom: theme.spacing(3),
+  },
+  helpSection: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: theme.spacing(2),
+    marginBottom: theme.spacing(3),
+    [theme.breakpoints.down("xs")]: {
+      gridTemplateColumns: "1fr",
     },
-    summary: {
-      backgroundColor: "#004080", // Using the theme primary color
-      marginTop: "0px",
+  },
+  infoBox: {
+    backgroundColor: "#E3F2FD", // Light blue background
+    border: "1px solid rgba(0, 64, 128, 0.3)",
+    borderRadius: theme.shape.borderRadius,
+    padding: theme.spacing(2),
+  },
+  listItem: {
+    display: "flex",
+    alignItems: "flex-start",
+    marginBottom: theme.spacing(1),
+  },
+  listIcon: {
+    color: "#004080",
+    marginRight: theme.spacing(1),
+    marginTop: "2px",
+  },
+  buttonContainer: {
+    display: "flex",
+    flexDirection: "column",
+    gap: theme.spacing(1.5),
+    [theme.breakpoints.up("sm")]: {
+      flexDirection: "row",
     },
-    icon: {
-      color: theme.palette.primary.main,
-      fontSize: "4rem",
+  },
+  refreshButton: {
+    backgroundColor: "#004080",
+    color: theme.palette.common.white,
+    "&:hover": {
+      backgroundColor: "#003366",
     },
-    details: {
-      padding: 0,
-      backgroundColor: "#F5F8FA",
+  },
+  homeButton: {
+    color: theme.palette.text.secondary,
+  },
+  buttonIcon: {
+    marginRight: theme.spacing(1),
+  },
+  emailLink: {
+    color: "#004080",
+    fontWeight: 500,
+    "&:hover": {
+      textDecoration: "underline",
     },
-    innerContent: {
-      width: "100%",
-    },
-    logoContainer: {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      borderRight: `1px solid ${theme.palette.divider}`,
-      padding: theme.spacing(3),
-      [theme.breakpoints.down("sm")]: {
-        borderRight: "none",
-        borderBottom: `1px solid ${theme.palette.divider}`,
-      },
-    },
-    iconContainer: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      width: "96px",
-      height: "96px",
-      backgroundColor: "#FFF9C4", // Light yellow background
-      borderRadius: "50%",
-      border: "2px solid #FBC02D", // Yellow border
-      marginTop: theme.spacing(3),
-    },
-    warningIcon: {
-      width: "64px",
-      height: "64px",
-      color: "#FBC02D", // Yellow warning color
-    },
-    errorTitle: {
-      fontSize: "1.25rem",
-      fontWeight: 500,
-      color: "#004080",
-      marginBottom: theme.spacing(2),
-    },
-    errorBox: {
-      backgroundColor: theme.palette.background.paper,
-      border: `1px solid ${theme.palette.divider}`,
-      borderRadius: theme.shape.borderRadius,
-      padding: theme.spacing(2),
-      marginBottom: theme.spacing(3),
-    },
-    helpSection: {
-      display: "grid",
-      gridTemplateColumns: "1fr 1fr",
-      gap: theme.spacing(2),
-      marginBottom: theme.spacing(3),
-      [theme.breakpoints.down("xs")]: {
-        gridTemplateColumns: "1fr",
-      },
-    },
-    infoBox: {
-      backgroundColor: "#E3F2FD", // Light blue background
-      border: "1px solid rgba(0, 64, 128, 0.3)",
-      borderRadius: theme.shape.borderRadius,
-      padding: theme.spacing(2),
-    },
-    listItem: {
-      display: "flex",
-      alignItems: "flex-start",
-      marginBottom: theme.spacing(1),
-    },
-    listIcon: {
-      color: "#004080",
-      marginRight: theme.spacing(1),
-      marginTop: "2px",
-    },
-    buttonContainer: {
-      display: "flex",
-      flexDirection: "column",
-      gap: theme.spacing(1.5),
-      [theme.breakpoints.up("sm")]: {
-        flexDirection: "row",
-      },
-    },
-    refreshButton: {
-      backgroundColor: "#004080",
-      color: theme.palette.common.white,
-      "&:hover": {
-        backgroundColor: "#003366",
-      },
-    },
-    homeButton: {
-      color: theme.palette.text.secondary,
-    },
-    buttonIcon: {
-      marginRight: theme.spacing(1),
-    },
-    emailLink: {
-      color: "#004080",
-      fontWeight: 500,
-      "&:hover": {
-        textDecoration: "underline",
-      },
-    },
-  }),
-)
+  },
+}))
 
 type Properties = {
   /** Title of the error panel */
@@ -155,7 +137,7 @@ const ErrorDisplay = ({
   details = "The server encountered an internal error and was unable to complete your request.",
   supportEmail = "dictybase@northwestern.edu",
   handleNavigateHome,
-  handleReload
+  handleReload,
 }: Properties) => {
   const classes = useStyles()
 
