@@ -42,7 +42,7 @@ const PageNotReady = () => {
       <Grid item xs={10} md={8}>
         <div className={classes.container}>
           <Image
-            src="/sad-dicty.png"
+            src="https://storage.dictybase.dev/editor/assets/2024-11-04/0627257c-9ce3-4f02-b000-9e16ef5b1062"
             alt="Sad Dicty Logo"
             width="350px"
             height="200%"
