@@ -15,7 +15,11 @@ const ErrorPageWrapper = ({ error }: ErrorPageWrapperProperties) => {
     router.reload()
   }
   return (
-    <ErrorPage error={error} handleNavigateHome={handleNavigateHome} handleReload={handleReload} />
+    <ErrorPage
+      error={error}
+      handleNavigateHome={handleNavigateHome}
+      handleReload={handleReload}
+    />
   )
 }
 
