@@ -22,20 +22,19 @@ const useStyles = makeStyles({
 type GraphQlErrorPageProperties = {
   /** GraphQL error object */
   error: ApolloError
+  handleNavigateHome: () => void
 }
 
 /**
  * Displays any errors found when issuing a GraphQL query or mutation.
- * Returns one of the other error components based on the error code.
  */
-
-const GraphQLErrorPage = ({ error }: GraphQlErrorPageProperties) => {
+const GraphQLErrorPage = ({ error, handleNavigateHome }: GraphQlErrorPageProperties) => {
   const classes = useStyles()
 
   const { message } = getErrorMessage(error)
   return (
     <Paper className={classes.container}>
-      <ErrorDisplay details={message} />
+      <ErrorDisplay details={message} handleNavigateHome={handleNavigateHome} />
     </Paper>
   )
 }

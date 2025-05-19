@@ -141,6 +141,7 @@ type Properties = {
   details?: string
   /** Email address for support contact */
   supportEmail?: string
+  handleNavigateHome: () => void
 }
 
 /**
@@ -152,6 +153,7 @@ const ErrorDisplay = ({
   message = "We encountered an error while processing your request.",
   details = "The server encountered an internal error and was unable to complete your request.",
   supportEmail = "dictybase@northwestern.edu",
+  handleNavigateHome,
 }: Properties) => {
   const classes = useStyles()
 
@@ -245,6 +247,7 @@ const ErrorDisplay = ({
           <Button
             variant="outlined"
             className={classes.homeButton}
+            onClick={handleNavigateHome}
             startIcon={<HomeIcon className={classes.buttonIcon} />}>
             Return to Homepage
           </Button>
