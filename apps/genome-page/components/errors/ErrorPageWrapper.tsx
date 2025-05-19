@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import { ApolloError } from "@apollo/client"
-import { GraphQLErrorPage } from "@dictybase/ui-common"
+import { ErrorPage } from "@dictybase/ui-common"
 
 type ErrorPageWrapperProperties = {
   error: ApolloError
@@ -12,10 +12,10 @@ const ErrorPageWrapper = ({ error }: ErrorPageWrapperProperties) => {
     router.push(process.env.NEXT_PUBLIC_FRONTPAGE_URL)
   }
   const handleReload = () => {
-    router.reload
+    router.reload()
   }
   return (
-    <GraphQLErrorPage error={error} handleNavigateHome={handleNavigateHome} />
+    <ErrorPage error={error} handleNavigateHome={handleNavigateHome} handleReload={handleReload} />
   )
 }
 
