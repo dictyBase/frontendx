@@ -1,4 +1,4 @@
-import { GraphQLErrorPage } from "@dictybase/ui-common"
+import { ErrorPageWrapper } from "components/errors/ErrorPageWrapper"
 import { PhenotypesContainer } from "components/features/Phenotypes/PhenotypesContainer"
 import { Loader } from "components/Loader"
 import { Layout, TabValues } from "components/layout/Layout"
@@ -45,7 +45,7 @@ const PhenotypesPageWrapper = () => {
           () => <NoDataDisplay query="Phenotypes" geneId={gene} />,
         )
         .with({ error: P.select(P.not(undefined)) }, (error) => (
-          <GraphQLErrorPage error={error} />
+          <ErrorPageWrapper error={error} />
         ))
         .otherwise(() => (
           <> This message should not appear. </>

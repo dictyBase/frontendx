@@ -1,4 +1,4 @@
-import { GraphQLErrorPage } from "@dictybase/ui-common"
+import { ErrorPageWrapper } from "components/errors/ErrorPageWrapper"
 import { OntologyContainer } from "components/features/Ontology/OntologyContainer"
 import { Layout, TabValues } from "components/layout/Layout"
 import { NoDataDisplay } from "components/NoDataDisplay"
@@ -46,7 +46,7 @@ const OntologyPageWrapper = () => {
           () => <NoDataDisplay query="Go Annotations" geneId={gene} />,
         )
         .with({ error: P.select(P.not(undefined)) }, (error) => (
-          <GraphQLErrorPage error={error} />
+          <ErrorPageWrapper error={error} />
         ))
         .otherwise(() => (
           <> This message should not appear. </>

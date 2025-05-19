@@ -2,7 +2,7 @@ import { pipe } from "fp-ts/function"
 import { findFirst as AfindFirst } from "fp-ts/Array"
 import { match as Omatch } from "fp-ts/Option"
 import { RelatedGenesContainer } from "components/features/References/RelatedGenesContainer"
-import { GraphQLErrorPage } from "@dictybase/ui-common"
+import { ErrorPageWrapper } from "components/errors/ErrorPageWrapper"
 import { Layout, TabValues } from "components/layout/Layout"
 import { NoDataDisplay } from "components/NoDataDisplay"
 import { Loader } from "components/Loader"
@@ -59,7 +59,7 @@ const RelatedGenesWrapper = () => {
           () => <NoDataDisplay query="References" geneId={geneId} />,
         )
         .with({ error: P.select(P.not(undefined)) }, (error) => (
-          <GraphQLErrorPage error={error} />
+          <ErrorPageWrapper error={error} />
         ))
         .otherwise(() => (
           <> This message should not appear. </>
