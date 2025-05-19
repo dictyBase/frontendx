@@ -5,17 +5,14 @@ import Paper from "@material-ui/core/Paper"
 import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
 import RefreshIcon from "@material-ui/icons/Refresh"
-import HomeIcon from "@material-ui/icons/Home"
-import CheckCircleIcon from "@material-ui/icons/CheckCircle"
-import Image from "next/image"
-import Link from "next/link"
+import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline"
+import { grey } from "@material-ui/core/colors"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      width: "100%",
-      marginTop: theme.spacing(4),
-      marginBottom: theme.spacing(4),
+      padding: "2rem",
+      backgroundColor: grey[100],
     },
     heading: {
       fontSize: theme.typography.pxToRem(15),
@@ -27,7 +24,8 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: "0px",
     },
     icon: {
-      color: "#fff",
+      color: theme.palette.primary.main,
+      fontSize: "4rem",
     },
     details: {
       padding: 0,
@@ -64,9 +62,6 @@ const useStyles = makeStyles((theme: Theme) =>
       height: "64px",
       color: "#FBC02D", // Yellow warning color
     },
-    detailsContainer: {
-      padding: theme.spacing(3),
-    },
     errorTitle: {
       fontSize: "1.25rem",
       fontWeight: 500,
@@ -74,6 +69,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(2),
     },
     errorBox: {
+      height: "100%",
       backgroundColor: theme.palette.background.paper,
       border: `1px solid ${theme.palette.divider}`,
       borderRadius: theme.shape.borderRadius,
@@ -90,6 +86,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     infoBox: {
+      height: "100%",
       backgroundColor: "#E3F2FD", // Light blue background
       border: "1px solid rgba(0, 64, 128, 0.3)",
       borderRadius: theme.shape.borderRadius,
@@ -145,13 +142,7 @@ type Properties = {
   details?: string
   /** Email address for support contact */
   supportEmail?: string
-}
-
-/**
- * Handles refresh button click
- */
-const handleRefresh = () => {
-  window.location.reload()
+  retry: () => {}
 }
 
 /**
@@ -160,117 +151,80 @@ const handleRefresh = () => {
  */
 const ErrorPanel = ({
   title = "Sorry, something went wrong.",
-  message = "We encountered an unexpected server error while processing your request. Our technical team has been notified.",
+  message = "We encountered an unexpected error while processing your request.",
   details = "The server encountered an internal error and was unable to complete your request.",
   supportEmail = "dictybase@northwestern.edu",
+  retry,
 }: Properties) => {
   const classes = useStyles()
 
-  return (
-    <div className={classes.root}>
-      <div className={classes.innerContent}>
-        <Grid container>
-          {/* Left Column - Logo and Icon */}
-          <Grid item xs={12} md={4} className={classes.logoContainer}>
-            <Image
-              src="https://storage.dictybase.dev/editor/assets/2024-11-04/0627257c-9ce3-4f02-b000-9e16ef5b1062"
-              alt="Sad Dicty"
-              height="300"
-              width="300"
-              objectFit="contain"
-              onError={() => {
-                // Fallback handled by next/image
-              }}
-            />
-          </Grid>
+  const handleRefresh = () => {
+    retry()
+  }
 
-          {/* Right Column - Error Details */}
-          <Grid item xs={12} md={8} className={classes.detailsContainer}>
+  return (
+    <Grid
+      container
+      direction="column"
+      alignItems="stretch"
+      className={classes.root}
+      spacing={1}>
+      <Grid item>
+        <Grid container spacing={2}>
+          <Grid item>
+            <ErrorOutlineIcon className={classes.icon} />
+          </Grid>
+          <Grid item>
             <Typography variant="h3" className={classes.errorTitle}>
               {title}
             </Typography>
-
             <Typography variant="body1" color="textSecondary" paragraph>
               {message}
             </Typography>
-
-            <Paper variant="outlined" className={classes.errorBox}>
-              <Typography variant="subtitle2" color="primary" gutterBottom>
-                Error Details
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                {details}
-              </Typography>
-            </Paper>
-
-            <div className={classes.helpSection}>
-              <div>
-                <Typography variant="subtitle2" color="primary" gutterBottom>
-                  What you can try:
-                </Typography>
-                <div>
-                  <div className={classes.listItem}>
-                    <CheckCircleIcon
-                      fontSize="small"
-                      className={classes.listIcon}
-                    />
-                    <Typography variant="body2">Refresh the page</Typography>
-                  </div>
-                  <div className={classes.listItem}>
-                    <CheckCircleIcon
-                      fontSize="small"
-                      className={classes.listIcon}
-                    />
-                    <Typography variant="body2">
-                      Check your internet connection
-                    </Typography>
-                  </div>
-                  <div className={classes.listItem}>
-                    <CheckCircleIcon
-                      fontSize="small"
-                      className={classes.listIcon}
-                    />
-                    <Typography variant="body2">Try again later</Typography>
-                  </div>
-                </div>
-              </div>
-
-              <Paper variant="outlined" className={classes.infoBox}>
-                <Typography variant="subtitle2" color="primary" gutterBottom>
-                  Need assistance?
-                </Typography>
-                <Typography variant="body2" color="textSecondary" paragraph>
-                  If this problem persists, please email us at:
-                </Typography>
-                <a
-                  href={`mailto:${supportEmail}`}
-                  className={classes.emailLink}>
-                  {supportEmail}
-                </a>
-              </Paper>
-            </div>
-
-            <div className={classes.buttonContainer}>
-              <Button
-                variant="contained"
-                className={classes.refreshButton}
-                onClick={handleRefresh}
-                startIcon={<RefreshIcon className={classes.buttonIcon} />}>
-                Refresh Page
-              </Button>
-              <Link href="/">
-                <Button
-                  variant="outlined"
-                  className={classes.homeButton}
-                  startIcon={<HomeIcon className={classes.buttonIcon} />}>
-                  Return to Homepage
-                </Button>
-              </Link>
-            </div>
           </Grid>
         </Grid>
-      </div>
-    </div>
+      </Grid>
+      <Grid item>
+        <Grid container alignItems="stretch" spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <Paper variant="outlined" className={classes.errorBox}>
+              <Grid container direction="column" spacing={2}>
+                <Grid item>
+                  <Typography variant="subtitle2" color="primary" gutterBottom>
+                    Error Details
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    {details}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    className={classes.refreshButton}
+                    onClick={handleRefresh}
+                    startIcon={<RefreshIcon className={classes.buttonIcon} />}>
+                    Retry
+                  </Button>
+                </Grid>
+              </Grid>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Paper variant="outlined" className={classes.infoBox}>
+              <Typography variant="subtitle2" color="primary" gutterBottom>
+                Need assistance?
+              </Typography>
+              <Typography variant="body2" color="textSecondary" paragraph>
+                If this problem persists, please email us at:
+              </Typography>
+              <a href={`mailto:${supportEmail}`} className={classes.emailLink}>
+                {supportEmail}
+              </a>
+            </Paper>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
   )
 }
 
