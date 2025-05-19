@@ -58,7 +58,7 @@ const RelatedGenesWrapper = () => {
           },
           () => <NoDataDisplay query="References" geneId={geneId} />,
         )
-        .with({ error: P.select(P.not(undefined)) }, (error) => (
+        .with({ error: P.select(P.not(P.nullish)) }, (error) => (
           <ErrorPageWrapper error={error} />
         ))
         .otherwise(() => (

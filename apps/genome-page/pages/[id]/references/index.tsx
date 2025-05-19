@@ -44,7 +44,7 @@ const ReferencesPageWrapper = () => {
           (publications) => <ReferencesContainer publications={publications} />,
         )
         .with({ loading: true }, () => <Loader />)
-        .with({ error: P.select(P.not(undefined)) }, (error) => (
+        .with({ error: P.select(P.not(P.nullish)) }, (error) => (
           <ErrorPageWrapper error={error} />
         ))
         .otherwise(() => (

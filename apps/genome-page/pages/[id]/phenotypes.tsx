@@ -44,7 +44,7 @@ const PhenotypesPageWrapper = () => {
           },
           () => <NoDataDisplay query="Phenotypes" geneId={gene} />,
         )
-        .with({ error: P.select(P.not(undefined)) }, (error) => (
+        .with({ error: P.select(P.not(P.nullish)) }, (error) => (
           <ErrorPageWrapper error={error} />
         ))
         .otherwise(() => (
