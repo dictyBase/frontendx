@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/filename-case */
 import { test, describe, expect, vi } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { ApolloError } from "@apollo/client"
