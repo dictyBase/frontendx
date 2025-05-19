@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import { useGeneOntologyAnnotationSummaryQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { Loader } from "components/Loader"
-import { ErrorPanelC } from "components/panels/ErrorPanelC"
+import { ErrorPanel } from "components/panels/ErrorPanel"
 import { PanelWrapper } from "components/panels/PanelWrapper"
 import { NoDataPanel } from "./NoDataPanel"
 import { GoaPanel } from "./GoaPanel"
@@ -32,7 +32,7 @@ const GoaQuery = () => {
           (goas) => <GoaPanel goas={goas} />,
         )
         .with({ error: P.select(P.not(P.nullish)) }, (error) => (
-          <ErrorPanelC
+          <ErrorPanel
             retry={result.refetch}
             details={getErrorMessage(error).message}
           />
