@@ -17,7 +17,7 @@ const CartHandler = () => {
       {match(cart)
         .when(
           (c) => c.strainItems.length > 0 || c.plasmidItems.length > 0,
-          (c) => <CartList cart={c} />,
+          () => <CartList />,
         )
         .otherwise(() => (
           <EmptyCart />
