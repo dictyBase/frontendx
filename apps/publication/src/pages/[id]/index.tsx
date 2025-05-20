@@ -2,7 +2,7 @@ import { useRouter } from "next/router"
 import { Publication, usePublicationQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { PublicationLoader } from "../../components/PublicationLoader"
-import { ErrorPage } from "../../components/errors/ErrorPage"
+import { ErrorPageWrapper } from "../../components/errors/ErrorPageWrapper"
 import { PublicationPage } from "../../components/PublicationPage"
 
 /**
@@ -26,7 +26,9 @@ const PublicationPageWrapper = () => {
       ),
     )
     .with({ loading: true }, () => <PublicationLoader />)
-    .with({ error: P.not(P.nullish) }, () => <ErrorPage />)
+    .with({ error: P.select(P.not(P.nullish)) }, (error) => (
+      <ErrorPageWrapper error={error} />
+    ))
     .otherwise(() => <> This message should not appear. </>)
 }
 
