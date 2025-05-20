@@ -6,6 +6,7 @@ import userEvent from "@testing-library/user-event"
 import { ErrorPageWrapper } from "../common/components/errors/ErrorPageWrapper"
 
 vi.stubEnv("VITE_APP_FRONTPAGE_URL", "/")
+
 const errorMessage = "Test Error"
 
 const mockError = {
