@@ -12,11 +12,11 @@ import { some } from "fp-ts/Option"
 import { Provider, createStore } from "jotai"
 import {
   FullPageLoadingDisplay,
-  GraphQLErrorPage,
   ActionBar,
   CopyLinkButton,
   BrowseEditableNewsButton,
 } from "@dictybase/ui-common"
+import { ErrorPageWrapper } from "../../../common/components/errors/ErrorPageWrapper"
 import { Editor } from "@dictybase/editor"
 import { ACCESS } from "@dictybase/auth"
 import { pipe } from "fp-ts/function"
@@ -102,7 +102,7 @@ const Editable = () => {
     )
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
     .with({ error: P.select(P.not(undefined)) }, (error) => (
-      <GraphQLErrorPage error={error} />
+      <ErrorPageWrapper error={error} />
     ))
     .otherwise(() => <> This message should not appear. </>)
 }
