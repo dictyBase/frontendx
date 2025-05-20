@@ -1,8 +1,9 @@
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { Container } from "@material-ui/core"
-import { FullPageLoadingDisplay, GraphQLErrorPage } from "@dictybase/ui-common"
+import { FullPageLoadingDisplay } from "@dictybase/ui-common"
 import { ACCESS } from "@dictybase/auth"
+import { ErrorPageWrapper } from "@dictybase/ui-dsc"
 import { NAMESPACE } from "../../../namespace"
 import { useSlug } from "../../../hooks/useSlug"
 import { EditableView } from "../../../components/EditableView"
@@ -24,8 +25,8 @@ const Editable = () => {
       ),
     )
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
-    .with({ error: P.select(P.not(undefined)) }, (error) => (
-      <GraphQLErrorPage error={error} />
+    .with({ error: P.select(P.not(P.nullish)) }, (error) => (
+      <ErrorPageWrapper error={error} />
     ))
     .otherwise(() => <> This message should not appear </>)
 }

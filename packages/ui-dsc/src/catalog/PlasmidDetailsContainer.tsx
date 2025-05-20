@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 import { match, P } from "ts-pattern"
 import Box from "@material-ui/core/Box"
 import { usePlasmidQuery, PlasmidQuery } from "dicty-graphql-schema"
-import { GraphQLErrorPage } from "@dictybase/ui-common"
+import { ErrorPageWrapper } from "../ErrorPageWrapper"
 import { characterConverter } from "../utils/characterConverter"
 import { DetailsHeader } from "./DetailsHeader"
 import { DetailsLoader } from "./DetailsLoader"
@@ -49,7 +49,7 @@ const PlasmidDetailsContainer = () => {
     ))
     .with({ loading: true }, () => <DetailsLoader />)
     .with({ error: P.select(P.not(undefined)) }, (error) => (
-      <GraphQLErrorPage error={error} />
+      <ErrorPageWrapper error={error} />
     ))
     .otherwise(() => <> This message should not appear. </>)
 }

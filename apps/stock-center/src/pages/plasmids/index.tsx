@@ -3,7 +3,7 @@ import { P, match } from "ts-pattern"
 import {
   LoadingDisplay,
   PlasmidCatalogTableDisplay,
-  ErrorDisplay,
+  ErrorPageWrapper,
   CatalogListWrapper,
   CatalogHeader,
 } from "@dictybase/ui-dsc"
@@ -57,7 +57,7 @@ const PlasmidCatalog = () => {
           )
           .with({ loading: true }, () => <LoadingDisplay rows={10} />)
           .with({ error: P.select({ message: P.string }) }, (error_) => (
-            <ErrorDisplay error={error_} />
+            <ErrorPageWrapper error={error_} />
           ))
           .otherwise(() => (
             <></>

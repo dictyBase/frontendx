@@ -5,7 +5,7 @@ import { P, match } from "ts-pattern"
 import { makeStyles } from "@material-ui/core/styles"
 import Grid from "@material-ui/core/Grid"
 import { useListStrainsWithPhenotypeQuery } from "dicty-graphql-schema"
-import { GraphQLErrorPage } from "@dictybase/ui-common"
+import { ErrorPageWrapper } from "../ErrorPageWrapper"
 import { DetailsLoader } from "./DetailsLoader"
 import { SearchResultsHeader } from "./SearchResultsHeader"
 import { SearchPhenotypeList } from "./SearchPhenotypeList"
@@ -125,7 +125,7 @@ const SearchPhenotypeContainer = () => {
             ))
             .with({ loading: true }, () => <DetailsLoader />)
             .with({ error: P.select(P.not(undefined)) }, (error_) => (
-              <GraphQLErrorPage error={error_} />
+              <ErrorPageWrapper error={error_} />
             ))
             .otherwise(() => (
               <> This message should not appear. </>

@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet"
 import { useParams } from "react-router-dom"
 import Box from "@material-ui/core/Box"
 import { useStrainQuery } from "dicty-graphql-schema"
-import { GraphQLErrorPage } from "@dictybase/ui-common"
+import { ErrorPageWrapper } from "../ErrorPageWrapper"
 import { characterConverter } from "../utils/characterConverter"
 import { DetailsHeader } from "./DetailsHeader"
 import { DetailsLoader } from "./DetailsLoader"
@@ -25,7 +25,7 @@ const EditableStrainDetailsContainer = () => {
   })
 
   if (loading) return <DetailsLoader />
-  if (error) return <GraphQLErrorPage error={error} />
+  if (error) return <ErrorPageWrapper error={error} />
 
   const label = characterConverter(data?.strain?.label as string)
   let title = `Strain Details for ${label}`
