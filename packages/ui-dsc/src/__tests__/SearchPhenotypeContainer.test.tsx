@@ -271,7 +271,7 @@ describe("features/Stocks/SearchResults/PhenotypeContainer", () => {
       // displays loading skeleton first
       expect(screen.getByTestId(skeletonLoaderString)).toBeInTheDocument()
       // wait for error message to load...
-      const errorMessage = await screen.findByText(/Page Not Found/)
+      const errorMessage = await screen.findByText(/not found/i)
       expect(errorMessage).toBeInTheDocument()
     })
   })
