@@ -18,11 +18,11 @@ import {
   ExitEditingButton,
   SavingError,
 } from "@dictybase/ui-common"
-import { ErrorPageWrapper } from "../../../common/components/errors/ErrorPageWrapper"
 import { ACCESS } from "@dictybase/auth"
 import { Editor } from "@dictybase/editor"
 import { ApolloError } from "@apollo/client"
 import PersonIcon from "@material-ui/icons/Person"
+import { ErrorPageWrapper } from "../../../common/components/errors/ErrorPageWrapper"
 import { useSlug } from "../../../common/hooks/useSlug"
 import { NEWS_NAMESPACE } from "../../../common/constants/namespace"
 import { UpdateButton } from "../../../common/components/UpdateButton"

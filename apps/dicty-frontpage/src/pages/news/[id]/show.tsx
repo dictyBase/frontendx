@@ -6,11 +6,11 @@ import {
   CopyLinkButton,
   BrowseNewsButton,
 } from "@dictybase/ui-common"
-import { ErrorPageWrapper } from "../../../common/components/errors/ErrorPageWrapper"
 import { ACCESS } from "@dictybase/auth"
 import { Editor } from "@dictybase/editor"
 import { pipe } from "fp-ts/function"
 import { parseISO, format } from "date-fns/fp"
+import { ErrorPageWrapper } from "../../../common/components/errors/ErrorPageWrapper"
 import { NEWS_NAMESPACE } from "../../../common/constants/namespace"
 import { useSlug } from "../../../common/hooks/useSlug"
 
