@@ -1,5 +1,6 @@
 export * from "./BackToHomePage"
 export * from "./NotFoundError"
+export * from "./ErrorPageWrapper"
 export * from "./fees"
 export * from "./LoadingDisplay"
 export * from "./ErrorDisplay"
