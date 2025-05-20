@@ -40,5 +40,4 @@ test("Clicking on the `Refresh` button navigates to the home page", async () => 
 
   await user.click(screen.getByRole("button", { name: /refresh/i }))
   expect(screen.getByText(/Sorry, something went wrong./)).toBeInTheDocument()
-
 })
