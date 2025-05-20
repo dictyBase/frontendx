@@ -1,25 +1,26 @@
-import React from "react"
-import { useListOrganismsQuery, Organism } from "dicty-graphql-schema"
-import { GraphQLErrorPage } from "@dictybase/ui-common"
+import { match, P } from "ts-pattern"
+import { useListOrganismsQuery } from "dicty-graphql-schema"
 import { DownloadsDisplay } from "./DownloadsDisplay"
 import { DownloadsLoader } from "./DownloadsLoader"
+import { ErrorPageWrapper } from "../../common/components/errors/ErrorPageWrapper"
 
 /**
  * Fetches the data for the downloads page.
  */
-
 const DownloadsContainer = () => {
-  const { loading, error, data } = useListOrganismsQuery({
+  const result = useListOrganismsQuery({
     fetchPolicy: "cache-and-network",
   })
 
-  if (loading) return <DownloadsLoader />
-
-  if (error) return <GraphQLErrorPage error={error} />
-
-  const organisms = data?.listOrganisms as Organism[]
-
-  return <DownloadsDisplay data={organisms} />
+  return match(result)
+    .with(
+      { data: { listOrganisms: P.select(P.not(P.nullish)) } },
+      (organisms) => <DownloadsDisplay data={organisms} />,
+    )
+    .with({ error: P.select(P.not(P.nullish)) }, (error) => (
+      <ErrorPageWrapper error={error} />
+    ))
+    .with({ loading: true }, () => <DownloadsLoader />)
 }
 
 export { DownloadsContainer }

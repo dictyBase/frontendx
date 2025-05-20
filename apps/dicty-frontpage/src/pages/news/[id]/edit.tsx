@@ -9,7 +9,6 @@ import { pipe } from "fp-ts/function"
 import { parseISO, format, formatDistance } from "date-fns/fp"
 import {
   FullPageLoadingDisplay,
-  GraphQLErrorPage,
   ActionBar,
   CopyLinkButton,
   BrowseNewsButton,
@@ -19,6 +18,7 @@ import {
   ExitEditingButton,
   SavingError,
 } from "@dictybase/ui-common"
+import { ErrorPageWrapper } from "../../../common/components/errors/ErrorPageWrapper"
 import { ACCESS } from "@dictybase/auth"
 import { Editor } from "@dictybase/editor"
 import { ApolloError } from "@apollo/client"
@@ -161,7 +161,7 @@ const Edit = () => {
     )
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
     .with({ error: P.select(P.not(undefined)) }, (error) => (
-      <GraphQLErrorPage error={error} />
+      <ErrorPageWrapper error={error} />
     ))
     .otherwise(() => <> This message should not appear. </>)
 }

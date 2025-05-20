@@ -3,10 +3,10 @@ import { makeStyles, Typography, Container, Grid } from "@material-ui/core"
 import { match, P } from "ts-pattern"
 import {
   FullPageLoadingDisplay,
-  GraphQLErrorPage,
   CopyLinkButton,
   BrowseNewsButton,
 } from "@dictybase/ui-common"
+import { ErrorPageWrapper } from "../../../common/components/errors/ErrorPageWrapper"
 import { ACCESS } from "@dictybase/auth"
 import { Editor } from "@dictybase/editor"
 import { pipe } from "fp-ts/function"
@@ -52,7 +52,7 @@ const Show = () => {
     )
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
     .with({ error: P.select(P.not(P.nullish)) }, (error) => (
-      <GraphQLErrorPage error={error} />
+      <ErrorPageWrapper error={error} />
     ))
     .otherwise(() => <> This message should not appear. </>)
 }
