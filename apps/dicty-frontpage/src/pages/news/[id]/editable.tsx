@@ -16,11 +16,11 @@ import {
   CopyLinkButton,
   BrowseEditableNewsButton,
 } from "@dictybase/ui-common"
-import { ErrorPageWrapper } from "../../../common/components/errors/ErrorPageWrapper"
 import { Editor } from "@dictybase/editor"
 import { ACCESS } from "@dictybase/auth"
 import { pipe } from "fp-ts/function"
 import { parseISO, format } from "date-fns/fp"
+import { ErrorPageWrapper } from "../../../common/components/errors/ErrorPageWrapper"
 import { NEWS_NAMESPACE } from "../../../common/constants/namespace"
 import { useSlug } from "../../../common/hooks/useSlug"
 import { DeleteDialogButton } from "../../../common/components/DeleteDialogButton"
