@@ -9,10 +9,10 @@ type ErrorPageWrapperProperties = {
 const ErrorPageWrapper = ({ error }: ErrorPageWrapperProperties) => {
   const navigate = useNavigate()
   const handleNavigateHome = () => {
-    router.push(process.env.NEXT_PUBLIC_FRONTPAGE_URL)
+    navigate(import.meta.env.VITE_APP_FRONTPAGE_URL)
   }
   const handleReload = () => {
-    router.reload()
+    navigate(0)
   }
   return (
     <ErrorPage
