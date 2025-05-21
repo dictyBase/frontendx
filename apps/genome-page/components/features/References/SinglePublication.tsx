@@ -1,3 +1,4 @@
+import { useRouter } from "next/router"
 import {
   makeStyles,
   Card,
@@ -17,7 +18,7 @@ import {
 } from "fp-ts/Option"
 import { grey, blueGrey, lightBlue, orange } from "@material-ui/core/colors"
 import { ListPublicationsWithGeneQuery } from "dicty-graphql-schema"
-import { shortenAllNames, formatTitle } from "@dictybase/ui-common"
+import { formatTitle } from "@dictybase/ui-common"
 import { SeeAllGenesChip } from "./SeeAllGenesChip"
 
 const useStyles = makeStyles((theme) => ({
@@ -100,7 +101,7 @@ const SinglePublication = ({
   publication: { title, journal, id, authors, pub_date, related_genes },
 }: PublicationItem) => {
   const classes = useStyles()
-  // const formattedAuthors = shortenAllNames(authors)
+  const router = useRouter()
   const formattedAuthors = pipe(
     authors,
     Amap(({ last_name }) => last_name),
@@ -115,19 +116,19 @@ const SinglePublication = ({
   )
 
   const onClick = () => {
-    window.location.assign(`${import.meta.env.VITE_APP_PUBLICATION_URL}/${id}`)
+    window.location.assign(`${process.env.NEXT_PUBLIC_PUBLICATION_URL}/${id}`)
   }
+
   return (
     <Card elevation={0} className={classes.card} onClick={onClick}>
       <CardContent className={classes.cardContent}>
-        <Typography gutterBottom className={classes.title}>
+        <Typography variant="h2" gutterBottom className={classes.title}>
           {formattedTitle}
         </Typography>
         <Typography
           className={
             classes.publication
           }>{`Published in ${journal}, ${formattedDate}`}</Typography>
-        <Typography className={classes.identifiers}>PMID: {id}</Typography>
         <Grid container spacing={1} className={classes.authors}>
           {pipe(
             formattedAuthors,
@@ -138,12 +139,19 @@ const SinglePublication = ({
             )),
           )}
         </Grid>
-        <Typography className={classes.subheading}>Related Genes</Typography>
+        <Typography className={classes.identifiers}>PMID: {id}</Typography>
+        <Typography variant="h3" gutterBottom className={classes.subheading}>
+          Related Genes
+        </Typography>
         {pipe(
           related_genes,
           AtakeLeft(GENES_LIMIT),
           Amap((gene) => (
             <Chip
+              onClick={(event) => {
+                event.stopPropagation()
+                router.push(`/${gene.name}`)
+              }}
               clickable
               key={gene.id}
               label={gene.name}
