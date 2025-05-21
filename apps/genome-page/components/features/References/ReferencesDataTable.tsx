@@ -26,7 +26,6 @@ const ReferencesDataTable = ({ publications }: Properties) => {
         <TableHead className={classes.head}>
           <TableRow className={classes.headRow}>
             <TableCell className={classes.referenceColumn}>Reference</TableCell>
-            <TableCell>Other Genes Mentioned</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
