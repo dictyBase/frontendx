@@ -2,48 +2,31 @@ import { useRouter } from "next/router"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import { map as Amap, takeLeft as AtakeLeft } from "fp-ts/Array"
-import { Chip, TableCell, TableRow } from "@material-ui/core"
+import { Chip, TableCell, TableRow, makeStyles } from "@material-ui/core"
+import { ListPublicationsWithGeneQuery } from "dicty-graphql-schema"
 import { parseFormattedStringToDomElements } from "@dictybase/ui-common"
 import { commaSeparateWithAnd } from "common/utils/strings"
+import { SinglePublication } from "./SinglePublication"
 import { SeeAllGenesChip } from "./SeeAllGenesChip"
 
+const useStyles = makeStyles({
+  cell: { padding: 0 },
+})
 interface PublicationRowProperties {
-  publication: {
-    __typename?: "PublicationWithGene"
-    id: string
-    doi?: string | null
-    title: string
-    journal: string
-    pub_date?: any | null
-    volume?: string | null
-    pages?: string | null
-    pub_type: string
-    source: string
-    issue?: string | null
-    related_genes: Array<{ __typename?: "Gene"; id: string; name: string }>
-    authors: Array<{
-      __typename?: "Author"
-      last_name: string
-      rank?: string | null
-    }>
-  }
+  publication: ListPublicationsWithGeneQuery["listPublicationsWithGene"][0]
 }
 
 const GENES_LIMIT = 5
 
 const PublicationRow = ({ publication }: PublicationRowProperties) => {
   const router = useRouter()
+  const classes = useStyles()
   return (
     <TableRow>
-      <TableCell>
-        <b>
-          {commaSeparateWithAnd(publication.authors.map((a) => a.last_name))}
-        </b>
-        &nbsp; &apos;{parseFormattedStringToDomElements(publication.title)}
-        &apos; &nbsp;
-        <i>{publication.journal}</i>
-        ,&nbsp;{publication.pages}
+      <TableCell className={classes.cell}>
+        <SinglePublication publication={publication} />
       </TableCell>
+      {/*
       <TableCell>
         {pipe(
           publication.related_genes,
@@ -73,6 +56,7 @@ const PublicationRow = ({ publication }: PublicationRowProperties) => {
           ),
         )}
       </TableCell>
+        */}
     </TableRow>
   )
 }
