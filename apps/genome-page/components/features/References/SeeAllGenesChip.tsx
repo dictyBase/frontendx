@@ -1,3 +1,4 @@
+import { MouseEventHandler } from "react"
 import { useRouter } from "next/router"
 import { Chip } from "@material-ui/core"
 
@@ -12,7 +13,8 @@ const SeeAllGenesChip = ({
 }: SeeAllGenesChipProperties) => {
   const router = useRouter()
   const geneId = router.query.id as string
-  const handleClick = () => {
+  const handleClick: MouseEventHandler<HTMLDivElement> = (event) => {
+    event.stopPropagation()
     router.push(`/${geneId}/references/${publicationId}`)
   }
   return (
