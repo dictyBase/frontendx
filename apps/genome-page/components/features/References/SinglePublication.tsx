@@ -1,12 +1,13 @@
 import { useRouter } from "next/router"
 import {
   makeStyles,
+  Grid,
   Card,
   CardContent,
   Chip,
-  Grid,
   Typography,
 } from "@material-ui/core"
+import { grey, blueGrey, orange, teal } from "@material-ui/core/colors"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import { map as Amap, takeLeft as AtakeLeft } from "fp-ts/Array"
@@ -16,12 +17,25 @@ import {
   getOrElse as OgetOrElse,
   map as Omap,
 } from "fp-ts/Option"
-import { grey, blueGrey, lightBlue, orange } from "@material-ui/core/colors"
 import { ListPublicationsWithGeneQuery } from "dicty-graphql-schema"
 import { formatTitle } from "@dictybase/ui-common"
+import { commaSeparateWithAnd } from "common/utils/strings"
 import { SeeAllGenesChip } from "./SeeAllGenesChip"
 
 const useStyles = makeStyles((theme) => ({
+  grid: {
+    borderTop: `1px solid ${blueGrey[50]}`,
+  },
+  authorsGrid: {
+    flexGrow: 1,
+    paddingTop: "1rem",
+    paddingBottom: "1rem",
+    // border: `1px solid ${blueGrey[50]}`,
+  },
+  idGrid: {
+    paddingTop: "1rem",
+    paddingBottom: "1rem",
+  },
   leadText: {
     color: "#0b3861",
     paddingRight: "10px",
@@ -37,11 +51,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "22px",
   },
   card: {
-    // borderLeft: `5px solid ${theme.palette.primary.main}`,
-    // borderRight: `1px solid ${grey[400]}`,
-    // borderTop: `1px solid ${grey[400]}`,
-    // borderBottom: `1px solid ${grey[400]}`,
-    // boxShadow: theme.shadows[4],
     paddingLeft: "1rem",
     paddingRight: "1rem",
     transition: "border-left 0.1s ease-in-out",
@@ -67,12 +76,10 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
   },
   authors: {
-    marginBottom: theme.spacing(1),
+    fontWeight: 500,
   },
   chip: {
-    color: blueGrey[800],
-    border: `1px solid ${grey[200]}`,
-    backgroundColor: lightBlue[50],
+    backgroundColor: teal[50],
   },
   subheading: {
     fontWeight: 600,
@@ -91,7 +98,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const GENES_LIMIT = 5
+const GENES_LIMIT = 10
 
 type PublicationItem = {
   publication: ListPublicationsWithGeneQuery["listPublicationsWithGene"][0]
@@ -105,6 +112,7 @@ const SinglePublication = ({
   const formattedAuthors = pipe(
     authors,
     Amap(({ last_name }) => last_name),
+    commaSeparateWithAnd,
   )
   const formattedTitle = formatTitle(title).full
   const formattedDate = pipe(
@@ -129,17 +137,24 @@ const SinglePublication = ({
           className={
             classes.publication
           }>{`Published in ${journal}, ${formattedDate}`}</Typography>
-        <Grid container spacing={1} className={classes.authors}>
-          {pipe(
-            formattedAuthors,
-            Amap((author) => (
-              <Grid item>
-                <Chip size="small" label={author} className={classes.chip} />
-              </Grid>
-            )),
-          )}
+        <Grid container className={classes.grid}>
+          <Grid item className={classes.authorsGrid}>
+            <Typography gutterBottom className={classes.identifiers}>
+              AUTHORS
+            </Typography>
+            <Typography gutterBottom className={classes.authors}>
+              {formattedAuthors}
+            </Typography>
+          </Grid>
+          <Grid item className={classes.idGrid}>
+            <Typography gutterBottom className={classes.identifiers}>
+              IDENTIFIER
+            </Typography>
+            <Typography gutterBottom className={classes.identifiers}>
+              PMID: {id}
+            </Typography>
+          </Grid>
         </Grid>
-        <Typography className={classes.identifiers}>PMID: {id}</Typography>
         <Typography variant="h3" gutterBottom className={classes.subheading}>
           Related Genes
         </Typography>
@@ -157,6 +172,7 @@ const SinglePublication = ({
               label={gene.name}
               size="medium"
               style={{ margin: "0px 5px 5px 0px" }}
+              className={classes.chip}
               variant="outlined"
             />
           )),
