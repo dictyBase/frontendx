@@ -1,4 +1,6 @@
 import { ListPublicationsWithGeneQuery } from "dicty-graphql-schema"
+import { pipe } from "fp-ts/function"
+import { match as Bmatch } from "fp-ts/boolean"
 import {
   Paper,
   Table,
@@ -25,9 +27,16 @@ const ReferencesDataTable = ({ publications }: Properties) => {
       <Table aria-label="phenotypes-table">
         <TableHead className={classes.head}>
           <TableRow className={classes.headRow}>
-            <TableCell
-              className={classes.referenceColumn}
-            >{`${publications.length} Reference(s)`}</TableCell>
+            <TableCell className={classes.referenceColumn}>
+              {publications.length}{" "}
+              {pipe(
+                publications.length > 1,
+                Bmatch(
+                  () => "Reference",
+                  () => "References",
+                ),
+              )}
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
