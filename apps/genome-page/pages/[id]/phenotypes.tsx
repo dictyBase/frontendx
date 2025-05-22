@@ -30,7 +30,9 @@ const PhenotypesPageWrapper = () => {
         .with(
           {
             data: {
-              listStrainsWithGene: P.select(P.array({ id: P.string })),
+              listStrainsWithGene: P.select(
+                P.array({ id: P.string, phenotypes: P.not([]) }),
+              ),
             },
           },
           (strains) => <PhenotypesContainer strains={strains} />,
