@@ -14,7 +14,6 @@ import { ListPublicationsWithGeneQuery } from "dicty-graphql-schema"
 import { formatTitle } from "@dictybase/ui-common"
 import { commaSeparateWithAnd } from "common/utils/strings"
 import { SeeAllGenesChip } from "./SeeAllGenesChip"
-import { SinglePublicationBottom } from "./SinglePublicationBottom"
 
 const useStyles = makeStyles((theme) => ({
   gridContainer: {
@@ -46,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "22px",
   },
   card: {
-    border: `1px solid ${blueGrey[100]}`,
+    borderBottom: `1px solid ${blueGrey[100]}`,
     transition: "border-left 0.1s ease-in-out",
     "&:hover": {
       borderLeft: `5px solid ${orange[900]}`,
@@ -91,54 +90,76 @@ const useStyles = makeStyles((theme) => ({
 
 const GENES_LIMIT = 10
 
-type PublicationItem = {
-  publication: ListPublicationsWithGeneQuery["listPublicationsWithGene"][0]
+type SinglePublicationBottomProperties = {
+  id: ListPublicationsWithGeneQuery["listPublicationsWithGene"][0]["id"]
+  authors: ListPublicationsWithGeneQuery["listPublicationsWithGene"][0]["authors"]
+  relatedGenes: ListPublicationsWithGeneQuery["listPublicationsWithGene"][0]["related_genes"]
 }
 
-const SinglePublication = ({
-  publication: { title, journal, id, authors, pub_date, related_genes },
-}: PublicationItem) => {
+const SinglePublicationBottom = ({
+  id,
+  authors,
+  relatedGenes,
+}: SinglePublicationBottomProperties) => {
   const classes = useStyles()
-  const formattedTitle = formatTitle(title).full
-  const formattedDate = pipe(
-    pub_date,
-    OfromNullable,
-    Omap(parseISO),
-    Omap(format("PPP")),
-    OgetOrElse(() => ""),
+  const router = useRouter()
+  const formattedAuthors = pipe(
+    authors,
+    Amap(({ last_name }) => last_name),
+    commaSeparateWithAnd,
   )
-
-  const onClick = () => {
-    window.location.assign(`${process.env.NEXT_PUBLIC_PUBLICATION_URL}/${id}`)
-  }
-
   return (
-    <Grid
-      container
-      style={{ height: "min-content" }}
-      direction="column"
-      className={classes.card}
-      onClick={onClick}>
-      <Grid item>
-        <Box className={classes.titleContainer}>
-          <Typography variant="h2" gutterBottom className={classes.title}>
-            {formattedTitle}
+    <Grid container direction="row" className={classes.gridContainer}>
+      <Grid item className={classes.authorsGrid}>
+        <Box>
+          <Typography gutterBottom>AUTHORS</Typography>
+          <Typography gutterBottom className={classes.authors}>
+            {formattedAuthors}
           </Typography>
-          <Typography
-            className={
-              classes.publication
-            }>{`Published in ${journal}, ${formattedDate}`}</Typography>
         </Box>
       </Grid>
-      <Grid item>
-        <SinglePublicationBottom
-          id={id}
-          authors={authors}
-          relatedGenes={related_genes}
-        />
+      <Grid item className={classes.relatedGenesGrid}>
+        <Typography variant="h3" gutterBottom className={classes.subheading}>
+          Mentioned Genes
+        </Typography>
+        <Grid container spacing={1}>
+          {pipe(
+            relatedGenes,
+            AtakeLeft(GENES_LIMIT),
+            Amap((gene) => (
+              <Grid item key={gene.id}>
+                <Chip
+                  onClick={(event) => {
+                    event.stopPropagation()
+                    router.push(`/${gene.name}`)
+                  }}
+                  clickable
+                  label={gene.name}
+                  size="medium"
+                  className={classes.chip}
+                  variant="outlined"
+                />
+              </Grid>
+            )),
+          )}
+          {pipe(
+            relatedGenes.length > GENES_LIMIT,
+            Bmatch(
+              () => <></>,
+              () => (
+                <Grid item>
+                  <SeeAllGenesChip
+                    publicationId={id}
+                    geneCount={relatedGenes.length}
+                  />
+                </Grid>
+              ),
+            ),
+          )}
+        </Grid>
       </Grid>
     </Grid>
   )
 }
 
-export { SinglePublication }
+export { SinglePublicationBottom }
