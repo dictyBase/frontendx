@@ -15,9 +15,7 @@ describe("features/References/ReferencesDataTable", () => {
       pathname,
     }))
     render(
-      <ReferencesDataTable
-        publications={mockReferencesData.slice(0, 1)}
-      />,
+      <ReferencesDataTable publications={mockReferencesData.slice(0, 1)} />,
     )
 
     // Renders skeleton loading
