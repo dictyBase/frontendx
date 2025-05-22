@@ -393,7 +393,7 @@ const mockReferencesData: PublicationWithGene[] = [
     pub_type: "",
     source: "",
     doi: "",
-    pub_date: "2018-11-27T00:00:00.000Z",
+    pub_date: MOCK_PUB_DATE,
     volume: "",
     issn: "",
     issue: "",
