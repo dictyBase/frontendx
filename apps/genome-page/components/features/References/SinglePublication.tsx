@@ -115,7 +115,6 @@ const SinglePublication = ({
   return (
     <Grid
       container
-      style={{ height: "min-content" }}
       direction="column"
       className={classes.card}
       onClick={onClick}>
