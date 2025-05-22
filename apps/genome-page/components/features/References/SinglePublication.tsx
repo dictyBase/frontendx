@@ -145,37 +145,41 @@ const SinglePublication = ({
           <Typography variant="h3" gutterBottom className={classes.subheading}>
             Mentioned Genes
           </Typography>
-          {pipe(
-            related_genes,
-            AtakeLeft(GENES_LIMIT),
-            Amap((gene) => (
-              <Chip
-                onClick={(event) => {
-                  event.stopPropagation()
-                  router.push(`/${gene.name}`)
-                }}
-                clickable
-                key={gene.id}
-                label={gene.name}
-                size="medium"
-                style={{ margin: "0px 5px 5px 0px" }}
-                className={classes.chip}
-                variant="outlined"
-              />
-            )),
-          )}
-          {pipe(
-            related_genes.length > GENES_LIMIT,
-            Bmatch(
-              () => <></>,
-              () => (
-                <SeeAllGenesChip
-                  publicationId={id}
-                  geneCount={related_genes.length}
-                />
+          <Grid container spacing={1}>
+            {pipe(
+              related_genes,
+              AtakeLeft(GENES_LIMIT),
+              Amap((gene) => (
+                <Grid item key={gene.id}>
+                  <Chip
+                    onClick={(event) => {
+                      event.stopPropagation()
+                      router.push(`/${gene.name}`)
+                    }}
+                    clickable
+                    label={gene.name}
+                    size="medium"
+                    className={classes.chip}
+                    variant="outlined"
+                  />
+                </Grid>
+              )),
+            )}
+            {pipe(
+              related_genes.length > GENES_LIMIT,
+              Bmatch(
+                () => <></>,
+                () => (
+                  <Grid item>
+                    <SeeAllGenesChip
+                      publicationId={id}
+                      geneCount={related_genes.length}
+                    />
+                  </Grid>
+                ),
               ),
-            ),
-          )}
+            )}
+          </Grid>
         </Grid>
       </Grid>
     </Grid>
