@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "22px",
   },
   card: {
-    border: `1px solid ${blueGrey[100]}`,
+    borderBottom: `1px solid ${blueGrey[50]}`,
     transition: "border-left 0.1s ease-in-out",
     "&:hover": {
       borderLeft: `5px solid ${orange[900]}`,
