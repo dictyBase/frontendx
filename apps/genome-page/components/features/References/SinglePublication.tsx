@@ -91,7 +91,7 @@ type PublicationItem = {
 }
 
 const SinglePublication = ({
-  publication: { title, journal, id, authors, pub_date, related_genes },
+  publication: { id, title, journal, pages, authors, pub_date, related_genes },
 }: PublicationItem) => {
   const classes = useStyles()
   const router = useRouter()
@@ -122,7 +122,7 @@ const SinglePublication = ({
         <Typography
           className={
             classes.publication
-          }>{`Published in ${journal}, ${formattedDate}`}</Typography>
+          }>{`Published in ${journal}, ${pages}, ${formattedDate}`}</Typography>
       </Box>
       <Grid container className={classes.gridContainer}>
         <Grid item className={classes.authorsGrid}>
