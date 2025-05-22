@@ -15,7 +15,7 @@ import { formatTitle } from "@dictybase/ui-common"
 import { commaSeparateWithAnd } from "common/utils/strings"
 import { SeeAllGenesChip } from "./SeeAllGenesChip"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   gridContainer: {
     borderTop: `1px solid ${blueGrey[50]}`,
   },
@@ -55,11 +55,9 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontWeight: 600,
     fontSize: "24px",
-    // fontFamily: "'Playfair Display Variable', serif",
   },
   publication: {
     color: grey[700],
-    // marginBottom: theme.spacing(1),
   },
   authors: {
     fontWeight: 500,
@@ -70,12 +68,9 @@ const useStyles = makeStyles((theme) => ({
   subheading: {
     fontWeight: 600,
     fontSize: "20px",
-    // fontFamily: "'Playfair Display Variable', serif",
   },
   abstract: {
     fontSize: "16px",
-    // fontFamily: "'Inter Tight Variable', sans-serif",
-    // marginBottom: theme.spacing(2),
     color: blueGrey[900],
   },
   button: {
@@ -86,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "2rem",
     paddingBottom: "0.5rem",
   },
-}))
+})
 
 const GENES_LIMIT = 10
 
