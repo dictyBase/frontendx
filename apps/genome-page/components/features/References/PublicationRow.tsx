@@ -3,7 +3,9 @@ import { ListPublicationsWithGeneQuery } from "dicty-graphql-schema"
 import { SinglePublication } from "./SinglePublication"
 
 const useStyles = makeStyles({
-  cell: { padding: 0 },
+  cell: {
+    // padding: 0
+  },
 })
 interface PublicationRowProperties {
   publication: ListPublicationsWithGeneQuery["listPublicationsWithGene"][0]

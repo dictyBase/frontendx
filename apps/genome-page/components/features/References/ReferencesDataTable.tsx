@@ -1,6 +1,8 @@
 import { ListPublicationsWithGeneQuery } from "dicty-graphql-schema"
 import {
+  Grid,
   Paper,
+  Container,
   Table,
   TableBody,
   TableCell,
@@ -8,8 +10,7 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core"
-import { useStyles } from "styles/dataTableStyles"
-import { PublicationRow } from "./PublicationRow"
+import { SinglePublication } from "./SinglePublication"
 
 interface Properties {
   publications: NonNullable<
@@ -17,20 +18,14 @@ interface Properties {
   >
 }
 
-const ReferencesDataTable = ({ publications }: Properties) => {
-  const classes = useStyles()
-
-  return (
-    <TableContainer component={Paper} className={classes.root}>
-      <Table aria-label="phenotypes-table">
-        <TableBody>
-          {publications.map((publication) => (
-            <PublicationRow publication={publication} key={publication.id} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  )
-}
+const ReferencesDataTable = ({ publications }: Properties) => (
+  <Grid container direction="column">
+    {publications.map((publication) => (
+      <Grid item key={publication.id}>
+        <SinglePublication publication={publication} />
+      </Grid>
+    ))}
+  </Grid>
+)
 
 export { ReferencesDataTable }
