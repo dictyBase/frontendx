@@ -118,61 +118,72 @@ const SinglePublication = ({
   }
 
   return (
-    <Grid className={classes.card} onClick={onClick}>
-      <Box className={classes.titleContainer}>
-        <Typography variant="h2" gutterBottom className={classes.title}>
-          {formattedTitle}
-        </Typography>
-        <Typography
-          className={
-            classes.publication
-          }>{`Published in ${journal}, ${formattedDate}`}</Typography>
-      </Box>
-      <Grid container className={classes.gridContainer}>
-        <Grid item className={classes.authorsGrid}>
-          <Typography gutterBottom>AUTHORS</Typography>
-          <Typography gutterBottom className={classes.authors}>
-            {formattedAuthors}
+    <Grid
+      container
+      direction="column"
+      className={classes.card}
+      onClick={onClick}>
+      <Grid item>
+        <Box className={classes.titleContainer}>
+          <Typography variant="h2" gutterBottom className={classes.title}>
+            {formattedTitle}
           </Typography>
-        </Grid>
-        <Grid item className={classes.relatedGenesGrid}>
-          <Typography variant="h3" gutterBottom className={classes.subheading}>
-            Mentioned Genes
-          </Typography>
-          <Grid container spacing={1}>
-            {pipe(
-              related_genes,
-              AtakeLeft(GENES_LIMIT),
-              Amap((gene) => (
-                <Grid item key={gene.id}>
-                  <Chip
-                    onClick={(event) => {
-                      event.stopPropagation()
-                      router.push(`/${gene.name}`)
-                    }}
-                    clickable
-                    label={gene.name}
-                    size="medium"
-                    className={classes.chip}
-                    variant="outlined"
-                  />
-                </Grid>
-              )),
-            )}
-            {pipe(
-              related_genes.length > GENES_LIMIT,
-              Bmatch(
-                () => <></>,
-                () => (
-                  <Grid item>
-                    <SeeAllGenesChip
-                      publicationId={id}
-                      geneCount={related_genes.length}
+          <Typography
+            className={
+              classes.publication
+            }>{`Published in ${journal}, ${formattedDate}`}</Typography>
+        </Box>
+      </Grid>
+      <Grid item>
+        <Grid container className={classes.gridContainer}>
+          <Grid item className={classes.authorsGrid}>
+            <Typography gutterBottom>AUTHORS</Typography>
+            <Typography gutterBottom className={classes.authors}>
+              {formattedAuthors}
+            </Typography>
+          </Grid>
+          <Grid item className={classes.relatedGenesGrid}>
+            <Typography
+              variant="h3"
+              gutterBottom
+              className={classes.subheading}>
+              Mentioned Genes
+            </Typography>
+            <Grid container spacing={1}>
+              {pipe(
+                related_genes,
+                AtakeLeft(GENES_LIMIT),
+                Amap((gene) => (
+                  <Grid item key={gene.id}>
+                    <Chip
+                      onClick={(event) => {
+                        event.stopPropagation()
+                        router.push(`/${gene.name}`)
+                      }}
+                      clickable
+                      label={gene.name}
+                      size="medium"
+                      className={classes.chip}
+                      variant="outlined"
                     />
                   </Grid>
+                )),
+              )}
+              {pipe(
+                related_genes.length > GENES_LIMIT,
+                Bmatch(
+                  () => <></>,
+                  () => (
+                    <Grid item>
+                      <SeeAllGenesChip
+                        publicationId={id}
+                        geneCount={related_genes.length}
+                      />
+                    </Grid>
+                  ),
                 ),
-              ),
-            )}
+              )}
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
