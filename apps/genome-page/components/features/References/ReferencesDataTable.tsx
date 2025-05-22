@@ -19,7 +19,7 @@ interface Properties {
 }
 
 const ReferencesDataTable = ({ publications }: Properties) => (
-  <Grid container direction="column">
+  <Grid container direction="column" spacing={1}>
     {publications.map((publication) => (
       <Grid item key={publication.id}>
         <SinglePublication publication={publication} />
