@@ -118,7 +118,7 @@ const SinglePublication = ({
   }
 
   return (
-    <Grid className={classes.card} onClick={onClick}>
+    <Grid container className={classes.card} onClick={onClick}>
       <Box className={classes.titleContainer}>
         <Typography variant="h2" gutterBottom className={classes.title}>
           {formattedTitle}
