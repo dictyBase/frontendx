@@ -17,7 +17,7 @@ describe("features/References/ReferencesContainer", () => {
     render(<ReferencesContainer publications={mockReferencesData} />)
 
     // Renders skeleton loading
-    ;expect(screen.getByText(/reference/i)).toBeInTheDocument()
+    expect(screen.getByText(/reference/i)).toBeInTheDocument()
     expect(screen.getByText("ctxA")).toBeInTheDocument()
   })
 })
