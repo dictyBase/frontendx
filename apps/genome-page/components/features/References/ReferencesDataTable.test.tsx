@@ -16,7 +16,7 @@ describe("features/References/ReferencesDataTable", () => {
     }))
     render(
       <ReferencesDataTable
-        publications={[...mockReferencesData.slice(0, 1)]}
+        publications={mockReferencesData.slice(0, 1)}
       />,
     )
 
