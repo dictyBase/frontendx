@@ -23,6 +23,13 @@ const ReferencesDataTable = ({ publications }: Properties) => {
   return (
     <TableContainer component={Paper} className={classes.root}>
       <Table aria-label="phenotypes-table">
+        <TableHead className={classes.head}>
+          <TableRow className={classes.headRow}>
+            <TableCell
+              className={classes.referenceColumn}
+            >{`${publications.length} Reference(s)`}</TableCell>
+          </TableRow>
+        </TableHead>
         <TableBody>
           {publications.map((publication) => (
             <PublicationRow publication={publication} key={publication.id} />
