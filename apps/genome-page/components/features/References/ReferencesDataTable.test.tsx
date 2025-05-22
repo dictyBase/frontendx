@@ -14,7 +14,11 @@ describe("features/References/ReferencesDataTable", () => {
       query: { id: gene },
       pathname,
     }))
-    render(<ReferencesDataTable publications={[...mockReferencesData.slice(0, 1)]} />)
+    render(
+      <ReferencesDataTable
+        publications={[...mockReferencesData.slice(0, 1)]}
+      />,
+    )
 
     // Renders skeleton loading
     expect(screen.getByText("1 Reference")).toBeInTheDocument()
