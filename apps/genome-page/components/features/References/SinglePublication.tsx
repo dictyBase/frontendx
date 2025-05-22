@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "22px",
   },
   card: {
-    border: `1px solid ${blueGrey[50]}`,
+    border: `1px solid ${blueGrey[100]}`,
     transition: "border-left 0.1s ease-in-out",
     "&:hover": {
       borderLeft: `5px solid ${orange[900]}`,
@@ -59,11 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
   publication: {
     color: grey[700],
-    marginBottom: theme.spacing(1),
-  },
-  identifiers: {
-    color: theme.palette.primary.main,
-    marginBottom: theme.spacing(1),
+    // marginBottom: theme.spacing(1),
   },
   authors: {
     fontWeight: 500,
@@ -79,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
   abstract: {
     fontSize: "16px",
     // fontFamily: "'Inter Tight Variable', sans-serif",
-    marginBottom: theme.spacing(2),
+    // marginBottom: theme.spacing(2),
     color: blueGrey[900],
   },
   button: {
@@ -134,9 +130,7 @@ const SinglePublication = ({
       </Box>
       <Grid container className={classes.gridContainer}>
         <Grid item className={classes.authorsGrid}>
-          <Typography gutterBottom className={classes.identifiers}>
-            AUTHORS
-          </Typography>
+          <Typography gutterBottom>AUTHORS</Typography>
           <Typography gutterBottom className={classes.authors}>
             {formattedAuthors}
           </Typography>
