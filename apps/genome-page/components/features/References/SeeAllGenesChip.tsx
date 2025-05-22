@@ -22,7 +22,7 @@ const SeeAllGenesChip = ({
       clickable
       key="see-all"
       label={`See all ${geneCount}`}
-      size="small"
+      size="medium"
       color="secondary"
       onClick={handleClick}
       style={{ margin: "0px 5px 5px 0px" }}
