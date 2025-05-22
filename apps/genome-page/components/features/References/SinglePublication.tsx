@@ -1,12 +1,5 @@
 import { useRouter } from "next/router"
-import {
-  makeStyles,
-  Grid,
-  Card,
-  CardContent,
-  Chip,
-  Typography,
-} from "@material-ui/core"
+import { makeStyles, Box, Grid, Chip, Typography } from "@material-ui/core"
 import { grey, blueGrey, orange, teal } from "@material-ui/core/colors"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
@@ -23,18 +16,19 @@ import { commaSeparateWithAnd } from "common/utils/strings"
 import { SeeAllGenesChip } from "./SeeAllGenesChip"
 
 const useStyles = makeStyles((theme) => ({
-  grid: {
+  gridContainer: {
     borderTop: `1px solid ${blueGrey[50]}`,
   },
   authorsGrid: {
-    flexGrow: 1,
-    paddingTop: "1rem",
-    paddingBottom: "1rem",
-    // border: `1px solid ${blueGrey[50]}`,
+    borderRight: `1px inset ${blueGrey[50]}`,
+    flexBasis: "30%",
+    padding: "2rem",
   },
-  idGrid: {
-    paddingTop: "1rem",
-    paddingBottom: "1rem",
+  relatedGenesGrid: {
+    border: `1px solid ${blueGrey[50]}`,
+    backgroundColor: grey[50],
+    flexBasis: "70%",
+    padding: "2rem",
   },
   leadText: {
     color: "#0b3861",
@@ -51,16 +45,12 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "22px",
   },
   card: {
-    paddingLeft: "1rem",
-    paddingRight: "1rem",
+    borderBottom: `1px solid ${blueGrey[50]}`,
     transition: "border-left 0.1s ease-in-out",
     "&:hover": {
       borderLeft: `5px solid ${orange[900]}`,
       cursor: "pointer",
     },
-  },
-  cardContent: {
-    padding: theme.spacing(3),
   },
   title: {
     fontWeight: 600,
@@ -96,6 +86,10 @@ const useStyles = makeStyles((theme) => ({
     width: "12rem",
     borderRadius: "1rem",
   },
+  titleContainer: {
+    padding: "2rem",
+    paddingBottom: "0.5rem",
+  },
 }))
 
 const GENES_LIMIT = 10
@@ -128,8 +122,8 @@ const SinglePublication = ({
   }
 
   return (
-    <Card elevation={0} className={classes.card} onClick={onClick}>
-      <CardContent className={classes.cardContent}>
+    <Grid className={classes.card} onClick={onClick}>
+      <Box className={classes.titleContainer}>
         <Typography variant="h2" gutterBottom className={classes.title}>
           {formattedTitle}
         </Typography>
@@ -137,60 +131,54 @@ const SinglePublication = ({
           className={
             classes.publication
           }>{`Published in ${journal}, ${formattedDate}`}</Typography>
-        <Grid container className={classes.grid}>
-          <Grid item className={classes.authorsGrid}>
-            <Typography gutterBottom className={classes.identifiers}>
-              AUTHORS
-            </Typography>
-            <Typography gutterBottom className={classes.authors}>
-              {formattedAuthors}
-            </Typography>
-          </Grid>
-          <Grid item className={classes.idGrid}>
-            <Typography gutterBottom className={classes.identifiers}>
-              IDENTIFIER
-            </Typography>
-            <Typography gutterBottom className={classes.identifiers}>
-              PMID: {id}
-            </Typography>
-          </Grid>
+      </Box>
+      <Grid container className={classes.gridContainer}>
+        <Grid item className={classes.authorsGrid}>
+          <Typography gutterBottom className={classes.identifiers}>
+            AUTHORS
+          </Typography>
+          <Typography gutterBottom className={classes.authors}>
+            {formattedAuthors}
+          </Typography>
         </Grid>
-        <Typography variant="h3" gutterBottom className={classes.subheading}>
-          Related Genes
-        </Typography>
-        {pipe(
-          related_genes,
-          AtakeLeft(GENES_LIMIT),
-          Amap((gene) => (
-            <Chip
-              onClick={(event) => {
-                event.stopPropagation()
-                router.push(`/${gene.name}`)
-              }}
-              clickable
-              key={gene.id}
-              label={gene.name}
-              size="medium"
-              style={{ margin: "0px 5px 5px 0px" }}
-              className={classes.chip}
-              variant="outlined"
-            />
-          )),
-        )}
-        {pipe(
-          related_genes.length > GENES_LIMIT,
-          Bmatch(
-            () => <></>,
-            () => (
-              <SeeAllGenesChip
-                publicationId={id}
-                geneCount={related_genes.length}
+        <Grid item className={classes.relatedGenesGrid}>
+          <Typography variant="h3" gutterBottom className={classes.subheading}>
+            Mentioned Genes
+          </Typography>
+          {pipe(
+            related_genes,
+            AtakeLeft(GENES_LIMIT),
+            Amap((gene) => (
+              <Chip
+                onClick={(event) => {
+                  event.stopPropagation()
+                  router.push(`/${gene.name}`)
+                }}
+                clickable
+                key={gene.id}
+                label={gene.name}
+                size="medium"
+                style={{ margin: "0px 5px 5px 0px" }}
+                className={classes.chip}
+                variant="outlined"
               />
+            )),
+          )}
+          {pipe(
+            related_genes.length > GENES_LIMIT,
+            Bmatch(
+              () => <></>,
+              () => (
+                <SeeAllGenesChip
+                  publicationId={id}
+                  geneCount={related_genes.length}
+                />
+              ),
             ),
-          ),
-        )}
-      </CardContent>
-    </Card>
+          )}
+        </Grid>
+      </Grid>
+    </Grid>
   )
 }
 
