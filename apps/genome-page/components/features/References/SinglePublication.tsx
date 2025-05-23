@@ -30,20 +30,6 @@ const useStyles = makeStyles({
     flexBasis: "70%",
     padding: "2rem",
   },
-  leadText: {
-    color: "#0b3861",
-    paddingRight: "10px",
-  },
-  sourceContent: {
-    color: "#0b3861",
-  },
-  sourceTitle: {
-    fontWeight: 800,
-    textAlign: "center",
-  },
-  link: {
-    fontSize: "22px",
-  },
   card: {
     borderBottom: `1px solid ${blueGrey[50]}`,
     transition: "border-left 0.1s ease-in-out",
@@ -69,14 +55,6 @@ const useStyles = makeStyles({
   subheading: {
     fontWeight: 600,
     fontSize: "20px",
-  },
-  abstract: {
-    fontSize: "16px",
-    color: blueGrey[900],
-  },
-  button: {
-    width: "12rem",
-    borderRadius: "1rem",
   },
   titleContainer: {
     padding: "2rem",
