@@ -1,6 +1,10 @@
 import React from "react"
 import { pipe } from "fp-ts/function"
-import { Ord as SOrd, Monoid as SMonoid } from "fp-ts/string"
+import {
+  Ord as SOrd,
+  Monoid as SMonoid,
+  isEmpty as SisEmpty,
+} from "fp-ts/string"
 import {
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
@@ -11,6 +15,7 @@ import {
   map as Amap,
   head as Ahead,
   sort as Asort,
+  filter as Afilter,
   intercalate as Aintercalate,
 } from "fp-ts/Array"
 import { Link } from "react-router-dom"
@@ -119,6 +124,7 @@ const strainRowsGenerator = ({
     content: pipe(
       genes,
       OfromNullable,
+      Omap(Afilter(({ name }) => !SisEmpty(name))),
       Omap((g) => <GenesDisplay genes={g} />),
       OgetOrElse(() => <></>),
     ),
