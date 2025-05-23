@@ -98,8 +98,9 @@ const SinglePublication = ({
           {formattedTitle}
         </Typography>
         <Typography
-          className={classes.publication}
-        >{`Published in ${journal}, ${pages}, ${formattedDate}`}</Typography>
+          className={
+            classes.publication
+          }>{`Published in ${journal}, ${pages}, ${formattedDate}`}</Typography>
       </Box>
       <Grid container className={classes.gridContainer}>
         <Grid item className={classes.authorsGrid}>
