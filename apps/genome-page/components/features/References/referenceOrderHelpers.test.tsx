@@ -1,12 +1,3 @@
-import { pipe } from "fp-ts/function"
-import {
-  sort as Asort,
-  last as Alast,
-  takeLeft as AtakeLeft,
-  dropLeft as AdropLeft,
-  takeRight as AtakeRight,
-} from "fp-ts/Array"
-import { some } from "fp-ts/Option"
 import { mockReferencesData } from "mocks/mockReferencesData"
 import { Gene } from "dicty-graphql-schema"
 import { ordByOldest } from "./referenceOrderHelpers"
