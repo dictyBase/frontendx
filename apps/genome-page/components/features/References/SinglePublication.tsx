@@ -51,6 +51,10 @@ const useStyles = makeStyles({
   },
   chip: {
     backgroundColor: teal[50],
+    "&:hover": {
+      boxShadow: `1px 1px 2px ${grey[500]}`,
+      backgroundColor: `${teal[100]} !important`,
+    },
   },
   subheading: {
     fontWeight: 600,
@@ -125,10 +129,10 @@ const SinglePublication = ({
                       router.push(`/${gene.name}`)
                     }}
                     clickable
-                    label={gene.name}
                     size="medium"
-                    className={classes.chip}
                     variant="outlined"
+                    label={gene.name}
+                    className={classes.chip}
                   />
                 </Grid>
               )),
