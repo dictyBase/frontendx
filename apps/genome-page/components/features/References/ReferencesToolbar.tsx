@@ -33,7 +33,7 @@ const ordByNewest: Ord<PublicationWithGene> = pipe(ordByOldest, ORDreverse)
 
 const ordByTitle: Ord<PublicationWithGene> = pipe(
   SOrd,
-  contramap((publicationItem) => publicationItem.title),
+  contramap(({ title }) => title),
 )
 const ordByTitleReverse: Ord<PublicationWithGene> = pipe(ordByTitle, ORDreverse)
 
@@ -44,10 +44,12 @@ const orderFunctions = {
   "Title (Z - A)": ordByTitleReverse,
 }
 
+type OrderFunctionKeys = keyof typeof orderFunctions
+
 type ReferencesToolbarProperties = {
   publicationCount: number
   sorting: string
-  setSorting: Dispatch<SetStateAction<keyof typeof orderFunctions>>
+  setSorting: Dispatch<SetStateAction<OrderFunctionKeys>>
 }
 
 const ReferencesToolbar = ({
@@ -72,7 +74,7 @@ const ReferencesToolbar = ({
       variant="outlined"
       value={sorting}
       onChange={({ target: { value } }) => {
-        setSorting(value as keyof typeof orderFunctions)
+        setSorting(value as OrderFunctionKeys)
       }}>
       {pipe(
         orderFunctions,
@@ -83,4 +85,4 @@ const ReferencesToolbar = ({
   </Toolbar>
 )
 
-export { ReferencesToolbar, orderFunctions }
+export { ReferencesToolbar, orderFunctions, type OrderFunctionKeys }
