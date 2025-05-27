@@ -3,6 +3,8 @@ import {
   Grid,
   Toolbar,
   Typography,
+  FormControl,
+  InputLabel,
   Select,
   MenuItem,
   makeStyles,
@@ -16,6 +18,9 @@ import { orderFunctions, type OrderFunctionKeys } from "./referenceOrderHelpers"
 const useStyles = makeStyles((theme) => ({
   select: {
     backgroundColor: theme.palette.background.default,
+  },
+  label: {
+    fontWeight: 700,
   },
 }))
 
@@ -47,21 +52,28 @@ const ReferencesToolbar = ({
           </Typography>
         </Grid>
         <Grid item>
-          <Select
-            labelId="reference-sort-select"
-            id="reference-sort-select"
-            variant="outlined"
-            value={order}
-            onChange={({ target: { value } }) => {
-              setOrder(value as OrderFunctionKeys)
-            }}
-            className={classes.select}>
-            {pipe(
-              orderFunctions,
-              Rkeys,
-              Amap((label) => <MenuItem value={label}>{label}</MenuItem>),
-            )}
-          </Select>
+          <FormControl variant="outlined">
+            <InputLabel
+              htmlFor="reference-order-select"
+              className={classes.label}>
+              Sort by
+            </InputLabel>
+            <Select
+              labelId="reference-order-select"
+              id="reference-order-select"
+              label="Sort by"
+              value={order}
+              onChange={({ target: { value } }) => {
+                setOrder(value as OrderFunctionKeys)
+              }}
+              className={classes.select}>
+              {pipe(
+                orderFunctions,
+                Rkeys,
+                Amap((label) => <MenuItem value={label}>{label}</MenuItem>),
+              )}
+            </Select>
+          </FormControl>
         </Grid>
       </Grid>
     </Toolbar>
