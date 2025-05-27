@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
   label: {
     fontWeight: 700,
   },
+  count: {
+    fontWeight: 500,
+  }
 }))
 
 type ReferencesToolbarProperties = {
@@ -37,10 +40,10 @@ const ReferencesToolbar = ({
 }: ReferencesToolbarProperties) => {
   const classes = useStyles()
   return (
-    <Toolbar variant="dense">
+    <Toolbar variant="dense" className={classes.toolbar}>
       <Grid container spacing={3} alignItems="center">
         <Grid item>
-          <Typography>
+          <Typography className={classes.count}>
             {publicationCount}{" "}
             {pipe(
               publicationCount > 1,
