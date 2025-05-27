@@ -11,7 +11,6 @@ import { mockPhenotypesData } from "./mockPhenotypesData"
 import { mockPhenotypesPiaA } from "./piaAMocks/mockPhenotypesPiaA"
 import { mockPhenotypesAda2 } from "./ada2Mocks/mockPhenotypesAda2"
 import { mockReferencesData } from "./mockReferencesData"
-import { mockReferencesPiaA } from "./piaAMocks/mockReferencesPiaA"
 
 export const handlers = [
   // Handles the Gene query: https://github.com/dictyBase/dicty-graphql-schema/blob/develop/src/queries/gene.graphql
@@ -67,7 +66,7 @@ export const handlers = [
         })
       case "piaA" || "ada2":
         return HttpResponse.json({
-          data: { listPublicationsWithGene: mockReferencesPiaA },
+          data: { listPublicationsWithGene: mockReferencesData },
         })
       default:
         return HttpResponse.json({
