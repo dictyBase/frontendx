@@ -58,7 +58,7 @@ const ReferencesToolbar = ({
   setOrder,
 }: ReferencesToolbarProperties) => (
   <Toolbar variant="dense">
-    <Grid container>
+    <Grid container spacing={2} alignItems="center">
       <Grid item>
         <Typography>
           {publicationCount}{" "}
