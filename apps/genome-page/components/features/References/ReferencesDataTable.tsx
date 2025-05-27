@@ -13,11 +13,8 @@ import {
 } from "@material-ui/core"
 import { useStyles } from "styles/dataTableStyles"
 import { PublicationRow } from "./PublicationRow"
-import {
-  ReferencesToolbar,
-  orderFunctions,
-  OrderFunctionKeys,
-} from "./ReferencesToolbar"
+import { ReferencesToolbar } from "./ReferencesToolbar"
+import { orderFunctions, type OrderFunctionKeys } from "./referenceOrderHelpers"
 
 interface Properties {
   publications: NonNullable<
