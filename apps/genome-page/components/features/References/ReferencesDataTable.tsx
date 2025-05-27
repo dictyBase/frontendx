@@ -22,11 +22,11 @@ interface Properties {
 }
 
 const ReferencesDataTable = ({ publications }: Properties) => {
-  const [sorting, setSorting] = useState(orderFunctions[0])
+  const [sorting, setSorting] = useState(
+    "Newest First" as keyof typeof orderFunctions,
+  )
   const classes = useStyles()
-  console.log(sorting)
-  const sortedPublications = pipe(publications, Asort(sorting[1]))
-  console.log(sortedPublications)
+  const sortedPublications = pipe(publications, Asort(orderFunctions[sorting]))
 
   return (
     <TableContainer component={Paper} className={classes.root}>
