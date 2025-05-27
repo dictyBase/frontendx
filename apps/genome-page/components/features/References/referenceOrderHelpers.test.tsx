@@ -13,6 +13,7 @@ const missingPubDate = {
   pub_type: "",
   source: "",
   doi: "",
+  // eslint-disable-next-line unicorn/no-null
   pub_date: null,
   volume: "",
   issn: "",
