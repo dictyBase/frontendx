@@ -38,8 +38,8 @@ const ReferencesDataTable = ({ publications }: Properties) => {
             <TableCell className={classes.referenceColumn}>
               <ReferencesToolbar
                 publicationCount={publications.length}
-                sorting={order}
-                setSorting={setOrder}
+                order={order}
+                setOrder={setOrder}
               />
             </TableCell>
           </TableRow>
