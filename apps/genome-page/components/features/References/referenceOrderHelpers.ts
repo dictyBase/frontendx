@@ -41,4 +41,9 @@ const orderFunctions = {
 
 type OrderFunctionKeys = keyof typeof orderFunctions
 
-export { orderFunctions, ordByOldest, type PublicationWithGene, type OrderFunctionKeys }
+export {
+  orderFunctions,
+  ordByOldest,
+  type PublicationWithGene,
+  type OrderFunctionKeys,
+}
