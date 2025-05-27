@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import { makeStyles, Box, Grid, Chip, Typography } from "@material-ui/core"
-import { grey, blueGrey, orange, teal } from "@material-ui/core/colors"
+import { grey, blueGrey, orange, teal, pink } from "@material-ui/core/colors"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import { map as Amap, takeLeft as AtakeLeft } from "fp-ts/Array"
@@ -34,7 +34,7 @@ const useStyles = makeStyles({
     borderBottom: `1px solid ${blueGrey[50]}`,
     transition: "border-left 0.1s ease-in-out",
     "&:hover": {
-      borderLeft: `5px solid ${orange[900]}`,
+      borderLeft: `5px solid ${pink[700]}`,
       cursor: "pointer",
       backgroundColor: grey[50],
     },

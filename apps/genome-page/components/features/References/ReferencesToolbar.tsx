@@ -38,7 +38,7 @@ const ReferencesToolbar = ({
   const classes = useStyles()
   return (
     <Toolbar variant="dense">
-      <Grid container spacing={2} alignItems="center">
+      <Grid container spacing={3} alignItems="center">
         <Grid item>
           <Typography>
             {publicationCount}{" "}
