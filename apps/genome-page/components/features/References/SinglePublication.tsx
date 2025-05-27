@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import { makeStyles, Box, Grid, Chip, Typography } from "@material-ui/core"
-import { grey, blueGrey, orange, teal, pink } from "@material-ui/core/colors"
+import { grey, blueGrey, teal, pink } from "@material-ui/core/colors"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import { map as Amap, takeLeft as AtakeLeft } from "fp-ts/Array"
