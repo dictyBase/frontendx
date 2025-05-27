@@ -1,6 +1,7 @@
+import { useState } from "react"
 import { ListPublicationsWithGeneQuery } from "dicty-graphql-schema"
 import { pipe } from "fp-ts/function"
-import { match as Bmatch } from "fp-ts/boolean"
+import { sort as Asort } from "fp-ts/Array"
 import {
   Paper,
   Table,
@@ -12,6 +13,7 @@ import {
 } from "@material-ui/core"
 import { useStyles } from "styles/dataTableStyles"
 import { PublicationRow } from "./PublicationRow"
+import { ReferencesToolbar, orderFunctions } from "./ReferencesToolbar"
 
 interface Properties {
   publications: NonNullable<
@@ -20,7 +22,11 @@ interface Properties {
 }
 
 const ReferencesDataTable = ({ publications }: Properties) => {
+  const [sorting, setSorting] = useState(orderFunctions[0])
   const classes = useStyles()
+  console.log(sorting)
+  const sortedPublications = pipe(publications, Asort(sorting[1]))
+  console.log(sortedPublications)
 
   return (
     <TableContainer component={Paper} className={classes.root}>
@@ -28,19 +34,16 @@ const ReferencesDataTable = ({ publications }: Properties) => {
         <TableHead className={classes.head}>
           <TableRow className={classes.headRow}>
             <TableCell className={classes.referenceColumn}>
-              {publications.length}{" "}
-              {pipe(
-                publications.length > 1,
-                Bmatch(
-                  () => "Reference",
-                  () => "References",
-                ),
-              )}
+              <ReferencesToolbar
+                publicationCount={publications.length}
+                sorting={sorting}
+                setSorting={setSorting}
+              />
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {publications.map((publication) => (
+          {sortedPublications.map((publication) => (
             <PublicationRow publication={publication} key={publication.id} />
           ))}
         </TableBody>
