@@ -48,14 +48,14 @@ type OrderFunctionKeys = keyof typeof orderFunctions
 
 type ReferencesToolbarProperties = {
   publicationCount: number
-  sorting: string
-  setSorting: Dispatch<SetStateAction<OrderFunctionKeys>>
+  order: string
+  setOrder: Dispatch<SetStateAction<OrderFunctionKeys>>
 }
 
 const ReferencesToolbar = ({
   publicationCount,
-  sorting,
-  setSorting,
+  order,
+  setOrder,
 }: ReferencesToolbarProperties) => (
   <Toolbar variant="dense">
     <Typography>
@@ -72,9 +72,9 @@ const ReferencesToolbar = ({
       labelId="reference-sort-select"
       id="reference-sort-select"
       variant="outlined"
-      value={sorting}
+      value={order}
       onChange={({ target: { value } }) => {
-        setSorting(value as OrderFunctionKeys)
+        setOrder(value as OrderFunctionKeys)
       }}>
       {pipe(
         orderFunctions,
