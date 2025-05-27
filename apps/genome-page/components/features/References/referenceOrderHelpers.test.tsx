@@ -1,30 +1,38 @@
 import { pipe } from "fp-ts/function"
-import { sort as Asort, last as Alast, takeLeft as AtakeLeft, dropLeft as AdropLeft, takeRight as AtakeRight } from "fp-ts/Array"
+import {
+  sort as Asort,
+  last as Alast,
+  takeLeft as AtakeLeft,
+  dropLeft as AdropLeft,
+  takeRight as AtakeRight,
+} from "fp-ts/Array"
 import { some } from "fp-ts/Option"
-import { ordByOldest } from "./referenceOrderHelpers"
 import { mockReferencesData } from "mocks/mockReferencesData"
 import { Gene } from "dicty-graphql-schema"
+import { ordByOldest } from "./referenceOrderHelpers"
 
 const missingPubDate = {
-    related_genes: [] as Array<Gene>,
-    id: "18168",
-    authors: [{ last_name: "Tun", first_name: "", initials: "", rank: "" }],
-    title: "Invalid Publish Date",
-    journal: "dictyBase",
-    pages: ":",
-    abstract: "",
-    pub_type: "",
-    source: "",
-    doi: "",
-    pub_date: null,
-    volume: "",
-    issn: "",
-    issue: "",
-    status: "",
-  }
+  related_genes: [] as Array<Gene>,
+  id: "18168",
+  authors: [{ last_name: "Tun", first_name: "", initials: "", rank: "" }],
+  title: "Invalid Publish Date",
+  journal: "dictyBase",
+  pages: ":",
+  abstract: "",
+  pub_type: "",
+  source: "",
+  doi: "",
+  pub_date: null,
+  volume: "",
+  issn: "",
+  issue: "",
+  status: "",
+}
 
 describe("ordByOldest", () => {
   test("Publications with an invalid pub_date format equal to any other publication", () => {
-    expect(ordByOldest.compare(missingPubDate, mockReferencesData[0])).toEqual(0)
+    expect(ordByOldest.compare(missingPubDate, mockReferencesData[0])).toEqual(
+      0,
+    )
   })
 })
