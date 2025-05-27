@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
   count: {
     fontWeight: 500,
-  }
+  },
 }))
 
 type ReferencesToolbarProperties = {
