@@ -61,10 +61,8 @@ export const handlers = [
     const { gene } = variables
     switch (gene) {
       case "sadA":
-        return HttpResponse.json({
-          data: { listPublicationsWithGene: mockReferencesData },
-        })
-      case "piaA" || "ada2":
+      case "piaA":
+      case "ada2":
         return HttpResponse.json({
           data: { listPublicationsWithGene: mockReferencesData },
         })
