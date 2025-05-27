@@ -13,7 +13,11 @@ import {
 } from "@material-ui/core"
 import { useStyles } from "styles/dataTableStyles"
 import { PublicationRow } from "./PublicationRow"
-import { ReferencesToolbar, orderFunctions } from "./ReferencesToolbar"
+import {
+  ReferencesToolbar,
+  orderFunctions,
+  OrderFunctionKeys,
+} from "./ReferencesToolbar"
 
 interface Properties {
   publications: NonNullable<
@@ -22,11 +26,9 @@ interface Properties {
 }
 
 const ReferencesDataTable = ({ publications }: Properties) => {
-  const [sorting, setSorting] = useState(
-    "Newest First" as keyof typeof orderFunctions,
-  )
-  const classes = useStyles()
+  const [sorting, setSorting] = useState<OrderFunctionKeys>("Newest First")
   const sortedPublications = pipe(publications, Asort(orderFunctions[sorting]))
+  const classes = useStyles()
 
   return (
     <TableContainer component={Paper} className={classes.root}>
