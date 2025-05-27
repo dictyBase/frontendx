@@ -26,8 +26,8 @@ interface Properties {
 }
 
 const ReferencesDataTable = ({ publications }: Properties) => {
-  const [sorting, setSorting] = useState<OrderFunctionKeys>("Newest First")
-  const sortedPublications = pipe(publications, Asort(orderFunctions[sorting]))
+  const [order, setOrder] = useState<OrderFunctionKeys>("Newest First")
+  const sortedPublications = pipe(publications, Asort(orderFunctions[order]))
   const classes = useStyles()
 
   return (
@@ -38,8 +38,8 @@ const ReferencesDataTable = ({ publications }: Properties) => {
             <TableCell className={classes.referenceColumn}>
               <ReferencesToolbar
                 publicationCount={publications.length}
-                sorting={sorting}
-                setSorting={setSorting}
+                sorting={order}
+                setSorting={setOrder}
               />
             </TableCell>
           </TableRow>
