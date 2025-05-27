@@ -81,5 +81,3 @@ const ReferencesToolbar = ({
 }
 
 export { ReferencesToolbar }
-
-export { orderFunctions, type OrderFunctionKeys } from "./referenceOrderHelpers"
