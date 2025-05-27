@@ -40,7 +40,7 @@ const ReferencesToolbar = ({
 }: ReferencesToolbarProperties) => {
   const classes = useStyles()
   return (
-    <Toolbar variant="dense" className={classes.toolbar}>
+    <Toolbar variant="dense">
       <Grid container spacing={3} alignItems="center">
         <Grid item>
           <Typography className={classes.count}>
