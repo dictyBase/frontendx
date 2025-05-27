@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react"
-import { Toolbar, Typography, Select, MenuItem } from "@material-ui/core"
+import { Grid, Toolbar, Typography, Select, MenuItem } from "@material-ui/core"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import { Ord as SOrd } from "fp-ts/string"
@@ -58,30 +58,36 @@ const ReferencesToolbar = ({
   setOrder,
 }: ReferencesToolbarProperties) => (
   <Toolbar variant="dense">
-    <Typography>
-      {publicationCount}{" "}
-      {pipe(
-        publicationCount > 1,
-        Bmatch(
-          () => "Reference",
-          () => "References",
-        ),
-      )}
-    </Typography>
-    <Select
-      labelId="reference-sort-select"
-      id="reference-sort-select"
-      variant="outlined"
-      value={order}
-      onChange={({ target: { value } }) => {
-        setOrder(value as OrderFunctionKeys)
-      }}>
-      {pipe(
-        orderFunctions,
-        Rkeys,
-        Amap((label) => <MenuItem value={label}>{label}</MenuItem>),
-      )}
-    </Select>
+    <Grid container>
+      <Grid item>
+        <Typography>
+          {publicationCount}{" "}
+          {pipe(
+            publicationCount > 1,
+            Bmatch(
+              () => "Reference",
+              () => "References",
+            ),
+          )}
+        </Typography>
+      </Grid>
+      <Grid item>
+        <Select
+          labelId="reference-sort-select"
+          id="reference-sort-select"
+          variant="outlined"
+          value={order}
+          onChange={({ target: { value } }) => {
+            setOrder(value as OrderFunctionKeys)
+          }}>
+          {pipe(
+            orderFunctions,
+            Rkeys,
+            Amap((label) => <MenuItem value={label}>{label}</MenuItem>),
+          )}
+        </Select>
+      </Grid>
+    </Grid>
   </Toolbar>
 )
 
