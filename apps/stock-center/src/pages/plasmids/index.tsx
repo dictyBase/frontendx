@@ -18,9 +18,7 @@ const PlasmidCatalog = () => {
 
   const rootReference = useRef<HTMLDivElement>(null)
   const targetReference = useRef<HTMLTableRowElement>(null)
-  // console.log(loading, error, data)
   const onIntersection = ([entry]: IntersectionObserverEntry[]) => {
-    // console.log("intersecting?")
     const nextCursor = data?.listPlasmids?.nextCursor
     switch (true) {
       case !nextCursor:
