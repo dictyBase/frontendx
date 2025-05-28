@@ -16,7 +16,9 @@ const getInitialSearchValues = (
 ) => {
   const filteredParameters = pipe(
     [...searchParameters.entries()],
+    // Include only valid search parameters
     filter(([k]) => fields.includes(k)),
+    // Remove duplicate parameters
     reduce([] as Array<[string, string]>, (b, parameter) =>
       b.findIndex(([k]) => k === parameter[0]) === -1 ? [...b, parameter] : b,
     ),
