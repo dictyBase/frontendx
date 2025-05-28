@@ -7,7 +7,7 @@ import {
   SearchBar,
   CatalogListWrapper,
   CatalogHeader,
-  ErrorPageWrapper,
+  ErrorDisplay,
 } from "@dictybase/ui-dsc"
 import { useIntersectionObserver } from "@dictybase/hook"
 import { useStrainListQuery } from "dicty-graphql-schema"
@@ -65,7 +65,7 @@ const StrainCatalog = () => {
           )
           .with({ loading: true }, () => <LoadingDisplay rows={10} />)
           .with({ error: P.select({ message: P.string }) }, (error_) => (
-            <ErrorPageWrapper error={error_} />
+            <ErrorDisplay error={error_} />
           ))
           .otherwise(() => (
             <></>
