@@ -1,7 +1,9 @@
 import { useState } from "react"
 import { ListPublicationsWithGeneQuery } from "dicty-graphql-schema"
 import { pipe } from "fp-ts/function"
-import { sort as Asort } from "fp-ts/Array"
+import { match as Bmatch } from "fp-ts/boolean"
+import { includes as Sincludes, isString } from "fp-ts/string"
+import { sort as Asort, filter as Afilter } from "fp-ts/Array"
 import {
   Paper,
   Table,
@@ -14,17 +16,46 @@ import {
 import { useStyles } from "styles/dataTableStyles"
 import { PublicationRow } from "./PublicationRow"
 import { ReferencesToolbar } from "./ReferencesToolbar"
+import { useSearchParameters } from "./useSearchWithRouter"
 import { orderFunctions, type OrderFunctionKeys } from "./referenceOrderHelpers"
 
+type Publications = NonNullable<
+  ListPublicationsWithGeneQuery["listPublicationsWithGene"]
+>
+
 interface Properties {
-  publications: NonNullable<
-    ListPublicationsWithGeneQuery["listPublicationsWithGene"]
-  >
+  publications: Publications
+}
+
+const SEARCH_FIELDS = ["title", "author", "gene"]
+
+const filterByTitle = (searchTerm: string) => (publications: Publications) =>
+  pipe(
+    publications,
+    Afilter(({ title }) => pipe(title, Sincludes(searchTerm))),
+  )
+
+const filterPublications = (
+  publications: Publications,
+  searchParameters: Record<string, NonNullable<string | string[] | undefined>>,
+) => {
+  const titleParameter = pipe(
+    searchParameters.title,
+    isString,
+    Bmatch(
+      () => "",
+      () => searchParameters.title as string,
+    ),
+  )
+
+  return pipe(publications, filterByTitle(titleParameter))
 }
 
 const ReferencesDataTable = ({ publications }: Properties) => {
   const [order, setOrder] = useState<OrderFunctionKeys>("Newest First")
-  const sortedPublications = pipe(publications, Asort(orderFunctions[order]))
+  const [searchParameters] = useSearchParameters(SEARCH_FIELDS)
+  const filtered = filterPublications(publications, searchParameters)
+  const sortedPublications = pipe(filtered, Asort(orderFunctions[order]))
   const classes = useStyles()
 
   return (
@@ -35,6 +66,7 @@ const ReferencesDataTable = ({ publications }: Properties) => {
             <TableCell className={classes.referenceColumn}>
               <ReferencesToolbar
                 publicationCount={publications.length}
+                searchFields={SEARCH_FIELDS}
                 order={order}
                 setOrder={setOrder}
               />
