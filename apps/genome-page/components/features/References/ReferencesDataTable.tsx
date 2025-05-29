@@ -1,14 +1,7 @@
 import { useState } from "react"
 import { ListPublicationsWithGeneQuery } from "dicty-graphql-schema"
 import { pipe } from "fp-ts/function"
-import { match as Bmatch } from "fp-ts/boolean"
-import { includes as Sincludes, isString, toLowerCase } from "fp-ts/string"
-import {
-  sort as Asort,
-  filter as Afilter,
-  findFirst as AfindFirst,
-  exists as Aexists,
-} from "fp-ts/Array"
+import { sort as Asort } from "fp-ts/Array"
 import {
   Paper,
   Table,
