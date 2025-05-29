@@ -32,14 +32,16 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 type ReferencesToolbarProperties = {
-  publicationCount: number
+  totalPublicationCount: number
+  filteredPublicationCount: number
   order: string
   setOrder: Dispatch<SetStateAction<OrderFunctionKeys>>
   searchFields: Array<string>
 }
 
 const ReferencesToolbar = ({
-  publicationCount,
+  totalPublicationCount,
+  filteredPublicationCount,
   searchFields,
   order,
   setOrder,
@@ -50,9 +52,16 @@ const ReferencesToolbar = ({
       <Grid container spacing={3} alignItems="center">
         <Grid item>
           <Typography className={classes.count}>
-            {publicationCount}{" "}
             {pipe(
-              publicationCount > 1,
+              filteredPublicationCount === totalPublicationCount,
+              Bmatch(
+                () => `${filteredPublicationCount} of `,
+                () => "",
+              ),
+            )}
+            {totalPublicationCount}{" "}
+            {pipe(
+              totalPublicationCount > 1,
               Bmatch(
                 () => "Reference",
                 () => "References",
