@@ -23,6 +23,7 @@ import { PublicationRow } from "./PublicationRow"
 import { ReferencesToolbar } from "./ReferencesToolbar"
 import { useSearchParameters } from "./useSearchWithRouter"
 import { orderFunctions, type OrderFunctionKeys } from "./referenceOrderHelpers"
+import { filterPublications } from "./filterPublications"
 
 type Publications = NonNullable<
   ListPublicationsWithGeneQuery["listPublicationsWithGene"]
@@ -34,82 +35,11 @@ interface Properties {
 
 const SEARCH_FIELDS = ["title", "author", "gene"]
 
-const filterByTitle = (searchTerm: string) => (publications: Publications) =>
-  pipe(
-    publications,
-    Afilter(({ title }) =>
-      pipe(title, toLowerCase, Sincludes(toLowerCase(searchTerm))),
-    ),
-  )
-
-const filterByAuthor = (searchTerm: string) => (publications: Publications) =>
-  pipe(
-    publications,
-    Afilter(({ authors }) =>
-      pipe(
-        authors,
-        Aexists(({ last_name }) =>
-          pipe(last_name, toLowerCase, Sincludes(toLowerCase(searchTerm))),
-        ),
-      ),
-    ),
-  )
-
-const filterByGene = (searchTerm: string) => (publications: Publications) =>
-  pipe(
-    publications,
-    Afilter(({ related_genes }) =>
-      pipe(
-        related_genes,
-        Aexists(({ name }) =>
-          pipe(name, toLowerCase, Sincludes(toLowerCase(searchTerm))),
-        ),
-      ),
-    ),
-  )
-
-const filterPublications = (
-  publications: Publications,
-  searchParameters: Record<string, NonNullable<string | string[] | undefined>>,
-) => {
-  const titleParameter = pipe(
-    searchParameters.title,
-    isString,
-    Bmatch(
-      () => "",
-      () => searchParameters.title as string,
-    ),
-  )
-  const authorParameter = pipe(
-    searchParameters.author,
-    isString,
-    Bmatch(
-      () => "",
-      () => searchParameters.author as string,
-    ),
-  )
-  const geneParameter = pipe(
-    searchParameters.gene,
-    isString,
-    Bmatch(
-      () => "",
-      () => searchParameters.gene as string,
-    ),
-  )
-
-  return pipe(
-    publications,
-    filterByTitle(titleParameter),
-    filterByAuthor(authorParameter),
-    filterByGene(geneParameter),
-  )
-}
-
 const ReferencesDataTable = ({ publications }: Properties) => {
   const [order, setOrder] = useState<OrderFunctionKeys>("Newest First")
   const [searchParameters] = useSearchParameters(SEARCH_FIELDS)
   const filtered = filterPublications(publications, searchParameters)
-  const sortedPublications = pipe(filtered, Asort(orderFunctions[order]))
+  const filteredAndSorted = pipe(filtered, Asort(orderFunctions[order]))
   const classes = useStyles()
 
   return (
@@ -119,7 +49,8 @@ const ReferencesDataTable = ({ publications }: Properties) => {
           <TableRow className={classes.headRow}>
             <TableCell className={classes.referenceColumn}>
               <ReferencesToolbar
-                publicationCount={publications.length}
+                totalPublicationCount={publications.length}
+                filteredPublicationCount={filteredAndSorted.length}
                 searchFields={SEARCH_FIELDS}
                 order={order}
                 setOrder={setOrder}
@@ -128,7 +59,7 @@ const ReferencesDataTable = ({ publications }: Properties) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {sortedPublications.map((publication) => (
+          {filteredAndSorted.map((publication) => (
             <PublicationRow publication={publication} key={publication.id} />
           ))}
         </TableBody>
