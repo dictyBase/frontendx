@@ -13,6 +13,7 @@ import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import { map as Amap } from "fp-ts/Array"
 import { keys as Rkeys } from "fp-ts/Record"
+import { ReferencesSearchBox } from "./ReferenceSearchBox"
 import { orderFunctions, type OrderFunctionKeys } from "./referenceOrderHelpers"
 
 const useStyles = makeStyles((theme) => ({
@@ -25,16 +26,21 @@ const useStyles = makeStyles((theme) => ({
   count: {
     fontWeight: 500,
   },
+  searchGridItem: {
+    flexBasis: "40%"
+  },
 }))
 
 type ReferencesToolbarProperties = {
   publicationCount: number
   order: string
   setOrder: Dispatch<SetStateAction<OrderFunctionKeys>>
+  searchFields: Array<string>
 }
 
 const ReferencesToolbar = ({
   publicationCount,
+  searchFields,
   order,
   setOrder,
 }: ReferencesToolbarProperties) => {
@@ -77,6 +83,9 @@ const ReferencesToolbar = ({
               )}
             </Select>
           </FormControl>
+        </Grid>
+        <Grid item className={classes.searchGridItem}>
+          <ReferencesSearchBox fields={searchFields} />
         </Grid>
       </Grid>
     </Toolbar>
