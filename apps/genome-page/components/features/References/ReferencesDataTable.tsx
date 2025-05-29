@@ -2,8 +2,13 @@ import { useState } from "react"
 import { ListPublicationsWithGeneQuery } from "dicty-graphql-schema"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
-import { includes as Sincludes, isString } from "fp-ts/string"
-import { sort as Asort, filter as Afilter } from "fp-ts/Array"
+import { includes as Sincludes, isString, toLowerCase } from "fp-ts/string"
+import {
+  sort as Asort,
+  filter as Afilter,
+  findFirst as AfindFirst,
+  exists as Aexists,
+} from "fp-ts/Array"
 import {
   Paper,
   Table,
@@ -32,7 +37,35 @@ const SEARCH_FIELDS = ["title", "author", "gene"]
 const filterByTitle = (searchTerm: string) => (publications: Publications) =>
   pipe(
     publications,
-    Afilter(({ title }) => pipe(title, Sincludes(searchTerm))),
+    Afilter(({ title }) =>
+      pipe(title, toLowerCase, Sincludes(toLowerCase(searchTerm))),
+    ),
+  )
+
+const filterByAuthor = (searchTerm: string) => (publications: Publications) =>
+  pipe(
+    publications,
+    Afilter(({ authors }) =>
+      pipe(
+        authors,
+        Aexists(({ last_name }) =>
+          pipe(last_name, toLowerCase, Sincludes(toLowerCase(searchTerm))),
+        ),
+      ),
+    ),
+  )
+
+const filterByGene = (searchTerm: string) => (publications: Publications) =>
+  pipe(
+    publications,
+    Afilter(({ related_genes }) =>
+      pipe(
+        related_genes,
+        Aexists(({ name }) =>
+          pipe(name, toLowerCase, Sincludes(toLowerCase(searchTerm))),
+        ),
+      ),
+    ),
   )
 
 const filterPublications = (
@@ -47,8 +80,29 @@ const filterPublications = (
       () => searchParameters.title as string,
     ),
   )
+  const authorParameter = pipe(
+    searchParameters.author,
+    isString,
+    Bmatch(
+      () => "",
+      () => searchParameters.author as string,
+    ),
+  )
+  const geneParameter = pipe(
+    searchParameters.gene,
+    isString,
+    Bmatch(
+      () => "",
+      () => searchParameters.gene as string,
+    ),
+  )
 
-  return pipe(publications, filterByTitle(titleParameter))
+  return pipe(
+    publications,
+    filterByTitle(titleParameter),
+    filterByAuthor(authorParameter),
+    filterByGene(geneParameter),
+  )
 }
 
 const ReferencesDataTable = ({ publications }: Properties) => {
