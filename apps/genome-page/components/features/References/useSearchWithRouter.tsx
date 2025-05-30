@@ -1,7 +1,8 @@
 import { useState, ReactNode } from "react"
 import { pipe } from "fp-ts/function"
-import { split as Ssplit, Eq as SEq } from "fp-ts/string"
+import { Eq as SEq } from "fp-ts/string"
 import {
+  last as Alast,
   map as Amap,
   filter as Afilter,
   reduce as Areduce,
@@ -12,7 +13,12 @@ import {
   filterWithIndex as RfilterWithIndex,
   difference as Rdifference,
 } from "fp-ts/Record"
-import { FieldOption, capitalizeFirstCharacter } from "@dictybase/ui-common"
+import { map as Omap, getOrElse as OgetOrElse } from "fp-ts/Option"
+import {
+  FieldOption,
+  SearchTerm,
+  capitalizeFirstCharacter,
+} from "@dictybase/ui-common"
 import { useRouter } from "next/router"
 import { AutocompleteRenderInputParams } from "@material-ui/lab"
 import { TextField, Chip } from "@material-ui/core"
@@ -107,10 +113,7 @@ interface useSearchWithRouterProperties {
  *
  * @see {@link https://v4.mui.com/api/autocomplete}
  */
-function useSearchWithRouter({
-  label,
-  fields,
-}: useSearchWithRouterProperties) {
+function useSearchWithRouter({ label, fields }: useSearchWithRouterProperties) {
   const [searchParameters, setSearchParameters] = useSearchParameters(fields)
   const {
     initialSelectedFields,
@@ -224,29 +227,30 @@ function useSearchWithRouter({
       return (
         <>
           {previousChipValue.map((o) => (
-            <Chip
+            <SearchTerm
+              key={o}
               onDelete={() => onDeleteChip(o)}
-              size="medium"
-              key={uuid4()}
               label={capitalizeFirstCharacter(o)}
-              color="primary"
-              style={{ marginRight: "5px" }}
             />
           ))}
-          <FieldOption key={uuid4()} label={`${values.at(-1)}:`} />
+          <FieldOption
+            label={`${pipe(
+              values,
+              Alast,
+              Omap(capitalizeFirstCharacter),
+              OgetOrElse(() => ""),
+            )}:`}
+          />
         </>
       )
     }
     return [...previousChipValue, activeChipValue]
       .filter((o) => o !== emptyString)
       .map((o) => (
-        <Chip
+        <SearchTerm
+          key={o}
           onDelete={() => onDeleteChip(o)}
           label={capitalizeFirstCharacter(o)}
-          key={uuid4()}
-          size="medium"
-          color="primary"
-          style={{ marginRight: "5px" }}
         />
       ))
   }
@@ -267,7 +271,9 @@ function useSearchWithRouter({
     />
   )
 
-  const renderOption = (option: string) => <FieldOption label={option} />
+  const renderOption = (option: string) => (
+    <FieldOption label={capitalizeFirstCharacter(option)} />
+  )
 
   return {
     isAcceptingInput,
@@ -287,5 +293,5 @@ export {
   useSearchParameters,
   useSearchWithRouter,
   type inputProperties,
-  type useSearchWithRouterProperties
+  type useSearchWithRouterProperties,
 }
