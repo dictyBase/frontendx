@@ -1,15 +1,12 @@
 import { Chip } from "@material-ui/core"
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles"
-import { cyan } from "@material-ui/core/colors"
-
-const fieldOptionColor = cyan["800"]
 
 const useFieldOptionStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       borderRadius: "4px",
-      color: theme.palette.getContrastText(fieldOptionColor),
-      backgroundColor: fieldOptionColor,
+      color: theme.palette.getContrastText(theme.palette.primary.light),
+      backgroundColor: theme.palette.primary.light,
     },
   }),
 )
@@ -27,7 +24,7 @@ type FieldOptionProperties = {
  */
 const FieldOption = ({ label }: FieldOptionProperties) => {
   const { root } = useFieldOptionStyles()
-  return <Chip className={root} size="small" color="primary" label={label} />
+  return <Chip className={root} size="medium" label={label} />
 }
 
 export { FieldOption }
