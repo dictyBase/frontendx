@@ -1,6 +1,6 @@
 import { useState, ReactNode } from "react"
 import { pipe } from "fp-ts/function"
-import { Eq as SEq } from "fp-ts/string"
+import { split as Ssplit, Eq as SEq } from "fp-ts/string"
 import {
   map as Amap,
   filter as Afilter,
@@ -12,7 +12,7 @@ import {
   filterWithIndex as RfilterWithIndex,
   difference as Rdifference,
 } from "fp-ts/Record"
-import { FieldOption } from "@dictybase/ui-common"
+import { FieldOption, capitalizeFirstCharacter } from "@dictybase/ui-common"
 import { useRouter } from "next/router"
 import { AutocompleteRenderInputParams } from "@material-ui/lab"
 import { TextField, Chip } from "@material-ui/core"
@@ -226,11 +226,11 @@ function useSearchWithRouter({
           {previousChipValue.map((o) => (
             <Chip
               onDelete={() => onDeleteChip(o)}
-              size="small"
+              size="medium"
               key={uuid4()}
-              label={o}
+              label={capitalizeFirstCharacter(o)}
               color="primary"
-              style={{ marginRight: "2px" }}
+              style={{ marginRight: "5px" }}
             />
           ))}
           <FieldOption key={uuid4()} label={`${values.at(-1)}:`} />
@@ -242,11 +242,11 @@ function useSearchWithRouter({
       .map((o) => (
         <Chip
           onDelete={() => onDeleteChip(o)}
-          label={o}
+          label={capitalizeFirstCharacter(o)}
           key={uuid4()}
-          size="small"
+          size="medium"
           color="primary"
-          style={{ marginRight: "2px" }}
+          style={{ marginRight: "5px" }}
         />
       ))
   }
@@ -277,9 +277,9 @@ function useSearchWithRouter({
     onChange,
     onInputChange,
     renderTags,
-    filterFields,
     renderInput,
     renderOption,
+    filterFields,
   }
 }
 
