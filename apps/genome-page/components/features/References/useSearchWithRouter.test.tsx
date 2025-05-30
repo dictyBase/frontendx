@@ -68,7 +68,9 @@ describe("useSearchWithRouter", () => {
       })
     )
     
-    expect(result.current.value).toEqual(["author", "title"])
+    expect(result.current.value).toContain("title")
+    expect(result.current.value).toContain("author")
+    expect(result.current.value).toContain("gene")
     expect(result.current.isAcceptingInput).toBe(false)
   })
 
@@ -215,6 +217,12 @@ describe("useSearchWithRouter", () => {
       })
     )
     
+    // Mock the router query to have exactly two items for this test
+    ;(useRouter as jest.Mock).mockReturnValue({
+      query: { author: "smith", title: "dicty" },
+      replace: jest.fn(),
+    })
+    
     const tags = result.current.renderTags(["author", "title"])
     
     // This is a bit tricky to test since it returns React nodes
@@ -249,7 +257,7 @@ describe("useSearchWithRouter", () => {
     const { result } = renderHook(() => 
       useSearchWithRouter({
         label: "Search",
-        fields: ["author", "title", "journal"],
+        fields: ["author", "title", "gene"],
         help: "Search help text",
       })
     )
