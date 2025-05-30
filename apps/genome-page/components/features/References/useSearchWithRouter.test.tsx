@@ -1,3 +1,4 @@
+import { render, screen } from "@testing-library/react"
 import { renderHook, act } from "@testing-library/react-hooks"
 import { useSearchWithRouter, useSearchParameters } from "./useSearchWithRouter"
 import { useRouter } from "next/router"
@@ -209,26 +210,32 @@ describe("useSearchWithRouter", () => {
   })
 
   test("should render tags correctly", () => {
-    const { result } = renderHook(() => 
-      useSearchWithRouter({
-        label: "Search",
-        fields: ["author", "title", "gene"],
-        help: "Search help text",
-      })
-    )
-    
     // Mock the router query to have exactly two items for this test
     ;(useRouter as jest.Mock).mockReturnValue({
       query: { author: "smith", title: "dicty" },
       replace: jest.fn(),
     })
     
-    const tags = result.current.renderTags(["author", "title"])
+    const { result } = renderHook(() => 
+      useSearchWithRouter({
+        label: "Search",
+        fields: ["author", "title"], // Only include author and title fields
+        help: "Search help text",
+      })
+    )
     
-    // This is a bit tricky to test since it returns React nodes
-    // We can at least verify it's an array with the expected length
-    expect(Array.isArray(tags)).toBe(true)
-    expect(tags.length).toBe(2) // "author: smith" and "title: dicty"
+    // Create a wrapper component to render the tags
+    const TagsWrapper = () => <div data-testid="tags-container">{result.current.renderTags(["author", "title"])}</div>
+    
+    // Render the wrapper component
+    render(<TagsWrapper />)
+    
+    // Get the container and count its children
+    const container = screen.getByTestId("tags-container")
+    const tagElements = container.children
+    
+    // Verify we have exactly 2 tag elements
+    expect(tagElements.length).toBe(2) // "author: smith" and "title: dicty"
   })
 
   test("should render input correctly", () => {
