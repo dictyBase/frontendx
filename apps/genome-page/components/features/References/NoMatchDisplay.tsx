@@ -23,16 +23,17 @@ const NoMatchDisplay = () => {
       container
       direction="column"
       justifyContent="center"
-      alignItems="center"
-    >
+      alignItems="center">
       <Grid item>
         <SearchIcon className={classes.icon} />
       </Grid>
       <Grid item>
-        <Typography variant="h2">{`No matches`}</Typography>
+        <Typography variant="h2">No matches</Typography>
       </Grid>
       <Grid item>
-        <Typography variant="h4">Try searching again using different terms</Typography>
+        <Typography variant="h4">
+          Try searching again using different terms
+        </Typography>
       </Grid>
     </Grid>
   )

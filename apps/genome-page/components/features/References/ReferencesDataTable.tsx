@@ -64,7 +64,7 @@ const ReferencesDataTable = ({ publications }: Properties) => {
                     key={publication.id}
                   />
                 )),
-                (pubs) => <>{pubs}</>
+                (pubs) => <>{pubs}</>,
               ),
             ),
           )}

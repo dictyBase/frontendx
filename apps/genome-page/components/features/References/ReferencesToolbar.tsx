@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
   },
   searchGridItem: {
-    flexBasis: "40%"
+    flexBasis: "40%",
   },
 }))
 
