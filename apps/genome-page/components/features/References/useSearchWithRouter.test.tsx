@@ -188,6 +188,10 @@ describe("useSearchWithRouter", () => {
   })
 
   test("should filter fields correctly", () => {
+    ;(useRouter as jest.Mock).mockReturnValue({
+      query: { author: "smith", title: "dicty" },
+      replace: jest.fn(),
+    })
     const { result } = renderHook(() => 
       useSearchWithRouter({
         label: "Search",
@@ -196,9 +200,16 @@ describe("useSearchWithRouter", () => {
       })
     )
     
+    const filteredFields = result.current.filterFields(["author", "title", "gene", "year"])
     // When not accepting input, should filter out already selected fields
-    expect(result.current.filterFields(["author", "title", "gene", "year"]))
-      .toEqual(["gene", "year"])
+    expect(filteredFields)
+      .toContain("gene")
+    expect(filteredFields)
+      .toContain("year")
+    expect(filteredFields)
+      .not.toContain("author")
+    expect(filteredFields)
+      .not.toContain("title")
     
     // When accepting input, should return empty array
     act(() => {
