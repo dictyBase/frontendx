@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { ListPublicationsWithGeneQuery } from "dicty-graphql-schema"
-import { pipe } from "fp-ts/function"
-import { sort as Asort } from "fp-ts/Array"
+import { flow, pipe } from "fp-ts/function"
+import { map as Amap, match as Amatch, sort as Asort } from "fp-ts/Array"
 import {
   Paper,
   Table,
@@ -14,6 +14,7 @@ import {
 import { useStyles } from "styles/dataTableStyles"
 import { PublicationRow } from "./PublicationRow"
 import { ReferencesToolbar } from "./ReferencesToolbar"
+import { NoMatchDisplay } from "./NoMatchDisplay"
 import { useSearchParameters } from "./useSearchWithRouter"
 import { orderFunctions, type OrderFunctionKeys } from "./referenceOrderHelpers"
 import { filterPublications } from "./filterPublications"
@@ -52,9 +53,21 @@ const ReferencesDataTable = ({ publications }: Properties) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {filteredAndSorted.map((publication) => (
-            <PublicationRow publication={publication} key={publication.id} />
-          ))}
+          {pipe(
+            filteredAndSorted,
+            Amatch(
+              () => <NoMatchDisplay />,
+              flow(
+                Amap((publication) => (
+                  <PublicationRow
+                    publication={publication}
+                    key={publication.id}
+                  />
+                )),
+                (pubs) => <>{pubs}</>
+              ),
+            ),
+          )}
         </TableBody>
       </Table>
     </TableContainer>
