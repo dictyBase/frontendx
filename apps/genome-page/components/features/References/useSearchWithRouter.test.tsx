@@ -1,7 +1,9 @@
 import { render, screen } from "@testing-library/react"
 import { renderHook, act } from "@testing-library/react-hooks"
-import { useSearchWithRouter, useSearchParameters } from "./useSearchWithRouter"
 import { useRouter } from "next/router"
+import { useSearchWithRouter, useSearchParameters } from "./useSearchWithRouter"
+
+/* eslint-disable sonarjs/no-duplicate-string, unicorn/no-null */
 
 // Mock Next.js router
 jest.mock("next/router", () => ({
@@ -23,19 +25,19 @@ describe("useSearchParameters", () => {
   test("should filter search parameters based on provided fields", () => {
     const fields = ["author", "year"]
     const { result } = renderHook(() => useSearchParameters(fields))
-    const [searchParams] = result.current
+    const [searchParameters] = result.current
 
-    expect(searchParams).toEqual({ author: "smith", year: "2020" })
-    expect(searchParams).not.toHaveProperty("gene")
+    expect(searchParameters).toEqual({ author: "smith", year: "2020" })
+    expect(searchParameters).not.toHaveProperty("gene")
   })
 
   test("should update search parameters correctly", () => {
     const fields = ["author", "year"]
     const { result } = renderHook(() => useSearchParameters(fields))
-    const [, setSearchParams] = result.current
+    const [, setSearchParameters] = result.current
 
     act(() => {
-      setSearchParams({ author: "johnson", year: "2021" })
+      setSearchParameters({ author: "johnson", year: "2021" })
     })
 
     expect(mockReplace).toHaveBeenCalledWith({
@@ -264,12 +266,12 @@ describe("useSearchWithRouter", () => {
       }),
     )
 
-    const mockParams = {
+    const mockParameters = {
       InputProps: {},
       inputProps: {},
     } as any
 
-    const input = result.current.renderInput(mockParams)
+    const input = result.current.renderInput(mockParameters)
 
     // Verify the rendered input has the correct props
     expect(input.props.label).toBe("Search")
