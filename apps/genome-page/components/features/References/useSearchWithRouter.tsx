@@ -21,8 +21,7 @@ import {
 } from "@dictybase/ui-common"
 import { useRouter } from "next/router"
 import { AutocompleteRenderInputParams } from "@material-ui/lab"
-import { TextField, Chip } from "@material-ui/core"
-import { v4 as uuid4 } from "uuid"
+import { TextField } from "@material-ui/core"
 
 interface inputProperties {
   /** user input that gets reset after switching options  */
