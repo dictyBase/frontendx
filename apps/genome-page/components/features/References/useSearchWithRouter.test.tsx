@@ -63,7 +63,7 @@ describe("useSearchWithRouter", () => {
     const { result } = renderHook(() => 
       useSearchWithRouter({
         label: "Search",
-        fields: ["author", "title", "journal"],
+        fields: ["author", "title", "gene"],
         help: "Search help text",
       })
     )
@@ -76,16 +76,16 @@ describe("useSearchWithRouter", () => {
     const { result } = renderHook(() => 
       useSearchWithRouter({
         label: "Search",
-        fields: ["author", "title", "journal"],
+        fields: ["author", "title", "gene"],
         help: "Search help text",
       })
     )
     
     act(() => {
-      result.current.onChange(null, ["author", "journal"], "select-option")
+      result.current.onChange(null, ["author", "gene"], "select-option")
     })
     
-    expect(result.current.value).toEqual(["author", "journal"])
+    expect(result.current.value).toEqual(["author", "gene"])
     expect(result.current.isAcceptingInput).toBe(true)
   })
 
@@ -93,14 +93,14 @@ describe("useSearchWithRouter", () => {
     const { result } = renderHook(() => 
       useSearchWithRouter({
         label: "Search",
-        fields: ["author", "title", "journal"],
+        fields: ["author", "title", "gene"],
         help: "Search help text",
       })
     )
     
     // First select a field
     act(() => {
-      result.current.onChange(null, ["journal"], "select-option")
+      result.current.onChange(null, ["gene"], "select-option")
     })
     
     // Then type in the input
@@ -122,14 +122,14 @@ describe("useSearchWithRouter", () => {
     const { result } = renderHook(() => 
       useSearchWithRouter({
         label: "Search",
-        fields: ["author", "title", "journal"],
+        fields: ["author", "title", "gene"],
         help: "Search help text",
       })
     )
     
     // First select a field
     act(() => {
-      result.current.onChange(null, ["journal"], "select-option")
+      result.current.onChange(null, ["gene"], "select-option")
     })
     
     // Type in the input
@@ -151,13 +151,12 @@ describe("useSearchWithRouter", () => {
     })
     
     expect(result.current.isAcceptingInput).toBe(false)
-    expect(result.current.activeChipValue).toBe("journal: nature")
+    expect(result.current.activeChipValue).toBe("gene: nature")
     expect(mockReplace).toHaveBeenCalledWith({
       query: {
-        gene: "sadA",
+        gene: "nature",
         author: "smith",
         title: "dicty",
-        journal: "nature",
       },
     })
   })
@@ -166,7 +165,7 @@ describe("useSearchWithRouter", () => {
     const { result } = renderHook(() => 
       useSearchWithRouter({
         label: "Search",
-        fields: ["author", "title", "journal"],
+        fields: ["author", "title", "gene"],
         help: "Search help text",
       })
     )
@@ -189,21 +188,21 @@ describe("useSearchWithRouter", () => {
     const { result } = renderHook(() => 
       useSearchWithRouter({
         label: "Search",
-        fields: ["author", "title", "journal", "year"],
+        fields: ["author", "title", "gene", "year"],
         help: "Search help text",
       })
     )
     
     // When not accepting input, should filter out already selected fields
-    expect(result.current.filterFields(["author", "title", "journal", "year"]))
-      .toEqual(["journal", "year"])
+    expect(result.current.filterFields(["author", "title", "gene", "year"]))
+      .toEqual(["gene", "year"])
     
     // When accepting input, should return empty array
     act(() => {
-      result.current.onChange(null, ["author", "journal"], "select-option")
+      result.current.onChange(null, ["author", "gene"], "select-option")
     })
     
-    expect(result.current.filterFields(["author", "title", "journal", "year"]))
+    expect(result.current.filterFields(["author", "title", "gene", "year"]))
       .toEqual([])
   })
 
@@ -211,7 +210,7 @@ describe("useSearchWithRouter", () => {
     const { result } = renderHook(() => 
       useSearchWithRouter({
         label: "Search",
-        fields: ["author", "title", "journal"],
+        fields: ["author", "title", "gene"],
         help: "Search help text",
       })
     )
@@ -228,7 +227,7 @@ describe("useSearchWithRouter", () => {
     const { result } = renderHook(() => 
       useSearchWithRouter({
         label: "Search",
-        fields: ["author", "title", "journal"],
+        fields: ["author", "title", "gene"],
         help: "Search help text",
       })
     )
