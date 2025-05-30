@@ -45,34 +45,26 @@ const filterByGene = (searchTerm: string) => (publications: Publications) =>
 
 const pass = (publications: Publications) => publications
 
+const getParameter = (
+  searchParameters: Record<string, NonNullable<string | string[] | undefined>>,
+  term: string,
+) =>
+  pipe(
+    searchParameters[term],
+    isString,
+    Bmatch(
+      () => none,
+      () => some(searchParameters[term] as string),
+    ),
+  )
+
 const filterPublications = (
   publications: Publications,
   searchParameters: Record<string, NonNullable<string | string[] | undefined>>,
 ) => {
-  const titleParameter = pipe(
-    searchParameters.title,
-    isString,
-    Bmatch(
-      () => none,
-      () => some(searchParameters.title as string),
-    ),
-  )
-  const authorParameter = pipe(
-    searchParameters.author,
-    isString,
-    Bmatch(
-      () => none,
-      () => some(searchParameters.author as string),
-    ),
-  )
-  const geneParameter = pipe(
-    searchParameters.gene,
-    isString,
-    Bmatch(
-      () => none,
-      () => some(searchParameters.gene as string),
-    ),
-  )
+  const titleParameter = getParameter(searchParameters, "title")
+  const authorParameter = getParameter(searchParameters, "author")
+  const geneParameter = getParameter(searchParameters, "gene")
 
   return pipe(
     publications,
