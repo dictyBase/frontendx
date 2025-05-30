@@ -33,9 +33,9 @@ const ReferencesSearchBox = ({
     onChange,
     onInputChange,
     renderTags,
-    filterFields,
     renderInput,
     renderOption,
+    filterFields,
   } = useSearchWithRouter({
     fields,
     label,
