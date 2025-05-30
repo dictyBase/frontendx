@@ -21,7 +21,7 @@ describe("features/References/ReferencesDataTable", () => {
     // Renders skeleton loading
     expect(screen.getByText(/1 Reference/)).toBeInTheDocument()
   })
-  test.only("Displays text 'References' when there are mulitple publication items", () => {
+  test("Displays text 'References' when there are mulitple publication items", () => {
     useRouter.mockImplementation(() => ({
       query: { id: gene },
       pathname,
