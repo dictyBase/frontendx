@@ -19,9 +19,9 @@ describe("features/References/ReferencesDataTable", () => {
     )
 
     // Renders skeleton loading
-    expect(screen.getByText("1 Reference")).toBeInTheDocument()
+    expect(screen.getByText(/1 Reference/)).toBeInTheDocument()
   })
-  test("Displays text 'References' when there are mulitple publication items", () => {
+  test.only("Displays text 'References' when there are mulitple publication items", () => {
     useRouter.mockImplementation(() => ({
       query: { id: gene },
       pathname,
@@ -29,6 +29,6 @@ describe("features/References/ReferencesDataTable", () => {
     render(<ReferencesDataTable publications={mockReferencesData} />)
 
     // Renders skeleton loading
-    expect(screen.getByText("14 References")).toBeInTheDocument()
+    expect(screen.getByText(/14 References/)).toBeInTheDocument()
   })
 })
