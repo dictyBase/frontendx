@@ -281,10 +281,12 @@ function useSearchWithRouter({ label, fields }: useSearchWithRouterProperties) {
     setValue,
     onChange,
     onInputChange,
+    onDeleteChip,
     renderTags,
     renderInput,
     renderOption,
     filterFields,
+    activeChipValue,
   }
 }
 
