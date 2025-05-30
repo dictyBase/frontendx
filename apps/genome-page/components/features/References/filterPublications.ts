@@ -2,11 +2,7 @@ import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import { includes as Sincludes, isString, toLowerCase } from "fp-ts/string"
 import { filter as Afilter, exists as Aexists } from "fp-ts/Array"
-import {
-  some,
-  none,
-  match as Omatch,
-} from "fp-ts/Option"
+import { some, none, match as Omatch } from "fp-ts/Option"
 import { ListPublicationsWithGeneQuery } from "dicty-graphql-schema"
 
 type Publications = NonNullable<
