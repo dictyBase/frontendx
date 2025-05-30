@@ -3,9 +3,9 @@ import { pipe } from "fp-ts/function"
 import { map, filter, reduce } from "fp-ts/Array"
 import { useSearchParams } from "react-router-dom"
 import { AutocompleteRenderInputParams } from "@material-ui/lab"
-import { TextField, Chip } from "@material-ui/core"
-import { v4 as uuid4 } from "uuid"
+import { TextField } from "@material-ui/core"
 import { FieldOption } from "./FieldOption"
+import { SearchTerm } from "./SearchTerm"
 import { inputProperties } from "./types"
 
 const emptyString: Readonly<string> = ""
@@ -173,30 +173,16 @@ export function useSearchWithRouter({
       return (
         <>
           {previousChipValue.map((o) => (
-            <Chip
-              onDelete={() => onDeleteChip(o)}
-              size="small"
-              key={uuid4()}
-              label={o}
-              color="primary"
-              style={{ marginRight: "2px" }}
-            />
+            <SearchTerm key={o} onDelete={() => onDeleteChip(o)} label={o} />
           ))}
-          <FieldOption key={uuid4()} label={`${values.at(-1)}:`} />
+          <FieldOption label={`${values.at(-1)}:`} />
         </>
       )
     }
     return [...previousChipValue, activeChipValue]
       .filter((o) => o !== emptyString)
       .map((o) => (
-        <Chip
-          onDelete={() => onDeleteChip(o)}
-          label={o}
-          key={uuid4()}
-          size="small"
-          color="primary"
-          style={{ marginRight: "2px" }}
-        />
+        <SearchTerm key={o} onDelete={() => onDeleteChip(o)} label={o} />
       ))
   }
 
