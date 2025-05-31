@@ -257,6 +257,66 @@ describe("useSearchWithRouter", () => {
     expect(tagElements.length).toBe(2) // "author: smith" and "title: dicty"
   })
 
+  test("should render tags correctly when isAcceptingInput is false", () => {
+    // Mock the router query with initial data
+    ;(useRouter as jest.Mock).mockReturnValue({
+      query: { author: "smith" },
+      replace: jest.fn(),
+    })
+
+    const { result } = renderHook(() =>
+      useSearchWithRouter({
+        label: "Search",
+        fields: ["author", "title", "gene"],
+        help: "Search help text",
+      }),
+    )
+
+    // Select a new field to make isAcceptingInput true
+    act(() => {
+      result.current.onChange(null, ["author", "gene"], "select-option")
+    })
+
+    // Add input
+    act(() => {
+      result.current.onInputChange(
+        { type: "change" } as React.ChangeEvent<{}>,
+        "nature",
+        "input",
+      )
+    })
+
+    // Complete the input to make isAcceptingInput false
+    act(() => {
+      result.current.onInputChange(
+        { type: "keydown" } as React.ChangeEvent<{}>,
+        "nature",
+        "create-option",
+      )
+    })
+
+    // Verify isAcceptingInput is false
+    expect(result.current.isAcceptingInput).toBe(false)
+
+    // Create a wrapper component to render the tags
+    const TagsWrapper = () => (
+      <div data-testid="tags-container">
+        {result.current.renderTags(["author", "gene"])}
+      </div>
+    )
+
+    // Render the wrapper component
+    render(<TagsWrapper />)
+
+    // Get the container and count its children
+    const container = screen.getByTestId("tags-container")
+    const tagElements = container.children
+
+    // When isAcceptingInput is false, should render SearchTerm components
+    // for previousChipValue and activeChipValue (excluding empty strings)
+    expect(tagElements.length).toBe(2) // "author: smith" and "gene: nature"
+  })
+
   test("should render input correctly", () => {
     const { result } = renderHook(() =>
       useSearchWithRouter({
