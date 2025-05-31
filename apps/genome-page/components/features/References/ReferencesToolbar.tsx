@@ -61,10 +61,10 @@ const ReferencesToolbar = ({
             )}
             {totalPublicationCount}{" "}
             {pipe(
-              totalPublicationCount > 1,
+              totalPublicationCount === 1,
               Bmatch(
-                () => "Reference",
                 () => "References",
+                () => "Reference",
               ),
             )}
           </Typography>
