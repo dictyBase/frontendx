@@ -153,21 +153,13 @@ function useSearchWithRouter({ label, fields }: useSearchWithRouterProperties) {
    * Callback that gets fired when one option from dropdown gets selected
    */
   const onChange = (_: any, values: string[], reason: string): void => {
-    switch (reason) {
-      // Handle when a list option is selected
-      case "select-option":
-        if (activeChipValue) {
-          setPreviousChipValue((state) => [...state, activeChipValue])
-          setActiveChipValue(emptyString)
-        }
-        setIsAcceptingInput(true)
-        setValue(values)
-        break
-      case "create-option":
-        break
-      default:
-        break
+    if (reason !== "select-option") return
+    if (activeChipValue) {
+      setPreviousChipValue((state) => [...state, activeChipValue])
+      setActiveChipValue(emptyString)
     }
+    setIsAcceptingInput(true)
+    setValue(values)
   }
 
   /**
