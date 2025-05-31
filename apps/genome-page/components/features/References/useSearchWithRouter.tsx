@@ -62,6 +62,14 @@ const useSearchParameters = (fields: Array<string>) => {
   ]
 }
 
+const getActiveOptionLabel = (values: Array<string>) =>
+  pipe(
+    values,
+    Alast,
+    Omap(capitalizeFirstCharacter),
+    OgetOrElse(() => ""),
+  )
+
 const emptyString: Readonly<string> = ""
 
 const getInitialSearchValues = (
@@ -232,14 +240,7 @@ function useSearchWithRouter({ label, fields }: useSearchWithRouterProperties) {
               label={capitalizeFirstCharacter(o)}
             />
           ))}
-          <FieldOption
-            label={`${pipe(
-              values,
-              Alast,
-              Omap(capitalizeFirstCharacter),
-              OgetOrElse(() => ""),
-            )}:`}
-          />
+          <FieldOption label={getActiveOptionLabel(values)} />
         </>
       )
     }
@@ -293,6 +294,7 @@ function useSearchWithRouter({ label, fields }: useSearchWithRouterProperties) {
 export {
   useSearchParameters,
   useSearchWithRouter,
+  getActiveOptionLabel,
   type inputProperties,
   type useSearchWithRouterProperties,
 }
