@@ -1,7 +1,11 @@
 import { render, screen } from "@testing-library/react"
 import { renderHook, act } from "@testing-library/react-hooks"
 import { useRouter } from "next/router"
-import { useSearchWithRouter, useSearchParameters } from "./useSearchWithRouter"
+import {
+  useSearchWithRouter,
+  useSearchParameters,
+  getActiveOptionLabel,
+} from "./useSearchWithRouter"
 
 /* eslint-disable sonarjs/no-duplicate-string, unicorn/no-null */
 
@@ -47,6 +51,50 @@ describe("useSearchParameters", () => {
         year: "2021",
       },
     })
+  })
+})
+
+describe("getActiveOptionLabel", () => {
+  test("should return capitalized last element from array", () => {
+    const values = ["author", "title", "gene"]
+    const result = getActiveOptionLabel(values)
+
+    expect(result).toBe("Gene")
+  })
+
+  test("should return capitalized single element", () => {
+    const values = ["author"]
+    const result = getActiveOptionLabel(values)
+
+    expect(result).toBe("Author")
+  })
+
+  test("should return empty string for empty array", () => {
+    const values: string[] = []
+    const result = getActiveOptionLabel(values)
+
+    expect(result).toBe("")
+  })
+
+  test("should handle array with empty string", () => {
+    const values = ["author", ""]
+    const result = getActiveOptionLabel(values)
+
+    expect(result).toBe("")
+  })
+
+  test("should capitalize first character correctly", () => {
+    const values = ["authorName"]
+    const result = getActiveOptionLabel(values)
+
+    expect(result).toBe("AuthorName")
+  })
+
+  test("should handle special characters", () => {
+    const values = ["author-name"]
+    const result = getActiveOptionLabel(values)
+
+    expect(result).toBe("Author-name")
   })
 })
 
