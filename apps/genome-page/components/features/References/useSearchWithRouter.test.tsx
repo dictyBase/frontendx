@@ -171,6 +171,63 @@ describe("useSearchWithRouter", () => {
     })
   })
 
+  test("should not update input when event type is invalid", () => {
+    const { result } = renderHook(() =>
+      useSearchWithRouter({
+        label: "Search",
+        fields: ["author", "title", "gene"],
+        help: "Search help text",
+      }),
+    )
+
+    // First select a field to make isAcceptingInput true
+    act(() => {
+      result.current.onChange(null, ["gene"], "select-option")
+    })
+
+    const initialInput = result.current.input
+
+    // Try to change input with invalid event type
+    act(() => {
+      result.current.onInputChange(
+        { type: "click" } as React.ChangeEvent<{}>,
+        "nature",
+        "input",
+      )
+    })
+
+    // Input should not have changed
+    expect(result.current.input).toEqual(initialInput)
+  })
+
+  test("should not update input when not accepting input", () => {
+    const { result } = renderHook(() =>
+      useSearchWithRouter({
+        label: "Search",
+        fields: ["author", "title", "gene"],
+        help: "Search help text",
+      }),
+    )
+
+    // Verify isAcceptingInput is false initially
+    expect(result.current.isAcceptingInput).toBe(false)
+
+    const initialInput = result.current.input
+
+    // Try to change input when not accepting input
+    act(() => {
+      result.current.onInputChange(
+        { type: "change" } as React.ChangeEvent<{}>,
+        "nature",
+        "input",
+      )
+    })
+
+    // Input should not have changed
+    expect(result.current.input).toEqual(initialInput)
+    expect(result.current.isAcceptingInput).toBe(false)
+  })
+
   test("should handle onInputChange when completing input", () => {
     const { result } = renderHook(() =>
       useSearchWithRouter({
