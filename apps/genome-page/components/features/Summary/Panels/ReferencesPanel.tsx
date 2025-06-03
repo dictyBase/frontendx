@@ -23,7 +23,6 @@ type Properties = {
  */
 const ReferencesPanel = ({ publications }: Properties) => {
   const classes = useStyles()
-
   return (
     <TableContainer component={Paper} className={classes.root}>
       <Table aria-label="summary-references-table">
@@ -57,17 +56,9 @@ const ReferencesPanel = ({ publications }: Properties) => {
                 </a>
                 <a
                   className={classes.icon}
-                  href={`https://pubmed.ncbi.nlm.nih.gov/${publication.issue}/`}>
+                  href={`https://pubmed.ncbi.nlm.nih.gov/${publication.id}`}>
                   <Image
                     src="https://storage.dictybase.dev/editor/assets/2025-06-03/01e764b4-b5fb-4d7a-8416-8843b880d2aa"
-                    alt="Ref Dicty"
-                    width={25}
-                    height={25}
-                  />
-                </a>
-                <a className={classes.icon} href="">
-                  <Image
-                    src="https://storage.dictybase.dev/editor/assets/2025-06-03/1b5e9bd0-a811-44cd-8424-8073ed980af7"
                     alt="Ref Dicty"
                     width={25}
                     height={25}
