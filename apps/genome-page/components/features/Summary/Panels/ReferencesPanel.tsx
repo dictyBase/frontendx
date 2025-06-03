@@ -29,17 +29,18 @@ const ReferencesPanel = ({ publications }: Properties) => {
         <TableBody>
           {publications.map((publication) => (
             <TableRow key={publication.id}>
-              <TableCell className={classes.cell}>
+              <TableCell className={classes.referenceCell}>
                 <b>
                   {commaSeparateWithAnd(
                     publication.authors.map((a) => a.last_name),
                   )}
+                  {"."}
                 </b>
-                &nbsp; &apos;
+                {" "} {"'"}
                 {parseFormattedStringToDomElements(publication.title)}&apos;
-                &nbsp;
+                {" "}
                 <i>{publication.journal}</i>
-                &nbsp;
+                {","}{" "}
                 {publication.pages}
               </TableCell>
 

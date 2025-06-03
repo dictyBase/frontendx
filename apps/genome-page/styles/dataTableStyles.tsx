@@ -24,6 +24,9 @@ const useStyles = makeStyles({
     textAlign: "right",
     width: "100px",
   },
+  referenceCell: {
+    padding: "4px 56px 4px 24px",
+  },
   referenceColumn: {
     minWidth: "70%",
   },
