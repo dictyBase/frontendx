@@ -49,7 +49,7 @@ const ReferencesPanel = ({ publications }: Properties) => {
                   className={classes.icon}
                   href={`${process.env.NEXT_PUBLIC_PUBLICATION_URL}/${publication.id}`}>
                   <Image
-                    src="/refDicty.gif"
+                    src="https://storage.dictybase.dev/editor/assets/2025-06-03/db56069a-19fe-4386-863e-28e483512bd6"
                     alt="Ref Dicty"
                     width={25}
                     height={25}
@@ -59,7 +59,7 @@ const ReferencesPanel = ({ publications }: Properties) => {
                   className={classes.icon}
                   href={`https://pubmed.ncbi.nlm.nih.gov/${publication.issue}/`}>
                   <Image
-                    src="/refPubmed.gif"
+                    src="https://storage.dictybase.dev/editor/assets/2025-06-03/01e764b4-b5fb-4d7a-8416-8843b880d2aa"
                     alt="Ref Dicty"
                     width={25}
                     height={25}
@@ -67,7 +67,7 @@ const ReferencesPanel = ({ publications }: Properties) => {
                 </a>
                 <a className={classes.icon} href="">
                   <Image
-                    src="/refFull.gif"
+                    src="https://storage.dictybase.dev/editor/assets/2025-06-03/1b5e9bd0-a811-44cd-8424-8073ed980af7"
                     alt="Ref Dicty"
                     width={25}
                     height={25}
