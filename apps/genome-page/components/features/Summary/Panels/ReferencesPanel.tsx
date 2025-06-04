@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { ListPublicationsWithGeneSummaryQuery } from "dicty-graphql-schema"
 import {
   Paper,
@@ -34,14 +33,10 @@ const ReferencesPanel = ({ publications }: Properties) => {
                   {commaSeparateWithAnd(
                     publication.authors.map((a) => a.last_name),
                   )}
-                  {"."}
-                </b>
-                {" "} {"'"}
-                {parseFormattedStringToDomElements(publication.title)}&apos;
-                {" "}
-                <i>{publication.journal}</i>
-                {","}{" "}
-                {publication.pages}
+                  .
+                </b>{" "}
+                &apos;{parseFormattedStringToDomElements(publication.title)}
+                &apos; <i>{publication.journal}</i>, {publication.pages}
               </TableCell>
 
               <TableCell className={classes.cellIcons}>
