@@ -1,9 +1,10 @@
 import { useRouter } from "next/router"
-import { makeStyles, Box, Grid, Chip, Typography } from "@material-ui/core"
-import { grey, blueGrey, teal, pink } from "@material-ui/core/colors"
+import { makeStyles, Box, Grid, Typography } from "@material-ui/core"
+import { grey, blueGrey, pink } from "@material-ui/core/colors"
+import { match } from "ts-pattern"
 import { pipe } from "fp-ts/function"
-import { match as Bmatch } from "fp-ts/boolean"
-import { map as Amap, takeLeft as AtakeLeft } from "fp-ts/Array"
+import { isString, empty } from "fp-ts/string"
+import { map as Amap, filter as Afilter, match as Amatch } from "fp-ts/Array"
 import { parseISO, format } from "date-fns/fp"
 import {
   fromNullable as OfromNullable,
@@ -13,7 +14,7 @@ import {
 import { ListPublicationsWithGeneQuery } from "dicty-graphql-schema"
 import { formatTitle } from "@dictybase/ui-common"
 import { commaSeparateWithAnd } from "common/utils/strings"
-import { SeeAllGenesChip } from "./SeeAllGenesChip"
+import { RelatedGenesList } from "./RelatedGenesList"
 
 const useStyles = makeStyles({
   gridContainer: {
@@ -30,7 +31,7 @@ const useStyles = makeStyles({
     flexBasis: "70%",
     padding: "2rem",
   },
-  card: {
+  root: {
     borderBottom: `1px solid ${blueGrey[50]}`,
     transition: "border-left 0.1s ease-in-out",
     "&:hover": {
@@ -49,17 +50,6 @@ const useStyles = makeStyles({
   authors: {
     fontWeight: 500,
   },
-  chip: {
-    backgroundColor: teal[50],
-    "&:hover": {
-      boxShadow: `1px 1px 2px ${grey[500]}`,
-      backgroundColor: `${teal[100]} !important`,
-    },
-  },
-  subheading: {
-    fontWeight: 600,
-    fontSize: "20px",
-  },
   titleContainer: {
     padding: "2rem",
     paddingBottom: "0.5rem",
@@ -77,6 +67,10 @@ const SinglePublication = ({
 }: PublicationItem) => {
   const classes = useStyles()
   const router = useRouter()
+  const geneId = match(router.query.id)
+    .when(isString, (idParameter) => idParameter)
+    .otherwise(() => empty)
+
   const formattedAuthors = pipe(
     authors,
     Amap(({ last_name }) => last_name),
@@ -96,7 +90,7 @@ const SinglePublication = ({
   }
 
   return (
-    <Box className={classes.card} onClick={onClick}>
+    <Box className={classes.root} onClick={onClick}>
       <Box className={classes.titleContainer}>
         <Typography variant="h2" gutterBottom className={classes.title}>
           {formattedTitle}
@@ -113,46 +107,22 @@ const SinglePublication = ({
             {formattedAuthors}
           </Typography>
         </Grid>
-        <Grid item className={classes.relatedGenesGrid}>
-          <Typography variant="h3" gutterBottom className={classes.subheading}>
-            Mentioned Genes
-          </Typography>
-          <Grid container spacing={1}>
-            {pipe(
-              related_genes,
-              AtakeLeft(GENES_LIMIT),
-              Amap((gene) => (
-                <Grid item key={gene.id}>
-                  <Chip
-                    onClick={(event) => {
-                      event.stopPropagation()
-                      router.push(`/${gene.name}`)
-                    }}
-                    clickable
-                    size="medium"
-                    variant="outlined"
-                    label={gene.name}
-                    className={classes.chip}
-                  />
-                </Grid>
-              )),
-            )}
-            {pipe(
-              related_genes.length > GENES_LIMIT,
-              Bmatch(
-                () => <></>,
-                () => (
-                  <Grid item>
-                    <SeeAllGenesChip
-                      publicationId={id}
-                      geneCount={related_genes.length}
-                    />
-                  </Grid>
-                ),
-              ),
-            )}
-          </Grid>
-        </Grid>
+        {pipe(
+          related_genes,
+          Afilter(({ name }) => name !== geneId),
+          Amatch(
+            () => <></>,
+            (genes) => (
+              <Grid item className={classes.relatedGenesGrid}>
+                <RelatedGenesList
+                  publicationId={id}
+                  limit={GENES_LIMIT}
+                  genes={genes}
+                />
+              </Grid>
+            ),
+          ),
+        )}
       </Grid>
     </Box>
   )
