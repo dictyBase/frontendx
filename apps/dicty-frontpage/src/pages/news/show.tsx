@@ -1,11 +1,24 @@
-import { Container, Box, Typography, Grid, makeStyles } from "@material-ui/core"
-import { teal } from "@material-ui/core/colors"
-import { pipe } from "fp-ts/function"
-import { map as Amap, sort as Asort } from "fp-ts/Array"
+import { useEffect, useRef } from "react"
+import {
+  Container,
+  Box,
+  Typography,
+  Grid,
+  Divider,
+  makeStyles,
+} from "@material-ui/core"
+import { pipe, flow } from "fp-ts/function"
+import { map as Amap, sort as Asort, filter as Afilter, isNonEmpty } from "fp-ts/Array"
+import { fst, snd, mapFst, mapSnd } from "fp-ts/Tuple"
 import { Ord, contramap } from "fp-ts/Ord"
+import { toEntries as RtoEntries } from "fp-ts/Record"
 import { match, P } from "ts-pattern"
 import { ACCESS } from "@dictybase/auth"
-import { FullPageLoadingDisplay } from "@dictybase/ui-common"
+import {
+  FullPageLoadingDisplay,
+  LabeledDivider,
+  groupByDate,
+} from "@dictybase/ui-common"
 import { NewsItem } from "@dictybase/ui-frontpage"
 import {
   useListContentByNamespaceQuery,
@@ -17,6 +30,7 @@ import { parseISO } from "date-fns/fp"
 import { NEWS_NAMESPACE } from "../../common/constants/namespace"
 import { ordByDate } from "../../common/utils/ordByDate"
 import { EmptyNewsView } from "../../common/components/EmptyNewsView"
+import Worker from "../../worker?worker"
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -42,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
   },
   subheading: {
-    fontStyle: "italic" 
+    fontStyle: "italic",
   },
 }))
 
@@ -50,22 +64,69 @@ type NewsViewProperties = {
   contentList: ListContentByNamespaceQuery["listContentByNamespace"]
 }
 
-const OrdByNewest: Ord<Pick<Content, "created_at">> = pipe(
+const OrdByNewest: Ord<
+  ListContentByNamespaceQuery["listContentByNamespace"][0]
+> = pipe(
   ordByDate,
   contramap((content) => pipe(content.created_at, parseISO)),
 )
 
 const NewsView = ({ contentList }: NewsViewProperties) => {
   const { container, headerContainer, heading, subheading } = useStyles()
-  return pipe(
-    contentList,
-    Asort(OrdByNewest),
-    Amap((item) => ({ ...item, content: parseContentToText(item.content) })),
-    Amap(({ id, name, content, created_at }) => (
+  const worker = useRef<null | Worker>(null)
+
+  // We use the `useEffect` hook to setup the worker as soon as the `App` component is mounted.
+  useEffect(() => {
+    // Create the worker if it does not yet exist.
+    console.log(import.meta.url)
+    worker.current ??= new Worker()
+
+    // Create a callback function for messages from the worker thread.
+    const onMessageReceived = (e) => {
+      // TODO: Will fill in later
+    }
+
+    // Attach the callback function as an event listener.
+    worker.current.addEventListener("message", onMessageReceived)
+
+    // Define a cleanup function for when the component is unmounted.
+    return () =>
+      worker.current.removeEventListener("message", onMessageReceived)
+  })
+  console.log(groupByDate(contentList))
+  // ListContentByNamespaceQuery["listContentByNamespace"]
+  const renderNewsItem = flow(
+    (item: ListContentByNamespaceQuery["listContentByNamespace"][0]) => ({
+      ...item,
+      content: parseContentToText(item.content),
+    }),
+    ({ id, name, content, created_at }) => (
       <NewsItem key={id} name={name} createdAt={created_at} content={content} />
+    ),
+    (item) => <Grid item>{item}</Grid>,
+  )
+
+  const processGroupedContentList = flow(
+    Asort(OrdByNewest),
+    Amap(renderNewsItem),
+  )
+
+  return pipe(
+    contentList, //separate into groups
+    groupByDate,
+    Afilter(flow(snd, isNonEmpty)),
+    Amap(mapSnd(processGroupedContentList)),
+    Amap((entry) => (
+      <>
+        <LabeledDivider label={fst(entry)} />
+        <Grid container direction="column" spacing={3}>
+          {snd(entry)}
+        </Grid>
+      </>
     )),
-    Amap((item) => <Grid item>{item}</Grid>),
-    (items) => (
+    // do these to each group
+    // wrap in final container
+    (groups) => (
       <Container className={container}>
         <Box className={headerContainer}>
           <Typography variant="h1" align="center" className={heading}>
@@ -75,9 +136,7 @@ const NewsView = ({ contentList }: NewsViewProperties) => {
             Latest updates from the Dictyostelium research community
           </Typography>
         </Box>
-        <Grid container direction="column" spacing={3}>
-          {items}
-        </Grid>
+        {groups}
       </Container>
     ),
   )
