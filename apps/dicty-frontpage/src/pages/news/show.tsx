@@ -1,22 +1,21 @@
-import { Container, Box, Typography, Grid } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
-import { Link } from "react-router-dom"
+import { Container, Box, Typography, Grid, makeStyles } from "@material-ui/core"
+import { teal } from "@material-ui/core/colors"
 import { pipe } from "fp-ts/function"
 import { map as Amap, sort as Asort } from "fp-ts/Array"
 import { Ord, contramap } from "fp-ts/Ord"
 import { match, P } from "ts-pattern"
 import { ACCESS } from "@dictybase/auth"
 import { FullPageLoadingDisplay } from "@dictybase/ui-common"
+import { NewsItem } from "@dictybase/ui-frontpage"
 import {
   useListContentByNamespaceQuery,
   ListContentByNamespaceQuery,
   Content,
 } from "dicty-graphql-schema"
 import { parseContentToText } from "@dictybase/editor"
-import { parseISO, format } from "date-fns/fp"
+import { parseISO } from "date-fns/fp"
 import { NEWS_NAMESPACE } from "../../common/constants/namespace"
 import { ordByDate } from "../../common/utils/ordByDate"
-import { truncateString } from "../../common/utils/truncateString"
 import { EmptyNewsView } from "../../common/components/EmptyNewsView"
 
 const useStyles = makeStyles((theme) => ({
@@ -31,41 +30,21 @@ const useStyles = makeStyles((theme) => ({
       padding: "0 0 0 0",
     },
   },
-  header: {
-    color: "black",
-    fontSize: "20px",
-    padding: "15px 35px 15px 35px",
-    marginBottom: "10px",
-    "@media (max-width: 767px)": {
-      fontSize: "24px",
-      textAlign: "right",
-      padding: "20px 5px 20px 15px",
-    },
+  headerContainer: {
+    background: `linear-gradient(to right, ${theme.palette.primary.main}, ${theme.palette.primary.light})`,
+    borderRadius: theme.shape.borderRadius,
+    boxShadow: theme.shadows[3],
+    padding: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    color: "#ffffff",
+  },
+  heading: {
+    marginBottom: theme.spacing(1),
+  },
+  subheading: {
+    fontStyle: "italic" 
   },
 }))
-
-type NewsItemProperties = {
-  name: string
-  content: string
-  createdAt: string
-}
-
-const NewsItem = ({ name, content, createdAt }: NewsItemProperties) => (
-  <Link to={`../news/${name}/show`}>
-    <Grid container spacing={2} direction="column">
-      <Grid item>
-        <Typography variant="h2">
-          {pipe(createdAt, parseISO, format("PPPP"))}
-        </Typography>
-      </Grid>
-      <Grid item>
-        <Typography color="textPrimary">
-          {truncateString(parseContentToText(content), 400)}
-        </Typography>
-      </Grid>
-    </Grid>
-  </Link>
-)
 
 type NewsViewProperties = {
   contentList: ListContentByNamespaceQuery["listContentByNamespace"]
@@ -77,22 +56,26 @@ const OrdByNewest: Ord<Pick<Content, "created_at">> = pipe(
 )
 
 const NewsView = ({ contentList }: NewsViewProperties) => {
-  const { container, header } = useStyles()
+  const { container, headerContainer, heading, subheading } = useStyles()
   return pipe(
     contentList,
     Asort(OrdByNewest),
+    Amap((item) => ({ ...item, content: parseContentToText(item.content) })),
     Amap(({ id, name, content, created_at }) => (
       <NewsItem key={id} name={name} createdAt={created_at} content={content} />
     )),
     Amap((item) => <Grid item>{item}</Grid>),
     (items) => (
       <Container className={container}>
-        <Box className={header}>
-          <Typography variant="h1" align="center">
+        <Box className={headerContainer}>
+          <Typography variant="h1" align="center" className={heading}>
             Dicty Community Resource News
           </Typography>
+          <Typography align="center" className={subheading}>
+            Latest updates from the Dictyostelium research community
+          </Typography>
         </Box>
-        <Grid container direction="column" spacing={7}>
+        <Grid container direction="column" spacing={3}>
           {items}
         </Grid>
       </Container>
@@ -128,7 +111,7 @@ const News = () => {
     .otherwise(() => <> This message should not appear. </>)
 }
 
-export { NewsItem, NewsView }
+export { NewsView }
 // eslint-disable-next-line import/no-default-export
 export default News
 export const access = ACCESS.public
