@@ -1,7 +1,4 @@
-import {
-  Box,
-  Grid,
-} from "@material-ui/core"
+import { Box, Grid } from "@material-ui/core"
 import { pipe, flow } from "fp-ts/function"
 import {
   map as Amap,
@@ -56,9 +53,8 @@ const renderNewsItem = flow(
 
 const processGroupedContentList = flow(Asort(OrdByNewest), Amap(renderNewsItem))
 
-const NewsView = ({ contentList }: NewsViewProperties) => {
-
-  return pipe(
+const NewsView = ({ contentList }: NewsViewProperties) =>
+  pipe(
     contentList,
     // groupByDate turns Array<NewsList> -> Array<[string, NewsList]>,
     // where the string is the label of a date grouping, such as "Last Month".
@@ -79,7 +75,6 @@ const NewsView = ({ contentList }: NewsViewProperties) => {
     // Wrap in a news list container.
     (groups) => <NewsListWrapper>{groups}</NewsListWrapper>,
   )
-}
 
 const News = () => {
   const fetchState = useListContentByNamespaceQuery({
