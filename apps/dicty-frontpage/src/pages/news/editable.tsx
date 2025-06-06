@@ -5,6 +5,7 @@ import { map as Amap, sort as Asort } from "fp-ts/Array"
 import { Ord, contramap } from "fp-ts/Ord"
 import { match, P } from "ts-pattern"
 import { FullPageLoadingDisplay } from "@dictybase/ui-common"
+import { NewsListActionBar } from "@dictybase/ui-frontpage"
 import {
   useListContentByNamespaceQuery,
   ListContentByNamespaceQuery,
@@ -13,7 +14,6 @@ import {
 import { parseISO } from "date-fns/fp"
 import { ACCESS } from "@dictybase/auth"
 import { NEWS_NAMESPACE } from "../../common/constants/namespace"
-import { NewsListActionBar } from "../../common/components/NewsListActionBar"
 import { EmptyNewsViewAuth } from "../../common/components/EmptyNewsViewAuth"
 import { EditableNewsItem } from "../../common/components/EditableNewsItem"
 import { ordByDate } from "../../common/utils/ordByDate"
