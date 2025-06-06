@@ -1,11 +1,6 @@
-import { useEffect, useRef } from "react"
 import {
-  Container,
   Box,
-  Typography,
   Grid,
-  Divider,
-  makeStyles,
 } from "@material-ui/core"
 import { pipe, flow } from "fp-ts/function"
 import {
@@ -14,9 +9,8 @@ import {
   filter as Afilter,
   isNonEmpty,
 } from "fp-ts/Array"
-import { fst, snd, mapFst, mapSnd } from "fp-ts/Tuple"
+import { fst, snd, mapSnd } from "fp-ts/Tuple"
 import { Ord, contramap } from "fp-ts/Ord"
-import { toEntries as RtoEntries } from "fp-ts/Record"
 import { match, P } from "ts-pattern"
 import { ACCESS } from "@dictybase/auth"
 import {
@@ -28,7 +22,6 @@ import { NewsListWrapper, NewsItem } from "@dictybase/ui-frontpage"
 import {
   useListContentByNamespaceQuery,
   ListContentByNamespaceQuery,
-  Content,
 } from "dicty-graphql-schema"
 import { parseContentToText } from "@dictybase/editor"
 import { parseISO } from "date-fns/fp"
