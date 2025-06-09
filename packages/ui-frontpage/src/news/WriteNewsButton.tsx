@@ -4,7 +4,9 @@ import CreateIcon from "@material-ui/icons/Create"
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    background: `linear-gradient(to top, ${"#000080"}, ${theme.palette.primary.light})`,
+    background: `linear-gradient(to top, ${"#000080"}, ${
+      theme.palette.primary.light
+    })`,
     color: theme.palette.primary.contrastText,
   },
 }))
