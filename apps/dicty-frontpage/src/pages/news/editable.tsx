@@ -1,92 +1,80 @@
-import { Container, Box, Typography, Grid } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
-import { pipe } from "fp-ts/function"
-import { map as Amap, sort as Asort } from "fp-ts/Array"
+import { Box, Grid } from "@material-ui/core"
+import { pipe, flow } from "fp-ts/function"
+import {
+  map as Amap,
+  sort as Asort,
+  filter as Afilter,
+  isNonEmpty,
+} from "fp-ts/Array"
+import { fst, snd, mapSnd } from "fp-ts/Tuple"
 import { Ord, contramap } from "fp-ts/Ord"
 import { match, P } from "ts-pattern"
-import { FullPageLoadingDisplay } from "@dictybase/ui-common"
-import { NewsListActionBar } from "@dictybase/ui-frontpage"
+import { ACCESS } from "@dictybase/auth"
+import {
+  FullPageLoadingDisplay,
+  LabeledDivider,
+  groupByDate,
+} from "@dictybase/ui-common"
+import { NewsListWrapperAuth, NewsItemAuth } from "@dictybase/ui-frontpage"
 import {
   useListContentByNamespaceQuery,
   ListContentByNamespaceQuery,
-  Content,
 } from "dicty-graphql-schema"
+import { parseContentToText } from "@dictybase/editor"
 import { parseISO } from "date-fns/fp"
-import { ACCESS } from "@dictybase/auth"
 import { NEWS_NAMESPACE } from "../../common/constants/namespace"
-import { EmptyNewsViewAuth } from "../../common/components/EmptyNewsViewAuth"
-import { EditableNewsItem } from "../../common/components/EditableNewsItem"
 import { ordByDate } from "../../common/utils/ordByDate"
+import { EmptyNewsViewAuth } from "../../common/components/EmptyNewsViewAuth"
 
-const useStyles = makeStyles((theme) => ({
-  container: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(4),
-    textAlign: "left",
-    padding: "0px 6rem 1rem 6rem",
-    borderRadius: "15px",
-    boxSizing: "border-box",
-    "@media (max-width: 768px)": {
-      padding: "0 0 0 0",
-    },
-  },
-  header: {
-    color: "black",
-    fontSize: "20px",
-    padding: "15px 35px 15px 35px",
-
-    "@media (max-width: 767px)": {
-      fontSize: "24px",
-      textAlign: "right",
-      padding: "20px 5px 20px 15px",
-    },
-  },
-}))
+type NewsList = ListContentByNamespaceQuery["listContentByNamespace"]
 
 type NewsViewProperties = {
-  contentList: ListContentByNamespaceQuery["listContentByNamespace"]
+  contentList: NewsList
 }
 
-const OrdByNewest: Ord<Pick<Content, "created_at">> = pipe(
+const OrdNewsByRecent: Ord<
+  ListContentByNamespaceQuery["listContentByNamespace"][0]
+> = pipe(
   ordByDate,
   contramap((content) => pipe(content.created_at, parseISO)),
 )
 
-const NewsView = ({ contentList }: NewsViewProperties) => {
-  const { container, header } = useStyles()
-  return pipe(
+const renderNewsItem = flow(
+  (item: ListContentByNamespaceQuery["listContentByNamespace"][0]) => ({
+    ...item,
+    content: parseContentToText(item.content),
+  }),
+  ({ id, name, content, created_at }) => (
+    <Grid item key={id}>
+      <NewsItemAuth name={name} createdAt={created_at} content={content} />
+    </Grid>
+  ),
+)
+
+const processGroupedContentList = flow(Asort(OrdNewsByRecent), Amap(renderNewsItem))
+
+const NewsViewAuth = ({ contentList }: NewsViewProperties) =>
+  pipe(
     contentList,
-    Asort(OrdByNewest),
-    Amap(({ id, name, content, created_at }) => (
-      <EditableNewsItem
-        key={id}
-        name={name}
-        updated_at={created_at}
-        content={content}
-      />
-    )),
-    Amap((item) => <Grid item>{item}</Grid>),
-    (items) => (
-      <Container className={container}>
-        <Box className={header}>
-          <Typography variant="h1" align="center">
-            Dicty Community Resource News
-          </Typography>
-        </Box>
-        <Grid container direction="row">
-          <Grid item xl={1} lg={1}>
-            <NewsListActionBar />
-          </Grid>
-          <Grid item xl={11} lg={11}>
-            <Grid container direction="column" spacing={7}>
-              {items}
-            </Grid>
-          </Grid>
+    // groupByDate turns Array<NewsList> -> Array<[string, NewsList]>,
+    // where the string is the label of a date grouping, such as "Last Month".
+    groupByDate,
+    // If any date groups have empty lists, remove them.
+    Afilter(flow(snd, isNonEmpty)),
+    // Map each group's corresponding news list into a news item UI element.
+    Amap(mapSnd(processGroupedContentList)),
+    // Render each date group with a label.
+    Amap((entry) => (
+      <Box key={fst(entry)}>
+        <LabeledDivider label={fst(entry)} />
+        <Grid container direction="column" spacing={3}>
+          {snd(entry)}
         </Grid>
-      </Container>
-    ),
+      </Box>
+    )),
+    // Wrap in a news list container.
+    (groups) => <NewsListWrapperAuth>{groups}</NewsListWrapperAuth>,
   )
-}
 
 const EditableNews = () => {
   const fetchState = useListContentByNamespaceQuery({
@@ -111,7 +99,7 @@ const EditableNews = () => {
           listContentByNamespace: P.select(P.array({ content: P.string })),
         },
       },
-      (contentList) => <NewsView contentList={contentList} />,
+      (contentList) => <NewsViewAuth contentList={contentList} />,
     )
     .otherwise(() => <> This message should not appear. </>)
 }
