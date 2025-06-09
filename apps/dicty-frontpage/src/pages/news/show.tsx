@@ -32,7 +32,7 @@ type NewsViewProperties = {
   contentList: NewsList
 }
 
-const OrdByNewest: Ord<
+const OrdNewsByRecent: Ord<
   ListContentByNamespaceQuery["listContentByNamespace"][0]
 > = pipe(
   ordByDate,
@@ -51,7 +51,7 @@ const renderNewsItem = flow(
   ),
 )
 
-const processGroupedContentList = flow(Asort(OrdByNewest), Amap(renderNewsItem))
+const processGroupedContentList = flow(Asort(OrdNewsByRecent), Amap(renderNewsItem))
 
 const NewsView = ({ contentList }: NewsViewProperties) =>
   pipe(
