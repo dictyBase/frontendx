@@ -1,7 +1,9 @@
+/* eslint-disable import/no-duplicates */
 import { pipe, flow } from "fp-ts/function"
 import { filter as Afilter } from "fp-ts/Array"
 import { not, or } from "fp-ts/Predicate"
-import { isThisMonth, parseISO, differenceInCalendarMonths } from "date-fns"
+import { isThisMonth, } from "date-fns"
+import { parseISO, differenceInCalendarMonths } from "date-fns/fp"
 import { ListContentByNamespaceQuery } from "dicty-graphql-schema"
 
 type ContentList = ListContentByNamespaceQuery["listContentByNamespace"]
