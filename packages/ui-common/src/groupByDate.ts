@@ -22,13 +22,17 @@ const contentFromLastMonth = flow(
   (difference) => Math.abs(difference) === 1,
 )
 
-const remainingContent = pipe(contentFromThisMonth, or(contentFromLastMonth), not)
+const remainingContent = pipe(
+  contentFromThisMonth,
+  or(contentFromLastMonth),
+  not,
+)
 
 const groupByDate = (contentList: ContentList) =>
-  ([
+  [
     ["Most Recent", pipe(contentList, Afilter(contentFromThisMonth))],
     ["Last Month", pipe(contentList, Afilter(contentFromLastMonth))],
     ["Older Posts", pipe(contentList, Afilter(remainingContent))],
-  ]) as Array<[string, ContentList]>
+  ] as Array<[string, ContentList]>
 
 export { groupByDate }
