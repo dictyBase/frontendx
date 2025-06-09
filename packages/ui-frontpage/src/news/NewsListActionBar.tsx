@@ -1,5 +1,5 @@
 import { Paper, Grid, Theme, makeStyles } from "@material-ui/core"
-import { blue, lightBlue } from "@material-ui/core/colors"
+import { lightBlue } from "@material-ui/core/colors"
 import { WriteNewsButton } from "./WriteNewsButton"
 
 const useStyles = makeStyles((theme: Theme) => ({
