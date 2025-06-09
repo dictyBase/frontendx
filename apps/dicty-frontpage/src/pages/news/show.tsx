@@ -51,7 +51,10 @@ const renderNewsItem = flow(
   ),
 )
 
-const processGroupedContentList = flow(Asort(OrdNewsByRecent), Amap(renderNewsItem))
+const processGroupedContentList = flow(
+  Asort(OrdNewsByRecent),
+  Amap(renderNewsItem),
+)
 
 const NewsView = ({ contentList }: NewsViewProperties) =>
   pipe(
