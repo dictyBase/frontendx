@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.paper,
     borderRadius: theme.spacing(1),
-    "&:hover": { boxShadow: theme.shadows[7] }
+    "&:hover": { boxShadow: theme.shadows[7] },
   },
   dateContainer: {
     background: `linear-gradient(to left, ${theme.palette.primary.light}, ${theme.palette.primary.main})`,
@@ -39,7 +39,10 @@ const NewsItem = ({ name, content, createdAt }: NewsItemProperties) => {
       <Paper elevation={4} className={classes.root}>
         <Grid container direction="column">
           <Grid item className={classes.dateContainer}>
-            <Typography variant="h3" variantMapping={{ h3: "h2"}} className={classes.dateText}>
+            <Typography
+              variant="h3"
+              variantMapping={{ h3: "h2" }}
+              className={classes.dateText}>
               {pipe(createdAt, parseISO, format("PPPP"))}
             </Typography>
           </Grid>
