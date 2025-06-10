@@ -193,6 +193,7 @@ const Navbar = ({
               },
               ({ items_, title }) => (
                 <Dropdown
+                  data-testid={`navbar-dropdown-${title}`}
                   key={title}
                   index={index}
                   open={activeIndex === index}
