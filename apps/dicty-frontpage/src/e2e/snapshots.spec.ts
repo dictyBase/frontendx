@@ -15,6 +15,26 @@ test("Footer snapshot", async ({ page }) => {
   await page.waitForLoadState("networkidle")
   // Wait for all images to load
   await page.waitForFunction(waitForImageLoad)
-  const header = page.locator("footer")
-  await expect(header).toHaveScreenshot()
+  const footer = page.locator("footer")
+  await expect(footer).toHaveScreenshot()
+})
+
+test("Navbar snapshot", async ({ page }) => {
+  await page.goto("/")
+  await page.waitForLoadState("networkidle")
+  // Wait for all images to load
+  await page.waitForFunction(waitForImageLoad)
+  const navbar = page.locator("nav")
+  await expect(navbar).toHaveScreenshot()
+})
+
+test("Navbar Item Menu snapshot", async ({ page }) => {
+  await page.goto("/")
+  await page.waitForLoadState("networkidle")
+  // Wait for all images to load
+  await page.waitForFunction(waitForImageLoad)
+  const genomesDropdown = page.getByText("Genomes")
+  await genomesDropdown.click()
+  const genomesList = page.getByTestId("navbar-dropdown-Genomes")
+  await expect(genomesList).toHaveScreenshot()
 })
