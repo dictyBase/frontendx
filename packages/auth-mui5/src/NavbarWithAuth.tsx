@@ -1,4 +1,4 @@
-import { Navbar, formatNavbarData } from "@dictybase/navbar"
+import { Navbar, formatNavbarData } from "@dictybase/navbar-mui5"
 import { displayOnAuthorized } from "./functional/auth"
 import { useAuthorization } from "./useAuthorization"
 import { createAuthNavbarItems } from "./data/authNavbarData"
