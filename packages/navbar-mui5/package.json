@@ -1,0 +1,34 @@
+{
+  "name": "@dictybase/navbar-mui5",
+  "version": "0.0.0",
+  "license": "BSD-2-Clause",
+  "main": "./src/index.ts",
+  "scripts": {
+    "test": "vitest run",
+    "coverage": "vitest run --coverage",
+    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/navbar.json"
+  },
+  "dependencies": {
+    "@mui/material": "5.*",
+    "@mui/styles": "5.*",
+    "fp-ts": "^2.16.1",
+    "polished": "^4.1.3",
+    "react": "17.*",
+    "react-dom": "17.*",
+    "ts-pattern": "4.x",
+    "tss-react": "^4.9.15"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/react-hooks": "^8.0.1",
+    "@testing-library/user-event": "^14.5.1",
+    "@types/react": "17.*",
+    "@types/react-dom": "17.*",
+    "eslint-config-custom": "*",
+    "jsdom": "latest",
+    "tsconfig": "*",
+    "vitest": "0.33.*"
+  }
+}
