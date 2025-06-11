@@ -1,4 +1,5 @@
-import { test, expect, describe } from "vitest"
+import { test, assert, expect, describe } from "vitest"
+
 import { createNavbarItems, formatNavbarData } from "../navbarItems"
 
 describe("createNavbarItems", () => {
@@ -75,7 +76,8 @@ describe("createNavbarItems", () => {
 
     // Last item should be the external Northwestern box link
     const lastItem = dscItems.at(-1)
-    // @ts-ignore
+
+    assert(lastItem)
     expect(lastItem.link).toBe(
       "https://northwestern.box.com/s/p0f8m70whgiuib2u0wt8gtn497ncmq8i",
     )
@@ -100,20 +102,51 @@ describe("createNavbarItems", () => {
 
     // Check that sections still work with empty URLs
     const exploreSection = result.data.find((item) => item.type === "explore")
-    // @ts-ignore
+    assert(exploreSection?.attributes.items[0])
     expect(exploreSection?.attributes.items[0].link).toBe("/explore/art/show")
   })
 })
 
 describe("formatNavbarData", () => {
+  const mockNavbarItems = {
+    data: [
+      {
+        type: "test",
+        id: "1",
+        attributes: {
+          display: "Test Section",
+          items: [
+            {
+              label: "Test Item 1",
+              link: "/test1",
+            },
+            {
+              label: "Test Item 2",
+              link: "/test2",
+            },
+          ],
+        },
+      },
+      {
+        type: "another",
+        id: "2",
+        attributes: {
+          display: "Another Section",
+          items: [
+            {
+              label: "Another Item",
+              link: "/another",
+            },
+          ],
+        },
+      },
+    ],
+  }
+
   test("should convert navbar items to dicty-navbar format", () => {
-    const frontPageUrl = "https://frontpage.example.com"
-    const stockCenterUrl = "https://stockcenter.example.com"
-    const navbarItems = createNavbarItems(frontPageUrl, stockCenterUrl)
+    const formatted = formatNavbarData(mockNavbarItems)
 
-    const formatted = formatNavbarData(navbarItems)
-
-    expect(formatted).toHaveLength(6)
+    expect(formatted).toHaveLength(2)
 
     formatted.forEach((item) => {
       expect(item).toHaveProperty("dropdown", true)
@@ -129,19 +162,30 @@ describe("formatNavbarData", () => {
   })
 
   test("should correctly map item properties", () => {
-    const navbarItems = createNavbarItems(
-      "https://test.com",
-      "https://stock.com",
-    )
-    const formatted = formatNavbarData(navbarItems)
+    const formatted = formatNavbarData(mockNavbarItems)
+    const firstSection = formatted[0]
+    assert(firstSection)
+    expect(firstSection.title).toBe("Test Section")
+    expect(firstSection.dropdown).toBe(true)
+    expect(firstSection.items).toEqual([
+      {
+        name: "Test Item 1",
+        href: "/test1",
+      },
+      {
+        name: "Test Item 2",
+        href: "/test2",
+      },
+    ])
 
-    const genomesSection = formatted[0]
-    // @ts-ignore
-    expect(genomesSection.title).toBe("Genomes")
-    // @ts-ignore
-    expect(genomesSection.items[0]).toEqual({
-      name: "Dictyostelium discoideum AX4",
-      href: "/",
-    })
+    const secondSection = formatted[1]
+    assert(secondSection)
+    expect(secondSection.title).toBe("Another Section")
+    expect(secondSection.items).toEqual([
+      {
+        name: "Another Item",
+        href: "/another",
+      },
+    ])
   })
 })
