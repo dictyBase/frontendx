@@ -38,15 +38,3 @@ export const wasClicked = (event: MouseEvent, element: HTMLElement) => {
 
   return true
 }
-
-export const calcTextWidth = (
-  text: string,
-  size: any = "16px",
-  family: string = "sans-serif",
-) => {
-  const c = document.createElement("canvas")
-  const context = c.getContext("2d")
-  if (!context) return 0
-  context.font = `${size} ${family}`
-  return context.measureText(text).width
-}
