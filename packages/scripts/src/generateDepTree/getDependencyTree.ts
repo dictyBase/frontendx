@@ -11,20 +11,19 @@ const getDependencyTree = (
   manifest: ProjectManifest,
   localPackages: Record<string, ProjectManifest>,
 ): DependencyNode => {
-  let dependencies = pipe(
+  const dependencies = pipe(
     manifest.dependencies,
     RmapWithIndex((name, version) => {
       if (Rhas(name, localPackages)) {
         return getDependencyTree(localPackages[name], localPackages)
-      } else {
-        return {
-          name,
-          version,
-          dependencies: [],
-        }
+      }
+      return {
+        name,
+        version,
+        dependencies: [],
       }
     }),
-    Rcollect(SOrd)((_, nodes) => nodes)
+    Rcollect(SOrd)((_, nodes) => nodes),
   )
 
   return {
