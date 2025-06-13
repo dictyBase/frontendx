@@ -15,7 +15,7 @@ const getDependencyTree = (
     manifest.dependencies,
     RmapWithIndex((name, version) => {
       if (Rhas(name, localPackages)) {
-        return getDependencyTree(localPackages[name], localPackages)
+        return getDependencyTree(localPackages[name]!, localPackages)
       }
       return {
         name,
