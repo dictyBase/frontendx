@@ -1,7 +1,7 @@
 {
-  "name": "@dictybase/scripts",
+  "name": "@dictybase/generate-dependency-graph",
   "version": "0.0.0",
-  "description": "Scripts for the frontendx package",
+  "description": "script for the frontendx package",
   "main": "./src/index.ts",
   "author": "Kevin Tun",
   "license": "BSD-2-Clause",

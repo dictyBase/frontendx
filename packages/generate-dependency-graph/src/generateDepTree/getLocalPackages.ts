@@ -7,6 +7,7 @@ import { ProjectManifest } from "./types"
 
 const getManifest = (projectDirectory: string): ProjectManifest => {
   const manifestFilePath = join(projectDirectory, "package.json")
+  // handle possible error here
   const manifestFile = readFileSync(manifestFilePath, "utf8")
   return JSON.parse(manifestFile)
 }
@@ -19,6 +20,7 @@ const getManifest = (projectDirectory: string): ProjectManifest => {
  * 3. Append it to the list
  */
 const getManifests = (directory: string) => {
+  // handle possible error here
   const projects = readdirSync(directory)
   return pipe(
     projects,
