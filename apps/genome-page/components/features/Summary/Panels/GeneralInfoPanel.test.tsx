@@ -31,7 +31,7 @@ describe("features/Summary/Panels/GeneralInfoPanel", () => {
     render(<GeneralInfoPanel generalInformation={mockGeneralInfoData} />)
 
     // Check that the correct number of ItemDisplay components are rendered
-    expect(screen.getAllByTestId("item-display")).toHaveLength(5)
+    expect(screen.getAllByTestId("item-display")).toHaveLength(4)
 
     // Name Description
     expect(screen.getByText(/Name Description/)).toBeInTheDocument()
@@ -44,9 +44,6 @@ describe("features/Summary/Panels/GeneralInfoPanel", () => {
     // Gene Product
     expect(screen.getByText(/Gene Product/)).toBeInTheDocument()
     expect(screen.getByText("substrate adhesion molecule")).toBeInTheDocument()
-
-    // Alternative Protein Names - sadA doesn't have any, but section should still exist
-    expect(screen.getByText(/Alternative Protein Names/)).toBeInTheDocument()
 
     // Description
     expect(screen.getByText("Description")).toBeInTheDocument()
@@ -102,13 +99,15 @@ describe("features/Summary/Panels/GeneralInfoPanel", () => {
 
     render(<GeneralInfoPanel generalInformation={mockWithMissingData} />)
 
-    // Gene Product - should render empty string for null value
-    expect(screen.getByText(/Gene Product/)).toBeInTheDocument()
+    // Synonyms - should not render row null value
+    expect(screen.queryByText(/Gene Product/)).toBeNull()
 
-    // Description - should render empty string for null value
-    expect(screen.getByText("Description")).toBeInTheDocument()
+    // Gene Product - should not render row null value
+    expect(screen.queryByText(/Gene Product/)).toBeNull()
 
-    // All sections should still be present
-    expect(screen.getAllByTestId("item-display")).toHaveLength(5)
+    // Description - should not render row null value
+    expect(screen.queryByText("Description")).toBeNull()
+
+    expect(screen.getAllByTestId("item-display")).toHaveLength(2)
   })
 })
