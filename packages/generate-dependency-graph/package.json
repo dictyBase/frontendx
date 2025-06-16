@@ -8,11 +8,12 @@
   "devDependencies": {
     "@vitest/coverage-v8": "^0.34.5",
     "eslint-config-custom": "*",
-    "vitest": "^0.33.0",
     "tsconfig": "*",
-    "typescript": "4.*"
+    "typescript": "4.*",
+    "vitest": "^0.33.0"
   },
   "dependencies": {
+    "commander": "^14.0.0",
     "fp-ts": "^2.16.0"
   },
   "scripts": {
