@@ -1,8 +1,6 @@
 import { getErrorMessage } from "@dictybase/ui-common"
 import { useRouter } from "next/router"
-import {
-  useGeneOntologyAnnotationSummaryQuery,
-} from "dicty-graphql-schema"
+import { useGeneOntologyAnnotationSummaryQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { Loader } from "components/Loader"
 import { ErrorPanel } from "components/panels/ErrorPanel"
