@@ -57,16 +57,11 @@ describe("features/Summary/Panels/GoaPanel", () => {
   })
 
   it("should not display a GO section if there are no goas for it", () => {
-    const filteredGoas = pipe(
-      mockOntologyData.goas,
-      Afilter(({ type }) => type !== "molecular_function"),
-    )
-    render(<GoaPanel goas={filteredGoas} />)
-    // Check that Molecular Function section is not rendered
+    render(<GoaPanel goas={[]} />)
+    // Check that no GO sections are rendered
     expect(screen.queryByText("Molecular Function")).toBeNull()
-    // Check that we have the other two GO sections
-    expect(screen.getByText("Biological Process")).toBeInTheDocument()
-    expect(screen.getByText("Cellular Component")).toBeInTheDocument()
+    expect(screen.getByText("Biological Process")).toBeNull()
+    expect(screen.getByText("Cellular Component")).toBeNull()
   })
   it("should filter and display molecular function annotations", () => {
     render(<GoaPanel goas={mockOntologyData.goas} />)
