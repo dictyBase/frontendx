@@ -80,19 +80,11 @@ describe("features/Summary/Panels/GoaQuery", () => {
       },
     })
 
-    // Mock NoDataPanel
-    jest.mock("./NoDataPanel", () => ({
-      NoDataPanel: ({ query, geneId }: any) => (
-        <div data-testid="no-data-panel">
-          No {query} for {geneId}
-        </div>
-      ),
-    }))
-
     render(<GoaQuery />)
 
     // Wait for query to complete
     await screen.findByTestId(PANEL_WRAPPER_TESTID)
+    expect(screen.getByText(/No GO Annotations for sadA/))
   })
 
   it("should render error page when query fails", async () => {
