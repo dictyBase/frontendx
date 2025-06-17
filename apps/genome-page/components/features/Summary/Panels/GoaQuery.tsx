@@ -26,7 +26,7 @@ const GoaQuery = () => {
         .with({ loading: true }, () => <Loader rows={3} />)
         .with(
           {
-            data: P.union(P.nullish, { geneOntologyAnnotation: [] }),
+            data: { geneOntologyAnnotation: P.union([], P.nullish) },
           },
           () => <NoDataPanel query="GO Annotations" geneId={gene} />,
         )
