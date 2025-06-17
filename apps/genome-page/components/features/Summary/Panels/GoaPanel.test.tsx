@@ -1,3 +1,5 @@
+import { pipe } from "fp-ts/function"
+import { filter as Afilter } from "fp-ts/Array"
 import { render, screen } from "@testing-library/react"
 import { mockOntologyData } from "mocks/mockOntologyData"
 import { GoaPanel } from "./GoaPanel"
@@ -36,7 +38,7 @@ jest.mock("./GoaPanelContent", () => ({
 }))
 
 describe("features/Summary/Panels/GoaPanel", () => {
-  it("should render all GO sections", () => {
+  it("should render all GO sections if present", () => {
     render(<GoaPanel goas={mockOntologyData.goas} />)
 
     // Check that we have all three GO sections
@@ -54,6 +56,18 @@ describe("features/Summary/Panels/GoaPanel", () => {
     expect(screen.getAllByTestId("right-display")).toHaveLength(3)
   })
 
+  it("should not display a GO section if there are no goas for it", () => {
+    const filteredGoas = pipe(
+      mockOntologyData.goas,
+      Afilter(({ type }) => type !== "molecular_function"),
+    )
+    render(<GoaPanel goas={filteredGoas} />)
+    // Check that Molecular Function section is not rendered
+    expect(screen.queryByText("Molecular Function")).toBeNull()
+    // Check that we have the other two GO sections
+    expect(screen.getByText("Biological Process")).toBeInTheDocument()
+    expect(screen.getByText("Cellular Component")).toBeInTheDocument()
+  })
   it("should filter and display molecular function annotations", () => {
     render(<GoaPanel goas={mockOntologyData.goas} />)
 
