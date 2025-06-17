@@ -1,5 +1,3 @@
-import { pipe } from "fp-ts/function"
-import { filter as Afilter } from "fp-ts/Array"
 import { render, screen } from "@testing-library/react"
 import { mockOntologyData } from "mocks/mockOntologyData"
 import { GoaPanel } from "./GoaPanel"
@@ -60,8 +58,8 @@ describe("features/Summary/Panels/GoaPanel", () => {
     render(<GoaPanel goas={[]} />)
     // Check that no GO sections are rendered
     expect(screen.queryByText("Molecular Function")).toBeNull()
-    expect(screen.getByText("Biological Process")).toBeNull()
-    expect(screen.getByText("Cellular Component")).toBeNull()
+    expect(screen.queryByText("Biological Process")).toBeNull()
+    expect(screen.queryByText("Cellular Component")).toBeNull()
   })
   it("should filter and display molecular function annotations", () => {
     render(<GoaPanel goas={mockOntologyData.goas} />)
