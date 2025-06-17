@@ -2,7 +2,6 @@ import { getErrorMessage } from "@dictybase/ui-common"
 import { useRouter } from "next/router"
 import {
   useGeneOntologyAnnotationSummaryQuery,
-  GeneOntologyAnnotationSummaryQuery,
 } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { Loader } from "components/Loader"
@@ -21,12 +20,10 @@ const GoaQuery = () => {
     fetchPolicy: "network-only",
     nextFetchPolicy: "cache-and-network",
   })
-  console.log(result)
   return (
     <PanelWrapper
       route={`${gene}/goannotations`}
-      title="Gene Ontology Annotations"
-    >
+      title="Gene Ontology Annotations">
       {match(result)
         .with({ loading: true }, () => <Loader rows={3} />)
         .with(
