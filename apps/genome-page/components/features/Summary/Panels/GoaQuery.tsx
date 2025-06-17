@@ -1,6 +1,9 @@
 import { getErrorMessage } from "@dictybase/ui-common"
 import { useRouter } from "next/router"
-import { useGeneOntologyAnnotationSummaryQuery } from "dicty-graphql-schema"
+import {
+  useGeneOntologyAnnotationSummaryQuery,
+  GeneOntologyAnnotationSummaryQuery,
+} from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { Loader } from "components/Loader"
 import { ErrorPanel } from "components/panels/ErrorPanel"
@@ -15,16 +18,23 @@ const GoaQuery = () => {
     variables: {
       gene,
     },
-    fetchPolicy: "cache-and-network",
-    nextFetchPolicy: "cache-only",
-    errorPolicy: "all",
+    fetchPolicy: "network-only",
+    nextFetchPolicy: "cache-and-network",
   })
+  console.log(result)
   return (
     <PanelWrapper
       route={`${gene}/goannotations`}
-      title="Gene Ontology Annotations">
+      title="Gene Ontology Annotations"
+    >
       {match(result)
         .with({ loading: true }, () => <Loader rows={3} />)
+        .with(
+          {
+            data: P.union(P.nullish, { geneOntologyAnnotation: [] }),
+          },
+          () => <NoDataPanel query="GO Annotations" geneId={gene} />,
+        )
         .with(
           {
             data: { geneOntologyAnnotation: P.select(P.not(P.nullish)) },
@@ -37,12 +47,6 @@ const GoaQuery = () => {
             details={getErrorMessage(error).message}
           />
         ))
-        .with(
-          {
-            data: P.nullish,
-          },
-          () => <NoDataPanel query="GO Annotations" geneId={gene} />,
-        )
         .otherwise(() => (
           <> This message should not appear. </>
         ))}
