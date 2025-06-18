@@ -20,7 +20,6 @@ const OntologyPageWrapper = () => {
     fetchPolicy: "cache-and-network",
     nextFetchPolicy: "cache-only",
   })
-  console.log(result)
   return (
     <Layout
       tabValue={TabValues.GOANNOTATIONS}
