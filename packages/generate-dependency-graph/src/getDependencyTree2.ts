@@ -1,11 +1,9 @@
 import { pipe } from "fp-ts/function"
-import { Ord as SOrd } from "fp-ts/string"
 import {
-  collect as Rcollect,
   has as Rhas,
   mapWithIndex as RmapWithIndex,
 } from "fp-ts/Record"
-import { ProjectManifest, DependencyNode } from "./types"
+import { ProjectManifest } from "./types"
 import { ProjectNode } from "./ProjectNode"
 
 const getDependencyTree2 = (
