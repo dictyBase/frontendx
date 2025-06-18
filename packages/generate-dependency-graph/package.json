@@ -17,6 +17,7 @@
     "fp-ts": "^2.16.0"
   },
   "scripts": {
+    "generate": "node build/src/index.js",
     "build": "tsc",
     "test": "vitest run",
     "test:watch": "vitest watch",
