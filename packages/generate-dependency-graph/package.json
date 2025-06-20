@@ -13,8 +13,10 @@
     "vitest": "^0.33.0"
   },
   "dependencies": {
+    "@inquirer/prompts": "^7.5.3",
     "commander": "^14.0.0",
-    "fp-ts": "^2.16.0"
+    "fp-ts": "^2.16.0",
+    "ts-graphviz": "^2.1.6"
   },
   "scripts": {
     "generate": "node build/src/index.js",

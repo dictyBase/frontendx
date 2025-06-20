@@ -7,6 +7,8 @@ class ProjectNode extends TreeNode {
 
   version: string
 
+  children: Array<ProjectNode> = []
+
   constructor({
     name,
     version,
