@@ -10,12 +10,12 @@ const program = createCommand()
 program
   .argument("<path>", "Path to app directory to analyze")
   .action(async (path) => {
-    const chosenPlugin = await select<Plugin>({
+    const chosen = await select<Plugin>({
       message: "Choose a plugin",
       choices: plugins,
     })
-    const filePath = `${path}/dependency-graph.${chosenPlugin.extension}`
-    const output = pipe(path, analyzeDependencies, chosenPlugin.plugin)
+    const filePath = `${path}/dependency-graph.${chosen.extension}`
+    const output = pipe(path, analyzeDependencies, chosen.plugin)
     writeFileSync(filePath, output)
   })
 
