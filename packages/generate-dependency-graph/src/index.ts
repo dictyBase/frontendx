@@ -5,11 +5,17 @@ import { select } from "@inquirer/prompts"
 import { analyzeDependencies } from "./analyzeDependencies"
 import { Plugin, plugins } from "./plugins"
 
+declare global {
+  var localOnly: boolean
+}
+
 const program = createCommand()
 
 program
+  .option("-l, --local-only", "Include only local dependencies", false)
   .argument("<path>", "Path to app directory to analyze")
-  .action(async (path) => {
+  .action(async (path, options) => {
+    globalThis.localOnly = options.localOnly
     const chosen = await select<Plugin>({
       message: "Choose a plugin",
       choices: plugins,
@@ -20,3 +26,4 @@ program
   })
 
 program.parse()
+
