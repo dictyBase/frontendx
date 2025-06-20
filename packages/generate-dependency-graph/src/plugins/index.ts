@@ -1,6 +1,7 @@
 import { NonEmptyArray } from "fp-ts/NonEmptyArray"
 import { toJSON } from "./toJSON"
 import { toGraphviz } from "./toGraphviz"
+import { toMermaid } from "./toMermaid"
 import { ProjectNode } from "../ProjectNode"
 
 type Plugin = {
@@ -19,6 +20,13 @@ const plugins: NonEmptyArray<PluginChoice> = [
     value: {
       plugin: toJSON,
       extension: "json",
+    },
+  },
+  {
+    name: "Mermaid",
+    value: {
+      plugin: toMermaid,
+      extension: "md",
     },
   },
   {
