@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { pipe } from "fp-ts/function"
-import { CreateWebWorkerMLCEngine, WebWorkerMLCEngine } from "@mlc-ai/web-llm"
+import { CreateWebWorkerMLCEngine } from "@mlc-ai/web-llm"
 import { DictyTab, DictyTabs } from "@dictybase/ui-common"
 import { map as Rmap, keys as Rkeys } from "fp-ts/Record"
 import { sort as Asort } from "fp-ts/Array"
@@ -112,16 +112,15 @@ const PublicationsView = ({ data }: PublicationsViewProperties) => {
   )
   const tabs = pipe(orderFunctions, Rkeys, Asort(ordTab))
   const [currentTab, setCurrentTab] = useState(tabs[0])
-  const [engine, setEngine] = useState<WebWorkerMLCEngine>()
 
   useEffect(() => {
     const initMLC = async () => {
+      console.log("initializing")
       const engine = await CreateWebWorkerMLCEngine(
-        new Worker(new URL("../../../worker.ts", import.meta.url)),
-        "Llama-3.1-8B-Instruct",
+        new Worker(new URL("../../worker.ts", import.meta.url), { type: "module" }),
+        "snowflake-arctic-embed-s-q0f32-MLC-b4",
       )
       engine.embeddings.create({ input: data[0].title })
-      setEngine(engine)
     }
    initMLC() 
   }, [])
