@@ -1,9 +1,14 @@
-import { useState, useEffect } from "react"
+import { useRef, useState, useEffect } from "react"
 import { pipe } from "fp-ts/function"
-import { CreateWebWorkerMLCEngine } from "@mlc-ai/web-llm"
-import { DictyTab, DictyTabs } from "@dictybase/ui-common"
+import {
+  sort as Asort,
+  map as Amap,
+  mapWithIndex as AmapWithIndex,
+  reduce as Areduce,
+} from "fp-ts/Array"
 import { map as Rmap, keys as Rkeys } from "fp-ts/Record"
-import { sort as Asort } from "fp-ts/Array"
+import { CreateWebWorkerMLCEngine, WebWorkerMLCEngine, Embedding } from "@mlc-ai/web-llm"
+import { DictyTab, DictyTabs } from "@dictybase/ui-common"
 import { Ord, contramap, reverse as ORDreverse } from "fp-ts/Ord"
 import { Ord as SOrd } from "fp-ts/string"
 import { Ord as NOrd } from "fp-ts/number"
@@ -11,7 +16,32 @@ import { Container, Box, Typography } from "@material-ui/core"
 import { grey } from "@material-ui/core/colors"
 import { makeStyles } from "@material-ui/core/styles"
 import { PublicationsList } from "./PublicationsList"
+import { useMLCEngine } from "./useMLCEngine"
 import { type PublicationItem } from "../../common/hooks/useFetchPublications"
+
+type Vector = Array<number>
+
+const dotProduct = (a: Vector, b: Vector) => {
+  if (a.length !== b.length)
+    throw new Error(
+      "Input vectors of a dot product must have the same dimensionality.",
+    )
+  return pipe(
+    a,
+    AmapWithIndex((i) => a[i] * b[i]),
+    Areduce(0, (sum, element) => sum + element),
+  )
+}
+
+const magnitude = (v: Vector) =>
+  pipe(
+    v,
+    Amap((n) => Math.pow(n, 2)),
+    Areduce(0, (sum, element) => sum + element),
+    Math.sqrt,
+  )
+const cosineSimilarity = (a: Vector, b: Vector) =>
+  dotProduct(a, b) / (magnitude(a) * magnitude(b))
 
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -101,6 +131,10 @@ type PublicationsViewProperties = {
   data: Array<PublicationItem>
 }
 
+type PublicationWithEmbeddings = {
+  id: string
+  embeddings: Array<Embedding>
+}
 /**
  * Displays a list of publications. It renders tabs that allow
  * users to view a subset of the publications in a given time frame.
@@ -112,18 +146,15 @@ const PublicationsView = ({ data }: PublicationsViewProperties) => {
   )
   const tabs = pipe(orderFunctions, Rkeys, Asort(ordTab))
   const [currentTab, setCurrentTab] = useState(tabs[0])
+  const { engine } = useMLCEngine()
 
   useEffect(() => {
     const initMLC = async () => {
-      console.log("initializing")
-      const engine = await CreateWebWorkerMLCEngine(
-        new Worker(new URL("../../worker.ts", import.meta.url), { type: "module" }),
-        "snowflake-arctic-embed-s-q0f32-MLC-b4",
-      )
-      engine.embeddings.create({ input: data[0].title })
+      if (!engine) return
+      await engine.embeddings.create({ input: data[1].title })
     }
-   initMLC() 
-  }, [])
+    initMLC()
+  }, [engine])
 
   const handleChange = (
     _: React.ChangeEvent<{}>,
