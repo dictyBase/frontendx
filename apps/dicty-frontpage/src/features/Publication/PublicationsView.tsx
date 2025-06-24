@@ -1,16 +1,32 @@
-import { useRef, useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { pipe } from "fp-ts/function"
+import { split as Ssplit, Ord as SOrd, isEmpty as SisEmpty } from "fp-ts/string"
 import {
   sort as Asort,
   map as Amap,
   mapWithIndex as AmapWithIndex,
   reduce as Areduce,
+  prepend as Aprepend,
+  isNonEmpty as AisNonEmpty,
+  sequence,
 } from "fp-ts/Array"
+import { filter as RAfilter } from "fp-ts/ReadonlyArray"
+import { map as NEAmap, filter as NEAfilter } from "fp-ts/NonEmptyArray"
+import { filter as RNEAfilter } from "fp-ts/ReadonlyNonEmptyArray"
+import {
+  tryCatch as TEtryCatch,
+  ApplicativePar,
+  map as TEmap,
+  match as TEmatch,
+} from "fp-ts/TaskEither"
 import { map as Rmap, keys as Rkeys } from "fp-ts/Record"
-import { CreateWebWorkerMLCEngine, WebWorkerMLCEngine, Embedding } from "@mlc-ai/web-llm"
+import {
+  CreateWebWorkerMLCEngine,
+  MLCEngineInterface,
+  Embedding,
+} from "@mlc-ai/web-llm"
 import { DictyTab, DictyTabs } from "@dictybase/ui-common"
 import { Ord, contramap, reverse as ORDreverse } from "fp-ts/Ord"
-import { Ord as SOrd } from "fp-ts/string"
 import { Ord as NOrd } from "fp-ts/number"
 import { Container, Box, Typography } from "@material-ui/core"
 import { grey } from "@material-ui/core/colors"
@@ -28,7 +44,7 @@ const dotProduct = (a: Vector, b: Vector) => {
     )
   return pipe(
     a,
-    AmapWithIndex((i) => a[i] * b[i]),
+    AmapWithIndex((index) => a[index] * b[index]),
     Areduce(0, (sum, element) => sum + element),
   )
 }
@@ -36,7 +52,7 @@ const dotProduct = (a: Vector, b: Vector) => {
 const magnitude = (v: Vector) =>
   pipe(
     v,
-    Amap((n) => Math.pow(n, 2)),
+    Amap((n) => n ** 2),
     Areduce(0, (sum, element) => sum + element),
     Math.sqrt,
   )
@@ -135,6 +151,34 @@ type PublicationWithEmbeddings = {
   id: string
   embeddings: Array<Embedding>
 }
+
+const TEgetEmbedding = (engine: MLCEngineInterface) => (input: Array<string>) =>
+  TEtryCatch(
+    () => {
+      console.log(input)
+      return engine.embeddings.create({ input })
+    },
+    (reason) => new Error(reason as string),
+  )
+
+const getPublicationEmbedding =
+  (engine: MLCEngineInterface) =>
+  ({ pubmedId, title, abstract }: PublicationItem) =>
+    pipe(
+      abstract,
+      Ssplit("."),
+      RAfilter(() => !SisEmpty),
+      (rnea) => [...rnea],
+      Aprepend(title),
+      TEgetEmbedding(engine),
+      TEmap(
+        ({ data }): PublicationWithEmbeddings => ({
+          id: pubmedId,
+          embedding: data[0].embedding,
+        }),
+      ),
+    )
+
 /**
  * Displays a list of publications. It renders tabs that allow
  * users to view a subset of the publications in a given time frame.
@@ -147,14 +191,29 @@ const PublicationsView = ({ data }: PublicationsViewProperties) => {
   const tabs = pipe(orderFunctions, Rkeys, Asort(ordTab))
   const [currentTab, setCurrentTab] = useState(tabs[0])
   const { engine } = useMLCEngine()
-
+  const [publicationEmbeddings, setEmbeddings] = useState<
+    Array<PublicationWithEmbeddings>
+  >([])
+  console.log(publicationEmbeddings)
   useEffect(() => {
-    const initMLC = async () => {
+    const createEmbeddings = async () => {
       if (!engine) return
-      await engine.embeddings.create({ input: data[1].title })
+      if (!AisNonEmpty(data)) return
+      pipe(
+        data,
+        NEAmap(getPublicationEmbedding(engine)),
+        sequence(ApplicativePar),
+        TEmatch(
+          (error) => {
+            // eslint-disable-next-line no-console
+            console.log(error)
+          },
+          (result) => setEmbeddings(result),
+        ),
+      )()
     }
-    initMLC()
-  }, [engine])
+    createEmbeddings()
+  }, [engine, data])
 
   const handleChange = (
     _: React.ChangeEvent<{}>,
