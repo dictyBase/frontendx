@@ -1,9 +1,16 @@
 import { ChangeEventHandler, useState, useEffect } from "react"
-import { pipe } from "fp-ts/function"
-import { split as Ssplit, Ord as SOrd, isEmpty as SisEmpty } from "fp-ts/string"
+import { flow, pipe } from "fp-ts/function"
 import {
+  Eq as SEq,
+  split as Ssplit,
+  Ord as SOrd,
+  isEmpty as SisEmpty,
+} from "fp-ts/string"
+import {
+  elem as Aelem,
   sort as Asort,
   map as Amap,
+  filter as Afilter,
   mapWithIndex as AmapWithIndex,
   reduce as Areduce,
   prepend as Aprepend,
@@ -26,6 +33,7 @@ import { Ord, contramap, reverse as ORDreverse } from "fp-ts/Ord"
 import { Ord as NOrd } from "fp-ts/number"
 import {
   IconButton,
+  Button,
   Container,
   Box,
   Typography,
@@ -185,17 +193,17 @@ const hasSimilarEmbedding =
   ({ embeddings }: PublicationWithEmbeddings) =>
     pipe(
       embeddings,
-      Asome(({ embedding }) => cosineSimilarity(input, embedding) >= threshold),
+      Asome(({ embedding }) => {
+        const similarity = cosineSimilarity(input, embedding)
+        console.log(similarity)
+        return similarity >= threshold
+      }),
     )
 /**
  * Displays a list of publications. It renders tabs that allow
  * users to view a subset of the publications in a given time frame.
  */
 const PublicationsView = ({ data }: PublicationsViewProperties) => {
-  const sortedPublications = pipe(
-    orderFunctions,
-    Rmap((sortFunction) => sortFunction(data)),
-  )
   const tabs = pipe(orderFunctions, Rkeys, Asort(ordTab))
   const [currentTab, setCurrentTab] = useState(tabs[0])
   const { engine } = useMLCEngine()
@@ -203,7 +211,19 @@ const PublicationsView = ({ data }: PublicationsViewProperties) => {
   const [embeddings, setEmbeddings] = useState<
     Array<PublicationWithEmbeddings>
   >([])
+  const [matchingEmbeddings, setMatchingEmbeddings] = useState<Array<string>>(
+    data.map(({ pubmedId }) => pubmedId),
+  )
 
+  const filteredPublications = pipe(
+    data,
+    Afilter(({ pubmedId }) => pipe(matchingEmbeddings, Aelem(SEq)(pubmedId))),
+  )
+
+  const sortedPublications = pipe(
+    orderFunctions,
+    Rmap((sortFunction) => sortFunction(filteredPublications)),
+  )
   useEffect(() => {
     const createEmbeddings = async () => {
       if (!engine) return
@@ -230,6 +250,20 @@ const PublicationsView = ({ data }: PublicationsViewProperties) => {
     currentTarget: { value },
   }) => {
     setSearch(value)
+  }
+
+  const handleSearch = async () => {
+    if (!engine) return
+    const searchEmbedding = await engine.embeddings.create({ input: search })
+    console.log(searchEmbedding)
+    pipe(
+      embeddings,
+      Afilter(
+        flow(hasSimilarEmbedding(searchEmbedding.data[0].embedding, 0.75)),
+      ),
+      Amap(({ id }) => id),
+      setMatchingEmbeddings,
+    )
   }
 
   const handleChange = (
@@ -266,6 +300,7 @@ const PublicationsView = ({ data }: PublicationsViewProperties) => {
           }}
           onChange={handleSearchChange}
         />
+        <Button onClick={handleSearch}> Search </Button>
         <PublicationsList
           sortedPublications={sortedPublications}
           currentTab={currentTab}
