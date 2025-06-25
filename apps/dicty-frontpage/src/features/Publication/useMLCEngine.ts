@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react"
-import { CreateWebWorkerMLCEngine, WebWorkerMLCEngine, Embedding } from "@mlc-ai/web-llm"
+import { CreateWebWorkerMLCEngine, WebWorkerMLCEngine } from "@mlc-ai/web-llm"
 
 const useMLCEngine = () => {
   const [loading, setLoading] = useState(true)
