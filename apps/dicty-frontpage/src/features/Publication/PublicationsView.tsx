@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { ChangeEventHandler, useState, useEffect } from "react"
 import { pipe } from "fp-ts/function"
 import { split as Ssplit, Ord as SOrd, isEmpty as SisEmpty } from "fp-ts/string"
 import {
@@ -9,10 +9,10 @@ import {
   prepend as Aprepend,
   isNonEmpty as AisNonEmpty,
   sequence,
+  some as Asome,
 } from "fp-ts/Array"
 import { filter as RAfilter } from "fp-ts/ReadonlyArray"
-import { map as NEAmap, filter as NEAfilter } from "fp-ts/NonEmptyArray"
-import { filter as RNEAfilter } from "fp-ts/ReadonlyNonEmptyArray"
+import { map as NEAmap } from "fp-ts/NonEmptyArray"
 import {
   tryCatch as TEtryCatch,
   ApplicativePar,
@@ -20,15 +20,18 @@ import {
   match as TEmatch,
 } from "fp-ts/TaskEither"
 import { map as Rmap, keys as Rkeys } from "fp-ts/Record"
-import {
-  CreateWebWorkerMLCEngine,
-  MLCEngineInterface,
-  Embedding,
-} from "@mlc-ai/web-llm"
+import { MLCEngineInterface, Embedding } from "@mlc-ai/web-llm"
 import { DictyTab, DictyTabs } from "@dictybase/ui-common"
 import { Ord, contramap, reverse as ORDreverse } from "fp-ts/Ord"
 import { Ord as NOrd } from "fp-ts/number"
-import { Container, Box, Typography } from "@material-ui/core"
+import {
+  IconButton,
+  Container,
+  Box,
+  Typography,
+  TextField,
+} from "@material-ui/core"
+import FilterListIcon from "@material-ui/icons/FilterList"
 import { grey } from "@material-ui/core/colors"
 import { makeStyles } from "@material-ui/core/styles"
 import { PublicationsList } from "./PublicationsList"
@@ -56,6 +59,7 @@ const magnitude = (v: Vector) =>
     Areduce(0, (sum, element) => sum + element),
     Math.sqrt,
   )
+
 const cosineSimilarity = (a: Vector, b: Vector) =>
   dotProduct(a, b) / (magnitude(a) * magnitude(b))
 
@@ -154,31 +158,35 @@ type PublicationWithEmbeddings = {
 
 const TEgetEmbedding = (engine: MLCEngineInterface) => (input: Array<string>) =>
   TEtryCatch(
-    () => {
-      console.log(input)
-      return engine.embeddings.create({ input })
-    },
+    () => engine.embeddings.create({ input }),
     (reason) => new Error(reason as string),
   )
 
-const getPublicationEmbedding =
+const getPublicationEmbeddings =
   (engine: MLCEngineInterface) =>
   ({ pubmedId, title, abstract }: PublicationItem) =>
     pipe(
       abstract,
       Ssplit("."),
-      RAfilter(() => !SisEmpty),
+      RAfilter((sentence) => !SisEmpty(sentence)),
       (rnea) => [...rnea],
       Aprepend(title),
       TEgetEmbedding(engine),
       TEmap(
         ({ data }): PublicationWithEmbeddings => ({
           id: pubmedId,
-          embedding: data[0].embedding,
+          embeddings: data,
         }),
       ),
     )
 
+const hasSimilarEmbedding =
+  (input: Vector, threshold: number) =>
+  ({ embeddings }: PublicationWithEmbeddings) =>
+    pipe(
+      embeddings,
+      Asome(({ embedding }) => cosineSimilarity(input, embedding) >= threshold),
+    )
 /**
  * Displays a list of publications. It renders tabs that allow
  * users to view a subset of the publications in a given time frame.
@@ -191,29 +199,38 @@ const PublicationsView = ({ data }: PublicationsViewProperties) => {
   const tabs = pipe(orderFunctions, Rkeys, Asort(ordTab))
   const [currentTab, setCurrentTab] = useState(tabs[0])
   const { engine } = useMLCEngine()
-  const [publicationEmbeddings, setEmbeddings] = useState<
+  const [search, setSearch] = useState("")
+  const [embeddings, setEmbeddings] = useState<
     Array<PublicationWithEmbeddings>
   >([])
-  console.log(publicationEmbeddings)
+
   useEffect(() => {
     const createEmbeddings = async () => {
       if (!engine) return
       if (!AisNonEmpty(data)) return
       pipe(
         data,
-        NEAmap(getPublicationEmbedding(engine)),
+        NEAmap(getPublicationEmbeddings(engine)),
         sequence(ApplicativePar),
         TEmatch(
           (error) => {
             // eslint-disable-next-line no-console
             console.log(error)
           },
-          (result) => setEmbeddings(result),
+          (result) => {
+            setEmbeddings(result)
+          },
         ),
       )()
     }
     createEmbeddings()
   }, [engine, data])
+
+  const handleSearchChange: ChangeEventHandler<HTMLInputElement> = ({
+    currentTarget: { value },
+  }) => {
+    setSearch(value)
+  }
 
   const handleChange = (
     _: React.ChangeEvent<{}>,
@@ -236,6 +253,19 @@ const PublicationsView = ({ data }: PublicationsViewProperties) => {
             <DictyTab value={value} label={value} key={value} />
           ))}
         </DictyTabs>
+        <TextField
+          value={search}
+          placeholder="Semantic Search"
+          variant="outlined"
+          InputProps={{
+            startAdornment: (
+              <IconButton disabled>
+                <FilterListIcon />
+              </IconButton>
+            ),
+          }}
+          onChange={handleSearchChange}
+        />
         <PublicationsList
           sortedPublications={sortedPublications}
           currentTab={currentTab}
