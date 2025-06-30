@@ -19,7 +19,7 @@
     "ts-graphviz": "^2.1.6"
   },
   "scripts": {
-    "generate": "node build/src/index.js",
+    "dependency-tree": "node build/src/index.js",
     "build": "tsc",
     "test": "vitest run",
     "test:watch": "vitest watch",

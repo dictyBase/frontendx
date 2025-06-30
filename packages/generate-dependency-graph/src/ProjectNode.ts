@@ -31,6 +31,35 @@ class ProjectNode extends TreeNode {
   addChild(child: ProjectNode) {
     this.children.push(child)
   }
+
+  removeChild(child: ProjectNode) {
+    const index = this.children.indexOf(child)
+    if (index > -1) {
+      this.children.splice(index, 1)
+    }
+  }
+
+  hasChild(dependencyName: string): boolean {
+    return this.children.some(child => child.name === dependencyName)
+  }
+
+  findChild(dependencyName: string): ProjectNode | undefined {
+    return this.children.find(child => child.name === dependencyName)
+  }
+
+  getAllDescendantDependencies(): Set<string> {
+    const dependencies = new Set<string>()
+    
+    const traverse = (node: ProjectNode) => {
+      for (const child of node.children) {
+        dependencies.add(child.name)
+        traverse(child)
+      }
+    }
+    
+    traverse(this)
+    return dependencies
+  }
 }
 
 export { ProjectNode }
