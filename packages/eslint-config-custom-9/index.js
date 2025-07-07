@@ -1,15 +1,22 @@
 // @ts-check
+import { defineConfig } from "eslint/config";
 import turbo from "eslint-config-turbo/flat"
+import compat from "eslint-plugin-compat"
 import github from "eslint-plugin-github"
 import unicorn from "eslint-plugin-unicorn"
 import sonarjs from "eslint-plugin-sonarjs"
+import prettier from "eslint-plugin-prettier/recommended"
 import typescriptParser from "@typescript-eslint/parser"
+import reactApp from "./reactAppClone.js"
 
-export default [
+export default defineConfig([
   ...turbo,
+  prettier,
   github.getFlatConfigs().recommended,
   sonarjs.configs.recommended,
   unicorn.configs.recommended,
+  reactApp,
+  compat.configs["flat/recommended"],
   {
     files: ["src/**/*.ts", "src/**/*.tsx"],
     languageOptions: {
@@ -27,4 +34,4 @@ export default [
         },
     },
   },
-]
+])
