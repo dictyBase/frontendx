@@ -18,6 +18,7 @@
     "coverage": "turbo run coverage --continue",
     "lint": "turbo run lint",
     "lint:out": "turbo run lint:out",
+    "oxlint:out": "turbo run oxlint:out",
     "lint:merge": "tsx merge_eslint.ts eslint",
     "clean": "rm -rf node_modules && yarn",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
