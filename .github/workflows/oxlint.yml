@@ -8,4 +8,4 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
       - name: Run Oxlint
-        run: npx --yes -f=github --config=apps/dicty-frontpage/.oxlintrc.json oxlint@1.6.0 
+        run: npx --yes oxlint@1.6.0 --format=github --config=apps/dicty-frontpage/.oxlintrc.json
