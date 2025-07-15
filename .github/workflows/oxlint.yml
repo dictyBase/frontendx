@@ -1,5 +1,5 @@
 name: Oxlint
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
   lint:
@@ -7,5 +7,7 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v4
+      - name: Install
+        run: yarn install --ignore-engines
       - name: Run Oxlint
         run: yarn oxlint:out
