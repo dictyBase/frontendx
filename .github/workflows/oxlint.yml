@@ -10,4 +10,4 @@ jobs:
       - name: Install
         run: yarn install --ignore-engines
       - name: Run Oxlint
-        run: yarn oxlint:out
+      - run: npx --yes oxlint@1.6.0 --config=apps/dicty-frontpage/.oxlintrc.json
