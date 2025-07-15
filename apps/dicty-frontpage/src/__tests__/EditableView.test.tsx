@@ -1,6 +1,6 @@
 import { RouterProvider, createMemoryRouter } from "react-router-dom"
 import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { describe, test, vi } from "vitest"
 import { EditableView } from "../pages/news/[id]/editable"
 
