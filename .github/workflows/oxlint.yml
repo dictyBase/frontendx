@@ -5,5 +5,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - runs: yarn oxlint:out
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Run Oxlint
+        runs: yarn oxlint:out
