@@ -6,9 +6,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: oxc-project/oxlint-action@latest
-      with:
-        # Specify an Oxlint config file if you already have one. Oxlint is also
-        # compatible with JSON ESLint configs (v8 and lower).
-        # https://oxc.rs/docs/guide/usage/linter/config.html
-        config: packages/oxlint-config/.oxlintrc.json
+    - runs: yarn oxlint:out
