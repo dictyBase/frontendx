@@ -1,9 +1,9 @@
-name: Lint
+name: Oxlint
 on: [push, pull_request]
 
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - runs: yarn oxlint:out
+      - uses: actions/checkout@v4
+      - runs: yarn oxlint:out
