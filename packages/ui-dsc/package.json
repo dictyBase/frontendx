@@ -54,6 +54,8 @@
     "@types/react-dom": "17.x"
   },
   "scripts": {
+    "oxlint": "oxlint src/",
+    "oxlint:out": "oxlint src/ --format=github",
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/ui-dsc.json",
     "lint": "eslint src/ --ext .ts --ext .tsx",
     "test": "vitest run",

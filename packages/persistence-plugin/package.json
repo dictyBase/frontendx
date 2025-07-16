@@ -6,6 +6,8 @@
   "author": "Kevin Tun",
   "license": "BSD-2-Clause",
   "scripts": {
+    "oxlint": "oxlint src/",
+    "oxlint:out": "oxlint src/ --format=github",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/persistence-plugin.json"
   },
