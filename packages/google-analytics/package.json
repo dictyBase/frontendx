@@ -6,6 +6,7 @@
   "author": "Kevin Tun",
   "license": "BSD-2-Clause",
   "devDependencies": {
+    "@dictybase/oxlint-config": "*",
     "@testing-library/dom": "^10.3.2",
     "@testing-library/jest-dom": "^5.17.0",
     "@vitest/coverage-v8": "^0.34.5",
