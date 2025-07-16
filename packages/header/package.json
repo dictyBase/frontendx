@@ -12,6 +12,7 @@
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/header.json"
   },
   "devDependencies": {
+    "@dictybase/oxlint-config": "*",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.1",

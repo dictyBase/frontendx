@@ -56,6 +56,7 @@
     "yup": "1.2.x"
   },
   "devDependencies": {
+    "@dictybase/oxlint-config": "*",
     "@material-ui/styles": "^4.11.5",
     "@testing-library/dom": "^8.20.0",
     "@testing-library/react": "^12.1.5",

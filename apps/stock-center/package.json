@@ -27,6 +27,7 @@
     "ui-user": "*"
   },
   "devDependencies": {
+    "@dictybase/oxlint-config": "*",
     "@vitejs/plugin-react": "^4.0.3",
     "eslint-config-custom": "*",
     "msw": "2.x",

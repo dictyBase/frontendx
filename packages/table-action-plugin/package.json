@@ -12,6 +12,7 @@
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/table-action-plugin.json"
   },
   "devDependencies": {
+    "@dictybase/oxlint-config": "*",
     "@dictybase/width-table-plugin": "*",
     "@testing-library/dom": "^8.20.0",
     "@testing-library/user-event": "^14.5.1",

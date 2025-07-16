@@ -26,7 +26,6 @@
     "@dictybase/editor": "*",
     "@dictybase/google-analytics": "*",
     "@dictybase/hook": "*",
-    "@dictybase/oxlint-config": "*",
     "@dictybase/ui-frontpage": "*",
     "@fontsource-variable/playfair-display": "^5.1.0",
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
@@ -60,6 +59,7 @@
     "yup": "1.2.x"
   },
   "devDependencies": {
+    "@dictybase/oxlint-config": "*",
     "@material-ui/styles": "^4.11.5",
     "@testing-library/dom": "^8.20.0",
     "@testing-library/react": "^12.1.5",
