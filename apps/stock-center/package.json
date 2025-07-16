@@ -8,6 +8,8 @@
     "dev:mock": "yarn dev --mode mock",
     "serve": "node server.js",
     "build": "vite build",
+    "oxlint": "oxlint src/",
+    "oxlint:out": "oxlint src/ --format=github",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/stock-center.json",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
