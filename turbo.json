@@ -28,6 +28,9 @@
     "lint:out": {
       "outputMode": "none"
     },
+    "oxlint:out": {
+      "outputMode": "none"
+    },
     "dev": {
       "cache": false
     },
