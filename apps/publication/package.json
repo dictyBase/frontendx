@@ -10,6 +10,8 @@
     "coverage": "jest --coverage",
     "test": "jest",
     "tsc": "tsc",
+    "oxlint": "oxlint src/",
+    "oxlint:out": "oxlint src/ --format=github",
     "lint": "eslint src/ --ext .ts --ext .tsx",
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/publication.json",
     "pre-commit": "lint-staged",
