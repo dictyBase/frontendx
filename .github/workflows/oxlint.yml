@@ -7,5 +7,8 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v4
+      - name: Install
+        run: yarn install --ignore-engines
       - name: Run Oxlint
-        run: npx --yes oxlint@1.6.0 --format=github --config=apps/dicty-frontpage/.oxlintrc.json
+        # run: npx --yes oxlint@1.6.0 --format=github --config=apps/dicty-frontpage/.oxlintrc.json
+        run: yarn oxlint:out
