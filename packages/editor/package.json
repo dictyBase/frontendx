@@ -5,6 +5,8 @@
   "type": "module",
   "main": "src/index.ts",
   "scripts": {
+    "oxlint": "oxlint src/",
+    "oxlint:out": "oxlint src/ --format=github",
     "lint": "eslint --ext .jsx,.js,.ts,.tsx src/",
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/editor.json",
     "test": "vitest run",

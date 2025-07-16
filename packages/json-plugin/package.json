@@ -26,6 +26,8 @@
     "react-dom": "17.*"
   },
   "scripts": {
+    "oxlint": "oxlint src/",
+    "oxlint:out": "oxlint src/ --format=github",
     "lint": "TIMING=1 eslint src --fix"
   }
 }

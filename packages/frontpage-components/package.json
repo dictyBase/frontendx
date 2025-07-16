@@ -4,5 +4,9 @@
   "private": true,
   "devDependencies": {
     "@dictybase/oxlint-config": "*"
+  },
+  "scripts": {
+    "oxlint": "oxlint src/",
+    "oxlint:out": "oxlint src/ --format=github"
   }
 }

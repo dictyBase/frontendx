@@ -15,6 +15,8 @@
     "vitest": "0.33.*"
   },
   "scripts": {
+    "oxlint": "oxlint src/",
+    "oxlint:out": "oxlint src/ --format=github",
     "test": "vitest run",
     "test:watch": "vitest watch",
     "coverage": "vitest run --coverage",

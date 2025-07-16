@@ -5,6 +5,8 @@
   "type": "module",
   "main": "./src/index.ts",
   "scripts": {
+    "oxlint": "oxlint src/",
+    "oxlint:out": "oxlint src/ --format=github",
     "test": "vitest run",
     "coverage": "vitest run --coverage",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
