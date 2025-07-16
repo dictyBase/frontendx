@@ -29,7 +29,7 @@
       "outputMode": "none"
     },
     "oxlint:out": {
-      "outputMode": "none"
+      "outputMode": "errors-only"
     },
     "dev": {
       "cache": false
