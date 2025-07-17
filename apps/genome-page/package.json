@@ -12,7 +12,7 @@
     "start-production": "next start",
     "start:mock": "NEXT_PUBLIC_MOCK_SERVER=on next dev",
     "oxlint": "oxlint src/",
-    "oxlint:out": "oxlint src/ --format=github",
+    "oxlint:ci": "oxlint src/ --format=github",
     "lint": "eslint  ./ --ext .ts --ext .tsx",
     "lint:out": "eslint ./ --ext .ts --ext .tsx -f json -o ../../eslint/genomepage.json",
     "tsc": "tsc"
