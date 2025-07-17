@@ -16,7 +16,7 @@
   },
   "scripts": {
     "oxlint": "oxlint src/",
-    "oxlint:out": "oxlint src/ --format=github",
+    "oxlint:ci": "oxlint src/ --format=github",
     "test": "vitest run",
     "test:watch": "vitest watch",
     "coverage": "vitest run --coverage",

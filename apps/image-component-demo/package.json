@@ -7,7 +7,7 @@
     "build": "tsc && vite build",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "oxlint": "oxlint src/",
-    "oxlint:out": "oxlint src/ --format=github",
+    "oxlint:ci": "oxlint src/ --format=github",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/image-component-demo.json"
   },
