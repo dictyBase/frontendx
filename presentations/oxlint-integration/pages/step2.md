@@ -1,6 +1,4 @@
-# Step 2: Configure Rules and Plugins
-
-## Comprehensive Plugin Configuration
+# Step 2: Define Base Config
 
 ```json
 {

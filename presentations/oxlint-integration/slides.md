@@ -31,7 +31,7 @@ src: ./pages/step6.md
 ---
 
 ---
-src: ./pages/step7.md
+src: ./pages/ci-cd.md
 ---
 
 ---

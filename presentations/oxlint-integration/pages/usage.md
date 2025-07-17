@@ -14,16 +14,7 @@ yarn workspace @dictybase/ui-common oxlint
 yarn workspace @dictybase/auth oxlint:out
 ```
 
-**From project directories:**
-```bash
-cd apps/dicty-frontpage
-npm run oxlint
-
-cd packages/ui-common  
-npm run oxlint:out
-```
-
 **Monorepo-wide linting:**
 ```bash
-yarn workspaces foreach run oxlint
+yarn oxlint
 ```

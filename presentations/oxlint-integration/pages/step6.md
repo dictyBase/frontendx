@@ -1,22 +1,19 @@
-# Step 6: Add Scripts to All Projects
+# Step 7: Update Configuration Files
 
-## Consistent Command Interface
+## Ensure Proper Configuration Inheritance
 
-**Add to every package.json scripts section:**
+**Update .oxlintrc.json extends paths:**
 ```json
 {
-  "scripts": {
-    "oxlint": "oxlint src/",
-    "oxlint:out": "oxlint src/ --format=github"
-  }
+  "extends": ["../../packages/oxlint-config/.oxlintrc.json"]
 }
 ```
 
-## Script Benefits
+## Configuration Strategy
 
-- **`oxlint`**: Standard linting for development
-- **`oxlint:out`**: GitHub-formatted output for CI/CD
-- **Consistency**: Same commands across all projects
-- **Integration**: Works alongside existing ESLint scripts
+- **Applications**: Always extend shared config
+- **Packages**: Optional package-specific configs for special cases
+- **Path Resolution**: Correct relative paths from project to config
+- **Validation**: Ensure configuration inheritance works properly
 
-All 37 projects now have identical oxlint commands available.
+**Result**: All projects properly inherit shared linting rules while maintaining flexibility for project-specific overrides.

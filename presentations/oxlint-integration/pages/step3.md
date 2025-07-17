@@ -1,28 +1,14 @@
-# Step 3: Integrate into Applications
+# Step 3: Add to Projects
 
-## Add Dependency and Script
+## Monorepo-wide Integration
 
-**1. Add configuration package as dependency:**
+**Objective**: Ensure packages and applications have access to shared oxlint configuration.
+
+**Add to package.json:**
 ```json
 {
-  "dependencies": {
+  "devDependencies": {
     "@dictybase/oxlint-config": "*"
   }
-}
-```
-
-**2. Add oxlint script:**
-```json
-{
-  "scripts": {
-    "oxlint": "oxlint src/"
-  }
-}
-```
-
-**3. Create application configuration:**
-```json
-{
-  "extends": ["../../packages/oxlint-config/.oxlintrc.json"]
 }
 ```
