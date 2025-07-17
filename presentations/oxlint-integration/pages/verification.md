@@ -15,7 +15,7 @@ oxlint --print-config
 
 **3. Verify GitHub formatting:**
 ```bash
-npm run oxlint:out
+npm run oxlint:ci
 ```
 
 **4. Run across multiple projects:**

@@ -16,7 +16,7 @@ jobs:
       - name: Install
         run: yarn install --ignore-engines
       - name: Run Oxlint
-        run: yarn oxlint:out
+        run: yarn oxlint:ci
 ```
 
 ## CI/CD Benefits

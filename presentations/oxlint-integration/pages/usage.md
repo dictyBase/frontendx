@@ -5,13 +5,13 @@
 **For specific applications:**
 ```bash
 yarn workspace dicty-frontpage oxlint
-yarn workspace stock-center oxlint:out
+yarn workspace stock-center oxlint:ci
 ```
 
 **For specific packages:**
 ```bash
 yarn workspace @dictybase/ui-common oxlint
-yarn workspace @dictybase/auth oxlint:out
+yarn workspace @dictybase/auth oxlint:ci
 ```
 
 **Monorepo-wide linting:**
