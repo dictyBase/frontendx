@@ -13,13 +13,13 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v4
+      - name: Install
+        run: yarn install --ignore-engines
       - name: Run Oxlint
-        run: npx --yes oxlint@1.6.0 --format=github --config=apps/dicty-frontpage/.oxlintrc.json
+        run: yarn oxlint:out
 ```
 
 ## CI/CD Benefits
 
 - **Automated linting** on every pull request
 - **GitHub-formatted output** for inline code review
-- **Fast execution** with npx (no dependency installation needed)
-- **Consistent standards** enforced across all contributions
