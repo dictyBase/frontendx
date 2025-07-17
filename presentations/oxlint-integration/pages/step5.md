@@ -1,4 +1,4 @@
-# Step 6: Project-Specific Configuration
+# Step 5: Project-Specific Configuration
 
 ## Extending Base Configuration
 
