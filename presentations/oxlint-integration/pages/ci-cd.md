@@ -1,4 +1,4 @@
-# Step 8: CI/CD Integration
+# Step 7: CI/CD Integration
 
 ## GitHub Actions Workflow
 

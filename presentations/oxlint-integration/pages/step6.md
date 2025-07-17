@@ -1,11 +1,14 @@
-# Step 7: Update Configuration Files
+# Step 6: Update Configuration Files
 
 ## Ensure Proper Configuration Inheritance
 
 **Update .oxlintrc.json extends paths:**
 ```json
 {
-  "extends": ["../../packages/oxlint-config/.oxlintrc.json"]
+  "extends": ["../../packages/oxlint-config/.oxlintrc.json"],
+  "rules": {
+    "eqeqeq": ["error", "smart"]
+  }
 }
 ```
 
