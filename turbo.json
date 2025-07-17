@@ -24,6 +24,10 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**"]
     },
+    "oxlint": {},
+    "oxlint:out": {
+      "outputMode": "errors-only"
+    },
     "lint": {},
     "lint:out": {
       "outputMode": "none"
