@@ -1,3 +1,3 @@
 {
-  "extends": ["../oxlint-config/.oxlintrc.json"]
+  "extends": ["../../.oxlintrc.json"]
 }
