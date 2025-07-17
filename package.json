@@ -33,6 +33,7 @@
     "@types/node": "^20.12.10",
     "browserlist": "latest",
     "eslint-config-custom": "*",
+    "oxlint": "^1.6.0",
     "plop": "3.x",
     "prettier": "3.*",
     "tsx": "latest",
