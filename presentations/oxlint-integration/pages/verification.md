@@ -4,8 +4,7 @@
 
 **1. Test oxlint runs successfully:**
 ```bash
-cd apps/dicty-frontpage
-npm run oxlint
+npm workspace dicty-frontpage oxlint
 ```
 
 **2. Check configuration inheritance:**
@@ -26,7 +25,5 @@ yarn workspaces foreach run oxlint
 ```
 
 ## Success Criteria
-- ✅ All 37 projects have oxlint scripts
 - ✅ Configuration inheritance works properly  
-- ✅ Fast linting performance achieved
 - ✅ CI/CD integration ready

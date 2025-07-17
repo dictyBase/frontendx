@@ -1,20 +1,18 @@
-# Step 4: Application-Specific Configuration
+# Step 4: Add oxlint Scripts to Projects
 
-## Extending Base Configuration
+## Consistent Command Interface
 
-**For each application, create `.oxlintrc.json`:**
-
+**Add to package.json scripts section:**
 ```json
 {
-  "extends": ["../../packages/oxlint-config/.oxlintrc.json"]
+  "scripts": {
+    "oxlint": "oxlint src/",
+    "oxlint:out": "oxlint src/ --format=github"
+  }
 }
 ```
 
-## Benefits of Configuration Inheritance
+## Script Usage
 
-- **Consistency**: All apps use the same base rules
-- **Flexibility**: Apps can override specific rules if needed
-- **Maintainability**: Update rules in one place
-- **Scalability**: Easy to add new applications
-
-Applications can add their own rules while inheriting the shared configuration.
+- **`oxlint`**: Standard linting for development
+- **`oxlint:out`**: GitHub-formatted output for CI/CD

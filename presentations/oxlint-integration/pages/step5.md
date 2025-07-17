@@ -1,21 +1,20 @@
-# Step 5: Add to All Projects
+# Step 6: Project-Specific Configuration
 
-## Monorepo-wide Integration
+## Extending Base Configuration
 
-**Objective**: Ensure all packages and applications have access to shared oxlint configuration.
+**For each application, create `.oxlintrc.json`:**
 
-**Add to every package.json:**
 ```json
 {
-  "devDependencies": {
-    "@dictybase/oxlint-config": "*"
-  }
+  "extends": ["../../packages/oxlint-config/.oxlintrc.json"]
 }
 ```
 
-## Automated Approach
+## Benefits of Configuration Inheritance
 
-- **37 total projects** (6 apps + 31 packages)
-- **Batch operation** to add dependency
-- **Exclude** the oxlint-config package itself
-- **Consistent** dependency management across monorepo
+- **Consistency**: All apps use the same base rules
+- **Flexibility**: Apps can override specific rules if needed
+- **Maintainability**: Update rules in one place
+- **Scalability**: Easy to add new applications
+
+Applications can add their own rules while inheriting the shared configuration.
