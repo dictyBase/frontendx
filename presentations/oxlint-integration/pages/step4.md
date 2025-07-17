@@ -7,7 +7,7 @@
 {
   "scripts": {
     "oxlint": "oxlint src/",
-    "oxlint:out": "oxlint src/ --format=github"
+    "oxlint:ci": "oxlint src/ --format=github"
   }
 }
 ```
@@ -15,4 +15,4 @@
 ## Script Usage
 
 - **`oxlint`**: Standard linting for development
-- **`oxlint:out`**: GitHub-formatted output for CI/CD
+- **`oxlint:ci`**: GitHub-formatted output for CI/CD
