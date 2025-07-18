@@ -8,7 +8,7 @@ const authorizedRoles = ["content-admin"]
 type NavbarWithAuthProperties = {
   frontPageUrl: string
   stockCenterUrl: string
-  theme?: Object
+  theme?: object
 }
 
 const NavbarWithAuth = ({
