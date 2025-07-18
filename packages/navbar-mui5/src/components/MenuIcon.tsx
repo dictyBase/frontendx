@@ -51,7 +51,7 @@ const IconBarBottom = styled(({ ...other }) => <div {...other} />)({
 type MenuIconProperties = {
   open: boolean
   onClick: MouseEventHandler<HTMLDivElement>
-  theme: Object
+  theme: object
 }
 
 /**
@@ -59,6 +59,7 @@ type MenuIconProperties = {
  */
 
 const MenuIcon = ({ open, onClick, theme }: MenuIconProperties) => (
+  // oxlint-disable prefer-tag-over-role
   <Toggle role="button" onClick={onClick} open={open}>
     <IconBarTop open={open} theme={theme} />
     <IconBarMiddle open={open} theme={theme} />
