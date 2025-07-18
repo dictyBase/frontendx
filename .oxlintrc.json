@@ -19,6 +19,7 @@
     "suspicious": "error"
   },
   "rules": {
-    "react-in-jsx-scope": "off"
+    "react-in-jsx-scope": "allow",
+    "no-unassigned-import": "allow"
   }
 }
