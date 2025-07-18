@@ -19,7 +19,7 @@ type FontSizeSelectProperties = React.ChangeEvent<{
 const title = "Font Size"
 
 const genFontSize = (start: number, end: number) =>
-  [...new Array(end - start + 1).keys()]
+  [...Array.from({ length: end - start + 1 }).keys()]
     .map((x) => x + start)
     .map((x) => ({ value: `${x}px`, label: `${x}` }))
 
