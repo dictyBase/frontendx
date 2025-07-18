@@ -65,7 +65,9 @@ const orderFunctions = {
     pipe(publications, Asort(ordByTitleReverse)),
   Shuffle: (publications: Array<PublicationItem>) => {
     // 1. assign unique random number from 0 to N -1 to each item in the array
-    const shuffled: Array<PublicationItem> = new Array(publications.length)
+    const shuffled: Array<PublicationItem> = Array.from({
+      length: publications.length,
+    })
     const getRandomIndex = () => Math.floor(Math.random() * publications.length)
     // 2. if a number has been rolled, re-roll
     // eslint-disable-next-line unicorn/no-for-loop

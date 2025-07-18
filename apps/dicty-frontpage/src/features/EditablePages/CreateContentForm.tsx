@@ -32,6 +32,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+const handler = (event: BeforeUnloadEvent) => {
+  event.preventDefault()
+}
+
 const CreateContentForm = () => {
   const [open, setOpen] = useState(false)
   const [createContentError, setCreateContentError] = useState("")
@@ -40,9 +44,6 @@ const CreateContentForm = () => {
   const createContent = useCreateContentFromEditor()
   const methods = useCreateContentForm()
   useEffect(() => {
-    const handler = (event: BeforeUnloadEvent) => {
-      event.preventDefault()
-    }
     window.addEventListener("beforeunload", handler)
     return () => {
       window.removeEventListener("beforeunload", handler)
@@ -82,7 +83,7 @@ const CreateContentForm = () => {
               )
               setOpen(true)
             })
-            .otherwise(() => {})
+            .otherwise(() => { })
         },
       ),
     )
