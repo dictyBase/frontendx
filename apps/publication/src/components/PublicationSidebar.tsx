@@ -58,8 +58,7 @@ const PublicationSidebar = ({ doi, title }: Properties) => {
           href={doiURL}
           target="_blank"
           rel="noopener noreferrer"
-          className={classes.link}
-        >
+          className={classes.link}>
           <Grid container direction="column" alignItems="center">
             <Grid item>
               <CallMadeIcon />
@@ -73,8 +72,7 @@ const PublicationSidebar = ({ doi, title }: Properties) => {
           href={`mailto:?subject=${title}&body=I thought you might find this article interesting: ${url}`}
           target="_blank"
           rel="noopener noreferrer"
-          className={classes.link}
-        >
+          className={classes.link}>
           <Grid container direction="column" alignItems="center">
             <Grid item>
               <EmailIcon />
