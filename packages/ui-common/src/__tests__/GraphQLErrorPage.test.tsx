@@ -1,9 +1,6 @@
 /* eslint-disable unicorn/filename-case */
 import { render, screen } from "@testing-library/react"
-import {
-  mockOtherError,
-  mockUnavailableError,
-} from "../mocks/mockGraphQLError"
+import { mockOtherError, mockUnavailableError } from "../mocks/mockGraphQLError"
 import { GraphQLErrorPage } from "../Error/GraphQLErrorPage"
 
 const errorFormat = (error: any) => ({
