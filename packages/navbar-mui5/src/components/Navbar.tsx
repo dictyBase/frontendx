@@ -89,15 +89,15 @@ type NavbarProperties = {
   stockCenterUrl: string
   items?: Array<
     | {
-        dropdown: boolean
-        title: string
-        items: Array<{ name: string; href: string }>
-      }
+      dropdown: boolean
+      title: string
+      items: Array<{ name: string; href: string }>
+    }
     | { dropdown: boolean; title: string; href: string }
     | { element: JSX.Element }
   >
   brand?: { title: string; href: string }
-  theme: Object
+  theme: object
 }
 
 /**

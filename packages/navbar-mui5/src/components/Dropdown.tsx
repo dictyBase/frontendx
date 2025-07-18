@@ -140,9 +140,9 @@ const Link = styled(({ ...other }) => <a {...other} />)({
 type DropdownProperties = {
   open: boolean
   changeDropdown: Function
-  theme: Object
-  title: String
-  index: Number
+  theme: object
+  title: string
+  index: number
   items: Array<{ name: string; href: string }>
 }
 
