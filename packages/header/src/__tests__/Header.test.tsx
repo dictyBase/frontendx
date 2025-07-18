@@ -35,7 +35,7 @@ describe("header", () => {
     await user.type(input, "yomar")
     expect(input).toHaveValue("yomar")
   })
-  test("should generate the links ", () => {
+  test("should generate the links", () => {
     const { getAllByRole } = render(
       <Header frontPageUrl={frontPageUrl} links={testLinks} />,
     )
