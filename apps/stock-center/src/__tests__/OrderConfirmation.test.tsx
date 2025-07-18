@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+import { useMemo, ReactNode } from "react"
 import { vi, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { MemoryRouter, Route, Routes } from "react-router-dom"
@@ -34,19 +34,25 @@ vi.mock("@react-pdf/renderer", async () => {
   }
 })
 
-const App = ({ orderId }: { orderId: string }) => (
-  <MemoryRouter initialEntries={[`/order/submitted/${orderId}`]}>
-    <Routes>
-      <Route path="/">
-        <Route index element={<>Home Page</>} />
-        <Route
-          path="order/submitted/:orderId"
-          element={<OrderConfirmation />}
-        />
-      </Route>
-    </Routes>
-  </MemoryRouter>
-)
+const App = ({ orderId }: { orderId: string }) => {
+  const initialEntries = useMemo(
+    () => [`/order/submitted/${orderId}`],
+    [orderId],
+  )
+  return (
+    <MemoryRouter initialEntries={initialEntries}>
+      <Routes>
+        <Route path="/">
+          <Route index element={<>Home Page</>} />
+          <Route
+            path="order/submitted/:orderId"
+            element={<OrderConfirmation />}
+          />
+        </Route>
+      </Routes>
+    </MemoryRouter>
+  )
+}
 
 test("if the orderId param matches the orderId in state, it render without error", () => {
   render(<App orderId="1901" />)

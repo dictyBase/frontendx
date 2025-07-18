@@ -4,11 +4,13 @@ import { ACCESS } from "@dictybase/auth"
 import { useConfirmNavigation } from "@dictybase/hook"
 import { CreateContentForm } from "../../components/CreateContentForm"
 
+const toolbar = <CreateContentForm />
+
 const CreateContentView = () => {
   useConfirmNavigation()
   return (
     <Container>
-      <Editor editable toolbar={<CreateContentForm />} />
+      <Editor editable toolbar={toolbar} />
     </Container>
   )
 }
