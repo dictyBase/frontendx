@@ -1,7 +1,6 @@
 /* eslint-disable unicorn/filename-case */
 import { render, screen } from "@testing-library/react"
 import {
-  // mockNotFoundError,
   mockOtherError,
   mockUnavailableError,
 } from "../mocks/mockGraphQLError"
@@ -19,31 +18,7 @@ const errorFormat = (error: any) => ({
   cause: { message: "" },
 })
 
-// jest.mock("react-router-dom", () => {
-//   const originalModule = jest.requireActual("react-router-dom")
-
-//   return {
-//     ...originalModule,
-//     useParams: () => ({
-//       name: "forrest",
-//       subname: "macneil",
-//     }),
-//     useLocation: () => ({
-//       pathname: "/forrest/macneil",
-//     }),
-//   }
-// })
-
 describe("common/components/errors/GraphQlErrorPage", () => {
-  // it("should render not found error", () => {
-  //   render(
-  //     <GraphQLErrorPage error={errorFormat(mockNotFoundError.errors[0])} />,
-  //   )
-
-  //   const errorMsg = screen.getByText(/Could not find gene with ID banana/)
-  //   expect(errorMsg).toBeInTheDocument()
-  // })
-
   it("should render other error", () => {
     render(<GraphQLErrorPage error={errorFormat(mockOtherError.errors[0])} />)
 
