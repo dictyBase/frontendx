@@ -60,8 +60,8 @@ const PaymentMethodRadioGroup = ({
       row>
       {radioValues.map((item) => (
         <FormControlLabel
-          {...register("paymentMethod")}
           key={item.value}
+          {...register("paymentMethod")}
           value={item.value}
           control={<Radio />}
           label={item.label}

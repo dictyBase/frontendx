@@ -4,7 +4,7 @@ import { MemoryRouter } from "react-router-dom"
 import { StrainDetailsCard } from "../catalog/StrainDetailsCard"
 import { strainWithPhenotype } from "../mocks/mockStrain"
 
-test("if the strain has 1 or more phenotypes, render a `Phenotypes` tab ", () => {
+test("if the strain has 1 or more phenotypes, render a `Phenotypes` tab", () => {
   render(
     <MemoryRouter>
       <StrainDetailsCard data={strainWithPhenotype} />
