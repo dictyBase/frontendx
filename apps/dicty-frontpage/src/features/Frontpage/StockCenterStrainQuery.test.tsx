@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react"
 import { useListRecentStrainsQuery } from "dicty-graphql-schema"
-import { ApolloError } from "@apollo/client"
 import { vi } from "vitest"
 import type { Mock } from "vitest"
 import { listRecentStrains } from "../../common/data/mockStrains"
@@ -39,14 +38,5 @@ describe("feature/Frontpage/StockCenterStrainQuery", () => {
     render(<StockCenterStrainQuery />)
 
     expect(screen.getByTestId("skeleton-loader")).toBeInTheDocument()
-  })
-
-  it("should render Apollo Error Component if strains failed to load", () => {
-    ;(useListRecentStrainsQuery as Mock).mockReturnValue({
-      error: new ApolloError({}),
-    })
-    render(<StockCenterStrainQuery />)
-
-    /* Need to figure out how to test this */
   })
 })

@@ -28,7 +28,7 @@ type PublicationLinksProperties = {
 const PublicationLinks = ({ identifiers }: PublicationLinksProperties) => (
   <Grid container spacing={2}>
     {identifiers.map((id) => (
-      <Grid item>
+      <Grid item key={id}>
         <Typography display="inline">
           <Link to={getIdentifierUrl(id)}>{id}</Link>
         </Typography>
