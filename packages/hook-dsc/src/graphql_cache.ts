@@ -32,6 +32,8 @@ const whichStrains = ([existS, inS]: StrainListPair) =>
 const whichPlasmids = ([existP, inP]: PlasmidListPair) =>
   existP ? right([existP, inP] as NotEmptyPlasmidListPair) : left(inP)
 
+const leftFunctionStrains = (inS: NotEmptyStrainList) => inS
+
 const listStrainsPagination = () => ({
   keyArgs: ["filter"],
   merge(existing: StrainList, incoming: NotEmptyStrainList) {
@@ -42,17 +44,18 @@ const listStrainsPagination = () => ({
       const mstrains = mergeStrains.concat(existS.strains, inS.strains)
       return strainLens.set(mstrains)(incoming)
     }
-    const leftFunction = (inS: NotEmptyStrainList) => inS
     return pipe(
       [existing, incoming],
       whichStrains,
-      match(leftFunction, rightFunction),
+      match(leftFunctionStrains, rightFunction),
     )
   },
   read(existing: NotEmptyStrainList) {
     return existing
   },
 })
+
+const leftFunctionPlasmids = (inP: NotEmptyPlasmidList) => inP
 
 const listPlasmidsPagination = () => ({
   keyArgs: ["filter"],
@@ -64,11 +67,9 @@ const listPlasmidsPagination = () => ({
       const mplasmids = mergeStrains.concat(existS.plasmids, inS.plasmids)
       return plasmidLens.set(mplasmids)(incoming)
     }
-    const leftFunction = (inP: NotEmptyPlasmidList) => inP
     return pipe(
       [existing, incoming],
-      whichPlasmids,
-      match(leftFunction, rightFunction),
+      whichPlasmids, match(leftFunctionPlasmids, rightFunction),
     )
   },
   read(existing: NotEmptyPlasmidList) {
