@@ -1,6 +1,6 @@
 import { vi, test, expect, beforeAll } from "vitest"
 import { render, screen } from "@testing-library/react"
-// import userEvent from "@testing-library/user-event"
+// import { userEvent } from "@testing-library/user-event"
 import { Navbar } from "../components/Navbar"
 // import { Brand } from "../components/Brand"
 // import { Dropdown } from "../components/Dropdown"

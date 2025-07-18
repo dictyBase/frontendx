@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react"
 import { describe, it, expect } from "vitest"
 import { RouterProvider, createMemoryRouter } from "react-router-dom"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { AuthorizedHeading } from "../home/AuthorizedHeading"
 
 const Wrapper = () => {

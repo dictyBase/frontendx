@@ -1,6 +1,6 @@
 import { vi, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { BrowserRouter } from "react-router-dom"
 import { fees } from "../fees"
 import { AddToCartDialog } from "../catalog/AddToCartDialog"

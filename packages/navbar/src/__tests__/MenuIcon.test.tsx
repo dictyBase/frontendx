@@ -1,5 +1,5 @@
 import { vi, test, expect } from "vitest"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { render, screen } from "@testing-library/react"
 import { MenuIcon } from "../components/MenuIcon"
 

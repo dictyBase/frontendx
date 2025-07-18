@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react"
 import { ListContentByNamespaceQuery } from "dicty-graphql-schema"
 import { describe, it, expect } from "vitest"
 import { RouterProvider, createMemoryRouter } from "react-router-dom"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { NewsList } from "../news/NewsList"
 
 const expectedText = "Rice & Beans"

@@ -5,7 +5,7 @@ import {
   render,
   waitForElementToBeRemoved,
 } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { HelpDialog } from "../catalog/HelpDialog"
 
 const HelpDialogWrapper = () => {

@@ -1,6 +1,6 @@
 import { RouterProvider, createMemoryRouter } from "react-router-dom"
 import { ContentBySlugQuery } from "dicty-graphql-schema"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { render, screen } from "@testing-library/react"
 import { describe, test, vi } from "vitest"
 import Editable from "../pages/news/[id]/editable"

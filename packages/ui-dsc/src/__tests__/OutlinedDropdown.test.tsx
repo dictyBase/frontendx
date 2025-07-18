@@ -1,6 +1,6 @@
 import { vi, test, expect } from "vitest"
 import { render, screen, within } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { OutlinedDropdown } from "../OutlinedDropdown"
 
 const handleChangeSpy = vi.fn()

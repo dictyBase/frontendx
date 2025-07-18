@@ -1,6 +1,6 @@
 import { vi, expect, describe, test } from "vitest"
 import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { MockedProvider } from "@apollo/client/testing"
 import { RouterProvider, createMemoryRouter } from "react-router-dom"
 import Create from "../pages/news/create"

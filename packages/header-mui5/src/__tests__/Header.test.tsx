@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { expect, describe } from "vitest"
 import { createDefaultIconItems } from "../defaultIconItems"
 import { iconButtonPipe } from "../functional/iconButtonPipe"

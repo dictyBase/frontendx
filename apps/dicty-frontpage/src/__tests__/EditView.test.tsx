@@ -1,7 +1,7 @@
 import { RouterProvider, createMemoryRouter } from "react-router-dom"
 import { MockedProvider } from "@apollo/client/testing"
 import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { describe, test } from "vitest"
 import { EditView } from "../features/EditablePages/EditView"
 import { mockContentBySlugQueryData } from "../mocks/mockContent"

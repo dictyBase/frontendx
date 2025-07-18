@@ -2,7 +2,7 @@ import { RouterProvider, createMemoryRouter } from "react-router-dom"
 import { vi, test, expect, beforeEach } from "vitest"
 import { ApolloError } from "@apollo/client"
 import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { ErrorPageWrapper } from "../ErrorPageWrapper"
 
 vi.stubEnv("VITE_APP_FRONTPAGE_URL", "/")

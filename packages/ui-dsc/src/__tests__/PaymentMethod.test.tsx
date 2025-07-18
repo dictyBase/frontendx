@@ -2,7 +2,7 @@ import { ReactNode } from "react"
 import { describe, test, expect } from "vitest"
 import { useForm, FormProvider } from "react-hook-form"
 import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { PaymentMethod } from "../order/PaymentMethod"
 
 type FormWrapperProperties = {
