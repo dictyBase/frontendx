@@ -13,6 +13,7 @@ This folder contains examples for a basic editor toolbar button that capitalizes
 ## How It Works
 
 This example demonstrates the Lexical command flow:
+
 1. User clicks the Capitalize button
 2. Button dispatches the CAPITALIZE_SELECTION_COMMAND
 3. Plugin's command handler processes the selection
@@ -27,7 +28,7 @@ Following Lexical's plugin architecture pattern:
 2. **Register Commands**: In a `useEffect()`, we register our command handler that runs when the command is dispatched
 3. **Return React Component**: Our plugin returns a React component (empty in this case)
 
-
 ## Further Reading
+
 - [Creating a React Plugin in Lexical](https://lexical.dev/docs/react/create_plugin)
 - [Lexical Commands Documentation](https://lexical.dev/docs/concepts/commands)

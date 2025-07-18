@@ -152,18 +152,18 @@ describe("cellsToAppend & headerCellsToAppend", () => {
       rowArray = Array.from({ length: 2 }).map(() => $createTableRowNode())
       appendThreeCellsToEachRow(rowArray)
       firstRowChildren = (rowArray[0] as TableRowNode).getChildren()
-        ;[firstCellRowOne, secondCellRowOne] = firstRowChildren as [
-          TableCellNode,
-          TableCellNode,
-        ]
+      ;[firstCellRowOne, secondCellRowOne] = firstRowChildren as [
+        TableCellNode,
+        TableCellNode,
+      ]
       firstCellRowOneHeaderState = firstCellRowOne.getHeaderStyles()
       secondCellRowOneHeaderState = secondCellRowOne.getHeaderStyles()
 
       secondRowChildren = (rowArray[1] as TableRowNode).getChildren()
-        ;[firstCellRowTwo, secondCellRowTwo] = secondRowChildren as [
-          TableCellNode,
-          TableCellNode,
-        ]
+      ;[firstCellRowTwo, secondCellRowTwo] = secondRowChildren as [
+        TableCellNode,
+        TableCellNode,
+      ]
       firstCellRowTwoHeaderState = firstCellRowTwo.getHeaderStyles()
       secondCellRowTwoHeaderState = secondCellRowTwo.getHeaderStyles()
     })

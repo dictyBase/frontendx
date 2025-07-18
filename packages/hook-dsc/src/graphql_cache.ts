@@ -69,7 +69,8 @@ const listPlasmidsPagination = () => ({
     }
     return pipe(
       [existing, incoming],
-      whichPlasmids, match(leftFunctionPlasmids, rightFunction),
+      whichPlasmids,
+      match(leftFunctionPlasmids, rightFunction),
     )
   },
   read(existing: NotEmptyPlasmidList) {
