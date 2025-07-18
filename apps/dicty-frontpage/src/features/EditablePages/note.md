@@ -13,7 +13,7 @@ Create Content Page should have its own storage key (per application)
 - empty: Nothing to worry about, periodically save entry (~5 min)
 - existing: Display preview of saved data. Ask if user wants to restore.
 
-### Submit 
+### Submit
 
 - onFailure: save entry
 - onSuccess: clean up entry
@@ -31,9 +31,9 @@ Each entry should be identified by the slug
 
 - empty: Nothing to worry about, periodically save entry (~5 min)
 - existing local: Display preview of locally saved data. Ask if user wants to restore.
-- existing remote, older: 
+- existing remote, older:
 
-### Submit 
+### Submit
 
 - onFailure: save entry
 - onSuccess: clean up entry
@@ -42,4 +42,3 @@ Each entry should be identified by the slug
 
 - use `beforeunload` listener
 - IF there is data present, save the data.
-

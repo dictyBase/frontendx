@@ -38,7 +38,8 @@ const ErrorPage = () => {
       display="flex"
       flexDirection="column"
       justifyContent="center"
-      textAlign="center">
+      textAlign="center"
+    >
       <Box className={classes.container}>
         <img
           src="https://storage.dictybase.dev/editor/assets/2024-11-04/0627257c-9ce3-4f02-b000-9e16ef5b1062"
@@ -59,7 +60,8 @@ const ErrorPage = () => {
           href="/"
           size="medium"
           variant="contained"
-          color="primary">
+          color="primary"
+        >
           Back to DSC Homepage
         </Button>
       </Box>

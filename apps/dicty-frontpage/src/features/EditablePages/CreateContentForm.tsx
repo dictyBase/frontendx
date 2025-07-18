@@ -83,7 +83,7 @@ const CreateContentForm = () => {
               )
               setOpen(true)
             })
-            .otherwise(() => { })
+            .otherwise(() => {})
         },
       ),
     )
