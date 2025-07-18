@@ -19,8 +19,8 @@ import { match, P } from "ts-pattern"
 
 enum ErrorMessage {
   NETWORK = "The server encountered an unexpected error",
-  PROTOCOL = "There was an issue with the request",
-  CLIENT = "There was an issue with the request",
+  PROTOCOL = "There was an issue with the request (client error)",
+  CLIENT = "There was an issue with the request (protocol error)",
   GQL_UNAVAILABLE = "The requested resource is unavailable",
   GQL_NOT_FOUND = "The requested resource was not found",
   DEFAULT = "An unexpected error occurred.",
@@ -68,7 +68,7 @@ const getErrorMessage = (error: ApolloError): ErrorResult =>
           ),
         ) as Option<
           Required<Pick<GraphQLFormattedError, "extensions">> &
-            Omit<GraphQLFormattedError, "extensions">
+          Omit<GraphQLFormattedError, "extensions">
         >
         const primaryErrorCode = pipe(
           Oerror,
