@@ -37,8 +37,8 @@ const ShippingMethodRadioGroup = ({
       row>
       {couriers.map((item: string) => (
         <FormControlLabel
-          {...register("shippingAccount")}
           key={item}
+          {...register("shippingAccount")}
           value={item}
           control={<Radio />}
           label={item}
