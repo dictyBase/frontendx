@@ -19,13 +19,15 @@ export const LoadingDisplay = ({
   height = 35,
 }: LoadingDisplayProperties): JSX.Element => (
   <>
-    {Array.from({ length: rows }).fill(0).map(() => (
-      <Skeleton
-        data-testid="skeleton"
-        component="div"
-        key={uuid()}
-        height={height}
-      />
-    ))}
+    {Array.from({ length: rows })
+      .fill(0)
+      .map(() => (
+        <Skeleton
+          data-testid="skeleton"
+          component="div"
+          key={uuid()}
+          height={height}
+        />
+      ))}
   </>
 )

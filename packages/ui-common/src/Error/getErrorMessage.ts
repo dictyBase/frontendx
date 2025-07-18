@@ -68,7 +68,7 @@ const getErrorMessage = (error: ApolloError): ErrorResult =>
           ),
         ) as Option<
           Required<Pick<GraphQLFormattedError, "extensions">> &
-          Omit<GraphQLFormattedError, "extensions">
+            Omit<GraphQLFormattedError, "extensions">
         >
         const primaryErrorCode = pipe(
           Oerror,
