@@ -14,7 +14,7 @@ describe("header", () => {
     const { getByRole } = render(
       <Header frontPageUrl={frontPageUrl} links={testLinks} />,
     )
-    expect(getByRole("img"))
+    expect(getByRole("img")).toBeInTheDocument()
     expect(
       getByRole("heading", { name: /Dicty Community Resource/ }),
     ).toBeInTheDocument()
