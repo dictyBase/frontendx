@@ -147,7 +147,7 @@ describe("CatalogTableHeader", () => {
     expect(screen.getByRole("cell", { name: "cell 3" })).toBeInTheDocument()
   })
 
-  test("if no header prop is passed, use the default table headers ", () => {
+  test("if no header prop is passed, use the default table headers", () => {
     render(<CatalogTableHeader />)
     expect(
       screen.getByRole("cell", { name: "Strain Descriptor" }),

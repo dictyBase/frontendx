@@ -16,7 +16,7 @@ type Properties = {
   /** List of values to display in dropdown */
   dropdownValues: Array<number>
   /** Initial value for dropdown */
-  inputValue: Number
+  inputValue: number
   /** Input label */
   label: string
 }

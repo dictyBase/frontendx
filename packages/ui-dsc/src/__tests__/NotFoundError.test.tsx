@@ -12,7 +12,7 @@ test("it renders `Page Not Found` text", () => {
   expect(screen.getByRole("heading")).toHaveTextContent(/Page Not Found/)
 })
 
-test("it renders a button that returns the user to the home page ", () => {
+test("it renders a button that returns the user to the home page", () => {
   render(
     <MemoryRouter>
       <NotFoundError />
@@ -22,7 +22,7 @@ test("it renders a button that returns the user to the home page ", () => {
     screen.getByRole("button", { name: /Back to DSC homepage/ }),
   ).toBeInTheDocument()
 })
-test("it renders a button that returns the user to the home page ", () => {
+test("it renders a button that returns the user to the home page", () => {
   render(
     <MemoryRouter>
       <NotFoundError />

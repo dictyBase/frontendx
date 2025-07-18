@@ -7,7 +7,7 @@ test("should render the leftValue, numItems, and total correctly", () => {
     leftValue: "Strains",
     numItems: 5,
     total: "10.99",
-    variant: "inherit" as "inherit",
+    variant: "inherit" as const,
   }
 
   render(<CartTotalRow {...properties} />)
@@ -26,7 +26,7 @@ test("should have the proper variant for Typography components", () => {
     leftValue: "Plasmids",
     numItems: 0,
     total: "0.00",
-    variant: "h6" as "h6",
+    variant: "h6" as const,
   }
 
   render(<CartTotalRow {...properties} />)

@@ -29,7 +29,7 @@ test("should write to clipboard on click", async () => {
   expect(writeTextMock).toHaveBeenCalledWith(properties.id)
 })
 
-test("it should display a `successfully copied` message on click ", async () => {
+test("it should display a `successfully copied` message on click", async () => {
   render(<DetailsHeaderCopyIcon {...properties} />)
   const button = screen.getByRole("button", { name: "copy icon" })
   await userEvent.click(button)

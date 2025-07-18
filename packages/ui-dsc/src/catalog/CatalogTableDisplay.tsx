@@ -1,3 +1,4 @@
+import { Fragment } from "react"
 import Table from "@material-ui/core/Table"
 import TableBody from "@material-ui/core/TableBody"
 import TableCell from "@material-ui/core/TableCell"
@@ -133,7 +134,7 @@ const CatalogRows = ({
         if (index === items.length - 1 && nextCursor !== 0) {
           // last item and expected to have more data
           return (
-            <>
+            <Fragment key={item.id}>
               <TableRow hover className={row} key={key}>
                 {cellFunction(item)}
               </TableRow>
@@ -145,7 +146,7 @@ const CatalogRows = ({
                   <LinearProgress />
                 </TableCell>
               </TableRow>
-            </>
+            </Fragment>
           )
         }
         return (
