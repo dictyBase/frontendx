@@ -27,11 +27,11 @@ const Link = styled(({ ...other }) => <a {...other} />)({
 
 type BrandProperties = {
   /** Title of link */
-  title: String
+  title: string
   /** Link URL */
-  href: String
+  href: string
   /** Material-UI theme */
-  theme: Object
+  theme: object
 }
 
 /**

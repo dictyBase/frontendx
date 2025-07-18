@@ -24,11 +24,11 @@ const Anchor = styled(({ ...other }) => <a {...other} />)({
 
 type LinkProperties = {
   /** Link title */
-  title: String
+  title: string
   /** Link URL */
-  href: String
+  href: string
   /** Material-UI theme */
-  theme: Object
+  theme: object
 }
 
 /**
