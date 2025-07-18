@@ -10,6 +10,8 @@ import { inputProperties } from "./types"
 
 const emptyString: Readonly<string> = ""
 
+const renderOption = (option: string) => <FieldOption label={option} />
+
 const getInitialSearchValues = (
   searchParameters: URLSearchParams,
   fields: Array<string>,
@@ -199,8 +201,6 @@ export function useSearchWithRouter({
       fullWidth
     />
   )
-
-  const renderOption = (option: string) => <FieldOption label={option} />
 
   return {
     isAcceptingInput,

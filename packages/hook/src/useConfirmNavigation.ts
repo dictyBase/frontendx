@@ -1,5 +1,8 @@
 import { useEffect } from "react"
 
+const handler = (event: BeforeUnloadEvent) => {
+  event.preventDefault()
+}
 /*
  * Adds a `beforeunload` listener that is triggered when a user attempts to navigate away from the page.
  * When the event fires, the handler causes a dialog to appear that confirms the user is about to leave the
@@ -9,9 +12,6 @@ import { useEffect } from "react"
  */
 const useConfirmNavigation = () => {
   useEffect(() => {
-    const handler = (event: BeforeUnloadEvent) => {
-      event.preventDefault()
-    }
     window.addEventListener("beforeunload", handler)
     return () => {
       window.removeEventListener("beforeunload", handler)
