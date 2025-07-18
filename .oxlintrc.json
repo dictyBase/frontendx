@@ -20,7 +20,7 @@
   },
   "rules": {
     "react-in-jsx-scope": "allow",
-    "no-unassigned-import": "allow"
+    "no-unassigned-import": "allow",
     "no-autofocus": "allow"
   }
 }
