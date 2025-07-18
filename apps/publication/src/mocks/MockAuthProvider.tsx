@@ -1,7 +1,7 @@
 import React from "react"
 import { MockedProvider, MockedResponse } from "@apollo/client/testing"
 import { User } from "dicty-graphql-schema"
-import { AuthContext, authReducer } from "../../components/auth/AuthStore"
+import { AuthContext, authReducer } from "../components/auth/AuthStore"
 
 type AuthProperties = {
   children: React.ReactNode
