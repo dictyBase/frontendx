@@ -8,7 +8,7 @@ describe("functional logo", () => {
   test("should render the logo", () => {
     const { getByRole } = render(<Logo frontPageUrl="/" />)
     expect(getByRole("img")).toBeInTheDocument()
-    expect(getByRole("img"))
+    expect(getByRole("img")).toBeInTheDocument()
     expect(getByRole("heading")).toBeInTheDocument()
     expect(getByRole("heading")).toHaveTextContent("Dicty Community Resource")
   })
