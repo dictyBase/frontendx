@@ -15,12 +15,12 @@ const LoginButton = () => (
 )
 
 const testLinks = [
-  ...iconButtonPipe(createDefaultIconItems("")),
-  <LoginButton />,
+  ...iconButtonPipe(createDefaultIconItems("")), // oxlint-disable jsx-key
+  <LoginButton />, // oxlint-disable jsx-key
 ]
 
-describe("functional links ", () => {
-  test("should generate the links ", () => {
+describe("functional links", () => {
+  test("should generate the links", () => {
     const { getAllByRole, getByRole } = render(<Links links={testLinks} />)
     expect(getAllByRole("link")).toHaveLength(testLinks.length)
     expect(getByRole("link", { name: "Login" })).toHaveAttribute(
