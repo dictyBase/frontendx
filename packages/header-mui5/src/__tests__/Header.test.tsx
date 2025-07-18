@@ -14,7 +14,7 @@ describe("header", () => {
     const { getByRole } = render(
       <Header frontPageUrl={frontPageUrl} links={testLinks} />,
     )
-    expect(getByRole("img"))
+    expect(getByRole("img")).toBeInTheDocument()
     expect(
       getByRole("heading", { name: /Dicty Community Resource/ }),
     ).toBeInTheDocument()
@@ -35,7 +35,7 @@ describe("header", () => {
     await user.type(input, "yomar")
     expect(input).toHaveValue("yomar")
   })
-  test("should generate the links ", () => {
+  test("should generate the links", () => {
     const { getAllByRole } = render(
       <Header frontPageUrl={frontPageUrl} links={testLinks} />,
     )
