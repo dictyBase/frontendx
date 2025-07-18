@@ -68,7 +68,8 @@ const JournalData = ({ data }: JournalDataProperties) => {
               <Typography
                 variant="h3"
                 component="span"
-                className={classes.text}>
+                className={classes.text}
+              >
                 {`on ${formattedDate} `}
               </Typography>
             )),
