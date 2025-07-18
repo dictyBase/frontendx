@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react"
 import { expect, describe, beforeEach, vi, test, Mock } from "vitest"
 import "@testing-library/jest-dom"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { of } from "fp-ts/Option"
 import { Search } from "../functional/Search"
 

@@ -13,13 +13,13 @@ vi.mock("react-router-dom", async () => {
   }
 })
 
-describe("app/layout/Breadcrumbs", () => {
-  const MockComponent = () => (
-    <BrowserRouter>
-      <Breadcrumbs />
-    </BrowserRouter>
-  )
+const MockComponent = () => (
+  <BrowserRouter>
+    <Breadcrumbs />
+  </BrowserRouter>
+)
 
+describe("app/layout/Breadcrumbs", () => {
   describe("subpages", () => {
     test("should include DSC Home link first", () => {
       ;(useLocation as Mock).mockReturnValueOnce({

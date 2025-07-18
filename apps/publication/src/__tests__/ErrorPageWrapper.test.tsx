@@ -1,6 +1,6 @@
 import { ApolloError } from "@apollo/client"
 import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { ErrorPageWrapper } from "../components/errors/ErrorPageWrapper"
 
 // Mock the Next.js router

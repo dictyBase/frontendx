@@ -1,6 +1,6 @@
 import { vi, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { AppBarHelp } from "../catalog/AppBarHelp"
 
 const mockSetHelpDialogOpen = vi.fn()

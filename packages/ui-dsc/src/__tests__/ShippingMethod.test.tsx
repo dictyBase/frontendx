@@ -2,7 +2,7 @@ import { ReactNode } from "react"
 import { useForm, FormProvider } from "react-hook-form"
 import { describe, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { ShippingMethod } from "../order/ShippingMethod"
 
 type FormWrapperProperties = {

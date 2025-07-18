@@ -1,7 +1,7 @@
 import { test, expect } from "vitest"
 import { Routes, Route, MemoryRouter } from "react-router-dom"
 import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { ContinueShoppingCard } from "../cart/ContinueShoppingCard"
 
 const App = () => (

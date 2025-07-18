@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { RelatedGenesPager } from "./RelatedGenesPager"
 
 // Create mock data with enough genes to span multiple pages

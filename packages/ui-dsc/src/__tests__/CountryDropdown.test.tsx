@@ -2,7 +2,7 @@ import { describe, test, expect } from "vitest"
 import { pipe } from "fp-ts/function"
 import { filter, map, reduce } from "fp-ts/Array"
 import { screen, render } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { useForm, FormProvider, type Resolver } from "react-hook-form"
 import { CountryDropdown, countryToFlag } from "../order/CountryDropdown"
 
