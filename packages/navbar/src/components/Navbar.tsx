@@ -96,7 +96,7 @@ type NavbarProperties = {
     | { element: JSX.Element }
   >
   brand?: { title: string; href: string }
-  theme: Object
+  theme: object
 }
 
 /**
