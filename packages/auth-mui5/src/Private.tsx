@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom"
 import { match } from "ts-pattern"
-import { FullPageLoadingDisplay } from "@dictybase/ui-common"
+import { FullPageLoadingDisplay } from "@dictybase/ui-common-mui5"
 import { UnAuthorized } from "./UnAuthorized"
 import { useAuthorization } from "./useAuthorization"
 
