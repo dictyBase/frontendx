@@ -1,5 +1,5 @@
 import { useContentBySlugQuery } from "dicty-graphql-schema"
-import { FullPageLoadingDisplay, GraphQLErrorPage } from "@dictybase/ui-common"
+import { FullPageLoadingDisplay, GraphQLErrorPage } from "@dictybase/ui-common-mui5"
 import { match, P } from "ts-pattern"
 import { EditView } from "./EditView"
 import { NAMESPACE } from "../../common/constants/namespace"

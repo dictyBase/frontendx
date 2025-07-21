@@ -6,7 +6,7 @@ import {
   GraphQLErrorPage,
   CopyLinkButton,
   BrowseNewsButton,
-} from "@dictybase/ui-common"
+} from "@dictybase/ui-common-mui5"
 import { ACCESS } from "@dictybase/auth"
 import { Editor } from "@dictybase/editor"
 import { pipe } from "fp-ts/function"

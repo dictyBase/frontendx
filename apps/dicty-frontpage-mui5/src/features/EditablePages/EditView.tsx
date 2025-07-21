@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { makeStyles, Container, Button } from "@material-ui/core"
 import PersonIcon from "@material-ui/icons/Person"
-import { ActionBar } from "@dictybase/ui-common"
+import { ActionBar } from "@dictybase/ui-common-mui5"
 import { Editor } from "@dictybase/editor"
 import { type ContentBySlugQuery } from "dicty-graphql-schema"
 import { UpdateButton } from "../../common/components/UpdateButton"

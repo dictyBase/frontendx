@@ -10,7 +10,7 @@ import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
 import { parseISO, format } from "date-fns/fp"
 import { grey, blueGrey, lightBlue, orange } from "@material-ui/core/colors"
-import { shortenAllNames } from "@dictybase/ui-common"
+import { shortenAllNames } from "@dictybase/ui-common-mui5"
 import { type PublicationItem } from "../../common/hooks/useFetchPublications"
 import { formatTitle } from "../../common/utils/citation"
 

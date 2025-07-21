@@ -8,7 +8,7 @@ import {
   privateRoutes,
   buildMergedRoutes,
 } from "@dictybase/auth"
-import { NotFoundError } from "@dictybase/ui-common"
+import { NotFoundError } from "@dictybase/ui-common-mui5"
 
 const dynamicRoutes: dynamicRoutesProperties = import.meta.glob(
   "/src/pages/**/**/*.tsx",

@@ -1,5 +1,5 @@
 import { match } from "ts-pattern"
-import { FullPageLoadingDisplay } from "@dictybase/ui-common"
+import { FullPageLoadingDisplay } from "@dictybase/ui-common-mui5"
 import { PublicationsView } from "./PublicationsView"
 import { useFetchPublications } from "../../common/hooks/useFetchPublications"
 

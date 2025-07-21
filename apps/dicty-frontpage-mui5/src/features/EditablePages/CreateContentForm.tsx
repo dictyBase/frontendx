@@ -6,7 +6,7 @@ import { match, P } from "ts-pattern"
 import { Container, Paper, Grid, makeStyles } from "@material-ui/core"
 import { InferType } from "yup"
 import { FormProvider, SubmitHandler } from "react-hook-form"
-import { ErrorSnackbar } from "@dictybase/ui-common"
+import { ErrorSnackbar } from "@dictybase/ui-common-mui5"
 import { ContentPathInputs } from "./ContentPathInputs"
 import { CreateContentFormButtons } from "./CreateContentFormButtons"
 import {

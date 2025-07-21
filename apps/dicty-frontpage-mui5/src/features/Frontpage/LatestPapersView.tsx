@@ -9,7 +9,7 @@ import {
 import DoubleArrowIcon from "@material-ui/icons/DoubleArrow"
 import ReplayIcon from "@material-ui/icons/Replay"
 import { makeStyles } from "@material-ui/styles"
-import { LoadingDisplay } from "@dictybase/ui-common"
+import { LoadingDisplay } from "@dictybase/ui-common-mui5"
 import { Link } from "react-router-dom"
 import { pipe } from "fp-ts/function"
 import {

@@ -1,6 +1,6 @@
 import React from "react"
 import { useListRecentPlasmidsQuery } from "dicty-graphql-schema"
-import { GraphQLErrorPage } from "@dictybase/ui-common"
+import { GraphQLErrorPage } from "@dictybase/ui-common-mui5"
 import { Loader } from "../../common/components/Loader"
 import { Fallback } from "../../common/components/Fallback"
 import { StockCenterItem } from "./StockCenterItem"

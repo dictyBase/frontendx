@@ -4,7 +4,7 @@ import { pipe } from "fp-ts/function"
 import { map as Amap, sort as Asort } from "fp-ts/Array"
 import { Ord, contramap } from "fp-ts/Ord"
 import { match, P } from "ts-pattern"
-import { FullPageLoadingDisplay } from "@dictybase/ui-common"
+import { FullPageLoadingDisplay } from "@dictybase/ui-common-mui5"
 import {
   useListContentByNamespaceQuery,
   ListContentByNamespaceQuery,

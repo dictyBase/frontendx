@@ -1,5 +1,5 @@
 import { ACCESS } from "@dictybase/auth"
-import { NotFoundErrorAuth } from "@dictybase/ui-common"
+import { NotFoundErrorAuth } from "@dictybase/ui-common-mui5"
 
 // eslint-disable-next-line unicorn/prefer-export-from, import/no-default-export
 export default NotFoundErrorAuth

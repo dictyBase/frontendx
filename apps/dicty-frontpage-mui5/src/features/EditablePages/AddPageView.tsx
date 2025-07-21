@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { makeStyles, Container, Button, Typography } from "@material-ui/core"
 import { Editor } from "@dictybase/editor"
-import { ActionBar } from "@dictybase/ui-common"
+import { ActionBar } from "@dictybase/ui-common-mui5"
 import { CreateButton } from "../../common/components/CreateButton"
 
 const useStyles = makeStyles((theme) => ({

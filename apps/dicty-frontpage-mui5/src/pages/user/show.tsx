@@ -10,7 +10,7 @@ import {
 import { Box, Grid, Divider } from "@material-ui/core"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import { Avatar, Information, EditablePagesList, Title, NoPages } from "ui-user"
-import { FullPageLoadingDisplay } from "@dictybase/ui-common"
+import { FullPageLoadingDisplay } from "@dictybase/ui-common-mui5"
 
 const useStyles = makeStyles((theme: Theme) => ({
   divider: {

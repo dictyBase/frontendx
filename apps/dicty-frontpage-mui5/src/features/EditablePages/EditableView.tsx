@@ -3,7 +3,7 @@ import PersonIcon from "@material-ui/icons/Person"
 import { useNavigate } from "react-router-dom"
 import { type ContentBySlugQuery } from "dicty-graphql-schema"
 import { Editor } from "@dictybase/editor"
-import { ActionBar } from "@dictybase/ui-common"
+import { ActionBar } from "@dictybase/ui-common-mui5"
 import { timeSince } from "../../common/utils/timeSince"
 import { truncateEmail } from "../../common/utils/truncateEmail"
 

@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom"
 import { makeStyles, Container, Button, Typography } from "@material-ui/core"
 import { ACCESS } from "@dictybase/auth"
 import { Editor } from "@dictybase/editor"
-import { ActionBar } from "@dictybase/ui-common"
+import { ActionBar } from "@dictybase/ui-common-mui5"
 import { CreateButton } from "../../common/components/CreateButton"
 import { NEWS_NAMESPACE } from "../../common/constants/namespace"
 

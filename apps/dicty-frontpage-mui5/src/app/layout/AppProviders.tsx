@@ -11,7 +11,7 @@ import {
   useApolloClientCache,
   storageType,
 } from "@dictybase/data-access"
-import { dictyTheme } from "@dictybase/ui-common"
+import { dictyTheme } from "@dictybase/ui-common-mui5"
 
 const bodyFontFamily = "'Inter Variable', sans-serif"
 const headerFontFamily = "'Poppins', sans-serif"
@@ -131,4 +131,4 @@ const AppProviders = ({ children }: { children: React.ReactNode }) => {
 }
 
 export { AppProviders }
-export { dictyTheme as appTheme } from "@dictybase/ui-common"
+export { dictyTheme as appTheme } from "@dictybase/ui-common-mui5"

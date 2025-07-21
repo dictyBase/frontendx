@@ -16,7 +16,7 @@ import {
   ActionBar,
   CopyLinkButton,
   BrowseEditableNewsButton,
-} from "@dictybase/ui-common"
+} from "@dictybase/ui-common-mui5"
 import { Editor } from "@dictybase/editor"
 import { ACCESS } from "@dictybase/auth"
 import { pipe } from "fp-ts/function"

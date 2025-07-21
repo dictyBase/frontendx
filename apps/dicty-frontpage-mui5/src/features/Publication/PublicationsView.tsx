@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { pipe } from "fp-ts/function"
-import { DictyTab, DictyTabs } from "@dictybase/ui-common"
+import { DictyTab, DictyTabs } from "@dictybase/ui-common-mui5"
 import { map as Rmap, keys as Rkeys } from "fp-ts/Record"
 import { sort as Asort } from "fp-ts/Array"
 import { Ord, contramap, reverse as ORDreverse } from "fp-ts/Ord"
