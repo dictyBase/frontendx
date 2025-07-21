@@ -1,4 +1,4 @@
-import React from "react"
+import { Box } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography"
 
@@ -19,14 +19,14 @@ const DownloadsHeader = () => {
   const classes = useStyles()
 
   return (
-    <div className={classes.container}>
+    <Box className={classes.container}>
       <Typography className={classes.topHeader} variant="h1">
         dictyBase Downloads
       </Typography>
       <Typography className={classes.bottomHeader} variant="h3">
         The central collection of downloadable material from dictyBase
       </Typography>
-    </div>
+    </Box>
   )
 }
 

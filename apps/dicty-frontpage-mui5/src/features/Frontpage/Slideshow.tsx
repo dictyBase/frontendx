@@ -1,4 +1,5 @@
 import { Carousel } from "react-responsive-carousel"
+import { Box } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import lifeCycle from "../../common/assets/frontCarousel/dicty-life-cycle.jpg"
 import slug from "../../common/assets/frontCarousel/dicty-slug.jpg"
@@ -64,7 +65,7 @@ const Slideshow = () => {
   const classes = useStyles()
 
   return (
-    <div>
+    <Box>
       <Carousel
         showStatus={false}
         showThumbs={false}
@@ -72,16 +73,16 @@ const Slideshow = () => {
         interval={5000}
         infiniteLoop>
         {imageData.map((img) => (
-          <div className={classes.imgWrapper} key={img.src}>
+          <Box className={classes.imgWrapper} key={img.src}>
             <img className={classes.imgSizer} src={img.src} alt={img.title} />
             <p className={classes.legend}>
               <strong>{img.title}</strong> <br />
               {img.description}
             </p>
-          </div>
+          </Box>
         ))}
       </Carousel>
-    </div>
+    </Box>
   )
 }
 

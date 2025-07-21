@@ -1,9 +1,9 @@
-import React from "react"
 import { HeaderLink } from "dicty-components-header-footer"
 import { Link } from "react-router-dom"
 import AddIcon from "@material-ui/icons/Add"
 import FileDownloadIcon from "@material-ui/icons/GetApp"
 import InfoIcon from "@material-ui/icons/Info"
+import { Box } from "@material-ui/core"
 import { SvgIconProps } from "@material-ui/core/SvgIcon"
 import { LoginIcon } from "../icons/LoginIcon"
 import { LogoutIcon } from "../icons/LogoutIcon"
@@ -20,11 +20,11 @@ type LinkIconProperties = {
 }
 
 const LinkIcon = ({ link }: LinkIconProperties) => (
-  <div style={{ textAlign: "center" }}>
+  <Box style={{ textAlign: "center" }}>
     {link.icon}
     <br />
     {link.text}
-  </div>
+  </Box>
 )
 
 const HeaderLinks = ({ items }: { items: LinkProperties[] }) => (

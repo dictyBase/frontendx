@@ -1,4 +1,5 @@
 import { RouterProvider } from "react-router-dom"
+import { Box } from "@material-ui/core"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import {
   HeaderWithAuth,
@@ -35,7 +36,7 @@ const FrontPageApp = () => {
   const classes = useStyles()
 
   return (
-    <div className={classes.body}>
+    <Box className={classes.body}>
       <HeaderWithAuth
         frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
         basename={import.meta.env.VITE_APP_BASENAME}
@@ -54,7 +55,7 @@ const FrontPageApp = () => {
         frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
         stockCenterUrl={import.meta.env.VITE_APP_STOCKCENTER_URL}
       />
-    </div>
+    </Box>
   )
 }
 

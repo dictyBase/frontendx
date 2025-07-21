@@ -1,6 +1,6 @@
-import React from "react"
 import { Helmet } from "react-helmet"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Box } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { TechnicalSummary } from "./TechnicalSummary"
 import { SpecialThanks } from "./SpecialThanks"
@@ -56,29 +56,29 @@ const About = () => {
   const classes = useStyles()
 
   return (
-    <div>
+    <Box>
       <Helmet>
         <title>About Us - dictyBase</title>
         <meta name="description" content="About Us page for dictyBase" />
       </Helmet>
-      <div className={classes.banner}>
+      <Box className={classes.banner}>
         <h1 className={classes.header}>About Us</h1>
         <p className={classes.headerText}>
           We{"  "}
           <FontAwesomeIcon icon="heart" size="2x" />
           {"  "}dictyBase
         </p>
-      </div>
+      </Box>
       <br />
-      <div className={classes.container}>
-        <div className={classes.item}>
+      <Box className={classes.container}>
+        <Box className={classes.item}>
           <TechnicalSummary />
-        </div>
-        <div className={classes.item}>
+        </Box>
+        <Box className={classes.item}>
           <SpecialThanks />
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   )
 }
 

@@ -1,4 +1,4 @@
-import React from "react"
+import { Box } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { Citation } from "../../common/types"
 
@@ -26,7 +26,7 @@ const Citations = ({ citations }: Properties) => {
   const classes = useStyles()
 
   return (
-    <div className={classes.root}>
+    <Box className={classes.root}>
       <h3 className={classes.topLine}>Please cite:</h3>
       {citations.map((citation: any) => (
         <p key={citation.title}>
@@ -45,7 +45,7 @@ const Citations = ({ citations }: Properties) => {
           </a>
         </p>
       ))}
-    </div>
+    </Box>
   )
 }
 

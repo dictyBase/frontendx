@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles"
-import Grid from "@material-ui/core/Grid"
+import { Box, Grid } from "@material-ui/core"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { StockCenterStrainQuery } from "./StockCenterStrainQuery"
 import { StockCenterPlasmidQuery } from "./StockCenterPlasmidQuery"
@@ -105,35 +105,35 @@ const StockCenter = () => {
   const classes = useStyles()
 
   return (
-    <div className={classes.container}>
-      <div className={classes.header}>
+    <Box className={classes.container}>
+      <Box className={classes.header}>
         <FontAwesomeIcon icon="shopping-cart" size="sm" />
         <span className={classes.title}> DICTY STOCK CENTER</span>
-      </div>
-      <div className={classes.subheader}>
+      </Box>
+      <Box className={classes.subheader}>
         <strong>New items</strong>
-      </div>
+      </Box>
       <Grid container>
         <Grid item xs={6} className={classes.plasmidBox}>
-          <div className={classes.title}>PLASMIDS</div>
+          <Box className={classes.title}>PLASMIDS</Box>
           <ul className={classes.listBox}>
             <StockCenterPlasmidQuery />
           </ul>
-          <div className={classes.plusSign}>
+          <Box className={classes.plusSign}>
             <FontAwesomeIcon icon="plus" />
-          </div>
+          </Box>
         </Grid>
         <Grid item xs={6} className={classes.strainBox}>
-          <div className={classes.title}>STRAINS</div>
+          <Box className={classes.title}>STRAINS</Box>
           <ul className={classes.listBox}>
             <StockCenterStrainQuery />
           </ul>
-          <div className={classes.plusSign}>
+          <Box className={classes.plusSign}>
             <FontAwesomeIcon icon="plus" />
-          </div>
+          </Box>
         </Grid>
       </Grid>
-    </div>
+    </Box>
   )
 }
 
