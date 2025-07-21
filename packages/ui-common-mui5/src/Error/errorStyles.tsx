@@ -1,4 +1,4 @@
-import makeStyles from '@mui/styles/makeStyles';
+import makeStyles from "@mui/styles/makeStyles"
 import { deepPurple, grey } from "@mui/material/colors"
 
 const useStyles = makeStyles(({ palette }) => ({

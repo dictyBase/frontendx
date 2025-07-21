@@ -1,6 +1,11 @@
-import { Snackbar, IconButton, Typography } from "@mui/material";
-import makeStyles from '@mui/styles/makeStyles';
-import { Alert, AlertTitle } from '@mui/material';
+import {
+  Snackbar,
+  IconButton,
+  Typography,
+  Alert,
+  AlertTitle,
+} from "@mui/material"
+import makeStyles from "@mui/styles/makeStyles"
 import CloseIcon from "@mui/icons-material/Close"
 
 type ErrorSnackbarProperties = {

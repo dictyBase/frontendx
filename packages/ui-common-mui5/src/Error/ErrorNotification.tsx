@@ -1,5 +1,5 @@
-import { Theme } from "@mui/material/styles";
-import makeStyles from '@mui/styles/makeStyles';
+import { Theme } from "@mui/material/styles"
+import makeStyles from "@mui/styles/makeStyles"
 import Box from "@mui/material/Box"
 import SnackbarContent from "@mui/material/SnackbarContent"
 

@@ -1,4 +1,8 @@
-import { createTheme, DeprecatedThemeOptions, adaptV4Theme } from "@mui/material";
+import {
+  createTheme,
+  DeprecatedThemeOptions,
+  adaptV4Theme,
+} from "@mui/material"
 import "@fontsource/poppins"
 import "@fontsource-variable/inter"
 
