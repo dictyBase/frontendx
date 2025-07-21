@@ -39,7 +39,13 @@
     "test:watch": "vitest watch",
     "coverage": "vitest run --coverage",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
-    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/header.json"
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/ui-common-mui5.json"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "custom"
+    ]
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",
