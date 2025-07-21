@@ -1,4 +1,6 @@
-import { Grid, Typography, Divider, makeStyles } from "@material-ui/core"
+import { Grid, Typography, Divider } from "@mui/material";
+
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles((theme) => ({
   root: {

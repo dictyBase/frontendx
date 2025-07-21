@@ -1,4 +1,4 @@
-import { Grid, Typography, Container } from "@material-ui/core"
+import { Grid, Typography, Container } from "@mui/material"
 import { BackToHomepageButton } from "../BackToHomepageButton"
 import { useStyles } from "./errorStyles"
 

@@ -1,6 +1,7 @@
-import CloudDoneIcon from "@material-ui/icons/CloudDone"
-import { Grid, Typography, makeStyles } from "@material-ui/core"
-import { green } from "@material-ui/core/colors"
+import CloudDoneIcon from "@mui/icons-material/CloudDone"
+import { Grid, Typography } from "@mui/material";
+import makeStyles from '@mui/styles/makeStyles';
+import { green } from "@mui/material/colors"
 
 const useStyles = makeStyles({
   text: {

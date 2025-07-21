@@ -1,11 +1,11 @@
-import { createTheme, ThemeOptions } from "@material-ui/core"
+import { createTheme, DeprecatedThemeOptions, adaptV4Theme } from "@mui/material";
 import "@fontsource/poppins"
 import "@fontsource-variable/inter"
 
 const bodyFontFamily = "'Inter Variable', sans-serif"
 const headerFontFamily = "'Poppins', sans-serif"
 
-const dictyThemeOptions: ThemeOptions = {
+const dictyThemeOptions: DeprecatedThemeOptions = {
   // use color tool for palette -- https://material.io/resources/color/
   palette: {
     primary: {
@@ -94,6 +94,6 @@ const dictyThemeOptions: ThemeOptions = {
   },
 }
 
-const dictyTheme = createTheme(dictyThemeOptions)
+const dictyTheme = createTheme(adaptV4Theme(dictyThemeOptions))
 
 export { dictyTheme, dictyThemeOptions }

@@ -1,5 +1,6 @@
-import { Tab, type TabProps, makeStyles } from "@material-ui/core"
-import { grey } from "@material-ui/core/colors"
+import { Tab, type TabProps } from "@mui/material";
+import makeStyles from '@mui/styles/makeStyles';
+import { grey } from "@mui/material/colors"
 
 const useStyles = makeStyles((theme) => ({
   tab: {

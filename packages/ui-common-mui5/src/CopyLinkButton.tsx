@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { pipe } from "fp-ts/function"
 import { replace as Sreplace } from "fp-ts/string"
-import { Typography, IconButton, Tooltip } from "@material-ui/core"
-import LinkRoundedIcon from "@material-ui/icons/LinkRounded"
+import { Typography, IconButton, Tooltip } from "@mui/material"
+import LinkRoundedIcon from "@mui/icons-material/LinkRounded"
 
 const CopyLinkButton = () => {
   const [linkCopied, setLinkCopied] = useState(false)
@@ -21,18 +21,18 @@ const CopyLinkButton = () => {
   }
 
   return (
-    <Tooltip
+    (<Tooltip
       onClose={handleClose}
       title={
         <Typography variant="caption">
           {linkCopied ? "Link Copied!" : "Copy Link to Article"}
         </Typography>
       }>
-      <IconButton onClick={handleClick}>
+      <IconButton onClick={handleClick} size="large">
         <LinkRoundedIcon />
       </IconButton>
-    </Tooltip>
-  )
+    </Tooltip>)
+  );
 }
 
 export { CopyLinkButton }

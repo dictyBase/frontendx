@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
-import { Button } from "@material-ui/core"
-import ViewListRoundedIcon from "@material-ui/icons/ViewListRounded"
+import { Button } from "@mui/material"
+import ViewListRoundedIcon from "@mui/icons-material/ViewListRounded"
 
 const BrowseNewsButton = () => {
   const navigate = useNavigate()

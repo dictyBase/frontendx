@@ -1,4 +1,4 @@
-import ErrorIcon from "@material-ui/icons/Error"
+import ErrorIcon from "@mui/icons-material/Error"
 
 const SavingError = () => <ErrorIcon />
 

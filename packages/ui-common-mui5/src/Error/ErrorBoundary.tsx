@@ -1,6 +1,8 @@
 import React, { Component } from "react"
-import Grid from "@material-ui/core/Grid"
-import { withStyles, Theme } from "@material-ui/core/styles"
+import Grid from "@mui/material/Grid"
+import { Theme } from "@mui/material/styles";
+
+import withStyles from '@mui/styles/withStyles';
 
 const styles = (theme: Theme) => ({
   gridContainer: {
@@ -14,7 +16,7 @@ const styles = (theme: Theme) => ({
     marginBottom: "10px",
     maxHeight: "500px",
     overflow: "auto",
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down('lg')]: {
       height: "350px",
     },
   },
