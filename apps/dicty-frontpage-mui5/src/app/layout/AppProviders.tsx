@@ -1,6 +1,6 @@
 import { ApolloProvider } from "@apollo/client"
 import {
-  MuiThemeProvider,
+  MuiThemeProvider as MuiThemeProviderMUI4,
   createGenerateClassName,
   StylesProvider,
 } from "@material-ui/core/styles"
@@ -35,7 +35,9 @@ const AppProviders = ({ children }: { children: React.ReactNode }) => {
     <ApolloProvider client={client}>
       <StylesProvider generateClassName={generateClassName}>
         <MUI5ThemeProvider theme={dictyThemeMUI5}>
-          <MuiThemeProvider theme={dictyThemeMUI4}>{children}</MuiThemeProvider>
+          <MuiThemeProviderMUI4 theme={dictyThemeMUI4}>
+            {children}
+          </MuiThemeProviderMUI4>
         </MUI5ThemeProvider>
       </StylesProvider>
     </ApolloProvider>
