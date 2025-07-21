@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react"
 import { useListRecentPlasmidsQuery } from "dicty-graphql-schema"
-import { ApolloError } from "@apollo/client"
 import { vi } from "vitest"
 import type { Mock } from "vitest"
 import { listRecentPlasmids } from "../../common/data/mockPlasmids"
@@ -39,14 +38,5 @@ describe("feature/Frontpage/StockCenterPlasmidQuery", () => {
     render(<StockCenterPlasmidQuery />)
 
     expect(screen.getByTestId("skeleton-loader")).toBeInTheDocument()
-  })
-
-  it("should render Apollo Error Component if plasmids failed to load", () => {
-    ;(useListRecentPlasmidsQuery as Mock).mockReturnValue({
-      error: new ApolloError({}),
-    })
-    render(<StockCenterPlasmidQuery />)
-
-    /* Need to figure out how to test this */
   })
 })

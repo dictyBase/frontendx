@@ -2,7 +2,7 @@ import { FunctionComponent } from "react"
 import { Grid, Box, Theme, makeStyles } from "@material-ui/core"
 import { pipe } from "fp-ts/function"
 import { mapWithIndex as AmapWithIndex } from "fp-ts/Array"
-import { match as Bmatch } from "fp-ts/boolean"
+import { matchW as BmatchW } from "fp-ts/boolean"
 
 const useStyles = makeStyles((theme: Theme) => ({
   content: {
@@ -60,8 +60,8 @@ const ActionBar: FunctionComponent<{
           {pipe(
             children,
             Array.isArray,
-            Bmatch(
-              () => [<Grid item>{children}</Grid>],
+            BmatchW(
+              () => <Grid item>{children}</Grid>,
               () =>
                 pipe(
                   children as Array<JSX.Element>,
