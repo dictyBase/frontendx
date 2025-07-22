@@ -1,0 +1,48 @@
+{
+  "name": "stock-center-mui5",
+  "private": true,
+  "type": "module",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite --clearScreen false",
+    "dev:mock": "yarn dev --mode mock",
+    "serve": "node server.js",
+    "build": "vite build",
+    "oxlint": "oxlint src/",
+    "oxlint:ci": "oxlint src/ --format=github",
+    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/stock-center.json",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@dictybase/auth-mui5": "*",
+    "@dictybase/data-access": "*",
+    "@dictybase/editor": "*",
+    "@dictybase/google-analytics": "*",
+    "@dictybase/hook": "*",
+    "@dictybase/hook-dsc": "*",
+    "@dictybase/ui-dsc": "*",
+    "jotai": "^2.0.0",
+    "react-helmet": "^6.1.0",
+    "ui-user": "*"
+  },
+  "devDependencies": {
+    "@dictybase/oxlint-config": "*",
+    "@vitejs/plugin-react": "^4.0.3",
+    "eslint-config-custom": "*",
+    "msw": "2.x",
+    "tsconfig": "*",
+    "vite": "4.x",
+    "vite-plugin-swc-react-refresh": "^2.2.1"
+  },
+  "msw": {
+    "workerDirectory": "public"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "custom"
+    ]
+  }
+}
