@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/filename-case */
-import { ACCESS } from "@dictybase/auth-mui5"
+import { ACCESS } from "@dictybase/auth"
 import { About } from "../features/About/About"
 
 // eslint-disable-next-line unicorn/prefer-export-from, import/no-default-export

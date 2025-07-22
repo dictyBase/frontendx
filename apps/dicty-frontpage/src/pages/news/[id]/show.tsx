@@ -6,7 +6,7 @@ import {
   CopyLinkButton,
   BrowseNewsButton,
 } from "@dictybase/ui-common"
-import { ACCESS } from "@dictybase/auth-mui5"
+import { ACCESS } from "@dictybase/auth"
 import { Editor } from "@dictybase/editor"
 import { pipe } from "fp-ts/function"
 import { parseISO, format } from "date-fns/fp"

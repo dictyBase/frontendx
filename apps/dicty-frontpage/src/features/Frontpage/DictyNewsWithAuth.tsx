@@ -1,6 +1,6 @@
 import { DictyNews, AuthorizedDictyNews } from "@dictybase/ui-frontpage"
 import { useListContentByNamespaceQuery } from "dicty-graphql-schema"
-import { useAuthorization } from "@dictybase/auth-mui5"
+import { useAuthorization } from "@dictybase/auth"
 import { match } from "ts-pattern"
 
 const authorizedRoles = ["content-admin"]

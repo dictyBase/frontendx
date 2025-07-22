@@ -6,7 +6,7 @@ import {
   ACCESS,
   displayOnAuthorized,
   matchEntries,
-} from "@dictybase/auth-mui5"
+} from "@dictybase/auth"
 import { Box, Grid, Divider } from "@material-ui/core"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import { Avatar, Information, EditablePagesList, Title, NoPages } from "ui-user"

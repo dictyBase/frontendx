@@ -17,7 +17,7 @@ import {
   BrowseEditableNewsButton,
 } from "@dictybase/ui-common"
 import { Editor } from "@dictybase/editor"
-import { ACCESS } from "@dictybase/auth-mui5"
+import { ACCESS } from "@dictybase/auth"
 import { pipe } from "fp-ts/function"
 import { parseISO, format } from "date-fns/fp"
 import { ErrorPageWrapper } from "../../../common/components/errors/ErrorPageWrapper"

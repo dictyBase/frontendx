@@ -1,4 +1,4 @@
-import { ACCESS } from "@dictybase/auth-mui5"
+import { ACCESS } from "@dictybase/auth"
 import { Edit } from "../../../features/EditablePages/Edit"
 
 // eslint-disable-next-line unicorn/prefer-export-from, import/no-default-export

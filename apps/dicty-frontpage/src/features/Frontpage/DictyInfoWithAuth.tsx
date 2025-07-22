@@ -1,5 +1,5 @@
 import { DictyInfo, AuthorizedDictyInfo } from "@dictybase/ui-frontpage"
-import { useAuthorization } from "@dictybase/auth-mui5"
+import { useAuthorization } from "@dictybase/auth"
 import { match } from "ts-pattern"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { NAMESPACE } from "../../common/constants/namespace"

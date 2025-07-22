@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { makeStyles, Container, Button, Typography } from "@material-ui/core"
-import { ACCESS } from "@dictybase/auth-mui5"
+import { ACCESS } from "@dictybase/auth"
 import { Editor } from "@dictybase/editor"
 import { ActionBar } from "@dictybase/ui-common"
 import { CreateButton } from "../../common/components/CreateButton"
