@@ -5,33 +5,12 @@ import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import Typography from "@material-ui/core/Typography"
-import { MuiThemeProvider, createTheme } from "@material-ui/core/styles"
 import { Organism } from "dicty-graphql-schema"
-import { appTheme } from "../../app/layout/AppProviders"
 import { Citations } from "./Citations"
 import { DownloadsTable } from "./DownloadsTable"
 import { DownloadsHeader } from "./DownloadsHeader"
 
 // create theme with our standard tab overrides
-const muiTheme = createTheme({
-  ...appTheme,
-  overrides: {
-    MuiTab: {
-      root: {
-        textTransform: "none",
-      },
-    },
-    MuiTabs: {
-      root: {
-        backgroundColor: "#cce6ff",
-        color: "#000",
-      },
-      indicator: {
-        backgroundColor: "#80c1ff",
-      },
-    },
-  },
-})
 
 type Properties = {
   data: Organism[]
@@ -69,7 +48,7 @@ const DownloadsDisplay = ({ data }: Properties) => {
   }
 
   return (
-    <MuiThemeProvider theme={muiTheme}>
+    <>
       <Helmet>
         <title>dictyBase Downloads</title>
         <meta
@@ -92,7 +71,7 @@ const DownloadsDisplay = ({ data }: Properties) => {
           {generateTabContainers(data)}
         </Grid>
       </Grid>
-    </MuiThemeProvider>
+    </>
   )
 }
 
