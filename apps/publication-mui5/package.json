@@ -24,6 +24,7 @@
     "@dictybase/auth-mui5": "*",
     "@dictybase/data-access": "*",
     "@dictybase/google-analytics": "*",
+    "@dictybase/ui-common": "*",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fontsource-variable/inter-tight": "^5.1.0",
