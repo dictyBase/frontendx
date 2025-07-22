@@ -1,5 +1,5 @@
 {
-  "name": "publication",
+  "name": "publication-mui5",
   "version": "0.0.0-semantically-released",
   "private": true,
   "homepage": "/publication",
@@ -13,7 +13,7 @@
     "oxlint": "oxlint src/",
     "oxlint:ci": "oxlint src/ --format=github",
     "lint": "eslint src/ --ext .ts --ext .tsx",
-    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/publication.json",
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/publication-mui5.json",
     "pre-commit": "lint-staged",
     "styleguide": "FAST_REFRESH=false styleguidist server",
     "styleguide:build": "FAST_REFRESH=false styleguidist build",
@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@apollo/client": "3.x",
-    "@dictybase/auth": "*",
+    "@dictybase/auth-mui5": "*",
     "@dictybase/data-access": "*",
     "@dictybase/google-analytics": "*",
     "@emotion/react": "^11.11.1",
@@ -32,8 +32,6 @@
     "@rescript/react": "^0.10.3",
     "apollo3-cache-persist": "^0.14.1",
     "date-fns": "^2.30.0",
-    "dicty-components-header-footer": "dictybase/dicty-components-header-footer#11.0.1",
-    "dicty-components-login": "dictybase/dicty-components-login#4.1.1",
     "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.31.0",
     "dicty-hooks": "dictybase/dicty-hooks#3.0.0",
     "element-remove": "^1.0.4",
