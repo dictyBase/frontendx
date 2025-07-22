@@ -53,7 +53,7 @@ const DscApp = () => {
         frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
         stockCenterUrl={import.meta.env.VITE_APP_STOCKCENTER_URL}
       />
-    </div>
+    </Box>
   )
 }
 
