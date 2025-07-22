@@ -1,0 +1,32 @@
+{
+    "name": "dicty-publication",
+    "sources": [
+        {
+            "dir": "pages",
+            "subdirs": true
+        },
+        {
+            "dir": "components",
+            "subdirs": true
+        },
+        {
+            "dir": "common",
+            "subdirs": true
+        }
+    ],
+    "package-specs": [
+        {
+            "module": "es6",
+            "in-source": true
+        }
+    ],
+    "suffix": ".bs.js",
+    "reason": {
+        "react-jsx": 3
+    },
+    "bs-dependencies": [
+        "@rescript/react",
+        "rescript-material-ui",
+        "rescript-material-ui-lab"
+    ]
+}

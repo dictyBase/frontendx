@@ -1,0 +1,12 @@
+ci:
+  collect:
+    url: https://eric.dictybase.dev/publication/18559084 
+    settings:
+      chromeFlags: "--disable-gpu --no-sandbox"
+  assert:
+    preset: "lighthouse:all"
+  upload:
+    target: lhci
+    serverBaseUrl: https://lighthouse.dictycr.org
+    token: b6472ebf-ac4b-4484-a3d3-e1ac70338085
+

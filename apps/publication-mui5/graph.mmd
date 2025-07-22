@@ -1,0 +1,9 @@
+graph TD
+    A[_app] --> |React.Context - AuthStore: stores auth state| B[AuthProvider]
+    B --> |ApolloClient & Mui theme| C[AppProvider]
+    C --> D[Head]
+    C --> E{Routes}
+    E --> |:id/index - fetch publication data| F[PublicationPageWrapper]
+    F --> |loading GQL data| G[PublicationLoader]
+    F --> |error fetching GQL data| H[ErrorPage]
+    F --> |render publication data| I[PublicationPage]
