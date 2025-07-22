@@ -1,3 +1,4 @@
+import { FunctionComponent } from "react"
 import {
   MuiThemeProvider as MuiThemeProviderMUI4,
   createGenerateClassName,
@@ -12,7 +13,7 @@ const generateClassName = createGenerateClassName({
   seed: "dicty-mui-jss",
 })
 
-const ThemeProvider = ({ children }: { children: React.ReactNode }) => (
+const ThemeProvider: FunctionComponent = ({ children }) => (
   <StylesProvider generateClassName={generateClassName}>
     <MUI5ThemeProvider theme={dictyThemeMUI5}>
       <MuiThemeProviderMUI4 theme={dictyThemeMUI4}>
