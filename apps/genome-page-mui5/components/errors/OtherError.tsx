@@ -1,5 +1,5 @@
 import React from "react"
-import Grid from "@material-ui/core/Grid"
+import { Box, Grid } from "@material-ui/core"
 import Typography from "@material-ui/core/Typography"
 import Image from "next/image"
 import { ErrorMessage } from "./ErrorMessage"
@@ -15,7 +15,7 @@ const OtherError = () => {
   return (
     <Grid container justifyContent="center">
       <Grid item xs={10} md={8}>
-        <div className={classes.error400}>
+        <Box className={classes.error400}>
           <Image
             src="https://storage.dictybase.dev/editor/assets/2024-11-04/0627257c-9ce3-4f02-b000-9e16ef5b1062"
             alt="Sad Dicty Logo"
@@ -24,7 +24,7 @@ const OtherError = () => {
           />
           <Typography variant="h2"> Sorry, something went wrong. </Typography>
           <ErrorMessage />
-        </div>
+        </Box>
       </Grid>
     </Grid>
   )

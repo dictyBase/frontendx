@@ -1,3 +1,4 @@
+import { Box } from "@material-ui/core"
 import { render, screen } from "@testing-library/react"
 import { renderHook, act } from "@testing-library/react-hooks"
 import { useRouter } from "next/router"
@@ -19,11 +20,11 @@ describe("useSearchParameters", () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
-    // Setup mock router for each test
-    ;(useRouter as jest.Mock).mockReturnValue({
-      query: { gene: "sadA", author: "smith", year: "2020" },
-      replace: mockReplace,
-    })
+      // Setup mock router for each test
+      ; (useRouter as jest.Mock).mockReturnValue({
+        query: { gene: "sadA", author: "smith", year: "2020" },
+        replace: mockReplace,
+      })
   })
 
   test("should filter search parameters based on provided fields", () => {
@@ -103,11 +104,11 @@ describe("useSearchWithRouter", () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
-    // Setup mock router for each test
-    ;(useRouter as jest.Mock).mockReturnValue({
-      query: { gene: "sadA", author: "smith", title: "dicty" },
-      replace: mockReplace,
-    })
+      // Setup mock router for each test
+      ; (useRouter as jest.Mock).mockReturnValue({
+        query: { gene: "sadA", author: "smith", title: "dicty" },
+        replace: mockReplace,
+      })
   })
 
   test("should initialize with correct values from URL", () => {
@@ -295,7 +296,7 @@ describe("useSearchWithRouter", () => {
   })
 
   test("should filter fields correctly", () => {
-    ;(useRouter as jest.Mock).mockReturnValue({
+    ; (useRouter as jest.Mock).mockReturnValue({
       query: { author: "smith", title: "dicty" },
       replace: jest.fn(),
     })
@@ -331,7 +332,7 @@ describe("useSearchWithRouter", () => {
 
   test("should render tags correctly", () => {
     // Mock the router query to have exactly two items for this test
-    ;(useRouter as jest.Mock).mockReturnValue({
+    ; (useRouter as jest.Mock).mockReturnValue({
       query: { author: "smith", title: "dicty" },
       replace: jest.fn(),
     })
@@ -346,9 +347,9 @@ describe("useSearchWithRouter", () => {
 
     // Create a wrapper component to render the tags
     const TagsWrapper = () => (
-      <div data-testid="tags-container">
+      <Box data-testid="tags-container">
         {result.current.renderTags(["author", "title"])}
-      </div>
+      </Box>
     )
 
     // Render the wrapper component
@@ -364,7 +365,7 @@ describe("useSearchWithRouter", () => {
 
   test("should render tags correctly when isAcceptingInput is false", () => {
     // Mock the router query with initial data
-    ;(useRouter as jest.Mock).mockReturnValue({
+    ; (useRouter as jest.Mock).mockReturnValue({
       query: { author: "smith" },
       replace: jest.fn(),
     })
@@ -405,9 +406,9 @@ describe("useSearchWithRouter", () => {
 
     // Create a wrapper component to render the tags
     const TagsWrapper = () => (
-      <div data-testid="tags-container">
+      <Box data-testid="tags-container">
         {result.current.renderTags(["author", "gene"])}
-      </div>
+      </Box>
     )
 
     // Render the wrapper component

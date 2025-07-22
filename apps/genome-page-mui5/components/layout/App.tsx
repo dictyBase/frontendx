@@ -1,6 +1,6 @@
 import React from "react"
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import Container from "@material-ui/core/Container"
+import { Box, Container } from "@material-ui/core"
 import { HeaderWithAuth, NavbarWithAuth, FooterWithAuth } from "@dictybase/auth"
 import { ErrorBoundary } from "components/errors/ErrorBoundary"
 import { navTheme } from "common/utils/themes"
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 const App = ({ children }: { children: React.ReactNode }) => {
   const classes = useStyles()
   return (
-    <div className={classes.body}>
+    <Box className={classes.body}>
       <HeaderWithAuth
         frontPageUrl={process.env.NEXT_PUBLIC_FRONTPAGE_URL}
         basename={process.env.NEXT_PUBLIC_BASENAME}
@@ -51,7 +51,7 @@ const App = ({ children }: { children: React.ReactNode }) => {
         frontPageUrl={process.env.NEXT_PUBLIC_FRONTPAGE_URL}
         stockCenterUrl={process.env.NEXT_PUBLIC_STOCKCENTER_URL}
       />
-    </div>
+    </Box>
   )
 }
 

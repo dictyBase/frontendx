@@ -6,6 +6,7 @@ import AddIcon from "@material-ui/icons/Add"
 import FileDownloadIcon from "@material-ui/icons/GetApp"
 import InfoIcon from "@material-ui/icons/Info"
 import { SvgIconProps } from "@material-ui/core/SvgIcon"
+import { Box } from "@material-ui/core"
 import LogoutIcon from "@mui/icons-material/Logout"
 import LoginIcon from "@mui/icons-material/Login"
 
@@ -21,24 +22,24 @@ type LinkIconProperties = {
 }
 
 const LinkIcon = ({ link }: LinkIconProperties) => (
-  <div style={{ textAlign: "center" }}>
+  <Box style={{ textAlign: "center" }}>
     {link.icon}
     <br />
     {link.text}
-  </div>
+  </Box>
 )
 
 const HeaderLinks = ({ items }: { items: LinkProperties[] }) => (
   <>
     {items.map((link: LinkProperties) =>
       link.isRouter ? (
-        <div key={link.url} style={{ padding: "15px" }}>
+        <Box key={link.url} style={{ padding: "15px" }}>
           <Link href={link.url} passHref>
             <a>
               <LinkIcon link={link} />
             </a>
           </Link>
-        </div>
+        </Box>
       ) : (
         <HeaderLink key={link.url} href={link.url}>
           <LinkIcon link={link} />

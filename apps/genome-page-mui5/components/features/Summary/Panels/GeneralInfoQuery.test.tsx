@@ -1,3 +1,4 @@
+import { Box } from "@material-ui/core"
 import { render, screen } from "@testing-library/react"
 import { mockGeneralInfoData } from "mocks/mockGeneralInfoData"
 import { GeneralInfoQuery } from "./GeneralInfoQuery"
@@ -22,10 +23,10 @@ jest.mock("next/router", () => ({
 // Mock the PanelWrapper component
 jest.mock("components/panels/PanelWrapper", () => ({
   PanelWrapper: ({ children, title }: any) => (
-    <div data-testid={PANEL_WRAPPER_TESTID}>
+    <Box data-testid={PANEL_WRAPPER_TESTID}>
       <h2>{title}</h2>
-      <div>{children}</div>
-    </div>
+      <Box>{children}</Box>
+    </Box>
   ),
 }))
 
@@ -83,9 +84,9 @@ describe("features/Summary/Panels/GeneralInfoQuery", () => {
     // Mock NoDataPanel
     jest.mock("./NoDataPanel", () => ({
       NoDataPanel: ({ query, geneId }: any) => (
-        <div data-testid="no-data-panel">
+        <Box data-testid="no-data-panel">
           No {query} for {geneId}
-        </div>
+        </Box>
       ),
     }))
 
