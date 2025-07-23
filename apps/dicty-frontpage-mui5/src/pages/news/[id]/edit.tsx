@@ -18,7 +18,7 @@ import {
   ExitEditingButton,
   SavingError,
 } from "@dictybase/ui-common"
-import { ACCESS } from "@dictybase/auth"
+import { ACCESS } from "@dictybase/auth-mui5"
 import { Editor } from "@dictybase/editor"
 import { ApolloError } from "@apollo/client"
 import PersonIcon from "@material-ui/icons/Person"

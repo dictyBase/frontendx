@@ -9,7 +9,7 @@ import {
 import { fst, snd, mapSnd } from "fp-ts/Tuple"
 import { Ord, contramap } from "fp-ts/Ord"
 import { match, P } from "ts-pattern"
-import { ACCESS } from "@dictybase/auth"
+import { ACCESS } from "@dictybase/auth-mui5"
 import {
   FullPageLoadingDisplay,
   LabeledDivider,
