@@ -1,6 +1,6 @@
 import { Container } from "@material-ui/core"
 import { Editor } from "@dictybase/editor"
-import { ACCESS } from "@dictybase/auth"
+import { ACCESS } from "@dictybase/auth-mui5"
 import { CreateContentForm } from "../../features/EditablePages/CreateContentForm"
 
 const CreateContentView = () => (

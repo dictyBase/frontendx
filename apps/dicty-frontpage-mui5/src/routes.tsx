@@ -7,7 +7,7 @@ import {
   protectedRoutes,
   privateRoutes,
   buildMergedRoutes,
-} from "@dictybase/auth"
+} from "@dictybase/auth-mui5"
 import { NotFoundError } from "@dictybase/ui-common"
 
 const dynamicRoutes: dynamicRoutesProperties = import.meta.glob(
