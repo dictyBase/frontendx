@@ -3948,11 +3948,6 @@
   resolved "https://registry.yarnpkg.com/@rescript/react/-/react-0.10.3.tgz#a2a8bed6b017940ec26c2154764b350f50348889"
   integrity sha512-Lf9rzrR3bQPKJjOK3PBRa/B3xrJ7CqQ1HYr9VHPVxJidarIJJFZBhj0Dg1uZURX+Wg/xiP0PHFxXmdj2bK8Vxw==
 
-"@rescript/std@^9.0.1":
-  version "9.1.4"
-  resolved "https://registry.yarnpkg.com/@rescript/std/-/std-9.1.4.tgz#94971cb504b10d36d470618fa1c6f0a2d03a6b9b"
-  integrity sha512-OHBORysVe6vmyllL24S2sXiwLGrpVRbZW5k2FverbjY3QF81VoyCRYL6kMOSNMEn9GseO/oDubK8+nvVzCSVMA==
-
 "@rollup/pluginutils@^5.1.0", "@rollup/pluginutils@^5.1.2", "@rollup/pluginutils@^5.1.3":
   version "5.1.3"
   resolved "https://registry.yarnpkg.com/@rollup/pluginutils/-/pluginutils-5.1.3.tgz#3001bf1a03f3ad24457591f2c259c8e514e0dbdf"
@@ -8128,17 +8123,6 @@ dfa@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/dfa/-/dfa-1.2.0.tgz#96ac3204e2d29c49ea5b57af8d92c2ae12790657"
   integrity sha512-ED3jP8saaweFTjeGX8HQPjeC1YYyZs98jGNZx6IiBvxW7JG5v492kamAQB3m2wop07CvU/RQmzcKr6bgcC5D/Q==
-
-dicty-components-header-footer@dictybase/dicty-components-header-footer#11.0.1:
-  version "11.0.0"
-  resolved "https://codeload.github.com/dictybase/dicty-components-header-footer/tar.gz/5c7ddac694004331ff666a7843fae5fec98c5a2a"
-
-dicty-components-login@dictybase/dicty-components-login#4.1.1:
-  version "4.1.1"
-  resolved "https://codeload.github.com/dictybase/dicty-components-login/tar.gz/2ab5fa9899580bb0042e0071f744fc7a5013945f"
-  dependencies:
-    "@rescript/react" "^0.10.3"
-    "@rescript/std" "^9.0.1"
 
 "dicty-graphql-schema@https://github.com/dictyBase/dicty-graphql-schema#v1.31.0":
   version "1.31.0"
