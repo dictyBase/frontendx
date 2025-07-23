@@ -1,5 +1,5 @@
 {
-  "name": "dicty-frontpage-mui5-mui5",
+  "name": "dicty-frontpage-mui5",
   "version": "0.0.0",
   "scripts": {
     "e2e": "BASE_URL=http://localhost:3004 playwright test",
@@ -95,6 +95,12 @@
       ">0.2%",
       "not dead",
       "not op_mini all"
+    ]
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "custom"
     ]
   },
   "msw": {
