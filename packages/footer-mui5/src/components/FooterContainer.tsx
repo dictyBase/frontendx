@@ -6,12 +6,12 @@ export const FooterContainer = ({ children }: FooterContainerProperties) => {
   const { classes } = footerStyles()
 
   return (
-    <footer className={classes.footer}>
+    <Box component="footer" className={classes.footer}>
       <Box px={2}>
         <Grid container justifyContent="center">
           {children}
         </Grid>
       </Box>
-    </footer>
+    </Box>
   )
 }
