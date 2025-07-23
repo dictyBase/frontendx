@@ -1,4 +1,5 @@
 import Skeleton from "react-loading-skeleton"
+import { Box } from "@material-ui/core"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { Editor } from "@dictybase/editor"
@@ -13,13 +14,13 @@ const dataPattern = {
   },
 }
 const LoadingDisplay = () => (
-  <div>
+  <Box>
     <br />
     <Skeleton count={2} />
     <br />
     <br />
     <Skeleton count={5} />
-  </div>
+  </Box>
 )
 
 /**
@@ -46,7 +47,7 @@ const TechnicalSummary = () => {
         ))
         .with({ loading: true }, () => <LoadingDisplay />)
         .with({ error: P.not(undefined) }, () => (
-          <div>Error retrieving technical summary information</div>
+          <Box>Error retrieving technical summary information</Box>
         ))
         .otherwise(() => (
           <></>

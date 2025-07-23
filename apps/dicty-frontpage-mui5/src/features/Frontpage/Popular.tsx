@@ -1,7 +1,6 @@
 import React from "react"
+import { Box, Grid, Button } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
-import Grid from "@material-ui/core/Grid"
-import Button from "@material-ui/core/Button"
 
 const useStyles = makeStyles({
   button: {
@@ -108,9 +107,9 @@ const Popular = () => {
   return (
     <Grid container justifyContent="center" className={classes.grid}>
       <Grid item xs={12}>
-        <div className={classes.header}>
-          <div className={classes.innerHeader}>New features and pages</div>
-        </div>
+        <Box className={classes.header}>
+          <Box className={classes.innerHeader}>New features and pages</Box>
+        </Box>
         <ul className={classes.listBox}>{widgetlist}</ul>
       </Grid>
     </Grid>

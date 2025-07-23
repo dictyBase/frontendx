@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { makeStyles } from "@material-ui/core/styles"
-import Grid from "@material-ui/core/Grid"
+import { Box, Grid } from "@material-ui/core"
 import Button from "@material-ui/core/Button"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import sadDicty from "../assets/sad-dicty.png"
@@ -38,7 +38,7 @@ const PageNotReady = () => {
   return (
     <Grid container className={classes.mainGrid} justifyContent="center">
       <Grid item xs={10} md={8}>
-        <div className={classes.container}>
+        <Box className={classes.container}>
           <img src={sadDicty} alt="Sad Dicty Logo" />
           <h1>
             <FontAwesomeIcon icon="wrench" /> Content Not Ready
@@ -57,7 +57,7 @@ const PageNotReady = () => {
               Back to homepage
             </Button>
           </Link>
-        </div>
+        </Box>
       </Grid>
     </Grid>
   )
