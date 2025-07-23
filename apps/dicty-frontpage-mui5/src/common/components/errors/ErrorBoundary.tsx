@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Box } from "@material-ui/core"
+import { Box, Grid } from "@material-ui/core"
 import { withStyles, Theme } from "@material-ui/core/styles"
 import sadDicty from "../../assets/sad-dicty.png"
 
