@@ -1,4 +1,4 @@
-import Typography from "@mui/material/Typography"
+import { Typography, Box } from "@mui/material"
 import type { ReactNode } from "react"
 import { Image } from "@dictybase/dicty-image-mui5"
 import { headerStyles } from "../styles/headerStyles"
@@ -26,9 +26,9 @@ const TitleContainer = ({ title }: { title: string }) => (
 )
 
 const LogoContainer = ({ children, frontPageUrl }: ReactChildrenProperty) => (
-  <div className={headerStyles().classes.logoContainer}>
+  <Box className={headerStyles().classes.logoContainer}>
     <a href={frontPageUrl}>{children}</a>
-  </div>
+  </Box>
 )
 
 export { ImgContainer, TitleContainer, LogoContainer }
