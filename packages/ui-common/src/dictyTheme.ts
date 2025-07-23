@@ -5,7 +5,7 @@ import "@fontsource-variable/inter"
 const bodyFontFamily = "'Inter Variable', sans-serif"
 const headerFontFamily = "'Poppins', sans-serif"
 
-const dictyThemeOptions: ThemeOptions = {
+const dictyThemeOptions = {
   // use color tool for palette -- https://material.io/resources/color/
   palette: {
     primary: {
@@ -94,6 +94,6 @@ const dictyThemeOptions: ThemeOptions = {
   },
 }
 
-const dictyTheme = createTheme(dictyThemeOptions)
+const dictyTheme = createTheme(dictyThemeOptions as ThemeOptions)
 
 export { dictyTheme, dictyThemeOptions }
