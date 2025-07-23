@@ -1,13 +1,29 @@
 import React from "react"
 import { ApolloProvider } from "@apollo/client"
-import { MuiThemeProvider } from "@material-ui/core/styles"
+import {
+  ThemeProvider as ThemeProviderMUI5,
+  createTheme as createThemeV5,
+  ThemeOptions as ThemeOptionsMUI5,
+} from "@mui/material/styles"
+import {
+  MuiThemeProvider as MuiThemeProviderMUI4,
+  StylesProvider,
+  createGenerateClassName,
+} from "@material-ui/core/styles"
 import CircularProgress from "@material-ui/core/CircularProgress"
 import {
   useGraphqlClient,
   useApolloClientCache,
   storageType,
 } from "@dictybase/data-access"
-import { dictyTheme } from "@dictybase/ui-common"
+import { dictyTheme, dictyThemeOptions } from "@dictybase/ui-common"
+
+const dictyThemeMUI5 = createThemeV5(dictyThemeOptions as ThemeOptionsMUI5)
+
+const generateClassName = createGenerateClassName({
+  disableGlobal: true,
+  seed: "dictybase",
+})
 
 const AppProviders = ({ children }: { children: React.ReactNode }) => {
   const { cache, isInitializing } = useApolloClientCache({
@@ -23,7 +39,13 @@ const AppProviders = ({ children }: { children: React.ReactNode }) => {
   }
   return (
     <ApolloProvider client={client}>
-      <MuiThemeProvider theme={dictyTheme}>{children}</MuiThemeProvider>
+      <StylesProvider generateClassName={generateClassName}>
+        <ThemeProviderMUI5 theme={dictyThemeMUI5}>
+          <MuiThemeProviderMUI4 theme={dictyTheme}>
+            {children}
+          </MuiThemeProviderMUI4>
+        </ThemeProviderMUI5>
+      </StylesProvider>
     </ApolloProvider>
   )
 }
