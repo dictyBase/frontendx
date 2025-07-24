@@ -21,6 +21,7 @@ const DownloadsContainer = () => {
       <ErrorPageWrapper error={error} />
     ))
     .with({ loading: true }, () => <DownloadsLoader />)
+    .otherwise(() => "This message should not appear.")
 }
 
 export { DownloadsContainer }
