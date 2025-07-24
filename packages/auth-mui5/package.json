@@ -16,7 +16,7 @@
   "dependencies": {
     "@dictybase/footer-mui5": "*",
     "@dictybase/header-mui5": "*",
-    "@dictybase/navbar": "*",
+    "@dictybase/navbar-mui5": "*",
     "@dictybase/ui-common": "*",
     "@logto/react": "^2.1.2",
     "react-router-dom": "~6.14.2",
