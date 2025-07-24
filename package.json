@@ -11,7 +11,7 @@
     "build": "turbo run build --filter=dicty-frontpage --filter=stock-center --filter=publication --filter=genomepage --parallel",
     "dev": "turbo run dev --filter=dicty-frontpage --filter=stock-center --filter=publication --filter=genomepage --parallel",
     "dev:mock": "turbo run dev:mock --filter dicty-frontpage",
-    "e2e": "turbo run e2e --filter=dicty-frontpage-mui5",
+    "e2e": "turbo run e2e --filter=dicty-frontpage",
     "coverage-report": "turbo run coverage-report",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch",
