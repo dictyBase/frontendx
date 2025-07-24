@@ -1,5 +1,5 @@
 {
-  "name": "dicty-frontpage-mui5",
+  "name": "dicty-frontpage",
   "version": "0.0.0",
   "scripts": {
     "e2e": "BASE_URL=http://localhost:3004 playwright test",
@@ -13,7 +13,7 @@
     "oxlint": "oxlint src/",
     "oxlint:ci": "oxlint src/ --format=github",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx --cache",
-    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/dicty-frontpage-mui5.json",
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/dicty-frontpage.json",
     "coverage": "vitest run --coverage",
     "styleguide": "FAST_REFRESH=false styleguidist server",
     "styleguide:build": "FAST_REFRESH=false styleguidist build",
