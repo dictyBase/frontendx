@@ -13,7 +13,7 @@
     "oxlint": "oxlint src/",
     "oxlint:ci": "oxlint src/ --format=github",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx --cache",
-    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/dicty-frontpage.json",
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/dicty-frontpage-legacy.json",
     "coverage": "vitest run --coverage",
     "styleguide": "FAST_REFRESH=false styleguidist server",
     "styleguide:build": "FAST_REFRESH=false styleguidist build",
