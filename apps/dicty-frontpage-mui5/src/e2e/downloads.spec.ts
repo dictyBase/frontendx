@@ -1,6 +1,6 @@
 import { test, expect } from "./baseFixtures"
 
-test("test", async ({ page }) => {
+test("Renders downloads page", async ({ page }) => {
   await page.goto("/downloads")
   await expect(
     page.getByRole("columnheader", { name: "Gene Information" }),
