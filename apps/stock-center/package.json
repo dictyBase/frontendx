@@ -17,7 +17,7 @@
     "e2e": "BASE_URL=http://localhost:3003 playwright test"
   },
   "dependencies": {
-    "@dictybase/auth": "*",
+    "@dictybase/auth-mui5": "*",
     "@dictybase/data-access": "*",
     "@dictybase/editor": "*",
     "@dictybase/google-analytics": "*",

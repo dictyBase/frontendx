@@ -1,5 +1,5 @@
 import { NotFoundErrorAuth } from "@dictybase/ui-common"
-import { ACCESS } from "@dictybase/auth"
+import { ACCESS } from "@dictybase/auth-mui5"
 // eslint-disable-next-line unicorn/prefer-export-from, import/no-default-export
 export default NotFoundErrorAuth
 export const access = ACCESS.private
