@@ -13,7 +13,8 @@
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/stock-center.json",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "test": "vitest run"
+    "test": "vitest run",
+    "e2e": "BASE_URL=http://localhost:3003 playwright test",
   },
   "dependencies": {
     "@dictybase/auth": "*",
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "@dictybase/oxlint-config": "*",
+    "@playwright/test": "^1.44.0",
     "@vitejs/plugin-react": "^4.0.3",
     "eslint-config-custom": "*",
     "msw": "2.x",
