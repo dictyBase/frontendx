@@ -1,5 +1,5 @@
 {
-  "name": "stock-center",
+  "name": "stock-center-legacy",
   "private": true,
   "type": "module",
   "version": "0.0.0",
@@ -11,7 +11,7 @@
     "oxlint": "oxlint src/",
     "oxlint:ci": "oxlint src/ --format=github",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
-    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/stock-center.json",
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/stock-center-legacy.json",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "test": "vitest run"
   },
