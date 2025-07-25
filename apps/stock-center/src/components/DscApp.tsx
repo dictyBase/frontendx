@@ -1,8 +1,12 @@
-import Container from "@material-ui/core/Container"
+import { Container, Box } from "@material-ui/core"
 import { LoadingDisplay } from "@dictybase/ui-dsc"
 import { RouterProvider } from "react-router-dom"
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import { HeaderWithAuth, NavbarWithAuth, FooterWithAuth } from "@dictybase/auth-mui5"
+import {
+  HeaderWithAuth,
+  NavbarWithAuth,
+  FooterWithAuth,
+} from "@dictybase/auth-mui5"
 import { dscRouter } from "../routes"
 import { navTheme } from "../themes"
 import { useGoogleAnalytics } from "../hooks/useGoogleAnalytics"
@@ -31,7 +35,7 @@ const DscApp = () => {
   useGoogleAnalytics()
   const classes = useStyles()
   return (
-    <div className={classes.body}>
+    <Box className={classes.body}>
       <HeaderWithAuth
         frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
         basename={import.meta.env.VITE_APP_BASENAME}
@@ -53,7 +57,7 @@ const DscApp = () => {
         frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
         stockCenterUrl={import.meta.env.VITE_APP_STOCKCENTER_URL}
       />
-    </div>
+    </Box>
   )
 }
 
