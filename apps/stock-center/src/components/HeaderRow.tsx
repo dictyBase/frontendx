@@ -29,12 +29,9 @@ const HeaderRow = () => {
     <>
       <Grid
         container
-        justifyContent="space-between"
+        justifyContent="flex-end"
         alignItems="center"
         className={container}>
-        <Grid item>
-          <Breadcrumbs />
-        </Grid>
         <Grid item>
           <CartIcon isFull={isFull} items={cartItems} />
         </Grid>
