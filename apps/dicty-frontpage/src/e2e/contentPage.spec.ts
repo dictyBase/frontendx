@@ -1,6 +1,6 @@
 import { pipe } from "fp-ts/function"
 import { flatten as Aflatten, map as Amap } from "fp-ts/Array"
-import { test, expect } from "./baseFixtures"
+import { test, expect } from "@playwright/test"
 
 const contentRoutes = [
   {

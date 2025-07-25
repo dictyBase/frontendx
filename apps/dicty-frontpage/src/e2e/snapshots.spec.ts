@@ -1,4 +1,4 @@
-import { test, expect } from "./baseFixtures"
+import { test, expect } from "@playwright/test"
 import { waitForImageLoad } from "./utils"
 
 test("Header snapshot", async ({ page }) => {
