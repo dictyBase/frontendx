@@ -224,7 +224,11 @@ const Dropdown = ({
       <Toggle theme={theme} onClick={handleClick} open={open} width={width}>
         {title}
       </Toggle>
-      <List theme={theme} open={open} ref={listReference}>
+      <List
+        data-testid={`navbar-dropdown-${title}`}
+        theme={theme}
+        open={open}
+        ref={listReference}>
         {renderItems()}
       </List>
     </Menu>
