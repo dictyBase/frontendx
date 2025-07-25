@@ -1,4 +1,4 @@
-import { test, expect } from "./baseFixtures"
+import { test, expect } from "@playwright/test"
 
 test("The base route redirects unauthorized users to ./show", async ({
   page,

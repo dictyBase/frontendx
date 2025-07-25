@@ -1,4 +1,4 @@
-import { test, expect } from "./baseFixtures"
+import { test, expect } from "@playwright/test"
 
 test("Renders downloads page", async ({ page }) => {
   await page.goto("/downloads")
