@@ -1,7 +1,7 @@
 import { match } from "ts-pattern"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { StockCenterInfo, AuthorizedStockCenterInfo } from "@dictybase/ui-dsc"
-import { useAuthorization } from "@dictybase/auth"
+import { useAuthorization } from "@dictybase/auth-mui5"
 import { NAMESPACE } from "../namespace"
 
 const authorizedRoles = ["content-admin"]

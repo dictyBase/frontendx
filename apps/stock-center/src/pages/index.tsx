@@ -6,7 +6,7 @@ import {
   CatalogLinks,
   FileLinks,
 } from "@dictybase/ui-dsc"
-import { ACCESS } from "@dictybase/auth"
+import { ACCESS } from "@dictybase/auth-mui5"
 import { StockCenterInfoWithAuth } from "../components/StockCenterInfoWithAuth"
 
 /**

@@ -6,7 +6,7 @@ import {
   UserWithRoles,
   displayOnAuthorized,
   matchEntries,
-} from "@dictybase/auth"
+} from "@dictybase/auth-mui5"
 import { Avatar, Information, EditablePagesList, Title, NoPages } from "ui-user"
 
 const useStyles = makeStyles((theme: Theme) => ({
