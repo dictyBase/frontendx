@@ -3,7 +3,6 @@ import { Grid, makeStyles } from "@material-ui/core"
 import { CartIcon } from "@dictybase/ui-dsc"
 import { useAtomValue } from "jotai"
 import { Outlet } from "react-router-dom"
-import { Breadcrumbs } from "./Breadcrumbs"
 import { isFullAtom, strainItemsAtom, plasmidItemsAtom } from "../cartState"
 
 const useStyles = makeStyles({
