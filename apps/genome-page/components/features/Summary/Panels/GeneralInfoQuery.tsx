@@ -13,7 +13,7 @@ const GeneralInfoQuery = () => {
   const gene = query.id as string
   const result = useGeneGeneralInformationSummaryQuery({
     variables: {
-      gene,
+      gene: "testsfd",
     },
     fetchPolicy: "cache-and-network",
     nextFetchPolicy: "cache-only",
@@ -39,7 +39,7 @@ const GeneralInfoQuery = () => {
         ))
         .with(
           {
-            data: P.nullish,
+            data: P.union({ geneGeneralInformation: P.nullish }, P.nullish)
           },
           () => <NoDataPanel query="Gene Summary" geneId={gene} />,
         )
