@@ -39,7 +39,7 @@ const GeneralInfoQuery = () => {
         ))
         .with(
           {
-            data: P.union({ geneGeneralInformation: P.nullish }, P.nullish)
+            data: P.union({ geneGeneralInformation: P.nullish }, P.nullish),
           },
           () => <NoDataPanel query="Gene Summary" geneId={gene} />,
         )
