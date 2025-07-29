@@ -12,7 +12,7 @@ const customJestConfig = {
   testEnvironment: "jsdom",
   setupFilesAfterEnv: ["./jest.setup.js"],
   modulePaths: ["./"],
-  testPathIgnorePatterns: ["__tests__/mocks/"],
+  testPathIgnorePatterns: ["__tests__/mocks/", "e2e/"],
   coveragePathIgnorePatterns: ["__tests__/mocks/", "common/hooks/"],
   collectCoverageFrom: [
     "**/components/**/*.{ts,tsx}",
