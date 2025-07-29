@@ -8,7 +8,7 @@ import {
   useApolloClientCache,
   storageType,
 } from "@dictybase/data-access"
-import { dictyTheme } from "@dictybase/ui-common"
+import { ThemeProvider } from "./ThemeProvider"
 
 const logtoConfig: LogtoConfig = {
   endpoint: process.env.NEXT_PUBLIC_LOGTO_ENDPOINT,
@@ -49,7 +49,7 @@ const AppProviders = ({ children }: { children: React.ReactNode }) => {
   return (
     <LogtoProvider config={logtoConfig}>
       <ApolloProvider client={client}>
-        <MuiThemeProvider theme={dictyTheme}>{children}</MuiThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </ApolloProvider>
     </LogtoProvider>
   )
