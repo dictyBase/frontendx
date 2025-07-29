@@ -42,7 +42,7 @@ const imageStyles = makeStyles<StyleProperties>()(
   }),
 )
 
-const iconStyles = makeStyles()({
+const useIconStyles = makeStyles()({
   icons: {
     width: "100%",
     marginLeft: "-100%",
@@ -52,4 +52,4 @@ const iconStyles = makeStyles()({
   },
 })
 
-export { imageStyles, iconStyles }
+export { imageStyles, useIconStyles }
