@@ -1,7 +1,5 @@
 import { defineConfig, devices } from "@playwright/test"
 
-console.log(process.env.CI)
-console.log(process.env.BASE_URL)
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
