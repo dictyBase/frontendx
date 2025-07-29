@@ -1,6 +1,5 @@
 import React, { Component } from "react"
-import Grid from "@material-ui/core/Grid"
-import Typography from "@material-ui/core/Typography"
+import { Box, Grid, Typography } from "@material-ui/core"
 import { withStyles, Theme } from "@material-ui/core/styles"
 
 const styles = (theme: Theme) => ({
@@ -65,7 +64,7 @@ class ErrorBoundary extends Component<Properties, State> {
       return (
         <Grid className={classes.gridContainer} container justify="center">
           <Grid item xs={6} className={classes.paper}>
-            <div style={{ textAlign: "center" }}>
+            <Box style={{ textAlign: "center" }}>
               <img
                 src="https://storage.dictybase.dev/editor/assets/2024-11-04/0627257c-9ce3-4f02-b000-9e16ef5b1062"
                 alt="Sad Dicty Logo"
@@ -81,7 +80,7 @@ class ErrorBoundary extends Component<Properties, State> {
                 </a>
                 .
               </Typography>
-            </div>
+            </Box>
           </Grid>
         </Grid>
       )
