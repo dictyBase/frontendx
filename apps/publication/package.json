@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@apollo/client": "3.x",
-    "@dictybase/auth": "*",
+    "@dictybase/auth-5": "*",
     "@dictybase/data-access": "*",
     "@dictybase/google-analytics": "*",
     "@emotion/react": "^11.11.1",
