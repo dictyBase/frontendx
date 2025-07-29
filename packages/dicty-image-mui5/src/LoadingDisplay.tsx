@@ -1,10 +1,10 @@
 import { Container, CircularProgress } from "@mui/material"
-import { iconStyles } from "./imageStyles"
+import { useIconStyles } from "./imageStyles"
 
 const LoadingDisplay = () => {
-  const { icons } = iconStyles()
+  const { classes } = useIconStyles()
   return (
-    <Container disableGutters className={icons}>
+    <Container disableGutters className={classes.icons}>
       <CircularProgress size={56} thickness={6} />
     </Container>
   )
