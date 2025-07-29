@@ -64,11 +64,11 @@ export default defineConfig({
   ],
 
   /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: "yarn dev",
-  //   url: process.env.BASE_URL,
-  //   reuseExistingServer: !process.env.CI,
-  // },
+  webServer: {
+    command: "yarn dev",
+    port: 5173,
+    reuseExistingServer: !process.env.CI,
+  },
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: `${process.env.BASE_URL}/publication`,
