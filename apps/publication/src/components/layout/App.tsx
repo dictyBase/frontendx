@@ -1,4 +1,5 @@
-import React from "react"
+import { FunctionComponent } from "react"
+import { Box } from "@material-ui/core"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import { HeaderWithAuth, NavbarWithAuth, FooterWithAuth } from "@dictybase/auth-mui5"
 import ErrorBoundary from "../errors/ErrorBoundary"
@@ -26,12 +27,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 /**
  * App is responsible for the main layout of the entire application.
  */
-const App = ({ children }: { children: React.ReactNode }) => {
+const App: FunctionComponent = ({ children }) => {
   const classes = useStyles()
   useGoogleAnalytics()
 
   return (
-    <div className={classes.body}>
+    <Box className={classes.body}>
       <HeaderWithAuth
         frontPageUrl={process.env.NEXT_PUBLIC_FRONTPAGE_URL}
         basename={process.env.NEXT_PUBLIC_BASENAME}
@@ -48,7 +49,7 @@ const App = ({ children }: { children: React.ReactNode }) => {
         frontPageUrl={process.env.NEXT_PUBLIC_FRONTPAGE_URL}
         stockCenterUrl={process.env.NEXT_PUBLIC_STOCKCENTER_URL}
       />
-    </div>
+    </Box>
   )
 }
 
