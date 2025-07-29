@@ -1,6 +1,6 @@
 import React from "react"
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import { HeaderWithAuth, NavbarWithAuth, FooterWithAuth } from "@dictybase/auth"
+import { HeaderWithAuth, NavbarWithAuth, FooterWithAuth } from "@dictybase/auth-mui5"
 import ErrorBoundary from "../errors/ErrorBoundary"
 import { navTheme } from "../../common/utils/themes"
 import { useGoogleAnalytics } from "../../common/hooks/useGoogleAnalytics"
