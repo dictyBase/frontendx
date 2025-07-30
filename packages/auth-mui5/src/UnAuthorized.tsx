@@ -1,10 +1,10 @@
-import makeStyles from "@mui/styles/makeStyles"
+import { makeStyles } from "tss-react/mui"
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 import Button from "@mui/material/Button"
 import ErrorIcon from "@mui/icons-material/Error"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   root: {
     marginTop: theme.spacing(2),
     "&:hover": {
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
  * UnAuthorized is the display component when there is an error.
  */
 const UnAuthorized = () => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <Box

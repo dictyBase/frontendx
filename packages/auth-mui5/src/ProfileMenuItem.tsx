@@ -1,11 +1,11 @@
 import { type MouseEvent } from "react"
 import PersonSharp from "@mui/icons-material/PersonSharp"
-import makeStyles from "@mui/styles/makeStyles"
+import { makeStyles } from "tss-react/mui"
 import MenuItem from "@mui/material/MenuItem"
 import ListItemIcon from "@mui/material/ListItemIcon"
 import ListItemText from "@mui/material/ListItemText"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   listIcon: {
     minWidth: "2rem",
   },
@@ -16,10 +16,10 @@ type ProfileMenuItemProperties = {
 }
 
 const ProfileMenuItem = ({ onClick }: ProfileMenuItemProperties) => {
-  const { listIcon } = useStyles()
+  const { classes } = useStyles()
   return (
     <MenuItem onClick={onClick}>
-      <ListItemIcon className={listIcon}>
+      <ListItemIcon className={classes.listIcon}>
         <PersonSharp />
       </ListItemIcon>
       <ListItemText> Profile </ListItemText>
