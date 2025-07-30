@@ -8,6 +8,7 @@
     "build": "next build && next export -o ./dist",
     "start": "next start",
     "test": "jest",
+    "e2e": "BASE_URL=http://localhost:3000 playwright test",
     "coverage": "jest --coverage",
     "start-production": "next start",
     "start:mock": "NEXT_PUBLIC_MOCK_SERVER=on next dev",
