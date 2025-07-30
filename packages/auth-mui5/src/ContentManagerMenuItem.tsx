@@ -1,9 +1,9 @@
 import { type MouseEvent } from "react"
-import PostAddIcon from "@material-ui/icons/PostAdd"
-import { makeStyles } from "@material-ui/core/styles"
-import MenuItem from "@material-ui/core/MenuItem"
-import ListItemIcon from "@material-ui/core/ListItemIcon"
-import ListItemText from "@material-ui/core/ListItemText"
+import PostAddIcon from "@mui/icons-material/PostAdd"
+import makeStyles from '@mui/styles/makeStyles';
+import MenuItem from "@mui/material/MenuItem"
+import ListItemIcon from "@mui/material/ListItemIcon"
+import ListItemText from "@mui/material/ListItemText"
 
 const useStyles = makeStyles({
   listIcon: {

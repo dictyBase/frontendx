@@ -1,4 +1,4 @@
-import { Box, Menu } from "@material-ui/core"
+import { Box, Menu } from "@mui/material"
 import { useState, MouseEvent } from "react"
 import {
   Option,
