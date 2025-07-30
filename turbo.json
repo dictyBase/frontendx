@@ -41,7 +41,7 @@
     "test": {},
     "test:watch": {},
     "e2e": {
-      "env": ["BASE_URL"],
+      "env": ["BASE_URL", "CI"],
       "cache": false
     },
     "coverage": {},
