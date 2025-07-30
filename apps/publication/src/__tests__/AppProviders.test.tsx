@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react"
+import { useApolloClientCache } from "@dictybase/data-access"
 import { AppProviders } from "../components/layout/AppProviders"
 
 jest.mock("@logto/react", () => ({
@@ -19,16 +20,33 @@ jest.mock("@apollo/client", () => ({
 
 jest.mock("@dictybase/data-access", () => ({
   useGraphqlClient: jest.fn(() => {}),
-  useApolloClientCache: jest.fn(() => ({
-    cache: {},
-    isInitializing: false,
-  })),
+  useApolloClientCache: jest.fn(),
   storageType: {
     INDEX: "",
   },
 }))
 
-test("renders children", () => {
+test("renders loader when ApolloClientCache is initializing", () => {
+  ;(useApolloClientCache as jest.Mock).mockImplementationOnce(() => ({
+    cache: {},
+    isInitializing: true,
+  }))
+
+  render(
+    <AppProviders>
+      <div> Test Child </div>
+    </AppProviders>,
+  )
+  expect(screen.queryByText("Test Child")).toBeNull()
+  expect(screen.getByRole("progressbar")).toBeInTheDocument()
+})
+
+test("renders children when initialization is complete", () => {
+  ;(useApolloClientCache as jest.Mock).mockImplementationOnce(() => ({
+    cache: {},
+    isInitializing: false,
+  }))
+
   render(
     <AppProviders>
       <div> Test Child </div>
