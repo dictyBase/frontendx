@@ -1,14 +1,13 @@
 import React from "react"
 import { ApolloProvider } from "@apollo/client"
 import { LogtoProvider, LogtoConfig, UserScope } from "@logto/react"
-import { MuiThemeProvider } from "@material-ui/core/styles"
+import CircularProgress from "@material-ui/core/CircularProgress"
 import {
   useGraphqlClient,
   useApolloClientCache,
   storageType,
 } from "@dictybase/data-access"
-import CircularProgress from "@material-ui/core/CircularProgress"
-import { dictyTheme } from "@dictybase/ui-common"
+import { ThemeProvider } from "./ThemeProvider"
 
 const logtoConfig: LogtoConfig = {
   endpoint: process.env.NEXT_PUBLIC_LOGTO_ENDPOINT,
@@ -49,7 +48,7 @@ const AppProviders = ({ children }: { children: React.ReactNode }) => {
   return (
     <LogtoProvider config={logtoConfig}>
       <ApolloProvider client={client}>
-        <MuiThemeProvider theme={dictyTheme}>{children}</MuiThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </ApolloProvider>
     </LogtoProvider>
   )
