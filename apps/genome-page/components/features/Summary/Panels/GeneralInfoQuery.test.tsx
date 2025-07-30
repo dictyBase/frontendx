@@ -5,6 +5,7 @@ import { GeneralInfoQuery } from "./GeneralInfoQuery"
 // Constants to avoid duplicated strings
 const GRAPHQL_SCHEMA_MODULE = "dicty-graphql-schema"
 const PANEL_WRAPPER_TESTID = "panel-wrapper"
+const TEST_GENE = "sadA"
 
 // Mock GraphQL document to avoid importing from dicty-graphql-schema
 jest.mock("dicty-graphql-schema", () => ({
@@ -15,7 +16,7 @@ jest.mock("dicty-graphql-schema", () => ({
 // Mock useRouter
 jest.mock("next/router", () => ({
   useRouter: () => ({
-    query: { id: "sadA" },
+    query: { id: TEST_GENE },
   }),
 }))
 
@@ -45,6 +46,22 @@ describe("features/Summary/Panels/GeneralInfoQuery", () => {
     expect(screen.getByText("General Information")).toBeInTheDocument()
     // Should show loader
     expect(screen.getByTestId(PANEL_WRAPPER_TESTID)).toBeInTheDocument()
+  })
+
+  it("should query with the gene id in the provided in the route parameters", () => {
+    const { useGeneGeneralInformationSummaryQuery } = jest.requireMock(
+      GRAPHQL_SCHEMA_MODULE,
+    )
+    render(<GeneralInfoQuery />)
+
+    expect(useGeneGeneralInformationSummaryQuery).toHaveBeenCalledWith({
+      variables: {
+        gene: TEST_GENE,
+      },
+      fetchPolicy: "cache-and-network",
+      nextFetchPolicy: "cache-only",
+      errorPolicy: "all",
+    })
   })
 
   it("should render general information when query returns results", async () => {
