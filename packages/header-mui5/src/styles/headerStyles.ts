@@ -40,7 +40,6 @@ const headerStyles = makeStyles()({
   linksIcon: { fontSize: "2.2rem" },
   linksButton: {
     display: "flex",
-    flexDirection: "column",
     color: "hsl(210, 100%, 25%)",
   },
   linksContainer: {
