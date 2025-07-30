@@ -14,7 +14,7 @@ const nextConfig = {
 const withTM = transpileModules([
   "@dictybase/auth-mui5",
   "@dictybase/data-access",
-  "@dictybase/dicty-image",
+  "@dictybase/dicty-image-mui5",
   "@dictybase/footer",
   "@dictybase/functional",
   "@dictybase/google-analytics",
