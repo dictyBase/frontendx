@@ -1,3 +1,4 @@
+import { Box } from "@material-ui/core"
 import { render, screen } from "@testing-library/react"
 import { mockGeneralInfoData } from "mocks/mockGeneralInfoData"
 import { mockGeneralInfoPiaA } from "mocks/piaAMocks/mockGeneralInfoPiaA"
@@ -6,21 +7,21 @@ import { GeneralInfoPanel } from "./GeneralInfoPanel"
 // Mock the ItemDisplay component
 jest.mock("components/panels/ItemDisplay", () => ({
   ItemDisplay: ({ children }: any) => (
-    <div data-testid="item-display">{children}</div>
+    <Box data-testid="item-display">{children}</Box>
   ),
 }))
 
 // Mock the LeftDisplay component
 jest.mock("components/panels/LeftDisplay", () => ({
   LeftDisplay: ({ children }: any) => (
-    <div data-testid="left-display">{children}</div>
+    <Box data-testid="left-display">{children}</Box>
   ),
 }))
 
 // Mock the RightDisplay component
 jest.mock("components/panels/RightDisplay", () => ({
   RightDisplay: ({ children }: any) => (
-    <div data-testid="right-display">{children}</div>
+    <Box data-testid="right-display">{children}</Box>
   ),
 }))
 

@@ -1,3 +1,4 @@
+import { Box } from "@material-ui/core"
 import { render, screen } from "@testing-library/react"
 import { mockReferencesData } from "mocks/mockReferencesData"
 import { ReferencesQuery } from "./ReferencesQuery"
@@ -22,10 +23,10 @@ jest.mock("next/router", () => ({
 // Mock the PanelWrapper component
 jest.mock("components/panels/PanelWrapper", () => ({
   PanelWrapper: ({ children, title }: any) => (
-    <div data-testid={PANEL_WRAPPER_TESTID}>
+    <Box data-testid={PANEL_WRAPPER_TESTID}>
       <h2>{title}</h2>
-      <div>{children}</div>
-    </div>
+      <Box>{children}</Box>
+    </Box>
   ),
 }))
 
@@ -85,9 +86,9 @@ describe("features/Summary/Panels/ReferencesQuery", () => {
     // Mock NoDataPanel
     jest.mock("./NoDataPanel", () => ({
       NoDataPanel: ({ query, geneId }: any) => (
-        <div data-testid="no-data-panel">
+        <Box data-testid="no-data-panel">
           No {query} for {geneId}
-        </div>
+        </Box>
       ),
     }))
 

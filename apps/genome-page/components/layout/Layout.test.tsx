@@ -1,3 +1,4 @@
+import { Box } from "@material-ui/core"
 import { render, screen } from "@testing-library/react"
 import { TabValues, Layout } from "./Layout"
 
@@ -7,7 +8,7 @@ describe("Layout", () => {
     gene: "dscA",
     title: "Test Gene Title",
     description: "Test gene description",
-    children: <div>Test content</div>,
+    children: <Box>Test content</Box>,
   }
 
   test("renders all four tabs correctly", () => {
