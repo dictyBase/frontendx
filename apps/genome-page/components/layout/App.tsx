@@ -1,7 +1,7 @@
 import React from "react"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import Container from "@material-ui/core/Container"
-import { HeaderWithAuth, NavbarWithAuth, FooterWithAuth } from "@dictybase/auth"
+import { HeaderWithAuth, NavbarWithAuth, FooterWithAuth } from "@dictybase/auth-mui5"
 import { ErrorBoundary } from "components/errors/ErrorBoundary"
 import { navTheme } from "common/utils/themes"
 
