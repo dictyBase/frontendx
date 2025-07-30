@@ -1,3 +1,4 @@
+import { Box } from "@material-ui/core"
 import { render, screen } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
 import { ReferencesToolbar } from "./ReferencesToolbar"
@@ -5,9 +6,9 @@ import { ReferencesToolbar } from "./ReferencesToolbar"
 // Mock the ReferencesSearchBox component
 jest.mock("./ReferenceSearchBox", () => ({
   ReferencesSearchBox: ({ fields }: { fields: string[] }) => (
-    <div data-testid="references-search-box">
+    <Box data-testid="references-search-box">
       Mock Search Box with fields: {fields.join(", ")}
-    </div>
+    </Box>
   ),
 }))
 

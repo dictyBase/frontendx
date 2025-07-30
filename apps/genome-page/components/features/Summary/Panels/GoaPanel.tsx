@@ -1,3 +1,4 @@
+import { Box } from "@material-ui/core"
 import { pipe } from "fp-ts/function"
 import { map as Amap, match as Amatch } from "fp-ts/Array"
 import { ItemDisplay } from "components/panels/ItemDisplay"
@@ -67,7 +68,7 @@ type Properties = {
  * Panel to display Gene Ontology Annotations on the Gene Summary page.
  */
 const GoaPanel = ({ goas }: Properties) => (
-  <div>
+  <Box>
     {pipe(
       goas,
       dataFilter("molecular_function"),
@@ -110,7 +111,7 @@ const GoaPanel = ({ goas }: Properties) => (
         ),
       ),
     )}
-  </div>
+  </Box>
 )
 
 export { GoaPanel }

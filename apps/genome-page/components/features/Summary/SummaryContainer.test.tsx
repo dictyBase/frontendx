@@ -1,3 +1,4 @@
+import { Box } from "@material-ui/core"
 import { render, screen } from "@testing-library/react"
 import { SummaryContainer } from "./SummaryContainer"
 
@@ -5,26 +6,26 @@ import { SummaryContainer } from "./SummaryContainer"
 jest.mock("@material-ui/core/Typography", () => ({
   __esModule: true,
   default: ({ children, component }: any) => (
-    <div data-testid="typography" data-component={component}>
+    <Box data-testid="typography" data-component={component}>
       {children}
-    </div>
+    </Box>
   ),
 }))
 
 // Mock the query components
 jest.mock("components/features/Summary/Panels/GeneralInfoQuery", () => ({
   GeneralInfoQuery: () => (
-    <div data-testid="general-info-query">General Info Query</div>
+    <Box data-testid="general-info-query">General Info Query</Box>
   ),
 }))
 
 jest.mock("components/features/Summary/Panels/GoaQuery", () => ({
-  GoaQuery: () => <div data-testid="goa-query">GOA Query</div>,
+  GoaQuery: () => <Box data-testid="goa-query">GOA Query</Box>,
 }))
 
 jest.mock("components/features/Summary/Panels/ReferencesQuery", () => ({
   ReferencesQuery: () => (
-    <div data-testid="references-query">References Query</div>
+    <Box data-testid="references-query">References Query</Box>
   ),
 }))
 

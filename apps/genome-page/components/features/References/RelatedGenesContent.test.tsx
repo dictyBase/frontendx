@@ -1,3 +1,4 @@
+import { Box } from "@material-ui/core"
 import { render, screen } from "@testing-library/react"
 import { SelectedPublication } from "common/@types"
 import { Gene } from "dicty-graphql-schema"
@@ -8,13 +9,13 @@ import { RelatedGenesDisplay } from "./RelatedGenesDisplay"
 // Mock the child components
 jest.mock("./RelatedGenesHeader", () => ({
   RelatedGenesHeader: jest.fn(() => (
-    <div data-testid="mocked-header">Mocked Header</div>
+    <Box data-testid="mocked-header">Mocked Header</Box>
   )),
 }))
 
 jest.mock("./RelatedGenesDisplay", () => ({
   RelatedGenesDisplay: jest.fn(() => (
-    <div data-testid="mocked-display">Mocked Display</div>
+    <Box data-testid="mocked-display">Mocked Display</Box>
   )),
 }))
 
