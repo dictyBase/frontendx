@@ -1,5 +1,4 @@
-import { Skeleton } from '@mui/material';
-import { Box } from "@mui/material"
+import { Skeleton, Box } from "@mui/material"
 import { v4 as uuid } from "uuid"
 
 /**
