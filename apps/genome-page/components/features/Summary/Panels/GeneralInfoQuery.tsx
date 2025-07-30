@@ -13,7 +13,7 @@ const GeneralInfoQuery = () => {
   const gene = query.id as string
   const result = useGeneGeneralInformationSummaryQuery({
     variables: {
-      gene: "testsfd",
+      gene,
     },
     fetchPolicy: "cache-and-network",
     nextFetchPolicy: "cache-only",
