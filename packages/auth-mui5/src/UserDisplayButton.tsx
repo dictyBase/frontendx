@@ -1,9 +1,9 @@
 /* eslint-disable react/function-component-definition */
 import { MouseEvent } from "react"
-import { styled } from "@material-ui/styles"
+import { styled } from "@mui/styles"
 import { pipe } from "fp-ts/function"
-import { Button, Tooltip } from "@material-ui/core"
-import { AccountBox } from "@material-ui/icons"
+import { Button, Tooltip } from "@mui/material"
+import { AccountBox } from "@mui/icons-material"
 import { nameToUpperInitial } from "./functional"
 import { type UserWithRoles } from "./const"
 

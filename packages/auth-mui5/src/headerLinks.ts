@@ -1,9 +1,11 @@
-import { iconButtonPipe, createDefaultIconItems } from "@dictybase/header"
+import { iconButtonPipe, createDefaultIconItems } from "@dictybase/header-mui5"
 import { pipe } from "fp-ts/function"
-import { Add, Info, ArrowDownward as Download } from "@material-ui/icons"
+import { Add, Info, ArrowDownward as Download } from "@mui/icons-material"
 import { v4 as uuid4 } from "uuid"
 
-const createAuthorizedIconItems = (frontPageUrl: string) => [
+const createAuthorizedIconItems: typeof createDefaultIconItems = (
+  frontPageUrl: string,
+) => [
   {
     href: `${frontPageUrl}/community/citation/editable`,
     title: "Cite Us",

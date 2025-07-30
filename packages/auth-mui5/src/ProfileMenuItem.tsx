@@ -1,9 +1,9 @@
 import { type MouseEvent } from "react"
-import PersonSharp from "@material-ui/icons/PersonSharp"
-import { makeStyles } from "@material-ui/core/styles"
-import MenuItem from "@material-ui/core/MenuItem"
-import ListItemIcon from "@material-ui/core/ListItemIcon"
-import ListItemText from "@material-ui/core/ListItemText"
+import PersonSharp from "@mui/icons-material/PersonSharp"
+import makeStyles from '@mui/styles/makeStyles';
+import MenuItem from "@mui/material/MenuItem"
+import ListItemIcon from "@mui/material/ListItemIcon"
+import ListItemText from "@mui/material/ListItemText"
 
 const useStyles = makeStyles({
   listIcon: {
