@@ -1,6 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles"
-import Grid from "@material-ui/core/Grid"
-import Button from "@material-ui/core/Button"
+import { Box, Grid, Button } from "@material-ui/core"
 import FontAwesome from "react-fontawesome"
 import Image from "next/image"
 
@@ -40,7 +39,7 @@ const PageNotReady = () => {
   return (
     <Grid container className={classes.mainGrid} justifyContent="center">
       <Grid item xs={10} md={8}>
-        <div className={classes.container}>
+        <Box className={classes.container}>
           <Image
             src="https://storage.dictybase.dev/editor/assets/2024-11-04/0627257c-9ce3-4f02-b000-9e16ef5b1062"
             alt="Sad Dicty Logo"
@@ -63,7 +62,7 @@ const PageNotReady = () => {
             color="primary">
             Back to homepage
           </Button>
-        </div>
+        </Box>
       </Grid>
     </Grid>
   )

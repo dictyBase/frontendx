@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import Grid from "@material-ui/core/Grid"
+import { Box, Grid } from "@material-ui/core"
 import { withStyles, Theme } from "@material-ui/core/styles"
 import Image from "next/image"
 
@@ -69,7 +69,7 @@ class ErrorBoundary extends Component<Properties, State> {
           container
           justifyContent="center">
           <Grid item xs={6} className={classes.paper}>
-            <div style={{ textAlign: "center" }}>
+            <Box style={{ textAlign: "center" }}>
               <Image
                 src="/sad-dicty.png"
                 alt="Sad Dicty Logo"
@@ -85,7 +85,7 @@ class ErrorBoundary extends Component<Properties, State> {
                 </a>
                 .
               </p>
-            </div>
+            </Box>
           </Grid>
         </Grid>
       )

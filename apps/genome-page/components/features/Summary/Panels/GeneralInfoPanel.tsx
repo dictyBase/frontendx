@@ -1,4 +1,5 @@
 import React from "react"
+import { Box } from "@material-ui/core"
 import { GeneGeneralInformationSummaryQuery } from "dicty-graphql-schema"
 import { pipe } from "fp-ts/function"
 import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray"
@@ -73,7 +74,7 @@ const GeneralInfoPanel = ({ generalInformation }: Properties) =>
         </RightDisplay>
       </ItemDisplay>
     )),
-    (children) => <div>{children}</div>,
+    (children) => <Box>{children}</Box>,
   )
 
 export { GeneralInfoPanel }

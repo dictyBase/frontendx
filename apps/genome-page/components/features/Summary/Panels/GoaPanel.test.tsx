@@ -1,3 +1,4 @@
+import { Box } from "@material-ui/core"
 import { render, screen } from "@testing-library/react"
 import { mockOntologyData } from "mocks/mockOntologyData"
 import { GoaPanel } from "./GoaPanel"
@@ -10,28 +11,28 @@ jest.mock("dicty-graphql-schema", () => ({
 // Mock the ItemDisplay component
 jest.mock("components/panels/ItemDisplay", () => ({
   ItemDisplay: ({ children }: any) => (
-    <div data-testid="item-display">{children}</div>
+    <Box data-testid="item-display">{children}</Box>
   ),
 }))
 
 // Mock the LeftDisplay component
 jest.mock("components/panels/LeftDisplay", () => ({
   LeftDisplay: ({ children }: any) => (
-    <div data-testid="left-display">{children}</div>
+    <Box data-testid="left-display">{children}</Box>
   ),
 }))
 
 // Mock the RightDisplay component
 jest.mock("components/panels/RightDisplay", () => ({
   RightDisplay: ({ children }: any) => (
-    <div data-testid="right-display">{children}</div>
+    <Box data-testid="right-display">{children}</Box>
   ),
 }))
 
 // Mock the GoaPanelContent component
 jest.mock("./GoaPanelContent", () => ({
   GoaPanelContent: ({ goa }: any) => (
-    <div data-testid="goa-panel-content">{goa.go_term}</div>
+    <Box data-testid="goa-panel-content">{goa.go_term}</Box>
   ),
 }))
 

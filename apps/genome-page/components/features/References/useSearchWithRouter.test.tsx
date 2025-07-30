@@ -1,3 +1,4 @@
+import { Box } from "@material-ui/core"
 import { render, screen } from "@testing-library/react"
 import { renderHook, act } from "@testing-library/react-hooks"
 import { useRouter } from "next/router"
@@ -346,9 +347,9 @@ describe("useSearchWithRouter", () => {
 
     // Create a wrapper component to render the tags
     const TagsWrapper = () => (
-      <div data-testid="tags-container">
+      <Box data-testid="tags-container">
         {result.current.renderTags(["author", "title"])}
-      </div>
+      </Box>
     )
 
     // Render the wrapper component
@@ -405,9 +406,9 @@ describe("useSearchWithRouter", () => {
 
     // Create a wrapper component to render the tags
     const TagsWrapper = () => (
-      <div data-testid="tags-container">
+      <Box data-testid="tags-container">
         {result.current.renderTags(["author", "gene"])}
-      </div>
+      </Box>
     )
 
     // Render the wrapper component
