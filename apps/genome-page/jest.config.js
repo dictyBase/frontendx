@@ -14,6 +14,7 @@ const customJestConfig = {
   setupFiles: ["./jest.setupEnv.js"],
   setupFilesAfterEnv: ["./jest.setup.js"],
   modulePaths: ["./", "node_modules"],
+  testPathIgnorePatterns: ["e2e/"],
   coveragePathIgnorePatterns: ["common/hooks/"],
   collectCoverageFrom: [
     "**/components/**/*.{ts,tsx}",
