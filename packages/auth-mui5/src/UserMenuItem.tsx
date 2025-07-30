@@ -1,10 +1,10 @@
 import { type MouseEvent, type ReactNode } from "react"
-import makeStyles from "@mui/styles/makeStyles"
+import { makeStyles } from "tss-react/mui"
 import MenuItem from "@mui/material/MenuItem"
 import ListItemIcon from "@mui/material/ListItemIcon"
 import ListItemText from "@mui/material/ListItemText"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   listIcon: {
     minWidth: "2rem",
   },
@@ -17,10 +17,10 @@ type UserMenuItemProperties = {
 }
 
 const UserMenuItem = ({ icon, children, onClick }: UserMenuItemProperties) => {
-  const { listIcon } = useStyles()
+  const { classes } = useStyles()
   return (
     <MenuItem onClick={onClick}>
-      <ListItemIcon className={listIcon}>{icon}</ListItemIcon>
+      <ListItemIcon className={classes.listIcon}>{icon}</ListItemIcon>
       <ListItemText>{children}</ListItemText>
     </MenuItem>
   )

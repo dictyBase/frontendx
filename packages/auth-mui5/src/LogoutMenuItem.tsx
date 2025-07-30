@@ -1,11 +1,11 @@
 import { useLogto } from "@logto/react"
 import MeetingRoom from "@mui/icons-material/MeetingRoom"
-import makeStyles from "@mui/styles/makeStyles"
+import { makeStyles } from "tss-react/mui"
 import MenuItem from "@mui/material/MenuItem"
 import ListItemIcon from "@mui/material/ListItemIcon"
 import ListItemText from "@mui/material/ListItemText"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   listIcon: {
     minWidth: "2rem",
   },
@@ -24,7 +24,7 @@ type LogoutMenuItemProperties = {
  */
 const LogoutMenuItem = ({ redirectPath }: LogoutMenuItemProperties) => {
   const { signOut } = useLogto()
-  const { listIcon } = useStyles()
+  const { classes } = useStyles()
 
   const handleClick = () => {
     signOut(redirectPath)
@@ -32,7 +32,7 @@ const LogoutMenuItem = ({ redirectPath }: LogoutMenuItemProperties) => {
 
   return (
     <MenuItem onClick={handleClick}>
-      <ListItemIcon className={listIcon}>
+      <ListItemIcon className={classes.listIcon}>
         <MeetingRoom />
       </ListItemIcon>
       <ListItemText> Logout </ListItemText>
