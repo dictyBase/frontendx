@@ -46,6 +46,7 @@ jest.mock("next/router", () => ({
  *   }> | null
  * }
  */
+
 test("should query with the gene id in the provided in the route parameters", () => {
   const { useListStrainsWithGeneQuery } = jest.requireMock(
     GRAPHQL_SCHEMA_MODULE,
@@ -62,8 +63,13 @@ test("should query with the gene id in the provided in the route parameters", ()
   })
 })
 
-test("Renders a list of phenotypes if fetched strains list is not empty and contains at least 1 phenotype", () => {})
-test("Renders a empty display if fetched strains list is not empty but contains 0 phenotypes", () => {})
-test("Renders a empty display if fetched strains list is not empty but contains 0 phenotypes", () => {})
-test("Renders a empty display if fetched strains list is empty", () => {})
-test("Renders an error display if fetched strains list is empty and any error is present", () => {})
+test("Renders an error display if listStrainsWithGene is null or undefined and an error is present", () => {})
+test("Renders an empty display if listStrainsWithGene.phenotypes is null or undefined and an error is present", () => {})
+
+test("Renders an empty display if listStrainsWithGene is null or undefined and there is no error", () => {})
+test("Renders an empty display if listStrainsWithGene.phenotypes is null or undefined and there is no error", () => {})
+
+test("Renders an empty display if listStrainsWithGene is empty", () => {})
+test("Renders an empty display if listStrainsWithGene.phenotypes is empty", () => {})
+
+test("Renders a list of phenotypes if listStrainsWithGene.phenotypes contains at least 1 phenotype", () => {})
