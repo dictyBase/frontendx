@@ -9,6 +9,7 @@ const useStyles = makeStyles({
     display: "table-cell",
     padding: "4px 56px 4px 24px",
     verticalAlign: "middle",
+    whiteSpace: "pre-wrap",
   },
   innerSpan: {
     height: "100%",
