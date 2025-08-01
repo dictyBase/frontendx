@@ -63,7 +63,6 @@ const PhenotypesPageWrapper = () => {
     nextFetchPolicy: "cache-only",
     errorPolicy: "all",
   })
-  console.log(result)
   return (
     <Layout
       tabValue={TabValues.PHENOTYPES}
