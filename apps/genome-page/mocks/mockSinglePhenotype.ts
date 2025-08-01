@@ -37,4 +37,3 @@ const singlePhenotype = {
 }
 
 export { singlePhenotype }
-
