@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react"
+import { singlePhenotype } from "mocks/mockSinglePhenotype"
 import { PhenotypesPageWrapper } from "./PhenotypesPageWrapper"
 
 // Constants to avoid duplicated strings
@@ -63,13 +64,129 @@ test("should query with the gene id in the provided in the route parameters", ()
   })
 })
 
-test("Renders an error display if listStrainsWithGene is null or undefined and an error is present", () => {})
-test("Renders an empty display if listStrainsWithGene.phenotypes is null or undefined and an error is present", () => {})
+test("Renders loading state initially", async () => {
+  // Mock the hook implementation for this test
+  const { useListStrainsWithGeneQuery } = jest.requireMock(
+    GRAPHQL_SCHEMA_MODULE,
+  )
+  useListStrainsWithGeneQuery.mockReturnValue({ loading: true })
 
-test("Renders an empty display if listStrainsWithGene is null or undefined and there is no error", () => {})
-test("Renders an empty display if listStrainsWithGene.phenotypes is null or undefined and there is no error", () => {})
+  render(<PhenotypesPageWrapper />)
 
-test("Renders an empty display if listStrainsWithGene is empty", () => {})
-test("Renders an empty display if listStrainsWithGene.phenotypes is empty", () => {})
+  // Should show title
+  expect(screen.getByText(`Phenotypes for ${TEST_GENE}`)).toBeInTheDocument()
+  // Should show loader
+  expect(screen.getByTestId("skeleton-loader")).toBeInTheDocument()
+})
 
-test("Renders a list of phenotypes if listStrainsWithGene.phenotypes contains at least 1 phenotype", () => {})
+test("Renders an error display if listStrainsWithGene is null or undefined and an error is present", () => {
+  // Mock the hook implementation for this test
+  const { useListStrainsWithGeneQuery } = jest.requireMock(
+    GRAPHQL_SCHEMA_MODULE,
+  )
+  useListStrainsWithGeneQuery.mockReturnValue({
+    loading: false,
+    error: { cause: { message: "test error" } },
+    listStrainsWithGene: undefined,
+  })
+  render(<PhenotypesPageWrapper />)
+  expect(screen.getByText("Error Details")).toBeInTheDocument()
+})
+
+test("Renders an empty display if listStrainsWithGene is null or undefined and there is no error", () => {
+  // Mock the hook implementation for this test
+  const { useListStrainsWithGeneQuery } = jest.requireMock(
+    GRAPHQL_SCHEMA_MODULE,
+  )
+  useListStrainsWithGeneQuery.mockReturnValue({
+    loading: false,
+    error: undefined,
+    data: { listStrainsWithGene: undefined },
+  })
+  render(<PhenotypesPageWrapper />)
+  expect(screen.getByText(`No Phenotypes for ${TEST_GENE}`)).toBeInTheDocument()
+})
+
+test("Renders an empty display if all listStrainsWithGene.phenotypes is null or undefined and an error is present", () => {
+  // Mock the hook implementation for this test
+  const { useListStrainsWithGeneQuery } = jest.requireMock(
+    GRAPHQL_SCHEMA_MODULE,
+  )
+  useListStrainsWithGeneQuery.mockReturnValue({
+    loading: false,
+    error: { cause: { message: "test error" } },
+    data: { listStrainsWithGene: [{ phenotypes: undefined }] },
+  })
+  render(<PhenotypesPageWrapper />)
+  expect(screen.getByText(`No Phenotypes for ${TEST_GENE}`)).toBeInTheDocument()
+})
+
+test("Renders an empty display if all listStrainsWithGene.phenotypes is null or undefined and there is no error", () => {
+  // Mock the hook implementation for this test
+  const { useListStrainsWithGeneQuery } = jest.requireMock(
+    GRAPHQL_SCHEMA_MODULE,
+  )
+  useListStrainsWithGeneQuery.mockReturnValue({
+    loading: false,
+    data: { listStrainsWithGene: [{ phenotypes: undefined }] },
+  })
+  render(<PhenotypesPageWrapper />)
+  expect(screen.getByText(`No Phenotypes for ${TEST_GENE}`)).toBeInTheDocument()
+})
+
+test("Renders an empty display if listStrainsWithGene is empty", () => {
+  // Mock the hook implementation for this test
+  const { useListStrainsWithGeneQuery } = jest.requireMock(
+    GRAPHQL_SCHEMA_MODULE,
+  )
+  useListStrainsWithGeneQuery.mockReturnValue({
+    loading: false,
+    data: { listStrainsWithGene: [] },
+  })
+  render(<PhenotypesPageWrapper />)
+  expect(screen.getByText(`No Phenotypes for ${TEST_GENE}`)).toBeInTheDocument()
+})
+test("Renders an empty display if all listStrainsWithGene.phenotypes is empty", () => {
+  // Mock the hook implementation for this test
+  const { useListStrainsWithGeneQuery } = jest.requireMock(
+    GRAPHQL_SCHEMA_MODULE,
+  )
+  useListStrainsWithGeneQuery.mockReturnValue({
+    loading: false,
+    data: { listStrainsWithGene: [{ phenotypes: [] }] },
+  })
+  render(<PhenotypesPageWrapper />)
+  expect(screen.getByText(`No Phenotypes for ${TEST_GENE}`)).toBeInTheDocument()
+})
+
+test("Renders a list of phenotypes if any listStrainsWithGene.phenotypes contains at least 1 phenotype", () => {
+  // Mock the hook implementation for this test
+  const { useListStrainsWithGeneQuery } = jest.requireMock(
+    GRAPHQL_SCHEMA_MODULE,
+  )
+  useListStrainsWithGeneQuery.mockReturnValue({
+    loading: false,
+    data: {
+      listStrainsWithGene: [
+        {
+          id: "1",
+          label: "test1",
+          characteristics: [],
+          phenotypes: [singlePhenotype],
+        },
+        {
+          id: "2",
+          label: "test2",
+          characteristics: [],
+          phenotypes: [],
+        },
+      ],
+    },
+  })
+  render(<PhenotypesPageWrapper />)
+  // Expect the page to render two rows: 1 for the table header, and 1 for the phenotype
+  expect(
+    screen.getByText("aberrant actin filament organization"),
+  ).toBeInTheDocument()
+  expect(screen.getAllByRole("row")).toHaveLength(2)
+})
