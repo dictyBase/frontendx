@@ -1,11 +1,54 @@
+import { flow, pipe } from "fp-ts/function"
+import {
+  fromNullable as OfromNullable,
+  map as Omap,
+  getOrElse as OgetOrElse,
+} from "fp-ts/Option"
+import { exists as Aexists, isNonEmpty as AisNonEmpty } from "fp-ts/Array"
 import { ErrorPageWrapper } from "components/errors/ErrorPageWrapper"
 import { PhenotypesContainer } from "components/features/Phenotypes/PhenotypesContainer"
 import { Loader } from "components/Loader"
 import { Layout, TabValues } from "components/layout/Layout"
 import { NoDataDisplay } from "components/NoDataDisplay"
-import { useListStrainsWithGeneQuery } from "dicty-graphql-schema"
+import {
+  useListStrainsWithGeneQuery,
+  ListStrainsWithGeneQuery,
+} from "dicty-graphql-schema"
 import { useRouter } from "next/router"
 import { match, P } from "ts-pattern"
+
+const loadingConditions = { loading: true }
+const successConditions = {
+  data: {
+    listStrainsWithGene: P.select(P.not(P.nullish)),
+  },
+}
+const emptyDataConditions = {
+  data: {
+    listStrainsWithGene: P.union(
+      [],
+      P.array({ phenotypes: [] }),
+      P.nullish,
+      P.array({ phenotypes: P.nullish }),
+    ),
+  },
+}
+const errorConditions = { error: P.select(P.not(P.nullish)) }
+
+const hasPhenotype = flow(
+  OfromNullable<ListStrainsWithGeneQuery["listStrainsWithGene"]>,
+  Omap(
+    Aexists(({ phenotypes }) =>
+      pipe(
+        phenotypes,
+        OfromNullable,
+        Omap(AisNonEmpty),
+        OgetOrElse(() => false),
+      ),
+    ),
+  ),
+  OgetOrElse(() => false),
+)
 /*
     Renders the Phenotypes page given a gene id
 */
@@ -18,8 +61,9 @@ const PhenotypesPageWrapper = () => {
     },
     fetchPolicy: "cache-and-network",
     nextFetchPolicy: "cache-only",
+    errorPolicy: "all",
   })
-
+  console.log(result)
   return (
     <Layout
       tabValue={TabValues.PHENOTYPES}
@@ -27,28 +71,17 @@ const PhenotypesPageWrapper = () => {
       title={`Phenotypes for ${gene}`}
       description={`Gene phenotypes for ${gene}`}>
       {match(result)
+        .with(loadingConditions, () => <Loader />)
         .with(
-          {
-            data: {
-              listStrainsWithGene: P.select(
-                P.array({ id: P.string, phenotypes: P.not([]) }),
-              ),
-            },
-          },
+          successConditions,
+          ({ data: { listStrainsWithGene } }) =>
+            hasPhenotype(listStrainsWithGene),
           (strains) => <PhenotypesContainer strains={strains} />,
         )
-        .with({ loading: true }, () => <Loader />)
-        .with(
-          {
-            data: {
-              listStrainsWithGene: P.union([], P.array({ phenotypes: [] })),
-            },
-          },
-          () => <NoDataDisplay query="Phenotypes" geneId={gene} />,
-        )
-        .with({ error: P.select(P.not(P.nullish)) }, (error) => (
-          <ErrorPageWrapper error={error} />
+        .with(emptyDataConditions, () => (
+          <NoDataDisplay query="Phenotypes" geneId={gene} />
         ))
+        .with(errorConditions, (error) => <ErrorPageWrapper error={error} />)
         .otherwise(() => (
           <> This message should not appear. </>
         ))}
