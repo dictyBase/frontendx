@@ -1,6 +1,15 @@
+import { ReactNode } from "react"
+import { pipe } from "fp-ts/function"
+import { isString } from "fp-ts/string"
+import {
+  map as Emap,
+  match as Ematch,
+  fromPredicate as EfromPredicate,
+} from "fp-ts/Either"
 import Typography from "@material-ui/core/Typography"
 import Grid from "@material-ui/core/Grid"
 import ListItem from "@material-ui/core/ListItem"
+import { parseFormattedStringToDomElements } from "@dictybase/ui-common"
 import { characterConverter } from "../utils/characterConverter"
 import { useStyles } from "./styles"
 
@@ -8,7 +17,7 @@ type DetailsListitemProperties = {
   /** Type of content to display (i.e. Strain Descriptor, Genotype, etc.) */
   title: string
   /** The actual data for that field */
-  content: string | JSX.Element | JSX.Element[] | undefined | null
+  content: ReactNode
 }
 
 /**
@@ -18,11 +27,16 @@ type DetailsListitemProperties = {
 const DetailsListItem = ({ title, content }: DetailsListitemProperties) => {
   const classes = useStyles()
 
-  let display = content
-  if (typeof display === "string") {
-    // convert any html entities
-    display = characterConverter(display)
-  }
+  const display = pipe(
+    content,
+    EfromPredicate(isString, () => content),
+    Emap(characterConverter),
+    Emap(parseFormattedStringToDomElements),
+    Ematch(
+      (original) => original,
+      (parsed) => parsed,
+    ),
+  )
 
   return (
     <ListItem className={classes.details} divider>
