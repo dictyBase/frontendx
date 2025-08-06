@@ -25,6 +25,7 @@ const GoaPanelContent = ({ goa }: Properties) => {
   if (goa.with !== null && goa.with !== undefined) {
     withData = withDataFilter(goa.with).map((xref: With) => (
       <React.Fragment key={xref.id}>
+        {" "}
         <em>with</em> <WithExtensionLink item={xref} />
       </React.Fragment>
     ))
