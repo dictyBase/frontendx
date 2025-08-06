@@ -2,12 +2,12 @@ const geneGeneralInformationSummaryQueryData = (gene: string) => ({
   data: {
     operationName: "GeneGeneralInformationSummary",
     query: `query GeneGeneralInformationSummary($gene: String!) {
-          geneGeneralInformation(gene: $gene) {
-            id
-            name_description
-            gene_product
-            synonyms
-            description
+        geneGeneralInformation(gene: $gene) {
+          id
+          name_description
+          gene_product
+          synonyms
+          description
           }
         }`,
     variables: {
@@ -31,7 +31,7 @@ const geneOntologyAnnotationSummaryQueryData = (gene: string) => ({
             db
             name
           }
-        extensions {
+          extensions {
             id
             db
             relation
@@ -45,7 +45,29 @@ const geneOntologyAnnotationSummaryQueryData = (gene: string) => ({
   },
 })
 
+const listPublicationsWithGeneSummaryQueryData = (gene: string) => ({
+  data: {
+    operationName: "ListPublicationsWithGeneSummary",
+    query: `query ListPublicationsWithGeneSummary($gene: String!) {
+        listPublicationsWithGene(gene: $gene) {
+          id
+          title
+          journal
+          pages
+          issue
+          authors {
+            last_name
+          }
+        }
+      }`,
+    variables: {
+      gene,
+    },
+  },
+})
+
 export {
   geneGeneralInformationSummaryQueryData,
   geneOntologyAnnotationSummaryQueryData,
+  listPublicationsWithGeneSummaryQueryData,
 }
