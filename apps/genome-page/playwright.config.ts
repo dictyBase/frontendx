@@ -30,6 +30,10 @@ export default defineConfig({
   },
   /* Configure projects for major browsers */
   projects: [
+    {
+      name: "global setup",
+      testMatch: /global\.setup\.ts/,
+    },
     // {
     //  name: "chromium",
     //  use: { ...devices["Desktop Chrome"] },
@@ -37,6 +41,7 @@ export default defineConfig({
     {
       name: "firefox",
       use: { ...devices["Desktop Firefox"] },
+      dependencies: ["global setup"],
     },
     // {
     //  name: "webkit",
@@ -57,10 +62,12 @@ export default defineConfig({
     {
       name: "Microsoft Edge",
       use: { ...devices["Desktop Edge"], channel: "msedge" },
+      dependencies: ["global setup"],
     },
     {
       name: "Google Chrome",
       use: { ...devices["Desktop Chrome"], channel: "chrome" },
+      dependencies: ["global setup"],
     },
   ],
 
