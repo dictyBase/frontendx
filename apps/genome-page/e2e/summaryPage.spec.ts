@@ -10,7 +10,9 @@ import {
   listPublicationsWithGeneSummaryQueryData,
 } from "./utils/gqlRequestData"
 
-const GRAPHQL_ENDPOINT = "https://graphql.dictybase.dev/graphql"
+process.loadEnvFile(".env.development")
+
+const GRAPHQL_ENDPOINT = `${process.env.NEXT_PUBLIC_GRAPHQL_SERVER}/graphql`
 
 const TEST_GENE = "DDB_G0269114"
 
@@ -88,40 +90,35 @@ test.beforeEach(async ({ page }) => {
   await page.goto(`/gene/${TEST_GENE}`)
 })
 
-test.describe(() => {
-  test.describe.configure({ retries: 3 })
-  test("Renders General information panel", async ({ page }) => {
-    await expect(page.getByText("General Information")).toBeVisible()
-    await expect(
-      page.getByText(new RegExp(`^${EXPECTED_GENERAL_INFO.id}$`)),
-    ).toBeVisible()
-    await expect(
-      page.getByText(new RegExp(`^${EXPECTED_GENERAL_INFO.gene_product}$`)),
-    ).toBeVisible()
-    await expect(
-      page.getByText(EXPECTED_GENERAL_INFO.name_description[0]),
-    ).toBeVisible()
-    await expect(
-      page.getByText(EXPECTED_GENERAL_INFO.description),
-    ).toBeVisible()
-  })
+test("Renders General information panel", async ({ page }) => {
+  await expect(page.getByText("General Information")).toBeVisible()
+  await expect(
+    page.getByText(new RegExp(`^${EXPECTED_GENERAL_INFO.id}$`)),
+  ).toBeVisible()
+  await expect(
+    page.getByText(new RegExp(`^${EXPECTED_GENERAL_INFO.gene_product}$`)),
+  ).toBeVisible()
+  await expect(
+    page.getByText(EXPECTED_GENERAL_INFO.name_description[0]),
+  ).toBeVisible()
+  await expect(page.getByText(EXPECTED_GENERAL_INFO.description)).toBeVisible()
+})
 
-  test("Renders Gene Ontology Annotations Panel ", async ({ page }) => {
-    await expect(page.getByText("Gene Ontology Annotations")).toBeVisible()
-    await expect(
-      page.getByText("protein bindingwith UniProtKB:Q54RF4 (IPI)"),
-    ).toBeVisible()
-    await expect(
-      page.getByText("regulation of mitotic nuclear division (IMP)"),
-    ).toBeVisible()
-    await expect(
-      page.getByText(
-        "nuclear envelopeexistence_starts_and_ends_during GO:0000089  (IDA)",
-      ),
-    ).toBeVisible()
-  })
+test("Renders Gene Ontology Annotations Panel ", async ({ page }) => {
+  await expect(page.getByText("Gene Ontology Annotations")).toBeVisible()
+  await expect(
+    page.getByText("protein bindingwith UniProtKB:Q54RF4 (IPI)"),
+  ).toBeVisible()
+  await expect(
+    page.getByText("regulation of mitotic nuclear division (IMP)"),
+  ).toBeVisible()
+  await expect(
+    page.getByText(
+      "nuclear envelopeexistence_starts_and_ends_during GO:0000089  (IDA)",
+    ),
+  ).toBeVisible()
+})
 
-  test("Renders Publication Panel", async ({ page }) => {
-    await expect(page.getByText("Publications (5 of 17)")).toBeVisible()
-  })
+test("Renders Publication Panel", async ({ page }) => {
+  await expect(page.getByText("Publications (5 of 17)")).toBeVisible()
 })
