@@ -10,8 +10,6 @@ import {
   listPublicationsWithGeneSummaryQueryData,
 } from "./utils/gqlRequestData"
 
-process.loadEnvFile(".env.development")
-
 const GRAPHQL_ENDPOINT = `${process.env.NEXT_PUBLIC_GRAPHQL_SERVER}/graphql`
 
 const TEST_GENE = "DDB_G0269114"
@@ -107,14 +105,14 @@ test("Renders General information panel", async ({ page }) => {
 test("Renders Gene Ontology Annotations Panel ", async ({ page }) => {
   await expect(page.getByText("Gene Ontology Annotations")).toBeVisible()
   await expect(
-    page.getByText("protein bindingwith UniProtKB:Q54RF4 (IPI)"),
+    page.getByText("protein binding with UniProtKB:Q54RF4 (IPI)"),
   ).toBeVisible()
   await expect(
     page.getByText("regulation of mitotic nuclear division (IMP)"),
   ).toBeVisible()
   await expect(
     page.getByText(
-      "nuclear envelopeexistence_starts_and_ends_during GO:0000089  (IDA)",
+      "nuclear envelope existence_starts_and_ends_during GO:0000089 (IDA)",
     ),
   ).toBeVisible()
 })
