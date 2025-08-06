@@ -34,7 +34,8 @@ const GoaPanelContent = ({ goa }: Properties) => {
   if (goa.extensions !== null && goa.extensions !== undefined) {
     extensionsData = goa.extensions.slice(0, 2).map((extension: Extension) => (
       <React.Fragment key={extension.id}>
-        <em>{extension.relation}</em> <WithExtensionLink item={extension} />{" "}
+        {" "}
+        <em>{extension.relation}</em> <WithExtensionLink item={extension} />
       </React.Fragment>
     ))
   }
