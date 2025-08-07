@@ -1,5 +1,6 @@
 import { defineConfig, devices } from "@playwright/test"
 
+const GLOBAL_SETUP = "global setup"
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -31,7 +32,7 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: "global setup",
+      name: GLOBAL_SETUP,
       testMatch: /global\.setup\.ts/,
     },
     // {
@@ -41,7 +42,7 @@ export default defineConfig({
     {
       name: "firefox",
       use: { ...devices["Desktop Firefox"] },
-      dependencies: ["global setup"],
+      dependencies: [GLOBAL_SETUP],
     },
     // {
     //  name: "webkit",
@@ -62,12 +63,12 @@ export default defineConfig({
     {
       name: "Microsoft Edge",
       use: { ...devices["Desktop Edge"], channel: "msedge" },
-      dependencies: ["global setup"],
+      dependencies: [GLOBAL_SETUP],
     },
     {
       name: "Google Chrome",
       use: { ...devices["Desktop Chrome"], channel: "chrome" },
-      dependencies: ["global setup"],
+      dependencies: [GLOBAL_SETUP],
     },
   ],
 
