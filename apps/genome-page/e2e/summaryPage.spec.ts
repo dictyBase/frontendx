@@ -69,6 +69,7 @@ test.beforeAll("Test Summary Page API", async ({ playwright }) => {
   expect(goaSummary.ok()).toBeTruthy()
   expect(geneGeneralInformation.ok()).toBeTruthy()
   expect(references.ok()).toBeTruthy()
+
   expect(await geneGeneralInformation.json()).toEqual(
     expect.objectContaining({
       data: {
