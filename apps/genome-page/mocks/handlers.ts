@@ -3,7 +3,7 @@ import {
   mockGeneOntologyAnnotationQuery,
   mockListStrainsWithGeneQuery,
   mockListPublicationsWithGeneQuery,
-} from "dicty-graphql-schema/types/mocks"
+} from "dicty-graphql-schema/dist/mocks"
 import { mockOntologyData } from "./mockOntologyData"
 import { mockOntologyPiaA } from "./piaAMocks/mockOntologyPiaA"
 import { mockOntologyAda2 } from "./ada2Mocks/mockOntologyAda2"
