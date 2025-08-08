@@ -1,15 +1,13 @@
+import {
+  GeneGeneralInformationSummary,
+  GeneOntologyAnnotationSummary,
+  ListPublicationsWithGeneSummary,
+} from "dicty-graphql-schema/dist/query"
+
 const geneGeneralInformationSummaryQueryData = (gene: string) => ({
   data: {
     operationName: "GeneGeneralInformationSummary",
-    query: `query GeneGeneralInformationSummary($gene: String!) {
-        geneGeneralInformation(gene: $gene) {
-          id
-          name_description
-          gene_product
-          synonyms
-          description
-          }
-        }`,
+    query: GeneGeneralInformationSummary.loc?.source.body,
     variables: {
       gene,
     },
@@ -19,26 +17,7 @@ const geneGeneralInformationSummaryQueryData = (gene: string) => ({
 const geneOntologyAnnotationSummaryQueryData = (gene: string) => ({
   data: {
     operationName: "GeneOntologyAnnotationSummary",
-    query: `query GeneOntologyAnnotationSummary($gene: String!) {
-        geneOntologyAnnotation(gene: $gene) {
-          id
-          type
-          date
-          go_term
-          evidence_code
-          with {
-            id
-            db
-            name
-          }
-          extensions {
-            id
-            db
-            relation
-            name
-          }
-        }
-      }`,
+    query: GeneOntologyAnnotationSummary.loc?.source.body,
     variables: {
       gene,
     },
@@ -48,18 +27,7 @@ const geneOntologyAnnotationSummaryQueryData = (gene: string) => ({
 const listPublicationsWithGeneSummaryQueryData = (gene: string) => ({
   data: {
     operationName: "ListPublicationsWithGeneSummary",
-    query: `query ListPublicationsWithGeneSummary($gene: String!) {
-        listPublicationsWithGene(gene: $gene) {
-          id
-          title
-          journal
-          pages
-          issue
-          authors {
-            last_name
-          }
-        }
-      }`,
+    query: ListPublicationsWithGeneSummary.loc?.source.body,
     variables: {
       gene,
     },
