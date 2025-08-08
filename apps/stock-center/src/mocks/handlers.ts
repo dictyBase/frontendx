@@ -9,7 +9,7 @@ import {
   mockListPhenotypeAssaysQuery,
   mockPublicationQuery,
   mockAddStrainPhenotypeMutation,
-} from "dicty-graphql-schema/types/mocks"
+} from "dicty-graphql-schema/dist/mocks"
 import { availableStrain, mockPhenotypes, mockPlasmid } from "@dictybase/ui-dsc"
 import { generateListStrainDataOfLength } from "./listStrainData"
 import { generateListPlasmidDataOfLength } from "./listPlasmidData"

@@ -7,7 +7,7 @@ import {
   mockUpdateContentMutation,
   mockDeleteContentMutation,
   Content,
-} from "dicty-graphql-schema/types/mocks"
+} from "dicty-graphql-schema/dist/mocks"
 import { formatISO } from "date-fns"
 import { pipe } from "fp-ts/function"
 import { startsWith as SstartsWith } from "fp-ts/string"
