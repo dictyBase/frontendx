@@ -1,7 +1,6 @@
 import React from "react"
 import { match } from "ts-pattern"
-import { pipe, flow } from "fp-ts/function"
-import { match as Bmatch } from "fp-ts/boolean"
+import { pipe } from "fp-ts/function"
 import { filter as Afilter, exists as Aexists } from "fp-ts/Array"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
@@ -49,6 +48,7 @@ enum TabValues {
   MANUAL,
   ELECTRONIC,
 }
+
 /**
  * Wrapper component that generates the inner tabs and their
  * corresponding layouts on the GO annotations page.
