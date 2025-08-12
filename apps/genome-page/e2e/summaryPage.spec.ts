@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/no-null */
 import { test, expect } from "@playwright/test"
 import {
-  GeneOntologyAnnotationQueryResult,
+  GeneOntologyAnnotationSummaryQueryResult,
   ListPublicationsWithGeneSummaryQueryResult,
 } from "dicty-graphql-schema"
 import {
@@ -60,7 +60,7 @@ test.beforeAll("Test Summary Page API", async ({ playwright }) => {
     listPublicationsWithGeneSummaryQueryData(TEST_GENE),
   )
 
-  const { data: goaData }: GeneOntologyAnnotationQueryResult =
+  const { data: goaData }: GeneOntologyAnnotationSummaryQueryResult =
     await goaSummary.json()
 
   const { data: referencesData }: ListPublicationsWithGeneSummaryQueryResult =
@@ -103,7 +103,7 @@ test("Renders General information panel", async ({ page }) => {
   await expect(page.getByText(EXPECTED_GENERAL_INFO.description)).toBeVisible()
 })
 
-test("Renders Gene Ontology Annotations Panel ", async ({ page }) => {
+test("Renders Gene Ontology Annotations Panel", async ({ page }) => {
   await expect(page.getByText("Gene Ontology Annotations")).toBeVisible()
   await expect(
     page.getByText("protein binding with UniProtKB:Q54RF4 (IPI)"),
