@@ -1,6 +1,7 @@
 import { Box } from "@material-ui/core"
 import { render, screen } from "@testing-library/react"
 import { mockOntologyData } from "mocks/mockOntologyData"
+import { GoAnnotation } from "dicty-graphql-schema"
 import { GoaPanel } from "./GoaPanel"
 
 // Mock any GraphQL schema types that might be imported
@@ -125,7 +126,7 @@ describe("features/Summary/Panels/GoaPanel", () => {
           with: [],
           extensions: [],
           __typename: "GOAnnotation",
-        },
+        } as GoAnnotation,
         ...mockOntologyData.goas.filter((g) => g.type !== "molecular_function"),
       ],
     }
