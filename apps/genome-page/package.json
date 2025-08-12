@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "homepage": "/gene",
-  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export -o ./dist",
