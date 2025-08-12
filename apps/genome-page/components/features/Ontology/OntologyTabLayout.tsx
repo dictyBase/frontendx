@@ -16,6 +16,7 @@ import {
   isManual,
   isElectronic,
 } from "./utils/predicates"
+import { renderOnTrue } from "./utils/renderOnTrue"
 
 const muiTheme = createTheme({
   overrides: {
@@ -48,14 +49,6 @@ enum TabValues {
   MANUAL,
   ELECTRONIC,
 }
-
-const renderOnTrue = (component: JSX.Element) =>
-  flow(
-    Bmatch(
-      () => <></>,
-      () => component,
-    ),
-  )
 /**
  * Wrapper component that generates the inner tabs and their
  * corresponding layouts on the GO annotations page.
