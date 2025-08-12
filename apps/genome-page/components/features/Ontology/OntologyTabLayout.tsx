@@ -1,4 +1,8 @@
 import React from "react"
+import { match } from "ts-pattern"
+import { pipe, flow } from "fp-ts/function"
+import { match as Bmatch } from "fp-ts/boolean"
+import { filter as Afilter, exists as Aexists } from "fp-ts/Array"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
@@ -32,31 +36,56 @@ type Properties = {
   goas: Array<GoAnnotation>
 }
 
+const EXPERIMENTAL_GOA = new Set([
+  "EXP",
+  "IMP",
+  "IGI",
+  "IDA",
+  "IPI",
+  "IEP",
+  "HTP",
+  "HDA",
+  "HMP",
+  "HGI",
+  "HEP",
+])
+
+enum TabValues {
+  ALL,
+  EXPERIMENTAL,
+  MANUAL,
+  ELECTRONIC,
+}
+
+const isAny = () => true
+const isExperimental = ({ evidence_code }: GoAnnotation) =>
+  EXPERIMENTAL_GOA.has(evidence_code)
+const isManual = ({ evidence_code }: GoAnnotation) => evidence_code !== "IEA"
+const isElectronic = ({ evidence_code }: GoAnnotation) =>
+  evidence_code === "IEA"
+const renderOnTrue = (component: JSX.Element) =>
+  flow(
+    Bmatch(
+      () => <></>,
+      () => component,
+    ),
+  )
 /**
  * Wrapper component that generates the inner tabs and their
  * corresponding layouts on the GO annotations page.
  */
 const OntologyTabLayout = ({ goas }: Properties) => {
-  const [tabValue, setTabValue] = React.useState(0)
-
+  const [tabValue, setTabValue] = React.useState<TabValues>(TabValues.ALL)
   // set variables for filtered arrays based on evidence code
-  const experimental = goas.filter(
-    (item: GoAnnotation) =>
-      item.evidence_code === "IMP" ||
-      item.evidence_code === "IGI" ||
-      item.evidence_code === "IDA" ||
-      item.evidence_code === "IPI" ||
-      item.evidence_code === "IEP" ||
-      item.evidence_code === "EXP",
-  )
-  const manual = goas.filter(
-    (item: GoAnnotation) => item.evidence_code !== "IEA",
-  )
-  const electronic = goas.filter(
-    (item: GoAnnotation) => item.evidence_code === "IEA",
-  )
+  const predicate = match(tabValue)
+    .with(TabValues.EXPERIMENTAL, () => isExperimental)
+    .with(TabValues.MANUAL, () => isManual)
+    .with(TabValues.ELECTRONIC, () => isElectronic)
+    .otherwise(() => isAny)
 
-  const handleChange = (event: React.ChangeEvent<{}>, value: number) => {
+  const filteredGoas = pipe(goas, Afilter(predicate))
+
+  const handleChange = (_: React.ChangeEvent<{}>, value: number) => {
     setTabValue(value)
   }
 
@@ -64,17 +93,30 @@ const OntologyTabLayout = ({ goas }: Properties) => {
     <MuiThemeProvider theme={muiTheme}>
       <AppBar position="static">
         <Tabs value={tabValue} onChange={handleChange}>
-          <Tab value={0} label="All GO" />
-          {experimental.length > 0 && <Tab value={1} label="Experimental GO" />}
-          {manual.length > 0 && <Tab value={2} label="Manual GO" />}
-          {electronic.length > 0 && <Tab value={3} label="Electronic GO" />}
+          <Tab value={TabValues.ALL} label="All GO" />
+          {pipe(
+            goas,
+            Aexists(isExperimental),
+            renderOnTrue(
+              <Tab value={TabValues.EXPERIMENTAL} label="Experimental GO" />,
+            ),
+          )}
+          {pipe(
+            goas,
+            Aexists(isManual),
+            renderOnTrue(<Tab value={TabValues.MANUAL} label="Manual GO" />),
+          )}
+          {pipe(
+            goas,
+            Aexists(isElectronic),
+            renderOnTrue(
+              <Tab value={TabValues.ELECTRONIC} label="Electronic GO" />,
+            ),
+          )}
         </Tabs>
       </AppBar>
       <Typography component="div">
-        {tabValue === 0 && <InnerGoPanel data={goas} />}
-        {tabValue === 1 && <InnerGoPanel data={experimental} />}
-        {tabValue === 2 && <InnerGoPanel data={manual} />}
-        {tabValue === 3 && <InnerGoPanel data={electronic} />}
+        <InnerGoPanel data={filteredGoas} />
       </Typography>
     </MuiThemeProvider>
   )
