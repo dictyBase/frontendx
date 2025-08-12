@@ -5,19 +5,19 @@ import { geneOntologyAnnotationQueryData } from "./utils/gqlRequestData"
 
 const GRAPHQL_ENDPOINT = `${process.env.NEXT_PUBLIC_GRAPHQL_SERVER}/graphql`
 
-const TEST_GENE = "DDB_G0269114"
+const TEST_GENE = "DDB_G0267382"
 
 const EXPECTED_GOA = {
-  id: "UniProtKB:Q9U7C9!801562706",
-  type: "biological_process",
-  date: "20121023",
-  go_term: "regulation of mitotic nuclear division",
-  evidence_code: "IMP",
-  qualifier: "acts_upstream_of_or_within",
-  publication: "PMID:11919178",
   assigned_by: "dictyBase",
-  with: null,
+  date: "20190926",
+  evidence_code: "IMP",
   extensions: null,
+  go_term: "mitotic cytokinesis",
+  id: "UniProtKB:P27133!615349166",
+  publication: "PMID:10098934",
+  qualifier: "acts_upstream_of_or_within",
+  type: "biological_process",
+  with: null,
 }
 
 test.beforeAll("Test Summary Page API", async ({ playwright }) => {
@@ -42,12 +42,10 @@ test.beforeEach(async ({ page }) => {
 
 test("Renders Molecular Function panel", async ({ page }) => {
   await expect(page.getByText("Molecular Function")).toBeVisible()
-  await expect(
-    page.getByText("enables calmodulin binding").first(),
-  ).toBeVisible()
+  await expect(page.getByText("enables protein binding").first()).toBeVisible()
   await expect(page.getByText("IEA").first()).toBeVisible()
   await expect(
-    page.getByRole("link", { name: "UniProtKB-KW:KW-0112" }).first(),
+    page.getByRole("link", { name: "UniProtKB-KW:KW-0009" }).first(),
   ).toBeVisible()
   await expect(
     page.getByRole("link", { name: "GO_REF:0000043" }).first(),
@@ -56,11 +54,9 @@ test("Renders Molecular Function panel", async ({ page }) => {
   await expect(
     page.getByRole("link", { name: "UniProt" }).first(),
   ).toBeVisible()
+  await expect(page.getByText("existence_overlaps").first()).toBeVisible()
   await expect(
-    page.getByText("existence_starts_and_ends_during").first(),
-  ).toBeVisible()
-  await expect(
-    page.getByRole("link", { name: "GO:0000089" }).first(),
+    page.getByRole("link", { name: "GO:0000281" }).first(),
   ).toBeVisible()
 })
 
@@ -76,5 +72,5 @@ test("Sorts data when property in the header is clicked", async ({ page }) => {
   await expect(firstMolecularFunctionRow).toBeVisible()
   await expect(firstMolecularFunctionRow.getByText("2025-04-28")).toBeVisible()
   await page.getByRole("button", { name: "Date" }).first().click()
-  await expect(firstMolecularFunctionRow.getByText("2005-06-30")).toBeVisible()
+  await expect(firstMolecularFunctionRow.getByText("2020-03-18")).toBeVisible()
 })
