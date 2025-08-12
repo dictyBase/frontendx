@@ -10,6 +10,12 @@ import Typography from "@material-ui/core/Typography"
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles"
 import { GoAnnotation } from "dicty-graphql-schema"
 import { InnerGoPanel } from "./InnerGoPanel"
+import {
+  isAny,
+  isExperimental,
+  isManual,
+  isElectronic,
+} from "./utils/predicates"
 
 const muiTheme = createTheme({
   overrides: {
@@ -36,20 +42,6 @@ type Properties = {
   goas: Array<GoAnnotation>
 }
 
-const EXPERIMENTAL_GOA = new Set([
-  "EXP",
-  "IMP",
-  "IGI",
-  "IDA",
-  "IPI",
-  "IEP",
-  "HTP",
-  "HDA",
-  "HMP",
-  "HGI",
-  "HEP",
-])
-
 enum TabValues {
   ALL,
   EXPERIMENTAL,
@@ -57,12 +49,6 @@ enum TabValues {
   ELECTRONIC,
 }
 
-const isAny = () => true
-const isExperimental = ({ evidence_code }: GoAnnotation) =>
-  EXPERIMENTAL_GOA.has(evidence_code)
-const isManual = ({ evidence_code }: GoAnnotation) => evidence_code !== "IEA"
-const isElectronic = ({ evidence_code }: GoAnnotation) =>
-  evidence_code === "IEA"
 const renderOnTrue = (component: JSX.Element) =>
   flow(
     Bmatch(
