@@ -20,21 +20,25 @@ const EXPECTED_GOA = {
   with: null,
 }
 
-test.beforeAll("Test Summary Page API", async ({ playwright }) => {
-  const apiContext = await playwright.request.newContext()
+test.beforeAll(
+  "Test Gene Ontology Annotation Page API",
+  async ({ playwright }) => {
+    const apiContext = await playwright.request.newContext()
 
-  const goa = await apiContext.post(
-    GRAPHQL_ENDPOINT,
-    geneOntologyAnnotationQueryData(TEST_GENE),
-  )
-  const { data: goaData }: GeneOntologyAnnotationQueryResult = await goa.json()
+    const goa = await apiContext.post(
+      GRAPHQL_ENDPOINT,
+      geneOntologyAnnotationQueryData(TEST_GENE),
+    )
+    const { data: goaData }: GeneOntologyAnnotationQueryResult =
+      await goa.json()
 
-  expect(goa.ok()).toBeTruthy()
+    expect(goa.ok()).toBeTruthy()
 
-  expect(goaData?.geneOntologyAnnotation).toContainEqual(
-    expect.objectContaining(EXPECTED_GOA),
-  )
-})
+    expect(goaData?.geneOntologyAnnotation).toContainEqual(
+      expect.objectContaining(EXPECTED_GOA),
+    )
+  },
+)
 
 test.beforeEach(async ({ page }) => {
   await page.goto(`/gene/${TEST_GENE}/goannotations`)
