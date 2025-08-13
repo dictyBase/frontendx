@@ -74,3 +74,50 @@ test("Sorts data when property in the header is clicked", async ({ page }) => {
   await page.getByRole("button", { name: "Date" }).first().click()
   await expect(firstMolecularFunctionRow.getByText("2020-03-18")).toBeVisible()
 })
+
+test("Shows only Experimental GO in the `Experimental GO` subtab", async ({
+  page,
+}) => {
+  // Experimental & Manual
+  await expect(page.getByText("IPI").first()).toBeVisible()
+  // Electronic
+  await expect(page.getByText("IEA").first()).toBeVisible()
+  // Manual
+  await expect(page.getByText("IBA").first()).toBeVisible()
+  await page.getByText("Experimental GO").click()
+  await expect(page.getByText("IPI").first()).toBeVisible()
+  await expect(page.getByText("IEA").first()).not.toBeVisible()
+  await expect(page.getByText("IBA").first()).not.toBeVisible()
+})
+
+test("Shows only Manual GO in the `Manual GO` subtab", async ({ page }) => {
+  // Experimental & Manual
+  await expect(page.getByText("IPI").first()).toBeVisible()
+  // Electronic
+  await expect(page.getByText("IEA").first()).toBeVisible()
+  // Manual
+  await expect(page.getByText("IBA").first()).toBeVisible()
+
+  await page.getByText("Manual GO").click()
+
+  await expect(page.getByText("IPI").first()).toBeVisible()
+  await expect(page.getByText("IEA").first()).not.toBeVisible()
+  await expect(page.getByText("IBA").first()).toBeVisible()
+})
+
+test("Shows only Electronic GO in the `Electronic GO` subtab", async ({
+  page,
+}) => {
+  // Experimental & Manual
+  await expect(page.getByText("IPI").first()).toBeVisible()
+  // Electronic
+  await expect(page.getByText("IEA").first()).toBeVisible()
+  // Manual
+  await expect(page.getByText("IBA").first()).toBeVisible()
+
+  await page.getByText("Electronic GO").click()
+
+  await expect(page.getByText("IPI").first()).not.toBeVisible()
+  await expect(page.getByText("IEA").first()).toBeVisible()
+  await expect(page.getByText("IBA").first()).not.toBeVisible()
+})
