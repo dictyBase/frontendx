@@ -3,6 +3,7 @@ import {
   GeneOntologyAnnotationSummary,
   ListPublicationsWithGeneSummary,
   GeneOntologyAnnotation,
+  ListPublicationsWithGene,
 } from "dicty-graphql-schema/dist/query"
 
 const geneGeneralInformationSummaryQueryData = (gene: string) => ({
@@ -45,9 +46,20 @@ const geneOntologyAnnotationQueryData = (gene: string) => ({
   },
 })
 
+const listPublicationsWithGeneQueryData = (gene: string) => ({
+  data: {
+    operationName: "ListPublicationsWithGene",
+    query: ListPublicationsWithGene.loc?.source.body,
+    variables: {
+      gene,
+    },
+  },
+})
+
 export {
   geneGeneralInformationSummaryQueryData,
   geneOntologyAnnotationSummaryQueryData,
   listPublicationsWithGeneSummaryQueryData,
   geneOntologyAnnotationQueryData,
+  listPublicationsWithGeneQueryData,
 }
