@@ -55,7 +55,7 @@ enum TabValues {
  */
 const OntologyTabLayout = ({ goas }: Properties) => {
   const [tabValue, setTabValue] = React.useState<TabValues>(TabValues.ALL)
-  // set variables for filtered arrays based on evidence code
+
   const predicate = match(tabValue)
     .with(TabValues.EXPERIMENTAL, () => isExperimental)
     .with(TabValues.MANUAL, () => isManual)
