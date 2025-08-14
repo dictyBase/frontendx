@@ -1,4 +1,6 @@
 import { test, expect } from "@playwright/test"
+import { pipe } from "fp-ts/function"
+import { makeBy as AmakeBy } from "fp-ts/ReadonlyNonEmptyArray"
 import { ListPublicationsWithGeneQueryResult } from "dicty-graphql-schema"
 import { listPublicationsWithGeneQueryData } from "./utils/gqlRequestData"
 
@@ -138,4 +140,46 @@ test("Sort by title (Z to A) ", async ({ page }) => {
 
   await expect(references.first()).toHaveText(/Signalling and sex in the/)
   await expect(references.last()).toHaveText(/An N-terminal nuclear/)
+})
+
+test("Search by Title", async ({ page }) => {
+  const searchBox = page.getByLabel(
+    "Search (Click for available fields to search)",
+  )
+
+  await searchBox.click()
+  await page.getByRole("option", { name: "Title" }).click()
+  await searchBox.fill("calmodulin")
+  await searchBox.press("Enter")
+
+  const filteredReferences = page.locator("tbody").getByRole("row")
+  const numberOfFilteredReferences = await filteredReferences.count()
+
+  await expect(filteredReferences).toHaveText(
+    pipe(
+      numberOfFilteredReferences,
+      AmakeBy(() => /calmodulin/i),
+    ),
+  )
+})
+
+test("Search by Author", async ({ page }) => {
+  const searchBox = page.getByLabel(
+    "Search (Click for available fields to search)",
+  )
+
+  await searchBox.click()
+  await page.getByRole("option", { name: "Author" }).click()
+  await searchBox.fill("Plattner")
+  await searchBox.press("Enter")
+
+  const filteredReferences = page.locator("tbody").getByRole("row")
+  const numberOfFilteredReferences = await filteredReferences.count()
+
+  await expect(filteredReferences).toHaveText(
+    pipe(
+      numberOfFilteredReferences,
+      AmakeBy(() => /plattner/i),
+    ),
+  )
 })
