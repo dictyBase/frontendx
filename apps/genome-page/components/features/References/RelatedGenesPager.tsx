@@ -98,7 +98,8 @@ const RelatedGenesPager = ({ genes }: Properties) => {
       container
       direction="column"
       spacing={2}
-      className={classes.container}>
+      className={classes.container}
+      data-testid="related-genes-pager">
       <Grid item>
         <RelatedGenesControls
           filteredGeneCount={filteredGenes.length}
