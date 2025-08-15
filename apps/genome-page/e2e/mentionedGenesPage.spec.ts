@@ -1,5 +1,13 @@
-const TEST_GENE = "DDB_G0269114"
+import { test, expect } from "@playwright/test"
+import { pipe } from "fp-ts/function"
+import { makeBy as AmakeBy } from "fp-ts/ReadonlyNonEmptyArray"
+import { ListPublicationsWithGeneQueryResult } from "dicty-graphql-schema"
+import { listPublicationsWithGeneQueryData } from "./utils/gqlRequestData"
+
+const GRAPHQL_ENDPOINT = `${process.env.NEXT_PUBLIC_GRAPHQL_SERVER}/graphql`
+const TEST_GENE = "wrky1"
 const TEST_PUBLICATION_ID = "18550419"
+const RELATED_GENES_TEST_LIST_ID = "related-genes-list"
 
 const EXPECTED_REFERENCE = {
   related_genes: [
@@ -39,15 +47,13 @@ const EXPECTED_REFERENCE = {
 
 test.beforeAll("Test Reference Page API", async ({ playwright }) => {
   const apiContext = await playwright.request.newContext()
-
-  const request = await apiContext.post(
+  const response = await apiContext.post(
     GRAPHQL_ENDPOINT,
     listPublicationsWithGeneQueryData(TEST_GENE),
   )
   const { data: referenceData }: ListPublicationsWithGeneQueryResult =
-    await request.json()
-
-  expect(request.ok()).toBeTruthy()
+    await response.json()
+  expect(response.ok()).toBeTruthy()
 
   expect(referenceData?.listPublicationsWithGene).toContainEqual(
     expect.objectContaining(EXPECTED_REFERENCE),
@@ -58,4 +64,77 @@ test.beforeEach(async ({ page }) => {
   await page.goto(`/gene/${TEST_GENE}/references/${TEST_PUBLICATION_ID}`)
 })
 
-test("", () => {})
+test("Displays publication title", async ({ page }) => {
+  await expect(page.getByText(/17 Genes mentioned in/)).toBeVisible()
+  await expect(
+    page.getByRole("heading", { name: EXPECTED_REFERENCE.title }),
+  ).toBeVisible()
+})
+
+test("Displays mentioned genes", async ({ page }) => {
+  await expect(page.getByText(/17 of 17 Genes/)).toBeVisible()
+
+  const genesList = page.getByTestId(RELATED_GENES_TEST_LIST_ID)
+  // Gene items should be clickable; 16 on first page
+  await expect(genesList.getByRole("button")).toHaveCount(16)
+  await page.getByLabel("Go to next page").click()
+  // 1 on second page
+  await expect(genesList.getByRole("button")).toHaveCount(1)
+})
+
+test("Clicking on gene item navigates to that gene's summary page", async ({
+  page,
+}) => {
+  const genesList = page.getByTestId(RELATED_GENES_TEST_LIST_ID)
+  await genesList.getByRole("button").first().click()
+  await expect(
+    page.getByRole("heading", { name: "Gene Summary for" }),
+  ).toBeVisible()
+})
+
+test("Gene search", async ({ page }) => {
+  const searchTerm = "sadA"
+  const searchBox = page.getByPlaceholder("Filter Genes")
+  await searchBox.click()
+  await searchBox.fill(searchTerm)
+
+  const genesList = page.getByTestId(RELATED_GENES_TEST_LIST_ID)
+  const foundGenes = genesList.getByRole("button")
+  const numberOfFoundGenes = await foundGenes.count()
+
+  await expect(foundGenes).toHaveText(
+    pipe(
+      numberOfFoundGenes,
+      AmakeBy(() => searchTerm),
+    ),
+  )
+})
+
+test("Gene filtering", async ({ page }) => {
+  await page.getByRole("button", { name: "All Gene Types" }).click()
+  await page.getByRole("option", { name: "Unnamed Genes", exact: true }).click()
+
+  const genesList = page.getByTestId(RELATED_GENES_TEST_LIST_ID)
+  const filteredGenes = genesList.getByRole("button")
+
+  const unnamedGenesCount = await filteredGenes.count()
+
+  await expect(filteredGenes).toHaveText(
+    pipe(
+      unnamedGenesCount,
+      AmakeBy(() => /DDB_/),
+    ),
+  )
+
+  await page.getByRole("button", { name: "Unnamed Genes" }).click()
+  await page.getByRole("option", { name: "Named Genes", exact: true }).click()
+
+  const namedGenesCount = await filteredGenes.count()
+
+  await expect(filteredGenes).not.toHaveText(
+    pipe(
+      namedGenesCount,
+      AmakeBy(() => /DDB_/),
+    ),
+  )
+})
