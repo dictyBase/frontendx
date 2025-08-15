@@ -3,6 +3,7 @@ import { pipe } from "fp-ts/function"
 import { makeBy as AmakeBy } from "fp-ts/ReadonlyNonEmptyArray"
 import { ListPublicationsWithGeneQueryResult } from "dicty-graphql-schema"
 import { listPublicationsWithGeneQueryData } from "./utils/gqlRequestData"
+import { formatDate } from "../components/features/References/utils/formatDate"
 
 const GRAPHQL_ENDPOINT = `${process.env.NEXT_PUBLIC_GRAPHQL_SERVER}/graphql`
 
@@ -31,6 +32,9 @@ const EXPECTED_REFERENCE = {
     { last_name: "O'Day", rank: "1" },
   ],
 }
+
+const oldestPublicationDate = "2001-08-01T00:00:00.000Z"
+const newestPublicationDate = "2019-11-26T00:00:00.000Z"
 
 test.beforeAll("Test Reference Page API", async ({ playwright }) => {
   const apiContext = await playwright.request.newContext()
@@ -61,12 +65,15 @@ test("Displays References from API", async ({ page }) => {
   })
 
   // Displays correct number of rows
-  expect(page.getByText("17 References")).toBeVisible()
-  expect(references).toHaveCount(17)
+  await expect(page.getByText("17 References")).toBeVisible()
+
+  await expect(references).toHaveCount(17)
   // Displays full title
   await expect(referenceItem.getByText(EXPECTED_REFERENCE.title)).toBeVisible()
   // Displays publication date
-  await expect(referenceItem.getByText("July 31st, 2001")).toBeVisible()
+  await expect(
+    referenceItem.getByText(formatDate(EXPECTED_REFERENCE.pub_date)),
+  ).toBeVisible()
   // Displays journal
   await expect(
     referenceItem.getByText(EXPECTED_REFERENCE.journal),
@@ -86,7 +93,7 @@ test("Displays References from API", async ({ page }) => {
   ).toBeVisible()
 })
 
-test("Clicking on mentioned gene navigates to that gene's summary page", async ({
+test("Clicking on meStrinntioned gene navigates to that gene's summary page", async ({
   page,
 }) => {
   await page.getByText("calA").first().click()
@@ -106,9 +113,11 @@ test("Clicking on `See all` button navigates to the related genes page", async (
 
 test("Sorts by newest first by default", async ({ page }) => {
   const references = page.locator("tbody").getByRole("row")
+  const oldestDateText = formatDate(oldestPublicationDate)
+  const newestDateText = formatDate(newestPublicationDate)
 
-  await expect(references.first()).toHaveText(/November 25th, 2019/)
-  await expect(references.last()).toHaveText(/July 31st, 2001/)
+  await expect(references.first()).toHaveText(new RegExp(newestDateText))
+  await expect(references.last()).toHaveText(new RegExp(oldestDateText))
 })
 
 test("Sort by oldest first", async ({ page }) => {
@@ -118,8 +127,11 @@ test("Sort by oldest first", async ({ page }) => {
   await page.getByLabel("Newest First").click()
   await page.getByRole("option", { name: "Oldest First" }).click()
 
-  await expect(references.first()).toHaveText(/July 31st, 2001/)
-  await expect(references.last()).toHaveText(/November 25th, 2019/)
+  const oldestDateText = formatDate(oldestPublicationDate)
+  const newestDateText = formatDate(newestPublicationDate)
+
+  await expect(references.first()).toHaveText(new RegExp(oldestDateText))
+  await expect(references.last()).toHaveText(new RegExp(newestDateText))
 })
 
 test("Sort by title (A to Z) ", async ({ page }) => {
