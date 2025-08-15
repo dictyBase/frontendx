@@ -5,7 +5,6 @@ import { match } from "ts-pattern"
 import { pipe } from "fp-ts/function"
 import { isString, empty } from "fp-ts/string"
 import { map as Amap, filter as Afilter, match as Amatch } from "fp-ts/Array"
-import { parseISO, format } from "date-fns/fp"
 import {
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
@@ -14,6 +13,7 @@ import {
 import { ListPublicationsWithGeneQuery } from "dicty-graphql-schema"
 import { formatTitle } from "@dictybase/ui-common"
 import { commaSeparateWithAnd } from "common/utils/strings"
+import { formatDate } from "./utils/formatDate"
 import { RelatedGenesList } from "./RelatedGenesList"
 
 const useStyles = makeStyles({
@@ -80,8 +80,7 @@ const SinglePublication = ({
   const formattedDate = pipe(
     pub_date,
     OfromNullable,
-    Omap(parseISO),
-    Omap(format("PPP")),
+    Omap(formatDate),
     OgetOrElse(() => ""),
   )
 
