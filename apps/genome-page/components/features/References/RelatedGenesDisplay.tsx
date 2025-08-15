@@ -18,7 +18,9 @@ type RelatedGenesProperties = {
 const useStyles = makeStyles((theme) => ({
   container: {
     width: "100%",
-    margin: "auto",
+    margin: "0",
+    padding: "0",
+    listStyle: "none",
   },
   item: {
     flexBasis: "25%",
@@ -36,11 +38,11 @@ const filler = { _tag: "filler" }
 const RelatedGenesDisplay = ({ genes, maxCount }: RelatedGenesProperties) => {
   const classes = useStyles()
   return (
-    <Grid container spacing={2} className={classes.container}>
+    <Grid component="ul" container spacing={2} className={classes.container}>
       {pipe(
         genes,
         Amap((gene) => (
-          <Grid item className={classes.item} key={gene.id}>
+          <Grid component="li" item className={classes.item} key={gene.id}>
             <GeneChip gene={gene} />
           </Grid>
         )),
