@@ -35,14 +35,14 @@ const EXPECTED_REFERENCE = {
 test.beforeAll("Test Reference Page API", async ({ playwright }) => {
   const apiContext = await playwright.request.newContext()
 
-  const request = await apiContext.post(
+  const response = await apiContext.post(
     GRAPHQL_ENDPOINT,
     listPublicationsWithGeneQueryData(TEST_GENE),
   )
   const { data: referenceData }: ListPublicationsWithGeneQueryResult =
-    await request.json()
+    await response.json()
 
-  expect(request.ok()).toBeTruthy()
+  expect(response.ok()).toBeTruthy()
 
   expect(referenceData?.listPublicationsWithGene).toContainEqual(
     expect.objectContaining(EXPECTED_REFERENCE),
