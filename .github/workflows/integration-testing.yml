@@ -15,5 +15,11 @@ jobs:
         run: yarn install --ignore-engines
       - name: install playwright
         run: yarn playwright install --with-deps
-      - name: integration tests
-        run: yarn e2e
+      - name: dicty-frontpage integration tests
+        run: yarn workspace dicty-frontpage e2e
+      - name: stock-center integration tests
+        run: yarn workspace stock-center e2e
+      - name: publication integration tests
+        run: yarn workspace publication e2e
+      - name: genomepage integration tests
+        run: yarn workspace genomepage e2e
