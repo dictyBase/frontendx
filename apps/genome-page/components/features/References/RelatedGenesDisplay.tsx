@@ -38,7 +38,12 @@ const filler = { _tag: "filler" }
 const RelatedGenesDisplay = ({ genes, maxCount }: RelatedGenesProperties) => {
   const classes = useStyles()
   return (
-    <Grid component="ul" container spacing={2} className={classes.container}>
+    <Grid
+      component="ul"
+      container
+      spacing={2}
+      className={classes.container}
+      data-testid="related-genes-list">
       {pipe(
         genes,
         Amap((gene) => (
