@@ -1,7 +1,7 @@
 name: Integration Tests (Pull Request)
 on: [pull_request, workflow_dispatch]
 jobs:
-  test:
+  dicty-frontpage-e2e:
     name: Integration Tests
     runs-on: ubuntu-latest
     steps:
@@ -15,11 +15,53 @@ jobs:
         run: yarn install --ignore-engines
       - name: install playwright
         run: yarn playwright install --with-deps
-      - name: dicty-frontpage integration tests
-        run: yarn workspace dicty-frontpage e2e
-      - name: stock-center integration tests
-        run: yarn workspace stock-center e2e
-      - name: publication integration tests
-        run: yarn workspace publication e2e
-      - name: genomepage integration tests
-        run: yarn workspace genomepage e2e
+      - name: integration tests
+        run: yarn e2e --filter=dicty-frontpage
+  stock-center-e2e:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+      - name: Check out Code
+        uses: actions/checkout@v4
+      - name: install
+        run: yarn install --ignore-engines
+      - name: install playwright
+        run: yarn playwright install --with-deps
+      - name: integration tests
+        run: yarn e2e --filter=stock-center
+  genomepage-e2e:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+      - name: Check out Code
+        uses: actions/checkout@v4
+      - name: install
+        run: yarn install --ignore-engines
+      - name: install playwright
+        run: yarn playwright install --with-deps
+      - name: integration tests
+        run: yarn e2e --filter=genomepage
+  publication-e2e:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+      - name: Check out Code
+        uses: actions/checkout@v4
+      - name: install
+        run: yarn install --ignore-engines
+      - name: install playwright
+        run: yarn playwright install --with-deps
+      - name: integration tests
+        run: yarn e2e --filter=publication
