@@ -1,0 +1,130 @@
+import { test, expect } from "@playwright/test"
+import { ListStrainsWithGeneQueryResult } from "dicty-graphql-schema"
+import { listStrainsWithGeneQueryData } from "./utils/gqlRequestData"
+
+const GRAPHQL_ENDPOINT = `${process.env.NEXT_PUBLIC_GRAPHQL_SERVER}/graphql`
+
+const TEST_GENE = "DDB_G0267382"
+
+const EXPECTED_STRAIN = {
+  id: "DBS0236174",
+  label: "corA-",
+  characteristics: [
+    "null mutant",
+    "axenic",
+    "drug resistant",
+    "neomycin resistant",
+  ],
+  in_stock: true,
+  phenotypes: [
+    {
+      phenotype: "increased myosin II assembly",
+      publication: {
+        id: "24347642",
+        title:
+          "A Cdc42- and Rac-interactive binding (CRIB) domain mediates functions of coronin.",
+        journal:
+          "Proceedings of the National Academy of Sciences of the United States of America",
+        pages: "E25-33",
+        volume: "111",
+        pub_date: "2013-12-17T00:00:00.000Z",
+        authors: [
+          { last_name: "Swaminathan", rank: "0" },
+          { last_name: "Müller-Taubenberger", rank: "1" },
+          { last_name: "Faix", rank: "2" },
+          { last_name: "Rivero", rank: "3" },
+          { last_name: "Noegel", rank: "4" },
+        ],
+      },
+    },
+    {
+      phenotype: "decreased growth rate",
+      publication: {
+        id: "8380174",
+        title:
+          "Dictyostelium mutants lacking the cytoskeletal protein coronin are defective in cytokinesis and cell motility.",
+        journal: "The Journal of cell biology",
+        pages: "163-173",
+        volume: "120",
+        pub_date: "1993-01-01T00:00:00.000Z",
+        authors: [
+          { last_name: "de Hostos", rank: "0" },
+          { last_name: "Rehfuess", rank: "1" },
+          { last_name: "Bradtke", rank: "2" },
+          { last_name: "Waddell", rank: "3" },
+          { last_name: "Albrecht", rank: "4" },
+          { last_name: "Murphy", rank: "5" },
+          { last_name: "Gerisch", rank: "6" },
+        ],
+      },
+    },
+    {
+      phenotype: "decreased cell motility",
+      publication: {
+        id: "8380174",
+        title:
+          "Dictyostelium mutants lacking the cytoskeletal protein coronin are defective in cytokinesis and cell motility.",
+        journal: "The Journal of cell biology",
+        pages: "163-173",
+        volume: "120",
+        pub_date: "1993-01-01T00:00:00.000Z",
+        authors: [
+          { last_name: "de Hostos", rank: "0" },
+          { last_name: "Rehfuess", rank: "1" },
+          { last_name: "Bradtke", rank: "2" },
+          { last_name: "Waddell", rank: "3" },
+          { last_name: "Albrecht", rank: "4" },
+          { last_name: "Murphy", rank: "5" },
+          { last_name: "Gerisch", rank: "6" },
+        ],
+      },
+    },
+    {
+      phenotype: "aberrant cytokinesis",
+      publication: {
+        id: "8380174",
+        title:
+          "Dictyostelium mutants lacking the cytoskeletal protein coronin are defective in cytokinesis and cell motility.",
+        journal: "The Journal of cell biology",
+        pages: "163-173",
+        volume: "120",
+        pub_date: "1993-01-01T00:00:00.000Z",
+        authors: [
+          { last_name: "de Hostos", rank: "0" },
+          { last_name: "Rehfuess", rank: "1" },
+          { last_name: "Bradtke", rank: "2" },
+          { last_name: "Waddell", rank: "3" },
+          { last_name: "Albrecht", rank: "4" },
+          { last_name: "Murphy", rank: "5" },
+          { last_name: "Gerisch", rank: "6" },
+        ],
+      },
+    },
+  ],
+}
+
+test.beforeAll(
+  "Test Gene Ontology Annotation Page API",
+  async ({ playwright }) => {
+    const apiContext = await playwright.request.newContext()
+
+    const goa = await apiContext.post(
+      GRAPHQL_ENDPOINT,
+      listStrainsWithGeneQueryData(TEST_GENE),
+    )
+    const { data: strainsWithGeneData }: ListStrainsWithGeneQueryResult =
+      await goa.json()
+
+    expect(goa.ok()).toBeTruthy()
+
+    expect(strainsWithGeneData?.listStrainsWithGene).toContainEqual(
+      expect.objectContaining(EXPECTED_STRAIN),
+    )
+  },
+)
+
+test.beforeEach(async ({ page }) => {
+  await page.goto(`/gene/${TEST_GENE}/goannotations`)
+})
+
+test("", () => {})
