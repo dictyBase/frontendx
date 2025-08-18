@@ -2,7 +2,7 @@ name: Integration Tests (Pull Request)
 on: [pull_request, workflow_dispatch]
 jobs:
   e2e:
-    name: Integration Tests
+    name: ${{ matrix.application }} Integration Tests
     runs-on: ubuntu-latest
     strategy:
       matrix:
