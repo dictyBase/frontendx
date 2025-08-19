@@ -1,4 +1,8 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import { test, expect } from "@playwright/test"
+import { pipe } from "fp-ts/function"
+import { map as Amap, sequence } from "fp-ts/Array"
+import { tryCatch as TEtryCatch, ApplicativePar } from "fp-ts/TaskEither"
 import { ListStrainsWithGeneQueryResult } from "dicty-graphql-schema"
 import { listStrainsWithGeneQueryData } from "./utils/gqlRequestData"
 
@@ -124,7 +128,60 @@ test.beforeAll(
 )
 
 test.beforeEach(async ({ page }) => {
-  await page.goto(`/gene/${TEST_GENE}/goannotations`)
+  await page.goto(`/gene/${TEST_GENE}/phenotypes`)
 })
 
-test("", () => {})
+test("Displays all strains with phenotypes", async ({ page }) => {
+  const tableBody = page.locator("tbody")
+  const firstStrain = tableBody.getByRole("row", {
+    name: "DBS0236172",
+  })
+  const secondStrain = tableBody.getByRole("row", {
+    name: "DBS0236173",
+  })
+  const thirdStrain = tableBody.getByRole("row", {
+    name: "DBS0236173",
+  })
+  const strainName = "corA-"
+  await expect(firstStrain).toBeVisible()
+  await expect(secondStrain).toBeVisible()
+  await expect(thirdStrain).toBeVisible()
+
+  await expect(
+    firstStrain.getByRole("link", { name: strainName }),
+  ).toBeVisible()
+  await expect(
+    secondStrain.getByRole("link", { name: strainName }),
+  ).toBeVisible()
+  await expect(
+    thirdStrain.getByRole("link", { name: strainName }),
+  ).toBeVisible()
+})
+
+test("Displays all phenotypes of a strain", async ({ page }) => {
+  const assertions = pipe(
+    EXPECTED_STRAIN.phenotypes,
+    Amap(({ phenotype }) =>
+      page.getByRole("row", { name: new RegExp(phenotype) }),
+    ),
+    Amap((row) =>
+      TEtryCatch(
+        () => expect(row.first()).toBeVisible(),
+        (reason) => reason,
+      ),
+    ),
+    sequence(ApplicativePar),
+  )
+  await assertions()
+})
+
+test("Does not display strains that do not have phenotypes", async ({
+  page,
+}) => {
+  const tableBody = page.locator("tbody")
+  await expect(
+    tableBody.getByRole("row", {
+      name: "DBS0236171",
+    }),
+  ).not.toBeVisible()
+})
