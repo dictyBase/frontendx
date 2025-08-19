@@ -70,18 +70,14 @@ test.beforeAll("Test Summary Page API", async ({ playwright }) => {
   expect(geneGeneralInformation.ok()).toBeTruthy()
   expect(references.ok()).toBeTruthy()
 
-  expect(await geneGeneralInformation.json()).toEqual(
-    expect.objectContaining({
-      data: {
-        geneGeneralInformation: EXPECTED_GENERAL_INFO,
-      },
-    }),
-  )
-  expect(goaData?.geneOntologyAnnotation).toContainEqual(
-    expect.objectContaining(EXPECTED_GOA),
-  )
+  expect(await geneGeneralInformation.json()).toEqual({
+    data: {
+      geneGeneralInformation: EXPECTED_GENERAL_INFO,
+    },
+  })
+  expect(goaData?.geneOntologyAnnotation).toContainEqual(EXPECTED_GOA)
   expect(referencesData?.listPublicationsWithGene).toContainEqual(
-    expect.objectContaining(EXPECTED_REFERENCE),
+    EXPECTED_REFERENCE,
   )
 })
 
