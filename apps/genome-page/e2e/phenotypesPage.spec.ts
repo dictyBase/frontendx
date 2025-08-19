@@ -1,8 +1,8 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import { test, expect } from "@playwright/test"
 import { pipe } from "fp-ts/function"
-import { map as Amap, sequence } from "fp-ts/Array"
-import { tryCatch as TEtryCatch, ApplicativePar } from "fp-ts/TaskEither"
+import { Eq as SEq } from "fp-ts/string"
+import { map as Amap, uniq as Auniq } from "fp-ts/Array"
 import { ListStrainsWithGeneQueryResult } from "dicty-graphql-schema"
 import { listStrainsWithGeneQueryData } from "./utils/gqlRequestData"
 
@@ -159,28 +159,48 @@ test("Displays all strains with phenotypes", async ({ page }) => {
 })
 
 test("Displays all phenotypes of a strain", async ({ page }) => {
-  const assertions = pipe(
-    EXPECTED_STRAIN.phenotypes,
-    Amap(({ phenotype }) =>
-      page.getByRole("row", { name: new RegExp(phenotype) }),
+  await Promise.all(
+    pipe(
+      EXPECTED_STRAIN.phenotypes,
+      Amap(({ phenotype }) =>
+        page.getByRole("row", { name: new RegExp(phenotype) }),
+      ),
+      Amap((row) => expect(row.first()).toBeVisible()),
     ),
-    Amap((row) =>
-      TEtryCatch(
-        () => expect(row.first()).toBeVisible(),
-        (reason) => reason,
+  )
+})
+
+test("Displays phenotype characteristics", async ({ page }) => {
+  const expectedRow = page.getByRole("row", { name: EXPECTED_STRAIN.id })
+  await expect(expectedRow).toBeVisible()
+  await Promise.all(
+    pipe(
+      EXPECTED_STRAIN.characteristics,
+      Amap((characteristic) =>
+        expect(expectedRow).toHaveText(new RegExp(characteristic)),
       ),
     ),
-    sequence(ApplicativePar),
   )
-  await assertions()
+})
+
+test("Displays phenotype references", async ({ page }) => {
+  await Promise.all(
+    pipe(
+      EXPECTED_STRAIN.phenotypes,
+      Amap(({ publication: { title } }) => title),
+      Auniq(SEq),
+      Amap((title) =>
+        expect(page.getByRole("row", { name: title }).first()).toBeVisible(),
+      ),
+    ),
+  )
 })
 
 test("Does not display strains that do not have phenotypes", async ({
   page,
 }) => {
-  const tableBody = page.locator("tbody")
   await expect(
-    tableBody.getByRole("row", {
+    page.getByRole("row", {
       name: "DBS0236171",
     }),
   ).not.toBeVisible()
