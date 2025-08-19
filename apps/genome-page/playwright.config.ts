@@ -1,11 +1,9 @@
 import { defineConfig, devices } from "@playwright/test"
 
-const GLOBAL_SETUP = "global setup"
 /**
  * Read environment variables from file.
- * https://github.com/motdotla/dotenv
  */
-// require('dotenv').config();
+process.loadEnvFile(".env.development")
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -31,10 +29,6 @@ export default defineConfig({
   },
   /* Configure projects for major browsers */
   projects: [
-    {
-      name: GLOBAL_SETUP,
-      testMatch: /global\.setup\.ts/,
-    },
     // {
     //  name: "chromium",
     //  use: { ...devices["Desktop Chrome"] },
@@ -42,7 +36,6 @@ export default defineConfig({
     {
       name: "firefox",
       use: { ...devices["Desktop Firefox"] },
-      dependencies: [GLOBAL_SETUP],
     },
     // {
     //  name: "webkit",
@@ -63,12 +56,10 @@ export default defineConfig({
     {
       name: "Microsoft Edge",
       use: { ...devices["Desktop Edge"], channel: "msedge" },
-      dependencies: [GLOBAL_SETUP],
     },
     {
       name: "Google Chrome",
       use: { ...devices["Desktop Chrome"], channel: "chrome" },
-      dependencies: [GLOBAL_SETUP],
     },
   ],
 

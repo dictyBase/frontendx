@@ -1,1 +1,0 @@
-process.loadEnvFile(".env.development")
