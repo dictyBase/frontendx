@@ -5,7 +5,7 @@ __Coding Conventions__
 - [Functional Programming](#functional-programming)
 - [Pattern Matching](#pattern-matching)
 - [State Management](#state-management)
-- [](#state-management)
+- [Testing](#testing)
 
 # Coding Conventions
 
