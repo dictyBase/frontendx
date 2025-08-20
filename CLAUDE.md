@@ -2,6 +2,8 @@
 
 __Coding Conventions__
 - [Code Style](#code-style)
+- [Import Organization](#import-organization)
+- [Naming Conventions](#naming-conventions)
 - [Functional Programming](#functional-programming)
 - [Pattern Matching](#pattern-matching)
 - [State Management](#state-management)
@@ -12,6 +14,7 @@ __Coding Conventions__
 - Use arrow function notation 
 
 - Use arrow function expressions when possible
+
 ```ts
 // Compliant
 const foo = () => "bar"
@@ -44,6 +47,51 @@ const handleData = (data: Data) => {
 
 ```
 - Prefer object destructuring
+
+## Import Organization
+
+- Organize imports in a consistent order:
+  1. External libraries first
+  2. Internal packages second (@dictybase/* packages)
+  3. Relative imports last
+  4. Group by functionality
+
+```ts
+// External libraries
+import { pipe } from "fp-ts/function"
+import { match, P } from "ts-pattern"
+import { useNavigate } from "react-router-dom"
+
+// Internal packages
+import { FullPageLoadingDisplay } from "@dictybase/ui-common"
+import { useContentBySlugQuery } from "dicty-graphql-schema"
+
+// Relative imports
+import { ShowView } from "./ShowView"
+import { NAMESPACE } from "../../common/constants/namespace"
+import { useSlug } from "../../common/hooks/useSlug"
+```
+
+## Naming Conventions
+
+- **PascalCase** for components and types
+- **camelCase** for functions, variables, and hooks
+- **UPPER_CASE** for constants and environment variables
+- **Props types** should end with `Properties`
+
+```ts
+// Components and types
+type EditableViewProperties = { ... }
+const EditableView = () => { ... }
+
+// Functions and hooks
+const useAuthorizedUpdate = () => { ... }
+const truncateEmail = (email: string) => { ... }
+
+// Constants
+const NAMESPACE = "dicty-frontpage"
+const MAX_ITEMS = 12
+```
 
 ## Functional Programming
 
