@@ -1,4 +1,4 @@
-# Table of Contents
+## Table of Contents
 
 __Coding Conventions__
 - [Code Style](#code-style)
@@ -6,8 +6,6 @@ __Coding Conventions__
 - [Pattern Matching](#pattern-matching)
 - [State Management](#state-management)
 - [Testing](#testing)
-
-# Coding Conventions
 
 ## Code Style
 
@@ -101,3 +99,34 @@ const Show = () => {
 }
 ```
 - Avoid ternary statements 
+
+## State Management
+
+
+## Testing
+
+Avoid wrapping tests in a `describe` block
+
+```tsx
+// Compliant
+test("should render its title", () => {
+  render(<Link {...properties} />)
+  expect(screen.getByText(/test/i)).toBeInTheDocument()
+})
+test("should have the correct href", () => {
+  render(<Link {...properties} />)
+  expect(screen.getByRole("link")).toHaveAttribute("href", "google.com")
+})
+
+// Non-compliant
+describe("Link component", () => {
+  test("should render its title", () => {
+    render(<Link {...properties} />)
+    expect(screen.getByText(/test/i)).toBeInTheDocument()
+  })
+  test("should have the correct href", () => {
+    render(<Link {...properties} />)
+    expect(screen.getByRole("link")).toHaveAttribute("href", "google.com")
+  })
+})
+```
