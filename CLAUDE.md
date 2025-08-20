@@ -1,5 +1,6 @@
 # Table of Contents
 
+__Coding Conventions__
 - [Functional Programming](#functional-programming)
 - [Pattern Matching](#pattern-matching)
 
