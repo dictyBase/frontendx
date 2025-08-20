@@ -270,19 +270,17 @@ const userInfoError: ContentError = {
   message: "Could not get user info",
 }
 
-// Functional error handling
+// Functional error handling with pattern matching
 const handleUpdate = pipe(
   fetchData(),
-  TEmapLeft((error) => {
-    switch (error.errorType) {
-      case ErrorType.ACCESS_TOKEN_ERROR:
-        return handleTokenError()
-      case ErrorType.USER_INFO_ERROR:
-        return handleUserError()
-      default:
-        return handleGenericError()
-    }
-  })
+  TEmapLeft((error) =>
+    match(error)
+      .with({ errorType: ErrorType.ACCESS_TOKEN_ERROR }, () =>
+        handleTokenError(),
+      )
+      .with({ errorType: ErrorType.USER_INFO_ERROR }, () => handleUserError())
+      .otherwise(() => handleGenericError()),
+  ),
 )
 ```
 
