@@ -13,8 +13,6 @@ __Coding Conventions__
 
 - Use early returns when possible
 
-- Avoid using `null` or `undefined`. Wrap values in an `Option` type from `fp-ts`
-
 ```typescript
 // Compliant
 const handleData = (data: Data) => {
@@ -34,6 +32,8 @@ const handleData = (data: Data) => {
   }
 }
 ```
+- Avoid using `null` or `undefined`. Wrap values in an `Option` type from `fp-ts`
+
 
 ## Functional Programming
 
