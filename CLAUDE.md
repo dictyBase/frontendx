@@ -43,6 +43,7 @@ const handleData = (data: Data) => {
 }
 
 ```
+- Prefer object destructuring
 
 ## Functional Programming
 
@@ -51,6 +52,24 @@ const handleData = (data: Data) => {
 - Avoid using `null` or `undefined`. Wrap values in an `Option` type from `fp-ts`
 
 ```typescript
+// Compliant
+const getUserName =
+  (user: { firstName: string, lastName: string } | null) => 
+    pipe(
+      data,
+      OfromNullable, // Option<{ firstName: string, lastName: string }>
+      Omatch(
+        () => "No User"
+        ({ firstName, lastName }) => `${firstName} ${lastName}`
+      )
+    )
+
+// Non-compliant
+const getUserName =
+  (user: { firstName: string, lastName: string } | null) => {
+    if (!user) return "No user"
+    return `${user.firstName} ${user.lastName}`
+}
 
 ```
 ## Pattern Matching
