@@ -1,9 +1,12 @@
 # Table of Contents
 
-[Coding Convetions](#coding-conventions)
+[Coding Conventions](#coding-conventions)
+[Functional Programming](#functional-programming)
+[Pattern Matching](#pattern-matching)
+
 # Coding Conventions
 
 ## Functional Programming
 
 
-
+## Pattern Matching
