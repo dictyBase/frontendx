@@ -148,9 +148,8 @@ enum ErrorType {
 }
 
 // Explicit return types
-const calculateTotal = (items: CartItem[]): number => {
-  return items.reduce((sum, item) => sum + item.price, 0)
-}
+const calculateTotal = (items: CartItem[]): number =>
+  items.reduce((sum, item) => sum + item.price, 0)
 ```
 
 ## Functional Programming
@@ -266,7 +265,7 @@ type ContentError = {
   message: string
 }
 
-const userInfoError = {
+const userInfoError: ContentError = {
   errorType: ErrorType.USER_INFO_ERROR,
   message: "Could not get user info",
 }
