@@ -4,6 +4,8 @@ __Coding Conventions__
 - [Code Style](#code-style)
 - [Functional Programming](#functional-programming)
 - [Pattern Matching](#pattern-matching)
+- [State Management](#state-management)
+- [](#state-management)
 
 # Coding Conventions
 
@@ -12,17 +14,17 @@ __Coding Conventions__
 - Use arrow function notation 
 
 - Use arrow function expressions when possible
-```typescript
+```ts
 // Compliant
 const foo = () => "bar"
 
 // Non-compliant
 const foo = () => {
-  return "bar"
+  
 }
 ```
 - Use early returns when possible
-```typescript
+```ts
 // Compliant
 const handleData = (data: Data) => {
   if (!data) handleFalsyData()
@@ -51,7 +53,7 @@ const handleData = (data: Data) => {
 
 - Avoid using `null` or `undefined`. Wrap values in an `Option` type from `fp-ts`
 
-```typescript
+```ts
 // Compliant
 const getUserName =
   (user: { firstName: string, lastName: string } | null) => 
@@ -76,7 +78,7 @@ const getUserName =
 
 The `ts-pattern` library is used for conditional logic, most often for conditionally rendering a component based on the result of a data query: 
 
-```typescript
+```tsx
 const Show = () => {
   const slug = useSlug()
   const result = useContentBySlugQuery({
