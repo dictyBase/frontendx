@@ -79,6 +79,8 @@ const getUserName =
 The `ts-pattern` library is used for conditional logic, most often for conditionally rendering a component based on the result of a data query: 
 
 ```tsx
+import { match } from "ts-pattern"
+
 const Show = () => {
   const slug = useSlug()
   const result = useContentBySlugQuery({
