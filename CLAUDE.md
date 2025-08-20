@@ -391,8 +391,8 @@ const LazyComponent = lazy(() => import('./HeavyComponent'))
 
 ## File Organization
 
-- **Feature-based folder structure** in apps
 - **Shared packages** in monorepo for reusability
+
 - Clear separation of concerns:
   - `components/` - React components
   - `hooks/` - Custom hooks
@@ -403,19 +403,15 @@ const LazyComponent = lazy(() => import('./HeavyComponent'))
 
 ```
 apps/
-  dicty-frontpage/
+  stock-center/
     src/
-      features/           # Feature-based organization
-        EditablePages/
-        Frontpage/
-      common/
-        components/
-        hooks/
-        utils/
-        constants/
-        types/
-      __tests__/
-        
+      components/
+      hooks/
+      utils/
+      constants/
+      types/
+    __tests__/
+
 packages/               # Shared packages
   ui-common/
   data-access/
