@@ -29,12 +29,15 @@ test("Displays Strain Details", async ({ page }) => {
   await expect(details.getByText(/piaA\(G917D\)\/hephA-/)).toBeVisible()
   // Strain Names
   await expect(details.getByText(/HSB1HectPH1-Ko/)).toBeVisible()
+  // Strain Summary
   await expect(
     details.getByText(
       /suppressor mutant; deletion of hephA suppresses the agg- phenotype/,
     ),
   ).toBeVisible()
+  // Systematic Name
   await expect(details.getByText(EXPECTED_STRAIN.id)).toBeVisible()
+  // Strain Characteristics
   await Promise.all(
     pipe(
       EXPECTED_STRAIN.characteristics,
@@ -43,18 +46,38 @@ test("Displays Strain Details", async ({ page }) => {
       ),
     ),
   )
+  // Genetic Modification
   await expect(
     details.getByText(EXPECTED_STRAIN.genetic_modification),
   ).toBeVisible()
+  // Mutagenesis Method
   await expect(
     details.getByText(EXPECTED_STRAIN.mutagenesis_method),
   ).toBeVisible()
+  // Genotype
   await Promise.all(
     pipe(
       EXPECTED_STRAIN.genotypes,
       Amap((genotype) =>
         expect(page.getByText(genotype).first()).toBeVisible(),
       ),
+    ),
+  )
+  // Species
+  await expect(
+    details.getByText(new RegExp(`^${EXPECTED_STRAIN.species}$`)),
+  ).toBeVisible()
+  // Depositor
+  await expect(
+    details.getByText(
+      `${EXPECTED_STRAIN.depositor.first_name} ${EXPECTED_STRAIN.depositor.last_name}`,
+    ),
+  ).toBeVisible()
+  // Reference(s)
+  await Promise.all(
+    pipe(
+      EXPECTED_STRAIN.publications,
+      Amap(({ title }) => expect(page.getByText(title)).toBeVisible()),
     ),
   )
 })
