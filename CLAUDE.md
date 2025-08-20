@@ -11,8 +11,17 @@ __Coding Conventions__
 
 - Use arrow function notation 
 
-- Use early returns when possible
+- Use arrow function expressions when possible
+```typescript
+// Compliant
+const foo = () => "bar"
 
+// Non-compliant
+const foo = () => {
+  return "bar"
+}
+```
+- Use early returns when possible
 ```typescript
 // Compliant
 const handleData = (data: Data) => {
@@ -21,6 +30,7 @@ const handleData = (data: Data) => {
 
   doSomething(data)
 }
+
 // Non-compliant
 const handleData = (data: Data) => {
   if (data && data.isValid()) {
@@ -31,12 +41,18 @@ const handleData = (data: Data) => {
     handleInvalidData()
   }
 }
-```
-- Avoid using `null` or `undefined`. Wrap values in an `Option` type from `fp-ts`
 
+```
 
 ## Functional Programming
 
+- Use functional patterns to transform arrays of data
+
+- Avoid using `null` or `undefined`. Wrap values in an `Option` type from `fp-ts`
+
+```typescript
+
+```
 ## Pattern Matching
 
 The `ts-pattern` library is used for conditional logic, most often for conditionally rendering a component based on the result of a data query: 
