@@ -1,6 +1,10 @@
 import { test, expect } from "@playwright/test"
 import { pipe } from "fp-ts/lib/function.js"
 import { map as Amap } from "fp-ts/lib/Array.js"
+import {
+  fromNullable as OfromNullable,
+  match as Omatch,
+} from "fp-ts/lib/Option.js"
 import { strainQueryData } from "./utils/gqlRequestData"
 import { EXPECTED_STRAIN } from "./utils/expectedData"
 
@@ -78,6 +82,83 @@ test("Displays Strain Details", async ({ page }) => {
     pipe(
       EXPECTED_STRAIN.publications,
       Amap(({ title }) => expect(page.getByText(title)).toBeVisible()),
+    ),
+  )
+})
+
+test("Interactive Elements", async ({ page }) => {
+  const mainContent = page.locator("main")
+  const cartButton = mainContent.getByRole("button", { name: "Add to Cart" })
+
+  await expect(cartButton).toBeVisible()
+  await expect(mainContent.getByTitle("Copy ID to clipboard")).toBeVisible()
+
+  await cartButton.click()
+  await expect(
+    page.getByRole("heading", { name: "Added to Cart" }),
+  ).toBeVisible()
+  await page.getByRole("button", { name: "Continue Shopping" }).click()
+  await expect(
+    mainContent.getByRole("button", { name: "Remove from Cart" }),
+  ).toBeVisible()
+})
+
+test("Phenotypes tab", async ({ page }) => {
+  await page.getByRole("tab", { name: "Phenotypes" }).click()
+  await Promise.all(
+    pipe(
+      EXPECTED_STRAIN.phenotypes,
+      Amap(({ phenotype }) =>
+        expect(page.getByRole("link", { name: phenotype })).toBeVisible(),
+      ),
+    ),
+  )
+  await Promise.all(
+    pipe(
+      EXPECTED_STRAIN.phenotypes,
+      Amap(({ note }) => expect(page.getByText(note)).toBeVisible()),
+    ),
+  )
+  await Promise.all(
+    pipe(
+      EXPECTED_STRAIN.phenotypes,
+      Amap(({ assay }) =>
+        pipe(
+          assay,
+          OfromNullable,
+          Omatch(
+            () => {},
+            (someAssay) => {
+              expect(page.getByText(someAssay)).toBeVisible()
+            },
+          ),
+        ),
+      ),
+    ),
+  )
+  await Promise.all(
+    pipe(
+      EXPECTED_STRAIN.phenotypes,
+      Amap(({ environment }) =>
+        pipe(
+          environment,
+          OfromNullable,
+          Omatch(
+            () => {},
+            (someEnvironment) => {
+              expect(page.getByText(someEnvironment)).toBeVisible()
+            },
+          ),
+        ),
+      ),
+    ),
+  )
+  await Promise.all(
+    pipe(
+      EXPECTED_STRAIN.phenotypes,
+      Amap(({ publication }) =>
+        expect(page.getByText(publication.title).first()).toBeVisible(),
+      ),
     ),
   )
 })
