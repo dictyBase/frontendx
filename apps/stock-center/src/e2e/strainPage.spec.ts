@@ -86,20 +86,42 @@ test("Displays Strain Details", async ({ page }) => {
   )
 })
 
-test("Interactive Elements", async ({ page }) => {
+test("Copy to strain ID to clipboard", async ({ page }) => {
+  const mainContent = page.locator("main")
+  await expect(mainContent.getByTitle("Copy ID to clipboard")).toBeVisible()
+})
+
+test("Add to Cart function, return to strain details", async ({ page }) => {
   const mainContent = page.locator("main")
   const cartButton = mainContent.getByRole("button", { name: "Add to Cart" })
 
   await expect(cartButton).toBeVisible()
-  await expect(mainContent.getByTitle("Copy ID to clipboard")).toBeVisible()
 
   await cartButton.click()
+
   await expect(
     page.getByRole("heading", { name: "Added to Cart" }),
   ).toBeVisible()
   await page.getByRole("button", { name: "Continue Shopping" }).click()
   await expect(
     mainContent.getByRole("button", { name: "Remove from Cart" }),
+  ).toBeVisible()
+})
+
+test("Add to Cart function, go to cart", async ({ page }) => {
+  const mainContent = page.locator("main")
+  const cartButton = mainContent.getByRole("button", { name: "Add to Cart" })
+
+  await expect(cartButton).toBeVisible()
+
+  await cartButton.click()
+
+  await expect(
+    page.getByRole("heading", { name: "Added to Cart" }),
+  ).toBeVisible()
+  await page.getByRole("button", { name: "View Cart" }).click()
+  await expect(
+    mainContent.getByRole("heading", { name: "Your Shopping Cart" }),
   ).toBeVisible()
 })
 
