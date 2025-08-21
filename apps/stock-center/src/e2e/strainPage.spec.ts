@@ -11,7 +11,7 @@ import { EXPECTED_STRAIN } from "./utils/expectedData"
 const GRAPHQL_ENDPOINT = `${process.env.VITE_APP_GRAPHQL_SERVER}/graphql`
 const TEST_STRAIN_ID = "DBS0350877"
 
-test.beforeAll("Test Reference Page API", async ({ playwright }) => {
+test.beforeAll("Test Strain Details Page API", async ({ playwright }) => {
   const apiContext = await playwright.request.newContext()
   const response = await apiContext.post(
     GRAPHQL_ENDPOINT,
