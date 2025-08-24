@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test"
 import { pipe } from "fp-ts/function"
-import { makeBy as AmakeBy } from "fp-ts/ReadonlyNonEmptyArray"
+import { makeBy as RNEAmakeBy } from "fp-ts/ReadonlyNonEmptyArray"
 import { ListPublicationsWithGeneQueryResult } from "dicty-graphql-schema"
 import { listPublicationsWithGeneQueryData } from "./utils/gqlRequestData"
 import { formatDate } from "../components/features/References/utils/formatDate"
@@ -170,7 +170,7 @@ test("Search by Title", async ({ page }) => {
   await expect(filteredReferences).toHaveText(
     pipe(
       numberOfFilteredReferences,
-      AmakeBy(() => /calmodulin/i),
+      RNEAmakeBy(() => /calmodulin/i),
     ),
   )
 })
@@ -191,7 +191,7 @@ test("Search by Author", async ({ page }) => {
   await expect(filteredReferences).toHaveText(
     pipe(
       numberOfFilteredReferences,
-      AmakeBy(() => /plattner/i),
+      RNEAmakeBy(() => /plattner/i),
     ),
   )
 })
