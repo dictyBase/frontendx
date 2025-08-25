@@ -44,7 +44,6 @@ const PanelWrapper = ({ title, children }: PanelWrapperProperties) => {
           <Typography
             variant="h2"
             className={classes.heading}
-            component="div"
             data-testid="panel-title">
             {title}
           </Typography>
