@@ -88,7 +88,7 @@ test.describe("Cart with Item", () => {
     await expect(page).toHaveURL(/.*\/stockcenter\/order/)
   })
 
-  test.only("removes strain item from cart when remove item button is clicked", async ({
+  test("removes strain item from cart when remove item button is clicked", async ({
     page,
   }) => {
     await expect(page.getByText("[smp3]-")).toBeVisible()
