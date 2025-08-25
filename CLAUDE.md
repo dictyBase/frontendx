@@ -1,6 +1,5 @@
 ## Table of Contents
 
-__Coding Conventions__
 - [Code Style](#code-style)
 - [Import Organization](#import-organization)
 - [Naming Conventions](#naming-conventions)
