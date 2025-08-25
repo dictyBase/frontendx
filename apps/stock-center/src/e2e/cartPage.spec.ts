@@ -4,40 +4,42 @@ test.beforeEach(async ({ page }) => {
   await page.goto(`/stockcenter/cart`)
 })
 
-test("displays empty cart message when cart is empty", async ({ page }) => {
-  await expect(
-    page.getByText(
-      "Your shopping cart is empty. Please add at least one item to your cart before checking out.",
-    ),
-  ).toBeVisible()
-})
-
-test("displays strain catalog navigation button", async ({ page }) => {
-  const strainCatalogButton = page.getByRole("button", {
-    name: "Strain Catalog",
+test.describe("Empty Cart", () => {
+  test("displays empty cart message when cart is empty", async ({ page }) => {
+    await expect(
+      page.getByText(
+        "Your shopping cart is empty. Please add at least one item to your cart before checking out.",
+      ),
+    ).toBeVisible()
   })
-  await expect(strainCatalogButton).toBeVisible()
-})
 
-test("displays plasmid catalog navigation button", async ({ page }) => {
-  const plasmidCatalogButton = page.getByRole("button", {
-    name: "Plasmid Catalog",
+  test("displays strain catalog navigation button", async ({ page }) => {
+    const strainCatalogButton = page.getByRole("button", {
+      name: "Strain Catalog",
+    })
+    await expect(strainCatalogButton).toBeVisible()
   })
-  await expect(plasmidCatalogButton).toBeVisible()
-})
 
-test("strain catalog button navigates to strain catalog page", async ({
-  page,
-}) => {
-  await page.getByRole("button", { name: "Strain Catalog" }).click()
-  await expect(page).toHaveURL(/.*\/stockcenter\/strains/)
-})
+  test("displays plasmid catalog navigation button", async ({ page }) => {
+    const plasmidCatalogButton = page.getByRole("button", {
+      name: "Plasmid Catalog",
+    })
+    await expect(plasmidCatalogButton).toBeVisible()
+  })
 
-test("plasmid catalog button navigates to plasmid catalog page", async ({
-  page,
-}) => {
-  await page.getByRole("button", { name: "Plasmid Catalog" }).click()
-  await expect(page).toHaveURL(/.*\/stockcenter\/plasmids/)
+  test("strain catalog button navigates to strain catalog page", async ({
+    page,
+  }) => {
+    await page.getByRole("button", { name: "Strain Catalog" }).click()
+    await expect(page).toHaveURL(/.*\/stockcenter\/strains/)
+  })
+
+  test("plasmid catalog button navigates to plasmid catalog page", async ({
+    page,
+  }) => {
+    await page.getByRole("button", { name: "Plasmid Catalog" }).click()
+    await expect(page).toHaveURL(/.*\/stockcenter\/plasmids/)
+  })
 })
 
 test.describe("Cart with Item", () => {
@@ -84,5 +86,22 @@ test.describe("Cart with Item", () => {
     await page.getByRole("button", { name: "Proceed to Checkout" }).click()
 
     await expect(page).toHaveURL(/.*\/stockcenter\/order/)
+  })
+
+  test.only("removes strain item from cart when remove item button is clicked", async ({
+    page,
+  }) => {
+    await expect(page.getByText("[smp3]-")).toBeVisible()
+    await expect(page.getByText("DBS0391520")).toBeVisible()
+
+    await page.getByRole("button", { name: "Remove Item" }).click()
+
+    await expect(
+      page.getByText(
+        "Your shopping cart is empty. Please add at least one item to your cart before checking out.",
+      ),
+    ).toBeVisible()
+    await expect(page.getByText("[smp3]-")).not.toBeVisible()
+    await expect(page.getByText("DBS0391520")).not.toBeVisible()
   })
 })
