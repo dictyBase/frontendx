@@ -5,6 +5,7 @@
   "main": "./src/index.ts",
   "author": "Siddhartha Basu",
   "license": "BSD-2-Clause",
+  "type": "module",
   "dependencies": {
     "@apollo/client": "3.x",
     "@dictybase/editor": "*",
@@ -22,6 +23,7 @@
     "@react-pdf/renderer": "~3.0.0",
     "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.33.0",
     "dicty-hooks": "dictybase/dicty-hooks#3.0.0",
+    "events": "^3.3.0",
     "fontsource-roboto": "^4.0.0",
     "formik": "^2.2.9",
     "fp-ts": "^2.16.1",
