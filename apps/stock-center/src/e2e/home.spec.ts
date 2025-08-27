@@ -59,6 +59,8 @@ test("Displays `downloads` links", async ({ page }) => {
 test("All Carousel images are loaded", async ({ page }) => {
   const images = page.locator(CAROUSEL_IMAGE_ALT)
 
+  // It is expected to have 6 images instead of 4 because the Carousel component renders the first and last images twice, probably so the
+  // images can appear to be in an seamless, infinite loop.
   await expect(images).toHaveCount(6)
 
   await Promise.all(
