@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import { test, expect, Page } from "@playwright/test"
 
 test.beforeEach(async ({ page }) => {
