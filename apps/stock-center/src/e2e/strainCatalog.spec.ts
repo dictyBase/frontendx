@@ -2,7 +2,6 @@ import { test, expect } from "@playwright/test"
 import { pipe } from "fp-ts/lib/function.js"
 import { slice as Sslice } from "fp-ts/lib/string.js"
 import { makeBy as RNEAmakeBy } from "fp-ts/lib/ReadonlyNonEmptyArray.js"
-import { StrainListQueryResult } from "dicty-graphql-schema"
 import { strainListQueryData } from "./utils/gqlRequestData"
 
 const GRAPHQL_ENDPOINT = `${process.env.VITE_APP_GRAPHQL_SERVER}/graphql`
@@ -21,7 +20,7 @@ test.beforeAll("Test Strain Catalog Page API", async ({ playwright }) => {
     GRAPHQL_ENDPOINT,
     strainListQueryData(0, { strain_type: "REGULAR" }, 12),
   )
-  const { data }: StrainListQueryResult = await response.json()
+  const { data } = await response.json()
   expect(response.ok()).toBeTruthy()
   expect(data?.listStrains?.strains).toContainEqual(EXPECTED_STRAIN)
 })
