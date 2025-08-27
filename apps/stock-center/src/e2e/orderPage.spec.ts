@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/no-duplicate-string */
 import { test, expect, Page } from "@playwright/test"
 
 test.beforeEach(async ({ page }) => {
@@ -265,6 +264,9 @@ test.describe("Payment Details", () => {
       .fill("123456")
     await page.getByRole("button", { name: "Continue" }).click()
     await page.getByRole("button", { name: "Submit" }).click()
-    await expect(page.getByText("fail here")).toBeVisible()
+    await expect(page.getByText(/Order ID: \d+/)).toBeVisible()
+    await expect(
+      page.getByRole("heading", { name: "Thank you for your order" }),
+    ).toBeVisible()
   })
 })
