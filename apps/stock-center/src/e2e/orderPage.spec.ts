@@ -1,5 +1,5 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import { test, expect, Page } from "@playwright/test"
+import { test, expect, type Page } from "@playwright/test"
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/stockcenter/strains/DBS0391520")
