@@ -1,8 +1,17 @@
+import { flow } from "fp-ts/function"
+import { split as Ssplit, toUpperCase } from "fp-ts/string"
+import {
+  modifyHead as RNEAmodifyHead,
+  reduce as RNEAreduce,
+} from "fp-ts/ReadonlyNonEmptyArray"
 /**
  * capitalizeFirstCharacter converts the first character of a string to uppercase.
  */
-const capitalizeFirstCharacter = (string_: string) =>
-  string_.charAt(0).toUpperCase() + string_.slice(1)
+const capitalizeFirstCharacter = flow(
+  Ssplit(""),
+  RNEAmodifyHead(toUpperCase),
+  RNEAreduce("", (accumulator, current) => accumulator + current),
+)
 
 /**
  * capitalizeEveryWordInString takes a string with spaces (i.e. "other stock centers" and capitalizes each word.
