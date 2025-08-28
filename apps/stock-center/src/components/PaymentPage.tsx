@@ -12,8 +12,14 @@ import {
   ContinueButton,
   convertToPayerField,
 } from "@dictybase/ui-dsc"
-import { pipe } from "fp-ts/function"
-import { toArray, deleteAt, fromEntries } from "fp-ts/Record"
+import { pipe, flow } from "fp-ts/function"
+import {
+  toArray,
+  deleteAt,
+  fromEntries as RfromEntries,
+  toEntries as RtoEntries,
+} from "fp-ts/Record"
+import { mapFst } from "fp-ts/Tuple"
 import { map as Amap } from "fp-ts/Array"
 import { useAtom, useSetAtom, useAtomValue } from "jotai"
 import { BackButton } from "./BackButton"
@@ -24,22 +30,16 @@ import {
   shippingFormAtom,
 } from "../orderState"
 import { type ShippingFormData } from "../types"
+import { commonOrderFields } from "../orderValidation"
+
+const appendPayerToKeys = flow(
+  RtoEntries<string, any>,
+  Amap(mapFst(convertToPayerField)),
+  RfromEntries,
+)
 
 const validationSchema = object().shape({
-  payerFirstName: string().required("* First name is required"),
-  payerLastName: string().required("* Last name is required"),
-  payerEmail: string().required("* Email is required"),
-  payerOrganization: string().required("* Organization is required"),
-  payerLab: string().required("* Lab/Group is required"),
-  payerAddress1: string().required("* Address is required"),
-  payerCity: string().required("* City is required"),
-  payerZip: string()
-    .required("* Zip code is required")
-    .matches(/^\d+$/, "Must be only digits")
-    .min(5, "Must be exactly 5 digits")
-    .max(5, "Must be exactly 5 digits"),
-  payerCountry: string().required("* Country is required"),
-  payerPhone: string().required("* Phone number is required"),
+  ...appendPayerToKeys(commonOrderFields),
   paymentMethod: string()
     .required()
     .oneOf(["purchaseOrder", "waiver", "credit", "wire"]),
@@ -58,7 +58,7 @@ const getFilledPaymentFormData = (shippingFormData: ShippingFormData) => {
       convertToPayerField(k) as keyof ShippingFormData,
       v,
     ]),
-    fromEntries,
+    RfromEntries,
   )
   return { ...initialPaymentValues, ...paymentAddress }
 }
