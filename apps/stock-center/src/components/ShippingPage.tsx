@@ -10,22 +10,10 @@ import {
 } from "@dictybase/ui-dsc"
 import { useSetAtom, useAtom } from "jotai"
 import { shippingFormAtom, orderStepAtom } from "../orderState"
+import { commonOrderFields } from "../orderValidation"
 
 const validationSchema = object().shape({
-  firstName: string().required("* First name is required"),
-  lastName: string().required("* Last name is required"),
-  email: string().email().required("* Email is required"),
-  organization: string().required("* Organization is required"),
-  lab: string().required("* Lab/Group is required"),
-  address1: string().required("* Address is required"),
-  city: string().required("* City is required"),
-  zip: string()
-    .required("* Zip code is required")
-    .matches(/^\d+$/, "Must be only digits")
-    .min(5, "Must be exactly 5 digits")
-    .max(5, "Must be exactly 5 digits"),
-  country: string().required("* Country is required"),
-  phone: string().required("* Phone number is required"),
+  ...commonOrderFields,
   shippingAccount: string().required("* Shipping account is required"),
   shippingAccountNumber: string().required(
     "* Shipping account number is required",
