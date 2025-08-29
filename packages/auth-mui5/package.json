@@ -7,7 +7,7 @@
   "license": "BSD-2-Clause",
   "devDependencies": {
     "@dictybase/oxlint-config": "*",
-    "@vitest/coverage-v8": "^0.34.5",
+    "@vitest/coverage-v8": "2.x",
     "eslint-config-custom": "*",
     "tsconfig": "*",
     "vitest": "2.x"
