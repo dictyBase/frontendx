@@ -15,7 +15,7 @@
     "eslint-config-custom": "*",
     "prettier": "3.*",
     "tsconfig": "*",
-    "vitest": "0.33.*"
+    "vitest": "2.x"
   },
   "dependencies": {
     "@apollo/client": "3.x",

@@ -19,7 +19,7 @@
     "jsdom": "latest",
     "optics-ts": "~2.4.1",
     "tsconfig": "*",
-    "vitest": "0.33.*"
+    "vitest": "2.x"
   },
   "dependencies": {
     "@isomorphic-git/lightning-fs": "~4.6.0",

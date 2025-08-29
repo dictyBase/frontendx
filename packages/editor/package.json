@@ -27,6 +27,6 @@
     "@vitejs/plugin-react": "^4.0.3",
     "eslint-config-custom": "*",
     "tsconfig": "*",
-    "vitest": "0.33.*"
+    "vitest": "2.x"
   }
 }
