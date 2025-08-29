@@ -16,7 +16,7 @@
   "devDependencies": {
     "@dictybase/oxlint-config": "*",
     "@types/react": "17.*",
-    "@vitest/coverage-v8": "^0.34.5",
+    "@vitest/coverage-v8": "2.x",
     "eslint-config-custom": "*",
     "jsdom": "latest",
     "tsconfig": "*",
