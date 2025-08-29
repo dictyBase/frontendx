@@ -1,21 +1,9 @@
-/// <reference types="vitest" />
-/// <reference types="vite/client" />
-import react from "@vitejs/plugin-react"
-import istanbul from "vite-plugin-istanbul"
-import { defineConfig } from "vite"
+import react from "@vitejs/plugin-react-swc"
+import { defineConfig } from "vitest/config"
 
 // https://vitejs.dev/config/
 const viteConfig = defineConfig({
-  plugins: [
-    // @ts-ignore
-    ...react(),
-    // @ts-ignore
-    istanbul({
-      include: "src/*",
-      exclude: ["node_modules", "__test__/"],
-      extension: [".ts", ".tsx"],
-    }),
-  ],
+  plugins: [react()],
   server: {
     port: 3004,
   },
