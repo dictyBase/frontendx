@@ -1,5 +1,5 @@
-import { pipe } from "fp-ts/function"
-import { flatten as Aflatten, map as Amap } from "fp-ts/Array"
+import { pipe } from "fp-ts/lib/function.js"
+import { flatten as Aflatten, map as Amap } from "fp-ts/lib/Array.js"
 import { test, expect } from "@playwright/test"
 
 const contentRoutes = [
