@@ -1,6 +1,7 @@
 {
   "name": "dicty-frontpage",
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "e2e": "BASE_URL=http://localhost:3004 playwright test",
     "coverage-report": "npx nyc@17 report --reporter=lcov",
