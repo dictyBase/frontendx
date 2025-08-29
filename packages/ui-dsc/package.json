@@ -50,7 +50,7 @@
     "eslint-config-custom": "*",
     "jsdom": "latest",
     "tsconfig": "*",
-    "vitest": "0.33.*"
+    "vitest": "2.x"
   },
   "resolutions": {
     "@types/react": "17.x",

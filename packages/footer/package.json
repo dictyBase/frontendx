@@ -22,7 +22,7 @@
     "scripts": "*",
     "ts-jest": "^27.1.3",
     "tsconfig": "*",
-    "vitest": "0.33.*"
+    "vitest": "2.x"
   },
   "dependencies": {
     "@dictybase/functional": "*",
