@@ -13,6 +13,9 @@ const viteConfig = defineConfig({
     environment: "jsdom",
     setupFiles: ["./src/setupTests.js"],
     exclude: ["**/e2e"],
+    coverage: {
+      include: ["src/*"],
+    },
   },
 })
 
