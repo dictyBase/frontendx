@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest"
 import {
+  createCitation,
   getAuthorsCitationString,
   getPublicationYear,
   limitCharacters,
@@ -94,5 +95,49 @@ describe("shortenAllNames", () => {
       "EJ Johnson",
       "ML Brown",
     ])
+  })
+})
+
+describe("createCitation", () => {
+  it("should create a properly formatted citation", () => {
+    const publication = {
+      authors: ["John Smith", "Jane Doe"],
+      publishDate: "2023-05-15T12:00:00Z",
+      title: "A Study on Cell Biology",
+      journal: "Nature",
+    }
+
+    const result = createCitation(publication)
+    expect(result).toBe(
+      'Smith & Doe. (2023). "A Study on Cell Biology." Nature',
+    )
+  })
+
+  it("should handle long titles by truncating them", () => {
+    const publication = {
+      authors: ["John Smith"],
+      publishDate: "2023-05-15T12:00:00Z",
+      title:
+        "This is a very long title that exceeds the 90 character limit and should be truncated properly",
+      journal: "Science",
+    }
+
+    const result = createCitation(publication)
+    expect(result).toContain('Smith. (2023). "This is a very long title')
+    expect(result).toContain('..." Science')
+  })
+
+  it("should handle titles with HTML tags", () => {
+    const publication = {
+      authors: ["Jane Doe"],
+      publishDate: "2022-01-01T00:00:00Z",
+      title: "<em>Dictyostelium</em> Research <strong>Methods</strong>",
+      journal: "Cell Biology Journal",
+    }
+
+    const result = createCitation(publication)
+    expect(result).toContain("Doe. (2022). Dictyostelium Research Methods")
+    expect(result).toContain("Cell Biology Journal")
+    expect(result).toContain("Doe.")
   })
 })
