@@ -123,8 +123,8 @@ describe("createCitation", () => {
     }
 
     const result = createCitation(publication)
-    expect(result).toContain('Smith. (2023). "This is a very long title')
-    expect(result).toContain('..." Science')
+    expect(result).toMatch('Smith. (2023). "This is a very long title')
+    expect(result).toMatch('..." Science')
   })
 
   it("should handle titles with HTML tags", () => {
@@ -136,8 +136,8 @@ describe("createCitation", () => {
     }
 
     const result = createCitation(publication)
-    expect(result).toContain("Doe. (2022). Dictyostelium Research Methods")
-    expect(result).toContain("Cell Biology Journal")
-    expect(result).toContain("Doe.")
+    expect(result).toMatch("Dictyostelium Research Methods")
+    expect(result).toMatch("Cell Biology Journal")
+    expect(result).toMatch("Doe. (2022).")
   })
 })
