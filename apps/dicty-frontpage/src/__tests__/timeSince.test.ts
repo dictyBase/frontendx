@@ -49,4 +49,10 @@ describe("timeSince", () => {
     const date = new Date(now.getTime() - years * 365 * 24 * 60 * 60 * 1000)
     expect(timeSince(date.toISOString())).toBe(`${years} years`)
   })
+
+  it("returns singular form for exactly 1 unit", () => {
+    const now = new Date()
+    const date = new Date(now.getTime() - 1 * 60 * 1000) // exactly 1 minute ago
+    expect(timeSince(date.toISOString())).toBe("1 minute")
+  })
 })
