@@ -114,7 +114,7 @@ const createCitation = ({
   publishDate,
   title,
   journal,
-}: PublicationItem) =>
+}: Pick<PublicationItem, "authors" | "publishDate" | "title" | "journal">) =>
   `${getAuthorsCitationString(authors)}. (${getPublicationYear(
     publishDate,
   )}). "${limitCharacters(removeTags(title), 90)}." ${journal}`
