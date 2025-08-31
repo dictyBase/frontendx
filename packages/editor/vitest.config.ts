@@ -9,7 +9,7 @@ export default defineConfig({
     setupFiles: "./setup.ts",
     mockReset: true,
     coverage: {
-      provider: "v8",
+      include: ["src/*"],
     },
   },
 })
