@@ -1,4 +1,4 @@
-import { test, expect } from "vitest"
+import { vi, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { MemoryRouter } from "react-router-dom"
 import { EditableNewsItem } from "../common/components/EditableNewsItem"
@@ -18,12 +18,12 @@ test("renders news item with correct content and link", () => {
   render(
     <MemoryRouter>
       <EditableNewsItem {...properties} />
-    </MemoryRouter>
+    </MemoryRouter>,
   )
 
   // Check if the formatted date appears
   expect(screen.getByText(/Monday, May 15th, 2023/)).toBeInTheDocument()
-  
+
   // Check if the parsed and truncated content appears
   expect(screen.getByText(/Parsed: {"test": "content"}/)).toBeInTheDocument()
 
@@ -43,10 +43,11 @@ test("truncates long content", () => {
   render(
     <MemoryRouter>
       <EditableNewsItem {...properties} />
-    </MemoryRouter>
+    </MemoryRouter>,
   )
 
   // The content should be truncated (mocked parseContentToText adds "Parsed: " prefix)
   const displayedText = screen.getByText(/Parsed:/)
-  expect(displayedText.textContent).toHaveLength(407) // 400 + "Parsed: " length
+  expect(displayedText.textContent).toHaveLength(403) // 400 + "..."
 })
+
