@@ -9,6 +9,8 @@ import { UpdateButton } from "../common/components/UpdateButton"
 const mockAuthorizedUpdateContent = vi.fn()
 const mockGetEditorState = vi.fn()
 const mockToJSON = vi.fn()
+const mockFetchUserInfo = vi.fn()
+const mockGetAccessToken = vi.fn()
 
 vi.mock("../common/hooks/useAuthorizedUpdateContent", () => ({
   useAuthorizedUpdateContent: () => mockAuthorizedUpdateContent,
@@ -20,6 +22,13 @@ vi.mock("@lexical/react/LexicalComposerContext", () => ({
       getEditorState: mockGetEditorState,
     },
   ],
+}))
+
+vi.mock("@logto/react", () => ({
+  useLogto: () => ({
+    fetchUserInfo: mockFetchUserInfo,
+    getAccessToken: mockGetAccessToken,
+  }),
 }))
 
 const initialConfig = {
@@ -78,8 +87,8 @@ test("UpdateButton handles update function errors gracefully", async () => {
   mockGetEditorState.mockReturnValue({
     toJSON: mockToJSON,
   })
-  mockToJSON.mockReturnValue({ test: "content" })
-  mockAuthorizedUpdateContent.mockRejectedValue(error)
+  mockFetchUserInfo.mockReturnValue(error)
+  mockGetAccessToken.mockReturnValue(error)
 
   render(
     <MockedProvider>
