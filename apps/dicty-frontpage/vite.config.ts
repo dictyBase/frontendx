@@ -15,6 +15,7 @@ const viteConfig = defineConfig({
     exclude: ["**/e2e"],
     coverage: {
       include: ["src/*"],
+      exclude: ["**/constants/*"],
     },
   },
 })
