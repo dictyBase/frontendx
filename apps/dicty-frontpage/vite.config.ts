@@ -1,5 +1,5 @@
 import react from "@vitejs/plugin-react-swc"
-import { defineConfig } from "vitest/config"
+import { defineConfig, coverageConfigDefaults } from "vitest/config"
 
 // https://vitejs.dev/config/
 const viteConfig = defineConfig({
@@ -15,7 +15,7 @@ const viteConfig = defineConfig({
     exclude: ["**/e2e"],
     coverage: {
       include: ["src/*"],
-      exclude: ["**/constants/*"],
+      exclude: ["**/constants/*", ...coverageConfigDefaults.exclude],
     },
   },
 })
