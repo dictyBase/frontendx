@@ -1,6 +1,27 @@
 import { string, StringSchema } from "yup"
+import { pipe } from "fp-ts/function"
+import {
+  fromNullable as OfromNullable,
+  map as Omap,
+  match as Omatch,
+} from "fp-ts/Option"
+import parsePhoneNumberFromString, { type CountryCode } from "libphonenumber-js"
 
 const MAX_INPUT_LENGTH = 70
+
+const curriedParsePhoneNumberFromString =
+  (
+    defaultCountryCode:
+      | CountryCode
+      | {
+          defaultCountry?: CountryCode | undefined
+          defaultCallingCode?: string | undefined
+          extract?: boolean | undefined
+        }
+      | undefined,
+  ) =>
+  (text: string) =>
+    parsePhoneNumberFromString(text, defaultCountryCode)
 
 const commonOrderFields: { [k: string]: StringSchema } = {
   firstName: string()
@@ -20,7 +41,19 @@ const commonOrderFields: { [k: string]: StringSchema } = {
     .min(5, "Must be exactly 5 digits")
     .max(5, "Must be exactly 5 digits"),
   country: string().required("* Country is required"),
-  phone: string().required("* Phone number is required").max(20),
+  phone: string()
+    .required("* Phone number is required")
+    .test("phone-number", "Invalid Phone Number", (phone) =>
+      pipe(
+        phone,
+        curriedParsePhoneNumberFromString("US"),
+        OfromNullable,
+        Omatch(
+          () => false,
+          (parsedPhone) => parsedPhone.isValid(),
+        ),
+      ),
+    ),
 }
 
 export { commonOrderFields }
