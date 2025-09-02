@@ -1,6 +1,8 @@
 import { Button, makeStyles } from "@material-ui/core"
 import { useNavigate } from "react-router-dom"
 import { useAtomValue } from "jotai"
+import { pipe } from "fp-ts/function"
+import { match as Ematch } from "fp-ts/Either"
 import { useAuthorizedDeleteContent } from "../hooks/useAuthorizedDeleteContent"
 import { contentIdAtom } from "../../state"
 
@@ -18,8 +20,15 @@ const DeleteButton = () => {
   const authorizedDeleteContent = useAuthorizedDeleteContent(id)
   const handleDelete = async () => {
     // handle error / success state
-    await authorizedDeleteContent()
-    navigate("/news/editable", { relative: "path" })
+    pipe(
+      await authorizedDeleteContent(),
+      Ematch(
+        () => {},
+        () => {
+          navigate("/news/editable", { relative: "path" })
+        },
+      ),
+    )
   }
 
   return (
