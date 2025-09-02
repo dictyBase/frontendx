@@ -18,11 +18,10 @@ const getGraphqlErrorCode = (
     graphqlErrors,
     RAhead,
     OflatMap(({ extensions }) => OfromNullable(extensions)),
+    OflatMap(({ code }) => OfromNullable(code)),
     Omatch(
       () => "unexpected",
-      (extension) =>
-        // eslint-disable-next-line dot-notation
-        extension["code"] as string,
+      (code) => code as string,
     ),
   )
 
