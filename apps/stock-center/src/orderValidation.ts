@@ -1,10 +1,6 @@
 import { string, StringSchema } from "yup"
 import { pipe } from "fp-ts/function"
-import {
-  fromNullable as OfromNullable,
-  map as Omap,
-  match as Omatch,
-} from "fp-ts/Option"
+import { fromNullable as OfromNullable, match as Omatch } from "fp-ts/Option"
 import parsePhoneNumberFromString, { type CountryCode } from "libphonenumber-js"
 
 const MAX_INPUT_LENGTH = 70
