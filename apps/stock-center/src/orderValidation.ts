@@ -37,16 +37,19 @@ const commonOrderFields: { [k: string]: StringSchema } = {
     .min(5, "Must be exactly 5 digits")
     .max(5, "Must be exactly 5 digits"),
   country: string().required("* Country is required"),
+  countryCode: string().required(),
   phone: string()
     .required("* Phone number is required")
-    .test("phone-number", "Invalid Phone Number", (phone) =>
-      pipe(
-        phone,
-        curriedParsePhoneNumberFromString("US"),
-        OfromNullable,
-        Omatch(
-          () => false,
-          (parsedPhone) => parsedPhone.isValid(),
+    .when(["countryCode"], ([countryCode], schema) =>
+      schema.test("phone-number", "Invalid Phone Number", (phone) =>
+        pipe(
+          phone,
+          curriedParsePhoneNumberFromString(countryCode),
+          OfromNullable,
+          Omatch(
+            () => false,
+            (parsedPhone) => parsedPhone.isValid(),
+          ),
         ),
       ),
     ),
