@@ -27,6 +27,7 @@
     "fontsource-roboto": "^4.0.0",
     "formik": "^2.2.9",
     "fp-ts": "^2.16.1",
+    "libphonenumber-js": "^1.12.15",
     "react": "17.*",
     "react-dom": "17.*",
     "react-hook-form": "^7.45.2",
@@ -62,6 +63,12 @@
     "lint": "eslint src/ --ext .ts --ext .tsx",
     "test": "vitest run",
     "coverage": "vitest run --coverage"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "custom"
+    ]
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",
