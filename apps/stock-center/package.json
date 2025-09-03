@@ -25,7 +25,6 @@
     "@dictybase/hook-dsc": "*",
     "@dictybase/ui-dsc": "*",
     "jotai": "^2.0.0",
-    "libphonenumber-js": "^1.12.15",
     "react-helmet": "^6.1.0",
     "ui-user": "*"
   },
