@@ -32,6 +32,7 @@ type ShippingFormData = {
   state: string
   zip: string
   country: string
+  countryCode: string
   phone: string
   shippingAccount: string
   shippingAccountNumber: string
@@ -50,6 +51,7 @@ type PaymentFormData = {
   payerState: string
   payerZip: string
   payerCountry: string
+  payerCountryCode: string
   payerPhone: string
   paymentMethod: string
   purchaseOrderNum: string
