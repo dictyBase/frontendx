@@ -24,11 +24,14 @@ const commonOrderFields: { [k: string]: StringSchema } = {
     .required("* First name is required")
     .max(MAX_INPUT_LENGTH),
   lastName: string().required("* Last name is required").max(MAX_INPUT_LENGTH),
-  email: string().email().required("* Email is required").max(MAX_INPUT_LENGTH),
+  email: string()
+    .email("* Email is invalid")
+    .required("* Email is required")
+    .max(MAX_INPUT_LENGTH),
   organization: string()
     .required("* Organization is required")
     .max(MAX_INPUT_LENGTH),
-  lab: string().required("* Lab/Group is required").max(MAX_INPUT_LENGTH),
+  lab: string().max(MAX_INPUT_LENGTH),
   address1: string().required("* Address is required").max(MAX_INPUT_LENGTH),
   city: string().required("* City is required").max(MAX_INPUT_LENGTH),
   zip: string()
@@ -41,7 +44,7 @@ const commonOrderFields: { [k: string]: StringSchema } = {
   phone: string()
     .required("* Phone number is required")
     .when(["countryCode"], ([countryCode], schema) =>
-      schema.test("phone-number", "Invalid Phone Number", (phone) =>
+      schema.test("phone-number", "* Invalid phone number", (phone) =>
         pipe(
           phone,
           curriedParsePhoneNumberFromString(countryCode),
