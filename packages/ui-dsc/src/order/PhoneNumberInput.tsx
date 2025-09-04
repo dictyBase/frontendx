@@ -2,12 +2,21 @@ import { FunctionComponent } from "react"
 import { useFormContext, Controller } from "react-hook-form"
 import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
-import { Grid, Select, MenuItem, makeStyles } from "@material-ui/core"
-import { TextField } from "./order/TextField"
-import { countryToFlag } from "./utils/countryToFlag"
-import { countryList, CountryOption } from "./utils/countryList"
+import {
+  Grid,
+  Select,
+  MenuItem,
+  makeStyles,
+  TextField as MUITextField,
+} from "@material-ui/core"
+import { TextField } from "./TextField"
+import { countryToFlag } from "../utils/countryToFlag"
+import { countryList, CountryOption } from "../utils/countryList"
 
 const useStyles = makeStyles({
+  textField: {
+    flexGrow: 1,
+  },
   select: {
     marginTop: "8px",
   },
@@ -23,7 +32,12 @@ const countryCodes = pipe(
 )
 
 const PhoneNumberInput: FunctionComponent = () => {
-  const { control } = useFormContext()
+  const {
+    control,
+    trigger,
+    getFieldState,
+    formState: { errors },
+  } = useFormContext()
   const classes = useStyles()
   return (
     <Grid container>
@@ -39,13 +53,17 @@ const PhoneNumberInput: FunctionComponent = () => {
               renderValue={(value) =>
                 countryToFlag(value as CountryOption["code"])
               }
-              {...field}>
+              {...field}
+              onChange={(event) => {
+                if (getFieldState("phone").isTouched) trigger("phone")
+                field.onChange(event)
+              }}>
               {countryCodes}
             </Select>
           )}
         />
       </Grid>
-      <Grid item>
+      <Grid item className={classes.textField}>
         <TextField name="phone" label="Phone Number" />
       </Grid>
     </Grid>
