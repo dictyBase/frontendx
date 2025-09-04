@@ -1,13 +1,15 @@
 import Grid from "@material-ui/core/Grid"
-import { map, flatten, partition } from "fp-ts/Array"
+import { map as Amap, flatten, partition } from "fp-ts/Array"
 import { left, right } from "fp-ts/Separated"
 import { pipe } from "fp-ts/function"
+import { match } from "ts-pattern"
 import { CartTotalRow } from "./cart/CartTotalRow"
 import { type Cart } from "./types"
 import { getCartTotal } from "./utils/getCartTotal"
 import { convertToPayerField } from "./utils/convertToPayerField"
 import { shippingAddressFields } from "./order/addressFields"
 import { CountryDropdown } from "./order/CountryDropdown"
+import { PhoneNumberInput } from "./order/PhoneNumberInput"
 import { PanelWrapper } from "./order/PanelWrapper"
 import { StyledGridContainer } from "./order/StyledGridContainer"
 import { TextField } from "./order/TextField"
@@ -78,6 +80,7 @@ const panelWrapper = (title: string) => (element: JSX.Element) => (
 )
 
 const isCountry = ({ name }: { name: string }) => /country/i.test(name)
+const isPhoneNumber = ({ name }: { name: string }) => /phone/i.test(name)
 
 const wrapAddressTextField = ({ name, label }: AddressField) => (
   <Grid key={name} item>
@@ -89,21 +92,19 @@ const wrapCountryDropdown = ({ name }: { name: string }) => (
   <CountryDropdown fieldName={name} />
 )
 
-const renderAddressFields = (addressFields: Array<AddressField>) => {
-  const textFields = pipe(
+const wrapPhoneNumberInput = () => <PhoneNumberInput />
+
+const renderAddressFields = (addressFields: Array<AddressField>) =>
+  pipe(
     addressFields,
-    partition(isCountry),
-    left,
-    map(wrapAddressTextField),
+    Amap((field) =>
+      match(field)
+        .when(isCountry, wrapCountryDropdown)
+        .when(isPhoneNumber, wrapPhoneNumberInput)
+        .otherwise(wrapAddressTextField),
+    ),
+    gridContainerWrapper,
   )
-  const countryField = pipe(
-    addressFields,
-    partition(isCountry),
-    right,
-    map(wrapCountryDropdown),
-  )
-  return pipe([textFields, countryField], flatten, gridContainerWrapper)
-}
 
 const renderShippingAddressFields = () =>
   pipe(
@@ -120,7 +121,7 @@ const getPayerField = ({ name, label }: { name: string; label: string }) => ({
 const renderPaymentAddressFields = () =>
   pipe(
     shippingAddressFields,
-    map(getPayerField),
+    Amap(getPayerField),
     renderAddressFields,
     panelWrapper("Payment Address"),
   )
