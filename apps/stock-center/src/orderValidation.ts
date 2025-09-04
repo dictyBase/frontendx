@@ -19,6 +19,17 @@ const curriedParsePhoneNumberFromString =
   (text: string) =>
     parsePhoneNumberFromString(text, defaultCountryCode)
 
+const checkPhoneValidity = (phone: string, countryCode: CountryCode) =>
+  pipe(
+    phone,
+    curriedParsePhoneNumberFromString(countryCode),
+    OfromNullable,
+    Omatch(
+      () => false,
+      (parsedPhone) => parsedPhone.isValid(),
+    ),
+  )
+
 const commonOrderFields: { [k: string]: StringSchema } = {
   firstName: string()
     .required("* First name is required")
@@ -45,15 +56,7 @@ const commonOrderFields: { [k: string]: StringSchema } = {
     .required("* Phone number is required")
     .when(["countryCode"], ([countryCode], schema) =>
       schema.test("phone-number", "* Invalid phone number", (phone) =>
-        pipe(
-          phone,
-          curriedParsePhoneNumberFromString(countryCode),
-          OfromNullable,
-          Omatch(
-            () => false,
-            (parsedPhone) => parsedPhone.isValid(),
-          ),
-        ),
+        checkPhoneValidity(phone, countryCode),
       ),
     ),
 }
