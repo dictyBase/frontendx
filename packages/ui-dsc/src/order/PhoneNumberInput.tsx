@@ -7,9 +7,8 @@ import {
   Select,
   MenuItem,
   makeStyles,
-  TextField as MUITextField,
+  TextField as MuiTextField,
 } from "@material-ui/core"
-import { TextField } from "./TextField"
 import { countryToFlag } from "../utils/countryToFlag"
 import { countryList, CountryOption } from "../utils/countryList"
 
@@ -68,7 +67,23 @@ const PhoneNumberInput: FunctionComponent<{
         />
       </Grid>
       <Grid item className={classes.textField}>
-        <TextField name="phone" label="Phone Number" />
+        <Controller
+          name={name}
+          control={control}
+          render={({ field }) => (
+            <MuiTextField
+              id={label}
+              label={label}
+              type="text"
+              margin="dense"
+              variant="outlined"
+              fullWidth
+              error={!!errors[name]}
+              helperText={errors[name]?.message || ""}
+              {...field}
+            />
+          )}
+        />
       </Grid>
     </Grid>
   )
