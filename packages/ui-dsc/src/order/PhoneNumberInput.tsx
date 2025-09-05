@@ -1,7 +1,16 @@
+/* eslint-disable @typescript-eslint/no-shadow */
+
 import { FunctionComponent } from "react"
 import { useFormContext, Controller } from "react-hook-form"
 import { pipe } from "fp-ts/function"
+import { match as Bmatch, MonoidAny as BMonoidAny } from "fp-ts/boolean"
+import {
+  isEmpty as SisEmpty,
+  replace as Sreplace,
+  includes as Sincludes,
+} from "fp-ts/string"
 import { map as Amap } from "fp-ts/Array"
+import { match } from "ts-pattern"
 import {
   Grid,
   Select,
@@ -11,6 +20,20 @@ import {
 } from "@material-ui/core"
 import { countryToFlag } from "../utils/countryToFlag"
 import { countryList, CountryOption } from "../utils/countryList"
+import { isPhoneValid } from "../utils/checkPhoneValidity"
+
+const INVALID_PHONE_MESSAGE =
+  "The phone number entered for the shipping information appears to be invalid. Please double-check the phone number and make sure the country code is correct."
+
+const appendIfEmpty = (base: string, add: string) =>
+  pipe(
+    base,
+    SisEmpty,
+    Bmatch(
+      () => `${base}\n${add}`,
+      () => add,
+    ),
+  )
 
 const useStyles = makeStyles({
   textField: {
@@ -38,10 +61,40 @@ const PhoneNumberInput: FunctionComponent<{
     control,
     trigger,
     getFieldState,
+    getValues,
+    setValue,
     formState: { errors },
   } = useFormContext()
   const classes = useStyles()
   const countryCodeFieldName = `${name}CountryCode`
+  const onBlur = () => {
+    const phone: string = getValues(name)
+    const comments: string = getValues("additionalInformation")
+    match({ phone, comments })
+      .when(
+        ({ phone }) =>
+          BMonoidAny.concat(
+            isPhoneValid(phone, getValues(countryCodeFieldName)),
+            SisEmpty(phone),
+          ),
+        () => {
+          setValue(
+            "additionalInformation",
+            pipe(comments, Sreplace(INVALID_PHONE_MESSAGE, "")),
+          )
+        },
+      )
+      .when(
+        ({ comments }) => !pipe(comments, Sincludes(INVALID_PHONE_MESSAGE)),
+        () => {
+          setValue(
+            "additionalInformation",
+            appendIfEmpty(comments, INVALID_PHONE_MESSAGE),
+          )
+        },
+      )
+      .otherwise(() => {})
+  }
   return (
     <Grid container>
       <Grid item>
@@ -80,6 +133,9 @@ const PhoneNumberInput: FunctionComponent<{
               fullWidth
               error={!!errors[name]}
               helperText={errors[name]?.message || ""}
+              InputProps={{
+                onBlur,
+              }}
               {...field}
             />
           )}
