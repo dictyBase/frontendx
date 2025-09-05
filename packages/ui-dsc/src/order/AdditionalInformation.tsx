@@ -19,12 +19,12 @@ const AdditionalInformation = () => {
     OflatMap(({ message }) => OfromNullable(message)),
     OgetOrElse(() => ""),
   )
+
   return (
     <PanelWrapper title="Additional Information">
       <Box mt={1} mb={2} p={2}>
         <Typography variant="h3">Comments:</Typography>
         <TextField
-          label="comments"
           fullWidth
           multiline
           variant="outlined"
