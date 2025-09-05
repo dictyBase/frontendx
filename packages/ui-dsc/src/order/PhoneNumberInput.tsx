@@ -31,7 +31,10 @@ const countryCodes = pipe(
   )),
 )
 
-const PhoneNumberInput: FunctionComponent = () => {
+const PhoneNumberInput: FunctionComponent<{
+  name: string
+  label: string
+}> = ({ name, label }) => {
   const {
     control,
     trigger,
@@ -39,11 +42,12 @@ const PhoneNumberInput: FunctionComponent = () => {
     formState: { errors },
   } = useFormContext()
   const classes = useStyles()
+  const countryCodeFieldName = `${name}CountryCode`
   return (
     <Grid container>
       <Grid item>
         <Controller
-          name="countryCode"
+          name={countryCodeFieldName}
           control={control}
           render={({ field }) => (
             <Select
@@ -55,7 +59,7 @@ const PhoneNumberInput: FunctionComponent = () => {
               }
               {...field}
               onChange={(event) => {
-                if (getFieldState("phone").isTouched) trigger("phone")
+                if (getFieldState(name).isTouched) trigger(name)
                 field.onChange(event)
               }}>
               {countryCodes}
