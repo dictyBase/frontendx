@@ -1,6 +1,5 @@
 import Grid from "@material-ui/core/Grid"
-import { map as Amap, flatten, partition } from "fp-ts/Array"
-import { left, right } from "fp-ts/Separated"
+import { map as Amap } from "fp-ts/Array"
 import { pipe } from "fp-ts/function"
 import { match } from "ts-pattern"
 import { CartTotalRow } from "./cart/CartTotalRow"
@@ -92,7 +91,9 @@ const wrapCountryDropdown = ({ name }: { name: string }) => (
   <CountryDropdown fieldName={name} />
 )
 
-const wrapPhoneNumberInput = () => <PhoneNumberInput />
+const wrapPhoneNumberInput = ({ name, label }: AddressField) => (
+  <PhoneNumberInput name={name} label={label} />
+)
 
 const renderAddressFields = (addressFields: Array<AddressField>) =>
   pipe(
