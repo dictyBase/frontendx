@@ -50,4 +50,3 @@ test("truncates long content", () => {
   const displayedText = screen.getByText(/Parsed:/)
   expect(displayedText.textContent).toHaveLength(403) // 400 + "..."
 })
-
