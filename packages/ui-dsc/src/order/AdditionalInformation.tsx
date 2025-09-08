@@ -10,9 +10,10 @@ import {
 import { useFormContext } from "react-hook-form"
 import { PanelWrapper } from "./PanelWrapper"
 
+const fieldName = "additionalInformation"
 const AdditionalInformation = () => {
   const { register, getFieldState } = useFormContext()
-  const { error, invalid } = getFieldState("additionalInformation")
+  const { error, invalid } = getFieldState(fieldName)
   const helperText = pipe(
     error,
     OfromNullable,
@@ -23,8 +24,11 @@ const AdditionalInformation = () => {
   return (
     <PanelWrapper title="Additional Information">
       <Box mt={1} mb={2} p={2}>
-        <Typography variant="h3">Comments:</Typography>
+        <Typography component="label" variant="h3" htmlFor={fieldName}>
+          Comments:
+        </Typography>
         <TextField
+          id={fieldName}
           fullWidth
           multiline
           variant="outlined"
@@ -32,7 +36,7 @@ const AdditionalInformation = () => {
           maxRows={5}
           error={invalid}
           helperText={helperText}
-          {...register("additionalInformation")}
+          {...register(fieldName)}
         />
       </Box>
     </PanelWrapper>
