@@ -1,4 +1,4 @@
-import { describe, test, expect } from "vitest"
+import { test, expect } from "vitest"
 import { pipe } from "fp-ts/function"
 import { filter, map, reduce } from "fp-ts/Array"
 import { screen, render } from "@testing-library/react"
