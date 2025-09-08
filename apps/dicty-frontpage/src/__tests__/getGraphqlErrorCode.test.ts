@@ -21,10 +21,10 @@ test("returns 'unexpected' when no extensions are present", () => {
   expect(getGraphqlErrorCode(graphqlErrors)).toBe("unexpected")
 })
 
-test("returns 'unexpected' when extensions are null", () => {
+test("returns 'unexpected' when extensions are undefined", () => {
   const graphqlErrors = [
     new GraphQLError("Test error", {
-      extensions: null,
+      extensions: undefined,
     }),
   ]
 
@@ -53,4 +53,3 @@ test("mapCodeToMessage returns correct message for unexpected code", () => {
 test("mapCodeToMessage returns undefined for unknown code", () => {
   expect(mapCodeToMessage("UNKNOWN_CODE")).toBeUndefined()
 })
-
