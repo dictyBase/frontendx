@@ -27,4 +27,4 @@ const isPhoneValid = (phone: string, countryCode: CountryCode) =>
     ),
   )
 
-export { isPhoneValid }
+export { curriedParsePhoneNumberFromString, isPhoneValid }
