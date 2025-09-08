@@ -2,7 +2,9 @@ import { test, expect } from "vitest"
 import { getPagePath } from "../common/utils/getPagePath"
 
 test("creates path with all three segments", () => {
-  expect(getPagePath("about", "team", "researchers")).toBe("about/team/researchers")
+  expect(getPagePath("about", "team", "researchers")).toBe(
+    "about/team/researchers",
+  )
 })
 
 test("creates path with section and name only", () => {
