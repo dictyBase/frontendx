@@ -24,7 +24,7 @@
     "eslint-config-custom": "*",
     "jsdom": "latest",
     "tsconfig": "*",
-    "vitest": "2.x"
+    "vitest": "3.x"
   },
   "dependencies": {
     "@dictybase/dicty-image-mui5": "*",

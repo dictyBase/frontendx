@@ -22,7 +22,7 @@
     "@vitest/coverage-v8": "2.x",
     "eslint-config-custom": "*",
     "jsdom": "latest",
-    "vitest": "2.x"
+    "vitest": "3.x"
   },
   "dependencies": {
     "@lexical/react": "0.11.x",
