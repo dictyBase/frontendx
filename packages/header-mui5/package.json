@@ -20,7 +20,7 @@
     "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^14.5.1",
     "@types/uuid": "^9.0.2",
-    "@vitest/coverage-v8": "2.x",
+    "@vitest/coverage-v8": "3.x",
     "eslint-config-custom": "*",
     "jsdom": "latest",
     "tsconfig": "*",

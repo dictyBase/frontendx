@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "@dictybase/oxlint-config": "*",
-    "@vitest/coverage-v8": "2.x",
+    "@vitest/coverage-v8": "3.x",
     "eslint-config-custom": "*",
     "tsconfig": "*",
     "vitest": "3.x"
