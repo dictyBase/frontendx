@@ -1,6 +1,6 @@
 import { test, expect, describe } from "vitest"
 import { screen, render } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { countryToFlag } from "@dictybase/ui-dsc"
 import { ShippingPage } from "../components/ShippingPage"
 
