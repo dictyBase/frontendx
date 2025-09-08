@@ -10,7 +10,7 @@
     "@vitest/coverage-v8": "2.x",
     "eslint-config-custom": "*",
     "tsconfig": "*",
-    "vitest": "2.x"
+    "vitest": "3.x"
   },
   "dependencies": {
     "@dictybase/footer": "*",
