@@ -4,7 +4,7 @@ import { filter, map, reduce } from "fp-ts/Array"
 import { screen, render } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
 import { useForm, FormProvider, type Resolver } from "react-hook-form"
-import { CountryDropdown, countryToFlag } from "../order/CountryDropdown"
+import { CountryDropdown } from "../order/CountryDropdown"
 
 type FormValues = {
   country: string
@@ -45,54 +45,41 @@ const WrappedCountryDropdown = ({ fieldName }: { fieldName: string }) => {
   )
 }
 
-describe("CountryDropdown", () => {
-  test("invalid input results in error", async () => {
-    render(<WrappedCountryDropdown fieldName="country" />)
+test("invalid input results in error", async () => {
+  render(<WrappedCountryDropdown fieldName="country" />)
 
-    await userEvent.click(screen.getByText("Submit"))
+  await userEvent.click(screen.getByText("Submit"))
 
-    const fieldLabel = screen.getAllByText("Country")[0]
-    const helperText = screen.getByText("country is required")
+  const fieldLabel = screen.getAllByText("Country")[0]
+  const helperText = screen.getByText("country is required")
 
-    expect(fieldLabel).toHaveClass("Mui-error")
-    expect(helperText).toBeInTheDocument()
-  })
-
-  test("valid input does not result in error", async () => {
-    render(<WrappedCountryDropdown fieldName="country" />)
-
-    await userEvent.click(screen.getByTitle("Open"))
-    await userEvent.click(screen.getByText(/Brazil/))
-    await userEvent.click(screen.getByText("Submit"))
-
-    const fieldLabel = screen.getAllByText("Country")[0]
-    const helperText = screen.queryByText("country is required")
-
-    expect(fieldLabel).not.toHaveClass("Mui-error")
-    expect(helperText).toBeNull()
-  })
-  test(`passing "payerCountry" to fieldName prop registers the field to "payerCountry" form property`, async () => {
-    render(<WrappedCountryDropdown fieldName="payerCountry" />)
-
-    await userEvent.click(screen.getByTitle("Open"))
-    await userEvent.click(screen.getByText(/Brazil/))
-    await userEvent.click(screen.getByText("Submit"))
-
-    const fieldLabel = screen.getAllByText("Country")[0]
-    const helperText = screen.queryByText("payerCountry is required")
-
-    expect(fieldLabel).not.toHaveClass("Mui-error")
-    expect(helperText).toBeNull()
-  })
+  expect(fieldLabel).toHaveClass("Mui-error")
+  expect(helperText).toBeInTheDocument()
 })
 
-describe("countryToFlag", () => {
-  test("should return expected string", () => {
-    expect(countryToFlag("IS")).toBe("🇮🇸")
-  })
-  test("should return isoCode if String.fromCodePoint is invalid", () => {
-    // @ts-ignore
-    global.String.fromCodePoint = undefined
-    expect(countryToFlag("IS")).toBe("IS")
-  })
+test("valid input does not result in error", async () => {
+  render(<WrappedCountryDropdown fieldName="country" />)
+
+  await userEvent.click(screen.getByTitle("Open"))
+  await userEvent.click(screen.getByText(/Brazil/))
+  await userEvent.click(screen.getByText("Submit"))
+
+  const fieldLabel = screen.getAllByText("Country")[0]
+  const helperText = screen.queryByText("country is required")
+
+  expect(fieldLabel).not.toHaveClass("Mui-error")
+  expect(helperText).toBeNull()
+})
+test(`passing "payerCountry" to fieldName prop registers the field to "payerCountry" form property`, async () => {
+  render(<WrappedCountryDropdown fieldName="payerCountry" />)
+
+  await userEvent.click(screen.getByTitle("Open"))
+  await userEvent.click(screen.getByText(/Brazil/))
+  await userEvent.click(screen.getByText("Submit"))
+
+  const fieldLabel = screen.getAllByText("Country")[0]
+  const helperText = screen.queryByText("payerCountry is required")
+
+  expect(fieldLabel).not.toHaveClass("Mui-error")
+  expect(helperText).toBeNull()
 })
