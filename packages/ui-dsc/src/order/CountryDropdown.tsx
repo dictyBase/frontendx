@@ -68,4 +68,4 @@ const CountryDropdown = ({ fieldName }: CountryDropdownProperties) => {
   )
 }
 
-export { CountryDropdown, countryToFlag }
+export { CountryDropdown }
