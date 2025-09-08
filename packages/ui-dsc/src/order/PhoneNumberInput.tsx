@@ -104,6 +104,7 @@ const PhoneNumberInput: FunctionComponent<{
           render={({ field }) => (
             <Select
               variant="outlined"
+              label="Country Code"
               margin="dense"
               className={classes.select}
               renderValue={(value) =>
