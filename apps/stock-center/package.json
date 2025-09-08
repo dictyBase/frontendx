@@ -14,6 +14,7 @@
     "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/stock-center.json",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "test": "vitest run",
+    "coverage": "vitest run --coverage",
     "e2e": "BASE_URL=http://localhost:3003 playwright test"
   },
   "dependencies": {
