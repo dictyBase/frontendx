@@ -1,6 +1,6 @@
 import { pipe } from "fp-ts/function"
 import { fromNullable as OfromNullable, match as Omatch } from "fp-ts/Option"
-import parsePhoneNumberFromString, { type CountryCode } from "libphonenumber-js"
+import parsePhoneNumber, { type CountryCode } from "libphonenumber-js"
 
 const curriedParsePhoneNumberFromString =
   (
@@ -14,7 +14,7 @@ const curriedParsePhoneNumberFromString =
       | undefined,
   ) =>
   (text: string) =>
-    parsePhoneNumberFromString(text, defaultCountryCode)
+    parsePhoneNumber(text, defaultCountryCode)
 
 const isPhoneValid = (phone: string, countryCode: CountryCode) =>
   pipe(
