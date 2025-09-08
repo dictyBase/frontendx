@@ -20,7 +20,7 @@ import {
 } from "@material-ui/core"
 import { countryToFlag } from "../utils/countryToFlag"
 import { countryList, CountryOption } from "../utils/countryList"
-import { isPhoneValid } from "../utils/checkPhoneValidity"
+import { isPhoneValid } from "../utils/isPhoneValid"
 
 const INVALID_PHONE_MESSAGE =
   "The phone number entered for the shipping information appears to be invalid. Please double-check the phone number and make sure the country code is correct."
