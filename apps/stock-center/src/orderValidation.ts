@@ -17,7 +17,9 @@ const commonOrderFields: { [k: string]: StringSchema } = {
   lab: string().max(MAX_INPUT_LENGTH),
   address1: string().required("* Address is required").max(MAX_INPUT_LENGTH),
   city: string().required("* City is required").max(MAX_INPUT_LENGTH),
-  state: string().required("* Address is required").max(MAX_INPUT_LENGTH),
+  state: string()
+    .required("* State/Province is required")
+    .max(MAX_INPUT_LENGTH),
   zip: string()
     .required("* Zip code is required")
     .matches(/^\d+$/, "Must be only digits")
