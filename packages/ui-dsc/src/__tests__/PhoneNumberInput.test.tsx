@@ -1,5 +1,5 @@
 import { test, expect } from "vitest"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { object, string } from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { screen, render } from "@testing-library/react"
