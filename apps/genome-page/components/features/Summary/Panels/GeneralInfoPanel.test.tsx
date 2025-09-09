@@ -75,8 +75,8 @@ describe("features/Summary/Panels/GeneralInfoPanel", () => {
       screen.getByText("cytosolic regulator of adenylyl cyclase PiaA"),
     ).toBeInTheDocument()
 
-    // Alternative Protein Names
-    expect(screen.getByText(/Alternative Protein Names/)).toBeInTheDocument()
+    // Alternative Gene Names
+    expect(screen.getByText(/Alternative Gene Names/)).toBeInTheDocument()
     expect(
       screen.getByText(/Pianissimo, cytosolic regulator of adenylate cyclase/),
     ).toBeInTheDocument()
