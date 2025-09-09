@@ -11,6 +11,7 @@ export default defineConfig({
     testTimeout: 30_000,
     coverage: {
       include: ["src/*"],
+      all: false,
     },
   },
 })
