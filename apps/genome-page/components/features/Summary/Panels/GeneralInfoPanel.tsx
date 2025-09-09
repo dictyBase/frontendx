@@ -8,7 +8,6 @@ import { map as Amap, compact as Acompact, isNonEmpty } from "fp-ts/Array"
 import {
   Applicative as OApplicative,
   Option,
-  Some,
   some,
   fromPredicate as OfromPredicate,
   fromNullable as OfromNullable,
@@ -24,7 +23,7 @@ type Properties = {
   >
 }
 type PanelRowData = {
-  id: Some<ContentId>
+  id: Option<ContentId>
   value: Option<NonEmptyArray<string> | string>
 }
 
@@ -34,36 +33,35 @@ type PanelRowData = {
 const GeneralInfoPanel = ({ generalInformation }: Properties) =>
   pipe(
     generalInformation,
-    (info) =>
-      [
-        {
-          id: some("Name Description"),
-          value: pipe(
-            info.name_description,
-            Amap(OfromNullable),
-            Acompact,
-            OfromPredicate(isNonEmpty),
-          ),
-        },
-        { id: some("dictyBase ID"), value: some(info.id) },
-        {
-          id: some("Gene Product"),
-          value: pipe(info.gene_product, OfromNullable),
-        },
-        {
-          id: some("Alternative Gene Names"),
-          value: pipe(
-            info.synonyms,
-            Amap(OfromNullable),
-            Acompact,
-            OfromPredicate(isNonEmpty),
-          ),
-        },
-        {
-          id: some("Description"),
-          value: pipe(info.description, OfromNullable),
-        },
-      ] as Array<PanelRowData>,
+    (info): Array<PanelRowData> => [
+      {
+        id: some("Name Description"),
+        value: pipe(
+          info.name_description,
+          Amap(OfromNullable),
+          Acompact,
+          OfromPredicate(isNonEmpty),
+        ),
+      },
+      { id: some("dictyBase ID"), value: some(info.id) },
+      {
+        id: some("Gene Product"),
+        value: pipe(info.gene_product, OfromNullable),
+      },
+      {
+        id: some("Alternative Gene Names"),
+        value: pipe(
+          info.synonyms,
+          Amap(OfromNullable),
+          Acompact,
+          OfromPredicate(isNonEmpty),
+        ),
+      },
+      {
+        id: some("Description"),
+        value: pipe(info.description, OfromNullable),
+      },
+    ],
     Amap(sequence(OApplicative)),
     Acompact,
     Amap(({ id, value }) => (
