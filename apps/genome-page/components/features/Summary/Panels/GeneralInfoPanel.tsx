@@ -51,7 +51,7 @@ const GeneralInfoPanel = ({ generalInformation }: Properties) =>
           value: pipe(info.gene_product, OfromNullable),
         },
         {
-          id: some("Alternative Protein Names"),
+          id: some("Alternative Gene Names"),
           value: pipe(
             info.synonyms,
             Amap(OfromNullable),
