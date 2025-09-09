@@ -18,7 +18,7 @@ const EXPECTED_GENERAL_INFO = {
   id: "DDB_G0269114",
   name_description: ["num = NUcleoMorphin"],
   gene_product: "nucleomorphin\ncalmodulin-binding protein",
-  synonyms: [],
+  synonyms: ["cmbA", "numB", "numA1", "numA2", "numC", "numA3"],
   description:
     "there are three reported numA isoforms, the largest 97 kDa numA2, the 66 kDa numA1, and the smallest 43 kDA numA3; all isoforms contain a nuclear localization signal, a CaM binding domain, and a DEED (D/E repeat) domain; the larger numA2 contains an additional BRCT (Breast Cancer C_Terminal) domain",
 }
