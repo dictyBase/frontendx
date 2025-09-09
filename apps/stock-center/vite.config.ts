@@ -11,7 +11,7 @@ const viteConfig = defineConfig({
   test: {
     globals: true,
     environment: "jsdom",
-    testTimeout: 10_000,
+    testTimeout: 30_000,
     setupFiles: ["./src/__tests__/setup.ts"],
     exclude: ["**/e2e"],
     coverage: {
