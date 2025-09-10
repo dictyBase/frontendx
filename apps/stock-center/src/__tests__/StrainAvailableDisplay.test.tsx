@@ -1,22 +1,78 @@
+import { Provider, createStore } from "jotai"
 import { test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
+import { userEvent } from "@testing-library/user-event"
 import { MemoryRouter } from "react-router-dom"
+import { cartAtom } from "../cartState"
+import { mockStrainCartItem, mockPlasmidCartItem } from "../mocks/mockCartItems"
 import { StrainAvailableDisplay } from "../components/StrainAvailableDisplay"
 
-test("should display capacity full message when reaching 12 items in cart", async () => {
-  const cartData = {
-    id: "DBS123456",
-    label: "test1",
-    summary: "this is the best test strain in the world",
-    in_stock: true,
-    fee: 10,
-  }
+test("Displays `remove from cart` button when strain is already in the cart", async () => {
+  const user = userEvent.setup()
+  const testStore = createStore()
+
+  testStore.set(cartAtom, {
+    strainItems: [mockStrainCartItem],
+    plasmidItems: [],
+    maxItems: 12,
+  })
 
   render(
     <MemoryRouter>
-      <StrainAvailableDisplay cartData={cartData} />
+      <Provider store={testStore}>
+        <StrainAvailableDisplay cartData={mockStrainCartItem} />
+      </Provider>
     </MemoryRouter>,
   )
-  const cartButton = screen.getByText(/Add to Cart/)
-  expect(cartButton).toBeInTheDocument()
+  const removeFromCartButton = screen.getByText(/remove from cart/i)
+  expect(removeFromCartButton).toBeInTheDocument()
+
+  await user.click(removeFromCartButton)
+
+  const addToCartButton = screen.getByText(/add to cart/i)
+  expect(addToCartButton).toBeInTheDocument()
+})
+
+test("Displays `add to cart` button when the strain is not already in cart and the cart is not full", async () => {
+  const user = userEvent.setup()
+  const testStore = createStore()
+  testStore.set(cartAtom, {
+    strainItems: [],
+    plasmidItems: [],
+    maxItems: 12,
+  })
+
+  render(
+    <MemoryRouter>
+      <Provider store={testStore}>
+        <StrainAvailableDisplay cartData={mockStrainCartItem} />
+      </Provider>
+    </MemoryRouter>,
+  )
+  const addToCartButton = screen.getByText(/add to cart/i)
+  expect(addToCartButton).toBeInTheDocument()
+
+  await user.click(addToCartButton)
+
+  const removeFromCartButton = screen.getByText(/remove from cart/i)
+  expect(removeFromCartButton).toBeInTheDocument()
+})
+
+test("Displays `is full` button when the cart is full", async () => {
+  const testStore = createStore()
+  testStore.set(cartAtom, {
+    strainItems: [],
+    plasmidItems: [mockPlasmidCartItem],
+    maxItems: 1,
+  })
+
+  render(
+    <MemoryRouter>
+      <Provider store={testStore}>
+        <StrainAvailableDisplay cartData={mockStrainCartItem} />
+      </Provider>
+    </MemoryRouter>,
+  )
+  const isFullButton = screen.getByText(/is full/i)
+  expect(isFullButton).toBeInTheDocument()
 })
