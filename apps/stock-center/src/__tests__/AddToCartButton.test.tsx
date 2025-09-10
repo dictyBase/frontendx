@@ -3,7 +3,10 @@ import { render, screen } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
 import { Provider } from "jotai"
 import { AddToCartButton } from "../components/AddToCartButton"
-import { mockStrainCatalogItem } from "../mocks/mockCatalogItems"
+import {
+  mockPlasmidCatalogItem,
+  mockStrainCatalogItem,
+} from "../mocks/mockCatalogItems"
 
 const mockSetShowDialog = vi.fn()
 
@@ -32,7 +35,7 @@ test("Calls the function passed to `setShowDialog` prop when clicked", async () 
   render(
     <Provider>
       <AddToCartButton
-        items={[mockStrainCatalogItem]}
+        items={[mockPlasmidCatalogItem]}
         setShowDialog={mockSetShowDialog}
       />
     </Provider>,
