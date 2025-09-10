@@ -13,7 +13,7 @@ const mockPlasmidCartItem: PlasmidCartItem = {
   __typename: "Plasmid",
   id: "DBP-1",
   summary: "This is a test item",
-  name: "testPlsamid",
+  name: "testPlasmid",
   fee: 15,
   in_stock: true,
 }
