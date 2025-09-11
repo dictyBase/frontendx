@@ -1,9 +1,9 @@
-import React from "react"
+import { useEffect } from "react"
 import { render, screen } from "@testing-library/react"
 import ErrorBoundary from "../components/errors/ErrorBoundary"
 
 const ErrorComponent = () => {
-  React.useEffect(() => {
+  useEffect(() => {
     throw new Error("My error")
   }, [])
   return <></>
