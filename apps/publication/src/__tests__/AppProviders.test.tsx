@@ -1,11 +1,12 @@
 import { render, screen } from "@testing-library/react"
+import { vi } from "vitest"
 import { useApolloClientCache } from "@dictybase/data-access"
 import { AppProviders } from "../components/layout/AppProviders"
 
-jest.mock("@logto/react", () => ({
-  useLogto: jest.fn(() => {}),
-  useHandleSignInCallback: jest.fn(() => {}),
-  LogtoProvider: jest.fn(({ children }) => <>{children}</>),
+vi.mock("@logto/react", () => ({
+  useLogto: vi.fn(() => {}),
+  useHandleSignInCallback: vi.fn(() => {}),
+  LogtoProvider: vi.fn(({ children }) => <>{children}</>),
   UserScope: {
     Profile: "",
     Email: "",
@@ -14,20 +15,20 @@ jest.mock("@logto/react", () => ({
   },
 }))
 
-jest.mock("@apollo/client", () => ({
-  ApolloProvider: jest.fn(({ children }) => <>{children}</>),
+vi.mock("@apollo/client", () => ({
+  ApolloProvider: vi.fn(({ children }) => <>{children}</>),
 }))
 
-jest.mock("@dictybase/data-access", () => ({
-  useGraphqlClient: jest.fn(() => {}),
-  useApolloClientCache: jest.fn(),
+vi.mock("@dictybase/data-access", () => ({
+  useGraphqlClient: vi.fn(() => {}),
+  useApolloClientCache: vi.fn(),
   storageType: {
     INDEX: "",
   },
 }))
 
 test("renders loader when ApolloClientCache is initializing", () => {
-  ;(useApolloClientCache as jest.Mock).mockImplementationOnce(() => ({
+  ;(useApolloClientCache as any).mockImplementationOnce(() => ({
     cache: {},
     isInitializing: true,
   }))
@@ -42,7 +43,7 @@ test("renders loader when ApolloClientCache is initializing", () => {
 })
 
 test("renders children when initialization is complete", () => {
-  ;(useApolloClientCache as jest.Mock).mockImplementationOnce(() => ({
+  ;(useApolloClientCache as any).mockImplementationOnce(() => ({
     cache: {},
     isInitializing: false,
   }))
