@@ -2,11 +2,11 @@
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "lib": ["dom", "dom.iterable", "esnext"],
     "module": "esnext",
     "moduleResolution": "node",
@@ -20,7 +20,10 @@
     "noEmit": true,
     "downlevelIteration": true,
     "noFallthroughCasesInSwitch": true,
-    "incremental": true
+    "incremental": true,
+    "types": [
+      "vitest/globals"
+    ]
   },
   "exclude": ["node_modules"],
   "include": [
@@ -30,6 +33,7 @@
     "components",
     "common",
     "next-env.d.ts",
-    "additional.d.ts"
+    "additional.d.ts",
+    "vitest.setup.ts"
   ]
 }
