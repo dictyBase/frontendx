@@ -1,10 +1,11 @@
 import { render, screen } from "@testing-library/react"
+import { vi } from "vitest"
 import { App } from "../components/layout/App"
 
-jest.mock("@dictybase/auth-mui5", () => ({
-  HeaderWithAuth: jest.fn(() => <></>),
-  NavbarWithAuth: jest.fn(() => <></>),
-  FooterWithAuth: jest.fn(() => <></>),
+vi.mock("@dictybase/auth-mui5", () => ({
+  HeaderWithAuth: vi.fn(() => <></>),
+  NavbarWithAuth: vi.fn(() => <></>),
+  FooterWithAuth: vi.fn(() => <></>),
 }))
 
 test("renders children", () => {
