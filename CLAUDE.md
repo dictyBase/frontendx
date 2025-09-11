@@ -428,3 +428,4 @@ const LazyComponent = lazy(() => import('./HeavyComponent'))
     ├── footer/
     └── hook/
 ```
+- To run scripts for a specific project, use the command `yarn workspace <project-name> <command>
