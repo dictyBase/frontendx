@@ -68,14 +68,15 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.5.1",
-    "vitest": "3.x",
     "@types/node": "^20.12.10",
     "@types/react": "17.*",
     "@types/react-fontawesome": "^1.6.8",
     "husky": "8",
     "msw": "2.x",
     "prettier": "3.*",
-    "react-docgen-typescript": "^2.2.2"
+    "react-docgen-typescript": "^2.2.2",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "3.x"
   },
   "browserslist": {
     "production": [
