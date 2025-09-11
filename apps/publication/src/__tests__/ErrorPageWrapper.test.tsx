@@ -1,13 +1,14 @@
 import { ApolloError } from "@apollo/client"
 import { render, screen } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
+import { vi } from "vitest"
 import { ErrorPageWrapper } from "../components/errors/ErrorPageWrapper"
 
 // Mock the Next.js router
-const mockPush = jest.fn()
-const mockReload = jest.fn()
+const mockPush = vi.fn()
+const mockReload = vi.fn()
 
-jest.mock("next/router", () => ({
+vi.mock("next/router", () => ({
   useRouter: () => ({
     push: mockPush,
     reload: mockReload,
