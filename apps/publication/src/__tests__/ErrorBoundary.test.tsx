@@ -11,26 +11,24 @@ const ErrorComponent = () => {
 
 const OkComponent = () => <h1>OK.</h1>
 
-describe("components/errors/ErrorBoundary", () => {
-  it("should render error component", () => {
-    render(
-      <ErrorBoundary>
-        <ErrorComponent />
-      </ErrorBoundary>,
-    )
+test("should render error component", () => {
+  render(
+    <ErrorBoundary>
+      <ErrorComponent />
+    </ErrorBoundary>,
+  )
 
-    expect(
-      screen.getByText("Sorry! There was an error loading this page."),
-    ).toBeInTheDocument()
-  })
+  expect(
+    screen.getByText("Sorry! There was an error loading this page."),
+  ).toBeInTheDocument()
+})
 
-  it("should render non-error component", () => {
-    render(
-      <ErrorBoundary>
-        <OkComponent />
-      </ErrorBoundary>,
-    )
+test("should render non-error component", () => {
+  render(
+    <ErrorBoundary>
+      <OkComponent />
+    </ErrorBoundary>,
+  )
 
-    expect(screen.getByText("OK.")).toBeInTheDocument()
-  })
+  expect(screen.getByText("OK.")).toBeInTheDocument()
 })
