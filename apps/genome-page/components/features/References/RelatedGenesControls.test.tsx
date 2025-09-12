@@ -10,13 +10,13 @@ describe("RelatedGenesControls", () => {
     totalGeneCount: 100,
     filteredGeneCount: 50,
     filter: "",
-    onFilterChange: jest.fn(),
+    onFilterChange: vi.fn(),
     group: GeneGroups.ALL,
-    onGroupChange: jest.fn(),
+    onGroupChange: vi.fn(),
   }
 
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   test("renders the component with all elements", () => {

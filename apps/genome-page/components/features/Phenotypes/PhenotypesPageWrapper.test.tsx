@@ -3,16 +3,17 @@ import { singlePhenotype } from "mocks/mockSinglePhenotype"
 import { PhenotypesPageWrapper } from "./PhenotypesPageWrapper"
 
 // Constants to avoid duplicated strings
-const GRAPHQL_SCHEMA_MODULE = "dicty-graphql-schema"
 const TEST_GENE = "sadA"
 
 // Mock GraphQL document to avoid importing from dicty-graphql-schema
-jest.mock("dicty-graphql-schema", () => ({
+const mockUseListStrainsWithGeneQuery = vi.hoisted(() => vi.fn())
+
+vi.mock("dicty-graphql-schema", () => ({
   GeneGeneralInformationSummaryDocument: {},
-  useListStrainsWithGeneQuery: jest.fn(),
+  useListStrainsWithGeneQuery: mockUseListStrainsWithGeneQuery,
 }))
 
-jest.mock("next/router", () => ({
+vi.mock("next/router", () => ({
   useRouter: () => ({
     query: { id: TEST_GENE },
   }),
@@ -49,12 +50,9 @@ jest.mock("next/router", () => ({
  */
 
 test("should query with the gene id in the provided in the route parameters", () => {
-  const { useListStrainsWithGeneQuery } = jest.requireMock(
-    GRAPHQL_SCHEMA_MODULE,
-  )
   render(<PhenotypesPageWrapper />)
 
-  expect(useListStrainsWithGeneQuery).toHaveBeenCalledWith({
+  expect(mockUseListStrainsWithGeneQuery).toHaveBeenCalledWith({
     variables: {
       gene: TEST_GENE,
     },
@@ -66,10 +64,7 @@ test("should query with the gene id in the provided in the route parameters", ()
 
 test("Renders loading state initially", async () => {
   // Mock the hook implementation for this test
-  const { useListStrainsWithGeneQuery } = jest.requireMock(
-    GRAPHQL_SCHEMA_MODULE,
-  )
-  useListStrainsWithGeneQuery.mockReturnValue({ loading: true })
+  mockUseListStrainsWithGeneQuery.mockReturnValue({ loading: true })
 
   render(<PhenotypesPageWrapper />)
 
@@ -81,10 +76,7 @@ test("Renders loading state initially", async () => {
 
 test("Renders an error display if listStrainsWithGene is null or undefined and an error is present", () => {
   // Mock the hook implementation for this test
-  const { useListStrainsWithGeneQuery } = jest.requireMock(
-    GRAPHQL_SCHEMA_MODULE,
-  )
-  useListStrainsWithGeneQuery.mockReturnValue({
+  mockUseListStrainsWithGeneQuery.mockReturnValue({
     loading: false,
     error: { cause: { message: "test error" } },
     listStrainsWithGene: undefined,
@@ -95,10 +87,7 @@ test("Renders an error display if listStrainsWithGene is null or undefined and a
 
 test("Renders an empty display if listStrainsWithGene is null or undefined and there is no error", () => {
   // Mock the hook implementation for this test
-  const { useListStrainsWithGeneQuery } = jest.requireMock(
-    GRAPHQL_SCHEMA_MODULE,
-  )
-  useListStrainsWithGeneQuery.mockReturnValue({
+  mockUseListStrainsWithGeneQuery.mockReturnValue({
     loading: false,
     error: undefined,
     data: { listStrainsWithGene: undefined },
@@ -109,10 +98,7 @@ test("Renders an empty display if listStrainsWithGene is null or undefined and t
 
 test("Renders an empty display if all listStrainsWithGene.phenotypes is null or undefined and an error is present", () => {
   // Mock the hook implementation for this test
-  const { useListStrainsWithGeneQuery } = jest.requireMock(
-    GRAPHQL_SCHEMA_MODULE,
-  )
-  useListStrainsWithGeneQuery.mockReturnValue({
+  mockUseListStrainsWithGeneQuery.mockReturnValue({
     loading: false,
     error: { cause: { message: "test error" } },
     data: { listStrainsWithGene: [{ phenotypes: undefined }] },
@@ -123,10 +109,7 @@ test("Renders an empty display if all listStrainsWithGene.phenotypes is null or 
 
 test("Renders an empty display if all listStrainsWithGene.phenotypes is null or undefined and there is no error", () => {
   // Mock the hook implementation for this test
-  const { useListStrainsWithGeneQuery } = jest.requireMock(
-    GRAPHQL_SCHEMA_MODULE,
-  )
-  useListStrainsWithGeneQuery.mockReturnValue({
+  mockUseListStrainsWithGeneQuery.mockReturnValue({
     loading: false,
     data: { listStrainsWithGene: [{ phenotypes: undefined }] },
   })
@@ -136,10 +119,7 @@ test("Renders an empty display if all listStrainsWithGene.phenotypes is null or 
 
 test("Renders an empty display if listStrainsWithGene is empty", () => {
   // Mock the hook implementation for this test
-  const { useListStrainsWithGeneQuery } = jest.requireMock(
-    GRAPHQL_SCHEMA_MODULE,
-  )
-  useListStrainsWithGeneQuery.mockReturnValue({
+  mockUseListStrainsWithGeneQuery.mockReturnValue({
     loading: false,
     data: { listStrainsWithGene: [] },
   })
@@ -148,10 +128,7 @@ test("Renders an empty display if listStrainsWithGene is empty", () => {
 })
 test("Renders an empty display if all listStrainsWithGene.phenotypes is empty", () => {
   // Mock the hook implementation for this test
-  const { useListStrainsWithGeneQuery } = jest.requireMock(
-    GRAPHQL_SCHEMA_MODULE,
-  )
-  useListStrainsWithGeneQuery.mockReturnValue({
+  mockUseListStrainsWithGeneQuery.mockReturnValue({
     loading: false,
     data: { listStrainsWithGene: [{ phenotypes: [] }] },
   })
@@ -161,10 +138,7 @@ test("Renders an empty display if all listStrainsWithGene.phenotypes is empty", 
 
 test("Renders a list of phenotypes if any listStrainsWithGene.phenotypes contains at least 1 phenotype", () => {
   // Mock the hook implementation for this test
-  const { useListStrainsWithGeneQuery } = jest.requireMock(
-    GRAPHQL_SCHEMA_MODULE,
-  )
-  useListStrainsWithGeneQuery.mockReturnValue({
+  mockUseListStrainsWithGeneQuery.mockReturnValue({
     loading: false,
     data: {
       listStrainsWithGene: [

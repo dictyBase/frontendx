@@ -4,7 +4,7 @@ import { mockOntologyData } from "mocks/mockOntologyData"
 import { OntologyContainer } from "./OntologyContainer"
 
 // eslint-disable-next-line import/no-commonjs, unicorn/prefer-module -- ESM not supported by default as of Jest 29
-const useRouter = jest.spyOn(require("next/router"), "useRouter")
+const useRouter = vi.spyOn(require("next/router"), "useRouter")
 
 describe("features/Ontology/OntologyContainer", () => {
   it("should render fetched data", () => {

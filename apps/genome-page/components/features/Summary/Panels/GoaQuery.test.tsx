@@ -4,24 +4,26 @@ import { mockOntologyData } from "mocks/mockOntologyData"
 import { GoaQuery } from "./GoaQuery"
 
 // Constants to avoid duplicated strings
-const GRAPHQL_SCHEMA_MODULE = "dicty-graphql-schema"
 const PANEL_WRAPPER_TESTID = "panel-wrapper"
 
 // Mock GraphQL document to avoid importing from dicty-graphql-schema
-jest.mock("dicty-graphql-schema", () => ({
+const mockUseGeneOntologyAnnotationSummaryQuery = vi.hoisted(() => vi.fn())
+
+vi.mock("dicty-graphql-schema", () => ({
   GeneOntologyAnnotationSummaryDocument: {},
-  useGeneOntologyAnnotationSummaryQuery: jest.fn(),
+  useGeneOntologyAnnotationSummaryQuery:
+    mockUseGeneOntologyAnnotationSummaryQuery,
 }))
 
 // Mock useRouter
-jest.mock("next/router", () => ({
+vi.mock("next/router", () => ({
   useRouter: () => ({
     query: { id: "sadA" },
   }),
 }))
 
 // Mock the PanelWrapper component
-jest.mock("components/panels/PanelWrapper", () => ({
+vi.mock("components/panels/PanelWrapper", () => ({
   PanelWrapper: ({ children, title }: any) => (
     <Box data-testid={PANEL_WRAPPER_TESTID}>
       <h2>{title}</h2>
@@ -31,14 +33,11 @@ jest.mock("components/panels/PanelWrapper", () => ({
 }))
 
 describe("features/Summary/Panels/GoaQuery", () => {
-  beforeEach(() => jest.clearAllMocks())
+  beforeEach(() => vi.clearAllMocks())
 
   it("should render loading state initially", async () => {
     // Mock the hook implementation for this test
-    const { useGeneOntologyAnnotationSummaryQuery } = jest.requireMock(
-      GRAPHQL_SCHEMA_MODULE,
-    )
-    useGeneOntologyAnnotationSummaryQuery.mockReturnValue({ loading: true })
+    mockUseGeneOntologyAnnotationSummaryQuery.mockReturnValue({ loading: true })
 
     render(<GoaQuery />)
 
@@ -50,10 +49,7 @@ describe("features/Summary/Panels/GoaQuery", () => {
 
   it("should render GO annotations when query returns results", async () => {
     // Mock the hook implementation for this test
-    const { useGeneOntologyAnnotationSummaryQuery } = jest.requireMock(
-      GRAPHQL_SCHEMA_MODULE,
-    )
-    useGeneOntologyAnnotationSummaryQuery.mockReturnValue({
+    mockUseGeneOntologyAnnotationSummaryQuery.mockReturnValue({
       loading: false,
       data: {
         geneOntologyAnnotation: mockOntologyData.goas,
@@ -71,10 +67,7 @@ describe("features/Summary/Panels/GoaQuery", () => {
 
   it("should render no data panel when query returns null", async () => {
     // Mock the hook implementation for this test
-    const { useGeneOntologyAnnotationSummaryQuery } = jest.requireMock(
-      GRAPHQL_SCHEMA_MODULE,
-    )
-    useGeneOntologyAnnotationSummaryQuery.mockReturnValue({
+    mockUseGeneOntologyAnnotationSummaryQuery.mockReturnValue({
       loading: false,
       data: {
         geneOntologyAnnotation: undefined,
@@ -90,10 +83,7 @@ describe("features/Summary/Panels/GoaQuery", () => {
 
   it("should render error page when query fails", async () => {
     // Mock the hook implementation for this test
-    const { useGeneOntologyAnnotationSummaryQuery } = jest.requireMock(
-      GRAPHQL_SCHEMA_MODULE,
-    )
-    useGeneOntologyAnnotationSummaryQuery.mockReturnValue({
+    mockUseGeneOntologyAnnotationSummaryQuery.mockReturnValue({
       loading: false,
       error: new Error("An error occurred"),
     })

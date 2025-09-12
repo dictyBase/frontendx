@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react"
 import { SummaryContainer } from "./SummaryContainer"
 
 // Mock the Typography component from Material-UI
-jest.mock("@material-ui/core/Typography", () => ({
+vi.mock("@material-ui/core/Typography", () => ({
   __esModule: true,
   default: ({ children, component }: any) => (
     <Box data-testid="typography" data-component={component}>
@@ -13,17 +13,17 @@ jest.mock("@material-ui/core/Typography", () => ({
 }))
 
 // Mock the query components
-jest.mock("components/features/Summary/Panels/GeneralInfoQuery", () => ({
+vi.mock("components/features/Summary/Panels/GeneralInfoQuery", () => ({
   GeneralInfoQuery: () => (
     <Box data-testid="general-info-query">General Info Query</Box>
   ),
 }))
 
-jest.mock("components/features/Summary/Panels/GoaQuery", () => ({
+vi.mock("components/features/Summary/Panels/GoaQuery", () => ({
   GoaQuery: () => <Box data-testid="goa-query">GOA Query</Box>,
 }))
 
-jest.mock("components/features/Summary/Panels/ReferencesQuery", () => ({
+vi.mock("components/features/Summary/Panels/ReferencesQuery", () => ({
   ReferencesQuery: () => (
     <Box data-testid="references-query">References Query</Box>
   ),

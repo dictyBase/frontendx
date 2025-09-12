@@ -4,8 +4,8 @@ import { Gene } from "dicty-graphql-schema"
 import { RelatedGenesDisplay } from "./RelatedGenesDisplay"
 
 // Mock the useRouter hook
-const mockPush = jest.fn()
-jest.mock("next/router", () => ({
+const mockPush = vi.fn()
+vi.mock("next/router", () => ({
   useRouter: () => ({
     push: mockPush,
   }),

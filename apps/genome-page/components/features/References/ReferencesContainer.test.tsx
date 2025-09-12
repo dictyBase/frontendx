@@ -3,7 +3,7 @@ import { mockReferencesData } from "mocks/mockReferencesData"
 import { ReferencesContainer } from "./ReferencesContainer"
 
 // eslint-disable-next-line import/no-commonjs, unicorn/prefer-module -- ESM not supported by default as of Jest 29
-const useRouter = jest.spyOn(require("next/router"), "useRouter")
+const useRouter = vi.spyOn(require("next/router"), "useRouter")
 
 const gene = "sadA"
 const pathname = `gene/${gene}/references`
