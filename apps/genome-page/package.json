@@ -75,7 +75,6 @@
     "msw": "2.x",
     "prettier": "3.*",
     "react-docgen-typescript": "^2.2.2",
-    "vite-tsconfig-paths": "^5.1.4",
     "vitest": "3.x"
   },
   "browserslist": {
