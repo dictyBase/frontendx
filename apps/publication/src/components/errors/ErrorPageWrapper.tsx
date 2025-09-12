@@ -1,4 +1,4 @@
-import { useRouter } from "next/router"
+import { useNavigate } from "react-router-dom"
 import { ApolloError } from "@apollo/client"
 import { ErrorPage } from "@dictybase/ui-common"
 
@@ -7,12 +7,12 @@ type ErrorPageWrapperProperties = {
 }
 
 const ErrorPageWrapper = ({ error }: ErrorPageWrapperProperties) => {
-  const router = useRouter()
+  const navigate = useNavigate()
   const handleNavigateHome = () => {
-    router.push(process.env.NEXT_PUBLIC_FRONTPAGE_URL)
+    window.location.href = import.meta.env.VITE_FRONTPAGE_URL
   }
   const handleReload = () => {
-    router.reload()
+    window.location.reload()
   }
   return (
     <ErrorPage

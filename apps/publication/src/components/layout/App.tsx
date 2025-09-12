@@ -38,20 +38,20 @@ const App: FunctionComponent = ({ children }) => {
   return (
     <Box className={classes.body}>
       <HeaderWithAuth
-        frontPageUrl={process.env.NEXT_PUBLIC_FRONTPAGE_URL}
-        basename={process.env.NEXT_PUBLIC_BASENAME}
+        frontPageUrl={import.meta.env.VITE_FRONTPAGE_URL}
+        basename={import.meta.env.VITE_BASENAME}
       />
       <NavbarWithAuth
-        frontPageUrl={process.env.NEXT_PUBLIC_FRONTPAGE_URL}
-        stockCenterUrl={process.env.NEXT_PUBLIC_STOCKCENTER_URL}
+        frontPageUrl={import.meta.env.VITE_FRONTPAGE_URL}
+        stockCenterUrl={import.meta.env.VITE_STOCKCENTER_URL}
         theme={navTheme}
       />
       <main>
         <ErrorBoundary>{children}</ErrorBoundary>
       </main>
       <FooterWithAuth
-        frontPageUrl={process.env.NEXT_PUBLIC_FRONTPAGE_URL}
-        stockCenterUrl={process.env.NEXT_PUBLIC_STOCKCENTER_URL}
+        frontPageUrl={import.meta.env.VITE_FRONTPAGE_URL}
+        stockCenterUrl={import.meta.env.VITE_STOCKCENTER_URL}
       />
     </Box>
   )

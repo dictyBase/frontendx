@@ -2,7 +2,7 @@ import React from "react"
 import { makeStyles, Grid, Container, Box } from "@material-ui/core"
 import { grey } from "@material-ui/core/colors"
 import { Publication } from "dicty-graphql-schema"
-import Head from "next/head"
+import { Helmet } from "react-helmet"
 import { PublicationSidebar } from "./PublicationSidebar"
 import { PublicationBody } from "./PublicationBody"
 
@@ -32,13 +32,13 @@ const PublicationPage = ({ publication }: PublicationPageProperties) => {
     <Box className={classes.background}>
       <Container disableGutters className={classes.foreground}>
         <Grid container>
-          <Head>
+          <Helmet>
             <title>dictyBase Literature - {title}</title>
             <meta
               name="description"
               content={`dictyBase literature page for title ${title}`}
             />
-          </Head>
+          </Helmet>
           <Grid item xs={12} sm={12} md={1} className={classes.sidebar}>
             <PublicationSidebar doi={doi} title={title} />
           </Grid>

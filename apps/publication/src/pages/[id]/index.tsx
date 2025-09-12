@@ -1,4 +1,4 @@
-import { useRouter } from "next/router"
+import { useParams } from "react-router-dom"
 import { Publication, usePublicationQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { PublicationLoader } from "../../components/PublicationLoader"
@@ -9,11 +9,10 @@ import { PublicationPage } from "../../components/PublicationPage"
  * Renders the publication page given a publication id
  */
 const PublicationPageWrapper = () => {
-  const { query } = useRouter()
-  const id = query.id as string
+  const { id } = useParams()
 
   const result = usePublicationQuery({
-    variables: { id },
+    variables: { id: id as string },
   })
 
   return match(result)

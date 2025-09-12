@@ -1,5 +1,5 @@
 import { useHandleSignInCallback } from "@logto/react"
-import { useRouter } from "next/router"
+import { useNavigate } from "react-router-dom"
 import { LoadingDisplay } from "@dictybase/ui-common"
 
 /**
@@ -9,9 +9,9 @@ import { LoadingDisplay } from "@dictybase/ui-common"
  * It renders a loading display until the sign-in process is completed.
  */
 const Callback = () => {
-  const router = useRouter()
+  const navigate = useNavigate()
   const { isLoading } = useHandleSignInCallback(() => {
-    router.push("/")
+    navigate("/")
   })
   return isLoading ? <LoadingDisplay rows={5} /> : <></>
 }
