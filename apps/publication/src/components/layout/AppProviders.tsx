@@ -10,8 +10,8 @@ import {
 import { ThemeProvider } from "./ThemeProvider"
 
 const logtoConfig: LogtoConfig = {
-  endpoint: process.env.NEXT_PUBLIC_LOGTO_ENDPOINT,
-  appId: process.env.NEXT_PUBLIC_LOGTO_APPID,
+  endpoint: import.meta.env.VITE_LOGTO_ENDPOINT,
+  appId: import.meta.env.VITE_LOGTO_APPID,
   scopes: [
     UserScope.Profile,
     UserScope.Email,
@@ -24,8 +24,8 @@ const logtoConfig: LogtoConfig = {
     "roles",
   ],
   resources: [
-    process.env.NEXT_PUBLIC_LOGTO_API_FIRST_RESOURCE,
-    process.env.NEXT_PUBLIC_LOGTO_API_SECOND_RESOURCE,
+    import.meta.env.VITE_LOGTO_API_FIRST_RESOURCE,
+    import.meta.env.VITE_LOGTO_API_SECOND_RESOURCE,
   ],
 }
 
@@ -37,7 +37,7 @@ const cacheOptions = {
 const AppProviders = ({ children }: { children: React.ReactNode }) => {
   const { cache, isInitializing } = useApolloClientCache(cacheOptions)
   const client = useGraphqlClient({
-    uri: `${process.env.NEXT_PUBLIC_GRAPHQL_SERVER}/graphql`,
+    uri: `${import.meta.env.VITE_GRAPHQL_SERVER}/graphql`,
     cache,
   })
 

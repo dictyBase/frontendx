@@ -4,16 +4,21 @@ import { userEvent } from "@testing-library/user-event"
 import { vi } from "vitest"
 import { ErrorPageWrapper } from "../components/errors/ErrorPageWrapper"
 
-// Mock the Next.js router
-const mockPush = vi.fn()
-const mockReload = vi.fn()
+// Mock the React Router
+const mockNavigate = vi.fn()
 
-vi.mock("next/router", () => ({
-  useRouter: () => ({
-    push: mockPush,
-    reload: mockReload,
-  }),
+vi.mock("react-router-dom", () => ({
+  useNavigate: () => mockNavigate,
 }))
+
+// Mock window.location
+Object.defineProperty(window, 'location', {
+  value: {
+    href: '',
+    reload: vi.fn(),
+  },
+  writable: true,
+})
 
 const errorMessage = "Test Error"
 
@@ -26,7 +31,7 @@ test("Clicking on the `Return to Homepage` button navigates to the home page", a
   render(<ErrorPageWrapper error={mockError} />)
 
   await user.click(screen.getByRole("button", { name: /return to homepage/i }))
-  expect(mockPush).toHaveBeenCalledWith(process.env.NEXT_PUBLIC_FRONTPAGE_URL)
+  expect(window.location.href).toBe(import.meta.env.VITE_FRONTPAGE_URL)
 })
 
 test("Clicking on the `Refresh` button reloads the page", async () => {
@@ -34,5 +39,5 @@ test("Clicking on the `Refresh` button reloads the page", async () => {
   render(<ErrorPageWrapper error={mockError} />)
 
   await user.click(screen.getByRole("button", { name: /refresh/i }))
-  expect(mockReload).toHaveBeenCalled()
+  expect(window.location.reload).toHaveBeenCalled()
 })

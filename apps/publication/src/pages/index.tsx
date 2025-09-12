@@ -1,16 +1,17 @@
 import React from "react"
-import { useRouter } from "next/router"
+import { useNavigate, useLocation } from "react-router-dom"
 import { match } from "ts-pattern"
 import { PublicationLoader } from "../components/PublicationLoader"
 
 const Home = () => {
-  const router = useRouter()
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
 
   React.useEffect(() => {
-    match(router.asPath)
-      .with("/", () => router.replace("/26088819"))
-      .otherwise((publicationId) => router.replace(publicationId))
-  }, [router])
+    match(pathname)
+      .with("/", () => navigate("/26088819"))
+      .otherwise((publicationId) => navigate(publicationId))
+  }, [navigate, pathname])
 
   return <PublicationLoader />
 }
