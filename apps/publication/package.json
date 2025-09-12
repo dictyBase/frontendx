@@ -3,10 +3,11 @@
   "version": "0.0.0-semantically-released",
   "private": true,
   "homepage": "/publication",
+  "type": "module",
   "scripts": {
-    "dev": "next dev --port 5173",
-    "build": "next build && next export -o ./dist",
-    "start": "next start",
+    "dev": "vite --port 5173",
+    "build": "vite build",
+    "serve": "vite preview --port 3000",
     "coverage": "vitest --coverage",
     "test": "vitest",
     "e2e": "BASE_URL=http://localhost:5173 playwright test",
@@ -38,8 +39,8 @@
     "element-remove": "^1.0.4",
     "fontsource-roboto": "^4.0.0",
     "localforage": "1.10.*",
-    "next": "^12.2.1",
-    "next-transpile-modules": "^9.0",
+    "react": "17.x",
+    "react-dom": "17.x",
     "react-helmet": "^6.1.0",
     "react-loading-skeleton": "^3.3.1",
     "react-router-dom": "~6.14.2",
@@ -51,7 +52,11 @@
     "@types/node": "^20.12.10",
     "@types/react-fontawesome": "^1.6.8",
     "@types/react-helmet": "^6.1.6",
-    "@types/webpack-env": "^1.16.2",
+    "@types/react": "17.*",
+    "@types/react-dom": "17.*",
+    "@vitejs/plugin-react-swc": "^4.0.1",
+    "@vitest/coverage-v8": "3.x",
+    "vite": "7.x",
     "@playwright/test": "^1.44.0",
     "eslint-config-custom": "*",
     "husky": "8",
@@ -61,12 +66,22 @@
     "source-map-explorer": "^2.5.3",
     "tsconfig": "*"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
+  "resolutions": {
+    "**/@types/react": "17.x",
+    "**/@types/react-dom": "17.x"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ]
+  },
   "eslintConfig": {
     "root": true,
     "extends": [
