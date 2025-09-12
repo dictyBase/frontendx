@@ -5,33 +5,33 @@ import { GoAnnotation } from "dicty-graphql-schema"
 import { GoaPanel } from "./GoaPanel"
 
 // Mock any GraphQL schema types that might be imported
-jest.mock("dicty-graphql-schema", () => ({
+vi.mock("dicty-graphql-schema", () => ({
   GeneOntologyAnnotationSummaryQuery: {},
 }))
 
 // Mock the ItemDisplay component
-jest.mock("components/panels/ItemDisplay", () => ({
+vi.mock("components/panels/ItemDisplay", () => ({
   ItemDisplay: ({ children }: any) => (
     <Box data-testid="item-display">{children}</Box>
   ),
 }))
 
 // Mock the LeftDisplay component
-jest.mock("components/panels/LeftDisplay", () => ({
+vi.mock("components/panels/LeftDisplay", () => ({
   LeftDisplay: ({ children }: any) => (
     <Box data-testid="left-display">{children}</Box>
   ),
 }))
 
 // Mock the RightDisplay component
-jest.mock("components/panels/RightDisplay", () => ({
+vi.mock("components/panels/RightDisplay", () => ({
   RightDisplay: ({ children }: any) => (
     <Box data-testid="right-display">{children}</Box>
   ),
 }))
 
 // Mock the GoaPanelContent component
-jest.mock("./GoaPanelContent", () => ({
+vi.mock("./GoaPanelContent", () => ({
   GoaPanelContent: ({ goa }: any) => (
     <Box data-testid="goa-panel-content">{goa.go_term}</Box>
   ),

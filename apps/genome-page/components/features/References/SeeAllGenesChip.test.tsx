@@ -3,8 +3,8 @@ import { userEvent } from "@testing-library/user-event"
 import { SeeAllGenesChip } from "./SeeAllGenesChip"
 
 // Mock the useRouter hook
-const mockPush = jest.fn()
-jest.mock("next/router", () => ({
+const mockPush = vi.fn()
+vi.mock("next/router", () => ({
   useRouter: () => ({
     push: mockPush,
     query: { id: "geneA" },

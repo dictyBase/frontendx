@@ -4,24 +4,26 @@ import { mockReferencesData } from "mocks/mockReferencesData"
 import { ReferencesQuery } from "./ReferencesQuery"
 
 // Constants to avoid duplicated strings
-const GRAPHQL_SCHEMA_MODULE = "dicty-graphql-schema"
 const PANEL_WRAPPER_TESTID = "panel-wrapper"
 
+const mockUseListPublicationsWithGeneSummaryQuery = vi.hoisted(() => vi.fn())
+
 // Mock GraphQL document to avoid importing from dicty-graphql-schema
-jest.mock("dicty-graphql-schema", () => ({
+vi.mock("dicty-graphql-schema", () => ({
   ListPublicationsWithGeneSummaryDocument: {},
-  useListPublicationsWithGeneSummaryQuery: jest.fn(),
+  useListPublicationsWithGeneSummaryQuery:
+    mockUseListPublicationsWithGeneSummaryQuery,
 }))
 
 // Mock useRouter
-jest.mock("next/router", () => ({
+vi.mock("next/router", () => ({
   useRouter: () => ({
     query: { id: "sadA" },
   }),
 }))
 
 // Mock the PanelWrapper component
-jest.mock("components/panels/PanelWrapper", () => ({
+vi.mock("components/panels/PanelWrapper", () => ({
   PanelWrapper: ({ children, title }: any) => (
     <Box data-testid={PANEL_WRAPPER_TESTID}>
       <h2>{title}</h2>
@@ -31,14 +33,14 @@ jest.mock("components/panels/PanelWrapper", () => ({
 }))
 
 describe("features/Summary/Panels/ReferencesQuery", () => {
-  beforeEach(() => jest.clearAllMocks())
+  beforeEach(() => vi.clearAllMocks())
 
-  it("should render loading state initially", async () => {
+  test("should render loading state initially", async () => {
     // Mock the hook implementation for this test
-    const { useListPublicationsWithGeneSummaryQuery } = jest.requireMock(
-      GRAPHQL_SCHEMA_MODULE,
-    )
-    useListPublicationsWithGeneSummaryQuery.mockReturnValue({ loading: true })
+
+    mockUseListPublicationsWithGeneSummaryQuery.mockReturnValue({
+      loading: true,
+    })
 
     render(<ReferencesQuery />)
 
@@ -48,12 +50,9 @@ describe("features/Summary/Panels/ReferencesQuery", () => {
     expect(screen.getByTestId(PANEL_WRAPPER_TESTID)).toBeInTheDocument()
   })
 
-  it("should render publications data when query returns results", async () => {
+  test("should render publications data when query returns results", async () => {
     // Mock the hook implementation for this test
-    const { useListPublicationsWithGeneSummaryQuery } = jest.requireMock(
-      GRAPHQL_SCHEMA_MODULE,
-    )
-    useListPublicationsWithGeneSummaryQuery.mockReturnValue({
+    mockUseListPublicationsWithGeneSummaryQuery.mockReturnValue({
       loading: false,
       data: {
         listPublicationsWithGene: mockReferencesData.slice(0, 5),
@@ -71,12 +70,9 @@ describe("features/Summary/Panels/ReferencesQuery", () => {
     ).toBeInTheDocument()
   })
 
-  it("should render no data panel when query returns empty results", async () => {
+  test("should render no data panel when query returns empty results", async () => {
     // Mock the hook implementation for this test
-    const { useListPublicationsWithGeneSummaryQuery } = jest.requireMock(
-      GRAPHQL_SCHEMA_MODULE,
-    )
-    useListPublicationsWithGeneSummaryQuery.mockReturnValue({
+    mockUseListPublicationsWithGeneSummaryQuery.mockReturnValue({
       loading: false,
       data: {
         listPublicationsWithGene: [],
@@ -84,7 +80,7 @@ describe("features/Summary/Panels/ReferencesQuery", () => {
     })
 
     // Mock NoDataPanel
-    jest.mock("./NoDataPanel", () => ({
+    vi.mock("./NoDataPanel", () => ({
       NoDataPanel: ({ query, geneId }: any) => (
         <Box data-testid="no-data-panel">
           No {query} for {geneId}
@@ -98,12 +94,9 @@ describe("features/Summary/Panels/ReferencesQuery", () => {
     await screen.findByTestId(PANEL_WRAPPER_TESTID)
   })
 
-  it("should render error page when query fails", async () => {
+  test("should render error page when query fails", async () => {
     // Mock the hook implementation for this test
-    const { useListPublicationsWithGeneSummaryQuery } = jest.requireMock(
-      GRAPHQL_SCHEMA_MODULE,
-    )
-    useListPublicationsWithGeneSummaryQuery.mockReturnValue({
+    mockUseListPublicationsWithGeneSummaryQuery.mockReturnValue({
       loading: false,
       error: new Error("An error occurred"),
     })

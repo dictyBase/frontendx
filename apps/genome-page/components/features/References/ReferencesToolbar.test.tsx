@@ -4,7 +4,7 @@ import { userEvent } from "@testing-library/user-event"
 import { ReferencesToolbar } from "./ReferencesToolbar"
 
 // Mock the ReferencesSearchBox component
-jest.mock("./ReferenceSearchBox", () => ({
+vi.mock("./ReferenceSearchBox", () => ({
   ReferencesSearchBox: ({ fields }: { fields: string[] }) => (
     <Box data-testid="references-search-box">
       Mock Search Box with fields: {fields.join(", ")}
@@ -19,12 +19,12 @@ describe("ReferencesToolbar", () => {
     totalPublicationCount: 10,
     filteredPublicationCount: 10,
     order: "Newest First",
-    setOrder: jest.fn(),
+    setOrder: vi.fn(),
     searchFields: ["author", "title", "journal"],
   }
 
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   test("renders publication count when filtered count equals total count", () => {
@@ -77,7 +77,7 @@ describe("ReferencesToolbar", () => {
 
   test("calls setOrder when select value changes", async () => {
     const user = userEvent.setup()
-    const mockSetOrder = jest.fn()
+    const mockSetOrder = vi.fn()
     render(<ReferencesToolbar {...defaultProps} setOrder={mockSetOrder} />)
 
     const select = screen.getByRole("button", { name: /newest first/i })

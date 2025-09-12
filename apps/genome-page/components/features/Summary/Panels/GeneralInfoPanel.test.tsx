@@ -5,28 +5,28 @@ import { mockGeneralInfoPiaA } from "mocks/piaAMocks/mockGeneralInfoPiaA"
 import { GeneralInfoPanel } from "./GeneralInfoPanel"
 
 // Mock the ItemDisplay component
-jest.mock("components/panels/ItemDisplay", () => ({
+vi.mock("components/panels/ItemDisplay", () => ({
   ItemDisplay: ({ children }: any) => (
     <Box data-testid="item-display">{children}</Box>
   ),
 }))
 
 // Mock the LeftDisplay component
-jest.mock("components/panels/LeftDisplay", () => ({
+vi.mock("components/panels/LeftDisplay", () => ({
   LeftDisplay: ({ children }: any) => (
     <Box data-testid="left-display">{children}</Box>
   ),
 }))
 
 // Mock the RightDisplay component
-jest.mock("components/panels/RightDisplay", () => ({
+vi.mock("components/panels/RightDisplay", () => ({
   RightDisplay: ({ children }: any) => (
     <Box data-testid="right-display">{children}</Box>
   ),
 }))
 
 describe("features/Summary/Panels/GeneralInfoPanel", () => {
-  beforeEach(() => jest.clearAllMocks())
+  beforeEach(() => vi.clearAllMocks())
 
   it("should render sadA general information", () => {
     render(<GeneralInfoPanel generalInformation={mockGeneralInfoData} />)

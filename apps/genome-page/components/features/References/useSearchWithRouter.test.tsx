@@ -11,17 +11,17 @@ import {
 /* eslint-disable sonarjs/no-duplicate-string, unicorn/no-null */
 
 // Mock Next.js router
-jest.mock("next/router", () => ({
-  useRouter: jest.fn(),
+vi.mock("next/router", () => ({
+  useRouter: vi.fn(),
 }))
 
 describe("useSearchParameters", () => {
-  const mockReplace = jest.fn()
+  const mockReplace = vi.fn()
 
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
     // Setup mock router for each test
-    ;(useRouter as jest.Mock).mockReturnValue({
+    ;(useRouter as vi.Mock).mockReturnValue({
       query: { gene: "sadA", author: "smith", year: "2020" },
       replace: mockReplace,
     })
@@ -100,12 +100,12 @@ describe("getActiveOptionLabel", () => {
 })
 
 describe("useSearchWithRouter", () => {
-  const mockReplace = jest.fn()
+  const mockReplace = vi.fn()
 
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
     // Setup mock router for each test
-    ;(useRouter as jest.Mock).mockReturnValue({
+    ;(useRouter as vi.Mock).mockReturnValue({
       query: { gene: "sadA", author: "smith", title: "dicty" },
       replace: mockReplace,
     })
@@ -296,9 +296,9 @@ describe("useSearchWithRouter", () => {
   })
 
   test("should filter fields correctly", () => {
-    ;(useRouter as jest.Mock).mockReturnValue({
+    ;(useRouter as vi.Mock).mockReturnValue({
       query: { author: "smith", title: "dicty" },
-      replace: jest.fn(),
+      replace: vi.fn(),
     })
     const { result } = renderHook(() =>
       useSearchWithRouter({
@@ -332,9 +332,9 @@ describe("useSearchWithRouter", () => {
 
   test("should render tags correctly", () => {
     // Mock the router query to have exactly two items for this test
-    ;(useRouter as jest.Mock).mockReturnValue({
+    ;(useRouter as vi.Mock).mockReturnValue({
       query: { author: "smith", title: "dicty" },
-      replace: jest.fn(),
+      replace: vi.fn(),
     })
 
     const { result } = renderHook(() =>
@@ -365,9 +365,9 @@ describe("useSearchWithRouter", () => {
 
   test("should render tags correctly when isAcceptingInput is false", () => {
     // Mock the router query with initial data
-    ;(useRouter as jest.Mock).mockReturnValue({
+    ;(useRouter as vi.Mock).mockReturnValue({
       query: { author: "smith" },
-      replace: jest.fn(),
+      replace: vi.fn(),
     })
 
     const { result } = renderHook(() =>

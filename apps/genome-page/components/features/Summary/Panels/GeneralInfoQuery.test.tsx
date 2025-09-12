@@ -4,25 +4,27 @@ import { mockGeneralInfoData } from "mocks/mockGeneralInfoData"
 import { GeneralInfoQuery } from "./GeneralInfoQuery"
 
 // Constants to avoid duplicated strings
-const GRAPHQL_SCHEMA_MODULE = "dicty-graphql-schema"
 const PANEL_WRAPPER_TESTID = "panel-wrapper"
 const TEST_GENE = "sadA"
 
-// Mock GraphQL document to avoid importing from dicty-graphql-schema
-jest.mock("dicty-graphql-schema", () => ({
+const mockUseGeneGeneralInformationSummaryQuery = vi.hoisted(() => vi.fn())
+
+// Mock GraphQL documenconst mock t to avoid importing from dicty-graphql-schema
+vi.mock("dicty-graphql-schema", () => ({
   GeneGeneralInformationSummaryDocument: {},
-  useGeneGeneralInformationSummaryQuery: jest.fn(),
+  useGeneGeneralInformationSummaryQuery:
+    mockUseGeneGeneralInformationSummaryQuery,
 }))
 
 // Mock useRouter
-jest.mock("next/router", () => ({
+vi.mock("next/router", () => ({
   useRouter: () => ({
     query: { id: TEST_GENE },
   }),
 }))
 
 // Mock the PanelWrapper component
-jest.mock("components/panels/PanelWrapper", () => ({
+vi.mock("components/panels/PanelWrapper", () => ({
   PanelWrapper: ({ children, title }: any) => (
     <Box data-testid={PANEL_WRAPPER_TESTID}>
       <h2>{title}</h2>
@@ -32,14 +34,11 @@ jest.mock("components/panels/PanelWrapper", () => ({
 }))
 
 describe("features/Summary/Panels/GeneralInfoQuery", () => {
-  beforeEach(() => jest.clearAllMocks())
+  beforeEach(() => vi.clearAllMocks())
 
   it("should render loading state initially", async () => {
     // Mock the hook implementation for this test
-    const { useGeneGeneralInformationSummaryQuery } = jest.requireMock(
-      GRAPHQL_SCHEMA_MODULE,
-    )
-    useGeneGeneralInformationSummaryQuery.mockReturnValue({ loading: true })
+    mockUseGeneGeneralInformationSummaryQuery.mockReturnValue({ loading: true })
 
     render(<GeneralInfoQuery />)
 
@@ -50,12 +49,9 @@ describe("features/Summary/Panels/GeneralInfoQuery", () => {
   })
 
   it("should query with the gene id in the provided in the route parameters", () => {
-    const { useGeneGeneralInformationSummaryQuery } = jest.requireMock(
-      GRAPHQL_SCHEMA_MODULE,
-    )
     render(<GeneralInfoQuery />)
 
-    expect(useGeneGeneralInformationSummaryQuery).toHaveBeenCalledWith({
+    expect(mockUseGeneGeneralInformationSummaryQuery).toHaveBeenCalledWith({
       variables: {
         gene: TEST_GENE,
       },
@@ -67,10 +63,7 @@ describe("features/Summary/Panels/GeneralInfoQuery", () => {
 
   it("should render general information when query returns results", async () => {
     // Mock the hook implementation for this test
-    const { useGeneGeneralInformationSummaryQuery } = jest.requireMock(
-      GRAPHQL_SCHEMA_MODULE,
-    )
-    useGeneGeneralInformationSummaryQuery.mockReturnValue({
+    mockUseGeneGeneralInformationSummaryQuery.mockReturnValue({
       loading: false,
       data: {
         geneGeneralInformation: mockGeneralInfoData,
@@ -88,10 +81,7 @@ describe("features/Summary/Panels/GeneralInfoQuery", () => {
 
   it("should render no data panel when query returns null", async () => {
     // Mock the hook implementation for this test
-    const { useGeneGeneralInformationSummaryQuery } = jest.requireMock(
-      GRAPHQL_SCHEMA_MODULE,
-    )
-    useGeneGeneralInformationSummaryQuery.mockReturnValue({
+    mockUseGeneGeneralInformationSummaryQuery.mockReturnValue({
       loading: false,
       data: {
         geneGeneralInformation: undefined,
@@ -99,7 +89,7 @@ describe("features/Summary/Panels/GeneralInfoQuery", () => {
     })
 
     // Mock NoDataPanel
-    jest.mock("./NoDataPanel", () => ({
+    vi.mock("./NoDataPanel", () => ({
       NoDataPanel: ({ query, geneId }: any) => (
         <Box data-testid="no-data-panel">
           No {query} for {geneId}
@@ -115,10 +105,7 @@ describe("features/Summary/Panels/GeneralInfoQuery", () => {
 
   it("should render error page when query fails", async () => {
     // Mock the hook implementation for this test
-    const { useGeneGeneralInformationSummaryQuery } = jest.requireMock(
-      GRAPHQL_SCHEMA_MODULE,
-    )
-    useGeneGeneralInformationSummaryQuery.mockReturnValue({
+    mockUseGeneGeneralInformationSummaryQuery.mockReturnValue({
       loading: false,
       error: new Error("An error occurred"),
     })

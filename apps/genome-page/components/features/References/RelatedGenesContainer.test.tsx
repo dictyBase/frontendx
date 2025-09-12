@@ -6,14 +6,14 @@ import { RelatedGenesContainer } from "./RelatedGenesContainer"
 import { RelatedGenesContent } from "./RelatedGenesContent"
 
 // Mock the child components
-jest.mock("./RelatedGenesContent", () => ({
-  RelatedGenesContent: jest.fn(() => (
+vi.mock("./RelatedGenesContent", () => ({
+  RelatedGenesContent: vi.fn(() => (
     <Box data-testid="mocked-content">Mocked Content</Box>
   )),
 }))
 
-jest.mock("./RelatedGenesNavigation", () => ({
-  RelatedGenesNavigation: jest.fn(() => (
+vi.mock("./RelatedGenesNavigation", () => ({
+  RelatedGenesNavigation: vi.fn(() => (
     <Box data-testid="mocked-navigation">Mocked Navigation</Box>
   )),
 }))
@@ -21,7 +21,7 @@ jest.mock("./RelatedGenesNavigation", () => ({
 describe("RelatedGenesContainer", () => {
   // Reset mocks before each test
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   // Sample publication data for testing
