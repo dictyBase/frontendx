@@ -429,3 +429,4 @@ const LazyComponent = lazy(() => import('./HeavyComponent'))
     └── hook/
 ```
 - To run scripts for a specific project, use the command `yarn workspace <project-name> <command>
+- Don't use `npm` to manage project dependencies. Use `yarn` instead
