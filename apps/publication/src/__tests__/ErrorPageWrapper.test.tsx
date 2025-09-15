@@ -12,9 +12,9 @@ vi.mock("react-router-dom", () => ({
 }))
 
 // Mock window.location
-Object.defineProperty(window, 'location', {
+Object.defineProperty(window, "location", {
   value: {
-    href: '',
+    href: "",
     reload: vi.fn(),
   },
   writable: true,
