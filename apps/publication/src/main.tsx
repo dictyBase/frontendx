@@ -34,4 +34,3 @@ const PublicationApp = () => (
 )
 
 ReactDOM.render(<PublicationApp />, document.querySelector("#root"))
-
