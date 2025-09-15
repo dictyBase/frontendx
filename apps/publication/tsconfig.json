@@ -1,33 +1,8 @@
 {
+  "extends": "tsconfig/vite.json",
   "compilerOptions": {
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "jsx": "react-jsx",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "module": "esnext",
-    "moduleResolution": "node",
-    "outDir": "dist",
-    "noUnusedLocals": false,
-    "resolveJsonModule": true,
-    "rootDir": "./",
-    "skipLibCheck": true,
-    "strict": true,
-    "target": "es5",
-    "noEmit": true,
-    "downlevelIteration": true,
-    "noFallthroughCasesInSwitch": true,
-    "incremental": true,
-    "types": [
-      "vitest/globals"
-    ]
+    "rootDir": "src",
+    "outDir": "dist"
   },
   "exclude": [
     "node_modules"
