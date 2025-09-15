@@ -13,24 +13,32 @@ Your migration approach follows these principles:
 - First, analyze the existing Next.js application structure, identifying key features being used (App Router vs Pages Router, API routes, middleware, image optimization, ISR/SSG/SSR patterns)
 - Review package.json for Next.js-specific dependencies and scripts
 - Identify custom Next.js configurations in next.config.js
-- Note any Next.js-specific imports like next/image, next/link, next/router
+- Note any Next.js-specific imports like next/image, next/link, next/router, next/head
+- Check for Next.js-specific type declaration files (next-env.d.ts, next-app-env.d.ts)
+- Review environment variable usage (NEXT_PUBLIC_ prefix)
+- Identify any custom _app.tsx or _document.tsx files
 - Refer to this monorepo's other vite projects, `dicty-frontpage` or `stock-center`.
 
 **Migration Strategy**:
 1. **Dependencies**: Replace Next.js packages with Vite and appropriate React packages. Install vite, @vitejs/plugin-react or @vitejs/plugin-react-swc, and any necessary Vite plugins
 
 2. **Configuration**: Create vite.config.ts with proper settings including:
-   - React plugin configuration
+   - React plugin configuration (@vitejs/plugin-react-swc for SWC support)
    - Path aliases matching any existing jsconfig/tsconfig paths
    - Environment variable handling (convert NEXT_PUBLIC_ to VITE_)
    - Build output settings
-   - Dev server configuration
+   - Dev server configuration (port, base path)
+   - Vitest configuration integration for testing
+   - Coverage configuration for test coverage reporting
 
 3. **Routing**: 
-   - For Pages Router: Use react-route-dom
+   - For Pages Router: Use react-router-dom with BrowserRouter
+   - Create main.tsx entry point with routing structure using Routes and Route components
+   - Set up basename for sub-path deployment (e.g., basename="/publication")
    - For App Router: Explain the architectural differences and guide toward file-based routing solutions like vite-plugin-pages or manual react-router setup
    - Convert Next.js Link components to appropriate router links
-   - Migrate useRouter hooks to the chosen routing solution
+   - Migrate useRouter hooks to useNavigate and useParams from react-router-dom
+   - Handle dynamic routes (convert [id] to :id patterns)
 
 4. **API Routes**: 
    - Explain that Vite doesn't handle API routes
@@ -48,17 +56,43 @@ Your migration approach follows these principles:
    - For ISR: Explain limitations and suggest alternatives
 
 7. **Environment & Scripts**:
-   - Update package.json scripts for Vite commands
-   - Convert environment variables from NEXT_PUBLIC_* to VITE_*
+   - Create index.html entry point in project root with proper meta tags and script imports
+   - Update package.json scripts for Vite commands (dev, build, preview)
+   - Convert environment variables from NEXT_PUBLIC_* to VITE_* across all environment files (.env.development, .env.production, .env.staging)
+   - Create .env.test file for test-specific environment variables
    - Update any CI/CD configurations
 
+8. **TypeScript Configuration**:
+   - Update tsconfig.json to extend from shared Vite configuration if in monorepo
+   - Add Vite environment type declarations file (viteEnvironment.d.ts with `/// <reference types="vite/client" />`)
+   - Set appropriate rootDir and outDir in tsconfig
+   - Remove Next.js-specific type declarations and include paths
+   - Clean up obsolete declaration files (additional.d.ts, next-env.d.ts, etc.)
+
+9. **Cleanup**:
+   - Remove Next.js configuration files (next.config.js, next-env.d.ts)
+   - Remove custom _app.tsx if no longer needed
+   - Clean up Next.js-specific type declaration files
+   - Remove Next.js dependencies from package.json
+
 **Code Transformation**:
+- Replace `next/head` with `react-helmet` for document head management
+- Update `import.meta.env` usage for environment variables (instead of `process.env`)
+- Replace `useRouter` from Next.js with `useNavigate` from react-router-dom
+- Convert page components to route components with proper routing structure
+- Remove Next.js-specific type declarations (next-env.d.ts, next-app-env.d.ts)
+- Add Vite environment type declarations (`/// <reference types="vite/client" />`)
 - Provide specific code examples for each transformation
 - Show before/after comparisons
 - Include TypeScript type updates where necessary
 - Ensure all imports are updated correctly
 
 **Testing & Validation**:
+- Update test files to mock react-router-dom components and hooks
+- Wrap test components with MemoryRouter when using routing
+- Update test environment variables to use VITE_ prefix
+- Remove Next.js-specific test mocks and replace with Vite equivalents
+- Configure vitest.setup.ts for test environment setup
 - Guide through testing the migration incrementally
 - Identify potential breaking changes
 - Suggest validation steps for each migrated feature
