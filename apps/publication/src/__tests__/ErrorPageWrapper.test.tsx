@@ -1,5 +1,6 @@
 import { ApolloError } from "@apollo/client"
 import { render, screen } from "@testing-library/react"
+import { MemoryRouter } from "react-router-dom"
 import { userEvent } from "@testing-library/user-event"
 import { vi } from "vitest"
 import { ErrorPageWrapper } from "../components/errors/ErrorPageWrapper"
@@ -29,9 +30,9 @@ const mockError = {
 test("Clicking on the `Return to Homepage` button navigates to the home page", async () => {
   const user = userEvent.setup()
   render(<ErrorPageWrapper error={mockError} />)
-
   await user.click(screen.getByRole("button", { name: /return to homepage/i }))
-  expect(window.location.href).toBe(import.meta.env.VITE_FRONTPAGE_URL)
+  console.log(import.meta.env)
+  expect(mockNavigate).toHaveBeenCalledWith(import.meta.env.VITE_FRONTPAGE_URL)
 })
 
 test("Clicking on the `Refresh` button reloads the page", async () => {
