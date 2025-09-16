@@ -11,6 +11,7 @@ const viteConfig = defineConfig({
   base: "/gene",
   resolve: {
     alias: {
+      pages: "/src/pages",
       common: "/src/common",
       components: "/src/components",
       styles: "/src/styles",
@@ -43,4 +44,3 @@ const viteConfig = defineConfig({
 
 // eslint-disable-next-line import/no-default-export
 export default viteConfig
-
