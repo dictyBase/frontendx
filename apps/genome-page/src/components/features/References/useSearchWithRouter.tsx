@@ -11,7 +11,6 @@ import {
 import {
   toEntries as RtoEntries,
   filterWithIndex as RfilterWithIndex,
-  difference as Rdifference,
 } from "fp-ts/Record"
 import { map as Omap, getOrElse as OgetOrElse } from "fp-ts/Option"
 import {
