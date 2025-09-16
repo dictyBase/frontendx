@@ -8,7 +8,7 @@
       "common/*": ["common/*"],
       "components/*": ["components/*"],
       "styles/*": ["styles/*"],
-      "mocks/*": ["mocks/*"]
+      "mocks/*": ["mocks/*"],
       "pages/*": ["pages/*"]
     },
   },
