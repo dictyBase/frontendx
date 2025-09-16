@@ -9,6 +9,7 @@
       "components/*": ["components/*"],
       "styles/*": ["styles/*"],
       "mocks/*": ["mocks/*"]
+      "pages/*": ["pages/*"]
     },
   },
   "exclude": [
