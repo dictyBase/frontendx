@@ -1,5 +1,6 @@
 import react from "@vitejs/plugin-react-swc"
 import { defineConfig, coverageConfigDefaults } from "vitest/config"
+import path from "node:path"
 
 // https://vitejs.dev/config/
 const viteConfig = defineConfig({
@@ -29,7 +30,11 @@ const viteConfig = defineConfig({
     ],
     coverage: {
       include: ["**/components/**/*.{ts,tsx}", "**/common/hooks/*.{ts,tsx}"],
-      exclude: ["**/__tests__/mocks/**", "**/common/hooks/", ...coverageConfigDefaults.exclude],
+      exclude: [
+        "**/__tests__/mocks/**",
+        "**/common/hooks/",
+        ...coverageConfigDefaults.exclude,
+      ],
       reporter: ["text", "json", "html"],
       all: false,
     },
@@ -38,3 +43,4 @@ const viteConfig = defineConfig({
 
 // eslint-disable-next-line import/no-default-export
 export default viteConfig
+
