@@ -1,4 +1,4 @@
-import { useRouter } from "next/router"
+import { useParams } from "react-router-dom"
 import { makeStyles, Box, Grid, Typography } from "@material-ui/core"
 import { grey, blueGrey, pink } from "@material-ui/core/colors"
 import { match } from "ts-pattern"
@@ -66,8 +66,8 @@ const SinglePublication = ({
   publication: { id, title, journal, pages, authors, pub_date, related_genes },
 }: PublicationItem) => {
   const classes = useStyles()
-  const router = useRouter()
-  const geneId = match(router.query.id)
+  const { id: geneIdParameter } = useParams<{ id: string }>()
+  const geneId = match(geneIdParameter)
     .when(isString, (idParameter) => idParameter)
     .otherwise(() => empty)
 

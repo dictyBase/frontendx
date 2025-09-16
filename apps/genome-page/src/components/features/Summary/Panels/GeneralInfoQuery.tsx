@@ -1,5 +1,5 @@
 import { getErrorMessage } from "@dictybase/ui-common"
-import { useRouter } from "next/router"
+import { useParams } from "react-router-dom"
 import { useGeneGeneralInformationSummaryQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { Loader } from "components/Loader"
@@ -9,8 +9,8 @@ import { GeneralInfoPanel } from "./GeneralInfoPanel"
 import { NoDataPanel } from "./NoDataPanel"
 
 const GeneralInfoQuery = () => {
-  const { query } = useRouter()
-  const gene = query.id as string
+  const { id } = useParams<{ id: string }>()
+  const gene = id as string
   const result = useGeneGeneralInformationSummaryQuery({
     variables: {
       gene,

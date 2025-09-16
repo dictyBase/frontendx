@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Box, Grid } from "@material-ui/core"
 import { withStyles, Theme } from "@material-ui/core/styles"
-import Image from "next/image"
+import { Image } from "@dictybase/dicty-image-mui5"
 
 const styles = (theme: Theme) => ({
   gridContainer: {

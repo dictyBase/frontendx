@@ -1,4 +1,4 @@
-import { useRouter } from "next/router"
+import { useNavigate } from "react-router-dom"
 import { makeStyles, Chip } from "@material-ui/core"
 import { Gene } from "dicty-graphql-schema"
 import { blueGrey } from "@material-ui/core/colors"
@@ -19,12 +19,12 @@ const useStyles = makeStyles({
 type GeneChipProperties = { gene: Gene }
 
 const GeneChip = ({ gene }: GeneChipProperties) => {
-  const router = useRouter()
+  const navigate = useNavigate()
   const classes = useStyles()
   return (
     <Chip
       clickable
-      onClick={() => router.push(`/${gene.name}`)}
+      onClick={() => navigate(`/${gene.name}`)}
       label={gene.name}
       size="medium"
       variant="outlined"

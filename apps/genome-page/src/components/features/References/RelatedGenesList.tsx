@@ -1,4 +1,4 @@
-import { useRouter } from "next/router"
+import { useNavigate } from "react-router-dom"
 import { makeStyles, Box, Grid, Chip, Typography } from "@material-ui/core"
 import { grey, teal } from "@material-ui/core/colors"
 import { pipe } from "fp-ts/function"
@@ -31,7 +31,7 @@ const RelatedGenesList = ({
   genes: ListPublicationsWithGeneQuery["listPublicationsWithGene"][0]["related_genes"]
 }) => {
   const classes = useStyles()
-  const router = useRouter()
+  const navigate = useNavigate()
   return (
     <Box>
       <Typography variant="h3" gutterBottom className={classes.subheading}>
@@ -46,7 +46,7 @@ const RelatedGenesList = ({
               <Chip
                 onClick={(event) => {
                   event.stopPropagation()
-                  router.push(`/${gene.name}`)
+                  navigate(`/${gene.name}`)
                 }}
                 clickable
                 size="medium"

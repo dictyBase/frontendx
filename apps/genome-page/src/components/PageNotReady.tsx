@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles"
 import { Box, Grid, Button } from "@material-ui/core"
 import FontAwesome from "react-fontawesome"
-import Image from "next/image"
+import { Image } from "@dictybase/dicty-image-mui5"
 
 const useStyles = makeStyles({
   container: {

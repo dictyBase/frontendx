@@ -14,7 +14,7 @@ import {
   useListStrainsWithGeneQuery,
   ListStrainsWithGeneQuery,
 } from "dicty-graphql-schema"
-import { useRouter } from "next/router"
+import { useParams } from "react-router-dom"
 import { match, P } from "ts-pattern"
 
 const loadingConditions = { loading: true }
@@ -53,8 +53,8 @@ const hasPhenotype = flow(
     Renders the Phenotypes page given a gene id
 */
 const PhenotypesPageWrapper = () => {
-  const { query } = useRouter()
-  const gene = query.id as string
+  const { id } = useParams<{ id: string }>()
+  const gene = id as string
   const result = useListStrainsWithGeneQuery({
     variables: {
       gene,

@@ -1,5 +1,5 @@
 import React from "react"
-import { BrowserRouter, RouterProvider } from "react-router-dom"
+import { RouterProvider } from "react-router-dom"
 import "common/utils/icons" // fontawesome library
 import "fontsource-roboto"
 import CssBaseline from "@material-ui/core/CssBaseline"
