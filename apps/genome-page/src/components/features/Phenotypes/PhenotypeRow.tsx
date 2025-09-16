@@ -70,7 +70,7 @@ const PhenotypeRow = ({
           <>
             <Box>
               <a
-                href={`${process.env.NEXT_PUBLIC_STOCKCENTER_URL}/strains/${id}`}>
+                href={`${import.meta.env.VITE_STOCKCENTER_URL}/strains/${id}`}>
                 {strain}
               </a>
             </Box>

@@ -85,7 +85,7 @@ const SinglePublication = ({
   )
 
   const onClick = () => {
-    window.location.assign(`${process.env.NEXT_PUBLIC_PUBLICATION_URL}/${id}`)
+    window.location.assign(`${import.meta.env.VITE_PUBLICATION_URL}/${id}`)
   }
 
   return (

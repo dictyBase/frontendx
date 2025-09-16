@@ -28,7 +28,7 @@ type Auth = {
   [index: string]: any
 }
 
-const basename = process.env.NEXT_PUBLIC_BASENAME
+const basename = import.meta.env.VITE_BASENAME
 const url = typeof window === "undefined" ? "" : window.location.origin
 
 const oauthConfig: Auth = {

@@ -42,7 +42,7 @@ const ReferencesPanel = ({ publications }: Properties) => {
               <TableCell className={classes.cellIcons}>
                 <a
                   className={classes.icon}
-                  href={`${process.env.NEXT_PUBLIC_PUBLICATION_URL}/${publication.id}`}>
+                  href={`${import.meta.env.VITE_PUBLICATION_URL}/${publication.id}`}>
                   <Image
                     src="https://storage.dictybase.dev/editor/assets/2025-06-03/db56069a-19fe-4386-863e-28e483512bd6"
                     alt="Ref Dicty"
