@@ -69,8 +69,7 @@ const PhenotypeRow = ({
         {strain ? (
           <>
             <Box>
-              <a
-                href={`${import.meta.env.VITE_STOCKCENTER_URL}/strains/${id}`}>
+              <a href={`${import.meta.env.VITE_STOCKCENTER_URL}/strains/${id}`}>
                 {strain}
               </a>
             </Box>
