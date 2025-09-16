@@ -10,7 +10,7 @@
   "include": [
     "src",
     "additional.d.ts",
-    "next-env.d.ts",
+    "vite.environment.d.ts",
     "vitest.setup.ts"
   ]
 }
