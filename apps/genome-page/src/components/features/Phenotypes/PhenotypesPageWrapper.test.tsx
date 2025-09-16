@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react"
 import { singlePhenotype } from "mocks/mockSinglePhenotype"
-import { PhenotypesPageWrapper } from "./PhenotypesPageWrapper"
+import { PhenotypesPageWrapper } from "pages/[id]/phenotypes"
 
 // Constants to avoid duplicated strings
 const TEST_GENE = "sadA"
