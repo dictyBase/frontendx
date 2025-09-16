@@ -18,14 +18,17 @@ vi.mock("react-router-dom", () => ({
 }))
 
 describe("useSearchParameters", () => {
-  const mockSetSearchParams = vi.fn()
-  const mockSearchParams = new URLSearchParams("author=smith&year=2020")
+  const mockSetSearchParameters = vi.fn()
+  const mockSearchParameters = new URLSearchParams("author=smith&year=2020")
 
   beforeEach(() => {
     vi.clearAllMocks()
     // Setup mock router for each test
     ;(useParams as vi.Mock).mockReturnValue({ id: "sadA" })
-    ;(useSearchParams as vi.Mock).mockReturnValue([mockSearchParams, mockSetSearchParams])
+    ;(useSearchParams as vi.Mock).mockReturnValue([
+      mockSearchParameters,
+      mockSetSearchParameters,
+    ])
   })
 
   test("should filter search parameters based on provided fields", () => {
