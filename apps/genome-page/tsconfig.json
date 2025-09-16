@@ -1,39 +1,16 @@
 {
+  "extends": "tsconfig/vite.json",
   "compilerOptions": {
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": "./",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "jsx": "react-jsx",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "module": "esnext",
-    "moduleResolution": "node",
-    "outDir": "build",
-    "noUnusedLocals": false,
-    "resolveJsonModule": true,
-    "rootDir": "./",
-    "skipLibCheck": true,
-    "strict": true,
-    "target": "es5",
-    "noEmit": true,
-    "downlevelIteration": true,
-    "noFallthroughCasesInSwitch": true,
-    "incremental": true,
-    "types": [
-      "vitest/globals"
-    ]
+    "rootDir": "src",
+    "outDir": "dist"
   },
-  "exclude": ["node_modules"],
+  "exclude": [
+    "node_modules"
+  ],
   "include": [
-    "styles",
-    "mocks",
-    "pages",
-    "components",
-    "common",
-    "next-env.d.ts",
+    "src",
     "additional.d.ts",
+    "next-env.d.ts",
     "vitest.setup.ts"
   ]
 }
