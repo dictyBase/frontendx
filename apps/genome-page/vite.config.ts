@@ -11,10 +11,10 @@ const viteConfig = defineConfig({
   base: "/gene",
   resolve: {
     alias: {
-      common: new URL("common/", import.meta.url).pathname,
-      components: new URL("components/", import.meta.url).pathname,
-      styles: new URL("styles/", import.meta.url).pathname,
-      mocks: new URL("mocks/", import.meta.url).pathname,
+      common: "/src/common",
+      components: "/src/components",
+      styles: "/src/styles",
+      mocks: "/src/mocks",
     },
   },
   test: {
