@@ -6,8 +6,7 @@ import CssBaseline from "@material-ui/core/CssBaseline"
 import { AppProviders } from "components/layout/AppProviders"
 import { App } from "components/layout/App"
 import { useGoogleAnalytics } from "common/hooks/useGoogleAnalytics"
-import { enableMock } from "mocks"
-import { genomepageRouter } from "../routes"
+import { genomepageRouter } from "./routes"
 
 const GenomePageApp = () => {
   useGoogleAnalytics()
