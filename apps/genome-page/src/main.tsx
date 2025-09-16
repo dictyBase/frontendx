@@ -1,4 +1,3 @@
-import React from "react"
 import { RouterProvider } from "react-router-dom"
 import "common/utils/icons" // fontawesome library
 import "fontsource-roboto"
