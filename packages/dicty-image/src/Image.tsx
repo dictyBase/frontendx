@@ -13,8 +13,8 @@ import { ErrorDisplay } from "./ErrorDisplay"
 import { LoadingDisplay } from "./LoadingDisplay"
 
 type ImageProperties = {
-  avifSrc: string
-  webpSrc: string
+  avifSrc?: string
+  webpSrc?: string
   src: string
   alt?: string
   height?: string
