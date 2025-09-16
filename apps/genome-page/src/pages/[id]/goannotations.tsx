@@ -1,12 +1,12 @@
-import { ErrorPageWrapper } from "../../components/errors/ErrorPageWrapper"
-import { OntologyContainer } from "../../components/features/Ontology/OntologyContainer"
-import { Layout, TabValues } from "../../components/layout/Layout"
-import { NoDataDisplay } from "../../components/NoDataDisplay"
-import { Loader } from "../../components/Loader"
 import { useParams } from "react-router-dom"
 import { useGeneOntologyAnnotationQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { ACCESS } from "@dictybase/auth-mui5"
+import { ErrorPageWrapper } from "components/errors/ErrorPageWrapper"
+import { OntologyContainer } from "components/features/Ontology/OntologyContainer"
+import { Layout, TabValues } from "components/layout/Layout"
+import { NoDataDisplay } from "components/NoDataDisplay"
+import { Loader } from "components/Loader"
 
 /*
     Renders the Ontology page given a gene id

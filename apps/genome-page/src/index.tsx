@@ -1,12 +1,12 @@
 import ReactDOM from "react-dom"
 import "fontsource-roboto"
-import "./common/utils/icons" // fontawesome library
+import "common/utils/icons" // fontawesome library
 import { GenomePageApp } from "./main"
 
 const main = async () => {
   // Activate MSW
   if (import.meta.env.VITE_MOCK_SERVER === "on") {
-    const { enableMock } = await import("./mocks")
+    const { enableMock } = await import("mocks")
     await enableMock()
   }
 
@@ -16,4 +16,3 @@ const main = async () => {
 }
 
 main()
-

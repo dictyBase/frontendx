@@ -1,12 +1,12 @@
-import { ReferencesContainer } from "../../../components/features/References/ReferencesContainer"
-import { ErrorPageWrapper } from "../../../components/errors/ErrorPageWrapper"
-import { Layout, TabValues } from "../../../components/layout/Layout"
-import { NoDataDisplay } from "../../../components/NoDataDisplay"
-import { Loader } from "../../../components/Loader"
 import { useParams } from "react-router-dom"
 import { useListPublicationsWithGeneQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { ACCESS } from "@dictybase/auth-mui5"
+import { ReferencesContainer } from "components/features/References/ReferencesContainer"
+import { ErrorPageWrapper } from "components/errors/ErrorPageWrapper"
+import { Layout, TabValues } from "components/layout/Layout"
+import { NoDataDisplay } from "components/NoDataDisplay"
+import { Loader } from "components/Loader"
 
 /*
     Renders References given a gene id

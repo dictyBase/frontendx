@@ -1,15 +1,15 @@
 import { pipe } from "fp-ts/function"
 import { findFirst as AfindFirst } from "fp-ts/Array"
 import { match as Omatch } from "fp-ts/Option"
-import { RelatedGenesContainer } from "../../../components/features/References/RelatedGenesContainer"
-import { ErrorPageWrapper } from "../../../components/errors/ErrorPageWrapper"
-import { Layout, TabValues } from "../../../components/layout/Layout"
-import { NoDataDisplay } from "../../../components/NoDataDisplay"
-import { Loader } from "../../../components/Loader"
 import { useParams } from "react-router-dom"
 import { useListPublicationsWithGeneQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { ACCESS } from "@dictybase/auth-mui5"
+import { RelatedGenesContainer } from "components/features/References/RelatedGenesContainer"
+import { ErrorPageWrapper } from "components/errors/ErrorPageWrapper"
+import { Layout, TabValues } from "components/layout/Layout"
+import { NoDataDisplay } from "components/NoDataDisplay"
+import { Loader } from "components/Loader"
 
 /*
     Displays a page showing all genes related to a specific publication
@@ -17,9 +17,12 @@ import { ACCESS } from "@dictybase/auth-mui5"
     RelatedGenesContainer component when data is available.
 */
 const RelatedGenesWrapper = () => {
-  const { id, publicationId } = useParams<{ id: string; publicationId: string }>()
+  const { id, publicationId } = useParams<{
+    id: string
+    publicationId: string
+  }>()
   const geneId = id as string
-  const publicationIdParam = publicationId as string
+  const publicationIdParameter = publicationId as string
   const result = useListPublicationsWithGeneQuery({
     variables: {
       gene: geneId,
@@ -43,7 +46,9 @@ const RelatedGenesWrapper = () => {
           (publications) =>
             pipe(
               publications,
-              AfindFirst((publication) => publication.id === publicationIdParam),
+              AfindFirst(
+                (publication) => publication.id === publicationIdParameter,
+              ),
               Omatch(
                 () => <></>,
                 (p) => <RelatedGenesContainer publication={p} />,
