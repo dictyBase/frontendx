@@ -1,12 +1,11 @@
 import react from "@vitejs/plugin-react-swc"
 import { defineConfig, coverageConfigDefaults } from "vitest/config"
-import path from "node:path"
 
 // https://vitejs.dev/config/
 const viteConfig = defineConfig({
   plugins: [react()],
   server: {
-    port: 3002,
+    port: 3000,
   },
   base: "/gene",
   resolve: {

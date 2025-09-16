@@ -5,7 +5,7 @@
   "homepage": "/gene",
   "type": "module",
   "scripts": {
-    "dev": "vite --port 3002",
+    "dev": "vite --port 3000",
     "build": "vite build",
     "serve": "vite preview --port 3000",
     "test": "vitest",
