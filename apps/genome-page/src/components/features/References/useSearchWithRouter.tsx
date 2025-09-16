@@ -36,21 +36,21 @@ interface inputProperties {
  * @returns A tuple containing the filtered search parameters and a setter function
  */
 const useSearchParameters = (fields: Array<string>) => {
-  const [searchParameters_, setSearchParameters_] = useSearchParams()
+  const [searchParameters, setSearchParameters] = useSearchParams()
 
   // Convert URLSearchParams to Record and filter by fields
-  const searchParameters = pipe(
-    Object.fromEntries(searchParameters_.entries()),
+  const filteredSearchParameters = pipe(
+    Object.fromEntries(searchParameters.entries()),
     RfilterWithIndex((k) => pipe(fields, Aelem(SEq)(k))),
   )
 
-  const setSearchParameters = (
+  const updateSearchParameters = (
     newQuery: Record<string, NonNullable<string | string[] | undefined>>,
   ) => {
     const updatedParameters = new URLSearchParams()
 
     // Add existing non-field search params
-    searchParameters_.forEach((value, key) => {
+    searchParameters.forEach((value, key) => {
       if (!pipe(fields, Aelem(SEq)(key))) {
         updatedParameters.set(key, value)
       }
@@ -65,9 +65,9 @@ const useSearchParameters = (fields: Array<string>) => {
       }
     })
 
-    setSearchParameters_(updatedParameters)
+    setSearchParameters(updatedParameters)
   }
-  return [searchParameters, setSearchParameters] as [
+  return [filteredSearchParameters, updateSearchParameters] as [
     Record<string, NonNullable<string | string[] | undefined>>,
     (
       newQuery: Record<string, NonNullable<string | string[] | undefined>>,
