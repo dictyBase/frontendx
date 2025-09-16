@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core"
 import { commaSeparateWithAnd } from "common/utils/strings"
 import { parseFormattedStringToDomElements } from "@dictybase/ui-common"
-import Image from "next/image"
+import { Image } from "@dictybase/dicty-image-mui5"
 import { useStyles } from "../../../../styles/dataTableStyles"
 
 type Properties = {
@@ -42,7 +42,9 @@ const ReferencesPanel = ({ publications }: Properties) => {
               <TableCell className={classes.cellIcons}>
                 <a
                   className={classes.icon}
-                  href={`${import.meta.env.VITE_PUBLICATION_URL}/${publication.id}`}>
+                  href={`${import.meta.env.VITE_PUBLICATION_URL}/${
+                    publication.id
+                  }`}>
                   <Image
                     src="https://storage.dictybase.dev/editor/assets/2025-06-03/db56069a-19fe-4386-863e-28e483512bd6"
                     alt="Ref Dicty"

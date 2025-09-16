@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react"
-import Link from "next/link"
+import { Link } from "react-router-dom"
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles"
 import {
   Box,
@@ -68,7 +68,7 @@ const PanelWrapper = ({ title, route, children }: Properties) => {
           <Typography component="span" className={classes.heading}>
             {title}
             {route && (
-              <Link href={route}>
+              <Link to={route}>
                 <a className={classes.link}>View All</a>
               </Link>
             )}

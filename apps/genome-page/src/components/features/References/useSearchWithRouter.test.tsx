@@ -1,7 +1,7 @@
 import { Box } from "@material-ui/core"
 import { render, screen } from "@testing-library/react"
 import { renderHook, act } from "@testing-library/react-hooks"
-import { useRouter } from "next/router"
+import { useParams, useSearchParams } from "react-router-dom"
 import {
   useSearchWithRouter,
   useSearchParameters,
@@ -10,21 +10,22 @@ import {
 
 /* eslint-disable sonarjs/no-duplicate-string, unicorn/no-null */
 
-// Mock Next.js router
-vi.mock("next/router", () => ({
-  useRouter: vi.fn(),
+// Mock React Router
+vi.mock("react-router-dom", () => ({
+  useParams: vi.fn(),
+  useSearchParams: vi.fn(),
+  useNavigate: vi.fn(),
 }))
 
 describe("useSearchParameters", () => {
-  const mockReplace = vi.fn()
+  const mockSetSearchParams = vi.fn()
+  const mockSearchParams = new URLSearchParams("author=smith&year=2020")
 
   beforeEach(() => {
     vi.clearAllMocks()
     // Setup mock router for each test
-    ;(useRouter as vi.Mock).mockReturnValue({
-      query: { gene: "sadA", author: "smith", year: "2020" },
-      replace: mockReplace,
-    })
+    ;(useParams as vi.Mock).mockReturnValue({ id: "sadA" })
+    ;(useSearchParams as vi.Mock).mockReturnValue([mockSearchParams, mockSetSearchParams])
   })
 
   test("should filter search parameters based on provided fields", () => {

@@ -1,5 +1,5 @@
 import { MouseEventHandler } from "react"
-import { useRouter } from "next/router"
+import { useParams, useNavigate } from "react-router-dom"
 import { Chip, makeStyles } from "@material-ui/core"
 import { grey } from "@material-ui/core/colors"
 
@@ -20,11 +20,12 @@ const SeeAllGenesChip = ({
   publicationId,
   geneCount,
 }: SeeAllGenesChipProperties) => {
-  const router = useRouter()
-  const geneId = router.query.id as string
+  const { id } = useParams<{ id: string }>()
+  const navigate = useNavigate()
+  const geneId = id as string
   const handleClick: MouseEventHandler<HTMLDivElement> = (event) => {
     event.stopPropagation()
-    router.push(`/${geneId}/references/${publicationId}`)
+    navigate(`/${geneId}/references/${publicationId}`)
   }
   const classes = useStyles()
   return (

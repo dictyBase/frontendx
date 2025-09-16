@@ -19,7 +19,7 @@ import {
   SearchTerm,
   capitalizeFirstCharacter,
 } from "@dictybase/ui-common"
-import { useRouter } from "next/router"
+import { useParams, useSearchParams, useNavigate } from "react-router-dom"
 import { AutocompleteRenderInputParams } from "@material-ui/lab"
 import { TextField } from "@material-ui/core"
 
@@ -37,22 +37,37 @@ interface inputProperties {
  * @returns A tuple containing the filtered search parameters and a setter function
  */
 const useSearchParameters = (fields: Array<string>) => {
-  const router = useRouter()
-  // `router.query` includes dynamic route parameters which must first be filtered.
+  const [searchParams, setSearchParams] = useSearchParams()
+  const params = useParams()
+
+  // Convert URLSearchParams to Record and filter by fields
   const searchParameters = pipe(
-    router.query,
+    Object.fromEntries(searchParams.entries()),
     RfilterWithIndex((k) => pipe(fields, Aelem(SEq)(k))),
   )
+
   const setSearchParameters = (
     newQuery: Record<string, NonNullable<string | string[] | undefined>>,
   ) => {
-    router.replace({
-      query: {
-        // ...Likewise, the dynamic route parameters must included when setting `router.query`
-        ...pipe(router.query, Rdifference(searchParameters)),
-        ...newQuery,
-      },
+    const updatedParams = new URLSearchParams()
+
+    // Add existing non-field search params
+    searchParams.forEach((value, key) => {
+      if (!pipe(fields, Aelem(SEq)(key))) {
+        updatedParams.set(key, value)
+      }
     })
+
+    // Add new query parameters
+    Object.entries(newQuery).forEach(([key, value]) => {
+      if (typeof value === 'string') {
+        updatedParams.set(key, value)
+      } else if (Array.isArray(value)) {
+        updatedParams.set(key, value.join(','))
+      }
+    })
+
+    setSearchParams(updatedParams)
   }
   return [searchParameters, setSearchParameters] as [
     Record<string, NonNullable<string | string[] | undefined>>,

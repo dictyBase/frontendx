@@ -1,5 +1,5 @@
 import React from "react"
-import Link from "next/link"
+import { Link } from "react-router-dom"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import Typography from "@material-ui/core/Typography"
@@ -50,16 +50,16 @@ const Layout = ({
         </Box>
         <AppBar position="static">
           <Tabs value={tabValue} variant="scrollable">
-            <Link href={`/${gene}`} passHref>
+            <Link to={`/${gene}`}>
               <Tab label="Gene Summary" />
             </Link>
-            <Link href={`/${gene}/goannotations`} passHref>
+            <Link to={`/${gene}/goannotations`}>
               <Tab label="Gene Ontology" />
             </Link>
-            <Link href={`/${gene}/phenotypes`} passHref>
+            <Link to={`/${gene}/phenotypes`}>
               <Tab label="Phenotypes" />
             </Link>
-            <Link href={`/${gene}/references`} passHref>
+            <Link to={`/${gene}/references`}>
               <Tab label="References" />
             </Link>
           </Tabs>
