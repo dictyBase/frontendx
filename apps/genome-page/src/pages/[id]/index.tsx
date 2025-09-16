@@ -1,7 +1,7 @@
-import { SummaryContainer } from "../../components/features/Summary/SummaryContainer"
-import { Layout, TabValues } from "../../components/layout/Layout"
 import { useParams } from "react-router-dom"
 import { ACCESS } from "@dictybase/auth-mui5"
+import { SummaryContainer } from "components/features/Summary/SummaryContainer"
+import { Layout, TabValues } from "components/layout/Layout"
 
 /**
  * Renders the gene page given a gene id
