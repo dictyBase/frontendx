@@ -2,7 +2,14 @@
   "extends": "tsconfig/vite.json",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "dist"
+    "outDir": "dist",
+    "baseUrl": "./src",
+    "paths": {
+      "common/*": ["common/*"],
+      "components/*": ["components/*"],
+      "styles/*": ["styles/*"],
+      "mocks/*": ["mocks/*"]
+    },
   },
   "exclude": [
     "node_modules"
@@ -10,7 +17,7 @@
   "include": [
     "src",
     "additional.d.ts",
-    "next-env.d.ts",
+    "vite.environment.d.ts",
     "vitest.setup.ts"
   ]
 }
