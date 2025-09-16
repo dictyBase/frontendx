@@ -18,7 +18,7 @@ import {
   SearchTerm,
   capitalizeFirstCharacter,
 } from "@dictybase/ui-common"
-import { useParams, useSearchParams, useNavigate } from "react-router-dom"
+import { useSearchParams } from "react-router-dom"
 import { AutocompleteRenderInputParams } from "@material-ui/lab"
 import { TextField } from "@material-ui/core"
 
@@ -37,7 +37,6 @@ interface inputProperties {
  */
 const useSearchParameters = (fields: Array<string>) => {
   const [searchParameters_, setSearchParameters_] = useSearchParams()
-  const parameters = useParams()
 
   // Convert URLSearchParams to Record and filter by fields
   const searchParameters = pipe(
