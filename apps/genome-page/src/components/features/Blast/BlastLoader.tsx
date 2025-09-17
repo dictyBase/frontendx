@@ -1,4 +1,6 @@
 import { Skeleton } from "@mui/material"
+import { pipe } from "fp-ts/function"
+import { makeBy as AmakeBy } from "fp-ts/Array"
 import Box from "@material-ui/core/Box"
 
 /**
@@ -6,10 +8,7 @@ import Box from "@material-ui/core/Box"
  */
 const BlastLoader = () => (
   <Box mt="10px" data-testid="skeleton-loader">
-    {new Array(10).map((item, key) => (
-      // eslint-disable-next-line react/no-array-index-key
-      <Skeleton key={key} animation="wave" />
-    ))}
+    {pipe(AmakeBy(10, (index) => <Skeleton key={index} animation="wave" />))}
   </Box>
 )
 

@@ -1,4 +1,6 @@
 import { render, screen } from "@testing-library/react"
+import { pipe } from "fp-ts/function"
+import { makeBy as AmakeBy } from "fp-ts/Array"
 import { SelectedPublication } from "common/@types"
 import { Gene } from "dicty-graphql-schema"
 import { RelatedGenesHeader } from "./RelatedGenesHeader"
@@ -75,10 +77,12 @@ describe("RelatedGenesHeader", () => {
     // Create a publication with more related genes
     const manyGenesPublication = {
       ...mockPublication,
-      related_genes: new Array(15).fill(undefined).map((_, index) => ({
-        id: `DDB_G0${index}`,
-        name: `gene${index}`,
-      })) as Array<Gene>,
+      related_genes: pipe(
+        AmakeBy(15, (index) => ({
+          id: `DDB_G0${index}`,
+          name: `gene${index}`,
+        })),
+      ),
     }
 
     render(<RelatedGenesHeader publication={manyGenesPublication} />)
