@@ -3,7 +3,6 @@ import { MemoryRouter, Routes, Route } from "react-router-dom"
 import { render, screen } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
 import { Gene } from "dicty-graphql-schema"
-import { Memory } from "@material-ui/icons"
 import { RelatedGenesDisplay } from "./RelatedGenesDisplay"
 
 // Sample gene data for testing
