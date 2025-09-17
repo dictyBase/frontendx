@@ -1,4 +1,5 @@
 import { Box } from "@material-ui/core"
+import { vi, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { mockOntologyData } from "mocks/mockOntologyData"
 import { GoaQuery } from "./GoaQuery"
@@ -35,7 +36,7 @@ vi.mock("components/panels/PanelWrapper", () => ({
 describe("features/Summary/Panels/GoaQuery", () => {
   beforeEach(() => vi.clearAllMocks())
 
-  it("should render loading state initially", async () => {
+  test("should render loading state initially", async () => {
     // Mock the hook implementation for this test
     mockUseGeneOntologyAnnotationSummaryQuery.mockReturnValue({ loading: true })
 
@@ -47,7 +48,7 @@ describe("features/Summary/Panels/GoaQuery", () => {
     expect(screen.getByTestId(PANEL_WRAPPER_TESTID)).toBeInTheDocument()
   })
 
-  it("should render GO annotations when query returns results", async () => {
+  test("should render GO annotations when query returns results", async () => {
     // Mock the hook implementation for this test
     mockUseGeneOntologyAnnotationSummaryQuery.mockReturnValue({
       loading: false,
@@ -65,7 +66,7 @@ describe("features/Summary/Panels/GoaQuery", () => {
     expect(screen.getByText("Gene Ontology Annotations")).toBeInTheDocument()
   })
 
-  it("should render no data panel when query returns null", async () => {
+  test("should render no data panel when query returns null", async () => {
     // Mock the hook implementation for this test
     mockUseGeneOntologyAnnotationSummaryQuery.mockReturnValue({
       loading: false,
@@ -78,10 +79,10 @@ describe("features/Summary/Panels/GoaQuery", () => {
 
     // Wait for query to complete
     await screen.findByTestId(PANEL_WRAPPER_TESTID)
-    expect(screen.getByText(/No GO Annotations for sadA/))
+    expect(screen.getByText(/No GO Annotations for sadA/)).toBeVisible()
   })
 
-  it("should render error page when query fails", async () => {
+  test("should render error page when query fails", async () => {
     // Mock the hook implementation for this test
     mockUseGeneOntologyAnnotationSummaryQuery.mockReturnValue({
       loading: false,
