@@ -1,4 +1,5 @@
 import { Box } from "@material-ui/core"
+import { vi, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { mockReferencesData } from "mocks/mockReferencesData"
 import { ReferencesQuery } from "./ReferencesQuery"
@@ -91,7 +92,9 @@ describe("features/Summary/Panels/ReferencesQuery", () => {
     render(<ReferencesQuery />)
 
     // Wait for query to complete
-    await screen.findByTestId(PANEL_WRAPPER_TESTID)
+    expect(
+      await screen.findByText(/Publications \(0 of 0\)/),
+    ).toBeInTheDocument()
   })
 
   test("should render error page when query fails", async () => {
