@@ -1,5 +1,11 @@
+import { vi, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
+import {
+  MemoryRouter,
+  RouterProvider,
+  createMemoryRouter,
+} from "react-router-dom"
 import { RelatedGenesNavigation } from "./RelatedGenesNavigation"
 
 // Mock the useRouter hook
@@ -11,13 +17,24 @@ vi.mock("next/router", () => ({
   }),
 }))
 
+const router = createMemoryRouter(
+  [
+    {
+      path: ":id/references/:publicationId",
+      element: <RelatedGenesNavigation />,
+    },
+    { path: ":id/references", element: <> reference route </> },
+  ],
+  { initialEntries: ["/sadA/references/12345"] },
+)
+
 describe("RelatedGenesNavigation", () => {
   beforeEach(() => {
     mockPush.mockClear()
   })
 
   test("renders a back button", () => {
-    render(<RelatedGenesNavigation />)
+    render(<RouterProvider router={router} />)
 
     // Check if the back button is rendered
     const backButton = screen.getByRole("button", { name: /back/i })
@@ -28,15 +45,15 @@ describe("RelatedGenesNavigation", () => {
     expect(icon).toBeInTheDocument()
   })
 
-  test("calls router.push() when the button is clicked", async () => {
+  test("back button navigates to gene references page", async () => {
     const user = userEvent.setup()
-    render(<RelatedGenesNavigation />)
+    render(<RouterProvider router={router} />)
 
     // Get back button and click it
     const backButton = screen.getByRole("button", { name: /back/i })
     await user.click(backButton)
 
     // Verify router.back was called
-    expect(mockPush).toHaveBeenCalledTimes(1)
+    expect(screen.getByText("reference route")).toBeVisible()
   })
 })
