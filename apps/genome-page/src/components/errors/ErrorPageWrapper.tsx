@@ -6,13 +6,14 @@ type ErrorPageWrapperProperties = {
   error: ApolloError
 }
 
+const handleReload = () => {
+  window.location.reload()
+}
+
 const ErrorPageWrapper = ({ error }: ErrorPageWrapperProperties) => {
   const navigate = useNavigate()
   const handleNavigateHome = () => {
     navigate(import.meta.env.VITE_FRONTPAGE_URL)
-  }
-  const handleReload = () => {
-    window.location.reload()
   }
   return (
     <ErrorPage
