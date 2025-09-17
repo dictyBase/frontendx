@@ -1,4 +1,5 @@
 import { Box } from "@material-ui/core"
+import { vi, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { mockGeneralInfoData } from "mocks/mockGeneralInfoData"
 import { GeneralInfoQuery } from "./GeneralInfoQuery"
@@ -36,7 +37,7 @@ vi.mock("components/panels/PanelWrapper", () => ({
 describe("features/Summary/Panels/GeneralInfoQuery", () => {
   beforeEach(() => vi.clearAllMocks())
 
-  it("should render loading state initially", async () => {
+  test("should render loading state initially", async () => {
     // Mock the hook implementation for this test
     mockUseGeneGeneralInformationSummaryQuery.mockReturnValue({ loading: true })
 
@@ -48,7 +49,7 @@ describe("features/Summary/Panels/GeneralInfoQuery", () => {
     expect(screen.getByTestId(PANEL_WRAPPER_TESTID)).toBeInTheDocument()
   })
 
-  it("should query with the gene id in the provided in the route parameters", () => {
+  test("should query with the gene id in the provided in the route parameters", () => {
     render(<GeneralInfoQuery />)
 
     expect(mockUseGeneGeneralInformationSummaryQuery).toHaveBeenCalledWith({
@@ -61,7 +62,7 @@ describe("features/Summary/Panels/GeneralInfoQuery", () => {
     })
   })
 
-  it("should render general information when query returns results", async () => {
+  test("should render general information when query returns results", async () => {
     // Mock the hook implementation for this test
     mockUseGeneGeneralInformationSummaryQuery.mockReturnValue({
       loading: false,
@@ -79,7 +80,7 @@ describe("features/Summary/Panels/GeneralInfoQuery", () => {
     expect(screen.getByText("General Information")).toBeInTheDocument()
   })
 
-  it("should render no data panel when query returns null", async () => {
+  test("should render no data panel when query returns null", async () => {
     // Mock the hook implementation for this test
     mockUseGeneGeneralInformationSummaryQuery.mockReturnValue({
       loading: false,
@@ -100,10 +101,11 @@ describe("features/Summary/Panels/GeneralInfoQuery", () => {
     render(<GeneralInfoQuery />)
 
     // Wait for query to complete
-    await screen.findByTestId(PANEL_WRAPPER_TESTID)
+    const panelWrapper = await screen.findByTestId(PANEL_WRAPPER_TESTID)
+    expect(panelWrapper).toHaveTextContent(/No Gene Summary for sadA/)
   })
 
-  it("should render error page when query fails", async () => {
+  test("should render error page when query fails", async () => {
     // Mock the hook implementation for this test
     mockUseGeneGeneralInformationSummaryQuery.mockReturnValue({
       loading: false,
