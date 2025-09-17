@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { mockCorAOntologyData } from "mocks/mockOntologyData"
 import { pipe } from "fp-ts/function"
 import { Eq } from "fp-ts/string"
