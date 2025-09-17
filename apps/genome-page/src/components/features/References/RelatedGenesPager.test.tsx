@@ -1,4 +1,6 @@
+import { expect, test } from "vitest"
 import { render, screen } from "@testing-library/react"
+import { MemoryRouter } from "react-router-dom"
 import { userEvent } from "@testing-library/user-event"
 import { RelatedGenesPager } from "./RelatedGenesPager"
 
@@ -16,7 +18,11 @@ describe("RelatedGenesPager", () => {
   const mockGenes = generateMockGenes(35)
 
   test("renders the first page of genes by default", () => {
-    render(<RelatedGenesPager genes={mockGenes} />)
+    render(
+      <MemoryRouter>
+        <RelatedGenesPager genes={mockGenes} />
+      </MemoryRouter>,
+    )
 
     // Check if pagination is rendered
     expect(screen.getByRole("navigation")).toBeInTheDocument()
@@ -31,7 +37,11 @@ describe("RelatedGenesPager", () => {
 
   test("navigates to the next page when clicking next button", async () => {
     const user = userEvent.setup()
-    render(<RelatedGenesPager genes={mockGenes} />)
+    render(
+      <MemoryRouter>
+        <RelatedGenesPager genes={mockGenes} />
+      </MemoryRouter>,
+    )
 
     // Find the "Go to page 2" button and click it
     // Material-UI Pagination renders buttons with aria-label "Go to page X"
@@ -53,7 +63,11 @@ describe("RelatedGenesPager", () => {
 
   test("navigates to a specific page when clicking page number", async () => {
     const user = userEvent.setup()
-    render(<RelatedGenesPager genes={mockGenes} />)
+    render(
+      <MemoryRouter>
+        <RelatedGenesPager genes={mockGenes} />
+      </MemoryRouter>,
+    )
 
     // Find the "Go to page 3" button and click it
     const goToPage3Button = screen.getByRole("button", {
@@ -71,7 +85,11 @@ describe("RelatedGenesPager", () => {
 
   test("resets to page 1 when filter is changed", async () => {
     const user = userEvent.setup()
-    render(<RelatedGenesPager genes={mockGenes} />)
+    render(
+      <MemoryRouter>
+        <RelatedGenesPager genes={mockGenes} />
+      </MemoryRouter>,
+    )
 
     // First navigate to page 2
     const goToPage2Button = screen.getByRole("button", {
@@ -94,7 +112,11 @@ describe("RelatedGenesPager", () => {
 
   test("resets to page 1 when group is changed", async () => {
     const user = userEvent.setup()
-    render(<RelatedGenesPager genes={mockGenes} />)
+    render(
+      <MemoryRouter>
+        <RelatedGenesPager genes={mockGenes} />
+      </MemoryRouter>,
+    )
 
     // First navigate to page 2
     const goToPage2Button = screen.getByRole("button", {
@@ -119,7 +141,11 @@ describe("RelatedGenesPager", () => {
 
   test("shows EmptyGenesDisplay when no genes match filter", () => {
     // Create a test with empty array
-    render(<RelatedGenesPager genes={[]} />)
+    render(
+      <MemoryRouter>
+        <RelatedGenesPager genes={[]} />
+      </MemoryRouter>,
+    )
 
     // Should show empty genes display with its message
     expect(screen.getByText("No Matching Genes")).toBeInTheDocument()

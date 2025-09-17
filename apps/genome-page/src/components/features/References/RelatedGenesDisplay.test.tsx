@@ -1,85 +1,99 @@
+import { expect, test } from "vitest"
+import { MemoryRouter, Routes, Route } from "react-router-dom"
 import { render, screen } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
 import { Gene } from "dicty-graphql-schema"
+import { Memory } from "@material-ui/icons"
 import { RelatedGenesDisplay } from "./RelatedGenesDisplay"
 
-// Mock the useRouter hook
-const mockPush = vi.fn()
-vi.mock("next/router", () => ({
-  useRouter: () => ({
-    push: mockPush,
-  }),
-}))
+// Sample gene data for testing
+const mockGenes: Array<Gene> = [
+  { id: "DDB_G0123456", name: "geneA" },
+  { id: "DDB_G0123457", name: "geneB" },
+  { id: "DDB_G0123458", name: "geneC" },
+  { id: "DDB_G0123459", name: "geneD" },
+  { id: "DDB_G0123460", name: "geneE" },
+  { id: "DDB_G0123461", name: "geneF" },
+  { id: "DDB_G0123462", name: "geneG" },
+  { id: "DDB_G0123463", name: "geneH" },
+  { id: "DDB_G0123464", name: "geneI" },
+] as Array<Gene>
 
-describe("RelatedGenesDisplay", () => {
-  // Sample gene data for testing
-  const mockGenes: Array<Gene> = [
-    { id: "DDB_G0123456", name: "geneA" },
-    { id: "DDB_G0123457", name: "geneB" },
-    { id: "DDB_G0123458", name: "geneC" },
-    { id: "DDB_G0123459", name: "geneD" },
-    { id: "DDB_G0123460", name: "geneE" },
-    { id: "DDB_G0123461", name: "geneF" },
-    { id: "DDB_G0123462", name: "geneG" },
-    { id: "DDB_G0123463", name: "geneH" },
-    { id: "DDB_G0123464", name: "geneI" },
-  ] as Array<Gene>
+test("renders all gene chips correctly", () => {
+  render(
+    <MemoryRouter>
+      <RelatedGenesDisplay genes={mockGenes} maxCount={12} />
+    </MemoryRouter>,
+  )
 
-  beforeEach(() => {
-    mockPush.mockClear()
+  // Check if all gene chips are rendered
+  mockGenes.forEach((gene) => {
+    expect(screen.getByText(gene.name)).toBeInTheDocument()
   })
+})
 
-  test("renders all gene chips correctly", () => {
-    render(<RelatedGenesDisplay genes={mockGenes} maxCount={12} />)
+test("navigates to gene page when a chip is clicked", async () => {
+  const user = userEvent.setup()
+  render(
+    <MemoryRouter>
+      <Routes>
+        <Route
+          index
+          element={<RelatedGenesDisplay genes={mockGenes} maxCount={12} />}
+        />
+        <Route path=":id" element={<> Genes Page </>} />
+      </Routes>
+    </MemoryRouter>,
+  )
 
-    // Check if all gene chips are rendered
-    mockGenes.forEach((gene) => {
-      expect(screen.getByText(gene.name)).toBeInTheDocument()
-    })
-  })
+  // Click on the first gene chip
+  const geneChip = screen.getByText("geneA")
+  await user.click(geneChip)
 
-  test("navigates to gene page when a chip is clicked", async () => {
-    const user = userEvent.setup()
-    render(<RelatedGenesDisplay genes={mockGenes} maxCount={12} />)
+  // Verify router.push was called with the correct path
+  expect(screen.getByText("Genes Page")).toBeInTheDocument()
+})
 
-    // Click on the first gene chip
-    const geneChip = screen.getByText("geneA")
-    await user.click(geneChip)
+test("renders gene chips in a grid layout", () => {
+  render(
+    <MemoryRouter>
+      <RelatedGenesDisplay genes={mockGenes} maxCount={12} />
+    </MemoryRouter>,
+  )
 
-    // Verify router.push was called with the correct path
-    expect(mockPush).toHaveBeenCalledTimes(1)
-    expect(mockPush).toHaveBeenCalledWith("/geneA")
-  })
+  // Check if the grid container exists
+  const gridContainer = document.querySelector(".MuiGrid-container")
+  expect(gridContainer).toBeInTheDocument()
 
-  test("renders gene chips in a grid layout", () => {
-    render(<RelatedGenesDisplay genes={mockGenes} maxCount={12} />)
+  // Check if all genes are rendered as grid items
+  const gridItems = document.querySelectorAll(".MuiGrid-item")
+  expect(gridItems.length).toBe(12) // 9 genes + 3 fillers
+})
 
-    // Check if the grid container exists
-    const gridContainer = document.querySelector(".MuiGrid-container")
-    expect(gridContainer).toBeInTheDocument()
+test("creates chips that are clickable", () => {
+  render(
+    <MemoryRouter>
+      <RelatedGenesDisplay genes={mockGenes} maxCount={12} />
+    </MemoryRouter>,
+  )
 
-    // Check if all genes are rendered as grid items
-    const gridItems = document.querySelectorAll(".MuiGrid-item")
-    expect(gridItems.length).toBe(12) // 9 genes + 3 fillers
-  })
+  // All gene chips should have the clickable attribute
+  const chips = document.querySelectorAll(".MuiChip-clickable")
+  expect(chips).toHaveLength(mockGenes.length)
+})
 
-  test("creates chips that are clickable", () => {
-    render(<RelatedGenesDisplay genes={mockGenes} maxCount={12} />)
+test("adds filler chips to complete the grid", () => {
+  render(
+    <MemoryRouter>
+      <RelatedGenesDisplay genes={mockGenes.slice(0, 5)} maxCount={8} />
+    </MemoryRouter>,
+  )
 
-    // All gene chips should have the clickable attribute
-    const chips = document.querySelectorAll(".MuiChip-clickable")
-    expect(chips).toHaveLength(mockGenes.length)
-  })
+  // There should be 5 gene chips and 3 filler chips
+  const geneChips = document.querySelectorAll(".MuiChip-clickable")
+  expect(geneChips).toHaveLength(5)
 
-  test("adds filler chips to complete the grid", () => {
-    render(<RelatedGenesDisplay genes={mockGenes.slice(0, 5)} maxCount={8} />)
-
-    // There should be 5 gene chips and 3 filler chips
-    const geneChips = document.querySelectorAll(".MuiChip-clickable")
-    expect(geneChips).toHaveLength(5)
-
-    // Check if filler chips are rendered (they don't have the clickable class)
-    const allChips = document.querySelectorAll(".MuiChip-root")
-    expect(allChips.length).toBe(8) // 5 genes + 3 fillers
-  })
+  // Check if filler chips are rendered (they don't have the clickable class)
+  const allChips = document.querySelectorAll(".MuiChip-root")
+  expect(allChips.length).toBe(8) // 5 genes + 3 fillers
 })

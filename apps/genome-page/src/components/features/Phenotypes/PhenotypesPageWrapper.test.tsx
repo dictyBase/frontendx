@@ -1,6 +1,8 @@
+import { vi } from "vitest"
+import { createMemoryRouter, RouterProvider } from "react-router-dom"
 import { render, screen } from "@testing-library/react"
 import { singlePhenotype } from "mocks/mockSinglePhenotype"
-import { PhenotypesPageWrapper } from "pages/[id]/phenotypes"
+import { PhenotypesPageWrapper } from "components/features/Phenotypes/PhenotypesPageWrapper"
 
 // Constants to avoid duplicated strings
 const TEST_GENE = "sadA"
@@ -11,12 +13,6 @@ const mockUseListStrainsWithGeneQuery = vi.hoisted(() => vi.fn())
 vi.mock("dicty-graphql-schema", () => ({
   GeneGeneralInformationSummaryDocument: {},
   useListStrainsWithGeneQuery: mockUseListStrainsWithGeneQuery,
-}))
-
-vi.mock("next/router", () => ({
-  useRouter: () => ({
-    query: { id: TEST_GENE },
-  }),
 }))
 
 /* type ListStrainsWithGeneQuery = {
@@ -49,8 +45,13 @@ vi.mock("next/router", () => ({
  * }
  */
 
+const router = createMemoryRouter(
+  [{ path: ":id/phenotypes", element: <PhenotypesPageWrapper /> }],
+  { initialEntries: ["/sadA/phenotypes"] },
+)
+
 test("should query with the gene id in the provided in the route parameters", () => {
-  render(<PhenotypesPageWrapper />)
+  render(<RouterProvider router={router} />)
 
   expect(mockUseListStrainsWithGeneQuery).toHaveBeenCalledWith({
     variables: {
@@ -66,7 +67,7 @@ test("Renders loading state initially", async () => {
   // Mock the hook implementation for this test
   mockUseListStrainsWithGeneQuery.mockReturnValue({ loading: true })
 
-  render(<PhenotypesPageWrapper />)
+  render(<RouterProvider router={router} />)
 
   // Should show title
   expect(screen.getByText(`Phenotypes for ${TEST_GENE}`)).toBeInTheDocument()
@@ -81,7 +82,7 @@ test("Renders an error display if listStrainsWithGene is null or undefined and a
     error: { cause: { message: "test error" } },
     listStrainsWithGene: undefined,
   })
-  render(<PhenotypesPageWrapper />)
+  render(<RouterProvider router={router} />)
   expect(screen.getByText("Error Details")).toBeInTheDocument()
 })
 
@@ -92,7 +93,7 @@ test("Renders an empty display if listStrainsWithGene is null or undefined and t
     error: undefined,
     data: { listStrainsWithGene: undefined },
   })
-  render(<PhenotypesPageWrapper />)
+  render(<RouterProvider router={router} />)
   expect(screen.getByText(`No Phenotypes for ${TEST_GENE}`)).toBeInTheDocument()
 })
 
@@ -103,7 +104,7 @@ test("Renders an empty display if all listStrainsWithGene.phenotypes is null or 
     error: { cause: { message: "test error" } },
     data: { listStrainsWithGene: [{ phenotypes: undefined }] },
   })
-  render(<PhenotypesPageWrapper />)
+  render(<RouterProvider router={router} />)
   expect(screen.getByText(`No Phenotypes for ${TEST_GENE}`)).toBeInTheDocument()
 })
 
@@ -113,7 +114,7 @@ test("Renders an empty display if all listStrainsWithGene.phenotypes is null or 
     loading: false,
     data: { listStrainsWithGene: [{ phenotypes: undefined }] },
   })
-  render(<PhenotypesPageWrapper />)
+  render(<RouterProvider router={router} />)
   expect(screen.getByText(`No Phenotypes for ${TEST_GENE}`)).toBeInTheDocument()
 })
 
@@ -123,7 +124,7 @@ test("Renders an empty display if listStrainsWithGene is empty", () => {
     loading: false,
     data: { listStrainsWithGene: [] },
   })
-  render(<PhenotypesPageWrapper />)
+  render(<RouterProvider router={router} />)
   expect(screen.getByText(`No Phenotypes for ${TEST_GENE}`)).toBeInTheDocument()
 })
 test("Renders an empty display if all listStrainsWithGene.phenotypes is empty", () => {
@@ -132,7 +133,7 @@ test("Renders an empty display if all listStrainsWithGene.phenotypes is empty", 
     loading: false,
     data: { listStrainsWithGene: [{ phenotypes: [] }] },
   })
-  render(<PhenotypesPageWrapper />)
+  render(<RouterProvider router={router} />)
   expect(screen.getByText(`No Phenotypes for ${TEST_GENE}`)).toBeInTheDocument()
 })
 
@@ -157,7 +158,7 @@ test("Renders a list of phenotypes if any listStrainsWithGene.phenotypes contain
       ],
     },
   })
-  render(<PhenotypesPageWrapper />)
+  render(<RouterProvider router={router} />)
   // Expect the page to render two rows: 1 for the table header, and 1 for the phenotype
   expect(
     screen.getByText("aberrant actin filament organization"),
