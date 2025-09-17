@@ -1,5 +1,6 @@
+import { vi } from "vitest"
+import { createMemoryRouter, RouterProvider } from "react-router-dom"
 import { Box } from "@material-ui/core"
-import { vi, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { mockOntologyData } from "mocks/mockOntologyData"
 import { GoaQuery } from "./GoaQuery"
@@ -16,13 +17,6 @@ vi.mock("dicty-graphql-schema", () => ({
     mockUseGeneOntologyAnnotationSummaryQuery,
 }))
 
-// Mock useRouter
-vi.mock("next/router", () => ({
-  useRouter: () => ({
-    query: { id: "sadA" },
-  }),
-}))
-
 // Mock the PanelWrapper component
 vi.mock("components/panels/PanelWrapper", () => ({
   PanelWrapper: ({ children, title }: any) => (
@@ -33,22 +27,27 @@ vi.mock("components/panels/PanelWrapper", () => ({
   ),
 }))
 
+const router = createMemoryRouter(
+  [{ path: ":id/goannotations", element: <GoaQuery /> }],
+  { initialEntries: ["/sadA/goannotations"] },
+)
+
 describe("features/Summary/Panels/GoaQuery", () => {
   beforeEach(() => vi.clearAllMocks())
 
-  test("should render loading state initially", async () => {
+  it("should render loading state initially", async () => {
     // Mock the hook implementation for this test
     mockUseGeneOntologyAnnotationSummaryQuery.mockReturnValue({ loading: true })
 
-    render(<GoaQuery />)
+    render(<RouterProvider router={router} />)
 
     // Should show title
-    expect(screen.getByText("Gene Ontology Annotations")).toBeInTheDocument()
+    expect(screen.getByText("Gene Ontology Annotations")).toBeVisible()
     // Should show loader component
-    expect(screen.getByTestId(PANEL_WRAPPER_TESTID)).toBeInTheDocument()
+    expect(screen.getByTestId(PANEL_WRAPPER_TESTID)).toBeVisible()
   })
 
-  test("should render GO annotations when query returns results", async () => {
+  it("should render GO annotations when query returns results", async () => {
     // Mock the hook implementation for this test
     mockUseGeneOntologyAnnotationSummaryQuery.mockReturnValue({
       loading: false,
@@ -57,16 +56,16 @@ describe("features/Summary/Panels/GoaQuery", () => {
       },
     })
 
-    render(<GoaQuery />)
+    render(<RouterProvider router={router} />)
 
     // Wait for data to load
     await screen.findByTestId(PANEL_WRAPPER_TESTID)
 
     // Should show title
-    expect(screen.getByText("Gene Ontology Annotations")).toBeInTheDocument()
+    expect(screen.getByText("Gene Ontology Annotations")).toBeVisible()
   })
 
-  test("should render no data panel when query returns null", async () => {
+  it("should render no data panel when query returns null", async () => {
     // Mock the hook implementation for this test
     mockUseGeneOntologyAnnotationSummaryQuery.mockReturnValue({
       loading: false,
@@ -75,21 +74,21 @@ describe("features/Summary/Panels/GoaQuery", () => {
       },
     })
 
-    render(<GoaQuery />)
+    render(<RouterProvider router={router} />)
 
     // Wait for query to complete
     await screen.findByTestId(PANEL_WRAPPER_TESTID)
     expect(screen.getByText(/No GO Annotations for sadA/)).toBeVisible()
   })
 
-  test("should render error page when query fails", async () => {
+  it("should render error page when query fails", async () => {
     // Mock the hook implementation for this test
     mockUseGeneOntologyAnnotationSummaryQuery.mockReturnValue({
       loading: false,
       error: new Error("An error occurred"),
     })
 
-    render(<GoaQuery />)
+    render(<RouterProvider router={router} />)
 
     // Wait for error to appear
     await screen.findByTestId(PANEL_WRAPPER_TESTID)
@@ -97,6 +96,6 @@ describe("features/Summary/Panels/GoaQuery", () => {
       screen.getByText(
         "We encountered an unexpected error while processing your request.",
       ),
-    ).toBeInTheDocument()
+    ).toBeVisible()
   })
 })

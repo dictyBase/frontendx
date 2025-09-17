@@ -1,7 +1,8 @@
+import { vi, expect, test } from "vitest"
 import { Box } from "@material-ui/core"
 import { render, screen } from "@testing-library/react"
 import { renderHook, act } from "@testing-library/react-hooks"
-import { useParams, useSearchParams } from "react-router-dom"
+import { useNavigate, useParams, useSearchParams } from "react-router-dom"
 import {
   useSearchWithRouter,
   useSearchParameters,
@@ -24,8 +25,8 @@ describe("useSearchParameters", () => {
   beforeEach(() => {
     vi.clearAllMocks()
     // Setup mock router for each test
-    ;(useParams as vi.Mock).mockReturnValue({ id: "sadA" })
-    ;(useSearchParams as vi.Mock).mockReturnValue([
+    vi.mocked(useParams).mockReturnValue({ id: "sadA" })
+    vi.mocked(useSearchParams).mockReturnValue([
       mockSearchParameters,
       mockSetSearchParameters,
     ])
@@ -109,7 +110,7 @@ describe("useSearchWithRouter", () => {
   beforeEach(() => {
     vi.clearAllMocks()
     // Setup mock router for each test
-    ;(useRouter as vi.Mock).mockReturnValue({
+    vi.mocked(useNavigate).mockReturnValue({
       query: { gene: "sadA", author: "smith", title: "dicty" },
       replace: mockReplace,
     })

@@ -5,7 +5,7 @@ import Tab from "@material-ui/core/Tab"
 import Typography from "@material-ui/core/Typography"
 import { makeStyles } from "@material-ui/core/styles"
 import { Grid, AppBar, Box } from "@mui/material"
-import Head from "next/head"
+import { Helmet } from "react-helmet"
 
 enum TabValues {
   SUMMARY,
@@ -39,10 +39,10 @@ const Layout = ({
   return (
     <Grid container justifyContent="center">
       <Grid item xs={12}>
-        <Head>
+        <Helmet>
           <title>{title} - dictyBase</title>
           <meta name="description" content={`${description} at dictyBase`} />
-        </Head>
+        </Helmet>
         <Box pt="20px" pb="20px">
           <Typography variant="h1" className={classes.title}>
             {title}
