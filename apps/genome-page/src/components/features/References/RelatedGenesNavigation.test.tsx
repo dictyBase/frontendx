@@ -1,11 +1,7 @@
 import { vi, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
-import {
-  MemoryRouter,
-  RouterProvider,
-  createMemoryRouter,
-} from "react-router-dom"
+import { RouterProvider, createMemoryRouter } from "react-router-dom"
 import { RelatedGenesNavigation } from "./RelatedGenesNavigation"
 
 // Mock the useRouter hook
