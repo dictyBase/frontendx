@@ -88,7 +88,11 @@ const ReferencesToolbar = ({
               {pipe(
                 orderFunctions,
                 Rkeys,
-                Amap((label) => <MenuItem value={label}>{label}</MenuItem>),
+                Amap((label) => (
+                  <MenuItem key={label} value={label}>
+                    {label}
+                  </MenuItem>
+                )),
               )}
             </Select>
           </FormControl>
