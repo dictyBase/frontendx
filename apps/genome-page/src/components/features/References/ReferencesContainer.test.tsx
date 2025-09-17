@@ -1,23 +1,26 @@
+import { test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
+import { createMemoryRouter, RouterProvider } from "react-router-dom"
 import { mockReferencesData } from "mocks/mockReferencesData"
 import { ReferencesContainer } from "./ReferencesContainer"
 
-// eslint-disable-next-line import/no-commonjs, unicorn/prefer-module -- ESM not supported by default as of Jest 29
-const useRouter = vi.spyOn(require("next/router"), "useRouter")
-
 const gene = "sadA"
-const pathname = `gene/${gene}/references`
+const referencesPath = `/${gene}/references`
 
-describe("features/References/ReferencesContainer", () => {
-  test("should render data", () => {
-    useRouter.mockImplementation(() => ({
-      query: { id: gene },
-      pathname,
-    }))
-    render(<ReferencesContainer publications={mockReferencesData} />)
+const router = createMemoryRouter(
+  [
+    {
+      path: ":id/references",
+      element: <ReferencesContainer publications={mockReferencesData} />,
+    },
+  ],
+  { initialEntries: [referencesPath] },
+)
 
-    // Renders skeleton loading
-    expect(screen.getByText(/reference/i)).toBeInTheDocument()
-    expect(screen.getByText("ctxA")).toBeInTheDocument()
-  })
+test("should render data", () => {
+  render(<RouterProvider router={router} />)
+
+  // Renders skeleton loading
+  expect(screen.getByText(/reference/i)).toBeInTheDocument()
+  expect(screen.getByText("ctxA")).toBeInTheDocument()
 })
