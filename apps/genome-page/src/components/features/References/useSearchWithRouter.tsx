@@ -48,26 +48,20 @@ const useSearchParameters = (fields: Array<string>) => {
     newQuery: Record<string, NonNullable<string | string[] | undefined>>,
   ) => {
     const updatedParameters = new URLSearchParams()
-    console.log("initial search parameters", searchParameters)
     // Add existing non-field search params
     searchParameters.forEach((value, key) => {
       if (!pipe(fields, Aelem(SEq)(key))) {
         updatedParameters.set(key, value)
       }
     })
-    console.log("input:", newQuery)
     // Add new query parameters
     Object.entries(newQuery).forEach(([key, value]) => {
-      console.log(key, value)
       if (typeof value === "string") {
-        console.log("value is string", value)
         updatedParameters.set(key, value)
       } else if (Array.isArray(value)) {
-        console.log("value is array", value)
         updatedParameters.set(key, value.join(","))
       }
     })
-    console.log(updatedParameters)
     setSearchParameters(updatedParameters)
   }
   return [filteredSearchParameters, updateSearchParameters] as [
@@ -138,14 +132,11 @@ interface useSearchWithRouterProperties {
  */
 function useSearchWithRouter({ label, fields }: useSearchWithRouterProperties) {
   const [searchParameters, setSearchParameters] = useSearchParameters(fields)
-  console.log("fields:", fields)
-  console.log("searchParameters", searchParameters)
   const {
     initialSelectedFields,
     initialPreviousChipValue,
     initialActiveChipValue,
   } = getInitialSearchValues(searchParameters, fields)
-  console.log(initialSelectedFields)
   // Determines whether the input field is in a state of accepting user input
   const [isAcceptingInput, setIsAcceptingInput] = useState<boolean>(false)
   // Holds the list of field names the user selected from the dropdown
@@ -208,7 +199,6 @@ function useSearchWithRouter({ label, fields }: useSearchWithRouterProperties) {
         setIsAcceptingInput(false)
         if (lastValue) {
           setActiveChipValue(`${lastValue}: ${input.userCopy}`)
-          console.log("this one", searchParameters)
           setSearchParameters({
             ...searchParameters,
             [lastValue]: input.userCopy,
