@@ -2,7 +2,7 @@ import { vi, expect, test, beforeEach } from "vitest"
 import { Box } from "@material-ui/core"
 import { render, screen } from "@testing-library/react"
 import { renderHook, act } from "@testing-library/react-hooks"
-import { useNavigate, useParams, useSearchParams } from "react-router-dom"
+import { useParams, useSearchParams } from "react-router-dom"
 import {
   useSearchWithRouter,
   useSearchParameters,
@@ -107,7 +107,6 @@ describe("getActiveOptionLabel", () => {
 })
 
 describe("useSearchWithRouter", () => {
-  const mockReplace = vi.fn()
   const mockSetSearchParameters = vi.fn()
   const mockSearchParameters = new URLSearchParams(
     "author=smith&title=dicty&gene=sadA",
