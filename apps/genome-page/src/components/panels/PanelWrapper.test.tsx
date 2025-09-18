@@ -1,40 +1,45 @@
-import React from "react"
+import { expect, test } from "vitest"
 import { render, screen } from "@testing-library/react"
+import { MemoryRouter } from "react-router-dom"
 import { PanelWrapper } from "./PanelWrapper"
 
 const Child = () => <>child component</>
 describe("components/panels/PanelWrapper", () => {
   const renderComponent = () => {
     render(
-      <PanelWrapper title="GO Annotations">
-        <Child />
-      </PanelWrapper>,
+      <MemoryRouter>
+        <PanelWrapper title="GO Annotations">
+          <Child />
+        </PanelWrapper>
+      </MemoryRouter>,
     )
   }
 
-  it("should render children", () => {
+  test("should render children", () => {
     renderComponent()
     expect(screen.getByText(/child component/)).toBeInTheDocument()
   })
 
-  it("should display title", () => {
+  test("should display title", () => {
     renderComponent()
     expect(screen.getByText(/GO Annotations/)).toBeInTheDocument()
   })
 
-  it("should display link when passed a route", () => {
+  test("should display link when passed a route", () => {
     const route = "/genes/sadA/goannotations"
     render(
-      <PanelWrapper title="GO Annotations" route={route}>
-        <Child />
-      </PanelWrapper>,
+      <MemoryRouter>
+        <PanelWrapper title="GO Annotations" route={route}>
+          <Child />
+        </PanelWrapper>
+      </MemoryRouter>,
     )
 
     expect(screen.getByText(/View All/)).toBeInTheDocument()
     expect(screen.getByRole("link")).toHaveAttribute("href", route)
   })
 
-  it("should not display link when not passed a route", () => {
+  test("should not display link when not passed a route", () => {
     renderComponent()
     expect(screen.queryByText(/View All/)).not.toBeInTheDocument()
     expect(screen.queryByRole("link")).not.toBeInTheDocument()
