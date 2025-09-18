@@ -2,8 +2,8 @@ import { test, expect } from "@playwright/test"
 import { pipe } from "fp-ts/function"
 import { makeBy as RNEAmakeBy } from "fp-ts/ReadonlyNonEmptyArray"
 import { ListPublicationsWithGeneQueryResult } from "dicty-graphql-schema"
+import { formatDate } from "../src/components/features/References/utils/formatDate"
 import { listPublicationsWithGeneQueryData } from "./utils/gqlRequestData"
-import { formatDate } from "../components/features/References/utils/formatDate"
 
 const GRAPHQL_ENDPOINT = `${process.env.NEXT_PUBLIC_GRAPHQL_SERVER}/graphql`
 
