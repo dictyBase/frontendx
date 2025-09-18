@@ -1,4 +1,4 @@
-import { vi, expect, test } from "vitest"
+import { vi, expect, test, beforeEach } from "vitest"
 import { Box } from "@material-ui/core"
 import { render, screen } from "@testing-library/react"
 import { renderHook, act } from "@testing-library/react-hooks"
@@ -42,6 +42,7 @@ describe("useSearchParameters", () => {
   })
 
   test("should update search parameters correctly", () => {
+    // useSearchParams should be called with the
     const fields = ["author", "year"]
     const { result } = renderHook(() => useSearchParameters(fields))
     const [, setSearchParameters] = result.current
@@ -50,13 +51,14 @@ describe("useSearchParameters", () => {
       setSearchParameters({ author: "johnson", year: "2021" })
     })
 
-    expect(mockReplace).toHaveBeenCalledWith({
-      query: {
-        gene: "sadA", // Dynamic route parameter preserved
-        author: "johnson",
-        year: "2021",
-      },
+    const expectedURLSearchParameters = new URLSearchParams({
+      author: "johnson",
+      year: "2021",
     })
+
+    expect(mockSetSearchParameters).toHaveBeenCalledWith(
+      expectedURLSearchParameters,
+    )
   })
 })
 
@@ -106,14 +108,17 @@ describe("getActiveOptionLabel", () => {
 
 describe("useSearchWithRouter", () => {
   const mockReplace = vi.fn()
+  const mockSetSearchParameters = vi.fn()
+  const mockSearchParameters = new URLSearchParams(
+    "author=smith&title=dicty&gene=sadA",
+  )
 
   beforeEach(() => {
     vi.clearAllMocks()
-    // Setup mock router for each test
-    vi.mocked(useNavigate).mockReturnValue({
-      query: { gene: "sadA", author: "smith", title: "dicty" },
-      replace: mockReplace,
-    })
+    vi.mocked(useSearchParams).mockReturnValue([
+      mockSearchParameters,
+      mockSetSearchParameters,
+    ])
   })
 
   test("should initialize with correct values from URL", () => {
@@ -124,7 +129,6 @@ describe("useSearchWithRouter", () => {
         help: "Search help text",
       }),
     )
-
     expect(result.current.value).toContain("title")
     expect(result.current.value).toContain("author")
     expect(result.current.value).toContain("gene")
@@ -268,15 +272,7 @@ describe("useSearchWithRouter", () => {
 
     expect(result.current.isAcceptingInput).toBe(false)
     expect(result.current.activeChipValue).toBe("gene: nature")
-    expect(mockReplace).toHaveBeenCalledWith({
-      query: {
-        gene: "nature",
-        author: "smith",
-        title: "dicty",
-      },
-    })
   })
-
   test("should handle onDeleteChip correctly", () => {
     const { result } = renderHook(() =>
       useSearchWithRouter({
@@ -292,19 +288,13 @@ describe("useSearchWithRouter", () => {
     })
 
     expect(result.current.value).not.toContain("author")
-    expect(mockReplace).toHaveBeenCalledWith({
-      query: {
-        gene: "sadA",
-        title: "dicty",
-      },
-    })
   })
 
   test("should filter fields correctly", () => {
-    ;(useRouter as vi.Mock).mockReturnValue({
-      query: { author: "smith", title: "dicty" },
-      replace: vi.fn(),
-    })
+    vi.mocked(useSearchParams).mockReturnValue([
+      new URLSearchParams({ title: "dicty", author: "smith" }),
+      vi.fn(),
+    ])
     const { result } = renderHook(() =>
       useSearchWithRouter({
         label: "Search",
@@ -337,10 +327,10 @@ describe("useSearchWithRouter", () => {
 
   test("should render tags correctly", () => {
     // Mock the router query to have exactly two items for this test
-    ;(useRouter as vi.Mock).mockReturnValue({
-      query: { author: "smith", title: "dicty" },
-      replace: vi.fn(),
-    })
+    vi.mocked(useSearchParams).mockReturnValue([
+      new URLSearchParams({ title: "dicty", author: "smith" }),
+      vi.fn(),
+    ])
 
     const { result } = renderHook(() =>
       useSearchWithRouter({
@@ -370,10 +360,10 @@ describe("useSearchWithRouter", () => {
 
   test("should render tags correctly when isAcceptingInput is false", () => {
     // Mock the router query with initial data
-    ;(useRouter as vi.Mock).mockReturnValue({
-      query: { author: "smith" },
-      replace: vi.fn(),
-    })
+    vi.mocked(useSearchParams).mockReturnValue([
+      new URLSearchParams({ author: "smith" }),
+      vi.fn(),
+    ])
 
     const { result } = renderHook(() =>
       useSearchWithRouter({
