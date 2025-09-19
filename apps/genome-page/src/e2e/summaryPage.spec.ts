@@ -24,13 +24,13 @@ const EXPECTED_GENERAL_INFO = {
 }
 
 const EXPECTED_GOA = {
-  id: "UniProtKB:Q9U7C9!801562706",
-  type: "biological_process",
   date: "20121023",
-  go_term: "regulation of mitotic nuclear division",
   evidence_code: "IMP",
-  with: null,
   extensions: null,
+  go_term: "regulation of mitotic nuclear division",
+  id: "UniProtKB:Q9U7C9!561332279",
+  type: "biological_process",
+  with: null,
 }
 
 const EXPECTED_REFERENCE = {
