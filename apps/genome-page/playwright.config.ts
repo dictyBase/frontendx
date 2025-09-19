@@ -71,7 +71,7 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: {
     command: "yarn dev",
-    port: 3000,
+    url: process.env.BASE_URL,
     reuseExistingServer: !process.env.CI,
   },
   use: {
