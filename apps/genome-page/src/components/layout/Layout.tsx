@@ -51,7 +51,7 @@ const Layout = ({
             {title}
           </Typography>
         </Box>
-        <AppBar position="static">
+        <AppBar component="div" position="static">
           <Tabs value={tabValue} variant="scrollable">
             <Link to={`/${gene}`}>
               <Tab className={classes.tab} label="Gene Summary" />
