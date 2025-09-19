@@ -1,3 +1,4 @@
+import { vi, test, expect } from "vitest"
 import { Box } from "@material-ui/core"
 import { render, screen } from "@testing-library/react"
 import { SummaryContainer } from "./SummaryContainer"
@@ -30,7 +31,7 @@ vi.mock("components/features/Summary/Panels/ReferencesQuery", () => ({
 }))
 
 describe("features/Summary/SummaryContainer", () => {
-  it("should render all panel components", () => {
+  test("should render all panel components", () => {
     render(<SummaryContainer />)
 
     // Check that Typography component was rendered
