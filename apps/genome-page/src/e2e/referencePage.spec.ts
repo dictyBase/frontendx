@@ -93,7 +93,7 @@ test("Displays References from API", async ({ page }) => {
   ).toBeVisible()
 })
 
-test("Clicking on meStrinntioned gene navigates to that gene's summary page", async ({
+test("Clicking on mentioned gene navigates to that gene's summary page", async ({
   page,
 }) => {
   await page.getByText("calA").first().click()
