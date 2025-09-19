@@ -41,18 +41,24 @@ describe("useSearchParameters", () => {
     expect(searchParameters).not.toHaveProperty("gene")
   })
 
-  test("should update search parameters correctly", () => {
+  test.only("should update search parameters correctly", () => {
     // useSearchParams should be called with the
+    vi.mocked(useSearchParams).mockReturnValue([
+      new URLSearchParams("author=smith&year=2020&month=september"),
+      mockSetSearchParameters,
+    ])
+
     const fields = ["author", "year"]
     const { result } = renderHook(() => useSearchParameters(fields))
     const [, setSearchParameters] = result.current
 
     act(() => {
-      setSearchParameters({ author: "johnson", year: "2021" })
+      setSearchParameters({ author: ["johnson", "tun"], year: "2021" })
     })
 
     const expectedURLSearchParameters = new URLSearchParams({
-      author: "johnson",
+      month: "september",
+      author: "johnson,tun",
       year: "2021",
     })
 
@@ -291,7 +297,11 @@ describe("useSearchWithRouter", () => {
 
   test("should filter fields correctly", () => {
     vi.mocked(useSearchParams).mockReturnValue([
-      new URLSearchParams({ title: "dicty", author: "smith" }),
+      new URLSearchParams({
+        title: "dicty",
+        author: "smith,tun",
+        nonField: "test",
+      }),
       vi.fn(),
     ])
     const { result } = renderHook(() =>
