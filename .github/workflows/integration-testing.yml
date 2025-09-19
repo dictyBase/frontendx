@@ -19,4 +19,4 @@ jobs:
       - name: Install Playwright
         run: yarn playwright install --with-deps
       - name: Integration Tests
-        run: yarn e2e --filter=${{ matrix.application }}
+        run: yarn workspace ${{ matrix.application }} e2e
