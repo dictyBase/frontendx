@@ -1,12 +1,12 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import { test, expect } from "@playwright/test"
-import { pipe } from "fp-ts/function"
-import { Eq as SEq } from "fp-ts/string"
-import { map as Amap, uniq as Auniq } from "fp-ts/Array"
+import { pipe } from "fp-ts/lib/function.js"
+import { Eq as SEq } from "fp-ts/lib/string.js"
+import { map as Amap, uniq as Auniq } from "fp-ts/lib/Array.js"
 import { ListStrainsWithGeneQueryResult } from "dicty-graphql-schema"
 import { listStrainsWithGeneQueryData } from "./utils/gqlRequestData"
 
-const GRAPHQL_ENDPOINT = `${process.env.NEXT_PUBLIC_GRAPHQL_SERVER}/graphql`
+const GRAPHQL_ENDPOINT = `${process.env.VITE_GRAPHQL_SERVER}/graphql`
 
 const TEST_GENE = "DDB_G0267382"
 

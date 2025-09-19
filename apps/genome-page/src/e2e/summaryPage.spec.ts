@@ -10,7 +10,7 @@ import {
   listPublicationsWithGeneSummaryQueryData,
 } from "./utils/gqlRequestData"
 
-const GRAPHQL_ENDPOINT = `${process.env.NEXT_PUBLIC_GRAPHQL_SERVER}/graphql`
+const GRAPHQL_ENDPOINT = `${process.env.VITE_GRAPHQL_SERVER}/graphql`
 
 const TEST_GENE = "DDB_G0269114"
 
