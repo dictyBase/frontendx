@@ -42,7 +42,7 @@
     "test:watch": {},
     "e2e": {
       "inputs": [".env*"],
-      "env": ["BASE_URL", "CI", "VITE_GRAPHQL_SERVER"],
+      "env": ["BASE_URL", "CI", "VITE_GRAPHQL_SERVER", "VITE_APP_GRAPHQL_SERVER"],
       "cache": false
     },
     "coverage": {},
