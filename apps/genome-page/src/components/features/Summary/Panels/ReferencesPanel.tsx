@@ -9,7 +9,6 @@ import {
 } from "@material-ui/core"
 import { commaSeparateWithAnd } from "common/utils/strings"
 import { parseFormattedStringToDomElements } from "@dictybase/ui-common"
-import { Image } from "@dictybase/dicty-image-mui5"
 import { useStyles } from "../../../../styles/dataTableStyles"
 
 type Properties = {
