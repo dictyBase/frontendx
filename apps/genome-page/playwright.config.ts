@@ -3,7 +3,12 @@ import { defineConfig, devices } from "@playwright/test"
 /**
  * Read environment variables from file.
  */
-process.loadEnvFile(".env.development")
+try {
+  process.loadEnvFile(".env.development")
+} catch {
+  // eslint-disable-next-line no-console
+  console.warn("Could not load .env.development file")
+}
 
 /**
  * See https://playwright.dev/docs/test-configuration.
