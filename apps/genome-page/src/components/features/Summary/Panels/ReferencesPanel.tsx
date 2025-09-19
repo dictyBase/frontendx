@@ -45,7 +45,7 @@ const ReferencesPanel = ({ publications }: Properties) => {
                   href={`${import.meta.env.VITE_PUBLICATION_URL}/${
                     publication.id
                   }`}>
-                  <Image
+                  <img
                     src="https://storage.dictybase.dev/editor/assets/2025-06-03/db56069a-19fe-4386-863e-28e483512bd6"
                     alt="Ref Dicty"
                     width={35}
@@ -55,7 +55,7 @@ const ReferencesPanel = ({ publications }: Properties) => {
                 <a
                   className={classes.icon}
                   href={`https://pubmed.ncbi.nlm.nih.gov/${publication.id}`}>
-                  <Image
+                  <img
                     src="https://storage.dictybase.dev/editor/assets/2025-06-03/01e764b4-b5fb-4d7a-8416-8843b880d2aa"
                     alt="Ref Dicty"
                     width={35}
