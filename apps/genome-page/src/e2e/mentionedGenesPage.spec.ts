@@ -1,10 +1,10 @@
 import { test, expect } from "@playwright/test"
-import { pipe } from "fp-ts/function"
-import { makeBy as AmakeBy } from "fp-ts/ReadonlyNonEmptyArray"
+import { pipe } from "fp-ts/lib/function.js"
+import { makeBy as AmakeBy } from "fp-ts/lib/ReadonlyNonEmptyArray.js"
 import { ListPublicationsWithGeneQueryResult } from "dicty-graphql-schema"
 import { listPublicationsWithGeneQueryData } from "./utils/gqlRequestData"
 
-const GRAPHQL_ENDPOINT = `${process.env.NEXT_PUBLIC_GRAPHQL_SERVER}/graphql`
+const GRAPHQL_ENDPOINT = `${process.env.VITE_GRAPHQL_SERVER}/graphql`
 const TEST_GENE = "wrky1"
 const TEST_PUBLICATION_ID = "18550419"
 const RELATED_GENES_TEST_LIST_ID = "related-genes-list"

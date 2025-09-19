@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test"
 import { GeneOntologyAnnotationQueryResult } from "dicty-graphql-schema"
 import { geneOntologyAnnotationQueryData } from "./utils/gqlRequestData"
 
-const GRAPHQL_ENDPOINT = `${process.env.NEXT_PUBLIC_GRAPHQL_SERVER}/graphql`
+const GRAPHQL_ENDPOINT = `${process.env.VITE_GRAPHQL_SERVER}/graphql`
 
 const TEST_GENE = "DDB_G0267382"
 
@@ -31,7 +31,6 @@ test.beforeAll(
     )
     const { data: goaData }: GeneOntologyAnnotationQueryResult =
       await goa.json()
-
     expect(goa.ok()).toBeTruthy()
 
     expect(goaData?.geneOntologyAnnotation).toContainEqual(

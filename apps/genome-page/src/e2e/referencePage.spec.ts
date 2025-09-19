@@ -1,11 +1,11 @@
 import { test, expect } from "@playwright/test"
-import { pipe } from "fp-ts/function"
-import { makeBy as RNEAmakeBy } from "fp-ts/ReadonlyNonEmptyArray"
+import { pipe } from "fp-ts/lib/function.js"
+import { makeBy as RNEAmakeBy } from "fp-ts/lib/ReadonlyNonEmptyArray.js"
 import { ListPublicationsWithGeneQueryResult } from "dicty-graphql-schema"
-import { formatDate } from "../src/components/features/References/utils/formatDate"
+import { formatDate } from "../components/features/References/utils/formatDate"
 import { listPublicationsWithGeneQueryData } from "./utils/gqlRequestData"
 
-const GRAPHQL_ENDPOINT = `${process.env.NEXT_PUBLIC_GRAPHQL_SERVER}/graphql`
+const GRAPHQL_ENDPOINT = `${process.env.VITE_GRAPHQL_SERVER}/graphql`
 
 const TEST_GENE = "DDB_G0269114"
 
