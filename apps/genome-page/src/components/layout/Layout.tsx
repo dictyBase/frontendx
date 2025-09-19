@@ -25,6 +25,9 @@ const useStyles = makeStyles({
   title: {
     textAlign: "center",
   },
+  tab: {
+    color: "rgb(0, 0, 0)",
+  },
 })
 
 const Layout = ({
@@ -51,16 +54,16 @@ const Layout = ({
         <AppBar position="static">
           <Tabs value={tabValue} variant="scrollable">
             <Link to={`/${gene}`}>
-              <Tab label="Gene Summary" />
+              <Tab className={classes.tab} label="Gene Summary" />
             </Link>
             <Link to={`/${gene}/goannotations`}>
-              <Tab label="Gene Ontology" />
+              <Tab className={classes.tab} label="Gene Ontology" />
             </Link>
             <Link to={`/${gene}/phenotypes`}>
-              <Tab label="Phenotypes" />
+              <Tab className={classes.tab} label="Phenotypes" />
             </Link>
             <Link to={`/${gene}/references`}>
-              <Tab label="References" />
+              <Tab className={classes.tab} label="References" />
             </Link>
           </Tabs>
         </AppBar>
