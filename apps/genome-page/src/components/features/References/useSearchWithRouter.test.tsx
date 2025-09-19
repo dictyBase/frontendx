@@ -41,7 +41,7 @@ describe("useSearchParameters", () => {
     expect(searchParameters).not.toHaveProperty("gene")
   })
 
-  test.only("should update search parameters correctly", () => {
+  test("should update search parameters correctly", () => {
     // useSearchParams should be called with the
     vi.mocked(useSearchParams).mockReturnValue([
       new URLSearchParams("author=smith&year=2020&month=september"),
@@ -57,8 +57,8 @@ describe("useSearchParameters", () => {
     })
 
     const expectedURLSearchParameters = new URLSearchParams({
-      month: "september",
-      author: "johnson,tun",
+      month: "september", // Does not remove params not included in `fields`.
+      author: "johnson,tun", // Handles arrays of values
       year: "2021",
     })
 
