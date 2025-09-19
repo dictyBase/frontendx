@@ -5,7 +5,7 @@ import { defineConfig, coverageConfigDefaults } from "vitest/config"
 const viteConfig = defineConfig({
   plugins: [react()],
   server: {
-    port: 3000,
+    port: 3002,
   },
   base: "/gene",
   resolve: {
