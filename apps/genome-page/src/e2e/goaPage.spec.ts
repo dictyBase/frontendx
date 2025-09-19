@@ -13,7 +13,7 @@ const EXPECTED_GOA = {
   evidence_code: "IMP",
   extensions: null,
   go_term: "mitotic cytokinesis",
-  id: "UniProtKB:P27133!615349166",
+  id: "UniProtKB:P27133!430666358",
   publication: "PMID:10098934",
   qualifier: "acts_upstream_of_or_within",
   type: "biological_process",
@@ -53,7 +53,7 @@ test("Renders Molecular Function panel", async ({ page }) => {
   await expect(
     page.getByRole("link", { name: "GO_REF:0000043" }).first(),
   ).toBeVisible()
-  await expect(page.getByText("2025-04-28").first()).toBeVisible()
+  await expect(page.getByText("2025-09-15").first()).toBeVisible()
   await expect(
     page.getByRole("link", { name: "UniProt" }).first(),
   ).toBeVisible()
@@ -73,7 +73,7 @@ test("Collapses panel when Accordian Summary is clicked ", async ({ page }) => {
 test("Sorts data when property in the header is clicked", async ({ page }) => {
   const firstMolecularFunctionRow = page.getByRole("row").nth(1)
   await expect(firstMolecularFunctionRow).toBeVisible()
-  await expect(firstMolecularFunctionRow.getByText("2025-04-28")).toBeVisible()
+  await expect(firstMolecularFunctionRow.getByText("2025-09-15")).toBeVisible()
   await page.getByRole("button", { name: "Date" }).first().click()
   await expect(firstMolecularFunctionRow.getByText("2020-03-18")).toBeVisible()
 })
