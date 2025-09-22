@@ -3,7 +3,6 @@
   "version": "0.0.0-semantically-released",
   "private": true,
   "homepage": "/publication",
-  "type": "module",
   "scripts": {
     "dev": "vite --port 5173",
     "build": "vite build",
