@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test"
-import { waitForImageLoad } from "./utils"
+import { waitForImageLoad } from "./utils/waitForImageLoad"
 
 test("Header snapshot", async ({ page }) => {
   await page.goto("/")
