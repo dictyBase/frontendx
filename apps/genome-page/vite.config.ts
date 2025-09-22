@@ -6,6 +6,7 @@ const viteConfig = defineConfig({
   plugins: [react()],
   server: {
     port: 3002,
+    strictPort: true,
   },
   base: "/gene",
   resolve: {

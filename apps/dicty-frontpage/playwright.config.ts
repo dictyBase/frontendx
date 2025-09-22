@@ -67,7 +67,7 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: {
     timeout: 120 * 1000,
-    command: "yarn dev",
+    command: "yarn turbo dev --filter=dicty-frontpage",
     url: process.env.BASE_URL,
     reuseExistingServer: !process.env.CI,
   },
