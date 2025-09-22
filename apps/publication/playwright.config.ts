@@ -1,14 +1,13 @@
 import { defineConfig, devices } from "@playwright/test"
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// require('dotenv').config();
+try {
+  process.loadEnvFile(".env.development")
+} catch {
+  // eslint-disable-next-line no-console
+  console.warn("Could not load .env.development file")
+}
 
-/**
- * See https://playwright.dev/docs/test-configuration.
- */
+// eslint-disable-next-line import/no-default-export
 export default defineConfig({
   testDir: "./src/e2e",
   /* Run tests in files in parallel */
