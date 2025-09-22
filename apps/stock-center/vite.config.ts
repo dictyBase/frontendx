@@ -6,6 +6,7 @@ const viteConfig = defineConfig({
   plugins: [react()],
   server: {
     port: 3003,
+    strictPort: true,
   },
   base: "/stockcenter",
   test: {
