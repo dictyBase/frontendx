@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "/gene",
   "scripts": {
-    "dev": "vite --port 3002",
+    "dev": "vite",
     "build": "vite build",
     "serve": "vite preview --port 3002",
     "test": "vitest",
