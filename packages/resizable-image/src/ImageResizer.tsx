@@ -1,5 +1,5 @@
-import { useResizerStyles } from "./useResizerStyles"
 import { Box } from "@mui/material"
+import { useResizerStyles } from "./useResizerStyles"
 import { Direction, useResize } from "./useResize"
 
 const directions: Direction[] = ["ne", "nw", "se", "sw"]
@@ -19,7 +19,6 @@ const ImageResizer = ({ onResize }: ImageResizerProperties) => {
   return (
     <>
       {directions.map((direction) => (
-        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
         <Box
           key={direction}
           sx={{ ...useResizerStyles.root, ...useResizerStyles[direction] }}
