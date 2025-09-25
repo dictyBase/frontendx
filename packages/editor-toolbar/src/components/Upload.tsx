@@ -68,10 +68,11 @@ const Upload = ({
   const styles = useFileUploadDialogStyles()
   return (
     <>
-      <DialogTitle disableTypography>
-        <Typography variant="h3"> Choose a file to upload </Typography>
-      </DialogTitle>
-      <DialogContent>
+      <DialogTitle variant="h3">Choose a file to upload</DialogTitle>
+      <DialogContent
+        sx={{
+          padding: "16px 24px",
+        }}>
         <Grid container direction="column" spacing={1}>
           {pipe(
             fileName,

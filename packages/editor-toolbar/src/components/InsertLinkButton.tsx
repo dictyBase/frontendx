@@ -79,6 +79,7 @@ const InsertLinkButton = () => {
   return (
     <>
       <IconButton
+        size="large"
         ref={buttonReference}
         title="Insert Link"
         onClick={handleClick}>

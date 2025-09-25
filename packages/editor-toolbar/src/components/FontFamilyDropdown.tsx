@@ -9,7 +9,6 @@ const FontFamilyDropdown = () => {
   const [fontFamily] = useAtom(fontFamilyAtom)
   const [editor] = useLexicalComposerContext()
   const classes = useToolbarItemStyles()
-  const joinedClasses = `${classes.root} ${classes.spaced}`
 
   const onFontFamilySelect = (event: SelectChangeEvent) => {
     applyTextStyles(editor, { "font-family": event.target.value as FontFamily })
@@ -17,8 +16,9 @@ const FontFamilyDropdown = () => {
 
   return (
     <Select
+      variant="standard"
       title="Font Family"
-      className={joinedClasses}
+      sx={{ ...classes.root, ...classes.spaced }}
       onChange={onFontFamilySelect}
       value={fontFamily}>
       {fonts.map((option) => (
