@@ -12,7 +12,10 @@ const InsertTableButton = () => {
   return (
     <>
       <Button
-        className={spaced}
+        sx={(theme) => ({
+          ...spaced,
+          color: theme.palette.text.primary,
+        })}
         variant="text"
         onClick={() => setIsDialogOpen(true)}
         startIcon={<TableChartOutlinedIcon />}>

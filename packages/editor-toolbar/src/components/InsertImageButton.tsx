@@ -10,6 +10,9 @@ const InsertImageButton = () => {
   return (
     <>
       <Button
+        sx={(theme) => ({
+          color: theme.palette.text.primary,
+        })}
         variant="text"
         onClick={() => setIsDialogOpen(true)}
         startIcon={<ImageOutlinedIcon />}>

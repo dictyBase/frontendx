@@ -19,7 +19,6 @@ const title = "Block Type"
 const BlockFormatDropdown = () => {
   const [blockType, setBlockType] = useBlockFormat()
   const classes = useToolbarItemStyles()
-  const joinedClasses = `${classes.root} ${classes.spaced}`
 
   const onChange = (event: SelectChangeEvent) => {
     setBlockType(event.target.value as BlockTypes)
@@ -28,7 +27,8 @@ const BlockFormatDropdown = () => {
   return (
     <Select
       title={title}
-      className={joinedClasses}
+      variant="standard"
+      sx={{ ...classes.root, ...classes.spaced }}
       onChange={onChange}
       value={blockType}>
       {Object.keys(blockTypeToBlockName).map((option) => (
