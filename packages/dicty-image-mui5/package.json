@@ -14,9 +14,9 @@
     "tsconfig": "*"
   },
   "dependencies": {
-    "@mui/material": "5.*",
     "@mui/icons-material": "5.*",
     "@mui/lab": "~5.0.0-alpha.175",
+    "@mui/material": "5.*",
     "fp-ts": "^2.16.1",
     "react": "17.*",
     "react-dom": "17.*",

@@ -48,22 +48,22 @@
   },
   "devDependencies": {
     "@dictybase/oxlint-config": "*",
+    "@playwright/test": "^1.44.0",
     "@types/node": "^20.12.10",
-    "@types/react-fontawesome": "^1.6.8",
-    "@types/react-helmet": "^6.1.6",
     "@types/react": "17.*",
     "@types/react-dom": "17.*",
+    "@types/react-fontawesome": "^1.6.8",
+    "@types/react-helmet": "^6.1.6",
     "@vitejs/plugin-react-swc": "^4.0.1",
     "@vitest/coverage-v8": "3.x",
-    "vite": "7.x",
-    "@playwright/test": "^1.44.0",
     "eslint-config-custom": "*",
     "husky": "8",
-    "vitest": "3.x",
     "prettier": "3.*",
     "react-docgen-typescript": "^2.2.2",
     "source-map-explorer": "^2.5.3",
-    "tsconfig": "*"
+    "tsconfig": "*",
+    "vite": "7.x",
+    "vitest": "3.x"
   },
   "resolutions": {
     "**/@types/react": "17.x",
