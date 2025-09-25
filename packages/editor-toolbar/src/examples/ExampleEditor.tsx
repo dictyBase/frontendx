@@ -21,6 +21,7 @@ const ExampleEditor = () => {
           <CapitalizeButton />
         </div>
         <RichTextPlugin
+          ErrorBoundary={<></>}
           contentEditable={<ContentEditable />}
           placeholder={<div>Enter some text </div>}
         />
