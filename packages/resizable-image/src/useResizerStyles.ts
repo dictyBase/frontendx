@@ -1,6 +1,4 @@
-import { makeStyles } from "@material-ui/core"
-
-const useResizerStyles = makeStyles({
+const useResizerStyles = {
   root: {
     height: "12px",
     width: "12px",
@@ -53,6 +51,6 @@ const useResizerStyles = makeStyles({
     left: "-4px",
     cursor: "sw-resize",
   },
-})
+}
 
 export { useResizerStyles }

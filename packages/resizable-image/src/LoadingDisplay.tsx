@@ -1,7 +1,8 @@
-import { Container, CircularProgress } from "@material-ui/core"
+import { Container, CircularProgress } from "@mui/material"
+import type { SxProps, Theme } from "@mui/material"
 
-const LoadingDisplay = ({ className }: { className: string }) => (
-  <Container disableGutters className={className}>
+const LoadingDisplay = ({ sx }: { sx: SxProps<Theme> }) => (
+  <Container disableGutters sx={sx}>
     <CircularProgress size={56} thickness={6} />
   </Container>
 )

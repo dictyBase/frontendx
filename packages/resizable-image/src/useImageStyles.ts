@@ -1,4 +1,4 @@
-import { makeStyles, Theme } from "@material-ui/core"
+import { keyframes } from "@mui/material/styles"
 
 export type StyleProperties = {
   height: number
@@ -9,13 +9,27 @@ export type StyleProperties = {
   loading: boolean
   error: boolean
 }
-const useImageStyles = makeStyles<Theme, StyleProperties>({
+
+const materialize = keyframes`
+  0% {
+    filter: saturate(20%) contrast(50%) brightness(160%);
+    opacity: 0;
+  }
+  75% {
+    filter: saturate(60%) contrast(100%) brightness(100%);
+    opacity: 1;
+  }
+  100% {
+    filter: saturate(100%) contrast(100%) brightness(100%);
+    opacity: 1;
+  }
+`
+
+const useImageStyles = (properties: StyleProperties) => ({
   root: {
-    position: "relative",
-    height: ({ height: currentHeight }) =>
-      currentHeight ? `${currentHeight}px` : "auto",
-    width: ({ width: currentWidth }) =>
-      currentWidth ? `${currentWidth}px` : "auto",
+    position: "relative" as const,
+    height: properties.height ? `${properties.height}px` : "auto",
+    width: properties.width ? `${properties.width}px` : "auto",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -25,11 +39,11 @@ const useImageStyles = makeStyles<Theme, StyleProperties>({
     aspectRatio: "1",
     width: "100%",
     height: "100%",
-    "object-fit": ({ fit }) => fit,
-    animationName: `$materialize`,
-    animationDuration: ({ duration }) => `${duration}ms`,
-    animationTimingFunction: ({ easing }) => easing,
-    zIndex: ({ error }) => (error ? -1 : 1),
+    objectFit: properties.fit as any,
+    animationName: materialize,
+    animationDuration: `${properties.duration}ms`,
+    animationTimingFunction: properties.easing,
+    zIndex: properties.error ? -1 : 1,
   },
   icons: {
     width: "100%",
@@ -37,20 +51,6 @@ const useImageStyles = makeStyles<Theme, StyleProperties>({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-  },
-  "@keyframes materialize": {
-    "0%": {
-      filter: "saturate(20%) contrast(50%) brightness(160%)",
-      opacity: "0",
-    },
-    "75%": {
-      filter: "saturate(60%) contrast(100%) brightness(100%)",
-      opacity: "1",
-    },
-    "100%": {
-      filter: "saturate(100%) contrast(100%) brightness(100%)",
-      opacity: "1",
-    },
   },
 })
 

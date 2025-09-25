@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react"
 import { useAtomValue } from "jotai"
-import { Container } from "@material-ui/core"
+import { Container } from "@mui/material"
 import { ImageDimensionsAtom } from "./state"
 import { LoadingDisplay } from "./LoadingDisplay"
 import { ErrorDisplay } from "./ErrorDisplay"
@@ -32,7 +32,7 @@ const ResizableImage = ({
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const imageContainerReference = useRef<HTMLImageElement>(null)
-  const { root, image, icons } = useImageStyles({
+  const styles = useImageStyles({
     width: dimensions.width,
     height: dimensions.height,
     fit,
@@ -52,17 +52,17 @@ const ResizableImage = ({
       draggable={isSelected}
       ref={imageContainerReference}
       disableGutters
-      className={root as string}>
+      sx={styles.root}>
       <img
         ref={imageReference}
         src={src}
         alt={alt}
-        className={image}
+        style={styles.image}
         onLoad={() => setLoading(false)}
         onError={handleError}
       />
-      {loading ? <LoadingDisplay className={icons as string} /> : undefined}
-      {error ? <ErrorDisplay className={icons as string} /> : undefined}
+      {loading ? <LoadingDisplay sx={styles.icons} /> : undefined}
+      {error ? <ErrorDisplay sx={styles.icons} /> : undefined}
       {imageContainerReference.current && isSelected ? (
         <ImageResizer onResize={onResize} />
       ) : undefined}
