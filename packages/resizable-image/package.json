@@ -23,13 +23,21 @@
     "vitest": "3.x"
   },
   "dependencies": {
-    "@material-ui/core": "^4.12.4",
-    "@material-ui/icons": "^4.11.3",
+    "@mui/material": "^5.15.0",
+    "@mui/icons-material": "^5.15.0",
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
     "jotai": "^2.0.0",
     "react": "17.*"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",
     "displayName": "@dictybase/resizable-image"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "custom"
+    ]
   }
 }
