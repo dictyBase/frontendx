@@ -1,4 +1,5 @@
 import { useResizerStyles } from "./useResizerStyles"
+import { Box } from "@mui/material"
 import { Direction, useResize } from "./useResize"
 
 const directions: Direction[] = ["ne", "nw", "se", "sw"]
@@ -13,16 +14,15 @@ export type ImageResizerProperties = {
  * @param onResize a callback function used to set the new dimensions of the parent element.
  */
 const ImageResizer = ({ onResize }: ImageResizerProperties) => {
-  const classes = useResizerStyles()
   const { onMouseDown } = useResize(onResize)
 
   return (
     <>
       {directions.map((direction) => (
         // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-        <div
+        <Box
           key={direction}
-          className={`${classes.root} ${classes[direction]}`}
+          sx={{ ...useResizerStyles.root, ...useResizerStyles[direction] }}
           onMouseDown={(event) => onMouseDown(event, direction)}
         />
       ))}
