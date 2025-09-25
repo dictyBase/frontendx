@@ -7,8 +7,8 @@ const useActiveClass = (
   atomConfig: WritableAtom<boolean, SetStateAction<boolean>[], void>,
 ) => {
   const active = useAtomValue(atomConfig)
-  const classes = useToolbarItemStyles()
-  return active ? `${classes.root} ${classes.active}` : classes.root
+  const styles = useToolbarItemStyles()
+  return active ? { ...styles.root, ...styles.active } : styles.root
 }
 
 export { useActiveClass }

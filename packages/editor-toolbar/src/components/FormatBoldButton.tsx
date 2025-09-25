@@ -1,6 +1,6 @@
 import { FORMAT_TEXT_COMMAND } from "lexical"
-import { IconButton } from "@material-ui/core"
-import { FormatBold } from "@material-ui/icons"
+import { IconButton } from "@mui/material"
+import { FormatBold } from "@mui/icons-material"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { isBoldAtom } from "../context/atomConfigs"
 import { useActiveClass } from "../hooks/useActiveClass"
@@ -9,7 +9,7 @@ const title = "Format Bold"
 
 const FormatBoldButton = () => {
   const [editor] = useLexicalComposerContext()
-  const buttonClass = useActiveClass(isBoldAtom)
+  const buttonStyle = useActiveClass(isBoldAtom)
 
   return (
     <IconButton
@@ -18,7 +18,7 @@ const FormatBoldButton = () => {
       onClick={() => {
         editor.dispatchCommand(FORMAT_TEXT_COMMAND, "bold")
       }}
-      className={buttonClass}>
+      sx={buttonStyle}>
       <FormatBold fontSize="small" />
     </IconButton>
   )

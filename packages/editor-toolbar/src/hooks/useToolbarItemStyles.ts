@@ -1,6 +1,4 @@
-import { makeStyles } from "@material-ui/core"
-
-const useToolbarItemStyles = makeStyles({
+const useToolbarItemStyles = () => ({
   root: {
     border: "0",
     display: "flex",

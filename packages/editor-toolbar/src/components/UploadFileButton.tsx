@@ -1,5 +1,5 @@
-import { Button } from "@material-ui/core"
-import AttachFileIcon from "@material-ui/icons/AttachFile"
+import { Button } from "@mui/material"
+import AttachFileIcon from "@mui/icons-material/AttachFile"
 import { useAtom } from "jotai"
 import { uploadFileDialogOpenAtom } from "../context/atomConfigs"
 import { FileUploadDialog } from "./FileUploadDialog"

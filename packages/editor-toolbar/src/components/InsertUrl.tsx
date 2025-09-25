@@ -10,7 +10,7 @@ import {
   DialogActions,
   Button,
   Typography,
-} from "@material-ui/core"
+} from "@mui/material"
 import { pipe } from "fp-ts/function"
 import {
   orElse as OorElse,

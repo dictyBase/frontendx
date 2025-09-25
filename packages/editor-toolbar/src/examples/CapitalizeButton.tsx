@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core"
+import { Button } from "@mui/material"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { CAPITALIZE_SELECTION_COMMAND } from "./capitalizeCommand"
 

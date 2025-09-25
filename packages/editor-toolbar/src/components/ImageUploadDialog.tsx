@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import {
-  makeStyles,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -15,7 +14,7 @@ import {
   FormControlLabel,
   RadioGroup,
   Radio,
-} from "@material-ui/core"
+} from "@mui/material"
 import { useUploadFileMutation } from "dicty-graphql-schema"
 import { useLogto } from "@logto/react"
 import { useSetAtom } from "jotai"
@@ -41,7 +40,7 @@ enum Alignment {
   RIGHT = "right",
 }
 
-const useImageUploadDialogStyles = makeStyles({
+const useImageUploadDialogStyles = () => ({
   helpText: {
     marginTop: "5px",
     color: "hsl(241, 5%, 50%)",
@@ -57,7 +56,7 @@ const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
   const [imageState, setImageState] =
     useState<Option<Either<ErrorState, ImageSuccessState>>>(none)
   const [alignment, setAlignment] = useState<Alignment>(Alignment.LEFT)
-  const { helpText } = useImageUploadDialogStyles()
+  const styles = useImageUploadDialogStyles()
   const canSubmit = isValidFile(imageState)
 
   const onChange: React.ChangeEventHandler<HTMLInputElement> = async ({
@@ -105,7 +104,7 @@ const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
           fullWidth
           inputProps={{ accept: "image/*" }}
         />
-        <Typography className={helpText}>* Must be smaller than 1MB</Typography>
+        <Typography sx={styles.helpText}>* Must be smaller than 1MB</Typography>
         <FormControl>
           <FormLabel> Alignment </FormLabel>
           <RadioGroup value={alignment} onChange={onSelect}>

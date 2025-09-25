@@ -1,5 +1,4 @@
-import React from "react"
-import { Select, MenuItem } from "@material-ui/core"
+import { Select, SelectChangeEvent, MenuItem } from "@mui/material"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { useAtomValue } from "jotai"
 import { fontSizeAtom } from "../context/atomConfigs"
@@ -10,11 +9,6 @@ type FontSizeDropdownProperties = {
   start?: number
   end?: number
 }
-
-type FontSizeSelectProperties = React.ChangeEvent<{
-  name?: string | undefined
-  value: unknown
-}>
 
 const title = "Font Size"
 
@@ -32,7 +26,7 @@ const FontSizeDropdown = ({
   const classes = useToolbarItemStyles()
   const joinedClasses = `${classes.root} ${classes.spaced}`
 
-  const onFontSizeSelect = (event: FontSizeSelectProperties) => {
+  const onFontSizeSelect = (event: SelectChangeEvent) => {
     applyTextStyles(editor, { "font-size": event.target.value as string })
   }
   return (

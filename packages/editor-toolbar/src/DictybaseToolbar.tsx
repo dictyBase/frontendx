@@ -1,4 +1,4 @@
-import ToolBar from "@material-ui/core/Toolbar"
+import ToolBar from "@mui/material/Toolbar"
 import { UndoButton } from "./components/UndoButton"
 import { RedoButton } from "./components/RedoButton"
 import { FontSizeDropdown } from "./components/FontSizeDropdown"
@@ -17,9 +17,9 @@ import { useToolbarStyles } from "./hooks/useToolbarStyles"
 
 const DictybaseToolbar = () => {
   useCleanup()
-  const { root } = useToolbarStyles()
+  const styles = useToolbarStyles()
   return (
-    <ToolBar variant="dense" className={root}>
+    <ToolBar variant="dense" sx={styles.root}>
       <UndoButton />
       <RedoButton />
       <FontSizeDropdown />
