@@ -93,9 +93,7 @@ const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle disableTypography>
-        <Typography variant="h3"> Choose an Image to Upload </Typography>
-      </DialogTitle>
+      <DialogTitle variant="h3">Choose an Image to Upload</DialogTitle>
       <DialogContent>
         <Input
           type="file"
