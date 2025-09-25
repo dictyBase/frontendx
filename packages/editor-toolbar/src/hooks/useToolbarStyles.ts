@@ -1,6 +1,4 @@
-import { makeStyles } from "@material-ui/core"
-
-const useToolbarStyles = makeStyles({
+const useToolbarStyles = () => ({
   root: {
     marginBottom: "1px",
     background: "#fff",

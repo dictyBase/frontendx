@@ -1,5 +1,4 @@
-import React from "react"
-import { Select, MenuItem } from "@material-ui/core"
+import { Select, SelectChangeEvent, MenuItem } from "@mui/material"
 import { BlockTypes } from "../context/atomConfigs"
 import { useToolbarItemStyles } from "../hooks/useToolbarItemStyles"
 import { useBlockFormat } from "../hooks/useBlockFormat"
@@ -22,9 +21,7 @@ const BlockFormatDropdown = () => {
   const classes = useToolbarItemStyles()
   const joinedClasses = `${classes.root} ${classes.spaced}`
 
-  const onChange = (
-    event: React.ChangeEvent<{ name?: string | undefined; value: unknown }>,
-  ) => {
+  const onChange = (event: SelectChangeEvent) => {
     setBlockType(event.target.value as BlockTypes)
   }
 

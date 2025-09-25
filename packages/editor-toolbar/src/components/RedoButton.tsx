@@ -1,5 +1,5 @@
-import { IconButton } from "@material-ui/core"
-import { Redo } from "@material-ui/icons"
+import { IconButton } from "@mui/material"
+import { Redo } from "@mui/icons-material"
 import { useAtomValue } from "jotai"
 import { canRedoAtom } from "../context/atomConfigs"
 import { useToolbarItemStyles } from "../hooks/useToolbarItemStyles"
@@ -7,13 +7,13 @@ import { useRedo } from "../hooks/useRedo"
 
 const RedoButton = () => {
   const canRedo = useAtomValue(canRedoAtom)
-  const classes = useToolbarItemStyles()
+  const styles = useToolbarItemStyles()
   const onClick = useRedo()
 
   return (
     <IconButton
       disabled={!canRedo}
-      className={classes.root}
+      sx={styles.root}
       onClick={onClick}
       title="Redo"
       aria-label="Redo">

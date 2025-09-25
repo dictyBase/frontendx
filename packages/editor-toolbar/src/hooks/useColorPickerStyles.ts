@@ -1,6 +1,4 @@
-import { makeStyles } from "@material-ui/core"
-
-const useColorPickerStyles = makeStyles({
+const useColorPickerStyles = () => ({
   root: {
     padding: "5px",
     margin: 0,

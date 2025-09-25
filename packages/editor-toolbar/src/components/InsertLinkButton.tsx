@@ -6,9 +6,8 @@ import {
   Button,
   Paper,
   Grid,
-  makeStyles,
-} from "@material-ui/core"
-import InsertLinkIcon from "@material-ui/icons/InsertLink"
+} from "@mui/material"
+import InsertLinkIcon from "@mui/icons-material/InsertLink"
 import { $createLinkNode } from "@lexical/link"
 import { $createTextNode, $getSelection } from "lexical"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
@@ -18,7 +17,7 @@ import { isEmpty } from "fp-ts/string"
 import { tryCatch as IOEtryCatch, map as IOEmap } from "fp-ts/IOEither"
 import { match } from "ts-pattern"
 
-const useInsertLinkButtonStyles = makeStyles({
+const useInsertLinkButtonStyles = () => ({
   popper: { padding: "1rem" },
 })
 
@@ -29,7 +28,7 @@ const InsertLinkButton = () => {
   const [linkText, setLinkText] = useState("")
   const [hrefText, setHrefText] = useState("")
   const buttonReference = useRef(null)
-  const { popper } = useInsertLinkButtonStyles()
+  const styles = useInsertLinkButtonStyles()
 
   const handleClick = () => {
     setIsMenuOpen((previousState) => !previousState)
@@ -86,7 +85,7 @@ const InsertLinkButton = () => {
         <InsertLinkIcon />
       </IconButton>
       <Popper anchorEl={buttonReference.current} open={isMenuOpen}>
-        <Paper className={popper}>
+        <Paper sx={styles.popper}>
           <Grid container alignItems="center" spacing={2} direction="column">
             <Grid item>
               <TextField label="Link Text" onChange={handleLinkTextChange} />

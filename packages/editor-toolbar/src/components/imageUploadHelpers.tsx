@@ -1,5 +1,5 @@
 import type { LexicalEditor } from "lexical"
-import { Typography } from "@material-ui/core"
+import { Typography } from "@mui/material"
 import { UploadFileMutationHookResult } from "dicty-graphql-schema"
 import { pipe } from "fp-ts/function"
 import { head as Ahead } from "fp-ts/Array"

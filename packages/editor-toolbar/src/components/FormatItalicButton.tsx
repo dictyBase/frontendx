@@ -1,6 +1,6 @@
 import { FORMAT_TEXT_COMMAND } from "lexical"
-import { IconButton } from "@material-ui/core"
-import { FormatItalic } from "@material-ui/icons"
+import { IconButton } from "@mui/material"
+import { FormatItalic } from "@mui/icons-material"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { isItalicAtom } from "../context/atomConfigs"
 import { useActiveClass } from "../hooks/useActiveClass"
@@ -9,7 +9,7 @@ const title = "Format Italic"
 
 const FormatItalicButton = () => {
   const [editor] = useLexicalComposerContext()
-  const buttonClass = useActiveClass(isItalicAtom)
+  const buttonStyle = useActiveClass(isItalicAtom)
 
   return (
     <IconButton
@@ -18,7 +18,7 @@ const FormatItalicButton = () => {
       onClick={() => {
         editor.dispatchCommand(FORMAT_TEXT_COMMAND, "italic")
       }}
-      className={buttonClass}>
+      sx={buttonStyle}>
       <FormatItalic fontSize="small" />
     </IconButton>
   )

@@ -1,5 +1,5 @@
-import { Button, Dialog } from "@material-ui/core"
-import TableChartOutlinedIcon from "@material-ui/icons/TableChartOutlined"
+import { Button, Dialog } from "@mui/material"
+import TableChartOutlinedIcon from "@mui/icons-material/TableChartOutlined"
 import { useAtom } from "jotai"
 import { useToolbarItemStyles } from "../hooks/useToolbarItemStyles"
 import { insertTableDialogOpenAtom } from "../context/atomConfigs"

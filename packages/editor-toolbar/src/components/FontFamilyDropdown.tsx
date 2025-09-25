@@ -1,15 +1,9 @@
-import React from "react"
-import { Select, MenuItem } from "@material-ui/core"
+import { Select, SelectChangeEvent, MenuItem } from "@mui/material"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { useAtom } from "jotai"
 import { fontFamilyAtom, fonts, FontFamily } from "../context/atomConfigs"
 import { applyTextStyles } from "../utils/textStyles"
 import { useToolbarItemStyles } from "../hooks/useToolbarItemStyles"
-
-type FontFamilySelectProperties = React.ChangeEvent<{
-  name?: string | undefined
-  value: unknown
-}>
 
 const FontFamilyDropdown = () => {
   const [fontFamily] = useAtom(fontFamilyAtom)
@@ -17,7 +11,7 @@ const FontFamilyDropdown = () => {
   const classes = useToolbarItemStyles()
   const joinedClasses = `${classes.root} ${classes.spaced}`
 
-  const onFontFamilySelect = (event: FontFamilySelectProperties) => {
+  const onFontFamilySelect = (event: SelectChangeEvent) => {
     applyTextStyles(editor, { "font-family": event.target.value as FontFamily })
   }
 

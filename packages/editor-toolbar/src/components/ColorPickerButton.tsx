@@ -1,6 +1,6 @@
 import { useRef } from "react"
-import FormatColorTextIcon from "@material-ui/icons/FormatColorText"
-import { IconButton, SvgIcon, Popover } from "@material-ui/core"
+import FormatColorTextIcon from "@mui/icons-material/FormatColorText"
+import { IconButton, SvgIcon, Popover } from "@mui/material"
 import { useAtomValue, useAtom } from "jotai"
 import { useToolbarItemStyles } from "../hooks/useToolbarItemStyles"
 import { fontColorAtom, colorPickerOpenAtom } from "../context/atomConfigs"
@@ -20,7 +20,7 @@ const COLOR_OPTIONS = [
 const ColorPickerButton = () => {
   const color = useAtomValue(fontColorAtom)
   const [isOpen, setOpen] = useAtom(colorPickerOpenAtom)
-  const classes = useToolbarItemStyles()
+  const styles = useToolbarItemStyles()
   const buttonReference = useRef(null)
 
   const onClose = () => {
@@ -35,7 +35,7 @@ const ColorPickerButton = () => {
     <>
       <IconButton
         ref={buttonReference}
-        className={classes.root}
+        sx={styles.root}
         title={title}
         aria-label={title}
         onClick={toggleOpen}>

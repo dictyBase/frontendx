@@ -1,6 +1,6 @@
 import { FORMAT_TEXT_COMMAND } from "lexical"
-import { IconButton } from "@material-ui/core"
-import { FormatUnderlined } from "@material-ui/icons"
+import { IconButton } from "@mui/material"
+import { FormatUnderlined } from "@mui/icons-material"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { isUnderlinedAtom } from "../context/atomConfigs"
 import { useActiveClass } from "../hooks/useActiveClass"
@@ -9,7 +9,7 @@ const title = "Format Underline"
 
 const FormatUnderlineButton = () => {
   const [editor] = useLexicalComposerContext()
-  const buttonClass = useActiveClass(isUnderlinedAtom)
+  const buttonStyle = useActiveClass(isUnderlinedAtom)
 
   return (
     <IconButton
@@ -18,7 +18,7 @@ const FormatUnderlineButton = () => {
       onClick={() => {
         editor.dispatchCommand(FORMAT_TEXT_COMMAND, "underline")
       }}
-      className={buttonClass}>
+      sx={buttonStyle}>
       <FormatUnderlined fontSize="small" />
     </IconButton>
   )

@@ -5,7 +5,7 @@ import {
   CardContent,
   CardActions,
   Grid,
-} from "@material-ui/core"
+} from "@mui/material"
 import { useTableFormControls } from "../hooks/useTableFormControls"
 import { TableDialogTextFields } from "./TableDialogTextFields"
 

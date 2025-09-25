@@ -10,10 +10,9 @@ import {
   DialogActions,
   Button,
   Typography,
-  makeStyles,
-} from "@material-ui/core"
-import InsertDriveFileIconOutlined from "@material-ui/icons/InsertDriveFileOutlined"
-import { grey } from "@material-ui/core/colors"
+} from "@mui/material"
+import InsertDriveFileIconOutlined from "@mui/icons-material/InsertDriveFileOutlined"
+import { grey } from "@mui/material/colors"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import {
@@ -33,7 +32,7 @@ const renderError = (Oerror: Option<ErrorState>) =>
     OgetOrElse(() => <></>),
   )
 
-const useFileUploadDialogStyles = makeStyles((theme) => ({
+const useFileUploadDialogStyles = () => ({
   nativeInput: {
     display: "none",
   },
@@ -43,11 +42,11 @@ const useFileUploadDialogStyles = makeStyles((theme) => ({
     fontStyle: "italic",
   },
   selectedFile: {
-    padding: theme.spacing(2),
+    padding: "16px",
     backgroundColor: grey[200],
     borderRadius: "0.3125rem",
   },
-}))
+})
 
 type UploadProperties = {
   fileName: Option<string>
@@ -66,7 +65,7 @@ const Upload = ({
   onSubmit,
   onFileChange,
 }: UploadProperties) => {
-  const { helpText, nativeInput, selectedFile } = useFileUploadDialogStyles()
+  const styles = useFileUploadDialogStyles()
   return (
     <>
       <DialogTitle disableTypography>
@@ -78,7 +77,7 @@ const Upload = ({
             fileName,
             Omap((name) => (
               <Grid item>
-                <Box className={selectedFile}>
+                <Box sx={styles.selectedFile}>
                   <Grid container spacing={1} alignItems="center">
                     <Grid item>
                       <InsertDriveFileIconOutlined />
@@ -115,11 +114,11 @@ const Upload = ({
               id="file-upload"
               onChange={onFileChange}
               fullWidth
-              className={nativeInput}
+              sx={styles.nativeInput}
             />
           </Grid>
           <Grid item>
-            <Typography className={helpText}>
+            <Typography sx={styles.helpText}>
               * File size may not exceed 10MB
             </Typography>
           </Grid>

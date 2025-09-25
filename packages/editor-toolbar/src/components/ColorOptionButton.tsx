@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core"
+import { Button } from "@mui/material"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { useSetAtom } from "jotai"
 import { fontColorAtom } from "../context/atomConfigs"
@@ -16,8 +16,8 @@ const ColorOptionButton = ({ color }: ColorOptionButtonProperties) => {
     setColor(color)
     applyTextStyles(editor, { color })
   }
-  const { root } = useColorOptionButtonStyles({ color })
-  return <Button className={root} onClick={setFontColor} />
+  const styles = useColorOptionButtonStyles({ color })
+  return <Button sx={styles.root} onClick={setFontColor} />
 }
 
 export { ColorOptionButton }

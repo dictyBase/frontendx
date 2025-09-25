@@ -1,5 +1,5 @@
-import { IconButton } from "@material-ui/core"
-import { Undo } from "@material-ui/icons"
+import { IconButton } from "@mui/material"
+import { Undo } from "@mui/icons-material"
 import { useAtomValue } from "jotai"
 import { canUndoAtom } from "../context/atomConfigs"
 import { useToolbarItemStyles } from "../hooks/useToolbarItemStyles"
@@ -7,13 +7,13 @@ import { useUndo } from "../hooks/useUndo"
 
 const UndoButton = () => {
   const canUndo = useAtomValue(canUndoAtom)
-  const classes = useToolbarItemStyles()
+  const styles = useToolbarItemStyles()
   const onClick = useUndo()
 
   return (
     <IconButton
       disabled={!canUndo}
-      className={classes.root}
+      sx={styles.root}
       onClick={onClick}
       title="Undo"
       aria-label="Undo">
