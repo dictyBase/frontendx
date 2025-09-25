@@ -51,5 +51,5 @@ clientConfig.js
 .repomixignore
 repomix-output.txt
 repomix.config.json
-credentials/vertex-ai-user.json
+credentials
 .mcp.json
