@@ -29,7 +29,7 @@ import {
   isValidFile,
   type ErrorState,
   type ImageSuccessState,
-} from "./imageUploadHelpers"
+} from "./helpers/imageUploadHelpers"
 
 type ImageUploadDialogProperties = {
   open: boolean

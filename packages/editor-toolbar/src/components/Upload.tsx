@@ -21,7 +21,7 @@ import {
   getOrElse as OgetOrElse,
   isSome,
 } from "fp-ts/Option"
-import { ErrorState } from "./fileUploadHelpers"
+import { ErrorState } from "./helpers/fileUploadHelpers"
 
 const renderError = (Oerror: Option<ErrorState>) =>
   pipe(
