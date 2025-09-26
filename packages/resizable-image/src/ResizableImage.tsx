@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"
+import { useRef, useState, CSSProperties } from "react"
 import { useAtomValue } from "jotai"
 import { Container } from "@mui/material"
 import { ImageDimensionsAtom } from "./state"
@@ -52,7 +52,21 @@ const ResizableImage = ({
       draggable={isSelected}
       ref={imageContainerReference}
       disableGutters
-      sx={styles.root}>
+      sx={{
+        position: "relative" as const,
+        height: "var(--height)",
+        width: "var(--width)",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "black",
+      }}
+      style={
+        {
+          "--height": dimensions.height ? `${dimensions.height}px` : "auto",
+          "--width": dimensions.width ? `${dimensions.width}px` : "auto",
+        } as CSSProperties
+      }>
       <img
         ref={imageReference}
         src={src}
