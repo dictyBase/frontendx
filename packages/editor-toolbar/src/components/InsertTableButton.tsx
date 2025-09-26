@@ -1,19 +1,16 @@
 import { Button, Dialog } from "@mui/material"
 import TableChartOutlinedIcon from "@mui/icons-material/TableChartOutlined"
 import { useAtom } from "jotai"
-import { useToolbarItemStyles } from "../hooks/useToolbarItemStyles"
 import { insertTableDialogOpenAtom } from "../context/atomConfigs"
 import { TableDialogContents } from "./TableDialogContents"
 
 const InsertTableButton = () => {
   const [isDialogOpen, setIsDialogOpen] = useAtom(insertTableDialogOpenAtom)
-  const { spaced } = useToolbarItemStyles()
 
   return (
     <>
       <Button
         sx={(theme) => ({
-          ...spaced,
           color: theme.palette.text.primary,
         })}
         variant="text"
