@@ -10,9 +10,7 @@ const UploadFileButton = () => {
   return (
     <>
       <Button
-        sx={(theme) => ({
-          color: theme.palette.text.primary,
-        })}
+        color="inherit"
         variant="text"
         onClick={() => setIsDialogOpen(true)}
         startIcon={<AttachFileIcon />}>
