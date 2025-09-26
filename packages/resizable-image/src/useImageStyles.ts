@@ -26,15 +26,6 @@ const materialize = keyframes`
 `
 
 const useImageStyles = (properties: StyleProperties) => ({
-  root: {
-    position: "relative" as const,
-    height: properties.height ? `${properties.height}px` : "auto",
-    width: properties.width ? `${properties.width}px` : "auto",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "black",
-  },
   image: {
     aspectRatio: "1",
     width: "100%",
