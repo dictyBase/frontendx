@@ -1,4 +1,4 @@
-import ToolBar from "@mui/material/Toolbar"
+import { Stack, Toolbar } from "@mui/material"
 import { UndoButton } from "./components/UndoButton"
 import { RedoButton } from "./components/RedoButton"
 import { FontSizeDropdown } from "./components/FontSizeDropdown"
@@ -13,27 +13,39 @@ import { InsertImageButton } from "./components/InsertImageButton"
 import { UploadFileButton } from "./components/UploadFileButton"
 import { InsertLinkButton } from "./components/InsertLinkButton"
 import { useCleanup } from "./hooks/useCleanup"
-import { useToolbarStyles } from "./hooks/useToolbarStyles"
 
 const DictybaseToolbar = () => {
   useCleanup()
-  const styles = useToolbarStyles()
   return (
-    <ToolBar variant="dense" sx={styles.root}>
-      <UndoButton />
-      <RedoButton />
-      <FontSizeDropdown />
-      <FontFamilyDropdown />
-      <BlockFormatDropdown />
-      <FormatBoldButton />
-      <FormatItalicButton />
-      <FormatUnderlineButton />
-      <ColorPickerButton />
-      <InsertLinkButton />
-      <InsertTableButton />
-      <InsertImageButton />
-      <UploadFileButton />
-    </ToolBar>
+    <Toolbar
+      variant="dense"
+      sx={{
+        columnGap: "8px",
+        marginBottom: "1px",
+        background: "#fff",
+      }}>
+      <Stack direction="row">
+        <UndoButton />
+        <RedoButton />
+      </Stack>
+      <Stack direction="row" spacing={2}>
+        <FontSizeDropdown />
+        <FontFamilyDropdown />
+        <BlockFormatDropdown />
+      </Stack>
+      <Stack direction="row">
+        <FormatBoldButton />
+        <FormatItalicButton />
+        <FormatUnderlineButton />
+        <ColorPickerButton />
+        <InsertLinkButton />
+      </Stack>
+      <Stack direction="row">
+        <InsertTableButton />
+        <InsertImageButton />
+        <UploadFileButton />
+      </Stack>
+    </Toolbar>
   )
 }
 
