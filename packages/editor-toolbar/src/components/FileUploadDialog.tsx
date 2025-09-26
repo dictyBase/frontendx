@@ -21,10 +21,10 @@ import {
   getFileValidationError,
   ErrorState,
   isValidFile,
-} from "./fileUploadHelpers"
+} from "./helpers/fileUploadHelpers"
 import { InsertUrl } from "./InsertUrl"
 import { Upload } from "./Upload"
-import { createFileUploadFunction } from "./createUploadFileFunction"
+import { createFileUploadFunction } from "./helpers/createUploadFileFunction"
 
 type FileUploadDialogProperties = {
   open: boolean
