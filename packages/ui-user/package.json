@@ -6,7 +6,7 @@
   "author": "Siddhartha Basu",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "@dictybase/auth": "*"
+    "@dictybase/auth-mui5": "*"
   },
   "devDependencies": {
     "@dictybase/oxlint-config": "*",
