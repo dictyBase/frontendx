@@ -1,6 +1,6 @@
 import BrokenImageTwoToneIcon from "@mui/icons-material/BrokenImageTwoTone"
-import { SvgIcon, Container } from "@mui/material"
-import type { SxProps, Theme } from "@mui/material"
+import { SvgIcon } from "@mui/material"
+import { StyledIconContainer } from "./StyledIconContainer"
 
 /**
  * A component to display an error message with an icon
@@ -9,12 +9,12 @@ import type { SxProps, Theme } from "@mui/material"
  * @param {SxProps} props.sx - The sx prop for styling
  * @returns {JSX.Element} - The rendered error component
  */
-const ErrorDisplay = ({ sx }: { sx: SxProps<Theme> }) => (
-  <Container disableGutters sx={sx}>
+const ErrorDisplay = () => (
+  <StyledIconContainer disableGutters>
     <SvgIcon fontSize="large" color="error">
       <BrokenImageTwoToneIcon />
     </SvgIcon>
-  </Container>
+  </StyledIconContainer>
 )
 
 export { ErrorDisplay }

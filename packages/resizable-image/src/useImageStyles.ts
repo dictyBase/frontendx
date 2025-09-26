@@ -45,13 +45,6 @@ const useImageStyles = (properties: StyleProperties) => ({
     animationTimingFunction: properties.easing,
     zIndex: properties.error ? -1 : 1,
   },
-  icons: {
-    width: "100%",
-    marginLeft: "-100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
 })
 
 export { useImageStyles }

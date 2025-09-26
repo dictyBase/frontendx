@@ -1,10 +1,10 @@
-import { Container, CircularProgress } from "@mui/material"
-import type { SxProps, Theme } from "@mui/material"
+import { CircularProgress } from "@mui/material"
+import { StyledIconContainer } from "./StyledIconContainer"
 
-const LoadingDisplay = ({ sx }: { sx: SxProps<Theme> }) => (
-  <Container disableGutters sx={sx}>
+const LoadingDisplay = () => (
+  <StyledIconContainer disableGutters>
     <CircularProgress size={56} thickness={6} />
-  </Container>
+  </StyledIconContainer>
 )
 
 export { LoadingDisplay }
