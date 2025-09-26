@@ -1,23 +1,15 @@
-import { Typography, Button, Paper } from "@material-ui/core"
-import { makeStyles, Theme } from "@material-ui/core/styles"
-import { UserWithRoles } from "@dictybase/auth"
+import { Typography, Button, Paper } from "@mui/material"
+import { UserWithRoles } from "@dictybase/auth-mui5"
 import { useNavigate } from "react-router-dom"
 
 type InformationProperties = {
   user: UserWithRoles
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    padding: theme.spacing(3),
-  },
-}))
-
 const Information = ({ user }: InformationProperties) => {
   const navigate = useNavigate()
-  const classes = useStyles()
   return (
-    <Paper elevation={3} className={classes.root}>
+    <Paper elevation={3} sx={{ padding: 3 }}>
       <Typography variant="h2" gutterBottom>
         {user?.name}
       </Typography>

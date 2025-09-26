@@ -1,5 +1,5 @@
-import { MoodSharp } from "@material-ui/icons"
-import IconButton from "@material-ui/core/IconButton"
+import { MoodSharp } from "@mui/icons-material"
+import IconButton from "@mui/material/IconButton"
 
 const Avatar = () => (
   <IconButton size="medium">
