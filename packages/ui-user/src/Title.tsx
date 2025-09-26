@@ -1,4 +1,4 @@
-import { Typography } from "@material-ui/core"
+import { Typography } from "@mui/material"
 
 const Title = () => (
   <Typography variant="h1" gutterBottom>

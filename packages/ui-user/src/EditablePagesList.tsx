@@ -1,50 +1,44 @@
 import { Link as RouterLink } from "react-router-dom"
-import { makeStyles, Theme } from "@material-ui/core/styles"
 import {
   Typography,
   List,
   ListItem,
+  ListItemButton,
   ListItemIcon,
   ListItemText,
   Paper,
-} from "@material-ui/core"
-import FolderIcon from "@material-ui/icons/Folder"
+} from "@mui/material"
+import FolderIcon from "@mui/icons-material/Folder"
 
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    padding: theme.spacing(3),
-  },
-}))
-
-const EditablePagesList = () => {
-  const classes = useStyles()
-  return (
-    <Paper elevation={3} className={classes.root}>
-      <Typography variant="h2" gutterBottom>
-        Editable Pages
-      </Typography>
-      <Typography variant="h3" gutterBottom>
-        Dicty Stock Center
-      </Typography>
-      <List component="nav">
-        <ListItem button component={RouterLink} to="/home/editable">
+const EditablePagesList = () => (
+  <Paper elevation={3} sx={{ padding: 3 }}>
+    <Typography variant="h2" gutterBottom>
+      Editable Pages
+    </Typography>
+    <Typography variant="h3" gutterBottom>
+      Dicty Stock Center
+    </Typography>
+    <List component="nav">
+      <ListItem disablePadding>
+        <ListItemButton component={RouterLink} to="/home/editable">
           <ListItemIcon>
             <FolderIcon />
           </ListItemIcon>
           <ListItemText primary="Home" />
-        </ListItem>
-        <ListItem
-          button
+        </ListItemButton>
+      </ListItem>
+      <ListItem disablePadding>
+        <ListItemButton
           component={RouterLink}
           to="/information/additional-materials/editable">
           <ListItemIcon>
             <FolderIcon />
           </ListItemIcon>
           <ListItemText primary="Additional Materials" />
-        </ListItem>
-      </List>
-    </Paper>
-  )
-}
+        </ListItemButton>
+      </ListItem>
+    </List>
+  </Paper>
+)
 
 export { EditablePagesList }
