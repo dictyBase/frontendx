@@ -91,9 +91,7 @@ const Editor = ({
           editable,
           Bmatch(
             () => <></>,
-            () => (
-              <DictybaseToolbar />
-            ),
+            () => <DictybaseToolbar />,
           ),
         )}
         <div>
@@ -102,13 +100,11 @@ const Editor = ({
             contentEditable={
               <ContentEditable
                 id="content-editor"
-                className={editorAreaClasses["container"]}
+                className={editorAreaClasses.container}
               />
             }
             placeholder={
-              <div className={placeholderClasses.root}>
-                Enter some text...
-              </div>
+              <div className={placeholderClasses.root}>Enter some text...</div>
             }
           />
         </div>
