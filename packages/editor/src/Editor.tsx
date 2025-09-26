@@ -1,4 +1,3 @@
-/* eslint-disable dot-notation */
 import { EditorState } from "lexical"
 import {
   InitialEditorStateType,
@@ -56,8 +55,8 @@ const Editor = ({
     Omap(({ editorState }) => editorState),
     OgetOrElse(() => initialStateString as InitialEditorStateType),
   )
-  const placeholderClasses = useEditorPlaceholderStyles()
-  const editorAreaClasses = useEditorAreaStyles({ editable })
+  const { classes: placeholderClasses } = useEditorPlaceholderStyles()
+  const { classes: editorAreaClasses } = useEditorAreaStyles({ editable })
 
   return (
     <LexicalComposer
@@ -77,10 +76,9 @@ const Editor = ({
       {pipe(
         toolbar,
         OfromNullable,
-        Omap((tb) => <Grid item>{tb}</Grid>),
         OgetOrElse(() => <></>),
       )}
-      <Grid container spacing={1} direction="column">
+      <Stack spacing={1}>
         {pipe(
           handleChange,
           OfromNullable,
@@ -94,31 +92,27 @@ const Editor = ({
           Bmatch(
             () => <></>,
             () => (
-              <Grid item>
-                <DictybaseToolbar />
-              </Grid>
+              <DictybaseToolbar />
             ),
           ),
         )}
-        <Grid item>
-          <div>
-            <RichTextPlugin
-              ErrorBoundary={LexicalErrorBoundary}
-              contentEditable={
-                <ContentEditable
-                  id="content-editor"
-                  className={editorAreaClasses["container"]}
-                />
-              }
-              placeholder={
-                <div className={placeholderClasses.root}>
-                  Enter some text...
-                </div>
-              }
-            />
-          </div>
-        </Grid>
-      </Grid>
+        <div>
+          <RichTextPlugin
+            ErrorBoundary={LexicalErrorBoundary}
+            contentEditable={
+              <ContentEditable
+                id="content-editor"
+                className={editorAreaClasses["container"]}
+              />
+            }
+            placeholder={
+              <div className={placeholderClasses.root}>
+                Enter some text...
+              </div>
+            }
+          />
+        </div>
+      </Stack>
     </LexicalComposer>
   )
 }
