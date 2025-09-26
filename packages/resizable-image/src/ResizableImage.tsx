@@ -61,8 +61,8 @@ const ResizableImage = ({
         onLoad={() => setLoading(false)}
         onError={handleError}
       />
-      {loading ? <LoadingDisplay sx={styles.icons} /> : undefined}
-      {error ? <ErrorDisplay sx={styles.icons} /> : undefined}
+      {loading ? <LoadingDisplay /> : undefined}
+      {error ? <ErrorDisplay /> : undefined}
       {imageContainerReference.current && isSelected ? (
         <ImageResizer onResize={onResize} />
       ) : undefined}
