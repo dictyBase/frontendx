@@ -1,9 +1,9 @@
-import { Select, SelectChangeEvent, MenuItem } from "@mui/material"
+import { SelectChangeEvent, MenuItem } from "@mui/material"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { useAtomValue } from "jotai"
+import { StyledSelect } from "./StyledSelect"
 import { fontSizeAtom } from "../context/atomConfigs"
 import { applyTextStyles } from "../utils/textStyles"
-import { useToolbarItemStyles } from "../hooks/useToolbarItemStyles"
 
 type FontSizeDropdownProperties = {
   start?: number
@@ -23,16 +23,14 @@ const FontSizeDropdown = ({
 }: FontSizeDropdownProperties) => {
   const [editor] = useLexicalComposerContext()
   const fontSize = useAtomValue(fontSizeAtom)
-  const classes = useToolbarItemStyles()
 
   const onFontSizeSelect = (event: SelectChangeEvent) => {
     applyTextStyles(editor, { "font-size": event.target.value as string })
   }
   return (
-    <Select
+    <StyledSelect
       variant="standard"
       title={title}
-      sx={{ ...classes.root, ...classes.spaced }}
       onChange={onFontSizeSelect}
       value={fontSize}>
       {genFontSize(start, end).map(({ value, label }) => (
@@ -40,7 +38,7 @@ const FontSizeDropdown = ({
           {label}
         </MenuItem>
       ))}
-    </Select>
+    </StyledSelect>
   )
 }
 

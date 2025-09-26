@@ -1,24 +1,22 @@
-import { Select, SelectChangeEvent, MenuItem } from "@mui/material"
+import { SelectChangeEvent, MenuItem } from "@mui/material"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { useAtom } from "jotai"
+import { StyledSelect } from "./StyledSelect"
 import { fontFamilyAtom, fonts, FontFamily } from "../context/atomConfigs"
 import { applyTextStyles } from "../utils/textStyles"
-import { useToolbarItemStyles } from "../hooks/useToolbarItemStyles"
 
 const FontFamilyDropdown = () => {
   const [fontFamily] = useAtom(fontFamilyAtom)
   const [editor] = useLexicalComposerContext()
-  const classes = useToolbarItemStyles()
 
   const onFontFamilySelect = (event: SelectChangeEvent) => {
     applyTextStyles(editor, { "font-family": event.target.value as FontFamily })
   }
 
   return (
-    <Select
+    <StyledSelect
       variant="standard"
       title="Font Family"
-      sx={{ ...classes.root, ...classes.spaced }}
       onChange={onFontFamilySelect}
       value={fontFamily}>
       {fonts.map((option) => (
@@ -26,7 +24,7 @@ const FontFamilyDropdown = () => {
           {option.name}
         </MenuItem>
       ))}
-    </Select>
+    </StyledSelect>
   )
 }
 

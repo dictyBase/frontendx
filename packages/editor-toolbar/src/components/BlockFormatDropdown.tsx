@@ -1,6 +1,6 @@
-import { Select, SelectChangeEvent, MenuItem } from "@mui/material"
+import { SelectChangeEvent, MenuItem } from "@mui/material"
+import { StyledSelect } from "./StyledSelect"
 import { BlockTypes } from "../context/atomConfigs"
-import { useToolbarItemStyles } from "../hooks/useToolbarItemStyles"
 import { useBlockFormat } from "../hooks/useBlockFormat"
 
 const blockTypeToBlockName = {
@@ -18,17 +18,15 @@ const title = "Block Type"
 
 const BlockFormatDropdown = () => {
   const [blockType, setBlockType] = useBlockFormat()
-  const classes = useToolbarItemStyles()
 
   const onChange = (event: SelectChangeEvent) => {
     setBlockType(event.target.value as BlockTypes)
   }
 
   return (
-    <Select
+    <StyledSelect
       title={title}
       variant="standard"
-      sx={{ ...classes.root, ...classes.spaced }}
       onChange={onChange}
       value={blockType}>
       {Object.keys(blockTypeToBlockName).map((option) => (
@@ -36,7 +34,7 @@ const BlockFormatDropdown = () => {
           {blockTypeToBlockName[option as keyof typeof blockTypeToBlockName]}
         </MenuItem>
       ))}
-    </Select>
+    </StyledSelect>
   )
 }
 
