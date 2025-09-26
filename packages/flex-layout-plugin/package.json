@@ -25,8 +25,6 @@
   },
   "dependencies": {
     "@lexical/react": "0.11.x",
-    "@material-ui/core": "^4.12.4",
-    "@material-ui/icons": "^4.11.3",
     "jotai": "^2.0.0",
     "lexical": "0.11.x",
     "react": "17.*",
