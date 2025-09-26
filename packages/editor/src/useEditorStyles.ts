@@ -1,10 +1,10 @@
-import { makeStyles, Theme } from "@material-ui/core"
+import { makeStyles } from "tss-react/mui"
 
-const useEditorAreaStyles = makeStyles<Theme, { editable: boolean }>({
+const useEditorAreaStyles = makeStyles<{ editable: boolean }>()((_, { editable }) => ({
   container: {
-    overflowY: ({ editable }) => (editable ? "scroll" : "initial"),
-    maxHeight: ({ editable }) => (editable ? "70vh" : "auto"),
-    minHeight: ({ editable }) => (editable ? "150px" : "auto"),
+    overflowY: (editable ? "scroll" : "initial"),
+    maxHeight: (editable ? "70vh" : "auto"),
+    minHeight: (editable ? "150px" : "auto"),
     resize: "none",
     fontSize: "15px",
     position: "relative",
@@ -16,9 +16,9 @@ const useEditorAreaStyles = makeStyles<Theme, { editable: boolean }>({
   root: {
     position: "relative",
   },
-})
+}))
 
-const useEditorPlaceholderStyles = makeStyles({
+const useEditorPlaceholderStyles = makeStyles()({
   root: {
     color: "#999",
     overflow: "hidden",

@@ -1,6 +1,6 @@
-import { makeStyles } from "@material-ui/core"
+import { makeStyles } from "tss-react/mui"
 
-const usePersistencePluginStyles = makeStyles({
+const usePersistencePluginStyles = makeStyles()({
   root: {
     display: "flex",
     gap: "5px",
