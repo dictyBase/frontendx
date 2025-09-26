@@ -11,7 +11,7 @@ import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin"
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin"
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary"
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin"
-import { Grid } from "@material-ui/core"
+import { Stack } from "@mui/material"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import {
