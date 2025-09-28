@@ -1,4 +1,5 @@
-import { makeStyles, Grid } from "@material-ui/core"
+import { Grid } from "@mui/material"
+import { styled } from "@mui/material/styles"
 import { pipe } from "fp-ts/function"
 import {
   replace as Sreplace,
@@ -18,13 +19,8 @@ const SiteNames = {
   "DSC dev": "Stock Center",
 }
 
-const useStyles = makeStyles({
-  primary: {
-    backgroundColor: "white",
-  },
-  text: {
-    fontFamily: "'Nimbus Mono PS', 'Courier New', monospace",
-  },
+const StyledGrid = styled(Grid)({
+  backgroundColor: "white",
 })
 
 type StatusListProperties = {
@@ -32,9 +28,8 @@ type StatusListProperties = {
 }
 
 const StatusList = ({ summaries }: StatusListProperties) => {
-  const { primary } = useStyles()
   return (
-    <Grid container direction="column" className={primary}>
+    <StyledGrid container direction="column">
       {pipe(
         summaries,
         Amap(({ name, status }) => {
@@ -55,7 +50,7 @@ const StatusList = ({ summaries }: StatusListProperties) => {
           )
         }),
       )}
-    </Grid>
+    </StyledGrid>
   )
 }
 

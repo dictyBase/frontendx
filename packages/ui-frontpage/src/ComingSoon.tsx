@@ -1,33 +1,30 @@
-import { Grid, Typography, makeStyles, Theme } from "@material-ui/core"
+import { Grid, Typography } from "@mui/material"
+import { styled } from "@mui/material/styles"
 
 type ComingSoonProperties = {
   text: string
   height: string
 }
 
-const useComingSoonStyles = makeStyles<Theme, { height: string }, "root">({
-  root: {
-    height: "100%",
-    padding: "4rem 4rem 4rem 4rem",
-    backgroundColor: "#9eb5cb",
-    color: "#0d2235",
-    borderRadius: "10px",
-    fontStyle: "italic",
-  },
+const StyledGrid = styled(Grid)({
+  height: "100%",
+  padding: "4rem 4rem 4rem 4rem",
+  backgroundColor: "#9eb5cb",
+  color: "#0d2235",
+  borderRadius: "10px",
+  fontStyle: "italic",
 })
 
 const ComingSoon = ({ text, height }: ComingSoonProperties) => {
-  const { root } = useComingSoonStyles({ height })
   return (
-    <Grid
+    <StyledGrid
       container
-      className={root}
       alignItems="center"
       justifyContent="center">
       <Grid item>
         <Typography variant="h2">{text}</Typography>
       </Grid>
-    </Grid>
+    </StyledGrid>
   )
 }
 

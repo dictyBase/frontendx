@@ -1,18 +1,16 @@
-import { Grid, Typography, makeStyles } from "@material-ui/core"
+import { Grid, Typography } from "@mui/material"
+import { styled } from "@mui/material/styles"
 import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
 import { RecentStockItem } from "./RecentStockItem"
 import { recentStrainItems } from "./recentStockItemsData"
 
-const useRecentStrainItemStyles = makeStyles({
-  root: {
-    rowGap: "0.25rem",
-  },
+const StyledGrid = styled(Grid)({
+  rowGap: "0.25rem",
 })
 const RecentStrainItems = () => {
-  const { root } = useRecentStrainItemStyles()
   return (
-    <Grid container direction="column" alignItems="center" className={root}>
+    <StyledGrid container direction="column" alignItems="center">
       <Grid item>
         <Typography variant="h3"> Strains </Typography>
       </Grid>
@@ -22,7 +20,7 @@ const RecentStrainItems = () => {
           <RecentStockItem key={id} id={id} name={name} dateAdded={dateAdded} />
         )),
       )}
-    </Grid>
+    </StyledGrid>
   )
 }
 

@@ -1,10 +1,9 @@
 import { Link, useLocation, useParams } from "react-router-dom"
-import Grid from "@material-ui/core/Grid"
-import Button from "@material-ui/core/Button"
+import Grid from "@mui/material/Grid"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { BackToHomePageButton } from "./BackToHomePageButton"
 import sadDicty from "./assets/sad-dicty.png"
-import { useStyles } from "./errorStyles"
+import { Error400Container, MainGrid, Paragraph, Link as StyledLink, AddPageButton } from "./errorStyles"
 
 type Properties = {
   /** Error message to display */
@@ -28,45 +27,42 @@ type Parameters_ = {
 const NotFoundError = ({ error }: Properties) => {
   const { name, subname } = useParams<Parameters_>()
   const location = useLocation()
-  const classes = useStyles()
 
   return (
-    <Grid container className={classes.mainGrid} justifyContent="center">
+    <MainGrid container justifyContent="center">
       <Grid item xs={10} md={8}>
-        <div className={classes.error400}>
+        <Error400Container>
           <img src={sadDicty} alt="Sad Dicty -- Page Not Found" />
           <h3>Page Not Found</h3>
-          <p className={classes.paragraph}>
+          <Paragraph>
             Sorry! We can&apos;t find that page.
-          </p>
-          <p className={classes.paragraph}>
+          </Paragraph>
+          <Paragraph>
             You can try one of the links in our navbar above, or head back to
             the homepage.
-          </p>
+          </Paragraph>
           <BackToHomePageButton />
           <div>
             <br />
             <Link
-              className={classes.link}
               to="/addpage"
               state={{
                 name,
                 subname,
                 url: location.pathname,
               }}>
-              <Button
-                className={classes.addPageButton}
+              <AddPageButton
                 size="small"
                 variant="contained"
                 color="primary">
                 <FontAwesomeIcon icon="plus" />
                 &nbsp; Add a page to this route
-              </Button>
+              </AddPageButton>
             </Link>
           </div>
-        </div>
+        </Error400Container>
       </Grid>
-    </Grid>
+    </MainGrid>
   )
 }
 

@@ -1,32 +1,17 @@
-import { Container, Grid, makeStyles } from "@material-ui/core"
+import { Container, Grid } from "@mui/material"
+import { styled } from "@mui/material/styles"
 import { ListContentByNamespaceQueryHookResult } from "dicty-graphql-schema"
 import { AuthorizedDictyNewsTitle } from "./AuthorizedDictyNewsTitle"
 import { AuthorizedMoreNewsLink } from "./AuthorizedMoreNewsLink"
 import { AuthorizedDictyNewsContent } from "./AuthorizedDictyNewsContent"
 
-const useDictyNewsStyles = makeStyles({
-  main: {
-    height: "440px",
-  },
-  top: {
-    borderTopLeftRadius: "10px",
-    borderTopRightRadius: "10px",
-    boxShadow:
-      "0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)",
-  },
-  middle: {
-    boxShadow: "inset 0px -2px",
-  },
-  bottom: {
-    borderBottomLeftRadius: "10px",
-    borderBottomRightRadius: "10px",
-    boxShadow:
-      "0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)",
-  },
-  newsListItem: {
-    overflow: "auto",
-    flexGrow: 1,
-  },
+const MainGrid = styled(Grid)({
+  height: "440px",
+})
+
+const NewsListItemGrid = styled(Grid)({
+  overflow: "auto",
+  flexGrow: 1,
 })
 
 type AuthorizedDictyNewsProperties = {
@@ -36,25 +21,23 @@ type AuthorizedDictyNewsProperties = {
 const AuthorizedDictyNews = ({
   queryResult,
 }: AuthorizedDictyNewsProperties) => {
-  const { main, newsListItem } = useDictyNewsStyles()
   return (
     <Container>
-      <Grid
+      <MainGrid
         direction="column"
         spacing={1}
         container
-        wrap="nowrap"
-        className={main}>
+        wrap="nowrap">
         <Grid item>
           <AuthorizedDictyNewsTitle />
         </Grid>
-        <Grid item className={newsListItem}>
+        <NewsListItemGrid item>
           <AuthorizedDictyNewsContent queryResult={queryResult} />
-        </Grid>
+        </NewsListItemGrid>
         <Grid item>
           <AuthorizedMoreNewsLink />
         </Grid>
-      </Grid>
+      </MainGrid>
     </Container>
   )
 }

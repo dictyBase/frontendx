@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom"
-import { Typography, Tooltip, Grid, makeStyles } from "@material-ui/core"
-import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord"
-import { grey, green, yellow, red } from "@material-ui/core/colors"
+import { Typography, Tooltip, Grid } from "@mui/material"
+import { styled } from "@mui/material/styles"
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord"
+import { grey, green, yellow, red } from "@mui/material/colors"
 import { match, P } from "ts-pattern"
 import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
@@ -14,34 +15,35 @@ enum AggregateStatus {
   PARTIAL = "partial",
 }
 
-const useStyles = makeStyles({
-  tooltip: {
+const StyledTooltip = styled(Tooltip)({
+  '& .MuiTooltip-tooltip': {
     backgroundColor: "white",
     paddingLeft: 0,
     paddingRight: 0,
     boxShadow: `${grey[500]} 1px 1px 3px`,
   },
-  root: {
-    width: "fit-content",
-  },
-  text: {
-    color: ({ status }: { status: AggregateStatus }) =>
-      match(status)
-        .with(AggregateStatus.UP, () => green[500])
-        .with(AggregateStatus.PARTIAL, () => yellow[900])
-        .with(AggregateStatus.DOWN, () => red[900])
-        .exhaustive(),
-    textDecoration: "underline",
-  },
-  indicator: {
-    color: ({ status }: { status: AggregateStatus }) =>
-      match(status)
-        .with(AggregateStatus.UP, () => green[500])
-        .with(AggregateStatus.PARTIAL, () => yellow[700])
-        .with(AggregateStatus.DOWN, () => red[900])
-        .exhaustive(),
-  },
 })
+
+const StyledGrid = styled(Grid)({
+  width: "fit-content",
+})
+
+const StyledTypography = styled(Typography)<{ status: AggregateStatus }>(({ status }) => ({
+  color: match(status)
+    .with(AggregateStatus.UP, () => green[500])
+    .with(AggregateStatus.PARTIAL, () => yellow[900])
+    .with(AggregateStatus.DOWN, () => red[900])
+    .exhaustive(),
+  textDecoration: "underline",
+}))
+
+const StyledIcon = styled(FiberManualRecordIcon)<{ status: AggregateStatus }>(({ status }) => ({
+  color: match(status)
+    .with(AggregateStatus.UP, () => green[500])
+    .with(AggregateStatus.PARTIAL, () => yellow[700])
+    .with(AggregateStatus.DOWN, () => red[900])
+    .exhaustive(),
+}))
 
 type StatusListProperties = {
   summaries: Array<UptimeProperties>
@@ -57,27 +59,23 @@ const StatusPopover = ({ summaries }: StatusListProperties) => {
         .with(P.array(Status.DOWN), () => AggregateStatus.DOWN)
         .otherwise(() => AggregateStatus.PARTIAL),
   )
-  const { root, text, indicator, tooltip } = useStyles({
-    status: aggregateStatus,
-  })
   return (
-    <Tooltip
+    <StyledTooltip
       interactive
-      title={<StatusList summaries={summaries} />}
-      classes={{ tooltip }}>
-      <Grid container spacing={1} alignItems="flex-start" className={root}>
+      title={<StatusList summaries={summaries} />}>
+      <StyledGrid container spacing={1} alignItems="flex-start">
         <Grid item>
-          <FiberManualRecordIcon className={indicator} />
+          <StyledIcon status={aggregateStatus} />
         </Grid>
         <Grid item>
           <Link to="https://status.dictybase.dev/">
-            <Typography variant="h3" className={text}>
+            <StyledTypography variant="h3" status={aggregateStatus}>
               Live Site Status
-            </Typography>
+            </StyledTypography>
           </Link>
         </Grid>
-      </Grid>
-    </Tooltip>
+      </StyledGrid>
+    </StyledTooltip>
   )
 }
 
