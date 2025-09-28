@@ -1,8 +1,7 @@
 import React from "react"
-import { IconButton } from "@material-ui/core"
-import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown"
+import { IconButton } from "@mui/material"
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import { useSetAtom } from "jotai"
-import { useTableMenuButtonStyles } from "./useTableMenuButtonStyles"
 import { tableActionMenuOpenAtom } from "./atomConfigs"
 
 type TableActionMenuButtonProperties = {
@@ -13,14 +12,13 @@ const TableActionMenuButton = ({
   menuButtonReference,
 }: TableActionMenuButtonProperties) => {
   const setIsOpen = useSetAtom(tableActionMenuOpenAtom)
-  const { root } = useTableMenuButtonStyles()
 
   return (
     <IconButton
+      sx={{ position: "absolute" }}
       size="small"
       onClick={() => setIsOpen(true)}
-      ref={menuButtonReference}
-      className={root}>
+      ref={menuButtonReference}>
       <KeyboardArrowDownIcon />
     </IconButton>
   )
