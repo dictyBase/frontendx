@@ -17,7 +17,6 @@ const NewsItemAuth = ({ name, content, createdAt }: NewsItemProperties) => (
       elevation={4}
       sx={{
         backgroundColor: (theme) => theme.palette.background.paper,
-        borderRadius: 1,
         "&:hover": { boxShadow: (theme) => theme.shadows[7] },
       }}>
       <Grid container direction="column">
@@ -26,8 +25,8 @@ const NewsItemAuth = ({ name, content, createdAt }: NewsItemProperties) => (
           sx={{
             background: (theme) =>
               `linear-gradient(to left, ${theme.palette.primary.light}, ${theme.palette.primary.main})`,
-            borderTopLeftRadius: 1,
-            borderTopRightRadius: 1,
+            borderTopLeftRadius: (theme) => theme.shape.borderRadius,
+            borderTopRightRadius: (theme) => theme.shape.borderRadius,
             color: (theme) => theme.palette.getContrastText(teal[600]),
             padding: 1.5,
           }}>
