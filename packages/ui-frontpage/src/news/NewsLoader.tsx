@@ -1,32 +1,21 @@
-import { Typography, Grid, CircularProgress } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
-import grey from "@material-ui/core/colors/grey"
+import { Typography, Grid, CircularProgress } from "@mui/material"
+import { grey } from "@mui/material/colors"
 
-const useNewsLoaderStyles = makeStyles({
-  list: {
-    height: "100%",
-    color: grey[500],
-  },
-  text: {
-    fontSize: "24px",
-  },
-})
-
-const NewsLoader = () => {
-  const { list, text } = useNewsLoaderStyles()
-  return (
-    <Grid
-      container
-      direction="column"
-      justifyContent="center"
-      alignItems="center"
-      className={list}>
-      <Grid item>
-        <CircularProgress />
-      </Grid>
-      <Typography className={text}>Loading News...</Typography>
+const NewsLoader = () => (
+  <Grid
+    container
+    direction="column"
+    justifyContent="center"
+    alignItems="center"
+    sx={{
+      height: "100%",
+      color: grey[500],
+    }}>
+    <Grid item>
+      <CircularProgress />
     </Grid>
-  )
-}
+    <Typography sx={{ fontSize: "24px" }}>Loading News...</Typography>
+  </Grid>
+)
 
 export { NewsLoader }

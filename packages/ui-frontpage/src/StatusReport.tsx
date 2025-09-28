@@ -1,55 +1,56 @@
 import { Link } from "react-router-dom"
 import { match } from "ts-pattern"
-import { makeStyles, Grid, Typography } from "@material-ui/core"
-import CheckCircleIcon from "@material-ui/icons/CheckCircle"
-import ErrorIcon from "@material-ui/icons/Error"
-import grey from "@material-ui/core/colors/grey"
-import green from "@material-ui/core/colors/green"
-import red from "@material-ui/core/colors/red"
+import { Grid, Typography } from "@mui/material"
+import { styled } from "@mui/material/styles"
+import CheckCircleIcon from "@mui/icons-material/CheckCircle"
+import ErrorIcon from "@mui/icons-material/Error"
+import { grey } from "@mui/material/colors"
+import { green } from "@mui/material/colors"
+import { red } from "@mui/material/colors"
 import { UptimeProperties, Status } from "./types"
 
-const useStyles = makeStyles({
-  root: {
-    color: "black",
-    padding: "0.3rem",
-    columnGap: "1rem",
-    transition: "background-color 0.2s ease-in-out",
-    "&:hover": {
-      backgroundColor: grey[200],
-    },
-  },
-  statusGrid: {
-    lineHeight: 0,
-  },
-  statusUp: {
-    color: green[700],
-  },
-  statusDown: {
-    color: red[700],
-  },
-  text: {
-    fontFamily: "'Nimbus Mono PS', 'Courier New', monospace",
+const StyledGrid = styled(Grid)({
+  color: "black",
+  padding: "0.3rem",
+  columnGap: "1rem",
+  transition: "background-color 0.2s ease-in-out",
+  "&:hover": {
+    backgroundColor: grey[200],
   },
 })
 
-const StatusReport = ({ name, url, status }: UptimeProperties) => {
-  const { text, root, statusGrid, statusUp, statusDown } = useStyles()
+const StatusGrid = styled(Grid)({
+  lineHeight: 0,
+})
 
+const StyledCheckCircleIcon = styled(CheckCircleIcon)({
+  color: green[700],
+})
+
+const StyledErrorIcon = styled(ErrorIcon)({
+  color: red[700],
+})
+
+const StyledTypography = styled(Typography)({
+  fontFamily: "'Nimbus Mono PS', 'Courier New', monospace",
+})
+
+const StatusReport = ({ name, url, status }: UptimeProperties) => {
   const statusIcon = match(status)
-    .with(Status.UP, () => <CheckCircleIcon className={statusUp} />)
-    .with(Status.DOWN, () => <ErrorIcon className={statusDown} />)
+    .with(Status.UP, () => <StyledCheckCircleIcon />)
+    .with(Status.DOWN, () => <StyledErrorIcon />)
     .exhaustive()
 
   return (
     <Link to={url}>
-      <Grid container justifyContent="space-between" className={root}>
+      <StyledGrid container justifyContent="space-between">
         <Grid item>
-          <Typography className={text}>{name}</Typography>
+          <StyledTypography>{name}</StyledTypography>
         </Grid>
-        <Grid item className={statusGrid}>
+        <StatusGrid item>
           {statusIcon}
-        </Grid>
-      </Grid>
+        </StatusGrid>
+      </StyledGrid>
     </Link>
   )
 }

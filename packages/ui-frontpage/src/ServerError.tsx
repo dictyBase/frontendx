@@ -1,24 +1,20 @@
-import Grid from "@material-ui/core/Grid"
+import Grid from "@mui/material/Grid"
 import { ErrorMessage } from "./ErrorMessage"
-import { useStyles } from "./errorStyles"
+import { Error500Container, MainGrid } from "./errorStyles"
 
 /**
  * UI display when there is a server error.
  */
 
-const ServerError = () => {
-  const classes = useStyles()
-
-  return (
-    <Grid container className={classes.mainGrid} justifyContent="center">
-      <Grid item xs={10} md={8}>
-        <div className={classes.error500}>
-          <h2>Sorry! There was a server error.</h2>
-          <ErrorMessage />
-        </div>
-      </Grid>
+const ServerError = () => (
+  <MainGrid container justifyContent="center">
+    <Grid item xs={10} md={8}>
+      <Error500Container>
+        <h2>Sorry! There was a server error.</h2>
+        <ErrorMessage />
+      </Error500Container>
     </Grid>
-  )
-}
+  </MainGrid>
+)
 
 export { ServerError }

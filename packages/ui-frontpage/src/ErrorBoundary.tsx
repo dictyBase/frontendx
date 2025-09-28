@@ -1,32 +1,26 @@
 import React, { Component } from "react"
-import Grid from "@material-ui/core/Grid"
-import { withStyles, Theme } from "@material-ui/core/styles"
+import Grid from "@mui/material/Grid"
+import { styled } from "@mui/material/styles"
 import sadDicty from "./assets/sad-dicty.png"
 
-const styles = (theme: Theme) => ({
-  gridContainer: {
-    marginTop: "33px",
+const StyledGridContainer = styled(Grid)(({ theme }) => ({
+  marginTop: "33px",
+}))
+
+const StyledPaper = styled(Grid)(({ theme }) => ({
+  paddingTop: "10px",
+  paddingBottom: "10px",
+  backgroundColor: "#eff8fb",
+  borderRadius: "15px",
+  marginBottom: "10px",
+  maxHeight: "500px",
+  overflow: "auto",
+  [theme.breakpoints.down("md")]: {
+    height: "350px",
   },
-  paper: {
-    paddingTop: "10px",
-    paddingBottom: "10px",
-    backgroundColor: "#eff8fb",
-    borderRadius: "15px",
-    marginBottom: "10px",
-    maxHeight: "500px",
-    overflow: "auto",
-    [theme.breakpoints.down("md")]: {
-      height: "350px",
-    },
-  },
-})
+}))
 
 type Properties = {
-  /** Material-UI styling */
-  classes: {
-    gridContainer: string
-    paper: string
-  }
   /** Any children to render */
   children: React.ReactNode
 }
@@ -42,7 +36,7 @@ type State = {
  * https://reactjs.org/docs/error-boundaries.html
  */
 
-class _ErrorBoundary extends Component<Properties, State> {
+class ErrorBoundary extends Component<Properties, State> {
   constructor(properties: Properties) {
     super(properties)
     this.state = { hasError: false }
@@ -61,15 +55,12 @@ class _ErrorBoundary extends Component<Properties, State> {
 
   override render() {
     const { hasError } = this.state
-    const { children, classes } = this.props
+    const { children } = this.props
 
     if (hasError) {
       return (
-        <Grid
-          className={classes.gridContainer}
-          container
-          justifyContent="center">
-          <Grid item xs={6} className={classes.paper}>
+        <StyledGridContainer container justifyContent="center">
+          <StyledPaper item xs={6}>
             <div style={{ textAlign: "center" }}>
               <img src={sadDicty} alt="Sad Dicty Logo" />
               <h2>Sorry! There was an error loading this page.</h2>
@@ -82,15 +73,13 @@ class _ErrorBoundary extends Component<Properties, State> {
                 .
               </p>
             </div>
-          </Grid>
-        </Grid>
+          </StyledPaper>
+        </StyledGridContainer>
       )
     }
 
     return children
   }
 }
-
-const ErrorBoundary = withStyles(styles)(_ErrorBoundary)
 
 export { ErrorBoundary }

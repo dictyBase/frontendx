@@ -1,5 +1,5 @@
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton"
-import Grid from "@material-ui/core/Grid"
+import Grid from "@mui/material/Grid"
 
 /**
  * Generic skeleton loading display.

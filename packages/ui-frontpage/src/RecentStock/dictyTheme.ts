@@ -1,4 +1,4 @@
-import { ThemeOptions } from "@material-ui/core"
+import { ThemeOptions } from "@mui/material/styles"
 
 export const dictyTheme: ThemeOptions = {
   // use color tool for palette -- https://material.io/resources/color/
@@ -40,23 +40,27 @@ export const dictyTheme: ThemeOptions = {
       fontSize: "0.67em",
     },
   },
-  overrides: {
+  components: {
     MuiTab: {
-      root: {
-        textTransform: "none",
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+        },
       },
     },
     MuiTabs: {
-      root: {
-        backgroundColor: "#cce6ff",
-        color: "#000",
-      },
-      indicator: {
-        backgroundColor: "#858780",
+      styleOverrides: {
+        root: {
+          backgroundColor: "#cce6ff",
+          color: "#000",
+        },
+        indicator: {
+          backgroundColor: "#858780",
+        },
       },
     },
     MuiCssBaseline: {
-      "@global": {
+      styleOverrides: {
         a: {
           textDecoration: "none",
           color: "#004080",
