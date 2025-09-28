@@ -1,4 +1,4 @@
-import { Divider, Menu, MenuItem } from "@material-ui/core"
+import { Divider, Menu, MenuItem } from "@mui/material"
 import { useSetAtom } from "jotai"
 import {
   useInsertRow,
@@ -29,9 +29,6 @@ const TableActionMenu = ({
   return (
     <Menu
       open={isMenuOpen}
-      // getContentAnchorEl needs to be set to null for anchorOrigin.vertical to have affect
-      // eslint-disable-next-line unicorn/no-null
-      getContentAnchorEl={null}
       anchorEl={anchorElement}
       anchorOrigin={{
         vertical: "top",
