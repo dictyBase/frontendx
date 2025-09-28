@@ -18,7 +18,7 @@ const NewsListWrapper: FunctionComponent = ({ children }) => (
       sx={{
         background: (theme) =>
           `linear-gradient(to right, ${theme.palette.primary.main}, ${theme.palette.primary.light})`,
-        borderRadius: (theme) => theme.shape.borderRadius,
+        borderRadius: "8px",
         boxShadow: (theme) => theme.shadows[3],
         padding: 3,
         marginBottom: 3,
