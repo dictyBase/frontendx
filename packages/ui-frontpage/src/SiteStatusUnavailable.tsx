@@ -17,21 +17,19 @@ const StyledIcon = styled(HighlightOffIcon)({
   color: grey[700],
 })
 
-const SiteStatusUnavailable = () => {
-  return (
-    <StyledGrid container spacing={1} alignItems="flex-start">
-      <Grid item>
-        <StyledIcon />
-      </Grid>
-      <Grid item>
-        <Link to="https://status.dictybase.dev/">
-          <StyledTypography variant="h3">
-            Site Status Unavailable
-          </StyledTypography>
-        </Link>
-      </Grid>
-    </StyledGrid>
-  )
-}
+const SiteStatusUnavailable = () => (
+  <StyledGrid container spacing={1} alignItems="flex-start">
+    <Grid item>
+      <StyledIcon />
+    </Grid>
+    <Grid item>
+      <Link to="https://status.dictybase.dev/">
+        <StyledTypography variant="h3">
+          Site Status Unavailable
+        </StyledTypography>
+      </Link>
+    </Grid>
+  </StyledGrid>
+)
 
 export { SiteStatusUnavailable }

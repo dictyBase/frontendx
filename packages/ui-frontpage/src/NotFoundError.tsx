@@ -3,7 +3,13 @@ import Grid from "@mui/material/Grid"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { BackToHomePageButton } from "./BackToHomePageButton"
 import sadDicty from "./assets/sad-dicty.png"
-import { Error400Container, MainGrid, Paragraph, Link as StyledLink, AddPageButton } from "./errorStyles"
+import {
+  Error400Container,
+  MainGrid,
+  Paragraph,
+  Link as StyledLink,
+  AddPageButton,
+} from "./errorStyles"
 
 type Properties = {
   /** Error message to display */
@@ -34,9 +40,7 @@ const NotFoundError = ({ error }: Properties) => {
         <Error400Container>
           <img src={sadDicty} alt="Sad Dicty -- Page Not Found" />
           <h3>Page Not Found</h3>
-          <Paragraph>
-            Sorry! We can&apos;t find that page.
-          </Paragraph>
+          <Paragraph>Sorry! We can&apos;t find that page.</Paragraph>
           <Paragraph>
             You can try one of the links in our navbar above, or head back to
             the homepage.
@@ -51,10 +55,7 @@ const NotFoundError = ({ error }: Properties) => {
                 subname,
                 url: location.pathname,
               }}>
-              <AddPageButton
-                size="small"
-                variant="contained"
-                color="primary">
+              <AddPageButton size="small" variant="contained" color="primary">
                 <FontAwesomeIcon icon="plus" />
                 &nbsp; Add a page to this route
               </AddPageButton>

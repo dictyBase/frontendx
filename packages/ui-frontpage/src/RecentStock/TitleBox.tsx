@@ -1,52 +1,37 @@
-import { Grid, Typography, makeStyles } from "@material-ui/core"
+import { Grid, Typography } from "@mui/material"
 import { ReactElement } from "react"
-
-const useTitleBoxStyles = makeStyles({
-  container: {
-    paddingTop: ".75rem",
-    paddingBottom: ".75rem",
-    paddingLeft: ".75rem",
-    paddingRight: ".75rem",
-    backgroundColor: "#81b6e8",
-    color: "#0a2238",
-    columnGap: "0.5rem",
-    borderTopLeftRadius: "10px",
-    borderTopRightRadius: "10px",
-    alignText: "center",
-  },
-  title: {
-    fontWeight: "normal",
-  },
-  titleIcon: {
-    "& svg": {
-      display: "block",
-    },
-  },
-})
 
 type TitleBoxProperties = {
   icon: ReactElement
   content: string
 }
 
-const TitleBox = ({ icon, content }: TitleBoxProperties) => {
-  const { title, container, titleIcon } = useTitleBoxStyles()
-  return (
-    <Grid
-      container
-      className={container}
-      justifyContent="center"
-      alignItems="center">
-      <Grid className={titleIcon} item>
-        {icon}
-      </Grid>
-      <Grid item>
-        <Typography variant="h2" className={title}>
-          {content}
-        </Typography>
-      </Grid>
+const TitleBox = ({ icon, content }: TitleBoxProperties) => (
+  <Grid
+    container
+    sx={{
+      paddingTop: ".75rem",
+      paddingBottom: ".75rem",
+      paddingLeft: ".75rem",
+      paddingRight: ".75rem",
+      backgroundColor: "#81b6e8",
+      color: "#0a2238",
+      columnGap: "0.5rem",
+      borderTopLeftRadius: "10px",
+      borderTopRightRadius: "10px",
+      alignText: "center",
+    }}
+    justifyContent="center"
+    alignItems="center">
+    <Grid sx={{ "& svg": { display: "block" } }} item>
+      {icon}
     </Grid>
-  )
-}
+    <Grid item>
+      <Typography variant="h2" sx={{ fontWeight: "normal" }}>
+        {content}
+      </Typography>
+    </Grid>
+  </Grid>
+)
 
 export { TitleBox }

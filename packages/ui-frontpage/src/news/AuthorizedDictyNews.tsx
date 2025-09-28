@@ -20,26 +20,20 @@ type AuthorizedDictyNewsProperties = {
 
 const AuthorizedDictyNews = ({
   queryResult,
-}: AuthorizedDictyNewsProperties) => {
-  return (
-    <Container>
-      <MainGrid
-        direction="column"
-        spacing={1}
-        container
-        wrap="nowrap">
-        <Grid item>
-          <AuthorizedDictyNewsTitle />
-        </Grid>
-        <NewsListItemGrid item>
-          <AuthorizedDictyNewsContent queryResult={queryResult} />
-        </NewsListItemGrid>
-        <Grid item>
-          <AuthorizedMoreNewsLink />
-        </Grid>
-      </MainGrid>
-    </Container>
-  )
-}
+}: AuthorizedDictyNewsProperties) => (
+  <Container>
+    <MainGrid direction="column" spacing={1} container wrap="nowrap">
+      <Grid item>
+        <AuthorizedDictyNewsTitle />
+      </Grid>
+      <NewsListItemGrid item>
+        <AuthorizedDictyNewsContent queryResult={queryResult} />
+      </NewsListItemGrid>
+      <Grid item>
+        <AuthorizedMoreNewsLink />
+      </Grid>
+    </MainGrid>
+  </Container>
+)
 
 export { AuthorizedDictyNews }

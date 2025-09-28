@@ -1,16 +1,8 @@
-import { Grid, Button } from "@material-ui/core"
-import CreateIcon from "@material-ui/icons/Create"
-import { makeStyles } from "@material-ui/core/styles"
+import { Grid, Button } from "@mui/material"
+import CreateIcon from "@mui/icons-material/Create"
 import { useNavigate } from "react-router-dom"
 
-const useDictyNewsStyles = makeStyles({
-  list: {
-    height: "100%",
-  },
-})
-
 const AuthorizedEmptyNewsList = () => {
-  const { list } = useDictyNewsStyles()
   const navigate = useNavigate()
   const handleClick = () => {
     navigate("news/create")
@@ -21,7 +13,7 @@ const AuthorizedEmptyNewsList = () => {
       direction="column"
       justifyContent="center"
       alignItems="center"
-      className={list}>
+      sx={{ height: "100%" }}>
       <Grid item>
         <Button
           color="primary"

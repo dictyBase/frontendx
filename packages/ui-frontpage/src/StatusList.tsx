@@ -27,31 +27,29 @@ type StatusListProperties = {
   summaries: Array<UptimeProperties>
 }
 
-const StatusList = ({ summaries }: StatusListProperties) => {
-  return (
-    <StyledGrid container direction="column">
-      {pipe(
-        summaries,
-        Amap(({ name, status }) => {
-          const resolvedName = pipe(
-            SiteNames,
-            Rlookup(name),
-            OgetOrElse(() => name),
-          )
-          const nameSegment = pipe(name, StoLowerCase, Sreplace(/\s/g, "-"))
-          const url = SMonoid.concat(
-            "https://status.dictybase.dev/history/",
-            nameSegment,
-          )
-          return (
-            <Grid item>
-              <StatusReport name={resolvedName} url={url} status={status} />
-            </Grid>
-          )
-        }),
-      )}
-    </StyledGrid>
-  )
-}
+const StatusList = ({ summaries }: StatusListProperties) => (
+  <StyledGrid container direction="column">
+    {pipe(
+      summaries,
+      Amap(({ name, status }) => {
+        const resolvedName = pipe(
+          SiteNames,
+          Rlookup(name),
+          OgetOrElse(() => name),
+        )
+        const nameSegment = pipe(name, StoLowerCase, Sreplace(/\s/g, "-"))
+        const url = SMonoid.concat(
+          "https://status.dictybase.dev/history/",
+          nameSegment,
+        )
+        return (
+          <Grid item>
+            <StatusReport name={resolvedName} url={url} status={status} />
+          </Grid>
+        )
+      }),
+    )}
+  </StyledGrid>
+)
 
 export { StatusList }

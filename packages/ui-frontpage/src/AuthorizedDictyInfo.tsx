@@ -17,10 +17,8 @@ type AuthorizedDictyInfoProperties = {
   queryResult: ContentBySlugQueryHookResult
 }
 
-const AuthorizedDictyInfo = ({
-  queryResult,
-}: AuthorizedDictyInfoProperties) => {
-  return match(queryResult)
+const AuthorizedDictyInfo = ({ queryResult }: AuthorizedDictyInfoProperties) =>
+  match(queryResult)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
       ({ content, slug }) => (
@@ -35,6 +33,5 @@ const AuthorizedDictyInfo = ({
     ))
     .with({ error: P.select(P.not(undefined)) }, () => <></>)
     .otherwise(() => <> This message should not appear. </>)
-}
 
 export { AuthorizedDictyInfo }

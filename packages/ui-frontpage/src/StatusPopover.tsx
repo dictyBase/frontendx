@@ -16,7 +16,7 @@ enum AggregateStatus {
 }
 
 const StyledTooltip = styled(Tooltip)({
-  '& .MuiTooltip-tooltip': {
+  "& .MuiTooltip-tooltip": {
     backgroundColor: "white",
     paddingLeft: 0,
     paddingRight: 0,
@@ -28,22 +28,26 @@ const StyledGrid = styled(Grid)({
   width: "fit-content",
 })
 
-const StyledTypography = styled(Typography)<{ status: AggregateStatus }>(({ status }) => ({
-  color: match(status)
-    .with(AggregateStatus.UP, () => green[500])
-    .with(AggregateStatus.PARTIAL, () => yellow[900])
-    .with(AggregateStatus.DOWN, () => red[900])
-    .exhaustive(),
-  textDecoration: "underline",
-}))
+const StyledTypography = styled(Typography)<{ status: AggregateStatus }>(
+  ({ status }) => ({
+    color: match(status)
+      .with(AggregateStatus.UP, () => green[500])
+      .with(AggregateStatus.PARTIAL, () => yellow[900])
+      .with(AggregateStatus.DOWN, () => red[900])
+      .exhaustive(),
+    textDecoration: "underline",
+  }),
+)
 
-const StyledIcon = styled(FiberManualRecordIcon)<{ status: AggregateStatus }>(({ status }) => ({
-  color: match(status)
-    .with(AggregateStatus.UP, () => green[500])
-    .with(AggregateStatus.PARTIAL, () => yellow[700])
-    .with(AggregateStatus.DOWN, () => red[900])
-    .exhaustive(),
-}))
+const StyledIcon = styled(FiberManualRecordIcon)<{ status: AggregateStatus }>(
+  ({ status }) => ({
+    color: match(status)
+      .with(AggregateStatus.UP, () => green[500])
+      .with(AggregateStatus.PARTIAL, () => yellow[700])
+      .with(AggregateStatus.DOWN, () => red[900])
+      .exhaustive(),
+  }),
+)
 
 type StatusListProperties = {
   summaries: Array<UptimeProperties>
@@ -60,9 +64,7 @@ const StatusPopover = ({ summaries }: StatusListProperties) => {
         .otherwise(() => AggregateStatus.PARTIAL),
   )
   return (
-    <StyledTooltip
-      interactive
-      title={<StatusList summaries={summaries} />}>
+    <StyledTooltip interactive title={<StatusList summaries={summaries} />}>
       <StyledGrid container spacing={1} alignItems="flex-start">
         <Grid item>
           <StyledIcon status={aggregateStatus} />

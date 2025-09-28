@@ -17,8 +17,8 @@ type DictyInfoProperties = {
   queryResult: ContentBySlugQueryHookResult
 }
 
-const DictyInfo = ({ queryResult }: DictyInfoProperties) => {
-  return match(queryResult)
+const DictyInfo = ({ queryResult }: DictyInfoProperties) =>
+  match(queryResult)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
       ({ content, slug }) => <DictyInfoDisplay content={content} slug={slug} />,
@@ -31,6 +31,5 @@ const DictyInfo = ({ queryResult }: DictyInfoProperties) => {
     ))
     .with({ error: P.select(P.not(undefined)) }, () => <></>)
     .otherwise(() => <> This message should not appear. </>)
-}
 
 export { DictyInfo }
