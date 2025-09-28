@@ -15,15 +15,13 @@ type DictyInfoDisplayProperties = {
   slug: string
 }
 
-const DictyInfoDisplay = ({ content, slug }: DictyInfoDisplayProperties) => {
-  return (
-    <StyledBox>
-      <Typography color="secondary" variant="h2">
-        Dictyostelium discoideum
-      </Typography>
-      <Editor content={{ editorState: content, storageKey: slug }} />
-    </StyledBox>
-  )
-}
+const DictyInfoDisplay = ({ content, slug }: DictyInfoDisplayProperties) => (
+  <StyledBox>
+    <Typography color="secondary" variant="h2">
+      Dictyostelium discoideum
+    </Typography>
+    <Editor content={{ editorState: content, storageKey: slug }} />
+  </StyledBox>
+)
 
 export { DictyInfoDisplay }

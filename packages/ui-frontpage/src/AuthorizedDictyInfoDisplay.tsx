@@ -34,10 +34,7 @@ const AuthorizedDictyInfoDisplay = ({
     <StyledBox>
       <Typography color="secondary" variant="h2">
         Dictyostelium discoideum
-        <StyledIconButton
-          color="secondary"
-          size="small"
-          onClick={onClick}>
+        <StyledIconButton color="secondary" size="small" onClick={onClick}>
           <EditIcon />
         </StyledIconButton>
       </Typography>

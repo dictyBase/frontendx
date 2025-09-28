@@ -1,11 +1,6 @@
 import { ReactNode } from "react"
 import { Link } from "react-router-dom"
-import {
-  Container,
-  Grid,
-  Typography,
-  Button,
-} from "@mui/material"
+import { Container, Grid, Typography, Button } from "@mui/material"
 import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
@@ -75,9 +70,7 @@ const Featured = () => (
                 pointerEvents: disabled ? "none" : "auto",
               }}>
               <Button disabled={disabled} color="primary" startIcon={icon}>
-                <Typography
-                  sx={{ textDecoration: "underline" }}
-                  variant="h2">
+                <Typography sx={{ textDecoration: "underline" }} variant="h2">
                   {name}
                 </Typography>
               </Button>

@@ -1,17 +1,9 @@
-import { Grid, Typography, Button } from "@material-ui/core"
+import { Grid, Typography, Button } from "@mui/material"
 import { useNavigate } from "react-router-dom"
-import CreateIcon from "@material-ui/icons/Create"
-import AnnouncementIcon from "@material-ui/icons/Announcement"
-import { makeStyles } from "@material-ui/core/styles"
-
-const useDictyNewsStyles = makeStyles({
-  newsIcon: {
-    display: "block",
-  },
-})
+import CreateIcon from "@mui/icons-material/Create"
+import AnnouncementIcon from "@mui/icons-material/Announcement"
 
 const AuthorizedDictyNewsTitle = () => {
-  const { newsIcon } = useDictyNewsStyles()
   const navigate = useNavigate()
   const handleClick = () => {
     navigate("/news/create")
@@ -24,7 +16,7 @@ const AuthorizedDictyNewsTitle = () => {
             <Typography variant="h1">DCR News</Typography>
           </Grid>
           <Grid item>
-            <AnnouncementIcon className={newsIcon} />
+            <AnnouncementIcon sx={{ display: "block" }} />
           </Grid>
         </Grid>
       </Grid>

@@ -15,17 +15,12 @@ const StyledGrid = styled(Grid)({
   fontStyle: "italic",
 })
 
-const ComingSoon = ({ text, height }: ComingSoonProperties) => {
-  return (
-    <StyledGrid
-      container
-      alignItems="center"
-      justifyContent="center">
-      <Grid item>
-        <Typography variant="h2">{text}</Typography>
-      </Grid>
-    </StyledGrid>
-  )
-}
+const ComingSoon = ({ text, height }: ComingSoonProperties) => (
+  <StyledGrid container alignItems="center" justifyContent="center">
+    <Grid item>
+      <Typography variant="h2">{text}</Typography>
+    </Grid>
+  </StyledGrid>
+)
 
 export { ComingSoon }

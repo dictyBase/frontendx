@@ -1,25 +1,15 @@
-import { Grid, Typography } from "@material-ui/core"
-import AnnouncementIcon from "@material-ui/icons/Announcement"
-import { makeStyles } from "@material-ui/core/styles"
+import { Grid, Typography } from "@mui/material"
+import AnnouncementIcon from "@mui/icons-material/Announcement"
 
-const useDictyNewsStyles = makeStyles({
-  newsIcon: {
-    display: "block",
-  },
-})
-
-const DictyNewsTitle = () => {
-  const { newsIcon } = useDictyNewsStyles()
-  return (
-    <Grid container spacing={1} alignItems="center">
-      <Grid item>
-        <Typography variant="h1">DCR News</Typography>
-      </Grid>
-      <Grid item>
-        <AnnouncementIcon className={newsIcon} />
-      </Grid>
+const DictyNewsTitle = () => (
+  <Grid container spacing={1} alignItems="center">
+    <Grid item>
+      <Typography variant="h1">DCR News</Typography>
     </Grid>
-  )
-}
+    <Grid item>
+      <AnnouncementIcon sx={{ display: "block" }} />
+    </Grid>
+  </Grid>
+)
 
 export { DictyNewsTitle }

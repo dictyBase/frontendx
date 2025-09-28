@@ -1,37 +1,31 @@
-import { Paper, Grid, Theme, makeStyles } from "@material-ui/core"
-import { lightBlue } from "@material-ui/core/colors"
+import { Paper, Grid } from "@mui/material"
+import { lightBlue } from "@mui/material/colors"
 import { WriteNewsButton } from "./WriteNewsButton"
 
-const useStyles = makeStyles((theme: Theme) => ({
-  toolbar: {
-    height: "100%",
-    background: lightBlue[50],
-  },
-  grid: {
-    padding: theme.spacing(1),
-    marginBottom: theme.spacing(2),
-    top: 10,
-    position: "sticky",
-  },
-}))
-
-const NewsListActionBar = () => {
-  const { toolbar, grid } = useStyles()
-  return (
-    <Paper elevation={3} className={toolbar}>
-      <Grid
-        container
-        spacing={2}
-        direction="column"
-        alignItems="center"
-        className={grid}
-        data-testid="info-page-toolbar">
-        <Grid item>
-          <WriteNewsButton />
-        </Grid>
+const NewsListActionBar = () => (
+  <Paper
+    elevation={3}
+    sx={{
+      height: "100%",
+      background: lightBlue[50],
+    }}>
+    <Grid
+      container
+      spacing={2}
+      direction="column"
+      alignItems="center"
+      sx={{
+        padding: 1,
+        marginBottom: 2,
+        top: 10,
+        position: "sticky",
+      }}
+      data-testid="info-page-toolbar">
+      <Grid item>
+        <WriteNewsButton />
       </Grid>
-    </Paper>
-  )
-}
+    </Grid>
+  </Paper>
+)
 
 export { NewsListActionBar }

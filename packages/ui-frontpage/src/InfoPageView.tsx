@@ -1,5 +1,5 @@
 import { Editor } from "@dictybase/editor"
-import Box from "@material-ui/core/Box"
+import Box from "@mui/material/Box"
 import { ContentBySlugQuery } from "dicty-graphql-schema"
 
 type InfoPageViewProperties = {

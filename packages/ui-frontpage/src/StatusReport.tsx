@@ -4,9 +4,7 @@ import { Grid, Typography } from "@mui/material"
 import { styled } from "@mui/material/styles"
 import CheckCircleIcon from "@mui/icons-material/CheckCircle"
 import ErrorIcon from "@mui/icons-material/Error"
-import { grey } from "@mui/material/colors"
-import { green } from "@mui/material/colors"
-import { red } from "@mui/material/colors"
+import { grey, green, red } from "@mui/material/colors"
 import { UptimeProperties, Status } from "./types"
 
 const StyledGrid = styled(Grid)({
@@ -47,9 +45,7 @@ const StatusReport = ({ name, url, status }: UptimeProperties) => {
         <Grid item>
           <StyledTypography>{name}</StyledTypography>
         </Grid>
-        <StatusGrid item>
-          {statusIcon}
-        </StatusGrid>
+        <StatusGrid item>{statusIcon}</StatusGrid>
       </StyledGrid>
     </Link>
   )

@@ -18,26 +18,20 @@ type DictyNewsProperties = {
   queryResult: ListContentByNamespaceQueryHookResult
 }
 
-const DictyNews = ({ queryResult }: DictyNewsProperties) => {
-  return (
-    <Container>
-      <MainGrid
-        direction="column"
-        spacing={1}
-        container
-        wrap="nowrap">
-        <Grid item>
-          <DictyNewsTitle />
-        </Grid>
-        <NewsListItemGrid item>
-          <DictyNewsContent queryResult={queryResult} />
-        </NewsListItemGrid>
-        <Grid item>
-          <MoreNewsLink />
-        </Grid>
-      </MainGrid>
-    </Container>
-  )
-}
+const DictyNews = ({ queryResult }: DictyNewsProperties) => (
+  <Container>
+    <MainGrid direction="column" spacing={1} container wrap="nowrap">
+      <Grid item>
+        <DictyNewsTitle />
+      </Grid>
+      <NewsListItemGrid item>
+        <DictyNewsContent queryResult={queryResult} />
+      </NewsListItemGrid>
+      <Grid item>
+        <MoreNewsLink />
+      </Grid>
+    </MainGrid>
+  </Container>
+)
 
 export { DictyNews }
