@@ -3,9 +3,9 @@ import Grid from "@mui/material/Grid"
 import { styled } from "@mui/material/styles"
 import sadDicty from "./assets/sad-dicty.png"
 
-const StyledGridContainer = styled(Grid)(({ theme }) => ({
+const StyledGridContainer = styled(Grid)({
   marginTop: "33px",
-}))
+})
 
 const StyledPaper = styled(Grid)(({ theme }) => ({
   paddingTop: "10px",
