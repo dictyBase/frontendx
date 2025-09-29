@@ -1,12 +1,12 @@
 import { FunctionComponent } from "react"
+import { Typography, Grid } from "@mui/material"
 import { NewsListWrapperContainer } from "./NewsListWrapperContainer"
 import { NewsListTitleBox } from "./NewsListTitleBox"
-import { Typography, Grid } from "@mui/material"
 import { NewsListActionBar } from "./NewsListActionBar"
 
 const NewsListWrapperAuth: FunctionComponent = ({ children }) => (
   <NewsListWrapperContainer>
-    <NewsListTitleBox >
+    <NewsListTitleBox>
       <Typography variant="h1" align="center" sx={{ marginBottom: 1 }}>
         Dicty Community Resource News
       </Typography>
