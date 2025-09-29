@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react"
+import { Typography } from "@mui/material"
 import { NewsListWrapperContainer } from "./NewsListWrapperContainer"
 import { NewsListTitleBox } from "./NewsListTitleBox"
-import { Typography } from "@mui/material"
 
 const NewsListWrapper: FunctionComponent = ({ children }) => (
   <NewsListWrapperContainer>
