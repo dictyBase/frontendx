@@ -3,7 +3,6 @@ import { styled } from "@mui/material/styles"
 
 type ComingSoonProperties = {
   text: string
-  height: string
 }
 
 const StyledGrid = styled(Grid)({
