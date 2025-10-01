@@ -65,10 +65,8 @@ const CatalogTableHeader = ({
     {headers.map((h: string) => (
       <StyledTableCell
         sx={{
-          borderBottom: "1px solid #888",
           backgroundColor: "#f6f9fc",
           color: "#525f7f",
-          fontWeight: 600,
           "@media (max-width: 1024px)": {
             fontSize: "0.85rem",
           },

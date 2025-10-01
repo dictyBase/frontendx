@@ -32,7 +32,7 @@ const CartIcon = ({ items, isFull }: CartIconProperties) => (
         badgeContent={items.length}
         overlap="rectangular"
         showZero
-        color="primary">
+        color="secondary">
         <FontAwesomeIcon icon={faShoppingCart} size="2x" />
       </Badge>
     </Link>
