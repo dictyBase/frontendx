@@ -22,11 +22,11 @@
     "vitest": "3.x"
   },
   "dependencies": {
-    "@isomorphic-git/lightning-fs": "~4.6.0",
-    "@mui/material": "^5.16.0",
-    "@mui/lab": "^5.0.0-alpha.173",
-    "@emotion/react": "^11.11.0",
+    "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@isomorphic-git/lightning-fs": "~4.6.0",
+    "@mui/lab": "~5.0.0-alpha.175",
+    "@mui/material": "5.*",
     "@types/uuid": "^9.0.2",
     "fp-ts": "^2.16.1",
     "immer": "~10.0.2",
