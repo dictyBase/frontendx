@@ -1,4 +1,4 @@
-import { Autocomplete } from "@mui/lab"
+import Autocomplete from "@mui/material/Autocomplete"
 import { useSearchWithRouter } from "@dictybase/hook"
 
 export const defaultLabel = "Search (Click for available fields to search)"
