@@ -1,3 +1,4 @@
+import Box from "@mui/material/Box"
 import { Carousel } from "react-responsive-carousel"
 import { Image } from "@dictybase/dicty-image"
 
@@ -18,7 +19,6 @@ import tipB_webp from "../assets/slideshow-images/tipB-mutant-DG1036.webp"
 
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 
-
 const genSlide = (source: string, avif: string, webp: string, alt: string) => (
   <Image src={source} alt={alt} webpSrc={webp} avifSrc={avif} />
 )
@@ -27,10 +27,9 @@ const genSlide = (source: string, avif: string, webp: string, alt: string) => (
  * Slideshow is an image slideshow carousel with curated dicty photos.
  */
 
-const Slideshow = () => {
-  return (
+const Slideshow = () => (
+  <Box sx={{ marginBottom: "24px" }}>
     <Carousel
-      style={{ marginBottom: "24px" }}
       showStatus={false}
       showIndicators={false}
       showThumbs={false}
@@ -42,7 +41,7 @@ const Slideshow = () => {
       <div>{genSlide(ggtA, ggtA_avif, ggtA_webp, "ggtA-mutant-DG1109")}</div>
       <div>{genSlide(tipB, tipB_avif, tipB_webp, "tipB-mutant-DG1036")}</div>
     </Carousel>
-  )
-}
+  </Box>
+)
 
 export { Slideshow }
