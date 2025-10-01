@@ -1,22 +1,9 @@
-import { makeStyles } from "@material-ui/core/styles"
-import { grey, green } from "@material-ui/core/colors"
-import { Container, Grid, Typography } from "@material-ui/core"
+import { grey, green } from "@mui/material/colors"
+import { Container, Grid, Typography } from "@mui/material"
 import { Publication, PublicationQuery } from "dicty-graphql-schema"
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline"
-import OpenInNewIcon from "@material-ui/icons/OpenInNew"
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline"
+import OpenInNewIcon from "@mui/icons-material/OpenInNew"
 
-const useStyles = makeStyles({
-  root: {
-    backgroundColor: green[50],
-    borderRadius: "0.5rem",
-    paddingTop: "0.5rem",
-    paddingBottom: "0.5rem",
-  },
-  authors: {
-    color: grey[800],
-    fontWeight: 600,
-  },
-})
 
 // get author last names, replace last element with "&"
 // example return: "Samereier, Baumann, Meyer & Gräf (2010)"
@@ -67,9 +54,13 @@ type PublicationDisplayProperties = {
 const PhenotypeReferenceDetailsDisplay = ({
   publication,
 }: PublicationDisplayProperties) => {
-  const classes = useStyles()
   return (
-    <Container className={classes.root}>
+    <Container sx={{
+      backgroundColor: green[50],
+      borderRadius: "0.5rem",
+      paddingTop: "0.5rem",
+      paddingBottom: "0.5rem",
+    }}>
       <Grid container spacing={1} alignItems="flex-start" wrap="nowrap">
         <Grid item>
           <CheckCircleOutlineIcon />
@@ -78,7 +69,10 @@ const PhenotypeReferenceDetailsDisplay = ({
           <Typography
             variant="body2"
             component="span"
-            className={classes.authors}>
+            sx={{
+              color: grey[800],
+              fontWeight: 600,
+            }}>
             {listAuthors(publication.authors)} (
             {getYearFromTimestamp(publication.pub_date)})
           </Typography>

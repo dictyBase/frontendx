@@ -3,8 +3,8 @@ import {
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
-import { makeStyles } from "@material-ui/core/styles"
-import { blue, grey } from "@material-ui/core/colors"
+import { makeStyles } from "@mui/styles"
+import { blue, grey } from "@mui/material/colors"
 
 type HomeStylesProperties = {
   /** Background color for panel */

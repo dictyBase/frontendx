@@ -1,4 +1,4 @@
-import Dialog from "@material-ui/core/Dialog"
+import Dialog from "@mui/material/Dialog"
 import { DialogTitleDisplay } from "./DialogTitleDisplay"
 import { AddToCartDialogContent } from "./AddToCartDialogContent"
 import { AddToCartDialogActions } from "./AddToCartDialogActions"

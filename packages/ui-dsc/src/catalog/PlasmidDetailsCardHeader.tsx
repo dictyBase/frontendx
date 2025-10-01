@@ -1,16 +1,10 @@
-import { makeStyles } from "@material-ui/core/styles"
-import Grid from "@material-ui/core/Grid"
-import Typography from "@material-ui/core/Typography"
-import Alert from "@material-ui/lab/Alert"
+import Grid from "@mui/material/Grid"
+import Typography from "@mui/material/Typography"
+import Alert from "@mui/lab/Alert"
 import { match } from "ts-pattern"
 import { PlasmidAvailableDisplay } from "stock-center/src/components/PlasmidAvailableDisplay"
 import { PlasmidCartItem } from "../types"
 
-const useStyles = makeStyles({
-  message: {
-    padding: "0px",
-  },
-})
 
 type Properties = {
   /** Data for the stock item */
@@ -22,7 +16,6 @@ type Properties = {
  */
 
 const PlasmidDetailsCardHeader = ({ cartData }: Properties) => {
-  const classes = useStyles()
 
   return (
     <Grid item xs={12}>
@@ -35,7 +28,7 @@ const PlasmidDetailsCardHeader = ({ cartData }: Properties) => {
             .with(true, () => <PlasmidAvailableDisplay cartData={cartData} />)
             .with(false, () => (
               <Alert
-                classes={{ message: classes.message }}
+                sx={{ '& .MuiAlert-message': { padding: '0px' } }}
                 icon={false}
                 severity="error">
                 Currently unavailable at the DSC

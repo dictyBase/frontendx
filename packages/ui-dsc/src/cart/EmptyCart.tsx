@@ -1,23 +1,14 @@
 import { Link } from "react-router-dom"
-import { makeStyles } from "@material-ui/core/styles"
-import Box from "@material-ui/core/Box"
-import Typography from "@material-ui/core/Typography"
-import Divider from "@material-ui/core/Divider"
-import Button from "@material-ui/core/Button"
-
-const useStyles = makeStyles(() => ({
-  button: {
-    minWidth: "250px",
-    marginRight: "20px",
-  },
-}))
+import Box from "@mui/material/Box"
+import Typography from "@mui/material/Typography"
+import Divider from "@mui/material/Divider"
+import Button from "@mui/material/Button"
 
 /**
  * EmptyCart is the display for the cart page when there are
  * no items in the cart.
  */
 const EmptyCart = () => {
-  const classes = useStyles()
   return (
     <>
       <Box marginTop={4} marginBottom={4}>
@@ -29,7 +20,10 @@ const EmptyCart = () => {
       <Typography variant="h2">Browse our catalogs</Typography>
       <Box marginTop={4} marginBottom={3}>
         <Button
-          className={classes.button}
+          sx={{
+            minWidth: "250px",
+            marginRight: "20px",
+          }}
           color="primary"
           variant="outlined"
           component={Link}
@@ -37,7 +31,10 @@ const EmptyCart = () => {
           Strain Catalog
         </Button>
         <Button
-          className={classes.button}
+          sx={{
+            minWidth: "250px",
+            marginRight: "20px",
+          }}
           color="primary"
           variant="outlined"
           component={Link}

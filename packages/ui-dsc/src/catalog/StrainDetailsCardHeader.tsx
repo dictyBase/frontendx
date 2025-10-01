@@ -1,10 +1,10 @@
 import { ChangeEvent } from "react"
-import { makeStyles } from "@material-ui/core/styles"
-import Grid from "@material-ui/core/Grid"
-import Tabs from "@material-ui/core/Tabs"
-import Tab from "@material-ui/core/Tab"
-import Typography from "@material-ui/core/Typography"
-import Alert from "@material-ui/lab/Alert"
+import Grid from "@mui/material/Grid"
+import Tabs from "@mui/material/Tabs"
+import Tab from "@mui/material/Tab"
+import Typography from "@mui/material/Typography"
+import Alert from "@mui/lab/Alert"
+import Box from "@mui/material/Box"
 import { match, P } from "ts-pattern"
 import { StrainAvailableDisplay } from "stock-center/src/components/StrainAvailableDisplay"
 import { StrainCartItem } from "../types"
@@ -15,46 +15,6 @@ const a11yProperties = (index: number) => ({
   "aria-controls": `strain-details-tabpanel-${index}`,
 })
 
-const useStyles = makeStyles(({ palette }) => ({
-  root: {
-    "&:not(:first-of-type)": {
-      marginLeft: "5px",
-    },
-    color: "#002f5e",
-    opacity: 1,
-    borderTopLeftRadius: "8px",
-    borderTopRightRadius: "8px",
-    border: "1px #e4e4e4 solid",
-    borderBottomWidth: 0,
-  },
-  selected: {
-    background: "#f4f6f8",
-    border: "none",
-    "& $wrapper": {
-      opacity: 1,
-    },
-  },
-  wrapper: {
-    opacity: 0.7,
-  },
-  indicator: {
-    display: "none",
-  },
-  number: {
-    background: palette.primary.main,
-    borderRadius: "0.8em",
-    color: "#ffffff",
-    display: "inline-block",
-    fontWeight: 700,
-    fontSize: "0.8rem",
-    marginLeft: "5px",
-    textAlign: "center",
-    width: "1.5em",
-  },
-  message: {
-    padding: "0px",
-  },
-}))
 
 type Properties = {
   /** Tab value */
@@ -77,14 +37,6 @@ const StrainDetailsCardHeader = ({
   phenotypeLength,
   cartData,
 }: Properties) => {
-  const classes = useStyles()
-
-  const tabStyles = {
-    root: classes.root,
-    selected: classes.selected,
-    wrapper: classes.wrapper,
-  }
-
   return (
     <Grid item xs={12}>
       <Grid container justifyContent="space-between" alignItems="center">
@@ -97,23 +49,77 @@ const StrainDetailsCardHeader = ({
                 <Tabs
                   value={value}
                   onChange={handleChange}
-                  classes={{ indicator: classes.indicator }}
+                  sx={{
+                    "& .MuiTabs-indicator": {
+                      display: "none",
+                    },
+                  }}
                   aria-label="strain details tabs">
                   <Tab
-                    classes={tabStyles}
+                    sx={{
+                      "&:not(:first-of-type)": {
+                        marginLeft: "5px",
+                      },
+                      color: "#002f5e",
+                      opacity: 1,
+                      borderTopLeftRadius: "8px",
+                      borderTopRightRadius: "8px",
+                      border: "1px #e4e4e4 solid",
+                      borderBottomWidth: 0,
+                      "&.Mui-selected": {
+                        background: "#f4f6f8",
+                        border: "none",
+                        "& .MuiTab-wrapper": {
+                          opacity: 1,
+                        },
+                      },
+                      "& .MuiTab-wrapper": {
+                        opacity: 0.7,
+                      },
+                    }}
                     label={
                       <Typography variant="body1">Strain Details</Typography>
                     }
                     {...a11yProperties(0)}
                   />
                   <Tab
-                    classes={tabStyles}
+                    sx={{
+                      "&:not(:first-of-type)": {
+                        marginLeft: "5px",
+                      },
+                      color: "#002f5e",
+                      opacity: 1,
+                      borderTopLeftRadius: "8px",
+                      borderTopRightRadius: "8px",
+                      border: "1px #e4e4e4 solid",
+                      borderBottomWidth: 0,
+                      "&.Mui-selected": {
+                        background: "#f4f6f8",
+                        border: "none",
+                        "& .MuiTab-wrapper": {
+                          opacity: 1,
+                        },
+                      },
+                      "& .MuiTab-wrapper": {
+                        opacity: 0.7,
+                      },
+                    }}
                     label={
                       <Typography variant="body1">
                         Phenotypes
-                        <span className={classes.number}>
+                        <Box component="span" sx={{
+                          background: (theme) => theme.palette.primary.main,
+                          borderRadius: "0.8em",
+                          color: "#ffffff",
+                          display: "inline-block",
+                          fontWeight: 700,
+                          fontSize: "0.8rem",
+                          marginLeft: "5px",
+                          textAlign: "center",
+                          width: "1.5em",
+                        }}>
                           {phenotypeLength}
-                        </span>
+                        </Box>
                       </Typography>
                     }
                     {...a11yProperties(1)}
@@ -130,7 +136,7 @@ const StrainDetailsCardHeader = ({
             .with(true, () => <StrainAvailableDisplay cartData={cartData} />)
             .with(false, () => (
               <Alert
-                classes={{ message: classes.message }}
+                sx={{ '& .MuiAlert-message': { padding: '0px' } }}
                 icon={false}
                 severity="error">
                 Currently unavailable at the DSC

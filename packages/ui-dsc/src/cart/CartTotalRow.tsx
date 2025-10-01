@@ -1,12 +1,5 @@
-import { makeStyles } from "@material-ui/core/styles"
-import Grid from "@material-ui/core/Grid"
-import Typography, { TypographyProps } from "@material-ui/core/Typography"
-
-const useStyles = makeStyles((theme) => ({
-  container: {
-    paddingBottom: theme.spacing(2),
-  },
-}))
+import Grid from "@mui/material/Grid"
+import Typography, { TypographyProps } from "@mui/material/Typography"
 
 type CartTotalRowProperties = {
   /** Left value to display (i.e. Strains, Plasmids, Total) */
@@ -27,25 +20,22 @@ const CartTotalRow = ({
   numItems,
   total,
   variant = "inherit",
-}: CartTotalRowProperties) => {
-  const classes = useStyles()
-  return (
-    <Grid container className={classes.container}>
-      <Grid item xs={10}>
-        <Typography variant={variant} component="span">
-          <strong>{leftValue}</strong> &nbsp;
-        </Typography>
-        <Typography variant={variant} component="span">
-          {`${numItems} ${numItems === 1 ? "item" : "items"}`}:
-        </Typography>
-      </Grid>
-      <Grid item xs={2} container justifyContent="flex-end">
-        <Typography variant={variant} component="span">
-          {total}
-        </Typography>
-      </Grid>
+}: CartTotalRowProperties) => (
+  <Grid container sx={{ paddingBottom: 2 }}>
+    <Grid item xs={10}>
+      <Typography variant={variant} component="span">
+        <strong>{leftValue}</strong> &nbsp;
+      </Typography>
+      <Typography variant={variant} component="span">
+        {`${numItems} ${numItems === 1 ? "item" : "items"}`}:
+      </Typography>
     </Grid>
-  )
-}
+    <Grid item xs={2} container justifyContent="flex-end">
+      <Typography variant={variant} component="span">
+        {total}
+      </Typography>
+    </Grid>
+  </Grid>
+)
 
 export { CartTotalRow }

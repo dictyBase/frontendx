@@ -1,24 +1,9 @@
 import React from "react"
-import Alert from "@material-ui/lab/Alert"
-import IconButton from "@material-ui/core/IconButton"
+import Alert from "@mui/lab/Alert"
+import IconButton from "@mui/material/IconButton"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCopy } from "@fortawesome/free-solid-svg-icons"
-import { makeStyles } from "@material-ui/core/styles"
 
-const useStyles = makeStyles(() => ({
-  copyIcon: {
-    marginLeft: "5px",
-    "&:hover": {
-      backgroundColor: "transparent",
-      color: "rgba(0, 0, 0, 0.87)",
-    },
-  },
-  id: {
-    display: "flex",
-    justifyContent: "center",
-    marginTop: "5px",
-  },
-}))
 
 type DetailsHeaderCopyIconProperties = {
   /** Stock ID */
@@ -32,7 +17,6 @@ type DetailsHeaderCopyIconProperties = {
 
 const DetailsHeaderCopyIcon = ({ id }: DetailsHeaderCopyIconProperties) => {
   const [snackbarOpen, setSnackbarOpen] = React.useState(false)
-  const classes = useStyles()
 
   const handleClick = () => {
     // eslint-disable-next-line compat/compat
@@ -48,13 +32,23 @@ const DetailsHeaderCopyIcon = ({ id }: DetailsHeaderCopyIconProperties) => {
     <>
       <IconButton
         onClick={handleClick}
-        className={classes.copyIcon}
+        sx={{
+          marginLeft: "5px",
+          "&:hover": {
+            backgroundColor: "transparent",
+            color: "rgba(0, 0, 0, 0.87)",
+          },
+        }}
         size="small"
         title="Copy ID to clipboard"
         aria-label="copy icon">
         <FontAwesomeIcon icon={faCopy} size="xs" />
       </IconButton>
-      <div className={classes.id}>
+      <div style={{
+        display: "flex",
+        justifyContent: "center",
+        marginTop: "5px",
+      }}>
         {snackbarOpen && (
           <Alert severity="success">ID successfully copied to clipboard</Alert>
         )}

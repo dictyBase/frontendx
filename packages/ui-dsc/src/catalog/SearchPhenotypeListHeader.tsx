@@ -1,27 +1,18 @@
-import Grid from "@material-ui/core/Grid"
-import Hidden from "@material-ui/core/Hidden"
-import List from "@material-ui/core/List"
-import ListItem from "@material-ui/core/ListItem"
-import { makeStyles } from "@material-ui/core/styles"
+import Grid from "@mui/material/Grid"
+import Hidden from "@mui/material/Hidden"
+import List from "@mui/material/List"
+import ListItem from "@mui/material/ListItem"
 
-const useStyles = makeStyles({
-  listHeaders: {
-    borderBottom: "1px solid #888",
-    backgroundColor: "#f6f9fc",
-    color: "#525f7f",
-    fontWeight: 600,
-  },
-  list: {
-    padding: 0,
-  },
-})
 
 const SearchPhenotypeListHeader = () => {
-  const classes = useStyles()
-
   return (
-    <List className={classes.list}>
-      <ListItem className={classes.listHeaders}>
+    <List sx={{ padding: 0 }}>
+      <ListItem sx={{
+        borderBottom: "1px solid #888",
+        backgroundColor: "#f6f9fc",
+        color: "#525f7f",
+        fontWeight: 600,
+      }}>
         <Grid container spacing={0} alignItems="center">
           <Grid item sm={3}>
             Strain Descriptor

@@ -1,23 +1,7 @@
-import { makeStyles, Theme } from "@material-ui/core/styles"
-import IconButton from "@material-ui/core/IconButton"
-import DialogTitle from "@material-ui/core/DialogTitle"
+import IconButton from "@mui/material/IconButton"
+import DialogTitle from "@mui/material/DialogTitle"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-const useStyles = makeStyles((theme: Theme) => ({
-  dialogTitle: {
-    backgroundColor: theme.palette.primary.main,
-    color: "#fff",
-    margin: 0,
-    padding: theme.spacing(2),
-    fontSize: "2rem",
-  },
-  closeButton: {
-    position: "absolute",
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: "#fff",
-  },
-}))
 
 type DialogTitleDisplayProperties = {
   /** Title to display at top of dialog */
@@ -34,14 +18,25 @@ const DialogTitleDisplay = ({
   title,
   handleClose,
 }: DialogTitleDisplayProperties) => {
-  const classes = useStyles()
-
   return (
-    <DialogTitle className={classes.dialogTitle} id={title}>
+    <DialogTitle
+      sx={(theme) => ({
+        backgroundColor: theme.palette.primary.main,
+        color: "#fff",
+        margin: 0,
+        padding: theme.spacing(2),
+        fontSize: "2rem",
+      })}
+      id={title}>
       {title}
       <IconButton
         aria-label={title}
-        className={classes.closeButton}
+        sx={(theme) => ({
+          position: "absolute",
+          right: theme.spacing(1),
+          top: theme.spacing(1),
+          color: "#fff",
+        })}
         onClick={handleClose}>
         <FontAwesomeIcon icon="times" />
       </IconButton>

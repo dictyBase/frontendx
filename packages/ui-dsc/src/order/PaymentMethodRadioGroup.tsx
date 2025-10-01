@@ -1,8 +1,8 @@
 import { type ChangeEvent, type SetStateAction, type Dispatch } from "react"
 import { useFormContext } from "react-hook-form"
-import RadioGroup from "@material-ui/core/RadioGroup"
-import Radio from "@material-ui/core/Radio"
-import FormControlLabel from "@material-ui/core/FormControlLabel"
+import RadioGroup from "@mui/material/RadioGroup"
+import Radio from "@mui/material/Radio"
+import FormControlLabel from "@mui/material/FormControlLabel"
 
 enum PaymentMethods {
   PURCHASE_ORDER_NUMBER = "purchaseOrder",

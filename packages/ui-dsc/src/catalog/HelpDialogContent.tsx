@@ -1,5 +1,5 @@
-import DialogContent from "@material-ui/core/DialogContent"
-import DialogContentText from "@material-ui/core/DialogContentText"
+import DialogContent from "@mui/material/DialogContent"
+import DialogContentText from "@mui/material/DialogContentText"
 
 /**
  * HelpDialogContent displays the actual content of the help dialog box.

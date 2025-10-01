@@ -7,10 +7,9 @@ import {
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
 import { isNonEmpty as AisNonEmpty } from "fp-ts/Array"
-import Grid from "@material-ui/core/Grid"
-import Typography from "@material-ui/core/Typography"
-import ListItem from "@material-ui/core/ListItem"
-import { makeStyles } from "@material-ui/core/styles"
+import Grid from "@mui/material/Grid"
+import Typography from "@mui/material/Typography"
+import ListItem from "@mui/material/ListItem"
 import {
   ListStrainsWithPhenotypeQuery,
   Gene,
@@ -20,18 +19,6 @@ import { GenesDisplay } from "./GenesDisplay"
 import { PublicationDisplay } from "./PublicationDisplay"
 import { characterConverter } from "../utils/characterConverter"
 
-const useStyles = makeStyles({
-  row: {
-    borderBottom: "1px solid rgba(224, 224, 224, 1)",
-    "&:hover": {
-      backgroundColor: "#eeeeee",
-    },
-  },
-  item: {
-    paddingRight: "10px",
-    fontSize: "0.9rem",
-  },
-})
 
 const toPublicationComponent = (
   publications: NonNullable<
@@ -63,27 +50,37 @@ type SearchPhenotypeListItemProperties = {
 const SearchPhenotypeListItem = ({
   strain,
 }: SearchPhenotypeListItemProperties) => {
-  const classes = useStyles()
 
   const publications = strain?.publications
   const genes = (strain?.genes as Gene[]) ?? []
 
   return (
-    <ListItem className={classes.row}>
+    <ListItem sx={{
+      borderBottom: "1px solid rgba(224, 224, 224, 1)",
+      "&:hover": {
+        backgroundColor: "#eeeeee",
+      },
+    }}>
       <Grid container spacing={0} alignItems="center">
-        <Grid item sm={3} className={classes.item}>
+        <Grid item sm={3} sx={{
+          paddingRight: "10px",
+          fontSize: "0.9rem",
+        }}>
           <Typography variant="body2" noWrap>
             <Link to={`/strains/${strain.id}`}>
               {characterConverter(strain.label)}
             </Link>
           </Typography>
         </Grid>
-        <Grid item sm={3} className={classes.item}>
+        <Grid item sm={3} sx={{
+          paddingRight: "10px",
+          fontSize: "0.9rem",
+        }}>
           <Typography variant="body2" noWrap>
             <GenesDisplay genes={genes} />
           </Typography>
         </Grid>
-        <Grid item sm={6} className={classes.item}>
+        <Grid item sm={6}>
           <Typography component="span" variant="body2">
             {toPublicationComponent(publications)}
           </Typography>

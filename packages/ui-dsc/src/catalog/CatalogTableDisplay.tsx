@@ -1,14 +1,14 @@
 import { Fragment, RefObject } from "react"
-import Table from "@material-ui/core/Table"
-import TableBody from "@material-ui/core/TableBody"
-import TableCell from "@material-ui/core/TableCell"
-import TableContainer from "@material-ui/core/TableContainer"
-import TableHead from "@material-ui/core/TableHead"
-import TableRow from "@material-ui/core/TableRow"
-import LinearProgress from "@material-ui/core/LinearProgress"
-import { makeStyles, styled } from "@material-ui/core/styles"
-import { compose, borders, typography } from "@material-ui/system"
-import { indigo } from "@material-ui/core/colors"
+import Table from "@mui/material/Table"
+import TableBody from "@mui/material/TableBody"
+import TableCell from "@mui/material/TableCell"
+import TableContainer from "@mui/material/TableContainer"
+import TableHead from "@mui/material/TableHead"
+import TableRow from "@mui/material/TableRow"
+import LinearProgress from "@mui/material/LinearProgress"
+import { styled } from "@mui/material/styles"
+import { compose, borders, typography } from "@mui/system"
+import { indigo } from "@mui/material/colors"
 import { AddToCartButtonHandler } from "stock-center/src/components/AddToCartButtonHandler"
 import { Link } from "react-router-dom"
 import { v4 as uuid4 } from "uuid"
@@ -18,27 +18,17 @@ import { fromNullable, getOrElse } from "fp-ts/Option"
 import type { CatalogItem, StrainItem, PlasmidItem } from "../types"
 import { getCatalogItemPathAndDescriptor } from "../utils/getCatalogItemPathAndDescriptor"
 
-const useStyles = makeStyles({
-  listHeaders: {
-    borderBottom: "1px solid #888",
-    backgroundColor: "#f6f9fc",
-    color: "#525f7f",
-    fontWeight: 600,
-    "@media (max-width: 1024px)": {
-      fontSize: "0.85rem",
-    },
-  },
-  root: { overflowX: "initial" },
-  row: {
-    borderBottom: "1px solid rgba(224, 224, 224, 1)",
-    "@media (max-width: 1024px)": {
-      "& p": {
-        fontSize: "0.75rem !important",
-      },
+const StyledTableCell = styled(TableCell)(compose(borders, typography))
+const StyledTableContainer = styled(TableContainer)({ overflowX: "initial" })
+const StyledCatalogRow = styled(TableRow)({
+  borderBottom: "1px solid rgba(224, 224, 224, 1)",
+  "@media (max-width: 1024px)": {
+    "& p": {
+      fontSize: "0.75rem !important",
     },
   },
 })
-const StyledTableCell = styled(TableCell)(compose(borders, typography))
+
 const borderBottom = `2px solid ${indigo[700]}`
 const tableHeaders = ["Strain Descriptor", "Strain Summary", "Strain ID", ""]
 
@@ -70,23 +60,28 @@ interface CatalogTableHeaderProperties {
 
 const CatalogTableHeader = ({
   headers = tableHeaders,
-}: CatalogTableHeaderProperties) => {
-  const classes = useStyles()
-  return (
-    <TableRow>
-      {headers.map((h: string) => (
-        <StyledTableCell
-          className={classes.listHeaders}
-          borderBottom={borderBottom}
-          fontSize="subtitle1.fontSize"
-          fontWeight="fontWeightBold"
-          key={uuid4()}>
-          {h}
-        </StyledTableCell>
-      ))}
-    </TableRow>
-  )
-}
+}: CatalogTableHeaderProperties) => (
+  <TableRow>
+    {headers.map((h: string) => (
+      <StyledTableCell
+        sx={{
+          borderBottom: "1px solid #888",
+          backgroundColor: "#f6f9fc",
+          color: "#525f7f",
+          fontWeight: 600,
+          "@media (max-width: 1024px)": {
+            fontSize: "0.85rem",
+          },
+        }}
+        borderBottom={borderBottom}
+        fontSize="subtitle1.fontSize"
+        fontWeight="fontWeightBold"
+        key={uuid4()}>
+        {h}
+      </StyledTableCell>
+    ))}
+  </TableRow>
+)
 
 const appendEllipses = (input: string) => `${input}...`
 
@@ -124,39 +119,33 @@ const CatalogRows = ({
   items,
   nextCursor,
   targetReference,
-}: CatalogRowFunctionProperties<HTMLTableRowElement>) => {
-  const { row } = useStyles()
-  return (
-    <>
-      {items.map((item, index: number) => {
-        const key = `${item.id}`
-        if (index === items.length - 1 && nextCursor !== 0) {
-          // last item and expected to have more data
-          return (
-            <Fragment key={item.id}>
-              <TableRow hover className={row} key={key}>
-                {cellFunction(item)}
-              </TableRow>
-              <TableRow
-                className={row}
-                key="linear-progess"
-                ref={targetReference}>
-                <TableCell colSpan={4}>
-                  <LinearProgress />
-                </TableCell>
-              </TableRow>
-            </Fragment>
-          )
-        }
+}: CatalogRowFunctionProperties<HTMLTableRowElement>) => (
+  <>
+    {items.map((item, index: number) => {
+      const key = `${item.id}`
+      if (index === items.length - 1 && nextCursor !== 0) {
+        // last item and expected to have more data
         return (
-          <TableRow hover className={row} key={key}>
-            {cellFunction(item)}
-          </TableRow>
+          <Fragment key={item.id}>
+            <StyledCatalogRow hover key={key}>
+              {cellFunction(item)}
+            </StyledCatalogRow>
+            <StyledCatalogRow key="linear-progess" ref={targetReference}>
+              <TableCell colSpan={4}>
+                <LinearProgress />
+              </TableCell>
+            </StyledCatalogRow>
+          </Fragment>
         )
-      })}
-    </>
-  )
-}
+      }
+      return (
+        <StyledCatalogRow hover key={key}>
+          {cellFunction(item)}
+        </StyledCatalogRow>
+      )
+    })}
+  </>
+)
 
 /**
  * Displays data in tablular format in which the target DOM element is attached
@@ -167,10 +156,9 @@ const StrainCatalogTableDisplay = ({
   dataField,
   target: targetReference,
 }: CatalogListProperties<HTMLTableRowElement>): JSX.Element => {
-  const classes = useStyles()
   const { strains, nextCursor } = data[dataField]
   return (
-    <TableContainer className={classes.root}>
+    <StyledTableContainer>
       <Table stickyHeader>
         <TableHead>
           <CatalogTableHeader />
@@ -183,7 +171,7 @@ const StrainCatalogTableDisplay = ({
           />
         </TableBody>
       </Table>
-    </TableContainer>
+    </StyledTableContainer>
   )
 }
 
@@ -192,10 +180,9 @@ const PlasmidCatalogTableDisplay = ({
   dataField,
   target: targetReference,
 }: CatalogListProperties<HTMLTableRowElement>): JSX.Element => {
-  const classes = useStyles()
   const { plasmids, nextCursor } = data[dataField]
   return (
-    <TableContainer className={classes.root}>
+    <StyledTableContainer>
       <Table stickyHeader>
         <TableHead>
           <CatalogTableHeader
@@ -215,7 +202,7 @@ const PlasmidCatalogTableDisplay = ({
           />
         </TableBody>
       </Table>
-    </TableContainer>
+    </StyledTableContainer>
   )
 }
 

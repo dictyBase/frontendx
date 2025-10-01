@@ -1,5 +1,4 @@
 import { Carousel } from "react-responsive-carousel"
-import { makeStyles } from "@material-ui/core/styles"
 import { Image } from "@dictybase/dicty-image"
 
 import ctr9 from "../assets/slideshow-images/ctr9-mutant-DG1071.png"
@@ -19,11 +18,6 @@ import tipB_webp from "../assets/slideshow-images/tipB-mutant-DG1036.webp"
 
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 
-const useStyles = makeStyles({
-  container: {
-    marginBottom: "24px",
-  },
-})
 
 const genSlide = (source: string, avif: string, webp: string, alt: string) => (
   <Image src={source} alt={alt} webpSrc={webp} avifSrc={avif} />
@@ -34,11 +28,9 @@ const genSlide = (source: string, avif: string, webp: string, alt: string) => (
  */
 
 const Slideshow = () => {
-  const classes = useStyles()
-
   return (
     <Carousel
-      className={classes.container}
+      style={{ marginBottom: "24px" }}
       showStatus={false}
       showIndicators={false}
       showThumbs={false}

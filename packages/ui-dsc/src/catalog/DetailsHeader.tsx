@@ -1,17 +1,8 @@
-import { makeStyles, Theme } from "@material-ui/core/styles"
-import Box from "@material-ui/core/Box"
-import Typography from "@material-ui/core/Typography"
+import Box from "@mui/material/Box"
+import Typography from "@mui/material/Typography"
 import { DetailsHeaderCopyIcon } from "./DetailsHeaderCopyIcon"
 import { characterConverter } from "../utils/characterConverter"
 
-const useStyles = makeStyles((theme: Theme) => ({
-  name: {
-    marginBottom: theme.spacing(2),
-  },
-  id: {
-    marginBottom: theme.spacing(2),
-  },
-}))
 
 type DetailsHeaderProperties = {
   /** Stock ID */
@@ -25,14 +16,12 @@ type DetailsHeaderProperties = {
  */
 
 const DetailsHeader = ({ name, id }: DetailsHeaderProperties) => {
-  const classes = useStyles()
-
   return (
     <Box mt={2}>
-      <Typography className={classes.name} variant="h1" noWrap>
+      <Typography sx={{ marginBottom: 2 }} variant="h1" noWrap>
         {characterConverter(name)}
       </Typography>
-      <Typography className={classes.id} variant="h3" color="textSecondary">
+      <Typography sx={{ marginBottom: 2 }} variant="h3" color="textSecondary">
         <em>{id}</em>
         <DetailsHeaderCopyIcon id={id} />
       </Typography>

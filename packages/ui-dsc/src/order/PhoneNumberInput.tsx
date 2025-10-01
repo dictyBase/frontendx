@@ -14,9 +14,8 @@ import {
   Grid,
   Select,
   MenuItem,
-  makeStyles,
   TextField as MuiTextField,
-} from "@material-ui/core"
+} from "@mui/material"
 import { countryToFlag } from "../utils/countryToFlag"
 import { countryList, CountryOption } from "../utils/countryList"
 import { isPhoneValid } from "../utils/isPhoneValid"
@@ -34,14 +33,6 @@ const appendIfEmpty = (base: string, add: string) =>
     ),
   )
 
-const useStyles = makeStyles({
-  textField: {
-    flexGrow: 1,
-  },
-  select: {
-    marginTop: "8px",
-  },
-})
 
 const countryCodes = pipe(
   countryList,
@@ -64,7 +55,6 @@ const PhoneNumberInput: FunctionComponent<{
     setValue,
     formState: { errors },
   } = useFormContext()
-  const classes = useStyles()
   const countryCodeFieldName = `${name}CountryCode`
   const onBlur = () => {
     const phone: string = getValues(name)
@@ -105,7 +95,7 @@ const PhoneNumberInput: FunctionComponent<{
               variant="outlined"
               label="Country Code"
               margin="dense"
-              className={classes.select}
+              sx={{ marginTop: "8px" }}
               renderValue={(value) =>
                 countryToFlag(value as CountryOption["code"])
               }
@@ -119,7 +109,7 @@ const PhoneNumberInput: FunctionComponent<{
           )}
         />
       </Grid>
-      <Grid item className={classes.textField}>
+      <Grid item sx={{ flexGrow: 1 }}>
         <Controller
           name={name}
           control={control}

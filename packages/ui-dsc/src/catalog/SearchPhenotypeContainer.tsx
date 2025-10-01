@@ -2,26 +2,13 @@ import React from "react"
 import { Helmet } from "react-helmet"
 import { useParams } from "react-router-dom"
 import { P, match } from "ts-pattern"
-import { makeStyles } from "@material-ui/core/styles"
-import Grid from "@material-ui/core/Grid"
+import Grid from "@mui/material/Grid"
 import { useListStrainsWithPhenotypeQuery } from "dicty-graphql-schema"
 import { ErrorPageWrapper } from "../ErrorPageWrapper"
 import { DetailsLoader } from "./DetailsLoader"
 import { SearchResultsHeader } from "./SearchResultsHeader"
 import { SearchPhenotypeList } from "./SearchPhenotypeList"
 
-const useStyles = makeStyles({
-  container: {
-    textAlign: "center",
-  },
-  gridItem: {
-    marginTop: "10px",
-    marginBottom: "20px",
-  },
-  resultsText: {
-    marginTop: "20px !important",
-  },
-})
 
 // remove "+" from phenotype params to get the proper name
 // i.e. "abolished+protein+phosphorylation" = "abolished protein phosphorylation"
@@ -91,7 +78,6 @@ const useListStrainsWithPhenotype = (phenotype: string) => {
  */
 
 const SearchPhenotypeContainer = () => {
-  const classes = useStyles()
   const { name } = useParams()
   const phenotype = cleanQuery(name ?? "")
   const { loading, error, data, loadMoreItems, hasMore, isLoadingMore } =
@@ -108,8 +94,11 @@ const SearchPhenotypeContainer = () => {
           content={`Dicty Stock Center search results for strains with ${phenotype}`}
         />
       </Helmet>
-      <Grid container className={classes.container}>
-        <Grid item xs={12} className={classes.gridItem}>
+      <Grid container sx={{ textAlign: "center" }}>
+        <Grid item xs={12} sx={{
+          marginTop: "10px",
+          marginBottom: "20px",
+        }}>
           <SearchResultsHeader property="Phenotype" description={phenotype} />
         </Grid>
         <Grid item xs={12}>

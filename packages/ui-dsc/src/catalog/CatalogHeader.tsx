@@ -1,16 +1,5 @@
-import { makeStyles, Theme } from "@material-ui/core/styles"
-import Box from "@material-ui/core/Box"
-import Typography from "@material-ui/core/Typography"
-
-const useStyles = makeStyles((theme: Theme) => ({
-  notice: {
-    color: theme.palette.error.main,
-    marginBottom: theme.spacing(1),
-  },
-  title: {
-    marginBottom: theme.spacing(2),
-  },
-}))
+import Box from "@mui/material/Box"
+import Typography from "@mui/material/Typography"
 
 type CatalogHeaderProperties = {
   /** Title of catalog page */
@@ -21,16 +10,16 @@ type CatalogHeaderProperties = {
  * CatalogHeader is the header at the top of every stock catalog page.
  */
 
-const CatalogHeader = ({ title }: CatalogHeaderProperties) => {
-  const classes = useStyles()
-
-  return (
-    <Box textAlign="center" p={1}>
-      <Typography variant="h1" className={classes.title}>
-        {title}
-      </Typography>
-    </Box>
-  )
-}
+const CatalogHeader = ({ title }: CatalogHeaderProperties) => (
+  <Box textAlign="center" p={1}>
+    <Typography
+      variant="h1"
+      sx={{
+        marginBottom: 3,
+      }}>
+      {title}
+    </Typography>
+  </Box>
+)
 
 export { CatalogHeader }

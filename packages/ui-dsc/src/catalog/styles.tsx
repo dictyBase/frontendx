@@ -1,4 +1,5 @@
-import { makeStyles, Theme } from "@material-ui/core/styles"
+import { makeStyles } from "@mui/styles"
+import { Theme } from "@mui/material/styles"
 
 // @ts-ignore <-- necessary to include the !important attributes
 const useStyles = makeStyles((theme: Theme) => ({

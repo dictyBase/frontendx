@@ -1,6 +1,6 @@
 import { Link as RouterLink } from "react-router-dom"
 import { v4 as uuid4 } from "uuid"
-import Typography from "@material-ui/core/Typography"
+import Typography from "@mui/material/Typography"
 
 type LinkProperties = {
   name: string

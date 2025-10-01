@@ -1,33 +1,25 @@
-import Button from "@material-ui/core/Button"
-import { makeStyles } from "@material-ui/core"
+import Button from "@mui/material/Button"
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-const useStyles = makeStyles(() => ({
-  checkoutButton: {
-    fontWeight: 1000,
-    minHeight: "50px",
-    "&:hover": {
-      color: "#fff",
-    },
-  },
-}))
-
-const CheckoutButton = () => {
-  const { checkoutButton } = useStyles()
-  return (
-    <Button
-      component={Link}
-      to="/order"
-      color="secondary"
-      variant="contained"
-      size="large"
-      fullWidth
-      startIcon={<FontAwesomeIcon icon="shopping-cart" />}
-      className={checkoutButton}>
-      Proceed to Checkout
-    </Button>
-  )
-}
+const CheckoutButton = () => (
+  <Button
+    component={Link}
+    to="/order"
+    color="secondary"
+    variant="contained"
+    size="large"
+    fullWidth
+    startIcon={<FontAwesomeIcon icon="shopping-cart" />}
+    sx={{
+      fontWeight: 1000,
+      minHeight: "50px",
+      "&:hover": {
+        color: "#fff",
+      },
+    }}>
+    Proceed to Checkout
+  </Button>
+)
 
 export { CheckoutButton }

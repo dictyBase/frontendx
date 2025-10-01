@@ -1,11 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles"
-import Typography from "@material-ui/core/Typography"
-
-const useStyles = makeStyles({
-  title: {
-    marginBottom: "10px",
-  },
-})
+import Typography from "@mui/material/Typography"
 
 type SearchResultsHeaderProperties = {
   /** Type of search results */
@@ -18,11 +11,9 @@ const SearchResultsHeader = ({
   property,
   description,
 }: SearchResultsHeaderProperties) => {
-  const classes = useStyles()
-
   return (
     <>
-      <Typography variant="h1" className={classes.title}>
+      <Typography variant="h1" sx={{ marginBottom: "10px" }}>
         {property} Search Results
       </Typography>
       <Typography variant="h3" color="textSecondary">

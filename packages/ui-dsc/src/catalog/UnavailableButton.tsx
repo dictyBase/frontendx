@@ -1,13 +1,6 @@
-import { makeStyles } from "@material-ui/core/styles"
-import IconButton from "@material-ui/core/IconButton"
-import Tooltip from "@material-ui/core/Tooltip"
-import RemoveShoppingCartIcon from "@material-ui/icons/RemoveShoppingCart"
-
-const useStyles = makeStyles(() => ({
-  cartFullSlash: {
-    color: "#8a8a8a",
-  },
-}))
+import IconButton from "@mui/material/IconButton"
+import Tooltip from "@mui/material/Tooltip"
+import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart"
 
 type UnavailableButtonProperties = {
   /** Title used for button tooltip and aria-label */
@@ -24,8 +17,6 @@ const UnavailableButton = ({
   title,
   size = "medium",
 }: UnavailableButtonProperties) => {
-  const classes = useStyles()
-
   return (
     <Tooltip title={title}>
       <span>
@@ -34,7 +25,7 @@ const UnavailableButton = ({
           size={size}
           aria-label={title}
           color="default"
-          className={classes.cartFullSlash}>
+          sx={{ color: "#8a8a8a" }}>
           <RemoveShoppingCartIcon />
         </IconButton>
       </span>

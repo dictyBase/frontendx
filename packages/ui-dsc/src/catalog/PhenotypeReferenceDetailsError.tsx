@@ -1,17 +1,7 @@
-import { makeStyles } from "@material-ui/core/styles"
-import { red } from "@material-ui/core/colors"
-import { Container, Typography, Grid } from "@material-ui/core"
-import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline"
+import { red } from "@mui/material/colors"
+import { Container, Typography, Grid } from "@mui/material"
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline"
 
-const useStyles = makeStyles({
-  root: {
-    backgroundColor: red[50],
-    borderRadius: "0.5rem",
-    paddingTop: "0.5rem",
-    paddingBottom: "0.5rem",
-    fontWeight: 600,
-  },
-})
 
 type PhenotypeReferenceDetailsErrorProperties = {
   publicationId: string
@@ -20,9 +10,14 @@ type PhenotypeReferenceDetailsErrorProperties = {
 const PhenotypeReferenceDetailsError = ({
   publicationId,
 }: PhenotypeReferenceDetailsErrorProperties) => {
-  const classes = useStyles()
   return (
-    <Container className={classes.root}>
+    <Container sx={{
+      backgroundColor: red[50],
+      borderRadius: "0.5rem",
+      paddingTop: "0.5rem",
+      paddingBottom: "0.5rem",
+      fontWeight: 600,
+    }}>
       <Grid container spacing={1} alignItems="center" wrap="nowrap">
         <Grid item>
           <ErrorOutlineIcon />

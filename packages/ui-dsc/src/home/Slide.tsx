@@ -1,4 +1,4 @@
-import Grid from "@material-ui/core/Grid"
+import Grid from "@mui/material/Grid"
 import { Slideshow } from "./Slideshow"
 
 const Slide = () => (

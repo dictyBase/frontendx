@@ -1,17 +1,8 @@
 import { ApolloError } from "@apollo/client"
-import Grid from "@material-ui/core/Grid"
-import Typography from "@material-ui/core/Typography"
-import { makeStyles } from "@material-ui/core/styles"
+import Grid from "@mui/material/Grid"
+import Typography from "@mui/material/Typography"
 import sadDicty from "./assets/sad-dicty.png"
 
-const useStyles = makeStyles({
-  root: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100%",
-  },
-})
 /**
  * The prop type for {@link ErrorDisplay}
  */
@@ -24,10 +15,14 @@ export interface ErrorDisplayProperties {
  * Display error(s) coming from apollo client API call
  */
 export const ErrorDisplay = ({ error }: ErrorDisplayProperties) => {
-  const { root } = useStyles()
   const errorMessage = error.graphQLErrors[0]?.message ?? ""
   return (
-    <Grid container className={root} direction="column">
+    <Grid container sx={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      height: "100%",
+    }} direction="column">
       <Grid item>
         <img src={sadDicty} alt="Sad Dicty -- Page Not Found" />
       </Grid>

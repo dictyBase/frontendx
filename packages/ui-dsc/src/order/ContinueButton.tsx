@@ -1,19 +1,10 @@
-import { makeStyles } from "@material-ui/core/styles"
-import Button from "@material-ui/core/Button"
-import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt"
-
-const useStyles = makeStyles(() => ({
-  button: {
-    minWidth: "200px",
-  },
-}))
+import Button from "@mui/material/Button"
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt"
 
 /**
  * ContinueButton displays the continue button on each page of the order form.
  */
 const ContinueButton = () => {
-  const classes = useStyles()
-
   return (
     <Button
       aria-label="Continue"
@@ -22,7 +13,7 @@ const ContinueButton = () => {
       color="secondary"
       variant="contained"
       endIcon={<ArrowRightAltIcon />}
-      className={classes.button}>
+      sx={{ minWidth: "200px" }}>
       Continue
     </Button>
   )

@@ -1,19 +1,7 @@
-import { makeStyles } from "@material-ui/core/styles"
-import { DefaultTheme } from "@material-ui/styles"
-import Paper from "@material-ui/core/Paper"
+import Paper from "@mui/material/Paper"
 import { RefObject } from "react"
 import { useWindowSize } from "@dictybase/hook"
 
-type HeightProperties = {
-  height: number
-}
-
-const useStyles = makeStyles<DefaultTheme, HeightProperties>({
-  root: {
-    height: ({ height }) => height,
-    overflowY: "scroll",
-  },
-})
 
 /**
  * The prop for {@link CatalogListWrapper}
@@ -37,9 +25,12 @@ export const CatalogListWrapper = ({
 }: CatalogListWrapperProperties): JSX.Element => {
   const { height } = useWindowSize()
   // 60% of actual client window height
-  const { root } = useStyles({ height: height && (60 * height) / 100 })
+  const calculatedHeight = height && (60 * height) / 100
   return (
-    <Paper ref={rootReference} className={root as string}>
+    <Paper ref={rootReference} sx={{
+      height: calculatedHeight,
+      overflowY: "scroll",
+    }}>
       {children}
     </Paper>
   )

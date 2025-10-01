@@ -1,22 +1,16 @@
-import Typography from "@material-ui/core/Typography"
-import { makeStyles, type Theme } from "@material-ui/core/styles"
-import { grey } from "@material-ui/core/colors"
+import Typography from "@mui/material/Typography"
+import { grey } from "@mui/material/colors"
 
-const useStyles = makeStyles((theme: Theme) => ({
-  waiver: {
-    backgroundColor: grey[200],
-    border: "1px solid #e6f2ff",
-    borderRadius: theme.spacing(1),
-    margin: theme.spacing(2),
-    padding: theme.spacing(3),
-  },
-}))
 
 const WaiverRequestInformation = () => {
-  const classes = useStyles()
-
   return (
-    <Typography className={classes.waiver}>
+    <Typography sx={(theme) => ({
+      backgroundColor: grey[200],
+      border: "1px solid #e6f2ff",
+      borderRadius: theme.spacing(1),
+      margin: theme.spacing(2),
+      padding: theme.spacing(3),
+    })}>
       Please send an email to
       <a href="mailto:dictystocks@northwestern.edu" target="_top">
         dictystocks@northwestern.edu

@@ -1,4 +1,4 @@
-import Grid from "@material-ui/core/Grid"
+import Grid from "@mui/material/Grid"
 import { fromNullable, getOrElse } from "fp-ts/Option"
 import { pipe } from "fp-ts/function"
 import { match } from "ts-pattern"

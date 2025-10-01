@@ -1,8 +1,8 @@
 /* eslint-disable dot-notation */
 import { ChangeEvent } from "react"
 import { useController } from "react-hook-form"
-import { Autocomplete } from "@material-ui/lab"
-import { TextField, CircularProgress } from "@material-ui/core"
+import { Autocomplete } from "@mui/lab"
+import { TextField, CircularProgress } from "@mui/material"
 import { match, P } from "ts-pattern"
 import { useListPhenotypeAssaysLazyQuery } from "dicty-graphql-schema"
 

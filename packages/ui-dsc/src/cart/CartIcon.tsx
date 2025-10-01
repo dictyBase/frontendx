@@ -1,18 +1,13 @@
 import { Link } from "react-router-dom"
-import { makeStyles } from "@material-ui/core/styles"
-import Badge from "@material-ui/core/Badge"
+import { styled } from "@mui/material/styles"
+import Badge from "@mui/material/Badge"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons"
 import { type CatalogCartItem } from "../types"
 
-const useStyles = makeStyles(({ palette }) => ({
-  cartFull: {
-    fontSize: "0.7rem",
-    color: palette.secondary.dark,
-  },
-  colorPrimary: {
-    background: palette.secondary.light,
-  },
+const StyledSpan = styled("span")(({ theme }) => ({
+  fontSize: "0.7rem",
+  color: theme.palette.secondary.dark,
 }))
 
 type CartIconProperties = {
@@ -30,24 +25,19 @@ type CartIconProperties = {
  * This is the cart component that displays between the Navbar and body content on every page.
  * It has a cart icon with the current number of added items next to it.
  */
-const CartIcon = ({ items, isFull }: CartIconProperties) => {
-  const classes = useStyles()
-
-  return (
-    <>
-      <Link to="/cart" aria-label="shopping cart">
-        <Badge
-          classes={{ colorPrimary: classes.colorPrimary }}
-          badgeContent={items.length}
-          overlap="rectangular"
-          showZero
-          color="primary">
-          <FontAwesomeIcon icon={faShoppingCart} size="2x" />
-        </Badge>
-      </Link>
-      {isFull && <span className={classes.cartFull}>* cart full</span>}
-    </>
-  )
-}
+const CartIcon = ({ items, isFull }: CartIconProperties) => (
+  <>
+    <Link to="/cart" aria-label="shopping cart">
+      <Badge
+        badgeContent={items.length}
+        overlap="rectangular"
+        showZero
+        color="primary">
+        <FontAwesomeIcon icon={faShoppingCart} size="2x" />
+      </Badge>
+    </Link>
+    {isFull && <StyledSpan>* cart full</StyledSpan>}
+  </>
+)
 
 export { CartIcon }

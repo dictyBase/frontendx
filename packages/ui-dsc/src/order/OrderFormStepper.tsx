@@ -1,18 +1,9 @@
-import { makeStyles } from "@material-ui/core/styles"
-import Stepper from "@material-ui/core/Stepper"
-import Step from "@material-ui/core/Step"
-import StepLabel from "@material-ui/core/StepLabel"
+import Stepper from "@mui/material/Stepper"
+import Step from "@mui/material/Step"
+import StepLabel from "@mui/material/StepLabel"
 
 const steps = ["Shipping Address", "Payment Details", "Review Your Order"]
 
-const useStyles = makeStyles((theme) => ({
-  stepper: {
-    padding: theme.spacing(3, 0, 5),
-  },
-  icon: {
-    color: theme.palette.primary.light,
-  },
-}))
 
 type OrderFormSteperProperties = {
   // Page number the user is on (0, 1, 2)
@@ -24,13 +15,16 @@ type OrderFormSteperProperties = {
  * page.
  */
 const OrderFormStepper = ({ step }: OrderFormSteperProperties) => {
-  const classes = useStyles()
-
   return (
-    <Stepper activeStep={step} className={classes.stepper}>
+    <Stepper activeStep={step} sx={(theme) => ({ padding: theme.spacing(3, 0, 5) })}>
       {steps.map((label) => (
         <Step key={label}>
-          <StepLabel StepIconProps={{ classes: { active: classes.icon } }}>
+          <StepLabel
+            sx={{
+              "& .MuiStepIcon-root.Mui-active": {
+                color: (theme) => theme.palette.primary.light,
+              },
+            }}>
             {label}
           </StepLabel>
         </Step>

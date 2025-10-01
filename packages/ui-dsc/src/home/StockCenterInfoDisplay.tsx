@@ -1,4 +1,4 @@
-import { Box } from "@material-ui/core"
+import { Box } from "@mui/material"
 import { Editor } from "@dictybase/editor"
 import { Heading } from "./Heading"
 

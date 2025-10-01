@@ -1,17 +1,10 @@
-import { makeStyles } from "@material-ui/core/styles"
-import { grey } from "@material-ui/core/colors"
-import Typography from "@material-ui/core/Typography"
+import { grey } from "@mui/material/colors"
+import Typography from "@mui/material/Typography"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
 import { Publication } from "dicty-graphql-schema"
 import { parseFormattedStringToDomElements } from "@dictybase/ui-common"
 
-const useStyles = makeStyles({
-  authors: {
-    color: grey[800],
-    fontWeight: 600,
-  },
-})
 
 // get author last names, replace last element with "&"
 // example return: "Samereier, Baumann, Meyer & Gräf (2010)"
@@ -70,10 +63,12 @@ type PublicationDisplayProperties = {
  * on the stock details pages.
  */
 const PublicationDisplay = ({ publication }: PublicationDisplayProperties) => {
-  const classes = useStyles()
   return (
     <Typography variant="body2" data-testid="publication-display">
-      <Typography variant="body2" component="span" className={classes.authors}>
+      <Typography variant="body2" component="span" sx={{
+        color: grey[800],
+        fontWeight: 600,
+      }}>
         {listAuthors(publication.authors)} (
         {getYearFromTimestamp(publication.pub_date)})
       </Typography>{" "}

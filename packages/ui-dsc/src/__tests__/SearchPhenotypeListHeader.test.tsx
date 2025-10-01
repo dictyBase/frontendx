@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react"
-import { ThemeProvider } from "@material-ui/core"
-import { createTheme } from "@material-ui/core/styles"
+import { ThemeProvider } from "@mui/material"
+import { createTheme } from "@mui/material/styles"
 import { SearchPhenotypeListHeader } from "../catalog/SearchPhenotypeListHeader"
 
 describe("Stocks/SearchResults/PhenotypeListHeader", () => {

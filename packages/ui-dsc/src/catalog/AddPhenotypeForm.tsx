@@ -4,9 +4,8 @@ import {
   Grid,
   Button,
   Typography,
-  makeStyles,
   CircularProgress,
-} from "@material-ui/core"
+} from "@mui/material"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import { FormProvider, SubmitHandler } from "react-hook-form"
@@ -21,18 +20,11 @@ type AddPhenotypeFormProperties = {
   setOpen: Dispatch<SetStateAction<boolean>>
 }
 
-const useStyles = makeStyles({
-  root: {
-    paddingTop: "1rem",
-    paddingBottom: "1rem",
-  },
-})
 
 const AddPhenotypeForm = ({
   strainId,
   setOpen,
 }: AddPhenotypeFormProperties) => {
-  const { root } = useStyles()
   const { methods, schemaValidation } = usePhenotypeValidation()
   const [addPhenotype] = useAddStrainPhenotypeMutation({
     refetchQueries: [Strain],
@@ -58,7 +50,7 @@ const AddPhenotypeForm = ({
 
   return (
     <FormProvider {...methods}>
-      <Container className={root}>
+      <Container sx={{ paddingTop: "1rem", paddingBottom: "1rem" }}>
         <Grid container direction="column" spacing={1}>
           <Grid item>
             <Typography variant="h3"> Add Phenotype </Typography>

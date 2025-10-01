@@ -1,30 +1,12 @@
 import { Link } from "react-router-dom"
-import { makeStyles } from "@material-ui/core/styles"
-import Card from "@material-ui/core/Card"
-import CardActions from "@material-ui/core/CardActions"
-import Button from "@material-ui/core/Button"
-import Divider from "@material-ui/core/Divider"
+import Card from "@mui/material/Card"
+import CardActions from "@mui/material/CardActions"
+import Button from "@mui/material/Button"
+import Divider from "@mui/material/Divider"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { CartTotalRow } from "./CartTotalRow"
 import { getCartTotal } from "../utils/getCartTotal"
 import { type StrainCartItem } from "../types"
-
-const useStyles = makeStyles((theme) => ({
-  container: {
-    minHeight: "170px",
-    padding: theme.spacing(2),
-  },
-  checkoutBtn: {
-    fontWeight: 1000,
-    minHeight: "50px",
-    "&:hover": {
-      color: "#fff",
-    },
-  },
-  divider: {
-    marginBottom: theme.spacing(2),
-  },
-}))
 
 type ShoppingCartTotalCardProperties = {
   /** An array of cart items */
@@ -35,12 +17,15 @@ type ShoppingCartTotalCardProperties = {
  * link to checkout.
  */
 const CartTotalCard = ({ items }: ShoppingCartTotalCardProperties) => {
-  const classes = useStyles()
   const strains = items.filter((item) => item.id.slice(0, 3) === "DBS")
   const plasmids = items.filter((item) => item.id.slice(0, 3) === "DBP")
 
   return (
-    <Card className={classes.container}>
+    <Card
+      sx={{
+        minHeight: "170px",
+        padding: 2,
+      }}>
       {strains.length > 0 && (
         <CartTotalRow
           leftValue="Strains"
@@ -57,7 +42,7 @@ const CartTotalCard = ({ items }: ShoppingCartTotalCardProperties) => {
           variant="body2"
         />
       )}
-      <Divider className={classes.divider} />
+      <Divider sx={{ marginBottom: 2 }} />
       <CartTotalRow
         leftValue="Total"
         numItems={items.length}
@@ -73,7 +58,13 @@ const CartTotalCard = ({ items }: ShoppingCartTotalCardProperties) => {
           size="large"
           fullWidth
           startIcon={<FontAwesomeIcon icon="shopping-cart" />}
-          className={classes.checkoutBtn}>
+          sx={{
+            fontWeight: 1000,
+            minHeight: "50px",
+            "&:hover": {
+              color: "#fff",
+            },
+          }}>
           Proceed to Checkout
         </Button>
       </CardActions>

@@ -1,9 +1,8 @@
 import React from "react"
-import FormControl from "@material-ui/core/FormControl"
-import InputLabel from "@material-ui/core/InputLabel"
-import OutlinedInput from "@material-ui/core/OutlinedInput"
-import MenuItem from "@material-ui/core/MenuItem"
-import Select from "@material-ui/core/Select"
+import FormControl from "@mui/material/FormControl"
+import InputLabel from "@mui/material/InputLabel"
+import MenuItem from "@mui/material/MenuItem"
+import Select from "@mui/material/Select"
 
 type Properties = {
   /** Function called when selecting dropdown option */
@@ -30,19 +29,9 @@ const OutlinedDropdown = ({
   dropdownValues,
   inputValue,
   label,
-}: Properties) => {
-  const labelReference = React.useRef<HTMLLabelElement>(null)
-  const [labelWidth, setLabelWidth] = React.useState(0)
-
-  React.useEffect(() => {
-    if (labelReference && labelReference.current) {
-      setLabelWidth(labelReference.current.offsetWidth)
-    }
-  }, [])
-
-  return (
+}: Properties) => (
     <FormControl variant="outlined">
-      <InputLabel ref={labelReference} shrink id={`${label}-select-label`}>
+      <InputLabel id={`${label}-select-label`}>
         {label}
       </InputLabel>
       <Select
@@ -50,15 +39,8 @@ const OutlinedDropdown = ({
         id={`${label}-select`}
         value={inputValue}
         onChange={handleChange}
-        input={
-          <OutlinedInput
-            notched
-            name="quantity"
-            id="outlined-input"
-            margin="dense"
-            labelWidth={labelWidth}
-          />
-        }>
+        label={label}
+        size="small">
         {dropdownValues.map((option) => (
           <MenuItem
             key={option}
@@ -70,6 +52,5 @@ const OutlinedDropdown = ({
       </Select>
     </FormControl>
   )
-}
 
 export { OutlinedDropdown }

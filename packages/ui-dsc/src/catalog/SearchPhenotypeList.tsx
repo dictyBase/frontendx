@@ -1,30 +1,12 @@
 import React from "react"
-import { makeStyles } from "@material-ui/core/styles"
-import Paper from "@material-ui/core/Paper"
-import List from "@material-ui/core/List"
-import CircularProgress from "@material-ui/core/CircularProgress"
+import Paper from "@mui/material/Paper"
+import List from "@mui/material/List"
+import CircularProgress from "@mui/material/CircularProgress"
 import { useIntersectionObserver } from "dicty-hooks"
 import { ListStrainsWithPhenotypeQuery } from "dicty-graphql-schema"
 import { SearchPhenotypeListHeader } from "./SearchPhenotypeListHeader"
 import { SearchPhenotypeListItem } from "./SearchPhenotypeListItem"
 
-const useStyles = makeStyles(({ palette }) => ({
-  list: {
-    paddingTop: "0px",
-    paddingBottom: "0px",
-  },
-  loading: {
-    color: palette.secondary.main,
-  },
-  spinner: {
-    marginTop: "15px",
-  },
-  totalCount: {
-    marginTop: "15px",
-    textAlign: "center",
-    color: "rgb(112, 117, 122)",
-  },
-}))
 
 type SearchPhenotypeListProperties = {
   /** Array of strains with given phenotype */
@@ -53,7 +35,6 @@ const SearchPhenotypeList = ({
   totalCount,
 }: SearchPhenotypeListProperties) => {
   const { intersecting, ref } = useIntersectionObserver()
-  const classes = useStyles()
 
   React.useEffect(() => {
     if (intersecting && hasMore) {
@@ -65,15 +46,22 @@ const SearchPhenotypeList = ({
     <>
       <Paper>
         <SearchPhenotypeListHeader />
-        <List className={classes.list}>
+        <List sx={{
+          paddingTop: "0px",
+          paddingBottom: "0px",
+        }}>
           {data.map((item) => (
             <SearchPhenotypeListItem key={item.id} strain={item} />
           ))}
           <div ref={ref} />
         </List>
       </Paper>
-      {isLoadingMore && <CircularProgress className={classes.spinner} />}
-      <div className={classes.totalCount}>Displaying {totalCount} results</div>
+      {isLoadingMore && <CircularProgress sx={{ marginTop: "15px" }} />}
+      <div style={{
+        marginTop: "15px",
+        textAlign: "center",
+        color: "rgb(112, 117, 122)",
+      }}>Displaying {totalCount} results</div>
     </>
   )
 }

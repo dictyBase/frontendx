@@ -1,34 +1,16 @@
 import { Link } from "react-router-dom"
-import { makeStyles } from "@material-ui/core/styles"
-import { grey } from "@material-ui/core/colors"
-import Grid from "@material-ui/core/Grid"
-import Card from "@material-ui/core/Card"
-import CardHeader from "@material-ui/core/CardHeader"
-import Avatar from "@material-ui/core/Avatar"
-import ListItem from "@material-ui/core/ListItem"
-import IconButton from "@material-ui/core/IconButton"
-import Typography from "@material-ui/core/Typography"
-import ClearIcon from "@material-ui/icons/Clear"
+import { grey } from "@mui/material/colors"
+import Grid from "@mui/material/Grid"
+import Card from "@mui/material/Card"
+import CardHeader from "@mui/material/CardHeader"
+import Avatar from "@mui/material/Avatar"
+import ListItem from "@mui/material/ListItem"
+import IconButton from "@mui/material/IconButton"
+import Typography from "@mui/material/Typography"
+import ClearIcon from "@mui/icons-material/Clear"
 import type { CatalogCartItem } from "../types"
 import { getCatalogItemPathAndDescriptor } from "../utils/getCatalogItemPathAndDescriptor"
 import { toCurrencyString } from "../utils/toCurrencyString"
-
-const useStyles = makeStyles((theme) => ({
-  avatar: {
-    background: theme.palette.primary.light,
-  },
-  container: {
-    minHeight: "170px",
-    borderRadius: "0px",
-    border: `1px solid ${grey[200]}`,
-  },
-  fee: {
-    color: theme.palette.error.main,
-    fontSize: "1.5rem",
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
-  },
-}))
 
 type ShoppingCartItemProperties = {
   /** Individual cart item with given quantity */
@@ -41,13 +23,21 @@ type ShoppingCartItemProperties = {
  * ShoppingCartItem is an individual item displayed in ShoppingCartList.
  */
 const CartItem = ({ item, deleteItem }: ShoppingCartItemProperties) => {
-  const classes = useStyles()
   const { itemPath, itemDescriptor } = getCatalogItemPathAndDescriptor(item)
   return (
-    <Card className={classes.container}>
+    <Card
+      sx={{
+        minHeight: "170px",
+        borderRadius: "0px",
+        border: `1px solid ${grey[200]}`,
+      }}>
       <CardHeader
         avatar={
-          <Avatar aria-label="stock" className={classes.avatar}>
+          <Avatar
+            aria-label="stock"
+            sx={{
+              background: (theme) => theme.palette.primary.light,
+            }}>
             {itemPath === "strains" ? "S" : "P"}
           </Avatar>
         }
@@ -61,7 +51,6 @@ const CartItem = ({ item, deleteItem }: ShoppingCartItemProperties) => {
             <Link to={`/${itemPath}/${item.id}`}>{itemDescriptor}</Link>
           </Typography>
         }
-        disableTypography
       />
       <ListItem>
         <Grid container spacing={0}>
@@ -73,7 +62,12 @@ const CartItem = ({ item, deleteItem }: ShoppingCartItemProperties) => {
             <Typography
               variant="h3"
               noWrap
-              className={classes.fee}
+              sx={{
+                color: (theme) => theme.palette.error.main,
+                fontSize: "1.5rem",
+                paddingTop: 2,
+                paddingBottom: 2,
+              }}
               data-testid="fee">
               {toCurrencyString(item.fee)}
             </Typography>
