@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react"
 import FormControl from "@mui/material/FormControl"
-import Select from "@mui/material/Select"
+import Select, { SelectChangeEvent } from "@mui/material/Select"
 import MenuItem from "@mui/material/MenuItem"
 import { deepPurple } from "@mui/material/colors"
 import { useConfigureStrainCatalogSearchDropdown } from "@dictybase/hook-dsc"
 import { useSearchParams } from "react-router-dom"
 import { v4 as uuid4 } from "uuid"
-
 
 /**
  * The props for {@link FilterDropdown}
@@ -34,9 +33,7 @@ export const FilterDropdown = ({ param, value }: FilterDropdownProperties) => {
     })
   }, [setSearchParameters, param, filterValue])
 
-  const handleChange = (
-    event: React.ChangeEvent<{ name?: string; value: unknown }>,
-  ) => {
+  const handleChange = (event: SelectChangeEvent<string>) => {
     const newValue = event.target.value as string
     setFilterValue(newValue)
   }
@@ -52,15 +49,12 @@ export const FilterDropdown = ({ param, value }: FilterDropdownProperties) => {
           borderStyle: "none",
           boxShadow: "0px 5px 8px -3px rgba(0,0,0,0.14)",
           "&:focus": {
-            borderRadius: 12,
-            background: "white",
             borderColor: deepPurple[100],
           },
         }}
         MenuProps={{
           PaperProps: {
             sx: {
-              borderRadius: 12,
               marginTop: 1,
             },
           },
@@ -82,11 +76,10 @@ export const FilterDropdown = ({ param, value }: FilterDropdownProperties) => {
                 background: deepPurple[400],
               },
               "& li.Mui-selected:hover": {
-                background: deepPurple[500],
+                background: deepPurple[400],
               },
             },
           },
-          anchorOrigin: { vertical: "bottom", horizontal: "left" },
         }}
         onChange={handleChange}
         value={filterValue}>
