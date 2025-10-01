@@ -1,6 +1,6 @@
 import { useState, ReactNode } from "react"
-import { AutocompleteRenderInputParams } from "@material-ui/lab"
-import { TextField, Chip } from "@material-ui/core"
+import { AutocompleteRenderInputParams } from "@mui/material"
+import { TextField, Chip } from "@mui/material"
 import { v4 as uuid4 } from "uuid"
 
 interface inputProperties {

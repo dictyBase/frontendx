@@ -2,15 +2,16 @@ import { useState, ReactNode } from "react"
 import { pipe } from "fp-ts/function"
 import { map, filter, reduce } from "fp-ts/Array"
 import { useSearchParams } from "react-router-dom"
-import { AutocompleteRenderInputParams } from "@material-ui/lab"
-import { TextField } from "@material-ui/core"
+import { AutocompleteRenderInputParams } from "@mui/material/Autocomplete"
+import TextField from "@mui/material/TextField"
+import ListItem from "@mui/material/ListItem"
 import { FieldOption } from "./FieldOption"
 import { SearchTerm } from "./SearchTerm"
 import { inputProperties } from "./types"
 
 const emptyString: Readonly<string> = ""
 
-const renderOption = (option: string) => <FieldOption label={option} />
+const renderOption = (props: any, option: string) => <ListItem {...props}><FieldOption label={option} /></ListItem>
 
 const getInitialSearchValues = (
   searchParameters: URLSearchParams,
@@ -99,7 +100,7 @@ export function useSearchWithRouter({
   const onChange = (_: any, values: string[], reason: string): void => {
     switch (reason) {
       // Handle when a list option is selected
-      case "select-option":
+      case "selectOption":
         if (activeChipValue) {
           setPreviousChipValue((state) => [...state, activeChipValue])
           setActiveChipValue(emptyString)
@@ -107,7 +108,7 @@ export function useSearchWithRouter({
         setIsAcceptingInput(true)
         setValue(values)
         break
-      case "create-option":
+      case "createOption":
         break
       default:
         break
@@ -191,16 +192,16 @@ export function useSearchWithRouter({
   /**
    * Callback for rendering the search box
    */
-  const renderInput = (parameters: AutocompleteRenderInputParams) => (
-    <TextField
-      {...parameters}
-      value=""
-      size="medium"
-      label={label}
-      variant="outlined"
-      fullWidth
-    />
-  )
+  const renderInput = (parameters: AutocompleteRenderInputParams) => {
+    return (
+      <TextField
+        {...parameters}
+        size="medium"
+        label={label}
+        variant="outlined"
+        fullWidth />
+    )
+  }
 
   return {
     isAcceptingInput,

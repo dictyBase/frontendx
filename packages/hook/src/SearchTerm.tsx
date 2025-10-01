@@ -1,18 +1,13 @@
-import { Chip, ChipProps } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
+import { Chip, ChipProps } from "@mui/material"
+import { styled } from "@mui/material/styles"
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    marginRight: "5px",
-    backgroundColor: theme.palette.primary.main,
-  },
+const StyledChip = styled(Chip)(({ theme }) => ({
+  marginRight: "5px",
+  backgroundColor: theme.palette.primary.main,
 }))
 
-const SearchTerm = ({ ...rest }: ChipProps) => {
-  const classes = useStyles()
-  return (
-    <Chip {...rest} size="medium" color="primary" className={classes.root} />
-  )
-}
+const SearchTerm = ({ ...rest }: ChipProps) => (
+  <StyledChip {...rest} size="medium" color="primary" />
+)
 
 export { SearchTerm }
