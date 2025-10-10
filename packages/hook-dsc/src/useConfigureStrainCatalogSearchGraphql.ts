@@ -32,28 +32,23 @@ export function getStrainListConfiguration({
       ...graphqlQueryVariables,
     },
   }
-  const strainCatalogDataFieldLens =
-    Lens.fromProp<ConfigureStrainCatalogSearchGraphql>()("dataField")
-  const filterLens = Lens.fromPath<ConfigureStrainCatalogSearchGraphql>()([
-    "variables",
-    "filter",
-  ])
-
   const filterStrainConfig = (config: SearchConfigMember) =>
     config.value === value
-  const dataFieldLens = Lens.fromProp<SearchConfigMember>()("dataField")
-  const graphqlFilterLens = Lens.fromProp<SearchConfigMember>()("graphqlFilter")
   const basePipe = flow(
     RAfilter(filterStrainConfig),
     RAhead,
     OgetOrElse(() => RNAhead(strainConfig())),
   )
-  const dataFieldPipe = pipe(strainConfig(), basePipe, dataFieldLens.get)
+  const graphqlFilterLens = Lens.fromProp<SearchConfigMember>()("graphqlFilter")
+
+  // Get the filter config that matches `value`.
   const strainTypeFilterPipe = pipe(
     strainConfig(),
     basePipe,
     graphqlFilterLens.get,
   )
+
+  // Adds any other valid search parameters to the query filter.
   const additionalfiltersPipe = pipe(
     fieldsToVariables,
     Rkeys,
@@ -63,9 +58,15 @@ export function getStrainListConfiguration({
       [fieldsToVariables[field] as string]: searchParams.get(field),
     })),
   )
+
+  const filterLens = Lens.fromPath<ConfigureStrainCatalogSearchGraphql>()([
+    "variables",
+    "filter",
+  ])
+
+  // Modify the initial values with the selected filters and other search parameters.
   return pipe(
     initValues,
-    strainCatalogDataFieldLens.set(dataFieldPipe),
     filterLens.set({ ...strainTypeFilterPipe, ...additionalfiltersPipe }),
   )
 }
