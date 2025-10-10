@@ -4,6 +4,7 @@ import { P, match } from "ts-pattern"
 import {
   WindowHeightWrapper,
   PlasmidCatalogTableDisplay,
+  SearchBar,
   ErrorDisplay,
   CatalogListWrapper,
   CatalogListLoader,
@@ -43,13 +44,13 @@ const PlasmidCatalog = () => {
   return (
     <>
       <CatalogHeader title="Plasmid Catalog" />
-      {/* <SearchBar /> */}
       <WindowHeightWrapper>
         {match({ data, loading, error })
           .with(
             { data: P.select({ listPlasmids: P.not(undefined) }) },
             (data_) => (
               <CatalogListWrapper root={rootReference}>
+                <SearchBar />
                 <PlasmidCatalogTableDisplay
                   data={data_}
                   dataField="listPlasmids"
