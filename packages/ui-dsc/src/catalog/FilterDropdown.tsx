@@ -6,7 +6,6 @@ import MenuItem from "@mui/material/MenuItem"
 import { deepPurple } from "@mui/material/colors"
 import { useConfigureStrainCatalogSearchDropdown } from "@dictybase/hook-dsc"
 import { useSearchParams } from "react-router-dom"
-import { v4 as uuid4 } from "uuid"
 
 const useStyles = makeStyles()({
   root: {
@@ -54,14 +53,19 @@ const useStyles = makeStyles()({
 export interface FilterDropdownProperties {
   value: string
   param: string
+  options: Array<{ value: string; label: string }>
 }
 
 /**
  * Displays a dropdown menu of the given items. Selecting any particular item
  * will append its filter parameter in the query parameter of browser's url.
  */
-export const FilterDropdown = ({ param, value }: FilterDropdownProperties) => {
-  const { classes } = useStyles()
+export const FilterDropdown = ({
+  param,
+  value,
+  options,
+}: FilterDropdownProperties) => {
+  const classes = useStyles()
   const [searchParameters, setSearchParameters] = useSearchParams()
   const [filterValue, setFilterValue] = useState<string>(
     searchParameters.get(param) || value,
@@ -89,9 +93,9 @@ export const FilterDropdown = ({ param, value }: FilterDropdownProperties) => {
         }}
         onChange={handleChange}
         value={filterValue}>
-        {items.map((object) => (
-          <MenuItem value={object.value} key={uuid4()}>
-            {object.label}
+        {options.map((option) => (
+          <MenuItem value={option.value} key={option.value}>
+            {option.label}
           </MenuItem>
         ))}
       </Select>
