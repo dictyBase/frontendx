@@ -5,6 +5,17 @@ import { FilterDropdown } from "./FilterDropdown"
 import { SearchBox } from "./SearchBox"
 import { AppBarHelp } from "./AppBarHelp"
 
+const plasmidFilterOptions = [
+  {
+    label: "Regular",
+    value: "regular",
+  },
+  {
+    label: "Golden Braid",
+    value: "goldenbraid",
+  },
+]
+
 const useStyles = makeStyles({
   searchBox: {
     flexBasis: "41.5%",
@@ -17,6 +28,7 @@ const SearchBarPlasmid = () => {
     <Grid container>
       <Grid item>
         <FilterDropdown
+          options={plasmidFilterOptions}
           param={defaultFilter.param}
           value={defaultFilter.value}
         />

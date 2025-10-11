@@ -4,7 +4,7 @@ import { P, match } from "ts-pattern"
 import {
   WindowHeightWrapper,
   PlasmidCatalogTableDisplay,
-  SearchBar,
+  SearchBarPlasmid,
   ErrorDisplay,
   CatalogListWrapper,
   CatalogListLoader,
