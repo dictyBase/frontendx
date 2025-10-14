@@ -1,8 +1,11 @@
 import { pipe } from "fp-ts/function"
+import { isEmpty as SisEmpty } from "fp-ts/string"
 import {
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
   map as Omap,
+  flatMap as OflatMap,
+  fromPredicate as OfromPredicate,
 } from "fp-ts/Option"
 import { map as Amap } from "fp-ts/Array"
 import Box from "@material-ui/core/Box"
@@ -61,6 +64,7 @@ const plasmidRowsGenerator = ({
     content: pipe(
       sequence,
       OfromNullable,
+      OflatMap(OfromPredicate((s) => !SisEmpty(s))),
       Omap((s) => <PlasmidSequenceDisplay sequence={s} />),
       OgetOrElse(() => <></>),
     ),
