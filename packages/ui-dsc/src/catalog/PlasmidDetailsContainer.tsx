@@ -41,8 +41,8 @@ const PlasmidDetailsContainer = () => {
   const result = usePlasmidQuery({
     variables: { id: `${id}` },
     fetchPolicy: "cache-and-network",
+    errorPolicy: "all",
   })
-
   return match(result)
     .with({ data: { plasmid: P.select(P.not(P.nullish)) } }, (plasmid) => (
       <PlasmidDetails plasmid={plasmid} />
