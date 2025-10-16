@@ -2,8 +2,12 @@ import { pipe } from "fp-ts/function"
 import { reduce as Areduce } from "fp-ts/Array"
 import { UserInfoResponse } from "@logto/react"
 
+enum Roles {
+  CONTENT_ADMIN = "content-admin",
+}
+
 type UserWithRoles = UserInfoResponse & {
-  roles: Array<string>
+  roles: Array<Roles>
 }
 
 const getCallbackPath = (basename: string) => {
