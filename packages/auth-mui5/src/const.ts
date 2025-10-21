@@ -32,4 +32,4 @@ const getHomePath = (basename: string) => {
   )
 }
 
-export { getCallbackPath, getHomePath, type UserWithRoles }
+export { getCallbackPath, getHomePath, type UserWithRoles, Roles }
