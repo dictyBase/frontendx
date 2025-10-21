@@ -1,6 +1,6 @@
 import React from "react"
 import { commaSeparate } from "./strings"
-import { EditingContent } from "../../components/EditingContent"
+import { AuthorizedPanelContent } from "../../components/AuthorizedPanelContent"
 
 type ContentId =
   | "Gene Name"
@@ -61,7 +61,7 @@ const returnPanelContentById = (
         </React.Fragment>
       ))
     case "Description":
-      return <EditingContent content={value as string} />
+      return <AuthorizedPanelContent content={value as string} />
     /* Product Info Panel */
     //    case "Protein Coding Gene":
     //      return (
