@@ -10,11 +10,13 @@ const EditableContent: FunctionComponent<{
     setIsEditing(true)
   }
   return (
-    <Stack direction="row" spacing={1}>
+    <Stack direction="column" spacing={1}>
       {content}
-      <Button variant="contained" color="primary" onClick={handleClick}>
-        Edit
-      </Button>
+      <Stack direction="row" spacing={1} justifyContent="flex-end">
+        <Button variant="contained" color="primary" onClick={handleClick}>
+          Edit
+        </Button>
+      </Stack>
     </Stack>
   )
 }

@@ -8,24 +8,28 @@ const EditingContent: FunctionComponent<{
   setIsEditing: Dispatch<SetStateAction<boolean>>
 }> = ({ content, setIsEditing }) => {
   const handleSave = () => {}
+
   const handleCancel = () => {
     setIsEditing(false)
   }
   return (
-    <Stack direction="row" spacing={1}>
+    <Stack direction="column" spacing={1}>
       <TextField
+        InputProps={{ sx: { fontSize: ".8165rem" } }}
         multiline
         fullWidth
         maxRows={4}
         variant="outlined"
-        value={content}
+        defaultValue={content}
       />
-      <Button variant="contained" color="primary" onClick={handleSave}>
-        Save
-      </Button>
-      <Button variant="contained" color="inherit" onClick={handleCancel}>
-        Cancel
-      </Button>
+      <Stack direction="row" spacing={1} justifyContent="flex-end">
+        <Button variant="contained" color="primary" onClick={handleSave}>
+          Save
+        </Button>
+        <Button variant="contained" color="inherit" onClick={handleCancel}>
+          Cancel
+        </Button>
+      </Stack>
     </Stack>
   )
 }
