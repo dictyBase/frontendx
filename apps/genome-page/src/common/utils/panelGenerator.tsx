@@ -1,6 +1,6 @@
 import React from "react"
-import { commaSeparate } from "./strings"
 import { PanelContentWithAuth } from "../../components/PanelContentWithAuth"
+import { EditableContentList } from "../../components/EditableContentList"
 
 type ContentId =
   | "Gene Name"
@@ -45,14 +45,9 @@ const returnPanelContentById = (
  */
   switch (id) {
     case "Name Description":
-      return (value as string[]).map((desc) => (
-        <React.Fragment key={desc}>
-          {desc}
-          <br />
-        </React.Fragment>
-      ))
+      return <EditableContentList contentList={value as Array<string>} />
     case "Alternative Gene Names":
-      return <i>{commaSeparate(value as string[])}</i>
+      return <EditableContentList contentList={value as Array<string>} />
     case "Alternative Protein Names":
       return (value as string[]).map((name) => (
         <React.Fragment key={name}>
