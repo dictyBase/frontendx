@@ -1,6 +1,8 @@
 import React from "react"
+import { Roles, AuthorizationMatch } from "@dictybase/auth-mui5"
 import { PanelContentWithAuth } from "../../components/PanelContentWithAuth"
 import { EditableContentList } from "../../components/EditableContentList"
+import { ReadonlyContentList } from "../../components/ReadonlyContentList"
 
 type ContentId =
   | "Gene Name"
@@ -21,13 +23,15 @@ type ContentId =
   | "AA Composition"
   | "ESTs"
   | "Note"
-  | "Gene Product"
+  | "Gene Products"
   | "dictyBase ID"
   | "Description"
   | "Protein Length"
   | "Molecular Weight"
   | "Subcellular location"
   | "Protein existence"
+
+const geneGeneralInfoEditingRoles = new Set([Roles.CONTENT_ADMIN])
 
 const returnPanelContentById = (
   id: ContentId,
@@ -45,9 +49,37 @@ const returnPanelContentById = (
  */
   switch (id) {
     case "Name Description":
-      return <EditableContentList contentList={value as Array<string>} />
+      return (
+        <AuthorizationMatch
+          allowedRoles={geneGeneralInfoEditingRoles}
+          authorized={
+            <EditableContentList
+              contentList={value as Array<string>}
+              itemType="Name Description"
+            />
+          }
+          unauthorized={
+            <ReadonlyContentList contentList={value as Array<string>} />
+          }
+          loading={<ReadonlyContentList contentList={value as Array<string>} />}
+        />
+      )
     case "Alternative Gene Names":
-      return <EditableContentList contentList={value as Array<string>} />
+      return (
+        <AuthorizationMatch
+          allowedRoles={geneGeneralInfoEditingRoles}
+          authorized={
+            <EditableContentList
+              contentList={value as Array<string>}
+              itemType="Alternative Gene Names"
+            />
+          }
+          unauthorized={
+            <ReadonlyContentList contentList={value as Array<string>} />
+          }
+          loading={<ReadonlyContentList contentList={value as Array<string>} />}
+        />
+      )
     case "Alternative Protein Names":
       return (value as string[]).map((name) => (
         <React.Fragment key={name}>
