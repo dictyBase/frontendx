@@ -1,9 +1,9 @@
 import { useLogto } from "@logto/react"
 import { useState, useEffect } from "react"
-import { matchEntries } from "./functional"
-import { type UserWithRoles } from "./const"
+import { matchEntries, hasAllowedRole } from "./functional"
+import { type UserWithRoles, Roles } from "./const"
 
-type useAuthorizationProperties = { entries: Array<string> }
+type useAuthorizationProperties = { entries: Set<Roles> }
 
 /**
  * A custom hook that checks the authorization of a user based on their roles.
@@ -17,7 +17,7 @@ const useAuthorization = ({ entries }: useAuthorizationProperties) => {
   const [user, setUser] = useState<UserWithRoles>()
   useEffect(() => {
     // Function to check user authorization
-    const authCheck = async (records: Array<string>) => {
+    const authCheck = async (records: Set<Roles>) => {
       if (!isAuthenticated) {
         return
       }
@@ -25,7 +25,7 @@ const useAuthorization = ({ entries }: useAuthorizationProperties) => {
       const authUser = (await fetchUserInfo()) as UserWithRoles
       if (authUser) {
         // Set the authorization based on matching the user's roles with the entries
-        setAuthorization(matchEntries(records, authUser.roles))
+        setAuthorization(hasAllowedRole(records, authUser.roles))
         setUser(authUser)
       }
     }
