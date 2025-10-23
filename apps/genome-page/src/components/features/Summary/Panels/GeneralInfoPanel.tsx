@@ -45,7 +45,7 @@ const GeneralInfoPanel = ({ generalInformation }: Properties) =>
       },
       { id: some("dictyBase ID"), value: some(info.id) },
       {
-        id: some("Gene Product"),
+        id: some("Gene Products"),
         value: pipe(info.gene_product, OfromNullable),
       },
       {
