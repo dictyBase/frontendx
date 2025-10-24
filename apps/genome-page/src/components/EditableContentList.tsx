@@ -6,19 +6,22 @@ import AddIcon from "@mui/icons-material/Add"
 import Stack from "@mui/material/Stack"
 import Chip from "@mui/material/Chip"
 import IconButton from "@mui/material/IconButton"
+import { UpdateGeneGeneralInfoInput } from "dicty-graphql-schema"
 import { ConfirmDeleteDialog } from "./ConfirmDeleteDialog"
 import { CreateItemDialog } from "./CreateItemDialog"
 
 const EditableContentList: FunctionComponent<{
+  id: string
+  field: keyof Omit<UpdateGeneGeneralInfoInput, "user">
   infoList: Array<string>
   label: string
-}> = ({ infoList, label }) => {
+}> = ({ id, field, infoList, label }) => {
   const [deleteIsOpen, setDeleteIsOpen] = useState(false)
   const [createIsOpen, setCreateIsOpen] = useState(false)
   const [selectedForDeletion, setSelectedForDeletion] =
     useState<Option<string>>(none)
 
-  const handleDelete = (selected: string) => () => {
+  const handleOpenDelete = (selected: string) => () => {
     setSelectedForDeletion(some(selected))
     setDeleteIsOpen(true)
   }
@@ -27,13 +30,14 @@ const EditableContentList: FunctionComponent<{
     setDeleteIsOpen(false)
   }
 
+  const handleOpenCreate = () => {
+    setCreateIsOpen(true)
+  }
+
   const handleCloseCreate = () => {
     setCreateIsOpen(false)
   }
 
-  const handleCreate = () => {
-    setCreateIsOpen(true)
-  }
   return (
     <>
       <Stack
@@ -44,11 +48,13 @@ const EditableContentList: FunctionComponent<{
         rowGap={1}>
         {pipe(
           infoList,
-          Amap((s) => <Chip key={s} label={s} onDelete={handleDelete(s)} />),
+          Amap((s) => (
+            <Chip key={s} label={s} onDelete={handleOpenDelete(s)} />
+          )),
         )}
         <IconButton
           size="small"
-          onClick={handleCreate}
+          onClick={handleOpenCreate}
           sx={{
             backgroundColor: "primary.main",
             color: "primary.contrastText",
@@ -62,9 +68,12 @@ const EditableContentList: FunctionComponent<{
         selectedValue={selectedForDeletion}
       />
       <CreateItemDialog
+        id={id}
+        field={field}
+        label={label}
+        infoList={infoList}
         open={createIsOpen}
         onClose={handleCloseCreate}
-        label={label}
       />
     </>
   )
