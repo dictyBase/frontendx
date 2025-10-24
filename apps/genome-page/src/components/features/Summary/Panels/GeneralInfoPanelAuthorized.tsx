@@ -38,6 +38,8 @@ const GeneralInfoPanelAuthorized = ({ generalInformation }: Properties) =>
           Acompact,
           (contentList) => (
             <EditableContentList
+              id={info.id}
+              field="name_description"
               label="Name Description"
               infoList={contentList}
             />
@@ -62,6 +64,8 @@ const GeneralInfoPanelAuthorized = ({ generalInformation }: Properties) =>
           Acompact,
           (contentList) => (
             <EditableContentList
+              id={info.id}
+              field="synonyms"
               label="Alternative Gene Name"
               infoList={contentList}
             />
@@ -74,7 +78,9 @@ const GeneralInfoPanelAuthorized = ({ generalInformation }: Properties) =>
           info.description,
           OfromNullable,
           OgetOrElse(() => ""),
-          (description) => <AuthorizedInfoText content={description} />,
+          (description) => (
+            <AuthorizedInfoText id={info.id} text={description} />
+          ),
         ),
       },
     ],
