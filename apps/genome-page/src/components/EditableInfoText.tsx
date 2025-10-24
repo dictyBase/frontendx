@@ -2,16 +2,16 @@ import { FunctionComponent, Dispatch, SetStateAction } from "react"
 import Stack from "@mui/material/Stack"
 import Button from "@mui/material/Button"
 
-const EditableContent: FunctionComponent<{
-  content: string
+const EditableInfoText: FunctionComponent<{
+  text: string
   setIsEditing: Dispatch<SetStateAction<boolean>>
-}> = ({ content, setIsEditing }) => {
+}> = ({ text, setIsEditing }) => {
   const handleClick = () => {
     setIsEditing(true)
   }
   return (
     <Stack direction="column" spacing={1}>
-      {content}
+      {text}
       <Stack direction="row" spacing={1} justifyContent="flex-end">
         <Button variant="contained" color="primary" onClick={handleClick}>
           Edit
@@ -21,4 +21,4 @@ const EditableContent: FunctionComponent<{
   )
 }
 
-export { EditableContent }
+export { EditableInfoText }
