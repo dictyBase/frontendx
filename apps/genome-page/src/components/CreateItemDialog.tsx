@@ -10,13 +10,14 @@ import Button from "@mui/material/Button"
 const CreateItemDialog: FunctionComponent<{
   open: boolean
   onClose: () => void
-}> = ({ open, onClose }) => (
+  label: string
+}> = ({ label, open, onClose }) => (
   <Dialog open={open} onClose={onClose}>
     <DialogTitle>
-      <Typography variant="h2">Create</Typography>
+      <Typography variant="h2">{`Create ${label}`}</Typography>
     </DialogTitle>
     <DialogContent>
-      <TextField />
+      <TextField id="create" label={label} sx={{ marginTop: "1rem" }} />
     </DialogContent>
     <DialogActions>
       <Button color="success"> Create </Button>
