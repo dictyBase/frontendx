@@ -2,20 +2,16 @@ import { ReactChild } from "react"
 import { Box } from "@material-ui/core"
 import { GeneGeneralInformationSummaryQuery } from "dicty-graphql-schema"
 import { pipe } from "fp-ts/function"
-import { sequence } from "fp-ts/Record"
-import { map as Amap, compact as Acompact, isNonEmpty } from "fp-ts/Array"
+import { map as Amap, compact as Acompact } from "fp-ts/Array"
 import {
-  Applicative as OApplicative,
-  Option,
-  some,
-  fromPredicate as OfromPredicate,
   fromNullable as OfromNullable,
-  map as Omap,
+  getOrElse as OgetOrElse,
 } from "fp-ts/Option"
 import { LeftDisplay } from "components/panels/LeftDisplay"
 import { ItemDisplay } from "components/panels/ItemDisplay"
 import { RightDisplay } from "components/panels/RightDisplay"
-import { ReadonlyContentList } from "components/ReadonlyContentList"
+import { AuthorizedInfoText } from "components/AuthorizedInfoText"
+import { EditableContentList } from "components/EditableContentList"
 
 type Properties = {
   generalInformation: NonNullable<
@@ -23,59 +19,65 @@ type Properties = {
   >
 }
 type PanelRowData = {
-  id: Option<ReactChild>
-  value: Option<ReactChild>
+  id: ReactChild
+  value: ReactChild
 }
 
 /**
  * Panel to display Product Info on the Gene Summary page.
  */
-const GeneralInfoPanel = ({ generalInformation }: Properties) =>
+const GeneralInfoPanelAuthorized = ({ generalInformation }: Properties) =>
   pipe(
     generalInformation,
     (info): Array<PanelRowData> => [
       {
-        id: some("Name Description"),
+        id: "Name Description",
         value: pipe(
           info.name_description,
           Amap(OfromNullable),
           Acompact,
-          OfromPredicate(isNonEmpty),
-          Omap((description) => (
-            <ReadonlyContentList contentList={description} />
-          )),
+          (contentList) => (
+            <EditableContentList
+              label="Name Description"
+              infoList={contentList}
+            />
+          ),
         ),
       },
-      { id: some("dictyBase ID"), value: some(<>{info.id}</>) },
+      { id: "dictyBase ID", value: <>{info.id}</> },
       {
-        id: some("Gene Products"),
+        id: "Gene Products",
         value: pipe(
           info.gene_product,
           OfromNullable,
-          Omap((geneProducts) => <>{geneProducts}</>),
+          OgetOrElse(() => ""),
+          (geneProducts) => <>{geneProducts}</>,
         ),
       },
       {
-        id: some("Alternative Gene Names"),
+        id: "Alternative Gene Names",
         value: pipe(
           info.synonyms,
           Amap(OfromNullable),
           Acompact,
-          OfromPredicate(isNonEmpty),
-          Omap((names) => <ReadonlyContentList contentList={names} />),
+          (contentList) => (
+            <EditableContentList
+              label="Alternative Gene Name"
+              infoList={contentList}
+            />
+          ),
         ),
       },
       {
-        id: some("Description"),
+        id: "Description",
         value: pipe(
           info.description,
           OfromNullable,
-          Omap((description) => <>{description}</>),
+          OgetOrElse(() => ""),
+          (description) => <AuthorizedInfoText content={description} />,
         ),
       },
     ],
-    Amap(sequence(OApplicative)),
-    Acompact,
     Amap(({ id, value }) => (
       <ItemDisplay key={id}>
         <LeftDisplay>{id}</LeftDisplay>
@@ -85,4 +87,4 @@ const GeneralInfoPanel = ({ generalInformation }: Properties) =>
     (children) => <Box>{children}</Box>,
   )
 
-export { GeneralInfoPanel }
+export { GeneralInfoPanelAuthorized }
