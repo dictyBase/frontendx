@@ -1,4 +1,4 @@
-import { useState, FunctionComponent, Dispatch, SetStateAction } from "react"
+import { useState, FunctionComponent } from "react"
 import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
 import { Option, some, none } from "fp-ts/Option"
@@ -10,8 +10,9 @@ import { ConfirmDeleteDialog } from "./ConfirmDeleteDialog"
 import { CreateItemDialog } from "./CreateItemDialog"
 
 const EditableContentList: FunctionComponent<{
-  contentList: Array<string>
-}> = ({ contentList }) => {
+  infoList: Array<string>
+  label: string
+}> = ({ infoList, label }) => {
   const [deleteIsOpen, setDeleteIsOpen] = useState(false)
   const [createIsOpen, setCreateIsOpen] = useState(false)
   const [selectedForDeletion, setSelectedForDeletion] =
@@ -42,7 +43,7 @@ const EditableContentList: FunctionComponent<{
         spacing={1}
         rowGap={1}>
         {pipe(
-          contentList,
+          infoList,
           Amap((s) => <Chip key={s} label={s} onDelete={handleDelete(s)} />),
         )}
         <IconButton
@@ -60,7 +61,11 @@ const EditableContentList: FunctionComponent<{
         onClose={handleCloseDelete}
         selectedValue={selectedForDeletion}
       />
-      <CreateItemDialog open={createIsOpen} onClose={handleCloseCreate} />
+      <CreateItemDialog
+        open={createIsOpen}
+        onClose={handleCloseCreate}
+        label={label}
+      />
     </>
   )
 }
