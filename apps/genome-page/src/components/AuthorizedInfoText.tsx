@@ -1,19 +1,26 @@
 import { useState, FunctionComponent } from "react"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
-import { EditableContent } from "./EditableContent"
-import { EditingContent } from "./EditingContent"
+import { EditableInfoText } from "./EditableInfoText"
+import { EditingInfoText } from "./EditingInfoText"
 
-const AuthorizedInfoText: FunctionComponent<{ content: string }> = ({
-  content,
+const AuthorizedInfoText: FunctionComponent<{ id: string; text: string }> = ({
+  id,
+  text,
 }) => {
   const [isEditing, setIsEditing] = useState(false)
 
   return pipe(
     isEditing,
     Bmatch(
-      () => <EditableContent setIsEditing={setIsEditing} content={content} />,
-      () => <EditingContent setIsEditing={setIsEditing} content={content} />,
+      () => <EditableInfoText setIsEditing={setIsEditing} text={text} />,
+      () => (
+        <EditingInfoText
+          setIsEditing={setIsEditing}
+          id={id}
+          initialText={text}
+        />
+      ),
     ),
   )
 }
