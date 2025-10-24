@@ -4,7 +4,7 @@ import { match as Bmatch } from "fp-ts/boolean"
 import { EditableContent } from "./EditableContent"
 import { EditingContent } from "./EditingContent"
 
-const AuthorizedPanelContent: FunctionComponent<{ content: string }> = ({
+const AuthorizedInfoText: FunctionComponent<{ content: string }> = ({
   content,
 }) => {
   const [isEditing, setIsEditing] = useState(false)
@@ -18,4 +18,4 @@ const AuthorizedPanelContent: FunctionComponent<{ content: string }> = ({
   )
 }
 
-export { AuthorizedPanelContent }
+export { AuthorizedInfoText }
