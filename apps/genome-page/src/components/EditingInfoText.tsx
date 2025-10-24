@@ -1,13 +1,33 @@
-import { FunctionComponent, Dispatch, SetStateAction } from "react"
+import {
+  FunctionComponent,
+  Dispatch,
+  SetStateAction,
+  ChangeEventHandler,
+  useState,
+} from "react"
 import Stack from "@mui/material/Stack"
 import TextField from "@mui/material/TextField"
 import Button from "@mui/material/Button"
+import { useAuthorizedUpdateGeneGeneralInfo } from "common/hooks/useAuthorizedUpdateGeneGeneralInfo"
 
-const EditingContent: FunctionComponent<{
-  content: string
+const EditingInfoText: FunctionComponent<{
+  id: string
+  initialText: string
   setIsEditing: Dispatch<SetStateAction<boolean>>
-}> = ({ content, setIsEditing }) => {
-  const handleSave = () => {}
+}> = ({ id, initialText, setIsEditing }) => {
+  const [text, setText] = useState(initialText)
+  const update = useAuthorizedUpdateGeneGeneralInfo()
+
+  const handleSave = () => {
+    if (text !== initialText) update(id, { description: text })
+    setIsEditing(false)
+  }
+
+  const handleChange: ChangeEventHandler<HTMLTextAreaElement> = ({
+    currentTarget: { value },
+  }) => {
+    setText(value)
+  }
 
   const handleCancel = () => {
     setIsEditing(false)
@@ -20,7 +40,8 @@ const EditingContent: FunctionComponent<{
         fullWidth
         maxRows={4}
         variant="outlined"
-        defaultValue={content}
+        value={text}
+        onChange={handleChange}
       />
       <Stack direction="row" spacing={1} justifyContent="flex-end">
         <Button variant="contained" color="primary" onClick={handleSave}>
@@ -34,4 +55,4 @@ const EditingContent: FunctionComponent<{
   )
 }
 
-export { EditingContent }
+export { EditingInfoText }
