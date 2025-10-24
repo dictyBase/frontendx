@@ -7,7 +7,7 @@ enum Roles {
 }
 
 type UserWithRoles = UserInfoResponse & {
-  roles: Array<Roles>
+  roles: Set<Roles>
 }
 
 const getCallbackPath = (basename: string) => {
