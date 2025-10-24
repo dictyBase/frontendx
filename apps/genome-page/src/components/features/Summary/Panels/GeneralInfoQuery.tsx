@@ -1,4 +1,5 @@
 import { getErrorMessage } from "@dictybase/ui-common"
+import { Roles, AuthorizationMatch } from "@dictybase/auth-mui5"
 import { useParams } from "react-router-dom"
 import { useGeneGeneralInformationSummaryQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
@@ -6,7 +7,10 @@ import { Loader } from "components/Loader"
 import { ErrorPanel } from "components/panels/ErrorPanel"
 import { PanelWrapper } from "components/panels/PanelWrapper"
 import { GeneralInfoPanel } from "./GeneralInfoPanel"
+import { GeneralInfoPanelAuthorized } from "./GeneralInfoPanelAuthorized"
 import { NoDataPanel } from "./NoDataPanel"
+
+const geneGeneralInfoEditingRoles = new Set([Roles.CONTENT_ADMIN])
 
 const GeneralInfoQuery = () => {
   const { id } = useParams<{ id: string }>()
@@ -28,7 +32,18 @@ const GeneralInfoQuery = () => {
             data: { geneGeneralInformation: P.select(P.not(P.nullish)) },
           },
           (generalInformation) => (
-            <GeneralInfoPanel generalInformation={generalInformation} />
+            <AuthorizationMatch
+              allowedRoles={geneGeneralInfoEditingRoles}
+              loading={<Loader rows={5} />}
+              authorized={
+                <GeneralInfoPanelAuthorized
+                  generalInformation={generalInformation}
+                />
+              }
+              unauthorized={
+                <GeneralInfoPanel generalInformation={generalInformation} />
+              }
+            />
           ),
         )
         .with({ error: P.select(P.not(P.nullish)) }, (error) => (
