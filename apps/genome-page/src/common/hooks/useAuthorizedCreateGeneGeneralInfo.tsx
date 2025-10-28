@@ -3,6 +3,7 @@ import { useLogto } from "@logto/react"
 import {
   useCreateGeneGeneralInfoMutation,
   CreateGeneGeneralInfoInput,
+  GeneGeneralInformationSummaryDocument,
 } from "dicty-graphql-schema"
 import {
   Do as TEDo,
@@ -35,7 +36,9 @@ const createFailureError = {
 
 const useAuthorizedCreateGeneGeneralInfo = () => {
   const { getAccessToken, fetchUserInfo } = useLogto()
-  const [createGeneGeneralInformation] = useCreateGeneGeneralInfoMutation()
+  const [createGeneGeneralInformation] = useCreateGeneGeneralInfoMutation({
+    refetchQueries: [GeneGeneralInformationSummaryDocument],
+  })
 
   return (id: string, input: Omit<CreateGeneGeneralInfoInput, "user">) => {
     const task = pipe(
