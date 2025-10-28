@@ -8,18 +8,17 @@ import DialogContent from "@mui/material/DialogContent"
 import Typography from "@mui/material/Typography"
 import TextField from "@mui/material/TextField"
 import Button from "@mui/material/Button"
-import { useAuthorizedUpdateGeneGeneralInfo } from "common/hooks/useAuthorizedUpdateGeneGeneralInfo"
+import { useAuthorizedCreateGeneGeneralInfo } from "common/hooks/useAuthorizedCreateGeneGeneralInfo"
 
 const CreateItemDialog: FunctionComponent<{
   id: string
   label: string
   field: keyof Omit<UpdateGeneGeneralInfoInput, "user">
-  infoList: Array<string>
   open: boolean
   onClose: () => void
-}> = ({ id, field, infoList, label, open, onClose }) => {
+}> = ({ id, field, label, open, onClose }) => {
   const [newItem, setNewItem] = useState("")
-  const update = useAuthorizedUpdateGeneGeneralInfo()
+  const create = useAuthorizedCreateGeneGeneralInfo()
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({
     currentTarget: { value },
@@ -29,8 +28,7 @@ const CreateItemDialog: FunctionComponent<{
 
   const handleSave = () => {
     if (SisEmpty(newItem)) return
-    console.log(`saving ${field}`)
-    update(id, { [field]: [...infoList, newItem] })
+    create(id, { [field]: [newItem] })
   }
 
   return (
@@ -48,7 +46,10 @@ const CreateItemDialog: FunctionComponent<{
         />
       </DialogContent>
       <DialogActions>
-        <Button color="success" onClick={handleSave}>
+        <Button
+          color="success"
+          onClick={handleSave}
+          disabled={SisEmpty(newItem)}>
           Create
         </Button>
         <Button color="inherit" onClick={onClose}>
