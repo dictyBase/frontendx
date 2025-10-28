@@ -5,6 +5,7 @@ import {
   ChangeEventHandler,
   useState,
 } from "react"
+import { isEmpty as SisEmpty } from "fp-ts/string"
 import Stack from "@mui/material/Stack"
 import TextField from "@mui/material/TextField"
 import Button from "@mui/material/Button"
@@ -32,19 +33,25 @@ const EditingInfoText: FunctionComponent<{
   const handleCancel = () => {
     setIsEditing(false)
   }
+
   return (
     <Stack direction="column" spacing={1}>
       <TextField
-        InputProps={{ sx: { fontSize: ".8165rem" } }}
+        autoFocus
         multiline
         fullWidth
         maxRows={4}
         variant="outlined"
         value={text}
         onChange={handleChange}
+        InputProps={{ sx: { fontSize: ".8165rem" } }}
       />
       <Stack direction="row" spacing={1} justifyContent="flex-end">
-        <Button variant="contained" color="primary" onClick={handleSave}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSave}
+          disabled={SisEmpty(text)}>
           Save
         </Button>
         <Button variant="contained" color="inherit" onClick={handleCancel}>
