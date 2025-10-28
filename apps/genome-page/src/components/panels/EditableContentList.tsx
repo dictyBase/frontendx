@@ -8,7 +8,7 @@ import Chip from "@mui/material/Chip"
 import IconButton from "@mui/material/IconButton"
 import { UpdateGeneGeneralInfoInput } from "dicty-graphql-schema"
 import { ConfirmDeleteDialog } from "./ConfirmDeleteDialog"
-import { CreateItemDialog } from "./CreateItemDialog"
+import { UpdateItemsDialog } from "./UpdateItemsDialog"
 
 const EditableContentList: FunctionComponent<{
   id: string
@@ -67,7 +67,7 @@ const EditableContentList: FunctionComponent<{
         onClose={handleCloseDelete}
         selectedValue={selectedForDeletion}
       />
-      <CreateItemDialog
+      <UpdateItemsDialog
         id={id}
         field={field}
         label={label}
