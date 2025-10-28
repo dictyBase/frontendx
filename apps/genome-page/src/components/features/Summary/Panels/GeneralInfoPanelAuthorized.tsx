@@ -2,7 +2,7 @@ import { ReactChild } from "react"
 import { Box } from "@material-ui/core"
 import { GeneGeneralInformationSummaryQuery } from "dicty-graphql-schema"
 import { pipe } from "fp-ts/function"
-import { map as Amap, compact as Acompact } from "fp-ts/Array"
+import { map as Amap, compact as Acompact, match as Amatch } from "fp-ts/Array"
 import {
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
@@ -10,8 +10,9 @@ import {
 import { LeftDisplay } from "components/panels/LeftDisplay"
 import { ItemDisplay } from "components/panels/ItemDisplay"
 import { RightDisplay } from "components/panels/RightDisplay"
-import { AuthorizedInfoText } from "components/AuthorizedInfoText"
-import { EditableContentList } from "components/EditableContentList"
+import { AuthorizedInfoText } from "components/panels/AuthorizedInfoText"
+import { EditableContentList } from "components/panels/EditableContentList"
+import { AuthorizedEmptyInfoList } from "components/panels/AuthorizedEmptyInfoList"
 
 type Properties = {
   generalInformation: NonNullable<
@@ -36,13 +37,22 @@ const GeneralInfoPanelAuthorized = ({ generalInformation }: Properties) =>
           info.name_description,
           Amap(OfromNullable),
           Acompact,
-          (contentList) => (
-            <EditableContentList
-              id={info.id}
-              field="name_description"
-              label="Name Description"
-              infoList={contentList}
-            />
+          Amatch(
+            () => (
+              <AuthorizedEmptyInfoList
+                id={info.id}
+                field="name_description"
+                label="Name Description"
+              />
+            ),
+            (contentList) => (
+              <EditableContentList
+                id={info.id}
+                field="name_description"
+                label="Name Description"
+                infoList={contentList}
+              />
+            ),
           ),
         ),
       },
@@ -62,13 +72,22 @@ const GeneralInfoPanelAuthorized = ({ generalInformation }: Properties) =>
           info.synonyms,
           Amap(OfromNullable),
           Acompact,
-          (contentList) => (
-            <EditableContentList
-              id={info.id}
-              field="synonyms"
-              label="Alternative Gene Name"
-              infoList={contentList}
-            />
+          Amatch(
+            () => (
+              <AuthorizedEmptyInfoList
+                id={info.id}
+                field="synonyms"
+                label="Alternative Gene Name"
+              />
+            ),
+            (contentList) => (
+              <EditableContentList
+                id={info.id}
+                field="synonyms"
+                label="Alternative Gene Name"
+                infoList={contentList}
+              />
+            ),
           ),
         ),
       },
