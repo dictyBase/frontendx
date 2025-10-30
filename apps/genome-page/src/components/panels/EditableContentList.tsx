@@ -1,14 +1,15 @@
 import { useState, FunctionComponent } from "react"
 import { pipe } from "fp-ts/function"
+import { isEmpty as SisEmpty } from "fp-ts/string"
 import { map as Amap } from "fp-ts/Array"
 import { Option, some, none } from "fp-ts/Option"
-import AddIcon from "@mui/icons-material/Add"
 import Stack from "@mui/material/Stack"
 import Chip from "@mui/material/Chip"
-import IconButton from "@mui/material/IconButton"
+import Grow from "@mui/material/Grow"
 import { UpdateGeneGeneralInfoInput } from "dicty-graphql-schema"
+import { useAuthorizedUpdateGeneGeneralInfo } from "common/hooks/useAuthorizedUpdateGeneGeneralInfo"
 import { ConfirmDeleteDialog } from "./ConfirmDeleteDialog"
-import { UpdateItemsDialog } from "./UpdateItemsDialog"
+import { MorphingButton } from "./MorphingButton"
 
 const EditableContentList: FunctionComponent<{
   id: string
@@ -16,8 +17,9 @@ const EditableContentList: FunctionComponent<{
   infoList: Array<string>
   label: string
 }> = ({ id, field, infoList, label }) => {
+  const update = useAuthorizedUpdateGeneGeneralInfo()
+
   const [deleteIsOpen, setDeleteIsOpen] = useState(false)
-  const [createIsOpen, setCreateIsOpen] = useState(false)
   const [selectedForDeletion, setSelectedForDeletion] =
     useState<Option<string>>(none)
 
@@ -30,12 +32,9 @@ const EditableContentList: FunctionComponent<{
     setDeleteIsOpen(false)
   }
 
-  const handleOpenCreate = () => {
-    setCreateIsOpen(true)
-  }
-
-  const handleCloseCreate = () => {
-    setCreateIsOpen(false)
+  const handleAdd = async (value: string) => {
+    if (SisEmpty(value)) return
+    await update(id, { [field]: [...infoList, value] })
   }
 
   return (
@@ -49,31 +48,17 @@ const EditableContentList: FunctionComponent<{
         {pipe(
           infoList,
           Amap((s) => (
-            <Chip key={s} label={s} onDelete={handleOpenDelete(s)} />
+            <Grow key={s} in timeout={300}>
+              <Chip label={s} onDelete={handleOpenDelete(s)} />
+            </Grow>
           )),
         )}
-        <IconButton
-          size="small"
-          onClick={handleOpenCreate}
-          sx={{
-            backgroundColor: "primary.main",
-            color: "primary.contrastText",
-          }}>
-          <AddIcon />
-        </IconButton>
+        <MorphingButton onAdd={handleAdd} />
       </Stack>
       <ConfirmDeleteDialog
         open={deleteIsOpen}
         onClose={handleCloseDelete}
         selectedValue={selectedForDeletion}
-      />
-      <UpdateItemsDialog
-        id={id}
-        field={field}
-        label={label}
-        infoList={infoList}
-        open={createIsOpen}
-        onClose={handleCloseCreate}
       />
     </>
   )
