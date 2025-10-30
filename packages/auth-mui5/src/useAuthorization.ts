@@ -1,6 +1,6 @@
 import { useLogto } from "@logto/react"
 import { useState, useEffect } from "react"
-import { matchEntries, hasAllowedRole } from "./functional"
+import { hasAllowedRole } from "./functional"
 import { type UserWithRoles, Roles } from "./const"
 
 type useAuthorizationProperties = { entries: Set<Roles> }
