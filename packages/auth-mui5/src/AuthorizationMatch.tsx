@@ -12,8 +12,9 @@ const AuthorizationMatch: FunctionComponent<{
   const authorizationResult = useAuthorization({
     entries: allowedRoles,
   })
+
   return match(authorizationResult)
-    .with({ isLoading: true }, () => loading)
+    .with({ isLoading: true, isAuthorized: false }, () => loading)
     .with({ isAuthorized: true }, () => authorized)
     .with({ isAuthorized: false }, () => unauthorized)
     .otherwise(() => unauthorized)
