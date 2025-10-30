@@ -3,6 +3,7 @@ import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
 import Stack from "@mui/material/Stack"
 import Chip from "@mui/material/Chip"
+import Fade from "@mui/material/Fade"
 
 const ReadonlyContentList: FunctionComponent<{
   contentList: Array<string>
@@ -16,7 +17,11 @@ const ReadonlyContentList: FunctionComponent<{
       rowGap={1}>
       {pipe(
         contentList,
-        Amap((s) => <Chip key={s} label={s} />),
+        Amap((s) => (
+          <Fade key={s} in timeout={300}>
+            <Chip label={s} />
+          </Fade>
+        )),
       )}
     </Stack>
   </>
