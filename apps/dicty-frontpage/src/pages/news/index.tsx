@@ -1,9 +1,9 @@
 import { Navigate } from "react-router-dom"
 import { FullPageLoadingDisplay } from "@dictybase/ui-common"
 import { match } from "ts-pattern"
-import { useAuthorization, ACCESS } from "@dictybase/auth-mui5"
+import { useAuthorization, ACCESS, Roles } from "@dictybase/auth-mui5"
 
-const authorizedRoles = ["content-admin"]
+const authorizedRoles = new Set([Roles.CONTENT_ADMIN])
 
 const RoleRedirect = () => {
   const { isLoading, isAuthorized } = useAuthorization({
