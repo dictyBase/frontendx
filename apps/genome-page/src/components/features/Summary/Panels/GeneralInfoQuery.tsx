@@ -23,10 +23,10 @@ const GeneralInfoQuery = () => {
     nextFetchPolicy: "cache-only",
     errorPolicy: "all",
   })
+
   return (
     <PanelWrapper title="General Information">
       {match(result)
-        .with({ loading: true }, () => <Loader rows={5} />)
         .with(
           {
             data: { geneGeneralInformation: P.select(P.not(P.nullish)) },
@@ -46,6 +46,7 @@ const GeneralInfoQuery = () => {
             />
           ),
         )
+        .with({ loading: true }, () => <Loader rows={5} />)
         .with({ error: P.select(P.not(P.nullish)) }, (error) => (
           <ErrorPanel
             retry={result.refetch}
