@@ -9,6 +9,12 @@ import {
   mockGeneGeneralInformationSummaryQuery,
   GeneGeneralInfo,
 } from "dicty-graphql-schema/dist/mocks"
+import { pipe } from "fp-ts/function"
+import {
+  map as Rmap,
+  filter as Rfilter,
+  compact as Rcompact,
+} from "fp-ts/Record"
 import { mockOntologyData } from "./mockOntologyData"
 import { mockOntologyPiaA } from "./piaAMocks/mockOntologyPiaA"
 import { mockOntologyAda2 } from "./ada2Mocks/mockOntologyAda2"
@@ -33,19 +39,16 @@ const seedDatabase = async () => {
     // Check if already seeded
     const keys = await geneGeneralInfoDatabase.keys().all()
     if (keys.length === 0) {
-      console.log("SEEDING MOCK DATABASE.")
       // Seed sadA
       await geneGeneralInfoDatabase.put(
         mockGeneralInfoData.id,
         mockGeneralInfoData,
       )
-      await geneGeneralInfoDatabase.put("sadA", mockGeneralInfoData)
       // Seed piaA
       await geneGeneralInfoDatabase.put(
         mockGeneralInfoPiaA.id,
         mockGeneralInfoPiaA,
       )
-      await geneGeneralInfoDatabase.put("piaA", mockGeneralInfoPiaA)
     }
   } catch (error) {
     console.error("Failed to seed gene general info database:", error)
@@ -61,16 +64,15 @@ export const handlers = [
   // Gene General Information Query
   mockGeneGeneralInformationSummaryQuery(async ({ variables }) => {
     const { gene } = variables
-    console.log("FETCHED", gene)
     try {
       const geneGeneralInfo = await geneGeneralInfoDatabase.get(gene)
-      console.log(`${gene} DATA`, geneGeneralInfo)
       return HttpResponse.json({
         data: { geneGeneralInformation: geneGeneralInfo },
       })
     } catch {
       // Gene not found in database
       return HttpResponse.json({
+        // eslint-disable-next-line unicorn/no-null
         data: { geneGeneralInformation: null },
       })
     }
@@ -80,17 +82,21 @@ export const handlers = [
   mockCreateGeneGeneralInfoMutation(async ({ variables }) => {
     const { id, input } = variables
     try {
-      const newGeneInfo: GeneGeneralInfo = {
-        id,
-        name_description: input.name_description || [],
-        gene_product: input.gene_product || "",
-        synonyms: input.synonyms || [],
-        description: input.description || "",
+      const existing = await geneGeneralInfoDatabase.get(id)
+      if (!existing) {
+        throw new Error(`Could not find Gene General Info for ID: ${id}`)
       }
-      await geneGeneralInfoDatabase.put(id, newGeneInfo)
-      const created = await geneGeneralInfoDatabase.get(id)
+
+      const updated: GeneGeneralInfo = {
+        ...existing,
+        ...input,
+      }
+
+      console.table({ existing, input, updated })
+      await geneGeneralInfoDatabase.put(id, updated)
+      const updatedGeneInfo = await geneGeneralInfoDatabase.get(id)
       return HttpResponse.json({
-        data: { createGeneGeneralInfo: created },
+        data: { createGeneGeneralInfo: updatedGeneInfo },
       })
     } catch {
       return HttpResponse.json(
@@ -103,17 +109,18 @@ export const handlers = [
   // Update Gene General Information Mutation
   mockUpdateGeneGeneralInfoMutation(async ({ variables }) => {
     const { id, input } = variables
-    console.log("id", id)
-    console.log("input", input)
     try {
-      const existing: NonNullable<GeneGeneralInfo> =
-        await geneGeneralInfoDatabase.get(id)
-      console.log("existing", existing)
+      const existing = await geneGeneralInfoDatabase.get(id)
+      if (!existing) {
+        throw new Error(`Could not find Gene General Info for ID: ${id}`)
+      }
+
       const updated: GeneGeneralInfo = {
         ...existing,
         ...input,
       }
-      console.log("updated", updated)
+
+      console.table({ existing, input, updated })
       await geneGeneralInfoDatabase.put(id, updated)
       const updatedGeneInfo = await geneGeneralInfoDatabase.get(id)
       return HttpResponse.json({
