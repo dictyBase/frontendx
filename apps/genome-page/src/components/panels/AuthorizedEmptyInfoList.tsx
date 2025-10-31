@@ -1,45 +1,24 @@
 import { FunctionComponent, useState } from "react"
+import { isEmpty as SisEmpty } from "fp-ts/string"
 import Button from "@mui/material/Button"
 import AddIcon from "@mui/icons-material/Add"
 import { CreateGeneGeneralInfoInput } from "dicty-graphql-schema"
+import { useAuthorizedCreateGeneGeneralInfo } from "common/hooks/useAuthorizedCreateGeneGeneralInfo"
 import { CreateItemDialog } from "./CreateItemDialog"
+import { MorphingCreateButton } from "./MorphingCreateButton"
 
 const AuthorizedEmptyInfoList: FunctionComponent<{
   id: string
   field: keyof Omit<CreateGeneGeneralInfoInput, "user">
-  label: string
 }> = ({ id, field, label }) => {
-  const [createIsOpen, setCreateIsOpen] = useState(false)
-  const handleOpenCreate = () => {
-    setCreateIsOpen(true)
+  const create = useAuthorizedCreateGeneGeneralInfo()
+
+  const handleAdd = async (value: string) => {
+    if (SisEmpty(value)) return
+    await create(id, { [field]: [value] })
   }
 
-  const handleCloseCreate = () => {
-    setCreateIsOpen(false)
-  }
-  return (
-    <>
-      <Button
-        startIcon={<AddIcon />}
-        onClick={handleOpenCreate}
-        sx={{
-          backgroundColor: "primary.main",
-          color: "primary.contrastText",
-          borderRadius: "9999px",
-          paddingLeft: "1rem",
-          paddingRight: "1rem",
-        }}>
-        Create
-      </Button>
-      <CreateItemDialog
-        id={id}
-        field={field}
-        label={label}
-        open={createIsOpen}
-        onClose={handleCloseCreate}
-      />
-    </>
-  )
+  return <MorphingCreateButton onAdd={handleAdd} />
 }
 
 export { AuthorizedEmptyInfoList }
