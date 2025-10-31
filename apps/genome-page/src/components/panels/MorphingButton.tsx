@@ -62,23 +62,26 @@ const MorphingButton: FunctionComponent<MorphingButtonProperties> = ({
         position: "relative",
         display: "flex",
         alignItems: "center",
+        justifyContent: "flex-end",
         height: 36,
         width: isExpanded ? 192 : 36,
         transition: "width 500ms cubic-bezier(0.4, 0, 0.2, 1)",
       }}>
       {/* Collapsed State: Plus Button */}
-      <Grow in={!isExpanded} timeout={300}>
+      <Grow in={!isExpanded} timeout={500}>
         <IconButton
           onClick={handleExpand}
           sx={{
             position: "absolute",
-            inset: 0,
+            right: 0,
             bgcolor: "primary.main",
             color: "white",
             borderRadius: "50%",
             boxShadow: 2,
             width: 36,
             height: 36,
+            transform: isExpanded ? "translateX(156px)" : "translateX(0)",
+            transition: "transform 500ms cubic-bezier(0.4, 0, 0.2, 1)",
             "&:hover": {
               bgcolor: "primary.dark",
             },
@@ -88,7 +91,6 @@ const MorphingButton: FunctionComponent<MorphingButtonProperties> = ({
               outlineOffset: 2,
             },
             pointerEvents: isExpanded ? "none" : "auto",
-            opacity: isExpanded ? 0 : 1,
           }}
           aria-label="Add new tag">
           <AddIcon sx={{ fontSize: 20 }} />
@@ -96,7 +98,7 @@ const MorphingButton: FunctionComponent<MorphingButtonProperties> = ({
       </Grow>
 
       {/* Expanded State: Input and Save Button */}
-      <Fade in={isExpanded} timeout={300}>
+      <Fade in={isExpanded} timeout={100}>
         <Box
           sx={{
             position: "absolute",
