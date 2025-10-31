@@ -1,7 +1,7 @@
 import { useState, FunctionComponent } from "react"
 import { pipe } from "fp-ts/function"
 import { isEmpty as SisEmpty } from "fp-ts/string"
-import { map as Amap } from "fp-ts/Array"
+import { map as Amap, filter as Afilter } from "fp-ts/Array"
 import { Option, some, none } from "fp-ts/Option"
 import Stack from "@mui/material/Stack"
 import Chip from "@mui/material/Chip"
@@ -10,13 +10,13 @@ import { UpdateGeneGeneralInfoInput } from "dicty-graphql-schema"
 import { useAuthorizedUpdateGeneGeneralInfo } from "common/hooks/useAuthorizedUpdateGeneGeneralInfo"
 import { ConfirmDeleteDialog } from "./ConfirmDeleteDialog"
 import { MorphingButton } from "./MorphingButton"
+import { DeletableChip } from "./DeletableChip"
 
 const EditableContentList: FunctionComponent<{
   id: string
   field: keyof Omit<UpdateGeneGeneralInfoInput, "user">
   infoList: Array<string>
-  label: string
-}> = ({ id, field, infoList, label }) => {
+}> = ({ id, field, infoList }) => {
   const update = useAuthorizedUpdateGeneGeneralInfo()
 
   const [deleteIsOpen, setDeleteIsOpen] = useState(false)
@@ -37,6 +37,16 @@ const EditableContentList: FunctionComponent<{
     await update(id, { [field]: [...infoList, value] })
   }
 
+  const handleDelete = async (value: string) => {
+    await pipe(
+      infoList,
+      Afilter((item) => item !== value),
+      async (filteredList) => {
+        await update(id, { [field]: filteredList })
+      },
+    )
+  }
+
   return (
     <>
       <Stack
@@ -47,11 +57,7 @@ const EditableContentList: FunctionComponent<{
         rowGap={1}>
         {pipe(
           infoList,
-          Amap((s) => (
-            <Grow key={s} in timeout={300}>
-              <Chip label={s} onDelete={handleOpenDelete(s)} />
-            </Grow>
-          )),
+          Amap((s) => <DeletableChip label={s} handleDelete={handleDelete} />),
         )}
         <MorphingButton onAdd={handleAdd} />
       </Stack>
