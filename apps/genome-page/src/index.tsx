@@ -5,7 +5,7 @@ import { GenomePageApp } from "./main"
 
 const main = async () => {
   // Activate MSW
-  if (import.meta.env.VITE_MOCK_SERVER === "on") {
+  if (import.meta.env.VITE_MOCK_SERVER) {
     const { enableMock } = await import("mocks")
     await enableMock()
   }
