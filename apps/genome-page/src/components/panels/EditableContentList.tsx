@@ -1,14 +1,14 @@
-import { useState, FunctionComponent } from "react"
+import { FunctionComponent } from "react"
 import { pipe } from "fp-ts/function"
-import { isEmpty as SisEmpty } from "fp-ts/string"
-import { map as Amap, filter as Afilter } from "fp-ts/Array"
-import { Option, some, none } from "fp-ts/Option"
+import { isEmpty as SisEmpty, Eq as SEq } from "fp-ts/string"
+import { map as Amap, filter as Afilter, elem as Aelem } from "fp-ts/Array"
+import { left as TEleft } from "fp-ts/TaskEither"
 import Stack from "@mui/material/Stack"
-import Chip from "@mui/material/Chip"
-import Grow from "@mui/material/Grow"
 import { UpdateGeneGeneralInfoInput } from "dicty-graphql-schema"
-import { useAuthorizedUpdateGeneGeneralInfo } from "common/hooks/useAuthorizedUpdateGeneGeneralInfo"
-import { ConfirmDeleteDialog } from "./ConfirmDeleteDialog"
+import {
+  Errors,
+  useAuthorizedUpdateGeneGeneralInfo,
+} from "common/hooks/useAuthorizedUpdateGeneGeneralInfo"
 import { MorphingButton } from "./MorphingButton"
 import { DeletableChip } from "./DeletableChip"
 
@@ -19,33 +19,30 @@ const EditableContentList: FunctionComponent<{
 }> = ({ id, field, infoList }) => {
   const update = useAuthorizedUpdateGeneGeneralInfo()
 
-  const [deleteIsOpen, setDeleteIsOpen] = useState(false)
-  const [selectedForDeletion, setSelectedForDeletion] =
-    useState<Option<string>>(none)
+  const handleAdd = (value: string) => {
+    if (SisEmpty(value)) {
+      return TEleft({
+        errorType: Errors.VALIDATION,
+        message: "Value cannot be empty",
+      })
+    }
 
-  const handleOpenDelete = (selected: string) => () => {
-    setSelectedForDeletion(some(selected))
-    setDeleteIsOpen(true)
+    if (pipe(infoList, Aelem(SEq)(value))) {
+      return TEleft({
+        errorType: Errors.VALIDATION,
+        message: "Value already exists",
+      })
+    }
+
+    return update(id, { [field]: [...infoList, value] })
   }
 
-  const handleCloseDelete = () => {
-    setDeleteIsOpen(false)
-  }
-
-  const handleAdd = async (value: string) => {
-    if (SisEmpty(value)) return
-    await update(id, { [field]: [...infoList, value] })
-  }
-
-  const handleDelete = async (value: string) => {
-    await pipe(
+  const handleDelete = (value: string) =>
+    pipe(
       infoList,
       Afilter((item) => item !== value),
-      async (filteredList) => {
-        await update(id, { [field]: filteredList })
-      },
+      (filteredList) => update(id, { [field]: filteredList }),
     )
-  }
 
   return (
     <>
@@ -61,11 +58,6 @@ const EditableContentList: FunctionComponent<{
         )}
         <MorphingButton onAdd={handleAdd} />
       </Stack>
-      <ConfirmDeleteDialog
-        open={deleteIsOpen}
-        onClose={handleCloseDelete}
-        selectedValue={selectedForDeletion}
-      />
     </>
   )
 }
