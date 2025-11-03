@@ -1,4 +1,14 @@
 import { FunctionComponent, useState, useRef, useEffect } from "react"
+import { pipe } from "fp-ts/function"
+import { trim } from "fp-ts/string"
+import {
+  TaskEither,
+  flatMap as TEflatMap,
+  of as TEof,
+  tapIO,
+  match as TEmatch,
+} from "fp-ts/TaskEither"
+import { of as IOof } from "fp-ts/IO"
 import Box from "@mui/material/Box"
 import IconButton from "@mui/material/IconButton"
 import CircularProgress from "@mui/material/CircularProgress"
@@ -7,9 +17,10 @@ import Fade from "@mui/material/Fade"
 import Grow from "@mui/material/Grow"
 import AddIcon from "@mui/icons-material/Add"
 import CheckIcon from "@mui/icons-material/Check"
+import { UpdateGeneGeneralInfoError } from "common/hooks/useAuthorizedUpdateGeneGeneralInfo"
 
 type MorphingButtonProperties = {
-  onAdd: (value: string) => Promise<void> | void
+  onAdd: (value: string) => TaskEither<UpdateGeneGeneralInfoError, any>
 }
 
 const MorphingButton: FunctionComponent<MorphingButtonProperties> = ({
@@ -18,6 +29,7 @@ const MorphingButton: FunctionComponent<MorphingButtonProperties> = ({
   const [isExpanded, setIsExpanded] = useState(false)
   const [inputValue, setInputValue] = useState("")
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
   const inputReference = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -26,15 +38,24 @@ const MorphingButton: FunctionComponent<MorphingButtonProperties> = ({
     }
   }, [isExpanded])
 
-  const handleAdd = async () => {
-    if (!inputValue.trim()) return
-    setLoading(true)
-    await onAdd(inputValue.trim())
-
-    setInputValue("")
-    setIsExpanded(false)
-    setLoading(false)
-  }
+  const handleAdd = pipe(
+    inputValue,
+    trim,
+    TEof,
+    tapIO(() => IOof(setLoading(true))),
+    TEflatMap(onAdd),
+    TEmatch(
+      () => {
+        setError(true)
+        setLoading(false)
+      },
+      () => {
+        setInputValue("")
+        setIsExpanded(false)
+        setLoading(false)
+      },
+    ),
+  )
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
@@ -117,6 +138,7 @@ const MorphingButton: FunctionComponent<MorphingButtonProperties> = ({
             placeholder="Add new name..."
             size="small"
             fullWidth
+            error={error}
             disabled={loading}
             sx={{
               "& .MuiOutlinedInput-root": {
