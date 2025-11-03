@@ -99,34 +99,7 @@ const MorphingCreateButton: FunctionComponent<MorphingButtonProperties> = ({
           }}>
           Create
         </Button>
-        {/* <IconButton */}
-        {/*   onClick={handleExpand} */}
-        {/*   sx={{ */}
-        {/*     position: "absolute", */}
-        {/*     right: 0, */}
-        {/*     bgcolor: "primary.main", */}
-        {/*     color: "white", */}
-        {/*     borderRadius: "50%", */}
-        {/*     boxShadow: 2, */}
-        {/*     width: 36, */}
-        {/*     height: 36, */}
-        {/*     transform: isExpanded ? "translateX(156px)" : "translateX(0)", */}
-        {/*     transition: "transform 500ms cubic-bezier(0.4, 0, 0.2, 1)", */}
-        {/*     "&:hover": { */}
-        {/*       bgcolor: "primary.dark", */}
-        {/*     }, */}
-        {/*     "&:focus-visible": { */}
-        {/*       outline: "2px solid", */}
-        {/*       outlineColor: "primary.main", */}
-        {/*       outlineOffset: 2, */}
-        {/*     }, */}
-        {/*     pointerEvents: isExpanded ? "none" : "auto", */}
-        {/*   }} */}
-        {/*   aria-label="Add new tag"> */}
-        {/*   <AddIcon sx={{ fontSize: 20 }} /> */}
-        {/* </IconButton> */}
       </Grow>
-
       {/* Expanded State: Input and Save Button */}
       <Fade in={isExpanded} timeout={100}>
         <Box
