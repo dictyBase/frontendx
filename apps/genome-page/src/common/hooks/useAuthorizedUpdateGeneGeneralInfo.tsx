@@ -14,23 +14,30 @@ import {
 } from "fp-ts/TaskEither"
 import { fromNullable as OfromNullable } from "fp-ts/Option"
 
-enum ErrorType {
-  ACCESS_TOKEN_ERROR,
-  USER_INFO_ERROR,
-  UPDATE_FAILURE,
+enum Errors {
+  ACCESS_TOKEN,
+  USER_INFO,
+  UPDATE,
+  VALIDATION,
 }
-const userInfoError = {
-  errorType: ErrorType.USER_INFO_ERROR,
+
+type UpdateGeneGeneralInfoError = {
+  errorType: Errors
+  message: string
+}
+
+const userInfoError: UpdateGeneGeneralInfoError = {
+  errorType: Errors.USER_INFO,
   message: "Could not get user info",
 }
 
-const accessTokenError = {
-  errorType: ErrorType.ACCESS_TOKEN_ERROR,
+const accessTokenError: UpdateGeneGeneralInfoError = {
+  errorType: Errors.ACCESS_TOKEN,
   message: "Could not get access token",
 }
 
-const updateFailureError = {
-  errorType: ErrorType.UPDATE_FAILURE,
+const updateFailureError: UpdateGeneGeneralInfoError = {
+  errorType: Errors.UPDATE,
   message: "Could not update data",
 }
 
@@ -40,8 +47,8 @@ const useAuthorizedUpdateGeneGeneralInfo = () => {
     refetchQueries: [GeneGeneralInformationSummaryDocument],
   })
 
-  return (id: string, input: Omit<UpdateGeneGeneralInfoInput, "user">) => {
-    const task = pipe(
+  return (id: string, input: Omit<UpdateGeneGeneralInfoInput, "user">) =>
+    pipe(
       TEDo,
       TEbind("OuserInfo", () =>
         TEtryCatch(
@@ -85,8 +92,10 @@ const useAuthorizedUpdateGeneGeneralInfo = () => {
       ),
       TEmap(({ update }) => update),
     )
-    return task()
-  }
 }
 
-export { useAuthorizedUpdateGeneGeneralInfo }
+export {
+  useAuthorizedUpdateGeneGeneralInfo,
+  Errors,
+  type UpdateGeneGeneralInfoError,
+}
