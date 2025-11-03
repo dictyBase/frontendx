@@ -1,4 +1,13 @@
 import { FunctionComponent, useState } from "react"
+import { pipe } from "fp-ts/function"
+import {
+  TaskEither,
+  flatMap as TEflatMap,
+  of as TEof,
+  tapIO,
+  match as TEmatch,
+} from "fp-ts/TaskEither"
+import { of as IOof } from "fp-ts/IO"
 import Box from "@mui/material/Box"
 import Chip from "@mui/material/Chip"
 import IconButton from "@mui/material/IconButton"
@@ -6,21 +15,35 @@ import Grow from "@mui/material/Grow"
 import Fade from "@mui/material/Fade"
 import CheckIcon from "@mui/icons-material/Check"
 import CloseIcon from "@mui/icons-material/Close"
+import CircularProgress from "@mui/material/CircularProgress"
+import { UpdateGeneGeneralInfoError } from "common/hooks/useAuthorizedUpdateGeneGeneralInfo"
 
 const DeletableChip: FunctionComponent<{
   label: string
-  handleDelete: (value: string) => Promise<void>
+  handleDelete: (value: string) => TaskEither<UpdateGeneGeneralInfoError, any>
 }> = ({ label, handleDelete }) => {
   const [isConfirming, setIsConfirming] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleDeleteClick = () => {
     setIsConfirming(true)
   }
 
-  const handleConfirm = () => {
-    handleDelete(label)
-    setIsConfirming(false)
-  }
+  const handleConfirm = pipe(
+    label,
+    TEof,
+    tapIO(() => IOof(setIsLoading(true))),
+    TEflatMap(handleDelete),
+    TEmatch(
+      () => {
+        setIsLoading(false)
+      },
+      () => {
+        setIsConfirming(false)
+        setIsLoading(false)
+      },
+    ),
+  )
 
   const handleCancel = () => {
     setIsConfirming(false)
@@ -80,7 +103,14 @@ const DeletableChip: FunctionComponent<{
               },
             }}
             aria-label="Confirm delete">
-            <CheckIcon sx={{ fontSize: 16 }} />
+            {isLoading ? (
+              <CircularProgress
+                size={16}
+                sx={{ color: (theme) => theme.palette.error.contrastText }}
+              />
+            ) : (
+              <CheckIcon sx={{ fontSize: 16 }} />
+            )}
           </IconButton>
           <IconButton
             size="small"
