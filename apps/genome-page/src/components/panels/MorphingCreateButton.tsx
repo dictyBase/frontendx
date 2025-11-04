@@ -1,24 +1,30 @@
 import { FunctionComponent, useState, useRef, useEffect } from "react"
+import { pipe } from "fp-ts/function"
+import { trim } from "fp-ts/string"
+import {
+  flatMap as TEflatMap,
+  of as TEof,
+  tapIO,
+  match as TEmatch,
+} from "fp-ts/TaskEither"
+import { of as IOof } from "fp-ts/IO"
 import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
-import IconButton from "@mui/material/IconButton"
-import CircularProgress from "@mui/material/CircularProgress"
 import TextField from "@mui/material/TextField"
 import Fade from "@mui/material/Fade"
 import Grow from "@mui/material/Grow"
 import AddIcon from "@mui/icons-material/Add"
-import CheckIcon from "@mui/icons-material/Check"
+import { LoadingConfirmationButton } from "./LoadingConfirmationButton"
 
-type MorphingButtonProperties = {
+const buttonColor = "primary.main"
+
+const MorphingCreateButton: FunctionComponent<{
   onAdd: (value: string) => Promise<void> | void
-}
-
-const MorphingCreateButton: FunctionComponent<MorphingButtonProperties> = ({
-  onAdd,
-}) => {
+}> = ({ onAdd }) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const [inputValue, setInputValue] = useState("")
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
   const inputReference = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -26,6 +32,25 @@ const MorphingCreateButton: FunctionComponent<MorphingButtonProperties> = ({
       inputReference.current?.focus()
     }
   }, [isExpanded])
+
+  const handleAdd = pipe(
+    inputValue,
+    trim,
+    TEof,
+    tapIO(() => IOof(setLoading(true))),
+    TEflatMap(onAdd),
+    TEmatch(
+      () => {
+        setError(true)
+        setLoading(false)
+      },
+      () => {
+        setInputValue("")
+        setIsExpanded(false)
+        setLoading(false)
+      },
+    ),
+  )
 
   const handleAdd = async () => {
     if (!inputValue.trim()) return
@@ -73,18 +98,14 @@ const MorphingCreateButton: FunctionComponent<MorphingButtonProperties> = ({
           startIcon={<AddIcon />}
           onClick={handleExpand}
           sx={{
-            backgroundColor: "primary.main",
+            backgroundColor: buttonColor,
             width: "100%",
             color: "primary.contrastText",
             borderRadius: "9999px",
             paddingLeft: "1rem",
             paddingRight: "1rem",
-            // position: "absolute",
-            // right: 0,
-            bgcolor: "primary.main",
+            bgcolor: buttonColor,
             boxShadow: 2,
-            // width: 36,
-            // height: 36,
             transform: isExpanded ? "translateX(156px)" : "translateX(0)",
             transition: "transform 500ms cubic-bezier(0.4, 0, 0.2, 1)",
             "&:hover": {
@@ -92,7 +113,7 @@ const MorphingCreateButton: FunctionComponent<MorphingButtonProperties> = ({
             },
             "&:focus-visible": {
               outline: "2px solid",
-              outlineColor: "primary.main",
+              outlineColor: buttonColor,
               outlineOffset: 2,
             },
             pointerEvents: isExpanded ? "none" : "auto",
@@ -117,9 +138,10 @@ const MorphingCreateButton: FunctionComponent<MorphingButtonProperties> = ({
             onChange={(event) => setInputValue(event.target.value)}
             onKeyDown={handleKeyDown}
             onBlur={handleBlur}
-            placeholder="Add new name..."
+            placeholder="Add new item"
             size="small"
             fullWidth
+            error={error}
             disabled={loading}
             sx={{
               "& .MuiOutlinedInput-root": {
@@ -132,10 +154,10 @@ const MorphingCreateButton: FunctionComponent<MorphingButtonProperties> = ({
                   borderWidth: 2,
                 },
                 "&:hover fieldset": {
-                  borderColor: "primary.main",
+                  borderColor: buttonColor,
                 },
                 "&.Mui-focused fieldset": {
-                  borderColor: "primary.main",
+                  borderColor: buttonColor,
                   borderWidth: 2,
                 },
               },
@@ -144,27 +166,7 @@ const MorphingCreateButton: FunctionComponent<MorphingButtonProperties> = ({
               },
             }}
           />
-          <IconButton
-            onClick={handleAdd}
-            disabled={loading}
-            sx={{
-              position: "absolute",
-              right: 0,
-              top: 0,
-              height: 36,
-              width: 36,
-              color: "primary.main",
-              "&:hover": {
-                color: "primary.dark",
-              },
-            }}
-            aria-label="Save new tag">
-            {loading ? (
-              <CircularProgress size={20} sx={{ color: "primary.main" }} />
-            ) : (
-              <CheckIcon sx={{ fontSize: 20 }} />
-            )}
-          </IconButton>
+          <LoadingConfirmationButton onClick={handleAdd} loading={loading} />
         </Box>
       </Fade>
     </Box>
