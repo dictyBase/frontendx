@@ -57,10 +57,12 @@ const MorphingCreateButton: FunctionComponent<{
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       handleAdd()
-    }
-    if (event.key === "Escape" && !loading) {
+    } else if (event.key === "Escape" && !loading) {
       setInputValue("")
       setIsExpanded(false)
+      setError(false)
+    } else {
+      setError(false)
     }
   }
 
