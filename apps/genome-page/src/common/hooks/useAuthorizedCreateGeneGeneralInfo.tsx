@@ -14,23 +14,30 @@ import {
 } from "fp-ts/TaskEither"
 import { fromNullable as OfromNullable } from "fp-ts/Option"
 
-enum ErrorType {
+enum Errors {
   ACCESS_TOKEN_ERROR,
   USER_INFO_ERROR,
   CREATE_FAILURE,
+  VALIDATION,
 }
+
+type CreateGeneGeneralInfoError = {
+  errorType: Errors
+  message: string
+}
+
 const userInfoError = {
-  errorType: ErrorType.USER_INFO_ERROR,
+  errorType: Errors.USER_INFO_ERROR,
   message: "Could not get user info",
 }
 
 const accessTokenError = {
-  errorType: ErrorType.ACCESS_TOKEN_ERROR,
+  errorType: Errors.ACCESS_TOKEN_ERROR,
   message: "Could not get access token",
 }
 
 const createFailureError = {
-  errorType: ErrorType.CREATE_FAILURE,
+  errorType: Errors.CREATE_FAILURE,
   message: "Could not create data",
 }
 
@@ -40,8 +47,8 @@ const useAuthorizedCreateGeneGeneralInfo = () => {
     refetchQueries: [GeneGeneralInformationSummaryDocument],
   })
 
-  return (id: string, input: Omit<CreateGeneGeneralInfoInput, "user">) => {
-    const task = pipe(
+  return (id: string, input: Omit<CreateGeneGeneralInfoInput, "user">) =>
+    pipe(
       TEDo,
       TEbind("OuserInfo", () =>
         TEtryCatch(
@@ -85,8 +92,10 @@ const useAuthorizedCreateGeneGeneralInfo = () => {
       ),
       TEmap(({ create }) => create),
     )
-    return task()
-  }
 }
 
-export { useAuthorizedCreateGeneGeneralInfo }
+export {
+  type CreateGeneGeneralInfoError,
+  Errors,
+  useAuthorizedCreateGeneGeneralInfo,
+}
