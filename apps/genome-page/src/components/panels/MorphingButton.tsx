@@ -18,13 +18,11 @@ import AddIcon from "@mui/icons-material/Add"
 import { UpdateGeneGeneralInfoError } from "common/hooks/useAuthorizedUpdateGeneGeneralInfo"
 import { LoadingConfirmationButton } from "./LoadingConfirmationButton"
 
-type MorphingButtonProperties = {
-  onAdd: (value: string) => TaskEither<UpdateGeneGeneralInfoError, any>
-}
+const buttonColor = "primary.main"
 
-const MorphingButton: FunctionComponent<MorphingButtonProperties> = ({
-  onAdd,
-}) => {
+const MorphingButton: FunctionComponent<{
+  onAdd: (value: string) => TaskEither<UpdateGeneGeneralInfoError, any>
+}> = ({ onAdd }) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const [inputValue, setInputValue] = useState("")
   const [loading, setLoading] = useState(false)
@@ -94,7 +92,7 @@ const MorphingButton: FunctionComponent<MorphingButtonProperties> = ({
           sx={{
             position: "absolute",
             right: 0,
-            bgcolor: "primary.main",
+            bgcolor: buttonColor,
             color: "white",
             borderRadius: "50%",
             boxShadow: 2,
@@ -107,7 +105,7 @@ const MorphingButton: FunctionComponent<MorphingButtonProperties> = ({
             },
             "&:focus-visible": {
               outline: "2px solid",
-              outlineColor: "primary.main",
+              outlineColor: buttonColor,
               outlineOffset: 2,
             },
             pointerEvents: isExpanded ? "none" : "auto",
@@ -134,7 +132,7 @@ const MorphingButton: FunctionComponent<MorphingButtonProperties> = ({
             onChange={(event) => setInputValue(event.target.value)}
             onKeyDown={handleKeyDown}
             onBlur={handleBlur}
-            placeholder="Add new name..."
+            placeholder="Add new item"
             size="small"
             fullWidth
             error={error}
@@ -150,10 +148,10 @@ const MorphingButton: FunctionComponent<MorphingButtonProperties> = ({
                   borderWidth: 2,
                 },
                 "&:hover fieldset": {
-                  borderColor: "primary.main",
+                  borderColor: buttonColor,
                 },
                 "&.Mui-focused fieldset": {
-                  borderColor: "primary.main",
+                  borderColor: buttonColor,
                   borderWidth: 2,
                 },
               },
