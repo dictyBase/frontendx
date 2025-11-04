@@ -2,6 +2,7 @@ import { FunctionComponent, useState, useRef, useEffect } from "react"
 import { pipe } from "fp-ts/function"
 import { trim } from "fp-ts/string"
 import {
+  TaskEither,
   flatMap as TEflatMap,
   of as TEof,
   tapIO,
@@ -14,12 +15,13 @@ import TextField from "@mui/material/TextField"
 import Fade from "@mui/material/Fade"
 import Grow from "@mui/material/Grow"
 import AddIcon from "@mui/icons-material/Add"
+import { CreateGeneGeneralInfoError } from "common/hooks/useAuthorizedCreateGeneGeneralInfo"
 import { LoadingConfirmationButton } from "./LoadingConfirmationButton"
 
 const buttonColor = "primary.main"
 
 const MorphingCreateButton: FunctionComponent<{
-  onAdd: (value: string) => Promise<void> | void
+  onAdd: (value: string) => TaskEither<CreateGeneGeneralInfoError, any>
 }> = ({ onAdd }) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const [inputValue, setInputValue] = useState("")
@@ -51,16 +53,6 @@ const MorphingCreateButton: FunctionComponent<{
       },
     ),
   )
-
-  const handleAdd = async () => {
-    if (!inputValue.trim()) return
-    setLoading(true)
-    await onAdd(inputValue.trim())
-
-    setInputValue("")
-    setIsExpanded(false)
-    setLoading(false)
-  }
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
