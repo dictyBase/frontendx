@@ -1,21 +1,28 @@
-import { FunctionComponent, useState } from "react"
+import { FunctionComponent } from "react"
 import { isEmpty as SisEmpty } from "fp-ts/string"
-import Button from "@mui/material/Button"
-import AddIcon from "@mui/icons-material/Add"
+import { left as TEleft } from "fp-ts/TaskEither"
 import { CreateGeneGeneralInfoInput } from "dicty-graphql-schema"
-import { useAuthorizedCreateGeneGeneralInfo } from "common/hooks/useAuthorizedCreateGeneGeneralInfo"
-import { CreateItemDialog } from "./CreateItemDialog"
+import {
+  useAuthorizedCreateGeneGeneralInfo,
+  Errors,
+} from "common/hooks/useAuthorizedCreateGeneGeneralInfo"
 import { MorphingCreateButton } from "./MorphingCreateButton"
 
 const AuthorizedEmptyInfoList: FunctionComponent<{
   id: string
   field: keyof Omit<CreateGeneGeneralInfoInput, "user">
-}> = ({ id, field, label }) => {
+}> = ({ id, field }) => {
   const create = useAuthorizedCreateGeneGeneralInfo()
 
-  const handleAdd = async (value: string) => {
-    if (SisEmpty(value)) return
-    await create(id, { [field]: [value] })
+  const handleAdd = (value: string) => {
+    if (SisEmpty(value)) {
+      return TEleft({
+        errorType: Errors.VALIDATION,
+        message: "Value cannot be empty",
+      })
+    }
+
+    return create(id, { [field]: [value] })
   }
 
   return <MorphingCreateButton onAdd={handleAdd} />
