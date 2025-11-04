@@ -11,13 +11,12 @@ import {
 import { of as IOof } from "fp-ts/IO"
 import Box from "@mui/material/Box"
 import IconButton from "@mui/material/IconButton"
-import CircularProgress from "@mui/material/CircularProgress"
 import TextField from "@mui/material/TextField"
 import Fade from "@mui/material/Fade"
 import Grow from "@mui/material/Grow"
 import AddIcon from "@mui/icons-material/Add"
-import CheckIcon from "@mui/icons-material/Check"
 import { UpdateGeneGeneralInfoError } from "common/hooks/useAuthorizedUpdateGeneGeneralInfo"
+import { LoadingConfirmationButton } from "./LoadingConfirmationButton"
 
 type MorphingButtonProperties = {
   onAdd: (value: string) => TaskEither<UpdateGeneGeneralInfoError, any>
@@ -163,27 +162,7 @@ const MorphingButton: FunctionComponent<MorphingButtonProperties> = ({
               },
             }}
           />
-          <IconButton
-            onClick={handleAdd}
-            disabled={loading}
-            sx={{
-              position: "absolute",
-              right: 0,
-              top: 0,
-              height: 36,
-              width: 36,
-              color: "primary.main",
-              "&:hover": {
-                color: "primary.dark",
-              },
-            }}
-            aria-label="Save new tag">
-            {loading ? (
-              <CircularProgress size={20} sx={{ color: "primary.main" }} />
-            ) : (
-              <CheckIcon sx={{ fontSize: 20 }} />
-            )}
-          </IconButton>
+          <LoadingConfirmationButton onClick={handleAdd} loading={loading} />
         </Box>
       </Fade>
     </Box>
