@@ -1,3 +1,15 @@
+# CRITICAL RULES - READ FIRST
+
+These rules are **MANDATORY** and **NON-NEGOTIABLE**:
+
+1. **NEVER** use `null` or `undefined` → **ALWAYS** use `Option` from fp-ts
+2. **NEVER** use `async/await` with `try/catch` → **ALWAYS** use `TaskEither` from fp-ts
+3. **NEVER** use native array methods (`.map`, `.filter`, `.find`) → **ALWAYS** use fp-ts/Array
+4. **NEVER** use ternary operators in functional code → **ALWAYS** use `match` from ts-pattern
+5. **NEVER** use function declarations → **ALWAYS** use arrow functions
+6. **NEVER** use default exports → **ALWAYS** use named exports
+7. **NEVER** use `npm` → **ALWAYS** use `yarn workspace`
+
 ## Table of Contents
 
 - [Work Flow](#work-flow)
@@ -167,50 +179,221 @@ const calculateTotal = (items: CartItem[]): number =>
 
 ## Functional Programming
 
-- Use functional patterns to transform arrays of data
-- Avoid using `null` or `undefined`. Wrap values in an `Option` type from `fp-ts`
-- Use `pipe` for function composition
-- Use `TaskEither` for async operations with error handling
-- Use fp-ts array utilities for immutable transformations
+**CRITICAL RULES - MUST FOLLOW:**
+
+### 1. NULL/UNDEFINED HANDLING
+**NEVER** return or accept `null` or `undefined` in function signatures. **ALWAYS** use `Option` type from `fp-ts`.
 
 ```ts
-// Use Option type instead of null/undefined
-const getUserName =
-  (user: { firstName: string, lastName: string } | null) => 
-    pipe(
-      user,
-      OfromNullable, // Option<{ firstName: string, lastName: string }>
-      Omatch(
-        () => "No User",
-        ({ firstName, lastName }) => `${firstName} ${lastName}`
-      )
-    )
+// NON-COMPLIANT - Do NOT do this
+const getUser = (id: string): User | null => {
+  if (!users[id]) return null
+  return users[id]
+}
 
-// Use TaskEither for async operations
-const fetchUserData = (id: string) => 
+const userName = user ? user.name : "Unknown"
+
+// COMPLIANT - Do this instead
+import { Option as O, pipe } from "fp-ts/function"
+import * as O from "fp-ts/Option"
+
+const getUser = (id: string): O.Option<User> =>
   pipe(
-    TEDo,
-    TEbind("token", () => getAccessToken()),
-    TEbind("user", ({ token }) => fetchUser(id, token)),
-    TEmap(({ user }) => user),
-    TEmapLeft((error) => handleError(error))
+    users[id],
+    O.fromNullable
   )
 
-// Use fp-ts array utilities
-const uniqueItems = pipe(
-  items,
-  Aconcat(newItems),
-  Auniq(itemEq),
-  Afilter((item) => item.isActive)
+const userName = pipe(
+  getUser(id),
+  O.match(
+    () => "Unknown",
+    (user) => user.name
+  )
 )
 ```
-## Pattern Matching
 
-The `ts-pattern` library is used for conditional logic, most often for conditionally rendering a component based on the result of a data query: 
+### 2. ASYNC OPERATIONS
+**NEVER** use raw `async/await` with `try/catch`. **ALWAYS** use `TaskEither` from `fp-ts` for async operations.
 
-```tsx
+```ts
+// NON-COMPLIANT - Do NOT do this
+const fetchData = async (id: string) => {
+  try {
+    const token = await getAccessToken()
+    const response = await fetch(`/api/data/${id}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    return await response.json()
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+// COMPLIANT - Do this instead
+import { TaskEither as TE, pipe } from "fp-ts/function"
+import * as TE from "fp-ts/TaskEither"
+
+type FetchError =
+  | { type: "TOKEN_ERROR"; message: string }
+  | { type: "NETWORK_ERROR"; message: string }
+  | { type: "PARSE_ERROR"; message: string }
+
+const fetchData = (id: string): TE.TaskEither<FetchError, Data> =>
+  pipe(
+    TE.Do,
+    TE.bind("token", () => getAccessToken()),
+    TE.bind("response", ({ token }) =>
+      TE.tryCatch(
+        () => fetch(`/api/data/${id}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        }),
+        (error) => ({
+          type: "NETWORK_ERROR" as const,
+          message: String(error)
+        })
+      )
+    ),
+    TE.bind("data", ({ response }) =>
+      TE.tryCatch(
+        () => response.json(),
+        (error) => ({
+          type: "PARSE_ERROR" as const,
+          message: String(error)
+        })
+      )
+    ),
+    TE.map(({ data }) => data)
+  )
+```
+
+### 3. FUNCTION COMPOSITION
+**ALWAYS** use `pipe` for composing multiple operations. **NEVER** chain operations imperatively.
+
+```ts
+// NON-COMPLIANT - Do NOT do this
+const result = items.filter(x => x.active)
+  .map(x => x.value)
+  .reduce((sum, x) => sum + x, 0)
+
+// COMPLIANT - Do this instead
+import { pipe } from "fp-ts/function"
+import * as A from "fp-ts/Array"
+
+const result = pipe(
+  items,
+  A.filter((x) => x.active),
+  A.map((x) => x.value),
+  A.reduce(0, (sum, x) => sum + x)
+)
+```
+
+### 4. ARRAY TRANSFORMATIONS
+**ALWAYS** use fp-ts array utilities (`fp-ts/Array`). **NEVER** use native array methods for transformations.
+
+```ts
+// NON-COMPLIANT - Do NOT do this
+const activeItems = items.filter(item => item.isActive)
+const uniqueIds = [...new Set(items.map(item => item.id))]
+const firstActive = items.find(item => item.isActive)
+
+// COMPLIANT - Do this instead
+import { pipe } from "fp-ts/function"
+import * as A from "fp-ts/Array"
+import * as O from "fp-ts/Option"
+import { Eq } from "fp-ts/Eq"
+
+const activeItems = pipe(
+  items,
+  A.filter((item) => item.isActive)
+)
+
+const idEq: Eq<Item> = {
+  equals: (a, b) => a.id === b.id
+}
+
+const uniqueItems = pipe(
+  items,
+  A.uniq(idEq)
+)
+
+const firstActive: O.Option<Item> = pipe(
+  items,
+  A.findFirst((item) => item.isActive)
+)
+```
+
+### 5. CONDITIONAL LOGIC IN FUNCTIONS
+**NEVER** use ternary operators or if/else chains in functional code. **ALWAYS** use `match` from `ts-pattern` or fp-ts pattern matching.
+
+```ts
+// NON-COMPLIANT - Do NOT do this
+const getStatusMessage = (status: Status) => {
+  return status === "loading" ? "Loading..." :
+         status === "error" ? "Error occurred" :
+         status === "success" ? "Success!" : "Unknown"
+}
+
+// COMPLIANT - Do this instead
 import { match } from "ts-pattern"
 
+const getStatusMessage = (status: Status) =>
+  match(status)
+    .with("loading", () => "Loading...")
+    .with("error", () => "Error occurred")
+    .with("success", () => "Success!")
+    .otherwise(() => "Unknown")
+```
+
+### 6. COMMON FP-TS IMPORT PATTERNS
+
+```ts
+// Standard fp-ts imports for functional programming
+import { pipe } from "fp-ts/function"
+import * as O from "fp-ts/Option"
+import * as E from "fp-ts/Either"
+import * as TE from "fp-ts/TaskEither"
+import * as A from "fp-ts/Array"
+import * as NEA from "fp-ts/NonEmptyArray"
+```
+
+### Common Functional Programming Mistakes to Avoid
+
+1. **AVOID: Returning null/undefined** → **USE: Option**
+2. **AVOID: Using try/catch with async/await** → **USE: TaskEither**
+3. **AVOID: Native array methods (.map, .filter, .find)** → **USE: fp-ts/Array**
+4. **AVOID: Ternary operators in functional code** → **USE: pattern matching**
+5. **AVOID: Imperative loops (for, while)** → **USE: fp-ts array utilities**
+6. **AVOID: Mutating data** → **USE: immutable transformations with pipe**
+## Pattern Matching
+
+**CRITICAL:** The `ts-pattern` library is **MANDATORY** for all conditional logic.
+
+### Core Rules
+
+1. **NEVER** use ternary operators (`condition ? a : b`)
+2. **NEVER** use if/else chains for conditional rendering
+3. **ALWAYS** use `match` from `ts-pattern` for conditional logic
+4. **ALWAYS** use `.otherwise()` as the final clause (never omit it)
+
+### Pattern Matching for Component Rendering
+
+Most commonly used for conditionally rendering components based on query results:
+
+```tsx
+import { match, P } from "ts-pattern"
+
+// NON-COMPLIANT - Do NOT do this
+const Show = () => {
+  const result = useContentBySlugQuery({ variables: { slug } })
+
+  if (result.loading) return <FullPageLoadingDisplay />
+  if (result.error) return <ErrorPageWrapper error={result.error} />
+  if (result.data?.contentBySlug) return <ShowView data={result.data.contentBySlug} />
+  return <div>No content</div>
+}
+
+// COMPLIANT - Do this instead
 const Show = () => {
   const slug = useSlug()
   const result = useContentBySlugQuery({
@@ -218,6 +401,7 @@ const Show = () => {
     errorPolicy: "all",
     fetchPolicy: "cache-and-network",
   })
+
   return match(result)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
@@ -230,7 +414,63 @@ const Show = () => {
     .otherwise(() => <> This message should not appear. </>)
 }
 ```
-- Avoid ternary statements 
+
+### Pattern Matching for Values
+
+```tsx
+// NON-COMPLIANT - Do NOT do this
+const getStatusColor = (status: Status) => {
+  if (status === "success") return "green"
+  if (status === "error") return "red"
+  if (status === "pending") return "yellow"
+  return "gray"
+}
+
+// ALSO NON-COMPLIANT - Do NOT do this
+const getStatusColor = (status: Status) =>
+  status === "success" ? "green" :
+  status === "error" ? "red" :
+  status === "pending" ? "yellow" : "gray"
+
+// COMPLIANT - Do this instead
+const getStatusColor = (status: Status) =>
+  match(status)
+    .with("success", () => "green")
+    .with("error", () => "red")
+    .with("pending", () => "yellow")
+    .otherwise(() => "gray")
+```
+
+### Pattern Matching with P.select for Data Extraction
+
+Use `P.select()` to extract and transform matched data:
+
+```tsx
+// Extract specific fields from complex objects
+const result = match(apiResponse)
+  .with(
+    { status: "success", data: P.select() },
+    (data) => processData(data)
+  )
+  .with(
+    { status: "error", error: P.select() },
+    (error) => handleError(error)
+  )
+  .otherwise(() => handleUnknown())
+```
+
+### Pattern Matching Order
+
+**ALWAYS** order patterns from most specific to least specific:
+
+```tsx
+// COMPLIANT - Specific patterns first
+return match(result)
+  .with({ data: P.select() }, (data) => <Content data={data} />)
+  .with({ loading: true }, () => <Loading />)
+  .with({ error: P.select() }, (error) => <Error error={error} />)
+  .otherwise(() => <Fallback />)
+``` 
 
 ## State Management
 
