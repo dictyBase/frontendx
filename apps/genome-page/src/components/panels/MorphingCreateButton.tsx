@@ -18,6 +18,7 @@ import Grow from "@mui/material/Grow"
 import AddIcon from "@mui/icons-material/Add"
 import { CreateGeneGeneralInfoError } from "common/hooks/useAuthorizedCreateGeneGeneralInfo"
 import { LoadingConfirmationButton } from "./LoadingConfirmationButton"
+import { jitterAnimation } from "../../styles/animations"
 
 const buttonColor = "primary.main"
 
@@ -170,12 +171,7 @@ const MorphingCreateButton: FunctionComponent<{
               "& input": {
                 paddingLeft: 2,
               },
-              animation: error ? "jitter 0.3s ease-in-out" : "none",
-              "@keyframes jitter": {
-                "0%, 100%": { transform: "translateX(0)" },
-                "10%, 30%, 50%, 70%, 90%": { transform: "translateX(-4px)" },
-                "20%, 40%, 60%, 80%": { transform: "translateX(4px)" },
-              },
+              ...(error && jitterAnimation),
             }}
           />
           <LoadingConfirmationButton onClick={handleAdd} loading={loading} />
