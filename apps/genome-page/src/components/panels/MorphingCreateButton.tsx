@@ -9,6 +9,7 @@ import {
   match as TEmatch,
 } from "fp-ts/TaskEither"
 import { of as IOof } from "fp-ts/IO"
+import { match } from "ts-pattern"
 import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
 import TextField from "@mui/material/TextField"
@@ -35,6 +36,15 @@ const MorphingCreateButton: FunctionComponent<{
     }
   }, [isExpanded])
 
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError(false)
+      }, 1000)
+      return () => clearTimeout(timer)
+    }
+  }, [error])
+
   const handleAdd = pipe(
     inputValue,
     trim,
@@ -54,17 +64,19 @@ const MorphingCreateButton: FunctionComponent<{
     ),
   )
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      handleAdd()
-    } else if (event.key === "Escape" && !loading) {
-      setInputValue("")
-      setIsExpanded(false)
-      setError(false)
-    } else {
-      setError(false)
-    }
-  }
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) =>
+    match({ key: event.key, loading })
+      .with({ key: "Enter" }, () => {
+        handleAdd()
+      })
+      .with({ key: "Escape", loading: false }, () => {
+        setInputValue("")
+        setIsExpanded(false)
+        setError(false)
+      })
+      .otherwise(() => {
+        setError(false)
+      })
 
   const handleExpand = () => {
     setIsExpanded(true)
@@ -157,6 +169,12 @@ const MorphingCreateButton: FunctionComponent<{
               },
               "& input": {
                 paddingLeft: 2,
+              },
+              animation: error ? "jitter 0.3s ease-in-out" : "none",
+              "@keyframes jitter": {
+                "0%, 100%": { transform: "translateX(0)" },
+                "10%, 30%, 50%, 70%, 90%": { transform: "translateX(-4px)" },
+                "20%, 40%, 60%, 80%": { transform: "translateX(4px)" },
               },
             }}
           />
