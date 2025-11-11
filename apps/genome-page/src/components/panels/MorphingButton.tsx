@@ -44,6 +44,7 @@ const MorphingButton: FunctionComponent<{
       }, 1000)
       return () => clearTimeout(timer)
     }
+    return () => {}
   }, [error])
 
   const handleAdd = pipe(

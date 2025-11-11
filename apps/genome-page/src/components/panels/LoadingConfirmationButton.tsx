@@ -39,4 +39,3 @@ const LoadingConfirmationButton: FunctionComponent<
 )
 
 export { LoadingConfirmationButton }
-
