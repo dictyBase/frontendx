@@ -176,7 +176,10 @@ const MorphingButton: FunctionComponent<{
               "& input": {
                 paddingLeft: 2,
               },
-              ...(error && jitterAnimation),
+              ...match(error)
+                .with(true, () => jitterAnimation)
+                .with(false, () => ({}))
+                .exhaustive(),
             }}
           />
           <LoadingConfirmationButton onClick={handleAdd} loading={loading} />

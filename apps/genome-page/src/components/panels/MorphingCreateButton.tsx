@@ -17,8 +17,8 @@ import Fade from "@mui/material/Fade"
 import Grow from "@mui/material/Grow"
 import AddIcon from "@mui/icons-material/Add"
 import { CreateGeneGeneralInfoError } from "common/hooks/useAuthorizedCreateGeneGeneralInfo"
+import { jitterAnimation } from "styles/animations"
 import { LoadingConfirmationButton } from "./LoadingConfirmationButton"
-import { jitterAnimation } from "../../styles/animations"
 
 const buttonColor = "primary.main"
 
@@ -173,7 +173,10 @@ const MorphingCreateButton: FunctionComponent<{
               "& input": {
                 paddingLeft: 2,
               },
-              ...(error && jitterAnimation),
+              ...match(error)
+                .with(true, () => jitterAnimation)
+                .with(false, () => ({}))
+                .exhaustive(),
             }}
           />
           <LoadingConfirmationButton onClick={handleAdd} loading={loading} />
