@@ -29,6 +29,7 @@ const MorphingButton: FunctionComponent<{
   const [inputValue, setInputValue] = useState("")
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
+  const timerReference = useRef<NodeJS.Timeout | null>(null)
   const inputReference = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -39,12 +40,13 @@ const MorphingButton: FunctionComponent<{
 
   useEffect(() => {
     if (error) {
-      const timer = setTimeout(() => {
+      timerReference.current = setTimeout(() => {
         setError(false)
       }, 1000)
-      return () => clearTimeout(timer)
     }
-    return () => {}
+    return () => {
+      if (timerReference.current) clearTimeout(timerReference.current)
+    }
   }, [error])
 
   const handleAdd = pipe(

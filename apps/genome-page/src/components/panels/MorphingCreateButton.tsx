@@ -29,8 +29,8 @@ const MorphingCreateButton: FunctionComponent<{
   const [inputValue, setInputValue] = useState("")
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
+  const timerReference = useRef<NodeJS.Timeout | null>(null)
   const inputReference = useRef<HTMLInputElement>(null)
-
   useEffect(() => {
     if (isExpanded) {
       inputReference.current?.focus()
@@ -39,12 +39,13 @@ const MorphingCreateButton: FunctionComponent<{
 
   useEffect(() => {
     if (error) {
-      const timer = setTimeout(() => {
+      timerReference.current = setTimeout(() => {
         setError(false)
       }, 1000)
-      return () => clearTimeout(timer)
     }
-    return undefined
+    return () => {
+      if (timerReference.current) clearTimeout(timerReference.current)
+    }
   }, [error])
 
   const handleAdd = pipe(
