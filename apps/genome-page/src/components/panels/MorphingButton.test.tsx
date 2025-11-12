@@ -237,7 +237,7 @@ test("should show error state when add operation fails", async () => {
     // eslint-disable-next-line unicorn/consistent-function-scoping
     () => (): Promise<Either<any, any>> =>
       new Promise((resolve) => {
-        setTimeout(() => resolve(Eleft(new Error("Failed"))), 100)
+        setTimeout(() => resolve(Eleft(new Error("Failed"))), 50)
       }),
   )
 
@@ -257,4 +257,17 @@ test("should show error state when add operation fails", async () => {
   await waitFor(() => {
     expect(mockOnAdd).toHaveBeenCalledWith(testInput)
   })
+
+  // Wait for error state to appear (input should have error styling)
+  await waitFor(() => {
+    expect(input).toHaveAttribute("aria-invalid", "true")
+  })
+
+  // Wait for error to automatically clear after timeout (1000ms)
+  await waitFor(
+    () => {
+      expect(input).toHaveAttribute("aria-invalid", "false")
+    },
+    { timeout: 1500 },
+  )
 })
