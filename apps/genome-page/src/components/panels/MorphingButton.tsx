@@ -10,15 +10,15 @@ import {
 } from "fp-ts/TaskEither"
 import { of as IOof } from "fp-ts/IO"
 import { match } from "ts-pattern"
-import Box from "@mui/material/Box"
 import IconButton from "@mui/material/IconButton"
 import TextField from "@mui/material/TextField"
 import Fade from "@mui/material/Fade"
 import Grow from "@mui/material/Grow"
 import AddIcon from "@mui/icons-material/Add"
 import { UpdateGeneGeneralInfoError } from "common/hooks/useAuthorizedUpdateGeneGeneralInfo"
+import { jitterAnimation } from "styles/animations"
+import { MorphingButtonBox } from "./MorphingButtonBox"
 import { LoadingConfirmationButton } from "./LoadingConfirmationButton"
-import { jitterAnimation } from "../../styles/animations"
 
 const buttonColor = "primary.main"
 
@@ -93,7 +93,7 @@ const MorphingButton: FunctionComponent<{
   }
 
   return (
-    <Box
+    <MorphingButtonBox
       sx={{
         position: "relative",
         display: "flex",
@@ -135,14 +135,7 @@ const MorphingButton: FunctionComponent<{
 
       {/* Expanded State: Input and Save Button */}
       <Fade in={isExpanded} timeout={100}>
-        <Box
-          sx={{
-            position: "absolute",
-            inset: 0,
-            display: "flex",
-            alignItems: "center",
-            pointerEvents: isExpanded ? "auto" : "none",
-          }}>
+        <MorphingButtonBox isExpanded={isExpanded}>
           <TextField
             inputRef={inputReference}
             type="text"
@@ -183,9 +176,9 @@ const MorphingButton: FunctionComponent<{
             }}
           />
           <LoadingConfirmationButton onClick={handleAdd} loading={loading} />
-        </Box>
+        </MorphingButtonBox>
       </Fade>
-    </Box>
+    </MorphingButtonBox>
   )
 }
 
