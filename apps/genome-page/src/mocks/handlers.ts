@@ -9,12 +9,6 @@ import {
   mockGeneGeneralInformationSummaryQuery,
   GeneGeneralInfo,
 } from "dicty-graphql-schema/dist/mocks"
-import { pipe } from "fp-ts/function"
-import {
-  map as Rmap,
-  filter as Rfilter,
-  compact as Rcompact,
-} from "fp-ts/Record"
 import { mockOntologyData } from "./mockOntologyData"
 import { mockOntologyPiaA } from "./piaAMocks/mockOntologyPiaA"
 import { mockOntologyAda2 } from "./ada2Mocks/mockOntologyAda2"
@@ -50,8 +44,9 @@ const seedDatabase = async () => {
         mockGeneralInfoPiaA,
       )
     }
-  } catch (error) {
-    console.error("Failed to seed gene general info database:", error)
+  } catch {
+    // eslint-disable-next-line no-console
+    console.error("Seeding failed")
   }
 }
 
@@ -92,7 +87,6 @@ export const handlers = [
         ...input,
       }
 
-      console.table({ existing, input, updated })
       await geneGeneralInfoDatabase.put(id, updated)
       const updatedGeneInfo = await geneGeneralInfoDatabase.get(id)
       return HttpResponse.json({
@@ -120,7 +114,6 @@ export const handlers = [
         ...input,
       }
 
-      console.table({ existing, input, updated })
       await geneGeneralInfoDatabase.put(id, updated)
       const updatedGeneInfo = await geneGeneralInfoDatabase.get(id)
       return HttpResponse.json({
