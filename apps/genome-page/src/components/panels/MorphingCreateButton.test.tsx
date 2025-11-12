@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
 import { right as TEright } from "fp-ts/TaskEither"
-import { Either, right as Eright } from "fp-ts/Either"
+import { Either, right as Eright, left as Eleft } from "fp-ts/Either"
 import { MorphingCreateButton } from "./MorphingCreateButton"
 
 const TEST_VALUE = "test value"
@@ -178,4 +178,65 @@ test("should not collapse when blur occurs with non-empty input", async () => {
   await user.click(document.body)
 
   expect(screen.getByPlaceholderText(/add new item/i)).toBeInTheDocument()
+})
+
+test("should collapse when blur occurs with empty input", async () => {
+  const user = userEvent.setup()
+  const mockOnAdd = vi.fn(() => TEright({}))
+
+  render(<MorphingCreateButton onAdd={mockOnAdd} />)
+
+  const createButton = screen.getByRole("button", { name: /create/i })
+  await user.click(createButton)
+
+  const input = await screen.findByPlaceholderText(/add new item/i)
+  await user.click(document.body)
+
+  await waitFor(() => {
+    expect(screen.getByRole("button", { name: /create/i })).toBeVisible()
+  })
+})
+
+test("should collapse and clear input when Escape key is pressed", async () => {
+  const user = userEvent.setup()
+  const mockOnAdd = vi.fn(() => TEright({}))
+
+  render(<MorphingCreateButton onAdd={mockOnAdd} />)
+
+  const createButton = screen.getByRole("button", { name: /create/i })
+  await user.click(createButton)
+
+  const input = await screen.findByPlaceholderText(/add new item/i)
+  await user.type(input, TEST_VALUE)
+  await user.keyboard("{Escape}")
+
+  await waitFor(() => {
+    expect(screen.getByRole("button", { name: /create/i })).toBeVisible()
+  })
+})
+
+test("should show error state when add operation fails", async () => {
+  const user = userEvent.setup()
+  const mockOnAdd = vi.fn(
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    () => (): Promise<Either<any, any>> =>
+      new Promise((resolve) => {
+        setTimeout(() => resolve(Eleft(new Error("Failed"))), 100)
+      }),
+  )
+
+  render(<MorphingCreateButton onAdd={mockOnAdd} />)
+
+  const createButton = screen.getByRole("button", { name: /create/i })
+  await user.click(createButton)
+
+  const input = await screen.findByPlaceholderText(/add new item/i)
+  await user.type(input, TEST_VALUE)
+
+  const saveButton = screen.getByRole("button", { name: /save new tag/i })
+  await user.click(saveButton)
+
+  await waitFor(() => {
+    expect(mockOnAdd).toHaveBeenCalledWith(TEST_VALUE)
+  })
 })
