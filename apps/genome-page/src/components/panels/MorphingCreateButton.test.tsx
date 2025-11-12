@@ -4,6 +4,8 @@ import { right as TEright } from "fp-ts/TaskEither"
 import { Either, right as Eright } from "fp-ts/Either"
 import { MorphingCreateButton } from "./MorphingCreateButton"
 
+const TEST_VALUE = "test value"
+
 test("should render create button with icon in collapsed state", () => {
   const mockOnAdd = vi.fn(() => TEright({}))
 
@@ -69,9 +71,9 @@ test("should update input value when typing", async () => {
   await user.click(createButton)
 
   const input = await screen.findByPlaceholderText(/add new item/i)
-  await user.type(input, "test value")
+  await user.type(input, TEST_VALUE)
 
-  expect(input).toHaveValue("test value")
+  expect(input).toHaveValue(TEST_VALUE)
 })
 
 test("should call onAdd with trimmed value when Enter key is pressed", async () => {
@@ -84,11 +86,11 @@ test("should call onAdd with trimmed value when Enter key is pressed", async () 
   await user.click(createButton)
 
   const input = await screen.findByPlaceholderText(/add new item/i)
-  await user.type(input, "  test value  ")
+  await user.type(input, `  ${TEST_VALUE}  `)
   await user.keyboard("{Enter}")
 
   await waitFor(() => {
-    expect(mockOnAdd).toHaveBeenCalledWith("test value")
+    expect(mockOnAdd).toHaveBeenCalledWith(TEST_VALUE)
   })
 })
 
@@ -102,13 +104,13 @@ test("should call onAdd when confirmation button is clicked", async () => {
   await user.click(createButton)
 
   const input = await screen.findByPlaceholderText(/add new item/i)
-  await user.type(input, "test value")
+  await user.type(input, TEST_VALUE)
 
   const saveButton = screen.getByRole("button", { name: /save new tag/i })
   await user.click(saveButton)
 
   await waitFor(() => {
-    expect(mockOnAdd).toHaveBeenCalledWith("test value")
+    expect(mockOnAdd).toHaveBeenCalledWith(TEST_VALUE)
   })
 })
 
@@ -128,7 +130,7 @@ test("should show loading state when add operation is in progress", async () => 
   await user.click(createButton)
 
   const input = await screen.findByPlaceholderText(/add new item/i)
-  await user.type(input, "test value")
+  await user.type(input, TEST_VALUE)
 
   const saveButton = screen.getByRole("button", { name: /save new tag/i })
   await user.click(saveButton)
@@ -154,7 +156,7 @@ test("should disable input when loading", async () => {
   await user.click(createButton)
 
   const input = await screen.findByPlaceholderText(/add new item/i)
-  await user.type(input, "test value")
+  await user.type(input, TEST_VALUE)
   await user.keyboard("{Enter}")
 
   await waitFor(() => {
@@ -172,7 +174,7 @@ test("should not collapse when blur occurs with non-empty input", async () => {
   await user.click(createButton)
 
   const input = await screen.findByPlaceholderText(/add new item/i)
-  await user.type(input, "test value")
+  await user.type(input, TEST_VALUE)
   await user.click(document.body)
 
   expect(screen.getByPlaceholderText(/add new item/i)).toBeInTheDocument()

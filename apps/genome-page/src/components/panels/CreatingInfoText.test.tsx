@@ -4,6 +4,7 @@ import { right } from "fp-ts/TaskEither"
 import { CreatingInfoText } from "./CreatingInfoText"
 
 const TEST_ID = "DDB_G0123456"
+const NEW_DESCRIPTION = "New description"
 const mockCreate = vi.fn()
 
 vi.mock("common/hooks/useAuthorizedCreateGeneGeneralInfo", () => ({
@@ -59,7 +60,7 @@ test("should enable save button when text is entered", async () => {
   render(<CreatingInfoText id={TEST_ID} setIsCreating={mockSetIsCreating} />)
 
   const textField = screen.getByRole("textbox")
-  await user.type(textField, "New description")
+  await user.type(textField, NEW_DESCRIPTION)
 
   const saveButton = screen.getByRole("button", { name: /save/i })
   expect(saveButton).not.toBeDisabled()
@@ -73,7 +74,7 @@ test("should update text when typing", async () => {
   render(<CreatingInfoText id={TEST_ID} setIsCreating={mockSetIsCreating} />)
 
   const textField = screen.getByRole("textbox")
-  await user.type(textField, "New description")
+  await user.type(textField, NEW_DESCRIPTION)
 
   expect(textField).toHaveValue("New description")
 })
@@ -86,7 +87,7 @@ test("should call setIsCreating with false when cancel is clicked", async () => 
   render(<CreatingInfoText id={TEST_ID} setIsCreating={mockSetIsCreating} />)
 
   const textField = screen.getByRole("textbox")
-  await user.type(textField, "New description")
+  await user.type(textField, NEW_DESCRIPTION)
 
   const cancelButton = screen.getByRole("button", { name: /cancel/i })
   await user.click(cancelButton)
@@ -103,7 +104,7 @@ test("should not call create when cancel is clicked", async () => {
   render(<CreatingInfoText id={TEST_ID} setIsCreating={mockSetIsCreating} />)
 
   const textField = screen.getByRole("textbox")
-  await user.type(textField, "New description")
+  await user.type(textField, NEW_DESCRIPTION)
 
   const cancelButton = screen.getByRole("button", { name: /cancel/i })
   await user.click(cancelButton)

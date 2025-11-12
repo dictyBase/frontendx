@@ -5,6 +5,7 @@ import { EditingInfoText } from "./EditingInfoText"
 
 const TEST_ID = "DDB_G0123456"
 const INITIAL_TEXT = "Initial description"
+const UPDATED_DESCRIPTION = "Updated description"
 const mockUpdate = vi.fn()
 
 vi.mock("common/hooks/useAuthorizedUpdateGeneGeneralInfo", () => ({
@@ -74,9 +75,9 @@ test("should update text when typing", async () => {
 
   const textField = screen.getByDisplayValue(INITIAL_TEXT)
   await user.clear(textField)
-  await user.type(textField, "Updated description")
+  await user.type(textField, UPDATED_DESCRIPTION)
 
-  expect(textField).toHaveValue("Updated description")
+  expect(textField).toHaveValue(UPDATED_DESCRIPTION)
 })
 
 test("should disable save button when text is empty", async () => {
@@ -135,7 +136,7 @@ test("should call setIsEditing with false when cancel is clicked", async () => {
 
   const textField = screen.getByDisplayValue(INITIAL_TEXT)
   await user.clear(textField)
-  await user.type(textField, "Updated description")
+  await user.type(textField, UPDATED_DESCRIPTION)
 
   const cancelButton = screen.getByRole("button", { name: /cancel/i })
   await user.click(cancelButton)
@@ -159,7 +160,7 @@ test("should not call update when cancel is clicked", async () => {
 
   const textField = screen.getByDisplayValue(INITIAL_TEXT)
   await user.clear(textField)
-  await user.type(textField, "Updated description")
+  await user.type(textField, UPDATED_DESCRIPTION)
 
   const cancelButton = screen.getByRole("button", { name: /cancel/i })
   await user.click(cancelButton)

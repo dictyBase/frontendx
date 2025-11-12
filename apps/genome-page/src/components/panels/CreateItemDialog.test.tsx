@@ -3,6 +3,7 @@ import { userEvent } from "@testing-library/user-event"
 import { CreateItemDialog } from "./CreateItemDialog"
 
 const TEST_ID = "DDB_G0123456"
+const TEST_VALUE = "test value"
 
 vi.mock("common/hooks/useAuthorizedCreateGeneGeneralInfo", () => ({
   useAuthorizedCreateGeneGeneralInfo: () => vi.fn(),
@@ -121,7 +122,7 @@ test("should enable create button when input has value", async () => {
   )
 
   const textField = screen.getByLabelText("Synonym")
-  await user.type(textField, "test value")
+  await user.type(textField, TEST_VALUE)
 
   const createButton = screen.getByRole("button", { name: /create/i })
   expect(createButton).not.toBeDisabled()
@@ -142,7 +143,7 @@ test("should update input value when typing", async () => {
   )
 
   const textField = screen.getByLabelText("Synonym")
-  await user.type(textField, "test value")
+  await user.type(textField, TEST_VALUE)
 
   expect(textField).toHaveValue("test value")
 })
