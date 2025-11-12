@@ -144,7 +144,6 @@ const MorphingCreateButton: FunctionComponent<{
             fullWidth
             error={error}
             disabled={loading}
-            hasError={error}
           />
           <LoadingConfirmationButton onClick={handleAdd} loading={loading} />
         </MorphingButtonTextFieldBox>
