@@ -11,13 +11,12 @@ import {
 import { of as IOof } from "fp-ts/IO"
 import { match } from "ts-pattern"
 import IconButton from "@mui/material/IconButton"
-import TextField from "@mui/material/TextField"
 import Fade from "@mui/material/Fade"
 import Grow from "@mui/material/Grow"
 import AddIcon from "@mui/icons-material/Add"
 import { UpdateGeneGeneralInfoError } from "common/hooks/useAuthorizedUpdateGeneGeneralInfo"
-import { jitterAnimation } from "styles/animations"
 import { MorphingButtonBox } from "./MorphingButtonBox"
+import { MorphingTextField } from "./MorphingTextField"
 import { LoadingConfirmationButton } from "./LoadingConfirmationButton"
 
 const buttonColor = "primary.main"
@@ -136,7 +135,7 @@ const MorphingButton: FunctionComponent<{
       {/* Expanded State: Input and Save Button */}
       <Fade in={isExpanded} timeout={100}>
         <MorphingButtonBox isExpanded={isExpanded}>
-          <TextField
+          <MorphingTextField
             inputRef={inputReference}
             type="text"
             value={inputValue}
@@ -147,33 +146,8 @@ const MorphingButton: FunctionComponent<{
             size="small"
             fullWidth
             error={error}
+            hasError={error}
             disabled={loading}
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                height: 36,
-                borderRadius: 18,
-                paddingRight: "40px",
-                bgcolor: "background.paper",
-                "& fieldset": {
-                  borderColor: "primary.light",
-                  borderWidth: 2,
-                },
-                "&:hover fieldset": {
-                  borderColor: buttonColor,
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: buttonColor,
-                  borderWidth: 2,
-                },
-              },
-              "& input": {
-                paddingLeft: 2,
-              },
-              ...match(error)
-                .with(true, () => jitterAnimation)
-                .with(false, () => ({}))
-                .exhaustive(),
-            }}
           />
           <LoadingConfirmationButton onClick={handleAdd} loading={loading} />
         </MorphingButtonBox>
