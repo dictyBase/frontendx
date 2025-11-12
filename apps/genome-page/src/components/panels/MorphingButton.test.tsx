@@ -204,9 +204,6 @@ test("should collapse when blur occurs with empty input", async () => {
   const addButton = screen.getByRole("button", { name: /add new tag/i })
   await user.click(addButton)
 
-  const input = await screen.findByPlaceholderText(
-    new RegExp(PLACEHOLDER_TEXT, "i"),
-  )
   await user.click(document.body)
 
   await waitFor(() => {

@@ -1,3 +1,4 @@
+import { vi } from "vitest"
 import { render, screen, waitFor } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
 import { right as TEright } from "fp-ts/TaskEither"
@@ -189,7 +190,6 @@ test("should collapse when blur occurs with empty input", async () => {
   const createButton = screen.getByRole("button", { name: /create/i })
   await user.click(createButton)
 
-  const input = await screen.findByPlaceholderText(/add new item/i)
   await user.click(document.body)
 
   await waitFor(() => {
