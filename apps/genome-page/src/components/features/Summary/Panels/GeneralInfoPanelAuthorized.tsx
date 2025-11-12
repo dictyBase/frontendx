@@ -41,17 +41,12 @@ const GeneralInfoPanelAuthorized = ({ generalInformation }: Properties) =>
           Acompact,
           Amatch(
             () => (
-              <AuthorizedEmptyInfoList
-                id={info.id}
-                field="name_description"
-                label="Name Description"
-              />
+              <AuthorizedEmptyInfoList id={info.id} field="name_description" />
             ),
             (contentList) => (
               <EditableContentList
                 id={info.id}
                 field="name_description"
-                label="Name Description"
                 infoList={contentList}
               />
             ),
@@ -75,18 +70,11 @@ const GeneralInfoPanelAuthorized = ({ generalInformation }: Properties) =>
           Amap(OfromNullable),
           Acompact,
           Amatch(
-            () => (
-              <AuthorizedEmptyInfoList
-                id={info.id}
-                field="synonyms"
-                label="Alternative Gene Name"
-              />
-            ),
+            () => <AuthorizedEmptyInfoList id={info.id} field="synonyms" />,
             (contentList) => (
               <EditableContentList
                 id={info.id}
                 field="synonyms"
-                label="Alternative Gene Name"
                 infoList={contentList}
               />
             ),
