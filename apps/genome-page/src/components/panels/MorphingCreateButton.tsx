@@ -12,13 +12,13 @@ import { of as IOof } from "fp-ts/IO"
 import { match } from "ts-pattern"
 import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
-import TextField from "@mui/material/TextField"
 import Fade from "@mui/material/Fade"
 import Grow from "@mui/material/Grow"
 import AddIcon from "@mui/icons-material/Add"
 import { CreateGeneGeneralInfoError } from "common/hooks/useAuthorizedCreateGeneGeneralInfo"
-import { jitterAnimation } from "styles/animations"
 import { LoadingConfirmationButton } from "./LoadingConfirmationButton"
+import { MorphingButtonTextFieldBox } from "./MorphingButtonTextFieldBox"
+import { MorphingTextField } from "./MorphingTextField"
 
 const buttonColor = "primary.main"
 
@@ -132,15 +132,8 @@ const MorphingCreateButton: FunctionComponent<{
       </Grow>
       {/* Expanded State: Input and Save Button */}
       <Fade in={isExpanded} timeout={100}>
-        <Box
-          sx={{
-            position: "absolute",
-            inset: 0,
-            display: "flex",
-            alignItems: "center",
-            pointerEvents: isExpanded ? "auto" : "none",
-          }}>
-          <TextField
+        <MorphingButtonTextFieldBox isExpanded={isExpanded}>
+          <MorphingTextField
             inputRef={inputReference}
             type="text"
             value={inputValue}
@@ -148,39 +141,13 @@ const MorphingCreateButton: FunctionComponent<{
             onKeyDown={handleKeyDown}
             onBlur={handleBlur}
             placeholder="Add new item"
-            size="small"
             fullWidth
             error={error}
             disabled={loading}
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                height: 36,
-                borderRadius: 18,
-                paddingRight: "40px",
-                bgcolor: "background.paper",
-                "& fieldset": {
-                  borderColor: "primary.light",
-                  borderWidth: 2,
-                },
-                "&:hover fieldset": {
-                  borderColor: buttonColor,
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: buttonColor,
-                  borderWidth: 2,
-                },
-              },
-              "& input": {
-                paddingLeft: 2,
-              },
-              ...match(error)
-                .with(true, () => jitterAnimation)
-                .with(false, () => ({}))
-                .exhaustive(),
-            }}
+            hasError={error}
           />
           <LoadingConfirmationButton onClick={handleAdd} loading={loading} />
-        </Box>
+        </MorphingButtonTextFieldBox>
       </Fade>
     </Box>
   )
