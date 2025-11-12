@@ -5,7 +5,7 @@ interface MorphingButtonBoxProperties extends BoxProps {
   isExpanded: boolean
 }
 
-const MorphingButtonBox = styled(Box)<MorphingButtonBoxProperties>(
+const MorphingButtonTextFieldBox = styled(Box)<MorphingButtonBoxProperties>(
   ({ isExpanded }) => ({
     position: "absolute",
     inset: 0,
@@ -15,4 +15,4 @@ const MorphingButtonBox = styled(Box)<MorphingButtonBoxProperties>(
   }),
 )
 
-export { MorphingButtonBox }
+export { MorphingButtonTextFieldBox }

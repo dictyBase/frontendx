@@ -15,7 +15,7 @@ import Fade from "@mui/material/Fade"
 import Grow from "@mui/material/Grow"
 import AddIcon from "@mui/icons-material/Add"
 import { UpdateGeneGeneralInfoError } from "common/hooks/useAuthorizedUpdateGeneGeneralInfo"
-import { MorphingButtonBox } from "./MorphingButtonBox"
+import { MorphingButtonTextFieldBox } from "./MorphingButtonTextFieldBox"
 import { MorphingTextField } from "./MorphingTextField"
 import { LoadingConfirmationButton } from "./LoadingConfirmationButton"
 
@@ -92,7 +92,7 @@ const MorphingButton: FunctionComponent<{
   }
 
   return (
-    <MorphingButtonBox
+    <MorphingButtonTextFieldBox
       sx={{
         position: "relative",
         display: "flex",
@@ -134,7 +134,7 @@ const MorphingButton: FunctionComponent<{
 
       {/* Expanded State: Input and Save Button */}
       <Fade in={isExpanded} timeout={100}>
-        <MorphingButtonBox isExpanded={isExpanded}>
+        <MorphingButtonTextFieldBox isExpanded={isExpanded}>
           <MorphingTextField
             inputRef={inputReference}
             type="text"
@@ -143,16 +143,15 @@ const MorphingButton: FunctionComponent<{
             onKeyDown={handleKeyDown}
             onBlur={handleBlur}
             placeholder="Add new item"
-            size="small"
             fullWidth
             error={error}
             hasError={error}
             disabled={loading}
           />
           <LoadingConfirmationButton onClick={handleAdd} loading={loading} />
-        </MorphingButtonBox>
+        </MorphingButtonTextFieldBox>
       </Fade>
-    </MorphingButtonBox>
+    </MorphingButtonTextFieldBox>
   )
 }
 
