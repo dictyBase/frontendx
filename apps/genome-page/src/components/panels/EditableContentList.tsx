@@ -54,7 +54,9 @@ const EditableContentList: FunctionComponent<{
         rowGap={1}>
         {pipe(
           infoList,
-          Amap((s) => <DeletableChip label={s} handleDelete={handleDelete} />),
+          Amap((s) => (
+            <DeletableChip key={s} label={s} handleDelete={handleDelete} />
+          )),
         )}
         <MorphingButton onAdd={handleAdd} />
       </Stack>
