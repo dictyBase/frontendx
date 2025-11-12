@@ -11,6 +11,7 @@ import {
 import { of as IOof } from "fp-ts/IO"
 import { match } from "ts-pattern"
 import IconButton from "@mui/material/IconButton"
+import Box from "@mui/material/Box"
 import Fade from "@mui/material/Fade"
 import Grow from "@mui/material/Grow"
 import AddIcon from "@mui/icons-material/Add"
@@ -92,7 +93,7 @@ const MorphingButton: FunctionComponent<{
   }
 
   return (
-    <MorphingButtonTextFieldBox
+    <Box
       sx={{
         position: "relative",
         display: "flex",
@@ -145,13 +146,12 @@ const MorphingButton: FunctionComponent<{
             placeholder="Add new item"
             fullWidth
             error={error}
-            hasError={error}
             disabled={loading}
           />
           <LoadingConfirmationButton onClick={handleAdd} loading={loading} />
         </MorphingButtonTextFieldBox>
       </Fade>
-    </MorphingButtonTextFieldBox>
+    </Box>
   )
 }
 
