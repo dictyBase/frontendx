@@ -1,6 +1,4 @@
-import type { SxProps, Theme } from "@mui/material"
-
-const jitterAnimation: SxProps<Theme> = {
+const jitterAnimation = {
   animation: "jitter 0.3s ease-in-out",
   "@keyframes jitter": {
     "0%, 100%": { transform: "translateX(0)" },
