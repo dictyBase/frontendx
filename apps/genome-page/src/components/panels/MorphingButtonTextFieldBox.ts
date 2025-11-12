@@ -6,7 +6,7 @@ interface MorphingButtonTextFieldBoxProperties extends BoxProps {
 }
 
 const MorphingButtonTextFieldBox = styled(Box, {
-  shouldForwardProp: (prop) => prop !== "isExpanded",
+  shouldForwardProp: (properties) => properties !== "isExpanded",
 })<MorphingButtonTextFieldBoxProperties>(({ isExpanded }) => ({
   position: "absolute",
   inset: 0,
