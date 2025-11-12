@@ -1,12 +1,16 @@
+import { vi } from "vitest"
 import { render, screen, waitFor } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
-import { right } from "fp-ts/TaskEither"
+import { right as TEright } from "fp-ts/TaskEither"
+import { Either, right as Eright } from "fp-ts/Either"
 import { MorphingButton } from "./MorphingButton"
 
 const PLACEHOLDER_TEXT = "add new item"
 
+const testInput = "test value"
+
 test("should render plus icon button in collapsed state", () => {
-  const mockOnAdd = vi.fn(() => right({}))
+  const mockOnAdd = vi.fn(() => TEright({}))
 
   render(<MorphingButton onAdd={mockOnAdd} />)
 
@@ -17,7 +21,7 @@ test("should render plus icon button in collapsed state", () => {
 
 test("should expand when plus button is clicked", async () => {
   const user = userEvent.setup()
-  const mockOnAdd = vi.fn(() => right({}))
+  const mockOnAdd = vi.fn(() => TEright({}))
 
   render(<MorphingButton onAdd={mockOnAdd} />)
 
@@ -31,7 +35,7 @@ test("should expand when plus button is clicked", async () => {
 
 test("should focus input field when expanded", async () => {
   const user = userEvent.setup()
-  const mockOnAdd = vi.fn(() => right({}))
+  const mockOnAdd = vi.fn(() => TEright({}))
 
   render(<MorphingButton onAdd={mockOnAdd} />)
 
@@ -46,7 +50,7 @@ test("should focus input field when expanded", async () => {
 
 test("should render confirmation button in expanded state", async () => {
   const user = userEvent.setup()
-  const mockOnAdd = vi.fn(() => right({}))
+  const mockOnAdd = vi.fn(() => TEright({}))
 
   render(<MorphingButton onAdd={mockOnAdd} />)
 
@@ -62,7 +66,7 @@ test("should render confirmation button in expanded state", async () => {
 
 test("should update input value when typing", async () => {
   const user = userEvent.setup()
-  const mockOnAdd = vi.fn(() => right({}))
+  const mockOnAdd = vi.fn(() => TEright({}))
 
   render(<MorphingButton onAdd={mockOnAdd} />)
 
@@ -72,14 +76,14 @@ test("should update input value when typing", async () => {
   const input = await screen.findByPlaceholderText(
     new RegExp(PLACEHOLDER_TEXT, "i"),
   )
-  await user.type(input, "test value")
+  await user.type(input, testInput)
 
-  expect(input).toHaveValue("test value")
+  expect(input).toHaveValue(testInput)
 })
 
 test("should call onAdd with trimmed value when Enter key is pressed", async () => {
   const user = userEvent.setup()
-  const mockOnAdd = vi.fn(() => right({}))
+  const mockOnAdd = vi.fn(() => TEright({}))
 
   render(<MorphingButton onAdd={mockOnAdd} />)
 
@@ -93,13 +97,13 @@ test("should call onAdd with trimmed value when Enter key is pressed", async () 
   await user.keyboard("{Enter}")
 
   await waitFor(() => {
-    expect(mockOnAdd).toHaveBeenCalledWith("test value")
+    expect(mockOnAdd).toHaveBeenCalledWith(testInput)
   })
 })
 
 test("should call onAdd when confirmation button is clicked", async () => {
   const user = userEvent.setup()
-  const mockOnAdd = vi.fn(() => right({}))
+  const mockOnAdd = vi.fn(() => TEright({}))
 
   render(<MorphingButton onAdd={mockOnAdd} />)
 
@@ -109,23 +113,24 @@ test("should call onAdd when confirmation button is clicked", async () => {
   const input = await screen.findByPlaceholderText(
     new RegExp(PLACEHOLDER_TEXT, "i"),
   )
-  await user.type(input, "test value")
+  await user.type(input, testInput)
 
   const saveButton = screen.getByRole("button", { name: /save new tag/i })
   await user.click(saveButton)
 
   await waitFor(() => {
-    expect(mockOnAdd).toHaveBeenCalledWith("test value")
+    expect(mockOnAdd).toHaveBeenCalledWith(testInput)
   })
 })
 
 test("should show loading state when add operation is in progress", async () => {
   const user = userEvent.setup()
   const mockOnAdd = vi.fn(
-    () =>
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    () => (): Promise<Either<any, any>> =>
       new Promise((resolve) => {
-        setTimeout(() => resolve(right({})), 100)
-      }) as any,
+        setTimeout(() => resolve(Eright({})), 100)
+      }),
   )
 
   render(<MorphingButton onAdd={mockOnAdd} />)
@@ -136,7 +141,7 @@ test("should show loading state when add operation is in progress", async () => 
   const input = await screen.findByPlaceholderText(
     new RegExp(PLACEHOLDER_TEXT, "i"),
   )
-  await user.type(input, "test value")
+  await user.type(input, testInput)
 
   const saveButton = screen.getByRole("button", { name: /save new tag/i })
   await user.click(saveButton)
@@ -149,10 +154,11 @@ test("should show loading state when add operation is in progress", async () => 
 test("should disable input when loading", async () => {
   const user = userEvent.setup()
   const mockOnAdd = vi.fn(
-    () =>
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    () => (): Promise<Either<any, any>> =>
       new Promise((resolve) => {
-        setTimeout(() => resolve(right({})), 100)
-      }) as any,
+        setTimeout(() => resolve(Eright({})), 100)
+      }),
   )
 
   render(<MorphingButton onAdd={mockOnAdd} />)
@@ -163,7 +169,7 @@ test("should disable input when loading", async () => {
   const input = await screen.findByPlaceholderText(
     new RegExp(PLACEHOLDER_TEXT, "i"),
   )
-  await user.type(input, "test value")
+  await user.type(input, testInput)
   await user.keyboard("{Enter}")
 
   await waitFor(() => {
@@ -173,7 +179,7 @@ test("should disable input when loading", async () => {
 
 test("should not collapse when blur occurs with non-empty input", async () => {
   const user = userEvent.setup()
-  const mockOnAdd = vi.fn(() => right({}))
+  const mockOnAdd = vi.fn(() => TEright({}))
 
   render(<MorphingButton onAdd={mockOnAdd} />)
 
@@ -183,7 +189,7 @@ test("should not collapse when blur occurs with non-empty input", async () => {
   const input = await screen.findByPlaceholderText(
     new RegExp(PLACEHOLDER_TEXT, "i"),
   )
-  await user.type(input, "test value")
+  await user.type(input, testInput)
   await user.click(document.body)
 
   expect(screen.getByPlaceholderText(/add new item/i)).toBeInTheDocument()

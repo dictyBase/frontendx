@@ -1,10 +1,11 @@
 import { render, screen, waitFor } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
-import { right } from "fp-ts/TaskEither"
+import { right as TEright } from "fp-ts/TaskEither"
+import { Either, right as Eright } from "fp-ts/Either"
 import { MorphingCreateButton } from "./MorphingCreateButton"
 
 test("should render create button with icon in collapsed state", () => {
-  const mockOnAdd = vi.fn(() => right({}))
+  const mockOnAdd = vi.fn(() => TEright({}))
 
   render(<MorphingCreateButton onAdd={mockOnAdd} />)
 
@@ -15,7 +16,7 @@ test("should render create button with icon in collapsed state", () => {
 
 test("should expand when create button is clicked", async () => {
   const user = userEvent.setup()
-  const mockOnAdd = vi.fn(() => right({}))
+  const mockOnAdd = vi.fn(() => TEright({}))
 
   render(<MorphingCreateButton onAdd={mockOnAdd} />)
 
@@ -29,7 +30,7 @@ test("should expand when create button is clicked", async () => {
 
 test("should focus input field when expanded", async () => {
   const user = userEvent.setup()
-  const mockOnAdd = vi.fn(() => right({}))
+  const mockOnAdd = vi.fn(() => TEright({}))
 
   render(<MorphingCreateButton onAdd={mockOnAdd} />)
 
@@ -44,7 +45,7 @@ test("should focus input field when expanded", async () => {
 
 test("should render confirmation button in expanded state", async () => {
   const user = userEvent.setup()
-  const mockOnAdd = vi.fn(() => right({}))
+  const mockOnAdd = vi.fn(() => TEright({}))
 
   render(<MorphingCreateButton onAdd={mockOnAdd} />)
 
@@ -60,7 +61,7 @@ test("should render confirmation button in expanded state", async () => {
 
 test("should update input value when typing", async () => {
   const user = userEvent.setup()
-  const mockOnAdd = vi.fn(() => right({}))
+  const mockOnAdd = vi.fn(() => TEright({}))
 
   render(<MorphingCreateButton onAdd={mockOnAdd} />)
 
@@ -75,7 +76,7 @@ test("should update input value when typing", async () => {
 
 test("should call onAdd with trimmed value when Enter key is pressed", async () => {
   const user = userEvent.setup()
-  const mockOnAdd = vi.fn(() => right({}))
+  const mockOnAdd = vi.fn(() => TEright({}))
 
   render(<MorphingCreateButton onAdd={mockOnAdd} />)
 
@@ -93,7 +94,7 @@ test("should call onAdd with trimmed value when Enter key is pressed", async () 
 
 test("should call onAdd when confirmation button is clicked", async () => {
   const user = userEvent.setup()
-  const mockOnAdd = vi.fn(() => right({}))
+  const mockOnAdd = vi.fn(() => TEright({}))
 
   render(<MorphingCreateButton onAdd={mockOnAdd} />)
 
@@ -114,10 +115,11 @@ test("should call onAdd when confirmation button is clicked", async () => {
 test("should show loading state when add operation is in progress", async () => {
   const user = userEvent.setup()
   const mockOnAdd = vi.fn(
-    () =>
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    () => (): Promise<Either<any, any>> =>
       new Promise((resolve) => {
-        setTimeout(() => resolve(right({})), 100)
-      }) as any,
+        setTimeout(() => resolve(Eright({})), 100)
+      }),
   )
 
   render(<MorphingCreateButton onAdd={mockOnAdd} />)
@@ -139,10 +141,11 @@ test("should show loading state when add operation is in progress", async () => 
 test("should disable input when loading", async () => {
   const user = userEvent.setup()
   const mockOnAdd = vi.fn(
-    () =>
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    () => (): Promise<Either<any, any>> =>
       new Promise((resolve) => {
-        setTimeout(() => resolve(right({})), 100)
-      }) as any,
+        setTimeout(() => resolve(Eright({})), 100)
+      }),
   )
 
   render(<MorphingCreateButton onAdd={mockOnAdd} />)
@@ -161,7 +164,7 @@ test("should disable input when loading", async () => {
 
 test("should not collapse when blur occurs with non-empty input", async () => {
   const user = userEvent.setup()
-  const mockOnAdd = vi.fn(() => right({}))
+  const mockOnAdd = vi.fn(() => TEright({}))
 
   render(<MorphingCreateButton onAdd={mockOnAdd} />)
 
