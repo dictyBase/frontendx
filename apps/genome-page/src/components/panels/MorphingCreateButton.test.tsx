@@ -26,9 +26,7 @@ test("should expand when create button is clicked", async () => {
   const createButton = screen.getByRole("button", { name: /create/i })
   await user.click(createButton)
 
-  await waitFor(() => {
-    expect(screen.getByPlaceholderText(/add new item/i)).toBeInTheDocument()
-  })
+  expect(screen.getByPlaceholderText(/add new item/i)).toBeInTheDocument()
 })
 
 test("should focus input field when expanded", async () => {
@@ -40,10 +38,8 @@ test("should focus input field when expanded", async () => {
   const createButton = screen.getByRole("button", { name: /create/i })
   await user.click(createButton)
 
-  await waitFor(() => {
-    const input = screen.getByPlaceholderText(/add new item/i)
-    expect(input).toHaveFocus()
-  })
+  const input = screen.getByPlaceholderText(/add new item/i)
+  expect(input).toHaveFocus()
 })
 
 test("should render confirmation button in expanded state", async () => {
@@ -55,11 +51,9 @@ test("should render confirmation button in expanded state", async () => {
   const createButton = screen.getByRole("button", { name: /create/i })
   await user.click(createButton)
 
-  await waitFor(() => {
-    expect(
-      screen.getByRole("button", { name: /save new tag/i }),
-    ).toBeInTheDocument()
-  })
+  expect(
+    screen.getByRole("button", { name: /save new tag/i }),
+  ).toBeInTheDocument()
 })
 
 test("should update input value when typing", async () => {
@@ -90,9 +84,7 @@ test("should call onAdd with trimmed value when Enter key is pressed", async () 
   await user.type(input, `  ${TEST_VALUE}  `)
   await user.keyboard("{Enter}")
 
-  await waitFor(() => {
-    expect(mockOnAdd).toHaveBeenCalledWith(TEST_VALUE)
-  })
+  expect(mockOnAdd).toHaveBeenCalledWith(TEST_VALUE)
 })
 
 test("should call onAdd when confirmation button is clicked", async () => {
@@ -110,9 +102,7 @@ test("should call onAdd when confirmation button is clicked", async () => {
   const saveButton = screen.getByRole("button", { name: /save new tag/i })
   await user.click(saveButton)
 
-  await waitFor(() => {
-    expect(mockOnAdd).toHaveBeenCalledWith(TEST_VALUE)
-  })
+  expect(mockOnAdd).toHaveBeenCalledWith(TEST_VALUE)
 })
 
 test("should show loading state when add operation is in progress", async () => {
@@ -136,9 +126,7 @@ test("should show loading state when add operation is in progress", async () => 
   const saveButton = screen.getByRole("button", { name: /save new tag/i })
   await user.click(saveButton)
 
-  await waitFor(() => {
-    expect(screen.getByRole("progressbar")).toBeInTheDocument()
-  })
+  expect(screen.getByRole("progressbar")).toBeInTheDocument()
 })
 
 test("should disable input when loading", async () => {
@@ -160,9 +148,7 @@ test("should disable input when loading", async () => {
   await user.type(input, TEST_VALUE)
   await user.keyboard("{Enter}")
 
-  await waitFor(() => {
-    expect(input).toBeDisabled()
-  })
+  expect(input).toBeDisabled()
 })
 
 test("should not collapse when blur occurs with non-empty input", async () => {
@@ -192,9 +178,7 @@ test("should collapse when blur occurs with empty input", async () => {
 
   await user.click(document.body)
 
-  await waitFor(() => {
-    expect(screen.getByRole("button", { name: /create/i })).toBeVisible()
-  })
+  expect(screen.getByRole("button", { name: /create/i })).toBeVisible()
 })
 
 test("should collapse and clear input when Escape key is pressed", async () => {
@@ -210,9 +194,7 @@ test("should collapse and clear input when Escape key is pressed", async () => {
   await user.type(input, TEST_VALUE)
   await user.keyboard("{Escape}")
 
-  await waitFor(() => {
-    expect(screen.getByRole("button", { name: /create/i })).toBeVisible()
-  })
+  expect(screen.getByRole("button", { name: /create/i })).toBeVisible()
 })
 
 test("should show error state when add operation fails", async () => {
@@ -221,7 +203,7 @@ test("should show error state when add operation fails", async () => {
     // eslint-disable-next-line unicorn/consistent-function-scoping
     () => (): Promise<Either<any, any>> =>
       new Promise((resolve) => {
-        setTimeout(() => resolve(Eleft(new Error("Failed"))), 100)
+        setTimeout(() => resolve(Eleft(new Error("Failed"))), 50)
       }),
   )
 
@@ -236,7 +218,18 @@ test("should show error state when add operation fails", async () => {
   const saveButton = screen.getByRole("button", { name: /save new tag/i })
   await user.click(saveButton)
 
+  expect(mockOnAdd).toHaveBeenCalledWith(TEST_VALUE)
+
+  // Wait for error state to appear (input should have error styling)
   await waitFor(() => {
-    expect(mockOnAdd).toHaveBeenCalledWith(TEST_VALUE)
+    expect(input).toHaveAttribute("aria-invalid", "true")
   })
+
+  // Wait for error to automatically clear after timeout (1000ms)
+  await waitFor(
+    () => {
+      expect(input).toHaveAttribute("aria-invalid", "false")
+    },
+    { timeout: 1500 },
+  )
 })
