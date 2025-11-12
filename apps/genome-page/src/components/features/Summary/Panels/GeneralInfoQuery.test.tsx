@@ -21,7 +21,7 @@ const router = createMemoryRouter(
   { initialEntries: ["/sadA"] },
 )
 
-// Mock GraphQL documenconst mock t to avoid importing from dicty-graphql-schema
+// Mock GraphQL document to avoid importing from dicty-graphql-schema
 vi.mock("dicty-graphql-schema", () => ({
   GeneGeneralInformationSummaryDocument: {},
   useGeneGeneralInformationSummaryQuery:
@@ -36,6 +36,14 @@ vi.mock("components/panels/PanelWrapper", () => ({
       <Box>{children}</Box>
     </Box>
   ),
+}))
+
+// Mock AuthorizationMatch to avoid LogtoProvider requirement
+vi.mock("@dictybase/auth-mui5", () => ({
+  AuthorizationMatch: ({ unauthorized }: any) => unauthorized,
+  Roles: {
+    CONTENT_ADMIN: "content-admin",
+  },
 }))
 
 test("should render loading state initially", async () => {
