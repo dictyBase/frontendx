@@ -5,7 +5,8 @@ import {
   UserWithRoles,
   ACCESS,
   displayOnAuthorized,
-  matchEntries,
+  hasAllowedRole,
+  Roles,
 } from "@dictybase/auth-mui5"
 import { Box, Grid, Divider } from "@mui/material"
 import { Theme } from "@mui/material/styles"
@@ -26,6 +27,9 @@ const useStyles = makeStyles()((theme: Theme) => ({
 type UserViewProperties = {
   user: UserWithRoles
 }
+
+const allowedRoles = new Set([Roles.CONTENT_ADMIN])
+
 const UserView = ({ user }: UserViewProperties) => {
   const { classes } = useStyles()
   return (
@@ -50,7 +54,7 @@ const UserView = ({ user }: UserViewProperties) => {
         </Grid>
         <Grid item xs={4} container direction="column" alignItems="flex-start">
           {displayOnAuthorized({
-            isAuthorized: matchEntries(user.roles, ["content-admin"]),
+            isAuthorized: hasAllowedRole(user.roles, allowedRoles),
             authorized: <EditablePagesList />,
             unauthorized: <NoPages />,
           })}
