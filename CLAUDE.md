@@ -686,3 +686,4 @@ const LazyComponent = lazy(() => import('./HeavyComponent'))
 ```
 - To run scripts for a specific project, use the command `yarn workspace <project-name> <command>
 - Don't use `npm` to manage project dependencies. Use `yarn` instead
+- After you add tests, you should run the tests to confirm they're passing.
