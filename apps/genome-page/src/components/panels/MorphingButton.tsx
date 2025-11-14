@@ -9,11 +9,14 @@ import {
   match as TEmatch,
 } from "fp-ts/TaskEither"
 import { of as IOof } from "fp-ts/IO"
+import { Option, none, some, isSome, match as Omatch } from "fp-ts/Option"
 import { match } from "ts-pattern"
 import IconButton from "@mui/material/IconButton"
 import Box from "@mui/material/Box"
 import Fade from "@mui/material/Fade"
 import Grow from "@mui/material/Grow"
+import Snackbar from "@mui/material/Snackbar"
+import Alert from "@mui/material/Alert"
 import AddIcon from "@mui/icons-material/Add"
 import { UpdateGeneGeneralInfoError } from "common/hooks/useAuthorizedUpdateGeneGeneralInfo"
 import { MorphingButtonTextFieldBox } from "./MorphingButtonTextFieldBox"
@@ -28,8 +31,7 @@ const MorphingButton: FunctionComponent<{
   const [isExpanded, setIsExpanded] = useState(false)
   const [inputValue, setInputValue] = useState("")
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
-  const timerReference = useRef<NodeJS.Timeout | null>(null)
+  const [error, setError] = useState<Option<UpdateGeneGeneralInfoError>>(none)
   const inputReference = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -38,17 +40,6 @@ const MorphingButton: FunctionComponent<{
     }
   }, [isExpanded])
 
-  useEffect(() => {
-    if (error) {
-      timerReference.current = setTimeout(() => {
-        setError(false)
-      }, 1000)
-    }
-    return () => {
-      if (timerReference.current) clearTimeout(timerReference.current)
-    }
-  }, [error])
-
   const handleAdd = pipe(
     inputValue,
     trim,
@@ -56,8 +47,8 @@ const MorphingButton: FunctionComponent<{
     tapIO(() => IOof(setLoading(true))),
     TEflatMap(onAdd),
     TEmatch(
-      () => {
-        setError(true)
+      (errorValue) => {
+        setError(some(errorValue))
         setLoading(false)
       },
       () => {
@@ -76,10 +67,9 @@ const MorphingButton: FunctionComponent<{
       .with({ key: "Escape", loading: false }, () => {
         setInputValue("")
         setIsExpanded(false)
-        setError(false)
       })
       .otherwise(() => {
-        setError(false)
+        setError(none)
       })
 
   const handleExpand = () => {
@@ -92,66 +82,94 @@ const MorphingButton: FunctionComponent<{
     }
   }
 
-  return (
-    <Box
-      sx={{
-        position: "relative",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "flex-end",
-        height: 36,
-        width: isExpanded ? 192 : 36,
-        transition: "width 500ms cubic-bezier(0.4, 0, 0.2, 1)",
-      }}>
-      {/* Collapsed State: Plus Button */}
-      <Grow in={!isExpanded} timeout={500}>
-        <IconButton
-          onClick={handleExpand}
-          sx={{
-            position: "absolute",
-            right: 0,
-            bgcolor: buttonColor,
-            color: "white",
-            borderRadius: "50%",
-            boxShadow: 2,
-            width: 36,
-            height: 36,
-            transform: isExpanded ? "translateX(156px)" : "translateX(0)",
-            transition: "transform 500ms cubic-bezier(0.4, 0, 0.2, 1)",
-            "&:hover": {
-              bgcolor: "primary.dark",
-            },
-            "&:focus-visible": {
-              outline: "2px solid",
-              outlineColor: buttonColor,
-              outlineOffset: 2,
-            },
-            pointerEvents: isExpanded ? "none" : "auto",
-          }}
-          aria-label="Add new tag">
-          <AddIcon sx={{ fontSize: 20 }} />
-        </IconButton>
-      </Grow>
+  const handleCloseSnackbar = () => {
+    setError(none)
+  }
 
-      {/* Expanded State: Input and Save Button */}
-      <Fade in={isExpanded} timeout={100}>
-        <MorphingButtonTextFieldBox isExpanded={isExpanded}>
-          <MorphingTextField
-            inputRef={inputReference}
-            type="text"
-            value={inputValue}
-            onChange={(event) => setInputValue(event.target.value)}
-            onKeyDown={handleKeyDown}
-            onBlur={handleBlur}
-            placeholder="Add new item"
-            fullWidth
-            error={error}
-            disabled={loading}
-          />
-          <LoadingConfirmationButton onClick={handleAdd} loading={loading} />
-        </MorphingButtonTextFieldBox>
-      </Fade>
-    </Box>
+  return (
+    <>
+      <Box
+        sx={{
+          position: "relative",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-end",
+          height: 36,
+          width: isExpanded ? 192 : 36,
+          transition: "width 500ms cubic-bezier(0.4, 0, 0.2, 1)",
+        }}>
+        {/* Collapsed State: Plus Button */}
+        <Grow in={!isExpanded} timeout={500}>
+          <IconButton
+            onClick={handleExpand}
+            sx={{
+              position: "absolute",
+              right: 0,
+              bgcolor: buttonColor,
+              color: "white",
+              borderRadius: "50%",
+              boxShadow: 2,
+              width: 36,
+              height: 36,
+              transform: isExpanded ? "translateX(156px)" : "translateX(0)",
+              transition: "transform 500ms cubic-bezier(0.4, 0, 0.2, 1)",
+              "&:hover": {
+                bgcolor: "primary.dark",
+              },
+              "&:focus-visible": {
+                outline: "2px solid",
+                outlineColor: buttonColor,
+                outlineOffset: 2,
+              },
+              pointerEvents: isExpanded ? "none" : "auto",
+            }}
+            aria-label="Add new tag">
+            <AddIcon sx={{ fontSize: 20 }} />
+          </IconButton>
+        </Grow>
+
+        {/* Expanded State: Input and Save Button */}
+        <Fade in={isExpanded} timeout={100}>
+          <MorphingButtonTextFieldBox isExpanded={isExpanded}>
+            <MorphingTextField
+              inputRef={inputReference}
+              type="text"
+              value={inputValue}
+              onChange={(event) => setInputValue(event.target.value)}
+              onKeyDown={handleKeyDown}
+              onBlur={handleBlur}
+              placeholder="Add new item"
+              fullWidth
+              error={isSome(error)}
+              disabled={loading}
+            />
+            <LoadingConfirmationButton onClick={handleAdd} loading={loading} />
+          </MorphingButtonTextFieldBox>
+        </Fade>
+      </Box>
+
+      {/* Error Snackbar */}
+      {pipe(
+        error,
+        Omatch(
+          () => null,
+          (errorValue) => (
+            <Snackbar
+              open={isSome(error)}
+              autoHideDuration={6000}
+              onClose={handleCloseSnackbar}
+              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}>
+              <Alert
+                onClose={handleCloseSnackbar}
+                severity="error"
+                sx={{ width: "100%" }}>
+                {errorValue.message}
+              </Alert>
+            </Snackbar>
+          ),
+        ),
+      )}
+    </>
   )
 }
 

@@ -76,6 +76,22 @@ export const handlers = [
   // Create Gene General Information Mutation
   mockCreateGeneGeneralInfoMutation(async ({ variables }) => {
     const { id, input } = variables
+
+    // Trigger server error if any field contains "500"
+    const hasServerErrorTrigger = Object.values(input).some((value) => {
+      if (Array.isArray(value)) {
+        return value.some((item) => item === "500")
+      }
+      return value === "500"
+    })
+
+    if (hasServerErrorTrigger) {
+      return HttpResponse.json(
+        { errors: [{ message: errorMessage }] },
+        { status: 500 },
+      )
+    }
+
     try {
       const existing = await geneGeneralInfoDatabase.get(id)
       if (!existing) {
@@ -103,6 +119,22 @@ export const handlers = [
   // Update Gene General Information Mutation
   mockUpdateGeneGeneralInfoMutation(async ({ variables }) => {
     const { id, input } = variables
+
+    // Trigger server error if any field contains "500"
+    const hasServerErrorTrigger = Object.values(input).some((value) => {
+      if (Array.isArray(value)) {
+        return value.some((item) => item === "500")
+      }
+      return value === "500"
+    })
+
+    if (hasServerErrorTrigger) {
+      return HttpResponse.json(
+        { errors: [{ message: errorMessage }] },
+        { status: 500 },
+      )
+    }
+
     try {
       const existing = await geneGeneralInfoDatabase.get(id)
       if (!existing) {
