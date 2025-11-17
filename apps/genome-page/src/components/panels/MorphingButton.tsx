@@ -15,13 +15,12 @@ import IconButton from "@mui/material/IconButton"
 import Box from "@mui/material/Box"
 import Fade from "@mui/material/Fade"
 import Grow from "@mui/material/Grow"
-import Snackbar from "@mui/material/Snackbar"
-import Alert from "@mui/material/Alert"
 import AddIcon from "@mui/icons-material/Add"
 import { UpdateGeneGeneralInfoError } from "common/hooks/useAuthorizedUpdateGeneGeneralInfo"
 import { MorphingButtonTextFieldBox } from "./MorphingButtonTextFieldBox"
 import { MorphingTextField } from "./MorphingTextField"
 import { LoadingConfirmationButton } from "./LoadingConfirmationButton"
+import { SummaryPageErrorAlert } from "./SummaryPageErrorAlert"
 
 const buttonColor = "primary.main"
 
@@ -147,25 +146,16 @@ const MorphingButton: FunctionComponent<{
           </MorphingButtonTextFieldBox>
         </Fade>
       </Box>
-
-      {/* Error Snackbar */}
       {pipe(
         error,
         Omatch(
-          () => null,
-          (errorValue) => (
-            <Snackbar
-              open={isSome(error)}
-              autoHideDuration={6000}
-              onClose={handleCloseSnackbar}
-              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}>
-              <Alert
-                onClose={handleCloseSnackbar}
-                severity="error"
-                sx={{ width: "100%" }}>
-                {errorValue.message}
-              </Alert>
-            </Snackbar>
+          () => <></>,
+          ({ message }) => (
+            <SummaryPageErrorAlert
+              open
+              message={message}
+              handleClose={handleCloseSnackbar}
+            />
           ),
         ),
       )}
