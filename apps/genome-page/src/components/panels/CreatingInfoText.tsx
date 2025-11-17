@@ -35,24 +35,27 @@ const CreatingInfoText: FunctionComponent<{
   const [error, setError] = useState<Option<CreateGeneGeneralInfoError>>(none)
   const create = useAuthorizedCreateGeneGeneralInfo()
 
-  const handleSave = pipe(
-    text,
-    trim,
-    TEof,
-    tapIO(() => IOof(setLoading(true))),
-    TEflatMap(() => create(id, { description: text })),
-    TEmatch(
-      (errorValue) => {
-        setError(some(errorValue))
-        setLoading(false)
-        setIsCreating(false)
-      },
-      () => {
-        setText("")
-        setLoading(false)
-      },
-    ),
-  )
+  const handleSave = () => {
+    if (SisEmpty(text)) return
+    pipe(
+      text,
+      trim,
+      TEof,
+      tapIO(() => IOof(setLoading(true))),
+      TEflatMap(() => create(id, { description: text })),
+      TEmatch(
+        (errorValue) => {
+          setError(some(errorValue))
+          setLoading(false)
+          setIsCreating(false)
+        },
+        () => {
+          setText("")
+          setLoading(false)
+        },
+      ),
+    )()
+  }
 
   const handleChange: ChangeEventHandler<HTMLTextAreaElement> = ({
     currentTarget: { value },
