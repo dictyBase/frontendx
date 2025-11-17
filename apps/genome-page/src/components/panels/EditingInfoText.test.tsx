@@ -80,8 +80,7 @@ test("should update text when typing", async () => {
   expect(textField).toHaveValue(UPDATED_DESCRIPTION)
 })
 
-test("should disable save button when text is empty", async () => {
-  const user = userEvent.setup()
+test("should disable save button when text has not changed", () => {
   mockUpdate.mockReturnValue(() => right({}))
   const mockSetIsEditing = vi.fn()
 
@@ -93,14 +92,11 @@ test("should disable save button when text is empty", async () => {
     />,
   )
 
-  const textField = screen.getByDisplayValue(INITIAL_TEXT)
-  await user.clear(textField)
-
   const saveButton = screen.getByRole("button", { name: /save/i })
   expect(saveButton).toBeDisabled()
 })
 
-test("should not call update when save is clicked without text changes", async () => {
+test("should disable save button when text reverts to initial value", async () => {
   const user = userEvent.setup()
   const mockUpdateFunction = vi.fn(() => right({}))
   mockUpdate.mockReturnValue(mockUpdateFunction)
@@ -114,11 +110,16 @@ test("should not call update when save is clicked without text changes", async (
     />,
   )
 
-  const saveButton = screen.getByRole("button", { name: /save/i })
-  await user.click(saveButton)
+  const textField = screen.getByDisplayValue(INITIAL_TEXT)
+  await user.type(textField, " edited")
 
-  expect(mockUpdateFunction).not.toHaveBeenCalled()
-  expect(mockSetIsEditing).toHaveBeenCalledWith(false)
+  const saveButton = screen.getByRole("button", { name: /save/i })
+  expect(saveButton).not.toBeDisabled()
+
+  await user.clear(textField)
+  await user.type(textField, INITIAL_TEXT)
+
+  expect(saveButton).toBeDisabled()
 })
 
 test("should call setIsEditing with false when cancel is clicked", async () => {
