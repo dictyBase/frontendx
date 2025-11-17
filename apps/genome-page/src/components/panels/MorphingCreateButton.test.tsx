@@ -197,13 +197,23 @@ test("should collapse and clear input when Escape key is pressed", async () => {
   expect(screen.getByRole("button", { name: /create/i })).toBeVisible()
 })
 
-test("should show error state when add operation fails", async () => {
+test("should show error alert when add operation fails", async () => {
   const user = userEvent.setup()
+  const errorMessage = "Could not create data"
   const mockOnAdd = vi.fn(
     // eslint-disable-next-line unicorn/consistent-function-scoping
     () => (): Promise<Either<any, any>> =>
       new Promise((resolve) => {
-        setTimeout(() => resolve(Eleft(new Error("Failed"))), 50)
+        setTimeout(
+          () =>
+            resolve(
+              Eleft({
+                errorType: 2,
+                message: errorMessage,
+              }),
+            ),
+          50,
+        )
       }),
   )
 
@@ -220,16 +230,52 @@ test("should show error state when add operation fails", async () => {
 
   expect(mockOnAdd).toHaveBeenCalledWith(TEST_VALUE)
 
-  // Wait for error state to appear (input should have error styling)
-  await waitFor(() => {
-    expect(input).toHaveAttribute("aria-invalid", "true")
-  })
+  // Error alert should appear
+  const alert = await screen.findByText(errorMessage)
+  expect(alert).toBeInTheDocument()
 
-  // Wait for error to automatically clear after timeout (1000ms)
-  await waitFor(
-    () => {
-      expect(input).toHaveAttribute("aria-invalid", "false")
-    },
-    { timeout: 1500 },
+  // Input should have error styling
+  expect(input).toHaveAttribute("aria-invalid", "true")
+})
+
+test("should close error alert when close button is clicked", async () => {
+  const user = userEvent.setup()
+  const errorMessage = "Could not create data"
+  const mockOnAdd = vi.fn(
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    () => (): Promise<Either<any, any>> =>
+      new Promise((resolve) => {
+        setTimeout(
+          () =>
+            resolve(
+              Eleft({
+                errorType: 2,
+                message: errorMessage,
+              }),
+            ),
+          50,
+        )
+      }),
   )
+
+  render(<MorphingCreateButton onAdd={mockOnAdd} />)
+
+  const createButton = screen.getByRole("button", { name: /create/i })
+  await user.click(createButton)
+
+  const input = await screen.findByPlaceholderText(/add new item/i)
+  await user.type(input, TEST_VALUE)
+
+  const saveButton = screen.getByRole("button", { name: /save new tag/i })
+  await user.click(saveButton)
+
+  // Error alert should appear
+  await screen.findByText(errorMessage)
+
+  // Find and click the close button
+  const closeButton = screen.getByRole("button", { name: /close/i })
+  await user.click(closeButton)
+
+  // Alert should be removed
+  expect(screen.queryByText(errorMessage)).not.toBeInTheDocument()
 })
