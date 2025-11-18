@@ -38,13 +38,15 @@
     "tsconfig": "*",
     "vite": "7.x"
   },
-  "msw": {
-    "workerDirectory": "public"
-  },
   "eslintConfig": {
     "root": true,
     "extends": [
       "custom"
+    ]
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
     ]
   }
 }
