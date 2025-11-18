@@ -12,9 +12,10 @@ import { useRef } from "react"
 import { usePlasmidListFilterQuery } from "dicty-graphql-schema"
 
 const PlasmidCatalog = () => {
-  const { loading, error, data, fetchMore } = usePlasmidListFilterQuery({
-    variables: { ...graphqlQueryVariables, filter: "" },
-  })
+  const { loading, error, data, fetchMore, refetch } =
+    usePlasmidListFilterQuery({
+      variables: { ...graphqlQueryVariables, filter: "" },
+    })
 
   const rootReference = useRef<HTMLDivElement>(null)
   const targetReference = useRef<HTMLTableRowElement>(null)
@@ -55,7 +56,7 @@ const PlasmidCatalog = () => {
           )
           .with({ loading: true }, () => <LoadingDisplay rows={10} />)
           .with({ error: P.select({ message: P.string }) }, (error_) => (
-            <ErrorDisplay error={error_} />
+            <ErrorDisplay error={error_} onRetry={refetch} />
           ))
           .otherwise(() => (
             <></>
