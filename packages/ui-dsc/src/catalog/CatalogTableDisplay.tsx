@@ -133,7 +133,7 @@ const CatalogRows = ({
         if (index === items.length - 1 && nextCursor !== 0) {
           // last item and expected to have more data
           return (
-            <Fragment key={item.id}>
+            <Fragment key={key}>
               <TableRow hover className={row} key={key}>
                 {cellFunction(item)}
               </TableRow>
