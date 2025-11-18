@@ -208,7 +208,7 @@ export const ErrorDisplay = ({
             <Grid container spacing={4}>
               <Grid item xs={6}>
                 <Paper variant="outlined" className={classes.infoBox}>
-                  <Grid container direction="column" spacing={2}>
+                  <Grid container direction="column" spacing={1}>
                     <Grid item>
                       <Typography
                         variant="subtitle2"
