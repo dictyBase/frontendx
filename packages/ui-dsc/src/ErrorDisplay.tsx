@@ -3,10 +3,10 @@ import { match } from "ts-pattern"
 import { pipe } from "fp-ts/function"
 import { head as RAhead } from "fp-ts/ReadonlyArray"
 import { getOrElse as OgetOrElse, map as Omap } from "fp-ts/Option"
+import Paper from "@material-ui/core/Paper"
 import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles"
-import Paper from "@material-ui/core/Paper"
 import Button from "@material-ui/core/Button"
 import RefreshIcon from "@material-ui/icons/Refresh"
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline"
@@ -142,7 +142,7 @@ export type ErrorDisplayProperties = {
   /** The error object of apollo client */
   error: ApolloError
   supportEmail?: string
-  onRetry: () => any
+  refetch: () => any
 }
 
 const DEFAULT_ERROR_MESSAGE = "An unexpected error has occurred."
@@ -157,105 +157,112 @@ const getErrorMessage = ({ extensions }: ApolloError["graphQLErrors"][0]) =>
 export const ErrorDisplay = ({
   error: { graphQLErrors },
   supportEmail = "dictybase@northwestern.edu",
-  onRetry,
+  refetch,
 }: ErrorDisplayProperties) => {
   const classes = errorStyles()
 
+  const handleRetry = () => {
+    refetch()
+  }
   return (
-    <Grid
-      container
-      direction="column"
-      alignItems="stretch"
-      className={classes.root}
-      spacing={2}>
-      <Grid item>
-        <Grid container spacing={2} justifyContent="center">
-          <Grid item>
-            <ErrorOutlineIcon className={classes.icon} />
-          </Grid>
-          <Grid item>
-            <Typography variant="h2" className={classes.errorTitle}>
-              Sorry, something went wrong
-            </Typography>
-            <Typography variant="body1" color="textSecondary" paragraph>
-              We encountered an unexpected error while processing your request.
-            </Typography>
+    <Paper className={classes.root}>
+      <Grid container direction="column" alignItems="stretch" spacing={2}>
+        <Grid item>
+          <Grid container spacing={2} justifyContent="center">
+            <Grid item>
+              <ErrorOutlineIcon className={classes.icon} />
+            </Grid>
+            <Grid item>
+              <Typography variant="h2" className={classes.errorTitle}>
+                Sorry, something went wrong
+              </Typography>
+              <Typography variant="body1" color="textSecondary" paragraph>
+                We encountered an unexpected error while processing your
+                request.
+              </Typography>
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
-      <Grid item>
-        <Grid container direction="column" spacing={2}>
-          <Grid item>
-            <Paper variant="outlined" className={classes.errorBox}>
-              <Grid container direction="column" spacing={2}>
-                <Grid item>
-                  <Typography variant="subtitle2" color="primary" gutterBottom>
-                    Error Details
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    {pipe(
-                      graphQLErrors,
-                      RAhead,
-                      Omap(getErrorMessage),
-                      OgetOrElse(() => DEFAULT_ERROR_MESSAGE),
-                    )}
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Paper>
-          </Grid>
-          <Grid item>
-            <Grid container spacing={4}>
-              <Grid item xs={6}>
-                <Paper variant="outlined" className={classes.infoBox}>
-                  <Grid container direction="column" spacing={1}>
-                    <Grid item>
-                      <Typography
-                        variant="subtitle2"
-                        color="primary"
-                        gutterBottom>
-                        Troubleshooting
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        paragraph>
-                        Sometimes refreshing the page can resolve the issue.
-                      </Typography>
-                    </Grid>
-                    <Grid item>
-                      <Button
-                        variant="contained"
-                        className={classes.refreshButton}
-                        onClick={onRetry}
-                        startIcon={
-                          <RefreshIcon className={classes.buttonIcon} />
-                        }>
-                        Retry
-                      </Button>
-                    </Grid>
+        <Grid item>
+          <Grid container direction="column" spacing={2}>
+            <Grid item>
+              <Paper variant="outlined" className={classes.errorBox}>
+                <Grid container direction="column" spacing={2}>
+                  <Grid item>
+                    <Typography
+                      variant="subtitle2"
+                      color="primary"
+                      gutterBottom>
+                      Error Details
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      {pipe(
+                        graphQLErrors,
+                        RAhead,
+                        Omap(getErrorMessage),
+                        OgetOrElse(() => DEFAULT_ERROR_MESSAGE),
+                      )}
+                    </Typography>
                   </Grid>
-                </Paper>
-              </Grid>
-              <Grid item xs={6}>
-                <Paper variant="outlined" className={classes.infoBox}>
-                  <Typography variant="subtitle2" color="primary" gutterBottom>
-                    Need assistance?
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary" paragraph>
-                    If this problem persists, please email us at:
-                  </Typography>
-                  <a
-                    href={`mailto:${supportEmail}`}
-                    className={classes.emailLink}>
-                    {supportEmail}
-                  </a>
-                </Paper>
+                </Grid>
+              </Paper>
+            </Grid>
+            <Grid item>
+              <Grid container spacing={4}>
+                <Grid item xs={6}>
+                  <Paper variant="outlined" className={classes.infoBox}>
+                    <Grid container direction="column" spacing={1}>
+                      <Grid item>
+                        <Typography
+                          variant="subtitle2"
+                          color="primary"
+                          gutterBottom>
+                          Troubleshooting
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          paragraph>
+                          Sometimes refreshing the page can resolve the issue.
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <Button
+                          variant="contained"
+                          className={classes.refreshButton}
+                          onClick={handleRetry}
+                          startIcon={
+                            <RefreshIcon className={classes.buttonIcon} />
+                          }>
+                          Retry
+                        </Button>
+                      </Grid>
+                    </Grid>
+                  </Paper>
+                </Grid>
+                <Grid item xs={6}>
+                  <Paper variant="outlined" className={classes.infoBox}>
+                    <Typography
+                      variant="subtitle2"
+                      color="primary"
+                      gutterBottom>
+                      Need assistance?
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" paragraph>
+                      If this problem persists, please email us at:
+                    </Typography>
+                    <a
+                      href={`mailto:${supportEmail}`}
+                      className={classes.emailLink}>
+                      {supportEmail}
+                    </a>
+                  </Paper>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
       </Grid>
-    </Grid>
+    </Paper>
   )
 }
