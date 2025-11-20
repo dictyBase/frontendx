@@ -1,9 +1,8 @@
-import { Theme, Box, makeStyles } from "@material-ui/core"
 import { graphqlQueryVariables } from "@dictybase/hook-dsc"
-import { useWindowSize, useIntersectionObserver } from "@dictybase/hook"
+import { useIntersectionObserver } from "@dictybase/hook"
 import { P, match } from "ts-pattern"
 import {
-  LoadingDisplay,
+  WindowHeightWrapper,
   PlasmidCatalogTableDisplay,
   ErrorDisplay,
   CatalogListWrapper,
@@ -12,16 +11,6 @@ import {
 } from "@dictybase/ui-dsc"
 import { useRef } from "react"
 import { usePlasmidListFilterQuery } from "dicty-graphql-schema"
-
-type HeightProperties = {
-  height: number
-}
-
-const useStyles = makeStyles<Theme, HeightProperties>({
-  root: {
-    height: ({ height }) => height,
-  },
-})
 
 const PlasmidCatalog = () => {
   const { loading, error, data, fetchMore, refetch } =
@@ -51,14 +40,11 @@ const PlasmidCatalog = () => {
     option: { root: rootReference.current, threshold: 0.1 },
   })
 
-  const { height: windowHeight } = useWindowSize()
-  const classes = useStyles({ height: windowHeight * 0.6 })
-
   return (
     <>
       <CatalogHeader title="Plasmid Catalog" />
       {/* <SearchBar /> */}
-      <Box className={classes.root}>
+      <WindowHeightWrapper>
         {match({ data, loading, error })
           .with(
             { data: P.select({ listPlasmids: P.not(undefined) }) },
@@ -79,7 +65,7 @@ const PlasmidCatalog = () => {
           .otherwise(() => (
             <></>
           ))}
-      </Box>
+      </WindowHeightWrapper>
     </>
   )
 }
