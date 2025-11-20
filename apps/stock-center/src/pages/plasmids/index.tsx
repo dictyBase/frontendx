@@ -1,15 +1,27 @@
+import { Theme, Box, makeStyles } from "@material-ui/core"
 import { graphqlQueryVariables } from "@dictybase/hook-dsc"
+import { useWindowSize, useIntersectionObserver } from "@dictybase/hook"
 import { P, match } from "ts-pattern"
 import {
   LoadingDisplay,
   PlasmidCatalogTableDisplay,
   ErrorDisplay,
   CatalogListWrapper,
+  CatalogListLoader,
   CatalogHeader,
 } from "@dictybase/ui-dsc"
-import { useIntersectionObserver } from "@dictybase/hook"
 import { useRef } from "react"
 import { usePlasmidListFilterQuery } from "dicty-graphql-schema"
+
+type HeightProperties = {
+  height: number
+}
+
+const useStyles = makeStyles<Theme, HeightProperties>({
+  root: {
+    height: ({ height }) => height,
+  },
+})
 
 const PlasmidCatalog = () => {
   const { loading, error, data, fetchMore, refetch } =
@@ -39,30 +51,35 @@ const PlasmidCatalog = () => {
     option: { root: rootReference.current, threshold: 0.1 },
   })
 
+  const { height: windowHeight } = useWindowSize()
+  const classes = useStyles({ height: windowHeight * 0.6 })
+
   return (
     <>
       <CatalogHeader title="Plasmid Catalog" />
       {/* <SearchBar /> */}
-      <CatalogListWrapper root={rootReference}>
+      <Box className={classes.root}>
         {match({ data, loading, error })
           .with(
             { data: P.select({ listPlasmids: P.not(undefined) }) },
             (data_) => (
-              <PlasmidCatalogTableDisplay
-                data={data_}
-                dataField="listPlasmids"
-                target={targetReference}
-              />
+              <CatalogListWrapper root={rootReference}>
+                <PlasmidCatalogTableDisplay
+                  data={data_}
+                  dataField="listPlasmids"
+                  target={targetReference}
+                />
+              </CatalogListWrapper>
             ),
           )
-          .with({ loading: true }, () => <LoadingDisplay rows={10} />)
+          .with({ loading: true }, () => <CatalogListLoader />)
           .with({ error: P.select({ message: P.string }) }, (error_) => (
             <ErrorDisplay error={error_} refetch={refetch} />
           ))
           .otherwise(() => (
             <></>
           ))}
-      </CatalogListWrapper>
+      </Box>
     </>
   )
 }
