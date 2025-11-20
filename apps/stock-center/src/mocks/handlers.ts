@@ -51,35 +51,35 @@ const handlers = [
       data: { listStrains: { strains, nextCursor, totalCount } },
     })
   }),
-  mockPlasmidListFilterQuery(({ variables }) =>
-    // const { cursor, limit } = variables
-    // const totalCount = mockPlasmidListData.length
-    // const nextCursor = cursor + limit < totalCount ? cursor + limit : 0
-    // const plasmids = mockPlasmidListData.slice(0, cursor + limit)
+  mockPlasmidListFilterQuery(async ({ variables }) => {
+    const { cursor, limit } = variables
+    const totalCount = mockPlasmidListData.length
+    const nextCursor = cursor + limit < totalCount ? cursor + limit : 0
+    const plasmids = mockPlasmidListData.slice(0, cursor + limit)
+    await wait(2000)
+    return HttpResponse.json({
+      data: { listPlasmids: { plasmids, nextCursor, totalCount } },
+    })
     // return HttpResponse.json({
-    //   data: { listPlasmids: { plasmids, nextCursor, totalCount } },
+    //   errors: [
+    //     {
+    //       message:
+    //         "invalid filter parameter: error in generating AQL statement invalid parameters: Key: 'AQLFilterParams.Filters' Error:Field validation for 'Filters' failed on the 'min' tag",
+    //       path: ["listPlasmids"],
+    //       extensions: {
+    //         code: "Internal",
+    //         timestamp: "2025-11-18T14:54:12.155503715Z",
+    //       },
+    //     },
+    //     {
+    //       message:
+    //         "rpc error: code = Internal desc = invalid filter parameter: error in generating AQL statement invalid parameters: Key: 'AQLFilterParams.Filters' Error:Field validation for 'Filters' failed on the 'min' tag",
+    //       path: ["listPlasmids"],
+    //     },
+    //   ],
+    //   data: { listPlasmids: null },
     // })
-    HttpResponse.json({
-      errors: [
-        {
-          message:
-            "invalid filter parameter: error in generating AQL statement invalid parameters: Key: 'AQLFilterParams.Filters' Error:Field validation for 'Filters' failed on the 'min' tag",
-          path: ["listPlasmids"],
-          extensions: {
-            code: "Internal",
-            timestamp: "2025-11-18T14:54:12.155503715Z",
-          },
-        },
-        {
-          message:
-            "rpc error: code = Internal desc = invalid filter parameter: error in generating AQL statement invalid parameters: Key: 'AQLFilterParams.Filters' Error:Field validation for 'Filters' failed on the 'min' tag",
-          path: ["listPlasmids"],
-        },
-      ],
-      // eslint-disable-next-line unicorn/no-null
-      data: { listPlasmids: null },
-    }),
-  ),
+  }),
   mockStrainQuery(() =>
     HttpResponse.json({
       data: { strain: { ...availableStrain, phenotypes: mockPhenotypes } },
