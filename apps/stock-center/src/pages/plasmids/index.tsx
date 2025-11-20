@@ -32,6 +32,7 @@ const PlasmidCatalog = () => {
         fetchMore({ variables: { cursor: nextCursor } })
     }
   }
+
   useIntersectionObserver({
     target: targetReference,
     onIntersection,
@@ -56,7 +57,7 @@ const PlasmidCatalog = () => {
           )
           .with({ loading: true }, () => <LoadingDisplay rows={10} />)
           .with({ error: P.select({ message: P.string }) }, (error_) => (
-            <ErrorDisplay error={error_} onRetry={refetch} />
+            <ErrorDisplay error={error_} refetch={refetch} />
           ))
           .otherwise(() => (
             <></>
