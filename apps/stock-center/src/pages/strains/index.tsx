@@ -2,10 +2,11 @@ import { useMemo, useRef } from "react"
 import { getStrainListConfiguration, defaultFilter } from "@dictybase/hook-dsc"
 import { P, match } from "ts-pattern"
 import {
-  LoadingDisplay,
+  WindowHeightWrapper,
   StrainCatalogTableDisplay,
   SearchBar,
   CatalogListWrapper,
+  CatalogListLoader,
   CatalogHeader,
   ErrorDisplay,
 } from "@dictybase/ui-dsc"
@@ -24,7 +25,9 @@ const StrainCatalog = () => {
       }),
     [value, searchParameters],
   )
-  const { loading, error, data, fetchMore } = useStrainListQuery({ variables })
+  const { loading, error, data, fetchMore, refetch } = useStrainListQuery({
+    variables,
+  })
   const rootReference = useRef<HTMLDivElement>(null)
   const targetReference = useRef<HTMLTableRowElement>(null)
 
@@ -51,26 +54,28 @@ const StrainCatalog = () => {
     <>
       <CatalogHeader title="Strain Catalog" />
       <SearchBar />
-      <CatalogListWrapper root={rootReference}>
+      <WindowHeightWrapper>
         {match({ data, loading, error })
           .with(
             { data: P.select({ listStrains: P.not(undefined) }) },
             (data_) => (
-              <StrainCatalogTableDisplay
-                data={data_}
-                dataField={dataField}
-                target={targetReference}
-              />
+              <CatalogListWrapper root={rootReference}>
+                <StrainCatalogTableDisplay
+                  data={data_}
+                  dataField={dataField}
+                  target={targetReference}
+                />
+              </CatalogListWrapper>
             ),
           )
-          .with({ loading: true }, () => <LoadingDisplay rows={10} />)
+          .with({ loading: true }, () => <CatalogListLoader />)
           .with({ error: P.select({ message: P.string }) }, (error_) => (
-            <ErrorDisplay error={error_} />
+            <ErrorDisplay refetch={refetch} error={error_} />
           ))
           .otherwise(() => (
             <></>
           ))}
-      </CatalogListWrapper>
+      </WindowHeightWrapper>
     </>
   )
 }
