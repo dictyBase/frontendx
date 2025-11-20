@@ -10,7 +10,9 @@ const mockError = {
 } as unknown as ApolloError
 
 test("renders an error message", () => {
-  render(<ErrorDisplay error={mockError} />)
+  render(<ErrorDisplay refetch={() => {}} error={mockError} />)
 
-  expect(screen.getByText(errorMessage)).toBeInTheDocument()
+  expect(
+    screen.getByText("An internal server error has occured."),
+  ).toBeInTheDocument()
 })
