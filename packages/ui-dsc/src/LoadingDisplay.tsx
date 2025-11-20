@@ -19,11 +19,11 @@ export const LoadingDisplay = ({
   rows = 6,
   height = 35,
 }: LoadingDisplayProperties): JSX.Element => (
-  <Box mx={8} mt={4}>
+  <Box mx={8}>
     {Array.from({ length: rows })
       .fill(0)
       .map(() => (
-        <Skeleton key={uuid()} height={height} />
+        <Skeleton animation="wave" key={uuid()} height={height} />
       ))}
   </Box>
 )
