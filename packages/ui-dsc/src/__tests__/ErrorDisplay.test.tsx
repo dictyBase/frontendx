@@ -1,7 +1,7 @@
 import { test, expect, vi } from "vitest"
 import { ApolloError } from "@apollo/client"
 import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { ErrorDisplay } from "../ErrorDisplay"
 
 const errorMessage = "Test Error"
