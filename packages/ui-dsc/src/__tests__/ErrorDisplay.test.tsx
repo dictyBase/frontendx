@@ -13,6 +13,6 @@ test("renders an error message", () => {
   render(<ErrorDisplay refetch={() => {}} error={mockError} />)
 
   expect(
-    screen.getByText("An internal server error has occured."),
+    screen.getByText("An unexpected error has occurred."),
   ).toBeInTheDocument()
 })
