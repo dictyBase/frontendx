@@ -1,6 +1,6 @@
+import { makeBy as AmakeBy } from "fp-ts/Array"
 import { Skeleton } from "@material-ui/lab"
 import { Box } from "@material-ui/core"
-import { v4 as uuid } from "uuid"
 
 /**
  * The prop for {@link LoadingDisplay}
@@ -20,10 +20,13 @@ export const LoadingDisplay = ({
   height = 35,
 }: LoadingDisplayProperties): JSX.Element => (
   <Box mx={8}>
-    {Array.from({ length: rows })
-      .fill(0)
-      .map(() => (
-        <Skeleton animation="wave" key={uuid()} height={height} />
-      ))}
+    {AmakeBy(rows, (n) => (
+      <Skeleton
+        data-testid="mui-skeleton"
+        animation="wave"
+        key={n}
+        height={height}
+      />
+    ))}
   </Box>
 )
