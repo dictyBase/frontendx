@@ -42,11 +42,12 @@ const mockStrainListData = generateListStrainDataOfLength(30)
 const mockPlasmidListData = generateListPlasmidDataOfLength(30)
 
 const handlers = [
-  mockStrainListQuery(({ variables }) => {
+  mockStrainListQuery(async ({ variables }) => {
     const { cursor, limit } = variables
     const totalCount = mockStrainListData.length
     const nextCursor = cursor + limit < totalCount ? cursor + limit : 0
     const strains = mockStrainListData.slice(0, cursor + limit)
+    await wait(2000)
     return HttpResponse.json({
       data: { listStrains: { strains, nextCursor, totalCount } },
     })
@@ -70,11 +71,6 @@ const handlers = [
     //         code: "Internal",
     //         timestamp: "2025-11-18T14:54:12.155503715Z",
     //       },
-    //     },
-    //     {
-    //       message:
-    //         "rpc error: code = Internal desc = invalid filter parameter: error in generating AQL statement invalid parameters: Key: 'AQLFilterParams.Filters' Error:Field validation for 'Filters' failed on the 'min' tag",
-    //       path: ["listPlasmids"],
     //     },
     //   ],
     //   data: { listPlasmids: null },
