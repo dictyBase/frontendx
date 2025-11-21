@@ -1,6 +1,13 @@
 import Paper from "@material-ui/core/Paper"
+import { makeStyles } from "@material-ui/core"
 import { RefObject } from "react"
 
+const useStyles = makeStyles({
+  root: {
+    overflowY: "scroll",
+    height: "100%",
+  },
+})
 /**
  * The prop for {@link CatalogListWrapper}
  */
@@ -18,8 +25,14 @@ export interface CatalogListWrapperProperties {
 export const CatalogListWrapper = ({
   root: rootReference,
   children,
-}: CatalogListWrapperProperties): JSX.Element => (
-  <Paper data-testid="catalog-list-wrapper-root" ref={rootReference}>
-    {children}
-  </Paper>
-)
+}: CatalogListWrapperProperties): JSX.Element => {
+  const classes = useStyles()
+  return (
+    <Paper
+      data-testid="catalog-list-wrapper-root"
+      ref={rootReference}
+      className={classes.root}>
+      {children}
+    </Paper>
+  )
+}
