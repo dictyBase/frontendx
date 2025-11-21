@@ -19,5 +19,7 @@ export const CatalogListWrapper = ({
   root: rootReference,
   children,
 }: CatalogListWrapperProperties): JSX.Element => (
-  <Paper ref={rootReference}>{children}</Paper>
+  <Paper data-testid="catalog-list-wrapper-root" ref={rootReference}>
+    {children}
+  </Paper>
 )
