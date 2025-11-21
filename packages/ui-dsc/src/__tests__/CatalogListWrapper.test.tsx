@@ -20,7 +20,6 @@ test("should pass the RefObject to the Paper component", () => {
     </CatalogListWrapper>,
   )
 
-  console.log(mockReference.current)
   // The ref should be attached to the Paper component
   expect(mockReference.current).toBeInTheDocument()
   expect(mockReference.current).toBe(
