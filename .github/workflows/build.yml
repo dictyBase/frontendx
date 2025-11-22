@@ -10,7 +10,7 @@ jobs:
         with:
           node-version: 22.x
       - name: Check out Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Install Turbo
         run: yarn global add turbo@1.13.3
       - name: Set Up Environment
@@ -32,7 +32,7 @@ jobs:
         with:
           node-version: 20.x
       - name: Check out Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Install Turbo
         run: yarn global add turbo@1.13.3
       - name: Set Up Environment
@@ -54,7 +54,7 @@ jobs:
         with:
           node-version: 20.x
       - name: Check out Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Install Turbo
         run: yarn global add turbo@1.13.3
       - name: Set Up Environment
@@ -76,7 +76,7 @@ jobs:
         with:
           node-version: 20.x
       - name: Check out Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Install Turbo
         run: yarn global add turbo@1.13.3
       - name: Set Up Environment
