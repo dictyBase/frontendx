@@ -28,15 +28,19 @@ COPY --from=builder /app/out/full/ .
 RUN yarn turbo run build --filter=genomepage
 
 
-FROM golang:1.22.6-alpine3.20
+FROM golang:1.22.6-alpine3.20 AS go-builder
 
 RUN apk update \
   && apk add git \
   && git clone https://github.com/dictyBase/static-server.git \
   && cd static-server \
   && go build -o /usr/local/bin/app
+
+FROM alpine:3.20
+
 WORKDIR /www
 COPY --from=installer /app/apps/genome-page/dist ./
+COPY --from=go-builder /usr/local/bin/app /usr/local/bin/app
 ENV PORT=3000
 EXPOSE 3000
 ENTRYPOINT ["/usr/local/bin/app", "run", "-f", "/www", "--sub-url", "/gene", "-p", "3000", "--sf", "/assets"]
