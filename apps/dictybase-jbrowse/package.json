@@ -1,0 +1,29 @@
+{
+  "name": "@dictybase/jbrowse",
+  "version": "0.0.0",
+  "description": "Jbrowse for dictyostelium",
+  "author": "Kevin Tun",
+  "license": "BSD-2-Clause",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview --port 3000",
+    "coverage": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "eslint-config-custom": "*",
+    "prettier": "3.x",
+    "tsconfig": "*",
+    "typescript": "4.x",
+    "vite": "7.x",
+    "vitest": "3.x"
+  },
+  "dependencies": {
+    "@dictybase/auth": "*",
+    "@dictybase/data-access": "*",
+    "react": "18.*",
+    "react-dom": "18.*"
+  }
+}
