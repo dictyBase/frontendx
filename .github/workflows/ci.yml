@@ -24,16 +24,31 @@ jobs:
           token: ${{ secrets.CODECOV }}
   call-deploy:
     needs: test
+    strategy:
+      matrix:
+        include:
+          - app: frontpage
+            docker_image: dicty-frontpage
+            dockerfile: docker/Dockerfile.frontpage
+          - app: stockcenter
+            docker_image: stock-center
+            dockerfile: docker/Dockerfile.stock-center
+          - app: publication
+            docker_image: publication
+            dockerfile: docker/Dockerfile.publication
+          - app: genomepage
+            docker_image: genomepage
+            dockerfile: docker/Dockerfile.genomepage
     uses: dictyBase/workflows/.github/workflows/composite-deploy.yaml@develop
     secrets: inherit
     with:
        project: frontend_application
        stack: experiments
        application_type: frontend
-       app: frontpage:stockcenter:publication:genomepage
+       app: ${{ matrix.app }}
        repository: ${{ github.repository }}
        ref: ${{ github.ref_name }}
-       docker_image: dicty-frontpage:stock-center:publication:genomepage
-       dockerfile: docker/Dockerfile.frontpage:docker/Dockerfile.stock-center:docker/Dockerfile.publication:docker/Dockerfile.genomepage
+       docker_image: ${{ matrix.docker_image }}
+       dockerfile: ${{ matrix.dockerfile }}
        cluster: ${{ vars.DEV_STAGING_CLUSTER }}
        cluster_state_storage: ${{ vars.DEV_STAGING_KOPS_STATE_STORAGE }}
