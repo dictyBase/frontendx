@@ -23,6 +23,7 @@
   "dependencies": {
     "@dictybase/auth": "*",
     "@dictybase/data-access": "*",
+    "@jbrowse/react-app2": "^3.6.5",
     "react": "18.*",
     "react-dom": "18.*"
   }
