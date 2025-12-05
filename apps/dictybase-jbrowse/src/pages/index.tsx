@@ -1,9 +1,25 @@
 import { ACCESS } from "@dictybase/auth"
+import { useState, useEffect } from "react"
+import { createViewState, JBrowseApp } from "@jbrowse/react-app2"
+import { TestPlugin } from "../plugins/testPlugin"
+// import './App.css'
+import config from "../config.dev.json"
 
-const Home = () => {
-  return <h2>Start coding</h2>
+type ViewModel = ReturnType<typeof createViewState>
+const App = () => {
+  const [viewState, setViewState] = useState<ViewModel>()
+
+  useEffect(() => {
+    const state = createViewState({ config: JSON.parse(config), plugins: [TestPlugin] })
+    setViewState(state)
+  }, [])
+
+  if (!viewState) {
+    return null
+  }
+
+  return <JBrowseApp viewState={viewState} />
 }
 
-// eslint-disable-next-line unicorn/prefer-export-from, import/no-default-export
-export default Home
+export default App
 export const access = ACCESS.public
