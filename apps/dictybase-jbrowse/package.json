@@ -8,6 +8,7 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview --port 3000",
+    "static-server": "npx http-server data --cors='Access-Control-Allow-Origin'",
     "coverage": "vitest run --coverage"
   },
   "devDependencies": {
