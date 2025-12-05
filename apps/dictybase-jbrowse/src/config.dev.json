@@ -1,0 +1,39 @@
+{
+   "assemblies":[
+      {
+         "name":"Dictyostelium Discoideum",
+         "sequence":{
+            "type":"ReferenceSequenceTrack",
+            "trackId":"P6R5xbRqRr",
+            "adapter":{
+               "type":"IndexedFastaAdapter",
+               "fastaLocation":{
+                  "uri":"canonical_core.fa",
+                  "locationType":"UriLocation"
+               },
+               "faiLocation":{
+                  "uri":"canonical_core.fa.fai",
+                  "locationType":"UriLocation"
+               }
+            }
+         }
+      }
+   ],
+   "tracks":[
+      {
+         "type":"FeatureTrack",
+         "trackId":"DDB0166986_features",
+         "name":"DDB0166986 Features",
+         "assemblyNames":[
+            "Dictyostelium Discoideum"
+         ],
+         "formatDetails":{
+            "feature":"jexl:{name:'<a href=https://dictybase.dev/gene/'+feature.name+'>'+feature.name+'</a>'}"
+         },
+         "adapter":{
+            "type":"Gff3TabixAdapter",
+            "uri":"DDB0166986.sorted.gff3.gz"
+         }
+      }
+   ]
+}
