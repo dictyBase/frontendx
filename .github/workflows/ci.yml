@@ -37,3 +37,4 @@ jobs:
        dockerfile: docker/Dockerfile.frontpage:docker/Dockerfile.stock-center:docker/Dockerfile.publication:docker/Dockerfile.genomepage
        cluster: ${{ vars.DEV_STAGING_CLUSTER }}
        cluster_state_storage: ${{ vars.DEV_STAGING_KOPS_STATE_STORAGE }}
+       runner: dcr-frontendx 
