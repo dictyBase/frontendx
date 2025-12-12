@@ -1,5 +1,6 @@
-import ReactDOM from "react-dom"
+import { createRoot } from "react-dom/client"
 import "fontsource-roboto"
-import { App } from "./App"
+import App from "./App"
 
-ReactDOM.render(<App />, document.querySelector("#root"))
+const root = createRoot(document.querySelector("#root")!)
+root.render(<App />)
