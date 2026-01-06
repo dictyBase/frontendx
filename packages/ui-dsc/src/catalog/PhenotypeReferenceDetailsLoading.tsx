@@ -1,11 +1,7 @@
-import { blue } from "@material-ui/core/colors"
-import {
-  Container,
-  Typography,
-  Grid,
-  CircularProgress,
-  makeStyles,
-} from "@material-ui/core"
+import { blue } from "@mui/material/colors"
+import { Container, Typography, Grid, CircularProgress } from "@mui/material";
+
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles({
   root: {

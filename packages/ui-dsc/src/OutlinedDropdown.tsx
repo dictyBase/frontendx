@@ -1,9 +1,9 @@
 import React from "react"
-import FormControl from "@material-ui/core/FormControl"
-import InputLabel from "@material-ui/core/InputLabel"
-import OutlinedInput from "@material-ui/core/OutlinedInput"
-import MenuItem from "@material-ui/core/MenuItem"
-import Select from "@material-ui/core/Select"
+import FormControl from "@mui/material/FormControl"
+import InputLabel from "@mui/material/InputLabel"
+import OutlinedInput from "@mui/material/OutlinedInput"
+import MenuItem from "@mui/material/MenuItem"
+import Select from "@mui/material/Select"
 
 type Properties = {
   /** Function called when selecting dropdown option */

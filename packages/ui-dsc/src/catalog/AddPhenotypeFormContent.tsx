@@ -1,4 +1,5 @@
-import { Grid, GridSize, makeStyles } from "@material-ui/core"
+import { Grid, GridSize } from "@mui/material";
+import makeStyles from '@mui/styles/makeStyles';
 import { PhenotypeLeftPanel } from "./PhenotypeLeftPanel"
 import { PhenotypeReferencePanel } from "./PhenotypeReferencePanel"
 

@@ -1,5 +1,6 @@
-import { withStyles, Theme } from "@material-ui/core/styles"
-import Button from "@material-ui/core/Button"
+import { Theme } from "@mui/material/styles";
+import withStyles from '@mui/styles/withStyles';
+import Button from "@mui/material/Button"
 
 const SecondaryButton = withStyles((theme: Theme) => ({
   root: {

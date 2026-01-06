@@ -1,6 +1,8 @@
 import { type ReactNode } from "react"
-import Grid from "@material-ui/core/Grid"
-import { type Theme, makeStyles } from "@material-ui/core"
+import Grid from "@mui/material/Grid"
+import { type Theme } from "@mui/material";
+
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {

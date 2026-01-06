@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom"
-import { makeStyles } from "@material-ui/core/styles"
-import { blue } from "@material-ui/core/colors"
-import Grid from "@material-ui/core/Grid"
-import Box from "@material-ui/core/Box"
-import Button from "@material-ui/core/Button"
-import OpenInNewIcon from "@material-ui/icons/OpenInNew"
+import makeStyles from '@mui/styles/makeStyles';
+import { blue } from "@mui/material/colors"
+import Grid from "@mui/material/Grid"
+import Box from "@mui/material/Box"
+import Button from "@mui/material/Button"
+import OpenInNewIcon from "@mui/icons-material/OpenInNew"
 import { PaymentInfoBoxItems } from "./PaymentInfoBoxItems"
 
 const useStyles = makeStyles((theme) => ({

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
-import { makeStyles } from "@material-ui/core/styles"
-import Badge from "@material-ui/core/Badge"
+import makeStyles from '@mui/styles/makeStyles';
+import Badge from "@mui/material/Badge"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons"
 import { type CatalogCartItem } from "../types"

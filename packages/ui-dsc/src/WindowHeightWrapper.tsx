@@ -1,5 +1,6 @@
 import { FC } from "react"
-import { Theme, Box, makeStyles } from "@material-ui/core"
+import { Theme, Box } from "@mui/material";
+import makeStyles from '@mui/styles/makeStyles';
 import { useWindowSize } from "@dictybase/hook"
 
 type HeightProperties = {
@@ -17,8 +18,8 @@ const WindowHeightWrapper: FC = ({ children }) => {
   const classes = useStyles({ height: windowHeight * 0.6 })
   return (
     // eslint-disable-next-line dot-notation
-    <Box className={classes["root"]}>{children}</Box>
-  )
+    (<Box className={classes["root"]}>{children}</Box>)
+  );
 }
 
 export { WindowHeightWrapper }

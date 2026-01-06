@@ -1,9 +1,9 @@
 import React from "react"
-import Alert from "@material-ui/lab/Alert"
-import IconButton from "@material-ui/core/IconButton"
+import Alert from '@mui/material/Alert'
+import IconButton from "@mui/material/IconButton"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCopy } from "@fortawesome/free-solid-svg-icons"
-import { makeStyles } from "@material-ui/core/styles"
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles(() => ({
   copyIcon: {

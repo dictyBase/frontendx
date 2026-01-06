@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom"
-import Box from "@material-ui/core/Box"
-import Grid from "@material-ui/core/Grid"
-import Button from "@material-ui/core/Button"
-import { makeStyles, Theme } from "@material-ui/core/styles"
+import Box from "@mui/material/Box"
+import Grid from "@mui/material/Grid"
+import Button from "@mui/material/Button"
+import { Theme } from "@mui/material/styles";
+import makeStyles from '@mui/styles/makeStyles';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const useStyles = makeStyles((theme: Theme) => ({

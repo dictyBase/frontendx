@@ -1,6 +1,6 @@
-import Button from "@material-ui/core/Button"
-import Dialog from "@material-ui/core/Dialog"
-import DialogActions from "@material-ui/core/DialogActions"
+import Button from "@mui/material/Button"
+import Dialog from "@mui/material/Dialog"
+import DialogActions from "@mui/material/DialogActions"
 import { DialogTitleDisplay } from "./DialogTitleDisplay"
 import { HelpDialogContent } from "./HelpDialogContent"
 
@@ -24,7 +24,7 @@ const HelpDialog = ({
   }
 
   return (
-    <Dialog
+    (<Dialog
       onClose={handleClose}
       fullWidth
       aria-labelledby="help-dialog-title"
@@ -32,12 +32,12 @@ const HelpDialog = ({
       <DialogTitleDisplay title="Catalog Page Help" handleClose={handleClose} />
       <HelpDialogContent />
       <DialogActions>
-        <Button onClick={handleClose} variant="outlined" color="default">
+        <Button onClick={handleClose} variant="outlined">
           Close
         </Button>
       </DialogActions>
-    </Dialog>
-  )
+    </Dialog>)
+  );
 }
 
 export { HelpDialog }

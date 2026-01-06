@@ -1,6 +1,7 @@
-import { makeStyles, Theme } from "@material-ui/core/styles"
-import Box from "@material-ui/core/Box"
-import Typography from "@material-ui/core/Typography"
+import { Theme } from "@mui/material/styles";
+import makeStyles from '@mui/styles/makeStyles';
+import Box from "@mui/material/Box"
+import Typography from "@mui/material/Typography"
 import { DetailsHeaderCopyIcon } from "./DetailsHeaderCopyIcon"
 import { characterConverter } from "../utils/characterConverter"
 

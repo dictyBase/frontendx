@@ -1,6 +1,7 @@
-import { makeStyles, Theme } from "@material-ui/core/styles"
-import IconButton from "@material-ui/core/IconButton"
-import DialogTitle from "@material-ui/core/DialogTitle"
+import { Theme } from "@mui/material/styles";
+import makeStyles from '@mui/styles/makeStyles';
+import IconButton from "@mui/material/IconButton"
+import DialogTitle from "@mui/material/DialogTitle"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -37,16 +38,17 @@ const DialogTitleDisplay = ({
   const classes = useStyles()
 
   return (
-    <DialogTitle className={classes.dialogTitle} id={title}>
+    (<DialogTitle className={classes.dialogTitle} id={title}>
       {title}
       <IconButton
         aria-label={title}
         className={classes.closeButton}
-        onClick={handleClose}>
+        onClick={handleClose}
+        size="large">
         <FontAwesomeIcon icon="times" />
       </IconButton>
-    </DialogTitle>
-  )
+    </DialogTitle>)
+  );
 }
 
 export { DialogTitleDisplay }

@@ -1,6 +1,6 @@
-import { makeStyles } from "@material-ui/core/styles"
-import Button from "@material-ui/core/Button"
-import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt"
+import makeStyles from '@mui/styles/makeStyles';
+import Button from "@mui/material/Button"
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt"
 
 const useStyles = makeStyles(() => ({
   button: {

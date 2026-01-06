@@ -1,8 +1,8 @@
-import Grid from "@material-ui/core/Grid"
-import Hidden from "@material-ui/core/Hidden"
-import List from "@material-ui/core/List"
-import ListItem from "@material-ui/core/ListItem"
-import { makeStyles } from "@material-ui/core/styles"
+import Grid from "@mui/material/Grid"
+import Hidden from "@mui/material/Hidden"
+import List from "@mui/material/List"
+import ListItem from "@mui/material/ListItem"
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles({
   listHeaders: {
@@ -20,26 +20,26 @@ const SearchPhenotypeListHeader = () => {
   const classes = useStyles()
 
   return (
-    <List className={classes.list}>
+    (<List className={classes.list}>
       <ListItem className={classes.listHeaders}>
         <Grid container spacing={0} alignItems="center">
           <Grid item sm={3}>
             Strain Descriptor
           </Grid>
-          <Hidden xsDown>
+          <Hidden smDown>
             <Grid item sm={3}>
               Associated Gene(s)
             </Grid>
           </Hidden>
-          <Hidden mdDown>
+          <Hidden lgDown>
             <Grid item sm={6}>
               Reference
             </Grid>
           </Hidden>
         </Grid>
       </ListItem>
-    </List>
-  )
+    </List>)
+  );
 }
 
 export { SearchPhenotypeListHeader }

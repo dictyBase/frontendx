@@ -1,7 +1,7 @@
 import { useFormContext, Controller } from "react-hook-form"
 import MuiTextField, {
   TextFieldProps as MuiTextFieldProperties,
-} from "@material-ui/core/TextField"
+} from "@mui/material/TextField"
 
 type TextFieldProperties = {
   /** name for MUI TextField */

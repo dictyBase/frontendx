@@ -1,6 +1,6 @@
-import { makeStyles } from "@material-ui/core/styles"
-import Alert from "@material-ui/lab/Alert"
-import Typography from "@material-ui/core/Typography"
+import makeStyles from '@mui/styles/makeStyles';
+import Alert from '@mui/material/Alert'
+import Typography from "@mui/material/Typography"
 
 const useStyles = makeStyles((theme) => ({
   alert: {

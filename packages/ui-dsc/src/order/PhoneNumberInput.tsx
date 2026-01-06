@@ -10,13 +10,8 @@ import {
 } from "fp-ts/string"
 import { map as Amap } from "fp-ts/Array"
 import { match } from "ts-pattern"
-import {
-  Grid,
-  Select,
-  MenuItem,
-  makeStyles,
-  TextField as MuiTextField,
-} from "@material-ui/core"
+import { Grid, Select, MenuItem, TextField as MuiTextField } from "@mui/material";
+import makeStyles from '@mui/styles/makeStyles';
 import { countryToFlag } from "../utils/countryToFlag"
 import { countryList, CountryOption } from "../utils/countryList"
 import { isPhoneValid } from "../utils/isPhoneValid"

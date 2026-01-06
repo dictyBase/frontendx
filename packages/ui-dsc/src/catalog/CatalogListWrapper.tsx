@@ -1,5 +1,5 @@
-import Paper from "@material-ui/core/Paper"
-import { makeStyles } from "@material-ui/core"
+import Paper from "@mui/material/Paper"
+import makeStyles from '@mui/styles/makeStyles';
 import { RefObject } from "react"
 
 const useStyles = makeStyles({

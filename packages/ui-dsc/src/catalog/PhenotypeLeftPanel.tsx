@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core"
+import { Grid } from "@mui/material"
 import { PhenotypeAutocomplete } from "./PhenotypeAutocomplete"
 import { EnvironmentAutocomplete } from "./EnvironmentAutocomplete"
 import { AssayAutocomplete } from "./AssayAutocomplete"

@@ -1,10 +1,10 @@
 import { ChangeEvent } from "react"
-import { makeStyles } from "@material-ui/core/styles"
-import Grid from "@material-ui/core/Grid"
-import Tabs from "@material-ui/core/Tabs"
-import Tab from "@material-ui/core/Tab"
-import Typography from "@material-ui/core/Typography"
-import Alert from "@material-ui/lab/Alert"
+import makeStyles from '@mui/styles/makeStyles';
+import Grid from "@mui/material/Grid"
+import Tabs from "@mui/material/Tabs"
+import Tab from "@mui/material/Tab"
+import Typography from "@mui/material/Typography"
+import Alert from '@mui/material/Alert'
 import { match, P } from "ts-pattern"
 import { StrainAvailableDisplay } from "stock-center/src/components/StrainAvailableDisplay"
 import { StrainCartItem } from "../types"

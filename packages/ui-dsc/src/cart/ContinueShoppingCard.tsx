@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom"
-import { makeStyles, Theme } from "@material-ui/core/styles"
-import { grey } from "@material-ui/core/colors"
-import Button from "@material-ui/core/Button"
-import Card from "@material-ui/core/Card"
-import Typography from "@material-ui/core/Typography"
+import { Theme } from "@mui/material/styles";
+import makeStyles from '@mui/styles/makeStyles';
+import { grey } from "@mui/material/colors"
+import Button from "@mui/material/Button"
+import Card from "@mui/material/Card"
+import Typography from "@mui/material/Typography"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -28,14 +29,13 @@ const ContinueShoppingCard = () => {
   const classes = useStyles()
 
   return (
-    <Card className={classes.card}>
+    (<Card className={classes.card}>
       <Typography variant="h3" align="center">
         Need something else?
       </Typography>
       <Button
         component={Link}
         to="/strains"
-        color="default"
         variant="contained"
         size="large"
         fullWidth
@@ -46,7 +46,6 @@ const ContinueShoppingCard = () => {
       <Button
         component={Link}
         to="/plasmids"
-        color="default"
         variant="contained"
         size="large"
         fullWidth
@@ -54,8 +53,8 @@ const ContinueShoppingCard = () => {
         className={classes.continueBtn}>
         Plasmids Catalog
       </Button>
-    </Card>
-  )
+    </Card>)
+  );
 }
 
 export { ContinueShoppingCard }

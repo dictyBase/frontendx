@@ -1,6 +1,7 @@
-import { makeStyles, Theme } from "@material-ui/core/styles"
-import { grey } from "@material-ui/core/colors"
-import Typography from "@material-ui/core/Typography"
+import { Theme } from "@mui/material/styles";
+import makeStyles from '@mui/styles/makeStyles';
+import { grey } from "@mui/material/colors"
+import Typography from "@mui/material/Typography"
 
 const useStyles = makeStyles((theme: Theme) => ({
   prepaid: {

@@ -1,6 +1,6 @@
-import { makeStyles } from "@material-ui/core/styles"
-import { grey } from "@material-ui/core/colors"
-import Typography from "@material-ui/core/Typography"
+import makeStyles from '@mui/styles/makeStyles';
+import { grey } from "@mui/material/colors"
+import Typography from "@mui/material/Typography"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
 import { Publication } from "dicty-graphql-schema"
