@@ -7,10 +7,10 @@ import {
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
 import { isNonEmpty as AisNonEmpty } from "fp-ts/Array"
-import Grid from "@material-ui/core/Grid"
-import Typography from "@material-ui/core/Typography"
-import ListItem from "@material-ui/core/ListItem"
-import { makeStyles } from "@material-ui/core/styles"
+import Grid from "@mui/material/Grid"
+import Typography from "@mui/material/Typography"
+import ListItem from "@mui/material/ListItem"
+import makeStyles from '@mui/styles/makeStyles';
 import {
   ListStrainsWithPhenotypeQuery,
   Gene,

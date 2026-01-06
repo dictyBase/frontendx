@@ -8,7 +8,7 @@ import {
   Link,
   StyleSheet,
 } from "@react-pdf/renderer"
-import { grey } from "@material-ui/core/colors"
+import { grey } from "@mui/material/colors"
 import { getCatalogItemDescriptor } from "../utils/getCatalogItemDescriptor"
 import { getShippingValues, getPaymentValues } from "../utils/getListValues"
 import { type CatalogCartItem, OrderState } from "../types"

@@ -1,6 +1,7 @@
-import { makeStyles, Theme } from "@material-ui/core/styles"
-import { blue } from "@material-ui/core/colors"
-import Button from "@material-ui/core/Button"
+import { Theme } from "@mui/material/styles";
+import makeStyles from '@mui/styles/makeStyles';
+import { blue } from "@mui/material/colors"
+import Button from "@mui/material/Button"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faExternalLink } from "@fortawesome/free-solid-svg-icons"
 

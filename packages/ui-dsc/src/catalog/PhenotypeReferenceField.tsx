@@ -1,5 +1,5 @@
 /* eslint-disable dot-notation */
-import { TextField } from "@material-ui/core"
+import { TextField } from "@mui/material"
 import { useFormContext } from "react-hook-form"
 
 const PhenotypeReferenceField = () => {

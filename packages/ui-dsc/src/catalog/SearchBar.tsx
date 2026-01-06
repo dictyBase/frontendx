@@ -1,6 +1,6 @@
-import { Grid } from "@material-ui/core"
+import { Grid } from "@mui/material"
 import { defaultFilter, fieldsToVariables } from "@dictybase/hook-dsc"
-import { makeStyles } from "@material-ui/core/styles"
+import makeStyles from '@mui/styles/makeStyles';
 import { FilterDropdown } from "./FilterDropdown"
 import { SearchBox } from "./SearchBox"
 import { AppBarHelp } from "./AppBarHelp"

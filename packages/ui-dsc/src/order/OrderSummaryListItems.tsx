@@ -1,9 +1,5 @@
-import {
-  ListItem,
-  ListItemText,
-  Typography,
-  makeStyles,
-} from "@material-ui/core"
+import { ListItem, ListItemText, Typography } from "@mui/material";
+import makeStyles from '@mui/styles/makeStyles';
 import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
 import { Cart } from "../types"

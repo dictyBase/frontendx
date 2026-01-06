@@ -1,6 +1,7 @@
-import Typography from "@material-ui/core/Typography"
-import { makeStyles, type Theme } from "@material-ui/core/styles"
-import { grey } from "@material-ui/core/colors"
+import Typography from "@mui/material/Typography"
+import { type Theme } from "@mui/material/styles";
+import makeStyles from '@mui/styles/makeStyles';
+import { grey } from "@mui/material/colors"
 
 const useStyles = makeStyles((theme: Theme) => ({
   waiver: {

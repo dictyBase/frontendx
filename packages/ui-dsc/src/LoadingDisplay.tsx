@@ -1,6 +1,6 @@
 import { makeBy as AmakeBy } from "fp-ts/Array"
-import { Skeleton } from "@material-ui/lab"
-import { Box } from "@material-ui/core"
+import { Skeleton } from '@mui/material';
+import { Box } from "@mui/material"
 
 /**
  * The prop for {@link LoadingDisplay}

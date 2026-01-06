@@ -1,6 +1,6 @@
 import { Link, useLocation, useParams } from "react-router-dom"
-import Grid from "@material-ui/core/Grid"
-import Button from "@material-ui/core/Button"
+import Grid from "@mui/material/Grid"
+import Button from "@mui/material/Button"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { BackToHomePage } from "./BackToHomePage"
 import sadDicty from "./assets/sad-dicty.png"

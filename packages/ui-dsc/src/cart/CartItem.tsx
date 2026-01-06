@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom"
-import { makeStyles } from "@material-ui/core/styles"
-import { grey } from "@material-ui/core/colors"
-import Grid from "@material-ui/core/Grid"
-import Card from "@material-ui/core/Card"
-import CardHeader from "@material-ui/core/CardHeader"
-import Avatar from "@material-ui/core/Avatar"
-import ListItem from "@material-ui/core/ListItem"
-import IconButton from "@material-ui/core/IconButton"
-import Typography from "@material-ui/core/Typography"
-import ClearIcon from "@material-ui/icons/Clear"
+import makeStyles from '@mui/styles/makeStyles';
+import { grey } from "@mui/material/colors"
+import Grid from "@mui/material/Grid"
+import Card from "@mui/material/Card"
+import CardHeader from "@mui/material/CardHeader"
+import Avatar from "@mui/material/Avatar"
+import ListItem from "@mui/material/ListItem"
+import IconButton from "@mui/material/IconButton"
+import Typography from "@mui/material/Typography"
+import ClearIcon from "@mui/icons-material/Clear"
 import type { CatalogCartItem } from "../types"
 import { getCatalogItemPathAndDescriptor } from "../utils/getCatalogItemPathAndDescriptor"
 import { toCurrencyString } from "../utils/toCurrencyString"
@@ -44,7 +44,7 @@ const CartItem = ({ item, deleteItem }: ShoppingCartItemProperties) => {
   const classes = useStyles()
   const { itemPath, itemDescriptor } = getCatalogItemPathAndDescriptor(item)
   return (
-    <Card className={classes.container}>
+    (<Card className={classes.container}>
       <CardHeader
         avatar={
           <Avatar aria-label="stock" className={classes.avatar}>
@@ -52,7 +52,7 @@ const CartItem = ({ item, deleteItem }: ShoppingCartItemProperties) => {
           </Avatar>
         }
         action={
-          <IconButton aria-label="Remove Item" onClick={deleteItem}>
+          <IconButton aria-label="Remove Item" onClick={deleteItem} size="large">
             <ClearIcon />
           </IconButton>
         }
@@ -80,8 +80,8 @@ const CartItem = ({ item, deleteItem }: ShoppingCartItemProperties) => {
           </Grid>
         </Grid>
       </ListItem>
-    </Card>
-  )
+    </Card>)
+  );
 }
 
 export { CartItem }

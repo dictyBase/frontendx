@@ -1,7 +1,7 @@
-import { makeStyles } from "@material-ui/core/styles"
-import { red } from "@material-ui/core/colors"
-import { Container, Typography, Grid } from "@material-ui/core"
-import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline"
+import makeStyles from '@mui/styles/makeStyles';
+import { red } from "@mui/material/colors"
+import { Container, Typography, Grid } from "@mui/material"
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline"
 
 const useStyles = makeStyles({
   root: {

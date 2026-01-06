@@ -1,7 +1,7 @@
-import { makeStyles } from "@material-ui/core/styles"
-import IconButton from "@material-ui/core/IconButton"
-import Tooltip from "@material-ui/core/Tooltip"
-import RemoveShoppingCartIcon from "@material-ui/icons/RemoveShoppingCart"
+import makeStyles from '@mui/styles/makeStyles';
+import IconButton from "@mui/material/IconButton"
+import Tooltip from "@mui/material/Tooltip"
+import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart"
 
 const useStyles = makeStyles(() => ({
   cartFullSlash: {

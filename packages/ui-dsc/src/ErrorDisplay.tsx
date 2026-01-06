@@ -3,14 +3,16 @@ import { match } from "ts-pattern"
 import { pipe } from "fp-ts/function"
 import { head as RAhead } from "fp-ts/ReadonlyArray"
 import { getOrElse as OgetOrElse, map as Omap } from "fp-ts/Option"
-import Paper from "@material-ui/core/Paper"
-import Grid from "@material-ui/core/Grid"
-import Typography from "@material-ui/core/Typography"
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles"
-import Button from "@material-ui/core/Button"
-import RefreshIcon from "@material-ui/icons/Refresh"
-import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline"
-import { grey } from "@material-ui/core/colors"
+import Paper from "@mui/material/Paper"
+import Grid from "@mui/material/Grid"
+import Typography from "@mui/material/Typography"
+import { Theme } from "@mui/material/styles";
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
+import Button from "@mui/material/Button"
+import RefreshIcon from "@mui/icons-material/Refresh"
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline"
+import { grey } from "@mui/material/colors"
 
 const errorStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,7 +47,7 @@ const errorStyles = makeStyles((theme: Theme) =>
       justifyContent: "center",
       borderRight: `1px solid ${theme.palette.divider}`,
       padding: theme.spacing(3),
-      [theme.breakpoints.down("sm")]: {
+      [theme.breakpoints.down('md')]: {
         borderRight: "none",
         borderBottom: `1px solid ${theme.palette.divider}`,
       },
@@ -84,7 +86,7 @@ const errorStyles = makeStyles((theme: Theme) =>
       gridTemplateColumns: "1fr 1fr",
       gap: theme.spacing(2),
       marginBottom: theme.spacing(3),
-      [theme.breakpoints.down("xs")]: {
+      [theme.breakpoints.down('sm')]: {
         gridTemplateColumns: "1fr",
       },
     },

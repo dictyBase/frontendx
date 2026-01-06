@@ -6,9 +6,9 @@ import {
   match as Ematch,
   fromPredicate as EfromPredicate,
 } from "fp-ts/Either"
-import Typography from "@material-ui/core/Typography"
-import Grid from "@material-ui/core/Grid"
-import ListItem from "@material-ui/core/ListItem"
+import Typography from "@mui/material/Typography"
+import Grid from "@mui/material/Grid"
+import ListItem from "@mui/material/ListItem"
 import { parseFormattedStringToDomElements } from "@dictybase/ui-common"
 import { characterConverter } from "../utils/characterConverter"
 import { useStyles } from "./styles"

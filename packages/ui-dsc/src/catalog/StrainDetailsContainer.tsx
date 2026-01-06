@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Helmet } from "react-helmet"
 import { useParams } from "react-router-dom"
-import Box from "@material-ui/core/Box"
+import Box from "@mui/material/Box"
 import { useStrainQuery } from "dicty-graphql-schema"
 import { ErrorPageWrapper } from "../ErrorPageWrapper"
 import { characterConverter } from "../utils/characterConverter"

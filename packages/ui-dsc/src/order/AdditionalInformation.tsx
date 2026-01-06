@@ -1,6 +1,6 @@
-import TextField from "@material-ui/core/TextField"
-import Box from "@material-ui/core/Box"
-import Typography from "@material-ui/core/Typography"
+import TextField from "@mui/material/TextField"
+import Box from "@mui/material/Box"
+import Typography from "@mui/material/Typography"
 import { pipe } from "fp-ts/function"
 import {
   flatMap as OflatMap,

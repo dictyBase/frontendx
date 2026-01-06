@@ -1,18 +1,12 @@
 import { useState } from "react"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
-import {
-  makeStyles,
-  Box,
-  IconButton,
-  Grid,
-  Typography,
-  Tooltip,
-} from "@material-ui/core"
-import FileCopyOutlinedIcon from "@material-ui/icons/FileCopyOutlined"
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
-import ExpandLessIcon from "@material-ui/icons/ExpandLess"
-import indigo from "@material-ui/core/colors/indigo"
+import { Box, IconButton, Grid, Typography, Tooltip } from "@mui/material";
+import makeStyles from '@mui/styles/makeStyles';
+import FileCopyOutlinedIcon from "@mui/icons-material/FileCopyOutlined"
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+import ExpandLessIcon from "@mui/icons-material/ExpandLess"
+import { indigo } from '@mui/material/colors';
 
 const useStyles = makeStyles({
   root: {
@@ -35,7 +29,7 @@ const useStyles = makeStyles({
 
 const ExpandButton = ({ onClick }: { onClick: () => void }) => (
   <Tooltip title={<Typography variant="caption">Expand</Typography>}>
-    <IconButton aria-label="sequence-expand" onClick={onClick}>
+    <IconButton aria-label="sequence-expand" onClick={onClick} size="large">
       <ExpandMoreIcon />
     </IconButton>
   </Tooltip>
@@ -43,7 +37,7 @@ const ExpandButton = ({ onClick }: { onClick: () => void }) => (
 
 const CollapseButton = ({ onClick }: { onClick: () => void }) => (
   <Tooltip title={<Typography variant="caption">Collapse</Typography>}>
-    <IconButton aria-label="sequence-collapse" onClick={onClick}>
+    <IconButton aria-label="sequence-collapse" onClick={onClick} size="large">
       <ExpandLessIcon />
     </IconButton>
   </Tooltip>
@@ -61,18 +55,18 @@ const CopyTextButton = ({ text }: { text: string }) => {
     setTextCopied(true)
   }
   return (
-    <Tooltip
+    (<Tooltip
       onClose={handleClose}
       title={
         <Typography variant="caption">
           {textCopied ? "Text Copied!" : "Copy text to clipboard"}
         </Typography>
       }>
-      <IconButton aria-label="sequence-copy" onClick={handleClick}>
+      <IconButton aria-label="sequence-copy" onClick={handleClick} size="large">
         <FileCopyOutlinedIcon />
       </IconButton>
-    </Tooltip>
-  )
+    </Tooltip>)
+  );
 }
 
 const PlasmidSequenceDisplay = ({ sequence }: { sequence: string }) => {

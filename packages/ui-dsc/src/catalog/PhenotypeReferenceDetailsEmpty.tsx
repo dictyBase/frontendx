@@ -1,7 +1,7 @@
-import { makeStyles } from "@material-ui/core/styles"
-import { yellow } from "@material-ui/core/colors"
-import { Container, Typography, Grid } from "@material-ui/core"
-import LibraryBooksOutlinedIcon from "@material-ui/icons/LibraryBooksOutlined"
+import makeStyles from '@mui/styles/makeStyles';
+import { yellow } from "@mui/material/colors"
+import { Container, Typography, Grid } from "@mui/material"
+import LibraryBooksOutlinedIcon from "@mui/icons-material/LibraryBooksOutlined"
 
 const useStyles = makeStyles({
   root: {

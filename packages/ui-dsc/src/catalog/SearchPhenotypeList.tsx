@@ -1,8 +1,8 @@
 import React from "react"
-import { makeStyles } from "@material-ui/core/styles"
-import Paper from "@material-ui/core/Paper"
-import List from "@material-ui/core/List"
-import CircularProgress from "@material-ui/core/CircularProgress"
+import makeStyles from '@mui/styles/makeStyles';
+import Paper from "@mui/material/Paper"
+import List from "@mui/material/List"
+import CircularProgress from "@mui/material/CircularProgress"
 import { useIntersectionObserver } from "dicty-hooks"
 import { ListStrainsWithPhenotypeQuery } from "dicty-graphql-schema"
 import { SearchPhenotypeListHeader } from "./SearchPhenotypeListHeader"

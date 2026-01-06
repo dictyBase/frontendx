@@ -1,10 +1,11 @@
-import { makeStyles, Theme } from "@material-ui/core/styles"
-import Grid from "@material-ui/core/Grid"
-import Typography from "@material-ui/core/Typography"
-import List from "@material-ui/core/List"
-import ListItem from "@material-ui/core/ListItem"
-import ListItemText from "@material-ui/core/ListItemText"
-import Divider from "@material-ui/core/Divider"
+import { Theme } from "@mui/material/styles";
+import makeStyles from '@mui/styles/makeStyles';
+import Grid from "@mui/material/Grid"
+import Typography from "@mui/material/Typography"
+import List from "@mui/material/List"
+import ListItem from "@mui/material/ListItem"
+import ListItemText from "@mui/material/ListItemText"
+import Divider from "@mui/material/Divider"
 import { OrderSummaryListItems } from "./OrderSummaryListItems"
 import { getShippingValues, getPaymentValues } from "../utils/getListValues"
 import { type FormData } from "../utils/initialFormValues"

@@ -1,9 +1,9 @@
-import { makeStyles } from "@material-ui/core/styles"
-import { grey, green } from "@material-ui/core/colors"
-import { Container, Grid, Typography } from "@material-ui/core"
+import makeStyles from '@mui/styles/makeStyles';
+import { grey, green } from "@mui/material/colors"
+import { Container, Grid, Typography } from "@mui/material"
 import { Publication, PublicationQuery } from "dicty-graphql-schema"
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline"
-import OpenInNewIcon from "@material-ui/icons/OpenInNew"
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline"
+import OpenInNewIcon from "@mui/icons-material/OpenInNew"
 
 const useStyles = makeStyles({
   root: {

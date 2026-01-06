@@ -1,8 +1,8 @@
-import Box from "@material-ui/core/Box"
-import Typography from "@material-ui/core/Typography"
-import Divider from "@material-ui/core/Divider"
+import Box from "@mui/material/Box"
+import Typography from "@mui/material/Typography"
+import Divider from "@mui/material/Divider"
 import { Helmet } from "react-helmet"
-import { makeStyles } from "@material-ui/core/styles"
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles((theme) => ({
   divider: {

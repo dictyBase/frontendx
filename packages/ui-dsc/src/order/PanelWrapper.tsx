@@ -1,10 +1,10 @@
 import React from "react"
-import { makeStyles } from "@material-ui/core/styles"
-import Box from "@material-ui/core/Box"
-import Accordion from "@material-ui/core/Accordion"
-import AccordionSummary from "@material-ui/core/AccordionSummary"
-import AccordionDetails from "@material-ui/core/AccordionDetails"
-import Typography from "@material-ui/core/Typography"
+import makeStyles from '@mui/styles/makeStyles';
+import Box from "@mui/material/Box"
+import Accordion from "@mui/material/Accordion"
+import AccordionSummary from "@mui/material/AccordionSummary"
+import AccordionDetails from "@mui/material/AccordionDetails"
+import Typography from "@mui/material/Typography"
 
 const useStyles = makeStyles((theme) => ({
   heading: {

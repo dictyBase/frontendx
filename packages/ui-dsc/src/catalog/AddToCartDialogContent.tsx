@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
-import Typography from "@material-ui/core/Typography"
-import DialogContent from "@material-ui/core/DialogContent"
-import DialogContentText from "@material-ui/core/DialogContentText"
+import Typography from "@mui/material/Typography"
+import DialogContent from "@mui/material/DialogContent"
+import DialogContentText from "@mui/material/DialogContentText"
 import { type CatalogItem } from "../types"
 import { getCatalogItemPathAndDescriptor } from "../utils/getCatalogItemPathAndDescriptor"
 

@@ -1,6 +1,6 @@
 import { ChangeEvent } from "react"
-import Autocomplete from "@material-ui/lab/Autocomplete"
-import TextField from "@material-ui/core/TextField"
+import Autocomplete from '@mui/material/Autocomplete'
+import TextField from "@mui/material/TextField"
 import { useController } from "react-hook-form"
 import { countryList, CountryOption } from "../utils/countryList"
 import { countryToFlag } from "../utils/countryToFlag"

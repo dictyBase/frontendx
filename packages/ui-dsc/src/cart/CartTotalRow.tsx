@@ -1,6 +1,6 @@
-import { makeStyles } from "@material-ui/core/styles"
-import Grid from "@material-ui/core/Grid"
-import Typography, { TypographyProps } from "@material-ui/core/Typography"
+import makeStyles from '@mui/styles/makeStyles';
+import Grid from "@mui/material/Grid"
+import Typography, { TypographyProps } from "@mui/material/Typography"
 
 const useStyles = makeStyles((theme) => ({
   container: {

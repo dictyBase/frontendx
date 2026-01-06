@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core"
+import { Grid } from "@mui/material"
 import { PhenotypeReferenceField } from "./PhenotypeReferenceField"
 import { PhenotypeReferenceDetails } from "./PhenotypeReferenceDetails"
 

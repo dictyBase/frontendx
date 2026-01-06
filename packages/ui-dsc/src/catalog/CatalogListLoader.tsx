@@ -1,4 +1,5 @@
-import { Paper, makeStyles } from "@material-ui/core"
+import { Paper } from "@mui/material";
+import makeStyles from '@mui/styles/makeStyles';
 import { LoadingDisplay } from "../LoadingDisplay"
 
 const useStyles = makeStyles((theme) => ({
