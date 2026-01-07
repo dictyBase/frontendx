@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react"
-import Autocomplete from '@mui/material/Autocomplete'
+import Autocomplete from "@mui/material/Autocomplete"
 import TextField from "@mui/material/TextField"
 import { useController } from "react-hook-form"
 import { countryList, CountryOption } from "../utils/countryList"
@@ -20,9 +20,9 @@ const CountryDropdown = ({ fieldName }: CountryDropdownProperties) => {
     name: fieldName,
   })
 
-  const autoCompleteValue = countryList.find(
-    (country) => country.label === value,
-  ) ?? { code: "", label: "" }
+  const autoCompleteValue =
+    // eslint-disable-next-line unicorn/no-null
+    countryList.find((country) => country.label === value) ?? null
 
   const handleChange = (
     _: ChangeEvent<{}>,
@@ -30,7 +30,7 @@ const CountryDropdown = ({ fieldName }: CountryDropdownProperties) => {
     reason: string,
   ) => {
     if (!optionValue) return
-    if (reason !== "select-option") return
+    if (reason !== "selectOption") return
     onChange(optionValue.label)
   }
 
@@ -44,11 +44,11 @@ const CountryDropdown = ({ fieldName }: CountryDropdownProperties) => {
       size="medium"
       options={countryList}
       getOptionLabel={(option) => option?.label as string}
-      renderOption={(option) => (
-        <span>
+      renderOption={(properties, option) => (
+        <li {...properties}>
           {countryToFlag(option?.code as string)}&nbsp;
           {option?.label}
-        </span>
+        </li>
       )}
       renderInput={(properties) => (
         <TextField
