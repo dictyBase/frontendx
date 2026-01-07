@@ -1,6 +1,6 @@
 import { Carousel } from "react-responsive-carousel"
-import makeStyles from '@mui/styles/makeStyles';
-import { Image } from "@dictybase/dicty-image"
+import makeStyles from "@mui/styles/makeStyles"
+import { Image } from "@dictybase/dicty-image-mui5"
 
 import ctr9 from "../assets/slideshow-images/ctr9-mutant-DG1071.png"
 import gbqA from "../assets/slideshow-images/gbqA-mutant-DG1120.png"

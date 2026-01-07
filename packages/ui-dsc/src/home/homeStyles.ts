@@ -3,7 +3,7 @@ import {
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
-import makeStyles from '@mui/styles/makeStyles';
+import makeStyles from "@mui/styles/makeStyles"
 import { blue, grey } from "@mui/material/colors"
 
 type HomeStylesProperties = {
