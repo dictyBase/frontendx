@@ -25,10 +25,22 @@ const ShowHomepage = () => {
         <Grid item xs={12} className={classes.intro}>
           <StockCenterInfoWithAuth />
         </Grid>
-        <Grid container item xs={12} spacing={4} justifyContent="flex-start">
-          <Slide />
-          <CatalogLinks />
-          <FileLinks />
+        <Grid
+          item
+          xs={12}
+          container
+          direction="row"
+          spacing={4}
+          justifyContent="flex-start">
+          <Grid container item xs={4}>
+            <Slide />
+          </Grid>
+          <Grid container item xs={4} direction="column">
+            <CatalogLinks />
+          </Grid>
+          <Grid container item xs={4} direction="column">
+            <FileLinks />
+          </Grid>
         </Grid>
       </Grid>
     </>
