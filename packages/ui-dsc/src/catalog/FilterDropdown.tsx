@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 import MenuItem from "@mui/material/MenuItem"
@@ -46,7 +46,7 @@ const useStyles = makeStyles()({
       background: deepPurple[500],
     },
   },
-});
+})
 
 /**
  * The props for {@link FilterDropdown}
@@ -88,7 +88,6 @@ export const FilterDropdown = ({ param, value }: FilterDropdownProperties) => {
         className={classes.root}
         MenuProps={{
           classes: { paper: classes.paper, list: classes.list },
-          anchorOrigin: { vertical: "bottom", horizontal: "left" },
         }}
         onChange={handleChange}
         value={filterValue}>

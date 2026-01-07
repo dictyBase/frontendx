@@ -26,9 +26,7 @@ const AddPhenotypeForm = ({
   strainId,
   setOpen,
 }: AddPhenotypeFormProperties) => {
-  const {
-    root
-  } = useStyles()
+  const { classes } = useStyles()
   const { methods, schemaValidation } = usePhenotypeValidation()
   const [addPhenotype] = useAddStrainPhenotypeMutation({
     refetchQueries: [Strain],
@@ -54,7 +52,7 @@ const AddPhenotypeForm = ({
 
   return (
     <FormProvider {...methods}>
-      <Container className={root}>
+      <Container className={classes.root}>
         <Grid container direction="column" spacing={1}>
           <Grid item>
             <Typography variant="h3"> Add Phenotype </Typography>

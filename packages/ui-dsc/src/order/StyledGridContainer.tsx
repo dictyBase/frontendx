@@ -17,15 +17,13 @@ type StyledGridContainerProperties = {
 }
 
 const StyledGridContainer = ({ children }: StyledGridContainerProperties) => {
-  const {
-    container
-  } = useStyles()
+  const { classes } = useStyles()
   return (
     <Grid
       container
       justifyContent="center"
       direction="column"
-      className={container}>
+      className={classes.container}>
       {children}
     </Grid>
   )
