@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import makeStyles from '@mui/styles/makeStyles';
+import makeStyles from "@mui/styles/makeStyles"
 import Badge from "@mui/material/Badge"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons"
@@ -37,11 +37,10 @@ const CartIcon = ({ items, isFull }: CartIconProperties) => {
     <>
       <Link to="/cart" aria-label="shopping cart">
         <Badge
-          classes={{ colorPrimary: classes.colorPrimary }}
           badgeContent={items.length}
           overlap="rectangular"
           showZero
-          color="primary">
+          color="secondary">
           <FontAwesomeIcon icon={faShoppingCart} size="2x" />
         </Badge>
       </Link>
