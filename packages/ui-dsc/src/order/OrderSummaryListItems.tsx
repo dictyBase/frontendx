@@ -17,9 +17,7 @@ const useStyles = makeStyles()((theme) => ({
 }));
 
 const OrderSummaryListItems = ({ cart }: OrderSummaryListItemsProperties) => {
-  const {
-    listItem
-  } = useStyles()
+  const { classes } = useStyles()
   return (
     <>
       {pipe(
@@ -27,7 +25,7 @@ const OrderSummaryListItems = ({ cart }: OrderSummaryListItemsProperties) => {
         Amap((item) => {
           const { itemDescriptor } = getCatalogItemPathAndDescriptor(item)
           return (
-            <ListItem className={listItem} key={item.id}>
+            <ListItem className={classes.listItem} key={item.id}>
               <ListItemText
                 primary={itemDescriptor}
                 secondary={

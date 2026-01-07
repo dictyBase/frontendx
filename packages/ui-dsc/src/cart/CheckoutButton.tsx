@@ -14,9 +14,7 @@ const useStyles = makeStyles()(() => ({
 }));
 
 const CheckoutButton = () => {
-  const {
-    checkoutButton
-  } = useStyles()
+  const { classes } = useStyles()
   return (
     <Button
       component={Link}
@@ -26,7 +24,7 @@ const CheckoutButton = () => {
       size="large"
       fullWidth
       startIcon={<FontAwesomeIcon icon="shopping-cart" />}
-      className={checkoutButton}>
+      className={classes.checkoutButton}>
       Proceed to Checkout
     </Button>
   )
