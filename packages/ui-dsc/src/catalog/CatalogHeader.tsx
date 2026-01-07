@@ -1,5 +1,5 @@
-import { Theme } from "@mui/material/styles";
-import makeStyles from '@mui/styles/makeStyles';
+import { Theme } from "@mui/material/styles"
+import makeStyles from "@mui/styles/makeStyles"
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 
@@ -26,10 +26,8 @@ const CatalogHeader = ({ title }: CatalogHeaderProperties) => {
   const classes = useStyles()
 
   return (
-    <Box textAlign="center" p={1}>
-      <Typography variant="h1" className={classes.title}>
-        {title}
-      </Typography>
+    <Box textAlign="center" p={1} className={classes.title}>
+      <Typography variant="h1">{title}</Typography>
     </Box>
   )
 }
