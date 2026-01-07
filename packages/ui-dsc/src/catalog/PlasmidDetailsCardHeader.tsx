@@ -1,4 +1,4 @@
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
 import Alert from '@mui/material/Alert'
@@ -6,11 +6,11 @@ import { match } from "ts-pattern"
 import { PlasmidAvailableDisplay } from "stock-center/src/components/PlasmidAvailableDisplay"
 import { PlasmidCartItem } from "../types"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   message: {
     padding: "0px",
   },
-})
+});
 
 type Properties = {
   /** Data for the stock item */
@@ -22,7 +22,7 @@ type Properties = {
  */
 
 const PlasmidDetailsCardHeader = ({ cartData }: Properties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <Grid item xs={12}>

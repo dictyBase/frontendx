@@ -1,9 +1,9 @@
 import { Theme } from "@mui/material/styles";
 
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 
 // @ts-ignore <-- necessary to include the !important attributes
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   cardHeader: {
     color: "#002f5e",
     paddingRight: "8px",

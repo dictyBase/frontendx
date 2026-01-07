@@ -2,9 +2,9 @@ import Grid from "@mui/material/Grid"
 import Hidden from "@mui/material/Hidden"
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   listHeaders: {
     borderBottom: "1px solid #888",
     backgroundColor: "#f6f9fc",
@@ -14,10 +14,10 @@ const useStyles = makeStyles({
   list: {
     padding: 0,
   },
-})
+});
 
 const SearchPhenotypeListHeader = () => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     (<List className={classes.list}>

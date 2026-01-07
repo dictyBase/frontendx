@@ -1,4 +1,4 @@
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import { grey } from "@mui/material/colors"
 import Typography from "@mui/material/Typography"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -6,12 +6,12 @@ import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
 import { Publication } from "dicty-graphql-schema"
 import { parseFormattedStringToDomElements } from "@dictybase/ui-common"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   authors: {
     color: grey[800],
     fontWeight: 600,
   },
-})
+});
 
 // get author last names, replace last element with "&"
 // example return: "Samereier, Baumann, Meyer & Gräf (2010)"
@@ -70,7 +70,7 @@ type PublicationDisplayProperties = {
  * on the stock details pages.
  */
 const PublicationDisplay = ({ publication }: PublicationDisplayProperties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   return (
     <Typography variant="body2" data-testid="publication-display">
       <Typography variant="body2" component="span" className={classes.authors}>

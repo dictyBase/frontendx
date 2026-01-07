@@ -1,18 +1,18 @@
 import { Grid } from "@mui/material"
 import { defaultFilter, fieldsToVariables } from "@dictybase/hook-dsc"
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from "tss-react/mui"
 import { FilterDropdown } from "./FilterDropdown"
 import { SearchBox } from "./SearchBox"
 import { AppBarHelp } from "./AppBarHelp"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   searchBox: {
     flexBasis: "41.5%",
   },
 })
 
 const SearchBar = () => {
-  const { searchBox } = useStyles()
+  const { classes } = useStyles()
   return (
     <Grid container>
       <Grid item>
@@ -21,7 +21,7 @@ const SearchBar = () => {
           value={defaultFilter.value}
         />
       </Grid>
-      <Grid item className={searchBox}>
+      <Grid item className={classes.searchBox}>
         <SearchBox fields={Object.keys(fieldsToVariables)} />
       </Grid>
       <Grid item>

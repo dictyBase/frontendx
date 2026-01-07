@@ -1,23 +1,23 @@
 import { Link } from "react-router-dom"
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 import Divider from "@mui/material/Divider"
 import Button from "@mui/material/Button"
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles()(() => ({
   button: {
     minWidth: "250px",
     marginRight: "20px",
   },
-}))
+}));
 
 /**
  * EmptyCart is the display for the cart page when there are
  * no items in the cart.
  */
 const EmptyCart = () => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   return (
     <>
       <Box marginTop={4} marginBottom={4}>

@@ -1,6 +1,6 @@
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 
-const useStyles = makeStyles(({ palette }) => ({
+const useStyles = makeStyles()(({ palette }) => ({
   error400: {
     backgroundColor: "#eff8fb",
     textAlign: "center",
@@ -46,6 +46,6 @@ const useStyles = makeStyles(({ palette }) => ({
     color: "#428bca",
     textDecoration: "none",
   },
-}))
+}));
 
 export { useStyles }

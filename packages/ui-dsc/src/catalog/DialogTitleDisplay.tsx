@@ -1,10 +1,10 @@
 import { Theme } from "@mui/material/styles";
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import IconButton from "@mui/material/IconButton"
 import DialogTitle from "@mui/material/DialogTitle"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   dialogTitle: {
     backgroundColor: theme.palette.primary.main,
     color: "#fff",
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     top: theme.spacing(1),
     color: "#fff",
   },
-}))
+}));
 
 type DialogTitleDisplayProperties = {
   /** Title to display at top of dialog */
@@ -35,7 +35,7 @@ const DialogTitleDisplay = ({
   title,
   handleClose,
 }: DialogTitleDisplayProperties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     (<DialogTitle className={classes.dialogTitle} id={title}>

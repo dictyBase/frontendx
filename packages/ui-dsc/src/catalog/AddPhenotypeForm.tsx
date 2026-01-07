@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react"
 import { Container, Grid, Button, Typography, CircularProgress } from "@mui/material";
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import { FormProvider, SubmitHandler } from "react-hook-form"
@@ -15,18 +15,20 @@ type AddPhenotypeFormProperties = {
   setOpen: Dispatch<SetStateAction<boolean>>
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   root: {
     paddingTop: "1rem",
     paddingBottom: "1rem",
   },
-})
+});
 
 const AddPhenotypeForm = ({
   strainId,
   setOpen,
 }: AddPhenotypeFormProperties) => {
-  const { root } = useStyles()
+  const {
+    root
+  } = useStyles()
   const { methods, schemaValidation } = usePhenotypeValidation()
   const [addPhenotype] = useAddStrainPhenotypeMutation({
     refetchQueries: [Strain],

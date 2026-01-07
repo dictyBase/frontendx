@@ -11,7 +11,7 @@ import {
 import { map as Amap } from "fp-ts/Array"
 import { match } from "ts-pattern"
 import { Grid, Select, MenuItem, TextField as MuiTextField } from "@mui/material";
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import { countryToFlag } from "../utils/countryToFlag"
 import { countryList, CountryOption } from "../utils/countryList"
 import { isPhoneValid } from "../utils/isPhoneValid"
@@ -29,14 +29,14 @@ const appendIfEmpty = (base: string, add: string) =>
     ),
   )
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   textField: {
     flexGrow: 1,
   },
   select: {
     marginTop: "8px",
   },
-})
+});
 
 const countryCodes = pipe(
   countryList,
@@ -59,7 +59,7 @@ const PhoneNumberInput: FunctionComponent<{
     setValue,
     formState: { errors },
   } = useFormContext()
-  const classes = useStyles()
+  const { classes } = useStyles()
   const countryCodeFieldName = `${name}CountryCode`
   const onBlur = () => {
     const phone: string = getValues(name)

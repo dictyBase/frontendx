@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import { blue } from "@mui/material/colors"
 import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
@@ -7,7 +7,7 @@ import Button from "@mui/material/Button"
 import OpenInNewIcon from "@mui/icons-material/OpenInNew"
 import { PaymentInfoBoxItems } from "./PaymentInfoBoxItems"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   panel: {
     backgroundColor: blue[100],
     borderRadius: theme.spacing(1),
@@ -15,13 +15,13 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
     padding: theme.spacing(3),
   },
-}))
+}));
 
 /**
  * PaymentInfoBox contains general information about making a payment.
  */
 const PaymentInfoBox = () => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <Grid container>

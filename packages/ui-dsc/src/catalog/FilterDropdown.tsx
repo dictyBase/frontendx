@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 import MenuItem from "@mui/material/MenuItem"
@@ -8,7 +8,7 @@ import { useConfigureStrainCatalogSearchDropdown } from "@dictybase/hook-dsc"
 import { useSearchParams } from "react-router-dom"
 import { v4 as uuid4 } from "uuid"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   root: {
     minWidth: 200,
     background: "white",
@@ -46,7 +46,7 @@ const useStyles = makeStyles({
       background: deepPurple[500],
     },
   },
-})
+});
 
 /**
  * The props for {@link FilterDropdown}
@@ -61,7 +61,7 @@ export interface FilterDropdownProperties {
  * will append its filter parameter in the query parameter of browser's url.
  */
 export const FilterDropdown = ({ param, value }: FilterDropdownProperties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   const [searchParameters, setSearchParameters] = useSearchParams()
   const [filterValue, setFilterValue] = useState<string>(
     searchParameters.get(param) || value,

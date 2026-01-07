@@ -2,13 +2,14 @@ import { useState } from "react"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import { Box, IconButton, Grid, Typography, Tooltip } from "@mui/material";
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import FileCopyOutlinedIcon from "@mui/icons-material/FileCopyOutlined"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import ExpandLessIcon from "@mui/icons-material/ExpandLess"
 import { indigo } from '@mui/material/colors';
 
-const useStyles = makeStyles({
+// TODO jss-to-tss-react codemod: Unable to handle style definition reliably. ArrowFunctionExpression in CSS prop.
+const useStyles = makeStyles()({
   root: {
     backgroundColor: indigo[50],
     overflow: "scroll",
@@ -25,7 +26,7 @@ const useStyles = makeStyles({
     width: "inherit",
     right: "2rem",
   },
-})
+});
 
 const ExpandButton = ({ onClick }: { onClick: () => void }) => (
   <Tooltip title={<Typography variant="caption">Expand</Typography>}>
@@ -71,7 +72,10 @@ const CopyTextButton = ({ text }: { text: string }) => {
 
 const PlasmidSequenceDisplay = ({ sequence }: { sequence: string }) => {
   const [expanded, setExpanded] = useState(false)
-  const { root, controls } = useStyles({ expanded })
+  const {
+    root,
+    controls
+  } = useStyles({ expanded })
   const viewButton = pipe(
     expanded,
     Bmatch(

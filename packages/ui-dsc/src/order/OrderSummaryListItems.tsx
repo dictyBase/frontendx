@@ -1,5 +1,5 @@
 import { ListItem, ListItemText, Typography } from "@mui/material";
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
 import { Cart } from "../types"
@@ -10,14 +10,16 @@ type OrderSummaryListItemsProperties = {
   cart: Cart
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   listItem: {
     padding: theme.spacing(1, 0),
   },
-}))
+}));
 
 const OrderSummaryListItems = ({ cart }: OrderSummaryListItemsProperties) => {
-  const { listItem } = useStyles()
+  const {
+    listItem
+  } = useStyles()
   return (
     <>
       {pipe(

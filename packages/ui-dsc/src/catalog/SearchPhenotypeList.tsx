@@ -1,5 +1,5 @@
 import React from "react"
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import Paper from "@mui/material/Paper"
 import List from "@mui/material/List"
 import CircularProgress from "@mui/material/CircularProgress"
@@ -8,7 +8,7 @@ import { ListStrainsWithPhenotypeQuery } from "dicty-graphql-schema"
 import { SearchPhenotypeListHeader } from "./SearchPhenotypeListHeader"
 import { SearchPhenotypeListItem } from "./SearchPhenotypeListItem"
 
-const useStyles = makeStyles(({ palette }) => ({
+const useStyles = makeStyles()(({ palette }) => ({
   list: {
     paddingTop: "0px",
     paddingBottom: "0px",
@@ -24,7 +24,7 @@ const useStyles = makeStyles(({ palette }) => ({
     textAlign: "center",
     color: "rgb(112, 117, 122)",
   },
-}))
+}));
 
 type SearchPhenotypeListProperties = {
   /** Array of strains with given phenotype */
@@ -53,7 +53,7 @@ const SearchPhenotypeList = ({
   totalCount,
 }: SearchPhenotypeListProperties) => {
   const { intersecting, ref } = useIntersectionObserver()
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   React.useEffect(() => {
     if (intersecting && hasMore) {

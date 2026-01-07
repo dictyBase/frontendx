@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react"
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import Grid from "@mui/material/Grid"
 import Tabs from "@mui/material/Tabs"
 import Tab from "@mui/material/Tab"
@@ -15,7 +15,7 @@ const a11yProperties = (index: number) => ({
   "aria-controls": `strain-details-tabpanel-${index}`,
 })
 
-const useStyles = makeStyles(({ palette }) => ({
+const useStyles = makeStyles<void, 'wrapper'>()(({ palette }, _params, classes) => ({
   root: {
     "&:not(:first-of-type)": {
       marginLeft: "5px",
@@ -30,7 +30,7 @@ const useStyles = makeStyles(({ palette }) => ({
   selected: {
     background: "#f4f6f8",
     border: "none",
-    "& $wrapper": {
+    [`& .${classes.wrapper}`]: {
       opacity: 1,
     },
   },
@@ -54,7 +54,7 @@ const useStyles = makeStyles(({ palette }) => ({
   message: {
     padding: "0px",
   },
-}))
+}));
 
 type Properties = {
   /** Tab value */
@@ -77,7 +77,7 @@ const StrainDetailsCardHeader = ({
   phenotypeLength,
   cartData,
 }: Properties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   const tabStyles = {
     root: classes.root,

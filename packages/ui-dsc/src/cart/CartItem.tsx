@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import { grey } from "@mui/material/colors"
 import Grid from "@mui/material/Grid"
 import Card from "@mui/material/Card"
@@ -13,7 +13,7 @@ import type { CatalogCartItem } from "../types"
 import { getCatalogItemPathAndDescriptor } from "../utils/getCatalogItemPathAndDescriptor"
 import { toCurrencyString } from "../utils/toCurrencyString"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   avatar: {
     background: theme.palette.primary.light,
   },
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
   },
-}))
+}));
 
 type ShoppingCartItemProperties = {
   /** Individual cart item with given quantity */
@@ -41,7 +41,7 @@ type ShoppingCartItemProperties = {
  * ShoppingCartItem is an individual item displayed in ShoppingCartList.
  */
 const CartItem = ({ item, deleteItem }: ShoppingCartItemProperties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   const { itemPath, itemDescriptor } = getCatalogItemPathAndDescriptor(item)
   return (
     (<Card className={classes.container}>

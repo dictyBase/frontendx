@@ -1,12 +1,12 @@
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import Grid from "@mui/material/Grid"
 import Typography, { TypographyProps } from "@mui/material/Typography"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   container: {
     paddingBottom: theme.spacing(2),
   },
-}))
+}));
 
 type CartTotalRowProperties = {
   /** Left value to display (i.e. Strains, Plasmids, Total) */
@@ -28,7 +28,7 @@ const CartTotalRow = ({
   total,
   variant = "inherit",
 }: CartTotalRowProperties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   return (
     <Grid container className={classes.container}>
       <Grid item xs={10}>

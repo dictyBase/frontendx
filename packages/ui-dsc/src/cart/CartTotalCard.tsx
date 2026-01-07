@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import Card from "@mui/material/Card"
 import CardActions from "@mui/material/CardActions"
 import Button from "@mui/material/Button"
@@ -9,7 +9,7 @@ import { CartTotalRow } from "./CartTotalRow"
 import { getCartTotal } from "../utils/getCartTotal"
 import { type StrainCartItem } from "../types"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   container: {
     minHeight: "170px",
     padding: theme.spacing(2),
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   divider: {
     marginBottom: theme.spacing(2),
   },
-}))
+}));
 
 type ShoppingCartTotalCardProperties = {
   /** An array of cart items */
@@ -35,7 +35,7 @@ type ShoppingCartTotalCardProperties = {
  * link to checkout.
  */
 const CartTotalCard = ({ items }: ShoppingCartTotalCardProperties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   const strains = items.filter((item) => item.id.slice(0, 3) === "DBS")
   const plasmids = items.filter((item) => item.id.slice(0, 3) === "DBP")
 

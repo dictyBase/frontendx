@@ -1,6 +1,6 @@
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   paper: {
     // minHeight: 600,
     width: "100%",
@@ -31,6 +31,6 @@ const useStyles = makeStyles({
   bottom: {
     padding: "0.25rem",
   },
-})
+});
 
 export { useStyles }

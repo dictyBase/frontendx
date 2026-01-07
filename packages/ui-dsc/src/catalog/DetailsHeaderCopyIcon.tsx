@@ -3,9 +3,9 @@ import Alert from '@mui/material/Alert'
 import IconButton from "@mui/material/IconButton"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCopy } from "@fortawesome/free-solid-svg-icons"
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles()(() => ({
   copyIcon: {
     marginLeft: "5px",
     "&:hover": {
@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
     marginTop: "5px",
   },
-}))
+}));
 
 type DetailsHeaderCopyIconProperties = {
   /** Stock ID */
@@ -32,7 +32,7 @@ type DetailsHeaderCopyIconProperties = {
 
 const DetailsHeaderCopyIcon = ({ id }: DetailsHeaderCopyIconProperties) => {
   const [snackbarOpen, setSnackbarOpen] = React.useState(false)
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   const handleClick = () => {
     // eslint-disable-next-line compat/compat

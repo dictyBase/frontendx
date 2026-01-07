@@ -1,18 +1,18 @@
 import { Theme } from "@mui/material/styles";
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 import { DetailsHeaderCopyIcon } from "./DetailsHeaderCopyIcon"
 import { characterConverter } from "../utils/characterConverter"
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   name: {
     marginBottom: theme.spacing(2),
   },
   id: {
     marginBottom: theme.spacing(2),
   },
-}))
+}));
 
 type DetailsHeaderProperties = {
   /** Stock ID */
@@ -26,7 +26,7 @@ type DetailsHeaderProperties = {
  */
 
 const DetailsHeader = ({ name, id }: DetailsHeaderProperties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <Box mt={2}>

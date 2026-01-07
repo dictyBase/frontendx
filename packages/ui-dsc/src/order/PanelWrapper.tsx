@@ -1,12 +1,12 @@
 import React from "react"
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import Box from "@mui/material/Box"
 import Accordion from "@mui/material/Accordion"
 import AccordionSummary from "@mui/material/AccordionSummary"
 import AccordionDetails from "@mui/material/AccordionDetails"
 import Typography from "@mui/material/Typography"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   heading: {
     borderTopLeftRadius: "3px",
     borderTopRightRadius: "3px",
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   innerContent: {
     width: "100%",
   },
-}))
+}));
 
 type PanelWrapperProperties = {
   /** The title to display for the panel */
@@ -35,7 +35,7 @@ type PanelWrapperProperties = {
  * It is used for all panel/accordion implementations.
  */
 const PanelWrapper = ({ title, children }: PanelWrapperProperties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <Box>
