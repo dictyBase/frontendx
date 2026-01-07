@@ -1,4 +1,3 @@
-import Grid from "@mui/material/Grid"
 import { fromNullable, getOrElse } from "fp-ts/Option"
 import { pipe } from "fp-ts/function"
 import { match } from "ts-pattern"
@@ -24,11 +23,7 @@ const CatalogLinks = ({ isAuthorized }: CatalogLinksProperties) => {
         .exhaustive(),
   )
 
-  return (
-    <Grid container item xs={4} direction="column">
-      <HomepageColumn title="Catalogs/Materials" entries={allLinks} />
-    </Grid>
-  )
+  return <HomepageColumn title="Catalogs/Materials" entries={allLinks} />
 }
 
 export { CatalogLinks }
