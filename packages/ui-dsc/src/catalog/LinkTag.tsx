@@ -1,17 +1,17 @@
 import { Theme } from "@mui/material/styles";
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import { blue } from "@mui/material/colors"
 import Button from "@mui/material/Button"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faExternalLink } from "@fortawesome/free-solid-svg-icons"
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles<void, 'icon'>()((theme: Theme, _params, classes) => ({
   root: {
     backgroundColor: blue[100],
     borderRadius: "16px",
     lineHeight: 1.5,
     "&:hover, &.Mui-focusVisible": {
-      "& $icon": {
+      [`& .${classes.icon}`]: {
         color: theme.palette.primary.dark,
         marginLeft: theme.spacing(1),
         visibility: "visible",
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       padding: 0,
     },
   },
-}))
+}));
 
 type LinkTagProperties = {
   /** The item to link to */
@@ -47,7 +47,7 @@ type LinkTagProperties = {
  * LinkTag is a tag-style display for showing links.
  */
 const LinkTag = ({ item, route }: LinkTagProperties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <Button

@@ -3,19 +3,19 @@ import Box from "@mui/material/Box"
 import Grid from "@mui/material/Grid"
 import Button from "@mui/material/Button"
 import { Theme } from "@mui/material/styles";
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   button: {
     "&:hover": {
       color: theme.palette.getContrastText(theme.palette.primary.main),
     },
   },
-}))
+}));
 
 const BackToHomePage = () => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   return (
     <Grid item>
       <Box margin={2}>

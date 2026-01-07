@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom"
-import makeStyles from "@mui/styles/makeStyles"
+import { makeStyles } from 'tss-react/mui';
 import Badge from "@mui/material/Badge"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons"
 import { type CatalogCartItem } from "../types"
 
-const useStyles = makeStyles(({ palette }) => ({
+const useStyles = makeStyles()(({ palette }) => ({
   cartFull: {
     fontSize: "0.7rem",
     color: palette.secondary.dark,
@@ -13,7 +13,7 @@ const useStyles = makeStyles(({ palette }) => ({
   colorPrimary: {
     background: palette.secondary.light,
   },
-}))
+}));
 
 type CartIconProperties = {
   /**
@@ -31,7 +31,7 @@ type CartIconProperties = {
  * It has a cart icon with the current number of added items next to it.
  */
 const CartIcon = ({ items, isFull }: CartIconProperties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <>

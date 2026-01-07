@@ -10,7 +10,7 @@ import { isNonEmpty as AisNonEmpty } from "fp-ts/Array"
 import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
 import ListItem from "@mui/material/ListItem"
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import {
   ListStrainsWithPhenotypeQuery,
   Gene,
@@ -20,7 +20,7 @@ import { GenesDisplay } from "./GenesDisplay"
 import { PublicationDisplay } from "./PublicationDisplay"
 import { characterConverter } from "../utils/characterConverter"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   row: {
     borderBottom: "1px solid rgba(224, 224, 224, 1)",
     "&:hover": {
@@ -31,7 +31,7 @@ const useStyles = makeStyles({
     paddingRight: "10px",
     fontSize: "0.9rem",
   },
-})
+});
 
 const toPublicationComponent = (
   publications: NonNullable<
@@ -63,7 +63,7 @@ type SearchPhenotypeListItemProperties = {
 const SearchPhenotypeListItem = ({
   strain,
 }: SearchPhenotypeListItemProperties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   const publications = strain?.publications
   const genes = (strain?.genes as Gene[]) ?? []

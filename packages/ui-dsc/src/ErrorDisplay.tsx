@@ -7,14 +7,14 @@ import Paper from "@mui/material/Paper"
 import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
 import { Theme } from "@mui/material/styles";
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import createStyles from '@mui/styles/createStyles';
 import Button from "@mui/material/Button"
 import RefreshIcon from "@mui/icons-material/Refresh"
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline"
 import { grey } from "@mui/material/colors"
 
-const errorStyles = makeStyles((theme: Theme) =>
+const errorStyles = makeStyles()((theme: Theme) =>
   createStyles({
     root: {
       padding: theme.spacing(6),
@@ -135,8 +135,7 @@ const errorStyles = makeStyles((theme: Theme) =>
         textDecoration: "underline",
       },
     },
-  }),
-)
+  }));
 /**
  * The prop type for {@link ErrorDisplay}
  */
@@ -161,7 +160,7 @@ export const ErrorDisplay = ({
   supportEmail = "dictybase@northwestern.edu",
   refetch,
 }: ErrorDisplayProperties) => {
-  const classes = errorStyles()
+  const { classes } = errorStyles()
 
   const handleRetry = () => {
     refetch()

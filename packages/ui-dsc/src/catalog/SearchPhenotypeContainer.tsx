@@ -2,7 +2,7 @@ import React from "react"
 import { Helmet } from "react-helmet"
 import { useParams } from "react-router-dom"
 import { P, match } from "ts-pattern"
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import Grid from "@mui/material/Grid"
 import { useListStrainsWithPhenotypeQuery } from "dicty-graphql-schema"
 import { ErrorPageWrapper } from "../ErrorPageWrapper"
@@ -10,7 +10,7 @@ import { DetailsLoader } from "./DetailsLoader"
 import { SearchResultsHeader } from "./SearchResultsHeader"
 import { SearchPhenotypeList } from "./SearchPhenotypeList"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   container: {
     textAlign: "center",
   },
@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   resultsText: {
     marginTop: "20px !important",
   },
-})
+});
 
 // remove "+" from phenotype params to get the proper name
 // i.e. "abolished+protein+phosphorylation" = "abolished protein phosphorylation"
@@ -91,7 +91,7 @@ const useListStrainsWithPhenotype = (phenotype: string) => {
  */
 
 const SearchPhenotypeContainer = () => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   const { name } = useParams()
   const phenotype = cleanQuery(name ?? "")
   const { loading, error, data, loadMoreItems, hasMore, isLoadingMore } =

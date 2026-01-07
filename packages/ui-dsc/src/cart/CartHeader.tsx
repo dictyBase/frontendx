@@ -2,20 +2,20 @@ import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 import Divider from "@mui/material/Divider"
 import { Helmet } from "react-helmet"
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   divider: {
     marginTop: theme.spacing(1),
   },
-}))
+}));
 
 /**
  * ShoppingCartHeader displays text indicating the Cart page. It also uses the Helmet component to change the
  * the document head.
  */
 const CartHeader = () => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <>

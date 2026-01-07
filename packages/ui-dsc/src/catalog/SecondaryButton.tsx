@@ -1,8 +1,8 @@
 import { Theme } from "@mui/material/styles";
-import withStyles from '@mui/styles/withStyles';
+import { withStyles } from 'tss-react/mui';
 import Button from "@mui/material/Button"
 
-const SecondaryButton = withStyles((theme: Theme) => ({
+const SecondaryButton = withStyles(Button, (theme: Theme) => ({
   root: {
     color: theme.palette.getContrastText(theme.palette.secondary.main),
     backgroundColor: theme.palette.secondary.main,
@@ -10,6 +10,6 @@ const SecondaryButton = withStyles((theme: Theme) => ({
       backgroundColor: theme.palette.secondary.dark,
     },
   },
-}))(Button)
+}));
 
 export { SecondaryButton }

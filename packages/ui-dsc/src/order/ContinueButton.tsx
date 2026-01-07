@@ -1,18 +1,18 @@
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import Button from "@mui/material/Button"
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt"
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles()(() => ({
   button: {
     minWidth: "200px",
   },
-}))
+}));
 
 /**
  * ContinueButton displays the continue button on each page of the order form.
  */
 const ContinueButton = () => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <Button

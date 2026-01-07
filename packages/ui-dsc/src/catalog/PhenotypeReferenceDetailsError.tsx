@@ -1,9 +1,9 @@
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import { red } from "@mui/material/colors"
 import { Container, Typography, Grid } from "@mui/material"
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   root: {
     backgroundColor: red[50],
     borderRadius: "0.5rem",
@@ -11,7 +11,7 @@ const useStyles = makeStyles({
     paddingBottom: "0.5rem",
     fontWeight: 600,
   },
-})
+});
 
 type PhenotypeReferenceDetailsErrorProperties = {
   publicationId: string
@@ -20,7 +20,7 @@ type PhenotypeReferenceDetailsErrorProperties = {
 const PhenotypeReferenceDetailsError = ({
   publicationId,
 }: PhenotypeReferenceDetailsErrorProperties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   return (
     <Container className={classes.root}>
       <Grid container spacing={1} alignItems="center" wrap="nowrap">

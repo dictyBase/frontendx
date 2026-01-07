@@ -1,5 +1,5 @@
 import { Grid, GridSize } from "@mui/material";
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import { PhenotypeLeftPanel } from "./PhenotypeLeftPanel"
 import { PhenotypeReferencePanel } from "./PhenotypeReferencePanel"
 
@@ -19,14 +19,16 @@ const gridItemSizingRight: { [key: string]: GridSize } = {
   xl: 7,
 }
 
-const useAddPhenotypeFormContentProperties = makeStyles({
+const useAddPhenotypeFormContentProperties = makeStyles()({
   right: {
     width: "20rem",
   },
-})
+});
 
 const AddPhenotypeFormContent = () => {
-  const { right } = useAddPhenotypeFormContentProperties()
+  const {
+    right
+  } = useAddPhenotypeFormContentProperties()
   return (
     <Grid container direction="row" spacing={2} wrap="nowrap">
       <Grid {...gridItemSizingLeft} item>

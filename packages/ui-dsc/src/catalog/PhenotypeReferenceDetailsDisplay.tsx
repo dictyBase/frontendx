@@ -1,11 +1,11 @@
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import { grey, green } from "@mui/material/colors"
 import { Container, Grid, Typography } from "@mui/material"
 import { Publication, PublicationQuery } from "dicty-graphql-schema"
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline"
 import OpenInNewIcon from "@mui/icons-material/OpenInNew"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   root: {
     backgroundColor: green[50],
     borderRadius: "0.5rem",
@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     color: grey[800],
     fontWeight: 600,
   },
-})
+});
 
 // get author last names, replace last element with "&"
 // example return: "Samereier, Baumann, Meyer & Gräf (2010)"
@@ -67,7 +67,7 @@ type PublicationDisplayProperties = {
 const PhenotypeReferenceDetailsDisplay = ({
   publication,
 }: PublicationDisplayProperties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   return (
     <Container className={classes.root}>
       <Grid container spacing={1} alignItems="flex-start" wrap="nowrap">

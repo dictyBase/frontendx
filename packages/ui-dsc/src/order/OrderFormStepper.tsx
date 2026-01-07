@@ -1,18 +1,18 @@
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import Stepper from "@mui/material/Stepper"
 import Step from "@mui/material/Step"
 import StepLabel from "@mui/material/StepLabel"
 
 const steps = ["Shipping Address", "Payment Details", "Review Your Order"]
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   stepper: {
     padding: theme.spacing(3, 0, 5),
   },
   icon: {
     color: theme.palette.primary.light,
   },
-}))
+}));
 
 type OrderFormSteperProperties = {
   // Page number the user is on (0, 1, 2)
@@ -24,7 +24,7 @@ type OrderFormSteperProperties = {
  * page.
  */
 const OrderFormStepper = ({ step }: OrderFormSteperProperties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <Stepper activeStep={step} className={classes.stepper}>

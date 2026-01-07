@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import LinearProgress from "@mui/material/LinearProgress"
 import { styled } from "@mui/material/styles"
-import makeStyles from "@mui/styles/makeStyles"
+import { makeStyles } from "tss-react/mui"
 import { compose, borders, typography } from "@mui/system"
 import { indigo } from "@mui/material/colors"
 import { AddToCartButtonHandler } from "stock-center/src/components/AddToCartButtonHandler"
@@ -19,7 +19,7 @@ import { fromNullable, getOrElse } from "fp-ts/Option"
 import type { CatalogItem, StrainItem, PlasmidItem } from "../types"
 import { getCatalogItemPathAndDescriptor } from "../utils/getCatalogItemPathAndDescriptor"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   listHeaders: {
     borderBottom: "1px solid #888",
     backgroundColor: "#f6f9fc",
@@ -72,7 +72,7 @@ interface CatalogTableHeaderProperties {
 const CatalogTableHeader = ({
   headers = tableHeaders,
 }: CatalogTableHeaderProperties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   return (
     <TableRow>
       {headers.map((h: string) => (
@@ -126,7 +126,7 @@ const CatalogRows = ({
   nextCursor,
   targetReference,
 }: CatalogRowFunctionProperties<HTMLTableRowElement>) => {
-  const { row } = useStyles()
+  const { classes } = useStyles()
   return (
     <>
       {items.map((item, index: number) => {
@@ -135,11 +135,11 @@ const CatalogRows = ({
           // last item and expected to have more data
           return (
             <Fragment key={key}>
-              <TableRow hover className={row} key={key}>
+              <TableRow hover className={classes.row} key={key}>
                 {cellFunction(item)}
               </TableRow>
               <TableRow
-                className={row}
+                className={classes.row}
                 key="linear-progess"
                 ref={targetReference}>
                 <TableCell colSpan={4}>
@@ -150,7 +150,7 @@ const CatalogRows = ({
           )
         }
         return (
-          <TableRow hover className={row} key={key}>
+          <TableRow hover className={classes.row} key={key}>
             {cellFunction(item)}
           </TableRow>
         )
@@ -168,7 +168,7 @@ const StrainCatalogTableDisplay = ({
   dataField,
   target: targetReference,
 }: CatalogListProperties<HTMLTableRowElement>): JSX.Element => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   const { strains, nextCursor } = data[dataField]
   return (
     <TableContainer className={classes.root}>
@@ -193,7 +193,7 @@ const PlasmidCatalogTableDisplay = ({
   dataField,
   target: targetReference,
 }: CatalogListProperties<HTMLTableRowElement>): JSX.Element => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   const { plasmids, nextCursor } = data[dataField]
   return (
     <TableContainer className={classes.root}>

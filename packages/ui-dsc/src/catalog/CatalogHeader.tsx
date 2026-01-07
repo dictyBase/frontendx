@@ -1,9 +1,9 @@
 import { Theme } from "@mui/material/styles"
-import makeStyles from "@mui/styles/makeStyles"
+import { makeStyles } from 'tss-react/mui';
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   notice: {
     color: theme.palette.error.main,
     marginBottom: theme.spacing(1),
@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   title: {
     marginBottom: theme.spacing(2),
   },
-}))
+}));
 
 type CatalogHeaderProperties = {
   /** Title of catalog page */
@@ -23,7 +23,7 @@ type CatalogHeaderProperties = {
  */
 
 const CatalogHeader = ({ title }: CatalogHeaderProperties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <Box textAlign="center" p={1} className={classes.title}>

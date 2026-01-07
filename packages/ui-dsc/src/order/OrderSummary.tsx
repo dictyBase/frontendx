@@ -1,5 +1,5 @@
 import { Theme } from "@mui/material/styles";
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
 import List from "@mui/material/List"
@@ -12,7 +12,7 @@ import { type FormData } from "../utils/initialFormValues"
 import { getCartTotal } from "../utils/getCartTotal"
 import { Cart } from "../types"
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   details: {
     marginBottom: theme.spacing(3),
   },
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginRight: theme.spacing(3),
     minWidth: "40px",
   },
-}))
+}));
 
 type OrderSummaryProperties = {
   /** Object containing all entered form data */
@@ -52,7 +52,7 @@ type OrderSummaryProperties = {
  * before the user submits their order.
  */
 const OrderSummary = ({ formData, cart }: OrderSummaryProperties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <>

@@ -1,11 +1,11 @@
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import Typography from "@mui/material/Typography"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   title: {
     marginBottom: "10px",
   },
-})
+});
 
 type SearchResultsHeaderProperties = {
   /** Type of search results */
@@ -18,7 +18,7 @@ const SearchResultsHeader = ({
   property,
   description,
 }: SearchResultsHeaderProperties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <>

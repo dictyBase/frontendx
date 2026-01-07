@@ -1,9 +1,9 @@
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import { yellow } from "@mui/material/colors"
 import { Container, Typography, Grid } from "@mui/material"
 import LibraryBooksOutlinedIcon from "@mui/icons-material/LibraryBooksOutlined"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   root: {
     backgroundColor: yellow[50],
     borderRadius: "0.5rem",
@@ -11,10 +11,10 @@ const useStyles = makeStyles({
     paddingBottom: "0.5rem",
     fontWeight: 600,
   },
-})
+});
 
 const PhenotypeReferenceDetailsEmpty = () => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   return (
     <Container className={classes.root}>
       <Grid container spacing={1} alignItems="center">

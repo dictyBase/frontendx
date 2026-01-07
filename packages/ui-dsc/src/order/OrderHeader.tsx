@@ -1,15 +1,15 @@
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles()(() => ({
   confirmation: {
     fontSize: "1.2em",
   },
-}))
+}));
 
 const OrderHeader = ({ orderID }: { orderID: string }) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   return (
     <Box mt={3} mb={3}>
       <Typography gutterBottom component="p" className={classes.confirmation}>

@@ -3,7 +3,7 @@ import {
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
-import makeStyles from "@mui/styles/makeStyles"
+import { makeStyles } from 'tss-react/mui';
 import { blue, grey } from "@mui/material/colors"
 
 type HomeStylesProperties = {
@@ -11,7 +11,9 @@ type HomeStylesProperties = {
   panelBackground?: string
 }
 
-const useStyles = makeStyles((theme) => ({
+// TODO jss-to-tss-react codemod: Unable to handle style definition reliably. ArrowFunctionExpression in CSS prop.
+// TODO jss-to-tss-react codemod: Unable to handle style definition reliably. ArrowFunctionExpression in CSS prop.
+const useStyles = makeStyles()((theme) => ({
   panel: {
     backgroundColor: ({ panelBackground }: HomeStylesProperties) =>
       panelBackground === "blue" ? blue[50] : grey[100],
@@ -63,6 +65,6 @@ const useStyles = makeStyles((theme) => ({
       ),
     ),
   },
-}))
+}));
 
 export { useStyles }

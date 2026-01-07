@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom"
 import { Theme } from "@mui/material/styles";
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import { grey } from "@mui/material/colors"
 import Button from "@mui/material/Button"
 import Card from "@mui/material/Card"
 import Typography from "@mui/material/Typography"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   continueBtn: {
     fontWeight: 600,
     marginTop: theme.spacing(2),
@@ -20,13 +20,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(2),
     backgroundColor: grey[100],
   },
-}))
+}));
 
 /**
  * ContinueShoppingCard is the card below the total/checkout card on the cart page.
  */
 const ContinueShoppingCard = () => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     (<Card className={classes.card}>
