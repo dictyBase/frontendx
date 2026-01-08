@@ -47,7 +47,9 @@ test("renders a dropdown of countries", async () => {
   render(<TestComponent />)
   const comboboxes = screen.getAllByRole("combobox")
   // Find the country combobox by its content (flag)
-  const countryCombobox = comboboxes.find(cb => cb.textContent?.includes(countryToFlag("US")))
+  const countryCombobox = comboboxes.find(
+    (callback) => callback.textContent?.includes(countryToFlag("US")),
+  )
   expect(countryCombobox).toBeDefined()
   await user.click(countryCombobox!)
   expect(screen.getByRole("listbox")).toBeVisible()
@@ -80,7 +82,9 @@ test("Appends a warning message to the `Comments` field if the phone number is i
   expect(commentTextBox).toHaveValue("")
 
   const comboboxes = screen.getAllByRole("combobox")
-  const countryCombobox = comboboxes.find(cb => cb.textContent?.includes(countryToFlag("US")))
+  const countryCombobox = comboboxes.find(
+    (callback) => callback.textContent?.includes(countryToFlag("US")),
+  )
   await user.click(countryCombobox!)
   await user.click(screen.getByRole("option", { name: /Korea, Republic of/ }))
 
