@@ -15,7 +15,12 @@ type AddToCartDialogContentProperties = {
  */
 
 const AddToCartDialogContent = ({ data }: AddToCartDialogContentProperties) => (
-  <DialogContent>
+  <DialogContent
+    sx={{
+      ".MuiDialogTitle-root + &": {
+        paddingTop: 2,
+      },
+    }}>
     {data.map((item) => {
       const { itemPath, itemDescriptor } = getCatalogItemPathAndDescriptor(item)
       return (
