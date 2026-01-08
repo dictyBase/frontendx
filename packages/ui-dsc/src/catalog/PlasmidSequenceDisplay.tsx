@@ -1,15 +1,14 @@
 import { useState } from "react"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
-import { Box, IconButton, Grid, Typography, Tooltip } from "@mui/material";
-import { makeStyles } from 'tss-react/mui';
+import { Box, IconButton, Grid, Typography, Tooltip } from "@mui/material"
+import { makeStyles } from "tss-react/mui"
 import FileCopyOutlinedIcon from "@mui/icons-material/FileCopyOutlined"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import ExpandLessIcon from "@mui/icons-material/ExpandLess"
-import { indigo } from '@mui/material/colors';
+import { indigo } from "@mui/material/colors"
 
-// TODO jss-to-tss-react codemod: Unable to handle style definition reliably. ArrowFunctionExpression in CSS prop.
-const useStyles = makeStyles()({
+const useStyles = makeStyles<{ expanded: boolean }>()((_, { expanded }) => ({
   root: {
     backgroundColor: indigo[50],
     overflow: "scroll",
@@ -18,15 +17,14 @@ const useStyles = makeStyles()({
     borderRadius: "0.25rem",
     fontSize: "0.9rem",
     boxShadow: "inset 1px 3px 5px hsla(248, 30%, 34%, 0.4)",
-    maxHeight: ({ expanded }: { expanded: boolean }) =>
-      expanded ? "999rem" : "10rem",
+    maxHeight: expanded ? "999rem" : "10rem",
   },
   controls: {
     position: "absolute",
     width: "inherit",
     right: "2rem",
   },
-});
+}))
 
 const ExpandButton = ({ onClick }: { onClick: () => void }) => (
   <Tooltip title={<Typography variant="caption">Expand</Typography>}>
@@ -56,7 +54,7 @@ const CopyTextButton = ({ text }: { text: string }) => {
     setTextCopied(true)
   }
   return (
-    (<Tooltip
+    <Tooltip
       onClose={handleClose}
       title={
         <Typography variant="caption">
@@ -66,16 +64,13 @@ const CopyTextButton = ({ text }: { text: string }) => {
       <IconButton aria-label="sequence-copy" onClick={handleClick} size="large">
         <FileCopyOutlinedIcon />
       </IconButton>
-    </Tooltip>)
-  );
+    </Tooltip>
+  )
 }
 
 const PlasmidSequenceDisplay = ({ sequence }: { sequence: string }) => {
   const [expanded, setExpanded] = useState(false)
-  const {
-    root,
-    controls
-  } = useStyles({ expanded })
+  const { classes } = useStyles({ expanded })
   const viewButton = pipe(
     expanded,
     Bmatch(
@@ -84,8 +79,8 @@ const PlasmidSequenceDisplay = ({ sequence }: { sequence: string }) => {
     ),
   )
   return (
-    <Box className={root}>
-      <Grid container className={controls}>
+    <Box className={classes.root}>
+      <Grid container className={classes.controls}>
         <Grid item>
           <CopyTextButton text={sequence} />
         </Grid>

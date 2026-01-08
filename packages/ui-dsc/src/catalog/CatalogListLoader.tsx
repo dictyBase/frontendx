@@ -1,5 +1,5 @@
-import { Paper } from "@mui/material";
-import { makeStyles } from 'tss-react/mui';
+import { Paper } from "@mui/material"
+import { makeStyles } from "tss-react/mui"
 import { LoadingDisplay } from "../LoadingDisplay"
 
 const useStyles = makeStyles()((theme) => ({
@@ -8,7 +8,7 @@ const useStyles = makeStyles()((theme) => ({
     paddingTop: theme.spacing(6),
     padding: theme.spacing(1),
   },
-}));
+}))
 
 const CatalogListLoader = () => {
   const { classes } = useStyles()

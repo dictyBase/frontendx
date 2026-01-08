@@ -1,4 +1,4 @@
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 
 const useStyles = makeStyles()(({ palette }) => ({
   error400: {
@@ -46,6 +46,6 @@ const useStyles = makeStyles()(({ palette }) => ({
     color: "#428bca",
     textDecoration: "none",
   },
-}));
+}))
 
 export { useStyles }

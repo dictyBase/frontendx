@@ -24,7 +24,7 @@ const HelpDialog = ({
   }
 
   return (
-    (<Dialog
+    <Dialog
       onClose={handleClose}
       fullWidth
       aria-labelledby="help-dialog-title"
@@ -36,8 +36,8 @@ const HelpDialog = ({
           Close
         </Button>
       </DialogActions>
-    </Dialog>)
-  );
+    </Dialog>
+  )
 }
 
 export { HelpDialog }

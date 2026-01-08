@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
-import { Theme } from "@mui/material/styles";
-import { makeStyles } from 'tss-react/mui';
+import { Theme } from "@mui/material/styles"
+import { makeStyles } from "tss-react/mui"
 import Button from "@mui/material/Button"
 import DialogActions from "@mui/material/DialogActions"
 
@@ -10,7 +10,7 @@ const useStyles = makeStyles()((theme: Theme) => ({
       color: theme.palette.primary.contrastText,
     },
   },
-}));
+}))
 
 type AddToCartDialogActionsProperties = {
   /** Function called when closing the dialog box */
@@ -28,8 +28,11 @@ const AddToCartDialogActions = ({
   const { classes } = useStyles()
 
   return (
-    (<DialogActions>
-      <Button onClick={handleClose} variant="outlined" aria-label="Continue Shopping">
+    <DialogActions>
+      <Button
+        onClick={handleClose}
+        variant="outlined"
+        aria-label="Continue Shopping">
         Continue Shopping
       </Button>
       <Button
@@ -42,8 +45,8 @@ const AddToCartDialogActions = ({
         aria-label="View Cart">
         View Cart
       </Button>
-    </DialogActions>)
-  );
+    </DialogActions>
+  )
 }
 
 export { AddToCartDialogActions }

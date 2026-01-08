@@ -1,5 +1,5 @@
-import { Theme } from "@mui/material/styles";
-import { makeStyles } from 'tss-react/mui';
+import { Theme } from "@mui/material/styles"
+import { makeStyles } from "tss-react/mui"
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 import { DetailsHeaderCopyIcon } from "./DetailsHeaderCopyIcon"
@@ -12,7 +12,7 @@ const useStyles = makeStyles()((theme: Theme) => ({
   id: {
     marginBottom: theme.spacing(2),
   },
-}));
+}))
 
 type DetailsHeaderProperties = {
   /** Stock ID */

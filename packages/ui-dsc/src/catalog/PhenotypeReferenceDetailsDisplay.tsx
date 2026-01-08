@@ -1,4 +1,4 @@
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 import { grey, green } from "@mui/material/colors"
 import { Container, Grid, Typography } from "@mui/material"
 import { Publication, PublicationQuery } from "dicty-graphql-schema"
@@ -16,7 +16,7 @@ const useStyles = makeStyles()({
     color: grey[800],
     fontWeight: 600,
   },
-});
+})
 
 // get author last names, replace last element with "&"
 // example return: "Samereier, Baumann, Meyer & Gräf (2010)"

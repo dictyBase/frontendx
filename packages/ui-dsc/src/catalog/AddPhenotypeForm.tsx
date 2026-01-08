@@ -1,6 +1,12 @@
 import { Dispatch, SetStateAction } from "react"
-import { Container, Grid, Button, Typography, CircularProgress } from "@mui/material";
-import { makeStyles } from 'tss-react/mui';
+import {
+  Container,
+  Grid,
+  Button,
+  Typography,
+  CircularProgress,
+} from "@mui/material"
+import { makeStyles } from "tss-react/mui"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import { FormProvider, SubmitHandler } from "react-hook-form"
@@ -20,7 +26,7 @@ const useStyles = makeStyles()({
     paddingTop: "1rem",
     paddingBottom: "1rem",
   },
-});
+})
 
 const AddPhenotypeForm = ({
   strainId,

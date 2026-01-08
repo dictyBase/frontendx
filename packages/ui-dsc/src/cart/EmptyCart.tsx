@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 import Divider from "@mui/material/Divider"
@@ -10,7 +10,7 @@ const useStyles = makeStyles()(() => ({
     minWidth: "250px",
     marginRight: "20px",
   },
-}));
+}))
 
 /**
  * EmptyCart is the display for the cart page when there are

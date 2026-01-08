@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 import Box from "@mui/material/Box"
 import IconButton from "@mui/material/IconButton"
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline"
@@ -18,7 +18,7 @@ const useStyles = makeStyles()({
     border: "1px solid rgba(0, 0, 0, 0.23)",
     borderRadius: "4px",
   },
-});
+})
 
 /**
  * AppBarHelp handles the display of the appbar help feature.

@@ -1,5 +1,5 @@
 import { Carousel } from "react-responsive-carousel"
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 import { Image } from "@dictybase/dicty-image-mui5"
 
 import ctr9 from "../assets/slideshow-images/ctr9-mutant-DG1071.png"
@@ -23,7 +23,7 @@ const useStyles = makeStyles()({
   container: {
     marginBottom: "24px",
   },
-});
+})
 
 const genSlide = (source: string, avif: string, webp: string, alt: string) => (
   <Image src={source} alt={alt} webpSrc={webp} avifSrc={avif} />

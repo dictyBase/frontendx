@@ -1,5 +1,5 @@
-import { Theme } from "@mui/material/styles";
-import { makeStyles } from 'tss-react/mui';
+import { Theme } from "@mui/material/styles"
+import { makeStyles } from "tss-react/mui"
 import { grey } from "@mui/material/colors"
 import Typography from "@mui/material/Typography"
 
@@ -10,7 +10,7 @@ const useStyles = makeStyles()((theme: Theme) => ({
     margin: theme.spacing(2),
     padding: theme.spacing(3),
   },
-}));
+}))
 
 /**
  * ShippingMethodPrepaidNotice contains the notice for sending a prepaid

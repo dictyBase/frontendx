@@ -1,5 +1,5 @@
-import { Theme } from "@mui/material/styles";
-import { makeStyles } from 'tss-react/mui';
+import { Theme } from "@mui/material/styles"
+import { makeStyles } from "tss-react/mui"
 import IconButton from "@mui/material/IconButton"
 import DialogTitle from "@mui/material/DialogTitle"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -18,7 +18,7 @@ const useStyles = makeStyles()((theme: Theme) => ({
     top: theme.spacing(1),
     color: "#fff",
   },
-}));
+}))
 
 type DialogTitleDisplayProperties = {
   /** Title to display at top of dialog */
@@ -38,7 +38,7 @@ const DialogTitleDisplay = ({
   const { classes } = useStyles()
 
   return (
-    (<DialogTitle className={classes.dialogTitle} id={title}>
+    <DialogTitle className={classes.dialogTitle} id={title}>
       {title}
       <IconButton
         aria-label={title}
@@ -47,8 +47,8 @@ const DialogTitleDisplay = ({
         size="large">
         <FontAwesomeIcon icon="times" />
       </IconButton>
-    </DialogTitle>)
-  );
+    </DialogTitle>
+  )
 }
 
 export { DialogTitleDisplay }

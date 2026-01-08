@@ -1,4 +1,4 @@
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 import { yellow } from "@mui/material/colors"
 import { Container, Typography, Grid } from "@mui/material"
 import LibraryBooksOutlinedIcon from "@mui/icons-material/LibraryBooksOutlined"
@@ -11,7 +11,7 @@ const useStyles = makeStyles()({
     paddingBottom: "0.5rem",
     fontWeight: 600,
   },
-});
+})
 
 const PhenotypeReferenceDetailsEmpty = () => {
   const { classes } = useStyles()

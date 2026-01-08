@@ -1,5 +1,5 @@
-import { Theme } from "@mui/material/styles";
-import { makeStyles } from 'tss-react/mui';
+import { Theme } from "@mui/material/styles"
+import { makeStyles } from "tss-react/mui"
 import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
 import List from "@mui/material/List"
@@ -38,7 +38,7 @@ const useStyles = makeStyles()((theme: Theme) => ({
     marginRight: theme.spacing(3),
     minWidth: "40px",
   },
-}));
+}))
 
 type OrderSummaryProperties = {
   /** Object containing all entered form data */

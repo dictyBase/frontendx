@@ -1,20 +1,24 @@
 import { render, screen } from "@testing-library/react"
-import { ThemeProvider, Theme, StyledEngineProvider, adaptV4Theme } from "@mui/material";
+import {
+  ThemeProvider,
+  Theme,
+  StyledEngineProvider,
+  adaptV4Theme,
+} from "@mui/material"
 import { createTheme } from "@mui/material/styles"
 import { SearchPhenotypeListHeader } from "../catalog/SearchPhenotypeListHeader"
 
-
-declare module '@mui/styles/defaultTheme' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+declare module "@mui/styles/defaultTheme" {
   interface DefaultTheme extends Theme {}
 }
 
-
 describe("Stocks/SearchResults/PhenotypeListHeader", () => {
   describe("initial render", () => {
-    const theme = createTheme(adaptV4Theme({
-      props: { MuiWithWidth: { initialWidth: "lg" } },
-    }))
+    const theme = createTheme(
+      adaptV4Theme({
+        props: { MuiWithWidth: { initialWidth: "lg" } },
+      }),
+    )
     // need to add theme to render with large screen
     // this allows all three headers to show
     render(
