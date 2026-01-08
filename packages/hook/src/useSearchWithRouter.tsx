@@ -99,7 +99,7 @@ export function useSearchWithRouter({
   const onChange = (_: any, values: string[], reason: string): void => {
     switch (reason) {
       // Handle when a list option is selected
-      case "select-option":
+      case "selectOption":
         if (activeChipValue) {
           setPreviousChipValue((state) => [...state, activeChipValue])
           setActiveChipValue(emptyString)
@@ -107,7 +107,7 @@ export function useSearchWithRouter({
         setIsAcceptingInput(true)
         setValue(values)
         break
-      case "create-option":
+      case "createOption":
         break
       default:
         break
