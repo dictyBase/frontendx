@@ -10,7 +10,7 @@ const useStyles = makeStyles()((theme: Theme) => ({
     color: "#fff",
     margin: 0,
     padding: theme.spacing(2),
-    fontSize: "2rem",
+    fontSize: "1.3rem",
   },
   closeButton: {
     position: "absolute",
