@@ -1,7 +1,12 @@
 /* eslint-disable dot-notation */
-import { ChangeEvent } from "react"
+import { ChangeEvent, SyntheticEvent } from "react"
 import { useController } from "react-hook-form"
-import { Autocomplete, TextField, CircularProgress } from "@mui/material"
+import {
+  Autocomplete,
+  TextField,
+  CircularProgress,
+  AutocompleteChangeReason,
+} from "@mui/material"
 import { match, P } from "ts-pattern"
 import { useListPhenotypesLazyQuery } from "dicty-graphql-schema"
 
@@ -12,17 +17,12 @@ const PhenotypeAutocomplete = () => {
   } = useController({ name: "phenotype" })
   const [getPhenotypes, { data, loading }] = useListPhenotypesLazyQuery()
   const handleAutocompleteChange = (
-    _: ChangeEvent<{}>,
+    _: SyntheticEvent,
     changeValue: string,
-    reason:
-      | "select-option"
-      | "clear"
-      | "create-option"
-      | "remove-option"
-      | "blur",
+    reason: AutocompleteChangeReason,
   ) => {
     match(reason)
-      .with("select-option", () => {
+      .with("selectOption", () => {
         onChange(changeValue)
       })
       .with("clear", () => {

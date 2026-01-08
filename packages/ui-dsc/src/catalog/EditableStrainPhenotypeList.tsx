@@ -27,7 +27,7 @@ const byPhenotype: Ord<Phenotype> = pipe(
 
 const EditableStrainPhenotypeList = ({ strainId, phenotypes }: Properties) => {
   const [isOpen, setIsOpen] = useState(false)
-  const classes = useStyles()
+  const { classes } = useStyles()
   const handleClick = () => {
     setIsOpen(true)
   }

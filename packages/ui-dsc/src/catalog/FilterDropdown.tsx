@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { makeStyles } from "tss-react/mui"
 import FormControl from "@mui/material/FormControl"
-import Select from "@mui/material/Select"
+import Select, { SelectChangeEvent } from "@mui/material/Select"
 import MenuItem from "@mui/material/MenuItem"
 import { deepPurple } from "@mui/material/colors"
 import { useConfigureStrainCatalogSearchDropdown } from "@dictybase/hook-dsc"
@@ -75,10 +75,8 @@ export const FilterDropdown = ({ param, value }: FilterDropdownProperties) => {
     })
   }, [setSearchParameters, param, filterValue])
 
-  const handleChange = (
-    event: React.ChangeEvent<{ name?: string; value: unknown }>,
-  ) => {
-    const newValue = event.target.value as string
+  const handleChange = (event: SelectChangeEvent<string>) => {
+    const newValue = event.target.value
     setFilterValue(newValue)
   }
 

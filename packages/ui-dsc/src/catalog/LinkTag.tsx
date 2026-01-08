@@ -56,8 +56,8 @@ const LinkTag = ({ item, route }: LinkTagProperties) => {
       component="a"
       href={`/${route}/${item}`}
       title={`View ${route} ${item}`}
-      classes={{ root: classes.root, label: classes.label }}>
-      {item}
+      className={classes.root}>
+      <span className={classes.label}>{item}</span>
       <FontAwesomeIcon
         icon={faExternalLink}
         className={classes.icon}

@@ -28,7 +28,7 @@ type Parameters_ = {
 const NotFoundError = ({ error }: Properties) => {
   const { name, subname } = useParams<Parameters_>()
   const location = useLocation()
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <Grid container className={classes.mainGrid} justifyContent="center">
