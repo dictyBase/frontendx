@@ -14,9 +14,9 @@ test("It renders with the initial option passed to the `value` prop", () => {
       <FilterDropdownWrapper />
     </BrowserRouter>,
   )
-  expect(
-    screen.getByRole("button", { name: "Regular Strains" }),
-  ).toBeInTheDocument()
+  const combobox = screen.getByRole("combobox")
+  expect(combobox).toBeInTheDocument()
+  expect(combobox).toHaveTextContent("Regular Strains")
   expect(window.location.search).toBe("?group=regular")
 })
 
@@ -27,14 +27,13 @@ test("It updates the URL search parameter when an option is selected", async () 
       <FilterDropdownWrapper />
     </BrowserRouter>,
   )
-  const dropdownButton = screen.getByRole("button", { name: "Regular Strains" })
+  const dropdownButton = screen.getByRole("combobox")
   await click(dropdownButton)
   const listOption = screen.getByRole("option", {
     name: "GWDI Strains",
   })
   await click(listOption)
-  expect(
-    screen.getByRole("button", { name: "GWDI Strains" }),
-  ).toBeInTheDocument()
+  const combobox = screen.getByRole("combobox")
+  expect(combobox).toHaveTextContent("GWDI Strains")
   expect(window.location.search).toBe("?group=gwdi")
 })

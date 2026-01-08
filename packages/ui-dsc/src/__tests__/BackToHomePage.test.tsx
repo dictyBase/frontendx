@@ -16,20 +16,20 @@ const App = () => (
 test("renders a button that indicates navigation back to the home page", () => {
   render(<App />)
 
-  const buttonElement = screen.getByRole("button", {
+  const linkElement = screen.getByRole("link", {
     name: /back to dsc homepage/i,
   })
 
-  expect(buttonElement).toBeInTheDocument()
+  expect(linkElement).toBeInTheDocument()
 })
 
 test("when the button is clicked, the user is navigated to '/'", async () => {
   render(<App />)
 
-  const buttonElement = screen.getByRole("button", {
+  const linkElement = screen.getByRole("link", {
     name: /back to dsc homepage/i,
   })
-  await userEvent.click(buttonElement)
+  await userEvent.click(linkElement)
 
   expect(screen.getByText(/home page/i)).toBeInTheDocument()
 })
