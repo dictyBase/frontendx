@@ -1,3 +1,10 @@
+import { pipe } from "fp-ts/function"
+import { Monoid as Smonoid } from "fp-ts/string"
+import {
+  map as Omap,
+  fromNullable as OfromNullable,
+  getOrElse as OgetOrElse,
+} from "fp-ts/Option"
 import { makeStyles } from "tss-react/mui"
 import { grey, green } from "@mui/material/colors"
 import { Container, Grid, Typography } from "@mui/material"
@@ -31,7 +38,7 @@ const listAuthors = (authors: Publication["authors"]) => {
 // get the year from a timestamp in format of "2004-06-11T00:00:00.000Z"
 const getYearFromTimestamp = (date: string) => {
   const newDate = new Date(date)
-  return newDate.getFullYear()
+  return newDate.getFullYear().toString()
 }
 
 // getPubLink returns a doi url if the pubmed id is missing
@@ -79,10 +86,16 @@ const PhenotypeReferenceDetailsDisplay = ({
             variant="body2"
             component="span"
             className={classes.authors}>
-            {listAuthors(publication.authors)} (
-            {getYearFromTimestamp(publication.pub_date)})
+            {listAuthors(publication.authors)}{" "}
+            {pipe(
+              publication.pub_date,
+              OfromNullable,
+              Omap(getYearFromTimestamp),
+              Omap((year) => Smonoid.concat(year, " ")),
+              OgetOrElse(() => ""),
+            )}
           </Typography>
-          {` '${publication.title}'`} <em>{publication.journal}</em>{" "}
+          {`'${publication.title}'`} <em>{publication.journal}</em>{" "}
           {getJournalInfo(
             publication?.volume as string,
             publication?.pages as string,
