@@ -11,6 +11,7 @@ import { Container, Grid, Typography } from "@mui/material"
 import { Publication, PublicationQuery } from "dicty-graphql-schema"
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline"
 import OpenInNewIcon from "@mui/icons-material/OpenInNew"
+import { getYearFromTimestamp } from "../utils/getYearFromTimeStamp"
 
 const useStyles = makeStyles()({
   root: {
@@ -33,12 +34,6 @@ const listAuthors = (authors: Publication["authors"]) => {
   return lastNames?.length
     ? `${lastNames?.join(", ")} & ${finalName}`
     : finalName
-}
-
-// get the year from a timestamp in format of "2004-06-11T00:00:00.000Z"
-const getYearFromTimestamp = (date: string) => {
-  const newDate = new Date(date)
-  return newDate.getFullYear().toString()
 }
 
 // getPubLink returns a doi url if the pubmed id is missing
@@ -91,7 +86,7 @@ const PhenotypeReferenceDetailsDisplay = ({
               publication.pub_date,
               OfromNullable,
               Omap(getYearFromTimestamp),
-              Omap((year) => Smonoid.concat(year, " ")),
+              Omap((year) => Smonoid.concat(`(${year})`, " ")),
               OgetOrElse(() => ""),
             )}
           </Typography>
