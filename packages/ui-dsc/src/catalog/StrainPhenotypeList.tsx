@@ -22,7 +22,7 @@ const byPhenotype: Ord<Phenotype> = pipe(
  */
 
 const StrainPhenotypeList = ({ phenotypes }: Properties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   return (
     <Paper className={classes.paper}>
       <StrainPhenotypeListHeader />

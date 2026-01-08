@@ -9,7 +9,7 @@ import { useStyles } from "./phenotypeStyles"
  */
 
 const StrainPhenotypeListHeader = () => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <List className={classes.list}>

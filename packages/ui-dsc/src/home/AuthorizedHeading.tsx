@@ -10,7 +10,7 @@ const AuthorizedHeading = () => {
   const onClick = () => {
     navigate("/information/intro/edit")
   }
-  const classes = useStyles({})
+  const { classes } = useStyles({})
   return (
     <Grid item className={classes.header}>
       <Typography variant="h1">
