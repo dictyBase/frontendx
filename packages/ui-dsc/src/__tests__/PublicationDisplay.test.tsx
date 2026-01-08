@@ -3,7 +3,6 @@ import { render, screen } from "@testing-library/react"
 import {
   PublicationDisplay,
   listAuthors,
-  getYearFromTimestamp,
   getPubLink,
   getJournalInfo,
 } from "../catalog/PublicationDisplay"
@@ -79,12 +78,6 @@ describe("listAuthors", () => {
   })
   test("should not have any punctuation for single author", () => {
     expect(listAuthors([authors[0] as any])).toBe("Franklin")
-  })
-})
-
-describe("getYearFromTimestamp", () => {
-  test("should extract year from timestamp", () => {
-    expect(getYearFromTimestamp("2004-06-11T00:00:00.000Z")).toBe(2004)
   })
 })
 
