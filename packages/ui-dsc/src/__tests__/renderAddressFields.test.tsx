@@ -38,7 +38,9 @@ describe("renderAddressFields", () => {
       properties.forEach((item) => {
         expect(screen.getAllByText(`${item.label}`)[0]).toBeInTheDocument()
       })
-      expect(screen.getAllByRole("textbox")).toHaveLength(3)
+      // Country field is rendered as Autocomplete (combobox in MUI v5), so we have 2 textboxes and 1 combobox
+      expect(screen.getAllByRole("textbox")).toHaveLength(2)
+      expect(screen.getByRole("combobox")).toBeInTheDocument()
     })
   })
 

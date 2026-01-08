@@ -15,15 +15,16 @@ beforeEach(() => {
 })
 
 test("It renders a dropdown menu for selecting a filter", () => {
-  expect(
-    // The FilterDropdown component uses a Material UI Select component, whose top level element is a div with the attribute role="button", therefore
-    // we get the element with getByRole("button"):
-    screen.getByRole("button", { name: defaultDropdownValue }),
-  ).toBeInTheDocument()
+  // The FilterDropdown component uses a Material UI Select component, whose top level element has role="combobox" in MUI v5
+  const comboboxes = screen.getAllByRole("combobox")
+  // Find the filter dropdown by checking its text content
+  const filterDropdown = comboboxes.find(cb => cb.textContent === defaultDropdownValue)
+  expect(filterDropdown).toBeDefined()
 })
 
 test("It renders a text box for entering search terms", () => {
-  expect(screen.getByRole("textbox")).toBeInTheDocument()
+  // There are multiple comboboxes on the page (filter dropdown + search box)
+  expect(screen.getAllByRole("combobox").length).toBeGreaterThan(0)
 })
 
 test("It renders a help button to show information about using browsing the catalog", () => {

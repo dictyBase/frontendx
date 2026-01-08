@@ -19,7 +19,7 @@ test("it renders a button that returns the user to the home page", () => {
     </MemoryRouter>,
   )
   expect(
-    screen.getByRole("button", { name: /Back to DSC homepage/ }),
+    screen.getByRole("link", { name: /Back to DSC homepage/ }),
   ).toBeInTheDocument()
 })
 test("it renders a button that returns the user to the home page", () => {
@@ -29,7 +29,7 @@ test("it renders a button that returns the user to the home page", () => {
     </MemoryRouter>,
   )
   expect(
-    screen.getByRole("button", { name: /Back to DSC homepage/ }),
+    screen.getByRole("link", { name: /Back to DSC homepage/ }),
   ).toBeInTheDocument()
 })
 test("it renders a button allows an authorized user to add a page", () => {
