@@ -61,7 +61,7 @@ const CountryDropdown = ({ fieldName }: CountryDropdownProperties) => {
           margin="dense"
           error={!!errors[fieldName]}
           helperText={errors[fieldName]?.message || ""}
-          size="medium"
+          size="small"
         />
       )}
     />
