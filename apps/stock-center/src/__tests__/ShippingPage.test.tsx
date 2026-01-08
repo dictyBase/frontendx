@@ -1,7 +1,6 @@
 import { test, expect, describe } from "vitest"
 import { screen, render } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
-import { countryToFlag } from "@dictybase/ui-dsc"
 import { ShippingPage } from "../components/ShippingPage"
 
 const phoneValidityWarning =
@@ -16,7 +15,7 @@ describe("Phone Number Input", () => {
     const user = userEvent.setup()
     render(<ShippingPage />)
 
-    await user.click(screen.getByRole("button", { name: countryToFlag("US") }))
+    await user.click(screen.getByRole("combobox", { name: "" }))
     expect(screen.getByRole("listbox")).toBeVisible()
   })
 
@@ -39,7 +38,7 @@ describe("Phone Number Input", () => {
     await user.keyboard("[TAB]")
     expect(commentTextBox).toHaveValue("")
 
-    await user.click(screen.getByRole("button", { name: countryToFlag("US") }))
+    await user.click(screen.getByRole("combobox", { name: "" }))
     await user.click(screen.getByRole("option", { name: /Korea, Republic of/ }))
 
     await user.click(phoneNumberInput)
