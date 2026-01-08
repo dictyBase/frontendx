@@ -6,6 +6,7 @@ import TableContainer from "@mui/material/TableContainer"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import LinearProgress from "@mui/material/LinearProgress"
+import Typography from "@mui/material/Typography"
 import { styled } from "@mui/material/styles"
 import { makeStyles } from "tss-react/mui"
 import { compose, borders, typography } from "@mui/system"
@@ -21,7 +22,7 @@ import { getCatalogItemPathAndDescriptor } from "../utils/getCatalogItemPathAndD
 
 const useStyles = makeStyles()({
   listHeaders: {
-    borderBottom: "1px solid #888",
+    borderBottom: `2px solid ${indigo[700]}`,
     backgroundColor: "#f6f9fc",
     color: "#525f7f",
     fontWeight: 600,
@@ -40,7 +41,6 @@ const useStyles = makeStyles()({
   },
 })
 const StyledTableCell = styled(TableCell)(compose(borders, typography))
-const borderBottom = `2px solid ${indigo[700]}`
 const tableHeaders = ["Strain Descriptor", "Strain Summary", "Strain ID", ""]
 
 interface CatalogRowFunctionProperties<HTMLType> {
@@ -76,14 +76,9 @@ const CatalogTableHeader = ({
   return (
     <TableRow>
       {headers.map((h: string) => (
-        <StyledTableCell
-          className={classes.listHeaders}
-          borderBottom={borderBottom}
-          fontSize="subtitle1.fontSize"
-          fontWeight="fontWeightBold"
-          key={uuid4()}>
-          {h}
-        </StyledTableCell>
+        <TableCell className={classes.listHeaders} key={uuid4()}>
+          <Typography variant="subtitle1">{h}</Typography>
+        </TableCell>
       ))}
     </TableRow>
   )
