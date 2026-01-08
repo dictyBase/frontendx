@@ -1,3 +1,10 @@
+import { pipe } from "fp-ts/function"
+import { Monoid as Smonoid } from "fp-ts/string"
+import {
+  map as Omap,
+  fromNullable as OfromNullable,
+  getOrElse as OgetOrElse,
+} from "fp-ts/Option"
 import { makeStyles } from "tss-react/mui"
 import { grey } from "@mui/material/colors"
 import Typography from "@mui/material/Typography"
@@ -5,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
 import { Publication } from "dicty-graphql-schema"
 import { parseFormattedStringToDomElements } from "@dictybase/ui-common"
+import { getYearFromTimestamp } from "../utils/getYearFromTimeStamp"
 
 const useStyles = makeStyles()({
   authors: {
@@ -21,12 +29,6 @@ const listAuthors = (authors: Publication["authors"]) => {
   return lastNames?.length
     ? `${lastNames?.join(", ")} & ${finalName}`
     : finalName
-}
-
-// get the year from a timestamp in format of "2004-06-11T00:00:00.000Z"
-const getYearFromTimestamp = (date: string) => {
-  const newDate = new Date(date)
-  return newDate.getFullYear()
 }
 
 // getPubLink returns a doi url if the pubmed id is missing
@@ -74,8 +76,14 @@ const PublicationDisplay = ({ publication }: PublicationDisplayProperties) => {
   return (
     <Typography variant="body2" data-testid="publication-display">
       <Typography variant="body2" component="span" className={classes.authors}>
-        {listAuthors(publication.authors)} (
-        {getYearFromTimestamp(publication.pub_date)})
+        {listAuthors(publication.authors)}{" "}
+        {pipe(
+          publication.pub_date,
+          OfromNullable,
+          Omap(getYearFromTimestamp),
+          Omap((year) => Smonoid.concat(`(${year})`, " ")),
+          OgetOrElse(() => ""),
+        )}
       </Typography>{" "}
       &apos;{parseFormattedStringToDomElements(publication.title)}&apos;{" "}
       <em>{publication.journal}</em>{" "}
@@ -92,10 +100,4 @@ const PublicationDisplay = ({ publication }: PublicationDisplayProperties) => {
   )
 }
 
-export {
-  PublicationDisplay,
-  listAuthors,
-  getYearFromTimestamp,
-  getPubLink,
-  getJournalInfo,
-}
+export { PublicationDisplay, listAuthors, getPubLink, getJournalInfo }
