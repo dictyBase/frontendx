@@ -43,7 +43,7 @@ const getLinkType = (link: LinkItem) => {
  */
 
 const LinkList = ({ list, bgColor }: LinkListProperties) => {
-  const classes = useStyles({ panelBackground: bgColor })
+  const { classes } = useStyles({ panelBackground: bgColor })
 
   // add simple header if the link list is for downloads panel
   const isDownloadPanel = list.some(

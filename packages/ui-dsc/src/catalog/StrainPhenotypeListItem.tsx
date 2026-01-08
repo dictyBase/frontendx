@@ -19,7 +19,7 @@ const replaceSpaces = (phenotype: string) => phenotype.split(" ").join("+")
  */
 
 const StrainPhenotypeListItem = ({ data }: Properties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <ListItem className={classes.row}>
