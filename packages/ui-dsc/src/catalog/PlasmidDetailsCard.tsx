@@ -87,7 +87,7 @@ type Properties = {
 }
 
 const PlasmidDetailsCard = ({ plasmid }: Properties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   const summary = pipe(
     plasmid.summary,

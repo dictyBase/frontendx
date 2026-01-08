@@ -55,7 +55,9 @@ export const SearchBox = ({
       options={fields}
       renderTags={renderTags}
       renderInput={renderInput}
-      renderOption={renderOption}
+      renderOption={(properties, option) => (
+        <li {...properties}>{renderOption(option)}</li>
+      )}
       selectOnFocus
       value={value}
     />

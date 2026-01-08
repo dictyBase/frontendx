@@ -114,7 +114,7 @@ const EditableStrainDetailsCard = ({
   tabValue,
   setTabValue,
 }: Properties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   const handleChange = (_: React.ChangeEvent<{}>, newValue: number) => {
     setTabValue(newValue)

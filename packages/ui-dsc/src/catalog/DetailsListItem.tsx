@@ -25,7 +25,7 @@ type DetailsListitemProperties = {
  */
 
 const DetailsListItem = ({ title, content }: DetailsListitemProperties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   const display = pipe(
     content,
