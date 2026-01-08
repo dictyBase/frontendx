@@ -105,6 +105,7 @@ const PhoneNumberInput: FunctionComponent<{
               variant="outlined"
               label="Country Code"
               margin="dense"
+              size="small"
               className={classes.select}
               renderValue={(value) =>
                 countryToFlag(value as CountryOption["code"])
@@ -131,6 +132,7 @@ const PhoneNumberInput: FunctionComponent<{
               margin="dense"
               variant="outlined"
               fullWidth
+              size="small"
               error={!!errors[name]}
               helperText={errors[name]?.message || ""}
               InputProps={{

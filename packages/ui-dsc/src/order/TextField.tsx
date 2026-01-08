@@ -41,6 +41,7 @@ const TextField = ({
           id={label}
           label={label}
           type="text"
+          size="small"
           margin={margin}
           variant={variant}
           fullWidth={fullWidth}
