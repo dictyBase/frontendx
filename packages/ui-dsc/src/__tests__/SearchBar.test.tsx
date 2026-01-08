@@ -18,7 +18,9 @@ test("It renders a dropdown menu for selecting a filter", () => {
   // The FilterDropdown component uses a Material UI Select component, whose top level element has role="combobox" in MUI v5
   const comboboxes = screen.getAllByRole("combobox")
   // Find the filter dropdown by checking its text content
-  const filterDropdown = comboboxes.find(cb => cb.textContent === defaultDropdownValue)
+  const filterDropdown = comboboxes.find(
+    (callback) => callback.textContent === defaultDropdownValue,
+  )
   expect(filterDropdown).toBeDefined()
 })
 
