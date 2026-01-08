@@ -1,4 +1,4 @@
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 import { red } from "@mui/material/colors"
 import { Container, Typography, Grid } from "@mui/material"
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline"
@@ -11,7 +11,7 @@ const useStyles = makeStyles()({
     paddingBottom: "0.5rem",
     fontWeight: 600,
   },
-});
+})
 
 type PhenotypeReferenceDetailsErrorProperties = {
   publicationId: string

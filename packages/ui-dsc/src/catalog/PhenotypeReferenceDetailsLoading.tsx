@@ -1,7 +1,7 @@
 import { blue } from "@mui/material/colors"
-import { Container, Typography, Grid, CircularProgress } from "@mui/material";
+import { Container, Typography, Grid, CircularProgress } from "@mui/material"
 
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 
 const useStyles = makeStyles()({
   root: {
@@ -11,7 +11,7 @@ const useStyles = makeStyles()({
     paddingBottom: "0.5rem",
     fontWeight: 600,
   },
-});
+})
 
 const PhenotypeReferenceDetailsLoading = () => {
   const { classes } = useStyles()

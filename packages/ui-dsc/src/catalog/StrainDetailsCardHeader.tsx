@@ -1,10 +1,10 @@
 import { ChangeEvent } from "react"
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 import Grid from "@mui/material/Grid"
 import Tabs from "@mui/material/Tabs"
 import Tab from "@mui/material/Tab"
 import Typography from "@mui/material/Typography"
-import Alert from '@mui/material/Alert'
+import Alert from "@mui/material/Alert"
 import { match, P } from "ts-pattern"
 import { StrainAvailableDisplay } from "stock-center/src/components/StrainAvailableDisplay"
 import { StrainCartItem } from "../types"
@@ -15,46 +15,48 @@ const a11yProperties = (index: number) => ({
   "aria-controls": `strain-details-tabpanel-${index}`,
 })
 
-const useStyles = makeStyles<void, 'wrapper'>()(({ palette }, _params, classes) => ({
-  root: {
-    "&:not(:first-of-type)": {
-      marginLeft: "5px",
-    },
-    color: "#002f5e",
-    opacity: 1,
-    borderTopLeftRadius: "8px",
-    borderTopRightRadius: "8px",
-    border: "1px #e4e4e4 solid",
-    borderBottomWidth: 0,
-  },
-  selected: {
-    background: "#f4f6f8",
-    border: "none",
-    [`& .${classes.wrapper}`]: {
+const useStyles = makeStyles<void, "wrapper">()(
+  ({ palette }, _parameters, classes) => ({
+    root: {
+      "&:not(:first-of-type)": {
+        marginLeft: "5px",
+      },
+      color: "#002f5e",
       opacity: 1,
+      borderTopLeftRadius: "8px",
+      borderTopRightRadius: "8px",
+      border: "1px #e4e4e4 solid",
+      borderBottomWidth: 0,
     },
-  },
-  wrapper: {
-    opacity: 0.7,
-  },
-  indicator: {
-    display: "none",
-  },
-  number: {
-    background: palette.primary.main,
-    borderRadius: "0.8em",
-    color: "#ffffff",
-    display: "inline-block",
-    fontWeight: 700,
-    fontSize: "0.8rem",
-    marginLeft: "5px",
-    textAlign: "center",
-    width: "1.5em",
-  },
-  message: {
-    padding: "0px",
-  },
-}));
+    selected: {
+      background: "#f4f6f8",
+      border: "none",
+      [`& .${classes.wrapper}`]: {
+        opacity: 1,
+      },
+    },
+    wrapper: {
+      opacity: 0.7,
+    },
+    indicator: {
+      display: "none",
+    },
+    number: {
+      background: palette.primary.main,
+      borderRadius: "0.8em",
+      color: "#ffffff",
+      display: "inline-block",
+      fontWeight: 700,
+      fontSize: "0.8rem",
+      marginLeft: "5px",
+      textAlign: "center",
+      width: "1.5em",
+    },
+    message: {
+      padding: "0px",
+    },
+  }),
+)
 
 type Properties = {
   /** Tab value */

@@ -4,7 +4,7 @@ const countryToFlag = (isoCode: string) => {
   if (String.fromCodePoint !== undefined) {
     return isoCode.replaceAll(/./g, (char: string) =>
       String.fromCodePoint((char.codePointAt(0) as number) + 127_397),
-    );
+    )
   }
   return isoCode
 }

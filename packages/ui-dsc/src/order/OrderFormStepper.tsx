@@ -1,4 +1,4 @@
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 import Stepper from "@mui/material/Stepper"
 import Step from "@mui/material/Step"
 import StepLabel from "@mui/material/StepLabel"
@@ -12,7 +12,7 @@ const useStyles = makeStyles()((theme) => ({
   icon: {
     color: theme.palette.primary.light,
   },
-}));
+}))
 
 type OrderFormSteperProperties = {
   // Page number the user is on (0, 1, 2)

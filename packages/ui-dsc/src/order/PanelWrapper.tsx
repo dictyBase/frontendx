@@ -1,5 +1,5 @@
 import React from "react"
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 import Box from "@mui/material/Box"
 import Accordion from "@mui/material/Accordion"
 import AccordionSummary from "@mui/material/AccordionSummary"
@@ -21,7 +21,7 @@ const useStyles = makeStyles()((theme) => ({
   innerContent: {
     width: "100%",
   },
-}));
+}))
 
 type PanelWrapperProperties = {
   /** The title to display for the panel */

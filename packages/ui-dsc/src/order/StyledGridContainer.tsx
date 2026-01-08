@@ -1,8 +1,8 @@
 import { type ReactNode } from "react"
 import Grid from "@mui/material/Grid"
-import { type Theme } from "@mui/material";
+import { type Theme } from "@mui/material"
 
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 
 const useStyles = makeStyles()((theme: Theme) => ({
   container: {
@@ -10,7 +10,7 @@ const useStyles = makeStyles()((theme: Theme) => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
-}));
+}))
 
 type StyledGridContainerProperties = {
   children: ReactNode

@@ -1,5 +1,5 @@
 import Button from "@mui/material/Button"
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
@@ -11,7 +11,7 @@ const useStyles = makeStyles()(() => ({
       color: "#fff",
     },
   },
-}));
+}))
 
 const CheckoutButton = () => {
   const { classes } = useStyles()

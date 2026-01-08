@@ -1,9 +1,9 @@
 import React from "react"
-import Alert from '@mui/material/Alert'
+import Alert from "@mui/material/Alert"
 import IconButton from "@mui/material/IconButton"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCopy } from "@fortawesome/free-solid-svg-icons"
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 
 const useStyles = makeStyles()(() => ({
   copyIcon: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles()(() => ({
     justifyContent: "center",
     marginTop: "5px",
   },
-}));
+}))
 
 type DetailsHeaderCopyIconProperties = {
   /** Stock ID */

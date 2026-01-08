@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 import Card from "@mui/material/Card"
 import CardActions from "@mui/material/CardActions"
 import Button from "@mui/material/Button"
@@ -24,7 +24,7 @@ const useStyles = makeStyles()((theme) => ({
   divider: {
     marginBottom: theme.spacing(2),
   },
-}));
+}))
 
 type ShoppingCartTotalCardProperties = {
   /** An array of cart items */

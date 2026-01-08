@@ -1,5 +1,5 @@
 import React from "react"
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 import Paper from "@mui/material/Paper"
 import List from "@mui/material/List"
 import CircularProgress from "@mui/material/CircularProgress"
@@ -24,7 +24,7 @@ const useStyles = makeStyles()(({ palette }) => ({
     textAlign: "center",
     color: "rgb(112, 117, 122)",
   },
-}));
+}))
 
 type SearchPhenotypeListProperties = {
   /** Array of strains with given phenotype */

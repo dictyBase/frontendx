@@ -1,5 +1,5 @@
 import Paper from "@mui/material/Paper"
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 import { RefObject } from "react"
 
 const useStyles = makeStyles()({
@@ -7,7 +7,7 @@ const useStyles = makeStyles()({
     overflowY: "scroll",
     height: "100%",
   },
-});
+})
 /**
  * The prop for {@link CatalogListWrapper}
  */

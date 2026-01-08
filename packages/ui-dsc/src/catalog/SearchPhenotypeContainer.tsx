@@ -2,7 +2,7 @@ import React from "react"
 import { Helmet } from "react-helmet"
 import { useParams } from "react-router-dom"
 import { P, match } from "ts-pattern"
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 import Grid from "@mui/material/Grid"
 import { useListStrainsWithPhenotypeQuery } from "dicty-graphql-schema"
 import { ErrorPageWrapper } from "../ErrorPageWrapper"
@@ -21,7 +21,7 @@ const useStyles = makeStyles()({
   resultsText: {
     marginTop: "20px !important",
   },
-});
+})
 
 // remove "+" from phenotype params to get the proper name
 // i.e. "abolished+protein+phosphorylation" = "abolished protein phosphorylation"

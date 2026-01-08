@@ -10,7 +10,7 @@ import { isNonEmpty as AisNonEmpty } from "fp-ts/Array"
 import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
 import ListItem from "@mui/material/ListItem"
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 import {
   ListStrainsWithPhenotypeQuery,
   Gene,
@@ -31,7 +31,7 @@ const useStyles = makeStyles()({
     paddingRight: "10px",
     fontSize: "0.9rem",
   },
-});
+})
 
 const toPublicationComponent = (
   publications: NonNullable<

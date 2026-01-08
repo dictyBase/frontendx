@@ -1,5 +1,5 @@
 import { Theme } from "@mui/material/styles"
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 
@@ -11,7 +11,7 @@ const useStyles = makeStyles()((theme: Theme) => ({
   title: {
     marginBottom: theme.spacing(2),
   },
-}));
+}))
 
 type CatalogHeaderProperties = {
   /** Title of catalog page */

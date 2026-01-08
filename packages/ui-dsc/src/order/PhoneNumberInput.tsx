@@ -10,8 +10,13 @@ import {
 } from "fp-ts/string"
 import { map as Amap } from "fp-ts/Array"
 import { match } from "ts-pattern"
-import { Grid, Select, MenuItem, TextField as MuiTextField } from "@mui/material";
-import { makeStyles } from 'tss-react/mui';
+import {
+  Grid,
+  Select,
+  MenuItem,
+  TextField as MuiTextField,
+} from "@mui/material"
+import { makeStyles } from "tss-react/mui"
 import { countryToFlag } from "../utils/countryToFlag"
 import { countryList, CountryOption } from "../utils/countryList"
 import { isPhoneValid } from "../utils/isPhoneValid"
@@ -36,7 +41,7 @@ const useStyles = makeStyles()({
   select: {
     marginTop: "8px",
   },
-});
+})
 
 const countryCodes = pipe(
   countryList,

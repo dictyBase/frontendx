@@ -1,4 +1,4 @@
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 import { grey } from "@mui/material/colors"
 import Typography from "@mui/material/Typography"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -11,7 +11,7 @@ const useStyles = makeStyles()({
     color: grey[800],
     fontWeight: 600,
   },
-});
+})
 
 // get author last names, replace last element with "&"
 // example return: "Samereier, Baumann, Meyer & Gräf (2010)"

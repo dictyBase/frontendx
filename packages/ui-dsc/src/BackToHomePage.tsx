@@ -2,8 +2,8 @@ import { Link } from "react-router-dom"
 import Box from "@mui/material/Box"
 import Grid from "@mui/material/Grid"
 import Button from "@mui/material/Button"
-import { Theme } from "@mui/material/styles";
-import { makeStyles } from 'tss-react/mui';
+import { Theme } from "@mui/material/styles"
+import { makeStyles } from "tss-react/mui"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const useStyles = makeStyles()((theme: Theme) => ({
@@ -12,7 +12,7 @@ const useStyles = makeStyles()((theme: Theme) => ({
       color: theme.palette.getContrastText(theme.palette.primary.main),
     },
   },
-}));
+}))
 
 const BackToHomePage = () => {
   const { classes } = useStyles()

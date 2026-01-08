@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 import { blue } from "@mui/material/colors"
 import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
@@ -15,7 +15,7 @@ const useStyles = makeStyles()((theme) => ({
     marginBottom: theme.spacing(2),
     padding: theme.spacing(3),
   },
-}));
+}))
 
 /**
  * PaymentInfoBox contains general information about making a payment.

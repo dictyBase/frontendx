@@ -1,4 +1,4 @@
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 import Grid from "@mui/material/Grid"
 import Typography, { TypographyProps } from "@mui/material/Typography"
 
@@ -6,7 +6,7 @@ const useStyles = makeStyles()((theme) => ({
   container: {
     paddingBottom: theme.spacing(2),
   },
-}));
+}))
 
 type CartTotalRowProperties = {
   /** Left value to display (i.e. Strains, Plasmids, Total) */

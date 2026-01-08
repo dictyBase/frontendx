@@ -1,6 +1,6 @@
 import Typography from "@mui/material/Typography"
-import { type Theme } from "@mui/material/styles";
-import { makeStyles } from 'tss-react/mui';
+import { type Theme } from "@mui/material/styles"
+import { makeStyles } from "tss-react/mui"
 import { grey } from "@mui/material/colors"
 
 const useStyles = makeStyles()((theme: Theme) => ({
@@ -11,7 +11,7 @@ const useStyles = makeStyles()((theme: Theme) => ({
     margin: theme.spacing(2),
     padding: theme.spacing(3),
   },
-}));
+}))
 
 const WaiverRequestInformation = () => {
   const { classes } = useStyles()

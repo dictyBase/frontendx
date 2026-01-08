@@ -6,9 +6,9 @@ import { getOrElse as OgetOrElse, map as Omap } from "fp-ts/Option"
 import Paper from "@mui/material/Paper"
 import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
-import { Theme } from "@mui/material/styles";
-import { makeStyles } from 'tss-react/mui';
-import createStyles from '@mui/styles/createStyles';
+import { Theme } from "@mui/material/styles"
+import { makeStyles } from "tss-react/mui"
+import createStyles from "@mui/styles/createStyles"
 import Button from "@mui/material/Button"
 import RefreshIcon from "@mui/icons-material/Refresh"
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline"
@@ -47,7 +47,7 @@ const errorStyles = makeStyles()((theme: Theme) =>
       justifyContent: "center",
       borderRight: `1px solid ${theme.palette.divider}`,
       padding: theme.spacing(3),
-      [theme.breakpoints.down('md')]: {
+      [theme.breakpoints.down("md")]: {
         borderRight: "none",
         borderBottom: `1px solid ${theme.palette.divider}`,
       },
@@ -86,7 +86,7 @@ const errorStyles = makeStyles()((theme: Theme) =>
       gridTemplateColumns: "1fr 1fr",
       gap: theme.spacing(2),
       marginBottom: theme.spacing(3),
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down("sm")]: {
         gridTemplateColumns: "1fr",
       },
     },
@@ -135,7 +135,8 @@ const errorStyles = makeStyles()((theme: Theme) =>
         textDecoration: "underline",
       },
     },
-  }));
+  }),
+)
 /**
  * The prop type for {@link ErrorDisplay}
  */

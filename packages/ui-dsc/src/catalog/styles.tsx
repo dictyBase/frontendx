@@ -1,6 +1,6 @@
-import { Theme } from "@mui/material/styles";
+import { Theme } from "@mui/material/styles"
 
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 
 // @ts-ignore <-- necessary to include the !important attributes
 const useStyles = makeStyles()((theme: Theme) => ({

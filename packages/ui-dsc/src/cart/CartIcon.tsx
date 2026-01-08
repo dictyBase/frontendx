@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 import Badge from "@mui/material/Badge"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons"
@@ -13,7 +13,7 @@ const useStyles = makeStyles()(({ palette }) => ({
   colorPrimary: {
     background: palette.secondary.light,
   },
-}));
+}))
 
 type CartIconProperties = {
   /**

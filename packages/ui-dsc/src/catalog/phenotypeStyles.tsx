@@ -1,4 +1,4 @@
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 
 const useStyles = makeStyles()({
   paper: {
@@ -31,6 +31,6 @@ const useStyles = makeStyles()({
   bottom: {
     padding: "0.25rem",
   },
-});
+})
 
 export { useStyles }
