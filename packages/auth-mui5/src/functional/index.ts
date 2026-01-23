@@ -1,19 +1,25 @@
+import { pipe } from "fp-ts/function"
 import {
   split as splitString,
   slice as sliceString,
   toUpperCase,
+  Eq as EqString,
 } from "fp-ts/string"
 import { map as Amap } from "fp-ts/Array"
+import {
+  intersection as intersectionSet,
+  isEmpty as setIsEmpty,
+} from "fp-ts/Set"
 import { ReadonlyNonEmptyArray, head, last } from "fp-ts/ReadonlyNonEmptyArray"
-import { pipe } from "fp-ts/function"
+import { Roles } from "../const"
 
-/**
- * Matches the given array of roles against the expected array of roles.
- */
-const matchEntries = (given: Array<string>, expected: Array<string>) =>
-  expected.length < given.length
-    ? expected.every((entry) => given.includes(entry))
-    : given.every((entry) => expected.includes(entry))
+const hasAllowedRole = (given: Set<Roles>, allowed: Set<Roles>) =>
+  pipe(
+    // Get the intersection of the `given` and `allowed` roles.
+    intersectionSet(EqString)(given, allowed),
+    // If the intersection has any members, there is at least one role in `given` that exists in `allowed`
+    (intersection) => !setIsEmpty(intersection),
+  )
 
 const firstLast = (nameArray: ReadonlyNonEmptyArray<string>) => [
   head(nameArray), // Returns the first element of the nameArray
@@ -35,4 +41,4 @@ const nameToUpperInitial = (fullName: string) =>
     Amap(upperFirst), // Applies the upperFirst function to each word in the array
   ).join("") // Joins the array of uppercased initials into a single string
 
-export { firstLast, upperFirst, nameToUpperInitial, matchEntries }
+export { firstLast, upperFirst, nameToUpperInitial, hasAllowedRole }

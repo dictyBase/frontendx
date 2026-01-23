@@ -7422,9 +7422,9 @@ dfa@^1.2.0:
   resolved "https://registry.yarnpkg.com/dfa/-/dfa-1.2.0.tgz#96ac3204e2d29c49ea5b57af8d92c2ae12790657"
   integrity sha512-ED3jP8saaweFTjeGX8HQPjeC1YYyZs98jGNZx6IiBvxW7JG5v492kamAQB3m2wop07CvU/RQmzcKr6bgcC5D/Q==
 
-"dicty-graphql-schema@https://github.com/dictyBase/dicty-graphql-schema#v1.33.0":
-  version "1.33.0"
-  resolved "https://github.com/dictyBase/dicty-graphql-schema#a05d03faed30b2ba20532f949189c5d4428bd801"
+"dicty-graphql-schema@https://github.com/dictyBase/dicty-graphql-schema#v1.35.0":
+  version "1.35.0"
+  resolved "https://github.com/dictyBase/dicty-graphql-schema#641cc39d2198bbed06a2f758b4579834b8cce809"
   dependencies:
     graphql "^16.8.1"
 
