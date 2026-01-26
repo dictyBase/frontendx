@@ -18,7 +18,7 @@
     "@dictybase/persistence-plugin": "*",
     "@dictybase/table-action-plugin": "*",
     "@dictybase/width-table-plugin": "*",
-    "react-router-dom": "~6.14.2",
+    "react-router-dom": "^6.14.2",
     "tss-react": "^4.9.15"
   },
   "devDependencies": {
