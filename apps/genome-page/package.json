@@ -51,7 +51,7 @@
     "react-fontawesome": "^1.7.1",
     "react-helmet": "^6.1.0",
     "react-markdown": "^8.0.7",
-    "react-router-dom": "~6.14.2",
+    "react-router-dom": "^6.14.2",
     "rxjs": "~7.8",
     "string.prototype.includes": "^2.0.0",
     "typescript": "4.*",
