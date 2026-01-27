@@ -119,7 +119,7 @@ test("Add to Cart function, go to cart", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: "Added to Cart" }),
   ).toBeVisible()
-  await page.getByRole("button", { name: "View Cart" }).click()
+  await page.getByRole("link", { name: "View Cart" }).click()
   await expect(
     mainContent.getByRole("heading", { name: "Your Shopping Cart" }),
   ).toBeVisible()
