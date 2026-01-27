@@ -8,6 +8,11 @@ test.beforeEach(async ({ page }) => {
   await page.goto("http://localhost:3003/stockcenter")
 })
 
+test("DSC Home page snapshot", ({ page }) => {
+  const main = page.locator("main")
+  expect(main).toHaveScreenshot()
+})
+
 test("Displays welcome message", async ({ page }) => {
   const heading = page.getByRole("heading", {
     name: "Welcome to Dicty Stock Center (DSC)",
