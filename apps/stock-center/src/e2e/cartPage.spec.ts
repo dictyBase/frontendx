@@ -1,6 +1,9 @@
 import { test, expect } from "@playwright/test"
 import { waitForImageLoad } from "./utils/waitForImageLoad"
 
+const strainCatalogButtonText = "Strain Catalog"
+const plasmidCatalogButtonText = "Plasmid Catalog"
+
 test.beforeEach(async ({ page }) => {
   await page.goto(`/stockcenter/cart`)
 })
@@ -23,15 +26,15 @@ test.describe("Empty Cart", () => {
   })
 
   test("displays strain catalog navigation button", async ({ page }) => {
-    const strainCatalogButton = page.getByRole("button", {
-      name: "Strain Catalog",
+    const strainCatalogButton = page.locator("main").getByRole("link", {
+      name: strainCatalogButtonText,
     })
     await expect(strainCatalogButton).toBeVisible()
   })
 
   test("displays plasmid catalog navigation button", async ({ page }) => {
-    const plasmidCatalogButton = page.getByRole("button", {
-      name: "Plasmid Catalog",
+    const plasmidCatalogButton = page.locator("main").getByRole("link", {
+      name: plasmidCatalogButtonText,
     })
     await expect(plasmidCatalogButton).toBeVisible()
   })
@@ -39,14 +42,20 @@ test.describe("Empty Cart", () => {
   test("strain catalog button navigates to strain catalog page", async ({
     page,
   }) => {
-    await page.getByRole("button", { name: "Strain Catalog" }).click()
+    await page
+      .locator("main")
+      .getByRole("link", { name: strainCatalogButtonText })
+      .click()
     await expect(page).toHaveURL(/.*\/stockcenter\/strains/)
   })
 
   test("plasmid catalog button navigates to plasmid catalog page", async ({
     page,
   }) => {
-    await page.getByRole("button", { name: "Plasmid Catalog" }).click()
+    await page
+      .locator("main")
+      .getByRole("link", { name: plasmidCatalogButtonText })
+      .click()
     await expect(page).toHaveURL(/.*\/stockcenter\/plasmids/)
   })
 })
@@ -82,10 +91,12 @@ test.describe("Cart with Item", () => {
     page,
   }) => {
     await expect(
-      page.getByRole("button", { name: "Strains Catalog" }),
+      page.locator("main").getByRole("link", { name: strainCatalogButtonText }),
     ).toBeVisible()
     await expect(
-      page.getByRole("button", { name: "Plasmids Catalog" }),
+      page
+        .locator("main")
+        .getByRole("link", { name: plasmidCatalogButtonText }),
     ).toBeVisible()
   })
 

@@ -5,12 +5,12 @@ import { userEvent } from "@testing-library/user-event"
 import { ContinueShoppingCard } from "../cart/ContinueShoppingCard"
 
 const App = () => (
-  <MemoryRouter>
+  <MemoryRouter initialEntries={["/cart"]}>
     <Routes>
       <Route path="/strains" element={<> Strain Catalog </>} />
       <Route path="/plasmids" element={<> Plasmid Catalog </>} />
+      <Route path="/cart" element={<ContinueShoppingCard />} />
     </Routes>
-    <ContinueShoppingCard />
   </MemoryRouter>
 )
 
@@ -23,7 +23,7 @@ describe("ContinueShoppingCard", () => {
 
   test("should render a Button with the text 'Strains Catalog' that links user to the /strains route", async () => {
     render(<App />)
-    const buttonElement = screen.getByText("Strains Catalog")
+    const buttonElement = screen.getByText("Strain Catalog")
 
     await userEvent.click(buttonElement)
 
@@ -32,7 +32,7 @@ describe("ContinueShoppingCard", () => {
 
   test("should render a Button with the text 'Plasmids Catalog' that links user to the /plasmids route", async () => {
     render(<App />)
-    const buttonElement = screen.getByText("Plasmids Catalog")
+    const buttonElement = screen.getByText("Plasmid Catalog")
 
     await userEvent.click(buttonElement)
 

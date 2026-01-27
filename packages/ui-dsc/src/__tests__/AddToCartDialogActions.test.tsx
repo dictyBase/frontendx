@@ -29,7 +29,7 @@ test("navigates to the `/cart` route when the View Cart Button is pressed", asyn
       </Routes>
     </MemoryRouter>,
   )
-  const button = screen.getByRole("button", { name: "View Cart" })
+  const button = screen.getByRole("link", { name: "View Cart" })
   await userEvent.click(button)
   expect(screen.getByText("Shopping Cart")).toBeInTheDocument()
 })
