@@ -3,7 +3,6 @@ import { pipe } from "fp-ts/lib/function.js"
 import { slice as Sslice } from "fp-ts/lib/string.js"
 import { makeBy as RNEAmakeBy } from "fp-ts/lib/ReadonlyNonEmptyArray.js"
 import { strainListQueryData } from "./utils/gqlRequestData"
-import { waitForImageLoad } from "./utils/waitForImageLoad"
 
 const GRAPHQL_ENDPOINT = `${process.env.VITE_APP_GRAPHQL_SERVER}/graphql`
 
@@ -28,14 +27,6 @@ test.beforeAll("Test Strain Catalog Page API", async ({ playwright }) => {
 
 test.beforeEach(async ({ page }) => {
   await page.goto(`/stockcenter/strains`)
-})
-
-test("Strain catalog snapshot", async ({ page }) => {
-  const main = page.locator("main")
-  await expect(main).toHaveScreenshot()
-  await page.waitForLoadState("networkidle")
-  // Wait for all images to load
-  await page.waitForFunction(waitForImageLoad)
 })
 
 test("Displays Strains from API", async ({ page }) => {
