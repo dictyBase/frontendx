@@ -34,7 +34,6 @@ const ContinueShoppingCard = () => {
         Need something else?
       </Typography>
       <Button
-        role="button"
         component={Link}
         to="/strains"
         variant="contained"
@@ -43,10 +42,9 @@ const ContinueShoppingCard = () => {
         fullWidth
         startIcon={<FontAwesomeIcon icon="share" />}
         className={classes.continueBtn}>
-        Strains Catalog
+        Strain Catalog
       </Button>
       <Button
-        role="button"
         component={Link}
         to="/plasmids"
         variant="contained"
@@ -55,7 +53,7 @@ const ContinueShoppingCard = () => {
         fullWidth
         startIcon={<FontAwesomeIcon icon="share" />}
         className={classes.continueBtn}>
-        Plasmids Catalog
+        Plasmid Catalog
       </Button>
     </Card>
   )

@@ -18,7 +18,6 @@ const CheckoutButton = () => {
   return (
     <Button
       component={Link}
-      role="button"
       to="/order"
       color="secondary"
       variant="contained"
