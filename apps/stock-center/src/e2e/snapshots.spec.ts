@@ -29,3 +29,11 @@ test("Navbar Item Menu snapshot", async ({ page }) => {
   const genomesList = page.getByTestId("navbar-dropdown-Genomes")
   await expect(genomesList).toHaveScreenshot()
 })
+
+test("DSC Home page snapshot", async ({ page }) => {
+  const main = page.locator("main")
+  await expect(main).toHaveScreenshot()
+  await page.waitForLoadState("networkidle")
+  // Wait for all images to load
+  await page.waitForFunction(waitForImageLoad)
+})

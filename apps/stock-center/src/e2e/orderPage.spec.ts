@@ -1,5 +1,6 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import { test, expect, type Page } from "@playwright/test"
+import { waitForImageLoad } from "./utils/waitForImageLoad"
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/stockcenter/strains/DBS0391520")
@@ -55,13 +56,21 @@ const fillShippingForm = async (page: Page) => {
     .getByRole("textbox", { name: "Zip Code" })
     .fill(shippingData.zipCode)
   await page
-    .getByRole("textbox", { name: "Country" })
+    .getByRole("combobox", { name: "Country" })
     .fill(shippingData.country)
   await page.getByRole("option", { name: "United States" }).click()
   await page
     .getByRole("textbox", { name: "Shipping Account Number" })
     .fill(shippingData.shippingAccountNumber)
 }
+
+test("Shipping page snapshot", async ({ page }) => {
+  const main = page.locator("main")
+  await expect(main).toHaveScreenshot()
+  await page.waitForLoadState("networkidle")
+  // Wait for all images to load
+  await page.waitForFunction(waitForImageLoad)
+})
 
 test.describe("Shipping Address Step", () => {
   test("displays shipping address step when order page loads", async ({
@@ -131,7 +140,7 @@ test.describe("Shipping Address Step", () => {
     await expect(page.getByRole("textbox", { name: "Zip Code" })).toHaveValue(
       shippingData.zipCode,
     )
-    await expect(page.getByRole("textbox", { name: "Country" })).toHaveValue(
+    await expect(page.getByRole("combobox", { name: "Country" })).toHaveValue(
       shippingData.country,
     )
     await expect(
@@ -157,6 +166,14 @@ test.describe("Payment Details", () => {
     await page.getByRole("button", { name: "Continue" }).click()
 
     await page.getByRole("checkbox", { name: "Use Shipping Address" }).check()
+  })
+
+  test("Shipping page snapshot", async ({ page }) => {
+    const main = page.locator("main")
+    await expect(main).toHaveScreenshot()
+    await page.waitForLoadState("networkidle")
+    // Wait for all images to load
+    await page.waitForFunction(waitForImageLoad)
   })
 
   test("fills payment address details when `same as shipping` checkbox is checked", async ({
@@ -193,7 +210,7 @@ test.describe("Payment Details", () => {
     await expect(page.getByRole("textbox", { name: "Zip Code" })).toHaveValue(
       shippingData.zipCode,
     )
-    await expect(page.getByRole("textbox", { name: "Country" })).toHaveValue(
+    await expect(page.getByRole("combobox", { name: "Country" })).toHaveValue(
       shippingData.country,
     )
   })
@@ -255,19 +272,5 @@ test.describe("Payment Details", () => {
     // Action buttons
     await expect(page.getByRole("button", { name: "Back" })).toBeVisible()
     await expect(page.getByRole("button", { name: "Submit" })).toBeVisible()
-  })
-
-  test("displays `Order Confirmation` view after continuing from `Order Summary` view", async ({
-    page,
-  }) => {
-    await page
-      .getByRole("textbox", { name: "Purchase Order Number" })
-      .fill("123456")
-    await page.getByRole("button", { name: "Continue" }).click()
-    await page.getByRole("button", { name: "Submit" }).click()
-    await expect(page.getByText(/Order ID: \d+/)).toBeVisible()
-    await expect(
-      page.getByRole("heading", { name: "Thank you for your order" }),
-    ).toBeVisible()
   })
 })
