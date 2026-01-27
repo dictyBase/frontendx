@@ -21,10 +21,20 @@ const ReferencesQuery = () => {
   })
   return match(result)
     .with({ loading: true }, () => (
-      <PanelWrapper route={`${gene}/references`} title="Publications">
+      <PanelWrapper route="references" title="Publications">
         <Loader rows={4} />
       </PanelWrapper>
     ))
+    .with(
+      {
+        data: P.union(P.nullish, { listPublicationsWithGene: [] }),
+      },
+      () => (
+        <PanelWrapper title="Publications">
+          <NoDataPanel query="References" geneId={gene} />
+        </PanelWrapper>
+      ),
+    )
     .with(
       {
         data: {
@@ -43,7 +53,7 @@ const ReferencesQuery = () => {
         const partialPublicationsList = publications.slice(0, publicationLimit)
         return (
           <PanelWrapper
-            route={`${gene}/references`}
+            route="references"
             title={`Publications (${partialPublicationsList.length} of ${publications.length}) `}>
             <ReferencesPanel publications={partialPublicationsList} />
           </PanelWrapper>
@@ -51,23 +61,13 @@ const ReferencesQuery = () => {
       },
     )
     .with({ error: P.select(P.not(P.nullish)) }, (error) => (
-      <PanelWrapper route={`${gene}/references`} title="Publications">
+      <PanelWrapper route="references" title="Publications">
         <ErrorPanel
           retry={result.refetch}
           details={getErrorMessage(error).message}
         />
       </PanelWrapper>
     ))
-    .with(
-      {
-        data: P.union(P.nullish, { listPublicationsWithGene: [] }),
-      },
-      () => (
-        <PanelWrapper route={`${gene}/references`} title="Publications">
-          <NoDataPanel query="References" geneId={gene} />
-        </PanelWrapper>
-      ),
-    )
     .otherwise(() => <> This message should not appear. </>)
 }
 
