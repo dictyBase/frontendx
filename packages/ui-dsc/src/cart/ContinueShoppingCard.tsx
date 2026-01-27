@@ -34,6 +34,7 @@ const ContinueShoppingCard = () => {
         Need something else?
       </Typography>
       <Button
+        role="button"
         component={Link}
         to="/strains"
         variant="contained"
@@ -45,6 +46,7 @@ const ContinueShoppingCard = () => {
         Strains Catalog
       </Button>
       <Button
+        role="button"
         component={Link}
         to="/plasmids"
         variant="contained"

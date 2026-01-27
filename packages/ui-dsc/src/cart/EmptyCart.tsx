@@ -32,6 +32,7 @@ const EmptyCart = () => {
           className={classes.button}
           color="primary"
           variant="outlined"
+          role="button"
           component={Link}
           to="/strains">
           Strain Catalog
@@ -39,6 +40,7 @@ const EmptyCart = () => {
         <Button
           className={classes.button}
           color="primary"
+          role="button"
           variant="outlined"
           component={Link}
           to="/plasmids">
