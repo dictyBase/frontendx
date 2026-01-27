@@ -30,12 +30,14 @@ const AddToCartDialogActions = ({
   return (
     <DialogActions>
       <Button
+        role="button"
         onClick={handleClose}
         variant="outlined"
         aria-label="Continue Shopping">
         Continue Shopping
       </Button>
       <Button
+        role="button"
         onClick={handleClose}
         component={Link}
         to="/cart"
