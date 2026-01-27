@@ -3,6 +3,7 @@ import { pipe } from "fp-ts/lib/function.js"
 import { slice as Sslice } from "fp-ts/lib/string.js"
 import { makeBy as RNEAmakeBy } from "fp-ts/lib/ReadonlyNonEmptyArray.js"
 import { strainListQueryData } from "./utils/gqlRequestData"
+import { waitForImageLoad } from "./utils/waitForImageLoad"
 
 const GRAPHQL_ENDPOINT = `${process.env.VITE_APP_GRAPHQL_SERVER}/graphql`
 
@@ -27,6 +28,14 @@ test.beforeAll("Test Strain Catalog Page API", async ({ playwright }) => {
 
 test.beforeEach(async ({ page }) => {
   await page.goto(`/stockcenter/strains`)
+})
+
+test("Strain catalog snapshot", async ({ page }) => {
+  const main = page.locator("main")
+  await expect(main).toHaveScreenshot()
+  await page.waitForLoadState("networkidle")
+  // Wait for all images to load
+  await page.waitForFunction(waitForImageLoad)
 })
 
 test("Displays Strains from API", async ({ page }) => {
@@ -67,7 +76,7 @@ test("Scrolling to the bottom of the list initiates a fetch for more strains", a
 test("Selecting `GWDI Strains` from `group` dropdown shows only GWDI strains", async ({
   page,
 }) => {
-  await page.getByRole("button", { name: "Regular Strains" }).click()
+  await page.getByText("Regular Strains").click()
   await page.getByRole("option", { name: "GWDI Strains" }).click()
 
   const catalog = page.locator("tbody")
@@ -86,13 +95,13 @@ test("Selecting `GWDI Strains` from `group` dropdown shows only GWDI strains", a
 test("Selecting `All Available Strains` from `group` dropdown shows only in-stock strains", async ({
   page,
 }) => {
-  await page.getByRole("button", { name: "Regular Strains" }).click()
+  await page.getByText("Regular Strains").click()
   await page.getByRole("option", { name: "All Available Strains" }).click()
 
   const catalog = page.locator("tbody")
   const strainRows = catalog.getByRole("row").filter({ hasText: /DBS/ })
-  const availableStrainRows = catalog.getByRole("button", {
-    name: "Add to Shopping Cart",
+  const availableStrainRows = await page.getByRole("cell", {
+    name: "Add to shopping cart",
   })
   await expect(availableStrainRows.first()).toBeVisible()
   // Every strain row should have a shopping cart button
@@ -102,7 +111,7 @@ test("Selecting `All Available Strains` from `group` dropdown shows only in-stoc
 test("Search by Descriptor", async ({ page }) => {
   const searchTerm = "corA"
   const main = page.locator("main")
-  const searchBox = main.getByRole("textbox", { name: "Search" })
+  const searchBox = main.getByRole("combobox", { name: "Search" })
   await searchBox.click()
   await page.getByRole("option", { name: "Descriptor" }).click()
   await searchBox.fill(searchTerm)
@@ -123,7 +132,7 @@ test("Search by Descriptor", async ({ page }) => {
 test("Search by Summary", async ({ page }) => {
   const searchTerm = "antisense"
   const main = page.locator("main")
-  const searchBox = main.getByRole("textbox", { name: "Search" })
+  const searchBox = main.getByRole("combobox", { name: "Search" })
   await searchBox.click()
   await page.getByRole("option", { name: "Summary" }).click()
   await searchBox.fill(searchTerm)
