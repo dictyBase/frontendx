@@ -92,9 +92,7 @@ describe("features/Summary/Panels/ReferencesQuery", () => {
     render(<ReferencesQuery />)
 
     // Wait for query to complete
-    expect(
-      await screen.findByText(/Publications \(0 of 0\)/),
-    ).toBeInTheDocument()
+    expect(await screen.findByText(/No References/)).toBeInTheDocument()
   })
 
   test("should render error page when query fails", async () => {
