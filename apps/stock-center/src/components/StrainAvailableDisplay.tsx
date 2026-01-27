@@ -51,7 +51,6 @@ const StrainAvailableDisplay = ({ cartData }: Properties) => {
         .with({ isInCart: true }, () => (
           <Grid item>
             <SecondaryButton
-              role="button"
               variant="contained"
               color="secondary"
               style={{ backgroundColor: red[900] }}
@@ -68,7 +67,6 @@ const StrainAvailableDisplay = ({ cartData }: Properties) => {
         .with({ isInCart: false }, () => (
           <Grid item>
             <SecondaryButton
-              role="button"
               variant="contained"
               color="secondary"
               onClick={handleAddToCart}>
