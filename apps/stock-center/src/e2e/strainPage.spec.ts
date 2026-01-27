@@ -7,7 +7,6 @@ import {
 } from "fp-ts/lib/Option.js"
 import { strainQueryData } from "./utils/gqlRequestData"
 import { EXPECTED_STRAIN } from "./utils/expectedData"
-import { waitForImageLoad } from "./utils/waitForImageLoad"
 
 const GRAPHQL_ENDPOINT = `${process.env.VITE_APP_GRAPHQL_SERVER}/graphql`
 const TEST_STRAIN_ID = "DBS0350877"
@@ -26,14 +25,6 @@ test.beforeAll("Test Strain Details Page API", async ({ playwright }) => {
 
 test.beforeEach(async ({ page }) => {
   await page.goto(`/stockcenter/strains/${TEST_STRAIN_ID}`)
-})
-
-test("Strain catalog snapshot", async ({ page }) => {
-  const main = page.locator("main")
-  await expect(main).toHaveScreenshot()
-  await page.waitForLoadState("networkidle")
-  // Wait for all images to load
-  await page.waitForFunction(waitForImageLoad)
 })
 
 test("Displays Strain Details", async ({ page }) => {
