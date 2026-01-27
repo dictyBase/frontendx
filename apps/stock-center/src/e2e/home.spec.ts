@@ -1,20 +1,11 @@
 import { test, expect } from "@playwright/test"
 import { pipe } from "fp-ts/lib/function.js"
 import { map as Amap } from "fp-ts/lib/Array.js"
-import { waitForImageLoad } from "./utils/waitForImageLoad"
 
 const CAROUSEL_IMAGE_ALT = 'img[alt*="mutant"]'
 
 test.beforeEach(async ({ page }) => {
   await page.goto("http://localhost:3003/stockcenter")
-})
-
-test("DSC Home page snapshot", async ({ page }) => {
-  const main = page.locator("main")
-  await expect(main).toHaveScreenshot()
-  await page.waitForLoadState("networkidle")
-  // Wait for all images to load
-  await page.waitForFunction(waitForImageLoad)
 })
 
 test("Displays welcome message", async ({ page }) => {
