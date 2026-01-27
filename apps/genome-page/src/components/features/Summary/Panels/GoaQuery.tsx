@@ -18,35 +18,41 @@ const GoaQuery = () => {
     fetchPolicy: "network-only",
     nextFetchPolicy: "cache-and-network",
   })
-  return (
-    <PanelWrapper
-      route={`${gene}/goannotations`}
-      title="Gene Ontology Annotations">
-      {match(result)
-        .with({ loading: true }, () => <Loader rows={3} />)
-        .with(
-          {
-            data: { geneOntologyAnnotation: P.union([], P.nullish) },
-          },
-          () => <NoDataPanel query="GO Annotations" geneId={gene} />,
-        )
-        .with(
-          {
-            data: { geneOntologyAnnotation: P.select(P.not(P.nullish)) },
-          },
-          (goas) => <GoaPanel goas={goas} />,
-        )
-        .with({ error: P.select(P.not(P.nullish)) }, (error) => (
-          <ErrorPanel
-            retry={result.refetch}
-            details={getErrorMessage(error).message}
-          />
-        ))
-        .otherwise(() => (
-          <> This message should not appear. </>
-        ))}
-    </PanelWrapper>
-  )
+  return match(result)
+    .with({ loading: true }, () => (
+      <PanelWrapper route="goannotations" title="Gene Ontology Annotations">
+        <Loader rows={3} />
+      </PanelWrapper>
+    ))
+    .with(
+      {
+        data: { geneOntologyAnnotation: P.union([], P.nullish) },
+      },
+      () => (
+        <PanelWrapper title="Gene Ontology Annotations">
+          <NoDataPanel query="GO Annotations" geneId={gene} />
+        </PanelWrapper>
+      ),
+    )
+    .with(
+      {
+        data: { geneOntologyAnnotation: P.select(P.not(P.nullish)) },
+      },
+      (goas) => (
+        <PanelWrapper route="goannotations" title="Gene Ontology Annotations">
+          <GoaPanel goas={goas} />
+        </PanelWrapper>
+      ),
+    )
+    .with({ error: P.select(P.not(P.nullish)) }, (error) => (
+      <PanelWrapper route="goannotations" title="Gene Ontology Annotations">
+        <ErrorPanel
+          retry={result.refetch}
+          details={getErrorMessage(error).message}
+        />
+      </PanelWrapper>
+    ))
+    .otherwise(() => <> This message should not appear. </>)
 }
 
 export { GoaQuery }
