@@ -32,8 +32,8 @@ test("calls functions when clicking close button", async () => {
       <AddToCartDialog {...properties} />
     </BrowserRouter>,
   )
-  const link = screen.getByRole("link", { name: "View Cart" })
-  await userEvent.click(link)
+  const button = screen.getByRole("button", { name: "View Cart" })
+  await userEvent.click(button)
   expect(setCheckedItemsSpy).toHaveBeenCalledOnce()
   expect(setShowDialogSpy).toHaveBeenCalledOnce()
   expect(setHoverSpy).toHaveBeenCalledOnce()
