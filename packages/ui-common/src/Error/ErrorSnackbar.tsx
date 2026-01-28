@@ -1,6 +1,7 @@
-import { Snackbar, IconButton, makeStyles, Typography } from "@material-ui/core"
-import { Alert, AlertTitle } from "@material-ui/lab"
-import CloseIcon from "@material-ui/icons/Close"
+import { Snackbar, IconButton, Typography } from "@mui/material";
+import makeStyles from '@mui/styles/makeStyles';
+import { Alert, AlertTitle } from '@mui/material';
+import CloseIcon from "@mui/icons-material/Close"
 
 type ErrorSnackbarProperties = {
   open: boolean

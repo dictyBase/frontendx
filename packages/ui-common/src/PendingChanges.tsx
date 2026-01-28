@@ -1,5 +1,5 @@
-import { makeStyles } from "@material-ui/core"
-import AutorenewIcon from "@material-ui/icons/Autorenew"
+import makeStyles from '@mui/styles/makeStyles';
+import AutorenewIcon from "@mui/icons-material/Autorenew"
 
 const useStyles = makeStyles({
   spinner: {

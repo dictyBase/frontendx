@@ -1,6 +1,6 @@
-import Button from "@material-ui/core/Button"
+import Button from "@mui/material/Button"
 import { Link } from "react-router-dom"
-import { makeStyles } from "@material-ui/core/styles"
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles(({ palette }) => ({
   addPageButton: {

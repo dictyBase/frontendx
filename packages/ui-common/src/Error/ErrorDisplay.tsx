@@ -1,13 +1,14 @@
-import { makeStyles, Theme } from "@material-ui/core/styles"
-import Typography from "@material-ui/core/Typography"
-import Paper from "@material-ui/core/Paper"
-import Grid from "@material-ui/core/Grid"
-import Button from "@material-ui/core/Button"
-import RefreshIcon from "@material-ui/icons/Refresh"
-import HomeIcon from "@material-ui/icons/Home"
-import CheckCircleIcon from "@material-ui/icons/CheckCircle"
-import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline"
-import { grey } from "@material-ui/core/colors"
+import { Theme } from "@mui/material/styles";
+import makeStyles from '@mui/styles/makeStyles';
+import Typography from "@mui/material/Typography"
+import Paper from "@mui/material/Paper"
+import Grid from "@mui/material/Grid"
+import Button from "@mui/material/Button"
+import RefreshIcon from "@mui/icons-material/Refresh"
+import HomeIcon from "@mui/icons-material/Home"
+import CheckCircleIcon from "@mui/icons-material/CheckCircle"
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline"
+import { grey } from "@mui/material/colors"
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: "center",
     borderRight: `1px solid ${theme.palette.divider}`,
     padding: theme.spacing(3),
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down('md')]: {
       borderRight: "none",
       borderBottom: `1px solid ${theme.palette.divider}`,
     },
@@ -64,7 +65,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     gridTemplateColumns: "1fr 1fr",
     gap: theme.spacing(2),
     marginBottom: theme.spacing(3),
-    [theme.breakpoints.down("xs")]: {
+    [theme.breakpoints.down('sm')]: {
       gridTemplateColumns: "1fr",
     },
   },

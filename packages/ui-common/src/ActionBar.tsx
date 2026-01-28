@@ -1,5 +1,6 @@
 import { FunctionComponent } from "react"
-import { Grid, Box, Theme, makeStyles } from "@material-ui/core"
+import { Grid, Box, Theme } from "@mui/material";
+import makeStyles from '@mui/styles/makeStyles';
 import { pipe } from "fp-ts/function"
 import { mapWithIndex as AmapWithIndex } from "fp-ts/Array"
 import { match as Bmatch } from "fp-ts/boolean"

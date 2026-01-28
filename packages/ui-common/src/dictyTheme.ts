@@ -1,4 +1,4 @@
-import { createTheme, ThemeOptions } from "@material-ui/core"
+import { createTheme, DeprecatedThemeOptions, adaptV4Theme } from "@mui/material";
 import "@fontsource/poppins"
 import "@fontsource-variable/inter"
 
@@ -94,6 +94,6 @@ const dictyThemeOptions = {
   },
 }
 
-const dictyTheme = createTheme(dictyThemeOptions as ThemeOptions)
+const dictyTheme = createTheme(adaptV4Theme(dictyThemeOptions as DeprecatedThemeOptions))
 
 export { dictyTheme, dictyThemeOptions }
