@@ -1,6 +1,7 @@
-import { makeStyles, Theme } from "@material-ui/core/styles"
-import Box from "@material-ui/core/Box"
-import SnackbarContent from "@material-ui/core/SnackbarContent"
+import { Theme } from "@mui/material/styles";
+import makeStyles from '@mui/styles/makeStyles';
+import Box from "@mui/material/Box"
+import SnackbarContent from "@mui/material/SnackbarContent"
 
 const useStyles = makeStyles((theme: Theme) => ({
   snackbar: {

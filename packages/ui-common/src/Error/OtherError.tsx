@@ -1,5 +1,5 @@
-import { Grid } from "@material-ui/core"
-import ErrorIcon from "@material-ui/icons/Error"
+import { Grid } from "@mui/material"
+import ErrorIcon from "@mui/icons-material/Error"
 import { pipe } from "fp-ts/function"
 import {
   map as Omap,
