@@ -23,7 +23,9 @@ const useStyles = makeStyles()((theme) => ({
  * A customized Tab component for dictyBase applications.
  */
 const DictyTab = ({ ...properties }: TabProps) => {
-  const { selected, tab } = useStyles()
+  const {
+    classes: { selected, tab },
+  } = useStyles()
   return <Tab wrapped classes={{ selected }} className={tab} {...properties} />
 }
 

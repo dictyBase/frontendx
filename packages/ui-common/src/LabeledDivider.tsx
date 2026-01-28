@@ -18,7 +18,9 @@ const useStyles = makeStyles()((theme) => ({
 }))
 
 const LabeledDivider = ({ label }: { label: string }) => {
-  const { root, labelText, divider } = useStyles()
+  const {
+    classes: { root, labelText, divider },
+  } = useStyles()
   return (
     <Grid container spacing={2} alignItems="center" className={root}>
       <Grid item>

@@ -17,7 +17,9 @@ const useStyles = makeStyles()({
  * A customized Tabs component for dictyBase applications.
  */
 const DictyTabs: typeof Tabs = ({ ...properties }) => {
-  const { tabBar, flexContainer } = useStyles()
+  const {
+    classes: { tabBar, flexContainer },
+  } = useStyles()
   return (
     <Tabs
       variant="scrollable"

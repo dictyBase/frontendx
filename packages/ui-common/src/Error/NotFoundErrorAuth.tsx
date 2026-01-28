@@ -8,7 +8,7 @@ import { useStyles } from "./errorStyles"
  */
 
 const NotFoundErrorAuth = () => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <Grid container className={classes.mainGrid} justifyContent="center">
