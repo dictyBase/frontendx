@@ -1,6 +1,6 @@
-import { Grid, Typography, Divider } from "@mui/material";
+import { Grid, Typography, Divider } from "@mui/material"
 
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -15,14 +15,10 @@ const useStyles = makeStyles()((theme) => ({
     opacity: 0.3,
     height: "2px",
   },
-}));
+}))
 
 const LabeledDivider = ({ label }: { label: string }) => {
-  const {
-    root,
-    labelText,
-    divider
-  } = useStyles()
+  const { root, labelText, divider } = useStyles()
   return (
     <Grid container spacing={2} alignItems="center" className={root}>
       <Grid item>

@@ -1,6 +1,6 @@
 import Button from "@mui/material/Button"
 import { Link } from "react-router-dom"
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 
 const useStyles = makeStyles()(({ palette }) => ({
   addPageButton: {
@@ -13,16 +13,14 @@ const useStyles = makeStyles()(({ palette }) => ({
       backgroundColor: palette.secondary.dark,
     },
   },
-}));
+}))
 
 /**
  * AddPageButton is a simple button that links to the /addpage route.
  */
 
 const AddPageButton = () => {
-  const {
-    addPageButton
-  } = useStyles()
+  const { addPageButton } = useStyles()
 
   return (
     <Button

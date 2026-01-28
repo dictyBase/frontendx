@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 import Button from "@mui/material/Button"
 
 const useStyles = makeStyles()({
@@ -15,7 +15,7 @@ const useStyles = makeStyles()({
       color: "#fff",
     },
   },
-});
+})
 
 /**
  * BackToHomePageButton is a simple button that links back to the homepage.

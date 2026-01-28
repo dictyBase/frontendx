@@ -1,7 +1,7 @@
 /* eslint-disable dot-notation */
-import { Tabs } from "@mui/material";
+import { Tabs } from "@mui/material"
 
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 
 const useStyles = makeStyles()({
   tabBar: {
@@ -11,16 +11,13 @@ const useStyles = makeStyles()({
     gap: "15px",
     padding: "5px",
   },
-});
+})
 
 /**
  * A customized Tabs component for dictyBase applications.
  */
 const DictyTabs: typeof Tabs = ({ ...properties }) => {
-  const {
-    tabBar,
-    flexContainer
-  } = useStyles()
+  const { tabBar, flexContainer } = useStyles()
   return (
     <Tabs
       variant="scrollable"
