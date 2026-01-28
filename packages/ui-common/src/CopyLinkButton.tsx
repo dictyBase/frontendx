@@ -21,7 +21,7 @@ const CopyLinkButton = () => {
   }
 
   return (
-    (<Tooltip
+    <Tooltip
       onClose={handleClose}
       title={
         <Typography variant="caption">
@@ -31,8 +31,8 @@ const CopyLinkButton = () => {
       <IconButton onClick={handleClick} size="large">
         <LinkRoundedIcon />
       </IconButton>
-    </Tooltip>)
-  );
+    </Tooltip>
+  )
 }
 
 export { CopyLinkButton }

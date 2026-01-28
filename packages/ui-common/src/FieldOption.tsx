@@ -1,8 +1,8 @@
 import { Chip } from "@mui/material"
-import { Theme } from "@mui/material/styles";
+import { Theme } from "@mui/material/styles"
 
-import { makeStyles } from 'tss-react/mui';
-import createStyles from '@mui/styles/createStyles';
+import { makeStyles } from "tss-react/mui"
+import createStyles from "@mui/styles/createStyles"
 
 const useFieldOptionStyles = makeStyles()((theme: Theme) =>
   createStyles({
@@ -11,7 +11,8 @@ const useFieldOptionStyles = makeStyles()((theme: Theme) =>
       color: theme.palette.getContrastText(theme.palette.primary.light),
       backgroundColor: theme.palette.primary.light,
     },
-  }));
+  }),
+)
 
 type FieldOptionProperties = {
   /**
@@ -25,9 +26,7 @@ type FieldOptionProperties = {
  * in the Autocomplete component as well as the `active chip value` for the Autocomplete's tags.
  */
 const FieldOption = ({ label }: FieldOptionProperties) => {
-  const {
-    root
-  } = useFieldOptionStyles()
+  const { root } = useFieldOptionStyles()
   return <Chip className={root} size="medium" label={label} />
 }
 

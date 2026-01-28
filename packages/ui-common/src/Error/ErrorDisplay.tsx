@@ -1,5 +1,5 @@
-import { Theme } from "@mui/material/styles";
-import { makeStyles } from 'tss-react/mui';
+import { Theme } from "@mui/material/styles"
+import { makeStyles } from "tss-react/mui"
 import Typography from "@mui/material/Typography"
 import Paper from "@mui/material/Paper"
 import Grid from "@mui/material/Grid"
@@ -31,7 +31,7 @@ const useStyles = makeStyles()((theme: Theme) => ({
     justifyContent: "center",
     borderRight: `1px solid ${theme.palette.divider}`,
     padding: theme.spacing(3),
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down("md")]: {
       borderRight: "none",
       borderBottom: `1px solid ${theme.palette.divider}`,
     },
@@ -65,7 +65,7 @@ const useStyles = makeStyles()((theme: Theme) => ({
     gridTemplateColumns: "1fr 1fr",
     gap: theme.spacing(2),
     marginBottom: theme.spacing(3),
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down("sm")]: {
       gridTemplateColumns: "1fr",
     },
   },
@@ -113,7 +113,7 @@ const useStyles = makeStyles()((theme: Theme) => ({
       textDecoration: "underline",
     },
   },
-}));
+}))
 
 type Properties = {
   /** Title of the error panel */

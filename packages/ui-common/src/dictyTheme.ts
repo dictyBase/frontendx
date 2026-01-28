@@ -1,4 +1,8 @@
-import { createTheme, DeprecatedThemeOptions, adaptV4Theme } from "@mui/material";
+import {
+  createTheme,
+  DeprecatedThemeOptions,
+  adaptV4Theme,
+} from "@mui/material"
 import "@fontsource/poppins"
 import "@fontsource-variable/inter"
 
@@ -94,6 +98,8 @@ const dictyThemeOptions = {
   },
 }
 
-const dictyTheme = createTheme(adaptV4Theme(dictyThemeOptions as DeprecatedThemeOptions))
+const dictyTheme = createTheme(
+  adaptV4Theme(dictyThemeOptions as DeprecatedThemeOptions),
+)
 
 export { dictyTheme, dictyThemeOptions }

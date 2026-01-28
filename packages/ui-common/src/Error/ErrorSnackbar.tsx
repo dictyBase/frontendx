@@ -1,6 +1,11 @@
-import { Snackbar, IconButton, Typography } from "@mui/material";
-import { makeStyles } from 'tss-react/mui';
-import { Alert, AlertTitle } from '@mui/material';
+import {
+  Snackbar,
+  IconButton,
+  Typography,
+  Alert,
+  AlertTitle,
+} from "@mui/material"
+import { makeStyles } from "tss-react/mui"
 import CloseIcon from "@mui/icons-material/Close"
 
 type ErrorSnackbarProperties = {
@@ -13,16 +18,14 @@ const useStyles = makeStyles()({
   root: {
     minWidth: "20rem",
   },
-});
+})
 
 const ErrorSnackbar = ({
   open,
   message,
   handleClose,
 }: ErrorSnackbarProperties) => {
-  const {
-    root
-  } = useStyles()
+  const { root } = useStyles()
   return (
     <Snackbar
       open={open}
