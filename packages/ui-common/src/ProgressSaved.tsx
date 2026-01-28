@@ -1,9 +1,9 @@
 import CloudDoneIcon from "@mui/icons-material/CloudDone"
 import { Grid, Typography } from "@mui/material";
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import { green } from "@mui/material/colors"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   text: {
     color: green[800],
     fontWeight: 600,
@@ -11,10 +11,13 @@ const useStyles = makeStyles({
   icon: {
     color: green[900],
   },
-})
+});
 
 const ProgressSaved = () => {
-  const { text, icon } = useStyles()
+  const {
+    text,
+    icon
+  } = useStyles()
   return (
     <Grid alignItems="center" container spacing={1} wrap="nowrap">
       <Grid item>

@@ -1,11 +1,11 @@
 import { ApolloError } from "@apollo/client"
 import Paper from "@mui/material/Paper"
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import { blue, grey } from "@mui/material/colors"
 import { ErrorDisplay } from "./ErrorDisplay"
 import { getErrorMessage } from "./getErrorMessage"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   container: {
     backgroundColor: blue[50],
     color: grey[600],
@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   icon: {
     fontSize: "4rem",
   },
-})
+});
 
 type GraphQlErrorPageProperties = {
   /** GraphQL error object */
@@ -33,7 +33,7 @@ const ErrorPage = ({
   handleNavigateHome,
   handleReload,
 }: GraphQlErrorPageProperties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   const { message } = getErrorMessage(error)
   return (

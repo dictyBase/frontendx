@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom"
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import Button from "@mui/material/Button"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   button: {
     width: "25%",
     padding: "20px",
@@ -15,14 +15,14 @@ const useStyles = makeStyles({
       color: "#fff",
     },
   },
-})
+});
 
 /**
  * BackToHomePageButton is a simple button that links back to the homepage.
  */
 
 const BackToHomepageButton = () => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <Button

@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import Grid from "@mui/material/Grid"
 import { Theme } from "@mui/material/styles";
 
-import withStyles from '@mui/styles/withStyles';
+import { withStyles } from 'tss-react/mui';
 
 const styles = (theme: Theme) => ({
   gridContainer: {
@@ -20,7 +20,7 @@ const styles = (theme: Theme) => ({
       height: "350px",
     },
   },
-})
+});
 
 type Properties = {
   /** Material-UI styling */
@@ -95,6 +95,6 @@ class _ErrorBoundary extends Component<Properties, State> {
   }
 }
 
-const ErrorBoundary = withStyles(styles)(_ErrorBoundary)
+const ErrorBoundary = withStyles(_ErrorBoundary, styles)
 
 export { ErrorBoundary }
