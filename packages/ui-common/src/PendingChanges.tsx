@@ -16,7 +16,9 @@ const useStyles = makeStyles()({
 })
 
 const PendingChanges = () => {
-  const { spinner } = useStyles()
+  const {
+    classes: { spinner },
+  } = useStyles()
   return <AutorenewIcon className={spinner} />
 }
 

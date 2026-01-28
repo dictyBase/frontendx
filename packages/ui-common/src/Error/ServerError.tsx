@@ -7,7 +7,7 @@ import { useStyles } from "./errorStyles"
  */
 
 const ServerError = () => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <Grid container className={classes.mainGrid} justifyContent="center">

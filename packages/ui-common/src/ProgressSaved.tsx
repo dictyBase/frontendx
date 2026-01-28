@@ -14,7 +14,9 @@ const useStyles = makeStyles()({
 })
 
 const ProgressSaved = () => {
-  const { text, icon } = useStyles()
+  const {
+    classes: { text, icon },
+  } = useStyles()
   return (
     <Grid alignItems="center" container spacing={1} wrap="nowrap">
       <Grid item>

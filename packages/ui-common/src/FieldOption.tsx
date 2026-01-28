@@ -26,7 +26,9 @@ type FieldOptionProperties = {
  * in the Autocomplete component as well as the `active chip value` for the Autocomplete's tags.
  */
 const FieldOption = ({ label }: FieldOptionProperties) => {
-  const { root } = useFieldOptionStyles()
+  const {
+    classes: { root },
+  } = useFieldOptionStyles()
   return <Chip className={root} size="medium" label={label} />
 }
 

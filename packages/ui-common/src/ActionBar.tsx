@@ -43,7 +43,9 @@ const ActionBar: FunctionComponent<{
   descriptionElement?: JSX.Element
   children: Array<JSX.Element> | JSX.Element
 }> = ({ descriptionElement, children }) => {
-  const { toolbar, text } = useStyles()
+  const {
+    classes: { toolbar, text },
+  } = useStyles()
   return (
     <Grid
       container

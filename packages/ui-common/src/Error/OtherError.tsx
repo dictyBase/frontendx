@@ -18,7 +18,7 @@ type OtherErrorProperties = {
 }
 
 const OtherError = ({ message }: OtherErrorProperties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <Grid container className={classes.mainGrid} justifyContent="center">

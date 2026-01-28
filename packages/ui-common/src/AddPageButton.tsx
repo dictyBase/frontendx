@@ -20,7 +20,9 @@ const useStyles = makeStyles()(({ palette }) => ({
  */
 
 const AddPageButton = () => {
-  const { addPageButton } = useStyles()
+  const {
+    classes: { addPageButton },
+  } = useStyles()
 
   return (
     <Button

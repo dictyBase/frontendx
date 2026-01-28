@@ -25,7 +25,9 @@ const ErrorSnackbar = ({
   message,
   handleClose,
 }: ErrorSnackbarProperties) => {
-  const { root } = useStyles()
+  const {
+    classes: { root },
+  } = useStyles()
   return (
     <Snackbar
       open={open}
