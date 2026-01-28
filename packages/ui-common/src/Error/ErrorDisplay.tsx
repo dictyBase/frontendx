@@ -1,5 +1,5 @@
 import { Theme } from "@mui/material/styles";
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import Typography from "@mui/material/Typography"
 import Paper from "@mui/material/Paper"
 import Grid from "@mui/material/Grid"
@@ -10,7 +10,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle"
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline"
 import { grey } from "@mui/material/colors"
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   root: {
     padding: "2rem",
     paddingLeft: "15rem",
@@ -113,7 +113,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       textDecoration: "underline",
     },
   },
-}))
+}));
 
 type Properties = {
   /** Title of the error panel */
@@ -140,7 +140,7 @@ const ErrorDisplay = ({
   handleNavigateHome,
   handleReload,
 }: Properties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <Grid

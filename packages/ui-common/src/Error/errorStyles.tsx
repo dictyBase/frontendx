@@ -1,7 +1,7 @@
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import { deepPurple, grey } from "@mui/material/colors"
 
-const useStyles = makeStyles(({ palette }) => ({
+const useStyles = makeStyles()(({ palette }) => ({
   error400: {
     backgroundColor: "#eff8fb",
     textAlign: "center",
@@ -58,6 +58,6 @@ const useStyles = makeStyles(({ palette }) => ({
     fontStyle: "italic",
     border: `1px solid ${grey[400]}`,
   },
-}))
+}));
 
 export { useStyles }

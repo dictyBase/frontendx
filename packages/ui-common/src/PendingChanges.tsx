@@ -1,7 +1,7 @@
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import AutorenewIcon from "@mui/icons-material/Autorenew"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   spinner: {
     animation: "$spin 1.5s linear infinite",
   },
@@ -13,10 +13,12 @@ const useStyles = makeStyles({
       transform: "rotate(360deg)",
     },
   },
-})
+});
 
 const PendingChanges = () => {
-  const { spinner } = useStyles()
+  const {
+    spinner
+  } = useStyles()
   return <AutorenewIcon className={spinner} />
 }
 

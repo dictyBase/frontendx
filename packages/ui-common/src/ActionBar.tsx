@@ -1,11 +1,11 @@
 import { FunctionComponent } from "react"
 import { Grid, Box, Theme } from "@mui/material";
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import { pipe } from "fp-ts/function"
 import { mapWithIndex as AmapWithIndex } from "fp-ts/Array"
 import { match as Bmatch } from "fp-ts/boolean"
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   content: {
     marginLeft: "auto",
   },
@@ -37,13 +37,16 @@ const useStyles = makeStyles((theme: Theme) => ({
   text: {
     color: theme.palette.primary.light,
   },
-}))
+}));
 
 const ActionBar: FunctionComponent<{
   descriptionElement?: JSX.Element
   children: Array<JSX.Element> | JSX.Element
 }> = ({ descriptionElement, children }) => {
-  const { toolbar, text } = useStyles()
+  const {
+    toolbar,
+    text
+  } = useStyles()
   return (
     <Grid
       container
