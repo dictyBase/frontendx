@@ -11,7 +11,6 @@ const mockSearchTermPropsArray: ChipProps[] = [
   {
     label: "tag",
     onDelete: () => {},
-    icon: <span>🏷️</span>,
   },
 ]
 

@@ -8,7 +8,6 @@ const mockDictyTabPropsArray: TabProps[] = [
   {
     label: "Settings",
     value: "settings",
-    icon: <span>⚙️</span>,
   },
   {
     label: "Disabled",
