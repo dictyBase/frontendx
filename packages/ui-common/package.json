@@ -15,6 +15,7 @@
     "@vitest/coverage-v8": "3.x",
     "eslint-config-custom": "*",
     "tsconfig": "*",
+    "vite": "7.x",
     "vitest": "3.x"
   },
   "dependencies": {
@@ -33,10 +34,10 @@
     "react-dom": "17.*",
     "react-router-dom": "^6.14.2",
     "tss-react": "^4.9.15",
-    "uuid": "9.x",
-    "vite": "7.x"
+    "uuid": "9.x"
   },
   "scripts": {
+    "dev": "vite",
     "oxlint": "oxlint src/",
     "oxlint:ci": "oxlint src/ --format=github",
     "test": "vitest run",
