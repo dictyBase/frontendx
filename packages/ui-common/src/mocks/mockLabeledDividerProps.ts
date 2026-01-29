@@ -1,9 +1,10 @@
-const mockLabeledDividerProps = {
-  label: "Section Title",
-}
+const mockLabeledDividerPropsArray = [
+  {
+    label: "Section Title",
+  },
+  {
+    label: "Downloads",
+  },
+]
 
-const mockLabeledDividerPropsAlternate = {
-  label: "Downloads",
-}
-
-export { mockLabeledDividerProps, mockLabeledDividerPropsAlternate }
+export { mockLabeledDividerPropsArray }
