@@ -2,18 +2,14 @@ type OtherErrorProperties = {
   message?: string
 }
 
-const mockOtherErrorProps: OtherErrorProperties = {
-  message: "An unexpected error occurred. Please try again later.",
-}
+const mockOtherErrorPropsArray: OtherErrorProperties[] = [
+  {
+    message: "An unexpected error occurred. Please try again later.",
+  },
+  {},
+  {
+    message: "Authentication failed. Please log in again.",
+  },
+]
 
-const mockOtherErrorPropsNoMessage: OtherErrorProperties = {}
-
-const mockOtherErrorPropsAuthError: OtherErrorProperties = {
-  message: "Authentication failed. Please log in again.",
-}
-
-export {
-  mockOtherErrorProps,
-  mockOtherErrorPropsNoMessage,
-  mockOtherErrorPropsAuthError,
-}
+export { mockOtherErrorPropsArray }
