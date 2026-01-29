@@ -1,10 +1,6 @@
 import React from "react"
 import { ApolloProvider } from "@apollo/client"
-import {
-  ThemeProvider as ThemeProviderMUI5,
-  createTheme as createThemeV5,
-  ThemeOptions as ThemeOptionsMUI5,
-} from "@mui/material/styles"
+import { ThemeProvider as ThemeProviderMUI5 } from "@mui/material/styles"
 import {
   MuiThemeProvider as MuiThemeProviderMUI4,
   StylesProvider,
@@ -16,9 +12,7 @@ import {
   useApolloClientCache,
   storageType,
 } from "@dictybase/data-access"
-import { dictyTheme, dictyThemeOptions } from "@dictybase/ui-common"
-
-const dictyThemeMUI5 = createThemeV5(dictyThemeOptions as ThemeOptionsMUI5)
+import { dictyThemeV4, dictyThemeV5 } from "@dictybase/ui-common"
 
 const generateClassName = createGenerateClassName({
   disableGlobal: true,
@@ -40,8 +34,8 @@ const AppProviders = ({ children }: { children: React.ReactNode }) => {
   return (
     <ApolloProvider client={client}>
       <StylesProvider generateClassName={generateClassName}>
-        <ThemeProviderMUI5 theme={dictyThemeMUI5}>
-          <MuiThemeProviderMUI4 theme={dictyTheme}>
+        <ThemeProviderMUI5 theme={dictyThemeV5}>
+          <MuiThemeProviderMUI4 theme={dictyThemeV4}>
             {children}
           </MuiThemeProviderMUI4>
         </ThemeProviderMUI5>
@@ -51,4 +45,3 @@ const AppProviders = ({ children }: { children: React.ReactNode }) => {
 }
 
 export { AppProviders }
-export { dictyTheme as appTheme } from "@dictybase/ui-common"
