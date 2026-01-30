@@ -17,6 +17,7 @@ const componentPaths = pipe(
 componentPaths.forEach((path) => {
   test(`${path}`, async ({ page }) => {
     await page.goto(path)
+    await page.waitForLoadState("networkidle")
     await expect(page).toHaveScreenshot({ fullPage: true })
   })
 })
