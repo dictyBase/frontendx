@@ -2,11 +2,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import { FC, StrictMode } from "react"
 import { render } from "react-dom"
 import { ThemeProvider as ThemeProviderMUI5 } from "@mui/material/styles"
-import {
-  MuiThemeProvider as ThemeProviderMUI4,
-  StylesProvider,
-  createGenerateClassName,
-} from "@material-ui/core/styles"
+import { MuiThemeProvider as ThemeProviderMUI4 } from "@material-ui/core/styles"
 import { CssBaseline } from "@material-ui/core"
 import { dictyThemeV4, dictyThemeV5 } from "../dictyTheme"
 import { routes } from "./routeBuilder"
