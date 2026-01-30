@@ -1,4 +1,4 @@
-import type { LoadingDisplayProperties } from "../LoadingDisplay"
+import type { LoadingDisplayProperties } from "../../LoadingDisplay"
 
 const mockLoadingDisplayPropsArray: LoadingDisplayProperties[] = [
   {
