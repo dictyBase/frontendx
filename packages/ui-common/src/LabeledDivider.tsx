@@ -4,8 +4,8 @@ import { makeStyles } from "tss-react/mui"
 
 const useStyles = makeStyles()((theme) => ({
   root: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2),
   },
   labelText: {
     color: theme.palette.secondary.dark,
