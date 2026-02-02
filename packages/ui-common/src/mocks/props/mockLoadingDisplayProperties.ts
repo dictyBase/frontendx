@@ -1,6 +1,6 @@
 import type { LoadingDisplayProperties } from "../../LoadingDisplay"
 
-const mockLoadingDisplayPropsArray: LoadingDisplayProperties[] = [
+const mockLoadingDisplayPropertiesArray: LoadingDisplayProperties[] = [
   {
     rows: 3,
     height: 50,
@@ -15,4 +15,4 @@ const mockLoadingDisplayPropsArray: LoadingDisplayProperties[] = [
   },
 ]
 
-export { mockLoadingDisplayPropsArray }
+export { mockLoadingDisplayPropertiesArray }

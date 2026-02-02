@@ -2,7 +2,7 @@ type OtherErrorProperties = {
   message?: string
 }
 
-const mockOtherErrorPropsArray: OtherErrorProperties[] = [
+const mockOtherErrorPropertiesArray: OtherErrorProperties[] = [
   {
     message: "An unexpected error occurred. Please try again later.",
   },
@@ -12,4 +12,4 @@ const mockOtherErrorPropsArray: OtherErrorProperties[] = [
   },
 ]
 
-export { mockOtherErrorPropsArray }
+export { mockOtherErrorPropertiesArray }

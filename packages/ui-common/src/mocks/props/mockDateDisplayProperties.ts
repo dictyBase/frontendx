@@ -2,7 +2,7 @@ type DateDisplayProperties = {
   dateString: string
 }
 
-const mockDateDisplayPropsArray: DateDisplayProperties[] = [
+const mockDateDisplayPropertiesArray: DateDisplayProperties[] = [
   {
     dateString: "Fri, 23 Feb 2024 06:00:00 -0500",
   },
@@ -14,4 +14,4 @@ const mockDateDisplayPropsArray: DateDisplayProperties[] = [
   },
 ]
 
-export { mockDateDisplayPropsArray }
+export { mockDateDisplayPropertiesArray }

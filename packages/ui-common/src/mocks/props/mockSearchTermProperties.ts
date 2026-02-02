@@ -1,6 +1,6 @@
 import type { ChipProps } from "@mui/material"
 
-const mockSearchTermPropsArray: ChipProps[] = [
+const mockSearchTermPropertiesArray: ChipProps[] = [
   {
     label: "search term",
     onDelete: () => {},
@@ -14,4 +14,4 @@ const mockSearchTermPropsArray: ChipProps[] = [
   },
 ]
 
-export { mockSearchTermPropsArray }
+export { mockSearchTermPropertiesArray }

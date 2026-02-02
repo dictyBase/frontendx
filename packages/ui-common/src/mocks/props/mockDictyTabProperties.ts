@@ -15,4 +15,4 @@ const mockDictyTabPropertiesArray = [
   },
 ]
 
-export { mockDictyTabPropertiesArray as mockDictyTabPropsArray }
+export { mockDictyTabPropertiesArray }

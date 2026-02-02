@@ -2,7 +2,7 @@ type ErrorNotificationProperties = {
   error: string
 }
 
-const mockErrorNotificationPropsArray: ErrorNotificationProperties[] = [
+const mockErrorNotificationPropertiesArray: ErrorNotificationProperties[] = [
   {
     error: "An error occurred while processing your request.",
   },
@@ -14,4 +14,4 @@ const mockErrorNotificationPropsArray: ErrorNotificationProperties[] = [
   },
 ]
 
-export { mockErrorNotificationPropsArray }
+export { mockErrorNotificationPropertiesArray }
