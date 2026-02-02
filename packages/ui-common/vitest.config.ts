@@ -13,6 +13,7 @@ export default defineConfig({
     globals: true,
     setupFiles: "./setup.ts",
     mockReset: true,
+    exclude: ["**/e2e/**"],
     coverage: {
       include: ["src/*"],
       all: false,
