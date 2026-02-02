@@ -2,7 +2,7 @@ type FieldOptionProperties = {
   label: string
 }
 
-const mockFieldOptionPropsArray: FieldOptionProperties[] = [
+const mockFieldOptionPropertiesArray: FieldOptionProperties[] = [
   {
     label: "Gene Name",
   },
@@ -14,4 +14,4 @@ const mockFieldOptionPropsArray: FieldOptionProperties[] = [
   },
 ]
 
-export { mockFieldOptionPropsArray }
+export { mockFieldOptionPropertiesArray }

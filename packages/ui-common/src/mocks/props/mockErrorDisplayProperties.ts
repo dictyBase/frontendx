@@ -7,7 +7,7 @@ type ErrorDisplayProperties = {
   handleReload: () => void
 }
 
-const mockErrorDisplayPropsArray: ErrorDisplayProperties[] = [
+const mockErrorDisplayPropertiesArray: ErrorDisplayProperties[] = [
   {
     title: "Sorry, something went wrong.",
     message: "We encountered an error while processing your request.",
@@ -32,4 +32,4 @@ const mockErrorDisplayPropsArray: ErrorDisplayProperties[] = [
   },
 ]
 
-export { mockErrorDisplayPropsArray }
+export { mockErrorDisplayPropertiesArray }

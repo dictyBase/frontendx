@@ -1,6 +1,6 @@
 import { Tab } from "@mui/material"
 
-const mockDictyTabsPropsArray = [
+const mockDictyTabsPropertiesArray = [
   {
     value: 0,
     onChange: () => {},
@@ -20,4 +20,4 @@ const mockDictyTabsPropsArray = [
   },
 ]
 
-export { mockDictyTabsPropsArray }
+export { mockDictyTabsPropertiesArray }

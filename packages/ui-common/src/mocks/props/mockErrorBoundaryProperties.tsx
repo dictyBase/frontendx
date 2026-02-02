@@ -2,7 +2,7 @@ type ErrorBoundaryProperties = {
   children: React.ReactNode
 }
 
-const mockErrorBoundaryPropsArray: ErrorBoundaryProperties[] = [
+const mockErrorBoundaryPropertiesArray: ErrorBoundaryProperties[] = [
   {
     children: (
       <div>
@@ -25,4 +25,4 @@ const mockErrorBoundaryPropsArray: ErrorBoundaryProperties[] = [
   },
 ]
 
-export { mockErrorBoundaryPropsArray }
+export { mockErrorBoundaryPropertiesArray }

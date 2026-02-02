@@ -4,7 +4,7 @@ type ErrorSnackbarProperties = {
   handleClose: () => void
 }
 
-const mockErrorSnackbarPropsArray: ErrorSnackbarProperties[] = [
+const mockErrorSnackbarPropertiesArray: ErrorSnackbarProperties[] = [
   {
     open: true,
     message: "An error occurred while saving your changes.",
@@ -22,4 +22,4 @@ const mockErrorSnackbarPropsArray: ErrorSnackbarProperties[] = [
   },
 ]
 
-export { mockErrorSnackbarPropsArray }
+export { mockErrorSnackbarPropertiesArray }

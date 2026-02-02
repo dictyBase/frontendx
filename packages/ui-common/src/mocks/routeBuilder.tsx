@@ -25,7 +25,7 @@ const mockComponentProperties = pipe(await import("./props/index")) as Record<
 >
 
 const mapToRouteObject = (name: string, Component: FC): RouteObject => {
-  const propertiesArray = mockComponentProperties[`mock${name}PropsArray`]
+  const propertiesArray = mockComponentProperties[`mock${name}PropertiesArray`]
   if (!propertiesArray)
     return {
       path: name,

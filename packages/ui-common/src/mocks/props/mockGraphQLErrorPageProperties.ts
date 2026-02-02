@@ -1,7 +1,7 @@
 import { ApolloError } from "@apollo/client"
 import { GraphQLError } from "graphql"
 
-const mockGraphQLErrorPagePropsArray = [
+const mockGraphQLErrorPagePropertiesArray = [
   {
     error: new ApolloError({
       graphQLErrors: [
@@ -36,4 +36,4 @@ const mockGraphQLErrorPagePropsArray = [
   },
 ]
 
-export { mockGraphQLErrorPagePropsArray }
+export { mockGraphQLErrorPagePropertiesArray }

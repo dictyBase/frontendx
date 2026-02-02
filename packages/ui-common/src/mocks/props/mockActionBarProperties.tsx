@@ -1,6 +1,6 @@
 import { Button, Typography } from "@mui/material"
 
-const mockActionBarPropsArray = [
+const mockActionBarPropertiesArray = [
   {
     descriptionElement: <Typography>This is a description</Typography>,
     children: [
@@ -29,4 +29,4 @@ const mockActionBarPropsArray = [
   },
 ]
 
-export { mockActionBarPropsArray }
+export { mockActionBarPropertiesArray }
