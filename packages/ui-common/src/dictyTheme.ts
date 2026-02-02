@@ -172,6 +172,7 @@ const dictyThemeOptionsV5: ThemeOptionsV5 = {
     MuiTab: {
       styleOverrides: {
         root: {
+          minWidth: "160px",
           textTransform: "none",
         },
       },
