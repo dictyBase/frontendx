@@ -1,13 +1,12 @@
-import type { TabProps } from "@mui/material"
-
-const mockDictyTabPropsArray: TabProps[] = [
+const mockDictyTabPropertiesArray = [
   {
     label: "Overview",
     value: "overview",
   },
   {
-    label: "Settings",
-    value: "settings",
+    label: "Selected",
+    value: "selected",
+    selected: true,
   },
   {
     label: "Disabled",
@@ -16,4 +15,4 @@ const mockDictyTabPropsArray: TabProps[] = [
   },
 ]
 
-export { mockDictyTabPropsArray }
+export { mockDictyTabPropertiesArray as mockDictyTabPropsArray }
