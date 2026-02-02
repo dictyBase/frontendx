@@ -9,13 +9,13 @@ const useStyles = makeStyles()((theme) => ({
     color: theme.palette.primary.main,
     opacity: 1,
     fontSize: "1rem",
-  },
-  selected: {
-    fontWeight: 600,
-    fontFamily: "'Poppins', sans-serif",
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.primary.contrastText,
-    boxShadow: `2px 2px 3px ${grey[500]}`,
+    "&.Mui-selected": {
+      fontWeight: 600,
+      fontFamily: "'Poppins', sans-serif",
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.primary.contrastText,
+      boxShadow: `2px 2px 3px ${grey[500]}`,
+    },
   },
 }))
 
@@ -24,9 +24,9 @@ const useStyles = makeStyles()((theme) => ({
  */
 const DictyTab = ({ ...properties }: TabProps) => {
   const {
-    classes: { selected, tab },
+    classes: { tab },
   } = useStyles()
-  return <Tab wrapped classes={{ selected }} className={tab} {...properties} />
+  return <Tab wrapped className={tab} {...properties} />
 }
 
 export { DictyTab }
