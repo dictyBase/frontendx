@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prefer-module */
 import { test, expect } from "@playwright/test"
 import { pipe } from "fp-ts/function"
 import { concat as Aconcat, filter as Afilter, map as Amap } from "fp-ts/Array"
