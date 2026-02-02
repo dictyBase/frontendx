@@ -42,11 +42,11 @@ const mapToRouteObject = (name: string, Component: FC): RouteObject => {
 }
 
 const m1: Magma<ComponentModuleImports> = {
-  concat: (x: ComponentModuleImports, _: ComponentModuleImports) => x,
+  concat: (x: ComponentModuleImports) => x,
 }
 
 const m2: Magma<FC> = {
-  concat: (x: FC, _: FC) => x,
+  concat: (x: FC) => x,
 }
 const collector = (_: string, a: ComponentModuleImports) => a
 
