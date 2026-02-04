@@ -1,7 +1,7 @@
 import { test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { Button } from "@material-ui/core"
-import { ActionBar } from "../common/components/ActionBar"
+import { ActionBar } from "../ActionBar"
 
 test("renders with description element and single child", () => {
   const descriptionElement = <span>Test Description</span>
