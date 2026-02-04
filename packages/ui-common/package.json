@@ -21,6 +21,7 @@
     "vitest": "3.x"
   },
   "dependencies": {
+    "@dictybase/dicty-image-mui5": "*",
     "@fontsource-variable/inter": "^5.1.0",
     "@fontsource/poppins": "^5.1.0",
     "@fontsource/roboto": "^5.0.8",
