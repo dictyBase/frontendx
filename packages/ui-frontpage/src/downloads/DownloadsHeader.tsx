@@ -1,7 +1,7 @@
-import { Box, Typography } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
+import { Box, Typography } from "@mui/material"
+import { makeStyles } from 'tss-react/mui';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   container: {
     textAlign: "center",
   },
@@ -12,10 +12,10 @@ const useStyles = makeStyles({
   bottomHeader: {
     marginBottom: "20px",
   },
-})
+});
 
 const DownloadsHeader = () => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <Box className={classes.container}>
