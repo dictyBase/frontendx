@@ -1,19 +1,26 @@
 import React from "react"
 import { Helmet } from "react-helmet"
-import Grid from "@material-ui/core/Grid"
-import AppBar from "@material-ui/core/AppBar"
-import Tabs from "@material-ui/core/Tabs"
-import Tab from "@material-ui/core/Tab"
-import Typography from "@material-ui/core/Typography"
-import { MuiThemeProvider, createTheme } from "@material-ui/core/styles"
+import Grid from "@mui/material/Grid"
+import AppBar from "@mui/material/AppBar"
+import Tabs from "@mui/material/Tabs"
+import Tab from "@mui/material/Tab"
+import Typography from "@mui/material/Typography"
+import { ThemeProvider, Theme, StyledEngineProvider, createTheme, adaptV4Theme } from "@mui/material/styles";
 import { Organism } from "dicty-graphql-schema"
 import { dictyThemeV4 as appTheme } from "@dictybase/ui-common"
 import { Citations } from "./Citations"
 import { DownloadsTable } from "./DownloadsTable"
 import { DownloadsHeader } from "./DownloadsHeader"
 
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
+
 // create theme with our standard tab overrides
-const muiTheme = createTheme({
+const muiTheme = createTheme(adaptV4Theme({
   ...appTheme,
   overrides: {
     MuiTab: {
@@ -31,7 +38,7 @@ const muiTheme = createTheme({
       },
     },
   },
-})
+}))
 
 type Properties = {
   data: Organism[]
@@ -69,31 +76,32 @@ const DownloadsDisplay = ({ data }: Properties) => {
   }
 
   return (
-    <MuiThemeProvider theme={muiTheme}>
-      <Helmet>
-        <title>dictyBase Downloads</title>
-        <meta
-          name="description"
-          content="dictyBase Downloads - the central collection of downloadable material from dictyBase"
-        />
-      </Helmet>
-      <Grid container justifyContent="center">
-        <Grid item xs={8}>
-          <DownloadsHeader />
-          <AppBar position="static">
-            <Tabs
-              value={tabValue}
-              onChange={handleChange}
-              variant="scrollable"
-              scrollButtons="auto">
-              {generateTabs(data)}
-            </Tabs>
-          </AppBar>
-          {generateTabContainers(data)}
-        </Grid>
-      </Grid>
-    </MuiThemeProvider>
-  )
+    (<StyledEngineProvider injectFirst>(<ThemeProvider theme={muiTheme}>
+          <Helmet>
+            <title>dictyBase Downloads</title>
+            <meta
+              name="description"
+              content="dictyBase Downloads - the central collection of downloadable material from dictyBase"
+            />
+          </Helmet>
+          <Grid container justifyContent="center">
+            <Grid item xs={8}>
+              <DownloadsHeader />
+              <AppBar position="static">
+                <Tabs
+                  value={tabValue}
+                  onChange={handleChange}
+                  variant="scrollable"
+                  scrollButtons="auto">
+                  {generateTabs(data)}
+                </Tabs>
+              </AppBar>
+              {generateTabContainers(data)}
+            </Grid>
+          </Grid>
+        </ThemeProvider>)
+          </StyledEngineProvider>)
+  );
 }
 
 export { DownloadsDisplay }

@@ -1,9 +1,9 @@
 import React from "react"
-import { Box } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
+import { Box } from "@mui/material"
+import { makeStyles } from 'tss-react/mui';
 import { Citation } from "../../common/types"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   root: {
     fontSize: "0.9em",
   },
@@ -13,7 +13,7 @@ const useStyles = makeStyles({
   link: {
     textDecoration: "none",
   },
-})
+});
 
 type Properties = {
   citations: Array<Citation>
@@ -24,7 +24,7 @@ type Properties = {
  */
 
 const Citations = ({ citations }: Properties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <Box className={classes.root}>
