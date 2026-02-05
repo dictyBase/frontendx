@@ -28,4 +28,36 @@ type UptimeProperties = {
   status: Status
 }
 
-export { type UpdatedByUser, type UptimeProperties, Status }
+type Citation = {
+  title: string
+  authors: string
+  pubmed_id: string
+  journal: string
+}
+
+type DownloadItem = {
+  title: string
+  url: string
+}
+
+type Download = {
+  title: string
+  items: Array<DownloadItem>
+}
+
+type Organism = {
+  taxon_id: string
+  scientific_name: string
+  citations: Array<Citation>
+  downloads: Array<Download>
+}
+
+export type {
+  UpdatedByUser,
+  UptimeProperties,
+  Citation,
+  Download,
+  DownloadItem,
+  Organism,
+  Status,
+}
