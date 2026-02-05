@@ -45,19 +45,11 @@ type Download = {
   items: Array<DownloadItem>
 }
 
-type Organism = {
-  taxon_id: string
-  scientific_name: string
-  citations: Array<Citation>
-  downloads: Array<Download>
-}
-
 export type {
   UpdatedByUser,
   UptimeProperties,
   Citation,
   Download,
   DownloadItem,
-  Organism,
   Status,
 }
