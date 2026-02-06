@@ -1,7 +1,6 @@
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
-import { FullPageLoadingDisplay } from "@dictybase/ui-common"
-import { ShowView } from "./ShowView"
+import { FullPageLoadingDisplay, ShowView } from "@dictybase/ui-common"
 import { NAMESPACE } from "../../common/constants/namespace"
 import { useSlug } from "../../common/hooks/useSlug"
 import { ErrorPageWrapper } from "../../common/components/errors/ErrorPageWrapper"

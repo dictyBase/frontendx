@@ -6,8 +6,8 @@ import {
   ComingSoon,
   Featured,
   StatusReportContainer,
+  Slideshow,
 } from "@dictybase/ui-frontpage"
-import { Slideshow } from "./Slideshow"
 import { LatestPapers } from "./LatestPapers"
 import { DictyInfoWithAuth } from "./DictyInfoWithAuth"
 import { DictyNewsWithAuth } from "./DictyNewsWithAuth"

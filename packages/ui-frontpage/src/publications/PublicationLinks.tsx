@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { Typography, Grid } from "@material-ui/core"
+import { Typography, Grid } from "@mui/material"
 import { match } from "ts-pattern"
 import { pipe } from "fp-ts/function"
 import { split as Ssplit } from "fp-ts/string"
