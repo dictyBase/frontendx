@@ -1,6 +1,18 @@
-// Optional: configure or set up a testing framework before each test.
-// If you delete this file, remove `setupFiles` from `vitest.config.ts`
+import { vi, expect, afterEach } from "vitest"
+import { cleanup } from "@testing-library/react"
+import matchers from "@testing-library/jest-dom/matchers"
 
-// Used for __tests__/testing-library.js
-// Learn more: https://github.com/testing-library/jest-dom
-import "@testing-library/jest-dom"
+// extends Vitest's expect method with methods from react-testing-library
+expect.extend(matchers)
+
+// mock @logto
+vi.mock("@logto/react", async () => ({
+  useLogto: () => ({
+    getAccessToken: () => {},
+  }),
+}))
+
+// runs a cleanup after each test case (e.g. clearing jsdom)
+afterEach(() => {
+  cleanup()
+})

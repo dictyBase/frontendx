@@ -15,7 +15,8 @@ vi.mock("@logto/react", () => ({
   },
 }))
 
-vi.mock("@apollo/client", () => ({
+vi.mock("@apollo/client", async (importOriginal) => ({
+  ...(await importOriginal()),
   ApolloProvider: vi.fn(({ children }) => <>{children}</>),
 }))
 
