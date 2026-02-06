@@ -15,7 +15,11 @@ import {
   LabeledDivider,
   groupByDate,
 } from "@dictybase/ui-common"
-import { NewsListWrapper, NewsItem } from "@dictybase/ui-frontpage"
+import {
+  NewsListWrapper,
+  NewsItem,
+  EmptyNewsView,
+} from "@dictybase/ui-frontpage"
 import {
   useListContentByNamespaceQuery,
   ListContentByNamespaceQuery,
@@ -24,7 +28,6 @@ import { parseContentToText } from "@dictybase/editor"
 import { parseISO } from "date-fns/fp"
 import { NEWS_NAMESPACE } from "../../common/constants/namespace"
 import { ordByDate } from "../../common/utils/ordByDate"
-import { EmptyNewsView } from "../../common/components/EmptyNewsView"
 
 type NewsList = ListContentByNamespaceQuery["listContentByNamespace"]
 

@@ -1,10 +1,10 @@
 import { match } from "ts-pattern"
-import { useFetchPublications } from "../../common/hooks/useFetchPublications"
 import {
   LatestPapersView,
   LatestPapersLoader,
   LatestPapersError,
-} from "./LatestPapersView"
+} from "@dictybase/ui-frontpage"
+import { useFetchPublications } from "../../common/hooks/useFetchPublications"
 
 const LatestPapers = () => {
   const fetchState = useFetchPublications(import.meta.env.VITE_RSS_URL)

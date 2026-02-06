@@ -9,8 +9,10 @@ import { Ord as NOrd } from "fp-ts/number"
 import { Container, Box, Typography } from "@material-ui/core"
 import { grey } from "@material-ui/core/colors"
 import { makeStyles } from "@material-ui/core/styles"
-import { PublicationsList } from "./PublicationsList"
-import { type PublicationItem } from "../../common/hooks/useFetchPublications"
+import {
+  PublicationsList,
+  type PublicationItem,
+} from "@dictybase/ui-frontpage"
 
 const useStyles = makeStyles((theme) => ({
   background: {
