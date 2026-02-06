@@ -6,13 +6,11 @@ import matchers from "@testing-library/jest-dom/matchers"
 expect.extend(matchers)
 
 // mock @logto
-vi.mock("@logto/react", async () => {
-  return {
-    useLogto: () => ({
-      getAccessToken: () => {}
-    })
-  }
-}) 
+vi.mock("@logto/react", async () => ({
+  useLogto: () => ({
+    getAccessToken: () => {},
+  }),
+}))
 
 // runs a cleanup after each test case (e.g. clearing jsdom)
 afterEach(() => {
