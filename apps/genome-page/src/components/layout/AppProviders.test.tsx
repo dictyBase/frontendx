@@ -1,3 +1,4 @@
+import { vi, Mock } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { useApolloClientCache } from "@dictybase/data-access"
 import { AppProviders } from "./AppProviders"
@@ -14,7 +15,8 @@ vi.mock("@logto/react", () => ({
   },
 }))
 
-vi.mock("@apollo/client", () => ({
+vi.mock("@apollo/client", async (importOriginal) => ({
+  ...(await importOriginal()),
   ApolloProvider: vi.fn(({ children }) => <>{children}</>),
 }))
 
@@ -27,7 +29,7 @@ vi.mock("@dictybase/data-access", () => ({
 }))
 
 test("renders loader when ApolloClientCache is initializing", () => {
-  ;(useApolloClientCache as vi.Mock).mockImplementationOnce(() => ({
+  ;(useApolloClientCache as Mock).mockImplementationOnce(() => ({
     cache: {},
     isInitializing: true,
   }))
@@ -42,7 +44,7 @@ test("renders loader when ApolloClientCache is initializing", () => {
 })
 
 test("renders children when initialization is complete", () => {
-  ;(useApolloClientCache as vi.Mock).mockImplementationOnce(() => ({
+  ;(useApolloClientCache as Mock).mockImplementationOnce(() => ({
     cache: {},
     isInitializing: false,
   }))
