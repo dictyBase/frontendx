@@ -9,6 +9,7 @@ import {
   listPlasmidsPagination,
   listStrainsWithAnnotationPagination,
 } from "@dictybase/hook-dsc"
+import { ErrorBoundary } from "@dictybase/ui-common"
 import { ApolloProvider } from "@apollo/client"
 import "@fontsource/roboto"
 import { LogtoProvider, LogtoConfig, UserScope } from "@logto/react"
@@ -63,7 +64,9 @@ export const App = () => {
       <LogtoProvider config={logtoConfig}>
         <ThemeProvider>
           <CssBaseline />
-          <DscApp />
+          <ErrorBoundary>
+            <DscApp />
+          </ErrorBoundary>
         </ThemeProvider>
       </LogtoProvider>
     </ApolloProvider>
