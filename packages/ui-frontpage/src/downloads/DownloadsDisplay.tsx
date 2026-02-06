@@ -5,40 +5,45 @@ import AppBar from "@mui/material/AppBar"
 import Tabs from "@mui/material/Tabs"
 import Tab from "@mui/material/Tab"
 import Typography from "@mui/material/Typography"
-import { ThemeProvider, Theme, StyledEngineProvider, createTheme, adaptV4Theme } from "@mui/material/styles";
+import {
+  ThemeProvider,
+  Theme,
+  ThemeOptions,
+  createTheme,
+} from "@mui/material/styles"
 import { Organism } from "dicty-graphql-schema"
-import { dictyThemeV4 as appTheme } from "@dictybase/ui-common"
 import { Citations } from "./Citations"
 import { DownloadsTable } from "./DownloadsTable"
 import { DownloadsHeader } from "./DownloadsHeader"
 
-
-declare module '@mui/styles/defaultTheme' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+declare module "@mui/styles/defaultTheme" {
   interface DefaultTheme extends Theme {}
 }
-
-
 // create theme with our standard tab overrides
-const muiTheme = createTheme(adaptV4Theme({
-  ...appTheme,
-  overrides: {
+const downloadsComponentOverrides: ThemeOptions = {
+  components: {
     MuiTab: {
-      root: {
-        textTransform: "none",
+      styleOverrides: {
+        root: {
+          minWidth: "160px",
+          textTransform: "none",
+          color: "#000",
+        },
       },
     },
     MuiTabs: {
-      root: {
-        backgroundColor: "#cce6ff",
-        color: "#000",
-      },
-      indicator: {
-        backgroundColor: "#80c1ff",
+      styleOverrides: {
+        root: {
+          backgroundColor: "#cce6ff",
+          color: "#000",
+        },
+        indicator: {
+          backgroundColor: "#80c1ff",
+        },
       },
     },
   },
-}))
+}
 
 type Properties = {
   data: Organism[]
@@ -76,32 +81,40 @@ const DownloadsDisplay = ({ data }: Properties) => {
   }
 
   return (
-    (<StyledEngineProvider injectFirst>(<ThemeProvider theme={muiTheme}>
-          <Helmet>
-            <title>dictyBase Downloads</title>
-            <meta
-              name="description"
-              content="dictyBase Downloads - the central collection of downloadable material from dictyBase"
-            />
-          </Helmet>
-          <Grid container justifyContent="center">
-            <Grid item xs={8}>
-              <DownloadsHeader />
-              <AppBar position="static">
-                <Tabs
-                  value={tabValue}
-                  onChange={handleChange}
-                  variant="scrollable"
-                  scrollButtons="auto">
-                  {generateTabs(data)}
-                </Tabs>
-              </AppBar>
-              {generateTabContainers(data)}
-            </Grid>
-          </Grid>
-        </ThemeProvider>)
-          </StyledEngineProvider>)
-  );
+    <ThemeProvider
+      theme={(theme) =>
+        createTheme({
+          ...theme,
+          components: {
+            ...theme.components,
+            ...downloadsComponentOverrides.components,
+          },
+        })
+      }>
+      <Helmet>
+        <title>dictyBase Downloads</title>
+        <meta
+          name="description"
+          content="dictyBase Downloads - the central collection of downloadable material from dictyBase"
+        />
+      </Helmet>
+      <Grid container justifyContent="center">
+        <Grid item xs={8}>
+          <DownloadsHeader />
+          <AppBar position="static">
+            <Tabs
+              value={tabValue}
+              onChange={handleChange}
+              variant="scrollable"
+              scrollButtons="auto">
+              {generateTabs(data)}
+            </Tabs>
+          </AppBar>
+          {generateTabContainers(data)}
+        </Grid>
+      </Grid>
+    </ThemeProvider>
+  )
 }
 
 export { DownloadsDisplay }
