@@ -1,7 +1,6 @@
 import { match, P } from "ts-pattern"
 import { useListOrganismsQuery } from "dicty-graphql-schema"
-import { DownloadsDisplay } from "./DownloadsDisplay"
-import { DownloadsLoader } from "./DownloadsLoader"
+import { DownloadsDisplay, DownloadsLoader } from "@dictybase/ui-frontpage"
 import { ErrorPageWrapper } from "../../common/components/errors/ErrorPageWrapper"
 
 /**
