@@ -1,5 +1,5 @@
-import { Theme } from "@mui/material/styles";
-import { makeStyles } from 'tss-react/mui';
+import { Fragment } from "react"
+import { makeStyles } from "tss-react/mui"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
@@ -9,7 +9,7 @@ import Button from "@mui/material/Button"
 import Paper from "@mui/material/Paper"
 import { Download, DownloadItem } from "dicty-graphql-schema"
 
-const useStyles = makeStyles()((theme: Theme) => ({
+const useStyles = makeStyles()({
   root: {
     width: "100%",
     overflowX: "auto",
@@ -24,13 +24,14 @@ const useStyles = makeStyles()((theme: Theme) => ({
   },
   row: {
     "&:nth-of-type(even)": {
-      backgroundColor: theme.palette.background.default,
+      backgroundColor: "#fafafa",
     },
   },
   button: {
     padding: "10px",
     textTransform: "none",
     backgroundColor: "#e6f2ff",
+    color: "rgba(0, 0, 0, 0.87)",
     "&:hover": {
       backgroundColor: "#0073e6",
       color: "#fff",
@@ -39,7 +40,7 @@ const useStyles = makeStyles()((theme: Theme) => ({
   link: {
     textDecoration: "none",
   },
-}));
+})
 
 type Properties = {
   data: Array<Download>
@@ -52,14 +53,14 @@ type Properties = {
 const DownloadsTable = ({ data }: Properties) => {
   const { classes } = useStyles()
   return (
-    (<Paper className={classes.root}>
+    <Paper className={classes.root}>
       <Table>
         <colgroup>
           <col style={{ width: "90%" }} />
           <col style={{ width: "10%" }} />
         </colgroup>
         {data.map((section: Download) => (
-          <React.Fragment key={section.title}>
+          <Fragment key={section.title}>
             <TableHead className={classes.head}>
               <TableRow>
                 <TableCell className={classes.headerCell}>
@@ -80,7 +81,10 @@ const DownloadsTable = ({ data }: Properties) => {
                       href={row.url}
                       target="_blank"
                       rel="noopener noreferrer">
-                      <Button className={classes.button} size="small" variant="contained">
+                      <Button
+                        className={classes.button}
+                        size="small"
+                        variant="contained">
                         Download
                       </Button>
                     </a>
@@ -88,11 +92,11 @@ const DownloadsTable = ({ data }: Properties) => {
                 </TableRow>
               ))}
             </TableBody>
-          </React.Fragment>
+          </Fragment>
         ))}
       </Table>
-    </Paper>)
-  );
+    </Paper>
+  )
 }
 
 export { DownloadsTable }
