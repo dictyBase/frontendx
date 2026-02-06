@@ -7,7 +7,6 @@ import {
   FooterWithAuth,
 } from "@dictybase/auth-mui5"
 import { useGoogleAnalytics } from "../../common/hooks/useGoogleAnalytics"
-import { ErrorBoundary } from "../../common/components/errors/ErrorBoundary"
 import { frontpageRouter } from "../../routes"
 import { navTheme } from "../../common/utils/themes"
 
@@ -47,9 +46,7 @@ const FrontPageApp = () => {
         theme={navTheme}
       />
       <main>
-        <ErrorBoundary>
-          <RouterProvider router={frontpageRouter} />
-        </ErrorBoundary>
+        <RouterProvider router={frontpageRouter} />
       </main>
       <FooterWithAuth
         frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}

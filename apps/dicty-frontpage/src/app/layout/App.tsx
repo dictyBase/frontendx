@@ -1,5 +1,6 @@
 import { LogtoProvider, LogtoConfig, UserScope } from "@logto/react"
 import { CssBaseline } from "@material-ui/core"
+import { ErrorBoundary } from "@dictybase/ui-common"
 import { AppProviders } from "./AppProviders"
 import { FrontPageApp } from "./FrontPageApp"
 import "@fontsource-variable/playfair-display"
@@ -28,7 +29,9 @@ const App = () => (
   <AppProviders>
     <LogtoProvider config={logtoConfig}>
       <CssBaseline />
-      <FrontPageApp />
+      <ErrorBoundary>
+        <FrontPageApp />
+      </ErrorBoundary>
     </LogtoProvider>
   </AppProviders>
 )

@@ -2,6 +2,7 @@ import ReactDOM from "react-dom"
 import CssBaseline from "@material-ui/core/CssBaseline"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { Helmet } from "react-helmet"
+import { ErrorBoundary } from "@dictybase/ui-common"
 import { AppProviders } from "./components/layout/AppProviders"
 import { App } from "./components/layout/App"
 import Home from "./pages/index"
@@ -21,15 +22,17 @@ const PublicationApp = () => (
       <link rel="manifest" href="/publication/manifest.json" />
       <title>dictyBase Literature</title>
     </Helmet>
-    <App>
-      <BrowserRouter basename="/publication">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/callback" element={<Callback />} />
-          <Route path="/:id" element={<PublicationPageWrapper />} />
-        </Routes>
-      </BrowserRouter>
-    </App>
+    <ErrorBoundary>
+      <App>
+        <BrowserRouter basename="/publication">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/callback" element={<Callback />} />
+            <Route path="/:id" element={<PublicationPageWrapper />} />
+          </Routes>
+        </BrowserRouter>
+      </App>
+    </ErrorBoundary>
   </AppProviders>
 )
 

@@ -6,7 +6,6 @@ import {
   NavbarWithAuth,
   FooterWithAuth,
 } from "@dictybase/auth-mui5"
-import ErrorBoundary from "../errors/ErrorBoundary"
 import { navTheme } from "../../common/utils/themes"
 import { useGoogleAnalytics } from "../../common/hooks/useGoogleAnalytics"
 import "@fontsource-variable/playfair-display"
@@ -46,9 +45,7 @@ const App: FunctionComponent = ({ children }) => {
         stockCenterUrl={import.meta.env.VITE_STOCKCENTER_URL}
         theme={navTheme}
       />
-      <main>
-        <ErrorBoundary>{children}</ErrorBoundary>
-      </main>
+      <main>{children}</main>
       <FooterWithAuth
         frontPageUrl={import.meta.env.VITE_FRONTPAGE_URL}
         stockCenterUrl={import.meta.env.VITE_STOCKCENTER_URL}
