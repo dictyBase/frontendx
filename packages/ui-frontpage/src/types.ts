@@ -51,5 +51,5 @@ export type {
   Citation,
   Download,
   DownloadItem,
-  Status,
 }
+export { Status }
