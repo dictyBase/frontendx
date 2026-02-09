@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material"
-import { Link } from "react-router-dom"
+import { Link, To } from "react-router-dom"
 import {
   getAuthorsCitationString,
   getPublicationYear,
@@ -19,9 +19,13 @@ type PublicationItem = {
 
 type LatestPaperItemProperties = {
   data: PublicationItem
+  publicationAppUrl: string
 }
 
-const LatestPaperItem = ({ data }: LatestPaperItemProperties) => {
+const LatestPaperItem = ({
+  data,
+  publicationAppUrl,
+}: LatestPaperItemProperties) => {
   const { authors, journal, pubmedId, publishDate, title } = data
   const formattedAuthorString = getAuthorsCitationString(authors, { limit: 3 })
   const formattedTitle = formatTitle(title).full
@@ -42,7 +46,7 @@ const LatestPaperItem = ({ data }: LatestPaperItemProperties) => {
           }}>
           <Link
             reloadDocument
-            to={`${import.meta.env.VITE_APP_PUBLICATION_URL}/${pubmedId}`}
+            to={`${publicationAppUrl}/${pubmedId}`}
             style={{
               textDecoration: "none",
               fontWeight: 500,

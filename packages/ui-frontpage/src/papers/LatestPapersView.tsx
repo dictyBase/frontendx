@@ -21,6 +21,7 @@ import { LatestPaperItem, type PublicationItem } from "./LatestPaperItem"
 
 type LatestPapersProperties = {
   data: Array<PublicationItem>
+  publicationAppUrl: string
 }
 
 type LatestPapersErrorProperties = {
@@ -199,7 +200,10 @@ const MorePapersLink = () => (
   </Link>
 )
 
-const LatestPapersView = ({ data }: LatestPapersProperties) => (
+const LatestPapersView = ({
+  data,
+  publicationAppUrl,
+}: LatestPapersProperties) => (
   <Container
     maxWidth={false}
     sx={{
@@ -234,7 +238,13 @@ const LatestPapersView = ({ data }: LatestPapersProperties) => (
       {pipe(
         data,
         AtakeLeft(5),
-        Amap((p) => <LatestPaperItem key={p.pubmedId} data={p} />),
+        Amap((p) => (
+          <LatestPaperItem
+            key={p.pubmedId}
+            publicationAppUrl={publicationAppUrl}
+            data={p}
+          />
+        )),
       )}
     </Grid>
     <Grid

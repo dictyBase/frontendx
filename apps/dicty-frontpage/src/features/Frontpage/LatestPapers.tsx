@@ -12,7 +12,12 @@ const LatestPapers = () => {
     .with({ loading: true }, () => <LatestPapersLoader />)
     .when(
       ({ data }) => data.length > 0,
-      ({ data }) => <LatestPapersView data={data} />,
+      ({ data }) => (
+        <LatestPapersView
+          data={data}
+          publicationAppUrl={import.meta.env.VITE_APP_PUBLICATION_URL}
+        />
+      ),
     )
     .when(
       ({ error }) => error.length > 0,
