@@ -3,7 +3,8 @@ import { pipe } from "fp-ts/function"
 import { useNavigate } from "react-router-dom"
 import { match as Ematch } from "fp-ts/Either"
 import { match, P } from "ts-pattern"
-import { Container, Paper, Grid, makeStyles } from "@material-ui/core"
+import { Container, Paper, Grid } from "@mui/material";
+import { makeStyles } from 'tss-react/mui';
 import { InferType } from "yup"
 import { FormProvider, SubmitHandler } from "react-hook-form"
 import { ErrorSnackbar } from "@dictybase/ui-common"
@@ -22,7 +23,7 @@ import {
   mapCodeToMessage,
 } from "../../common/utils/getGraphqlErrorCode"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   root: {
     padding: "0.5rem",
   },
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(4),
   },
-}))
+}));
 
 const handler = (event: BeforeUnloadEvent) => {
   event.preventDefault()
@@ -39,7 +40,10 @@ const handler = (event: BeforeUnloadEvent) => {
 const CreateContentForm = () => {
   const [open, setOpen] = useState(false)
   const [createContentError, setCreateContentError] = useState("")
-  const { container, root } = useStyles()
+  const {
+    container,
+    root
+  } = useStyles()
   const navigate = useNavigate()
   const createContent = useCreateContentFromEditor()
   const methods = useCreateContentForm()

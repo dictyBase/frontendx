@@ -1,4 +1,5 @@
-import { makeStyles, Grid, Container, Typography } from "@material-ui/core"
+import { Grid, Container, Typography } from "@mui/material";
+import { makeStyles } from 'tss-react/mui';
 import {
   useContentBySlugQuery,
   User,
@@ -21,7 +22,7 @@ import {
 import { ACCESS } from "@dictybase/auth-mui5"
 import { Editor } from "@dictybase/editor"
 import { ApolloError } from "@apollo/client"
-import PersonIcon from "@material-ui/icons/Person"
+import PersonIcon from "@mui/icons-material/Person"
 import { ErrorPageWrapper } from "../../../common/components/errors/ErrorPageWrapper"
 import { useSlug } from "../../../common/hooks/useSlug"
 import { NEWS_NAMESPACE } from "../../../common/constants/namespace"
@@ -29,12 +30,12 @@ import { UpdateButton } from "../../../common/components/UpdateButton"
 import { truncateEmail } from "../../../common/utils/truncateEmail"
 import { useAutoSave } from "../../../common/hooks/useAutoSave"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   container: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(4),
   },
-}))
+}));
 
 type EditActionBarProperties = {
   contentId: string
@@ -99,7 +100,7 @@ const EditView = ({
   const [handleChange, autosaveState] = useAutoSave({
     contentId,
   })
-  const classes = useStyles()
+  const { classes } = useStyles()
   const lastEditor = truncateEmail(updatedBy.email)
   const toolbar = (
     <EditActionBar

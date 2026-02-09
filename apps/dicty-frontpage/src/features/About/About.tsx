@@ -1,12 +1,12 @@
 import React from "react"
-import { Box } from "@material-ui/core"
+import { Box } from "@mui/material"
 import { Helmet } from "react-helmet"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { makeStyles } from "@material-ui/core/styles"
+import { makeStyles } from 'tss-react/mui';
 import { TechnicalSummary } from "./TechnicalSummary"
 import { SpecialThanks } from "./SpecialThanks"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   container: {
     display: "flex",
     flexDirection: "row",
@@ -47,14 +47,14 @@ const useStyles = makeStyles({
   headerText: {
     fontSize: "21px",
   },
-})
+});
 
 /**
  * This is the About page component. It is the wrapper for two individual components.
  */
 
 const About = () => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <Box>

@@ -1,7 +1,7 @@
-import { Box, Grid, Button } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
+import { Box, Grid, Button } from "@mui/material"
+import { makeStyles } from 'tss-react/mui';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   button: {
     width: "100%",
     marginBottom: "5px",
@@ -54,12 +54,12 @@ const useStyles = makeStyles({
     padding: "0px",
     marginBottom: "5px",
   },
-})
+});
 
 /** Widget that displays the most popular tools and sections */
 
 const Popular = () => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   const widgetlist = (
     <>

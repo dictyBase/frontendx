@@ -1,4 +1,4 @@
-import { Box, Grid } from "@material-ui/core"
+import { Box, Grid } from "@mui/material"
 import { pipe, flow } from "fp-ts/function"
 import {
   map as Amap,
