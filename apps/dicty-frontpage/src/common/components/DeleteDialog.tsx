@@ -5,7 +5,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
-} from "@material-ui/core"
+} from "@mui/material"
 import { DeleteButton } from "./DeleteButton"
 
 type DeleteDialogProperties = {

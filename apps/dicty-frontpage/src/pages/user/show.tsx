@@ -7,12 +7,13 @@ import {
   displayOnAuthorized,
   matchEntries,
 } from "@dictybase/auth-mui5"
-import { Box, Grid, Divider } from "@material-ui/core"
-import { makeStyles, Theme } from "@material-ui/core/styles"
+import { Box, Grid, Divider } from "@mui/material"
+import { Theme } from "@mui/material/styles";
+import { makeStyles } from 'tss-react/mui';
 import { Avatar, Information, EditablePagesList, Title, NoPages } from "ui-user"
 import { FullPageLoadingDisplay } from "@dictybase/ui-common"
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   divider: {
     border: "1px",
     height: "3px",
@@ -20,13 +21,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   userGrid: {
     marginTop: theme.spacing(2),
   },
-}))
+}));
 
 type UserViewProperties = {
   user: UserWithRoles
 }
 const UserView = ({ user }: UserViewProperties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   return (
     <Box mt={4}>
       <Grid container direction="row" justifyContent="center">

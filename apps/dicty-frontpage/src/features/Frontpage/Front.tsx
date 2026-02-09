@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet"
-import { Grid, Container } from "@material-ui/core"
-import { makeStyles, Theme } from "@material-ui/core/styles"
+import { Grid, Container } from "@mui/material"
+import { Theme } from "@mui/material/styles";
+import { makeStyles } from 'tss-react/mui';
 import {
   RecentUpdates,
   ComingSoon,
@@ -12,7 +13,7 @@ import { LatestPapers } from "./LatestPapers"
 import { DictyInfoWithAuth } from "./DictyInfoWithAuth"
 import { DictyNewsWithAuth } from "./DictyNewsWithAuth"
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   topItem: {
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
@@ -29,12 +30,12 @@ const useStyles = makeStyles((theme: Theme) => ({
       maxWidth: "90%",
     },
   },
-}))
+}));
 
 /** This is the frontpage component that appears when the user hits the "/" route. */
 
 const Front = () => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <Container maxWidth="xl" className={classes.main}>

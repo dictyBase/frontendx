@@ -1,5 +1,5 @@
 import { LogtoProvider, LogtoConfig, UserScope } from "@logto/react"
-import { CssBaseline } from "@material-ui/core"
+import { CssBaseline } from "@mui/material"
 import { ErrorBoundary } from "@dictybase/ui-common"
 import { AppProviders } from "./AppProviders"
 import { FrontPageApp } from "./FrontPageApp"

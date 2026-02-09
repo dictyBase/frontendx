@@ -6,15 +6,15 @@ import { sort as Asort } from "fp-ts/Array"
 import { Ord, contramap, reverse as ORDreverse } from "fp-ts/Ord"
 import { Ord as SOrd } from "fp-ts/string"
 import { Ord as NOrd } from "fp-ts/number"
-import { Container, Box, Typography } from "@material-ui/core"
-import { grey } from "@material-ui/core/colors"
-import { makeStyles } from "@material-ui/core/styles"
+import { Container, Box, Typography } from "@mui/material"
+import { grey } from "@mui/material/colors"
+import { makeStyles } from 'tss-react/mui';
 import {
   PublicationsList,
   type PublicationItem,
 } from "@dictybase/ui-frontpage"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   background: {
     paddingTop: theme.spacing(2),
     backgroundColor: grey[50],
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
       padding: "20px 5px 20px 15px",
     },
   },
-}))
+}));
 
 const ordByOldest: Ord<PublicationItem> = pipe(
   NOrd,
@@ -123,7 +123,11 @@ const PublicationsView = ({ data }: PublicationsViewProperties) => {
     setCurrentTab(newValue)
   }
 
-  const { background, container, header } = useStyles()
+  const {
+    background,
+    container,
+    header
+  } = useStyles()
   return (
     <Box className={background}>
       <Container className={container}>

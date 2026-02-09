@@ -1,5 +1,5 @@
 import Skeleton from "react-loading-skeleton"
-import { Box } from "@material-ui/core"
+import { Box } from "@mui/material"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { Editor } from "@dictybase/editor"

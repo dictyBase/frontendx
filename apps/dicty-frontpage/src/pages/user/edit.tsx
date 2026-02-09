@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom"
 import { UserInfoResponse } from "@logto/react"
-import { Typography } from "@material-ui/core"
+import { Typography } from "@mui/material"
 import { ACCESS } from "@dictybase/auth-mui5"
 
 const Edit = () => {

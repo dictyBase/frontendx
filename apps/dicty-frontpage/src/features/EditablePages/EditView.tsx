@@ -1,6 +1,7 @@
 import { ApolloError } from "@apollo/client"
-import { makeStyles, Container } from "@material-ui/core"
-import PersonIcon from "@material-ui/icons/Person"
+import { Container } from "@mui/material";
+import { makeStyles } from 'tss-react/mui';
+import PersonIcon from "@mui/icons-material/Person"
 import { formatDistance } from "date-fns"
 import {
   ActionBar,
@@ -20,12 +21,12 @@ import { UpdateButton } from "../../common/components/UpdateButton"
 import { truncateEmail } from "../../common/utils/truncateEmail"
 import { useAutoSave } from "../../common/hooks/useAutoSave"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   container: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(4),
   },
-}))
+}));
 
 type EditActionBarProperties = {
   contentId: string
@@ -77,7 +78,7 @@ type EditViewProperties = {
 }
 
 const EditView = ({ data }: EditViewProperties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   const { id, updated_at, updated_by, content } = data
   const [handleChange, autosaveState] = useAutoSave({
     contentId: id,

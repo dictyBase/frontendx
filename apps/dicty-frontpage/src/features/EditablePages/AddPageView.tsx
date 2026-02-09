@@ -1,15 +1,16 @@
 import { useNavigate } from "react-router-dom"
-import { makeStyles, Container, Button, Typography } from "@material-ui/core"
+import { Container, Button, Typography } from "@mui/material";
+import { makeStyles } from 'tss-react/mui';
 import { Editor } from "@dictybase/editor"
 import { ActionBar } from "@dictybase/ui-common"
 import { CreateButton } from "../../common/components/CreateButton"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   container: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(4),
   },
-}))
+}));
 
 type AddPageViewProperties = {
   namespace: string
@@ -23,7 +24,7 @@ const AddPageView = ({
   contentPath,
 }: AddPageViewProperties) => {
   const navigate = useNavigate()
-  const classes = useStyles()
+  const { classes } = useStyles()
   const handleCancel = async () => {
     navigate("../notfoundauth", { relative: "path" })
   }
