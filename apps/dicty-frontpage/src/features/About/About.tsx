@@ -2,7 +2,7 @@ import React from "react"
 import { Box } from "@mui/material"
 import { Helmet } from "react-helmet"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 import { TechnicalSummary } from "./TechnicalSummary"
 import { SpecialThanks } from "./SpecialThanks"
 
@@ -47,7 +47,7 @@ const useStyles = makeStyles()({
   headerText: {
     fontSize: "21px",
   },
-});
+})
 
 /**
  * This is the About page component. It is the wrapper for two individual components.

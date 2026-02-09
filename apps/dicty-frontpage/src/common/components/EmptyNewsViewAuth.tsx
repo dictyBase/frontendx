@@ -1,5 +1,5 @@
-import { Container, Typography, Grid, Button } from "@mui/material";
-import { makeStyles } from 'tss-react/mui';
+import { Container, Typography, Grid, Button } from "@mui/material"
+import { makeStyles } from "tss-react/mui"
 import { useNavigate } from "react-router-dom"
 import CreateIcon from "@mui/icons-material/Create"
 
@@ -15,13 +15,11 @@ const useStyles = makeStyles()({
       padding: "20px 5px 20px 15px",
     },
   },
-});
+})
 
 const EmptyNewsViewAuth = () => {
   const navigate = useNavigate()
-  const {
-    header
-  } = useStyles()
+  const { header } = useStyles()
   const onClick = () => {
     navigate("/news/create")
   }

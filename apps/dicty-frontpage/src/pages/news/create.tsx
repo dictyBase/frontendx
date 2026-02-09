@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
-import { Container, Button, Typography } from "@mui/material";
-import { makeStyles } from 'tss-react/mui';
+import { Container, Button, Typography } from "@mui/material"
+import { makeStyles } from "tss-react/mui"
 import { ACCESS } from "@dictybase/auth-mui5"
 import { Editor } from "@dictybase/editor"
 import { ActionBar } from "@dictybase/ui-common"
@@ -12,7 +12,7 @@ const useStyles = makeStyles()((theme) => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(4),
   },
-}));
+}))
 
 const Create = () => {
   const { classes } = useStyles()

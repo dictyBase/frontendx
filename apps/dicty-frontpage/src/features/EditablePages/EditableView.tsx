@@ -1,5 +1,5 @@
-import { Container, Button } from "@mui/material";
-import { makeStyles } from 'tss-react/mui';
+import { Container, Button } from "@mui/material"
+import { makeStyles } from "tss-react/mui"
 import PersonIcon from "@mui/icons-material/Person"
 import { useNavigate } from "react-router-dom"
 import { type ContentBySlugQuery } from "dicty-graphql-schema"
@@ -13,7 +13,7 @@ const useStyles = makeStyles()((theme) => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(4),
   },
-}));
+}))
 
 type EditableActionBarProperties = {
   editedBy: string

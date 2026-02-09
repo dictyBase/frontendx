@@ -1,7 +1,7 @@
 import { RouterProvider } from "react-router-dom"
 import { Box } from "@mui/material"
-import { Theme } from "@mui/material/styles";
-import { makeStyles } from 'tss-react/mui';
+import { Theme } from "@mui/material/styles"
+import { makeStyles } from "tss-react/mui"
 import {
   HeaderWithAuth,
   NavbarWithAuth,
@@ -25,7 +25,7 @@ const useStyles = makeStyles()((theme: Theme) => ({
       marginBottom: theme.spacing(1.2),
     },
   },
-}));
+}))
 
 /**
  * App is responsible for the main layout of the entire application.
