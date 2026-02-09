@@ -1,9 +1,13 @@
 import React from "react"
 import { ApolloProvider } from "@apollo/client"
-import { ThemeProvider as ThemeProviderMUI5, Theme, StyledEngineProvider } from "@mui/material/styles";
-import { ThemeProvider } from "@mui/material/styles";
-import StylesProvider from '@mui/styles/StylesProvider';
-import createGenerateClassName from '@mui/styles/createGenerateClassName';
+import {
+  ThemeProvider as ThemeProviderMUI5,
+  Theme,
+  StyledEngineProvider,
+  ThemeProvider,
+} from "@mui/material/styles"
+import StylesProvider from "@mui/styles/StylesProvider"
+import createGenerateClassName from "@mui/styles/createGenerateClassName"
 import CircularProgress from "@mui/material/CircularProgress"
 import {
   useGraphqlClient,
@@ -12,12 +16,9 @@ import {
 } from "@dictybase/data-access"
 import { dictyThemeV4, dictyThemeV5 } from "@dictybase/ui-common"
 
-
-declare module '@mui/styles/defaultTheme' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+declare module "@mui/styles/defaultTheme" {
   interface DefaultTheme extends Theme {}
 }
-
 
 const generateClassName = createGenerateClassName({
   disableGlobal: true,
@@ -37,16 +38,14 @@ const AppProviders = ({ children }: { children: React.ReactNode }) => {
     return <CircularProgress />
   }
   return (
-    (<ApolloProvider client={client}>
+    <ApolloProvider client={client}>
       <StylesProvider generateClassName={generateClassName}>
         <ThemeProviderMUI5 theme={dictyThemeV5}>
-          <ThemeProvider theme={dictyThemeV4}>
-            {children}
-          </ThemeProvider>
+          <ThemeProvider theme={dictyThemeV4}>{children}</ThemeProvider>
         </ThemeProviderMUI5>
       </StylesProvider>
-    </ApolloProvider>)
-  );
+    </ApolloProvider>
+  )
 }
 
 export { AppProviders }
