@@ -1,5 +1,5 @@
 import { Box, Grid, Button } from "@mui/material"
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 
 const useStyles = makeStyles()({
   button: {
@@ -54,7 +54,7 @@ const useStyles = makeStyles()({
     padding: "0px",
     marginBottom: "5px",
   },
-});
+})
 
 /** Widget that displays the most popular tools and sections */
 

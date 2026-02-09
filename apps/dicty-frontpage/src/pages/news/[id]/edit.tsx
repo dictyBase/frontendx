@@ -1,5 +1,5 @@
-import { Grid, Container, Typography } from "@mui/material";
-import { makeStyles } from 'tss-react/mui';
+import { Grid, Container, Typography } from "@mui/material"
+import { makeStyles } from "tss-react/mui"
 import {
   useContentBySlugQuery,
   User,
@@ -35,7 +35,7 @@ const useStyles = makeStyles()((theme) => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(4),
   },
-}));
+}))
 
 type EditActionBarProperties = {
   contentId: string

@@ -1,6 +1,6 @@
 import { ApolloError } from "@apollo/client"
-import { Container } from "@mui/material";
-import { makeStyles } from 'tss-react/mui';
+import { Container } from "@mui/material"
+import { makeStyles } from "tss-react/mui"
 import PersonIcon from "@mui/icons-material/Person"
 import { formatDistance } from "date-fns"
 import {
@@ -26,7 +26,7 @@ const useStyles = makeStyles()((theme) => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(4),
   },
-}));
+}))
 
 type EditActionBarProperties = {
   contentId: string

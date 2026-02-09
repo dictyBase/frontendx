@@ -1,6 +1,6 @@
 import { useContentBySlugQuery } from "dicty-graphql-schema"
-import { Typography, Container, Grid } from "@mui/material";
-import { makeStyles } from 'tss-react/mui';
+import { Typography, Container, Grid } from "@mui/material"
+import { makeStyles } from "tss-react/mui"
 import { match, P } from "ts-pattern"
 import {
   FullPageLoadingDisplay,
@@ -20,7 +20,7 @@ const useStyles = makeStyles()((theme) => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(4),
   },
-}));
+}))
 
 const Show = () => {
   const { classes } = useStyles()

@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet"
 import { Grid, Container } from "@mui/material"
-import { Theme } from "@mui/material/styles";
-import { makeStyles } from 'tss-react/mui';
+import { Theme } from "@mui/material/styles"
+import { makeStyles } from "tss-react/mui"
 import {
   RecentUpdates,
   ComingSoon,
@@ -30,7 +30,7 @@ const useStyles = makeStyles()((theme: Theme) => ({
       maxWidth: "90%",
     },
   },
-}));
+}))
 
 /** This is the frontpage component that appears when the user hits the "/" route. */
 

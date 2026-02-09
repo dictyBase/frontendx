@@ -1,6 +1,12 @@
 import { match } from "ts-pattern"
-import { InputLabel, Select, MenuItem, FormControl, FormHelperText } from "@mui/material";
-import { makeStyles } from 'tss-react/mui';
+import {
+  InputLabel,
+  Select,
+  MenuItem,
+  FormControl,
+  FormHelperText,
+} from "@mui/material"
+import { makeStyles } from "tss-react/mui"
 import { useFormContext } from "react-hook-form"
 import { getFormErrorMessage } from "../../common/utils/getFormErrorMessage"
 
@@ -15,7 +21,7 @@ const useStyles = makeStyles()({
   formControl: {
     minWidth: "10rem",
   },
-});
+})
 
 const renderValue = (section: unknown) =>
   match(section as Section)
@@ -25,9 +31,7 @@ const renderValue = (section: unknown) =>
     .otherwise(() => "")
 
 const SectionSelect = () => {
-  const {
-    formControl
-  } = useStyles()
+  const { formControl } = useStyles()
   const { register, getFieldState } = useFormContext()
   const { invalid, error } = getFieldState("section")
   return (

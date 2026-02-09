@@ -8,8 +8,8 @@ import {
   matchEntries,
 } from "@dictybase/auth-mui5"
 import { Box, Grid, Divider } from "@mui/material"
-import { Theme } from "@mui/material/styles";
-import { makeStyles } from 'tss-react/mui';
+import { Theme } from "@mui/material/styles"
+import { makeStyles } from "tss-react/mui"
 import { Avatar, Information, EditablePagesList, Title, NoPages } from "ui-user"
 import { FullPageLoadingDisplay } from "@dictybase/ui-common"
 
@@ -21,7 +21,7 @@ const useStyles = makeStyles()((theme: Theme) => ({
   userGrid: {
     marginTop: theme.spacing(2),
   },
-}));
+}))
 
 type UserViewProperties = {
   user: UserWithRoles
