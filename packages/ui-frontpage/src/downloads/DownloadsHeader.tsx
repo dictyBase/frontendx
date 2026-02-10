@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material"
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from "tss-react/mui"
 
 const useStyles = makeStyles()({
   container: {
@@ -12,7 +12,7 @@ const useStyles = makeStyles()({
   bottomHeader: {
     marginBottom: "20px",
   },
-});
+})
 
 const DownloadsHeader = () => {
   const { classes } = useStyles()
