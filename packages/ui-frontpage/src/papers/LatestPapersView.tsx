@@ -28,6 +28,11 @@ type LatestPapersErrorProperties = {
   refetch: () => void
 }
 
+const boxShadow =
+  "0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)"
+
+const boxSizing = "border-box"
+
 const LatestPapersLoader = () => (
   <Container
     maxWidth={false}
@@ -37,9 +42,8 @@ const LatestPapersLoader = () => (
       backgroundColor: "#eff8fb",
       color: "#04313f",
       borderRadius: "15px",
-      boxSizing: "border-box",
-      boxShadow:
-        "0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)",
+      boxSizing,
+      boxShadow,
     }}>
     <Box
       sx={{
@@ -122,9 +126,8 @@ const LatestPapersError = ({ refetch }: LatestPapersErrorProperties) => (
       backgroundColor: "#eff8fb",
       color: "#04313f",
       borderRadius: "15px",
-      boxSizing: "border-box",
-      boxShadow:
-        "0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)",
+      boxSizing,
+      boxShadow,
     }}>
     <Grid item>
       <Typography
@@ -212,9 +215,8 @@ const LatestPapersView = ({
       backgroundColor: "#eff8fb",
       color: "#04313f",
       borderRadius: "15px",
-      boxSizing: "border-box",
-      boxShadow:
-        "0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)",
+      boxSizing,
+      boxShadow,
     }}>
     <LatestPapersTitle />
     <Grid
