@@ -1,7 +1,6 @@
-import React from "react"
 import { Box } from "@mui/material"
-import { makeStyles } from 'tss-react/mui';
-import { Citation } from "../../common/types"
+import { makeStyles } from "tss-react/mui"
+import { Citation } from "dicty-graphql-schema"
 
 const useStyles = makeStyles()({
   root: {
@@ -13,7 +12,7 @@ const useStyles = makeStyles()({
   link: {
     textDecoration: "none",
   },
-});
+})
 
 type Properties = {
   citations: Array<Citation>
