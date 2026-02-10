@@ -64,7 +64,7 @@ const StatusPopover = ({ summaries }: StatusListProperties) => {
         .otherwise(() => AggregateStatus.PARTIAL),
   )
   return (
-    <StyledTooltip interactive title={<StatusList summaries={summaries} />}>
+    <StyledTooltip title={<StatusList summaries={summaries} />}>
       <StyledGrid container spacing={1} alignItems="flex-start">
         <Grid item>
           <StyledIcon status={aggregateStatus} />
