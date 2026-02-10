@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material"
-import { Link, To } from "react-router-dom"
+import { Link } from "react-router-dom"
 import {
   getAuthorsCitationString,
   getPublicationYear,
@@ -36,28 +36,18 @@ const LatestPaperItem = ({
         listStyle: "none",
         marginBottom: "10px",
       }}>
-      <Box
-        sx={{
-          fontSize: "16.5px",
-        }}>
+      <Box>
         <Typography
           sx={{
             fontSize: "16.5px",
           }}>
-          <Link
-            reloadDocument
-            to={`${publicationAppUrl}/${pubmedId}`}
-            style={{
-              textDecoration: "none",
-              fontWeight: 500,
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.textDecoration = "underline"
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.textDecoration = "none"
-            }}>
-            {`${formattedAuthorString}. (${publicationYear}). `}
+          <Link reloadDocument to={`${publicationAppUrl}/${pubmedId}`}>
+            <Typography
+              component="span"
+              sx={{
+                fontWeight: 500,
+                "&:hover": { textDecoration: "underline" },
+              }}>{`${formattedAuthorString}. (${publicationYear}). `}</Typography>
           </Link>
           {`${formattedTitle} `}
           <em>{journal}</em>
