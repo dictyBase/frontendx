@@ -2,17 +2,14 @@ import { Chip } from "@mui/material"
 import { Theme } from "@mui/material/styles"
 
 import { makeStyles } from "tss-react/mui"
-import createStyles from "@mui/styles/createStyles"
 
-const useFieldOptionStyles = makeStyles()((theme: Theme) =>
-  createStyles({
-    root: {
-      borderRadius: "4px",
-      color: theme.palette.getContrastText(theme.palette.primary.light),
-      backgroundColor: theme.palette.primary.light,
-    },
-  }),
-)
+const useFieldOptionStyles = makeStyles()((theme: Theme) => ({
+  root: {
+    borderRadius: "4px",
+    color: theme.palette.getContrastText(theme.palette.primary.light),
+    backgroundColor: theme.palette.primary.light,
+  },
+}))
 
 type FieldOptionProperties = {
   /**
