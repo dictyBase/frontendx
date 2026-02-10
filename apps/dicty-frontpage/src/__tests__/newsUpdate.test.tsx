@@ -3,6 +3,7 @@ import { MockedProvider } from "@apollo/client/testing"
 import { userEvent } from "@testing-library/user-event"
 import { render, screen } from "@testing-library/react"
 import { describe, test, vi } from "vitest"
+import { ApolloError } from "@apollo/client"
 import Edit from "../pages/news/[id]/edit"
 import { mockContentBySlugQueryData } from "../mocks/mockContent"
 
@@ -103,5 +104,27 @@ describe("/news/:id/editable", () => {
     expect(exitButton).toBeInTheDocument()
     await user.click(exitButton)
     expect(screen.getByText("Editable News Route")).toBeInTheDocument()
+  })
+
+  test("renders error page when useContentBySlugQuery returns an error", () => {
+    const mockError = {
+      graphQLErrors: [{ message: "Test error message" }],
+    } as unknown as ApolloError
+
+    mockUseContentBySlugQuery.mockReturnValue({
+      data: undefined,
+      loading: false,
+      error: mockError,
+    })
+
+    const router = createMemoryRouter(routeConfiguration, {
+      initialEntries: [editRoute],
+    })
+    render(
+      <MockedProvider>
+        <RouterProvider router={router} />
+      </MockedProvider>,
+    )
+    expect(screen.getByText(/sorry, something went wrong/i)).toBeInTheDocument()
   })
 })
