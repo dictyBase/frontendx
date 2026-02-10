@@ -21,7 +21,6 @@
     "@mui/icons-material": "5.*",
     "@mui/material": "5.*",
     "@mui/lab": "~5.0.0-alpha.175",
-    "@mui/styles": "5.*",
     "@react-pdf/renderer": "~3.0.0",
     "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.33.0",
     "dicty-hooks": "dictybase/dicty-hooks#3.0.0",
