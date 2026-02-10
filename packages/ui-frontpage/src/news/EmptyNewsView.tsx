@@ -19,9 +19,7 @@ const EmptyNewsView = () => (
     </Grid>
     <Grid justifyContent="center" container>
       <Grid item>
-        <Typography variant="h2">
-          There are currently no news items.
-        </Typography>
+        <Typography variant="h2">There are currently no news items.</Typography>
       </Grid>
     </Grid>
   </Container>
