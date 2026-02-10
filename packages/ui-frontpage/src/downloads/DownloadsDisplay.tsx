@@ -6,8 +6,8 @@ import Tabs from "@mui/material/Tabs"
 import Tab from "@mui/material/Tab"
 import Typography from "@mui/material/Typography"
 import {
-  ThemeProvider,
   Theme,
+  ThemeProvider,
   ThemeOptions,
   createTheme,
 } from "@mui/material/styles"
@@ -16,9 +16,6 @@ import { Citations } from "./Citations"
 import { DownloadsTable } from "./DownloadsTable"
 import { DownloadsHeader } from "./DownloadsHeader"
 
-declare module "@mui/styles/defaultTheme" {
-  interface DefaultTheme extends Theme {}
-}
 // create theme with our standard tab overrides
 const downloadsComponentOverrides: ThemeOptions = {
   components: {
@@ -82,7 +79,7 @@ const DownloadsDisplay = ({ data }: Properties) => {
 
   return (
     <ThemeProvider
-      theme={(theme) =>
+      theme={(theme: Theme) =>
         createTheme({
           ...theme,
           components: {
