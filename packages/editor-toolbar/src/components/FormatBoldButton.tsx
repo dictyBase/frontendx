@@ -12,16 +12,17 @@ const FormatBoldButton = () => {
   const buttonStyle = useActiveClass(isBoldAtom)
 
   return (
-    <IconButton
+    (<IconButton
       title={title}
       aria-label={title}
       onClick={() => {
         editor.dispatchCommand(FORMAT_TEXT_COMMAND, "bold")
       }}
-      sx={buttonStyle}>
+      sx={buttonStyle}
+      size="large">
       <FormatBold fontSize="small" />
-    </IconButton>
-  )
+    </IconButton>)
+  );
 }
 
 export { FormatBoldButton }

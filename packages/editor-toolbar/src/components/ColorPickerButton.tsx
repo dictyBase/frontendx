@@ -31,34 +31,33 @@ const ColorPickerButton = () => {
     setOpen(!isOpen)
   }
 
-  return (
-    <>
-      <IconButton
-        ref={buttonReference}
-        sx={styles.root}
-        title={title}
-        aria-label={title}
-        onClick={toggleOpen}>
-        <SvgIcon fontSize="small" htmlColor={color}>
-          <FormatColorTextIcon />
-        </SvgIcon>
-      </IconButton>
-      <Popover
-        open={isOpen}
-        anchorEl={buttonReference.current}
-        onClose={onClose}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "center",
-        }}>
-        <ColorPicker colorOptions={COLOR_OPTIONS} />
-      </Popover>
-    </>
-  )
+  return (<>
+    <IconButton
+      ref={buttonReference}
+      sx={styles.root}
+      title={title}
+      aria-label={title}
+      onClick={toggleOpen}
+      size="large">
+      <SvgIcon fontSize="small" htmlColor={color}>
+        <FormatColorTextIcon />
+      </SvgIcon>
+    </IconButton>
+    <Popover
+      open={isOpen}
+      anchorEl={buttonReference.current}
+      onClose={onClose}
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "center",
+      }}
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "center",
+      }}>
+      <ColorPicker colorOptions={COLOR_OPTIONS} />
+    </Popover>
+  </>);
 }
 
 export { ColorPickerButton }

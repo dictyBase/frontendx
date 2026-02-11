@@ -1,13 +1,5 @@
-import {
-  Grid,
-  Input,
-  InputLabel,
-  DialogTitle,
-  DialogContent,
-  Button,
-  Typography,
-  makeStyles,
-} from "@material-ui/core"
+import { Grid, Input, InputLabel, DialogTitle, DialogContent, Button, Typography } from "@mui/material";
+import makeStyles from '@mui/styles/makeStyles';
 import { pipe } from "fp-ts/function"
 import { Option, map as Omap, getOrElse as OgetOrElse } from "fp-ts/Option"
 import { ErrorState } from "./fileUploadHelpers"
@@ -39,42 +31,40 @@ type FileSelectProperties = {
 const FileSelect = ({ fileError, onFileChange }: FileSelectProperties) => {
   const { helpText, nativeInput } = useFileUploadDialogStyles()
 
-  return (
-    <>
-      <DialogTitle disableTypography>
-        <Typography variant="h3"> Choose a file to upload </Typography>
-      </DialogTitle>
-      <DialogContent>
-        <Grid container direction="column" spacing={2}>
-          <Grid item>
-            <InputLabel htmlFor="file-upload">
-              <Button
-                fullWidth
-                size="large"
-                variant="contained"
-                color="secondary"
-                component="span">
-                Choose a file
-              </Button>
-            </InputLabel>
-            <Input
-              type="file"
-              id="file-upload"
-              onChange={onFileChange}
+  return (<>
+    <DialogTitle>
+      <Typography variant="h3"> Choose a file to upload </Typography>
+    </DialogTitle>
+    <DialogContent>
+      <Grid container direction="column" spacing={2}>
+        <Grid item>
+          <InputLabel htmlFor="file-upload">
+            <Button
               fullWidth
-              className={nativeInput}
-            />
-          </Grid>
-          <Grid item>
-            <Typography className={helpText}>
-              * File size may not exceed 10MB
-            </Typography>
-          </Grid>
-          <Grid item>{renderError(fileError)}</Grid>
+              size="large"
+              variant="contained"
+              color="secondary"
+              component="span">
+              Choose a file
+            </Button>
+          </InputLabel>
+          <Input
+            type="file"
+            id="file-upload"
+            onChange={onFileChange}
+            fullWidth
+            className={nativeInput}
+          />
         </Grid>
-      </DialogContent>
-    </>
-  )
+        <Grid item>
+          <Typography className={helpText}>
+            * File size may not exceed 10MB
+          </Typography>
+        </Grid>
+        <Grid item>{renderError(fileError)}</Grid>
+      </Grid>
+    </DialogContent>
+  </>);
 }
 
 export { FileSelect }

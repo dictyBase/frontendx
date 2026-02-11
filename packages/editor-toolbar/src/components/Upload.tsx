@@ -10,8 +10,8 @@ import {
   DialogActions,
   Button,
   Typography,
-  makeStyles,
-} from "@material-ui/core"
+} from "@mui/material";
+import makeStyles from '@mui/styles/makeStyles';
 import { useLogto } from "@logto/react"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch, MonoidAll as BMonoidAll } from "fp-ts/boolean"
@@ -105,59 +105,57 @@ const Upload = ({
 
   const { helpText, nativeInput } = useFileUploadDialogStyles()
 
-  return (
-    <>
-      <DialogTitle disableTypography>
-        <Typography variant="h3"> Choose a file to upload </Typography>
-      </DialogTitle>
-      <DialogContent>
-        <Grid container direction="column" spacing={2}>
-          <SelectedFile filename={filename} />
-          <Grid item>
-            <UploadAsField register={register} errors={errors} />
-          </Grid>
-          <Grid item>
-            <InputLabel htmlFor="file-upload">
-              <Button
-                fullWidth
-                size="large"
-                variant="contained"
-                color="secondary"
-                component="span">
-                Choose a different file
-              </Button>
-            </InputLabel>
-            <Input
-              type="file"
-              id="file-upload"
-              onChange={onFileChange}
-              fullWidth
-              sx={nativeInput}
-            />
-          </Grid>
-          <Grid item>
-            <Typography className={helpText}>
-              * File size may not exceed 10MB
-            </Typography>
-          </Grid>
-          <Grid item>{renderError(fileError)}</Grid>
+  return (<>
+    <DialogTitle>
+      <Typography variant="h3"> Choose a file to upload </Typography>
+    </DialogTitle>
+    <DialogContent>
+      <Grid container direction="column" spacing={2}>
+        <SelectedFile filename={filename} />
+        <Grid item>
+          <UploadAsField register={register} errors={errors} />
         </Grid>
-      </DialogContent>
-      <DialogActions>
-        {pipe(
-          loading,
-          Bmatch(
-            () => <></>,
-            () => <CircularProgress />,
-          ),
-        )}
-        <UploadButton
-          onSubmit={handleSubmit(onSubmit)}
-          isDisabled={!canSubmit}
-        />
-      </DialogActions>
-    </>
-  )
+        <Grid item>
+          <InputLabel htmlFor="file-upload">
+            <Button
+              fullWidth
+              size="large"
+              variant="contained"
+              color="secondary"
+              component="span">
+              Choose a different file
+            </Button>
+          </InputLabel>
+          <Input
+            type="file"
+            id="file-upload"
+            onChange={onFileChange}
+            fullWidth
+            sx={nativeInput}
+          />
+        </Grid>
+        <Grid item>
+          <Typography className={helpText}>
+            * File size may not exceed 10MB
+          </Typography>
+        </Grid>
+        <Grid item>{renderError(fileError)}</Grid>
+      </Grid>
+    </DialogContent>
+    <DialogActions>
+      {pipe(
+        loading,
+        Bmatch(
+          () => <></>,
+          () => <CircularProgress />,
+        ),
+      )}
+      <UploadButton
+        onSubmit={handleSubmit(onSubmit)}
+        isDisabled={!canSubmit}
+      />
+    </DialogActions>
+  </>);
 }
 
 export { Upload }

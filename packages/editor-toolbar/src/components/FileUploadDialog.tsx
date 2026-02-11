@@ -1,4 +1,4 @@
-import { Dialog } from "@material-ui/core"
+import { Dialog } from "@mui/material"
 import { useUploadFileMutation } from "dicty-graphql-schema"
 import { useSetAtom } from "jotai"
 import { match, P } from "ts-pattern"
