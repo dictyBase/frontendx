@@ -17,7 +17,7 @@ import {
   ErrorState,
   useValidateUploadName,
   getFileValidationError,
-} from "./fileUploadHelpers"
+} from "./helpers/fileUploadHelpers"
 
 type SelectAndUploadProperties = {
   loading: boolean
