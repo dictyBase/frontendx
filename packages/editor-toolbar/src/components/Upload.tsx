@@ -27,8 +27,8 @@ import { UploadFileMutationFn } from "dicty-graphql-schema"
 import { SelectedFile } from "./SelectedFile"
 import { UploadButton } from "./UploadButton"
 import { UploadAsField } from "./UploadAsField"
-import { isValidFile, ErrorState } from "./fileUploadHelpers"
-import { createFileUploadFunction } from "./createUploadFileFunction"
+import { isValidFile, ErrorState } from "./helpers/fileUploadHelpers"
+import { createFileUploadFunction } from "./helpers/createUploadFileFunction"
 
 const renderError = (Oerror: Option<ErrorState>) =>
   pipe(
@@ -132,7 +132,7 @@ const Upload = ({
               id="file-upload"
               onChange={onFileChange}
               fullWidth
-              sx={styles.nativeInput}
+              sx={nativeInput}
             />
           </Grid>
           <Grid item>
