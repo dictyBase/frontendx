@@ -40,11 +40,11 @@ const createFileUploadFunction = (
         () => accessTokenError,
       ),
     ),
-    TEbind("uploadResult", ({ selectedFile, token, uploadName }) =>
+    TEbind("uploadResult", ({ selectedFile, token }) =>
       TEtryCatch(
         () =>
           uploadMutation({
-            variables: { file: selectedFile, name: uploadName },
+            variables: { file: selectedFile },
             context: { headers: { Authorization: `Bearer ${token}` } },
           }),
         () => uploadFailureError,
