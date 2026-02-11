@@ -5,7 +5,7 @@ import {
   matchW as OmatchW,
   isSome,
 } from "fp-ts/Option"
-import { TextField } from "@material-ui/core"
+import { TextField } from "@mui/material"
 import { UseFormRegister, FieldErrors } from "react-hook-form"
 
 type UploadAsFieldProperties = {

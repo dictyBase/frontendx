@@ -12,16 +12,17 @@ const FormatUnderlineButton = () => {
   const buttonStyle = useActiveClass(isUnderlinedAtom)
 
   return (
-    <IconButton
+    (<IconButton
       title={title}
       aria-label={title}
       onClick={() => {
         editor.dispatchCommand(FORMAT_TEXT_COMMAND, "underline")
       }}
-      sx={buttonStyle}>
+      sx={buttonStyle}
+      size="large">
       <FormatUnderlined fontSize="small" />
-    </IconButton>
-  )
+    </IconButton>)
+  );
 }
 
 export { FormatUnderlineButton }

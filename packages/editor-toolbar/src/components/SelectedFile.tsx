@@ -1,6 +1,7 @@
-import { Box, Grid, Typography, makeStyles } from "@material-ui/core"
-import InsertDriveFileIconOutlined from "@material-ui/icons/InsertDriveFileOutlined"
-import { grey } from "@material-ui/core/colors"
+import { Box, Grid, Typography } from "@mui/material";
+import makeStyles from '@mui/styles/makeStyles';
+import InsertDriveFileIconOutlined from "@mui/icons-material/InsertDriveFileOutlined"
+import { grey } from "@mui/material/colors"
 
 const useStyles = makeStyles((theme) => ({
   root: {

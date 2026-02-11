@@ -70,44 +70,42 @@ const InsertUrl = ({
     handleClose()
   }
 
-  return (
-    <>
-      <DialogTitle disableTypography>
-        <Typography variant="h2"> Link Text </Typography>
-      </DialogTitle>
-      <DialogContent>
-        <Grid container direction="column" spacing={3}>
-          <Grid item>
-            <Typography variant="body1">
-              Edit how the link to the file will be displayed
-            </Typography>
-          </Grid>
-          <Grid item>
-            <TextField
-              label="Link Text"
-              autoFocus
-              fullWidth
-              variant="outlined"
-              value={linkText}
-              onChange={onChange}
-            />
-          </Grid>
+  return (<>
+    <DialogTitle>
+      <Typography variant="h2"> Link Text </Typography>
+    </DialogTitle>
+    <DialogContent>
+      <Grid container direction="column" spacing={3}>
+        <Grid item>
+          <Typography variant="body1">
+            Edit how the link to the file will be displayed
+          </Typography>
         </Grid>
-      </DialogContent>
-      <DialogActions>
-        <Button variant="contained" type="button" onClick={onCancel}>
-          Cancel
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          type="button"
-          onClick={onSubmit}>
-          Insert Link
-        </Button>
-      </DialogActions>
-    </>
-  )
+        <Grid item>
+          <TextField
+            label="Link Text"
+            autoFocus
+            fullWidth
+            variant="outlined"
+            value={linkText}
+            onChange={onChange}
+          />
+        </Grid>
+      </Grid>
+    </DialogContent>
+    <DialogActions>
+      <Button variant="contained" type="button" onClick={onCancel}>
+        Cancel
+      </Button>
+      <Button
+        variant="contained"
+        color="secondary"
+        type="button"
+        onClick={onSubmit}>
+        Insert Link
+      </Button>
+    </DialogActions>
+  </>);
 }
 
 export { InsertUrl }

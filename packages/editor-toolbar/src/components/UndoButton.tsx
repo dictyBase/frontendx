@@ -11,15 +11,16 @@ const UndoButton = () => {
   const onClick = useUndo()
 
   return (
-    <IconButton
+    (<IconButton
       disabled={!canUndo}
       sx={styles.root}
       onClick={onClick}
       title="Undo"
-      aria-label="Undo">
+      aria-label="Undo"
+      size="large">
       <Undo />
-    </IconButton>
-  )
+    </IconButton>)
+  );
 }
 
 export { UndoButton }
