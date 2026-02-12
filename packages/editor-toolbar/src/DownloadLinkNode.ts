@@ -16,11 +16,25 @@ type SerializedDownloadLinkNode = Required<SerializedLinkNode> & {
   download: null | string
 }
 
+const downloadFromAPI = (filename: string) => async (event: MouseEvent) => {
+  event.preventDefault()
+  const anchor = event.currentTarget as HTMLAnchorElement
+  const response = await fetch(anchor.href)
+  const blob = await response.blob()
+  const objectUrl = URL.createObjectURL(blob)
+  const link = document.createElement("a")
+  link.href = objectUrl
+  link.download = filename
+  link.click()
+  URL.revokeObjectURL(objectUrl)
+}
+
 class DownloadLinkNode extends LinkNode {
   __download: null | string
 
   constructor(url: string, attributes?: DownloadLinkAttributes, key?: NodeKey) {
     super(url, attributes, key)
+    console.log("inserting download link node", attributes)
     const filename = pipe(
       attributes,
       OfromNullable,
@@ -67,6 +81,8 @@ class DownloadLinkNode extends LinkNode {
         () => {},
         (download) => {
           element.download = download
+          console.log("adding click listener?")
+          element.addEventListener("click", downloadFromAPI(download))
         },
       ),
     )
@@ -97,6 +113,10 @@ class DownloadLinkNode extends LinkNode {
               (nextDownloadValue) => {
                 // eslint-disable-next-line no-param-reassign
                 anchor.download = nextDownloadValue
+                anchor.addEventListener(
+                  "click",
+                  downloadFromAPI(nextDownloadValue),
+                )
               },
             ),
           )
