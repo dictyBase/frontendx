@@ -23,16 +23,14 @@ import { accessTokenError, uploadFailureError } from "./fileUploadHelpers"
  */
 const createFileUploadFunction = (
   file: File,
-  uploadAsName: string,
   uploadMutation: UploadFileMutationHookResult[0],
   getAccessToken: (
-    resource?: string | undefined,
+    resource?: string | undefined
   ) => Promise<string | undefined>,
 ) =>
   pipe(
     TEDo,
     TElet("selectedFile", () => pipe(file)),
-    TElet("uploadName", () => uploadAsName),
     TEbind("token", () =>
       TEtryCatch(
         () =>
