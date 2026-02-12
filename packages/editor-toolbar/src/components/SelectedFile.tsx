@@ -1,5 +1,5 @@
-import { Box, Grid, Typography } from "@mui/material";
-import { makeStyles } from 'tss-react/mui';
+import { Box, Grid, Typography } from "@mui/material"
+import { makeStyles } from "tss-react/mui"
 import InsertDriveFileIconOutlined from "@mui/icons-material/InsertDriveFileOutlined"
 import { grey } from "@mui/material/colors"
 
@@ -9,7 +9,7 @@ const useStyles = makeStyles()((theme) => ({
     backgroundColor: grey[200],
     borderRadius: "0.3125rem",
   },
-}));
+}))
 
 type SelectedFileProperties = {
   filename: string

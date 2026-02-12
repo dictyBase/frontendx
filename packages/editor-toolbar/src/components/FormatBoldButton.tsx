@@ -12,7 +12,7 @@ const FormatBoldButton = () => {
   const buttonStyle = useActiveClass(isBoldAtom)
 
   return (
-    (<IconButton
+    <IconButton
       title={title}
       aria-label={title}
       onClick={() => {
@@ -21,8 +21,8 @@ const FormatBoldButton = () => {
       sx={buttonStyle}
       size="large">
       <FormatBold fontSize="small" />
-    </IconButton>)
-  );
+    </IconButton>
+  )
 }
 
 export { FormatBoldButton }
