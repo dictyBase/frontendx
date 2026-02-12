@@ -5,6 +5,7 @@ import { LinkNode } from "@lexical/link"
 import { ImageNode } from "@dictybase/image-plugin"
 import { WidthTableNode } from "@dictybase/width-table-plugin"
 import { FlexLayoutNode } from "@dictybase/flex-layout-plugin"
+import { DownloadLinkNode } from "@dictybase/editor-toolbar"
 
 const editorTheme = {
   paragraph: "editor-paragraph",
@@ -30,6 +31,7 @@ const dictyEditorConfig = {
     HeadingNode,
     QuoteNode,
     LinkNode,
+    DownloadLinkNode,
     ListItemNode,
     ListNode,
     ImageNode,
