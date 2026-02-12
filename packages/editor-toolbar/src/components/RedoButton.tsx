@@ -11,7 +11,7 @@ const RedoButton = () => {
   const onClick = useRedo()
 
   return (
-    (<IconButton
+    <IconButton
       disabled={!canRedo}
       sx={styles.root}
       onClick={onClick}
@@ -19,8 +19,8 @@ const RedoButton = () => {
       aria-label="Redo"
       size="large">
       <Redo />
-    </IconButton>)
-  );
+    </IconButton>
+  )
 }
 
 export { RedoButton }

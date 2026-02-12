@@ -25,7 +25,7 @@ const createFileUploadFunction = (
   file: File,
   uploadMutation: UploadFileMutationHookResult[0],
   getAccessToken: (
-    resource?: string | undefined
+    resource?: string | undefined,
   ) => Promise<string | undefined>,
 ) =>
   pipe(

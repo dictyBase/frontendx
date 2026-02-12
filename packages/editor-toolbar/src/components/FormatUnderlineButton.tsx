@@ -12,7 +12,7 @@ const FormatUnderlineButton = () => {
   const buttonStyle = useActiveClass(isUnderlinedAtom)
 
   return (
-    (<IconButton
+    <IconButton
       title={title}
       aria-label={title}
       onClick={() => {
@@ -21,8 +21,8 @@ const FormatUnderlineButton = () => {
       sx={buttonStyle}
       size="large">
       <FormatUnderlined fontSize="small" />
-    </IconButton>)
-  );
+    </IconButton>
+  )
 }
 
 export { FormatUnderlineButton }

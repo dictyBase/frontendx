@@ -12,7 +12,7 @@ const FormatItalicButton = () => {
   const buttonStyle = useActiveClass(isItalicAtom)
 
   return (
-    (<IconButton
+    <IconButton
       title={title}
       aria-label={title}
       onClick={() => {
@@ -21,8 +21,8 @@ const FormatItalicButton = () => {
       sx={buttonStyle}
       size="large">
       <FormatItalic fontSize="small" />
-    </IconButton>)
-  );
+    </IconButton>
+  )
 }
 
 export { FormatItalicButton }
