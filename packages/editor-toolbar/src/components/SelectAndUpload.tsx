@@ -15,7 +15,7 @@ import { Upload } from "./Upload"
 import { FileSelect } from "./FileSelect"
 import {
   ErrorState,
-  useValidateUploadName,
+  useValidateSuggestedFilename,
   getFileValidationError,
 } from "./helpers/fileUploadHelpers"
 
@@ -30,7 +30,6 @@ const SelectAndUpload = ({
 }: SelectAndUploadProperties) => {
   const [selectedFile, setSelectedFile] = useState<Option<File>>(none)
   const [fileError, setFileError] = useState<Option<ErrorState>>(none)
-  const methods = useValidateUploadName()
   const onFileChange: React.ChangeEventHandler<HTMLInputElement> = ({
     target: { files },
   }) => {
@@ -40,14 +39,6 @@ const SelectAndUpload = ({
       OfromNullable,
       Omap((someFiles) => [...someFiles]),
       OflatMap(Ahead),
-    )
-    pipe(
-      selected,
-      Omap(({ name }) => name),
-      OgetOrElse(() => ""),
-      (uploadName) => {
-        methods.setValue("uploadName", uploadName)
-      },
     )
     // Set the error state of the file.
     pipe(selected, OflatMap(getFileValidationError), setFileError)
@@ -66,7 +57,6 @@ const SelectAndUpload = ({
           fileError={fileError}
           setSelectedFile={setSelectedFile}
           setFileError={setFileError}
-          validationMethods={methods}
           onFileChange={onFileChange}
         />
       ),
