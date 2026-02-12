@@ -1,15 +1,15 @@
 import { Box, Grid, Typography } from "@mui/material";
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import InsertDriveFileIconOutlined from "@mui/icons-material/InsertDriveFileOutlined"
 import { grey } from "@mui/material/colors"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   root: {
     padding: theme.spacing(2),
     backgroundColor: grey[200],
     borderRadius: "0.3125rem",
   },
-}))
+}));
 
 type SelectedFileProperties = {
   filename: string
@@ -17,7 +17,7 @@ type SelectedFileProperties = {
 
 /* Used for displaying the name of the selected file in the `Upload` component. */
 const SelectedFile = ({ filename }: SelectedFileProperties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   return (
     <Grid item>
       <Box className={classes.root}>
