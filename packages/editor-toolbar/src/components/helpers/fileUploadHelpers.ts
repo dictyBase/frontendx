@@ -81,21 +81,21 @@ const restrictedCharactersMessage =
   '* May not contain the characters: # [ ] * ? : " < > |'
 
 const validationSchema = object().shape({
-  uploadName: string()
+  suggestedFilename: string()
     .required("* Upload name may not be empty")
     .max(maximumCharacters, excessiveLengthMessage)
     .matches(/^((?!(["#:<>?[\]|])).)*$/, restrictedCharactersMessage)
     .not([".", ".."], invalidNameMessage),
 })
 
-const useValidateUploadName = () =>
+const useValidateSuggestedFilename = () =>
   useForm({
     mode: "onChange",
     resolver: yupResolver(validationSchema),
   })
 
 export {
-  useValidateUploadName,
+  useValidateSuggestedFilename,
   emptyFileListError,
   noFileSelectedError,
   accessTokenError,
