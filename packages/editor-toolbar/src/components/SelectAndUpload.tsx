@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useFormContext } from "react-hook-form"
 import { UploadFileMutationFn } from "dicty-graphql-schema"
 import { pipe } from "fp-ts/function"
 import { head as Ahead } from "fp-ts/Array"
@@ -9,15 +10,10 @@ import {
   flatMap as OflatMap,
   match as Omatch,
   fromNullable as OfromNullable,
-  getOrElse as OgetOrElse,
 } from "fp-ts/Option"
 import { Upload } from "./Upload"
 import { FileSelect } from "./FileSelect"
-import {
-  ErrorState,
-  useValidateSuggestedFilename,
-  getFileValidationError,
-} from "./helpers/fileUploadHelpers"
+import { ErrorState, getFileValidationError } from "./helpers/fileUploadHelpers"
 
 type SelectAndUploadProperties = {
   loading: boolean
@@ -30,6 +26,8 @@ const SelectAndUpload = ({
 }: SelectAndUploadProperties) => {
   const [selectedFile, setSelectedFile] = useState<Option<File>>(none)
   const [fileError, setFileError] = useState<Option<ErrorState>>(none)
+  const { setValue } = useFormContext()
+
   const onFileChange: React.ChangeEventHandler<HTMLInputElement> = ({
     target: { files },
   }) => {
@@ -44,6 +42,13 @@ const SelectAndUpload = ({
     pipe(selected, OflatMap(getFileValidationError), setFileError)
     // Set the file state.
     setSelectedFile(selected)
+    pipe(
+      selected,
+      Omatch(
+        () => {},
+        ({ name }) => setValue("suggestedFilename", name),
+      ),
+    )
   }
   return pipe(
     selectedFile,
