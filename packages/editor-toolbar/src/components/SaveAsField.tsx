@@ -9,9 +9,9 @@ import { TextField } from "@mui/material"
 import { useFormContext } from "react-hook-form"
 import { type FileFormFields } from "./helpers/fileUploadHelpers"
 
-const initialHelpText = "Specify the name you want to upload the file as"
+const initialHelpText = "the name that the file will be saved as"
 
-const UploadAsField = () => {
+const SaveAsField = () => {
   const {
     register,
     formState: { errors },
@@ -31,7 +31,7 @@ const UploadAsField = () => {
     <TextField
       error={hasError}
       helperText={helperText}
-      label="Upload Name"
+      label="File Name"
       fullWidth
       variant="outlined"
       {...register("suggestedFilename")}
@@ -39,4 +39,4 @@ const UploadAsField = () => {
   )
 }
 
-export { UploadAsField }
+export { SaveAsField }
