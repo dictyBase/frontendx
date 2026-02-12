@@ -18,7 +18,6 @@ import { match as Ematch } from "fp-ts/Either"
 import {
   Option,
   some,
-  none,
   map as Omap,
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
