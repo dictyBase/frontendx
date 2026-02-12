@@ -70,7 +70,6 @@ const InsertUrl = ({
         }),
       )
     })
-    setLinkText(initialLinkText)
     handleClearForm()
     handleClose()
   }
