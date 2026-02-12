@@ -52,7 +52,6 @@ type UploadProperties = {
   loading: boolean
   mutationFunction: UploadFileMutationFn
   selectedFile: File
-  setSelectedFile: Dispatch<SetStateAction<Option<File>>>
   fileError: Option<ErrorState>
   setFileError: Dispatch<SetStateAction<Option<ErrorState>>>
   onFileChange: React.ChangeEventHandler<HTMLInputElement>
@@ -61,7 +60,6 @@ const Upload = ({
   loading,
   mutationFunction,
   selectedFile,
-  setSelectedFile,
   fileError,
   setFileError,
   onFileChange,
@@ -82,10 +80,7 @@ const Upload = ({
         (error) => {
           setFileError(some(error))
         },
-        () => {
-          setSelectedFile(none)
-          setFileError(none)
-        },
+        () => {},
       ),
     )
   }
