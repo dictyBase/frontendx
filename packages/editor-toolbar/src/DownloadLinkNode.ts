@@ -34,7 +34,6 @@ class DownloadLinkNode extends LinkNode {
 
   constructor(url: string, attributes?: DownloadLinkAttributes, key?: NodeKey) {
     super(url, attributes, key)
-    console.log("inserting download link node", attributes)
     const filename = pipe(
       attributes,
       OfromNullable,
@@ -81,7 +80,6 @@ class DownloadLinkNode extends LinkNode {
         () => {},
         (download) => {
           element.download = download
-          console.log("adding click listener?")
           element.addEventListener("click", downloadFromAPI(download))
         },
       ),
