@@ -13,7 +13,7 @@ import {
 import { makeStyles } from "tss-react/mui"
 import { useLogto } from "@logto/react"
 import { pipe } from "fp-ts/function"
-import { match as Bmatch, MonoidAll as BMonoidAll } from "fp-ts/boolean"
+import { match as Bmatch } from "fp-ts/boolean"
 import { match as Ematch } from "fp-ts/Either"
 import {
   Option,
@@ -55,7 +55,6 @@ type UploadProperties = {
   setSelectedFile: Dispatch<SetStateAction<Option<File>>>
   fileError: Option<ErrorState>
   setFileError: Dispatch<SetStateAction<Option<ErrorState>>>
-  // validationMethods: UseFormReturn<{ uploadName?: any }>
   onFileChange: React.ChangeEventHandler<HTMLInputElement>
 }
 const Upload = ({
