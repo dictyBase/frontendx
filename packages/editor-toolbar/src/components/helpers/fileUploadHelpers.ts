@@ -82,7 +82,7 @@ const restrictedCharactersMessage =
 
 const validationSchema = object().shape({
   suggestedFilename: string()
-    .required("* Upload name may not be empty")
+    .required("* Filename name may not be empty")
     .max(maximumCharacters, excessiveLengthMessage)
     .matches(/^((?!(["#:<>?[\]|])).)*$/, restrictedCharactersMessage)
     .not([".", ".."], invalidNameMessage),
@@ -93,6 +93,10 @@ const useValidateSuggestedFilename = () =>
     mode: "onChange",
     resolver: yupResolver(validationSchema),
   })
+
+type FileFormFields = {
+  suggestedFilename: string
+}
 
 export {
   useValidateSuggestedFilename,
@@ -105,5 +109,6 @@ export {
   fileSizeCheck,
   getFileValidationError,
   isValidFile,
+  type FileFormFields,
   type ErrorState,
 }
