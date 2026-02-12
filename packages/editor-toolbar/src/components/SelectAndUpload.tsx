@@ -60,7 +60,6 @@ const SelectAndUpload = ({
           mutationFunction={mutationFunction}
           selectedFile={file}
           fileError={fileError}
-          setSelectedFile={setSelectedFile}
           setFileError={setFileError}
           onFileChange={onFileChange}
         />
