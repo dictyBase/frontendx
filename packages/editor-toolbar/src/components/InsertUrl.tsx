@@ -4,12 +4,12 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { $createTextNode, $getSelection, $getRoot } from "lexical"
 import {
   TextField,
-  Grid,
   DialogTitle,
   DialogContent,
   DialogActions,
   Button,
   Typography,
+  Stack,
 } from "@mui/material"
 import { pipe } from "fp-ts/function"
 import {
@@ -17,11 +17,10 @@ import {
   fromNullable as OfromNullable,
   map as Omap,
 } from "fp-ts/Option"
-import { UploadAsField } from "./UploadAsField"
+import { SaveAsField } from "./SaveAsField"
 import { $createDownloadLinkNode } from "../DownloadLinkNode"
 import { type FileFormFields } from "./helpers/fileUploadHelpers"
 
-const initialLinkText = "Click to Download"
 type InsertUrlProperties = {
   fileUrl: string
   handleClose: () => void
@@ -80,26 +79,18 @@ const InsertUrl = ({
         <Typography variant="h2"> Link Text </Typography>
       </DialogTitle>
       <DialogContent>
-        <Grid container direction="column" spacing={3}>
-          <Grid item>
-            <Typography variant="body1">
-              Edit how the link to the file will be displayed
-            </Typography>
-          </Grid>
-          <Grid item>
-            <TextField
-              label="Link Text"
-              autoFocus
-              fullWidth
-              variant="outlined"
-              value={linkText}
-              onChange={onChange}
-            />
-          </Grid>
-          <Grid item>
-            <UploadAsField />
-          </Grid>
-        </Grid>
+        <Stack spacing={3} sx={{ padding: 1 }}>
+          <TextField
+            label="Link Text"
+            autoFocus
+            helperText=""
+            fullWidth
+            variant="outlined"
+            value={linkText}
+            onChange={onChange}
+          />
+          <SaveAsField />
+        </Stack>
       </DialogContent>
       <DialogActions>
         <Button variant="contained" type="button" onClick={onCancel}>
