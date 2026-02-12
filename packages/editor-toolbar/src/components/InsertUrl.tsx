@@ -19,7 +19,7 @@ import {
 } from "fp-ts/Option"
 import { UploadAsField } from "./UploadAsField"
 import { $createDownloadLinkNode } from "../DownloadLinkNode"
-import { FileFormFields } from "./helpers/fileUploadHelpers"
+import { type FileFormFields } from "./helpers/fileUploadHelpers"
 
 const initialLinkText = "Click to Download"
 type InsertUrlProperties = {

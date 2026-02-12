@@ -7,7 +7,7 @@ import {
 } from "fp-ts/Option"
 import { TextField } from "@mui/material"
 import { useFormContext } from "react-hook-form"
-import { FileFormFields } from "./helpers/fileUploadHelpers"
+import { type FileFormFields } from "./helpers/fileUploadHelpers"
 
 const initialHelpText = "Specify the name you want to upload the file as"
 
