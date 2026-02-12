@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction } from "react"
-import { useFormContext } from "react-hook-form"
 import {
   Grid,
   CircularProgress,
@@ -69,7 +68,6 @@ const Upload = ({
   onFileChange,
 }: UploadProperties) => {
   const { getAccessToken } = useLogto()
-  const { setValue } = useFormContext()
   const filename = selectedFile.name
   const canSubmit = pipe(selectedFile, isValidFile)
 
@@ -88,7 +86,6 @@ const Upload = ({
         () => {
           setSelectedFile(none)
           setFileError(none)
-          setValue("suggestedFilename", filename)
         },
       ),
     )
