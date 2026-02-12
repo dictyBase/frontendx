@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react"
-import { UseFormReturn } from "react-hook-form"
+import { useFormContext } from "react-hook-form"
 import {
   Grid,
   CircularProgress,
@@ -10,8 +10,8 @@ import {
   DialogActions,
   Button,
   Typography,
-} from "@mui/material";
-import makeStyles from '@mui/styles/makeStyles';
+} from "@mui/material"
+import { makeStyles } from "tss-react/mui"
 import { useLogto } from "@logto/react"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch, MonoidAll as BMonoidAll } from "fp-ts/boolean"
@@ -26,7 +26,6 @@ import {
 import { UploadFileMutationFn } from "dicty-graphql-schema"
 import { SelectedFile } from "./SelectedFile"
 import { UploadButton } from "./UploadButton"
-import { UploadAsField } from "./UploadAsField"
 import { isValidFile, ErrorState } from "./helpers/fileUploadHelpers"
 import { createFileUploadFunction } from "./helpers/createUploadFileFunction"
 
@@ -39,7 +38,7 @@ const renderError = (Oerror: Option<ErrorState>) =>
     OgetOrElse(() => <></>),
   )
 
-const useFileUploadDialogStyles = makeStyles({
+const useFileUploadDialogStyles = makeStyles()({
   nativeInput: {
     display: "none",
   },
@@ -57,7 +56,7 @@ type UploadProperties = {
   setSelectedFile: Dispatch<SetStateAction<Option<File>>>
   fileError: Option<ErrorState>
   setFileError: Dispatch<SetStateAction<Option<ErrorState>>>
-  validationMethods: UseFormReturn<{ uploadName?: any }>
+  // validationMethods: UseFormReturn<{ uploadName?: any }>
   onFileChange: React.ChangeEventHandler<HTMLInputElement>
 }
 const Upload = ({
@@ -67,25 +66,16 @@ const Upload = ({
   setSelectedFile,
   fileError,
   setFileError,
-  validationMethods,
   onFileChange,
 }: UploadProperties) => {
   const { getAccessToken } = useLogto()
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    formState: { isValid, errors },
-  } = validationMethods
+  const { setValue } = useFormContext()
   const filename = selectedFile.name
-  const canSubmit = pipe(selectedFile, isValidFile, (b) =>
-    BMonoidAll.concat(isValid, b),
-  )
+  const canSubmit = pipe(selectedFile, isValidFile)
 
   const onSubmit = async () => {
     const uploadFunction = createFileUploadFunction(
       selectedFile,
-      getValues("uploadName"),
       mutationFunction,
       getAccessToken,
     )
@@ -98,64 +88,63 @@ const Upload = ({
         () => {
           setSelectedFile(none)
           setFileError(none)
+          setValue("suggestedFilename", filename)
         },
       ),
     )
   }
 
-  const { helpText, nativeInput } = useFileUploadDialogStyles()
+  const {
+    classes: { helpText, nativeInput },
+  } = useFileUploadDialogStyles()
 
-  return (<>
-    <DialogTitle>
-      <Typography variant="h3"> Choose a file to upload </Typography>
-    </DialogTitle>
-    <DialogContent>
-      <Grid container direction="column" spacing={2}>
-        <SelectedFile filename={filename} />
-        <Grid item>
-          <UploadAsField register={register} errors={errors} />
-        </Grid>
-        <Grid item>
-          <InputLabel htmlFor="file-upload">
-            <Button
+  return (
+    <>
+      <DialogTitle>
+        <Typography variant="h3"> Choose a file to upload </Typography>
+      </DialogTitle>
+      <DialogContent>
+        <Grid container direction="column" spacing={2}>
+          <SelectedFile filename={filename} />
+          <Grid item>
+            <InputLabel htmlFor="file-upload">
+              <Button
+                fullWidth
+                size="large"
+                variant="contained"
+                color="secondary"
+                component="span">
+                Choose a different file
+              </Button>
+            </InputLabel>
+            <Input
+              type="file"
+              id="file-upload"
+              onChange={onFileChange}
               fullWidth
-              size="large"
-              variant="contained"
-              color="secondary"
-              component="span">
-              Choose a different file
-            </Button>
-          </InputLabel>
-          <Input
-            type="file"
-            id="file-upload"
-            onChange={onFileChange}
-            fullWidth
-            sx={nativeInput}
-          />
+              className={nativeInput}
+            />
+          </Grid>
+          <Grid item>
+            <Typography className={helpText}>
+              * File size may not exceed 10MB
+            </Typography>
+          </Grid>
+          <Grid item>{renderError(fileError)}</Grid>
         </Grid>
-        <Grid item>
-          <Typography className={helpText}>
-            * File size may not exceed 10MB
-          </Typography>
-        </Grid>
-        <Grid item>{renderError(fileError)}</Grid>
-      </Grid>
-    </DialogContent>
-    <DialogActions>
-      {pipe(
-        loading,
-        Bmatch(
-          () => <></>,
-          () => <CircularProgress />,
-        ),
-      )}
-      <UploadButton
-        onSubmit={handleSubmit(onSubmit)}
-        isDisabled={!canSubmit}
-      />
-    </DialogActions>
-  </>);
+      </DialogContent>
+      <DialogActions>
+        {pipe(
+          loading,
+          Bmatch(
+            () => <></>,
+            () => <CircularProgress />,
+          ),
+        )}
+        <UploadButton onSubmit={onSubmit} isDisabled={!canSubmit} />
+      </DialogActions>
+    </>
+  )
 }
 
 export { Upload }
