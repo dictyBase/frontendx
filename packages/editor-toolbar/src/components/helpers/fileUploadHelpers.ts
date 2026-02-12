@@ -78,7 +78,7 @@ const maximumCharacters = 50
 const excessiveLengthMessage = `* May not exceed ${maximumCharacters} characters`
 // const invalidNameMessage = "* Invalid file name"
 const restrictedCharactersMessage =
-  '* may only use alphanumeric characters\n and ".", "-", "_"'
+  '* may only use alphanumeric characters and ".", "-", "_"'
 
 const validationSchema = object().shape({
   suggestedFilename: string()
