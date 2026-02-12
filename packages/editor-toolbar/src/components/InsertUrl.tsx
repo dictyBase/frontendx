@@ -20,6 +20,7 @@ import {
 import { SaveAsField } from "./SaveAsField"
 import { $createDownloadLinkNode } from "../DownloadLinkNode"
 import { type FileFormFields } from "./helpers/fileUploadHelpers"
+import { findFirstParagraphNode } from "./helpers/findFirstParagraphNode"
 
 type InsertUrlProperties = {
   fileUrl: string
@@ -32,7 +33,11 @@ const InsertUrl = ({
   handleClose,
   handleClearForm,
 }: InsertUrlProperties) => {
-  const { getValues, handleSubmit } = useFormContext<FileFormFields>()
+  const {
+    getValues,
+    handleSubmit,
+    formState: { errors },
+  } = useFormContext<FileFormFields>()
   const [linkText, setLinkText] = useState(getValues("suggestedFilename"))
   const [editor] = useLexicalComposerContext()
   const onChange: ChangeEventHandler<HTMLInputElement> = ({
@@ -51,12 +56,10 @@ const InsertUrl = ({
         OfromNullable,
         OorElse(() =>
           pipe(
-            $getRoot()
-              .getChildren()
-              .find((node) => node.getType() === "paragraph"),
-            OfromNullable,
+            $getRoot().getChildren(),
+            findFirstParagraphNode,
             // eslint-disable-next-line dot-notation
-            Omap((textNode) => textNode["select"]()),
+            Omap((node) => node["select"]()),
           ),
         ),
         Omap((selection) => {
