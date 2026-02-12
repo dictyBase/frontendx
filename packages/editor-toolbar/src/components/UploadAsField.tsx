@@ -6,18 +6,18 @@ import {
   isSome,
 } from "fp-ts/Option"
 import { TextField } from "@mui/material"
-import { UseFormRegister, FieldErrors } from "react-hook-form"
-
-type UploadAsFieldProperties = {
-  register: UseFormRegister<{ uploadName?: string }>
-  errors: FieldErrors<{ uploadName?: any }>
-}
+import { useFormContext } from "react-hook-form"
+import { FileFormFields } from "./helpers/fileUploadHelpers"
 
 const initialHelpText = "Specify the name you want to upload the file as"
 
-const UploadAsField = ({ register, errors }: UploadAsFieldProperties) => {
+const UploadAsField = () => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<FileFormFields>()
   const helperText = pipe(
-    errors.uploadName,
+    errors.suggestedFilename,
     OfromNullable,
     OflatMap(({ message }) => OfromNullable(message)),
     OmatchW(
@@ -25,15 +25,16 @@ const UploadAsField = ({ register, errors }: UploadAsFieldProperties) => {
       (message) => message,
     ),
   )
-  const hasError = pipe(errors.uploadName, OfromNullable, isSome)
+
+  const hasError = pipe(errors.suggestedFilename, OfromNullable, isSome)
   return (
     <TextField
-      {...register("uploadName")}
       error={hasError}
       helperText={helperText}
       label="Upload Name"
       fullWidth
       variant="outlined"
+      {...register("suggestedFilename")}
     />
   )
 }
