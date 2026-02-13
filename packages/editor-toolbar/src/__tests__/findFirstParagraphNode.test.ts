@@ -101,3 +101,50 @@ test("searches depth-first for nested paragraph", () => {
     expect((result as Some<ParagraphNode>).value).toBe(outerParagraph)
   })
 })
+
+test("returns none for element node with only text children", () => {
+  const editor = createEditor()
+  editor.update(() => {
+    const paragraph = $createParagraphNode()
+    const textNode1 = $createTextNode("first")
+    const textNode2 = $createTextNode("second")
+
+    paragraph.append(textNode1, textNode2)
+    $getRoot().append(paragraph)
+
+    const result = findFirstParagraphNode(paragraph.getChildren())
+    expect(isNone(result)).toBe(true)
+  })
+})
+
+test("finds paragraph in children of root element", () => {
+  const editor = createEditor()
+  editor.update(() => {
+    const root = $getRoot()
+    const paragraph = $createParagraphNode()
+    const textNode = $createTextNode("text")
+
+    paragraph.append(textNode)
+    root.append(paragraph)
+
+    const result = findFirstParagraphNode(root.getChildren())
+    expect(isSome(result)).toBe(true)
+    expect((result as Some<ParagraphNode>).value).toBe(paragraph)
+  })
+})
+
+test("finds paragraph through recursive search of element node", () => {
+  const editor = createEditor()
+  editor.update(() => {
+    const root = $getRoot()
+    const paragraph = $createParagraphNode()
+    const textNode = $createTextNode("text")
+
+    paragraph.append(textNode)
+    root.append(paragraph)
+
+    const result = findFirstParagraphNode([root])
+    expect(isSome(result)).toBe(true)
+    expect((result as Some<ParagraphNode>).value).toBe(paragraph)
+  })
+})

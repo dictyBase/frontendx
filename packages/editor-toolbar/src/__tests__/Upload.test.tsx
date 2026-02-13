@@ -102,3 +102,39 @@ test("calls onFileChange when choosing different file", async () => {
   await user.upload(input, newFile)
   expect(mockOnFileChange).toHaveBeenCalled()
 })
+
+test("calls setFileError when upload fails", async () => {
+  const user = userEvent.setup()
+  const mockMutationWithError = vi.fn().mockResolvedValue({
+    errors: [{ message: "Upload failed" }],
+  })
+
+  render(
+    <Upload {...defaultProperties} mutationFunction={mockMutationWithError} />,
+  )
+
+  await user.click(screen.getByRole("button", { name: /upload/i }))
+
+  await vi.waitFor(() => {
+    expect(mockSetFileError).toHaveBeenCalled()
+  })
+})
+
+test("upload button triggers mutation on click", async () => {
+  const user = userEvent.setup()
+  const mockMutation = vi.fn().mockResolvedValue({
+    data: {
+      uploadFile: {
+        url: "https://example.com/file.pdf",
+      },
+    },
+  })
+
+  render(<Upload {...defaultProperties} mutationFunction={mockMutation} />)
+
+  await user.click(screen.getByRole("button", { name: /upload/i }))
+
+  await vi.waitFor(() => {
+    expect(mockMutation).toHaveBeenCalled()
+  })
+})
