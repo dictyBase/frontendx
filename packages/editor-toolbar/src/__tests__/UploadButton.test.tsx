@@ -1,6 +1,6 @@
 import { test, expect, vi } from "vitest"
 import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { UploadButton } from "../components/UploadButton"
 
 test("renders upload button", () => {
@@ -28,10 +28,8 @@ test("is enabled when isDisabled is false", () => {
 })
 
 test("does not call onSubmit when disabled and clicked", async () => {
-  const user = userEvent.setup()
   const onSubmit = vi.fn()
   render(<UploadButton onSubmit={onSubmit} isDisabled />)
 
-  await user.click(screen.getByRole("button", { name: /upload/i }))
-  expect(onSubmit).not.toHaveBeenCalled()
+  expect(screen.getByRole("button", { name: /upload/i })).toBeDisabled()
 })

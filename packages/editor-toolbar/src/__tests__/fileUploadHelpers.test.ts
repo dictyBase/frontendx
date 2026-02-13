@@ -53,9 +53,7 @@ test("getFileValidationError returns error for oversized file", () => {
   const file = createMockFile(15 * 1024 * 1024)
   const result = getFileValidationError(file)
   expect(isSome(result)).toBe(true)
-  if (isSome(result)) {
-    expect(result.value).toEqual(overFileSizeLimitError)
-  }
+  expect(result.value).toEqual(overFileSizeLimitError)
 })
 
 test("getFileValidationError returns none for file at exact limit", () => {
