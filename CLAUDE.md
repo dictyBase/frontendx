@@ -16,6 +16,8 @@
 
 ## Code Style
 
+- If you find yourself using a literal value >= 3 times, define a constant for it.
+
 - Use arrow function notation 
 
 - Use arrow function expressions when possible
