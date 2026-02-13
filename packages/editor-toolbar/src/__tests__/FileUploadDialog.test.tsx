@@ -1,7 +1,12 @@
 import { test, expect, vi } from "vitest"
 import { render, screen } from "@testing-library/react"
+import { userEvent } from "@testing-library/user-event"
 import { Provider } from "jotai"
+import { Dialog } from "@mui/material"
+import { FormProvider } from "react-hook-form"
 import { FileUploadDialog } from "../components/FileUploadDialog"
+import { InsertUrl } from "../components/InsertUrl"
+import { useValidateSuggestedFilename } from "../components/helpers/fileUploadHelpers"
 import { LexicalTestComposer } from "../utils/LexicalTestComposer"
 
 vi.mock("dicty-graphql-schema", () => ({
@@ -46,4 +51,54 @@ test("initially shows FileSelect component", () => {
   expect(
     screen.getByRole("button", { name: /choose a file/i }),
   ).toBeInTheDocument()
+})
+
+test("calls handleClearForm when InsertUrl cancel is clicked", async () => {
+  const user = userEvent.setup()
+  const mockReset = vi.fn()
+
+  vi.mocked(
+    vi.fn(() => ({
+      useUploadFileMutation: vi.fn(() => [
+        vi.fn(),
+        {
+          data: { uploadFile: { url: "https://example.com/file.pdf" } },
+          loading: false,
+          reset: mockReset,
+        },
+      ]),
+    })),
+  )
+
+  const FileUploadDialogWithData = () => {
+    const methods = useValidateSuggestedFilename({
+      defaultValues: { suggestedFilename: "test.pdf" },
+    })
+
+    return (
+      <Provider>
+        <LexicalTestComposer>
+          <Dialog open>
+            <FormProvider {...methods}>
+              <InsertUrl
+                handleClose={() => {}}
+                handleClearForm={() => {
+                  mockReset()
+                  methods.reset()
+                }}
+                fileUrl="https://example.com/file.pdf"
+              />
+            </FormProvider>
+          </Dialog>
+        </LexicalTestComposer>
+      </Provider>
+    )
+  }
+
+  render(<FileUploadDialogWithData />)
+
+  const cancelButton = screen.getByRole("button", { name: /cancel/i })
+  await user.click(cancelButton)
+
+  expect(mockReset).toHaveBeenCalled()
 })

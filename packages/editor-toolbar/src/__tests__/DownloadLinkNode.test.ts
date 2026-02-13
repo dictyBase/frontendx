@@ -14,6 +14,7 @@ const createEditor = () =>
 
 const testUrl = "https://example.com/file.pdf"
 const testFile = "document.pdf"
+const nodeTypeName = "download-link"
 test("creates download link node with factory function", () => {
   const editor = createEditor()
   editor.update(() => {
@@ -26,7 +27,7 @@ test("creates download link node with factory function", () => {
 })
 
 test("getType returns download-link", () => {
-  expect(DownloadLinkNode.getType()).toBe("download-link")
+  expect(DownloadLinkNode.getType()).toBe(nodeTypeName)
 })
 
 test("creates node without download attribute", () => {
@@ -79,7 +80,7 @@ test("exportJSON includes download attribute", () => {
 
     const json = node.exportJSON()
 
-    expect(json.type).toBe("download-link")
+    expect(json.type).toBe(nodeTypeName)
     expect(json.download).toBe(testFile)
     expect(json.url).toBe(testUrl)
   })
@@ -89,7 +90,7 @@ test("importJSON creates node from serialized data", () => {
   const editor = createEditor()
   editor.update(() => {
     const serialized = {
-      type: "download-link",
+      type: nodeTypeName,
       url: testUrl,
       download: testFile,
       rel: "noopener",
