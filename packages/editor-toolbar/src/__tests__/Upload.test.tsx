@@ -1,9 +1,15 @@
 import { test, expect, vi } from "vitest"
 import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { none, some } from "fp-ts/Option"
 import { Upload } from "../components/Upload"
 import { overFileSizeLimitError } from "../components/helpers/fileUploadHelpers"
+
+vi.mock("@logto/react", () => ({
+  useLogto: vi.fn(() => ({
+    getAccessToken: vi.fn().mockResolvedValue("mock-token"),
+  })),
+}))
 
 const createMockFile = (size: number, name = "test.pdf"): File =>
   new File(["a".repeat(size)], name, { type: "application/pdf" })

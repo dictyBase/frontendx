@@ -1,6 +1,6 @@
 import { test, expect, vi } from "vitest"
 import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { none, some } from "fp-ts/Option"
 import { FileSelect } from "../components/FileSelect"
 import { overFileSizeLimitError } from "../components/helpers/fileUploadHelpers"
@@ -58,6 +58,5 @@ test("has hidden file input", () => {
   const input = container.querySelector(
     'input[type="file"]',
   ) as HTMLInputElement
-  expect(input).toBeInTheDocument()
-  expect(input).toHaveStyle({ display: "none" })
+  expect(input).not.toBeVisible()
 })

@@ -1,6 +1,6 @@
 import { test, expect, vi } from "vitest"
 import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { FormProvider } from "react-hook-form"
 import { InsertUrl } from "../components/InsertUrl"
 import { useValidateSuggestedFilename } from "../components/helpers/fileUploadHelpers"
@@ -16,8 +16,9 @@ type InsertUrlWrapperProperties = {
 const InsertUrlWrapper = ({
   fileUrl = "https://example.com/file.pdf",
 }: InsertUrlWrapperProperties) => {
-  const methods = useValidateSuggestedFilename()
-  methods.setValue("suggestedFilename", "test-file.pdf")
+  const methods = useValidateSuggestedFilename({
+    suggestedFilename: "test-file.pdf",
+  })
 
   return (
     <LexicalTestComposer>
@@ -34,7 +35,9 @@ const InsertUrlWrapper = ({
 
 test("renders dialog title", () => {
   render(<InsertUrlWrapper />)
-  expect(screen.getByText(/link text/i)).toBeInTheDocument()
+  expect(
+    screen.getByRole("heading", { name: /link text/i }),
+  ).toBeInTheDocument()
 })
 
 test("renders link text field", () => {

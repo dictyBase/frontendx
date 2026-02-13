@@ -1,9 +1,15 @@
 import { test, expect, vi } from "vitest"
 import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { FormProvider } from "react-hook-form"
 import { SelectAndUpload } from "../components/SelectAndUpload"
 import { useValidateSuggestedFilename } from "../components/helpers/fileUploadHelpers"
+
+vi.mock("@logto/react", () => ({
+  useLogto: vi.fn(() => ({
+    getAccessToken: vi.fn().mockResolvedValue("mock-token"),
+  })),
+}))
 
 const mockMutationFunction = vi.fn()
 
@@ -82,16 +88,20 @@ test("allows changing file after selection", async () => {
 
 test("passes loading state to Upload component", async () => {
   const user = userEvent.setup()
-  const methods = useValidateSuggestedFilename()
 
-  const { rerender } = render(
-    <FormProvider {...methods}>
-      <SelectAndUpload
-        loading={false}
-        mutationFunction={mockMutationFunction}
-      />
-    </FormProvider>,
-  )
+  const TestWrapper = ({ loading }: { loading: boolean }) => {
+    const methods = useValidateSuggestedFilename()
+    return (
+      <FormProvider {...methods}>
+        <SelectAndUpload
+          loading={loading}
+          mutationFunction={mockMutationFunction}
+        />
+      </FormProvider>
+    )
+  }
+
+  const { rerender } = render(<TestWrapper loading={false} />)
 
   const file = createMockFile(1024, "test.pdf")
   const input = screen.getByLabelText(/choose a file/i, {
@@ -100,11 +110,7 @@ test("passes loading state to Upload component", async () => {
 
   await user.upload(input, file)
 
-  rerender(
-    <FormProvider {...methods}>
-      <SelectAndUpload loading mutationFunction={mockMutationFunction} />
-    </FormProvider>,
-  )
+  rerender(<TestWrapper loading />)
 
   expect(screen.getByRole("progressbar")).toBeInTheDocument()
 })
