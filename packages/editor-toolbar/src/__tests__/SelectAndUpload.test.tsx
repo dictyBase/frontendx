@@ -25,8 +25,11 @@ const SelectAndUploadWrapper = () => {
   )
 }
 
-const createMockFile = (size: number, name = "test.pdf"): File =>
-  new File(["a".repeat(size)], name, { type: "application/pdf" })
+const createMockFile = (size: number, name = "test.pdf"): File => {
+  const file = new File(["test content"], name, { type: "application/pdf" })
+  Object.defineProperty(file, "size", { value: size })
+  return file
+}
 
 test("initially renders FileSelect component", () => {
   render(<SelectAndUploadWrapper />)

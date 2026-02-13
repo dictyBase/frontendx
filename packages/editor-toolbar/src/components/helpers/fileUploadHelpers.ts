@@ -101,6 +101,7 @@ const useValidateSuggestedFilename = (
   })
 
 export {
+  FILE_SIZE_LIMIT,
   useValidateSuggestedFilename,
   emptyFileListError,
   noFileSelectedError,
