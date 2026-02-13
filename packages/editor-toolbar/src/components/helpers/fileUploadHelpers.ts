@@ -1,5 +1,5 @@
 import { object, string } from "yup"
-import { useForm, DefaultValues } from "react-hook-form"
+import { UseFormProps, useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { pipe, apply } from "fp-ts/function"
 import { MonoidAll as BMonoidAll } from "fp-ts/boolean"
@@ -92,12 +92,12 @@ type FileFormFields = {
 }
 
 const useValidateSuggestedFilename = (
-  defaultValues?: DefaultValues<FileFormFields>,
+  properties: UseFormProps<FileFormFields> = {},
 ) =>
-  useForm({
+  useForm<FileFormFields>({
     mode: "onChange",
     resolver: yupResolver(validationSchema),
-    defaultValues,
+    ...properties,
   })
 
 export {
