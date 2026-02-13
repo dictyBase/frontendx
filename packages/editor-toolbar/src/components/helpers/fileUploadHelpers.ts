@@ -1,5 +1,5 @@
 import { object, string } from "yup"
-import { useForm } from "react-hook-form"
+import { useForm, DefaultValues } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { pipe, apply } from "fp-ts/function"
 import { MonoidAll as BMonoidAll } from "fp-ts/boolean"
@@ -87,15 +87,18 @@ const validationSchema = object().shape({
     .matches(/^[\w.-]*$/, restrictedCharactersMessage),
 })
 
-const useValidateSuggestedFilename = () =>
-  useForm({
-    mode: "onChange",
-    resolver: yupResolver(validationSchema),
-  })
-
 type FileFormFields = {
   suggestedFilename: string
 }
+
+const useValidateSuggestedFilename = (
+  defaultValues?: DefaultValues<FileFormFields>,
+) =>
+  useForm({
+    mode: "onChange",
+    resolver: yupResolver(validationSchema),
+    defaultValues,
+  })
 
 export {
   useValidateSuggestedFilename,
