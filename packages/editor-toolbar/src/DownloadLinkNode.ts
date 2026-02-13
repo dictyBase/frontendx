@@ -151,4 +151,8 @@ const $createDownloadLinkNode = (
   attributes: DownloadLinkAttributes,
 ) => new DownloadLinkNode(url, attributes)
 
-export { DownloadLinkNode, $createDownloadLinkNode }
+export {
+  DownloadLinkNode,
+  $createDownloadLinkNode,
+  type SerializedDownloadLinkNode,
+}

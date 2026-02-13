@@ -1,7 +1,12 @@
+/* eslint-disable unicorn/no-null */
 import { test, expect } from "vitest"
 import { createHeadlessEditor } from "@lexical/headless"
 import { $getRoot, $createParagraphNode, $createTextNode } from "lexical"
-import { DownloadLinkNode, $createDownloadLinkNode } from "../DownloadLinkNode"
+import {
+  DownloadLinkNode,
+  $createDownloadLinkNode,
+  SerializedDownloadLinkNode,
+} from "../DownloadLinkNode"
 
 const createEditor = () =>
   createHeadlessEditor({
@@ -15,6 +20,7 @@ const createEditor = () =>
 const testUrl = "https://example.com/file.pdf"
 const testFile = "document.pdf"
 const nodeTypeName = "download-link"
+
 test("creates download link node with factory function", () => {
   const editor = createEditor()
   editor.update(() => {
@@ -89,14 +95,14 @@ test("exportJSON includes download attribute", () => {
 test("importJSON creates node from serialized data", () => {
   const editor = createEditor()
   editor.update(() => {
-    const serialized = {
+    const serialized: SerializedDownloadLinkNode = {
       type: nodeTypeName,
       url: testUrl,
       download: testFile,
       rel: "noopener",
       target: "_blank",
       title: "Download",
-      format: 0,
+      format: "left",
       indent: 0,
       direction: null,
       version: 1,
