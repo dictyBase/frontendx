@@ -28,7 +28,6 @@ import {
   useEditorAreaStyles,
   useEditorPlaceholderStyles,
 } from "./useEditorStyles"
-import { TreeViewPlugin } from "./TreeViewPlugin"
 import { initialStateString } from "./initialState"
 import "./editor.css"
 
@@ -110,7 +109,6 @@ const Editor = ({
           />
         </div>
       </Stack>
-      <TreeViewPlugin />
     </LexicalComposer>
   )
 }
