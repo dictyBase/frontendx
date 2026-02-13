@@ -16,6 +16,7 @@ import {
   orElse as OorElse,
   fromNullable as OfromNullable,
   map as Omap,
+  isSome,
 } from "fp-ts/Option"
 import { SaveAsField } from "./SaveAsField"
 import { $createDownloadLinkNode } from "../DownloadLinkNode"
@@ -40,6 +41,8 @@ const InsertUrl = ({
   } = useFormContext<FileFormFields>()
   const [linkText, setLinkText] = useState(getValues("suggestedFilename"))
   const [editor] = useLexicalComposerContext()
+  const disabled = pipe(errors.suggestedFilename, OfromNullable, isSome)
+
   const onChange: ChangeEventHandler<HTMLInputElement> = ({
     currentTarget: { value },
   }) => {
@@ -103,6 +106,7 @@ const InsertUrl = ({
           variant="contained"
           color="secondary"
           type="button"
+          disabled={disabled}
           onClick={handleSubmit(onSubmit)}>
           Insert Link
         </Button>
