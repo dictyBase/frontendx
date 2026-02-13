@@ -17,7 +17,9 @@ const InsertUrlWrapper = ({
   fileUrl = "https://example.com/file.pdf",
 }: InsertUrlWrapperProperties) => {
   const methods = useValidateSuggestedFilename({
-    suggestedFilename: "test-file.pdf",
+    defaultValues: {
+      suggestedFilename: "test-file.pdf",
+    },
   })
 
   return (
