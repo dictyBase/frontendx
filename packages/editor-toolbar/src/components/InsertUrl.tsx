@@ -8,7 +8,6 @@ import {
   DialogContent,
   DialogActions,
   Button,
-  Typography,
   Stack,
 } from "@mui/material"
 import { pipe } from "fp-ts/function"
@@ -81,9 +80,7 @@ const InsertUrl = ({
 
   return (
     <>
-      <DialogTitle>
-        <Typography variant="h2"> Link Text </Typography>
-      </DialogTitle>
+      <DialogTitle sx={{ fontSize: "1rem" }}>Link Text</DialogTitle>
       <DialogContent>
         <Stack spacing={3} sx={{ padding: 1 }}>
           <TextField
