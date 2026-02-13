@@ -148,13 +148,11 @@ test("downloadFromAPI is called on click", async () => {
   })
 
   const anchor = container.querySelector("a")
-  if (anchor) {
-    await user.click(anchor)
+  await user.click(anchor!)
 
-    expect(global.fetch).toHaveBeenCalledWith(testUrl)
-    expect(global.URL.createObjectURL).toHaveBeenCalled()
-    expect(global.URL.revokeObjectURL).toHaveBeenCalled()
-  }
+  expect(global.fetch).toHaveBeenCalledWith(testUrl)
+  expect(global.URL.createObjectURL).toHaveBeenCalled()
+  expect(global.URL.revokeObjectURL).toHaveBeenCalled()
 })
 
 test("updateDOM updates download attribute", async () => {

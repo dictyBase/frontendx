@@ -326,6 +326,7 @@ const MyComponent = () => {
 - Write descriptive test names
 - Separate mock data into dedicated files
 - Use **Playwright** for E2E tests
+- Do not call `expect` conditionally. Prefer type assertions.
 
 ```tsx
 // Tests at top level, no describe blocks
