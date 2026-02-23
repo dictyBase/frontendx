@@ -1,18 +1,10 @@
-#@dictybase/jbrowse
-Jbrowse for dictyostelium
+## Development 
 
-## Learn More
-It's a __Next.js__ based frontend application.
+### Known Issues
+- Dependency resolution error, cannot resolve `@mui/system` in local development unless `@dictybase/jbrowse` is pruned/isolated.
+- Error: problem decompressing block: incorrect gzip header check
+    -> in development, the vite server cannot be used to serve static assets because:
+        1. Vite uses [Content-Type: '' + Content-Encoding: gzip](https://github.com/vitejs/vite/issues/12266) causing browser to decompress file automatically.
+        2. Jbrowse's `Gff3TabixAdapter` expects a compressed gzip, tries to decompress.
+        -> **SOLUTION**: Use static server to serve assets
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_source=github.com&utm_medium=referral&utm_campaign=turborepo-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
