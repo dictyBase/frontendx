@@ -1,5 +1,80 @@
 ## Development 
 
+### Quickstart
+
+This guide will instruct you on how to run the application for local development with a minimal configuration.
+
+1. Install dependencies
+```
+yarn --ignore-engines
+```
+
+2. Put a .fa file into `./public.`
+```
+      dictybase-jbrowse
+       public
+          example.fa
+```
+3. Generate Fasta Index (.fai) file
+```
+samtools faidx ./public/example.fa
+```
+4. Generate config.json
+### Preparing FASTA files
+[reference](https://jbrowse.org/jb2/docs/quickstart_web/#adding-a-genome-assembly-in-fasta-format)
+
+#### Required Tools
+[samtools](https://www.htslib.org/)
+
+#### Indexing
+```
+samtools faidx genome.fa
+```
+#### Add to Config
+
+Example for adding assembly track from URL
+
+```
+jbrowse add-assembly genome.fa https://example.net/data/canonical_core.fa
+```
+
+Will append tracks to an existing config or create a new one: 
+```
+{
+  "assemblies": [
+    {
+      "name": "canonical_core",
+      "sequence": {
+        "type": "ReferenceSequenceTrack",
+        "trackId": "canonical_core-ReferenceSequenceTrack",
+        "adapter": {
+          "type": "IndexedFastaAdapter",
+          "fastaLocation": {
+            "uri": "https://example.net/data/canonical_core.fa",
+            "locationType": "UriLocation"
+          },
+          "faiLocation": {
+            "uri": "https://example.net/data/canonical_core.fa.fai",
+            "locationType": "UriLocation"
+          }
+        }
+      }
+    }
+  ],
+  "configuration": {},
+  "connections": [],
+  "defaultSession": {
+    "name": "New Session"
+  },
+  "tracks": []
+}
+```
+
+### Preparing GFF3 Files
+[tabix](https://www.htslib.org/doc/tabix.html)
+
+### Upgrading `@jbrowse/cli`
+
 ### Known Issues
 - Dependency resolution error, cannot resolve `@mui/system` in local development unless `@dictybase/jbrowse` is pruned/isolated.
 - Error: problem decompressing block: incorrect gzip header check
