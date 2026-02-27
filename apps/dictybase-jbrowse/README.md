@@ -17,9 +17,33 @@ yarn --ignore-engines
 ```
 3. Generate Fasta Index (.fai) file
 ```
-samtools faidx ./public/example.fa
+yarn workspace @dictybase/jbrowse faidx ./public/example.fa
 ```
-4. Generate config.json
+
+```
+      dictybase-jbrowse
+       public
+          example.fa
+          example.fai
+```
+
+4. Serve Static Files
+```
+yarn workspace @dictybase/jbrowse static-server
+```
+
+5. Generate config.json
+```
+yarn workspace @dictybase/jbrowse add-assembly ttp://localhost:8080/example.fa
+```
+This creates a `config.json` at the root of `dictybase-jbrowse`.
+
+6. Run Application
+```
+yarn workspace @dictybase/jbrowse dev
+```
+
+
 ### Preparing FASTA files
 [reference](https://jbrowse.org/jb2/docs/quickstart_web/#adding-a-genome-assembly-in-fasta-format)
 
