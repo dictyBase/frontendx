@@ -8,8 +8,10 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview --port 3000",
-    "static-server": "npx http-server data --cors='Access-Control-Allow-Origin'",
-    "coverage": "vitest run --coverage"
+    "static-server": "npx http-server public --cors='Access-Control-Allow-Origin'",
+    "coverage": "vitest run --coverage",
+    "faidx": "samtools faidx",
+    "add-assembly": "npx @jbrowse/cli add-assembly --out ./"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",
