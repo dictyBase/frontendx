@@ -43,6 +43,14 @@ This creates a `config.json` at the root of `dictybase-jbrowse`.
 yarn workspace @dictybase/jbrowse dev
 ```
 
+### Workflow for Config Update
+1. Generate any required index files (.fai, gff3.gz.tbi).
+2. Upload them to `storage.dictybase.dev` with a command line tool.
+3. Create new branch and push to `origin`
+4. Add assembly/tracks to local `config.json` file.
+5. Commit changes to repo.
+6. Push + Merge changes.
+7. Redeploy.
 
 ### Preparing FASTA files
 [reference](https://jbrowse.org/jb2/docs/quickstart_web/#adding-a-genome-assembly-in-fasta-format)
