@@ -2,14 +2,20 @@ import { useState, useEffect } from "react"
 import Plugin from "@jbrowse/core/Plugin"
 import type PluginManager from "@jbrowse/core/PluginManager"
 
-const requestBody = { operationName: "GeneGeneralInformationSummary", variables: { gene: "aslA-2" }, query: "query GeneGeneralInformationSummary($gene: String!) {\n  geneGeneralInformation(gene: $gene) {\n    id\n    name_description\n    gene_product\n    synonyms\n    description\n    __typename\n  }\n}" }
+const requestBody = {
+  operationName: "GeneGeneralInformationSummary",
+  variables: { gene: "aslA-2" },
+  query:
+    "query GeneGeneralInformationSummary($gene: String!) {\n  geneGeneralInformation(gene: $gene) {\n    id\n    name_description\n    gene_product\n    synonyms\n    description\n    __typename\n  }\n}",
+}
 
 const GeneInfoPanel = ({ feature }) => {
   const [info, setInfo] = useState(null)
   useEffect(() => {
     const getGeneInfo = async () => {
       const response = await fetch("https://graphql.dictybase.dev/graphql", {
-        method: "POST", body: JSON.stringify(requestBody),
+        method: "POST",
+        body: JSON.stringify(requestBody),
         headers: {
           "Content-Type": "application/json",
         },
@@ -18,7 +24,6 @@ const GeneInfoPanel = ({ feature }) => {
       setInfo(data.geneGeneralInformation)
     }
     getGeneInfo()
-
   }, [setInfo])
   console.log(info)
   return (
@@ -32,12 +37,17 @@ const GeneInfoPanel = ({ feature }) => {
 // Define a class that implements `install`.
 class TestPlugin extends Plugin {
   name = "GeneInfoPlugin"
+
   install(pluginManager: PluginManager) {
-    pluginManager.addToExtensionPoint("Core-extraFeaturePanel", (_, { feature }) => {
-      console.log(feature)
-      if (feature.type === "gene") return ({ name: "Gene Info", Component: GeneInfoPanel })
-      return null
-    })
+    pluginManager.addToExtensionPoint(
+      "Core-extraFeaturePanel",
+      (_, { feature }) => {
+        console.log(feature)
+        if (feature.type === "gene")
+          return { name: "Gene Info", Component: GeneInfoPanel }
+        return null
+      },
+    )
   }
 }
 
