@@ -1,0 +1,28 @@
+{
+  "assemblies": [
+    {
+      "name": "canonical_core",
+      "sequence": {
+        "type": "ReferenceSequenceTrack",
+        "trackId": "canonical_core-ReferenceSequenceTrack",
+        "adapter": {
+          "type": "IndexedFastaAdapter",
+          "fastaLocation": {
+            "uri": "http://localhost:8080/canonical_core.fa",
+            "locationType": "UriLocation"
+          },
+          "faiLocation": {
+            "uri": "http://localhost:8080/canonical_core.fa.fai",
+            "locationType": "UriLocation"
+          }
+        }
+      }
+    }
+  ],
+  "configuration": {},
+  "connections": [],
+  "defaultSession": {
+    "name": "New Session"
+  },
+  "tracks": []
+}
