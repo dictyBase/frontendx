@@ -1,9 +1,7 @@
-import { ACCESS } from "@dictybase/auth"
 import { useState, useEffect } from "react"
 import { createViewState, JBrowseApp } from "@jbrowse/react-app2"
 import { TestPlugin } from "./plugins/testPlugin"
-// import './App.css'
-import config from "./config.dev.json"
+import config from "../config.json"
 
 type ViewModel = ReturnType<typeof createViewState>
 
@@ -23,4 +21,3 @@ const App = () => {
 }
 
 export default App
-export const access = ACCESS.public
