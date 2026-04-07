@@ -13,7 +13,7 @@ const EXPECTED_GOA = {
   evidence_code: "IMP",
   extensions: null,
   go_term: "mitotic cytokinesis",
-  id: "UniProtKB:P27133!488397659",
+  id: "UniProtKB:P27133!389555735",
   publication: "PMID:10098934",
   qualifier: "acts_upstream_of_or_within",
   type: "biological_process",
@@ -48,12 +48,12 @@ test("Renders Molecular Function panel", async ({ page }) => {
   await expect(page.getByText("enables protein binding").first()).toBeVisible()
   await expect(page.getByText("IEA").first()).toBeVisible()
   await expect(
-    page.getByRole("link", { name: "UniProtKB-KW:KW-0009" }).first(),
+    page.getByRole("link", { name: "UniProtKB:P27133" }).first(),
   ).toBeVisible()
   await expect(
-    page.getByRole("link", { name: "GO_REF:0000043" }).first(),
+    page.getByRole("link", { name: "GO_REF:0000033" }).first(),
   ).toBeVisible()
-  await expect(page.getByText("2026-01-05").first()).toBeVisible()
+  await expect(page.getByText("2025-09-02").first()).toBeVisible()
   await expect(
     page.getByRole("link", { name: "UniProt" }).first(),
   ).toBeVisible()
@@ -73,7 +73,7 @@ test("Collapses panel when Accordian Summary is clicked ", async ({ page }) => {
 test("Sorts data when property in the header is clicked", async ({ page }) => {
   const firstMolecularFunctionRow = page.getByRole("row").nth(1)
   await expect(firstMolecularFunctionRow).toBeVisible()
-  await expect(firstMolecularFunctionRow.getByText("2026-01-05")).toBeVisible()
+  await expect(firstMolecularFunctionRow.getByText("2025-09-02")).toBeVisible()
   await page.getByRole("button", { name: "Date" }).first().click()
   await expect(firstMolecularFunctionRow.getByText("2020-03-18")).toBeVisible()
 })
