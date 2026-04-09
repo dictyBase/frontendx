@@ -26,7 +26,6 @@
     "dicty-hooks": "dictybase/dicty-hooks#3.0.0",
     "events": "^3.3.0",
     "fontsource-roboto": "^4.0.0",
-    "formik": "^2.2.9",
     "fp-ts": "^2.16.1",
     "libphonenumber-js": "^1.12.15",
     "react": "17.*",
