@@ -35,7 +35,7 @@
     "browserlist": "latest",
     "eslint-config-custom": "*",
     "oxlint": "^1.6.0",
-    "plop": "3.x",
+    "plop": "4.x",
     "prettier": "3.*",
     "tsx": "latest",
     "turbo": "^1.10.12",
