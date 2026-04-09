@@ -8,7 +8,7 @@
     "build": "vite build",
     "serve": "vite preview --port 3000",
     "coverage": "vitest --coverage",
-    "test": "vitest",
+    "test": "vitest run",
     "e2e": "BASE_URL=http://localhost:5173 playwright test",
     "tsc": "tsc",
     "oxlint": "oxlint src/",
