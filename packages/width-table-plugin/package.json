@@ -20,7 +20,7 @@
     "eslint-config-custom": "*",
     "jsdom": "latest",
     "tsconfig": "*",
-    "vitest": "3.x"
+    "vitest": "4.x"
   },
   "dependencies": {
     "@lexical/react": "0.11.x",

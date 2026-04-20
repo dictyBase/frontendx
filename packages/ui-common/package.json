@@ -18,7 +18,7 @@
     "eslint-config-custom": "*",
     "tsconfig": "*",
     "vite": "7.x",
-    "vitest": "3.x"
+    "vitest": "4.x"
   },
   "dependencies": {
     "@dictybase/dicty-image-mui5": "*",

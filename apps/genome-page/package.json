@@ -73,7 +73,7 @@
     "prettier": "3.*",
     "react-docgen-typescript": "^2.2.2",
     "vite": "7.x",
-    "vitest": "3.x"
+    "vitest": "4.x"
   },
   "browserslist": {
     "production": [
