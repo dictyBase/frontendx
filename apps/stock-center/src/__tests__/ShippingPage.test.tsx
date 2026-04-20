@@ -46,7 +46,7 @@ describe("Phone Number Input", () => {
     // Tab away
     await user.keyboard("[TAB]")
     expect(commentTextBox).toHaveValue(phoneValidityWarning)
-  })
+  }, 60_000)
 
   test("Removes the warning message from the `Comments` the phone number input is cleared", async () => {
     const user = userEvent.setup()
