@@ -46,7 +46,8 @@
   },
   "resolutions": {
     "@types/react": "17.x",
-    "@types/react-dom": "17.x"
+    "@types/react-dom": "17.x",
+    "vite": "7.x"
   },
   "engines": {
     "node": ">=18.0.0"
