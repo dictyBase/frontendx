@@ -7,9 +7,5 @@ export default defineConfig({
     globals: true,
     setupFiles: "./src/setup.ts",
     mockReset: true,
-    coverage: {
-      include: ["src/*"],
-      all: false,
-    },
   },
 })
