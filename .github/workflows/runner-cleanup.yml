@@ -1,0 +1,16 @@
+name: runner disk cleanup
+on:
+  workflow_dispatch:
+
+jobs:
+  cleanup:
+    runs-on: dcr-frontendx
+    steps:
+      - name: check disk before
+        run: df -h
+
+      - name: prune docker
+        run: docker system prune -af --volumes
+
+      - name: check disk after
+        run: df -h
