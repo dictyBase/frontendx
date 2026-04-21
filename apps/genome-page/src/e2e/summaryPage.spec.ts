@@ -28,7 +28,7 @@ const EXPECTED_GOA = {
   evidence_code: "IMP",
   extensions: null,
   go_term: "regulation of mitotic nuclear division",
-  id: "UniProtKB:Q9U7C9!507606576",
+  id: "UniProtKB:Q9U7C9!503589176",
   type: "biological_process",
   with: null,
 }
