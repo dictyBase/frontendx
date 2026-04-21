@@ -14,9 +14,5 @@ export default defineConfig({
     setupFiles: "./setup.ts",
     mockReset: true,
     exclude: ["**/e2e/**"],
-    coverage: {
-      include: ["src/*"],
-      all: false,
-    },
   },
 })

@@ -5,9 +5,5 @@ export default defineConfig({
   test: {
     globals: true,
     mockReset: true,
-    coverage: {
-      include: ["src/*"],
-      all: false,
-    },
   },
 })
