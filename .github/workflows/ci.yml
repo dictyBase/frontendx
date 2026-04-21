@@ -18,10 +18,6 @@ jobs:
         run: yarn --ignore-engines
       - name: unit tests
         run: yarn coverage
-      - name: upload test coverage to codecov
-        uses: codecov/codecov-action@v5
-        with: 
-          token: ${{ secrets.CODECOV }}
   # call-deploy:
   #   needs: test
   #   uses: dictyBase/workflows/.github/workflows/composite-deploy.yaml@develop
