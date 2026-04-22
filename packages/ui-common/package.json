@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@dictybase/dicty-image-mui5": "*",
+    "@dictybase/editor": "*",
     "@fontsource-variable/inter": "^5.1.0",
     "@fontsource/poppins": "^5.1.0",
     "@fontsource/roboto": "^5.0.8",
