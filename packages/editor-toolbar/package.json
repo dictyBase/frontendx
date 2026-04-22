@@ -24,7 +24,8 @@
     "jotai-optics": "^0.3.0",
     "optics-ts": "~2.4.1",
     "react-hook-form": "^7.45.2",
-    "ts-pattern": "4.x"
+    "ts-pattern": "4.x",
+    "yup": "1.2.x"
   },
   "devDependencies": {
     "@dictybase/oxlint-config": "*",
