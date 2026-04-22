@@ -16,6 +16,7 @@
     "@dictybase/image-plugin": "*",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@hookform/resolvers": "^3.1.1",
     "@logto/react": "^2.1.2",
     "@mui/icons-material": "5.*",
     "@mui/material": "5.*",
