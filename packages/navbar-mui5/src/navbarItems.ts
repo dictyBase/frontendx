@@ -144,7 +144,7 @@ const createNavbarItems = (frontPageUrl: string, stockCenterUrl: string) => ({
           },
           {
             label: "Standard Operating Procedures",
-            link: "https://northwestern.box.com/s/p0f8m70whgiuib2u0wt8gtn497ncmq8i",
+            link: "https://betastorage.dictybase.org/uploads/documents/DSC%20SOP.pdf",
           },
         ],
       },

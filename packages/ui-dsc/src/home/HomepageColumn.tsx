@@ -12,17 +12,26 @@ type HomepageColumnProperties = {
   entries: Array<LinkProperties>
 }
 
+const isExternalLink = (to: string) =>
+  to.startsWith("http://") || to.startsWith("https://")
+
 /**
  * HomepageColumn handles formatting for each column on the homepage.
  */
 const HomepageColumn = ({ title, entries }: HomepageColumnProperties) => (
   <>
     <Typography variant="h2">{title}</Typography>
-    {entries.map(({ name, to }) => (
-      <RouterLink key={uuid4()} to={to}>
-        {name}
-      </RouterLink>
-    ))}
+    {entries.map(({ name, to }) =>
+      isExternalLink(to) ? (
+        <a key={uuid4()} href={to} target="_blank" rel="noopener noreferrer">
+          {name}
+        </a>
+      ) : (
+        <RouterLink key={uuid4()} to={to}>
+          {name}
+        </RouterLink>
+      ),
+    )}
   </>
 )
 
