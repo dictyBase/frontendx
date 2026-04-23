@@ -47,7 +47,7 @@ const PlasmidCatalog = () => {
       <WindowHeightWrapper>
         {match({ data, loading, error })
           .with(
-            { data: P.select({ listPlasmids: P.not(undefined) }) },
+            { data: P.select({ listPlasmids: P.not(P.nullish) }) },
             (data_) => (
               <CatalogListWrapper root={rootReference}>
                 <PlasmidCatalogTableDisplay
