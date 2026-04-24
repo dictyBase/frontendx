@@ -5,7 +5,7 @@ import { map as Amap } from "fp-ts/lib/Array.js"
 const CAROUSEL_IMAGE_ALT = 'img[alt*="mutant"]'
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("http://localhost:3003/stockcenter")
+  await page.goto("stockcenter")
 })
 
 test("Displays welcome message", async ({ page }) => {
