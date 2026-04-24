@@ -19,7 +19,8 @@ enum Section {
 
 const useStyles = makeStyles()({
   formControl: {
-    minWidth: "10rem",
+    minWidth: "12rem",
+    width: "min-content",
   },
 })
 
