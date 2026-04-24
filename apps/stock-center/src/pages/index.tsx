@@ -13,7 +13,7 @@ import { StockCenterInfoWithAuth } from "../components/StockCenterInfoWithAuth"
  * Homepage is the main homepage component for DSC.
  */
 const ShowHomepage = () => {
-  const classes = useStyles({})
+  const { classes } = useStyles({})
   return (
     <>
       <Title />
