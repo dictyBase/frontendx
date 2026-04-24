@@ -10,7 +10,7 @@
     "dev:mock": "vite --host --mode mock",
     "dev:seed": "vite --host --mode seed",
     "test": "TZ=UTC vitest run",
-    "build": "vite build",
+    "build": "tsc && vite build",
     "serve": "vite preview --port 3000",
     "oxlint": "oxlint src/",
     "oxlint:ci": "oxlint src/ --format=github",
