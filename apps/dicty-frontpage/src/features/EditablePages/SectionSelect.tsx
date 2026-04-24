@@ -31,7 +31,9 @@ const renderValue = (section: unknown) =>
     .otherwise(() => "")
 
 const SectionSelect = () => {
-  const { formControl } = useStyles()
+  const {
+    classes: { formControl },
+  } = useStyles()
   const { register, getFieldState } = useFormContext()
   const { invalid, error } = getFieldState("section")
   return (
