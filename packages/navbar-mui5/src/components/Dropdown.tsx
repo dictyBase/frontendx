@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, forwardRef, ReactNode } from "react"
 import { styled } from "@mui/styles"
+import { type Theme } from "@mui/material"
 import { wasClicked, transitionToAuto, transitionFromAuto } from "../utils/dom"
 
 const Menu = styled(
@@ -140,7 +141,7 @@ const Link = styled(({ ...other }) => <a {...other} />)({
 type DropdownProperties = {
   open: boolean
   changeDropdown: Function
-  theme: object
+  theme: Theme
   title: string
   index: number
   items: Array<{ name: string; href: string }>

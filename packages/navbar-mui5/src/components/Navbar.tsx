@@ -7,6 +7,7 @@ import React, {
 } from "react"
 import { match, P } from "ts-pattern"
 import { ThemeProvider, styled } from "@mui/styles"
+import { type Theme } from "@mui/material"
 import { StyledEngineProvider } from "@mui/material/styles"
 import { pipe } from "fp-ts/function"
 import { fromNullable, getOrElse } from "fp-ts/Option"
@@ -46,7 +47,7 @@ const Nav = styled(
   flexWrap: "nowrap",
   position: "relative",
   zIndex: 999,
-  background: ({ theme }) => theme.primary ?? "#15317e",
+  background: ({ theme }) => theme.palette.primary.main ?? "#004080",
   color: ({ theme }) => theme.text ?? "white",
   minHeight: ({ theme }) => (theme.height ? `${theme.height}px` : "50px"),
   "@media (max-width: 768px)": {
@@ -97,7 +98,7 @@ type NavbarProperties = {
     | { element: JSX.Element }
   >
   brand?: { title: string; href: string }
-  theme: object
+  theme: Theme
 }
 
 /**
@@ -135,7 +136,6 @@ const Navbar = ({
       containerReference.current.style.height = "auto"
     }
   }
-
   const handleDocumentClick = (event: MouseEvent) => {
     if (
       navReference.current &&

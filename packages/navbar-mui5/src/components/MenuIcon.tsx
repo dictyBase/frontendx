@@ -1,6 +1,7 @@
 // @flow
 import { MouseEventHandler } from "react"
 import { styled } from "@mui/styles"
+import { type Theme } from "@mui/material"
 
 const Toggle = styled(({ ...other }) => <div {...other} />)({
   display: "none",
@@ -51,7 +52,7 @@ const IconBarBottom = styled(({ ...other }) => <div {...other} />)({
 type MenuIconProperties = {
   open: boolean
   onClick: MouseEventHandler<HTMLDivElement>
-  theme: object
+  theme: Theme
 }
 
 /**
