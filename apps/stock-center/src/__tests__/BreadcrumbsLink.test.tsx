@@ -7,7 +7,7 @@ describe("breadcrumb links", () => {
   test("renders link for strain catalog", () => {
     render(
       <MemoryRouter>
-        <BreadcrumbsLink name="strains" />
+        <BreadcrumbsLink path="/" name="strains" />
       </MemoryRouter>,
     )
     expect(screen.getByRole("link")).toHaveTextContent("Strains")
@@ -16,7 +16,7 @@ describe("breadcrumb links", () => {
   test("renders link for plasmid catalog", () => {
     render(
       <MemoryRouter>
-        <BreadcrumbsLink name="plasmids" />
+        <BreadcrumbsLink path="/" name="plasmids" />
       </MemoryRouter>,
     )
     expect(screen.getByRole("link")).toHaveTextContent("Plasmids")
@@ -25,7 +25,7 @@ describe("breadcrumb links", () => {
   test("renders link for information", () => {
     render(
       <MemoryRouter>
-        <BreadcrumbsLink name="information" />
+        <BreadcrumbsLink path="/" name="information" />
       </MemoryRouter>,
     )
     expect(screen.getByRole("link")).toHaveTextContent("Information")
