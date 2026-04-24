@@ -19,7 +19,9 @@ const useStyles = makeStyles()({
 
 const EmptyNewsViewAuth = () => {
   const navigate = useNavigate()
-  const { header } = useStyles()
+  const {
+    classes: { header },
+  } = useStyles()
   const onClick = () => {
     navigate("/news/create")
   }

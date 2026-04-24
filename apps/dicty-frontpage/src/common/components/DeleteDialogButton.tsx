@@ -12,7 +12,9 @@ const useStyles = makeStyles()((theme) => ({
 
 const DeleteDialogButton = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const { button } = useStyles()
+  const {
+    classes: { button },
+  } = useStyles()
 
   const handleClick = () => {
     setIsDialogOpen(true)

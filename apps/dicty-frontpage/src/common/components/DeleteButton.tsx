@@ -15,7 +15,9 @@ const useStyles = makeStyles()((theme) => ({
 }))
 
 const DeleteButton = () => {
-  const { button } = useStyles()
+  const {
+    classes: { button },
+  } = useStyles()
   const navigate = useNavigate()
   const id = useAtomValue(contentIdAtom)
   const authorizedDeleteContent = useAuthorizedDeleteContent(id)
