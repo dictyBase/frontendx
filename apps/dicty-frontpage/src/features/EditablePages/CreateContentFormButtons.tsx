@@ -26,23 +26,19 @@ const CreateContentFormButtons = ({
     ),
   )
   return (
-    <Grid container spacing={2} alignItems="center">
-      <Grid item>
-        <Button
-          startIcon={buttonLoading}
-          variant="contained"
-          color="primary"
-          disabled={!isValid}
-          onClick={handleSubmit(onSubmit)}>
-          Create
-        </Button>
-      </Grid>
-      <Grid item>
-        <Button variant="contained" onClick={onCancel}>
-          Cancel
-        </Button>
-      </Grid>
-    </Grid>
+    <>
+      <Button
+        startIcon={buttonLoading}
+        variant="contained"
+        color="primary"
+        disabled={!isValid}
+        onClick={handleSubmit(onSubmit)}>
+        Create
+      </Button>
+      <Button variant="contained" onClick={onCancel}>
+        Cancel
+      </Button>
+    </>
   )
 }
 
