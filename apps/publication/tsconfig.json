@@ -1,7 +1,7 @@
 {
   "extends": "tsconfig/vite.json",
   "compilerOptions": {
-    "rootDir": "src",
+    "rootDir": ".",
     "outDir": "dist"
   },
   "exclude": [
