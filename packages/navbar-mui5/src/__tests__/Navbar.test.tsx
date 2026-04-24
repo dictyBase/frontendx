@@ -1,13 +1,19 @@
 import { vi, test, expect, beforeAll } from "vitest"
 import { render, screen } from "@testing-library/react"
-// import { userEvent } from "@testing-library/user-event"
+import { createTheme } from "@mui/material"
 import { Navbar } from "../components/Navbar"
-// import { Brand } from "../components/Brand"
-// import { Dropdown } from "../components/Dropdown"
-// import { Link } from "../components/Link"
-// import { MenuIcon } from "../components/MenuIcon"
 
-// const nativeEvent = { nativeEvent: { stopImmediatePropagation: () => {} } }
+const testTheme = createTheme({
+  palette: {
+    primary: {
+      main: "#000000",
+    },
+    secondary: {
+      main: "#000000",
+    },
+  },
+})
+
 const testLink = "www.google.com"
 const properties = {
   items: [
@@ -57,8 +63,9 @@ const properties = {
     title: "Brand",
     href: "google.com",
   },
-  theme: {},
+  theme: testTheme,
 }
+
 const mockSetOpen = vi.fn()
 
 beforeAll(() => {
