@@ -7,7 +7,7 @@
     "dev": "vite --clearScreen false",
     "dev:mock": "yarn dev --mode mock",
     "serve": "node server.js",
-    "build": "vite build",
+    "build": "tsc && vite build",
     "oxlint": "oxlint src/",
     "oxlint:ci": "oxlint src/ --format=github",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",

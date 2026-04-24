@@ -5,7 +5,7 @@
   "homepage": "/publication",
   "scripts": {
     "dev": "vite --port 5173",
-    "build": "vite build",
+    "build": "tsc && vite build",
     "serve": "vite preview --port 3000",
     "coverage": "vitest --coverage",
     "test": "vitest run",

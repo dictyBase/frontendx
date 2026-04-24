@@ -5,7 +5,7 @@
   "homepage": "/gene",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc && vite build",
     "serve": "vite preview --port 3002",
     "test": "vitest run",
     "e2e": "BASE_URL=http://localhost:3002 playwright test",
