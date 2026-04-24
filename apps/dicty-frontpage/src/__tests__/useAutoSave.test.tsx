@@ -23,6 +23,7 @@ describe("useAutoSave", () => {
     vi.clearAllMocks()
 
     // Setup mock editor state
+    // @ts-ignore
     mockEditorState.toJSON.mockReturnValue({
       root: { children: [{ text: "test content" }] },
     })
