@@ -10,6 +10,7 @@
     "coverage": "vitest --coverage",
     "test": "vitest run",
     "e2e": "BASE_URL=http://localhost:5173 playwright test",
+    "e2e:live": "BASE_URL=https://dictybase.dev playwright test --grep-invert snapshots.spec.ts",
     "tsc": "tsc",
     "oxlint": "oxlint src/",
     "oxlint:ci": "oxlint src/ --format=github",
