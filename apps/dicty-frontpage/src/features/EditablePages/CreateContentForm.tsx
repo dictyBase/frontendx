@@ -40,7 +40,9 @@ const handler = (event: BeforeUnloadEvent) => {
 const CreateContentForm = () => {
   const [open, setOpen] = useState(false)
   const [createContentError, setCreateContentError] = useState("")
-  const { classes } = useStyles()
+  const {
+    classes: { root, container },
+  } = useStyles()
   const navigate = useNavigate()
   const createContent = useCreateContentFromEditor()
   const methods = useCreateContentForm()
@@ -100,8 +102,8 @@ const CreateContentForm = () => {
 
   return (
     <FormProvider {...methods}>
-      <Container className={classes.container}>
-        <Paper className={classes.root}>
+      <Container className={container}>
+        <Paper className={root}>
           <Stack direction="row" spacing={2} alignItems="center">
             <ContentPathInputs />
             <CreateContentFormButtons onSubmit={onSubmit} onCancel={onCancel} />
