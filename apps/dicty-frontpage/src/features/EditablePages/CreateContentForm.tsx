@@ -3,7 +3,7 @@ import { pipe } from "fp-ts/function"
 import { useNavigate } from "react-router-dom"
 import { match as Ematch } from "fp-ts/Either"
 import { match, P } from "ts-pattern"
-import { Container, Paper, Grid } from "@mui/material"
+import { Container, Paper, Stack } from "@mui/material"
 import { makeStyles } from "tss-react/mui"
 import { InferType } from "yup"
 import { FormProvider, SubmitHandler } from "react-hook-form"
@@ -40,7 +40,7 @@ const handler = (event: BeforeUnloadEvent) => {
 const CreateContentForm = () => {
   const [open, setOpen] = useState(false)
   const [createContentError, setCreateContentError] = useState("")
-  const { container, root } = useStyles()
+  const { classes } = useStyles()
   const navigate = useNavigate()
   const createContent = useCreateContentFromEditor()
   const methods = useCreateContentForm()
@@ -100,19 +100,12 @@ const CreateContentForm = () => {
 
   return (
     <FormProvider {...methods}>
-      <Container className={container}>
-        <Paper className={root}>
-          <Grid container spacing={2} alignItems="center">
-            <Grid item>
-              <ContentPathInputs />
-            </Grid>
-            <Grid item>
-              <CreateContentFormButtons
-                onSubmit={onSubmit}
-                onCancel={onCancel}
-              />
-            </Grid>
-          </Grid>
+      <Container className={classes.container}>
+        <Paper className={classes.root}>
+          <Stack direction="row" spacing={2} alignItems="center">
+            <ContentPathInputs />
+            <CreateContentFormButtons onSubmit={onSubmit} onCancel={onCancel} />
+          </Stack>
         </Paper>
       </Container>
       <ErrorSnackbar

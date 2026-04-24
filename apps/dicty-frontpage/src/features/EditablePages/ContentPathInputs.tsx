@@ -1,4 +1,4 @@
-import { TextField, Grid } from "@mui/material"
+import { TextField, Stack } from "@mui/material"
 import { useFormContext } from "react-hook-form"
 import { isEmpty as SisEmpty } from "fp-ts/string"
 import { MonoidAny } from "fp-ts/boolean"
@@ -17,31 +17,25 @@ const ContentPathInputs = () => {
     SisEmpty(nameValue),
   )
   return (
-    <Grid container spacing={2}>
-      <Grid item>
-        <SectionSelect />
-      </Grid>
-      <Grid item>
-        <TextField
-          {...register("name")}
-          error={!!errors.name}
-          helperText={errors.name?.message}
-          label="* Name"
-          name="name"
-          variant="outlined"
-        />
-      </Grid>
-      <Grid item>
-        <TextField
-          {...register("subname")}
-          error={!!errors.subname}
-          label="Subname"
-          name="subname"
-          variant="outlined"
-          disabled={subnameDisabled}
-        />
-      </Grid>
-    </Grid>
+    <>
+      <SectionSelect />
+      <TextField
+        {...register("name")}
+        error={!!errors.name}
+        helperText={errors.name?.message}
+        label="* Name"
+        name="name"
+        variant="outlined"
+      />
+      <TextField
+        {...register("subname")}
+        error={!!errors.subname}
+        label="Subname"
+        name="subname"
+        variant="outlined"
+        disabled={subnameDisabled}
+      />
+    </>
   )
 }
 
