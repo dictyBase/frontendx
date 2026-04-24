@@ -18,10 +18,10 @@ const WaiverRequestInformation = () => {
 
   return (
     <Typography className={classes.waiver}>
-      Please send an email to
+      Please send an email to{" "}
       <a href="mailto:dictystocks@northwestern.edu" target="_top">
         dictystocks@northwestern.edu
-      </a>
+      </a>{" "}
       describing why you need a waiver.
     </Typography>
   )
