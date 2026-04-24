@@ -1,20 +1,35 @@
 import { Navbar, formatNavbarData } from "@dictybase/navbar-mui5"
+import { createTheme, type Theme } from "@mui/material"
 import { displayOnAuthorized } from "./functional/auth"
 import { useAuthorization } from "./useAuthorization"
 import { createAuthNavbarItems } from "./data/authNavbarData"
+
+const primaryColor = "#004080"
+const blueSecondaryColor = "#001b53"
+
+const defaultTheme = createTheme({
+  palette: {
+    primary: {
+      main: primaryColor,
+    },
+    secondary: {
+      main: blueSecondaryColor,
+    },
+  },
+})
 
 const authorizedRoles = ["content-admin"]
 
 type NavbarWithAuthProperties = {
   frontPageUrl: string
   stockCenterUrl: string
-  theme?: object
+  theme?: Theme
 }
 
 const NavbarWithAuth = ({
   frontPageUrl,
   stockCenterUrl,
-  theme = {},
+  theme = defaultTheme,
 }: NavbarWithAuthProperties) => {
   const { isAuthorized } = useAuthorization({
     entries: authorizedRoles,
