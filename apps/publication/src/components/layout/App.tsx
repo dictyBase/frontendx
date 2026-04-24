@@ -6,7 +6,6 @@ import {
   NavbarWithAuth,
   FooterWithAuth,
 } from "@dictybase/auth-mui5"
-import { navTheme } from "../../common/utils/themes"
 import { useGoogleAnalytics } from "../../common/hooks/useGoogleAnalytics"
 import "@fontsource-variable/playfair-display"
 import "@fontsource-variable/inter-tight"
@@ -43,7 +42,6 @@ const App: FunctionComponent = ({ children }) => {
       <NavbarWithAuth
         frontPageUrl={import.meta.env.VITE_FRONTPAGE_URL}
         stockCenterUrl={import.meta.env.VITE_STOCKCENTER_URL}
-        theme={navTheme}
       />
       <main>{children}</main>
       <FooterWithAuth

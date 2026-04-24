@@ -6,7 +6,6 @@ import {
   NavbarWithAuth,
   FooterWithAuth,
 } from "@dictybase/auth-mui5"
-import { navTheme } from "common/utils/themes"
 
 const useStyles = makeStyles((theme: Theme) => ({
   main: {
@@ -43,7 +42,6 @@ const App = ({ children }: { children: NonNullable<ReactNode> }) => {
       <NavbarWithAuth
         frontPageUrl={import.meta.env.VITE_FRONTPAGE_URL}
         stockCenterUrl={import.meta.env.VITE_STOCKCENTER_URL}
-        theme={navTheme}
       />
       <main className={classes.main}>
         <Container maxWidth="xl">{children}</Container>

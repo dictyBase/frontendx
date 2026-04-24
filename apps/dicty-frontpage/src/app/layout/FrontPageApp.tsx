@@ -9,7 +9,6 @@ import {
 } from "@dictybase/auth-mui5"
 import { useGoogleAnalytics } from "../../common/hooks/useGoogleAnalytics"
 import { frontpageRouter } from "../../routes"
-import { navTheme } from "../../common/utils/themes"
 
 const useStyles = makeStyles()((theme: Theme) => ({
   body: {
@@ -44,7 +43,6 @@ const FrontPageApp = () => {
       <NavbarWithAuth
         frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
         stockCenterUrl={import.meta.env.VITE_APP_STOCKCENTER_URL}
-        theme={navTheme}
       />
       <main>
         <RouterProvider router={frontpageRouter} />
