@@ -8,7 +8,6 @@ import {
   FooterWithAuth,
 } from "@dictybase/auth-mui5"
 import { dscRouter } from "../routes"
-import { navTheme } from "../themes"
 import { useGoogleAnalytics } from "../hooks/useGoogleAnalytics"
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -43,7 +42,6 @@ const DscApp = () => {
       <NavbarWithAuth
         frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
         stockCenterUrl={import.meta.env.VITE_APP_STOCKCENTER_URL}
-        theme={navTheme}
       />
       <main className={classes.main}>
         <Container maxWidth="lg">
