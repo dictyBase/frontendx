@@ -31,7 +31,7 @@ type BrandProperties = {
   /** Link URL */
   href: string
   /** Material-UI theme */
-  theme: object
+  theme: Theme
 }
 
 /**
