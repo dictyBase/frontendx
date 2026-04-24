@@ -1,3 +1,4 @@
+import { vi } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { mockPhenotypesData } from "mocks/mockPhenotypesData"
 import { PhenotypesContainer } from "./PhenotypesContainer"

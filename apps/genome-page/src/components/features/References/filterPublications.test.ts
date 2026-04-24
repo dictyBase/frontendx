@@ -11,21 +11,18 @@ describe("filterPublications", () => {
     {
       id: "1",
       title: "Dictyostelium discoideum: a model system for cell biology",
-      abstract: "This is an abstract about Dictyostelium",
       journal: "Nature Reviews",
       pub_date: "2020-01-01",
+      pub_type: "",
+      source: "",
       authors: [
         {
           last_name: "Smith",
-          first_name: "John",
-          initials: "J",
-          rank: 1,
+          rank: "1",
         },
         {
           last_name: "Johnson",
-          first_name: "Mary",
-          initials: "M",
-          rank: 2,
+          rank: "2",
         },
       ],
       related_genes: [
@@ -42,21 +39,18 @@ describe("filterPublications", () => {
     {
       id: "2",
       title: "Cell signaling in Dictyostelium development",
-      abstract: "This paper discusses cell signaling",
       journal: "Cell",
       pub_date: "2021-02-15",
+      pub_type: "",
+      source: "",
       authors: [
         {
           last_name: "Williams",
-          first_name: "Robert",
-          initials: "R",
-          rank: 1,
+          rank: "1",
         },
         {
           last_name: "Brown",
-          first_name: "Sarah",
-          initials: "S",
-          rank: 2,
+          rank: "2",
         },
       ],
       related_genes: [
@@ -69,15 +63,14 @@ describe("filterPublications", () => {
     {
       id: "3",
       title: "Molecular mechanisms of chemotaxis",
-      abstract: "A study on chemotaxis in Dictyostelium",
       journal: "Science",
       pub_date: "2019-11-30",
+      pub_type: "",
+      source: "",
       authors: [
         {
           last_name: "Smith",
-          first_name: "Jane",
-          initials: "J",
-          rank: 1,
+          rank: "1",
         },
       ],
       related_genes: [
