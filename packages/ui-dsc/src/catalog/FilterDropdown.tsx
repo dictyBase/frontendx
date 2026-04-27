@@ -65,7 +65,7 @@ export const FilterDropdown = ({
   value,
   options,
 }: FilterDropdownProperties) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   const [searchParameters, setSearchParameters] = useSearchParams()
   const [filterValue, setFilterValue] = useState<string>(
     searchParameters.get(param) || value,
