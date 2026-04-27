@@ -32,7 +32,7 @@
     "@mui/icons-material": "5.*",
     "@mui/lab": "~5.0.0-alpha.175",
     "@mui/material": "5.*",
-    "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.33.0",
+    "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.37.0",
     "fp-ts": "^2.16.1",
     "react": "17.*",
     "react-dom": "17.*",
