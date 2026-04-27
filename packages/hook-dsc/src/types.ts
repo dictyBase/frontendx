@@ -8,7 +8,7 @@ export interface GraphqlQueryVariableProperties {
 
 export interface StrainCatalogSearchProperties {
   searchParams: URLSearchParams
-  value: string
+  filterParameterValue: string
 }
 
 export interface Strain {

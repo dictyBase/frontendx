@@ -14,16 +14,21 @@ import { useIntersectionObserver } from "@dictybase/hook"
 import { useStrainListQuery } from "dicty-graphql-schema"
 import { useSearchParams } from "react-router-dom"
 
+/**
+ * StrainCatalog is the main component for displaying the strain catalog view.
+ */
 const StrainCatalog = () => {
+  // Get the search parameters from the URL.
   const [searchParameters] = useSearchParams()
-  const value = searchParameters.get(defaultFilter.param) ?? defaultFilter.value
+  const filterParameterValue =
+    searchParameters.get(defaultFilter.param) ?? defaultFilter.value
   const { dataField, variables } = useMemo(
     () =>
       getStrainListConfiguration({
-        value,
+        filterParameterValue,
         searchParams: searchParameters,
       }),
-    [value, searchParameters],
+    [filterParameterValue, searchParameters],
   )
   const { loading, error, data, fetchMore, refetch } = useStrainListQuery({
     variables,
