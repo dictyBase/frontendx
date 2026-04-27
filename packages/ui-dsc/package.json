@@ -22,7 +22,7 @@
     "@mui/material": "5.*",
     "@mui/lab": "~5.0.0-alpha.175",
     "@react-pdf/renderer": "~3.0.0",
-    "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.33.0",
+    "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.37.0",
     "dicty-hooks": "dictybase/dicty-hooks#3.0.0",
     "events": "^3.3.0",
     "fontsource-roboto": "^4.0.0",
