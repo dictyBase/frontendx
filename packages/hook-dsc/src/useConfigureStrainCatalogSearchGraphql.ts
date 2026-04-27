@@ -11,7 +11,7 @@ import { Lens } from "monocle-ts"
 import { StrainType } from "dicty-graphql-schema"
 import {
   strainConfig,
-  graphqlQueryVariables,
+  graphqlListVariables,
   fieldsToVariables,
   baseConfig,
 } from "./graphql_config"
@@ -21,19 +21,23 @@ import {
   ConfigureStrainCatalogSearchGraphql,
 } from "./types"
 
+/**
+ * getStrainListConfiguration takes the URL search parameters and makes adapts them to be used in the StrainList GraphQL query.
+ */
 export function getStrainListConfiguration({
   searchParams,
-  value,
+  filterParameterValue,
 }: StrainCatalogSearchProperties) {
   const initValues: ConfigureStrainCatalogSearchGraphql = {
     dataField: baseConfig.dataField,
     variables: {
       filter: { strain_type: StrainType.Regular },
-      ...graphqlQueryVariables,
+      ...graphqlListVariables,
     },
   }
   const filterStrainConfig = (config: SearchConfigMember) =>
-    config.value === value
+    config.value === filterParameterValue
+
   const basePipe = flow(
     RAfilter(filterStrainConfig),
     RAhead,
