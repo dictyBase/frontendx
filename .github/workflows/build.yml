@@ -16,7 +16,7 @@ jobs:
       - name: Set Up Environment
         run: mv apps/dicty-frontpage/.env.development apps/dicty-frontpage/.env.production
       - name: Prune Application
-        run: turbo prune --scope=dicty-frontpage --outdir=./dfp
+        run: turbo prune --scope=dicty-frontpage --out-dir=./dfp
       - name: Install Dependencies
         working-directory: dfp
         run: yarn install --ignore-engines
@@ -38,7 +38,7 @@ jobs:
       - name: Set Up Environment
         run: mv apps/stock-center/.env.development apps/stock-center/.env.production
       - name: Prune Application
-        run: turbo prune --scope=stock-center --outdir=./dsc
+        run: turbo prune --scope=stock-center --out-dir=./dsc
       - name: Install Dependencies
         working-directory: dsc
         run: yarn install --ignore-engines
@@ -60,7 +60,7 @@ jobs:
       - name: Set Up Environment
         run: mv apps/genome-page/.env.development apps/genome-page/.env.production
       - name: Prune Application
-        run: turbo prune --scope=genomepage --outdir=./gp
+        run: turbo prune --scope=genomepage --out-dir=./gp
       - name: Install Dependencies
         working-directory: gp
         run: yarn install --ignore-engines
@@ -82,7 +82,7 @@ jobs:
       - name: Set Up Environment
         run: mv apps/publication/.env.development apps/publication/.env.production
       - name: Prune Application
-        run: turbo prune --scope=publication --outdir=pub
+        run: turbo prune --scope=publication --out-dir=pub
       - name: Install Dependencies
         working-directory: pub
         run: yarn install --ignore-engines
