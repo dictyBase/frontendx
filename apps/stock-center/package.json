@@ -27,13 +27,11 @@
     "@dictybase/hook-dsc": "*",
     "@dictybase/ui-dsc": "*",
     "jotai": "^2.0.0",
-    "react-helmet": "^6.1.0",
     "ui-user": "*"
   },
   "devDependencies": {
     "@dictybase/oxlint-config": "*",
     "@playwright/test": "^1.44.0",
-    "@types/react-helmet": "^6.1.6",
     "@vitejs/plugin-react-swc": "^4.0.1",
     "eslint-config-custom": "*",
     "msw": "2.x",
