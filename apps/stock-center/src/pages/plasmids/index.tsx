@@ -1,6 +1,23 @@
-import { graphqlQueryVariables } from "@dictybase/hook-dsc"
-import { useIntersectionObserver } from "@dictybase/hook"
+import { useRef } from "react"
+import { useSearchParams } from "react-router-dom"
+import { pipe, flow } from "fp-ts/function"
+import { filter as Mfilter } from "fp-ts/Map"
+import { elem as SETelem, toArray as SETtoArray } from "fp-ts/Set"
+import { filter as Afilter, filterMap as AfilterMap } from "fp-ts/Array"
+import { map as Omap, fromPredicate as OfromPredicate } from "fp-ts/Option"
 import { P, match } from "ts-pattern"
+import { Ord as SOrd, Eq as SEq } from "fp-ts/string"
+import {
+  usePlasmidListFilterQuery,
+  PlasmidListFilter,
+  PlasmidType,
+} from "dicty-graphql-schema"
+
+import {
+  graphqlListVariables,
+  buildPlasmidListFilter,
+} from "@dictybase/hook-dsc"
+import { useIntersectionObserver } from "@dictybase/hook"
 import {
   WindowHeightWrapper,
   PlasmidCatalogTableDisplay,
@@ -10,13 +27,16 @@ import {
   CatalogListLoader,
   CatalogHeader,
 } from "@dictybase/ui-dsc"
-import { useRef } from "react"
-import { usePlasmidListFilterQuery } from "dicty-graphql-schema"
 
 const PlasmidCatalog = () => {
+  const [searchParameters] = useSearchParams()
+
   const { loading, error, data, fetchMore, refetch } =
     usePlasmidListFilterQuery({
-      variables: { ...graphqlQueryVariables, filter: "" },
+      variables: {
+        ...graphqlListVariables,
+        filter: buildPlasmidListFilter(searchParameters),
+      },
     })
 
   const rootReference = useRef<HTMLDivElement>(null)
@@ -44,13 +64,13 @@ const PlasmidCatalog = () => {
   return (
     <>
       <CatalogHeader title="Plasmid Catalog" />
+      <SearchBarPlasmid />
       <WindowHeightWrapper>
         {match({ data, loading, error })
           .with(
             { data: P.select({ listPlasmids: P.not(undefined) }) },
             (data_) => (
               <CatalogListWrapper root={rootReference}>
-                <SearchBar />
                 <PlasmidCatalogTableDisplay
                   data={data_}
                   dataField="listPlasmids"
