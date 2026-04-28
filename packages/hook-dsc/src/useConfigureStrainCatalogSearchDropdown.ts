@@ -1,7 +1,7 @@
-import { strainConfig } from "./graphql_config"
+import { strainGroupFilterEntries } from "./graphql_config"
 
 export function useConfigureStrainCatalogSearchDropdown() {
-  return strainConfig().map((config) => ({
+  return strainGroupFilterEntries.map((config) => ({
     label: config.label,
     value: config.value,
   }))

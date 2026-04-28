@@ -10,9 +10,9 @@ import { flow, pipe } from "fp-ts/function"
 import { Lens } from "monocle-ts"
 import { StrainType } from "dicty-graphql-schema"
 import {
-  strainConfig,
+  strainGroupFilterEntries,
   graphqlListVariables,
-  fieldsToVariables,
+  variablesFromStrainParameters,
   baseConfig,
 } from "./graphql_config"
 import {
@@ -35,31 +35,31 @@ export function getStrainListConfiguration({
       ...graphqlListVariables,
     },
   }
-  const filterStrainConfig = (config: SearchConfigMember) =>
+  const isSearchParameterMatch = (config: SearchConfigMember) =>
     config.value === filterParameterValue
 
   const basePipe = flow(
-    RAfilter(filterStrainConfig),
+    RAfilter(isSearchParameterMatch),
     RAhead,
-    OgetOrElse(() => RNAhead(strainConfig())),
+    OgetOrElse(() => RNAhead(strainGroupFilterEntries)),
   )
   const graphqlFilterLens = Lens.fromProp<SearchConfigMember>()("graphqlFilter")
 
   // Get the filter config that matches `value`.
   const strainTypeFilterPipe = pipe(
-    strainConfig(),
+    strainGroupFilterEntries,
     basePipe,
     graphqlFilterLens.get,
   )
 
   // Adds any other valid search parameters to the query filter.
   const additionalfiltersPipe = pipe(
-    fieldsToVariables,
+    variablesFromStrainParameters,
     Rkeys,
     RAfilter((field) => searchParams.has(field)),
     RAreduce({}, (accumulator, field: string) => ({
       ...accumulator,
-      [fieldsToVariables[field] as string]: searchParams.get(field),
+      [variablesFromStrainParameters[field] as string]: searchParams.get(field),
     })),
   )
 
