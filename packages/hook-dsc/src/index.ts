@@ -1,3 +1,4 @@
+export * from "./utils"
 export * from "./graphql_config"
 export * from "./graphql_cache"
 export * from "./types"
