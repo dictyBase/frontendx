@@ -53,3 +53,4 @@ repomix-output.txt
 repomix.config.json
 credentials
 .mcp.json
+public/mockServiceWorker.js
