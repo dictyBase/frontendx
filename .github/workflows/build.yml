@@ -16,12 +16,12 @@ jobs:
       - name: Set Up Environment
         run: mv apps/dicty-frontpage/.env.development apps/dicty-frontpage/.env.production
       - name: Prune Application
-        run: turbo prune --scope=dicty-frontpage
+        run: turbo prune --scope=dicty-frontpage --outdir=./dfp
       - name: Install Dependencies
-        working-directory: out
+        working-directory: dfp
         run: yarn install --ignore-engines
       - name: Build Application
-        working-directory: out
+        working-directory: dfp
         run: yarn turbo run build --filter=dicty-frontpage
   build-stock-center:
     name: Build Stock Center
@@ -38,12 +38,12 @@ jobs:
       - name: Set Up Environment
         run: mv apps/stock-center/.env.development apps/stock-center/.env.production
       - name: Prune Application
-        run: turbo prune --scope=stock-center
+        run: turbo prune --scope=stock-center --outdir=./dsc
       - name: Install Dependencies
-        working-directory: out
+        working-directory: dsc
         run: yarn install --ignore-engines
       - name: Build Application
-        working-directory: out
+        working-directory: dsc
         run: yarn turbo run build --filter=stock-center
   build-genomepage:
     name: Build Genome Page
@@ -60,12 +60,12 @@ jobs:
       - name: Set Up Environment
         run: mv apps/genome-page/.env.development apps/genome-page/.env.production
       - name: Prune Application
-        run: turbo prune --scope=genomepage
+        run: turbo prune --scope=genomepage --outdir=./gp
       - name: Install Dependencies
-        working-directory: out
+        working-directory: gp
         run: yarn install --ignore-engines
       - name: Build Application
-        working-directory: out
+        working-directory: gp
         run: yarn turbo run build --filter=genomepage
   build-publication:
     name: Build Publication
@@ -82,11 +82,11 @@ jobs:
       - name: Set Up Environment
         run: mv apps/publication/.env.development apps/publication/.env.production
       - name: Prune Application
-        run: turbo prune --scope=publication
+        run: turbo prune --scope=publication --outdir=pub
       - name: Install Dependencies
-        working-directory: out
+        working-directory: pub
         run: yarn install --ignore-engines
       - name: Build Application
-        working-directory: out
+        working-directory: pub
         run: yarn turbo run build --filter=publication
 
