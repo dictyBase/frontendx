@@ -17,11 +17,11 @@ jobs:
         run: mv apps/dicty-frontpage/.env.development apps/dicty-frontpage/.env.production
       - name: Prune Application
         run: turbo prune --scope=dicty-frontpage
-      - name: Open Output Directory
-        run: cd out
       - name: Install Dependencies
+        working-directory: out
         run: yarn install --ignore-engines
       - name: Build Application
+        working-directory: out
         run: yarn turbo run build --filter=dicty-frontpage
   build-stock-center:
     name: Build Stock Center
@@ -39,11 +39,11 @@ jobs:
         run: mv apps/stock-center/.env.development apps/stock-center/.env.production
       - name: Prune Application
         run: turbo prune --scope=stock-center
-      - name: Open Output Directory
-        run: cd out
       - name: Install Dependencies
+        working-directory: out
         run: yarn install --ignore-engines
       - name: Build Application
+        working-directory: out
         run: yarn turbo run build --filter=stock-center
   build-genomepage:
     name: Build Genome Page
@@ -61,11 +61,11 @@ jobs:
         run: mv apps/genome-page/.env.development apps/genome-page/.env.production
       - name: Prune Application
         run: turbo prune --scope=genomepage
-      - name: Open Output Directory
-        run: cd out
       - name: Install Dependencies
+        working-directory: out
         run: yarn install --ignore-engines
       - name: Build Application
+        working-directory: out
         run: yarn turbo run build --filter=genomepage
   build-publication:
     name: Build Publication
@@ -83,10 +83,10 @@ jobs:
         run: mv apps/publication/.env.development apps/publication/.env.production
       - name: Prune Application
         run: turbo prune --scope=publication
-      - name: Open Output Directory
-        run: cd out
       - name: Install Dependencies
+        working-directory: out
         run: yarn install --ignore-engines
       - name: Build Application
+        working-directory: out
         run: yarn turbo run build --filter=publication
 
