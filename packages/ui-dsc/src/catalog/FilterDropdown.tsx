@@ -70,7 +70,6 @@ export const FilterDropdown = ({
   const [filterValue, setFilterValue] = useState<string>(
     searchParameters.get(param) || value,
   )
-  const items = useConfigureStrainCatalogSearchDropdown()
 
   useEffect(() => {
     setSearchParameters((previousParameters) => {

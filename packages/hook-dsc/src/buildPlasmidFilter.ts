@@ -11,10 +11,8 @@ import {
   flatMap as OflatMap,
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
-import { PlasmidType, PlasmidListFilter } from "dicty-graphql-schema"
-
-const DEFAULT_GROUP = { plasmid_type: PlasmidType.Regular }
-const GOLDEN_BRAID_GROUP = { plasmid_type: PlasmidType.GoldenBraid }
+import { PlasmidListFilter } from "dicty-graphql-schema"
+import { DEFAULT_GROUP, GOLDEN_BRAID_GROUP } from "./const"
 
 const plasmidGroupFilterEntries = new Map([
   ["regular", DEFAULT_GROUP],
