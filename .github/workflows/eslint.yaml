@@ -8,7 +8,7 @@ jobs:
       - name: set up node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22.x
+          node-version: 24.x
       - name: check out code
         uses: actions/checkout@v6
       - name: install
