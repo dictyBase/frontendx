@@ -12,7 +12,7 @@ import {
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
 import { PlasmidListFilter } from "dicty-graphql-schema"
-import { DEFAULT_GROUP, GOLDEN_BRAID_GROUP } from "./const"
+import { DEFAULT_GROUP, GOLDEN_BRAID_GROUP } from "../const"
 
 const plasmidGroupFilterEntries = new Map([
   ["regular", DEFAULT_GROUP],
