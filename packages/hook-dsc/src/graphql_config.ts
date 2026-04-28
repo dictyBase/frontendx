@@ -6,9 +6,9 @@ import {
 } from "fp-ts/ReadonlyNonEmptyArray"
 import { SearchConfigMember, BaseConfigMember } from "./types"
 
-const graphqlQueryVariables = { cursor: 0, limit: 12 }
+const graphqlListVariables = { cursor: 0, limit: 12 }
 const defaultFilter = { param: "group", value: "regular" }
-const fieldsToVariables: Record<string, string> = {
+const variablesFromStrainParameters: Record<string, string> = {
   Descriptor: "label",
   Summary: "summary",
 }
@@ -16,7 +16,7 @@ const baseConfig: BaseConfigMember = {
   graphqlQuery: StrainListDocument,
   dataField: "listStrains",
 }
-const strainConfig = (): ReadonlyNonEmptyArray<SearchConfigMember> =>
+const strainGroupFilterEntries: ReadonlyNonEmptyArray<SearchConfigMember> =
   pipe(
     [
       {
@@ -44,9 +44,9 @@ const strainConfig = (): ReadonlyNonEmptyArray<SearchConfigMember> =>
   )
 
 export {
-  graphqlQueryVariables,
-  strainConfig,
+  graphqlListVariables,
+  strainGroupFilterEntries,
   defaultFilter,
-  fieldsToVariables,
+  variablesFromStrainParameters,
   baseConfig,
 }

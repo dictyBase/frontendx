@@ -1,5 +1,8 @@
 import { Grid } from "@mui/material"
-import { defaultFilter, fieldsToVariables } from "@dictybase/hook-dsc"
+import {
+  defaultFilter,
+  variablesFromStrainParameters,
+} from "@dictybase/hook-dsc"
 import { makeStyles } from "tss-react/mui"
 import { FilterDropdown } from "./FilterDropdown"
 import { SearchBox } from "./SearchBox"
@@ -22,7 +25,7 @@ const SearchBar = () => {
         />
       </Grid>
       <Grid item className={classes.searchBox}>
-        <SearchBox fields={Object.keys(fieldsToVariables)} />
+        <SearchBox fields={Object.keys(variablesFromStrainParameters)} />
       </Grid>
       <Grid item>
         <AppBarHelp />
