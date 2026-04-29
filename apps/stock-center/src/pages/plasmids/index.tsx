@@ -1,10 +1,7 @@
 import { useRef } from "react"
 import { useSearchParams } from "react-router-dom"
 import { P, match } from "ts-pattern"
-import { Ord as SOrd, Eq as SEq } from "fp-ts/string"
-import {
-  usePlasmidListFilterQuery,
-} from "dicty-graphql-schema"
+import { usePlasmidListFilterQuery } from "dicty-graphql-schema"
 
 import {
   graphqlListVariables,
