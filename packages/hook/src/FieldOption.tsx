@@ -1,5 +1,6 @@
 import { Chip } from "@material-ui/core"
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles"
+import { capitalizeFirst } from "./utils"
 
 const useFieldOptionStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,7 +25,7 @@ type FieldOptionProperties = {
  */
 const FieldOption = ({ label }: FieldOptionProperties) => {
   const { root } = useFieldOptionStyles()
-  return <Chip className={root} size="medium" label={label} />
+  return <Chip className={root} size="medium" label={capitalizeFirst(label)} />
 }
 
 export { FieldOption }
