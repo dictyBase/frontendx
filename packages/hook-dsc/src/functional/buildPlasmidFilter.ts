@@ -38,7 +38,7 @@ const buildPlasmidListFilter = (
     Olet("withName", ({ searchParameters, init }) =>
       pipe(
         searchParameters,
-        get("Descriptor"),
+        get("descriptor"),
         Omap((name) => ({ ...init, name })),
         OgetOrElse(() => init),
       ),
@@ -46,7 +46,7 @@ const buildPlasmidListFilter = (
     Olet("withSummary", ({ searchParameters, withName }) =>
       pipe(
         searchParameters,
-        get("Summary"),
+        get("summary"),
         Omap((summary) => ({ ...withName, summary })),
         OgetOrElse(() => withName),
       ),
