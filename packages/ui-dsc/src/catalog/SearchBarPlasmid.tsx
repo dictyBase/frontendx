@@ -8,7 +8,7 @@ import { FilterDropdown } from "./FilterDropdown"
 import { SearchBox } from "./SearchBox"
 import { AppBarHelp } from "./AppBarHelp"
 
-const plasmidFilterOptions = [
+const plasmidGroupFilterOptions = [
   {
     label: "Regular",
     value: "regular",
@@ -18,6 +18,8 @@ const plasmidFilterOptions = [
     value: "goldenbraid",
   },
 ]
+
+const plasmidSearchFields = ["descriptor", "summary"]
 
 const useStyles = makeStyles({
   searchBox: {
@@ -31,13 +33,13 @@ const SearchBarPlasmid = () => {
     <Grid container>
       <Grid item>
         <FilterDropdown
-          options={plasmidFilterOptions}
+          options={plasmidGroupFilterOptions}
           param={defaultFilter.param}
           value={defaultFilter.value}
         />
       </Grid>
       <Grid item className={searchBox}>
-        <SearchBox fields={Object.keys(variablesFromStrainParameters)} />
+        <SearchBox fields={plasmidSearchFields} />
       </Grid>
       <Grid item>
         <AppBarHelp />
