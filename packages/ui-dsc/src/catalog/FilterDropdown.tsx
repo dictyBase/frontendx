@@ -4,7 +4,6 @@ import FormControl from "@mui/material/FormControl"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
 import MenuItem from "@mui/material/MenuItem"
 import { deepPurple } from "@mui/material/colors"
-import { useConfigureStrainCatalogSearchDropdown } from "@dictybase/hook-dsc"
 import { useSearchParams } from "react-router-dom"
 
 const useStyles = makeStyles()({
