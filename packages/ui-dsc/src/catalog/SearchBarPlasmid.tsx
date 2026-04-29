@@ -1,8 +1,5 @@
 import { Grid } from "@material-ui/core"
-import {
-  defaultFilter,
-  variablesFromStrainParameters,
-} from "@dictybase/hook-dsc"
+import { defaultFilter } from "@dictybase/hook-dsc"
 import { makeStyles } from "@material-ui/core/styles"
 import { FilterDropdown } from "./FilterDropdown"
 import { SearchBox } from "./SearchBox"
