@@ -1,8 +1,7 @@
-import { useMemo, useRef } from "react"
+import { useRef } from "react"
 import {
   buildStrainListFilter,
   graphqlListVariables,
-  defaultFilter,
 } from "@dictybase/hook-dsc"
 import { P, match } from "ts-pattern"
 import {
