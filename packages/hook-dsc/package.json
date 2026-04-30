@@ -16,7 +16,8 @@
     "@types/react-dom": "17.*",
     "eslint-config-custom": "*",
     "jsdom": "latest",
-    "tsconfig": "*"
+    "tsconfig": "*",
+    "vitest": "4.x"
   },
   "dependencies": {
     "@apollo/client": "3.x",
@@ -37,5 +38,11 @@
     "entryPoint": "./src/index.ts",
     "displayName": "@dictybase/hook-dsc",
     "readmeFile": "./README.md"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "custom"
+    ]
   }
 }
