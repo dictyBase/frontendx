@@ -18,6 +18,11 @@ const plasmidGroupFilterOptions = [
     value: "goldenbraid",
     graphqlFilter: { plasmid_type: PlasmidType.GoldenBraid },
   },
+  {
+    label: "All Plasmids",
+    value: "all",
+    graphqlFilter: { plasmid_type: PlasmidType.All },
+  },
 ]
 
 const strainGroupFilterOptions = [
