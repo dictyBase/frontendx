@@ -1,9 +1,7 @@
 import { pipe } from "fp-ts/function"
 import { findFirst as AfindFirst } from "fp-ts/Array"
+import { Do as IDo, let as Ilet } from "fp-ts/Identity"
 import {
-  Do as ODo,
-  bind as Obind,
-  let as Olet,
   map as Omap,
   flatMap as OflatMap,
   getOrElse as OgetOrElse,
@@ -23,9 +21,10 @@ const buildPlasmidListFilter = (
   parameters: URLSearchParams,
 ): PlasmidListFilter =>
   pipe(
-    ODo,
-    Olet("searchParameters", () => parameters),
-    Obind("init", ({ searchParameters }) =>
+    IDo,
+    Ilet("searchParameters", () => parameters),
+    Ilet("init", () => DEFAULT_PLASMID_GROUP as PlasmidListFilter),
+    Ilet("withGroup", ({ init, searchParameters }) =>
       pipe(
         searchParameters,
         get("group"),
@@ -36,17 +35,18 @@ const buildPlasmidListFilter = (
             Omap(({ graphqlFilter }) => graphqlFilter),
           ),
         ),
-      ),
-    ),
-    Olet("withName", ({ searchParameters, init }) =>
-      pipe(
-        searchParameters,
-        get("descriptor"),
-        Omap((name) => ({ ...init, name })),
         OgetOrElse(() => init),
       ),
     ),
-    Olet("withSummary", ({ searchParameters, withName }) =>
+    Ilet("withName", ({ searchParameters, withGroup }) =>
+      pipe(
+        searchParameters,
+        get("descriptor"),
+        Omap((name) => ({ ...withGroup, name })),
+        OgetOrElse(() => withGroup),
+      ),
+    ),
+    Ilet("withSummary", ({ searchParameters, withName }) =>
       pipe(
         searchParameters,
         get("summary"),
@@ -54,8 +54,6 @@ const buildPlasmidListFilter = (
         OgetOrElse(() => withName),
       ),
     ),
-    Omap(({ withSummary }) => withSummary),
-    OgetOrElse(() => DEFAULT_PLASMID_GROUP),
+    ({ withSummary }) => withSummary,
   )
-
 export { buildPlasmidListFilter }
