@@ -43,18 +43,12 @@ const strainGroupFilterOptions = [
   },
 ]
 
-const variablesFromStrainParameters: Record<string, string> = {
-  Descriptor: "label",
-  Summary: "summary",
-}
-
 export {
   graphqlListVariables,
   searchFields,
   plasmidGroupFilterOptions,
   strainGroupFilterOptions,
   defaultFilter,
-  variablesFromStrainParameters,
   DEFAULT_STRAIN_GROUP,
   DEFAULT_PLASMID_GROUP,
 }
