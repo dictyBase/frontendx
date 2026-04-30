@@ -9,12 +9,12 @@ const DEFAULT_STRAIN_GROUP = { strain_type: StrainType.Regular }
 
 const plasmidGroupFilterOptions = [
   {
-    label: "Regular",
+    label: "Regular Plasmids",
     value: "regular",
     graphqlFilter: DEFAULT_PLASMID_GROUP,
   },
   {
-    label: "Golden Braid",
+    label: "Golden Braid Plasmids",
     value: "goldenbraid",
     graphqlFilter: { plasmid_type: PlasmidType.GoldenBraid },
   },
