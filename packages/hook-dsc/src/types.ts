@@ -6,11 +6,6 @@ export interface GraphqlQueryVariableProperties {
   limit: number
 }
 
-export interface StrainCatalogSearchProperties {
-  searchParams: URLSearchParams
-  filterParameterValue: string
-}
-
 export interface Strain {
   id: string
   label: string
