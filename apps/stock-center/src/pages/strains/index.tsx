@@ -4,7 +4,7 @@ import { P, match } from "ts-pattern"
 import {
   WindowHeightWrapper,
   StrainCatalogTableDisplay,
-  SearchBar,
+  SearchBarStrain,
   CatalogListWrapper,
   CatalogListLoader,
   CatalogHeader,
@@ -24,6 +24,7 @@ const StrainCatalog = () => {
     searchParameters.get(defaultFilter.param) ?? defaultFilter.value
   const { dataField, variables } = useMemo(
     () =>
+      // getStrainListConfiguration takes the URL search parameters and makes adapts them to be used in the StrainList GraphQL query.
       getStrainListConfiguration({
         filterParameterValue,
         searchParams: searchParameters,
@@ -58,7 +59,7 @@ const StrainCatalog = () => {
   return (
     <>
       <CatalogHeader title="Strain Catalog" />
-      <SearchBar />
+      <SearchBarStrain />
       <WindowHeightWrapper>
         {match({ data, loading, error })
           .with(
