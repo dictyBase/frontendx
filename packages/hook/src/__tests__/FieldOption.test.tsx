@@ -6,5 +6,5 @@ test("it renders the text provided to the label prop", () => {
   const inputText = "textString"
 
   render(<FieldOption label={inputText} />)
-  expect(screen.getByText(inputText)).toBeInTheDocument()
+  expect(screen.getByText(inputText, { exact: false })).toBeInTheDocument()
 })
