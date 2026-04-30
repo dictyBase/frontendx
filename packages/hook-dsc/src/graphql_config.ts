@@ -5,7 +5,7 @@ const defaultFilter = { param: "group", value: "regular" }
 const searchFields = ["descriptor", "summary"]
 
 const DEFAULT_PLASMID_GROUP = { plasmid_type: PlasmidType.Regular }
-const DEFAULT_STRAIN_GROUP = { StrainType: StrainType.Regular }
+const DEFAULT_STRAIN_GROUP = { strain_type: StrainType.Regular }
 
 const plasmidGroupFilterOptions = [
   {
