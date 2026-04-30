@@ -70,15 +70,21 @@ export const FilterDropdown = ({
 
   useEffect(() => {
     setSearchParameters((previousParameters) => {
-      previousParameters.set(param, filterValue)
-      return [...previousParameters.entries()]
+      const newParameters = new URLSearchParams([
+        ...previousParameters.entries(),
+      ])
+      newParameters.set(param, filterValue)
+      return [...newParameters.entries()]
     })
-  }, [setSearchParameters, param, filterValue])
+  }, [searchParameters, setSearchParameters, param, filterValue, value])
 
   const handleChange = (event: SelectChangeEvent<string>) => {
     setSearchParameters((previousParameters) => {
-      previousParameters.set(param, event.target.value)
-      return [...previousParameters.entries()]
+      const newParameters = new URLSearchParams([
+        ...previousParameters.entries(),
+      ])
+      newParameters.set(param, event.target.value)
+      return [...newParameters.entries()]
     })
   }
 
