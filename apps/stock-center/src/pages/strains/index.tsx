@@ -76,7 +76,7 @@ const StrainCatalog = () => {
           )
           .with({ loading: true }, () => <CatalogListLoader />)
           .with({ error: P.select({ message: P.string }) }, (error_) => (
-            <ErrorDisplay refetch={refetch} error={error_} />
+            <ErrorDisplay error={error_} refetch={refetch} />
           ))
           .otherwise(() => (
             <></>
