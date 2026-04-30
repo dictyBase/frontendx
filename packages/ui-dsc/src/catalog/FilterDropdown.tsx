@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import { makeStyles } from "tss-react/mui"
 import FormControl from "@mui/material/FormControl"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
@@ -66,9 +66,7 @@ export const FilterDropdown = ({
 }: FilterDropdownProperties) => {
   const { classes } = useStyles()
   const [searchParameters, setSearchParameters] = useSearchParams()
-  const [filterValue, setFilterValue] = useState<string>(
-    searchParameters.get(param) || value,
-  )
+  const filterValue = searchParameters.get(param) ?? value
 
   useEffect(() => {
     setSearchParameters((previousParameters) => {
@@ -78,8 +76,10 @@ export const FilterDropdown = ({
   }, [setSearchParameters, param, filterValue])
 
   const handleChange = (event: SelectChangeEvent<string>) => {
-    const newValue = event.target.value
-    setFilterValue(newValue)
+    setSearchParameters((previousParameters) => {
+      previousParameters.set(param, event.target.value)
+      return [...previousParameters.entries()]
+    })
   }
 
   return (
