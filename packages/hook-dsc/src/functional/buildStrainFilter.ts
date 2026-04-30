@@ -9,8 +9,11 @@ import {
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
 import { StrainListFilter } from "dicty-graphql-schema"
-import { strainGroupFilterOptions } from "../graphql_config"
-import { DEFAULT_GROUP } from "../const"
+import {
+  strainGroupFilterOptions,
+  DEFAULT_STRAIN_FILTER,
+} from "../graphql_config"
+import { get } from "./UrlSearchParams"
 
 /**
  * buildStrainListFilter is used in the Strain Catalog. It takes the `URLSearchParams` of the current URL
@@ -50,7 +53,7 @@ const buildStrainListFilter = (parameters: URLSearchParams): StrainListFilter =>
       ),
     ),
     Omap(({ withSummary }) => withSummary),
-    OgetOrElse(() => DEFAULT_GROUP),
+    OgetOrElse(() => DEFAULT_STRAIN_FILTER),
   )
 
 export { buildStrainListFilter }

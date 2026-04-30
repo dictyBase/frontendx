@@ -9,8 +9,10 @@ import {
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
 import { PlasmidListFilter } from "dicty-graphql-schema"
-import { plasmidGroupFilterOptions } from "../graphql_config"
-import { DEFAULT_GROUP } from "../const"
+import {
+  plasmidGroupFilterOptions,
+  DEFAULT_PLASMID_GROUP,
+} from "../graphql_config"
 import { get } from "./UrlSearchParams"
 
 /**
@@ -53,7 +55,7 @@ const buildPlasmidListFilter = (
       ),
     ),
     Omap(({ withSummary }) => withSummary),
-    OgetOrElse(() => DEFAULT_GROUP),
+    OgetOrElse(() => DEFAULT_PLASMID_GROUP),
   )
 
 export { buildPlasmidListFilter }
