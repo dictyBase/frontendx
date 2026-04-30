@@ -3,7 +3,7 @@ import { PlasmidType } from "dicty-graphql-schema"
 import { DEFAULT_PLASMID_GROUP } from "../graphql_config"
 import { buildPlasmidListFilter } from "../functional"
 
-const TEST_SUMMARY = "CRISPR/Cas9 mutant"
+const TEST_SUMMARY = "Vector for expression of proteins"
 const TEST_DESCRIPTOR = "Plasmid A"
 
 test("Returns a filter with the default plasmid group if no valid parameters are given", () => {
