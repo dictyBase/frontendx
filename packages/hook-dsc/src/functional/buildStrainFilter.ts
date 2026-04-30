@@ -1,9 +1,7 @@
 import { pipe } from "fp-ts/function"
 import { findFirst as AfindFirst } from "fp-ts/Array"
+import { Do as IDo, let as Ilet } from "fp-ts/Identity"
 import {
-  Do as ODo,
-  bind as Obind,
-  let as Olet,
   map as Omap,
   flatMap as OflatMap,
   getOrElse as OgetOrElse,
@@ -19,11 +17,12 @@ import { get } from "./UrlSearchParams"
  * buildStrainListFilter is used in the Strain Catalog. It takes the `URLSearchParams` of the current URL
  * and returns a `StrainListFilter` that can be used in `StrainListQuery` variables.
  */
-const buildStrainListFilter = (parameters: URLSearchParams): StrainListFilter =>
+const buildStrainListFilter = (parameters: URLSearchParams) =>
   pipe(
-    ODo,
-    Olet("searchParameters", () => parameters),
-    Obind("init", ({ searchParameters }) =>
+    IDo,
+    Ilet("searchParameters", () => parameters),
+    Ilet("init", () => DEFAULT_STRAIN_GROUP as StrainListFilter),
+    Ilet("withGroup", ({ init, searchParameters }) =>
       pipe(
         searchParameters,
         get("group"),
@@ -34,26 +33,26 @@ const buildStrainListFilter = (parameters: URLSearchParams): StrainListFilter =>
             Omap(({ graphqlFilter }) => graphqlFilter),
           ),
         ),
-      ),
-    ),
-    Olet("withName", ({ searchParameters, init }) =>
-      pipe(
-        searchParameters,
-        get("descriptor"),
-        Omap((label) => ({ ...init, label })),
         OgetOrElse(() => init),
       ),
     ),
-    Olet("withSummary", ({ searchParameters, withName }) =>
+    Ilet("withLabel", ({ searchParameters, withGroup }) =>
+      pipe(
+        searchParameters,
+        get("descriptor"),
+        Omap((label) => ({ ...withGroup, label })),
+        OgetOrElse(() => withGroup),
+      ),
+    ),
+    Ilet("withSummary", ({ searchParameters, withLabel }) =>
       pipe(
         searchParameters,
         get("summary"),
-        Omap((summary) => ({ ...withName, summary })),
-        OgetOrElse(() => withName),
+        Omap((summary) => ({ ...withLabel, summary })),
+        OgetOrElse(() => withLabel),
       ),
     ),
-    Omap(({ withSummary }) => withSummary),
-    OgetOrElse(() => DEFAULT_STRAIN_GROUP),
+    ({ withSummary }) => withSummary,
   )
 
 export { buildStrainListFilter }
