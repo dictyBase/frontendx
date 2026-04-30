@@ -42,18 +42,6 @@ test("Handles valid multiple parameters", () => {
   })
 })
 
-test("Handles valid multiple parameters", () => {
-  const parameters = new URLSearchParams({
-    summary: TEST_SUMMARY,
-    descriptor: TEST_DESCRIPTOR,
-  })
-  expect(buildStrainListFilter(parameters)).toEqual({
-    ...DEFAULT_STRAIN_GROUP,
-    summary: TEST_SUMMARY,
-    label: TEST_DESCRIPTOR,
-  })
-})
-
 test("Ignores invalid parameters", () => {
   const parameters = new URLSearchParams({
     bad_parameter: "invalid",
