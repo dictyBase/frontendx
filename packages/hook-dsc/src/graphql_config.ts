@@ -4,11 +4,14 @@ const graphqlListVariables = { cursor: 0, limit: 12 }
 const defaultFilter = { param: "group", value: "regular" }
 const searchFields = ["descriptor", "summary"]
 
+const DEFAULT_PLASMID_GROUP = { plasmid_type: PlasmidType.Regular }
+const DEFAULT_STRAIN_GROUP = { StrainType: StrainType.Regular }
+
 const plasmidGroupFilterOptions = [
   {
     label: "Regular",
     value: "regular",
-    graphqlFilter: { plasmid_type: PlasmidType.Regular },
+    graphqlFilter: DEFAULT_PLASMID_GROUP,
   },
   {
     label: "Golden Braid",
@@ -21,7 +24,7 @@ const strainGroupFilterOptions = [
   {
     label: "Regular Strains",
     value: "regular",
-    graphqlFilter: { strain_type: StrainType.Regular },
+    graphqlFilter: DEFAULT_STRAIN_GROUP,
   },
   {
     label: "GWDI Strains",
@@ -52,4 +55,6 @@ export {
   strainGroupFilterOptions,
   defaultFilter,
   variablesFromStrainParameters,
+  DEFAULT_STRAIN_GROUP,
+  DEFAULT_PLASMID_GROUP,
 }
