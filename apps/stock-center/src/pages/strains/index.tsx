@@ -1,5 +1,9 @@
 import { useMemo, useRef } from "react"
-import { getStrainListConfiguration, defaultFilter } from "@dictybase/hook-dsc"
+import {
+  buildStrainListFilter,
+  graphqlListVariables,
+  defaultFilter,
+} from "@dictybase/hook-dsc"
 import { P, match } from "ts-pattern"
 import {
   WindowHeightWrapper,
@@ -20,19 +24,11 @@ import { useSearchParams } from "react-router-dom"
 const StrainCatalog = () => {
   // Get the search parameters from the URL.
   const [searchParameters] = useSearchParams()
-  const filterParameterValue =
-    searchParameters.get(defaultFilter.param) ?? defaultFilter.value
-  const { dataField, variables } = useMemo(
-    () =>
-      // getStrainListConfiguration takes the URL search parameters and makes adapts them to be used in the StrainList GraphQL query.
-      getStrainListConfiguration({
-        filterParameterValue,
-        searchParams: searchParameters,
-      }),
-    [filterParameterValue, searchParameters],
-  )
   const { loading, error, data, fetchMore, refetch } = useStrainListQuery({
-    variables,
+    variables: {
+      ...graphqlListVariables,
+      filter: buildStrainListFilter(searchParameters),
+    },
   })
   const rootReference = useRef<HTMLDivElement>(null)
   const targetReference = useRef<HTMLTableRowElement>(null)
@@ -68,7 +64,7 @@ const StrainCatalog = () => {
               <CatalogListWrapper root={rootReference}>
                 <StrainCatalogTableDisplay
                   data={data_}
-                  dataField={dataField}
+                  dataField="listStrains"
                   target={targetReference}
                 />
               </CatalogListWrapper>
