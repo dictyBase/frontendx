@@ -11,7 +11,7 @@ import {
 import { StrainListFilter } from "dicty-graphql-schema"
 import {
   strainGroupFilterOptions,
-  DEFAULT_STRAIN_FILTER,
+  DEFAULT_STRAIN_GROUP,
 } from "../graphql_config"
 import { get } from "./UrlSearchParams"
 
@@ -53,7 +53,7 @@ const buildStrainListFilter = (parameters: URLSearchParams): StrainListFilter =>
       ),
     ),
     Omap(({ withSummary }) => withSummary),
-    OgetOrElse(() => DEFAULT_STRAIN_FILTER),
+    OgetOrElse(() => DEFAULT_STRAIN_GROUP),
   )
 
 export { buildStrainListFilter }
