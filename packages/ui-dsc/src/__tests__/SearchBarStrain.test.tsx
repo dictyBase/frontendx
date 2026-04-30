@@ -1,7 +1,7 @@
 import { test, expect, beforeEach } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { MemoryRouter } from "react-router-dom"
-import { SearchBar } from "../catalog/SearchBar"
+import { SearchBarStrain } from "../catalog/SearchBarStrain"
 
 const defaultDropdownValue = "Regular Strains"
 const catalogHelpButtonName = "Learn more about the stock catalog page"
@@ -9,7 +9,7 @@ const catalogHelpButtonName = "Learn more about the stock catalog page"
 beforeEach(() => {
   render(
     <MemoryRouter>
-      <SearchBar />
+      <SearchBarStrain />
     </MemoryRouter>,
   )
 })
