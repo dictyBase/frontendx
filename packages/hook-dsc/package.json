@@ -32,7 +32,9 @@
     "oxlint": "oxlint src/",
     "oxlint:ci": "oxlint src/ --format=github",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
-    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/hook-dsc.json"
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/hook-dsc.json",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",
