@@ -2,10 +2,15 @@ import { test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
 import { BrowserRouter } from "react-router-dom"
+import { strainGroupFilterOptions } from "@dictybase/hook-dsc"
 import { FilterDropdown } from "../catalog/FilterDropdown"
 
 const FilterDropdownWrapper = () => (
-  <FilterDropdown param="group" value="regular" />
+  <FilterDropdown
+    options={strainGroupFilterOptions}
+    param="group"
+    value="regular"
+  />
 )
 
 test("It renders with the initial option passed to the `value` prop", () => {
