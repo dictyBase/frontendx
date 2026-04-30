@@ -11,7 +11,7 @@ import {
   strainGroupFilterOptions,
   DEFAULT_STRAIN_GROUP,
 } from "../graphql_config"
-import { get } from "./UrlSearchParams"
+import { get } from "./UrlSearchParameters"
 
 /**
  * buildStrainListFilter is used in the Strain Catalog. It takes the `URLSearchParams` of the current URL
