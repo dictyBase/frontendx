@@ -11,7 +11,7 @@ import {
 import { PlasmidListFilter } from "dicty-graphql-schema"
 import { plasmidGroupFilterOptions } from "../graphql_config"
 import { DEFAULT_GROUP } from "../const"
-import { get } from "./URLSearchParams"
+import { get } from "./UrlSearchParams"
 
 /**
  * buildPlasmidListFilter is used in the Plasmid Catalog. It takes the `URLSearchParams` of the current URL

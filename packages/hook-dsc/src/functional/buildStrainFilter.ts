@@ -11,7 +11,6 @@ import {
 import { StrainListFilter } from "dicty-graphql-schema"
 import { strainGroupFilterOptions } from "../graphql_config"
 import { DEFAULT_GROUP } from "../const"
-import { get } from "./URLSearchParams"
 
 /**
  * buildStrainListFilter is used in the Strain Catalog. It takes the `URLSearchParams` of the current URL
