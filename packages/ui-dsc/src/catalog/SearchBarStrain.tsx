@@ -1,7 +1,8 @@
 import { Grid } from "@mui/material"
 import {
   defaultFilter,
-  variablesFromStrainParameters,
+  strainGroupFilterOptions,
+  searchFields,
 } from "@dictybase/hook-dsc"
 import { makeStyles } from "tss-react/mui"
 import { FilterDropdown } from "./FilterDropdown"
@@ -14,18 +15,19 @@ const useStyles = makeStyles()({
   },
 })
 
-const SearchBar = () => {
+const SearchBarStrain = () => {
   const { classes } = useStyles()
   return (
     <Grid container>
       <Grid item>
         <FilterDropdown
+          options={strainGroupFilterOptions}
           param={defaultFilter.param}
           value={defaultFilter.value}
         />
       </Grid>
       <Grid item className={classes.searchBox}>
-        <SearchBox fields={Object.keys(variablesFromStrainParameters)} />
+        <SearchBox fields={searchFields} />
       </Grid>
       <Grid item>
         <AppBarHelp />
@@ -34,4 +36,4 @@ const SearchBar = () => {
   )
 }
 
-export { SearchBar }
+export { SearchBarStrain }
