@@ -1,5 +1,6 @@
 import { pipe } from "fp-ts/function"
 import { Eq as SEq } from "fp-ts/string"
+import { findFirst as AfindFirst } from "fp-ts/Array"
 import { lookup as Mlookup } from "fp-ts/Map"
 import {
   Do as ODo,
@@ -10,13 +11,9 @@ import {
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
 import { PlasmidListFilter } from "dicty-graphql-schema"
+import { plasmidGroupFilterOptions } from "../graphql_config"
 import { DEFAULT_GROUP, GOLDEN_BRAID_GROUP } from "../const"
 import { get } from "./URLSearchParams"
-
-const plasmidGroupFilterEntries = new Map([
-  ["regular", DEFAULT_GROUP],
-  ["goldenbraid", GOLDEN_BRAID_GROUP],
-])
 
 /**
  * buildPlasmidListFilter is used in the Plasmid Catalog. It takes the `URLSearchParams` of the current URL
@@ -32,7 +29,13 @@ const buildPlasmidListFilter = (
       pipe(
         searchParameters,
         get("group"),
-        OflatMap((v) => pipe(plasmidGroupFilterEntries, Mlookup(SEq)(v))),
+        OflatMap((v) =>
+          pipe(
+            plasmidGroupFilterOptions,
+            AfindFirst(({ value }) => value === v),
+            Omap(({ graphqlFilter }) => graphqlFilter),
+          ),
+        ),
       ),
     ),
     Olet("withName", ({ searchParameters, init }) =>
