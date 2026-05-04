@@ -1,3 +1,4 @@
+import { PlasmidListFilterQueryVariables } from "dicty-graphql-schema"
 import {
   Strain,
   StrainList,
@@ -30,11 +31,11 @@ const strainListQueryData = (
   },
 })
 
-const plasmidListQueryData = (
-  cursor: number = 0,
-  filter: string = "",
-  limit: number = 12,
-) => ({
+const plasmidListQueryData = ({
+  filter,
+  cursor = 0,
+  limit = 12,
+}: PlasmidListFilterQueryVariables) => ({
   data: {
     operationName: "PlasmidFilterList",
     query: PlasmidListFilter.loc?.source.body,
@@ -45,5 +46,4 @@ const plasmidListQueryData = (
     },
   },
 })
-
 export { strainQueryData, strainListQueryData, plasmidListQueryData }
