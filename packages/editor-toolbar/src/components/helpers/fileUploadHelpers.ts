@@ -84,7 +84,7 @@ const validationSchema = object().shape({
   suggestedFilename: string()
     .required("* filename name may not be empty")
     .max(maximumCharacters, excessiveLengthMessage)
-    .matches(/^[\w.-]*$/, restrictedCharactersMessage),
+    .matches(/^[\w .-]*$/, restrictedCharactersMessage),
 })
 
 type FileFormFields = {
