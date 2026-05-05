@@ -2,7 +2,11 @@
 import { FunctionComponent } from "react"
 import { useFormContext, Controller } from "react-hook-form"
 import { pipe } from "fp-ts/function"
-import { match as Bmatch, MonoidAny as BMonoidAny } from "fp-ts/boolean"
+import {
+  match as Bmatch,
+  MonoidAny as BMonoidAny,
+  MonoidAll as BMonoidAll,
+} from "fp-ts/boolean"
 import {
   isEmpty as SisEmpty,
   replace as Sreplace,
@@ -69,13 +73,12 @@ const PhoneNumberInput: FunctionComponent<{
   const onBlur = () => {
     const phone: string = getValues(name)
     const comments: string = getValues("additionalInformation")
-    match({ phone, comments })
+    const countryCode = getValues(countryCodeFieldName)
+    const validPhone = isPhoneValid(phone, countryCode)
+    match({ validPhone, comments })
+      // Remove the invalid phone number warning in the comments, if there is no phone number entered or if the phone number is valid.
       .when(
-        ({ phone }) =>
-          BMonoidAny.concat(
-            isPhoneValid(phone, getValues(countryCodeFieldName)),
-            SisEmpty(phone),
-          ),
+        ({ validPhone }) => BMonoidAny.concat(validPhone, SisEmpty(phone)),
         () => {
           setValue(
             "additionalInformation",
@@ -83,8 +86,13 @@ const PhoneNumberInput: FunctionComponent<{
           )
         },
       )
+      // Append the invalid phone number warning in the comments, if the entered phone number is invalid and there is currently no invalid phone number warning in the comments.
       .when(
-        ({ comments }) => !pipe(comments, Sincludes(INVALID_PHONE_MESSAGE)),
+        ({ comments, validPhone }) =>
+          BMonoidAll.concat(
+            !pipe(comments, Sincludes(INVALID_PHONE_MESSAGE)),
+            !validPhone,
+          ),
         () => {
           setValue(
             "additionalInformation",
