@@ -27,7 +27,7 @@ const commonOrderFields: { [k: string]: StringSchema } = {
     .max(5, "Must be exactly 5 digits"),
   country: string().required("* Country is required"),
   phoneCountryCode: string().required(),
-  phone: string().required("* Phone number is required"),
+  phone: string(),
 }
 
 export { commonOrderFields }
