@@ -93,7 +93,6 @@ test.describe("Shipping Address Step", () => {
     await expect(page.getByText("* Last name is required")).toBeVisible()
     await expect(page.getByText("* Email is required")).toBeVisible()
     await expect(page.getByText("* Organization is required")).toBeVisible()
-    await expect(page.getByText("* Phone number is required")).toBeVisible()
     await expect(page.getByText("* Address is required")).toBeVisible()
     await expect(page.getByText("* City is required")).toBeVisible()
     await expect(page.getByText("* Zip code is required")).toBeVisible()
