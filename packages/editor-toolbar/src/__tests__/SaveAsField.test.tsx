@@ -5,6 +5,9 @@ import { FormProvider } from "react-hook-form"
 import { SaveAsField } from "../components/SaveAsField"
 import { useValidateSuggestedFilename } from "../components/helpers/fileUploadHelpers"
 
+const VALID_FILENAME = "valid-filename.pdf"
+const VALID_FILENAME_WITH_SPACE = "valid filename.pdf"
+
 const SaveAsFieldWrapper = () => {
   const methods = useValidateSuggestedFilename()
   return (
@@ -31,9 +34,32 @@ test("accepts valid filename input", async () => {
   render(<SaveAsFieldWrapper />)
 
   const input = screen.getByLabelText(/file name/i)
-  await user.type(input, "valid-filename.pdf")
+  await user.type(input, VALID_FILENAME)
 
-  expect(input).toHaveValue("valid-filename.pdf")
+  expect(input).toHaveValue(VALID_FILENAME)
+})
+
+test("accepts filename inpiut with spaces", async () => {
+  const user = userEvent.setup()
+  render(<SaveAsFieldWrapper />)
+
+  const input = screen.getByLabelText(/file name/i)
+  await user.type(input, VALID_FILENAME_WITH_SPACE)
+
+  expect(input).toHaveValue(VALID_FILENAME_WITH_SPACE)
+})
+
+test("accepts filename with allowed special characters", async () => {
+  const user = userEvent.setup()
+  render(<SaveAsFieldWrapper />)
+
+  const input = screen.getByLabelText(/file name/i)
+  await user.type(input, "valid_file-name.pdf")
+
+  expect(input).toHaveValue("valid_file-name.pdf")
+  expect(
+    screen.queryByText(/may only use alphanumeric characters/i),
+  ).not.toBeInTheDocument()
 })
 
 test("shows error for filename exceeding 50 characters", async () => {
@@ -59,19 +85,6 @@ test("shows error for filename with invalid characters", async () => {
   expect(
     await screen.findByText(/may only use alphanumeric characters/i),
   ).toBeInTheDocument()
-})
-
-test("accepts filename with allowed special characters", async () => {
-  const user = userEvent.setup()
-  render(<SaveAsFieldWrapper />)
-
-  const input = screen.getByLabelText(/file name/i)
-  await user.type(input, "valid_file-name.pdf")
-
-  expect(input).toHaveValue("valid_file-name.pdf")
-  expect(
-    screen.queryByText(/may only use alphanumeric characters/i),
-  ).not.toBeInTheDocument()
 })
 
 test("shows error when field is empty after typing", async () => {
