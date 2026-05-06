@@ -1,4 +1,6 @@
 import { CssBaseline, CircularProgress } from "@material-ui/core"
+import { pipe } from "fp-ts/function"
+import { map as Amap } from "fp-ts/Array"
 import {
   useGraphqlClient,
   useApolloClientCache,
@@ -8,6 +10,7 @@ import {
   listStrainsPagination,
   listPlasmidsPagination,
   listStrainsWithAnnotationPagination,
+  strainQueryPolicy,
 } from "@dictybase/hook-dsc"
 import { ErrorBoundary } from "@dictybase/ui-common"
 import { ApolloProvider } from "@apollo/client"
@@ -45,6 +48,33 @@ const cacheOptions = {
         listStrains: listStrainsPagination(),
         listPlasmids: listPlasmidsPagination(),
         listStrainsWithAnnotation: listStrainsWithAnnotationPagination(),
+      },
+    },
+    Strain: {
+      fields: {
+        label: {
+          read: (label: string) => decodeURIComponent(label),
+        },
+        summary: {
+          read: (summary: string) => decodeURIComponent(summary),
+        },
+        genes: {
+          read: (genes: Array<{ name: string }>) =>
+            pipe(
+              genes,
+              Amap((gene) => ({
+                ...gene,
+                name: decodeURIComponent(gene.name),
+              })),
+            ),
+        },
+        genotypes: {
+          read: (genotypes: Array<string>) =>
+            pipe(
+              genotypes,
+              Amap((genotype) => decodeURIComponent(genotype)),
+            ),
+        },
       },
     },
   },
