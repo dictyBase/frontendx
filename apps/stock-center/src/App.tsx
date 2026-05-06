@@ -10,7 +10,6 @@ import {
   listStrainsPagination,
   listPlasmidsPagination,
   listStrainsWithAnnotationPagination,
-  strainQueryPolicy,
 } from "@dictybase/hook-dsc"
 import { ErrorBoundary } from "@dictybase/ui-common"
 import { ApolloProvider } from "@apollo/client"
@@ -18,6 +17,7 @@ import "@fontsource/roboto"
 import { LogtoProvider, LogtoConfig, UserScope } from "@logto/react"
 import { ThemeProvider } from "./ThemeProvider"
 import { DscApp } from "./components/DscApp"
+import { decodeUriComponentOrDefault } from "./decodeUriComponentOrDefault"
 
 const logtoConfig: LogtoConfig = {
   endpoint: import.meta.env.VITE_LOGTO_ENDPOINT,
@@ -51,12 +51,13 @@ const cacheOptions = {
       },
     },
     Strain: {
+      // Certain fields that contain the strain label may contain URI encoded components (a % followed by two hexadecimal digits).
       fields: {
         label: {
-          read: (label: string) => decodeURIComponent(label),
+          read: decodeUriComponentOrDefault,
         },
         summary: {
-          read: (summary: string) => decodeURIComponent(summary),
+          read: decodeUriComponentOrDefault,
         },
         genes: {
           read: (genes: Array<{ name: string }>) =>
@@ -64,16 +65,13 @@ const cacheOptions = {
               genes,
               Amap((gene) => ({
                 ...gene,
-                name: decodeURIComponent(gene.name),
+                name: decodeUriComponentOrDefault(gene.name),
               })),
             ),
         },
         genotypes: {
           read: (genotypes: Array<string>) =>
-            pipe(
-              genotypes,
-              Amap((genotype) => decodeURIComponent(genotype)),
-            ),
+            pipe(genotypes, Amap(decodeUriComponentOrDefault)),
         },
       },
     },
