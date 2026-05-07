@@ -2,7 +2,6 @@ import { useRef } from "react"
 import { useSearchParams } from "react-router-dom"
 import { P, match } from "ts-pattern"
 import { usePlasmidListFilterQuery } from "dicty-graphql-schema"
-
 import {
   graphqlListVariables,
   buildPlasmidListFilter,
@@ -16,6 +15,8 @@ import {
   CatalogListWrapper,
   CatalogListLoader,
   CatalogHeader,
+  EmptyCatalog,
+  hasNotFoundError,
 } from "@dictybase/ui-dsc"
 
 const PlasmidCatalog = () => {
@@ -57,6 +58,9 @@ const PlasmidCatalog = () => {
       <SearchBarPlasmid />
       <WindowHeightWrapper>
         {match({ data, loading, error })
+          .with({ data: { listPlasmids: { plasmids: [] } } }, () => (
+            <EmptyCatalog message="Sorry, we couldn't find any matching plasmids. Try searching again with different terms." />
+          ))
           .with(
             { data: P.select({ listPlasmids: P.not(undefined) }) },
             (data_) => (
