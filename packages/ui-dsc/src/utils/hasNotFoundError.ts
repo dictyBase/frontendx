@@ -1,6 +1,10 @@
 import { ApolloError } from "@apollo/client"
 import { pipe } from "fp-ts/function"
-import { fromNullable as OfromNullable, map as Omap } from "fp-ts/Option"
+import {
+  fromNullable as OfromNullable,
+  map as Omap,
+  getOrElse as OgetOrElse,
+} from "fp-ts/Option"
 import {
   map as ROAmap,
   compact as ROAcompact,
@@ -16,6 +20,7 @@ const hasNotFoundError = (error: ApolloError | undefined) =>
     Omap(ROAcompact),
     // eslint-disable-next-line dot-notation
     Omap(ROAexists((extension) => extension["code"] === "NotFound")),
+    OgetOrElse(() => false),
   )
 
 export { hasNotFoundError }
