@@ -16,7 +16,6 @@ import {
   CatalogListLoader,
   CatalogHeader,
   EmptyCatalog,
-  hasNotFoundError,
 } from "@dictybase/ui-dsc"
 
 const PlasmidCatalog = () => {
