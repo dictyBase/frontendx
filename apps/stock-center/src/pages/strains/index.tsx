@@ -10,8 +10,10 @@ import {
   SearchBarStrain,
   CatalogListWrapper,
   CatalogListLoader,
+  EmptyCatalog,
   CatalogHeader,
   ErrorDisplay,
+  hasNotFoundError,
 } from "@dictybase/ui-dsc"
 import { useIntersectionObserver } from "@dictybase/hook"
 import { useStrainListQuery } from "dicty-graphql-schema"
@@ -50,7 +52,6 @@ const StrainCatalog = () => {
     onIntersection,
     option: { root: rootReference.current, threshold: 0.1 },
   })
-
   return (
     <>
       <CatalogHeader title="Strain Catalog" />
@@ -70,6 +71,12 @@ const StrainCatalog = () => {
             ),
           )
           .with({ loading: true }, () => <CatalogListLoader />)
+          .when(
+            ({ error: error_ }) => hasNotFoundError(error_),
+            () => (
+              <EmptyCatalog message="Sorry, we couldn't find any strains. Try searching again with different terms" />
+            ),
+          )
           .with({ error: P.select({ message: P.string }) }, (error_) => (
             <ErrorDisplay error={error_} refetch={refetch} />
           ))
