@@ -1,6 +1,7 @@
 /* eslint-disable unicorn/no-null */
 import { atom } from "jotai"
-import { splitAtom } from "jotai/utils"
+import { splitAtom, atomWithStorage, createJSONStorage } from "jotai/utils"
+import { SyncStorage } from "jotai/vanilla/utils/atomWithStorage"
 import { pipe } from "fp-ts/function"
 import { match, P } from "ts-pattern"
 import {
@@ -11,6 +12,7 @@ import {
 } from "fp-ts/Array"
 import { fromEquals } from "fp-ts/Eq"
 import type { StrainCartItem, PlasmidCartItem, CatalogItem } from "./types"
+import { NAMESPACE } from "./namespace"
 
 type Cart = {
   plasmidItems: Array<PlasmidCartItem>
@@ -23,8 +25,37 @@ const initialCart: Cart = {
   plasmidItems: [],
   maxItems: 12,
 }
+const bc = new BroadcastChannel(NAMESPACE)
 
-const cartAtom = atom<Cart>(initialCart)
+// const storage = createJSONStorage<Cart>(() => sessionStorage)
+const storage: SyncStorage<Cart> = {
+  getItem: (key, initialValue) => {
+    const saved = sessionStorage.getItem(key)
+    return saved ? JSON.parse(saved) : initialValue
+  },
+  setItem: (key, value) => {
+    bc.postMessage({ cart: value })
+    sessionStorage.setItem(key, JSON.stringify(value))
+  },
+  removeItem: (key) => {
+    bc.postMessage({ cart: initialCart })
+    sessionStorage.removeItem(key)
+  },
+  subscribe(key, callback, initialValue) {
+    // eslint-disable-next-line unicorn/prefer-add-event-listener
+    bc.onmessage = (event) => {
+      sessionStorage.setItem("cart", JSON.stringify(event.data.cart))
+      callback(event.data.cart)
+    }
+    return () => {
+      bc.close()
+    }
+  },
+}
+
+const cartAtom = atomWithStorage<Cart>(NAMESPACE, initialCart, storage, {
+  getOnInit: true,
+})
 
 const strainItemsAtom = atom(
   (get) => get(cartAtom).strainItems,
