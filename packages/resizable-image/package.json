@@ -27,7 +27,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "5.*",
     "@mui/material": "5.*",
-    "jotai": "^2.0.0",
+    "jotai": "2.16.0",
     "react": "17.*"
   },
   "typedoc": {

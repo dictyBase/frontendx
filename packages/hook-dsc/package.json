@@ -24,6 +24,7 @@
     "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.37.0",
     "fp-ts": "^2.16.1",
     "fp-ts-std": "^0.17.1",
+    "jotai": "2.16.0",
     "monocle-ts": "^2.3.13",
     "react": "17.*",
     "react-dom": "17.*"
