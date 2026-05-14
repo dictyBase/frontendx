@@ -49,7 +49,6 @@ const CopyTextButton = ({ text }: { text: string }) => {
   }
 
   const handleClick = async () => {
-    // eslint-disable-next-line compat/compat
     await window.navigator.clipboard.writeText(text)
     setTextCopied(true)
   }

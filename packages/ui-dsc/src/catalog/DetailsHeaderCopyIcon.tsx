@@ -35,7 +35,6 @@ const DetailsHeaderCopyIcon = ({ id }: DetailsHeaderCopyIconProperties) => {
   const { classes } = useStyles()
 
   const handleClick = () => {
-    // eslint-disable-next-line compat/compat
     navigator.clipboard.writeText(id)
     setSnackbarOpen(true)
     // have snackbar automatically close after 2.5 seconds
