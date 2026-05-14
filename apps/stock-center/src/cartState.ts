@@ -1,6 +1,7 @@
+/* eslint-disable unicorn/prefer-add-event-listener */
 /* eslint-disable unicorn/no-null */
 import { atom } from "jotai"
-import { splitAtom, atomWithStorage, createJSONStorage } from "jotai/utils"
+import { splitAtom, atomWithStorage } from "jotai/utils"
 import { SyncStorage } from "jotai/vanilla/utils/atomWithStorage"
 import { pipe } from "fp-ts/function"
 import { match, P } from "ts-pattern"
@@ -10,6 +11,11 @@ import {
   concatW as AconcatW,
   uniq as Auniq,
 } from "fp-ts/Array"
+import {
+  fromNullable as OfromNullable,
+  map as Omap,
+  getOrElse as OgetOrElse,
+} from "fp-ts/Option"
 import { fromEquals } from "fp-ts/Eq"
 import type { StrainCartItem, PlasmidCartItem, CatalogItem } from "./types"
 import { NAMESPACE } from "./namespace"
@@ -25,30 +31,64 @@ const initialCart: Cart = {
   plasmidItems: [],
   maxItems: 12,
 }
-const bc = new BroadcastChannel(NAMESPACE)
+const dscChannel = new BroadcastChannel(NAMESPACE)
 
-// const storage = createJSONStorage<Cart>(() => sessionStorage)
+enum MessageType {
+  "INITIALIZE_CART",
+  "UPDATE_CART",
+  "CLEAR_CART",
+}
+
+const cartStorageGetOrElse = (key: string, defaultValue: Cart) =>
+  pipe(
+    sessionStorage.getItem(key),
+    OfromNullable,
+    Omap(JSON.parse),
+    OgetOrElse(() => defaultValue),
+  )
+
 const storage: SyncStorage<Cart> = {
   getItem: (key, initialValue) => {
-    const saved = sessionStorage.getItem(key)
-    return saved ? JSON.parse(saved) : initialValue
+    dscChannel.postMessage({ type: MessageType.INITIALIZE_CART })
+    return cartStorageGetOrElse(key, initialValue)
   },
   setItem: (key, value) => {
-    bc.postMessage({ cart: value })
+    dscChannel.postMessage({ type: MessageType.UPDATE_CART, cart: value })
     sessionStorage.setItem(key, JSON.stringify(value))
   },
   removeItem: (key) => {
-    bc.postMessage({ cart: initialCart })
+    dscChannel.postMessage({ type: MessageType.CLEAR_CART, cart: initialCart })
     sessionStorage.removeItem(key)
   },
   subscribe(key, callback, initialValue) {
-    // eslint-disable-next-line unicorn/prefer-add-event-listener
-    bc.onmessage = (event) => {
-      sessionStorage.setItem("cart", JSON.stringify(event.data.cart))
-      callback(event.data.cart)
+    dscChannel.onmessage = (
+      event: MessageEvent<{ type: MessageType; cart?: Cart }>,
+    ) => {
+      match(event.data)
+        .with({ type: MessageType.INITIALIZE_CART }, () => {
+          dscChannel.postMessage({
+            type: MessageType.UPDATE_CART,
+            cart: cartStorageGetOrElse(key, initialValue),
+          })
+        })
+        .with({ type: MessageType.UPDATE_CART }, ({ cart }) => {
+          pipe(
+            cart,
+            OfromNullable,
+            Omap((c) => {
+              sessionStorage.setItem(key, JSON.stringify(c))
+              callback(c)
+            }),
+          )
+        })
+        .with({ type: MessageType.CLEAR_CART }, () => {
+          sessionStorage.setItem(key, JSON.stringify(initialCart))
+          callback(initialCart)
+        })
+        .otherwise(() => {})
     }
     return () => {
-      bc.close()
+      dscChannel.close()
     }
   },
 }
@@ -191,4 +231,5 @@ export {
   currentCartQuantityAtom,
   maxItemsAtom,
   isFullAtom,
+  dscChannel,
 }
