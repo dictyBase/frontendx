@@ -69,7 +69,8 @@
     "> 0.2%",
     "last 5 versions",
     "not dead",
-    "not op_mini all"
+    "not op_mini all",
+    "not ios_saf 11"
   ],
   "msw": {
     "workerDirectory": "public"
