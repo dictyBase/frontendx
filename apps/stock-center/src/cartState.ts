@@ -31,7 +31,7 @@ const initialCart: Cart = {
   plasmidItems: [],
   maxItems: 12,
 }
-// eslint-disable-next-line compat/compat
+
 const dscChannel = new BroadcastChannel(NAMESPACE)
 
 enum MessageType {
