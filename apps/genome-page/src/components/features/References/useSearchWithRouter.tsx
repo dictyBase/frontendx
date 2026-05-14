@@ -40,6 +40,7 @@ const useSearchParameters = (fields: Array<string>) => {
 
   // Convert URLSearchParams to Record and filter by fields
   const filteredSearchParameters = pipe(
+    // eslint-disable-next-line compat/compat
     Object.fromEntries(searchParameters.entries()),
     RfilterWithIndex((k) => pipe(fields, Aelem(SEq)(k))),
   )
