@@ -13,7 +13,7 @@ const EXPECTED_GOA = {
   evidence_code: "IMP",
   extensions: null,
   go_term: "mitotic cytokinesis",
-  id: "UniProtKB:P27133!386469723",
+  id: "UniProtKB:P27133!271707641",
   publication: "PMID:10098934",
   qualifier: "acts_upstream_of_or_within",
   type: "biological_process",
