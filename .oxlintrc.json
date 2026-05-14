@@ -21,7 +21,8 @@
     "react-in-jsx-scope": "allow",
     "no-unassigned-import": "allow",
     "no-autofocus": "allow",
-    "no-standalone-expect": "allow"
+    "no-standalone-expect": "allow",
+    "require-post-message-target-origin": "allow"
   },
   "settings": {
     "react": {
