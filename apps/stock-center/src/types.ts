@@ -1,4 +1,5 @@
 import type { Strain, Plasmid } from "dicty-graphql-schema"
+import { RESET } from "jotai/utils"
 
 type PurchaseProperties = { fee: Readonly<number> }
 
@@ -114,6 +115,12 @@ const deleteFailureError = {
   message: "Could not delete content",
 }
 
+// Copied from "jotai/utils", since it is not exported from the package.
+type SetStateActionWithReset<Value> =
+  | Value
+  | typeof RESET
+  | ((previous: Value) => Value | typeof RESET)
+
 export {
   missingContentIdError,
   userInfoError,
@@ -135,4 +142,5 @@ export {
   type ShippingFormData,
   type PaymentFormData,
   type OrderState,
+  type SetStateActionWithReset,
 }
