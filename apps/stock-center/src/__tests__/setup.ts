@@ -7,7 +7,7 @@ expect.extend(matchers)
 
 // Broadcast Channel API is unavailable in testing environment, so we mock it here.
 vi.mock("../atomWithBroadcast.ts", () => ({
-  atomWithBroadcast: (id: any) => id,
+  atomWithBroadcast: (_key: any, baseAtom: any) => baseAtom,
 }))
 
 // mock @logto
