@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/prefer-add-event-listener */
 /* eslint-disable unicorn/no-null */
 import { atom } from "jotai"
 import { splitAtom, atomWithStorage } from "jotai/utils"
@@ -19,6 +18,7 @@ import {
 import { fromEquals } from "fp-ts/Eq"
 import type { StrainCartItem, PlasmidCartItem, CatalogItem } from "./types"
 import { NAMESPACE } from "./namespace"
+import { atomWithBroadcast } from "./atomWithBroadcast"
 
 type Cart = {
   plasmidItems: Array<PlasmidCartItem>
@@ -34,12 +34,6 @@ const initialCart: Cart = {
 
 const dscChannel = new BroadcastChannel(NAMESPACE)
 
-enum MessageType {
-  "INITIALIZE_CART",
-  "UPDATE_CART",
-  "CLEAR_CART",
-}
-
 const cartStorageGetOrElse = (key: string, defaultValue: Cart) =>
   pipe(
     sessionStorage.getItem(key),
@@ -49,54 +43,19 @@ const cartStorageGetOrElse = (key: string, defaultValue: Cart) =>
   )
 
 const storage: SyncStorage<Cart> = {
-  getItem: (key, initialValue) => {
-    dscChannel.postMessage({ type: MessageType.INITIALIZE_CART })
-    return cartStorageGetOrElse(key, initialValue)
-  },
+  getItem: (key, initialValue) => cartStorageGetOrElse(key, initialValue),
   setItem: (key, value) => {
-    dscChannel.postMessage({ type: MessageType.UPDATE_CART, cart: value })
     sessionStorage.setItem(key, JSON.stringify(value))
   },
   removeItem: (key) => {
-    dscChannel.postMessage({ type: MessageType.CLEAR_CART, cart: initialCart })
     sessionStorage.removeItem(key)
-  },
-  subscribe(key, callback, initialValue) {
-    dscChannel.onmessage = (
-      event: MessageEvent<{ type: MessageType; cart?: Cart }>,
-    ) => {
-      match(event.data)
-        .with({ type: MessageType.INITIALIZE_CART }, () => {
-          dscChannel.postMessage({
-            type: MessageType.UPDATE_CART,
-            cart: cartStorageGetOrElse(key, initialValue),
-          })
-        })
-        .with({ type: MessageType.UPDATE_CART }, ({ cart }) => {
-          pipe(
-            cart,
-            OfromNullable,
-            Omap((c) => {
-              sessionStorage.setItem(key, JSON.stringify(c))
-              callback(c)
-            }),
-          )
-        })
-        .with({ type: MessageType.CLEAR_CART }, () => {
-          sessionStorage.setItem(key, JSON.stringify(initialCart))
-          callback(initialCart)
-        })
-        .otherwise(() => {})
-    }
-    return () => {
-      dscChannel.close()
-    }
   },
 }
 
-const cartAtom = atomWithStorage<Cart>(NAMESPACE, initialCart, storage, {
+const precartAtom = atomWithStorage<Cart>(NAMESPACE, initialCart, storage, {
   getOnInit: true,
 })
+const cartAtom = atomWithBroadcast(precartAtom, NAMESPACE)
 
 const strainItemsAtom = atom(
   (get) => get(cartAtom).strainItems,
