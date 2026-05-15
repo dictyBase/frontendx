@@ -1,6 +1,6 @@
 import { test, expect } from "vitest"
 import { useSetAtom, useAtomValue, createStore } from "jotai"
-import { RESET, useResetAtom, atomWithReset } from "jotai/utils"
+import { useResetAtom } from "jotai/utils"
 import { renderHook, act } from "@testing-library/react-hooks"
 import {
   addCartItemsAtom,
