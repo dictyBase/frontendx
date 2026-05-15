@@ -177,6 +177,7 @@ const resetCartAtom = atom(null, (_, set) => set(cartAtom, initialCart))
 
 export {
   type Cart,
+  withStorageAtom,
   cartAtom,
   resetCartAtom,
   strainItemsAtom,
@@ -191,4 +192,5 @@ export {
   maxItemsAtom,
   isFullAtom,
   dscChannel,
+  initialCart,
 }
