@@ -13,10 +13,12 @@ type UpdateWithBroadcast<Action> = {
 
 const atomWithBroadcast = <
   T,
-  Action extends SetStateAction<T> | SetStateActionWithReset<T>,
+  Action extends SetStateAction<T> | SetStateActionWithReset<T> =
+    | SetStateAction<T>
+    | SetStateActionWithReset<T>,
 >(
-  baseAtom: WritableAtom<T, [Action], void>,
   key: string,
+  baseAtom: WritableAtom<T, [Action], void>,
 ): WritableAtom<T, [Action], void> => {
   const listeners = new Set<(event: MessageEventWithInit<Action>) => void>()
   const channel = new BroadcastChannel(key)
