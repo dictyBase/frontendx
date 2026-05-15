@@ -15,7 +15,6 @@ const CopyLinkButton = () => {
       window.location.href,
       Sreplace(/\b(edit|editable)\b/i, "show"),
     )
-    // eslint-disable-next-line compat/compat
     await window.navigator.clipboard.writeText(url)
     setLinkCopied(true)
   }
