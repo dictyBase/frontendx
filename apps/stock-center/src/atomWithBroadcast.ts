@@ -35,7 +35,7 @@ function atomWithBroadcast<T>(baseAtom: PrimitiveAtom<T>, key: string) {
         Omatch(
           () => {},
           (v) => {
-            set(v)
+            set(baseAtom, v)
           },
         ),
       )
