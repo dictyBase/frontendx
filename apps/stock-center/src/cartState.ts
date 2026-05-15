@@ -32,8 +32,7 @@ const initialCart: Cart = {
   maxItems: 12,
 }
 
-const dscChannel = new BroadcastChannel(NAMESPACE)
-
+const CART_NAMESPACE = `${NAMESPACE}-cart`
 const cartStorageGetOrElse = (key: string, defaultValue: Cart) =>
   pipe(
     sessionStorage.getItem(key),
@@ -52,9 +51,13 @@ const storage: SyncStorage<Cart> = {
   },
 }
 
-const withStorageAtom = atomWithStorage<Cart>(NAMESPACE, initialCart, storage)
+const withStorageAtom = atomWithStorage<Cart>(
+  CART_NAMESPACE,
+  initialCart,
+  storage,
+)
 
-const cartAtom = atomWithBroadcast(withStorageAtom, NAMESPACE)
+const cartAtom = atomWithBroadcast(CART_NAMESPACE, withStorageAtom)
 
 const strainItemsAtom = atom(
   (get) => get(cartAtom).strainItems,
@@ -191,6 +194,5 @@ export {
   currentCartQuantityAtom,
   maxItemsAtom,
   isFullAtom,
-  dscChannel,
   initialCart,
 }
