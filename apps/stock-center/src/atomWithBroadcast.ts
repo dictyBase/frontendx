@@ -1,9 +1,16 @@
-import { atom, SetStateAction, PrimitiveAtom } from "jotai"
+import { atom, WritableAtom } from "jotai"
+import { SetStateActionWithReset } from "./types"
 
 type MessageEventWithInit<T> = MessageEvent<{ init?: boolean; value: T }>
-type UpdateWithBroadcast<T> = { isEvent: boolean; value?: SetStateAction<T> }
+type UpdateWithBroadcast<T> = {
+  isEvent: boolean
+  value?: SetStateActionWithReset<T>
+}
 
-function atomWithBroadcast<T>(baseAtom: PrimitiveAtom<T>, key: string) {
+const atomWithBroadcast = <T>(
+  baseAtom: WritableAtom<T, [SetStateActionWithReset<T>], void>,
+  key: string,
+) => {
   const listeners = new Set<(event: MessageEventWithInit<T>) => void>()
   const channel = new BroadcastChannel(key)
 
@@ -37,7 +44,7 @@ function atomWithBroadcast<T>(baseAtom: PrimitiveAtom<T>, key: string) {
 
   return atom(
     (get) => get(broadcastAtom),
-    (_get, set, update: SetStateAction<T>) => {
+    (_get, set, update: SetStateActionWithReset<T>) => {
       set(broadcastAtom, { isEvent: false, value: update })
     },
   )
