@@ -52,10 +52,9 @@ const storage: SyncStorage<Cart> = {
   },
 }
 
-const precartAtom = atomWithStorage<Cart>(NAMESPACE, initialCart, storage, {
-  getOnInit: true,
-})
-const cartAtom = atomWithBroadcast(precartAtom, NAMESPACE)
+const withStorageAtom = atomWithStorage<Cart>(NAMESPACE, initialCart, storage)
+
+const cartAtom = atomWithBroadcast(withStorageAtom, NAMESPACE)
 
 const strainItemsAtom = atom(
   (get) => get(cartAtom).strainItems,
