@@ -1,5 +1,6 @@
 import { test, expect } from "vitest"
 import { useSetAtom, useAtomValue, createStore } from "jotai"
+import { RESET, useResetAtom, atomWithReset } from "jotai/utils"
 import { renderHook, act } from "@testing-library/react-hooks"
 import {
   addCartItemsAtom,
@@ -7,6 +8,7 @@ import {
   strainItemsAtom,
   plasmidItemsAtom,
   cartAtom,
+  initialCart,
 } from "../cartState"
 import { mockStrainCartItem, mockPlasmidCartItem } from "../mocks/mockCartItems"
 
@@ -31,17 +33,17 @@ test("addCartItemsAtom can be used to add a plasmid to the cart", () => {
   const { result: addCartItemHookResult } = renderHook(() =>
     useSetAtom(addCartItemsAtom),
   )
-  const { result: plsamidItemsHookResult } = renderHook(() =>
+  const { result: plasmidItemsHookResult } = renderHook(() =>
     useAtomValue(plasmidItemsAtom),
   )
 
-  expect(plsamidItemsHookResult.current).toHaveLength(0)
+  expect(plasmidItemsHookResult.current).toHaveLength(0)
 
   act(() => {
     addCartItemHookResult.current([mockPlasmidCartItem])
   })
 
-  expect(plsamidItemsHookResult.current).toHaveLength(1)
+  expect(plasmidItemsHookResult.current).toHaveLength(1)
 })
 
 test("removeCartItemsAtom can be used to remove a plasmid from the cart", () => {
@@ -91,4 +93,19 @@ test("removeCartItemsAtom can be used to remove a plasmid from the cart", () => 
   })
 
   expect(plasmidItemsHookResult.current).toHaveLength(0)
+})
+
+test("cart can be reset to initial state", () => {
+  const testStore = createStore()
+  testStore.set(cartAtom, {
+    strainItems: [mockStrainCartItem],
+    plasmidItems: [mockPlasmidCartItem],
+    maxItems: 12,
+  })
+  const { result: cartHookResult } = renderHook(() => useAtomValue(cartAtom))
+  const { result: resetHookResult } = renderHook(() => useResetAtom(cartAtom))
+  act(() => {
+    resetHookResult.current()
+  })
+  expect(cartHookResult.current).toEqual(initialCart)
 })
