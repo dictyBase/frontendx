@@ -1,21 +1,7 @@
 import { atom, SetStateAction, PrimitiveAtom } from "jotai"
-import { pipe } from "fp-ts/function"
-import { match as Bmatch } from "fp-ts/boolean"
-import { match, P } from "ts-pattern"
-import {
-  size as Asize,
-  concat as Aconcat,
-  concatW as AconcatW,
-  uniq as Auniq,
-} from "fp-ts/Array"
-import {
-  fromNullable as OfromNullable,
-  map as Omap,
-  getOrElse as OgetOrElse,
-  match as Omatch,
-} from "fp-ts/Option"
 
 type MessageEventWithInit<T> = MessageEvent<{ init?: boolean; value: T }>
+type UpdateWithBroadcast<T> = { isEvent: boolean; value?: SetStateAction<T> }
 
 function atomWithBroadcast<T>(baseAtom: PrimitiveAtom<T>, key: string) {
   const listeners = new Set<(event: MessageEventWithInit<T>) => void>()
@@ -28,26 +14,9 @@ function atomWithBroadcast<T>(baseAtom: PrimitiveAtom<T>, key: string) {
 
   const broadcastAtom = atom(
     (get) => get(baseAtom),
-    (get, set, update: { isEvent: boolean; value?: SetStateAction<T> }) => {
-      pipe(
-        update.value,
-        OfromNullable,
-        Omatch(
-          () => {},
-          (v) => {
-            set(baseAtom, v)
-          },
-        ),
-      )
-      pipe(
-        update.isEvent,
-        Bmatch(
-          () => {
-            channel.postMessage({ value: get(baseAtom) })
-          },
-          () => {},
-        ),
-      )
+    (get, set, update: UpdateWithBroadcast<T>) => {
+      if (update.value) set(baseAtom, update.value)
+      if (!update.isEvent) channel.postMessage({ value: get(baseAtom) })
     },
   )
 
