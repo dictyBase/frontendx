@@ -44,8 +44,8 @@ const shippingAddressFields = [
     label: "Country",
   },
   {
-    name: "zip",
-    label: "Zip Code",
+    name: "postal_code",
+    label: "Postal Code",
   },
 ]
 
