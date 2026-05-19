@@ -2,28 +2,19 @@
 import { FunctionComponent } from "react"
 import { useFormContext, Controller } from "react-hook-form"
 import { pipe } from "fp-ts/function"
-import {
-  match as Bmatch,
-  MonoidAny as BMonoidAny,
-  MonoidAll as BMonoidAll,
-} from "fp-ts/boolean"
+import { MonoidAny as BMonoidAny, MonoidAll as BMonoidAll } from "fp-ts/boolean"
 import {
   isEmpty as SisEmpty,
   replace as Sreplace,
   includes as Sincludes,
   trim as Strim,
 } from "fp-ts/string"
-import { some, none, map as Omap, getOrElse as OgetOrElse } from "fp-ts/Option"
-import { findFirstMap as AfindFirstMap } from "fp-ts/Array"
 import { match } from "ts-pattern"
 import { Grid, TextField as MuiTextField } from "@mui/material"
 import { makeStyles } from "tss-react/mui"
-import { postcodeValidator } from "postcode-validator"
-import { countryList } from "../utils/countryList"
 import { appendWithNewline } from "../utils/appendWithNewline"
-
-const INVALID_POSTAL_CODE_MESSAGE =
-  "The postal code entered might be invalid for the selected country. Please check the country and postal code fields."
+import { isValidPostalCode } from "../utils/isValidPostalCode"
+import { INVALID_POSTAL_CODE_MESSAGE } from "../const"
 
 const useStyles = makeStyles()({
   textField: {
@@ -33,14 +24,6 @@ const useStyles = makeStyles()({
     marginTop: "8px",
   },
 })
-
-const isValidPostalCode = (postalCode: string, country: string) =>
-  pipe(
-    countryList,
-    AfindFirstMap(({ label, code }) => (label === country ? some(code) : none)),
-    Omap((countryCode) => postcodeValidator(postalCode, countryCode)),
-    OgetOrElse(() => false),
-  )
 
 const PostalCodeInput: FunctionComponent<{
   name: string
