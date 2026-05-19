@@ -20,11 +20,7 @@ const commonOrderFields: { [k: string]: StringSchema } = {
   state: string()
     .required("* State/Province is required")
     .max(MAX_INPUT_LENGTH),
-  zip: string()
-    .required("* Zip code is required")
-    .matches(/^\d+$/, "Must be only digits")
-    .min(5, "Must be exactly 5 digits")
-    .max(5, "Must be exactly 5 digits"),
+  postal_code: string(),
   country: string().required("* Country is required"),
   phoneCountryCode: string().required(),
   phone: string(),
