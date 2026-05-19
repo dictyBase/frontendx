@@ -1,5 +1,7 @@
+import { CountryCode } from "libphonenumber-js"
+
 type CountryOption = {
-  code: string
+  code: CountryCode
   label: string
 }
 
