@@ -11,6 +11,7 @@ import {
   isEmpty as SisEmpty,
   replace as Sreplace,
   includes as Sincludes,
+  trim as Strim,
 } from "fp-ts/string"
 import { some, none, map as Omap, getOrElse as OgetOrElse } from "fp-ts/Option"
 import { findFirstMap as AfindFirstMap } from "fp-ts/Array"
@@ -19,19 +20,10 @@ import { Grid, TextField as MuiTextField } from "@mui/material"
 import { makeStyles } from "tss-react/mui"
 import { postcodeValidator } from "postcode-validator"
 import { countryList } from "../utils/countryList"
+import { appendWithNewline } from "../utils/appendWithNewline"
 
 const INVALID_POSTAL_CODE_MESSAGE =
   "The postal code entered might be invalid for the selected country. Please check the country and postal code fields."
-
-const appendIfEmpty = (base: string, add: string) =>
-  pipe(
-    base,
-    SisEmpty,
-    Bmatch(
-      () => `${base}\n${add}`,
-      () => add,
-    ),
-  )
 
 const useStyles = makeStyles()({
   textField: {
@@ -66,7 +58,6 @@ const PostalCodeInput: FunctionComponent<{
     const country = getValues("country")
     const comments: string = getValues("additionalInformation")
     const validPostalCode = isValidPostalCode(postalCode, country)
-    console.log({ validPostalCode, country, postalCode })
     match({ validPostalCode, comments })
       // Remove the invalid postal code warning in the comments, if there is no postal code number entered or if the postal code number is valid.
       .when(
@@ -75,7 +66,7 @@ const PostalCodeInput: FunctionComponent<{
         () => {
           setValue(
             "additionalInformation",
-            pipe(comments, Sreplace(INVALID_POSTAL_CODE_MESSAGE, "")),
+            pipe(comments, Sreplace(INVALID_POSTAL_CODE_MESSAGE, ""), Strim),
           )
         },
       )
@@ -89,7 +80,7 @@ const PostalCodeInput: FunctionComponent<{
         () => {
           setValue(
             "additionalInformation",
-            appendIfEmpty(comments, INVALID_POSTAL_CODE_MESSAGE),
+            appendWithNewline(comments, INVALID_POSTAL_CODE_MESSAGE),
           )
         },
       )

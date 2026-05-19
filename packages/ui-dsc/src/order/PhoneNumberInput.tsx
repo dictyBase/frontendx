@@ -2,15 +2,12 @@
 import { FunctionComponent } from "react"
 import { useFormContext, Controller } from "react-hook-form"
 import { pipe } from "fp-ts/function"
-import {
-  match as Bmatch,
-  MonoidAny as BMonoidAny,
-  MonoidAll as BMonoidAll,
-} from "fp-ts/boolean"
+import { MonoidAny as BMonoidAny, MonoidAll as BMonoidAll } from "fp-ts/boolean"
 import {
   isEmpty as SisEmpty,
   replace as Sreplace,
   includes as Sincludes,
+  trim as Strim,
 } from "fp-ts/string"
 import { map as Amap } from "fp-ts/Array"
 import { match } from "ts-pattern"
@@ -24,19 +21,10 @@ import { makeStyles } from "tss-react/mui"
 import { countryToFlag } from "../utils/countryToFlag"
 import { countryList, CountryOption } from "../utils/countryList"
 import { isPhoneValid } from "../utils/isPhoneValid"
+import { appendWithNewline } from "../utils/appendWithNewline"
 
 const INVALID_PHONE_MESSAGE =
   "The phone number entered for the shipping information appears to be invalid. Please double-check the phone number and make sure the country code is correct."
-
-const appendIfEmpty = (base: string, add: string) =>
-  pipe(
-    base,
-    SisEmpty,
-    Bmatch(
-      () => `${base}\n${add}`,
-      () => add,
-    ),
-  )
 
 const useStyles = makeStyles()({
   textField: {
@@ -82,7 +70,7 @@ const PhoneNumberInput: FunctionComponent<{
         () => {
           setValue(
             "additionalInformation",
-            pipe(comments, Sreplace(INVALID_PHONE_MESSAGE, "")),
+            pipe(comments, Sreplace(INVALID_PHONE_MESSAGE, ""), Strim),
           )
         },
       )
@@ -96,7 +84,7 @@ const PhoneNumberInput: FunctionComponent<{
         () => {
           setValue(
             "additionalInformation",
-            appendIfEmpty(comments, INVALID_PHONE_MESSAGE),
+            appendWithNewline(comments, INVALID_PHONE_MESSAGE),
           )
         },
       )
