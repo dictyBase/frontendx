@@ -22,9 +22,7 @@ import { countryToFlag } from "../utils/countryToFlag"
 import { countryList, CountryOption } from "../utils/countryList"
 import { isPhoneValid } from "../utils/isPhoneValid"
 import { appendWithNewline } from "../utils/appendWithNewline"
-
-const INVALID_PHONE_MESSAGE =
-  "The phone number entered for the shipping information appears to be invalid. Please double-check the phone number and make sure the country code is correct."
+import { INVALID_PHONE_MESSAGE } from "../const"
 
 const useStyles = makeStyles()({
   textField: {
