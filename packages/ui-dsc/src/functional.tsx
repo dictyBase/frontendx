@@ -9,6 +9,7 @@ import { convertToPayerField } from "./utils/convertToPayerField"
 import { shippingAddressFields } from "./order/addressFields"
 import { CountryDropdown } from "./order/CountryDropdown"
 import { PhoneNumberInput } from "./order/PhoneNumberInput"
+import { PostalCodeInput } from "./order/PostalCodeInput"
 import { PanelWrapper } from "./order/PanelWrapper"
 import { StyledGridContainer } from "./order/StyledGridContainer"
 import { TextField } from "./order/TextField"
@@ -80,6 +81,7 @@ const panelWrapper = (title: string) => (element: JSX.Element) => (
 
 const isCountry = ({ name }: { name: string }) => /country/i.test(name)
 const isPhoneNumber = ({ name }: { name: string }) => /phone/i.test(name)
+const isPostalCode = ({ name }: { name: string }) => /zip/i.test(name)
 
 const wrapAddressTextField = ({ name, label }: AddressField) => (
   <Grid key={name} item>
@@ -95,17 +97,23 @@ const wrapPhoneNumberInput = ({ name, label }: AddressField) => (
   <PhoneNumberInput name={name} label={label} />
 )
 
-const renderAddressFields = (addressFields: Array<AddressField>) =>
-  pipe(
+const wrapPostalCodeInput = ({ name, label }: AddressField) => (
+  <PostalCodeInput name={name} label={label} />
+)
+const renderAddressFields = (addressFields: Array<AddressField>) => {
+  console.log(addressFields)
+  return pipe(
     addressFields,
     Amap((field) =>
       match(field)
         .when(isCountry, wrapCountryDropdown)
         .when(isPhoneNumber, wrapPhoneNumberInput)
+        .when(isPostalCode, wrapPostalCodeInput)
         .otherwise(wrapAddressTextField),
     ),
     gridContainerWrapper,
   )
+}
 
 const renderShippingAddressFields = () =>
   pipe(
