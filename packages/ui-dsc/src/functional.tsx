@@ -100,9 +100,8 @@ const wrapPhoneNumberInput = ({ name, label }: AddressField) => (
 const wrapPostalCodeInput = ({ name, label }: AddressField) => (
   <PostalCodeInput name={name} label={label} />
 )
-const renderAddressFields = (addressFields: Array<AddressField>) => {
-  console.log(addressFields)
-  return pipe(
+const renderAddressFields = (addressFields: Array<AddressField>) =>
+  pipe(
     addressFields,
     Amap((field) =>
       match(field)
@@ -113,7 +112,6 @@ const renderAddressFields = (addressFields: Array<AddressField>) => {
     ),
     gridContainerWrapper,
   )
-}
 
 const renderShippingAddressFields = () =>
   pipe(
