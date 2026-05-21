@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import { ChangeEvent } from "react"
 import Autocomplete from "@mui/material/Autocomplete"
 import TextField from "@mui/material/TextField"
@@ -38,8 +39,8 @@ const CountryDropdown = ({ fieldName }: CountryDropdownProperties) => {
 
   const appendWarning = () => {
     const country = getValues(name)
-    const postalCode: string = getValues("zip")
-    const comments: string = getValues("additionalInformation")
+    const postalCode = getValues("zip")
+    const comments = getValues("additionalInformation")
     const validPostalCode = isValidPostalCode(postalCode, country)
     match({ validPostalCode, comments })
       // Remove the invalid postal code warning in the comments, if there is no postal code number entered or if the postal code number is valid.
