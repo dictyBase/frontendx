@@ -1,22 +1,10 @@
-/* eslint-disable @typescript-eslint/no-shadow */
 import { ChangeEvent } from "react"
 import Autocomplete from "@mui/material/Autocomplete"
 import TextField from "@mui/material/TextField"
 import { useController, useFormContext } from "react-hook-form"
-import { pipe } from "fp-ts/function"
-import { MonoidAny as BMonoidAny, MonoidAll as BMonoidAll } from "fp-ts/boolean"
-import {
-  isEmpty as SisEmpty,
-  replace as Sreplace,
-  includes as Sincludes,
-  trim as Strim,
-} from "fp-ts/string"
-import { match } from "ts-pattern"
 import { countryList, CountryOption } from "../utils/countryList"
 import { countryToFlag } from "../utils/countryToFlag"
-import { isValidPostalCode } from "../utils/isValidPostalCode"
-import { appendWithNewline } from "../utils/appendWithNewline"
-import { INVALID_POSTAL_CODE_MESSAGE } from "../const"
+import { getPostalCodeWarning } from "../utils/getPostalCodeWarning"
 
 type CountryDropdownProperties = {
   fieldName: string
@@ -41,34 +29,10 @@ const CountryDropdown = ({ fieldName }: CountryDropdownProperties) => {
     const country = getValues(name)
     const postalCode = getValues("zip")
     const comments = getValues("additionalInformation")
-    const validPostalCode = isValidPostalCode(postalCode, country)
-    match({ validPostalCode, comments })
-      // Remove the invalid postal code warning in the comments, if there is no postal code number entered or if the postal code number is valid.
-      .when(
-        ({ validPostalCode }) =>
-          BMonoidAny.concat(validPostalCode, SisEmpty(postalCode)),
-        () => {
-          setValue(
-            "additionalInformation",
-            pipe(comments, Sreplace(INVALID_POSTAL_CODE_MESSAGE, ""), Strim),
-          )
-        },
-      )
-      // Append the invalid postal code number warning in the comments, if the entered postal code number is invalid and there is currently no invalid postal code number warning in the comments.
-      .when(
-        ({ comments, validPostalCode }) =>
-          BMonoidAll.concat(
-            !pipe(comments, Sincludes(INVALID_POSTAL_CODE_MESSAGE)),
-            !validPostalCode,
-          ),
-        () => {
-          setValue(
-            "additionalInformation",
-            appendWithNewline(comments, INVALID_POSTAL_CODE_MESSAGE),
-          )
-        },
-      )
-      .otherwise(() => {})
+    setValue(
+      "additionalInformation",
+      getPostalCodeWarning(postalCode, country, comments),
+    )
   }
   const autoCompleteValue =
     // eslint-disable-next-line unicorn/no-null
