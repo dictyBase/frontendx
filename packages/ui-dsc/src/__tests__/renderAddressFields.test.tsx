@@ -32,6 +32,10 @@ describe("renderAddressFields", () => {
         label: "Country",
         required: true,
       },
+      {
+        name: "zip",
+        label: "Postal Code",
+      },
     ]
     test("displays all expected text fields", () => {
       render(<FormWrapper>{renderAddressFields(properties)}</FormWrapper>)
@@ -39,7 +43,7 @@ describe("renderAddressFields", () => {
         expect(screen.getAllByText(`${item.label}`)[0]).toBeInTheDocument()
       })
       // Country field is rendered as Autocomplete (combobox in MUI v5), so we have 2 textboxes and 1 combobox
-      expect(screen.getAllByRole("textbox")).toHaveLength(2)
+      expect(screen.getAllByRole("textbox")).toHaveLength(3)
       expect(screen.getByRole("combobox")).toBeInTheDocument()
     })
   })
