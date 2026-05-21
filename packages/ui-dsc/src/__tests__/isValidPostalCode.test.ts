@@ -19,7 +19,7 @@ test("A country not in our `countryList` should pass validation", () => {
 test("A country that does not have a validator from `postcode-validator` should pass validation", () => {
   const testCountryLabel = "Uganda"
   const testCountryCode = "UG"
-  // Label `Uganda` have corresponding code `UG`.
+  // Label `Uganda` should have corresponding code `UG`.
   expect(
     pipe(
       countryList,
@@ -32,6 +32,6 @@ test("A country that does not have a validator from `postcode-validator` should 
   // Code `UG` should not have a validator in `postcode-validator`.
   expect(postcodeValidatorExistsForCountry(testCountryCode)).toBeFalsy()
 
-  // Label `Uganda should pass postal code validation with any postal code.
+  // Label `Uganda` should pass postal code validation with any postal code.
   expect(isValidPostalCode("", testCountryLabel)).toBeTruthy()
 })
