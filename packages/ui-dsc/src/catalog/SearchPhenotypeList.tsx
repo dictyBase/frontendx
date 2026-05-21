@@ -1,9 +1,9 @@
-import React from "react"
+import { useRef } from "react"
 import { makeStyles } from "tss-react/mui"
 import Paper from "@mui/material/Paper"
 import List from "@mui/material/List"
 import CircularProgress from "@mui/material/CircularProgress"
-import { useIntersectionObserver } from "dicty-hooks"
+import { useIntersectionObserver } from "@dictybase/hook"
 import { ListStrainsWithPhenotypeQuery } from "dicty-graphql-schema"
 import { SearchPhenotypeListHeader } from "./SearchPhenotypeListHeader"
 import { SearchPhenotypeListItem } from "./SearchPhenotypeListItem"
@@ -52,14 +52,16 @@ const SearchPhenotypeList = ({
   isLoadingMore,
   totalCount,
 }: SearchPhenotypeListProperties) => {
-  const { intersecting, ref } = useIntersectionObserver()
   const { classes } = useStyles()
-
-  React.useEffect(() => {
-    if (intersecting && hasMore) {
-      loadMore()
-    }
-  }, [hasMore, loadMore, intersecting])
+  const targetReference = useRef<HTMLDivElement>(null)
+  const onIntersection = () => {
+    if (hasMore) loadMore()
+  }
+  useIntersectionObserver({
+    target: targetReference,
+    onIntersection,
+    option: { threshold: 0.1 },
+  })
 
   return (
     <>
@@ -69,7 +71,7 @@ const SearchPhenotypeList = ({
           {data.map((item) => (
             <SearchPhenotypeListItem key={item.id} strain={item} />
           ))}
-          <div ref={ref} />
+          <div ref={targetReference} />
         </List>
       </Paper>
       {isLoadingMore && <CircularProgress className={classes.spinner} />}
