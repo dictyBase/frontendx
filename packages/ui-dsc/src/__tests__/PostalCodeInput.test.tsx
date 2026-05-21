@@ -12,10 +12,11 @@ import { INVALID_POSTAL_CODE_MESSAGE } from "../const"
 const postalCodeInputName = "Postal Code"
 const validPostalCode = "37450"
 const invalidPostalCode = "A1"
+const defaultCountry = "United States"
 
 const defaultValues = {
   zip: "",
-  country: "United States",
+  country: defaultCountry,
   additionalInformation: "",
 }
 
@@ -87,7 +88,7 @@ test("Removes the warning message from the `Comments` if a valid input is entere
   render(
     <TestComponent
       values={{
-        country: "United States",
+        country: defaultCountry,
         zip: "",
         additionalInformation: INVALID_POSTAL_CODE_MESSAGE,
       }}
@@ -108,4 +109,32 @@ test("Removes the warning message from the `Comments` if a valid input is entere
   // Tab away
   await user.keyboard("[TAB]")
   expect(commentTextBox).toHaveValue("")
+})
+
+test("Does nothing if postal code is valid, but the warning comment is not present", async () => {
+  const user = userEvent.setup()
+  render(
+    <TestComponent
+      values={{
+        country: defaultCountry,
+        zip: "",
+        additionalInformation: "Unrelated comment",
+      }}
+    />,
+  )
+
+  const postalCodeInput = screen.getByRole("textbox", {
+    name: postalCodeInputName,
+  })
+
+  const commentTextBox = screen.getByRole("textbox", {
+    name: "Comments:",
+  })
+
+  // US postal code
+  await user.click(postalCodeInput)
+  await user.keyboard(validPostalCode)
+  // Tab away
+  await user.keyboard("[TAB]")
+  expect(commentTextBox).toHaveValue("Unrelated comment")
 })
