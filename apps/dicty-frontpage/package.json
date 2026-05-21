@@ -41,7 +41,6 @@
     "apollo3-cache-persist": "^0.14.1",
     "browser-level": "^1.0.1",
     "core-js": "^3.31.1",
-    "dicty-hooks": "dictybase/dicty-hooks#3.0.0",
     "font-awesome": "^4.7.0",
     "fontsource-roboto": "^4.0.0",
     "fp-ts": "^2.16.1",
