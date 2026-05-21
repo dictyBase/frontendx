@@ -1,5 +1,6 @@
 import { test, expect } from "vitest"
 import { pipe } from "fp-ts/function"
+import { toEntries as RtoEntries } from "fp-ts/Record"
 import { filter, map, reduce } from "fp-ts/Array"
 import { screen, render } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
@@ -9,17 +10,14 @@ import { CountryDropdown } from "../order/CountryDropdown"
 type FormValues = {
   country: string
   payerCountry: string
+  zip: string
+  additionalInformation: string
 }
-
-const convertToObjectArray = (values: FormValues): Array<[string, string]> => [
-  ["country", values.country],
-  ["payerCountry", values.payerCountry],
-]
 
 const getErrors = (values: FormValues) =>
   pipe(
     values,
-    convertToObjectArray,
+    RtoEntries,
     filter(([, value]) => !value),
     map(([fieldName]) => ({
       [fieldName]: { type: "required", message: `${fieldName} is required` },
@@ -32,8 +30,15 @@ const resolver: Resolver<FormValues> = async (values) => ({
   errors: getErrors(values),
 })
 
+const testInitialValues = {
+  zip: "",
+  country: "",
+  payerCountry: "",
+  additionalInformation: "",
+}
+
 const WrappedCountryDropdown = ({ fieldName }: { fieldName: string }) => {
-  const methods = useForm({ resolver })
+  const methods = useForm({ resolver, values: testInitialValues })
   const { handleSubmit } = methods
   return (
     <FormProvider {...methods}>
