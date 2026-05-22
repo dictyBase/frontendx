@@ -38,14 +38,14 @@ describe("renderPlasmidTotal", () => {
       {
         id: "DBS0236123",
         name: "aarA-",
-        summary: "mock strain 1",
+        summary: "mock plasmid 1",
         in_stock: true,
         fee: 15,
       },
       {
         id: "DBS0236123",
         name: "aarA",
-        summary: "mock strain 2",
+        summary: "mock plasmid 2",
         in_stock: true,
         fee: 15,
       },
