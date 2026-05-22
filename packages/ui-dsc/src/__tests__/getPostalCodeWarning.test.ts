@@ -1,9 +1,9 @@
 import { test, expect } from "vitest"
 import { getPostalCodeWarning } from "../utils/getPostalCodeWarning"
+import { INVALID_POSTAL_CODE_MESSAGE } from "../const"
 
-test("Returns comments unchanged if postal code is valid, but there is no warning message in the comments", () => {
-  const comments = "This should stay unchanged."
-  expect(getPostalCodeWarning("60642", "United States", comments)).toBe(
-    comments,
-  )
+test("Returns comments unchanged if postal code is invalid, already a warning message in the comments", () => {
+  expect(
+    getPostalCodeWarning("ABCD", "United States", INVALID_POSTAL_CODE_MESSAGE),
+  ).toBe(INVALID_POSTAL_CODE_MESSAGE)
 })
