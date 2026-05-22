@@ -149,6 +149,7 @@ const unavailableStrain = {
 } as Strain
 
 const strainWithPhenotype = {
+  __typename: "Strain",
   type: "strain",
   id: "DBS0350966",
   label: "spaA-",
