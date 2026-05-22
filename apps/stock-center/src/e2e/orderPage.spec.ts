@@ -53,7 +53,7 @@ const fillShippingForm = async (page: Page) => {
     .getByRole("textbox", { name: "State/Province" })
     .fill(shippingData.stateProvince)
   await page
-    .getByRole("textbox", { name: "Zip Code" })
+    .getByRole("textbox", { name: "Postal Code" })
     .fill(shippingData.zipCode)
   await page
     .getByRole("combobox", { name: "Country" })
@@ -95,7 +95,6 @@ test.describe("Shipping Address Step", () => {
     await expect(page.getByText("* Organization is required")).toBeVisible()
     await expect(page.getByText("* Address is required")).toBeVisible()
     await expect(page.getByText("* City is required")).toBeVisible()
-    await expect(page.getByText("* Zip code is required")).toBeVisible()
     await expect(page.getByText("* State/Province is required")).toBeVisible()
     await expect(page.getByText("* Country is required")).toBeVisible()
     await expect(
@@ -136,9 +135,9 @@ test.describe("Shipping Address Step", () => {
     await expect(
       page.getByRole("textbox", { name: "State/Province" }),
     ).toHaveValue(shippingData.stateProvince)
-    await expect(page.getByRole("textbox", { name: "Zip Code" })).toHaveValue(
-      shippingData.zipCode,
-    )
+    await expect(
+      page.getByRole("textbox", { name: "Postal Code" }),
+    ).toHaveValue(shippingData.zipCode)
     await expect(page.getByRole("combobox", { name: "Country" })).toHaveValue(
       shippingData.country,
     )
@@ -206,9 +205,9 @@ test.describe("Payment Details", () => {
     await expect(
       page.getByRole("textbox", { name: "State/Province" }),
     ).toHaveValue(shippingData.stateProvince)
-    await expect(page.getByRole("textbox", { name: "Zip Code" })).toHaveValue(
-      shippingData.zipCode,
-    )
+    await expect(
+      page.getByRole("textbox", { name: "Postal Code" }),
+    ).toHaveValue(shippingData.zipCode)
     await expect(page.getByRole("combobox", { name: "Country" })).toHaveValue(
       shippingData.country,
     )
