@@ -8,6 +8,10 @@ const viteConfig = defineConfig({
     port: 3002,
     strictPort: true,
   },
+  preview: {
+    port: 3002,
+    strictPort: true,
+  },
   base: "/gene",
   resolve: {
     alias: {
