@@ -1,0 +1,11 @@
+{
+  "ci": {
+    "collect": {
+       "url": ["http://localhost:3004/"],
+      "startServerCommand": "yarn workspace dicty-frontpage serve"
+    },
+    "upload": {
+      "target": "filesystem"
+    }
+  }
+}
