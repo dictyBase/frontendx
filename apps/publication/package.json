@@ -4,9 +4,9 @@
   "private": true,
   "homepage": "/publication",
   "scripts": {
-    "dev": "vite --port 5173",
+    "dev": "vite",
     "build": "tsc && vite build",
-    "serve": "vite preview --port 3000",
+    "serve": "vite preview",
     "coverage": "vitest --coverage",
     "test": "vitest run",
     "e2e": "BASE_URL=http://localhost:5173 playwright test",
