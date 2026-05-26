@@ -27,7 +27,7 @@ jobs:
         working-directory: dfp
         run: |
           npm install -g @lhci/cli@0.15.x
-          lhci autorun --config="../.lighthouserc.json"
+          lhci autorun --config="../.lighthouserc.json" --githubToken=${{ secrets.GITHUB_TOKEN }}
   build-stock-center:
     name: Build Stock Center
     runs-on: ubuntu-latest
