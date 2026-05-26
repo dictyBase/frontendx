@@ -54,3 +54,6 @@ repomix.config.json
 credentials
 .mcp.json
 mockServiceWorker.js
+
+# lighthouse
+.lighthouseci
