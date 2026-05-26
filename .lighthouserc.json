@@ -1,0 +1,19 @@
+{
+  "ci": {
+    "collect": {
+       "url": ["http://localhost:3004/?desktop"],
+      "startServerCommand": "yarn workspace dicty-frontpage serve",
+      "startServerReadyPattern": "Local",
+      "settings": {
+        "additive": "true",
+        "preset": "desktop"
+      }
+    },
+    "assert": {
+      "preset": "lighthouse:recommended"
+    },
+    "upload": {
+      "target": "filesystem"
+    }
+  }
+}
