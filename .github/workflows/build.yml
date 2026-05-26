@@ -24,9 +24,10 @@ jobs:
         working-directory: dfp
         run: yarn turbo run build --filter=dicty-frontpage
       - name: run Lighthouse CI
+        working-directory: dfp
         run: |
           npm install -g @lhci/cli@0.15.x
-          lhci autorun
+          lhci autorun --config="../.lighthouserc.json"
   build-stock-center:
     name: Build Stock Center
     runs-on: ubuntu-latest
