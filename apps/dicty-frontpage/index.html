@@ -18,6 +18,24 @@
     <link rel="manifest" href="/manifest.json" />
     <link rel="shortcut icon" href="/favicon.ico" />
 
+    <!-- Establish early connections to the API and asset origins used on first paint -->
+    <link rel="preconnect" href="https://graphql.dictybase.dev" crossorigin />
+    <link rel="preconnect" href="https://storage.dictybase.dev" crossorigin />
+
+    <!--
+      Preload the first carousel slide: it is the LCP element but lives inside
+      JS-rendered markup, so the browser cannot discover it from the initial
+      HTML. The image is served unhashed from public/carousel so this path
+      stays stable and matches what Slideshow renders.
+    -->
+    <link
+      rel="preload"
+      as="image"
+      href="/carousel/dicty-life-cycle.avif"
+      type="image/avif"
+      fetchpriority="high"
+    />
+
     <title>dictyBase</title>
   </head>
 
