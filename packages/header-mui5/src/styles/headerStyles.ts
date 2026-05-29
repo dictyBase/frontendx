@@ -23,6 +23,9 @@ const headerStyles = makeStyles()({
   },
   search: {
     flexBasis: "25%",
+    // Keep the search field from collapsing to an untappable sliver when the
+    // header flex row runs out of room on small screens.
+    minWidth: "180px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",

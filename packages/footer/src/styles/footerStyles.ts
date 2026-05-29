@@ -15,6 +15,10 @@ export const footerStyles = makeStyles((theme) => ({
     "& a": {
       color: "rgb(216, 216, 216)",
       textDecoration: "none",
+      // Enlarge the tap target to satisfy the minimum 24px touch-target size.
+      display: "inline-block",
+      padding: "4px 2px",
+      minHeight: "24px",
       "&:hover": {
         textDecoration: "underline",
       },
