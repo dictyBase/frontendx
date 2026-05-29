@@ -27,7 +27,7 @@ const NewsList = ({ contentList }: NewsListProperties) => (
                 container
                 direction="column">
                 <Grid item>
-                  <Typography variant="h3">
+                  <Typography variant="h3" variantMapping={{ h3: "h2" }}>
                     {pipe(updated_at, parseISO, format("PPPP"))}
                   </Typography>
                 </Grid>
