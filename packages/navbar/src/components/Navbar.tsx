@@ -72,7 +72,10 @@ const Items = styled("ul")({
   },
 })
 
-const Header = styled("li")({
+// Wrapper for the mobile menu toggle. It sits directly inside <nav> alongside
+// the <ul> of items, so it must not be a bare <li> (which requires a list
+// parent); a <div> is the correct neutral container here.
+const Header = styled("div")({
   listStyleType: "none",
   "@media (max-width: 768px)": {
     display: "flex",

@@ -60,7 +60,13 @@ type MenuIconProperties = {
 
 const MenuIcon = ({ open, onClick, theme }: MenuIconProperties) => (
   // eslint-disable prefer-tag-over-role
-  <Toggle role="button" onClick={onClick} open={open}>
+  <Toggle
+    role="button"
+    aria-label="Toggle navigation menu"
+    aria-expanded={open}
+    tabIndex={0}
+    onClick={onClick}
+    open={open}>
     <IconBarTop open={open} theme={theme} />
     <IconBarMiddle open={open} theme={theme} />
     <IconBarBottom open={open} theme={theme} />

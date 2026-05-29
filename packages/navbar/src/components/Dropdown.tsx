@@ -1,12 +1,20 @@
-import { useState, useEffect, useRef, forwardRef, ReactNode } from "react"
+import {
+  useState,
+  useEffect,
+  useRef,
+  forwardRef,
+  ReactNode,
+  KeyboardEvent,
+} from "react"
 import { styled } from "@material-ui/styles"
 import { wasClicked, transitionToAuto, transitionFromAuto } from "../utils/dom"
 
+// Each top-level navbar entry is a list item in the parent <ul>; its
+// sub-menu (List, below) is the nested <ul> contained within it.
 const Menu = styled(
-  forwardRef<
-    HTMLUListElement,
-    { open: boolean; theme: any; children: ReactNode }
-  >(({ ...other }, reference) => <ul {...other} ref={reference} />),
+  forwardRef<HTMLLIElement, { open: boolean; theme: any; children: ReactNode }>(
+    ({ ...other }, reference) => <li {...other} ref={reference} />,
+  ),
 )({
   display: "flex",
   flexDirection: "column",
@@ -25,7 +33,7 @@ const Menu = styled(
     width: "100%",
   },
 })
-const Toggle = styled(({ ...other }) => <li {...other} />)({
+const Toggle = styled(({ ...other }) => <span {...other} />)({
   display: "block",
   cursor: "pointer",
   padding: "0px 20px 0px 10px",
@@ -221,7 +229,24 @@ const Dropdown = ({
 
   return (
     <Menu theme={theme} open={open} ref={menuReference}>
-      <Toggle theme={theme} onClick={handleClick} open={open} width={width}>
+      <Toggle
+        theme={theme}
+        onClick={handleClick}
+        onKeyDown={(event: KeyboardEvent) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault()
+            handleClick()
+          }
+        }}
+        // The toggle is a styled span whose layout the surrounding nav CSS
+        // depends on; role="button" makes it operable without a native button.
+        // oxlint-disable-next-line prefer-tag-over-role
+        role="button"
+        tabIndex={0}
+        aria-haspopup="true"
+        aria-expanded={open}
+        open={open}
+        width={width}>
         {title}
       </Toggle>
       <List
