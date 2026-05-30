@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@dictybase/oxlint-config": "*",
-    "@playwright/test": "^1.44.0",
+    "@playwright/test": "^1.60.0",
     "@types/node": "^22.15.0",
     "@types/react": "17.*",
     "@types/react-dom": "17.*",

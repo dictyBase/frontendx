@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@dictybase/oxlint-config": "*",
-    "@playwright/test": "^1.44.0",
+    "@playwright/test": "^1.60.0",
     "@vitejs/plugin-react-swc": "^4.0.1",
     "eslint-config-custom": "*",
     "msw": "2.x",
