@@ -64,3 +64,37 @@ test("should call changeDropdown() with -1 when closed", async () => {
   await click(screen.getByText(/dicty stock center/i))
   expect(mockChangeDropdown).toHaveBeenCalledWith(-1)
 })
+
+test("should toggle the dropdown when the Enter key is pressed on it", async () => {
+  render(
+    <Dropdown
+      items={properties.links}
+      title={properties.title}
+      changeDropdown={mockChangeDropdown}
+      index={2}
+      open={false}
+      theme={properties.theme}
+    />,
+  )
+  const { keyboard } = userEvent.setup()
+  screen.getByText(/dicty stock center/i).focus()
+  await keyboard("{Enter}")
+  expect(mockChangeDropdown).toHaveBeenCalledWith(2)
+})
+
+test("should toggle the dropdown when the Space key is pressed on it", async () => {
+  render(
+    <Dropdown
+      items={properties.links}
+      title={properties.title}
+      changeDropdown={mockChangeDropdown}
+      index={3}
+      open={false}
+      theme={properties.theme}
+    />,
+  )
+  const { keyboard } = userEvent.setup()
+  screen.getByText(/dicty stock center/i).focus()
+  await keyboard(" ")
+  expect(mockChangeDropdown).toHaveBeenCalledWith(3)
+})
