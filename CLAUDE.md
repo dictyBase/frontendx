@@ -1,5 +1,6 @@
 ## Table of Contents
 
+- [Work Flow](#work-flow)
 - [Code Style](#code-style)
 - [Import Organization](#import-organization)
 - [Naming Conventions](#naming-conventions)
@@ -13,6 +14,15 @@
 - [Testing](#testing)
 - [Performance Patterns](#performance-patterns)
 - [File Organization](#file-organization)
+
+## Work Flow
+
+- After a discrete task has been completed that involved any code changes, run verifications before commiting the code.
+  - Verfications include:
+      - Linting (both with `yarn lint` and `yarn oxlint`)
+      - Unit Tests
+      - Build
+      - E2E Tests (testing for any visual regression when applicable)
 
 ## Code Style
 
@@ -320,6 +330,7 @@ const MyComponent = () => {
 ```
 ## Testing
 
+- Write unit tests for changes in code, where possible.
 - Use **Vitest** as the testing framework
 - Use **Testing Library** for component testing
 - Avoid wrapping tests in `describe` blocks
