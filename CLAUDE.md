@@ -24,6 +24,8 @@
       - Build
       - E2E Tests (testing for any visual regression when applicable)
 
+- Changes that fundamentally affect the build of an application should be verified by building the docker image, running the container, and running E2E tests against it. Specific task related changes should also be investigated for regression.
+
 ## Code Style
 
 - If you find yourself using a literal value >= 3 times, define a constant for it.
