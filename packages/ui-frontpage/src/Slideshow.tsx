@@ -1,13 +1,15 @@
 import { Carousel } from "react-responsive-carousel"
 import { Box } from "@mui/material"
+import lifeCycle from "./assets/carousel/dicty-life-cycle.jpg"
+import lifeCycleWebp from "./assets/carousel/dicty-life-cycle.webp"
+import lifeCycleAvif from "./assets/carousel/dicty-life-cycle.avif"
+import slug from "./assets/carousel/dicty-slug.jpg"
+import slugWebp from "./assets/carousel/dicty-slug.webp"
+import slugAvif from "./assets/carousel/dicty-slug.avif"
+import tubulin from "./assets/carousel/dicty-tubulin-centrosom.png"
+import tubulinWebp from "./assets/carousel/dicty-tubulin-centrosom.webp"
+import tubulinAvif from "./assets/carousel/dicty-tubulin-centrosom.avif"
 import "react-responsive-carousel/lib/styles/carousel.min.css"
-
-// The carousel images live in the consuming app's public/ directory (rather
-// than being imported and hashed) so the first slide has a stable URL that can
-// be preloaded from index.html — it is the page's LCP element. The only app
-// that renders this component is dicty-frontpage, which hosts these files at
-// /carousel/*. Keep these paths in sync with that public directory.
-const CAROUSEL_BASE = "/carousel"
 
 // Intrinsic dimensions of each encoded asset. Setting these to the file's
 // natural size keeps the width/height attributes matching the real aspect
@@ -15,9 +17,9 @@ const CAROUSEL_BASE = "/carousel"
 // image to fill the carousel box.
 const imageData = [
   {
-    src: `${CAROUSEL_BASE}/dicty-life-cycle.jpg`,
-    webpSrc: `${CAROUSEL_BASE}/dicty-life-cycle.webp`,
-    avifSrc: `${CAROUSEL_BASE}/dicty-life-cycle.avif`,
+    src: lifeCycle,
+    webpSrc: lifeCycleWebp,
+    avifSrc: lifeCycleAvif,
     width: 600,
     height: 434,
     title: "Dicty Life Cycle",
@@ -25,9 +27,9 @@ const imageData = [
             Electron Microscopy Laboratory, Texas Tech University`,
   },
   {
-    src: `${CAROUSEL_BASE}/dicty-slug.jpg`,
-    webpSrc: `${CAROUSEL_BASE}/dicty-slug.webp`,
-    avifSrc: `${CAROUSEL_BASE}/dicty-slug.avif`,
+    src: slug,
+    webpSrc: slugWebp,
+    avifSrc: slugAvif,
     width: 660,
     height: 434,
     title: "D. discoideum slug",
@@ -35,9 +37,9 @@ const imageData = [
       "Courtesy Dirk Dormann, MRC London Institute of Medical Sciences",
   },
   {
-    src: `${CAROUSEL_BASE}/dicty-tubulin-centrosom.png`,
-    webpSrc: `${CAROUSEL_BASE}/dicty-tubulin-centrosom.webp`,
-    avifSrc: `${CAROUSEL_BASE}/dicty-tubulin-centrosom.avif`,
+    src: tubulin,
+    webpSrc: tubulinWebp,
+    avifSrc: tubulinAvif,
     width: 568,
     height: 434,
     title:
