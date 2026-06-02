@@ -2,6 +2,7 @@ import { match } from "ts-pattern"
 import { useAtomValue } from "jotai"
 import { Navigate } from "react-router-dom"
 import { OrderFormStepper } from "@dictybase/ui-dsc"
+import { ACCESS } from "@dictybase/auth-mui5"
 import { ShippingPage } from "../../components/ShippingPage"
 import { PaymentPage } from "../../components/PaymentPage"
 import { SubmitPage } from "../../components/SubmitPage"
@@ -33,3 +34,4 @@ const OrderFormWrapper = () => {
 
 // eslint-disable-next-line import/no-default-export
 export default OrderFormWrapper
+export const access = ACCESS.public

@@ -17,6 +17,7 @@ import {
   CatalogHeader,
   EmptyCatalog,
 } from "@dictybase/ui-dsc"
+import { ACCESS } from "@dictybase/auth-mui5"
 
 const PlasmidCatalog = () => {
   const [searchParameters] = useSearchParams()
@@ -86,3 +87,4 @@ const PlasmidCatalog = () => {
 
 // eslint-disable-next-line import/no-default-export
 export default PlasmidCatalog
+export const access = ACCESS.public

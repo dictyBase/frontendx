@@ -10,6 +10,7 @@ import {
   BackToHomePage,
 } from "@dictybase/ui-dsc"
 import { useAtomValue } from "jotai"
+import { ACCESS } from "@dictybase/auth-mui5"
 import { orderAtom } from "../../../orderState"
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -44,3 +45,4 @@ const OrderConfirmation = () => {
 
 // eslint-disable-next-line import/no-default-export
 export default OrderConfirmation
+export const access = ACCESS.public
