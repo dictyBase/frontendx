@@ -1,9 +1,10 @@
 import react from "@vitejs/plugin-react-swc"
 import { defineConfig } from "vitest/config"
+import { pageMetadataPlugin } from "@dictybase/auth-mui5/vite/pageMetadata.mjs"
 
 // https://vitejs.dev/config/
 const viteConfig = defineConfig({
-  plugins: [react()],
+  plugins: [pageMetadataPlugin(), react()],
   server: {
     port: 3003,
     strictPort: true,
