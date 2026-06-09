@@ -2145,9 +2145,9 @@
   integrity sha512-kOfP2D+ykbcX/P3IFnokOhVRNoTozo5/JxhAIVYLpea/UBmCQ/YWPBfWIDuBImXX/15KH+eKh4xpEUyS2sQQGQ==
 
 "@fontsource-variable/playfair-display@^5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@fontsource-variable/playfair-display/-/playfair-display-5.1.0.tgz#2d05d4d26e3c7d56ef1e64ae18eda3ec3c77f2e0"
-  integrity sha512-51UJAHznXiGkchEOT5AYFuIy9N9m1JE7YxcdOtY0H4SKgzK9YYGKpeCXv3dz2e1gAd+BP2TyR0QXNnVjgeCbgw==
+  version "5.2.8"
+  resolved "https://registry.yarnpkg.com/@fontsource-variable/playfair-display/-/playfair-display-5.2.8.tgz#ec01905cd580a999ba3ad93f95ca2ca89c3d3d34"
+  integrity sha512-ZzVIXPOrL85yyOvZYoBzUszIJM+xKkHqni4IYn2CVLaGQQdJR8sBeC8yFNgjxSJ7ludTwta8qpULeOFuk5X75A==
 
 "@fontsource/fira-code@^5.0.5":
   version "5.2.5"
