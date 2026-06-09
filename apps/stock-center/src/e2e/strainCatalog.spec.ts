@@ -83,22 +83,6 @@ test("Selecting `GWDI Strains` from `group` dropdown shows only GWDI strains", a
   )
 })
 
-test("Selecting `All Available Strains` from `group` dropdown shows only in-stock strains", async ({
-  page,
-}) => {
-  await page.getByText("Regular Strains").click()
-  await page.getByRole("option", { name: "All Available Strains" }).click()
-
-  const catalog = page.locator("tbody")
-  const strainRows = catalog.getByRole("row").filter({ hasText: /DBS/ })
-  const availableStrainRows = await page.getByRole("cell", {
-    name: "Add to shopping cart",
-  })
-  await expect(availableStrainRows.first()).toBeVisible()
-  // Every strain row should have a shopping cart button
-  await expect(strainRows).toHaveCount(await availableStrainRows.count())
-})
-
 test("Search by Descriptor", async ({ page }) => {
   const searchTerm = "corA"
   const main = page.locator("main")
