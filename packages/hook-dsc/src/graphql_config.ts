@@ -37,7 +37,7 @@ const strainGroupFilterOptions = [
     graphqlFilter: { strain_type: StrainType.Gwdi },
   },
   {
-    label: "All Available Strains",
+    label: "All Strains",
     value: "all",
     graphqlFilter: { strain_type: StrainType.All },
   },
