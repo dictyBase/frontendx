@@ -70,7 +70,7 @@ const materialsLinks = [
   },
   {
     name: "GoldenBraid List",
-    to: "https://docs.google.com/spreadsheets/d/1zg50MmBUKZx_AwDJ2-sNcxIvl_Lc1RfC/edit#gid=1498603553",
+    to: "/plasmids?group=goldenbraid",
   },
 ]
 
