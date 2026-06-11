@@ -12,9 +12,9 @@ import { UnAuthorized } from "../UnAuthorized"
 import { pathParts } from "../pathParts"
 
 enum ACCESS {
-  public,
-  protected,
-  private,
+  public = "PUBLIC",
+  protected = "PROTECTED",
+  private = "PRIVATE",
 }
 
 /**
