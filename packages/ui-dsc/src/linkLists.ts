@@ -62,7 +62,7 @@ const materialsLinks = [
   },
   {
     name: "Bacterial Strains",
-    to: "/strains?filter=bacterial",
+    to: "/strains?group=bacterial",
   },
   {
     name: "GWDI Catalog",
