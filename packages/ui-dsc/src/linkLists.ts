@@ -66,7 +66,7 @@ const materialsLinks = [
   },
   {
     name: "GWDI Catalog",
-    to: "https://remi-seq.org/home/remi-seq/gwdi-bank/",
+    to: "/strains?group=gwdi",
   },
   {
     name: "GoldenBraid List",
