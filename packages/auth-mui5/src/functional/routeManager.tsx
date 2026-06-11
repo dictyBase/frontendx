@@ -57,6 +57,11 @@ type mergedRoutesProperties = {
 
 type dynamicRoutesProperties = Record<string, PageComponentData>
 
+type LazyDynamicRoutesProperties = Record<
+  string,
+  () => Promise<PageComponentData>
+>
+
 /**
  * Maps a route and its corresponding page component data to a route object.
  */
@@ -132,5 +137,7 @@ export {
   privateRoutes,
   buildMergedRoutes,
   type dynamicRoutesProperties,
+  type LazyDynamicRoutesProperties,
+  type PageComponentData,
   ACCESS,
 }
