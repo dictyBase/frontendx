@@ -1,3 +1,4 @@
+import { Suspense } from "react"
 import { LogtoProvider, LogtoConfig, UserScope } from "@logto/react"
 import { CssBaseline } from "@mui/material"
 import { ErrorBoundary } from "@dictybase/ui-common"
@@ -30,7 +31,9 @@ const App = () => (
     <LogtoProvider config={logtoConfig}>
       <CssBaseline />
       <ErrorBoundary>
-        <FrontPageApp />
+        <Suspense fallback={<></>}>
+          <FrontPageApp />
+        </Suspense>
       </ErrorBoundary>
     </LogtoProvider>
   </AppProviders>
