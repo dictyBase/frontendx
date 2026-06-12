@@ -30,7 +30,7 @@ const App = () => (
     <LogtoProvider config={logtoConfig}>
       <CssBaseline />
       <ErrorBoundary>
-          <FrontPageApp />
+        <FrontPageApp />
       </ErrorBoundary>
     </LogtoProvider>
   </AppProviders>
