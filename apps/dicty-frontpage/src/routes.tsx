@@ -29,13 +29,6 @@ const createRouteDefinition = (
         children: routes,
       },
     ],
-    // Olet("mergedR", buildMergedRoutes),
-    // Olet("finalR", ({ mergedR }) => [
-    //   { errorElement: <NotFoundError />, children: mergedR },
-    // ]),
-    // Omatch(
-    //   () => [] as Array<RouteObject>,
-    //   ({ finalR }) => finalR,
   )
 
 const frontpageRouter = createBrowserRouter(
