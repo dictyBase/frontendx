@@ -6,7 +6,6 @@ import { append as Arpend } from "fp-ts/Array"
 import { pipe } from "fp-ts/function"
 import { Callback } from "../Callback"
 import { Login } from "../Login"
-import { Protected } from "../Protected"
 import { Private } from "../Private"
 import { UnAuthorized } from "../UnAuthorized"
 import { pathParts } from "../pathParts"
@@ -28,26 +27,6 @@ type PageComponentData = {
    * An optional array of roles that are allowed to access the component.
    */
   roles?: Array<string>
-}
-
-/**
- * Represents the properties of merged routes.
- */
-type mergedRoutesProperties = {
-  /**
-   * An array of public routes.
-   */
-  publicR: Array<RouteObject>
-
-  /**
-   * An array of protected routes.
-   */
-  protectedR: Array<RouteObject>
-
-  /**
-   * An array of private routes.
-   */
-  privateR: Array<RouteObject>
 }
 
 type dynamicRoutesProperties = Record<string, PageComponentData>
@@ -112,15 +91,9 @@ const protectedRoutes = (
 /**
  * Builds merged routes by combining public, protected, and private routes.
  */
-const buildMergedRoutes = ({
-  publicR,
-  protectedR,
-  privateR,
-}: mergedRoutesProperties) =>
+const buildMergedRoutes = (appR: Array<RouteObject>) =>
   pipe(
-    publicR,
-    Arpend({ children: protectedR, element: <Protected /> } as RouteObject),
-    Arpend({ children: privateR, element: <Protected /> } as RouteObject),
+    appR,
     Arpend({ path: "/callback", element: <Callback /> } as RouteObject),
     Arpend({ path: "/login", element: <Login /> } as RouteObject),
     Arpend({ path: "/unauthorized", element: <UnAuthorized /> } as RouteObject),

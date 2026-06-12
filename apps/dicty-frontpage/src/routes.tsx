@@ -6,6 +6,7 @@ import {
   type LazyDynamicRoutesProperties,
   wrapLazyComponent,
   pathParts,
+  buildMergedRoutes,
 } from "@dictybase/auth-mui5"
 import { NotFoundError } from "@dictybase/ui-common"
 
@@ -22,6 +23,7 @@ const createRouteDefinition = (
       path: pathParts(path),
       element: <PageComponent />,
     })),
+    buildMergedRoutes,
     (routes) => [
       {
         errorElement: <NotFoundError />,
