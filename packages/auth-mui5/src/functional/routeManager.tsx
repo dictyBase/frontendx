@@ -10,12 +10,7 @@ import { Protected } from "../Protected"
 import { Private } from "../Private"
 import { UnAuthorized } from "../UnAuthorized"
 import { pathParts } from "../pathParts"
-
-enum ACCESS {
-  public = "PUBLIC",
-  protected = "PROTECTED",
-  private = "PRIVATE",
-}
+import { ACCESS } from "../const"
 
 /**
  * Represents the data structure for a page component.
@@ -139,5 +134,4 @@ export {
   type dynamicRoutesProperties,
   type LazyDynamicRoutesProperties,
   type PageComponentData,
-  ACCESS,
 }
