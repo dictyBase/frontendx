@@ -1,4 +1,3 @@
-import { Suspense } from "react"
 import { createBrowserRouter, RouteObject } from "react-router-dom"
 import { pipe } from "fp-ts/function"
 import { map as Rmap, toEntries as RtoEntries } from "fp-ts/Record"
