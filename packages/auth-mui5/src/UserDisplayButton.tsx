@@ -1,4 +1,3 @@
-/* eslint-disable react/function-component-definition */
 import { MouseEvent } from "react"
 import { styled } from "@mui/styles"
 import { pipe } from "fp-ts/function"

@@ -74,7 +74,6 @@ const gridContainerWrapper = (elements: Array<JSX.Element>) => (
   <StyledGridContainer>{elements}</StyledGridContainer>
 )
 
-// eslint-disable-next-line react/function-component-definition
 const panelWrapper = (title: string) => (element: JSX.Element) => (
   <PanelWrapper title={title}>{element}</PanelWrapper>
 )

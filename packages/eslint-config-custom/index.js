@@ -74,6 +74,7 @@ module.exports = {
       "warn",
       {
         namedComponents: "arrow-function",
+        unnamedComponents: "arrow-function",
       },
     ],
     "filenames/match-regex": "off",
