@@ -18,6 +18,7 @@ import {
 import { useIntersectionObserver } from "@dictybase/hook"
 import { useStrainListQuery } from "dicty-graphql-schema"
 import { useSearchParams } from "react-router-dom"
+import { ACCESS } from "@dictybase/auth-mui5"
 
 /**
  * StrainCatalog is the main component for displaying the strain catalog view.
@@ -90,3 +91,4 @@ const StrainCatalog = () => {
 
 // eslint-disable-next-line import/no-default-export
 export default StrainCatalog
+export const access = ACCESS.public
