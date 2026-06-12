@@ -14,28 +14,16 @@ const wrapLazyComponent = (
     Tmap(({ default: Component, access, roles }) =>
       match(access)
         .with(ACCESS.public, () => Component)
-        .with(
-          ACCESS.protected,
-          () =>
-            function () {
-              return (
-                <LazyProtected>
-                  <Component />
-                </LazyProtected>
-              )
-            },
-        )
-        .with(
-          ACCESS.private,
-          () =>
-            function () {
-              return (
-                <LazyPrivate roles={roles || []}>
-                  <Component />
-                </LazyPrivate>
-              )
-            },
-        )
+        .with(ACCESS.protected, () => () => (
+          <LazyProtected>
+            <Component />
+          </LazyProtected>
+        ))
+        .with(ACCESS.private, () => () => (
+          <LazyPrivate roles={roles || []}>
+            <Component />
+          </LazyPrivate>
+        ))
         .exhaustive(),
     ),
     Tmap((component) => ({ default: component })),
