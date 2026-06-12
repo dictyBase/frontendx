@@ -8,6 +8,7 @@ import {
   NavbarWithAuth,
   FooterWithAuth,
 } from "@dictybase/auth-mui5"
+import { FullPageLoadingDisplay } from "@dictybase/ui-common"
 import { useGoogleAnalytics } from "../../common/hooks/useGoogleAnalytics"
 import { frontpageRouter } from "../../routes"
 
@@ -45,7 +46,7 @@ const FrontPageApp = () => {
         frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
         stockCenterUrl={import.meta.env.VITE_APP_STOCKCENTER_URL}
       />
-      <Suspense fallback={<></>}>
+      <Suspense fallback={<FullPageLoadingDisplay />}>
         <main>
           <RouterProvider router={frontpageRouter} />
         </main>
