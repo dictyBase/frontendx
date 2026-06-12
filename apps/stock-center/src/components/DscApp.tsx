@@ -1,6 +1,5 @@
 import { Suspense } from "react"
 import { Container, Box } from "@material-ui/core"
-import { LoadingDisplay } from "@dictybase/ui-dsc"
 import { FullPageLoadingDisplay } from "@dictybase/ui-common"
 import { RouterProvider } from "react-router-dom"
 import { makeStyles, Theme } from "@material-ui/core/styles"
