@@ -1,11 +1,5 @@
 import Grid from "@material-ui/core/Grid"
-import {
-  useStyles,
-  Title,
-  Slide,
-  CatalogLinks,
-  FileLinks,
-} from "@dictybase/ui-dsc"
+import { useStyles, Title, Slide, CatalogLinks } from "@dictybase/ui-dsc"
 import { ACCESS } from "@dictybase/auth-mui5"
 import { StockCenterInfoWithAuth } from "../components/StockCenterInfoWithAuth"
 
@@ -37,9 +31,6 @@ const ShowHomepage = () => {
           </Grid>
           <Grid container item xs={4} direction="column">
             <CatalogLinks />
-          </Grid>
-          <Grid container item xs={4} direction="column">
-            <FileLinks />
           </Grid>
         </Grid>
       </Grid>
