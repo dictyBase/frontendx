@@ -41,17 +41,7 @@ const infoLinks = [
   },
 ]
 
-const additionalMaterial = {
-  name: "Additional Materials",
-  to: "/information/additional-materials/show",
-}
-
-const additionalMaterialAuth = {
-  name: "Additional Materials",
-  to: "/information/additional-materials/editable",
-}
-
-const materialsLinks = [
+const catalogLinks = [
   {
     name: "Strain Catalog",
     to: "/strains",
@@ -68,13 +58,16 @@ const materialsLinks = [
     name: "GWDI Catalog",
     to: "/strains?group=gwdi",
   },
-  {
-    name: "GoldenBraid List",
-    to: "/plasmids?group=goldenbraid",
-  },
+]
+
+const otherLinks = [
   {
     name: "Downloads",
     to: `${import.meta.env.VITE_APP_FRONTPAGE_URL}/downloads`,
+  },
+  {
+    name: "Additional Materials",
+    to: "/information/additional-materials",
   },
 ]
 
@@ -100,9 +93,8 @@ const miscLinks = [
 export {
   downloadLinks,
   infoLinks,
-  materialsLinks,
+  catalogLinks,
+  otherLinks,
   miscLinks,
-  additionalMaterial,
-  additionalMaterialAuth,
   type LinkProperties,
 }
