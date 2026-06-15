@@ -72,6 +72,10 @@ const materialsLinks = [
     name: "GoldenBraid List",
     to: "/plasmids?group=goldenbraid",
   },
+  {
+    name: "Downloads",
+    to: `${import.meta.env.VITE_APP_FRONTPAGE_URL}/downloads`,
+  },
 ]
 
 const miscLinks = [
