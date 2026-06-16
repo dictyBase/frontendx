@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   body: {
     fontSize: "16px",
     color: "#333",
-    backgroundColor: "#fff",
+    backgroundColor: "#f5f7fa",
     "& h1, h2, h3, h4, h5, h6": {
       fontWeight: 500,
       lineHeight: 1.1,
