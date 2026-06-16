@@ -1,22 +1,17 @@
-import { Box, Typography } from "@mui/material"
+import { Box, Typography, Container } from "@mui/material"
 import { CatalogCard } from "./CatalogCard"
-import { catalogs, infoSections, navigation, stats } from "./content"
-import { Footer } from "./Footer"
+import { catalogs, infoSections, stats } from "./content"
 import { GridLayout } from "./GridLayout"
-import { Header } from "./Header"
 import { Hero } from "./Hero"
 import { InfoCard } from "./InfoCard"
-import { PageContainer } from "./PageContainer"
+// import { PageContainer as Container } from "./PageContainer"
 import { SectionTitle } from "./SectionTitle"
 import { StatCard } from "./StatCard"
 
 const DSCHomepage = () => (
   <Box>
-    <Header navigation={navigation} logoHref="/" />
-    <PageContainer>
-      <Hero
-        title="Dictyostelium Stock Center"
-        warning="Due to the renovation of our lab, we are not processing any orders until further notice.">
+    <Container>
+      <Hero title="Dictyostelium Stock Center">
         <Typography variant="body1" paragraph>
           The Dictyostelium Stock Center provides a central repository for
           Dictyostelium discoideum strains, plasmids, and other materials.
@@ -28,7 +23,6 @@ const DSCHomepage = () => (
       </Hero>
 
       <Box sx={{ mb: 6 }}>
-        <SectionTitle>Quick Stats</SectionTitle>
         <GridLayout minColumnWidth="200px" gap={3}>
           {stats.map((stat) => (
             <StatCard
@@ -68,11 +62,7 @@ const DSCHomepage = () => (
           ))}
         </GridLayout>
       </Box>
-    </PageContainer>
-    <Footer
-      title="Dictyostelium Stock Center"
-      subtitle="Supporting research worldwide"
-    />
+    </Container>
   </Box>
 )
 
