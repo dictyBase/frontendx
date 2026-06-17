@@ -2,7 +2,6 @@
 export { DSCHomepage } from "./DscHomepage"
 
 // Layout components
-export { PageContainer } from "./PageContainer"
 export { GridLayout } from "./GridLayout"
 export { SectionTitle } from "./SectionTitle"
 export { Hero } from "./Hero"
