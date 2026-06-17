@@ -37,7 +37,6 @@ type InfoCardProperties = {
 
 type HeroProperties = {
   title: string
-  children: ReactNode
   sx?: SxProps<Theme>
 }
 
