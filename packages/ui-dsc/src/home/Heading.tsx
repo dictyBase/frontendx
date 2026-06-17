@@ -6,7 +6,9 @@ const Heading = () => {
   const { classes } = useStyles({})
   return (
     <Grid item className={classes.header}>
-      <Typography variant="h1">Welcome to Dicty Stock Center (DSC)</Typography>
+      <Typography variant="h1" sx={{ fontWeight: 300, color: "primary.main" }}>
+        Welcome to Dicty Stock Center (DSC)
+      </Typography>
     </Grid>
   )
 }
