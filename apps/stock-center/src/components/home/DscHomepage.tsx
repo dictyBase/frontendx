@@ -1,11 +1,15 @@
 import { Box, Typography } from "@mui/material"
-import { CatalogCard } from "./CatalogCard"
-import { catalogs, infoSections, stats } from "./content"
-import { GridLayout } from "./GridLayout"
+import {
+  CatalogCard,
+  GridLayout,
+  InfoCard,
+  SectionTitle,
+  StatCard,
+  catalogs,
+  infoSections,
+  stats,
+} from "@dictybase/ui-dsc"
 import { Hero } from "./Hero"
-import { InfoCard } from "./InfoCard"
-import { SectionTitle } from "./SectionTitle"
-import { StatCard } from "./StatCard"
 
 const DSCHomepage = () => (
   <Box>
