@@ -1,10 +1,8 @@
 // Main page component
-export { DSCHomepage } from "./DscHomepage"
 
 // Layout components
 export { GridLayout } from "./GridLayout"
 export { SectionTitle } from "./SectionTitle"
-export { Hero } from "./Hero"
 
 // Card components
 export { CatalogCard } from "./CatalogCard"
