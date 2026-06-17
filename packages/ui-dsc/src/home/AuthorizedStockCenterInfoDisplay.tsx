@@ -1,6 +1,5 @@
 import { Box } from "@mui/material"
 import { Editor } from "@dictybase/editor"
-import { AuthorizedHeading } from "./AuthorizedHeading"
 
 type StockCenterInfoDisplayProperties = {
   content: string
@@ -12,7 +11,6 @@ const AuthorizedStockCenterInfoDisplay = ({
   slug,
 }: StockCenterInfoDisplayProperties) => (
   <Box>
-    <AuthorizedHeading />
     <Editor
       editable={false}
       content={{ storageKey: slug, editorState: content }}
