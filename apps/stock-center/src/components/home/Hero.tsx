@@ -12,12 +12,13 @@ const Hero = ({ title, sx }: HeroProperties) => (
         ...sx,
       }}>
       <Grid container spacing={4} alignItems="center">
-        <Grid item xs={12} md={8}>
+        <Grid item md={8}>
           <Typography
             variant="h1"
+            fontSize="28pt"
             sx={{
               color: dscHomeTheme.colors.primary,
-              fontWeight: 900,
+              fontWeight: 800,
               mb: 2,
             }}>
             {title}
@@ -26,7 +27,7 @@ const Hero = ({ title, sx }: HeroProperties) => (
             <StockCenterInfoWithAuth />
           </Box>
         </Grid>
-        <Grid item xs={0} md={4}>
+        <Grid item md={4}>
           <Slideshow />
         </Grid>
       </Grid>
