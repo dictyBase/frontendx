@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material"
+import { Box } from "@mui/material"
 import {
   CatalogCard,
   GridLayout,
@@ -13,17 +13,7 @@ import { Hero } from "./Hero"
 
 const DSCHomepage = () => (
   <Box>
-    <Hero title="Dictyostelium Stock Center">
-      <Typography variant="body1" paragraph>
-        The Dictyostelium Stock Center provides a central repository for
-        Dictyostelium discoideum strains, plasmids, and other materials.
-      </Typography>
-      <Typography variant="body1">
-        Browse our catalogs, place orders, and access resources for your
-        research.
-      </Typography>
-    </Hero>
-
+    <Hero title="Welcome to Dicty Stock Center (DSC)" />
     <Box sx={{ mb: 6 }}>
       <GridLayout minColumnWidth="200px" gap={3}>
         {stats.map((stat) => (

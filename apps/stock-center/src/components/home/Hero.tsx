@@ -1,14 +1,12 @@
 import { Paper, Box, Grid, Typography } from "@mui/material"
-import { dscHomeTheme } from "./dscTheme"
-import { Slideshow } from "../home/Slideshow"
-import type { HeroProperties } from "./types"
+import { dscHomeTheme, Slideshow, HeroProperties } from "@dictybase/ui-dsc"
+import { StockCenterInfoWithAuth } from "../StockCenterInfoWithAuth"
 
-const Hero = ({ title, children, sx }: HeroProperties) => (
+const Hero = ({ title, sx }: HeroProperties) => (
   <Paper>
     <Box
       sx={{
-        // py: 6,
-        px: 3,
+        padding: 5,
         borderRadius: dscHomeTheme.borderRadius.lg,
         mb: 4,
         ...sx,
@@ -25,7 +23,7 @@ const Hero = ({ title, children, sx }: HeroProperties) => (
             {title}
           </Typography>
           <Box sx={{ color: dscHomeTheme.colors.textSecondary }}>
-            {children}
+            <StockCenterInfoWithAuth />
           </Box>
         </Grid>
         <Grid item xs={0} md={4}>
