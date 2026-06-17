@@ -1,3 +1,4 @@
+export * from "./redesign"
 export * from "./linkLists"
 export * from "./BackToHomePage"
 export * from "./NotFoundError"
