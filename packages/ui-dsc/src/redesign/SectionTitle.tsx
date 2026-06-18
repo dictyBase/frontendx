@@ -21,7 +21,7 @@ const SectionTitle = ({ children, id, sx }: SectionTitleProperties) => (
       }}
     />
     <Typography
-      variant="h4"
+      variant="h3"
       component="h2"
       sx={{
         color: dscHomeTheme.colors.textPrimary,
