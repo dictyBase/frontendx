@@ -1,13 +1,13 @@
 import { useState } from "react"
-import { Helmet } from "react-helmet"
 import { useParams } from "react-router-dom"
-import Box from "@mui/material/Box"
 import { useStrainQuery } from "dicty-graphql-schema"
+import { match, P } from "ts-pattern"
+import { FullPageLoadingDisplay } from "@dictybase/ui-common"
 import { ErrorPageWrapper } from "../ErrorPageWrapper"
 import { characterConverter } from "../utils/characterConverter"
 import { DetailsHeader } from "./DetailsHeader"
-import { DetailsLoader } from "./DetailsLoader"
 import { StrainDetailsCard } from "./StrainDetailsCard"
+import { CatalogItemDetailsLayout } from "./CatalogItemDetailsLayout"
 
 /**
  * StrainDetailsContainer is the main component for an individual strain details page.
@@ -16,41 +16,33 @@ import { StrainDetailsCard } from "./StrainDetailsCard"
 const StrainDetailsContainer = () => {
   const { id } = useParams()
   const [tabValue, setTabValue] = useState(0)
-  const { loading, error, data } = useStrainQuery({
+  const result = useStrainQuery({
     variables: { id: `${id}` },
     errorPolicy: "all",
     fetchPolicy: "cache-and-network",
   })
-  if (loading) return <DetailsLoader />
-  if (error) return <ErrorPageWrapper error={error} />
-
-  const label = characterConverter(data?.strain?.label as string)
-  let title = `Strain Details for ${label}`
-  if (data?.strain?.phenotypes && data.strain.phenotypes.length > 0) {
-    title = `Phenotype and Strain Details for ${label}`
-  }
-
-  return (
-    <Box textAlign="center">
-      <Helmet>
-        <title>{title} - Dicty Stock Center</title>
-        <meta
-          name="description"
-          content={`Dicty Stock Center strain details page for ${label}`}
-        />
-      </Helmet>
-      {data?.strain && (
-        <>
-          <DetailsHeader id={data.strain.id} name={data.strain.label} />
+  return match(result)
+    .with({ data: { strain: P.select(P.not(P.nullish)) } }, (strain) => {
+      const label = characterConverter(strain.label)
+      let title = `Strain Details for ${label}`
+      if (strain?.phenotypes && strain.phenotypes.length > 0) {
+        title = `Phenotype and Strain Details for ${label}`
+      }
+      return (
+        <CatalogItemDetailsLayout label={label} title={title}>
+          <DetailsHeader id={strain.id} name={strain.label} />
           <StrainDetailsCard
-            data={data.strain}
+            data={strain}
             tabValue={tabValue}
             setTabValue={setTabValue}
           />
-        </>
-      )}
-    </Box>
-  )
+        </CatalogItemDetailsLayout>
+      )
+    })
+    .with({ loading: true }, () => <FullPageLoadingDisplay />)
+    .with({ error: P.select(P.not(P.nullish)) }, (error) => (
+      <ErrorPageWrapper error={error} />
+    ))
+    .otherwise(() => <> This message should not appear. </>)
 }
-
 export { StrainDetailsContainer }
