@@ -1,18 +1,10 @@
-import { Link } from "@mui/material"
+import { Link as ReactRouterLink } from "react-router-dom"
+import { Typography } from "@mui/material"
 import { dscHomeTheme } from "./dscTheme"
 import type { ArrowLinkProperties } from "./types"
 
-const ArrowLink = ({
-  href,
-  children,
-  external = false,
-  sx,
-}: ArrowLinkProperties) => (
-  <Link
-    href={href}
-    target={external ? "_blank" : undefined}
-    rel={external ? "noopener noreferrer" : undefined}
-    underline="none"
+const ArrowLink = ({ href, children, sx }: ArrowLinkProperties) => (
+  <Typography
     sx={{
       color: dscHomeTheme.colors.primary,
       fontWeight: 500,
@@ -25,8 +17,8 @@ const ArrowLink = ({
       },
       ...sx,
     }}>
-    {children}
-  </Link>
+    <ReactRouterLink to={href}>{children}</ReactRouterLink>
+  </Typography>
 )
 
 export { ArrowLink }
