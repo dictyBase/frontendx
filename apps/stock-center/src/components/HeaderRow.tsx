@@ -1,5 +1,5 @@
 import { useMemo } from "react"
-import { Grid, makeStyles } from "@material-ui/core"
+import { Container, Grid, makeStyles } from "@material-ui/core"
 import { CartIcon } from "@dictybase/ui-dsc"
 import { useAtomValue } from "jotai"
 import { Outlet } from "react-router-dom"
@@ -32,7 +32,9 @@ const HeaderRow = () => {
         alignItems="center"
         className={container}>
         <Grid item>
-          <CartIcon isFull={isFull} items={cartItems} />
+          <Container maxWidth="lg">
+            <CartIcon isFull={isFull} items={cartItems} />
+          </Container>
         </Grid>
       </Grid>
       <Outlet />
