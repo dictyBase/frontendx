@@ -1,4 +1,4 @@
-import { Box } from "@mui/material"
+import { Container, Box } from "@mui/material"
 import {
   CatalogCard,
   GridLayout,
@@ -12,7 +12,7 @@ import {
 import { Hero } from "./Hero"
 
 const DSCHomepage = () => (
-  <Box>
+  <Container sx={{ maxWidth: "70% !important" }}>
     <Hero title="Welcome to Dicty Stock Center (DSC)" />
     <Box sx={{ mb: 6 }}>
       <GridLayout minColumnWidth="200px" gap={3}>
@@ -50,7 +50,7 @@ const DSCHomepage = () => (
         ))}
       </GridLayout>
     </Box>
-  </Box>
+  </Container>
 )
 
 export { DSCHomepage }
