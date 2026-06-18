@@ -12,7 +12,7 @@ const StatCard = ({
   <Card
     elevation={0}
     sx={{
-      p: 3,
+      p: 5,
       borderRadius: dscHomeTheme.borderRadius.lg,
       background: gradientBackground(gradient[0], gradient[1]),
       color: "#fff",
@@ -26,7 +26,11 @@ const StatCard = ({
       ...sx,
     }}>
     <CardContent sx={{ p: 0, "&:last-child": { pb: 0 } }}>
-      <Typography variant="h3" component="div" sx={{ fontWeight: 700, mb: 1 }}>
+      <Typography
+        variant="h3"
+        component="div"
+        fontSize="24pt"
+        sx={{ fontWeight: 800, mb: 1 }}>
         {number}
       </Typography>
       <Typography variant="body1" sx={{ opacity: 0.95 }}>
