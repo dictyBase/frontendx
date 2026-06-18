@@ -1,4 +1,5 @@
 import { useRef } from "react"
+import { Container } from "@mui/material"
 import {
   buildStrainListFilter,
   graphqlListVariables,
@@ -53,7 +54,7 @@ const StrainCatalog = () => {
     option: { root: rootReference.current, threshold: 0.1 },
   })
   return (
-    <>
+    <Container maxWidth="lg">
       <CatalogHeader title="Strain Catalog" />
       <SearchBarStrain />
       <WindowHeightWrapper>
@@ -84,7 +85,7 @@ const StrainCatalog = () => {
             <></>
           ))}
       </WindowHeightWrapper>
-    </>
+    </Container>
   )
 }
 

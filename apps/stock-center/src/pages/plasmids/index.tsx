@@ -1,4 +1,5 @@
 import { useRef } from "react"
+import { Container } from "@mui/material"
 import { useSearchParams } from "react-router-dom"
 import { P, match } from "ts-pattern"
 import { usePlasmidListFilterQuery } from "dicty-graphql-schema"
@@ -52,7 +53,7 @@ const PlasmidCatalog = () => {
   })
 
   return (
-    <>
+    <Container maxWidth="lg">
       <CatalogHeader title="Plasmid Catalog" />
       <SearchBarPlasmid />
       <WindowHeightWrapper>
@@ -80,7 +81,7 @@ const PlasmidCatalog = () => {
             <></>
           ))}
       </WindowHeightWrapper>
-    </>
+    </Container>
   )
 }
 
