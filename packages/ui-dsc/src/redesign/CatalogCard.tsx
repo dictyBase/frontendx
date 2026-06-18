@@ -9,6 +9,7 @@ const CatalogCard = ({
   description,
   href,
   external = false,
+  linkText = "Explore →",
   sx,
 }: CatalogCardProperties) => (
   <Card
@@ -51,7 +52,7 @@ const CatalogCard = ({
         {description}
       </Typography>
       <ArrowLink href={href} external={external}>
-        Explore →
+        {linkText}
       </ArrowLink>
     </CardContent>
   </Card>
