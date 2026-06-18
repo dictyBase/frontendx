@@ -3,11 +3,14 @@ import { dscHomeTheme, Slideshow, HeroProperties } from "@dictybase/ui-dsc"
 import { StockCenterInfoWithAuth } from "../StockCenterInfoWithAuth"
 
 const Hero = ({ title, sx }: HeroProperties) => (
-  <Paper>
+  <Paper
+    sx={{
+      borderRadius: dscHomeTheme.borderRadius.lg,
+      boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+    }}>
     <Box
       sx={{
         padding: 5,
-        borderRadius: dscHomeTheme.borderRadius.lg,
         mb: 4,
         ...sx,
       }}>
