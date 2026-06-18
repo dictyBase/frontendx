@@ -42,12 +42,10 @@ const DscApp = () => {
         stockCenterUrl={import.meta.env.VITE_APP_STOCKCENTER_URL}
       />
       <main className={classes.main}>
-        <Container maxWidth="lg">
-          <RouterProvider
-            router={dscRouter}
-            fallbackElement={<LoadingDisplay rows={6} />}
-          />
-        </Container>
+        <RouterProvider
+          router={dscRouter}
+          fallbackElement={<LoadingDisplay rows={6} />}
+        />
       </main>
       <FooterWithAuth
         frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
