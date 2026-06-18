@@ -16,22 +16,23 @@ export const catalogs = [
     href: "/strains",
   },
   {
+    icon: "🦠",
+    title: "Bacterial Strains",
+    description: "Find bacterial strains for your experiments",
+    href: "/strains?group=bacterial",
+  },
+  {
+    icon: "🏷️",
+    title: "GWDI Strains",
+    description:
+      "Explore strains from the Genome Wide Dictyostelium Insertion Bank",
+    href: "/strains?group=gwdi",
+  },
+  {
     icon: "🧪",
     title: "Plasmid Catalog",
     description: "Explore plasmids for molecular biology research",
     href: "/plasmids",
-  },
-  {
-    icon: "🦠",
-    title: "Bacterial Strains",
-    description: "Find bacterial strains for your experiments",
-    href: "/bacteria",
-  },
-  {
-    icon: "📦",
-    title: "Downloads",
-    description: "Access forms, protocols, and other resources",
-    href: "/downloads",
   },
 ]
 
@@ -45,7 +46,7 @@ export const infoSections: Array<{
     icon: "📦",
     links: [
       { label: "Order Information", href: "/information/order" },
-      { label: "Shipping Information", href: "/information/shipping" },
+      { label: "Deposit Information", href: "/information/deposit" },
       { label: "Payment Information", href: "/information/payment" },
       { label: "FAQs", href: "/information/faq" },
     ],
@@ -54,27 +55,49 @@ export const infoSections: Array<{
     title: "Additional Materials",
     icon: "📚",
     links: [
-      { label: "Nomenclature Guide", href: "/information/nomenclature" },
+      {
+        label: "Nomenclature Guide",
+        href: `${import.meta.env.VITE_APP_FRONTPAGE_URL}/research/nomenclature`,
+      },
       { label: "Phenotype Ontology", href: "/information/phenotypes" },
       { label: "Useful Links", href: "/information/links" },
+      {
+        label: "Downloads",
+        href: `${import.meta.env.VITE_APP_FRONTPAGE_URL}/downloads`,
+      },
     ],
   },
   {
-    title: "About",
+    title: "Information",
     icon: "ℹ️",
     links: [
-      { label: "About dictyBase", href: "/about" },
+      {
+        label: "About dictyBase",
+        href: `${import.meta.env.VITE_APP_FRONTPAGE_URL}/about`,
+      },
       { label: "Contact Us", href: "/contact" },
-      { label: "Cite Us", href: "/cite" },
+      {
+        label: "Cite Us",
+        href: `${import.meta.env.VITE_APP_FRONTPAGE_URL}/community/citation`,
+      },
     ],
   },
   {
     title: "Community",
     icon: "👥",
     links: [
-      { label: "Dicty Community", href: "/community" },
-      { label: "Events", href: "/events" },
-      { label: "Publications", href: "/publications" },
+      {
+        label: "Annual Conferences",
+        href: `${import.meta.env.VITE_APP_FRONTPAGE_URL}/community/conference`,
+      },
+      {
+        label: "Email Forum",
+        href: `${import.meta.env.VITE_APP_FRONTPAGE_URL}/community/listserv`,
+      },
+      {
+        label: "News",
+        href: `${import.meta.env.VITE_APP_FRONTPAGE_URL}/news`,
+      },
     ],
   },
 ]
