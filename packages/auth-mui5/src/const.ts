@@ -28,4 +28,10 @@ const getHomePath = (basename: string) => {
   )
 }
 
-export { getCallbackPath, getHomePath, type UserWithRoles }
+enum ACCESS {
+  public = "PUBLIC",
+  protected = "PROTECTED",
+  private = "PRIVATE",
+}
+
+export { ACCESS, getCallbackPath, getHomePath, type UserWithRoles }

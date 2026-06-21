@@ -1,40 +1,39 @@
 import { createBrowserRouter, RouteObject } from "react-router-dom"
-import { bind, let as Olet, of, Do, match } from "fp-ts/Option"
 import { pipe } from "fp-ts/function"
+import { map as Rmap, toEntries as RtoEntries } from "fp-ts/Record"
+import { map as Amap } from "fp-ts/Array"
 import {
-  type dynamicRoutesProperties,
-  publicRoutes,
-  protectedRoutes,
-  privateRoutes,
+  type LazyDynamicRoutesProperties,
+  wrapLazyComponent,
+  pathParts,
   buildMergedRoutes,
 } from "@dictybase/auth-mui5"
 import { NotFoundError } from "@dictybase/ui-common"
 
-const dynamicRoutes: dynamicRoutesProperties = import.meta.glob(
-  "/src/pages/**/**/*.tsx",
-  {
-    eager: true,
-  },
-)
+const dynamicRoutes = import.meta.glob("/src/pages/**/**/*.tsx")
 
-const createRouteDefinition = (allRoutes: dynamicRoutesProperties) =>
+const createRouteDefinition = (
+  allRoutes: LazyDynamicRoutesProperties,
+): Array<RouteObject> =>
   pipe(
-    Do,
-    bind("publicR", () => pipe(allRoutes, publicRoutes, of)),
-    bind("protectedR", () => pipe(allRoutes, protectedRoutes, of)),
-    bind("privateR", () => pipe(allRoutes, privateRoutes, of)),
-    Olet("mergedR", buildMergedRoutes),
-    Olet("finalR", ({ mergedR }) => [
-      { errorElement: <NotFoundError />, children: mergedR },
-    ]),
-    match(
-      () => [] as Array<RouteObject>,
-      ({ finalR }) => finalR,
-    ),
+    allRoutes,
+    Rmap(wrapLazyComponent),
+    RtoEntries,
+    Amap(([path, PageComponent]) => ({
+      path: pathParts(path),
+      element: <PageComponent />,
+    })),
+    buildMergedRoutes,
+    (routes) => [
+      {
+        errorElement: <NotFoundError />,
+        children: routes,
+      },
+    ],
   )
 
 const frontpageRouter = createBrowserRouter(
-  createRouteDefinition(dynamicRoutes),
+  createRouteDefinition(dynamicRoutes as LazyDynamicRoutesProperties),
   {
     basename: import.meta.env.VITE_APP_BASENAME,
   },

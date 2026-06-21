@@ -1,5 +1,6 @@
+import { Suspense } from "react"
 import { Container, Box } from "@material-ui/core"
-import { LoadingDisplay } from "@dictybase/ui-dsc"
+import { FullPageLoadingDisplay } from "@dictybase/ui-common"
 import { RouterProvider } from "react-router-dom"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import {
@@ -45,10 +46,9 @@ const DscApp = () => {
       />
       <main className={classes.main}>
         <Container maxWidth="lg">
-          <RouterProvider
-            router={dscRouter}
-            fallbackElement={<LoadingDisplay rows={6} />}
-          />
+          <Suspense fallback={FullPageLoadingDisplay}>
+            <RouterProvider router={dscRouter} />
+          </Suspense>
         </Container>
       </main>
       <FooterWithAuth

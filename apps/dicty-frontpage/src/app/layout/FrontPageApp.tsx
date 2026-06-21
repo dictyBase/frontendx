@@ -1,3 +1,4 @@
+import { Suspense } from "react"
 import { RouterProvider } from "react-router-dom"
 import { Box } from "@mui/material"
 import { Theme } from "@mui/material/styles"
@@ -7,6 +8,7 @@ import {
   NavbarWithAuth,
   FooterWithAuth,
 } from "@dictybase/auth-mui5"
+import { FullPageLoadingDisplay } from "@dictybase/ui-common"
 import { useGoogleAnalytics } from "../../common/hooks/useGoogleAnalytics"
 import { frontpageRouter } from "../../routes"
 
@@ -44,9 +46,11 @@ const FrontPageApp = () => {
         frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
         stockCenterUrl={import.meta.env.VITE_APP_STOCKCENTER_URL}
       />
-      <main>
-        <RouterProvider router={frontpageRouter} />
-      </main>
+      <Suspense fallback={<FullPageLoadingDisplay />}>
+        <main>
+          <RouterProvider router={frontpageRouter} />
+        </main>
+      </Suspense>
       <FooterWithAuth
         frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
         stockCenterUrl={import.meta.env.VITE_APP_STOCKCENTER_URL}
