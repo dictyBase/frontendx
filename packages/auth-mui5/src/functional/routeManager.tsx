@@ -1,9 +1,10 @@
-import { type FunctionComponent } from "react"
+import { Suspense, type ComponentType } from "react"
 import { RouteObject } from "react-router-dom"
 import { collect as Rcollect, filter as Rfilter } from "fp-ts/Record"
 import { Ord } from "fp-ts/string"
 import { append as Arpend } from "fp-ts/Array"
 import { pipe } from "fp-ts/function"
+import { FullPageLoadingDisplay } from "@dictybase/ui-common"
 import { Callback } from "../Callback"
 import { Login } from "../Login"
 import { Protected } from "../Protected"
@@ -22,13 +23,16 @@ enum ACCESS {
  */
 type PageComponentData = {
   /**
-   * The default function component.
+   * The default page component. May be a regular component or a
+   * `React.lazy()`-wrapped one; rendering is wrapped in `Suspense` so either
+   * works.
    */
-  default: FunctionComponent
+  default: ComponentType
   /**
-   * The access level required to access the component.
+   * The access level required to access the component. An undefined value is
+   * treated as public so pages do not have to declare an explicit access tier.
    */
-  access: ACCESS
+  access: ACCESS | undefined
   /**
    * An optional array of roles that are allowed to access the component.
    */
@@ -60,6 +64,12 @@ type dynamicRoutesProperties = Record<string, PageComponentData>
 /**
  * Maps a route and its corresponding page component data to a route object.
  */
+const renderLazyPage = (PageComponent: ComponentType) => (
+  <Suspense fallback={<FullPageLoadingDisplay />}>
+    <PageComponent />
+  </Suspense>
+)
+
 const mapToRouteObject = (route: string, value: PageComponentData) => {
   const PageComponent = value.default
   const { roles } = value
@@ -67,11 +77,13 @@ const mapToRouteObject = (route: string, value: PageComponentData) => {
     // If roles exist, return a route object with a private element and a child route.
     return {
       element: <Private roles={roles} />, // Private component that requires specific roles.
-      children: [{ path: pathParts(route), element: <PageComponent /> }], // Child route with the page component.
+      children: [
+        { path: pathParts(route), element: renderLazyPage(PageComponent) },
+      ], // Child route with the page component.
     }
   }
   // If no roles, return a route object with just the page component.
-  return { path: pathParts(route), element: <PageComponent /> }
+  return { path: pathParts(route), element: renderLazyPage(PageComponent) }
 }
 
 /**

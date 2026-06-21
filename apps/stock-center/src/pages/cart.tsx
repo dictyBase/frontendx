@@ -1,6 +1,7 @@
 import { useAtomValue } from "jotai"
 import { CartHeader, EmptyCart } from "@dictybase/ui-dsc"
 import { match } from "ts-pattern"
+import { ACCESS } from "@dictybase/auth-mui5"
 import { CartList } from "../components/CartList"
 import { cartAtom } from "../cartState"
 /**
@@ -28,3 +29,4 @@ const CartHandler = () => {
 
 // eslint-disable-next-line import/no-default-export
 export default CartHandler
+export const access = ACCESS.public
