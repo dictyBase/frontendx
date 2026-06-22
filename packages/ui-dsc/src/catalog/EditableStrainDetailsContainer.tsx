@@ -1,13 +1,20 @@
 import { useState } from "react"
-import { Helmet } from "react-helmet"
 import { useParams } from "react-router-dom"
-import Box from "@mui/material/Box"
 import { useStrainQuery } from "dicty-graphql-schema"
+import { match, P } from "ts-pattern"
+import { pipe } from "fp-ts/function"
+import {
+  fromNullable as OfromNullable,
+  getOrElse as OgetOrElse,
+  map as Omap,
+} from "fp-ts/Option"
+import { match as Amatch } from "fp-ts/Array"
+import { FullPageLoadingDisplay } from "@dictybase/ui-common"
 import { ErrorPageWrapper } from "../ErrorPageWrapper"
 import { characterConverter } from "../utils/characterConverter"
 import { DetailsHeader } from "./DetailsHeader"
-import { DetailsLoader } from "./DetailsLoader"
 import { EditableStrainDetailsCard } from "./EditableStrainDetailsCard"
+import { CatalogItemDetailsLayout } from "./CatalogItemDetailsLayout"
 
 /**
  * EditableStrainDetailsContainer is the main component for an individual strain details page.
@@ -16,44 +23,43 @@ import { EditableStrainDetailsCard } from "./EditableStrainDetailsCard"
  */
 
 const EditableStrainDetailsContainer = () => {
-  const [tabValue, setTabValue] = useState(0)
   const { id } = useParams()
-  const { loading, error, data } = useStrainQuery({
+  const [tabValue, setTabValue] = useState(0)
+  const result = useStrainQuery({
     variables: { id: `${id}` },
-    errorPolicy: "ignore",
+    errorPolicy: "all",
     fetchPolicy: "cache-and-network",
   })
-
-  if (loading) return <DetailsLoader />
-  if (error) return <ErrorPageWrapper error={error} />
-
-  const label = characterConverter(data?.strain?.label as string)
-  let title = `Strain Details for ${label}`
-  if (data?.strain?.phenotypes && data.strain.phenotypes.length > 0) {
-    title = `Phenotype and Strain Details for ${label}`
-  }
-
-  return (
-    <Box textAlign="center">
-      <Helmet>
-        <title>{title} - Dicty Stock Center</title>
-        <meta
-          name="description"
-          content={`Dicty Stock Center strain details page for ${label}`}
-        />
-      </Helmet>
-      {data?.strain && (
-        <>
-          <DetailsHeader id={data.strain.id} name={data.strain.label} />
+  return match(result)
+    .with({ data: { strain: P.select(P.not(P.nullish)) } }, (strain) => {
+      const label = characterConverter(strain.label)
+      const title = pipe(
+        strain.phenotypes,
+        OfromNullable,
+        Omap(
+          Amatch(
+            () => `Strain Details for ${label}`,
+            () => `Phenotype and Strain Details for ${label}`,
+          ),
+        ),
+        OgetOrElse(() => `Strain Details for ${label}`),
+      )
+      return (
+        <CatalogItemDetailsLayout label={label} title={title}>
+          <DetailsHeader id={strain.id} name={strain.label} />
           <EditableStrainDetailsCard
-            data={data.strain}
+            data={strain}
             tabValue={tabValue}
             setTabValue={setTabValue}
           />
-        </>
-      )}
-    </Box>
-  )
+        </CatalogItemDetailsLayout>
+      )
+    })
+    .with({ loading: true }, () => <FullPageLoadingDisplay />)
+    .with({ error: P.select(P.not(P.nullish)) }, (error) => (
+      <ErrorPageWrapper error={error} />
+    ))
+    .otherwise(() => <> This message should not appear. </>)
 }
 
 export { EditableStrainDetailsContainer }
