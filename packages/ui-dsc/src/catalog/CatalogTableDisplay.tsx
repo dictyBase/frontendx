@@ -7,6 +7,9 @@ import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import LinearProgress from "@mui/material/LinearProgress"
 import Typography from "@mui/material/Typography"
+import { pipe } from "fp-ts/function"
+import { match as Bmatch } from "fp-ts/boolean"
+import { map as Amap } from "fp-ts/Array"
 import { styled } from "@mui/material/styles"
 import { makeStyles } from "tss-react/mui"
 import { compose, borders, typography } from "@mui/system"
@@ -14,7 +17,6 @@ import { indigo } from "@mui/material/colors"
 import { AddToCartButtonHandler } from "stock-center/src/components/AddToCartButtonHandler"
 import { Link } from "react-router-dom"
 import { v4 as uuid4 } from "uuid"
-import { pipe } from "fp-ts/function"
 import { slice, trimRight } from "fp-ts/string"
 import { fromNullable, getOrElse } from "fp-ts/Option"
 import type { CatalogItem, StrainItem, PlasmidItem } from "../types"
@@ -124,32 +126,30 @@ const CatalogRows = ({
   const { classes } = useStyles()
   return (
     <>
-      {items.map((item, index: number) => {
-        const key = `${item.id}`
-        if (index === items.length - 1 && nextCursor !== 0) {
-          // last item and expected to have more data
-          return (
-            <>
-              <TableRow hover className={classes.row} key={key}>
-                {cellFunction(item)}
-              </TableRow>
-              <TableRow
-                className={classes.row}
-                key="linear-progess"
-                ref={targetReference}>
-                <TableCell colSpan={4}>
-                  <LinearProgress />
-                </TableCell>
-              </TableRow>
-            </>
-          )
-        }
-        return (
-          <TableRow hover className={classes.row} key={key}>
+      {pipe(
+        items,
+        Amap((item) => (
+          <TableRow hover className={classes.row} key={item.id}>
             {cellFunction(item)}
           </TableRow>
-        )
-      })}
+        )),
+      )}
+      {pipe(
+        nextCursor === 0,
+        Bmatch(
+          () => (
+            <TableRow
+              className={classes.row}
+              key="linear-progess"
+              ref={targetReference}>
+              <TableCell colSpan={4}>
+                <LinearProgress />
+              </TableCell>
+            </TableRow>
+          ),
+          () => <></>,
+        ),
+      )}
     </>
   )
 }
