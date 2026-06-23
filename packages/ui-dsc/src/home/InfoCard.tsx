@@ -7,6 +7,9 @@ import {
   ListItem,
   Typography,
 } from "@mui/material"
+import { pipe } from "fp-ts/function"
+import { fromNullable as OfromNullable, match as Omatch } from "fp-ts/Option"
+import { map as Amap } from "fp-ts/Array"
 import { dscHomeTheme } from "./dscTheme"
 import { ArrowLink } from "./ArrowLink"
 import { LinkItem } from "../types"
@@ -35,10 +38,17 @@ const InfoCard = ({ title, icon, links, sx }: InfoCardProperties) => (
     }}>
     <CardContent sx={{ p: 0, "&:last-child": { pb: 0 } }}>
       <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-        {icon && (
-          <Box sx={{ fontSize: "1.5rem", mr: 1.5 }} component="span">
-            {icon}
-          </Box>
+        {pipe(
+          icon,
+          OfromNullable,
+          Omatch(
+            () => <>/</>,
+            () => (
+              <Box sx={{ fontSize: "1.5rem", mr: 1.5 }} component="span">
+                {icon}
+              </Box>
+            ),
+          ),
         )}
         <Typography
           variant="h6"
@@ -47,13 +57,16 @@ const InfoCard = ({ title, icon, links, sx }: InfoCardProperties) => (
         </Typography>
       </Box>
       <List sx={{ p: 0 }}>
-        {links.map((link) => (
-          <ListItem
-            key={link.href}
-            sx={{ p: 0, mb: 1, "&:last-child": { mb: 0 } }}>
-            <ArrowLink href={link.href}>{link.label}</ArrowLink>
-          </ListItem>
-        ))}
+        {pipe(
+          links,
+          Amap((link) => (
+            <ListItem
+              key={link.href}
+              sx={{ p: 0, mb: 1, "&:last-child": { mb: 0 } }}>
+              <ArrowLink href={link.href}>{link.label}</ArrowLink>
+            </ListItem>
+          )),
+        )}
       </List>
     </CardContent>
   </Card>
