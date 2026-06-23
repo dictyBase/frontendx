@@ -1,5 +1,5 @@
 import { expect, test } from "vitest"
-import { dscHomeTheme } from "../dscTheme"
+import { dscHomeTheme } from "../home/dscTheme"
 
 test("dscHomeTheme has correct colors", () => {
   expect(dscHomeTheme.colors.primary).toBe("#004080")

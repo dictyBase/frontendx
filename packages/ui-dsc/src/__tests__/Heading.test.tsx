@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react"
 import { expect, test } from "vitest"
-import { Heading } from "../Heading"
+import { Heading } from "../home/Heading"
 
 test("renders Heading component", () => {
   render(<Heading />)
