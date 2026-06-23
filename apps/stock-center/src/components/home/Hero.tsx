@@ -7,6 +7,8 @@ import {
   Theme,
   SxProps,
 } from "@mui/material"
+import { pipe } from "fp-ts/function"
+import { match as Bmatch } from "fp-ts/boolean"
 import { useNavigate } from "react-router-dom"
 import EditIcon from "@mui/icons-material/Edit"
 import { useAuthorization } from "@dictybase/auth-mui5"
@@ -49,15 +51,19 @@ const Hero = ({ title, sx }: HeroProperties) => {
                 mb: 2,
               }}>
               {title}
-              {isAuthorized ? (
-                <IconButton
-                  aria-label="Edit DSC Intro"
-                  size="medium"
-                  onClick={onClick}>
-                  <EditIcon />
-                </IconButton>
-              ) : (
-                <></>
+              {pipe(
+                isAuthorized,
+                Bmatch(
+                  () => <></>,
+                  () => (
+                    <IconButton
+                      aria-label="Edit DSC Intro"
+                      size="medium"
+                      onClick={onClick}>
+                      <EditIcon />
+                    </IconButton>
+                  ),
+                ),
               )}
             </Typography>
             <Box sx={{ color: dscHomeTheme.colors.textSecondary }}>
