@@ -18,6 +18,7 @@ type CatalogCardProperties = {
   description: string
   href: string
   external?: boolean
+  linkText?: string
   sx?: SxProps<Theme>
 }
 
