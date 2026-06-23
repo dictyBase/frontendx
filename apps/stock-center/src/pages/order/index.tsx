@@ -2,6 +2,7 @@ import { match } from "ts-pattern"
 import { useAtomValue } from "jotai"
 import { Navigate } from "react-router-dom"
 import { OrderFormStepper } from "@dictybase/ui-dsc"
+import { Container } from "@mui/material"
 import { ShippingPage } from "../../components/ShippingPage"
 import { PaymentPage } from "../../components/PaymentPage"
 import { SubmitPage } from "../../components/SubmitPage"
@@ -11,7 +12,7 @@ import { currentCartQuantityAtom } from "../../cartState"
 const OrderForm = () => {
   const orderStep = useAtomValue(orderStepAtom)
   return (
-    <>
+    <Container>
       <OrderFormStepper step={orderStep} />
       {match(orderStep)
         .with(OrderSteps.SHIPPING, () => <ShippingPage />)
@@ -20,7 +21,7 @@ const OrderForm = () => {
         .otherwise(() => (
           <>Unexpected Error in Order Form. This message should not appear.</>
         ))}
-    </>
+    </Container>
   )
 }
 
