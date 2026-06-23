@@ -9,12 +9,11 @@ import {
   map as Omap,
 } from "fp-ts/Option"
 import { match as Amatch } from "fp-ts/Array"
-import { FullPageLoadingDisplay } from "@dictybase/ui-common"
+import { PageLayout, FullPageLoadingDisplay } from "@dictybase/ui-common"
 import { ErrorPageWrapper } from "../ErrorPageWrapper"
 import { characterConverter } from "../utils/characterConverter"
 import { DetailsHeader } from "./DetailsHeader"
 import { EditableStrainDetailsCard } from "./EditableStrainDetailsCard"
-import { CatalogItemDetailsLayout } from "./CatalogItemDetailsLayout"
 
 /**
  * EditableStrainDetailsContainer is the main component for an individual strain details page.
@@ -33,6 +32,7 @@ const EditableStrainDetailsContainer = () => {
   return match(result)
     .with({ data: { strain: P.select(P.not(P.nullish)) } }, (strain) => {
       const label = characterConverter(strain.label)
+      const metadataContent = `Dicty Stock Center strain details page for ${label}`
       const title = pipe(
         strain.phenotypes,
         OfromNullable,
@@ -45,14 +45,14 @@ const EditableStrainDetailsContainer = () => {
         OgetOrElse(() => `Strain Details for ${label}`),
       )
       return (
-        <CatalogItemDetailsLayout label={label} title={title}>
+        <PageLayout metaContent={metadataContent} title={title}>
           <DetailsHeader id={strain.id} name={strain.label} />
           <EditableStrainDetailsCard
             data={strain}
             tabValue={tabValue}
             setTabValue={setTabValue}
           />
-        </CatalogItemDetailsLayout>
+        </PageLayout>
       )
     })
     .with({ loading: true }, () => <FullPageLoadingDisplay />)
