@@ -3,12 +3,11 @@ import { render, screen } from "@testing-library/react"
 import { MockedProvider } from "@apollo/client/testing"
 import { BrowserRouter } from "react-router-dom"
 import { StrainDocument } from "dicty-graphql-schema"
-import { StrainDetailsContainer } from "../catalog/StrainDetailsContainer"
+import { EditableStrainDetailsContainer } from "../catalog/EditableStrainDetailsContainer"
 import { strainWithPhenotype, availableStrain } from "../mocks/mockStrain"
 
 const mockID = "DBS0350966"
 
-// https://stackoverflow.com/questions/58117890/how-to-test-components-using-new-react-router-hooks
 vi.mock("react-router-dom", async () => {
   const originalModule = (await vi.importActual(
     "react-router-dom",
@@ -92,7 +91,7 @@ test("displays loading state", () => {
   render(
     <MockedProvider mocks={successMocks} addTypename={false}>
       <BrowserRouter>
-        <StrainDetailsContainer />
+        <EditableStrainDetailsContainer />
       </BrowserRouter>
     </MockedProvider>,
   )
@@ -103,16 +102,14 @@ test("displays expected data with phenotypes", async () => {
   render(
     <MockedProvider mocks={successMocks} addTypename={false}>
       <BrowserRouter>
-        <StrainDetailsContainer />
+        <EditableStrainDetailsContainer />
       </BrowserRouter>
     </MockedProvider>,
   )
-  // wait for data to load...
   const strain = await screen.findByRole("heading", {
     name: strainWithPhenotype.label,
   })
   expect(strain).toBeInTheDocument()
-  // shows depositor
   const { depositor } = strainWithPhenotype
   expect(
     screen.getByText(`${depositor.first_name} ${depositor.last_name}`),
@@ -123,7 +120,7 @@ test("displays strain data with empty phenotypes array", async () => {
   render(
     <MockedProvider mocks={strainWithEmptyPhenotypesMocks} addTypename={false}>
       <BrowserRouter>
-        <StrainDetailsContainer />
+        <EditableStrainDetailsContainer />
       </BrowserRouter>
     </MockedProvider>,
   )
@@ -137,7 +134,7 @@ test("displays strain data with null phenotypes", async () => {
   render(
     <MockedProvider mocks={strainWithNullPhenotypesMocks} addTypename={false}>
       <BrowserRouter>
-        <StrainDetailsContainer />
+        <EditableStrainDetailsContainer />
       </BrowserRouter>
     </MockedProvider>,
   )
@@ -151,7 +148,7 @@ test("displays error state on query error", async () => {
   render(
     <MockedProvider mocks={errorMocks} addTypename={false}>
       <BrowserRouter>
-        <StrainDetailsContainer />
+        <EditableStrainDetailsContainer />
       </BrowserRouter>
     </MockedProvider>,
   )
@@ -163,7 +160,7 @@ test("displays otherwise fallback message when strain data is null", async () =>
   render(
     <MockedProvider mocks={otherwiseMocks} addTypename={false}>
       <BrowserRouter>
-        <StrainDetailsContainer />
+        <EditableStrainDetailsContainer />
       </BrowserRouter>
     </MockedProvider>,
   )
