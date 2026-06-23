@@ -1,9 +1,23 @@
-import { Typography, IconButton, Paper, Box, Grid } from "@mui/material"
+import { ReactNode } from "react"
+import {
+  Typography,
+  IconButton,
+  Paper,
+  Box,
+  Grid,
+  Theme,
+  SxProps,
+} from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import EditIcon from "@mui/icons-material/Edit"
 import { useAuthorization } from "@dictybase/auth-mui5"
-import { dscHomeTheme, Slideshow, HeroProperties } from "@dictybase/ui-dsc"
+import { dscHomeTheme, Slideshow } from "@dictybase/ui-dsc"
 import { StockCenterInfo } from "./StockCenterInfo"
+
+type HeroProperties = {
+  title: string
+  sx?: SxProps<Theme>
+}
 
 const authorizedRoles = ["content-admin"]
 

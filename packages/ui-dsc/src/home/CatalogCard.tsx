@@ -8,7 +8,6 @@ type CatalogCardProperties = {
   title: string
   description: string
   href: string
-  external?: boolean
   linkText?: string
   sx?: SxProps<Theme>
 }
@@ -18,7 +17,6 @@ const CatalogCard = ({
   title,
   description,
   href,
-  external = false,
   linkText = "Explore →",
   sx,
 }: CatalogCardProperties) => (
@@ -61,9 +59,7 @@ const CatalogCard = ({
       <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
         {description}
       </Typography>
-      <ArrowLink href={href} external={external}>
-        {linkText}
-      </ArrowLink>
+      <ArrowLink href={href}>{linkText}</ArrowLink>
     </CardContent>
   </Card>
 )
