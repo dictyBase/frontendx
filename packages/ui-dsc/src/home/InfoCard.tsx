@@ -1,3 +1,4 @@
+import type { SxProps, Theme } from "@mui/material"
 import {
   Box,
   Card,
@@ -8,7 +9,14 @@ import {
 } from "@mui/material"
 import { dscHomeTheme } from "./dscTheme"
 import { ArrowLink } from "./ArrowLink"
-import type { InfoCardProperties } from "./types"
+import { LinkItem } from "../types"
+
+type InfoCardProperties = {
+  title: string
+  icon?: string
+  links: LinkItem[]
+  sx?: SxProps<Theme>
+}
 
 const InfoCard = ({ title, icon, links, sx }: InfoCardProperties) => (
   <Card

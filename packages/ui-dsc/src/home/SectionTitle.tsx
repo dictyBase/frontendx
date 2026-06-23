@@ -1,6 +1,13 @@
+import type { ReactNode } from "react"
+import type { SxProps, Theme } from "@mui/material"
 import { Box, Typography } from "@mui/material"
 import { dscHomeTheme } from "./dscTheme"
-import type { SectionTitleProperties } from "./types"
+
+type SectionTitleProperties = {
+  children: ReactNode
+  id?: string
+  sx?: SxProps<Theme>
+}
 
 const SectionTitle = ({ children, id, sx }: SectionTitleProperties) => (
   <Box

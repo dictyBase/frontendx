@@ -1,7 +1,14 @@
+import type { SxProps, Theme } from "@mui/material"
 import { Card, CardContent, Typography } from "@mui/material"
 import { dscHomeTheme } from "./dscTheme"
 import { gradientBackground } from "./styleHelpers"
-import type { StatCardProperties } from "./types"
+
+type StatCardProperties = {
+  number: string
+  label: string
+  gradient?: [string, string]
+  sx?: SxProps<Theme>
+}
 
 const StatCard = ({
   number,
