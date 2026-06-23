@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react"
 import { MemoryRouter } from "react-router-dom"
 import { expect, test } from "vitest"
-import { ArrowLink } from "../ArrowLink"
+import { ArrowLink } from "../home/ArrowLink"
 
 test("renders ArrowLink with correct text", () => {
   render(
