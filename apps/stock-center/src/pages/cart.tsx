@@ -1,4 +1,5 @@
 import { useAtomValue } from "jotai"
+import { Container } from "@mui/material"
 import { CartHeader, EmptyCart } from "@dictybase/ui-dsc"
 import { match } from "ts-pattern"
 import { CartList } from "../components/CartList"
@@ -12,7 +13,7 @@ const CartHandler = () => {
   const cart = useAtomValue(cartAtom)
 
   return (
-    <>
+    <Container>
       <CartHeader />
       {match(cart)
         .when(
@@ -22,7 +23,7 @@ const CartHandler = () => {
         .otherwise(() => (
           <EmptyCart />
         ))}
-    </>
+    </Container>
   )
 }
 
