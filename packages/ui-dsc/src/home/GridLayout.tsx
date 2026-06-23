@@ -1,5 +1,13 @@
+import type { ReactNode } from "react"
+import type { SxProps, Theme } from "@mui/material"
 import { Box } from "@mui/material"
-import type { GridLayoutProperties } from "./types"
+
+type GridLayoutProperties = {
+  children: ReactNode
+  minColumnWidth: string
+  gap?: number
+  sx?: SxProps<Theme>
+}
 
 const GridLayout = ({
   children,

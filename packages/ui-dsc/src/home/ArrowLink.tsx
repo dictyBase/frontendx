@@ -1,7 +1,14 @@
+import type { ReactNode } from "react"
 import { Link as ReactRouterLink } from "react-router-dom"
+import type { SxProps, Theme } from "@mui/material"
 import { Typography } from "@mui/material"
 import { dscHomeTheme } from "./dscTheme"
-import type { ArrowLinkProperties } from "./types"
+
+type ArrowLinkProperties = {
+  href: string
+  children: ReactNode
+  sx?: SxProps<Theme>
+}
 
 const ArrowLink = ({ href, children, sx }: ArrowLinkProperties) => (
   <Typography
@@ -22,3 +29,4 @@ const ArrowLink = ({ href, children, sx }: ArrowLinkProperties) => (
 )
 
 export { ArrowLink }
+export type { ArrowLinkProperties }

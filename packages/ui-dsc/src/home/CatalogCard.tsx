@@ -1,7 +1,17 @@
+import type { SxProps, Theme } from "@mui/material"
 import { Box, Card, CardContent, Typography } from "@mui/material"
 import { dscHomeTheme } from "./dscTheme"
 import { ArrowLink } from "./ArrowLink"
-import type { CatalogCardProperties } from "./types"
+
+type CatalogCardProperties = {
+  icon: string
+  title: string
+  description: string
+  href: string
+  external?: boolean
+  linkText?: string
+  sx?: SxProps<Theme>
+}
 
 const CatalogCard = ({
   icon,
@@ -59,3 +69,4 @@ const CatalogCard = ({
 )
 
 export { CatalogCard }
+export type { CatalogCardProperties }
