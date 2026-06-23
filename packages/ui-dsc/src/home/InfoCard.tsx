@@ -51,9 +51,7 @@ const InfoCard = ({ title, icon, links, sx }: InfoCardProperties) => (
           <ListItem
             key={link.href}
             sx={{ p: 0, mb: 1, "&:last-child": { mb: 0 } }}>
-            <ArrowLink href={link.href} external={link.external}>
-              {link.label}
-            </ArrowLink>
+            <ArrowLink href={link.href}>{link.label}</ArrowLink>
           </ListItem>
         ))}
       </List>
