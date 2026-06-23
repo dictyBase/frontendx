@@ -1,4 +1,4 @@
-export type * from "./types"
+export * from "./types"
 export * from "./linkLists"
 export * from "./BackToHomePage"
 export * from "./NotFoundError"
