@@ -5,6 +5,12 @@ import Grid from "@mui/material/Grid"
 import Card from "@mui/material/Card"
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
+import { pipe } from "fp-ts/function"
+import {
+  fromNullable as OfromNullable,
+  getOrElse as OgetOrElse,
+  map as Omap,
+} from "fp-ts/Option"
 import {
   Gene,
   StrainQuery,
@@ -149,7 +155,12 @@ const EditableStrainDetailsCard = ({
   }
 
   const phenotypes = data.phenotypes as Phenotype[]
-  const numberPhenotypes = phenotypes.length
+  const numberPhenotypes = pipe(
+    phenotypes,
+    OfromNullable,
+    Omap(({ length }) => length),
+    OgetOrElse(() => 0),
+  )
 
   const header = (
     <StrainDetailsCardHeader

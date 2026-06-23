@@ -184,8 +184,13 @@ const StrainDetailsCard = ({ data, tabValue, setTabValue }: Properties) => {
     in_stock: data.in_stock,
   }
 
-  const phenotypes = data.phenotypes as Phenotype[]
-  const numberPhenotypes = phenotypes.length
+  const { phenotypes } = data
+  const numberPhenotypes = pipe(
+    phenotypes,
+    OfromNullable,
+    Omap(({ length }) => length),
+    OgetOrElse(() => 0),
+  )
 
   const header = (
     <StrainDetailsCardHeader
