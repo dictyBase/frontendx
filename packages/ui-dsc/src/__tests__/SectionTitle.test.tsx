@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react"
 import { expect, test } from "vitest"
-import { SectionTitle } from "../SectionTitle"
+import { SectionTitle } from "../home/SectionTitle"
 
 test("renders SectionTitle with text", () => {
   render(<SectionTitle>Test Section</SectionTitle>)

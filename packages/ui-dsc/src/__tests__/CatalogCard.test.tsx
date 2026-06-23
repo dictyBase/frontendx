@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react"
 import { MemoryRouter } from "react-router-dom"
 import { expect, test } from "vitest"
-import { CatalogCard } from "../CatalogCard"
+import { CatalogCard } from "../home/CatalogCard"
 
 const defaultProperties = {
   icon: "🧬",

@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react"
 import { expect, test } from "vitest"
-import { GridLayout } from "../GridLayout"
+import { GridLayout } from "../home/GridLayout"
 
 test("renders GridLayout with children", () => {
   render(

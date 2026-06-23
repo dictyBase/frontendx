@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react"
 import { expect, test } from "vitest"
-import { StatCard } from "../StatCard"
+import { StatCard } from "../home/StatCard"
 
 const TEST_NUMBER = "12,000+"
 const TEST_LABEL = "Test Stats"
