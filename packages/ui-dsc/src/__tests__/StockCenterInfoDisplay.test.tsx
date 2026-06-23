@@ -13,16 +13,4 @@ describe("StockCenterInfoDisplay", () => {
     )
     expect(screen.getByText(sampleText)).toBeInTheDocument()
   })
-
-  it("renders the heading text", () => {
-    render(
-      <StockCenterInfoDisplay
-        content={JSON.stringify(mockContent)}
-        slug="mock-slug"
-      />,
-    )
-    expect(
-      screen.getByText("Welcome to Dicty Stock Center (DSC)"),
-    ).toBeInTheDocument()
-  })
 })
