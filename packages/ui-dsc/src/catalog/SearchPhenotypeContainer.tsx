@@ -1,10 +1,9 @@
 import React from "react"
-import { Helmet } from "react-helmet"
 import { useParams } from "react-router-dom"
 import { P, match } from "ts-pattern"
 import { makeStyles } from "tss-react/mui"
-import { Container, Grid } from "@mui/material"
-import { FullPageLoadingDisplay } from "@dictybase/ui-common"
+import { Grid } from "@mui/material"
+import { PageLayout, FullPageLoadingDisplay } from "@dictybase/ui-common"
 import { useListStrainsWithPhenotypeQuery } from "dicty-graphql-schema"
 import { ErrorPageWrapper } from "../ErrorPageWrapper"
 import { SearchResultsHeader } from "./SearchResultsHeader"
@@ -98,16 +97,9 @@ const SearchPhenotypeContainer = () => {
     useListStrainsWithPhenotype(phenotype)
 
   return (
-    <Container>
-      <Helmet>
-        <title>
-          Phenotype Search Results for {phenotype} - Dicty Stock Center
-        </title>
-        <meta
-          name="description"
-          content={`Dicty Stock Center search results for strains with ${phenotype}`}
-        />
-      </Helmet>
+    <PageLayout
+      title={`Phenotype Search Results for ${phenotype} - Dicty Stock Center`}
+      metaContent={`Dicty Stock Center search results for strains with ${phenotype}`}>
       <Grid container className={classes.container}>
         <Grid item xs={12} className={classes.gridItem}>
           <SearchResultsHeader property="Phenotype" description={phenotype} />
@@ -132,7 +124,7 @@ const SearchPhenotypeContainer = () => {
             ))}
         </Grid>
       </Grid>
-    </Container>
+    </PageLayout>
   )
 }
 
