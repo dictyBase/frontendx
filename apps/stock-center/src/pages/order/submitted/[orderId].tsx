@@ -1,6 +1,5 @@
 import { Navigate, useParams } from "react-router-dom"
-import Box from "@material-ui/core/Box"
-import Grid from "@material-ui/core/Grid"
+import { Container, Grid, Box } from "@material-ui/core"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import { grey } from "@material-ui/core/colors"
 import {
@@ -29,16 +28,18 @@ const OrderConfirmation = () => {
   if (order.orderID !== orderId) return <Navigate to="/" />
 
   return (
-    <Grid container alignItems="center" className={classes.container}>
-      <Grid item xs={12}>
-        <Box margin={2}>
-          <OrderHeader orderID={order.orderID} />
-          <OrderDescription />
-          <OrderSummaryPdf order={order} />
-        </Box>
+    <Container>
+      <Grid container alignItems="center" className={classes.container}>
+        <Grid item xs={12}>
+          <Box margin={2}>
+            <OrderHeader orderID={order.orderID} />
+            <OrderDescription />
+            <OrderSummaryPdf order={order} />
+          </Box>
+        </Grid>
+        <BackToHomePage />
       </Grid>
-      <BackToHomePage />
-    </Grid>
+    </Container>
   )
 }
 
