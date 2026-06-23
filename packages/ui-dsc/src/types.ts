@@ -36,15 +36,22 @@ type DetailsRow = {
   content: string | JSX.Element | JSX.Element[] | undefined | null
 }
 
-export {
-  type StrainItem,
-  type PlasmidItem,
-  type CatalogItem,
-  type StrainCartItem,
-  type PlasmidCartItem,
-  type CatalogCartItem,
-  type CartItemLimit,
-  type Cart,
-  type OrderState,
-  type DetailsRow,
+type LinkItem = {
+  label: string
+  href: string
+  external?: boolean
+}
+
+export type {
+  StrainItem,
+  PlasmidItem,
+  CatalogItem,
+  StrainCartItem,
+  PlasmidCartItem,
+  CatalogCartItem,
+  CartItemLimit,
+  Cart,
+  OrderState,
+  DetailsRow,
+  LinkItem,
 }

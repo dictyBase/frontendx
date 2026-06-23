@@ -1,9 +1,4 @@
-import type { LinkItem } from "./InfoCard"
-
-type NavigationItem = {
-  label: string
-  href: string
-}
+import type { LinkItem } from "../types"
 
 export const stats = [
   { number: "12,000+", label: "Strain Accessions" },
@@ -112,7 +107,3 @@ export const infoSections: Array<{
     ],
   },
 ]
-
-export type { NavigationItem }
-
-export { type LinkItem } from "./InfoCard"

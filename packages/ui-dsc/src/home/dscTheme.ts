@@ -36,5 +36,3 @@ export const dscHomeTheme = {
       '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
   },
 } as const
-
-export type DSCHomeTheme = typeof dscHomeTheme
