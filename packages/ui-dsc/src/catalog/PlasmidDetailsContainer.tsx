@@ -17,10 +17,10 @@ const PlasmidDetails = ({ plasmid }: PlasmidDetailsProperties) => {
   const title = `Plasmid Details for ${label}`
 
   return (
-    <CatalogItemDetailsLayout title={title} metaContent={label}>
+    <PageLayout title={title} metaContent={label}>
       <DetailsHeader id={plasmid.id} name={plasmid.name} />
       <PlasmidDetailsCard plasmid={plasmid} />
-    </CatalogItemDetailsLayout>
+    </PageLayout>
   )
 }
 
