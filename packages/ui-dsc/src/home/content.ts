@@ -86,7 +86,7 @@ export const infoSections: Array<{
         label: "About dictyBase",
         href: `${import.meta.env.VITE_APP_FRONTPAGE_URL}/about`,
       },
-      { label: "Contact Us", href: "/contact" },
+      { label: "Contact Us", href: "mailto:dictybase@northwestern.edu" },
       {
         label: "Cite Us",
         href: `${import.meta.env.VITE_APP_FRONTPAGE_URL}/community/citation`,
