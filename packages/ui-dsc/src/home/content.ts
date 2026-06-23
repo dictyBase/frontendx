@@ -1,4 +1,9 @@
-import type { LinkItem, NavigationItem } from "./types"
+import type { LinkItem } from "./InfoCard"
+
+type NavigationItem = {
+  label: string
+  href: string
+}
 
 export const stats = [
   { number: "12,000+", label: "Strain Accessions" },
@@ -59,8 +64,14 @@ export const infoSections: Array<{
         label: "Nomenclature Guide",
         href: `${import.meta.env.VITE_APP_FRONTPAGE_URL}/research/nomenclature`,
       },
-      { label: "Phenotype Ontology", href: "/information/phenotypes" },
-      { label: "Useful Links", href: "/information/links" },
+      {
+        label: "Phenotype Ontology",
+        href: `${import.meta.env.VITE_APP_FRONTPAGE_URL}/research/phenotype`,
+      },
+      {
+        label: "Useful Links",
+        href: `${import.meta.env.VITE_APP_FRONTPAGE_URL}/explore/links`,
+      },
       {
         label: "Downloads",
         href: `${import.meta.env.VITE_APP_FRONTPAGE_URL}/downloads`,
@@ -102,9 +113,6 @@ export const infoSections: Array<{
   },
 ]
 
-export const navigation: NavigationItem[] = [
-  { label: "Home", href: "/" },
-  { label: "Strains", href: "/strains" },
-  { label: "Plasmids", href: "/plasmids" },
-  { label: "About", href: "/about" },
-]
+export type { NavigationItem }
+
+export { type LinkItem } from "./InfoCard"
