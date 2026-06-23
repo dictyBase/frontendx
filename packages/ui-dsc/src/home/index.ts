@@ -11,9 +11,6 @@ export { InfoCard } from "./InfoCard"
 
 // UI components
 export { ArrowLink } from "./ArrowLink"
-export { WarningBanner } from "./WarningBanner"
-export { Header } from "./Header"
-export { Footer } from "./Footer"
 
 // Theme and utilities
 export { dscHomeTheme } from "./dscTheme"
