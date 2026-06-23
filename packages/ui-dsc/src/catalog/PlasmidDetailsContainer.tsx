@@ -1,13 +1,12 @@
-import { Helmet } from "react-helmet"
 import { useParams } from "react-router-dom"
 import { match, P } from "ts-pattern"
-import Box from "@mui/material/Box"
+import { PageLayout, FullPageLoadingDisplay } from "@dictybase/ui-common"
 import { usePlasmidQuery, PlasmidQuery } from "dicty-graphql-schema"
 import { ErrorPageWrapper } from "../ErrorPageWrapper"
 import { characterConverter } from "../utils/characterConverter"
 import { DetailsHeader } from "./DetailsHeader"
-import { DetailsLoader } from "./DetailsLoader"
 import { PlasmidDetailsCard } from "./PlasmidDetailsCard"
+import { CatalogItemDetailsLayout } from "./CatalogItemDetailsLayout"
 
 type PlasmidDetailsProperties = {
   plasmid: NonNullable<PlasmidQuery["plasmid"]>
@@ -18,17 +17,10 @@ const PlasmidDetails = ({ plasmid }: PlasmidDetailsProperties) => {
   const title = `Plasmid Details for ${label}`
 
   return (
-    <Box textAlign="center">
-      <Helmet>
-        <title>{title} - Dicty Stock Center</title>
-        <meta
-          name="description"
-          content={`Dicty Stock Center plasmid details page for ${label}`}
-        />
-      </Helmet>
+    <CatalogItemDetailsLayout title={title} metaContent={label}>
       <DetailsHeader id={plasmid.id} name={plasmid.name} />
       <PlasmidDetailsCard plasmid={plasmid} />
-    </Box>
+    </CatalogItemDetailsLayout>
   )
 }
 
@@ -47,7 +39,7 @@ const PlasmidDetailsContainer = () => {
     .with({ data: { plasmid: P.select(P.not(P.nullish)) } }, (plasmid) => (
       <PlasmidDetails plasmid={plasmid} />
     ))
-    .with({ loading: true }, () => <DetailsLoader />)
+    .with({ loading: true }, () => <FullPageLoadingDisplay />)
     .with({ error: P.select(P.not(undefined)) }, (error) => (
       <ErrorPageWrapper error={error} />
     ))

@@ -3,10 +3,10 @@ import { Helmet } from "react-helmet"
 import { useParams } from "react-router-dom"
 import { P, match } from "ts-pattern"
 import { makeStyles } from "tss-react/mui"
-import Grid from "@mui/material/Grid"
+import { Container, Grid } from "@mui/material"
+import { FullPageLoadingDisplay } from "@dictybase/ui-common"
 import { useListStrainsWithPhenotypeQuery } from "dicty-graphql-schema"
 import { ErrorPageWrapper } from "../ErrorPageWrapper"
-import { DetailsLoader } from "./DetailsLoader"
 import { SearchResultsHeader } from "./SearchResultsHeader"
 import { SearchPhenotypeList } from "./SearchPhenotypeList"
 
@@ -98,7 +98,7 @@ const SearchPhenotypeContainer = () => {
     useListStrainsWithPhenotype(phenotype)
 
   return (
-    <>
+    <Container>
       <Helmet>
         <title>
           Phenotype Search Results for {phenotype} - Dicty Stock Center
@@ -123,7 +123,7 @@ const SearchPhenotypeContainer = () => {
                 totalCount={totalCount}
               />
             ))
-            .with({ loading: true }, () => <DetailsLoader />)
+            .with({ loading: true }, () => <FullPageLoadingDisplay />)
             .with({ error: P.select(P.not(undefined)) }, (error_) => (
               <ErrorPageWrapper error={error_} />
             ))
@@ -132,7 +132,7 @@ const SearchPhenotypeContainer = () => {
             ))}
         </Grid>
       </Grid>
-    </>
+    </Container>
   )
 }
 
