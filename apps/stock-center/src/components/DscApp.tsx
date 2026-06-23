@@ -1,4 +1,4 @@
-import { Container, Box } from "@material-ui/core"
+import { Box } from "@material-ui/core"
 import { LoadingDisplay } from "@dictybase/ui-dsc"
 import { RouterProvider } from "react-router-dom"
 import { makeStyles, Theme } from "@material-ui/core/styles"

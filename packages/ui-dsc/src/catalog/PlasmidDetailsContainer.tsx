@@ -6,7 +6,6 @@ import { ErrorPageWrapper } from "../ErrorPageWrapper"
 import { characterConverter } from "../utils/characterConverter"
 import { DetailsHeader } from "./DetailsHeader"
 import { PlasmidDetailsCard } from "./PlasmidDetailsCard"
-import { CatalogItemDetailsLayout } from "./CatalogItemDetailsLayout"
 
 type PlasmidDetailsProperties = {
   plasmid: NonNullable<PlasmidQuery["plasmid"]>
