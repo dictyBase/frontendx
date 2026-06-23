@@ -29,4 +29,3 @@ const ArrowLink = ({ href, children, sx }: ArrowLinkProperties) => (
 )
 
 export { ArrowLink }
-export type { ArrowLinkProperties }
