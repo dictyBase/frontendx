@@ -1,14 +1,14 @@
 import { match, P } from "ts-pattern"
-import { ContentBySlugQueryHookResult } from "dicty-graphql-schema"
+import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { LoadingDisplay, OtherError } from "@dictybase/ui-common"
-import { StockCenterInfoDisplay } from "./StockCenterInfoDisplay"
+import { StockCenterInfoDisplay } from "@dictybase/ui-dsc"
+import { NAMESPACE } from "../../namespace"
 
-type StockCenterInfoProperties = {
-  queryResult: ContentBySlugQueryHookResult
-}
-
-const StockCenterInfo = ({ queryResult }: StockCenterInfoProperties) =>
-  match(queryResult)
+const StockCenterInfo = () => {
+  const queryResult = useContentBySlugQuery({
+    variables: { slug: `${NAMESPACE}-intro` },
+  })
+  return match(queryResult)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
       ({ content, slug }) => (
@@ -17,6 +17,7 @@ const StockCenterInfo = ({ queryResult }: StockCenterInfoProperties) =>
     )
     .with({ loading: true }, () => <LoadingDisplay rows={4} />)
     .with({ error: P.not(undefined) }, () => <OtherError />)
-    .otherwise(() => <> This message should not appear. </>)
+    .otherwise(() => <> This message should not appear.</>)
+}
 
 export { StockCenterInfo }
