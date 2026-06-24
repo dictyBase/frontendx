@@ -14,7 +14,6 @@ export const dscHomeTheme = {
     background: "#f5f7fa",
     cardBackground: "#ffffff",
   },
-  spacing: (multiplier: number) => `${multiplier * 8}px`, // 1 = 8px, 2 = 16px
   borderRadius: {
     sm: "4px",
     md: "8px",
@@ -30,9 +29,5 @@ export const dscHomeTheme = {
     md: "768px",
     lg: "1024px",
     xl: "1280px",
-  },
-  typography: {
-    fontFamily:
-      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
   },
 } as const
