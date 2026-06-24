@@ -23,11 +23,4 @@ export const dscHomeTheme = {
     card: "0 2px 8px rgba(0,0,0,0.08)",
     cardHover: "0 8px 16px rgba(0,64,128,0.15)",
   },
-  breakpoints: {
-    xs: "0px",
-    sm: "640px",
-    md: "768px",
-    lg: "1024px",
-    xl: "1280px",
-  },
 } as const
