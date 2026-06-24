@@ -24,6 +24,7 @@ test("Navbar snapshot", async ({ page }) => {
   await page.waitForLoadState("networkidle")
   // Wait for all images to load
   await page.waitForFunction(waitForImageLoad)
+  await page.waitForTimeout(5000)
   const navbar = page.locator("nav")
   await expect(navbar).toHaveScreenshot()
 })
