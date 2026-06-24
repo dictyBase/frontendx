@@ -17,6 +17,7 @@ import {
   sort as Asort,
   filter as Afilter,
   intercalate as Aintercalate,
+  match as Amatch,
 } from "fp-ts/Array"
 import { Link } from "react-router-dom"
 import Box from "@mui/material/Box"
@@ -25,7 +26,6 @@ import Card from "@mui/material/Card"
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
 import { StrainQuery, Phenotype } from "dicty-graphql-schema"
-import { match, P } from "ts-pattern"
 import { fees } from "../fees"
 import { StrainDetailsCardHeader } from "./StrainDetailsCardHeader"
 import { DetailsListItem } from "./DetailsListItem"
@@ -184,14 +184,14 @@ const StrainDetailsCard = ({ data, tabValue, setTabValue }: Properties) => {
     in_stock: data.in_stock,
   }
 
-  const { phenotypes } = data
-  const numberPhenotypes = pipe(
-    phenotypes,
+  const phenotypes = pipe(
+    data.phenotypes,
     OfromNullable,
-    Omap(({ length }) => length),
-    OgetOrElse(() => 0),
+    OgetOrElse(
+      (): NonNullable<NonNullable<StrainQuery["strain"]>["phenotypes"]> => [],
+    ),
   )
-
+  const numberPhenotypes = phenotypes.length
   const header = (
     <StrainDetailsCardHeader
       value={tabValue}
@@ -203,29 +203,27 @@ const StrainDetailsCard = ({ data, tabValue, setTabValue }: Properties) => {
 
   return (
     <Box textAlign="center" mb={3}>
-      {match(numberPhenotypes)
-        .with(
-          P.when((c) => c > 0),
+      {pipe(
+        phenotypes,
+        Amatch(
+          () => <></>,
           () => header,
-        )
-        .otherwise(() => (
-          <></>
-        ))}
+        ),
+      )}
       <Card raised>
         <Grid container>
           <List className={classes.list}>
-            {match(numberPhenotypes)
-              .with(
-                P.when((c) => c < 1),
+            {pipe(
+              phenotypes,
+              Amatch(
                 () => (
                   <ListItem divider className={classes.cardHeader}>
                     {header}
                   </ListItem>
                 ),
-              )
-              .otherwise(() => (
-                <></>
-              ))}
+                () => <></>,
+              ),
+            )}
             <TabPanel value={tabValue} index={0}>
               {rows.map((row: DetailsRow) => (
                 <DetailsListItem
@@ -236,7 +234,9 @@ const StrainDetailsCard = ({ data, tabValue, setTabValue }: Properties) => {
               ))}
             </TabPanel>
             <TabPanel value={tabValue} index={1}>
-              <StrainPhenotypeList phenotypes={phenotypes} />
+              <StrainPhenotypeList
+                phenotypes={phenotypes as Array<Phenotype>}
+              />
             </TabPanel>
           </List>
         </Grid>
