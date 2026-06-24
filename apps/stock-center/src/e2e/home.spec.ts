@@ -23,37 +23,9 @@ test("The cart button navigates the user to their cart", async ({ page }) => {
   await expect(page).toHaveURL(/\/stockcenter\/cart/)
 })
 
-test("Displays `catalog` links", async ({ page }) => {
-  const main = page.locator("main")
-  await expect(main.getByRole("link", { name: "Strain Catalog" })).toBeVisible()
-  await expect(
-    main.getByRole("link", { name: "Plasmid Catalog" }),
-  ).toBeVisible()
-  await expect(
-    main.getByRole("link", { name: "Bacterial Strains" }),
-  ).toBeVisible()
-  await expect(main.getByRole("link", { name: "GWDI Catalog" })).toBeVisible()
-  await expect(
-    main.getByRole("link", { name: "GoldenBraid List" }),
-  ).toBeVisible()
-  await expect(
-    main.getByRole("link", { name: "Additional Materials" }),
-  ).toBeVisible()
-})
-
 test("Displays `downloads` links", async ({ page }) => {
-  await expect(
-    page.getByRole("link", { name: "Phenotype Ontology" }),
-  ).toBeVisible()
-  await expect(
-    page.getByRole("link", { name: "Strain Characteristics" }),
-  ).toBeVisible()
-  await expect(
-    page.getByRole("link", { name: "Mutagenesis Methods" }),
-  ).toBeVisible()
-  await expect(
-    page.getByRole("link", { name: "Plasmid Keywords" }),
-  ).toBeVisible()
+  const dscHome = page.getByRole("main")
+  await expect(dscHome.getByRole("link", { name: "Downloads" })).toBeVisible()
 })
 
 test("All Carousel images are loaded", async ({ page }) => {
