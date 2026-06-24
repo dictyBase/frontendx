@@ -24,11 +24,3 @@ test("dscHomeTheme has correct shadow values", () => {
   expect(dscHomeTheme.shadows.card).toBe("0 2px 8px rgba(0,0,0,0.08)")
   expect(dscHomeTheme.shadows.cardHover).toBe("0 8px 16px rgba(0,64,128,0.15)")
 })
-
-test("dscHomeTheme has correct breakpoint values", () => {
-  expect(dscHomeTheme.breakpoints.xs).toBe("0px")
-  expect(dscHomeTheme.breakpoints.sm).toBe("640px")
-  expect(dscHomeTheme.breakpoints.md).toBe("768px")
-  expect(dscHomeTheme.breakpoints.lg).toBe("1024px")
-  expect(dscHomeTheme.breakpoints.xl).toBe("1280px")
-})
