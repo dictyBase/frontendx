@@ -52,24 +52,20 @@ export const infoSections: Array<{
     ],
   },
   {
-    title: "Additional Materials",
+    title: "Resources",
     icon: "📚",
     links: [
+      {
+        label: "Downloads",
+        href: `${import.meta.env.VITE_APP_FRONTPAGE_URL}/downloads`,
+      },
       {
         label: "Nomenclature Guide",
         href: `${import.meta.env.VITE_APP_FRONTPAGE_URL}/research/nomenclature`,
       },
       {
-        label: "Phenotype Ontology",
-        href: `${import.meta.env.VITE_APP_FRONTPAGE_URL}/research/phenotype`,
-      },
-      {
         label: "Useful Links",
         href: `${import.meta.env.VITE_APP_FRONTPAGE_URL}/explore/links`,
-      },
-      {
-        label: "Downloads",
-        href: `${import.meta.env.VITE_APP_FRONTPAGE_URL}/downloads`,
       },
     ],
   },
@@ -78,14 +74,18 @@ export const infoSections: Array<{
     icon: "ℹ️",
     links: [
       {
+        label: "Additional Materials",
+        href: `/information/additional-materials`,
+      },
+      {
         label: "About dictyBase",
         href: `${import.meta.env.VITE_APP_FRONTPAGE_URL}/about`,
       },
-      { label: "Contact Us", href: "mailto:dictybase@northwestern.edu" },
       {
         label: "Cite Us",
         href: `${import.meta.env.VITE_APP_FRONTPAGE_URL}/community/citation`,
       },
+      { label: "Contact Us", href: "mailto:dictybase@northwestern.edu" },
     ],
   },
   {
@@ -93,16 +93,16 @@ export const infoSections: Array<{
     icon: "👥",
     links: [
       {
+        label: "News",
+        href: `${import.meta.env.VITE_APP_FRONTPAGE_URL}/news`,
+      },
+      {
         label: "Annual Conferences",
         href: `${import.meta.env.VITE_APP_FRONTPAGE_URL}/community/conference`,
       },
       {
         label: "Email Forum",
         href: `${import.meta.env.VITE_APP_FRONTPAGE_URL}/community/listserv`,
-      },
-      {
-        label: "News",
-        href: `${import.meta.env.VITE_APP_FRONTPAGE_URL}/news`,
       },
     ],
   },
