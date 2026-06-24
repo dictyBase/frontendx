@@ -57,7 +57,7 @@ const strainWithNullPhenotypesMocks = [
     },
     result: {
       data: {
-        strain: { ...availableStrain, phenotypes: null },
+        strain: { ...availableStrain, phenotypes: undefined },
       },
     },
   },
@@ -81,7 +81,7 @@ const otherwiseMocks = [
     },
     result: {
       data: {
-        strain: null,
+        strain: undefined,
       },
     },
   },
