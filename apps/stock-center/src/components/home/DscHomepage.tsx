@@ -14,7 +14,7 @@ import {
 import { Hero } from "./Hero"
 
 const DSCHomepage = () => (
-  <Container sx={{ maxWidth: "70% !important" }}>
+  <Container sx={{ maxWidth: "70 !important" }}>
     <Hero title="Welcome to Dicty Stock Center (DSC)" />
     <Box sx={{ mb: 6 }}>
       <GridLayout minColumnWidth="200px" gap={3}>
@@ -32,7 +32,7 @@ const DSCHomepage = () => (
     </Box>
     <Box sx={{ mb: 6 }}>
       <SectionTitle>Browse Catalogs</SectionTitle>
-      <GridLayout minColumnWidth="250px" gap={3}>
+      <GridLayout minColumnWidth="200px" gap={3}>
         {pipe(
           catalogs,
           Amap((catalog) => (
@@ -50,7 +50,7 @@ const DSCHomepage = () => (
 
     <Box sx={{ mb: 6 }}>
       <SectionTitle>Resources & Information</SectionTitle>
-      <GridLayout minColumnWidth="250px" gap={3}>
+      <GridLayout minColumnWidth="200px" gap={3}>
         {pipe(
           infoSections,
           Amap((section) => (
