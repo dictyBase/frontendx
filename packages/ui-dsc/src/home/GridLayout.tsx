@@ -1,7 +1,6 @@
 import type { ReactNode } from "react"
 import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
-import type { SxProps, Theme } from "@mui/material"
 import { Grid } from "@mui/material"
 
 type GridLayoutProperties = {
