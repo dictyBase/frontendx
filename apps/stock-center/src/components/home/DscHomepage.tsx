@@ -17,7 +17,7 @@ const DSCHomepage = () => (
   <Container sx={{ maxWidth: "70 !important" }}>
     <Hero title="Welcome to Dicty Stock Center (DSC)" />
     <Box sx={{ mb: 6 }}>
-      <GridLayout minColumnWidth="200px" gap={3}>
+      <GridLayout>
         {pipe(
           stats,
           Amap((stat) => (
@@ -32,7 +32,7 @@ const DSCHomepage = () => (
     </Box>
     <Box sx={{ mb: 6 }}>
       <SectionTitle>Browse Catalogs</SectionTitle>
-      <GridLayout minColumnWidth="200px" gap={3}>
+      <GridLayout>
         {pipe(
           catalogs,
           Amap((catalog) => (
@@ -50,7 +50,7 @@ const DSCHomepage = () => (
 
     <Box sx={{ mb: 6 }}>
       <SectionTitle>Resources & Information</SectionTitle>
-      <GridLayout minColumnWidth="200px" gap={3}>
+      <GridLayout>
         {pipe(
           infoSections,
           Amap((section) => (
