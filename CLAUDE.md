@@ -118,6 +118,8 @@ const MAX_ITEMS = 12
 - Use named exports over default exports
 - Define prop types as TypeScript interfaces/types
 - Separate presentation and logic concerns
+- Define component prop types in the same file as the component itself, unless shared.
+- Data related types should reference types from `dicty-graphql-schema` when applicable.
 
 ```tsx
 // Define prop types
@@ -340,6 +342,7 @@ const MyComponent = () => {
 - Separate mock data into dedicated files
 - Use **Playwright** for E2E tests
 - Do not call `expect` conditionally. Prefer type assertions.
+- Do not test for styling unless it is related to a component's functionality.
 
 ```tsx
 // Tests at top level, no describe blocks
