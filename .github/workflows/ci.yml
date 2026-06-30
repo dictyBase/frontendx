@@ -13,7 +13,7 @@ jobs:
         with:
           node-version: 24.x
       - name: check out code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: install
         run: yarn --ignore-engines
       - name: unit tests
