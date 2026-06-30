@@ -8,6 +8,10 @@ const viteConfig = defineConfig({
     port: 5173,
     strictPort: true,
   },
+  preview: {
+    port: 5173,
+    strictPort: true,
+  },
   base: "/publication",
   test: {
     globals: true,

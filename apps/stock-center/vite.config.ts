@@ -8,6 +8,10 @@ const viteConfig = defineConfig({
     port: 3003,
     strictPort: true,
   },
+  preview: {
+    port: 3003,
+    strictPort: true,
+  },
   base: "/stockcenter",
   test: {
     globals: true,

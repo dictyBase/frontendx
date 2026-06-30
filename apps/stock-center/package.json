@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite --clearScreen false",
     "dev:mock": "yarn dev --mode mock",
-    "serve": "node server.js",
+    "serve": "vite preview",
     "build": "tsc && vite build",
     "oxlint": "oxlint src/",
     "oxlint:ci": "oxlint src/ --format=github",

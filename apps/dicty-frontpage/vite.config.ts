@@ -8,6 +8,10 @@ const viteConfig = defineConfig({
     port: 3004,
     strictPort: true,
   },
+  preview: {
+    port: 3004,
+    strictPort: true,
+  },
   base: "/",
   build: {
     // Emit source maps so production stack traces map back to source and

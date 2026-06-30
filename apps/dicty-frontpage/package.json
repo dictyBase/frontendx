@@ -11,7 +11,7 @@
     "dev:seed": "vite --host --mode seed",
     "test": "TZ=UTC vitest run",
     "build": "tsc && vite build",
-    "serve": "vite preview --port 3000",
+    "serve": "vite preview",
     "oxlint": "oxlint src/",
     "oxlint:ci": "oxlint src/ --format=github",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx --cache",
