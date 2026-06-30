@@ -115,6 +115,7 @@ const MAX_ITEMS = 12
 ## Component Structure
 
 - Use arrow function components (no class components)
+- Avoid defining props for customization unless explicitly required.
 - Use named exports over default exports
 - Define prop types as TypeScript interfaces/types
 - Separate presentation and logic concerns
