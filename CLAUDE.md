@@ -122,6 +122,24 @@ const MAX_ITEMS = 12
 - Define component prop types in the same file as the component itself, unless shared.
 - Data related types should reference types from `dicty-graphql-schema` when applicable.
 
+### Component Organization
+
+When developing components, organize them based on their dependencies:
+
+- **Pure presentational components** (components that only require props) should be placed in the appropriate `@dictybase/ui-*` package
+  - These components have no global state dependencies
+  - All data is passed via props
+  - Examples: buttons, form inputs, table cells, layout components
+  - For stock-center: use `packages/ui-dsc/src/` 
+  - For other apps: use the corresponding `@dictybase/ui-*` package
+
+- **State-dependent components** should remain in the application's feature directory (e.g., `apps/stock-center/src/features/`)
+  - These components use global state hooks (Jotai atoms, Apollo Client queries, etc.)
+  - Examples: containers that fetch data, components managing cart state, components with complex local state
+  - Keep these in `apps/<app-name>/src/features/<feature-name>/`
+
+This separation ensures reusability while keeping state-dependent logic in the application layer.
+
 ```tsx
 // Define prop types
 type MyComponentProperties = {
