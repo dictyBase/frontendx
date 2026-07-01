@@ -60,7 +60,7 @@ describe("Catalog Types", () => {
   it("should define CatalogState correctly", () => {
     const state: CatalogState = {
       filters: {
-        strainType: "Regular",
+        strainType: StrainType.Regular,
         searchQuery: "",
       },
       sortBy: "name",
