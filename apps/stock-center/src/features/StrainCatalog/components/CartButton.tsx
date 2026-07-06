@@ -14,9 +14,7 @@ const CartButton = () => {
   const cartQuantity = useAtomValue(currentCartQuantityAtom)
   const isFull = useAtomValue(isFullAtom)
 
-  const handleClick = () => {
-    navigate("/cart")
-  }
+  const handleClick = () => navigate("/cart")
 
   return (
     <IconButton

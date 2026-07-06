@@ -1,6 +1,8 @@
 import { useSetAtom, useAtomValue } from "jotai"
 import { Button } from "@mui/material"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
+import { pipe } from "fp-ts/function"
+import { fromNullable, map, getOrElse } from "fp-ts/Option"
 import { fees } from "@dictybase/ui-dsc"
 import { remainingCartSpaceAtom, addStrainItemsAtom } from "../../../cartState"
 import type { CatalogStrain } from "../types/catalog"
@@ -32,7 +34,14 @@ const AddToCartButton = ({ strain, onAdd }: AddToCartButtonProperties) => {
     }
 
     addStrainItems([strainWithFee])
-    onAdd?.()
+
+    // Use Option to safely handle optional callback
+    pipe(
+      onAdd,
+      fromNullable,
+      map((callback) => callback()),
+      getOrElse(() => undefined),
+    )
   }
 
   return (
