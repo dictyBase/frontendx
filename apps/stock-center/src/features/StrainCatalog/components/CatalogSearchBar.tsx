@@ -39,13 +39,13 @@ const CatalogSearchBar = () => {
       debounceTimerReference.current = setTimeout(() => {
         setSearchParameters((previous) =>
           value
-            ? pipe(previous, (params) => {
-                params.set("q", value)
-                return params
+            ? pipe(previous, (parameters) => {
+                parameters.set("q", value)
+                return parameters
               })
-            : pipe(previous, (params) => {
-                params.delete("q")
-                return params
+            : pipe(previous, (parameters) => {
+                parameters.delete("q")
+                return parameters
               }),
         )
       }, DEBOUNCE_DELAY)
@@ -66,9 +66,9 @@ const CatalogSearchBar = () => {
   const handleClearSearch = useCallback(() => {
     setSearchInput("")
     setSearchParameters((previous) =>
-      pipe(previous, (params) => {
-        params.delete("q")
-        return params
+      pipe(previous, (parameters) => {
+        parameters.delete("q")
+        return parameters
       }),
     )
   }, [setSearchParameters])
@@ -76,10 +76,10 @@ const CatalogSearchBar = () => {
   const handleClearAll = useCallback(() => {
     setSearchInput("")
     setSearchParameters((previous) =>
-      pipe(previous, (params) => {
-        params.delete("q")
-        params.delete("type")
-        return params
+      pipe(previous, (parameters) => {
+        parameters.delete("q")
+        parameters.delete("type")
+        return parameters
       }),
     )
     navigate(".", { replace: true })
