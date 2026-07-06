@@ -1,64 +1,56 @@
 import { Box, Button, Chip, Stack, TextField } from "@mui/material"
 import { useCallback, useEffect, useRef, useState } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom"
-import { StrainType } from "dicty-graphql-schema"
-import type { CatalogFilters } from "../types/catalog"
-
-type CatalogSearchBarProperties = {
-  onSearchChange: (filters: CatalogFilters) => void
-  filters: CatalogFilters
-}
+import { pipe } from "fp-ts/function"
+import { fromNullable, getOrElse } from "fp-ts/Option"
 
 const DEBOUNCE_DELAY = 300
 
-const CatalogSearchBar = ({
-  onSearchChange,
-  filters,
-}: CatalogSearchBarProperties) => {
+const CatalogSearchBar = () => {
   const [searchInput, setSearchInput] = useState("")
   const [searchParameters, setSearchParameters] = useSearchParams()
   const navigate = useNavigate()
   const debounceTimerReference = useRef<NodeJS.Timeout>()
 
-  // Initialize from URL query parameter on mount
+  // Initialize from URL query parameter on mount using Option
   useEffect(() => {
-    const query = searchParameters.get("q") || ""
+    const query = pipe(
+      searchParameters.get("q"),
+      fromNullable,
+      getOrElse(() => ""),
+    )
     setSearchInput(query)
   }, [searchParameters])
 
-  // Debounced search handler
+  // Debounced search handler using functional approach
   const handleSearchChange = useCallback(
     (value: string) => {
       setSearchInput(value)
 
-      // Clear existing timeout
-      if (debounceTimerReference.current) {
-        clearTimeout(debounceTimerReference.current)
-      }
+      // Clear existing timeout using Option
+      pipe(
+        debounceTimerReference.current,
+        fromNullable,
+        getOrElse(() => undefined as NodeJS.Timeout | undefined),
+        (timer) => timer && clearTimeout(timer),
+      )
 
       // Set new debounce timer
       debounceTimerReference.current = setTimeout(() => {
-        // Update URL with search query
-        if (value) {
-          setSearchParameters((previous) => {
-            previous.set("q", value)
-            return previous
-          })
-        } else {
-          setSearchParameters((previous) => {
-            previous.delete("q")
-            return previous
-          })
-        }
-
-        // Update filters
-        onSearchChange({
-          ...filters,
-          searchQuery: value,
-        })
+        setSearchParameters((previous) =>
+          value
+            ? pipe(previous, (params) => {
+                params.set("q", value)
+                return params
+              })
+            : pipe(previous, (params) => {
+                params.delete("q")
+                return params
+              }),
+        )
       }, DEBOUNCE_DELAY)
     },
-    [filters, onSearchChange, setSearchParameters],
+    [setSearchParameters],
   )
 
   // Cleanup debounce on unmount
@@ -73,32 +65,33 @@ const CatalogSearchBar = ({
 
   const handleClearSearch = useCallback(() => {
     setSearchInput("")
-    setSearchParameters((previous) => {
-      previous.delete("q")
-      return previous
-    })
-    onSearchChange({
-      ...filters,
-      searchQuery: "",
-    })
-  }, [filters, onSearchChange, setSearchParameters])
+    setSearchParameters((previous) =>
+      pipe(previous, (params) => {
+        params.delete("q")
+        return params
+      }),
+    )
+  }, [setSearchParameters])
 
   const handleClearAll = useCallback(() => {
     setSearchInput("")
-    setSearchParameters((previous) => {
-      previous.delete("q")
-      previous.delete("strain-type")
-      return previous
-    })
-    onSearchChange({
-      strainType: StrainType.Regular,
-      searchQuery: "",
-    })
+    setSearchParameters((previous) =>
+      pipe(previous, (params) => {
+        params.delete("q")
+        params.delete("type")
+        return params
+      }),
+    )
     navigate(".", { replace: true })
-  }, [navigate, onSearchChange, setSearchParameters])
+  }, [navigate, setSearchParameters])
 
-  const hasActiveFilters =
-    searchInput || filters.strainType !== StrainType.Regular
+  const strainType = pipe(
+    searchParameters.get("type"),
+    fromNullable,
+    getOrElse(() => "REGULAR"),
+  )
+
+  const hasActiveFilters = searchInput || strainType !== "REGULAR"
 
   return (
     <Box
@@ -222,9 +215,9 @@ const CatalogSearchBar = ({
               }}
             />
           )}
-          {filters.strainType !== "REGULAR" && (
+          {strainType !== "REGULAR" && (
             <Chip
-              label={`Type: ${filters.strainType}`}
+              label={`Type: ${strainType}`}
               sx={{
                 background: "#3182ce",
                 color: "white",

@@ -1,5 +1,7 @@
 import { Box, Radio, RadioGroup, FormControlLabel, Paper } from "@mui/material"
 import { useSearchParams } from "react-router-dom"
+import { pipe } from "fp-ts/function"
+import { fromNullable, getOrElse } from "fp-ts/Option"
 import { StrainType } from "../types"
 
 const STRAIN_TYPE_OPTIONS = [
@@ -7,19 +9,29 @@ const STRAIN_TYPE_OPTIONS = [
   { value: StrainType.Bacterial, label: "Bacterial Strains" },
   { value: StrainType.Gwdi, label: "GWDI Strains" },
   { value: StrainType.All, label: "All Strains" },
-]
+] as const
 
 const CatalogSidebar = () => {
   const [searchParams, setSearchParams] = useSearchParams()
-  const selectedType = searchParams.get("type") || StrainType.Regular
+
+  // Use Option to safely handle the query parameter
+  const selectedType = pipe(
+    searchParams.get("type"),
+    fromNullable,
+    getOrElse(() => StrainType.Regular),
+  )
 
   const handleTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newType = event.target.value
-    setSearchParams((previous) => {
-      const updated = new URLSearchParams(previous)
-      updated.set("type", newType)
-      return updated
-    })
+    setSearchParams((previous) =>
+      pipe(
+        new URLSearchParams(previous),
+        (params) => {
+          params.set("type", newType)
+          return params
+        },
+      ),
+    )
   }
 
   return (

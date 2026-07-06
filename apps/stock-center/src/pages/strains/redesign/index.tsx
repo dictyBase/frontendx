@@ -1,6 +1,8 @@
 import { useRef } from "react"
 import { Box, ThemeProvider } from "@mui/material"
 import { P, match } from "ts-pattern"
+import { pipe } from "fp-ts/function"
+import { fromNullable, map, getOrElse } from "fp-ts/Option"
 import {
   buildStrainListFilter,
   graphqlListVariables,
@@ -49,19 +51,17 @@ const StrainCatalogRedesign = () => {
   const rootReference = useRef<HTMLDivElement>(null)
   const targetReference = useRef<HTMLTableRowElement>(null)
 
-  // Infinite scroll intersection observer
+  // Infinite scroll intersection observer using functional pattern
   const onIntersection = ([entry]: IntersectionObserverEntry[]) => {
-    const nextCursor = data?.listStrains?.nextCursor
-    switch (true) {
-      case !nextCursor:
-        return
-      case loading:
-        return
-      case !entry.isIntersecting:
-        return
-      default:
-        fetchMore({ variables: { cursor: nextCursor } })
-    }
+    pipe(
+      data?.listStrains?.nextCursor,
+      fromNullable,
+      map((cursor) => {
+        if (!loading && entry.isIntersecting) {
+          fetchMore({ variables: { cursor } })
+        }
+      }),
+    )
   }
 
   useIntersectionObserver({
@@ -70,8 +70,12 @@ const StrainCatalogRedesign = () => {
     option: { root: rootReference.current, threshold: 0.1 },
   })
 
-  // Extract strains from data
-  const strains = (data?.listStrains?.strains || []) as Array<CatalogStrain>
+  // Extract strains from data using Option for safe access
+  const strains = pipe(
+    data?.listStrains?.strains,
+    fromNullable,
+    getOrElse(() => [] as Array<CatalogStrain>),
+  )
 
   return (
     <ThemeProvider theme={theme}>
