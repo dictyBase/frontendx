@@ -12,25 +12,22 @@ const STRAIN_TYPE_OPTIONS = [
 ] as const
 
 const CatalogSidebar = () => {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParameters, setSearchParameters] = useSearchParams()
 
   // Use Option to safely handle the query parameter
   const selectedType = pipe(
-    searchParams.get("type"),
+    searchParameters.get("type"),
     fromNullable,
     getOrElse(() => StrainType.Regular),
   )
 
   const handleTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newType = event.target.value
-    setSearchParams((previous) =>
-      pipe(
-        new URLSearchParams(previous),
-        (params) => {
-          params.set("type", newType)
-          return params
-        },
-      ),
+    setSearchParameters((previous) =>
+      pipe(new URLSearchParams(previous), (parameters) => {
+        parameters.set("type", newType)
+        return parameters
+      }),
     )
   }
 
@@ -44,8 +41,7 @@ const CatalogSidebar = () => {
         p: "20px",
         borderRadius: "12px",
         boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-      }}
-    >
+      }}>
       <Box
         component="h2"
         sx={{
@@ -57,8 +53,7 @@ const CatalogSidebar = () => {
           letterSpacing: "0.5px",
           margin: 0,
           marginBottom: "16px",
-        }}
-      >
+        }}>
         Strain Type
       </Box>
       <RadioGroup value={selectedType} onChange={handleTypeChange}>
@@ -72,18 +67,17 @@ const CatalogSidebar = () => {
               padding: "10px 12px",
               borderRadius: "8px",
               border: "2px solid transparent",
-              background:
-                selectedType === option.value ? "#ebf8ff" : "#f7fafc",
+              background: selectedType === option.value ? "#ebf8ff" : "#f7fafc",
               borderColor:
                 selectedType === option.value ? "#3182ce" : "transparent",
               transition: "all 0.2s",
               mb: "8px",
               cursor: "pointer",
               "&:hover": {
-                background: selectedType === option.value ? "#ebf8ff" : "#edf2f7",
+                background:
+                  selectedType === option.value ? "#ebf8ff" : "#edf2f7",
               },
-            }}
-          >
+            }}>
             <FormControlLabel
               value={option.value}
               control={
