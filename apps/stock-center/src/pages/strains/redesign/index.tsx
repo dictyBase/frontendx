@@ -9,8 +9,12 @@ import {
 } from "@dictybase/hook-dsc"
 import { useIntersectionObserver } from "@dictybase/hook"
 import { useStrainListQuery } from "dicty-graphql-schema"
-import { CatalogTable, ScrollToTop } from "@dictybase/ui-dsc"
-import { ErrorDisplay } from "@dictybase/ui-dsc"
+import {
+  SearchBox,
+  ErrorDisplay,
+  CatalogTable,
+  ScrollToTop,
+} from "@dictybase/ui-dsc"
 import { useSearchParams } from "react-router-dom"
 import {
   CatalogSidebar,
@@ -20,7 +24,8 @@ import {
 } from "../../../features/StrainCatalog/components"
 import { useScrollPersistence } from "../../../features/StrainCatalog/hooks"
 import { theme } from "../../../features/StrainCatalog/theme"
-import type { CatalogStrain } from "../../../features/StrainCatalog/types"
+import { AddToCartButtonHandler } from "../../../components/AddToCartButtonHandler"
+import type { StrainItem } from "../../../types"
 
 /**
  * StrainCatalogRedesign is the redesigned main component for displaying the strain catalog.
@@ -74,7 +79,7 @@ const StrainCatalogRedesign = () => {
   const strains = pipe(
     data?.listStrains?.strains,
     fromNullable,
-    getOrElse(() => [] as Array<CatalogStrain>),
+    getOrElse(() => [] as Array<StrainItem>),
   )
 
   return (
@@ -105,7 +110,7 @@ const StrainCatalogRedesign = () => {
             }}>
             Strain Catalog
           </Box>
-          <CartButton />
+          {/* <CartButton /> */}
         </Box>
 
         {/* Main layout: sidebar + content */}
@@ -134,7 +139,7 @@ const StrainCatalogRedesign = () => {
                       isLoading={loading}
                       loadMoreRef={targetReference}
                       renderActions={(strain) => (
-                        <AddToCartButton strain={strain} />
+                        <AddToCartButtonHandler item={strain} />
                       )}
                     />
                   </Box>
