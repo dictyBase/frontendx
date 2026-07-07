@@ -60,7 +60,6 @@ const CatalogTable = ({
                   fontSize: "15px",
                   fontFamily: "'Monaco', 'Courier New', monospace",
                   lineHeight: 1.4,
-                  textOverflow: "wrap",
                   display: "block",
                   "&:hover": {
                     textDecoration: "underline",
