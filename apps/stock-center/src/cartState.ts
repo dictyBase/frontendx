@@ -192,6 +192,7 @@ export {
   addCartItemsAtom,
   removeItemAtom,
   currentCartQuantityAtom,
+  remainingCartSpaceAtom,
   maxItemsAtom,
   isFullAtom,
   initialCart,
