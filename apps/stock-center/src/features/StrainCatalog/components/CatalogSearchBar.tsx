@@ -121,50 +121,50 @@ const CatalogSearchBar = () => {
 
         <Stack direction="row" spacing={1.5} alignItems="flex-start">
           <SearchBox fields={searchFields} />
-          <TextField
-            fullWidth
-            placeholder="Search by descriptor or summary"
-            value={searchInput}
-            onChange={(event) => handleSearchChange(event.target.value)}
-            variant="outlined"
-            size="small"
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                padding: "0 16px",
-                paddingRight: searchInput ? "44px" : "16px",
-                position: "relative",
-              },
-              "& .MuiOutlinedInput-input": {
-                padding: "12px 0",
-                fontSize: "15px",
-              },
-            }}
-            InputProps={{
-              endAdornment: searchInput ? (
-                <Button
-                  onClick={handleClearSearch}
-                  sx={{
-                    position: "absolute",
-                    right: "12px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    minWidth: "24px",
-                    width: "24px",
-                    height: "24px",
-                    padding: 0,
-                    background: "#cbd5e0",
-                    color: "white",
-                    borderRadius: "50%",
-                    "&:hover": {
-                      background: "#a0aec0",
-                    },
-                    fontSize: "16px",
-                  }}>
-                  ✕
-                </Button>
-              ) : undefined,
-            }}
-          />
+          {/* <TextField */}
+          {/*   fullWidth */}
+          {/*   placeholder="Search by descriptor or summary" */}
+          {/*   value={searchInput} */}
+          {/*   onChange={(event) => handleSearchChange(event.target.value)} */}
+          {/*   variant="outlined" */}
+          {/*   size="small" */}
+          {/*   sx={{ */}
+          {/*     "& .MuiOutlinedInput-root": { */}
+          {/*       padding: "0 16px", */}
+          {/*       paddingRight: searchInput ? "44px" : "16px", */}
+          {/*       position: "relative", */}
+          {/*     }, */}
+          {/*     "& .MuiOutlinedInput-input": { */}
+          {/*       padding: "12px 0", */}
+          {/*       fontSize: "15px", */}
+          {/*     }, */}
+          {/*   }} */}
+          {/*   InputProps={{ */}
+          {/*     endAdornment: searchInput ? ( */}
+          {/*       <Button */}
+          {/*         onClick={handleClearSearch} */}
+          {/*         sx={{ */}
+          {/*           position: "absolute", */}
+          {/*           right: "12px", */}
+          {/*           top: "50%", */}
+          {/*           transform: "translateY(-50%)", */}
+          {/*           minWidth: "24px", */}
+          {/*           width: "24px", */}
+          {/*           height: "24px", */}
+          {/*           padding: 0, */}
+          {/*           background: "#cbd5e0", */}
+          {/*           color: "white", */}
+          {/*           borderRadius: "50%", */}
+          {/*           "&:hover": { */}
+          {/*             background: "#a0aec0", */}
+          {/*           }, */}
+          {/*           fontSize: "16px", */}
+          {/*         }}> */}
+          {/*         ✕ */}
+          {/*       </Button> */}
+          {/*     ) : undefined, */}
+          {/*   }} */}
+          {/* /> */}
           {hasActiveFilters && (
             <Button
               onClick={handleClearAll}
