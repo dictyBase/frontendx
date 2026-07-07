@@ -45,6 +45,7 @@ export const SearchBox = ({
   return (
     <Autocomplete
       disableClearable
+      fullWidth
       filterOptions={filterFields}
       freeSolo
       id="controllable-states"
