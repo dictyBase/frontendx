@@ -1,4 +1,6 @@
 import { Box, Button, Chip, Stack, TextField } from "@mui/material"
+import { searchFields } from "@dictybase/hook-dsc"
+import { SearchBox } from "@dictybase/ui-dsc"
 import { useCallback, useEffect, useRef, useState } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { pipe } from "fp-ts/function"
@@ -118,6 +120,7 @@ const CatalogSearchBar = () => {
         </Box>
 
         <Stack direction="row" spacing={1.5} alignItems="flex-start">
+          <SearchBox fields={searchFields} />
           <TextField
             fullWidth
             placeholder="Search by descriptor or summary"
