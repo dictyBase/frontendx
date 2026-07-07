@@ -11,25 +11,17 @@ import {
   Link as MuiLink,
 } from "@mui/material"
 import { Link } from "react-router-dom"
-
-type CatalogStrain = {
-  __typename?: string
-  id: string
-  descriptor: string
-  summary?: string | null
-  label: string
-  in_stock: boolean
-}
+import type { StrainItem } from "../types"
 
 type CatalogTableProperties = {
   /** Array of strains to display */
-  strains: Array<CatalogStrain>
+  strains: Array<StrainItem>
   /** Whether more data is being loaded */
   isLoading?: boolean
   /** Ref to attach to the loading indicator for infinite scroll */
   loadMoreRef?: RefObject<HTMLTableRowElement>
   /** Render function for the action cell (typically add to cart button) */
-  renderActions?: (strain: CatalogStrain) => JSX.Element
+  renderActions?: (strain: StrainItem) => JSX.Element
 }
 
 const CatalogTable = ({
@@ -68,13 +60,14 @@ const CatalogTable = ({
                   fontSize: "15px",
                   fontFamily: "'Monaco', 'Courier New', monospace",
                   lineHeight: 1.4,
+                  textOverflow: "wrap",
                   display: "block",
                   "&:hover": {
                     textDecoration: "underline",
                     color: "#2c5282",
                   },
                 }}>
-                {strain.descriptor}
+                {strain.label}
               </MuiLink>
             </TableCell>
             <TableCell sx={{ lineHeight: 1.6 }}>
@@ -100,4 +93,4 @@ const CatalogTable = ({
 )
 
 export { CatalogTable }
-export type { CatalogTableProperties, CatalogStrain }
+export type { CatalogTableProperties }
