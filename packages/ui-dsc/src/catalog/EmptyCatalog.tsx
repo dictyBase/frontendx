@@ -2,7 +2,7 @@ import { Stack, Typography, Paper, Box } from "@mui/material"
 import sadDicty from "../assets/sad-dicty.png"
 
 const EmptyCatalog = ({ message }: { message: string }) => (
-  <Paper sx={{ height: "100%", overflow: "hidden" }}>
+  <Paper sx={{ height: "100%", overflow: "hidden", p: 10 }}>
     <Stack justifyContent="center" direction="row" sx={{ height: "100%" }}>
       <Stack justifyContent="center" alignItems="center" direction="column">
         <img src={sadDicty} alt="Sad Dicty -- Page Not Found" />
