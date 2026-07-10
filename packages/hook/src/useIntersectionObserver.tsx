@@ -27,9 +27,6 @@ export function useIntersectionObserver({
   // set up the intersection observer
   useEffect(() => {
     if (target.current) {
-      if (observerReference.current) {
-        observerReference.current.disconnect()
-      }
       observerReference.current = new IntersectionObserver(
         onIntersection,
         option,
