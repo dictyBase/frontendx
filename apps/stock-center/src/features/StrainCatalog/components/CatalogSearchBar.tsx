@@ -1,4 +1,4 @@
-import { Box, Button, Chip, Stack, TextField } from "@mui/material"
+import { Box, Button, Chip, Stack } from "@mui/material"
 import { searchFields } from "@dictybase/hook-dsc"
 import { SearchBox } from "@dictybase/ui-dsc"
 import { useCallback, useEffect, useRef, useState } from "react"
@@ -6,7 +6,7 @@ import { useNavigate, useSearchParams } from "react-router-dom"
 import { pipe } from "fp-ts/function"
 import { fromNullable, getOrElse } from "fp-ts/Option"
 
-const DEBOUNCE_DELAY = 300
+// const DEBOUNCE_DELAY = 300
 
 const CatalogSearchBar = () => {
   const [searchInput, setSearchInput] = useState("")
@@ -25,35 +25,35 @@ const CatalogSearchBar = () => {
   }, [searchParameters])
 
   // Debounced search handler using functional approach
-  const handleSearchChange = useCallback(
-    (value: string) => {
-      setSearchInput(value)
-
-      // Clear existing timeout using Option
-      pipe(
-        debounceTimerReference.current,
-        fromNullable,
-        getOrElse(() => undefined as NodeJS.Timeout | undefined),
-        (timer) => timer && clearTimeout(timer),
-      )
-
-      // Set new debounce timer
-      debounceTimerReference.current = setTimeout(() => {
-        setSearchParameters((previous) =>
-          value
-            ? pipe(previous, (parameters) => {
-                parameters.set("q", value)
-                return parameters
-              })
-            : pipe(previous, (parameters) => {
-                parameters.delete("q")
-                return parameters
-              }),
-        )
-      }, DEBOUNCE_DELAY)
-    },
-    [setSearchParameters],
-  )
+  // const handleSearchChange = useCallback(
+  //   (value: string) => {
+  //     setSearchInput(value)
+  //
+  //     // Clear existing timeout using Option
+  //     pipe(
+  //       debounceTimerReference.current,
+  //       fromNullable,
+  //       getOrElse(() => undefined as NodeJS.Timeout | undefined),
+  //       (timer) => timer && clearTimeout(timer),
+  //     )
+  //
+  //     // Set new debounce timer
+  //     debounceTimerReference.current = setTimeout(() => {
+  //       setSearchParameters((previous) =>
+  //         value
+  //           ? pipe(previous, (parameters) => {
+  //               parameters.set("q", value)
+  //               return parameters
+  //             })
+  //           : pipe(previous, (parameters) => {
+  //               parameters.delete("q")
+  //               return parameters
+  //             }),
+  //       )
+  //     }, DEBOUNCE_DELAY)
+  //   },
+  //   [setSearchParameters],
+  // )
 
   // Cleanup debounce on unmount
   useEffect(
@@ -121,50 +121,6 @@ const CatalogSearchBar = () => {
 
         <Stack direction="row" spacing={1.5} alignItems="flex-start">
           <SearchBox fields={searchFields} />
-          {/* <TextField */}
-          {/*   fullWidth */}
-          {/*   placeholder="Search by descriptor or summary" */}
-          {/*   value={searchInput} */}
-          {/*   onChange={(event) => handleSearchChange(event.target.value)} */}
-          {/*   variant="outlined" */}
-          {/*   size="small" */}
-          {/*   sx={{ */}
-          {/*     "& .MuiOutlinedInput-root": { */}
-          {/*       padding: "0 16px", */}
-          {/*       paddingRight: searchInput ? "44px" : "16px", */}
-          {/*       position: "relative", */}
-          {/*     }, */}
-          {/*     "& .MuiOutlinedInput-input": { */}
-          {/*       padding: "12px 0", */}
-          {/*       fontSize: "15px", */}
-          {/*     }, */}
-          {/*   }} */}
-          {/*   InputProps={{ */}
-          {/*     endAdornment: searchInput ? ( */}
-          {/*       <Button */}
-          {/*         onClick={handleClearSearch} */}
-          {/*         sx={{ */}
-          {/*           position: "absolute", */}
-          {/*           right: "12px", */}
-          {/*           top: "50%", */}
-          {/*           transform: "translateY(-50%)", */}
-          {/*           minWidth: "24px", */}
-          {/*           width: "24px", */}
-          {/*           height: "24px", */}
-          {/*           padding: 0, */}
-          {/*           background: "#cbd5e0", */}
-          {/*           color: "white", */}
-          {/*           borderRadius: "50%", */}
-          {/*           "&:hover": { */}
-          {/*             background: "#a0aec0", */}
-          {/*           }, */}
-          {/*           fontSize: "16px", */}
-          {/*         }}> */}
-          {/*         ✕ */}
-          {/*       </Button> */}
-          {/*     ) : undefined, */}
-          {/*   }} */}
-          {/* /> */}
           {hasActiveFilters && (
             <Button
               onClick={handleClearAll}
