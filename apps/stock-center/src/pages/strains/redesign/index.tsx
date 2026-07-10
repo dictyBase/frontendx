@@ -1,8 +1,6 @@
 import { useRef } from "react"
 import { Box, ThemeProvider } from "@mui/material"
 import { P, match } from "ts-pattern"
-import { pipe } from "fp-ts/function"
-import { fromNullable, map, getOrElse } from "fp-ts/Option"
 import {
   buildStrainListFilter,
   graphqlListVariables,
@@ -10,22 +8,21 @@ import {
 import { useIntersectionObserver } from "@dictybase/hook"
 import { useStrainListQuery } from "dicty-graphql-schema"
 import {
-  SearchBox,
+  EmptyCatalog,
   ErrorDisplay,
   CatalogTable,
   ScrollToTop,
+  hasNotFoundError,
+  CatalogListLoader,
 } from "@dictybase/ui-dsc"
 import { useSearchParams } from "react-router-dom"
 import {
   CatalogSidebar,
   CatalogSearchBar,
-  CartButton,
-  AddToCartButton,
 } from "../../../features/StrainCatalog/components"
 import { useScrollPersistence } from "../../../features/StrainCatalog/hooks"
 import { theme } from "../../../features/StrainCatalog/theme"
 import { AddToCartButtonHandler } from "../../../components/AddToCartButtonHandler"
-import type { StrainItem } from "../../../types"
 
 /**
  * StrainCatalogRedesign is the redesigned main component for displaying the strain catalog.
@@ -58,17 +55,18 @@ const StrainCatalogRedesign = () => {
 
   // Infinite scroll intersection observer using functional pattern
   const onIntersection = ([entry]: IntersectionObserverEntry[]) => {
-    pipe(
-      data?.listStrains?.nextCursor,
-      fromNullable,
-      map((cursor) => {
-        if (!loading && entry.isIntersecting) {
-          fetchMore({ variables: { cursor } })
-        }
-      }),
-    )
+    const nextCursor = data?.listStrains?.nextCursor
+    switch (true) {
+      case !nextCursor:
+        return
+      case loading:
+        return
+      case !entry.isIntersecting:
+        return
+      default:
+        fetchMore({ variables: { cursor: nextCursor } })
+    }
   }
-
   useIntersectionObserver({
     target: targetReference,
     onIntersection,
@@ -76,11 +74,6 @@ const StrainCatalogRedesign = () => {
   })
 
   // Extract strains from data using Option for safe access
-  const strains = pipe(
-    data?.listStrains?.strains,
-    fromNullable,
-    getOrElse(() => [] as Array<StrainItem>),
-  )
 
   return (
     <ThemeProvider theme={theme}>
@@ -89,7 +82,6 @@ const StrainCatalogRedesign = () => {
           maxWidth: "1400px",
           margin: "0 auto",
           padding: "24px",
-          backgroundColor: "#f5f7fa",
           minHeight: "100vh",
         }}>
         {/* Header with cart button */}
@@ -131,46 +123,31 @@ const StrainCatalogRedesign = () => {
             {/* Pattern matching for different query states */}
             {match({ data, loading, error })
               .with(
-                { data: P.select({ listStrains: P.not(P.nullish) }) },
-                () => (
+                { data: { listStrains: P.select(P.not(P.nullish)) } },
+                ({ strains, nextCursor }) => (
                   <Box ref={rootReference}>
                     <CatalogTable
                       strains={strains}
                       isLoading={loading}
                       loadMoreRef={targetReference}
-                      renderActions={(strain) => (
-                        <AddToCartButtonHandler item={strain} />
-                      )}
+                      nextCursor={nextCursor}
+                      actionComponent={AddToCartButtonHandler}
                     />
                   </Box>
                 ),
               )
-              .with({ loading: true }, () => (
-                <Box
-                  sx={{
-                    backgroundColor: "white",
-                    borderRadius: "12px",
-                    padding: "40px",
-                    textAlign: "center",
-                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-                  }}>
-                  Loading strains...
-                </Box>
-              ))
+              .with({ loading: true }, () => <CatalogListLoader />)
+              .when(
+                ({ error: error_ }) => hasNotFoundError(error_),
+                () => (
+                  <EmptyCatalog message="Sorry, we couldn't find any strains. Try searching again with different terms" />
+                ),
+              )
               .with({ error: P.select(P.not(P.nullish)) }, (error_) => (
                 <ErrorDisplay error={error_} refetch={refetch} />
               ))
               .otherwise(() => (
-                <Box
-                  sx={{
-                    backgroundColor: "white",
-                    borderRadius: "12px",
-                    padding: "40px",
-                    textAlign: "center",
-                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-                  }}>
-                  No strains found
-                </Box>
+                <></>
               ))}
           </Box>
         </Box>
