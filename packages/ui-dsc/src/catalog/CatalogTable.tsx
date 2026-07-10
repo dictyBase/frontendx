@@ -1,4 +1,7 @@
-import { RefObject } from "react"
+import { RefObject, FC } from "react"
+import { pipe } from "fp-ts/function"
+import { match as Bmatch } from "fp-ts/boolean"
+import { map as Amap } from "fp-ts/Array"
 import {
   Table,
   TableBody,
@@ -11,7 +14,8 @@ import {
   Link as MuiLink,
 } from "@mui/material"
 import { Link } from "react-router-dom"
-import type { StrainItem } from "../types"
+import type { StrainItem, CatalogItem } from "../types"
+import { getCatalogItemPathAndDescriptor } from "../utils/getCatalogItemPathAndDescriptor"
 
 type CatalogTableProperties = {
   /** Array of strains to display */
@@ -20,15 +24,52 @@ type CatalogTableProperties = {
   isLoading?: boolean
   /** Ref to attach to the loading indicator for infinite scroll */
   loadMoreRef?: RefObject<HTMLTableRowElement>
-  /** Render function for the action cell (typically add to cart button) */
-  renderActions?: (strain: StrainItem) => JSX.Element
+  nextCursor: number
+  /** component for the action cell (typically add to cart button) */
+  actionComponent: FC<{ item: CatalogItem }>
 }
+
+const renderCatalogItemRow =
+  (ActionComponent: FC<{ item: CatalogItem }>) =>
+  // eslint-disable-next-line react/function-component-definition
+  (item: CatalogItem) => {
+    const { itemDescriptor, itemPath } = getCatalogItemPathAndDescriptor(item)
+    const { id, summary } = item
+    return (
+      <TableRow key={id} hover>
+        <TableCell>
+          <MuiLink
+            component={Link}
+            to={`/${itemPath}/${id}`}
+            sx={{
+              color: "#004080",
+              textDecoration: "none",
+              fontWeight: 600,
+              fontSize: "15px",
+              lineHeight: 1.4,
+              display: "block",
+              "&:hover": {
+                textDecoration: "underline",
+                color: "#2c5282",
+              },
+            }}>
+            {itemDescriptor}
+          </MuiLink>
+        </TableCell>
+        <TableCell sx={{ lineHeight: 1.6 }}>{summary}</TableCell>
+        <TableCell sx={{ textAlign: "center" }}>
+          <ActionComponent item={item} />
+        </TableCell>
+      </TableRow>
+    )
+  }
 
 const CatalogTable = ({
   strains,
   isLoading = false,
   loadMoreRef,
-  renderActions,
+  nextCursor,
+  actionComponent,
 }: CatalogTableProperties) => (
   <TableContainer
     sx={{
@@ -47,44 +88,22 @@ const CatalogTable = ({
         </TableRow>
       </TableHead>
       <TableBody>
-        {strains.map((strain) => (
-          <TableRow key={strain.id} hover>
-            <TableCell>
-              <MuiLink
-                component={Link}
-                to={`/strains/${strain.id}`}
-                sx={{
-                  color: "#004080",
-                  textDecoration: "none",
-                  fontWeight: 600,
-                  fontSize: "15px",
-                  fontFamily: "'Monaco', 'Courier New', monospace",
-                  lineHeight: 1.4,
-                  display: "block",
-                  "&:hover": {
-                    textDecoration: "underline",
-                    color: "#2c5282",
-                  },
-                }}>
-                {strain.label}
-              </MuiLink>
-            </TableCell>
-            <TableCell sx={{ lineHeight: 1.6 }}>
-              {strain.summary || ""}
-            </TableCell>
-            <TableCell sx={{ textAlign: "center" }}>
-              {renderActions?.(strain)}
-            </TableCell>
-          </TableRow>
-        ))}
-        {isLoading && (
-          <TableRow ref={loadMoreRef}>
-            <TableCell colSpan={3}>
-              <Box sx={{ width: "100%" }}>
-                <LinearProgress />
-              </Box>
-            </TableCell>
-          </TableRow>
+        {pipe(strains, Amap(renderCatalogItemRow(actionComponent)))}
+        {pipe(
+          nextCursor === 0,
+          Bmatch(
+            () => (
+              <TableRow
+                // className={classes.row}
+                key="linear-progess"
+                ref={loadMoreRef}>
+                <TableCell colSpan={4}>
+                  <LinearProgress />
+                </TableCell>
+              </TableRow>
+            ),
+            () => <></>,
+          ),
         )}
       </TableBody>
     </Table>
