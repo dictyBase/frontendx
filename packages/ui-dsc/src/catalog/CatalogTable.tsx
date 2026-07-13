@@ -9,7 +9,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Box,
   LinearProgress,
   Link as MuiLink,
 } from "@mui/material"
@@ -21,7 +20,6 @@ type CatalogTableProperties = {
   /** Array of strains to display */
   strains: Array<StrainItem>
   /** Whether more data is being loaded */
-  isLoading?: boolean
   /** Ref to attach to the loading indicator for infinite scroll */
   loadMoreRef?: RefObject<HTMLTableRowElement>
   nextCursor: number
@@ -66,7 +64,6 @@ const renderCatalogItemRow =
 
 const CatalogTable = ({
   strains,
-  isLoading = false,
   loadMoreRef,
   nextCursor,
   actionComponent,
