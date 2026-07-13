@@ -73,8 +73,6 @@ const StrainCatalogRedesign = () => {
     option: { root: rootReference.current, threshold: 0.1 },
   })
 
-  // Extract strains from data using Option for safe access
-
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -82,6 +80,7 @@ const StrainCatalogRedesign = () => {
           maxWidth: "1400px",
           margin: "0 auto",
           padding: "24px",
+          pt: 0,
           minHeight: "100vh",
         }}>
         {/* Header with cart button */}
@@ -128,7 +127,6 @@ const StrainCatalogRedesign = () => {
                   <Box ref={rootReference}>
                     <CatalogTable
                       strains={strains}
-                      isLoading={loading}
                       loadMoreRef={targetReference}
                       nextCursor={nextCursor}
                       actionComponent={AddToCartButtonHandler}
