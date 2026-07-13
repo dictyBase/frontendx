@@ -62,7 +62,6 @@ const CatalogSidebar = () => {
           textTransform: "uppercase",
           letterSpacing: "0.5px",
           margin: 0,
-          marginBottom: "16px",
         }}>
         Strain Type
       </Box>
