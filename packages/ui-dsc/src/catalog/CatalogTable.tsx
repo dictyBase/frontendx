@@ -2,6 +2,7 @@ import { RefObject, FC } from "react"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import { map as Amap } from "fp-ts/Array"
+import { Eq as NEq } from "fp-ts/number"
 import {
   Table,
   TableBody,
@@ -87,7 +88,7 @@ const CatalogTable = ({
       <TableBody>
         {pipe(strains, Amap(renderCatalogItemRow(actionComponent)))}
         {pipe(
-          nextCursor === 0,
+          NEq.equals(nextCursor, 0),
           Bmatch(
             () => (
               <TableRow
