@@ -54,3 +54,4 @@ repomix.config.json
 credentials
 .mcp.json
 mockServiceWorker.js
+/.claude

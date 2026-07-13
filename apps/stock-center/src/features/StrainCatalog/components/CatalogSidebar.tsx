@@ -16,16 +16,16 @@ const CatalogSidebar = () => {
 
   // Use Option to safely handle the query parameter
   const selectedType = pipe(
-    searchParameters.get("type"),
+    searchParameters.get("group") as StrainType,
     fromNullable,
-    getOrElse(() => StrainType.Regular),
+    getOrElse(() => StrainType.Regular as StrainType),
   )
 
   const handleTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newType = event.target.value
     setSearchParameters((previous) =>
       pipe(new URLSearchParams(previous), (parameters) => {
-        parameters.set("type", newType)
+        parameters.set("group", newType)
         return parameters
       }),
     )
@@ -63,7 +63,6 @@ const CatalogSidebar = () => {
             sx={{
               display: "flex",
               alignItems: "center",
-              gap: "8px",
               padding: "10px 12px",
               borderRadius: "8px",
               border: "2px solid transparent",
@@ -93,6 +92,7 @@ const CatalogSidebar = () => {
               sx={{
                 margin: 0,
                 width: "100%",
+                gap: "8px",
                 "& .MuiFormControlLabel-label": {
                   fontSize: "14px",
                   color: "#2d3748",
