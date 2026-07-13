@@ -1,14 +1,14 @@
 import { Box, Radio, RadioGroup, FormControlLabel, Paper } from "@mui/material"
+import { SelectChangeEvent } from "@mui/material/Select"
 import { useSearchParams } from "react-router-dom"
 import { pipe } from "fp-ts/function"
 import { fromNullable, getOrElse } from "fp-ts/Option"
-import { StrainType } from "../types"
 
 const STRAIN_TYPE_OPTIONS = [
-  { value: StrainType.Regular, label: "Regular Strains" },
-  { value: StrainType.Bacterial, label: "Bacterial Strains" },
-  { value: StrainType.Gwdi, label: "GWDI Strains" },
-  { value: StrainType.All, label: "All Strains" },
+  { value: "regular", label: "Regular Strains" },
+  { value: "bacterial", label: "Bacterial Strains" },
+  { value: "gwdi", label: "GWDI Strains" },
+  { value: "all", label: "All Strains" },
 ] as const
 
 const CatalogSidebar = () => {
@@ -16,19 +16,29 @@ const CatalogSidebar = () => {
 
   // Use Option to safely handle the query parameter
   const selectedType = pipe(
-    searchParameters.get("group") as StrainType,
+    searchParameters.get("group"),
     fromNullable,
-    getOrElse(() => StrainType.Regular as StrainType),
+    getOrElse(() => "regular"),
   )
 
-  const handleTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newType = event.target.value
-    setSearchParameters((previous) =>
-      pipe(new URLSearchParams(previous), (parameters) => {
-        parameters.set("group", newType)
-        return parameters
-      }),
-    )
+  // const handleTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const newType = event.target.value
+  //   setSearchParameters((previous) =>
+  //     pipe(new URLSearchParams(previous), (parameters) => {
+  //       parameters.set("group", newType)
+  //       return parameters
+  //     }),
+  //   )
+  // }
+
+  const handleTypeChange = (event: SelectChangeEvent<string>) => {
+    setSearchParameters((previousParameters) => {
+      const newParameters = new URLSearchParams([
+        ...previousParameters.entries(),
+      ])
+      newParameters.set("group", event.target.value)
+      return [...newParameters.entries()]
+    })
   }
 
   return (
