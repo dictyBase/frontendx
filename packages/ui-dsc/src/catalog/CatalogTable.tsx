@@ -35,7 +35,7 @@ const renderCatalogItemRow =
     const { itemDescriptor, itemPath } = getCatalogItemPathAndDescriptor(item)
     const { id, summary } = item
     return (
-      <TableRow key={id} hover>
+      <TableRow key={`catalog-row-${id}`} hover>
         <TableCell>
           <MuiLink
             component={Link}
@@ -44,6 +44,7 @@ const renderCatalogItemRow =
               color: "#004080",
               textDecoration: "none",
               fontWeight: 600,
+              wordWrap: "break-word",
               fontSize: "15px",
               lineHeight: 1.4,
               display: "block",
