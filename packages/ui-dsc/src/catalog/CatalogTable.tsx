@@ -4,6 +4,10 @@ import { match as Bmatch } from "fp-ts/boolean"
 import { map as Amap } from "fp-ts/Array"
 import { Eq as NEq } from "fp-ts/number"
 import {
+  fromNullable as OfromNullable,
+  getOrElse as OgetOrElse,
+} from "fp-ts/Option"
+import {
   Table,
   TableBody,
   TableCell,
@@ -16,6 +20,7 @@ import {
 import { Link } from "react-router-dom"
 import type { StrainItem, CatalogItem } from "../types"
 import { getCatalogItemPathAndDescriptor } from "../utils/getCatalogItemPathAndDescriptor"
+import { abbreviateStringToLength } from "../utils/abbreviateStringToLength"
 
 type CatalogTableProperties = {
   /** Array of strains to display */
@@ -56,7 +61,13 @@ const renderCatalogItemRow =
             {itemDescriptor}
           </MuiLink>
         </TableCell>
-        <TableCell sx={{ lineHeight: 1.6 }}>{summary}</TableCell>
+        <TableCell sx={{ lineHeight: 1.6 }}>
+          {pipe(
+            OfromNullable(summary),
+            OgetOrElse(() => ""),
+            abbreviateStringToLength(120),
+          )}
+        </TableCell>
         <TableCell sx={{ textAlign: "center" }}>
           <ActionComponent item={item} />
         </TableCell>
