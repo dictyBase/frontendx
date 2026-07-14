@@ -17,10 +17,10 @@ import { indigo } from "@mui/material/colors"
 import { AddToCartButtonHandler } from "stock-center/src/components/AddToCartButtonHandler"
 import { Link } from "react-router-dom"
 import { v4 as uuid4 } from "uuid"
-import { slice, trimRight } from "fp-ts/string"
 import { fromNullable, getOrElse } from "fp-ts/Option"
 import type { CatalogItem, StrainItem, PlasmidItem } from "../types"
 import { getCatalogItemPathAndDescriptor } from "../utils/getCatalogItemPathAndDescriptor"
+import { abbreviateStringToLength } from "../utils/abbreviateStringToLength"
 
 const useStyles = makeStyles()({
   listHeaders: {
@@ -84,14 +84,6 @@ const CatalogTableHeader = ({
       ))}
     </TableRow>
   )
-}
-
-const appendEllipses = (input: string) => `${input}...`
-
-const abbreviateStringToLength = (length: number) => (input: string) => {
-  if (input.length <= length) return input
-
-  return pipe(input, slice(0, length), trimRight, appendEllipses)
 }
 
 const cellFunction = (item: cellFunctionItem) => {
@@ -216,10 +208,11 @@ const PlasmidCatalogTableDisplay = ({
 }
 
 export {
-  abbreviateStringToLength,
   cellFunction,
   CatalogRows,
   StrainCatalogTableDisplay,
   PlasmidCatalogTableDisplay,
   CatalogTableHeader,
 }
+
+export { abbreviateStringToLength } from "../utils/abbreviateStringToLength"
