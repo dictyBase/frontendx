@@ -1,4 +1,11 @@
-import { Box, Radio, RadioGroup, FormControlLabel, Paper } from "@mui/material"
+import {
+  Box,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  Paper,
+  Typography,
+} from "@mui/material"
 import { SelectChangeEvent } from "@mui/material/Select"
 import { useSearchParams } from "react-router-dom"
 import { pipe } from "fp-ts/function"
@@ -21,16 +28,6 @@ const CatalogSidebar = () => {
     getOrElse(() => "regular"),
   )
 
-  // const handleTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const newType = event.target.value
-  //   setSearchParameters((previous) =>
-  //     pipe(new URLSearchParams(previous), (parameters) => {
-  //       parameters.set("group", newType)
-  //       return parameters
-  //     }),
-  //   )
-  // }
-
   const handleTypeChange = (event: SelectChangeEvent<string>) => {
     setSearchParameters((previousParameters) => {
       const newParameters = new URLSearchParams([
@@ -52,19 +49,18 @@ const CatalogSidebar = () => {
         borderRadius: "12px",
         boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
       }}>
-      <Box
-        component="h2"
+      <Typography
+        variant="h2"
         sx={{
           fontSize: "14px",
-          fontWeight: 700,
+          fontWeight: 800,
           color: "#1a202c",
-          mb: "16px",
+          mb: 2,
           textTransform: "uppercase",
-          letterSpacing: "0.5px",
-          margin: 0,
+          letterSpacing: "0.75px",
         }}>
         Strain Type
-      </Box>
+      </Typography>
       <RadioGroup value={selectedType} onChange={handleTypeChange}>
         {STRAIN_TYPE_OPTIONS.map((option) => (
           <Box
