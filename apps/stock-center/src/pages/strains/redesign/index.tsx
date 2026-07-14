@@ -101,7 +101,6 @@ const StrainCatalogRedesign = () => {
             }}>
             Strain Catalog
           </Box>
-          {/* <CartButton /> */}
         </Box>
 
         {/* Main layout: sidebar + content */}
