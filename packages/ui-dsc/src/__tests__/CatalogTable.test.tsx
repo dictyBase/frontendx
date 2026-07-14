@@ -5,6 +5,7 @@ import type { FC } from "react"
 import { CatalogTable } from "../catalog/CatalogTable"
 import type { CatalogItem } from "../types"
 
+// eslint-disable-next-line unicorn/no-null
 const NoOpAction: FC<{ item: CatalogItem }> = () => null
 
 const mockStrains = [
@@ -62,9 +63,9 @@ test("renders a row for each strain", () => {
       />
     </MemoryRouter>,
   )
-  expect(screen.getByText(mockStrains[0].label)).toBeInTheDocument()
-  expect(screen.getByText(mockStrains[1].label)).toBeInTheDocument()
-  expect(screen.getByText(mockStrains[2].label)).toBeInTheDocument()
+  expect(screen.getByText(mockStrains[0]!.label)).toBeInTheDocument()
+  expect(screen.getByText(mockStrains[1]!.label)).toBeInTheDocument()
+  expect(screen.getByText(mockStrains[2]!.label)).toBeInTheDocument()
 })
 
 test("renders strain summaries", () => {
@@ -77,9 +78,9 @@ test("renders strain summaries", () => {
       />
     </MemoryRouter>,
   )
-  expect(screen.getByText(mockStrains[0].summary)).toBeInTheDocument()
-  expect(screen.getByText(mockStrains[1].summary)).toBeInTheDocument()
-  expect(screen.getByText(mockStrains[2].summary)).toBeInTheDocument()
+  expect(screen.getByText(mockStrains[0]!.summary)).toBeInTheDocument()
+  expect(screen.getByText(mockStrains[1]!.summary)).toBeInTheDocument()
+  expect(screen.getByText(mockStrains[2]!.summary)).toBeInTheDocument()
 })
 
 test("renders strain label as a link to the strain detail page", () => {
@@ -92,8 +93,8 @@ test("renders strain label as a link to the strain detail page", () => {
       />
     </MemoryRouter>,
   )
-  const link = screen.getByRole("link", { name: mockStrains[0].label })
-  expect(link).toHaveAttribute("href", `/strains/${mockStrains[0].id}`)
+  const link = screen.getByRole("link", { name: mockStrains[0]!.label })
+  expect(link).toHaveAttribute("href", `/strains/${mockStrains[0]!.id}`)
 })
 
 test("displays load-more trigger when nextCursor is non-zero", () => {
@@ -121,11 +122,11 @@ test("hides load-more trigger when nextCursor is zero", () => {
   )
   expect(screen.queryByRole("progressbar")).not.toBeInTheDocument()
 })
+const MockAction: FC<{ item: CatalogItem }> = () => (
+  <button type="button">Add to Cart</button>
+)
 
 test("renders the action component for each strain row", () => {
-  const MockAction: FC<{ item: CatalogItem }> = () => (
-    <button type="button">Add to Cart</button>
-  )
   render(
     <MemoryRouter>
       <CatalogTable
