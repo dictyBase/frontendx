@@ -28,11 +28,8 @@ type UseScrollPersistenceProperties = {
  */
 const useScrollPersistence = ({
   storageKey = "catalogScrollPos",
-  enabled = true,
 }: UseScrollPersistenceProperties = {}) => {
   useEffect(() => {
-    if (!enabled) return
-
     // Restore scroll position on mount
     const restoreScrollPosition = () => {
       const savedPosition = pipe(
@@ -57,12 +54,11 @@ const useScrollPersistence = ({
 
     // Save on beforeunload
     window.addEventListener("beforeunload", saveScrollPosition)
-
     // Cleanup
     return () => {
       window.removeEventListener("beforeunload", saveScrollPosition)
     }
-  }, [storageKey, enabled])
+  }, [storageKey])
 }
 
 export { useScrollPersistence }
