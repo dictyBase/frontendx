@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import {
   Box,
   Radio,
@@ -8,32 +9,42 @@ import {
 } from "@mui/material"
 import { SelectChangeEvent } from "@mui/material/Select"
 import { useSearchParams } from "react-router-dom"
-import { pipe } from "fp-ts/function"
-import { fromNullable, getOrElse } from "fp-ts/Option"
 
-const STRAIN_TYPE_OPTIONS = [
-  { value: "regular", label: "Regular Strains" },
-  { value: "bacterial", label: "Bacterial Strains" },
-  { value: "gwdi", label: "GWDI Strains" },
-  { value: "all", label: "All Strains" },
-] as const
+type CatalogSidebarProperties = {
+  title: string
+  value: string
+  param: string
+  options: Array<{ value: string; label: string }>
+}
 
-const CatalogSidebar = () => {
+const CatalogSidebar = ({
+  title,
+  value,
+  param,
+  options,
+}: CatalogSidebarProperties) => {
   const [searchParameters, setSearchParameters] = useSearchParams()
+  const selectedType = searchParameters.get(param) ?? value
 
-  // Use Option to safely handle the query parameter
-  const selectedType = pipe(
-    searchParameters.get("group"),
-    fromNullable,
-    getOrElse(() => "regular"),
-  )
+  useEffect(() => {
+    setSearchParameters(
+      (previousParameters) => {
+        const newParameters = new URLSearchParams([
+          ...previousParameters.entries(),
+        ])
+        newParameters.set(param, selectedType)
+        return [...newParameters.entries()]
+      },
+      { replace: true },
+    )
+  }, [searchParameters, setSearchParameters, param, selectedType, value])
 
   const handleTypeChange = (event: SelectChangeEvent<string>) => {
     setSearchParameters((previousParameters) => {
       const newParameters = new URLSearchParams([
         ...previousParameters.entries(),
       ])
-      newParameters.set("group", event.target.value)
+      newParameters.set(param, event.target.value)
       return [...newParameters.entries()]
     })
   }
@@ -59,10 +70,10 @@ const CatalogSidebar = () => {
           textTransform: "uppercase",
           letterSpacing: "0.75px",
         }}>
-        Strain Type
+        {title}
       </Typography>
       <RadioGroup value={selectedType} onChange={handleTypeChange}>
-        {STRAIN_TYPE_OPTIONS.map((option) => (
+        {options.map((option) => (
           <Box
             key={option.value}
             sx={{
@@ -115,3 +126,4 @@ const CatalogSidebar = () => {
 }
 
 export { CatalogSidebar }
+export type { CatalogSidebarProperties }

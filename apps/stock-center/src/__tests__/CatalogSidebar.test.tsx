@@ -3,16 +3,30 @@ import { userEvent } from "@testing-library/user-event"
 import { BrowserRouter, MemoryRouter } from "react-router-dom"
 import { CatalogSidebar } from "../features/StrainCatalog/components/CatalogSidebar"
 
+const STRAIN_OPTIONS = [
+  { value: "regular", label: "Regular Strains" },
+  { value: "bacterial", label: "Bacterial Strains" },
+  { value: "gwdi", label: "GWDI Strains" },
+  { value: "all", label: "All Strains" },
+]
+
+const defaultProperties = {
+  title: "Strain Type",
+  value: "regular",
+  param: "group",
+  options: STRAIN_OPTIONS,
+}
+
 const renderWithRouter = (component: React.ReactElement) =>
   render(<BrowserRouter>{component}</BrowserRouter>)
 
 test("should render sidebar title", () => {
-  renderWithRouter(<CatalogSidebar />)
+  renderWithRouter(<CatalogSidebar {...defaultProperties} />)
   expect(screen.getByText(/strain type/i)).toBeInTheDocument()
 })
 
 test("should render all strain type options", () => {
-  renderWithRouter(<CatalogSidebar />)
+  renderWithRouter(<CatalogSidebar {...defaultProperties} />)
   expect(screen.getByText("Regular Strains")).toBeInTheDocument()
   expect(screen.getByText("Bacterial Strains")).toBeInTheDocument()
   expect(screen.getByText("GWDI Strains")).toBeInTheDocument()
@@ -20,7 +34,7 @@ test("should render all strain type options", () => {
 })
 
 test("should have Regular Strains selected by default", () => {
-  renderWithRouter(<CatalogSidebar />)
+  renderWithRouter(<CatalogSidebar {...defaultProperties} />)
   const regularRadio = screen.getByRole("radio", {
     name: /regular strains/i,
   }) as HTMLInputElement
@@ -29,7 +43,7 @@ test("should have Regular Strains selected by default", () => {
 
 test("should update selected type when a different option is clicked", async () => {
   const user = userEvent.setup()
-  renderWithRouter(<CatalogSidebar />)
+  renderWithRouter(<CatalogSidebar {...defaultProperties} />)
 
   await user.click(screen.getByRole("radio", { name: /bacterial strains/i }))
 
@@ -41,7 +55,7 @@ test("should update selected type when a different option is clicked", async () 
 
 test("should deselect previously selected option when a new one is chosen", async () => {
   const user = userEvent.setup()
-  renderWithRouter(<CatalogSidebar />)
+  renderWithRouter(<CatalogSidebar {...defaultProperties} />)
 
   await user.click(screen.getByRole("radio", { name: /gwdi strains/i }))
 
@@ -54,7 +68,7 @@ test("should deselect previously selected option when a new one is chosen", asyn
 test("should reflect the initial type from the URL group search parameter", () => {
   render(
     <MemoryRouter initialEntries={["/?group=bacterial"]}>
-      <CatalogSidebar />
+      <CatalogSidebar {...defaultProperties} />
     </MemoryRouter>,
   )
   const bacterialRadio = screen.getByRole("radio", {
@@ -66,7 +80,7 @@ test("should reflect the initial type from the URL group search parameter", () =
 test("should fall back to Regular Strains when the group parameter is absent", () => {
   render(
     <MemoryRouter initialEntries={["/"]}>
-      <CatalogSidebar />
+      <CatalogSidebar {...defaultProperties} />
     </MemoryRouter>,
   )
   const regularRadio = screen.getByRole("radio", {
