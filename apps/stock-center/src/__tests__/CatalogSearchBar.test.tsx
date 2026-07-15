@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
 import { MemoryRouter, Route, Routes } from "react-router-dom"
 import { expect, test } from "vitest"
-import { CatalogSearchBar } from "../components/CatalogSearchBar"
+import { CatalogSearchBar } from "../features/StrainCatalog/components/CatalogSearchBar"
 
 const TestWrapper = ({
   children,

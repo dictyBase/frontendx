@@ -3,8 +3,8 @@ import { render, screen } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
 import { Provider, createStore } from "jotai"
 import { MemoryRouter, Routes, Route } from "react-router-dom"
-import { CartButton } from "../CartButton"
-import { cartAtom } from "../../../../cartState"
+import { CartButton } from "../features/StrainCatalog/components/CartButton"
+import { cartAtom } from "../cartState"
 import type { StrainCartItem } from "@dictybase/ui-dsc"
 
 const mockStrainItem = (id: string): StrainCartItem => ({

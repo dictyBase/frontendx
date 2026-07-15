@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
 import { BrowserRouter, MemoryRouter } from "react-router-dom"
-import { CatalogSidebar } from "../CatalogSidebar"
+import { CatalogSidebar } from "../features/StrainCatalog/components/CatalogSidebar"
 
 const renderWithRouter = (component: React.ReactElement) =>
   render(<BrowserRouter>{component}</BrowserRouter>)
