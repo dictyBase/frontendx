@@ -4,6 +4,8 @@ import { P, match } from "ts-pattern"
 import {
   buildStrainListFilter,
   graphqlListVariables,
+  strainGroupFilterOptions,
+  defaultFilter,
 } from "@dictybase/hook-dsc"
 import { useIntersectionObserver } from "@dictybase/hook"
 import { useStrainListQuery } from "dicty-graphql-schema"
@@ -24,17 +26,7 @@ import { useScrollPersistence } from "../../features/StrainCatalog/hooks"
 import { theme } from "../../features/StrainCatalog/theme"
 import { AddToCartButtonHandler } from "../../components/AddToCartButtonHandler"
 
-/**
- * StrainCatalogRedesign is the redesigned main component for displaying the strain catalog.
- * Features:
- * - Two-column layout with sidebar filters
- * - Enhanced search with active filter display
- * - Scrollable table with sticky header
- * - Cart integration
- * - Scroll to top button
- * - Scroll position persistence
- */
-const StrainCatalogRedesign = () => {
+const StrainCatalog = () => {
   // Enable scroll position persistence
   useScrollPersistence({ storageKey: "strainCatalogScrollPos" })
 
@@ -111,7 +103,12 @@ const StrainCatalogRedesign = () => {
             alignItems: "flex-start",
           }}>
           {/* Sidebar with filters */}
-          <CatalogSidebar />
+          <CatalogSidebar
+            title="Strain Type"
+            value={defaultFilter.value}
+            param={defaultFilter.param}
+            options={strainGroupFilterOptions}
+          />
 
           {/* Content area */}
           <Box sx={{ flex: 1, minWidth: 0 }}>
@@ -157,4 +154,4 @@ const StrainCatalogRedesign = () => {
 }
 
 // eslint-disable-next-line import/no-default-export
-export default StrainCatalogRedesign
+export default StrainCatalog
