@@ -1,5 +1,5 @@
 import { test, expect } from "vitest"
-import { render, screen } from "@testing-library/react"
+import { render, screen, within } from "@testing-library/react"
 import { MemoryRouter } from "react-router-dom"
 import type { FC } from "react"
 import { CatalogTable } from "../catalog/CatalogTable"
@@ -150,4 +150,29 @@ test("renders empty table when strains array is empty", () => {
     screen.getByRole("columnheader", { name: "Strain Descriptor" }),
   ).toBeInTheDocument()
   expect(screen.queryByRole("link")).not.toBeInTheDocument()
+})
+
+test("renders empty string for nullish strain summaries", () => {
+  render(
+    <MemoryRouter>
+      <CatalogTable
+        strains={[
+          {
+            __typename: "Strain" as const,
+            id: "DBS0351791",
+            // eslint-disable-next-line unicorn/no-null
+            summary: null,
+            label: "TOR001",
+            in_stock: true,
+          },
+        ]}
+        nextCursor={0}
+        actionComponent={NoOpAction}
+      />
+    </MemoryRouter>,
+  )
+  const link = screen.getByRole("link", { name: "TOR001" })
+  const row = link.closest("tr")!
+  const cells = within(row).getAllByRole("cell")
+  expect(cells[1]).toBeEmptyDOMElement()
 })
