@@ -1,25 +1,33 @@
 import { useRef } from "react"
-import { Container } from "@mui/material"
-import { useSearchParams } from "react-router-dom"
+import { Box, ThemeProvider } from "@mui/material"
 import { P, match } from "ts-pattern"
-import { usePlasmidListFilterQuery } from "dicty-graphql-schema"
 import {
-  graphqlListVariables,
   buildPlasmidListFilter,
+  graphqlListVariables,
+  plasmidGroupFilterOptions,
 } from "@dictybase/hook-dsc"
 import { useIntersectionObserver } from "@dictybase/hook"
+import { usePlasmidListFilterQuery } from "dicty-graphql-schema"
 import {
-  WindowHeightWrapper,
-  PlasmidCatalogTableDisplay,
-  SearchBarPlasmid,
-  ErrorDisplay,
-  CatalogListWrapper,
-  CatalogListLoader,
-  CatalogHeader,
   EmptyCatalog,
+  ErrorDisplay,
+  CatalogTable,
+  ScrollToTop,
+  hasNotFoundError,
+  CatalogListLoader,
 } from "@dictybase/ui-dsc"
+import { useSearchParams } from "react-router-dom"
+import {
+  CatalogSidebar,
+  CatalogSearchBar,
+} from "../../features/StrainCatalog/components"
+import { useScrollPersistence } from "../../features/StrainCatalog/hooks"
+import { theme } from "../../features/StrainCatalog/theme"
+import { AddToCartButtonHandler } from "../../components/AddToCartButtonHandler"
 
 const PlasmidCatalog = () => {
+  useScrollPersistence({ storageKey: "plasmidCatalogScrollPos" })
+
   const [searchParameters] = useSearchParams()
 
   const { loading, error, data, fetchMore, refetch } =
@@ -32,6 +40,7 @@ const PlasmidCatalog = () => {
 
   const rootReference = useRef<HTMLDivElement>(null)
   const targetReference = useRef<HTMLTableRowElement>(null)
+
   const onIntersection = ([entry]: IntersectionObserverEntry[]) => {
     const nextCursor = data?.listPlasmids?.nextCursor
     switch (true) {
@@ -53,35 +62,83 @@ const PlasmidCatalog = () => {
   })
 
   return (
-    <Container maxWidth="lg">
-      <CatalogHeader title="Plasmid Catalog" />
-      <SearchBarPlasmid />
-      <WindowHeightWrapper>
-        {match({ data, loading, error })
-          .with({ data: { listPlasmids: { plasmids: [] } } }, () => (
-            <EmptyCatalog message="Sorry, we couldn't find any matching plasmids. Try searching again with different terms." />
-          ))
-          .with(
-            { data: P.select({ listPlasmids: P.not(undefined) }) },
-            (data_) => (
-              <CatalogListWrapper root={rootReference}>
-                <PlasmidCatalogTableDisplay
-                  data={data_}
-                  dataField="listPlasmids"
-                  target={targetReference}
-                />
-              </CatalogListWrapper>
-            ),
-          )
-          .with({ loading: true }, () => <CatalogListLoader />)
-          .with({ error: P.select({ message: P.string }) }, (error_) => (
-            <ErrorDisplay error={error_} refetch={refetch} />
-          ))
-          .otherwise(() => (
-            <></>
-          ))}
-      </WindowHeightWrapper>
-    </Container>
+    <ThemeProvider theme={theme}>
+      <Box
+        sx={{
+          maxWidth: "1400px",
+          margin: "0 auto",
+          padding: "24px",
+          pt: 0,
+          minHeight: "100vh",
+        }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: "24px",
+          }}>
+          <Box
+            component="h1"
+            sx={{
+              fontSize: "32px",
+              color: "#1a202c",
+              fontWeight: 700,
+              margin: 0,
+            }}>
+            Plasmid Catalog
+          </Box>
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            gap: "24px",
+            alignItems: "flex-start",
+          }}>
+          <CatalogSidebar
+            title="Plasmid Type"
+            value="regular"
+            param="group"
+            options={plasmidGroupFilterOptions}
+          />
+
+          <Box sx={{ flex: 1, minWidth: 0 }}>
+            <CatalogSearchBar />
+
+            {match({ data, loading, error })
+              .with(
+                { data: { listPlasmids: P.select(P.not(P.nullish)) } },
+                ({ plasmids, nextCursor }) => (
+                  <Box ref={rootReference}>
+                    <CatalogTable
+                      items={plasmids}
+                      loadMoreRef={targetReference}
+                      nextCursor={nextCursor}
+                      actionComponent={AddToCartButtonHandler}
+                    />
+                  </Box>
+                ),
+              )
+              .with({ loading: true }, () => <CatalogListLoader />)
+              .when(
+                ({ error: error_ }) => hasNotFoundError(error_),
+                () => (
+                  <EmptyCatalog message="Sorry, we couldn't find any plasmids. Try searching again with different terms" />
+                ),
+              )
+              .with({ error: P.select(P.not(P.nullish)) }, (error_) => (
+                <ErrorDisplay error={error_} refetch={refetch} />
+              ))
+              .otherwise(() => (
+                <></>
+              ))}
+          </Box>
+        </Box>
+
+        <ScrollToTop />
+      </Box>
+    </ThemeProvider>
   )
 }
 
