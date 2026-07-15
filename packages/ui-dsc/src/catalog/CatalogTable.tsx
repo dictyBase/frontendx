@@ -18,13 +18,13 @@ import {
   Link as MuiLink,
 } from "@mui/material"
 import { Link } from "react-router-dom"
-import type { StrainItem, CatalogItem } from "../types"
+import type { CatalogItem } from "../types"
 import { getCatalogItemPathAndDescriptor } from "../utils/getCatalogItemPathAndDescriptor"
 import { abbreviateStringToLength } from "../utils/abbreviateStringToLength"
 
 type CatalogTableProperties = {
   /** Array of strains to display */
-  strains: Array<StrainItem>
+  items: Array<CatalogItem>
   /** Whether more data is being loaded */
   /** Ref to attach to the loading indicator for infinite scroll */
   loadMoreRef?: RefObject<HTMLTableRowElement>
@@ -76,7 +76,7 @@ const renderCatalogItemRow =
   }
 
 const CatalogTable = ({
-  strains,
+  items,
   loadMoreRef,
   nextCursor,
   actionComponent,
@@ -98,7 +98,7 @@ const CatalogTable = ({
         </TableRow>
       </TableHead>
       <TableBody>
-        {pipe(strains, Amap(renderCatalogItemRow(actionComponent)))}
+        {pipe(items, Amap(renderCatalogItemRow(actionComponent)))}
         {pipe(
           NEq.equals(nextCursor, 0),
           Bmatch(
