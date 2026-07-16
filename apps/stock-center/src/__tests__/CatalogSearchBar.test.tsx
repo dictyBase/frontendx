@@ -44,9 +44,7 @@ test("shows the Clear All button when a non-default type filter is in the URL", 
       <CatalogSearchBar />
     </TestWrapper>,
   )
-  expect(
-    screen.getByRole("button", { name: /clear all/i }),
-  ).toBeInTheDocument()
+  expect(screen.getByRole("button", { name: /clear all/i })).toBeInTheDocument()
 })
 
 test("shows a chip with the active type filter label", () => {
