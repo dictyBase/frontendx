@@ -20,7 +20,7 @@ import { useSearchParams } from "react-router-dom"
 import { CatalogSidebar } from "../../components/CatalogSidebar"
 import { CatalogSearchBar } from "../../components/CatalogSearchBar"
 import { useScrollPersistence } from "../../features/StrainCatalog/hooks"
-import { theme } from "../../features/StrainCatalog/theme"
+import { catalogTheme } from "../../themes"
 import { AddToCartButtonHandler } from "../../components/AddToCartButtonHandler"
 
 const PlasmidCatalog = () => {
@@ -60,7 +60,7 @@ const PlasmidCatalog = () => {
   })
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={catalogTheme}>
       <Box
         sx={{
           maxWidth: "1400px",
