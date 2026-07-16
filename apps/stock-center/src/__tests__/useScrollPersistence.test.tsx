@@ -1,7 +1,7 @@
 import { createElement, FC } from "react"
 import { render } from "@testing-library/react"
 import { test, expect, vi, beforeEach, afterEach } from "vitest"
-import { useScrollPersistence } from "../features/StrainCatalog/hooks/useScrollPersistence"
+import { useScrollPersistence } from "../hooks/useScrollPersistence"
 
 // Wrapper component so render() integrates with the global afterEach(cleanup)
 const HookWrapper: FC<{ storageKey?: string }> = ({
