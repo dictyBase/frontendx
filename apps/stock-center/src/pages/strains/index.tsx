@@ -20,7 +20,7 @@ import {
 import { useSearchParams } from "react-router-dom"
 import { CatalogSidebar } from "../../components/CatalogSidebar"
 import { CatalogSearchBar } from "../../components/CatalogSearchBar"
-import { useScrollPersistence } from "../../features/StrainCatalog/hooks"
+import { useScrollPersistence } from "../../hooks/useScrollPersistence"
 import { catalogTheme } from "../../themes"
 import { AddToCartButtonHandler } from "../../components/AddToCartButtonHandler"
 
