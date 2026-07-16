@@ -17,10 +17,8 @@ import {
   CatalogListLoader,
 } from "@dictybase/ui-dsc"
 import { useSearchParams } from "react-router-dom"
-import {
-  CatalogSidebar,
-  CatalogSearchBar,
-} from "../../features/StrainCatalog/components"
+import { CatalogSidebar } from "../../components/CatalogSidebar"
+import { CatalogSearchBar } from "../../components/CatalogSearchBar"
 import { useScrollPersistence } from "../../features/StrainCatalog/hooks"
 import { theme } from "../../features/StrainCatalog/theme"
 import { AddToCartButtonHandler } from "../../components/AddToCartButtonHandler"

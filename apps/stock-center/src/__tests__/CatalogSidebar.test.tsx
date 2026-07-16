@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
 import { BrowserRouter, MemoryRouter } from "react-router-dom"
-import { CatalogSidebar } from "../features/StrainCatalog/components/CatalogSidebar"
+import { CatalogSidebar } from "../components/CatalogSidebar"
 
 const STRAIN_OPTIONS = [
   { value: "regular", label: "Regular Strains" },
