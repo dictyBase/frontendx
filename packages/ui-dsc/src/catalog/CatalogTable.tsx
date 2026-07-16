@@ -103,10 +103,7 @@ const CatalogTable = ({
           NEq.equals(nextCursor, 0),
           Bmatch(
             () => (
-              <TableRow
-                // className={classes.row}
-                key="linear-progess"
-                ref={loadMoreRef}>
+              <TableRow key="linear-progess" ref={loadMoreRef}>
                 <TableCell colSpan={4}>
                   <LinearProgress />
                 </TableCell>
