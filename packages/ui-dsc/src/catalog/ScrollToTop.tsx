@@ -32,7 +32,7 @@ const ScrollToTop = ({
     window.scrollTo({ top: 0, behavior })
   }
 
-  if (!isVisible) return null
+  if (!isVisible) return <></>
 
   return (
     <Fab
