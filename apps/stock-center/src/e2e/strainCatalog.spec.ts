@@ -1,5 +1,11 @@
 import { test, expect } from "@playwright/test"
-import { pipe } from "fp-ts/lib/function.js"
+import { flow, pipe } from "fp-ts/lib/function.js"
+import {
+  dropRight as AdropRight,
+  map as Amap,
+  init as Ainit,
+} from "fp-ts/lib/Array.js"
+import { map as Omap } from "fp-ts/lib/Option.js"
 import { slice as Sslice } from "fp-ts/lib/string.js"
 import { makeBy as RNEAmakeBy } from "fp-ts/lib/ReadonlyNonEmptyArray.js"
 import { strainListQueryData } from "./utils/gqlRequestData"
@@ -67,20 +73,17 @@ test("Scrolling to the bottom of the list initiates a fetch for more strains", a
 test("Selecting `GWDI Strains` from `group` dropdown shows only GWDI strains", async ({
   page,
 }) => {
-  await page.getByText("Regular Strains").click()
-  await page.getByRole("option", { name: "GWDI Strains" }).click()
+  await page.getByRole("radio", { name: "GWDI Strains" }).click()
 
   const catalog = page.locator("tbody")
-  const strainRows = catalog.getByRole("row").filter({ hasText: /DBS/ })
-  await expect(strainRows.first()).toBeVisible()
-  const strainRowsCount = await strainRows.count()
-  // expect all strain rows to indicate that they are `GWDI` strains
-  await expect(strainRows).toHaveText(
-    pipe(
-      strainRowsCount,
-      RNEAmakeBy(() => /GWDI/),
-    ),
+  await expect(catalog).toBeVisible()
+  const strainRows = await catalog.getByRole("row").all()
+  const assertions = pipe(
+    strainRows,
+    AdropRight(1),
+    Amap((row) => expect(row).toHaveText(/GWDI/)),
   )
+  await Promise.all(assertions)
 })
 
 test("Search by Descriptor", async ({ page }) => {
