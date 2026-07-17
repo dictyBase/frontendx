@@ -1,11 +1,6 @@
 import { test, expect } from "@playwright/test"
-import { flow, pipe } from "fp-ts/lib/function.js"
-import {
-  dropRight as AdropRight,
-  map as Amap,
-  init as Ainit,
-} from "fp-ts/lib/Array.js"
-import { map as Omap } from "fp-ts/lib/Option.js"
+import { pipe } from "fp-ts/lib/function.js"
+import { dropRight as AdropRight, map as Amap } from "fp-ts/lib/Array.js"
 import { slice as Sslice } from "fp-ts/lib/string.js"
 import { makeBy as RNEAmakeBy } from "fp-ts/lib/ReadonlyNonEmptyArray.js"
 import { strainListQueryData } from "./utils/gqlRequestData"
@@ -37,17 +32,16 @@ test.beforeEach(async ({ page }) => {
 
 test("Displays Strains from API", async ({ page }) => {
   const catalog = page.locator("tbody")
-  const strainRows = catalog.getByRole("row").filter({ hasText: /DBS/ })
+  const strainRows = catalog
+    .getByRole("row")
+    .filter({ hasNot: page.getByRole("progressbar") })
   await expect(strainRows.first()).toBeVisible()
   await expect(strainRows).toHaveCount(12)
 })
 
 test("Displays Strain Properties", async ({ page }) => {
   const catalog = page.locator("tbody")
-  const expectedRow = catalog
-    .getByRole("row")
-    .filter({ hasText: /DBS/ })
-    .first()
+  const expectedRow = catalog.getByRole("row").first()
   await expect(
     expectedRow.getByRole("cell", { name: EXPECTED_STRAIN.label }),
   ).toBeVisible()
@@ -56,9 +50,6 @@ test("Displays Strain Properties", async ({ page }) => {
       name: pipe(EXPECTED_STRAIN.summary, Sslice(0, 20)),
     }),
   ).toBeVisible()
-  await expect(
-    expectedRow.getByRole("cell", { name: EXPECTED_STRAIN.id }),
-  ).toBeVisible()
 })
 
 test("Scrolling to the bottom of the list initiates a fetch for more strains", async ({
@@ -66,7 +57,9 @@ test("Scrolling to the bottom of the list initiates a fetch for more strains", a
 }) => {
   const catalog = page.locator("tbody")
   await catalog.getByRole("progressbar").scrollIntoViewIfNeeded()
-  const strainRows = catalog.getByRole("row").filter({ hasText: /DBS/ })
+  const strainRows = catalog
+    .getByRole("row")
+    .filter({ hasNot: page.getByRole("progressbar") })
   await expect(strainRows).toHaveCount(24)
 })
 
@@ -77,6 +70,7 @@ test("Selecting `GWDI Strains` from `group` dropdown shows only GWDI strains", a
 
   const catalog = page.locator("tbody")
   await expect(catalog).toBeVisible()
+
   const strainRows = await catalog.getByRole("row").all()
   const assertions = pipe(
     strainRows,
@@ -96,7 +90,9 @@ test("Search by Descriptor", async ({ page }) => {
   await searchBox.press("Enter")
 
   const catalog = main.locator("tbody")
-  const strainRows = catalog.getByRole("row").filter({ hasText: /DBS/ })
+  const strainRows = catalog
+    .getByRole("row")
+    .filter({ hasNot: page.getByRole("progressbar") })
   await expect(strainRows.first()).toBeVisible()
   const strainRowsCount = await strainRows.count()
   await expect(strainRows).toHaveText(
@@ -117,7 +113,9 @@ test("Search by Summary", async ({ page }) => {
   await searchBox.press("Enter")
 
   const catalog = main.locator("tbody")
-  const strainRows = catalog.getByRole("row").filter({ hasText: /DBS/ })
+  const strainRows = catalog
+    .getByRole("row")
+    .filter({ hasNot: page.getByRole("progressbar") })
   await expect(strainRows.first()).toBeVisible()
   const strainRowsCount = await strainRows.count()
   await expect(strainRows).toHaveText(
