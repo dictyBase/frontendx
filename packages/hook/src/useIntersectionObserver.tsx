@@ -1,4 +1,6 @@
 import { useEffect, useRef, RefObject } from "react"
+import { pipe } from "fp-ts/function"
+import { fromNullable as OfromNullable, map as Omap } from "fp-ts/Option"
 
 /**
  * @typedef UseIntersectionObserverProps -The props type for {@link useIntersectionObserver}
@@ -26,13 +28,17 @@ export function useIntersectionObserver({
   const observerReference = useRef<IntersectionObserver>()
   // set up the intersection observer
   useEffect(() => {
-    if (target.current) {
-      observerReference.current = new IntersectionObserver(
-        onIntersection,
-        option,
-      )
-      observerReference.current.observe(target.current)
-    }
+    pipe(
+      target.current,
+      OfromNullable,
+      Omap((element) => {
+        observerReference.current = new IntersectionObserver(
+          onIntersection,
+          option,
+        )
+        observerReference.current.observe(element)
+      }),
+    )
     return () => observerReference.current?.disconnect()
   }, [option, target, onIntersection])
 }
