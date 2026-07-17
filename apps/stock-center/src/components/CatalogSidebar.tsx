@@ -9,6 +9,11 @@ import {
 } from "@mui/material"
 import { SelectChangeEvent } from "@mui/material/Select"
 import { useSearchParams } from "react-router-dom"
+import { pipe } from "fp-ts/function"
+import {
+  fromNullable as OfromNullable,
+  getOrElse as OgetOrElse,
+} from "fp-ts/Option"
 
 type CatalogSidebarProperties = {
   title: string
@@ -24,7 +29,11 @@ const CatalogSidebar = ({
   options,
 }: CatalogSidebarProperties) => {
   const [searchParameters, setSearchParameters] = useSearchParams()
-  const selectedType = searchParameters.get(param) ?? value
+  const selectedType = pipe(
+    searchParameters.get(param),
+    OfromNullable,
+    OgetOrElse(() => value),
+  )
 
   useEffect(() => {
     setSearchParameters(
