@@ -9,12 +9,14 @@ import {
   concat as Aconcat,
   concatW as AconcatW,
   uniq as Auniq,
+  filter as Afilter,
 } from "fp-ts/Array"
 import {
   fromNullable as OfromNullable,
   map as Omap,
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
+import { Eq as Seq } from "fp-ts/string"
 import { fromEquals } from "fp-ts/Eq"
 import type { StrainCartItem, PlasmidCartItem, CatalogItem } from "./types"
 import { NAMESPACE } from "./namespace"
@@ -156,13 +158,21 @@ const removeItemAtom = atom(null, (get, set, removedItem: CatalogItem) => {
     .with({ __typename: "Strain" }, () =>
       set(
         strainItemsAtom,
-        get(strainItemsAtom).filter((item) => item.id !== removedItem.id),
+        pipe(
+          strainItemsAtom,
+          get,
+          Afilter((item) => item.id !== removedItem.id),
+        ),
       ),
     )
     .with({ __typename: "Plasmid" }, () =>
       set(
         plasmidItemsAtom,
-        get(plasmidItemsAtom).filter((item) => item.id !== removedItem.id),
+        pipe(
+          plasmidItemsAtom,
+          get,
+          Afilter((item) => item.id !== removedItem.id),
+        ),
       ),
     )
     .otherwise(() => {})
