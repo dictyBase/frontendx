@@ -20,7 +20,7 @@ jobs:
         run: yarn coverage
   call-deploy:
     needs: test
-    uses: dictyBase/workflows/.github/workflows/composite-deploy.yaml@develop
+    uses: dictyBase/workflows/.github/workflows/composite-deploy.yaml@fix/remove-preinstalled-tools
     secrets: inherit
     with:
        project: frontend_application
