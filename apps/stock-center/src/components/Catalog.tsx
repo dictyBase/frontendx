@@ -30,34 +30,45 @@ import { useScrollPersistence } from "../hooks/useScrollPersistence"
 import { catalogTheme } from "../themes"
 
 const SX_SEGMENTED = {
+  position: "relative",
   display: "inline-flex",
   backgroundColor: "#edf2f7",
   borderRadius: "8px",
   padding: "4px",
 }
 
-const SX_SEGMENTED_TAB = {
+const SX_SLIDER = {
+  position: "absolute",
+  top: 4,
+  height: "calc(100% - 8px)",
+  width: "calc(50% - 4px)",
+  backgroundColor: "white",
+  borderRadius: "6px",
+  boxShadow: "0 1px 3px rgba(0, 0, 0, 0.12)",
+  transition: "left 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+  zIndex: 0,
+}
+
+const SX_TOGGLE_TAB = {
+  position: "relative",
+  zIndex: 1,
   padding: "8px 24px",
   borderRadius: "6px",
   fontFamily: "'Poppins', sans-serif",
   fontSize: "0.9rem",
-  fontWeight: 500,
-  color: "#4a5568",
   textTransform: "none",
   minWidth: "unset",
-  "&:hover": {
-    backgroundColor: "rgba(0, 0, 0, 0.04)",
-  },
+  flex: 1,
 }
 
-const SX_SEGMENTED_ACTIVE = {
-  backgroundColor: "white",
-  color: "#1a202c",
+const SX_TOGGLE_ACTIVE = {
   fontWeight: 600,
-  boxShadow: "0 1px 3px rgba(0, 0, 0, 0.12)",
-  "&:hover": {
-    backgroundColor: "white",
-  },
+  color: "#1a202c",
+}
+
+const SX_TOGGLE_INACTIVE = {
+  fontWeight: 500,
+  color: "#4a5568",
 }
 
 const StrainCatalogContent = () => {
@@ -246,10 +257,16 @@ const Catalog = () => {
             Catalog
           </Box>
           <Box sx={SX_SEGMENTED}>
+            <Box
+              sx={{
+                ...SX_SLIDER,
+                left: isPlasmidCatalog ? "50%" : 4,
+              }}
+            />
             <Button
               sx={{
-                ...SX_SEGMENTED_TAB,
-                ...(isPlasmidCatalog ? {} : SX_SEGMENTED_ACTIVE),
+                ...SX_TOGGLE_TAB,
+                ...(isPlasmidCatalog ? SX_TOGGLE_INACTIVE : SX_TOGGLE_ACTIVE),
               }}
               disableRipple
               onClick={() => navigate("/strains", { replace: true })}>
@@ -257,8 +274,8 @@ const Catalog = () => {
             </Button>
             <Button
               sx={{
-                ...SX_SEGMENTED_TAB,
-                ...(isPlasmidCatalog ? SX_SEGMENTED_ACTIVE : {}),
+                ...SX_TOGGLE_TAB,
+                ...(isPlasmidCatalog ? SX_TOGGLE_ACTIVE : SX_TOGGLE_INACTIVE),
               }}
               disableRipple
               onClick={() => navigate("/plasmids", { replace: true })}>
