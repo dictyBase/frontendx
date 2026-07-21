@@ -10,7 +10,7 @@ const useLinksStyles = makeStyles()({
   },
   button: {
     display: "flex",
-    color: "hsl(210, 100%, 25%)",
+    color: "white",
   },
   icon: { fontSize: "2.2rem" },
 })
