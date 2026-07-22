@@ -7,7 +7,7 @@ import { plasmidListQueryData } from "./utils/gqlRequestData"
 
 const GRAPHQL_ENDPOINT = `${process.env.VITE_APP_GRAPHQL_SERVER}/graphql`
 
-export enum PlasmidType {
+enum PlasmidType {
   Regular = "REGULAR",
 }
 
