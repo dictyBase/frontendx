@@ -1,16 +1,29 @@
 import {
   $isTextNode,
   $isElementNode,
+  $isParagraphNode,
   $getSelection,
   $isRangeSelection,
+  $isRootNode,
+  LexicalNode,
 } from "lexical"
 import { $isListItemNode } from "@lexical/list"
 import { $createFlexLayoutNode } from "./FlexLayoutNode"
-import {
-  getTopLevelElementFromSelection,
-  getPointAtCaret,
-  handleTextContent,
-} from "./helpers"
+import { getPointAtCaret, handleTextContent } from "./helpers"
+
+const isAHeading = (node: LexicalNode) => {
+  const parent = node.getParent()
+  if (!parent || $isRootNode(parent)) return false
+  if ($isParagraphNode(parent)) return true
+  return isAHeading(parent)
+}
+
+const isInAList = (node: LexicalNode) => {
+  const parent = node.getParent()
+  if (!parent || $isRootNode(parent)) return false
+  if ($isListItemNode(parent)) return true
+  return isInAList(parent)
+}
 
 const InsertFlexLayoutNode = () => {
   const selection = $getSelection()
@@ -23,27 +36,28 @@ const InsertFlexLayoutNode = () => {
   const selectedPoint = getPointAtCaret(selection)
   if (!selectedPoint) return true
 
-  const textParent = selectedPoint.getNode().getParent()
-  if ($isListItemNode(textParent)) return false
+  const selectedNode = selectedPoint.getNode()
 
-  const selectedFlexLayoutNode = getTopLevelElementFromSelection(selection)
-  if (!selectedFlexLayoutNode) return true
+  if (isInAList(selectedNode)) return false
+
+  const topLevelElement = selectedNode.getTopLevelElement()
+  if (!topLevelElement || $isRootNode(topLevelElement)) return false
 
   const newFlexLayoutNode = $createFlexLayoutNode()
   const newParagraphNode = newFlexLayoutNode.getParagraphNodeOrThrow()
 
   if ($isTextNode(selectedPoint.getNode()) && selectedPoint.offset === 0) {
-    selectedFlexLayoutNode.insertBefore(newFlexLayoutNode)
+    topLevelElement.insertBefore(newFlexLayoutNode)
   }
 
   if ($isTextNode(selectedPoint.getNode()) && selectedPoint.offset !== 0) {
-    selectedFlexLayoutNode.insertAfter(newFlexLayoutNode)
+    topLevelElement.insertAfter(newFlexLayoutNode)
     handleTextContent(selectedPoint, newParagraphNode)
     newParagraphNode.select(0, 0)
   }
 
   if ($isElementNode(selectedPoint.getNode())) {
-    selectedFlexLayoutNode.insertAfter(newFlexLayoutNode)
+    topLevelElement.insertAfter(newFlexLayoutNode)
     newParagraphNode.select(0, 0)
   }
   return true
