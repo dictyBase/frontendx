@@ -7,6 +7,10 @@ import { plasmidListQueryData } from "./utils/gqlRequestData"
 
 const GRAPHQL_ENDPOINT = `${process.env.VITE_APP_GRAPHQL_SERVER}/graphql`
 
+export enum PlasmidType {
+  Regular = "REGULAR",
+}
+
 const EXPECTED_PLASMID = {
   id: "DBP0001102",
   in_stock: true,
@@ -20,7 +24,7 @@ test.beforeAll("Test Plasmid Catalog Page API", async ({ playwright }) => {
   const response = await apiContext.post(
     GRAPHQL_ENDPOINT,
     plasmidListQueryData({
-      filter: { plasmid_type: "REGULAR" },
+      filter: { plasmid_type: PlasmidType.Regular },
       cursor: 0,
       limit: 12,
     }),
