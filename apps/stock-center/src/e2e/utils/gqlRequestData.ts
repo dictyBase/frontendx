@@ -37,7 +37,7 @@ const plasmidListQueryData = ({
   limit = 12,
 }: PlasmidListFilterQueryVariables) => ({
   data: {
-    operationName: "PlasmidFilterList",
+    operationName: "PlasmidListFilter",
     query: PlasmidListFilter.loc?.source.body,
     variables: {
       cursor,
