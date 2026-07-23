@@ -1,21 +1,28 @@
 import {
   $isTextNode,
   $isElementNode,
-  $isParagraphNode,
   $getSelection,
   $isRangeSelection,
   $isRootNode,
   LexicalNode,
 } from "lexical"
+import { pipe } from "fp-ts/function"
+import {
+  fromNullable as OfromNullable,
+  map as Omap,
+  flatMap as OflatMap,
+  fromPredicate as OfromPredicate,
+} from "fp-ts/Option"
+import { $isHeadingNode } from "@lexical/rich-text"
 import { $isListItemNode } from "@lexical/list"
 import { $createFlexLayoutNode } from "./FlexLayoutNode"
 import { getPointAtCaret, handleTextContent } from "./helpers"
 
-const isAHeading = (node: LexicalNode) => {
+const isInAHeading = (node: LexicalNode) => {
   const parent = node.getParent()
   if (!parent || $isRootNode(parent)) return false
-  if ($isParagraphNode(parent)) return true
-  return isAHeading(parent)
+  if ($isHeadingNode(parent)) return true
+  return isInAHeading(parent)
 }
 
 const isInAList = (node: LexicalNode) => {
@@ -25,19 +32,46 @@ const isInAList = (node: LexicalNode) => {
   return isInAList(parent)
 }
 
+const inspectSelection = () => {
+  console.log("inspecting")
+  const selection = $getSelection()
+  if (!selection || !$isRangeSelection(selection)) return false
+  const selectedPoint = getPointAtCaret(selection)
+  if (!selectedPoint) return false
+  const node = selectedPoint.getNode()
+  console.log("is in a heading", isInAHeading(node))
+  console.log("is in a list", isInAList(node))
+  return false
+}
+
+const getFocusOption = () =>
+  pipe(
+    $getSelection(),
+    OfromNullable,
+    OflatMap(OfromPredicate($isRangeSelection)),
+    Omap(({ focus }) => focus),
+  )
+
+const InsertFlexLayoutNodeFuncitonal = () => {
+  const focus = getFocusOption()
+
+  const validNode = pipe(focus)
+}
+
 const InsertFlexLayoutNode = () => {
   const selection = $getSelection()
-  if (!selection || !$isRangeSelection(selection)) return true
+  if (!selection || !$isRangeSelection(selection)) return false
 
   if (!selection.isCollapsed()) {
     selection.removeText()
-    return true
+    return false
   }
   const selectedPoint = getPointAtCaret(selection)
-  if (!selectedPoint) return true
+  if (!selectedPoint) return false
 
   const selectedNode = selectedPoint.getNode()
 
+  if (isInAHeading(selectedNode)) return false
   if (isInAList(selectedNode)) return false
 
   const topLevelElement = selectedNode.getTopLevelElement()
@@ -63,4 +97,4 @@ const InsertFlexLayoutNode = () => {
   return true
 }
 
-export { InsertFlexLayoutNode }
+export { InsertFlexLayoutNode, inspectSelection }
