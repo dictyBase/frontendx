@@ -14,7 +14,7 @@ test("Navigates to papers page and displays the heading", async ({ page }) => {
 })
 
 test("Displays paper cards with titles", async ({ page }) => {
-  const cards = page.locator('[class*="MuiCard"]')
+  const cards = page.locator('[class*="MuiCard-root"]')
   await expect(cards).toHaveCount(3)
   await expect(page.getByText(/Stress, Sex, Cysts and Spores/)).toBeVisible()
   await expect(page.getByText(/Collective surfing/)).toBeVisible()
