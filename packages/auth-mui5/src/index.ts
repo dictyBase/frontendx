@@ -1,6 +1,7 @@
 export * from "./Callback"
 export * from "./HeaderWithAuth"
 export * from "./NavbarWithAuth"
+export * from "./NavbarNewWithAuth"
 export * from "./FooterWithAuth"
 export * from "./Protected"
 export * from "./Login"
