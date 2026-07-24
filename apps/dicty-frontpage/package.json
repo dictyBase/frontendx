@@ -39,7 +39,7 @@
     "@playwright/test": "^1.60.0",
     "apollo-upload-client": "^18.0.1",
     "apollo3-cache-persist": "^0.14.1",
-    "browser-level": "^1.0.1",
+    "browser-level": "^3.0.0",
     "core-js": "^3.31.1",
     "font-awesome": "^4.7.0",
     "fontsource-roboto": "^4.0.0",
