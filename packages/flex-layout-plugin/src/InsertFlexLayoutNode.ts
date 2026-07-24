@@ -49,13 +49,17 @@ const getFocusOption = () =>
     $getSelection(),
     OfromNullable,
     OflatMap(OfromPredicate($isRangeSelection)),
-    Omap(({ focus }) => focus),
+    Omap((rangeSelection) => {
+      rangeSelection.removeText
+      return rangeSelection
+    }),
+    Omap(({ focus }) => focus.getNode()),
   )
 
-const InsertFlexLayoutNodeFuncitonal = () => {
-  const focus = getFocusOption()
+const InsertFlexLayoutNodeFunctional = () => {
+  const focusPoint = getFocusOption()
 
-  const validNode = pipe(focus)
+  const validNode = pipe(focusPoint)
 }
 
 const InsertFlexLayoutNode = () => {
@@ -68,13 +72,14 @@ const InsertFlexLayoutNode = () => {
   }
   const selectedPoint = getPointAtCaret(selection)
   if (!selectedPoint) return false
-
+  // Text Node or Element Node
   const selectedNode = selectedPoint.getNode()
 
   if (isInAHeading(selectedNode)) return false
   if (isInAList(selectedNode)) return false
-
+  // Get the flex layout node
   const topLevelElement = selectedNode.getTopLevelElement()
+  console.log(topLevelElement)
   if (!topLevelElement || $isRootNode(topLevelElement)) return false
 
   const newFlexLayoutNode = $createFlexLayoutNode()
