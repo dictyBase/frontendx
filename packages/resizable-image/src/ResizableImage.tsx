@@ -60,13 +60,15 @@ const ResizableImage = ({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "black",
+        marginLeft: 0,
       }}
       style={
         {
           "--height": dimensions.height ? `${dimensions.height}px` : "auto",
           "--width": dimensions.width ? `${dimensions.width}px` : "auto",
         } as CSSProperties
-      }>
+      }
+    >
       <img
         ref={imageReference}
         src={src}

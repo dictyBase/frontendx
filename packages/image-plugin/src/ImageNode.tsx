@@ -1,11 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import {
-  DecoratorNode,
-  EditorConfig,
-  Spread,
-  SerializedLexicalNode,
-  LexicalNode,
-} from "lexical"
+import { DecoratorNode, EditorConfig, Spread, SerializedLexicalNode, LexicalNode } from "lexical"
 import { ImageComponent } from "./ImageComponent"
 
 type SerializedImageNode = Spread<
@@ -41,13 +35,7 @@ class ImageNode extends DecoratorNode<JSX.Element> {
   }
 
   static override clone(node: ImageNode) {
-    const {
-      __source: source,
-      __alt: alt,
-      __key: key,
-      __width: width,
-      __height: height,
-    } = node
+    const { __source: source, __alt: alt, __key: key, __width: width, __height: height } = node
     return new ImageNode({
       source,
       alt,
@@ -57,12 +45,7 @@ class ImageNode extends DecoratorNode<JSX.Element> {
     })
   }
 
-  static override importJSON({
-    source,
-    alt,
-    width,
-    height,
-  }: SerializedImageNode): ImageNode {
+  static override importJSON({ source, alt, width, height }: SerializedImageNode): ImageNode {
     return new ImageNode({
       source,
       alt,
@@ -71,18 +54,16 @@ class ImageNode extends DecoratorNode<JSX.Element> {
     })
   }
 
-  constructor({
-    source,
-    width,
-    height,
-    alt,
-    key,
-  }: ImageNodeConstructorProperties) {
+  constructor({ source, width, height, alt, key }: ImageNodeConstructorProperties) {
     super(key)
     this.__source = source
     this.__height = height
     this.__width = width
     this.__alt = alt
+  }
+
+  override isInline() {
+    return false
   }
 
   setDimensions(width: number, height: number) {
@@ -132,7 +113,6 @@ class ImageNode extends DecoratorNode<JSX.Element> {
   }
 }
 
-const $isImageNode = (node: LexicalNode): node is ImageNode =>
-  node.getType() === "image"
+const $isImageNode = (node: LexicalNode): node is ImageNode => node.getType() === "image"
 
 export { type SerializedImageNode, ImageNode, $isImageNode }

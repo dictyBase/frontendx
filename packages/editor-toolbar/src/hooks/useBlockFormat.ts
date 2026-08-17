@@ -1,5 +1,5 @@
 import { useCallback } from "react"
-import { $getSelection, $isRangeSelection, LexicalEditor } from "lexical"
+import { $getSelection, $isRangeSelection, LexicalEditor, $createParagraphNode } from "lexical"
 import {
   INSERT_ORDERED_LIST_COMMAND,
   INSERT_UNORDERED_LIST_COMMAND,
@@ -13,19 +13,18 @@ import {
 import { $wrapNodes } from "@lexical/selection"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { useAtomValue } from "jotai"
-import { $createFlexLayoutNode } from "@dictybase/flex-layout-plugin"
 import { blockTypeAtom, BlockTypes } from "../context/atomConfigs"
 
 const formatParagraph = (
   currentBlockType: BlockTypes,
   editor: LexicalEditor,
 ) => {
-  if (currentBlockType !== "flex-layout") {
+  if (currentBlockType !== "paragraph") {
     editor.update(() => {
       const selection = $getSelection()
 
       if ($isRangeSelection(selection)) {
-        $wrapNodes(selection, () => $createFlexLayoutNode())
+        $wrapNodes(selection, () => $createParagraphNode())
       }
     })
   }
@@ -88,7 +87,7 @@ const useBlockFormat = (): [BlockTypes, (newBlockType: BlockTypes) => void] => {
   const setBlockType = useCallback(
     (newBlockType: BlockTypes) => {
       const blockFormatFunctions = {
-        "flex-layout": () => formatParagraph(blockType, editor),
+        paragraph: () => formatParagraph(blockType, editor),
         h1: () => formatHeading("h1", blockType, editor),
         h2: () => formatHeading("h2", blockType, editor),
         h3: () => formatHeading("h3", blockType, editor),

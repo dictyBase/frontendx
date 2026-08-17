@@ -1,3 +1,5 @@
-export { INSERT_IMAGE_COMMAND } from "./InsertImageCommand"
-export { ImagePlugin } from "./ImagePlugin"
+export * from "./InsertImageCommand"
+export * from "./ImagePlugin"
+export { BasicImagePlugin } from "./BasicImagePlugin"
 export { ImageNode } from "./ImageNode"
+export { BasicImageNode } from "./BasicImageNode"

@@ -17,19 +17,13 @@ import {
   bindTo as ObindTo,
   bind as Obind,
 } from "fp-ts/Option"
-import {
-  $isFlexLayoutNode,
-  FlexLayoutNode,
-} from "@dictybase/flex-layout-plugin"
+import { $isFlexLayoutNode, FlexLayoutNode } from "@dictybase/flex-layout-plugin"
 
-const getDifference = (first: number, second: number) =>
-  Math.abs(first - second)
+const getDifference = (first: number, second: number) => Math.abs(first - second)
 
-const getFirstRangeFromSelection = (selection: Selection) =>
-  selection.getRangeAt(0)
+const getFirstRangeFromSelection = (selection: Selection) => selection.getRangeAt(0)
 
-const getXCoordinateFromRange = (range: Range) =>
-  range.getBoundingClientRect().x
+const getXCoordinateFromRange = (range: Range) => range.getBoundingClientRect().x
 
 /**
  * We need some way to represent the position of the selection caret
@@ -47,13 +41,8 @@ const getXCoordinateFromDOMSelection = () => {
   return getXCoordinateFromRange(getFirstRangeFromSelection(selection))
 }
 
-const shouldInsertLeft = (
-  left: number,
-  right: number,
-  insertionXCoordinate: number,
-) =>
-  getDifference(insertionXCoordinate, left) <
-  getDifference(insertionXCoordinate, right)
+const shouldInsertLeft = (left: number, right: number, insertionXCoordinate: number) =>
+  getDifference(insertionXCoordinate, left) < getDifference(insertionXCoordinate, right)
 
 export const getRangeSelectionFromPoint = (x: number, y: number) => {
   const rangeSelection = $createRangeSelection()
@@ -85,9 +74,7 @@ export const getRangeSelectionFromPoint = (x: number, y: number) => {
 const getElementFromLexicalNode = (editor: LexicalEditor, node: LexicalNode) =>
   editor.getElementByKey(node.getKey())
 
-const getNearestFlexLayoutAncestor = (
-  node: LexicalNode,
-): FlexLayoutNode | undefined => {
+const getNearestFlexLayoutAncestor = (node: LexicalNode): FlexLayoutNode | undefined => {
   if (node.getType() === "root") return undefined
   if ($isFlexLayoutNode(node)) return node
   const parent = node.getParent()
@@ -95,9 +82,7 @@ const getNearestFlexLayoutAncestor = (
   return getNearestFlexLayoutAncestor(parent)
 }
 
-const getNearestParagraphAncestor = (
-  node: LexicalNode,
-): ParagraphNode | undefined => {
+const getNearestParagraphAncestor = (node: LexicalNode): ParagraphNode | undefined => {
   if (node.getType() === "root") return undefined
   if ($isParagraphNode(node)) return node
   const parent = node.getParent()
@@ -117,6 +102,13 @@ const getParagraphNodeFromSelection = () => {
   const node = selection?.getNodes()[0]
   if (!node) return undefined
   return getNearestParagraphAncestor(node)
+}
+
+const getTopLevelElementFromSelection = () => {
+  const selection = $getSelection()
+  const node = selection?.getNodes()[0]
+  if (!node) return undefined
+  return node.getTopLevelElement()
 }
 
 const getFlexParagraphNodeFromSelection = () => {
@@ -170,11 +162,7 @@ const getTextNodeFromSelection = () => {
  * @param node the node to be inserted
  * @returns void
  */
-const insertNodeIntoFlexRow = (
-  editor: LexicalEditor,
-  node: LexicalNode,
-  x?: number,
-) => {
+const insertNodeIntoFlexRow = (editor: LexicalEditor, node: LexicalNode, x?: number) => {
   const targetFlexLayoutNode = getFlexLayoutNodeFromSelection()
   const targetParagraph = targetFlexLayoutNode
     ? targetFlexLayoutNode.getParagraphNodeOrThrow()
@@ -198,4 +186,5 @@ export {
   getParagraphNodeFromSelection,
   getFlexLayoutNodeFromSelection,
   getNearestFlexLayoutAncestor,
+  getTopLevelElementFromSelection,
 }

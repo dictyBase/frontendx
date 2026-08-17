@@ -1,7 +1,6 @@
 .editor-container {
   margin: 20px auto 20px auto;
   border-radius: 2px;
-  max-width: 600px;
   color: #000;
   position: relative;
   line-height: 20px;
@@ -23,11 +22,26 @@
   text-decoration: underline;
 }
 
+.editor-image > img {
+  display: block;
+  margin: auto;
+}
+
 .editor-paragraph {
   margin: 0;
   flex-grow: 1;
   margin-bottom: 8px;
   position: relative;
+}
+
+
+.editor-flex-layout  {
+  flex-wrap: wrap;
+  row-gap: 0;
+}
+
+.editor-flex-layout > * {
+  flex-basis: 100%;
 }
 
 .editor-paragraph:last-child {

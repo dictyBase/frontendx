@@ -1,22 +1,21 @@
+import { InitialConfigType } from "@lexical/react/LexicalComposer"
 import { ListItemNode, ListNode } from "@lexical/list"
 import { HeadingNode, QuoteNode } from "@lexical/rich-text"
-import { TableCellNode, TableRowNode } from "@lexical/table"
 import { LinkNode } from "@lexical/link"
 import { ImageNode } from "@dictybase/image-plugin"
-import { WidthTableNode } from "@dictybase/width-table-plugin"
 import { FlexLayoutNode } from "@dictybase/flex-layout-plugin"
 import { DownloadLinkNode } from "@dictybase/editor-toolbar"
+import { defaultStateString, flexLayoutStateString } from "./initialStates"
 
 const editorTheme = {
-  paragraph: "editor-paragraph",
+  paragraph: "editor-paragraphy",
+  flexLayout: "editor-flex-layout",
+  image: "editor-image",
   text: {
     bold: "editor-text-bold",
     italic: "editor-text-italic",
     underline: "editor-text-underline",
   },
-  table: "editor-table",
-  tableCell: "editor-tablecell",
-  tableCellHeader: "editor-tablecell-head",
 }
 
 const onError = (error: Error) => {
@@ -24,7 +23,7 @@ const onError = (error: Error) => {
   console.error(error)
 }
 
-const dictyEditorConfig = {
+const flexLayoutEditorConfig = {
   namespace: "DictyEditor",
   theme: { ...editorTheme },
   nodes: [
@@ -35,12 +34,17 @@ const dictyEditorConfig = {
     ListItemNode,
     ListNode,
     ImageNode,
-    TableCellNode,
-    TableRowNode,
-    WidthTableNode,
     FlexLayoutNode,
   ],
+  editorState: flexLayoutStateString,
   onError,
 }
 
-export { dictyEditorConfig }
+const defaultEditorConfig: InitialConfigType = {
+  namespace: "defaultEditor",
+  theme: { ...editorTheme },
+  nodes: [HeadingNode, QuoteNode, LinkNode, DownloadLinkNode, ListItemNode, ListNode, ImageNode],
+  editorState: defaultStateString,
+  onError,
+}
+export { flexLayoutEditorConfig, defaultEditorConfig }

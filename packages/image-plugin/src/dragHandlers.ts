@@ -1,13 +1,5 @@
-import {
-  $getNearestNodeFromDOMNode,
-  $isDecoratorNode,
-  $setSelection,
-  LexicalEditor,
-} from "lexical"
-import {
-  getImageNodeFromSelection,
-  getRangeSelectionFromPoint,
-} from "./dragHelpers"
+import { $setSelection, LexicalEditor } from "lexical"
+import { getImageNodeFromSelection, getRangeSelectionFromPoint } from "./dragHelpers"
 import { INSERT_IMAGE_COMMAND } from "./InsertImageCommand"
 
 // On Firefox, when the image is dragged, a transparent version of the image hovers
@@ -27,13 +19,8 @@ export const onDragStart = (event: DragEvent) => {
 export const onDrop = (event: DragEvent, editor: LexicalEditor) => {
   event.preventDefault()
   if (!(event.target instanceof Node)) return false
-
-  const dropTargetNode = $getNearestNodeFromDOMNode(event.target)
-  if ($isDecoratorNode(dropTargetNode)) return false
-
   const imageNode = getImageNodeFromSelection()
   if (!imageNode) return false
-
   const selection = getRangeSelectionFromPoint(event.clientX, event.clientY)
   if (!selection) return false
   $setSelection(selection)

@@ -3,11 +3,7 @@ import { Provider, useAtomValue, createStore } from "jotai"
 import { $getNodeByKey, CLICK_COMMAND, COMMAND_PRIORITY_LOW } from "lexical"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { useLexicalNodeSelection } from "@lexical/react/useLexicalNodeSelection"
-import {
-  ResizableImage,
-  ImageDimensionsAtom,
-  isResizingAtom,
-} from "@dictybase/resizable-image"
+import { ResizableImage, ImageDimensionsAtom, isResizingAtom } from "@dictybase/resizable-image"
 
 export type ImageComponentProperties = {
   src: string
@@ -33,8 +29,7 @@ const ImageComponent = ({
   const imageReference = useRef<HTMLImageElement>(null)
   const [editor] = useLexicalComposerContext()
   const isResizing = useAtomValue(isResizingAtom)
-  const [isSelected, setSelected, clearSelection] =
-    useLexicalNodeSelection(nodeKey)
+  const [isSelected, setSelected, clearSelection] = useLexicalNodeSelection(nodeKey)
   const imageDimensionStore = createStore()
   imageDimensionStore.set(ImageDimensionsAtom, {
     width: initialWidth,
@@ -51,7 +46,7 @@ const ImageComponent = ({
   }
 
   useEffect(() => {
-    const unregisterCommandListener = editor.registerCommand(
+    const unregisterClickListener = editor.registerCommand(
       CLICK_COMMAND,
       (payload: MouseEvent) => {
         // This prevents the selection from being cleared after resizing the image
@@ -76,7 +71,7 @@ const ImageComponent = ({
     )
 
     return () => {
-      unregisterCommandListener()
+      unregisterClickListener()
     }
   })
   return (
