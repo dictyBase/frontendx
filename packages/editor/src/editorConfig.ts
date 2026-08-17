@@ -18,6 +18,9 @@ const editorTheme = {
     italic: "editor-text-italic",
     underline: "editor-text-underline",
   },
+  table: "editor-table",
+  tableCell: "editor-tablecell",
+  tableCellHeader: "editor-tablecell-head",
 };
 
 const onError = (error: Error) => {
