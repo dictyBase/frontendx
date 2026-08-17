@@ -1,26 +1,25 @@
-import { Button } from "@mui/material"
-import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined"
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
-import { INSERT_IMAGE_COMMAND } from "@dictybase/image-plugin"
+import { Button } from "@mui/material";
+import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
+import { useAtom } from "jotai";
+import { insertImageDialogOpenAtom } from "../context/atomConfigs";
+import { ImageUploadDialog } from "./ImageUploadDialog";
 
 const InsertImageButton = () => {
-  const [editor] = useLexicalComposerContext()
-  const onClick = () => {
-    editor.dispatchCommand(INSERT_IMAGE_COMMAND, { source: "/sample.jpg", width: 500 })
-  }
+  const [isDialogOpen, setIsDialogOpen] = useAtom(insertImageDialogOpenAtom);
+
   return (
     <>
       <Button
-        title="Insert Image"
         color="inherit"
         variant="text"
-        onClick={onClick}
+        onClick={() => setIsDialogOpen(true)}
         startIcon={<ImageOutlinedIcon />}
       >
         Image
       </Button>
+      <ImageUploadDialog open={isDialogOpen} />
     </>
-  )
-}
+  );
+};
 
-export { InsertImageButton }
+export { InsertImageButton };
