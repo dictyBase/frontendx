@@ -1,11 +1,12 @@
 import { InitialConfigType } from "@lexical/react/LexicalComposer";
 import { ListItemNode, ListNode } from "@lexical/list";
 import { HeadingNode, QuoteNode } from "@lexical/rich-text";
-import { TableNode, TableCellNode, TableRowNode } from "@lexical/table";
+import { TableCellNode, TableRowNode } from "@lexical/table";
 import { LinkNode } from "@lexical/link";
 import { ImageNode } from "@dictybase/image-plugin";
 import { FlexLayoutNode } from "@dictybase/flex-layout-plugin";
 import { DownloadLinkNode } from "@dictybase/editor-toolbar";
+import { WidthTableNode } from "@dictybase/width-table-plugin";
 import { defaultStateString, flexLayoutStateString, flexLayoutState } from "./initialStates";
 
 const editorTheme = {
@@ -36,7 +37,7 @@ const dictyEditorConfig = {
     ListNode,
     ImageNode,
     FlexLayoutNode,
-    TableNode,
+    WidthTableNode,
     TableRowNode,
     TableCellNode,
   ],
