@@ -188,9 +188,32 @@ test.describe("Link Node", () => {
 })
 
 test.describe("Image Node", () => {
-  test("Toolbar Image Button inserts an image into the selected paragraph", async ({ page }) => {
+  test("Toolbar Image Button inserts an image into the editor", async ({ page }) => {
     const editor = page.getByRole("textbox")
-    await page.getByRole("button", { name: "Insert Image" }).click()
+    await page.getByRole("button", { name: "Image" }).click()
+
     expect(editor.getByRole("img")).toBeVisible()
+  })
+
+  test("Clicking an Image changes the selection to the ImageNode ", async ({ page }) => {
+    const editor = page.getByRole("textbox")
+    await page.getByRole("button", { name: "Image" }).click()
+    const image = editor.getByRole("img")
+    expect(image).toBeVisible()
+    await image.click()
+  })
+  test("Pressing <Enter> when an ImageNode is selected inserts a paragraph as its next sibling", async ({
+    page,
+  }) => {
+    const editor = page.getByRole("textbox")
+    await page.getByRole("button", { name: "Image" }).click()
+    const image = editor.getByRole("img")
+    expect(image).toBeVisible()
+    expect(editor.getByRole("paragraph")).toHaveCount(1)
+    expect(image)
+    await image.click()
+    await editor.press("Enter")
+    expect(editor.getByRole("paragraph")).toHaveCount(2)
+    expect(editor.locator("p:below(img)")).toBeVisible()
   })
 })

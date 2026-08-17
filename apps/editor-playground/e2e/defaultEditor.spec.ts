@@ -193,4 +193,9 @@ test.describe("Image Node", () => {
     await page.getByRole("button", { name: "Insert Image" }).click()
     expect(editor.getByRole("img")).toBeVisible()
   })
+  test("Clicking on the Image changes selection to the image node ", async ({ page }) => {
+    const editor = page.getByRole("textbox")
+    await editor.click()
+    await page.getByRole("button", { name: "Insert Image" }).click()
+  })
 })

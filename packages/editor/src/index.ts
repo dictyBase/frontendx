@@ -1,3 +1,4 @@
-export { Editor } from "./Editor"
-export * from "./editorConfig"
-export * from "./initialStates"
+export { Editor } from "./Editor";
+export * from "./editorConfig";
+export * from "./initialStates";
+export * from "./utils";
