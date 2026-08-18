@@ -4,7 +4,7 @@ import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
-import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
+import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { Stack } from "@mui/material";
 import { pipe } from "fp-ts/function";
 import { match as Bmatch } from "fp-ts/boolean";
