@@ -1,32 +1,21 @@
 import { useEffect } from "react"
 import {
-  KEY_ENTER_COMMAND,
   $getRoot,
-  $getNearestRootOrShadowRoot,
-  $getSelection,
-  $createParagraphNode,
   COMMAND_PRIORITY_EDITOR,
   DRAGSTART_COMMAND,
   COMMAND_PRIORITY_HIGH,
   DROP_COMMAND,
-  LexicalEditor,
-  $isNodeSelection,
-  $setSelection,
 } from "lexical"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { pipe } from "fp-ts/function"
 import {
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
-  orElse as OorElse,
   map as Omap,
-  flatMap as OflatMap,
   filter as Ofilter,
   match as Omatch,
 } from "fp-ts/Option"
-import { match } from "ts-pattern"
-import { last as Alast } from "fp-ts/Array"
-import { ImageNode, $isImageNode } from "./ImageNode"
+import { ImageNode } from "./ImageNode"
 import { INSERT_IMAGE_COMMAND, InsertImagePayload } from "./InsertImageCommand"
 import { onDragStart, onDrop } from "./dragHandlers"
 import { getTopLevelElementFromSelection } from "./InsertImageHelpers"
