@@ -1,15 +1,11 @@
-import { $getSelection } from "lexical"
 import { Button } from "@mui/material"
-import SearchIcon from "@mui/icons-material/Search"
+import FileDownloadIcon from "@mui/icons-material/FileDownload"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 
-const InspectButton = () => {
+const CopyStateButton = () => {
   const [editor] = useLexicalComposerContext()
   const onClick = () => {
-    editor.read(() => {
-      // eslint-disable-next-line no-console
-      console.log($getSelection())
-    })
+    navigator.clipboard.writeText(JSON.stringify(editor.getEditorState()))
   }
   return (
     <>
@@ -18,12 +14,12 @@ const InspectButton = () => {
         color="inherit"
         variant="text"
         onClick={onClick}
-        startIcon={<SearchIcon />}
+        startIcon={<FileDownloadIcon />}
       >
-        Inspect
+        Copy State
       </Button>
     </>
   )
 }
 
-export { InspectButton }
+export { CopyStateButton }

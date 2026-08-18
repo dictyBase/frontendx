@@ -1,11 +1,11 @@
-import { Button } from "@mui/material";
-import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
-import { useAtom } from "jotai";
-import { insertImageDialogOpenAtom } from "../context/atomConfigs";
-import { ImageUploadDialog } from "./ImageUploadDialog";
+import { Button } from "@mui/material"
+import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined"
+import { useAtom } from "jotai"
+import { insertImageDialogOpenAtom } from "../context/atomConfigs"
+import { ImageUploadDialog } from "./ImageUploadDialog"
 
 const InsertImageButton = () => {
-  const [isDialogOpen, setIsDialogOpen] = useAtom(insertImageDialogOpenAtom);
+  const [isDialogOpen, setIsDialogOpen] = useAtom(insertImageDialogOpenAtom)
 
   return (
     <>
@@ -19,7 +19,7 @@ const InsertImageButton = () => {
       </Button>
       <ImageUploadDialog open={isDialogOpen} />
     </>
-  );
-};
+  )
+}
 
-export { InsertImageButton };
+export { InsertImageButton }
