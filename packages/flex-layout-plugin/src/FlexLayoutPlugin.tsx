@@ -17,23 +17,40 @@ import { $isFlexLayoutNode } from "./FlexLayoutNode"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 
 const insertParagraphIntoFlexLayout = () => {
+  let shouldInsertBefore = false
   return pipe(
     $getSelection(),
     OfromNullable,
     Ofilter($isRangeSelection),
-    Omap((selection) => {
-      console.log(selection.anchor)
-      return selection
-    }),
     Ofilter((selection) => selection.isCollapsed()),
-    Omap(({ focus }) => focus.getNode()),
+    Omap(({ focus }) => {
+      shouldInsertBefore = focus.offset === 0
+      return focus.getNode()
+    }),
     Ofilter($isFlexLayoutNode),
     Omatch(
       () => false,
       (flexLayoutNode) => {
         const paragraph = $createParagraphNode()
-        flexLayoutNode.append(paragraph)
-        return true
+        if (shouldInsertBefore) {
+          return pipe(
+            flexLayoutNode.getFirstChild(),
+            OfromNullable,
+            Omatch(
+              () => {
+                return false
+              },
+              (firstChild) => {
+                firstChild.insertBefore(paragraph, true)
+                paragraph.select()
+                return true
+              },
+            ),
+          )
+        } else {
+          flexLayoutNode.append(paragraph)
+          return true
+        }
       },
     ),
   )
