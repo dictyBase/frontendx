@@ -24,9 +24,9 @@
     "vitest": "4.x"
   },
   "dependencies": {
-    "@lexical/react": "0.11.x",
+    "@lexical/react": "0.46.x",
     "jotai": "2.16.0",
-    "lexical": "0.11.x",
+    "lexical": "0.46.x",
     "react": "17.*",
     "react-dom": "17.*",
     "yjs": "^13.6.7"
