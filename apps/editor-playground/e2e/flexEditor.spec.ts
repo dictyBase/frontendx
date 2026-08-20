@@ -216,4 +216,11 @@ test.describe("Image Node", () => {
     expect(editor.getByRole("paragraph")).toHaveCount(2)
     expect(editor.locator("p:below(img)")).toBeVisible()
   })
+  test("Clicking on the ImageNode's outer div selects the ImageNode", async ({ page }) => {
+    const editor = page.getByRole("textbox")
+    await page.getByRole("button", { name: "Image" }).click()
+    const imageOuterDiv = editor.locator(".editor-image")
+    await imageOuterDiv.click()
+    expect(page.getByTestId("selected-image")).toBeVisible()
+  })
 })
