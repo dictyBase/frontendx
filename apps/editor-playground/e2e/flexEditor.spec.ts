@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test"
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/flex")
+  await page.goto("/")
 })
 
 test("Pressing <Enter> in a paragraph creates a new paragraph", async ({ page }) => {
@@ -133,7 +133,7 @@ test.describe("Link Node", () => {
 
     await page.getByRole("button", { name: "Insert Link" }).click()
 
-    expect(editor.locator("p").locator("a")).toBeVisible()
+    await expect(editor.locator("p").locator("a")).toBeVisible()
   })
 
   test("Pressing <Enter> in a link node in a paragraph creates a new paragraph", async ({
@@ -150,7 +150,7 @@ test.describe("Link Node", () => {
 
     await page.getByRole("button", { name: "Insert Link" }).click()
     await editor.press("Enter")
-    expect(editor.locator("p")).toHaveCount(2)
+    await expect(editor.locator("p")).toHaveCount(2)
   })
   test("Deleting all text in a link node removes the node", async ({ page }) => {
     const editor = page.getByRole("textbox")
@@ -166,10 +166,12 @@ test.describe("Link Node", () => {
     for (let i = 0; i <= sampleText.length; i++) {
       await editor.press("Backspace")
     }
-    expect(editor.locator("a")).toHaveCount(0)
+    await expect(editor.locator("a")).toHaveCount(0)
   })
 
-  test("Toolbar Insertion Button inserts a link into the selected list item", async ({ page }) => {
+  test("Toolbar Link Insertion Button inserts a link into the selected list item", async ({
+    page,
+  }) => {
     const editor = page.getByRole("textbox")
     await editor.click()
     await page.getByText("Normal").click()
@@ -183,7 +185,7 @@ test.describe("Link Node", () => {
     await linkUrlField.fill("dictybase.dev")
     await page.getByRole("button", { name: "Insert Link" }).click()
 
-    expect(editor.getByRole("listitem").getByRole("link")).toBeVisible()
+    await expect(editor.getByRole("listitem").getByRole("link")).toBeVisible()
   })
 })
 
@@ -192,15 +194,16 @@ test.describe("Image Node", () => {
     const editor = page.getByRole("textbox")
     await page.getByRole("button", { name: "Image" }).click()
 
-    expect(editor.getByRole("img")).toBeVisible()
+    await expect(editor.getByRole("img")).toBeVisible()
   })
 
-  test("Clicking an Image changes the selection to the ImageNode ", async ({ page }) => {
+  test("Clicking an Image changes the selection to the ImageNode", async ({ page }) => {
     const editor = page.getByRole("textbox")
     await page.getByRole("button", { name: "Image" }).click()
     const image = editor.getByRole("img")
-    expect(image).toBeVisible()
+    await expect(image).toBeVisible()
     await image.click()
+    await expect(page.getByTestId("selected-image")).toBeVisible()
   })
   test("Pressing <Enter> when an ImageNode is selected inserts a paragraph as its next sibling", async ({
     page,
@@ -213,14 +216,14 @@ test.describe("Image Node", () => {
     expect(image)
     await image.click()
     await editor.press("Enter")
-    expect(editor.getByRole("paragraph")).toHaveCount(2)
-    expect(editor.locator("p:below(img)")).toBeVisible()
+    await expect(editor.getByRole("paragraph")).toHaveCount(2)
+    await expect(editor.locator("p:below(img)")).toBeVisible()
   })
   test("Clicking on the ImageNode's outer div selects the ImageNode", async ({ page }) => {
     const editor = page.getByRole("textbox")
     await page.getByRole("button", { name: "Image" }).click()
     const imageOuterDiv = editor.locator(".editor-image")
     await imageOuterDiv.click()
-    expect(page.getByTestId("selected-image")).toBeVisible()
+    await expect(page.getByTestId("selected-image")).toBeVisible()
   })
 })
