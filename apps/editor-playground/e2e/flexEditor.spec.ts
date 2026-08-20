@@ -196,15 +196,6 @@ test.describe("Image Node", () => {
 
     await expect(editor.getByRole("img")).toBeVisible()
   })
-
-  test("Clicking an Image changes the selection to the ImageNode", async ({ page }) => {
-    const editor = page.getByRole("textbox")
-    await page.getByRole("button", { name: "Image" }).click()
-    const image = editor.getByRole("img")
-    await expect(image).toBeVisible()
-    await image.click()
-    await expect(page.getByTestId("selected-image")).toBeVisible()
-  })
   test("Pressing <Enter> when an ImageNode is selected inserts a paragraph as its next sibling", async ({
     page,
   }) => {
@@ -219,11 +210,25 @@ test.describe("Image Node", () => {
     await expect(editor.getByRole("paragraph")).toHaveCount(2)
     await expect(editor.locator("p:below(img)")).toBeVisible()
   })
+  test("Clicking an image changes the selection to the ImageNode", async ({ page }) => {
+    const editor = page.getByRole("textbox")
+    await page.getByRole("button", { name: "Image" }).click()
+    const image = editor.getByRole("img")
+    await expect(image).toBeVisible()
+    await image.click()
+    await expect(page.getByTestId("image-resizer-nw")).toBeVisible()
+    await expect(page.getByTestId("image-resizer-ne")).toBeVisible()
+    await expect(page.getByTestId("image-resizer-sw")).toBeVisible()
+    await expect(page.getByTestId("image-resizer-se")).toBeVisible()
+  })
   test("Clicking on the ImageNode's outer div selects the ImageNode", async ({ page }) => {
     const editor = page.getByRole("textbox")
     await page.getByRole("button", { name: "Image" }).click()
     const imageOuterDiv = editor.locator(".editor-image")
     await imageOuterDiv.click()
-    await expect(page.getByTestId("selected-image")).toBeVisible()
+    await expect(page.getByTestId("image-resizer-nw")).toBeVisible()
+    await expect(page.getByTestId("image-resizer-ne")).toBeVisible()
+    await expect(page.getByTestId("image-resizer-sw")).toBeVisible()
+    await expect(page.getByTestId("image-resizer-se")).toBeVisible()
   })
 })
