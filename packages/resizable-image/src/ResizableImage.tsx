@@ -67,8 +67,7 @@ const ResizableImage = ({
           "--height": dimensions.height ? `${dimensions.height}px` : "auto",
           "--width": dimensions.width ? `${dimensions.width}px` : "auto",
         } as CSSProperties
-      }
-    >
+      }>
       <img
         ref={imageReference}
         src={src}
