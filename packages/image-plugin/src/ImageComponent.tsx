@@ -3,7 +3,19 @@ import { Provider, useAtomValue, createStore } from "jotai"
 import { $getNodeByKey, CLICK_COMMAND, COMMAND_PRIORITY_LOW } from "lexical"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { useLexicalNodeSelection } from "@lexical/react/useLexicalNodeSelection"
-import { ResizableImage, ImageDimensionsAtom, isResizingAtom } from "@dictybase/resizable-image"
+import { pipe } from "fp-ts/function"
+import {
+  filter as Ofilter,
+  fromNullable as OfromNullable,
+  match as Omatch,
+} from "fp-ts/Option"
+import { or } from "fp-ts/Predicate"
+import {
+  ResizableImage,
+  ImageDimensionsAtom,
+  isResizingAtom,
+} from "@dictybase/resizable-image"
+import { targetIsImage } from "./imageSelectHandlers"
 
 export type ImageComponentProperties = {
   src: string
@@ -29,7 +41,8 @@ const ImageComponent = ({
   const imageReference = useRef<HTMLImageElement>(null)
   const [editor] = useLexicalComposerContext()
   const isResizing = useAtomValue(isResizingAtom)
-  const [isSelected, setSelected, clearSelection] = useLexicalNodeSelection(nodeKey)
+  const [isSelected, setSelected, clearSelection] =
+    useLexicalNodeSelection(nodeKey)
   const imageDimensionStore = createStore()
   imageDimensionStore.set(ImageDimensionsAtom, {
     width: initialWidth,
@@ -49,23 +62,34 @@ const ImageComponent = ({
     const unregisterClickListener = editor.registerCommand(
       CLICK_COMMAND,
       (payload: MouseEvent) => {
-        // This prevents the selection from being cleared after resizing the image
-        // since returning true will prevent other CLICK_COMMAND listeners. There must
+        // isResizing check prevents the selection from being cleared after resizing the image
+        // since returning true will prevent other CLICK_COMMAND listeners. There seems to
         // be another command listener registered that clears the editor selection.
         if (isResizing) return true
 
-        // Click commands are dispatched every time a click event occurs anywhere on the root element.
-        // When that event occurs, check if the event target matches the image dom element.
-        if (payload.target === imageReference.current) {
-          // If a different image is already selected, clearSelection() will remove it
-          // from the editor selection.
-          clearSelection()
-          // Creates a NodeSelection and sets the current editor selection to the
-          // node that matches the provided nodeKey argument
-          setSelected(true)
-          return true
-        }
-        return false
+        const targetIsImageReference = (target: EventTarget) =>
+          target === imageReference.current
+        const imageSelectCondition = pipe(
+          targetIsImage,
+          or(targetIsImageReference),
+        )
+        return pipe(
+          payload.target,
+          OfromNullable,
+          Ofilter(imageSelectCondition),
+          Omatch(
+            () => false,
+            () => {
+              // If a different image is already selected, clearSelection() will remove it
+              // from the editor selection.
+              clearSelection()
+              // Creates a NodeSelection and sets the current editor selection to the
+              // node that matches the provided nodeKey argument
+              setSelected(true)
+              return true
+            },
+          ),
+        )
       },
       COMMAND_PRIORITY_LOW,
     )
