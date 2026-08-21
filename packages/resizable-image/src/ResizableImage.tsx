@@ -1,7 +1,7 @@
 import { useRef, useState, CSSProperties } from "react"
 import { useAtomValue } from "jotai"
-import { Container } from "@mui/material"
-import { imageAlignmentAtom, imageDimensionsAtom } from "./state"
+import { Box } from "@mui/material"
+import { imageDimensionsAtom } from "./state"
 import { LoadingDisplay } from "./LoadingDisplay"
 import { ErrorDisplay } from "./ErrorDisplay"
 import { ImageResizer } from "./ImageResizer"
@@ -33,7 +33,6 @@ const ResizableImage = ({
   onSetAlignment,
 }: ImageProperties) => {
   const dimensions = useAtomValue(imageDimensionsAtom)
-  const alignment = useAtomValue(imageAlignmentAtom)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const imageContainerReference = useRef<HTMLImageElement>(null)
@@ -51,10 +50,9 @@ const ResizableImage = ({
   }
 
   return (
-    <Container
+    <Box
       draggable={isSelected}
       ref={imageContainerReference}
-      disableGutters
       sx={{
         position: "relative" as const,
         height: "var(--height)",
@@ -62,9 +60,6 @@ const ResizableImage = ({
         display: "flex",
         justifyContent: "center",
         backgroundColor: "black",
-        marginRight: alignment === ALIGNMENT.RIGHT ? 0 : "auto",
-        marginLeft: alignment === ALIGNMENT.LEFT ? 0 : "auto",
-        margin: alignment === ALIGNMENT.CENTER ? "auto" : undefined,
       }}
       style={
         {
@@ -88,7 +83,7 @@ const ResizableImage = ({
       {imageContainerReference.current && isSelected ? (
         <AlignmentControls onSetAlignment={onSetAlignment} />
       ) : undefined}
-    </Container>
+    </Box>
   )
 }
 

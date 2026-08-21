@@ -3,6 +3,8 @@ import { useAtomValue } from "jotai"
 import { $getNodeByKey, CLICK_COMMAND, COMMAND_PRIORITY_LOW } from "lexical"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { useLexicalNodeSelection } from "@lexical/react/useLexicalNodeSelection"
+import { Stack } from "@mui/material"
+import { match } from "ts-pattern"
 import { pipe } from "fp-ts/function"
 import {
   filter as Ofilter,
@@ -10,7 +12,11 @@ import {
   match as Omatch,
 } from "fp-ts/Option"
 import { or } from "fp-ts/Predicate"
-import { ResizableImage, isResizingAtom } from "@dictybase/resizable-image"
+import {
+  ResizableImage,
+  isResizingAtom,
+  imageAlignmentAtom,
+} from "@dictybase/resizable-image"
 import { $isImageNode, ALIGNMENT } from "./ImageNode"
 import { targetIsImage } from "./imageSelectHandlers"
 
@@ -34,6 +40,7 @@ const ImageComponent = ({
   const imageReference = useRef<HTMLImageElement>(null)
   const [editor] = useLexicalComposerContext()
   const isResizing = useAtomValue(isResizingAtom)
+  const alignment = useAtomValue(imageAlignmentAtom)
   const [isSelected, setSelected, clearSelection] =
     useLexicalNodeSelection(nodeKey)
 
@@ -113,17 +120,26 @@ const ImageComponent = ({
     }
   })
   return (
-    <ResizableImage
-      src={src}
-      imageReference={imageReference}
-      alt={alt}
-      fit={fit}
-      duration={duration}
-      easing={easing}
-      isSelected={isSelected}
-      onResize={onResize}
-      onSetAlignment={onSetAlignment}
-    />
+    <Stack
+      sx={{ width: "100%" }}
+      flexDirection="row"
+      justifyContent={match(alignment)
+        .with(ALIGNMENT.LEFT, () => "start")
+        .with(ALIGNMENT.CENTER, () => "center")
+        .with(ALIGNMENT.RIGHT, () => "end")
+        .otherwise(() => "center")}>
+      <ResizableImage
+        src={src}
+        imageReference={imageReference}
+        alt={alt}
+        fit={fit}
+        duration={duration}
+        easing={easing}
+        isSelected={isSelected}
+        onResize={onResize}
+        onSetAlignment={onSetAlignment}
+      />
+    </Stack>
   )
 }
 
