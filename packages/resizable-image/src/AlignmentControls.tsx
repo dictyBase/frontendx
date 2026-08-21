@@ -8,7 +8,6 @@ type AlignmentControlsProperties = {
 const AlignmentControls = ({ onSetAlignment }: AlignmentControlsProperties) => (
   <ButtonGroup
     variant="contained"
-    color="secondary"
     aria-label="Alignment Button Group"
     sx={{
       position: "absolute",
