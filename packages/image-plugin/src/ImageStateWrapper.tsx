@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react"
 import { Provider, createStore } from "jotai"
 import {
   imageDimensionsAtom,
@@ -29,15 +30,18 @@ const ImageStateWrapper = ({
   easing,
   duration,
 }: ImageStateWrapperProperties) => {
-  const imagePropertyStore = createStore()
-  imagePropertyStore.set(imageDimensionsAtom, {
-    width: initialWidth,
-    height: initialHeight,
-  })
-  imagePropertyStore.set(imageAlignmentAtom, initialAlignment)
+  const imagePropertyStore = useRef(createStore())
+
+  useEffect(() => {
+    imagePropertyStore.current.set(imageDimensionsAtom, {
+      width: initialWidth,
+      height: initialHeight,
+    })
+    imagePropertyStore.current.set(imageAlignmentAtom, initialAlignment)
+  }, [initialWidth, initialHeight, initialAlignment])
 
   return (
-    <Provider store={imagePropertyStore}>
+    <Provider store={imagePropertyStore.current}>
       <ImageComponent
         nodeKey={nodeKey}
         src={src}
