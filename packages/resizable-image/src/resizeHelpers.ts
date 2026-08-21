@@ -21,7 +21,8 @@ const getNewWidth = (
   return newWidth > 0 ? newWidth : 0
 }
 
-const getHeightFromWidth = (width: number, aspectRatio: number) => width / aspectRatio
+const getHeightFromWidth = (width: number, aspectRatio: number) =>
+  width / aspectRatio
 
 const initializeMouseMoveCreator =
   (isEast: boolean): MouseMoveCreator =>

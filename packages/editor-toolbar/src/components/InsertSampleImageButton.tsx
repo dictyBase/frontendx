@@ -6,7 +6,10 @@ import { INSERT_IMAGE_COMMAND } from "@dictybase/image-plugin"
 const InsertSampleImageButton = () => {
   const [editor] = useLexicalComposerContext()
   const onClick = () => {
-    editor.dispatchCommand(INSERT_IMAGE_COMMAND, { source: "/sample.jpg", width: 500 })
+    editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
+      source: "/sample.jpg",
+      width: 500,
+    })
   }
   return (
     <>
@@ -15,8 +18,7 @@ const InsertSampleImageButton = () => {
         color="inherit"
         variant="text"
         onClick={onClick}
-        startIcon={<ImageOutlinedIcon />}
-      >
+        startIcon={<ImageOutlinedIcon />}>
         Sample Image
       </Button>
     </>

@@ -13,8 +13,7 @@ const InsertImageButton = () => {
         color="inherit"
         variant="text"
         onClick={() => setIsDialogOpen(true)}
-        startIcon={<ImageOutlinedIcon />}
-      >
+        startIcon={<ImageOutlinedIcon />}>
         Image
       </Button>
       <ImageUploadDialog open={isDialogOpen} />
