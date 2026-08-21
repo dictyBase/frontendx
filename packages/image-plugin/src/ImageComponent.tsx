@@ -11,13 +11,12 @@ import {
 } from "fp-ts/Option"
 import { or } from "fp-ts/Predicate"
 import { ResizableImage, isResizingAtom } from "@dictybase/resizable-image"
+import { $isImageNode, ALIGNMENT } from "./ImageNode"
 import { targetIsImage } from "./imageSelectHandlers"
 
 export type ImageComponentProperties = {
   src: string
   nodeKey: string
-  initialWidth: number
-  initialHeight: number
   alt?: string | undefined
   fit: string
   duration: number
@@ -40,10 +39,36 @@ const ImageComponent = ({
 
   const onResize = (width: number, height: number) => {
     editor.update(() => {
-      const node = $getNodeByKey(nodeKey)
-      if (!node || !(node.getType() === "image")) return
-      // @ts-ignore
-      node.setDimensions(width, height)
+      pipe(
+        nodeKey,
+        $getNodeByKey,
+        OfromNullable,
+        Ofilter($isImageNode),
+        Omatch(
+          () => {},
+          (imageNode) => {
+            imageNode.setDimensions(width, height)
+          },
+        ),
+      )
+    })
+  }
+
+  const onSetAlignment = (alignment: ALIGNMENT) => {
+    console.log("onSetAlignment on ", nodeKey)
+    editor.update(() => {
+      pipe(
+        nodeKey,
+        $getNodeByKey,
+        OfromNullable,
+        Ofilter($isImageNode),
+        Omatch(
+          () => {},
+          (imageNode) => {
+            imageNode.setAlignment(alignment)
+          },
+        ),
+      )
     })
   }
 
@@ -97,6 +122,7 @@ const ImageComponent = ({
       easing={easing}
       isSelected={isSelected}
       onResize={onResize}
+      onSetAlignment={onSetAlignment}
     />
   )
 }

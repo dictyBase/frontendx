@@ -1,6 +1,6 @@
 export * from "./InsertImageCommand"
 export * from "./ImagePlugin"
 export { BasicImagePlugin } from "./BasicImagePlugin"
-export { ImageNode } from "./ImageNode"
+export * from "./ImageNode"
 export { BasicImageNode } from "./BasicImageNode"
 export { ImageStateWrapper } from "./ImageStateWrapper"
