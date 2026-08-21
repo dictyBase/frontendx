@@ -38,6 +38,7 @@ const ImageComponent = ({
   duration,
 }: ImageComponentProperties) => {
   const imageReference = useRef<HTMLImageElement>(null)
+  const alignmentContainerReference = useRef<HTMLDivElement>(null)
   const [editor] = useLexicalComposerContext()
   const isResizing = useAtomValue(isResizingAtom)
   const alignment = useAtomValue(imageAlignmentAtom)
@@ -81,6 +82,9 @@ const ImageComponent = ({
   const targetIsImageReference = (target: EventTarget) =>
     target === imageReference.current
 
+  const targetIsAlignmentContainerReference = (target: EventTarget) =>
+    target === alignmentContainerReference.current
+
   useEffect(() => {
     const unregisterClickListener = editor.registerCommand(
       CLICK_COMMAND,
@@ -89,9 +93,8 @@ const ImageComponent = ({
         // since returning true will prevent other CLICK_COMMAND listeners. There seems to
         // be another command listener registered that clears the editor selection.
         if (isResizing) return true
-
         const imageSelectCondition = pipe(
-          targetIsImage,
+          targetIsAlignmentContainerReference,
           or(targetIsImageReference),
         )
         return pipe(
@@ -121,6 +124,7 @@ const ImageComponent = ({
   })
   return (
     <Stack
+      ref={alignmentContainerReference}
       sx={{ width: "100%" }}
       flexDirection="row"
       justifyContent={match(alignment)
