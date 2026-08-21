@@ -15,11 +15,11 @@ import {
   filter as Ofilter,
   match as Omatch,
 } from "fp-ts/Option"
+import { $isFlexLayoutNode } from "@dictybase/flex-layout-plugin"
 import { ImageNode } from "./ImageNode"
 import { INSERT_IMAGE_COMMAND, InsertImagePayload } from "./InsertImageCommand"
 import { onDragStart, onDrop } from "./dragHandlers"
 import { getTopLevelElementFromSelection } from "./InsertImageHelpers"
-import { $isFlexLayoutNode } from "@dictybase/flex-layout-plugin"
 
 // If the currentSelection is an ImageNode, insert a paragraph
 const onInsertImage = (payload: InsertImagePayload) => {
@@ -32,9 +32,9 @@ const onInsertImage = (payload: InsertImagePayload) => {
       someNode.insertAfter(imageNode)
       return true
     }),
-    OgetOrElse(() => {
+    OgetOrElse(() =>
       // get the flex layout node and append it, else do nothing.
-      return pipe(
+      pipe(
         $getRoot().getFirstChild(),
         OfromNullable,
         Ofilter($isFlexLayoutNode),
@@ -45,8 +45,8 @@ const onInsertImage = (payload: InsertImagePayload) => {
             return true
           },
         ),
-      )
-    }),
+      ),
+    ),
   )
 }
 

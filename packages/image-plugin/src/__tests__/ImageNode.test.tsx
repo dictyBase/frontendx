@@ -138,8 +138,7 @@ describe("ImageNode", () => {
           ...testConfig,
           onError: () => {},
           nodes: [ImageNode],
-        }}
-      >
+        }}>
         <RichTextPlugin
           contentEditable={<ContentEditable />}
           placeholder={<></>}

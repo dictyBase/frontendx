@@ -10,11 +10,10 @@ import {
 import { Eq as SEq } from "fp-ts/string"
 import { $getNodeFromDOMNode } from "lexical"
 
-const targetIsNode = (target: EventTarget): target is Node => {
-  return target instanceof Node
-}
-const targetIsImage = (target: EventTarget) => {
-  return pipe(
+const targetIsNode = (target: EventTarget): target is Node =>
+  target instanceof Node
+const targetIsImage = (target: EventTarget) =>
+  pipe(
     target,
     Oof,
     Ofilter(targetIsNode),
@@ -23,6 +22,5 @@ const targetIsImage = (target: EventTarget) => {
     Omap((node) => SEq.equals(node.getType(), "image")),
     OgetOrElse(() => false),
   )
-}
 
 export { targetIsImage }

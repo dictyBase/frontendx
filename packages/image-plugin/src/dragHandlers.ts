@@ -1,5 +1,8 @@
 import { $setSelection, LexicalEditor } from "lexical"
-import { getImageNodeFromSelection, getRangeSelectionFromPoint } from "./dragHelpers"
+import {
+  getImageNodeFromSelection,
+  getRangeSelectionFromPoint,
+} from "./dragHelpers"
 import { INSERT_IMAGE_COMMAND } from "./InsertImageCommand"
 
 // On Firefox, when the image is dragged, a transparent version of the image hovers

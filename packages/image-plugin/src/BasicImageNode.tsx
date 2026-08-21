@@ -29,10 +29,7 @@ class BasicImageNode extends DecoratorNode<JSX.Element> {
   }
 
   static override clone(node: BasicImageNode) {
-    const {
-      __source: source,
-      __key: key,
-    } = node
+    const { __source: source, __key: key } = node
     return new BasicImageNode({
       source,
       key,
@@ -47,10 +44,7 @@ class BasicImageNode extends DecoratorNode<JSX.Element> {
     })
   }
 
-  constructor({
-    source,
-    key,
-  }: BasicImageNodeConstructorProperties) {
+  constructor({ source, key }: BasicImageNodeConstructorProperties) {
     super(key)
     this.__source = source
   }
@@ -78,11 +72,7 @@ class BasicImageNode extends DecoratorNode<JSX.Element> {
   }
 
   override decorate() {
-    return (
-      <BasicImageComponent
-        src={this.__source}
-      />
-    )
+    return <BasicImageComponent src={this.__source} />
   }
 }
 
