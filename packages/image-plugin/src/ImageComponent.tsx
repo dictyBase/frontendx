@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react"
-import { Provider, useAtomValue, createStore } from "jotai"
+import { useAtomValue } from "jotai"
 import { $getNodeByKey, CLICK_COMMAND, COMMAND_PRIORITY_LOW } from "lexical"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { useLexicalNodeSelection } from "@lexical/react/useLexicalNodeSelection"
@@ -10,11 +10,7 @@ import {
   match as Omatch,
 } from "fp-ts/Option"
 import { or } from "fp-ts/Predicate"
-import {
-  ResizableImage,
-  ImageDimensionsAtom,
-  isResizingAtom,
-} from "@dictybase/resizable-image"
+import { ResizableImage, isResizingAtom } from "@dictybase/resizable-image"
 import { targetIsImage } from "./imageSelectHandlers"
 
 export type ImageComponentProperties = {
@@ -31,8 +27,6 @@ export type ImageComponentProperties = {
 const ImageComponent = ({
   src,
   alt,
-  initialWidth,
-  initialHeight,
   nodeKey,
   fit,
   easing,
@@ -43,11 +37,6 @@ const ImageComponent = ({
   const isResizing = useAtomValue(isResizingAtom)
   const [isSelected, setSelected, clearSelection] =
     useLexicalNodeSelection(nodeKey)
-  const imageDimensionStore = createStore()
-  imageDimensionStore.set(ImageDimensionsAtom, {
-    width: initialWidth,
-    height: initialHeight,
-  })
 
   const onResize = (width: number, height: number) => {
     editor.update(() => {
@@ -99,18 +88,16 @@ const ImageComponent = ({
     }
   })
   return (
-    <Provider store={imageDimensionStore}>
-      <ResizableImage
-        src={src}
-        imageReference={imageReference}
-        alt={alt}
-        fit={fit}
-        duration={duration}
-        easing={easing}
-        isSelected={isSelected}
-        onResize={onResize}
-      />
-    </Provider>
+    <ResizableImage
+      src={src}
+      imageReference={imageReference}
+      alt={alt}
+      fit={fit}
+      duration={duration}
+      easing={easing}
+      isSelected={isSelected}
+      onResize={onResize}
+    />
   )
 }
 
