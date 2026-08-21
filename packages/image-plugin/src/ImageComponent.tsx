@@ -55,7 +55,6 @@ const ImageComponent = ({
   }
 
   const onSetAlignment = (alignment: ALIGNMENT) => {
-    console.log("onSetAlignment on ", nodeKey)
     editor.update(() => {
       pipe(
         nodeKey,
@@ -72,6 +71,9 @@ const ImageComponent = ({
     })
   }
 
+  const targetIsImageReference = (target: EventTarget) =>
+    target === imageReference.current
+
   useEffect(() => {
     const unregisterClickListener = editor.registerCommand(
       CLICK_COMMAND,
@@ -81,8 +83,6 @@ const ImageComponent = ({
         // be another command listener registered that clears the editor selection.
         if (isResizing) return true
 
-        const targetIsImageReference = (target: EventTarget) =>
-          target === imageReference.current
         const imageSelectCondition = pipe(
           targetIsImage,
           or(targetIsImageReference),
