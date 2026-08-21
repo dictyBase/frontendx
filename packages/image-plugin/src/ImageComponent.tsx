@@ -127,7 +127,7 @@ const ImageComponent = ({
         .with(ALIGNMENT.LEFT, () => "start")
         .with(ALIGNMENT.CENTER, () => "center")
         .with(ALIGNMENT.RIGHT, () => "end")
-        .otherwise(() => "center")}>
+        .otherwise(() => "left")}>
       <ResizableImage
         src={src}
         imageReference={imageReference}
