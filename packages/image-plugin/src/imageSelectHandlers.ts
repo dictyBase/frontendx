@@ -7,7 +7,7 @@ import {
   flatMap as OflatMap,
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
-import { Eq as SEq } from "fp-ts/string"
+import { $isImageNode } from "./ImageNode"
 import { $getNodeFromDOMNode } from "lexical"
 
 const targetIsNode = (target: EventTarget): target is Node =>
@@ -19,7 +19,7 @@ const targetIsImage = (target: EventTarget) =>
     Ofilter(targetIsNode),
     Omap($getNodeFromDOMNode),
     OflatMap(OfromNullable),
-    Omap((node) => SEq.equals(node.getType(), "image")),
+    Omap($isImageNode),
     OgetOrElse(() => false),
   )
 
