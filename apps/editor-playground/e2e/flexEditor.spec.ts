@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test"
+import { toHaveAttribute } from "@testing-library/jest-dom/matchers"
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/")
@@ -224,15 +225,29 @@ test.describe("Image Node", () => {
   test("Clicking on the ImageNode's outer div selects the ImageNode", async ({ page }) => {
     const editor = page.getByRole("textbox")
     await page.getByRole("button", { name: "Image" }).click()
-    const imageOuterDiv = editor.locator(".editor-image")
-    await imageOuterDiv.click()
+    const imageRoot = editor.locator(".editor-image")
+    await imageRoot.click()
     await expect(page.getByTestId("image-resizer-nw")).toBeVisible()
     await expect(page.getByTestId("image-resizer-ne")).toBeVisible()
     await expect(page.getByTestId("image-resizer-sw")).toBeVisible()
     await expect(page.getByTestId("image-resizer-se")).toBeVisible()
-    await expect(page.getByRole("button", { name: /left/ })).toBeVisible()
-    await expect(page.getByRole("button", { name: /center/ })).toBeVisible()
-    await expect(page.getByRole("button", { name: /right/ })).toBeVisible()
+    await expect(page.getByRole("button", { name: /left/i })).toBeVisible()
+    await expect(page.getByRole("button", { name: /center/i })).toBeVisible()
+    await expect(page.getByRole("button", { name: /right/i })).toBeVisible()
+  })
+  test("Alignment Controls affect the alignment of the image", async ({ page }) => {
+    const editor = page.getByRole("textbox")
+    await page.getByRole("button", { name: "Image" }).click()
+    const imageRoot = editor.locator(".editor-image")
+    await imageRoot.click()
+    await page.getByRole("button", { name: /left/i }).click()
+    await expect(imageRoot.locator(" > div")).toHaveCSS("justify-content", "start")
+
+    await page.getByRole("button", { name: /center/i }).click()
+    await expect(imageRoot.locator(" > div")).toHaveCSS("justify-content", "center")
+
+    await page.getByRole("button", { name: /right/i }).click()
+    await expect(imageRoot.locator(" > div")).toHaveCSS("justify-content", "end")
   })
 })
 
@@ -247,7 +262,7 @@ test.describe("Table Node", () => {
 
     await expect(editor.locator("table")).toBeVisible()
     await editor.press("Shift+Enter")
-    await expect(editor.locator("table + p")).toBeVisible()
+    await expect(editor.locator("p:below(table)")).toBeVisible()
   })
 
   test("Pressing <Shift+Control+Enter> in a table inserts a paragraph before the table", async ({
@@ -260,6 +275,6 @@ test.describe("Table Node", () => {
 
     await expect(editor.locator("table")).toBeVisible()
     await editor.press("Shift+Control+Enter")
-    await expect(editor.locator("p + table")).toBeVisible()
+    await expect(editor.locator("p:above(table)")).toHaveCount(2)
   })
 })
