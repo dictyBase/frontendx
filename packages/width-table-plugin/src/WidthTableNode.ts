@@ -35,7 +35,7 @@ class WidthTableNode extends TableNode {
    * @param width - The width of the table.
    * @param key - key for the node.
    */
-  constructor(width: number, key?: NodeKey) {
+  constructor(width: number = 400, key?: NodeKey) {
     super(key)
     this.__width = width
   }
