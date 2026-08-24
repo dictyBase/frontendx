@@ -230,5 +230,36 @@ test.describe("Image Node", () => {
     await expect(page.getByTestId("image-resizer-ne")).toBeVisible()
     await expect(page.getByTestId("image-resizer-sw")).toBeVisible()
     await expect(page.getByTestId("image-resizer-se")).toBeVisible()
+    await expect(page.getByRole("button", { name: /left/ })).toBeVisible()
+    await expect(page.getByRole("button", { name: /center/ })).toBeVisible()
+    await expect(page.getByRole("button", { name: /right/ })).toBeVisible()
+  })
+})
+
+test.describe("Table Node", () => {
+  test("Pressing <Shift+Enter> in a table inserts a paragraph after the table", async ({
+    page,
+  }) => {
+    const editor = page.getByRole("textbox")
+    await editor.click()
+    await page.getByRole("button", { name: "Table" }).click()
+    await page.getByRole("button", { name: "Confirm" }).click()
+
+    await expect(editor.locator("table")).toBeVisible()
+    await editor.press("Shift+Enter")
+    await expect(editor.locator("table + p")).toBeVisible()
+  })
+
+  test("Pressing <Shift+Control+Enter> in a table inserts a paragraph before the table", async ({
+    page,
+  }) => {
+    const editor = page.getByRole("textbox")
+    await editor.click()
+    await page.getByRole("button", { name: "Table" }).click()
+    await page.getByRole("button", { name: "Confirm" }).click()
+
+    await expect(editor.locator("table")).toBeVisible()
+    await editor.press("Shift+Control+Enter")
+    await expect(editor.locator("p + table")).toBeVisible()
   })
 })
