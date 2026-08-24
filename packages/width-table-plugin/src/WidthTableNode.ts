@@ -30,16 +30,6 @@ class WidthTableNode extends TableNode {
   }
 
   /**
-   * Creates a new instance of WidthTableNode from the serialized data.
-   *
-   * @static
-   * @param serializedNode - Serialized data of the node.
-   */
-  static override importJSON(serializedNode: SerializedWidthTableNode) {
-    return new WidthTableNode(serializedNode.width)
-  }
-
-  /**
    * Creates a new instance of WidthTableNode with the specified width and optional key.
    *
    * @param width - The width of the table.
