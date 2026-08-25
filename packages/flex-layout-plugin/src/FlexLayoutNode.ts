@@ -1,5 +1,10 @@
 /* eslint-disable class-methods-use-this */
-import { EditorConfig, ElementNode, LexicalNode, $createParagraphNode } from "lexical"
+import {
+  EditorConfig,
+  ElementNode,
+  LexicalNode,
+  $createParagraphNode,
+} from "lexical"
 
 const nodeTypeName = "flex-layout"
 
@@ -39,7 +44,7 @@ class FlexLayoutNode extends ElementNode {
   override createDOM(config: EditorConfig) {
     const div = document.createElement("div")
     div.style.display = "flex"
-    div.style.columnGap = "10px"
+    div.style.flexDirection = "column"
     const { theme } = config
     // eslint-disable-next-line dot-notation
     const className = theme["flexLayout"]
