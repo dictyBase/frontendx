@@ -25,7 +25,6 @@ import "./editor.css"
 import { FlexLayoutPlugin } from "@dictybase/flex-layout-plugin"
 import { WidthTablePlugin } from "@dictybase/width-table-plugin"
 import { TableActionPlugin } from "@dictybase/table-action-plugin"
-import { NodeSelectionEnterPlugin } from "./NodeSelectionEnterPlugin"
 import { dictyEditorConfig } from "./editorConfig"
 
 type EditorProperties = {
@@ -56,7 +55,6 @@ const Editor = ({
       <ImagePlugin />
       <FlexLayoutPlugin />
       <WidthTablePlugin />
-      <NodeSelectionEnterPlugin />
       <TableActionPlugin isEditing={editable} />
       <HistoryPlugin />
       {pipe(
