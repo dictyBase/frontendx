@@ -21,6 +21,7 @@ import "./editor.css"
 import { FlexLayoutPlugin } from "@dictybase/flex-layout-plugin"
 import { WidthTablePlugin } from "@dictybase/width-table-plugin"
 import { TableActionPlugin } from "@dictybase/table-action-plugin"
+import { NodeSelectionEnterPlugin } from "./NodeSelectionEnterPlugin"
 import { TreeViewPlugin } from "./TreeViewPlugin"
 import { dictyEditorConfig } from "./editorConfig"
 import { flexLayoutStateString } from "./initialStates"
@@ -54,6 +55,7 @@ const DebugEditor = ({
       <ImagePlugin />
       <FlexLayoutPlugin />
       <WidthTablePlugin />
+      <NodeSelectionEnterPlugin />
       <TableActionPlugin isEditing={editable} />
       <HistoryPlugin />
       <Stack direction="row">
