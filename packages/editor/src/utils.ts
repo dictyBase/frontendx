@@ -1,13 +1,13 @@
-import { createEditor, $getRoot } from "lexical";
+import { createEditor, $getRoot } from "lexical"
 
-import { dictyEditorConfig } from "./editorConfig";
+import { dictyEditorConfig } from "./editorConfig"
 
-export const utilityEditor = createEditor(dictyEditorConfig);
+export const utilityEditor = createEditor(dictyEditorConfig)
 
 export const parseContentToText = (jsonString: string) => {
-  let contentText = "";
+  let contentText = ""
   utilityEditor.parseEditorState(jsonString).read(() => {
-    contentText = $getRoot().getTextContent();
-  });
-  return contentText;
-};
+    contentText = $getRoot().getTextContent()
+  })
+  return contentText
+}

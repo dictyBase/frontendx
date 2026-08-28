@@ -5,11 +5,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles"
 import { useEffect } from "react"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import type { LexicalEditor } from "lexical"
-import {
-  $getRoot,
-  $getSelection,
-  $isRangeSelection,
-} from "lexical"
+import { $getRoot, $getSelection, $isRangeSelection } from "lexical"
 import { Editor } from "../Editor"
 import { defaultEditorConfig } from "../editorConfig"
 
@@ -19,8 +15,9 @@ vi.mock("../useEditorStyles", () => ({
 }))
 
 vi.mock("@dictybase/image-plugin", async () => {
-  const actual =
-    await vi.importActual<Record<string, unknown>>("@dictybase/image-plugin")
+  const actual = await vi.importActual<Record<string, unknown>>(
+    "@dictybase/image-plugin",
+  )
   return {
     ...actual,
     ImagePlugin: () => null,
@@ -28,8 +25,9 @@ vi.mock("@dictybase/image-plugin", async () => {
 })
 
 vi.mock("@dictybase/editor-toolbar", async () => {
-  const actual =
-    await vi.importActual<Record<string, unknown>>("@dictybase/editor-toolbar")
+  const actual = await vi.importActual<Record<string, unknown>>(
+    "@dictybase/editor-toolbar",
+  )
   return {
     ...actual,
     DictybaseToolbar: () => null,
@@ -38,11 +36,13 @@ vi.mock("@dictybase/editor-toolbar", async () => {
 
 const onError = () => {}
 
-type EditorRefCaptureProperties = {
+type EditorReferenceCaptureProperties = {
   onEditorReady: (editor: LexicalEditor) => void
 }
 
-const EditorRefCapture = ({ onEditorReady }: EditorRefCaptureProperties) => {
+const EditorRefCapture = ({
+  onEditorReady,
+}: EditorReferenceCaptureProperties) => {
   const [editor] = useLexicalComposerContext()
   useEffect(() => {
     onEditorReady(editor)
