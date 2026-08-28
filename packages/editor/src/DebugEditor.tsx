@@ -1,4 +1,7 @@
-import { InitialConfigType, LexicalComposer } from "@lexical/react/LexicalComposer"
+import {
+  InitialConfigType,
+  LexicalComposer,
+} from "@lexical/react/LexicalComposer"
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin"
 import { ContentEditable } from "@lexical/react/LexicalContentEditable"
 import { ListPlugin } from "@lexical/react/LexicalListPlugin"
@@ -10,22 +13,28 @@ import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import { ImagePlugin } from "@dictybase/image-plugin"
 import { DebugToolbar } from "@dictybase/editor-toolbar"
-import { useEditorAreaStyles, useEditorPlaceholderStyles } from "./useEditorStyles"
+import {
+  useEditorAreaStyles,
+  useEditorPlaceholderStyles,
+} from "./useEditorStyles"
 import "./editor.css"
 import { FlexLayoutPlugin } from "@dictybase/flex-layout-plugin"
 import { WidthTablePlugin } from "@dictybase/width-table-plugin"
 import { TableActionPlugin } from "@dictybase/table-action-plugin"
 import { TreeViewPlugin } from "./TreeViewPlugin"
 import { dictyEditorConfig } from "./editorConfig"
+import { flexLayoutStateString } from "./initialStates"
 
 type EditorProperties = {
   config: InitialConfigType
   plugins?: Array<JSX.Element>
   editable?: boolean
+  editorState?: string
 }
 
 const DebugEditor = ({
   config = dictyEditorConfig,
+  editorState = flexLayoutStateString,
   editable = true,
   plugins,
 }: EditorProperties) => {
@@ -36,9 +45,9 @@ const DebugEditor = ({
     <LexicalComposer
       initialConfig={{
         ...config,
+        editorState,
         editable,
-      }}
-    >
+      }}>
       <>{plugins}</>
       <ListPlugin />
       <LinkPlugin />
@@ -60,9 +69,16 @@ const DebugEditor = ({
             <RichTextPlugin
               ErrorBoundary={LexicalErrorBoundary}
               contentEditable={
-                <ContentEditable id="content-editor" className={editorAreaClasses.container} />
+                <ContentEditable
+                  id="content-editor"
+                  className={editorAreaClasses.container}
+                />
               }
-              placeholder={<div className={placeholderClasses.root}>Enter some text...</div>}
+              placeholder={
+                <div className={placeholderClasses.root}>
+                  Enter some text...
+                </div>
+              }
             />
           </div>
         </Stack>
