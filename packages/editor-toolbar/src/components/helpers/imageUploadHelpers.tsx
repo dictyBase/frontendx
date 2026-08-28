@@ -62,6 +62,17 @@ type ErrorState = {
 
 const FILE_SIZE_LIMIT = 1_000_000
 
+// https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types#common_image_file_types
+const IMAGE_MIME_TYPES = new Set([
+  "image/apng",
+  "image/avif",
+  "image/gif",
+  "image/jpeg",
+  "image/png",
+  "image/svg+xml",
+  "image/webp",
+])
+
 const emptyFileListError = {
   errorType: ErrorType.VALIDITY_ERROR,
   message: "File list is empty",
@@ -73,6 +84,11 @@ const noFileSelectedError = {
 const overFileSizeLimitError = {
   errorType: ErrorType.VALIDITY_ERROR,
   message: "Chosen file size is too large. It must be smaller than 1MB.",
+}
+const invalidMimeTypeError = {
+  errorType: ErrorType.VALIDITY_ERROR,
+  message:
+    "Unsupported image format. Please upload APNG, AVIF, GIF, JPEG, PNG, SVG, or WebP.",
 }
 const accessTokenError = {
   errorType: ErrorType.ACCESS_TOKEN_ERROR,
@@ -113,10 +129,15 @@ const EgetValidFile = (files: FileList | null) =>
         EfromOption(() => noFileSelectedError),
       ),
     ),
-    Ebind("validFile", ({ selectedFile }) =>
+    Ebind("sizedFile", ({ selectedFile }) =>
       selectedFile.size < FILE_SIZE_LIMIT
         ? Eright(selectedFile)
         : Eleft(overFileSizeLimitError),
+    ),
+    Ebind("validFile", ({ sizedFile }) =>
+      IMAGE_MIME_TYPES.has(sizedFile.type)
+        ? Eright(sizedFile)
+        : Eleft(invalidMimeTypeError),
     ),
     Oof,
   )
