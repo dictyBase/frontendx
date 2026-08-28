@@ -1,8 +1,12 @@
 /// <reference types="vite/client" />
 //
-namespace NodeJS {
+declare namespace NodeJS {
   interface ProcessEnv {
-    CI: boolean
+    CI: string
     BASE_URL: string
   }
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv
 }
