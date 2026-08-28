@@ -1,4 +1,3 @@
-import { InitialConfigType } from "@lexical/react/LexicalComposer"
 import { ListItemNode, ListNode } from "@lexical/list"
 import { HeadingNode, QuoteNode } from "@lexical/rich-text"
 import { TableCellNode, TableRowNode } from "@lexical/table"
@@ -7,11 +6,7 @@ import { ImageNode } from "@dictybase/image-plugin"
 import { FlexLayoutNode } from "@dictybase/flex-layout-plugin"
 import { DownloadLinkNode } from "@dictybase/editor-toolbar"
 import { WidthTableNode } from "@dictybase/width-table-plugin"
-import {
-  defaultStateString,
-  flexLayoutStateString,
-  flexLayoutState,
-} from "./initialStates"
+import { flexLayoutStateString, flexLayoutState } from "./initialStates"
 
 const editorTheme = {
   paragraph: "editor-paragraphy",
@@ -48,7 +43,6 @@ const dictyEditorConfig = {
     TableRowNode,
     TableCellNode,
   ],
-  editorState: flexLayoutStateString,
   onError,
 }
 
@@ -70,19 +64,5 @@ const utilityEditorConfig = {
   editorState: flexLayoutState,
   onError,
 }
-const defaultEditorConfig: InitialConfigType = {
-  namespace: "defaultEditor",
-  theme: { ...editorTheme },
-  nodes: [
-    HeadingNode,
-    QuoteNode,
-    LinkNode,
-    DownloadLinkNode,
-    ListItemNode,
-    ListNode,
-    ImageNode,
-  ],
-  editorState: defaultStateString,
-  onError,
-}
-export { dictyEditorConfig, defaultEditorConfig, utilityEditorConfig }
+
+export { dictyEditorConfig, utilityEditorConfig }

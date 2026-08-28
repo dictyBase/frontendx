@@ -39,36 +39,6 @@ const flexLayoutState = {
   },
 }
 
-const defaultState = {
-  root: {
-    children: [
-      {
-          children: [
-            {
-              detail: 0,
-              format: 0,
-              mode: "normal",
-              style: `font-family: ${DEFAULT_FONT}; font-size: ${DEFAULT_FONT_SIZE}`,
-              text: "",
-              type: "text",
-              version: 1,
-            },
-          ],
-          direction: null,
-          format: "",
-          indent: 0,
-          type: "paragraph",
-          version: 1,
-        },
-    ],
-    direction: null,
-    format: "",
-    indent: 0,
-    type: "root",
-    version: 1,
-  },
-}
 const flexLayoutStateString = JSON.stringify(flexLayoutState)
-const defaultStateString = JSON.stringify(defaultState)
 
-export { flexLayoutState, flexLayoutStateString, defaultState, defaultStateString }
+export { flexLayoutState, flexLayoutStateString }
