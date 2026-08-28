@@ -119,6 +119,13 @@ const getParagraphNodeFromSelection = () => {
   return getNearestParagraphAncestor(node)
 }
 
+const getTopLevelElementFromSelection = () => {
+  const selection = $getSelection()
+  const node = selection?.getNodes()[0]
+  if (!node) return undefined
+  return node.getTopLevelElement()
+}
+
 const getFlexParagraphNodeFromSelection = () => {
   const selection = $getSelection()
   const selectionNodes = selection?.getNodes()
@@ -198,4 +205,5 @@ export {
   getParagraphNodeFromSelection,
   getFlexLayoutNodeFromSelection,
   getNearestFlexLayoutAncestor,
+  getTopLevelElementFromSelection,
 }

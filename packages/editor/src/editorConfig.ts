@@ -3,12 +3,15 @@ import { HeadingNode, QuoteNode } from "@lexical/rich-text"
 import { TableCellNode, TableRowNode } from "@lexical/table"
 import { LinkNode } from "@lexical/link"
 import { ImageNode } from "@dictybase/image-plugin"
-import { WidthTableNode } from "@dictybase/width-table-plugin"
 import { FlexLayoutNode } from "@dictybase/flex-layout-plugin"
 import { DownloadLinkNode } from "@dictybase/editor-toolbar"
+import { WidthTableNode } from "@dictybase/width-table-plugin"
+import { flexLayoutStateString, flexLayoutState } from "./initialStates"
 
 const editorTheme = {
-  paragraph: "editor-paragraph",
+  paragraph: "editor-paragraphy",
+  flexLayout: "editor-flex-layout",
+  image: "editor-image",
   text: {
     bold: "editor-text-bold",
     italic: "editor-text-italic",
@@ -35,12 +38,31 @@ const dictyEditorConfig = {
     ListItemNode,
     ListNode,
     ImageNode,
-    TableCellNode,
-    TableRowNode,
-    WidthTableNode,
     FlexLayoutNode,
+    WidthTableNode,
+    TableRowNode,
+    TableCellNode,
   ],
   onError,
 }
 
-export { dictyEditorConfig }
+const utilityEditorConfig = {
+  namespace: "utilityEditor",
+  nodes: [
+    HeadingNode,
+    QuoteNode,
+    LinkNode,
+    DownloadLinkNode,
+    ListItemNode,
+    ListNode,
+    ImageNode,
+    FlexLayoutNode,
+    WidthTableNode,
+    TableRowNode,
+    TableCellNode,
+  ],
+  editorState: flexLayoutState,
+  onError,
+}
+
+export { dictyEditorConfig, utilityEditorConfig }

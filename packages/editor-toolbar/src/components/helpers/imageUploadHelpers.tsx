@@ -45,16 +45,33 @@ enum ErrorType {
   EDITOR_INSERTION,
 }
 
+/**
+ * Represents a successfully validated file ready for upload.
+ */
 type ImageSuccessState = {
   validFile: File
 }
 
+/**
+ * Represents an error encountered during the image upload pipeline.
+ */
 type ErrorState = {
   message: string
   errorType: ErrorType
 }
 
 const FILE_SIZE_LIMIT = 1_000_000
+
+// https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types#common_image_file_types
+const IMAGE_MIME_TYPES = new Set([
+  "image/apng",
+  "image/avif",
+  "image/gif",
+  "image/jpeg",
+  "image/png",
+  "image/svg+xml",
+  "image/webp",
+])
 
 const emptyFileListError = {
   errorType: ErrorType.VALIDITY_ERROR,
@@ -67,6 +84,11 @@ const noFileSelectedError = {
 const overFileSizeLimitError = {
   errorType: ErrorType.VALIDITY_ERROR,
   message: "Chosen file size is too large. It must be smaller than 1MB.",
+}
+const invalidMimeTypeError = {
+  errorType: ErrorType.VALIDITY_ERROR,
+  message:
+    "Unsupported image format. Please upload APNG, AVIF, GIF, JPEG, PNG, SVG, or WebP.",
 }
 const accessTokenError = {
   errorType: ErrorType.ACCESS_TOKEN_ERROR,
@@ -89,6 +111,10 @@ const editorInsertionError = {
   message: "Could not insert image into editor",
 }
 
+/**
+ * Validates a `FileList` to extract a single file under the size limit.
+ * Returns `Option<Either<ErrorState, ImageSuccessState>>`.
+ */
 const EgetValidFile = (files: FileList | null) =>
   pipe(
     files,
@@ -103,14 +129,22 @@ const EgetValidFile = (files: FileList | null) =>
         EfromOption(() => noFileSelectedError),
       ),
     ),
-    Ebind("validFile", ({ selectedFile }) =>
+    Ebind("sizedFile", ({ selectedFile }) =>
       selectedFile.size < FILE_SIZE_LIMIT
         ? Eright(selectedFile)
         : Eleft(overFileSizeLimitError),
     ),
+    Ebind("validFile", ({ sizedFile }) =>
+      IMAGE_MIME_TYPES.has(sizedFile.type)
+        ? Eright(sizedFile)
+        : Eleft(invalidMimeTypeError),
+    ),
     Oof,
   )
 
+/**
+ * Checks whether the image state represents a valid file (i.e., no validity errors and a file is present).
+ */
 const isValidFile = (
   imageState: Option<Either<ErrorState, ImageSuccessState>>,
 ) =>
@@ -125,6 +159,9 @@ const isValidFile = (
     OgetOrElse(() => false),
   )
 
+/**
+ * Renders an error message from the image state if one exists, otherwise renders an empty fragment.
+ */
 const renderError = (
   imageState: Option<Either<ErrorState, ImageSuccessState>>,
 ) =>
@@ -141,6 +178,9 @@ const renderError = (
     OgetOrElse(() => <></>),
   )
 
+/**
+ * Resolves the natural dimensions (width and height) of an image from its source URL.
+ */
 const resolveDimensions = (source: string) =>
   new Promise<{ height: number; width: number }>((resolve, reject) => {
     const imageElement = new Image()
@@ -155,12 +195,18 @@ const resolveDimensions = (source: string) =>
     imageElement.onerror = reject
   })
 
+/**
+ * Wraps `resolveDimensions` in a `TaskEither`, catching errors as `imageLoadError`.
+ */
 const TEresolveDimensions = (url: string) =>
   TEtryCatch(
     () => resolveDimensions(url),
     () => imageLoadError,
   )
 
+/**
+ * Scales image dimensions to fit a given base width, preserving aspect ratio.
+ */
 const scaleDimensions = (
   { height, width }: { height: number; width: number },
   baseWidth: number,
@@ -170,6 +216,12 @@ const scaleDimensions = (
   return { height: newHeight, width: baseWidth }
 }
 
+/**
+ * Creates an image upload pipeline that validates, uploads, resolves dimensions,
+ * scales the image, and inserts it into the Lexical editor.
+ *
+ * On success, clears the image state and closes the dialog. On failure, sets the error state.
+ */
 const createImageUploadFunction = (
   editor: LexicalEditor,
   getAccessToken: (

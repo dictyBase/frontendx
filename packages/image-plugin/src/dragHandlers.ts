@@ -1,9 +1,4 @@
-import {
-  $getNearestNodeFromDOMNode,
-  $isDecoratorNode,
-  $setSelection,
-  LexicalEditor,
-} from "lexical"
+import { $setSelection, LexicalEditor } from "lexical"
 import {
   getImageNodeFromSelection,
   getRangeSelectionFromPoint,
@@ -27,13 +22,8 @@ export const onDragStart = (event: DragEvent) => {
 export const onDrop = (event: DragEvent, editor: LexicalEditor) => {
   event.preventDefault()
   if (!(event.target instanceof Node)) return false
-
-  const dropTargetNode = $getNearestNodeFromDOMNode(event.target)
-  if ($isDecoratorNode(dropTargetNode)) return false
-
   const imageNode = getImageNodeFromSelection()
   if (!imageNode) return false
-
   const selection = getRangeSelectionFromPoint(event.clientX, event.clientY)
   if (!selection) return false
   $setSelection(selection)

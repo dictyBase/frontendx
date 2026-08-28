@@ -54,7 +54,7 @@
     "react-router-dom": "^6.14.2",
     "rxjs": "~7.8",
     "string.prototype.includes": "^2.0.0",
-    "typescript": "4.*",
+    "typescript": "5.*",
     "whatwg-fetch": "^3.6.19"
   },
   "devDependencies": {

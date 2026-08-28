@@ -1,0 +1,280 @@
+import { test, expect } from "@playwright/test"
+import { toHaveAttribute } from "@testing-library/jest-dom/matchers"
+
+test.beforeEach(async ({ page }) => {
+  await page.goto("/")
+})
+
+test("Pressing <Enter> in a paragraph creates a new paragraph", async ({ page }) => {
+  const editor = page.getByRole("textbox")
+  await editor.press("Enter")
+  await expect(editor.locator("p")).toHaveCount(2)
+})
+
+test("Pressing <Backspace> in an empty paragraph removes the paragraph", async ({ page }) => {
+  const editor = page.getByRole("textbox")
+  await editor.press("Enter")
+  await expect(editor.locator("p")).toHaveCount(2)
+  await editor.press("Backspace")
+  await expect(editor.locator("p")).toBeVisible()
+})
+
+test("Pressing <Enter> in a Heading creates a new paragraph", async ({ page }) => {
+  const editor = page.getByRole("textbox")
+  await editor.click()
+  await page.getByText("Normal").click()
+  await page.getByRole("option", { name: "Heading 1" }).click()
+
+  await expect(editor.locator("h1")).toBeVisible()
+  await editor.press("Enter")
+  await expect(editor.locator("p")).toBeVisible()
+})
+
+test("Pressing <Enter> in a heading creates a new paragraph", async ({ page }) => {
+  const editor = page.getByRole("textbox")
+  await editor.click()
+  await page.getByText("Normal").click()
+  await page.getByRole("option", { name: "Heading 1" }).click()
+
+  await expect(editor.locator("h1")).toBeVisible()
+  await editor.press("Enter")
+  await expect(editor.locator("p")).toBeVisible()
+})
+
+test("Pressing <Enter> in a non-empty bulleted list listitem creates a listitem", async ({
+  page,
+}) => {
+  const editor = page.getByRole("textbox")
+  await editor.click()
+  await page.getByText("Normal").click()
+  await page.getByRole("option", { name: "Bulleted List" }).click()
+
+  await expect(editor.locator("p")).toHaveCount(0)
+  await expect(editor.locator("ul")).toBeVisible()
+  await expect(editor.locator("li")).toBeVisible()
+  await editor.pressSequentially("item 1")
+  await editor.press("Enter")
+  await expect(editor.locator("li")).toHaveCount(2)
+})
+
+test("Pressing <Enter> in an empty bulleted list listitem removes that list item and creates a paragraph", async ({
+  page,
+}) => {
+  const editor = page.getByRole("textbox")
+  await editor.click()
+  await page.getByText("Normal").click()
+  await page.getByRole("option", { name: "Bulleted List" }).click()
+
+  await expect(editor.locator("p")).toHaveCount(0)
+  await expect(editor.locator("ul")).toBeVisible()
+  await expect(editor.locator("li")).toBeVisible()
+  await editor.press("Enter")
+  await expect(editor.locator("li")).toHaveCount(0)
+  await expect(editor.locator("p")).toBeVisible()
+})
+
+test("Pressing <Enter> in a non-empty numbered list listitem creates a listitem", async ({
+  page,
+}) => {
+  const editor = page.getByRole("textbox")
+  await editor.click()
+  await page.getByText("Normal").click()
+  await page.getByRole("option", { name: "Numbered List" }).click()
+
+  await expect(editor.locator("p")).toHaveCount(0)
+  await expect(editor.locator("ol")).toBeVisible()
+  await expect(editor.locator("li")).toBeVisible()
+  await editor.pressSequentially("item 1")
+  await editor.press("Enter")
+  await expect(editor.locator("li")).toHaveCount(2)
+})
+
+test("Pressing <Enter> in an empty numbered list listitem removes that list item and creates a paragraph", async ({
+  page,
+}) => {
+  const editor = page.getByRole("textbox")
+  await editor.click()
+  await page.getByText("Normal").click()
+  await page.getByRole("option", { name: "Numbered List" }).click()
+
+  await expect(editor.locator("p")).toHaveCount(0)
+  await expect(editor.locator("ol")).toBeVisible()
+  await expect(editor.locator("li")).toBeVisible()
+  await editor.press("Enter")
+  await expect(editor.locator("li")).toHaveCount(0)
+  await expect(editor.locator("p")).toBeVisible()
+})
+
+test("Pressing <Enter> in a quote block creates a new paragraph", async ({ page }) => {
+  const editor = page.getByRole("textbox")
+  await editor.click()
+  await page.getByText("Normal").click()
+  await page.getByRole("option", { name: "Quote" }).click()
+
+  await expect(editor.locator("p")).toHaveCount(0)
+  await expect(editor.locator("blockquote")).toBeVisible()
+  await editor.press("Enter")
+  await expect(editor.locator("p")).toBeVisible()
+})
+
+const sampleText = "This is a link"
+
+test.describe("Link Node", () => {
+  test("Toolbar's Link Insertion Button inserts a link into the selected paragraph", async ({
+    page,
+  }) => {
+    const editor = page.getByRole("textbox")
+    await editor.click()
+    await page.getByRole("button", { name: "Open Link Dialog" }).click()
+    const linkTextField = page.getByRole("textbox", { name: "Link Text" })
+    await linkTextField.fill(sampleText)
+
+    const linkUrlField = page.getByRole("textbox", { name: "Link URL" })
+    await linkUrlField.fill("dictybase.dev")
+
+    await page.getByRole("button", { name: "Insert Link" }).click()
+
+    await expect(editor.locator("p").locator("a")).toBeVisible()
+  })
+
+  test("Pressing <Enter> in a link node in a paragraph creates a new paragraph", async ({
+    page,
+  }) => {
+    const editor = page.getByRole("textbox")
+    await editor.click()
+    await page.getByRole("button", { name: "Open Link Dialog" }).click()
+    const linkTextField = page.getByRole("textbox", { name: "Link Text" })
+    await linkTextField.fill(sampleText)
+
+    const linkUrlField = page.getByRole("textbox", { name: "Link URL" })
+    await linkUrlField.fill("dictybase.dev")
+
+    await page.getByRole("button", { name: "Insert Link" }).click()
+    await editor.press("Enter")
+    await expect(editor.locator("p")).toHaveCount(2)
+  })
+  test("Deleting all text in a link node removes the node", async ({ page }) => {
+    const editor = page.getByRole("textbox")
+    await editor.click()
+    await page.getByRole("button", { name: "Open Link Dialog" }).click()
+    const linkTextField = page.getByRole("textbox", { name: "Link Text" })
+    await linkTextField.fill(sampleText)
+
+    const linkUrlField = page.getByRole("textbox", { name: "Link URL" })
+    await linkUrlField.fill("dictybase.dev")
+
+    await page.getByRole("button", { name: "Insert Link" }).click()
+    for (let i = 0; i <= sampleText.length; i++) {
+      await editor.press("Backspace")
+    }
+    await expect(editor.locator("a")).toHaveCount(0)
+  })
+
+  test("Toolbar Link Insertion Button inserts a link into the selected list item", async ({
+    page,
+  }) => {
+    const editor = page.getByRole("textbox")
+    await editor.click()
+    await page.getByText("Normal").click()
+    await page.getByRole("option", { name: "Bulleted List" }).click()
+
+    await page.getByRole("button", { name: "Open Link Dialog" }).click()
+    const linkTextField = page.getByRole("textbox", { name: "Link Text" })
+    await linkTextField.fill(sampleText)
+
+    const linkUrlField = page.getByRole("textbox", { name: "Link URL" })
+    await linkUrlField.fill("dictybase.dev")
+    await page.getByRole("button", { name: "Insert Link" }).click()
+
+    await expect(editor.getByRole("listitem").getByRole("link")).toBeVisible()
+  })
+})
+
+test.describe("Image Node", () => {
+  test("Toolbar Image Button inserts an image into the editor", async ({ page }) => {
+    const editor = page.getByRole("textbox")
+    await page.getByRole("button", { name: "Image" }).click()
+
+    await expect(editor.getByRole("img")).toBeVisible()
+  })
+  test("Pressing <Enter> when an ImageNode is selected inserts a paragraph as its next sibling", async ({
+    page,
+  }) => {
+    const editor = page.getByRole("textbox")
+    await page.getByRole("button", { name: "Image" }).click()
+    const image = editor.getByRole("img")
+    expect(image).toBeVisible()
+    expect(editor.getByRole("paragraph")).toHaveCount(1)
+    expect(image)
+    await image.click()
+    await editor.press("Enter")
+    await expect(editor.getByRole("paragraph")).toHaveCount(2)
+    await expect(editor.locator("p:below(img)")).toBeVisible()
+  })
+  test("Clicking an image changes the selection to the ImageNode", async ({ page }) => {
+    const editor = page.getByRole("textbox")
+    await page.getByRole("button", { name: "Image" }).click()
+    const image = editor.getByRole("img")
+    await expect(image).toBeVisible()
+    await image.click()
+    await expect(page.getByTestId("image-resizer-nw")).toBeVisible()
+    await expect(page.getByTestId("image-resizer-ne")).toBeVisible()
+    await expect(page.getByTestId("image-resizer-sw")).toBeVisible()
+    await expect(page.getByTestId("image-resizer-se")).toBeVisible()
+  })
+  test("Clicking on the ImageNode's outer div selects the ImageNode", async ({ page }) => {
+    const editor = page.getByRole("textbox")
+    await page.getByRole("button", { name: "Image" }).click()
+    const imageRoot = editor.locator(".editor-image")
+    await imageRoot.click()
+    await expect(page.getByTestId("image-resizer-nw")).toBeVisible()
+    await expect(page.getByTestId("image-resizer-ne")).toBeVisible()
+    await expect(page.getByTestId("image-resizer-sw")).toBeVisible()
+    await expect(page.getByTestId("image-resizer-se")).toBeVisible()
+    await expect(page.getByRole("button", { name: /left/i })).toBeVisible()
+    await expect(page.getByRole("button", { name: /center/i })).toBeVisible()
+    await expect(page.getByRole("button", { name: /right/i })).toBeVisible()
+  })
+  test("Alignment Controls affect the alignment of the image", async ({ page }) => {
+    const editor = page.getByRole("textbox")
+    await page.getByRole("button", { name: "Image" }).click()
+    const imageRoot = editor.locator(".editor-image")
+    await imageRoot.click()
+    await page.getByRole("button", { name: /left/i }).click()
+    await expect(imageRoot.locator(" > div")).toHaveCSS("justify-content", "start")
+
+    await page.getByRole("button", { name: /center/i }).click()
+    await expect(imageRoot.locator(" > div")).toHaveCSS("justify-content", "center")
+
+    await page.getByRole("button", { name: /right/i }).click()
+    await expect(imageRoot.locator(" > div")).toHaveCSS("justify-content", "end")
+  })
+})
+
+test.describe("Table Node", () => {
+  test("Pressing <Shift+Enter> in a table inserts a paragraph after the table", async ({
+    page,
+  }) => {
+    const editor = page.getByRole("textbox")
+    await editor.click()
+    await page.getByRole("button", { name: "Table" }).click()
+    await page.getByRole("button", { name: "Confirm" }).click()
+
+    await expect(editor.locator("table")).toBeVisible()
+    await editor.press("Shift+Enter")
+    await expect(editor.locator("p:below(table)")).toBeVisible()
+  })
+
+  test("Pressing <Shift+Control+Enter> in a table inserts a paragraph before the table", async ({
+    page,
+  }) => {
+    const editor = page.getByRole("textbox")
+    await editor.click()
+    await page.getByRole("button", { name: "Table" }).click()
+    await page.getByRole("button", { name: "Confirm" }).click()
+
+    await expect(editor.locator("table")).toBeVisible()
+    await editor.press("Shift+Control+Enter")
+    await expect(editor.locator("p:above(table)")).toHaveCount(2)
+  })
+})

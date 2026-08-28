@@ -1,11 +1,13 @@
 import { useRef, useState, CSSProperties } from "react"
 import { useAtomValue } from "jotai"
-import { Container } from "@mui/material"
-import { ImageDimensionsAtom } from "./state"
+import { Box } from "@mui/material"
+import { imageDimensionsAtom } from "./state"
 import { LoadingDisplay } from "./LoadingDisplay"
 import { ErrorDisplay } from "./ErrorDisplay"
 import { ImageResizer } from "./ImageResizer"
+import { AlignmentControls } from "./AlignmentControls"
 import { useImageStyles } from "./useImageStyles"
+import { ALIGNMENT } from "./types"
 
 export type ImageProperties = {
   src: string
@@ -16,6 +18,7 @@ export type ImageProperties = {
   easing: string
   isSelected: boolean
   onResize: (width: number, height: number) => void
+  onSetAlignment: (alignment: ALIGNMENT) => void
 }
 
 const ResizableImage = ({
@@ -27,14 +30,13 @@ const ResizableImage = ({
   duration = 2000,
   isSelected,
   onResize,
+  onSetAlignment,
 }: ImageProperties) => {
-  const dimensions = useAtomValue(ImageDimensionsAtom)
+  const dimensions = useAtomValue(imageDimensionsAtom)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const imageContainerReference = useRef<HTMLImageElement>(null)
   const styles = useImageStyles({
-    width: dimensions.width,
-    height: dimensions.height,
     fit,
     easing,
     duration,
@@ -48,17 +50,15 @@ const ResizableImage = ({
   }
 
   return (
-    <Container
+    <Box
       draggable={isSelected}
       ref={imageContainerReference}
-      disableGutters
       sx={{
         position: "relative" as const,
         height: "var(--height)",
         width: "var(--width)",
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",
         backgroundColor: "black",
       }}
       style={
@@ -80,7 +80,10 @@ const ResizableImage = ({
       {imageContainerReference.current && isSelected ? (
         <ImageResizer onResize={onResize} />
       ) : undefined}
-    </Container>
+      {imageContainerReference.current && isSelected ? (
+        <AlignmentControls onSetAlignment={onSetAlignment} />
+      ) : undefined}
+    </Box>
   )
 }
 

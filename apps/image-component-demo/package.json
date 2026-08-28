@@ -27,7 +27,7 @@
     "eslint-config-custom": "*",
     "prettier": "3.*",
     "tsconfig": "*",
-    "typescript": "4.*",
+    "typescript": "5.*",
     "vite": "4.x"
   },
   "eslintConfig": {

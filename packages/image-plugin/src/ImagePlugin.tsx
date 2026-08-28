@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import {
+  $getRoot,
   COMMAND_PRIORITY_EDITOR,
   DRAGSTART_COMMAND,
   COMMAND_PRIORITY_HIGH,
@@ -10,17 +11,44 @@ import { pipe } from "fp-ts/function"
 import {
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
-  orElse as OorElse,
   map as Omap,
+  filter as Ofilter,
+  match as Omatch,
 } from "fp-ts/Option"
-import { match } from "ts-pattern"
+import { $isFlexLayoutNode } from "@dictybase/flex-layout-plugin"
 import { ImageNode } from "./ImageNode"
 import { INSERT_IMAGE_COMMAND, InsertImagePayload } from "./InsertImageCommand"
 import { onDragStart, onDrop } from "./dragHandlers"
-import {
-  getParagraphNodeFromSelection,
-  getFlexLayoutNodeFromSelection,
-} from "./InsertImageHelpers"
+import { getTopLevelElementFromSelection } from "./InsertImageHelpers"
+
+// If the currentSelection is an ImageNode, insert a paragraph
+const onInsertImage = (payload: InsertImagePayload) => {
+  const imageNode = new ImageNode(payload)
+  const topLevelNode = getTopLevelElementFromSelection()
+  return pipe(
+    topLevelNode,
+    OfromNullable,
+    Omap((someNode) => {
+      someNode.insertAfter(imageNode)
+      return true
+    }),
+    OgetOrElse(() =>
+      // get the flex layout node and append it, else do nothing.
+      pipe(
+        $getRoot().getFirstChild(),
+        OfromNullable,
+        Ofilter($isFlexLayoutNode),
+        Omatch(
+          () => false,
+          (flexLayoutNode) => {
+            flexLayoutNode.append(imageNode)
+            return true
+          },
+        ),
+      ),
+    ),
+  )
+}
 
 const ImagePlugin = () => {
   const [editor] = useLexicalComposerContext()
@@ -32,33 +60,7 @@ const ImagePlugin = () => {
 
     const unregisterInsertImage = editor.registerCommand(
       INSERT_IMAGE_COMMAND,
-      (payload: InsertImagePayload) => {
-        const imageNode = new ImageNode(payload)
-        const paragraphNode = getParagraphNodeFromSelection()
-        return pipe(
-          paragraphNode,
-          OfromNullable,
-          Omap((someParagraphNode) => {
-            match(payload.alignment)
-              .with("left", () => someParagraphNode.insertBefore(imageNode))
-              .with("right", () => someParagraphNode.insertAfter(imageNode))
-              .otherwise(() => someParagraphNode.insertBefore(imageNode))
-            return true
-          }),
-          OorElse(() => {
-            const flexParagraph = getFlexLayoutNodeFromSelection()
-            return pipe(
-              flexParagraph,
-              OfromNullable,
-              Omap((someFlexParagraph) => {
-                someFlexParagraph.append(imageNode)
-                return true
-              }),
-            )
-          }),
-          OgetOrElse(() => false),
-        )
-      },
+      onInsertImage,
       COMMAND_PRIORITY_EDITOR,
     )
 
@@ -84,4 +86,4 @@ const ImagePlugin = () => {
   return <></>
 }
 
-export { ImagePlugin }
+export { ImagePlugin, onInsertImage }
