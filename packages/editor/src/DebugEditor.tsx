@@ -18,7 +18,6 @@ import {
   useEditorPlaceholderStyles,
 } from "./useEditorStyles"
 import "./editor.css"
-import { FlexLayoutPlugin } from "@dictybase/flex-layout-plugin"
 import { WidthTablePlugin } from "@dictybase/width-table-plugin"
 import { TableActionPlugin } from "@dictybase/table-action-plugin"
 import { TreeViewPlugin } from "./TreeViewPlugin"
@@ -52,7 +51,6 @@ const DebugEditor = ({
       <ListPlugin />
       <LinkPlugin />
       <ImagePlugin />
-      <FlexLayoutPlugin />
       <WidthTablePlugin />
       <TableActionPlugin isEditing={editable} />
       <HistoryPlugin />
