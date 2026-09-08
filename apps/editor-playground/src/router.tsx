@@ -8,7 +8,7 @@ import { EditorPager } from "./EditorPager"
 import { getOrElse as OgetOrElse } from "fp-ts/Option"
 import { fromArray as RNEAfromArray, of as RNEAof } from "fp-ts/ReadonlyNonEmptyArray"
 
-const data = import.meta.glob<{ default: SerializedEditorState }>("/src/data/output/*", {
+const data = import.meta.glob<{ default: SerializedEditorState }>("/src/data/content/*", {
   eager: true,
 })
 
