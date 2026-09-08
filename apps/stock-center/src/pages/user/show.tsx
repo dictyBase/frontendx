@@ -5,7 +5,8 @@ import {
   ACCESS,
   UserWithRoles,
   displayOnAuthorized,
-  matchEntries,
+  hasAllowedRole,
+  Roles,
 } from "@dictybase/auth-mui5"
 import { Avatar, Information, EditablePagesList, Title, NoPages } from "ui-user"
 
@@ -18,6 +19,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(2),
   },
 }))
+
+const allowedRoles = new Set([Roles.CONTENT_ADMIN])
 
 const Show = () => {
   const location = useLocation()
@@ -45,7 +48,7 @@ const Show = () => {
         </Grid>
         <Grid item xs={4} container direction="column" alignItems="flex-start">
           {displayOnAuthorized({
-            isAuthorized: matchEntries(user.roles, ["content-admin"]),
+            isAuthorized: hasAllowedRole(user.roles, allowedRoles),
             authorized: <EditablePagesList />,
             unauthorized: <NoPages />,
           })}

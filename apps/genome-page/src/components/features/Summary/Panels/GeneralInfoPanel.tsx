@@ -1,8 +1,7 @@
-import React from "react"
+import { ReactChild } from "react"
 import { Box } from "@material-ui/core"
 import { GeneGeneralInformationSummaryQuery } from "dicty-graphql-schema"
 import { pipe } from "fp-ts/function"
-import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray"
 import { sequence } from "fp-ts/Record"
 import { map as Amap, compact as Acompact, isNonEmpty } from "fp-ts/Array"
 import {
@@ -11,11 +10,12 @@ import {
   some,
   fromPredicate as OfromPredicate,
   fromNullable as OfromNullable,
+  map as Omap,
 } from "fp-ts/Option"
-import { ContentId, returnPanelContentById } from "common/utils/panelGenerator"
 import { LeftDisplay } from "components/panels/LeftDisplay"
 import { ItemDisplay } from "components/panels/ItemDisplay"
 import { RightDisplay } from "components/panels/RightDisplay"
+import { ReadonlyContentList } from "components/ReadonlyContentList"
 
 type Properties = {
   generalInformation: NonNullable<
@@ -23,8 +23,8 @@ type Properties = {
   >
 }
 type PanelRowData = {
-  id: Option<ContentId>
-  value: Option<NonEmptyArray<string> | string>
+  id: Option<ReactChild>
+  value: Option<ReactChild>
 }
 
 /**
@@ -41,12 +41,19 @@ const GeneralInfoPanel = ({ generalInformation }: Properties) =>
           Amap(OfromNullable),
           Acompact,
           OfromPredicate(isNonEmpty),
+          Omap((description) => (
+            <ReadonlyContentList contentList={description} />
+          )),
         ),
       },
-      { id: some("dictyBase ID"), value: some(info.id) },
+      { id: some("dictyBase ID"), value: some(<>{info.id}</>) },
       {
-        id: some("Gene Product"),
-        value: pipe(info.gene_product, OfromNullable),
+        id: some("Gene Products"),
+        value: pipe(
+          info.gene_product,
+          OfromNullable,
+          Omap((geneProducts) => <>{geneProducts}</>),
+        ),
       },
       {
         id: some("Alternative Gene Names"),
@@ -55,11 +62,16 @@ const GeneralInfoPanel = ({ generalInformation }: Properties) =>
           Amap(OfromNullable),
           Acompact,
           OfromPredicate(isNonEmpty),
+          Omap((names) => <ReadonlyContentList contentList={names} />),
         ),
       },
       {
         id: some("Description"),
-        value: pipe(info.description, OfromNullable),
+        value: pipe(
+          info.description,
+          OfromNullable,
+          Omap((description) => <>{description}</>),
+        ),
       },
     ],
     Amap(sequence(OApplicative)),
@@ -67,9 +79,7 @@ const GeneralInfoPanel = ({ generalInformation }: Properties) =>
     Amap(({ id, value }) => (
       <ItemDisplay key={id}>
         <LeftDisplay>{id}</LeftDisplay>
-        <RightDisplay>
-          {returnPanelContentById(id as ContentId, value)}
-        </RightDisplay>
+        <RightDisplay>{value}</RightDisplay>
       </ItemDisplay>
     )),
     (children) => <Box>{children}</Box>,

@@ -5,7 +5,7 @@ import { defineConfig } from "vitest/config"
 const viteConfig = defineConfig({
   plugins: [react()],
   server: {
-    port: 3002,
+    port: 3000,
     strictPort: true,
   },
   base: "/gene",
