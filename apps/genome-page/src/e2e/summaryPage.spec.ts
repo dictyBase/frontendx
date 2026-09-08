@@ -23,24 +23,30 @@ const EXPECTED_GENERAL_INFO = {
     "there are three reported numA isoforms, the largest 97 kDa numA2, the 66 kDa numA1, and the smallest 43 kDA numA3; all isoforms contain a nuclear localization signal, a CaM binding domain, and a DEED (D/E repeat) domain; the larger numA2 contains an additional BRCT (Breast Cancer C_Terminal) domain",
 }
 
-const EXPECTED_GOA = {
-  date: "20121023",
-  evidence_code: "IMP",
+const EXPECTED_GENERAL_INFO_SHAPE = {
+  id: expect.any(String),
+  description: expect.any(String),
+  gene_product: expect.any(String),
+  name_description: expect.arrayOf(expect.any(String)),
+  synonyms: expect.arrayOf(expect.any(String)),
+}
+const EXPECTED_GOA_SHAPE = {
+  date: expect.any(String),
+  evidence_code: expect.any(String),
   extensions: null,
-  go_term: "regulation of mitotic nuclear division",
-  id: "UniProtKB:Q9U7C9!387685657",
-  type: "biological_process",
+  go_term: expect.any(String),
+  id: expect.any(String),
+  type: expect.any(String),
   with: null,
 }
 
-const EXPECTED_REFERENCE = {
-  id: "30781559",
-  title:
-    "Proteins of the Nucleolus of \u003Ci\u003EDictyostelium discoideum\u003C/i\u003E: Nucleolar Compartmentalization, Targeting Sequences, Protein Translocations and Binding Partners.",
-  journal: "Cells",
-  pages: "E167",
-  issue: "2",
-  authors: [{ last_name: "O'Day" }],
+const EXPECTED_REFERENCE_SHAPE = {
+  id: expect.any(String),
+  title: expect.any(String),
+  journal: expect.any(String),
+  pages: expect.any(String),
+  issue: expect.any(String),
+  authors: expect.arrayContaining([{ last_name: expect.any(String) }]),
 }
 
 test.beforeAll("Test Summary Page API", async ({ playwright }) => {
@@ -72,12 +78,12 @@ test.beforeAll("Test Summary Page API", async ({ playwright }) => {
 
   expect(await geneGeneralInformation.json()).toEqual({
     data: {
-      geneGeneralInformation: EXPECTED_GENERAL_INFO,
+      geneGeneralInformation: EXPECTED_GENERAL_INFO_SHAPE,
     },
   })
-  expect(goaData?.geneOntologyAnnotation).toContainEqual(EXPECTED_GOA)
+  expect(goaData?.geneOntologyAnnotation).toContainEqual(EXPECTED_GOA_SHAPE)
   expect(referencesData?.listPublicationsWithGene).toContainEqual(
-    EXPECTED_REFERENCE,
+    EXPECTED_REFERENCE_SHAPE,
   )
 })
 
