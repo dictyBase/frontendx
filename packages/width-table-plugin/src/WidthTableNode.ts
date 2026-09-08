@@ -61,7 +61,7 @@ class WidthTableNode extends TableNode {
   override createDOM(config: EditorConfig) {
     const tableElement = document.createElement("table")
     addClassNamesToElement(tableElement, config.theme.table)
-    tableElement.style.width = `${this.__width}px`
+    // tableElement.style.width = `${this.__width}px`
     return tableElement
   }
 }
