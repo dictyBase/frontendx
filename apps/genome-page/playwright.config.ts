@@ -26,10 +26,10 @@ export default defineConfig({
   workers: process.env.CI ? 1 : 4,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: process.env.CI ? "github" : "list",
-  timeout: 60_000,
+  timeout: process.env.CI ? 60_000 : 5000,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   expect: {
-    timeout: 30_000,
+    timeout: process.env.CI ? 30_000 : 5000,
     toHaveScreenshot: { maxDiffPixelRatio: 0.05 },
   },
   /* Configure projects for major browsers */
