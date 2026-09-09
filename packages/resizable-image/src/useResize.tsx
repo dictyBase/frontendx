@@ -1,6 +1,6 @@
 import React, { useRef } from "react"
 import { useAtom, useSetAtom } from "jotai"
-import { ImageDimensionsAtom, isResizingAtom } from "./state"
+import { imageDimensionsAtom, isResizingAtom } from "./state"
 import { initializeMouseMoveCreator } from "./resizeHelpers"
 
 type Direction = "ne" | "nw" | "se" | "sw"
@@ -25,7 +25,7 @@ const useResize = (onResize: (width: number, height: number) => void) => {
   const moveHandlerReference = useRef<{
     handler: ((event: MouseEvent) => void) | null | undefined
   }>({ handler: undefined })
-  const [dimensions, setDimensions] = useAtom(ImageDimensionsAtom)
+  const [dimensions, setDimensions] = useAtom(imageDimensionsAtom)
   const setIsResizing = useSetAtom(isResizingAtom)
 
   const onMouseUp = () => {

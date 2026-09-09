@@ -1,12 +1,5 @@
 import { useState, useRef, ChangeEvent } from "react"
-import {
-  IconButton,
-  Popper,
-  TextField,
-  Button,
-  Paper,
-  Grid,
-} from "@mui/material"
+import { IconButton, Popper, TextField, Button, Paper, Grid } from "@mui/material"
 import InsertLinkIcon from "@mui/icons-material/InsertLink"
 import { $createLinkNode } from "@lexical/link"
 import { $createTextNode, $getSelection } from "lexical"
@@ -34,15 +27,11 @@ const InsertLinkButton = () => {
     setIsMenuOpen((previousState) => !previousState)
   }
 
-  const handleLinkTextChange = ({
-    currentTarget: { value },
-  }: ChangeEvent<HTMLInputElement>) => {
+  const handleLinkTextChange = ({ currentTarget: { value } }: ChangeEvent<HTMLInputElement>) => {
     setLinkText(value)
   }
 
-  const handleLinkHrefChange = ({
-    currentTarget: { value },
-  }: ChangeEvent<HTMLInputElement>) => {
+  const handleLinkHrefChange = ({ currentTarget: { value } }: ChangeEvent<HTMLInputElement>) => {
     if (isInvalidURL) setIsInvalidURL(false)
     setHrefText(value)
   }
@@ -78,11 +67,7 @@ const InsertLinkButton = () => {
 
   return (
     <>
-      <IconButton
-        size="large"
-        ref={buttonReference}
-        title="Insert Link"
-        onClick={handleClick}>
+      <IconButton size="large" ref={buttonReference} title="Open Link Dialog" onClick={handleClick}>
         <InsertLinkIcon />
       </IconButton>
       <Popper anchorEl={buttonReference.current} open={isMenuOpen}>
@@ -100,10 +85,7 @@ const InsertLinkButton = () => {
               />
             </Grid>
             <Grid item>
-              <Button
-                disabled={fieldsAreEmpty}
-                variant="contained"
-                onClick={handleSubmit}>
+              <Button disabled={fieldsAreEmpty} variant="contained" onClick={handleSubmit}>
                 Insert Link
               </Button>
             </Grid>

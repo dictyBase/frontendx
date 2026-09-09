@@ -25,7 +25,7 @@ const fonts = [
 ]
 
 enum BlockTypes {
-  PARAGRAPH = "flex-layout",
+  PARAGRAPH = "paragraph",
   HEADING_ONE = "h1",
   HEADING_TWO = "h2",
   HEADING_THREE = "h3",

@@ -27,6 +27,17 @@ type ErrorState = {
 
 const FILE_SIZE_LIMIT = 10 * 1024 * 1024
 
+// https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types#common_image_file_types
+const IMAGE_MIME_TYPES = new Set([
+  "image/apng",
+  "image/avif",
+  "image/gif",
+  "image/jpeg",
+  "image/png",
+  "image/svg+xml",
+  "image/webp",
+])
+
 const emptyFileListError = {
   errorType: ErrorType.VALIDITY_ERROR,
   message: "File list is empty",
@@ -40,6 +51,10 @@ const overFileSizeLimitError = {
   message: `Chosen file size is too large. It may not exceed ${
     FILE_SIZE_LIMIT / (1024 * 1024)
   }MB.`,
+}
+const invalidMimeTypeError = {
+  errorType: ErrorType.VALIDITY_ERROR,
+  message: "Unsupported image format. Please upload APNG, AVIF, GIF, JPEG, PNG, SVG, or WebP.",
 }
 const accessTokenError = {
   errorType: ErrorType.ACCESS_TOKEN_ERROR,
@@ -57,9 +72,12 @@ const missingUrlError = {
 const fileSizeCheck = (fileSize: number) => (file: File) =>
   file.size <= fileSize
 
+const mimeTypeCheck = (types: ReadonlySet<string>) => (file: File) =>
+  types.has(file.type)
+
 const isValidFile = (file: File) =>
   pipe(
-    [fileSizeCheck(FILE_SIZE_LIMIT)],
+    [fileSizeCheck(FILE_SIZE_LIMIT), mimeTypeCheck(IMAGE_MIME_TYPES)],
     Amap(apply(file)),
     Areduce(true, BMonoidAll.concat),
   )
@@ -68,6 +86,7 @@ const getFileValidationError = (file: File) =>
   pipe(
     Eright(file),
     EfilterOrElse(fileSizeCheck(FILE_SIZE_LIMIT), () => overFileSizeLimitError),
+    EfilterOrElse(mimeTypeCheck(IMAGE_MIME_TYPES), () => invalidMimeTypeError),
     Ematch(
       (error) => some(error),
       () => none,
@@ -102,14 +121,17 @@ const useValidateSuggestedFilename = (
 
 export {
   FILE_SIZE_LIMIT,
+  IMAGE_MIME_TYPES,
   useValidateSuggestedFilename,
   emptyFileListError,
   noFileSelectedError,
   accessTokenError,
   overFileSizeLimitError,
+  invalidMimeTypeError,
   uploadFailureError,
   missingUrlError,
   fileSizeCheck,
+  mimeTypeCheck,
   getFileValidationError,
   isValidFile,
   type FileFormFields,

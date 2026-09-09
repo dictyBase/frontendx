@@ -20,6 +20,7 @@ const ImageResizer = ({ onResize }: ImageResizerProperties) => {
     <>
       {directions.map((direction) => (
         <Box
+          data-testid={`image-resizer-${direction}`}
           key={direction}
           sx={{ ...useResizerStyles.root, ...useResizerStyles[direction] }}
           onMouseDown={(event) => onMouseDown(event, direction)}
