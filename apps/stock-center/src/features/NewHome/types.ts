@@ -1,7 +1,7 @@
 const SEARCH_MAX_WIDTH = "760px"
 const DEBOUNCE_DELAY_MS = 400
-const SEARCH_FETCH_POLICY = "no-cache" as const
-const QUERY_LIMIT = 5
+const SEARCH_FETCH_POLICY = "cache-and-network" as const
+const QUERY_LIMIT = 12
 const DISPLAY_LIMIT = 4
 
 const STRAIN_COLOR = "#2b6cb0"
