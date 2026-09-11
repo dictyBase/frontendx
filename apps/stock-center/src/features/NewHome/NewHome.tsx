@@ -141,6 +141,16 @@ const NewHome = () => {
   }
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const wantsToOpen =
+      (event.key === "ArrowDown" || event.key === "Enter") && !open
+
+    if (wantsToOpen && navItems.length > 0) {
+      event.preventDefault()
+      setOpen(true)
+      if (event.key === "ArrowDown") setActiveIndex(0)
+      return
+    }
+
     if (!open || navItems.length === 0) return
 
     if (event.key === "ArrowDown") {
