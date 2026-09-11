@@ -374,6 +374,7 @@ const NewHome = () => {
           <Box>
             <Paper
               ref={anchorReference}
+              onClick={handleFocus}
               elevation={2}
               sx={{
                 display: "flex",
