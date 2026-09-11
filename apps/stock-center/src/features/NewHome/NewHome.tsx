@@ -1,5 +1,11 @@
 import { useState, useEffect, useRef, useCallback } from "react"
-import { Box, Typography, Card, CardContent } from "@mui/material"
+import {
+  Box,
+  Typography,
+  Card,
+  CardContent,
+  ClickAwayListener,
+} from "@mui/material"
 import { useNavigate, Link as RouterLink } from "react-router-dom"
 import {
   StrainType,
@@ -217,24 +223,26 @@ const NewHome = () => {
           such as antibodies.
         </Typography>
 
-        <SearchInput
-          anchorRef={anchorReference}
-          inputValue={inputValue}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
-          onFocus={handleFocus}
-          onClick={handleFocus}
-        />
+        <ClickAwayListener onClickAway={handleClickAway}>
+          <Box>
+            <SearchInput
+              anchorRef={anchorReference}
+              inputValue={inputValue}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+              onFocus={handleFocus}
+            />
 
-        <SearchDropdown
-          open={open && searchTerm.length > 0}
-          anchorEl={anchorReference.current}
-          navItems={navItems}
-          activeIndex={activeIndex}
-          isLoading={isLoading}
-          hasResults={hasResults}
-          onClickAway={handleClickAway}
-        />
+            <SearchDropdown
+              open={open && searchTerm.length > 0}
+              anchorEl={anchorReference.current}
+              navItems={navItems}
+              activeIndex={activeIndex}
+              isLoading={isLoading}
+              hasResults={hasResults}
+            />
+          </Box>
+        </ClickAwayListener>
       </Box>
 
       <Box
