@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react"
+import { useRef } from "react"
 import {
   Box,
   Typography,
@@ -6,180 +6,43 @@ import {
   CardContent,
   ClickAwayListener,
 } from "@mui/material"
-import { useNavigate, Link as RouterLink } from "react-router-dom"
-import {
-  StrainType,
-  PlasmidType,
-  useStrainListQuery,
-  usePlasmidListFilterQuery,
-} from "dicty-graphql-schema"
-import {
-  SEARCH_MAX_WIDTH,
-  SEARCH_FETCH_POLICY,
-  QUERY_LIMIT,
-  DISPLAY_LIMIT,
-  DEBOUNCE_DELAY_MS,
-} from "./types"
-import type { NavItem } from "./types"
+import { Link as RouterLink } from "react-router-dom"
+import { SEARCH_MAX_WIDTH } from "./types"
 import { SearchInput } from "./SearchInput"
 import { SearchDropdown } from "./SearchDropdown"
+import { useHomeSearch } from "./useHomeSearch"
+
+const catalogCards = [
+  { key: "strains", icon: "🧬", title: "Strain Catalog", href: "/strains" },
+  {
+    key: "plasmids",
+    icon: "🧪",
+    title: "Plasmid Catalog",
+    href: "/plasmids",
+  },
+  {
+    key: "phenotypes",
+    icon: "🔬",
+    title: "Phenotype Search",
+    href: "/phenotypes",
+  },
+] as const
 
 const NewHome = () => {
-  const [inputValue, setInputValue] = useState("")
-  const [searchTerm, setSearchTerm] = useState("")
-  const [open, setOpen] = useState(false)
-  const [activeIndex, setActiveIndex] = useState(-1)
   const anchorReference = useRef<HTMLDivElement>(null)
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setSearchTerm(inputValue.trim())
-    }, DEBOUNCE_DELAY_MS)
-    return () => clearTimeout(timer)
-  }, [inputValue])
-
-  const strainResult = useStrainListQuery({
-    variables: {
-      cursor: 0,
-      limit: QUERY_LIMIT,
-      filter: { strain_type: StrainType.All, label: searchTerm },
-    },
-    skip: !searchTerm,
-    fetchPolicy: SEARCH_FETCH_POLICY,
-  })
-
-  const plasmidResult = usePlasmidListFilterQuery({
-    variables: {
-      cursor: 0,
-      limit: QUERY_LIMIT,
-      filter: { plasmid_type: PlasmidType.All, name: searchTerm },
-    },
-    skip: !searchTerm,
-    fetchPolicy: SEARCH_FETCH_POLICY,
-  })
-
-  const strains = strainResult.data?.listStrains?.strains ?? []
-  const plasmids = plasmidResult.data?.listPlasmids?.plasmids ?? []
-  const strainNextCursor = strainResult.data?.listStrains?.nextCursor ?? 0
-  const plasmidNextCursor = plasmidResult.data?.listPlasmids?.nextCursor ?? 0
-
-  const visibleStrains = strains.slice(0, DISPLAY_LIMIT)
-  const visiblePlasmids = plasmids.slice(0, DISPLAY_LIMIT)
-
-  const hasMoreStrains = strainNextCursor > 0
-  const hasMorePlasmids = plasmidNextCursor > 0
-
-  const strainFooterHref = hasMoreStrains
-    ? `/strains?descriptor=${encodeURIComponent(searchTerm)}&group=all`
-    : "/strains"
-  const strainFooterLabel = hasMoreStrains
-    ? "See all strain results"
-    : "Advanced Strain Search"
-
-  const plasmidFooterHref = hasMorePlasmids
-    ? `/plasmids?descriptor=${encodeURIComponent(searchTerm)}&group=all`
-    : "/plasmids"
-  const plasmidFooterLabel = hasMorePlasmids
-    ? "See all plasmid results"
-    : "Advanced Plasmid Search"
-
-  const hasResults = strains.length > 0 || plasmids.length > 0
-  const isLoading = strainResult.loading || plasmidResult.loading
-
-  const navItems: Array<NavItem> = [
-    ...visibleStrains.map(
-      (s): NavItem => ({
-        type: "strain",
-        id: s.id,
-        descriptor: s.label,
-        summary: s.summary ?? undefined,
-        to: `/strains/${s.id}`,
-      }),
-    ),
-    ...(strains.length > 0
-      ? [
-          {
-            type: "strainFooter" as const,
-            to: strainFooterHref,
-            label: strainFooterLabel,
-          },
-        ]
-      : []),
-    ...(strains.length > 0 && plasmids.length > 0
-      ? [{ type: "divider" as const }]
-      : []),
-    ...visiblePlasmids.map(
-      (p): NavItem => ({
-        type: "plasmid",
-        id: p.id,
-        descriptor: p.name,
-        summary: p.summary ?? undefined,
-        to: `/plasmids/${p.id}`,
-      }),
-    ),
-    ...(plasmids.length > 0
-      ? [
-          {
-            type: "plasmidFooter" as const,
-            to: plasmidFooterHref,
-            label: plasmidFooterLabel,
-          },
-        ]
-      : []),
-  ]
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value)
-    setActiveIndex(-1)
-    if (event.target.value.trim().length > 0) {
-      setOpen(true)
-    } else {
-      setOpen(false)
-      setSearchTerm("")
-    }
-  }
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    const wantsToOpen =
-      (event.key === "ArrowDown" || event.key === "Enter") && !open
-
-    if (wantsToOpen && navItems.length > 0) {
-      event.preventDefault()
-      setOpen(true)
-      if (event.key === "ArrowDown") setActiveIndex(0)
-      return
-    }
-
-    if (!open || navItems.length === 0) return
-
-    if (event.key === "ArrowDown") {
-      event.preventDefault()
-      setActiveIndex((previous) => Math.min(previous + 1, navItems.length - 1))
-    } else if (event.key === "ArrowUp") {
-      event.preventDefault()
-      setActiveIndex((previous) => Math.max(previous - 1, -1))
-    } else if (event.key === "Enter" && activeIndex >= 0) {
-      event.preventDefault()
-      const item = navItems[activeIndex]
-      if (item.type !== "divider") navigate(item.to)
-    } else if (event.key === "Escape") {
-      setOpen(false)
-      setActiveIndex(-1)
-    }
-  }
-
-  const handleClickAway = useCallback(() => {
-    setOpen(false)
-    setActiveIndex(-1)
-  }, [])
-
-  const handleFocus = () => {
-    if (searchTerm.length > 0) {
-      setOpen(true)
-      setActiveIndex(-1)
-    }
-  }
+  const {
+    inputValue,
+    searchTerm,
+    open,
+    activeIndex,
+    navItems,
+    isLoading,
+    hasResults,
+    handleInputChange,
+    handleKeyDown,
+    handleClickAway,
+    handleFocus,
+  } = useHomeSearch()
 
   return (
     <Box
@@ -253,6 +116,18 @@ const NewHome = () => {
             />
           </Box>
         </ClickAwayListener>
+
+        <Box
+          sx={{
+            position: "fixed",
+            inset: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.3)",
+            zIndex: 1200,
+            opacity: open ? 1 : 0,
+            pointerEvents: open ? "auto" : "none",
+            transition: "opacity 0.2s ease",
+          }}
+        />
       </Box>
 
       <Box
@@ -266,28 +141,7 @@ const NewHome = () => {
           justifyContent: "center",
           flexWrap: "wrap",
         }}>
-        {(
-          [
-            {
-              key: "strains",
-              icon: "🧬",
-              title: "Strain Catalog",
-              href: "/strains",
-            },
-            {
-              key: "plasmids",
-              icon: "🧪",
-              title: "Plasmid Catalog",
-              href: "/plasmids",
-            },
-            {
-              key: "phenotypes",
-              icon: "🔬",
-              title: "Phenotype Search",
-              href: "/phenotypes",
-            },
-          ] as const
-        ).map(({ key, icon, title, href }) => (
+        {catalogCards.map(({ key, icon, title, href }) => (
           <Card
             key={key}
             elevation={0}
