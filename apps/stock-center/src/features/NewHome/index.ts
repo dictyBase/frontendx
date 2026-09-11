@@ -1,0 +1,1 @@
+export { NewHome } from "./NewHome"
