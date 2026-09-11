@@ -148,14 +148,12 @@ const useHomeSearch = () => {
 
   const strains = strainResult.data?.listStrains?.strains ?? []
   const plasmids = plasmidResult.data?.listPlasmids?.plasmids ?? []
-  const strainNextCursor = strainResult.data?.listStrains?.nextCursor ?? 0
-  const plasmidNextCursor = plasmidResult.data?.listPlasmids?.nextCursor ?? 0
 
   const visibleStrains = strains.slice(0, DISPLAY_LIMIT)
   const visiblePlasmids = plasmids.slice(0, DISPLAY_LIMIT)
 
-  const hasMoreStrains = strainNextCursor > 0
-  const hasMorePlasmids = plasmidNextCursor > 0
+  const hasMoreStrains = strains.length > DISPLAY_LIMIT
+  const hasMorePlasmids = plasmids.length > DISPLAY_LIMIT
 
   const strainFooterHref = hasMoreStrains
     ? `/strains?descriptor=${encodeURIComponent(searchTerm)}&group=all`
