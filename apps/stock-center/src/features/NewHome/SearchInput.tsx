@@ -20,6 +20,8 @@ const SearchInput = ({
     ref={anchorRef}
     elevation={2}
     sx={{
+      position: "relative",
+      zIndex: 1250,
       display: "flex",
       alignItems: "center",
       borderRadius: "12px",
