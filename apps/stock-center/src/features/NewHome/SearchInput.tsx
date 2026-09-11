@@ -7,7 +7,6 @@ type SearchInputProperties = {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
   onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void
   onFocus: () => void
-  onClick: () => void
 }
 
 const SearchInput = ({
@@ -16,11 +15,9 @@ const SearchInput = ({
   onChange,
   onKeyDown,
   onFocus,
-  onClick,
 }: SearchInputProperties) => (
   <Paper
     ref={anchorRef}
-    onClick={onClick}
     elevation={2}
     sx={{
       display: "flex",
