@@ -176,17 +176,17 @@ const NewHome = () => {
   const hasMorePlasmids = plasmidNextCursor > 0
 
   const strainFooterHref = hasMoreStrains
-    ? `/strains?descriptor=${encodeURIComponent(searchTerm)}`
+    ? `/strains?descriptor=${encodeURIComponent(searchTerm)}&group=all`
     : "/strains"
   const strainFooterLabel = hasMoreStrains
-    ? "See all results"
+    ? "See all strain results"
     : "Advanced Strain Search"
 
   const plasmidFooterHref = hasMorePlasmids
-    ? `/plasmids?descriptor=${encodeURIComponent(searchTerm)}`
+    ? `/plasmids?descriptor=${encodeURIComponent(searchTerm)}&group=all`
     : "/plasmids"
   const plasmidFooterLabel = hasMorePlasmids
-    ? "See all results"
+    ? "See all plasmid results"
     : "Advanced Plasmid Search"
 
   const hasResults = strains.length > 0 || plasmids.length > 0
@@ -206,6 +206,19 @@ const NewHome = () => {
       }}>
       <Box sx={{ width: "100%", maxWidth: SEARCH_MAX_WIDTH }}>
         <Typography
+          variant="h2"
+          sx={{
+            fontSize: { xs: "1rem", md: "1.1rem" },
+            fontWeight: 600,
+            color: "#718096",
+            textAlign: "center",
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            mb: 1,
+          }}>
+          Dicty Stock Center
+        </Typography>
+        <Typography
           variant="h1"
           sx={{
             fontSize: { xs: "2rem", md: "2.75rem" },
@@ -213,9 +226,22 @@ const NewHome = () => {
             color: "#1a202c",
             textAlign: "center",
             letterSpacing: "-0.5px",
+            mb: 2,
+          }}>
+          Explore the Catalog
+        </Typography>
+        <Typography
+          sx={{
+            fontSize: "0.95rem",
+            color: "#718096",
+            textAlign: "center",
+            lineHeight: 1.7,
             mb: 4,
           }}>
-          Dicty Stock Center
+          A rapidly growing central repository for{" "}
+          <em>Dictyostelium discoideum</em> strains and those of related
+          species, plasmids, commonly used food bacteria, and other materials
+          such as antibodies.
         </Typography>
 
         <Paper
@@ -224,16 +250,17 @@ const NewHome = () => {
             display: "flex",
             alignItems: "center",
             borderRadius: "12px",
+            height: 70,
             px: 2,
             py: 0.5,
           }}>
           <SearchIcon sx={{ color: "#a0aec0", ml: 1, mr: 0.5 }} />
           <InputBase
             fullWidth
-            placeholder="Search strains and plasmids..."
+            placeholder="Search strains and plasmids"
             value={inputValue}
             onChange={(event) => setInputValue(event.target.value)}
-            sx={{ fontSize: "1rem", py: 0.5 }}
+            sx={{ fontSize: "1.25rem", py: 0.5 }}
             inputProps={{ "aria-label": "search strains and plasmids" }}
           />
         </Paper>
