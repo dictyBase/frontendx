@@ -2,11 +2,7 @@ import { RouterProvider } from "react-router-dom"
 import { Box } from "@mui/material"
 import { Theme } from "@mui/material/styles"
 import { makeStyles } from "tss-react/mui"
-import {
-  HeaderWithAuth,
-  NavbarWithAuth,
-  FooterWithAuth,
-} from "@dictybase/auth-mui5"
+import { NavbarNewWithAuth, FooterWithAuth } from "@dictybase/auth-mui5"
 import { useGoogleAnalytics } from "../../common/hooks/useGoogleAnalytics"
 import { frontpageRouter } from "../../routes"
 
@@ -36,13 +32,10 @@ const FrontPageApp = () => {
 
   return (
     <Box className={classes.body}>
-      <HeaderWithAuth
-        frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
-        basename={import.meta.env.VITE_APP_BASENAME}
-      />
-      <NavbarWithAuth
+      <NavbarNewWithAuth
         frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
         stockCenterUrl={import.meta.env.VITE_APP_STOCKCENTER_URL}
+        basename={import.meta.env.VITE_APP_BASENAME}
       />
       <main>
         <RouterProvider router={frontpageRouter} />
