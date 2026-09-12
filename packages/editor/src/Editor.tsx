@@ -23,6 +23,7 @@ import { WidthTablePlugin } from "@dictybase/width-table-plugin"
 import { FlexLayoutPlugin } from "@dictybase/flex-layout-plugin"
 import { TableActionPlugin } from "@dictybase/table-action-plugin"
 import { DictybaseToolbar } from "@dictybase/editor-toolbar"
+import { TreeViewPlugin } from "./TreeViewPlugin"
 import { dictyEditorConfig } from "./editorConfig"
 import {
   useEditorAreaStyles,
@@ -108,6 +109,7 @@ const Editor = ({
             }
           />
         </div>
+        <TreeViewPlugin />
       </Stack>
     </LexicalComposer>
   )
