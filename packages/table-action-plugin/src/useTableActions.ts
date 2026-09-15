@@ -1,104 +1,126 @@
-import { LexicalEditor } from "lexical";
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import { $getNodeByKey, LexicalEditor } from "lexical"
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import {
-  TableCellNode,
   $getTableNodeFromLexicalNodeOrThrow,
   $getElementForTableNode,
-} from "@lexical/table";
-import { useAtomValue, useSetAtom, SetStateAction } from "jotai";
-import { selectedTableCellNode, tableActionMenuOpenAtom } from "./atomConfigs";
-import { deleteTable, insertRow, insertColumn, deleteRow, deleteColumn } from "./tableActions";
+} from "@lexical/table"
+import { useAtomValue, useSetAtom, SetStateAction } from "jotai"
+import { pipe } from "fp-ts/function"
+import {
+  selectedTableCellNodeKey,
+  tableActionMenuOpenAtom,
+} from "./atomConfigs"
+import {
+  deleteTable,
+  insertRow,
+  insertColumn,
+  deleteRow,
+  deleteColumn,
+} from "./tableActions"
 
 const useTableActionContext = (): [
   LexicalEditor,
-  TableCellNode | undefined,
+  string | undefined,
   (update: SetStateAction<boolean>) => void,
 ] => [
   useLexicalComposerContext()[0],
-  useAtomValue(selectedTableCellNode),
+  useAtomValue(selectedTableCellNodeKey),
   useSetAtom(tableActionMenuOpenAtom),
-];
+]
 
 const useDeleteTable = () => {
-  const [editor, tableCellNode, setIsOpen] = useTableActionContext();
+  const [editor, tableCellNodeKey, setIsOpen] = useTableActionContext()
   return () => {
-    deleteTable(editor, tableCellNode);
-    setIsOpen(false);
-  };
-};
+    if (!tableCellNodeKey) return
+    deleteTable(editor, tableCellNodeKey)
+    setIsOpen(false)
+  }
+}
 
 const useInsertRow = () => {
-  const [editor, tableCellNode, setIsOpen] = useTableActionContext();
+  const [editor, tableCellNodeKey, setIsOpen] = useTableActionContext()
 
   const insertRowAbove = () => {
-    insertRow(editor, tableCellNode, { insertAfter: false });
-    setIsOpen(false);
-  };
+    if (!tableCellNodeKey) return
+    insertRow(editor, tableCellNodeKey, { insertAfter: false })
+    setIsOpen(false)
+  }
 
   const insertRowBelow = () => {
-    insertRow(editor, tableCellNode, { insertAfter: true });
-    setIsOpen(false);
-  };
+    if (!tableCellNodeKey) return
+    insertRow(editor, tableCellNodeKey, { insertAfter: true })
+    setIsOpen(false)
+  }
 
   return {
     insertRowAbove,
     insertRowBelow,
-  };
-};
+  }
+}
 
 const useInsertColumn = () => {
-  const [editor, tableCellNode, setIsOpen] = useTableActionContext();
+  const [editor, tableCellNodeKey, setIsOpen] = useTableActionContext()
 
   const insertColumnLeft = () => {
-    insertColumn(editor, tableCellNode, { insertAfter: false });
-    setIsOpen(false);
-  };
+    if (!tableCellNodeKey) return
+    insertColumn(editor, tableCellNodeKey, { insertAfter: false })
+    setIsOpen(false)
+  }
 
   const insertColumnRight = () => {
-    insertColumn(editor, tableCellNode, { insertAfter: true });
-    setIsOpen(false);
-  };
+    if (!tableCellNodeKey) return
+    insertColumn(editor, tableCellNodeKey, { insertAfter: true })
+    setIsOpen(false)
+  }
 
-  return { insertColumnLeft, insertColumnRight };
-};
+  return { insertColumnLeft, insertColumnRight }
+}
 const useDeleteColumn = () => {
-  const [editor, tableCellNode, setIsOpen] = useTableActionContext();
+  const [editor, tableCellNodeKey, setIsOpen] = useTableActionContext()
 
   return () => {
-    deleteColumn(editor, tableCellNode);
-    setIsOpen(false);
-  };
-};
+    if (!tableCellNodeKey) return
+    deleteColumn(editor, tableCellNodeKey)
+    setIsOpen(false)
+  }
+}
 
 const useDeleteRow = () => {
-  const [editor, tableCellNode, setIsOpen] = useTableActionContext();
+  const [editor, tableCellNodeKey, setIsOpen] = useTableActionContext()
 
   return () => {
-    deleteRow(editor, tableCellNode);
-    setIsOpen(false);
-  };
-};
+    if (!tableCellNodeKey) return
+    deleteRow(editor, tableCellNodeKey)
+    setIsOpen(false)
+  }
+}
 
 const useDisableFunctions = () => {
-  const [editor, tableCellNode] = useTableActionContext();
-  let deleteRowDisabled = true;
-  let deleteColumnDisabled = true;
+  const [editor, tableCellNodeKey] = useTableActionContext()
+  let deleteRowDisabled = true
+  let deleteColumnDisabled = true
 
   editor.getEditorState().read(() => {
-    if (!tableCellNode) return;
+    if (!tableCellNodeKey) return
+    const tableCellNode = pipe(
+      tableCellNodeKey,
+      $getNodeByKey,
+      $getTableNodeFromLexicalNodeOrThrow,
+    )
+
     const grid = $getElementForTableNode(
       editor,
       $getTableNodeFromLexicalNodeOrThrow(tableCellNode),
-    );
-    deleteRowDisabled = grid.rows === 1;
-    deleteColumnDisabled = grid.columns === 1;
-  });
+    )
+    deleteRowDisabled = grid.rows === 1
+    deleteColumnDisabled = grid.columns === 1
+  })
 
   return {
     deleteRowDisabled,
     deleteColumnDisabled,
-  };
-};
+  }
+}
 
 export {
   useDeleteTable,
@@ -107,4 +129,4 @@ export {
   useDeleteColumn,
   useDeleteRow,
   useDisableFunctions,
-};
+}
