@@ -11,6 +11,7 @@ import { ColorPickerButton } from "./components/ColorPickerButton"
 import { InsertLinkButton } from "./components/InsertLinkButton"
 import { InsertTableButton } from "./components/InsertTableButton"
 import { InsertSampleImageButton } from "./components/InsertSampleImageButton"
+import { InsertSampleDownloadLinkButton } from "./components/InsertSampleDownloadLinkButton"
 import { InspectButton } from "./components/InspectButton"
 import { CopyStateButton } from "./components/CopyStateButton"
 import { useCleanup } from "./hooks/useCleanup"
@@ -24,8 +25,7 @@ const DebugToolbar = () => {
         columnGap: "8px",
         marginBottom: "1px",
         background: "#fff",
-      }}
-    >
+      }}>
       <Stack direction="row">
         <UndoButton />
         <RedoButton />
@@ -41,6 +41,7 @@ const DebugToolbar = () => {
         <FormatUnderlineButton />
         <ColorPickerButton />
         <InsertLinkButton />
+        <InsertSampleDownloadLinkButton />
         <InsertSampleImageButton />
         <InsertTableButton />
         <InspectButton />
