@@ -52,10 +52,7 @@ const overFileSizeLimitError = {
     FILE_SIZE_LIMIT / (1024 * 1024)
   }MB.`,
 }
-const invalidMimeTypeError = {
-  errorType: ErrorType.VALIDITY_ERROR,
-  message: "Unsupported image format. Please upload APNG, AVIF, GIF, JPEG, PNG, SVG, or WebP.",
-}
+
 const accessTokenError = {
   errorType: ErrorType.ACCESS_TOKEN_ERROR,
   message: "Could not get access token",
@@ -77,7 +74,7 @@ const mimeTypeCheck = (types: ReadonlySet<string>) => (file: File) =>
 
 const isValidFile = (file: File) =>
   pipe(
-    [fileSizeCheck(FILE_SIZE_LIMIT), mimeTypeCheck(IMAGE_MIME_TYPES)],
+    [fileSizeCheck(FILE_SIZE_LIMIT)],
     Amap(apply(file)),
     Areduce(true, BMonoidAll.concat),
   )
@@ -86,7 +83,6 @@ const getFileValidationError = (file: File) =>
   pipe(
     Eright(file),
     EfilterOrElse(fileSizeCheck(FILE_SIZE_LIMIT), () => overFileSizeLimitError),
-    EfilterOrElse(mimeTypeCheck(IMAGE_MIME_TYPES), () => invalidMimeTypeError),
     Ematch(
       (error) => some(error),
       () => none,
@@ -127,7 +123,6 @@ export {
   noFileSelectedError,
   accessTokenError,
   overFileSizeLimitError,
-  invalidMimeTypeError,
   uploadFailureError,
   missingUrlError,
   fileSizeCheck,
