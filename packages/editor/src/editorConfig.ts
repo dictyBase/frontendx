@@ -6,7 +6,7 @@ import { ImageNode } from "@dictybase/image-plugin"
 import { FlexLayoutNode } from "@dictybase/flex-layout-plugin"
 import { DownloadLinkNode } from "@dictybase/editor-toolbar"
 import { WidthTableNode } from "@dictybase/width-table-plugin"
-import { flexLayoutStateString, flexLayoutState } from "./initialStates"
+import { flexLayoutState } from "./initialStates"
 
 const editorTheme = {
   paragraph: "editor-paragraphy",
