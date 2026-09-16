@@ -13,7 +13,6 @@ const useEditorAreaStyles = makeStyles<{ editable: boolean }>()(
       outline: "0",
       padding: "15px 10px",
       caretColor: "#444",
-      backgroundColor: "white",
     },
     root: {
       position: "relative",
