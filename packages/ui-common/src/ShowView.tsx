@@ -19,10 +19,7 @@ const ShowView = ({ data }: ShowViewProperties) => {
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(4),
       })}>
-      <Editor
-        editable={false}
-        content={{ storageKey: slug, editorState: content }}
-      />
+      <Editor editable={false} initialState={content} />
     </Container>
   )
 }
