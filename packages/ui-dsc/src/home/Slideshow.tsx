@@ -19,6 +19,33 @@ import tipB_webp from "../assets/slideshow-images/tipB-mutant-DG1036.webp"
 
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 
+const slideshowImages = [
+  {
+    src: ctr9 as string,
+    avif: ctr9_avif as string,
+    webp: ctr9_webp as string,
+    alt: "ctr9-mutant-DG1071",
+  },
+  {
+    src: gbqA as string,
+    avif: gbqA_avif as string,
+    webp: gbqA_webp as string,
+    alt: "gbqA-mutant-DG1120",
+  },
+  {
+    src: ggtA as string,
+    avif: ggtA_avif as string,
+    webp: ggtA_webp as string,
+    alt: "ggtA-mutant-DG1109",
+  },
+  {
+    src: tipB as string,
+    avif: tipB_avif as string,
+    webp: tipB_webp as string,
+    alt: "tipB-mutant-DG1036",
+  },
+]
+
 const useStyles = makeStyles()({
   container: {
     marginBottom: "24px",
@@ -47,12 +74,11 @@ const Slideshow = () => {
       autoPlay
       interval={5000}
       infiniteLoop>
-      <div>{genSlide(ctr9, ctr9_avif, ctr9_webp, "ctr9-mutant-DG1071")}</div>
-      <div>{genSlide(gbqA, gbqA_avif, gbqA_webp, "gbqA-mutant-DG1120")}</div>
-      <div>{genSlide(ggtA, ggtA_avif, ggtA_webp, "ggtA-mutant-DG1109")}</div>
-      <div>{genSlide(tipB, tipB_avif, tipB_webp, "tipB-mutant-DG1036")}</div>
+      {slideshowImages.map(({ src, avif, webp, alt }) => (
+        <div key={alt}>{genSlide(src, avif, webp, alt)}</div>
+      ))}
     </Carousel>
   )
 }
 
-export { Slideshow }
+export { Slideshow, slideshowImages }
