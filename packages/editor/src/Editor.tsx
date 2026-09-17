@@ -10,8 +10,9 @@ import { ListPlugin } from "@lexical/react/LexicalListPlugin"
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin"
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin"
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin"
+import { TreeViewPlugin } from "./TreeViewPlugin"
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary"
-import { Stack } from "@mui/material"
+import { Box, Stack } from "@mui/material"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import {
@@ -38,6 +39,7 @@ type EditorProperties = {
   editable?: boolean
   toolbar?: JSX.Element
   handleChange?: (editorState: EditorState) => void
+  debug?: boolean
 }
 
 const Editor = ({
@@ -47,6 +49,7 @@ const Editor = ({
   toolbar,
   plugins,
   handleChange,
+  debug = false,
 }: EditorProperties) => {
   const { classes: placeholderClasses } = useEditorPlaceholderStyles()
   const { classes: editorAreaClasses } = useEditorAreaStyles({ editable })
@@ -70,36 +73,51 @@ const Editor = ({
         OfromNullable,
         OgetOrElse(() => <></>),
       )}
-      <Stack spacing={1}>
+      <Stack spacing={1} flexWrap="nowrap" flexDirection="row">
+        <Stack>
+          {pipe(
+            handleChange,
+            OfromNullable,
+            Omap((handler) => (
+              <OnChangePlugin ignoreSelectionChange onChange={handler} />
+            )),
+            OgetOrElse(() => <></>),
+          )}
+          {pipe(
+            editable,
+            Bmatch(
+              () => <></>,
+              () => <DictybaseToolbar />,
+            ),
+          )}
+          <div style={{ position: "relative" }}>
+            <RichTextPlugin
+              ErrorBoundary={LexicalErrorBoundary}
+              contentEditable={
+                <ContentEditable
+                  id="content-editor"
+                  className={editorAreaClasses.container}
+                />
+              }
+              placeholder={
+                <div className={placeholderClasses.root}>
+                  Enter some text...
+                </div>
+              }
+            />
+          </div>
+        </Stack>
         {pipe(
-          handleChange,
-          OfromNullable,
-          Omap((handler) => (
-            <OnChangePlugin ignoreSelectionChange onChange={handler} />
-          )),
-          OgetOrElse(() => <></>),
-        )}
-        {pipe(
-          editable,
+          debug,
           Bmatch(
             () => <></>,
-            () => <DictybaseToolbar />,
+            () => (
+              <Box flexBasis="30%">
+                <TreeViewPlugin />
+              </Box>
+            ),
           ),
         )}
-        <div style={{ position: "relative" }}>
-          <RichTextPlugin
-            ErrorBoundary={LexicalErrorBoundary}
-            contentEditable={
-              <ContentEditable
-                id="content-editor"
-                className={editorAreaClasses.container}
-              />
-            }
-            placeholder={
-              <div className={placeholderClasses.root}>Enter some text...</div>
-            }
-          />
-        </div>
       </Stack>
     </LexicalComposer>
   )
