@@ -7,12 +7,7 @@ import {
   LexicalNode,
 } from "lexical"
 import { ImageStateWrapper } from "./ImageStateWrapper"
-
-enum ALIGNMENT {
-  LEFT,
-  CENTER,
-  RIGHT,
-}
+import { ALIGNMENT } from "@dictybase/resizable-image"
 
 type SerializedImageNode = Spread<
   {
@@ -31,7 +26,7 @@ type ImageNodeConstructorProperties = {
   width: number
   height: number
   alt?: string | undefined
-  key?: string
+  key?: string | undefined
   alignment: ALIGNMENT
 }
 
@@ -162,4 +157,4 @@ class ImageNode extends DecoratorNode<JSX.Element> {
 const $isImageNode = (node: LexicalNode): node is ImageNode =>
   node.getType() === "image"
 
-export { type SerializedImageNode, ImageNode, $isImageNode, ALIGNMENT }
+export { type SerializedImageNode, ImageNode, $isImageNode }

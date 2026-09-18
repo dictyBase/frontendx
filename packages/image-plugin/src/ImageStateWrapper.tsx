@@ -3,9 +3,9 @@ import { Provider, createStore } from "jotai"
 import {
   imageDimensionsAtom,
   imageAlignmentAtom,
+  ALIGNMENT,
 } from "@dictybase/resizable-image"
 import { ImageComponent } from "./ImageComponent"
-import { ALIGNMENT } from "./ImageNode"
 
 export type ImageStateWrapperProperties = {
   src: string

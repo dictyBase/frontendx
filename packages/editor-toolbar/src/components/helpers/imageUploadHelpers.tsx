@@ -35,6 +35,7 @@ import {
 } from "fp-ts/TaskEither"
 import { match, P } from "ts-pattern"
 import { INSERT_IMAGE_COMMAND } from "@dictybase/image-plugin"
+import { ALIGNMENT } from "@dictybase/resizable-image"
 
 enum ErrorType {
   VALIDITY_ERROR,
@@ -232,7 +233,7 @@ const createImageUploadFunction = (
   setImageState: React.Dispatch<
     React.SetStateAction<Option<Either<ErrorState, ImageSuccessState>>>
   >,
-  alignment: "left" | "right",
+  alignment: ALIGNMENT,
   setDialogDisplay: any,
 ) =>
   pipe(
