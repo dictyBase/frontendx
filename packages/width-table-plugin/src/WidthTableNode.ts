@@ -2,7 +2,7 @@ import { TableNode, SerializedTableNode } from "@lexical/table"
 import { addClassNamesToElement } from "@lexical/utils"
 import { NodeKey, EditorConfig } from "lexical"
 
-export interface SerializedWidthTableNode extends SerializedTableNode {
+export type SerializedWidthTableNode = SerializedTableNode & {
   width: number
 }
 
