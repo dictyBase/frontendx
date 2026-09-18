@@ -1,6 +1,6 @@
 import { test, expect } from "vitest"
 import { pipe } from "fp-ts/function"
-import { findFirst as AfindFirst, head as Ahead, last as Alast } from "fp-ts/Array"
+import { head as Ahead, last as Alast } from "fp-ts/Array"
 import {
   map as Omap,
   flatMap as OflatMap,
@@ -11,7 +11,7 @@ import {
 import { $getRoot, $setSelection, $createNodeSelection, LexicalNode } from "lexical"
 import { $isFlexLayoutNode } from "@dictybase/flex-layout-plugin"
 import { createHeadlessEditor } from "@lexical/headless"
-import { flexLayoutEditorConfig, flexLayoutStateString } from "@dictybase/editor"
+import { dictyEditorConfig, flexLayoutStateString } from "@dictybase/editor"
 import { onInsertImage } from "@dictybase/image-plugin"
 import { twoParagraphsState } from "./testEditorStates"
 
@@ -19,7 +19,7 @@ const getFlexLayoutNode = () =>
   pipe($getRoot().getFirstChild(), OfromNullable, Ofilter($isFlexLayoutNode))
 
 const editor = createHeadlessEditor({
-  nodes: flexLayoutEditorConfig.nodes,
+  nodes: dictyEditorConfig.nodes,
   onError: () => {},
 })
 
