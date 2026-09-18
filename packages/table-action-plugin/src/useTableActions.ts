@@ -29,11 +29,13 @@ const useTableActionContext = (): [
 ]
 
 const useDeleteTable = () => {
+  const setTableCellKey = useSetAtom(selectedTableCellNodeKey)
   const [editor, tableCellNodeKey, setIsOpen] = useTableActionContext()
   return () => {
     if (!tableCellNodeKey) return
     deleteTable(editor, tableCellNodeKey)
     setIsOpen(false)
+    setTableCellKey(undefined)
   }
 }
 
@@ -76,21 +78,25 @@ const useInsertColumn = () => {
   return { insertColumnLeft, insertColumnRight }
 }
 const useDeleteColumn = () => {
+  const setTableCellKey = useSetAtom(selectedTableCellNodeKey)
   const [editor, tableCellNodeKey, setIsOpen] = useTableActionContext()
 
   return () => {
     if (!tableCellNodeKey) return
     deleteColumn(editor, tableCellNodeKey)
+    setTableCellKey(undefined)
     setIsOpen(false)
   }
 }
 
 const useDeleteRow = () => {
+  const setTableCellKey = useSetAtom(selectedTableCellNodeKey)
   const [editor, tableCellNodeKey, setIsOpen] = useTableActionContext()
 
   return () => {
     if (!tableCellNodeKey) return
     deleteRow(editor, tableCellNodeKey)
+    setTableCellKey(undefined)
     setIsOpen(false)
   }
 }

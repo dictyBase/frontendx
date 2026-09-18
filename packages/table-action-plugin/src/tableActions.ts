@@ -12,6 +12,7 @@ import {
   TableCellNode,
   $getTableNodeFromLexicalNodeOrThrow,
   $getTableRowIndexFromTableCellNode,
+  $getTableColumnIndexFromTableCellNode,
   $getElementForTableNode,
   $insertTableRow,
   $insertTableColumn,
@@ -38,6 +39,7 @@ const deleteTable = (editor: LexicalEditor, tableCellNodeKey: string) => {
       tableCellNodeKey,
       $getNodeByKey,
       OfromNullable,
+      Omap($getTableNodeFromLexicalNodeOrThrow),
       Omap((tableNode) => {
         tableNode.remove()
       }),
@@ -133,7 +135,7 @@ const deleteColumn = (editor: LexicalEditor, tableCellNodeKey: string) => {
         (tableCellNode) => {
           $deleteTableColumn(
             $getTableNodeFromLexicalNodeOrThrow(tableCellNode),
-            $getTableRowIndexFromTableCellNode(tableCellNode),
+            $getTableColumnIndexFromTableCellNode(tableCellNode),
           )
           clearTableSelection(editor, tableCellNode)
         },
