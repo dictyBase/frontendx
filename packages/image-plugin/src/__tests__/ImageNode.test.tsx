@@ -7,6 +7,7 @@ import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin"
 import { ContentEditable } from "@lexical/react/LexicalContentEditable"
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary"
 import { ImageNode, $isImageNode, SerializedImageNode } from "../ImageNode"
+import { ALIGNMENT } from "@dictybase/resizable-image"
 
 const testConfig: EditorConfig = {
   namespace: "test",
@@ -19,6 +20,7 @@ const data: SerializedImageNode = {
   width: 100,
   height: 100,
   alt: "test image",
+  alignment: ALIGNMENT.CENTER,
   version: 1,
 }
 
@@ -59,6 +61,7 @@ describe("ImageNode", () => {
         source: "test.jpg",
         width: initialImageWidth,
         height: initialImageHeight,
+        alignment: ALIGNMENT.LEFT,
       })
       nodeType = imageNode.getType()
 
@@ -127,6 +130,7 @@ describe("ImageNode", () => {
         source: "test.jpg",
         width: 100,
         height: 100,
+        alignment: ALIGNMENT.LEFT,
       })
       nodeWithClass = node.createDOM(configWithTheme)
     })
@@ -143,6 +147,7 @@ describe("ImageNode", () => {
             source: "test.jpg",
             width: initialImageWidth,
             height: initialImageHeight,
+            alignment: ALIGNMENT.LEFT,
           }),
         )
       })
@@ -174,7 +179,12 @@ describe("$isImageNode", () => {
 
   beforeEach(() => {
     nodeCheckEditor.update(() => {
-      imageNode = new ImageNode({ source: "test.jpg", width: 100, height: 100 })
+      imageNode = new ImageNode({
+        source: "test.jpg",
+        width: 100,
+        height: 100,
+        alignment: ALIGNMENT.LEFT,
+      })
       nonImageNode = $getRoot()
     })
   })
