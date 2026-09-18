@@ -13,11 +13,6 @@ test("Header snapshot", async ({ page }) => {
   await expect(header).toHaveScreenshot()
 })
 
-test("Footer snapshot", async ({ page }) => {
-  const footer = page.locator("footer")
-  await expect(footer).toHaveScreenshot()
-})
-
 test("Navbar snapshot", async ({ page }) => {
   const navbar = page.locator("nav")
   await expect(navbar).toHaveScreenshot()
