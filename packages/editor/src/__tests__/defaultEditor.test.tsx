@@ -7,9 +7,9 @@ import { useEffect } from "react"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import type { LexicalEditor } from "lexical"
 import { $getRoot, $getSelection, $isRangeSelection } from "lexical"
+import { FlexLayoutNode } from "@dictybase/flex-layout-plugin"
 import { Editor } from "../Editor"
 import { dictyEditorConfig } from "../editorConfig"
-import { FlexLayoutNode } from "@dictybase/flex-layout-plugin"
 
 vi.mock("../useEditorStyles", () => ({
   useEditorAreaStyles: () => ({ classes: {} }),
