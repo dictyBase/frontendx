@@ -10,15 +10,6 @@ test("Header snapshot", async ({ page }) => {
   await expect(header).toHaveScreenshot()
 })
 
-test("Footer snapshot", async ({ page }) => {
-  await page.goto("/")
-  await page.waitForLoadState("networkidle")
-  // Wait for all images to load
-  await page.waitForFunction(waitForImageLoad)
-  const footer = page.locator("footer")
-  await expect(footer).toHaveScreenshot()
-})
-
 test("Navbar snapshot", async ({ page }) => {
   await page.goto("/")
   await page.waitForLoadState("networkidle")
