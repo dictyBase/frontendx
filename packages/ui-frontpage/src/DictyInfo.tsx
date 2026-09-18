@@ -21,7 +21,7 @@ const DictyInfo = ({ queryResult }: DictyInfoProperties) =>
   match(queryResult)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
-      ({ content, slug }) => <DictyInfoDisplay content={content} slug={slug} />,
+      ({ content }) => <DictyInfoDisplay content={content} />,
     )
     .with({ data: { contentBySlug: P.nullish } }, () => <></>)
     .with({ loading: true }, () => (

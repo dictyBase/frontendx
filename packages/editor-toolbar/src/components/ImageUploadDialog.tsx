@@ -21,6 +21,7 @@ import { useSetAtom } from "jotai"
 import { pipe } from "fp-ts/function"
 import { none, Option } from "fp-ts/Option"
 import { Either } from "fp-ts/Either"
+import { ALIGNMENT } from "@dictybase/resizable-image"
 import { insertImageDialogOpenAtom } from "../context/atomConfigs"
 import {
   renderError,
@@ -33,11 +34,6 @@ import {
 
 type ImageUploadDialogProperties = {
   open: boolean
-}
-
-enum Alignment {
-  LEFT = "left",
-  RIGHT = "right",
 }
 
 const useImageUploadDialogStyles = () => ({
@@ -55,7 +51,7 @@ const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
   const [uploadImage, { loading, reset }] = useUploadFileMutation()
   const [imageState, setImageState] =
     useState<Option<Either<ErrorState, ImageSuccessState>>>(none)
-  const [alignment, setAlignment] = useState<Alignment>(Alignment.LEFT)
+  const [alignment, setAlignment] = useState<ALIGNMENT>(ALIGNMENT.LEFT)
   const styles = useImageUploadDialogStyles()
   const canSubmit = isValidFile(imageState)
 
@@ -88,7 +84,7 @@ const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
   }
 
   const onSelect: React.ChangeEventHandler<HTMLInputElement> = ({ target }) => {
-    setAlignment(target.value as Alignment)
+    setAlignment(target.value as unknown as ALIGNMENT)
   }
 
   return (
@@ -107,12 +103,17 @@ const ImageUploadDialog = ({ open }: ImageUploadDialogProperties) => {
           <FormLabel> Alignment </FormLabel>
           <RadioGroup value={alignment} onChange={onSelect}>
             <FormControlLabel
-              value={Alignment.LEFT}
+              value={ALIGNMENT.LEFT}
               control={<Radio />}
               label="left"
             />
             <FormControlLabel
-              value={Alignment.RIGHT}
+              value={ALIGNMENT.CENTER}
+              control={<Radio />}
+              label="left"
+            />
+            <FormControlLabel
+              value={ALIGNMENT.RIGHT}
               control={<Radio />}
               label="right"
             />

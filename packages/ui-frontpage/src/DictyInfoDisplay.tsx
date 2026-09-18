@@ -12,15 +12,14 @@ const StyledBox = styled(Box)(({ theme }) => ({
 
 type DictyInfoDisplayProperties = {
   content: string
-  slug: string
 }
 
-const DictyInfoDisplay = ({ content, slug }: DictyInfoDisplayProperties) => (
+const DictyInfoDisplay = ({ content }: DictyInfoDisplayProperties) => (
   <StyledBox>
     <Typography color="secondary" variant="h2">
       Dictyostelium discoideum
     </Typography>
-    <Editor content={{ editorState: content, storageKey: slug }} />
+    <Editor initialState={content} />
   </StyledBox>
 )
 
