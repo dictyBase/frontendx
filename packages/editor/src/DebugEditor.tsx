@@ -13,13 +13,13 @@ import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import { ImagePlugin } from "@dictybase/image-plugin"
 import { DebugToolbar } from "@dictybase/editor-toolbar"
+import { WidthTablePlugin } from "@dictybase/width-table-plugin"
+import { TableActionPlugin } from "@dictybase/table-action-plugin"
 import {
   useEditorAreaStyles,
   useEditorPlaceholderStyles,
 } from "./useEditorStyles"
 import "./editor.css"
-import { WidthTablePlugin } from "@dictybase/width-table-plugin"
-import { TableActionPlugin } from "@dictybase/table-action-plugin"
 import { TreeViewPlugin } from "./TreeViewPlugin"
 import { dictyEditorConfig } from "./editorConfig"
 import { flexLayoutStateString } from "./initialStates"

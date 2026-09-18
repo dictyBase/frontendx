@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-null */
 import { describe, test, expect, vi } from "vitest"
 import { render, screen, waitFor, fireEvent } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
@@ -71,8 +72,8 @@ describe("DefaultEditor", () => {
           plugins={[
             <EditorRefCapture
               key="capture"
-              onEditorReady={(e) => {
-                editor = e
+              onEditorReady={(_editor) => {
+                editor = _editor
               }}
             />,
           ]}
