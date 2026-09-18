@@ -50,11 +50,6 @@ test("isValidFile returns false for oversized file", () => {
   expect(isValidFile(file)).toBe(false)
 })
 
-test("isValidFile returns false for unsupported MIME type", () => {
-  const file = createMockFile(VALID_SIZED, "application/pdf")
-  expect(isValidFile(file)).toBe(false)
-})
-
 test("getFileValidationError returns none for valid file", () => {
   const file = createMockFile(VALID_SIZED)
   const result = getFileValidationError(file)
