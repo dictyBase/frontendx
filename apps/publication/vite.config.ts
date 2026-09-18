@@ -20,11 +20,6 @@ const viteConfig = defineConfig({
       "**/e2e/**",
       "**/__tests__/mocks/**",
     ],
-    server: {
-      deps: {
-        inline: ["@lexical/react", "@lexical/devtools-core"],
-      },
-    },
   },
 })
 
