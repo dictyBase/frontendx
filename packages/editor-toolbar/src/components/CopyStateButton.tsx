@@ -14,8 +14,7 @@ const CopyStateButton = () => {
         color="inherit"
         variant="text"
         onClick={onClick}
-        startIcon={<FileDownloadIcon />}
-      >
+        startIcon={<FileDownloadIcon />}>
         Copy State
       </Button>
     </>

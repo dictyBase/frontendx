@@ -7,7 +7,7 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import type { LexicalEditor } from "lexical"
 import { $getRoot, $getSelection, $isRangeSelection } from "lexical"
 import { Editor } from "../Editor"
-import { defaultEditorConfig } from "../editorConfig"
+import { dictyEditorConfig } from "../editorConfig"
 
 vi.mock("../useEditorStyles", () => ({
   useEditorAreaStyles: () => ({ classes: {} }),
@@ -54,7 +54,7 @@ describe("DefaultEditor", () => {
   test("renders with a contenteditable element", () => {
     render(
       <ThemeProvider theme={createTheme()}>
-        <Editor config={{ ...defaultEditorConfig, onError }} />
+        <Editor config={{ ...dictyEditorConfig, onError }} />
       </ThemeProvider>,
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -67,7 +67,7 @@ describe("DefaultEditor", () => {
     render(
       <ThemeProvider theme={createTheme()}>
         <Editor
-          config={{ ...defaultEditorConfig, onError }}
+          config={{ ...dictyEditorConfig, onError }}
           plugins={[
             <EditorRefCapture
               key="capture"

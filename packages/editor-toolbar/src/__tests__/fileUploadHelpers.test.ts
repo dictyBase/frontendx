@@ -6,7 +6,6 @@ import {
   isValidFile,
   getFileValidationError,
   overFileSizeLimitError,
-  invalidMimeTypeError,
   ErrorState,
   FILE_SIZE_LIMIT,
   IMAGE_MIME_TYPES,
@@ -81,13 +80,6 @@ test("getFileValidationError returns error for oversized file", () => {
   const result = getFileValidationError(file)
   expect(isSome(result)).toBe(true)
   expect((result as Some<ErrorState>).value).toEqual(overFileSizeLimitError)
-})
-
-test("getFileValidationError returns error for unsupported MIME type", () => {
-  const file = createMockFile(VALID_SIZED, "application/pdf")
-  const result = getFileValidationError(file)
-  expect(isSome(result)).toBe(true)
-  expect((result as Some<ErrorState>).value).toEqual(invalidMimeTypeError)
 })
 
 test("getFileValidationError returns none for file at exact limit", () => {

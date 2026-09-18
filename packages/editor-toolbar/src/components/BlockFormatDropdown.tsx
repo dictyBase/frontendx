@@ -23,7 +23,11 @@ const BlockFormatDropdown = () => {
   }
 
   return (
-    <StyledSelect title={title} variant="standard" onChange={onChange} value={blockType}>
+    <StyledSelect
+      title={title}
+      variant="standard"
+      onChange={onChange}
+      value={blockType}>
       {Object.keys(blockTypeToBlockName).map((option) => (
         <MenuItem key={option} value={option}>
           {blockTypeToBlockName[option as keyof typeof blockTypeToBlockName]}

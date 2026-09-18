@@ -18,8 +18,7 @@ const InspectButton = () => {
         color="inherit"
         variant="text"
         onClick={onClick}
-        startIcon={<SearchIcon />}
-      >
+        startIcon={<SearchIcon />}>
         Inspect
       </Button>
     </>

@@ -1,5 +1,10 @@
 import { useCallback } from "react"
-import { $getSelection, $isRangeSelection, LexicalEditor, $createParagraphNode } from "lexical"
+import {
+  $getSelection,
+  $isRangeSelection,
+  LexicalEditor,
+  $createParagraphNode,
+} from "lexical"
 import {
   INSERT_ORDERED_LIST_COMMAND,
   INSERT_UNORDERED_LIST_COMMAND,
