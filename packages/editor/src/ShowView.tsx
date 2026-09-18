@@ -1,6 +1,6 @@
 import { Container } from "@mui/material"
 import { type ContentBySlugQuery } from "dicty-graphql-schema"
-import { Editor } from "@dictybase/editor"
+import { Editor } from "./Editor"
 
 type ShowViewProperties = {
   data: NonNullable<ContentBySlugQuery["contentBySlug"]>
