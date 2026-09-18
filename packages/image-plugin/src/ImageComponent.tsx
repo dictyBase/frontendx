@@ -16,8 +16,9 @@ import {
   ResizableImage,
   isResizingAtom,
   imageAlignmentAtom,
+  ALIGNMENT,
 } from "@dictybase/resizable-image"
-import { $isImageNode, ALIGNMENT } from "./ImageNode"
+import { $isImageNode } from "./ImageNode"
 
 export type ImageComponentProperties = {
   src: string
