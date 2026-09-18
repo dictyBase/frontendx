@@ -1,6 +1,11 @@
 import { useEffect, useRef } from "react"
 import { useAtomValue } from "jotai"
-import { $getNodeByKey, CLICK_COMMAND, COMMAND_PRIORITY_LOW } from "lexical"
+import {
+  LexicalNode,
+  $getNodeByKey,
+  CLICK_COMMAND,
+  COMMAND_PRIORITY_LOW,
+} from "lexical"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { useLexicalNodeSelection } from "@lexical/react/useLexicalNodeSelection"
 import { Stack } from "@mui/material"
@@ -18,7 +23,14 @@ import {
   imageAlignmentAtom,
   ALIGNMENT,
 } from "@dictybase/resizable-image"
-import { $isImageNode } from "./ImageNode"
+
+interface ImageNode extends LexicalNode {
+  setDimensions: (height: number, width: number) => void
+  setAlignment: (alignment: ALIGNMENT) => void
+}
+
+const $isImageNode = (node: LexicalNode): node is ImageNode =>
+  node.getType() === "image"
 
 export type ImageComponentProperties = {
   src: string
@@ -62,7 +74,7 @@ const ImageComponent = ({
     })
   }
 
-  const onSetAlignment = (alignment: ALIGNMENT) => {
+  const onSetAlignment = (value: ALIGNMENT) => {
     editor.update(() => {
       pipe(
         nodeKey,
@@ -72,7 +84,7 @@ const ImageComponent = ({
         Omatch(
           () => {},
           (imageNode) => {
-            imageNode.setAlignment(alignment)
+            imageNode.setAlignment(value)
           },
         ),
       )

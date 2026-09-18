@@ -1,5 +1,4 @@
 import { test, expect } from "@playwright/test"
-import { toHaveAttribute } from "@testing-library/jest-dom/matchers"
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/")

@@ -7,8 +7,8 @@ import {
   flatMap as OflatMap,
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
-import { $isImageNode } from "./ImageNode"
 import { $getNodeFromDOMNode } from "lexical"
+import { $isImageNode } from "./ImageNode"
 
 const targetIsNode = (target: EventTarget): target is Node =>
   target instanceof Node

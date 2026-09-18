@@ -6,8 +6,8 @@ import {
   SerializedLexicalNode,
   LexicalNode,
 } from "lexical"
-import { ImageStateWrapper } from "./ImageStateWrapper"
 import { ALIGNMENT } from "@dictybase/resizable-image"
+import { ImageStateWrapper } from "./ImageStateWrapper"
 
 type SerializedImageNode = Spread<
   {
