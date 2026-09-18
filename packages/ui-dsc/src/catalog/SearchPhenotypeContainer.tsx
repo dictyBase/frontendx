@@ -8,6 +8,7 @@ import { useListStrainsWithPhenotypeQuery } from "dicty-graphql-schema"
 import { ErrorPageWrapper } from "../ErrorPageWrapper"
 import { SearchResultsHeader } from "./SearchResultsHeader"
 import { SearchPhenotypeList } from "./SearchPhenotypeList"
+import { SearchPhenotypeForm } from "./SearchPhenotypeForm"
 
 const useStyles = makeStyles()({
   container: {
@@ -101,6 +102,9 @@ const SearchPhenotypeContainer = () => {
       title={`Phenotype Search Results for ${phenotype} - Dicty Stock Center`}
       metaContent={`Dicty Stock Center search results for strains with ${phenotype}`}>
       <Grid container className={classes.container}>
+        <Grid item xs={12} className={classes.gridItem}>
+          <SearchPhenotypeForm />
+        </Grid>
         <Grid item xs={12} className={classes.gridItem}>
           <SearchResultsHeader property="Phenotype" description={phenotype} />
         </Grid>
