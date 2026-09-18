@@ -127,35 +127,73 @@ describe("insertRow", () => {
 })
 
 describe("insertColumn", () => {
-  test.todo("if insertAfter is false, the function will create a column before the given table cell's column", () => {
+  test("if insertAfter is true, the function will create a new column to the right of the given table cell's column", () => {
     let initialRowLengths: unknown
-    let finalRowLengths: unknown
-    let initialtargetColumnIndex
+    let finalRowLengths
+    let initialtargetColumnIndex: unknown
     let newColumnCellIndex
+    let initialCellKeyArray: string[]
+    let finalCellKeyArray
 
     testEditor.getEditorState().read(() => {
       initialtargetColumnIndex =
         $getTableColumnIndexFromTableCellNode(targetTableCell)
+      const targetRow =
+        $getTableRowNodeFromTableCellNodeOrThrow(targetTableCell)
+      initialCellKeyArray = targetRow.getChildren().map((cell) => cell.getKey())
+      initialRowLengths = targetRow.getChildrenSize()
+    })
 
-      initialRowLengths =
-        $getTableRowNodeFromTableCellNodeOrThrow(
-          targetTableCell,
-        ).getChildrenSize()
+    insertColumn(testEditor, targetTableCell.getKey(), { insertAfter: true })
+
+    testEditor.update(() => {
+      const targetRow =
+        $getTableRowNodeFromTableCellNodeOrThrow(targetTableCell)
+      finalCellKeyArray = targetRow.getChildren().map((cell) => cell.getKey())
+      finalRowLengths = targetRow.getChildrenSize()
+      const newCellKey = finalCellKeyArray.find(
+        (key) => !initialCellKeyArray.includes(key),
+      )
+      newColumnCellIndex = newCellKey
+        ? finalCellKeyArray.indexOf(newCellKey)
+        : undefined
+    })
+
+    expect(finalRowLengths).toEqual((initialRowLengths as number) + 1)
+    expect(newColumnCellIndex).toEqual((initialtargetColumnIndex as number) + 1)
+  })
+
+  test("if insertAfter is false, the function will create a column before the given table cell's column", () => {
+    let initialRowLengths: unknown
+    let finalRowLengths
+    let initialtargetColumnIndex
+    let newColumnCellIndex
+    let initialCellKeyArray: string[]
+    let finalCellKeyArray
+
+    testEditor.getEditorState().read(() => {
+      initialtargetColumnIndex =
+        $getTableColumnIndexFromTableCellNode(targetTableCell)
+      const targetRow =
+        $getTableRowNodeFromTableCellNodeOrThrow(targetTableCell)
+      initialCellKeyArray = targetRow.getChildren().map((cell) => cell.getKey())
+      initialRowLengths = targetRow.getChildrenSize()
     })
 
     insertColumn(testEditor, targetTableCell.getKey(), { insertAfter: false })
 
-    // testEditor.update(() => {
-    //   const tableCellKeyArray = tableNode
-    //     .getChildren()
-    //     .map((row) =>
-    //       row.getChildren().map((cell: TableCellNode) => cell.getKey()),
-    //     )
-    //   finalRowLengths =
-    //     $getTableRowNodeFromTableCellNodeOrThrow(
-    //       targetTableCell,
-    //     ).getChildrenSize()
-    // })
+    testEditor.update(() => {
+      const targetRow =
+        $getTableRowNodeFromTableCellNodeOrThrow(targetTableCell)
+      finalCellKeyArray = targetRow.getChildren().map((cell) => cell.getKey())
+      finalRowLengths = targetRow.getChildrenSize()
+      const newCellKey = finalCellKeyArray.find(
+        (key) => !initialCellKeyArray.includes(key),
+      )
+      newColumnCellIndex = newCellKey
+        ? finalCellKeyArray.indexOf(newCellKey)
+        : undefined
+    })
 
     expect(finalRowLengths).toEqual((initialRowLengths as number) + 1)
     expect(newColumnCellIndex).toEqual(initialtargetColumnIndex)
