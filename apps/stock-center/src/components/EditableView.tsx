@@ -48,7 +48,7 @@ const EditableView = ({ data }: EditableViewProperties) => {
     <Editor
       toolbar={<EditableActionBar editedBy={editedBy} updatedAt={updated_at} />}
       editable={false}
-      content={{ storageKey: slug, editorState: content }}
+      initialState={content}
     />
   )
 }

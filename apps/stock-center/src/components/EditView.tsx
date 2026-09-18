@@ -87,7 +87,7 @@ const EditView = ({ data }: EditViewProperties) => {
   return (
     <Container className={classes.container}>
       <Editor
-        content={{ storageKey: undefined, editorState: content }}
+        initialState={content}
         editable
         handleChange={handleChange}
         toolbar={
