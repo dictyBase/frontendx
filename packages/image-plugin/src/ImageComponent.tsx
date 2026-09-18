@@ -10,11 +10,12 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { useLexicalNodeSelection } from "@lexical/react/useLexicalNodeSelection"
 import { Stack } from "@mui/material"
 import { match } from "ts-pattern"
-import { pipe } from "fp-ts/function"
+import { pipe, flow } from "fp-ts/function"
 import {
   filter as Ofilter,
   fromNullable as OfromNullable,
   match as Omatch,
+  map as Omap,
 } from "fp-ts/Option"
 import { or } from "fp-ts/Predicate"
 import {
@@ -41,6 +42,36 @@ export type ImageComponentProperties = {
   easing: string
 }
 
+const getImageNodeByKey = flow(
+  $getNodeByKey,
+  OfromNullable,
+  Ofilter($isImageNode),
+)
+
+const setImageNodeDimensions = (
+  nodeKey: string,
+  width: number,
+  height: number,
+) => {
+  pipe(
+    nodeKey,
+    getImageNodeByKey,
+    Omap((imageNode) => {
+      imageNode.setDimensions(width, height)
+    }),
+  )
+}
+
+const setImageNodeAlignment = (nodeKey: string, alignment: ALIGNMENT) => {
+  pipe(
+    nodeKey,
+    getImageNodeByKey,
+    Omap((imageNode) => {
+      imageNode.setAlignment(alignment)
+    }),
+  )
+}
+
 const ImageComponent = ({
   src,
   alt,
@@ -53,41 +84,19 @@ const ImageComponent = ({
   const alignmentContainerReference = useRef<HTMLDivElement>(null)
   const [editor] = useLexicalComposerContext()
   const isResizing = useAtomValue(isResizingAtom)
-  const alignment = useAtomValue(imageAlignmentAtom)
+  const currentAlignment = useAtomValue(imageAlignmentAtom)
   const [isSelected, setSelected, clearSelection] =
     useLexicalNodeSelection(nodeKey)
 
   const onResize = (width: number, height: number) => {
     editor.update(() => {
-      pipe(
-        nodeKey,
-        $getNodeByKey,
-        OfromNullable,
-        Ofilter($isImageNode),
-        Omatch(
-          () => {},
-          (imageNode) => {
-            imageNode.setDimensions(width, height)
-          },
-        ),
-      )
+      setImageNodeDimensions(nodeKey, width, height)
     })
   }
 
-  const onSetAlignment = (value: ALIGNMENT) => {
+  const onSetAlignment = (alignment: ALIGNMENT) => {
     editor.update(() => {
-      pipe(
-        nodeKey,
-        $getNodeByKey,
-        OfromNullable,
-        Ofilter($isImageNode),
-        Omatch(
-          () => {},
-          (imageNode) => {
-            imageNode.setAlignment(value)
-          },
-        ),
-      )
+      setImageNodeAlignment(nodeKey, alignment)
     })
   }
 
@@ -139,11 +148,11 @@ const ImageComponent = ({
       ref={alignmentContainerReference}
       sx={{ width: "100%" }}
       flexDirection="row"
-      justifyContent={match(alignment)
+      justifyContent={match(currentAlignment)
         .with(ALIGNMENT.LEFT, () => "start")
         .with(ALIGNMENT.CENTER, () => "center")
         .with(ALIGNMENT.RIGHT, () => "end")
-        .otherwise(() => "left")}>
+        .exhaustive()}>
       <ResizableImage
         src={src}
         imageReference={imageReference}
@@ -159,4 +168,9 @@ const ImageComponent = ({
   )
 }
 
-export { ImageComponent }
+export {
+  ImageComponent,
+  getImageNodeByKey,
+  setImageNodeDimensions,
+  setImageNodeAlignment,
+}
