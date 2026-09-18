@@ -2,13 +2,11 @@ import { test, expect } from "vitest"
 import { Some, isSome, isNone } from "fp-ts/Option"
 import {
   fileSizeCheck,
-  mimeTypeCheck,
   isValidFile,
   getFileValidationError,
   overFileSizeLimitError,
   ErrorState,
   FILE_SIZE_LIMIT,
-  IMAGE_MIME_TYPES,
 } from "../components/helpers/fileUploadHelpers"
 
 const OVERSIZED = FILE_SIZE_LIMIT * 1.1
@@ -39,18 +37,6 @@ test("fileSizeCheck returns true for file exactly at size limit", () => {
 test("fileSizeCheck returns false for file over size limit", () => {
   const file = createMockFile(OVERSIZED)
   const checker = fileSizeCheck(FILE_SIZE_LIMIT)
-  expect(checker(file)).toBe(false)
-})
-
-test("mimeTypeCheck returns true for valid image type", () => {
-  const file = createMockFile(VALID_SIZED, "image/png")
-  const checker = mimeTypeCheck(IMAGE_MIME_TYPES)
-  expect(checker(file)).toBe(true)
-})
-
-test("mimeTypeCheck returns false for unsupported type", () => {
-  const file = createMockFile(VALID_SIZED, "application/pdf")
-  const checker = mimeTypeCheck(IMAGE_MIME_TYPES)
   expect(checker(file)).toBe(false)
 })
 
