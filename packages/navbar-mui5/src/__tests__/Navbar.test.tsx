@@ -1,5 +1,5 @@
 import { vi, test, expect, beforeAll } from "vitest"
-import { render, screen } from "@testing-library/react"
+import { render, screen, cleanup } from "@testing-library/react"
 import { createTheme } from "@mui/material"
 import { Navbar } from "../components/Navbar"
 
@@ -97,4 +97,30 @@ test("should render the correct number of dropdowns", () => {
 })
 test("should render arbitrary elements if they are provided", () => {
   expect(screen.getByText(/Arbitrary Element/)).toBeInTheDocument()
+})
+
+test("should not render brand when brand is not specified", () => {
+  cleanup()
+  render(
+    <Navbar
+      frontPageUrl=""
+      stockCenterUrl=""
+      items={properties.items}
+      theme={testTheme}
+    />,
+  )
+  expect(screen.queryByText("Brand")).not.toBeInTheDocument()
+})
+
+test("should render default items when items prop is not provided", () => {
+  cleanup()
+  render(
+    <Navbar
+      frontPageUrl="https://dictycr.org"
+      stockCenterUrl="https://dictycr.org/stockcenter"
+      brand={properties.brand}
+      theme={testTheme}
+    />,
+  )
+  expect(screen.getByText("Brand")).toBeInTheDocument()
 })

@@ -27,17 +27,6 @@ type ErrorState = {
 
 const FILE_SIZE_LIMIT = 10 * 1024 * 1024
 
-// https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types#common_image_file_types
-const IMAGE_MIME_TYPES = new Set([
-  "image/apng",
-  "image/avif",
-  "image/gif",
-  "image/jpeg",
-  "image/png",
-  "image/svg+xml",
-  "image/webp",
-])
-
 const emptyFileListError = {
   errorType: ErrorType.VALIDITY_ERROR,
   message: "File list is empty",
@@ -68,9 +57,6 @@ const missingUrlError = {
 
 const fileSizeCheck = (fileSize: number) => (file: File) =>
   file.size <= fileSize
-
-const mimeTypeCheck = (types: ReadonlySet<string>) => (file: File) =>
-  types.has(file.type)
 
 const isValidFile = (file: File) =>
   pipe(
@@ -117,7 +103,6 @@ const useValidateSuggestedFilename = (
 
 export {
   FILE_SIZE_LIMIT,
-  IMAGE_MIME_TYPES,
   useValidateSuggestedFilename,
   emptyFileListError,
   noFileSelectedError,
@@ -126,7 +111,6 @@ export {
   uploadFailureError,
   missingUrlError,
   fileSizeCheck,
-  mimeTypeCheck,
   getFileValidationError,
   isValidFile,
   type FileFormFields,

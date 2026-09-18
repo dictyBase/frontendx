@@ -250,3 +250,54 @@ test("updateDOM removes download attribute when set to null", async () => {
     expect(anchor?.hasAttribute("download")).toBe(false)
   })
 })
+
+test("updateDOM does not modify download when it has not changed", async () => {
+  let editorInstance: LexicalEditor | undefined
+
+  const { container } = render(
+    <LexicalTestComposer config={editorConfig}>
+      <TestEditor
+        onEditorReady={(editor) => {
+          editorInstance = editor
+        }}
+        onSetup={() => {
+          const root = $getRoot()
+          const paragraph = $createParagraphNode()
+          const linkNode = $createDownloadLinkNode(testUrl, {
+            download: testFilename,
+          })
+          const textNode = $createTextNode("Download")
+
+          linkNode.append(textNode)
+          paragraph.append(linkNode)
+          root.append(paragraph)
+        }}
+      />
+    </LexicalTestComposer>,
+  )
+
+  await waitFor(() => {
+    const anchor = container.querySelector("a")
+    expect(anchor?.getAttribute("download")).toBe(testFilename)
+  })
+
+  if (editorInstance) {
+    editorInstance.update(() => {
+      const root = $getRoot()
+      const children = root.getChildren()
+      const paragraph = children[1] as ParagraphNode
+      const linkNode = paragraph.getFirstChild() as DownloadLinkNode
+      const writable = linkNode.getWritable()
+      // Change rel without changing download — triggers updateDOM but
+      // download comparison returns false (no change), hitting the no-op branch
+      writable.__rel = "nofollow"
+    })
+  }
+
+  await waitFor(() => {
+    const anchor = container.querySelector("a")
+    // Download should still be unchanged
+    expect(anchor?.getAttribute("download")).toBe(testFilename)
+    expect(anchor?.getAttribute("rel")).toBe("nofollow")
+  })
+})
