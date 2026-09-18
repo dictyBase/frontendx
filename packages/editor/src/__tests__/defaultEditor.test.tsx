@@ -9,6 +9,7 @@ import type { LexicalEditor } from "lexical"
 import { $getRoot, $getSelection, $isRangeSelection } from "lexical"
 import { Editor } from "../Editor"
 import { dictyEditorConfig } from "../editorConfig"
+import { FlexLayoutNode } from "@dictybase/flex-layout-plugin"
 
 vi.mock("../useEditorStyles", () => ({
   useEditorAreaStyles: () => ({ classes: {} }),
@@ -68,6 +69,7 @@ describe("DefaultEditor", () => {
     render(
       <ThemeProvider theme={createTheme()}>
         <Editor
+          editable
           config={{ ...dictyEditorConfig, onError }}
           plugins={[
             <EditorReferenceCapture
@@ -105,7 +107,8 @@ describe("DefaultEditor", () => {
     await waitFor(() => {
       let paragraphCount = 0
       editor!.getEditorState().read(() => {
-        paragraphCount = $getRoot().getChildren().length
+        const flexLayoutNode = $getRoot().getFirstChild() as FlexLayoutNode
+        paragraphCount = flexLayoutNode.getChildren().length
       })
       expect(paragraphCount).toBe(2)
     })
