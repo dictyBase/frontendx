@@ -19,12 +19,10 @@ const StyledIconButton = styled(IconButton)({
 
 type AuthorizedDictyInfoDisplayProperties = {
   content: string
-  slug: string
 }
 
 const AuthorizedDictyInfoDisplay = ({
   content,
-  slug,
 }: AuthorizedDictyInfoDisplayProperties) => {
   const navigate = useNavigate()
   const onClick = () => {
@@ -38,7 +36,7 @@ const AuthorizedDictyInfoDisplay = ({
           <EditIcon />
         </StyledIconButton>
       </Typography>
-      <Editor content={{ editorState: content, storageKey: slug }} />
+      <Editor initialState={content} />
     </StyledBox>
   )
 }

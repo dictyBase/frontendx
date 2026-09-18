@@ -41,6 +41,7 @@ const overFileSizeLimitError = {
     FILE_SIZE_LIMIT / (1024 * 1024)
   }MB.`,
 }
+
 const accessTokenError = {
   errorType: ErrorType.ACCESS_TOKEN_ERROR,
   message: "Could not get access token",

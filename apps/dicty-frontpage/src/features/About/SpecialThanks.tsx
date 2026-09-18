@@ -37,14 +37,8 @@ const SpecialThanks = () => {
   return (
     <>
       {match(result)
-        .with(dataPattern, ({ content, slug }) => (
-          <Editor
-            content={{
-              editorState: content,
-              storageKey: slug,
-            }}
-            editable={false}
-          />
+        .with(dataPattern, ({ content }) => (
+          <Editor initialState={content} editable={false} />
         ))
         .with({ loading: true }, () => <LoadingDisplay />)
         .with({ error: P.not(undefined) }, () => (

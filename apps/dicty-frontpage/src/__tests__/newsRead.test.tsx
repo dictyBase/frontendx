@@ -93,4 +93,21 @@ describe("/news/:id/show", () => {
     )
     expect(screen.getByText(/sorry, something went wrong/i)).toBeInTheDocument()
   })
+
+  test("renders fallback when useContentBySlugQuery returns an empty result", () => {
+    mockUseContentBySlugQuery.mockReturnValue({
+      data: undefined,
+      loading: false,
+      error: undefined,
+    })
+
+    render(
+      <MemoryRouter>
+        <Show />
+      </MemoryRouter>,
+    )
+    expect(
+      screen.getByText(/this message should not appear/i),
+    ).toBeInTheDocument()
+  })
 })

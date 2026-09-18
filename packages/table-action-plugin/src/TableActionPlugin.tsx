@@ -7,7 +7,10 @@ import {
   isSome as OisSome,
   match as Omatch,
 } from "fp-ts/Option"
-import { selectedTableCellNode, tableActionMenuOpenAtom } from "./atomConfigs"
+import {
+  selectedTableCellNodeKey,
+  tableActionMenuOpenAtom,
+} from "./atomConfigs"
 import { usePositionMenuButton } from "./usePositionMenuButton"
 import { TableActionMenuButton } from "./TableActionMenuButton"
 import { TableActionMenu } from "./TableActionMenu"
@@ -21,7 +24,7 @@ type TableActionPluginProperties = {
  * This plugin decides whether to render a menu button in a table cell. It is also reponsible for rendering the Table Action Menu.
  */
 const TableActionPlugin = ({ isEditing }: TableActionPluginProperties) => {
-  const currentTableCellNode = useAtomValue(selectedTableCellNode)
+  const currentTableCellNode = useAtomValue(selectedTableCellNodeKey)
   const isMenuOpen = useAtomValue(tableActionMenuOpenAtom)
   const menuButtonReference = usePositionMenuButton()
   useSelectCurrentCell()

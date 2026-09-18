@@ -1,6 +1,4 @@
-import { DEFAULT_FONT, DEFAULT_FONT_SIZE } from "@dictybase/editor-toolbar"
-/* eslint-disable unicorn/no-null */
-const initialState = {
+const twoParagraphsState = {
   root: {
     children: [
       {
@@ -11,7 +9,25 @@ const initialState = {
                 detail: 0,
                 format: 0,
                 mode: "normal",
-                style: `font-family: ${DEFAULT_FONT}; font-size: ${DEFAULT_FONT_SIZE}`,
+                style: `font-family: arial; font-size: arial`,
+                text: "",
+                type: "text",
+                version: 1,
+              },
+            ],
+            direction: null,
+            format: "",
+            indent: 0,
+            type: "paragraph",
+            version: 1,
+          },
+          {
+            children: [
+              {
+                detail: 0,
+                format: 0,
+                mode: "normal",
+                style: `font-family: arial; font-size: arial`,
                 text: "",
                 type: "text",
                 version: 1,
@@ -39,5 +55,4 @@ const initialState = {
   },
 }
 
-const initialStateString = JSON.stringify(initialState)
-export { initialState, initialStateString }
+export { twoParagraphsState }

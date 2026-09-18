@@ -71,10 +71,7 @@ const EditableView = ({ content, id, createdAt }: EditableViewProperties) => {
             </Grid>
           </Grid>
           <Grid item>
-            <Editor
-              content={{ storageKey: undefined, editorState: content }}
-              toolbar={toolbar}
-            />
+            <Editor initialState={content} toolbar={toolbar} />
           </Grid>
         </Grid>
       </Container>

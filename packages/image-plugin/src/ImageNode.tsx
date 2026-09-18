@@ -6,7 +6,8 @@ import {
   SerializedLexicalNode,
   LexicalNode,
 } from "lexical"
-import { ImageComponent } from "./ImageComponent"
+import { ALIGNMENT } from "@dictybase/resizable-image"
+import { ImageStateWrapper } from "./ImageStateWrapper"
 
 type SerializedImageNode = Spread<
   {
@@ -15,6 +16,7 @@ type SerializedImageNode = Spread<
     height: number
     alt?: string | undefined
     type: "image"
+    alignment: ALIGNMENT
   },
   SerializedLexicalNode
 >
@@ -24,7 +26,8 @@ type ImageNodeConstructorProperties = {
   width: number
   height: number
   alt?: string | undefined
-  key?: string
+  key?: string | undefined
+  alignment: ALIGNMENT
 }
 
 class ImageNode extends DecoratorNode<JSX.Element> {
@@ -35,6 +38,8 @@ class ImageNode extends DecoratorNode<JSX.Element> {
   __height
 
   __width
+
+  __alignment
 
   static override getType() {
     return "image"
@@ -47,6 +52,7 @@ class ImageNode extends DecoratorNode<JSX.Element> {
       __key: key,
       __width: width,
       __height: height,
+      __alignment: alignment,
     } = node
     return new ImageNode({
       source,
@@ -54,6 +60,7 @@ class ImageNode extends DecoratorNode<JSX.Element> {
       key,
       width,
       height,
+      alignment,
     })
   }
 
@@ -62,12 +69,14 @@ class ImageNode extends DecoratorNode<JSX.Element> {
     alt,
     width,
     height,
+    alignment,
   }: SerializedImageNode): ImageNode {
     return new ImageNode({
       source,
       alt,
       width,
       height,
+      alignment,
     })
   }
 
@@ -77,18 +86,29 @@ class ImageNode extends DecoratorNode<JSX.Element> {
     height,
     alt,
     key,
+    alignment,
   }: ImageNodeConstructorProperties) {
     super(key)
     this.__source = source
     this.__height = height
     this.__width = width
     this.__alt = alt
+    this.__alignment = alignment
+  }
+
+  override isInline() {
+    return false
   }
 
   setDimensions(width: number, height: number) {
     const writable = this.getWritable()
     writable.__width = width
     writable.__height = height
+  }
+
+  setAlignment(value: ALIGNMENT) {
+    const writable = this.getWritable()
+    writable.__alignment = value
   }
 
   override createDOM(config: EditorConfig) {
@@ -112,18 +132,20 @@ class ImageNode extends DecoratorNode<JSX.Element> {
       width: this.__width,
       height: this.__height,
       alt: this.__alt,
+      alignment: this.__alignment,
       version: 1,
     }
   }
 
   override decorate() {
     return (
-      <ImageComponent
+      <ImageStateWrapper
         nodeKey={this.__key}
         src={this.__source}
         alt={this.__alt}
         initialWidth={this.__width}
         initialHeight={this.__height}
+        initialAlignment={this.__alignment}
         fit="fill"
         easing="cubic-bezier(0.7, 0, 0.6, 1)"
         duration={2000}

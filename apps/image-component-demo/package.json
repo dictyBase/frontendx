@@ -9,7 +9,8 @@
     "oxlint": "oxlint src/",
     "oxlint:ci": "oxlint src/ --format=github",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
-    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/image-component-demo.json"
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/image-component-demo.json",
+    "lint:fix": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache --fix"
   },
   "dependencies": {
     "@dictybase/dicty-image": "*",
@@ -27,7 +28,7 @@
     "eslint-config-custom": "*",
     "prettier": "3.*",
     "tsconfig": "*",
-    "typescript": "4.*",
+    "typescript": "5.*",
     "vite": "4.x"
   },
   "eslintConfig": {

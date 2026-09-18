@@ -12,8 +12,12 @@ import {
 const OVERSIZED = FILE_SIZE_LIMIT * 1.1
 const VALID_SIZED = FILE_SIZE_LIMIT * 0.5
 
-const createMockFile = (size: number, name = "test.pdf"): File => {
-  const file = new File(["test content"], name, { type: "application/pdf" })
+const createMockFile = (
+  size: number,
+  type = "image/png",
+  name = "test.png",
+): File => {
+  const file = new File(["test content"], name, { type })
   Object.defineProperty(file, "size", { value: size })
   return file
 }

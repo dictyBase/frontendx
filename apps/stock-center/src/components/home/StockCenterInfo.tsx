@@ -11,9 +11,7 @@ const StockCenterInfo = () => {
   return match(queryResult)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
-      ({ content, slug }) => (
-        <StockCenterInfoDisplay content={content} slug={slug} />
-      ),
+      ({ content }) => <StockCenterInfoDisplay content={content} />,
     )
     .with({ loading: true }, () => <LoadingDisplay rows={4} />)
     .with({ error: P.not(undefined) }, () => <OtherError />)

@@ -81,7 +81,7 @@ const InsertLinkButton = () => {
       <IconButton
         size="large"
         ref={buttonReference}
-        title="Insert Link"
+        title="Open Link Dialog"
         onClick={handleClick}>
         <InsertLinkIcon />
       </IconButton>

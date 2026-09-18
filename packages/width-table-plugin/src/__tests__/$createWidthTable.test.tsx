@@ -28,7 +28,7 @@ describe("CreateParagraphWithTextNode", () => {
     })
     testEditor.update(() => {
       paragraphNode = createParagraphWithTextNode()
-      textNode = paragraphNode.getFirstChild()
+      textNode = paragraphNode.getFirstChild() as TextNode
     })
   })
 
@@ -198,7 +198,7 @@ describe("createWidthTable", () => {
   beforeAll(() => {
     const testEditor = createEditor({
       ...testConfig,
-      nodes: [TableCellNode, TableRowNode],
+      nodes: [WidthTableNode, TableCellNode, TableRowNode],
     })
     testEditor.update(() => {
       tableNode = $createWidthTable(rowCount, columnCount, width)

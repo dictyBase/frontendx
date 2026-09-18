@@ -19,7 +19,8 @@
     "pre-commit": "lint-staged",
     "styleguide": "FAST_REFRESH=false styleguidist server",
     "styleguide:build": "FAST_REFRESH=false styleguidist build",
-    "analyze": "source-map-explorer 'build/static/js/*.js'"
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "lint:fix": "eslint src/ --ext .ts --ext .tsx --fix"
   },
   "dependencies": {
     "@apollo/client": "3.x",

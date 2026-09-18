@@ -1,6 +1,6 @@
 import { Container } from "@mui/material"
 import { type ContentBySlugQuery } from "dicty-graphql-schema"
-import { Editor } from "@dictybase/editor"
+import { Editor } from "./Editor"
 
 type ShowViewProperties = {
   data: NonNullable<ContentBySlugQuery["contentBySlug"]>
@@ -12,17 +12,14 @@ type ShowViewProperties = {
  * @returns The rendered ContentView component.
  */
 const ShowView = ({ data }: ShowViewProperties) => {
-  const { slug, content } = data
+  const { content } = data
   return (
     <Container
       sx={(theme) => ({
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(4),
       })}>
-      <Editor
-        editable={false}
-        content={{ storageKey: slug, editorState: content }}
-      />
+      <Editor editable={false} initialState={content} />
     </Container>
   )
 }

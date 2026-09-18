@@ -50,7 +50,8 @@
     "coverage": "vitest run --coverage",
     "e2e": "BASE_URL=http://localhost:5173 playwright test",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
-    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/ui-common.json"
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/ui-common.json",
+    "lint:fix": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache --fix"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",

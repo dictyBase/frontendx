@@ -55,3 +55,4 @@ credentials
 .mcp.json
 mockServiceWorker.js
 /.claude
+/apps/editor-playground/src/data

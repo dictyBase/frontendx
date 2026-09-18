@@ -130,7 +130,7 @@ const EditView = ({
         </Grid>
         <Grid item>
           <Editor
-            content={{ storageKey: undefined, editorState: content }}
+            initialState={content}
             editable
             toolbar={toolbar}
             handleChange={handleChange}

@@ -4,8 +4,6 @@ import {
   ElementNode,
   LexicalNode,
   $createParagraphNode,
-  $isParagraphNode,
-  ParagraphNode,
 } from "lexical"
 
 const nodeTypeName = "flex-layout"
@@ -39,18 +37,14 @@ class FlexLayoutNode extends ElementNode {
     return false
   }
 
-  getParagraphNodeOrThrow() {
-    const paragraphNode = this.getChildren().find((node) =>
-      $isParagraphNode(node),
-    )
-    if (!paragraphNode) throw new Error("FlexLayoutNode has no ParagraphNode")
-    return paragraphNode as ParagraphNode
+  override isShadowRoot() {
+    return true
   }
 
   override createDOM(config: EditorConfig) {
     const div = document.createElement("div")
     div.style.display = "flex"
-    div.style.columnGap = "10px"
+    div.style.flexDirection = "column"
     const { theme } = config
     // eslint-disable-next-line dot-notation
     const className = theme["flexLayout"]

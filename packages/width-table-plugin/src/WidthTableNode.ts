@@ -2,7 +2,7 @@ import { TableNode, SerializedTableNode } from "@lexical/table"
 import { addClassNamesToElement } from "@lexical/utils"
 import { NodeKey, EditorConfig } from "lexical"
 
-export interface SerializedWidthTableNode extends SerializedTableNode {
+export type SerializedWidthTableNode = SerializedTableNode & {
   width: number
 }
 
@@ -45,7 +45,8 @@ class WidthTableNode extends TableNode {
    * @param width - The width of the table.
    * @param key - key for the node.
    */
-  constructor(width: number, key?: NodeKey) {
+  // eslint-disable-next-line default-param-last
+  constructor(width: number = 500, key?: NodeKey) {
     super(key)
     this.__width = width
   }

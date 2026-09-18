@@ -47,7 +47,7 @@ const Show = () => {
               <BrowseNewsButton />
             </Grid>
           </Grid>
-          <Editor content={{ storageKey: undefined, editorState: content }} />
+          <Editor initialState={content} />
         </Container>
       ),
     )

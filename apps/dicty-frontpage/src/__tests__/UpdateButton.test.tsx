@@ -16,7 +16,8 @@ vi.mock("../common/hooks/useAuthorizedUpdateContent", () => ({
   useAuthorizedUpdateContent: () => mockAuthorizedUpdateContent,
 }))
 
-vi.mock("@lexical/react/LexicalComposerContext", () => ({
+vi.mock("@lexical/react/LexicalComposerContext", async (importActual) => ({
+  ...(await importActual()),
   useLexicalComposerContext: () => [
     {
       getEditorState: mockGetEditorState,
