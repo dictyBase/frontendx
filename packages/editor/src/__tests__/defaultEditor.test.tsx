@@ -41,7 +41,7 @@ type EditorReferenceCaptureProperties = {
   onEditorReady: (editor: LexicalEditor) => void
 }
 
-const EditorRefCapture = ({
+const EditorReferenceCapture = ({
   onEditorReady,
 }: EditorReferenceCaptureProperties) => {
   const [editor] = useLexicalComposerContext()
@@ -70,7 +70,7 @@ describe("DefaultEditor", () => {
         <Editor
           config={{ ...dictyEditorConfig, onError }}
           plugins={[
-            <EditorRefCapture
+            <EditorReferenceCapture
               key="capture"
               onEditorReady={(_editor) => {
                 editor = _editor

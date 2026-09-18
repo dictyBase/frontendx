@@ -10,7 +10,6 @@ import { ListPlugin } from "@lexical/react/LexicalListPlugin"
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin"
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin"
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin"
-import { TreeViewPlugin } from "./TreeViewPlugin"
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary"
 import { Box, Stack } from "@mui/material"
 import { pipe } from "fp-ts/function"
@@ -24,6 +23,7 @@ import { ImagePlugin } from "@dictybase/image-plugin"
 import { DictybaseToolbar } from "@dictybase/editor-toolbar"
 import { WidthTablePlugin } from "@dictybase/width-table-plugin"
 import { TableActionPlugin } from "@dictybase/table-action-plugin"
+import { TreeViewPlugin } from "./TreeViewPlugin"
 import {
   useEditorAreaStyles,
   useEditorPlaceholderStyles,
