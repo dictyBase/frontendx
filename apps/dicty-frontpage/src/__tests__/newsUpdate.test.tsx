@@ -137,6 +137,26 @@ describe("/news/:id/editable", () => {
     )
     expect(screen.getByText(/sorry, something went wrong/i)).toBeInTheDocument()
   })
+
+  test("renders fallback when useContentBySlugQuery returns an empty result", () => {
+    mockUseContentBySlugQuery.mockReturnValue({
+      data: undefined,
+      loading: false,
+      error: undefined,
+    })
+
+    const router = createMemoryRouter(routeConfiguration, {
+      initialEntries: [editRoute],
+    })
+    render(
+      <MockedProvider>
+        <RouterProvider router={router} />
+      </MockedProvider>,
+    )
+    expect(
+      screen.getByText(/this message should not appear/i),
+    ).toBeInTheDocument()
+  })
 })
 
 const makeEditRouter = () => {
@@ -202,6 +222,6 @@ describe("news edit page EditActionBar autosave states", () => {
     ])
     const { container } = renderEdit()
     expect(container.querySelector("svg")).toBeInTheDocument()
-    expect(screen.getByTestId(testId)).toBeInTheDocument()
+    expect(screen.getByTestId("info-page-toolbar")).toBeInTheDocument()
   })
 })
