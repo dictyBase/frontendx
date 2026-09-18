@@ -17,7 +17,7 @@ const viteConfig = defineConfig({
     exclude: ["**/e2e"],
     server: {
       deps: {
-        inline: ["@lexical/react", "@lexical/devtools-core"],
+        inline: ["@logto/react", "@lexical/react", "@lexical/devtools-core"],
       },
     },
   },

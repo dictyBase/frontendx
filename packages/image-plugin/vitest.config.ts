@@ -7,5 +7,10 @@ export default defineConfig({
     globals: true,
     setupFiles: "./setup.ts",
     mockReset: true,
+    server: {
+      deps: {
+        inline: ["@lexical/react", "@lexical/devtools-core"],
+      },
+    },
   },
 })

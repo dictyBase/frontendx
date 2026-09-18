@@ -7,5 +7,11 @@ export default defineConfig({
     globals: true,
     setupFiles: "./setup.ts",
     mockReset: true,
+    exclude: ["**/e2e/**"],
+    server: {
+      deps: {
+        inline: ["@lexical/react", "@lexical/devtools-core"],
+      },
+    },
   },
 })
