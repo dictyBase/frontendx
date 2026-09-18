@@ -18,6 +18,7 @@
     "test:watch": "turbo run test:watch",
     "coverage": "turbo run coverage --continue",
     "lint": "turbo run lint --continue",
+    "lint:fix": "turbo run lint:fix --continue",
     "lint:out": "turbo run lint:out --continue",
     "oxlint": "turbo run oxlint --continue",
     "oxlint:ci": "turbo run oxlint:ci --continue",

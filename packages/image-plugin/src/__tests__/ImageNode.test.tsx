@@ -6,8 +6,8 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin"
 import { ContentEditable } from "@lexical/react/LexicalContentEditable"
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary"
-import { ImageNode, $isImageNode, SerializedImageNode } from "../ImageNode"
 import { ALIGNMENT } from "@dictybase/resizable-image"
+import { ImageNode, $isImageNode, SerializedImageNode } from "../ImageNode"
 
 const testConfig: EditorConfig = {
   namespace: "test",

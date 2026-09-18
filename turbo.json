@@ -32,6 +32,7 @@
     "lint:out": {
       "outputMode": "none"
     },
+    "lint:fix": {},
     "dev": {
       "cache": false
     },
