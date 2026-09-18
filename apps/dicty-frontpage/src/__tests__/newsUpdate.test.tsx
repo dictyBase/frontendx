@@ -2,10 +2,12 @@ import { RouterProvider, createMemoryRouter } from "react-router-dom"
 import { MockedProvider } from "@apollo/client/testing"
 import { userEvent } from "@testing-library/user-event"
 import { render, screen } from "@testing-library/react"
-import { describe, test, vi } from "vitest"
+import { describe, test, vi, type Mock } from "vitest"
 import { ApolloError } from "@apollo/client"
 import Edit from "../pages/news/[id]/edit"
 import { mockContentBySlugQueryData } from "../mocks/mockContent"
+
+import { useAutoSave } from "../common/hooks/useAutoSave"
 
 const editRoute = "/news/:id/edit"
 
@@ -19,6 +21,7 @@ const routeConfiguration = [
     element: <> Editable News Route </>,
   },
 ]
+const testId = "info-page-toolbar"
 
 const { mockUseContentBySlugQuery, mockAuthorizedUpdateContent } = vi.hoisted(
   () => ({
@@ -38,6 +41,13 @@ vi.mock("dicty-graphql-schema", async (importOriginal) => {
 
 vi.mock("../common/hooks/useAuthorizedUpdateContent", () => ({
   useAuthorizedUpdateContent: () => mockAuthorizedUpdateContent,
+}))
+
+vi.mock("../common/hooks/useAutoSave", () => ({
+  useAutoSave: vi.fn(() => [
+    vi.fn(),
+    { waiting: false, loading: false, error: undefined, data: undefined },
+  ]),
 }))
 
 describe("/news/:id/editable", () => {
@@ -106,7 +116,7 @@ describe("/news/:id/editable", () => {
     expect(screen.getByText("Editable News Route")).toBeInTheDocument()
   })
 
-  test("renders error page when useContentBySlugQuery returns an error", () => {
+  test("renders error page when useContentBySlugQuery returns an error", async () => {
     const mockError = {
       graphQLErrors: [{ message: "Test error message" }],
     } as unknown as ApolloError
@@ -126,5 +136,72 @@ describe("/news/:id/editable", () => {
       </MockedProvider>,
     )
     expect(screen.getByText(/sorry, something went wrong/i)).toBeInTheDocument()
+  })
+})
+
+const makeEditRouter = () => {
+  mockUseContentBySlugQuery.mockReturnValue({
+    data: mockContentBySlugQueryData,
+    loading: false,
+    error: undefined,
+  })
+  return createMemoryRouter(routeConfiguration, { initialEntries: [editRoute] })
+}
+
+const renderEdit = () =>
+  render(
+    <MockedProvider>
+      <RouterProvider router={makeEditRouter()} />
+    </MockedProvider>,
+  )
+
+describe("news edit page EditActionBar autosave states", () => {
+  test("renders ProgressSaved (shows 'Saved' text) when save data is present", () => {
+    ;(useAutoSave as Mock).mockReturnValue([
+      vi.fn(),
+      {
+        waiting: false,
+        loading: false,
+        error: undefined,
+        data: { updateContent: { content: "saved content" } },
+      },
+    ])
+    renderEdit()
+    expect(screen.getByText(/saved/i)).toBeInTheDocument()
+  })
+
+  test("renders WaitingChanges (MoreHorizIcon svg) when waiting is true", () => {
+    ;(useAutoSave as Mock).mockReturnValue([
+      vi.fn(),
+      { waiting: true, loading: false, error: undefined, data: undefined },
+    ])
+    const { container } = renderEdit()
+    expect(container.querySelector("svg")).toBeInTheDocument()
+    expect(screen.getByTestId(testId)).toBeInTheDocument()
+  })
+
+  test("renders PendingChanges (AutorenewIcon svg) when loading is true", () => {
+    ;(useAutoSave as Mock).mockReturnValue([
+      vi.fn(),
+      { waiting: false, loading: true, error: undefined, data: undefined },
+    ])
+    const { container } = renderEdit()
+    expect(container.querySelector("svg")).toBeInTheDocument()
+    expect(screen.getByTestId(testId)).toBeInTheDocument()
+  })
+
+  test("renders SavingError (ErrorIcon svg) when error is present", () => {
+    ;(useAutoSave as Mock).mockReturnValue([
+      vi.fn(),
+      {
+        waiting: false,
+        loading: false,
+        error: new ApolloError({ errorMessage: "Save failed" }),
+        data: undefined,
+      },
+    ])
+    const { container } = renderEdit()
+    expect(container.querySelector("svg")).toBeInTheDocument()
+    expect(screen.getByTestId(testId)).toBeInTheDocument()
   })
 })

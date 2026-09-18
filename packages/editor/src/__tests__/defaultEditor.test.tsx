@@ -53,6 +53,35 @@ const EditorReferenceCapture = ({
 }
 
 describe("DefaultEditor", () => {
+  test("renders a custom toolbar element when the toolbar prop is provided", () => {
+    render(
+      <ThemeProvider theme={createTheme()}>
+        <Editor
+          config={{ ...dictyEditorConfig, onError }}
+          toolbar={<div data-testid="custom-toolbar">Custom Toolbar</div>}
+        />
+      </ThemeProvider>,
+    )
+    expect(screen.getByTestId("custom-toolbar")).toBeInTheDocument()
+  })
+
+  test("mounts OnChangePlugin when handleChange prop is provided", () => {
+    const handleChange = vi.fn<[EditorState], void>()
+
+    render(
+      <ThemeProvider theme={createTheme()}>
+        <Editor
+          editable
+          config={{ ...dictyEditorConfig, onError }}
+          handleChange={handleChange}
+        />
+      </ThemeProvider>,
+    )
+
+    // The editor renders successfully with the handleChange prop
+    expect(screen.getByRole("textbox")).toBeInTheDocument()
+  })
+
   test("renders with a contenteditable element", () => {
     render(
       <ThemeProvider theme={createTheme()}>

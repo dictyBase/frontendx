@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeAll } from "vitest"
+import { describe, test, expect, beforeAll, beforeEach } from "vitest"
 import { screen, render } from "@testing-library/react"
 import { createEditor, EditorConfig, $getRoot } from "lexical"
 import { LexicalComposer } from "@lexical/react/LexicalComposer"
@@ -6,7 +6,7 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin"
 import { ContentEditable } from "@lexical/react/LexicalContentEditable"
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary"
-import { ImageNode, SerializedImageNode } from "../ImageNode"
+import { ImageNode, $isImageNode, SerializedImageNode } from "../ImageNode"
 
 const testConfig: EditorConfig = {
   namespace: "test",
@@ -116,6 +116,22 @@ describe("ImageNode", () => {
   test("implements a createDOM method that returns an HTMLElement", () => {
     expect(imageNodeWrapperElement).toBeInstanceOf(HTMLElement)
   })
+  test("createDOM applies the theme image className when provided", () => {
+    const configWithTheme: EditorConfig = {
+      namespace: "test",
+      theme: { image: "my-image-class" },
+    }
+    let nodeWithClass: HTMLElement | undefined
+    testEditor.update(() => {
+      const node = new ImageNode({
+        source: "test.jpg",
+        width: 100,
+        height: 100,
+      })
+      nodeWithClass = node.createDOM(configWithTheme)
+    })
+    expect(nodeWithClass?.className).toBe("my-image-class")
+  })
   // Needs a test for the ImageNode component's fit property being "fill"
   // The component should be rendered in the test editor
   test("the image's `fit` property is set to `fill`", async () => {
@@ -148,5 +164,30 @@ describe("ImageNode", () => {
       </LexicalComposer>,
     )
     expect(await screen.findByRole("img")).toHaveStyle("object-fit: fill")
+  })
+})
+
+describe("$isImageNode", () => {
+  const nodeCheckEditor = createEditor({ ...testConfig, nodes: [ImageNode] })
+  let imageNode: ImageNode
+  let nonImageNode: ReturnType<typeof $getRoot>
+
+  beforeEach(() => {
+    nodeCheckEditor.update(() => {
+      imageNode = new ImageNode({ source: "test.jpg", width: 100, height: 100 })
+      nonImageNode = $getRoot()
+    })
+  })
+
+  test("returns true for an ImageNode", () => {
+    nodeCheckEditor.getEditorState().read(() => {
+      expect($isImageNode(imageNode)).toBe(true)
+    })
+  })
+
+  test("returns false for a non-ImageNode", () => {
+    nodeCheckEditor.getEditorState().read(() => {
+      expect($isImageNode(nonImageNode)).toBe(false)
+    })
   })
 })
