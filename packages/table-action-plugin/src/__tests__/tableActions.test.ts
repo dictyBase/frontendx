@@ -42,7 +42,7 @@ describe("deleteTable", () => {
     expect(isTableAttached).toBeDefined()
     expect(isTableAttached).toBeTruthy()
 
-    deleteTable(testEditor, targetTableCell)
+    deleteTable(testEditor, targetTableCell.getKey())
 
     testEditor.update(() => {
       isTableAttached = tableNode.isAttached()
@@ -72,7 +72,7 @@ describe("insertRow", () => {
       initialTargetRowIndex = initialRowKeyArray.indexOf(targetRowKey)
     })
 
-    insertRow(testEditor, targetTableCell, { insertAfter: true })
+    insertRow(testEditor, targetTableCell.getKey(), { insertAfter: true })
 
     testEditor.update(() => {
       finalRowCount = tableNode.getChildrenSize()
@@ -108,7 +108,7 @@ describe("insertRow", () => {
       initialTargetRowIndex = initialRowKeyArray.indexOf(targetRowKey)
     })
 
-    insertRow(testEditor, targetTableCell, { insertAfter: false })
+    insertRow(testEditor, targetTableCell.getKey(), { insertAfter: false })
 
     testEditor.update(() => {
       finalRowCount = tableNode.getChildrenSize()
@@ -127,40 +127,37 @@ describe("insertRow", () => {
 })
 
 describe("insertColumn", () => {
-  test.todo(
-    "if insertAfter is false, the function will create a column before the given table cell's column",
-    () => {
-      let initialRowLengths: unknown
-      let finalRowLengths: unknown
-      let initialtargetColumnIndex
-      let newColumnCellIndex
+  test.todo("if insertAfter is false, the function will create a column before the given table cell's column", () => {
+    let initialRowLengths: unknown
+    let finalRowLengths: unknown
+    let initialtargetColumnIndex
+    let newColumnCellIndex
 
-      testEditor.getEditorState().read(() => {
-        initialtargetColumnIndex =
-          $getTableColumnIndexFromTableCellNode(targetTableCell)
+    testEditor.getEditorState().read(() => {
+      initialtargetColumnIndex =
+        $getTableColumnIndexFromTableCellNode(targetTableCell)
 
-        initialRowLengths =
-          $getTableRowNodeFromTableCellNodeOrThrow(
-            targetTableCell,
-          ).getChildrenSize()
-      })
+      initialRowLengths =
+        $getTableRowNodeFromTableCellNodeOrThrow(
+          targetTableCell,
+        ).getChildrenSize()
+    })
 
-      insertColumn(testEditor, targetTableCell, { insertAfter: false })
+    insertColumn(testEditor, targetTableCell.getKey(), { insertAfter: false })
 
-      // testEditor.update(() => {
-      //   const tableCellKeyArray = tableNode
-      //     .getChildren()
-      //     .map((row) =>
-      //       row.getChildren().map((cell: TableCellNode) => cell.getKey()),
-      //     )
-      //   finalRowLengths =
-      //     $getTableRowNodeFromTableCellNodeOrThrow(
-      //       targetTableCell,
-      //     ).getChildrenSize()
-      // })
+    // testEditor.update(() => {
+    //   const tableCellKeyArray = tableNode
+    //     .getChildren()
+    //     .map((row) =>
+    //       row.getChildren().map((cell: TableCellNode) => cell.getKey()),
+    //     )
+    //   finalRowLengths =
+    //     $getTableRowNodeFromTableCellNodeOrThrow(
+    //       targetTableCell,
+    //     ).getChildrenSize()
+    // })
 
-      expect(finalRowLengths).toEqual((initialRowLengths as number) + 1)
-      expect(newColumnCellIndex).toEqual(initialtargetColumnIndex)
-    },
-  )
+    expect(finalRowLengths).toEqual((initialRowLengths as number) + 1)
+    expect(newColumnCellIndex).toEqual(initialtargetColumnIndex)
+  })
 })
