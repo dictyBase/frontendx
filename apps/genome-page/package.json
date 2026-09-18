@@ -13,9 +13,10 @@
     "coverage": "vitest --coverage",
     "oxlint": "oxlint src/",
     "oxlint:ci": "oxlint src/ --format=github",
-    "lint": "eslint  ./ --ext .ts --ext .tsx",
+    "lint": "eslint ./ --ext .ts --ext .tsx",
     "lint:out": "eslint ./ --ext .ts --ext .tsx -f json -o ../../eslint/genomepage.json",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "lint:fix": "eslint ./ --ext .ts --ext .tsx --fix"
   },
   "dependencies": {
     "@apollo/client": "3.x",

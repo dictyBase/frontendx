@@ -9,7 +9,8 @@
     "oxlint": "oxlint src/",
     "oxlint:ci": "oxlint src/ --format=github",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
-    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/flex-layout-plugin.json"
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/flex-layout-plugin.json",
+    "lint:fix": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache --fix"
   },
   "devDependencies": {
     "@dictybase/oxlint-config": "*",

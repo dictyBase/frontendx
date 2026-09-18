@@ -17,7 +17,8 @@
     "test:watch": "vitest",
     "coverage": "vitest run --coverage",
     "e2e": "BASE_URL=http://localhost:3003 playwright test",
-    "e2e:live": "BASE_URL=https://dictybase.dev playwright test --grep-invert snapshots.spec.ts"
+    "e2e:live": "BASE_URL=https://dictybase.dev playwright test --grep-invert snapshots.spec.ts",
+    "lint:fix": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache --fix"
   },
   "dependencies": {
     "@dictybase/auth-mui5": "*",

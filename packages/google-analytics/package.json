@@ -21,7 +21,8 @@
     "test:watch": "vitest watch",
     "coverage": "vitest run --coverage",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
-    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/google-analytics.json"
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/google-analytics.json",
+    "lint:fix": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache --fix"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",

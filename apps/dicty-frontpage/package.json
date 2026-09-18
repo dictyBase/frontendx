@@ -19,7 +19,8 @@
     "coverage": "yarn test --coverage",
     "styleguide": "FAST_REFRESH=false styleguidist server",
     "styleguide:build": "FAST_REFRESH=false styleguidist build",
-    "analyze": "source-map-explorer 'build/static/js/*.js'"
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "lint:fix": "TIMING=1 eslint src/ --ext .ts --ext .tsx --cache --fix"
   },
   "dependencies": {
     "@apollo/client": "3.x",

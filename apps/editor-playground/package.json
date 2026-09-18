@@ -14,7 +14,8 @@
     "e2e": "BASE_URL=http://localhost:5173 playwright test",
     "coverage": "vitest run --coverage",
     "lint": "oxlint src/ e2e/",
-    "fmt": "oxfmt"
+    "fmt": "oxfmt",
+    "lint:fix": "oxlint --fix src/ e2e/"
   },
   "dependencies": {
     "react": "17.*",
