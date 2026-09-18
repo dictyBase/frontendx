@@ -4,7 +4,6 @@ import {
   $getSelection,
   $isParagraphNode,
   $isTextNode,
-  LexicalEditor,
   LexicalNode,
   TextNode,
   ParagraphNode,
@@ -21,39 +20,6 @@ import {
   $isFlexLayoutNode,
   FlexLayoutNode,
 } from "@dictybase/flex-layout-plugin"
-
-const getDifference = (first: number, second: number) =>
-  Math.abs(first - second)
-
-const getFirstRangeFromSelection = (selection: Selection) =>
-  selection.getRangeAt(0)
-
-const getXCoordinateFromRange = (range: Range) =>
-  range.getBoundingClientRect().x
-
-/**
- * We need some way to represent the position of the selection caret
- * in order to determine where to insert a node. The browser Selection
- * itself has no value that we can use, but a Selection may have a number
- * of Range objects that we can get a DOMRect of. We can then use the X
- * value of the DOMRect. Since a Selection may have multiple Ranges, we
- * can simply use the first Range.
- *
- * @returns the x value of the DOMRect of the first range of the selection
- */
-const getXCoordinateFromDOMSelection = () => {
-  const selection = window.getSelection()
-  if (!selection) return 0
-  return getXCoordinateFromRange(getFirstRangeFromSelection(selection))
-}
-
-const shouldInsertLeft = (
-  left: number,
-  right: number,
-  insertionXCoordinate: number,
-) =>
-  getDifference(insertionXCoordinate, left) <
-  getDifference(insertionXCoordinate, right)
 
 export const getRangeSelectionFromPoint = (x: number, y: number) => {
   const rangeSelection = $createRangeSelection()
@@ -81,9 +47,6 @@ export const getRangeSelectionFromPoint = (x: number, y: number) => {
 
   return rangeSelection
 }
-
-const getElementFromLexicalNode = (editor: LexicalEditor, node: LexicalNode) =>
-  editor.getElementByKey(node.getKey())
 
 const getNearestFlexLayoutAncestor = (
   node: LexicalNode,

@@ -12,7 +12,7 @@ type ShowViewProperties = {
  * @returns The rendered ContentView component.
  */
 const ShowView = ({ data }: ShowViewProperties) => {
-  const { slug, content } = data
+  const { content } = data
   return (
     <Container
       sx={(theme) => ({

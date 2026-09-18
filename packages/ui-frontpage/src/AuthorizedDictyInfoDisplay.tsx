@@ -19,12 +19,10 @@ const StyledIconButton = styled(IconButton)({
 
 type AuthorizedDictyInfoDisplayProperties = {
   content: string
-  slug: string
 }
 
 const AuthorizedDictyInfoDisplay = ({
   content,
-  slug,
 }: AuthorizedDictyInfoDisplayProperties) => {
   const navigate = useNavigate()
   const onClick = () => {
