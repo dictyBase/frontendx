@@ -115,12 +115,8 @@ const navbarItems = {
             link: "/stockcenter",
           },
           {
-            label: "Strain Catalog",
+            label: "Catalog",
             link: "/stockcenter/strains",
-          },
-          {
-            label: "Plasmid Catalog",
-            link: "/stockcenter/plasmids",
           },
           {
             label: "Order Information",
