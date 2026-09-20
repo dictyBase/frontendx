@@ -26,7 +26,7 @@ const useEditorPlaceholderStyles = makeStyles()({
     overflow: "hidden",
     position: "absolute",
     textOverflow: "ellipsis",
-    top: "15px",
+    top: "30px",
     left: "10px",
     fontSize: "15px",
     userSelect: "none",

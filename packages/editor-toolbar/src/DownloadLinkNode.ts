@@ -1,5 +1,9 @@
-import { EditorConfig, NodeKey } from "lexical"
-import { LinkNode, LinkAttributes, SerializedLinkNode } from "@lexical/link"
+import type { EditorConfig, NodeKey } from "lexical"
+import {
+  LinkNode,
+  type LinkAttributes,
+  type SerializedLinkNode,
+} from "@lexical/link"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import {
@@ -72,7 +76,7 @@ class DownloadLinkNode extends LinkNode {
   }
 
   override createDOM(config: EditorConfig) {
-    const element = super.createDOM(config)
+    const element = super.createDOM(config) as HTMLAnchorElement
     pipe(
       this.__download,
       OfromNullable,
@@ -88,7 +92,7 @@ class DownloadLinkNode extends LinkNode {
   }
 
   override updateDOM(
-    previousNode: DownloadLinkNode,
+    previousNode: this,
     anchor: HTMLAnchorElement,
     config: EditorConfig,
   ) {

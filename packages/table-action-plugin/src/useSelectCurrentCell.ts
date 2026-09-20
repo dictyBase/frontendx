@@ -3,11 +3,11 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { $getSelection, $isRangeSelection } from "lexical"
 import { $getTableCellNodeFromLexicalNode } from "@lexical/table"
 import { useSetAtom } from "jotai"
-import { selectedTableCellNode } from "./atomConfigs"
+import { selectedTableCellNodeKey } from "./atomConfigs"
 
 const useSelectCurrentCell = () => {
   const [editor] = useLexicalComposerContext()
-  const setCurrentTableCellNode = useSetAtom(selectedTableCellNode)
+  const setCurrentTableCellNode = useSetAtom(selectedTableCellNodeKey)
 
   useEffect(() => {
     // register a listener for selection command,
@@ -23,12 +23,13 @@ const useSelectCurrentCell = () => {
           const tableCellNode = $getTableCellNodeFromLexicalNode(
             selection.anchor.getNode(),
           )
+          const tableCellKey = tableCellNode?.getKey()
           if (!tableCellNode) {
             setCurrentTableCellNode(undefined)
             return
           }
 
-          setCurrentTableCellNode(tableCellNode)
+          setCurrentTableCellNode(tableCellKey)
         })
       },
     )

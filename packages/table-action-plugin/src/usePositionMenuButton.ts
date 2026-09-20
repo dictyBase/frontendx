@@ -1,18 +1,16 @@
 import { useEffect, useRef } from "react"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { useAtomValue } from "jotai"
-import { selectedTableCellNode } from "./atomConfigs"
+import { selectedTableCellNodeKey } from "./atomConfigs"
 
 const usePositionMenuButton = () => {
-  const tableCellNode = useAtomValue(selectedTableCellNode)
+  const tableCellNodeKey = useAtomValue(selectedTableCellNodeKey)
   const [editor] = useLexicalComposerContext()
   const menuButtonReference = useRef<HTMLButtonElement>(null)
   useEffect(() => {
-    if (!tableCellNode) return
+    if (!tableCellNodeKey) return
 
-    const tableCellAnchorElement = editor.getElementByKey(
-      tableCellNode.getKey(),
-    )
+    const tableCellAnchorElement = editor.getElementByKey(tableCellNodeKey)
     if (!tableCellAnchorElement) return
 
     const menuButtonDOM = menuButtonReference.current
@@ -31,7 +29,7 @@ const usePositionMenuButton = () => {
       menuButtonRectangle.height / 2 +
       window.scrollY
     }px`
-  }, [tableCellNode, editor, menuButtonReference])
+  }, [tableCellNodeKey, editor, menuButtonReference])
 
   return menuButtonReference
 }

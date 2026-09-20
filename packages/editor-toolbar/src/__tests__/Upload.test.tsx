@@ -11,8 +11,8 @@ vi.mock("@logto/react", () => ({
   })),
 }))
 
-const createMockFile = (size: number, name = "test.pdf"): File => {
-  const file = new File(["test content"], name, { type: "application/pdf" })
+const createMockFile = (size: number, name = "test.png"): File => {
+  const file = new File(["test content"], name, { type: "image/png" })
   Object.defineProperty(file, "size", { value: size })
   return file
 }

@@ -1,5 +1,0 @@
-{
-  "extends": "tsconfig/react-library-esm.json",
-  "include": ["."],
-  "exclude": ["dist", "build", "node_modules"]
-}

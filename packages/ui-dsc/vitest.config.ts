@@ -9,5 +9,10 @@ export default defineConfig({
     setupFiles: "./setup.ts",
     mockReset: true,
     testTimeout: 30_000,
+    server: {
+      deps: {
+        inline: ["@lexical/react", "@lexical/devtools-core"],
+      },
+    },
   },
 })

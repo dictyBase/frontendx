@@ -11,10 +11,7 @@ type InfoPageViewProperties = {
 
 const InfoPageView = ({ data }: InfoPageViewProperties) => (
   <Box>
-    <Editor
-      editable={false}
-      content={{ storageKey: data.slug, editorState: data.content }}
-    />
+    <Editor editable={false} initialState={data.content} />
   </Box>
 )
 

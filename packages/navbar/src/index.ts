@@ -1,6 +1,0 @@
-export * from "./components/Brand"
-export * from "./components/Dropdown"
-export * from "./components/Link"
-export * from "./components/MenuIcon"
-export * from "./components/Navbar"
-export * from "./navbarItems"

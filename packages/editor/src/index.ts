@@ -1,2 +1,7 @@
 export { Editor } from "./Editor"
+export { ShowView } from "./ShowView"
+export type { ShowViewProperties } from "./ShowView"
+export * from "./DebugEditor"
+export * from "./editorConfig"
+export * from "./initialStates"
 export * from "./utils"

@@ -10,8 +10,9 @@
     "oxlint:ci": "oxlint src/ --format=github",
     "test": "vitest run",
     "coverage": "vitest run --coverage",
-    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
-    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/image-plugin.json"
+    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx --cache",
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/image-plugin.json",
+    "lint:fix": "TIMING=1 eslint src/ --ext .ts --ext .tsx --cache --fix"
   },
   "devDependencies": {
     "@dictybase/oxlint-config": "*",

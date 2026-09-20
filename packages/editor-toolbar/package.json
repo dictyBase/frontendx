@@ -10,7 +10,8 @@
     "test": "vitest run",
     "coverage": "vitest run --coverage",
     "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
-    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/toolbar.json"
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/toolbar.json",
+    "lint:fix": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache --fix"
   },
   "dependencies": {
     "@dictybase/image-plugin": "*",
@@ -30,7 +31,7 @@
   },
   "devDependencies": {
     "@dictybase/oxlint-config": "*",
-    "@lexical/headless": "^0.11.0",
+    "@lexical/headless": "^0.46.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^12.1.5",
     "eslint-config-custom": "*",

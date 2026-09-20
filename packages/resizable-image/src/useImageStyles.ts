@@ -1,8 +1,6 @@
 import { keyframes } from "@mui/material/styles"
 
 export type StyleProperties = {
-  height: number
-  width: number
   fit: string
   duration: number
   easing: string

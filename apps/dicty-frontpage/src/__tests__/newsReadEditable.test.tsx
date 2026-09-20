@@ -166,4 +166,20 @@ describe("/news/:id/editable", () => {
     render(<RouterProvider router={router} />)
     expect(screen.getByText(/sorry, something went wrong/i)).toBeInTheDocument()
   })
+
+  test("renders fallback when useContentBySlugQuery returns an empty result", () => {
+    mockUseContentBySlugQuery.mockReturnValue({
+      data: undefined,
+      loading: false,
+      error: undefined,
+    })
+
+    const router = createMemoryRouter(routeConfiguration, {
+      initialEntries: [editableRoute],
+    })
+    render(<RouterProvider router={router} />)
+    expect(
+      screen.getByText(/this message should not appear/i),
+    ).toBeInTheDocument()
+  })
 })

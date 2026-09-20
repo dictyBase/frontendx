@@ -1,12 +1,15 @@
-import { LexicalEditor } from "lexical"
+import { $getNodeByKey, LexicalEditor } from "lexical"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import {
-  TableCellNode,
   $getTableNodeFromLexicalNodeOrThrow,
-  $getElementGridForTableNode,
+  $getElementForTableNode,
 } from "@lexical/table"
 import { useAtomValue, useSetAtom, SetStateAction } from "jotai"
-import { selectedTableCellNode, tableActionMenuOpenAtom } from "./atomConfigs"
+import { pipe } from "fp-ts/function"
+import {
+  selectedTableCellNodeKey,
+  tableActionMenuOpenAtom,
+} from "./atomConfigs"
 import {
   deleteTable,
   insertRow,
@@ -17,32 +20,37 @@ import {
 
 const useTableActionContext = (): [
   LexicalEditor,
-  TableCellNode | undefined,
+  string | undefined,
   (update: SetStateAction<boolean>) => void,
 ] => [
   useLexicalComposerContext()[0],
-  useAtomValue(selectedTableCellNode),
+  useAtomValue(selectedTableCellNodeKey),
   useSetAtom(tableActionMenuOpenAtom),
 ]
 
 const useDeleteTable = () => {
-  const [editor, tableCellNode, setIsOpen] = useTableActionContext()
+  const setTableCellKey = useSetAtom(selectedTableCellNodeKey)
+  const [editor, tableCellNodeKey, setIsOpen] = useTableActionContext()
   return () => {
-    deleteTable(editor, tableCellNode)
+    if (!tableCellNodeKey) return
+    deleteTable(editor, tableCellNodeKey)
     setIsOpen(false)
+    setTableCellKey(undefined)
   }
 }
 
 const useInsertRow = () => {
-  const [editor, tableCellNode, setIsOpen] = useTableActionContext()
+  const [editor, tableCellNodeKey, setIsOpen] = useTableActionContext()
 
   const insertRowAbove = () => {
-    insertRow(editor, tableCellNode, { insertAfter: false })
+    if (!tableCellNodeKey) return
+    insertRow(editor, tableCellNodeKey, { insertAfter: false })
     setIsOpen(false)
   }
 
   const insertRowBelow = () => {
-    insertRow(editor, tableCellNode, { insertAfter: true })
+    if (!tableCellNodeKey) return
+    insertRow(editor, tableCellNodeKey, { insertAfter: true })
     setIsOpen(false)
   }
 
@@ -53,46 +61,60 @@ const useInsertRow = () => {
 }
 
 const useInsertColumn = () => {
-  const [editor, tableCellNode, setIsOpen] = useTableActionContext()
+  const [editor, tableCellNodeKey, setIsOpen] = useTableActionContext()
 
   const insertColumnLeft = () => {
-    insertColumn(editor, tableCellNode, { insertAfter: false })
+    if (!tableCellNodeKey) return
+    insertColumn(editor, tableCellNodeKey, { insertAfter: false })
     setIsOpen(false)
   }
 
   const insertColumnRight = () => {
-    insertColumn(editor, tableCellNode, { insertAfter: true })
+    if (!tableCellNodeKey) return
+    insertColumn(editor, tableCellNodeKey, { insertAfter: true })
     setIsOpen(false)
   }
 
   return { insertColumnLeft, insertColumnRight }
 }
 const useDeleteColumn = () => {
-  const [editor, tableCellNode, setIsOpen] = useTableActionContext()
+  const setTableCellKey = useSetAtom(selectedTableCellNodeKey)
+  const [editor, tableCellNodeKey, setIsOpen] = useTableActionContext()
 
   return () => {
-    deleteColumn(editor, tableCellNode)
+    if (!tableCellNodeKey) return
+    deleteColumn(editor, tableCellNodeKey)
+    setTableCellKey(undefined)
     setIsOpen(false)
   }
 }
 
 const useDeleteRow = () => {
-  const [editor, tableCellNode, setIsOpen] = useTableActionContext()
+  const setTableCellKey = useSetAtom(selectedTableCellNodeKey)
+  const [editor, tableCellNodeKey, setIsOpen] = useTableActionContext()
 
   return () => {
-    deleteRow(editor, tableCellNode)
+    if (!tableCellNodeKey) return
+    deleteRow(editor, tableCellNodeKey)
+    setTableCellKey(undefined)
     setIsOpen(false)
   }
 }
 
 const useDisableFunctions = () => {
-  const [editor, tableCellNode] = useTableActionContext()
+  const [editor, tableCellNodeKey] = useTableActionContext()
   let deleteRowDisabled = true
   let deleteColumnDisabled = true
 
   editor.getEditorState().read(() => {
-    if (!tableCellNode) return
-    const grid = $getElementGridForTableNode(
+    if (!tableCellNodeKey) return
+    const tableCellNode = pipe(
+      tableCellNodeKey,
+      $getNodeByKey,
+      $getTableNodeFromLexicalNodeOrThrow,
+    )
+
+    const grid = $getElementForTableNode(
       editor,
       $getTableNodeFromLexicalNodeOrThrow(tableCellNode),
     )

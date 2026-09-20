@@ -15,6 +15,11 @@ const viteConfig = defineConfig({
     testTimeout: 30_000,
     setupFiles: ["./src/__tests__/setup.ts"],
     exclude: ["**/e2e"],
+    server: {
+      deps: {
+        inline: ["@logto/react", "@lexical/react", "@lexical/devtools-core"],
+      },
+    },
   },
 })
 

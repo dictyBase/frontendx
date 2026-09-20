@@ -50,7 +50,7 @@ type EditableViewProperties = {
 }
 
 const EditableView = ({ data }: EditableViewProperties) => {
-  const { updated_at, updated_by, content, slug } = data
+  const { updated_at, updated_by, content } = data
   const editedBy = truncateEmail(updated_by.email)
   const { classes } = useStyles()
   return (
@@ -60,7 +60,7 @@ const EditableView = ({ data }: EditableViewProperties) => {
           <EditableActionBar editedBy={editedBy} updatedAt={updated_at} />
         }
         editable={false}
-        content={{ storageKey: slug, editorState: content }}
+        initialState={content}
       />
     </Container>
   )

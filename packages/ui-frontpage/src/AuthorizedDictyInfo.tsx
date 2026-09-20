@@ -21,9 +21,7 @@ const AuthorizedDictyInfo = ({ queryResult }: AuthorizedDictyInfoProperties) =>
   match(queryResult)
     .with(
       { data: { contentBySlug: P.select({ content: P.string }) } },
-      ({ content, slug }) => (
-        <AuthorizedDictyInfoDisplay content={content} slug={slug} />
-      ),
+      ({ content }) => <AuthorizedDictyInfoDisplay content={content} />,
     )
     .with({ data: { contentBySlug: P.nullish } }, () => <></>)
     .with({ loading: true }, () => (

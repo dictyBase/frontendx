@@ -3,18 +3,13 @@ import { Editor } from "@dictybase/editor"
 
 type StockCenterInfoDisplayProperties = {
   content: string
-  slug: string
 }
 
 const StockCenterInfoDisplay = ({
   content,
-  slug,
 }: StockCenterInfoDisplayProperties) => (
   <Box>
-    <Editor
-      editable={false}
-      content={{ storageKey: slug, editorState: content }}
-    />
+    <Editor editable={false} initialState={content} />
   </Box>
 )
 
