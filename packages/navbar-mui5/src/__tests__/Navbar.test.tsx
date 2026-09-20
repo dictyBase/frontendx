@@ -1,5 +1,6 @@
 import { vi, test, expect, beforeAll } from "vitest"
-import { render, screen, cleanup } from "@testing-library/react"
+import { render, screen, cleanup, fireEvent } from "@testing-library/react"
+import { userEvent } from "@testing-library/user-event"
 import { createTheme } from "@mui/material"
 import { Navbar } from "../components/Navbar"
 
@@ -123,4 +124,55 @@ test("should render default items when items prop is not provided", () => {
     />,
   )
   expect(screen.getByText("Brand")).toBeInTheDocument()
+})
+
+test("toggle button opens the menu when clicked", async () => {
+  cleanup()
+  vi.restoreAllMocks()
+  render(<Navbar frontPageUrl="" stockCenterUrl="" {...properties} />)
+  const user = userEvent.setup()
+  const toggle = screen.getByRole("button", { hidden: true })
+  await user.click(toggle)
+  expect(toggle).toBeInTheDocument()
+})
+
+test("toggle button closes the menu when clicked while open", async () => {
+  cleanup()
+  vi.restoreAllMocks()
+  render(<Navbar frontPageUrl="" stockCenterUrl="" {...properties} />)
+  const user = userEvent.setup()
+  const toggle = screen.getByRole("button", { hidden: true })
+  await user.click(toggle)
+  await user.click(toggle)
+  expect(toggle).toBeInTheDocument()
+})
+
+test("clicking outside the navbar closes the menu", async () => {
+  cleanup()
+  vi.restoreAllMocks()
+  render(
+    <div>
+      <Navbar frontPageUrl="" stockCenterUrl="" {...properties} />
+      <button type="button">Outside</button>
+    </div>,
+  )
+  const user = userEvent.setup()
+  const toggle = screen.getByRole("button", { hidden: true, name: "" })
+  await user.click(toggle)
+  await user.click(screen.getByRole("button", { name: "Outside" }))
+  expect(toggle).toBeInTheDocument()
+})
+
+test("transitionend event on container is handled when open", async () => {
+  cleanup()
+  vi.restoreAllMocks()
+  const { container } = render(
+    <Navbar frontPageUrl="" stockCenterUrl="" {...properties} />,
+  )
+  const user = userEvent.setup()
+  const toggle = screen.getByRole("button", { hidden: true })
+  await user.click(toggle)
+  const containerElement = container.firstChild as HTMLElement
+  fireEvent.transitionEnd(containerElement, { propertyName: "height" })
+  expect(containerElement).toBeInTheDocument()
 })

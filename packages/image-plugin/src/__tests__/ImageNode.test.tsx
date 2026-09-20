@@ -119,6 +119,20 @@ describe("ImageNode", () => {
   test("implements a createDOM method that returns an HTMLElement", () => {
     expect(imageNodeWrapperElement).toBeInstanceOf(HTMLElement)
   })
+  test("updateDOM always returns false", () => {
+    let result: boolean | undefined
+    testEditor.update(() => {
+      const node = new ImageNode({
+        source: "test.jpg",
+        width: 100,
+        height: 100,
+        alignment: ALIGNMENT.LEFT,
+      })
+      result = node.updateDOM()
+    })
+    expect(result).toBe(false)
+  })
+
   test("createDOM applies the theme image className when provided", () => {
     const configWithTheme: EditorConfig = {
       namespace: "test",

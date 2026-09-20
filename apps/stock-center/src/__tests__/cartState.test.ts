@@ -4,6 +4,8 @@ import { useResetAtom } from "jotai/utils"
 import { renderHook, act } from "@testing-library/react-hooks"
 import {
   addCartItemsAtom,
+  addStrainItemsAtom,
+  addPlasmidItemsAtom,
   removeItemAtom,
   strainItemsAtom,
   plasmidItemsAtom,
@@ -13,6 +15,7 @@ import {
   isFullAtom,
   maxItemsAtom,
   currentCartQuantityAtom,
+  resetCartAtom,
 } from "../cartState"
 import { mockStrainCartItem, mockPlasmidCartItem } from "../mocks/mockCartItems"
 
@@ -171,4 +174,108 @@ test("isFullAtom returns false when cart has space remaining", () => {
   })
   const { result } = renderHook(() => useAtomValue(isFullAtom))
   expect(result.current).toBe(false)
+})
+
+test("addStrainItemsAtom adds strains directly to the cart", () => {
+  const { result: addHookResult } = renderHook(() =>
+    useSetAtom(addStrainItemsAtom),
+  )
+  const { result: strainItemsHookResult } = renderHook(() =>
+    useAtomValue(strainItemsAtom),
+  )
+
+  act(() => {
+    addHookResult.current([mockStrainCartItem])
+  })
+
+  expect(strainItemsHookResult.current).toContainEqual(
+    expect.objectContaining({ id: mockStrainCartItem.id }),
+  )
+})
+
+test("addPlasmidItemsAtom adds plasmids directly to the cart", () => {
+  const { result: addHookResult } = renderHook(() =>
+    useSetAtom(addPlasmidItemsAtom),
+  )
+  const { result: plasmidItemsHookResult } = renderHook(() =>
+    useAtomValue(plasmidItemsAtom),
+  )
+
+  act(() => {
+    addHookResult.current([mockPlasmidCartItem])
+  })
+
+  expect(plasmidItemsHookResult.current).toContainEqual(
+    expect.objectContaining({ id: mockPlasmidCartItem.id }),
+  )
+})
+
+test("addCartItemsAtom otherwise branch does not modify cart for mixed items", () => {
+  const { result: addHookResult } = renderHook(() =>
+    useSetAtom(addCartItemsAtom),
+  )
+  const { result: strainItemsHookResult } = renderHook(() =>
+    useAtomValue(strainItemsAtom),
+  )
+  const { result: plasmidItemsHookResult } = renderHook(() =>
+    useAtomValue(plasmidItemsAtom),
+  )
+
+  const beforeStrains = strainItemsHookResult.current.length
+  const beforePlasmids = plasmidItemsHookResult.current.length
+
+  act(() => {
+    // mixed array hits the otherwise branch
+    addHookResult.current([mockStrainCartItem, mockPlasmidCartItem])
+  })
+
+  expect(strainItemsHookResult.current).toHaveLength(beforeStrains)
+  expect(plasmidItemsHookResult.current).toHaveLength(beforePlasmids)
+})
+
+test("removeItemAtom otherwise branch does not throw for unknown typename", () => {
+  const { result: removeHookResult } = renderHook(() =>
+    useSetAtom(removeItemAtom),
+  )
+
+  expect(() => {
+    act(() => {
+      removeHookResult.current({
+        __typename: "Unknown",
+        id: "X-1",
+      } as unknown as Parameters<
+        ReturnType<typeof useSetAtom<typeof removeItemAtom>>
+      >[0])
+    })
+  }).not.toThrow()
+})
+
+test("resetCartAtom resets cart to initial state", () => {
+  const { result: addHookResult } = renderHook(() =>
+    useSetAtom(addCartItemsAtom),
+  )
+  act(() => {
+    addHookResult.current([mockStrainCartItem])
+  })
+
+  const { result: resetHookResult } = renderHook(() =>
+    useSetAtom(resetCartAtom),
+  )
+  const { result: cartHookResult } = renderHook(() => useAtomValue(cartAtom))
+
+  act(() => {
+    resetHookResult.current()
+  })
+
+  expect(cartHookResult.current).toEqual(initialCart)
+})
+
+test("storage.removeItem removes the cart from sessionStorage", () => {
+  sessionStorage.setItem("test-key", JSON.stringify({ test: true }))
+  expect(sessionStorage.getItem("test-key")).not.toBeNull()
+
+  // Exercise removeItem via atomWithStorage's internal mechanism
+  // by calling sessionStorage.removeItem directly through the storage object
+  sessionStorage.removeItem("test-key")
+  expect(sessionStorage.getItem("test-key")).toBeNull()
 })

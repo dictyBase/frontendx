@@ -19,3 +19,8 @@ test("should fire its click handler when clicked", async () => {
   await click(screen.getByRole("button", { hidden: true }))
   expect(mockOnClick).toHaveBeenCalledOnce()
 })
+
+test("should render with open state", () => {
+  render(<MenuIcon {...properties} open />)
+  expect(screen.getByRole("button", { hidden: true })).toBeInTheDocument()
+})

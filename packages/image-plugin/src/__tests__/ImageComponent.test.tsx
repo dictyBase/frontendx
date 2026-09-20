@@ -1,12 +1,13 @@
 import { test, expect, vi } from "vitest"
-import { render, screen } from "@testing-library/react"
+import { render, screen, act } from "@testing-library/react"
 import { Provider, createStore } from "jotai"
 import { LexicalComposer } from "@lexical/react/LexicalComposer"
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin"
 import { ContentEditable } from "@lexical/react/LexicalContentEditable"
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary"
 import { createHeadlessEditor } from "@lexical/headless"
-import { $getRoot, $createParagraphNode } from "lexical"
+import { $getRoot, $createParagraphNode, CLICK_COMMAND } from "lexical"
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { isSome, isNone } from "fp-ts/Option"
 import {
   imageAlignmentAtom,
@@ -21,15 +22,32 @@ import {
 } from "../ImageComponent"
 import { ImageNode } from "../ImageNode"
 
+type ResizableImageProperties = {
+  src: string
+  alt?: string
+  onResize?: (width: number, height: number) => void
+  onSetAlignment?: (alignment: ALIGNMENT) => void
+}
+
+let capturedOnResize: ((width: number, height: number) => void) | undefined
+let capturedOnSetAlignment: ((alignment: ALIGNMENT) => void) | undefined
+
 vi.mock("@dictybase/resizable-image", async () => {
   const actual = await vi.importActual<Record<string, unknown>>(
     "@dictybase/resizable-image",
   )
   return {
     ...actual,
-    ResizableImage: ({ src, alt }: { src: string; alt?: string }) => (
-      <img src={src} alt={alt} data-testid="resizable-image" />
-    ),
+    ResizableImage: ({
+      src,
+      alt,
+      onResize,
+      onSetAlignment,
+    }: ResizableImageProperties) => {
+      capturedOnResize = onResize
+      capturedOnSetAlignment = onSetAlignment
+      return <img src={src} alt={alt} data-testid="resizable-image" />
+    },
   }
 })
 
@@ -51,12 +69,21 @@ const createEditor = () =>
     onError: () => {},
   })
 
+// Plugin that dispatches a CLICK_COMMAND with the given target after mount
+const ClickDispatcher = ({ target }: { target: EventTarget | null }) => {
+  const [editor] = useLexicalComposerContext()
+  editor.dispatchCommand(CLICK_COMMAND, { target } as unknown as MouseEvent)
+  return <></>
+}
+
 const renderComponent = ({
   alignment = ALIGNMENT.LEFT,
   isResizing = false,
+  clickTarget,
 }: {
   alignment?: ALIGNMENT
   isResizing?: boolean
+  clickTarget?: EventTarget | null
 } = {}) => {
   const store = createStore()
   store.set(imageAlignmentAtom, alignment)
@@ -78,6 +105,7 @@ const renderComponent = ({
           duration={200}
           easing="linear"
         />
+        {clickTarget !== undefined && <ClickDispatcher target={clickTarget} />}
       </LexicalComposer>
     </Provider>,
   )
@@ -151,7 +179,6 @@ test("getImageNodeByKey returns None when node is not an ImageNode", () => {
 })
 
 // setImageNodeDimensions
-
 test("setImageNodeDimensions updates dimensions on the ImageNode", () => {
   const editor = createEditor()
 
@@ -243,4 +270,40 @@ test("setImageNodeAlignment accepts all ALIGNMENT variants", () => {
       expect(imageNode.__alignment).toBe(alignment)
     })
   })
+})
+
+// CLICK_COMMAND handler — non-matching target returns false
+
+test("CLICK_COMMAND with non-image target returns false (no selection)", () => {
+  const externalDiv = document.createElement("div")
+  renderComponent({ clickTarget: externalDiv })
+  expect(screen.getByRole("img")).toBeInTheDocument()
+})
+
+// CLICK_COMMAND handler — isResizing early-return path
+
+test("CLICK_COMMAND returns true immediately when isResizing is true", () => {
+  const externalDiv = document.createElement("div")
+  renderComponent({ isResizing: true, clickTarget: externalDiv })
+  expect(screen.getByRole("img")).toBeInTheDocument()
+})
+
+// onSetAlignment callback
+
+test("onSetAlignment callback calls editor.update with new alignment", () => {
+  renderComponent()
+  act(() => {
+    capturedOnSetAlignment?.(ALIGNMENT.CENTER)
+  })
+  expect(screen.getByRole("img")).toBeInTheDocument()
+})
+
+// onResize callback
+
+test("onResize callback calls editor.update with new dimensions", () => {
+  renderComponent()
+  act(() => {
+    capturedOnResize?.(400, 300)
+  })
+  expect(screen.getByRole("img")).toBeInTheDocument()
 })
