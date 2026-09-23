@@ -1,4 +1,5 @@
 import { useState, SyntheticEvent } from "react"
+import { useNavigate } from "react-router-dom"
 import {
   Autocomplete,
   TextField,
@@ -437,15 +438,19 @@ const ENTITY_OPTIONS = [
   "vesicle coat assembly",
 ]
 
-const handleSearch = () => {
-  // no-op for now — query wiring comes later
-}
-
 const SearchPhenotypeForm = () => {
   const [quality, setQuality] = useState("")
   const [entity, setEntity] = useState("")
+  const navigate = useNavigate()
 
   const isWildType = quality === "wild type"
+
+  const handleSearch = () => {
+    const params = new URLSearchParams()
+    if (quality) params.set("quality", quality)
+    if (entity) params.set("entity", entity)
+    navigate({ search: params.toString() })
+  }
 
   const handleQualityChange = (
     _: SyntheticEvent,

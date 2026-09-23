@@ -1,5 +1,5 @@
 import React from "react"
-import { useParams } from "react-router-dom"
+import { useSearchParams, useParams } from "react-router-dom"
 import { P, match } from "ts-pattern"
 import { makeStyles } from "tss-react/mui"
 import { Grid } from "@mui/material"
@@ -22,6 +22,15 @@ const useStyles = makeStyles()({
     marginTop: "20px !important",
   },
 })
+
+// Build phenotype annotation from quality and entity query parameters
+// e.g. quality="abolished", entity="protein phosphorylation" → "abolished protein phosphorylation"
+// e.g. quality="wild type" → "wild type"
+const buildAnnotation = (quality: string, entity: string) => {
+  if (!quality) return ""
+  if (quality === "wild type" || !entity) return quality
+  return `${quality} ${entity}`
+}
 
 // remove "+" from phenotype params to get the proper name
 // i.e. "abolished+protein+phosphorylation" = "abolished protein phosphorylation"
@@ -92,8 +101,11 @@ const useListStrainsWithPhenotype = (phenotype: string) => {
 
 const SearchPhenotypeContainer = () => {
   const { classes } = useStyles()
+  const [searchParams] = useSearchParams()
   const { name } = useParams()
-  const phenotype = cleanQuery(name ?? "")
+  const quality = searchParams.get("quality") ?? ""
+  const entity = searchParams.get("entity") ?? ""
+  const phenotype = buildAnnotation(quality, entity) || cleanQuery(name ?? "")
   const { loading, error, data, loadMoreItems, hasMore, isLoadingMore } =
     useListStrainsWithPhenotype(phenotype)
 
