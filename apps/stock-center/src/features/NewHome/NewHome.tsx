@@ -1,23 +1,45 @@
-import { Box, Typography, Card, CardContent } from "@mui/material"
-import { Link as RouterLink } from "react-router-dom"
+import { Box } from "@mui/material"
 import { infoSections } from "@dictybase/ui-dsc"
 import { GeneralSearch } from "./GeneralSearch"
 import { ResourcesAndInformation } from "./ResourcesAndInformation"
 import { CatalogCard } from "./CatalogCard"
 
-const catalogCards = [
-  { key: "strains", icon: "🧬", title: "Strain Catalog", href: "/strains" },
+type LinkProperties = {
+  label: string
+  href: string
+}
+
+type CatalogCardItem = {
+  key: string
+  icon: string
+  title: string
+  href: string
+  sublinks: Array<LinkProperties>
+}
+const catalogCards: Array<CatalogCardItem> = [
+  {
+    key: "strains",
+    icon: "🧬",
+    title: "Strain Catalog",
+    href: "/strains",
+    sublinks: [
+      { label: "GWDI Strains →", href: "/strains?group=gwdi" },
+      { label: "Bacterial Strains →", href: "/strains?group=bacterial" },
+    ],
+  },
   {
     key: "plasmids",
     icon: "🧪",
     title: "Plasmid Catalog",
     href: "/plasmids",
+    sublinks: [],
   },
   {
     key: "phenotypes",
     icon: "🔬",
     title: "Phenotype Search",
     href: "/phenotypes",
+    sublinks: [],
   },
 ] as const
 
@@ -46,8 +68,14 @@ const NewHome = () => (
         justifyContent: "center",
         flexWrap: "wrap",
       }}>
-      {catalogCards.map(({ key, icon, title, href }) => (
-        <CatalogCard key={key} icon={icon} title={title} href={href} />
+      {catalogCards.map(({ key, icon, title, href, sublinks }) => (
+        <CatalogCard
+          key={key}
+          icon={icon}
+          title={title}
+          href={href}
+          sublinks={sublinks}
+        />
       ))}
     </Box>
     <Box
