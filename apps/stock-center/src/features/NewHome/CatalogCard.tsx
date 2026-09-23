@@ -1,4 +1,6 @@
 import { Typography, Card, CardContent, List, ListItem } from "@mui/material"
+import { pipe } from "fp-ts/function"
+import { map as Amap } from "fp-ts/Array"
 import { useNavigate } from "react-router-dom"
 import { NestedLink } from "./NestedLink"
 
@@ -6,7 +8,7 @@ type CatalogCardProperties = {
   icon: string
   title: string
   href: string
-  sublinks?: Array<{
+  sublinks: Array<{
     label: string
     href: string
   }>
@@ -48,7 +50,6 @@ const CatalogCard = ({
           flex: 1,
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
           justifyContent: "stretch",
           gap: 2,
           p: 4,
@@ -61,12 +62,19 @@ const CatalogCard = ({
             fontSize: "1.15rem",
             fontWeight: 700,
             color: "#1a202c",
-            textAlign: "center",
           }}>
           {title}
         </Typography>
         <List sx={{ width: "100%" }}>
-          <ListItem sx={{ px: 0 }}>
+          {pipe(
+            sublinks,
+            Amap(({ label, href: subHref }) => (
+              <ListItem sx={{ px: 0, py: 0.5 }}>
+                <NestedLink href={subHref}>{label}</NestedLink>
+              </ListItem>
+            )),
+          )}
+          <ListItem sx={{ px: 0, py: 0.5 }}>
             <NestedLink href={href}>Explore →</NestedLink>
           </ListItem>
         </List>
