@@ -32,7 +32,9 @@ const catalogCards: Array<CatalogCardItem> = [
     icon: "🧪",
     title: "Plasmid Catalog",
     href: "/plasmids",
-    sublinks: [],
+    sublinks: [
+      { label: "Goldenbraid Plasmids →", href: "/plasmids?group=goldenbraid" },
+    ],
   },
   {
     key: "phenotypes",
