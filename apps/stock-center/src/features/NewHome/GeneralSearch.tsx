@@ -78,6 +78,7 @@ const GeneralSearch = () => {
             activeIndex={activeIndex}
             isLoading={isLoading}
             hasResults={hasResults}
+            searchTerm={searchTerm}
           />
         </Box>
       </ClickAwayListener>

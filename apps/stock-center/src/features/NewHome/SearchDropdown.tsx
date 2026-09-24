@@ -11,6 +11,7 @@ type SearchDropdownProperties = {
   activeIndex: number
   isLoading: boolean
   hasResults: boolean
+  searchTerm: string
 }
 
 const SearchDropdown = ({
@@ -20,6 +21,7 @@ const SearchDropdown = ({
   activeIndex,
   isLoading,
   hasResults,
+  searchTerm,
 }: SearchDropdownProperties) => (
   <Box>
     <Popper
@@ -84,7 +86,13 @@ const SearchDropdown = ({
               )}
             </>
           ))
-          .otherwise(() => undefined)}
+          .otherwise(() => (
+            <Box sx={{ textAlign: "center", py: 3 }}>
+              <Typography sx={{ fontSize: "0.875rem", color: "#718096" }}>
+                No results for &ldquo;{searchTerm}&rdquo;
+              </Typography>
+            </Box>
+          ))}
       </Paper>
     </Popper>
   </Box>
