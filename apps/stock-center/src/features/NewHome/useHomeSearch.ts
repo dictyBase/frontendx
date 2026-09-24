@@ -43,7 +43,13 @@ const createKeyDownHandler =
       return
     }
 
-    if (!open || navItems.length === 0) return
+    if (!open || navItems.length === 0) {
+      if (event.key === "Escape") {
+        setOpen(false)
+        setActiveIndex(-1)
+      }
+      return
+    }
 
     if (event.key === "ArrowDown") {
       event.preventDefault()
