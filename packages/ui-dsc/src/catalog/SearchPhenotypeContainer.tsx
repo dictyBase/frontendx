@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react"
-import { useSearchParams, useParams } from "react-router-dom"
+import { useSearchParams } from "react-router-dom"
 import { P, match } from "ts-pattern"
 import { pipe } from "fp-ts/function"
 import {
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
+import { trim as Strim } from "fp-ts/string"
 import { makeStyles } from "tss-react/mui"
 import { Grid } from "@mui/material"
 import { PageLayout, FullPageLoadingDisplay } from "@dictybase/ui-common"
@@ -14,6 +15,9 @@ import { ErrorPageWrapper } from "../ErrorPageWrapper"
 import { SearchResultsHeader } from "./SearchResultsHeader"
 import { SearchPhenotypeList } from "./SearchPhenotypeList"
 import { SearchPhenotypeForm } from "./SearchPhenotypeForm"
+import { PhenotypeEmptyDisplay } from "./PhenotypeEmptyDisplay"
+import { PhenotypeNoResultsDisplay } from "./PhenotypeNoResultsDisplay"
+import { hasNotFoundError } from "../utils/hasNotFoundError"
 
 const useStyles = makeStyles()({
   container: {
@@ -31,15 +35,8 @@ const useStyles = makeStyles()({
 // Build phenotype annotation from quality and entity query parameters
 // e.g. quality="abolished", entity="protein phosphorylation" → "abolished protein phosphorylation"
 // e.g. quality="wild type" → "wild type"
-const buildAnnotation = (quality: string, entity: string) => {
-  if (!quality) return ""
-  if (quality === "wild type" || !entity) return quality
-  return `${quality} ${entity}`
-}
-
-// remove "+" from phenotype params to get the proper name
-// i.e. "abolished+protein+phosphorylation" = "abolished protein phosphorylation"
-const cleanQuery = (phenotype: string) => phenotype.split("+").join(" ")
+const buildAnnotation = (quality: string, entity: string) =>
+  pipe(`${quality} ${entity}`, Strim)
 
 const dataPattern = {
   data: {
@@ -63,6 +60,7 @@ const useListStrainsWithPhenotype = (phenotype: string) => {
       type: "phenotype",
       annotation: phenotype,
     },
+    skip: !phenotype,
     errorPolicy: "all",
   })
   const loadMoreItems = async () => {
@@ -109,8 +107,7 @@ const useListStrainsWithPhenotype = (phenotype: string) => {
 
 const SearchPhenotypeContainer = () => {
   const { classes } = useStyles()
-  const [searchParameters] = useSearchParams()
-  const { name } = useParams()
+  const [searchParameters, setSearchParameters] = useSearchParams()
   // const quality = searchParameters.get("quality") ?? ""
   const quality = pipe(
     searchParameters.get("quality"),
@@ -122,7 +119,13 @@ const SearchPhenotypeContainer = () => {
     OfromNullable,
     OgetOrElse(() => ""),
   )
-  const phenotype = buildAnnotation(quality, entity) || cleanQuery(name ?? "")
+  const phenotype = buildAnnotation(quality, entity)
+  useEffect(() => {
+    if (!phenotype)
+      setSearchParameters(() => new URLSearchParams({ quality: "wild type" }), {
+        replace: true,
+      })
+  }, [phenotype, setSearchParameters])
   const { loading, error, data, loadMoreItems, hasMore, isLoadingMore } =
     useListStrainsWithPhenotype(phenotype)
 
@@ -139,6 +142,12 @@ const SearchPhenotypeContainer = () => {
         </Grid>
         <Grid item xs={12}>
           {match({ loading, error, data })
+            .with(
+              {
+                data: { listStrainsWithAnnotation: { totalCount: 0 } },
+              },
+              () => <PhenotypeNoResultsDisplay phenotype={phenotype} />,
+            )
             .with(dataPattern, ({ totalCount, strains }) => (
               <SearchPhenotypeList
                 loadMore={loadMoreItems}
@@ -149,11 +158,14 @@ const SearchPhenotypeContainer = () => {
               />
             ))
             .with({ loading: true }, () => <FullPageLoadingDisplay />)
+            .with({ error: P.when(hasNotFoundError) }, () => (
+              <PhenotypeNoResultsDisplay phenotype={phenotype} />
+            ))
             .with({ error: P.select(P.not(undefined)) }, (error_) => (
               <ErrorPageWrapper error={error_} />
             ))
             .otherwise(() => (
-              <> This message should not appear. </>
+              <PhenotypeEmptyDisplay />
             ))}
         </Grid>
       </Grid>
