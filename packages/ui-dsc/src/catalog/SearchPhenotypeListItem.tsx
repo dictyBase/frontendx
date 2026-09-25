@@ -61,10 +61,9 @@ type SearchPhenotypeListItemProperties = {
     ListStrainsWithPhenotypeQuery["listStrainsWithAnnotation"]
   >["strains"][number]
 }
-const hasName = flow(
-  ({ name }: Pick<Gene, "name" | "__typename">) => name,
-  not(SisEmpty),
-)
+
+type AssociatedGene = Pick<Gene, "name" | "__typename">
+const hasName = flow(({ name }: AssociatedGene) => name, not(SisEmpty))
 
 const SearchPhenotypeListItem = ({
   strain,
@@ -76,7 +75,7 @@ const SearchPhenotypeListItem = ({
     strain.genes,
     OfromNullable,
     Omap(Afilter(hasName)),
-    OgetOrElse(() => [] as Array<Pick<Gene, "name" | "__typename">>),
+    OgetOrElse(() => [] as Array<AssociatedGene>),
   )
 
   return (
