@@ -1,4 +1,11 @@
-import { Typography, Card, CardContent, List, ListItem } from "@mui/material"
+import {
+  Typography,
+  Card,
+  CardContent,
+  List,
+  ListItem,
+  Stack,
+} from "@mui/material"
 import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
 import { useNavigate } from "react-router-dom"
@@ -55,16 +62,24 @@ const CatalogCard = ({
           p: 4,
           "&:last-child": { pb: 4 },
         }}>
-        <Typography sx={{ fontSize: "3rem", lineHeight: 1 }}>{icon}</Typography>
-        <Typography
-          variant="h3"
-          sx={{
-            fontSize: "1.15rem",
-            fontWeight: 700,
-            color: "#1a202c",
-          }}>
-          {title}
-        </Typography>
+        <Stack
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="center"
+          spacing={1}>
+          <Typography sx={{ fontSize: "3rem", lineHeight: 1 }}>
+            {icon}
+          </Typography>
+          <Typography
+            variant="h3"
+            sx={{
+              fontSize: "1.15rem",
+              fontWeight: 700,
+              color: "#1a202c",
+            }}>
+            {title}
+          </Typography>
+        </Stack>
         <List sx={{ width: "100%" }}>
           {pipe(
             sublinks,
