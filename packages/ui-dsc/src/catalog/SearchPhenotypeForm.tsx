@@ -1,4 +1,4 @@
-import { useState, SyntheticEvent } from "react"
+import { useState, useEffect, SyntheticEvent } from "react"
 import { useSearchParams } from "react-router-dom"
 import {
   Autocomplete,
@@ -14,6 +14,11 @@ const SearchPhenotypeForm = () => {
   const [searchParameters, setSearchParameters] = useSearchParams()
   const [quality, setQuality] = useState(searchParameters.get("quality"))
   const [entity, setEntity] = useState(searchParameters.get("entity"))
+
+  useEffect(() => {
+    setQuality(searchParameters.get("quality"))
+    setEntity(searchParameters.get("entity"))
+  }, [searchParameters])
 
   const isWildType = quality === "wild type"
 
@@ -52,7 +57,7 @@ const SearchPhenotypeForm = () => {
   }
 
   return (
-    <Grid container spacing={2} alignItems="center" justifyContent="center">
+    <Grid container spacing={2} alignItems="flex-start" justifyContent="center">
       <Grid item xs={12} sm={4}>
         <Autocomplete
           value={quality}
@@ -64,9 +69,6 @@ const SearchPhenotypeForm = () => {
               label="Quality"
               size="small"
               variant="outlined"
-              helperText={
-                isWildType ? "No entity needed for wild type" : undefined
-              }
             />
           )}
         />
