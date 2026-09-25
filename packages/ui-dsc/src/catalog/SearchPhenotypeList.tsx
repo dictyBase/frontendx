@@ -67,7 +67,6 @@ const SearchPhenotypeList = ({
     onIntersection,
     option: { threshold: 0.1 },
   })
-  console.log(hasMore)
   return (
     <>
       <Paper>
