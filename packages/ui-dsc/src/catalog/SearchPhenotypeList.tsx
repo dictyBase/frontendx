@@ -1,10 +1,12 @@
-import { useRef } from "react"
+import { useRef, useCallback } from "react"
 import { makeStyles } from "tss-react/mui"
 import Paper from "@mui/material/Paper"
 import List from "@mui/material/List"
-import CircularProgress from "@mui/material/CircularProgress"
+import LinearProgress from "@mui/material/LinearProgress"
 import { useIntersectionObserver } from "@dictybase/hook"
 import { ListStrainsWithPhenotypeQuery } from "dicty-graphql-schema"
+import { pipe } from "fp-ts/function"
+import { match as Bmatch } from "fp-ts/boolean"
 import { SearchPhenotypeListHeader } from "./SearchPhenotypeListHeader"
 import { SearchPhenotypeListItem } from "./SearchPhenotypeListItem"
 
@@ -54,15 +56,17 @@ const SearchPhenotypeList = ({
 }: SearchPhenotypeListProperties) => {
   const { classes } = useStyles()
   const targetReference = useRef<HTMLDivElement>(null)
-  const onIntersection = () => {
-    if (hasMore) loadMore()
-  }
+  const onIntersection = useCallback(
+    ([entry]: IntersectionObserverEntry[]) => {
+      if (entry?.isIntersecting && hasMore && !isLoadingMore) loadMore()
+    },
+    [hasMore, loadMore, isLoadingMore],
+  )
   useIntersectionObserver({
     target: targetReference,
     onIntersection,
     option: { threshold: 0.1 },
   })
-
   return (
     <>
       <Paper>
@@ -71,10 +75,15 @@ const SearchPhenotypeList = ({
           {data.map((item) => (
             <SearchPhenotypeListItem key={item.id} strain={item} />
           ))}
-          <div ref={targetReference} />
+          {pipe(
+            hasMore,
+            Bmatch(
+              () => <></>,
+              () => <LinearProgress ref={targetReference} />,
+            ),
+          )}
         </List>
       </Paper>
-      {isLoadingMore && <CircularProgress className={classes.spinner} />}
       <div className={classes.totalCount}>Displaying {totalCount} results</div>
     </>
   )

@@ -15,7 +15,6 @@ type StrainWithAnnotation = NonNullable<
   ListStrainsWithPhenotypeQuery["listStrainsWithAnnotation"]
 >["strains"][number]
 
-const mockParameters = "abolished+protein+phosphorylation"
 const annotationString = "abolished protein phosphorylation"
 const skeletonLoaderString = "skeleton-loader"
 
@@ -25,9 +24,13 @@ vi.mock("react-router-dom", async () => {
     await vi.importActual<typeof import("react-router-dom")>("react-router-dom")
   return {
     ...originalModule,
-    useParams: () => ({
-      name: mockParameters,
-    }),
+    useSearchParams: () => [
+      new URLSearchParams({
+        quality: "abolished",
+        entity: "protein phosphorylation",
+      }),
+      vi.fn(),
+    ],
   }
 })
 
@@ -231,7 +234,7 @@ describe("features/Stocks/SearchResults/PhenotypeContainer", () => {
         },
       },
     ]
-    test("displays error message", async () => {
+    test("displays no results display for NotFound error", async () => {
       render(
         <MockedProvider
           mocks={mocks as unknown as ReadonlyArray<MockedResponse>}>
@@ -242,12 +245,96 @@ describe("features/Stocks/SearchResults/PhenotypeContainer", () => {
       )
       // displays loading skeleton first
       expect(screen.getByTestId(skeletonLoaderString)).toBeInTheDocument()
-      // wait for error message to load...
-      const errorMessage = await screen.findByText(/not found/i)
-      expect(errorMessage).toBeInTheDocument()
+      // NotFound errors show the no-results display
+      const noResults = await screen.findByText(
+        /No strains found with phenotype/,
+      )
+      expect(noResults).toBeInTheDocument()
+    })
+    const genericMocks = [
+      {
+        request: {
+          query: ListStrainsWithPhenotypeDocument,
+          variables: {
+            cursor: 0,
+            limit: 50,
+            type: "phenotype",
+            annotation: annotationString,
+          },
+        },
+        result: {
+          errors: [
+            {
+              message: "Internal Server Error",
+              path: [],
+              extensions: { code: "INTERNAL_SERVER_ERROR" },
+              locations: undefined,
+              nodes: undefined,
+              source: undefined,
+              positions: undefined,
+              originalError: undefined,
+              name: "",
+            },
+          ],
+        },
+      },
+    ]
+    test("displays error wrapper for non-NotFound errors", async () => {
+      render(
+        <MockedProvider
+          mocks={genericMocks as unknown as ReadonlyArray<MockedResponse>}>
+          <BrowserRouter>
+            <SearchPhenotypeContainer />
+          </BrowserRouter>
+        </MockedProvider>,
+      )
+      // displays loading skeleton first
+      expect(screen.getByTestId(skeletonLoaderString)).toBeInTheDocument()
+      // wait for error display to appear
+      const errorDisplay = await screen.findByText(/Refresh the page/i)
+      expect(errorDisplay).toBeInTheDocument()
     })
   })
-  describe("fallback", () => {
+  describe("no results", () => {
+    const mocks = [
+      {
+        request: {
+          query: ListStrainsWithPhenotypeDocument,
+          variables: {
+            cursor: 0,
+            limit: 50,
+            type: "phenotype",
+            annotation: annotationString,
+          },
+        },
+        result: {
+          data: {
+            listStrainsWithAnnotation: {
+              totalCount: 0,
+              nextCursor: 0,
+              strains: [],
+            },
+          },
+        },
+      },
+    ]
+    test("displays no results message when search returns zero strains", async () => {
+      render(
+        <MockedProvider
+          mocks={mocks as unknown as ReadonlyArray<MockedResponse>}>
+          <BrowserRouter>
+            <SearchPhenotypeContainer />
+          </BrowserRouter>
+        </MockedProvider>,
+      )
+      // displays loading skeleton first
+      expect(screen.getByTestId(skeletonLoaderString)).toBeInTheDocument()
+      // wait for the no-results message
+      const noResults = await screen.findByText(/No strains found with phenotype/)
+      expect(noResults).toBeInTheDocument()
+    })
+  })
+  describe("empty state when no phenotype", () => {
     const mocks = [
       {
         request: {
@@ -264,7 +351,7 @@ describe("features/Stocks/SearchResults/PhenotypeContainer", () => {
         },
       },
     ]
-    test("returns a fallback message if there loading, data, and error are undefined", async () => {
+    test("displays prompt to select quality and entity when data is undefined", async () => {
       render(
         <MockedProvider
           mocks={mocks as unknown as ReadonlyArray<MockedResponse>}>
@@ -273,10 +360,10 @@ describe("features/Stocks/SearchResults/PhenotypeContainer", () => {
           </BrowserRouter>
         </MockedProvider>,
       )
-      const fallbackMessage = await screen.findByText(
-        /This message should not appear/,
+      const promptMessage = await screen.findByText(
+        /Select a Quality and Entity/,
       )
-      expect(fallbackMessage).toBeInTheDocument()
+      expect(promptMessage).toBeInTheDocument()
     })
   })
 })
