@@ -28,8 +28,23 @@ const ResourcesAndInformation = ({
                 Amap(({ href, label }) => (
                   <ListItem
                     key={href}
-                    sx={{ p: 0, mb: 1, "&:last-child": { mb: 0 } }}>
-                    <Link to={href}>{label}</Link>
+                    sx={{
+                      p: 0,
+                      mb: 1,
+                      "&:last-child": { mb: 0 },
+                    }}>
+                    <Typography
+                      component={Link}
+                      to={href}
+                      sx={{
+                        // color: "#3182ce",
+                        "&:hover": {
+                          color: "#1a56db",
+                          textDecoration: "underline",
+                        },
+                      }}>
+                      {label}
+                    </Typography>
                   </ListItem>
                 )),
               )}
