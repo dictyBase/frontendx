@@ -1,6 +1,11 @@
-import React from "react"
+import { useState, useEffect } from "react"
 import { useSearchParams, useParams } from "react-router-dom"
 import { P, match } from "ts-pattern"
+import { pipe } from "fp-ts/function"
+import {
+  fromNullable as OfromNullable,
+  getOrElse as OgetOrElse,
+} from "fp-ts/Option"
 import { makeStyles } from "tss-react/mui"
 import { Grid } from "@mui/material"
 import { PageLayout, FullPageLoadingDisplay } from "@dictybase/ui-common"
@@ -48,9 +53,9 @@ const dataPattern = {
  * Custom hook to handle all fetching/refetching logic
  * */
 const useListStrainsWithPhenotype = (phenotype: string) => {
-  const [hasMore, setHasMore] = React.useState(true)
-  const [isLoadingMore, setIsLoadingMore] = React.useState(false)
-  const [previousCursor, setPreviousCursor] = React.useState(0)
+  const [hasMore, setHasMore] = useState(true)
+  const [isLoadingMore, setIsLoadingMore] = useState(false)
+  const [previousCursor, setPreviousCursor] = useState(0)
   const { loading, error, data, fetchMore } = useListStrainsWithPhenotypeQuery({
     variables: {
       cursor: 0,
@@ -80,10 +85,13 @@ const useListStrainsWithPhenotype = (phenotype: string) => {
     if (result.data) {
       setIsLoadingMore(false)
     }
-    if (result.data?.listStrainsWithAnnotation?.nextCursor === 0) {
+  }
+
+  useEffect(() => {
+    if (data?.listStrainsWithAnnotation?.nextCursor === 0) {
       setHasMore(false)
     }
-  }
+  }, [data, setHasMore])
 
   return {
     loading,
@@ -101,10 +109,19 @@ const useListStrainsWithPhenotype = (phenotype: string) => {
 
 const SearchPhenotypeContainer = () => {
   const { classes } = useStyles()
-  const [searchParams] = useSearchParams()
+  const [searchParameters] = useSearchParams()
   const { name } = useParams()
-  const quality = searchParams.get("quality") ?? ""
-  const entity = searchParams.get("entity") ?? ""
+  // const quality = searchParameters.get("quality") ?? ""
+  const quality = pipe(
+    searchParameters.get("quality"),
+    OfromNullable,
+    OgetOrElse(() => ""),
+  )
+  const entity = pipe(
+    searchParameters.get("entity"),
+    OfromNullable,
+    OgetOrElse(() => ""),
+  )
   const phenotype = buildAnnotation(quality, entity) || cleanQuery(name ?? "")
   const { loading, error, data, loadMoreItems, hasMore, isLoadingMore } =
     useListStrainsWithPhenotype(phenotype)
@@ -115,10 +132,10 @@ const SearchPhenotypeContainer = () => {
       metaContent={`Dicty Stock Center search results for strains with ${phenotype}`}>
       <Grid container className={classes.container}>
         <Grid item xs={12} className={classes.gridItem}>
-          <SearchPhenotypeForm />
+          <SearchResultsHeader property="Phenotype" description={phenotype} />
         </Grid>
         <Grid item xs={12} className={classes.gridItem}>
-          <SearchResultsHeader property="Phenotype" description={phenotype} />
+          <SearchPhenotypeForm />
         </Grid>
         <Grid item xs={12}>
           {match({ loading, error, data })
