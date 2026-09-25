@@ -56,7 +56,6 @@ const SearchPhenotypeList = ({
 }: SearchPhenotypeListProperties) => {
   const { classes } = useStyles()
   const targetReference = useRef<HTMLDivElement>(null)
-  const rootReference = useRef<HTMLDivElement>(null)
   const onIntersection = useCallback(
     ([entry]: IntersectionObserverEntry[]) => {
       if (entry?.isIntersecting && hasMore && !isLoadingMore) loadMore()
@@ -68,9 +67,10 @@ const SearchPhenotypeList = ({
     onIntersection,
     option: { threshold: 0.1 },
   })
+  console.log(hasMore)
   return (
     <>
-      <Paper ref={rootReference}>
+      <Paper>
         <SearchPhenotypeListHeader />
         <List className={classes.list}>
           {data.map((item) => (
