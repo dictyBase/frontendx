@@ -9,7 +9,9 @@ const mockLoadMore = vi.fn()
 
 vi.mock("@dictybase/hook", () => ({
   useIntersectionObserver: vi.fn((params: any) => {
-    params.onIntersection([{ isIntersecting: true } as IntersectionObserverEntry])
+    params.onIntersection([
+      { isIntersecting: true } as IntersectionObserverEntry,
+    ])
   }),
 }))
 
