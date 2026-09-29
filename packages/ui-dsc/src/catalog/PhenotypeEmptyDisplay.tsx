@@ -14,8 +14,8 @@ const useStyles = makeStyles()({
 })
 
 /**
- * Displayed when no phenotype annotation has been selected. Prompts the user
- * to pick a Quality and Entity from the search form above.
+ * Displayed when no phenotype has been entered in the search form. Prompts
+ * the user to enter a phenotype above to search for matching strains.
  */
 const PhenotypeEmptyDisplay = () => {
   const { classes } = useStyles()
@@ -28,7 +28,7 @@ const PhenotypeEmptyDisplay = () => {
         </Grid>
         <Grid item>
           <Typography variant="body2" data-testid="phenotype-empty-display">
-            Select a Quality and Entity to search for strains with a phenotype
+            Enter a phenotype above to search for strains
           </Typography>
         </Grid>
       </Grid>
