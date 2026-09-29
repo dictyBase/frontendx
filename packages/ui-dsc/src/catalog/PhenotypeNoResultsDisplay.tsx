@@ -38,7 +38,7 @@ const PhenotypeNoResultsDisplay = ({
         <Grid item>
           <Typography variant="body2" data-testid="phenotype-no-results">
             No strains found with phenotype&nbsp;
-            <span className={classes.phenotype}>"{phenotype}"</span>
+            <span className={classes.phenotype}>{`"${phenotype}"`}</span>
           </Typography>
         </Grid>
       </Grid>
