@@ -2,12 +2,10 @@ import { Link } from "react-router-dom"
 import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
 import ListItem from "@mui/material/ListItem"
-import { Phenotype } from "dicty-graphql-schema"
-import { pipe } from "fp-ts/function"
-import { startsWith as SstartsWith, slice as Sslice } from "fp-ts/string"
-import { findFirst as AfindFirst } from "fp-ts/Array"
-import { map as Omap, getOrElse as OgetOrElse } from "fp-ts/Option"
-import { QUALITY_OPTIONS } from "../const"
+import type { Phenotype } from "dicty-graphql-schema"
+import { flow } from "fp-ts/function"
+import { split as Ssplit, Monoid as SMonoid } from "fp-ts/string"
+import { intercalate as RNEAintercalate } from "fp-ts/ReadonlyNonEmptyArray"
 import { PublicationDisplay } from "./PublicationDisplay"
 import { useStyles } from "./phenotypeStyles"
 
@@ -17,30 +15,17 @@ type Properties = {
 }
 
 /**
- * Split a phenotype annotation string into quality and entity search params.
- * Uses known quality options as prefixes to determine the split point.
+ * Encode a phenotype annotation string for use as a URL path segment.
+ * Replaces spaces with "+" so the resulting URL parameter can be
+ * decoded back to the original annotation.
  *
- * @param phenotype - The full phenotype annotation string.
- * @returns A query string with quality and (optionally) entity params.
- *
- * e.g. "abolished protein phosphorylation" → "?quality=abolished&entity=protein+phosphorylation"
- * e.g. "wild type" → "?quality=wild+type"
+ * e.g. "abolished protein phosphorylation" → "abolished+protein+phosphorylation"
+ * e.g. "wild type" → "wild+type"
  */
-const phenotypeToSearchParameters = (phenotype: string) =>
-  pipe(
-    QUALITY_OPTIONS,
-    AfindFirst((q) => pipe(phenotype, SstartsWith(`${q} `))),
-    Omap(
-      (quality) =>
-        new URLSearchParams({
-          quality,
-          entity: pipe(phenotype, Sslice(quality.length + 1, phenotype.length)),
-        }),
-    ),
-    OgetOrElse(() => new URLSearchParams({ quality: phenotype })),
-    (parameters) => `?${parameters.toString()}`,
-  )
-
+const encodePhenotypeParameter = flow(
+  Ssplit("+"),
+  RNEAintercalate(SMonoid)(" "),
+)
 /**
  * PhenotypeListItem handles the display of an individual
  * row of phenotype data.
@@ -55,7 +40,7 @@ const StrainPhenotypeListItem = ({ data }: Properties) => {
         <Grid item xs={3} className={classes.item}>
           <Typography variant="body2">
             <Link
-              to={`/phenotypes${phenotypeToSearchParameters(data.phenotype)}`}>
+              to={`/phenotypes/${encodePhenotypeParameter(data.phenotype)}`}>
               {data.phenotype}
             </Link>
           </Typography>
