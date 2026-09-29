@@ -2,16 +2,15 @@ import { Link } from "react-router-dom"
 import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
 import ListItem from "@mui/material/ListItem"
-import { Phenotype } from "dicty-graphql-schema"
+import type { Phenotype } from "dicty-graphql-schema"
 import { PublicationDisplay } from "./PublicationDisplay"
 import { useStyles } from "./phenotypeStyles"
+import { encodePhenotypeParameter } from "../utils/encodePhenotypeParameter"
 
 type Properties = {
   /** Phenotype data object */
   data: Phenotype
 }
-
-const replaceSpaces = (phenotype: string) => phenotype.split(" ").join("+")
 
 /**
  * PhenotypeListItem handles the display of an individual
@@ -26,7 +25,8 @@ const StrainPhenotypeListItem = ({ data }: Properties) => {
       <Grid container spacing={0} alignItems="center">
         <Grid item xs={3} className={classes.item}>
           <Typography variant="body2">
-            <Link to={`/phenotypes/${replaceSpaces(data.phenotype)}`}>
+            <Link
+              to={`/phenotypes/${encodePhenotypeParameter(data.phenotype)}`}>
               {data.phenotype}
             </Link>
           </Typography>

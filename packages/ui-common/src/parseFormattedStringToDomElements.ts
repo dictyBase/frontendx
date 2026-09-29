@@ -68,7 +68,7 @@ const parseFormattedStringToDomElements = (s: string): Array<ReactNode> => {
     Amap((matches) =>
       createElement(
         matches[1] as string,
-        null,
+        { key: `${matches[1]}-${matches[2]}` },
         parseFormattedStringToDomElements(matches[2] as string),
       ),
     ),

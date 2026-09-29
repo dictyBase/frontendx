@@ -24,6 +24,7 @@ test("StrainPhenotypeListItem component renders correctly", () => {
 
   const phenotypeLink = screen.getByRole("link", { name: "Test Phenotype" })
   expect(phenotypeLink).toBeInTheDocument()
+  expect(phenotypeLink).toHaveAttribute("href", "/phenotypes/Test+Phenotype")
 
   const note = screen.getByText("Test Note")
   expect(note).toBeInTheDocument()

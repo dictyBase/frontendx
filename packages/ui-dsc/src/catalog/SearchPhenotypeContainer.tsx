@@ -1,4 +1,4 @@
-import React from "react"
+import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { P, match } from "ts-pattern"
 import { makeStyles } from "tss-react/mui"
@@ -8,6 +8,11 @@ import { useListStrainsWithPhenotypeQuery } from "dicty-graphql-schema"
 import { ErrorPageWrapper } from "../ErrorPageWrapper"
 import { SearchResultsHeader } from "./SearchResultsHeader"
 import { SearchPhenotypeList } from "./SearchPhenotypeList"
+import { SearchPhenotypeForm } from "./SearchPhenotypeForm"
+import { PhenotypeEmptyDisplay } from "./PhenotypeEmptyDisplay"
+import { PhenotypeNoResultsDisplay } from "./PhenotypeNoResultsDisplay"
+import { hasNotFoundError } from "../utils/hasNotFoundError"
+import { cleanQuery } from "../utils/cleanQuery"
 
 const useStyles = makeStyles()({
   container: {
@@ -17,14 +22,7 @@ const useStyles = makeStyles()({
     marginTop: "10px",
     marginBottom: "20px",
   },
-  resultsText: {
-    marginTop: "20px !important",
-  },
 })
-
-// remove "+" from phenotype params to get the proper name
-// i.e. "abolished+protein+phosphorylation" = "abolished protein phosphorylation"
-const cleanQuery = (phenotype: string) => phenotype.split("+").join(" ")
 
 const dataPattern = {
   data: {
@@ -34,13 +32,16 @@ const dataPattern = {
     },
   },
 }
+
 /**
- * Custom hook to handle all fetching/refetching logic
- * */
+ * Custom hook to handle all fetching/refetching logic for strains with a
+ * given phenotype annotation.
+ * @param phenotype the phenotype annotation used to filter strains
+ */
 const useListStrainsWithPhenotype = (phenotype: string) => {
-  const [hasMore, setHasMore] = React.useState(true)
-  const [isLoadingMore, setIsLoadingMore] = React.useState(false)
-  const [previousCursor, setPreviousCursor] = React.useState(0)
+  const [hasMore, setHasMore] = useState(true)
+  const [isLoadingMore, setIsLoadingMore] = useState(false)
+  const [previousCursor, setPreviousCursor] = useState(0)
   const { loading, error, data, fetchMore } = useListStrainsWithPhenotypeQuery({
     variables: {
       cursor: 0,
@@ -48,6 +49,7 @@ const useListStrainsWithPhenotype = (phenotype: string) => {
       type: "phenotype",
       annotation: phenotype,
     },
+    skip: !phenotype,
     errorPolicy: "all",
   })
   const loadMoreItems = async () => {
@@ -70,10 +72,13 @@ const useListStrainsWithPhenotype = (phenotype: string) => {
     if (result.data) {
       setIsLoadingMore(false)
     }
-    if (result.data?.listStrainsWithAnnotation?.nextCursor === 0) {
+  }
+
+  useEffect(() => {
+    if (data?.listStrainsWithAnnotation?.nextCursor === 0) {
       setHasMore(false)
     }
-  }
+  }, [data, setHasMore])
 
   return {
     loading,
@@ -86,9 +91,10 @@ const useListStrainsWithPhenotype = (phenotype: string) => {
 }
 
 /**
- * PhenotypeContainer is used to fetch a list of strains with a given phenotype.
+ * SearchPhenotypeContainer is used to fetch a list of strains with a given
+ * phenotype. The phenotype is read from the "name" URL parameter and passed
+ * down to the search results.
  */
-
 const SearchPhenotypeContainer = () => {
   const { classes } = useStyles()
   const { name } = useParams()
@@ -104,8 +110,17 @@ const SearchPhenotypeContainer = () => {
         <Grid item xs={12} className={classes.gridItem}>
           <SearchResultsHeader property="Phenotype" description={phenotype} />
         </Grid>
+        <Grid item xs={12} className={classes.gridItem}>
+          <SearchPhenotypeForm />
+        </Grid>
         <Grid item xs={12}>
           {match({ loading, error, data })
+            .with(
+              {
+                data: { listStrainsWithAnnotation: { totalCount: 0 } },
+              },
+              () => <PhenotypeNoResultsDisplay phenotype={phenotype} />,
+            )
             .with(dataPattern, ({ totalCount, strains }) => (
               <SearchPhenotypeList
                 loadMore={loadMoreItems}
@@ -116,11 +131,14 @@ const SearchPhenotypeContainer = () => {
               />
             ))
             .with({ loading: true }, () => <FullPageLoadingDisplay />)
+            .with({ error: P.when(hasNotFoundError) }, () => (
+              <PhenotypeNoResultsDisplay phenotype={phenotype} />
+            ))
             .with({ error: P.select(P.not(undefined)) }, (error_) => (
               <ErrorPageWrapper error={error_} />
             ))
             .otherwise(() => (
-              <> This message should not appear. </>
+              <PhenotypeEmptyDisplay />
             ))}
         </Grid>
       </Grid>
