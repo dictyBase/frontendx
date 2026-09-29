@@ -53,7 +53,11 @@ const SearchPhenotypeForm = () => {
   ) => {
     match(reason)
       .with("selectOption", () => {
-        const selected = newValue ?? ""
+        const selected = pipe(
+          newValue,
+          OfromNullable,
+          OgetOrElse(() => ""),
+        )
         setValue(selected)
         handleSearch(selected)
       })
