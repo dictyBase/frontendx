@@ -35,6 +35,7 @@ const SearchPhenotypeForm = () => {
     ),
   )
   const navigate = useNavigate()
+  const [isOpen, setIsOpen] = useState(false)
 
   const trimmed = Strim(value)
 
@@ -71,11 +72,10 @@ const SearchPhenotypeForm = () => {
           options={PHENOTYPE_OPTIONS}
           onChange={handleChange}
           onInputChange={(_, newInputValue) => setValue(newInputValue)}
+          onOpen={() => setIsOpen(true)}
+          onClose={() => setIsOpen(false)}
           onKeyDown={(event) => {
-            if (event.key !== "Enter") return
-            // If the dropdown listbox is open, an option is being selected —
-            // let onChange handle it instead to avoid racing on stale state.
-            if (document.querySelector('[role="listbox"]')) return
+            if (event.key !== "Enter" || isOpen) return
             handleSearch()
           }}
           renderInput={(parameters) => (
