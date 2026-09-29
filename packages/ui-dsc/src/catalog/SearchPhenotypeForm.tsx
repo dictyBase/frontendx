@@ -1,93 +1,89 @@
-import { useState, useEffect, SyntheticEvent } from "react"
-import { useSearchParams } from "react-router-dom"
+import { useState, type SyntheticEvent } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 import {
   Autocomplete,
   TextField,
   Button,
   Grid,
-  AutocompleteChangeReason,
+  type AutocompleteChangeReason,
 } from "@mui/material"
 import { match } from "ts-pattern"
-import { ENTITY_OPTIONS, QUALITY_OPTIONS } from "../const"
+import { trim as Strim } from "fp-ts/string"
+import { pipe } from "fp-ts/function"
+import {
+  map as Omap,
+  fromNullable as OfromNullable,
+  getOrElse as OgetOrElse,
+} from "fp-ts/Option"
+import { PHENOTYPE_OPTIONS } from "../const"
+import { encodePhenotypeParameter } from "../utils/encodePhenotypeParameter"
+import { cleanQuery } from "../utils/cleanQuery"
 
+/**
+ * SearchPhenotypeForm provides an autocomplete search input for phenotype
+ * search. The input is filtered against the Dicty Phenotype Ontology terms.
+ * On submit it navigates to the phenotype route parameter URL.
+ */
 const SearchPhenotypeForm = () => {
-  const [searchParameters, setSearchParameters] = useSearchParams()
-  const [quality, setQuality] = useState(searchParameters.get("quality"))
-  const [entity, setEntity] = useState(searchParameters.get("entity"))
+  const { name } = useParams()
+  const [value, setValue] = useState(
+    pipe(
+      name,
+      OfromNullable,
+      Omap(cleanQuery),
+      OgetOrElse(() => ""),
+    ),
+  )
+  const navigate = useNavigate()
 
-  useEffect(() => {
-    setQuality(searchParameters.get("quality"))
-    setEntity(searchParameters.get("entity"))
-  }, [searchParameters])
+  const trimmed = Strim(value)
 
-  const isWildType = quality === "wild type"
-
-  const handleSearch = () => {
-    const parameters = new URLSearchParams()
-    if (quality) parameters.set("quality", quality)
-    if (entity) parameters.set("entity", entity)
-    setSearchParameters(parameters)
+  const handleSearch = (overrideValue?: string) => {
+    const searchValue = Strim(overrideValue ?? value)
+    if (!searchValue) return
+    const encoded = encodePhenotypeParameter(searchValue)
+    navigate(`/phenotypes/${encoded}`)
   }
 
-  const handleQualityChange = (
+  const handleChange = (
     _: SyntheticEvent,
-    value: string | null,
+    newValue: string | null,
     reason: AutocompleteChangeReason,
   ) => {
     match(reason)
       .with("selectOption", () => {
-        setQuality(value ?? "")
-        if (value === "wild type") setEntity("")
+        const selected = newValue ?? ""
+        setValue(selected)
+        handleSearch(selected)
       })
       .with("clear", () => {
-        setQuality("")
+        setValue("")
       })
-      .otherwise(() => {})
-  }
-
-  const handleEntityChange = (
-    _: SyntheticEvent,
-    value: string | null,
-    reason: AutocompleteChangeReason,
-  ) => {
-    match(reason)
-      .with("selectOption", () => setEntity(value ?? ""))
-      .with("clear", () => setEntity(""))
       .otherwise(() => {})
   }
 
   return (
     <Grid container spacing={2} alignItems="flex-start" justifyContent="center">
-      <Grid item xs={12} sm={4}>
+      <Grid item xs={12} sm={8}>
         <Autocomplete
-          value={quality}
-          options={QUALITY_OPTIONS}
-          onChange={handleQualityChange}
+          freeSolo
+          value={value}
+          options={PHENOTYPE_OPTIONS}
+          onChange={handleChange}
+          onInputChange={(_, newInputValue) => setValue(newInputValue)}
+          onKeyDown={(event) => {
+            if (event.key !== "Enter") return
+            // If the dropdown listbox is open, an option is being selected —
+            // let onChange handle it instead to avoid racing on stale state.
+            if (document.querySelector('[role="listbox"]')) return
+            handleSearch()
+          }}
           renderInput={(parameters) => (
             <TextField
               {...parameters}
-              label="Quality"
+              label="Phenotype"
               size="small"
               variant="outlined"
-            />
-          )}
-        />
-      </Grid>
-      <Grid item xs={12} sm={6}>
-        <Autocomplete
-          value={entity}
-          options={ENTITY_OPTIONS}
-          disabled={isWildType}
-          onChange={handleEntityChange}
-          renderInput={(parameters) => (
-            <TextField
-              {...parameters}
-              label="Entity"
-              size="small"
-              variant="outlined"
-              helperText={
-                isWildType ? "No entity needed for wild type" : undefined
-              }
             />
           )}
         />
@@ -95,8 +91,8 @@ const SearchPhenotypeForm = () => {
       <Grid item xs={12} sm={2}>
         <Button
           variant="contained"
-          disabled={!quality || (!isWildType && !entity)}
-          onClick={handleSearch}
+          disabled={!trimmed}
+          onClick={() => handleSearch()}
           fullWidth>
           Search
         </Button>
