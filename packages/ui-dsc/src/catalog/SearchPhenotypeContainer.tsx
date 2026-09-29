@@ -1,12 +1,6 @@
 import { useState, useEffect } from "react"
-import { useSearchParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { P, match } from "ts-pattern"
-import { pipe } from "fp-ts/function"
-import {
-  fromNullable as OfromNullable,
-  getOrElse as OgetOrElse,
-} from "fp-ts/Option"
-import { trim as Strim } from "fp-ts/string"
 import { makeStyles } from "tss-react/mui"
 import { Grid } from "@mui/material"
 import { PageLayout, FullPageLoadingDisplay } from "@dictybase/ui-common"
@@ -18,6 +12,7 @@ import { SearchPhenotypeForm } from "./SearchPhenotypeForm"
 import { PhenotypeEmptyDisplay } from "./PhenotypeEmptyDisplay"
 import { PhenotypeNoResultsDisplay } from "./PhenotypeNoResultsDisplay"
 import { hasNotFoundError } from "../utils/hasNotFoundError"
+import { cleanQuery } from "../utils/cleanQuery"
 
 const useStyles = makeStyles()({
   container: {
@@ -27,16 +22,7 @@ const useStyles = makeStyles()({
     marginTop: "10px",
     marginBottom: "20px",
   },
-  resultsText: {
-    marginTop: "20px !important",
-  },
 })
-
-// Build phenotype annotation from quality and entity query parameters
-// e.g. quality="abolished", entity="protein phosphorylation" → "abolished protein phosphorylation"
-// e.g. quality="wild type" → "wild type"
-const buildAnnotation = (quality: string, entity: string) =>
-  pipe(`${quality} ${entity}`, Strim)
 
 const dataPattern = {
   data: {
@@ -46,9 +32,12 @@ const dataPattern = {
     },
   },
 }
+
 /**
- * Custom hook to handle all fetching/refetching logic
- * */
+ * Custom hook to handle all fetching/refetching logic for strains with a
+ * given phenotype annotation.
+ * @param phenotype the phenotype annotation used to filter strains
+ */
 const useListStrainsWithPhenotype = (phenotype: string) => {
   const [hasMore, setHasMore] = useState(true)
   const [isLoadingMore, setIsLoadingMore] = useState(false)
@@ -102,30 +91,14 @@ const useListStrainsWithPhenotype = (phenotype: string) => {
 }
 
 /**
- * PhenotypeContainer is used to fetch a list of strains with a given phenotype.
+ * SearchPhenotypeContainer is used to fetch a list of strains with a given
+ * phenotype. The phenotype is read from the "name" URL parameter and passed
+ * down to the search results.
  */
-
 const SearchPhenotypeContainer = () => {
   const { classes } = useStyles()
-  const [searchParameters, setSearchParameters] = useSearchParams()
-  // const quality = searchParameters.get("quality") ?? ""
-  const quality = pipe(
-    searchParameters.get("quality"),
-    OfromNullable,
-    OgetOrElse(() => ""),
-  )
-  const entity = pipe(
-    searchParameters.get("entity"),
-    OfromNullable,
-    OgetOrElse(() => ""),
-  )
-  const phenotype = buildAnnotation(quality, entity)
-  useEffect(() => {
-    if (!phenotype)
-      setSearchParameters(() => new URLSearchParams({ quality: "wild type" }), {
-        replace: true,
-      })
-  }, [phenotype, setSearchParameters])
+  const { name } = useParams()
+  const phenotype = cleanQuery(name ?? "")
   const { loading, error, data, loadMoreItems, hasMore, isLoadingMore } =
     useListStrainsWithPhenotype(phenotype)
 
