@@ -10,6 +10,7 @@ import {
 import { match } from "ts-pattern"
 import { trim as Strim } from "fp-ts/string"
 import { pipe } from "fp-ts/function"
+import { match as Bmatch } from "fp-ts/boolean"
 import {
   map as Omap,
   fromNullable as OfromNullable,
@@ -40,7 +41,12 @@ const SearchPhenotypeForm = () => {
   const trimmed = Strim(value)
 
   const handleSearch = (overrideValue?: string) => {
-    const searchValue = Strim(overrideValue ?? value)
+    const searchValue = pipe(
+      overrideValue,
+      OfromNullable,
+      Omap(Strim),
+      OgetOrElse(() => ""),
+    )
     if (!searchValue) return
     const encoded = encodePhenotypeParameter(searchValue)
     navigate(`/phenotypes/${encoded}`)
@@ -78,9 +84,16 @@ const SearchPhenotypeForm = () => {
           onInputChange={(_, newInputValue) => setValue(newInputValue)}
           onOpen={() => setIsOpen(true)}
           onClose={() => setIsOpen(false)}
-          onKeyDown={(event) => {
-            if (event.key !== "Enter" || isOpen) return
-            handleSearch()
+          onKeyDown={({ key }) => {
+            pipe(
+              key !== "Enter" || isOpen,
+              Bmatch(
+                () => {},
+                () => {
+                  handleSearch()
+                },
+              ),
+            )
           }}
           renderInput={(parameters) => (
             <TextField
