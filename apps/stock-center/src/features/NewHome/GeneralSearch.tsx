@@ -3,7 +3,7 @@ import { Box, Typography, ClickAwayListener } from "@mui/material"
 import { SEARCH_MAX_WIDTH } from "./types"
 import { SearchInput } from "./SearchInput"
 import { SearchDropdown } from "./SearchDropdown"
-import { useHomeSearch } from "./useHomeSearch"
+import { useCatalogSearch } from "./useCatalogSearch"
 
 const GeneralSearch = () => {
   const anchorReference = useRef<HTMLDivElement>(null)
@@ -19,7 +19,7 @@ const GeneralSearch = () => {
     handleKeyDown,
     handleClickAway,
     handleFocus,
-  } = useHomeSearch()
+  } = useCatalogSearch()
   return (
     <Box sx={{ width: "100%", maxWidth: SEARCH_MAX_WIDTH }}>
       <Typography
