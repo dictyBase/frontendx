@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react"
 import { useNavigate } from "react-router-dom"
+import { match, P } from "ts-pattern"
 import {
   StrainType,
   PlasmidType,
@@ -33,38 +34,49 @@ const createKeyDownHandler =
     navigate,
   }: KeyDownDeps) =>
   (event: React.KeyboardEvent<HTMLInputElement>) => {
-    const wantsToOpen =
-      (event.key === "ArrowDown" || event.key === "Enter") && !open
+    const { key } = event
+    const hasItems = navItems.length > 0
 
-    if (wantsToOpen && navItems.length > 0) {
-      event.preventDefault()
-      setOpen(true)
-      if (event.key === "ArrowDown") setActiveIndex(0)
-      return
-    }
-
-    if (!open || navItems.length === 0) {
-      if (event.key === "Escape") {
+    match({ open, key, hasItems, activeIndex })
+      // Escape always closes and resets
+      .with({ key: "Escape" }, () => {
         setOpen(false)
         setActiveIndex(-1)
-      }
-      return
-    }
-
-    if (event.key === "ArrowDown") {
-      event.preventDefault()
-      setActiveIndex((previous) => Math.min(previous + 1, navItems.length - 1))
-    } else if (event.key === "ArrowUp") {
-      event.preventDefault()
-      setActiveIndex((previous) => Math.max(previous - 1, -1))
-    } else if (event.key === "Enter" && activeIndex >= 0) {
-      event.preventDefault()
-      const item = navItems[activeIndex]
-      if (item.type !== "divider") navigate(item.to)
-    } else if (event.key === "Escape") {
-      setOpen(false)
-      setActiveIndex(-1)
-    }
+      })
+      // Open dropdown from closed state on ArrowDown or Enter
+      .with(
+        { open: false, key: P.union("ArrowDown", "Enter"), hasItems: true },
+        () => {
+          event.preventDefault()
+          setOpen(true)
+          if (key === "ArrowDown") setActiveIndex(0)
+        },
+      )
+      // Arrow navigation when open
+      .with({ open: true, key: "ArrowDown", hasItems: true }, () => {
+        event.preventDefault()
+        setActiveIndex((previous) =>
+          Math.min(previous + 1, navItems.length - 1),
+        )
+      })
+      .with({ open: true, key: "ArrowUp", hasItems: true }, () => {
+        event.preventDefault()
+        setActiveIndex((previous) => Math.max(previous - 1, -1))
+      })
+      // Enter selects the active item when open
+      .with(
+        {
+          open: true,
+          key: "Enter",
+          activeIndex: P.when((n: number) => n >= 0),
+        },
+        () => {
+          event.preventDefault()
+          const item = navItems[activeIndex]
+          if (item.type !== "divider") navigate(item.to)
+        },
+      )
+      .otherwise(() => {})
   }
 
 const buildNavItems = (
@@ -77,15 +89,13 @@ const buildNavItems = (
   plasmidFooterHref: string,
   plasmidFooterLabel: string,
 ): Array<NavItem> => [
-  ...visibleStrains.map(
-    (s): NavItem => ({
-      type: "strain",
-      id: s.id,
-      descriptor: s.label,
-      summary: s.summary ?? undefined,
-      to: `/strains/${s.id}`,
-    }),
-  ),
+  ...visibleStrains.map((s): NavItem => ({
+    type: "strain",
+    id: s.id,
+    descriptor: s.label,
+    summary: s.summary ?? undefined,
+    to: `/strains/${s.id}`,
+  })),
   ...(strainsHaveResults
     ? [
         {
@@ -98,15 +108,13 @@ const buildNavItems = (
   ...(strainsHaveResults && plasmidsHaveResults
     ? [{ type: "divider" as const }]
     : []),
-  ...visiblePlasmids.map(
-    (p): NavItem => ({
-      type: "plasmid",
-      id: p.id,
-      descriptor: p.name,
-      summary: p.summary ?? undefined,
-      to: `/plasmids/${p.id}`,
-    }),
-  ),
+  ...visiblePlasmids.map((p): NavItem => ({
+    type: "plasmid",
+    id: p.id,
+    descriptor: p.name,
+    summary: p.summary ?? undefined,
+    to: `/plasmids/${p.id}`,
+  })),
   ...(plasmidsHaveResults
     ? [
         {
@@ -118,7 +126,7 @@ const buildNavItems = (
     : []),
 ]
 
-const useHomeSearch = () => {
+const useCatalogSearch = () => {
   const [inputValue, setInputValue] = useState("")
   const [searchTerm, setSearchTerm] = useState("")
   const [open, setOpen] = useState(false)
@@ -233,4 +241,4 @@ const useHomeSearch = () => {
   }
 }
 
-export { useHomeSearch }
+export { useCatalogSearch }
