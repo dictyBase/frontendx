@@ -1,8 +1,16 @@
 import { test, expect } from "vitest"
 import { buildNavItems } from "../features/NewHome/useCatalogSearch"
 
-const mockStrain = { id: "DBS0001", label: "strain one", summary: "a strain" }
-const mockPlasmid = { id: "DBP0001", name: "plasmid one", summary: "a plasmid" }
+const mockStrain: { id: string; label: string; summary?: string } = {
+  id: "DBS0001",
+  label: "strain one",
+  summary: "a strain",
+}
+const mockPlasmid: { id: string; name: string; summary?: string } = {
+  id: "DBP0001",
+  name: "plasmid one",
+  summary: "a plasmid",
+}
 
 const strainFooterHref = "/strains"
 const strainFooterLabel = "Advanced Strain Search"
@@ -92,8 +100,8 @@ test("includes correct plasmid footer href and label", () => {
   })
 })
 
-test("handles null summary by converting to undefined", () => {
-  const result = build([{ ...mockStrain, summary: undefined }], [])
+test("treats missing summary as undefined", () => {
+  const result = build([{ id: mockStrain.id, label: mockStrain.label }], [])
   const strain = result.find((item) => item.type === "strain")
   expect(strain).toMatchObject({ summary: undefined })
 })
