@@ -1,6 +1,6 @@
 import { vi, test, expect, beforeEach } from "vitest"
 import { render, screen, fireEvent } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import { MemoryRouter } from "react-router-dom"
 import { SearchPhenotypeForm } from "../catalog/SearchPhenotypeForm"
 
