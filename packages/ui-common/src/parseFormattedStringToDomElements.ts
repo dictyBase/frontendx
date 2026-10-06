@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/no-null */
 import { ReactNode, createElement } from "react"
 import { pipe } from "fp-ts/function"
 import { split as Ssplit, Monoid as SMonoid } from "fp-ts/string"
