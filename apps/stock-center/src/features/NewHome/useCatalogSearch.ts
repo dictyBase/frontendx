@@ -1,11 +1,28 @@
 import { useState, useEffect, useCallback } from "react"
 import { useNavigate } from "react-router-dom"
+import { pipe, flow } from "fp-ts/function"
+import {
+  fromNullable as OfromNullable,
+  map as Omap,
+  flatMap as OflatMap,
+  getOrElse as OgetOrElse,
+} from "fp-ts/Option"
+import {
+  of as Aof,
+  map as Amap,
+  match as Amatch,
+  append as Aappend,
+  intersperse as Aintersperse,
+  flatten as Aflatten,
+} from "fp-ts/Array"
 import { match, P } from "ts-pattern"
 import {
   StrainType,
   PlasmidType,
   useStrainListQuery,
   usePlasmidListFilterQuery,
+  StrainListQuery,
+  PlasmidListFilterQuery,
 } from "dicty-graphql-schema"
 import {
   SEARCH_FETCH_POLICY,
@@ -14,6 +31,11 @@ import {
   DEBOUNCE_DELAY_MS,
 } from "./types"
 import type { NavItem } from "./types"
+
+type StrainList = NonNullable<StrainListQuery["listStrains"]>["strains"]
+type PlasmidList = NonNullable<
+  PlasmidListFilterQuery["listPlasmids"]
+>["plasmids"]
 
 type KeyDownDeps = {
   open: boolean
@@ -79,52 +101,74 @@ const createKeyDownHandler =
       .otherwise(() => {})
   }
 
+const toStrainNavItem = (s: {
+  id: string
+  label: string
+  summary?: string | null
+}): NavItem => ({
+  type: "strain",
+  id: s.id,
+  descriptor: s.label,
+  summary: s.summary ?? undefined,
+  to: `/strains/${s.id}`,
+})
+
+const toPlasmidNavItem = (p: {
+  id: string
+  name: string
+  summary?: string | null
+}): NavItem => ({
+  type: "plasmid",
+  id: p.id,
+  descriptor: p.name,
+  summary: p.summary ?? undefined,
+  to: `/plasmids/${p.id}`,
+})
+
 const buildNavItems = (
-  visibleStrains: Array<{ id: string; label: string; summary?: string | null }>,
-  visiblePlasmids: Array<{ id: string; name: string; summary?: string | null }>,
-  strainsHaveResults: boolean,
-  plasmidsHaveResults: boolean,
+  visibleStrains: Array<Parameters<typeof toStrainNavItem>[0]>,
+  visiblePlasmids: Array<Parameters<typeof toPlasmidNavItem>[0]>,
   strainFooterHref: string,
   strainFooterLabel: string,
   plasmidFooterHref: string,
   plasmidFooterLabel: string,
-): Array<NavItem> => [
-  ...visibleStrains.map((s): NavItem => ({
-    type: "strain",
-    id: s.id,
-    descriptor: s.label,
-    summary: s.summary ?? undefined,
-    to: `/strains/${s.id}`,
-  })),
-  ...(strainsHaveResults
-    ? [
-        {
+): Array<NavItem> => {
+  const strainItemsWithFooter = pipe(
+    visibleStrains,
+    Amap(toStrainNavItem),
+    Amatch(
+      () => [] as Array<NavItem>,
+      flow(
+        Aappend({
           type: "strainFooter" as const,
           to: strainFooterHref,
           label: strainFooterLabel,
-        },
-      ]
-    : []),
-  ...(strainsHaveResults && plasmidsHaveResults
-    ? [{ type: "divider" as const }]
-    : []),
-  ...visiblePlasmids.map((p): NavItem => ({
-    type: "plasmid",
-    id: p.id,
-    descriptor: p.name,
-    summary: p.summary ?? undefined,
-    to: `/plasmids/${p.id}`,
-  })),
-  ...(plasmidsHaveResults
-    ? [
-        {
+        } as NavItem),
+      ),
+    ),
+  )
+  const plasmidItemsWithFooter = pipe(
+    visiblePlasmids,
+    Amap(toPlasmidNavItem),
+    Amatch(
+      () => [] as Array<NavItem>,
+      flow(
+        Aappend({
           type: "plasmidFooter" as const,
           to: plasmidFooterHref,
           label: plasmidFooterLabel,
-        },
-      ]
-    : []),
-]
+        } as NavItem),
+      ),
+    ),
+  )
+  // Insert divider between strain and plasmid items.
+  return pipe(
+    Aof(strainItemsWithFooter),
+    Aappend(plasmidItemsWithFooter),
+    Aintersperse([{ type: "divider" as const }] as Array<NavItem>),
+    Aflatten,
+  )
+}
 
 const useCatalogSearch = () => {
   const [inputValue, setInputValue] = useState("")
@@ -160,14 +204,26 @@ const useCatalogSearch = () => {
     fetchPolicy: SEARCH_FETCH_POLICY,
   })
 
-  const strains = strainResult.data?.listStrains?.strains ?? []
-  const plasmids = plasmidResult.data?.listPlasmids?.plasmids ?? []
+  const strainsList = pipe(
+    strainResult.data,
+    OfromNullable,
+    OflatMap(({ listStrains }) => OfromNullable(listStrains)),
+    Omap(({ strains }) => strains),
+    OgetOrElse(() => [] as StrainList),
+  )
+  const plasmidsList = pipe(
+    plasmidResult.data,
+    OfromNullable,
+    OflatMap(({ listPlasmids }) => OfromNullable(listPlasmids)),
+    Omap(({ plasmids }) => plasmids),
+    OgetOrElse(() => [] as PlasmidList),
+  )
 
-  const visibleStrains = strains.slice(0, DISPLAY_LIMIT)
-  const visiblePlasmids = plasmids.slice(0, DISPLAY_LIMIT)
+  const visibleStrains = strainsList.slice(0, DISPLAY_LIMIT)
+  const visiblePlasmids = plasmidsList.slice(0, DISPLAY_LIMIT)
 
-  const hasMoreStrains = strains.length > DISPLAY_LIMIT
-  const hasMorePlasmids = plasmids.length > DISPLAY_LIMIT
+  const hasMoreStrains = strainsList.length > DISPLAY_LIMIT
+  const hasMorePlasmids = plasmidsList.length > DISPLAY_LIMIT
 
   const strainFooterHref = hasMoreStrains
     ? `/strains?descriptor=${encodeURIComponent(searchTerm)}&group=all`
@@ -186,8 +242,6 @@ const useCatalogSearch = () => {
   const navItems: Array<NavItem> = buildNavItems(
     visibleStrains,
     visiblePlasmids,
-    strains.length > 0,
-    plasmids.length > 0,
     strainFooterHref,
     strainFooterLabel,
     plasmidFooterHref,
@@ -233,7 +287,7 @@ const useCatalogSearch = () => {
     activeIndex,
     navItems,
     isLoading: strainResult.loading || plasmidResult.loading,
-    hasResults: strains.length > 0 || plasmids.length > 0,
+    hasResults: strainsList.length > 0 || plasmidsList.length > 0,
     handleInputChange,
     handleKeyDown,
     handleClickAway,
