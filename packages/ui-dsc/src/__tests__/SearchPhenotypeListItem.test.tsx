@@ -49,3 +49,15 @@ test("should not include publications when not passed as prop", () => {
   const pubDisplay = screen.queryByTestId("publication-display")
   expect(pubDisplay).not.toBeInTheDocument()
 })
+
+test("renders without error when publications is null", () => {
+  render(
+    <BrowserRouter>
+      <SearchPhenotypeListItem
+        strain={{ ...strainWithPhenotype, publications: undefined as never }}
+      />
+    </BrowserRouter>,
+  )
+  const pubDisplay = screen.queryByTestId("publication-display")
+  expect(pubDisplay).not.toBeInTheDocument()
+})

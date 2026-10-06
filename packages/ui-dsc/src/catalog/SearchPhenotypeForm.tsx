@@ -41,12 +41,7 @@ const SearchPhenotypeForm = () => {
   const trimmed = Strim(value)
 
   const handleSearch = (overrideValue?: string) => {
-    const searchValue = pipe(
-      overrideValue,
-      OfromNullable,
-      Omap(Strim),
-      OgetOrElse(() => ""),
-    )
+    const searchValue = pipe(overrideValue ?? value, Strim)
     if (!searchValue) return
     const encoded = encodePhenotypeParameter(searchValue)
     navigate(`/phenotypes/${encoded}`)

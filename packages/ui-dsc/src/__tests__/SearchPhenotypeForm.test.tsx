@@ -125,3 +125,17 @@ test("prefills input from url name param when present", () => {
   const input = screen.getByLabelText("Phenotype")
   expect(input).toHaveValue("wild type")
 })
+
+test("clears the input when the autocomplete clear button is clicked", async () => {
+  render(
+    <MemoryRouter>
+      <SearchPhenotypeForm />
+    </MemoryRouter>,
+  )
+  const input = screen.getByLabelText("Phenotype")
+  await userEvent.type(input, "wild type")
+  const clearButton = screen.getByTitle("Clear")
+  await userEvent.click(clearButton)
+  expect(input).toHaveValue("")
+  expect(screen.getByRole("button", { name: "Search" })).toBeDisabled()
+})
