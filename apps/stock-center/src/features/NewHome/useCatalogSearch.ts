@@ -12,8 +12,10 @@ import {
   map as Amap,
   match as Amatch,
   append as Aappend,
+  filter as Afilter,
   intersperse as Aintersperse,
   flatten as Aflatten,
+  isNonEmpty as AisNonEmpty,
 } from "fp-ts/Array"
 import { match, P } from "ts-pattern"
 import {
@@ -101,6 +103,11 @@ const createKeyDownHandler =
       .otherwise(() => {})
   }
 
+/**
+ * Converts a raw strain record into a strain NavItem for the search dropdown.
+ * @param s - Strain record with id, label, and optional summary.
+ * @returns A NavItem of type "strain".
+ */
 const toStrainNavItem = (s: {
   id: string
   label: string
@@ -113,6 +120,11 @@ const toStrainNavItem = (s: {
   to: `/strains/${s.id}`,
 })
 
+/**
+ * Converts a raw plasmid record into a plasmid NavItem for the search dropdown.
+ * @param p - Plasmid record with id, name, and optional summary.
+ * @returns A NavItem of type "plasmid".
+ */
 const toPlasmidNavItem = (p: {
   id: string
   name: string
@@ -125,6 +137,18 @@ const toPlasmidNavItem = (p: {
   to: `/plasmids/${p.id}`,
 })
 
+/**
+ * Builds the ordered list of NavItems for the search dropdown.
+ * Each non-empty side (strains, plasmids) gets a footer appended, and a
+ * divider is inserted between the two sides only when both are non-empty.
+ * @param visibleStrains - Strain records to display (already sliced to display limit).
+ * @param visiblePlasmids - Plasmid records to display (already sliced to display limit).
+ * @param strainFooterHref - href for the strain footer link.
+ * @param strainFooterLabel - Label for the strain footer link.
+ * @param plasmidFooterHref - href for the plasmid footer link.
+ * @param plasmidFooterLabel - Label for the plasmid footer link.
+ * @returns Ordered array of NavItems ready for rendering.
+ */
 const buildNavItems = (
   visibleStrains: Array<Parameters<typeof toStrainNavItem>[0]>,
   visiblePlasmids: Array<Parameters<typeof toPlasmidNavItem>[0]>,
@@ -161,10 +185,11 @@ const buildNavItems = (
       ),
     ),
   )
-  // Insert divider between strain and plasmid items.
+  // Only insert a divider between two non-empty sides.
   return pipe(
     Aof(strainItemsWithFooter),
     Aappend(plasmidItemsWithFooter),
+    Afilter(AisNonEmpty),
     Aintersperse([{ type: "divider" as const }] as Array<NavItem>),
     Aflatten,
   )
@@ -295,4 +320,4 @@ const useCatalogSearch = () => {
   }
 }
 
-export { useCatalogSearch }
+export { useCatalogSearch, buildNavItems }
