@@ -8,10 +8,18 @@ import {
   useUpdateUserMutation,
   useUserByEmailQuery,
   StatusEnum,
-  CreateOrderInput,
   CreateOrderMutationVariables,
 } from "dicty-graphql-schema"
 import { useSetAtom, useAtomValue } from "jotai"
+import { pipe, flow } from "fp-ts/function"
+import { map as Amap } from "fp-ts/Array"
+import { mapFst } from "fp-ts/Tuple"
+import { startsWith as SstartsWith, slice as Sslice } from "fp-ts/string"
+import {
+  filterWithIndex as RfilterWithIndex,
+  toEntries as RtoEntries,
+  fromEntries as RfromEntries,
+} from "fp-ts/Record"
 import { getCartTotal } from "@dictybase/ui-dsc"
 import {
   shippingFormAtom,
@@ -87,12 +95,24 @@ const getUserVariables = (
   return variablesObject
 }
 
+type FormData = ShippingFormData & PaymentFormData
+
+const removePayerSubstring = (a: string) =>
+  pipe(a, Sslice("payer".length, a.length))
+
+const getPayerInformation = flow(
+  RfilterWithIndex(SstartsWith("payer")),
+  RtoEntries,
+  Amap(mapFst(removePayerSubstring)),
+  RfromEntries,
+)
+
 /**
  * getOrderVariables generates a variables object that is sent with the
  * create order mutation.
  */
 const getOrderVariables = (
-  formData: ShippingFormData & PaymentFormData,
+  formData: FormData,
   strainItems: Array<CatalogItem>,
 ): { variables: CreateOrderMutationVariables } => ({
   variables: {
@@ -105,6 +125,7 @@ const getOrderVariables = (
       status: StatusEnum.InPreparation,
       consumer: formData.email,
       payer: formData.payerEmail,
+      payer_info: getPayerInformation(formData),
       purchaser: formData.email,
       items: getIDs(strainItems),
     },
