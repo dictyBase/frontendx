@@ -111,6 +111,7 @@ const PlasmidCatalog = () => {
                   <Box ref={rootReference}>
                     <CatalogTable
                       items={plasmids}
+                      itemType="Plasmid"
                       loadMoreRef={targetReference}
                       nextCursor={nextCursor}
                       actionComponent={AddToCartButtonHandler}
