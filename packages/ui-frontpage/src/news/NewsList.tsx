@@ -16,7 +16,7 @@ const NewsList = ({ contentList }: NewsListProperties) => (
   <Grid container spacing={1} direction="column">
     {pipe(
       contentList,
-      Amap(({ name, content, updated_at }) => {
+      Amap(({ name, content, created_at }) => {
         const previewText = pipe(content, parseContentToText, Sslice(0, 400))
         return (
           <Grid key={name} item>
@@ -28,7 +28,7 @@ const NewsList = ({ contentList }: NewsListProperties) => (
                 direction="column">
                 <Grid item>
                   <Typography variant="h3" variantMapping={{ h3: "h2" }}>
-                    {pipe(updated_at, parseISO, format("PPPP"))}
+                    {pipe(created_at, parseISO, format("PPPP"))}
                   </Typography>
                 </Grid>
                 <Grid item>
