@@ -49,7 +49,7 @@ const contentList = [
   {
     name: "news1",
     content: JSON.stringify(mockContent),
-    updated_at: "2024-08-23T00:00:00Z",
+    created_at: "2024-08-23T00:00:00Z",
   },
 ]
 

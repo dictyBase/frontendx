@@ -106,7 +106,7 @@ describe("DictyNews", () => {
       </MockedProvider>,
     )
     expect(
-      await screen.findByText("Friday, August 23rd, 2024"),
+      await screen.findByText("Thursday, August 22nd, 2024"),
     ).toBeInTheDocument()
     expect(screen.getByText(expectedText)).toBeInTheDocument()
   })
