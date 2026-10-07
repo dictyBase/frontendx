@@ -39,6 +39,7 @@ test("renders table with correct headers", () => {
   render(
     <MemoryRouter>
       <CatalogTable
+        itemType="Strain"
         items={mockStrains}
         nextCursor={0}
         actionComponent={NoOpAction}
@@ -57,6 +58,7 @@ test("renders a row for each strain", () => {
   render(
     <MemoryRouter>
       <CatalogTable
+        itemType="Strain"
         items={mockStrains}
         nextCursor={0}
         actionComponent={NoOpAction}
@@ -72,6 +74,7 @@ test("renders strain summaries", () => {
   render(
     <MemoryRouter>
       <CatalogTable
+        itemType="Strain"
         items={mockStrains}
         nextCursor={0}
         actionComponent={NoOpAction}
@@ -87,6 +90,7 @@ test("renders strain label as a link to the strain detail page", () => {
   render(
     <MemoryRouter>
       <CatalogTable
+        itemType="Strain"
         items={mockStrains}
         nextCursor={0}
         actionComponent={NoOpAction}
@@ -101,6 +105,7 @@ test("displays load-more trigger when nextCursor is non-zero", () => {
   render(
     <MemoryRouter>
       <CatalogTable
+        itemType="Strain"
         items={mockStrains}
         nextCursor={10}
         actionComponent={NoOpAction}
@@ -114,6 +119,7 @@ test("hides load-more trigger when nextCursor is zero", () => {
   render(
     <MemoryRouter>
       <CatalogTable
+        itemType="Strain"
         items={mockStrains}
         nextCursor={0}
         actionComponent={NoOpAction}
@@ -130,6 +136,7 @@ test("renders the action component for each strain row", () => {
   render(
     <MemoryRouter>
       <CatalogTable
+        itemType="Strain"
         items={mockStrains}
         nextCursor={0}
         actionComponent={MockAction}
@@ -143,7 +150,12 @@ test("renders the action component for each strain row", () => {
 test("renders empty table when strains array is empty", () => {
   render(
     <MemoryRouter>
-      <CatalogTable items={[]} nextCursor={0} actionComponent={NoOpAction} />
+      <CatalogTable
+        itemType="Strain"
+        items={[]}
+        nextCursor={0}
+        actionComponent={NoOpAction}
+      />
     </MemoryRouter>,
   )
   expect(
