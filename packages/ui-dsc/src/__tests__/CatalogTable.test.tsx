@@ -168,6 +168,7 @@ test("renders empty string for nullish strain summaries", () => {
   render(
     <MemoryRouter>
       <CatalogTable
+        itemType="Strain"
         items={[
           {
             __typename: "Strain" as const,
@@ -187,4 +188,70 @@ test("renders empty string for nullish strain summaries", () => {
   const row = link.closest("tr")!
   const cells = within(row).getAllByRole("cell")
   expect(cells[1]).toBeEmptyDOMElement()
+})
+
+const mockPlasmids = [
+  {
+    __typename: "Plasmid" as const,
+    id: "DBP0000001",
+    summary: "expression vector for GFP",
+    name: "pTX-GFP",
+    in_stock: true,
+  },
+  {
+    __typename: "Plasmid" as const,
+    id: "DBP0000002",
+    summary: "knockout vector",
+    name: "pLPBLP",
+    in_stock: true,
+  },
+]
+
+test("renders Plasmid headers when itemType is Plasmid", () => {
+  render(
+    <MemoryRouter>
+      <CatalogTable
+        itemType="Plasmid"
+        items={mockPlasmids}
+        nextCursor={0}
+        actionComponent={NoOpAction}
+      />
+    </MemoryRouter>,
+  )
+  expect(
+    screen.getByRole("columnheader", { name: "Plasmid Descriptor" }),
+  ).toBeInTheDocument()
+  expect(
+    screen.getByRole("columnheader", { name: "Plasmid Summary" }),
+  ).toBeInTheDocument()
+})
+
+test("renders a row for each plasmid", () => {
+  render(
+    <MemoryRouter>
+      <CatalogTable
+        itemType="Plasmid"
+        items={mockPlasmids}
+        nextCursor={0}
+        actionComponent={NoOpAction}
+      />
+    </MemoryRouter>,
+  )
+  expect(screen.getByText(mockPlasmids[0]!.name)).toBeInTheDocument()
+  expect(screen.getByText(mockPlasmids[1]!.name)).toBeInTheDocument()
+})
+
+test("renders plasmid name as a link to the plasmid detail page", () => {
+  render(
+    <MemoryRouter>
+      <CatalogTable
+        itemType="Plasmid"
+        items={mockPlasmids}
+        nextCursor={0}
+        actionComponent={NoOpAction}
+      />
+    </MemoryRouter>,
+  )
+  const link = screen.getByRole("link", { name: mockPlasmids[0]!.name })
+  expect(link).toHaveAttribute("href", `/plasmids/${mockPlasmids[0]!.id}`)
 })
