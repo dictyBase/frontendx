@@ -121,6 +121,7 @@ const StrainCatalog = () => {
                   <Box ref={rootReference}>
                     <CatalogTable
                       items={strains}
+                      itemType="Strain"
                       loadMoreRef={targetReference}
                       nextCursor={nextCursor}
                       actionComponent={AddToCartButtonHandler}
