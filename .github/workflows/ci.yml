@@ -20,7 +20,7 @@ jobs:
         run: yarn coverage
   call-deploy:
     needs: test
-    uses: dictyBase/workflows/.github/workflows/composite-deploy.yaml
+    uses: dictyBase/workflows/.github/workflows/composite-deploy.yaml@develop
     secrets: inherit
     with:
        project: frontend_application
