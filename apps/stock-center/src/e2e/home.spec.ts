@@ -1,8 +1,4 @@
 import { test, expect } from "@playwright/test"
-import { pipe } from "fp-ts/lib/function.js"
-import { map as Amap } from "fp-ts/lib/Array.js"
-
-const CAROUSEL_IMAGE_ALT = 'img[alt*="mutant"]'
 
 test.beforeEach(async ({ page }) => {
   await page.goto("stockcenter")
