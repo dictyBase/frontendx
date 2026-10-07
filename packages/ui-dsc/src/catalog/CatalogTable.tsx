@@ -25,7 +25,8 @@ import { abbreviateStringToLength } from "../utils/abbreviateStringToLength"
 type CatalogTableProperties = {
   /** Array of strains to display */
   items: Array<CatalogItem>
-  /** Whether more data is being loaded */
+  /** type of item being displayed */
+  itemType: "Strain" | "Plasmid"
   /** Ref to attach to the loading indicator for infinite scroll */
   loadMoreRef?: RefObject<HTMLTableRowElement>
   nextCursor: number
@@ -77,6 +78,7 @@ const renderCatalogItemRow =
 
 const CatalogTable = ({
   items,
+  itemType,
   loadMoreRef,
   nextCursor,
   actionComponent,
@@ -92,8 +94,9 @@ const CatalogTable = ({
     <Table stickyHeader sx={{ tableLayout: "fixed" }}>
       <TableHead>
         <TableRow>
-          <TableCell sx={{ width: "30%" }}>Strain Descriptor</TableCell>
-          <TableCell sx={{ width: "60%" }}>Strain Summary</TableCell>
+          <TableCell
+            sx={{ width: "30%" }}>{`${itemType} Descriptor`}</TableCell>
+          <TableCell sx={{ width: "60%" }}>{`${itemType} Summary`}</TableCell>
           <TableCell sx={{ width: "10%", textAlign: "center" }} />
         </TableRow>
       </TableHead>
