@@ -11,4 +11,11 @@ const ordByUpdatedAt: Ord<
   contramap(({ updated_at }) => pipe(updated_at, parseISO, getTime)),
 )
 
-export { ordByUpdatedAt }
+const ordByCreatedAt: Ord<
+  ListContentByNamespaceQuery["listContentByNamespace"][0]
+> = pipe(
+  NOrd,
+  contramap(({ created_at }) => pipe(created_at, parseISO, getTime)),
+)
+
+export { ordByUpdatedAt, ordByCreatedAt }
