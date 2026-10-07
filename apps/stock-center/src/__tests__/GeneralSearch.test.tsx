@@ -13,6 +13,7 @@ import { GeneralSearch } from "../features/NewHome/GeneralSearch"
 import { QUERY_LIMIT } from "../features/NewHome/types"
 
 const navigateMock = vi.fn()
+const arrowDownKey = "{ArrowDown}"
 
 vi.mock("react-router-dom", async () => {
   const originalModule =
@@ -129,7 +130,7 @@ test("ArrowDown key opens dropdown when items are present", async () => {
   // wait for query results
   const strainResult = await screen.findByText("axeA")
   expect(strainResult).toBeInTheDocument()
-  await userEvent.keyboard("{ArrowDown}")
+  await userEvent.keyboard(arrowDownKey)
   expect(input).toBeInTheDocument()
 })
 
@@ -139,7 +140,7 @@ test("Enter key navigates to highlighted strain item", async () => {
   await userEvent.type(input, searchTerm)
   await screen.findByText("axeA")
   // First ArrowDown opens the dropdown and sets active index to 0 (first strain)
-  await userEvent.keyboard("{ArrowDown}")
+  await userEvent.keyboard(arrowDownKey)
   await userEvent.keyboard("{Enter}")
   expect(navigateMock).toHaveBeenCalledWith("/strains/DBS0001")
 })
@@ -175,18 +176,14 @@ test("shows advanced strain search footer when no more strains", async () => {
   renderGeneralSearch()
   const input = getInput()
   await userEvent.type(input, searchTerm)
-  expect(
-    await screen.findByText("Advanced Strain Search"),
-  ).toBeInTheDocument()
+  expect(await screen.findByText("Advanced Strain Search")).toBeInTheDocument()
 })
 
 test("shows advanced plasmid search footer when no more plasmids", async () => {
   renderGeneralSearch()
   const input = getInput()
   await userEvent.type(input, searchTerm)
-  expect(
-    await screen.findByText("Advanced Plasmid Search"),
-  ).toBeInTheDocument()
+  expect(await screen.findByText("Advanced Plasmid Search")).toBeInTheDocument()
 })
 
 test("shows only strain results when no plasmids match", async () => {
@@ -210,8 +207,8 @@ test("ArrowUp key decrements active index", async () => {
   const input = getInput()
   await userEvent.type(input, searchTerm)
   await screen.findByText("axeA")
-  await userEvent.keyboard("{ArrowDown}")
-  await userEvent.keyboard("{ArrowDown}")
+  await userEvent.keyboard(arrowDownKey)
+  await userEvent.keyboard(arrowDownKey)
   await userEvent.keyboard("{ArrowUp}")
   // still open, no crash
   expect(input).toBeInTheDocument()
@@ -247,7 +244,9 @@ test("debounce delays the search term update", async () => {
   // input has value but query hasn't fired yet (debounced)
   expect(input).toHaveValue("a")
   await act(async () => {
-    await new Promise((resolve) => setTimeout(resolve, 500))
+    await new Promise((resolve) => {
+      setTimeout(resolve, 500)
+    })
   })
   expect(input).toHaveValue("a")
 })
