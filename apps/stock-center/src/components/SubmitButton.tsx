@@ -9,17 +9,9 @@ import {
   useUserByEmailQuery,
   StatusEnum,
   CreateOrderMutationVariables,
+  UserInfoInput,
 } from "dicty-graphql-schema"
 import { useSetAtom, useAtomValue } from "jotai"
-import { pipe, flow } from "fp-ts/function"
-import { map as Amap } from "fp-ts/Array"
-import { mapFst } from "fp-ts/Tuple"
-import { startsWith as SstartsWith, slice as Sslice } from "fp-ts/string"
-import {
-  filterWithIndex as RfilterWithIndex,
-  toEntries as RtoEntries,
-  fromEntries as RfromEntries,
-} from "fp-ts/Record"
 import { getCartTotal } from "@dictybase/ui-dsc"
 import {
   shippingFormAtom,
@@ -68,6 +60,34 @@ const getPayerVariables = (formData: PaymentFormData) => ({
   is_active: true,
 })
 
+const getConsumerUserInfoInput = (
+  formData: ShippingFormData,
+): UserInfoInput => ({
+  first_name: formData.firstName,
+  last_name: formData.lastName,
+  organization: formData.organization,
+  first_address: formData.address1,
+  second_address: formData.address2,
+  city: formData.city,
+  state: formData.state,
+  zipcode: formData.zip,
+  country: formData.country,
+  phone: formData.phone,
+})
+
+const getPayerUserInfoInput = (formData: PaymentFormData): UserInfoInput => ({
+  first_name: formData.payerFirstName,
+  last_name: formData.payerLastName,
+  organization: formData.payerOrganization,
+  first_address: formData.payerAddress1,
+  second_address: formData.payerAddress2,
+  city: formData.payerCity,
+  state: formData.payerState,
+  zipcode: formData.payerZip,
+  country: formData.payerCountry,
+  phone: formData.payerPhone,
+})
+
 /**
  * getUserVariables generates a variables object that is passed with
  * create or update user mutations.
@@ -97,16 +117,6 @@ const getUserVariables = (
 
 type FormData = ShippingFormData & PaymentFormData
 
-const removePayerSubstring = (a: string) =>
-  pipe(a, Sslice("payer".length, a.length))
-
-const getPayerInformation = flow(
-  RfilterWithIndex(SstartsWith("payer")),
-  RtoEntries,
-  Amap(mapFst(removePayerSubstring)),
-  RfromEntries,
-)
-
 /**
  * getOrderVariables generates a variables object that is sent with the
  * create order mutation.
@@ -124,8 +134,9 @@ const getOrderVariables = (
       purchase_order_num: formData.purchaseOrderNum,
       status: StatusEnum.InPreparation,
       consumer: formData.email,
+      consumer_info: getConsumerUserInfoInput(formData),
       payer: formData.payerEmail,
-      payer_info: getPayerInformation(formData),
+      payer_info: getPayerUserInfoInput(formData),
       purchaser: formData.email,
       items: getIDs(strainItems),
     },
