@@ -251,7 +251,49 @@ const Show = () => {
     .otherwise(() => <> This message should not appear. </>)
 }
 ```
-- Avoid ternary statements 
+- Avoid ternary statements — use `match` from `fp-ts/boolean` to express boolean branching as a value-producing expression.
+
+```ts
+import { pipe } from "fp-ts/function"
+import { match as Bmatch } from "fp-ts/boolean"
+
+// Non-compliant: inline ternary
+const label = hasMore ? "See all results" : "Advanced Search"
+
+// Compliant: fp-ts/boolean match returns a value
+const label = pipe(
+  hasMore,
+  Bmatch(
+    () => "Advanced Search",   // onFalse
+    () => "See all results",    // onTrue
+  ),
+)
+```
+
+- For conditional inclusion in arrays, pair `Bmatch` with spread instead of ternary spreads:
+
+```ts
+import { pipe } from "fp-ts/function"
+import { match as Bmatch } from "fp-ts/boolean"
+
+// Non-compliant
+const items = [
+  ...baseItems,
+  ...(hasExtras ? [{ type: "extra" as const }] : []),
+]
+
+// Compliant
+const items = [
+  ...baseItems,
+  ...pipe(
+    hasExtras,
+    Bmatch(
+      () => [],
+      () => [{ type: "extra" as const }],
+    ),
+  ),
+]
+```
 
 ## State Management
 
