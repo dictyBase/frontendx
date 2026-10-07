@@ -12,7 +12,7 @@ import {
 import { AuthorizedNewsList } from "./AuthorizedNewsList"
 import { EmptyNewsList } from "./EmptyNewsList"
 import { NewsLoader } from "./NewsLoader"
-import { ordByCreatedAt } from "../utils/ordByUpdatedAt"
+import { ordByCreatedAt } from "../utils/ordContent"
 
 type AuthorizedDictyNewsContentProperties = {
   queryResult: ListContentByNamespaceQueryHookResult
