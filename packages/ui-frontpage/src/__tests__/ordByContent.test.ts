@@ -46,4 +46,3 @@ test("ordByCreatedAt should return 1 when the first item has a later created_at"
 test("ordByCreatedAt should return 0 when both items have the same created_at", () => {
   expect(ordByCreatedAt.compare(olderItem, olderItem)).toBe(0)
 })
-
