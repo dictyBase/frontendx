@@ -8,6 +8,8 @@ import {
   useUpdateUserMutation,
   useUserByEmailQuery,
   StatusEnum,
+  CreateOrderInput,
+  CreateOrderMutationVariables,
 } from "dicty-graphql-schema"
 import { useSetAtom, useAtomValue } from "jotai"
 import { getCartTotal } from "@dictybase/ui-dsc"
@@ -92,7 +94,7 @@ const getUserVariables = (
 const getOrderVariables = (
   formData: ShippingFormData & PaymentFormData,
   strainItems: Array<CatalogItem>,
-) => ({
+): { variables: CreateOrderMutationVariables } => ({
   variables: {
     input: {
       courier: formData.shippingAccount,
