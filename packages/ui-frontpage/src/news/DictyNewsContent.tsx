@@ -12,7 +12,7 @@ import {
 import { NewsList } from "./NewsList"
 import { EmptyNewsList } from "./EmptyNewsList"
 import { NewsLoader } from "./NewsLoader"
-import { ordByCreatedAt } from "../utils/ordByUpdatedAt"
+import { ordByCreatedAt } from "../utils/ordContent"
 
 type DictyNewsContentProperties = {
   queryResult: ListContentByNamespaceQueryHookResult
