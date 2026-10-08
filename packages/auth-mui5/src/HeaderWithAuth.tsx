@@ -11,6 +11,7 @@ import {
   createDefaultHeaderIcons,
   createAuthorizedHeaderIcons,
 } from "./headerLinks"
+import { AUTH_ENABLED } from "./const"
 
 /**
  * @description Represents the properties required for the HeaderWithAuth component.
@@ -33,6 +34,7 @@ type HeaderWithAuthProperties = {
  * @property {UserWithRoles | undefined} [user] - An optional object representing a user with roles.
  */
 type logtoHookProperties = HeaderWithAuthProperties & {
+  authEnabled: boolean
   isAuthenticated: boolean
   isAuthorized: boolean
   isLoading: boolean
@@ -47,6 +49,9 @@ type logtoHookProperties = HeaderWithAuthProperties & {
  */
 const conditonalHandler = (authCase: logtoHookProperties) =>
   match(authCase)
+    .with({ authEnabled: false }, ({ frontPageUrl }) =>
+      pipe(frontPageUrl, createDefaultHeaderIcons),
+    )
     .with(
       {
         isAuthorized: true,
@@ -105,6 +110,7 @@ const HeaderWithAuth = ({
     entries: authorizedRole,
   })
   const links = conditonalHandler({
+    authEnabled: AUTH_ENABLED,
     isLoading,
     isAuthenticated,
     isAuthorized,
