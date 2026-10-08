@@ -4,6 +4,7 @@ import { defineConfig } from "vitest/config"
 // https://vitejs.dev/config/
 const viteConfig = defineConfig({
   plugins: [react()],
+  optimizeDeps: { include: ["@mui/material/Tooltip"] },
   server: {
     port: 3003,
     strictPort: true,
