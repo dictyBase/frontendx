@@ -121,4 +121,4 @@ const HeaderWithAuth = ({
   return <Header frontPageUrl={frontPageUrl} links={links} />
 }
 
-export { HeaderWithAuth }
+export { HeaderWithAuth, conditonalHandler }
