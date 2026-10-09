@@ -36,7 +36,7 @@ test("should render default icons only when auth is disabled", () => {
   )
   expect(screen.queryByText("Login")).not.toBeInTheDocument()
   expect(screen.queryByRole("button", { name: "JD" })).not.toBeInTheDocument()
-  expect(screen.getByRole("link", { name: /Cite Us/i })).toHaveAttribute(
+  expect(screen.getByRole("link", { name: /cite us/i })).toHaveAttribute(
     "href",
     `${frontPageUrl}/community/citation/show`,
   )
@@ -56,7 +56,7 @@ test("should render authorized icons and AuthorizedLogoutButton when authorized"
   )
   expect(screen.getByRole("button", { name: "JD" })).toBeInTheDocument()
   expect(screen.queryByText("Login")).not.toBeInTheDocument()
-  expect(screen.getByRole("link", { name: /Cite Us/i })).toHaveAttribute(
+  expect(screen.getByRole("link", { name: /cite us/i })).toHaveAttribute(
     "href",
     `${frontPageUrl}/community/citation/editable`,
   )
@@ -76,7 +76,7 @@ test("should render default icons and LogoutButton when authenticated but not au
   )
   expect(screen.getByRole("button", { name: "JD" })).toBeInTheDocument()
   expect(screen.queryByText("Login")).not.toBeInTheDocument()
-  expect(screen.getByRole("link", { name: /Cite Us/i })).toHaveAttribute(
+  expect(screen.getByRole("link", { name: /cite us/i })).toHaveAttribute(
     "href",
     `${frontPageUrl}/community/citation/show`,
   )
@@ -96,7 +96,7 @@ test("should render default icons and LoginButton when not authenticated", () =>
   )
   expect(screen.getByText("Login")).toBeInTheDocument()
   expect(screen.queryByRole("button", { name: "JD" })).not.toBeInTheDocument()
-  expect(screen.getByRole("link", { name: /Cite Us/i })).toHaveAttribute(
+  expect(screen.getByRole("link", { name: /cite us/i })).toHaveAttribute(
     "href",
     `${frontPageUrl}/community/citation/show`,
   )
