@@ -2,7 +2,12 @@ import { pipe } from "fp-ts/function"
 import { append } from "fp-ts/Array"
 import { match, P } from "ts-pattern"
 import { Header } from "@dictybase/header-mui5"
-import { type UserWithRoles, getCallbackPath, getHomePath } from "./const"
+import {
+  type UserWithRoles,
+  getCallbackPath,
+  getHomePath,
+  AUTH_ENABLED,
+} from "./const"
 import { LoginButton } from "./LoginButton"
 import { LogoutButton } from "./LogoutButton"
 import { AuthorizedLogoutButton } from "./AuthorizedLogoutButton"
@@ -11,7 +16,6 @@ import {
   createDefaultHeaderIcons,
   createAuthorizedHeaderIcons,
 } from "./headerLinks"
-import { AUTH_ENABLED } from "./const"
 
 /**
  * @description Represents the properties required for the HeaderWithAuth component.
