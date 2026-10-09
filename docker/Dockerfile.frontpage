@@ -1,14 +1,12 @@
 FROM node:24-alpine3.20 AS base
 
 FROM base AS builder
-ARG BUILD_STATE="development"
 RUN apk update
 RUN apk add --no-cache libc6-compat 
 # Set working directory
 WORKDIR /app
 RUN yarn global add turbo@1.13.3
 COPY . .
-RUN mv /app/apps/dicty-frontpage/.env.${BUILD_STATE} /app/apps/dicty-frontpage/.env.production
 RUN turbo prune --scope=dicty-frontpage --docker
 
 # Add lockfile and package.json's of isolated subworkspace
@@ -24,8 +22,9 @@ COPY --from=builder /app/out/yarn.lock ./yarn.lock
 RUN yarn install --ignore-engines --network-timeout 1000000 
 
 # Build the project
+ARG BUILD_STATE="development"
 COPY --from=builder /app/out/full/ .
-RUN yarn turbo run build --filter=dicty-frontpage
+RUN yarn turbo run build --filter=dicty-frontpage -- -- --mode=${BUILD_STATE}
 
 
 FROM golang:1.22.6-alpine3.20 AS go-builder

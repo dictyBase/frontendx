@@ -1,7 +1,6 @@
 FROM node:24-alpine3.20 AS base
 
 FROM base AS builder
-ARG BUILD_STATE="development"
 RUN apk update
 RUN apk add --no-cache libc6-compat
 # Set working directory
