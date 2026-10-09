@@ -1,5 +1,4 @@
 import { pipe } from "fp-ts/function"
-import { not } from "fp-ts/Predicate"
 import { reduce as Areduce } from "fp-ts/Array"
 import { UserInfoResponse } from "@logto/react"
 
@@ -29,8 +28,6 @@ const getHomePath = (basename: string) => {
   )
 }
 
-const isProductionMode = (mode: string) => mode === "production"
-
-const AUTH_ENABLED = pipe(import.meta.env.MODE, not(isProductionMode))
+const AUTH_ENABLED = import.meta.env.VITE_AUTH_ENABLED !== "false"
 
 export { getCallbackPath, getHomePath, type UserWithRoles, AUTH_ENABLED }

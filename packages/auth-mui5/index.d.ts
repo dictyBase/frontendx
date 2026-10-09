@@ -2,7 +2,7 @@
 
 /* eslint-disable unicorn/prevent-abbreviations */
 interface ImportMetaEnv {
-  AUTH_ENABLED: string
+  VITE_AUTH_ENABLED: string
 }
 
 interface ImportMeta {
