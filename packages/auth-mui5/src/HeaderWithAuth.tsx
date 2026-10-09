@@ -19,7 +19,6 @@ import {
 
 /**
  * @description Represents the properties required for the HeaderWithAuth component.
- * @typedef {object} HeaderWithAuthProperties
  * @property {string} frontPageUrl - The url for the Front Page application.
  * @property {string} baseUrl - The base url for the application that is rendering the header.
  */
@@ -30,7 +29,6 @@ type HeaderWithAuthProperties = {
 
 /**
  * Represents the properties for the `logtoHook` function in the `HeaderWithAuth.tsx` file.
- * @typedef {Object} logtoHookProperties
  * @property {HeaderWithAuthProperties} - The properties inherited from the `HeaderWithAuthProperties` type.
  * @property {Error | undefined} [error] - An optional error object.
  * @property {boolean} isAuthenticated - Indicates whether the user is authenticated.
