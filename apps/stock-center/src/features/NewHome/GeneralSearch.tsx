@@ -1,9 +1,9 @@
 import { useRef } from "react"
 import { Box, Typography, ClickAwayListener } from "@mui/material"
-import { SEARCH_MAX_WIDTH } from "./types"
+import { SEARCH_MAX_WIDTH, MIN_CHARS } from "./types"
 import { SearchInput } from "./SearchInput"
 import { SearchDropdown } from "./SearchDropdown"
-import { useCatalogSearch } from "./useCatalogSearch"
+import { useComprehensiveSearch } from "./useComprehensiveSearch"
 
 const GeneralSearch = () => {
   const anchorReference = useRef<HTMLDivElement>(null)
@@ -19,7 +19,7 @@ const GeneralSearch = () => {
     handleKeyDown,
     handleClickAway,
     handleFocus,
-  } = useCatalogSearch()
+  } = useComprehensiveSearch()
   return (
     <Box sx={{ width: "100%", maxWidth: SEARCH_MAX_WIDTH }}>
       <Typography
@@ -72,7 +72,7 @@ const GeneralSearch = () => {
           />
 
           <SearchDropdown
-            open={open && searchTerm.length > 0}
+            open={open && searchTerm.length >= MIN_CHARS}
             anchorEl={anchorReference.current}
             navItems={navItems}
             activeIndex={activeIndex}

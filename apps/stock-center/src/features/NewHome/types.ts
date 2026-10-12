@@ -1,5 +1,7 @@
 const SEARCH_MAX_WIDTH = "760px"
 const DEBOUNCE_DELAY_MS = 400
+/** Minimum number of characters required before the search dropdown query fires. */
+const MIN_CHARS = 3
 const SEARCH_FETCH_POLICY = "cache-and-network" as const
 const QUERY_LIMIT = 12
 const DISPLAY_LIMIT = 4
@@ -34,6 +36,7 @@ export type { NavItem }
 export {
   SEARCH_MAX_WIDTH,
   DEBOUNCE_DELAY_MS,
+  MIN_CHARS,
   SEARCH_FETCH_POLICY,
   QUERY_LIMIT,
   DISPLAY_LIMIT,
