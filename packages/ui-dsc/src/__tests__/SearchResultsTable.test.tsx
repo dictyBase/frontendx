@@ -1,0 +1,161 @@
+import { test, expect } from "vitest"
+import { render, screen } from "@testing-library/react"
+import { MemoryRouter } from "react-router-dom"
+import { StockEntityType, StockSearchFieldEnum } from "dicty-graphql-schema"
+import type { StockSearchResult } from "dicty-graphql-schema"
+import { SearchResultsTable } from "../catalog/SearchResultsTable"
+
+// ── Mock data ──────────────────────────────────────────────────────────────────
+
+/** Strain result where the label was the matched field (no subtitle expected). */
+const mockStrainLabelMatch: StockSearchResult = {
+  __typename: "StockSearchResult",
+  id: "DBS0001",
+  entity: StockEntityType.Strain,
+  field: StockSearchFieldEnum.Label,
+  display_text: "axeA",
+  strain_label: "axeA",
+  summary: "Axenic growth mutant A",
+  score: 1.0,
+}
+
+/** Strain result where a gene name was the matched field (subtitle expected). */
+const mockStrainGeneMatch: StockSearchResult = {
+  __typename: "StockSearchResult",
+  id: "DBS0002",
+  entity: StockEntityType.Strain,
+  field: StockSearchFieldEnum.Genes,
+  display_text: "gpaA",
+  strain_label: "WT/AX2",
+  summary: "Wild type axenic strain",
+  score: 0.9,
+}
+
+/** Plasmid result (no subtitle expected). */
+const mockPlasmidResult: StockSearchResult = {
+  __typename: "StockSearchResult",
+  id: "DBP0001",
+  entity: StockEntityType.Plasmid,
+  field: StockSearchFieldEnum.Name,
+  display_text: "pAXE1",
+  strain_label: "",
+  summary: "Expression vector for AXE1",
+  score: 0.8,
+}
+
+/** Result with a summary exceeding the 120-character truncation limit. */
+const mockLongSummaryResult: StockSearchResult = {
+  __typename: "StockSearchResult",
+  id: "DBS0003",
+  entity: StockEntityType.Strain,
+  field: StockSearchFieldEnum.Label,
+  display_text: "longSummaryStrain",
+  strain_label: "longSummaryStrain",
+  summary: "A".repeat(130),
+  score: 0.7,
+}
+
+const renderTable = (results: Array<StockSearchResult>) =>
+  render(
+    <MemoryRouter>
+      <SearchResultsTable results={results} />
+    </MemoryRouter>,
+  )
+
+// ── Header ─────────────────────────────────────────────────────────────────────
+
+test("renders Stock and Summary column headers", () => {
+  renderTable([mockStrainLabelMatch])
+  expect(screen.getByRole("columnheader", { name: "Stock" })).toBeInTheDocument()
+  expect(
+    screen.getByRole("columnheader", { name: "Summary" }),
+  ).toBeInTheDocument()
+})
+
+// ── Strain results ─────────────────────────────────────────────────────────────
+
+test("renders a row for each result", () => {
+  renderTable([mockStrainLabelMatch, mockPlasmidResult])
+  expect(screen.getByRole("link", { name: "axeA" })).toBeInTheDocument()
+  expect(screen.getByRole("link", { name: "pAXE1" })).toBeInTheDocument()
+})
+
+test("links a strain result to its detail page using the strain label", () => {
+  renderTable([mockStrainLabelMatch])
+  const link = screen.getByRole("link", { name: "axeA" })
+  expect(link).toHaveAttribute("href", `/strains/${mockStrainLabelMatch.id}`)
+})
+
+test("uses strain_label as the link text for strain results", () => {
+  renderTable([mockStrainGeneMatch])
+  expect(
+    screen.getByRole("link", { name: mockStrainGeneMatch.strain_label }),
+  ).toBeInTheDocument()
+})
+
+test("renders the strain entity badge", () => {
+  renderTable([mockStrainLabelMatch])
+  expect(screen.getByText("Strain")).toBeInTheDocument()
+})
+
+test("shows matched gene subtitle when strain_label differs from display_text", () => {
+  renderTable([mockStrainGeneMatch])
+  expect(screen.getByText(/Matched Gene: gpaA/i)).toBeInTheDocument()
+})
+
+test("does not show a match subtitle when strain_label equals display_text", () => {
+  renderTable([mockStrainLabelMatch])
+  expect(screen.queryByText(/Matched/i)).not.toBeInTheDocument()
+})
+
+test("renders strain summary text", () => {
+  renderTable([mockStrainLabelMatch])
+  expect(
+    screen.getByText(mockStrainLabelMatch.summary),
+  ).toBeInTheDocument()
+})
+
+// ── Plasmid results ────────────────────────────────────────────────────────────
+
+test("links a plasmid result to its detail page using display_text", () => {
+  renderTable([mockPlasmidResult])
+  const link = screen.getByRole("link", { name: "pAXE1" })
+  expect(link).toHaveAttribute("href", `/plasmids/${mockPlasmidResult.id}`)
+})
+
+test("renders the plasmid entity badge", () => {
+  renderTable([mockPlasmidResult])
+  expect(screen.getByText("Plasmid")).toBeInTheDocument()
+})
+
+test("does not show a match subtitle for plasmid results", () => {
+  renderTable([mockPlasmidResult])
+  expect(screen.queryByText(/Matched/i)).not.toBeInTheDocument()
+})
+
+test("renders plasmid summary text", () => {
+  renderTable([mockPlasmidResult])
+  expect(screen.getByText(mockPlasmidResult.summary)).toBeInTheDocument()
+})
+
+// ── Mixed results ──────────────────────────────────────────────────────────────
+
+test("renders both Strain and Plasmid badges in a mixed results list", () => {
+  renderTable([mockStrainLabelMatch, mockPlasmidResult])
+  expect(screen.getByText("Strain")).toBeInTheDocument()
+  expect(screen.getByText("Plasmid")).toBeInTheDocument()
+})
+
+// ── Edge cases ─────────────────────────────────────────────────────────────────
+
+test("renders headers and no rows when results array is empty", () => {
+  renderTable([])
+  expect(screen.getByRole("columnheader", { name: "Stock" })).toBeInTheDocument()
+  expect(screen.queryByRole("link")).not.toBeInTheDocument()
+})
+
+test("truncates summaries longer than 120 characters", () => {
+  renderTable([mockLongSummaryResult])
+  expect(screen.queryByText("A".repeat(130))).not.toBeInTheDocument()
+  expect(screen.getByText(/A+\.\.\./)).toBeInTheDocument()
+})
