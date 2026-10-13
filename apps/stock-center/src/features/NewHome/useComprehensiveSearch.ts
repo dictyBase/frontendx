@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react"
 import { useNavigate } from "react-router-dom"
-import { pipe, flow } from "fp-ts/function"
+import { pipe } from "fp-ts/function"
 import {
   fromNullable as OfromNullable,
   map as Omap,
@@ -9,13 +9,13 @@ import {
 import {
   of as Aof,
   map as Amap,
-  match as Amatch,
   append as Aappend,
   filter as Afilter,
   intersperse as Aintersperse,
   flatten as Aflatten,
   isNonEmpty as AisNonEmpty,
 } from "fp-ts/Array"
+import { match as Bmatch } from "fp-ts/boolean"
 import { match, P } from "ts-pattern"
 import {
   StockEntityType,
@@ -77,12 +77,10 @@ const createKeyDownHandler =
     const hasItems = navItems.length > 0
 
     match({ open, key, hasItems, activeIndex })
-      // Escape always closes and resets
       .with({ key: "Escape" }, () => {
         setOpen(false)
         setActiveIndex(-1)
       })
-      // Open dropdown from closed state on ArrowDown or Enter
       .with(
         { open: false, key: P.union("ArrowDown", "Enter"), hasItems: true },
         () => {
@@ -91,7 +89,6 @@ const createKeyDownHandler =
           if (key === "ArrowDown") setActiveIndex(0)
         },
       )
-      // Arrow navigation when open
       .with({ open: true, key: "ArrowDown", hasItems: true }, () => {
         event.preventDefault()
         setActiveIndex((previous) =>
@@ -102,7 +99,6 @@ const createKeyDownHandler =
         event.preventDefault()
         setActiveIndex((previous) => Math.max(previous - 1, -1))
       })
-      // Enter selects the active item when open
       .with(
         {
           open: true,
@@ -147,61 +143,26 @@ const toPlasmidNavItem = (p: SuggestionItem): NavItem => ({
 })
 
 /**
- * Builds the ordered list of `NavItem`s for the search dropdown.
+ * Builds the strain and plasmid sections of the search dropdown `NavItem` list.
  *
- * Each non-empty section (strains, plasmids) gets a typed footer link appended.
  * A divider is inserted between the two sections only when both are non-empty.
+ * No per-section footer links are added here; the caller is responsible for
+ * appending a single unified footer after calling this function.
  *
  * @param visibleStrains - Strain suggestion items to display (pre-sliced to display limit).
  * @param visiblePlasmids - Plasmid suggestion items to display (pre-sliced to display limit).
- * @param strainFooterHref - `href` for the strain section footer link.
- * @param strainFooterLabel - Label text for the strain section footer link.
- * @param plasmidFooterHref - `href` for the plasmid section footer link.
- * @param plasmidFooterLabel - Label text for the plasmid section footer link.
- * @returns An ordered array of `NavItem`s ready for rendering.
+ * @returns An ordered array of strain/divider/plasmid `NavItem`s ready for rendering.
  */
 const buildNavItems = (
   visibleStrains: Array<SuggestionItem>,
   visiblePlasmids: Array<SuggestionItem>,
-  strainFooterHref: string,
-  strainFooterLabel: string,
-  plasmidFooterHref: string,
-  plasmidFooterLabel: string,
 ): Array<NavItem> => {
-  const strainItemsWithFooter = pipe(
-    visibleStrains,
-    Amap(toStrainNavItem),
-    Amatch(
-      () => [] as Array<NavItem>,
-      flow(
-        Aappend({
-          type: "strainFooter" as const,
-          to: strainFooterHref,
-          label: strainFooterLabel,
-        } as NavItem),
-      ),
-    ),
-  )
-  const plasmidItemsWithFooter = pipe(
-    visiblePlasmids,
-    Amap(toPlasmidNavItem),
-    Amatch(
-      () => [] as Array<NavItem>,
-      flow(
-        Aappend({
-          type: "plasmidFooter" as const,
-          to: plasmidFooterHref,
-          label: plasmidFooterLabel,
-        } as NavItem),
-      ),
-    ),
-  )
-  // Only insert a divider between two non-empty sides.
+  const strainItems = pipe(visibleStrains, Amap(toStrainNavItem))
+  const plasmidItems = pipe(visiblePlasmids, Amap(toPlasmidNavItem))
   return pipe(
-    Aof(strainItemsWithFooter),
-    Aappend(plasmidItemsWithFooter),
+    Aof(strainItems),
+    Aappend(plasmidItems),
     Afilter(AisNonEmpty),
-    Aintersperse([{ type: "divider" as const }] as Array<NavItem>),
     Aflatten,
   )
 }
@@ -210,6 +171,10 @@ const buildNavItems = (
  * Drives the general search UI: input state, debounced querying via
  * `listStockSuggestions` (triggered only when the trimmed input reaches
  * `MIN_CHARS` characters), dropdown open/close, and keyboard navigation.
+ *
+ * A single "See all search results" `catalogFooter` is appended to the nav
+ * items whenever there are visible results, linking to `/catalog` pre-filled
+ * with the current search term.
  *
  * @returns State values and event handlers consumed by `GeneralSearch`.
  */
@@ -259,30 +224,22 @@ const useComprehensiveSearch = () => {
   const visibleStrains = strainSuggestions.slice(0, DISPLAY_LIMIT)
   const visiblePlasmids = plasmidSuggestions.slice(0, DISPLAY_LIMIT)
 
-  const hasMoreStrains = strainSuggestions.length > DISPLAY_LIMIT
-  const hasMorePlasmids = plasmidSuggestions.length > DISPLAY_LIMIT
+  const baseNavItems = buildNavItems(visibleStrains, visiblePlasmids)
 
-  const strainFooterHref = hasMoreStrains
-    ? `/strains?descriptor=${encodeURIComponent(searchTerm)}&group=all`
-    : "/strains"
-  const strainFooterLabel = hasMoreStrains
-    ? "See all strain results"
-    : "Advanced Strain Search"
-
-  const plasmidFooterHref = hasMorePlasmids
-    ? `/plasmids?descriptor=${encodeURIComponent(searchTerm)}&group=all`
-    : "/plasmids"
-  const plasmidFooterLabel = hasMorePlasmids
-    ? "See all plasmid results"
-    : "Advanced Plasmid Search"
-
-  const navItems: Array<NavItem> = buildNavItems(
-    visibleStrains,
-    visiblePlasmids,
-    strainFooterHref,
-    strainFooterLabel,
-    plasmidFooterHref,
-    plasmidFooterLabel,
+  const navItems: Array<NavItem> = pipe(
+    baseNavItems.length > 0,
+    Bmatch(
+      () => baseNavItems,
+      () =>
+        pipe(
+          baseNavItems,
+          Aappend({
+            type: "catalogFooter" as const,
+            to: `/catalog?q=${encodeURIComponent(searchTerm)}`,
+            label: "See all search results",
+          } as NavItem),
+        ),
+    ),
   )
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
