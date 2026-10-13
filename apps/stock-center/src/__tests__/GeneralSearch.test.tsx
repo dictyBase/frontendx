@@ -215,6 +215,11 @@ test("debounce does not immediately trigger a query for short input", async () =
   renderGeneralSearch([])
   await userEvent.type(getInput(), "a")
   expect(getInput()).toHaveValue("a")
-  await act(() => new Promise<void>((resolve) => { setTimeout(resolve, 500) }))
+  await act(
+    () =>
+      new Promise<void>((resolve) => {
+        setTimeout(resolve, 500)
+      }),
+  )
   expect(getInput()).toHaveValue("a")
 })
