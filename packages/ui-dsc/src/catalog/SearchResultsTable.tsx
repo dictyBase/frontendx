@@ -10,7 +10,6 @@ import {
   TableRow,
   Box,
   Stack,
-  Typography,
   Link as MuiLink,
 } from "@mui/material"
 import { Link } from "react-router-dom"
