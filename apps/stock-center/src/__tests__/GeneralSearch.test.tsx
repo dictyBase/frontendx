@@ -195,6 +195,22 @@ test("ArrowUp key decrements active index without crashing", async () => {
   expect(getInput()).toBeInTheDocument()
 })
 
+test("pressing Enter with 3+ characters navigates to the catalog page", async () => {
+  renderGeneralSearch()
+  await userEvent.type(getInput(), searchTerm)
+  await userEvent.keyboard("{Enter}")
+  expect(navigateMock).toHaveBeenCalledWith(
+    `/catalog?q=${encodeURIComponent(searchTerm)}`,
+  )
+})
+
+test("pressing Enter with fewer than 3 characters does not navigate to catalog", async () => {
+  renderGeneralSearch([])
+  await userEvent.type(getInput(), "ax")
+  await userEvent.keyboard("{Enter}")
+  expect(navigateMock).not.toHaveBeenCalled()
+})
+
 test("debounce does not immediately trigger a query for short input", async () => {
   renderGeneralSearch([])
   await userEvent.type(getInput(), "a")

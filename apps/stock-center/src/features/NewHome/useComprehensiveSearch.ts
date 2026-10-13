@@ -54,11 +54,14 @@ type KeyDownDeps = {
   setActiveIndex: (value: number | ((previous: number) => number)) => void
   navItems: Array<NavItem>
   navigate: ReturnType<typeof useNavigate>
+  inputValue: string
 }
 
 /**
  * Creates a keyboard-event handler for the search input that manages
- * dropdown open state, arrow-key navigation, Enter-to-navigate, and Escape-to-close.
+ * dropdown open state, arrow-key navigation, Enter-to-navigate, Escape-to-close,
+ * and catalog navigation when Enter is pressed with 3+ characters and no item
+ * highlighted.
  *
  * @param deps - State refs and setters needed to drive the dropdown.
  * @returns A `React.KeyboardEvent` handler for an `<input>` element.
@@ -71,24 +74,24 @@ const createKeyDownHandler =
     setActiveIndex,
     navItems,
     navigate,
+    inputValue,
   }: KeyDownDeps) =>
   (event: React.KeyboardEvent<HTMLInputElement>) => {
     const { key } = event
     const hasItems = navItems.length > 0
+
+    const trimmed = inputValue.trim()
 
     match({ open, key, hasItems, activeIndex })
       .with({ key: "Escape" }, () => {
         setOpen(false)
         setActiveIndex(-1)
       })
-      .with(
-        { open: false, key: P.union("ArrowDown", "Enter"), hasItems: true },
-        () => {
-          event.preventDefault()
-          setOpen(true)
-          if (key === "ArrowDown") setActiveIndex(0)
-        },
-      )
+      .with({ open: false, key: "ArrowDown", hasItems: true }, () => {
+        event.preventDefault()
+        setOpen(true)
+        setActiveIndex(0)
+      })
       .with({ open: true, key: "ArrowDown", hasItems: true }, () => {
         event.preventDefault()
         setActiveIndex((previous) =>
@@ -111,6 +114,14 @@ const createKeyDownHandler =
           if (item.type !== "divider") navigate(item.to)
         },
       )
+      .with({ key: "Enter" }, () => {
+        if (trimmed.length >= MIN_CHARS) {
+          event.preventDefault()
+          setOpen(false)
+          setActiveIndex(-1)
+          navigate(`/catalog?q=${encodeURIComponent(trimmed)}`)
+        }
+      })
       .otherwise(() => {})
   }
 
@@ -260,6 +271,7 @@ const useComprehensiveSearch = () => {
     setActiveIndex,
     navItems,
     navigate,
+    inputValue,
   })
 
   const handleClickAway = useCallback(() => {
