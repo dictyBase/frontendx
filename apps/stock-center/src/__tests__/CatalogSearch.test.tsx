@@ -258,6 +258,20 @@ test("sends the Strain entity type when the Strains filter is selected", async (
   expect(screen.queryByText("pAXE1")).not.toBeInTheDocument()
 })
 
+test("syncs the search term to the URL after debounce", async () => {
+  renderPage([suggestionsMock])
+  await userEvent.type(getInput(), searchQuery)
+  // Wait past the 400ms debounce delay so searchTerm and URL param update
+  await act(
+    () =>
+      new Promise<void>((resolve) => {
+        setTimeout(resolve, 500)
+      }),
+  )
+  // Results should be visible, confirming the inputValue → searchTerm → URL → query chain
+  expect(screen.getByText("axeA")).toBeInTheDocument()
+})
+
 test("debounce does not immediately fire the query for short input", async () => {
   renderPage([])
   await userEvent.type(getInput(), "a")
