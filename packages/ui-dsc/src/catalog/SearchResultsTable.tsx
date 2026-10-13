@@ -15,7 +15,7 @@ import {
 } from "@mui/material"
 import { Link } from "react-router-dom"
 import { match } from "ts-pattern"
-import { StockEntityType, StockSearchFieldEnum } from "dicty-graphql-schema"
+import { StockEntityType } from "dicty-graphql-schema"
 import type { StockSearchResult } from "dicty-graphql-schema"
 import type { CatalogItem } from "../types"
 import { abbreviateStringToLength } from "../utils/abbreviateStringToLength"
@@ -83,26 +83,6 @@ const EntityBadge = ({ entity }: EntityBadgeProperties) => {
     </Box>
   )
 }
-
-/**
- * Maps a `StockSearchFieldEnum` value to a human-readable label.
- *
- * @param field - The search field enum value.
- * @returns A display-friendly label string.
- */
-const formatSearchField = (field: StockSearchFieldEnum): string =>
-  match(field)
-    .with(StockSearchFieldEnum.Label, () => "Label")
-    .with(StockSearchFieldEnum.Name, () => "Name")
-    .with(StockSearchFieldEnum.Genes, () => "Gene")
-    .with(StockSearchFieldEnum.Depositor, () => "Depositor")
-    .with(StockSearchFieldEnum.Dbxrefs, () => "ID")
-    .with(StockSearchFieldEnum.Summary, () => "Summary")
-    .with(StockSearchFieldEnum.StockId, () => "Stock ID")
-    .with(StockSearchFieldEnum.Species, () => "Species")
-    .with(StockSearchFieldEnum.Plasmid, () => "Plasmid")
-    .with(StockSearchFieldEnum.Names, () => "Names")
-    .exhaustive()
 
 /**
  * Returns the URL path segment (`"strains"` or `"plasmids"`) for a given entity type.
