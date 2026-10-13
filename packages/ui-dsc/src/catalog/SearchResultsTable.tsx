@@ -10,6 +10,7 @@ import {
   Box,
   Typography,
   Link as MuiLink,
+  Stack,
 } from "@mui/material"
 import { Link } from "react-router-dom"
 import { match } from "ts-pattern"
@@ -159,7 +160,7 @@ const renderResultRow = (result: StockSearchResult) => {
   return (
     <TableRow key={`search-result-${id}`} hover>
       <TableCell>
-        <Box sx={{ display: "flex", alignItems: "flex-start", gap: 1 }}>
+        <Stack direction="row" gap={5} alignItems="center">
           <Box sx={{ pt: "2px" }}>
             <EntityBadge entity={entity} />
           </Box>
@@ -193,7 +194,7 @@ const renderResultRow = (result: StockSearchResult) => {
               </Typography>
             )}
           </Box>
-        </Box>
+        </Stack>
       </TableCell>
       <TableCell sx={{ lineHeight: 1.6 }}>
         {pipe(summary, abbreviateStringToLength(SUMMARY_MAX_LENGTH))}
