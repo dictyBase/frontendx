@@ -30,6 +30,7 @@ type NavItem =
     }
   | { type: "strainFooter"; to: string; label: string }
   | { type: "plasmidFooter"; to: string; label: string }
+  | { type: "catalogFooter"; to: string; label: string }
   | { type: "divider" }
 
 export type { NavItem }
