@@ -77,25 +77,6 @@ const strainOnlySuggestionsMock = {
   },
 }
 
-const manyStrainsSuggestionsMock = {
-  request: suggestionsMock.request,
-  result: {
-    data: {
-      listStockSuggestions: {
-        totalCount: 12,
-        limit: QUERY_LIMIT,
-        suggestions: Array.from({ length: 12 }, (_, index) => ({
-          id: `DBS000${index}`,
-          entity: StockEntityType.Strain,
-          field: StockSearchFieldEnum.Label,
-          display_text: `strain${index}`,
-          score: 1.0,
-        })),
-      },
-    },
-  },
-}
-
 const renderGeneralSearch = (mocks = [suggestionsMock]) =>
   render(
     <MockedProvider mocks={mocks} addTypename={false}>
@@ -119,49 +100,42 @@ test("renders the search input", () => {
 
 test("typing into the input updates its value", async () => {
   renderGeneralSearch()
-  const input = getInput()
-  await userEvent.type(input, searchTerm)
-  expect(input).toHaveValue(searchTerm)
+  await userEvent.type(getInput(), searchTerm)
+  expect(getInput()).toHaveValue(searchTerm)
 })
 
 test("does not open the dropdown for fewer than MIN_CHARS characters", async () => {
   renderGeneralSearch([])
-  const input = getInput()
-  const shortTerm = "ax".slice(0, MIN_CHARS - 1)
-  await userEvent.type(input, shortTerm)
+  await userEvent.type(getInput(), "ax".slice(0, MIN_CHARS - 1))
   expect(screen.queryByText("axeA")).not.toBeInTheDocument()
   expect(screen.queryByText("pAXE1")).not.toBeInTheDocument()
 })
 
 test("clearing the input closes the dropdown", async () => {
   renderGeneralSearch()
-  const input = getInput()
-  await userEvent.type(input, searchTerm)
-  await userEvent.clear(input)
-  expect(input).toHaveValue("")
+  await userEvent.type(getInput(), searchTerm)
+  await userEvent.clear(getInput())
+  expect(getInput()).toHaveValue("")
 })
 
 test("Escape key closes the dropdown", async () => {
   renderGeneralSearch()
-  const input = getInput()
-  await userEvent.type(input, searchTerm)
+  await userEvent.type(getInput(), searchTerm)
   await userEvent.keyboard("{Escape}")
-  expect(input).toBeInTheDocument()
+  expect(getInput()).toBeInTheDocument()
 })
 
 test("ArrowDown key opens dropdown when items are present", async () => {
   renderGeneralSearch()
-  const input = getInput()
-  await userEvent.type(input, searchTerm)
+  await userEvent.type(getInput(), searchTerm)
   expect(await screen.findByText("axeA")).toBeInTheDocument()
   await userEvent.keyboard(arrowDownKey)
-  expect(input).toBeInTheDocument()
+  expect(getInput()).toBeInTheDocument()
 })
 
 test("Enter key navigates to highlighted strain item", async () => {
   renderGeneralSearch()
-  const input = getInput()
-  await userEvent.type(input, searchTerm)
+  await userEvent.type(getInput(), searchTerm)
   await screen.findByText("axeA")
   await userEvent.keyboard(arrowDownKey)
   await userEvent.keyboard("{Enter}")
@@ -170,77 +144,63 @@ test("Enter key navigates to highlighted strain item", async () => {
 
 test("click away closes the dropdown", async () => {
   renderGeneralSearch()
-  const input = getInput()
-  await userEvent.type(input, searchTerm)
+  await userEvent.type(getInput(), searchTerm)
   await userEvent.click(document.body)
-  expect(input).toBeInTheDocument()
+  expect(getInput()).toBeInTheDocument()
 })
 
 test("focusing the input when a search term exists reopens the dropdown", async () => {
   renderGeneralSearch()
-  const input = getInput()
-  await userEvent.type(input, searchTerm)
+  await userEvent.type(getInput(), searchTerm)
   await screen.findByText("axeA")
   await userEvent.tab()
-  await userEvent.click(input)
-  expect(input).toBeInTheDocument()
+  await userEvent.click(getInput())
+  expect(getInput()).toBeInTheDocument()
 })
 
 test("shows strain and plasmid results", async () => {
   renderGeneralSearch()
-  const input = getInput()
-  await userEvent.type(input, searchTerm)
+  await userEvent.type(getInput(), searchTerm)
   expect(await screen.findByText("axeA")).toBeInTheDocument()
   expect(await screen.findByText("pAXE1")).toBeInTheDocument()
 })
 
-test("shows advanced strain search footer when result count is within display limit", async () => {
+test("shows a See all search results footer linking to the catalog page", async () => {
   renderGeneralSearch()
-  const input = getInput()
-  await userEvent.type(input, searchTerm)
-  expect(await screen.findByText("Advanced Strain Search")).toBeInTheDocument()
-})
-
-test("shows advanced plasmid search footer when result count is within display limit", async () => {
-  renderGeneralSearch()
-  const input = getInput()
-  await userEvent.type(input, searchTerm)
-  expect(await screen.findByText("Advanced Plasmid Search")).toBeInTheDocument()
+  await userEvent.type(getInput(), searchTerm)
+  const footer = await screen.findByRole("link", {
+    name: /see all search results/i,
+  })
+  expect(footer).toBeInTheDocument()
+  expect(footer).toHaveAttribute(
+    "href",
+    `/catalog?q=${encodeURIComponent(searchTerm)}`,
+  )
 })
 
 test("shows only strain results when no plasmids match", async () => {
   renderGeneralSearch([strainOnlySuggestionsMock])
-  const input = getInput()
-  await userEvent.type(input, searchTerm)
+  await userEvent.type(getInput(), searchTerm)
   expect(await screen.findByText("axeA")).toBeInTheDocument()
   expect(screen.queryByText("pAXE1")).not.toBeInTheDocument()
 })
 
 test("ArrowUp key decrements active index without crashing", async () => {
   renderGeneralSearch()
-  const input = getInput()
-  await userEvent.type(input, searchTerm)
+  await userEvent.type(getInput(), searchTerm)
   await screen.findByText("axeA")
   await userEvent.keyboard(arrowDownKey)
   await userEvent.keyboard(arrowDownKey)
   await userEvent.keyboard("{ArrowUp}")
-  expect(input).toBeInTheDocument()
-})
-
-test("see all strain results footer appears when strain count exceeds display limit", async () => {
-  renderGeneralSearch([manyStrainsSuggestionsMock])
-  const input = getInput()
-  await userEvent.type(input, searchTerm)
-  expect(await screen.findByText("See all strain results")).toBeInTheDocument()
+  expect(getInput()).toBeInTheDocument()
 })
 
 test("debounce does not immediately trigger a query for short input", async () => {
   renderGeneralSearch([])
-  const input = getInput()
-  await userEvent.type(input, "a")
-  expect(input).toHaveValue("a")
+  await userEvent.type(getInput(), "a")
+  expect(getInput()).toHaveValue("a")
   await act(async () => {
     await new Promise((resolve) => setTimeout(resolve, 500))
   })
-  expect(input).toHaveValue("a")
+  expect(getInput()).toHaveValue("a")
 })
