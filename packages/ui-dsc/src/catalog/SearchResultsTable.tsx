@@ -10,6 +10,7 @@ import {
   TableRow,
   Box,
   Stack,
+  Typography,
   Link as MuiLink,
 } from "@mui/material"
 import { Link } from "react-router-dom"
@@ -185,8 +186,8 @@ const renderResultRow =
     return (
       <TableRow key={`search-result-${id}`} hover>
         <TableCell>
-          <Stack direction="row" alignItems="flex-start" gap={5}>
-            <Box sx={{ pt: "2px" }}>
+          <Stack direction="row" gap={5} alignItems="center">
+            <Box>
               <EntityBadge entity={entity} />
             </Box>
             <Box sx={{ minWidth: 0 }}>
@@ -208,6 +209,10 @@ const renderResultRow =
                 }}>
                 {primaryText}
               </MuiLink>
+              <Typography
+                sx={{ fontSize: "0.75rem", color: "#718096", mt: 0.25 }}>
+                {id}
+              </Typography>
             </Box>
           </Stack>
         </TableCell>

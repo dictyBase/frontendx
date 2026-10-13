@@ -128,14 +128,14 @@ test("renders the strain entity badge", () => {
   expect(screen.getByText("Strain")).toBeInTheDocument()
 })
 
-test("shows matched gene subtitle when strain_label differs from display_text", () => {
-  renderTable([mockStrainGeneMatch])
-  expect(screen.getByText(/Matched Gene: gpaA/i)).toBeInTheDocument()
+test("renders the stock id below the primary link text", () => {
+  renderTable([mockStrainLabelMatch])
+  expect(screen.getByText(mockStrainLabelMatch.id)).toBeInTheDocument()
 })
 
-test("does not show a match subtitle when strain_label equals display_text", () => {
-  renderTable([mockStrainLabelMatch])
-  expect(screen.queryByText(/Matched/i)).not.toBeInTheDocument()
+test("renders the stock id for plasmid results", () => {
+  renderTable([mockPlasmidResult])
+  expect(screen.getByText(mockPlasmidResult.id)).toBeInTheDocument()
 })
 
 test("renders strain summary text", () => {
@@ -154,11 +154,6 @@ test("links a plasmid result to its detail page using display_text", () => {
 test("renders the plasmid entity badge", () => {
   renderTable([mockPlasmidResult])
   expect(screen.getByText("Plasmid")).toBeInTheDocument()
-})
-
-test("does not show a match subtitle for plasmid results", () => {
-  renderTable([mockPlasmidResult])
-  expect(screen.queryByText(/Matched/i)).not.toBeInTheDocument()
 })
 
 test("renders plasmid summary text", () => {
