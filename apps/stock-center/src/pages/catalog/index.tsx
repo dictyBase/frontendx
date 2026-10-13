@@ -183,8 +183,8 @@ const CatalogSearch = () => {
                 placeholder="Search strains and plasmids…"
                 value={inputValue}
                 onChange={(event) => setInputValue(event.target.value)}
-                inputProps={{ "aria-label": "search the catalog" }}
                 InputProps={{
+                  "aria-label": "search the catalog",
                   startAdornment: (
                     <InputAdornment position="start">
                       <SearchIcon sx={{ color: "#a0aec0" }} />
@@ -211,11 +211,11 @@ const CatalogSearch = () => {
                         <EmptyCatalog message="No results found. Try searching with different terms." />
                       ),
                       () => (
-                <SearchResultsTable
-                  results={results}
-                  actionComponent={AddToCartButtonHandler}
-                />
-              ),
+                        <SearchResultsTable
+                          results={results}
+                          actionComponent={AddToCartButtonHandler}
+                        />
+                      ),
                     ),
                   ),
               )
