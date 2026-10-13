@@ -1,3 +1,4 @@
+import type { FC } from "react"
 import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
 import {
@@ -8,14 +9,15 @@ import {
   TableHead,
   TableRow,
   Box,
+  Stack,
   Typography,
   Link as MuiLink,
-  Stack,
 } from "@mui/material"
 import { Link } from "react-router-dom"
 import { match } from "ts-pattern"
 import { StockEntityType, StockSearchFieldEnum } from "dicty-graphql-schema"
 import type { StockSearchResult } from "dicty-graphql-schema"
+import type { CatalogItem } from "../types"
 import { abbreviateStringToLength } from "../utils/abbreviateStringToLength"
 
 const STRAIN_BADGE_COLOR = "#2b6cb0"
@@ -131,92 +133,120 @@ const getPrimaryText = (result: StockSearchResult): string =>
     .otherwise(({ display_text }) => display_text)
 
 /**
- * Returns a secondary "matched via" subtitle string for strain results whose
- * matched field text differs from the strain label, or `undefined` when no
- * subtitle is needed.
+ * Converts a `StockSearchResult` to a `CatalogItem` so it can be passed to
+ * action components (e.g. `AddToCartButtonHandler`) that expect the standard
+ * catalog item shape.
  *
- * @param result - A `StockSearchResult` item.
- * @returns A subtitle string such as `"Gene: gpaA"`, or `undefined`.
+ * Strain results use `strain_label` (falling back to `display_text`) as the
+ * `label` field. Plasmid results use `display_text` as the `name` field.
+ *
+ * @param result - The search result to convert.
+ * @returns A `CatalogItem` (`StrainItem` or `PlasmidItem`) with all required fields.
  */
-const getMatchSubtitle = (result: StockSearchResult): string | undefined => {
-  if (result.entity !== StockEntityType.Strain) return undefined
-  if (!result.strain_label || result.strain_label === result.display_text)
-    return undefined
-  return `${formatSearchField(result.field)}: ${result.display_text}`
-}
+const toStockCatalogItem = (result: StockSearchResult): CatalogItem =>
+  match(result)
+    .with({ entity: StockEntityType.Strain }, (r) => ({
+      __typename: "Strain" as const,
+      id: r.id,
+      label: r.strain_label || r.display_text,
+      summary: r.summary,
+      in_stock: r.in_stock,
+    }))
+    .with({ entity: StockEntityType.Plasmid }, (r) => ({
+      __typename: "Plasmid" as const,
+      id: r.id,
+      name: r.display_text,
+      summary: r.summary,
+      in_stock: r.in_stock,
+    }))
+    .otherwise((r) => ({
+      __typename: "Strain" as const,
+      id: r.id,
+      label: r.display_text,
+      summary: r.summary,
+      in_stock: r.in_stock,
+    }))
 
 /**
  * Renders a single table row for a `StockSearchResult`.
  *
+ * @param ActionComponent - Component rendered in the action cell; receives the
+ *   result converted to a `CatalogItem`.
  * @param result - The search result to render.
  * @returns A `<TableRow>` element.
  */
-const renderResultRow = (result: StockSearchResult) => {
-  const { id, entity, summary } = result
-  const path = toItemPath(entity)
-  const primaryText = getPrimaryText(result)
-  const matchSubtitle = getMatchSubtitle(result)
+const renderResultRow =
+  (ActionComponent: FC<{ item: CatalogItem }>) =>
+  (result: StockSearchResult) => {
+    const { id, entity, summary } = result
+    const path = toItemPath(entity)
+    const primaryText = getPrimaryText(result)
+    const catalogItem = toStockCatalogItem(result)
 
-  return (
-    <TableRow key={`search-result-${id}`} hover>
-      <TableCell>
-        <Stack direction="row" gap={5} alignItems="center">
-          <Box sx={{ pt: "2px" }}>
-            <EntityBadge entity={entity} />
-          </Box>
-          <Box sx={{ minWidth: 0 }}>
-            <MuiLink
-              component={Link}
-              to={`/${path}/${id}`}
-              sx={{
-                display: "block",
-                color: "#004080",
-                textDecoration: "none",
-                fontWeight: 600,
-                fontSize: "15px",
-                lineHeight: 1.4,
-                wordBreak: "break-word",
-                "&:hover": {
-                  textDecoration: "underline",
-                  color: "#2c5282",
-                },
-              }}>
-              {primaryText}
-            </MuiLink>
-            {matchSubtitle && (
-              <Typography
+    return (
+      <TableRow key={`search-result-${id}`} hover>
+        <TableCell>
+          <Stack direction="row" alignItems="flex-start" gap={5}>
+            <Box sx={{ pt: "2px" }}>
+              <EntityBadge entity={entity} />
+            </Box>
+            <Box sx={{ minWidth: 0 }}>
+              <MuiLink
+                component={Link}
+                to={`/${path}/${id}`}
                 sx={{
-                  fontSize: "0.75rem",
-                  color: "#718096",
-                  mt: 0.25,
+                  display: "block",
+                  color: "#004080",
+                  textDecoration: "none",
+                  fontWeight: 600,
+                  fontSize: "15px",
+                  lineHeight: 1.4,
+                  wordBreak: "break-word",
+                  "&:hover": {
+                    textDecoration: "underline",
+                    color: "#2c5282",
+                  },
                 }}>
-                Matched {matchSubtitle}
-              </Typography>
-            )}
-          </Box>
-        </Stack>
-      </TableCell>
-      <TableCell sx={{ lineHeight: 1.6 }}>
-        {pipe(summary, abbreviateStringToLength(SUMMARY_MAX_LENGTH))}
-      </TableCell>
-    </TableRow>
-  )
-}
+                {primaryText}
+              </MuiLink>
+            </Box>
+          </Stack>
+        </TableCell>
+        <TableCell sx={{ lineHeight: 1.6 }}>
+          {pipe(summary, abbreviateStringToLength(SUMMARY_MAX_LENGTH))}
+        </TableCell>
+        <TableCell sx={{ textAlign: "center" }}>
+          <ActionComponent item={catalogItem} />
+        </TableCell>
+      </TableRow>
+    )
+  }
 
 type SearchResultsTableProperties = {
   /** Array of stock search results to display in the table. */
   results: Array<StockSearchResult>
+  /**
+   * Component rendered in the action cell of each row.
+   * Receives the result converted to a `CatalogItem`.
+   * Typically `AddToCartButtonHandler`.
+   */
+  actionComponent: FC<{ item: CatalogItem }>
 }
 
 /**
  * Displays a scrollable table of stock search results returned by the
  * `searchStocks` query. Each row shows an entity-type badge, a link to the
  * item detail page, an optional "matched via" subtitle for strain results
- * whose match field differs from the strain label, and a truncated summary.
+ * whose match field differs from the strain label, a truncated summary, and
+ * an action cell rendered by the provided `actionComponent`.
  *
  * @param results - The `StockSearchResult` items to render.
+ * @param actionComponent - Component for the action cell (e.g. add-to-cart button).
  */
-const SearchResultsTable = ({ results }: SearchResultsTableProperties) => (
+const SearchResultsTable = ({
+  results,
+  actionComponent,
+}: SearchResultsTableProperties) => (
   <TableContainer
     sx={{
       maxHeight: "700px",
@@ -228,14 +258,17 @@ const SearchResultsTable = ({ results }: SearchResultsTableProperties) => (
     <Table stickyHeader sx={{ tableLayout: "fixed" }}>
       <TableHead>
         <TableRow>
-          <TableCell sx={{ width: "35%" }}>Stock</TableCell>
-          <TableCell sx={{ width: "65%" }}>Summary</TableCell>
+          <TableCell sx={{ width: "30%" }}>Stock</TableCell>
+          <TableCell sx={{ width: "60%" }}>Summary</TableCell>
+          <TableCell sx={{ width: "10%", textAlign: "center" }} />
         </TableRow>
       </TableHead>
-      <TableBody>{pipe(results, Amap(renderResultRow))}</TableBody>
+      <TableBody>
+        {pipe(results, Amap(renderResultRow(actionComponent)))}
+      </TableBody>
     </Table>
   </TableContainer>
 )
 
-export { SearchResultsTable }
+export { SearchResultsTable, toStockCatalogItem }
 export type { SearchResultsTableProperties }
