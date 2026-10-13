@@ -12,53 +12,41 @@ const mockPlasmid: SuggestionItem = {
   display_text: "plasmid one",
 }
 
-const strainFooterHref = "/strains"
-const strainFooterLabel = "Advanced Strain Search"
-const plasmidFooterHref = "/plasmids"
-const plasmidFooterLabel = "Advanced Plasmid Search"
-
 const build = (
   strains: Array<SuggestionItem> = [mockStrain],
   plasmids: Array<SuggestionItem> = [mockPlasmid],
-) =>
-  buildNavItems(
-    strains,
-    plasmids,
-    strainFooterHref,
-    strainFooterLabel,
-    plasmidFooterHref,
-    plasmidFooterLabel,
-  )
+) => buildNavItems(strains, plasmids)
 
 test("returns empty array when both lists are empty", () => {
-  const result = build([], [])
-  expect(result).toHaveLength(0)
+  expect(build([], [])).toHaveLength(0)
 })
 
-test("returns strain items and footer with no divider when only strains are present", () => {
+test("returns only strain items with no divider when only strains are present", () => {
   const result = build([mockStrain], [])
   const types = result.map((item) => item.type)
-  expect(types).toEqual(["strain", "strainFooter"])
+  expect(types).toEqual(["strain"])
   expect(types).not.toContain("divider")
 })
 
-test("returns plasmid items and footer with no divider when only plasmids are present", () => {
+test("returns only plasmid items with no divider when only plasmids are present", () => {
   const result = build([], [mockPlasmid])
   const types = result.map((item) => item.type)
-  expect(types).toEqual(["plasmid", "plasmidFooter"])
+  expect(types).toEqual(["plasmid"])
   expect(types).not.toContain("divider")
 })
 
 test("inserts a divider between strain and plasmid sections when both are present", () => {
   const result = build([mockStrain], [mockPlasmid])
   const types = result.map((item) => item.type)
-  expect(types).toEqual([
-    "strain",
-    "strainFooter",
-    "divider",
-    "plasmid",
-    "plasmidFooter",
-  ])
+  expect(types).toEqual(["strain", "divider", "plasmid"])
+})
+
+test("does not add any footer items", () => {
+  const result = build([mockStrain], [mockPlasmid])
+  const types = result.map((item) => item.type)
+  expect(types).not.toContain("strainFooter")
+  expect(types).not.toContain("plasmidFooter")
+  expect(types).not.toContain("catalogFooter")
 })
 
 test("maps strain display_text to descriptor", () => {
@@ -97,46 +85,24 @@ test("plasmid nav item always has undefined summary", () => {
   expect(plasmid).toMatchObject({ summary: undefined })
 })
 
-test("includes correct strain footer href and label", () => {
-  const result = build([mockStrain], [])
-  const footer = result.find((item) => item.type === "strainFooter")
-  expect(footer).toMatchObject({
-    to: strainFooterHref,
-    label: strainFooterLabel,
-  })
-})
-
-test("includes correct plasmid footer href and label", () => {
-  const result = build([], [mockPlasmid])
-  const footer = result.find((item) => item.type === "plasmidFooter")
-  expect(footer).toMatchObject({
-    to: plasmidFooterHref,
-    label: plasmidFooterLabel,
-  })
-})
-
-test("handles multiple strains with a single footer", () => {
+test("handles multiple strains and produces one item per strain", () => {
   const strains: Array<SuggestionItem> = [
     { id: "DBS0001", display_text: "axeA" },
     { id: "DBS0002", display_text: "axeB" },
   ]
   const result = build(strains, [])
   const strainItems = result.filter((item) => item.type === "strain")
-  const footers = result.filter((item) => item.type === "strainFooter")
   expect(strainItems).toHaveLength(2)
-  expect(footers).toHaveLength(1)
 })
 
-test("handles multiple plasmids with a single footer", () => {
+test("handles multiple plasmids and produces one item per plasmid", () => {
   const plasmids: Array<SuggestionItem> = [
     { id: "DBP0001", display_text: "pAXE1" },
     { id: "DBP0002", display_text: "pAXE2" },
   ]
   const result = build([], plasmids)
   const plasmidItems = result.filter((item) => item.type === "plasmid")
-  const footers = result.filter((item) => item.type === "plasmidFooter")
   expect(plasmidItems).toHaveLength(2)
-  expect(footers).toHaveLength(1)
 })
 
 test("produces correct to path for each strain", () => {
