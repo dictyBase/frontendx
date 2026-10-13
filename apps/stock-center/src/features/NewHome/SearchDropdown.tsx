@@ -81,6 +81,14 @@ const SearchDropdown = ({
                       isActive={activeIndex === index}
                     />
                   ))
+                  .with({ type: "catalogFooter" }, (f) => (
+                    <ResultFooterLink
+                      key="catalog-footer"
+                      to={f.to}
+                      label={f.label}
+                      isActive={activeIndex === index}
+                    />
+                  ))
                   .with({ type: "divider" }, () => <Divider key="divider" />)
                   .exhaustive(),
               )}
