@@ -25,7 +25,6 @@ import {
   usePlasmidListFilterQuery,
   StrainListQuery,
   PlasmidListFilterQuery,
-  useListStockSuggestionsLazyQuery,
 } from "dicty-graphql-schema"
 import {
   SEARCH_FETCH_POLICY,

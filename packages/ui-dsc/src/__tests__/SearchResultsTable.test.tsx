@@ -5,7 +5,10 @@ import { StockEntityType, StockSearchFieldEnum } from "dicty-graphql-schema"
 import type { StockSearchResult } from "dicty-graphql-schema"
 import type { FC } from "react"
 import type { CatalogItem } from "../types"
-import { SearchResultsTable, toStockCatalogItem } from "../catalog/SearchResultsTable"
+import {
+  SearchResultsTable,
+  toStockCatalogItem,
+} from "../catalog/SearchResultsTable"
 
 // ── Shared mock action components ──────────────────────────────────────────────
 
@@ -26,7 +29,7 @@ const mockStrainLabelMatch: StockSearchResult = {
   display_text: "axeA",
   strain_label: "axeA",
   summary: "Axenic growth mutant A",
-  score: 1.0,
+  score: 1,
   in_stock: true,
 }
 
@@ -96,7 +99,9 @@ const renderTable = (
 
 test("renders Stock and Summary column headers", () => {
   renderTable([mockStrainLabelMatch])
-  expect(screen.getByRole("columnheader", { name: "Stock" })).toBeInTheDocument()
+  expect(
+    screen.getByRole("columnheader", { name: "Stock" }),
+  ).toBeInTheDocument()
   expect(
     screen.getByRole("columnheader", { name: "Summary" }),
   ).toBeInTheDocument()
@@ -231,12 +236,14 @@ test("renders both Strain and Plasmid badges in a mixed results list", () => {
 
 test("renders headers and no rows when results array is empty", () => {
   renderTable([])
-  expect(screen.getByRole("columnheader", { name: "Stock" })).toBeInTheDocument()
+  expect(
+    screen.getByRole("columnheader", { name: "Stock" }),
+  ).toBeInTheDocument()
   expect(screen.queryByRole("link")).not.toBeInTheDocument()
 })
 
 test("truncates summaries longer than 120 characters", () => {
   renderTable([mockLongSummaryResult])
   expect(screen.queryByText("A".repeat(130))).not.toBeInTheDocument()
-  expect(screen.getByText(/A+\.\.\./)).toBeInTheDocument()
+  expect(screen.getByText(/A+\.{3}/)).toBeInTheDocument()
 })

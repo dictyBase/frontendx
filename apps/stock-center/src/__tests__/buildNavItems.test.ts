@@ -35,10 +35,11 @@ test("returns only plasmid items with no divider when only plasmids are present"
   expect(types).not.toContain("divider")
 })
 
-test("inserts a divider between strain and plasmid sections when both are present", () => {
+test("lists strain items followed by plasmid items when both are present", () => {
   const result = build([mockStrain], [mockPlasmid])
   const types = result.map((item) => item.type)
-  expect(types).toEqual(["strain", "divider", "plasmid"])
+  expect(types).toEqual(["strain", "plasmid"])
+  expect(types).not.toContain("divider")
 })
 
 test("does not add any footer items", () => {

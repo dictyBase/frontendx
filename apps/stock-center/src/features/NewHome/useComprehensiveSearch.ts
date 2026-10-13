@@ -11,7 +11,6 @@ import {
   map as Amap,
   append as Aappend,
   filter as Afilter,
-  intersperse as Aintersperse,
   flatten as Aflatten,
   isNonEmpty as AisNonEmpty,
 } from "fp-ts/Array"

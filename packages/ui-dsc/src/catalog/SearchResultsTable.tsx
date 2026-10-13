@@ -175,9 +175,8 @@ const toStockCatalogItem = (result: StockSearchResult): CatalogItem =>
  * @param result - The search result to render.
  * @returns A `<TableRow>` element.
  */
-const renderResultRow =
-  (ActionComponent: FC<{ item: CatalogItem }>) =>
-  (result: StockSearchResult) => {
+const renderResultRow = (ActionComponent: FC<{ item: CatalogItem }>) =>
+  function (result: StockSearchResult) {
     const { id, entity, summary } = result
     const path = toItemPath(entity)
     const primaryText = getPrimaryText(result)
