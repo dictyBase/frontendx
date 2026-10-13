@@ -3,7 +3,17 @@ import { render, screen } from "@testing-library/react"
 import { MemoryRouter } from "react-router-dom"
 import { StockEntityType, StockSearchFieldEnum } from "dicty-graphql-schema"
 import type { StockSearchResult } from "dicty-graphql-schema"
-import { SearchResultsTable } from "../catalog/SearchResultsTable"
+import type { FC } from "react"
+import type { CatalogItem } from "../types"
+import { SearchResultsTable, toStockCatalogItem } from "../catalog/SearchResultsTable"
+
+// ── Shared mock action components ──────────────────────────────────────────────
+
+// eslint-disable-next-line unicorn/no-null
+const NoOpAction: FC<{ item: CatalogItem }> = () => null
+const MockAction: FC<{ item: CatalogItem }> = ({ item }) => (
+  <button type="button">{`action-${item.id}`}</button>
+)
 
 // ── Mock data ──────────────────────────────────────────────────────────────────
 
@@ -17,6 +27,7 @@ const mockStrainLabelMatch: StockSearchResult = {
   strain_label: "axeA",
   summary: "Axenic growth mutant A",
   score: 1.0,
+  in_stock: true,
 }
 
 /** Strain result where a gene name was the matched field (subtitle expected). */
@@ -29,6 +40,20 @@ const mockStrainGeneMatch: StockSearchResult = {
   strain_label: "WT/AX2",
   summary: "Wild type axenic strain",
   score: 0.9,
+  in_stock: true,
+}
+
+/** Strain result that is out of stock. */
+const mockStrainOutOfStock: StockSearchResult = {
+  __typename: "StockSearchResult",
+  id: "DBS0003",
+  entity: StockEntityType.Strain,
+  field: StockSearchFieldEnum.Label,
+  display_text: "unavailableStrain",
+  strain_label: "unavailableStrain",
+  summary: "Currently out of stock",
+  score: 0.8,
+  in_stock: false,
 }
 
 /** Plasmid result (no subtitle expected). */
@@ -41,24 +66,29 @@ const mockPlasmidResult: StockSearchResult = {
   strain_label: "",
   summary: "Expression vector for AXE1",
   score: 0.8,
+  in_stock: true,
 }
 
 /** Result with a summary exceeding the 120-character truncation limit. */
 const mockLongSummaryResult: StockSearchResult = {
   __typename: "StockSearchResult",
-  id: "DBS0003",
+  id: "DBS0004",
   entity: StockEntityType.Strain,
   field: StockSearchFieldEnum.Label,
   display_text: "longSummaryStrain",
   strain_label: "longSummaryStrain",
   summary: "A".repeat(130),
   score: 0.7,
+  in_stock: true,
 }
 
-const renderTable = (results: Array<StockSearchResult>) =>
+const renderTable = (
+  results: Array<StockSearchResult>,
+  actionComponent: FC<{ item: CatalogItem }> = NoOpAction,
+) =>
   render(
     <MemoryRouter>
-      <SearchResultsTable results={results} />
+      <SearchResultsTable results={results} actionComponent={actionComponent} />
     </MemoryRouter>,
   )
 
@@ -110,9 +140,7 @@ test("does not show a match subtitle when strain_label equals display_text", () 
 
 test("renders strain summary text", () => {
   renderTable([mockStrainLabelMatch])
-  expect(
-    screen.getByText(mockStrainLabelMatch.summary),
-  ).toBeInTheDocument()
+  expect(screen.getByText(mockStrainLabelMatch.summary)).toBeInTheDocument()
 })
 
 // ── Plasmid results ────────────────────────────────────────────────────────────
@@ -136,6 +164,64 @@ test("does not show a match subtitle for plasmid results", () => {
 test("renders plasmid summary text", () => {
   renderTable([mockPlasmidResult])
   expect(screen.getByText(mockPlasmidResult.summary)).toBeInTheDocument()
+})
+
+// ── Action component ───────────────────────────────────────────────────────────
+
+test("renders the action component for each row", () => {
+  renderTable([mockStrainLabelMatch, mockPlasmidResult], MockAction)
+  expect(
+    screen.getByRole("button", { name: `action-${mockStrainLabelMatch.id}` }),
+  ).toBeInTheDocument()
+  expect(
+    screen.getByRole("button", { name: `action-${mockPlasmidResult.id}` }),
+  ).toBeInTheDocument()
+})
+
+test("passes the correct in_stock value to the action component via toStockCatalogItem", () => {
+  const inStockItem = toStockCatalogItem(mockStrainLabelMatch)
+  const outOfStockItem = toStockCatalogItem(mockStrainOutOfStock)
+  expect(inStockItem.in_stock).toBe(true)
+  expect(outOfStockItem.in_stock).toBe(false)
+})
+
+// ── toStockCatalogItem ─────────────────────────────────────────────────────────
+
+test("converts a strain result to a StrainItem with strain_label as label", () => {
+  const item = toStockCatalogItem(mockStrainLabelMatch)
+  expect(item).toMatchObject({
+    __typename: "Strain",
+    id: "DBS0001",
+    label: "axeA",
+    summary: "Axenic growth mutant A",
+    in_stock: true,
+  })
+})
+
+test("converts a strain gene-match result using strain_label as the label", () => {
+  const item = toStockCatalogItem(mockStrainGeneMatch)
+  expect(item).toMatchObject({
+    __typename: "Strain",
+    id: "DBS0002",
+    label: "WT/AX2",
+    in_stock: true,
+  })
+})
+
+test("converts a plasmid result to a PlasmidItem with display_text as name", () => {
+  const item = toStockCatalogItem(mockPlasmidResult)
+  expect(item).toMatchObject({
+    __typename: "Plasmid",
+    id: "DBP0001",
+    name: "pAXE1",
+    summary: "Expression vector for AXE1",
+    in_stock: true,
+  })
+})
+
+test("preserves in_stock false on converted out-of-stock strain", () => {
+  const item = toStockCatalogItem(mockStrainOutOfStock)
+  expect(item.in_stock).toBe(false)
 })
 
 // ── Mixed results ──────────────────────────────────────────────────────────────
