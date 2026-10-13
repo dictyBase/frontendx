@@ -156,7 +156,7 @@ const toStockCatalogItem = (result: StockSearchResult): CatalogItem =>
  * @returns A `<TableRow>` element.
  */
 const renderResultRow = (ActionComponent: FC<{ item: CatalogItem }>) =>
-  function (result: StockSearchResult) {
+  (result: StockSearchResult) => {
     const { id, entity, summary } = result
     const path = toItemPath(entity)
     const primaryText = getPrimaryText(result)
@@ -219,9 +219,8 @@ type SearchResultsTableProperties = {
 /**
  * Displays a scrollable table of stock search results returned by the
  * `searchStocks` query. Each row shows an entity-type badge, a link to the
- * item detail page, an optional "matched via" subtitle for strain results
- * whose match field differs from the strain label, a truncated summary, and
- * an action cell rendered by the provided `actionComponent`.
+ * item detail page, the stock ID, a truncated summary, and an action cell
+ * rendered by the provided `actionComponent`.
  *
  * @param results - The `StockSearchResult` items to render.
  * @param actionComponent - Component for the action cell (e.g. add-to-cart button).
