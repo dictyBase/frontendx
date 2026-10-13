@@ -155,7 +155,9 @@ const toStockCatalogItem = (result: StockSearchResult): CatalogItem =>
  * @param result - The search result to render.
  * @returns A `<TableRow>` element.
  */
-const renderResultRow = (ActionComponent: FC<{ item: CatalogItem }>) =>
+const renderResultRow =
+  (ActionComponent: FC<{ item: CatalogItem }>) =>
+  // eslint-disable-next-line react/function-component-definition
   (result: StockSearchResult) => {
     const { id, entity, summary } = result
     const path = toItemPath(entity)
