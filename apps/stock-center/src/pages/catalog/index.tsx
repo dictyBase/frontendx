@@ -14,6 +14,7 @@ import {
 } from "@dictybase/ui-dsc"
 import { useSearchParams } from "react-router-dom"
 import { CatalogSidebar } from "../../components/CatalogSidebar"
+import { AddToCartButtonHandler } from "../../components/AddToCartButtonHandler"
 import { catalogTheme } from "../../themes"
 
 /** URL search parameter key for the full-text query string. */
@@ -182,6 +183,7 @@ const CatalogSearch = () => {
                 placeholder="Search strains and plasmids…"
                 value={inputValue}
                 onChange={(event) => setInputValue(event.target.value)}
+                inputProps={{ "aria-label": "search the catalog" }}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -208,7 +210,12 @@ const CatalogSearch = () => {
                       () => (
                         <EmptyCatalog message="No results found. Try searching with different terms." />
                       ),
-                      () => <SearchResultsTable results={results} />,
+                      () => (
+                <SearchResultsTable
+                  results={results}
+                  actionComponent={AddToCartButtonHandler}
+                />
+              ),
                     ),
                   ),
               )
