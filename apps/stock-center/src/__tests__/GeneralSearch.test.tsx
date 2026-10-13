@@ -41,14 +41,14 @@ const suggestionsMock = {
             entity: StockEntityType.Strain,
             field: StockSearchFieldEnum.Label,
             display_text: "axeA",
-            score: 1.0,
+            score: 1,
           },
           {
             id: "DBP0001",
             entity: StockEntityType.Plasmid,
             field: StockSearchFieldEnum.Name,
             display_text: "pAXE1",
-            score: 1.0,
+            score: 1,
           },
         ],
       },
@@ -69,7 +69,7 @@ const strainOnlySuggestionsMock = {
             entity: StockEntityType.Strain,
             field: StockSearchFieldEnum.Label,
             display_text: "axeA",
-            score: 1.0,
+            score: 1,
           },
         ],
       },
@@ -215,8 +215,6 @@ test("debounce does not immediately trigger a query for short input", async () =
   renderGeneralSearch([])
   await userEvent.type(getInput(), "a")
   expect(getInput()).toHaveValue("a")
-  await act(async () => {
-    await new Promise((resolve) => setTimeout(resolve, 500))
-  })
+  await act(() => new Promise<void>((resolve) => { setTimeout(resolve, 500) }))
   expect(getInput()).toHaveValue("a")
 })

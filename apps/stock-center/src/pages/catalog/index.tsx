@@ -1,5 +1,12 @@
 import { useState, useEffect, useCallback } from "react"
-import { Box, ThemeProvider, TextField, InputAdornment } from "@mui/material"
+import {
+  Box,
+  ThemeProvider,
+  TextField,
+  InputAdornment,
+  Typography,
+  Paper,
+} from "@mui/material"
 import SearchIcon from "@mui/icons-material/Search"
 import { P, match } from "ts-pattern"
 import { pipe } from "fp-ts/function"
@@ -60,72 +67,80 @@ const toStockEntityType = (parameters: string): StockEntityType | undefined =>
 /**
  * Full-catalog search page.
  *
- * Renders a text input that debounces user input into the `q` URL parameter,
- * a sidebar that writes an `entity` URL parameter for entity-type filtering,
- * and a results table driven by `useSearchStocksLazyQuery`. The query is only
- * fired once the search term reaches `MIN_CHARS` characters.
+ * Renders a text input that debounces user input into a local `searchTerm`
+ * state (and keeps the `q` URL param in sync for shareability), a sidebar
+ * that writes an `entity` URL parameter for entity-type filtering, and a
+ * results table driven by `useSearchStocksLazyQuery`. The query fires only
+ * once the search term reaches `MIN_CHARS` characters.
  */
 const CatalogSearch = () => {
   const [searchParameters, setSearchParameters] = useSearchParams()
 
-  const query = searchParameters.get(QUERY_PARAM) ?? ""
-  const entityParameters = searchParameters.get(ENTITY_PARAM) ?? DEFAULT_ENTITY
+  const entityParameter = searchParameters.get(ENTITY_PARAM) ?? DEFAULT_ENTITY
 
-  // Local input state allows immediate UI feedback while the URL update debounces.
-  const [inputValue, setInputValue] = useState(query)
+  const [inputValue, setInputValue] = useState(
+    searchParameters.get(QUERY_PARAM) ?? "",
+  )
+  const [searchTerm, setSearchTerm] = useState(
+    searchParameters.get(QUERY_PARAM) ?? "",
+  )
 
   const [searchStocks, { data, loading, error }] = useSearchStocksLazyQuery()
 
-  // Debounce: write the trimmed input to the `q` URL param after a short delay.
+  // Debounce: update local searchTerm after a short delay.
   useEffect(() => {
     const timer = setTimeout(() => {
-      const trimmed = inputValue.trim()
-      setSearchParameters(
-        (previous) => {
-          const next = new URLSearchParams([...previous.entries()])
-          if (trimmed.length >= MIN_CHARS) {
-            next.set(QUERY_PARAM, trimmed)
-          } else {
-            next.delete(QUERY_PARAM)
-          }
-          return [...next.entries()]
-        },
-        { replace: true },
-      )
+      setSearchTerm(inputValue.trim())
     }, DEBOUNCE_DELAY_MS)
     return () => clearTimeout(timer)
-  }, [inputValue, setSearchParameters])
+  }, [inputValue])
+
+  // Keep the `q` URL param in sync with the debounced search term.
+  useEffect(() => {
+    setSearchParameters(
+      (previous) => {
+        const next = new URLSearchParams([...previous.entries()])
+        if (searchTerm.length >= MIN_CHARS) {
+          next.set(QUERY_PARAM, searchTerm)
+        } else {
+          next.delete(QUERY_PARAM)
+        }
+        return [...next.entries()]
+      },
+      { replace: true },
+    )
+  }, [searchTerm, setSearchParameters])
 
   // Fire the lazy query whenever the search term or entity filter changes.
   useEffect(() => {
-    if (query.length >= MIN_CHARS) {
+    if (searchTerm.length >= MIN_CHARS) {
       searchStocks({
         variables: {
-          query,
+          query: searchTerm,
           limit: SEARCH_LIMIT,
-          entity: toStockEntityType(entityParameters),
+          entity: toStockEntityType(entityParameter),
         },
       })
     }
-  }, [query, entityParameters, searchStocks])
+  }, [searchTerm, entityParameter, searchStocks])
 
   /**
    * Re-fires the last search query; passed to `ErrorDisplay` as the retry
    * callback.
    */
   const refetch = useCallback(() => {
-    if (query.length >= MIN_CHARS) {
+    if (searchTerm.length >= MIN_CHARS) {
       searchStocks({
         variables: {
-          query,
+          query: searchTerm,
           limit: SEARCH_LIMIT,
-          entity: toStockEntityType(entityParameters),
+          entity: toStockEntityType(entityParameter),
         },
       })
     }
-  }, [query, entityParameters, searchStocks])
+  }, [searchTerm, entityParameter, searchStocks])
 
-  const hasQuery = query.length >= MIN_CHARS
+  const hasQuery = searchTerm.length >= MIN_CHARS
 
   return (
     <ThemeProvider theme={catalogTheme}>
@@ -183,8 +198,9 @@ const CatalogSearch = () => {
                 placeholder="Search strains and plasmids…"
                 value={inputValue}
                 onChange={(event) => setInputValue(event.target.value)}
+                inputProps={{ "aria-label": "search the catalog" }}
+                // eslint-disable-next-line react/jsx-no-duplicate-props
                 InputProps={{
-                  "aria-label": "search the catalog",
                   startAdornment: (
                     <InputAdornment position="start">
                       <SearchIcon sx={{ color: "#a0aec0" }} />
@@ -198,7 +214,32 @@ const CatalogSearch = () => {
             {/* Results area — pattern matched against query/loading/data/error */}
             {match({ data, loading, error, hasQuery })
               .with({ hasQuery: false }, () => (
-                <EmptyCatalog message="Enter at least 3 characters to search the catalog" />
+                <Paper
+                  elevation={0}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 1.5,
+                    py: 10,
+                    borderRadius: "12px",
+                    border: "2px dashed #e2e8f0",
+                    backgroundColor: "#f8fafc",
+                  }}>
+                  <SearchIcon sx={{ fontSize: 48, color: "#cbd5e0" }} />
+                  <Typography
+                    sx={{
+                      fontWeight: 600,
+                      color: "#4a5568",
+                      fontSize: "1rem",
+                    }}>
+                    Search the Catalog
+                  </Typography>
+                  <Typography sx={{ color: "#a0aec0", fontSize: "0.875rem" }}>
+                    Enter at least 3 characters to get started
+                  </Typography>
+                </Paper>
               ))
               .with({ loading: true }, () => <CatalogListLoader />)
               .with(

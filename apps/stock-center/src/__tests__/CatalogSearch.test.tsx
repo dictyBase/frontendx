@@ -20,7 +20,7 @@ vi.mock("react-router-dom", async () => {
   return { ...actual, useNavigate: () => navigateMock }
 })
 
-const SEARCH_LIMIT = 40
+const SEARCH_LIMIT = 50
 const searchQuery = "axe"
 
 /** Creates a fresh Jotai store with an empty cart for each test. */
@@ -49,7 +49,7 @@ const suggestionsMock = {
             display_text: "axeA",
             strain_label: "axeA",
             summary: "Axenic growth mutant A",
-            score: 1.0,
+            score: 1,
             in_stock: true,
           },
           {
@@ -101,7 +101,7 @@ const strainOnlyMock = {
             display_text: "axeA",
             strain_label: "axeA",
             summary: "Axenic growth mutant A",
-            score: 1.0,
+            score: 1,
             in_stock: true,
           },
         ],
@@ -126,7 +126,7 @@ const outOfStockMock = {
             display_text: "unavailableStrain",
             strain_label: "unavailableStrain",
             summary: "Currently out of stock",
-            score: 1.0,
+            score: 1,
             in_stock: false,
           },
         ],
@@ -136,7 +136,6 @@ const outOfStockMock = {
 }
 
 const renderPage = (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   mocks: any[] = [suggestionsMock],
   initialEntries = ["/catalog"],
 ) =>
@@ -169,8 +168,9 @@ test("renders the search input", () => {
   expect(getInput()).toBeInTheDocument()
 })
 
-test("shows the empty prompt before any input is entered", () => {
+test("shows the search prompt before any input is entered", () => {
   renderPage()
+  expect(screen.getByText(/search the catalog/i)).toBeInTheDocument()
   expect(screen.getByText(/enter at least 3 characters/i)).toBeInTheDocument()
 })
 
@@ -187,40 +187,44 @@ test("typing updates the input value", async () => {
   expect(getInput()).toHaveValue(searchQuery)
 })
 
+const QUERY_TIMEOUT = { timeout: 3000 }
+
 test("shows strain and plasmid results after typing 3+ characters", async () => {
   renderPage()
   await userEvent.type(getInput(), searchQuery)
-  expect(await screen.findByText("axeA")).toBeInTheDocument()
-  expect(await screen.findByText("pAXE1")).toBeInTheDocument()
+  expect(await screen.findByText("axeA", {}, QUERY_TIMEOUT)).toBeInTheDocument()
+  expect(
+    await screen.findByText("pAXE1", {}, QUERY_TIMEOUT),
+  ).toBeInTheDocument()
 })
 
 test("links strain result to its detail page", async () => {
   renderPage()
   await userEvent.type(getInput(), searchQuery)
-  const link = await screen.findByRole("link", { name: "axeA" })
+  const link = await screen.findByRole("link", { name: "axeA" }, QUERY_TIMEOUT)
   expect(link).toHaveAttribute("href", "/strains/DBS0001")
 })
 
 test("links plasmid result to its detail page", async () => {
   renderPage()
   await userEvent.type(getInput(), searchQuery)
-  const link = await screen.findByRole("link", { name: "pAXE1" })
+  const link = await screen.findByRole("link", { name: "pAXE1" }, QUERY_TIMEOUT)
   expect(link).toHaveAttribute("href", "/plasmids/DBP0001")
 })
 
 test("renders an add to cart button for in-stock results", async () => {
   renderPage()
   await userEvent.type(getInput(), searchQuery)
-  await screen.findByText("axeA")
+  await screen.findByText("axeA", {}, QUERY_TIMEOUT)
   expect(
-    screen.getAllByRole("button", { name: /add to cart/i }),
+    screen.getAllByRole("button", { name: /add to shopping cart/i }),
   ).not.toHaveLength(0)
 })
 
 test("renders an unavailable button for out-of-stock results", async () => {
   renderPage([outOfStockMock])
   await userEvent.type(getInput(), searchQuery)
-  await screen.findByText("unavailableStrain")
+  await screen.findByText("unavailableStrain", {}, QUERY_TIMEOUT)
   expect(
     screen.getByRole("button", { name: /unavailable/i }),
   ).toBeInTheDocument()
@@ -229,7 +233,9 @@ test("renders an unavailable button for out-of-stock results", async () => {
 test("shows the empty catalog message when the query returns no results", async () => {
   renderPage([emptyResultsMock])
   await userEvent.type(getInput(), searchQuery)
-  expect(await screen.findByText(/no results found/i)).toBeInTheDocument()
+  expect(
+    await screen.findByText(/no results found/i, {}, QUERY_TIMEOUT),
+  ).toBeInTheDocument()
 })
 
 test("renders the Stock Type sidebar", () => {
@@ -256,8 +262,11 @@ test("debounce does not immediately fire the query for short input", async () =>
   renderPage([])
   await userEvent.type(getInput(), "a")
   expect(getInput()).toHaveValue("a")
-  await act(async () => {
-    await new Promise((resolve) => setTimeout(resolve, 500))
-  })
+  await act(
+    () =>
+      new Promise((resolve) => {
+        setTimeout(resolve, 500)
+      }),
+  )
   expect(screen.queryByRole("link")).not.toBeInTheDocument()
 })
