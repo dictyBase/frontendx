@@ -212,7 +212,11 @@ const DscNavbar = () => {
               fontSize: "1rem",
               mr: 1,
             }}>
-            Dicty Stock Center
+            <img
+              height="60"
+              src={`${import.meta.env.BASE_URL}/logo.svg`}
+              style={{ filter: "invert(90%)" }}
+            />
           </Button>
 
           <Divider
