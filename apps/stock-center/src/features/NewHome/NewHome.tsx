@@ -60,7 +60,7 @@ const NewHome = () => (
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      pt: 10,
+      pt: 7,
       px: 3,
       pb: 8,
     }}>
