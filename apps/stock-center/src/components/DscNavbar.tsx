@@ -199,7 +199,9 @@ const DscNavbar = () => {
 
   return (
     <>
-      <AppBar position="sticky" sx={{ backgroundColor: NAV_BG, zIndex: 1300 }}>
+      <AppBar
+        position="sticky"
+        sx={{ backgroundColor: NAV_BG, zIndex: 1300, mb: 4 }}>
         <Toolbar sx={{ gap: 0.5 }}>
           {/* Brand */}
           <Button
