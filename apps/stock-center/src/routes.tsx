@@ -9,7 +9,7 @@ import {
   buildMergedRoutes,
 } from "@dictybase/auth-mui5"
 import { NotFoundError } from "@dictybase/ui-common"
-import { HeaderRow } from "./components/HeaderRow"
+import { DscNavbar } from "./components/DscNavbar"
 
 const dynamicRoutes: dynamicRoutesProperties = import.meta.glob(
   "/src/pages/**/**/*.tsx",
@@ -28,7 +28,7 @@ const createRouteDefinition = (allRoutes: dynamicRoutesProperties) =>
     Olet("finalRoutes", ({ mergedR }) =>
       pipe(
         {
-          element: <HeaderRow />,
+          element: <DscNavbar />,
           errorElement: <NotFoundError />,
           children: mergedR,
         },
