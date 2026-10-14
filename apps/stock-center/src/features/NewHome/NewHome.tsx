@@ -1,6 +1,7 @@
 import { Box } from "@mui/material"
 import { infoSections } from "@dictybase/ui-dsc"
 import { GeneralSearch } from "./GeneralSearch"
+import { OrderingSteps } from "./OrderingSteps"
 import { ResourcesAndInformation } from "./ResourcesAndInformation"
 import { CatalogCard } from "./CatalogCard"
 
@@ -45,6 +46,12 @@ const catalogCards: Array<CatalogCardItem> = [
   },
 ] as const
 
+/**
+ * Root layout component for the Dicty Stock Center landing page.
+ *
+ * Renders the search hero, an expandable ordering guide, the catalog
+ * category cards, and the resources/information footer links.
+ */
 const NewHome = () => (
   <Box
     sx={{
@@ -53,16 +60,17 @@ const NewHome = () => (
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      pt: 8,
+      pt: 10,
       px: 3,
       pb: 8,
     }}>
     <GeneralSearch />
+    <OrderingSteps />
     <Box
       sx={{
         width: "100%",
         maxWidth: "1100px",
-        mt: 8,
+        mt: 2,
         mb: 10,
         display: "flex",
         alignItems: "stretch",
