@@ -1,4 +1,4 @@
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import {
   AppBar,
   Badge,
@@ -18,10 +18,18 @@ import { useAtomValue } from "jotai"
 import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
 import { match as Bmatch } from "fp-ts/boolean"
+import {
+  Option,
+  some,
+  none,
+  map as Omap,
+  getOrElse as OgetOrElse,
+} from "fp-ts/Option"
 import { currentCartQuantityAtom } from "../cartState"
 import { useComprehensiveSearch } from "../features/NewHome/useComprehensiveSearch"
 import { SearchDropdown } from "../features/NewHome/SearchDropdown"
 import { MIN_CHARS } from "../features/NewHome/types"
+import { DscNavbarMenu } from "./DscNavbarMenu"
 
 const NAV_BG = "#004080"
 
@@ -31,26 +39,235 @@ const NAV_BG = "#004080"
  */
 const SEARCH_HIDDEN_PATHS = new Set(["/", "/catalog"])
 
-/** A single navigation link rendered directly in the toolbar. */
-type NavItem = {
-  /** Visible button label. */
-  label: string
-  /** Internal route path the button navigates to. */
-  href: string
-}
+const createAuthNavbarItems = (
+  frontPageUrl: string,
+  stockCenterUrl: string,
+) => ({
+  data: [
+    // {
+    //   label: "Genomes",
+    //   sections: [
+    //     [
+    //       {
+    //         category: some("GENOMES"),
+    //         links: [
+    //           {
+    //             label: "Dictyostelium discoideum AX4",
+    //             href: "/",
+    //           },
+    //           {
+    //             label: "Dictyostelium purpureum AX1",
+    //             href: "http://genomes.dictybase.org/purpureum",
+    //           },
+    //           {
+    //             label: "Dictyostelium fasciculatum SH3",
+    //             href: "http://genomes.dictybase.org/fasciculatum",
+    //           },
+    //           {
+    //             label: "Polysphondylium pallidum PN500",
+    //             href: "http://genomes.dictybase.org/pallidum",
+    //           },
+    //         ],
+    //       },
+    //     ],
+    //   ],
+    // },
+    {
+      label: "Tools",
+      sections: [
+        [
+          {
+            category: some("TOOLS"),
+            links: [
+              {
+                label: "Genome Browser",
+                href: "http://dictybase.org/tools/jbrowse/?data=data/jbrowse/discoideum&loc=6:1..50011&tracks=reference,gene,transcript",
+              },
+              {
+                label: "Dashboard",
+                href: "/dictyaccess",
+              },
+            ],
+          },
+        ],
+      ],
+    },
+    {
+      label: "Explore",
+      sections: [
+        [
+          {
+            category: some("EXPLORE"),
+            links: [
+              {
+                label: "Dicty Art",
+                href: `${frontPageUrl}/explore/art/show`,
+              },
+              {
+                label: "Gallery",
+                href: `${frontPageUrl}/explore/gallery/show`,
+              },
+              {
+                label: "Learn About Dicty",
+                href: `${frontPageUrl}/explore/learn/show`,
+              },
+              {
+                label: "Teaching Protocols",
+                href: `${frontPageUrl}/explore/teach/show`,
+              },
+              {
+                label: "Useful Links",
+                href: `${frontPageUrl}/explore/links/show`,
+              },
+            ],
+          },
+        ],
+      ],
+    },
+    {
+      label: "Research",
+      sections: [
+        [
+          {
+            category: some("RESEARCH"),
+            links: [
+              {
+                label: "Techniques",
+                href: `${frontPageUrl}/research/techniques/show`,
+              },
+              {
+                label: "Anatomy Ontology",
+                href: `${frontPageUrl}/research/ontology/show`,
+              },
+              {
+                label: "Codon Bias Table",
+                href: `${frontPageUrl}/research/codon/show`,
+              },
+              {
+                label: "Nomenclature Guidelines",
+                href: `${frontPageUrl}/research/nomenclature/show`,
+              },
+              {
+                label: "Phenotyping",
+                href: `${frontPageUrl}/research/phenotype/show`,
+              },
+              {
+                label: "Axenic Strain History",
+                href: `${frontPageUrl}/research/strain-history/show`,
+              },
+              {
+                label: "Track Maxima",
+                href: `${frontPageUrl}/research/trackmaxima/show`,
+              },
+            ],
+          },
+        ],
+      ],
+    },
+    {
+      label: "Dicty Stock Center",
+      sections: [
+        [
+          {
+            category: some("HOME"),
+            links: [
+              {
+                label: "Stock Center Home",
+                href: `${stockCenterUrl}`,
+              },
+            ],
+          },
+          {
+            category: some("CATALOGS"),
+            links: [
+              {
+                label: "Full Catalog",
+                href: `${stockCenterUrl}/catalog`,
+              },
+              {
+                label: "Strains",
+                href: `${stockCenterUrl}/strains`,
+              },
+              {
+                label: "Plasmids",
+                href: `${stockCenterUrl}/plasmids`,
+              },
+            ],
+          },
+        ],
+        [
+          {
+            category: some("INFORMATION"),
+            links: [
+              {
+                label: "Ordering",
+                href: `${stockCenterUrl}/information/order/show`,
+              },
+              {
+                label: "Depositing Materials",
+                href: `${stockCenterUrl}/information/deposit/show`,
+              },
+              {
+                label: "Payment Information",
+                href: `${stockCenterUrl}/information/payment/show`,
+              },
+              {
+                label: "Standard Operating Procedures",
+                href: "https://northwestern.box.com/s/p0f8m70whgiuib2u0wt8gtn497ncmq8i",
+              },
+              {
+                label: "FAQ",
+                href: `${stockCenterUrl}/information/faq/show`,
+              },
+            ],
+          },
+        ],
+      ],
+    },
+    {
+      label: "Community",
+      sections: [
+        [
+          {
+            category: some("COMMUNITY"),
+            links: [
+              {
+                label: "Cite Us",
+                href: `${frontPageUrl}/community/citation/show`,
+              },
+              {
+                label: "Dicty Annual Conferences",
+                href: `${frontPageUrl}/community/conference/show`,
+              },
+              {
+                label: "Dicty Email Forum",
+                href: `${frontPageUrl}/community/listserv/show`,
+              },
+              {
+                label: "Dicty Labs",
+                href: `${frontPageUrl}/community/labs/show`,
+              },
+              {
+                label: "History",
+                href: `${frontPageUrl}/community/history/show`,
+              },
+              {
+                label: "Jobs",
+                href: `${frontPageUrl}/community/jobs/show`,
+              },
+              {
+                label: "Community Annotations",
+                href: `${frontPageUrl}/community/annotations/show`,
+              },
+            ],
+          },
+        ],
+      ],
+    },
+  ],
+})
 
-/**
- * All top-level navigation links exposed in the toolbar.
- * Catalog browsing and every ordering-flow page each get their own button.
- */
-const NAV_ITEMS: Array<NavItem> = [
-  { label: "Catalog", href: "/catalog" },
-  { label: "Order Information", href: "/information/order" },
-  { label: "Payment Information", href: "/information/payment" },
-  { label: "Deposit Information", href: "/information/deposit" },
-  { label: "FAQs", href: "/information/faq" },
-]
-
+export { createAuthNavbarItems }
 /** Shared sx styles applied to every nav button in the toolbar. */
 const navButtonSx = {
   color: "#ffffff",
@@ -185,6 +402,7 @@ const NavbarSearch = () => {
  * `useNavigate`, `useLocation`, and renders `<Outlet />`).
  */
 const DscNavbar = () => {
+  const [openMenu, setOpenMenu] = useState<Option<string>>(none)
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const cartCount = useAtomValue(currentCartQuantityAtom)
@@ -197,11 +415,20 @@ const DscNavbar = () => {
     ),
   )}`
 
+  const { data: navItems } = createAuthNavbarItems(
+    import.meta.env.VITE_APP_FRONTPAGE_URL,
+    import.meta.env.VITE_APP_STOCKCENTER_URL,
+  )
+
   return (
     <>
       <AppBar
         position="sticky"
-        sx={{ backgroundColor: NAV_BG, zIndex: 1300, mb: 4 }}>
+        sx={{
+          backgroundColor: NAV_BG,
+          zIndex: 1300,
+          mb: 4,
+        }}>
         <Toolbar sx={{ gap: 0.5 }}>
           {/* Brand */}
           <Button
@@ -214,6 +441,7 @@ const DscNavbar = () => {
             }}>
             <img
               height="60"
+              alt="logo"
               src={`${import.meta.env.BASE_URL}/logo.svg`}
               style={{ filter: "invert(90%)" }}
             />
@@ -226,7 +454,7 @@ const DscNavbar = () => {
           />
 
           {/* Catalog + ordering links — one button each */}
-          {pipe(
+          {/* pipe(
             NAV_ITEMS,
             Amap(({ label, href }) => (
               <Button
@@ -236,8 +464,22 @@ const DscNavbar = () => {
                 {label}
               </Button>
             )),
+          ) */}
+          {pipe(
+            navItems,
+            Amap(({ label, sections }) => (
+              <DscNavbarMenu
+                setOpenMenu={setOpenMenu}
+                label={label}
+                sections={sections}
+                open={pipe(
+                  openMenu,
+                  Omap((a) => a === label),
+                  OgetOrElse(() => false),
+                )}
+              />
+            )),
           )}
-
           <Box sx={{ flex: 1 }} />
 
           {/* Contextual search — suppressed on pages with their own search */}
