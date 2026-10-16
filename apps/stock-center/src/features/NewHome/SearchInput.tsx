@@ -33,7 +33,7 @@ const SearchInput = ({
     <SearchIcon sx={{ color: "#a0aec0", ml: 1, mr: 0.5 }} />
     <InputBase
       fullWidth
-      placeholder="Search strains and plasmids"
+      placeholder="Enter 3 or more characters to search strains and plasmids"
       value={inputValue}
       onChange={onChange}
       onKeyDown={onKeyDown}
