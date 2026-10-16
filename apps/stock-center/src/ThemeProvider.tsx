@@ -5,7 +5,7 @@ import {
   StylesProvider,
   createGenerateClassName,
 } from "@material-ui/core/styles"
-import { dictyThemeV4, dictyThemeV5 } from "@dictybase/ui-common"
+import { dictyThemeV4, dictyThemeV5, nordicThemeV5 } from "@dictybase/ui-common"
 
 const generateClassName = createGenerateClassName({
   disableGlobal: true,
@@ -14,7 +14,7 @@ const generateClassName = createGenerateClassName({
 
 const ThemeProvider = ({ children }: { children: React.ReactNode }) => (
   <StylesProvider generateClassName={generateClassName}>
-    <ThemeProviderMUI5 theme={dictyThemeV5}>
+    <ThemeProviderMUI5 theme={nordicThemeV5}>
       <MuiThemeProviderMUI4 theme={dictyThemeV4}>
         {children}
       </MuiThemeProviderMUI4>
