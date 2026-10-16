@@ -21,6 +21,7 @@ const SearchInput = ({
     elevation={2}
     sx={{
       position: "relative",
+      backgroundColor: "white",
       zIndex: 1250,
       display: "flex",
       alignItems: "center",
