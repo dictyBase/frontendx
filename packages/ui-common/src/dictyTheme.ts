@@ -236,6 +236,12 @@ const nordicThemeOptionsV5: ThemeOptionsV5 = {
       dark: "#5a8fa0",
       contrastText: "#2e3440",
     },
+    tertiary: {
+      main: "#5e81ac",
+      light: "#81a1c1",
+      dark: "#3b5070",
+      contrastText: "#eceff4",
+    },
     background: {
       default: "#eceff4",
       paper: "#e5e9f0",
@@ -274,6 +280,7 @@ const nordicThemeOptionsV5: ThemeOptionsV5 = {
         a: { textDecoration: "none" },
       },
     },
+    MuiButtonBase: { defaultProps: { color: "secondary" } },
     MuiTab: {
       styleOverrides: {
         root: {
