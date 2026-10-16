@@ -1,4 +1,4 @@
-import { Paper, InputBase } from "@mui/material"
+import { Paper, InputBase, IconButton } from "@mui/material"
 import SearchIcon from "@mui/icons-material/Search"
 
 type SearchInputProperties = {
@@ -7,6 +7,7 @@ type SearchInputProperties = {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
   onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void
   onFocus: () => void
+  onSearch: () => void
 }
 
 const SearchInput = ({
@@ -15,6 +16,7 @@ const SearchInput = ({
   onChange,
   onKeyDown,
   onFocus,
+  onSearch,
 }: SearchInputProperties) => (
   <Paper
     ref={anchorRef}
@@ -30,7 +32,6 @@ const SearchInput = ({
       px: 2,
       py: 0.5,
     }}>
-    <SearchIcon sx={{ color: "#a0aec0", ml: 1, mr: 0.5 }} />
     <InputBase
       fullWidth
       placeholder="Enter 3 or more characters to search strains and plasmids"
@@ -38,9 +39,21 @@ const SearchInput = ({
       onChange={onChange}
       onKeyDown={onKeyDown}
       onFocus={onFocus}
-      sx={{ fontSize: "1.25rem", py: 0.5 }}
+      sx={{ fontSize: "1.25rem", py: 0.5, pl: 1 }}
       inputProps={{ "aria-label": "search strains and plasmids" }}
     />
+    <IconButton
+      onClick={onSearch}
+      aria-label="submit search"
+      sx={(theme) => ({
+        backgroundColor: theme.palette.tertiary.main,
+        color: theme.palette.tertiary.contrastText,
+        borderRadius: "8px",
+        p: 1.5,
+        "&:hover": { backgroundColor: theme.palette.tertiary.dark },
+      })}>
+      <SearchIcon />
+    </IconButton>
   </Paper>
 )
 

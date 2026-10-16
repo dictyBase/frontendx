@@ -7,9 +7,6 @@ import { dscRouter } from "../routes"
 import { useGoogleAnalytics } from "../hooks/useGoogleAnalytics"
 
 const useStyles = makeStyles((theme: Theme) => ({
-  main: {
-    marginBottom: theme.spacing(4),
-  },
   body: {
     fontSize: "16px",
     color: "#333",
@@ -28,7 +25,7 @@ const DscApp = () => {
   const classes = useStyles()
   return (
     <Box className={classes.body}>
-      <main className={classes.main}>
+      <main>
         <RouterProvider
           router={dscRouter}
           fallbackElement={<LoadingDisplay rows={6} />}

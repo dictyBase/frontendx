@@ -12,7 +12,6 @@ import {
   Portal,
   Toolbar,
 } from "@mui/material"
-import { indigo, blueGrey } from "@mui/material/colors"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import SearchIcon from "@mui/icons-material/Search"
 import { Outlet, useLocation, useNavigate } from "react-router-dom"
@@ -32,8 +31,6 @@ import { useComprehensiveSearch } from "../features/NewHome/useComprehensiveSear
 import { SearchDropdown } from "../features/NewHome/SearchDropdown"
 import { MIN_CHARS } from "../features/NewHome/types"
 import { DscNavbarMenu } from "./DscNavbarMenu"
-
-const NAV_BG = "#004080"
 
 /**
  * Routes that already provide their own full-page search experience.
@@ -74,26 +71,26 @@ const createAuthNavbarItems = (
     //     ],
     //   ],
     // },
-    {
-      label: "Tools",
-      sections: [
-        [
-          {
-            category: some("TOOLS"),
-            links: [
-              {
-                label: "Genome Browser",
-                href: "http://dictybase.org/tools/jbrowse/?data=data/jbrowse/discoideum&loc=6:1..50011&tracks=reference,gene,transcript",
-              },
-              {
-                label: "Dashboard",
-                href: "/dictyaccess",
-              },
-            ],
-          },
-        ],
-      ],
-    },
+    // {
+    //   label: "Tools",
+    //   sections: [
+    //     [
+    //       {
+    //         category: some("TOOLS"),
+    //         links: [
+    //           {
+    //             label: "Genome Browser",
+    //             href: "http://dictybase.org/tools/jbrowse/?data=data/jbrowse/discoideum&loc=6:1..50011&tracks=reference,gene,transcript",
+    //           },
+    //           {
+    //             label: "Dashboard",
+    //             href: "/dictyaccess",
+    //           },
+    //         ],
+    //       },
+    //     ],
+    //   ],
+    // },
     {
       label: "Explore",
       sections: [
@@ -429,7 +426,7 @@ const DscNavbar = () => {
       <AppBar
         position="sticky"
         sx={(theme) => ({
-          backgroundColor: theme.palette.primary.main,
+          backgroundColor: theme.palette.primary.dark,
           zIndex: 1300,
           mb: 4,
         })}>
