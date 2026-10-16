@@ -48,7 +48,6 @@ const slideshowImages = [
 
 const useStyles = makeStyles()({
   container: {
-    marginBottom: "24px",
     borderRadius: "8px",
     overflow: "hidden",
   },
