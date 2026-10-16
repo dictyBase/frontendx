@@ -75,7 +75,7 @@ const NewHome = () => (
         pt: 3,
         backgroundColor: theme.palette.secondary.light,
       })}>
-      <Box sx={{ width: "60vw" }}>
+      <Box sx={{ width: "60vw", mx: "auto" }}>
         <PhenotypeSearchCard />
       </Box>
       <Box
