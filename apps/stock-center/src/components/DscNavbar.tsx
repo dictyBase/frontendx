@@ -453,18 +453,7 @@ const DscNavbar = () => {
             sx={{ borderColor: "rgba(255,255,255,0.25)", mx: 0.5 }}
           />
 
-          {/* Catalog + ordering links — one button each */}
-          {/* pipe(
-            NAV_ITEMS,
-            Amap(({ label, href }) => (
-              <Button
-                key={href}
-                onClick={() => navigate(href)}
-                sx={navButtonSx}>
-                {label}
-              </Button>
-            )),
-          ) */}
+          {/* Catalog + ordering links */}
           {pipe(
             navItems,
             Amap(({ label, sections }) => (
