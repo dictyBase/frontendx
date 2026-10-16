@@ -1,6 +1,6 @@
 import { useRef, Dispatch, SetStateAction } from "react"
 import { Typography, Paper, Stack, Button, Popper } from "@mui/material"
-import { indigo, blue } from "@mui/material/colors"
+import { indigo, blueGrey } from "@mui/material/colors"
 import { Link } from "react-router-dom"
 import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
@@ -31,8 +31,8 @@ const LinkGroup = ({ category, links }: NavbarDropdownSectionProperties) => (
           variant="body1"
           sx={{
             fontWeight: 500,
-            color: blue[800],
-            "&:hover": { color: indigo[800] },
+            color: blueGrey[700],
+            "&:hover": { color: indigo[300] },
           }}>
           {label}
         </Typography>
@@ -90,7 +90,7 @@ const DscNavbarMenu = ({
         open={open}
         anchorEl={anchorReference.current}
         sx={{ zIndex: 9000 }}>
-        <Paper elevation={4} sx={{ p: 4, borderRadius: 3 }}>
+        <Paper elevation={4} sx={{ py: 3, px: 4, borderRadius: 3 }}>
           <Stack direction="row" spacing={8} flexWrap="nowrap">
             {pipe(
               sections,
