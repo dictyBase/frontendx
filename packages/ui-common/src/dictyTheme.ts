@@ -3,6 +3,7 @@ import {
   createTheme as createThemeV5,
   ThemeOptions as ThemeOptionsV5,
 } from "@mui/material"
+import { grey } from "@mui/material/colors"
 import "@fontsource/poppins"
 import "@fontsource-variable/inter"
 
@@ -43,6 +44,7 @@ const dictyThemeOptions = {
     },
     subtitle1: {
       fontFamily: bodyFontFamily,
+      color: grey[500],
     },
     subtitle2: {
       fontFamily: bodyFontFamily,
@@ -131,6 +133,7 @@ const dictyThemeOptionsV5: ThemeOptionsV5 = {
     },
     subtitle1: {
       fontFamily: bodyFontFamily,
+      color: grey[700],
     },
     subtitle2: {
       fontFamily: bodyFontFamily,
@@ -165,7 +168,7 @@ const dictyThemeOptionsV5: ThemeOptionsV5 = {
       styleOverrides: {
         a: {
           textDecoration: "none",
-          color: "#004080",
+          // color: "#004080",
         },
       },
     },
