@@ -10,16 +10,16 @@ export const footerStyles = makeStyles()((theme) => ({
     fontSize: "1.2rem",
     color: "rgb(235, 233, 122)!important",
   },
-  link: {
-    color: "rgb(216, 216, 216)",
-    "& a": {
-      color: "rgb(216, 216, 216)",
-      textDecoration: "none",
-      "&:hover": {
-        textDecoration: "underline",
-      },
-    },
-  },
+  // link: {
+  //   color: "rgb(216, 216, 216)",
+  //   "& a": {
+  //     color: "rgb(216, 216, 216)",
+  //     textDecoration: "none",
+  //     "&:hover": {
+  //       textDecoration: "underline",
+  //     },
+  //   },
+  // },
   support: {
     [theme.breakpoints.down("md")]: {
       justifyContent: "center",

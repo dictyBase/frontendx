@@ -2,19 +2,11 @@ import { Box } from "@material-ui/core"
 import { LoadingDisplay } from "@dictybase/ui-dsc"
 import { RouterProvider } from "react-router-dom"
 import { makeStyles, Theme } from "@material-ui/core/styles"
-import {
-  HeaderWithAuth,
-  NavbarWithAuth,
-  FooterWithAuth,
-} from "@dictybase/auth-mui5"
+import { FooterWithAuth } from "@dictybase/auth-mui5"
 import { dscRouter } from "../routes"
 import { useGoogleAnalytics } from "../hooks/useGoogleAnalytics"
 
 const useStyles = makeStyles((theme: Theme) => ({
-  main: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(4),
-  },
   body: {
     fontSize: "16px",
     color: "#333",
@@ -33,15 +25,7 @@ const DscApp = () => {
   const classes = useStyles()
   return (
     <Box className={classes.body}>
-      <HeaderWithAuth
-        frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
-        basename={import.meta.env.VITE_APP_BASENAME}
-      />
-      <NavbarWithAuth
-        frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
-        stockCenterUrl={import.meta.env.VITE_APP_STOCKCENTER_URL}
-      />
-      <main className={classes.main}>
+      <main>
         <RouterProvider
           router={dscRouter}
           fallbackElement={<LoadingDisplay rows={6} />}

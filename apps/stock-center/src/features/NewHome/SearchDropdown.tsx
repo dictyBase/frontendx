@@ -30,7 +30,13 @@ const SearchDropdown = ({
       placement="bottom-start"
       style={{ width: anchorEl?.offsetWidth, zIndex: 1300 }}
       modifiers={[{ name: "offset", options: { offset: [0, 4] } }]}>
-      <Paper elevation={8} sx={{ borderRadius: "12px", overflow: "hidden" }}>
+      <Paper
+        elevation={8}
+        sx={{
+          borderRadius: "12px",
+          overflow: "hidden",
+          backgroundColor: "white",
+        }}>
         {match({ isLoading, hasResults })
           .with({ isLoading: true }, () => (
             <Box sx={{ textAlign: "center", py: 3 }}>

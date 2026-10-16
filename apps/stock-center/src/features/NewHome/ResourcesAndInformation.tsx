@@ -13,7 +13,7 @@ type ResourcesAndInformationProperties = {
 const ResourcesAndInformation = ({
   resources,
 }: ResourcesAndInformationProperties) => (
-  <Box sx={{ width: "100%" }}>
+  <Box sx={{ width: "100%", py: 7 }}>
     <Stack direction="row" sx={{ width: "100%" }} justifyContent="space-around">
       {pipe(
         resources,
@@ -37,7 +37,6 @@ const ResourcesAndInformation = ({
                       component={Link}
                       to={href}
                       sx={{
-                        // color: "#3182ce",
                         "&:hover": {
                           color: "#1a56db",
                           textDecoration: "underline",
