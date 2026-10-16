@@ -12,6 +12,7 @@ import {
   Portal,
   Toolbar,
 } from "@mui/material"
+import { indigo, blueGrey } from "@mui/material/colors"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import SearchIcon from "@mui/icons-material/Search"
 import { Outlet, useLocation, useNavigate } from "react-router-dom"
@@ -271,7 +272,6 @@ const createAuthNavbarItems = (
 export { createAuthNavbarItems }
 /** Shared sx styles applied to every nav button in the toolbar. */
 const navButtonSx = {
-  color: "#ffffff",
   textTransform: "none",
   fontWeight: 500,
   fontSize: "0.875rem",
@@ -428,11 +428,11 @@ const DscNavbar = () => {
     <>
       <AppBar
         position="sticky"
-        sx={{
-          backgroundColor: NAV_BG,
+        sx={(theme) => ({
+          backgroundColor: theme.palette.primary.main,
           zIndex: 1300,
           mb: 4,
-        }}>
+        })}>
         <Toolbar sx={{ gap: 0.5 }}>
           {/* Brand */}
           <Button
@@ -443,18 +443,27 @@ const DscNavbar = () => {
               fontSize: "1rem",
               mr: 1,
             }}>
-            <img
-              height="60"
-              alt="logo"
-              src={`${import.meta.env.BASE_URL}/logo.svg`}
-              style={{ filter: "invert(90%)" }}
+            <Box
+              aria-label="logo"
+              sx={(theme) => ({
+                width: 120,
+                height: 60,
+                backgroundColor: theme.palette.primary.contrastText,
+                maskImage: `url(${import.meta.env.BASE_URL}/logo.svg)`,
+                maskSize: "contain",
+                maskRepeat: "no-repeat",
+                maskPosition: "center",
+              })}
             />
           </Button>
 
           <Divider
             orientation="vertical"
             flexItem
-            sx={{ borderColor: "rgba(255,255,255,0.25)", mx: 0.5 }}
+            sx={(theme) => ({
+              borderColor: theme.palette.primary.contrastText,
+              mx: 0.5,
+            })}
           />
 
           {/* Catalog + ordering links */}
@@ -487,8 +496,7 @@ const DscNavbar = () => {
           {/* Cart */}
           <IconButton
             aria-label={cartAriaLabel}
-            onClick={() => navigate("/cart")}
-            sx={{ color: "#ffffff" }}>
+            onClick={() => navigate("/cart")}>
             <Badge badgeContent={cartCount} color="error">
               <ShoppingCartIcon />
             </Badge>
