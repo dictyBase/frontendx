@@ -19,9 +19,10 @@ const GeneralSearch = () => {
     handleKeyDown,
     handleClickAway,
     handleFocus,
+    handleSearch,
   } = useComprehensiveSearch()
   return (
-    <Box sx={{ width: "100%", maxWidth: SEARCH_MAX_WIDTH }}>
+    <Box sx={{ width: "100%", maxWidth: SEARCH_MAX_WIDTH, pt: 9 }}>
       <Typography
         variant="h2"
         sx={{
@@ -62,13 +63,14 @@ const GeneralSearch = () => {
       </Typography>
 
       <ClickAwayListener onClickAway={handleClickAway}>
-        <Box>
+        <Box sx={{ flexGrow: 1 }}>
           <SearchInput
             anchorRef={anchorReference}
             inputValue={inputValue}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
             onFocus={handleFocus}
+            onSearch={handleSearch}
           />
 
           <SearchDropdown

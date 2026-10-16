@@ -13,7 +13,7 @@ type ResourcesAndInformationProperties = {
 const ResourcesAndInformation = ({
   resources,
 }: ResourcesAndInformationProperties) => (
-  <Box sx={{ width: "100%" }}>
+  <Box sx={{ width: "100%", py: 7 }}>
     <Stack direction="row" sx={{ width: "100%" }} justifyContent="space-around">
       {pipe(
         resources,

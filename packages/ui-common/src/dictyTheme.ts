@@ -238,7 +238,7 @@ const nordicThemeOptionsV5: ThemeOptionsV5 = {
     },
     tertiary: {
       main: "#5e81ac",
-      light: "#81a1c1",
+      light: "#ccd9e6",
       dark: "#3b5070",
       contrastText: "#eceff4",
     },

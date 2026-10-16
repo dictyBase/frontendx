@@ -22,8 +22,6 @@ const NestedLink: FC<NestedLinkProperties> = ({ href, children }) => {
       sx={{
         fontSize: "0.85rem",
         fontWeight: 600,
-        color: "#3182ce",
-        textDecoration: "none",
         "&:hover": { color: "#1a56db" },
       }}>
       {children}

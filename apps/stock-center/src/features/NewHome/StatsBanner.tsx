@@ -20,7 +20,7 @@ const Stat = ({ value, label }: StatItem) => (
         fontWeight: 800,
         fontSize: { xs: "1.75rem", sm: "2.25rem" },
         lineHeight: 1,
-        color: theme.palette.tertiary.contrastText,
+        color: theme.palette.primary.contrastText,
       })}>
       {value}
     </Typography>
@@ -46,7 +46,7 @@ const StatsBanner = () => (
       width: "100%",
       px: { xs: 3, md: 8 },
       py: 2.5,
-      my: 3,
+      mt: 3,
     })}>
     <Stack
       direction="row"
