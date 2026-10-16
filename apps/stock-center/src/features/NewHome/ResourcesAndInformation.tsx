@@ -37,7 +37,6 @@ const ResourcesAndInformation = ({
                       component={Link}
                       to={href}
                       sx={{
-                        // color: "#3182ce",
                         "&:hover": {
                           color: "#1a56db",
                           textDecoration: "underline",
