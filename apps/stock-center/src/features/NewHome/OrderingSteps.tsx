@@ -4,10 +4,7 @@ import { Link } from "react-router-dom"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import { map as Amap } from "fp-ts/Array"
-import {
-  fromNullable as OfromNullable,
-  match as Omatch,
-} from "fp-ts/Option"
+import { fromNullable as OfromNullable, match as Omatch } from "fp-ts/Option"
 import { SEARCH_MAX_WIDTH } from "./types"
 
 /** An optional inline link rendered beneath a step's description. */
@@ -42,7 +39,7 @@ const ORDERING_STEPS: Array<OrderingStep> = [
     icon: "🔍",
     title: "Search or Browse the Catalog",
     description:
-      "Use the search bar above or explore the Strain, Plasmid, or Phenotype catalogs to find the materials you need.",
+      "Use the search bar above or explore the Strain, Plasmid catalogs to find the materials you need.",
   },
   {
     step: 2,
@@ -200,7 +197,7 @@ const OrderingSteps = () => {
                   {pipe(
                     OfromNullable(link),
                     Omatch(
-                      () => null,
+                      () => <></>,
                       ({ label, href }) => (
                         <Typography
                           component={Link}
