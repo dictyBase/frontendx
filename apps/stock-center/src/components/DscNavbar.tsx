@@ -487,7 +487,7 @@ const DscNavbar = () => {
             SEARCH_HIDDEN_PATHS.has(pathname),
             Bmatch(
               () => <NavbarSearch />,
-              () => null,
+              () => <></>,
             ),
           )}
 
