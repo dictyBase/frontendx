@@ -9,6 +9,7 @@ import {
   IconButton,
   InputBase,
   Paper,
+  Portal,
   Toolbar,
 } from "@mui/material"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
@@ -313,6 +314,7 @@ const NavbarSearch = () => {
             borderRadius: "8px",
             height: 38,
             px: 1.5,
+            zIndex: 1200,
             backgroundColor: "#ffffff",
             border: "1.5px solid #e2e8f0",
           }}>
@@ -353,31 +355,33 @@ const NavbarSearch = () => {
         />
 
         {/* Backdrop — clicking it closes the dropdown */}
-        <Box
-          data-testid="navbar-search-backdrop"
-          onClick={handleClickAway}
-          sx={{
-            position: "fixed",
-            inset: 0,
-            backgroundColor: "rgba(0,0,0,0.3)",
-            zIndex: 1200,
-            opacity: pipe(
-              open,
-              Bmatch(
-                () => 0,
-                () => 1,
+        <Portal>
+          <Box
+            data-testid="navbar-search-backdrop"
+            onClick={handleClickAway}
+            sx={{
+              position: "fixed",
+              inset: 0,
+              zIndex: 1299,
+              backgroundColor: "rgba(0,0,0,0.3)",
+              opacity: pipe(
+                open,
+                Bmatch(
+                  () => 0,
+                  () => 1,
+                ),
               ),
-            ),
-            pointerEvents: pipe(
-              open,
-              Bmatch(
-                () => "none" as const,
-                () => "auto" as const,
+              pointerEvents: pipe(
+                open,
+                Bmatch(
+                  () => "none" as const,
+                  () => "auto" as const,
+                ),
               ),
-            ),
-            transition: "opacity 0.2s ease",
-          }}
-        />
+              transition: "opacity 0.2s ease",
+            }}
+          />
+        </Portal>
       </Box>
     </ClickAwayListener>
   )
