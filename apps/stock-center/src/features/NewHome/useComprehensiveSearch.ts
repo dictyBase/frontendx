@@ -285,6 +285,13 @@ const useComprehensiveSearch = () => {
     }
   }
 
+  const handleSearch = () => {
+    const query = inputValue.trim()
+    if (query.length < MIN_CHARS) return
+    setOpen(false)
+    navigate(`/catalog?q=${encodeURIComponent(query)}`)
+  }
+
   return {
     inputValue,
     searchTerm,
@@ -297,6 +304,7 @@ const useComprehensiveSearch = () => {
     handleKeyDown,
     handleClickAway,
     handleFocus,
+    handleSearch,
   }
 }
 
