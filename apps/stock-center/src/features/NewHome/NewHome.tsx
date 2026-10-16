@@ -1,9 +1,10 @@
-import { Box } from "@mui/material"
+import { Box, Stack } from "@mui/material"
 import { infoSections } from "@dictybase/ui-dsc"
 import { GeneralSearch } from "./GeneralSearch"
 import { OrderingSteps } from "./OrderingSteps"
 import { ResourcesAndInformation } from "./ResourcesAndInformation"
 import { CatalogCard } from "./CatalogCard"
+import { PhenotypeSearchCard } from "./PhenotypeSearchCard"
 import { StatsBanner } from "./StatsBanner"
 
 type LinkProperties = {
@@ -54,50 +55,38 @@ const catalogCards: Array<CatalogCardItem> = [
  * category cards, and the resources/information footer links.
  */
 const NewHome = () => (
-  <Box
+  <Stack
+    alignItems="center"
+    direction="column"
+    justifyContent="stretch"
     sx={{
-      minHeight: "100vh",
+      height: "100%",
       width: "100%",
       backgroundColor: "#f7fafc",
       display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      pt: 7,
-      pb: 8,
     }}>
     <GeneralSearch />
     <OrderingSteps />
     <StatsBanner />
-    <Box
-      sx={{
+    <Stack
+      alignItems="center"
+      sx={(theme) => ({
         width: "100%",
-        maxWidth: "1100px",
-        mt: 2,
-        mb: 10,
-        display: "flex",
-        alignItems: "stretch",
-        gap: 4,
-        justifyContent: "center",
-        flexWrap: "wrap",
-      }}>
-      {catalogCards.map(({ key, icon, title, href, sublinks }) => (
-        <CatalogCard
-          key={key}
-          icon={icon}
-          title={title}
-          href={href}
-          sublinks={sublinks}
-        />
-      ))}
-    </Box>
-    <Box
-      sx={{
-        maxWidth: "1100px",
-        width: "100%",
-      }}>
-      <ResourcesAndInformation resources={infoSections} />
-    </Box>
-  </Box>
+        pt: 3,
+        backgroundColor: theme.palette.secondary.light,
+      })}>
+      <Box sx={{ width: "60vw" }}>
+        <PhenotypeSearchCard />
+      </Box>
+      <Box
+        sx={{
+          maxWidth: "1100px",
+          width: "100%",
+        }}>
+        <ResourcesAndInformation resources={infoSections} />
+      </Box>
+    </Stack>
+  </Stack>
 )
 
 export { NewHome }
