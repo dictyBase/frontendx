@@ -4,6 +4,7 @@ import { GeneralSearch } from "./GeneralSearch"
 import { OrderingSteps } from "./OrderingSteps"
 import { ResourcesAndInformation } from "./ResourcesAndInformation"
 import { CatalogCard } from "./CatalogCard"
+import { StatsBanner } from "./StatsBanner"
 
 type LinkProperties = {
   label: string
@@ -56,16 +57,17 @@ const NewHome = () => (
   <Box
     sx={{
       minHeight: "100vh",
+      width: "100%",
       backgroundColor: "#f7fafc",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
       pt: 7,
-      px: 3,
       pb: 8,
     }}>
     <GeneralSearch />
     <OrderingSteps />
+    <StatsBanner />
     <Box
       sx={{
         width: "100%",
