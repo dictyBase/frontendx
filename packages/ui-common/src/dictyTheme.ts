@@ -10,11 +10,26 @@ import "@fontsource-variable/inter"
 const bodyFontFamily = "'Inter Variable', sans-serif"
 const headerFontFamily = "'Poppins', sans-serif"
 
+const DICTY_PRIMARY = "#004080"
+
+const NORDIC_POLAR_NIGHT = "#2e3440"
+const NORDIC_SNOW_LIGHT = "#eceff4"
+const NORDIC_SNOW_MID = "#e5e9f0"
+
+const HEADING_FONT_SIZES = {
+  h1: "2.00em",
+  h2: "1.50em",
+  h3: "1.17em",
+  h4: "1.00em",
+  h5: "0.83em",
+  h6: "0.67em",
+}
+
 const dictyThemeOptions = {
   // use color tool for palette -- https://material.io/resources/color/
   palette: {
     primary: {
-      main: "#004080",
+      main: DICTY_PRIMARY,
       light: "#476ab0",
       dark: "#001b53",
       contrastText: "#fff",
@@ -51,27 +66,27 @@ const dictyThemeOptions = {
       fontFamily: bodyFontFamily,
     },
     h1: {
-      fontSize: "2.00em",
+      fontSize: HEADING_FONT_SIZES.h1,
       fontFamily: headerFontFamily,
     },
     h2: {
-      fontSize: "1.50em",
+      fontSize: HEADING_FONT_SIZES.h2,
       fontFamily: headerFontFamily,
     },
     h3: {
-      fontSize: "1.17em",
+      fontSize: HEADING_FONT_SIZES.h3,
       fontFamily: headerFontFamily,
     },
     h4: {
-      fontSize: "1.00em",
+      fontSize: HEADING_FONT_SIZES.h4,
       fontFamily: headerFontFamily,
     },
     h5: {
-      fontSize: "0.83em",
+      fontSize: HEADING_FONT_SIZES.h5,
       fontFamily: headerFontFamily,
     },
     h6: {
-      fontSize: "0.67em",
+      fontSize: HEADING_FONT_SIZES.h6,
       fontFamily: headerFontFamily,
     },
   },
@@ -94,7 +109,7 @@ const dictyThemeOptions = {
       "@global": {
         a: {
           textDecoration: "none",
-          color: "#004080",
+          color: DICTY_PRIMARY,
         },
       },
     },
@@ -104,7 +119,7 @@ const dictyThemeOptionsV5: ThemeOptionsV5 = {
   // use color tool for palette -- https://material.io/resources/color/
   palette: {
     primary: {
-      main: "#004080",
+      main: DICTY_PRIMARY,
       light: "#476ab0",
       dark: "#001b53",
       contrastText: "#fff",
@@ -142,27 +157,27 @@ const dictyThemeOptionsV5: ThemeOptionsV5 = {
       fontFamily: bodyFontFamily,
     },
     h1: {
-      fontSize: "2.00em",
+      fontSize: HEADING_FONT_SIZES.h1,
       fontFamily: headerFontFamily,
     },
     h2: {
-      fontSize: "1.50em",
+      fontSize: HEADING_FONT_SIZES.h2,
       fontFamily: headerFontFamily,
     },
     h3: {
-      fontSize: "1.17em",
+      fontSize: HEADING_FONT_SIZES.h3,
       fontFamily: headerFontFamily,
     },
     h4: {
-      fontSize: "1.00em",
+      fontSize: HEADING_FONT_SIZES.h4,
       fontFamily: headerFontFamily,
     },
     h5: {
-      fontSize: "0.83em",
+      fontSize: HEADING_FONT_SIZES.h5,
       fontFamily: headerFontFamily,
     },
     h6: {
-      fontSize: "0.67em",
+      fontSize: HEADING_FONT_SIZES.h6,
       fontFamily: headerFontFamily,
     },
   },
@@ -201,53 +216,53 @@ const nordicThemeOptionsV5: ThemeOptionsV5 = {
   palette: {
     mode: "light",
     primary: {
-      main: "#eceff4",
+      main: NORDIC_SNOW_LIGHT,
       light: "#ffffff",
-      dark: "#e5e9f0",
-      contrastText: "#2e3440",
+      dark: NORDIC_SNOW_MID,
+      contrastText: NORDIC_POLAR_NIGHT,
     },
     secondary: {
-      main: "#e5e9f0",
-      light: "#eceff4",
+      main: NORDIC_SNOW_MID,
+      light: NORDIC_SNOW_LIGHT,
       dark: "#d8dee9",
-      contrastText: "#2e3440",
+      contrastText: NORDIC_POLAR_NIGHT,
     },
     error: {
       main: "#bf616a",
       light: "#d08770",
       dark: "#8b3a42",
-      contrastText: "#eceff4",
+      contrastText: NORDIC_SNOW_LIGHT,
     },
     warning: {
       main: "#d08770",
       light: "#e0a882",
       dark: "#9a5c45",
-      contrastText: "#2e3440",
+      contrastText: NORDIC_POLAR_NIGHT,
     },
     success: {
       main: "#a3be8c",
       light: "#b8d0a5",
       dark: "#728f5e",
-      contrastText: "#2e3440",
+      contrastText: NORDIC_POLAR_NIGHT,
     },
     info: {
       main: "#88c0d0",
       light: "#a8d4e0",
       dark: "#5a8fa0",
-      contrastText: "#2e3440",
+      contrastText: NORDIC_POLAR_NIGHT,
     },
     tertiary: {
       main: "#5e81ac",
       light: "#ccd9e6",
       dark: "#3b5070",
-      contrastText: "#eceff4",
+      contrastText: NORDIC_SNOW_LIGHT,
     },
     background: {
-      default: "#eceff4",
-      paper: "#e5e9f0",
+      default: NORDIC_SNOW_LIGHT,
+      paper: NORDIC_SNOW_MID,
     },
     text: {
-      primary: "#2e3440",
+      primary: NORDIC_POLAR_NIGHT,
       secondary: "#4c566a",
     },
   },
@@ -267,12 +282,12 @@ const nordicThemeOptionsV5: ThemeOptionsV5 = {
       fontWeight: 500,
     },
     subtitle2: { fontFamily: bodyFontFamily },
-    h1: { fontSize: "2.00em", fontFamily: headerFontFamily },
-    h2: { fontSize: "1.50em", fontFamily: headerFontFamily },
-    h3: { fontSize: "1.17em", fontFamily: headerFontFamily },
-    h4: { fontSize: "1.00em", fontFamily: headerFontFamily },
-    h5: { fontSize: "0.83em", fontFamily: headerFontFamily },
-    h6: { fontSize: "0.67em", fontFamily: headerFontFamily },
+    h1: { fontSize: HEADING_FONT_SIZES.h1, fontFamily: headerFontFamily },
+    h2: { fontSize: HEADING_FONT_SIZES.h2, fontFamily: headerFontFamily },
+    h3: { fontSize: HEADING_FONT_SIZES.h3, fontFamily: headerFontFamily },
+    h4: { fontSize: HEADING_FONT_SIZES.h4, fontFamily: headerFontFamily },
+    h5: { fontSize: HEADING_FONT_SIZES.h5, fontFamily: headerFontFamily },
+    h6: { fontSize: HEADING_FONT_SIZES.h6, fontFamily: headerFontFamily },
   },
   components: {
     MuiCssBaseline: {
@@ -293,7 +308,7 @@ const nordicThemeOptionsV5: ThemeOptionsV5 = {
       styleOverrides: {
         root: {
           backgroundColor: "#d8dee9",
-          color: "#2e3440",
+          color: NORDIC_POLAR_NIGHT,
         },
         indicator: {
           backgroundColor: "#5e81ac",
