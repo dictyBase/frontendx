@@ -11,7 +11,7 @@ export const FooterSponsors = () => {
       container
       justifyContent="flex-end"
       className={classes.support}>
-      <Box mt={1} mb={2} mr={1} className={classes.link}>
+      <Box mt={1} mb={2} mr={1}>
         <em>
           Supported by{" "}
           <a
