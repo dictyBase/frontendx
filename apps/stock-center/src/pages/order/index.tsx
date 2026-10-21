@@ -12,7 +12,7 @@ import { currentCartQuantityAtom } from "../../cartState"
 const OrderForm = () => {
   const orderStep = useAtomValue(orderStepAtom)
   return (
-    <Container>
+    <Container sx={{ mb: 8 }}>
       <OrderFormStepper step={orderStep} />
       {match(orderStep)
         .with(OrderSteps.SHIPPING, () => <ShippingPage />)

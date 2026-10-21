@@ -1,5 +1,6 @@
 import React from "react"
 import { match } from "ts-pattern"
+import { Button } from "@mui/material"
 import { Link } from "react-router-dom"
 import { makeStyles } from "@material-ui/core/styles"
 import Grid from "@material-ui/core/Grid"
@@ -50,13 +51,20 @@ const StrainAvailableDisplay = ({ cartData }: Properties) => {
       {match(cartItemProperties)
         .with({ isInCart: true }, () => (
           <Grid item>
-            <SecondaryButton
+            <Button
               variant="contained"
               color="secondary"
-              style={{ backgroundColor: red[900] }}
+              sx={(t) => ({
+                color: t.palette.primary.main,
+                backgroundColor: red[900],
+                "&:hover": {
+                  color: t.palette.primary.contrastText,
+                  backgroundColor: t.palette.action.hover,
+                },
+              })}
               onClick={handleRemoveFromCart}>
               Remove From Cart
-            </SecondaryButton>
+            </Button>
           </Grid>
         ))
         .with({ isFull: true }, () => (
