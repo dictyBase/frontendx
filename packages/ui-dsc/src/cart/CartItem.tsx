@@ -15,7 +15,7 @@ import { toCurrencyString } from "../utils/toCurrencyString"
 
 const useStyles = makeStyles()((theme) => ({
   avatar: {
-    background: theme.palette.tertiary.dark,
+    background: theme.palette.secondary.dark,
   },
   container: {
     minHeight: "170px",

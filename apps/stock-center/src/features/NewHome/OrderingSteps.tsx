@@ -106,7 +106,7 @@ const OrderingSteps = () => {
           py: 0.75,
           px: 2,
           borderRadius: "8px",
-          color: theme.palette.tertiary.dark,
+          color: theme.palette.secondary.dark,
           fontSize: "0.875rem",
           fontWeight: 600,
           transition: "background-color 0.15s ease",

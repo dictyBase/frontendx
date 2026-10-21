@@ -39,9 +39,9 @@ const Stat = ({ value, label }: StatItem) => (
 const StatsBanner = () => (
   <Box
     sx={(theme) => ({
-      backgroundColor: theme.palette.tertiary.light,
-      borderTop: `solid 1px ${theme.palette.tertiary.main}`,
-      borderBottom: `solid 1px ${theme.palette.tertiary.main}`,
+      backgroundColor: theme.palette.secondary.light,
+      borderTop: `solid 1px ${theme.palette.secondary.main}`,
+      borderBottom: `solid 1px ${theme.palette.secondary.main}`,
       width: "100%",
       px: { xs: 3, md: 8 },
       py: 2.5,

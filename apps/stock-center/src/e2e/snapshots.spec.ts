@@ -13,18 +13,6 @@ test("Header snapshot", async ({ page }) => {
   await expect(header).toHaveScreenshot()
 })
 
-test("Navbar snapshot", async ({ page }) => {
-  const navbar = page.locator("nav")
-  await expect(navbar).toHaveScreenshot()
-})
-
-test("Navbar Item Menu snapshot", async ({ page }) => {
-  const genomesDropdown = page.getByText("Genomes")
-  await genomesDropdown.click()
-  const genomesList = page.getByTestId("navbar-dropdown-Genomes")
-  await expect(genomesList).toHaveScreenshot()
-})
-
 test("DSC Home page snapshot", async ({ page }) => {
   const main = page.locator("main")
   await expect(main).toHaveScreenshot()

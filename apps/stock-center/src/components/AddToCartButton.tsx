@@ -12,7 +12,7 @@ import type { StrainItem, PlasmidItem, CatalogItem } from "../types"
 
 const useStyles = makeStyles(({ palette }) => ({
   cartButton: {
-    color: palette.secondary.main,
+    color: palette.primary.main,
   },
 }))
 

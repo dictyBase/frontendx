@@ -38,7 +38,7 @@ const CatalogCardB = ({ links, description }: CatalogCardBProperties) => {
         height: "100%",
         p: 2,
         borderRadius: theme.shape.borderRadius,
-        border: `solid 2px ${theme.palette.tertiary.light}`,
+        border: `solid 2px ${theme.palette.secondary.light}`,
         transition: "all 0.3s ease",
         backgroundColor: theme.palette.primary.light,
         "&:hover": {

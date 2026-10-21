@@ -46,12 +46,12 @@ const SearchInput = ({
       onClick={onSearch}
       aria-label="submit search"
       sx={(theme) => ({
-        backgroundColor: theme.palette.tertiary.main,
-        border: `solid 1px ${theme.palette.tertiary.dark}`,
-        color: theme.palette.tertiary.contrastText,
+        backgroundColor: theme.palette.secondary.main,
+        border: `solid 1px ${theme.palette.secondary.dark}`,
+        color: theme.palette.secondary.contrastText,
         borderRadius: "8px",
         p: 1.5,
-        "&:hover": { backgroundColor: theme.palette.tertiary.dark },
+        "&:hover": { backgroundColor: theme.palette.secondary.dark },
       })}>
       <SearchIcon />
     </IconButton>
