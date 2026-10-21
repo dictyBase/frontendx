@@ -219,13 +219,14 @@ const nordicThemeOptionsV5: ThemeOptionsV5 = {
       main: NORDIC_SNOW_LIGHT,
       light: NORDIC_SNOW_PALE,
       dark: NORDIC_SNOW_MID,
+      darker: "#d8dee9",
       contrastText: NORDIC_POLAR_NIGHT,
     },
     secondary: {
-      main: NORDIC_SNOW_MID,
-      light: NORDIC_SNOW_LIGHT,
-      dark: "#d8dee9",
-      contrastText: NORDIC_POLAR_NIGHT,
+      main: "#5e81ac",
+      light: "#ccd9e6",
+      dark: "#3b5070",
+      contrastText: NORDIC_SNOW_LIGHT,
     },
     error: {
       main: "#bf616a",
@@ -314,9 +315,6 @@ const nordicThemeOptionsV5: ThemeOptionsV5 = {
         root: {
           minWidth: "160px",
           textTransform: "none",
-        },
-        selected: {
-          color: NORDIC_POLAR_NIGHT,
         },
       },
     },

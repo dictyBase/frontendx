@@ -17,6 +17,7 @@ import { cleanQuery } from "../utils/cleanQuery"
 const useStyles = makeStyles()({
   container: {
     textAlign: "center",
+    marginBottom: "2rem",
   },
   gridItem: {
     marginTop: "10px",

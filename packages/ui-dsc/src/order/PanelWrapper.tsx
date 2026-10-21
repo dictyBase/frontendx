@@ -12,7 +12,7 @@ const useStyles = makeStyles()((theme) => ({
     borderTopRightRadius: "3px",
   },
   summary: {
-    backgroundColor: theme.palette.tertiary.light,
+    backgroundColor: theme.palette.secondary.light,
     color: theme.palette.getContrastText(theme.palette.primary.main),
   },
   details: {

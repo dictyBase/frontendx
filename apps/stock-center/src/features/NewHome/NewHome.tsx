@@ -95,7 +95,7 @@ const NewHome = () => (
       sx={(theme) => ({
         width: "100%",
         pt: 3,
-        backgroundColor: theme.palette.secondary.light,
+        backgroundColor: theme.palette.primary.light,
       })}>
       <Grid
         container

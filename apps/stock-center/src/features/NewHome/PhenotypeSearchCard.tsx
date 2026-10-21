@@ -29,8 +29,8 @@ const PhenotypeSearchCard = () => {
               borderColor: theme.palette.primary.contrastText,
               color: theme.palette.primary.contrastText,
               "&:hover": {
-                borderColor: theme.palette.tertiary.dark,
-                backgroundColor: theme.palette.tertiary.light,
+                borderColor: theme.palette.secondary.dark,
+                backgroundColor: theme.palette.secondary.light,
               },
             })}>
             Explore Strains by Phenotype
