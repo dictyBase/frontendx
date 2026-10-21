@@ -1,9 +1,12 @@
 import { Box, Stack } from "@mui/material"
+import Grid from "@mui/material/Unstable_Grid2"
+import { pipe } from "fp-ts/function"
+import { map as Amap } from "fp-ts/Array"
 import { infoSections } from "@dictybase/ui-dsc"
 import { GeneralSearch } from "./GeneralSearch"
 import { OrderingSteps } from "./OrderingSteps"
 import { ResourcesAndInformation } from "./ResourcesAndInformation"
-import { CatalogCard } from "./CatalogCard"
+import { CatalogCardB } from "./CatalogCardB"
 import { PhenotypeSearchCard } from "./PhenotypeSearchCard"
 import { StatsBanner } from "./StatsBanner"
 
@@ -14,37 +17,43 @@ type LinkProperties = {
 
 type CatalogCardItem = {
   key: string
-  icon: string
-  title: string
-  href: string
-  sublinks: Array<LinkProperties>
+  description: string
+  links: Array<LinkProperties>
 }
 const catalogCards: Array<CatalogCardItem> = [
   {
-    key: "strains",
-    icon: "🧬",
-    title: "Strain Catalog",
-    href: "/strains",
-    sublinks: [
+    key: "full",
+    description:
+      "Explore the full catalog of strains and plasmids. Search by various stock attributes such as ID, descriptor, genotype, characteristic, assay, and more.",
+    links: [
+      {
+        label: "Full Catalog",
+        href: "/catalog",
+      },
+      { label: "Explore →", href: "/catalog" },
+    ],
+  },
+  {
+    key: "strain",
+    description:
+      "Discover over 12,000 authenticated strains including mutant alleles, null lines, and wild isolates.",
+    links: [
+      { label: "Strain Catalog", href: "/strains" },
       { label: "GWDI Strains →", href: "/strains?group=gwdi" },
       { label: "Bacterial Strains →", href: "/strains?group=bacterial" },
     ],
   },
   {
-    key: "plasmids",
-    icon: "🧪",
-    title: "Plasmid Catalog",
-    href: "/plasmids",
-    sublinks: [
+    key: "plasmid",
+    description:
+      "Targeted gene disruption vectors, GFP/RFP tags, overexpression constructs, and shuttle vectors. ",
+    links: [
+      {
+        label: "Plasmid Catalog",
+        href: "/plasmids",
+      },
       { label: "Goldenbraid Plasmids →", href: "/plasmids?group=goldenbraid" },
     ],
-  },
-  {
-    key: "phenotypes",
-    icon: "🔬",
-    title: "Phenotype Search",
-    href: "/phenotypes",
-    sublinks: [],
   },
 ] as const
 
@@ -59,14 +68,27 @@ const NewHome = () => (
     alignItems="center"
     direction="column"
     justifyContent="stretch"
-    sx={{
+    sx={(t) => ({
       height: "100%",
       width: "100%",
-      backgroundColor: "#f7fafc",
+      backgroundColor: t.palette.primary.light,
       display: "flex",
-    }}>
+    })}>
     <GeneralSearch />
     <OrderingSteps />
+    <Grid
+      container
+      spacing={3}
+      sx={{ px: 2, maxWidth: { xl: "65%", lg: "100%", md: "65%" } }}>
+      {pipe(
+        catalogCards,
+        Amap(({ links, description, key }) => (
+          <Grid xs={12} md={12} lg={4} xl={4} key={key}>
+            <CatalogCardB links={links} description={description} />
+          </Grid>
+        )),
+      )}
+    </Grid>
     <StatsBanner />
     <Stack
       alignItems="center"
@@ -75,9 +97,14 @@ const NewHome = () => (
         pt: 3,
         backgroundColor: theme.palette.secondary.light,
       })}>
-      <Box sx={{ width: "60vw", mx: "auto" }}>
-        <PhenotypeSearchCard />
-      </Box>
+      <Grid
+        container
+        spacing={2}
+        sx={{ px: 2, maxWidth: { xl: "50%", lg: "100%", md: "65%" } }}>
+        <Grid xs={12}>
+          <PhenotypeSearchCard />
+        </Grid>
+      </Grid>
       <Box
         sx={{
           maxWidth: "1100px",
