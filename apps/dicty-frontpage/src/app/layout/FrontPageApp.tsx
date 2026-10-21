@@ -1,6 +1,5 @@
 import { RouterProvider } from "react-router-dom"
-import { Box } from "@mui/material"
-import { Theme } from "@mui/material/styles"
+import { Theme, Box } from "@mui/material"
 import { makeStyles } from "tss-react/mui"
 import {
   HeaderWithAuth,
