@@ -5,7 +5,7 @@ import {
   StylesProvider,
   createGenerateClassName,
 } from "@material-ui/core/styles"
-import { dictyThemeV4, dictyThemeV5, nordicThemeV5 } from "@dictybase/ui-common"
+import { dictyThemeV4, nordicThemeV5 } from "@dictybase/ui-common"
 
 const generateClassName = createGenerateClassName({
   disableGlobal: true,

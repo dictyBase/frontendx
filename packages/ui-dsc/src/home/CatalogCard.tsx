@@ -1,4 +1,3 @@
-import type { SxProps, Theme } from "@mui/material"
 import { Box, Card, CardContent, Typography } from "@mui/material"
 import { dscHomeTheme } from "./dscTheme"
 import { ArrowLink } from "./ArrowLink"
