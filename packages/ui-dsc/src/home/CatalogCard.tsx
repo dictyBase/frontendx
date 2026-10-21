@@ -9,7 +9,6 @@ type CatalogCardProperties = {
   description: string
   href: string
   linkText?: string
-  sx?: SxProps<Theme>
 }
 
 const CatalogCard = ({
@@ -18,24 +17,22 @@ const CatalogCard = ({
   description,
   href,
   linkText = "Explore →",
-  sx,
 }: CatalogCardProperties) => (
   <Card
     elevation={0}
-    sx={{
-      p: 3,
+    sx={(theme) => ({
+      p: 30,
       borderRadius: dscHomeTheme.borderRadius.lg,
       transition: "all 0.3s ease",
       border: "2px solid transparent",
-      bgcolor: dscHomeTheme.colors.cardBackground,
+      backgroundColor: theme.palette.background.default,
       boxShadow: dscHomeTheme.shadows.card,
       "&:hover": {
         transform: "translateY(-4px)",
         boxShadow: dscHomeTheme.shadows.cardHover,
         borderColor: dscHomeTheme.colors.primary,
       },
-      ...sx,
-    }}>
+    })}>
     <CardContent sx={{ p: 0, "&:last-child": { pb: 0 } }}>
       <Box
         sx={{

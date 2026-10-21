@@ -16,21 +16,20 @@ const a11yProperties = (index: number) => ({
 })
 
 const useStyles = makeStyles<void, "wrapper">()(
-  ({ palette }, _parameters, classes) => ({
+  ({ palette, shadows }, _parameters, classes) => ({
     root: {
       "&:not(:first-of-type)": {
         marginLeft: "5px",
       },
-      color: "#002f5e",
       opacity: 1,
-      borderTopLeftRadius: "8px",
-      borderTopRightRadius: "8px",
-      border: "1px #e4e4e4 solid",
       borderBottomWidth: 0,
+      "&.Mui-selected": {
+        color: palette.primary.contrastText,
+      },
     },
     selected: {
       background: "#f4f6f8",
-      border: "none",
+      boxShadow: shadows[4],
       [`& .${classes.wrapper}`]: {
         opacity: 1,
       },
@@ -42,7 +41,7 @@ const useStyles = makeStyles<void, "wrapper">()(
       display: "none",
     },
     number: {
-      background: palette.primary.main,
+      background: palette.tertiary.main,
       borderRadius: "0.8em",
       color: "#ffffff",
       display: "inline-block",
@@ -103,6 +102,9 @@ const StrainDetailsCardHeader = ({
                   aria-label="strain details tabs">
                   <Tab
                     classes={tabStyles}
+                    sx={(theme) => ({
+                      color: theme.palette.primary.contrastText,
+                    })}
                     label={
                       <Typography variant="body1">Strain Details</Typography>
                     }
