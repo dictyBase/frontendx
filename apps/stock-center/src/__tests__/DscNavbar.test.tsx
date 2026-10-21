@@ -44,7 +44,7 @@ const renderOnPath = (path: string, store = createStore()) =>
         <Provider store={store}>
           <Routes>
             <Route element={<DscNavbar />}>
-              <Route path="*" element={null} />
+              <Route path="*" element={<></>} />
             </Route>
           </Routes>
         </Provider>
@@ -69,9 +69,7 @@ test("renders the brand name", () => {
 
 test("renders the Catalog button", () => {
   renderComponent()
-  expect(
-    screen.getByRole("button", { name: /^catalog$/i }),
-  ).toBeInTheDocument()
+  expect(screen.getByRole("button", { name: /^catalog$/i })).toBeInTheDocument()
 })
 
 test("renders the Order Information button", () => {
@@ -97,9 +95,7 @@ test("renders the Deposit Information button", () => {
 
 test("renders the FAQs button", () => {
   renderComponent()
-  expect(
-    screen.getByRole("button", { name: /^faqs$/i }),
-  ).toBeInTheDocument()
+  expect(screen.getByRole("button", { name: /^faqs$/i })).toBeInTheDocument()
 })
 
 test("renders the cart button", () => {
@@ -234,23 +230,21 @@ const navSuggestionsMock = {
   },
 }
 
+const navbarSearchTestId = "navbar-search-backdrop"
+
 test("search backdrop is present on pages that show the navbar search", () => {
   renderOnPath("/strains")
-  expect(screen.getByTestId("navbar-search-backdrop")).toBeInTheDocument()
+  expect(screen.getByTestId(navbarSearchTestId)).toBeInTheDocument()
 })
 
 test("search backdrop is not present on the home page", () => {
   renderOnPath("/")
-  expect(
-    screen.queryByTestId("navbar-search-backdrop"),
-  ).not.toBeInTheDocument()
+  expect(screen.queryByTestId(navbarSearchTestId)).not.toBeInTheDocument()
 })
 
 test("search backdrop is not present on the catalog page", () => {
   renderOnPath("/catalog")
-  expect(
-    screen.queryByTestId("navbar-search-backdrop"),
-  ).not.toBeInTheDocument()
+  expect(screen.queryByTestId(navbarSearchTestId)).not.toBeInTheDocument()
 })
 
 test("clicking the backdrop closes the search dropdown", async () => {
@@ -261,7 +255,7 @@ test("clicking the backdrop closes the search dropdown", async () => {
         <Provider store={createStore()}>
           <Routes>
             <Route element={<DscNavbar />}>
-              <Route path="*" element={null} />
+              <Route path="*" element={<></>} />
             </Route>
           </Routes>
         </Provider>
@@ -275,7 +269,7 @@ test("clicking the backdrop closes the search dropdown", async () => {
   )
   expect(await screen.findByText("axeA")).toBeInTheDocument()
 
-  await user.click(screen.getByTestId("navbar-search-backdrop"))
+  await user.click(screen.getByTestId(navbarSearchTestId))
   expect(screen.queryByText("axeA")).not.toBeInTheDocument()
 })
 

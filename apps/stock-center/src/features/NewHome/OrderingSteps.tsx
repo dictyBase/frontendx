@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { Box, ButtonBase, Collapse, Typography } from "@mui/material"
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import { Link } from "react-router-dom"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"

@@ -4,6 +4,8 @@ import { MemoryRouter } from "react-router-dom"
 import { expect, test } from "vitest"
 import { OrderingSteps } from "../features/NewHome/OrderingSteps"
 
+const expandedAttribute = "aria-expanded"
+
 const renderComponent = () =>
   render(
     <MemoryRouter>
@@ -22,7 +24,7 @@ test("toggle button has aria-expanded false by default", () => {
   renderComponent()
   expect(
     screen.getByRole("button", { name: /how to place an order/i }),
-  ).toHaveAttribute("aria-expanded", "false")
+  ).toHaveAttribute(expandedAttribute, "false")
 })
 
 test("does not show step content by default", () => {
@@ -36,7 +38,9 @@ test("shows all step titles after clicking the toggle", async () => {
   const user = userEvent.setup()
   renderComponent()
 
-  await user.click(screen.getByRole("button", { name: /how to place an order/i }))
+  await user.click(
+    screen.getByRole("button", { name: /how to place an order/i }),
+  )
 
   expect(screen.getByText(/search or browse the catalog/i)).toBeInTheDocument()
   expect(screen.getByText(/add items to your cart/i)).toBeInTheDocument()
@@ -49,7 +53,9 @@ test("shows the payment information link when expanded", async () => {
   const user = userEvent.setup()
   renderComponent()
 
-  await user.click(screen.getByRole("button", { name: /how to place an order/i }))
+  await user.click(
+    screen.getByRole("button", { name: /how to place an order/i }),
+  )
 
   const paymentLink = screen.getByRole("link", {
     name: /view accepted payment methods/i,
@@ -62,11 +68,13 @@ test("toggle button has aria-expanded true after clicking", async () => {
   const user = userEvent.setup()
   renderComponent()
 
-  await user.click(screen.getByRole("button", { name: /how to place an order/i }))
+  await user.click(
+    screen.getByRole("button", { name: /how to place an order/i }),
+  )
 
   expect(
     screen.getByRole("button", { name: /how to place an order/i }),
-  ).toHaveAttribute("aria-expanded", "true")
+  ).toHaveAttribute(expandedAttribute, "true")
 })
 
 test("toggle button returns to aria-expanded false when clicked a second time", async () => {
@@ -79,8 +87,8 @@ test("toggle button returns to aria-expanded false when clicked a second time", 
   const toggle = screen.getByRole("button", { name: /how to place an order/i })
 
   await user.click(toggle)
-  expect(toggle).toHaveAttribute("aria-expanded", "true")
+  expect(toggle).toHaveAttribute(expandedAttribute, "true")
 
   await user.click(toggle)
-  expect(toggle).toHaveAttribute("aria-expanded", "false")
+  expect(toggle).toHaveAttribute(expandedAttribute, "false")
 })
