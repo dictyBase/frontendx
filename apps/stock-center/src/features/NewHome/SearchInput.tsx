@@ -47,6 +47,7 @@ const SearchInput = ({
       aria-label="submit search"
       sx={(theme) => ({
         backgroundColor: theme.palette.tertiary.main,
+        border: `solid 1px ${theme.palette.tertiary.dark}`,
         color: theme.palette.tertiary.contrastText,
         borderRadius: "8px",
         p: 1.5,

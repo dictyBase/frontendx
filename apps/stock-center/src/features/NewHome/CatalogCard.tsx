@@ -33,15 +33,15 @@ const CatalogCard = ({
   }
   return (
     <Card
-      elevation={1}
+      elevation={4}
       onClick={onClick}
       sx={{
         flex: "1 1 240px",
-        maxWidth: 320,
-        borderRadius: "16px",
-        border: "2px solid transparent",
-        backgroundColor: "#ffffff",
-        boxShadow: "0 2px 12px rgba(0,0,0,0.1)",
+        // maxWidth: 320,
+        // borderRadius: "16px",
+        // border: "2px solid transparent",
+        // backgroundColor: "#ffffff",
+        // boxShadow: "0 2px 12px rgba(0,0,0,0.1)",
         transition: "all 0.3s ease",
         display: "flex",
         flexDirection: "column",
@@ -74,8 +74,6 @@ const CatalogCard = ({
             variant="h3"
             sx={{
               fontSize: "1.15rem",
-              fontWeight: 700,
-              color: "#1a202c",
             }}>
             {title}
           </Typography>
