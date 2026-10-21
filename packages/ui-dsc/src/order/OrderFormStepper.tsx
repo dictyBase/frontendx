@@ -10,7 +10,7 @@ const useStyles = makeStyles()((theme) => ({
     padding: theme.spacing(3, 0, 5),
   },
   icon: {
-    color: theme.palette.primary.light,
+    color: theme.palette.success.main,
   },
 }))
 

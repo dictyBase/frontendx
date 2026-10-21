@@ -1,24 +1,6 @@
-import { Theme } from "@mui/material/styles"
-import { makeStyles } from "tss-react/mui"
 import IconButton from "@mui/material/IconButton"
 import DialogTitle from "@mui/material/DialogTitle"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-
-const useStyles = makeStyles()((theme: Theme) => ({
-  dialogTitle: {
-    backgroundColor: theme.palette.primary.main,
-    color: "#fff",
-    margin: 0,
-    padding: theme.spacing(2),
-    fontSize: "1.3rem",
-  },
-  closeButton: {
-    position: "absolute",
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: "#fff",
-  },
-}))
 
 type DialogTitleDisplayProperties = {
   /** Title to display at top of dialog */
@@ -34,21 +16,27 @@ type DialogTitleDisplayProperties = {
 const DialogTitleDisplay = ({
   title,
   handleClose,
-}: DialogTitleDisplayProperties) => {
-  const { classes } = useStyles()
-
-  return (
-    <DialogTitle className={classes.dialogTitle} id={title}>
-      {title}
-      <IconButton
-        aria-label={title}
-        className={classes.closeButton}
-        onClick={handleClose}
-        size="large">
-        <FontAwesomeIcon icon="times" />
-      </IconButton>
-    </DialogTitle>
-  )
-}
+}: DialogTitleDisplayProperties) => (
+  <DialogTitle
+    sx={(theme) => ({
+      backgroundColor: theme.palette.secondary.main,
+      padding: 3,
+      fontSize: "1.3rem",
+    })}
+    id={title}>
+    {title}
+    <IconButton
+      aria-label={title}
+      sx={{
+        position: "absolute",
+        right: 1,
+        top: 1,
+      }}
+      onClick={handleClose}
+      size="large">
+      <FontAwesomeIcon icon="times" />
+    </IconButton>
+  </DialogTitle>
+)
 
 export { DialogTitleDisplay }

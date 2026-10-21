@@ -41,7 +41,7 @@ const useStyles = makeStyles<void, "wrapper">()(
       display: "none",
     },
     number: {
-      background: palette.tertiary.main,
+      background: palette.info.dark,
       borderRadius: "0.8em",
       color: "#ffffff",
       display: "inline-block",
