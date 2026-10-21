@@ -96,23 +96,23 @@ const OrderingSteps = () => {
   )
 
   return (
-    <Box sx={{ width: "100%", maxWidth: SEARCH_MAX_WIDTH, mt: 1.5 }}>
+    <Box sx={{ width: "100%", maxWidth: SEARCH_MAX_WIDTH, my: 1.5 }}>
       <ButtonBase
         aria-expanded={isOpen}
         aria-controls="ordering-steps-content"
         onClick={() => setIsOpen((previous) => !previous)}
-        sx={{
+        sx={(theme) => ({
           width: "100%",
           justifyContent: "center",
           py: 0.75,
           px: 2,
           borderRadius: "8px",
-          color: "#3182ce",
+          color: theme.palette.tertiary.dark,
           fontSize: "0.875rem",
-          fontWeight: 500,
+          fontWeight: 600,
           transition: "background-color 0.15s ease",
           "&:hover": { backgroundColor: "rgba(49, 130, 206, 0.07)" },
-        }}>
+        })}>
         {toggleLabel}
       </ButtonBase>
 
