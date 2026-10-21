@@ -100,23 +100,23 @@ const createAuthNavbarItems = (
             links: [
               {
                 label: "Dicty Art",
-                href: `${frontPageUrl}/explore/art/show`,
+                href: `${stockCenterUrl}/explore/art/show`,
               },
               {
                 label: "Gallery",
-                href: `${frontPageUrl}/explore/gallery/show`,
+                href: `${stockCenterUrl}/explore/gallery/show`,
               },
               {
                 label: "Learn About Dicty",
-                href: `${frontPageUrl}/explore/learn/show`,
+                href: `${stockCenterUrl}/explore/learn/show`,
               },
               {
                 label: "Teaching Protocols",
-                href: `${frontPageUrl}/explore/teach/show`,
+                href: `${stockCenterUrl}/explore/teach/show`,
               },
               {
                 label: "Useful Links",
-                href: `${frontPageUrl}/explore/links/show`,
+                href: `${stockCenterUrl}/explore/links/show`,
               },
             ],
           },
@@ -132,31 +132,31 @@ const createAuthNavbarItems = (
             links: [
               {
                 label: "Techniques",
-                href: `${frontPageUrl}/research/techniques/show`,
+                href: `${stockCenterUrl}/research/techniques/show`,
               },
               {
                 label: "Anatomy Ontology",
-                href: `${frontPageUrl}/research/ontology/show`,
+                href: `${stockCenterUrl}/research/ontology/show`,
               },
               {
                 label: "Codon Bias Table",
-                href: `${frontPageUrl}/research/codon/show`,
+                href: `${stockCenterUrl}/research/codon/show`,
               },
               {
                 label: "Nomenclature Guidelines",
-                href: `${frontPageUrl}/research/nomenclature/show`,
+                href: `${stockCenterUrl}/research/nomenclature/show`,
               },
               {
                 label: "Phenotyping",
-                href: `${frontPageUrl}/research/phenotype/show`,
+                href: `${stockCenterUrl}/research/phenotype/show`,
               },
               {
                 label: "Axenic Strain History",
-                href: `${frontPageUrl}/research/strain-history/show`,
+                href: `${stockCenterUrl}/research/strain-history/show`,
               },
               {
                 label: "Track Maxima",
-                href: `${frontPageUrl}/research/trackmaxima/show`,
+                href: `${stockCenterUrl}/research/trackmaxima/show`,
               },
             ],
           },
@@ -232,31 +232,31 @@ const createAuthNavbarItems = (
             links: [
               {
                 label: "Cite Us",
-                href: `${frontPageUrl}/community/citation/show`,
+                href: `${stockCenterUrl}/community/citation/show`,
               },
               {
                 label: "Dicty Annual Conferences",
-                href: `${frontPageUrl}/community/conference/show`,
+                href: `${stockCenterUrl}/community/conference/show`,
               },
               {
                 label: "Dicty Email Forum",
-                href: `${frontPageUrl}/community/listserv/show`,
+                href: `${stockCenterUrl}/community/listserv/show`,
               },
               {
                 label: "Dicty Labs",
-                href: `${frontPageUrl}/community/labs/show`,
+                href: `${stockCenterUrl}/community/labs/show`,
               },
               {
                 label: "History",
-                href: `${frontPageUrl}/community/history/show`,
+                href: `${stockCenterUrl}/community/history/show`,
               },
               {
                 label: "Jobs",
-                href: `${frontPageUrl}/community/jobs/show`,
+                href: `${stockCenterUrl}/community/jobs/show`,
               },
               {
                 label: "Community Annotations",
-                href: `${frontPageUrl}/community/annotations/show`,
+                href: `${stockCenterUrl}/community/annotations/show`,
               },
             ],
           },
@@ -468,6 +468,7 @@ const DscNavbar = () => {
             navItems,
             Amap(({ label, sections }) => (
               <DscNavbarMenu
+                key={label}
                 setOpenMenu={setOpenMenu}
                 label={label}
                 sections={sections}
