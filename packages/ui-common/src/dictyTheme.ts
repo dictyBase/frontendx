@@ -13,9 +13,9 @@ const headerFontFamily = "'Poppins', sans-serif"
 const DICTY_PRIMARY = "#004080"
 
 const NORDIC_POLAR_NIGHT = "#2e3440"
+const NORDIC_SNOW_PALE = "#f7fafc"
 const NORDIC_SNOW_LIGHT = "#eceff4"
 const NORDIC_SNOW_MID = "#e5e9f0"
-
 const HEADING_FONT_SIZES = {
   h1: "2.00em",
   h2: "1.50em",
@@ -217,7 +217,7 @@ const nordicThemeOptionsV5: ThemeOptionsV5 = {
     mode: "light",
     primary: {
       main: NORDIC_SNOW_LIGHT,
-      light: "#ffffff",
+      light: NORDIC_SNOW_PALE,
       dark: NORDIC_SNOW_MID,
       contrastText: NORDIC_POLAR_NIGHT,
     },
@@ -295,21 +295,40 @@ const nordicThemeOptionsV5: ThemeOptionsV5 = {
         a: { textDecoration: "none" },
       },
     },
-    MuiButtonBase: { defaultProps: { color: "secondary" } },
+    // MuiButtonBase: { defaultProps: { color: "secondary" } },
+    MuiButton: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          color: theme.palette.primary.contrastText,
+          borderColor: theme.palette.primary.contrastText,
+          "&:hover": {
+            borderColor: theme.palette.tertiary.dark,
+            backgroundColor: theme.palette.tertiary.light,
+          },
+        }),
+      },
+    },
     MuiTab: {
       styleOverrides: {
         root: {
           minWidth: "160px",
           textTransform: "none",
         },
+        "&.Mui-selected": {
+          color: "#1890ff",
+        },
+        selected: {
+          color: NORDIC_POLAR_NIGHT,
+        },
       },
     },
     MuiTabs: {
       styleOverrides: {
-        root: {
+        root: ({ theme }) => ({
+          borderRadius: theme.shape.borderRadius,
           backgroundColor: "#d8dee9",
           color: NORDIC_POLAR_NIGHT,
-        },
+        }),
         indicator: {
           backgroundColor: "#5e81ac",
         },
