@@ -12,7 +12,7 @@ const useStyles = makeStyles()((theme) => ({
     borderTopRightRadius: "3px",
   },
   summary: {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.tertiary.light,
     color: theme.palette.getContrastText(theme.palette.primary.main),
   },
   details: {
@@ -39,7 +39,9 @@ const PanelWrapper = ({ title, children }: PanelWrapperProperties) => {
 
   return (
     <Box>
-      <Accordion defaultExpanded>
+      <Accordion
+        defaultExpanded
+        sx={(t) => ({ background: t.palette.primary.light })}>
         <AccordionSummary className={classes.summary}>
           <Typography
             variant="h2"

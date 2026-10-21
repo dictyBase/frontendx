@@ -4,10 +4,10 @@ import Button from "@mui/material/Button"
 
 const SecondaryButton = withStyles(Button, (theme: Theme) => ({
   root: {
-    color: theme.palette.getContrastText(theme.palette.secondary.main),
-    backgroundColor: theme.palette.secondary.main,
+    color: theme.palette.primary.contrastText,
     "&:hover": {
-      backgroundColor: theme.palette.secondary.dark,
+      color: theme.palette.primary.contrastText,
+      backgroundColor: theme.palette.action.hover,
     },
   },
 }))

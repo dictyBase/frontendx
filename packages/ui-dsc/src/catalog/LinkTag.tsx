@@ -1,6 +1,5 @@
 import { Theme } from "@mui/material/styles"
 import { makeStyles } from "tss-react/mui"
-import { blue } from "@mui/material/colors"
 import Button from "@mui/material/Button"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faExternalLink } from "@fortawesome/free-solid-svg-icons"
@@ -8,12 +7,13 @@ import { faExternalLink } from "@fortawesome/free-solid-svg-icons"
 const useStyles = makeStyles<void, "icon">()(
   (theme: Theme, _parameters, classes) => ({
     root: {
-      backgroundColor: blue[100],
+      backgroundColor: theme.palette.info.main,
+      color: theme.palette.info.contrastText,
       borderRadius: "16px",
       lineHeight: 1.5,
       "&:hover, &.Mui-focusVisible": {
         [`& .${classes.icon}`]: {
-          color: theme.palette.primary.dark,
+          color: theme.palette.primary.contrastText,
           marginLeft: theme.spacing(1),
           visibility: "visible",
           opacity: 1,
