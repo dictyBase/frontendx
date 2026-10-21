@@ -5,7 +5,6 @@ on:
       - develop
 jobs:
   call-deploy:
-    needs: test
     uses: dictyBase/workflows/.github/workflows/composite-deploy.yaml@develop
     secrets: inherit
     with:
