@@ -67,9 +67,7 @@ test("renders the logo brand button", () => {
 
 test("renders the Explore menu button", () => {
   renderComponent()
-  expect(
-    screen.getByRole("button", { name: /^explore$/i }),
-  ).toBeInTheDocument()
+  expect(screen.getByRole("button", { name: /^explore$/i })).toBeInTheDocument()
 })
 
 test("renders the Research menu button", () => {
