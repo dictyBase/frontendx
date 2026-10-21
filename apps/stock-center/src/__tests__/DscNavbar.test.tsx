@@ -60,42 +60,37 @@ beforeEach(() => {
 
 // ── Presence ────────────────────────────────────────────────────────────────
 
-test("renders the brand name", () => {
+test("renders the logo brand button", () => {
+  renderComponent()
+  expect(screen.getByRole("button", { name: /logo/i })).toBeInTheDocument()
+})
+
+test("renders the Explore menu button", () => {
   renderComponent()
   expect(
-    screen.getByRole("button", { name: /dicty stock center/i }),
+    screen.getByRole("button", { name: /^explore$/i }),
   ).toBeInTheDocument()
 })
 
-test("renders the Catalog button", () => {
-  renderComponent()
-  expect(screen.getByRole("button", { name: /^catalog$/i })).toBeInTheDocument()
-})
-
-test("renders the Order Information button", () => {
+test("renders the Research menu button", () => {
   renderComponent()
   expect(
-    screen.getByRole("button", { name: /^order information$/i }),
+    screen.getByRole("button", { name: /^research$/i }),
   ).toBeInTheDocument()
 })
 
-test("renders the Payment Information button", () => {
+test("renders the Dicty Stock Center menu button", () => {
   renderComponent()
   expect(
-    screen.getByRole("button", { name: /^payment information$/i }),
+    screen.getByRole("button", { name: /^dicty stock center$/i }),
   ).toBeInTheDocument()
 })
 
-test("renders the Deposit Information button", () => {
+test("renders the Community menu button", () => {
   renderComponent()
   expect(
-    screen.getByRole("button", { name: /^deposit information$/i }),
+    screen.getByRole("button", { name: /^community$/i }),
   ).toBeInTheDocument()
-})
-
-test("renders the FAQs button", () => {
-  renderComponent()
-  expect(screen.getByRole("button", { name: /^faqs$/i })).toBeInTheDocument()
 })
 
 test("renders the cart button", () => {
@@ -105,62 +100,13 @@ test("renders the cart button", () => {
 
 // ── Navigation ───────────────────────────────────────────────────────────────
 
-test("navigates home when the brand button is clicked", async () => {
+test("navigates home when the logo button is clicked", async () => {
   const user = userEvent.setup()
   renderComponent()
 
-  await user.click(screen.getByRole("button", { name: /dicty stock center/i }))
+  await user.click(screen.getByRole("button", { name: /logo/i }))
 
   expect(navigateMock).toHaveBeenCalledWith("/")
-})
-
-test("navigates to /catalog when Catalog is clicked", async () => {
-  const user = userEvent.setup()
-  renderComponent()
-
-  await user.click(screen.getByRole("button", { name: /^catalog$/i }))
-
-  expect(navigateMock).toHaveBeenCalledWith("/catalog")
-})
-
-test("navigates to /information/order when Order Information is clicked", async () => {
-  const user = userEvent.setup()
-  renderComponent()
-
-  await user.click(screen.getByRole("button", { name: /^order information$/i }))
-
-  expect(navigateMock).toHaveBeenCalledWith("/information/order")
-})
-
-test("navigates to /information/payment when Payment Information is clicked", async () => {
-  const user = userEvent.setup()
-  renderComponent()
-
-  await user.click(
-    screen.getByRole("button", { name: /^payment information$/i }),
-  )
-
-  expect(navigateMock).toHaveBeenCalledWith("/information/payment")
-})
-
-test("navigates to /information/deposit when Deposit Information is clicked", async () => {
-  const user = userEvent.setup()
-  renderComponent()
-
-  await user.click(
-    screen.getByRole("button", { name: /^deposit information$/i }),
-  )
-
-  expect(navigateMock).toHaveBeenCalledWith("/information/deposit")
-})
-
-test("navigates to /information/faq when FAQs is clicked", async () => {
-  const user = userEvent.setup()
-  renderComponent()
-
-  await user.click(screen.getByRole("button", { name: /^faqs$/i }))
-
-  expect(navigateMock).toHaveBeenCalledWith("/information/faq")
 })
 
 test("navigates to /cart when the cart button is clicked", async () => {
