@@ -265,6 +265,7 @@ const nordicThemeOptionsV5: ThemeOptionsV5 = {
       primary: NORDIC_POLAR_NIGHT,
       secondary: "#4c566a",
     },
+    action: { selected: NORDIC_POLAR_NIGHT },
   },
   typography: {
     fontFamily: bodyFontFamily,
@@ -314,9 +315,6 @@ const nordicThemeOptionsV5: ThemeOptionsV5 = {
           minWidth: "160px",
           textTransform: "none",
         },
-        "&.Mui-selected": {
-          color: "#1890ff",
-        },
         selected: {
           color: NORDIC_POLAR_NIGHT,
         },
@@ -332,6 +330,20 @@ const nordicThemeOptionsV5: ThemeOptionsV5 = {
         indicator: {
           backgroundColor: "#5e81ac",
         },
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        root: ({ theme }) => ({ backgroundColor: theme.palette.common.white }),
+      },
+    },
+    MuiRadio: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          "&.Mui-checked": {
+            color: theme.palette.action.selected,
+          },
+        }),
       },
     },
   },
