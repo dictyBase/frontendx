@@ -1,6 +1,6 @@
 import React from "react"
 import { ApolloProvider } from "@apollo/client"
-import { ThemeProvider as ThemeProviderMUI5, Theme } from "@mui/material/styles"
+import { ThemeProvider as ThemeProviderMUI5, Theme } from "@mui/material"
 import CircularProgress from "@mui/material/CircularProgress"
 import {
   useGraphqlClient,
