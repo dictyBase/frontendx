@@ -56,6 +56,7 @@ const Editor = ({
 
   return (
     <LexicalComposer
+      key={initialState as string}
       initialConfig={{
         ...config,
         editorState: initialState,
