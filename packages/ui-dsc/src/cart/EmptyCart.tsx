@@ -33,6 +33,14 @@ const EmptyCart = () => {
           color="primary"
           variant="outlined"
           component={Link}
+          to="/catalog">
+          Full Catalog
+        </Button>
+        <Button
+          className={classes.button}
+          color="primary"
+          variant="outlined"
+          component={Link}
           to="/strains">
           Strain Catalog
         </Button>
