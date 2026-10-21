@@ -20,6 +20,10 @@ const headerTheme = {
   text: primaryColor,
 }
 
+const NORDIC_POLAR_NIGHT = "#2e3440"
+const NORDIC_SNOW_LIGHT = "#eceff4"
+const NORDIC_SNOW_MID = "#e5e9f0"
+
 const catalogThemeOptions: ThemeOptions = {
   palette: {
     primary: {
@@ -29,10 +33,10 @@ const catalogThemeOptions: ThemeOptions = {
       contrastText: "#ffffff",
     },
     secondary: {
-      main: "#e53e3e",
-      light: "#f59e0b",
-      dark: "#c53030",
-      contrastText: "#ffffff",
+      main: NORDIC_SNOW_MID,
+      light: NORDIC_SNOW_LIGHT,
+      dark: "#d8dee9",
+      contrastText: NORDIC_POLAR_NIGHT,
     },
     background: {
       default: "#f5f7fa",
