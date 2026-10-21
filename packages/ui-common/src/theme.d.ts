@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prevent-abbreviations */
 import "@mui/material/styles"
 import "@mui/material/Button"
 import "@mui/material/IconButton"
