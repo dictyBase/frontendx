@@ -7,9 +7,6 @@ const useStyles = makeStyles()(() => ({
   checkoutButton: {
     fontWeight: 1000,
     minHeight: "50px",
-    "&:hover": {
-      color: "#fff",
-    },
   },
 }))
 
