@@ -31,6 +31,7 @@ import { useComprehensiveSearch } from "../features/NewHome/useComprehensiveSear
 import { SearchDropdown } from "../features/NewHome/SearchDropdown"
 import { MIN_CHARS } from "../features/NewHome/types"
 import { DscNavbarMenu } from "./DscNavbarMenu"
+import DictyLogo from "../assets/logo.svg"
 
 /**
  * Routes that already provide their own full-page search experience.
@@ -446,7 +447,7 @@ const DscNavbar = () => {
                 width: 120,
                 height: 60,
                 backgroundColor: theme.palette.primary.contrastText,
-                maskImage: `url(${import.meta.env.BASE_URL}/logo.svg)`,
+                maskImage: `url(${DictyLogo})`,
                 maskSize: "contain",
                 maskRepeat: "no-repeat",
                 maskPosition: "center",
