@@ -107,7 +107,7 @@ const OrderingSteps = () => {
           px: 2,
           borderRadius: "8px",
           color: theme.palette.secondary.dark,
-          fontSize: "0.875rem",
+          fontSize: theme.typography.body1,
           fontWeight: 600,
           transition: "background-color 0.15s ease",
           "&:hover": { backgroundColor: "rgba(49, 130, 206, 0.07)" },

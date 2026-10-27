@@ -9,6 +9,7 @@ const STATS: Array<StatItem> = [
   { value: "12,000+", label: "Strains" },
   { value: "3,500+", label: "Plasmids" },
   { value: "500+", label: "Bacterial Strains" },
+  { value: "24/7", label: "Online Ordering" },
 ]
 
 const Stat = ({ value, label }: StatItem) => (
