@@ -10,6 +10,10 @@ import {
 import SearchIcon from "@mui/icons-material/Search"
 import { P, match } from "ts-pattern"
 import { pipe } from "fp-ts/function"
+import {
+  fromNullable as OfromNullable,
+  getOrElse as OgetOrElse,
+} from "fp-ts/Option"
 import { match as Bmatch } from "fp-ts/boolean"
 import { StockEntityType, useSearchStocksLazyQuery } from "dicty-graphql-schema"
 import {
@@ -45,8 +49,45 @@ const SEARCH_LIMIT = 50
 /** Sidebar filter options mapping display labels to entity URL param values. */
 const catalogEntityFilterOptions = [
   { value: DEFAULT_ENTITY, label: "All Results" },
-  { value: "strain", label: "Strains" },
-  { value: "plasmid", label: "Plasmids" },
+  {
+    value: "strain",
+    label: "Strains",
+    groups: [
+      {
+        label: "Regular Strains",
+        value: "regular",
+        // graphqlFilter: DEFAULT_STRAIN_GROUP,
+      },
+      {
+        label: "GWDI Strains",
+        value: "gwdi",
+        // graphqlFilter: { strain_type: StrainType.Gwdi },
+      },
+      {
+        label: "Bacterial Strains",
+        value: "bacterial",
+        // graphqlFilter: { strain_type: StrainType.Bacterial },
+      },
+    ],
+  },
+  {
+    value: "plasmid",
+    label: "Plasmids",
+    groups: [
+      {
+        label: "All Plasmids",
+        value: "all",
+      },
+      {
+        label: "Regular Plasmids",
+        value: "regular",
+      },
+      {
+        label: "Golden Braid Plasmids",
+        value: "goldenbraid",
+      },
+    ],
+  },
 ]
 
 /**
@@ -79,7 +120,11 @@ const CatalogSearch = () => {
   const entityParameter = searchParameters.get(ENTITY_PARAM) ?? DEFAULT_ENTITY
 
   const [inputValue, setInputValue] = useState(
-    searchParameters.get(QUERY_PARAM) ?? "",
+    pipe(
+      searchParameters.get(QUERY_PARAM),
+      OfromNullable,
+      OgetOrElse(() => ""),
+    ),
   )
   const [searchTerm, setSearchTerm] = useState(
     searchParameters.get(QUERY_PARAM) ?? "",
