@@ -1,16 +1,17 @@
 import { flow } from "fp-ts/function"
-import { split as Ssplit, toUpperCase } from "fp-ts/string"
+import { Semigroup, split as Ssplit, toUpperCase } from "fp-ts/string"
 import {
   modifyHead as RNEAmodifyHead,
-  reduce as RNEAreduce,
+  concatAll,
 } from "fp-ts/ReadonlyNonEmptyArray"
 /**
  * capitalizeFirstCharacter converts the first character of a string to uppercase.
  */
+
 const capitalizeFirstCharacter = flow(
   Ssplit(""),
   RNEAmodifyHead(toUpperCase),
-  RNEAreduce("", (accumulator, current) => accumulator + current),
+  concatAll(Semigroup),
 )
 
 /**
