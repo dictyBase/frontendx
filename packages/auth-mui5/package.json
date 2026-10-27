@@ -19,7 +19,7 @@
     "@dictybase/ui-common": "*",
     "@logto/react": "^2.1.2",
     "react-router-dom": "^6.14.2",
-    "ts-pattern": "4.x"
+    "ts-pattern": "5.x"
   },
   "scripts": {
     "oxlint": "oxlint src/",
