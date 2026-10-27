@@ -1,6 +1,19 @@
 import type { FC } from "react"
-import { pipe } from "fp-ts/function"
+import { pipe, flow, flip } from "fp-ts/function"
+import {
+  replace as Sreplace,
+  toLowerCase as StoLowerCase,
+  Eq as SEq,
+} from "fp-ts/string"
+import {
+  of as Oof,
+  filter as Ofilter,
+  map as Omap,
+  getOrElse as OgetOrElse,
+} from "fp-ts/Option"
 import { map as Amap } from "fp-ts/Array"
+import { elem as Setelem } from "fp-ts/Set"
+import { not } from "fp-ts/Predicate"
 import {
   Table,
   TableBody,
@@ -17,6 +30,7 @@ import { Link } from "react-router-dom"
 import { match } from "ts-pattern"
 import { StockEntityType } from "dicty-graphql-schema"
 import type { StockSearchResult } from "dicty-graphql-schema"
+import { capitalizeFirstCharacter } from "../utils/stringCapitalizations"
 import type { CatalogItem } from "../types"
 import { abbreviateStringToLength } from "../utils/abbreviateStringToLength"
 
@@ -28,6 +42,28 @@ const PLASMID_BADGE_BG = "#f0fff4"
 const PLASMID_BADGE_BORDER = "#c6f6d5"
 
 const SUMMARY_MAX_LENGTH = 120
+
+const normalizeMatchField = flow(
+  Sreplace("_", " "),
+  StoLowerCase,
+  capitalizeFirstCharacter,
+)
+
+const excludedFieldValues = new Set(["SUMMARY", "PUBLIC_NOTE"])
+
+// eslint-disable-next-line unicorn/prevent-abbreviations
+type curriedElemReturn = (a: string) => (set: Set<string>) => boolean
+
+const isExcluded = flip(Setelem(SEq) as curriedElemReturn)(excludedFieldValues)
+
+const getMatchingFieldValue = (field: string, displayText: string) =>
+  pipe(
+    field,
+    Oof,
+    Ofilter(not(isExcluded)),
+    Omap(() => `: ${displayText}`),
+    OgetOrElse(() => ""),
+  )
 
 type EntityBadgeProperties = {
   /** Entity type of the stock result (strain or plasmid). */
@@ -108,9 +144,9 @@ const getPrimaryText = (result: StockSearchResult): string =>
   match(result)
     .with(
       { entity: StockEntityType.Strain },
-      ({ strain_label, display_text }) => strain_label || display_text,
+      ({ strain_label, id }) => strain_label || id,
     )
-    .otherwise(({ display_text }) => display_text)
+    .otherwise(({ id }) => id)
 
 /**
  * Converts a `StockSearchResult` to a `CatalogItem` so it can be passed to
@@ -159,7 +195,7 @@ const renderResultRow =
   (ActionComponent: FC<{ item: CatalogItem }>) =>
   // eslint-disable-next-line react/function-component-definition
   (result: StockSearchResult) => {
-    const { id, entity, summary } = result
+    const { id, entity, summary, field, display_text } = result
     const path = toItemPath(entity)
     const primaryText = getPrimaryText(result)
     const catalogItem = toStockCatalogItem(result)
@@ -196,6 +232,12 @@ const renderResultRow =
               </Typography>
             </Box>
           </Stack>
+        </TableCell>
+        <TableCell sx={{ lineHeight: 1.6 }}>
+          <Typography variant="caption">{`${normalizeMatchField(
+            field,
+          )}`}</Typography>
+          {`${getMatchingFieldValue(field, display_text)}`}
         </TableCell>
         <TableCell sx={{ lineHeight: 1.6 }}>
           {pipe(summary, abbreviateStringToLength(SUMMARY_MAX_LENGTH))}
@@ -242,8 +284,9 @@ const SearchResultsTable = ({
     <Table stickyHeader sx={{ tableLayout: "fixed" }}>
       <TableHead>
         <TableRow>
-          <TableCell sx={{ width: "30%" }}>Stock</TableCell>
-          <TableCell sx={{ width: "60%" }}>Summary</TableCell>
+          <TableCell sx={{}}>Stock</TableCell>
+          <TableCell sx={{}}>Matching Field</TableCell>
+          <TableCell sx={{ width: "40%" }}>Summary</TableCell>
           <TableCell sx={{ width: "10%", textAlign: "center" }} />
         </TableRow>
       </TableHead>
