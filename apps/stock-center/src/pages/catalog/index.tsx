@@ -1,4 +1,10 @@
-import { useState, useEffect, useCallback } from "react"
+import {
+  useState,
+  useEffect,
+  useLayoutEffect,
+  useCallback,
+  ChangeEventHandler,
+} from "react"
 import {
   Box,
   ThemeProvider,
@@ -9,12 +15,19 @@ import {
 } from "@mui/material"
 import SearchIcon from "@mui/icons-material/Search"
 import { P, match } from "ts-pattern"
-import { pipe } from "fp-ts/function"
+import { pipe, flow } from "fp-ts/function"
 import {
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
+  Option,
+  some,
+  none,
 } from "fp-ts/Option"
-import { match as Bmatch } from "fp-ts/boolean"
+import { match as Amatch } from "fp-ts/Array"
+import {
+  ReadonlyNonEmptyArray,
+  head as RNEAhead,
+} from "fp-ts/ReadonlyNonEmptyArray"
 import { StockEntityType, useSearchStocksLazyQuery } from "dicty-graphql-schema"
 import {
   EmptyCatalog,
@@ -23,7 +36,7 @@ import {
   CatalogListLoader,
   SearchResultsTable,
 } from "@dictybase/ui-dsc"
-import { useSearchParams } from "react-router-dom"
+import { useSearchParams, NavigateOptions } from "react-router-dom"
 import { CatalogSidebar } from "../../components/CatalogSidebar"
 import { AddToCartButtonHandler } from "../../components/AddToCartButtonHandler"
 import { catalogTheme } from "../../themes"
@@ -46,27 +59,34 @@ const MIN_CHARS = 3
 /** Maximum number of results to request from the API per search. */
 const SEARCH_LIMIT = 50
 
+type SidebarOption = {
+  value: string
+  label: string
+  groups?: Array<{ value: string; label: string }>
+}
+
 /** Sidebar filter options mapping display labels to entity URL param values. */
-const catalogEntityFilterOptions = [
+const catalogEntityFilterOptions: ReadonlyNonEmptyArray<SidebarOption> = [
   { value: DEFAULT_ENTITY, label: "All Results" },
   {
     value: "strain",
     label: "Strains",
     groups: [
       {
+        label: "All Strains",
+        value: "all",
+      },
+      {
         label: "Regular Strains",
         value: "regular",
-        // graphqlFilter: DEFAULT_STRAIN_GROUP,
       },
       {
         label: "GWDI Strains",
         value: "gwdi",
-        // graphqlFilter: { strain_type: StrainType.Gwdi },
       },
       {
         label: "Bacterial Strains",
         value: "bacterial",
-        // graphqlFilter: { strain_type: StrainType.Bacterial },
       },
     ],
   },
@@ -105,6 +125,7 @@ const toStockEntityType = (parameters: string): StockEntityType | undefined =>
     .with("plasmid", () => StockEntityType.Plasmid)
     .otherwise(() => undefined)
 
+const getFirstEntity = flow(RNEAhead<SidebarOption>, ({ value }) => value)
 /**
  * Full-catalog search page.
  *
@@ -116,22 +137,40 @@ const toStockEntityType = (parameters: string): StockEntityType | undefined =>
  */
 const CatalogSearch = () => {
   const [searchParameters, setSearchParameters] = useSearchParams()
-
-  const entityParameter = searchParameters.get(ENTITY_PARAM) ?? DEFAULT_ENTITY
-
-  const [inputValue, setInputValue] = useState(
+  const initialQueryParameter = pipe(
+    searchParameters.get(QUERY_PARAM),
+    OfromNullable,
+    OgetOrElse(() => ""),
+  )
+  const [inputValue, setInputValue] = useState(initialQueryParameter)
+  const [searchTerm, setSearchTerm] = useState(initialQueryParameter)
+  const [entity, setEntity] = useState(
     pipe(
-      searchParameters.get(QUERY_PARAM),
+      searchParameters.get("entity"),
       OfromNullable,
-      OgetOrElse(() => ""),
+      OgetOrElse(() => pipe(catalogEntityFilterOptions, getFirstEntity)),
     ),
   )
-  const [searchTerm, setSearchTerm] = useState(
-    searchParameters.get(QUERY_PARAM) ?? "",
-  )
-
+  const [group, setGroup] = useState<Option<string>>(none)
   const [searchStocks, { data, loading, error }] = useSearchStocksLazyQuery()
 
+  const setSearchParameter = useCallback(
+    (k: string, v: string, navigationOptions?: NavigateOptions) => {
+      setSearchParameters((previousParameters) => {
+        const newParameters = new URLSearchParams([
+          ...previousParameters.entries(),
+        ])
+        newParameters.set(k, v)
+        return [...newParameters.entries()]
+      }, navigationOptions)
+    },
+    [setSearchParameters],
+  )
+
+  // Initializes the search parameters with parameters that corresponding to the default selected radio option.
+  // useEffect(() => {
+  //   setSearchParameter("entity", entity, { replace: true })
+  // }, [entity, setSearchParameter])
   // Debounce: update local searchTerm after a short delay.
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -150,11 +189,12 @@ const CatalogSearch = () => {
         } else {
           next.delete(QUERY_PARAM)
         }
+        next.set(ENTITY_PARAM, entity)
         return [...next.entries()]
       },
       { replace: true },
     )
-  }, [searchTerm, setSearchParameters])
+  }, [searchTerm, setSearchParameters, entity])
 
   // Fire the lazy query whenever the search term or entity filter changes.
   useEffect(() => {
@@ -163,11 +203,11 @@ const CatalogSearch = () => {
         variables: {
           query: searchTerm,
           limit: SEARCH_LIMIT,
-          entity: toStockEntityType(entityParameter),
+          entity: toStockEntityType(entity),
         },
       })
     }
-  }, [searchTerm, entityParameter, searchStocks])
+  }, [searchTerm, entity, searchStocks])
 
   /**
    * Re-fires the last search query; passed to `ErrorDisplay` as the retry
@@ -179,14 +219,19 @@ const CatalogSearch = () => {
         variables: {
           query: searchTerm,
           limit: SEARCH_LIMIT,
-          entity: toStockEntityType(entityParameter),
+          entity: toStockEntityType(entity),
         },
       })
     }
-  }, [searchTerm, entityParameter, searchStocks])
+  }, [searchTerm, entity, searchStocks])
 
   const hasQuery = searchTerm.length >= MIN_CHARS
 
+  const onChangeEntity: ChangeEventHandler<HTMLInputElement> = ({
+    currentTarget,
+  }) => {
+    setEntity(currentTarget.value)
+  }
   return (
     <ThemeProvider theme={catalogTheme}>
       <Box
@@ -222,9 +267,8 @@ const CatalogSearch = () => {
           {/* Entity type filter sidebar */}
           <CatalogSidebar
             title="Stock Type"
-            value={DEFAULT_ENTITY}
-            param={ENTITY_PARAM}
             options={catalogEntityFilterOptions}
+            onChangeEntity={onChangeEntity}
           />
 
           {/* Content area */}
@@ -291,14 +335,14 @@ const CatalogSearch = () => {
                 { data: { searchStocks: { results: P.select() } } },
                 (results) =>
                   pipe(
-                    results.length > 0,
-                    Bmatch(
+                    results,
+                    Amatch(
                       () => (
                         <EmptyCatalog message="No results found. Try searching with different terms." />
                       ),
-                      () => (
+                      (r) => (
                         <SearchResultsTable
-                          results={results}
+                          results={r}
                           actionComponent={AddToCartButtonHandler}
                         />
                       ),

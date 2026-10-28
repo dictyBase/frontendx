@@ -1,4 +1,15 @@
-import { useEffect } from "react"
+import { useEffect, useCallback, ChangeEventHandler } from "react"
+import { pipe, flow } from "fp-ts/function"
+import {
+  ReadonlyNonEmptyArray,
+  head as RNEAhead,
+} from "fp-ts/ReadonlyNonEmptyArray"
+import {
+  fromNullable as OfromNullable,
+  getOrElse as OgetOrElse,
+  some,
+  none,
+} from "fp-ts/Option"
 import {
   Box,
   Radio,
@@ -8,7 +19,7 @@ import {
   Typography,
 } from "@mui/material"
 import { SelectChangeEvent } from "@mui/material/Select"
-import { useSearchParams } from "react-router-dom"
+import { useSearchParams, NavigateOptions } from "react-router-dom"
 
 type SidebarOption = {
   value: string
@@ -18,42 +29,24 @@ type SidebarOption = {
 
 type CatalogSidebarProperties = {
   title: string
-  value: string
-  param: string
-  options: Array<SidebarOption>
+  options: ReadonlyNonEmptyArray<SidebarOption>
+  onChangeEntity: ChangeEventHandler<HTMLInputElement>
+  onChangeGroup: ChangeEventHandler<HTMLInputElement>
 }
+const getFirstEntity = flow(RNEAhead<SidebarOption>, ({ value }) => value)
 
 const CatalogSidebar = ({
   title,
-  value,
-  param,
   options,
+  onChangeEntity,
+  onChangeGroup,
 }: CatalogSidebarProperties) => {
   const [searchParameters, setSearchParameters] = useSearchParams()
-  const selectedType = searchParameters.get(param) ?? value
-
-  useEffect(() => {
-    setSearchParameters(
-      (previousParameters) => {
-        const newParameters = new URLSearchParams([
-          ...previousParameters.entries(),
-        ])
-        newParameters.set(param, selectedType)
-        return [...newParameters.entries()]
-      },
-      { replace: true },
-    )
-  }, [searchParameters, setSearchParameters, param, selectedType, value])
-
-  const handleTypeChange = (event: SelectChangeEvent<string>) => {
-    setSearchParameters((previousParameters) => {
-      const newParameters = new URLSearchParams([
-        ...previousParameters.entries(),
-      ])
-      newParameters.set(param, event.target.value)
-      return [...newParameters.entries()]
-    })
-  }
+  const initialEntity = pipe(
+    searchParameters.get("entity"),
+    OfromNullable,
+    OgetOrElse(() => pipe(options, getFirstEntity)),
+  )
 
   return (
     <Paper
@@ -78,7 +71,7 @@ const CatalogSidebar = ({
         }}>
         {title}
       </Typography>
-      <RadioGroup value={selectedType} onChange={handleTypeChange}>
+      <RadioGroup value={initialEntity} onChange={onChangeEntity}>
         {options.map((option) => (
           <Box
             key={option.value}
@@ -88,15 +81,16 @@ const CatalogSidebar = ({
               padding: "10px 12px",
               borderRadius: "8px",
               border: "2px solid transparent",
-              background: selectedType === option.value ? "#ebf8ff" : "#f7fafc",
+              background:
+                initialEntity === option.value ? "#ebf8ff" : "#f7fafc",
               borderColor:
-                selectedType === option.value ? "#3182ce" : "transparent",
+                initialEntity === option.value ? "#3182ce" : "transparent",
               transition: "all 0.2s",
               mb: "8px",
               cursor: "pointer",
               "&:hover": {
                 background:
-                  selectedType === option.value ? "#ebf8ff" : "#edf2f7",
+                  initialEntity === option.value ? "#ebf8ff" : "#edf2f7",
               },
             }}>
             <Box sx={{ width: "100%" }}>
@@ -125,18 +119,10 @@ const CatalogSidebar = ({
                   },
                 }}
               />
-              {selectedType === option.value && option.groups && (
+              {initialEntity === option.value && option.groups && (
                 <RadioGroup
                   value={searchParameters.get("group") ?? ""}
-                  onChange={(event) => {
-                    setSearchParameters((previousParameters) => {
-                      const newParameters = new URLSearchParams([
-                        ...previousParameters.entries(),
-                      ])
-                      newParameters.set("group", event.target.value)
-                      return [...newParameters.entries()]
-                    })
-                  }}
+                  onChange={() => {}}
                   sx={{ mt: "10px", pl: "13px" }}>
                   {option.groups.map((groupOption) => (
                     <FormControlLabel
