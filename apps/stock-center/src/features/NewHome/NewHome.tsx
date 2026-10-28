@@ -38,9 +38,12 @@ const catalogCards: Array<CatalogCardItem> = [
     description:
       "Discover over 12,000 authenticated strains including mutant alleles, null lines, and wild isolates.",
     links: [
-      { label: "Strain Catalog", href: "/strains" },
-      { label: "GWDI Strains →", href: "/strains?group=gwdi" },
-      { label: "Bacterial Strains →", href: "/strains?group=bacterial" },
+      { label: "Strain Catalog", href: "/catalog?entity=strain&group=all" },
+      { label: "GWDI Strains →", href: "/catalog?entity=strain&group=gwdi" },
+      {
+        label: "Bacterial Strains →",
+        href: "/catalog?entity=strain&group=bacterial",
+      },
     ],
   },
   {
@@ -50,9 +53,12 @@ const catalogCards: Array<CatalogCardItem> = [
     links: [
       {
         label: "Plasmid Catalog",
-        href: "/plasmids",
+        href: "/catalog?entity=plasmid&group=all",
       },
-      { label: "Goldenbraid Plasmids →", href: "/plasmids?group=goldenbraid" },
+      {
+        label: "Goldenbraid Plasmids →",
+        href: "/catalog?entity=plasmid&group=goldenbraid",
+      },
     ],
   },
 ] as const
