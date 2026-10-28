@@ -1,10 +1,4 @@
-import {
-  useState,
-  useEffect,
-  useLayoutEffect,
-  useCallback,
-  ChangeEventHandler,
-} from "react"
+import { useState, useEffect, useCallback, ChangeEventHandler } from "react"
 import {
   Box,
   ThemeProvider,
@@ -17,18 +11,29 @@ import SearchIcon from "@mui/icons-material/Search"
 import { P, match } from "ts-pattern"
 import { pipe, flow } from "fp-ts/function"
 import {
+  Option,
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
-  Option,
+  map as Omap,
+  flatMap as OflatMap,
+  match as Omatch,
   some,
-  none,
 } from "fp-ts/Option"
-import { match as Amatch } from "fp-ts/Array"
+import {
+  match as Amatch,
+  findFirst as AfindFirst,
+  filter as Afilter,
+} from "fp-ts/Array"
+import { NonEmptyArray } from "fp-ts/NonEmptyArray"
 import {
   ReadonlyNonEmptyArray,
   head as RNEAhead,
 } from "fp-ts/ReadonlyNonEmptyArray"
-import { StockEntityType, useSearchStocksLazyQuery } from "dicty-graphql-schema"
+import {
+  StockSearchResult,
+  StockEntityType,
+  useSearchStocksLazyQuery,
+} from "dicty-graphql-schema"
 import {
   EmptyCatalog,
   ErrorDisplay,
@@ -36,7 +41,7 @@ import {
   CatalogListLoader,
   SearchResultsTable,
 } from "@dictybase/ui-dsc"
-import { useSearchParams, NavigateOptions } from "react-router-dom"
+import { useSearchParams } from "react-router-dom"
 import { CatalogSidebar } from "../../components/CatalogSidebar"
 import { AddToCartButtonHandler } from "../../components/AddToCartButtonHandler"
 import { catalogTheme } from "../../themes"
@@ -46,6 +51,9 @@ const QUERY_PARAM = "q"
 
 /** URL search parameter key for the entity type filter. */
 const ENTITY_PARAM = "entity"
+
+/** URL search parameter key for the group type filter. */
+const GROUP_PARAM = "group"
 
 /** Default entity filter value — returns results for all stock types. */
 const DEFAULT_ENTITY = "all"
@@ -62,11 +70,11 @@ const SEARCH_LIMIT = 50
 type SidebarOption = {
   value: string
   label: string
-  groups?: Array<{ value: string; label: string }>
+  groups?: ReadonlyNonEmptyArray<{ value: string; label: string }>
 }
 
 /** Sidebar filter options mapping display labels to entity URL param values. */
-const catalogEntityFilterOptions: ReadonlyNonEmptyArray<SidebarOption> = [
+const catalogEntityFilterOptions: NonEmptyArray<SidebarOption> = [
   { value: DEFAULT_ENTITY, label: "All Results" },
   {
     value: "strain",
@@ -125,6 +133,13 @@ const toStockEntityType = (parameters: string): StockEntityType | undefined =>
     .with("plasmid", () => StockEntityType.Plasmid)
     .otherwise(() => undefined)
 
+const stockGroupFilter =
+  (group: string) =>
+  ({ stock_type }: StockSearchResult) =>
+    match(group)
+      .with("all", () => true)
+      .otherwise(() => group === stock_type)
+
 const getFirstEntity = flow(RNEAhead<SidebarOption>, ({ value }) => value)
 /**
  * Full-catalog search page.
@@ -151,21 +166,11 @@ const CatalogSearch = () => {
       OgetOrElse(() => pipe(catalogEntityFilterOptions, getFirstEntity)),
     ),
   )
-  const [group, setGroup] = useState<Option<string>>(none)
-  const [searchStocks, { data, loading, error }] = useSearchStocksLazyQuery()
-
-  const setSearchParameter = useCallback(
-    (k: string, v: string, navigationOptions?: NavigateOptions) => {
-      setSearchParameters((previousParameters) => {
-        const newParameters = new URLSearchParams([
-          ...previousParameters.entries(),
-        ])
-        newParameters.set(k, v)
-        return [...newParameters.entries()]
-      }, navigationOptions)
-    },
-    [setSearchParameters],
+  const [group, setGroup] = useState<Option<string>>(
+    pipe(searchParameters.get("group"), OfromNullable),
   )
+
+  const [searchStocks, { data, loading, error }] = useSearchStocksLazyQuery()
 
   // Initializes the search parameters with parameters that corresponding to the default selected radio option.
   // useEffect(() => {
@@ -190,11 +195,22 @@ const CatalogSearch = () => {
           next.delete(QUERY_PARAM)
         }
         next.set(ENTITY_PARAM, entity)
+        pipe(
+          group,
+          Omatch(
+            () => {
+              next.delete(GROUP_PARAM)
+            },
+            (g) => {
+              next.set(GROUP_PARAM, g)
+            },
+          ),
+        )
         return [...next.entries()]
       },
       { replace: true },
     )
-  }, [searchTerm, setSearchParameters, entity])
+  }, [searchTerm, setSearchParameters, entity, group])
 
   // Fire the lazy query whenever the search term or entity filter changes.
   useEffect(() => {
@@ -231,6 +247,21 @@ const CatalogSearch = () => {
     currentTarget,
   }) => {
     setEntity(currentTarget.value)
+
+    // Set group state to first item in `entity`'s `groups`
+    pipe(
+      catalogEntityFilterOptions,
+      AfindFirst(({ value }) => value === currentTarget.value),
+      OflatMap(({ groups }) => pipe(groups, OfromNullable, Omap(RNEAhead))),
+      Omap(({ value }) => value),
+      setGroup,
+    )
+  }
+
+  const onChangeGroup: ChangeEventHandler<HTMLInputElement> = ({
+    currentTarget,
+  }) => {
+    setGroup(some(currentTarget.value))
   }
   return (
     <ThemeProvider theme={catalogTheme}>
@@ -268,7 +299,10 @@ const CatalogSearch = () => {
           <CatalogSidebar
             title="Stock Type"
             options={catalogEntityFilterOptions}
+            selectedEntity={entity}
+            selectedGroup={group}
             onChangeEntity={onChangeEntity}
+            onChangeGroup={onChangeGroup}
           />
 
           {/* Content area */}
@@ -335,7 +369,11 @@ const CatalogSearch = () => {
                 { data: { searchStocks: { results: P.select() } } },
                 (results) =>
                   pipe(
-                    results,
+                    group,
+                    Omatch(
+                      () => results,
+                      (g) => pipe(results, Afilter(stockGroupFilter(g))),
+                    ),
                     Amatch(
                       () => (
                         <EmptyCatalog message="No results found. Try searching with different terms." />
