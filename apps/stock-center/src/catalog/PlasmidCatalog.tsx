@@ -1,6 +1,7 @@
 import { useRef } from "react"
 import { Box, ThemeProvider } from "@mui/material"
 import { P, match } from "ts-pattern"
+import { some } from "fp-ts/Option"
 import {
   buildPlasmidListFilter,
   graphqlListVariables,
@@ -17,11 +18,11 @@ import {
   CatalogListLoader,
 } from "@dictybase/ui-dsc"
 import { useSearchParams } from "react-router-dom"
-import { CatalogSidebar } from "../../components/CatalogSidebar"
-import { CatalogSearchBar } from "../../components/CatalogSearchBar"
-import { useScrollPersistence } from "../../hooks/useScrollPersistence"
-import { catalogTheme } from "../../themes"
-import { AddToCartButtonHandler } from "../../components/AddToCartButtonHandler"
+import { CatalogSidebar } from "../components/CatalogSidebar"
+import { CatalogSearchBar } from "../components/CatalogSearchBar"
+import { useScrollPersistence } from "../hooks/useScrollPersistence"
+import { catalogTheme } from "../themes"
+import { AddToCartButtonHandler } from "../components/AddToCartButtonHandler"
 
 const PlasmidCatalog = () => {
   useScrollPersistence({ storageKey: "plasmidCatalogScrollPos" })
@@ -95,9 +96,11 @@ const PlasmidCatalog = () => {
             alignItems: "flex-start",
           }}>
           <CatalogSidebar
+            selectedEntity="all"
+            selectedGroup={some("all")}
+            onChangeEntity={() => {}}
+            onChangeGroup={() => {}}
             title="Plasmid Type"
-            value="regular"
-            param="group"
             options={plasmidGroupFilterOptions}
           />
 
