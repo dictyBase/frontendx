@@ -194,7 +194,7 @@ test("shows strain and plasmid results after typing 3+ characters", async () => 
   await userEvent.type(getInput(), searchQuery)
   expect(await screen.findByText("axeA", {}, QUERY_TIMEOUT)).toBeInTheDocument()
   expect(
-    await screen.findByText("pAXE1", {}, QUERY_TIMEOUT),
+    await screen.findByRole("link", { name: "DBP0001" }, QUERY_TIMEOUT),
   ).toBeInTheDocument()
 })
 
@@ -208,7 +208,11 @@ test("links strain result to its detail page", async () => {
 test("links plasmid result to its detail page", async () => {
   renderPage()
   await userEvent.type(getInput(), searchQuery)
-  const link = await screen.findByRole("link", { name: "pAXE1" }, QUERY_TIMEOUT)
+  const link = await screen.findByRole(
+    "link",
+    { name: "DBP0001" },
+    QUERY_TIMEOUT,
+  )
   expect(link).toHaveAttribute("href", "/plasmids/DBP0001")
 })
 
