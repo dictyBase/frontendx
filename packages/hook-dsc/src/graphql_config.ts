@@ -8,13 +8,19 @@ const searchFields = ["descriptor", "summary"]
 const DEFAULT_PLASMID_GROUP = { plasmid_type: PlasmidType.Regular }
 const DEFAULT_STRAIN_GROUP = { strain_type: StrainType.Regular }
 
-type FilterOptions = NonEmptyArray<{
+type PlasmidFilterOptions = NonEmptyArray<{
   label: string
   value: string
-  [x: string]: any
+  graphqlFilter: { plasmid_type: PlasmidType }
 }>
 
-const plasmidGroupFilterOptions: FilterOptions = [
+type StrainFilterOptions = NonEmptyArray<{
+  label: string
+  value: string
+  graphqlFilter: { strain_type: StrainType }
+}>
+
+const plasmidGroupFilterOptions: PlasmidFilterOptions = [
   {
     label: "Regular Plasmids",
     value: "regular",
@@ -32,7 +38,7 @@ const plasmidGroupFilterOptions: FilterOptions = [
   },
 ]
 
-const strainGroupFilterOptions: FilterOptions = [
+const strainGroupFilterOptions: StrainFilterOptions = [
   {
     label: "Regular Strains",
     value: "regular",
