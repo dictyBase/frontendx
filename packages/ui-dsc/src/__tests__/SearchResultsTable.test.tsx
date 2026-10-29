@@ -248,3 +248,27 @@ test("truncates summaries longer than 120 characters", () => {
   expect(screen.queryByText("A".repeat(130))).not.toBeInTheDocument()
   expect(screen.getByText(/A+\.{3}/)).toBeInTheDocument()
 })
+
+// ── toStockCatalogItem edge cases ──────────────────────────────────────────────
+
+test("converts a result with StockEntityType.All to a StrainItem", () => {
+  const allEntityResult: StockSearchResult = {
+    __typename: "StockSearchResult",
+    id: "DBS0005",
+    entity: StockEntityType.All,
+    field: StockSearchFieldEnum.Label,
+    display_text: "allEntityStrain",
+    strain_label: "",
+    summary: "Test for All entity type",
+    score: 0.9,
+    in_stock: true,
+  }
+  const item = toStockCatalogItem(allEntityResult)
+  expect(item).toMatchObject({
+    __typename: "Strain",
+    id: "DBS0005",
+    label: "allEntityStrain",
+    summary: "Test for All entity type",
+    in_stock: true,
+  })
+})
