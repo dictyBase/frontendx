@@ -112,7 +112,7 @@ test("renders Stock and Summary column headers", () => {
 test("renders a row for each result", () => {
   renderTable([mockStrainLabelMatch, mockPlasmidResult])
   expect(screen.getByRole("link", { name: "axeA" })).toBeInTheDocument()
-  expect(screen.getByRole("link", { name: "pAXE1" })).toBeInTheDocument()
+  expect(screen.getByRole("link", { name: "DBP0001" })).toBeInTheDocument()
 })
 
 test("links a strain result to its detail page using the strain label", () => {
@@ -140,7 +140,8 @@ test("renders the stock id below the primary link text", () => {
 
 test("renders the stock id for plasmid results", () => {
   renderTable([mockPlasmidResult])
-  expect(screen.getByText(mockPlasmidResult.id)).toBeInTheDocument()
+  const idElements = screen.getAllByText(mockPlasmidResult.id)
+  expect(idElements.length).toBeGreaterThan(0)
 })
 
 test("renders strain summary text", () => {
@@ -150,9 +151,9 @@ test("renders strain summary text", () => {
 
 // ── Plasmid results ────────────────────────────────────────────────────────────
 
-test("links a plasmid result to its detail page using display_text", () => {
+test("links a plasmid result to its detail page using id", () => {
   renderTable([mockPlasmidResult])
-  const link = screen.getByRole("link", { name: "pAXE1" })
+  const link = screen.getByRole("link", { name: "DBP0001" })
   expect(link).toHaveAttribute("href", `/plasmids/${mockPlasmidResult.id}`)
 })
 

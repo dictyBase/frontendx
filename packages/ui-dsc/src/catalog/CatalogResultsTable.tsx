@@ -14,7 +14,7 @@ import {
   Link as MuiLink,
 } from "@mui/material"
 import { Link } from "react-router-dom"
-import { match } from "ts-pattern"
+import { match, P } from "ts-pattern"
 import type { CatalogItem } from "../types"
 import { abbreviateStringToLength } from "../utils/abbreviateStringToLength"
 
@@ -87,7 +87,7 @@ const toItemPath = (item: CatalogItem): string =>
   match(item)
     .with({ __typename: "Strain" }, () => "strains")
     .with({ __typename: "Plasmid" }, () => "plasmids")
-    .exhaustive()
+    .otherwise(() => "strains")
 
 /**
  * Returns the primary display text for a catalog item.
@@ -98,9 +98,9 @@ const toItemPath = (item: CatalogItem): string =>
  */
 const getPrimaryText = (item: CatalogItem): string =>
   match(item)
-    .with({ __typename: "Strain" }, ({ label }) => label)
-    .with({ __typename: "Plasmid" }, ({ name }) => name)
-    .exhaustive()
+    .with({ __typename: "Strain", label: P.select() }, (label) => label)
+    .with({ __typename: "Plasmid", name: P.select() }, (name) => name)
+    .otherwise(() => "")
 
 /**
  * Renders a single table row for a `CatalogItem`.
@@ -113,16 +113,20 @@ const renderItemRow =
   (ActionComponent: FC<{ item: CatalogItem }>) =>
   // eslint-disable-next-line react/function-component-definition
   (item: CatalogItem) => {
-    const { id, summary, __typename } = item
+    const { id, summary } = item
     const path = toItemPath(item)
     const primaryText = getPrimaryText(item)
+    const typename = match(item)
+      .with({ __typename: "Strain" }, () => "Strain" as const)
+      .with({ __typename: "Plasmid" }, () => "Plasmid" as const)
+      .otherwise(() => "Strain" as const)
 
     return (
       <TableRow key={`catalog-item-${id}`} hover>
         <TableCell>
           <Stack direction="row" gap={5} alignItems="center">
             <Box>
-              <EntityBadge typename={__typename} />
+              <EntityBadge typename={typename} />
             </Box>
             <Box sx={{ minWidth: 0 }}>
               <MuiLink
@@ -151,7 +155,7 @@ const renderItemRow =
           </Stack>
         </TableCell>
         <TableCell sx={{ lineHeight: 1.6 }}>
-          {pipe(summary, abbreviateStringToLength(SUMMARY_MAX_LENGTH))}
+          {pipe(summary ?? "", abbreviateStringToLength(SUMMARY_MAX_LENGTH))}
         </TableCell>
         <TableCell sx={{ textAlign: "center" }}>
           <ActionComponent item={item} />

@@ -362,9 +362,9 @@ const CatalogSearch = () => {
                           color: "#92400e",
                           fontWeight: 500,
                         }}>
-                        You are viewing a selection of available strains and
-                        plasmids. To search the full catalog, enter at least{" "}
-                        {MIN_CHARS} characters in the search field above.
+                        You are viewing a selection of available stocks. To
+                        search the full catalog, enter at least {MIN_CHARS}{" "}
+                        characters in the search field above.
                       </Typography>
                     </Paper>
                     <CatalogResultsTable
