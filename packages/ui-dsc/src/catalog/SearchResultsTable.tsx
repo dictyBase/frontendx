@@ -4,9 +4,10 @@ import {
   replace as Sreplace,
   toLowerCase as StoLowerCase,
   Eq as SEq,
+  isEmpty as SisEmpty,
 } from "fp-ts/string"
 import {
-  of as Oof,
+  fromPredicate as OfromPredicate,
   filter as Ofilter,
   map as Omap,
   getOrElse as OgetOrElse,
@@ -59,7 +60,7 @@ const isExcluded = flip(Setelem(SEq) as curriedElemReturn)(excludedFieldValues)
 const getMatchingFieldValue = (field: string, displayText: string) =>
   pipe(
     field,
-    Oof,
+    OfromPredicate(not(SisEmpty)),
     Ofilter(not(isExcluded)),
     Omap(() => `: ${displayText}`),
     OgetOrElse(() => ""),
@@ -233,7 +234,7 @@ const renderResultRow =
             </Box>
           </Stack>
         </TableCell>
-        <TableCell sx={{ lineHeight: 1.6 }}>
+        <TableCell sx={{ lineHeight: 1.6, wordBreak: "break-word" }}>
           <Typography variant="caption">{`${normalizeMatchField(
             field,
           )}`}</Typography>
@@ -284,8 +285,8 @@ const SearchResultsTable = ({
     <Table stickyHeader sx={{ tableLayout: "fixed" }}>
       <TableHead>
         <TableRow>
-          <TableCell sx={{}}>Stock</TableCell>
-          <TableCell sx={{}}>Matching Field</TableCell>
+          <TableCell>Stock</TableCell>
+          <TableCell>Matching Field</TableCell>
           <TableCell sx={{ width: "40%" }}>Summary</TableCell>
           <TableCell sx={{ width: "10%", textAlign: "center" }} />
         </TableRow>

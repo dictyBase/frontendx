@@ -9,7 +9,7 @@ const useStyles = makeStyles()({
     borderBottom: "1px solid rgba(224, 224, 224, 1)",
     paddingLeft: "8px",
     paddingRight: "8px",
-    "&:nth-child(odd)": {
+    "&:nth-of-type(odd)": {
       backgroundColor: "#F4F6F8",
     },
   },
