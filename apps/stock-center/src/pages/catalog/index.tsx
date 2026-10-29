@@ -57,8 +57,13 @@ const ENTITY_PARAM = "entity"
 /** URL search parameter key for the group type filter. */
 const GROUP_PARAM = "group"
 
+/** Entity type values for filtering stock results. */
+const ENTITY_STRAIN = "strain"
+const ENTITY_PLASMID = "plasmid"
+const ENTITY_ALL = "all"
+
 /** Default entity filter value — returns results for all stock types. */
-const DEFAULT_ENTITY = "all"
+const DEFAULT_ENTITY = ENTITY_ALL
 
 /** Debounce delay in milliseconds before the URL param (and query) updates. */
 const DEBOUNCE_DELAY_MS = 400
@@ -79,12 +84,12 @@ type SidebarOption = {
 const catalogEntityFilterOptions: NonEmptyArray<SidebarOption> = [
   { value: DEFAULT_ENTITY, label: "All Results" },
   {
-    value: "strain",
+    value: ENTITY_STRAIN,
     label: "Strains",
     groups: [
       {
         label: "All Strains",
-        value: "all",
+        value: ENTITY_ALL,
       },
       {
         label: "Regular Strains",
@@ -101,12 +106,12 @@ const catalogEntityFilterOptions: NonEmptyArray<SidebarOption> = [
     ],
   },
   {
-    value: "plasmid",
+    value: ENTITY_PLASMID,
     label: "Plasmids",
     groups: [
       {
         label: "All Plasmids",
-        value: "all",
+        value: ENTITY_ALL,
       },
       {
         label: "Regular Plasmids",
@@ -131,8 +136,8 @@ const catalogEntityFilterOptions: NonEmptyArray<SidebarOption> = [
  */
 const toStockEntityType = (parameters: string): StockEntityType | undefined =>
   match(parameters)
-    .with("strain", () => StockEntityType.Strain)
-    .with("plasmid", () => StockEntityType.Plasmid)
+    .with(ENTITY_STRAIN, () => StockEntityType.Strain)
+    .with(ENTITY_PLASMID, () => StockEntityType.Plasmid)
     .otherwise(() => undefined)
 
 const stockGroupFilter =
