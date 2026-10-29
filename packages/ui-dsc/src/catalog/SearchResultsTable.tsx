@@ -34,13 +34,16 @@ import type { StockSearchResult } from "dicty-graphql-schema"
 import { capitalizeFirstCharacter } from "../utils/stringCapitalizations"
 import type { CatalogItem } from "../types"
 import { abbreviateStringToLength } from "../utils/abbreviateStringToLength"
-
-const STRAIN_BADGE_COLOR = "#2b6cb0"
-const STRAIN_BADGE_BG = "#ebf8ff"
-const STRAIN_BADGE_BORDER = "#bee3f8"
-const PLASMID_BADGE_COLOR = "#276749"
-const PLASMID_BADGE_BG = "#f0fff4"
-const PLASMID_BADGE_BORDER = "#c6f6d5"
+import {
+  STRAIN_BADGE_COLOR,
+  STRAIN_BADGE_BG,
+  STRAIN_BADGE_BORDER,
+  PLASMID_BADGE_COLOR,
+  PLASMID_BADGE_BG,
+  PLASMID_BADGE_BORDER,
+  STRAINS_PATH,
+  PLASMIDS_PATH,
+} from "./constants"
 
 const SUMMARY_MAX_LENGTH = 120
 
@@ -129,9 +132,9 @@ const EntityBadge = ({ entity }: EntityBadgeProperties) => {
  */
 const toItemPath = (entity: StockEntityType): string =>
   match(entity)
-    .with(StockEntityType.Strain, () => "strains")
-    .with(StockEntityType.Plasmid, () => "plasmids")
-    .with(StockEntityType.All, () => "strains")
+    .with(StockEntityType.Strain, () => STRAINS_PATH)
+    .with(StockEntityType.Plasmid, () => PLASMIDS_PATH)
+    .with(StockEntityType.All, () => STRAINS_PATH)
     .exhaustive()
 
 /**

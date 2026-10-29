@@ -1,5 +1,6 @@
 import { ChangeEventHandler } from "react"
 import { pipe } from "fp-ts/function"
+import { match as Bmatch } from "fp-ts/boolean"
 import {
   ReadonlyNonEmptyArray,
   map as RNEAmap,
@@ -21,6 +22,11 @@ import {
   Paper,
   Typography,
 } from "@mui/material"
+
+const SELECTED_BG = "#ebf8ff"
+const SELECTED_BORDER = "#3182ce"
+const UNSELECTED_BG = "#f7fafc"
+const UNSELECTED_HOVER_BG = "#edf2f7"
 
 type SidebarOption = {
   value: string
@@ -77,16 +83,31 @@ const CatalogSidebar = ({
             padding: "10px 12px",
             borderRadius: "8px",
             border: "2px solid transparent",
-            background:
-              selectedEntity === entityOption.value ? "#ebf8ff" : "#f7fafc",
-            borderColor:
-              selectedEntity === entityOption.value ? "#3182ce" : "transparent",
+            background: pipe(
+              selectedEntity === entityOption.value,
+              Bmatch(
+                () => UNSELECTED_BG,
+                () => SELECTED_BG,
+              ),
+            ),
+            borderColor: pipe(
+              selectedEntity === entityOption.value,
+              Bmatch(
+                () => "transparent",
+                () => SELECTED_BORDER,
+              ),
+            ),
             transition: "all 0.2s",
             mb: "8px",
             cursor: "pointer",
             "&:hover": {
-              background:
-                selectedEntity === entityOption.value ? "#ebf8ff" : "#edf2f7",
+              background: pipe(
+                selectedEntity === entityOption.value,
+                Bmatch(
+                  () => UNSELECTED_HOVER_BG,
+                  () => SELECTED_BG,
+                ),
+              ),
             },
           }}>
           <Box sx={{ width: "100%" }}>

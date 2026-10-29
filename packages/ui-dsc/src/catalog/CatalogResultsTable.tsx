@@ -17,13 +17,16 @@ import { Link } from "react-router-dom"
 import { match, P } from "ts-pattern"
 import type { CatalogItem } from "../types"
 import { abbreviateStringToLength } from "../utils/abbreviateStringToLength"
-
-const STRAIN_BADGE_COLOR = "#2b6cb0"
-const STRAIN_BADGE_BG = "#ebf8ff"
-const STRAIN_BADGE_BORDER = "#bee3f8"
-const PLASMID_BADGE_COLOR = "#276749"
-const PLASMID_BADGE_BG = "#f0fff4"
-const PLASMID_BADGE_BORDER = "#c6f6d5"
+import {
+  STRAIN_BADGE_COLOR,
+  STRAIN_BADGE_BG,
+  STRAIN_BADGE_BORDER,
+  PLASMID_BADGE_COLOR,
+  PLASMID_BADGE_BG,
+  PLASMID_BADGE_BORDER,
+  STRAINS_PATH,
+  PLASMIDS_PATH,
+} from "./constants"
 
 const SUMMARY_MAX_LENGTH = 120
 
@@ -85,9 +88,9 @@ const EntityBadge = ({ typename }: EntityBadgeProperties) => {
  */
 const toItemPath = (item: CatalogItem): string =>
   match(item)
-    .with({ __typename: "Strain" }, () => "strains")
-    .with({ __typename: "Plasmid" }, () => "plasmids")
-    .otherwise(() => "strains")
+    .with({ __typename: "Strain" }, () => STRAINS_PATH)
+    .with({ __typename: "Plasmid" }, () => PLASMIDS_PATH)
+    .otherwise(() => STRAINS_PATH)
 
 /**
  * Returns the primary display text for a catalog item.

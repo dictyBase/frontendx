@@ -1,6 +1,7 @@
 import { pipe } from "fp-ts/function"
 import { Option, map as Omap, getOrElse as OgetOrElse } from "fp-ts/Option"
 import { findFirst as AfindFirst, concat as Aconcat } from "fp-ts/Array"
+import { match } from "ts-pattern"
 import {
   StrainType,
   PlasmidType,
@@ -13,6 +14,10 @@ import {
   plasmidGroupFilterOptions,
   strainGroupFilterOptions,
 } from "@dictybase/hook-dsc"
+
+const ENTITY_STRAIN = "strain"
+const ENTITY_PLASMID = "plasmid"
+const ENTITY_ALL = "all"
 
 const getStrainTypeFromGroup = (groupValue: string): StrainType =>
   pipe(
@@ -43,12 +48,13 @@ const useInitialSearchResults = ({
 }: UseInitialSearchResultsParameters) => {
   const groupValue = pipe(
     group,
-    OgetOrElse(() => "all"),
+    OgetOrElse(() => ENTITY_ALL),
   )
 
-  const shouldFetchStrains = !skip && (entity === "strain" || entity === "all")
+  const shouldFetchStrains =
+    !skip && (entity === ENTITY_STRAIN || entity === ENTITY_ALL)
   const shouldFetchPlasmids =
-    !skip && (entity === "plasmid" || entity === "all")
+    !skip && (entity === ENTITY_PLASMID || entity === ENTITY_ALL)
 
   const {
     loading: loadingStrains,
@@ -83,12 +89,10 @@ const useInitialSearchResults = ({
   const plasmidResults = (dataPlasmids?.listPlasmids?.plasmids ??
     []) as Array<CatalogItem>
 
-  const data =
-    entity === "strain"
-      ? strainResults
-      : entity === "plasmid"
-      ? plasmidResults
-      : pipe(strainResults, Aconcat(plasmidResults))
+  const data = match(entity)
+    .with(ENTITY_STRAIN, () => strainResults)
+    .with(ENTITY_PLASMID, () => plasmidResults)
+    .otherwise(() => pipe(strainResults, Aconcat(plasmidResults)))
 
   const loading = loadingStrains || loadingPlasmids
   const error = errorStrains || errorPlasmids
