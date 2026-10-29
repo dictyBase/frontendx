@@ -9,7 +9,7 @@ const useStyles = makeStyles()((theme: Theme) => ({
     paddingRight: "8px",
   },
   details: {
-    "&:nth-child(odd)": {
+    "&:nth-of-type(odd)": {
       backgroundColor: "#F4F6F8",
     },
     "@media (max-width: 420px)": {
