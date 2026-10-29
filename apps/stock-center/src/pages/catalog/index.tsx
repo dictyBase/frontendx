@@ -40,9 +40,11 @@ import {
   ScrollToTop,
   CatalogListLoader,
   SearchResultsTable,
+  CatalogResultsTable,
 } from "@dictybase/ui-dsc"
 import { useSearchParams } from "react-router-dom"
 import { CatalogSidebar } from "../../components/CatalogSidebar"
+import { useInitialSearchResults } from "../../hooks/useInitialSearchResults"
 import { AddToCartButtonHandler } from "../../components/AddToCartButtonHandler"
 import { catalogTheme } from "../../themes"
 
@@ -170,7 +172,14 @@ const CatalogSearch = () => {
     pipe(searchParameters.get("group"), OfromNullable),
   )
 
+  const hasQuery = searchTerm.length >= MIN_CHARS
+
   const [searchStocks, { data, loading, error }] = useSearchStocksLazyQuery()
+  const { data: initialData } = useInitialSearchResults({
+    entity,
+    group,
+    skip: hasQuery,
+  })
 
   // Initializes the search parameters with parameters that corresponding to the default selected radio option.
   // useEffect(() => {
@@ -240,8 +249,6 @@ const CatalogSearch = () => {
       })
     }
   }, [searchTerm, entity, searchStocks])
-
-  const hasQuery = searchTerm.length >= MIN_CHARS
 
   const onChangeEntity: ChangeEventHandler<HTMLInputElement> = ({
     currentTarget,
@@ -313,7 +320,7 @@ const CatalogSearch = () => {
                 backgroundColor: "white",
                 borderRadius: "12px",
                 padding: "20px 24px",
-                marginBottom: "20px",
+                marginBottom: "16px",
                 boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
               }}>
               <TextField
@@ -335,7 +342,38 @@ const CatalogSearch = () => {
             </Box>
 
             {/* Results area — pattern matched against query/loading/data/error */}
-            {match({ data, loading, error, hasQuery })
+            {match({ initialData, data, loading, error, hasQuery })
+              .with(
+                { hasQuery: false, initialData: P.select(P.not(P.nullish)) },
+                (items) => (
+                  <Box>
+                    <Paper
+                      elevation={0}
+                      sx={{
+                        backgroundColor: "#fffbeb",
+                        border: "1px solid #fbbf24",
+                        borderRadius: "8px",
+                        padding: "12px 16px",
+                        marginBottom: "16px",
+                      }}>
+                      <Typography
+                        sx={{
+                          fontSize: "0.875rem",
+                          color: "#92400e",
+                          fontWeight: 500,
+                        }}>
+                        You are viewing a selection of available strains and
+                        plasmids. To search the full catalog, enter at least{" "}
+                        {MIN_CHARS} characters in the search field above.
+                      </Typography>
+                    </Paper>
+                    <CatalogResultsTable
+                      items={items}
+                      actionComponent={AddToCartButtonHandler}
+                    />
+                  </Box>
+                ),
+              )
               .with({ hasQuery: false }, () => (
                 <Paper
                   elevation={0}
