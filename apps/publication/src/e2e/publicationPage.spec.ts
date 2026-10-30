@@ -13,16 +13,16 @@ const EXPECTED_PUBLICATION = {
   abstract:
     "dictyBase is the model organism database for the social amoeba Dictyostelium discoideum and related species. The primary mission of dictyBase is to provide the biomedical research community with well-integrated high quality data, and tools that enable original research. Data presented at dictyBase is obtained from sequencing centers, groups performing high throughput experiments such as large-scale mutagenesis studies, and RNAseq data, as well as a growing number of manually added functional gene annotations from the published literature, including Gene Ontology, strain, and phenotype annotations. Through the Dicty Stock Center we provide the community with an impressive amount of annotated strains and plasmids. Recently, dictyBase accomplished a major overhaul to adapt an outdated infrastructure to the current technological advances, thus facilitating the implementation of innovative tools and comparative genomics. It also provides new strategies for high quality annotations that enable bench researchers to benefit from the rapidly increasing volume of available data. dictyBase is highly responsive to its users needs, building a successful relationship that capitalizes on the vast efforts of the Dictyostelium research community. dictyBase has become the trusted data resource for Dictyostelium investigators, other investigators or organizations seeking information about Dictyostelium, as well as educators who use this model system.",
   journal: "Genesis (New York, N.Y. : 2000)",
-  pub_date: "2015-07-08T00:00:00.000Z",
-  pages: "523-534",
-  issue: "8",
-  volume: "53",
+  pub_date: "2015-08-01T00:00:00.000Z",
+  pages: "",
+  issue: "",
+  volume: "",
   authors: [
-    { initials: "S", last_name: "Basu" },
-    { initials: "P", last_name: "Fey" },
-    { initials: "D", last_name: "Jimenez-Morales" },
-    { initials: "RJ", last_name: "Dodson" },
-    { initials: "RL", last_name: "Chisholm" },
+    { initials: "", last_name: "Basu" },
+    { initials: "", last_name: "Fey" },
+    { initials: "", last_name: "Jimenez-Morales" },
+    { initials: "", last_name: "Dodson" },
+    { initials: "", last_name: "Chisholm" },
   ],
 }
 
