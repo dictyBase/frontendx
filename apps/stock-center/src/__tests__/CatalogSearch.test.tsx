@@ -194,7 +194,7 @@ test("shows strain and plasmid results after typing 3+ characters", async () => 
   await userEvent.type(getInput(), searchQuery)
   expect(await screen.findByText("axeA", {}, QUERY_TIMEOUT)).toBeInTheDocument()
   expect(
-    await screen.findByText("pAXE1", {}, QUERY_TIMEOUT),
+    await screen.findByRole("link", { name: "DBP0001" }, QUERY_TIMEOUT),
   ).toBeInTheDocument()
 })
 
@@ -208,7 +208,11 @@ test("links strain result to its detail page", async () => {
 test("links plasmid result to its detail page", async () => {
   renderPage()
   await userEvent.type(getInput(), searchQuery)
-  const link = await screen.findByRole("link", { name: "pAXE1" }, QUERY_TIMEOUT)
+  const link = await screen.findByRole(
+    "link",
+    { name: "DBP0001" },
+    QUERY_TIMEOUT,
+  )
   expect(link).toHaveAttribute("href", "/plasmids/DBP0001")
 })
 
@@ -283,4 +287,73 @@ test("debounce does not immediately fire the query for short input", async () =>
       }),
   )
   expect(screen.queryByRole("link")).not.toBeInTheDocument()
+})
+
+test("displays error message when query fails", async () => {
+  const errorMock = {
+    request: suggestionsMock.request,
+    error: new Error("Network error"),
+  }
+  renderPage([errorMock])
+  await userEvent.type(getInput(), searchQuery)
+  await act(
+    () =>
+      new Promise((resolve) => {
+        setTimeout(resolve, 500)
+      }),
+  )
+  expect(
+    await screen.findByText(/something went wrong/i, {}, QUERY_TIMEOUT),
+  ).toBeInTheDocument()
+})
+
+test("shows group filter options when entity filter is selected", async () => {
+  renderPage()
+  await userEvent.click(screen.getByText("Strains"))
+  expect(screen.getByText("All Strains")).toBeInTheDocument()
+  expect(screen.getByText("Regular Strains")).toBeInTheDocument()
+  expect(screen.getByText("GWDI Strains")).toBeInTheDocument()
+  expect(screen.getByText("Bacterial Strains")).toBeInTheDocument()
+})
+
+test("filters results by group when a specific group is selected", async () => {
+  const gwdiMock = {
+    request: {
+      query: SearchStocksDocument,
+      variables: {
+        query: searchQuery,
+        limit: SEARCH_LIMIT,
+        entity: StockEntityType.Strain,
+      },
+    },
+    result: {
+      data: {
+        searchStocks: {
+          totalCount: 1,
+          limit: SEARCH_LIMIT,
+          results: [
+            {
+              __typename: "StockSearchResult",
+              id: "DBS0010",
+              entity: StockEntityType.Strain,
+              field: StockSearchFieldEnum.Label,
+              display_text: "gwdiStrain",
+              strain_label: "gwdiStrain",
+              summary: "GWDI strain",
+              score: 1,
+              in_stock: true,
+              stock_type: "gwdi",
+            },
+          ],
+        },
+      },
+    },
+  }
+  renderPage([gwdiMock])
+  await userEvent.click(screen.getByText("Strains"))
+  await userEvent.click(screen.getByText("GWDI Strains"))
+  await userEvent.type(getInput(), searchQuery)
+  expect(
+    await screen.findByText("gwdiStrain", {}, QUERY_TIMEOUT),
+  ).toBeInTheDocument()
 })

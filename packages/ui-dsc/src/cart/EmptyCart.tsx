@@ -41,16 +41,16 @@ const EmptyCart = () => {
           color="primary"
           variant="outlined"
           component={Link}
-          to="/strains">
-          Strain Catalog
+          to="/catalog?entity=strain">
+          Browse Strains
         </Button>
         <Button
           className={classes.button}
           color="primary"
           variant="outlined"
           component={Link}
-          to="/plasmids">
-          Plasmid Catalog
+          to="/catalog?entity=plasmid">
+          Browse Plasmids
         </Button>
       </Box>
       <Divider />

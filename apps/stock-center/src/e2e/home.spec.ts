@@ -5,8 +5,7 @@ test.beforeEach(async ({ page }) => {
 })
 
 test("The cart button navigates the user to their cart", async ({ page }) => {
-  const cartLink = page.getByRole("link", { name: "shopping cart" })
-  await expect(cartLink).toHaveAttribute("href", "/stockcenter/cart")
+  const cartLink = page.getByRole("button", { name: /cart/i })
 
   await cartLink.click()
   await expect(page).toHaveURL(/\/stockcenter\/cart/)

@@ -35,7 +35,7 @@
     "@rescript/react": "^0.10.3",
     "apollo3-cache-persist": "^0.14.1",
     "date-fns": "^2.30.0",
-    "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.42.0",
+    "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.45.0",
     "element-remove": "^1.0.4",
     "fontsource-roboto": "^4.0.0",
     "localforage": "1.10.*",
@@ -45,7 +45,7 @@
     "react-loading-skeleton": "^3.3.1",
     "react-router-dom": "^6.14.2",
     "string.prototype.includes": "^2.0.0",
-    "ts-pattern": "4.x"
+    "ts-pattern": "5.x"
   },
   "devDependencies": {
     "@dictybase/oxlint-config": "*",

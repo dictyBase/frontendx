@@ -112,7 +112,7 @@ test("renders Stock and Summary column headers", () => {
 test("renders a row for each result", () => {
   renderTable([mockStrainLabelMatch, mockPlasmidResult])
   expect(screen.getByRole("link", { name: "axeA" })).toBeInTheDocument()
-  expect(screen.getByRole("link", { name: "pAXE1" })).toBeInTheDocument()
+  expect(screen.getByRole("link", { name: "DBP0001" })).toBeInTheDocument()
 })
 
 test("links a strain result to its detail page using the strain label", () => {
@@ -140,7 +140,8 @@ test("renders the stock id below the primary link text", () => {
 
 test("renders the stock id for plasmid results", () => {
   renderTable([mockPlasmidResult])
-  expect(screen.getByText(mockPlasmidResult.id)).toBeInTheDocument()
+  const idElements = screen.getAllByText(mockPlasmidResult.id)
+  expect(idElements.length).toBeGreaterThan(0)
 })
 
 test("renders strain summary text", () => {
@@ -150,9 +151,9 @@ test("renders strain summary text", () => {
 
 // ── Plasmid results ────────────────────────────────────────────────────────────
 
-test("links a plasmid result to its detail page using display_text", () => {
+test("links a plasmid result to its detail page using id", () => {
   renderTable([mockPlasmidResult])
-  const link = screen.getByRole("link", { name: "pAXE1" })
+  const link = screen.getByRole("link", { name: "DBP0001" })
   expect(link).toHaveAttribute("href", `/plasmids/${mockPlasmidResult.id}`)
 })
 
@@ -246,4 +247,28 @@ test("truncates summaries longer than 120 characters", () => {
   renderTable([mockLongSummaryResult])
   expect(screen.queryByText("A".repeat(130))).not.toBeInTheDocument()
   expect(screen.getByText(/A+\.{3}/)).toBeInTheDocument()
+})
+
+// ── toStockCatalogItem edge cases ──────────────────────────────────────────────
+
+test("converts a result with StockEntityType.All to a StrainItem", () => {
+  const allEntityResult: StockSearchResult = {
+    __typename: "StockSearchResult",
+    id: "DBS0005",
+    entity: StockEntityType.All,
+    field: StockSearchFieldEnum.Label,
+    display_text: "allEntityStrain",
+    strain_label: "",
+    summary: "Test for All entity type",
+    score: 0.9,
+    in_stock: true,
+  }
+  const item = toStockCatalogItem(allEntityResult)
+  expect(item).toMatchObject({
+    __typename: "Strain",
+    id: "DBS0005",
+    label: "allEntityStrain",
+    summary: "Test for All entity type",
+    in_stock: true,
+  })
 })

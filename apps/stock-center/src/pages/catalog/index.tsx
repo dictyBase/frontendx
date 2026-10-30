@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, ChangeEventHandler } from "react"
 import {
   Box,
   ThemeProvider,
@@ -9,18 +9,42 @@ import {
 } from "@mui/material"
 import SearchIcon from "@mui/icons-material/Search"
 import { P, match } from "ts-pattern"
-import { pipe } from "fp-ts/function"
-import { match as Bmatch } from "fp-ts/boolean"
-import { StockEntityType, useSearchStocksLazyQuery } from "dicty-graphql-schema"
+import { pipe, flow } from "fp-ts/function"
+import {
+  Option,
+  fromNullable as OfromNullable,
+  getOrElse as OgetOrElse,
+  map as Omap,
+  flatMap as OflatMap,
+  match as Omatch,
+  some,
+} from "fp-ts/Option"
+import {
+  match as Amatch,
+  findFirst as AfindFirst,
+  filter as Afilter,
+} from "fp-ts/Array"
+import { NonEmptyArray } from "fp-ts/NonEmptyArray"
+import {
+  ReadonlyNonEmptyArray,
+  head as RNEAhead,
+} from "fp-ts/ReadonlyNonEmptyArray"
+import {
+  StockSearchResult,
+  StockEntityType,
+  useSearchStocksLazyQuery,
+} from "dicty-graphql-schema"
 import {
   EmptyCatalog,
   ErrorDisplay,
   ScrollToTop,
   CatalogListLoader,
   SearchResultsTable,
+  CatalogResultsTable,
 } from "@dictybase/ui-dsc"
 import { useSearchParams } from "react-router-dom"
 import { CatalogSidebar } from "../../components/CatalogSidebar"
+import { useInitialSearchResults } from "../../hooks/useInitialSearchResults"
 import { AddToCartButtonHandler } from "../../components/AddToCartButtonHandler"
 import { catalogTheme } from "../../themes"
 
@@ -30,8 +54,16 @@ const QUERY_PARAM = "q"
 /** URL search parameter key for the entity type filter. */
 const ENTITY_PARAM = "entity"
 
+/** URL search parameter key for the group type filter. */
+const GROUP_PARAM = "group"
+
+/** Entity type values for filtering stock results. */
+const ENTITY_STRAIN = "strain"
+const ENTITY_PLASMID = "plasmid"
+const ENTITY_ALL = "all"
+
 /** Default entity filter value — returns results for all stock types. */
-const DEFAULT_ENTITY = "all"
+const DEFAULT_ENTITY = ENTITY_ALL
 
 /** Debounce delay in milliseconds before the URL param (and query) updates. */
 const DEBOUNCE_DELAY_MS = 400
@@ -42,11 +74,55 @@ const MIN_CHARS = 3
 /** Maximum number of results to request from the API per search. */
 const SEARCH_LIMIT = 50
 
+type SidebarOption = {
+  value: string
+  label: string
+  groups?: ReadonlyNonEmptyArray<{ value: string; label: string }>
+}
+
 /** Sidebar filter options mapping display labels to entity URL param values. */
-const catalogEntityFilterOptions = [
+const catalogEntityFilterOptions: NonEmptyArray<SidebarOption> = [
   { value: DEFAULT_ENTITY, label: "All Results" },
-  { value: "strain", label: "Strains" },
-  { value: "plasmid", label: "Plasmids" },
+  {
+    value: ENTITY_STRAIN,
+    label: "Strains",
+    groups: [
+      {
+        label: "All Strains",
+        value: ENTITY_ALL,
+      },
+      {
+        label: "Regular Strains",
+        value: "regular",
+      },
+      {
+        label: "GWDI Strains",
+        value: "gwdi",
+      },
+      {
+        label: "Bacterial Strains",
+        value: "bacterial",
+      },
+    ],
+  },
+  {
+    value: ENTITY_PLASMID,
+    label: "Plasmids",
+    groups: [
+      {
+        label: "All Plasmids",
+        value: ENTITY_ALL,
+      },
+      {
+        label: "Regular Plasmids",
+        value: "regular",
+      },
+      {
+        label: "Golden Braid Plasmids",
+        value: "goldenbraid",
+      },
+    ],
+  },
 ]
 
 /**
@@ -60,10 +136,18 @@ const catalogEntityFilterOptions = [
  */
 const toStockEntityType = (parameters: string): StockEntityType | undefined =>
   match(parameters)
-    .with("strain", () => StockEntityType.Strain)
-    .with("plasmid", () => StockEntityType.Plasmid)
+    .with(ENTITY_STRAIN, () => StockEntityType.Strain)
+    .with(ENTITY_PLASMID, () => StockEntityType.Plasmid)
     .otherwise(() => undefined)
 
+const stockGroupFilter =
+  (group: string) =>
+  ({ stock_type }: StockSearchResult) =>
+    match(group)
+      .with("all", () => true)
+      .otherwise(() => group === stock_type)
+
+const getFirstEntity = flow(RNEAhead<SidebarOption>, ({ value }) => value)
 /**
  * Full-catalog search page.
  *
@@ -75,18 +159,37 @@ const toStockEntityType = (parameters: string): StockEntityType | undefined =>
  */
 const CatalogSearch = () => {
   const [searchParameters, setSearchParameters] = useSearchParams()
-
-  const entityParameter = searchParameters.get(ENTITY_PARAM) ?? DEFAULT_ENTITY
-
-  const [inputValue, setInputValue] = useState(
-    searchParameters.get(QUERY_PARAM) ?? "",
+  const initialQueryParameter = pipe(
+    searchParameters.get(QUERY_PARAM),
+    OfromNullable,
+    OgetOrElse(() => ""),
   )
-  const [searchTerm, setSearchTerm] = useState(
-    searchParameters.get(QUERY_PARAM) ?? "",
+  const [inputValue, setInputValue] = useState(initialQueryParameter)
+  const [searchTerm, setSearchTerm] = useState(initialQueryParameter)
+  const [entity, setEntity] = useState(
+    pipe(
+      searchParameters.get("entity"),
+      OfromNullable,
+      OgetOrElse(() => pipe(catalogEntityFilterOptions, getFirstEntity)),
+    ),
   )
+  const [group, setGroup] = useState<Option<string>>(
+    pipe(searchParameters.get("group"), OfromNullable),
+  )
+
+  const hasQuery = searchTerm.length >= MIN_CHARS
 
   const [searchStocks, { data, loading, error }] = useSearchStocksLazyQuery()
+  const { data: initialData } = useInitialSearchResults({
+    entity,
+    group,
+    skip: hasQuery,
+  })
 
+  // Initializes the search parameters with parameters that corresponding to the default selected radio option.
+  // useEffect(() => {
+  //   setSearchParameter("entity", entity, { replace: true })
+  // }, [entity, setSearchParameter])
   // Debounce: update local searchTerm after a short delay.
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -105,11 +208,23 @@ const CatalogSearch = () => {
         } else {
           next.delete(QUERY_PARAM)
         }
+        next.set(ENTITY_PARAM, entity)
+        pipe(
+          group,
+          Omatch(
+            () => {
+              next.delete(GROUP_PARAM)
+            },
+            (g) => {
+              next.set(GROUP_PARAM, g)
+            },
+          ),
+        )
         return [...next.entries()]
       },
       { replace: true },
     )
-  }, [searchTerm, setSearchParameters])
+  }, [searchTerm, setSearchParameters, entity, group])
 
   // Fire the lazy query whenever the search term or entity filter changes.
   useEffect(() => {
@@ -118,11 +233,11 @@ const CatalogSearch = () => {
         variables: {
           query: searchTerm,
           limit: SEARCH_LIMIT,
-          entity: toStockEntityType(entityParameter),
+          entity: toStockEntityType(entity),
         },
       })
     }
-  }, [searchTerm, entityParameter, searchStocks])
+  }, [searchTerm, entity, searchStocks])
 
   /**
    * Re-fires the last search query; passed to `ErrorDisplay` as the retry
@@ -134,14 +249,32 @@ const CatalogSearch = () => {
         variables: {
           query: searchTerm,
           limit: SEARCH_LIMIT,
-          entity: toStockEntityType(entityParameter),
+          entity: toStockEntityType(entity),
         },
       })
     }
-  }, [searchTerm, entityParameter, searchStocks])
+  }, [searchTerm, entity, searchStocks])
 
-  const hasQuery = searchTerm.length >= MIN_CHARS
+  const onChangeEntity: ChangeEventHandler<HTMLInputElement> = ({
+    currentTarget,
+  }) => {
+    setEntity(currentTarget.value)
 
+    // Set group state to first item in `entity`'s `groups`
+    pipe(
+      catalogEntityFilterOptions,
+      AfindFirst(({ value }) => value === currentTarget.value),
+      OflatMap(({ groups }) => pipe(groups, OfromNullable, Omap(RNEAhead))),
+      Omap(({ value }) => value),
+      setGroup,
+    )
+  }
+
+  const onChangeGroup: ChangeEventHandler<HTMLInputElement> = ({
+    currentTarget,
+  }) => {
+    setGroup(some(currentTarget.value))
+  }
   return (
     <ThemeProvider theme={catalogTheme}>
       <Box
@@ -177,9 +310,11 @@ const CatalogSearch = () => {
           {/* Entity type filter sidebar */}
           <CatalogSidebar
             title="Stock Type"
-            value={DEFAULT_ENTITY}
-            param={ENTITY_PARAM}
             options={catalogEntityFilterOptions}
+            selectedEntity={entity}
+            selectedGroup={group}
+            onChangeEntity={onChangeEntity}
+            onChangeGroup={onChangeGroup}
           />
 
           {/* Content area */}
@@ -190,7 +325,7 @@ const CatalogSearch = () => {
                 backgroundColor: "white",
                 borderRadius: "12px",
                 padding: "20px 24px",
-                marginBottom: "20px",
+                marginBottom: "16px",
                 boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
               }}>
               <TextField
@@ -212,7 +347,38 @@ const CatalogSearch = () => {
             </Box>
 
             {/* Results area — pattern matched against query/loading/data/error */}
-            {match({ data, loading, error, hasQuery })
+            {match({ initialData, data, loading, error, hasQuery })
+              .with(
+                { hasQuery: false, initialData: P.select(P.not(P.nullish)) },
+                (items) => (
+                  <Box>
+                    <Paper
+                      elevation={0}
+                      sx={{
+                        backgroundColor: "#fffbeb",
+                        border: "1px solid #fbbf24",
+                        borderRadius: "8px",
+                        padding: "12px 16px",
+                        marginBottom: "16px",
+                      }}>
+                      <Typography
+                        sx={{
+                          fontSize: "0.875rem",
+                          color: "#92400e",
+                          fontWeight: 500,
+                        }}>
+                        You are viewing a selection of available stocks. To
+                        search the full catalog, enter at least {MIN_CHARS}{" "}
+                        characters in the search field above.
+                      </Typography>
+                    </Paper>
+                    <CatalogResultsTable
+                      items={items}
+                      actionComponent={AddToCartButtonHandler}
+                    />
+                  </Box>
+                ),
+              )
               .with({ hasQuery: false }, () => (
                 <Paper
                   elevation={0}
@@ -246,14 +412,18 @@ const CatalogSearch = () => {
                 { data: { searchStocks: { results: P.select() } } },
                 (results) =>
                   pipe(
-                    results.length > 0,
-                    Bmatch(
+                    group,
+                    Omatch(
+                      () => results,
+                      (g) => pipe(results, Afilter(stockGroupFilter(g))),
+                    ),
+                    Amatch(
                       () => (
                         <EmptyCatalog message="No results found. Try searching with different terms." />
                       ),
-                      () => (
+                      (r) => (
                         <SearchResultsTable
-                          results={results}
+                          results={r}
                           actionComponent={AddToCartButtonHandler}
                         />
                       ),

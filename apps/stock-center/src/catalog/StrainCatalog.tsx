@@ -1,11 +1,11 @@
 import { useRef } from "react"
 import { Box, ThemeProvider } from "@mui/material"
+import { some } from "fp-ts/Option"
 import { P, match } from "ts-pattern"
 import {
   buildStrainListFilter,
   graphqlListVariables,
   strainGroupFilterOptions,
-  defaultFilter,
 } from "@dictybase/hook-dsc"
 import { useIntersectionObserver } from "@dictybase/hook"
 import { useStrainListQuery } from "dicty-graphql-schema"
@@ -18,11 +18,11 @@ import {
   CatalogListLoader,
 } from "@dictybase/ui-dsc"
 import { useSearchParams } from "react-router-dom"
-import { CatalogSidebar } from "../../components/CatalogSidebar"
-import { CatalogSearchBar } from "../../components/CatalogSearchBar"
-import { useScrollPersistence } from "../../hooks/useScrollPersistence"
-import { catalogTheme } from "../../themes"
-import { AddToCartButtonHandler } from "../../components/AddToCartButtonHandler"
+import { CatalogSidebar } from "../components/CatalogSidebar"
+import { CatalogSearchBar } from "../components/CatalogSearchBar"
+import { useScrollPersistence } from "../hooks/useScrollPersistence"
+import { catalogTheme } from "../themes"
+import { AddToCartButtonHandler } from "../components/AddToCartButtonHandler"
 
 const StrainCatalog = () => {
   // Enable scroll position persistence
@@ -103,8 +103,10 @@ const StrainCatalog = () => {
           {/* Sidebar with filters */}
           <CatalogSidebar
             title="Strain Type"
-            value={defaultFilter.value}
-            param={defaultFilter.param}
+            selectedEntity="all"
+            selectedGroup={some("all")}
+            onChangeEntity={() => {}}
+            onChangeGroup={() => {}}
             options={strainGroupFilterOptions}
           />
 

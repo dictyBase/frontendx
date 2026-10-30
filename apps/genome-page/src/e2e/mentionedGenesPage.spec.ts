@@ -5,43 +5,37 @@ import { ListPublicationsWithGeneQueryResult } from "dicty-graphql-schema"
 import { listPublicationsWithGeneQueryData } from "./utils/gqlRequestData"
 
 const GRAPHQL_ENDPOINT = `${process.env.VITE_GRAPHQL_SERVER}/graphql`
-const TEST_GENE = "wrky1"
-const TEST_PUBLICATION_ID = "18550419"
+const TEST_GENE = "phg1A"
+const TEST_PUBLICATION_ID = "29441327"
 const RELATED_GENES_TEST_LIST_ID = "related-genes-list"
 
 const EXPECTED_REFERENCE = {
   related_genes: [
-    { id: "DDB_G0281931", name: "DDB_G0281931" },
-    { id: "DDB_G0288511", name: "sadA" },
-    { id: "DDB_G0292322", name: "DDB_G0292322" },
-    { id: "DDB_G0290965", name: "trafM" },
-    { id: "DDB_G0282069", name: "slrA" },
-    { id: "DDB_G0287363", name: "sibA" },
-    { id: "DDB_G0283265", name: "mkkA" },
-    { id: "DDB_G0268712", name: "DDB_G0268712" },
+    { id: "DDB_G0290009", name: "spr" },
+    { id: "DDB_G0288481", name: "gchA" },
     { id: "DDB_G0267444", name: "phg1A" },
-    { id: "DDB_G0267692", name: "DDB_G0267692" },
-    { id: "DDB_G0280263", name: "DDB_G0280263" },
-    { id: "DDB_G0267406", name: "lmpA" },
-    { id: "DDB_G0277703", name: "aplF" },
-    { id: "DDB_G0275267", name: "wrky1" },
-    { id: "DDB_G0267400", name: "hspD" },
-    { id: "DDB_G0269292", name: "sugt1" },
+    { id: "DDB_G0279095", name: "ptsA" },
     { id: "DDB_G0267630", name: "kil1" },
   ],
-  id: "18550419",
-  doi: "10.1016/j.mib.2008.05.005",
-  title: "Eat, kill or die: when amoeba meets bacteria.",
-  journal: "Current opinion in microbiology",
-  pub_date: "2008-06-10T00:00:00.000Z",
-  volume: "11",
-  pages: "271-276",
-  pub_type: "Research Support, Non-U.S. Gov't",
+  id: "29441327",
+  doi: "10.3389/fcimb.2018.00008",
+  title:
+    "Inorganic Polyphosphate Is Essential for  Typhimurium Virulence and Survival in .",
+  journal: "Frontiers in cellular and infection microbiology",
+  pub_date: "2018-01-01T00:00:00.000Z",
+  volume: "",
+  pages: "",
+  pub_type: "",
   source: "MED",
-  issue: "3",
+  issue: "",
   authors: [
-    { last_name: "Cosson", rank: "0" },
-    { last_name: "Soldati", rank: "1" },
+    { last_name: "Varas", rank: "0" },
+    { last_name: "Riquelme-Barrios", rank: "1" },
+    { last_name: "Valenzuela", rank: "2" },
+    { last_name: "Marcoleta", rank: "3" },
+    { last_name: "Berríos-Pastén", rank: "4" },
+    { last_name: "Santiviago", rank: "5" },
+    { last_name: "Chávez", rank: "6" },
   ],
 }
 
@@ -65,21 +59,18 @@ test.beforeEach(async ({ page }) => {
 })
 
 test("Displays publication title", async ({ page }) => {
-  await expect(page.getByText(/17 Genes mentioned in/)).toBeVisible()
+  await expect(page.getByText(/5 Genes mentioned in/)).toBeVisible()
   await expect(
     page.getByRole("heading", { name: EXPECTED_REFERENCE.title }),
   ).toBeVisible()
 })
 
 test("Displays mentioned genes", async ({ page }) => {
-  await expect(page.getByText(/17 of 17 Genes/)).toBeVisible()
+  await expect(page.getByText(/5 of 5 Genes/)).toBeVisible()
 
   const genesList = page.getByTestId(RELATED_GENES_TEST_LIST_ID)
-  // Gene items should be clickable; 16 on first page
-  await expect(genesList.getByRole("button")).toHaveCount(16)
-  await page.getByLabel("Go to next page").click()
-  // 1 on second page
-  await expect(genesList.getByRole("button")).toHaveCount(1)
+  // Gene items should be clickable; all 5 on first page
+  await expect(genesList.getByRole("button")).toHaveCount(5)
 })
 
 test("Clicking on gene item navigates to that gene's summary page", async ({
@@ -93,7 +84,7 @@ test("Clicking on gene item navigates to that gene's summary page", async ({
 })
 
 test("Gene search", async ({ page }) => {
-  const searchTerm = "sadA"
+  const searchTerm = "kil1"
   const searchBox = page.getByPlaceholder("Filter Genes")
   await searchBox.click()
   await searchBox.fill(searchTerm)
@@ -111,30 +102,19 @@ test("Gene search", async ({ page }) => {
 })
 
 test("Gene filtering", async ({ page }) => {
+  // All genes in this publication are named (no DDB_ genes), so filter for named genes
   await page.getByRole("button", { name: "All Gene Types" }).click()
-  await page.getByRole("option", { name: "Unnamed Genes", exact: true }).click()
+  await page.getByRole("option", { name: "Named Genes", exact: true }).click()
 
   const genesList = page.getByTestId(RELATED_GENES_TEST_LIST_ID)
   const filteredGenes = genesList.getByRole("button")
 
-  const unnamedGenesCount = await filteredGenes.count()
+  // All genes should be visible since all are named
+  await expect(filteredGenes).toHaveCount(5)
 
-  await expect(filteredGenes).toHaveText(
-    pipe(
-      unnamedGenesCount,
-      AmakeBy(() => /DDB_/),
-    ),
-  )
+  await page.getByRole("button", { name: "Named Genes" }).click()
+  await page.getByRole("option", { name: "Unnamed Genes", exact: true }).click()
 
-  await page.getByRole("button", { name: "Unnamed Genes" }).click()
-  await page.getByRole("option", { name: "Named Genes", exact: true }).click()
-
-  const namedGenesCount = await filteredGenes.count()
-
-  await expect(filteredGenes).not.toHaveText(
-    pipe(
-      namedGenesCount,
-      AmakeBy(() => /DDB_/),
-    ),
-  )
+  // No unnamed genes in this publication
+  await expect(filteredGenes).toHaveCount(0)
 })

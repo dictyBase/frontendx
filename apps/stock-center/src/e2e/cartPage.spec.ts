@@ -1,8 +1,8 @@
 import { test, expect } from "@playwright/test"
 import { waitForImageLoad } from "./utils/waitForImageLoad"
 
-const strainCatalogButtonText = "Strain Catalog"
-const plasmidCatalogButtonText = "Plasmid Catalog"
+const strainCatalogButtonText = "Browse Strains"
+const plasmidCatalogButtonText = "Browse Plasmids"
 
 test.beforeEach(async ({ page }) => {
   await page.goto(`/stockcenter/cart`)
@@ -46,7 +46,7 @@ test.describe("Empty Cart", () => {
       .locator("main")
       .getByRole("link", { name: strainCatalogButtonText })
       .click()
-    await expect(page).toHaveURL(/.*\/stockcenter\/strains/)
+    await expect(page).toHaveURL(/.*\/stockcenter\/catalog\?entity=strain/)
   })
 
   test("plasmid catalog button navigates to plasmid catalog page", async ({
@@ -56,7 +56,7 @@ test.describe("Empty Cart", () => {
       .locator("main")
       .getByRole("link", { name: plasmidCatalogButtonText })
       .click()
-    await expect(page).toHaveURL(/.*\/stockcenter\/plasmids/)
+    await expect(page).toHaveURL(/.*\/stockcenter\/catalog\?entity=plasmid/)
   })
 })
 

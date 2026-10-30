@@ -1,4 +1,5 @@
 import { StrainType, PlasmidType } from "dicty-graphql-schema"
+import { NonEmptyArray } from "fp-ts/NonEmptyArray"
 
 const graphqlListVariables = { cursor: 0, limit: 12 }
 const defaultFilter = { param: "group", value: "regular" }
@@ -7,7 +8,19 @@ const searchFields = ["descriptor", "summary"]
 const DEFAULT_PLASMID_GROUP = { plasmid_type: PlasmidType.Regular }
 const DEFAULT_STRAIN_GROUP = { strain_type: StrainType.Regular }
 
-const plasmidGroupFilterOptions = [
+type PlasmidFilterOptions = NonEmptyArray<{
+  label: string
+  value: string
+  graphqlFilter: { plasmid_type: PlasmidType }
+}>
+
+type StrainFilterOptions = NonEmptyArray<{
+  label: string
+  value: string
+  graphqlFilter: { strain_type: StrainType }
+}>
+
+const plasmidGroupFilterOptions: PlasmidFilterOptions = [
   {
     label: "Regular Plasmids",
     value: "regular",
@@ -25,7 +38,7 @@ const plasmidGroupFilterOptions = [
   },
 ]
 
-const strainGroupFilterOptions = [
+const strainGroupFilterOptions: StrainFilterOptions = [
   {
     label: "Regular Strains",
     value: "regular",
