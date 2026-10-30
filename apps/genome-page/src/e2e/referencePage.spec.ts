@@ -2,7 +2,6 @@ import { test, expect } from "@playwright/test"
 import { pipe } from "fp-ts/lib/function.js"
 import { makeBy as RNEAmakeBy } from "fp-ts/lib/ReadonlyNonEmptyArray.js"
 import { ListPublicationsWithGeneQueryResult } from "dicty-graphql-schema"
-import { formatDate } from "../components/features/References/utils/formatDate"
 import { listPublicationsWithGeneQueryData } from "./utils/gqlRequestData"
 
 const GRAPHQL_ENDPOINT = `${process.env.VITE_GRAPHQL_SERVER}/graphql`
@@ -33,8 +32,9 @@ const EXPECTED_REFERENCE = {
   ],
 }
 
-const oldestPublicationDate = "2001-07-31T12:00:00.000Z"
-const newestPublicationDate = "2020-03-31T12:00:00.000Z"
+// Expected formatted dates when browser is in UTC timezone
+const oldestPublicationDateFormatted = "August 1st, 2001"
+const newestPublicationDateFormatted = "April 1st, 2020"
 
 test.beforeAll("Test Reference Page API", async ({ playwright }) => {
   const apiContext = await playwright.request.newContext()
@@ -70,10 +70,8 @@ test("Displays References from API", async ({ page }) => {
   await expect(references).toHaveCount(17)
   // Displays full title
   await expect(referenceItem.getByText(EXPECTED_REFERENCE.title)).toBeVisible()
-  // Displays publication date
-  await expect(
-    referenceItem.getByText(formatDate(EXPECTED_REFERENCE.pub_date)),
-  ).toBeVisible()
+  // Displays publication date (formatted in UTC timezone by the browser)
+  await expect(referenceItem.getByText("August 1st, 2001")).toBeVisible()
   // Displays journal
   await expect(
     referenceItem.getByText(EXPECTED_REFERENCE.journal),
@@ -111,11 +109,13 @@ test("Clicking on `See all` button navigates to the related genes page", async (
 
 test("Sorts by newest first by default", async ({ page }) => {
   const references = page.locator("tbody").getByRole("row")
-  const oldestDateText = formatDate(oldestPublicationDate)
-  const newestDateText = formatDate(newestPublicationDate)
 
-  await expect(references.first()).toHaveText(new RegExp(newestDateText))
-  await expect(references.last()).toHaveText(new RegExp(oldestDateText))
+  await expect(references.first()).toHaveText(
+    new RegExp(newestPublicationDateFormatted),
+  )
+  await expect(references.last()).toHaveText(
+    new RegExp(oldestPublicationDateFormatted),
+  )
 })
 
 test("Sort by oldest first", async ({ page }) => {
@@ -125,11 +125,12 @@ test("Sort by oldest first", async ({ page }) => {
   await page.getByLabel("Newest First").click()
   await page.getByRole("option", { name: "Oldest First" }).click()
 
-  const oldestDateText = formatDate(oldestPublicationDate)
-  const newestDateText = formatDate(newestPublicationDate)
-
-  await expect(references.first()).toHaveText(new RegExp(oldestDateText))
-  await expect(references.last()).toHaveText(new RegExp(newestDateText))
+  await expect(references.first()).toHaveText(
+    new RegExp(oldestPublicationDateFormatted),
+  )
+  await expect(references.last()).toHaveText(
+    new RegExp(newestPublicationDateFormatted),
+  )
 })
 
 test("Sort by title (A to Z) ", async ({ page }) => {

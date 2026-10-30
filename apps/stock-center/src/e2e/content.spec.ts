@@ -5,12 +5,7 @@ import { test, expect } from "@playwright/test"
 const contentRoutes = [
   {
     name: "Dicty Stock Center",
-    pages: [
-      "Order Information",
-      "Deposit Information",
-      "Payment Information",
-      "FAQ",
-    ],
+    pages: ["Ordering", "Depositing Materials", "Payment Information", "FAQ"],
   },
 ]
 
@@ -37,13 +32,10 @@ pipe(
   Amap(({ group, pageName }) => {
     test(`${pageName} page is properly rendered`, async ({ page }) => {
       await page.goto("/stockcenter")
+      await page.getByRole("navigation").filter({ hasText: group }).hover()
       await page
-        .getByRole("navigation")
-        .getByText(group, { exact: true })
-        .click()
-      await page
-        .getByRole("navigation")
-        .getByRole("link", { name: pageName, exact: true })
+        .getByRole("tooltip")
+        .getByRole("link", { name: pageName })
         .click()
       const editor = page.locator("[data-lexical-editor]")
       await expect(editor).toBeAttached()

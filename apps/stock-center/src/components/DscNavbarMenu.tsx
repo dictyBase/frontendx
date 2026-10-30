@@ -78,6 +78,7 @@ const DscNavbarMenu = ({
   }
   return (
     <Button
+      role="navigation"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       ref={anchorReference}
