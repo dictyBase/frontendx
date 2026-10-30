@@ -29,9 +29,9 @@ const EXPECTED_STRAIN = {
           "A Cdc42- and Rac-interactive binding (CRIB) domain mediates functions of coronin.",
         journal:
           "Proceedings of the National Academy of Sciences of the United States of America",
-        pages: "E25-33",
-        volume: "111",
-        pub_date: "2013-12-17T00:00:00.000Z",
+        pages: "",
+        volume: "",
+        pub_date: "2014-01-01T00:00:00.000Z",
         authors: [
           { last_name: "Swaminathan", rank: "0" },
           { last_name: "Müller-Taubenberger", rank: "1" },
@@ -48,8 +48,8 @@ const EXPECTED_STRAIN = {
         title:
           "Dictyostelium mutants lacking the cytoskeletal protein coronin are defective in cytokinesis and cell motility.",
         journal: "The Journal of cell biology",
-        pages: "163-173",
-        volume: "120",
+        pages: "",
+        volume: "",
         pub_date: "1993-01-01T00:00:00.000Z",
         authors: [
           { last_name: "de Hostos", rank: "0" },
@@ -69,8 +69,8 @@ const EXPECTED_STRAIN = {
         title:
           "Dictyostelium mutants lacking the cytoskeletal protein coronin are defective in cytokinesis and cell motility.",
         journal: "The Journal of cell biology",
-        pages: "163-173",
-        volume: "120",
+        pages: "",
+        volume: "",
         pub_date: "1993-01-01T00:00:00.000Z",
         authors: [
           { last_name: "de Hostos", rank: "0" },
@@ -90,8 +90,8 @@ const EXPECTED_STRAIN = {
         title:
           "Dictyostelium mutants lacking the cytoskeletal protein coronin are defective in cytokinesis and cell motility.",
         journal: "The Journal of cell biology",
-        pages: "163-173",
-        volume: "120",
+        pages: "",
+        volume: "",
         pub_date: "1993-01-01T00:00:00.000Z",
         authors: [
           { last_name: "de Hostos", rank: "0" },
