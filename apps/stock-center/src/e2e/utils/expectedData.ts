@@ -6,7 +6,10 @@ const EXPECTED_STRAIN = {
   summary:
     "suppressor mutant; deletion of hephA suppresses the agg- phenotype of the piaA(G917D) (HSB1) mutant",
   species: "Dictyostelium discoideum",
-  parent: null,
+  parent: {
+    id: "",
+    label: "",
+  },
   depositor: {
     first_name: "Dicty",
     last_name: "Stock Center",
@@ -16,12 +19,12 @@ const EXPECTED_STRAIN = {
   publications: [
     {
       id: "28049717",
-      pub_date: "2017-01-03T00:00:00.000Z",
+      pub_date: "2017-02-01T00:00:00.000Z",
       title:
         "A new HECT ubiquitin ligase regulating chemotaxis and development in Dictyostelium discoideum.",
       journal: "Journal of cell science",
-      volume: "130",
-      pages: "551-562",
+      volume: "",
+      pages: "",
       doi: "10.1242/jcs.194225",
       authors: [
         { last_name: "Pergolizzi" },
@@ -52,12 +55,12 @@ const EXPECTED_STRAIN = {
       environment: null,
       publication: {
         id: "28049717",
-        pub_date: "2017-01-03T00:00:00.000Z",
+        pub_date: "2017-02-01T00:00:00.000Z",
         title:
           "A new HECT ubiquitin ligase regulating chemotaxis and development in Dictyostelium discoideum.",
         journal: "Journal of cell science",
-        volume: "130",
-        pages: "551-562",
+        volume: "",
+        pages: "",
         authors: [
           { last_name: "Pergolizzi" },
           { last_name: "Bracco" },
@@ -72,12 +75,12 @@ const EXPECTED_STRAIN = {
       environment: "during cAMP stimulation",
       publication: {
         id: "28049717",
-        pub_date: "2017-01-03T00:00:00.000Z",
+        pub_date: "2017-02-01T00:00:00.000Z",
         title:
           "A new HECT ubiquitin ligase regulating chemotaxis and development in Dictyostelium discoideum.",
         journal: "Journal of cell science",
-        volume: "130",
-        pages: "551-562",
+        volume: "",
+        pages: "",
         authors: [
           { last_name: "Pergolizzi" },
           { last_name: "Bracco" },
@@ -92,12 +95,12 @@ const EXPECTED_STRAIN = {
       environment: "on bacterial plate",
       publication: {
         id: "28049717",
-        pub_date: "2017-01-03T00:00:00.000Z",
+        pub_date: "2017-02-01T00:00:00.000Z",
         title:
           "A new HECT ubiquitin ligase regulating chemotaxis and development in Dictyostelium discoideum.",
         journal: "Journal of cell science",
-        volume: "130",
-        pages: "551-562",
+        volume: "",
+        pages: "",
         authors: [
           { last_name: "Pergolizzi" },
           { last_name: "Bracco" },
