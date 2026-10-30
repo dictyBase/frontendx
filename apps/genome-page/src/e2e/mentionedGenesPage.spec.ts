@@ -19,7 +19,8 @@ const EXPECTED_REFERENCE = {
   ],
   id: "29441327",
   doi: "10.3389/fcimb.2018.00008",
-  title: "Inorganic Polyphosphate Is Essential for  Typhimurium Virulence and Survival in .",
+  title:
+    "Inorganic Polyphosphate Is Essential for  Typhimurium Virulence and Survival in .",
   journal: "Frontiers in cellular and infection microbiology",
   pub_date: "2018-01-01T00:00:00.000Z",
   volume: "",
@@ -107,8 +108,6 @@ test("Gene filtering", async ({ page }) => {
 
   const genesList = page.getByTestId(RELATED_GENES_TEST_LIST_ID)
   const filteredGenes = genesList.getByRole("button")
-
-  const namedGenesCount = await filteredGenes.count()
 
   // All genes should be visible since all are named
   await expect(filteredGenes).toHaveCount(5)
