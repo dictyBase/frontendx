@@ -1,6 +1,7 @@
 import { FC } from "react"
 import { render, screen, waitFor } from "@testing-library/react"
 import { MockedProvider } from "@apollo/client/testing"
+import type { MockedResponse } from "@apollo/client/testing"
 import { none, some } from "fp-ts/Option"
 import type { Option } from "fp-ts/Option"
 import { test, expect } from "vitest"
@@ -55,7 +56,7 @@ const renderHook = (
   entity: string,
   group: Option<string>,
   skip: boolean,
-  mocks: Array<unknown>,
+  mocks: ReadonlyArray<MockedResponse>,
 ) =>
   render(
     <MockedProvider mocks={mocks} addTypename={false}>
