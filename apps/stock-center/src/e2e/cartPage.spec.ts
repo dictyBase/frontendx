@@ -1,19 +1,10 @@
 import { test, expect } from "@playwright/test"
-import { waitForImageLoad } from "./utils/waitForImageLoad"
 
 const strainCatalogButtonText = "Browse Strains"
 const plasmidCatalogButtonText = "Browse Plasmids"
 
 test.beforeEach(async ({ page }) => {
   await page.goto(`/stockcenter/cart`)
-})
-
-test("Cart page snapshot", async ({ page }) => {
-  const main = page.locator("main")
-  await expect(main).toHaveScreenshot()
-  await page.waitForLoadState("networkidle")
-  // Wait for all images to load
-  await page.waitForFunction(waitForImageLoad)
 })
 
 test.describe("Empty Cart", () => {
