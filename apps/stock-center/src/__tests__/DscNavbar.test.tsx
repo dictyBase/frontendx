@@ -255,3 +255,10 @@ test("cart aria-label reflects the total number of items in the cart", () => {
     screen.getByRole("button", { name: "Cart, 2 items" }),
   ).toBeInTheDocument()
 })
+
+// ── Authentication ────────────────────────────────────────────────────────────
+
+test("renders the login button when authentication is enabled", () => {
+  renderComponent()
+  expect(screen.getByRole("button", { name: /login/i })).toBeInTheDocument()
+})

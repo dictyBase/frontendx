@@ -16,9 +16,19 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import SearchIcon from "@mui/icons-material/Search"
 import { Outlet, useLocation, useNavigate } from "react-router-dom"
 import { useAtomValue } from "jotai"
+import { match, P } from "ts-pattern"
 import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
 import { match as Bmatch } from "fp-ts/boolean"
+import {
+  AUTH_ENABLED,
+  LoginButton,
+  LogoutButton,
+  getCallbackPath,
+  getHomePath,
+  useAuthorization,
+  type UserWithRoles,
+} from "@dictybase/auth-mui5"
 import {
   Option,
   some,
@@ -38,6 +48,17 @@ import DictyLogo from "../assets/logo.svg"
  * The navbar search input is suppressed on these paths.
  */
 const SEARCH_HIDDEN_PATHS = new Set(["/", "/catalog"])
+
+/** Roles that unlock the content administration menus. */
+const AUTHORIZED_ROLES = ["content-admin"]
+
+/** Overrides the auth button colours so they contrast with the dark bar. */
+const authButtonSx = {
+  display: "flex",
+  alignItems: "center",
+  ml: 0.5,
+  "& button": { color: "common.white" },
+} as const
 
 const createAuthNavbarItems = (
   frontPageUrl: string,
@@ -386,6 +407,42 @@ const NavbarSearch = () => {
 }
 
 /**
+ * Renders the login / logout control for the navbar.
+ *
+ * Kept in its own component so that the Logto hooks (`useAuthorization`,
+ * `useLogto`) are only mounted when authentication is enabled — see
+ * {@link DscNavbar}, which renders this component behind `AUTH_ENABLED`.
+ *
+ * An authenticated user gets the `LogoutButton` dropdown, everybody else gets
+ * the `LoginButton` that starts the Logto sign-in flow.
+ */
+const NavbarAuth = () => {
+  const basename = import.meta.env.VITE_APP_BASENAME
+  const { isAuthenticated, user } = useAuthorization({
+    entries: AUTHORIZED_ROLES,
+  })
+
+  return (
+    <Box sx={authButtonSx}>
+      {match({ isAuthenticated, user })
+        .with(
+          { isAuthenticated: true, user: P.not(undefined) },
+          ({ user: authenticatedUser }) => (
+            <LogoutButton
+              url={getHomePath(basename)}
+              frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
+              user={authenticatedUser as UserWithRoles}
+            />
+          ),
+        )
+        .otherwise(() => (
+          <LoginButton url={getCallbackPath(basename)} />
+        ))}
+    </Box>
+  )
+}
+
+/**
  * Application-level navigation bar and layout wrapper for the Dicty Stock
  * Center. Renders a sticky top bar then delegates page content via
  * `<Outlet />`.
@@ -500,6 +557,15 @@ const DscNavbar = () => {
               <ShoppingCartIcon />
             </Badge>
           </IconButton>
+
+          {/* Login / logout — only mounted when authentication is enabled */}
+          {pipe(
+            AUTH_ENABLED,
+            Bmatch(
+              () => <></>,
+              () => <NavbarAuth />,
+            ),
+          )}
         </Toolbar>
       </AppBar>
 
