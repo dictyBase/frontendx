@@ -351,32 +351,10 @@ const CatalogSearch = () => {
               .with(
                 { hasQuery: false, initialData: P.select(P.not(P.nullish)) },
                 (items) => (
-                  <Box>
-                    <Paper
-                      elevation={0}
-                      sx={{
-                        backgroundColor: "#fffbeb",
-                        border: "1px solid #fbbf24",
-                        borderRadius: "8px",
-                        padding: "12px 16px",
-                        marginBottom: "16px",
-                      }}>
-                      <Typography
-                        sx={{
-                          fontSize: "0.875rem",
-                          color: "#92400e",
-                          fontWeight: 500,
-                        }}>
-                        You are viewing a selection of available stocks. To
-                        search the full catalog, enter at least {MIN_CHARS}{" "}
-                        characters in the search field above.
-                      </Typography>
-                    </Paper>
-                    <CatalogResultsTable
-                      items={items}
-                      actionComponent={AddToCartButtonHandler}
-                    />
-                  </Box>
+                  <CatalogResultsTable
+                    items={items}
+                    actionComponent={AddToCartButtonHandler}
+                  />
                 ),
               )
               .with({ hasQuery: false }, () => (
