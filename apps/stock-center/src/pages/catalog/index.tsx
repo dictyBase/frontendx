@@ -18,6 +18,7 @@ import { P, match } from "ts-pattern"
 import { pipe, flow } from "fp-ts/function"
 import {
   Option,
+  alt as Oalt,
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
   map as Omap,
@@ -186,7 +187,14 @@ const CatalogSearch = () => {
     OfromNullable,
     OgetOrElse(() => pipe(catalogEntityFilterOptions, getFirstEntity)),
   )
-  const group = pipe(searchParameters.get(GROUP_PARAM), OfromNullable)
+  // Fall back to the entity's first group, which is "all" for strains and
+  // plasmids, so those catalogs open with their "All ..." option selected.
+  // Entities without groups (i.e. "All Results") have no group filter.
+  const group = pipe(
+    searchParameters.get(GROUP_PARAM),
+    OfromNullable,
+    Oalt(() => getFirstGroup(entity)),
+  )
   const searchTerm = pipe(
     searchParameters.get(QUERY_PARAM),
     OfromNullable,
