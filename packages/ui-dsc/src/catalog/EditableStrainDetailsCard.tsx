@@ -6,6 +6,7 @@ import Card from "@mui/material/Card"
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
 import { pipe } from "fp-ts/function"
+import { filter as Afilter } from "fp-ts/Array"
 import {
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
@@ -29,6 +30,7 @@ import { GenesDisplay } from "./GenesDisplay"
 import { PublicationDisplay } from "./PublicationDisplay"
 import { GenotypesDisplay } from "./GenotypesDisplay"
 import { getDepositorName } from "../utils/getDepositorName"
+import { hasUsableName } from "../utils/hasUsableName"
 import { DetailsRow } from "../types"
 
 const strainRowsGenerator = (
@@ -141,7 +143,7 @@ const EditableStrainDetailsCard = ({
     parent,
     getDepositorName(depositor),
     publications,
-    <GenesDisplay genes={genes} />,
+    <GenesDisplay genes={pipe(genes, Afilter(hasUsableName))} />,
     <GenotypesDisplay genotypes={genotypes[0] as string} />,
   )
 
