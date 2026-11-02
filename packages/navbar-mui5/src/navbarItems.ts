@@ -120,11 +120,11 @@ const createNavbarItems = (frontPageUrl: string, stockCenterUrl: string) => ({
           },
           {
             label: "Strain Catalog",
-            link: `${stockCenterUrl}/strains`,
+            link: `${stockCenterUrl}/catalog?entity=strain`,
           },
           {
             label: "Plasmid Catalog",
-            link: `${stockCenterUrl}/plasmids`,
+            link: `${stockCenterUrl}/catalog?entity=plasmid`,
           },
           {
             label: "Order Information",

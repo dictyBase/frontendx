@@ -282,3 +282,27 @@ test("links the Standard Operating Procedures item to the internal SOP page", as
     screen.getByRole("link", { name: /standard operating procedures/i }),
   ).toHaveAttribute("href", expect.stringContaining("/information/sop/show"))
 })
+
+test("links the Strains catalog item to the catalog page filtered by strains", async () => {
+  await openStockCenterMenu()
+  expect(screen.getByRole("link", { name: /^strains$/i })).toHaveAttribute(
+    "href",
+    expect.stringContaining("/catalog?entity=strain"),
+  )
+})
+
+test("links the Plasmids catalog item to the catalog page filtered by plasmids", async () => {
+  await openStockCenterMenu()
+  expect(screen.getByRole("link", { name: /^plasmids$/i })).toHaveAttribute(
+    "href",
+    expect.stringContaining("/catalog?entity=plasmid"),
+  )
+})
+
+test("links the Full Catalog item to the catalog page", async () => {
+  await openStockCenterMenu()
+  expect(screen.getByRole("link", { name: /full catalog/i })).toHaveAttribute(
+    "href",
+    expect.stringContaining("/catalog"),
+  )
+})
