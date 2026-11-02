@@ -1,4 +1,10 @@
-import { useState, useEffect, useCallback, ChangeEventHandler } from "react"
+import {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  ChangeEventHandler,
+} from "react"
 import {
   Box,
   ThemeProvider,
@@ -17,7 +23,6 @@ import {
   map as Omap,
   flatMap as OflatMap,
   match as Omatch,
-  some,
 } from "fp-ts/Option"
 import {
   match as Amatch,
@@ -148,6 +153,20 @@ const stockGroupFilter =
       .otherwise(() => group === stock_type)
 
 const getFirstEntity = flow(RNEAhead<SidebarOption>, ({ value }) => value)
+
+/**
+ * Returns the value of the first group option belonging to an entity.
+ *
+ * @param entityValue - The `entity` url parameter value to look up.
+ * @returns The first group value (i.e. "all"), wrapped in an Option.
+ */
+const getFirstGroup = (entityValue: string): Option<string> =>
+  pipe(
+    catalogEntityFilterOptions,
+    AfindFirst(({ value }) => value === entityValue),
+    OflatMap(({ groups }) => pipe(groups, OfromNullable, Omap(RNEAhead))),
+    Omap(({ value }) => value),
+  )
 /**
  * Full-catalog search page.
  *
@@ -159,23 +178,32 @@ const getFirstEntity = flow(RNEAhead<SidebarOption>, ({ value }) => value)
  */
 const CatalogSearch = () => {
   const [searchParameters, setSearchParameters] = useSearchParams()
-  const initialQueryParameter = pipe(
+
+  // The filters live in the url so navigation is the single source of truth;
+  // local state only mirrors the query string for the text box.
+  const entity = pipe(
+    searchParameters.get(ENTITY_PARAM),
+    OfromNullable,
+    OgetOrElse(() => pipe(catalogEntityFilterOptions, getFirstEntity)),
+  )
+  const group = pipe(searchParameters.get(GROUP_PARAM), OfromNullable)
+  const searchTerm = pipe(
     searchParameters.get(QUERY_PARAM),
     OfromNullable,
     OgetOrElse(() => ""),
   )
-  const [inputValue, setInputValue] = useState(initialQueryParameter)
-  const [searchTerm, setSearchTerm] = useState(initialQueryParameter)
-  const [entity, setEntity] = useState(
-    pipe(
-      searchParameters.get("entity"),
-      OfromNullable,
-      OgetOrElse(() => pipe(catalogEntityFilterOptions, getFirstEntity)),
-    ),
-  )
-  const [group, setGroup] = useState<Option<string>>(
-    pipe(searchParameters.get("group"), OfromNullable),
-  )
+
+  const [inputValue, setInputValue] = useState(searchTerm)
+
+  // Latest values for the debounced write. `setSearchParameters` is recreated
+  // whenever the location search changes, so listing it as a dependency of the
+  // write effect would re-run it on unrelated navigations and revert them.
+  const latestSearch = useRef({ searchTerm, setSearchParameters })
+  latestSearch.current = { searchTerm, setSearchParameters }
+
+  // The last `q` written by this component, used to tell its own updates apart
+  // from external url changes such as the navbar catalog links.
+  const lastWrittenSearchTerm = useRef(searchTerm)
 
   const hasQuery = searchTerm.length >= MIN_CHARS
 
@@ -186,45 +214,37 @@ const CatalogSearch = () => {
     skip: hasQuery,
   })
 
-  // Initializes the search parameters with parameters that corresponding to the default selected radio option.
-  // useEffect(() => {
-  //   setSearchParameter("entity", entity, { replace: true })
-  // }, [entity, setSearchParameter])
-  // Debounce: update local searchTerm after a short delay.
+  // Debounce the text box and write the trimmed query into the `q` url param.
   useEffect(() => {
     const timer = setTimeout(() => {
-      setSearchTerm(inputValue.trim())
+      const nextTerm = inputValue.trim()
+      const { searchTerm: currentTerm, setSearchParameters: updateParameters } =
+        latestSearch.current
+      if (nextTerm === currentTerm) return
+      lastWrittenSearchTerm.current = nextTerm
+      updateParameters(
+        (previous) => {
+          const next = new URLSearchParams([...previous.entries()])
+          if (nextTerm.length >= MIN_CHARS) {
+            next.set(QUERY_PARAM, nextTerm)
+          } else {
+            next.delete(QUERY_PARAM)
+          }
+          return [...next.entries()]
+        },
+        { replace: true },
+      )
     }, DEBOUNCE_DELAY_MS)
     return () => clearTimeout(timer)
   }, [inputValue])
 
-  // Keep the `q` URL param in sync with the debounced search term.
+  // Mirror the url query back into the text box when it changed outside this
+  // component, i.e. through the navbar catalog links or back/forward.
   useEffect(() => {
-    setSearchParameters(
-      (previous) => {
-        const next = new URLSearchParams([...previous.entries()])
-        if (searchTerm.length >= MIN_CHARS) {
-          next.set(QUERY_PARAM, searchTerm)
-        } else {
-          next.delete(QUERY_PARAM)
-        }
-        next.set(ENTITY_PARAM, entity)
-        pipe(
-          group,
-          Omatch(
-            () => {
-              next.delete(GROUP_PARAM)
-            },
-            (g) => {
-              next.set(GROUP_PARAM, g)
-            },
-          ),
-        )
-        return [...next.entries()]
-      },
-      { replace: true },
-    )
-  }, [searchTerm, setSearchParameters, entity, group])
+    if (searchTerm === lastWrittenSearchTerm.current) return
+    lastWrittenSearchTerm.current = searchTerm
+    setInputValue(searchTerm)
+  }, [searchTerm])
 
   // Fire the lazy query whenever the search term or entity filter changes.
   useEffect(() => {
@@ -258,22 +278,29 @@ const CatalogSearch = () => {
   const onChangeEntity: ChangeEventHandler<HTMLInputElement> = ({
     currentTarget,
   }) => {
-    setEntity(currentTarget.value)
-
-    // Set group state to first item in `entity`'s `groups`
-    pipe(
-      catalogEntityFilterOptions,
-      AfindFirst(({ value }) => value === currentTarget.value),
-      OflatMap(({ groups }) => pipe(groups, OfromNullable, Omap(RNEAhead))),
-      Omap(({ value }) => value),
-      setGroup,
-    )
+    // Selecting an entity resets the group to that entity's first option.
+    setSearchParameters((previous) => {
+      const next = new URLSearchParams([...previous.entries()])
+      next.set(ENTITY_PARAM, currentTarget.value)
+      pipe(
+        getFirstGroup(currentTarget.value),
+        Omatch(
+          () => next.delete(GROUP_PARAM),
+          (groupValue) => next.set(GROUP_PARAM, groupValue),
+        ),
+      )
+      return [...next.entries()]
+    })
   }
 
   const onChangeGroup: ChangeEventHandler<HTMLInputElement> = ({
     currentTarget,
   }) => {
-    setGroup(some(currentTarget.value))
+    setSearchParameters((previous) => {
+      const next = new URLSearchParams([...previous.entries()])
+      next.set(GROUP_PARAM, currentTarget.value)
+      return [...next.entries()]
+    })
   }
   return (
     <ThemeProvider theme={catalogTheme}>

@@ -2,7 +2,7 @@ import { vi, test, expect, beforeEach } from "vitest"
 import { render, screen, act } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
 import { MockedProvider } from "@apollo/client/testing"
-import { MemoryRouter } from "react-router-dom"
+import { Link, MemoryRouter, useLocation } from "react-router-dom"
 import { Provider, createStore } from "jotai"
 import {
   SearchStocksDocument,
@@ -356,4 +356,98 @@ test("filters results by group when a specific group is selected", async () => {
   expect(
     await screen.findByText("gwdiStrain", {}, QUERY_TIMEOUT),
   ).toBeInTheDocument()
+})
+
+// ── Url driven navigation ─────────────────────────────────────────────────────
+
+/** Test id of the location search probe. */
+const LOCATION_SEARCH_TEST_ID = "location-search"
+
+/** Catalog route without any filter. */
+const CATALOG_PATH = "/catalog"
+
+/** Catalog route preselecting the strain entity. */
+const STRAIN_ENTITY_PATH = `${CATALOG_PATH}?entity=strain`
+
+/** Catalog route preselecting the plasmid entity. */
+const PLASMID_ENTITY_PATH = `${CATALOG_PATH}?entity=plasmid`
+
+/** Search fragment expected when the strain entity is selected. */
+const STRAIN_ENTITY_SEARCH = "entity=strain"
+
+/** Search fragment expected when the plasmid entity is selected. */
+const PLASMID_ENTITY_SEARCH = "entity=plasmid"
+
+/**
+ * Renders the current location search string next to the page so tests can
+ * assert on url updates without relying on a specific router implementation.
+ *
+ * @returns The location search rendered in a test id.
+ */
+const LocationProbe = () => {
+  const { search } = useLocation()
+  return <div data-testid={LOCATION_SEARCH_TEST_ID}>{search}</div>
+}
+
+/**
+ * Renders the catalog page with an extra in-app link used to simulate
+ * navigation coming from outside the page, e.g. the navbar catalog links.
+ *
+ * @param to - Target of the simulated external link.
+ * @param label - Visible label of the simulated external link.
+ * @param initialEntries - Initial history entries for the memory router.
+ * @returns The Testing Library render result.
+ */
+const renderWithExternalLink = (
+  to: string,
+  label: string,
+  initialEntries: Array<string>,
+) =>
+  render(
+    <Provider store={makeStore()}>
+      <MockedProvider mocks={[]} addTypename={false}>
+        <MemoryRouter initialEntries={initialEntries}>
+          <Link to={to}>{label}</Link>
+          <LocationProbe />
+          <CatalogSearch />
+        </MemoryRouter>
+      </MockedProvider>
+    </Provider>,
+  )
+
+test("follows an external navigation that changes the entity filter", async () => {
+  renderWithExternalLink(STRAIN_ENTITY_PATH, "go to strains", [
+    PLASMID_ENTITY_PATH,
+  ])
+  expect(screen.getByTestId(LOCATION_SEARCH_TEST_ID)).toHaveTextContent(
+    PLASMID_ENTITY_SEARCH,
+  )
+
+  await userEvent.click(screen.getByRole("link", { name: /go to strains/i }))
+
+  expect(screen.getByTestId(LOCATION_SEARCH_TEST_ID)).toHaveTextContent(
+    STRAIN_ENTITY_SEARCH,
+  )
+  expect(screen.getByRole("radio", { name: /^strains$/i })).toBeChecked()
+})
+
+test("clears the search box when navigation removes the query param", async () => {
+  renderWithExternalLink(CATALOG_PATH, "reset search", [
+    `${CATALOG_PATH}?q=${searchQuery}`,
+  ])
+  expect(getInput()).toHaveValue(searchQuery)
+
+  await userEvent.click(screen.getByRole("link", { name: /reset search/i }))
+
+  expect(getInput()).toHaveValue("")
+})
+
+test("writes the entity and its default group to the url when selected", async () => {
+  renderWithExternalLink(CATALOG_PATH, "noop", [CATALOG_PATH])
+
+  await userEvent.click(screen.getByRole("radio", { name: /^plasmids$/i }))
+
+  const search = screen.getByTestId(LOCATION_SEARCH_TEST_ID).textContent ?? ""
+  expect(search).toContain(PLASMID_ENTITY_SEARCH)
+  expect(search).toContain("group=all")
 })
