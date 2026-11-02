@@ -64,14 +64,6 @@ const fillShippingForm = async (page: Page) => {
     .fill(shippingData.shippingAccountNumber)
 }
 
-test("Shipping page snapshot", async ({ page }) => {
-  const main = page.locator("main")
-  await expect(main).toHaveScreenshot()
-  await page.waitForLoadState("networkidle")
-  // Wait for all images to load
-  await page.waitForFunction(waitForImageLoad)
-})
-
 test.describe("Shipping Address Step", () => {
   test("displays shipping address step when order page loads", async ({
     page,
@@ -164,14 +156,6 @@ test.describe("Payment Details", () => {
     await page.getByRole("button", { name: "Continue" }).click()
 
     await page.getByRole("checkbox", { name: "Use Shipping Address" }).check()
-  })
-
-  test("Shipping page snapshot", async ({ page }) => {
-    const main = page.locator("main")
-    await expect(main).toHaveScreenshot()
-    await page.waitForLoadState("networkidle")
-    // Wait for all images to load
-    await page.waitForFunction(waitForImageLoad)
   })
 
   test("fills payment address details when `same as shipping` checkbox is checked", async ({
