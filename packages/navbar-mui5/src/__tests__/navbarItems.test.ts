@@ -193,3 +193,39 @@ describe("formatNavbarData", () => {
     ])
   })
 })
+
+describe("createNavbarItems catalog links", () => {
+  const frontPageUrl = "https://frontpage.example.com"
+  const stockCenterUrl = "https://stockcenter.example.com"
+
+  /**
+   * Reads the "Dicty Stock Center" dropdown items.
+   *
+   * @returns The items of the `dsc` navbar section.
+   */
+  const stockCenterItems = () => {
+    const dscSection = createNavbarItems(
+      frontPageUrl,
+      stockCenterUrl,
+    ).data.find(({ type }) => type === "dsc")
+    return dscSection?.attributes.items ?? []
+  }
+
+  test("links the strain catalog to the catalog page filtered by strains", () => {
+    expect(
+      stockCenterItems().find(({ label }) => label === "Strain Catalog")?.link,
+    ).toBe(`${stockCenterUrl}/catalog?entity=strain`)
+  })
+
+  test("links the plasmid catalog to the catalog page filtered by plasmids", () => {
+    expect(
+      stockCenterItems().find(({ label }) => label === "Plasmid Catalog")?.link,
+    ).toBe(`${stockCenterUrl}/catalog?entity=plasmid`)
+  })
+
+  test("does not link the catalogs to the removed standalone list routes", () => {
+    const links = stockCenterItems().map(({ link }) => link)
+    expect(links).not.toContain(`${stockCenterUrl}/strains`)
+    expect(links).not.toContain(`${stockCenterUrl}/plasmids`)
+  })
+})

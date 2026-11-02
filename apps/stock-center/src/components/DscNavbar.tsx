@@ -49,6 +49,14 @@ import DictyLogo from "../assets/logo.svg"
  */
 const SEARCH_HIDDEN_PATHS = new Set(["/", "/catalog"])
 
+/**
+ * Path of the full catalog search page, relative to the stock center url.
+ *
+ * The per-entity catalog links are query-parameter driven variants of it, i.e.
+ * `/catalog?entity=strain`.
+ */
+const CATALOG_ROUTE = "/catalog"
+
 /** Roles that unlock the content administration menus. */
 const AUTHORIZED_ROLES = ["content-admin"]
 
@@ -203,15 +211,15 @@ const createAuthNavbarItems = (
             links: [
               {
                 label: "Full Catalog",
-                href: `${stockCenterUrl}/catalog`,
+                href: `${stockCenterUrl}${CATALOG_ROUTE}`,
               },
               {
                 label: "Strains",
-                href: `${stockCenterUrl}/strains`,
+                href: `${stockCenterUrl}${CATALOG_ROUTE}?entity=strain`,
               },
               {
                 label: "Plasmids",
-                href: `${stockCenterUrl}/plasmids`,
+                href: `${stockCenterUrl}${CATALOG_ROUTE}?entity=plasmid`,
               },
             ],
           },
