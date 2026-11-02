@@ -79,6 +79,7 @@ const DscNavbarMenu = ({
   return (
     <Button
       role="navigation"
+      aria-label={label}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       ref={anchorReference}

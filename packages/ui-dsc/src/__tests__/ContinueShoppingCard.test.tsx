@@ -7,8 +7,7 @@ import { ContinueShoppingCard } from "../cart/ContinueShoppingCard"
 const App = () => (
   <MemoryRouter initialEntries={["/cart"]}>
     <Routes>
-      <Route path="/strains" element={<> Strain Catalog </>} />
-      <Route path="/plasmids" element={<> Plasmid Catalog </>} />
+      <Route path="/catalog" element={<> Catalog </>} />
       <Route path="/cart" element={<ContinueShoppingCard />} />
     </Routes>
   </MemoryRouter>
@@ -21,21 +20,21 @@ describe("ContinueShoppingCard", () => {
     expect(textElement).toBeInTheDocument()
   })
 
-  test("should render a Button with the text 'Strains Catalog' that links user to the /strains route", async () => {
+  test("should render a Button with the text 'Strains Catalog' that links user to the /catalog?entity=strain route", async () => {
     render(<App />)
-    const buttonElement = screen.getByText("Strain Catalog")
+    const buttonElement = screen.getByText("Browse Strains")
 
     await userEvent.click(buttonElement)
 
-    expect(screen.getByText("Strain Catalog")).toBeInTheDocument()
+    expect(screen.getByText("Catalog")).toBeInTheDocument()
   })
 
-  test("should render a Button with the text 'Plasmids Catalog' that links user to the /plasmids route", async () => {
+  test("should render a Button with the text 'Plasmids Catalog' that links user to the /catalog?entity=plasmid route", async () => {
     render(<App />)
-    const buttonElement = screen.getByText("Plasmid Catalog")
+    const buttonElement = screen.getByText("Browse Plasmids")
 
     await userEvent.click(buttonElement)
 
-    expect(screen.getByText("Plasmid Catalog")).toBeInTheDocument()
+    expect(screen.getByText("Catalog")).toBeInTheDocument()
   })
 })

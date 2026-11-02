@@ -67,27 +67,29 @@ test("renders the logo brand button", () => {
 
 test("renders the Explore menu button", () => {
   renderComponent()
-  expect(screen.getByRole("button", { name: /^explore$/i })).toBeInTheDocument()
+  expect(
+    screen.getByRole("navigation", { name: /^explore$/i }),
+  ).toBeInTheDocument()
 })
 
 test("renders the Research menu button", () => {
   renderComponent()
   expect(
-    screen.getByRole("button", { name: /^research$/i }),
+    screen.getByRole("navigation", { name: /^research$/i }),
   ).toBeInTheDocument()
 })
 
 test("renders the Dicty Stock Center menu button", () => {
   renderComponent()
   expect(
-    screen.getByRole("button", { name: /^dicty stock center$/i }),
+    screen.getByRole("navigation", { name: /^dicty stock center$/i }),
   ).toBeInTheDocument()
 })
 
 test("renders the Community menu button", () => {
   renderComponent()
   expect(
-    screen.getByRole("button", { name: /^community$/i }),
+    screen.getByRole("navigation", { name: /^community$/i }),
   ).toBeInTheDocument()
 })
 
