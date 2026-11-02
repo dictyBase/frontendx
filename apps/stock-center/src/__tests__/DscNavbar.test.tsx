@@ -262,3 +262,23 @@ test("renders the login button when authentication is enabled", () => {
   renderComponent()
   expect(screen.getByRole("button", { name: /login/i })).toBeInTheDocument()
 })
+
+// ── Dicty Stock Center menu contents ──────────────────────────────────────────
+
+/**
+ * Opens the "Dicty Stock Center" dropdown so its links can be inspected.
+ */
+const openStockCenterMenu = async () => {
+  const user = userEvent.setup()
+  renderComponent()
+  await user.hover(
+    screen.getByRole("navigation", { name: /^dicty stock center$/i }),
+  )
+}
+
+test("links the Standard Operating Procedures item to the internal SOP page", async () => {
+  await openStockCenterMenu()
+  expect(
+    screen.getByRole("link", { name: /standard operating procedures/i }),
+  ).toHaveAttribute("href", expect.stringContaining("/information/sop/show"))
+})

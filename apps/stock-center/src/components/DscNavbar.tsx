@@ -234,7 +234,7 @@ const createAuthNavbarItems = (
               },
               {
                 label: "Standard Operating Procedures",
-                href: "https://northwestern.box.com/s/p0f8m70whgiuib2u0wt8gtn497ncmq8i",
+                href: `${stockCenterUrl}/information/sop/show`,
               },
               {
                 label: "FAQ",
