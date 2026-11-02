@@ -54,3 +54,10 @@ test("suggests the file name when downloading", () => {
     mockProperties.fileName,
   )
 })
+
+test("does not sandbox the viewer so the browser pdf viewer can render it", () => {
+  render(<PdfDocumentDisplay {...mockProperties} />)
+  // Chrome's built-in PDF viewer refuses to run in a sandboxed frame, so the
+  // iframe must stay sandboxless (see PdfDocumentDisplay.tsx).
+  expect(screen.getByTitle(mockProperties.title)).not.toHaveAttribute("sandbox")
+})

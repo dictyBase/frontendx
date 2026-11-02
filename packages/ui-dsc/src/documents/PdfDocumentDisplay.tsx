@@ -3,17 +3,20 @@ import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 import DownloadIcon from "@mui/icons-material/Download"
 
+// The viewer must not be sandboxed: Chrome's built-in PDF viewer refuses to
+// render inside a sandboxed frame, which leaves the viewer blank. The document
+// is a trusted, same-origin static asset served by this app.
+/* oxlint-disable eslint-plugin-react/iframe-missing-sandbox */
+
 /** Default height, in pixels, of the embedded PDF viewer. */
 const DEFAULT_VIEWER_HEIGHT = 800
 
-/**
- * Sandbox permissions for the embedded viewer.
- *
- * `allow-same-origin` is the minimum needed for the browser's built-in PDF
- * plugin to load a same-origin document. `allow-scripts` is intentionally
- * excluded to avoid the browser warning about escaping sandboxing.
- */
-const VIEWER_SANDBOX = "allow-same-origin"
+/** Layout styles applied to the embedded viewer. */
+const viewerStyle = {
+  width: "100%",
+  border: 0,
+  backgroundColor: "#eeeeee",
+} as const
 
 type PdfDocumentDisplayProperties = {
   /** URL (absolute or app relative) of the PDF document to display. */
@@ -43,39 +46,39 @@ const PdfDocumentDisplay = ({
   fileName,
   title,
   height = DEFAULT_VIEWER_HEIGHT,
-}: PdfDocumentDisplayProperties) => (
-  <Box>
-    <Box
-      sx={{
-        display: "flex",
-        flexWrap: "wrap",
-        alignItems: "center",
-        justifyContent: "space-between",
-        gap: 2,
-        marginBottom: 2,
-      }}>
-      <Typography variant="h2" textAlign="left">
-        {title}
-      </Typography>
-      <Button
-        component="a"
-        href={src}
-        download={fileName}
-        variant="contained"
-        color="primary"
-        startIcon={<DownloadIcon />}>
-        Download PDF
-      </Button>
+}: PdfDocumentDisplayProperties) => {
+  const viewer = (
+    <iframe src={src} title={title} height={height} style={viewerStyle} />
+  )
+
+  return (
+    <Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 2,
+          marginBottom: 2,
+        }}>
+        <Typography variant="h2" textAlign="left">
+          {title}
+        </Typography>
+        <Button
+          component="a"
+          href={src}
+          download={fileName}
+          variant="contained"
+          color="primary"
+          startIcon={<DownloadIcon />}>
+          Download PDF
+        </Button>
+      </Box>
+      {viewer}
     </Box>
-    <iframe
-      src={src}
-      title={title}
-      height={height}
-      sandbox={VIEWER_SANDBOX}
-      style={{ width: "100%", border: 0, backgroundColor: "#eeeeee" }}
-    />
-  </Box>
-)
+  )
+}
 
 export { PdfDocumentDisplay, DEFAULT_VIEWER_HEIGHT }
 export type { PdfDocumentDisplayProperties }
