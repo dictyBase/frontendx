@@ -8,7 +8,10 @@ import {
   type ListStrainsWithPhenotypeQuery,
 } from "dicty-graphql-schema"
 import { listStrainsWithAnnotationPagination } from "@dictybase/hook-dsc"
-import { SearchPhenotypeContainer } from "../catalog/SearchPhenotypeContainer"
+import {
+  SearchPhenotypeContainer,
+  getNextCursor,
+} from "../catalog/SearchPhenotypeContainer"
 import { first50, second50, lastItems } from "../mocks/mockSearchData"
 
 type StrainWithAnnotation = NonNullable<
@@ -336,4 +339,35 @@ test("displays prompt to enter a phenotype when no name param is present", async
   )
 
   expect(promptMessage).toBeInTheDocument()
+})
+
+// ── getNextCursor ─────────────────────────────────────────────────────────────
+
+/**
+ * Builds a query result carrying the given next cursor.
+ *
+ * @param nextCursor - The cursor to place in the `listStrainsWithAnnotation`
+ *   payload, or `null` to simulate a payload without one.
+ * @returns A `ListStrainsWithPhenotypeQuery` shaped value.
+ */
+const queryResult = (nextCursor: number | null) =>
+  ({
+    listStrainsWithAnnotation: { totalCount: 0, nextCursor, strains: [] },
+  }) as unknown as ListStrainsWithPhenotypeQuery
+
+test("getNextCursor returns the cursor of the result", () => {
+  expect(getNextCursor(queryResult(123_456))).toBe(123_456)
+})
+
+test("getNextCursor returns 0 when the data has not resolved yet", () => {
+  expect(getNextCursor(undefined)).toBe(0)
+})
+
+test("getNextCursor returns 0 when the payload has no cursor", () => {
+  // eslint-disable-next-line unicorn/no-null
+  expect(getNextCursor(queryResult(null))).toBe(0)
+})
+
+test("getNextCursor returns 0 when the payload is missing", () => {
+  expect(getNextCursor({} as unknown as ListStrainsWithPhenotypeQuery)).toBe(0)
 })

@@ -1,10 +1,19 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { P, match } from "ts-pattern"
+import { pipe } from "fp-ts/function"
+import {
+  fromNullable as OfromNullable,
+  map as Omap,
+  getOrElse as OgetOrElse,
+} from "fp-ts/Option"
 import { makeStyles } from "tss-react/mui"
 import { Grid } from "@mui/material"
 import { PageLayout, FullPageLoadingDisplay } from "@dictybase/ui-common"
-import { useListStrainsWithPhenotypeQuery } from "dicty-graphql-schema"
+import {
+  useListStrainsWithPhenotypeQuery,
+  type ListStrainsWithPhenotypeQuery,
+} from "dicty-graphql-schema"
 import { ErrorPageWrapper } from "../ErrorPageWrapper"
 import { SearchResultsHeader } from "./SearchResultsHeader"
 import { SearchPhenotypeList } from "./SearchPhenotypeList"
@@ -35,6 +44,21 @@ const dataPattern = {
 }
 
 /**
+ * Reads the pagination cursor of a `listStrainsWithAnnotation` query result.
+ *
+ * @param data - The query result data, which is absent while the first page
+ *   is still loading.
+ * @returns The next cursor of the result set, or `0` when the data has not
+ *   resolved yet (which callers treat as "nothing more to load").
+ */
+const getNextCursor = (data?: ListStrainsWithPhenotypeQuery): number =>
+  pipe(
+    data?.listStrainsWithAnnotation?.nextCursor,
+    OfromNullable,
+    OgetOrElse(() => 0),
+  )
+
+/**
  * Custom hook to handle all fetching/refetching logic for strains with a
  * given phenotype annotation.
  * @param phenotype the phenotype annotation used to filter strains
@@ -54,7 +78,7 @@ const useListStrainsWithPhenotype = (phenotype: string) => {
     errorPolicy: "all",
   })
   const loadMoreItems = async () => {
-    const newCursor = data?.listStrainsWithAnnotation?.nextCursor ?? 0
+    const newCursor = getNextCursor(data)
     // need to check for same cursor to prevent extra fetching
     // https://github.com/apollographql/apollo-client/issues/5901
     if (newCursor === previousCursor || newCursor === 0) {
@@ -99,7 +123,12 @@ const useListStrainsWithPhenotype = (phenotype: string) => {
 const SearchPhenotypeContainer = () => {
   const { classes } = useStyles()
   const { name } = useParams()
-  const phenotype = cleanQuery(name ?? "")
+  const phenotype = pipe(
+    name,
+    OfromNullable,
+    Omap(cleanQuery),
+    OgetOrElse(() => ""),
+  )
   const { loading, error, data, loadMoreItems, hasMore, isLoadingMore } =
     useListStrainsWithPhenotype(phenotype)
 
@@ -147,4 +176,4 @@ const SearchPhenotypeContainer = () => {
   )
 }
 
-export { SearchPhenotypeContainer }
+export { SearchPhenotypeContainer, getNextCursor }

@@ -1,4 +1,9 @@
 import { useEffect } from "react"
+import { pipe } from "fp-ts/function"
+import {
+  fromNullable as OfromNullable,
+  getOrElse as OgetOrElse,
+} from "fp-ts/Option"
 import { makeStyles } from "tss-react/mui"
 import FormControl from "@mui/material/FormControl"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
@@ -66,7 +71,11 @@ export const FilterDropdown = ({
 }: FilterDropdownProperties) => {
   const { classes } = useStyles()
   const [searchParameters, setSearchParameters] = useSearchParams()
-  const filterValue = searchParameters.get(param) ?? value
+  const filterValue = pipe(
+    searchParameters.get(param),
+    OfromNullable,
+    OgetOrElse(() => value),
+  )
 
   useEffect(() => {
     setSearchParameters(
