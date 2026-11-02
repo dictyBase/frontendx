@@ -18,9 +18,9 @@ test("displays button links to catalogs", () => {
     </Router>,
   )
   expect(
-    screen.getByRole("link", { name: "Strain Catalog" }),
+    screen.getByRole("link", { name: "Browse Strains" }),
   ).toBeInTheDocument()
   expect(
-    screen.getByRole("link", { name: "Plasmid Catalog" }),
+    screen.getByRole("link", { name: "Browse Plasmids" }),
   ).toBeInTheDocument()
 })
