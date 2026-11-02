@@ -69,18 +69,22 @@ describe("createNavbarItems", () => {
     expect(dscSection).toBeDefined()
     const dscItems = dscSection?.attributes.items || []
 
-    // All items except the last one (Standard Operating Procedures) should use stockCenterUrl
-    dscItems.slice(0, -1).forEach((item) => {
+    dscItems.forEach((item) => {
       expect(item.link).toContain(stockCenterUrl)
     })
+  })
 
-    // Last item should be the external Northwestern box link
-    const lastItem = dscItems.at(-1)
+  test("should link the Standard Operating Procedures to the internal SOP page", () => {
+    const result = createNavbarItems(frontPageUrl, stockCenterUrl)
+    const dscSection = result.data.find((item) => item.type === "dsc")
 
-    assert(lastItem)
-    expect(lastItem.link).toBe(
-      "https://northwestern.box.com/s/p0f8m70whgiuib2u0wt8gtn497ncmq8i",
+    expect(dscSection).toBeDefined()
+    const sopItem = dscSection?.attributes.items.find(
+      (item) => item.label === "Standard Operating Procedures",
     )
+
+    assert(sopItem)
+    expect(sopItem.link).toBe(`${stockCenterUrl}/information/sop/show`)
   })
 
   test("should interpolate frontPageUrl in community section links", () => {
