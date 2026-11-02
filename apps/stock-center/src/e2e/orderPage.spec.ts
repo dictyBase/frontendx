@@ -1,6 +1,5 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import { test, expect, type Page } from "@playwright/test"
-import { waitForImageLoad } from "./utils/waitForImageLoad"
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/stockcenter/strains/DBS0391520")
