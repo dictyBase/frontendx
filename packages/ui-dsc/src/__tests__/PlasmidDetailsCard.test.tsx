@@ -73,3 +73,32 @@ describe("PlasmidDetailsCard", () => {
     // Further assertions to ensure no publications are displayed
   })
 })
+
+describe("PlasmidDetailsCard gene filtering", () => {
+  test("does not render a gene tag for a placeholder gene with a blank name", () => {
+    const plasmidWithBlankGene = {
+      ...mockPlasmid,
+      genes: [{ __typename: "Gene", name: "" }],
+    } as typeof mockPlasmid
+    const { container } = render(
+      <PlasmidDetailsCard plasmid={plasmidWithBlankGene} />,
+    )
+    expect(screen.getByText("Associated Gene(s)")).toBeInTheDocument()
+    expect(container.querySelector('a[href="/gene/"]')).toBeNull()
+  })
+
+  test("renders a gene tag for every named gene", () => {
+    const plasmidWithGenes = {
+      ...mockPlasmid,
+      genes: [
+        { __typename: "Gene", name: "sadA" },
+        { __typename: "Gene", name: "gflB" },
+      ],
+    } as typeof mockPlasmid
+    const { container } = render(
+      <PlasmidDetailsCard plasmid={plasmidWithGenes} />,
+    )
+    expect(container.querySelector('a[href="/gene/sadA"]')).not.toBeNull()
+    expect(container.querySelector('a[href="/gene/gflB"]')).not.toBeNull()
+  })
+})

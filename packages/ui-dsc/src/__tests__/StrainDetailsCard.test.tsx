@@ -57,3 +57,42 @@ test("If the strain has 1 or more phenotypes, render a `Phenotypes` tab", () => 
 
   expect(screen.getByText(/Phenotypes/)).toBeInTheDocument()
 })
+
+test("does not render a gene tag for a placeholder gene with a blank name", () => {
+  const strainWithBlankGene = {
+    ...availableStrain,
+    genes: [{ __typename: "Gene", name: "" }],
+  } as typeof availableStrain
+  const { container } = render(
+    <MemoryRouter>
+      <StrainDetailsCard
+        data={strainWithBlankGene}
+        tabValue={0}
+        setTabValue={() => {}}
+      />
+    </MemoryRouter>,
+  )
+  expect(screen.getByText("Associated Gene(s)")).toBeVisible()
+  expect(container.querySelector('a[href="/gene/"]')).toBeNull()
+})
+
+test("renders a gene tag for every named gene", () => {
+  const strainWithGenes = {
+    ...availableStrain,
+    genes: [
+      { __typename: "Gene", name: "sadA" },
+      { __typename: "Gene", name: "gflB" },
+    ],
+  } as typeof availableStrain
+  const { container } = render(
+    <MemoryRouter>
+      <StrainDetailsCard
+        data={strainWithGenes}
+        tabValue={0}
+        setTabValue={() => {}}
+      />
+    </MemoryRouter>,
+  )
+  expect(container.querySelector('a[href="/gene/sadA"]')).not.toBeNull()
+  expect(container.querySelector('a[href="/gene/gflB"]')).not.toBeNull()
+})

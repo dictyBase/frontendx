@@ -7,13 +7,14 @@ import {
   flatMap as OflatMap,
   fromPredicate as OfromPredicate,
 } from "fp-ts/Option"
-import { map as Amap } from "fp-ts/Array"
+import { map as Amap, filter as Afilter } from "fp-ts/Array"
 import Box from "@mui/material/Box"
 import Grid from "@mui/material/Grid"
 import Card from "@mui/material/Card"
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
 import { PlasmidQuery } from "dicty-graphql-schema"
+import { hasUsableName } from "../utils/hasUsableName"
 import { fees } from "../fees"
 import { PlasmidDetailsCardHeader } from "./PlasmidDetailsCardHeader"
 import { DetailsListItem } from "./DetailsListItem"
@@ -56,6 +57,7 @@ const plasmidRowsGenerator = ({
       OgetOrElse(
         () => [] as NonNullable<NonNullable<PlasmidQuery["plasmid"]>["genes"]>,
       ),
+      Afilter(hasUsableName),
       (g) => <GenesDisplay genes={g} />,
     ),
   },

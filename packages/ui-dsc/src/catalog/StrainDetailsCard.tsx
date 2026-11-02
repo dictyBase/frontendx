@@ -1,10 +1,6 @@
 import React from "react"
 import { pipe } from "fp-ts/function"
-import {
-  Ord as SOrd,
-  Monoid as SMonoid,
-  isEmpty as SisEmpty,
-} from "fp-ts/string"
+import { Ord as SOrd, Monoid as SMonoid } from "fp-ts/string"
 import {
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
@@ -26,6 +22,7 @@ import Card from "@mui/material/Card"
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
 import { StrainQuery, Phenotype } from "dicty-graphql-schema"
+import { hasUsableName } from "../utils/hasUsableName"
 import { fees } from "../fees"
 import { StrainDetailsCardHeader } from "./StrainDetailsCardHeader"
 import { DetailsListItem } from "./DetailsListItem"
@@ -124,8 +121,8 @@ const strainRowsGenerator = ({
     content: pipe(
       genes,
       OfromNullable,
-      Omap(Afilter(({ name }) => !SisEmpty(name))),
-      Omap((g) => <GenesDisplay genes={g} />),
+      Omap(Afilter(hasUsableName)),
+      Omap((geneList) => <GenesDisplay genes={geneList} />),
       OgetOrElse(() => <></>),
     ),
   },

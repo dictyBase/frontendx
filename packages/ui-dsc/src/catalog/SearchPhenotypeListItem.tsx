@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { pipe, flow } from "fp-ts/function"
+import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import {
   fromNullable as OfromNullable,
@@ -7,8 +7,6 @@ import {
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
 import { isNonEmpty as AisNonEmpty, filter as Afilter } from "fp-ts/Array"
-import { not } from "fp-ts/Predicate"
-import { isEmpty as SisEmpty } from "fp-ts/string"
 import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
 import ListItem from "@mui/material/ListItem"
@@ -21,6 +19,7 @@ import {
 import { GenesDisplay } from "./GenesDisplay"
 import { PublicationDisplay } from "./PublicationDisplay"
 import { characterConverter } from "../utils/characterConverter"
+import { hasUsableName } from "../utils/hasUsableName"
 
 const useStyles = makeStyles()({
   row: {
@@ -63,7 +62,6 @@ type SearchPhenotypeListItemProperties = {
 }
 
 type AssociatedGene = Pick<Gene, "name" | "__typename">
-const hasName = flow(({ name }: AssociatedGene) => name, not(SisEmpty))
 
 const SearchPhenotypeListItem = ({
   strain,
@@ -74,8 +72,8 @@ const SearchPhenotypeListItem = ({
   const genes = pipe(
     strain.genes,
     OfromNullable,
-    Omap(Afilter(hasName)),
     OgetOrElse(() => [] as Array<AssociatedGene>),
+    Afilter(hasUsableName),
   )
 
   return (
