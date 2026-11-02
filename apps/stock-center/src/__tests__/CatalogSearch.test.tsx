@@ -451,3 +451,39 @@ test("writes the entity and its default group to the url when selected", async (
   expect(search).toContain(PLASMID_ENTITY_SEARCH)
   expect(search).toContain("group=all")
 })
+
+// ── Default group selection ───────────────────────────────────────────────────
+
+test("selects the All Strains group by default when the strain entity is in the url", () => {
+  renderWithExternalLink(CATALOG_PATH, "noop", [STRAIN_ENTITY_PATH])
+
+  expect(screen.getByRole("radio", { name: /^strains$/i })).toBeChecked()
+  expect(screen.getByRole("radio", { name: /^all strains$/i })).toBeChecked()
+})
+
+test("selects the All Plasmids group by default when the plasmid entity is in the url", () => {
+  renderWithExternalLink(CATALOG_PATH, "noop", [PLASMID_ENTITY_PATH])
+
+  expect(screen.getByRole("radio", { name: /^plasmids$/i })).toBeChecked()
+  expect(screen.getByRole("radio", { name: /^all plasmids$/i })).toBeChecked()
+})
+
+test("does not select any group for the All Results entity", () => {
+  renderWithExternalLink(CATALOG_PATH, "noop", [CATALOG_PATH])
+
+  expect(screen.getByRole("radio", { name: /^all results$/i })).toBeChecked()
+  expect(
+    screen.queryByRole("radio", { name: /^all strains$/i }),
+  ).not.toBeInTheDocument()
+})
+
+test("prefers an explicit group url param over the entity default", () => {
+  renderWithExternalLink(CATALOG_PATH, "noop", [
+    `${STRAIN_ENTITY_PATH}&group=gwdi`,
+  ])
+
+  expect(screen.getByRole("radio", { name: /^gwdi strains$/i })).toBeChecked()
+  expect(
+    screen.getByRole("radio", { name: /^all strains$/i }),
+  ).not.toBeChecked()
+})
