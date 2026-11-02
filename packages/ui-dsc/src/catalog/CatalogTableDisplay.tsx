@@ -21,6 +21,7 @@ import { fromNullable, getOrElse } from "fp-ts/Option"
 import type { CatalogItem, StrainItem, PlasmidItem } from "../types"
 import { getCatalogItemPathAndDescriptor } from "../utils/getCatalogItemPathAndDescriptor"
 import { abbreviateStringToLength } from "../utils/abbreviateStringToLength"
+import { formatFormattedString } from "../utils/formatFormattedString"
 
 const useStyles = makeStyles()({
   listHeaders: {
@@ -91,13 +92,16 @@ const cellFunction = (item: cellFunctionItem) => {
   return (
     <>
       <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
-        <Link to={`/${itemPath}/${item.id}`}>{itemDescriptor}</Link>
+        <Link to={`/${itemPath}/${item.id}`}>
+          {formatFormattedString(itemDescriptor)}
+        </Link>
       </StyledTableCell>
       <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">
         {pipe(
           fromNullable(item.summary),
           getOrElse(() => ""),
           abbreviateStringToLength(84),
+          formatFormattedString,
         )}
       </StyledTableCell>
       <StyledTableCell fontSize="18" fontWeight="fontWeightMedium">

@@ -1,6 +1,11 @@
-import type { FC } from "react"
+import type { FC, ReactNode } from "react"
 import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
+import {
+  fromNullable as OfromNullable,
+  map as Omap,
+  getOrElse as OgetOrElse,
+} from "fp-ts/Option"
 import {
   Table,
   TableBody,
@@ -17,6 +22,7 @@ import { Link } from "react-router-dom"
 import { match, P } from "ts-pattern"
 import type { CatalogItem } from "../types"
 import { abbreviateStringToLength } from "../utils/abbreviateStringToLength"
+import { formatFormattedString } from "../utils/formatFormattedString"
 import {
   STRAIN_BADGE_COLOR,
   STRAIN_BADGE_BG,
@@ -148,7 +154,7 @@ const renderItemRow =
                     color: "#2c5282",
                   },
                 }}>
-                {primaryText}
+                {formatFormattedString(primaryText)}
               </MuiLink>
               <Typography
                 sx={{ fontSize: "0.75rem", color: "#718096", mt: 0.25 }}>
@@ -158,7 +164,15 @@ const renderItemRow =
           </Stack>
         </TableCell>
         <TableCell sx={{ lineHeight: 1.6 }}>
-          {pipe(summary ?? "", abbreviateStringToLength(SUMMARY_MAX_LENGTH))}
+          {pipe(
+            OfromNullable(summary),
+            Omap(abbreviateStringToLength(SUMMARY_MAX_LENGTH)),
+            Omap(formatFormattedString),
+            // The annotation keeps `getOrElse` on `ReactNode`, since the
+            // pipeline widens from `string` to `ReactNode` when the format
+            // tags are parsed.
+            OgetOrElse((): ReactNode => ""),
+          )}
         </TableCell>
         <TableCell sx={{ textAlign: "center" }}>
           <ActionComponent item={item} />

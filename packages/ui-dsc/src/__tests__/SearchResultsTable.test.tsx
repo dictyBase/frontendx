@@ -272,3 +272,35 @@ test("converts a result with StockEntityType.All to a StrainItem", () => {
     in_stock: true,
   })
 })
+
+// ── Format tag rendering ───────────────────────────────────────────────────────
+
+/** Strain result whose label, matched field and summary all contain format tags. */
+const mockFormattedResult: StockSearchResult = {
+  __typename: "StockSearchResult",
+  id: "DBS0006",
+  entity: StockEntityType.Strain,
+  field: StockSearchFieldEnum.Label,
+  display_text: "tgrB1<sup>-</sup>",
+  strain_label: "tgrB1<sup>-</sup>",
+  summary: "Mutant of <i>tgrB1</i> with a deletion",
+  score: 0.6,
+  in_stock: true,
+}
+
+test("renders format tags in the primary text as elements", () => {
+  renderTable([mockFormattedResult])
+  const link = screen.getByRole("link", { name: /tgrB1/ })
+  expect(link).toHaveTextContent("tgrB1-")
+  expect(link.querySelector("sup")).toHaveTextContent("-")
+})
+
+test("renders format tags in the matching field as elements", () => {
+  renderTable([mockFormattedResult])
+  expect(screen.queryByText(/<sup>/)).not.toBeInTheDocument()
+})
+
+test("renders format tags in the summary as elements", () => {
+  const { container } = renderTable([mockFormattedResult])
+  expect(container.querySelector("i")).toHaveTextContent("tgrB1")
+})

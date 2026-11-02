@@ -21,6 +21,7 @@ import { Link } from "react-router-dom"
 import type { CatalogItem } from "../types"
 import { getCatalogItemPathAndDescriptor } from "../utils/getCatalogItemPathAndDescriptor"
 import { abbreviateStringToLength } from "../utils/abbreviateStringToLength"
+import { formatFormattedString } from "../utils/formatFormattedString"
 
 type CatalogTableProperties = {
   /** Array of strains to display */
@@ -59,7 +60,7 @@ const renderCatalogItemRow =
                 color: "#2c5282",
               },
             }}>
-            {itemDescriptor}
+            {formatFormattedString(itemDescriptor)}
           </MuiLink>
         </TableCell>
         <TableCell sx={{ lineHeight: 1.6 }}>
@@ -67,6 +68,7 @@ const renderCatalogItemRow =
             OfromNullable(summary),
             OgetOrElse(() => ""),
             abbreviateStringToLength(120),
+            formatFormattedString,
           )}
         </TableCell>
         <TableCell sx={{ textAlign: "center" }}>

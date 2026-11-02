@@ -181,3 +181,22 @@ describe("PlasmidCatalogTableDisplay", () => {
     },
   )
 })
+
+test("renders format tags in the descriptor and summary as elements", () => {
+  const { container } = render(
+    <MemoryRouter>
+      {cellFunction({
+        __typename: "Strain",
+        id: "DBS0351792",
+        label: "tgrB1<sup>-</sup>",
+        summary: "Mutant of <i>tgrB1</i> with a deletion",
+        in_stock: true,
+      })}
+    </MemoryRouter>,
+  )
+  expect(
+    screen.getByRole("link", { name: /tgrB1/ }).querySelector("sup"),
+  ).toHaveTextContent("-")
+  expect(container.querySelector("i")).toHaveTextContent("tgrB1")
+  expect(screen.queryByText(/<sup>/)).not.toBeInTheDocument()
+})
