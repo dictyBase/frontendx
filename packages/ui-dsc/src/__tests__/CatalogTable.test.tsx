@@ -255,3 +255,44 @@ test("renders plasmid name as a link to the plasmid detail page", () => {
   const link = screen.getByRole("link", { name: mockPlasmids[0]!.name })
   expect(link).toHaveAttribute("href", `/plasmids/${mockPlasmids[0]!.id}`)
 })
+
+// ── Format tag rendering ───────────────────────────────────────────────────────
+
+/** Strain whose descriptor and summary contain format tags. */
+const mockFormattedStrain = {
+  __typename: "Strain" as const,
+  id: "DBS0351792",
+  summary: "Mutant of <i>tgrB1</i> with a deletion",
+  label: "tgrB1<sup>-</sup>",
+  in_stock: true,
+}
+
+test("renders format tags in the descriptor as elements", () => {
+  render(
+    <MemoryRouter>
+      <CatalogTable
+        itemType="Strain"
+        items={[mockFormattedStrain]}
+        nextCursor={0}
+        actionComponent={NoOpAction}
+      />
+    </MemoryRouter>,
+  )
+  const link = screen.getByRole("link", { name: /tgrB1/ })
+  expect(link).toHaveTextContent("tgrB1-")
+  expect(link.querySelector("sup")).toHaveTextContent("-")
+})
+
+test("renders format tags in the summary as elements", () => {
+  const { container } = render(
+    <MemoryRouter>
+      <CatalogTable
+        itemType="Strain"
+        items={[mockFormattedStrain]}
+        nextCursor={0}
+        actionComponent={NoOpAction}
+      />
+    </MemoryRouter>,
+  )
+  expect(container.querySelector("i")).toHaveTextContent("tgrB1")
+})

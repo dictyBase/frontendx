@@ -34,6 +34,7 @@ import type { StockSearchResult } from "dicty-graphql-schema"
 import { capitalizeFirstCharacter } from "../utils/stringCapitalizations"
 import type { CatalogItem } from "../types"
 import { abbreviateStringToLength } from "../utils/abbreviateStringToLength"
+import { formatFormattedString } from "../utils/formatFormattedString"
 import {
   STRAIN_BADGE_COLOR,
   STRAIN_BADGE_BG,
@@ -228,7 +229,7 @@ const renderResultRow =
                     color: "#2c5282",
                   },
                 }}>
-                {primaryText}
+                {formatFormattedString(primaryText)}
               </MuiLink>
               <Typography
                 sx={{ fontSize: "0.75rem", color: "#718096", mt: 0.25 }}>
@@ -241,10 +242,14 @@ const renderResultRow =
           <Typography variant="caption">{`${normalizeMatchField(
             field,
           )}`}</Typography>
-          {`${getMatchingFieldValue(field, display_text)}`}
+          {formatFormattedString(getMatchingFieldValue(field, display_text))}
         </TableCell>
         <TableCell sx={{ lineHeight: 1.6 }}>
-          {pipe(summary, abbreviateStringToLength(SUMMARY_MAX_LENGTH))}
+          {pipe(
+            summary,
+            abbreviateStringToLength(SUMMARY_MAX_LENGTH),
+            formatFormattedString,
+          )}
         </TableCell>
         <TableCell sx={{ textAlign: "center" }}>
           <ActionComponent item={catalogItem} />

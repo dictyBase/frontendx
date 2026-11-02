@@ -183,3 +183,58 @@ test("truncates summaries longer than 120 characters", () => {
   expect(screen.queryByText("A".repeat(130))).not.toBeInTheDocument()
   expect(screen.getByText(/A+\.{3}/)).toBeInTheDocument()
 })
+
+// ── Format tag rendering ───────────────────────────────────────────────
+
+/** Strain item whose label and summary contain format tags. */
+const mockFormattedItem: CatalogItem = {
+  __typename: "Strain",
+  id: "DBS0004",
+  label: "tgrB1<sup>-</sup>",
+  summary: "Mutant of <i>tgrB1</i> with a deletion",
+  in_stock: true,
+}
+
+test("renders format tags in the label as elements", () => {
+  renderTable([mockFormattedItem])
+  const link = screen.getByRole("link", { name: /tgrB1/ })
+  expect(link).toHaveTextContent("tgrB1-")
+  expect(link.querySelector("sup")).toHaveTextContent("-")
+})
+
+test("renders format tags in the summary as elements", () => {
+  const { container } = renderTable([mockFormattedItem])
+  expect(container.querySelector("i")).toHaveTextContent("tgrB1")
+})
+
+test("does not render raw format markup", () => {
+  renderTable([mockFormattedItem])
+  expect(screen.queryByText(/<sup>/)).not.toBeInTheDocument()
+})
+
+// ── Nullish summary ────────────────────────────────────────────────────
+
+/** Strain item whose summary is absent in the API response. */
+const mockItemWithoutSummary = {
+  __typename: "Strain" as const,
+  id: "DBS0005",
+  label: "nullSummaryStrain",
+  // eslint-disable-next-line unicorn/no-null
+  summary: null,
+  in_stock: true,
+} as unknown as CatalogItem
+
+test("renders the row without failing when the summary is null", () => {
+  renderTable([mockItemWithoutSummary])
+  expect(
+    screen.getByRole("link", { name: mockItemWithoutSummary.label }),
+  ).toBeInTheDocument()
+})
+
+test("leaves the summary cell empty when the summary is null", () => {
+  renderTable([mockItemWithoutSummary])
+  // The row only contains the descriptor link and the id text, no summary text
+  const row = screen.getByRole("row", { name: /nullSummaryStrain/ })
+  const cells = row.querySelectorAll("td")
+  expect(cells[1]).toBeEmptyDOMElement()
+})

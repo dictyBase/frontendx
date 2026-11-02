@@ -1,16 +1,8 @@
 import { ReactNode } from "react"
-import { pipe } from "fp-ts/function"
-import { isString } from "fp-ts/string"
-import {
-  map as Emap,
-  match as Ematch,
-  fromPredicate as EfromPredicate,
-} from "fp-ts/Either"
 import Typography from "@mui/material/Typography"
 import Grid from "@mui/material/Grid"
 import ListItem from "@mui/material/ListItem"
-import { parseFormattedStringToDomElements } from "@dictybase/ui-common"
-import { characterConverter } from "../utils/characterConverter"
+import { formatFormattedString } from "../utils/formatFormattedString"
 import { useStyles } from "./styles"
 
 type DetailsListitemProperties = {
@@ -22,21 +14,16 @@ type DetailsListitemProperties = {
 
 /**
  * DetailsListItem used to display a single row of data for a stock item.
+ *
+ * String content is passed through {@link formatFormattedString} so that
+ * HTML character entities and format tags (i.e. `<sup>`) are rendered as
+ * formatted text rather than raw markup.
+ *
+ * @param title - Label rendered in the left column of the row.
+ * @param content - Value rendered in the right column of the row.
  */
-
 const DetailsListItem = ({ title, content }: DetailsListitemProperties) => {
   const { classes } = useStyles()
-
-  const display = pipe(
-    content,
-    EfromPredicate(isString, () => content),
-    Emap(characterConverter),
-    Emap(parseFormattedStringToDomElements),
-    Ematch(
-      (original) => original,
-      (parsed) => parsed,
-    ),
-  )
 
   return (
     <ListItem className={classes.details} divider>
@@ -50,7 +37,7 @@ const DetailsListItem = ({ title, content }: DetailsListitemProperties) => {
       </Grid>
       <Grid item xs={12} sm={9}>
         <Typography component="span" variant="body1">
-          {display}
+          {formatFormattedString(content)}
         </Typography>
       </Grid>
     </ListItem>
