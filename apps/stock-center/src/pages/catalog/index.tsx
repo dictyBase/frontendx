@@ -35,6 +35,7 @@ import {
   ReadonlyNonEmptyArray,
   head as RNEAhead,
 } from "fp-ts/ReadonlyNonEmptyArray"
+import { MonoidAny as BMonoidAny } from "fp-ts/boolean"
 import {
   StockSearchResult,
   StockEntityType,
@@ -216,11 +217,12 @@ const CatalogSearch = () => {
   const hasQuery = searchTerm.length >= MIN_CHARS
 
   const [searchStocks, { data, loading, error }] = useSearchStocksLazyQuery()
-  const { data: initialData } = useInitialSearchResults({
-    entity,
-    group,
-    skip: hasQuery,
-  })
+  const { data: initialData, loading: loadingInitial } =
+    useInitialSearchResults({
+      entity,
+      group,
+      skip: hasQuery,
+    })
 
   // Debounce the text box and write the trimmed query into the `q` url param.
   useEffect(() => {
@@ -382,7 +384,13 @@ const CatalogSearch = () => {
             </Box>
 
             {/* Results area — pattern matched against query/loading/data/error */}
-            {match({ initialData, data, loading, error, hasQuery })
+            {match({
+              initialData,
+              data,
+              loading: BMonoidAny.concat(loading, loadingInitial),
+              error,
+              hasQuery,
+            })
               .with(
                 { hasQuery: false, initialData: P.select(P.not(P.nullish)) },
                 (items) => (
@@ -392,6 +400,7 @@ const CatalogSearch = () => {
                   />
                 ),
               )
+              .with({ loading: true }, () => <CatalogListLoader />)
               .with({ hasQuery: false }, () => (
                 <Paper
                   elevation={0}
@@ -420,7 +429,6 @@ const CatalogSearch = () => {
                   </Typography>
                 </Paper>
               ))
-              .with({ loading: true }, () => <CatalogListLoader />)
               .with(
                 { data: { searchStocks: { results: P.select() } } },
                 (results) =>

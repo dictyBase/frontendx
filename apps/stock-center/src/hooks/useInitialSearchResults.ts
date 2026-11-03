@@ -1,6 +1,10 @@
 import { pipe } from "fp-ts/function"
 import { Option, map as Omap, getOrElse as OgetOrElse } from "fp-ts/Option"
-import { findFirst as AfindFirst, concat as Aconcat } from "fp-ts/Array"
+import {
+  findFirst as AfindFirst,
+  concat as Aconcat,
+  match as Amatch,
+} from "fp-ts/Array"
 import { match } from "ts-pattern"
 import {
   StrainType,
@@ -98,7 +102,13 @@ const useInitialSearchResults = ({
   const error = errorStrains || errorPlasmids
 
   return {
-    data: data.length > 0 ? data : undefined,
+    data: pipe(
+      data,
+      Amatch(
+        () => undefined,
+        (d) => d,
+      ),
+    ),
     loading,
     error,
   }
