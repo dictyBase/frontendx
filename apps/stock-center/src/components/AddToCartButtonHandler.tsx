@@ -1,6 +1,10 @@
 import { useState } from "react"
 import { match } from "ts-pattern"
-import { UnavailableButton, AddToCartDialog } from "@dictybase/ui-dsc"
+import {
+  CartFullButton,
+  UnavailableButton,
+  AddToCartDialog,
+} from "@dictybase/ui-dsc"
 import { AddToCartButton } from "./AddToCartButton"
 import { RemoveFromCartButton } from "./RemoveFromCartButton"
 import { useCartItemProperties } from "../hooks/useCartItemProperties"
@@ -23,9 +27,7 @@ const AddToCartButtonHandler = ({ item }: AddToCartButtonHandlerProperties) => {
           />
         ))
         .with({ isInCart: true }, () => <RemoveFromCartButton item={item} />)
-        .with({ isFull: true }, () => (
-          <UnavailableButton title="Shopping cart is full" size="medium" />
-        ))
+        .with({ isFull: true }, () => <CartFullButton size="medium" />)
         .with({ isFull: false, in_stock: true }, () => (
           <AddToCartButton items={[item]} setShowDialog={setShowDialog} />
         ))

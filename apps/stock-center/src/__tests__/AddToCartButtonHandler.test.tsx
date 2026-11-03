@@ -82,6 +82,8 @@ test("Displays `is full` button when the cart is full", async () => {
     name: /Shopping cart is full/,
   })
   expect(isFullButton).toBeInTheDocument()
+  expect(screen.getByTestId("ProductionQuantityLimitsIcon")).toBeInTheDocument()
+  expect(screen.queryByTestId("RemoveShoppingCartIcon")).not.toBeInTheDocument()
 })
 
 test("Displays `unavailable` button when the item is unavailable", async () => {
@@ -105,4 +107,8 @@ test("Displays `unavailable` button when the item is unavailable", async () => {
     name: /Item is currently unavailable/,
   })
   expect(isFullButton).toBeInTheDocument()
+  expect(screen.getByTestId("RemoveShoppingCartIcon")).toBeInTheDocument()
+  expect(
+    screen.queryByTestId("ProductionQuantityLimitsIcon"),
+  ).not.toBeInTheDocument()
 })
