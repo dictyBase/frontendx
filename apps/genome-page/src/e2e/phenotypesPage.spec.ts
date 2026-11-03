@@ -11,27 +11,19 @@ const GRAPHQL_ENDPOINT = `${process.env.VITE_GRAPHQL_SERVER}/graphql`
 const TEST_GENE = "DDB_G0267382"
 
 const EXPECTED_STRAIN = {
-  id: "DBS0236174",
-  label: "corA-",
   characteristics: [
     "null mutant",
     "axenic",
     "drug resistant",
     "neomycin resistant",
   ],
+  id: "DBS0236174",
   in_stock: true,
+  label: "corA-",
   phenotypes: [
     {
       phenotype: "increased myosin II assembly",
       publication: {
-        id: "24347642",
-        title:
-          "A Cdc42- and Rac-interactive binding (CRIB) domain mediates functions of coronin.",
-        journal:
-          "Proceedings of the National Academy of Sciences of the United States of America",
-        pages: "",
-        volume: "",
-        pub_date: "2014-01-01T00:00:00.000Z",
         authors: [
           { last_name: "Swaminathan", rank: "0" },
           { last_name: "Müller-Taubenberger", rank: "1" },
@@ -39,18 +31,19 @@ const EXPECTED_STRAIN = {
           { last_name: "Rivero", rank: "3" },
           { last_name: "Noegel", rank: "4" },
         ],
+        id: "24347642",
+        journal:
+          "Proceedings of the National Academy of Sciences of the United States of America",
+        pages: "",
+        pub_date: "2014-01-01T00:00:00.000Z",
+        title:
+          "A Cdc42- and Rac-interactive binding (CRIB) domain mediates functions of coronin.",
+        volume: "",
       },
     },
     {
       phenotype: "decreased growth rate",
       publication: {
-        id: "8380174",
-        title:
-          "Dictyostelium mutants lacking the cytoskeletal protein coronin are defective in cytokinesis and cell motility.",
-        journal: "The Journal of cell biology",
-        pages: "",
-        volume: "",
-        pub_date: "1993-01-01T00:00:00.000Z",
         authors: [
           { last_name: "de Hostos", rank: "0" },
           { last_name: "Rehfuess", rank: "1" },
@@ -60,18 +53,18 @@ const EXPECTED_STRAIN = {
           { last_name: "Murphy", rank: "5" },
           { last_name: "Gerisch", rank: "6" },
         ],
+        id: "8380174",
+        journal: "The Journal of cell biology",
+        pages: "163-173",
+        pub_date: "1993-01-01T00:00:00.000Z",
+        title:
+          "Dictyostelium mutants lacking the cytoskeletal protein coronin are defective in cytokinesis and cell motility.",
+        volume: "120",
       },
     },
     {
       phenotype: "decreased cell motility",
       publication: {
-        id: "8380174",
-        title:
-          "Dictyostelium mutants lacking the cytoskeletal protein coronin are defective in cytokinesis and cell motility.",
-        journal: "The Journal of cell biology",
-        pages: "",
-        volume: "",
-        pub_date: "1993-01-01T00:00:00.000Z",
         authors: [
           { last_name: "de Hostos", rank: "0" },
           { last_name: "Rehfuess", rank: "1" },
@@ -81,18 +74,18 @@ const EXPECTED_STRAIN = {
           { last_name: "Murphy", rank: "5" },
           { last_name: "Gerisch", rank: "6" },
         ],
+        id: "8380174",
+        journal: "The Journal of cell biology",
+        pages: "163-173",
+        pub_date: "1993-01-01T00:00:00.000Z",
+        title:
+          "Dictyostelium mutants lacking the cytoskeletal protein coronin are defective in cytokinesis and cell motility.",
+        volume: "120",
       },
     },
     {
       phenotype: "aberrant cytokinesis",
       publication: {
-        id: "8380174",
-        title:
-          "Dictyostelium mutants lacking the cytoskeletal protein coronin are defective in cytokinesis and cell motility.",
-        journal: "The Journal of cell biology",
-        pages: "",
-        volume: "",
-        pub_date: "1993-01-01T00:00:00.000Z",
         authors: [
           { last_name: "de Hostos", rank: "0" },
           { last_name: "Rehfuess", rank: "1" },
@@ -102,6 +95,13 @@ const EXPECTED_STRAIN = {
           { last_name: "Murphy", rank: "5" },
           { last_name: "Gerisch", rank: "6" },
         ],
+        id: "8380174",
+        journal: "The Journal of cell biology",
+        pages: "163-173",
+        pub_date: "1993-01-01T00:00:00.000Z",
+        title:
+          "Dictyostelium mutants lacking the cytoskeletal protein coronin are defective in cytokinesis and cell motility.",
+        volume: "120",
       },
     },
   ],

@@ -34,7 +34,7 @@ const EXPECTED_REFERENCE = {
 
 // Expected formatted dates when browser is in UTC timezone
 const oldestPublicationDateFormatted = "August 1st, 2001"
-const newestPublicationDateFormatted = "April 1st, 2020"
+const newestPublicationDateFormatted = "November 26th, 2019"
 
 test.beforeAll("Test Reference Page API", async ({ playwright }) => {
   const apiContext = await playwright.request.newContext()
