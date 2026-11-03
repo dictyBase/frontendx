@@ -149,7 +149,7 @@ const getPrimaryText = (result: StockSearchResult): string =>
   match(result)
     .with(
       { entity: StockEntityType.Strain },
-      ({ strain_label, id }) => strain_label || id,
+      ({ stock_label, id }) => strain_label || id,
     )
     .otherwise(({ id }) => id)
 
@@ -169,21 +169,21 @@ const toStockCatalogItem = (result: StockSearchResult): CatalogItem =>
     .with({ entity: StockEntityType.Strain }, (r) => ({
       __typename: "Strain" as const,
       id: r.id,
-      label: r.strain_label || r.display_text,
+      label: r.stock_label,
       summary: r.summary,
       in_stock: r.in_stock,
     }))
     .with({ entity: StockEntityType.Plasmid }, (r) => ({
       __typename: "Plasmid" as const,
       id: r.id,
-      name: r.display_text,
+      name: r.stock_label,
       summary: r.summary,
       in_stock: r.in_stock,
     }))
     .otherwise((r) => ({
       __typename: "Strain" as const,
       id: r.id,
-      label: r.display_text,
+      label: r.stock_label,
       summary: r.summary,
       in_stock: r.in_stock,
     }))
@@ -200,9 +200,8 @@ const renderResultRow =
   (ActionComponent: FC<{ item: CatalogItem }>) =>
   // eslint-disable-next-line react/function-component-definition
   (result: StockSearchResult) => {
-    const { id, entity, summary, field, display_text } = result
+    const { id, entity, summary, field, display_text, stock_label } = result
     const path = toItemPath(entity)
-    const primaryText = getPrimaryText(result)
     const catalogItem = toStockCatalogItem(result)
 
     return (
@@ -229,7 +228,7 @@ const renderResultRow =
                     color: "#2c5282",
                   },
                 }}>
-                {formatFormattedString(primaryText)}
+                {formatFormattedString(stock_label)}
               </MuiLink>
               <Typography
                 sx={{ fontSize: "0.75rem", color: "#718096", mt: 0.25 }}>
