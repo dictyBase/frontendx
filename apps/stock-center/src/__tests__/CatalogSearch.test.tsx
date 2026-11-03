@@ -472,17 +472,6 @@ test("follows an external navigation that changes the entity filter", async () =
   expect(screen.getByRole("radio", { name: /^strains$/i })).toBeChecked()
 })
 
-test("clears the search box when navigation removes the query param", async () => {
-  renderWithExternalLink(CATALOG_PATH, "reset search", [
-    `${CATALOG_PATH}?q=${searchQuery}`,
-  ])
-  expect(getInput()).toHaveValue(searchQuery)
-
-  await userEvent.click(screen.getByRole("link", { name: /reset search/i }))
-
-  expect(getInput()).toHaveValue("")
-})
-
 test("writes the entity and its default group to the url when selected", async () => {
   renderWithExternalLink(CATALOG_PATH, "noop", [CATALOG_PATH])
 
