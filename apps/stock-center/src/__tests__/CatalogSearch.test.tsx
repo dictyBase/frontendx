@@ -8,6 +8,10 @@ import {
   SearchStocksDocument,
   StockEntityType,
   StockSearchFieldEnum,
+  StrainType,
+  PlasmidType,
+  StrainListDocument,
+  PlasmidListFilterDocument,
 } from "dicty-graphql-schema"
 import { cartAtom } from "../cartState"
 import CatalogSearch from "../pages/catalog/index"
@@ -30,6 +34,47 @@ const makeStore = () => {
   return store
 }
 
+/**
+ * Base mocks for the initial-data queries fired by
+ * {@link useInitialSearchResults} on mount when no search term is active.
+ *
+ * The catalog page always calls the hook with `skip: hasQuery`; on initial
+ * render `hasQuery` is `false`, so these queries fire immediately. Every
+ * test that renders the page must provide responses for them.
+ */
+const baseMocks = [
+  {
+    request: {
+      query: StrainListDocument,
+      variables: {
+        cursor: 0,
+        limit: 12,
+        filter: { strain_type: StrainType.All },
+      },
+    },
+    result: {
+      data: {
+        listStrains: { strains: [], nextCursor: 0 },
+      },
+    },
+  },
+  {
+    request: {
+      query: PlasmidListFilterDocument,
+      variables: {
+        cursor: 0,
+        limit: 12,
+        filter: { plasmid_type: PlasmidType.All },
+      },
+    },
+    result: {
+      data: {
+        listPlasmids: { plasmids: [], nextCursor: 0 },
+      },
+    },
+  },
+]
+
 const suggestionsMock = {
   request: {
     query: SearchStocksDocument,
@@ -47,7 +92,7 @@ const suggestionsMock = {
             entity: StockEntityType.Strain,
             field: StockSearchFieldEnum.Label,
             display_text: "axeA",
-            strain_label: "axeA",
+            stock_label: "axeA",
             summary: "Axenic growth mutant A",
             score: 1,
             in_stock: true,
@@ -58,7 +103,7 @@ const suggestionsMock = {
             entity: StockEntityType.Plasmid,
             field: StockSearchFieldEnum.Name,
             display_text: "pAXE1",
-            strain_label: "",
+            stock_label: "pAXE1",
             summary: "Expression vector for AXE1",
             score: 0.9,
             in_stock: true,
@@ -99,7 +144,7 @@ const strainOnlyMock = {
             entity: StockEntityType.Strain,
             field: StockSearchFieldEnum.Label,
             display_text: "axeA",
-            strain_label: "axeA",
+            stock_label: "axeA",
             summary: "Axenic growth mutant A",
             score: 1,
             in_stock: true,
@@ -124,7 +169,7 @@ const outOfStockMock = {
             entity: StockEntityType.Strain,
             field: StockSearchFieldEnum.Label,
             display_text: "unavailableStrain",
-            strain_label: "unavailableStrain",
+            stock_label: "unavailableStrain",
             summary: "Currently out of stock",
             score: 1,
             in_stock: false,
@@ -141,7 +186,7 @@ const renderPage = (
 ) =>
   render(
     <Provider store={makeStore()}>
-      <MockedProvider mocks={mocks} addTypename={false}>
+      <MockedProvider mocks={[...baseMocks, ...mocks]} addTypename={false}>
         <MemoryRouter initialEntries={initialEntries}>
           <CatalogSearch />
         </MemoryRouter>
@@ -168,9 +213,9 @@ test("renders the search input", () => {
   expect(getInput()).toBeInTheDocument()
 })
 
-test("shows the search prompt before any input is entered", () => {
+test("shows the search prompt before any input is entered", async () => {
   renderPage()
-  expect(screen.getByText(/search the catalog/i)).toBeInTheDocument()
+  expect(await screen.findByText(/search the catalog/i)).toBeInTheDocument()
   expect(screen.getByText(/enter at least 3 characters/i)).toBeInTheDocument()
 })
 
@@ -194,7 +239,7 @@ test("shows strain and plasmid results after typing 3+ characters", async () => 
   await userEvent.type(getInput(), searchQuery)
   expect(await screen.findByText("axeA", {}, QUERY_TIMEOUT)).toBeInTheDocument()
   expect(
-    await screen.findByRole("link", { name: "DBP0001" }, QUERY_TIMEOUT),
+    await screen.findByRole("link", { name: "pAXE1" }, QUERY_TIMEOUT),
   ).toBeInTheDocument()
 })
 
@@ -208,11 +253,7 @@ test("links strain result to its detail page", async () => {
 test("links plasmid result to its detail page", async () => {
   renderPage()
   await userEvent.type(getInput(), searchQuery)
-  const link = await screen.findByRole(
-    "link",
-    { name: "DBP0001" },
-    QUERY_TIMEOUT,
-  )
+  const link = await screen.findByRole("link", { name: "pAXE1" }, QUERY_TIMEOUT)
   expect(link).toHaveAttribute("href", "/plasmids/DBP0001")
 })
 
@@ -338,7 +379,7 @@ test("filters results by group when a specific group is selected", async () => {
               entity: StockEntityType.Strain,
               field: StockSearchFieldEnum.Label,
               display_text: "gwdiStrain",
-              strain_label: "gwdiStrain",
+              stock_label: "gwdiStrain",
               summary: "GWDI strain",
               score: 1,
               in_stock: true,
