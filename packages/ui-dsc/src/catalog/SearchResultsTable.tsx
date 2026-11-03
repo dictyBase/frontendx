@@ -139,21 +139,6 @@ const toItemPath = (entity: StockEntityType): string =>
     .exhaustive()
 
 /**
- * Returns the primary display text for a search result row.
- * For strains, the strain label is preferred over the raw matched text.
- *
- * @param result - A `StockSearchResult` item.
- * @returns The string to render as the clickable link label.
- */
-const getPrimaryText = (result: StockSearchResult): string =>
-  match(result)
-    .with(
-      { entity: StockEntityType.Strain },
-      ({ stock_label, id }) => strain_label || id,
-    )
-    .otherwise(({ id }) => id)
-
-/**
  * Converts a `StockSearchResult` to a `CatalogItem` so it can be passed to
  * action components (e.g. `AddToCartButtonHandler`) that expect the standard
  * catalog item shape.
