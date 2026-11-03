@@ -12,6 +12,7 @@ import {
   Portal,
   Toolbar,
 } from "@mui/material"
+import type { Theme } from "@mui/material/styles"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import SearchIcon from "@mui/icons-material/Search"
 import { Outlet, useLocation, useNavigate } from "react-router-dom"
@@ -60,13 +61,25 @@ const CATALOG_ROUTE = "/catalog"
 /** Roles that unlock the content administration menus. */
 const AUTHORIZED_ROLES = ["content-admin"]
 
-/** Overrides the auth button colours so they contrast with the dark bar. */
-const authButtonSx = {
+/**
+ * Builds the `sx` styles for the wrapper around the login / logout controls.
+ *
+ * The auth package hard-codes its own colours on those controls, so they are
+ * overridden from the wrapper. The colour is derived from
+ * `primary.contrastText`, i.e. the colour that is guaranteed to contrast with
+ * the bar background (`primary.dark`), so the controls stay readable whether
+ * the active theme renders a light or a dark bar.
+ *
+ * @param theme - The active MUI theme.
+ * @returns The `sx` prop for the auth wrapper, whose `& button` selector
+ *   restyles the auth package's icon button / button.
+ */
+const authButtonSx = (theme: Theme) => ({
   display: "flex",
   alignItems: "center",
   ml: 0.5,
-  "& button": { color: "common.white" },
-} as const
+  "& button": { color: theme.palette.primary.contrastText },
+})
 
 const createAuthNavbarItems = (
   frontPageUrl: string,
@@ -582,4 +595,4 @@ const DscNavbar = () => {
   )
 }
 
-export { DscNavbar }
+export { DscNavbar, authButtonSx }

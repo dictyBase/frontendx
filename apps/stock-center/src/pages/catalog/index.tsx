@@ -18,7 +18,7 @@ import { P, match } from "ts-pattern"
 import { pipe, flow } from "fp-ts/function"
 import {
   Option,
-  alt as Oalt,
+  orElse as OorElse,
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
   map as Omap,
@@ -193,7 +193,7 @@ const CatalogSearch = () => {
   const group = pipe(
     searchParameters.get(GROUP_PARAM),
     OfromNullable,
-    Oalt(() => getFirstGroup(entity)),
+    OorElse(() => getFirstGroup(entity)),
   )
   const searchTerm = pipe(
     searchParameters.get(QUERY_PARAM),
