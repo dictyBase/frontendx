@@ -211,21 +211,21 @@ describe("createNavbarItems catalog links", () => {
     return dscSection?.attributes.items ?? []
   }
 
-  test("links the strain catalog to the catalog page filtered by strains", () => {
+  test("links the strain catalog to the strains resource route", () => {
     expect(
       stockCenterItems().find(({ label }) => label === "Strain Catalog")?.link,
-    ).toBe(`${stockCenterUrl}/catalog?entity=strain`)
+    ).toBe(`${stockCenterUrl}/strains`)
   })
 
-  test("links the plasmid catalog to the catalog page filtered by plasmids", () => {
+  test("links the plasmid catalog to the plasmids resource route", () => {
     expect(
       stockCenterItems().find(({ label }) => label === "Plasmid Catalog")?.link,
-    ).toBe(`${stockCenterUrl}/catalog?entity=plasmid`)
+    ).toBe(`${stockCenterUrl}/plasmids`)
   })
 
-  test("does not link the catalogs to the removed standalone list routes", () => {
+  test("links the catalogs to their standalone resource routes", () => {
     const links = stockCenterItems().map(({ link }) => link)
-    expect(links).not.toContain(`${stockCenterUrl}/strains`)
-    expect(links).not.toContain(`${stockCenterUrl}/plasmids`)
+    expect(links).toContain(`${stockCenterUrl}/strains`)
+    expect(links).toContain(`${stockCenterUrl}/plasmids`)
   })
 })

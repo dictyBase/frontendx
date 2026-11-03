@@ -2,7 +2,7 @@ import { vi, test, expect, beforeEach } from "vitest"
 import { render, screen, act } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
 import { MockedProvider } from "@apollo/client/testing"
-import { Link, MemoryRouter, useLocation } from "react-router-dom"
+import { MemoryRouter, useLocation } from "react-router-dom"
 import { Provider, createStore } from "jotai"
 import {
   SearchStocksDocument,
@@ -26,6 +26,18 @@ vi.mock("react-router-dom", async () => {
 
 const SEARCH_LIMIT = 50
 const searchQuery = "axe"
+
+/** Test id of the location search probe rendered alongside the page. */
+const LOCATION_SEARCH_TEST_ID = "location-search"
+
+/** Catalog entity resources and their routes. */
+const ENTITY_ROUTE = {
+  all: "/catalog",
+  strain: "/strains",
+  plasmid: "/plasmids",
+} as const
+
+type Entity = keyof typeof ENTITY_ROUTE
 
 /** Creates a fresh Jotai store with an empty cart for each test. */
 const makeStore = () => {
@@ -180,15 +192,60 @@ const outOfStockMock = {
   },
 }
 
+/** Initial-data mock for a strain resource opened with the gwdi group. */
+const gwdiInitialMock = {
+  request: {
+    query: StrainListDocument,
+    variables: {
+      cursor: 0,
+      limit: 12,
+      filter: { strain_type: StrainType.Gwdi },
+    },
+  },
+  result: {
+    data: {
+      listStrains: { strains: [], nextCursor: 0 },
+    },
+  },
+}
+
+/**
+ * Renders the current location search string next to the page so tests can
+ * assert on url updates without relying on a specific router implementation.
+ */
+const LocationProbe = () => {
+  const { search } = useLocation()
+  return <div data-testid={LOCATION_SEARCH_TEST_ID}>{search}</div>
+}
+
+type RenderPageOptions = {
+  /** The catalog entity resource the page represents. */
+  entity?: Entity
+  /** Initial history entries for the memory router. */
+  initialEntries?: Array<string>
+}
+
+/**
+ * Renders the catalog page for a given entity resource with the supplied
+ * mocks and initial url.
+ *
+ * @param mocks - Apollo mocks for the search and initial-data queries.
+ * @param options - Entity resource and initial url configuration.
+ * @returns The Testing Library render result.
+ */
 const renderPage = (
   mocks: any[] = [suggestionsMock],
-  initialEntries = ["/catalog"],
+  {
+    entity = "all",
+    initialEntries = [ENTITY_ROUTE[entity]],
+  }: RenderPageOptions = {},
 ) =>
   render(
     <Provider store={makeStore()}>
       <MockedProvider mocks={[...baseMocks, ...mocks]} addTypename={false}>
         <MemoryRouter initialEntries={initialEntries}>
-          <CatalogSearch />
+          <LocationProbe />
+          <CatalogSearch entity={entity} />
         </MemoryRouter>
       </MockedProvider>
     </Provider>,
@@ -205,6 +262,20 @@ test("renders the page heading", () => {
   renderPage()
   expect(
     screen.getByRole("heading", { name: /catalog search/i }),
+  ).toBeInTheDocument()
+})
+
+test("renders a resource-specific heading for the strain catalog", () => {
+  renderPage([], { entity: "strain" })
+  expect(
+    screen.getByRole("heading", { name: /strain catalog/i }),
+  ).toBeInTheDocument()
+})
+
+test("renders a resource-specific heading for the plasmid catalog", () => {
+  renderPage([], { entity: "plasmid" })
+  expect(
+    screen.getByRole("heading", { name: /plasmid catalog/i }),
   ).toBeInTheDocument()
 })
 
@@ -283,9 +354,14 @@ test("shows the empty catalog message when the query returns no results", async 
   ).toBeInTheDocument()
 })
 
-test("renders the Stock Type sidebar", () => {
+test("renders the Stock Type sidebar for the catalog resource", () => {
   renderPage()
   expect(screen.getByText("Stock Type")).toBeInTheDocument()
+})
+
+test("renders a resource-specific sidebar title for the strain catalog", () => {
+  renderPage([], { entity: "strain" })
+  expect(screen.getByText("Strain Type")).toBeInTheDocument()
 })
 
 test("renders All Results, Strains, and Plasmids filter options", () => {
@@ -295,11 +371,10 @@ test("renders All Results, Strains, and Plasmids filter options", () => {
   expect(screen.getByText("Plasmids")).toBeInTheDocument()
 })
 
-test("sends the Strain entity type when the Strains filter is selected", async () => {
-  renderPage([strainOnlyMock])
-  await userEvent.click(screen.getByText("Strains"))
+test("sends the Strain entity type when on the strain resource", async () => {
+  renderPage([strainOnlyMock], { entity: "strain" })
   await userEvent.type(getInput(), searchQuery)
-  expect(await screen.findByText("axeA")).toBeInTheDocument()
+  expect(await screen.findByText("axeA", {}, QUERY_TIMEOUT)).toBeInTheDocument()
   expect(screen.queryByText("pAXE1")).not.toBeInTheDocument()
 })
 
@@ -315,6 +390,9 @@ test("syncs the search term to the URL after debounce", async () => {
   )
   // Results should be visible, confirming the inputValue → searchTerm → URL → query chain
   expect(screen.getByText("axeA")).toBeInTheDocument()
+  expect(screen.getByTestId(LOCATION_SEARCH_TEST_ID)).toHaveTextContent(
+    `q=${searchQuery}`,
+  )
 })
 
 test("debounce does not immediately fire the query for short input", async () => {
@@ -348,9 +426,8 @@ test("displays error message when query fails", async () => {
   ).toBeInTheDocument()
 })
 
-test("shows group filter options when entity filter is selected", async () => {
-  renderPage()
-  await userEvent.click(screen.getByText("Strains"))
+test("shows group filter options on the strain resource", () => {
+  renderPage([], { entity: "strain" })
   expect(screen.getByText("All Strains")).toBeInTheDocument()
   expect(screen.getByText("Regular Strains")).toBeInTheDocument()
   expect(screen.getByText("GWDI Strains")).toBeInTheDocument()
@@ -390,8 +467,7 @@ test("filters results by group when a specific group is selected", async () => {
       },
     },
   }
-  renderPage([gwdiMock])
-  await userEvent.click(screen.getByText("Strains"))
+  renderPage([gwdiMock], { entity: "strain" })
   await userEvent.click(screen.getByText("GWDI Strains"))
   await userEvent.type(getInput(), searchQuery)
   expect(
@@ -399,118 +475,82 @@ test("filters results by group when a specific group is selected", async () => {
   ).toBeInTheDocument()
 })
 
-// ── Url driven navigation ─────────────────────────────────────────────────────
+// ── Entity resource switching ────────────────────────────────────────────────
 
-/** Test id of the location search probe. */
-const LOCATION_SEARCH_TEST_ID = "location-search"
-
-/** Catalog route without any filter. */
-const CATALOG_PATH = "/catalog"
-
-/** Catalog route preselecting the strain entity. */
-const STRAIN_ENTITY_PATH = `${CATALOG_PATH}?entity=strain`
-
-/** Catalog route preselecting the plasmid entity. */
-const PLASMID_ENTITY_PATH = `${CATALOG_PATH}?entity=plasmid`
-
-/** Search fragment expected when the strain entity is selected. */
-const STRAIN_ENTITY_SEARCH = "entity=strain"
-
-/** Search fragment expected when the plasmid entity is selected. */
-const PLASMID_ENTITY_SEARCH = "entity=plasmid"
-
-/**
- * Renders the current location search string next to the page so tests can
- * assert on url updates without relying on a specific router implementation.
- *
- * @returns The location search rendered in a test id.
- */
-const LocationProbe = () => {
-  const { search } = useLocation()
-  return <div data-testid={LOCATION_SEARCH_TEST_ID}>{search}</div>
-}
-
-/**
- * Renders the catalog page with an extra in-app link used to simulate
- * navigation coming from outside the page, e.g. the navbar catalog links.
- *
- * @param to - Target of the simulated external link.
- * @param label - Visible label of the simulated external link.
- * @param initialEntries - Initial history entries for the memory router.
- * @returns The Testing Library render result.
- */
-const renderWithExternalLink = (
-  to: string,
-  label: string,
-  initialEntries: Array<string>,
-) =>
-  render(
-    <Provider store={makeStore()}>
-      <MockedProvider mocks={[]} addTypename={false}>
-        <MemoryRouter initialEntries={initialEntries}>
-          <Link to={to}>{label}</Link>
-          <LocationProbe />
-          <CatalogSearch />
-        </MemoryRouter>
-      </MockedProvider>
-    </Provider>,
-  )
-
-test("follows an external navigation that changes the entity filter", async () => {
-  renderWithExternalLink(STRAIN_ENTITY_PATH, "go to strains", [
-    PLASMID_ENTITY_PATH,
-  ])
-  expect(screen.getByTestId(LOCATION_SEARCH_TEST_ID)).toHaveTextContent(
-    PLASMID_ENTITY_SEARCH,
-  )
-
-  await userEvent.click(screen.getByRole("link", { name: /go to strains/i }))
-
-  expect(screen.getByTestId(LOCATION_SEARCH_TEST_ID)).toHaveTextContent(
-    STRAIN_ENTITY_SEARCH,
-  )
-  expect(screen.getByRole("radio", { name: /^strains$/i })).toBeChecked()
+test("navigates to the strain resource when the Strains filter is selected", async () => {
+  renderPage([], { entity: "all" })
+  await userEvent.click(screen.getByRole("radio", { name: /^strains$/i }))
+  expect(navigateMock).toHaveBeenCalledWith("/strains?group=all")
 })
 
-test("writes the entity and its default group to the url when selected", async () => {
-  renderWithExternalLink(CATALOG_PATH, "noop", [CATALOG_PATH])
-
+test("navigates to the plasmid resource when the Plasmids filter is selected", async () => {
+  renderPage([], { entity: "all" })
   await userEvent.click(screen.getByRole("radio", { name: /^plasmids$/i }))
-
-  const search = screen.getByTestId(LOCATION_SEARCH_TEST_ID).textContent ?? ""
-  expect(search).toContain(PLASMID_ENTITY_SEARCH)
-  expect(search).toContain("group=all")
+  expect(navigateMock).toHaveBeenCalledWith("/plasmids?group=all")
 })
 
-// ── Default group selection ───────────────────────────────────────────────────
+test("navigates to the catalog resource when All Results is selected", async () => {
+  renderPage([], { entity: "strain" })
+  await userEvent.click(screen.getByRole("radio", { name: /^all results$/i }))
+  expect(navigateMock).toHaveBeenCalledWith("/catalog")
+})
 
-test("selects the All Strains group by default when the strain entity is in the url", () => {
-  renderWithExternalLink(CATALOG_PATH, "noop", [STRAIN_ENTITY_PATH])
+test("preserves the search term while resetting group when switching entities", async () => {
+  renderPage([], {
+    entity: "strain",
+    initialEntries: [`/strains?q=${searchQuery}&group=gwdi`],
+  })
+  await userEvent.click(screen.getByRole("radio", { name: /^plasmids$/i }))
+  expect(navigateMock).toHaveBeenCalledWith(
+    `/plasmids?q=${searchQuery}&group=all`,
+  )
+})
 
+test("does not navigate when the current entity is selected", async () => {
+  renderPage([], { entity: "strain" })
+  await userEvent.click(screen.getByRole("radio", { name: /^strains$/i }))
+  expect(navigateMock).not.toHaveBeenCalled()
+})
+
+// ── Route-derived entity and default group selection ─────────────────────────
+
+test("selects the Strains filter when rendered on the strain resource", () => {
+  renderPage([], { entity: "strain" })
   expect(screen.getByRole("radio", { name: /^strains$/i })).toBeChecked()
+})
+
+test("selects the Plasmids filter when rendered on the plasmid resource", () => {
+  renderPage([], { entity: "plasmid" })
+  expect(screen.getByRole("radio", { name: /^plasmids$/i })).toBeChecked()
+})
+
+test("selects All Results when rendered on the catalog resource", () => {
+  renderPage([], { entity: "all" })
+  expect(screen.getByRole("radio", { name: /^all results$/i })).toBeChecked()
+})
+
+test("selects the All Strains group by default on the strain resource", () => {
+  renderPage([], { entity: "strain" })
   expect(screen.getByRole("radio", { name: /^all strains$/i })).toBeChecked()
 })
 
-test("selects the All Plasmids group by default when the plasmid entity is in the url", () => {
-  renderWithExternalLink(CATALOG_PATH, "noop", [PLASMID_ENTITY_PATH])
-
-  expect(screen.getByRole("radio", { name: /^plasmids$/i })).toBeChecked()
+test("selects the All Plasmids group by default on the plasmid resource", () => {
+  renderPage([], { entity: "plasmid" })
   expect(screen.getByRole("radio", { name: /^all plasmids$/i })).toBeChecked()
 })
 
-test("does not select any group for the All Results entity", () => {
-  renderWithExternalLink(CATALOG_PATH, "noop", [CATALOG_PATH])
-
-  expect(screen.getByRole("radio", { name: /^all results$/i })).toBeChecked()
+test("does not show any group options for the All Results entity", () => {
+  renderPage([], { entity: "all" })
   expect(
     screen.queryByRole("radio", { name: /^all strains$/i }),
   ).not.toBeInTheDocument()
 })
 
 test("prefers an explicit group url param over the entity default", () => {
-  renderWithExternalLink(CATALOG_PATH, "noop", [
-    `${STRAIN_ENTITY_PATH}&group=gwdi`,
-  ])
+  renderPage([gwdiInitialMock], {
+    entity: "strain",
+    initialEntries: ["/strains?group=gwdi"],
+  })
 
   expect(screen.getByRole("radio", { name: /^gwdi strains$/i })).toBeChecked()
   expect(

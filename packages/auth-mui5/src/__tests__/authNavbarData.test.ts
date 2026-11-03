@@ -30,20 +30,18 @@ const stockCenterItems = (
 const itemLabeled = (label: string) =>
   stockCenterItems().find((item) => item.label === label)
 
-test("links the strain catalog to the catalog page filtered by strains", () => {
-  expect(itemLabeled("Strain Catalog")?.link).toBe(
-    `${stockCenterUrl}/catalog?entity=strain`,
-  )
+test("links the strain catalog to the strains resource route", () => {
+  expect(itemLabeled("Strain Catalog")?.link).toBe(`${stockCenterUrl}/strains`)
 })
 
-test("links the plasmid catalog to the catalog page filtered by plasmids", () => {
+test("links the plasmid catalog to the plasmids resource route", () => {
   expect(itemLabeled("Plasmid Catalog")?.link).toBe(
-    `${stockCenterUrl}/catalog?entity=plasmid`,
+    `${stockCenterUrl}/plasmids`,
   )
 })
 
-test("does not link the catalogs to the removed standalone list routes", () => {
+test("links the catalogs to their standalone resource routes", () => {
   const links = stockCenterItems().map(({ link }) => link)
-  expect(links).not.toContain(`${stockCenterUrl}/strains`)
-  expect(links).not.toContain(`${stockCenterUrl}/plasmids`)
+  expect(links).toContain(`${stockCenterUrl}/strains`)
+  expect(links).toContain(`${stockCenterUrl}/plasmids`)
 })

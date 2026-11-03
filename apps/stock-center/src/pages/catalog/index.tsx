@@ -15,7 +15,7 @@ import {
 } from "@mui/material"
 import SearchIcon from "@mui/icons-material/Search"
 import { P, match } from "ts-pattern"
-import { pipe, flow } from "fp-ts/function"
+import { pipe } from "fp-ts/function"
 import {
   Option,
   orElse as OorElse,
@@ -49,7 +49,7 @@ import {
   SearchResultsTable,
   CatalogResultsTable,
 } from "@dictybase/ui-dsc"
-import { useSearchParams } from "react-router-dom"
+import { useSearchParams, useNavigate } from "react-router-dom"
 import { CatalogSidebar } from "../../components/CatalogSidebar"
 import { useInitialSearchResults } from "../../hooks/useInitialSearchResults"
 import { AddToCartButtonHandler } from "../../components/AddToCartButtonHandler"
@@ -58,9 +58,6 @@ import { catalogTheme } from "../../themes"
 /** URL search parameter key for the full-text query string. */
 const QUERY_PARAM = "q"
 
-/** URL search parameter key for the entity type filter. */
-const ENTITY_PARAM = "entity"
-
 /** URL search parameter key for the group type filter. */
 const GROUP_PARAM = "group"
 
@@ -68,9 +65,6 @@ const GROUP_PARAM = "group"
 const ENTITY_STRAIN = "strain"
 const ENTITY_PLASMID = "plasmid"
 const ENTITY_ALL = "all"
-
-/** Default entity filter value — returns results for all stock types. */
-const DEFAULT_ENTITY = ENTITY_ALL
 
 /** Debounce delay in milliseconds before the URL param (and query) updates. */
 const DEBOUNCE_DELAY_MS = 400
@@ -81,6 +75,43 @@ const MIN_CHARS = 3
 /** Maximum number of results to request from the API per search. */
 const SEARCH_LIMIT = 50
 
+/**
+ * The catalog entity is modelled as a resource rather than a query parameter.
+ * Each entity value is backed by its own stable route.
+ */
+type Entity = "all" | "strain" | "plasmid"
+
+/**
+ * Maps each catalog entity to its resource route (relative to the stock
+ * center basename). The entity switcher navigates between these routes.
+ */
+const ENTITY_ROUTE: Record<Entity, string> = {
+  all: "/catalog",
+  strain: "/strains",
+  plasmid: "/plasmids",
+}
+
+/** Page heading shown per entity resource. */
+const PAGE_HEADING: Record<Entity, string> = {
+  all: "Catalog Search",
+  strain: "Strain Catalog",
+  plasmid: "Plasmid Catalog",
+}
+
+/** Search input placeholder shown per entity resource. */
+const SEARCH_PLACEHOLDER: Record<Entity, string> = {
+  all: "Search strains and plasmids…",
+  strain: "Search strains…",
+  plasmid: "Search plasmids…",
+}
+
+/** Sidebar title shown per entity resource. */
+const SIDEBAR_TITLE: Record<Entity, string> = {
+  all: "Stock Type",
+  strain: "Strain Type",
+  plasmid: "Plasmid Type",
+}
+
 type SidebarOption = {
   value: string
   label: string
@@ -89,7 +120,7 @@ type SidebarOption = {
 
 /** Sidebar filter options mapping display labels to entity URL param values. */
 const catalogEntityFilterOptions: NonEmptyArray<SidebarOption> = [
-  { value: DEFAULT_ENTITY, label: "All Results" },
+  { value: ENTITY_ALL, label: "All Results" },
   {
     value: ENTITY_STRAIN,
     label: "Strains",
@@ -133,16 +164,16 @@ const catalogEntityFilterOptions: NonEmptyArray<SidebarOption> = [
 ]
 
 /**
- * Maps the `entity` URL parameter value to its corresponding
- * `StockEntityType` for use in the GraphQL query variables.
+ * Maps the `entity` resource value to its corresponding `StockEntityType`
+ * for use in the GraphQL query variables.
  * Returns `undefined` when the "all" option is selected so the API
  * returns results for every entity type.
  *
- * @parameters parameters - The raw string value of the `entity` URL parameter.
+ * @param entity - The catalog entity resource value.
  * @returns A `StockEntityType` enum value, or `undefined` for "all".
  */
-const toStockEntityType = (parameters: string): StockEntityType | undefined =>
-  match(parameters)
+const toStockEntityType = (entity: string): StockEntityType | undefined =>
+  match(entity)
     .with(ENTITY_STRAIN, () => StockEntityType.Strain)
     .with(ENTITY_PLASMID, () => StockEntityType.Plasmid)
     .otherwise(() => undefined)
@@ -154,12 +185,10 @@ const stockGroupFilter =
       .with("all", () => true)
       .otherwise(() => group === stock_type)
 
-const getFirstEntity = flow(RNEAhead<SidebarOption>, ({ value }) => value)
-
 /**
  * Returns the value of the first group option belonging to an entity.
  *
- * @param entityValue - The `entity` url parameter value to look up.
+ * @param entityValue - The entity value to look up.
  * @returns The first group value (i.e. "all"), wrapped in an Option.
  */
 const getFirstGroup = (entityValue: string): Option<string> =>
@@ -169,28 +198,39 @@ const getFirstGroup = (entityValue: string): Option<string> =>
     OflatMap(({ groups }) => pipe(groups, OfromNullable, Omap(RNEAhead))),
     Omap(({ value }) => value),
   )
+
+type CatalogSearchProperties = {
+  /**
+   * The catalog entity resource this page represents. Defaults to "all",
+   * which is the `/catalog` route. `/strains` and `/plasmids` pin their
+   * respective entity.
+   */
+  entity?: Entity
+}
+
 /**
- * Full-catalog search page.
+ * Full-catalog search page, rendered for each entity resource route
+ * (`/catalog`, `/strains`, `/plasmids`).
+ *
+ * The entity is derived from the route (the slash-based resource) rather than
+ * a `?entity=` query parameter. Query parameters operate on the resource:
+ * `q` drives the full-text search and `group` filters by stock group. The
+ * sidebar entity switcher navigates between the entity routes, preserving the
+ * active `q` while resetting `group` to the target entity's default.
  *
  * Renders a text input that debounces user input into a local `searchTerm`
  * state (and keeps the `q` URL param in sync for shareability), a sidebar
- * that writes an `entity` URL parameter for entity-type filtering, and a
- * results table driven by `useSearchStocksLazyQuery`. The query fires only
- * once the search term reaches `MIN_CHARS` characters.
+ * for entity + group filtering, and a results table driven by
+ * `useSearchStocksLazyQuery`. The query fires only once the search term
+ * reaches `MIN_CHARS` characters.
  */
-const CatalogSearch = () => {
+const CatalogSearch = ({ entity = "all" }: CatalogSearchProperties) => {
   const [searchParameters, setSearchParameters] = useSearchParams()
+  const navigate = useNavigate()
 
-  // The filters live in the url so navigation is the single source of truth;
-  // local state only mirrors the query string for the text box.
-  const entity = pipe(
-    searchParameters.get(ENTITY_PARAM),
-    OfromNullable,
-    OgetOrElse(() => pipe(catalogEntityFilterOptions, getFirstEntity)),
-  )
-  // Fall back to the entity's first group, which is "all" for strains and
-  // plasmids, so those catalogs open with their "All ..." option selected.
-  // Entities without groups (i.e. "All Results") have no group filter.
+  // The entity is pinned by the route; the group and query filter live in the
+  // url so navigation is the single source of truth. Local state only mirrors
+  // the query string for the text box.
   const group = pipe(
     searchParameters.get(GROUP_PARAM),
     OfromNullable,
@@ -285,22 +325,29 @@ const CatalogSearch = () => {
     }
   }, [searchTerm, entity, searchStocks])
 
+  /**
+   * Handles the entity switcher. Selecting an entity navigates to that
+   * entity's resource route, preserving the active `q` while resetting the
+   * `group` filter to the target entity's default group.
+   */
   const onChangeEntity: ChangeEventHandler<HTMLInputElement> = ({
     currentTarget,
   }) => {
+    const nextEntity = currentTarget.value as Entity
+    if (nextEntity === entity) return
+    const next = new URLSearchParams(searchParameters)
     // Selecting an entity resets the group to that entity's first option.
-    setSearchParameters((previous) => {
-      const next = new URLSearchParams([...previous.entries()])
-      next.set(ENTITY_PARAM, currentTarget.value)
-      pipe(
-        getFirstGroup(currentTarget.value),
-        Omatch(
-          () => next.delete(GROUP_PARAM),
-          (groupValue) => next.set(GROUP_PARAM, groupValue),
-        ),
-      )
-      return [...next.entries()]
-    })
+    next.delete(GROUP_PARAM)
+    pipe(
+      getFirstGroup(nextEntity),
+      Omatch(
+        () => {},
+        (groupValue) => next.set(GROUP_PARAM, groupValue),
+      ),
+    )
+    const search = next.toString()
+    const queryString = search ? `?${search}` : ""
+    navigate(`${ENTITY_ROUTE[nextEntity]}${queryString}`)
   }
 
   const onChangeGroup: ChangeEventHandler<HTMLInputElement> = ({
@@ -312,6 +359,7 @@ const CatalogSearch = () => {
       return [...next.entries()]
     })
   }
+
   return (
     <ThemeProvider theme={catalogTheme}>
       <Box
@@ -338,7 +386,7 @@ const CatalogSearch = () => {
               fontWeight: 700,
               margin: 0,
             }}>
-            Catalog Search
+            {PAGE_HEADING[entity]}
           </Box>
         </Box>
 
@@ -346,7 +394,7 @@ const CatalogSearch = () => {
         <Box sx={{ display: "flex", gap: "24px", alignItems: "flex-start" }}>
           {/* Entity type filter sidebar */}
           <CatalogSidebar
-            title="Stock Type"
+            title={SIDEBAR_TITLE[entity]}
             options={catalogEntityFilterOptions}
             selectedEntity={entity}
             selectedGroup={group}
@@ -367,7 +415,7 @@ const CatalogSearch = () => {
               }}>
               <TextField
                 fullWidth
-                placeholder="Search strains and plasmids…"
+                placeholder={SEARCH_PLACEHOLDER[entity]}
                 value={inputValue}
                 onChange={(event) => setInputValue(event.target.value)}
                 inputProps={{ "aria-label": "search the catalog" }}

@@ -38,6 +38,9 @@ const mockStrainItem: StrainCartItem = {
   fee: 10,
 }
 
+/** A non-catalog route used to assert the navbar search is visible. */
+const STRAIN_DETAIL_PATH = "/strains/DBS0001"
+
 /**
  * Renders DscNavbar at the given path inside the minimal router and provider
  * tree required by the component. MockedProvider with no mocks is sufficient
@@ -140,8 +143,22 @@ test("does not render the search input on the catalog page", () => {
   ).not.toBeInTheDocument()
 })
 
-test("renders the search input on the strains page", () => {
+test("does not render the search input on the strains catalog page", () => {
   renderOnPath("/strains")
+  expect(
+    screen.queryByRole("textbox", { name: /search strains and plasmids/i }),
+  ).not.toBeInTheDocument()
+})
+
+test("does not render the search input on the plasmids catalog page", () => {
+  renderOnPath("/plasmids")
+  expect(
+    screen.queryByRole("textbox", { name: /search strains and plasmids/i }),
+  ).not.toBeInTheDocument()
+})
+
+test("renders the search input on a non-catalog page", () => {
+  renderOnPath(STRAIN_DETAIL_PATH)
   expect(
     screen.getByRole("textbox", { name: /search strains and plasmids/i }),
   ).toBeInTheDocument()
@@ -185,7 +202,7 @@ const navSuggestionsMock = {
 const navbarSearchTestId = "navbar-search-backdrop"
 
 test("search backdrop is present on pages that show the navbar search", () => {
-  renderOnPath("/strains")
+  renderOnPath(STRAIN_DETAIL_PATH)
   expect(screen.getByTestId(navbarSearchTestId)).toBeInTheDocument()
 })
 
@@ -203,7 +220,7 @@ test("clicking the backdrop closes the search dropdown", async () => {
   const user = userEvent.setup()
   render(
     <MockedProvider mocks={[navSuggestionsMock]} addTypename={false}>
-      <MemoryRouter initialEntries={["/strains"]}>
+      <MemoryRouter initialEntries={[STRAIN_DETAIL_PATH]}>
         <Provider store={createStore()}>
           <Routes>
             <Route element={<DscNavbar />}>
@@ -397,19 +414,19 @@ test("links the Standard Operating Procedures item to the internal SOP page", as
   ).toHaveAttribute("href", expect.stringContaining("/information/sop/show"))
 })
 
-test("links the Strains catalog item to the catalog page filtered by strains", async () => {
+test("links the Strains catalog item to the strains resource route", async () => {
   await openStockCenterMenu()
   expect(screen.getByRole("link", { name: /^strains$/i })).toHaveAttribute(
     "href",
-    expect.stringContaining("/catalog?entity=strain"),
+    expect.stringContaining("/strains"),
   )
 })
 
-test("links the Plasmids catalog item to the catalog page filtered by plasmids", async () => {
+test("links the Plasmids catalog item to the plasmids resource route", async () => {
   await openStockCenterMenu()
   expect(screen.getByRole("link", { name: /^plasmids$/i })).toHaveAttribute(
     "href",
-    expect.stringContaining("/catalog?entity=plasmid"),
+    expect.stringContaining("/plasmids"),
   )
 })
 
