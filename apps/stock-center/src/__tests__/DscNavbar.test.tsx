@@ -3,13 +3,19 @@ import { userEvent } from "@testing-library/user-event"
 import { MemoryRouter, Route, Routes } from "react-router-dom"
 import { Provider, createStore } from "jotai"
 import { MockedProvider } from "@apollo/client/testing"
+import { createTheme } from "@mui/material/styles"
+import { indigo } from "@mui/material/colors"
 import { vi, test, expect, beforeEach } from "vitest"
+import { pipe } from "fp-ts/function"
+import { reduceWithIndex as AreduceWithIndex } from "fp-ts/Array"
+import { match as Bmatch } from "fp-ts/boolean"
 import {
   ListStockSuggestionsDocument,
   StockEntityType,
   StockSearchFieldEnum,
 } from "dicty-graphql-schema"
-import { DscNavbar } from "../components/DscNavbar"
+import { dictyThemeV5, nordicThemeV5 } from "@dictybase/ui-common"
+import { DscNavbar, authButtonSx } from "../components/DscNavbar"
 import { cartAtom } from "../cartState"
 import { QUERY_LIMIT } from "../features/NewHome/types"
 import type { StrainCartItem } from "../types"
@@ -261,6 +267,114 @@ test("cart aria-label reflects the total number of items in the cart", () => {
 test("renders the login button when authentication is enabled", () => {
   renderComponent()
   expect(screen.getByRole("button", { name: /login/i })).toBeInTheDocument()
+})
+
+/** Offsets of the red, green and blue channels inside a `#rrggbb` string. */
+const CHANNEL_OFFSETS = [1, 3, 5]
+
+/** WCAG relative-luminance weights of the red, green and blue channels. */
+const LUMINANCE_WEIGHTS = [0.2126, 0.7152, 0.0722]
+
+/** Minimum contrast ratio WCAG AA requires for normal-size text. */
+const MIN_CONTRAST_RATIO = 4.5
+
+/** Length of a hexadecimal colour written in its `#rgb` shorthand form. */
+const SHORT_HEX_LENGTH = 4
+
+/**
+ * Expands a `#rgb` shorthand colour into its equivalent `#rrggbb` form.
+ *
+ * @param hex - A three- or six-digit hexadecimal colour, e.g. `#fff`.
+ * @returns The colour in six-digit form, e.g. `#ffffff`.
+ */
+const expandHex = (hex: string): string =>
+  pipe(
+    hex.length === SHORT_HEX_LENGTH,
+    Bmatch(
+      () => hex,
+      () => `#${hex.slice(1).replaceAll(/./g, (channel) => channel.repeat(2))}`,
+    ),
+  )
+
+/**
+ * Converts an sRGB colour channel to its linear-light value.
+ *
+ * @param channel - The channel value, normalized to the 0-1 range.
+ * @returns The linear-light value of the channel.
+ */
+const linearizeChannel = (channel: number): number =>
+  pipe(
+    channel <= 0.039_28,
+    Bmatch(
+      () => ((channel + 0.055) / 1.055) ** 2.4,
+      () => channel / 12.92,
+    ),
+  )
+
+/**
+ * Computes the WCAG relative luminance of a colour.
+ *
+ * @param hex - A three- or six-digit hexadecimal colour, e.g. `#e5e9f0`.
+ * @returns The relative luminance, between 0 (black) and 1 (white).
+ */
+const relativeLuminance = (hex: string): number => {
+  const expanded = expandHex(hex)
+  return pipe(
+    CHANNEL_OFFSETS,
+    AreduceWithIndex(
+      0,
+      (index, sum, offset) =>
+        sum +
+        pipe(
+          Number.parseInt(expanded.slice(offset, offset + 2), 16) / 255,
+          linearizeChannel,
+        ) *
+          LUMINANCE_WEIGHTS[index],
+    ),
+  )
+}
+
+/**
+ * Computes the WCAG contrast ratio between two colours.
+ *
+ * @param foreground - The six-digit hexadecimal colour of the text.
+ * @param background - The six-digit hexadecimal colour behind the text.
+ * @returns The contrast ratio, between 1 (identical colours) and 21.
+ */
+const contrastRatio = (foreground: string, background: string): number => {
+  const luminances = [
+    relativeLuminance(foreground),
+    relativeLuminance(background),
+  ].sort((first, second) => second - first)
+  const [lighter, darker] = luminances
+  return (lighter + 0.05) / (darker + 0.05)
+}
+
+test("takes the auth button colour from the theme's primary contrast text", () => {
+  const theme = createTheme({
+    palette: { primary: { main: indigo[50], contrastText: "#2e3440" } },
+  })
+  expect(authButtonSx(theme)["& button"].color).toBe(
+    theme.palette.primary.contrastText,
+  )
+})
+
+test("keeps the auth button readable on the light nordic navbar", () => {
+  expect(
+    contrastRatio(
+      authButtonSx(nordicThemeV5)["& button"].color,
+      nordicThemeV5.palette.primary.dark,
+    ),
+  ).toBeGreaterThanOrEqual(MIN_CONTRAST_RATIO)
+})
+
+test("keeps the auth button readable on the dark dicty navbar", () => {
+  expect(
+    contrastRatio(
+      authButtonSx(dictyThemeV5)["& button"].color,
+      dictyThemeV5.palette.primary.dark,
+    ),
+  ).toBeGreaterThanOrEqual(MIN_CONTRAST_RATIO)
 })
 
 // ── Dicty Stock Center menu contents ──────────────────────────────────────────

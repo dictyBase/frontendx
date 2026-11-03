@@ -26,7 +26,7 @@ const UserToolTip = styled(Tooltip)({ maxWidth: 200 })
 
 const UserButton = styled(Button)({
   display: "flex",
-  flexDirection: "column",
+  flexDirection: "row",
   color: "hsl(210, 100%, 25%)",
 })
 
@@ -43,7 +43,7 @@ const buttonWrapper =
     <UserButton
       disableElevation
       size="large"
-      endIcon={<AccountBox style={{ fontSize: "2.4rem" }} />}
+      startIcon={<AccountBox style={{ fontSize: "2.4rem" }} />}
       onClick={handleClick}>
       {text}
     </UserButton>

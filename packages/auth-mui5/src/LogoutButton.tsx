@@ -67,7 +67,7 @@ const LogoutButton = ({
   )
 
   return (
-    <Box display="flex" flexDirection="column" justifyContent="center">
+    <Box display="flex" flexDirection="row" justifyContent="center">
       <UserDisplayButton user={user} handleClick={handleClick} />
       <Menu
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
