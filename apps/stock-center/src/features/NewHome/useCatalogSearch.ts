@@ -251,14 +251,14 @@ const useCatalogSearch = () => {
   const hasMorePlasmids = plasmidsList.length > DISPLAY_LIMIT
 
   const strainFooterHref = hasMoreStrains
-    ? `/strains?descriptor=${encodeURIComponent(searchTerm)}&group=all`
+    ? `/strains?q=${encodeURIComponent(searchTerm)}&group=all`
     : "/strains"
   const strainFooterLabel = hasMoreStrains
     ? "See all strain results"
     : "Advanced Strain Search"
 
   const plasmidFooterHref = hasMorePlasmids
-    ? `/plasmids?descriptor=${encodeURIComponent(searchTerm)}&group=all`
+    ? `/plasmids?q=${encodeURIComponent(searchTerm)}&group=all`
     : "/plasmids"
   const plasmidFooterLabel = hasMorePlasmids
     ? "See all plasmid results"

@@ -11,6 +11,7 @@ test("displays empty notification", () => {
   )
   expect(screen.getByText(/Your shopping cart is empty./)).toBeInTheDocument()
 })
+
 test("displays button links to catalogs", () => {
   render(
     <Router>
@@ -23,4 +24,32 @@ test("displays button links to catalogs", () => {
   expect(
     screen.getByRole("link", { name: "Browse Plasmids" }),
   ).toBeInTheDocument()
+})
+
+test("links the full catalog button to the catalog resource", () => {
+  render(
+    <Router>
+      <EmptyCart />
+    </Router>,
+  )
+  expect(screen.getByRole("link", { name: "Full Catalog" })).toHaveAttribute(
+    "href",
+    "/catalog",
+  )
+})
+
+test("links the browse buttons to their entity resources", () => {
+  render(
+    <Router>
+      <EmptyCart />
+    </Router>,
+  )
+  expect(screen.getByRole("link", { name: "Browse Strains" })).toHaveAttribute(
+    "href",
+    "/strains",
+  )
+  expect(screen.getByRole("link", { name: "Browse Plasmids" })).toHaveAttribute(
+    "href",
+    "/plasmids",
+  )
 })

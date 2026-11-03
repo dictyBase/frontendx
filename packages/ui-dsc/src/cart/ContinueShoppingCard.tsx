@@ -35,7 +35,7 @@ const ContinueShoppingCard = () => {
       </Typography>
       <Button
         component={Link}
-        to="/catalog?entity=strain"
+        to="/catalog"
         variant="contained"
         color="inherit"
         size="large"
@@ -46,7 +46,7 @@ const ContinueShoppingCard = () => {
       </Button>
       <Button
         component={Link}
-        to="/catalog?entity=strain"
+        to="/strains"
         variant="contained"
         color="inherit"
         size="large"
@@ -57,7 +57,7 @@ const ContinueShoppingCard = () => {
       </Button>
       <Button
         component={Link}
-        to="/catalog?entity=plasmid"
+        to="/plasmids"
         variant="contained"
         color="inherit"
         size="large"

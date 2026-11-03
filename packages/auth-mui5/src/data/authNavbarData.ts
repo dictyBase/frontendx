@@ -123,11 +123,11 @@ const createAuthNavbarItems = (
           },
           {
             label: "Strain Catalog",
-            link: `${stockCenterUrl}/catalog?entity=strain`,
+            link: `${stockCenterUrl}/strains`,
           },
           {
             label: "Plasmid Catalog",
-            link: `${stockCenterUrl}/catalog?entity=plasmid`,
+            link: `${stockCenterUrl}/plasmids`,
           },
           {
             label: "Order Information",

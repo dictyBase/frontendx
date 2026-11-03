@@ -37,7 +37,7 @@ test.describe("Empty Cart", () => {
       .locator("main")
       .getByRole("link", { name: strainCatalogButtonText })
       .click()
-    await expect(page).toHaveURL(/.*\/stockcenter\/catalog\?entity=strain/)
+    await expect(page).toHaveURL(/.*\/stockcenter\/strains/)
   })
 
   test("plasmid catalog button navigates to plasmid catalog page", async ({
@@ -47,7 +47,7 @@ test.describe("Empty Cart", () => {
       .locator("main")
       .getByRole("link", { name: plasmidCatalogButtonText })
       .click()
-    await expect(page).toHaveURL(/.*\/stockcenter\/catalog\?entity=plasmid/)
+    await expect(page).toHaveURL(/.*\/stockcenter\/plasmids/)
   })
 })
 

@@ -48,15 +48,18 @@ import DictyLogo from "../assets/logo.svg"
  * Routes that already provide their own full-page search experience.
  * The navbar search input is suppressed on these paths.
  */
-const SEARCH_HIDDEN_PATHS = new Set(["/", "/catalog"])
+const SEARCH_HIDDEN_PATHS = new Set(["/", "/catalog", "/strains", "/plasmids"])
 
 /**
- * Path of the full catalog search page, relative to the stock center url.
+ * Paths of the catalog resource pages, relative to the stock center url.
  *
- * The per-entity catalog links are query-parameter driven variants of it, i.e.
- * `/catalog?entity=strain`.
+ * `/catalog` is the combined search; `/strains` and `/plasmids` are the
+ * per-entity catalog resources. Entity filtering is modelled by the route
+ * itself rather than an `?entity` query parameter.
  */
 const CATALOG_ROUTE = "/catalog"
+const STRAINS_ROUTE = "/strains"
+const PLASMIDS_ROUTE = "/plasmids"
 
 /** Roles that unlock the content administration menus. */
 const AUTHORIZED_ROLES = ["content-admin"]
@@ -228,11 +231,11 @@ const createAuthNavbarItems = (
               },
               {
                 label: "Strains",
-                href: `${stockCenterUrl}${CATALOG_ROUTE}?entity=strain`,
+                href: `${stockCenterUrl}${STRAINS_ROUTE}`,
               },
               {
                 label: "Plasmids",
-                href: `${stockCenterUrl}${CATALOG_ROUTE}?entity=plasmid`,
+                href: `${stockCenterUrl}${PLASMIDS_ROUTE}`,
               },
             ],
           },
