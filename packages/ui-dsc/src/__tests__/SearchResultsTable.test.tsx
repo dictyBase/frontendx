@@ -27,7 +27,7 @@ const mockStrainLabelMatch: StockSearchResult = {
   entity: StockEntityType.Strain,
   field: StockSearchFieldEnum.Label,
   display_text: "axeA",
-  strain_label: "axeA",
+  stock_label: "axeA",
   summary: "Axenic growth mutant A",
   score: 1,
   in_stock: true,
@@ -40,7 +40,7 @@ const mockStrainGeneMatch: StockSearchResult = {
   entity: StockEntityType.Strain,
   field: StockSearchFieldEnum.Genes,
   display_text: "gpaA",
-  strain_label: "WT/AX2",
+  stock_label: "WT/AX2",
   summary: "Wild type axenic strain",
   score: 0.9,
   in_stock: true,
@@ -53,7 +53,7 @@ const mockStrainOutOfStock: StockSearchResult = {
   entity: StockEntityType.Strain,
   field: StockSearchFieldEnum.Label,
   display_text: "unavailableStrain",
-  strain_label: "unavailableStrain",
+  stock_label: "unavailableStrain",
   summary: "Currently out of stock",
   score: 0.8,
   in_stock: false,
@@ -66,7 +66,7 @@ const mockPlasmidResult: StockSearchResult = {
   entity: StockEntityType.Plasmid,
   field: StockSearchFieldEnum.Name,
   display_text: "pAXE1",
-  strain_label: "",
+  stock_label: "pAXE1",
   summary: "Expression vector for AXE1",
   score: 0.8,
   in_stock: true,
@@ -79,7 +79,7 @@ const mockLongSummaryResult: StockSearchResult = {
   entity: StockEntityType.Strain,
   field: StockSearchFieldEnum.Label,
   display_text: "longSummaryStrain",
-  strain_label: "longSummaryStrain",
+  stock_label: "longSummaryStrain",
   summary: "A".repeat(130),
   score: 0.7,
   in_stock: true,
@@ -112,7 +112,7 @@ test("renders Stock and Summary column headers", () => {
 test("renders a row for each result", () => {
   renderTable([mockStrainLabelMatch, mockPlasmidResult])
   expect(screen.getByRole("link", { name: "axeA" })).toBeInTheDocument()
-  expect(screen.getByRole("link", { name: "DBP0001" })).toBeInTheDocument()
+  expect(screen.getByRole("link", { name: "pAXE1" })).toBeInTheDocument()
 })
 
 test("links a strain result to its detail page using the strain label", () => {
@@ -121,10 +121,10 @@ test("links a strain result to its detail page using the strain label", () => {
   expect(link).toHaveAttribute("href", `/strains/${mockStrainLabelMatch.id}`)
 })
 
-test("uses strain_label as the link text for strain results", () => {
+test("uses stock_label as the link text for strain results", () => {
   renderTable([mockStrainGeneMatch])
   expect(
-    screen.getByRole("link", { name: mockStrainGeneMatch.strain_label }),
+    screen.getByRole("link", { name: mockStrainGeneMatch.stock_label }),
   ).toBeInTheDocument()
 })
 
@@ -151,9 +151,9 @@ test("renders strain summary text", () => {
 
 // ── Plasmid results ────────────────────────────────────────────────────────────
 
-test("links a plasmid result to its detail page using id", () => {
+test("links a plasmid result to its detail page using its id", () => {
   renderTable([mockPlasmidResult])
-  const link = screen.getByRole("link", { name: "DBP0001" })
+  const link = screen.getByRole("link", { name: "pAXE1" })
   expect(link).toHaveAttribute("href", `/plasmids/${mockPlasmidResult.id}`)
 })
 
@@ -188,7 +188,7 @@ test("passes the correct in_stock value to the action component via toStockCatal
 
 // ── toStockCatalogItem ─────────────────────────────────────────────────────────
 
-test("converts a strain result to a StrainItem with strain_label as label", () => {
+test("converts a strain result to a StrainItem with stock_label as label", () => {
   const item = toStockCatalogItem(mockStrainLabelMatch)
   expect(item).toMatchObject({
     __typename: "Strain",
@@ -199,7 +199,7 @@ test("converts a strain result to a StrainItem with strain_label as label", () =
   })
 })
 
-test("converts a strain gene-match result using strain_label as the label", () => {
+test("converts a strain gene-match result using stock_label as the label", () => {
   const item = toStockCatalogItem(mockStrainGeneMatch)
   expect(item).toMatchObject({
     __typename: "Strain",
@@ -209,7 +209,7 @@ test("converts a strain gene-match result using strain_label as the label", () =
   })
 })
 
-test("converts a plasmid result to a PlasmidItem with display_text as name", () => {
+test("converts a plasmid result to a PlasmidItem with stock_label as name", () => {
   const item = toStockCatalogItem(mockPlasmidResult)
   expect(item).toMatchObject({
     __typename: "Plasmid",
@@ -258,7 +258,7 @@ test("converts a result with StockEntityType.All to a StrainItem", () => {
     entity: StockEntityType.All,
     field: StockSearchFieldEnum.Label,
     display_text: "allEntityStrain",
-    strain_label: "",
+    stock_label: "allEntityStrain",
     summary: "Test for All entity type",
     score: 0.9,
     in_stock: true,
@@ -282,7 +282,7 @@ const mockFormattedResult: StockSearchResult = {
   entity: StockEntityType.Strain,
   field: StockSearchFieldEnum.Label,
   display_text: "tgrB1<sup>-</sup>",
-  strain_label: "tgrB1<sup>-</sup>",
+  stock_label: "tgrB1<sup>-</sup>",
   summary: "Mutant of <i>tgrB1</i> with a deletion",
   score: 0.6,
   in_stock: true,
