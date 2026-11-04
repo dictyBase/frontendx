@@ -29,6 +29,7 @@ import {
   match as Amatch,
   findFirst as AfindFirst,
   filter as Afilter,
+  map as Amap,
 } from "fp-ts/Array"
 import { NonEmptyArray } from "fp-ts/NonEmptyArray"
 import {
@@ -46,8 +47,9 @@ import {
   ErrorDisplay,
   ScrollToTop,
   CatalogListLoader,
-  SearchResultsTable,
-  CatalogResultsTable,
+  CatalogList,
+  fromCatalogItem,
+  fromStockSearchResult,
 } from "@dictybase/ui-dsc"
 import { useSearchParams, useNavigate } from "react-router-dom"
 import { CatalogSidebar } from "../../components/CatalogSidebar"
@@ -442,8 +444,8 @@ const CatalogSearch = ({ entity = "all" }: CatalogSearchProperties) => {
               .with(
                 { hasQuery: false, initialData: P.select(P.not(P.nullish)) },
                 (items) => (
-                  <CatalogResultsTable
-                    items={items}
+                  <CatalogList
+                    items={pipe(items, Amap(fromCatalogItem))}
                     actionComponent={AddToCartButtonHandler}
                   />
                 ),
@@ -491,8 +493,8 @@ const CatalogSearch = ({ entity = "all" }: CatalogSearchProperties) => {
                         <EmptyCatalog message="No results found. Try searching with different terms." />
                       ),
                       (r) => (
-                        <SearchResultsTable
-                          results={r}
+                        <CatalogList
+                          items={pipe(r, Amap(fromStockSearchResult))}
                           actionComponent={AddToCartButtonHandler}
                         />
                       ),
