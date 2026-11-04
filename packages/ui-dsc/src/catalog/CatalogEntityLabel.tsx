@@ -32,6 +32,8 @@ const CatalogEntityLabel = ({ entity, id }: CatalogEntityLabelProperties) => {
         sx={{
           color,
           backgroundColor: bg,
+          borderWidth: "1px",
+          borderStyle: "solid",
           borderColor: border,
           fontWeight: 700,
           letterSpacing: "0.06em",
