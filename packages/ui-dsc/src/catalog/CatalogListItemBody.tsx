@@ -1,9 +1,7 @@
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 import MuiLink from "@mui/material/Link"
-import { alpha } from "@mui/material/styles"
 import { Link } from "react-router-dom"
-import { getEntityPresentation } from "./catalogEntityPresentation"
 import { toEntityPath, type CatalogEntityType } from "./catalogListItemData"
 import { formatFormattedString } from "../utils/formatFormattedString"
 
@@ -34,11 +32,11 @@ const CatalogListItemBody = ({
   title,
   summary,
 }: CatalogListItemBodyProperties) => {
-  const { color, Icon } = getEntityPresentation(entity)
   const path = toEntityPath(entity)
 
   return (
-    <Box sx={{ position: "relative", overflow: "hidden", px: 2, py: 2 }}>
+    <Box sx={{ position: "relative", overflow: "hidden", p: 3 }}>
+      {/*
       <Icon
         aria-hidden
         sx={{
@@ -50,13 +48,14 @@ const CatalogListItemBody = ({
           color: alpha(color, 0.06),
         }}
       />
+      */}
       <MuiLink
         component={Link}
         to={`/${path}/${id}`}
         sx={{
           display: "inline-block",
           color: "text.primary",
-          fontWeight: 700,
+          fontWeight: 500,
           fontSize: "1.1rem",
           textDecoration: "none",
           "&:hover": {
@@ -68,7 +67,7 @@ const CatalogListItemBody = ({
       <Typography
         sx={{
           color: "text.secondary",
-          mt: 0.75,
+          mt: 1.75,
           maxWidth: "85%",
         }}>
         {formatFormattedString(summary)}
