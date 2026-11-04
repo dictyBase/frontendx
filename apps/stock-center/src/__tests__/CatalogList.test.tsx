@@ -2,16 +2,14 @@ import type { FC } from "react"
 import { test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { MemoryRouter } from "react-router-dom"
-import { CatalogList } from "../catalog/CatalogList"
 import {
   fromStockSearchResult,
   fromCatalogItem,
-} from "../catalog/catalogListItemData"
-import {
   mockPlasmidLabelMatch,
   mockStrainCatalogItem,
-} from "../mocks/mockCatalogListItems"
-import type { CatalogItem } from "../types"
+  CatalogItem,
+} from "@dictybase/ui-dsc"
+import { CatalogList } from "../components/CatalogList"
 
 const MockAction: FC<{ item: CatalogItem }> = ({ item }) => (
   <button type="button">{`action-${item.id}`}</button>
