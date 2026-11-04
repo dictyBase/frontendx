@@ -21,10 +21,7 @@ const AddToCartButtonHandler = ({ item }: AddToCartButtonHandlerProperties) => {
     <>
       {match({ in_stock, isFull, isInCart })
         .with({ in_stock: false }, () => (
-          <UnavailableButton
-            title="Item is currently unavailable"
-            size="medium"
-          />
+          <UnavailableButton title="Item is currently unavailable" />
         ))
         .with({ isInCart: true }, () => <RemoveFromCartButton item={item} />)
         .with({ isFull: true }, () => <CartFullButton size="medium" />)
