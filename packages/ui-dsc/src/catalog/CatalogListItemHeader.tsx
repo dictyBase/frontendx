@@ -39,7 +39,6 @@ const CatalogListItemHeader = ({
       justifyContent: "space-between",
       gap: 2,
       px: 4,
-      // py: 1,
       backgroundColor: t.palette.background.default,
       borderBottom: 1,
       borderColor: t.palette.secondary.main,
