@@ -24,7 +24,7 @@ const CatalogEntityLabel = ({ entity, id }: CatalogEntityLabelProperties) => {
   const { color, bg, Icon, label, border } = getEntityPresentation(entity)
 
   return (
-    <Stack direction="row" alignItems="center" gap={1}>
+    <Stack direction="row" alignItems="center" gap={2}>
       <Chip
         icon={<Icon aria-hidden />}
         label={label}

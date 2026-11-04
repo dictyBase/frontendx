@@ -47,11 +47,11 @@ import {
   ErrorDisplay,
   ScrollToTop,
   CatalogListLoader,
-  CatalogList,
   fromCatalogItem,
   fromStockSearchResult,
 } from "@dictybase/ui-dsc"
 import { useSearchParams, useNavigate } from "react-router-dom"
+import { CatalogList } from "../../components/CatalogList"
 import { CatalogSidebar } from "../../components/CatalogSidebar"
 import { useInitialSearchResults } from "../../hooks/useInitialSearchResults"
 import { AddToCartButtonHandler } from "../../components/AddToCartButtonHandler"

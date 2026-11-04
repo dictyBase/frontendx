@@ -1,6 +1,7 @@
 import Box from "@mui/material/Box"
 import Stack from "@mui/material/Stack"
 import Typography from "@mui/material/Typography"
+import { grey } from "@mui/material/colors"
 import { match as Bmatch } from "fp-ts/boolean"
 import { pipe } from "fp-ts/function"
 
@@ -11,10 +12,11 @@ type AvailabilityIndicatorProperties = {
 
 /**
  * Renders a coloured dot and label showing whether a stock item is
- * currently available or out of stock. Used in the header of a
- * {@link CatalogListItem}.
+ * currently available, out of stock, or already in the cart. Used in
+ * the header of a {@link CatalogListItem}.
  *
  * @param inStock - Whether the item is currently in stock.
+ * @param inCart  - Whether the item is already in the user's cart.
  */
 const AvailabilityIndicator = ({
   inStock,
@@ -22,8 +24,15 @@ const AvailabilityIndicator = ({
   const color = pipe(
     inStock,
     Bmatch(
-      () => "error.main",
-      () => "success.main",
+      () =>
+        pipe(
+          inStock,
+          Bmatch(
+            () => grey[600],
+            () => "success.main",
+          ),
+        ),
+      () => "info.main",
     ),
   )
   const label = pipe(
