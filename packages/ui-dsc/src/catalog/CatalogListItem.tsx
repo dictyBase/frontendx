@@ -5,7 +5,6 @@ import { match as Omatch } from "fp-ts/Option"
 import { CatalogListItemHeader } from "./CatalogListItemHeader"
 import { CatalogListItemBody } from "./CatalogListItemBody"
 import { CatalogListItemMatchFooter } from "./CatalogListItemMatchFooter"
-import { getEntityPresentation } from "./catalogEntityPresentation"
 import type { CatalogListItemData } from "./catalogListItemData"
 import type { CatalogItem } from "../types"
 
@@ -34,14 +33,12 @@ const CatalogListItem = ({
   actionComponent: ActionComponent,
 }: CatalogListItemProperties) => {
   const { id, entity, title, summary, inStock, item, match } = data
-  const { border } = getEntityPresentation(entity)
 
   return (
     <Paper
       variant="outlined"
+      elevation={3}
       sx={{
-        borderColor: border,
-        borderRadius: 3,
         overflow: "hidden",
       }}>
       <CatalogListItemHeader
