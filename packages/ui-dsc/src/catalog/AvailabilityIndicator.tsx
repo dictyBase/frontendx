@@ -24,15 +24,8 @@ const AvailabilityIndicator = ({
   const color = pipe(
     inStock,
     Bmatch(
-      () =>
-        pipe(
-          inStock,
-          Bmatch(
-            () => grey[600],
-            () => "success.main",
-          ),
-        ),
-      () => "info.main",
+      () => grey[600],
+      () => "success.main",
     ),
   )
   const label = pipe(
