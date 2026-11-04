@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box"
 import Stack from "@mui/material/Stack"
-import Typography from "@mui/material/Typography"
+import Chip from "@mui/material/Chip"
 import { getEntityPresentation } from "./catalogEntityPresentation"
 import type { CatalogEntityType } from "./catalogListItemData"
 
@@ -12,30 +12,35 @@ type CatalogEntityLabelProperties = {
 }
 
 /**
- * Renders the entity glyph, the uppercase entity name, and the stock id,
- * all tinted with the entity's accent colour. Used in the header of a
- * {@link CatalogListItem}.
+ * Renders the entity as a basic MUI `Chip` with a leading icon, followed by
+ * the stock id, all tinted with the entity's accent colour. Used in the
+ * header of a {@link CatalogListItem}.
  *
+ * @see {@link https://v5.mui.com/material-ui/react-chip/#basic-chip}
  * @param entity - Whether the item is a strain or a plasmid.
  * @param id - The stock id to display next to the entity name.
  */
 const CatalogEntityLabel = ({ entity, id }: CatalogEntityLabelProperties) => {
-  const { color, Icon, label } = getEntityPresentation(entity)
+  const { color, bg, Icon, label, border } = getEntityPresentation(entity)
 
   return (
     <Stack direction="row" alignItems="center" gap={1}>
-      <Icon aria-hidden sx={{ color, fontSize: "1.25rem" }} />
-      <Typography
-        component="span"
+      <Chip
+        icon={<Icon aria-hidden />}
+        label={label}
+        size="small"
         sx={{
           color,
+          backgroundColor: bg,
+          borderColor: border,
           fontWeight: 700,
-          fontSize: "0.75rem",
           letterSpacing: "0.06em",
           textTransform: "uppercase",
-        }}>
-        {label}
-      </Typography>
+          "& .MuiChip-icon": {
+            color,
+          },
+        }}
+      />
       <Box
         component="span"
         sx={{

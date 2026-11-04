@@ -34,7 +34,7 @@ const CatalogListItemMatchFooter = ({
       sx={{
         borderTop: 1,
         borderColor: "divider",
-        mt: 1.5,
+        // mt: 1.5,
         px: 2,
         pt: 1.25,
         pb: 1.5,
