@@ -35,7 +35,7 @@ const CatalogListItemBody = ({
   const path = toEntityPath(entity)
 
   return (
-    <Box sx={{ position: "relative", overflow: "hidden", p: 3 }}>
+    <Box sx={{ position: "relative", overflow: "hidden", py: 3, px: 5 }}>
       {/*
       <Icon
         aria-hidden
@@ -67,7 +67,8 @@ const CatalogListItemBody = ({
       <Typography
         sx={{
           color: "text.secondary",
-          mt: 1.75,
+          my: 1.75,
+          mb: 0.75,
           maxWidth: "85%",
         }}>
         {formatFormattedString(summary)}

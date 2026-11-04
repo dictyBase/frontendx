@@ -1,11 +1,12 @@
 import type { FC } from "react"
 import Paper from "@mui/material/Paper"
 import { pipe } from "fp-ts/function"
+import { useNavigate } from "react-router-dom"
 import { match as Omatch } from "fp-ts/Option"
 import { CatalogListItemHeader } from "./CatalogListItemHeader"
 import { CatalogListItemBody } from "./CatalogListItemBody"
 import { CatalogListItemMatchFooter } from "./CatalogListItemMatchFooter"
-import type { CatalogListItemData } from "./catalogListItemData"
+import { toEntityPath, CatalogListItemData } from "./catalogListItemData"
 import type { CatalogItem } from "../types"
 
 type CatalogListItemProperties = {
@@ -33,9 +34,12 @@ const CatalogListItem = ({
   actionComponent: ActionComponent,
 }: CatalogListItemProperties) => {
   const { id, entity, title, summary, inStock, item, match } = data
+  const navigate = useNavigate()
+  const path = toEntityPath(entity)
 
   return (
     <Paper
+      onClick={() => navigate(`/${path}/${id}`)}
       variant="outlined"
       elevation={3}
       sx={{
