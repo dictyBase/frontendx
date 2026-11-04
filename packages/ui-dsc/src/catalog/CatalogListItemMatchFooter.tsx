@@ -47,7 +47,7 @@ const CatalogListItemMatchFooter = ({
         <Typography
           component="span"
           sx={{ fontWeight: 700, fontSize: "0.8rem" }}>
-          {matchFieldLabel(field)}
+          Matches {matchFieldLabel(field)}
         </Typography>
         {pipe(
           isExcludedMatchField(field),
@@ -66,16 +66,6 @@ const CatalogListItemMatchFooter = ({
             () => <></>,
           ),
         )}
-        <Box
-          component="span"
-          aria-hidden
-          sx={{ borderLeft: 1, borderColor: "divider", alignSelf: "stretch" }}
-        />
-        <Typography
-          component="span"
-          sx={{ color: "text.disabled", fontSize: "0.75rem" }}>
-          {`score ${score.toFixed(1)}`}
-        </Typography>
       </Stack>
     </Box>
   )
