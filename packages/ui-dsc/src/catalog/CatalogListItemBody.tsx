@@ -1,7 +1,10 @@
+import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 import MuiLink from "@mui/material/Link"
 import { Link } from "react-router-dom"
+import { CatalogListItemActions } from "./CatalogListItemActions"
+import { CatalogEntityLabel } from "./CatalogEntityLabel"
 import { toEntityPath, type CatalogEntityType } from "./catalogListItemData"
 import { formatFormattedString } from "../utils/formatFormattedString"
 
@@ -31,49 +34,28 @@ const CatalogListItemBody = ({
   entity,
   title,
   summary,
+  action,
 }: CatalogListItemBodyProperties) => {
   const path = toEntityPath(entity)
 
   return (
-    <Box sx={{ position: "relative", overflow: "hidden", py: 3, px: 5 }}>
-      {/*
-      <Icon
-        aria-hidden
-        sx={{
-          position: "absolute",
-          top: "50%",
-          right: -32,
-          transform: "translateY(-50%)",
-          fontSize: 150,
-          color: alpha(color, 0.06),
-        }}
-      />
-      */}
-      <MuiLink
-        component={Link}
-        to={`/${path}/${id}`}
-        sx={{
-          display: "inline-block",
-          color: "text.primary",
-          fontWeight: 500,
-          fontSize: "1.1rem",
-          textDecoration: "none",
-          "&:hover": {
-            textDecoration: "underline",
-          },
-        }}>
-        {formatFormattedString(title)}
-      </MuiLink>
-      <Typography
-        sx={{
-          color: "text.secondary",
-          my: 1.75,
-          mb: 0.75,
-          maxWidth: "85%",
-        }}>
-        {formatFormattedString(summary)}
-      </Typography>
-    </Box>
+    <Grid container sx={{ py: 3, px: 5 }}>
+      <Grid sm={8}>
+        <CatalogEntityLabel title={title} entity={entity} id={id} />
+        <Typography
+          sx={{
+            color: "text.secondary",
+            my: 1.75,
+            mb: 0.75,
+            maxWidth: "85%",
+          }}>
+          {formatFormattedString(summary)}
+        </Typography>
+      </Grid>
+      <Grid sm={4}>
+        <CatalogListItemActions id={id} inStock={false} action={action} />
+      </Grid>
+    </Grid>
   )
 }
 

@@ -1,14 +1,19 @@
 import Box from "@mui/material/Box"
 import Stack from "@mui/material/Stack"
 import Chip from "@mui/material/Chip"
+import MuiLink from "@mui/material/Link"
+import { Link } from "react-router-dom"
 import { getEntityPresentation } from "./catalogEntityPresentation"
-import type { CatalogEntityType } from "./catalogListItemData"
+import { toEntityPath, type CatalogEntityType } from "./catalogListItemData"
+import { formatFormattedString } from "../utils/formatFormattedString"
 
 type CatalogEntityLabelProperties = {
   /** Whether the item is a strain or a plasmid. */
   entity: CatalogEntityType
   /** Stock id, e.g. `"DBP0000785"`. */
   id: string
+  /** Primary display title: the strain label or the plasmid name. */
+  title: string
 }
 
 /**
@@ -20,8 +25,13 @@ type CatalogEntityLabelProperties = {
  * @param entity - Whether the item is a strain or a plasmid.
  * @param id - The stock id to display next to the entity name.
  */
-const CatalogEntityLabel = ({ entity, id }: CatalogEntityLabelProperties) => {
+const CatalogEntityLabel = ({
+  title,
+  entity,
+  id,
+}: CatalogEntityLabelProperties) => {
   const { color, bg, Icon, label, border } = getEntityPresentation(entity)
+  const path = toEntityPath(entity)
 
   return (
     <Stack direction="row" alignItems="center" gap={2}>
@@ -43,6 +53,21 @@ const CatalogEntityLabel = ({ entity, id }: CatalogEntityLabelProperties) => {
           },
         }}
       />
+      <MuiLink
+        component={Link}
+        to={`/${path}/${id}`}
+        sx={{
+          display: "inline-block",
+          color: "text.secondary",
+          fontWeight: 500,
+          fontSize: "1.1rem",
+          textDecoration: "none",
+          "&:hover": {
+            textDecoration: "underline",
+          },
+        }}>
+        {formatFormattedString(title)}
+      </MuiLink>
       <Box
         component="span"
         sx={{

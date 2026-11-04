@@ -12,6 +12,7 @@ import {
 import { formatFormattedString } from "../utils/formatFormattedString"
 
 type CatalogListItemMatchFooterProperties = {
+  /** Whether the item is a strain or a plasmid. */
   /** The search match this footer describes. */
   match: CatalogListItemMatch
 }
@@ -27,14 +28,14 @@ type CatalogListItemMatchFooterProperties = {
 const CatalogListItemMatchFooter = ({
   match,
 }: CatalogListItemMatchFooterProperties) => {
-  const { field, displayText, score } = match
+  const { field, displayText } = match
 
   return (
     <Box
       sx={{
         borderTop: 1,
         borderColor: "divider",
-        // mt: 1.5,
+        backgroundColor: "background.default",
         px: 2,
         pt: 1.25,
         pb: 1.5,

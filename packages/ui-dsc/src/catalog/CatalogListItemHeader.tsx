@@ -14,6 +14,8 @@ type CatalogListItemHeaderProperties = {
   inStock: boolean
   /** The action rendered on the right, e.g. an add-to-cart button. */
   action: ReactNode
+  /** Primary display title: the strain label or the plasmid name. */
+  title: string
 }
 
 /**
@@ -27,6 +29,7 @@ type CatalogListItemHeaderProperties = {
  * @param action - The action rendered on the right, e.g. an add-to-cart button.
  */
 const CatalogListItemHeader = ({
+  title,
   entity,
   id,
   inStock,
@@ -45,7 +48,7 @@ const CatalogListItemHeader = ({
       borderTopLeftRadius: "inherit",
       borderTopRightRadius: "inherit",
     })}>
-    <CatalogEntityLabel entity={entity} id={id} />
+    <CatalogEntityLabel title={title} entity={entity} id={id} />
     <Stack direction="row" alignItems="center" gap={1.25}>
       <AvailabilityIndicator inStock={inStock} />
       {action}

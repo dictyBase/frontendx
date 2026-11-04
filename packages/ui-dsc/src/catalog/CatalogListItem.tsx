@@ -7,7 +7,6 @@ import { CatalogListItemHeader } from "./CatalogListItemHeader"
 import { CatalogListItemBody } from "./CatalogListItemBody"
 import { CatalogListItemMatchFooter } from "./CatalogListItemMatchFooter"
 import { toEntityPath, CatalogListItemData } from "./catalogListItemData"
-import { CatalogEntityLabel } from "./CatalogEntityLabel"
 import type { CatalogItem } from "../types"
 
 type CatalogListItemProperties = {
@@ -42,17 +41,11 @@ const CatalogListItem = ({
     <Paper
       onClick={() => navigate(`/${path}/${id}`)}
       variant="outlined"
-      elevation={3}
       sx={{
         overflow: "hidden",
       }}>
-      <CatalogListItemHeader
-        entity={entity}
-        id={id}
-        inStock={inStock}
-        action={<ActionComponent item={item} />}
-      />
       <CatalogListItemBody
+        action={ActionComponent}
         id={id}
         entity={entity}
         title={title}
