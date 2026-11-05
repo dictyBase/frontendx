@@ -3,6 +3,7 @@ import { pipe } from "fp-ts/function"
 import { Ord as SOrd, Monoid as SMonoid } from "fp-ts/string"
 import {
   fromNullable as OfromNullable,
+  fromPredicate as OfromPredicate,
   getOrElse as OgetOrElse,
   map as Omap,
   flatMap as OflatMap,
@@ -23,6 +24,7 @@ import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
 import { StrainQuery, Phenotype } from "dicty-graphql-schema"
 import { hasUsableName } from "../utils/hasUsableName"
+import { hasUsableContent } from "../utils/hasUsableContent"
 import { fees } from "../fees"
 import { StrainDetailsCardHeader } from "./StrainDetailsCardHeader"
 import { DetailsListItem } from "./DetailsListItem"
@@ -104,6 +106,7 @@ const strainRowsGenerator = ({
     content: pipe(
       parent,
       OfromNullable,
+      OflatMap(OfromPredicate(({ label }) => label !== "")),
       Omap(({ id, label: parentLabel }) => (
         <Link to={`/strains/${id}`}>{parentLabel}</Link>
       )),
@@ -122,6 +125,7 @@ const strainRowsGenerator = ({
       genes,
       OfromNullable,
       Omap(Afilter(hasUsableName)),
+      OflatMap(OfromPredicate((g) => g.length > 0)),
       Omap((geneList) => <GenesDisplay genes={geneList} />),
       OgetOrElse(() => <></>),
     ),
@@ -222,13 +226,17 @@ const StrainDetailsCard = ({ data, tabValue, setTabValue }: Properties) => {
               ),
             )}
             <TabPanel value={tabValue} index={0}>
-              {rows.map((row: DetailsRow) => (
-                <DetailsListItem
-                  title={row.title}
-                  content={row.content}
-                  key={row.id}
-                />
-              ))}
+              {pipe(
+                rows,
+                Afilter((row) => hasUsableContent(row.content)),
+                Amap((row) => (
+                  <DetailsListItem
+                    title={row.title}
+                    content={row.content}
+                    key={row.id}
+                  />
+                )),
+              )}
             </TabPanel>
             <TabPanel value={tabValue} index={1}>
               <StrainPhenotypeList

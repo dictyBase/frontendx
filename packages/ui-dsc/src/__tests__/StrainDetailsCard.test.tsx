@@ -3,12 +3,14 @@ import { screen, render } from "@testing-library/react"
 import { MemoryRouter } from "react-router-dom"
 import { StrainDetailsCard } from "../catalog/StrainDetailsCard"
 import { strainWithPhenotype, availableStrain } from "../mocks/mockStrain"
+// availableStrain is used for the full-details test because it has
+// publications, a named gene and all other fields populated.
 
 test("Displays strain details", () => {
   render(
     <MemoryRouter>
       <StrainDetailsCard
-        data={strainWithPhenotype}
+        data={availableStrain}
         tabValue={0}
         setTabValue={() => {}}
       />
@@ -58,7 +60,7 @@ test("If the strain has 1 or more phenotypes, render a `Phenotypes` tab", () => 
   expect(screen.getByText(/Phenotypes/)).toBeInTheDocument()
 })
 
-test("does not render a gene tag for a placeholder gene with a blank name", () => {
+test("does not render an 'Associated Gene(s)' row when all genes have blank names", () => {
   const strainWithBlankGene = {
     ...availableStrain,
     genes: [{ __typename: "Gene", name: "" }],
@@ -72,7 +74,7 @@ test("does not render a gene tag for a placeholder gene with a blank name", () =
       />
     </MemoryRouter>,
   )
-  expect(screen.getByText("Associated Gene(s)")).toBeVisible()
+  expect(screen.queryByText("Associated Gene(s)")).not.toBeInTheDocument()
   expect(container.querySelector('a[href="/gene/"]')).toBeNull()
 })
 
