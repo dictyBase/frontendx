@@ -36,7 +36,7 @@ const catalogCards: Array<CatalogCardItem> = [
   {
     key: "strain",
     description:
-      "Discover over 12,000 authenticated strains including mutant alleles, null lines, and wild isolates.",
+      "Discover over 28,000 authenticated strains including mutant alleles, null lines, and wild isolates.",
     links: [
       { label: "Strain Catalog", href: "/strains?group=all" },
       { label: "GWDI Strains →", href: "/strains?group=gwdi" },
