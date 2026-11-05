@@ -35,7 +35,7 @@ const CatalogListItemBody = ({
   const path = toEntityPath(entity)
 
   return (
-    <Box sx={{ position: "relative", overflow: "hidden", py: 3, px: 5 }}>
+    <Box sx={{ py: 3, px: 5 }}>
       {/*
       <Icon
         aria-hidden
@@ -49,6 +49,7 @@ const CatalogListItemBody = ({
         }}
       />
       */}
+      {/*
       <MuiLink
         component={Link}
         to={`/${path}/${id}`}
@@ -64,12 +65,13 @@ const CatalogListItemBody = ({
         }}>
         {formatFormattedString(title)}
       </MuiLink>
+      */}
       <Typography
+        variant="body1"
         sx={{
           color: "text.secondary",
           my: 1.75,
           mb: 0.75,
-          maxWidth: "85%",
         }}>
         {formatFormattedString(summary)}
       </Typography>

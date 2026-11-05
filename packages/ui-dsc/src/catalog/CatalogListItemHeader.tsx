@@ -28,6 +28,7 @@ type CatalogListItemHeaderProperties = {
  */
 const CatalogListItemHeader = ({
   entity,
+  title,
   id,
   inStock,
   action,
@@ -45,7 +46,7 @@ const CatalogListItemHeader = ({
       borderTopLeftRadius: "inherit",
       borderTopRightRadius: "inherit",
     })}>
-    <CatalogEntityLabel entity={entity} id={id} />
+    <CatalogEntityLabel title={title} entity={entity} id={id} />
     <Stack direction="row" alignItems="center" gap={1.25}>
       <AvailabilityIndicator inStock={inStock} />
       {action}
