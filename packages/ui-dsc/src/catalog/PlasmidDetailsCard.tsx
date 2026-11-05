@@ -8,6 +8,7 @@ import {
   fromPredicate as OfromPredicate,
 } from "fp-ts/Option"
 import { map as Amap, filter as Afilter } from "fp-ts/Array"
+import { hasUsableContent } from "../utils/hasUsableContent"
 import Box from "@mui/material/Box"
 import Grid from "@mui/material/Grid"
 import Card from "@mui/material/Card"
@@ -54,11 +55,10 @@ const plasmidRowsGenerator = ({
     content: pipe(
       genes,
       OfromNullable,
-      OgetOrElse(
-        () => [] as NonNullable<NonNullable<PlasmidQuery["plasmid"]>["genes"]>,
-      ),
-      Afilter(hasUsableName),
-      (g) => <GenesDisplay genes={g} />,
+      Omap(Afilter(hasUsableName)),
+      OflatMap(OfromPredicate((g) => g.length > 0)),
+      Omap((g) => <GenesDisplay genes={g} />),
+      OgetOrElse(() => <></>),
     ),
   },
   {
@@ -116,6 +116,7 @@ const PlasmidDetailsCard = ({ plasmid }: Properties) => {
             {pipe(
               plasmid,
               plasmidRowsGenerator,
+              Afilter(({ content }) => hasUsableContent(content)),
               Amap(({ title, content }) => (
                 <DetailsListItem title={title} content={content} key={title} />
               )),

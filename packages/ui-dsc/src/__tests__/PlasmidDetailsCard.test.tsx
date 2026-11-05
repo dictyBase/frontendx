@@ -51,31 +51,29 @@ describe("PlasmidDetailsCard", () => {
     })
   })
 
-  test("handles missing genes gracefully", () => {
+  test("does not render an 'Associated Gene(s)' row when genes is null", () => {
     // eslint-disable-next-line unicorn/no-null
     const plasmidWithoutGenes = { ...mockPlasmid, genes: null }
     render(<PlasmidDetailsCard plasmid={plasmidWithoutGenes} />)
-    expect(screen.getByText("Associated Gene(s)")).toBeInTheDocument()
+    expect(screen.queryByText("Associated Gene(s)")).not.toBeInTheDocument()
   })
 
-  test("handles missing sequence gracefully", () => {
+  test("does not render a 'Sequence' row when sequence is null", () => {
     // eslint-disable-next-line unicorn/no-null
     const plasmidWithoutSequence = { ...mockPlasmid, sequence: null }
     render(<PlasmidDetailsCard plasmid={plasmidWithoutSequence} />)
-    expect(screen.getByText("Sequence")).toBeInTheDocument()
-    expect(screen.queryByText(mockPlasmid.sequence)).not.toBeInTheDocument()
+    expect(screen.queryByText("Sequence")).not.toBeInTheDocument()
   })
 
-  test("handles missing publications gracefully", () => {
+  test("does not render a 'Reference(s)' row when publications is empty", () => {
     const plasmidWithoutPublications = { ...mockPlasmid, publications: [] }
     render(<PlasmidDetailsCard plasmid={plasmidWithoutPublications} />)
-    expect(screen.queryByText(/reference\(s\)/i)).toBeInTheDocument()
-    // Further assertions to ensure no publications are displayed
+    expect(screen.queryByText(/reference\(s\)/i)).not.toBeInTheDocument()
   })
 })
 
 describe("PlasmidDetailsCard gene filtering", () => {
-  test("does not render a gene tag for a placeholder gene with a blank name", () => {
+  test("does not render an 'Associated Gene(s)' row when all genes have blank names", () => {
     const plasmidWithBlankGene = {
       ...mockPlasmid,
       genes: [{ __typename: "Gene", name: "" }],
@@ -83,7 +81,7 @@ describe("PlasmidDetailsCard gene filtering", () => {
     const { container } = render(
       <PlasmidDetailsCard plasmid={plasmidWithBlankGene} />,
     )
-    expect(screen.getByText("Associated Gene(s)")).toBeInTheDocument()
+    expect(screen.queryByText("Associated Gene(s)")).not.toBeInTheDocument()
     expect(container.querySelector('a[href="/gene/"]')).toBeNull()
   })
 
