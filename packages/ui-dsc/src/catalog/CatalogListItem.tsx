@@ -7,7 +7,6 @@ import { CatalogListItemHeader } from "./CatalogListItemHeader"
 import { CatalogListItemBody } from "./CatalogListItemBody"
 import { CatalogListItemMatchFooter } from "./CatalogListItemMatchFooter"
 import { toEntityPath, CatalogListItemData } from "./catalogListItemData"
-import { CatalogEntityLabel } from "./CatalogEntityLabel"
 import type { CatalogItem } from "../types"
 
 type CatalogListItemProperties = {
@@ -48,6 +47,7 @@ const CatalogListItem = ({
       }}>
       <CatalogListItemHeader
         entity={entity}
+        title={title}
         id={id}
         inStock={inStock}
         action={<ActionComponent item={item} />}

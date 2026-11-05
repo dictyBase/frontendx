@@ -3,6 +3,7 @@ import Stack from "@mui/material/Stack"
 import Chip from "@mui/material/Chip"
 import { getEntityPresentation } from "./catalogEntityPresentation"
 import type { CatalogEntityType } from "./catalogListItemData"
+import { Typography } from "@mui/material"
 
 type CatalogEntityLabelProperties = {
   /** Whether the item is a strain or a plasmid. */
@@ -20,7 +21,11 @@ type CatalogEntityLabelProperties = {
  * @param entity - Whether the item is a strain or a plasmid.
  * @param id - The stock id to display next to the entity name.
  */
-const CatalogEntityLabel = ({ entity, id }: CatalogEntityLabelProperties) => {
+const CatalogEntityLabel = ({
+  title,
+  entity,
+  id,
+}: CatalogEntityLabelProperties) => {
   const { color, bg, Icon, label, border } = getEntityPresentation(entity)
 
   return (
@@ -43,6 +48,12 @@ const CatalogEntityLabel = ({ entity, id }: CatalogEntityLabelProperties) => {
           },
         }}
       />
+      <Typography
+        variant="subtitle1"
+        color="text.primary"
+        sx={{ fontWeight: 600 }}>
+        {title}
+      </Typography>
       <Box
         component="span"
         sx={{
