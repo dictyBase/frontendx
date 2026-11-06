@@ -6,7 +6,6 @@ import {
   NavbarWithAuth,
   FooterWithAuth,
 } from "@dictybase/auth-mui5"
-import { useGoogleAnalytics } from "../../common/hooks/useGoogleAnalytics"
 import "@fontsource-variable/playfair-display"
 import "@fontsource-variable/inter-tight"
 
@@ -31,8 +30,6 @@ const useStyles = makeStyles((theme: Theme) => ({
  */
 const App: FunctionComponent = ({ children }) => {
   const classes = useStyles()
-  useGoogleAnalytics()
-
   return (
     <Box className={classes.body}>
       <HeaderWithAuth

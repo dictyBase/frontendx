@@ -4,7 +4,6 @@ import { RouterProvider } from "react-router-dom"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import { FooterWithAuth } from "@dictybase/auth-mui5"
 import { dscRouter } from "../routes"
-import { useGoogleAnalytics } from "../hooks/useGoogleAnalytics"
 
 const useStyles = makeStyles((theme: Theme) => ({
   body: {
@@ -21,7 +20,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 const DscApp = () => {
-  useGoogleAnalytics()
   const classes = useStyles()
   return (
     <Box className={classes.body}>

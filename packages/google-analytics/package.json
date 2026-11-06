@@ -2,7 +2,7 @@
   "name": "@dictybase/google-analytics",
   "version": "0.0.0",
   "description": "Function to initialize google analytics in applications",
-  "main": "./src/initializeGoogleAnalytics.ts",
+  "main": "./src/index.ts",
   "author": "Kevin Tun",
   "license": "BSD-2-Clause",
   "devDependencies": {
