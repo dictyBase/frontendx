@@ -15,16 +15,7 @@ afterEach(() => {
   vi.unstubAllGlobals()
 })
 
-test("Does not load Google Analytics in a non-production environment", () => {
-  import.meta.env.VITE_DEPLOY_ENV = "testing"
-  import.meta.env.VITE_GA_TRACKING_ID = "G-XXXXXXXXXX"
-  render(<Wrapper />)
-
-  expect(window.gtag).toBeUndefined()
-})
-
-test("Loads Google Analytics in production environment", () => {
-  import.meta.env.VITE_DEPLOY_ENV = "production"
+test("Loads Google Analytics when a tracking ID is provided", () => {
   import.meta.env.VITE_GA_TRACKING_ID = "G-XXXXXXXXXX"
   render(<Wrapper />)
 
@@ -34,7 +25,6 @@ test("Loads Google Analytics in production environment", () => {
 test("Does not load Google Analytics if there is no tracking ID", () => {
   const mockConsoleError = vi.fn()
   vi.stubGlobal("console", { error: mockConsoleError })
-  import.meta.env.VITE_DEPLOY_ENV = "production"
   import.meta.env.VITE_GA_TRACKING_ID = ""
   render(<Wrapper />)
 

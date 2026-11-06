@@ -364,7 +364,7 @@ const CatalogSearch = ({ entity = "all" }: CatalogSearchProperties) => {
     <ThemeProvider theme={catalogTheme}>
       <Box
         sx={{
-          maxWidth: "1400px",
+          maxWidth: "75%",
           margin: "0 auto",
           padding: "24px",
           pt: 0,
