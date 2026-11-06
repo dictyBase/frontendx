@@ -130,7 +130,7 @@ const StatsBanner = () => {
         gap={15}>
         {match(state)
           .with({ _tag: "loading" }, () =>
-            [0, 1, 2].map((index) => <StatSkeleton key={index} />),
+            FALLBACK_STATS.map(({ label }) => <StatSkeleton key={label} />),
           )
           .with({ _tag: "error" }, () =>
             FALLBACK_STATS.map(({ value, label }) => (

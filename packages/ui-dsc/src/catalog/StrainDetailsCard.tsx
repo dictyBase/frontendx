@@ -35,7 +35,6 @@ import { GenesDisplay } from "./GenesDisplay"
 import { PublicationDisplay } from "./PublicationDisplay"
 import { GenotypesDisplay } from "./GenotypesDisplay"
 import { getDepositorName } from "../utils/getDepositorName"
-import { DetailsRow } from "../types"
 
 const strainRowsGenerator = ({
   label,
@@ -106,7 +105,7 @@ const strainRowsGenerator = ({
     content: pipe(
       parent,
       OfromNullable,
-      OflatMap(OfromPredicate(({ label }) => label !== "")),
+      OflatMap(OfromPredicate(({ label: parentLabel }) => parentLabel !== "")),
       Omap(({ id, label: parentLabel }) => (
         <Link to={`/strains/${id}`}>{parentLabel}</Link>
       )),
