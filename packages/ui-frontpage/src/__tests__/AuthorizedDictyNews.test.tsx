@@ -53,8 +53,8 @@ const mockData = {
   slug: "news-1",
   namespace: "news",
   content: JSON.stringify(mockContent),
-  created_at: "2024-08-22T00:00:00Z",
-  updated_at: "2024-08-23T00:00:00Z",
+  created_at: "2024-08-23T12:00:00Z",
+  updated_at: "2024-08-23T12:00:00Z",
   created_by: {
     id: "user1",
     email: "user1@example.com",
