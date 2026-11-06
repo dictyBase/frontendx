@@ -1,7 +1,6 @@
-import React from "react"
-import { makeStyles } from "@material-ui/core/styles"
-import IconButton from "@material-ui/core/IconButton"
-import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart"
+import IconButton from "@mui/material/IconButton"
+import { indigo } from "@mui/material/colors"
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart"
 import { useSetAtom } from "jotai"
 import { fees } from "@dictybase/ui-dsc"
 import { pipe } from "fp-ts/function"
@@ -9,12 +8,6 @@ import { map } from "fp-ts/Array"
 import { match, P } from "ts-pattern"
 import { addStrainItemsAtom, addPlasmidItemsAtom } from "../cartState"
 import type { StrainItem, PlasmidItem, CatalogItem } from "../types"
-
-const useStyles = makeStyles(({ palette }) => ({
-  cartButton: {
-    color: palette.primary.main,
-  },
-}))
 
 type Properties = {
   /** Stock data */
@@ -44,7 +37,6 @@ const AddToCartButton = ({
   size = "medium",
   setShowDialog,
 }: Properties) => {
-  const classes = useStyles()
   const addStrainItems = useSetAtom(addStrainItemsAtom)
   const addPlasmidItems = useSetAtom(addPlasmidItemsAtom)
 
@@ -62,18 +54,14 @@ const AddToCartButton = ({
   }
 
   return (
-    <>
-      <strong>
-        <IconButton
-          size={size}
-          className={classes.cartButton}
-          onClick={handleClick}
-          title="Add to shopping cart"
-          aria-label="Add to shopping cart">
-          <AddShoppingCartIcon />
-        </IconButton>
-      </strong>
-    </>
+    <IconButton
+      size={size}
+      sx={{ color: indigo[600] }}
+      title="Add to shopping cart"
+      aria-label="Add to shopping cart"
+      onClick={handleClick}>
+      <AddShoppingCartIcon />
+    </IconButton>
   )
 }
 

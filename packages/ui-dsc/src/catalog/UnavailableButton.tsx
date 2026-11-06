@@ -33,6 +33,7 @@ const UnavailableButton = ({
           disabled
           size={size}
           aria-label={title}
+          title={title}
           color="default"
           className={classes.cartFullSlash}>
           <RemoveShoppingCartIcon />
