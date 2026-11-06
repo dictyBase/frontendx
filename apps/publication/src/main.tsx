@@ -3,37 +3,41 @@ import CssBaseline from "@material-ui/core/CssBaseline"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { Helmet } from "react-helmet"
 import { ErrorBoundary } from "@dictybase/ui-common"
+import { useGoogleAnalytics } from "@dictybase/google-analytics"
 import { AppProviders } from "./components/layout/AppProviders"
 import { App } from "./components/layout/App"
 import Home from "./pages/index"
 import PublicationPageWrapper from "./pages/[id]/index"
 import Callback from "./pages/callback"
 
-const PublicationApp = () => (
-  <AppProviders>
-    <CssBaseline />
-    <Helmet>
-      <link rel="shortcut icon" href="/publication/favicon.ico" />
-      <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, shrink-to-fit=no"
-      />
-      <meta name="theme-color" content="#000000" />
-      <link rel="manifest" href="/publication/manifest.json" />
-      <title>dictyBase Literature</title>
-    </Helmet>
-    <ErrorBoundary>
-      <App>
-        <BrowserRouter basename="/publication">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/callback" element={<Callback />} />
-            <Route path="/:id" element={<PublicationPageWrapper />} />
-          </Routes>
-        </BrowserRouter>
-      </App>
-    </ErrorBoundary>
-  </AppProviders>
-)
+const PublicationApp = () => {
+  useGoogleAnalytics(import.meta.env.VITE_GA_TRACKING_ID)
+  return (
+    <AppProviders>
+      <CssBaseline />
+      <Helmet>
+        <link rel="shortcut icon" href="/publication/favicon.ico" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <meta name="theme-color" content="#000000" />
+        <link rel="manifest" href="/publication/manifest.json" />
+        <title>dictyBase Literature</title>
+      </Helmet>
+      <ErrorBoundary>
+        <App>
+          <BrowserRouter basename="/publication">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/callback" element={<Callback />} />
+              <Route path="/:id" element={<PublicationPageWrapper />} />
+            </Routes>
+          </BrowserRouter>
+        </App>
+      </ErrorBoundary>
+    </AppProviders>
+  )
+}
 
 ReactDOM.render(<PublicationApp />, document.querySelector("#root"))
