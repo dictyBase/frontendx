@@ -44,3 +44,22 @@ test("Calls the function passed to `setShowDialog` prop when clicked", async () 
 
   expect(mockSetShowDialog).toHaveBeenCalledOnce()
 })
+
+test("Stops click event propagation to parent elements", async () => {
+  const user = userEvent.setup()
+  const handleParentClick = vi.fn()
+  render(
+    <Provider>
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+      <div onClick={handleParentClick}>
+        <AddToCartButton
+          items={[mockStrainCatalogItem]}
+          setShowDialog={mockSetShowDialog}
+        />
+      </div>
+    </Provider>,
+  )
+  await user.click(screen.getByRole("button", { name: addToCartButtonName }))
+
+  expect(handleParentClick).not.toHaveBeenCalled()
+})
