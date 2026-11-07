@@ -24,7 +24,9 @@ import {
   map as Omap,
   flatMap as OflatMap,
   match as Omatch,
+  toUndefined as OtoUndefined,
 } from "fp-ts/Option"
+import { match as Ematch } from "fp-ts/Either"
 import {
   match as Amatch,
   findFirst as AfindFirst,
@@ -35,8 +37,9 @@ import { NonEmptyArray } from "fp-ts/NonEmptyArray"
 import {
   ReadonlyNonEmptyArray,
   head as RNEAhead,
+  map as RNEAmap,
 } from "fp-ts/ReadonlyNonEmptyArray"
-import { MonoidAny as BMonoidAny } from "fp-ts/boolean"
+import { MonoidAny as BMonoidAny, match as Bmatch } from "fp-ts/boolean"
 import {
   StockSearchResult,
   StockEntityType,
@@ -56,7 +59,16 @@ import {
 } from "@dictybase/ui-dsc"
 import { useSearchParams, useNavigate } from "react-router-dom"
 import { CatalogList } from "../../components/CatalogList"
-import { CatalogSidebar } from "../../components/CatalogSidebar"
+import {
+  CatalogFilterSelector,
+  type FilterOption,
+  type FilterGroupOption,
+} from "../../components/CatalogFilterSelector"
+import {
+  getCountFetcher,
+  type ApiCounts,
+  type EntityCounts,
+} from "../../features/NewHome/StatsBanner"
 import { useInitialSearchResults } from "../../hooks/useInitialSearchResults"
 import { AddToCartButtonHandler } from "../../components/AddToCartButtonHandler"
 import { catalogTheme } from "../../themes"
@@ -115,21 +127,24 @@ const SEARCH_PLACEHOLDER: Record<Entity, string> = {
   plasmid: "Search plasmids…",
 }
 
-/** Sidebar title shown per entity resource. */
-const SIDEBAR_TITLE: Record<Entity, string> = {
-  all: "Stock Type",
-  strain: "Strain Type",
-  plasmid: "Plasmid Type",
-}
-
-type SidebarOption = {
+type BaseFilterOption = {
   value: string
   label: string
   groups?: ReadonlyNonEmptyArray<{ value: string; label: string }>
 }
 
-/** Sidebar filter options mapping display labels to entity URL param values. */
-const catalogEntityFilterOptions: NonEmptyArray<SidebarOption> = [
+type InitialCountState =
+  | { _tag: "loading" }
+  | { _tag: "error" }
+  | { _tag: "data"; counts: ApiCounts }
+
+const INITIAL_API_COUNTS: ApiCounts = {
+  strains: { total: "0", subtypes: [] },
+  plasmids: { total: "0", subtypes: [] },
+}
+
+/** Filter options mapping display labels to entity URL param values. */
+const catalogEntityFilterOptions: NonEmptyArray<BaseFilterOption> = [
   { value: ENTITY_ALL, label: "All Results" },
   {
     value: ENTITY_STRAIN,
@@ -192,8 +207,134 @@ const stockGroupFilter =
   (group: string) =>
   ({ stock_type }: StockSearchResult) =>
     match(group)
-      .with("all", () => true)
+      .with(ENTITY_ALL, () => true)
       .otherwise(() => group === stock_type)
+
+const parseCount = (value: string): number => {
+  const parsed = Number.parseInt(value, 10)
+  return pipe(
+    Number.isNaN(parsed),
+    Bmatch(
+      () => parsed,
+      () => 0,
+    ),
+  )
+}
+
+const getSubtypeCount = (
+  entityCounts: EntityCounts,
+  subtypeName: string,
+): number =>
+  match(subtypeName)
+    .with(ENTITY_ALL, () => parseCount(entityCounts.total))
+    .otherwise(() =>
+      pipe(
+        entityCounts.subtypes,
+        OfromNullable,
+        OflatMap(AfindFirst(({ name }) => name === subtypeName)),
+        Omap(({ count }) => parseCount(count)),
+        OgetOrElse(() => 0),
+      ),
+    )
+
+const applyApiCountsToGroups = (
+  groups: ReadonlyNonEmptyArray<{ value: string; label: string }> | undefined,
+  entityCounts: EntityCounts,
+): ReadonlyNonEmptyArray<FilterGroupOption> | undefined =>
+  pipe(
+    groups,
+    OfromNullable,
+    Omap(
+      RNEAmap((groupOption) => ({
+        ...groupOption,
+        count: getSubtypeCount(entityCounts, groupOption.value),
+      })),
+    ),
+    OtoUndefined,
+  )
+
+const applyApiCountsToOptions = (
+  options: ReadonlyNonEmptyArray<BaseFilterOption>,
+  counts: ApiCounts,
+): ReadonlyNonEmptyArray<FilterOption> => {
+  const strainTotal = parseCount(counts.strains.total)
+  const plasmidTotal = parseCount(counts.plasmids.total)
+
+  return pipe(
+    options,
+    RNEAmap((option) =>
+      match(option.value)
+        .with(ENTITY_STRAIN, () => ({
+          ...option,
+          count: strainTotal,
+          groups: applyApiCountsToGroups(option.groups, counts.strains),
+        }))
+        .with(ENTITY_PLASMID, () => ({
+          ...option,
+          count: plasmidTotal,
+          groups: applyApiCountsToGroups(option.groups, counts.plasmids),
+        }))
+        .otherwise(() => ({
+          ...option,
+          count: strainTotal + plasmidTotal,
+          groups: undefined,
+        })),
+    ),
+  )
+}
+
+const applySearchCountsToGroups = (
+  groups: ReadonlyNonEmptyArray<{ value: string; label: string }> | undefined,
+  entityResults: Array<StockSearchResult>,
+): ReadonlyNonEmptyArray<FilterGroupOption> | undefined =>
+  pipe(
+    groups,
+    OfromNullable,
+    Omap(
+      RNEAmap((groupOption) => ({
+        ...groupOption,
+        count: pipe(entityResults, Afilter(stockGroupFilter(groupOption.value)))
+          .length,
+      })),
+    ),
+    OtoUndefined,
+  )
+
+const applySearchCountsToOptions = (
+  options: ReadonlyNonEmptyArray<BaseFilterOption>,
+  results: Array<StockSearchResult>,
+): ReadonlyNonEmptyArray<FilterOption> => {
+  const strainResults = pipe(
+    results,
+    Afilter(({ entity }) => entity === StockEntityType.Strain),
+  )
+  const plasmidResults = pipe(
+    results,
+    Afilter(({ entity }) => entity === StockEntityType.Plasmid),
+  )
+
+  return pipe(
+    options,
+    RNEAmap((option) =>
+      match(option.value)
+        .with(ENTITY_STRAIN, () => ({
+          ...option,
+          count: strainResults.length,
+          groups: applySearchCountsToGroups(option.groups, strainResults),
+        }))
+        .with(ENTITY_PLASMID, () => ({
+          ...option,
+          count: plasmidResults.length,
+          groups: applySearchCountsToGroups(option.groups, plasmidResults),
+        }))
+        .otherwise(() => ({
+          ...option,
+          count: results.length,
+          groups: undefined,
+        })),
+    ),
+  )
+}
 
 /**
  * Returns the value of the first group option belonging to an entity.
@@ -274,6 +415,57 @@ const CatalogSearch = ({ entity = "all" }: CatalogSearchProperties) => {
       group,
       skip: hasQuery,
     })
+
+  const [initialCountState, setInitialCountState] = useState<InitialCountState>(
+    { _tag: "loading" },
+  )
+
+  useEffect(() => {
+    let active = true
+    const run = async () => {
+      const countFetcher = getCountFetcher()
+      const results = await countFetcher()
+      if (!active) return
+      pipe(
+        results,
+        Ematch<Error, ApiCounts, void>(
+          () => setInitialCountState({ _tag: "error" }),
+          (counts) => setInitialCountState({ _tag: "data", counts }),
+        ),
+      )
+    }
+    run()
+    return () => {
+      active = false
+    }
+  }, [])
+
+  const filterOptionsWithCounts = match({
+    hasQuery,
+    searchData: data,
+    initialCountState,
+  })
+    .with(
+      {
+        hasQuery: true,
+        searchData: { searchStocks: { results: P.select() } },
+      },
+      (results) =>
+        applySearchCountsToOptions(catalogEntityFilterOptions, results),
+    )
+    .with({ hasQuery: true }, () =>
+      applySearchCountsToOptions(catalogEntityFilterOptions, []),
+    )
+    .with(
+      {
+        hasQuery: false,
+        initialCountState: { _tag: "data", counts: P.select() },
+      },
+      (counts) => applyApiCountsToOptions(catalogEntityFilterOptions, counts),
+    )
+    .otherwise(() =>
+      applyApiCountsToOptions(catalogEntityFilterOptions, INITIAL_API_COUNTS),
+    )
 
   // Debounce the text box and write the trimmed query into the `q` url param.
   useEffect(() => {
@@ -402,140 +594,136 @@ const CatalogSearch = ({ entity = "all" }: CatalogSearchProperties) => {
           <CatalogViewSwitcher view={view} onChange={setView} />
         </Box>
 
-        {/* Main layout: sidebar + content */}
-        <Box sx={{ display: "flex", gap: "24px", alignItems: "flex-start" }}>
-          {/* Entity type filter sidebar */}
-          <CatalogSidebar
-            title={SIDEBAR_TITLE[entity]}
-            options={catalogEntityFilterOptions}
+        {/* Main content */}
+        <Box sx={{ minWidth: 0 }}>
+          {/* Search input */}
+          <Box
+            sx={{
+              backgroundColor: "white",
+              borderRadius: "12px",
+              padding: "20px 24px",
+              marginBottom: "16px",
+              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+            }}>
+            <TextField
+              fullWidth
+              placeholder={SEARCH_PLACEHOLDER[entity]}
+              value={inputValue}
+              onChange={(event) => setInputValue(event.target.value)}
+              inputProps={{ "aria-label": "search the catalog" }}
+              // eslint-disable-next-line react/jsx-no-duplicate-props
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon sx={{ color: "#a0aec0" }} />
+                  </InputAdornment>
+                ),
+              }}
+              sx={{ "& .MuiOutlinedInput-root": { borderRadius: "8px" } }}
+            />
+          </Box>
+
+          {/* Horizontal filter selector */}
+          <CatalogFilterSelector
+            options={filterOptionsWithCounts}
             selectedEntity={entity}
             selectedGroup={group}
             onChangeEntity={onChangeEntity}
             onChangeGroup={onChangeGroup}
           />
 
-          {/* Content area */}
-          <Box sx={{ flex: 1, minWidth: 0 }}>
-            {/* Search input */}
-            <Box
-              sx={{
-                backgroundColor: "white",
-                borderRadius: "12px",
-                padding: "20px 24px",
-                marginBottom: "16px",
-                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-              }}>
-              <TextField
-                fullWidth
-                placeholder={SEARCH_PLACEHOLDER[entity]}
-                value={inputValue}
-                onChange={(event) => setInputValue(event.target.value)}
-                inputProps={{ "aria-label": "search the catalog" }}
-                // eslint-disable-next-line react/jsx-no-duplicate-props
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon sx={{ color: "#a0aec0" }} />
-                    </InputAdornment>
-                  ),
-                }}
-                sx={{ "& .MuiOutlinedInput-root": { borderRadius: "8px" } }}
-              />
-            </Box>
-
-            {/* Results area — pattern matched against query/loading/data/error */}
-            {match({
-              initialData,
-              data,
-              loading: BMonoidAny.concat(loading, loadingInitial),
-              error,
-              hasQuery,
-            })
-              .with(
-                { hasQuery: false, initialData: P.select(P.not(P.nullish)) },
-                (items) =>
-                  match(view)
-                    .with(VIEW_LIST, () => (
-                      <CatalogList
-                        items={pipe(items, Amap(fromCatalogItem))}
-                        actionComponent={AddToCartButtonHandler}
-                      />
-                    ))
-                    .with(VIEW_TABLE, () => (
-                      <CatalogResultsTable
-                        items={items}
-                        actionComponent={AddToCartButtonHandler}
-                      />
-                    ))
-                    .exhaustive(),
-              )
-              .with({ loading: true }, () => <CatalogListLoader />)
-              .with({ hasQuery: false }, () => (
-                <Paper
-                  elevation={0}
+          {/* Results area — pattern matched against query/loading/data/error */}
+          {match({
+            initialData,
+            data,
+            loading: BMonoidAny.concat(loading, loadingInitial),
+            error,
+            hasQuery,
+          })
+            .with(
+              { hasQuery: false, initialData: P.select(P.not(P.nullish)) },
+              (items) =>
+                match(view)
+                  .with(VIEW_LIST, () => (
+                    <CatalogList
+                      items={pipe(items, Amap(fromCatalogItem))}
+                      actionComponent={AddToCartButtonHandler}
+                    />
+                  ))
+                  .with(VIEW_TABLE, () => (
+                    <CatalogResultsTable
+                      items={items}
+                      actionComponent={AddToCartButtonHandler}
+                    />
+                  ))
+                  .exhaustive(),
+            )
+            .with({ loading: true }, () => <CatalogListLoader />)
+            .with({ hasQuery: false }, () => (
+              <Paper
+                elevation={0}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 1.5,
+                  py: 10,
+                  borderRadius: "12px",
+                  border: "2px dashed #e2e8f0",
+                  backgroundColor: "#f8fafc",
+                }}>
+                <SearchIcon sx={{ fontSize: 48, color: "#cbd5e0" }} />
+                <Typography
                   sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: 1.5,
-                    py: 10,
-                    borderRadius: "12px",
-                    border: "2px dashed #e2e8f0",
-                    backgroundColor: "#f8fafc",
+                    fontWeight: 600,
+                    color: "#4a5568",
+                    fontSize: "1rem",
                   }}>
-                  <SearchIcon sx={{ fontSize: 48, color: "#cbd5e0" }} />
-                  <Typography
-                    sx={{
-                      fontWeight: 600,
-                      color: "#4a5568",
-                      fontSize: "1rem",
-                    }}>
-                    Search the Catalog
-                  </Typography>
-                  <Typography sx={{ color: "#a0aec0", fontSize: "0.875rem" }}>
-                    Enter at least 3 characters to get started
-                  </Typography>
-                </Paper>
-              ))
-              .with(
-                { data: { searchStocks: { results: P.select() } } },
-                (results) =>
-                  pipe(
-                    group,
-                    Omatch(
-                      () => results,
-                      (g) => pipe(results, Afilter(stockGroupFilter(g))),
-                    ),
-                    Amatch(
-                      () => (
-                        <EmptyCatalog message="No results found. Try searching with different terms." />
-                      ),
-                      (r) =>
-                        match(view)
-                          .with(VIEW_LIST, () => (
-                            <CatalogList
-                              items={pipe(r, Amap(fromStockSearchResult))}
-                              actionComponent={AddToCartButtonHandler}
-                            />
-                          ))
-                          .with(VIEW_TABLE, () => (
-                            <SearchResultsTable
-                              results={r}
-                              actionComponent={AddToCartButtonHandler}
-                            />
-                          ))
-                          .exhaustive(),
-                    ),
+                  Search the Catalog
+                </Typography>
+                <Typography sx={{ color: "#a0aec0", fontSize: "0.875rem" }}>
+                  Enter at least 3 characters to get started
+                </Typography>
+              </Paper>
+            ))
+            .with(
+              { data: { searchStocks: { results: P.select() } } },
+              (results) =>
+                pipe(
+                  group,
+                  Omatch(
+                    () => results,
+                    (g) => pipe(results, Afilter(stockGroupFilter(g))),
                   ),
-              )
-              .with({ error: P.select(P.not(P.nullish)) }, (error_) => (
-                <ErrorDisplay error={error_} refetch={refetch} />
-              ))
-              .otherwise(() => (
-                <></>
-              ))}
-          </Box>
+                  Amatch(
+                    () => (
+                      <EmptyCatalog message="No results found. Try searching with different terms." />
+                    ),
+                    (r) =>
+                      match(view)
+                        .with(VIEW_LIST, () => (
+                          <CatalogList
+                            items={pipe(r, Amap(fromStockSearchResult))}
+                            actionComponent={AddToCartButtonHandler}
+                          />
+                        ))
+                        .with(VIEW_TABLE, () => (
+                          <SearchResultsTable
+                            results={r}
+                            actionComponent={AddToCartButtonHandler}
+                          />
+                        ))
+                        .exhaustive(),
+                  ),
+                ),
+            )
+            .with({ error: P.select(P.not(P.nullish)) }, (error_) => (
+              <ErrorDisplay error={error_} refetch={refetch} />
+            ))
+            .otherwise(() => (
+              <></>
+            ))}
         </Box>
 
         <ScrollToTop />
