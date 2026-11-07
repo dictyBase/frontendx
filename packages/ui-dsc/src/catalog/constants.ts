@@ -2,11 +2,13 @@
 const STRAIN_BADGE_COLOR = "#2b6cb0"
 const STRAIN_BADGE_BG = "#ebf8ff"
 const STRAIN_BADGE_BORDER = "#bee3f8"
+const STRAIN_ITEM_BORDER = "#79c5f1"
 
 /** Badge styling constants for plasmid entity types. */
 const PLASMID_BADGE_COLOR = "#276749"
 const PLASMID_BADGE_BG = "#f0fff4"
 const PLASMID_BADGE_BORDER = "#c6f6d5"
+const PLASMID_ITEM_BORDER = "#84eca4"
 
 /** URL path segment for strain detail pages. */
 const STRAINS_PATH = "strains"
@@ -18,9 +20,11 @@ export {
   STRAIN_BADGE_COLOR,
   STRAIN_BADGE_BG,
   STRAIN_BADGE_BORDER,
+  STRAIN_ITEM_BORDER,
   PLASMID_BADGE_COLOR,
   PLASMID_BADGE_BG,
   PLASMID_BADGE_BORDER,
+  PLASMID_ITEM_BORDER,
   STRAINS_PATH,
   PLASMIDS_PATH,
 }

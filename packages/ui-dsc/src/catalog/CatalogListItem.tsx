@@ -7,6 +7,7 @@ import { CatalogListItemHeader } from "./CatalogListItemHeader"
 import { CatalogListItemBody } from "./CatalogListItemBody"
 import { CatalogListItemMatchFooter } from "./CatalogListItemMatchFooter"
 import { toEntityPath, CatalogListItemData } from "./catalogListItemData"
+import { getEntityPresentation } from "./catalogEntityPresentation"
 import type { CatalogItem } from "../types"
 
 type CatalogListItemProperties = {
@@ -35,6 +36,7 @@ const CatalogListItem = ({
 }: CatalogListItemProperties) => {
   const { id, entity, title, summary, inStock, item, match } = data
   const navigate = useNavigate()
+  const { itemBorder } = getEntityPresentation(entity)
   const path = toEntityPath(entity)
 
   return (
@@ -43,6 +45,12 @@ const CatalogListItem = ({
       variant="outlined"
       sx={{
         overflow: "hidden",
+        "&:hover": {
+          cursor: "pointer",
+          borderColor: itemBorder,
+          borderStyle: "solid",
+          borderWidth: 2,
+        },
       }}>
       <CatalogListItemHeader
         entity={entity}

@@ -5,9 +5,11 @@ import {
   STRAIN_BADGE_COLOR,
   STRAIN_BADGE_BG,
   STRAIN_BADGE_BORDER,
+  STRAIN_ITEM_BORDER,
   PLASMID_BADGE_COLOR,
   PLASMID_BADGE_BG,
   PLASMID_BADGE_BORDER,
+  PLASMID_ITEM_BORDER,
 } from "./constants"
 
 /**
@@ -17,12 +19,14 @@ import {
  * watermark).
  */
 type CatalogEntityPresentation = {
-  /** Accent colour for the entity's icon, label, and watermark. */
+  /** Accent colour for the entity's icon and label.. */
   color: string
-  /** Light background tint for the card header. */
+  /** Light background tint for the badge background. */
   bg: string
-  /** Border colour for the card. */
+  /** Border colour for badge card. */
   border: string
+  /** Border colour for the item card. */
+  itemBorder: string
   /** Icon component representing the entity. */
   Icon: typeof StrainIcon
   /** Display label, e.g. `"Strain"`. */
@@ -46,6 +50,7 @@ const getEntityPresentation = (
       color: STRAIN_BADGE_COLOR,
       bg: STRAIN_BADGE_BG,
       border: STRAIN_BADGE_BORDER,
+      itemBorder: STRAIN_ITEM_BORDER,
       Icon: StrainIcon,
       label: "Strain",
     }))
@@ -53,6 +58,7 @@ const getEntityPresentation = (
       color: PLASMID_BADGE_COLOR,
       bg: PLASMID_BADGE_BG,
       border: PLASMID_BADGE_BORDER,
+      itemBorder: PLASMID_ITEM_BORDER,
       Icon: PlasmidIcon,
       label: "Plasmid",
     }))
