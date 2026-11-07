@@ -1,5 +1,5 @@
-import { vi, test, expect, beforeEach } from "vitest"
-import { render, screen, act } from "@testing-library/react"
+import { vi, test, expect, beforeEach, afterEach } from "vitest"
+import { render, screen, act, waitFor, within } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
 import { MockedProvider } from "@apollo/client/testing"
 import { MemoryRouter, useLocation } from "react-router-dom"
@@ -26,6 +26,10 @@ vi.mock("react-router-dom", async () => {
 
 const SEARCH_LIMIT = 50
 const searchQuery = "axe"
+const ALL_STRAINS_LABEL = "All Strains"
+const REGULAR_STRAINS_LABEL = "Regular Strains"
+const GWDI_STRAINS_LABEL = "GWDI Strains"
+const BACTERIAL_STRAINS_LABEL = "Bacterial Strains"
 
 /** Test id of the location search probe rendered alongside the page. */
 const LOCATION_SEARCH_TEST_ID = "location-search"
@@ -251,11 +255,40 @@ const renderPage = (
     </Provider>,
   )
 
+const mockStockCountsResponse = {
+  strains: {
+    total: "28576",
+    subtypes: [
+      { name: "regular", count: "7055" },
+      { name: "gwdi", count: "21521" },
+      { name: "bacterial", count: "0" },
+    ],
+  },
+  plasmids: {
+    total: "1265",
+    subtypes: [
+      { name: "regular", count: "979" },
+      { name: "goldenbraid", count: "286" },
+    ],
+  },
+}
+
 const getInput = () =>
   screen.getByRole("textbox", { name: /search the catalog/i })
 
 beforeEach(() => {
   navigateMock.mockClear()
+  vi.stubGlobal(
+    "fetch",
+    vi.fn().mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve(mockStockCountsResponse),
+    } as Response),
+  )
+})
+
+afterEach(() => {
+  vi.unstubAllGlobals()
 })
 
 test("renders the page heading", () => {
@@ -356,14 +389,131 @@ test("shows the empty catalog message when the query returns no results", async 
   ).toBeInTheDocument()
 })
 
-test("renders the Stock Type sidebar for the catalog resource", () => {
+test("displays stock counts from the counts API when there is no query", async () => {
   renderPage()
-  expect(screen.getByText("Stock Type")).toBeInTheDocument()
+  await waitFor(() => {
+    expect(screen.getByText("29,841")).toBeInTheDocument()
+  })
+  expect(screen.getByText("28,576")).toBeInTheDocument()
+  expect(screen.getByText("1,265")).toBeInTheDocument()
 })
 
-test("renders a resource-specific sidebar title for the strain catalog", () => {
+test("displays strain subtype counts from the counts API when there is no query", async () => {
   renderPage([], { entity: "strain" })
-  expect(screen.getByText("Strain Type")).toBeInTheDocument()
+  await waitFor(() => {
+    expect(screen.getByText("7,055")).toBeInTheDocument()
+  })
+  expect(screen.getByText("21,521")).toBeInTheDocument()
+  const bacterialLabel = screen
+    .getByText(BACTERIAL_STRAINS_LABEL)
+    .closest("label")
+  expect(bacterialLabel).not.toBeNull()
+  expect(
+    within(bacterialLabel as HTMLElement).getByText("0"),
+  ).toBeInTheDocument()
+})
+
+test("displays plasmid subtype counts from the counts API when there is no query", async () => {
+  renderPage([], { entity: "plasmid" })
+  await waitFor(() => {
+    expect(screen.getByText("979")).toBeInTheDocument()
+  })
+  expect(screen.getByText("286")).toBeInTheDocument()
+})
+
+test("tallies entity and subtype counts from search results when there is a query", async () => {
+  const mixedStrainMock = {
+    request: {
+      query: SearchStocksDocument,
+      variables: {
+        query: searchQuery,
+        limit: SEARCH_LIMIT,
+        entity: StockEntityType.Strain,
+      },
+    },
+    result: {
+      data: {
+        searchStocks: {
+          totalCount: 3,
+          limit: SEARCH_LIMIT,
+          results: [
+            {
+              __typename: "StockSearchResult",
+              id: "DBS0001",
+              entity: StockEntityType.Strain,
+              field: StockSearchFieldEnum.Label,
+              display_text: "regStrain1",
+              stock_label: "regStrain1",
+              summary: "Regular strain 1",
+              score: 1,
+              in_stock: true,
+              stock_type: "regular",
+            },
+            {
+              __typename: "StockSearchResult",
+              id: "DBS0002",
+              entity: StockEntityType.Strain,
+              field: StockSearchFieldEnum.Label,
+              display_text: "regStrain2",
+              stock_label: "regStrain2",
+              summary: "Regular strain 2",
+              score: 0.9,
+              in_stock: true,
+              stock_type: "regular",
+            },
+            {
+              __typename: "StockSearchResult",
+              id: "DBS0003",
+              entity: StockEntityType.Strain,
+              field: StockSearchFieldEnum.Label,
+              display_text: "gwdiStrain1",
+              stock_label: "gwdiStrain1",
+              summary: "GWDI strain 1",
+              score: 0.8,
+              in_stock: true,
+              stock_type: "gwdi",
+            },
+          ],
+        },
+      },
+    },
+  }
+
+  renderPage([mixedStrainMock], { entity: "strain" })
+  await userEvent.type(getInput(), searchQuery)
+  await screen.findByText("regStrain1", {}, QUERY_TIMEOUT)
+
+  const allResultsLabel = screen.getByText("All Results").closest("label")
+  const strainsLabel = screen.getByText("Strains").closest("label")
+  const plasmidsLabel = screen.getByText("Plasmids").closest("label")
+  const allStrainsLabel = screen.getByText(ALL_STRAINS_LABEL).closest("label")
+  const regularStrainsLabel = screen
+    .getByText(REGULAR_STRAINS_LABEL)
+    .closest("label")
+  const gwdiStrainsLabel = screen.getByText(GWDI_STRAINS_LABEL).closest("label")
+  const bacterialStrainsLabel = screen
+    .getByText(BACTERIAL_STRAINS_LABEL)
+    .closest("label")
+
+  expect(
+    within(allResultsLabel as HTMLElement).getByText("3"),
+  ).toBeInTheDocument()
+  expect(within(strainsLabel as HTMLElement).getByText("3")).toBeInTheDocument()
+  expect(
+    within(plasmidsLabel as HTMLElement).getByText("0"),
+  ).toBeInTheDocument()
+  expect(
+    within(allStrainsLabel as HTMLElement).getByText("3"),
+  ).toBeInTheDocument()
+  expect(
+    within(regularStrainsLabel as HTMLElement).getByText("2"),
+  ).toBeInTheDocument()
+  expect(
+    within(gwdiStrainsLabel as HTMLElement).getByText("1"),
+  ).toBeInTheDocument()
+  expect(
+    within(bacterialStrainsLabel as HTMLElement).getByText("0"),
+  ).toBeInTheDocument()
 })
 
 test("renders All Results, Strains, and Plasmids filter options", () => {
@@ -430,10 +580,10 @@ test("displays error message when query fails", async () => {
 
 test("shows group filter options on the strain resource", () => {
   renderPage([], { entity: "strain" })
-  expect(screen.getByText("All Strains")).toBeInTheDocument()
-  expect(screen.getByText("Regular Strains")).toBeInTheDocument()
-  expect(screen.getByText("GWDI Strains")).toBeInTheDocument()
-  expect(screen.getByText("Bacterial Strains")).toBeInTheDocument()
+  expect(screen.getByText(ALL_STRAINS_LABEL)).toBeInTheDocument()
+  expect(screen.getByText(REGULAR_STRAINS_LABEL)).toBeInTheDocument()
+  expect(screen.getByText(GWDI_STRAINS_LABEL)).toBeInTheDocument()
+  expect(screen.getByText(BACTERIAL_STRAINS_LABEL)).toBeInTheDocument()
 })
 
 test("filters results by group when a specific group is selected", async () => {
@@ -470,7 +620,7 @@ test("filters results by group when a specific group is selected", async () => {
     },
   }
   renderPage([gwdiMock], { entity: "strain" })
-  await userEvent.click(screen.getByText("GWDI Strains"))
+  await userEvent.click(screen.getByText(GWDI_STRAINS_LABEL))
   await userEvent.type(getInput(), searchQuery)
   expect(
     await screen.findByText("gwdiStrain", {}, QUERY_TIMEOUT),
