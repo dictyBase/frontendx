@@ -71,7 +71,7 @@ const ORDERING_STEPS: Array<OrderingStep> = [
     icon: "📬",
     title: "Receive Confirmation",
     description:
-      "Orders are typically processed within 2–3 business days. You will receive an email confirmation once your order ships.",
+      "You will receive an email confirmation that your order has been placed",
   },
 ]
 
