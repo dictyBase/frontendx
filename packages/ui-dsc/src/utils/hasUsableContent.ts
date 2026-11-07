@@ -1,5 +1,5 @@
-import React from "react"
-import type { ReactNode } from "react"
+import { Fragment, type ReactNode } from "react"
+import { match, P } from "ts-pattern"
 
 /**
  * Returns true when `content` has something worth rendering in a details row.
@@ -15,16 +15,15 @@ import type { ReactNode } from "react"
  * @returns `true` when the content is renderable, `false` when the row
  *   should be omitted entirely.
  */
-const hasUsableContent = (content: ReactNode): boolean => {
-  if (content === null || content === undefined) return false
-  if (typeof content === "string") return content !== ""
-  if (Array.isArray(content)) return content.length > 0
-  if (React.isValidElement(content)) {
-    if (content.type !== React.Fragment) return true
-    const { children } = content.props as { children?: ReactNode }
-    return children !== undefined && children !== null
-  }
-  return true
-}
+const hasUsableContent = (content: ReactNode): boolean =>
+  match(content)
+    .with(
+      P.nullish,
+      "",
+      [],
+      { type: Fragment, props: { children: P.optional(P.nullish) } },
+      () => false,
+    )
+    .otherwise(() => true)
 
 export { hasUsableContent }
