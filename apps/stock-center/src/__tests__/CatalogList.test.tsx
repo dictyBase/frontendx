@@ -27,17 +27,15 @@ test("renders a CatalogListItem for every entry", () => {
       />
     </MemoryRouter>,
   )
-  expect(
-    screen.getByRole("link", { name: mockStrainCatalogItem.label }),
-  ).toBeInTheDocument()
-  expect(screen.getByRole("link", { name: "pDM304" })).toBeInTheDocument()
+  expect(screen.getByText(mockStrainCatalogItem.label)).toBeInTheDocument()
+  expect(screen.getByText("pDM304")).toBeInTheDocument()
 })
 
 test("renders no items when the list is empty", () => {
-  const { container } = render(
+  render(
     <MemoryRouter>
       <CatalogList items={[]} actionComponent={MockAction} />
     </MemoryRouter>,
   )
-  expect(container.querySelectorAll("a")).toHaveLength(0)
+  expect(screen.queryByRole("button")).not.toBeInTheDocument()
 })

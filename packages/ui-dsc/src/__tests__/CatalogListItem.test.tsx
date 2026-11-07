@@ -28,7 +28,7 @@ const renderItem = (data: ReturnType<typeof fromStockSearchResult>) =>
 test("renders the entity label, title, and summary for a search result", () => {
   renderItem(fromStockSearchResult(mockPlasmidLabelMatch))
   expect(screen.getByText("Plasmid")).toBeInTheDocument()
-  expect(screen.getByRole("link", { name: "pDM304" })).toBeInTheDocument()
+  expect(screen.getByText("pDM304")).toBeInTheDocument()
   expect(
     screen.getByText(
       "Extrachromosomal Dictyostelium expression vector with act15 promoter; G418 resistance",
@@ -38,9 +38,8 @@ test("renders the entity label, title, and summary for a search result", () => {
 
 test("renders the match footer for a search result", () => {
   renderItem(fromStockSearchResult(mockPlasmidLabelMatch))
-  expect(screen.getByText("Label")).toBeInTheDocument()
+  expect(screen.getByText("Matches Label")).toBeInTheDocument()
   expect(screen.getByText("“pDM304”")).toBeInTheDocument()
-  expect(screen.getByText("score 19.4")).toBeInTheDocument()
 })
 
 test("renders 'Out of stock' for an unavailable search result", () => {
@@ -50,7 +49,7 @@ test("renders 'Out of stock' for an unavailable search result", () => {
 
 test("does not render a match footer for a plain catalog item", () => {
   renderItem(fromCatalogItem(mockStrainCatalogItem))
-  expect(screen.queryByText(/^score /)).not.toBeInTheDocument()
+  expect(screen.queryByText(/^Matches /)).not.toBeInTheDocument()
 })
 
 test("passes the converted catalog item to the action component", () => {

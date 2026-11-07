@@ -310,22 +310,24 @@ test("shows strain and plasmid results after typing 3+ characters", async () => 
   await userEvent.type(getInput(), searchQuery)
   expect(await screen.findByText("axeA", {}, QUERY_TIMEOUT)).toBeInTheDocument()
   expect(
-    await screen.findByRole("link", { name: "pAXE1" }, QUERY_TIMEOUT),
+    await screen.findByText("pAXE1", {}, QUERY_TIMEOUT),
   ).toBeInTheDocument()
 })
 
-test("links strain result to its detail page", async () => {
+test("navigates to strain detail page when clicking strain result in list view", async () => {
   renderPage()
   await userEvent.type(getInput(), searchQuery)
-  const link = await screen.findByRole("link", { name: "axeA" }, QUERY_TIMEOUT)
-  expect(link).toHaveAttribute("href", "/strains/DBS0001")
+  const item = await screen.findByText("axeA", {}, QUERY_TIMEOUT)
+  await userEvent.click(item)
+  expect(navigateMock).toHaveBeenCalledWith("/strains/DBS0001")
 })
 
-test("links plasmid result to its detail page", async () => {
+test("navigates to plasmid detail page when clicking plasmid result in list view", async () => {
   renderPage()
   await userEvent.type(getInput(), searchQuery)
-  const link = await screen.findByRole("link", { name: "pAXE1" }, QUERY_TIMEOUT)
-  expect(link).toHaveAttribute("href", "/plasmids/DBP0001")
+  const item = await screen.findByText("pAXE1", {}, QUERY_TIMEOUT)
+  await userEvent.click(item)
+  expect(navigateMock).toHaveBeenCalledWith("/plasmids/DBP0001")
 })
 
 test("renders an add to cart button for in-stock results", async () => {
@@ -556,4 +558,40 @@ test("prefers an explicit group url param over the entity default", () => {
   expect(
     screen.getByRole("radio", { name: /^all strains$/i }),
   ).not.toBeChecked()
+})
+
+// ── View switcher ────────────────────────────────────────────────────────────
+
+test("renders the view switcher with list view active by default", () => {
+  renderPage()
+  expect(screen.getByRole("button", { name: /list view/i })).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  )
+  expect(screen.getByRole("button", { name: /table view/i })).toHaveAttribute(
+    "aria-pressed",
+    "false",
+  )
+})
+
+test("toggles between list view and tabular view for search results", async () => {
+  renderPage()
+  await userEvent.type(getInput(), searchQuery)
+  await screen.findByText("axeA", {}, QUERY_TIMEOUT)
+  expect(screen.queryByRole("table")).not.toBeInTheDocument()
+
+  await userEvent.click(screen.getByRole("button", { name: /table view/i }))
+  expect(screen.getByRole("table")).toBeInTheDocument()
+  expect(screen.getByRole("link", { name: "axeA" })).toHaveAttribute(
+    "href",
+    "/strains/DBS0001",
+  )
+  expect(screen.getByRole("link", { name: "pAXE1" })).toHaveAttribute(
+    "href",
+    "/plasmids/DBP0001",
+  )
+
+  await userEvent.click(screen.getByRole("button", { name: /list view/i }))
+  expect(screen.queryByRole("table")).not.toBeInTheDocument()
+  expect(screen.getByText("axeA")).toBeInTheDocument()
 })

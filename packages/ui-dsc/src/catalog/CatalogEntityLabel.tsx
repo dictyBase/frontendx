@@ -1,13 +1,15 @@
 import Box from "@mui/material/Box"
 import Stack from "@mui/material/Stack"
 import Chip from "@mui/material/Chip"
+import Typography from "@mui/material/Typography"
 import { getEntityPresentation } from "./catalogEntityPresentation"
 import type { CatalogEntityType } from "./catalogListItemData"
-import { Typography } from "@mui/material"
 
 type CatalogEntityLabelProperties = {
   /** Whether the item is a strain or a plasmid. */
   entity: CatalogEntityType
+  /** Primary display title: the strain label or the plasmid name. */
+  title: string
   /** Stock id, e.g. `"DBP0000785"`. */
   id: string
 }

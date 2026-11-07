@@ -5,7 +5,6 @@ import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
 import { CatalogListItem, CatalogListItemData } from "@dictybase/ui-dsc"
 import type { CatalogItem } from "../types"
-import { useCartItemProperties } from "../hooks/useCartItemProperties"
 
 type CatalogListComponentProperties = {
   /** The view models to render, one `CatalogListItem` per entry. */
@@ -27,24 +26,22 @@ type CatalogListComponentProperties = {
 const CatalogList = ({
   items,
   actionComponent,
-}: CatalogListComponentProperties) => {
-  return (
-    <Box sx={{ maxHeight: "700px", overflowY: "auto" }}>
-      <Stack gap={2}>
-        {pipe(
-          items,
-          Amap((data) => (
-            <CatalogListItem
-              key={data.id}
-              data={data}
-              actionComponent={actionComponent}
-            />
-          )),
-        )}
-      </Stack>
-    </Box>
-  )
-}
+}: CatalogListComponentProperties) => (
+  <Box sx={{ maxHeight: "700px", overflowY: "auto" }}>
+    <Stack gap={2}>
+      {pipe(
+        items,
+        Amap((data) => (
+          <CatalogListItem
+            key={data.id}
+            data={data}
+            actionComponent={actionComponent}
+          />
+        )),
+      )}
+    </Stack>
+  </Box>
+)
 
 export { CatalogList }
 export type { CatalogListComponentProperties }
