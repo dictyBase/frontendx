@@ -1,5 +1,5 @@
 import { Provider, createStore } from "jotai"
-import { test, expect } from "vitest"
+import { vi, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
 import { MemoryRouter } from "react-router-dom"
@@ -7,8 +7,9 @@ import { cartAtom } from "../cartState"
 import { mockStrainCartItem, mockPlasmidCartItem } from "../mocks/mockCartItems"
 import { AddToCartButtonHandler } from "../components/AddToCartButtonHandler"
 
-test("Displays `remove from cart` button when strain is already in the cart", async () => {
+test("Displays `remove from cart` button when strain is already in the cart and stops click propagation", async () => {
   const user = userEvent.setup()
+  const handleParentClick = vi.fn()
   const testStore = createStore()
 
   testStore.set(cartAtom, {
@@ -20,7 +21,10 @@ test("Displays `remove from cart` button when strain is already in the cart", as
   render(
     <MemoryRouter>
       <Provider store={testStore}>
-        <AddToCartButtonHandler item={mockStrainCartItem} />
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+        <div onClick={handleParentClick}>
+          <AddToCartButtonHandler item={mockStrainCartItem} />
+        </div>
       </Provider>
     </MemoryRouter>,
   )
@@ -31,6 +35,7 @@ test("Displays `remove from cart` button when strain is already in the cart", as
 
   await user.click(removeFromCartButton)
 
+  expect(handleParentClick).not.toHaveBeenCalled()
   const addToCartButton = screen.getByRole("button", {
     name: /add to shopping cart/i,
   })

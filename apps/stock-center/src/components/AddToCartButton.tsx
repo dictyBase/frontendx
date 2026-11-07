@@ -1,3 +1,8 @@
+import {
+  type MouseEventHandler,
+  type Dispatch,
+  type SetStateAction,
+} from "react"
 import IconButton from "@mui/material/IconButton"
 import { indigo } from "@mui/material/colors"
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart"
@@ -13,7 +18,7 @@ type Properties = {
   /** Stock data */
   items: Array<CatalogItem>
   /** Function to toggle the AddToCartDialog */
-  setShowDialog: React.Dispatch<React.SetStateAction<boolean>>
+  setShowDialog: Dispatch<SetStateAction<boolean>>
   /** Size of icon */
   size?: "small" | "medium" | undefined
 }
@@ -40,7 +45,8 @@ const AddToCartButton = ({
   const addStrainItems = useSetAtom(addStrainItemsAtom)
   const addPlasmidItems = useSetAtom(addPlasmidItemsAtom)
 
-  const handleClick = () => {
+  const handleClick: MouseEventHandler = (event) => {
+    event.stopPropagation()
     match(items)
       .with(P.array({ __typename: "Strain" }), (strainItems) => {
         pipe(strainItems, map(appendStrainFee), addStrainItems)

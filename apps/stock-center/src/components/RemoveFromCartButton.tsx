@@ -1,15 +1,9 @@
-import IconButton from "@material-ui/core/IconButton"
-import { makeStyles, Theme } from "@material-ui/core/styles"
+import { MouseEventHandler } from "react"
+import IconButton from "@mui/material/IconButton"
 import { useSetAtom } from "jotai"
 import DeleteIcon from "@material-ui/icons/Delete"
 import { removeItemAtom } from "../cartState"
 import type { CatalogItem } from "../types"
-
-const useStyles = makeStyles((theme: Theme) => ({
-  button: {
-    color: theme.palette.error.main,
-  },
-}))
 
 type RemoveFromCartButtonProperties = {
   item: CatalogItem
@@ -20,15 +14,15 @@ type RemoveFromCartButtonProperties = {
  */
 const RemoveFromCartButton = ({ item }: RemoveFromCartButtonProperties) => {
   const removeItem = useSetAtom(removeItemAtom)
-  const classes = useStyles()
 
-  const handleClick = () => {
+  const handleClick: MouseEventHandler = (event) => {
+    event.stopPropagation()
     removeItem(item)
   }
 
   return (
     <IconButton
-      className={classes.button}
+      sx={(theme) => ({ color: theme.palette.error.main })}
       color="secondary"
       title="Remove from cart"
       aria-label="Remove from cart"
