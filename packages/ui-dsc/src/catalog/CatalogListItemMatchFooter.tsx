@@ -27,7 +27,7 @@ type CatalogListItemMatchFooterProperties = {
 const CatalogListItemMatchFooter = ({
   match,
 }: CatalogListItemMatchFooterProperties) => {
-  const { field, displayText, score } = match
+  const { field, displayText } = match
 
   return (
     <Box

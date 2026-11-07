@@ -41,7 +41,6 @@ const CatalogListItem = ({
     <Paper
       onClick={() => navigate(`/${path}/${id}`)}
       variant="outlined"
-      elevation={3}
       sx={{
         overflow: "hidden",
       }}>
@@ -52,12 +51,7 @@ const CatalogListItem = ({
         inStock={inStock}
         action={<ActionComponent item={item} />}
       />
-      <CatalogListItemBody
-        id={id}
-        entity={entity}
-        title={title}
-        summary={summary}
-      />
+      <CatalogListItemBody summary={summary} />
       {pipe(
         match,
         Omatch(

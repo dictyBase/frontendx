@@ -13,7 +13,7 @@ test("renders the matched field label", () => {
       }}
     />,
   )
-  expect(screen.getByText("Label")).toBeInTheDocument()
+  expect(screen.getByText("Matches Label")).toBeInTheDocument()
 })
 
 test("renders the matched value in quotes for a regular field", () => {
@@ -39,21 +39,8 @@ test("hides the matched value for an excluded field", () => {
       }}
     />,
   )
-  expect(screen.getByText("Summary")).toBeInTheDocument()
+  expect(screen.getByText("Matches Summary")).toBeInTheDocument()
   expect(
     screen.queryByText("“Null mutant used in adhesion studies”"),
   ).not.toBeInTheDocument()
-})
-
-test("renders the score to one decimal place", () => {
-  render(
-    <CatalogListItemMatchFooter
-      match={{
-        field: StockSearchFieldEnum.Label,
-        displayText: "pDM304",
-        score: 19.44,
-      }}
-    />,
-  )
-  expect(screen.getByText("score 19.4")).toBeInTheDocument()
 })

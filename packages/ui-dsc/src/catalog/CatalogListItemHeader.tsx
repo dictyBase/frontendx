@@ -8,6 +8,8 @@ import type { CatalogEntityType } from "./catalogListItemData"
 type CatalogListItemHeaderProperties = {
   /** Whether the item is a strain or a plasmid. */
   entity: CatalogEntityType
+  /** Primary display title: the strain label or the plasmid name. */
+  title: string
   /** Stock id, e.g. `"DBP0000785"`. */
   id: string
   /** Whether the item is currently in stock. */
