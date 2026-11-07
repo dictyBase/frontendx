@@ -47,8 +47,12 @@ import {
   ErrorDisplay,
   ScrollToTop,
   CatalogListLoader,
+  CatalogResultsTable,
+  SearchResultsTable,
+  CatalogViewSwitcher,
   fromCatalogItem,
   fromStockSearchResult,
+  type CatalogView,
 } from "@dictybase/ui-dsc"
 import { useSearchParams, useNavigate } from "react-router-dom"
 import { CatalogList } from "../../components/CatalogList"
@@ -76,6 +80,10 @@ const MIN_CHARS = 3
 
 /** Maximum number of results to request from the API per search. */
 const SEARCH_LIMIT = 50
+
+/** Catalog results view mode values. */
+const VIEW_LIST: CatalogView = "list"
+const VIEW_TABLE: CatalogView = "table"
 
 /**
  * The catalog entity is modelled as a resource rather than a query parameter.
@@ -245,6 +253,7 @@ const CatalogSearch = ({ entity = "all" }: CatalogSearchProperties) => {
   )
 
   const [inputValue, setInputValue] = useState(searchTerm)
+  const [view, setView] = useState<CatalogView>(VIEW_LIST)
 
   // Latest values for the debounced write. `setSearchParameters` is recreated
   // whenever the location search changes, so listing it as a dependency of the
@@ -390,6 +399,7 @@ const CatalogSearch = ({ entity = "all" }: CatalogSearchProperties) => {
             }}>
             {PAGE_HEADING[entity]}
           </Box>
+          <CatalogViewSwitcher view={view} onChange={setView} />
         </Box>
 
         {/* Main layout: sidebar + content */}
@@ -443,12 +453,21 @@ const CatalogSearch = ({ entity = "all" }: CatalogSearchProperties) => {
             })
               .with(
                 { hasQuery: false, initialData: P.select(P.not(P.nullish)) },
-                (items) => (
-                  <CatalogList
-                    items={pipe(items, Amap(fromCatalogItem))}
-                    actionComponent={AddToCartButtonHandler}
-                  />
-                ),
+                (items) =>
+                  match(view)
+                    .with(VIEW_LIST, () => (
+                      <CatalogList
+                        items={pipe(items, Amap(fromCatalogItem))}
+                        actionComponent={AddToCartButtonHandler}
+                      />
+                    ))
+                    .with(VIEW_TABLE, () => (
+                      <CatalogResultsTable
+                        items={items}
+                        actionComponent={AddToCartButtonHandler}
+                      />
+                    ))
+                    .exhaustive(),
               )
               .with({ loading: true }, () => <CatalogListLoader />)
               .with({ hasQuery: false }, () => (
@@ -492,12 +511,21 @@ const CatalogSearch = ({ entity = "all" }: CatalogSearchProperties) => {
                       () => (
                         <EmptyCatalog message="No results found. Try searching with different terms." />
                       ),
-                      (r) => (
-                        <CatalogList
-                          items={pipe(r, Amap(fromStockSearchResult))}
-                          actionComponent={AddToCartButtonHandler}
-                        />
-                      ),
+                      (r) =>
+                        match(view)
+                          .with(VIEW_LIST, () => (
+                            <CatalogList
+                              items={pipe(r, Amap(fromStockSearchResult))}
+                              actionComponent={AddToCartButtonHandler}
+                            />
+                          ))
+                          .with(VIEW_TABLE, () => (
+                            <SearchResultsTable
+                              results={r}
+                              actionComponent={AddToCartButtonHandler}
+                            />
+                          ))
+                          .exhaustive(),
                     ),
                   ),
               )
