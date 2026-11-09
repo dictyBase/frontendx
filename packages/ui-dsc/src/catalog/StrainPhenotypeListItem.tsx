@@ -26,7 +26,9 @@ const StrainPhenotypeListItem = ({ data }: Properties) => {
         <Grid item xs={3} className={classes.item}>
           <Typography variant="body2">
             <Link
-              to={`/phenotypes/${encodePhenotypeParameter(data.phenotype)}`}>
+              to={`/catalog?entity=strain&q=${encodePhenotypeParameter(
+                data.phenotype,
+              )}`}>
               {data.phenotype}
             </Link>
           </Typography>
