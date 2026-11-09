@@ -111,4 +111,39 @@ const EXPECTED_STRAIN = {
   ],
 }
 
-export { EXPECTED_STRAIN }
+const EXPECTED_PLASMID = {
+  id: "DBP0000027",
+  name: "pRHI30",
+  summary:
+    "Plasmid containing a truncated pyr5-6 region; <b> Sequence note: </b> the sequence below represents the insert only (Robert Insall).",
+  depositor: {
+    first_name: "Dicty",
+    last_name: "Stock Center",
+  },
+  publications: [
+    {
+      id: "8793298",
+      pub_date: "1996-06-01T00:00:00.000Z",
+      title:
+        "The aimless RasGEF is required for processing of chemotactic signals through G-protein-coupled receptors in Dictyostelium.",
+      journal: "Current biology : CB",
+      volume: "",
+      pages: "",
+      doi: "10.1016/s0960-9822(09)00453-9",
+      authors: [
+        { last_name: "Insall" },
+        { last_name: "Borleis" },
+        { last_name: "Devreotes" },
+      ],
+    },
+  ],
+  dbxrefs: [],
+  genes: [{ name: "DDB_G0280041" }],
+  image_map: "",
+  sequence: "",
+  keywords: [""],
+  genbank_accession: "",
+  in_stock: true,
+}
+
+export { EXPECTED_STRAIN, EXPECTED_PLASMID }

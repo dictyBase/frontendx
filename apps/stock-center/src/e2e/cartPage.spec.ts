@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test"
 
+const fullCatalogButtonText = "Full Catalog"
 const strainCatalogButtonText = "Browse Strains"
 const plasmidCatalogButtonText = "Browse Plasmids"
 
@@ -28,6 +29,16 @@ test.describe("Empty Cart", () => {
       name: plasmidCatalogButtonText,
     })
     await expect(plasmidCatalogButton).toBeVisible()
+  })
+
+  test("full catalog button navigates to full catalog page", async ({
+    page,
+  }) => {
+    await page
+      .locator("main")
+      .getByRole("link", { name: fullCatalogButtonText })
+      .click()
+    await expect(page).toHaveURL(/.*\/stockcenter\/catalog/)
   })
 
   test("strain catalog button navigates to strain catalog page", async ({
