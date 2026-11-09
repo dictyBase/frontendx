@@ -725,3 +725,63 @@ test("toggles between list view and tabular view for search results", async () =
   expect(screen.queryByRole("table")).not.toBeInTheDocument()
   expect(screen.getByText("axeA")).toBeInTheDocument()
 })
+
+// ── Only In Stock filter ─────────────────────────────────────────────────────
+
+test("filters search results to only in-stock items when Only In Stock is toggled", async () => {
+  const mixedStockMock = {
+    request: suggestionsMock.request,
+    result: {
+      data: {
+        searchStocks: {
+          totalCount: 2,
+          limit: SEARCH_LIMIT,
+          results: [
+            ...strainOnlyMock.result.data.searchStocks.results,
+            ...outOfStockMock.result.data.searchStocks.results,
+          ],
+        },
+      },
+    },
+  }
+
+  renderPage([mixedStockMock])
+  await userEvent.type(getInput(), searchQuery)
+  expect(await screen.findByText("axeA", {}, QUERY_TIMEOUT)).toBeInTheDocument()
+  expect(screen.getByText("unavailableStrain")).toBeInTheDocument()
+  expect(
+    within(getFilterPillLabel(ALL_RESULTS_LABEL)).getByText("2"),
+  ).toBeInTheDocument()
+
+  const onlyInStockCheckbox = screen.getByRole("checkbox", {
+    name: /only in stock/i,
+  })
+  await userEvent.click(onlyInStockCheckbox)
+  expect(onlyInStockCheckbox).toBeChecked()
+  expect(screen.getByText("axeA")).toBeInTheDocument()
+  expect(screen.queryByText("unavailableStrain")).not.toBeInTheDocument()
+  expect(
+    within(getFilterPillLabel(ALL_RESULTS_LABEL)).getByText("1"),
+  ).toBeInTheDocument()
+
+  await userEvent.click(onlyInStockCheckbox)
+  expect(onlyInStockCheckbox).not.toBeChecked()
+  expect(screen.getByText("unavailableStrain")).toBeInTheDocument()
+  expect(
+    within(getFilterPillLabel(ALL_RESULTS_LABEL)).getByText("2"),
+  ).toBeInTheDocument()
+})
+
+test("shows empty catalog message when Only In Stock filters out all results", async () => {
+  renderPage([outOfStockMock])
+  await userEvent.type(getInput(), searchQuery)
+  expect(
+    await screen.findByText("unavailableStrain", {}, QUERY_TIMEOUT),
+  ).toBeInTheDocument()
+
+  await userEvent.click(
+    screen.getByRole("checkbox", { name: /only in stock/i }),
+  )
+  expect(screen.queryByText("unavailableStrain")).not.toBeInTheDocument()
+  expect(screen.getByText(/no results found/i)).toBeInTheDocument()
+})

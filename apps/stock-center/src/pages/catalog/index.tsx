@@ -95,6 +95,10 @@ const SEARCH_LIMIT = 50
 const VIEW_LIST: CatalogView = "list"
 const VIEW_TABLE: CatalogView = "table"
 
+/** Message displayed when no catalog items match the active search or filters. */
+const EMPTY_CATALOG_MESSAGE =
+  "No results found. Try searching with different terms."
+
 /**
  * The catalog entity is modelled as a resource rather than a query parameter.
  * Each entity value is backed by its own stable route.
@@ -191,6 +195,25 @@ const stockGroupFilter =
     match(group)
       .with(ENTITY_ALL, () => true)
       .otherwise(() => group === stock_type)
+
+/**
+ * Builds a predicate that filters stock items by inventory availability when
+ * the "Only In Stock" filter is active.
+ *
+ * @param onlyInStock - Whether to restrict results to in-stock items.
+ * @returns A predicate returning `true` for all items when `onlyInStock` is
+ *   `false`, or only items with `in_stock: true` when `onlyInStock` is `true`.
+ */
+const inStockFilter =
+  (onlyInStock: boolean) =>
+  <T extends { in_stock: boolean }>({ in_stock }: T): boolean =>
+    pipe(
+      onlyInStock,
+      Bmatch(
+        () => true,
+        () => in_stock,
+      ),
+    )
 
 const applyCountsToGroups = (
   groups: ReadonlyNonEmptyArray<FilterGroupOption> | undefined,
@@ -374,6 +397,7 @@ const CatalogSearch = ({ entity = ENTITY_ALL }: CatalogSearchProperties) => {
   )
 
   const [view, setView] = useState<CatalogView>(VIEW_LIST)
+  const [onlyInStock, setOnlyInStock] = useState(false)
 
   const hasQuery = searchTerm.length >= MIN_CHARS
 
@@ -406,7 +430,7 @@ const CatalogSearch = ({ entity = ENTITY_ALL }: CatalogSearchProperties) => {
             applyCountsToOptions(
               catalogEntityFilterOptions,
               entity,
-              some(results),
+              some(pipe(results, Afilter(inStockFilter(onlyInStock)))),
             ),
         )
         .with({ hasQuery: true, searchError: P.not(P.nullish) }, () =>
@@ -415,7 +439,7 @@ const CatalogSearch = ({ entity = ENTITY_ALL }: CatalogSearchProperties) => {
         .otherwise(() =>
           applyCountsToOptions(catalogEntityFilterOptions, entity, none),
         ),
-    [hasQuery, loading, data, error, entity],
+    [hasQuery, loading, data, error, entity, onlyInStock],
   )
 
   const onSearchTermChange = useCallback(
@@ -502,6 +526,13 @@ const CatalogSearch = ({ entity = ENTITY_ALL }: CatalogSearchProperties) => {
     [setSearchParameters],
   )
 
+  const onChangeOnlyInStock: ChangeEventHandler<HTMLInputElement> = useCallback(
+    ({ currentTarget }) => {
+      setOnlyInStock(currentTarget.checked)
+    },
+    [],
+  )
+
   return (
     <ThemeProvider theme={catalogTheme}>
       <Box
@@ -547,8 +578,10 @@ const CatalogSearch = ({ entity = ENTITY_ALL }: CatalogSearchProperties) => {
             options={filterOptionsWithCounts}
             selectedEntity={entity}
             selectedGroup={group}
+            onlyInStock={onlyInStock}
             onChangeEntity={onChangeEntity}
             onChangeGroup={onChangeGroup}
+            onChangeOnlyInStock={onChangeOnlyInStock}
           />
 
           {/* Results area — pattern matched against query/loading/data/error */}
@@ -562,20 +595,28 @@ const CatalogSearch = ({ entity = ENTITY_ALL }: CatalogSearchProperties) => {
             .with(
               { hasQuery: false, initialData: P.select(P.not(P.nullish)) },
               (items) =>
-                match(view)
-                  .with(VIEW_LIST, () => (
-                    <CatalogList
-                      items={pipe(items, Amap(fromCatalogItem))}
-                      actionComponent={AddToCartButtonHandler}
-                    />
-                  ))
-                  .with(VIEW_TABLE, () => (
-                    <CatalogResultsTable
-                      items={items}
-                      actionComponent={AddToCartButtonHandler}
-                    />
-                  ))
-                  .exhaustive(),
+                pipe(
+                  items,
+                  Afilter(inStockFilter(onlyInStock)),
+                  Amatch(
+                    () => <EmptyCatalog message={EMPTY_CATALOG_MESSAGE} />,
+                    (filteredItems) =>
+                      match(view)
+                        .with(VIEW_LIST, () => (
+                          <CatalogList
+                            items={pipe(filteredItems, Amap(fromCatalogItem))}
+                            actionComponent={AddToCartButtonHandler}
+                          />
+                        ))
+                        .with(VIEW_TABLE, () => (
+                          <CatalogResultsTable
+                            items={filteredItems}
+                            actionComponent={AddToCartButtonHandler}
+                          />
+                        ))
+                        .exhaustive(),
+                  ),
+                ),
             )
             .with({ loading: true }, () => <CatalogListLoader />)
             .with({ hasQuery: false }, () => (
@@ -615,10 +656,9 @@ const CatalogSearch = ({ entity = ENTITY_ALL }: CatalogSearchProperties) => {
                     () => results,
                     (g) => pipe(results, Afilter(stockGroupFilter(g))),
                   ),
+                  Afilter(inStockFilter(onlyInStock)),
                   Amatch(
-                    () => (
-                      <EmptyCatalog message="No results found. Try searching with different terms." />
-                    ),
+                    () => <EmptyCatalog message={EMPTY_CATALOG_MESSAGE} />,
                     (r) =>
                       match(view)
                         .with(VIEW_LIST, () => (
