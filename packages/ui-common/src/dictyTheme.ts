@@ -266,7 +266,7 @@ const nordicThemeOptionsV5: ThemeOptionsV5 = {
       primary: NORDIC_POLAR_NIGHT,
       secondary: "#4c566a",
     },
-    action: { selected: NORDIC_POLAR_NIGHT },
+    action: { selected: NORDIC_POLAR_NIGHT, focus: NORDIC_POLAR_NIGHT },
   },
   typography: {
     fontFamily: bodyFontFamily,
@@ -297,7 +297,6 @@ const nordicThemeOptionsV5: ThemeOptionsV5 = {
         a: { textDecoration: "none" },
       },
     },
-    // MuiButtonBase: { defaultProps: { color: "secondary" } },
     MuiButton: {
       styleOverrides: {
         root: ({ theme }) => ({
@@ -316,6 +315,18 @@ const nordicThemeOptionsV5: ThemeOptionsV5 = {
           minWidth: "160px",
           textTransform: "none",
         },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          "&.Mui-focused": {
+            color: "inherit",
+          },
+          "&.Mui-error": {
+            color: theme.palette.error.main,
+          },
+        }),
       },
     },
     MuiTabs: {
