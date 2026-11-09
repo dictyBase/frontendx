@@ -18,6 +18,8 @@ import { P, match } from "ts-pattern"
 import { pipe } from "fp-ts/function"
 import {
   Option,
+  some,
+  none,
   orElse as OorElse,
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
@@ -26,7 +28,6 @@ import {
   match as Omatch,
   toUndefined as OtoUndefined,
 } from "fp-ts/Option"
-import { match as Ematch } from "fp-ts/Either"
 import {
   match as Amatch,
   findFirst as AfindFirst,
@@ -64,11 +65,6 @@ import {
   type FilterOption,
   type FilterGroupOption,
 } from "../../components/CatalogFilterSelector"
-import {
-  getCountFetcher,
-  type ApiCounts,
-  type EntityCounts,
-} from "../../features/NewHome/StatsBanner"
 import { useInitialSearchResults } from "../../hooks/useInitialSearchResults"
 import { AddToCartButtonHandler } from "../../components/AddToCartButtonHandler"
 import { catalogTheme } from "../../themes"
@@ -127,24 +123,8 @@ const SEARCH_PLACEHOLDER: Record<Entity, string> = {
   plasmid: "Search plasmids…",
 }
 
-type BaseFilterOption = {
-  value: string
-  label: string
-  groups?: ReadonlyNonEmptyArray<{ value: string; label: string }>
-}
-
-type InitialCountState =
-  | { _tag: "loading" }
-  | { _tag: "error" }
-  | { _tag: "data"; counts: ApiCounts }
-
-const INITIAL_API_COUNTS: ApiCounts = {
-  strains: { total: "0", subtypes: [] },
-  plasmids: { total: "0", subtypes: [] },
-}
-
 /** Filter options mapping display labels to entity URL param values. */
-const catalogEntityFilterOptions: NonEmptyArray<BaseFilterOption> = [
+const catalogEntityFilterOptions: NonEmptyArray<FilterOption> = [
   { value: ENTITY_ALL, label: "All Results" },
   {
     value: ENTITY_STRAIN,
@@ -210,36 +190,8 @@ const stockGroupFilter =
       .with(ENTITY_ALL, () => true)
       .otherwise(() => group === stock_type)
 
-const parseCount = (value: string): number => {
-  const parsed = Number.parseInt(value, 10)
-  return pipe(
-    Number.isNaN(parsed),
-    Bmatch(
-      () => parsed,
-      () => 0,
-    ),
-  )
-}
-
-const getSubtypeCount = (
-  entityCounts: EntityCounts,
-  subtypeName: string,
-): number =>
-  match(subtypeName)
-    .with(ENTITY_ALL, () => parseCount(entityCounts.total))
-    .otherwise(() =>
-      pipe(
-        entityCounts.subtypes,
-        OfromNullable,
-        OflatMap(AfindFirst(({ name }) => name === subtypeName)),
-        Omap(({ count }) => parseCount(count)),
-        OgetOrElse(() => 0),
-      ),
-    )
-
-const applyApiCountsToGroups = (
-  groups: ReadonlyNonEmptyArray<{ value: string; label: string }> | undefined,
-  entityCounts: EntityCounts,
+const applyPendingCountsToGroups = (
+  groups: ReadonlyNonEmptyArray<FilterGroupOption> | undefined,
 ): ReadonlyNonEmptyArray<FilterGroupOption> | undefined =>
   pipe(
     groups,
@@ -247,44 +199,35 @@ const applyApiCountsToGroups = (
     Omap(
       RNEAmap((groupOption) => ({
         ...groupOption,
-        count: getSubtypeCount(entityCounts, groupOption.value),
+        count: none,
       })),
     ),
     OtoUndefined,
   )
 
-const applyApiCountsToOptions = (
-  options: ReadonlyNonEmptyArray<BaseFilterOption>,
-  counts: ApiCounts,
-): ReadonlyNonEmptyArray<FilterOption> => {
-  const strainTotal = parseCount(counts.strains.total)
-  const plasmidTotal = parseCount(counts.plasmids.total)
-
-  return pipe(
+const applyPendingCountsToOptions = (
+  options: ReadonlyNonEmptyArray<FilterOption>,
+  activeEntity: Entity,
+): ReadonlyNonEmptyArray<FilterOption> =>
+  pipe(
     options,
     RNEAmap((option) =>
-      match(option.value)
-        .with(ENTITY_STRAIN, () => ({
-          ...option,
-          count: strainTotal,
-          groups: applyApiCountsToGroups(option.groups, counts.strains),
-        }))
-        .with(ENTITY_PLASMID, () => ({
-          ...option,
-          count: plasmidTotal,
-          groups: applyApiCountsToGroups(option.groups, counts.plasmids),
-        }))
-        .otherwise(() => ({
-          ...option,
-          count: strainTotal + plasmidTotal,
-          groups: undefined,
-        })),
+      pipe(
+        option.value === activeEntity,
+        Bmatch(
+          () => option,
+          () => ({
+            ...option,
+            count: none,
+            groups: applyPendingCountsToGroups(option.groups),
+          }),
+        ),
+      ),
     ),
   )
-}
 
 const applySearchCountsToGroups = (
-  groups: ReadonlyNonEmptyArray<{ value: string; label: string }> | undefined,
+  groups: ReadonlyNonEmptyArray<FilterGroupOption> | undefined,
   entityResults: Array<StockSearchResult>,
 ): ReadonlyNonEmptyArray<FilterGroupOption> | undefined =>
   pipe(
@@ -293,48 +236,36 @@ const applySearchCountsToGroups = (
     Omap(
       RNEAmap((groupOption) => ({
         ...groupOption,
-        count: pipe(entityResults, Afilter(stockGroupFilter(groupOption.value)))
-          .length,
+        count: some(
+          pipe(entityResults, Afilter(stockGroupFilter(groupOption.value)))
+            .length,
+        ),
       })),
     ),
     OtoUndefined,
   )
 
 const applySearchCountsToOptions = (
-  options: ReadonlyNonEmptyArray<BaseFilterOption>,
+  options: ReadonlyNonEmptyArray<FilterOption>,
+  activeEntity: Entity,
   results: Array<StockSearchResult>,
-): ReadonlyNonEmptyArray<FilterOption> => {
-  const strainResults = pipe(
-    results,
-    Afilter(({ entity }) => entity === StockEntityType.Strain),
-  )
-  const plasmidResults = pipe(
-    results,
-    Afilter(({ entity }) => entity === StockEntityType.Plasmid),
-  )
-
-  return pipe(
+): ReadonlyNonEmptyArray<FilterOption> =>
+  pipe(
     options,
     RNEAmap((option) =>
-      match(option.value)
-        .with(ENTITY_STRAIN, () => ({
-          ...option,
-          count: strainResults.length,
-          groups: applySearchCountsToGroups(option.groups, strainResults),
-        }))
-        .with(ENTITY_PLASMID, () => ({
-          ...option,
-          count: plasmidResults.length,
-          groups: applySearchCountsToGroups(option.groups, plasmidResults),
-        }))
-        .otherwise(() => ({
-          ...option,
-          count: results.length,
-          groups: undefined,
-        })),
+      pipe(
+        option.value === activeEntity,
+        Bmatch(
+          () => option,
+          () => ({
+            ...option,
+            count: some(results.length),
+            groups: applySearchCountsToGroups(option.groups, results),
+          }),
+        ),
+      ),
     ),
   )
-}
 
 /**
  * Returns the value of the first group option belonging to an entity.
@@ -416,55 +347,29 @@ const CatalogSearch = ({ entity = "all" }: CatalogSearchProperties) => {
       skip: hasQuery,
     })
 
-  const [initialCountState, setInitialCountState] = useState<InitialCountState>(
-    { _tag: "loading" },
-  )
-
-  useEffect(() => {
-    let active = true
-    const run = async () => {
-      const countFetcher = getCountFetcher()
-      const results = await countFetcher()
-      if (!active) return
-      pipe(
-        results,
-        Ematch<Error, ApiCounts, void>(
-          () => setInitialCountState({ _tag: "error" }),
-          (counts) => setInitialCountState({ _tag: "data", counts }),
-        ),
-      )
-    }
-    run()
-    return () => {
-      active = false
-    }
-  }, [])
-
   const filterOptionsWithCounts = match({
     hasQuery,
+    loadingSearch: loading,
     searchData: data,
-    initialCountState,
+    searchError: error,
   })
+    .with({ hasQuery: false }, () => catalogEntityFilterOptions)
+    .with({ hasQuery: true, loadingSearch: true }, () =>
+      applyPendingCountsToOptions(catalogEntityFilterOptions, entity),
+    )
     .with(
       {
         hasQuery: true,
         searchData: { searchStocks: { results: P.select() } },
       },
       (results) =>
-        applySearchCountsToOptions(catalogEntityFilterOptions, results),
+        applySearchCountsToOptions(catalogEntityFilterOptions, entity, results),
     )
-    .with({ hasQuery: true }, () =>
-      applySearchCountsToOptions(catalogEntityFilterOptions, []),
-    )
-    .with(
-      {
-        hasQuery: false,
-        initialCountState: { _tag: "data", counts: P.select() },
-      },
-      (counts) => applyApiCountsToOptions(catalogEntityFilterOptions, counts),
+    .with({ hasQuery: true, searchError: P.not(P.nullish) }, () =>
+      applySearchCountsToOptions(catalogEntityFilterOptions, entity, []),
     )
     .otherwise(() =>
-      applyApiCountsToOptions(catalogEntityFilterOptions, INITIAL_API_COUNTS),
+      applyPendingCountsToOptions(catalogEntityFilterOptions, entity),
     )
 
   // Debounce the text box and write the trimmed query into the `q` url param.

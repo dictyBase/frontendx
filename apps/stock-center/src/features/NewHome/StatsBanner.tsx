@@ -10,19 +10,9 @@ import { match as Ematch } from "fp-ts/Either"
 import { match, P } from "ts-pattern"
 import { Box, Skeleton, Stack, Typography } from "@mui/material"
 
-type SubtypeCount = {
-  name: string
-  count: string
-}
-
-type EntityCounts = {
-  total: string
-  subtypes?: Array<SubtypeCount>
-}
-
 type ApiCounts = {
-  strains: EntityCounts
-  plasmids: EntityCounts
+  strains: { total: string }
+  plasmids: { total: string }
 }
 
 type StatItem = {
@@ -158,5 +148,4 @@ const StatsBanner = () => {
   )
 }
 
-export { StatsBanner, getCountFetcher }
-export type { ApiCounts, EntityCounts, SubtypeCount }
+export { StatsBanner }
