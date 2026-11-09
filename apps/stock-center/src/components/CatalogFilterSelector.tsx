@@ -48,6 +48,7 @@ const UNSELECTED_BADGE_TEXT = "#4a5568"
 const ENTITY_FONT_SIZE = "14px"
 const GROUP_FONT_SIZE = "13px"
 const BADGE_FONT_SIZE = "12px"
+const LOADING_COUNT_DISPLAY = "..."
 
 const hiddenIcon = <Box component="span" sx={{ display: "none" }} />
 
@@ -62,25 +63,34 @@ const hiddenRadioSx = {
 type FilterGroupOption = {
   value: string
   label: string
-  count: number
+  count?: Option<number>
 }
 
 type FilterOption = {
   value: string
   label: string
-  count: number
+  count?: Option<number>
   groups?: ReadonlyNonEmptyArray<FilterGroupOption>
 }
 
 type FilterPillLabelProperties = {
   label: string
-  count: number
+  count?: Option<number>
   labelColor: string
   labelFontSize: string
   labelFontWeight: number
   badgeBg: string
   badgeColor: string
 }
+
+const formatCount = (count: Option<number>): string =>
+  pipe(
+    count,
+    Omatch(
+      () => LOADING_COUNT_DISPLAY,
+      (value) => value.toLocaleString(),
+    ),
+  )
 
 const FilterPillLabel = ({
   label,
@@ -108,25 +118,34 @@ const FilterPillLabel = ({
       }}>
       {label}
     </Typography>
-    <Box
-      component="span"
-      aria-hidden="true"
-      sx={{
-        display: INLINE_FLEX,
-        alignItems: "center",
-        justifyContent: "center",
-        minWidth: "22px",
-        px: "8px",
-        py: "1px",
-        borderRadius: PILL_BORDER_RADIUS,
-        fontSize: BADGE_FONT_SIZE,
-        fontWeight: 600,
-        lineHeight: 1.4,
-        backgroundColor: badgeBg,
-        color: badgeColor,
-      }}>
-      {count.toLocaleString()}
-    </Box>
+    {pipe(
+      count,
+      OfromNullable,
+      Omatch(
+        () => <></>,
+        (countOption) => (
+          <Box
+            component="span"
+            aria-hidden="true"
+            sx={{
+              display: INLINE_FLEX,
+              alignItems: "center",
+              justifyContent: "center",
+              minWidth: "22px",
+              px: "8px",
+              py: "1px",
+              borderRadius: PILL_BORDER_RADIUS,
+              fontSize: BADGE_FONT_SIZE,
+              fontWeight: 600,
+              lineHeight: 1.4,
+              backgroundColor: badgeBg,
+              color: badgeColor,
+            }}>
+            {formatCount(countOption)}
+          </Box>
+        ),
+      ),
+    )}
   </Box>
 )
 

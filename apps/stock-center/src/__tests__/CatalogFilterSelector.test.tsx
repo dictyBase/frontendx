@@ -8,25 +8,26 @@ import {
   type FilterOption,
 } from "../components/CatalogFilterSelector"
 
+const ALL_RESULTS_LABEL = "All Results"
 const ALL_STRAINS_LABEL = "All Strains"
 const REGULAR_STRAINS_LABEL = "Regular Strains"
 const BACTERIAL_STRAINS_LABEL = "Bacterial Strains"
 const GWDI_STRAINS_LABEL = "GWDI Strains"
 
 const ENTITY_OPTIONS: ReadonlyNonEmptyArray<FilterOption> = [
-  { value: "all", label: "All Results", count: 29_841 },
+  { value: "all", label: ALL_RESULTS_LABEL, count: some(29_841) },
   {
     value: "strain",
     label: "Strains",
-    count: 28_576,
+    count: some(28_576),
     groups: [
-      { value: "all", label: ALL_STRAINS_LABEL, count: 28_576 },
-      { value: "regular", label: REGULAR_STRAINS_LABEL, count: 7055 },
-      { value: "bacterial", label: BACTERIAL_STRAINS_LABEL, count: 15 },
-      { value: "gwdi", label: GWDI_STRAINS_LABEL, count: 21_506 },
+      { value: "all", label: ALL_STRAINS_LABEL, count: some(28_576) },
+      { value: "regular", label: REGULAR_STRAINS_LABEL, count: some(7055) },
+      { value: "bacterial", label: BACTERIAL_STRAINS_LABEL, count: some(15) },
+      { value: "gwdi", label: GWDI_STRAINS_LABEL, count: some(21_506) },
     ],
   },
-  { value: "plasmid", label: "Plasmids", count: 1265 },
+  { value: "plasmid", label: "Plasmids", count: some(1265) },
 ]
 
 const defaultProperties = {
@@ -39,7 +40,7 @@ const defaultProperties = {
 
 test("should render all entity type options and their counts", () => {
   render(<CatalogFilterSelector {...defaultProperties} />)
-  expect(screen.getByText("All Results")).toBeInTheDocument()
+  expect(screen.getByText(ALL_RESULTS_LABEL)).toBeInTheDocument()
   expect(screen.getByText("29,841")).toBeInTheDocument()
   expect(screen.getByText("Strains")).toBeInTheDocument()
   expect(screen.getByText("28,576")).toBeInTheDocument()
@@ -131,4 +132,34 @@ test("should call onChangeGroup when a group option is clicked", async () => {
   await user.click(screen.getByRole("radio", { name: /regular strains/i }))
 
   expect(onChangeGroup).toHaveBeenCalled()
+})
+
+test("should render ellipsis when an option count is none", () => {
+  const pendingOptions: ReadonlyNonEmptyArray<FilterOption> = [
+    { value: "all", label: ALL_RESULTS_LABEL, count: none },
+    { value: "strain", label: "Strains", count: none },
+    { value: "plasmid", label: "Plasmids", count: none },
+  ]
+  render(
+    <CatalogFilterSelector {...defaultProperties} options={pendingOptions} />,
+  )
+
+  expect(screen.getAllByText("...")).toHaveLength(3)
+})
+
+test("should not render a count badge when count is omitted", () => {
+  const optionsWithoutCounts: ReadonlyNonEmptyArray<FilterOption> = [
+    { value: "all", label: ALL_RESULTS_LABEL },
+    { value: "strain", label: "Strains" },
+    { value: "plasmid", label: "Plasmids" },
+  ]
+  render(
+    <CatalogFilterSelector
+      {...defaultProperties}
+      options={optionsWithoutCounts}
+    />,
+  )
+
+  const allLabel = screen.getByText(ALL_RESULTS_LABEL).closest("label")
+  expect(allLabel).toHaveTextContent(/^All Results$/)
 })
