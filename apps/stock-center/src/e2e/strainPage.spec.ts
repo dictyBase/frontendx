@@ -184,3 +184,14 @@ test("Phenotypes tab", async ({ page }) => {
     ),
   )
 })
+
+test("Clicking a phenotype link in the Phenotypes tab navigates to the phenotype page", async ({
+  page,
+}) => {
+  await page.getByRole("tab", { name: "Phenotypes" }).click()
+  await page.getByRole("link", { name: "decreased cAMP level" }).click()
+
+  await expect(page).toHaveURL(
+    /\/stockcenter\/phenotypes\/decreased\+cAMP\+level/,
+  )
+})

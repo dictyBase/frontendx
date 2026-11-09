@@ -63,6 +63,26 @@ const fillShippingForm = async (page: Page) => {
     .fill(shippingData.shippingAccountNumber)
 }
 
+test.describe("Route Guards", () => {
+  test("redirects to cart page when navigating to order page with an empty cart", async ({
+    page,
+  }) => {
+    await page.goto("/stockcenter/cart")
+    await page.getByRole("button", { name: "Remove Item" }).click()
+    await page.goto("/stockcenter/order")
+
+    await expect(page).toHaveURL(/.*\/stockcenter\/cart/)
+  })
+
+  test("redirects to home page when navigating to order confirmation with an unmatched order ID", async ({
+    page,
+  }) => {
+    await page.goto("/stockcenter/order/submitted/unmatched-order-id")
+
+    await expect(page).toHaveURL(/.*\/stockcenter\/?$/)
+  })
+})
+
 test.describe("Shipping Address Step", () => {
   test("displays shipping address step when order page loads", async ({
     page,
