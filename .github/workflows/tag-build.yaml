@@ -34,3 +34,36 @@ jobs:
       pulumi_version: ${{ vars.PROD_PULUMI_VERSION }}
       environment: production
       runner: dcr-frontendx-prod
+  postflight:
+    name: Production Post-Flight Checks
+    needs: call-build-deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24.x
+      - name: Check out Code
+        uses: actions/checkout@v7
+      - name: Install Dependencies
+        run: yarn --ignore-engines
+      - name: Install Playwright
+        run: yarn playwright install --with-deps
+      - name: Run E2E Tests
+        run: yarn e2e:prod
+      - name: Publish Report to Job Summary
+        if: always()
+        run: |
+          if [ -f postflight-report.md ]; then
+            cat postflight-report.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "No postflight report was produced." >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Upload Report Artifact
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: postflight-report
+          path: postflight-report.md
+          retention-days: 10
+          if-no-files-found: ignore
