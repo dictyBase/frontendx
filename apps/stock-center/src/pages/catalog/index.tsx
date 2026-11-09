@@ -3,7 +3,7 @@ import {
   useEffect,
   useCallback,
   useRef,
-  ChangeEventHandler,
+  type ChangeEventHandler,
 } from "react"
 import {
   Box,
@@ -14,10 +14,11 @@ import {
   Paper,
 } from "@mui/material"
 import SearchIcon from "@mui/icons-material/Search"
+import { useSearchParams, useNavigate } from "react-router-dom"
 import { P, match } from "ts-pattern"
 import { pipe } from "fp-ts/function"
 import {
-  Option,
+  type Option,
   some,
   none,
   orElse as OorElse,
@@ -34,15 +35,15 @@ import {
   filter as Afilter,
   map as Amap,
 } from "fp-ts/Array"
-import { NonEmptyArray } from "fp-ts/NonEmptyArray"
+import type { NonEmptyArray } from "fp-ts/NonEmptyArray"
 import {
-  ReadonlyNonEmptyArray,
+  type ReadonlyNonEmptyArray,
   head as RNEAhead,
   map as RNEAmap,
 } from "fp-ts/ReadonlyNonEmptyArray"
 import { MonoidAny as BMonoidAny, match as Bmatch } from "fp-ts/boolean"
 import {
-  StockSearchResult,
+  type StockSearchResult,
   StockEntityType,
   useSearchStocksLazyQuery,
 } from "dicty-graphql-schema"
@@ -58,15 +59,14 @@ import {
   fromStockSearchResult,
   type CatalogView,
 } from "@dictybase/ui-dsc"
-import { useSearchParams, useNavigate } from "react-router-dom"
 import { CatalogList } from "../../components/CatalogList"
 import {
   CatalogFilterSelector,
   type FilterOption,
   type FilterGroupOption,
 } from "../../components/CatalogFilterSelector"
-import { useInitialSearchResults } from "../../hooks/useInitialSearchResults"
 import { AddToCartButtonHandler } from "../../components/AddToCartButtonHandler"
+import { useInitialSearchResults } from "../../hooks/useInitialSearchResults"
 import { catalogTheme } from "../../themes"
 
 /** URL search parameter key for the full-text query string. */
@@ -185,13 +185,14 @@ const toStockEntityType = (entity: string): StockEntityType | undefined =>
 
 const stockGroupFilter =
   (group: string) =>
-  ({ stock_type }: StockSearchResult) =>
+  ({ stock_type }: StockSearchResult): boolean =>
     match(group)
       .with(ENTITY_ALL, () => true)
       .otherwise(() => group === stock_type)
 
-const applyPendingCountsToGroups = (
+const applyCountsToGroups = (
   groups: ReadonlyNonEmptyArray<FilterGroupOption> | undefined,
+  resultsOption: Option<Array<StockSearchResult>>,
 ): ReadonlyNonEmptyArray<FilterGroupOption> | undefined =>
   pipe(
     groups,
@@ -199,15 +200,23 @@ const applyPendingCountsToGroups = (
     Omap(
       RNEAmap((groupOption) => ({
         ...groupOption,
-        count: none,
+        count: pipe(
+          resultsOption,
+          Omap(
+            (results) =>
+              pipe(results, Afilter(stockGroupFilter(groupOption.value)))
+                .length,
+          ),
+        ),
       })),
     ),
     OtoUndefined,
   )
 
-const applyPendingCountsToOptions = (
+const applyCountsToOptions = (
   options: ReadonlyNonEmptyArray<FilterOption>,
   activeEntity: Entity,
+  resultsOption: Option<Array<StockSearchResult>>,
 ): ReadonlyNonEmptyArray<FilterOption> =>
   pipe(
     options,
@@ -218,49 +227,11 @@ const applyPendingCountsToOptions = (
           () => option,
           () => ({
             ...option,
-            count: none,
-            groups: applyPendingCountsToGroups(option.groups),
-          }),
-        ),
-      ),
-    ),
-  )
-
-const applySearchCountsToGroups = (
-  groups: ReadonlyNonEmptyArray<FilterGroupOption> | undefined,
-  entityResults: Array<StockSearchResult>,
-): ReadonlyNonEmptyArray<FilterGroupOption> | undefined =>
-  pipe(
-    groups,
-    OfromNullable,
-    Omap(
-      RNEAmap((groupOption) => ({
-        ...groupOption,
-        count: some(
-          pipe(entityResults, Afilter(stockGroupFilter(groupOption.value)))
-            .length,
-        ),
-      })),
-    ),
-    OtoUndefined,
-  )
-
-const applySearchCountsToOptions = (
-  options: ReadonlyNonEmptyArray<FilterOption>,
-  activeEntity: Entity,
-  results: Array<StockSearchResult>,
-): ReadonlyNonEmptyArray<FilterOption> =>
-  pipe(
-    options,
-    RNEAmap((option) =>
-      pipe(
-        option.value === activeEntity,
-        Bmatch(
-          () => option,
-          () => ({
-            ...option,
-            count: some(results.length),
-            groups: applySearchCountsToGroups(option.groups, results),
+            count: pipe(
+              resultsOption,
+              Omap((results) => results.length),
+            ),
+            groups: applyCountsToGroups(option.groups, resultsOption),
           }),
         ),
       ),
@@ -297,16 +268,17 @@ type CatalogSearchProperties = {
  * The entity is derived from the route (the slash-based resource) rather than
  * a `?entity=` query parameter. Query parameters operate on the resource:
  * `q` drives the full-text search and `group` filters by stock group. The
- * sidebar entity switcher navigates between the entity routes, preserving the
- * active `q` while resetting `group` to the target entity's default.
+ * horizontal entity filter selector navigates between the entity routes,
+ * preserving the active `q` while resetting `group` to the target entity's
+ * default.
  *
  * Renders a text input that debounces user input into a local `searchTerm`
- * state (and keeps the `q` URL param in sync for shareability), a sidebar
- * for entity + group filtering, and a results table driven by
- * `useSearchStocksLazyQuery`. The query fires only once the search term
- * reaches `MIN_CHARS` characters.
+ * state (and keeps the `q` URL param in sync for shareability), a horizontal
+ * collection-ribbon selector for entity + group filtering, and a results
+ * display driven by `useSearchStocksLazyQuery`. The query fires only once the
+ * search term reaches `MIN_CHARS` characters.
  */
-const CatalogSearch = ({ entity = "all" }: CatalogSearchProperties) => {
+const CatalogSearch = ({ entity = ENTITY_ALL }: CatalogSearchProperties) => {
   const [searchParameters, setSearchParameters] = useSearchParams()
   const navigate = useNavigate()
 
@@ -355,7 +327,7 @@ const CatalogSearch = ({ entity = "all" }: CatalogSearchProperties) => {
   })
     .with({ hasQuery: false }, () => catalogEntityFilterOptions)
     .with({ hasQuery: true, loadingSearch: true }, () =>
-      applyPendingCountsToOptions(catalogEntityFilterOptions, entity),
+      applyCountsToOptions(catalogEntityFilterOptions, entity, none),
     )
     .with(
       {
@@ -363,13 +335,13 @@ const CatalogSearch = ({ entity = "all" }: CatalogSearchProperties) => {
         searchData: { searchStocks: { results: P.select() } },
       },
       (results) =>
-        applySearchCountsToOptions(catalogEntityFilterOptions, entity, results),
+        applyCountsToOptions(catalogEntityFilterOptions, entity, some(results)),
     )
     .with({ hasQuery: true, searchError: P.not(P.nullish) }, () =>
-      applySearchCountsToOptions(catalogEntityFilterOptions, entity, []),
+      applyCountsToOptions(catalogEntityFilterOptions, entity, some([])),
     )
     .otherwise(() =>
-      applyPendingCountsToOptions(catalogEntityFilterOptions, entity),
+      applyCountsToOptions(catalogEntityFilterOptions, entity, none),
     )
 
   // Debounce the text box and write the trimmed query into the `q` url param.

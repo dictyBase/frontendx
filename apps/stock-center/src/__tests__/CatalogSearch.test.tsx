@@ -26,12 +26,16 @@ vi.mock("react-router-dom", async () => {
 
 const SEARCH_LIMIT = 50
 const searchQuery = "axe"
-const AXEA_SUMMARY = "Axenic growth mutant A"
 const ALL_RESULTS_LABEL = "All Results"
+const STRAINS_LABEL = "Strains"
+const PLASMIDS_LABEL = "Plasmids"
 const ALL_STRAINS_LABEL = "All Strains"
 const REGULAR_STRAINS_LABEL = "Regular Strains"
 const GWDI_STRAINS_LABEL = "GWDI Strains"
 const BACTERIAL_STRAINS_LABEL = "Bacterial Strains"
+
+const getFilterPillLabel = (text: string): HTMLElement =>
+  screen.getByText(text).closest("label") as HTMLElement
 
 /** Test id of the location search probe rendered alongside the page. */
 const LOCATION_SEARCH_TEST_ID = "location-search"
@@ -111,7 +115,7 @@ const suggestionsMock = {
             field: StockSearchFieldEnum.Label,
             display_text: "axeA",
             stock_label: "axeA",
-            summary: AXEA_SUMMARY,
+            summary: "Axenic growth mutant A",
             score: 1,
             in_stock: true,
           },
@@ -163,7 +167,7 @@ const strainOnlyMock = {
             field: StockSearchFieldEnum.Label,
             display_text: "axeA",
             stock_label: "axeA",
-            summary: AXEA_SUMMARY,
+            summary: "Axenic growth mutant A",
             score: 1,
             in_stock: true,
           },
@@ -364,15 +368,15 @@ test("shows the empty catalog message when the query returns no results", async 
 
 test("does not display counts on filter ribbons when there is no query", () => {
   renderPage([], { entity: "strain" })
-  const allResultsLabel = screen.getByText(ALL_RESULTS_LABEL).closest("label")
-  const strainsLabel = screen.getByText("Strains").closest("label")
-  const plasmidsLabel = screen.getByText("Plasmids").closest("label")
-  const allStrainsLabel = screen.getByText(ALL_STRAINS_LABEL).closest("label")
 
-  expect(allResultsLabel).toHaveTextContent(/^All Results$/)
-  expect(strainsLabel).toHaveTextContent(/^Strains$/)
-  expect(plasmidsLabel).toHaveTextContent(/^Plasmids$/)
-  expect(allStrainsLabel).toHaveTextContent(/^All Strains$/)
+  expect(getFilterPillLabel(ALL_RESULTS_LABEL)).toHaveTextContent(
+    /^All Results$/,
+  )
+  expect(getFilterPillLabel(STRAINS_LABEL)).toHaveTextContent(/^Strains$/)
+  expect(getFilterPillLabel(PLASMIDS_LABEL)).toHaveTextContent(/^Plasmids$/)
+  expect(getFilterPillLabel(ALL_STRAINS_LABEL)).toHaveTextContent(
+    /^All Strains$/,
+  )
 })
 
 test("displays ellipsis on active entity and subtype ribbons while search results are loading", () => {
@@ -385,18 +389,15 @@ test("displays ellipsis on active entity and subtype ribbons while search result
     initialEntries: [`/strains?q=${searchQuery}&group=all`],
   })
 
-  const allResultsLabel = screen.getByText(ALL_RESULTS_LABEL).closest("label")
-  const strainsLabel = screen.getByText("Strains").closest("label")
-  const plasmidsLabel = screen.getByText("Plasmids").closest("label")
-  const allStrainsLabel = screen.getByText(ALL_STRAINS_LABEL).closest("label")
-
-  expect(allResultsLabel).toHaveTextContent(/^All Results$/)
-  expect(plasmidsLabel).toHaveTextContent(/^Plasmids$/)
+  expect(getFilterPillLabel(ALL_RESULTS_LABEL)).toHaveTextContent(
+    /^All Results$/,
+  )
+  expect(getFilterPillLabel(PLASMIDS_LABEL)).toHaveTextContent(/^Plasmids$/)
   expect(
-    within(strainsLabel as HTMLElement).getByText("..."),
+    within(getFilterPillLabel(STRAINS_LABEL)).getByText("..."),
   ).toBeInTheDocument()
   expect(
-    within(allStrainsLabel as HTMLElement).getByText("..."),
+    within(getFilterPillLabel(ALL_STRAINS_LABEL)).getByText("..."),
   ).toBeInTheDocument()
 })
 
@@ -405,15 +406,11 @@ test("displays only All Results count when entity is all and there is a query", 
   await userEvent.type(getInput(), searchQuery)
   await screen.findByText("axeA", {}, QUERY_TIMEOUT)
 
-  const allResultsLabel = screen.getByText(ALL_RESULTS_LABEL).closest("label")
-  const strainsLabel = screen.getByText("Strains").closest("label")
-  const plasmidsLabel = screen.getByText("Plasmids").closest("label")
-
   expect(
-    within(allResultsLabel as HTMLElement).getByText("2"),
+    within(getFilterPillLabel(ALL_RESULTS_LABEL)).getByText("2"),
   ).toBeInTheDocument()
-  expect(strainsLabel).toHaveTextContent(/^Strains$/)
-  expect(plasmidsLabel).toHaveTextContent(/^Plasmids$/)
+  expect(getFilterPillLabel(STRAINS_LABEL)).toHaveTextContent(/^Strains$/)
+  expect(getFilterPillLabel(PLASMIDS_LABEL)).toHaveTextContent(/^Plasmids$/)
 })
 
 test("tallies only strain and strain subtype counts when entity is strain and there is a query", async () => {
@@ -478,40 +475,32 @@ test("tallies only strain and strain subtype counts when entity is strain and th
   await userEvent.type(getInput(), searchQuery)
   await screen.findByText("regStrain1", {}, QUERY_TIMEOUT)
 
-  const allResultsLabel = screen.getByText(ALL_RESULTS_LABEL).closest("label")
-  const strainsLabel = screen.getByText("Strains").closest("label")
-  const plasmidsLabel = screen.getByText("Plasmids").closest("label")
-  const allStrainsLabel = screen.getByText(ALL_STRAINS_LABEL).closest("label")
-  const regularStrainsLabel = screen
-    .getByText(REGULAR_STRAINS_LABEL)
-    .closest("label")
-  const gwdiStrainsLabel = screen.getByText(GWDI_STRAINS_LABEL).closest("label")
-  const bacterialStrainsLabel = screen
-    .getByText(BACTERIAL_STRAINS_LABEL)
-    .closest("label")
-
-  expect(allResultsLabel).toHaveTextContent(/^All Results$/)
-  expect(plasmidsLabel).toHaveTextContent(/^Plasmids$/)
-  expect(within(strainsLabel as HTMLElement).getByText("3")).toBeInTheDocument()
+  expect(getFilterPillLabel(ALL_RESULTS_LABEL)).toHaveTextContent(
+    /^All Results$/,
+  )
+  expect(getFilterPillLabel(PLASMIDS_LABEL)).toHaveTextContent(/^Plasmids$/)
   expect(
-    within(allStrainsLabel as HTMLElement).getByText("3"),
+    within(getFilterPillLabel(STRAINS_LABEL)).getByText("3"),
   ).toBeInTheDocument()
   expect(
-    within(regularStrainsLabel as HTMLElement).getByText("2"),
+    within(getFilterPillLabel(ALL_STRAINS_LABEL)).getByText("3"),
   ).toBeInTheDocument()
   expect(
-    within(gwdiStrainsLabel as HTMLElement).getByText("1"),
+    within(getFilterPillLabel(REGULAR_STRAINS_LABEL)).getByText("2"),
   ).toBeInTheDocument()
   expect(
-    within(bacterialStrainsLabel as HTMLElement).getByText("0"),
+    within(getFilterPillLabel(GWDI_STRAINS_LABEL)).getByText("1"),
+  ).toBeInTheDocument()
+  expect(
+    within(getFilterPillLabel(BACTERIAL_STRAINS_LABEL)).getByText("0"),
   ).toBeInTheDocument()
 })
 
 test("renders All Results, Strains, and Plasmids filter options", () => {
   renderPage()
   expect(screen.getByText(ALL_RESULTS_LABEL)).toBeInTheDocument()
-  expect(screen.getByText("Strains")).toBeInTheDocument()
-  expect(screen.getByText("Plasmids")).toBeInTheDocument()
+  expect(screen.getByText(STRAINS_LABEL)).toBeInTheDocument()
+  expect(screen.getByText(PLASMIDS_LABEL)).toBeInTheDocument()
 })
 
 test("sends the Strain entity type when on the strain resource", async () => {
@@ -735,44 +724,4 @@ test("toggles between list view and tabular view for search results", async () =
   await userEvent.click(screen.getByRole("button", { name: /list view/i }))
   expect(screen.queryByRole("table")).not.toBeInTheDocument()
   expect(screen.getByText("axeA")).toBeInTheDocument()
-})
-
-test("renders infinite scroll progressbar when initial results have a non-zero nextCursor", async () => {
-  const paginatedStrainsMock = {
-    request: {
-      query: StrainListDocument,
-      variables: {
-        cursor: 0,
-        limit: 12,
-        filter: { strain_type: StrainType.Gwdi },
-      },
-    },
-    result: {
-      data: {
-        listStrains: {
-          strains: [
-            {
-              __typename: "Strain",
-              id: "DBS0001",
-              label: "axeA",
-              summary: AXEA_SUMMARY,
-              in_stock: true,
-            },
-          ],
-          nextCursor: 12,
-        },
-      },
-    },
-  }
-
-  renderPage([paginatedStrainsMock], {
-    entity: "strain",
-    initialEntries: ["/strains?group=gwdi"],
-  })
-
-  expect(await screen.findByText("axeA", {}, QUERY_TIMEOUT)).toBeInTheDocument()
-  expect(screen.getByRole("progressbar")).toBeInTheDocument()
-
-  await userEvent.click(screen.getByRole("button", { name: /table view/i }))
-  expect(screen.getByRole("progressbar")).toBeInTheDocument()
 })

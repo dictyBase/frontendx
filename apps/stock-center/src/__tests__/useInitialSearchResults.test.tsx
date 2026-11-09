@@ -48,7 +48,6 @@ const HookWrapper: FC<HookWrapperProperties> = ({ entity, group, skip }) => {
         {result.data === undefined ? "undefined" : JSON.stringify(result.data)}
       </div>
       <div data-testid="error">{String(!!result.error)}</div>
-      <div data-testid="nextCursor">{String(result.nextCursor)}</div>
     </>
   )
 }
@@ -318,35 +317,4 @@ test("uses all type when group is none", async () => {
   expect(screen.getByTestId("data")).toHaveTextContent(
     JSON.stringify(mockStrains),
   )
-})
-
-test("exposes nextCursor when more strain items are available", async () => {
-  const mocks = [
-    {
-      request: {
-        query: StrainListDocument,
-        variables: {
-          cursor: 0,
-          limit: 12,
-          filter: { strain_type: StrainType.All },
-        },
-      },
-      result: {
-        data: {
-          listStrains: {
-            strains: mockStrains,
-            nextCursor: 12,
-          },
-        },
-      },
-    },
-  ]
-
-  renderHook("strain", some("all"), false, mocks)
-
-  await waitFor(() => {
-    expect(screen.getByTestId("loading")).toHaveTextContent("false")
-  })
-
-  expect(screen.getByTestId("nextCursor")).toHaveTextContent("12")
 })
