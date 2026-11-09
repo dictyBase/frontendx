@@ -214,3 +214,5 @@ const catalogThemeOptions: ThemeOptions = {
 }
 
 const catalogTheme = createTheme(catalogThemeOptions)
+
+export { catalogTheme }
