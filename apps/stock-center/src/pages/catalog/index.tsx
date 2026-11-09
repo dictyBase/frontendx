@@ -1,7 +1,9 @@
 import {
+  memo,
   useState,
   useEffect,
   useCallback,
+  useMemo,
   useRef,
   type ChangeEventHandler,
 } from "react"
@@ -252,6 +254,82 @@ const getFirstGroup = (entityValue: string): Option<string> =>
     Omap(({ value }) => value),
   )
 
+type CatalogSearchBoxProperties = {
+  placeholder: string
+  searchTerm: string
+  onSearchTermChange: (nextTerm: string) => void
+}
+
+const CatalogSearchBox = memo(
+  ({
+    placeholder,
+    searchTerm,
+    onSearchTermChange,
+  }: CatalogSearchBoxProperties) => {
+    const [inputValue, setInputValue] = useState(searchTerm)
+
+    // Latest values for the debounced write so unrelated updates do not
+    // re-trigger the debounce effect.
+    const latestSearch = useRef({ searchTerm, onSearchTermChange })
+    latestSearch.current = { searchTerm, onSearchTermChange }
+
+    // The last `q` written by this component, used to tell its own updates apart
+    // from external url changes such as the navbar catalog links.
+    const lastWrittenSearchTerm = useRef(searchTerm)
+
+    // Debounce the text box and notify the parent with the trimmed query.
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        const nextTerm = inputValue.trim()
+        const {
+          searchTerm: currentTerm,
+          onSearchTermChange: handleSearchTermChange,
+        } = latestSearch.current
+        if (nextTerm === currentTerm) return
+        lastWrittenSearchTerm.current = nextTerm
+        handleSearchTermChange(nextTerm)
+      }, DEBOUNCE_DELAY_MS)
+      return () => clearTimeout(timer)
+    }, [inputValue])
+
+    // Mirror the url query back into the text box when it changed outside this
+    // component, i.e. through the navbar catalog links or back/forward.
+    useEffect(() => {
+      if (searchTerm === lastWrittenSearchTerm.current) return
+      lastWrittenSearchTerm.current = searchTerm
+      setInputValue(searchTerm)
+    }, [searchTerm])
+
+    return (
+      <Box
+        sx={{
+          backgroundColor: "white",
+          borderRadius: "12px",
+          padding: "20px 24px",
+          marginBottom: "16px",
+          boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+        }}>
+        <TextField
+          fullWidth
+          placeholder={placeholder}
+          value={inputValue}
+          onChange={(event) => setInputValue(event.target.value)}
+          inputProps={{ "aria-label": "search the catalog" }}
+          // eslint-disable-next-line react/jsx-no-duplicate-props
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon sx={{ color: "#a0aec0" }} />
+              </InputAdornment>
+            ),
+          }}
+          sx={{ "& .MuiOutlinedInput-root": { borderRadius: "8px" } }}
+        />
+      </Box>
+    )
+  },
+)
+
 type CatalogSearchProperties = {
   /**
    * The catalog entity resource this page represents. Defaults to "all",
@@ -283,8 +361,7 @@ const CatalogSearch = ({ entity = ENTITY_ALL }: CatalogSearchProperties) => {
   const navigate = useNavigate()
 
   // The entity is pinned by the route; the group and query filter live in the
-  // url so navigation is the single source of truth. Local state only mirrors
-  // the query string for the text box.
+  // url so navigation is the single source of truth.
   const group = pipe(
     searchParameters.get(GROUP_PARAM),
     OfromNullable,
@@ -296,18 +373,7 @@ const CatalogSearch = ({ entity = ENTITY_ALL }: CatalogSearchProperties) => {
     OgetOrElse(() => ""),
   )
 
-  const [inputValue, setInputValue] = useState(searchTerm)
   const [view, setView] = useState<CatalogView>(VIEW_LIST)
-
-  // Latest values for the debounced write. `setSearchParameters` is recreated
-  // whenever the location search changes, so listing it as a dependency of the
-  // write effect would re-run it on unrelated navigations and revert them.
-  const latestSearch = useRef({ searchTerm, setSearchParameters })
-  latestSearch.current = { searchTerm, setSearchParameters }
-
-  // The last `q` written by this component, used to tell its own updates apart
-  // from external url changes such as the navbar catalog links.
-  const lastWrittenSearchTerm = useRef(searchTerm)
 
   const hasQuery = searchTerm.length >= MIN_CHARS
 
@@ -319,40 +385,42 @@ const CatalogSearch = ({ entity = ENTITY_ALL }: CatalogSearchProperties) => {
       skip: hasQuery,
     })
 
-  const filterOptionsWithCounts = match({
-    hasQuery,
-    loadingSearch: loading,
-    searchData: data,
-    searchError: error,
-  })
-    .with({ hasQuery: false }, () => catalogEntityFilterOptions)
-    .with({ hasQuery: true, loadingSearch: true }, () =>
-      applyCountsToOptions(catalogEntityFilterOptions, entity, none),
-    )
-    .with(
-      {
-        hasQuery: true,
-        searchData: { searchStocks: { results: P.select() } },
-      },
-      (results) =>
-        applyCountsToOptions(catalogEntityFilterOptions, entity, some(results)),
-    )
-    .with({ hasQuery: true, searchError: P.not(P.nullish) }, () =>
-      applyCountsToOptions(catalogEntityFilterOptions, entity, some([])),
-    )
-    .otherwise(() =>
-      applyCountsToOptions(catalogEntityFilterOptions, entity, none),
-    )
+  const filterOptionsWithCounts = useMemo(
+    () =>
+      match({
+        hasQuery,
+        loadingSearch: loading,
+        searchData: data,
+        searchError: error,
+      })
+        .with({ hasQuery: false }, () => catalogEntityFilterOptions)
+        .with({ hasQuery: true, loadingSearch: true }, () =>
+          applyCountsToOptions(catalogEntityFilterOptions, entity, none),
+        )
+        .with(
+          {
+            hasQuery: true,
+            searchData: { searchStocks: { results: P.select() } },
+          },
+          (results) =>
+            applyCountsToOptions(
+              catalogEntityFilterOptions,
+              entity,
+              some(results),
+            ),
+        )
+        .with({ hasQuery: true, searchError: P.not(P.nullish) }, () =>
+          applyCountsToOptions(catalogEntityFilterOptions, entity, some([])),
+        )
+        .otherwise(() =>
+          applyCountsToOptions(catalogEntityFilterOptions, entity, none),
+        ),
+    [hasQuery, loading, data, error, entity],
+  )
 
-  // Debounce the text box and write the trimmed query into the `q` url param.
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const nextTerm = inputValue.trim()
-      const { searchTerm: currentTerm, setSearchParameters: updateParameters } =
-        latestSearch.current
-      if (nextTerm === currentTerm) return
-      lastWrittenSearchTerm.current = nextTerm
-      updateParameters(
+  const onSearchTermChange = useCallback(
+    (nextTerm: string) => {
+      setSearchParameters(
         (previous) => {
           const next = new URLSearchParams([...previous.entries()])
           if (nextTerm.length >= MIN_CHARS) {
@@ -364,17 +432,9 @@ const CatalogSearch = ({ entity = ENTITY_ALL }: CatalogSearchProperties) => {
         },
         { replace: true },
       )
-    }, DEBOUNCE_DELAY_MS)
-    return () => clearTimeout(timer)
-  }, [inputValue])
-
-  // Mirror the url query back into the text box when it changed outside this
-  // component, i.e. through the navbar catalog links or back/forward.
-  useEffect(() => {
-    if (searchTerm === lastWrittenSearchTerm.current) return
-    lastWrittenSearchTerm.current = searchTerm
-    setInputValue(searchTerm)
-  }, [searchTerm])
+    },
+    [setSearchParameters],
+  )
 
   // Fire the lazy query whenever the search term or entity filter changes.
   useEffect(() => {
@@ -410,35 +470,37 @@ const CatalogSearch = ({ entity = ENTITY_ALL }: CatalogSearchProperties) => {
    * entity's resource route, preserving the active `q` while resetting the
    * `group` filter to the target entity's default group.
    */
-  const onChangeEntity: ChangeEventHandler<HTMLInputElement> = ({
-    currentTarget,
-  }) => {
-    const nextEntity = currentTarget.value as Entity
-    if (nextEntity === entity) return
-    const next = new URLSearchParams(searchParameters)
-    // Selecting an entity resets the group to that entity's first option.
-    next.delete(GROUP_PARAM)
-    pipe(
-      getFirstGroup(nextEntity),
-      Omatch(
-        () => {},
-        (groupValue) => next.set(GROUP_PARAM, groupValue),
-      ),
-    )
-    const search = next.toString()
-    const queryString = search ? `?${search}` : ""
-    navigate(`${ENTITY_ROUTE[nextEntity]}${queryString}`)
-  }
+  const onChangeEntity: ChangeEventHandler<HTMLInputElement> = useCallback(
+    ({ currentTarget }) => {
+      const nextEntity = currentTarget.value as Entity
+      if (nextEntity === entity) return
+      const next = new URLSearchParams(searchParameters)
+      // Selecting an entity resets the group to that entity's first option.
+      next.delete(GROUP_PARAM)
+      pipe(
+        getFirstGroup(nextEntity),
+        Omatch(
+          () => {},
+          (groupValue) => next.set(GROUP_PARAM, groupValue),
+        ),
+      )
+      const search = next.toString()
+      const queryString = search ? `?${search}` : ""
+      navigate(`${ENTITY_ROUTE[nextEntity]}${queryString}`)
+    },
+    [entity, navigate, searchParameters],
+  )
 
-  const onChangeGroup: ChangeEventHandler<HTMLInputElement> = ({
-    currentTarget,
-  }) => {
-    setSearchParameters((previous) => {
-      const next = new URLSearchParams([...previous.entries()])
-      next.set(GROUP_PARAM, currentTarget.value)
-      return [...next.entries()]
-    })
-  }
+  const onChangeGroup: ChangeEventHandler<HTMLInputElement> = useCallback(
+    ({ currentTarget }) => {
+      setSearchParameters((previous) => {
+        const next = new URLSearchParams([...previous.entries()])
+        next.set(GROUP_PARAM, currentTarget.value)
+        return [...next.entries()]
+      })
+    },
+    [setSearchParameters],
+  )
 
   return (
     <ThemeProvider theme={catalogTheme}>
@@ -474,31 +536,11 @@ const CatalogSearch = ({ entity = ENTITY_ALL }: CatalogSearchProperties) => {
         {/* Main content */}
         <Box sx={{ minWidth: 0 }}>
           {/* Search input */}
-          <Box
-            sx={{
-              backgroundColor: "white",
-              borderRadius: "12px",
-              padding: "20px 24px",
-              marginBottom: "16px",
-              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-            }}>
-            <TextField
-              fullWidth
-              placeholder={SEARCH_PLACEHOLDER[entity]}
-              value={inputValue}
-              onChange={(event) => setInputValue(event.target.value)}
-              inputProps={{ "aria-label": "search the catalog" }}
-              // eslint-disable-next-line react/jsx-no-duplicate-props
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon sx={{ color: "#a0aec0" }} />
-                  </InputAdornment>
-                ),
-              }}
-              sx={{ "& .MuiOutlinedInput-root": { borderRadius: "8px" } }}
-            />
-          </Box>
+          <CatalogSearchBox
+            placeholder={SEARCH_PLACEHOLDER[entity]}
+            searchTerm={searchTerm}
+            onSearchTermChange={onSearchTermChange}
+          />
 
           {/* Horizontal filter selector */}
           <CatalogFilterSelector

@@ -1,4 +1,4 @@
-import type { ChangeEventHandler } from "react"
+import { memo, type ChangeEventHandler } from "react"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import { findFirst as RAfindFirst } from "fp-ts/ReadonlyArray"
@@ -272,74 +272,76 @@ type CatalogFilterSelectorProperties = {
   onChangeGroup: ChangeEventHandler<HTMLInputElement>
 }
 
-const CatalogFilterSelector = ({
-  options,
-  selectedEntity,
-  selectedGroup,
-  onChangeEntity,
-  onChangeGroup,
-}: CatalogFilterSelectorProperties) => (
-  <Box sx={{ mb: "16px" }}>
-    <RadioGroup
-      row
-      value={selectedEntity}
-      onChange={onChangeEntity}
-      sx={{ gap: "10px", flexWrap: "wrap" }}>
+const CatalogFilterSelector = memo(
+  ({
+    options,
+    selectedEntity,
+    selectedGroup,
+    onChangeEntity,
+    onChangeGroup,
+  }: CatalogFilterSelectorProperties) => (
+    <Box sx={{ mb: "16px" }}>
+      <RadioGroup
+        row
+        value={selectedEntity}
+        onChange={onChangeEntity}
+        sx={{ gap: "10px", flexWrap: "wrap" }}>
+        {pipe(
+          options,
+          RNEAmap(({ value, label, count }) => (
+            <FilterPill
+              key={value}
+              value={value}
+              label={label}
+              count={count}
+              pillStyle={pipe(
+                selectedEntity === value,
+                Bmatch(
+                  () => ENTITY_UNSELECTED_STYLE,
+                  () => ENTITY_SELECTED_STYLE,
+                ),
+              )}
+            />
+          )),
+        )}
+      </RadioGroup>
       {pipe(
         options,
-        RNEAmap(({ value, label, count }) => (
-          <FilterPill
-            key={value}
-            value={value}
-            label={label}
-            count={count}
-            pillStyle={pipe(
-              selectedEntity === value,
-              Bmatch(
-                () => ENTITY_UNSELECTED_STYLE,
-                () => ENTITY_SELECTED_STYLE,
-              ),
-            )}
-          />
-        )),
-      )}
-    </RadioGroup>
-    {pipe(
-      options,
-      RAfindFirst(({ value }) => value === selectedEntity),
-      OflatMap(({ groups }) => pipe(groups, OfromNullable)),
-      Omap(
-        RNEAmap(({ value, label, count }) => (
-          <FilterPill
-            key={value}
-            value={value}
-            label={label}
-            count={count}
-            pillStyle={pipe(
-              selectedGroup,
-              Oexists((groupValue) => groupValue === value),
-              Bmatch(
-                () => GROUP_UNSELECTED_STYLE,
-                () => GROUP_SELECTED_STYLE,
-              ),
-            )}
-          />
-        )),
-      ),
-      Omatch(
-        () => <></>,
-        (groupComponents) => (
-          <RadioGroup
-            row
-            value={OtoUndefined(selectedGroup)}
-            onChange={onChangeGroup}
-            sx={{ gap: GAP_SMALL, mt: "10px", flexWrap: "wrap" }}>
-            {groupComponents}
-          </RadioGroup>
+        RAfindFirst(({ value }) => value === selectedEntity),
+        OflatMap(({ groups }) => pipe(groups, OfromNullable)),
+        Omap(
+          RNEAmap(({ value, label, count }) => (
+            <FilterPill
+              key={value}
+              value={value}
+              label={label}
+              count={count}
+              pillStyle={pipe(
+                selectedGroup,
+                Oexists((groupValue) => groupValue === value),
+                Bmatch(
+                  () => GROUP_UNSELECTED_STYLE,
+                  () => GROUP_SELECTED_STYLE,
+                ),
+              )}
+            />
+          )),
         ),
-      ),
-    )}
-  </Box>
+        Omatch(
+          () => <></>,
+          (groupComponents) => (
+            <RadioGroup
+              row
+              value={OtoUndefined(selectedGroup)}
+              onChange={onChangeGroup}
+              sx={{ gap: GAP_SMALL, mt: "10px", flexWrap: "wrap" }}>
+              {groupComponents}
+            </RadioGroup>
+          ),
+        ),
+      )}
+    </Box>
+  ),
 )
 
 export { CatalogFilterSelector }

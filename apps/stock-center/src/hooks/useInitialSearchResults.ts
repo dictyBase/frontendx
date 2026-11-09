@@ -1,3 +1,4 @@
+import { useMemo } from "react"
 import { pipe } from "fp-ts/function"
 import { Option, map as Omap, getOrElse as OgetOrElse } from "fp-ts/Option"
 import {
@@ -88,27 +89,31 @@ const useInitialSearchResults = ({
     skip: !shouldFetchPlasmids,
   })
 
-  const strainResults = (dataStrains?.listStrains?.strains ??
-    []) as Array<CatalogItem>
-  const plasmidResults = (dataPlasmids?.listPlasmids?.plasmids ??
-    []) as Array<CatalogItem>
+  const data = useMemo(() => {
+    const strainResults = (dataStrains?.listStrains?.strains ??
+      []) as Array<CatalogItem>
+    const plasmidResults = (dataPlasmids?.listPlasmids?.plasmids ??
+      []) as Array<CatalogItem>
 
-  const data = match(entity)
-    .with(ENTITY_STRAIN, () => strainResults)
-    .with(ENTITY_PLASMID, () => plasmidResults)
-    .otherwise(() => pipe(strainResults, Aconcat(plasmidResults)))
+    const combined = match(entity)
+      .with(ENTITY_STRAIN, () => strainResults)
+      .with(ENTITY_PLASMID, () => plasmidResults)
+      .otherwise(() => pipe(strainResults, Aconcat(plasmidResults)))
+
+    return pipe(
+      combined,
+      Amatch(
+        () => undefined,
+        (d) => d,
+      ),
+    )
+  }, [dataStrains, dataPlasmids, entity])
 
   const loading = loadingStrains || loadingPlasmids
   const error = errorStrains || errorPlasmids
 
   return {
-    data: pipe(
-      data,
-      Amatch(
-        () => undefined,
-        (d) => d,
-      ),
-    ),
+    data,
     loading,
     error,
   }
