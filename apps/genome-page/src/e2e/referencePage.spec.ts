@@ -9,27 +9,27 @@ const GRAPHQL_ENDPOINT = `${process.env.VITE_GRAPHQL_SERVER}/graphql`
 const TEST_GENE = "DDB_G0269114"
 
 const EXPECTED_REFERENCE = {
+  authors: [
+    { last_name: "Gauthier", rank: "0" },
+    { last_name: "O'Day", rank: "1" },
+  ],
+  doi: "10.1016/s0898-6568(01)00187-5",
+  id: "11483410",
+  issue: "8",
+  journal: "Cellular signalling",
+  pages: "575-584",
+  pub_date: "2001-08-01T00:00:00.000Z",
+  pub_type: "Research Support, Non-U.S. Gov't",
   related_genes: [
     { id: "DDB_G0269116", name: "cmbC" },
     { id: "DDB_G0288131", name: "cmbB" },
     { id: "DDB_G0269114", name: "numA" },
     { id: "DDB_G0279407", name: "calA" },
   ],
-  id: "11483410",
-  doi: "10.1016/s0898-6568(01)00187-5",
+  source: "MED",
   title:
     "Detection of calmodulin-binding proteins and calmodulin-dependent phosphorylation linked to calmodulin-dependent chemotaxis to folic and cAMP in Dictyostelium.",
-  journal: "Cellular signalling",
-  pub_date: "2001-08-01T00:00:00.000Z",
-  volume: "",
-  pages: "",
-  pub_type: "",
-  source: "MED",
-  issue: "",
-  authors: [
-    { last_name: "Gauthier", rank: "0" },
-    { last_name: "O'Day", rank: "1" },
-  ],
+  volume: "13",
 }
 
 // Expected formatted dates when browser is in UTC timezone
