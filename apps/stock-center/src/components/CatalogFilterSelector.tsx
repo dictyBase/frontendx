@@ -17,6 +17,8 @@ import {
 } from "fp-ts/Option"
 import {
   Box,
+  Checkbox,
+  Divider,
   Radio,
   RadioGroup,
   FormControlLabel,
@@ -25,12 +27,16 @@ import {
 
 const PILL_BORDER_RADIUS = "9999px"
 const INLINE_FLEX = "inline-flex"
+const FLEX_WRAP = "wrap"
 const SPAN_COMPONENT = "span"
 const ALIGN_CENTER = "center"
 const GAP_SMALL = "8px"
+const GAP_MEDIUM = "10px"
 const FONT_WEIGHT_MEDIUM = 500
 const FONT_WEIGHT_SEMIBOLD = 600
 const LINE_HEIGHT_DEFAULT = 1.4
+const ONLY_IN_STOCK_LABEL = "Available items only"
+const DIVIDER_COLOR = "#e2e8f0"
 
 const PRIMARY_BLUE = "#3182ce"
 const ENTITY_SELECTED_BG = "#ebf8ff"
@@ -149,6 +155,12 @@ type FilterPillLabelProperties = {
   badgeColor: string
 }
 
+/**
+ * Formats an optional count value for display inside a filter pill badge.
+ *
+ * @param count - The count wrapped in an `Option`, where `none` indicates a pending state.
+ * @returns The locale-formatted number string, or `"..."` while loading.
+ */
 const formatCount = (count: Option<number>): string =>
   pipe(
     count,
@@ -157,6 +169,26 @@ const formatCount = (count: Option<number>): string =>
       (value) => value.toLocaleString(),
     ),
   )
+
+/**
+ * Builds the Material UI `sx` style object for a filter pill.
+ *
+ * @param pillStyle - Visual style tokens for the pill's current state.
+ * @returns The `sx` style configuration applied to `FormControlLabel`.
+ */
+const getPillSx = (pillStyle: FilterPillStyle) => ({
+  margin: 0,
+  padding: pillStyle.padding,
+  borderRadius: PILL_BORDER_RADIUS,
+  border: "1.5px solid",
+  backgroundColor: pillStyle.backgroundColor,
+  borderColor: pillStyle.borderColor,
+  transition: "all 0.2s",
+  cursor: "pointer",
+  "&:hover": {
+    backgroundColor: pillStyle.hoverBackgroundColor,
+  },
+})
 
 const FilterPillLabel = ({
   label,
@@ -248,19 +280,50 @@ const FilterPill = ({
         badgeColor={pillStyle.badgeColor}
       />
     }
-    sx={{
-      margin: 0,
-      padding: pillStyle.padding,
-      borderRadius: PILL_BORDER_RADIUS,
-      border: "1.5px solid",
-      backgroundColor: pillStyle.backgroundColor,
-      borderColor: pillStyle.borderColor,
-      transition: "all 0.2s",
-      cursor: "pointer",
-      "&:hover": {
-        backgroundColor: pillStyle.hoverBackgroundColor,
-      },
-    }}
+    sx={getPillSx(pillStyle)}
+  />
+)
+
+type ToggleFilterPillProperties = {
+  label: string
+  checked: boolean
+  onChange?: ChangeEventHandler<HTMLInputElement>
+  pillStyle: FilterPillStyle
+}
+
+/**
+ * Renders a toggleable boolean filter pill backed by a hidden checkbox.
+ *
+ * @param properties - Label, checked state, change handler, and visual style.
+ * @returns A styled `FormControlLabel` checkbox pill.
+ */
+const ToggleFilterPill = ({
+  label,
+  checked,
+  onChange,
+  pillStyle,
+}: ToggleFilterPillProperties) => (
+  <FormControlLabel
+    control={
+      <Checkbox
+        checked={checked}
+        onChange={onChange}
+        icon={HIDDEN_ICON}
+        checkedIcon={HIDDEN_ICON}
+        sx={HIDDEN_RADIO_SX}
+      />
+    }
+    label={
+      <FilterPillLabel
+        label={label}
+        labelColor={pillStyle.labelColor}
+        labelFontSize={pillStyle.labelFontSize}
+        labelFontWeight={pillStyle.labelFontWeight}
+        badgeBg={pillStyle.badgeBg}
+        badgeColor={pillStyle.badgeColor}
+      />
+    }
+    sx={getPillSx(pillStyle)}
   />
 )
 
@@ -268,8 +331,10 @@ type CatalogFilterSelectorProperties = {
   options: ReadonlyNonEmptyArray<FilterOption>
   selectedEntity: string
   selectedGroup: Option<string>
+  onlyInStock?: boolean
   onChangeEntity: ChangeEventHandler<HTMLInputElement>
   onChangeGroup: ChangeEventHandler<HTMLInputElement>
+  onChangeOnlyInStock?: ChangeEventHandler<HTMLInputElement>
 }
 
 const CatalogFilterSelector = memo(
@@ -277,34 +342,61 @@ const CatalogFilterSelector = memo(
     options,
     selectedEntity,
     selectedGroup,
+    onlyInStock = false,
     onChangeEntity,
     onChangeGroup,
+    onChangeOnlyInStock,
   }: CatalogFilterSelectorProperties) => (
     <Box sx={{ mb: "16px" }}>
-      <RadioGroup
-        row
-        value={selectedEntity}
-        onChange={onChangeEntity}
-        sx={{ gap: "10px", flexWrap: "wrap" }}>
-        {pipe(
-          options,
-          RNEAmap(({ value, label, count }) => (
-            <FilterPill
-              key={value}
-              value={value}
-              label={label}
-              count={count}
-              pillStyle={pipe(
-                selectedEntity === value,
-                Bmatch(
-                  () => ENTITY_UNSELECTED_STYLE,
-                  () => ENTITY_SELECTED_STYLE,
-                ),
-              )}
-            />
-          )),
-        )}
-      </RadioGroup>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: ALIGN_CENTER,
+          gap: GAP_MEDIUM,
+          flexWrap: FLEX_WRAP,
+        }}>
+        <RadioGroup
+          row
+          value={selectedEntity}
+          onChange={onChangeEntity}
+          sx={{ gap: GAP_MEDIUM, flexWrap: FLEX_WRAP }}>
+          {pipe(
+            options,
+            RNEAmap(({ value, label, count }) => (
+              <FilterPill
+                key={value}
+                value={value}
+                label={label}
+                count={count}
+                pillStyle={pipe(
+                  selectedEntity === value,
+                  Bmatch(
+                    () => ENTITY_UNSELECTED_STYLE,
+                    () => ENTITY_SELECTED_STYLE,
+                  ),
+                )}
+              />
+            )),
+          )}
+        </RadioGroup>
+        <Divider
+          orientation="vertical"
+          flexItem
+          sx={{ borderColor: DIVIDER_COLOR, my: "4px" }}
+        />
+        <ToggleFilterPill
+          label={ONLY_IN_STOCK_LABEL}
+          checked={onlyInStock}
+          onChange={onChangeOnlyInStock}
+          pillStyle={pipe(
+            onlyInStock,
+            Bmatch(
+              () => ENTITY_UNSELECTED_STYLE,
+              () => ENTITY_SELECTED_STYLE,
+            ),
+          )}
+        />
+      </Box>
       {pipe(
         options,
         RAfindFirst(({ value }) => value === selectedEntity),
@@ -334,7 +426,7 @@ const CatalogFilterSelector = memo(
               row
               value={OtoUndefined(selectedGroup)}
               onChange={onChangeGroup}
-              sx={{ gap: GAP_SMALL, mt: "10px", flexWrap: "wrap" }}>
+              sx={{ gap: GAP_SMALL, mt: GAP_MEDIUM, flexWrap: FLEX_WRAP }}>
               {groupComponents}
             </RadioGroup>
           ),

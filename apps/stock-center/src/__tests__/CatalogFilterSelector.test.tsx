@@ -170,3 +170,35 @@ test("should not render a count badge when count is omitted", () => {
   const allLabel = screen.getByText(ALL_RESULTS_LABEL).closest("label")
   expect(allLabel).toHaveTextContent(/^All Results$/)
 })
+
+test("should render the Only In Stock filter pill and a divider", () => {
+  render(<CatalogFilterSelector {...defaultProperties} />)
+
+  const onlyInStockCheckbox = screen.getByRole("checkbox", {
+    name: /only in stock/i,
+  })
+  expect(onlyInStockCheckbox).toBeInTheDocument()
+  expect(onlyInStockCheckbox).not.toBeChecked()
+  expect(screen.getByRole("separator")).toBeInTheDocument()
+})
+
+test("should have Only In Stock checked when onlyInStock is true", () => {
+  render(<CatalogFilterSelector {...defaultProperties} onlyInStock />)
+
+  expect(screen.getByRole("checkbox", { name: /only in stock/i })).toBeChecked()
+})
+
+test("should call onChangeOnlyInStock when Only In Stock is clicked", async () => {
+  const user = userEvent.setup()
+  const onChangeOnlyInStock = vi.fn()
+  render(
+    <CatalogFilterSelector
+      {...defaultProperties}
+      onChangeOnlyInStock={onChangeOnlyInStock}
+    />,
+  )
+
+  await user.click(screen.getByRole("checkbox", { name: /only in stock/i }))
+
+  expect(onChangeOnlyInStock).toHaveBeenCalled()
+})
