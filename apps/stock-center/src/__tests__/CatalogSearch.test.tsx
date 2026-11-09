@@ -754,7 +754,7 @@ test("filters search results to only in-stock items when Only In Stock is toggle
   ).toBeInTheDocument()
 
   const onlyInStockCheckbox = screen.getByRole("checkbox", {
-    name: /only in stock/i,
+    name: /available items only/i,
   })
   await userEvent.click(onlyInStockCheckbox)
   expect(onlyInStockCheckbox).toBeChecked()
@@ -780,7 +780,7 @@ test("shows empty catalog message when Only In Stock filters out all results", a
   ).toBeInTheDocument()
 
   await userEvent.click(
-    screen.getByRole("checkbox", { name: /only in stock/i }),
+    screen.getByRole("checkbox", { name: /available items only/i }),
   )
   expect(screen.queryByText("unavailableStrain")).not.toBeInTheDocument()
   expect(screen.getByText(/no results found/i)).toBeInTheDocument()
