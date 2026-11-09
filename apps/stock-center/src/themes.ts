@@ -1,25 +1,5 @@
 import { createTheme, ThemeOptions } from "@mui/material/styles"
 
-const primaryColor = "#004080"
-const blueSecondaryColor = "#001b53"
-
-const navTheme = {
-  primary: primaryColor,
-  secondary: blueSecondaryColor,
-}
-
-const footerTheme = {
-  primary: primaryColor,
-  secondary: "#ebe97a",
-  text: "#d8d8d8",
-}
-
-const headerTheme = {
-  primary: primaryColor,
-  secondary: blueSecondaryColor,
-  text: primaryColor,
-}
-
 const NORDIC_POLAR_NIGHT = "#2e3440"
 const NORDIC_SNOW_LIGHT = "#eceff4"
 const NORDIC_SNOW_MID = "#e5e9f0"
@@ -234,5 +214,3 @@ const catalogThemeOptions: ThemeOptions = {
 }
 
 const catalogTheme = createTheme(catalogThemeOptions)
-
-export { catalogTheme, navTheme, footerTheme, headerTheme }
