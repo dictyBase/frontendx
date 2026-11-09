@@ -171,24 +171,26 @@ test("should not render a count badge when count is omitted", () => {
   expect(allLabel).toHaveTextContent(/^All Results$/)
 })
 
-test("should render the Only In Stock filter pill and a divider", () => {
+test("should render the Available items only filter pill and a divider", () => {
   render(<CatalogFilterSelector {...defaultProperties} />)
 
   const onlyInStockCheckbox = screen.getByRole("checkbox", {
-    name: /only in stock/i,
+    name: /available items only/i,
   })
   expect(onlyInStockCheckbox).toBeInTheDocument()
   expect(onlyInStockCheckbox).not.toBeChecked()
   expect(screen.getByRole("separator")).toBeInTheDocument()
 })
 
-test("should have Only In Stock checked when onlyInStock is true", () => {
+test("should have Available items only checked when onlyInStock is true", () => {
   render(<CatalogFilterSelector {...defaultProperties} onlyInStock />)
 
-  expect(screen.getByRole("checkbox", { name: /only in stock/i })).toBeChecked()
+  expect(
+    screen.getByRole("checkbox", { name: /available items only/i }),
+  ).toBeChecked()
 })
 
-test("should call onChangeOnlyInStock when Only In Stock is clicked", async () => {
+test("should call onChangeOnlyInStock when Available items only is clicked", async () => {
   const user = userEvent.setup()
   const onChangeOnlyInStock = vi.fn()
   render(
@@ -198,7 +200,9 @@ test("should call onChangeOnlyInStock when Only In Stock is clicked", async () =
     />,
   )
 
-  await user.click(screen.getByRole("checkbox", { name: /only in stock/i }))
+  await user.click(
+    screen.getByRole("checkbox", { name: /available items only/i }),
+  )
 
   expect(onChangeOnlyInStock).toHaveBeenCalled()
 })
