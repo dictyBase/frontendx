@@ -7,7 +7,7 @@ import { GeneralSearch } from "./GeneralSearch"
 import { OrderingSteps } from "./OrderingSteps"
 import { ResourcesAndInformation } from "./ResourcesAndInformation"
 import { CatalogCardB } from "./CatalogCardB"
-import { PhenotypeSearchCard } from "./PhenotypeSearchCard"
+import { SlideshowContainer } from "./SlideshowContainer"
 import { StatsBanner } from "./StatsBanner"
 
 type LinkProperties = {
@@ -108,7 +108,7 @@ const NewHome = () => (
         spacing={2}
         sx={{ px: 2, maxWidth: { xl: "50%", lg: "100%", md: "65%" } }}>
         <Grid xs={12}>
-          <PhenotypeSearchCard />
+          <SlideshowContainer />
         </Grid>
       </Grid>
       <Box

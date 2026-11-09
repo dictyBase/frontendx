@@ -300,9 +300,9 @@ const nordicThemeOptionsV5: ThemeOptionsV5 = {
     MuiButton: {
       styleOverrides: {
         root: ({ theme }) => ({
-          color: theme.palette.primary.contrastText,
           borderColor: theme.palette.primary.contrastText,
           "&:hover": {
+            color: theme.palette.primary.contrastText,
             borderColor: theme.palette.tertiary.dark,
             backgroundColor: theme.palette.tertiary.light,
           },
