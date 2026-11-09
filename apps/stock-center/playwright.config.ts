@@ -3,8 +3,11 @@ import { defineConfig, devices } from "@playwright/test"
 /**
  * Read environment variables from file.
  */
-process.loadEnvFile(".env.development")
+process.loadEnvFile(process.env.ENV_FILE as string)
 
+const baseURL = process.env.PLAYWRIGHT_BASE_URL as string
+const localHostRegexp = /^https?:\/\/localhost(?::\d{1,5})?(?:[#/?]\S*)?$/i
+const isLocal = localHostRegexp.test(baseURL)
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -28,30 +31,10 @@ export default defineConfig({
   },
   /* Configure projects for major browsers */
   projects: [
-    // {
-    //  name: "chromium",
-    //  use: { ...devices["Desktop Chrome"] },
-    // },
     {
       name: "firefox",
       use: { ...devices["Desktop Firefox"] },
     },
-    // {
-    //  name: "webkit",
-    //  use: { ...devices["Desktop Safari"] },
-    // },
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
     {
       name: "Microsoft Edge",
       use: { ...devices["Desktop Edge"], channel: "msedge" },
@@ -62,16 +45,18 @@ export default defineConfig({
     },
   ],
 
-  /* Run your local dev server before starting the tests */
-  webServer: {
-    timeout: 120 * 1000,
-    command: "yarn turbo dev --filter=stock-center",
-    url: process.env.BASE_URL,
-    reuseExistingServer: !process.env.CI,
-  },
+  /* Run your local dev server before starting the tests when targeting localhost */
+  webServer: isLocal
+    ? {
+        timeout: 120 * 1000,
+        command: "yarn turbo dev --filter=stock-center",
+        url: baseURL,
+        reuseExistingServer: !process.env.CI,
+      }
+    : undefined,
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: `${process.env.BASE_URL}/stockcenter`,
+    baseURL: `${baseURL}/stockcenter`,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
