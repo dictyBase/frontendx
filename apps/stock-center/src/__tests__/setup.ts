@@ -17,16 +17,6 @@ vi.mock("@logto/react", async () => ({
   }),
 }))
 
-class MockIntersectionObserver {
-  observe = vi.fn()
-
-  unobserve = vi.fn()
-
-  disconnect = vi.fn()
-}
-
-vi.stubGlobal("IntersectionObserver", MockIntersectionObserver)
-
 // runs a cleanup after each test case (e.g. clearing jsdom)
 afterEach(() => {
   cleanup()
