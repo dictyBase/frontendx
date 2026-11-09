@@ -3,8 +3,8 @@ import { match } from "ts-pattern"
 import { Button } from "@mui/material"
 import { Link } from "react-router-dom"
 import { makeStyles } from "@material-ui/core/styles"
-import Grid from "@material-ui/core/Grid"
-import { red } from "@material-ui/core/colors"
+import Grid from "@mui/material/Grid"
+import { red } from "@mui/material/colors"
 import { useSetAtom } from "jotai"
 import { SecondaryButton, AddToCartDialog } from "@dictybase/ui-dsc"
 import { useCartItemProperties } from "../hooks/useCartItemProperties"
@@ -12,12 +12,6 @@ import { addStrainItemsAtom, removeItemAtom } from "../cartState"
 import type { StrainCartItem } from "../types"
 
 const useStyles = makeStyles(({ palette }) => ({
-  container: {
-    paddingRight: "5px",
-  },
-  quantity: {
-    marginRight: "10px",
-  },
   maxItems: {
     color: palette.error.main,
     "&:hover": {
@@ -47,7 +41,7 @@ const StrainAvailableDisplay = ({ cartData }: Properties) => {
   }
 
   return (
-    <Grid item container alignItems="center" className={classes.container}>
+    <Grid item container alignItems="center" sx={{ pr: "5px" }}>
       {match(cartItemProperties)
         .with({ isInCart: true }, () => (
           <Grid item>
@@ -74,12 +68,12 @@ const StrainAvailableDisplay = ({ cartData }: Properties) => {
         ))
         .with({ isInCart: false }, () => (
           <Grid item>
-            <SecondaryButton
+            <Button
               variant="contained"
               color="secondary"
               onClick={handleAddToCart}>
               Add to Cart
-            </SecondaryButton>
+            </Button>
           </Grid>
         ))
         .otherwise(() => (
