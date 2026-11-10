@@ -66,7 +66,7 @@ test.describe("Cart with Item", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/stockcenter/strains/DBS0391520")
     await page.getByRole("button", { name: "Add to Cart" }).click()
-    await page.getByRole("link", { name: "View Cart" }).click()
+    await page.getByRole("button", { name: "View Cart" }).click()
   })
 
   test("displays cart with item after adding strain from strain page", async ({
