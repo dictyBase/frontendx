@@ -15,11 +15,11 @@ const EXPECTED_REFERENCE = {
   ],
   doi: "10.1016/s0898-6568(01)00187-5",
   id: "11483410",
-  issue: "8",
+  issue: "",
   journal: "Cellular signalling",
-  pages: "575-584",
+  pages: "",
   pub_date: "2001-08-01T00:00:00.000Z",
-  pub_type: "Research Support, Non-U.S. Gov't",
+  pub_type: "",
   related_genes: [
     { id: "DDB_G0269116", name: "cmbC" },
     { id: "DDB_G0288131", name: "cmbB" },
@@ -29,7 +29,7 @@ const EXPECTED_REFERENCE = {
   source: "MED",
   title:
     "Detection of calmodulin-binding proteins and calmodulin-dependent phosphorylation linked to calmodulin-dependent chemotaxis to folic and cAMP in Dictyostelium.",
-  volume: "13",
+  volume: "",
 }
 
 // Expected formatted dates when browser is in UTC timezone

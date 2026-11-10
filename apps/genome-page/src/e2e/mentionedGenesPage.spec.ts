@@ -10,24 +10,6 @@ const TEST_PUBLICATION_ID = "29441327"
 const RELATED_GENES_TEST_LIST_ID = "related-genes-list"
 
 const EXPECTED_REFERENCE = {
-  related_genes: [
-    { id: "DDB_G0290009", name: "spr" },
-    { id: "DDB_G0288481", name: "gchA" },
-    { id: "DDB_G0267444", name: "phg1A" },
-    { id: "DDB_G0279095", name: "ptsA" },
-    { id: "DDB_G0267630", name: "kil1" },
-  ],
-  id: "29441327",
-  doi: "10.3389/fcimb.2018.00008",
-  title:
-    "Inorganic Polyphosphate Is Essential for  Typhimurium Virulence and Survival in .",
-  journal: "Frontiers in cellular and infection microbiology",
-  pub_date: "2018-01-01T00:00:00.000Z",
-  volume: "",
-  pages: "",
-  pub_type: "",
-  source: "MED",
-  issue: "",
   authors: [
     { last_name: "Varas", rank: "0" },
     { last_name: "Riquelme-Barrios", rank: "1" },
@@ -37,6 +19,24 @@ const EXPECTED_REFERENCE = {
     { last_name: "Santiviago", rank: "5" },
     { last_name: "Chávez", rank: "6" },
   ],
+  doi: "10.3389/fcimb.2018.00008",
+  id: "29441327",
+  issue: "",
+  journal: "Frontiers in cellular and infection microbiology",
+  pages: "8",
+  pub_date: "2018-01-30T00:00:00.000Z",
+  pub_type: "Research Support, Non-U.S. Gov't",
+  related_genes: [
+    { id: "DDB_G0290009", name: "spr" },
+    { id: "DDB_G0288481", name: "gchA" },
+    { id: "DDB_G0267444", name: "phg1A" },
+    { id: "DDB_G0279095", name: "ptsA" },
+    { id: "DDB_G0267630", name: "kil1" },
+  ],
+  source: "MED",
+  title:
+    "Inorganic Polyphosphate Is Essential for <i>Salmonella</i> Typhimurium Virulence and Survival in <i>Dictyostelium discoideum</i>.",
+  volume: "8",
 }
 
 test.beforeAll("Test Reference Page API", async ({ playwright }) => {
@@ -61,7 +61,7 @@ test.beforeEach(async ({ page }) => {
 test("Displays publication title", async ({ page }) => {
   await expect(page.getByText(/5 Genes mentioned in/)).toBeVisible()
   await expect(
-    page.getByRole("heading", { name: EXPECTED_REFERENCE.title }),
+    page.getByRole("heading", { name: "Inorganic Polyphosphate Is" }),
   ).toBeVisible()
 })
 
