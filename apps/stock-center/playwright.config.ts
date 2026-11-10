@@ -22,7 +22,20 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : 4,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: process.env.CI ? "github" : "list",
+  reporter: [
+    [process.env.CI ? "github" : "list"],
+    ...(isLocal
+      ? []
+      : [
+          [
+            "./src/e2e/utils/postflightReporter.ts",
+            {
+              outputFile: "../../postflight-report.md",
+              baseURL: `${baseURL}`,
+            },
+          ] as [string, { outputFile: string; baseURL: string }],
+        ]),
+  ],
   timeout: 60_000,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   expect: {
@@ -56,7 +69,7 @@ export default defineConfig({
     : undefined,
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: `${baseURL}/stockcenter`,
+    baseURL: `${baseURL}`,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
