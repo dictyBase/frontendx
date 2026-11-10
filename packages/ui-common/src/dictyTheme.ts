@@ -32,7 +32,7 @@ const dictyThemeOptions = {
       main: DICTY_PRIMARY,
       light: "#476ab0",
       dark: "#001b53",
-      contrastText: "#fff",
+      contrastText: "#004080",
     },
     secondary: {
       main: "#008080",
@@ -186,7 +186,7 @@ const dictyThemeOptionsV5: ThemeOptionsV5 = {
       styleOverrides: {
         a: {
           textDecoration: "none",
-          // color: "#004080",
+          color: "#004080",
         },
       },
     },

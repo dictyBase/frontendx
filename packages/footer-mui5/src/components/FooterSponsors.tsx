@@ -1,4 +1,4 @@
-import { Box, Grid } from "@mui/material"
+import { Typography, Box, Grid } from "@mui/material"
 import { footerStyles } from "../styles/footerStyles"
 
 export const FooterSponsors = () => {
@@ -10,23 +10,28 @@ export const FooterSponsors = () => {
       xs={12}
       container
       justifyContent="flex-end"
+      sx={(t) => ({ color: t.palette.primary.contrastText })}
       className={classes.support}>
       <Box mt={1} mb={2} mr={1}>
         <em>
           Supported by{" "}
-          <a
+          <Typography
+            component="a"
+            sx={(t) => ({ color: t.palette.primary.contrastText })}
             href="https://reporter.nih.gov/project-details/10024726"
             target="_blank"
             rel="noopener noreferrer">
             NIH
-          </a>
+          </Typography>
           /
-          <a
+          <Typography
+            component="a"
+            sx={(t) => ({ color: t.palette.primary.contrastText })}
             href="https://www.nigms.nih.gov/"
             target="_blank"
             rel="noopener noreferrer">
             NIGMS
-          </a>
+          </Typography>
         </em>
       </Box>
     </Grid>

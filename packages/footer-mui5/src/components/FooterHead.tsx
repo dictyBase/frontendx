@@ -4,7 +4,9 @@ import { FooterHeadProperties } from "../types"
 export const FooterHead = ({ title }: FooterHeadProperties) => (
   <Grid item xs={12}>
     <Box my={2} textAlign="center">
-      <Typography>{title}</Typography>
+      <Typography variant="h3" color="primary.contrastText">
+        {title}
+      </Typography>
     </Box>
   </Grid>
 )
