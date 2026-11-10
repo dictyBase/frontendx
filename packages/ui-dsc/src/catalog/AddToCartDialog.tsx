@@ -1,3 +1,4 @@
+import { MouseEventHandler } from "react"
 import Dialog from "@mui/material/Dialog"
 import { DialogTitleDisplay } from "./DialogTitleDisplay"
 import { AddToCartDialogContent } from "./AddToCartDialogContent"
@@ -26,7 +27,8 @@ const AddToCartDialog = ({
   setShowDialog,
   setHover,
 }: Properties) => {
-  const handleClose = () => {
+  const handleClose: MouseEventHandler = (event) => {
+    event.stopPropagation()
     setShowDialog(false)
     setCheckedItems?.([])
     // set hovering to false if button is in catalog list item
