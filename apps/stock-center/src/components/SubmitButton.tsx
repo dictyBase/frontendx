@@ -1,5 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles"
-import Button from "@material-ui/core/Button"
+import Button from "@mui/material/Button"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useNavigate } from "react-router-dom"
 import {
@@ -175,12 +174,6 @@ const updateOrCreateUser = async (
   }
 }
 
-const useStyles = makeStyles(() => ({
-  button: {
-    minWidth: "200px",
-  },
-}))
-
 /**
  * SubmitButton is the button used to submit the order. It
  * appears on the last page of the order form, and it contains the
@@ -203,7 +196,6 @@ const SubmitButton = () => {
     variables: { email: formData.email },
     skip: true, // skip initial fetch, we only want to fetch on button click
   })
-  const classes = useStyles()
 
   const handleSubmit = async () => {
     try {
@@ -246,8 +238,8 @@ const SubmitButton = () => {
       type="submit"
       size="large"
       variant="contained"
-      color="primary"
-      className={classes.button}
+      color="secondary"
+      sx={{ maxWidth: "200px" }}
       endIcon={<FontAwesomeIcon icon="check-circle" />}
       onClick={handleSubmit}>
       Submit Order
