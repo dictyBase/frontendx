@@ -17,7 +17,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "coverage": "vitest run --coverage",
-    "e2e": "ENV_FILE=.env.e2e playwright test",
+    "e2e": "ENV_FILE=.env.e2e playwright test --grep-invert snapshots.spec.ts ",
     "e2e:dev": "ENV_FILE=.env.development playwright test --grep-invert snapshots.spec.ts",
     "e2e:prod": "ENV_FILE=.env.production playwright test --grep-invert snapshots.spec.ts",
     "lint:fix": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache --fix"

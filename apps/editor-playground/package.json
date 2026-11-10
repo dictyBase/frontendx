@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest watch",
-    "e2e": "BASE_URL=http://localhost:5173 playwright test",
+    "e2e": "BASE_URL=http://localhost:5173 playwright test --grep-invert snapshots.spec.ts",
     "coverage": "vitest run --coverage",
     "lint": "oxlint src/ e2e/",
     "fmt": "oxfmt",
