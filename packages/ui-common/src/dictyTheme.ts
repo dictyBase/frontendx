@@ -297,8 +297,20 @@ const nordicThemeOptionsV5: ThemeOptionsV5 = {
         a: { textDecoration: "none" },
       },
     },
+    MuiStepIcon: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          "&.Mui-completed": {
+            color: theme.palette.success.main,
+          },
+        }),
+      },
+    },
     MuiButton: {
       styleOverrides: {
+        outlined: ({ theme }) => ({
+          color: theme.palette.primary.contrastText,
+        }),
         root: ({ theme }) => ({
           borderColor: theme.palette.primary.contrastText,
           "&:hover": {
