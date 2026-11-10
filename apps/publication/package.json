@@ -2,6 +2,7 @@
   "name": "publication",
   "version": "0.0.0-semantically-released",
   "private": true,
+  "type": "module",
   "homepage": "/publication",
   "scripts": {
     "dev": "vite --port 5173",
@@ -9,8 +10,9 @@
     "serve": "vite preview --port 3000",
     "coverage": "vitest --coverage",
     "test": "vitest run",
-    "e2e": "BASE_URL=http://localhost:5173 playwright test",
-    "e2e:live": "BASE_URL=https://dictybase.dev playwright test --grep-invert snapshots.spec.ts",
+    "e2e": "ENV_FILE=.env.development.local playwright test",
+    "e2e:dev": "ENV_FILE=.env.development playwright test --grep-invert snapshots.spec.ts",
+    "e2e:prod": "ENV_FILE=.env.production playwright test --grep-invert snapshots.spec.ts",
     "tsc": "tsc",
     "oxlint": "oxlint src/",
     "oxlint:ci": "oxlint src/ --format=github",
@@ -49,6 +51,7 @@
   },
   "devDependencies": {
     "@dictybase/oxlint-config": "*",
+    "@dictybase/playwright-config": "*",
     "@playwright/test": "^1.60.0",
     "@types/node": "^22.15.0",
     "@types/react": "17.*",

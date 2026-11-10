@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "e2e": "BASE_URL=http://localhost:3004 playwright test",
-    "e2e:live": "BASE_URL=https://dictybase.dev playwright test --grep-invert snapshots.spec.ts",
+    "e2e": "ENV_FILE=.env.development.local playwright test",
+    "e2e:dev": "ENV_FILE=.env.development playwright test --grep-invert snapshots.spec.ts",
+    "e2e:prod": "ENV_FILE=.env.production playwright test --grep-invert snapshots.spec.ts",
     "coverage-report": "npx nyc@17 report --reporter=lcov",
     "dev": "vite",
     "dev:mock": "vite --host --mode mock",
@@ -57,6 +58,7 @@
   },
   "devDependencies": {
     "@dictybase/oxlint-config": "*",
+    "@dictybase/playwright-config": "*",
     "@testing-library/dom": "^8.20.0",
     "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.1",
