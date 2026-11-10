@@ -2,18 +2,10 @@ import { Box } from "@mui/material"
 import { PageLayout } from "@dictybase/ui-common"
 import { PdfDocumentDisplay } from "@dictybase/ui-dsc"
 import { ACCESS } from "@dictybase/auth-mui5"
-import { getPublicPath } from "../../../getPublicPath"
+import sopPdf from "../../../assets/DSC_SOP_OIM_Aug22.pdf"
 
 /** File name of the standard operating procedures document. */
 const SOP_FILE_NAME = "DSC_SOP_OIM_Aug22.pdf"
-
-/** Directory, inside the `public` folder, holding the DSC documents. */
-const DOCUMENTS_DIRECTORY = "documents"
-
-/** Url path of the SOP document. */
-const SOP_DOCUMENT_SRC = getPublicPath(
-  `${DOCUMENTS_DIRECTORY}/${SOP_FILE_NAME}`,
-)
 
 /** Page title, also used as the embedded viewer title. */
 const SOP_TITLE = "Standard Operating Procedures"
@@ -32,7 +24,7 @@ const Sop = () => (
   <PageLayout metaContent={SOP_META_CONTENT} title={SOP_TITLE}>
     <Box py={4}>
       <PdfDocumentDisplay
-        src={SOP_DOCUMENT_SRC}
+        src={sopPdf}
         fileName={SOP_FILE_NAME}
         title={SOP_TITLE}
       />

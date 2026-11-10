@@ -14,11 +14,11 @@ test("renders the page heading", () => {
   expect(screen.getByRole("heading", { name: SOP_TITLE })).toBeInTheDocument()
 })
 
-test("embeds the SOP document from the public documents directory", () => {
+test("embeds the SOP document from the assets directory", () => {
   render(<Sop />)
   expect(screen.getByTitle(SOP_TITLE)).toHaveAttribute(
     "src",
-    getPublicPath(`documents/${SOP_FILE_NAME}`),
+    getPublicPath(`src/assets/${SOP_FILE_NAME}`),
   )
 })
 
