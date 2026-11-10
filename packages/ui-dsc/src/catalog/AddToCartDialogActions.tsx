@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom"
+import { MouseEventHandler } from "react"
+import { useNavigate } from "react-router-dom"
 import { Theme } from "@mui/material/styles"
 import { makeStyles } from "tss-react/mui"
 import Button from "@mui/material/Button"
@@ -14,7 +15,7 @@ const useStyles = makeStyles()((theme: Theme) => ({
 
 type AddToCartDialogActionsProperties = {
   /** Function called when closing the dialog box */
-  handleClose: () => void
+  handleClose: MouseEventHandler<HTMLButtonElement>
 }
 
 /**
@@ -26,6 +27,11 @@ const AddToCartDialogActions = ({
   handleClose,
 }: AddToCartDialogActionsProperties) => {
   const { classes } = useStyles()
+  const navigate = useNavigate()
+  const onViewCart: MouseEventHandler = (event) => {
+    event.stopPropagation()
+    navigate("/cart")
+  }
 
   return (
     <DialogActions>
@@ -36,9 +42,7 @@ const AddToCartDialogActions = ({
         Continue Shopping
       </Button>
       <Button
-        onClick={handleClose}
-        component={Link}
-        to="/cart"
+        onClick={onViewCart}
         className={classes.cartDialogButton}
         variant="contained"
         color="secondary"

@@ -1,3 +1,4 @@
+import { MouseEventHandler } from "react"
 import IconButton from "@mui/material/IconButton"
 import DialogTitle from "@mui/material/DialogTitle"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -6,7 +7,7 @@ type DialogTitleDisplayProperties = {
   /** Title to display at top of dialog */
   title: string
   /** Function to call when close button is clicked */
-  handleClose: () => void
+  handleClose: MouseEventHandler<HTMLButtonElement>
 }
 
 /**
