@@ -43,33 +43,33 @@ test("Searches the catalog and syncs the query parameter to the URL", async ({
   await expect(page.getByText("DBS0236414")).toBeVisible()
 })
 
-test("Sidebar entity switcher navigates between catalog, strains, and plasmids", async ({
+test("Entity filter pills navigate between catalog, strains, and plasmids", async ({
   page,
 }) => {
   await page.goto(CATALOG_PATH)
 
-  await page.getByRole("radio", { name: "Strains", exact: true }).click()
+  await page.getByText("Strains", { exact: true }).click()
   await expect(page).toHaveURL(/\/stockcenter\/strains\?group=all/)
   await expect(
     page.getByRole("heading", { name: "Strain Catalog" }),
   ).toBeVisible()
 
-  await page.getByRole("radio", { name: "Plasmids", exact: true }).click()
+  await page.getByText("Plasmids", { exact: true }).click()
   await expect(page).toHaveURL(/\/stockcenter\/plasmids\?group=all/)
   await expect(
     page.getByRole("heading", { name: "Plasmid Catalog" }),
   ).toBeVisible()
 
-  await page.getByRole("radio", { name: "All Results" }).click()
+  await page.getByText("All Results", { exact: true }).click()
   await expect(page).toHaveURL(/\/stockcenter\/catalog/)
 })
 
-test("Preserves the active search query when switching entities in the sidebar", async ({
+test("Preserves the active search query when switching entity filter pills", async ({
   page,
 }) => {
   await page.goto(`${STRAINS_PATH}?q=${SEARCH_TERM}&group=gwdi`)
 
-  await page.getByRole("radio", { name: "Plasmids", exact: true }).click()
+  await page.getByText("Plasmids", { exact: true }).click()
   await expect(page).toHaveURL(/\/stockcenter\/plasmids\?q=axe&group=all/)
 })
 
@@ -81,7 +81,7 @@ test("Filters strains by group and navigates to strain details from the strain c
     page.getByRole("heading", { name: "Strain Catalog" }),
   ).toBeVisible()
 
-  await page.getByRole("radio", { name: "Regular Strains" }).click()
+  await page.getByText("Regular Strains", { exact: true }).click()
   await expect(page).toHaveURL(/\/stockcenter\/strains\?group=regular/)
   const strainTitle = page.getByText(
     "tor(1-476:MTRSLRKVEKLKNSEPTLCTK:479-2380)",
@@ -100,7 +100,7 @@ test("Filters plasmids by group and navigates to plasmid details from the plasmi
     page.getByRole("heading", { name: "Plasmid Catalog" }),
   ).toBeVisible()
 
-  await page.getByRole("radio", { name: "Regular Plasmids" }).click()
+  await page.getByText("Regular Plasmids", { exact: true }).click()
   await expect(page).toHaveURL(/\/stockcenter\/plasmids\?group=regular/)
   const plasmidTitle = page.getByText("pUPD2_T2A_TCGGGC_GGCTCG")
   await expect(plasmidTitle).toBeVisible()
