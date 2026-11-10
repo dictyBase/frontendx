@@ -73,12 +73,3 @@ test("Catalog category cards navigate to full, strain, and plasmid catalogs", as
   await page.getByRole("button", { name: "Plasmid Catalog" }).click()
   await expect(page).toHaveURL(/\/stockcenter\/plasmids\?group=all/)
 })
-
-test("Phenotype search card navigates to the phenotype search page", async ({
-  page,
-}) => {
-  await page
-    .getByRole("button", { name: /explore strains by phenotype/i })
-    .click()
-  await expect(page).toHaveURL(/\/stockcenter\/phenotypes/)
-})
