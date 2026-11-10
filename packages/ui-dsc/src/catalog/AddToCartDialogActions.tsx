@@ -31,7 +31,7 @@ const AddToCartDialogActions = ({
     <DialogActions>
       <Button
         onClick={handleClose}
-        variant="outlined"
+        variant="contained"
         aria-label="Continue Shopping">
         Continue Shopping
       </Button>

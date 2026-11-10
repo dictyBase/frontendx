@@ -34,7 +34,6 @@ const PaymentInfoBox = () => {
           target="_blank"
           rel="noopener noreferrer"
           variant="outlined"
-          color="primary"
           endIcon={<OpenInNewIcon />}>
           Payment Information
         </Button>
