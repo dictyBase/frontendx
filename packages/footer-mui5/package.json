@@ -33,7 +33,7 @@
     "@mui/material": "5.*",
     "react-slidedown": "^2.4.7",
     "tss-react": "^4.9.15",
-    "uuid": "9.x"
+    "uuid": "11.x"
   },
   "lint-staged": {
     "*.{js,jsx,json,css}": [

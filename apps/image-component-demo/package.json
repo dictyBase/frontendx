@@ -29,7 +29,7 @@
     "prettier": "3.*",
     "tsconfig": "*",
     "typescript": "5.*",
-    "vite": "4.x"
+    "vite": "7.x"
   },
   "eslintConfig": {
     "root": true,
