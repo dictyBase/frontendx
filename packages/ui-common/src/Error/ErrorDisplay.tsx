@@ -21,7 +21,7 @@ const useStyles = makeStyles()((theme: Theme) => ({
     alignSelf: "center",
   },
   icon: {
-    color: theme.palette.primary.main,
+    color: "#004080",
     fontSize: "4rem",
   },
   logoContainer: {
@@ -167,7 +167,7 @@ const ErrorDisplay = ({
       </Grid>
       <Grid item>
         <Paper variant="outlined" className={classes.errorBox}>
-          <Typography variant="subtitle2" color="primary" gutterBottom>
+          <Typography variant="subtitle2" color="InfoText" gutterBottom>
             Error Details
           </Typography>
           <Typography variant="body2" color="textSecondary">
@@ -178,7 +178,7 @@ const ErrorDisplay = ({
       <Grid item>
         <div className={classes.helpSection}>
           <div>
-            <Typography variant="subtitle2" color="primary" gutterBottom>
+            <Typography variant="subtitle2" color="infoText" gutterBottom>
               What you can try:
             </Typography>
             <div>
@@ -209,7 +209,7 @@ const ErrorDisplay = ({
           </div>
 
           <Paper variant="outlined" className={classes.infoBox}>
-            <Typography variant="subtitle2" color="primary" gutterBottom>
+            <Typography variant="subtitle2" color="infoText" gutterBottom>
               Need assistance?
             </Typography>
             <Typography variant="body2" color="textSecondary" paragraph>

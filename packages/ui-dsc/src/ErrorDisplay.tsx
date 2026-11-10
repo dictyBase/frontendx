@@ -28,7 +28,7 @@ const errorStyles = makeStyles()((theme: Theme) => ({
     marginTop: "0px",
   },
   icon: {
-    color: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
     fontSize: "4rem",
   },
   details: {
@@ -248,7 +248,8 @@ export const ErrorDisplay = ({
                       Need assistance?
                     </Typography>
                     <Typography variant="body2" color="textSecondary" paragraph>
-                      If this problem persists, please email us at:
+                      If this prAAAAAAAAAAAAAAAoblem persists, please email us
+                      at:
                     </Typography>
                     <a
                       href={`mailto:${supportEmail}`}
