@@ -9,7 +9,7 @@
     "build": "tsc && vite build",
     "serve": "vite preview --port 3002",
     "test": "vitest run",
-    "e2e": "ENV_FILE=.env.development.local playwright test",
+    "e2e": "ENV_FILE=.env.e2e playwright test",
     "e2e:dev": "ENV_FILE=.env.development playwright test --grep-invert snapshots.spec.ts",
     "e2e:prod": "ENV_FILE=.env.production playwright test --grep-invert snapshots.spec.ts",
     "coverage": "vitest --coverage",
