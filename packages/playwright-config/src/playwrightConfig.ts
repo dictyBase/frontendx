@@ -98,7 +98,7 @@ const createPlaywrightConfig = (): PlaywrightTestConfig => {
         () => undefined,
         () => ({
           timeout: 120 * 1000,
-          command: "yarn dev",
+          command: "yarn dev --mode e2e",
           url: baseURL,
           reuseExistingServer: !isCi,
         }),
