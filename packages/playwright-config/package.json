@@ -1,0 +1,39 @@
+{
+  "name": "@dictybase/playwright-config",
+  "version": "0.0.0",
+  "description": "Shared Playwright configuration and post-flight reporter for dictyBase applications",
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./reporter": "./src/postflightReporter.ts"
+  },
+  "author": "Kevin Tun",
+  "license": "BSD-2-Clause",
+  "scripts": {
+    "oxlint": "oxlint src/",
+    "oxlint:ci": "oxlint src/ --format=github",
+    "test": "vitest run",
+    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/playwright-config.json",
+    "lint:fix": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache --fix"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.60.0",
+    "fp-ts": "^2.16.1",
+    "ts-pattern": "5.x"
+  },
+  "devDependencies": {
+    "@dictybase/oxlint-config": "*",
+    "@types/node": "^22.15.0",
+    "eslint-config-custom": "*",
+    "tsconfig": "*",
+    "vitest": "4.x"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "custom"
+    ]
+  }
+}
