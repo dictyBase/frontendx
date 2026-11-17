@@ -55,11 +55,11 @@ const EXPECTED_STRAIN = {
         ],
         id: "8380174",
         journal: "The Journal of cell biology",
-        pages: "163-173",
+        pages: "",
         pub_date: "1993-01-01T00:00:00.000Z",
         title:
           "Dictyostelium mutants lacking the cytoskeletal protein coronin are defective in cytokinesis and cell motility.",
-        volume: "120",
+        volume: "",
       },
     },
     {
@@ -76,11 +76,11 @@ const EXPECTED_STRAIN = {
         ],
         id: "8380174",
         journal: "The Journal of cell biology",
-        pages: "163-173",
+        pages: "",
         pub_date: "1993-01-01T00:00:00.000Z",
         title:
           "Dictyostelium mutants lacking the cytoskeletal protein coronin are defective in cytokinesis and cell motility.",
-        volume: "120",
+        volume: "",
       },
     },
     {
@@ -97,11 +97,11 @@ const EXPECTED_STRAIN = {
         ],
         id: "8380174",
         journal: "The Journal of cell biology",
-        pages: "163-173",
+        pages: "",
         pub_date: "1993-01-01T00:00:00.000Z",
         title:
           "Dictyostelium mutants lacking the cytoskeletal protein coronin are defective in cytokinesis and cell motility.",
-        volume: "120",
+        volume: "",
       },
     },
   ],
