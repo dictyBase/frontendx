@@ -6,7 +6,6 @@ import {
   NavbarWithAuth,
   FooterWithAuth,
 } from "@dictybase/auth-mui5"
-import { useGoogleAnalytics } from "../../common/hooks/useGoogleAnalytics"
 import { frontpageRouter } from "../../routes"
 
 const useStyles = makeStyles()((theme: Theme) => ({
@@ -30,7 +29,6 @@ const useStyles = makeStyles()((theme: Theme) => ({
  */
 
 const FrontPageApp = () => {
-  useGoogleAnalytics()
   const { classes } = useStyles()
 
   return (
