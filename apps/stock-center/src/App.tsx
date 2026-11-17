@@ -10,7 +10,6 @@ import {
   listStrainsWithAnnotationPagination,
 } from "@dictybase/hook-dsc"
 import { ErrorBoundary } from "@dictybase/ui-common"
-import { useGoogleAnalytics } from "@dictybase/google-analytics"
 import { ApolloProvider } from "@apollo/client"
 import "@fontsource/roboto"
 import { LogtoProvider, LogtoConfig, UserScope } from "@logto/react"
@@ -52,7 +51,6 @@ const cacheOptions = {
 }
 
 export const App = () => {
-  useGoogleAnalytics(import.meta.env.VITE_GA_TRACKING_ID)
   const { cache, isInitializing } = useApolloClientCache(cacheOptions)
   const client = useGraphqlClient({
     uri: `${import.meta.env.VITE_APP_GRAPHQL_SERVER}/graphql`,

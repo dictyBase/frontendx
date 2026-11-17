@@ -1,7 +1,6 @@
 import { LogtoProvider, LogtoConfig, UserScope } from "@logto/react"
 import { CssBaseline } from "@mui/material"
 import { ErrorBoundary } from "@dictybase/ui-common"
-import { useGoogleAnalytics } from "@dictybase/google-analytics"
 import { AppProviders } from "./AppProviders"
 import { FrontPageApp } from "./FrontPageApp"
 import "@fontsource-variable/playfair-display"
@@ -26,18 +25,15 @@ const logtoConfig: LogtoConfig = {
   ],
 }
 
-const App = () => {
-  useGoogleAnalytics(import.meta.env.VITE_GA_TRACKING_ID)
-  return (
-    <AppProviders>
-      <LogtoProvider config={logtoConfig}>
-        <CssBaseline />
-        <ErrorBoundary>
-          <FrontPageApp />
-        </ErrorBoundary>
-      </LogtoProvider>
-    </AppProviders>
-  )
-}
+const App = () => (
+  <AppProviders>
+    <LogtoProvider config={logtoConfig}>
+      <CssBaseline />
+      <ErrorBoundary>
+        <FrontPageApp />
+      </ErrorBoundary>
+    </LogtoProvider>
+  </AppProviders>
+)
 
 export { App }
