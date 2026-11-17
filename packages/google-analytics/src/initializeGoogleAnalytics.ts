@@ -11,7 +11,7 @@ const initializeGoogleAnalytics = (trackingId: string) => {
   script.setAttribute("async", "")
   script.setAttribute(
     "src",
-    `https://www.googletagmanager.com/gtag/js?id=${trackingId}`,
+    `https://www.googletagmanager.com/gtm.js?id=${trackingId}`,
   )
   document.head.append(script)
 
@@ -20,7 +20,6 @@ const initializeGoogleAnalytics = (trackingId: string) => {
     window.dataLayer.push(arguments_)
   }
   window.gtag("js", new Date())
-  window.gtag("config", trackingId)
 }
 
 export { initializeGoogleAnalytics }
