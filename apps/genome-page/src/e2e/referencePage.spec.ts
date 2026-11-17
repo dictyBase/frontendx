@@ -15,11 +15,11 @@ const EXPECTED_REFERENCE = {
   ],
   doi: "10.1016/s0898-6568(01)00187-5",
   id: "11483410",
-  issue: "",
+  issue: "8",
   journal: "Cellular signalling",
-  pages: "",
+  pages: "575-584",
   pub_date: "2001-08-01T00:00:00.000Z",
-  pub_type: "",
+  pub_type: "Research Support, Non-U.S. Gov't",
   related_genes: [
     { id: "DDB_G0269116", name: "cmbC" },
     { id: "DDB_G0288131", name: "cmbB" },
@@ -29,12 +29,12 @@ const EXPECTED_REFERENCE = {
   source: "MED",
   title:
     "Detection of calmodulin-binding proteins and calmodulin-dependent phosphorylation linked to calmodulin-dependent chemotaxis to folic and cAMP in Dictyostelium.",
-  volume: "",
+  volume: "13",
 }
 
 // Expected formatted dates when browser is in UTC timezone
 const oldestPublicationDateFormatted = "August 1st, 2001"
-const newestPublicationDateFormatted = "November 26th, 2019"
+const newestPublicationDateFormatted = "April 1st, 2020"
 
 test.beforeAll("Test Reference Page API", async ({ playwright }) => {
   const apiContext = await playwright.request.newContext()
