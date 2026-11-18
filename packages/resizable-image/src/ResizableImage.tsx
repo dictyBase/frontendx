@@ -12,7 +12,7 @@ import { ALIGNMENT } from "./types"
 export type ImageProperties = {
   src: string
   alt?: string | undefined
-  imageReference: React.MutableRefObject<HTMLImageElement | null>
+  imageReference: React.RefObject<HTMLImageElement | null>
   fit: string
   duration: number
   easing: string

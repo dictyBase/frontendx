@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom"
-import { makeStyles, Chip } from "@material-ui/core"
+import { makeStyles } from "@material-ui/core"
+import { Chip } from "@mui/material"
 import { Gene } from "dicty-graphql-schema"
-import { blueGrey } from "@material-ui/core/colors"
+import { blueGrey } from "@mui/material/colors"
 
 const useStyles = makeStyles({
   chip: {

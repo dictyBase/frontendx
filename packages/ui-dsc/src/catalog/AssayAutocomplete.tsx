@@ -70,7 +70,7 @@ const AssayAutocomplete = () => {
           size="small"
           variant="outlined"
           error={!!errors["assay"]}
-          helperText={errors["assay"]?.message || ""}
+          helperText={(errors["assay"]?.message as string) || ""}
           onChange={handleTextFieldChange}
           InputProps={{
             ...parameters.InputProps,

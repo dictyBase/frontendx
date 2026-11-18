@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom"
-import { Box, Button } from "@material-ui/core"
-import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace"
+import { Box, Button } from "@mui/material"
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace"
 
 const RelatedGenesNavigation = () => {
   const { id } = useParams<{ id: string }>()

@@ -1,3 +1,4 @@
+import { type ReactElement } from "react"
 import Grid from "@mui/material/Grid"
 import { map as Amap } from "fp-ts/Array"
 import { pipe } from "fp-ts/function"
@@ -70,12 +71,12 @@ type AddressField = {
   label: string
 }
 
-const gridContainerWrapper = (elements: Array<JSX.Element>) => (
+const gridContainerWrapper = (elements: Array<ReactElement>) => (
   <StyledGridContainer>{elements}</StyledGridContainer>
 )
 
 // eslint-disable-next-line react/function-component-definition
-const panelWrapper = (title: string) => (element: JSX.Element) => (
+const panelWrapper = (title: string) => (element: ReactElement) => (
   <PanelWrapper title={title}>{element}</PanelWrapper>
 )
 

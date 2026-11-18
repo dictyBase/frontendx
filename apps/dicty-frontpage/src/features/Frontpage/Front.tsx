@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet"
 import { Grid, Container } from "@mui/material"
 import { Theme } from "@mui/material/styles"
 import { makeStyles } from "tss-react/mui"
@@ -39,15 +38,11 @@ const Front = () => {
 
   return (
     <Container maxWidth="xl" className={classes.main}>
-      <Helmet>
-        <title>
-          dictyBase - your central resource for Dictyostelid genomics
-        </title>
-        <meta
-          name="description"
-          content="dictyBase is a central resource for Dictyostelid genomics"
-        />
-      </Helmet>
+      <title>dictyBase - your central resource for Dictyostelid genomics</title>
+      <meta
+        name="description"
+        content="dictyBase is a central resource for Dictyostelid genomics"
+      />
       <Grid container justifyContent="center">
         <Grid item className={classes.topItem} sm={12} md={12} xl={12}>
           <StatusReportContainer />

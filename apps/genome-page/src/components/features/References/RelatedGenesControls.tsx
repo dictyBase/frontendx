@@ -1,14 +1,15 @@
 import { ChangeEventHandler } from "react"
+import { makeStyles } from "@material-ui/core"
 import {
   Grid,
   Paper,
   TextField,
   Typography,
   IconButton,
-  makeStyles,
-} from "@material-ui/core"
-import { teal } from "@material-ui/core/colors"
-import FilterListIcon from "@material-ui/icons/FilterList"
+  SelectChangeEvent,
+} from "@mui/material"
+import { teal } from "@mui/material/colors"
+import FilterListIcon from "@mui/icons-material/FilterList"
 import { GeneGroupSelect, GeneGroups } from "./GeneGroupSelect"
 
 const useStyles = makeStyles((theme) => ({
@@ -34,7 +35,7 @@ type RelatedGenesControlsProperties = {
   filter: string
   onFilterChange: ChangeEventHandler<HTMLInputElement>
   group: GeneGroups
-  onGroupChange: ChangeEventHandler<{ value: unknown }>
+  onGroupChange: (event: SelectChangeEvent<GeneGroups>) => void
 }
 
 const RelatedGenesControls = ({

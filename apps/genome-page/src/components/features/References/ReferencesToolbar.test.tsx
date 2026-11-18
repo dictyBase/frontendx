@@ -81,7 +81,7 @@ describe("ReferencesToolbar", () => {
     const mockSetOrder = vi.fn()
     render(<ReferencesToolbar {...defaultProps} setOrder={mockSetOrder} />)
 
-    const select = screen.getByRole("button", { name: /newest first/i })
+    const select = screen.getByRole("combobox")
     await user.click(select)
 
     const option = screen.getByRole("option", { name: oldestFirstText })
@@ -94,7 +94,7 @@ describe("ReferencesToolbar", () => {
     const user = userEvent.setup()
     render(<ReferencesToolbar {...defaultProps} />)
 
-    const select = screen.getByRole("button", { name: /newest first/i })
+    const select = screen.getByRole("combobox")
     await user.click(select)
 
     expect(

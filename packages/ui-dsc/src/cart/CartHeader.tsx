@@ -1,7 +1,6 @@
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 import Divider from "@mui/material/Divider"
-import { Helmet } from "react-helmet"
 import { makeStyles } from "tss-react/mui"
 
 const useStyles = makeStyles()((theme) => ({
@@ -19,13 +18,11 @@ const CartHeader = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Shopping Cart - Dicty Stock Center</title>
-        <meta
-          name="description"
-          content="Shopping cart page for Dicty Stock Center"
-        />
-      </Helmet>
+      <title>Shopping Cart - Dicty Stock Center</title>
+      <meta
+        name="description"
+        content="Shopping cart page for Dicty Stock Center"
+      />
       <Box marginTop={3} marginBottom={3}>
         <Typography variant="h1">Your Shopping Cart</Typography>
         <Divider className={classes.divider} />

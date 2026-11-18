@@ -1,5 +1,5 @@
-import { ChangeEventHandler } from "react"
-import { Select, MenuItem, makeStyles } from "@material-ui/core"
+import { makeStyles } from "@material-ui/core"
+import { Select, MenuItem, SelectChangeEvent } from "@mui/material"
 
 const useStyles = makeStyles((theme) => ({
   select: {
@@ -15,7 +15,7 @@ enum GeneGroups {
 
 type GeneGroupSelectProperties = {
   value: GeneGroups
-  onChange: ChangeEventHandler<{ value: unknown }>
+  onChange: (event: SelectChangeEvent<GeneGroups>) => void
 }
 
 const GeneGroupSelect = ({ value, onChange }: GeneGroupSelectProperties) => {

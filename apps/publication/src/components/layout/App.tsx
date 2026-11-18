@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react"
+import { type ReactNode } from "react"
 import { Box } from "@material-ui/core"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import {
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 /**
  * App is responsible for the main layout of the entire application.
  */
-const App: FunctionComponent = ({ children }) => {
+const App = ({ children }: { children: ReactNode }) => {
   const classes = useStyles()
   return (
     <Box className={classes.body}>

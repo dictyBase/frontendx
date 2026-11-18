@@ -1,14 +1,15 @@
+import { type ReactElement, type ReactNode } from "react"
 import { test, expect, vi } from "vitest"
-import { renderHook } from "@testing-library/react-hooks"
+import { renderHook } from "@testing-library/react"
 import { useAtom } from "jotai"
 import { LexicalTestComposer } from "../utils/LexicalTestComposer"
 import { useBlockFormat } from "../hooks/useBlockFormat"
 import { blockTypeAtom, BlockTypes } from "../context/atomConfigs"
 
-type WrapperProperties = { children: React.ReactNode }
+type WrapperProperties = { children: ReactNode }
 
 const wrapper = ({ children }: WrapperProperties) => (
-  <LexicalTestComposer>{children as JSX.Element}</LexicalTestComposer>
+  <LexicalTestComposer>{children as ReactElement}</LexicalTestComposer>
 )
 
 test("returns the current blockType from atom (default is paragraph)", () => {

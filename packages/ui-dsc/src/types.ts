@@ -1,3 +1,4 @@
+import type { ReactElement } from "react"
 import type { Strain, Plasmid } from "dicty-graphql-schema"
 import { FormData } from "./utils/initialFormValues"
 
@@ -33,7 +34,7 @@ type DetailsRow = {
   /** Title for row */
   title: string
   /** Content to display in row */
-  content: string | JSX.Element | JSX.Element[] | undefined | null
+  content: string | ReactElement | ReactElement[] | undefined | null
 }
 
 type LinkItem = {

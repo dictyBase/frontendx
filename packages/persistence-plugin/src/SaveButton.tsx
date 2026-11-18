@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core"
+import { Button } from "@mui/material"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { useButtonStyles } from "./useButtonStyles"
 import { useButtonState } from "./useButtonState"
@@ -14,7 +14,9 @@ type SaveButtonProperties = {
 // to await that callback before proceeding to set the button state
 const SaveButton = ({ handleSave }: SaveButtonProperties) => {
   const [editor] = useLexicalComposerContext()
-  const { root } = useButtonStyles()
+  const {
+    classes: { root },
+  } = useButtonStyles()
   const [buttonState, onClick] = useButtonState(() => {
     editor.dispatchCommand(SAVE_LOCAL_COMMAND, {})
     handleSave(JSON.stringify(editor.getEditorState().toJSON()))

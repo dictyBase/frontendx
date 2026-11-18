@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { Button, Typography } from "@material-ui/core"
+import { Button, Typography } from "@mui/material"
 import { Editor } from "@dictybase/editor"
 import { ActionBar } from "@dictybase/ui-common"
 import { CreateButton } from "./CreateButton"

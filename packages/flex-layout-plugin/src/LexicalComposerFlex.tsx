@@ -1,3 +1,4 @@
+import { type ReactElement } from "react"
 import { createEditor } from "lexical"
 import { LexicalComposer } from "@lexical/react/LexicalComposer"
 import type { InitialConfigType } from "@lexical/react/LexicalComposer"
@@ -13,7 +14,7 @@ const getInitialEditorState = () =>
 
 type LexicalComposerFlexProperties = {
   initialConfig: InitialConfigType
-  children: JSX.Element | string | (JSX.Element | string)[]
+  children: ReactElement | string | (ReactElement | string)[]
 }
 
 const LexicalComposerFlex = ({

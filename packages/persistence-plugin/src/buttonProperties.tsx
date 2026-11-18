@@ -1,8 +1,8 @@
 import { ReactNode } from "react"
-import SaveIcon from "@material-ui/icons/Save"
-import DoneIcon from "@material-ui/icons/Done"
-import ErrorIcon from "@material-ui/icons/Error"
-import { CircularProgress, PropTypes } from "@material-ui/core"
+import SaveIcon from "@mui/icons-material/Save"
+import DoneIcon from "@mui/icons-material/Done"
+import ErrorIcon from "@mui/icons-material/Error"
+import { CircularProgress } from "@mui/material"
 import { ButtonStates } from "./ButtonStates"
 import { TextSlide } from "./TextSlide"
 
@@ -20,9 +20,12 @@ export const buttonIcon: Record<ButtonStates, ReactNode> = {
   ERROR: <ErrorIcon />,
 }
 
-export const buttonColor: Record<ButtonStates, PropTypes.Color> = {
+export const buttonColor: Record<
+  ButtonStates,
+  "primary" | "inherit" | "secondary"
+> = {
   NORMAL: "primary",
-  LOADING: "default",
+  LOADING: "inherit",
   DONE: "primary",
   ERROR: "secondary",
 }

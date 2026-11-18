@@ -4,7 +4,7 @@ import type { RefObject } from "react"
 import { headerStyles } from "../styles/headerStyles"
 
 type SearchContainerProperties = {
-  textFieldRef: RefObject<HTMLDivElement>
+  textFieldRef: RefObject<HTMLDivElement | null>
 }
 
 const SearchContainer = ({ textFieldRef }: SearchContainerProperties) => (

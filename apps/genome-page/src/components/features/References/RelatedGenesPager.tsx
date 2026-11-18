@@ -11,7 +11,7 @@ import {
 } from "fp-ts/Array"
 import { match as Omatch } from "fp-ts/Option"
 import { Grid, makeStyles } from "@material-ui/core"
-import Pagination from "@material-ui/lab/Pagination"
+import { Pagination, SelectChangeEvent } from "@mui/material"
 import { Gene } from "dicty-graphql-schema"
 import { RelatedGenesDisplay } from "./RelatedGenesDisplay"
 import { EmptyGenesDisplay } from "./EmptyGenesDisplay"
@@ -78,9 +78,9 @@ const RelatedGenesPager = ({ genes }: Properties) => {
     setPage(pageNumber)
   }
 
-  const handleGroupChange: ChangeEventHandler<{ value: unknown }> = ({
+  const handleGroupChange = ({
     target: { value },
-  }) => {
+  }: SelectChangeEvent<GeneGroups>) => {
     setGroup(value as GeneGroups)
     setPage(1)
   }

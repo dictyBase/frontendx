@@ -1,11 +1,5 @@
-import {
-  TableRow,
-  TableCell,
-  Box,
-  IconButton,
-  Tooltip,
-} from "@material-ui/core"
-import { RemoveShoppingCart, ShoppingCart } from "@material-ui/icons"
+import { TableRow, TableCell, Box, IconButton, Tooltip } from "@mui/material"
+import { RemoveShoppingCart, ShoppingCart } from "@mui/icons-material"
 import { commaSeparate, commaSeparateWithAnd } from "common/utils/strings"
 import { OtherError } from "components/errors/OtherError"
 
@@ -39,11 +33,11 @@ interface PhenotypeRowProperties {
 
 const renderInStock = (in_stock: boolean) => (
   <Tooltip title={in_stock ? "Strain available" : "Strain unavailable"}>
-    <>
+    <span>
       <IconButton size="small" disabled={!in_stock}>
         {in_stock ? <ShoppingCart color="secondary" /> : <RemoveShoppingCart />}
       </IconButton>
-    </>
+    </span>
   </Tooltip>
 )
 

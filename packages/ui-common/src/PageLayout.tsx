@@ -1,18 +1,17 @@
-import { FC } from "react"
-import { Helmet } from "react-helmet"
+import { type ReactNode } from "react"
 import { Box, Container } from "@mui/material"
 
-const PageLayout: FC<{ title: string; metaContent: string }> = ({
-  title,
-  metaContent,
-  children,
-}) => (
+type PageLayoutProperties = {
+  title: string
+  metaContent: string
+  children: ReactNode
+}
+
+const PageLayout = ({ title, metaContent, children }: PageLayoutProperties) => (
   <Container maxWidth="lg">
     <Box textAlign="center">
-      <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={metaContent} />
-      </Helmet>
+      <title>{title}</title>
+      <meta name="description" content={metaContent} />
       {children}
     </Box>
   </Container>

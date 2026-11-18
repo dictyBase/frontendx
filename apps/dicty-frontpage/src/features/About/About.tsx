@@ -1,6 +1,5 @@
 import React from "react"
 import { Box } from "@mui/material"
-import { Helmet } from "react-helmet"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { makeStyles } from "tss-react/mui"
 import { TechnicalSummary } from "./TechnicalSummary"
@@ -58,10 +57,8 @@ const About = () => {
 
   return (
     <Box>
-      <Helmet>
-        <title>About Us - dictyBase</title>
-        <meta name="description" content="About Us page for dictyBase" />
-      </Helmet>
+      <title>About Us - dictyBase</title>
+      <meta name="description" content="About Us page for dictyBase" />
       <Box className={classes.banner}>
         <h1 className={classes.header}>About Us</h1>
         <p className={classes.headerText}>

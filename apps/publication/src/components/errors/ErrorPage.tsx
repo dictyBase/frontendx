@@ -1,9 +1,8 @@
-import React from "react"
+import Box from "@mui/material/Box"
+import Typography from "@mui/material/Typography"
+import Button from "@mui/material/Button"
+import ErrorIcon from "@mui/icons-material/Error"
 import { makeStyles } from "@material-ui/core/styles"
-import Box from "@material-ui/core/Box"
-import Typography from "@material-ui/core/Typography"
-import Button from "@material-ui/core/Button"
-import ErrorIcon from "@material-ui/icons/Error"
 
 const useStyles = makeStyles((theme) => ({
   root: {

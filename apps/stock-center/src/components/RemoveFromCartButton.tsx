@@ -1,7 +1,7 @@
 import { MouseEventHandler } from "react"
 import IconButton from "@mui/material/IconButton"
 import { useSetAtom } from "jotai"
-import DeleteIcon from "@material-ui/icons/Delete"
+import DeleteIcon from "@mui/icons-material/Delete"
 import { removeItemAtom } from "../cartState"
 import type { CatalogItem } from "../types"
 

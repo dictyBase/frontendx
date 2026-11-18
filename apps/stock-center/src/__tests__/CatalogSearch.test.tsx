@@ -521,7 +521,7 @@ test("syncs the search term to the URL after debounce", async () => {
       }),
   )
   // Results should be visible, confirming the inputValue → searchTerm → URL → query chain
-  expect(screen.getByText("axeA")).toBeInTheDocument()
+  expect(await screen.findByText("axeA", {}, QUERY_TIMEOUT)).toBeInTheDocument()
   expect(screen.getByTestId(LOCATION_SEARCH_TEST_ID)).toHaveTextContent(
     `q=${searchQuery}`,
   )

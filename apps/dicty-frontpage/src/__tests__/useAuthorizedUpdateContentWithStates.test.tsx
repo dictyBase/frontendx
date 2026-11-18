@@ -1,5 +1,5 @@
 import { vi, test, expect, beforeEach, describe, afterEach } from "vitest"
-import { renderHook } from "@testing-library/react-hooks"
+import { renderHook } from "@testing-library/react"
 import { left, right } from "fp-ts/Either"
 
 // Import the actual mocked modules to set up mock implementations

@@ -19,8 +19,7 @@ import {
   capitalizeFirstCharacter,
 } from "@dictybase/ui-common"
 import { useSearchParams } from "react-router-dom"
-import { AutocompleteRenderInputParams } from "@material-ui/lab"
-import { TextField } from "@material-ui/core"
+import { AutocompleteRenderInputParams, TextField } from "@mui/material"
 
 interface inputProperties {
   /** user input that gets reset after switching options  */
@@ -162,7 +161,7 @@ function useSearchWithRouter({ label, fields }: useSearchWithRouterProperties) {
    * Callback that gets fired when one option from dropdown gets selected
    */
   const onChange = (_: any, values: string[], reason: string): void => {
-    if (reason !== "select-option") return
+    if (reason !== "select-option" && reason !== "selectOption") return
     if (activeChipValue) {
       setPreviousChipValue((state) => [...state, activeChipValue])
       setActiveChipValue(emptyString)

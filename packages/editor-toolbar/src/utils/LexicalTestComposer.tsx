@@ -1,10 +1,11 @@
+import { type ReactElement } from "react"
 import {
   LexicalComposer,
   InitialConfigType,
 } from "@lexical/react/LexicalComposer"
 
 type LexicalTestComposerProperties = {
-  children: JSX.Element | string | (JSX.Element | string)[]
+  children: ReactElement | string | (ReactElement | string)[]
   config?: Partial<InitialConfigType>
 }
 

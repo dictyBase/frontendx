@@ -1,7 +1,6 @@
-import ReactDOM from "react-dom"
+import { createRoot } from "react-dom/client"
 import CssBaseline from "@material-ui/core/CssBaseline"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { Helmet } from "react-helmet"
 import { ErrorBoundary } from "@dictybase/ui-common"
 import { AppProviders } from "./components/layout/AppProviders"
 import { App } from "./components/layout/App"
@@ -12,16 +11,14 @@ import Callback from "./pages/callback"
 const PublicationApp = () => (
   <AppProviders>
     <CssBaseline />
-    <Helmet>
-      <link rel="shortcut icon" href="/publication/favicon.ico" />
-      <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, shrink-to-fit=no"
-      />
-      <meta name="theme-color" content="#000000" />
-      <link rel="manifest" href="/publication/manifest.json" />
-      <title>dictyBase Literature</title>
-    </Helmet>
+    <link rel="shortcut icon" href="/publication/favicon.ico" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#000000" />
+    <link rel="manifest" href="/publication/manifest.json" />
+    <title>dictyBase Literature</title>
     <ErrorBoundary>
       <App>
         <BrowserRouter basename="/publication">
@@ -36,4 +33,7 @@ const PublicationApp = () => (
   </AppProviders>
 )
 
-ReactDOM.render(<PublicationApp />, document.querySelector("#root"))
+const container = document.querySelector("#root")
+if (!container) throw new Error("Failed to find the root element")
+const root = createRoot(container)
+root.render(<PublicationApp />)

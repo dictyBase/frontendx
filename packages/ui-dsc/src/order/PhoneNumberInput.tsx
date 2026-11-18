@@ -128,7 +128,7 @@ const PhoneNumberInput: FunctionComponent<{
               fullWidth
               size="small"
               error={!!errors[name]}
-              helperText={errors[name]?.message || ""}
+              helperText={(errors[name]?.message as string) || ""}
               InputProps={{
                 onBlur,
               }}

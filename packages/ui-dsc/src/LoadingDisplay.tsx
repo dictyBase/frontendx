@@ -1,3 +1,4 @@
+import { type ReactElement } from "react"
 import { makeBy as AmakeBy } from "fp-ts/Array"
 import { Skeleton, Box } from "@mui/material"
 
@@ -17,7 +18,7 @@ export interface LoadingDisplayProperties {
 export const LoadingDisplay = ({
   rows = 6,
   height = 35,
-}: LoadingDisplayProperties): JSX.Element => (
+}: LoadingDisplayProperties): ReactElement => (
   <Box mx={8}>
     {AmakeBy(rows, (n) => (
       <Skeleton

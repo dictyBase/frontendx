@@ -1,12 +1,12 @@
 import { useStyles } from "styles/geneOrIdSection"
 import { Typography, Card, Box, Grid } from "@material-ui/core"
-import { MutableRefObject, useEffect, useState } from "react"
+import { RefObject, useEffect, useState } from "react"
 import { Observable } from "rxjs"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
 import { programOptionsMock } from "../mocks/relatonalMockData"
 
 interface BlastProgramRowProperties {
-  programElement: MutableRefObject<HTMLInputElement>
+  programElement: RefObject<HTMLInputElement>
   sequenceStream: Observable<string>
 }
 

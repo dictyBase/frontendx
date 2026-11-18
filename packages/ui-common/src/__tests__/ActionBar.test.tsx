@@ -1,6 +1,6 @@
 import { test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
-import { Button } from "@material-ui/core"
+import { Button } from "@mui/material"
 import { ActionBar } from "../ActionBar"
 
 test("renders with description element and single child", () => {

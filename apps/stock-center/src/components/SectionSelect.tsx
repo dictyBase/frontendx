@@ -5,8 +5,8 @@ import {
   MenuItem,
   FormControl,
   FormHelperText,
-  makeStyles,
-} from "@material-ui/core"
+} from "@mui/material"
+import { makeStyles } from "tss-react/mui"
 import { useFormContext } from "react-hook-form"
 import { getFormErrorMessage } from "../getFormErrorMessage"
 
@@ -15,7 +15,7 @@ enum Section {
   INFORMATION = "information",
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   formControl: {
     minWidth: "10rem",
   },
@@ -27,7 +27,9 @@ const renderValue = (section: unknown) =>
     .otherwise(() => "")
 
 const SectionSelect = () => {
-  const { formControl } = useStyles()
+  const {
+    classes: { formControl },
+  } = useStyles()
   const { register, getFieldState } = useFormContext()
   const { invalid, error } = getFieldState("section")
   return (

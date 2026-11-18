@@ -1,4 +1,4 @@
-import Link from "@material-ui/core/Link"
+import Link from "@mui/material/Link"
 import { Link as RouterLink } from "react-router-dom"
 import { capitalizeFirstCharacter } from "@dictybase/ui-dsc"
 

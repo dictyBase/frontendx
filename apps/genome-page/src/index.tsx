@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom"
+import { createRoot } from "react-dom/client"
 import "fontsource-roboto"
 import "common/utils/icons" // fontawesome library
 import { GenomePageApp } from "./main"
@@ -12,7 +12,8 @@ const main = async () => {
 
   const container = document.querySelector("#root")
   if (!container) throw new Error("Failed to find the root element")
-  ReactDOM.render(<GenomePageApp />, document.querySelector("#root"))
+  const root = createRoot(container)
+  root.render(<GenomePageApp />)
 }
 
 main()

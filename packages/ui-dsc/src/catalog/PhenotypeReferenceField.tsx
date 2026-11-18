@@ -6,7 +6,7 @@ const PhenotypeReferenceField = () => {
   const {
     register,
     formState: { errors },
-  } = useFormContext()
+  } = useFormContext<Record<string, string>>()
 
   return (
     <TextField

@@ -1,3 +1,4 @@
+import { type ReactElement } from "react"
 import { ApolloError } from "@apollo/client/errors"
 import { pipe } from "fp-ts/function"
 import { head as RAhead } from "fp-ts/ReadonlyArray"
@@ -12,7 +13,7 @@ import { OtherError } from "./OtherError"
 
 const contentPageErrorMatcher = (
   apolloError: ApolloError,
-  notFoundHandler: () => JSX.Element,
+  notFoundHandler: () => ReactElement,
 ) =>
   match(apolloError)
     .with({ networkError: P.not(P.nullish) }, () => <ServerError />)

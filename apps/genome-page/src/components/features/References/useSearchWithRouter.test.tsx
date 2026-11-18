@@ -1,7 +1,6 @@
 import { vi, expect, test, beforeEach } from "vitest"
 import { Box } from "@material-ui/core"
-import { render, screen } from "@testing-library/react"
-import { renderHook, act } from "@testing-library/react-hooks"
+import { render, screen, renderHook, act } from "@testing-library/react"
 import { useParams, useSearchParams } from "react-router-dom"
 import {
   useSearchWithRouter,

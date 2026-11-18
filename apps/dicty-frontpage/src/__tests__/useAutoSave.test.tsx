@@ -1,5 +1,5 @@
 import { vi, test, expect, describe, beforeEach, afterEach } from "vitest"
-import { renderHook, act } from "@testing-library/react-hooks"
+import { renderHook, act } from "@testing-library/react"
 import { EditorState } from "lexical"
 import { useAuthorizedUpdateContentWithStates } from "../common/hooks/useAuthorizedUpdateContentWithStates"
 import { useAutoSave } from "../common/hooks/useAutoSave"

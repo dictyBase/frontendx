@@ -35,11 +35,11 @@ import { DetailsRow } from "../types"
 
 const strainRowsGenerator = (
   data: StrainQuery["strain"],
-  parent: string | JSX.Element,
+  parent: string | React.ReactElement,
   depositor: string,
   publications: Publication[],
-  genes: JSX.Element,
-  genotypes: JSX.Element,
+  genes: React.ReactElement,
+  genotypes: React.ReactElement,
 ) => [
   {
     id: 0,

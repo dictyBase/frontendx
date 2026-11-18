@@ -1,3 +1,4 @@
+import { type ReactElement } from "react"
 import { Skeleton, Box } from "@mui/material"
 import { v4 as uuid } from "uuid"
 
@@ -17,7 +18,7 @@ export interface LoadingDisplayProperties {
 export const LoadingDisplay = ({
   rows = 6,
   height = 35,
-}: LoadingDisplayProperties): JSX.Element => (
+}: LoadingDisplayProperties): ReactElement => (
   <Box mx={8} mt={4}>
     {Array.from({ length: rows })
       .fill(0)
