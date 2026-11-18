@@ -8,11 +8,11 @@
   "devDependencies": {
     "@dictybase/oxlint-config": "*",
     "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^12.1.5",
+    "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.1",
     "@types/apollo-upload-client": "^18.0.0",
-    "@types/react": "17.*",
-    "@types/react-dom": "17.*",
+    "@types/react": "19.*",
+    "@types/react-dom": "19.*",
     "eslint-config-custom": "*",
     "jsdom": "latest",
     "tsconfig": "*",
@@ -23,8 +23,8 @@
     "apollo-upload-client": "^18.0.1",
     "apollo3-cache-persist": "^0.14.1",
     "localforage": "1.10.*",
-    "react": "17.*",
-    "react-dom": "17.*"
+    "react": "19.*",
+    "react-dom": "19.*"
   },
   "scripts": {
     "oxlint": "oxlint src/",

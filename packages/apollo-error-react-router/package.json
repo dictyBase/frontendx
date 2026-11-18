@@ -8,11 +8,10 @@
   "devDependencies": {
     "@dictybase/oxlint-config": "*",
     "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/react-hooks": "^8.0.1",
+    "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.1",
-    "@types/react": "17.*",
-    "@types/react-dom": "17.*",
+    "@types/react": "19.*",
+    "@types/react-dom": "19.*",
     "eslint-config-custom": "*",
     "jsdom": "latest",
     "tsconfig": "*",
@@ -21,8 +20,8 @@
   "dependencies": {
     "@apollo/client": "3.x",
     "graphql": "^16.8.1",
-    "react": "17.*",
-    "react-dom": "17.*",
+    "react": "19.*",
+    "react-dom": "19.*",
     "react-router-dom": "^6.14.2"
   },
   "scripts": {
