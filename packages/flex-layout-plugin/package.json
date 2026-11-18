@@ -14,8 +14,8 @@
   },
   "devDependencies": {
     "@dictybase/oxlint-config": "*",
-    "@types/react": "17.*",
-    "@types/react-dom": "17.*",
+    "@types/react": "19.*",
+    "@types/react-dom": "19.*",
     "@vitest/coverage-v8": "4.x",
     "eslint-config-custom": "*",
     "jsdom": "latest",
@@ -26,8 +26,8 @@
     "@lexical/react": "0.46.x",
     "jotai": "2.16.0",
     "lexical": "0.46.x",
-    "react": "17.*",
-    "react-dom": "17.*",
+    "react": "19.*",
+    "react-dom": "19.*",
     "yjs": "^13.6.7"
   },
   "typedoc": {
