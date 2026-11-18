@@ -8,11 +8,11 @@ import {
   MenuItem,
   TextField,
   Select,
-} from "@material-ui/core"
-import { MutableRefObject, useState } from "react"
+} from "@mui/material"
+import { RefObject, useState } from "react"
 
 interface GeneOrIdProperties {
-  sequenceElement: MutableRefObject<HTMLInputElement>
+  sequenceElement: RefObject<HTMLInputElement>
 }
 
 const GeneOrID = ({ sequenceElement }: GeneOrIdProperties) => {

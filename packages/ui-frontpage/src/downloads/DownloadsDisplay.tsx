@@ -1,5 +1,4 @@
 import React from "react"
-import { Helmet } from "react-helmet"
 import Grid from "@mui/material/Grid"
 import AppBar from "@mui/material/AppBar"
 import Tabs from "@mui/material/Tabs"
@@ -88,13 +87,11 @@ const DownloadsDisplay = ({ data }: Properties) => {
           },
         })
       }>
-      <Helmet>
-        <title>dictyBase Downloads</title>
-        <meta
-          name="description"
-          content="dictyBase Downloads - the central collection of downloadable material from dictyBase"
-        />
-      </Helmet>
+      <title>dictyBase Downloads</title>
+      <meta
+        name="description"
+        content="dictyBase Downloads - the central collection of downloadable material from dictyBase"
+      />
       <Grid container justifyContent="center">
         <Grid item xs={8}>
           <DownloadsHeader />

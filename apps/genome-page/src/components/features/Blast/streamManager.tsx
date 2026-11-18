@@ -1,11 +1,11 @@
 import { fromEvent, Observable } from "rxjs"
 import { map, share } from "rxjs/operators"
-import { ChangeEvent, MutableRefObject, useState, useEffect } from "react"
+import { ChangeEvent, RefObject, useState, useEffect } from "react"
 
 type InputEvent = ChangeEvent<HTMLInputElement>
 
 interface StreamManagerProperties {
-  element: MutableRefObject<HTMLInputElement>
+  element: RefObject<HTMLInputElement>
 }
 
 export function useStreamManager({ element }: StreamManagerProperties) {

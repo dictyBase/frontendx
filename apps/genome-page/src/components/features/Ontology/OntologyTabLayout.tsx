@@ -2,11 +2,11 @@ import React from "react"
 import { match } from "ts-pattern"
 import { pipe } from "fp-ts/function"
 import { filter as Afilter, exists as Aexists } from "fp-ts/Array"
-import AppBar from "@material-ui/core/AppBar"
-import Tabs from "@material-ui/core/Tabs"
-import Tab from "@material-ui/core/Tab"
-import Typography from "@material-ui/core/Typography"
-import { MuiThemeProvider, createTheme } from "@material-ui/core/styles"
+import AppBar from "@mui/material/AppBar"
+import Tabs from "@mui/material/Tabs"
+import Tab from "@mui/material/Tab"
+import Typography from "@mui/material/Typography"
+import { ThemeProvider, createTheme } from "@mui/material/styles"
 import { GoAnnotation } from "dicty-graphql-schema"
 import { InnerGoPanel } from "./InnerGoPanel"
 import {
@@ -18,20 +18,24 @@ import {
 import { renderOnTrue } from "./utils/renderOnTrue"
 
 const muiTheme = createTheme({
-  overrides: {
+  components: {
     MuiTab: {
-      root: {
-        textTransform: "none",
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+        },
       },
     },
     MuiTabs: {
-      root: {
-        backgroundColor: "#e6f2ff",
-        color: "#000",
-      },
-      indicator: {
-        backgroundColor: "#858780",
-        height: "3px",
+      styleOverrides: {
+        root: {
+          backgroundColor: "#e6f2ff",
+          color: "#000",
+        },
+        indicator: {
+          backgroundColor: "#858780",
+          height: "3px",
+        },
       },
     },
   },
@@ -69,7 +73,7 @@ const OntologyTabLayout = ({ goas }: Properties) => {
   }
 
   return (
-    <MuiThemeProvider theme={muiTheme}>
+    <ThemeProvider theme={muiTheme}>
       <AppBar position="static">
         <Tabs value={tabValue} onChange={handleChange}>
           <Tab value={TabValues.ALL} label="All GO" />
@@ -97,7 +101,7 @@ const OntologyTabLayout = ({ goas }: Properties) => {
       <Typography component="div">
         <InnerGoPanel data={filteredGoas} />
       </Typography>
-    </MuiThemeProvider>
+    </ThemeProvider>
   )
 }
 

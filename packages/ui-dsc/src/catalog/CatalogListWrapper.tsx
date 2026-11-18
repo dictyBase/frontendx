@@ -1,6 +1,6 @@
 import Paper from "@mui/material/Paper"
 import { makeStyles } from "tss-react/mui"
-import { RefObject } from "react"
+import { RefObject, type ReactElement } from "react"
 
 const useStyles = makeStyles()({
   root: {
@@ -13,9 +13,9 @@ const useStyles = makeStyles()({
  */
 export interface CatalogListWrapperProperties {
   /** The dom element/reference which this component is going to refer */
-  root: RefObject<HTMLDivElement>
+  root: RefObject<HTMLDivElement | null>
   /** List of react component */
-  children: JSX.Element | JSX.Element[] | null
+  children: ReactElement | ReactElement[] | null
 }
 
 /**
@@ -25,7 +25,7 @@ export interface CatalogListWrapperProperties {
 export const CatalogListWrapper = ({
   root: rootReference,
   children,
-}: CatalogListWrapperProperties): JSX.Element => {
+}: CatalogListWrapperProperties): ReactElement => {
   const { classes } = useStyles()
   return (
     <Paper

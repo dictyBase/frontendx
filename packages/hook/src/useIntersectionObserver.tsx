@@ -6,7 +6,7 @@ import { useEffect, useRef, RefObject } from "react"
  */
 export interface useIntersectionObserverProperties {
   /** The target DOM object that will be observed */
-  target: RefObject<Element>
+  target: RefObject<Element | null>
   /** The option object passed to Intersection observer construct */
   option?: IntersectionObserverInit
   /** Callback to handle the intersection.
@@ -23,7 +23,7 @@ export function useIntersectionObserver({
   option,
   onIntersection,
 }: useIntersectionObserverProperties): void {
-  const observerReference = useRef<IntersectionObserver>()
+  const observerReference = useRef<IntersectionObserver | null>(null)
   // set up the intersection observer
   useEffect(() => {
     if (target.current) {

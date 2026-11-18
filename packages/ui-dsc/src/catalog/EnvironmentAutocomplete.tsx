@@ -71,7 +71,7 @@ const EnvironmentAutocomplete = () => {
           size="small"
           variant="outlined"
           error={!!errors["environment"]}
-          helperText={errors["environment"]?.message || ""}
+          helperText={(errors["environment"]?.message as string) || ""}
           onChange={handleTextFieldChange}
           InputProps={{
             ...parameters.InputProps,

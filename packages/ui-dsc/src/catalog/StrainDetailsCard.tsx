@@ -155,7 +155,7 @@ const strainRowsGenerator = ({
       Omap(
         Amap((item) => <PublicationDisplay publication={item} key={item.id} />),
       ),
-      OgetOrElse(() => [] as Array<JSX.Element>),
+      OgetOrElse(() => [] as Array<React.ReactElement>),
     ),
   },
 ]

@@ -1,5 +1,8 @@
-import ReactDOM from "react-dom"
+import { createRoot } from "react-dom/client"
 import { App } from "./App"
 import "./main.css"
 
-ReactDOM.render(<App />, document.getElementById("root"))
+const container = document.querySelector("#root")
+if (!container) throw new Error("Failed to find the root element")
+const root = createRoot(container)
+root.render(<App />)

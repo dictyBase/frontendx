@@ -1,3 +1,4 @@
+import { type ReactElement } from "react"
 import { EditorState } from "lexical"
 import {
   InitialConfigType,
@@ -35,9 +36,9 @@ import { flexLayoutStateString } from "./initialStates"
 type EditorProperties = {
   config?: InitialConfigType
   initialState?: InitialEditorStateType
-  plugins?: Array<JSX.Element>
+  plugins?: Array<ReactElement>
   editable?: boolean
-  toolbar?: JSX.Element
+  toolbar?: ReactElement
   handleChange?: (editorState: EditorState) => void
   debug?: boolean
 }

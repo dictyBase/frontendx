@@ -1,4 +1,4 @@
-import { renderHook, act } from "@testing-library/react-hooks"
+import { renderHook, act } from "@testing-library/react"
 import { useSearchStoreAtoms } from "../useSearchStoreWithAtom"
 
 describe("manage input and tag states with atom", () => {

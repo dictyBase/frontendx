@@ -29,7 +29,7 @@ type CatalogTableProperties = {
   /** type of item being displayed */
   itemType: "Strain" | "Plasmid"
   /** Ref to attach to the loading indicator for infinite scroll */
-  loadMoreRef?: RefObject<HTMLTableRowElement>
+  loadMoreRef?: RefObject<HTMLTableRowElement | null>
   nextCursor: number
   /** component for the action cell (typically add to cart button) */
   actionComponent: FC<{ item: CatalogItem }>

@@ -1,22 +1,24 @@
-import { Grid } from "@material-ui/core"
+import { Grid } from "@mui/material"
 import {
   defaultFilter,
   plasmidGroupFilterOptions,
   searchFields,
 } from "@dictybase/hook-dsc"
-import { makeStyles } from "@material-ui/core/styles"
+import { makeStyles } from "tss-react/mui"
 import { FilterDropdown } from "./FilterDropdown"
 import { SearchBox } from "./SearchBox"
 import { AppBarHelp } from "./AppBarHelp"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   searchBox: {
     flexBasis: "41.5%",
   },
 })
 
 const SearchBarPlasmid = () => {
-  const { searchBox } = useStyles()
+  const {
+    classes: { searchBox },
+  } = useStyles()
   return (
     <Grid container>
       <Grid item>

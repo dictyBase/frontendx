@@ -1,16 +1,14 @@
-import { Chip } from "@material-ui/core"
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles"
+import { Chip, Theme } from "@mui/material"
+import { makeStyles } from "tss-react/mui"
 import { capitalizeFirst } from "./utils"
 
-const useFieldOptionStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      borderRadius: "4px",
-      color: theme.palette.getContrastText(theme.palette.primary.light),
-      backgroundColor: theme.palette.primary.light,
-    },
-  }),
-)
+const useFieldOptionStyles = makeStyles()((theme: Theme) => ({
+  root: {
+    borderRadius: "4px",
+    color: theme.palette.getContrastText(theme.palette.primary.light),
+    backgroundColor: theme.palette.primary.light,
+  },
+}))
 
 type FieldOptionProperties = {
   /**
@@ -24,7 +22,9 @@ type FieldOptionProperties = {
  * in the Autocomplete component as well as the `active chip value` for the Autocomplete's tags.
  */
 const FieldOption = ({ label }: FieldOptionProperties) => {
-  const { root } = useFieldOptionStyles()
+  const {
+    classes: { root },
+  } = useFieldOptionStyles()
   return <Chip className={root} size="medium" label={capitalizeFirst(label)} />
 }
 

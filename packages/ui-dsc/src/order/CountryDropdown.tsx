@@ -18,7 +18,7 @@ const CountryDropdown = ({ fieldName }: CountryDropdownProperties) => {
     getValues,
     setValue,
     formState: { errors },
-  } = useFormContext()
+  } = useFormContext<Record<string, string>>()
   const {
     field: { onChange, onBlur, value, name, ref },
   } = useController({

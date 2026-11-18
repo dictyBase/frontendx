@@ -7,7 +7,7 @@ import {
   Checkbox,
   TextField,
   Grid,
-} from "@material-ui/core"
+} from "@mui/material"
 
 const BlastOptionsRow = () => {
   const classes = useStyles()

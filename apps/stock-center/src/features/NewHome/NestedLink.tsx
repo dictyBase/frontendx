@@ -1,12 +1,13 @@
-import { MouseEventHandler, FC } from "react"
+import { MouseEventHandler, type ReactNode } from "react"
 import { Typography } from "@mui/material"
 import { Link, useNavigate } from "react-router-dom"
 
 type NestedLinkProperties = {
   href: string
+  children: ReactNode
 }
 
-const NestedLink: FC<NestedLinkProperties> = ({ href, children }) => {
+const NestedLink = ({ href, children }: NestedLinkProperties) => {
   const navigate = useNavigate()
   const onClick: MouseEventHandler<HTMLAnchorElement> = (event) => {
     event.preventDefault()

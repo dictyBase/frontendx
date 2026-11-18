@@ -22,7 +22,7 @@ const PostalCodeInput: FunctionComponent<{
     getValues,
     setValue,
     formState: { errors },
-  } = useFormContext()
+  } = useFormContext<Record<string, string>>()
   const { classes } = useStyles()
   const onBlur = () => {
     const postalCode: string = getValues(name)

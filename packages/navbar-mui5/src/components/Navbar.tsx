@@ -4,6 +4,7 @@ import React, {
   useRef,
   forwardRef,
   ReactNode,
+  type ReactElement,
 } from "react"
 import { match, P } from "ts-pattern"
 import { ThemeProvider, styled } from "@mui/styles"
@@ -95,7 +96,7 @@ type NavbarProperties = {
         items: Array<{ name: string; href: string }>
       }
     | { dropdown: boolean; title: string; href: string }
-    | { element: JSX.Element }
+    | { element: ReactElement }
   >
   brand?: { title: string; href: string }
   theme: Theme

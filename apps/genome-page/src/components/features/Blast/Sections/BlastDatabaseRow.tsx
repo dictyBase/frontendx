@@ -1,5 +1,5 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import { MutableRefObject, useState, useEffect } from "react"
+import { RefObject, useState, useEffect } from "react"
 import { useStyles } from "styles/geneOrIdSection"
 import { Typography, Card, Box, Grid } from "@material-ui/core"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
@@ -7,8 +7,8 @@ import { Observable } from "rxjs"
 import { programToDatabaseMock } from "../mocks/relatonalMockData"
 
 interface BlastDatabaseRowProperties {
-  organismElement: MutableRefObject<HTMLInputElement>
-  databaseElement: MutableRefObject<HTMLInputElement>
+  organismElement: RefObject<HTMLInputElement>
+  databaseElement: RefObject<HTMLInputElement>
   sequenceStream: Observable<string>
   programStream: Observable<string>
   organismStream: Observable<string>

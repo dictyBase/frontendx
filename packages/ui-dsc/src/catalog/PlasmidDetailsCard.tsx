@@ -1,3 +1,4 @@
+import { type ReactElement } from "react"
 import { pipe } from "fp-ts/function"
 import { isEmpty as SisEmpty } from "fp-ts/string"
 import {
@@ -79,7 +80,7 @@ const plasmidRowsGenerator = ({
       Omap(
         Amap((item) => <PublicationDisplay publication={item} key={item.id} />),
       ),
-      OgetOrElse(() => [] as Array<JSX.Element>),
+      OgetOrElse(() => [] as Array<ReactElement>),
     ),
   },
 ]

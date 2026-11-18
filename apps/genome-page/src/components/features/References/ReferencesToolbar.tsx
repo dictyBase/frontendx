@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react"
+import { makeStyles } from "@material-ui/core"
 import {
   Grid,
   Toolbar,
@@ -7,8 +8,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  makeStyles,
-} from "@material-ui/core"
+} from "@mui/material"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import { map as Amap } from "fp-ts/Array"
@@ -79,6 +79,7 @@ const ReferencesToolbar = ({
             <Select
               labelId="reference-order-select"
               id="reference-order-select"
+              inputProps={{ id: "reference-order-select" }}
               label="Sort by"
               value={order}
               onChange={({ target: { value } }) => {

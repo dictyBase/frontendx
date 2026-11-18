@@ -1,4 +1,4 @@
-import React, { useRef, MutableRefObject } from "react"
+import React, { useRef, RefObject } from "react"
 import { useStyles } from "styles/blastContainerStyles"
 import { Paper, Container, Grid } from "@material-ui/core"
 import { Observable } from "rxjs"
@@ -16,17 +16,17 @@ const BlastContainer = () => {
 
   const selectSequenceElement = useRef<HTMLInputElement>(
     null,
-  ) as MutableRefObject<HTMLInputElement>
+  ) as RefObject<HTMLInputElement>
   const selectProgramElement = useRef<HTMLInputElement>(
     null,
-  ) as MutableRefObject<HTMLInputElement>
+  ) as RefObject<HTMLInputElement>
 
   const selectOrganismElement = useRef<HTMLInputElement>(
     null,
-  ) as MutableRefObject<HTMLInputElement>
+  ) as RefObject<HTMLInputElement>
   const selectDatabaseElement = useRef<HTMLInputElement>(
     null,
-  ) as MutableRefObject<HTMLInputElement>
+  ) as RefObject<HTMLInputElement>
 
   const organismStream = useStreamManager({
     element: selectOrganismElement,

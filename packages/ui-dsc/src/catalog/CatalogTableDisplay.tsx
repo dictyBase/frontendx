@@ -1,4 +1,4 @@
-import { RefObject } from "react"
+import { RefObject, type ReactElement } from "react"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
@@ -158,7 +158,7 @@ const StrainCatalogTableDisplay = ({
   data,
   dataField,
   target: targetReference,
-}: CatalogListProperties<HTMLTableRowElement>): JSX.Element => {
+}: CatalogListProperties<HTMLTableRowElement>): ReactElement => {
   const { classes } = useStyles()
   const { strains, nextCursor } = data[dataField]
   return (
@@ -183,7 +183,7 @@ const PlasmidCatalogTableDisplay = ({
   data,
   dataField,
   target: targetReference,
-}: CatalogListProperties<HTMLTableRowElement>): JSX.Element => {
+}: CatalogListProperties<HTMLTableRowElement>): ReactElement => {
   const { classes } = useStyles()
   const { plasmids, nextCursor } = data[dataField]
   return (

@@ -1,4 +1,5 @@
 /* eslint-disable class-methods-use-this */
+import { type ReactElement } from "react"
 import {
   DecoratorNode,
   EditorConfig,
@@ -21,7 +22,7 @@ type BasicImageNodeConstructorProperties = {
   key?: string
 }
 
-class BasicImageNode extends DecoratorNode<JSX.Element> {
+class BasicImageNode extends DecoratorNode<ReactElement> {
   __source
 
   static override getType() {

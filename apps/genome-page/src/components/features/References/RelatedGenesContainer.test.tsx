@@ -57,7 +57,7 @@ describe("RelatedGenesContainer", () => {
     // Check if RelatedGenesContent was called with the correct props
     expect(RelatedGenesContent).toHaveBeenCalledWith(
       { publication: mockPublication },
-      expect.anything(),
+      undefined,
     )
   })
 

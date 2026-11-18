@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react"
+import { FunctionComponent, type ReactElement } from "react"
 import { Grid, Box, Theme } from "@mui/material"
 import { makeStyles } from "tss-react/mui"
 import { pipe } from "fp-ts/function"
@@ -40,8 +40,8 @@ const useStyles = makeStyles()((theme: Theme) => ({
 }))
 
 const ActionBar: FunctionComponent<{
-  descriptionElement?: JSX.Element
-  children: Array<JSX.Element> | JSX.Element
+  descriptionElement?: ReactElement
+  children: Array<ReactElement> | ReactElement
 }> = ({ descriptionElement, children }) => {
   const {
     classes: { toolbar, text },
@@ -70,7 +70,7 @@ const ActionBar: FunctionComponent<{
               ],
               () =>
                 pipe(
-                  children as Array<JSX.Element>,
+                  children as Array<ReactElement>,
                   AmapWithIndex((index, child) => (
                     <Grid item key={index}>
                       {child}

@@ -1,10 +1,10 @@
-import { FunctionComponent } from "react"
+import { type ReactNode } from "react"
 import { Typography, Grid } from "@mui/material"
 import { NewsListWrapperContainer } from "./NewsListWrapperContainer"
 import { NewsListTitleBox } from "./NewsListTitleBox"
 import { NewsListActionBar } from "./NewsListActionBar"
 
-const NewsListWrapperAuth: FunctionComponent = ({ children }) => (
+const NewsListWrapperAuth = ({ children }: { children: ReactNode }) => (
   <NewsListWrapperContainer>
     <NewsListTitleBox>
       <Typography variant="h1" align="center" sx={{ marginBottom: 1 }}>

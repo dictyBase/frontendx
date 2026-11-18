@@ -1,6 +1,6 @@
 import { expect, test } from "vitest"
 import { createMemoryRouter, RouterProvider } from "react-router-dom"
-import { render, screen } from "@testing-library/react"
+import { render, screen, act } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
 import { PublicationRow } from "./PublicationRow"
 
@@ -91,7 +91,9 @@ test("navigates to different gene routes when different chips are clicked", asyn
   expect(screen.getByText("Gene Page")).toBeInTheDocument()
 
   // Navigate back to test another chip
-  await router.navigate(-1)
+  await act(async () => {
+    await router.navigate(-1)
+  })
 
   // Click the third gene chip
   const geneChipC = screen.getByText("geneC")

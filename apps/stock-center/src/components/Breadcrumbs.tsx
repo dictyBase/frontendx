@@ -17,17 +17,17 @@ import {
   match as Omatch,
   map as Omap,
 } from "fp-ts/Option"
-import { makeStyles } from "@material-ui/core/styles"
-import MuiBreadCrumbs from "@material-ui/core/Breadcrumbs"
-import Link from "@material-ui/core/Link"
-import Typography from "@material-ui/core/Typography"
+import { makeStyles } from "tss-react/mui"
+import MuiBreadCrumbs from "@mui/material/Breadcrumbs"
+import Link from "@mui/material/Link"
+import Typography from "@mui/material/Typography"
 import { useLocation, Link as RouterLink } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faHome } from "@fortawesome/free-solid-svg-icons"
 import { capitalizeEveryWordInString } from "@dictybase/ui-dsc"
 import { BreadcrumbsLink } from "./BreadcrumbsLink"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   icon: {
     marginRight: "5px",
   },
@@ -77,7 +77,7 @@ const roleSegments = new Set(["show", "editable", "edit"])
  * 6. Otherwise, render it as plain text.
  */
 const Breadcrumbs = () => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   const location = useLocation()
   const pathnames = pipe(
     location.pathname,

@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react"
 import { Link } from "react-router-dom"
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles"
@@ -8,8 +7,8 @@ import {
   AccordionSummary,
   AccordionDetails,
   Typography,
-} from "@material-ui/core"
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
+} from "@mui/material"
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -68,8 +67,8 @@ const PanelWrapper = ({ title, route, children }: Properties) => {
           <Typography component="span" className={classes.heading}>
             {title}
             {route && (
-              <Link to={route}>
-                <a className={classes.link}>View All</a>
+              <Link to={route} className={classes.link}>
+                View All
               </Link>
             )}
           </Typography>
