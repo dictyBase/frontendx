@@ -30,7 +30,6 @@
     "react": "19.*",
     "react-dom": "19.*",
     "react-router-dom": "^6.14.2",
-    "tss-react": "^4.9.15",
     "use-immer": "~0.9.0"
   },
   "resolutions": {

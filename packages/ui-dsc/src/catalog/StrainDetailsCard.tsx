@@ -29,7 +29,6 @@ import { fees } from "../fees"
 import { StrainDetailsCardHeader } from "./StrainDetailsCardHeader"
 import { DetailsListItem } from "./DetailsListItem"
 import { StrainPhenotypeList } from "./StrainPhenotypeList"
-import { useStyles } from "./styles"
 import { TabPanel } from "./TabPanel"
 import { GenesDisplay } from "./GenesDisplay"
 import { PublicationDisplay } from "./PublicationDisplay"
@@ -167,8 +166,6 @@ type Properties = {
 }
 
 const StrainDetailsCard = ({ data, tabValue, setTabValue }: Properties) => {
-  const { classes } = useStyles()
-
   const handleChange = (_: React.ChangeEvent<{}>, newValue: number) => {
     setTabValue(newValue)
   }
@@ -212,12 +209,14 @@ const StrainDetailsCard = ({ data, tabValue, setTabValue }: Properties) => {
       )}
       <Card raised>
         <Grid container>
-          <List className={classes.list}>
+          <List sx={{ width: "100%", padding: "0px !important" }}>
             {pipe(
               phenotypes,
               Amatch(
                 () => (
-                  <ListItem divider className={classes.cardHeader}>
+                  <ListItem
+                    divider
+                    sx={{ color: "#002f5e", paddingRight: "8px" }}>
                     {header}
                   </ListItem>
                 ),

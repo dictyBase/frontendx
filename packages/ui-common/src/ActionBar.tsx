@@ -1,88 +1,55 @@
 import { FunctionComponent, type ReactElement } from "react"
-import { Grid, Box, Theme } from "@mui/material"
-import { makeStyles } from "tss-react/mui"
+import { Grid, Box } from "@mui/material"
 import { pipe } from "fp-ts/function"
 import { mapWithIndex as AmapWithIndex } from "fp-ts/Array"
 import { match as Bmatch } from "fp-ts/boolean"
 
-const useStyles = makeStyles()((theme: Theme) => ({
-  content: {
-    marginLeft: "auto",
-  },
-  toolbar: {
-    backgroundColor: "#fafafa",
-    borderRadius: "2px",
-    border: "1px solid #ddd",
-    padding: theme.spacing(1),
-    width: "100%",
-    alignItems: "center",
-  },
-  label: {
-    marginLeft: "auto",
-    marginRight: theme.spacing(1),
-    padding: theme.spacing(1),
-    fontSize: "0.8rem",
-    fontWeight: "bold",
-    lineHeight: 1,
-    color: "#fff",
-    whiteSpace: "nowrap",
-    borderRadius: "0.25em",
-    backgroundColor: theme.palette.primary.light,
-  },
-  icon: {
-    color: theme.palette.primary.light,
-    fontSize: "1rem",
-    marginRight: theme.spacing(0.5),
-  },
-  text: {
-    color: theme.palette.primary.light,
-  },
-}))
-
 const ActionBar: FunctionComponent<{
   descriptionElement?: ReactElement
   children: Array<ReactElement> | ReactElement
-}> = ({ descriptionElement, children }) => {
-  const {
-    classes: { toolbar, text },
-  } = useStyles()
-  return (
-    <Grid
-      container
-      justifyContent="space-between"
-      className={toolbar}
-      data-testid="info-page-toolbar">
-      <Grid item>
-        <Box component="span" className={text}>
-          {descriptionElement}
-        </Box>
-      </Grid>
-      <Grid item>
-        <Grid container spacing={1} alignItems="center">
-          {pipe(
-            children,
-            Array.isArray,
-            Bmatch(
-              () => [
-                <Grid item key={0}>
-                  {children}
-                </Grid>,
-              ],
-              () =>
-                pipe(
-                  children as Array<ReactElement>,
-                  AmapWithIndex((index, child) => (
-                    <Grid item key={index}>
-                      {child}
-                    </Grid>
-                  )),
-                ),
-            ),
-          )}
-        </Grid>
+}> = ({ descriptionElement, children }) => (
+  <Grid
+    container
+    justifyContent="space-between"
+    sx={{
+      backgroundColor: "#fafafa",
+      borderRadius: "2px",
+      border: "1px solid #ddd",
+      padding: 1,
+      width: "100%",
+      alignItems: "center",
+    }}
+    data-testid="info-page-toolbar">
+    <Grid item>
+      <Box component="span" sx={{ color: "primary.light" }}>
+        {descriptionElement}
+      </Box>
+    </Grid>
+    <Grid item>
+      <Grid container spacing={1} alignItems="center">
+        {pipe(
+          children,
+          Array.isArray,
+          Bmatch(
+            () => [
+              <Grid item key={0}>
+                {children}
+              </Grid>,
+            ],
+            () =>
+              pipe(
+                children as Array<ReactElement>,
+                AmapWithIndex((index, child) => (
+                  <Grid item key={index}>
+                    {child}
+                  </Grid>
+                )),
+              ),
+          ),
+        )}
       </Grid>
     </Grid>
-  )
-}
+  </Grid>
+)
 
 export { ActionBar }

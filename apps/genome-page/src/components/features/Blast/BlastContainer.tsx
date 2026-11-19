@@ -1,6 +1,5 @@
 import React, { useRef, RefObject } from "react"
-import { useStyles } from "styles/blastContainerStyles"
-import { Paper, Container, Grid } from "@material-ui/core"
+import { Paper, Container, Grid } from "@mui/material"
 import { Observable } from "rxjs"
 import { QuerySection } from "./Sections/QuerySection"
 import { GeneOrID } from "./Sections/GeneOrId"
@@ -12,8 +11,6 @@ import { BlastOptionsRow } from "./Sections/BlastOptionsRow"
 import { useStreamManager } from "./streamManager"
 
 const BlastContainer = () => {
-  const classes = useStyles()
-
   const selectSequenceElement = useRef<HTMLInputElement>(
     null,
   ) as RefObject<HTMLInputElement>
@@ -41,7 +38,10 @@ const BlastContainer = () => {
   }) as Observable<string>
 
   return (
-    <Container component={Paper} className={classes.root} maxWidth={false}>
+    <Container
+      component={Paper}
+      sx={{ width: "100%", overflowX: "auto" }}
+      maxWidth={false}>
       <Grid container spacing={2}>
         <QuerySection />
         <Or />
