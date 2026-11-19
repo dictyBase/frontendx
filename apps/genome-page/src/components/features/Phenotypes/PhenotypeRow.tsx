@@ -1,7 +1,9 @@
 import { TableRow, TableCell, Box, IconButton, Tooltip } from "@mui/material"
+import { pipe } from "fp-ts/function"
+import { fromNullable as OfromNullable, match as Omatch } from "fp-ts/Option"
 import { RemoveShoppingCart, ShoppingCart } from "@mui/icons-material"
-import { commaSeparate, commaSeparateWithAnd } from "common/utils/strings"
-import { OtherError } from "components/errors/OtherError"
+import { commaSeparate } from "common/utils/strings"
+import { PublicationCellContents } from "./PublicationCellContents"
 
 interface PhenotypeRowProperties {
   id: string
@@ -49,11 +51,6 @@ const PhenotypeRow = ({
   in_stock,
 }: PhenotypeRowProperties) => {
   const { publication } = phenotype
-  if (!publication) return <OtherError />
-
-  const { authors, title, journal, pages } = publication
-  const authorLastNames = authors.map((a) => a.last_name)
-
   return (
     <TableRow>
       <TableCell>
@@ -78,9 +75,14 @@ const PhenotypeRow = ({
       </TableCell>
       <TableCell>{phenotype.phenotype}</TableCell>
       <TableCell>
-        <b>{commaSeparateWithAnd(authorLastNames)}</b> &nbsp;
-        <span>&apos;{title}&apos;</span> &nbsp;
-        <i>{journal}</i> &nbsp; <span>{pages}</span>
+        {pipe(
+          publication,
+          OfromNullable,
+          Omatch(
+            () => <></>,
+            (p) => <PublicationCellContents publication={p} />,
+          ),
+        )}
       </TableCell>
     </TableRow>
   )
