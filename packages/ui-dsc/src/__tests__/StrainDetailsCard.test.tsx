@@ -98,3 +98,20 @@ test("renders a gene tag for every named gene", () => {
   expect(container.querySelector('a[href="/gene/sadA"]')).not.toBeNull()
   expect(container.querySelector('a[href="/gene/gflB"]')).not.toBeNull()
 })
+
+test("does not render a 'Reference(s)' row when publications is undefined", () => {
+  const strainWithoutPublications = {
+    ...availableStrain,
+    publications: undefined,
+  } as unknown as typeof availableStrain
+  render(
+    <MemoryRouter>
+      <StrainDetailsCard
+        data={strainWithoutPublications}
+        tabValue={0}
+        setTabValue={() => {}}
+      />
+    </MemoryRouter>,
+  )
+  expect(screen.queryByText("Reference(s)")).not.toBeInTheDocument()
+})

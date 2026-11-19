@@ -70,6 +70,13 @@ describe("PlasmidDetailsCard", () => {
     render(<PlasmidDetailsCard plasmid={plasmidWithoutPublications} />)
     expect(screen.queryByText(/reference\(s\)/i)).not.toBeInTheDocument()
   })
+
+  test("does not render a 'Reference(s)' row when publications is null", () => {
+    // eslint-disable-next-line unicorn/no-null
+    const plasmidWithNullPublications = { ...mockPlasmid, publications: null }
+    render(<PlasmidDetailsCard plasmid={plasmidWithNullPublications} />)
+    expect(screen.queryByText(/reference\(s\)/i)).not.toBeInTheDocument()
+  })
 })
 
 describe("PlasmidDetailsCard gene filtering", () => {
