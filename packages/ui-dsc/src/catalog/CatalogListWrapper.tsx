@@ -1,13 +1,6 @@
 import Paper from "@mui/material/Paper"
-import { makeStyles } from "tss-react/mui"
 import { RefObject, type ReactElement } from "react"
 
-const useStyles = makeStyles()({
-  root: {
-    overflowY: "scroll",
-    height: "100%",
-  },
-})
 /**
  * The prop for {@link CatalogListWrapper}
  */
@@ -25,14 +18,11 @@ export interface CatalogListWrapperProperties {
 export const CatalogListWrapper = ({
   root: rootReference,
   children,
-}: CatalogListWrapperProperties): ReactElement => {
-  const { classes } = useStyles()
-  return (
-    <Paper
-      data-testid="catalog-list-wrapper-root"
-      ref={rootReference}
-      className={classes.root}>
-      {children}
-    </Paper>
-  )
-}
+}: CatalogListWrapperProperties): ReactElement => (
+  <Paper
+    data-testid="catalog-list-wrapper-root"
+    ref={rootReference}
+    sx={{ overflowY: "scroll", height: "100%" }}>
+    {children}
+  </Paper>
+)

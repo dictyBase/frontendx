@@ -10,8 +10,7 @@ import {
   sort as Asort,
 } from "fp-ts/Array"
 import { match as Omatch } from "fp-ts/Option"
-import { Grid, makeStyles } from "@material-ui/core"
-import { Pagination, SelectChangeEvent } from "@mui/material"
+import { Grid, Pagination, SelectChangeEvent } from "@mui/material"
 import { Gene } from "dicty-graphql-schema"
 import { RelatedGenesDisplay } from "./RelatedGenesDisplay"
 import { EmptyGenesDisplay } from "./EmptyGenesDisplay"
@@ -24,19 +23,6 @@ const ordByGeneName: Ord<Gene> = pipe(
 )
 
 const GENES_PER_PAGE = 16
-
-const useStyles = makeStyles({
-  container: {
-    width: "100%",
-  },
-  displayGrid: {
-    paddingLeft: "0 !important",
-    paddingRight: "0 !important",
-  },
-  pager: {
-    alignSelf: "center",
-  },
-})
 
 const groupPredicates = {
   [GeneGroups.ALL]: () => true,
@@ -92,13 +78,12 @@ const RelatedGenesPager = ({ genes }: Properties) => {
     setPage(1)
   }
 
-  const classes = useStyles()
   return (
     <Grid
       container
       direction="column"
       spacing={2}
-      className={classes.container}
+      sx={{ width: "100%" }}
       data-testid="related-genes-pager">
       <Grid item>
         <RelatedGenesControls
@@ -110,7 +95,9 @@ const RelatedGenesPager = ({ genes }: Properties) => {
           onGroupChange={handleGroupChange}
         />
       </Grid>
-      <Grid item className={classes.displayGrid}>
+      <Grid
+        item
+        sx={{ paddingLeft: "0 !important", paddingRight: "0 !important" }}>
         {pipe(
           geneChunks,
           Alookup(page - 1),
@@ -122,7 +109,7 @@ const RelatedGenesPager = ({ genes }: Properties) => {
           ),
         )}
       </Grid>
-      <Grid item className={classes.pager}>
+      <Grid item sx={{ alignSelf: "center" }}>
         <Pagination count={pageCount} page={page} onChange={handlePageChange} />
       </Grid>
     </Grid>

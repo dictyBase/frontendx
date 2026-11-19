@@ -1,26 +1,11 @@
 import { useNavigate } from "react-router-dom"
-import { makeStyles, Box, Grid, Typography } from "@material-ui/core"
-import { Chip } from "@mui/material"
+import { Box, Grid, Typography, Chip } from "@mui/material"
 import { grey, teal } from "@mui/material/colors"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import { map as Amap, takeLeft as AtakeLeft } from "fp-ts/Array"
 import { ListPublicationsWithGeneQuery } from "dicty-graphql-schema"
 import { SeeAllGenesChip } from "./SeeAllGenesChip"
-
-const useStyles = makeStyles({
-  chip: {
-    backgroundColor: teal[50],
-    "&:hover": {
-      boxShadow: `1px 1px 2px ${grey[500]}`,
-      backgroundColor: `${teal[100]} !important`,
-    },
-  },
-  subheading: {
-    fontWeight: 600,
-    fontSize: "20px",
-  },
-})
 
 const RelatedGenesList = ({
   publicationId,
@@ -31,11 +16,13 @@ const RelatedGenesList = ({
   limit: number
   genes: ListPublicationsWithGeneQuery["listPublicationsWithGene"][0]["related_genes"]
 }) => {
-  const classes = useStyles()
   const navigate = useNavigate()
   return (
     <Box>
-      <Typography variant="h3" gutterBottom className={classes.subheading}>
+      <Typography
+        variant="h3"
+        gutterBottom
+        sx={{ fontWeight: 600, fontSize: "20px" }}>
         Other Genes Mentioned
       </Typography>
       <Grid container spacing={1}>
@@ -53,7 +40,13 @@ const RelatedGenesList = ({
                 size="medium"
                 variant="outlined"
                 label={gene.name}
-                className={classes.chip}
+                sx={{
+                  backgroundColor: teal[50],
+                  "&:hover": {
+                    boxShadow: `1px 1px 2px ${grey[500]}`,
+                    backgroundColor: `${teal[100]} !important`,
+                  },
+                }}
               />
             </Grid>
           )),

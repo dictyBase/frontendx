@@ -3,7 +3,6 @@ import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import TableCell from "@mui/material/TableCell"
 import TableSortLabel from "@mui/material/TableSortLabel"
-import { useStyles } from "../../../../styles/displayTableStyles"
 
 const columnData = [
   {
@@ -26,19 +25,17 @@ const columnData = [
  */
 
 const EnhancedTableHead = ({ onRequestSort, order, orderBy }: any) => {
-  const classes = useStyles()
-
   const createSortHandler = (property: any) => (event: any) => {
     onRequestSort(event, property)
   }
 
   return (
-    <TableHead className={classes.head}>
+    <TableHead sx={{ backgroundColor: "#e6f2ff" }}>
       <TableRow>
         {columnData.map((column) => (
           <TableCell
             key={column.id}
-            className={classes.headerCell}
+            sx={{ color: "#333", fontWeight: 600 }}
             sortDirection={orderBy === column.id ? order : false}>
             <TableSortLabel
               active={orderBy === column.id}

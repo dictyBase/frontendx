@@ -1,6 +1,5 @@
 import { Button } from "@mui/material"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
-import { useButtonStyles } from "./useButtonStyles"
 import { useButtonState } from "./useButtonState"
 import { buttonColor, buttonIcon, buttonText } from "./buttonProperties"
 import { SAVE_LOCAL_COMMAND } from "./LocalPersistencePlugin"
@@ -14,9 +13,6 @@ type SaveButtonProperties = {
 // to await that callback before proceeding to set the button state
 const SaveButton = ({ handleSave }: SaveButtonProperties) => {
   const [editor] = useLexicalComposerContext()
-  const {
-    classes: { root },
-  } = useButtonStyles()
   const [buttonState, onClick] = useButtonState(() => {
     editor.dispatchCommand(SAVE_LOCAL_COMMAND, {})
     handleSave(JSON.stringify(editor.getEditorState().toJSON()))
@@ -24,7 +20,7 @@ const SaveButton = ({ handleSave }: SaveButtonProperties) => {
 
   return (
     <Button
-      className={root}
+      sx={{ width: "160px", overflow: "hidden", textOverflow: "ellipsis" }}
       variant="contained"
       color={buttonColor[buttonState]}
       disabled={buttonState === "LOADING"}

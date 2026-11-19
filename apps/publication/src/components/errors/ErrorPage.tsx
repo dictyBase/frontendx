@@ -2,68 +2,60 @@ import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 import Button from "@mui/material/Button"
 import ErrorIcon from "@mui/icons-material/Error"
-import { makeStyles } from "@material-ui/core/styles"
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    marginTop: theme.spacing(2),
-    "&:hover": {
-      color: theme.palette.getContrastText(theme.palette.primary.main),
-    },
-  },
-  container: {
-    backgroundColor: "#eff8fb",
-    paddingTop: theme.spacing(6),
-    paddingBottom: theme.spacing(6),
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-    borderRadius: theme.spacing(1),
-  },
-  text: {
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
-  },
-}))
+const textStyle = {
+  paddingTop: 2,
+  paddingBottom: 2,
+}
 
 /**
  * ErrorPage is the display component when there is an error.
  */
 
-const ErrorPage = () => {
-  const classes = useStyles()
-
-  return (
+const ErrorPage = () => (
+  <Box
+    display="flex"
+    flexDirection="column"
+    justifyContent="center"
+    textAlign="center">
     <Box
-      display="flex"
-      flexDirection="column"
-      justifyContent="center"
-      textAlign="center">
-      <Box className={classes.container}>
-        <img
-          src="https://storage.dictybase.dev/editor/assets/2024-11-04/0627257c-9ce3-4f02-b000-9e16ef5b1062"
-          alt="Sad Dicty -- HTTP Error"
-        />
-        <Typography className={classes.text} variant="h1">
-          <ErrorIcon /> Error
-        </Typography>
-        <Typography variant="body1" className={classes.text}>
-          If this problem persists, please email us at{" "}
-          <a href="mailto:dictybase@northwestern.edu">
-            dictybase@northwestern.edu
-          </a>
-          .
-        </Typography>
-        <Button
-          classes={{ root: classes.root }}
-          href="/"
-          size="medium"
-          variant="contained"
-          color="primary">
-          Back to DSC Homepage
-        </Button>
-      </Box>
+      sx={{
+        backgroundColor: "#eff8fb",
+        paddingTop: 6,
+        paddingBottom: 6,
+        marginTop: 2,
+        marginBottom: 2,
+        borderRadius: 1,
+      }}>
+      <img
+        src="https://storage.dictybase.dev/editor/assets/2024-11-04/0627257c-9ce3-4f02-b000-9e16ef5b1062"
+        alt="Sad Dicty -- HTTP Error"
+      />
+      <Typography sx={textStyle} variant="h1">
+        <ErrorIcon /> Error
+      </Typography>
+      <Typography variant="body1" sx={textStyle}>
+        If this problem persists, please email us at{" "}
+        <a href="mailto:dictybase@northwestern.edu">
+          dictybase@northwestern.edu
+        </a>
+        .
+      </Typography>
+      <Button
+        sx={(theme) => ({
+          marginTop: 2,
+          "&:hover": {
+            color: theme.palette.getContrastText(theme.palette.primary.main),
+          },
+        })}
+        href="/"
+        size="medium"
+        variant="contained"
+        color="primary">
+        Back to DSC Homepage
+      </Button>
     </Box>
-  )
-}
+  </Box>
+)
 
 export { ErrorPage }

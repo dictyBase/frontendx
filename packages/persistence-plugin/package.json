@@ -28,8 +28,7 @@
     "jotai": "2.16.0",
     "lexical": "0.46.x",
     "react": "19.*",
-    "react-dom": "19.*",
-    "tss-react": "^4.9.15"
+    "react-dom": "19.*"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",
