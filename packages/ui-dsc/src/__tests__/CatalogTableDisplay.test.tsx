@@ -10,6 +10,7 @@ import {
   cellFunction,
   CatalogRows,
   CatalogTableHeader,
+  StrainCatalogTableDisplay,
   PlasmidCatalogTableDisplay,
 } from "../catalog/CatalogTableDisplay"
 import { mockPlasmids } from "../mocks/mockPlasmids"
@@ -156,6 +157,34 @@ describe("CatalogTableHeader", () => {
       screen.getByRole("cell", { name: "Strain Summary" }),
     ).toBeInTheDocument()
     expect(screen.getByRole("cell", { name: "Strain ID" })).toBeInTheDocument()
+  })
+})
+
+describe("StrainCatalogTableDisplay", () => {
+  const mockStrainData = {
+    listStrains: {
+      strains: [
+        {
+          id: "DBS0351792",
+          label: "sadA",
+          summary: "sadA mutant",
+          in_stock: true,
+        },
+      ],
+      nextCursor: 0,
+    },
+  }
+  test("properly displays row with label of strain", () => {
+    render(
+      <MemoryRouter>
+        <StrainCatalogTableDisplay
+          data={mockStrainData}
+          dataField="listStrains"
+          target={{} as RefObject<HTMLTableRowElement>}
+        />
+      </MemoryRouter>,
+    )
+    expect(screen.getByText("sadA")).toBeInTheDocument()
   })
 })
 
