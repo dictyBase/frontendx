@@ -1,17 +1,5 @@
-import { Theme } from "@mui/material/styles"
-import { makeStyles } from "tss-react/mui"
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
-
-const useStyles = makeStyles()((theme: Theme) => ({
-  notice: {
-    color: theme.palette.error.main,
-    marginBottom: theme.spacing(1),
-  },
-  title: {
-    marginBottom: theme.spacing(2),
-  },
-}))
 
 type CatalogHeaderProperties = {
   /** Title of catalog page */
@@ -22,14 +10,10 @@ type CatalogHeaderProperties = {
  * CatalogHeader is the header at the top of every stock catalog page.
  */
 
-const CatalogHeader = ({ title }: CatalogHeaderProperties) => {
-  const { classes } = useStyles()
-
-  return (
-    <Box textAlign="center" p={1} className={classes.title}>
-      <Typography variant="h1">{title}</Typography>
-    </Box>
-  )
-}
+const CatalogHeader = ({ title }: CatalogHeaderProperties) => (
+  <Box textAlign="center" p={1} sx={{ marginBottom: 2 }}>
+    <Typography variant="h1">{title}</Typography>
+  </Box>
+)
 
 export { CatalogHeader }

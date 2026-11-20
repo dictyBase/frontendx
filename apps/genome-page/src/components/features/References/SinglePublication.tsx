@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
-import { makeStyles, Box, Grid, Typography } from "@material-ui/core"
-import { grey, blueGrey, pink } from "@material-ui/core/colors"
+import { Box, Grid, Typography } from "@mui/material"
+import { grey, blueGrey, pink } from "@mui/material/colors"
 import { match } from "ts-pattern"
 import { pipe } from "fp-ts/function"
 import { isString, empty } from "fp-ts/string"
@@ -16,46 +16,6 @@ import { commaSeparateWithAnd } from "common/utils/strings"
 import { formatDate } from "./utils/formatDate"
 import { RelatedGenesList } from "./RelatedGenesList"
 
-const useStyles = makeStyles({
-  gridContainer: {
-    borderTop: `1px solid ${blueGrey[50]}`,
-  },
-  authorsGrid: {
-    borderRight: `1px inset ${blueGrey[50]}`,
-    flexBasis: "30%",
-    padding: "2rem",
-  },
-  relatedGenesGrid: {
-    border: `1px solid ${blueGrey[50]}`,
-    backgroundColor: grey[50],
-    flexBasis: "70%",
-    padding: "2rem",
-  },
-  root: {
-    borderBottom: `1px solid ${blueGrey[50]}`,
-    transition: "border-left 0.1s ease-in-out",
-    "&:hover": {
-      borderLeft: `5px solid ${pink[700]}`,
-      cursor: "pointer",
-      backgroundColor: grey[50],
-    },
-  },
-  title: {
-    fontWeight: 600,
-    fontSize: "24px",
-  },
-  publication: {
-    color: grey[700],
-  },
-  authors: {
-    fontWeight: 500,
-  },
-  titleContainer: {
-    padding: "2rem",
-    paddingBottom: "0.5rem",
-  },
-})
-
 const GENES_LIMIT = 10
 
 type PublicationItem = {
@@ -65,7 +25,6 @@ type PublicationItem = {
 const SinglePublication = ({
   publication: { id, title, journal, pages, authors, pub_date, related_genes },
 }: PublicationItem) => {
-  const classes = useStyles()
   const { id: geneIdParameter } = useParams<{ id: string }>()
   const geneId = match(geneIdParameter)
     .when(isString, (idParameter) => idParameter)
@@ -89,20 +48,39 @@ const SinglePublication = ({
   }
 
   return (
-    <Box className={classes.root} onClick={onClick}>
-      <Box className={classes.titleContainer}>
-        <Typography variant="h2" gutterBottom className={classes.title}>
+    <Box
+      sx={{
+        borderBottom: `1px solid ${blueGrey[50]}`,
+        transition: "border-left 0.1s ease-in-out",
+        "&:hover": {
+          borderLeft: `5px solid ${pink[700]}`,
+          cursor: "pointer",
+          backgroundColor: grey[50],
+        },
+      }}
+      onClick={onClick}>
+      <Box sx={{ padding: "2rem", paddingBottom: "0.5rem" }}>
+        <Typography
+          variant="h2"
+          gutterBottom
+          sx={{ fontWeight: 600, fontSize: "24px" }}>
           {formattedTitle}
         </Typography>
         <Typography
-          className={
-            classes.publication
-          }>{`Published in ${journal}, ${pages}, ${formattedDate}`}</Typography>
+          sx={{
+            color: grey[700],
+          }}>{`Published in ${journal}, ${pages}, ${formattedDate}`}</Typography>
       </Box>
-      <Grid container className={classes.gridContainer}>
-        <Grid item className={classes.authorsGrid}>
+      <Grid container sx={{ borderTop: `1px solid ${blueGrey[50]}` }}>
+        <Grid
+          item
+          sx={{
+            borderRight: `1px inset ${blueGrey[50]}`,
+            flexBasis: "30%",
+            padding: "2rem",
+          }}>
           <Typography gutterBottom>AUTHORS</Typography>
-          <Typography gutterBottom className={classes.authors}>
+          <Typography gutterBottom sx={{ fontWeight: 500 }}>
             {formattedAuthors}
           </Typography>
         </Grid>
@@ -112,7 +90,14 @@ const SinglePublication = ({
           Amatch(
             () => <></>,
             (genes) => (
-              <Grid item className={classes.relatedGenesGrid}>
+              <Grid
+                item
+                sx={{
+                  border: `1px solid ${blueGrey[50]}`,
+                  backgroundColor: grey[50],
+                  flexBasis: "70%",
+                  padding: "2rem",
+                }}>
                 <RelatedGenesList
                   publicationId={id}
                   limit={GENES_LIMIT}

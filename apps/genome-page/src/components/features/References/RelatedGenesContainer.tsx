@@ -1,4 +1,4 @@
-import { Paper, Grid, makeStyles } from "@material-ui/core"
+import { Paper, Grid } from "@mui/material"
 import { SelectedPublication } from "common/@types"
 import { RelatedGenesContent } from "./RelatedGenesContent"
 import { RelatedGenesNavigation } from "./RelatedGenesNavigation"
@@ -7,38 +7,22 @@ type MentionedGenesProperties = {
   publication: SelectedPublication
 }
 
-const useStyles = makeStyles({
-  withPadding: {
-    padding: "1rem",
-    paddingBottom: "2rem",
-  },
-  main: {
-    flexBasis: "60%",
-  },
-  genes: {
-    alignSelf: "center",
-    paddingBottom: "2rem",
-  },
-  spacer: {
-    flex: "1 1 0%",
-  },
-})
-
-const RelatedGenesContainer = ({ publication }: MentionedGenesProperties) => {
-  const classes = useStyles()
-  return (
-    <Paper className={classes.withPadding}>
-      <Grid container direction="row">
-        <Grid item className={classes.spacer}>
-          <RelatedGenesNavigation />
-        </Grid>
-        <Grid item className={classes.main}>
-          <RelatedGenesContent publication={publication} />
-        </Grid>
-        <Grid item className={classes.spacer} />
-      </Grid>
-    </Paper>
-  )
+const spacerStyle = {
+  flex: "1 1 0%",
 }
+
+const RelatedGenesContainer = ({ publication }: MentionedGenesProperties) => (
+  <Paper sx={{ padding: "1rem", paddingBottom: "2rem" }}>
+    <Grid container direction="row">
+      <Grid item sx={spacerStyle}>
+        <RelatedGenesNavigation />
+      </Grid>
+      <Grid item sx={{ flexBasis: "60%" }}>
+        <RelatedGenesContent publication={publication} />
+      </Grid>
+      <Grid item sx={spacerStyle} />
+    </Grid>
+  </Paper>
+)
 
 export { RelatedGenesContainer }

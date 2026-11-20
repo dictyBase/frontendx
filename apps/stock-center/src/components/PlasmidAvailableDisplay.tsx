@@ -1,30 +1,13 @@
 import React from "react"
 import { match } from "ts-pattern"
-import { Button } from "@mui/material"
+import { Box, Button, Grid } from "@mui/material"
 import { Link } from "react-router-dom"
-import { makeStyles } from "@material-ui/core/styles"
-import Grid from "@material-ui/core/Grid"
-import { red } from "@material-ui/core/colors"
+import { red } from "@mui/material/colors"
 import { useSetAtom } from "jotai"
 import { SecondaryButton, AddToCartDialog } from "@dictybase/ui-dsc"
 import { useCartItemProperties } from "../hooks/useCartItemProperties"
 import { addCartItemsAtom, removeItemAtom } from "../cartState"
 import type { PlasmidCartItem } from "../types"
-
-const useStyles = makeStyles(({ palette }) => ({
-  container: {
-    paddingRight: "5px",
-  },
-  quantity: {
-    marginRight: "10px",
-  },
-  maxItems: {
-    color: palette.error.main,
-    "&:hover": {
-      color: palette.error.dark,
-    },
-  },
-}))
 
 type Properties = {
   cartData: PlasmidCartItem
@@ -34,7 +17,6 @@ const PlasmidAvailableDisplay = ({ cartData }: Properties) => {
   const cartItemProperties = useCartItemProperties(cartData)
   const addToCart = useSetAtom(addCartItemsAtom)
   const removeFromCart = useSetAtom(removeItemAtom)
-  const classes = useStyles()
   const [showDialog, setShowDialog] = React.useState(false)
 
   const handleAddToCart = () => {
@@ -47,7 +29,7 @@ const PlasmidAvailableDisplay = ({ cartData }: Properties) => {
   }
 
   return (
-    <Grid item container alignItems="center" className={classes.container}>
+    <Grid item container alignItems="center" sx={{ paddingRight: "5px" }}>
       {match(cartItemProperties)
         .with({ isInCart: true }, () => (
           <Grid item>
@@ -68,9 +50,17 @@ const PlasmidAvailableDisplay = ({ cartData }: Properties) => {
           </Grid>
         ))
         .with({ isFull: true }, () => (
-          <Link to="/information/order" className={classes.maxItems}>
+          <Box
+            component={Link}
+            to="/information/order"
+            sx={{
+              color: "error.main",
+              "&:hover": {
+                color: "error.dark",
+              },
+            }}>
             Cart capacity is full
-          </Link>
+          </Box>
         ))
         .with({ isInCart: false }, () => (
           <Grid item>

@@ -1,19 +1,9 @@
 import { Link } from "react-router-dom"
-import { makeStyles } from "tss-react/mui"
+import Box from "@mui/material/Box"
 import Badge from "@mui/material/Badge"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons"
 import { type CatalogCartItem } from "../types"
-
-const useStyles = makeStyles()(({ palette }) => ({
-  cartFull: {
-    fontSize: "0.7rem",
-    color: palette.secondary.dark,
-  },
-  colorPrimary: {
-    background: palette.secondary.light,
-  },
-}))
 
 type CartIconProperties = {
   /**
@@ -30,23 +20,25 @@ type CartIconProperties = {
  * This is the cart component that displays between the Navbar and body content on every page.
  * It has a cart icon with the current number of added items next to it.
  */
-const CartIcon = ({ items, isFull }: CartIconProperties) => {
-  const { classes } = useStyles()
-
-  return (
-    <>
-      <Link to="/cart" aria-label="shopping cart">
-        <Badge
-          badgeContent={items.length}
-          overlap="rectangular"
-          showZero
-          color="secondary">
-          <FontAwesomeIcon icon={faShoppingCart} size="2x" />
-        </Badge>
-      </Link>
-      {isFull && <span className={classes.cartFull}>* cart full</span>}
-    </>
-  )
-}
+const CartIcon = ({ items, isFull }: CartIconProperties) => (
+  <>
+    <Link to="/cart" aria-label="shopping cart">
+      <Badge
+        badgeContent={items.length}
+        overlap="rectangular"
+        showZero
+        color="secondary">
+        <FontAwesomeIcon icon={faShoppingCart} size="2x" />
+      </Badge>
+    </Link>
+    {isFull && (
+      <Box
+        component="span"
+        sx={{ fontSize: "0.7rem", color: "secondary.dark" }}>
+        * cart full
+      </Box>
+    )}
+  </>
+)
 
 export { CartIcon }

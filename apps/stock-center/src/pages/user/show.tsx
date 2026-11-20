@@ -1,6 +1,5 @@
 import { useLocation } from "react-router-dom"
-import { Box, Grid, Divider } from "@material-ui/core"
-import { makeStyles, Theme } from "@material-ui/core/styles"
+import { Box, Grid, Divider } from "@mui/material"
 import {
   ACCESS,
   UserWithRoles,
@@ -9,20 +8,9 @@ import {
 } from "@dictybase/auth-mui5"
 import { Avatar, Information, EditablePagesList, Title, NoPages } from "ui-user"
 
-const useStyles = makeStyles((theme: Theme) => ({
-  divider: {
-    border: "1px",
-    height: "3px",
-  },
-  userGrid: {
-    marginTop: theme.spacing(2),
-  },
-}))
-
 const Show = () => {
   const location = useLocation()
   const user = location.state as UserWithRoles
-  const classes = useStyles()
   return (
     <Box mt={4}>
       <Grid container direction="row" justifyContent="center">
@@ -30,13 +18,13 @@ const Show = () => {
           <Title />
         </Grid>
       </Grid>
-      <Divider variant="inset" className={classes.divider} />
+      <Divider variant="inset" sx={{ border: "1px", height: "3px" }} />
       <Grid
         container
         direction="row"
         justifyContent="center"
         spacing={1}
-        className={classes.userGrid}>
+        sx={{ marginTop: 2 }}>
         <Grid item xs={4} container direction="column" alignItems="center">
           <Avatar />
         </Grid>

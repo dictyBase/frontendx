@@ -1,5 +1,4 @@
-import { makeStyles, Grid } from "@material-ui/core"
-import { blueGrey } from "@material-ui/core/colors"
+import { Grid } from "@mui/material"
 import { pipe } from "fp-ts/function"
 import {
   map as Amap,
@@ -15,53 +14,41 @@ type RelatedGenesProperties = {
   maxCount: number
 }
 
-const useStyles = makeStyles((theme) => ({
-  container: {
-    width: "100%",
-    margin: "0",
-    padding: "0",
-    listStyle: "none",
-  },
-  item: {
-    flexBasis: "25%",
-  },
-  chip: {
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: `2px 2px ${blueGrey[300]}`,
-    fontSize: "1rem",
-    width: "100%",
-  },
-}))
+const itemStyle = {
+  flexBasis: "25%",
+}
 
 const filler = { _tag: "filler" }
 
-const RelatedGenesDisplay = ({ genes, maxCount }: RelatedGenesProperties) => {
-  const classes = useStyles()
-  return (
-    <Grid
-      component="ul"
-      container
-      spacing={2}
-      className={classes.container}
-      data-testid="related-genes-list">
-      {pipe(
-        genes,
-        Amap((gene) => (
-          <Grid component="li" item className={classes.item} key={gene.id}>
-            <GeneChip gene={gene} />
-          </Grid>
-        )),
-      )}
-      {pipe(
-        AmakeBy(maxCount - genes.length, () => filler),
-        AmapWithIndex((index) => (
-          <Grid item className={classes.item} key={index}>
-            <GeneChipFiller />
-          </Grid>
-        )),
-      )}
-    </Grid>
-  )
-}
+const RelatedGenesDisplay = ({ genes, maxCount }: RelatedGenesProperties) => (
+  <Grid
+    component="ul"
+    container
+    spacing={2}
+    sx={{
+      width: "100%",
+      margin: "0",
+      padding: "0",
+      listStyle: "none",
+    }}
+    data-testid="related-genes-list">
+    {pipe(
+      genes,
+      Amap((gene) => (
+        <Grid component="li" item sx={itemStyle} key={gene.id}>
+          <GeneChip gene={gene} />
+        </Grid>
+      )),
+    )}
+    {pipe(
+      AmakeBy(maxCount - genes.length, () => filler),
+      AmapWithIndex((index) => (
+        <Grid item sx={itemStyle} key={index}>
+          <GeneChipFiller />
+        </Grid>
+      )),
+    )}
+  </Grid>
+)
 
 export { RelatedGenesDisplay }

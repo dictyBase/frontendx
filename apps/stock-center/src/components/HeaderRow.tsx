@@ -1,15 +1,10 @@
 import { useMemo } from "react"
-import { Container, Grid, makeStyles } from "@material-ui/core"
+import { Container, Grid } from "@mui/material"
 import { CartIcon } from "@dictybase/ui-dsc"
 import { useAtomValue } from "jotai"
 import { Outlet } from "react-router-dom"
 import { isFullAtom, strainItemsAtom, plasmidItemsAtom } from "../cartState"
 
-const useStyles = makeStyles({
-  container: {
-    marginBottom: "1rem",
-  },
-})
 /**
  * This is the cart component that displays between the Navbar and body content on every page.
  * It has a cart icon with the current number of added items next to it.
@@ -22,7 +17,6 @@ const HeaderRow = () => {
     () => [...strainItems, ...plasmidItems],
     [strainItems, plasmidItems],
   )
-  const { container } = useStyles()
 
   return (
     <>
@@ -30,7 +24,7 @@ const HeaderRow = () => {
         container
         justifyContent="flex-end"
         alignItems="center"
-        className={container}>
+        sx={{ marginBottom: "1rem" }}>
         <Grid item>
           <Container maxWidth="lg">
             <CartIcon isFull={isFull} items={cartItems} />

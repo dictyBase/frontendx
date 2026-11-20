@@ -3,137 +3,24 @@ import { match } from "ts-pattern"
 import { pipe } from "fp-ts/function"
 import { head as RAhead } from "fp-ts/ReadonlyArray"
 import { getOrElse as OgetOrElse, map as Omap } from "fp-ts/Option"
+import Box from "@mui/material/Box"
 import Paper from "@mui/material/Paper"
 import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
 import { Theme } from "@mui/material/styles"
-import { makeStyles } from "tss-react/mui"
 import Button from "@mui/material/Button"
 import RefreshIcon from "@mui/icons-material/Refresh"
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline"
 import { grey } from "@mui/material/colors"
 
-const errorStyles = makeStyles()((theme: Theme) => ({
-  root: {
-    padding: theme.spacing(6),
-    backgroundColor: grey[100],
-    height: "100%",
-  },
-  heading: {
-    fontWeight: "normal",
-    color: "#fff",
-  },
-  summary: {
-    backgroundColor: "#004080", // Using the theme primary color
-    marginTop: "0px",
-  },
-  icon: {
-    color: theme.palette.primary.contrastText,
-    fontSize: "4rem",
-  },
-  details: {
-    padding: 0,
-    backgroundColor: "#F5F8FA",
-  },
-  innerContent: {
-    width: "100%",
-  },
-  logoContainer: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRight: `1px solid ${theme.palette.divider}`,
-    padding: theme.spacing(3),
-    [theme.breakpoints.down("md")]: {
-      borderRight: "none",
-      borderBottom: `1px solid ${theme.palette.divider}`,
-    },
-  },
-  iconContainer: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "96px",
-    height: "96px",
-    backgroundColor: "#FFF9C4", // Light yellow background
-    borderRadius: "50%",
-    border: "2px solid #FBC02D", // Yellow border
-    marginTop: theme.spacing(3),
-  },
-  warningIcon: {
-    width: "64px",
-    height: "64px",
-    color: "#FBC02D", // Yellow warning color
-  },
-  errorTitle: {
-    fontSize: "1.25rem",
-    fontWeight: 500,
-    color: "#004080",
-    marginBottom: theme.spacing(2),
-  },
-  errorBox: {
-    height: "100%",
-    backgroundColor: theme.palette.background.paper,
-    border: `1px solid ${theme.palette.divider}`,
-    borderRadius: theme.shape.borderRadius,
-    padding: theme.spacing(2),
-  },
-  helpSection: {
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr",
-    gap: theme.spacing(2),
-    marginBottom: theme.spacing(3),
-    [theme.breakpoints.down("sm")]: {
-      gridTemplateColumns: "1fr",
-    },
-  },
-  infoBox: {
-    height: "100%",
-    backgroundColor: "#E3F2FD", // Light blue background
-    border: "1px solid rgba(0, 64, 128, 0.3)",
-    borderRadius: theme.shape.borderRadius,
-    padding: theme.spacing(2),
-  },
-  listItem: {
-    display: "flex",
-    alignItems: "flex-start",
-    marginBottom: theme.spacing(1),
-  },
-  listIcon: {
-    color: "#004080",
-    marginRight: theme.spacing(1),
-    marginTop: "2px",
-  },
-  buttonContainer: {
-    display: "flex",
-    flexDirection: "column",
-    gap: theme.spacing(1.5),
-    [theme.breakpoints.up("sm")]: {
-      flexDirection: "row",
-    },
-  },
-  refreshButton: {
-    backgroundColor: "#004080",
-    color: theme.palette.common.white,
-    "&:hover": {
-      backgroundColor: "#003366",
-    },
-  },
-  homeButton: {
-    color: theme.palette.text.secondary,
-  },
-  buttonIcon: {
-    marginRight: theme.spacing(1),
-  },
-  emailLink: {
-    color: "#004080",
-    fontWeight: 500,
-    "&:hover": {
-      textDecoration: "underline",
-    },
-  },
-}))
+const infoBoxStyle = (theme: Theme) => ({
+  height: "100%",
+  backgroundColor: "#E3F2FD",
+  border: "1px solid rgba(0, 64, 128, 0.3)",
+  borderRadius: theme.shape.borderRadius,
+  padding: 2,
+})
+
 /**
  * The prop type for {@link ErrorDisplay}
  */
@@ -158,21 +45,28 @@ export const ErrorDisplay = ({
   supportEmail = "dictybase@northwestern.edu",
   refetch,
 }: ErrorDisplayProperties) => {
-  const { classes } = errorStyles()
-
   const handleRetry = () => {
     refetch()
   }
   return (
-    <Paper className={classes.root}>
+    <Paper sx={{ padding: 6, backgroundColor: grey[100], height: "100%" }}>
       <Grid container direction="column" alignItems="stretch" spacing={2}>
         <Grid item>
           <Grid container spacing={2} justifyContent="center">
             <Grid item>
-              <ErrorOutlineIcon className={classes.icon} />
+              <ErrorOutlineIcon
+                sx={{ color: "primary.contrastText", fontSize: "4rem" }}
+              />
             </Grid>
             <Grid item>
-              <Typography variant="h2" className={classes.errorTitle}>
+              <Typography
+                variant="h2"
+                sx={{
+                  fontSize: "1.25rem",
+                  fontWeight: 500,
+                  color: "#004080",
+                  marginBottom: 2,
+                }}>
                 Sorry, something went wrong
               </Typography>
               <Typography variant="body1" color="textSecondary" paragraph>
@@ -185,7 +79,15 @@ export const ErrorDisplay = ({
         <Grid item>
           <Grid container direction="column" spacing={2}>
             <Grid item>
-              <Paper variant="outlined" className={classes.errorBox}>
+              <Paper
+                variant="outlined"
+                sx={(theme: Theme) => ({
+                  height: "100%",
+                  backgroundColor: theme.palette.background.paper,
+                  border: `1px solid ${theme.palette.divider}`,
+                  borderRadius: theme.shape.borderRadius,
+                  padding: 2,
+                })}>
                 <Grid container direction="column" spacing={2}>
                   <Grid item>
                     <Typography
@@ -209,7 +111,7 @@ export const ErrorDisplay = ({
             <Grid item>
               <Grid container spacing={4}>
                 <Grid item xs={6}>
-                  <Paper variant="outlined" className={classes.infoBox}>
+                  <Paper variant="outlined" sx={infoBoxStyle}>
                     <Grid container direction="column" spacing={1}>
                       <Grid item>
                         <Typography
@@ -228,11 +130,15 @@ export const ErrorDisplay = ({
                       <Grid item>
                         <Button
                           variant="contained"
-                          className={classes.refreshButton}
+                          sx={{
+                            backgroundColor: "#004080",
+                            color: "common.white",
+                            "&:hover": {
+                              backgroundColor: "#003366",
+                            },
+                          }}
                           onClick={handleRetry}
-                          startIcon={
-                            <RefreshIcon className={classes.buttonIcon} />
-                          }>
+                          startIcon={<RefreshIcon sx={{ marginRight: 1 }} />}>
                           Retry
                         </Button>
                       </Grid>
@@ -240,7 +146,7 @@ export const ErrorDisplay = ({
                   </Paper>
                 </Grid>
                 <Grid item xs={6}>
-                  <Paper variant="outlined" className={classes.infoBox}>
+                  <Paper variant="outlined" sx={infoBoxStyle}>
                     <Typography
                       variant="subtitle2"
                       color="primary"
@@ -251,11 +157,18 @@ export const ErrorDisplay = ({
                       If this prAAAAAAAAAAAAAAAoblem persists, please email us
                       at:
                     </Typography>
-                    <a
+                    <Box
+                      component="a"
                       href={`mailto:${supportEmail}`}
-                      className={classes.emailLink}>
+                      sx={{
+                        color: "#004080",
+                        fontWeight: 500,
+                        "&:hover": {
+                          textDecoration: "underline",
+                        },
+                      }}>
                       {supportEmail}
-                    </a>
+                    </Box>
                   </Paper>
                 </Grid>
               </Grid>

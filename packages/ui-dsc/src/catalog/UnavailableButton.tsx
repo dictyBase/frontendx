@@ -1,13 +1,6 @@
-import { makeStyles } from "tss-react/mui"
 import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart"
-
-const useStyles = makeStyles()(() => ({
-  cartFullSlash: {
-    color: "#8a8a8a",
-  },
-}))
 
 type UnavailableButtonProperties = {
   /** Title used for button tooltip and aria-label */
@@ -23,24 +16,20 @@ type UnavailableButtonProperties = {
 const UnavailableButton = ({
   title,
   size = "medium",
-}: UnavailableButtonProperties) => {
-  const { classes } = useStyles()
-
-  return (
-    <Tooltip title={title}>
-      <span>
-        <IconButton
-          disabled
-          size={size}
-          aria-label={title}
-          title={title}
-          color="default"
-          className={classes.cartFullSlash}>
-          <RemoveShoppingCartIcon />
-        </IconButton>
-      </span>
-    </Tooltip>
-  )
-}
+}: UnavailableButtonProperties) => (
+  <Tooltip title={title}>
+    <span>
+      <IconButton
+        disabled
+        size={size}
+        aria-label={title}
+        title={title}
+        color="default"
+        sx={{ color: "#8a8a8a" }}>
+        <RemoveShoppingCartIcon />
+      </IconButton>
+    </span>
+  </Tooltip>
+)
 
 export { UnavailableButton }

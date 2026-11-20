@@ -1,5 +1,5 @@
 import { useRef, useCallback } from "react"
-import { makeStyles } from "tss-react/mui"
+import Box from "@mui/material/Box"
 import Paper from "@mui/material/Paper"
 import List from "@mui/material/List"
 import LinearProgress from "@mui/material/LinearProgress"
@@ -9,24 +9,6 @@ import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import { SearchPhenotypeListHeader } from "./SearchPhenotypeListHeader"
 import { SearchPhenotypeListItem } from "./SearchPhenotypeListItem"
-
-const useStyles = makeStyles()(({ palette }) => ({
-  list: {
-    paddingTop: "0px",
-    paddingBottom: "0px",
-  },
-  loading: {
-    color: palette.secondary.main,
-  },
-  spinner: {
-    marginTop: "15px",
-  },
-  totalCount: {
-    marginTop: "15px",
-    textAlign: "center",
-    color: "rgb(112, 117, 122)",
-  },
-}))
 
 type SearchPhenotypeListProperties = {
   /** Array of strains with given phenotype */
@@ -54,7 +36,6 @@ const SearchPhenotypeList = ({
   isLoadingMore,
   totalCount,
 }: SearchPhenotypeListProperties) => {
-  const { classes } = useStyles()
   const targetReference = useRef<HTMLDivElement>(null)
   const onIntersection = useCallback(
     ([entry]: IntersectionObserverEntry[]) => {
@@ -71,7 +52,7 @@ const SearchPhenotypeList = ({
     <>
       <Paper>
         <SearchPhenotypeListHeader />
-        <List className={classes.list}>
+        <List sx={{ paddingTop: "0px", paddingBottom: "0px" }}>
           {data.map((item) => (
             <SearchPhenotypeListItem key={item.id} strain={item} />
           ))}
@@ -84,7 +65,14 @@ const SearchPhenotypeList = ({
           )}
         </List>
       </Paper>
-      <div className={classes.totalCount}>Displaying {totalCount} results</div>
+      <Box
+        sx={{
+          marginTop: "15px",
+          textAlign: "center",
+          color: "rgb(112, 117, 122)",
+        }}>
+        Displaying {totalCount} results
+      </Box>
     </>
   )
 }

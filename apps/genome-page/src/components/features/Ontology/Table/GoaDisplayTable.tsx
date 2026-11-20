@@ -1,26 +1,11 @@
 import React from "react"
-import { makeStyles } from "@material-ui/core/styles"
-import Table from "@material-ui/core/Table"
-import TableBody from "@material-ui/core/TableBody"
-import Paper from "@material-ui/core/Paper"
+import Table from "@mui/material/Table"
+import TableBody from "@mui/material/TableBody"
+import Paper from "@mui/material/Paper"
 import { GoAnnotation } from "dicty-graphql-schema"
 import { EnhancedTableHead } from "./EnhancedTableHead"
 import { GoaDisplayTableRow } from "./GoaDisplayTableRow"
 import { getSorting } from "../utils/getSorting"
-
-const useStyles = makeStyles({
-  root: {
-    width: "100%",
-    overflowX: "auto",
-  },
-  head: {
-    backgroundColor: "#e6f2ff",
-  },
-  headerCell: {
-    color: "#333",
-    fontWeight: 600,
-  },
-})
 
 type Order = "asc" | "desc"
 
@@ -36,7 +21,6 @@ type Properties = {
 const GoaDisplayTable = ({ data }: Properties) => {
   const [tableOrder, setTableOrder] = React.useState<Order>("desc")
   const [tableSortBy, setTableSortBy] = React.useState("date")
-  const classes = useStyles()
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -48,7 +32,7 @@ const GoaDisplayTable = ({ data }: Properties) => {
   }
 
   return (
-    <Paper className={classes.root}>
+    <Paper sx={{ width: "100%", overflowX: "auto" }}>
       <Table>
         <colgroup>
           <col style={{ width: "25%" }} />

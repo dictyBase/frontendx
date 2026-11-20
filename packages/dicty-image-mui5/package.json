@@ -19,8 +19,7 @@
     "@mui/material": "5.*",
     "fp-ts": "^2.16.1",
     "react": "19.*",
-    "react-dom": "19.*",
-    "tss-react": "^4.9.15"
+    "react-dom": "19.*"
   },
   "scripts": {
     "oxlint": "oxlint src/",

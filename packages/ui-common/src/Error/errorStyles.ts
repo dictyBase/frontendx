@@ -1,22 +1,21 @@
-import { makeStyles } from "tss-react/mui"
 import { deepPurple, grey } from "@mui/material/colors"
 
-const useStyles = makeStyles()(({ palette }) => ({
+const errorStyles = {
   error400: {
     backgroundColor: "#eff8fb",
     textAlign: "center",
-    paddingTop: 30,
-    paddingBottom: 30,
-    marginBottom: 30,
-    borderRadius: 5,
+    paddingTop: "30px",
+    paddingBottom: "30px",
+    marginBottom: "30px",
+    borderRadius: "5px",
   },
   error500: {
     backgroundColor: "#a63232",
     textAlign: "center",
-    paddingTop: 40,
-    paddingBottom: 40,
-    marginBottom: 30,
-    borderRadius: 5,
+    paddingTop: "40px",
+    paddingBottom: "40px",
+    marginBottom: "30px",
+    borderRadius: "5px",
     color: "#e3e3e3",
   },
   link500: {
@@ -38,9 +37,9 @@ const useStyles = makeStyles()(({ palette }) => ({
     marginTop: "25px",
     padding: "25px",
     textTransform: "none",
-    backgroundColor: palette.secondary.main,
+    backgroundColor: "secondary.main",
     "&:hover": {
-      backgroundColor: palette.secondary.dark,
+      backgroundColor: "secondary.dark",
     },
   },
   link: {
@@ -58,6 +57,6 @@ const useStyles = makeStyles()(({ palette }) => ({
     fontStyle: "italic",
     border: `1px solid ${grey[400]}`,
   },
-}))
+}
 
-export { useStyles }
+export { errorStyles }

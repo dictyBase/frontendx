@@ -1,4 +1,4 @@
-import { vi, describe, test, expect } from "vitest"
+import { describe, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
 import { MemoryRouter, Routes, Route } from "react-router-dom"
@@ -14,19 +14,6 @@ import {
   PlasmidCatalogTableDisplay,
 } from "../catalog/CatalogTableDisplay"
 import { mockPlasmids } from "../mocks/mockPlasmids"
-
-vi.mock("@mui/material/styles", async () => {
-  const originalModule = (await vi.importActual(
-    "@mui/material/styles",
-  )) as typeof import("@mui/material/styles")
-  return {
-    ...originalModule,
-    // eslint-disable-next-line unicorn/consistent-function-scoping
-    makeStyles: () => () => ({
-      row: {},
-    }),
-  }
-})
 
 describe("abbreviateStringToLength", () => {
   const testInputString = "This string has length 25"
