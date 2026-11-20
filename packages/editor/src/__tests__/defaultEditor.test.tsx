@@ -11,11 +11,6 @@ import { FlexLayoutNode } from "@dictybase/flex-layout-plugin"
 import { Editor } from "../Editor"
 import { dictyEditorConfig } from "../editorConfig"
 
-vi.mock("../useEditorStyles", () => ({
-  useEditorAreaStyles: () => ({ classes: {} }),
-  useEditorPlaceholderStyles: () => ({ classes: {} }),
-}))
-
 vi.mock("@dictybase/image-plugin", async () => {
   const actual = await vi.importActual<Record<string, unknown>>(
     "@dictybase/image-plugin",

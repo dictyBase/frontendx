@@ -1,4 +1,4 @@
-import { Autocomplete } from "@material-ui/lab"
+import { Autocomplete } from "@mui/material"
 import { useSearchWithRouter } from "./useSearchWithRouter"
 
 export const defaultLabel = "Search (Click for available fields to search)"
@@ -57,7 +57,9 @@ const ReferencesSearchBox = ({
       onInputChange={onInputChange}
       renderTags={renderTags}
       renderInput={renderInput}
-      renderOption={renderOption}
+      renderOption={(properties, option) => (
+        <li {...properties}>{renderOption(option)}</li>
+      )}
     />
   )
 }

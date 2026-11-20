@@ -1,4 +1,3 @@
-import { useStyles } from "styles/geneOrIdSection"
 import {
   Box,
   Card,
@@ -8,16 +7,19 @@ import {
   MenuItem,
   TextField,
   Select,
-} from "@material-ui/core"
-import { MutableRefObject, useState } from "react"
+} from "@mui/material"
+import { RefObject, useState } from "react"
+
+const boldTextStyle = {
+  fontSize: "14px",
+  fontWeight: "bold",
+}
 
 interface GeneOrIdProperties {
-  sequenceElement: MutableRefObject<HTMLInputElement>
+  sequenceElement: RefObject<HTMLInputElement>
 }
 
 const GeneOrID = ({ sequenceElement }: GeneOrIdProperties) => {
-  const classes = useStyles()
-
   const [sequenceOptions] = useState<string[]>([
     "Please Select a Sequence Type",
     "Protein",
@@ -27,16 +29,28 @@ const GeneOrID = ({ sequenceElement }: GeneOrIdProperties) => {
 
   return (
     <Grid item xs={6} md={6}>
-      <Box className={classes.titleBox}>
-        <Typography className={classes.titleBoxText}>
+      <Box
+        sx={{
+          position: "relative",
+          top: 15,
+          backgroundColor: "#DFE8F6",
+          border: "1px solid",
+          borderColor: "#A3BAE9",
+          textAlign: "center",
+          maxWidth: 200,
+          marginLeft: "25px",
+        }}>
+        <Typography sx={{ color: "#336699", fontSize: "16px" }}>
           Gene or Gene Model ID
         </Typography>
       </Box>
-      <Card variant="outlined" className={classes.card}>
+      <Card
+        variant="outlined"
+        sx={{ padding: "20px", backgroundColor: "#F2F2F2" }}>
         <Grid container spacing={2} justifyContent="center" alignItems="center">
           {/* Enter gene or gene model ID */}
           <Grid item xs={4} md={6}>
-            <Typography className={classes.boldText}>
+            <Typography sx={boldTextStyle}>
               Enter gene or gene model ID
             </Typography>
           </Grid>
@@ -54,9 +68,7 @@ const GeneOrID = ({ sequenceElement }: GeneOrIdProperties) => {
           </Grid>
           {/* Select Sequence */}
           <Grid item xs={4} md={6}>
-            <Typography className={classes.boldText}>
-              Select Sequence
-            </Typography>
+            <Typography sx={boldTextStyle}>Select Sequence</Typography>
           </Grid>
           <Grid item xs={8} md={6}>
             <TextField
@@ -70,9 +82,7 @@ const GeneOrID = ({ sequenceElement }: GeneOrIdProperties) => {
           </Grid>
           {/* Select Sequence Type */}
           <Grid item xs={4} md={6}>
-            <Typography className={classes.boldText}>
-              Select Sequence Type
-            </Typography>
+            <Typography sx={boldTextStyle}>Select Sequence Type</Typography>
           </Grid>
           <Grid item xs={8} md={6}>
             <Select

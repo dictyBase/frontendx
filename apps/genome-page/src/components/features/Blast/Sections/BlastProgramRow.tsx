@@ -1,12 +1,11 @@
-import { useStyles } from "styles/geneOrIdSection"
-import { Typography, Card, Box, Grid } from "@material-ui/core"
-import { MutableRefObject, useEffect, useState } from "react"
+import { Typography, Card, Box, Grid } from "@mui/material"
+import { RefObject, useEffect, useState } from "react"
 import { Observable } from "rxjs"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
 import { programOptionsMock } from "../mocks/relatonalMockData"
 
 interface BlastProgramRowProperties {
-  programElement: MutableRefObject<HTMLInputElement>
+  programElement: RefObject<HTMLInputElement>
   sequenceStream: Observable<string>
 }
 
@@ -14,8 +13,6 @@ const BlastProgramRow = ({
   programElement,
   sequenceStream,
 }: BlastProgramRowProperties) => {
-  const classes = useStyles()
-
   const [programOptions, setProgramOptions] = useState<string[]>(
     programOptionsMock["Please Select a Sequence Type"],
   )
@@ -32,13 +29,29 @@ const BlastProgramRow = ({
 
   return (
     <Grid item xs={12} md={12}>
-      <Box className={classes.titleBox}>
-        <Typography className={classes.titleBoxText}>BLAST Program</Typography>
+      <Box
+        sx={{
+          position: "relative",
+          top: 15,
+          backgroundColor: "#DFE8F6",
+          border: "1px solid",
+          borderColor: "#A3BAE9",
+          textAlign: "center",
+          maxWidth: 200,
+          marginLeft: "25px",
+        }}>
+        <Typography sx={{ color: "#336699", fontSize: "16px" }}>
+          BLAST Program
+        </Typography>
       </Box>
-      <Card variant="outlined" className={classes.card}>
+      <Card
+        variant="outlined"
+        sx={{ padding: "20px", backgroundColor: "#F2F2F2" }}>
         <Grid container spacing={2} justifyContent="center" alignItems="center">
           <Grid item xs={3} md={3}>
-            <Typography className={classes.boldText}>Select Program</Typography>
+            <Typography sx={{ fontSize: "14px", fontWeight: "bold" }}>
+              Select Program
+            </Typography>
           </Grid>
           <Grid item xs={9} md={9}>
             <Select

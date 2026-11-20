@@ -1,6 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
-import { FC, StrictMode } from "react"
-import { render } from "react-dom"
+import { StrictMode } from "react"
+import { createRoot } from "react-dom/client"
 import { ThemeProvider as ThemeProviderMUI5 } from "@mui/material/styles"
 import { MuiThemeProvider as ThemeProviderMUI4 } from "@material-ui/core/styles"
 import { CssBaseline } from "@material-ui/core"
@@ -9,7 +9,7 @@ import { routes } from "./routeBuilder"
 
 const router = createBrowserRouter(routes)
 
-const App: FC = () => (
+const App = () => (
   <ThemeProviderMUI5 theme={dictyThemeV5}>
     <ThemeProviderMUI4 theme={dictyThemeV4}>
       <CssBaseline />
@@ -19,11 +19,13 @@ const App: FC = () => (
 )
 
 const main = async () => {
-  render(
+  const container = document.querySelector("#root")
+  if (!container) throw new Error("Failed to find the root element")
+  const root = createRoot(container)
+  root.render(
     <StrictMode>
       <App />
     </StrictMode>,
-    document.querySelector("#root"),
   )
 }
 

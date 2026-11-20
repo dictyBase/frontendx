@@ -1,32 +1,28 @@
 import { Tab, type TabProps } from "@mui/material"
-import { makeStyles } from "tss-react/mui"
 import { grey } from "@mui/material/colors"
-
-const useStyles = makeStyles()((theme) => ({
-  tab: {
-    borderRadius: "10px",
-    fontFamily: "'Poppins', sans-serif",
-    color: theme.palette.primary.main,
-    opacity: 1,
-    fontSize: "1rem",
-    "&.Mui-selected": {
-      fontWeight: 600,
-      fontFamily: "'Poppins', sans-serif",
-      backgroundColor: theme.palette.primary.main,
-      color: theme.palette.primary.contrastText,
-      boxShadow: `2px 2px 3px ${grey[500]}`,
-    },
-  },
-}))
 
 /**
  * A customized Tab component for dictyBase applications.
  */
-const DictyTab = ({ ...properties }: TabProps) => {
-  const {
-    classes: { tab },
-  } = useStyles()
-  return <Tab wrapped className={tab} {...properties} />
-}
+const DictyTab = ({ ...properties }: TabProps) => (
+  <Tab
+    wrapped
+    sx={(theme) => ({
+      borderRadius: "10px",
+      fontFamily: "'Poppins', sans-serif",
+      color: theme.palette.primary.main,
+      opacity: 1,
+      fontSize: "1rem",
+      "&.Mui-selected": {
+        fontWeight: 600,
+        fontFamily: "'Poppins', sans-serif",
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.primary.contrastText,
+        boxShadow: `2px 2px 3px ${grey[500]}`,
+      },
+    })}
+    {...properties}
+  />
+)
 
 export { DictyTab }

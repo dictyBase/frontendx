@@ -8,37 +8,7 @@ import { Ord as SOrd } from "fp-ts/string"
 import { Ord as NOrd } from "fp-ts/number"
 import { Container, Box, Typography } from "@mui/material"
 import { grey } from "@mui/material/colors"
-import { makeStyles } from "tss-react/mui"
 import { PublicationsList, type PublicationItem } from "@dictybase/ui-frontpage"
-
-const useStyles = makeStyles()((theme) => ({
-  background: {
-    paddingTop: theme.spacing(2),
-    backgroundColor: grey[50],
-  },
-  container: {
-    textAlign: "left",
-    padding: "0px 6rem 1rem 6rem",
-    borderRadius: "15px",
-    boxSizing: "border-box",
-    marginBottom: "10px",
-    "@media (max-width: 768px)": {
-      padding: "0 0 0 0",
-    },
-  },
-
-  header: {
-    color: grey[800],
-    fontSize: "20px",
-    padding: "15px 35px 15px 35px",
-
-    "@media (max-width: 767px)": {
-      fontSize: "24px",
-      textAlign: "right",
-      padding: "20px 5px 20px 15px",
-    },
-  },
-}))
 
 const ordByOldest: Ord<PublicationItem> = pipe(
   NOrd,
@@ -120,13 +90,30 @@ const PublicationsView = ({ data }: PublicationsViewProperties) => {
     setCurrentTab(newValue)
   }
 
-  const {
-    classes: { background, container, header },
-  } = useStyles()
   return (
-    <Box className={background}>
-      <Container className={container}>
-        <Box className={header}>
+    <Box sx={{ paddingTop: 2, backgroundColor: grey[50] }}>
+      <Container
+        sx={{
+          textAlign: "left",
+          padding: "0px 6rem 1rem 6rem",
+          borderRadius: "15px",
+          boxSizing: "border-box",
+          marginBottom: "10px",
+          "@media (max-width: 768px)": {
+            padding: "0 0 0 0",
+          },
+        }}>
+        <Box
+          sx={{
+            color: grey[800],
+            fontSize: "20px",
+            padding: "15px 35px 15px 35px",
+            "@media (max-width: 767px)": {
+              fontSize: "24px",
+              textAlign: "right",
+              padding: "20px 5px 20px 15px",
+            },
+          }}>
           <Typography variant="h1" align="center">
             Latest Publications
           </Typography>

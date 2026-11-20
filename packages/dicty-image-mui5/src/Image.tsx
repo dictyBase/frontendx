@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Container } from "@mui/material"
+import { Box, Container } from "@mui/material"
 import { pipe } from "fp-ts/function"
 import {
   error,
@@ -8,7 +8,6 @@ import {
   match,
   SelectState,
 } from "@dictybase/functional"
-import { imageStyles } from "./imageStyles"
 import { ErrorDisplay } from "./ErrorDisplay"
 import { LoadingDisplay } from "./LoadingDisplay"
 
@@ -39,31 +38,54 @@ const Image = ({
   duration = 750,
 }: ImageProperties) => {
   const [status, setStatus] = useState<SelectState<string, string>>(loading())
-  const {
-    classes: { root, image },
-  } = imageStyles({
-    height,
-    width,
-    fit,
-    duration,
-    easing,
-  })
+  const imageSx = {
+    width: "100%",
+    height: "100%",
+    objectFit: fit,
+    animationName: "materialize",
+    animationDuration: `${duration}ms`,
+    animationTimingFunction: easing,
+    "@keyframes materialize": {
+      "0%": {
+        filter: "saturate(20%) contrast(50%) brightness(160%)",
+        opacity: 0,
+      },
+      "75%": {
+        filter: "saturate(60%) contrast(100%) brightness(100%)",
+        opacity: 1,
+      },
+      "100%": {
+        filter: "saturate(100%) contrast(100%) brightness(100%)",
+        opacity: 1,
+      },
+    },
+  }
   return (
-    <Container disableGutters className={root!}>
-      <picture
-        className={image!}
+    <Container
+      disableGutters
+      sx={{
+        height,
+        width,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}>
+      <Box
+        component="picture"
+        sx={imageSx}
         onLoad={() => setStatus(success("loaded image"))}
         onError={() => setStatus(error("error in loading image"))}>
         <source srcSet={webpSrc} type="image/webp" />
         <source srcSet={avifSrc} type="image/avif" />
-        <img
+        <Box
+          component="img"
           src={src}
           alt={alt}
-          className={image!}
+          sx={imageSx}
           onLoad={() => setStatus(success("loaded image"))}
           onError={() => setStatus(error("error in loading image"))}
         />
-      </picture>
+      </Box>
       {pipe(status, match(LoadingUI, ErrorUI, Noop))}
     </Container>
   )

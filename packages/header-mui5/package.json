@@ -17,8 +17,7 @@
   "devDependencies": {
     "@dictybase/oxlint-config": "*",
     "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/react-hooks": "^8.0.1",
+    "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.1",
     "@types/uuid": "^9.0.2",
     "@vitest/coverage-v8": "4.x",
@@ -37,7 +36,6 @@
     "fp-ts-std": "^0.17.1",
     "rxjs": "~7.8",
     "ts-pattern": "5.x",
-    "tss-react": "^4.9.15",
     "uuid": "11.x"
   },
   "typedoc": {

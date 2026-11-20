@@ -1,40 +1,33 @@
-import { Box } from "@material-ui/core"
+import { Box, type Theme } from "@mui/material"
 import { LoadingDisplay } from "@dictybase/ui-dsc"
 import { RouterProvider } from "react-router-dom"
-import { makeStyles, Theme } from "@material-ui/core/styles"
 import { FooterWithAuth } from "@dictybase/auth-mui5"
 import { dscRouter } from "../routes"
 
-const useStyles = makeStyles((theme: Theme) => ({
-  body: {
-    fontSize: "16px",
-    color: "#333",
-    "& h1, h2, h3, h4, h5, h6": {
-      lineHeight: 1.1,
-    },
-    "& h4, h5, h6": {
-      marginTop: theme.spacing(1.2),
-      marginBottom: theme.spacing(1.2),
-    },
-  },
-}))
-
-const DscApp = () => {
-  const classes = useStyles()
-  return (
-    <Box className={classes.body}>
-      <main>
-        <RouterProvider
-          router={dscRouter}
-          fallbackElement={<LoadingDisplay rows={6} />}
-        />
-      </main>
-      <FooterWithAuth
-        frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
-        stockCenterUrl={import.meta.env.VITE_APP_STOCKCENTER_URL}
+const DscApp = () => (
+  <Box
+    sx={(theme: Theme) => ({
+      fontSize: "16px",
+      color: "#333",
+      "& h1, h2, h3, h4, h5, h6": {
+        lineHeight: 1.1,
+      },
+      "& h4, h5, h6": {
+        marginTop: theme.spacing(1.2),
+        marginBottom: theme.spacing(1.2),
+      },
+    })}>
+    <main>
+      <RouterProvider
+        router={dscRouter}
+        fallbackElement={<LoadingDisplay rows={6} />}
       />
-    </Box>
-  )
-}
+    </main>
+    <FooterWithAuth
+      frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
+      stockCenterUrl={import.meta.env.VITE_APP_STOCKCENTER_URL}
+    />
+  </Box>
+)
 
 export { DscApp }

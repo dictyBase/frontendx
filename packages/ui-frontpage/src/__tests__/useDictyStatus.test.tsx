@@ -1,5 +1,5 @@
 import { test, expect, vi, beforeEach, afterEach } from "vitest"
-import { renderHook } from "@testing-library/react-hooks"
+import { renderHook, waitFor } from "@testing-library/react"
 import { isNone, toNullable } from "fp-ts/Option"
 import { Status, UptimeProperties } from "../types"
 import { useDictyStatus } from "../hooks/useDictyStatus"
@@ -41,14 +41,14 @@ test("returns the parsed summary wrapped in some when the fetch succeeds", async
     }),
   )
 
-  const { result, waitForNextUpdate } = renderHook(() => useDictyStatus())
+  const { result } = renderHook(() => useDictyStatus())
 
   // starts empty
   expect(isNone(result.current)).toBe(true)
 
-  await waitForNextUpdate()
-
-  expect(toNullable(result.current)).toEqual(mockSummary)
+  await waitFor(() => {
+    expect(toNullable(result.current)).toEqual(mockSummary)
+  })
 })
 
 test("returns none when the fetch rejects", async () => {

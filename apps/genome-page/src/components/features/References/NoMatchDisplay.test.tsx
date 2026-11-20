@@ -40,8 +40,10 @@ describe("NoMatchDisplay", () => {
       .closest(".MuiGrid-container")
     expect(container).toBeInTheDocument()
     expect(container).toHaveClass("MuiGrid-direction-xs-column")
-    expect(container).toHaveClass("MuiGrid-justify-content-xs-center")
-    expect(container).toHaveClass("MuiGrid-align-items-xs-center")
+    expect(container).toHaveStyle({
+      justifyContent: "center",
+      alignItems: "center",
+    })
   })
 
   test("renders all content in correct order", () => {

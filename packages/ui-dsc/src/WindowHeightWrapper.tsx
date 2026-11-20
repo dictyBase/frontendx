@@ -1,22 +1,10 @@
-import { FC } from "react"
+import { type ReactNode } from "react"
 import { Box } from "@mui/material"
-import { makeStyles } from "tss-react/mui"
 import { useWindowSize } from "@dictybase/hook"
 
-type HeightProperties = {
-  height: number
-}
-
-const useStyles = makeStyles<HeightProperties>()((_, { height }) => ({
-  root: {
-    height,
-  },
-}))
-
-const WindowHeightWrapper: FC = ({ children }) => {
+const WindowHeightWrapper = ({ children }: { children: ReactNode }) => {
   const { height: windowHeight } = useWindowSize()
-  const { classes } = useStyles({ height: windowHeight * 0.6 })
-  return <Box className={classes.root}>{children}</Box>
+  return <Box sx={{ height: `${windowHeight * 0.6}px` }}>{children}</Box>
 }
 
 export { WindowHeightWrapper }

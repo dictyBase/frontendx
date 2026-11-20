@@ -1,13 +1,9 @@
-import {
-  TableRow,
-  TableCell,
-  Box,
-  IconButton,
-  Tooltip,
-} from "@material-ui/core"
-import { RemoveShoppingCart, ShoppingCart } from "@material-ui/icons"
-import { commaSeparate, commaSeparateWithAnd } from "common/utils/strings"
-import { OtherError } from "components/errors/OtherError"
+import { TableRow, TableCell, Box, IconButton, Tooltip } from "@mui/material"
+import { pipe } from "fp-ts/function"
+import { fromNullable as OfromNullable, match as Omatch } from "fp-ts/Option"
+import { RemoveShoppingCart, ShoppingCart } from "@mui/icons-material"
+import { commaSeparate } from "common/utils/strings"
+import { PublicationCellContents } from "./PublicationCellContents"
 
 interface PhenotypeRowProperties {
   id: string
@@ -39,11 +35,11 @@ interface PhenotypeRowProperties {
 
 const renderInStock = (in_stock: boolean) => (
   <Tooltip title={in_stock ? "Strain available" : "Strain unavailable"}>
-    <>
+    <span>
       <IconButton size="small" disabled={!in_stock}>
         {in_stock ? <ShoppingCart color="secondary" /> : <RemoveShoppingCart />}
       </IconButton>
-    </>
+    </span>
   </Tooltip>
 )
 
@@ -55,11 +51,6 @@ const PhenotypeRow = ({
   in_stock,
 }: PhenotypeRowProperties) => {
   const { publication } = phenotype
-  if (!publication) return <OtherError />
-
-  const { authors, title, journal, pages } = publication
-  const authorLastNames = authors.map((a) => a.last_name)
-
   return (
     <TableRow>
       <TableCell>
@@ -84,9 +75,14 @@ const PhenotypeRow = ({
       </TableCell>
       <TableCell>{phenotype.phenotype}</TableCell>
       <TableCell>
-        <b>{commaSeparateWithAnd(authorLastNames)}</b> &nbsp;
-        <span>&apos;{title}&apos;</span> &nbsp;
-        <i>{journal}</i> &nbsp; <span>{pages}</span>
+        {pipe(
+          publication,
+          OfromNullable,
+          Omatch(
+            () => <></>,
+            (p) => <PublicationCellContents publication={p} />,
+          ),
+        )}
       </TableCell>
     </TableRow>
   )

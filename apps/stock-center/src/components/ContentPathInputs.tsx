@@ -1,15 +1,17 @@
-import { TextField, Grid } from "@material-ui/core"
+import { TextField, Grid } from "@mui/material"
 import { useFormContext } from "react-hook-form"
+import { InferType } from "yup"
 import { isEmpty as SisEmpty } from "fp-ts/string"
 import { MonoidAny } from "fp-ts/boolean"
 import { SectionSelect } from "./SectionSelect"
+import { validationSchema } from "../useCreateContentForm"
 
 const ContentPathInputs = () => {
   const {
     register,
     watch,
     formState: { errors },
-  } = useFormContext()
+  } = useFormContext<InferType<typeof validationSchema>>()
   const sectionValue = watch("section")
   const nameValue = watch("name")
   const subnameDisabled = MonoidAny.concat(

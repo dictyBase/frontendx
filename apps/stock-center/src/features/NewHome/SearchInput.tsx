@@ -2,7 +2,7 @@ import { Paper, InputBase, IconButton } from "@mui/material"
 import SearchIcon from "@mui/icons-material/Search"
 
 type SearchInputProperties = {
-  anchorRef: React.RefObject<HTMLDivElement>
+  anchorRef: React.RefObject<HTMLDivElement | null>
   inputValue: string
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
   onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void

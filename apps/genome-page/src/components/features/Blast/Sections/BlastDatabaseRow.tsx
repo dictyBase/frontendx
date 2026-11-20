@@ -1,14 +1,18 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import { MutableRefObject, useState, useEffect } from "react"
-import { useStyles } from "styles/geneOrIdSection"
-import { Typography, Card, Box, Grid } from "@material-ui/core"
+import { RefObject, useState, useEffect } from "react"
+import { Typography, Card, Box, Grid } from "@mui/material"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
 import { Observable } from "rxjs"
 import { programToDatabaseMock } from "../mocks/relatonalMockData"
 
+const boldTextStyle = {
+  fontSize: "14px",
+  fontWeight: "bold",
+}
+
 interface BlastDatabaseRowProperties {
-  organismElement: MutableRefObject<HTMLInputElement>
-  databaseElement: MutableRefObject<HTMLInputElement>
+  organismElement: RefObject<HTMLInputElement>
+  databaseElement: RefObject<HTMLInputElement>
   sequenceStream: Observable<string>
   programStream: Observable<string>
   organismStream: Observable<string>
@@ -21,8 +25,6 @@ const BlastDatabaseRow = ({
   organismElement,
   databaseElement,
 }: BlastDatabaseRowProperties) => {
-  const classes = useStyles()
-
   const [currentProgram, setCurrentProgram] = useState<string>(
     "Please Select a Program",
   )
@@ -76,16 +78,28 @@ const BlastDatabaseRow = ({
 
   return (
     <Grid item xs={12} md={12}>
-      <Box className={classes.titleBox}>
-        <Typography className={classes.titleBoxText}>BLAST Database</Typography>
+      <Box
+        sx={{
+          position: "relative",
+          top: 15,
+          backgroundColor: "#DFE8F6",
+          border: "1px solid",
+          borderColor: "#A3BAE9",
+          textAlign: "center",
+          maxWidth: 200,
+          marginLeft: "25px",
+        }}>
+        <Typography sx={{ color: "#336699", fontSize: "16px" }}>
+          BLAST Database
+        </Typography>
       </Box>
 
-      <Card variant="outlined" className={classes.card}>
+      <Card
+        variant="outlined"
+        sx={{ padding: "20px", backgroundColor: "#F2F2F2" }}>
         <Grid container spacing={2} justifyContent="center" alignItems="center">
           <Grid item xs={3} md={3}>
-            <Typography className={classes.boldText}>
-              Select Organism
-            </Typography>
+            <Typography sx={boldTextStyle}>Select Organism</Typography>
           </Grid>
           <Grid item xs={9} md={9}>
             <Select
@@ -107,9 +121,7 @@ const BlastDatabaseRow = ({
           </Grid>
           {/* Select Database */}
           <Grid item xs={3} md={3}>
-            <Typography className={classes.boldText}>
-              Select Database
-            </Typography>
+            <Typography sx={boldTextStyle}>Select Database</Typography>
           </Grid>
           <Grid item xs={9} md={9}>
             <Select

@@ -1,22 +1,12 @@
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
-import { makeStyles } from "tss-react/mui"
 
-const useStyles = makeStyles()(() => ({
-  confirmation: {
-    fontSize: "1.2em",
-  },
-}))
-
-const OrderHeader = ({ orderID }: { orderID: string }) => {
-  const { classes } = useStyles()
-  return (
-    <Box mt={3} mb={3}>
-      <Typography gutterBottom component="p" className={classes.confirmation}>
-        <strong>Order ID: {orderID}</strong>
-      </Typography>
-    </Box>
-  )
-}
+const OrderHeader = ({ orderID }: { orderID: string }) => (
+  <Box mt={3} mb={3}>
+    <Typography gutterBottom component="p" sx={{ fontSize: "1.2em" }}>
+      <strong>Order ID: {orderID}</strong>
+    </Typography>
+  </Box>
+)
 
 export { OrderHeader }

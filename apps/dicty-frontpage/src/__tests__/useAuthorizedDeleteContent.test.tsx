@@ -1,5 +1,5 @@
 import { test, expect, vi } from "vitest"
-import { renderHook } from "@testing-library/react-hooks"
+import { renderHook } from "@testing-library/react"
 import { MockedProvider } from "@apollo/client/testing"
 import { some, none } from "fp-ts/Option"
 import { Left } from "fp-ts/Either"

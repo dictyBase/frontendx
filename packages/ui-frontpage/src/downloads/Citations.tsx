@@ -1,18 +1,5 @@
 import { Box } from "@mui/material"
-import { makeStyles } from "tss-react/mui"
 import { Citation } from "dicty-graphql-schema"
-
-const useStyles = makeStyles()({
-  root: {
-    fontSize: "0.9em",
-  },
-  topLine: {
-    color: "#a7221e",
-  },
-  link: {
-    textDecoration: "none",
-  },
-})
 
 type Properties = {
   citations: Array<Citation>
@@ -22,31 +9,30 @@ type Properties = {
  * Displays the citation above the downloads table.
  */
 
-const Citations = ({ citations }: Properties) => {
-  const { classes } = useStyles()
-
-  return (
-    <Box className={classes.root}>
-      <h3 className={classes.topLine}>Please cite:</h3>
-      {citations.map((citation: any) => (
-        <p key={citation.title}>
-          <strong>{citation.authors}</strong>
-          {"  "}
-          {citation.title}
-          {"  "}
-          <em>{citation.journal}</em>
-          {"  "}
-          <a
-            href={`/publication/${citation.pubmed_id}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={classes.link}>
-            [Pubmed]
-          </a>
-        </p>
-      ))}
+const Citations = ({ citations }: Properties) => (
+  <Box sx={{ fontSize: "0.9em" }}>
+    <Box component="h3" sx={{ color: "#a7221e" }}>
+      Please cite:
     </Box>
-  )
-}
+    {citations.map((citation: any) => (
+      <p key={citation.title}>
+        <strong>{citation.authors}</strong>
+        {"  "}
+        {citation.title}
+        {"  "}
+        <em>{citation.journal}</em>
+        {"  "}
+        <Box
+          component="a"
+          href={`/publication/${citation.pubmed_id}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          sx={{ textDecoration: "none" }}>
+          [Pubmed]
+        </Box>
+      </p>
+    ))}
+  </Box>
+)
 
 export { Citations }

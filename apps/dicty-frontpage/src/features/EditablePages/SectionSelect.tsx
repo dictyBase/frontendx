@@ -6,7 +6,6 @@ import {
   FormControl,
   FormHelperText,
 } from "@mui/material"
-import { makeStyles } from "tss-react/mui"
 import { useFormContext } from "react-hook-form"
 import { getFormErrorMessage } from "../../common/utils/getFormErrorMessage"
 
@@ -17,13 +16,6 @@ enum Section {
   COMMUNITY = "community",
 }
 
-const useStyles = makeStyles()({
-  formControl: {
-    minWidth: "12rem",
-    width: "min-content",
-  },
-})
-
 const renderValue = (section: unknown) =>
   match(section as Section)
     .with(Section.EXPLORE, () => "Explore")
@@ -32,9 +24,6 @@ const renderValue = (section: unknown) =>
     .otherwise(() => "")
 
 const SectionSelect = () => {
-  const {
-    classes: { formControl },
-  } = useStyles()
   const { register, getFieldState } = useFormContext()
   const { invalid, error } = getFieldState("section")
   return (
@@ -42,7 +31,7 @@ const SectionSelect = () => {
       fullWidth
       variant="outlined"
       error={invalid}
-      className={formControl}>
+      sx={{ minWidth: "12rem", width: "min-content" }}>
       <InputLabel id="section-select-label"> * Section </InputLabel>
       <Select
         id="section-select"

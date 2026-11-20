@@ -1,30 +1,20 @@
-import { makeStyles } from "tss-react/mui"
+import { type Theme } from "@mui/material"
 
-export const footerStyles = makeStyles()((theme) => ({
-  footer: {
+export const footerStyles = {
+  footer: (theme: Theme) => ({
     backgroundColor: theme.palette.primary.main,
     fontFamily: `${theme.typography.fontFamily}!important`,
     color: "rgb(216, 216, 216)!important",
-  },
+  }),
   header: {
     fontSize: "1.2rem",
     color: "rgb(235, 233, 122)!important",
   },
-  // link: {
-  //   color: "rgb(216, 216, 216)",
-  //   "& a": {
-  //     color: "rgb(216, 216, 216)",
-  //     textDecoration: "none",
-  //     "&:hover": {
-  //       textDecoration: "underline",
-  //     },
-  //   },
-  // },
-  support: {
+  support: (theme: Theme) => ({
     [theme.breakpoints.down("md")]: {
       justifyContent: "center",
     },
-  },
+  }),
   separator: {
     "&::after": {
       content: "'•'",
@@ -37,4 +27,4 @@ export const footerStyles = makeStyles()((theme) => ({
       },
     },
   },
-}))
+}

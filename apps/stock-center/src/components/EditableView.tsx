@@ -1,5 +1,5 @@
-import { Button } from "@material-ui/core"
-import PersonIcon from "@material-ui/icons/Person"
+import { Button } from "@mui/material"
+import PersonIcon from "@mui/icons-material/Person"
 import { useNavigate } from "react-router-dom"
 import { type ContentBySlugQuery } from "dicty-graphql-schema"
 import { Editor } from "@dictybase/editor"

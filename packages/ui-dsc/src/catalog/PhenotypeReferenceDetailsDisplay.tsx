@@ -5,26 +5,12 @@ import {
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
-import { makeStyles } from "tss-react/mui"
 import { grey, green } from "@mui/material/colors"
 import { Container, Grid, Typography } from "@mui/material"
 import { Publication, PublicationQuery } from "dicty-graphql-schema"
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline"
 import OpenInNewIcon from "@mui/icons-material/OpenInNew"
 import { getYearFromTimestamp } from "../utils/getYearFromTimeStamp"
-
-const useStyles = makeStyles()({
-  root: {
-    backgroundColor: green[50],
-    borderRadius: "0.5rem",
-    paddingTop: "0.5rem",
-    paddingBottom: "0.5rem",
-  },
-  authors: {
-    color: grey[800],
-    fontWeight: 600,
-  },
-})
 
 // get author last names, replace last element with "&"
 // example return: "Samereier, Baumann, Meyer & Gräf (2010)"
@@ -68,42 +54,45 @@ type PublicationDisplayProperties = {
  */
 const PhenotypeReferenceDetailsDisplay = ({
   publication,
-}: PublicationDisplayProperties) => {
-  const { classes } = useStyles()
-  return (
-    <Container className={classes.root}>
-      <Grid container spacing={1} alignItems="flex-start" wrap="nowrap">
-        <Grid item>
-          <CheckCircleOutlineIcon />
-        </Grid>
-        <Grid item>
-          <Typography
-            variant="body2"
-            component="span"
-            className={classes.authors}>
-            {listAuthors(publication.authors)}{" "}
-            {pipe(
-              publication.pub_date,
-              OfromNullable,
-              Omap(getYearFromTimestamp),
-              Omap((year) => Smonoid.concat(`(${year})`, " ")),
-              OgetOrElse(() => ""),
-            )}
-          </Typography>
-          {`'${publication.title}'`} <em>{publication.journal}</em>{" "}
-          {getJournalInfo(
-            publication?.volume as string,
-            publication?.pages as string,
-          )}
-          <a
-            href={getPubLink(publication.id, publication?.doi as string)}
-            title="Visit publication page">
-            <OpenInNewIcon fontSize="small" />
-          </a>
-        </Grid>
+}: PublicationDisplayProperties) => (
+  <Container
+    sx={{
+      backgroundColor: green[50],
+      borderRadius: "0.5rem",
+      paddingTop: "0.5rem",
+      paddingBottom: "0.5rem",
+    }}>
+    <Grid container spacing={1} alignItems="flex-start" wrap="nowrap">
+      <Grid item>
+        <CheckCircleOutlineIcon />
       </Grid>
-    </Container>
-  )
-}
+      <Grid item>
+        <Typography
+          variant="body2"
+          component="span"
+          sx={{ color: grey[800], fontWeight: 600 }}>
+          {listAuthors(publication.authors)}{" "}
+          {pipe(
+            publication.pub_date,
+            OfromNullable,
+            Omap(getYearFromTimestamp),
+            Omap((year) => Smonoid.concat(`(${year})`, " ")),
+            OgetOrElse(() => ""),
+          )}
+        </Typography>
+        {`'${publication.title}'`} <em>{publication.journal}</em>{" "}
+        {getJournalInfo(
+          publication?.volume as string,
+          publication?.pages as string,
+        )}
+        <a
+          href={getPubLink(publication.id, publication?.doi as string)}
+          title="Visit publication page">
+          <OpenInNewIcon fontSize="small" />
+        </a>
+      </Grid>
+    </Grid>
+  </Container>
+)
 
 export { PhenotypeReferenceDetailsDisplay }

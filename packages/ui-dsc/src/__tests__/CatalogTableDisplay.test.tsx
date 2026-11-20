@@ -1,4 +1,4 @@
-import { vi, describe, test, expect } from "vitest"
+import { describe, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
 import { MemoryRouter, Routes, Route } from "react-router-dom"
@@ -10,22 +10,10 @@ import {
   cellFunction,
   CatalogRows,
   CatalogTableHeader,
+  StrainCatalogTableDisplay,
   PlasmidCatalogTableDisplay,
 } from "../catalog/CatalogTableDisplay"
 import { mockPlasmids } from "../mocks/mockPlasmids"
-
-vi.mock("@mui/material/styles", async () => {
-  const originalModule = (await vi.importActual(
-    "@mui/material/styles",
-  )) as typeof import("@mui/material/styles")
-  return {
-    ...originalModule,
-    // eslint-disable-next-line unicorn/consistent-function-scoping
-    makeStyles: () => () => ({
-      row: {},
-    }),
-  }
-})
 
 describe("abbreviateStringToLength", () => {
   const testInputString = "This string has length 25"
@@ -156,6 +144,34 @@ describe("CatalogTableHeader", () => {
       screen.getByRole("cell", { name: "Strain Summary" }),
     ).toBeInTheDocument()
     expect(screen.getByRole("cell", { name: "Strain ID" })).toBeInTheDocument()
+  })
+})
+
+describe("StrainCatalogTableDisplay", () => {
+  const mockStrainData = {
+    listStrains: {
+      strains: [
+        {
+          id: "DBS0351792",
+          label: "sadA",
+          summary: "sadA mutant",
+          in_stock: true,
+        },
+      ],
+      nextCursor: 0,
+    },
+  }
+  test("properly displays row with label of strain", () => {
+    render(
+      <MemoryRouter>
+        <StrainCatalogTableDisplay
+          data={mockStrainData}
+          dataField="listStrains"
+          target={{} as RefObject<HTMLTableRowElement>}
+        />
+      </MemoryRouter>,
+    )
+    expect(screen.getByText("sadA")).toBeInTheDocument()
   })
 })
 

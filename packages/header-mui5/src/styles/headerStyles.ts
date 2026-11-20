@@ -1,6 +1,4 @@
-import { makeStyles } from "tss-react/mui"
-
-const headerStyles = makeStyles()({
+const headerStyles = {
   header: {
     display: "flex",
     gap: 2,
@@ -50,6 +48,6 @@ const headerStyles = makeStyles()({
     flexDirection: "row",
     gap: 2,
   },
-})
+}
 
 export { headerStyles }

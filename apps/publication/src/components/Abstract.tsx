@@ -1,21 +1,9 @@
 import React from "react"
-import { Box, Typography, Divider, makeStyles } from "@material-ui/core"
+import { Box, Typography, Divider } from "@mui/material"
 import { pipe } from "fp-ts/function"
 import { isEmpty as SisEmpty } from "fp-ts/string"
 import { match as Bmatch } from "fp-ts/boolean"
 import { parseFormattedStringToDomElements } from "@dictybase/ui-common"
-
-const useStyles = makeStyles((theme) => ({
-  title: {
-    fontFamily: "'Playfair Display Variable', serif",
-    marginBottom: theme.spacing(0.5),
-  },
-  body: {
-    lineHeight: 1.5,
-    fontFamily: "'Inter Tight Variable', sans-serif",
-    fontSize: "14pt",
-  },
-}))
 
 type Properties = {
   abstract: string
@@ -24,20 +12,30 @@ type Properties = {
 /**
  * Displays the abstract of the publication.
  */
-const Abstract = ({ abstract }: Properties) => {
-  const classes = useStyles()
-  return pipe(
+const Abstract = ({ abstract }: Properties) =>
+  pipe(
     abstract,
     SisEmpty,
     Bmatch(
       () =>
         pipe(
           <>
-            <Typography variant="h2" className={classes.title}>
+            <Typography
+              variant="h2"
+              sx={{
+                fontFamily: "'Playfair Display Variable', serif",
+                marginBottom: 0.5,
+              }}>
               Abstract
             </Typography>
             <Divider />
-            <Box pt={2} className={classes.body}>
+            <Box
+              pt={2}
+              sx={{
+                lineHeight: 1.5,
+                fontFamily: "'Inter Tight Variable', sans-serif",
+                fontSize: "14pt",
+              }}>
               {parseFormattedStringToDomElements(abstract)}
             </Box>
           </>,
@@ -46,6 +44,5 @@ const Abstract = ({ abstract }: Properties) => {
     ),
     (inner) => <Box pt={2}>{inner}</Box>,
   )
-}
 
 export { Abstract }

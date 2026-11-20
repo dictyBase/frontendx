@@ -1,16 +1,8 @@
 import { MouseEventHandler } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { Chip, makeStyles } from "@material-ui/core"
-import { grey } from "@material-ui/core/colors"
+import { Chip } from "@mui/material"
+import { grey } from "@mui/material/colors"
 
-const useStyles = makeStyles({
-  root: {
-    margin: "0px 5px 5px 0px",
-    "&:hover": {
-      boxShadow: `1px 1px 2px ${grey[500]}`,
-    },
-  },
-})
 type SeeAllGenesChipProperties = {
   publicationId: string
   geneCount: number
@@ -27,7 +19,6 @@ const SeeAllGenesChip = ({
     event.stopPropagation()
     navigate(`/${geneId}/references/${publicationId}`)
   }
-  const classes = useStyles()
   return (
     <Chip
       clickable
@@ -36,7 +27,12 @@ const SeeAllGenesChip = ({
       color="secondary"
       label={`See all ${geneCount}`}
       onClick={handleClick}
-      className={classes.root}
+      sx={{
+        margin: "0px 5px 5px 0px",
+        "&:hover": {
+          boxShadow: `1px 1px 2px ${grey[500]}`,
+        },
+      }}
     />
   )
 }

@@ -1,13 +1,12 @@
 import { match } from "ts-pattern"
 import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
-import { makeStyles } from "@material-ui/core/styles"
-import Grid from "@material-ui/core/Grid"
-import List from "@material-ui/core/List"
-import Card from "@material-ui/core/Card"
-import Divider from "@material-ui/core/Divider"
-import CardActions from "@material-ui/core/CardActions"
-import { grey } from "@material-ui/core/colors"
+import Grid from "@mui/material/Grid"
+import List from "@mui/material/List"
+import Card from "@mui/material/Card"
+import Divider from "@mui/material/Divider"
+import CardActions from "@mui/material/CardActions"
+import { grey } from "@mui/material/colors"
 import {
   ContinueShoppingCard,
   CartItem,
@@ -39,20 +38,6 @@ type SplitAtomAction<Item> =
       atom: PrimitiveAtom<Item>
       before?: PrimitiveAtom<Item>
     }
-
-const useStyles = makeStyles((theme) => ({
-  list: {
-    paddingTop: "0px",
-  },
-  divider: {
-    marginBottom: theme.spacing(2),
-  },
-  card: {
-    padding: theme.spacing(2),
-    marginTop: theme.spacing(2),
-    backgroundColor: grey[100],
-  },
-}))
 
 type StrainCartItemFromAtomProperties = {
   strainCartItemAtom: PrimitiveAtom<StrainCartItem>
@@ -107,17 +92,20 @@ const renderTotalRows = (cart: Cart) => (
   </>
 )
 
+const listStyle = {
+  paddingTop: "0px",
+}
+
 const CartList = () => {
   const [strainItemAtoms, dispatchS] = useAtom(strainItemAtomsAtom)
   const [plasmidItemAtoms, dispatchP] = useAtom(plasmidItemAtomsAtom)
   const cart = useAtomValue(cartAtom)
   const isFull = useAtomValue(isFullAtom)
-  const classes = useStyles()
 
   return (
     <Grid container spacing={2}>
       <Grid item xs={9}>
-        <List className={classes.list}>
+        <List sx={listStyle}>
           {pipe(
             strainItemAtoms,
             Amap((strainItemAtom) => (
@@ -128,7 +116,7 @@ const CartList = () => {
             )),
           )}
         </List>
-        <List className={classes.list}>
+        <List sx={listStyle}>
           {pipe(
             plasmidItemAtoms,
             Amap((plasmidItemAtom) => (
@@ -141,9 +129,14 @@ const CartList = () => {
         </List>
       </Grid>
       <Grid item xs={3}>
-        <Card className={classes.card}>
+        <Card
+          sx={{
+            padding: 2,
+            marginTop: 2,
+            backgroundColor: grey[100],
+          }}>
           {renderTotalRows(cart)}
-          <Divider className={classes.divider} />
+          <Divider sx={{ marginBottom: 2 }} />
           <CardActions>
             <CheckoutButton />
           </CardActions>

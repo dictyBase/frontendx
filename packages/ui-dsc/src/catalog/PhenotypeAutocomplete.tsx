@@ -69,7 +69,7 @@ const PhenotypeAutocomplete = () => {
           label="* Phenotype"
           variant="outlined"
           error={!!errors["phenotype"]}
-          helperText={errors["phenotype"]?.message || ""}
+          helperText={(errors["phenotype"]?.message as string) || ""}
           onChange={handleTextFieldChange}
           InputProps={{
             ...parameters.InputProps,

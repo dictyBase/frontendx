@@ -16,8 +16,8 @@
   },
   "devDependencies": {
     "@dictybase/oxlint-config": "*",
-    "@types/react": "17.*",
-    "@types/react-dom": "17.*",
+    "@types/react": "19.*",
+    "@types/react-dom": "19.*",
     "@vitest/coverage-v8": "4.x",
     "eslint-config-custom": "*",
     "tsconfig": "*",
@@ -29,7 +29,7 @@
     "@mui/icons-material": "5.*",
     "@mui/material": "5.*",
     "jotai": "2.16.0",
-    "react": "17.*"
+    "react": "19.*"
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",

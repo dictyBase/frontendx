@@ -24,7 +24,6 @@ import { fees } from "../fees"
 import { StrainDetailsCardHeader } from "./StrainDetailsCardHeader"
 import { DetailsListItem } from "./DetailsListItem"
 import { EditableStrainPhenotypeList } from "./EditableStrainPhenotypeList"
-import { useStyles } from "./styles"
 import { TabPanel } from "./TabPanel"
 import { GenesDisplay } from "./GenesDisplay"
 import { PublicationDisplay } from "./PublicationDisplay"
@@ -35,11 +34,11 @@ import { DetailsRow } from "../types"
 
 const strainRowsGenerator = (
   data: StrainQuery["strain"],
-  parent: string | JSX.Element,
+  parent: string | React.ReactElement,
   depositor: string,
   publications: Publication[],
-  genes: JSX.Element,
-  genotypes: JSX.Element,
+  genes: React.ReactElement,
+  genotypes: React.ReactElement,
 ) => [
   {
     id: 0,
@@ -122,8 +121,6 @@ const EditableStrainDetailsCard = ({
   tabValue,
   setTabValue,
 }: Properties) => {
-  const { classes } = useStyles()
-
   const handleChange = (_: React.ChangeEvent<{}>, newValue: number) => {
     setTabValue(newValue)
   }
@@ -185,12 +182,14 @@ const EditableStrainDetailsCard = ({
         ))}
       <Card raised>
         <Grid container>
-          <List className={classes.list}>
+          <List sx={{ width: "100%", padding: "0px !important" }}>
             {match(numberPhenotypes)
               .with(
                 P.when((c) => c < 1),
                 () => (
-                  <ListItem divider className={classes.cardHeader}>
+                  <ListItem
+                    divider
+                    sx={{ color: "#002f5e", paddingRight: "8px" }}>
                     {header}
                   </ListItem>
                 ),

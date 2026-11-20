@@ -1,17 +1,7 @@
 import { FunctionComponent } from "react"
 import { useFormContext, Controller } from "react-hook-form"
 import { Grid, TextField as MuiTextField } from "@mui/material"
-import { makeStyles } from "tss-react/mui"
 import { getPostalCodeWarning } from "../utils/getPostalCodeWarning"
-
-const useStyles = makeStyles()({
-  textField: {
-    flexGrow: 1,
-  },
-  select: {
-    marginTop: "8px",
-  },
-})
 
 const PostalCodeInput: FunctionComponent<{
   name: string
@@ -22,8 +12,7 @@ const PostalCodeInput: FunctionComponent<{
     getValues,
     setValue,
     formState: { errors },
-  } = useFormContext()
-  const { classes } = useStyles()
+  } = useFormContext<Record<string, string>>()
   const onBlur = () => {
     const postalCode: string = getValues(name)
     const country = getValues("country")
@@ -35,7 +24,7 @@ const PostalCodeInput: FunctionComponent<{
   }
   return (
     <Grid container>
-      <Grid item className={classes.textField}>
+      <Grid item sx={{ flexGrow: 1 }}>
         <Controller
           name={name}
           control={control}

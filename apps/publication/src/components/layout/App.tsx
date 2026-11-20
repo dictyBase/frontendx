@@ -1,6 +1,5 @@
-import { FunctionComponent } from "react"
-import { Box } from "@material-ui/core"
-import { makeStyles, Theme } from "@material-ui/core/styles"
+import { type ReactNode } from "react"
+import { Box, type Theme } from "@mui/material"
 import {
   HeaderWithAuth,
   NavbarWithAuth,
@@ -9,44 +8,38 @@ import {
 import "@fontsource-variable/playfair-display"
 import "@fontsource-variable/inter-tight"
 
-const useStyles = makeStyles((theme: Theme) => ({
-  body: {
-    fontSize: "16px",
-    color: "#333",
-    backgroundColor: "#fff",
-    "& h1, h2, h3, h4, h5, h6": {
-      fontWeight: 500,
-      lineHeight: 1.1,
-    },
-    "& h4, h5, h6": {
-      marginTop: theme.spacing(1.2),
-      marginBottom: theme.spacing(1.2),
-    },
-  },
-}))
-
 /**
  * App is responsible for the main layout of the entire application.
  */
-const App: FunctionComponent = ({ children }) => {
-  const classes = useStyles()
-  return (
-    <Box className={classes.body}>
-      <HeaderWithAuth
-        frontPageUrl={import.meta.env.VITE_FRONTPAGE_URL}
-        basename={import.meta.env.VITE_BASENAME}
-      />
-      <NavbarWithAuth
-        frontPageUrl={import.meta.env.VITE_FRONTPAGE_URL}
-        stockCenterUrl={import.meta.env.VITE_STOCKCENTER_URL}
-      />
-      <main>{children}</main>
-      <FooterWithAuth
-        frontPageUrl={import.meta.env.VITE_FRONTPAGE_URL}
-        stockCenterUrl={import.meta.env.VITE_STOCKCENTER_URL}
-      />
-    </Box>
-  )
-}
+const App = ({ children }: { children: ReactNode }) => (
+  <Box
+    sx={(theme: Theme) => ({
+      fontSize: "16px",
+      color: "#333",
+      backgroundColor: "#fff",
+      "& h1, h2, h3, h4, h5, h6": {
+        fontWeight: 500,
+        lineHeight: 1.1,
+      },
+      "& h4, h5, h6": {
+        marginTop: theme.spacing(1.2),
+        marginBottom: theme.spacing(1.2),
+      },
+    })}>
+    <HeaderWithAuth
+      frontPageUrl={import.meta.env.VITE_FRONTPAGE_URL}
+      basename={import.meta.env.VITE_BASENAME}
+    />
+    <NavbarWithAuth
+      frontPageUrl={import.meta.env.VITE_FRONTPAGE_URL}
+      stockCenterUrl={import.meta.env.VITE_STOCKCENTER_URL}
+    />
+    <main>{children}</main>
+    <FooterWithAuth
+      frontPageUrl={import.meta.env.VITE_FRONTPAGE_URL}
+      stockCenterUrl={import.meta.env.VITE_STOCKCENTER_URL}
+    />
+  </Box>
+)
 
 export { App }

@@ -4,52 +4,11 @@ import {
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
-import { makeStyles } from "tss-react/mui"
 import FormControl from "@mui/material/FormControl"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
 import MenuItem from "@mui/material/MenuItem"
 import { deepPurple } from "@mui/material/colors"
 import { useSearchParams } from "react-router-dom"
-
-const useStyles = makeStyles()({
-  root: {
-    minWidth: 200,
-    background: "white",
-    color: deepPurple[500],
-    fontWeight: 200,
-    borderStyle: "none",
-    boxShadow: "0px 5px 8px -3px rgba(0,0,0,0.14)",
-    "&:focus": {
-      borderRadius: 12,
-      background: "white",
-      borderColor: deepPurple[100],
-    },
-  },
-  paper: {
-    borderRadius: 12,
-    marginTop: 8,
-  },
-  list: {
-    paddingTop: 0,
-    paddingBottom: 0,
-    background: "white",
-    "& li": {
-      fontWeight: 200,
-      paddingTop: 12,
-      paddingBottom: 12,
-    },
-    "& li:hover": {
-      background: deepPurple[100],
-    },
-    "& li.Mui-selected": {
-      color: "white",
-      background: deepPurple[400],
-    },
-    "& li.Mui-selected:hover": {
-      background: deepPurple[500],
-    },
-  },
-})
 
 /**
  * The props for {@link FilterDropdown}
@@ -69,7 +28,6 @@ export const FilterDropdown = ({
   value,
   options,
 }: FilterDropdownProperties) => {
-  const { classes } = useStyles()
   const [searchParameters, setSearchParameters] = useSearchParams()
   const filterValue = pipe(
     searchParameters.get(param),
@@ -103,9 +61,48 @@ export const FilterDropdown = ({
   return (
     <FormControl fullWidth variant="outlined">
       <Select
-        className={classes.root}
+        sx={{
+          minWidth: "200px",
+          background: "white",
+          color: deepPurple[500],
+          fontWeight: 200,
+          borderStyle: "none",
+          boxShadow: "0px 5px 8px -3px rgba(0,0,0,0.14)",
+          "&:focus": {
+            borderRadius: "12px",
+            background: "white",
+            borderColor: deepPurple[100],
+          },
+        }}
         MenuProps={{
-          classes: { paper: classes.paper, list: classes.list },
+          PaperProps: {
+            sx: {
+              borderRadius: "12px",
+              marginTop: "8px",
+            },
+          },
+          MenuListProps: {
+            sx: {
+              paddingTop: 0,
+              paddingBottom: 0,
+              background: "white",
+              "& li": {
+                fontWeight: 200,
+                paddingTop: "12px",
+                paddingBottom: "12px",
+              },
+              "& li:hover": {
+                background: deepPurple[100],
+              },
+              "& li.Mui-selected": {
+                color: "white",
+                background: deepPurple[400],
+              },
+              "& li.Mui-selected:hover": {
+                background: deepPurple[500],
+              },
+            },
+          },
         }}
         onChange={handleChange}
         value={filterValue}>

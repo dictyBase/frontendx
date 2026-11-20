@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom"
+import { createRoot } from "react-dom/client"
 import "fontsource-roboto"
 import "./common/utils/polyfills"
 import "./common/utils/icons" // fontawesome library
@@ -11,7 +11,10 @@ const main = async () => {
     await worker.start()
   }
 
-  ReactDOM.render(<App />, document.querySelector("#root"))
+  const container = document.querySelector("#root")
+  if (!container) throw new Error("Failed to find the root element")
+  const root = createRoot(container)
+  root.render(<App />)
 }
 
 main()

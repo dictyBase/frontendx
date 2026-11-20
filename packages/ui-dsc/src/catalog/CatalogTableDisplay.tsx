@@ -1,4 +1,4 @@
-import { RefObject } from "react"
+import { RefObject, type ReactElement } from "react"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
@@ -11,7 +11,6 @@ import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import { map as Amap } from "fp-ts/Array"
 import { styled } from "@mui/material/styles"
-import { makeStyles } from "tss-react/mui"
 import { compose, borders, typography } from "@mui/system"
 import { indigo } from "@mui/material/colors"
 import { AddToCartButtonHandler } from "stock-center/src/components/AddToCartButtonHandler"
@@ -23,26 +22,24 @@ import { getCatalogItemPathAndDescriptor } from "../utils/getCatalogItemPathAndD
 import { abbreviateStringToLength } from "../utils/abbreviateStringToLength"
 import { formatFormattedString } from "../utils/formatFormattedString"
 
-const useStyles = makeStyles()({
-  listHeaders: {
-    borderBottom: `2px solid ${indigo[700]}`,
-    backgroundColor: "#f6f9fc",
-    color: "#525f7f",
-    fontWeight: 600,
-    "@media (max-width: 1024px)": {
-      fontSize: "0.85rem",
+const listHeadersStyle = {
+  borderBottom: `2px solid ${indigo[700]}`,
+  backgroundColor: "#f6f9fc",
+  color: "#525f7f",
+  fontWeight: 600,
+  "@media (max-width: 1024px)": {
+    fontSize: "0.85rem",
+  },
+}
+
+const rowStyle = {
+  borderBottom: "1px solid rgba(224, 224, 224, 1)",
+  "@media (max-width: 1024px)": {
+    "& p": {
+      fontSize: "0.75rem !important",
     },
   },
-  root: { overflowX: "initial" },
-  row: {
-    borderBottom: "1px solid rgba(224, 224, 224, 1)",
-    "@media (max-width: 1024px)": {
-      "& p": {
-        fontSize: "0.75rem !important",
-      },
-    },
-  },
-})
+}
 const StyledTableCell = styled(TableCell)(compose(borders, typography))
 const tableHeaders = ["Strain Descriptor", "Strain Summary", "Strain ID", ""]
 
@@ -74,18 +71,15 @@ interface CatalogTableHeaderProperties {
 
 const CatalogTableHeader = ({
   headers = tableHeaders,
-}: CatalogTableHeaderProperties) => {
-  const { classes } = useStyles()
-  return (
-    <TableRow>
-      {headers.map((h: string) => (
-        <TableCell className={classes.listHeaders} key={uuid4()}>
-          <Typography variant="subtitle1">{h}</Typography>
-        </TableCell>
-      ))}
-    </TableRow>
-  )
-}
+}: CatalogTableHeaderProperties) => (
+  <TableRow>
+    {headers.map((h: string) => (
+      <TableCell sx={listHeadersStyle} key={uuid4()}>
+        <Typography variant="subtitle1">{h}</Typography>
+      </TableCell>
+    ))}
+  </TableRow>
+)
 
 const cellFunction = (item: cellFunctionItem) => {
   const { itemPath, itemDescriptor } = getCatalogItemPathAndDescriptor(item)
@@ -118,37 +112,31 @@ const CatalogRows = ({
   items,
   nextCursor,
   targetReference,
-}: CatalogRowFunctionProperties<HTMLTableRowElement>) => {
-  const { classes } = useStyles()
-  return (
-    <>
-      {pipe(
-        items,
-        Amap((item) => (
-          <TableRow hover className={classes.row} key={item.id}>
-            {cellFunction(item)}
+}: CatalogRowFunctionProperties<HTMLTableRowElement>) => (
+  <>
+    {pipe(
+      items,
+      Amap((item) => (
+        <TableRow hover sx={rowStyle} key={item.id}>
+          {cellFunction(item)}
+        </TableRow>
+      )),
+    )}
+    {pipe(
+      nextCursor === 0,
+      Bmatch(
+        () => (
+          <TableRow sx={rowStyle} key="linear-progess" ref={targetReference}>
+            <TableCell colSpan={4}>
+              <LinearProgress />
+            </TableCell>
           </TableRow>
-        )),
-      )}
-      {pipe(
-        nextCursor === 0,
-        Bmatch(
-          () => (
-            <TableRow
-              className={classes.row}
-              key="linear-progess"
-              ref={targetReference}>
-              <TableCell colSpan={4}>
-                <LinearProgress />
-              </TableCell>
-            </TableRow>
-          ),
-          () => <></>,
         ),
-      )}
-    </>
-  )
-}
+        () => <></>,
+      ),
+    )}
+  </>
+)
 
 /**
  * Displays data in tablular format in which the target DOM element is attached
@@ -158,11 +146,10 @@ const StrainCatalogTableDisplay = ({
   data,
   dataField,
   target: targetReference,
-}: CatalogListProperties<HTMLTableRowElement>): JSX.Element => {
-  const { classes } = useStyles()
+}: CatalogListProperties<HTMLTableRowElement>): ReactElement => {
   const { strains, nextCursor } = data[dataField]
   return (
-    <TableContainer className={classes.root}>
+    <TableContainer sx={{ overflowX: "initial" }}>
       <Table stickyHeader>
         <TableHead>
           <CatalogTableHeader />
@@ -183,11 +170,10 @@ const PlasmidCatalogTableDisplay = ({
   data,
   dataField,
   target: targetReference,
-}: CatalogListProperties<HTMLTableRowElement>): JSX.Element => {
-  const { classes } = useStyles()
+}: CatalogListProperties<HTMLTableRowElement>): ReactElement => {
   const { plasmids, nextCursor } = data[dataField]
   return (
-    <TableContainer className={classes.root}>
+    <TableContainer sx={{ overflowX: "initial" }}>
       <Table stickyHeader>
         <TableHead>
           <CatalogTableHeader

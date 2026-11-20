@@ -1,30 +1,21 @@
 import Typography from "@mui/material/Typography"
-import { type Theme } from "@mui/material/styles"
-import { makeStyles } from "tss-react/mui"
 import { grey } from "@mui/material/colors"
 
-const useStyles = makeStyles()((theme: Theme) => ({
-  waiver: {
-    backgroundColor: grey[200],
-    border: "1px solid #e6f2ff",
-    borderRadius: theme.spacing(1),
-    margin: theme.spacing(2),
-    padding: theme.spacing(3),
-  },
-}))
-
-const WaiverRequestInformation = () => {
-  const { classes } = useStyles()
-
-  return (
-    <Typography className={classes.waiver}>
-      Please send an email to{" "}
-      <a href="mailto:dictystocks@northwestern.edu" target="_top">
-        dictystocks@northwestern.edu
-      </a>{" "}
-      describing why you need a waiver.
-    </Typography>
-  )
-}
+const WaiverRequestInformation = () => (
+  <Typography
+    sx={{
+      backgroundColor: grey[200],
+      border: "1px solid #e6f2ff",
+      borderRadius: 1,
+      margin: 2,
+      padding: 3,
+    }}>
+    Please send an email to{" "}
+    <a href="mailto:dictystocks@northwestern.edu" target="_top">
+      dictystocks@northwestern.edu
+    </a>{" "}
+    describing why you need a waiver.
+  </Typography>
+)
 
 export { WaiverRequestInformation }

@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom"
-import { makeStyles } from "tss-react/mui"
 import { grey } from "@mui/material/colors"
 import Grid from "@mui/material/Grid"
 import Card from "@mui/material/Card"
@@ -13,23 +12,6 @@ import type { CatalogCartItem } from "../types"
 import { getCatalogItemPathAndDescriptor } from "../utils/getCatalogItemPathAndDescriptor"
 import { toCurrencyString } from "../utils/toCurrencyString"
 
-const useStyles = makeStyles()((theme) => ({
-  avatar: {
-    background: theme.palette.secondary.dark,
-  },
-  container: {
-    minHeight: "170px",
-    borderRadius: "0px",
-    border: `1px solid ${grey[200]}`,
-  },
-  fee: {
-    color: theme.palette.error.main,
-    fontSize: "1.5rem",
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
-  },
-}))
-
 type ShoppingCartItemProperties = {
   /** Individual cart item with given quantity */
   item: CatalogCartItem
@@ -41,13 +23,19 @@ type ShoppingCartItemProperties = {
  * ShoppingCartItem is an individual item displayed in ShoppingCartList.
  */
 const CartItem = ({ item, deleteItem }: ShoppingCartItemProperties) => {
-  const { classes } = useStyles()
   const { itemPath, itemDescriptor } = getCatalogItemPathAndDescriptor(item)
   return (
-    <Card className={classes.container}>
+    <Card
+      sx={{
+        minHeight: "170px",
+        borderRadius: "0px",
+        border: `1px solid ${grey[200]}`,
+      }}>
       <CardHeader
         avatar={
-          <Avatar aria-label="stock" className={classes.avatar}>
+          <Avatar
+            aria-label="stock"
+            sx={{ background: (theme) => theme.palette.secondary.dark }}>
             {itemPath === "strains" ? "S" : "P"}
           </Avatar>
         }
@@ -76,7 +64,12 @@ const CartItem = ({ item, deleteItem }: ShoppingCartItemProperties) => {
             <Typography
               variant="h3"
               noWrap
-              className={classes.fee}
+              sx={{
+                color: "error.main",
+                fontSize: "1.5rem",
+                paddingTop: 2,
+                paddingBottom: 2,
+              }}
               data-testid="fee">
               {toCurrencyString(item.fee)}
             </Typography>

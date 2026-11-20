@@ -1,6 +1,6 @@
 import React from "react"
-import { makeStyles, Grid, Chip, Box } from "@material-ui/core"
-import { blueGrey, lightBlue } from "@material-ui/core/colors"
+import { Grid, Box, Chip } from "@mui/material"
+import { blueGrey, lightBlue } from "@mui/material/colors"
 import { pipe } from "fp-ts/function"
 import { map as Amap, compact as Acompact } from "fp-ts/Array"
 import { fromNullable as OfromNullable } from "fp-ts/Option"
@@ -10,38 +10,32 @@ interface AuthorsProperties {
   authors: Maybe<Author>[]
 }
 
-const useStyles = makeStyles({
-  chip: {
-    color: blueGrey[800],
-    border: `1px solid ${blueGrey[100]}`,
-    backgroundColor: lightBlue[50],
-  },
-})
 /**
  * Authors displays an inline list of the authors of the publication.
  */
-const Authors = ({ authors }: AuthorsProperties) => {
-  const classes = useStyles()
-  return (
-    <Box mb={1}>
-      <Grid container spacing={1}>
-        {pipe(
-          authors,
-          Amap(OfromNullable),
-          Acompact,
-          Amap(({ initials, last_name }) => (
-            <Grid key={`${initials}-${last_name}`} item>
-              <Chip
-                size="medium"
-                label={`${initials} ${last_name}`}
-                className={classes.chip}
-              />
-            </Grid>
-          )),
-        )}
-      </Grid>
-    </Box>
-  )
-}
+const Authors = ({ authors }: AuthorsProperties) => (
+  <Box mb={1}>
+    <Grid container spacing={1}>
+      {pipe(
+        authors,
+        Amap(OfromNullable),
+        Acompact,
+        Amap(({ initials, last_name }) => (
+          <Grid key={`${initials}-${last_name}`} item>
+            <Chip
+              size="medium"
+              label={`${initials} ${last_name}`}
+              sx={{
+                color: blueGrey[800],
+                border: `1px solid ${blueGrey[100]}`,
+                backgroundColor: lightBlue[50],
+              }}
+            />
+          </Grid>
+        )),
+      )}
+    </Grid>
+  </Box>
+)
 
 export { Authors }

@@ -5,7 +5,7 @@ import { useSetAtom } from "jotai"
 import { tableActionMenuOpenAtom } from "./atomConfigs"
 
 type TableActionMenuButtonProperties = {
-  menuButtonReference: React.RefObject<HTMLButtonElement>
+  menuButtonReference: React.RefObject<HTMLButtonElement | null>
 }
 
 const TableActionMenuButton = ({

@@ -1,9 +1,9 @@
 import { useState, type ChangeEvent } from "react"
 import { useForm, FormProvider } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
-import Grid from "@material-ui/core/Grid"
-import Checkbox from "@material-ui/core/Checkbox"
-import FormControlLabel from "@material-ui/core/FormControlLabel"
+import Grid from "@mui/material/Grid"
+import Checkbox from "@mui/material/Checkbox"
+import FormControlLabel from "@mui/material/FormControlLabel"
 import { object, string, InferType } from "yup"
 import {
   PaymentMethod,

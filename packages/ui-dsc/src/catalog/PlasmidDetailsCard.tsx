@@ -1,3 +1,4 @@
+import { type ReactElement } from "react"
 import { pipe } from "fp-ts/function"
 import { isEmpty as SisEmpty } from "fp-ts/string"
 import {
@@ -19,7 +20,6 @@ import { hasUsableName } from "../utils/hasUsableName"
 import { fees } from "../fees"
 import { PlasmidDetailsCardHeader } from "./PlasmidDetailsCardHeader"
 import { DetailsListItem } from "./DetailsListItem"
-import { useStyles } from "./styles"
 import { GenesDisplay } from "./GenesDisplay"
 import { PublicationDisplay } from "./PublicationDisplay"
 import { PlasmidSequenceDisplay } from "./PlasmidSequenceDisplay"
@@ -79,7 +79,7 @@ const plasmidRowsGenerator = ({
       Omap(
         Amap((item) => <PublicationDisplay publication={item} key={item.id} />),
       ),
-      OgetOrElse(() => [] as Array<JSX.Element>),
+      OgetOrElse(() => [] as Array<ReactElement>),
     ),
   },
 ]
@@ -89,8 +89,6 @@ type Properties = {
 }
 
 const PlasmidDetailsCard = ({ plasmid }: Properties) => {
-  const { classes } = useStyles()
-
   const summary = pipe(
     plasmid.summary,
     OfromNullable,
@@ -109,8 +107,8 @@ const PlasmidDetailsCard = ({ plasmid }: Properties) => {
     <Box textAlign="center" mb={3}>
       <Card raised>
         <Grid container>
-          <List className={classes.list}>
-            <ListItem divider className={classes.cardHeader}>
+          <List sx={{ width: "100%", padding: "0px !important" }}>
+            <ListItem divider sx={{ color: "#002f5e", paddingRight: "8px" }}>
               <PlasmidDetailsCardHeader cartData={cartData} />
             </ListItem>
             {pipe(

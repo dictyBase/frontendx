@@ -1,7 +1,8 @@
+import { type ReactElement } from "react"
 import { LexicalComposer } from "@lexical/react/LexicalComposer"
 
 type LexicalTestComposerProperties = {
-  children: JSX.Element | string | (JSX.Element | string)[]
+  children: ReactElement | string | (ReactElement | string)[]
 }
 
 const onError = (error: Error) => {

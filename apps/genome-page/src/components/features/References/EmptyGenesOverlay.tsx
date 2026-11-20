@@ -1,37 +1,27 @@
-import { makeStyles, Grid, Box, Paper } from "@material-ui/core"
-import { blueGrey } from "@material-ui/core/colors"
+import { Grid, Box, Paper } from "@mui/material"
+import { blueGrey } from "@mui/material/colors"
 
-const useStyles = makeStyles({
-  container: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-  },
-  grid: {
-    height: "100%",
-  },
-  message: {
-    padding: "3rem",
-    color: blueGrey[600],
-    fontWeight: 600,
-  },
-})
-
-const EmptyGenesOverlay = () => {
-  const classes = useStyles()
-  return (
-    <Box data-testid="empty-genes-overlay" className={classes.container}>
-      <Grid
-        justifyContent="center"
-        alignItems="center"
-        container
-        className={classes.grid}>
-        <Grid item>
-          <Paper className={classes.message}>No Matching Genes</Paper>
-        </Grid>
+const EmptyGenesOverlay = () => (
+  <Box
+    data-testid="empty-genes-overlay"
+    sx={{ position: "absolute", width: "100%", height: "100%" }}>
+    <Grid
+      justifyContent="center"
+      alignItems="center"
+      container
+      sx={{ height: "100%" }}>
+      <Grid item>
+        <Paper
+          sx={{
+            padding: "3rem",
+            color: blueGrey[600],
+            fontWeight: 600,
+          }}>
+          No Matching Genes
+        </Paper>
       </Grid>
-    </Box>
-  )
-}
+    </Grid>
+  </Box>
+)
 
 export { EmptyGenesOverlay }

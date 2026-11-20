@@ -1,10 +1,10 @@
 import { concatAll, type Monoid } from "fp-ts/Monoid"
-import { type ReactNode } from "react"
+import { type ReactElement, type ReactNode } from "react"
 import { pipe } from "fp-ts/function"
 import { Option, map as Omap, Applicative, of as Oof } from "fp-ts/Option"
 import { sequence, map as Amap } from "fp-ts/Array"
 
-type Comp = JSX.Element | ReactNode
+type Comp = ReactElement | ReactNode
 
 const reactCompMonoid: Monoid<Comp> = {
   concat: (x: Comp, y: Comp) => (

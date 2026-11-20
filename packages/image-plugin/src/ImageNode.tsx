@@ -1,4 +1,5 @@
 /* eslint-disable class-methods-use-this */
+import { type ReactElement } from "react"
 import {
   DecoratorNode,
   EditorConfig,
@@ -30,7 +31,7 @@ type ImageNodeConstructorProperties = {
   alignment: ALIGNMENT
 }
 
-class ImageNode extends DecoratorNode<JSX.Element> {
+class ImageNode extends DecoratorNode<ReactElement> {
   __source
 
   __alt

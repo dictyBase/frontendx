@@ -30,7 +30,7 @@ const TextField = ({
   const {
     control,
     formState: { errors },
-  } = useFormContext()
+  } = useFormContext<Record<string, string>>()
 
   return (
     <Controller

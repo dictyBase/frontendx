@@ -17,21 +17,11 @@ import {
   MenuItem,
   TextField as MuiTextField,
 } from "@mui/material"
-import { makeStyles } from "tss-react/mui"
 import { countryToFlag } from "../utils/countryToFlag"
 import { countryList, CountryOption } from "../utils/countryList"
 import { isPhoneValid } from "../utils/isPhoneValid"
 import { appendWithNewline } from "../utils/appendWithNewline"
 import { INVALID_PHONE_MESSAGE } from "../const"
-
-const useStyles = makeStyles()({
-  textField: {
-    flexGrow: 1,
-  },
-  select: {
-    marginTop: "8px",
-  },
-})
 
 const countryCodes = pipe(
   countryList,
@@ -54,7 +44,6 @@ const PhoneNumberInput: FunctionComponent<{
     setValue,
     formState: { errors },
   } = useFormContext()
-  const { classes } = useStyles()
   const countryCodeFieldName = `${name}CountryCode`
   const onBlur = () => {
     const phone: string = getValues(name)
@@ -100,7 +89,7 @@ const PhoneNumberInput: FunctionComponent<{
               label="Country Code"
               margin="dense"
               size="small"
-              className={classes.select}
+              sx={{ marginTop: "8px" }}
               renderValue={(value) =>
                 countryToFlag(value as CountryOption["code"])
               }
@@ -114,7 +103,7 @@ const PhoneNumberInput: FunctionComponent<{
           )}
         />
       </Grid>
-      <Grid item className={classes.textField}>
+      <Grid item sx={{ flexGrow: 1 }}>
         <Controller
           name={name}
           control={control}
@@ -128,7 +117,7 @@ const PhoneNumberInput: FunctionComponent<{
               fullWidth
               size="small"
               error={!!errors[name]}
-              helperText={errors[name]?.message || ""}
+              helperText={(errors[name]?.message as string) || ""}
               InputProps={{
                 onBlur,
               }}

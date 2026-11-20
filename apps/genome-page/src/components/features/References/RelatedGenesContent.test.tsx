@@ -58,7 +58,7 @@ describe("RelatedGenesContent", () => {
     // Check if RelatedGenesHeader was called with the correct props
     expect(RelatedGenesHeader).toHaveBeenCalledWith(
       { publication: mockPublication },
-      expect.anything(),
+      undefined,
     )
   })
 
@@ -68,7 +68,7 @@ describe("RelatedGenesContent", () => {
     // Check if RelatedGenesDisplay was called with the correct props
     expect(RelatedGenesDisplay).toHaveBeenCalledWith(
       { genes: mockPublication.related_genes, maxCount: 16 },
-      expect.anything(),
+      undefined,
     )
   })
 

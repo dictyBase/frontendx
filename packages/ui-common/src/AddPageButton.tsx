@@ -1,41 +1,30 @@
 import Button from "@mui/material/Button"
 import { Link } from "react-router-dom"
-import { makeStyles } from "tss-react/mui"
-
-const useStyles = makeStyles()(({ palette }) => ({
-  addPageButton: {
-    width: "25%",
-    marginTop: "25px",
-    padding: "25px",
-    textTransform: "none",
-    backgroundColor: palette.secondary.main,
-    "&:hover": {
-      backgroundColor: palette.secondary.dark,
-    },
-  },
-}))
 
 /**
  * AddPageButton is a simple button that links to the /addpage route.
  */
 
-const AddPageButton = () => {
-  const {
-    classes: { addPageButton },
-  } = useStyles()
-
-  return (
-    <Button
-      component={Link}
-      to="../addpage"
-      relative="path"
-      className={addPageButton}
-      size="large"
-      variant="contained"
-      color="primary">
-      Add Page
-    </Button>
-  )
-}
+const AddPageButton = () => (
+  <Button
+    component={Link}
+    to="../addpage"
+    relative="path"
+    sx={{
+      width: "25%",
+      marginTop: "25px",
+      padding: "25px",
+      textTransform: "none",
+      backgroundColor: "secondary.main",
+      "&:hover": {
+        backgroundColor: "secondary.dark",
+      },
+    }}
+    size="large"
+    variant="contained"
+    color="primary">
+    Add Page
+  </Button>
+)
 
 export { AddPageButton }

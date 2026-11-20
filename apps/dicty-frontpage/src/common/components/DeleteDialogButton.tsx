@@ -1,20 +1,9 @@
 import { useState } from "react"
 import { Button } from "@mui/material"
-import { makeStyles } from "tss-react/mui"
 import { DeleteDialog } from "./DeleteDialog"
-
-const useStyles = makeStyles()((theme) => ({
-  button: {
-    backgroundColor: theme.palette.error.main,
-    color: theme.palette.error.contrastText,
-  },
-}))
 
 const DeleteDialogButton = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const {
-    classes: { button },
-  } = useStyles()
 
   const handleClick = () => {
     setIsDialogOpen(true)
@@ -26,7 +15,13 @@ const DeleteDialogButton = () => {
 
   return (
     <>
-      <Button className={button} variant="contained" onClick={handleClick}>
+      <Button
+        sx={{
+          backgroundColor: "error.main",
+          color: "error.contrastText",
+        }}
+        variant="contained"
+        onClick={handleClick}>
         Delete
       </Button>
       <DeleteDialog open={isDialogOpen} onClose={handleClose} />

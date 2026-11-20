@@ -1,5 +1,5 @@
 import { Box, Menu } from "@mui/material"
-import { useState, MouseEvent } from "react"
+import { useState, MouseEvent, type ReactElement } from "react"
 import {
   Option,
   none as Onone,
@@ -32,7 +32,7 @@ const LogoutButton = ({
   url,
   frontPageUrl,
   user,
-}: LogoutButtonProperties): JSX.Element => {
+}: LogoutButtonProperties): ReactElement => {
   /**
    * menuElement state represents the current menu element, wrapped in an Option type.
    */

@@ -50,7 +50,6 @@
     "localforage": "1.10.*",
     "nanoid": "^5.1.16",
     "react-app-polyfill": "^3.0.0",
-    "react-helmet": "^6.1.0",
     "react-loading-skeleton": "^3.3.1",
     "twitter-fetcher": "^18.0.4",
     "ui-user": "*",
@@ -59,15 +58,13 @@
   "devDependencies": {
     "@dictybase/oxlint-config": "*",
     "@dictybase/playwright-config": "*",
-    "@testing-library/dom": "^8.20.0",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/react-hooks": "^8.0.1",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.1",
     "@types/node": "^22.15.0",
-    "@types/react": "17.*",
-    "@types/react-dom": "17.*",
+    "@types/react": "19.*",
+    "@types/react-dom": "19.*",
     "@types/react-fontawesome": "^1.6.8",
-    "@types/react-helmet": "^6.1.6",
     "@vitejs/plugin-react-swc": "^4.0.1",
     "@vitest/coverage-v8": "4.x",
     "eslint-config-custom": "*",
@@ -82,8 +79,8 @@
     "wait-for-expect": "^3.0.2"
   },
   "resolutions": {
-    "**/@types/react": "17.x",
-    "**/@types/react-dom": "17.x"
+    "**/@types/react": "19.x",
+    "**/@types/react-dom": "19.x"
   },
   "eslintConfig": {
     "root": true,

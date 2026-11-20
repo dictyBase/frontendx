@@ -34,16 +34,14 @@
     "@fontsource-variable/inter-tight": "^5.1.0",
     "@fontsource-variable/playfair-display": "^5.1.0",
     "@material-ui/icons": "^4.11.3",
-    "@rescript/react": "^0.10.3",
     "apollo3-cache-persist": "^0.14.1",
     "date-fns": "^2.30.0",
     "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.47.0",
     "element-remove": "^1.0.4",
     "fontsource-roboto": "^4.0.0",
     "localforage": "1.10.*",
-    "react": "17.x",
-    "react-dom": "17.x",
-    "react-helmet": "^6.1.0",
+    "react": "19.x",
+    "react-dom": "19.x",
     "react-loading-skeleton": "^3.3.1",
     "react-router-dom": "^6.14.2",
     "string.prototype.includes": "^2.0.0",
@@ -54,10 +52,9 @@
     "@dictybase/playwright-config": "*",
     "@playwright/test": "^1.60.0",
     "@types/node": "^22.15.0",
-    "@types/react": "17.*",
-    "@types/react-dom": "17.*",
+    "@types/react": "19.*",
+    "@types/react-dom": "19.*",
     "@types/react-fontawesome": "^1.6.8",
-    "@types/react-helmet": "^6.1.6",
     "@vitejs/plugin-react-swc": "^4.0.1",
     "@vitest/coverage-v8": "4.x",
     "eslint-config-custom": "*",
@@ -70,8 +67,8 @@
     "vitest": "4.x"
   },
   "resolutions": {
-    "**/@types/react": "17.x",
-    "**/@types/react-dom": "17.x"
+    "**/@types/react": "19.x",
+    "**/@types/react-dom": "19.x"
   },
   "eslintConfig": {
     "root": true,

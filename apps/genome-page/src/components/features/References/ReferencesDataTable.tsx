@@ -10,8 +10,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-} from "@material-ui/core"
-import { useStyles } from "styles/dataTableStyles"
+} from "@mui/material"
 import { PublicationRow } from "./PublicationRow"
 import { ReferencesToolbar } from "./ReferencesToolbar"
 import { NoMatchDisplay } from "./NoMatchDisplay"
@@ -34,14 +33,13 @@ const ReferencesDataTable = ({ publications }: Properties) => {
   const [searchParameters] = useSearchParameters(SEARCH_FIELDS)
   const filtered = filterPublications(publications, searchParameters)
   const filteredAndSorted = pipe(filtered, Asort(orderFunctions[order]))
-  const classes = useStyles()
 
   return (
-    <TableContainer component={Paper} className={classes.root}>
+    <TableContainer component={Paper} sx={{ width: "100%", overflowX: "auto" }}>
       <Table aria-label="phenotypes-table">
-        <TableHead className={classes.head}>
-          <TableRow className={classes.headRow}>
-            <TableCell className={classes.referenceColumn}>
+        <TableHead sx={{ backgroundColor: "#e6f2ff" }}>
+          <TableRow sx={{ "& > th": { fontWeight: "bold" } }}>
+            <TableCell sx={{ minWidth: "70%" }}>
               <ReferencesToolbar
                 totalPublicationCount={publications.length}
                 filteredPublicationCount={filteredAndSorted.length}
