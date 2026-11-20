@@ -8,57 +8,42 @@ import {
   matchEntries,
 } from "@dictybase/auth-mui5"
 import { Box, Grid, Divider } from "@mui/material"
-import { Theme } from "@mui/material/styles"
-import { makeStyles } from "tss-react/mui"
 import { Avatar, Information, EditablePagesList, Title, NoPages } from "ui-user"
 import { FullPageLoadingDisplay } from "@dictybase/ui-common"
-
-const useStyles = makeStyles()((theme: Theme) => ({
-  divider: {
-    border: "1px",
-    height: "3px",
-  },
-  userGrid: {
-    marginTop: theme.spacing(2),
-  },
-}))
 
 type UserViewProperties = {
   user: UserWithRoles
 }
-const UserView = ({ user }: UserViewProperties) => {
-  const { classes } = useStyles()
-  return (
-    <Box mt={4}>
-      <Grid container direction="row" justifyContent="center">
-        <Grid item>
-          <Title />
-        </Grid>
+const UserView = ({ user }: UserViewProperties) => (
+  <Box mt={4}>
+    <Grid container direction="row" justifyContent="center">
+      <Grid item>
+        <Title />
       </Grid>
-      <Divider variant="inset" className={classes.divider} />
-      <Grid
-        container
-        direction="row"
-        justifyContent="center"
-        spacing={1}
-        className={classes.userGrid}>
-        <Grid item xs={4} container direction="column" alignItems="center">
-          <Avatar />
-        </Grid>
-        <Grid item xs={4} container direction="column" alignItems="flex-start">
-          <Information user={user} />
-        </Grid>
-        <Grid item xs={4} container direction="column" alignItems="flex-start">
-          {displayOnAuthorized({
-            isAuthorized: matchEntries(user.roles, ["content-admin"]),
-            authorized: <EditablePagesList />,
-            unauthorized: <NoPages />,
-          })}
-        </Grid>
+    </Grid>
+    <Divider variant="inset" sx={{ border: "1px", height: "3px" }} />
+    <Grid
+      container
+      direction="row"
+      justifyContent="center"
+      spacing={1}
+      sx={{ marginTop: 2 }}>
+      <Grid item xs={4} container direction="column" alignItems="center">
+        <Avatar />
       </Grid>
-    </Box>
-  )
-}
+      <Grid item xs={4} container direction="column" alignItems="flex-start">
+        <Information user={user} />
+      </Grid>
+      <Grid item xs={4} container direction="column" alignItems="flex-start">
+        {displayOnAuthorized({
+          isAuthorized: matchEntries(user.roles, ["content-admin"]),
+          authorized: <EditablePagesList />,
+          unauthorized: <NoPages />,
+        })}
+      </Grid>
+    </Grid>
+  </Box>
+)
 
 const Show = () => {
   const { fetchUserInfo, isLoading } = useLogto()

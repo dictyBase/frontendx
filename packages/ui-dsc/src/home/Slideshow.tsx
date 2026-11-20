@@ -1,5 +1,5 @@
+import Box from "@mui/material/Box"
 import { Carousel } from "react-responsive-carousel"
-import { makeStyles } from "tss-react/mui"
 import { Image } from "@dictybase/dicty-image-mui5"
 
 import ctr9 from "../assets/slideshow-images/ctr9-mutant-DG1071.png"
@@ -46,13 +46,6 @@ const slideshowImages = [
   },
 ]
 
-const useStyles = makeStyles()({
-  container: {
-    borderRadius: "8px",
-    overflow: "hidden",
-  },
-})
-
 const genSlide = (source: string, avif: string, webp: string, alt: string) => (
   <Image src={source} alt={alt} webpSrc={webp} avifSrc={avif} />
 )
@@ -61,12 +54,9 @@ const genSlide = (source: string, avif: string, webp: string, alt: string) => (
  * Slideshow is an image slideshow carousel with curated dicty photos.
  */
 
-const Slideshow = () => {
-  const { classes } = useStyles()
-
-  return (
+const Slideshow = () => (
+  <Box sx={{ borderRadius: "8px", overflow: "hidden" }}>
     <Carousel
-      className={classes.container}
       showStatus={false}
       showIndicators={false}
       showThumbs={false}
@@ -77,7 +67,7 @@ const Slideshow = () => {
         <div key={alt}>{genSlide(src, avif, webp, alt)}</div>
       ))}
     </Carousel>
-  )
-}
+  </Box>
+)
 
 export { Slideshow, slideshowImages }

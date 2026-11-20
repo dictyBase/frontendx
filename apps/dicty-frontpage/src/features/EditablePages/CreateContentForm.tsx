@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom"
 import { match as Ematch } from "fp-ts/Either"
 import { match, P } from "ts-pattern"
 import { Container, Paper, Stack } from "@mui/material"
-import { makeStyles } from "tss-react/mui"
 import { InferType } from "yup"
 import { FormProvider, SubmitHandler } from "react-hook-form"
 import { ErrorSnackbar } from "@dictybase/ui-common"
@@ -23,16 +22,6 @@ import {
   mapCodeToMessage,
 } from "../../common/utils/getGraphqlErrorCode"
 
-const useStyles = makeStyles()((theme) => ({
-  root: {
-    padding: "0.5rem",
-  },
-  container: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(4),
-  },
-}))
-
 const handler = (event: BeforeUnloadEvent) => {
   event.preventDefault()
 }
@@ -40,9 +29,6 @@ const handler = (event: BeforeUnloadEvent) => {
 const CreateContentForm = () => {
   const [open, setOpen] = useState(false)
   const [createContentError, setCreateContentError] = useState("")
-  const {
-    classes: { root, container },
-  } = useStyles()
   const navigate = useNavigate()
   const createContent = useCreateContentFromEditor()
   const methods = useCreateContentForm()
@@ -102,8 +88,8 @@ const CreateContentForm = () => {
 
   return (
     <FormProvider {...methods}>
-      <Container className={container}>
-        <Paper className={root}>
+      <Container sx={{ marginTop: 2, marginBottom: 4 }}>
+        <Paper sx={{ padding: "0.5rem" }}>
           <Stack direction="row" spacing={2} alignItems="center">
             <ContentPathInputs />
             <CreateContentFormButtons onSubmit={onSubmit} onCancel={onCancel} />

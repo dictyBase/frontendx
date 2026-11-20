@@ -9,7 +9,6 @@ import { Phenotype } from "dicty-graphql-schema"
 import { StrainPhenotypeListHeader } from "./StrainPhenotypeListHeader"
 import { StrainPhenotypeListItem } from "./StrainPhenotypeListItem"
 import { AddPhenotypeForm } from "./AddPhenotypeForm"
-import { useStyles } from "./phenotypeStyles"
 
 type Properties = {
   strainId: string
@@ -27,7 +26,6 @@ const byPhenotype: Ord<Phenotype> = pipe(
 
 const EditableStrainPhenotypeList = ({ strainId, phenotypes }: Properties) => {
   const [isOpen, setIsOpen] = useState(false)
-  const { classes } = useStyles()
   const handleClick = () => {
     setIsOpen(true)
   }
@@ -35,7 +33,7 @@ const EditableStrainPhenotypeList = ({ strainId, phenotypes }: Properties) => {
     setIsOpen(false)
   }
   return (
-    <Paper className={classes.paper}>
+    <Paper sx={{ width: "100%" }}>
       <StrainPhenotypeListHeader />
       {pipe(
         phenotypes,
@@ -44,7 +42,7 @@ const EditableStrainPhenotypeList = ({ strainId, phenotypes }: Properties) => {
           <StrainPhenotypeListItem key={phenotype.phenotype} data={phenotype} />
         )),
       )}
-      <Grid container className={classes.bottom}>
+      <Grid container sx={{ padding: "0.25rem" }}>
         <Grid item>
           <Button
             color="primary"

@@ -18,20 +18,17 @@ const Title = ({ title }: { title: string }) => (
 )
 
 const LinksIcon = ({ Icon }: { Icon: IconType }) => (
-  <Icon className={headerStyles().classes.linksIcon} />
+  <Icon sx={headerStyles.linksIcon} />
 )
 
 const LinksIconButton = ({ children, href }: IconButtonProperties) => (
-  <IconButton
-    className={headerStyles().classes.linksButton}
-    href={href}
-    size="large">
+  <IconButton sx={headerStyles.linksButton} href={href} size="large">
     {children}
   </IconButton>
 )
 
 const LinksContainer = ({ children }: LinksContainerProperties) => (
-  <Box className={headerStyles().classes.linksContainer}>{children}</Box>
+  <Box sx={headerStyles.linksContainer}>{children}</Box>
 )
 
 export { Title, LinksIcon, LinksIconButton, LinksContainer }

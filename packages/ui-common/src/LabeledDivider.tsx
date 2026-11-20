@@ -1,41 +1,29 @@
 import { Grid, Typography, Divider } from "@mui/material"
 
-import { makeStyles } from "tss-react/mui"
-
-const useStyles = makeStyles()((theme) => ({
-  root: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(2),
-  },
-  labelText: {
-    color: theme.palette.secondary.dark,
-  },
-  divider: {
-    backgroundColor: theme.palette.secondary.dark,
-    opacity: 0.3,
-    height: "2px",
-  },
-}))
-
-const LabeledDivider = ({ label }: { label: string }) => {
-  const {
-    classes: { root, labelText, divider },
-  } = useStyles()
-  return (
-    <Grid container spacing={2} alignItems="center" className={root}>
-      <Grid item>
-        <Typography
-          variant="h2"
-          variantMapping={{ h2: "subtitle1" }}
-          className={labelText}>
-          {label}
-        </Typography>
-      </Grid>
-      <Grid item style={{ flexGrow: 1 }}>
-        <Divider className={divider} />
-      </Grid>
+const LabeledDivider = ({ label }: { label: string }) => (
+  <Grid
+    container
+    spacing={2}
+    alignItems="center"
+    sx={{ marginTop: 1, marginBottom: 2 }}>
+    <Grid item>
+      <Typography
+        variant="h2"
+        variantMapping={{ h2: "subtitle1" }}
+        sx={{ color: "secondary.dark" }}>
+        {label}
+      </Typography>
     </Grid>
-  )
-}
+    <Grid item style={{ flexGrow: 1 }}>
+      <Divider
+        sx={{
+          backgroundColor: "secondary.dark",
+          opacity: 0.3,
+          height: "2px",
+        }}
+      />
+    </Grid>
+  </Grid>
+)
 
 export { LabeledDivider }

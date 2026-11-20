@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom"
 import { Grid, Container, Typography, Button } from "@mui/material"
-import { makeStyles } from "tss-react/mui"
 import { useContentBySlugQuery } from "dicty-graphql-schema"
 import { match, P } from "ts-pattern"
 import { some } from "fp-ts/Option"
@@ -21,20 +20,12 @@ import { useSlug } from "../../../common/hooks/useSlug"
 import { DeleteDialogButton } from "../../../common/components/DeleteDialogButton"
 import { contentIdAtom } from "../../../state"
 
-const useStyles = makeStyles()((theme) => ({
-  container: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(4),
-  },
-}))
-
 type EditableViewProperties = {
   content: string
   id: string
   createdAt: string
 }
 const EditableView = ({ content, id, createdAt }: EditableViewProperties) => {
-  const { classes } = useStyles()
   const navigate = useNavigate()
   const handleEdit = async () => {
     navigate("../edit", { relative: "path" })
@@ -53,7 +44,7 @@ const EditableView = ({ content, id, createdAt }: EditableViewProperties) => {
   )
   return (
     <Provider store={contentStore}>
-      <Container className={classes.container}>
+      <Container sx={{ marginTop: 2, marginBottom: 4 }}>
         <Grid container direction="column" spacing={2}>
           <Grid item>
             <Grid spacing={1} container alignItems="baseline">

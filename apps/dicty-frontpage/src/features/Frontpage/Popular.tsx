@@ -1,115 +1,107 @@
 import { Box, Grid, Button } from "@mui/material"
-import { makeStyles } from "tss-react/mui"
 
-const useStyles = makeStyles()({
-  button: {
-    width: "100%",
-    marginBottom: "5px",
-    padding: "25px",
-    fontSize: "16px",
-    color: "#e5e5e5",
-    textTransform: "none",
-    backgroundColor: "#004080",
-    "&:hover": {
-      backgroundColor: "#cce6ff",
-      color: "#333232",
-    },
-  },
-  altButton: {
-    width: "100%",
-    marginBottom: "5px",
-    padding: "25px",
-    fontSize: "16px",
-    textTransform: "none",
-    backgroundColor: "#80c1ff",
+const buttonStyle = {
+  width: "100%",
+  marginBottom: "5px",
+  padding: "25px",
+  fontSize: "16px",
+  color: "#e5e5e5",
+  textTransform: "none",
+  backgroundColor: "#004080",
+  "&:hover": {
+    backgroundColor: "#cce6ff",
     color: "#333232",
-    "&:hover": {
-      backgroundColor: "#cce6ff",
-    },
   },
-  grid: {
-    padding: "8px 16px 8px 16px",
+}
+
+const altButtonStyle = {
+  width: "100%",
+  marginBottom: "5px",
+  padding: "25px",
+  fontSize: "16px",
+  textTransform: "none",
+  backgroundColor: "#80c1ff",
+  color: "#333232",
+  "&:hover": {
+    backgroundColor: "#cce6ff",
   },
-  link: {
-    textDecoration: "none",
-  },
-  listItem: {
-    listStyle: "none",
-  },
-  header: {
-    color: "#bdbdbd",
-    fontSize: "12px",
-    verticalAlign: "top",
-    textAlign: "left",
-    fontStyle: "italic",
-    "@media (max-width: 767px)": {
-      fontSize: "14px",
-      textAlign: "left",
-    },
-  },
-  innerHeader: {
-    textAlign: "center",
-  },
-  listBox: {
-    padding: "0px",
-    marginBottom: "5px",
-  },
-})
+}
+
+const listItemStyle = {
+  listStyle: "none",
+}
+
+const linkStyle = {
+  textDecoration: "none",
+}
 
 /** Widget that displays the most popular tools and sections */
 
 const Popular = () => {
-  const { classes } = useStyles()
-
   const widgetlist = (
     <>
-      <li className={classes.listItem}>
-        <a
-          className={classes.link}
+      <Box component="li" sx={listItemStyle}>
+        <Box
+          component="a"
+          sx={linkStyle}
           href={`${import.meta.env.VITE_APP_STOCKCENTER_URL}`}>
           <Button
-            className={classes.altButton}
+            sx={altButtonStyle}
             size="small"
             variant="contained"
             color="primary">
             Dicty Stock Center
           </Button>
-        </a>
-      </li>
-      <li className={classes.listItem}>
-        <a
-          className={classes.link}
+        </Box>
+      </Box>
+      <Box component="li" sx={listItemStyle}>
+        <Box
+          component="a"
+          sx={linkStyle}
           href="http://dictybase.org/tools/jbrowse/?data=data/jbrowse/discoideum&loc=6:1..50011&tracks=reference,gene,transcript">
           <Button
-            className={classes.button}
+            sx={buttonStyle}
             size="small"
             variant="contained"
             color="primary">
             Genome Browser (coming soon)
           </Button>
-        </a>
-      </li>
-      <li className={classes.listItem}>
-        <a className={classes.link} href="/gene/gflB">
+        </Box>
+      </Box>
+      <Box component="li" sx={listItemStyle}>
+        <Box component="a" sx={linkStyle} href="/gene/gflB">
           <Button
-            className={classes.altButton}
+            sx={altButtonStyle}
             size="small"
             variant="contained"
             color="primary">
             Gene Page (in progress)
           </Button>
-        </a>
-      </li>
+        </Box>
+      </Box>
     </>
   )
 
   return (
-    <Grid container justifyContent="center" className={classes.grid}>
+    <Grid container justifyContent="center" sx={{ padding: "8px 16px" }}>
       <Grid item xs={12}>
-        <Box className={classes.header}>
-          <Box className={classes.innerHeader}>New features and pages</Box>
+        <Box
+          sx={{
+            color: "#bdbdbd",
+            fontSize: "12px",
+            verticalAlign: "top",
+            textAlign: "left",
+            fontStyle: "italic",
+            "@media (max-width: 767px)": {
+              fontSize: "14px",
+              textAlign: "left",
+            },
+          }}>
+          <Box sx={{ textAlign: "center" }}>New features and pages</Box>
         </Box>
-        <ul className={classes.listBox}>{widgetlist}</ul>
+        <Box component="ul" sx={{ padding: "0px", marginBottom: "5px" }}>
+          {widgetlist}
+        </Box>
       </Grid>
     </Grid>
   )

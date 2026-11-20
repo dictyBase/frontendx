@@ -10,7 +10,6 @@ import {
   Button,
   Typography,
 } from "@mui/material"
-import { makeStyles } from "tss-react/mui"
 import { useLogto } from "@logto/react"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
@@ -35,17 +34,6 @@ const renderError = (Oerror: Option<ErrorState>) =>
     )),
     OgetOrElse(() => <></>),
   )
-
-const useFileUploadDialogStyles = makeStyles()({
-  nativeInput: {
-    display: "none",
-  },
-  helpText: {
-    marginTop: "5px",
-    color: "hsl(241, 5%, 50%)",
-    fontStyle: "italic",
-  },
-})
 
 type UploadProperties = {
   loading: boolean
@@ -84,10 +72,6 @@ const Upload = ({
     )
   }
 
-  const {
-    classes: { helpText, nativeInput },
-  } = useFileUploadDialogStyles()
-
   return (
     <>
       <DialogTitle>
@@ -112,11 +96,16 @@ const Upload = ({
               id="file-upload"
               onChange={onFileChange}
               fullWidth
-              className={nativeInput}
+              sx={{ display: "none" }}
             />
           </Grid>
           <Grid item>
-            <Typography className={helpText}>
+            <Typography
+              sx={{
+                marginTop: "5px",
+                color: "hsl(241, 5%, 50%)",
+                fontStyle: "italic",
+              }}>
               * File size may not exceed 10MB
             </Typography>
           </Grid>

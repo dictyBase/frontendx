@@ -1,17 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles"
-
-const useStyles = makeStyles({
-  link: {
-    textDecoration: "none",
-    color: "#4C5E81",
-    "&:visited": {
-      color: "#4C5E81",
-    },
-    "&:hover": {
-      textDecoration: "underline",
-    },
-  },
-})
+import Box from "@mui/material/Box"
 
 type Properties = {
   /** URL the link points to */
@@ -24,18 +11,24 @@ type Properties = {
  * Styled link that opens to a new window.
  */
 
-const StyledExternalLink = ({ href, content }: Properties) => {
-  const classes = useStyles()
-
-  return (
-    <a
-      className={classes.link}
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer">
-      {content}
-    </a>
-  )
-}
+const StyledExternalLink = ({ href, content }: Properties) => (
+  <Box
+    component="a"
+    sx={{
+      textDecoration: "none",
+      color: "#4C5E81",
+      "&:visited": {
+        color: "#4C5E81",
+      },
+      "&:hover": {
+        textDecoration: "underline",
+      },
+    }}
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer">
+    {content}
+  </Box>
+)
 
 export { StyledExternalLink }

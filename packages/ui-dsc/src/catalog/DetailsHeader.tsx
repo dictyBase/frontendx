@@ -1,18 +1,11 @@
-import { Theme } from "@mui/material/styles"
-import { makeStyles } from "tss-react/mui"
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 import { DetailsHeaderCopyIcon } from "./DetailsHeaderCopyIcon"
 import { characterConverter } from "../utils/characterConverter"
 
-const useStyles = makeStyles()((theme: Theme) => ({
-  name: {
-    marginBottom: theme.spacing(2),
-  },
-  id: {
-    marginBottom: theme.spacing(2),
-  },
-}))
+const marginBottomStyle = {
+  marginBottom: 2,
+}
 
 type DetailsHeaderProperties = {
   /** Stock ID */
@@ -25,20 +18,16 @@ type DetailsHeaderProperties = {
  * DetailsHeader is the header at the top of every stock details page.
  */
 
-const DetailsHeader = ({ name, id }: DetailsHeaderProperties) => {
-  const { classes } = useStyles()
-
-  return (
-    <Box mt={2}>
-      <Typography className={classes.name} variant="h1" noWrap>
-        {characterConverter(name)}
-      </Typography>
-      <Typography className={classes.id} variant="h3" color="textSecondary">
-        <em>{id}</em>
-        <DetailsHeaderCopyIcon id={id} />
-      </Typography>
-    </Box>
-  )
-}
+const DetailsHeader = ({ name, id }: DetailsHeaderProperties) => (
+  <Box mt={2}>
+    <Typography sx={marginBottomStyle} variant="h1" noWrap>
+      {characterConverter(name)}
+    </Typography>
+    <Typography sx={marginBottomStyle} variant="h3" color="textSecondary">
+      <em>{id}</em>
+      <DetailsHeaderCopyIcon id={id} />
+    </Typography>
+  </Box>
+)
 
 export { DetailsHeader }

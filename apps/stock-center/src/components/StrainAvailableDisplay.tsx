@@ -1,24 +1,13 @@
 import React from "react"
 import { match } from "ts-pattern"
-import { Button } from "@mui/material"
+import { Box, Button, Grid } from "@mui/material"
 import { Link } from "react-router-dom"
-import { makeStyles } from "@material-ui/core/styles"
-import Grid from "@mui/material/Grid"
 import { red } from "@mui/material/colors"
 import { useSetAtom } from "jotai"
 import { AddToCartDialog } from "@dictybase/ui-dsc"
 import { useCartItemProperties } from "../hooks/useCartItemProperties"
 import { addStrainItemsAtom, removeItemAtom } from "../cartState"
 import type { StrainCartItem } from "../types"
-
-const useStyles = makeStyles(({ palette }) => ({
-  maxItems: {
-    color: palette.error.main,
-    "&:hover": {
-      color: palette.error.dark,
-    },
-  },
-}))
 
 type Properties = {
   cartData: StrainCartItem
@@ -28,7 +17,6 @@ const StrainAvailableDisplay = ({ cartData }: Properties) => {
   const cartItemProperties = useCartItemProperties(cartData)
   const addToCart = useSetAtom(addStrainItemsAtom)
   const removeFromCart = useSetAtom(removeItemAtom)
-  const classes = useStyles()
   const [showDialog, setShowDialog] = React.useState(false)
 
   const handleAddToCart = () => {
@@ -62,9 +50,17 @@ const StrainAvailableDisplay = ({ cartData }: Properties) => {
           </Grid>
         ))
         .with({ isFull: true }, () => (
-          <Link to="/information/order" className={classes.maxItems}>
+          <Box
+            component={Link}
+            to="/information/order"
+            sx={{
+              color: "error.main",
+              "&:hover": {
+                color: "error.dark",
+              },
+            }}>
             Cart capacity is full
-          </Link>
+          </Box>
         ))
         .with({ isInCart: false }, () => (
           <Grid item>

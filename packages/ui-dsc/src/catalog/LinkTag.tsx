@@ -1,42 +1,8 @@
 import { Theme } from "@mui/material/styles"
-import { makeStyles } from "tss-react/mui"
+import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faExternalLink } from "@fortawesome/free-solid-svg-icons"
-
-const useStyles = makeStyles<void, "icon">()(
-  (theme: Theme, _parameters, classes) => ({
-    root: {
-      backgroundColor: theme.palette.info.main,
-      color: theme.palette.info.contrastText,
-      borderRadius: "16px",
-      lineHeight: 1.5,
-      "&:hover, &.Mui-focusVisible": {
-        [`& .${classes.icon}`]: {
-          color: theme.palette.primary.contrastText,
-          marginLeft: theme.spacing(1),
-          visibility: "visible",
-          opacity: 1,
-        },
-      },
-      marginRight: "5px",
-    },
-    label: {
-      transition: "0.2s",
-      textTransform: "initial",
-    },
-    icon: {
-      visibility: "hidden",
-      opacity: 0,
-      transition: "0.3s",
-      color: theme.palette.common.white,
-      marginLeft: -theme.spacing(1.5),
-      "& .MuiIcon--fa": {
-        padding: 0,
-      },
-    },
-  }),
-)
 
 type LinkTagProperties = {
   /** The item to link to */
@@ -48,23 +14,45 @@ type LinkTagProperties = {
 /**
  * LinkTag is a tag-style display for showing links.
  */
-const LinkTag = ({ item, route }: LinkTagProperties) => {
-  const { classes } = useStyles()
-
-  return (
-    <Button
-      component="a"
-      href={`/${route}/${item}`}
-      title={`View ${route} ${item}`}
-      className={classes.root}>
-      <span className={classes.label}>{item}</span>
-      <FontAwesomeIcon
-        icon={faExternalLink}
-        className={classes.icon}
-        size="sm"
-      />
-    </Button>
-  )
-}
+const LinkTag = ({ item, route }: LinkTagProperties) => (
+  <Button
+    component="a"
+    href={`/${route}/${item}`}
+    title={`View ${route} ${item}`}
+    sx={(theme: Theme) => ({
+      backgroundColor: theme.palette.info.main,
+      color: theme.palette.info.contrastText,
+      borderRadius: "16px",
+      lineHeight: 1.5,
+      marginRight: "5px",
+      "&:hover, &.Mui-focusVisible": {
+        "& .link-tag-icon": {
+          color: theme.palette.primary.contrastText,
+          marginLeft: theme.spacing(1),
+          visibility: "visible",
+          opacity: 1,
+        },
+      },
+    })}>
+    <Box component="span" sx={{ transition: "0.2s", textTransform: "initial" }}>
+      {item}
+    </Box>
+    <Box
+      component="span"
+      className="link-tag-icon"
+      sx={(theme: Theme) => ({
+        visibility: "hidden",
+        opacity: 0,
+        transition: "0.3s",
+        color: theme.palette.common.white,
+        marginLeft: -theme.spacing(1.5),
+        "& .MuiIcon--fa": {
+          padding: 0,
+        },
+      })}>
+      <FontAwesomeIcon icon={faExternalLink} size="sm" />
+    </Box>
+  </Button>
+)
 
 export { LinkTag }

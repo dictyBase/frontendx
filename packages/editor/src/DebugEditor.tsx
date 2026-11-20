@@ -9,17 +9,14 @@ import { ListPlugin } from "@lexical/react/LexicalListPlugin"
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin"
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin"
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary"
-import { Stack } from "@mui/material"
+import { Box, Stack } from "@mui/material"
 import { pipe } from "fp-ts/function"
 import { match as Bmatch } from "fp-ts/boolean"
 import { ImagePlugin } from "@dictybase/image-plugin"
 import { DebugToolbar } from "@dictybase/editor-toolbar"
 import { WidthTablePlugin } from "@dictybase/width-table-plugin"
 import { TableActionPlugin } from "@dictybase/table-action-plugin"
-import {
-  useEditorAreaStyles,
-  useEditorPlaceholderStyles,
-} from "./useEditorStyles"
+import { getEditorAreaStyles, editorPlaceholderStyles } from "./useEditorStyles"
 import "./editor.css"
 import { TreeViewPlugin } from "./TreeViewPlugin"
 import { dictyEditorConfig } from "./editorConfig"
@@ -37,54 +34,42 @@ const DebugEditor = ({
   editorState = flexLayoutStateString,
   editable = true,
   plugins,
-}: EditorProperties) => {
-  const { classes: placeholderClasses } = useEditorPlaceholderStyles()
-  const { classes: editorAreaClasses } = useEditorAreaStyles({ editable })
-
-  return (
-    <LexicalComposer
-      initialConfig={{
-        ...config,
-        editorState,
-        editable,
-      }}>
-      <>{plugins}</>
-      <ListPlugin />
-      <LinkPlugin />
-      <ImagePlugin />
-      <WidthTablePlugin />
-      <TableActionPlugin isEditing={editable} />
-      <HistoryPlugin />
-      <Stack direction="row">
-        <Stack spacing={1} flexBasis="70%">
-          {pipe(
-            editable,
-            Bmatch(
-              () => <></>,
-              () => <DebugToolbar />,
-            ),
-          )}
-          <div style={{ position: "relative" }}>
-            <RichTextPlugin
-              ErrorBoundary={LexicalErrorBoundary}
-              contentEditable={
-                <ContentEditable
-                  id="content-editor"
-                  className={editorAreaClasses.container}
-                />
-              }
-              placeholder={
-                <div className={placeholderClasses.root}>
-                  Enter some text...
-                </div>
-              }
-            />
-          </div>
-        </Stack>
-        <TreeViewPlugin />
+}: EditorProperties) => (
+  <LexicalComposer
+    initialConfig={{
+      ...config,
+      editorState,
+      editable,
+    }}>
+    <>{plugins}</>
+    <ListPlugin />
+    <LinkPlugin />
+    <ImagePlugin />
+    <WidthTablePlugin />
+    <TableActionPlugin isEditing={editable} />
+    <HistoryPlugin />
+    <Stack direction="row">
+      <Stack spacing={1} flexBasis="70%">
+        {pipe(
+          editable,
+          Bmatch(
+            () => <></>,
+            () => <DebugToolbar />,
+          ),
+        )}
+        <Box sx={getEditorAreaStyles(editable)}>
+          <RichTextPlugin
+            ErrorBoundary={LexicalErrorBoundary}
+            contentEditable={<ContentEditable id="content-editor" />}
+            placeholder={
+              <Box sx={editorPlaceholderStyles}>Enter some text...</Box>
+            }
+          />
+        </Box>
       </Stack>
-    </LexicalComposer>
-  )
-}
+      <TreeViewPlugin />
+    </Stack>
+  </LexicalComposer>
+)
 
 export { DebugEditor }

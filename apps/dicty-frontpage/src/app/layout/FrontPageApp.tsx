@@ -1,6 +1,5 @@
 import { RouterProvider } from "react-router-dom"
 import { Theme, Box } from "@mui/material"
-import { makeStyles } from "tss-react/mui"
 import {
   HeaderWithAuth,
   NavbarWithAuth,
@@ -8,48 +7,41 @@ import {
 } from "@dictybase/auth-mui5"
 import { frontpageRouter } from "../../routes"
 
-const useStyles = makeStyles()((theme: Theme) => ({
-  body: {
-    fontSize: "16px",
-    color: "#333",
-    backgroundColor: "#fff",
-    "& h1, h2, h3, h4, h5, h6": {
-      fontWeight: 500,
-      lineHeight: 1.1,
-    },
-    "& h4, h5, h6": {
-      marginTop: theme.spacing(1.2),
-      marginBottom: theme.spacing(1.2),
-    },
-  },
-}))
-
 /**
  * App is responsible for the main layout of the entire application.
  */
 
-const FrontPageApp = () => {
-  const { classes } = useStyles()
-
-  return (
-    <Box className={classes.body}>
-      <HeaderWithAuth
-        frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
-        basename={import.meta.env.VITE_APP_BASENAME}
-      />
-      <NavbarWithAuth
-        frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
-        stockCenterUrl={import.meta.env.VITE_APP_STOCKCENTER_URL}
-      />
-      <main>
-        <RouterProvider router={frontpageRouter} />
-      </main>
-      <FooterWithAuth
-        frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
-        stockCenterUrl={import.meta.env.VITE_APP_STOCKCENTER_URL}
-      />
-    </Box>
-  )
-}
+const FrontPageApp = () => (
+  <Box
+    sx={(theme: Theme) => ({
+      fontSize: "16px",
+      color: "#333",
+      backgroundColor: "#fff",
+      "& h1, h2, h3, h4, h5, h6": {
+        fontWeight: 500,
+        lineHeight: 1.1,
+      },
+      "& h4, h5, h6": {
+        marginTop: theme.spacing(1.2),
+        marginBottom: theme.spacing(1.2),
+      },
+    })}>
+    <HeaderWithAuth
+      frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
+      basename={import.meta.env.VITE_APP_BASENAME}
+    />
+    <NavbarWithAuth
+      frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
+      stockCenterUrl={import.meta.env.VITE_APP_STOCKCENTER_URL}
+    />
+    <main>
+      <RouterProvider router={frontpageRouter} />
+    </main>
+    <FooterWithAuth
+      frontPageUrl={import.meta.env.VITE_APP_FRONTPAGE_URL}
+      stockCenterUrl={import.meta.env.VITE_APP_STOCKCENTER_URL}
+    />
+  </Box>
+)
 
 export { FrontPageApp }

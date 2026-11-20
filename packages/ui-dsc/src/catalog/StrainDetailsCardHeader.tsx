@@ -1,5 +1,6 @@
 import { ChangeEvent } from "react"
-import { makeStyles } from "tss-react/mui"
+import { Theme } from "@mui/material/styles"
+import Box from "@mui/material/Box"
 import Grid from "@mui/material/Grid"
 import Tabs from "@mui/material/Tabs"
 import Tab from "@mui/material/Tab"
@@ -15,47 +16,20 @@ const a11yProperties = (index: number) => ({
   "aria-controls": `strain-details-tabpanel-${index}`,
 })
 
-const useStyles = makeStyles<void, "wrapper">()(
-  ({ palette, shadows }, _parameters, classes) => ({
-    root: {
-      "&:not(:first-of-type)": {
-        marginLeft: "5px",
-      },
-      opacity: 1,
-      borderBottomWidth: 0,
-      "&.Mui-selected": {
-        color: palette.primary.contrastText,
-      },
-    },
-    selected: {
-      background: "#f4f6f8",
-      boxShadow: shadows[4],
-      [`& .${classes.wrapper}`]: {
-        opacity: 1,
-      },
-    },
-    wrapper: {
-      opacity: 0.7,
-    },
-    indicator: {
-      display: "none",
-    },
-    number: {
-      background: palette.info.dark,
-      borderRadius: "0.8em",
-      color: "#ffffff",
-      display: "inline-block",
-      fontWeight: 700,
-      fontSize: "0.8rem",
-      marginLeft: "5px",
-      textAlign: "center",
-      width: "1.5em",
-    },
-    message: {
-      padding: "0px",
-    },
-  }),
-)
+const tabSx = (theme: Theme) => ({
+  "&:not(:first-of-type)": {
+    marginLeft: "5px",
+  },
+  opacity: 0.7,
+  borderBottomWidth: 0,
+  color: theme.palette.primary.contrastText,
+  "&.Mui-selected": {
+    color: theme.palette.primary.contrastText,
+    background: "#f4f6f8",
+    boxShadow: theme.shadows[4],
+    opacity: 1,
+  },
+})
 
 type Properties = {
   /** Tab value */
@@ -77,74 +51,73 @@ const StrainDetailsCardHeader = ({
   handleChange,
   phenotypeLength,
   cartData,
-}: Properties) => {
-  const { classes } = useStyles()
-
-  const tabStyles = {
-    root: classes.root,
-    selected: classes.selected,
-    wrapper: classes.wrapper,
-  }
-
-  return (
-    <Grid item xs={12}>
-      <Grid container justifyContent="space-between" alignItems="center">
-        <Grid item>
-          {match(phenotypeLength)
-            .with(0, () => <Typography variant="h2">Strain Details</Typography>)
-            .with(
-              P.when((c) => c > 0),
-              () => (
-                <Tabs
-                  value={value}
-                  onChange={handleChange}
-                  classes={{ indicator: classes.indicator }}
-                  aria-label="strain details tabs">
-                  <Tab
-                    classes={tabStyles}
-                    sx={(theme) => ({
-                      color: theme.palette.primary.contrastText,
-                    })}
-                    label={
-                      <Typography variant="body1">Strain Details</Typography>
-                    }
-                    {...a11yProperties(0)}
-                  />
-                  <Tab
-                    classes={tabStyles}
-                    label={
-                      <Typography variant="body1">
-                        Phenotypes
-                        <span className={classes.number}>
-                          {phenotypeLength}
-                        </span>
-                      </Typography>
-                    }
-                    {...a11yProperties(1)}
-                  />
-                </Tabs>
-              ),
-            )
-            .otherwise(() => (
-              <></>
-            ))}
-        </Grid>
-        <Grid item>
-          {match(cartData.in_stock)
-            .with(true, () => <StrainAvailableDisplay cartData={cartData} />)
-            .with(false, () => (
-              <Alert
-                classes={{ message: classes.message }}
-                icon={false}
-                severity="error">
-                Currently unavailable at the DSC
-              </Alert>
-            ))
-            .exhaustive()}
-        </Grid>
+}: Properties) => (
+  <Grid item xs={12}>
+    <Grid container justifyContent="space-between" alignItems="center">
+      <Grid item>
+        {match(phenotypeLength)
+          .with(0, () => <Typography variant="h2">Strain Details</Typography>)
+          .with(
+            P.when((c) => c > 0),
+            () => (
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                sx={{ "& .MuiTabs-indicator": { display: "none" } }}
+                aria-label="strain details tabs">
+                <Tab
+                  sx={tabSx}
+                  label={
+                    <Typography variant="body1">Strain Details</Typography>
+                  }
+                  {...a11yProperties(0)}
+                />
+                <Tab
+                  sx={tabSx}
+                  label={
+                    <Typography variant="body1">
+                      Phenotypes
+                      <Box
+                        component="span"
+                        sx={{
+                          background: "info.dark",
+                          borderRadius: "0.8em",
+                          color: "#ffffff",
+                          display: "inline-block",
+                          fontWeight: 700,
+                          fontSize: "0.8rem",
+                          marginLeft: "5px",
+                          textAlign: "center",
+                          width: "1.5em",
+                        }}>
+                        {phenotypeLength}
+                      </Box>
+                    </Typography>
+                  }
+                  {...a11yProperties(1)}
+                />
+              </Tabs>
+            ),
+          )
+          .otherwise(() => (
+            <></>
+          ))}
+      </Grid>
+      <Grid item>
+        {match(cartData.in_stock)
+          .with(true, () => <StrainAvailableDisplay cartData={cartData} />)
+          .with(false, () => (
+            <Alert
+              sx={{ "& .MuiAlert-message": { padding: "0px" } }}
+              icon={false}
+              severity="error">
+              Currently unavailable at the DSC
+            </Alert>
+          ))
+          .exhaustive()}
       </Grid>
     </Grid>
-  )
-}
+  </Grid>
+)
 
 export { StrainDetailsCardHeader }

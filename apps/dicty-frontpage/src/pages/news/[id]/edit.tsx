@@ -1,5 +1,4 @@
 import { Grid, Container, Typography } from "@mui/material"
-import { makeStyles } from "tss-react/mui"
 import {
   useContentBySlugQuery,
   User,
@@ -29,13 +28,6 @@ import { NEWS_NAMESPACE } from "../../../common/constants/namespace"
 import { UpdateButton } from "../../../common/components/UpdateButton"
 import { truncateEmail } from "../../../common/utils/truncateEmail"
 import { useAutoSave } from "../../../common/hooks/useAutoSave"
-
-const useStyles = makeStyles()((theme) => ({
-  container: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(4),
-  },
-}))
 
 type EditActionBarProperties = {
   contentId: string
@@ -100,7 +92,6 @@ const EditView = ({
   const [handleChange, autosaveState] = useAutoSave({
     contentId,
   })
-  const { classes } = useStyles()
   const lastEditor = truncateEmail(updatedBy.email)
   const toolbar = (
     <EditActionBar
@@ -111,7 +102,7 @@ const EditView = ({
     />
   )
   return (
-    <Container className={classes.container}>
+    <Container sx={{ marginTop: 2, marginBottom: 4 }}>
       <Grid container direction="column" spacing={2}>
         <Grid item>
           <Grid spacing={1} container alignItems="baseline">

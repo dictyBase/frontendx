@@ -5,7 +5,6 @@ import {
   fromNullable as OfromNullable,
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
-import { makeStyles } from "tss-react/mui"
 import { grey } from "@mui/material/colors"
 import Typography from "@mui/material/Typography"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -13,13 +12,6 @@ import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
 import { Publication } from "dicty-graphql-schema"
 import { parseFormattedStringToDomElements } from "@dictybase/ui-common"
 import { getYearFromTimestamp } from "../utils/getYearFromTimeStamp"
-
-const useStyles = makeStyles()({
-  authors: {
-    color: grey[800],
-    fontWeight: 600,
-  },
-})
 
 // get author last names, replace last element with "&"
 // example return: "Samereier, Baumann, Meyer & Gräf (2010)"
@@ -71,33 +63,33 @@ type PublicationDisplayProperties = {
  * PublicationDisplay handles the display of publications, primarily for use
  * on the stock details pages.
  */
-const PublicationDisplay = ({ publication }: PublicationDisplayProperties) => {
-  const { classes } = useStyles()
-  return (
-    <Typography variant="body2" data-testid="publication-display">
-      <Typography variant="body2" component="span" className={classes.authors}>
-        {listAuthors(publication.authors)}{" "}
-        {pipe(
-          publication.pub_date,
-          OfromNullable,
-          Omap(getYearFromTimestamp),
-          Omap((year) => Smonoid.concat(`(${year})`, " ")),
-          OgetOrElse(() => ""),
-        )}
-      </Typography>{" "}
-      &apos;{parseFormattedStringToDomElements(publication.title)}&apos;{" "}
-      <em>{publication.journal}</em>{" "}
-      {getJournalInfo(
-        publication?.volume as string,
-        publication?.pages as string,
-      )}{" "}
-      <a
-        href={getPubLink(publication.id, publication.doi as string)}
-        title="Visit publication page">
-        <FontAwesomeIcon icon={faExternalLinkAlt} size="sm" />
-      </a>
-    </Typography>
-  )
-}
+const PublicationDisplay = ({ publication }: PublicationDisplayProperties) => (
+  <Typography variant="body2" data-testid="publication-display">
+    <Typography
+      variant="body2"
+      component="span"
+      sx={{ color: grey[800], fontWeight: 600 }}>
+      {listAuthors(publication.authors)}{" "}
+      {pipe(
+        publication.pub_date,
+        OfromNullable,
+        Omap(getYearFromTimestamp),
+        Omap((year) => Smonoid.concat(`(${year})`, " ")),
+        OgetOrElse(() => ""),
+      )}
+    </Typography>{" "}
+    &apos;{parseFormattedStringToDomElements(publication.title)}&apos;{" "}
+    <em>{publication.journal}</em>{" "}
+    {getJournalInfo(
+      publication?.volume as string,
+      publication?.pages as string,
+    )}{" "}
+    <a
+      href={getPubLink(publication.id, publication.doi as string)}
+      title="Visit publication page">
+      <FontAwesomeIcon icon={faExternalLinkAlt} size="sm" />
+    </a>
+  </Typography>
+)
 
 export { PublicationDisplay, listAuthors, getPubLink, getJournalInfo }

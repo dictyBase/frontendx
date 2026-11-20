@@ -1,5 +1,4 @@
 import { ListItem, ListItemText, Typography } from "@mui/material"
-import { makeStyles } from "tss-react/mui"
 import { pipe } from "fp-ts/function"
 import { map as Amap } from "fp-ts/Array"
 import { Cart } from "../types"
@@ -10,40 +9,33 @@ type OrderSummaryListItemsProperties = {
   cart: Cart
 }
 
-const useStyles = makeStyles()((theme) => ({
-  listItem: {
-    padding: theme.spacing(1, 0),
-  },
-}))
-
-const OrderSummaryListItems = ({ cart }: OrderSummaryListItemsProperties) => {
-  const { classes } = useStyles()
-  return (
-    <>
-      {pipe(
-        [...cart.strainItems, ...cart.plasmidItems],
-        Amap((item) => {
-          const { itemDescriptor } = getCatalogItemPathAndDescriptor(item)
-          return (
-            <ListItem className={classes.listItem} key={item.id}>
-              <ListItemText
-                primary={itemDescriptor}
-                secondary={
-                  <>
-                    <Typography noWrap>
-                      <em>{item.summary}</em>
-                    </Typography>
-                    <Typography>{item.id}</Typography>
-                  </>
-                }
-              />
-              <Typography variant="body1">${Number(item.fee)}.00</Typography>
-            </ListItem>
-          )
-        }),
-      )}
-    </>
-  )
-}
+const OrderSummaryListItems = ({ cart }: OrderSummaryListItemsProperties) => (
+  <>
+    {pipe(
+      [...cart.strainItems, ...cart.plasmidItems],
+      Amap((item) => {
+        const { itemDescriptor } = getCatalogItemPathAndDescriptor(item)
+        return (
+          <ListItem
+            sx={(theme) => ({ padding: theme.spacing(1, 0) })}
+            key={item.id}>
+            <ListItemText
+              primary={itemDescriptor}
+              secondary={
+                <>
+                  <Typography noWrap>
+                    <em>{item.summary}</em>
+                  </Typography>
+                  <Typography>{item.id}</Typography>
+                </>
+              }
+            />
+            <Typography variant="body1">${Number(item.fee)}.00</Typography>
+          </ListItem>
+        )
+      }),
+    )}
+  </>
+)
 
 export { OrderSummaryListItems }

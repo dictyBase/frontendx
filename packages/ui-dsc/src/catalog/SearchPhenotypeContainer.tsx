@@ -7,7 +7,6 @@ import {
   map as Omap,
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
-import { makeStyles } from "tss-react/mui"
 import { Grid } from "@mui/material"
 import { PageLayout, FullPageLoadingDisplay } from "@dictybase/ui-common"
 import {
@@ -23,16 +22,10 @@ import { PhenotypeNoResultsDisplay } from "./PhenotypeNoResultsDisplay"
 import { hasNotFoundError } from "../utils/hasNotFoundError"
 import { cleanQuery } from "../utils/cleanQuery"
 
-const useStyles = makeStyles()({
-  container: {
-    textAlign: "center",
-    marginBottom: "2rem",
-  },
-  gridItem: {
-    marginTop: "10px",
-    marginBottom: "20px",
-  },
-})
+const gridItemStyle = {
+  marginTop: "10px",
+  marginBottom: "20px",
+}
 
 const dataPattern = {
   data: {
@@ -121,7 +114,6 @@ const useListStrainsWithPhenotype = (phenotype: string) => {
  * down to the search results.
  */
 const SearchPhenotypeContainer = () => {
-  const { classes } = useStyles()
   const { name } = useParams()
   const phenotype = pipe(
     name,
@@ -136,11 +128,11 @@ const SearchPhenotypeContainer = () => {
     <PageLayout
       title={`Phenotype Search Results for ${phenotype} - Dicty Stock Center`}
       metaContent={`Dicty Stock Center search results for strains with ${phenotype}`}>
-      <Grid container className={classes.container}>
-        <Grid item xs={12} className={classes.gridItem}>
+      <Grid container sx={{ textAlign: "center", marginBottom: "2rem" }}>
+        <Grid item xs={12} sx={gridItemStyle}>
           <SearchResultsHeader property="Phenotype" description={phenotype} />
         </Grid>
-        <Grid item xs={12} className={classes.gridItem}>
+        <Grid item xs={12} sx={gridItemStyle}>
           <SearchPhenotypeForm />
         </Grid>
         <Grid item xs={12}>

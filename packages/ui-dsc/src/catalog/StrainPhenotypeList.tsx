@@ -6,7 +6,6 @@ import Paper from "@mui/material/Paper"
 import { Phenotype } from "dicty-graphql-schema"
 import { StrainPhenotypeListHeader } from "./StrainPhenotypeListHeader"
 import { StrainPhenotypeListItem } from "./StrainPhenotypeListItem"
-import { useStyles } from "./phenotypeStyles"
 
 type Properties = {
   phenotypes: Array<Phenotype>
@@ -21,20 +20,17 @@ const byPhenotype: Ord<Phenotype> = pipe(
  * PhenotypeList provides a list of phenotypes for a given strain.
  */
 
-const StrainPhenotypeList = ({ phenotypes }: Properties) => {
-  const { classes } = useStyles()
-  return (
-    <Paper className={classes.paper}>
-      <StrainPhenotypeListHeader />
-      {pipe(
-        phenotypes,
-        sort(byPhenotype),
-        map((phenotype) => (
-          <StrainPhenotypeListItem key={phenotype.phenotype} data={phenotype} />
-        )),
-      )}
-    </Paper>
-  )
-}
+const StrainPhenotypeList = ({ phenotypes }: Properties) => (
+  <Paper sx={{ width: "100%" }}>
+    <StrainPhenotypeListHeader />
+    {pipe(
+      phenotypes,
+      sort(byPhenotype),
+      map((phenotype) => (
+        <StrainPhenotypeListItem key={phenotype.phenotype} data={phenotype} />
+      )),
+    )}
+  </Paper>
+)
 
 export { StrainPhenotypeList }
