@@ -1,58 +1,10 @@
 import { test, expect } from "@playwright/test"
 import { pipe } from "fp-ts/lib/function.js"
 import { makeBy as AmakeBy } from "fp-ts/lib/ReadonlyNonEmptyArray.js"
-import { ListPublicationsWithGeneQueryResult } from "dicty-graphql-schema"
-import { listPublicationsWithGeneQueryData } from "./utils/gqlRequestData"
 
-const GRAPHQL_ENDPOINT = `${process.env.VITE_GRAPHQL_SERVER}/graphql`
 const TEST_GENE = "phg1A"
 const TEST_PUBLICATION_ID = "29441327"
 const RELATED_GENES_TEST_LIST_ID = "related-genes-list"
-
-const EXPECTED_REFERENCE = {
-  authors: [
-    { last_name: "Varas", rank: "0" },
-    { last_name: "Riquelme-Barrios", rank: "1" },
-    { last_name: "Valenzuela", rank: "2" },
-    { last_name: "Marcoleta", rank: "3" },
-    { last_name: "Berríos-Pastén", rank: "4" },
-    { last_name: "Santiviago", rank: "5" },
-    { last_name: "Chávez", rank: "6" },
-  ],
-  doi: "10.3389/fcimb.2018.00008",
-  id: "29441327",
-  issue: "",
-  journal: "Frontiers in cellular and infection microbiology",
-  pages: "8",
-  pub_date: "2018-01-30T00:00:00.000Z",
-  pub_type: "Research Support, Non-U.S. Gov't",
-  related_genes: [
-    { id: "DDB_G0290009", name: "spr" },
-    { id: "DDB_G0288481", name: "gchA" },
-    { id: "DDB_G0267444", name: "phg1A" },
-    { id: "DDB_G0279095", name: "ptsA" },
-    { id: "DDB_G0267630", name: "kil1" },
-  ],
-  source: "MED",
-  title:
-    "Inorganic Polyphosphate Is Essential for <i>Salmonella</i> Typhimurium Virulence and Survival in <i>Dictyostelium discoideum</i>.",
-  volume: "8",
-}
-
-test.beforeAll("Test Reference Page API", async ({ playwright }) => {
-  const apiContext = await playwright.request.newContext()
-  const response = await apiContext.post(
-    GRAPHQL_ENDPOINT,
-    listPublicationsWithGeneQueryData(TEST_GENE),
-  )
-  const { data: referenceData }: ListPublicationsWithGeneQueryResult =
-    await response.json()
-  expect(response.ok()).toBeTruthy()
-
-  expect(referenceData?.listPublicationsWithGene).toContainEqual(
-    expect.objectContaining(EXPECTED_REFERENCE),
-  )
-})
 
 test.beforeEach(async ({ page }) => {
   await page.goto(`/gene/${TEST_GENE}/references/${TEST_PUBLICATION_ID}`)
@@ -103,7 +55,7 @@ test("Gene search", async ({ page }) => {
 
 test("Gene filtering", async ({ page }) => {
   // All genes in this publication are named (no DDB_ genes), so filter for named genes
-  await page.getByRole("button", { name: "All Gene Types" }).click()
+  await page.getByRole("combobox").click()
   await page.getByRole("option", { name: "Named Genes", exact: true }).click()
 
   const genesList = page.getByTestId(RELATED_GENES_TEST_LIST_ID)
@@ -112,7 +64,7 @@ test("Gene filtering", async ({ page }) => {
   // All genes should be visible since all are named
   await expect(filteredGenes).toHaveCount(5)
 
-  await page.getByRole("button", { name: "Named Genes" }).click()
+  await page.getByRole("combobox").click()
   await page.getByRole("option", { name: "Unnamed Genes", exact: true }).click()
 
   // No unnamed genes in this publication

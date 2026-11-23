@@ -4,10 +4,13 @@ import "common/utils/icons" // fontawesome library
 import { GenomePageApp } from "./main"
 
 const main = async () => {
-  // Activate MSW
-  if (import.meta.env.VITE_MOCK_SERVER === "on") {
-    const { enableMock } = await import("mocks")
-    await enableMock()
+  if (import.meta.env.VITE_APP_DEPLOY_ENV === "mock") {
+    const { default: worker } = await import("./mocks/browser")
+    await worker.start({
+      serviceWorker: {
+        url: "/gene/mockServiceWorker.js",
+      },
+    })
   }
 
   const container = document.querySelector("#root")

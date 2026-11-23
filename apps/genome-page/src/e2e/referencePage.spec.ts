@@ -1,57 +1,13 @@
 import { test, expect } from "@playwright/test"
 import { pipe } from "fp-ts/lib/function.js"
 import { makeBy as RNEAmakeBy } from "fp-ts/lib/ReadonlyNonEmptyArray.js"
-import { ListPublicationsWithGeneQueryResult } from "dicty-graphql-schema"
-import { listPublicationsWithGeneQueryData } from "./utils/gqlRequestData"
-
-const GRAPHQL_ENDPOINT = `${process.env.VITE_GRAPHQL_SERVER}/graphql`
+import { EXPECTED_NUM_A_REFERENCE } from "./utils/expectedData"
 
 const TEST_GENE = "DDB_G0269114"
-
-const EXPECTED_REFERENCE = {
-  authors: [
-    { last_name: "Gauthier", rank: "0" },
-    { last_name: "O'Day", rank: "1" },
-  ],
-  doi: "10.1016/s0898-6568(01)00187-5",
-  id: "11483410",
-  issue: "8",
-  journal: "Cellular signalling",
-  pages: "575-584",
-  pub_date: "2001-08-01T00:00:00.000Z",
-  pub_type: "Research Support, Non-U.S. Gov't",
-  related_genes: [
-    { id: "DDB_G0269116", name: "cmbC" },
-    { id: "DDB_G0288131", name: "cmbB" },
-    { id: "DDB_G0269114", name: "numA" },
-    { id: "DDB_G0279407", name: "calA" },
-  ],
-  source: "MED",
-  title:
-    "Detection of calmodulin-binding proteins and calmodulin-dependent phosphorylation linked to calmodulin-dependent chemotaxis to folic and cAMP in Dictyostelium.",
-  volume: "13",
-}
 
 // Expected formatted dates when browser is in UTC timezone
 const oldestPublicationDateFormatted = "August 1st, 2001"
 const newestPublicationDateFormatted = "April 1st, 2020"
-
-test.beforeAll("Test Reference Page API", async ({ playwright }) => {
-  const apiContext = await playwright.request.newContext()
-
-  const response = await apiContext.post(
-    GRAPHQL_ENDPOINT,
-    listPublicationsWithGeneQueryData(TEST_GENE),
-  )
-  const { data: referenceData }: ListPublicationsWithGeneQueryResult =
-    await response.json()
-
-  expect(response.ok()).toBeTruthy()
-
-  expect(referenceData?.listPublicationsWithGene).toContainEqual(
-    expect.objectContaining(EXPECTED_REFERENCE),
-  )
-})
 
 test.beforeEach(async ({ page }) => {
   await page.goto(`/gene/${TEST_GENE}/references`)
@@ -69,12 +25,14 @@ test("Displays References from API", async ({ page }) => {
 
   await expect(references).toHaveCount(17)
   // Displays full title
-  await expect(referenceItem.getByText(EXPECTED_REFERENCE.title)).toBeVisible()
+  await expect(
+    referenceItem.getByText(EXPECTED_NUM_A_REFERENCE.title),
+  ).toBeVisible()
   // Displays publication date (formatted in UTC timezone by the browser)
   await expect(referenceItem.getByText("August 1st, 2001")).toBeVisible()
   // Displays journal
   await expect(
-    referenceItem.getByText(EXPECTED_REFERENCE.journal),
+    referenceItem.getByText(EXPECTED_NUM_A_REFERENCE.journal),
   ).toBeVisible()
   // Displays other genes mentioned
   await expect(referenceItem.getByText("calA")).toBeVisible()
@@ -82,10 +40,10 @@ test("Displays References from API", async ({ page }) => {
   await expect(referenceItem.getByText("cmbC")).toBeVisible()
   // Displays authors' last name
   await expect(
-    referenceItem.getByText(EXPECTED_REFERENCE.authors[0].last_name),
+    referenceItem.getByText(EXPECTED_NUM_A_REFERENCE.authors[0].last_name),
   ).toBeVisible()
   await expect(
-    referenceItem.getByText(EXPECTED_REFERENCE.authors[1].last_name),
+    referenceItem.getByText(EXPECTED_NUM_A_REFERENCE.authors[1].last_name),
   ).toBeVisible()
 })
 

@@ -1,131 +1,10 @@
-/* eslint-disable sonarjs/no-duplicate-string */
 import { test, expect } from "@playwright/test"
 import { pipe } from "fp-ts/lib/function.js"
 import { Eq as SEq } from "fp-ts/lib/string.js"
 import { map as Amap, uniq as Auniq } from "fp-ts/lib/Array.js"
-import { ListStrainsWithGeneQueryResult } from "dicty-graphql-schema"
-import { listStrainsWithGeneQueryData } from "./utils/gqlRequestData"
-
-const GRAPHQL_ENDPOINT = `${process.env.VITE_GRAPHQL_SERVER}/graphql`
+import { EXPECTED_COR_A_STRAIN } from "./utils/expectedData"
 
 const TEST_GENE = "DDB_G0267382"
-
-const EXPECTED_STRAIN = {
-  characteristics: [
-    "null mutant",
-    "axenic",
-    "drug resistant",
-    "neomycin resistant",
-  ],
-  id: "DBS0236174",
-  in_stock: true,
-  label: "corA-",
-  phenotypes: [
-    {
-      phenotype: "increased myosin II assembly",
-      publication: {
-        authors: [
-          { last_name: "Swaminathan", rank: "0" },
-          { last_name: "Müller-Taubenberger", rank: "1" },
-          { last_name: "Faix", rank: "2" },
-          { last_name: "Rivero", rank: "3" },
-          { last_name: "Noegel", rank: "4" },
-        ],
-        id: "24347642",
-        journal:
-          "Proceedings of the National Academy of Sciences of the United States of America",
-        pages: "",
-        pub_date: "2014-01-01T00:00:00.000Z",
-        title:
-          "A Cdc42- and Rac-interactive binding (CRIB) domain mediates functions of coronin.",
-        volume: "",
-      },
-    },
-    {
-      phenotype: "decreased growth rate",
-      publication: {
-        authors: [
-          { last_name: "de Hostos", rank: "0" },
-          { last_name: "Rehfuess", rank: "1" },
-          { last_name: "Bradtke", rank: "2" },
-          { last_name: "Waddell", rank: "3" },
-          { last_name: "Albrecht", rank: "4" },
-          { last_name: "Murphy", rank: "5" },
-          { last_name: "Gerisch", rank: "6" },
-        ],
-        id: "8380174",
-        journal: "The Journal of cell biology",
-        pages: "",
-        pub_date: "1993-01-01T00:00:00.000Z",
-        title:
-          "Dictyostelium mutants lacking the cytoskeletal protein coronin are defective in cytokinesis and cell motility.",
-        volume: "",
-      },
-    },
-    {
-      phenotype: "decreased cell motility",
-      publication: {
-        authors: [
-          { last_name: "de Hostos", rank: "0" },
-          { last_name: "Rehfuess", rank: "1" },
-          { last_name: "Bradtke", rank: "2" },
-          { last_name: "Waddell", rank: "3" },
-          { last_name: "Albrecht", rank: "4" },
-          { last_name: "Murphy", rank: "5" },
-          { last_name: "Gerisch", rank: "6" },
-        ],
-        id: "8380174",
-        journal: "The Journal of cell biology",
-        pages: "",
-        pub_date: "1993-01-01T00:00:00.000Z",
-        title:
-          "Dictyostelium mutants lacking the cytoskeletal protein coronin are defective in cytokinesis and cell motility.",
-        volume: "",
-      },
-    },
-    {
-      phenotype: "aberrant cytokinesis",
-      publication: {
-        authors: [
-          { last_name: "de Hostos", rank: "0" },
-          { last_name: "Rehfuess", rank: "1" },
-          { last_name: "Bradtke", rank: "2" },
-          { last_name: "Waddell", rank: "3" },
-          { last_name: "Albrecht", rank: "4" },
-          { last_name: "Murphy", rank: "5" },
-          { last_name: "Gerisch", rank: "6" },
-        ],
-        id: "8380174",
-        journal: "The Journal of cell biology",
-        pages: "",
-        pub_date: "1993-01-01T00:00:00.000Z",
-        title:
-          "Dictyostelium mutants lacking the cytoskeletal protein coronin are defective in cytokinesis and cell motility.",
-        volume: "",
-      },
-    },
-  ],
-}
-
-test.beforeAll(
-  "Test Gene Ontology Annotation Page API",
-  async ({ playwright }) => {
-    const apiContext = await playwright.request.newContext()
-
-    const goa = await apiContext.post(
-      GRAPHQL_ENDPOINT,
-      listStrainsWithGeneQueryData(TEST_GENE),
-    )
-    const { data: strainsWithGeneData }: ListStrainsWithGeneQueryResult =
-      await goa.json()
-
-    expect(goa.ok()).toBeTruthy()
-
-    expect(strainsWithGeneData?.listStrainsWithGene).toContainEqual(
-      expect.objectContaining(EXPECTED_STRAIN),
-    )
-  },
-)
 
 test.beforeEach(async ({ page }) => {
   await page.goto(`/gene/${TEST_GENE}/phenotypes`)
@@ -161,7 +40,7 @@ test("Displays all strains with phenotypes", async ({ page }) => {
 test("Displays all phenotypes of a strain", async ({ page }) => {
   await Promise.all(
     pipe(
-      EXPECTED_STRAIN.phenotypes,
+      EXPECTED_COR_A_STRAIN.phenotypes,
       Amap(({ phenotype }) =>
         page.getByRole("row", { name: new RegExp(phenotype) }),
       ),
@@ -171,11 +50,11 @@ test("Displays all phenotypes of a strain", async ({ page }) => {
 })
 
 test("Displays phenotype characteristics", async ({ page }) => {
-  const expectedRow = page.getByRole("row", { name: EXPECTED_STRAIN.id })
+  const expectedRow = page.getByRole("row", { name: EXPECTED_COR_A_STRAIN.id })
   await expect(expectedRow).toBeVisible()
   await Promise.all(
     pipe(
-      EXPECTED_STRAIN.characteristics,
+      EXPECTED_COR_A_STRAIN.characteristics,
       Amap((characteristic) =>
         expect(expectedRow).toHaveText(new RegExp(characteristic)),
       ),
@@ -186,7 +65,7 @@ test("Displays phenotype characteristics", async ({ page }) => {
 test("Displays phenotype references", async ({ page }) => {
   await Promise.all(
     pipe(
-      EXPECTED_STRAIN.phenotypes,
+      EXPECTED_COR_A_STRAIN.phenotypes,
       Amap(({ publication: { title } }) => title),
       Auniq(SEq),
       Amap((title) =>

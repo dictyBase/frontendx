@@ -15,6 +15,8 @@ coverage
 **/playwright/.cache/
 **/.nyc_output
 **/postflight-report.md
+cypress.env.json
+**/cypress/screenshots
 
 # next.js
 .next/
@@ -54,6 +56,6 @@ repomix-output.txt
 repomix.config.json
 credentials
 .mcp.json
-mockServiceWorker.js
+/public/mockServiceWorker.js
 /.claude
 /apps/editor-playground/src/data
