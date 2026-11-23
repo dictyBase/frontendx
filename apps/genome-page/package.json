@@ -6,6 +6,7 @@
   "homepage": "/gene",
   "scripts": {
     "dev": "vite",
+    "dev:mock": "yarn dev --mode mock",
     "build": "tsc && vite build",
     "serve": "vite preview --port 3002",
     "test": "vitest run",

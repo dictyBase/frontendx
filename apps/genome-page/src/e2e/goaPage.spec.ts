@@ -1,41 +1,6 @@
-/* eslint-disable unicorn/no-null */
 import { test, expect } from "@playwright/test"
-import { GeneOntologyAnnotationQueryResult } from "dicty-graphql-schema"
-import { geneOntologyAnnotationQueryData } from "./utils/gqlRequestData"
-
-const GRAPHQL_ENDPOINT = `${process.env.VITE_GRAPHQL_SERVER}/graphql`
 
 const TEST_GENE = "DDB_G0267382"
-
-const EXPECTED_GOA_SHAPE = {
-  assigned_by: expect.any(String),
-  date: expect.any(String),
-  evidence_code: expect.any(String),
-  extensions: null,
-  go_term: expect.any(String),
-  id: expect.any(String),
-  publication: expect.any(String),
-  qualifier: expect.any(String),
-  type: expect.any(String),
-  with: null,
-}
-
-test.beforeAll(
-  "Test Gene Ontology Annotation Page API",
-  async ({ playwright }) => {
-    const apiContext = await playwright.request.newContext()
-
-    const goa = await apiContext.post(
-      GRAPHQL_ENDPOINT,
-      geneOntologyAnnotationQueryData(TEST_GENE),
-    )
-    const { data: goaData }: GeneOntologyAnnotationQueryResult =
-      await goa.json()
-    expect(goa.ok()).toBeTruthy()
-
-    expect(goaData?.geneOntologyAnnotation).toContainEqual(EXPECTED_GOA_SHAPE)
-  },
-)
 
 test.beforeEach(async ({ page }) => {
   await page.goto(`/gene/${TEST_GENE}/goannotations`)

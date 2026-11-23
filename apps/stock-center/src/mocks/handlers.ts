@@ -1,5 +1,10 @@
 import { HttpResponse } from "msw"
+import { match } from "ts-pattern"
 import {
+  StockEntityType,
+  StockSearchFieldEnum,
+  StrainType,
+  PlasmidType,
   mockStrainListQuery,
   mockStrainQuery,
   mockPlasmidQuery,
@@ -9,15 +14,37 @@ import {
   mockListPhenotypeAssaysQuery,
   mockPublicationQuery,
   mockAddStrainPhenotypeMutation,
+  mockListStockSuggestionsQuery,
+  mockSearchStocksQuery,
+  mockListStrainsWithPhenotypeQuery,
+  mockContentBySlugQuery,
 } from "dicty-graphql-schema/dist/mocks"
-import { availableStrain, mockPhenotypes, mockPlasmid } from "@dictybase/ui-dsc"
+import {
+  availableStrain,
+  mockPhenotypes,
+  mockPlasmid,
+  mockContent,
+} from "@dictybase/ui-dsc"
+import { EXPECTED_STRAIN, EXPECTED_PLASMID } from "../e2e/utils/expectedData"
 import { generateListStrainDataOfLength } from "./listStrainData"
 import { generateListPlasmidDataOfLength } from "./listPlasmidData"
+
+const STRAIN_TYPENAME = "Strain" as const
+const PLASMID_TYPENAME = "Plasmid" as const
+const AXE_STRAIN_LABEL = "pdsA552,axeA,axeB,axeC"
 
 const wait = (ms: number) =>
   new Promise((resolve) => {
     setTimeout(resolve, ms)
   })
+
+const mockUser = {
+  __typename: "User" as const,
+  id: "1",
+  email: "dictybase@northwestern.edu",
+  first_name: "Dicty",
+  last_name: "Stock Center",
+}
 
 const mockPublication = {
   id: "2",
@@ -38,52 +65,192 @@ const mockPublication = {
     { last_name: "Khodjakov & Koonce" },
   ],
 }
-const mockStrainListData = generateListStrainDataOfLength(30)
-const mockPlasmidListData = generateListPlasmidDataOfLength(30)
+
+const mockSmp3Strain = {
+  ...availableStrain,
+  __typename: STRAIN_TYPENAME,
+  id: "DBS0391520",
+  label: "[smp3]-",
+  summary: "Genome Wide Dictyostelium Insertion bank (GWDI) intergenic mutant",
+  in_stock: true,
+}
+
+const mockRegularStrain = {
+  __typename: STRAIN_TYPENAME,
+  id: "DBS0351791",
+  label: "tor(1-476:MTRSLRKVEKLKNSEPTLCTK:479-2380)",
+  summary: "tor mutant strain",
+  in_stock: true,
+}
+
+const mockGoldenBraidPlasmid = {
+  __typename: PLASMID_TYPENAME,
+  id: "DBP0001101",
+  name: "pDGB_O2_0006",
+  summary: "GoldenBraid plasmid vector",
+  in_stock: true,
+}
+
+const mockRegularPlasmid = {
+  __typename: PLASMID_TYPENAME,
+  id: "DBP0001102",
+  name: "pUPD2_T2A_TCGGGC_GGCTCG",
+  summary: "Regular plasmid vector",
+  in_stock: true,
+}
+
+const mockStrainListData = [
+  {
+    __typename: STRAIN_TYPENAME,
+    id: mockSmp3Strain.id,
+    label: mockSmp3Strain.label,
+    summary: mockSmp3Strain.summary,
+    in_stock: true,
+  },
+  ...generateListStrainDataOfLength(28),
+]
+
+const mockPlasmidListData = [
+  mockGoldenBraidPlasmid,
+  ...generateListPlasmidDataOfLength(28),
+]
 
 const handlers = [
-  mockStrainListQuery(async ({ variables }) => {
-    const { cursor, limit } = variables
-    const totalCount = mockStrainListData.length
+  mockStrainListQuery(({ variables }) => {
+    const { cursor, limit, filter } = variables
+    const sourceList = match(filter?.strain_type)
+      .with(StrainType.Regular, () => [
+        mockRegularStrain,
+        ...mockStrainListData,
+      ])
+      .otherwise(() => mockStrainListData)
+    const totalCount = sourceList.length
     const nextCursor = cursor + limit < totalCount ? cursor + limit : 0
-    const strains = mockStrainListData.slice(0, cursor + limit)
-    await wait(2000)
+    const strains = sourceList.slice(0, cursor + limit)
     return HttpResponse.json({
       data: { listStrains: { strains, nextCursor, totalCount } },
     })
   }),
-  mockPlasmidListFilterQuery(async ({ variables }) => {
-    const { cursor, limit } = variables
-    const totalCount = mockPlasmidListData.length
+  mockPlasmidListFilterQuery(({ variables }) => {
+    const { cursor, limit, filter } = variables
+    const sourceList = match(filter?.plasmid_type)
+      .with(PlasmidType.Regular, () => [
+        mockRegularPlasmid,
+        ...mockPlasmidListData,
+      ])
+      .otherwise(() => mockPlasmidListData)
+    const totalCount = sourceList.length
     const nextCursor = cursor + limit < totalCount ? cursor + limit : 0
-    const plasmids = mockPlasmidListData.slice(0, cursor + limit)
-    await wait(2000)
+    const plasmids = sourceList.slice(0, cursor + limit)
     return HttpResponse.json({
       data: { listPlasmids: { plasmids, nextCursor, totalCount } },
     })
-    // return HttpResponse.json({
-    //   errors: [
-    //     {
-    //       message:
-    //         "invalid filter parameter: error in generating AQL statement invalid parameters: Key: 'AQLFilterParams.Filters' Error:Field validation for 'Filters' failed on the 'min' tag",
-    //       path: ["listPlasmids"],
-    //       extensions: {
-    //         code: "Internal",
-    //         timestamp: "2025-11-18T14:54:12.155503715Z",
-    //       },
-    //     },
-    //   ],
-    //   data: { listPlasmids: null },
-    // })
   }),
-  mockStrainQuery(() =>
+  mockStrainQuery(({ variables }) => {
+    const strain = match(variables.id)
+      .with(EXPECTED_STRAIN.id, () => ({
+        __typename: STRAIN_TYPENAME,
+        ...EXPECTED_STRAIN,
+      }))
+      .with(mockSmp3Strain.id, () => mockSmp3Strain)
+      .otherwise(() => ({
+        ...availableStrain,
+        id: variables.id,
+        phenotypes: mockPhenotypes,
+      }))
+    return HttpResponse.json({ data: { strain } })
+  }),
+  mockPlasmidQuery(({ variables }) => {
+    const plasmid = match(variables.id)
+      .with(EXPECTED_PLASMID.id, () => ({
+        __typename: PLASMID_TYPENAME,
+        ...EXPECTED_PLASMID,
+      }))
+      .otherwise(() => ({
+        ...mockPlasmid,
+        id: variables.id,
+        publications: [mockPublication],
+      }))
+    return HttpResponse.json({ data: { plasmid } })
+  }),
+  mockListStockSuggestionsQuery(() =>
     HttpResponse.json({
-      data: { strain: { ...availableStrain, phenotypes: mockPhenotypes } },
+      data: {
+        listStockSuggestions: {
+          limit: 10,
+          totalCount: 1,
+          suggestions: [
+            {
+              __typename: "StockSuggestion",
+              id: "DBS0236414",
+              entity: StockEntityType.Strain,
+              field: StockSearchFieldEnum.Label,
+              display_text: AXE_STRAIN_LABEL,
+              score: 1,
+            },
+          ],
+        },
+      },
     }),
   ),
-  mockPlasmidQuery(() =>
+  mockSearchStocksQuery(() =>
     HttpResponse.json({
-      data: { plasmid: { ...mockPlasmid, publications: [mockPublication] } },
+      data: {
+        searchStocks: {
+          limit: 50,
+          totalCount: 1,
+          results: [
+            {
+              __typename: "StockSearchResult",
+              id: "DBS0236414",
+              entity: StockEntityType.Strain,
+              field: StockSearchFieldEnum.Label,
+              display_text: AXE_STRAIN_LABEL,
+              stock_label: AXE_STRAIN_LABEL,
+              summary: "axeA, axeB, axeC mutant strain",
+              score: 1,
+              in_stock: true,
+              stock_type: "regular",
+            },
+          ],
+        },
+      },
+    }),
+  ),
+  mockListStrainsWithPhenotypeQuery(() =>
+    HttpResponse.json({
+      data: {
+        listStrainsWithAnnotation: {
+          totalCount: 1,
+          nextCursor: 0,
+          strains: [
+            {
+              __typename: STRAIN_TYPENAME,
+              id: "DBS0238720",
+              label: "krsA-",
+              genes: [{ __typename: "Gene", name: "DDB_G0269364" }],
+              publications: [mockPublication],
+            },
+          ],
+        },
+      },
+    }),
+  ),
+  mockContentBySlugQuery(({ variables }) =>
+    HttpResponse.json({
+      data: {
+        contentBySlug: {
+          __typename: "Content",
+          id: "1",
+          name: variables.slug,
+          slug: variables.slug,
+          content: JSON.stringify(mockContent),
+          created_at: "2022-01-01T00:00:00.000Z",
+          updated_at: "2022-01-01T00:00:00.000Z",
+          created_by: mockUser,
+          updated_by: mockUser,
+        },
+      },
     }),
   ),
   mockListPhenotypesQuery(() =>

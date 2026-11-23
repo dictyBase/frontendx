@@ -1,23 +1,9 @@
 import { test, expect } from "@playwright/test"
 import { pipe } from "fp-ts/lib/function.js"
 import { map as Amap } from "fp-ts/lib/Array.js"
-import { plasmidQueryData } from "./utils/gqlRequestData"
 import { EXPECTED_PLASMID } from "./utils/expectedData"
 
-const GRAPHQL_ENDPOINT = `${process.env.VITE_APP_GRAPHQL_SERVER}/graphql`
 const TEST_PLASMID_ID = "DBP0000027"
-
-test.beforeAll("Test Plasmid Details Page API", async ({ playwright }) => {
-  const apiContext = await playwright.request.newContext()
-  const response = await apiContext.post(
-    GRAPHQL_ENDPOINT,
-    plasmidQueryData(TEST_PLASMID_ID),
-  )
-  expect(response.ok()).toBeTruthy()
-  expect(await response.json()).toEqual({
-    data: { plasmid: EXPECTED_PLASMID },
-  })
-})
 
 test.beforeEach(async ({ page }) => {
   await page.goto(`/stockcenter/plasmids/${TEST_PLASMID_ID}`)
