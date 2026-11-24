@@ -1,4 +1,6 @@
+import { useCallback, useState } from "react"
 import { ApolloError } from "@apollo/client"
+import { EditorState } from "lexical"
 import { Container } from "@mui/material"
 import PersonIcon from "@mui/icons-material/Person"
 import { formatDistance } from "date-fns"
@@ -69,17 +71,35 @@ type EditViewProperties = {
   data: NonNullable<ContentBySlugQuery["contentBySlug"]>
 }
 
-const EditView = ({ data }: EditViewProperties) => {
+const EditViewContent = ({ data }: EditViewProperties) => {
   const { id, updated_at, updated_by, content } = data
-  const [handleChange, autosaveState] = useAutoSave({
+  const [handleAutoSave, autosaveState] = useAutoSave({
     contentId: id,
   })
+  const [hasLocalEdits, setHasLocalEdits] = useState(false)
+  const [editorContent, setEditorContent] = useState(content)
+
+  // The Editor remounts whenever initialState changes. Follow server refreshes
+  // (e.g. cache-and-network) until the user edits; after that the editor is the
+  // source of truth, so saved content echoed back through the Apollo cache must
+  // not remount it and steal focus/selection.
+  if (!hasLocalEdits && content !== editorContent) {
+    setEditorContent(content)
+  }
+
+  const handleChange = useCallback(
+    (editorState: EditorState) => {
+      setHasLocalEdits(true)
+      handleAutoSave(editorState)
+    },
+    [handleAutoSave],
+  )
 
   const editedBy = truncateEmail(updated_by.email)
   return (
     <Container sx={{ marginTop: 2, marginBottom: 4 }}>
       <Editor
-        initialState={content}
+        initialState={editorContent}
         editable
         handleChange={handleChange}
         toolbar={
@@ -94,5 +114,10 @@ const EditView = ({ data }: EditViewProperties) => {
     </Container>
   )
 }
+
+// Keyed by id so switching to another document starts a fresh edit session.
+const EditView = ({ data }: EditViewProperties) => (
+  <EditViewContent key={data.id} data={data} />
+)
 
 export { EditView }
