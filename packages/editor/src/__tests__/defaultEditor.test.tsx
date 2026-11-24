@@ -5,7 +5,7 @@ import { userEvent } from "@testing-library/user-event"
 import { ThemeProvider, createTheme } from "@mui/material/styles"
 import { useEffect } from "react"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
-import type { LexicalEditor } from "lexical"
+import type { EditorState, LexicalEditor } from "lexical"
 import { $getRoot, $getSelection, $isRangeSelection } from "lexical"
 import { FlexLayoutNode } from "@dictybase/flex-layout-plugin"
 import { Editor } from "../Editor"
@@ -75,6 +75,51 @@ describe("DefaultEditor", () => {
 
     // The editor renders successfully with the handleChange prop
     expect(screen.getByRole("textbox")).toBeInTheDocument()
+  })
+
+  test("calls handleChange for content edits but not for selection-only changes", async () => {
+    const handleChange = vi.fn<(editorState: EditorState) => void>()
+    let editor: LexicalEditor | undefined
+
+    render(
+      <ThemeProvider theme={createTheme()}>
+        <Editor
+          editable
+          config={{ ...dictyEditorConfig, onError }}
+          handleChange={handleChange}
+          plugins={[
+            <EditorReferenceCapture
+              key="capture"
+              onEditorReady={(_editor) => {
+                editor = _editor
+              }}
+            />,
+          ]}
+        />
+      </ThemeProvider>,
+    )
+
+    await waitFor(() => {
+      expect(editor).toBeDefined()
+    })
+
+    editor!.update(
+      () => {
+        $getRoot().selectEnd()
+      },
+      { discrete: true },
+    )
+    expect(handleChange).not.toHaveBeenCalled()
+
+    editor!.update(
+      () => {
+        $getRoot().selectEnd().insertText("edited")
+      },
+      { discrete: true },
+    )
+    await waitFor(() => {
+      expect(handleChange).toHaveBeenCalledOnce()
+    })
   })
 
   test("renders with a contenteditable element", () => {
