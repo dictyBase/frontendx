@@ -11,6 +11,7 @@ import {
   type Klass,
   type LexicalEditor,
   type LexicalNode,
+  type NodeKey,
   type NodeMutation,
 } from "lexical"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
@@ -22,11 +23,19 @@ import {
   filterMap as RAfilterMap,
   map as RAmap,
 } from "fp-ts/ReadonlyArray"
+import { filter as RMfilter, keys as RMkeys } from "fp-ts/ReadonlyMap"
 import {
+  type Option,
+  Do as ODo,
+  apS as OapS,
+  fromNullable as OfromNullable,
   fromPredicate as OfromPredicate,
   isNone as OisNone,
+  map as Omap,
 } from "fp-ts/Option"
+import { Ord as StringOrd } from "fp-ts/string"
 import {
+  type BlockSpacing,
   $applyBlockSpacing,
   $getBlockSpacing,
   $getSpacingBlock,
@@ -43,21 +52,46 @@ const SPACING_NODE_CLASSES: readonly Klass<LexicalNode>[] = [
   ListItemNode,
 ]
 
-type SpacingMutationListener = (mutations: Map<string, NodeMutation>) => void
+type SpacingMutationListener = (mutations: Map<NodeKey, NodeMutation>) => void
+
+type SpacingTarget = Readonly<{ element: HTMLElement; spacing: BlockSpacing }>
+
+const isLiveMutation = (mutation: NodeMutation): boolean =>
+  mutation !== "destroyed"
+
+const $getSpacingTarget =
+  (editor: LexicalEditor) =>
+  (key: NodeKey): Option<SpacingTarget> =>
+    pipe(
+      ODo,
+      OapS("node", OfromNullable($getNodeByKey(key))),
+      OapS("element", OfromNullable(editor.getElementByKey(key))),
+      Omap(({ node, element }) => ({
+        element,
+        spacing: $getBlockSpacing(node),
+      })),
+    )
+
+const $collectSpacingTargets = (
+  editor: LexicalEditor,
+  mutations: ReadonlyMap<NodeKey, NodeMutation>,
+): readonly SpacingTarget[] =>
+  pipe(
+    mutations,
+    RMfilter(isLiveMutation),
+    RMkeys(StringOrd),
+    RAfilterMap($getSpacingTarget(editor)),
+  )
 
 const renderSpacing =
   (editor: LexicalEditor): SpacingMutationListener =>
-  (mutations): void => {
-    editor.getEditorState().read(() => {
-      mutations.forEach((mutation, key) => {
-        if (mutation === "destroyed") return
-        const node = $getNodeByKey(key)
-        const element = editor.getElementByKey(key)
-        if (!node || !element) return
-        applySpacingToElement(element, $getBlockSpacing(node))
-      })
-    })
-  }
+  (mutations) =>
+    editor
+      .getEditorState()
+      .read(() => $collectSpacingTargets(editor, mutations))
+      .forEach(({ element, spacing }) =>
+        applySpacingToElement(element, spacing),
+      )
 
 const $carrySpacingToNewSiblings = (
   editor: LexicalEditor,
