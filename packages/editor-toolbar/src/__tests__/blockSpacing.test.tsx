@@ -12,12 +12,15 @@ import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin"
 import { ContentEditable } from "@lexical/react/LexicalContentEditable"
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary"
 import { HeadingNode, QuoteNode } from "@lexical/rich-text"
+import { pipe } from "fp-ts/function"
 import {
   type Option,
   none as Onone,
   some as Osome,
-  match as Omatch,
+  fromNullable as OfromNullable,
+  getOrElse as OgetOrElse,
 } from "fp-ts/Option"
+import { map as RAmap } from "fp-ts/ReadonlyArray"
 import { LexicalTestComposer } from "../utils/LexicalTestComposer"
 import { BlockSpacingPlugin } from "../components/BlockSpacingPlugin"
 import {
@@ -35,6 +38,11 @@ const MAX_TEST_LINE_HEIGHT = 5
 const MAX_TEST_PARAGRAPH_SPACE = 200
 
 const captured: { editor: Option<LexicalEditor> } = { editor: Onone }
+
+const getOrThrow = <A,>(message: string): ((option: Option<A>) => A) =>
+  OgetOrElse((): A => {
+    throw new Error(message)
+  })
 
 const CaptureEditor = (): undefined => {
   const [editor] = useLexicalComposerContext()
@@ -55,12 +63,10 @@ const renderEditor = (): LexicalEditor => {
       <CaptureEditor />
     </LexicalTestComposer>,
   )
-  return Omatch<LexicalEditor, LexicalEditor>(
-    () => {
-      throw new Error("Lexical editor was not mounted")
-    },
-    (editor) => editor,
-  )(captured.editor)
+  return pipe(
+    captured.editor,
+    getOrThrow<LexicalEditor>("Lexical editor was not mounted"),
+  )
 }
 
 const setupParagraph = async (
@@ -89,12 +95,7 @@ const setupParagraph = async (
       { discrete: true },
     )
   })
-  return Omatch<string, string>(
-    () => {
-      throw new Error("Paragraph node was not created")
-    },
-    (key) => key,
-  )(nodeKey)
+  return pipe(nodeKey, getOrThrow<string>("Paragraph node was not created"))
 }
 
 test("getSpacingDeclarations keeps unset values absent and preserves explicit zero", () => {
@@ -128,14 +129,12 @@ test("parseSpacingValue accepts inclusive bounds and rejects invalid values", ()
   expect(parseLineHeight("1.5")).toEqual(Onone)
 })
 
-const getParagraphElement = (
-  editor: LexicalEditor,
-  key: string,
-): HTMLElement => {
-  const element = editor.getElementByKey(key)
-  if (!element) throw new Error("Paragraph element was not rendered")
-  return element
-}
+const getParagraphElement = (editor: LexicalEditor, key: string): HTMLElement =>
+  pipe(
+    editor.getElementByKey(key),
+    OfromNullable,
+    getOrThrow<HTMLElement>("Paragraph element was not rendered"),
+  )
 
 test("renders block spacing as inline styles on the paragraph", async () => {
   const editor = renderEditor()
@@ -189,11 +188,9 @@ test("a paragraph created with Enter keeps the spacing of its source", async () 
       { discrete: true },
     )
   })
-  const spacings = editor.getEditorState().read(() =>
-    $getRoot()
-      .getChildren()
-      .map((node) => $getBlockSpacing(node)),
-  )
+  const spacings = editor
+    .getEditorState()
+    .read(() => pipe($getRoot().getChildren(), RAmap($getBlockSpacing)))
   expect(spacings).toEqual([
     {
       [SpacingProperty.LINE_HEIGHT]: Osome(TEST_LINE_HEIGHT),

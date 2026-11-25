@@ -9,6 +9,7 @@ import {
   type EditorState,
   type ElementNode,
   type LexicalNode,
+  type RangeSelection,
   type StateConfig,
 } from "lexical"
 import { $findMatchingParent } from "@lexical/utils"
@@ -20,17 +21,23 @@ import {
   filter as Ofilter,
   fromNullable as OfromNullable,
   fromPredicate as OfromPredicate,
+  getOrElse as OgetOrElse,
   isNone as OisNone,
   isSome as OisSome,
   map as Omap,
+  none as Onone,
   toUndefined as OtoUndefined,
 } from "fp-ts/Option"
 import {
   filterMap as RAfilterMap,
-  findFirst as RAfindFirst,
+  flatMap as RAflatMap,
+  fromOption as RAfromOption,
   map as RAmap,
+  some as RAsome,
   uniq as RAuniq,
 } from "fp-ts/ReadonlyArray"
+import { map as RRmap } from "fp-ts/ReadonlyRecord"
+import { type Refinement, or as Ror } from "fp-ts/Refinement"
 import { contramap as EqContramap } from "fp-ts/Eq"
 import { Eq as StringEq } from "fp-ts/string"
 import { isNumber, Ord as NumberOrd } from "fp-ts/number"
@@ -44,6 +51,7 @@ enum SpacingProperty {
 }
 
 type BlockSpacing = Readonly<Record<SpacingProperty, Option<number>>>
+type SpacingChange = readonly [SpacingProperty, Option<number>]
 
 const MAX_LINE_HEIGHT = 5
 const MAX_PARAGRAPH_SPACE = 200
@@ -87,13 +95,19 @@ const SPACING_STATES = {
 const SPACING_PROPERTIES: readonly SpacingProperty[] =
   Object.values(SpacingProperty)
 
-const $isSpacingBlock = (
-  node: LexicalNode | null | undefined,
-): node is ElementNode =>
-  $isParagraphNode(node) ||
-  $isHeadingNode(node) ||
-  $isQuoteNode(node) ||
-  $isListItemNode(node)
+const EMPTY_SPACING: BlockSpacing = {
+  [SpacingProperty.LINE_HEIGHT]: Onone,
+  [SpacingProperty.SPACE_BEFORE]: Onone,
+  [SpacingProperty.SPACE_AFTER]: Onone,
+}
+
+const $isSpacingBlock: Refinement<LexicalNode | null | undefined, ElementNode> =
+  pipe(
+    $isParagraphNode,
+    Ror($isHeadingNode),
+    Ror($isQuoteNode),
+    Ror($isListItemNode),
+  )
 
 /** Nearest spacing-capable block, starting from (and including) the node. */
 const $getSpacingBlock = (node: LexicalNode): Option<ElementNode> =>
@@ -105,32 +119,37 @@ const KEY_EQ = EqContramap((node: ElementNode) => node.getKey())(StringEq)
  * Returns every distinct spacing-capable block touched by the selection,
  * in document order.
  */
+const $getTouchedNodes = (
+  selection: RangeSelection,
+): readonly LexicalNode[] => [
+  selection.anchor.getNode(),
+  ...selection.getNodes(),
+  selection.focus.getNode(),
+]
+
 const $getSelectedSpacingBlocks = (
   selection: BaseSelection | null,
-): readonly ElementNode[] => {
-  if (!$isRangeSelection(selection)) return []
-  return pipe(
-    [
-      selection.anchor.getNode(),
-      ...selection.getNodes(),
-      selection.focus.getNode(),
-    ],
+): readonly ElementNode[] =>
+  pipe(
+    selection,
+    OfromPredicate($isRangeSelection),
+    RAfromOption,
+    RAflatMap($getTouchedNodes),
     RAfilterMap($getSpacingBlock),
     RAuniq(KEY_EQ),
   )
-}
 
-const $getBlockSpacing = (node: LexicalNode): BlockSpacing => ({
-  [SpacingProperty.LINE_HEIGHT]: OfromNullable(
-    $getState(node, SPACING_STATES[SpacingProperty.LINE_HEIGHT]),
-  ),
-  [SpacingProperty.SPACE_BEFORE]: OfromNullable(
-    $getState(node, SPACING_STATES[SpacingProperty.SPACE_BEFORE]),
-  ),
-  [SpacingProperty.SPACE_AFTER]: OfromNullable(
-    $getState(node, SPACING_STATES[SpacingProperty.SPACE_AFTER]),
-  ),
-})
+const $getBlockSpacing = (node: LexicalNode): BlockSpacing =>
+  pipe(
+    SPACING_STATES,
+    RRmap((state) => OfromNullable($getState(node, state))),
+  )
+
+const toSpacingChanges = (spacing: BlockSpacing): readonly SpacingChange[] =>
+  pipe(
+    SPACING_PROPERTIES,
+    RAmap((property): SpacingChange => [property, spacing[property]]),
+  )
 
 const $setBlockSpacing = (
   node: LexicalNode,
@@ -138,17 +157,20 @@ const $setBlockSpacing = (
   value: Option<number>,
 ): LexicalNode => $setState(node, SPACING_STATES[property], OtoUndefined(value))
 
-const $applyBlockSpacing = (node: LexicalNode, spacing: BlockSpacing): void => {
-  SPACING_PROPERTIES.forEach((property) =>
-    $setBlockSpacing(node, property, spacing[property]),
-  )
-}
+const $applySpacingChanges =
+  (changes: readonly SpacingChange[]) =>
+  (node: LexicalNode): void =>
+    changes.forEach(([property, value]) =>
+      $setBlockSpacing(node, property, value),
+    )
+
+const $applyBlockSpacing = (node: LexicalNode, spacing: BlockSpacing): void =>
+  $applySpacingChanges(toSpacingChanges(spacing))(node)
 
 const hasSpacing = (spacing: BlockSpacing): boolean =>
   pipe(
     SPACING_PROPERTIES,
-    RAfindFirst((property) => OisSome(spacing[property])),
-    OisSome,
+    RAsome((property) => OisSome(spacing[property])),
   )
 
 /**
@@ -156,7 +178,7 @@ const hasSpacing = (spacing: BlockSpacing): boolean =>
  * state, i.e. it was created during the current update.
  */
 const $isNewNode = (node: LexicalNode, previousState: EditorState): boolean =>
-  $getNodeByKey(node.getKey(), previousState) === null
+  pipe($getNodeByKey(node.getKey(), previousState), OfromNullable, OisNone)
 
 const toPx = (value: number): string => `${value}px`
 const toLineHeight = (value: number): string => `${value}`
@@ -170,39 +192,38 @@ const CSS_BY_SPACING_PROPERTY = {
   [SpacingProperty.SPACE_AFTER]: { cssProperty: "margin-bottom", format: toPx },
 }
 
-/**
- * Maps a block spacing to CSS declarations. An empty string value means the
- * declaration should be removed so the theme default applies.
- */
-const getSpacingDeclarations = (
+const toSpacingDeclaration = ([
+  property,
+  value,
+]: SpacingChange): SpacingDeclaration => ({
+  cssProperty: CSS_BY_SPACING_PROPERTY[property].cssProperty,
+  value: pipe(value, Omap(CSS_BY_SPACING_PROPERTY[property].format)),
+})
+
+/** Maps a block spacing to CSS declarations; None means use the theme default. */
+const getSpacingDeclarations: (
   spacing: BlockSpacing,
-): readonly SpacingDeclaration[] =>
-  pipe(
-    SPACING_PROPERTIES,
-    RAmap((property) => {
-      const { cssProperty, format } = CSS_BY_SPACING_PROPERTY[property]
-      return {
-        cssProperty,
-        value: pipe(spacing[property], Omap(format)),
-      }
-    }),
-  )
+) => readonly SpacingDeclaration[] = flow(
+  toSpacingChanges,
+  RAmap(toSpacingDeclaration),
+)
+
+// CSSOM treats an empty value as removeProperty, restoring the theme default.
+const toCssValue: (value: Option<string>) => string = OgetOrElse(() => "")
 
 const applySpacingToElement = (
   element: HTMLElement,
   spacing: BlockSpacing,
-): void => {
-  getSpacingDeclarations(spacing).forEach(({ cssProperty, value }) => {
-    if (OisNone(value)) {
-      element.style.removeProperty(cssProperty)
-      return
-    }
-    element.style.setProperty(cssProperty, value.value)
-  })
-}
+): void =>
+  getSpacingDeclarations(spacing).forEach(({ cssProperty, value }) =>
+    element.style.setProperty(cssProperty, toCssValue(value)),
+  )
 
 export {
   SpacingProperty,
+  EMPTY_SPACING,
+  toSpacingChanges,
+  $applySpacingChanges,
   parseSpacingValue,
   $isSpacingBlock,
   $getSpacingBlock,
@@ -215,4 +236,4 @@ export {
   getSpacingDeclarations,
   applySpacingToElement,
 }
-export type { BlockSpacing }
+export type { BlockSpacing, SpacingChange }

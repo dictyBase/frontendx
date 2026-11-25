@@ -7,12 +7,14 @@ import {
   INSERT_PARAGRAPH_COMMAND,
   ParagraphNode,
   mergeRegister,
+  type EditorState,
   type ElementNode,
   type Klass,
   type LexicalEditor,
   type LexicalNode,
   type NodeKey,
   type NodeMutation,
+  type RangeSelection,
 } from "lexical"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { HeadingNode, QuoteNode } from "@lexical/rich-text"
@@ -21,6 +23,8 @@ import { pipe } from "fp-ts/function"
 import {
   filter as RAfilter,
   filterMap as RAfilterMap,
+  flatMap as RAflatMap,
+  fromOption as RAfromOption,
   map as RAmap,
 } from "fp-ts/ReadonlyArray"
 import { filter as RMfilter, keys as RMkeys } from "fp-ts/ReadonlyMap"
@@ -30,7 +34,7 @@ import {
   apS as OapS,
   fromNullable as OfromNullable,
   fromPredicate as OfromPredicate,
-  isNone as OisNone,
+  isSome as OisSome,
   map as Omap,
 } from "fp-ts/Option"
 import { Ord as StringOrd } from "fp-ts/string"
@@ -93,37 +97,58 @@ const renderSpacing =
         applySpacingToElement(element, spacing),
       )
 
-const $carrySpacingToNewSiblings = (
-  editor: LexicalEditor,
-  block: ElementNode,
-): void => {
-  const spacing = $getBlockSpacing(block)
-  if (!hasSpacing(spacing)) return
-  const previousState = editor.getEditorState()
-  const latest = block.getLatest()
-  pipe(
-    [latest.getPreviousSibling(), latest.getNextSibling()],
-    RAfilterMap(
-      OfromPredicate(
-        (sibling: LexicalNode | null): sibling is ElementNode =>
-          $isSpacingBlock(sibling) && $isNewNode(sibling, previousState),
+type SpacingCarry = Readonly<{ target: ElementNode; spacing: BlockSpacing }>
+
+const $isNewSpacingBlock =
+  (previousState: EditorState) =>
+  (node: LexicalNode | null): node is ElementNode =>
+    $isSpacingBlock(node) && $isNewNode(node, previousState)
+
+const $getNewSiblingBlocks =
+  (previousState: EditorState) =>
+  (block: ElementNode): readonly ElementNode[] =>
+    pipe(
+      block.getLatest(),
+      (latest) => [latest.getPreviousSibling(), latest.getNextSibling()],
+      RAfilterMap(OfromPredicate($isNewSpacingBlock(previousState))),
+    )
+
+const $collectSpacingCarries =
+  (previousState: EditorState) =>
+  (source: ElementNode): readonly SpacingCarry[] =>
+    pipe(
+      $getBlockSpacing(source),
+      OfromPredicate(hasSpacing),
+      RAfromOption,
+      RAflatMap((spacing) =>
+        pipe(
+          $getNewSiblingBlocks(previousState)(source),
+          RAmap((target) => ({ target, spacing })),
+        ),
       ),
-    ),
-  ).forEach((sibling) => $applyBlockSpacing(sibling, spacing))
-}
+    )
+
+const $splitKeepingSpacing =
+  (editor: LexicalEditor) =>
+  (selection: RangeSelection): void => {
+    // The source must be resolved before the split moves the selection.
+    const source = $getSpacingBlock(selection.anchor.getNode())
+    selection.insertParagraph()
+    pipe(
+      source,
+      RAfromOption,
+      RAflatMap($collectSpacingCarries(editor.getEditorState())),
+    ).forEach(({ target, spacing }) => $applyBlockSpacing(target, spacing))
+  }
 
 /**
  * Like a word processor, a paragraph created by pressing Enter continues the
  * spacing of the paragraph it was split from.
  */
 const $insertParagraphKeepingSpacing = (editor: LexicalEditor): boolean => {
-  const selection = $getSelection()
-  if (!$isRangeSelection(selection)) return false
-  const source = $getSpacingBlock(selection.anchor.getNode())
-  selection.insertParagraph()
-  if (OisNone(source)) return true
-  $carrySpacingToNewSiblings(editor, source.value)
-  return true
+  const selection = pipe($getSelection(), OfromPredicate($isRangeSelection))
+  RAfromOption(selection).forEach($splitKeepingSpacing(editor))
+  return OisSome(selection)
 }
 
 /**

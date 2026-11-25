@@ -32,15 +32,17 @@ import { Eq as NumberEq } from "fp-ts/number"
 import { useToolbarItemStyles } from "../hooks/useToolbarItemStyles"
 import { Aura } from "./Aura"
 import {
+  $applySpacingChanges,
   $getBlockSpacing,
   $getSelectedSpacingBlocks,
-  $setBlockSpacing,
+  EMPTY_SPACING,
   SpacingProperty,
+  toSpacingChanges,
   type BlockSpacing,
+  type SpacingChange,
 } from "../utils/blockSpacing"
 
 type SpacingOption = Readonly<{ label: string; value: Option<number> }>
-type SpacingChange = readonly [SpacingProperty, Option<number>]
 type SpacingSection = Readonly<{
   heading: string
   property: SpacingProperty
@@ -90,14 +92,12 @@ const SECTIONS: readonly SpacingSection[] = [
 
 const OPTION_EQ = OgetEq(NumberEq)
 
-const EMPTY_SPACING: BlockSpacing = {
-  [SpacingProperty.LINE_HEIGHT]: Onone,
-  [SpacingProperty.SPACE_BEFORE]: Onone,
-  [SpacingProperty.SPACE_AFTER]: Onone,
-}
+const REMOVE_PARAGRAPH_SPACE: readonly SpacingChange[] = [
+  [SpacingProperty.SPACE_BEFORE, Osome(NO_PARAGRAPH_SPACE)],
+  [SpacingProperty.SPACE_AFTER, Osome(NO_PARAGRAPH_SPACE)],
+]
 
-const SPACING_PROPERTIES: readonly SpacingProperty[] =
-  Object.values(SpacingProperty)
+const RESET_SPACING: readonly SpacingChange[] = toSpacingChanges(EMPTY_SPACING)
 
 const popoverStyles = { py: 1, width: "min(440px, 95vw)" }
 
@@ -112,6 +112,35 @@ const headingStyles = {
   color: "text.secondary",
   lineHeight: 2,
 }
+
+type SpacingOptionItemProperties = Readonly<{
+  label: string
+  isSelected: boolean
+  onSelect: () => void
+}>
+
+const SpacingOptionItem = ({
+  label,
+  isSelected,
+  onSelect,
+}: SpacingOptionItemProperties): ReactElement => (
+  <MenuItem
+    selected={isSelected}
+    aria-checked={isSelected}
+    role="menuitemradio"
+    onClick={onSelect}>
+    <ListItemIcon>
+      {pipe(
+        isSelected,
+        Bmatch(
+          () => undefined,
+          () => <Check fontSize="small" />,
+        ),
+      )}
+    </ListItemIcon>
+    <ListItemText>{label}</ListItemText>
+  </MenuItem>
+)
 
 const LineSpacingButton = (): ReactElement => {
   const [editor] = useLexicalComposerContext()
@@ -138,13 +167,11 @@ const LineSpacingButton = (): ReactElement => {
   const onClose = (): void => setAnchorElement(Onone)
 
   const updateSelectedBlocks = (changes: readonly SpacingChange[]): void => {
-    editor.update(() => {
-      $getSelectedSpacingBlocks($getSelection()).forEach((block) =>
-        changes.forEach(([property, value]) =>
-          $setBlockSpacing(block, property, value),
-        ),
-      )
-    })
+    editor.update(() =>
+      $getSelectedSpacingBlocks($getSelection()).forEach(
+        $applySpacingChanges(changes),
+      ),
+    )
     onClose()
   }
 
@@ -178,33 +205,19 @@ const LineSpacingButton = (): ReactElement => {
                   <MenuList dense aria-label={heading} autoFocusItem={false}>
                     {pipe(
                       options,
-                      RAmap(({ label, value }) => {
-                        const isSelected = OPTION_EQ.equals(
-                          current[property],
-                          value,
-                        )
-                        return (
-                          <MenuItem
-                            key={label}
-                            selected={isSelected}
-                            aria-checked={isSelected}
-                            role="menuitemradio"
-                            onClick={() =>
-                              updateSelectedBlocks([[property, value]])
-                            }>
-                            <ListItemIcon>
-                              {pipe(
-                                isSelected,
-                                Bmatch(
-                                  () => undefined,
-                                  () => <Check fontSize="small" />,
-                                ),
-                              )}
-                            </ListItemIcon>
-                            <ListItemText>{label}</ListItemText>
-                          </MenuItem>
-                        )
-                      }),
+                      RAmap(({ label, value }) => (
+                        <SpacingOptionItem
+                          key={label}
+                          label={label}
+                          isSelected={OPTION_EQ.equals(
+                            current[property],
+                            value,
+                          )}
+                          onSelect={() =>
+                            updateSelectedBlocks([[property, value]])
+                          }
+                        />
+                      )),
                     )}
                   </MenuList>
                 </Box>
@@ -221,26 +234,14 @@ const LineSpacingButton = (): ReactElement => {
               <Button
                 size="small"
                 color="inherit"
-                onClick={() =>
-                  updateSelectedBlocks([
-                    [SpacingProperty.SPACE_BEFORE, Osome(NO_PARAGRAPH_SPACE)],
-                    [SpacingProperty.SPACE_AFTER, Osome(NO_PARAGRAPH_SPACE)],
-                  ])
-                }>
+                onClick={() => updateSelectedBlocks(REMOVE_PARAGRAPH_SPACE)}>
                 Remove space between paragraphs
               </Button>
             </Aura>
             <Button
               size="small"
               color="inherit"
-              onClick={() =>
-                updateSelectedBlocks(
-                  pipe(
-                    SPACING_PROPERTIES,
-                    RAmap((property): SpacingChange => [property, Onone]),
-                  ),
-                )
-              }>
+              onClick={() => updateSelectedBlocks(RESET_SPACING)}>
               Reset
             </Button>
           </Stack>
