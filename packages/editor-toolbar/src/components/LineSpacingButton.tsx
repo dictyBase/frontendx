@@ -27,7 +27,7 @@ import {
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
 import { match as Bmatch } from "fp-ts/boolean"
-import { head as Ahead, map as Amap } from "fp-ts/Array"
+import { head as RAhead, map as RAmap } from "fp-ts/ReadonlyArray"
 import { Eq as NumberEq } from "fp-ts/number"
 import { useToolbarItemStyles } from "../hooks/useToolbarItemStyles"
 import { Aura } from "./Aura"
@@ -39,30 +39,38 @@ import {
   type BlockSpacing,
 } from "../utils/blockSpacing"
 
-type SpacingOption = { label: string; value: Option<number> }
-type SpacingChange = [SpacingProperty, Option<number>]
+type SpacingOption = Readonly<{ label: string; value: Option<number> }>
+type SpacingChange = readonly [SpacingProperty, Option<number>]
+type SpacingSection = Readonly<{
+  heading: string
+  property: SpacingProperty
+  options: readonly SpacingOption[]
+}>
 
 const TITLE = "Line & paragraph spacing"
 const DEFAULT_LABEL = "Default"
+const ONE_AND_A_HALF = 1.5
+const NO_PARAGRAPH_SPACE = 0
+const FOOTER_SPACING = 1.5
 
-const LINE_SPACING_OPTIONS: SpacingOption[] = [
+const LINE_SPACING_OPTIONS: readonly SpacingOption[] = [
   { label: DEFAULT_LABEL, value: Onone },
   { label: "Single", value: Osome(1) },
   { label: "1.15", value: Osome(1.15) },
-  { label: "1.5", value: Osome(1.5) },
+  { label: "1.5", value: Osome(ONE_AND_A_HALF) },
   { label: "Double", value: Osome(2) },
 ]
 
-const PARAGRAPH_SPACE_OPTIONS: SpacingOption[] = [
+const PARAGRAPH_SPACE_OPTIONS: readonly SpacingOption[] = [
   { label: DEFAULT_LABEL, value: Onone },
-  { label: "None", value: Osome(0) },
-  ...[4, 8, 12, 16, 24].map((px) => ({
-    label: `${px} px`,
-    value: Osome(px),
-  })),
+  { label: "None", value: Osome(NO_PARAGRAPH_SPACE) },
+  ...pipe(
+    [4, 8, 12, 16, 24],
+    RAmap((px) => ({ label: `${px} px`, value: Osome(px) })),
+  ),
 ]
 
-const SECTIONS = [
+const SECTIONS: readonly SpacingSection[] = [
   {
     heading: "Line spacing",
     property: SpacingProperty.LINE_HEIGHT,
@@ -88,7 +96,8 @@ const EMPTY_SPACING: BlockSpacing = {
   [SpacingProperty.SPACE_AFTER]: Onone,
 }
 
-const SPACING_PROPERTIES = Object.values(SpacingProperty)
+const SPACING_PROPERTIES: readonly SpacingProperty[] =
+  Object.values(SpacingProperty)
 
 const popoverStyles = { py: 1, width: "min(440px, 95vw)" }
 
@@ -115,7 +124,7 @@ const LineSpacingButton = (): ReactElement => {
     editor.getEditorState().read(() =>
       pipe(
         $getSelectedSpacingBlocks($getSelection()),
-        Ahead,
+        RAhead,
         Omap($getBlockSpacing),
         OgetOrElse(() => EMPTY_SPACING),
       ),
@@ -128,7 +137,7 @@ const LineSpacingButton = (): ReactElement => {
 
   const onClose = (): void => setAnchorElement(Onone)
 
-  const updateSelectedBlocks = (changes: SpacingChange[]): void => {
+  const updateSelectedBlocks = (changes: readonly SpacingChange[]): void => {
     editor.update(() => {
       $getSelectedSpacingBlocks($getSelection()).forEach((block) =>
         changes.forEach(([property, value]) =>
@@ -161,7 +170,7 @@ const LineSpacingButton = (): ReactElement => {
           <Box sx={columnsStyles}>
             {pipe(
               SECTIONS,
-              Amap(({ heading, property, options }) => (
+              RAmap(({ heading, property, options }) => (
                 <Box key={property} component="section" aria-label={heading}>
                   <Typography variant="overline" sx={headingStyles}>
                     {heading}
@@ -169,7 +178,7 @@ const LineSpacingButton = (): ReactElement => {
                   <MenuList dense aria-label={heading} autoFocusItem={false}>
                     {pipe(
                       options,
-                      Amap(({ label, value }) => {
+                      RAmap(({ label, value }) => {
                         const isSelected = OPTION_EQ.equals(
                           current[property],
                           value,
@@ -187,7 +196,7 @@ const LineSpacingButton = (): ReactElement => {
                               {pipe(
                                 isSelected,
                                 Bmatch(
-                                  () => <></>,
+                                  () => undefined,
                                   () => <Check fontSize="small" />,
                                 ),
                               )}
@@ -205,17 +214,17 @@ const LineSpacingButton = (): ReactElement => {
           <Divider />
           <Stack
             direction="row"
-            spacing={1.5}
+            spacing={FOOTER_SPACING}
             alignItems="center"
-            sx={{ px: 1.5, pt: 1.5 }}>
+            sx={{ px: FOOTER_SPACING, pt: FOOTER_SPACING }}>
             <Aura>
               <Button
                 size="small"
                 color="inherit"
                 onClick={() =>
                   updateSelectedBlocks([
-                    [SpacingProperty.SPACE_BEFORE, Osome(0)],
-                    [SpacingProperty.SPACE_AFTER, Osome(0)],
+                    [SpacingProperty.SPACE_BEFORE, Osome(NO_PARAGRAPH_SPACE)],
+                    [SpacingProperty.SPACE_AFTER, Osome(NO_PARAGRAPH_SPACE)],
                   ])
                 }>
                 Remove space between paragraphs
@@ -228,7 +237,7 @@ const LineSpacingButton = (): ReactElement => {
                 updateSelectedBlocks(
                   pipe(
                     SPACING_PROPERTIES,
-                    Amap((property): SpacingChange => [property, Onone]),
+                    RAmap((property): SpacingChange => [property, Onone]),
                   ),
                 )
               }>

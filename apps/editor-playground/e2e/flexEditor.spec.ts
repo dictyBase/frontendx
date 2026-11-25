@@ -194,7 +194,7 @@ test.describe("Image Node", () => {
     const editor = page.getByRole("textbox")
     await page.getByRole("button", { name: "Image" }).click()
 
-    await expect(editor.getByRole("img")).toBeVisible()
+    await expect(editor.locator('img[src="/sample.jpg"]')).toBeVisible()
   })
   test("Pressing <Enter> when an ImageNode is selected inserts a paragraph as its next sibling", async ({
     page,

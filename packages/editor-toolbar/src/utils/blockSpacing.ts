@@ -19,16 +19,17 @@ import {
   type Option,
   fromNullable as OfromNullable,
   fromPredicate as OfromPredicate,
+  isNone as OisNone,
   isSome as OisSome,
-  match as Omatch,
+  map as Omap,
   toUndefined as OtoUndefined,
 } from "fp-ts/Option"
 import {
-  filterMap as AfilterMap,
-  findFirst as AfindFirst,
-  map as Amap,
-  uniq as Auniq,
-} from "fp-ts/Array"
+  filterMap as RAfilterMap,
+  findFirst as RAfindFirst,
+  map as RAmap,
+  uniq as RAuniq,
+} from "fp-ts/ReadonlyArray"
 import { contramap as EqContramap } from "fp-ts/Eq"
 import { Eq as StringEq } from "fp-ts/string"
 
@@ -38,13 +39,16 @@ enum SpacingProperty {
   SPACE_AFTER = "spaceAfter",
 }
 
-type BlockSpacing = Record<SpacingProperty, Option<number>>
+type BlockSpacing = Readonly<Record<SpacingProperty, Option<number>>>
 
 const MAX_LINE_HEIGHT = 5
 const MAX_PARAGRAPH_SPACE = 200
-type SpacingDeclaration = { cssProperty: string; value: string }
+type SpacingDeclaration = Readonly<{
+  cssProperty: string
+  value: Option<string>
+}>
 
-const isWithin =
+const isSpacingValueWithin =
   (max: number): ((value: unknown) => value is number) =>
   (value): value is number =>
     typeof value === "number" &&
@@ -62,7 +66,7 @@ const createSpacingState = (
 ): StateConfig<SpacingProperty, number | undefined> =>
   createState(key, {
     parse: (value: unknown): number | undefined =>
-      pipe(value, OfromPredicate(isWithin(max)), OtoUndefined),
+      pipe(value, OfromPredicate(isSpacingValueWithin(max)), OtoUndefined),
   })
 
 const SPACING_STATES = {
@@ -80,7 +84,8 @@ const SPACING_STATES = {
   ),
 }
 
-const SPACING_PROPERTIES = Object.values(SpacingProperty)
+const SPACING_PROPERTIES: readonly SpacingProperty[] =
+  Object.values(SpacingProperty)
 
 const $isSpacingBlock = (
   node: LexicalNode | null | undefined,
@@ -102,7 +107,7 @@ const KEY_EQ = EqContramap((node: ElementNode) => node.getKey())(StringEq)
  */
 const $getSelectedSpacingBlocks = (
   selection: BaseSelection | null,
-): ElementNode[] => {
+): readonly ElementNode[] => {
   if (!$isRangeSelection(selection)) return []
   return pipe(
     [
@@ -110,8 +115,8 @@ const $getSelectedSpacingBlocks = (
       ...selection.getNodes(),
       selection.focus.getNode(),
     ],
-    AfilterMap($getSpacingBlock),
-    Auniq(KEY_EQ),
+    RAfilterMap($getSpacingBlock),
+    RAuniq(KEY_EQ),
   )
 }
 
@@ -142,7 +147,7 @@ const $applyBlockSpacing = (node: LexicalNode, spacing: BlockSpacing): void => {
 const hasSpacing = (spacing: BlockSpacing): boolean =>
   pipe(
     SPACING_PROPERTIES,
-    AfindFirst((property) => OisSome(spacing[property])),
+    RAfindFirst((property) => OisSome(spacing[property])),
     OisSome,
   )
 
@@ -169,17 +174,16 @@ const CSS_BY_SPACING_PROPERTY = {
  * Maps a block spacing to CSS declarations. An empty string value means the
  * declaration should be removed so the theme default applies.
  */
-const getSpacingDeclarations = (spacing: BlockSpacing): SpacingDeclaration[] =>
+const getSpacingDeclarations = (
+  spacing: BlockSpacing,
+): readonly SpacingDeclaration[] =>
   pipe(
     SPACING_PROPERTIES,
-    Amap((property) => {
+    RAmap((property) => {
       const { cssProperty, format } = CSS_BY_SPACING_PROPERTY[property]
       return {
         cssProperty,
-        value: pipe(
-          spacing[property],
-          Omatch(() => "", format),
-        ),
+        value: pipe(spacing[property], Omap(format)),
       }
     }),
   )
@@ -189,16 +193,17 @@ const applySpacingToElement = (
   spacing: BlockSpacing,
 ): void => {
   getSpacingDeclarations(spacing).forEach(({ cssProperty, value }) => {
-    if (value === "") {
+    if (OisNone(value)) {
       element.style.removeProperty(cssProperty)
       return
     }
-    element.style.setProperty(cssProperty, value)
+    element.style.setProperty(cssProperty, value.value)
   })
 }
 
 export {
   SpacingProperty,
+  isSpacingValueWithin,
   $isSpacingBlock,
   $getSpacingBlock,
   $getSelectedSpacingBlocks,

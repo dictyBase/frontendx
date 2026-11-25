@@ -4,7 +4,7 @@ import { alpha, keyframes, type Theme } from "@mui/material/styles"
 const AURA_THICKNESS = "1.5px"
 const AURA_ROTATION_DURATION = "4s"
 
-type AuraStyles = { root: SxProps<Theme> }
+type AuraStyles = Readonly<{ root: SxProps<Theme> }>
 
 const rotate = keyframes`
   from {

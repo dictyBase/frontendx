@@ -1,4 +1,4 @@
-import { useEffect, type ReactElement } from "react"
+import { useEffect } from "react"
 import {
   $getNodeByKey,
   $getSelection,
@@ -18,11 +18,14 @@ import { HeadingNode, QuoteNode } from "@lexical/rich-text"
 import { ListItemNode } from "@lexical/list"
 import { pipe } from "fp-ts/function"
 import {
-  filter as Afilter,
-  filterMap as AfilterMap,
-  map as Amap,
-} from "fp-ts/Array"
-import { match as Omatch, fromPredicate as OfromPredicate } from "fp-ts/Option"
+  filter as RAfilter,
+  filterMap as RAfilterMap,
+  map as RAmap,
+} from "fp-ts/ReadonlyArray"
+import {
+  fromPredicate as OfromPredicate,
+  isNone as OisNone,
+} from "fp-ts/Option"
 import {
   $applyBlockSpacing,
   $getBlockSpacing,
@@ -33,7 +36,7 @@ import {
   hasSpacing,
 } from "../utils/blockSpacing"
 
-const SPACING_NODE_CLASSES: Array<Klass<LexicalNode>> = [
+const SPACING_NODE_CLASSES: readonly Klass<LexicalNode>[] = [
   ParagraphNode,
   HeadingNode,
   QuoteNode,
@@ -66,7 +69,7 @@ const $carrySpacingToNewSiblings = (
   const latest = block.getLatest()
   pipe(
     [latest.getPreviousSibling(), latest.getNextSibling()],
-    AfilterMap(
+    RAfilterMap(
       OfromPredicate(
         (sibling: LexicalNode | null): sibling is ElementNode =>
           $isSpacingBlock(sibling) && $isNewNode(sibling, previousState),
@@ -84,13 +87,8 @@ const $insertParagraphKeepingSpacing = (editor: LexicalEditor): boolean => {
   if (!$isRangeSelection(selection)) return false
   const source = $getSpacingBlock(selection.anchor.getNode())
   selection.insertParagraph()
-  pipe(
-    source,
-    Omatch(
-      () => {},
-      (block) => $carrySpacingToNewSiblings(editor, block),
-    ),
-  )
+  if (OisNone(source)) return true
+  $carrySpacingToNewSiblings(editor, source.value)
   return true
 }
 
@@ -99,13 +97,13 @@ const $insertParagraphKeepingSpacing = (editor: LexicalEditor): boolean => {
  * keeps it when new paragraphs are created. Required in both editable and
  * read-only editors.
  */
-const BlockSpacingPlugin = (): ReactElement => {
+const BlockSpacingPlugin = (): undefined => {
   const [editor] = useLexicalComposerContext()
   useEffect(() => {
     const mutationListeners = pipe(
       SPACING_NODE_CLASSES,
-      Afilter((klass) => editor.hasNodes([klass])),
-      Amap((klass) =>
+      RAfilter((klass) => editor.hasNodes([klass])),
+      RAmap((klass) =>
         editor.registerMutationListener(klass, renderSpacing(editor), {
           skipInitialization: false,
         }),
@@ -120,7 +118,7 @@ const BlockSpacingPlugin = (): ReactElement => {
       ),
     )
   }, [editor])
-  return <></>
+  return undefined
 }
 
 export { BlockSpacingPlugin }
