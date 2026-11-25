@@ -30,6 +30,7 @@ import { match as Bmatch } from "fp-ts/boolean"
 import { head as Ahead } from "fp-ts/Array"
 import { Eq as NumberEq } from "fp-ts/number"
 import { useToolbarItemStyles } from "../hooks/useToolbarItemStyles"
+import { Aura } from "./Aura"
 import {
   $getBlockSpacing,
   $getSelectedSpacingBlocks,
@@ -194,18 +195,24 @@ const LineSpacingButton = () => {
             ))}
           </Box>
           <Divider />
-          <Stack direction="row" spacing={1} sx={{ px: 1, pt: 1 }}>
-            <Button
-              size="small"
-              color="inherit"
-              onClick={() =>
-                updateSelectedBlocks([
-                  [SpacingProperty.SPACE_BEFORE, Osome(0)],
-                  [SpacingProperty.SPACE_AFTER, Osome(0)],
-                ])
-              }>
-              Remove space between paragraphs
-            </Button>
+          <Stack
+            direction="row"
+            spacing={1.5}
+            alignItems="center"
+            sx={{ px: 1.5, pt: 1.5 }}>
+            <Aura>
+              <Button
+                size="small"
+                color="inherit"
+                onClick={() =>
+                  updateSelectedBlocks([
+                    [SpacingProperty.SPACE_BEFORE, Osome(0)],
+                    [SpacingProperty.SPACE_AFTER, Osome(0)],
+                  ])
+                }>
+                Remove space between paragraphs
+              </Button>
+            </Aura>
             <Button
               size="small"
               color="inherit"
