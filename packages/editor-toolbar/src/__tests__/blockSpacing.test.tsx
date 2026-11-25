@@ -24,7 +24,7 @@ import {
   $getBlockSpacing,
   $setBlockSpacing,
   SpacingProperty,
-  isSpacingValueWithin,
+  parseSpacingValue,
   getSpacingDeclarations,
 } from "../utils/blockSpacing"
 
@@ -111,17 +111,21 @@ test("getSpacingDeclarations keeps unset values absent and preserves explicit ze
   ])
 })
 
-test("spacing validation accepts inclusive bounds and rejects invalid values", () => {
-  const isValidLineHeight = isSpacingValueWithin(MAX_TEST_LINE_HEIGHT)
-  const isValidParagraphSpace = isSpacingValueWithin(MAX_TEST_PARAGRAPH_SPACE)
-  expect(isValidLineHeight(NO_SPACING)).toBe(true)
-  expect(isValidLineHeight(MAX_TEST_LINE_HEIGHT)).toBe(true)
-  expect(isValidLineHeight(-0.1)).toBe(false)
-  expect(isValidLineHeight(MAX_TEST_LINE_HEIGHT + 0.1)).toBe(false)
-  expect(isValidParagraphSpace(NO_SPACING)).toBe(true)
-  expect(isValidParagraphSpace(MAX_TEST_PARAGRAPH_SPACE)).toBe(true)
-  expect(isValidParagraphSpace(MAX_TEST_PARAGRAPH_SPACE + 0.1)).toBe(false)
-  expect(isValidLineHeight(Number.NaN)).toBe(false)
+test("parseSpacingValue accepts inclusive bounds and rejects invalid values", () => {
+  const parseLineHeight = parseSpacingValue(MAX_TEST_LINE_HEIGHT)
+  const parseParagraphSpace = parseSpacingValue(MAX_TEST_PARAGRAPH_SPACE)
+  expect(parseLineHeight(NO_SPACING)).toEqual(Osome(NO_SPACING))
+  expect(parseLineHeight(MAX_TEST_LINE_HEIGHT)).toEqual(
+    Osome(MAX_TEST_LINE_HEIGHT),
+  )
+  expect(parseLineHeight(-0.1)).toEqual(Onone)
+  expect(parseLineHeight(MAX_TEST_LINE_HEIGHT + 0.1)).toEqual(Onone)
+  expect(parseParagraphSpace(MAX_TEST_PARAGRAPH_SPACE)).toEqual(
+    Osome(MAX_TEST_PARAGRAPH_SPACE),
+  )
+  expect(parseParagraphSpace(MAX_TEST_PARAGRAPH_SPACE + 0.1)).toEqual(Onone)
+  expect(parseLineHeight(Number.NaN)).toEqual(Onone)
+  expect(parseLineHeight("1.5")).toEqual(Onone)
 })
 
 const getParagraphElement = (

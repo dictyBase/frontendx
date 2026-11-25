@@ -14,9 +14,10 @@ import {
 import { $findMatchingParent } from "@lexical/utils"
 import { $isHeadingNode, $isQuoteNode } from "@lexical/rich-text"
 import { $isListItemNode } from "@lexical/list"
-import { pipe } from "fp-ts/function"
+import { flow, pipe } from "fp-ts/function"
 import {
   type Option,
+  filter as Ofilter,
   fromNullable as OfromNullable,
   fromPredicate as OfromPredicate,
   isNone as OisNone,
@@ -32,6 +33,9 @@ import {
 } from "fp-ts/ReadonlyArray"
 import { contramap as EqContramap } from "fp-ts/Eq"
 import { Eq as StringEq } from "fp-ts/string"
+import { isNumber, Ord as NumberOrd } from "fp-ts/number"
+import { between } from "fp-ts/Ord"
+import { type Predicate, and as Pand } from "fp-ts/Predicate"
 
 enum SpacingProperty {
   LINE_HEIGHT = "lineHeight",
@@ -48,13 +52,12 @@ type SpacingDeclaration = Readonly<{
   value: Option<string>
 }>
 
-const isSpacingValueWithin =
-  (max: number): ((value: unknown) => value is number) =>
-  (value): value is number =>
-    typeof value === "number" &&
-    Number.isFinite(value) &&
-    value >= 0 &&
-    value <= max
+// Number.isFinite is required because Ord.between lets NaN through.
+const isSpacingValueWithin = (max: number): Predicate<number> =>
+  pipe(between(NumberOrd)(0, max), Pand<number>(Number.isFinite))
+
+const parseSpacingValue = (max: number): ((value: unknown) => Option<number>) =>
+  flow(OfromPredicate(isNumber), Ofilter(isSpacingValueWithin(max)))
 
 /**
  * NodeState values are serialized under the node's "$" key in the editor
@@ -64,10 +67,7 @@ const createSpacingState = (
   key: SpacingProperty,
   max: number,
 ): StateConfig<SpacingProperty, number | undefined> =>
-  createState(key, {
-    parse: (value: unknown): number | undefined =>
-      pipe(value, OfromPredicate(isSpacingValueWithin(max)), OtoUndefined),
-  })
+  createState(key, { parse: flow(parseSpacingValue(max), OtoUndefined) })
 
 const SPACING_STATES = {
   [SpacingProperty.LINE_HEIGHT]: createSpacingState(
@@ -203,7 +203,7 @@ const applySpacingToElement = (
 
 export {
   SpacingProperty,
-  isSpacingValueWithin,
+  parseSpacingValue,
   $isSpacingBlock,
   $getSpacingBlock,
   $getSelectedSpacingBlocks,
