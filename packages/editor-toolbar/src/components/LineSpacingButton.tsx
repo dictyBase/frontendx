@@ -197,6 +197,7 @@ const LineSpacingButton = () => {
           <Stack direction="row" spacing={1} sx={{ px: 1, pt: 1 }}>
             <Button
               size="small"
+              color="inherit"
               onClick={() =>
                 updateSelectedBlocks([
                   [SpacingProperty.SPACE_BEFORE, Osome(0)],
