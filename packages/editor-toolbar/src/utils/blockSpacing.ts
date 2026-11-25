@@ -177,8 +177,10 @@ const hasSpacing = (spacing: BlockSpacing): boolean =>
  * Whether the node did not exist in the given (previously committed) editor
  * state, i.e. it was created during the current update.
  */
-const $isNewNode = (node: LexicalNode, previousState: EditorState): boolean =>
-  pipe($getNodeByKey(node.getKey(), previousState), OfromNullable, OisNone)
+const $isNewNode =
+  (previousState: EditorState) =>
+  (node: LexicalNode): boolean =>
+    pipe($getNodeByKey(node.getKey(), previousState), OfromNullable, OisNone)
 
 const toPx = (value: number): string => `${value}px`
 const toLineHeight = (value: number): string => `${value}`
