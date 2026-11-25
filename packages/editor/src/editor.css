@@ -27,10 +27,12 @@
   margin: auto;
 }
 
+/*
+ * Default paragraph spacing. Per-paragraph line and paragraph spacing set
+ * from the toolbar is applied as inline styles and overrides these values.
+ */
 .editor-paragraph {
-  margin: 0;
-  flex-grow: 1;
-  margin-bottom: 8px;
+  margin: 1em 0;
   position: relative;
 }
 
@@ -42,10 +44,6 @@
 
 .editor-flex-layout > * {
   flex-basis: 100%;
-}
-
-.editor-paragraph:last-child {
-  margin-bottom: 0;
 }
 
 .editor-table {
