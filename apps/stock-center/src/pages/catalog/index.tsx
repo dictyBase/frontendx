@@ -14,9 +14,11 @@ import {
   InputAdornment,
   Typography,
   Paper,
+  Link as MuiLink,
 } from "@mui/material"
+import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 import SearchIcon from "@mui/icons-material/Search"
-import { useSearchParams, useNavigate } from "react-router-dom"
+import { Link, useSearchParams, useNavigate } from "react-router-dom"
 import { P, match } from "ts-pattern"
 import { pipe } from "fp-ts/function"
 import {
@@ -31,6 +33,7 @@ import {
   match as Omatch,
   toUndefined as OtoUndefined,
 } from "fp-ts/Option"
+import { match as Ematch } from "fp-ts/Either"
 import {
   match as Amatch,
   findFirst as AfindFirst,
@@ -49,6 +52,7 @@ import {
   StockEntityType,
   useSearchStocksLazyQuery,
 } from "dicty-graphql-schema"
+import { useIntersectionObserver } from "@dictybase/hook"
 import {
   EmptyCatalog,
   ErrorDisplay,
@@ -68,6 +72,11 @@ import {
   type FilterGroupOption,
 } from "../../components/CatalogFilterSelector"
 import { AddToCartButtonHandler } from "../../components/AddToCartButtonHandler"
+import {
+  getCountFetcher,
+  type ApiCounts,
+  type EntityCounts,
+} from "../../features/NewHome/StatsBanner"
 import { useInitialSearchResults } from "../../hooks/useInitialSearchResults"
 import { catalogTheme } from "../../themes"
 
@@ -115,12 +124,13 @@ const ENTITY_ROUTE: Record<Entity, string> = {
   plasmid: "/plasmids",
 }
 
-/** Page heading shown per entity resource. */
-const PAGE_HEADING: Record<Entity, string> = {
-  all: "Catalog Search",
-  strain: "Strain Catalog",
-  plasmid: "Plasmid Catalog",
-}
+/** Page heading shown across all catalog routes. */
+const PAGE_HEADING = "Catalog Search"
+
+type InitialCountState =
+  | { _tag: "loading" }
+  | { _tag: "error" }
+  | { _tag: "data"; counts: ApiCounts }
 
 /** Search input placeholder shown per entity resource. */
 const SEARCH_PLACEHOLDER: Record<Entity, string> = {
@@ -214,6 +224,79 @@ const inStockFilter =
         () => in_stock,
       ),
     )
+
+const parseCount = (value: string): number => {
+  const parsed = Number.parseInt(value, 10)
+  return pipe(
+    Number.isNaN(parsed),
+    Bmatch(
+      () => parsed,
+      () => 0,
+    ),
+  )
+}
+
+const getSubtypeCount = (
+  entityCounts: EntityCounts,
+  subtypeName: string,
+): number =>
+  match(subtypeName)
+    .with(ENTITY_ALL, () => parseCount(entityCounts.total))
+    .otherwise(() =>
+      pipe(
+        entityCounts.subtypes,
+        OfromNullable,
+        OflatMap(AfindFirst(({ name }) => name === subtypeName)),
+        Omap(({ count }) => parseCount(count)),
+        OgetOrElse(() => 0),
+      ),
+    )
+
+const applyApiCountsToGroups = (
+  groups: ReadonlyNonEmptyArray<FilterGroupOption> | undefined,
+  entityCounts: EntityCounts,
+): ReadonlyNonEmptyArray<FilterGroupOption> | undefined =>
+  pipe(
+    groups,
+    OfromNullable,
+    Omap(
+      RNEAmap((groupOption) => ({
+        ...groupOption,
+        count: some(getSubtypeCount(entityCounts, groupOption.value)),
+      })),
+    ),
+    OtoUndefined,
+  )
+
+const applyApiCountsToOptions = (
+  options: ReadonlyNonEmptyArray<FilterOption>,
+  counts: ApiCounts,
+): ReadonlyNonEmptyArray<FilterOption> => {
+  const strainTotal = parseCount(counts.strains.total)
+  const plasmidTotal = parseCount(counts.plasmids.total)
+
+  return pipe(
+    options,
+    RNEAmap((option) =>
+      match(option.value)
+        .with(ENTITY_STRAIN, () => ({
+          ...option,
+          count: some(strainTotal),
+          groups: applyApiCountsToGroups(option.groups, counts.strains),
+        }))
+        .with(ENTITY_PLASMID, () => ({
+          ...option,
+          count: some(plasmidTotal),
+          groups: applyApiCountsToGroups(option.groups, counts.plasmids),
+        }))
+        .otherwise(() => ({
+          ...option,
+          count: some(strainTotal + plasmidTotal),
+          groups: undefined,
+        })),
+    ),
+  )
+}
 
 const applyCountsToGroups = (
   groups: ReadonlyNonEmptyArray<FilterGroupOption> | undefined,
@@ -402,12 +485,70 @@ const CatalogSearch = ({ entity = ENTITY_ALL }: CatalogSearchProperties) => {
   const hasQuery = searchTerm.length >= MIN_CHARS
 
   const [searchStocks, { data, loading, error }] = useSearchStocksLazyQuery()
-  const { data: initialData, loading: loadingInitial } =
-    useInitialSearchResults({
-      entity,
-      group,
-      skip: hasQuery,
-    })
+  const {
+    data: initialData,
+    loading: loadingInitial,
+    nextCursor,
+    loadMore,
+  } = useInitialSearchResults({
+    entity,
+    group,
+    skip: hasQuery,
+  })
+
+  const [initialCountState, setInitialCountState] = useState<InitialCountState>(
+    { _tag: "loading" },
+  )
+
+  useEffect(() => {
+    let active = true
+    const run = async () => {
+      const countFetcher = getCountFetcher()
+      const results = await countFetcher()
+      if (!active) return
+      pipe(
+        results,
+        Ematch<Error, ApiCounts, void>(
+          () => setInitialCountState({ _tag: "error" }),
+          (counts) => setInitialCountState({ _tag: "data", counts }),
+        ),
+      )
+    }
+    run()
+    return () => {
+      active = false
+    }
+  }, [])
+
+  const rootReference = useRef<HTMLDivElement>(null)
+  const listTargetReference = useRef<HTMLDivElement>(null)
+  const tableTargetReference = useRef<HTMLTableRowElement>(null)
+
+  const activeTargetReference = match(view)
+    .with(VIEW_LIST, () => listTargetReference)
+    .with(VIEW_TABLE, () => tableTargetReference)
+    .exhaustive()
+
+  const onIntersection = useCallback(
+    ([entry]: IntersectionObserverEntry[]) => {
+      if (
+        hasQuery ||
+        nextCursor === 0 ||
+        loadingInitial ||
+        !entry?.isIntersecting
+      ) {
+        return
+      }
+      loadMore()
+    },
+    [hasQuery, nextCursor, loadingInitial, loadMore],
+  )
+
+  useIntersectionObserver({
+    target: activeTargetReference,
+    onIntersection,
+    option: { root: rootReference.current, threshold: 0.1 },
+  })
 
   const filterOptionsWithCounts = useMemo(
     () =>
@@ -416,7 +557,16 @@ const CatalogSearch = ({ entity = ENTITY_ALL }: CatalogSearchProperties) => {
         loadingSearch: loading,
         searchData: data,
         searchError: error,
+        initialCountState,
       })
+        .with(
+          {
+            hasQuery: false,
+            initialCountState: { _tag: "data", counts: P.select() },
+          },
+          (counts) =>
+            applyApiCountsToOptions(catalogEntityFilterOptions, counts),
+        )
         .with({ hasQuery: false }, () => catalogEntityFilterOptions)
         .with({ hasQuery: true, loadingSearch: true }, () =>
           applyCountsToOptions(catalogEntityFilterOptions, entity, none),
@@ -439,7 +589,49 @@ const CatalogSearch = ({ entity = ENTITY_ALL }: CatalogSearchProperties) => {
         .otherwise(() =>
           applyCountsToOptions(catalogEntityFilterOptions, entity, none),
         ),
-    [hasQuery, loading, data, error, entity, onlyInStock],
+    [hasQuery, loading, data, error, entity, onlyInStock, initialCountState],
+  )
+
+  const inStockCount = useMemo(
+    (): Option<number> =>
+      match({
+        hasQuery,
+        loadingSearch: loading,
+        loadingInitial,
+        searchData: data,
+        searchError: error,
+        initialData,
+      })
+        .with(
+          {
+            hasQuery: false,
+            initialData: P.select(P.not(P.nullish)),
+          },
+          (items) => some(pipe(items, Afilter(inStockFilter(true))).length),
+        )
+        .with({ hasQuery: false, loadingInitial: true }, () => none)
+        .with({ hasQuery: false }, () => some(0))
+        .with({ hasQuery: true, loadingSearch: true }, () => none)
+        .with(
+          {
+            hasQuery: true,
+            searchData: { searchStocks: { results: P.select() } },
+          },
+          (results) =>
+            some(
+              pipe(
+                group,
+                Omatch(
+                  () => results,
+                  (g) => pipe(results, Afilter(stockGroupFilter(g))),
+                ),
+                Afilter(inStockFilter(true)),
+              ).length,
+            ),
+        )
+        .with({ hasQuery: true, searchError: P.not(P.nullish) }, () => some(0))
+        .otherwise(() => none),
+    [hasQuery, loading, loadingInitial, data, error, initialData, group],
   )
 
   const onSearchTermChange = useCallback(
@@ -543,6 +735,28 @@ const CatalogSearch = ({ entity = ENTITY_ALL }: CatalogSearchProperties) => {
           pt: 0,
           minHeight: "100vh",
         }}>
+        {/* Return to Home navigation link */}
+        <Box sx={{ display: "flex", justifyContent: "flex-start", mb: 1.5 }}>
+          <MuiLink
+            component={Link}
+            to="/"
+            sx={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 0.75,
+              color: "primary.main",
+              fontWeight: 600,
+              fontSize: "0.95rem",
+              textDecoration: "none",
+              "&:hover": {
+                textDecoration: "underline",
+              },
+            }}>
+            <ArrowBackIcon fontSize="small" />
+            Return to Home
+          </MuiLink>
+        </Box>
+
         {/* Page header */}
         <Box
           sx={{
@@ -559,7 +773,7 @@ const CatalogSearch = ({ entity = ENTITY_ALL }: CatalogSearchProperties) => {
               fontWeight: 700,
               margin: 0,
             }}>
-            {PAGE_HEADING[entity]}
+            {PAGE_HEADING}
           </Box>
           <CatalogViewSwitcher view={view} onChange={setView} />
         </Box>
@@ -579,6 +793,7 @@ const CatalogSearch = ({ entity = ENTITY_ALL }: CatalogSearchProperties) => {
             selectedEntity={entity}
             selectedGroup={group}
             onlyInStock={onlyInStock}
+            inStockCount={inStockCount}
             onChangeEntity={onChangeEntity}
             onChangeGroup={onChangeGroup}
             onChangeOnlyInStock={onChangeOnlyInStock}
@@ -600,21 +815,28 @@ const CatalogSearch = ({ entity = ENTITY_ALL }: CatalogSearchProperties) => {
                   Afilter(inStockFilter(onlyInStock)),
                   Amatch(
                     () => <EmptyCatalog message={EMPTY_CATALOG_MESSAGE} />,
-                    (filteredItems) =>
-                      match(view)
-                        .with(VIEW_LIST, () => (
-                          <CatalogList
-                            items={pipe(filteredItems, Amap(fromCatalogItem))}
-                            actionComponent={AddToCartButtonHandler}
-                          />
-                        ))
-                        .with(VIEW_TABLE, () => (
-                          <CatalogResultsTable
-                            items={filteredItems}
-                            actionComponent={AddToCartButtonHandler}
-                          />
-                        ))
-                        .exhaustive(),
+                    (filteredItems) => (
+                      <Box ref={rootReference}>
+                        {match(view)
+                          .with(VIEW_LIST, () => (
+                            <CatalogList
+                              items={pipe(filteredItems, Amap(fromCatalogItem))}
+                              actionComponent={AddToCartButtonHandler}
+                              loadMoreRef={listTargetReference}
+                              nextCursor={nextCursor}
+                            />
+                          ))
+                          .with(VIEW_TABLE, () => (
+                            <CatalogResultsTable
+                              items={filteredItems}
+                              actionComponent={AddToCartButtonHandler}
+                              loadMoreRef={tableTargetReference}
+                              nextCursor={nextCursor}
+                            />
+                          ))
+                          .exhaustive()}
+                      </Box>
+                    ),
                   ),
                 ),
             )

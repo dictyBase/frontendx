@@ -171,7 +171,7 @@ test("should not render a count badge when count is omitted", () => {
   expect(allLabel).toHaveTextContent(/^All Results$/)
 })
 
-test("should render the Available items only filter pill and a divider", () => {
+test("should render the Available items only toggle slider and a divider", () => {
   render(<CatalogFilterSelector {...defaultProperties} />)
 
   const onlyInStockCheckbox = screen.getByRole("checkbox", {
@@ -179,7 +179,25 @@ test("should render the Available items only filter pill and a divider", () => {
   })
   expect(onlyInStockCheckbox).toBeInTheDocument()
   expect(onlyInStockCheckbox).not.toBeChecked()
+  expect(onlyInStockCheckbox.closest(".MuiSwitch-root")).toBeInTheDocument()
   expect(screen.getByRole("separator")).toBeInTheDocument()
+})
+
+test("should display the count of available items on the toggle slider when inStockCount is provided", () => {
+  render(
+    <CatalogFilterSelector
+      {...defaultProperties}
+      inStockCount={some(25_120)}
+    />,
+  )
+
+  expect(screen.getByText("25,120")).toBeInTheDocument()
+})
+
+test("should display ellipsis on the toggle slider when inStockCount is none", () => {
+  render(<CatalogFilterSelector {...defaultProperties} inStockCount={none} />)
+
+  expect(screen.getByText("...")).toBeInTheDocument()
 })
 
 test("should have Available items only checked when onlyInStock is true", () => {

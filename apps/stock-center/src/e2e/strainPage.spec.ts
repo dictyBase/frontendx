@@ -181,3 +181,10 @@ test("Clicking a phenotype link in the Phenotypes tab navigates to the catalog s
     /\/stockcenter\/catalog\?entity=strain&q=decreased\+cAMP\+level/,
   )
 })
+
+test("Return to Catalog link navigates to /catalog when arriving directly at strain details", async ({
+  page,
+}) => {
+  await page.getByRole("link", { name: /return to catalog/i }).click()
+  await expect(page).toHaveURL(/\/stockcenter\/catalog/)
+})

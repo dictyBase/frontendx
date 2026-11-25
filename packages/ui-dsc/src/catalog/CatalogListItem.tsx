@@ -1,7 +1,7 @@
 import type { FC } from "react"
 import Paper from "@mui/material/Paper"
 import { pipe } from "fp-ts/function"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { match as Omatch } from "fp-ts/Option"
 import { CatalogListItemHeader } from "./CatalogListItemHeader"
 import { CatalogListItemBody } from "./CatalogListItemBody"
@@ -36,12 +36,17 @@ const CatalogListItem = ({
 }: CatalogListItemProperties) => {
   const { id, entity, title, summary, inStock, item, match } = data
   const navigate = useNavigate()
+  const { pathname, search } = useLocation()
   const { itemBorder } = getEntityPresentation(entity)
   const path = toEntityPath(entity)
 
   return (
     <Paper
-      onClick={() => navigate(`/${path}/${id}`)}
+      onClick={() =>
+        navigate(`/${path}/${id}`, {
+          state: { from: `${pathname}${search}` },
+        })
+      }
       variant="outlined"
       sx={{
         overflow: "hidden",

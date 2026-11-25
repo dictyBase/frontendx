@@ -1,6 +1,8 @@
-import type { FC, ReactNode } from "react"
+import type { FC, ReactNode, RefObject } from "react"
 import { pipe } from "fp-ts/function"
+import { match as Bmatch } from "fp-ts/boolean"
 import { map as Amap } from "fp-ts/Array"
+import { Eq as NEq } from "fp-ts/number"
 import {
   fromNullable as OfromNullable,
   map as Omap,
@@ -13,12 +15,13 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  LinearProgress,
   Box,
   Stack,
   Typography,
   Link as MuiLink,
 } from "@mui/material"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { match, P } from "ts-pattern"
 import type { CatalogItem } from "../types"
 import { abbreviateStringToLength } from "../utils/abbreviateStringToLength"
@@ -119,7 +122,7 @@ const getPrimaryText = (item: CatalogItem): string =>
  * @returns A `<TableRow>` element.
  */
 const renderItemRow =
-  (ActionComponent: FC<{ item: CatalogItem }>) =>
+  (ActionComponent: FC<{ item: CatalogItem }>, fromPath: string) =>
   // eslint-disable-next-line react/function-component-definition
   (item: CatalogItem) => {
     const { id, summary } = item
@@ -141,6 +144,7 @@ const renderItemRow =
               <MuiLink
                 component={Link}
                 to={`/${path}/${id}`}
+                state={{ from: fromPath }}
                 sx={{
                   display: "block",
                   color: "#004080",
@@ -189,6 +193,10 @@ type CatalogResultsTableProperties = {
    * Typically `AddToCartButtonHandler`.
    */
   actionComponent: FC<{ item: CatalogItem }>
+  /** Ref attached to the loading indicator row for infinite scroll. */
+  loadMoreRef?: RefObject<HTMLTableRowElement | null>
+  /** Cursor for the next page of results; `0` when no more pages exist. */
+  nextCursor?: number
 }
 
 /**
@@ -202,31 +210,55 @@ type CatalogResultsTableProperties = {
  *
  * @param items - The catalog items to render.
  * @param actionComponent - Component for the action cell (e.g. add-to-cart button).
+ * @param loadMoreRef - Ref attached to the progress indicator row for infinite scroll.
+ * @param nextCursor - Cursor for the next page of results.
  */
 const CatalogResultsTable = ({
   items,
   actionComponent,
-}: CatalogResultsTableProperties) => (
-  <TableContainer
-    sx={{
-      maxHeight: "700px",
-      overflowY: "auto",
-      backgroundColor: "white",
-      borderRadius: "12px",
-      boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-    }}>
-    <Table stickyHeader sx={{ tableLayout: "fixed" }}>
-      <TableHead>
-        <TableRow>
-          <TableCell sx={{ width: "30%" }}>Stock</TableCell>
-          <TableCell sx={{ width: "60%" }}>Summary</TableCell>
-          <TableCell sx={{ width: "10%", textAlign: "center" }} />
-        </TableRow>
-      </TableHead>
-      <TableBody>{pipe(items, Amap(renderItemRow(actionComponent)))}</TableBody>
-    </Table>
-  </TableContainer>
-)
+  loadMoreRef,
+  nextCursor = 0,
+}: CatalogResultsTableProperties) => {
+  const { pathname, search } = useLocation()
+  const fromPath = `${pathname}${search}`
+
+  return (
+    <TableContainer
+      sx={{
+        maxHeight: "700px",
+        overflowY: "auto",
+        backgroundColor: "white",
+        borderRadius: "12px",
+        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+      }}>
+      <Table stickyHeader sx={{ tableLayout: "fixed" }}>
+        <TableHead>
+          <TableRow>
+            <TableCell sx={{ width: "30%" }}>Stock</TableCell>
+            <TableCell sx={{ width: "60%" }}>Summary</TableCell>
+            <TableCell sx={{ width: "10%", textAlign: "center" }} />
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {pipe(items, Amap(renderItemRow(actionComponent, fromPath)))}
+          {pipe(
+            NEq.equals(nextCursor, 0),
+            Bmatch(
+              () => (
+                <TableRow key="linear-progress" ref={loadMoreRef}>
+                  <TableCell colSpan={3}>
+                    <LinearProgress />
+                  </TableCell>
+                </TableRow>
+              ),
+              () => <></>,
+            ),
+          )}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  )
+}
 
 export { CatalogResultsTable }
 export type { CatalogResultsTableProperties }

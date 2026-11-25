@@ -1,4 +1,4 @@
-import { HttpResponse } from "msw"
+import { http, HttpResponse } from "msw"
 import { match } from "ts-pattern"
 import {
   StockEntityType,
@@ -115,7 +115,26 @@ const mockPlasmidListData = [
   ...generateListPlasmidDataOfLength(28),
 ]
 
+const mockStockCounts = {
+  strains: {
+    total: "28576",
+    subtypes: [
+      { name: "regular", count: "7055" },
+      { name: "gwdi", count: "21521" },
+      { name: "bacterial", count: "0" },
+    ],
+  },
+  plasmids: {
+    total: "1265",
+    subtypes: [
+      { name: "regular", count: "979" },
+      { name: "goldenbraid", count: "286" },
+    ],
+  },
+}
+
 const handlers = [
+  http.get("*/v1/stocks/counts", () => HttpResponse.json(mockStockCounts)),
   mockStrainListQuery(({ variables }) => {
     const { cursor, limit, filter } = variables
     const sourceList = match(filter?.strain_type)
@@ -126,7 +145,7 @@ const handlers = [
       .otherwise(() => mockStrainListData)
     const totalCount = sourceList.length
     const nextCursor = cursor + limit < totalCount ? cursor + limit : 0
-    const strains = sourceList.slice(0, cursor + limit)
+    const strains = sourceList.slice(cursor, cursor + limit)
     return HttpResponse.json({
       data: { listStrains: { strains, nextCursor, totalCount } },
     })
@@ -141,7 +160,7 @@ const handlers = [
       .otherwise(() => mockPlasmidListData)
     const totalCount = sourceList.length
     const nextCursor = cursor + limit < totalCount ? cursor + limit : 0
-    const plasmids = sourceList.slice(0, cursor + limit)
+    const plasmids = sourceList.slice(cursor, cursor + limit)
     return HttpResponse.json({
       data: { listPlasmids: { plasmids, nextCursor, totalCount } },
     })

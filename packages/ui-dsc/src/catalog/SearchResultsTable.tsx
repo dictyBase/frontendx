@@ -27,7 +27,7 @@ import {
   Typography,
   Link as MuiLink,
 } from "@mui/material"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { match } from "ts-pattern"
 import { StockEntityType } from "dicty-graphql-schema"
 import type { StockSearchResult } from "dicty-graphql-schema"
@@ -182,7 +182,7 @@ const toStockCatalogItem = (result: StockSearchResult): CatalogItem =>
  * @returns A `<TableRow>` element.
  */
 const renderResultRow =
-  (ActionComponent: FC<{ item: CatalogItem }>) =>
+  (ActionComponent: FC<{ item: CatalogItem }>, fromPath: string) =>
   // eslint-disable-next-line react/function-component-definition
   (result: StockSearchResult) => {
     const { id, entity, summary, field, display_text, stock_label } = result
@@ -200,6 +200,7 @@ const renderResultRow =
               <MuiLink
                 component={Link}
                 to={`/${path}/${id}`}
+                state={{ from: fromPath }}
                 sx={{
                   display: "block",
                   color: "#004080",
@@ -265,30 +266,35 @@ type SearchResultsTableProperties = {
 const SearchResultsTable = ({
   results,
   actionComponent,
-}: SearchResultsTableProperties) => (
-  <TableContainer
-    sx={{
-      maxHeight: "700px",
-      overflowY: "auto",
-      backgroundColor: "white",
-      borderRadius: "12px",
-      boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-    }}>
-    <Table stickyHeader sx={{ tableLayout: "fixed" }}>
-      <TableHead>
-        <TableRow>
-          <TableCell>Stock</TableCell>
-          <TableCell>Matching Field</TableCell>
-          <TableCell sx={{ width: "40%" }}>Summary</TableCell>
-          <TableCell sx={{ width: "10%", textAlign: "center" }} />
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {pipe(results, Amap(renderResultRow(actionComponent)))}
-      </TableBody>
-    </Table>
-  </TableContainer>
-)
+}: SearchResultsTableProperties) => {
+  const { pathname, search } = useLocation()
+  const fromPath = `${pathname}${search}`
+
+  return (
+    <TableContainer
+      sx={{
+        maxHeight: "700px",
+        overflowY: "auto",
+        backgroundColor: "white",
+        borderRadius: "12px",
+        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+      }}>
+      <Table stickyHeader sx={{ tableLayout: "fixed" }}>
+        <TableHead>
+          <TableRow>
+            <TableCell>Stock</TableCell>
+            <TableCell>Matching Field</TableCell>
+            <TableCell sx={{ width: "40%" }}>Summary</TableCell>
+            <TableCell sx={{ width: "10%", textAlign: "center" }} />
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {pipe(results, Amap(renderResultRow(actionComponent, fromPath)))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  )
+}
 
 export { SearchResultsTable, toStockCatalogItem }
 export type { SearchResultsTableProperties }

@@ -238,3 +238,29 @@ test("leaves the summary cell empty when the summary is null", () => {
   const cells = row.querySelectorAll("td")
   expect(cells[1]).toBeEmptyDOMElement()
 })
+
+test("renders a progress indicator when nextCursor is non-zero", () => {
+  render(
+    <MemoryRouter>
+      <CatalogResultsTable
+        items={[mockStrainItem]}
+        actionComponent={NoOpAction}
+        nextCursor={12}
+      />
+    </MemoryRouter>,
+  )
+  expect(screen.getByRole("progressbar")).toBeInTheDocument()
+})
+
+test("does not render a progress indicator when nextCursor is 0", () => {
+  render(
+    <MemoryRouter>
+      <CatalogResultsTable
+        items={[mockStrainItem]}
+        actionComponent={NoOpAction}
+        nextCursor={0}
+      />
+    </MemoryRouter>,
+  )
+  expect(screen.queryByRole("progressbar")).not.toBeInTheDocument()
+})

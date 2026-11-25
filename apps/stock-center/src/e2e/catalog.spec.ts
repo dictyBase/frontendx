@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test"
 
 const SEARCH_TERM = "axe"
+const CATALOG_HEADING = "Catalog Search"
 const CATALOG_PATH = "/stockcenter/catalog"
 const STRAINS_PATH = "/stockcenter/strains"
 const PLASMIDS_PATH = "/stockcenter/plasmids"
@@ -11,7 +12,7 @@ test("Displays initial strain and plasmid items on the full catalog page", async
   await page.goto(CATALOG_PATH)
 
   await expect(
-    page.getByRole("heading", { name: "Catalog Search" }),
+    page.getByRole("heading", { name: CATALOG_HEADING }),
   ).toBeVisible()
   await expect(page.getByText("[smp3]-").first()).toBeVisible()
   await expect(page.getByText("pDGB_O2_0006").first()).toBeVisible()
@@ -51,13 +52,13 @@ test("Entity filter pills navigate between catalog, strains, and plasmids", asyn
   await page.getByText("Strains", { exact: true }).click()
   await expect(page).toHaveURL(/\/stockcenter\/strains\?group=all/)
   await expect(
-    page.getByRole("heading", { name: "Strain Catalog" }),
+    page.getByRole("heading", { name: CATALOG_HEADING }),
   ).toBeVisible()
 
   await page.getByText("Plasmids", { exact: true }).click()
   await expect(page).toHaveURL(/\/stockcenter\/plasmids\?group=all/)
   await expect(
-    page.getByRole("heading", { name: "Plasmid Catalog" }),
+    page.getByRole("heading", { name: CATALOG_HEADING }),
   ).toBeVisible()
 
   await page.getByText("All Results", { exact: true }).click()
@@ -73,12 +74,12 @@ test("Preserves the active search query when switching entity filter pills", asy
   await expect(page).toHaveURL(/\/stockcenter\/plasmids\?q=axe&group=all/)
 })
 
-test("Filters strains by group and navigates to strain details from the strain catalog", async ({
+test("Filters strains by group, navigates to strain details, and returns to the strain search page", async ({
   page,
 }) => {
   await page.goto(STRAINS_PATH)
   await expect(
-    page.getByRole("heading", { name: "Strain Catalog" }),
+    page.getByRole("heading", { name: CATALOG_HEADING }),
   ).toBeVisible()
 
   await page.getByText("Regular Strains", { exact: true }).click()
@@ -90,14 +91,17 @@ test("Filters strains by group and navigates to strain details from the strain c
 
   await strainTitle.click()
   await expect(page).toHaveURL(/\/stockcenter\/strains\/DBS0351791/)
+
+  await page.getByRole("link", { name: /return to catalog/i }).click()
+  await expect(page).toHaveURL(/\/stockcenter\/strains\?group=regular/)
 })
 
-test("Filters plasmids by group and navigates to plasmid details from the plasmid catalog", async ({
+test("Filters plasmids by group, navigates to plasmid details, and returns to the plasmid search page", async ({
   page,
 }) => {
   await page.goto(PLASMIDS_PATH)
   await expect(
-    page.getByRole("heading", { name: "Plasmid Catalog" }),
+    page.getByRole("heading", { name: CATALOG_HEADING }),
   ).toBeVisible()
 
   await page.getByText("Regular Plasmids", { exact: true }).click()
@@ -107,6 +111,17 @@ test("Filters plasmids by group and navigates to plasmid details from the plasmi
 
   await plasmidTitle.click()
   await expect(page).toHaveURL(/\/stockcenter\/plasmids\/DBP0001102/)
+
+  await page.getByRole("link", { name: /return to catalog/i }).click()
+  await expect(page).toHaveURL(/\/stockcenter\/plasmids\?group=regular/)
+})
+
+test("Return to Home link navigates from catalog to home page", async ({
+  page,
+}) => {
+  await page.goto(CATALOG_PATH)
+  await page.getByRole("link", { name: /return to home/i }).click()
+  await expect(page).toHaveURL(/\/stockcenter\/?$/)
 })
 
 test("Adds an available item to the cart from the catalog table view", async ({
