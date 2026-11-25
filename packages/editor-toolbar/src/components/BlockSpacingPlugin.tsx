@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, type ReactElement } from "react"
 import {
   $getNodeByKey,
   $getSelection,
@@ -17,7 +17,11 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { HeadingNode, QuoteNode } from "@lexical/rich-text"
 import { ListItemNode } from "@lexical/list"
 import { pipe } from "fp-ts/function"
-import { filterMap as AfilterMap } from "fp-ts/Array"
+import {
+  filter as Afilter,
+  filterMap as AfilterMap,
+  map as Amap,
+} from "fp-ts/Array"
 import { match as Omatch, fromPredicate as OfromPredicate } from "fp-ts/Option"
 import {
   $applyBlockSpacing,
@@ -36,8 +40,11 @@ const SPACING_NODE_CLASSES: Array<Klass<LexicalNode>> = [
   ListItemNode,
 ]
 
+type SpacingMutationListener = (mutations: Map<string, NodeMutation>) => void
+
 const renderSpacing =
-  (editor: LexicalEditor) => (mutations: Map<string, NodeMutation>) => {
+  (editor: LexicalEditor): SpacingMutationListener =>
+  (mutations): void => {
     editor.getEditorState().read(() => {
       mutations.forEach((mutation, key) => {
         if (mutation === "destroyed") return
@@ -52,7 +59,7 @@ const renderSpacing =
 const $carrySpacingToNewSiblings = (
   editor: LexicalEditor,
   block: ElementNode,
-) => {
+): void => {
   const spacing = $getBlockSpacing(block)
   if (!hasSpacing(spacing)) return
   const previousState = editor.getEditorState()
@@ -72,7 +79,7 @@ const $carrySpacingToNewSiblings = (
  * Like a word processor, a paragraph created by pressing Enter continues the
  * spacing of the paragraph it was split from.
  */
-const $insertParagraphKeepingSpacing = (editor: LexicalEditor) => {
+const $insertParagraphKeepingSpacing = (editor: LexicalEditor): boolean => {
   const selection = $getSelection()
   if (!$isRangeSelection(selection)) return false
   const source = $getSpacingBlock(selection.anchor.getNode())
@@ -92,25 +99,27 @@ const $insertParagraphKeepingSpacing = (editor: LexicalEditor) => {
  * keeps it when new paragraphs are created. Required in both editable and
  * read-only editors.
  */
-const BlockSpacingPlugin = () => {
+const BlockSpacingPlugin = (): ReactElement => {
   const [editor] = useLexicalComposerContext()
-  useEffect(
-    () =>
-      mergeRegister(
-        ...SPACING_NODE_CLASSES.filter((klass) => editor.hasNodes([klass])).map(
-          (klass) =>
-            editor.registerMutationListener(klass, renderSpacing(editor), {
-              skipInitialization: false,
-            }),
-        ),
-        editor.registerCommand(
-          INSERT_PARAGRAPH_COMMAND,
-          () => $insertParagraphKeepingSpacing(editor),
-          COMMAND_PRIORITY_LOW,
-        ),
+  useEffect(() => {
+    const mutationListeners = pipe(
+      SPACING_NODE_CLASSES,
+      Afilter((klass) => editor.hasNodes([klass])),
+      Amap((klass) =>
+        editor.registerMutationListener(klass, renderSpacing(editor), {
+          skipInitialization: false,
+        }),
       ),
-    [editor],
-  )
+    )
+    return mergeRegister(
+      ...mutationListeners,
+      editor.registerCommand(
+        INSERT_PARAGRAPH_COMMAND,
+        () => $insertParagraphKeepingSpacing(editor),
+        COMMAND_PRIORITY_LOW,
+      ),
+    )
+  }, [editor])
   return <></>
 }
 

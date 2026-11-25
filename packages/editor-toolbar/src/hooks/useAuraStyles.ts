@@ -1,7 +1,10 @@
+import type { SxProps } from "@mui/material"
 import { alpha, keyframes, type Theme } from "@mui/material/styles"
 
 const AURA_THICKNESS = "1.5px"
 const AURA_ROTATION_DURATION = "4s"
+
+type AuraStyles = { root: SxProps<Theme> }
 
 const rotate = keyframes`
   from {
@@ -12,12 +15,12 @@ const rotate = keyframes`
   }
 `
 
-const glow = (theme: Theme, opacity: number, blur: number) =>
+const glow = (theme: Theme, opacity: number, blur: number): string =>
   `0 0 ${blur}px ${alpha(theme.palette.secondary.main, opacity)}`
 
-const tint = (color: string) => `linear-gradient(${color}, ${color})`
+const tint = (color: string): string => `linear-gradient(${color}, ${color})`
 
-const useAuraStyles = () => ({
+const useAuraStyles = (): AuraStyles => ({
   root: (theme: Theme) => ({
     position: "relative",
     display: "inline-flex",

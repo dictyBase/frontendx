@@ -1,5 +1,6 @@
 import { test, expect } from "vitest"
 import { render, act } from "@testing-library/react"
+import { type ReactElement } from "react"
 import {
   $createParagraphNode,
   $createTextNode,
@@ -12,7 +13,12 @@ import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin"
 import { ContentEditable } from "@lexical/react/LexicalContentEditable"
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary"
 import { HeadingNode, QuoteNode } from "@lexical/rich-text"
-import { none as Onone, some as Osome } from "fp-ts/Option"
+import {
+  type Option,
+  none as Onone,
+  some as Osome,
+  match as Omatch,
+} from "fp-ts/Option"
 import { LexicalTestComposer } from "../utils/LexicalTestComposer"
 import { BlockSpacingPlugin } from "../components/BlockSpacingPlugin"
 import {
@@ -24,15 +30,16 @@ import {
 
 const TEXT = "Dicty Stock Center"
 
-const captured: { editor?: LexicalEditor } = {}
+const captured: { editor: Option<LexicalEditor> } = { editor: Onone }
 
-const CaptureEditor = () => {
+const CaptureEditor = (): ReactElement => {
   const [editor] = useLexicalComposerContext()
-  captured.editor = editor
+  captured.editor = Osome(editor)
   return <></>
 }
 
-const renderEditor = () => {
+const renderEditor = (): LexicalEditor => {
+  captured.editor = Onone
   render(
     <LexicalTestComposer config={{ nodes: [HeadingNode, QuoteNode] }}>
       <RichTextPlugin
@@ -44,10 +51,18 @@ const renderEditor = () => {
       <CaptureEditor />
     </LexicalTestComposer>,
   )
-  return captured.editor as LexicalEditor
+  return Omatch<LexicalEditor, LexicalEditor>(
+    () => {
+      throw new Error("Lexical editor was not mounted")
+    },
+    (editor) => editor,
+  )(captured.editor)
 }
 
-const setupParagraph = async (editor: LexicalEditor, text: string) => {
+const setupParagraph = async (
+  editor: LexicalEditor,
+  text: string,
+): Promise<string> => {
   let key = ""
   await act(async () => {
     editor.update(
@@ -137,7 +152,11 @@ test("a paragraph created with Enter keeps the spacing of its source", async () 
       .map((node) => $getBlockSpacing(node)),
   )
   expect(spacings).toEqual([
-    expect.anything(),
+    {
+      [SpacingProperty.LINE_HEIGHT]: Osome(1.5),
+      [SpacingProperty.SPACE_BEFORE]: Onone,
+      [SpacingProperty.SPACE_AFTER]: Osome(0),
+    },
     {
       [SpacingProperty.LINE_HEIGHT]: Osome(1.5),
       [SpacingProperty.SPACE_BEFORE]: Onone,

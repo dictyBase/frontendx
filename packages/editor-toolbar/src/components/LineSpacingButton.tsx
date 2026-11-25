@@ -1,4 +1,4 @@
-import { useState, type MouseEvent } from "react"
+import { useState, type MouseEvent, type ReactElement } from "react"
 import { $getSelection } from "lexical"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import {
@@ -27,7 +27,7 @@ import {
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
 import { match as Bmatch } from "fp-ts/boolean"
-import { head as Ahead } from "fp-ts/Array"
+import { head as Ahead, map as Amap } from "fp-ts/Array"
 import { Eq as NumberEq } from "fp-ts/number"
 import { useToolbarItemStyles } from "../hooks/useToolbarItemStyles"
 import { Aura } from "./Aura"
@@ -40,8 +40,9 @@ import {
 } from "../utils/blockSpacing"
 
 type SpacingOption = { label: string; value: Option<number> }
+type SpacingChange = [SpacingProperty, Option<number>]
 
-const title = "Line & paragraph spacing"
+const TITLE = "Line & paragraph spacing"
 const DEFAULT_LABEL = "Default"
 
 const LINE_SPACING_OPTIONS: SpacingOption[] = [
@@ -79,15 +80,15 @@ const SECTIONS = [
   },
 ]
 
-const optionEq = OgetEq(NumberEq)
+const OPTION_EQ = OgetEq(NumberEq)
 
-const emptySpacing: BlockSpacing = {
+const EMPTY_SPACING: BlockSpacing = {
   [SpacingProperty.LINE_HEIGHT]: Onone,
   [SpacingProperty.SPACE_BEFORE]: Onone,
   [SpacingProperty.SPACE_AFTER]: Onone,
 }
 
-const spacingProperties = Object.values(SpacingProperty)
+const SPACING_PROPERTIES = Object.values(SpacingProperty)
 
 const popoverStyles = { py: 1, width: "min(440px, 95vw)" }
 
@@ -103,33 +104,31 @@ const headingStyles = {
   lineHeight: 2,
 }
 
-const LineSpacingButton = () => {
+const LineSpacingButton = (): ReactElement => {
   const [editor] = useLexicalComposerContext()
   const styles = useToolbarItemStyles()
   const [anchorElement, setAnchorElement] = useState<Option<HTMLElement>>(Onone)
-  const [current, setCurrent] = useState<BlockSpacing>(emptySpacing)
+  const [current, setCurrent] = useState<BlockSpacing>(EMPTY_SPACING)
   const isOpen = OisSome(anchorElement)
 
-  const readCurrentSpacing = () =>
+  const readCurrentSpacing = (): BlockSpacing =>
     editor.getEditorState().read(() =>
       pipe(
         $getSelectedSpacingBlocks($getSelection()),
         Ahead,
         Omap($getBlockSpacing),
-        OgetOrElse(() => emptySpacing),
+        OgetOrElse(() => EMPTY_SPACING),
       ),
     )
 
-  const onOpen = (event: MouseEvent<HTMLElement>) => {
+  const onOpen = (event: MouseEvent<HTMLElement>): void => {
     setCurrent(readCurrentSpacing())
     setAnchorElement(Osome(event.currentTarget))
   }
 
-  const onClose = () => setAnchorElement(Onone)
+  const onClose = (): void => setAnchorElement(Onone)
 
-  const updateSelectedBlocks = (
-    changes: Array<[SpacingProperty, Option<number>]>,
-  ) => {
+  const updateSelectedBlocks = (changes: SpacingChange[]): void => {
     editor.update(() => {
       $getSelectedSpacingBlocks($getSelection()).forEach((block) =>
         changes.forEach(([property, value]) =>
@@ -144,8 +143,8 @@ const LineSpacingButton = () => {
     <>
       <IconButton
         sx={styles.root}
-        title={title}
-        aria-label={title}
+        title={TITLE}
+        aria-label={TITLE}
         aria-haspopup="dialog"
         aria-expanded={isOpen}
         onClick={onOpen}
@@ -160,39 +159,48 @@ const LineSpacingButton = () => {
         transformOrigin={{ vertical: "top", horizontal: "left" }}>
         <Box sx={popoverStyles}>
           <Box sx={columnsStyles}>
-            {SECTIONS.map(({ heading, property, options }) => (
-              <Box key={property} component="section" aria-label={heading}>
-                <Typography variant="overline" sx={headingStyles}>
-                  {heading}
-                </Typography>
-                <MenuList dense aria-label={heading} autoFocusItem={false}>
-                  {options.map(({ label, value }) => {
-                    const isSelected = optionEq.equals(current[property], value)
-                    return (
-                      <MenuItem
-                        key={label}
-                        selected={isSelected}
-                        aria-checked={isSelected}
-                        role="menuitemradio"
-                        onClick={() =>
-                          updateSelectedBlocks([[property, value]])
-                        }>
-                        <ListItemIcon>
-                          {pipe(
-                            isSelected,
-                            Bmatch(
-                              () => <></>,
-                              () => <Check fontSize="small" />,
-                            ),
-                          )}
-                        </ListItemIcon>
-                        <ListItemText>{label}</ListItemText>
-                      </MenuItem>
-                    )
-                  })}
-                </MenuList>
-              </Box>
-            ))}
+            {pipe(
+              SECTIONS,
+              Amap(({ heading, property, options }) => (
+                <Box key={property} component="section" aria-label={heading}>
+                  <Typography variant="overline" sx={headingStyles}>
+                    {heading}
+                  </Typography>
+                  <MenuList dense aria-label={heading} autoFocusItem={false}>
+                    {pipe(
+                      options,
+                      Amap(({ label, value }) => {
+                        const isSelected = OPTION_EQ.equals(
+                          current[property],
+                          value,
+                        )
+                        return (
+                          <MenuItem
+                            key={label}
+                            selected={isSelected}
+                            aria-checked={isSelected}
+                            role="menuitemradio"
+                            onClick={() =>
+                              updateSelectedBlocks([[property, value]])
+                            }>
+                            <ListItemIcon>
+                              {pipe(
+                                isSelected,
+                                Bmatch(
+                                  () => <></>,
+                                  () => <Check fontSize="small" />,
+                                ),
+                              )}
+                            </ListItemIcon>
+                            <ListItemText>{label}</ListItemText>
+                          </MenuItem>
+                        )
+                      }),
+                    )}
+                  </MenuList>
+                </Box>
+              )),
+            )}
           </Box>
           <Divider />
           <Stack
@@ -218,7 +226,10 @@ const LineSpacingButton = () => {
               color="inherit"
               onClick={() =>
                 updateSelectedBlocks(
-                  spacingProperties.map((property) => [property, Onone]),
+                  pipe(
+                    SPACING_PROPERTIES,
+                    Amap((property): SpacingChange => [property, Onone]),
+                  ),
                 )
               }>
               Reset
