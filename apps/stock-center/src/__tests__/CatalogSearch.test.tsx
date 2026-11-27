@@ -1,5 +1,5 @@
 import { vi, test, expect, beforeEach } from "vitest"
-import { render, screen, act, within } from "@testing-library/react"
+import { render, screen, act, waitFor, within } from "@testing-library/react"
 import { userEvent } from "@testing-library/user-event"
 import { MockedProvider } from "@apollo/client/testing"
 import { MemoryRouter, useLocation } from "react-router-dom"
@@ -26,6 +26,7 @@ vi.mock("react-router-dom", async () => {
 
 const SEARCH_LIMIT = 50
 const searchQuery = "axe"
+const AXEA_SUMMARY = "Axenic growth mutant A"
 const ALL_RESULTS_LABEL = "All Results"
 const STRAINS_LABEL = "Strains"
 const PLASMIDS_LABEL = "Plasmids"
@@ -33,6 +34,7 @@ const ALL_STRAINS_LABEL = "All Strains"
 const REGULAR_STRAINS_LABEL = "Regular Strains"
 const GWDI_STRAINS_LABEL = "GWDI Strains"
 const BACTERIAL_STRAINS_LABEL = "Bacterial Strains"
+const ONLY_IN_STOCK_LABEL = "Available items only"
 
 const getFilterPillLabel = (text: string): HTMLElement =>
   screen.getByText(text).closest("label") as HTMLElement
@@ -115,7 +117,7 @@ const suggestionsMock = {
             field: StockSearchFieldEnum.Label,
             display_text: "axeA",
             stock_label: "axeA",
-            summary: "Axenic growth mutant A",
+            summary: AXEA_SUMMARY,
             score: 1,
             in_stock: true,
           },
@@ -167,7 +169,7 @@ const strainOnlyMock = {
             field: StockSearchFieldEnum.Label,
             display_text: "axeA",
             stock_label: "axeA",
-            summary: "Axenic growth mutant A",
+            summary: AXEA_SUMMARY,
             score: 1,
             in_stock: true,
           },
@@ -261,11 +263,36 @@ const renderPage = (
     </Provider>,
   )
 
+const mockStockCountsResponse = {
+  strains: {
+    total: "28576",
+    subtypes: [
+      { name: "regular", count: "7055" },
+      { name: "gwdi", count: "21521" },
+      { name: "bacterial", count: "0" },
+    ],
+  },
+  plasmids: {
+    total: "1265",
+    subtypes: [
+      { name: "regular", count: "979" },
+      { name: "goldenbraid", count: "286" },
+    ],
+  },
+}
+
 const getInput = () =>
   screen.getByRole("textbox", { name: /search the catalog/i })
 
 beforeEach(() => {
   navigateMock.mockClear()
+  vi.stubGlobal(
+    "fetch",
+    vi.fn().mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve(mockStockCountsResponse),
+    } as Response),
+  )
 })
 
 test("renders the page heading", () => {
@@ -275,18 +302,25 @@ test("renders the page heading", () => {
   ).toBeInTheDocument()
 })
 
-test("renders a resource-specific heading for the strain catalog", () => {
+test("renders Catalog Search heading for the strain catalog", () => {
   renderPage([], { entity: "strain" })
   expect(
-    screen.getByRole("heading", { name: /strain catalog/i }),
+    screen.getByRole("heading", { name: /catalog search/i }),
   ).toBeInTheDocument()
 })
 
-test("renders a resource-specific heading for the plasmid catalog", () => {
+test("renders Catalog Search heading for the plasmid catalog", () => {
   renderPage([], { entity: "plasmid" })
   expect(
-    screen.getByRole("heading", { name: /plasmid catalog/i }),
+    screen.getByRole("heading", { name: /catalog search/i }),
   ).toBeInTheDocument()
+})
+
+test("renders the return to Home navigation link", () => {
+  renderPage()
+  const homeLink = screen.getByRole("link", { name: /return to home/i })
+  expect(homeLink).toBeInTheDocument()
+  expect(homeLink).toHaveAttribute("href", "/")
 })
 
 test("renders the search input", () => {
@@ -303,7 +337,7 @@ test("shows the search prompt before any input is entered", async () => {
 test("does not fire a query for fewer than 3 characters", async () => {
   renderPage([])
   await userEvent.type(getInput(), "ax")
-  expect(screen.queryByRole("link")).not.toBeInTheDocument()
+  expect(screen.queryByText("axeA")).not.toBeInTheDocument()
   expect(screen.getByText(/enter at least 3 characters/i)).toBeInTheDocument()
 })
 
@@ -329,7 +363,9 @@ test("navigates to strain detail page when clicking strain result in list view",
   await userEvent.type(getInput(), searchQuery)
   const item = await screen.findByText("axeA", {}, QUERY_TIMEOUT)
   await userEvent.click(item)
-  expect(navigateMock).toHaveBeenCalledWith("/strains/DBS0001")
+  expect(navigateMock).toHaveBeenCalledWith("/strains/DBS0001", {
+    state: { from: `/catalog?q=${searchQuery}` },
+  })
 })
 
 test("navigates to plasmid detail page when clicking plasmid result in list view", async () => {
@@ -337,7 +373,9 @@ test("navigates to plasmid detail page when clicking plasmid result in list view
   await userEvent.type(getInput(), searchQuery)
   const item = await screen.findByText("pAXE1", {}, QUERY_TIMEOUT)
   await userEvent.click(item)
-  expect(navigateMock).toHaveBeenCalledWith("/plasmids/DBP0001")
+  expect(navigateMock).toHaveBeenCalledWith("/plasmids/DBP0001", {
+    state: { from: `/catalog?q=${searchQuery}` },
+  })
 })
 
 test("renders an add to cart button for in-stock results", async () => {
@@ -366,17 +404,32 @@ test("shows the empty catalog message when the query returns no results", async 
   ).toBeInTheDocument()
 })
 
-test("does not display counts on filter ribbons when there is no query", () => {
-  renderPage([], { entity: "strain" })
+test("displays stock counts from the counts API when there is no query", async () => {
+  renderPage()
+  await waitFor(() => {
+    expect(screen.getByText("29,841")).toBeInTheDocument()
+  })
+  expect(screen.getByText("28,576")).toBeInTheDocument()
+  expect(screen.getByText("1,265")).toBeInTheDocument()
+})
 
-  expect(getFilterPillLabel(ALL_RESULTS_LABEL)).toHaveTextContent(
-    /^All Results$/,
-  )
-  expect(getFilterPillLabel(STRAINS_LABEL)).toHaveTextContent(/^Strains$/)
-  expect(getFilterPillLabel(PLASMIDS_LABEL)).toHaveTextContent(/^Plasmids$/)
-  expect(getFilterPillLabel(ALL_STRAINS_LABEL)).toHaveTextContent(
-    /^All Strains$/,
-  )
+test("displays strain subtype counts from the counts API when there is no query", async () => {
+  renderPage([], { entity: "strain" })
+  await waitFor(() => {
+    expect(screen.getByText("7,055")).toBeInTheDocument()
+  })
+  expect(screen.getByText("21,521")).toBeInTheDocument()
+  expect(
+    within(getFilterPillLabel(BACTERIAL_STRAINS_LABEL)).getByText("0"),
+  ).toBeInTheDocument()
+})
+
+test("displays plasmid subtype counts from the counts API when there is no query", async () => {
+  renderPage([], { entity: "plasmid" })
+  await waitFor(() => {
+    expect(screen.getByText("979")).toBeInTheDocument()
+  })
+  expect(screen.getByText("286")).toBeInTheDocument()
 })
 
 test("displays ellipsis on active entity and subtype ribbons while search results are loading", () => {
@@ -537,7 +590,7 @@ test("debounce does not immediately fire the query for short input", async () =>
         setTimeout(resolve, 500)
       }),
   )
-  expect(screen.queryByRole("link")).not.toBeInTheDocument()
+  expect(screen.queryByText("axeA")).not.toBeInTheDocument()
 })
 
 test("displays error message when query fails", async () => {
@@ -756,12 +809,18 @@ test("filters search results to only in-stock items when Only In Stock is toggle
   const onlyInStockCheckbox = screen.getByRole("checkbox", {
     name: /available items only/i,
   })
+  expect(
+    within(getFilterPillLabel(ONLY_IN_STOCK_LABEL)).getByText("1"),
+  ).toBeInTheDocument()
   await userEvent.click(onlyInStockCheckbox)
   expect(onlyInStockCheckbox).toBeChecked()
   expect(screen.getByText("axeA")).toBeInTheDocument()
   expect(screen.queryByText("unavailableStrain")).not.toBeInTheDocument()
   expect(
     within(getFilterPillLabel(ALL_RESULTS_LABEL)).getByText("1"),
+  ).toBeInTheDocument()
+  expect(
+    within(getFilterPillLabel(ONLY_IN_STOCK_LABEL)).getByText("1"),
   ).toBeInTheDocument()
 
   await userEvent.click(onlyInStockCheckbox)
@@ -784,4 +843,44 @@ test("shows empty catalog message when Only In Stock filters out all results", a
   )
   expect(screen.queryByText("unavailableStrain")).not.toBeInTheDocument()
   expect(screen.getByText(/no results found/i)).toBeInTheDocument()
+})
+
+test("renders infinite scroll progressbar when initial results have a non-zero nextCursor", async () => {
+  const paginatedStrainsMock = {
+    request: {
+      query: StrainListDocument,
+      variables: {
+        cursor: 0,
+        limit: 12,
+        filter: { strain_type: StrainType.Gwdi },
+      },
+    },
+    result: {
+      data: {
+        listStrains: {
+          strains: [
+            {
+              __typename: "Strain",
+              id: "DBS0001",
+              label: "axeA",
+              summary: AXEA_SUMMARY,
+              in_stock: true,
+            },
+          ],
+          nextCursor: 12,
+        },
+      },
+    },
+  }
+
+  renderPage([paginatedStrainsMock], {
+    entity: "strain",
+    initialEntries: ["/strains?group=gwdi"],
+  })
+
+  expect(await screen.findByText("axeA", {}, QUERY_TIMEOUT)).toBeInTheDocument()
+  expect(screen.getByRole("progressbar")).toBeInTheDocument()
+
+  await userEvent.click(screen.getByRole("button", { name: /table view/i }))
+  expect(screen.getByRole("progressbar")).toBeInTheDocument()
 })

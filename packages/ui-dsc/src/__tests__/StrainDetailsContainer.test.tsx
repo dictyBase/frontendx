@@ -1,7 +1,7 @@
 import { vi, test, expect } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { MockedProvider } from "@apollo/client/testing"
-import { BrowserRouter } from "react-router-dom"
+import { BrowserRouter, MemoryRouter } from "react-router-dom"
 import { StrainDocument } from "dicty-graphql-schema"
 import { StrainDetailsContainer } from "../catalog/StrainDetailsContainer"
 import { strainWithPhenotype, availableStrain } from "../mocks/mockStrain"
@@ -171,4 +171,42 @@ test("displays otherwise fallback message when strain data is null", async () =>
     /this message should not appear/i,
   )
   expect(fallbackMessage).toBeInTheDocument()
+})
+
+test("renders Return to Catalog link pointing to /catalog by default", async () => {
+  render(
+    <MockedProvider mocks={successMocks} addTypename={false}>
+      <MemoryRouter initialEntries={[`/strains/${mockID}`]}>
+        <StrainDetailsContainer />
+      </MemoryRouter>
+    </MockedProvider>,
+  )
+  await screen.findByRole("heading", {
+    name: strainWithPhenotype.label,
+  })
+  expect(
+    screen.getByRole("link", { name: /return to catalog/i }),
+  ).toHaveAttribute("href", "/catalog")
+})
+
+test("renders Return to Catalog link pointing to previous catalog search page when state.from is present", async () => {
+  render(
+    <MockedProvider mocks={successMocks} addTypename={false}>
+      <MemoryRouter
+        initialEntries={[
+          {
+            pathname: `/strains/${mockID}`,
+            state: { from: "/strains?group=regular" },
+          },
+        ]}>
+        <StrainDetailsContainer />
+      </MemoryRouter>
+    </MockedProvider>,
+  )
+  await screen.findByRole("heading", {
+    name: strainWithPhenotype.label,
+  })
+  expect(
+    screen.getByRole("link", { name: /return to catalog/i }),
+  ).toHaveAttribute("href", "/strains?group=regular")
 })

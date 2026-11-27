@@ -1,6 +1,12 @@
-import { useMemo } from "react"
+import { useCallback, useMemo } from "react"
 import { pipe } from "fp-ts/function"
-import { Option, map as Omap, getOrElse as OgetOrElse } from "fp-ts/Option"
+import { match as Bmatch } from "fp-ts/boolean"
+import {
+  type Option,
+  fromNullable as OfromNullable,
+  map as Omap,
+  getOrElse as OgetOrElse,
+} from "fp-ts/Option"
 import {
   findFirst as AfindFirst,
   concat as Aconcat,
@@ -65,6 +71,7 @@ const useInitialSearchResults = ({
     loading: loadingStrains,
     error: errorStrains,
     data: dataStrains,
+    fetchMore: fetchMoreStrains,
   } = useStrainListQuery({
     variables: {
       ...graphqlListVariables,
@@ -79,6 +86,7 @@ const useInitialSearchResults = ({
     loading: loadingPlasmids,
     error: errorPlasmids,
     data: dataPlasmids,
+    fetchMore: fetchMorePlasmids,
   } = usePlasmidListFilterQuery({
     variables: {
       ...graphqlListVariables,
@@ -90,10 +98,16 @@ const useInitialSearchResults = ({
   })
 
   const data = useMemo(() => {
-    const strainResults = (dataStrains?.listStrains?.strains ??
-      []) as Array<CatalogItem>
-    const plasmidResults = (dataPlasmids?.listPlasmids?.plasmids ??
-      []) as Array<CatalogItem>
+    const strainResults = pipe(
+      dataStrains?.listStrains?.strains as Array<CatalogItem> | undefined,
+      OfromNullable,
+      OgetOrElse((): Array<CatalogItem> => []),
+    )
+    const plasmidResults = pipe(
+      dataPlasmids?.listPlasmids?.plasmids as Array<CatalogItem> | undefined,
+      OfromNullable,
+      OgetOrElse((): Array<CatalogItem> => []),
+    )
 
     const combined = match(entity)
       .with(ENTITY_STRAIN, () => strainResults)
@@ -109,6 +123,49 @@ const useInitialSearchResults = ({
     )
   }, [dataStrains, dataPlasmids, entity])
 
+  const strainNextCursor = pipe(
+    dataStrains?.listStrains?.nextCursor,
+    OfromNullable,
+    OgetOrElse(() => 0),
+  )
+
+  const plasmidNextCursor = pipe(
+    dataPlasmids?.listPlasmids?.nextCursor,
+    OfromNullable,
+    OgetOrElse(() => 0),
+  )
+
+  const nextCursor = match(entity)
+    .with(ENTITY_STRAIN, () => strainNextCursor)
+    .with(ENTITY_PLASMID, () => plasmidNextCursor)
+    .otherwise(() =>
+      pipe(
+        strainNextCursor > 0,
+        Bmatch(
+          () => plasmidNextCursor,
+          () => strainNextCursor,
+        ),
+      ),
+    )
+
+  const loadMore = useCallback(() => {
+    if (shouldFetchStrains && strainNextCursor > 0 && !loadingStrains) {
+      fetchMoreStrains({ variables: { cursor: strainNextCursor } })
+    }
+    if (shouldFetchPlasmids && plasmidNextCursor > 0 && !loadingPlasmids) {
+      fetchMorePlasmids({ variables: { cursor: plasmidNextCursor } })
+    }
+  }, [
+    shouldFetchStrains,
+    strainNextCursor,
+    loadingStrains,
+    fetchMoreStrains,
+    shouldFetchPlasmids,
+    plasmidNextCursor,
+    loadingPlasmids,
+    fetchMorePlasmids,
+  ])
+
   const loading = loadingStrains || loadingPlasmids
   const error = errorStrains || errorPlasmids
 
@@ -116,6 +173,8 @@ const useInitialSearchResults = ({
     data,
     loading,
     error,
+    nextCursor,
+    loadMore,
   }
 }
 

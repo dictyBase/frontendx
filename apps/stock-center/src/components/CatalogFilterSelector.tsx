@@ -17,11 +17,11 @@ import {
 } from "fp-ts/Option"
 import {
   Box,
-  Checkbox,
   Divider,
   Radio,
   RadioGroup,
   FormControlLabel,
+  Switch,
   Typography,
 } from "@mui/material"
 
@@ -284,38 +284,33 @@ const FilterPill = ({
   />
 )
 
-type ToggleFilterPillProperties = {
+type ToggleFilterSliderProperties = {
   label: string
   checked: boolean
+  count?: Option<number>
   onChange?: ChangeEventHandler<HTMLInputElement>
   pillStyle: FilterPillStyle
 }
 
 /**
- * Renders a toggleable boolean filter pill backed by a hidden checkbox.
+ * Renders a toggle slider switch with an optional count badge.
  *
- * @param properties - Label, checked state, change handler, and visual style.
- * @returns A styled `FormControlLabel` checkbox pill.
+ * @param properties - Label, checked state, count, change handler, and visual style.
+ * @returns A styled `FormControlLabel` switch toggle.
  */
-const ToggleFilterPill = ({
+const ToggleFilterSlider = ({
   label,
   checked,
+  count,
   onChange,
   pillStyle,
-}: ToggleFilterPillProperties) => (
+}: ToggleFilterSliderProperties) => (
   <FormControlLabel
-    control={
-      <Checkbox
-        checked={checked}
-        onChange={onChange}
-        icon={HIDDEN_ICON}
-        checkedIcon={HIDDEN_ICON}
-        sx={HIDDEN_RADIO_SX}
-      />
-    }
+    control={<Switch size="small" checked={checked} onChange={onChange} />}
     label={
       <FilterPillLabel
         label={label}
+        count={count}
         labelColor={pillStyle.labelColor}
         labelFontSize={pillStyle.labelFontSize}
         labelFontWeight={pillStyle.labelFontWeight}
@@ -323,7 +318,12 @@ const ToggleFilterPill = ({
         badgeColor={pillStyle.badgeColor}
       />
     }
-    sx={getPillSx(pillStyle)}
+    sx={{
+      margin: 0,
+      gap: GAP_SMALL,
+      cursor: "pointer",
+      userSelect: "none",
+    }}
   />
 )
 
@@ -332,6 +332,7 @@ type CatalogFilterSelectorProperties = {
   selectedEntity: string
   selectedGroup: Option<string>
   onlyInStock?: boolean
+  inStockCount?: Option<number>
   onChangeEntity: ChangeEventHandler<HTMLInputElement>
   onChangeGroup: ChangeEventHandler<HTMLInputElement>
   onChangeOnlyInStock?: ChangeEventHandler<HTMLInputElement>
@@ -343,6 +344,7 @@ const CatalogFilterSelector = memo(
     selectedEntity,
     selectedGroup,
     onlyInStock = false,
+    inStockCount,
     onChangeEntity,
     onChangeGroup,
     onChangeOnlyInStock,
@@ -384,9 +386,10 @@ const CatalogFilterSelector = memo(
           flexItem
           sx={{ borderColor: DIVIDER_COLOR, my: "4px" }}
         />
-        <ToggleFilterPill
+        <ToggleFilterSlider
           label={ONLY_IN_STOCK_LABEL}
           checked={onlyInStock}
+          count={inStockCount}
           onChange={onChangeOnlyInStock}
           pillStyle={pipe(
             onlyInStock,
