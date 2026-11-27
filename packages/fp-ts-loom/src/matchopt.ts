@@ -38,13 +38,19 @@ const matchDefault = <A, B>(f: (value: A) => B): Case<A, B> => flow(f, Osome)
  * `Some`. Later arms do not run. Returns `fallback` when no arm applies.
  * Same role as fp-go-loom `MO.Match`.
  */
-const match =
-  <A, B>(fallback: B, cases: ReadonlyArray<Case<A, B>>) =>
-  (value: A): B =>
+type Matcher<A, B> = (value: A) => B
+
+const match = <A, B>(
+  fallback: B,
+  cases: ReadonlyArray<Case<A, B>>,
+): Matcher<A, B> => {
+  const runMatch: Matcher<A, B> = (value) =>
     pipe(
       cases,
       RAfindFirstMap((arm) => arm(value)),
       OgetOrElse(constant(fallback)),
     )
+  return runMatch
+}
 
 export { type Case, matchCase, matchConst, matchDefault, match }
