@@ -1,0 +1,61 @@
+{
+  "name": "@dictybase/fp-ts-loom",
+  "version": "0.0.1",
+  "description": "Shared algebraic fp-ts and React 19 primitives for dictyBase applications",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./void": "./src/void.ts",
+    "./node": "./src/node.tsx",
+    "./view": "./src/view.ts",
+    "./endomorphism": "./src/endomorphism.ts",
+    "./handler": "./src/handler.ts",
+    "./effect": "./src/effect.ts"
+  },
+  "author": "Siddhartha Basu",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "fp-ts": "^2.16.1",
+    "react": "19.*",
+    "react-dom": "19.*"
+  },
+  "devDependencies": {
+    "@dictybase/oxlint-config": "*",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/user-event": "^14.5.1",
+    "@types/node": "^22.15.0",
+    "@types/react": "19.*",
+    "@types/react-dom": "19.*",
+    "@vitest/coverage-v8": "4.x",
+    "eslint-config-custom": "*",
+    "jsdom": "latest",
+    "tsconfig": "*",
+    "typescript": "5.*",
+    "vitest": "4.x"
+  },
+  "scripts": {
+    "oxlint": "oxlint src/",
+    "oxlint:ci": "oxlint src/ --format=github",
+    "lint": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache",
+    "lint:out": "eslint src/ --ext .ts --ext .tsx -f json -o ../../eslint/fp-ts-loom.json",
+    "lint:fix": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache --fix",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "custom"
+    ]
+  },
+  "typedoc": {
+    "entryPoint": "./src/index.ts",
+    "displayName": "@dictybase/fp-ts-loom",
+    "readmeFile": "./README.md"
+  }
+}
