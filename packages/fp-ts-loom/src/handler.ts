@@ -33,18 +33,28 @@ const foldHandlers = <E>(handlers: ReadonlyArray<Handler<E>>): Handler<E> =>
  * Guards a `Handler<E>` with a `Predicate<E>` (`fp-ts/Predicate`), returning an
  * `Endomorphism<Handler<E>>` built purely via `Option.fromPredicate` + `Option.match(constVoid, handler)`.
  */
-const when =
-  <E>(predicate: Predicate<E>): Endomorphism<Handler<E>> =>
-  (handler: Handler<E>): Handler<E> =>
-  (event: E): void =>
-    pipe(event, OfromPredicate(predicate), Omatch(constVoid, handler))
+const when = <E>(predicate: Predicate<E>): Endomorphism<Handler<E>> => {
+  const applyGuard: Endomorphism<Handler<E>> = (handler) => {
+    const guardedHandler: Handler<E> = (event) =>
+      pipe(event, OfromPredicate(predicate), Omatch(constVoid, handler))
+    return guardedHandler
+  }
+  return applyGuard
+}
 
 /**
  * Contravariantly adapts a `Handler<Target>` to consume `Source` events via `Reader.local`.
  */
-const contramapHandler =
-  <Source, Target>(extract: (source: Source) => Target) =>
-  (handler: Handler<Target>): Handler<Source> =>
+type HandlerAdapter<Source, Target> = (
+  handler: Handler<Target>,
+) => Handler<Source>
+
+const contramapHandler = <Source, Target>(
+  extract: (source: Source) => Target,
+): HandlerAdapter<Source, Target> => {
+  const adaptHandler: HandlerAdapter<Source, Target> = (handler) =>
     pipe(handler, Rlocal(extract))
+  return adaptHandler
+}
 
 export { type Handler, getHandlerMonoid, foldHandlers, when, contramapHandler }

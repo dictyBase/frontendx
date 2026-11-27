@@ -25,23 +25,26 @@ type SubmissionEvent = {
   readonly isAdmin: boolean
 }
 
-const recordFirst =
-  (target: Array<string>): Handler<string> =>
-  (value) => {
+const recordFirst = (target: Array<string>): Handler<string> => {
+  const handleFirst: Handler<string> = (value) => {
     target.push(`first:${value}`)
   }
+  return handleFirst
+}
 
-const recordSecond =
-  (target: Array<string>): Handler<string> =>
-  (value) => {
+const recordSecond = (target: Array<string>): Handler<string> => {
+  const handleSecond: Handler<string> = (value) => {
     target.push(`second:${value}`)
   }
+  return handleSecond
+}
 
-const recordThird =
-  (target: Array<string>): Handler<string> =>
-  (value) => {
+const recordThird = (target: Array<string>): Handler<string> => {
+  const handleThird: Handler<string> = (value) => {
     target.push(`third:${value}`)
   }
+  return handleThird
+}
 
 const isNonEmptyString: Predicate<string> = (text) => text.trim().length > 0
 const hasMinLengthThree: Predicate<string> = (text) => text.trim().length >= 3
