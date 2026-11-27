@@ -16,6 +16,9 @@ Reusable [fp-ts](https://gcanti.github.io/fp-ts/) and [React 19](https://react.d
   - [Endomorphisms & wrappers (vertical & state composition)](#endomorphisms--wrappers-vertical--state-composition)
   - [Event handlers & predicate guards](#event-handlers--predicate-guards)
   - [Lazy IO effects & cleanups](#lazy-io-effects--cleanups)
+  - [Predicates, parsers and errors](#predicates-parsers-and-errors)
+  - [Option matching](#option-matching)
+  - [String monoids](#string-monoids)
 - [Pipelines](#pipelines)
   - [Metadata row from optional fields](#metadata-row-from-optional-fields)
   - [Predicate-guarded form submission](#predicate-guarded-form-submission)
@@ -66,14 +69,22 @@ import { getHandlerMonoid } from "@dictybase/fp-ts-loom/handler"
 
 ## Modules
 
-| Module         | Algebraic Base                                | Exports                                                                                                                                                         |
-| :------------- | :-------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `void`         | `Semigroup<void>`, `Monoid<void>`             | `SemigroupVoid`, `MonoidVoid`                                                                                                                                   |
-| `node`         | `Monoid<ReactNode>`, `Semigroup<ReactNode>`   | `MonoidNode`, `intercalateNode`, `foldNodes`, `joinNodes`, `fromOptionNode`, `whenNode`                                                                         |
-| `view`         | `Reader<P, ReactNode>`                        | `View`, `getViewSemigroup`, `getViewMonoid`, `foldViews`, `intercalateViews`, `contramapView`, `wrapView`, `guardView`                                          |
-| `endomorphism` | `Endomorphism<ReactNode>`, `Endomorphism<A>`  | `Wrapper`, `MonoidWrapper`, `MonoidWrapperOuter`, `getEndomorphismMonoid`, `foldEndomorphisms`, `foldWrappers`, `nestWrappers`, `whenEndomorphism`, `buildFrom` |
-| `handler`      | `Reader<E, void>`, `Endomorphism<Handler<E>>` | `Handler`, `getHandlerMonoid`, `foldHandlers`, `when`, `contramapHandler`                                                                                       |
-| `effect`       | `IO<void>`, `IO<IO<void>>`                    | `Cleanup`, `Effect`, `MonoidCleanup`, `MonoidEffect`, `foldCleanups`, `foldEffects`, `fromMount`, `whenEffect`                                                  |
+| Module             | Algebraic Base                                | Exports                                                                                                                                                                                                                                                                             |
+| :----------------- | :-------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `void`             | `Semigroup<void>`, `Monoid<void>`             | `SemigroupVoid`, `MonoidVoid`                                                                                                                                                                                                                                                       |
+| `node`             | `Monoid<ReactNode>`, `Semigroup<ReactNode>`   | `MonoidNode`, `intercalateNode`, `foldNodes`, `joinNodes`, `fromOptionNode`, `whenNode`                                                                                                                                                                                             |
+| `view`             | `Reader<P, ReactNode>`                        | `View`, `getViewSemigroup`, `getViewMonoid`, `foldViews`, `intercalateViews`, `contramapView`, `wrapView`, `guardView`                                                                                                                                                              |
+| `endomorphism`     | `Endomorphism<ReactNode>`, `Endomorphism<A>`  | `Wrapper`, `MonoidWrapper`, `MonoidWrapperOuter`, `getEndomorphismMonoid`, `foldEndomorphisms`, `foldWrappers`, `nestWrappers`, `whenEndomorphism`, `buildFrom`                                                                                                                     |
+| `handler`          | `Reader<E, void>`, `Endomorphism<Handler<E>>` | `Handler`, `getHandlerMonoid`, `foldHandlers`, `when`, `contramapHandler`                                                                                                                                                                                                           |
+| `effect`           | `IO<void>`, `IO<IO<void>>`                    | `Cleanup`, `Effect`, `MonoidCleanup`, `MonoidEffect`, `foldCleanups`, `foldEffects`, `fromMount`, `whenEffect`                                                                                                                                                                      |
+| `predicate/ord`    | `Predicate<number>`, `Predicate<string>`      | `intBetween`, `intBetweenInclusive`, `minStringLength`, `maxStringLength`, `stringLengthEq`, `stringEq`, `notEqualString`, `notEqualNumber`                                                                                                                                         |
+| `predicate/string` | `Predicate<string>`                           | `containsMatch`, `stringLengthBetween`                                                                                                                                                                                                                                              |
+| `predicate/array`  | `Predicate<ReadonlyArray<A>>`                 | `minLength`, `maxLength`, `lengthEq`                                                                                                                                                                                                                                                |
+| `error`            | `LoomError<T>`                                | `LoomError`, `constError`                                                                                                                                                                                                                                                           |
+| `parse`            | `Either<ParseError, number>`                  | `ParseError`, `parseInt`, `parseFloat`                                                                                                                                                                                                                                              |
+| `array`            | `ReadonlyArray.filterMap`                     | `parseWith`                                                                                                                                                                                                                                                                         |
+| `matchopt`         | `Option<B>`, `ReadonlyArray.findFirstMap`     | `Case`, `matchCase`, `matchConst`, `matchDefault`, `match`                                                                                                                                                                                                                          |
+| `string`           | `Monoid<string>`                              | `separatorMonoid`, `Space`, `Comma`, `Semicolon`, `Colon`, `Label`, `MiddleDot`, `EmDash`, `Newline`, `joinSpace`, `joinComma`, `joinSemicolon`, `joinMiddleDot`, `joinLines`, `collapseWhitespace`, `wrap`, `parens`, `brackets`, `quote`, `period`, `mapNonEmpty`, `concatFields` |
 
 > **Note:** every combinator is implemented purely with `fp-ts` (`pipe`, `Option.fromPredicate`, `Option.match`, `boolean.match`, `ReadonlyArray.matchLeft`, `Monoid.concatAll`, `Semigroup.intercalate`) — zero imperative `if` statements, loops, ternaries, or `null` values.
 
@@ -348,6 +359,114 @@ const ModalShortcuts = ({
 }
 ```
 
+### Predicates, parsers and errors
+
+The predicate modules supply ready-made `Predicate` values. Compose them with `Predicate.and`, `Predicate.or` and `Predicate.not`. Use `constError` to make an error factory for `Either.fromPredicate`. The factory returns the same frozen error object on every call.
+
+```ts
+import {
+  flatMap as EflatMap,
+  fromPredicate as EfromPredicate,
+} from "fp-ts/Either"
+import { pipe } from "fp-ts/function"
+import {
+  constError,
+  intBetween,
+  maxStringLength,
+  minStringLength,
+  parseInt,
+} from "@dictybase/fp-ts-loom"
+
+const validateUsername = (username: string) =>
+  pipe(
+    username,
+    EfromPredicate(
+      minStringLength(3),
+      constError("USERNAME", "at least 3 characters"),
+    ),
+    EflatMap(
+      EfromPredicate(
+        maxStringLength(20),
+        constError("USERNAME", "at most 20 characters"),
+      ),
+    ),
+  )
+
+const parsePort = (text: string) =>
+  pipe(
+    parseInt(text),
+    EflatMap(
+      EfromPredicate(
+        intBetween(1, 65_536),
+        constError("PORT", "port must be 1 to 65535"),
+      ),
+    ),
+  )
+
+parsePort("8080") // right(8080)
+parsePort("12abc") // left({ type: "PARSE_ERROR", ... })
+```
+
+`intBetween` includes the lower end and excludes the upper end. `intBetweenInclusive` includes both ends. The string length predicates count UTF-16 code units, not characters. `parseInt` rejects partial input such as `"12abc"`. `Number.parseInt` accepts this input. `parseInt` also rejects an integer outside the safe range. `parseFloat` rejects a value that overflows to `Infinity`.
+
+### Option matching
+
+A `Case<A, B>` is one arm: `(value: A) => Option<B>`. The `match` function tries the arms in order and stops at the first `Some`. The later arms do not run.
+
+```ts
+import { pipe } from "fp-ts/function"
+import { and as Pand } from "fp-ts/Predicate"
+import {
+  containsMatch,
+  match,
+  matchConst,
+  maxStringLength,
+  minStringLength,
+} from "@dictybase/fp-ts-loom"
+
+const isMedium = pipe(
+  minStringLength(8),
+  Pand(containsMatch(/[A-Z]/)),
+  Pand(containsMatch(/[a-z]/)),
+)
+const isStrong = pipe(isMedium, Pand(containsMatch(/\d/)))
+
+const classifyPassword = match<string, string>("unknown", [
+  matchConst(isStrong, "strong"),
+  matchConst(isMedium, "medium"),
+  matchConst(maxStringLength(7), "weak"),
+])
+
+classifyPassword("Password123") // "strong"
+```
+
+### String monoids
+
+A separator monoid puts a separator between two non-empty strings. An empty operand drops out together with its separator. Thus an optional part needs no branch.
+
+```ts
+import { pipe } from "fp-ts/function"
+import {
+  concatFields,
+  joinComma,
+  mapNonEmpty,
+  MiddleDot,
+  parens,
+} from "@dictybase/fp-ts-loom"
+
+joinComma(["Smith", "", "Lee"]) // "Smith, Lee"
+
+type Citation = Readonly<{ authors: string; year: string; doi: string }>
+
+const citationLine = concatFields<Citation>(MiddleDot)([
+  ({ authors }) => authors,
+  ({ year }) => pipe(year, mapNonEmpty(parens)),
+  ({ doi }) => doi,
+])
+
+citationLine({ authors: "Lee", year: "2020", doi: "" }) // "Lee · (2020)"
+```
+
 ## Pipelines
 
 These four pipelines combine primitives across modules with `pipe` to build complete, branch-free React + `fp-ts` flows.
@@ -559,6 +678,14 @@ packages/fp-ts-loom/
 │   ├── endomorphism.ts          # Wrapper, MonoidWrapper, MonoidWrapperOuter, getEndomorphismMonoid, foldEndomorphisms, foldWrappers, nestWrappers, whenEndomorphism, buildFrom
 │   ├── handler.ts               # Handler, getHandlerMonoid, foldHandlers, when, contramapHandler
 │   ├── effect.ts                # Cleanup, Effect, MonoidCleanup, MonoidEffect, foldCleanups, foldEffects, fromMount, whenEffect
+│   ├── predicate/ord.ts         # intBetween, intBetweenInclusive, string length and equality predicates
+│   ├── predicate/string.ts      # containsMatch, stringLengthBetween
+│   ├── predicate/array.ts       # minLength, maxLength, lengthEq
+│   ├── error.ts                 # LoomError, constError
+│   ├── parse.ts                 # ParseError, parseInt, parseFloat
+│   ├── array.ts                 # parseWith
+│   ├── matchopt.ts              # Case, matchCase, matchConst, matchDefault, match
+│   ├── string.ts                # separator monoids, joins, wrap helpers, mapNonEmpty, concatFields
 │   ├── index.ts                 # Public barrel exports
 │   └── __tests__/               # Law and React integration unit tests
 │       ├── void.test.ts
