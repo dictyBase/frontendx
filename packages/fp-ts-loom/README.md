@@ -1136,53 +1136,342 @@ See [ReactNode monoid & intercalation](#reactnode-monoid--intercalation) for `Mo
 
 ### Endomorphisms & wrappers (vertical & state composition)
 
-`Wrapper` (`Endomorphism<ReactNode>`) models vertical JSX wrapping, while `Endomorphism<S>` models pure state/properties transitions (`setState(updater)`).
+An endomorphism is a function that takes a value and returns a value of the same type. The `endomorphism` module uses it for two jobs:
 
-| Monoid                       | Fold helper         | Evaluation of `[first, second]` on `x`     | Best suited for                    |
-| :--------------------------- | :------------------ | :----------------------------------------- | :--------------------------------- |
-| `MonoidWrapper`              | `foldWrappers`      | `second(first(x))` (inner-to-outer `flow`) | Bottom-up decorator pipelines      |
-| `MonoidWrapperOuter`         | `nestWrappers`      | `first(second(x))` (outer-to-inner tree)   | Flattening React provider pyramids |
-| `getEndomorphismMonoid<S>()` | `foldEndomorphisms` | `second(first(x))` (left-to-right `flow`)  | Sequencing `setState` transitions  |
+```ts
+type Endomorphism<A> = (value: A) => A
+type Wrapper = Endomorphism<ReactNode> // (node: ReactNode) => ReactNode
+```
+
+- A `Wrapper` puts a React node inside another element, for example a provider or a link.
+- An `Endomorphism<S>` changes a state value. React `setState` accepts it directly as an updater function.
+
+#### nestWrappers
+
+`nestWrappers` joins a list of wrappers into one wrapper. Write the list in the same order as the JSX tree: the first wrapper is the outermost element. Use it to replace a stack of nested providers.
+
+**Signature:** `nestWrappers: (wrappers: ReadonlyArray<Wrapper>) => Wrapper`
+
+**Call:** `nestWrappers([withTheme("dark"), withUser(user)])`
 
 ```tsx
-import type { Endomorphism } from "fp-ts/Endomorphism"
-import {
-  type Wrapper,
-  foldEndomorphisms,
-  nestWrappers,
-  whenEndomorphism,
-  buildFrom,
-} from "@dictybase/fp-ts-loom/endomorphism"
+import { createContext, type ReactNode } from "react"
+import { nestWrappers, type Wrapper } from "@dictybase/fp-ts-loom/endomorphism"
 
-// Flatten nested providers in natural top-down tree order
-const withTheme: Wrapper = (node) => <ThemeProvider>{node}</ThemeProvider>
-const withRouter: Wrapper = (node) => <MemoryRouter>{node}</MemoryRouter>
-const withShell = nestWrappers([withTheme, withRouter])
-withShell(<App />) // <ThemeProvider><MemoryRouter><App /></MemoryRouter></ThemeProvider>
+type Theme = "light" | "dark"
+type User = Readonly<{ name: string }>
+type AppShellProperties = Readonly<{ user: User; children: ReactNode }>
 
-// Sequence pure state transitions for React setState
-const increment: Endomorphism<number> = (n) => n + 1
-const clampMaxTen = whenEndomorphism<number>((n) => n > 10)(() => 10)
-const nextCount = foldEndomorphisms([increment, clampMaxTen])
-nextCount(4) // 5
-nextCount(10) // 10
+const ThemeContext = createContext<Theme>("light")
+const UserContext = createContext<User>({ name: "guest" })
 
-// Build a configuration object from one input via pure Endomorphism recipes
-type Query = { readonly page: number; readonly search: string }
-type Filter = {
-  readonly offset: number
-  readonly limit: number
-  readonly term: string
+const withTheme = (theme: Theme): Wrapper => {
+  const wrapInTheme: Wrapper = (node) => (
+    <ThemeContext.Provider value={theme}>{node}</ThemeContext.Provider>
+  )
+  return wrapInTheme
 }
 
-const filterOf = buildFrom<Query, Filter>({ offset: 0, limit: 20, term: "" }, [
-  ({ page }) =>
-    (f) => ({ ...f, offset: (page - 1) * f.limit }),
-  ({ search }) =>
-    (f) => ({ ...f, term: search.trim() }),
-])
-filterOf({ page: 3, search: " sadA " }) // { offset: 40, limit: 20, term: "sadA" }
+const withUser = (user: User): Wrapper => {
+  const wrapInUser: Wrapper = (node) => (
+    <UserContext.Provider value={user}>{node}</UserContext.Provider>
+  )
+  return wrapInUser
+}
+
+const AppShell = ({ user, children }: AppShellProperties): ReactNode => {
+  const withProviders = nestWrappers([withTheme("dark"), withUser(user)])
+
+  return withProviders(<main>{children}</main>)
+}
+
+export { AppShell }
 ```
+
+**Result:** `AppShell` returns this JSX tree. The providers add no HTML, so the page renders only `<main>`.
+
+```tsx
+<ThemeContext.Provider value="dark">
+  <UserContext.Provider value={user}>
+    <main>{children}</main>
+  </UserContext.Provider>
+</ThemeContext.Provider>
+```
+
+#### foldWrappers
+
+`foldWrappers` also joins a list of wrappers into one wrapper, but in the opposite order. It applies the first wrapper first, so the first wrapper is the innermost element. Use it when each step decorates the result of the step before it.
+
+**Signature:** `foldWrappers: (wrappers: ReadonlyArray<Wrapper>) => Wrapper`
+
+**Call:** `foldWrappers([asCode, asLink(href)])`
+
+```tsx
+import type { ReactNode } from "react"
+import { foldWrappers, type Wrapper } from "@dictybase/fp-ts-loom/endomorphism"
+
+type StockIdProperties = Readonly<{ id: string }>
+
+const asCode: Wrapper = (node) => <code>{node}</code>
+
+const asLink = (href: string): Wrapper => {
+  const wrapInLink: Wrapper = (node) => <a href={href}>{node}</a>
+  return wrapInLink
+}
+
+const StockId = ({ id }: StockIdProperties): ReactNode => {
+  const decorate = foldWrappers([asCode, asLink(`/strains/${id}`)])
+
+  return <td>{decorate(id)}</td>
+}
+
+export { StockId }
+```
+
+**Renders (`id="DBS0235764"`):**
+
+```html
+<td>
+  <a href="/strains/DBS0235764"><code>DBS0235764</code></a>
+</td>
+```
+
+#### foldEndomorphisms
+
+`foldEndomorphisms` joins a list of state updaters into one updater. The new updater applies each updater in list order. Give the result to `setState`.
+
+**Signature:** `foldEndomorphisms: <A>(endomorphisms: ReadonlyArray<Endomorphism<A>>) => Endomorphism<A>`
+
+**Call:** `foldEndomorphisms([decrement, atLeast(NO_SELECTION)])`
+
+```tsx
+import { useState, type ReactNode } from "react"
+import type { Endomorphism } from "fp-ts/Endomorphism"
+import { foldEndomorphisms } from "@dictybase/fp-ts-loom/endomorphism"
+
+const NO_SELECTION = -1
+
+const decrement: Endomorphism<number> = (index) => index - 1
+
+const atLeast =
+  (minimum: number): Endomorphism<number> =>
+  (index) =>
+    Math.max(index, minimum)
+
+const moveUp = foldEndomorphisms([decrement, atLeast(NO_SELECTION)])
+
+const ResultCursor = (): ReactNode => {
+  const [activeIndex, setActiveIndex] = useState(2)
+
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        setActiveIndex(moveUp)
+      }}>
+      Active result: {activeIndex}
+    </button>
+  )
+}
+
+export { ResultCursor }
+```
+
+**Renders:**
+
+```html
+<button type="button">Active result: 2</button>
+```
+
+**Result:** Each click moves the active result up by one: `2`, `1`, `0`, `-1`. Then `moveUp(-1)` returns `-1`, because `atLeast(NO_SELECTION)` stops the index at `-1`. For an empty list, `foldEndomorphisms([])` returns the value unchanged.
+
+#### whenEndomorphism
+
+`whenEndomorphism` applies a state updater only when a predicate on the current value is true. When the predicate is false, the value stays the same.
+
+**Signature:** `whenEndomorphism: <A>(predicate: Predicate<A>) => Endomorphism<Endomorphism<A>>`
+
+**Call:** `pipe(increment, whenEndomorphism(isBefore(lastIndex)))`
+
+```tsx
+import { useState, type ReactNode } from "react"
+import type { Endomorphism } from "fp-ts/Endomorphism"
+import { pipe } from "fp-ts/function"
+import type { Predicate } from "fp-ts/Predicate"
+import { whenEndomorphism } from "@dictybase/fp-ts-loom/endomorphism"
+
+type ResultCursorProperties = Readonly<{ lastIndex: number }>
+
+const increment: Endomorphism<number> = (index) => index + 1
+
+const isBefore =
+  (lastIndex: number): Predicate<number> =>
+  (index) =>
+    index < lastIndex
+
+const moveDown = (lastIndex: number): Endomorphism<number> =>
+  pipe(increment, whenEndomorphism(isBefore(lastIndex)))
+
+const ResultCursor = ({ lastIndex }: ResultCursorProperties): ReactNode => {
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        setActiveIndex(moveDown(lastIndex))
+      }}>
+      Active result: {activeIndex}
+    </button>
+  )
+}
+
+export { ResultCursor }
+```
+
+**Renders (`lastIndex={2}`):**
+
+```html
+<button type="button">Active result: 0</button>
+```
+
+**Result:** Each click moves the active result down: `0`, `1`, `2`. At `2`, `isBefore(2)` is false, so further clicks keep `2`.
+
+#### buildFrom
+
+`buildFrom` makes a value from one input. You give a start value and a list of recipes. Each recipe reads the input and returns an updater for the value. `buildFrom` applies the updaters in list order to the start value.
+
+**Signature:** `buildFrom: <Input, Target>(initial: Target, recipes: ReadonlyArray<(input: Input) => Endomorphism<Target>>) => (input: Input) => Target`
+
+**Call:** `buildFrom(INITIAL_FILTER, [setOffset, setTerm])`
+
+```ts
+import type { Endomorphism } from "fp-ts/Endomorphism"
+import { buildFrom } from "@dictybase/fp-ts-loom/endomorphism"
+
+type CatalogQuery = Readonly<{ page: number; search: string }>
+type CatalogFilter = Readonly<{ offset: number; limit: number; term: string }>
+
+const PAGE_SIZE = 20
+const INITIAL_FILTER: CatalogFilter = { offset: 0, limit: PAGE_SIZE, term: "" }
+
+const setOffset =
+  ({ page }: CatalogQuery): Endomorphism<CatalogFilter> =>
+  (filter) => ({ ...filter, offset: (page - 1) * filter.limit })
+
+const setTerm =
+  ({ search }: CatalogQuery): Endomorphism<CatalogFilter> =>
+  (filter) => ({ ...filter, term: search.trim() })
+
+const toCatalogFilter = buildFrom(INITIAL_FILTER, [setOffset, setTerm])
+
+export { toCatalogFilter }
+```
+
+**Result:** `toCatalogFilter({ page: 3, search: " sadA " })` returns `{ offset: 40, limit: 20, term: "sadA" }`. If two recipes change the same field, the last recipe wins.
+
+#### MonoidWrapperOuter
+
+`nestWrappers` is built on `MonoidWrapperOuter`. Its `concat(outer, inner)` puts `inner` inside `outer`. Its `empty` value is a wrapper that returns the node unchanged.
+
+**Signature:** `MonoidWrapperOuter: Monoid<Wrapper>`
+
+**Call:** `MonoidWrapperOuter.concat(inMain, inSection)`
+
+```tsx
+import type { ReactNode } from "react"
+import {
+  MonoidWrapperOuter,
+  type Wrapper,
+} from "@dictybase/fp-ts-loom/endomorphism"
+
+const inMain: Wrapper = (node) => <main>{node}</main>
+const inSection: Wrapper = (node) => <section>{node}</section>
+
+const withLayout = MonoidWrapperOuter.concat(inMain, inSection)
+
+const CartPage = (): ReactNode => withLayout(<h1>Cart</h1>)
+
+export { CartPage }
+```
+
+**Renders:**
+
+```html
+<main>
+  <section><h1>Cart</h1></section>
+</main>
+```
+
+#### MonoidWrapper
+
+`foldWrappers` is built on `MonoidWrapper`. Its `concat(first, second)` applies `first`, then `second`, so `second` is the outer element.
+
+**Signature:** `MonoidWrapper: Monoid<Wrapper>`
+
+**Call:** `MonoidWrapper.concat(inMain, inSection)`
+
+```tsx
+import type { ReactNode } from "react"
+import { MonoidWrapper, type Wrapper } from "@dictybase/fp-ts-loom/endomorphism"
+
+const inMain: Wrapper = (node) => <main>{node}</main>
+const inSection: Wrapper = (node) => <section>{node}</section>
+
+const withLayout = MonoidWrapper.concat(inMain, inSection)
+
+const CartPage = (): ReactNode => withLayout(<h1>Cart</h1>)
+
+export { CartPage }
+```
+
+**Renders:**
+
+```html
+<section>
+  <main><h1>Cart</h1></main>
+</section>
+```
+
+**Result:** With the same two wrappers, `MonoidWrapper` and `MonoidWrapperOuter` give opposite nesting.
+
+#### getEndomorphismMonoid
+
+`foldEndomorphisms` is built on `getEndomorphismMonoid`. Its `concat(first, second)` applies `first`, then `second`. Its `empty` value returns the value unchanged.
+
+**Signature:** `getEndomorphismMonoid: <A>() => Monoid<Endomorphism<A>>`
+
+**Call:** `IndexUpdaterMonoid.concat(decrement, atLeast(NO_SELECTION))`
+
+```ts
+import type { Endomorphism } from "fp-ts/Endomorphism"
+import { getEndomorphismMonoid } from "@dictybase/fp-ts-loom/endomorphism"
+
+const NO_SELECTION = -1
+
+const IndexUpdaterMonoid = getEndomorphismMonoid<number>()
+
+const decrement: Endomorphism<number> = (index) => index - 1
+
+const atLeast =
+  (minimum: number): Endomorphism<number> =>
+  (index) =>
+    Math.max(index, minimum)
+
+const moveUp = IndexUpdaterMonoid.concat(decrement, atLeast(NO_SELECTION))
+
+export { moveUp }
+```
+
+**Result:** `moveUp(2)` returns `1`, and `moveUp(-1)` returns `-1`. `IndexUpdaterMonoid.empty(5)` returns `5`.
+
+#### Building blocks
+
+- `getEndomorphismMonoid<A>()` is `Endomorphism.getMonoid<A>()` from fp-ts.
+- `MonoidWrapper` is `Endomorphism.getMonoid<ReactNode>()`.
+- `MonoidWrapperOuter` is `Monoid.reverse(MonoidWrapper)`.
+- `foldEndomorphisms`, `foldWrappers` and `nestWrappers` are `MconcatAll` of these monoids.
+- `whenEndomorphism` and `buildFrom` use `Option.fromPredicate` and `ReadonlyArray.flap`.
 
 ### Event handlers & predicate guards
 
