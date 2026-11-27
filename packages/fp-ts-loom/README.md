@@ -10,12 +10,12 @@ Reusable [fp-ts](https://gcanti.github.io/fp-ts/) and [React 19](https://react.d
 - [Install](#install)
 - [Modules](#modules)
 - [Usage](#usage)
+  - [Effects and cleanups](#effects-and-cleanups)
   - [Void monoid](#void-monoid)
   - [ReactNode monoid & intercalation](#reactnode-monoid--intercalation)
   - [Views (horizontal composition)](#views-horizontal-composition)
   - [Endomorphisms & wrappers (vertical & state composition)](#endomorphisms--wrappers-vertical--state-composition)
   - [Event handlers & predicate guards](#event-handlers--predicate-guards)
-  - [Lazy IO effects & cleanups](#lazy-io-effects--cleanups)
   - [Predicates, parsers and errors](#predicates-parsers-and-errors)
   - [Option matching](#option-matching)
   - [String monoids](#string-monoids)
@@ -92,102 +92,1047 @@ import { getHandlerMonoid } from "@dictybase/fp-ts-loom/handler"
 
 Each snippet shows the module import and a representative call; outputs and rendered JSX structures are shown in inline comments.
 
-### Void monoid
+### Effects and cleanups
 
-`MonoidVoid` (`concat: constVoid`, `empty: undefined`) turns unit-returning callbacks into composable monoids when lifted through `Reader.getMonoid` (`Handler<E>`) or `IO.getMonoid` (`Cleanup`).
+React `useEffect` takes a function that runs mount work and returns a cleanup function:
 
 ```ts
-import { concatAll as MconcatAll } from "fp-ts/Monoid"
-import { MonoidVoid, SemigroupVoid } from "@dictybase/fp-ts-loom/void"
-
-SemigroupVoid.concat(undefined, undefined) // undefined
-MonoidVoid.empty // undefined
-MconcatAll(MonoidVoid)([]) // undefined
+type Cleanup = IO<void> // () => void
+type Effect = IO<Cleanup> // () => () => void
 ```
+
+The `effect` module treats `Effect` and `Cleanup` as plain values so you can lift, guard, and sequence them without imperative control flow.
+
+#### fromMount
+
+`fromMount` turns a one-shot action `() => void` into an `Effect` by returning an empty `Cleanup` (`() => undefined`). Use it when a mount action sets a value once and leaves no active listener to remove.
+
+**Signature:** `fromMount: (mount: IO<void>) => Effect`
+
+**Call:** `fromMount(() => { document.title = title })`
+
+```tsx
+import { useEffect, type ReactNode } from "react"
+import { type Effect, fromMount } from "@dictybase/fp-ts-loom/effect"
+
+type PageTitleProperties = Readonly<{ title: string }>
+
+const setDocumentTitle = (title: string): Effect =>
+  fromMount(() => {
+    document.title = title
+  })
+
+const PageTitle = ({ title }: PageTitleProperties): ReactNode => {
+  useEffect(() => setDocumentTitle(title)(), [title])
+
+  return <h1>{title}</h1>
+}
+
+export { PageTitle }
+```
+
+**Renders:**
+
+```html
+<h1>Strain Catalog</h1>
+```
+
+**Result:** When `<PageTitle title="Strain Catalog" />` mounts or `title` changes, `document.title` becomes `"Strain Catalog"`. When the effect ends, the empty `Cleanup` returned by `fromMount` does no work.
+
+#### foldEffects
+
+`foldEffects` runs a list of `Effect` values in sequence from first to last, and returns one `Cleanup` that runs every effect's cleanup in that same sequence. One-shot `fromMount` effects and listener `Effect` values have the same `Effect` type, so you can mix both styles in the same list.
+
+**Signature:** `foldEffects: (effects: ReadonlyArray<Effect>) => Effect`
+
+**Call:** `foldEffects([stepOne, mountTwo, stepThree])()`
+
+```ts
+import { useEffect } from "react"
+import {
+  type Effect,
+  foldEffects,
+  fromMount,
+} from "@dictybase/fp-ts-loom/effect"
+
+const trackStep =
+  (stepName: string, log: Array<string>): Effect =>
+  () => {
+    log.push(`start:${stepName}`)
+    return () => {
+      log.push(`stop:${stepName}`)
+    }
+  }
+
+const useOrderedSteps = (log: Array<string>): void => {
+  useEffect(() => {
+    const stepOne = trackStep("first", log)
+    const mountTwo = fromMount(() => {
+      log.push("mount:second")
+    })
+    const stepThree = trackStep("third", log)
+
+    return foldEffects([stepOne, mountTwo, stepThree])()
+  }, [log])
+}
+
+export { useOrderedSteps }
+```
+
+**Result:**
+
+- On mount, `log` receives `["start:first", "mount:second", "start:third"]` in sequence.
+- On unmount, the returned `Cleanup` runs in sequence (`mountTwo` has an empty cleanup), so `log` becomes `["start:first", "mount:second", "start:third", "stop:first", "stop:third"]`.
+- For an empty list, `foldEffects([])` does no work on mount or unmount.
+
+#### whenEffect
+
+`whenEffect` wraps an `Effect` with a boolean condition. When the condition is `true`, the effect runs normally. When the condition is `false`, `whenEffect` returns `MonoidEffect.empty`, so nothing runs on mount or cleanup.
+
+**Signature:** `whenEffect: (condition: boolean) => Endomorphism<Effect>`
+
+**Call:** `pipe(lockBodyScroll, whenEffect(isOpen))()`
+
+```tsx
+import { useEffect, useState, type ReactNode } from "react"
+import { match as Bmatch } from "fp-ts/boolean"
+import { pipe } from "fp-ts/function"
+import { type Effect, whenEffect } from "@dictybase/fp-ts-loom/effect"
+
+const lockBodyScroll: Effect = () => {
+  const previousOverflow = document.body.style.overflow
+  document.body.style.overflow = "hidden"
+  return () => {
+    document.body.style.overflow = previousOverflow
+  }
+}
+
+const DialogDemo = (): ReactNode => {
+  const [isOpen, setIsOpen] = useState(false)
+
+  useEffect(() => pipe(lockBodyScroll, whenEffect(isOpen))(), [isOpen])
+
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        setIsOpen((open) => !open)
+      }}>
+      {pipe(
+        isOpen,
+        Bmatch(
+          () => "Open dialog",
+          () => "Close dialog",
+        ),
+      )}
+    </button>
+  )
+}
+
+export { DialogDemo }
+```
+
+**Renders:**
+
+```html
+<button type="button">Open dialog</button>
+```
+
+**Result:** Initially `isOpen` is `false`, so `whenEffect(false)` skips `lockBodyScroll` while keeping `useEffect` unconditional. Clicking the button sets `isOpen` to `true`, which locks `document.body.style.overflow` to `"hidden"` until `isOpen` becomes `false` again or the component unmounts.
+
+#### foldCleanups
+
+When one `Effect` sets up two listeners together, `foldCleanups` joins their teardown functions into the single `Cleanup` that the `Effect` returns.
+
+**Signature:** `foldCleanups: (cleanups: ReadonlyArray<Cleanup>) => Cleanup`
+
+**Call:** `foldCleanups([stopMouseMove, stopMouseUp])`
+
+```ts
+import { useEffect } from "react"
+import {
+  type Cleanup,
+  type Effect,
+  foldCleanups,
+} from "@dictybase/fp-ts-loom/effect"
+
+const addDocumentListener = (
+  eventName: string,
+  listener: EventListener,
+): Cleanup => {
+  document.addEventListener(eventName, listener)
+  return () => {
+    document.removeEventListener(eventName, listener)
+  }
+}
+
+const dragListenersEffect =
+  (onMove: EventListener, onUp: EventListener): Effect =>
+  () => {
+    const stopMouseMove = addDocumentListener("mousemove", onMove)
+    const stopMouseUp = addDocumentListener("mouseup", onUp)
+
+    return foldCleanups([stopMouseMove, stopMouseUp])
+  }
+
+const useDragListeners = (onMove: EventListener, onUp: EventListener): void => {
+  useEffect(() => dragListenersEffect(onMove, onUp)(), [onMove, onUp])
+}
+
+export { useDragListeners }
+```
+
+**Result:** On mount, `dragListenersEffect` attaches `mousemove` and `mouseup` and returns one `Cleanup`. When the effect ends, that `Cleanup` removes `mousemove` first, then `mouseup`.
+
+#### MonoidEffect
+
+`foldEffects` is built on `MonoidEffect`. A monoid joins two values into one value, and it also has an `empty` value so it can join an empty list. Use `MonoidEffect.concat` to join two `Effect` values directly.
+
+**Signature:** `MonoidEffect: Monoid<Effect>`
+
+**Call:** `MonoidEffect.concat(scrollToTop, listenResize)()`
+
+```ts
+import { useEffect } from "react"
+import {
+  type Effect,
+  fromMount,
+  MonoidEffect,
+} from "@dictybase/fp-ts-loom/effect"
+
+const scrollToTop: Effect = fromMount(() => {
+  window.scrollTo(0, 0)
+})
+
+const listenResizeEffect =
+  (onResize: EventListener): Effect =>
+  () => {
+    window.addEventListener("resize", onResize)
+    return () => {
+      window.removeEventListener("resize", onResize)
+    }
+  }
+
+const useScrollAndResize = (onResize: EventListener): void => {
+  useEffect(
+    () => MonoidEffect.concat(scrollToTop, listenResizeEffect(onResize))(),
+    [onResize],
+  )
+}
+
+export { useScrollAndResize }
+```
+
+**Result:** On mount, the hook runs `scrollToTop` first, then attaches the `resize` listener. On cleanup, React removes the `resize` listener. `MonoidEffect.empty` is an `Effect` that does no work and returns an empty `Cleanup`.
+
+#### MonoidCleanup
+
+`foldCleanups` is built on `MonoidCleanup`. Use `MonoidCleanup.concat` inside an `Effect` to join two `Cleanup` functions into one `Cleanup`.
+
+**Signature:** `MonoidCleanup: Monoid<Cleanup>`
+
+**Call:** `MonoidCleanup.concat(stopClick, stopKeyDown)`
+
+```ts
+import { useEffect } from "react"
+import {
+  type Cleanup,
+  type Effect,
+  MonoidCleanup,
+} from "@dictybase/fp-ts-loom/effect"
+
+const addDocumentListener = (
+  eventName: string,
+  listener: EventListener,
+): Cleanup => {
+  document.addEventListener(eventName, listener)
+  return () => {
+    document.removeEventListener(eventName, listener)
+  }
+}
+
+const closeMenuListenersEffect =
+  (onClickOutside: EventListener, onEscape: EventListener): Effect =>
+  () => {
+    const stopClick = addDocumentListener("click", onClickOutside)
+    const stopKeyDown = addDocumentListener("keydown", onEscape)
+
+    return MonoidCleanup.concat(stopClick, stopKeyDown)
+  }
+
+const useCloseMenuListeners = (
+  onClickOutside: EventListener,
+  onEscape: EventListener,
+): void => {
+  useEffect(
+    () => closeMenuListenersEffect(onClickOutside, onEscape)(),
+    [onClickOutside, onEscape],
+  )
+}
+
+export { useCloseMenuListeners }
+```
+
+**Result:** On mount, the effect attaches `click` and `keydown`. On cleanup, the joined `Cleanup` removes `click` first, then `keydown`. `MonoidCleanup.empty` is a `Cleanup` that does no work.
+
+#### Building blocks
+
+The `effect` helpers come from `MonoidVoid` in the `void` module:
+
+- `MonoidCleanup` is `IOgetMonoid(MonoidVoid)`.
+- `MonoidEffect` is `IOgetMonoid(MonoidCleanup)`.
+- `foldCleanups` is `MconcatAll(MonoidCleanup)`.
+- `foldEffects` is `MconcatAll(MonoidEffect)`.
+
+The next section, [Void monoid](#void-monoid), shows `SemigroupVoid` and `MonoidVoid`.
+
+### Void monoid
+
+The `void` module joins two things that return nothing into one thing that returns nothing. The `effect` and `handler` modules build their monoids from it.
+
+#### SemigroupVoid
+
+A semigroup joins two values into one value. It can also join a list of values, if the list has at least one value. Lift `SemigroupVoid` with `RgetSemigroup` to join event handlers.
+
+**Signature:** `SemigroupVoid: Semigroup<void>`
+
+**Call:** `ClickHandlerSemigroup.concat(closeMenu, clearSelection)`
+
+```ts
+import type { MouseEvent } from "react"
+import { getSemigroup as RgetSemigroup } from "fp-ts/Reader"
+import { SemigroupVoid } from "@dictybase/fp-ts-loom/void"
+
+type SetMenuOpen = (open: boolean) => void
+type ClearSelection = () => void
+type ClickHandler = (event: MouseEvent) => void
+
+const ClickHandlerSemigroup = RgetSemigroup<MouseEvent, void>(SemigroupVoid)
+
+const makeResetHandler = (
+  setIsOpen: SetMenuOpen,
+  clearSelection: ClearSelection,
+): ClickHandler => {
+  const closeMenu: ClickHandler = () => {
+    setIsOpen(false)
+  }
+  const resetCell: ClickHandler = () => {
+    clearSelection()
+  }
+
+  return ClickHandlerSemigroup.concat(closeMenu, resetCell)
+}
+
+export { makeResetHandler }
+```
+
+**Result:** The joined handler runs `setIsOpen(false)` first, then `clearSelection()`, and returns `undefined`.
+
+To join a non-empty list with a semigroup, pass the first handler and then the remaining handlers to `SconcatAll`.
+
+**Call:** `joinHandlers(deleteRow)([closeMenu, resetCell])`
+
+```ts
+import type { MouseEvent } from "react"
+import { getSemigroup as RgetSemigroup } from "fp-ts/Reader"
+import { concatAll as SconcatAll } from "fp-ts/Semigroup"
+import { SemigroupVoid } from "@dictybase/fp-ts-loom/void"
+
+type ClickHandler = (event: MouseEvent) => void
+
+const ClickHandlerSemigroup = RgetSemigroup<MouseEvent, void>(SemigroupVoid)
+const joinHandlers = SconcatAll(ClickHandlerSemigroup)
+
+const makeDeleteRowHandler = (
+  deleteRow: ClickHandler,
+  closeMenu: ClickHandler,
+  resetCell: ClickHandler,
+): ClickHandler => joinHandlers(deleteRow)([closeMenu, resetCell])
+
+export { makeDeleteRowHandler }
+```
+
+**Result:** The handler runs `deleteRow`, then `closeMenu`, then `resetCell`. If the list of remaining handlers is empty, the result is `deleteRow`.
+
+Use [foldHandlers](#event-handlers--predicate-guards) from the `handler` module when the list of handlers can be empty.
+
+#### MonoidVoid
+
+A monoid is a semigroup that also has an `empty` value (`undefined`). Lift `MonoidVoid` with `IOgetMonoid` to build `MonoidCleanup` and join two `Cleanup` functions inside an `Effect`.
+
+**Signature:** `MonoidVoid: Monoid<void>`
+
+**Call:** `CleanupMonoid.concat(stopMove, stopUp)`
+
+```ts
+import { getMonoid as IOgetMonoid, type IO } from "fp-ts/IO"
+import { MonoidVoid } from "@dictybase/fp-ts-loom/void"
+
+type Cleanup = IO<void>
+type Effect = IO<Cleanup>
+
+const CleanupMonoid = IOgetMonoid(MonoidVoid)
+
+const addDocumentListener = (
+  eventName: string,
+  listener: EventListener,
+): Cleanup => {
+  document.addEventListener(eventName, listener)
+  return () => {
+    document.removeEventListener(eventName, listener)
+  }
+}
+
+const dragEffect =
+  (onMove: EventListener, onUp: EventListener): Effect =>
+  () => {
+    const stopMove = addDocumentListener("mousemove", onMove)
+    const stopUp = addDocumentListener("mouseup", onUp)
+
+    return CleanupMonoid.concat(stopMove, stopUp)
+  }
+
+export { dragEffect }
+```
+
+**Result:** `dragEffect` attaches both listeners and returns one `Cleanup` that removes `mousemove` first, then `mouseup`. Joining any `Cleanup` with `CleanupMonoid.empty` runs only that `Cleanup`.
+
+Pass `CleanupMonoid` to `MconcatAll` to fold a list of `Cleanup` functions of any length, including `[]`.
+
+**Call:** `foldCleanupList([stopMove, stopUp])`
+
+```ts
+import { getMonoid as IOgetMonoid, type IO } from "fp-ts/IO"
+import { concatAll as MconcatAll } from "fp-ts/Monoid"
+import { MonoidVoid } from "@dictybase/fp-ts-loom/void"
+
+type Cleanup = IO<void>
+
+const CleanupMonoid = IOgetMonoid(MonoidVoid)
+const foldCleanupList = MconcatAll(CleanupMonoid)
+
+const stopAll = (cleanups: ReadonlyArray<Cleanup>): Cleanup =>
+  foldCleanupList(cleanups)
+
+export { stopAll }
+```
+
+**Result:** `stopAll` runs every `Cleanup` in list order. When `cleanups` is `[]`, `stopAll([])` returns `CleanupMonoid.empty`, which does no work. `CleanupMonoid` and `foldCleanupList` are the exact definitions of `MonoidCleanup` and `foldCleanups` in [Effects and cleanups](#effects-and-cleanups).
 
 ### ReactNode monoid & intercalation
 
-`MonoidNode` concatenates `ReactNode` values inside `<>{first}{second}</>` with `<></>` as `empty`. `intercalateNode` builds a separated `Semigroup<ReactNode>` via `Semigroup.intercalate`.
+The `node` module treats React elements (`ReactNode`) as algebraic values. You can render optional elements, guard elements with a condition, join lists of elements, or place separators between elements without `null`, `&&`, or ternaries. Every empty branch renders an empty React fragment `<></>`.
+
+#### fromOptionNode
+
+`fromOptionNode` unwraps an `Option<ReactNode>`. On `Some(node)`, it renders `node`. On `None`, it renders an empty fragment `<></>` so `null` never enters the JSX tree.
+
+**Signature:** `fromOptionNode: (node: Option<ReactNode>) => ReactNode`
+
+**Call:** `fromOptionNode(doiLink)`
 
 ```tsx
-import { fromNullable as OfromNullable } from "fp-ts/Option"
-import {
-  MonoidNode,
-  intercalateNode,
-  foldNodes,
-  joinNodes,
-  fromOptionNode,
-  whenNode,
-} from "@dictybase/fp-ts-loom/node"
+import type { ReactNode } from "react"
+import { pipe } from "fp-ts/function"
+import { fromNullable as OfromNullable, map as Omap } from "fp-ts/Option"
+import { fromOptionNode } from "@dictybase/fp-ts-loom/node"
 
-MonoidNode.concat(<span>DBS01</span>, <span>axeA2</span>)
-// <><span>DBS01</span><span>axeA2</span></>
+type DoiLinkProperties = Readonly<{
+  doi: string | null | undefined
+}>
 
-const dotSemigroup = intercalateNode(<span> · </span>)
-dotSemigroup.concat(<span>PubMed</span>, <span>DOI</span>)
-// <><span>PubMed</span><><span> · </span><span>DOI</span></></>
+const DoiLink = ({ doi }: DoiLinkProperties): ReactNode => {
+  const doiLink = pipe(
+    doi,
+    OfromNullable,
+    Omap(
+      (value): ReactNode => <a href={`https://doi.org/${value}`}>Full Text</a>,
+    ),
+  )
 
-foldNodes([<span>A</span>, <span>B</span>]) // <><span>A</span><span>B</span></>
-foldNodes([]) // <></>
+  return <nav>{fromOptionNode(doiLink)}</nav>
+}
 
-const joinComma = joinNodes(<span>, </span>)
-joinComma([]) // <></> (no stray comma)
-joinComma([<span>Smith</span>]) // <span>Smith</span>
-joinComma([<span>Smith</span>, <span>Lee</span>]) // "Smith, Lee"
-
-fromOptionNode(OfromNullable(undefined)) // <></> (never null)
-whenNode(false)(() => <ExpensiveBadge />) // <></> (thunk never called)
+export { DoiLink }
 ```
+
+**Renders (`doi="10.1093/nar/gkn841"`):**
+
+```html
+<nav><a href="https://doi.org/10.1093/nar/gkn841">Full Text</a></nav>
+```
+
+**Renders (`doi={null}`):**
+
+```html
+<nav></nav>
+```
+
+#### whenNode
+
+`whenNode` takes a boolean condition and a `() => ReactNode` function. When the condition is `true`, it calls the function and renders its result. When the condition is `false`, it skips the function and returns `<></>`.
+
+**Signature:** `whenNode: (condition: boolean) => (render: () => ReactNode) => ReactNode`
+
+**Call:** `whenNode(isUnavailable)(() => <span>Currently unavailable at the DSC</span>)`
+
+```tsx
+import type { ReactNode } from "react"
+import { whenNode } from "@dictybase/fp-ts-loom/node"
+
+type StrainStatusProperties = Readonly<{
+  inStock: boolean
+}>
+
+const StrainStatus = ({ inStock }: StrainStatusProperties): ReactNode => {
+  const isUnavailable = !inStock
+
+  return (
+    <div>
+      {whenNode(isUnavailable)(() => (
+        <span>Currently unavailable at the DSC</span>
+      ))}
+    </div>
+  )
+}
+
+export { StrainStatus }
+```
+
+**Renders (`inStock={false}`):**
+
+```html
+<div><span>Currently unavailable at the DSC</span></div>
+```
+
+**Renders (`inStock={true}`):**
+
+```html
+<div></div>
+```
+
+#### foldNodes
+
+`foldNodes` joins a list of `ReactNode` elements in sequence inside React fragments. When the list is empty, it returns `<></>`.
+
+**Signature:** `foldNodes: (nodes: ReadonlyArray<ReactNode>) => ReactNode`
+
+**Call:** `foldNodes([<code>{id}</code>, <strong>{label}</strong>])`
+
+```tsx
+import type { ReactNode } from "react"
+import { foldNodes } from "@dictybase/fp-ts-loom/node"
+
+type CatalogTitleProperties = Readonly<{
+  id: string
+  label: string
+}>
+
+const CatalogTitle = ({ id, label }: CatalogTitleProperties): ReactNode => (
+  <header>
+    {foldNodes([
+      <code key="id">{id}</code>,
+      " ",
+      <strong key="label">{label}</strong>,
+    ])}
+  </header>
+)
+
+export { CatalogTitle }
+```
+
+**Renders (`id="DBS0235764"`, `label="axeA2"`):**
+
+```html
+<header><code>DBS0235764</code> <strong>axeA2</strong></header>
+```
+
+**Result:** Passing `[]` to `foldNodes([])` renders `<></>`.
+
+#### joinNodes
+
+`joinNodes` places a `ReactNode` separator between adjacent elements in a list. It adds no separator when the list has zero or one element.
+
+**Signature:** `joinNodes: (separator: ReactNode) => (nodes: ReadonlyArray<ReactNode>) => ReactNode`
+
+**Call:** `joinWithComma(authorSpans)`
+
+```tsx
+import type { ReactNode } from "react"
+import { pipe } from "fp-ts/function"
+import { map as RAmap } from "fp-ts/ReadonlyArray"
+import { joinNodes } from "@dictybase/fp-ts-loom/node"
+
+type AuthorListProperties = Readonly<{
+  authors: ReadonlyArray<string>
+}>
+
+const joinWithComma = joinNodes(<span>, </span>)
+
+const AuthorList = ({ authors }: AuthorListProperties): ReactNode => {
+  const authorSpans = pipe(
+    authors,
+    RAmap((name): ReactNode => <span key={name}>{name}</span>),
+  )
+
+  return <p>{joinWithComma(authorSpans)}</p>
+}
+
+export { AuthorList }
+```
+
+**Renders (`authors={["R. Chisholm", "G. Shaulsky"]}`):**
+
+```html
+<p><span>R. Chisholm</span><span>, </span><span>G. Shaulsky</span></p>
+```
+
+**Renders (`authors={["R. Chisholm"]}`):**
+
+```html
+<p><span>R. Chisholm</span></p>
+```
+
+**Renders (`authors={[]}`):**
+
+```html
+<p></p>
+```
+
+#### MonoidNode
+
+`foldNodes` is built on `MonoidNode`. `MonoidNode.concat` places two `ReactNode` values side by side inside `<>{first}{second}</>`, and `MonoidNode.empty` is `<></>`.
+
+**Signature:** `MonoidNode: Monoid<ReactNode>`
+
+**Call:** `MonoidNode.concat(<code>{id}</code>, <strong>{label}</strong>)`
+
+```tsx
+import type { ReactNode } from "react"
+import { MonoidNode } from "@dictybase/fp-ts-loom/node"
+
+type StrainPairProperties = Readonly<{
+  id: string
+  label: string
+}>
+
+const StrainPair = ({ id, label }: StrainPairProperties): ReactNode => (
+  <div>{MonoidNode.concat(<code>{id}</code>, <strong>{label}</strong>)}</div>
+)
+
+export { StrainPair }
+```
+
+**Renders (`id="DBS0235764"`, `label="axeA2"`):**
+
+```html
+<div><code>DBS0235764</code><strong>axeA2</strong></div>
+```
+
+**Result:** Joining any node with `MonoidNode.empty` renders only that node.
+
+#### intercalateNode
+
+`joinNodes` is built on `intercalateNode`. `intercalateNode(separator)` returns a `Semigroup<ReactNode>` whose `concat` places `separator` between two `ReactNode` values. It is a semigroup rather than a monoid because a separator applies only when at least two elements exist.
+
+**Signature:** `intercalateNode: (separator: ReactNode) => Semigroup<ReactNode>`
+
+**Call:** `DotNodeSemigroup.concat(pmidLink, doiLink)`
+
+```tsx
+import type { ReactNode } from "react"
+import { intercalateNode } from "@dictybase/fp-ts-loom/node"
+
+type CitationLinksProperties = Readonly<{
+  pubmedId: string
+  doi: string
+}>
+
+const DotNodeSemigroup = intercalateNode(<span> · </span>)
+
+const CitationLinks = ({
+  pubmedId,
+  doi,
+}: CitationLinksProperties): ReactNode => {
+  const pmidLink: ReactNode = (
+    <a href={`https://pubmed.gov/${pubmedId}`}>PMID: {pubmedId}</a>
+  )
+  const doiLink: ReactNode = <a href={`https://doi.org/${doi}`}>DOI</a>
+
+  return <p>{DotNodeSemigroup.concat(pmidLink, doiLink)}</p>
+}
+
+export { CitationLinks }
+```
+
+**Renders (`pubmedId="19015125"`, `doi="10.1093/nar/gkn841"`):**
+
+```html
+<p>
+  <a href="https://pubmed.gov/19015125">PMID: 19015125</a><span> · </span
+  ><a href="https://doi.org/10.1093/nar/gkn841">DOI</a>
+</p>
+```
+
+#### Building blocks
+
+- `foldNodes` is `MconcatAll(MonoidNode)`.
+- `intercalateNode(separator)` is `pipe(MonoidNode, Sintercalate(separator))`.
+- `joinNodes(separator)` matches a non-empty list and folds the tail onto the head with `SconcatAll(intercalateNode(separator))`, returning `MonoidNode.empty` on `[]`.
 
 ### Views (horizontal composition)
 
-Every pure React component `(properties: P) => ReactNode` is already a `View<P>` (`Reader<P, ReactNode>`). `getViewMonoid` and `getViewSemigroup` compose multiple views horizontally over the same `P` without creating wrapper glue components.
+A `View<P>` is a function that takes properties `P` and returns a `ReactNode`. Every React component that takes props is already a `View`. The `view` module joins, separates, guards, wraps, and adapts views that share the same props, without new glue components.
+
+```ts
+type View<P> = (properties: P) => ReactNode
+```
+
+All examples in this section use one catalog row type:
+
+```ts
+type Strain = Readonly<{ id: string; label: string; inStock: boolean }>
+```
+
+#### foldViews
+
+`foldViews` joins a list of views into one view. The new view gives the same props to each view and renders the results in list order. For an empty list, it renders `<></>`.
+
+**Signature:** `foldViews: <P>(views: ReadonlyArray<View<P>>) => View<P>`
+
+**Call:** `foldViews([StrainId, StrainLabel])`
 
 ```tsx
-import { pipe } from "fp-ts/function"
-import {
-  type View,
-  getViewMonoid,
-  getViewSemigroup,
-  foldViews,
-  intercalateViews,
-  contramapView,
-  wrapView,
-  guardView,
-} from "@dictybase/fp-ts-loom/view"
-import { intercalateNode } from "@dictybase/fp-ts-loom/node"
+import type { ReactNode } from "react"
+import { foldViews, type View } from "@dictybase/fp-ts-loom/view"
 
-type Strain = {
-  readonly id: string
-  readonly label: string
-  readonly inStock: boolean
-}
+type Strain = Readonly<{ id: string; label: string; inStock: boolean }>
 
-const IdView: View<Strain> = ({ id }) => <code>{id}</code>
-const LabelView: View<Strain> = ({ label }) => <strong>{label}</strong>
-
-// Horizontal monoid fold
-const HeaderView = foldViews([IdView, LabelView])
-HeaderView({ id: "DBS0235764", label: "axeA2", inStock: true })
-// -> <code>DBS0235764</code><strong>axeA2</strong>
-
-// Separated horizontal semigroup
-const SeparatedView = getViewSemigroup<Strain>(intercalateNode(" — ")).concat(
-  IdView,
-  LabelView,
+const StrainId: View<Strain> = ({ id }: Strain) => <code>{id}</code>
+const StrainLabel: View<Strain> = ({ label }: Strain) => (
+  <strong>{label}</strong>
 )
-SeparatedView({ id: "DBS0235764", label: "axeA2", inStock: true })
-// -> "DBS0235764 — axeA2"
 
-// Guard + wrap + contravariant adaptation
-const StockBadgeView = pipe(
-  ({ id }: Strain) => <span>In Stock ({id})</span>,
-  wrapView((node) => <aside className="badge">{node}</aside>),
-  guardView(({ inStock }) => inStock),
-  contramapView((row: { readonly strain: Strain }) => row.strain),
+const StrainHeading = foldViews([StrainId, StrainLabel])
+
+const CatalogRow = (strain: Strain): ReactNode => (
+  <h2>
+    <StrainHeading {...strain} />
+  </h2>
 )
-StockBadgeView({ strain: { id: "DBS01", label: "axeA2", inStock: false } }) // <></>
+
+export { CatalogRow }
 ```
+
+**Renders (`id="DBS0235764"`, `label="axeA2"`):**
+
+```html
+<h2><code>DBS0235764</code><strong>axeA2</strong></h2>
+```
+
+#### intercalateViews
+
+`intercalateViews` joins a list of views and puts a separator between each two views. It adds no separator for a list with zero or one view.
+
+**Signature:** `intercalateViews: (separator: ReactNode) => <P>(views: ReadonlyArray<View<P>>) => View<P>`
+
+**Call:** `intercalateViews(" — ")([StrainId, StrainLabel])`
+
+```tsx
+import type { ReactNode } from "react"
+import { intercalateViews, type View } from "@dictybase/fp-ts-loom/view"
+
+type Strain = Readonly<{ id: string; label: string; inStock: boolean }>
+
+const StrainId: View<Strain> = ({ id }: Strain) => <code>{id}</code>
+const StrainLabel: View<Strain> = ({ label }: Strain) => (
+  <strong>{label}</strong>
+)
+
+const joinWithDash = intercalateViews(" — ")
+const StrainHeading = joinWithDash([StrainId, StrainLabel])
+
+const CatalogRow = (strain: Strain): ReactNode => (
+  <h2>
+    <StrainHeading {...strain} />
+  </h2>
+)
+
+export { CatalogRow }
+```
+
+**Renders (`id="DBS0235764"`, `label="axeA2"`):**
+
+```html
+<h2><code>DBS0235764</code> — <strong>axeA2</strong></h2>
+```
+
+#### guardView
+
+`guardView` renders a view only when a predicate on the props is true. When the predicate is false, it renders `<></>`.
+
+**Signature:** `guardView: <P>(predicate: Predicate<P>) => Endomorphism<View<P>>`
+
+**Call:** `pipe(StockBadge, guardView(isInStock))`
+
+```tsx
+import type { ReactNode } from "react"
+import { pipe } from "fp-ts/function"
+import { guardView, type View } from "@dictybase/fp-ts-loom/view"
+
+type Strain = Readonly<{ id: string; label: string; inStock: boolean }>
+
+const isInStock = ({ inStock }: Strain): boolean => inStock
+
+const StockBadge: View<Strain> = () => <span>In stock</span>
+
+const GuardedStockBadge = pipe(StockBadge, guardView(isInStock))
+
+const CatalogRow = (strain: Strain): ReactNode => (
+  <div>
+    <GuardedStockBadge {...strain} />
+  </div>
+)
+
+export { CatalogRow }
+```
+
+**Renders (`inStock={true}`):**
+
+```html
+<div><span>In stock</span></div>
+```
+
+**Renders (`inStock={false}`):**
+
+```html
+<div></div>
+```
+
+#### wrapView
+
+`wrapView` puts the output of a view inside an outer element. The wrapper is a function `(node: ReactNode) => ReactNode`.
+
+**Signature:** `wrapView: <P>(wrapper: Wrapper) => Endomorphism<View<P>>`
+
+**Call:** `pipe(StockBadge, wrapView(inBadgeBox))`
+
+```tsx
+import type { ReactNode } from "react"
+import { pipe } from "fp-ts/function"
+import type { Wrapper } from "@dictybase/fp-ts-loom/endomorphism"
+import { type View, wrapView } from "@dictybase/fp-ts-loom/view"
+
+type Strain = Readonly<{ id: string; label: string; inStock: boolean }>
+
+const inBadgeBox: Wrapper = (node) => <aside className="badge">{node}</aside>
+
+const StockBadge: View<Strain> = ({ id }: Strain) => (
+  <span>In stock ({id})</span>
+)
+
+const BoxedStockBadge = pipe(StockBadge, wrapView(inBadgeBox))
+
+const CatalogRow = (strain: Strain): ReactNode => (
+  <BoxedStockBadge {...strain} />
+)
+
+export { CatalogRow }
+```
+
+**Renders (`id="DBS0235764"`):**
+
+```html
+<aside class="badge"><span>In stock (DBS0235764)</span></aside>
+```
+
+#### contramapView
+
+`contramapView` lets a view read a different props type. You give a function that takes the new props and returns the props that the view needs.
+
+**Signature:** `contramapView: <Source, Target>(adapt: (source: Source) => Target) => (view: View<Target>) => View<Source>`
+
+**Call:** `pipe(StrainHeading, contramapView(strainOf))`
+
+```tsx
+import type { ReactNode } from "react"
+import { pipe } from "fp-ts/function"
+import { contramapView, foldViews, type View } from "@dictybase/fp-ts-loom/view"
+
+type Strain = Readonly<{ id: string; label: string; inStock: boolean }>
+type CartLine = Readonly<{ strain: Strain; quantity: number }>
+
+const StrainId: View<Strain> = ({ id }: Strain) => <code>{id}</code>
+const StrainLabel: View<Strain> = ({ label }: Strain) => (
+  <strong>{label}</strong>
+)
+const StrainHeading = foldViews([StrainId, StrainLabel])
+
+const strainOf = ({ strain }: CartLine): Strain => strain
+
+const CartLineHeading = pipe(StrainHeading, contramapView(strainOf))
+
+const CartRow = (line: CartLine): ReactNode => (
+  <li>
+    <CartLineHeading {...line} />
+  </li>
+)
+
+export { CartRow }
+```
+
+**Renders (`strain.id="DBS0235764"`, `strain.label="axeA2"`):**
+
+```html
+<li><code>DBS0235764</code><strong>axeA2</strong></li>
+```
+
+#### Join the operations
+
+The operations return views, so you can join them in one `pipe`. Each step changes the view from the step before it.
+
+**Call:** `pipe(StockBadge, wrapView(inBadgeBox), guardView(isInStock), contramapView(strainOf))`
+
+```tsx
+import type { ReactNode } from "react"
+import { pipe } from "fp-ts/function"
+import type { Wrapper } from "@dictybase/fp-ts-loom/endomorphism"
+import {
+  contramapView,
+  guardView,
+  type View,
+  wrapView,
+} from "@dictybase/fp-ts-loom/view"
+
+type Strain = Readonly<{ id: string; label: string; inStock: boolean }>
+type CartLine = Readonly<{ strain: Strain; quantity: number }>
+
+const inBadgeBox: Wrapper = (node) => <aside className="badge">{node}</aside>
+const isInStock = ({ inStock }: Strain): boolean => inStock
+const strainOf = ({ strain }: CartLine): Strain => strain
+
+const StockBadge: View<Strain> = ({ id }: Strain) => (
+  <span>In stock ({id})</span>
+)
+
+const CartStockBadge = pipe(
+  StockBadge,
+  wrapView(inBadgeBox),
+  guardView(isInStock),
+  contramapView(strainOf),
+)
+
+const CartRow = (line: CartLine): ReactNode => (
+  <li>
+    <CartStockBadge {...line} />
+  </li>
+)
+
+export { CartRow }
+```
+
+**Renders (`strain.inStock={true}`, `strain.id="DBS0235764"`):**
+
+```html
+<li>
+  <aside class="badge"><span>In stock (DBS0235764)</span></aside>
+</li>
+```
+
+**Renders (`strain.inStock={false}`):**
+
+```html
+<li></li>
+```
+
+#### getViewMonoid
+
+`foldViews` is built on `getViewMonoid`. The monoid joins two views that share props, and its empty value is a view that renders `<></>`.
+
+**Signature:** `getViewMonoid: <P>() => Monoid<View<P>>`
+
+**Call:** `StrainViewMonoid.concat(StrainId, StrainLabel)`
+
+```tsx
+import type { ReactNode } from "react"
+import { getViewMonoid, type View } from "@dictybase/fp-ts-loom/view"
+
+type Strain = Readonly<{ id: string; label: string; inStock: boolean }>
+
+const StrainViewMonoid = getViewMonoid<Strain>()
+
+const StrainId: View<Strain> = ({ id }: Strain) => <code>{id}</code>
+const StrainLabel: View<Strain> = ({ label }: Strain) => (
+  <strong>{label}</strong>
+)
+
+const StrainHeading = StrainViewMonoid.concat(StrainId, StrainLabel)
+
+const CatalogRow = (strain: Strain): ReactNode => (
+  <h2>
+    <StrainHeading {...strain} />
+  </h2>
+)
+
+export { CatalogRow }
+```
+
+**Renders (`id="DBS0235764"`, `label="axeA2"`):**
+
+```html
+<h2><code>DBS0235764</code><strong>axeA2</strong></h2>
+```
+
+**Result:** `StrainViewMonoid.empty` renders `<></>`. Joining a view with `StrainViewMonoid.empty` renders only that view.
+
+#### getViewSemigroup
+
+`intercalateViews` is built on `getViewSemigroup`. Give it a semigroup for `ReactNode`, for example `intercalateNode(" — ")`, and it joins two views with that semigroup. Without an argument, it uses `MonoidNode`.
+
+**Signature:** `getViewSemigroup: <P>(semigroup?: Semigroup<ReactNode>) => Semigroup<View<P>>`
+
+**Call:** `DashViewSemigroup.concat(StrainId, StrainLabel)`
+
+```tsx
+import type { ReactNode } from "react"
+import { intercalateNode } from "@dictybase/fp-ts-loom/node"
+import { getViewSemigroup, type View } from "@dictybase/fp-ts-loom/view"
+
+type Strain = Readonly<{ id: string; label: string; inStock: boolean }>
+
+const DashViewSemigroup = getViewSemigroup<Strain>(intercalateNode(" — "))
+
+const StrainId: View<Strain> = ({ id }: Strain) => <code>{id}</code>
+const StrainLabel: View<Strain> = ({ label }: Strain) => (
+  <strong>{label}</strong>
+)
+
+const StrainHeading = DashViewSemigroup.concat(StrainId, StrainLabel)
+
+const CatalogRow = (strain: Strain): ReactNode => (
+  <h2>
+    <StrainHeading {...strain} />
+  </h2>
+)
+
+export { CatalogRow }
+```
+
+**Renders (`id="DBS0235764"`, `label="axeA2"`):**
+
+```html
+<h2><code>DBS0235764</code> — <strong>axeA2</strong></h2>
+```
+
+#### Building blocks
+
+- `getViewMonoid<P>()` is `RgetMonoid<P, ReactNode>(MonoidNode)`.
+- `getViewSemigroup<P>(semigroup)` is `RgetSemigroup<P, ReactNode>(semigroup)`.
+- `foldViews` is `MconcatAll(getViewMonoid<P>())`.
+- `intercalateViews(separator)` folds the list with `getViewSemigroup<P>(intercalateNode(separator))`, and returns the empty view for `[]`.
+- `wrapView` is `Reader.map`, and `contramapView` is `Reader.local`.
+
+See [ReactNode monoid & intercalation](#reactnode-monoid--intercalation) for `MonoidNode` and `intercalateNode`.
 
 ### Endomorphisms & wrappers (vertical & state composition)
 
@@ -301,62 +1246,6 @@ const handleSearchChange = pipe(
     (event: ChangeEvent<HTMLInputElement>) => event.target.value,
   ),
 )
-```
-
-### Lazy IO effects & cleanups
-
-`Cleanup` (`IO<void>`) and `Effect` (`IO<IO<void>>`) model React `useEffect` lifecycles as pure lazy descriptions. Constructing or folding `Effect` values performs zero work; invoking the composed `Effect` inside `useEffect(() => effect(), dependencies)` runs every mount action in order, returns one combined `Cleanup` thunk, and satisfies `react-hooks/exhaustive-deps`.
-
-```tsx
-import { useEffect } from "react"
-import { pipe } from "fp-ts/function"
-import { when } from "@dictybase/fp-ts-loom/handler"
-import {
-  type Effect,
-  foldEffects,
-  fromMount,
-  whenEffect,
-} from "@dictybase/fp-ts-loom/effect"
-
-const trackImpression = (slug: string): Effect =>
-  fromMount(() => {
-    console.info("viewed", slug)
-  })
-
-const subscribeEscape =
-  (onClose: () => void): Effect =>
-  () => {
-    const listener = (event: globalThis.KeyboardEvent) => {
-      pipe(
-        onClose,
-        when((keyEvent: globalThis.KeyboardEvent) => keyEvent.key === "Escape"),
-      )(event)
-    }
-    window.addEventListener("keydown", listener)
-    return () => {
-      window.removeEventListener("keydown", listener)
-    }
-  }
-
-const ModalShortcuts = ({
-  open,
-  slug,
-  onClose,
-}: {
-  readonly open: boolean
-  readonly slug: string
-  readonly onClose: () => void
-}) => {
-  useEffect(
-    () =>
-      pipe(
-        foldEffects([trackImpression(slug), subscribeEscape(onClose)]),
-        whenEffect(open),
-      )(),
-    [open, slug, onClose],
-  )
-  return <div role="dialog">Modal Content</div>
-}
 ```
 
 ### Predicates, parsers and errors
