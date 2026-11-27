@@ -1,4 +1,6 @@
 import { CssBaseline, CircularProgress } from "@material-ui/core"
+import { pipe } from "fp-ts/function"
+import { map as Amap } from "fp-ts/Array"
 import {
   useGraphqlClient,
   useApolloClientCache,
@@ -15,6 +17,7 @@ import "@fontsource/roboto"
 import { LogtoProvider, LogtoConfig, UserScope } from "@logto/react"
 import { ThemeProvider } from "./ThemeProvider"
 import { DscApp } from "./components/DscApp"
+import { decodeUriComponentOrDefault } from "./decodeUriComponentOrDefault"
 
 const logtoConfig: LogtoConfig = {
   endpoint: import.meta.env.VITE_LOGTO_ENDPOINT,
@@ -45,6 +48,31 @@ const cacheOptions = {
         listStrains: listStrainsPagination(),
         listPlasmids: listPlasmidsPagination(),
         listStrainsWithAnnotation: listStrainsWithAnnotationPagination(),
+      },
+    },
+    Strain: {
+      // Certain fields that contain the strain label may contain URI encoded components (a % followed by two hexadecimal digits).
+      fields: {
+        label: {
+          read: decodeUriComponentOrDefault,
+        },
+        summary: {
+          read: decodeUriComponentOrDefault,
+        },
+        genes: {
+          read: (genes: Array<{ name: string }>) =>
+            pipe(
+              genes,
+              Amap((gene) => ({
+                ...gene,
+                name: decodeUriComponentOrDefault(gene.name),
+              })),
+            ),
+        },
+        genotypes: {
+          read: (genotypes: Array<string>) =>
+            pipe(genotypes, Amap(decodeUriComponentOrDefault)),
+        },
       },
     },
   },
