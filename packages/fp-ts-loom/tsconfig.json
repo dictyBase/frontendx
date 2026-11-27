@@ -1,0 +1,5 @@
+{
+  "extends": "tsconfig/react-library-esm.json",
+  "include": ["src", "setup.ts", "vitest.config.ts"],
+  "exclude": ["dist", "build", "node_modules"]
+}
