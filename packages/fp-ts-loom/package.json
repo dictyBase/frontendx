@@ -12,7 +12,15 @@
     "./view": "./src/view.ts",
     "./endomorphism": "./src/endomorphism.ts",
     "./handler": "./src/handler.ts",
-    "./effect": "./src/effect.ts"
+    "./effect": "./src/effect.ts",
+    "./predicate/ord": "./src/predicate/ord.ts",
+    "./predicate/string": "./src/predicate/string.ts",
+    "./predicate/array": "./src/predicate/array.ts",
+    "./error": "./src/error.ts",
+    "./parse": "./src/parse.ts",
+    "./array": "./src/array.ts",
+    "./matchopt": "./src/matchopt.ts",
+    "./string": "./src/string.ts"
   },
   "author": "Siddhartha Basu",
   "license": "BSD-2-Clause",
@@ -33,7 +41,6 @@
     "eslint-config-custom": "*",
     "jsdom": "latest",
     "tsconfig": "*",
-    "typescript": "5.*",
     "vitest": "4.x"
   },
   "scripts": {

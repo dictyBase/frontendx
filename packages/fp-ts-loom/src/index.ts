@@ -45,3 +45,49 @@ export {
   fromMount,
   whenEffect,
 } from "./effect"
+export {
+  intBetween,
+  intBetweenInclusive,
+  minStringLength,
+  maxStringLength,
+  stringLengthEq,
+  stringEq,
+  notEqualString,
+  notEqualNumber,
+} from "./predicate/ord"
+export { containsMatch, stringLengthBetween } from "./predicate/string"
+export { minLength, maxLength, lengthEq } from "./predicate/array"
+export { type LoomError, constError } from "./error"
+export { type ParseError, parseInt, parseFloat } from "./parse"
+export { parseWith } from "./array"
+export {
+  type Case,
+  matchCase,
+  matchConst,
+  matchDefault,
+  match,
+} from "./matchopt"
+export {
+  separatorMonoid,
+  Space,
+  Comma,
+  Semicolon,
+  Colon,
+  Label,
+  MiddleDot,
+  EmDash,
+  Newline,
+  joinSpace,
+  joinComma,
+  joinSemicolon,
+  joinMiddleDot,
+  joinLines,
+  collapseWhitespace,
+  wrap,
+  parens,
+  brackets,
+  quote,
+  period,
+  mapNonEmpty,
+  concatFields,
+} from "./string"
