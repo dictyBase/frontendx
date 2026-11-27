@@ -55,6 +55,8 @@ Then link workspaces from the repository root:
 yarn
 ```
 
+Add `monocle-ts` when a package updates record fields with lenses in endomorphism or state pipelines.
+
 Import from the root barrel or from focused subpath entrypoints:
 
 ```ts
@@ -155,14 +157,15 @@ import {
   fromMount,
 } from "@dictybase/fp-ts-loom/effect"
 
-const trackStep =
-  (stepName: string, log: Array<string>): Effect =>
-  () => {
+const trackStep = (stepName: string, log: Array<string>): Effect => {
+  const startStep: Effect = () => {
     log.push(`start:${stepName}`)
     return () => {
       log.push(`stop:${stepName}`)
     }
   }
+  return startStep
+}
 
 const useOrderedSteps = (log: Array<string>): void => {
   useEffect(() => {
@@ -266,14 +269,18 @@ const addDocumentListener = (
   }
 }
 
-const dragListenersEffect =
-  (onMove: EventListener, onUp: EventListener): Effect =>
-  () => {
+const dragListenersEffect = (
+  onMove: EventListener,
+  onUp: EventListener,
+): Effect => {
+  const attachDragListeners: Effect = () => {
     const stopMouseMove = addDocumentListener("mousemove", onMove)
     const stopMouseUp = addDocumentListener("mouseup", onUp)
 
     return foldCleanups([stopMouseMove, stopMouseUp])
   }
+  return attachDragListeners
+}
 
 const useDragListeners = (onMove: EventListener, onUp: EventListener): void => {
   useEffect(() => dragListenersEffect(onMove, onUp)(), [onMove, onUp])
@@ -304,14 +311,15 @@ const scrollToTop: Effect = fromMount(() => {
   window.scrollTo(0, 0)
 })
 
-const listenResizeEffect =
-  (onResize: EventListener): Effect =>
-  () => {
+const listenResizeEffect = (onResize: EventListener): Effect => {
+  const attachResize: Effect = () => {
     window.addEventListener("resize", onResize)
     return () => {
       window.removeEventListener("resize", onResize)
     }
   }
+  return attachResize
+}
 
 const useScrollAndResize = (onResize: EventListener): void => {
   useEffect(
@@ -351,14 +359,18 @@ const addDocumentListener = (
   }
 }
 
-const closeMenuListenersEffect =
-  (onClickOutside: EventListener, onEscape: EventListener): Effect =>
-  () => {
+const closeMenuListenersEffect = (
+  onClickOutside: EventListener,
+  onEscape: EventListener,
+): Effect => {
+  const attachCloseListeners: Effect = () => {
     const stopClick = addDocumentListener("click", onClickOutside)
     const stopKeyDown = addDocumentListener("keydown", onEscape)
 
     return MonoidCleanup.concat(stopClick, stopKeyDown)
   }
+  return attachCloseListeners
+}
 
 const useCloseMenuListeners = (
   onClickOutside: EventListener,
@@ -483,14 +495,15 @@ const addDocumentListener = (
   }
 }
 
-const dragEffect =
-  (onMove: EventListener, onUp: EventListener): Effect =>
-  () => {
+const dragEffect = (onMove: EventListener, onUp: EventListener): Effect => {
+  const attachDrag: Effect = () => {
     const stopMove = addDocumentListener("mousemove", onMove)
     const stopUp = addDocumentListener("mouseup", onUp)
 
     return CleanupMonoid.concat(stopMove, stopUp)
   }
+  return attachDrag
+}
 
 export { dragEffect }
 ```
@@ -1253,10 +1266,10 @@ const NO_SELECTION = -1
 
 const decrement: Endomorphism<number> = (index) => index - 1
 
-const atLeast =
-  (minimum: number): Endomorphism<number> =>
-  (index) =>
-    Math.max(index, minimum)
+const atLeast = (minimum: number): Endomorphism<number> => {
+  const clampIndex: Endomorphism<number> = (index) => Math.max(index, minimum)
+  return clampIndex
+}
 
 const moveUp = foldEndomorphisms([decrement, atLeast(NO_SELECTION)])
 
@@ -1304,10 +1317,10 @@ type ResultCursorProperties = Readonly<{ lastIndex: number }>
 
 const increment: Endomorphism<number> = (index) => index + 1
 
-const isBefore =
-  (lastIndex: number): Predicate<number> =>
-  (index) =>
-    index < lastIndex
+const isBefore = (lastIndex: number): Predicate<number> => {
+  const isBeforeLast: Predicate<number> = (index) => index < lastIndex
+  return isBeforeLast
+}
 
 const moveDown = (lastIndex: number): Endomorphism<number> =>
   pipe(increment, whenEndomorphism(isBefore(lastIndex)))
@@ -1346,7 +1359,9 @@ export { ResultCursor }
 **Call:** `buildFrom(INITIAL_FILTER, [setOffset, setTerm])`
 
 ```ts
-import type { Endomorphism } from "fp-ts/Endomorphism"
+import { flow, pipe } from "fp-ts/function"
+import { trim as Strim } from "fp-ts/string"
+import { id as Lid, prop as Lprop } from "monocle-ts/Lens"
 import { buildFrom } from "@dictybase/fp-ts-loom/endomorphism"
 
 type CatalogQuery = Readonly<{ page: number; search: string }>
@@ -1355,13 +1370,15 @@ type CatalogFilter = Readonly<{ offset: number; limit: number; term: string }>
 const PAGE_SIZE = 20
 const INITIAL_FILTER: CatalogFilter = { offset: 0, limit: PAGE_SIZE, term: "" }
 
-const setOffset =
-  ({ page }: CatalogQuery): Endomorphism<CatalogFilter> =>
-  (filter) => ({ ...filter, offset: (page - 1) * filter.limit })
+const offsetLens = pipe(Lid<CatalogFilter>(), Lprop("offset"))
+const termLens = pipe(Lid<CatalogFilter>(), Lprop("term"))
 
-const setTerm =
-  ({ search }: CatalogQuery): Endomorphism<CatalogFilter> =>
-  (filter) => ({ ...filter, term: search.trim() })
+const pageOf = ({ page }: CatalogQuery): number => page
+const searchOf = ({ search }: CatalogQuery): string => search
+const toOffset = (page: number): number => (page - 1) * PAGE_SIZE
+
+const setOffset = flow(pageOf, toOffset, offsetLens.set)
+const setTerm = flow(searchOf, Strim, termLens.set)
 
 const toCatalogFilter = buildFrom(INITIAL_FILTER, [setOffset, setTerm])
 
@@ -1453,10 +1470,10 @@ const IndexUpdaterMonoid = getEndomorphismMonoid<number>()
 
 const decrement: Endomorphism<number> = (index) => index - 1
 
-const atLeast =
-  (minimum: number): Endomorphism<number> =>
-  (index) =>
-    Math.max(index, minimum)
+const atLeast = (minimum: number): Endomorphism<number> => {
+  const clampIndex: Endomorphism<number> = (index) => Math.max(index, minimum)
+  return clampIndex
+}
 
 const moveUp = IndexUpdaterMonoid.concat(decrement, atLeast(NO_SELECTION))
 
@@ -1475,67 +1492,260 @@ export { moveUp }
 
 ### Event handlers & predicate guards
 
-`Handler<E>` (`Reader<E, void>`) turns React callbacks (`onClick`, `onChange`, `onSubmit`) into a monoid via `getHandlerMonoid`. `when` (`<E>(predicate: Predicate<E>) => Endomorphism<Handler<E>>`) guards any handler purely through `Option.fromPredicate` + `Option.match(constVoid, handler)`, unlocking `fp-ts/Predicate` algebra (`getMonoidAll`, `getMonoidAny`, `contramap`, `and`, `or`, `not`).
+A `Handler<E>` is a function that takes an event and returns nothing. React props such as `onClick`, `onChange` and `onKeyDown` take this type.
+
+```ts
+type Handler<E> = (event: E) => void
+```
+
+The `handler` module joins handlers, guards them with a predicate, and adapts them to a different event type. A predicate is a function that returns `true` or `false`.
+
+#### foldHandlers
+
+`foldHandlers` joins a list of handlers into one handler. The new handler gives the same event to each handler in list order. For an empty list, it does no work.
+
+**Signature:** `foldHandlers: <E>(handlers: ReadonlyArray<Handler<E>>) => Handler<E>`
+
+**Call:** `foldHandlers([onDeleteRow, closeMenu, clearSelection])`
 
 ```tsx
-import type { ChangeEvent, KeyboardEvent } from "react"
+import type { MouseEvent, ReactNode } from "react"
+import { foldHandlers, type Handler } from "@dictybase/fp-ts-loom/handler"
+
+type ClickHandler = Handler<MouseEvent<HTMLButtonElement>>
+type SetMenuOpen = (open: boolean) => void
+type SetTableCellKey = (key: string | undefined) => void
+type DeleteRowButtonProperties = Readonly<{
+  onDeleteRow: ClickHandler
+  setIsOpen: SetMenuOpen
+  setTableCellKey: SetTableCellKey
+}>
+
+const DeleteRowButton = ({
+  onDeleteRow,
+  setIsOpen,
+  setTableCellKey,
+}: DeleteRowButtonProperties): ReactNode => {
+  const closeMenu: ClickHandler = () => {
+    setIsOpen(false)
+  }
+  const clearSelection: ClickHandler = () => {
+    setTableCellKey(undefined)
+  }
+  const handleClick = foldHandlers([onDeleteRow, closeMenu, clearSelection])
+
+  return (
+    <button type="button" onClick={handleClick}>
+      Delete row
+    </button>
+  )
+}
+
+export { DeleteRowButton }
+```
+
+**Renders:**
+
+```html
+<button type="button">Delete row</button>
+```
+
+**Result:** A click calls `onDeleteRow`, then `setIsOpen(false)`, then `setTableCellKey(undefined)`.
+
+#### when
+
+`when` calls a handler only when a predicate on the event is true. When the predicate is false, the handler does no work.
+
+**Signature:** `when: <E>(predicate: Predicate<E>) => Endomorphism<Handler<E>>`
+
+**Call:** `pipe(submitSearch, when(isEnterKey))`
+
+```tsx
+import type { KeyboardEvent, ReactNode } from "react"
+import { pipe } from "fp-ts/function"
+import { contramap as Pcontramap } from "fp-ts/Predicate"
+import { stringEq } from "@dictybase/fp-ts-loom/predicate/ord"
+import { type Handler, when } from "@dictybase/fp-ts-loom/handler"
+
+type SearchKeyEvent = KeyboardEvent<HTMLInputElement>
+type SearchBoxProperties = Readonly<{ onSubmit: Handler<SearchKeyEvent> }>
+
+const keyOf = ({ key }: SearchKeyEvent): string => key
+const isEnterKey = pipe(stringEq("Enter"), Pcontramap(keyOf))
+
+const SearchBox = ({ onSubmit }: SearchBoxProperties): ReactNode => {
+  const handleKeyDown = pipe(onSubmit, when(isEnterKey))
+
+  return <input type="search" onKeyDown={handleKeyDown} />
+}
+
+export { SearchBox }
+```
+
+**Renders:**
+
+```html
+<input type="search" />
+```
+
+**Result:** The `Enter` key calls `onSubmit`. Other keys do nothing.
+
+#### contramapHandler
+
+`contramapHandler` lets a handler accept a different event type. You give a function that takes the new event and returns the value that the handler needs. Use it to keep a handler free of DOM event types.
+
+**Signature:** `contramapHandler: <Source, Target>(extract: (source: Source) => Target) => (handler: Handler<Target>) => Handler<Source>`
+
+**Call:** `pipe(setQuery, contramapHandler(inputValue))`
+
+```tsx
+import type { ChangeEvent, ReactNode } from "react"
+import { pipe } from "fp-ts/function"
+import { contramapHandler, type Handler } from "@dictybase/fp-ts-loom/handler"
+
+type InputChangeEvent = ChangeEvent<HTMLInputElement>
+type SearchInputProperties = Readonly<{ setQuery: Handler<string> }>
+
+const inputValue = ({ target }: InputChangeEvent): string => target.value
+
+const SearchInput = ({ setQuery }: SearchInputProperties): ReactNode => {
+  const handleChange = pipe(setQuery, contramapHandler(inputValue))
+
+  return <input type="search" onChange={handleChange} />
+}
+
+export { SearchInput }
+```
+
+**Renders:**
+
+```html
+<input type="search" />
+```
+
+**Result:** When the user types `sadA`, React calls `handleChange` with the change event, and `setQuery` receives the string `"sadA"`.
+
+#### Join the operations
+
+The operations return handlers, so you can join them in one `pipe`. Join the predicates with `PgetMonoidAll`: the joined predicate is true only when each predicate is true.
+
+**Call:** `pipe(foldHandlers([preventDefault, onSubmit]), when(isPlainEnter))`
+
+```tsx
+import type { KeyboardEvent, ReactNode } from "react"
 import { pipe } from "fp-ts/function"
 import { concatAll as MconcatAll } from "fp-ts/Monoid"
 import {
   contramap as Pcontramap,
   getMonoidAll as PgetMonoidAll,
   not as Pnot,
-  type Predicate,
 } from "fp-ts/Predicate"
-import {
-  type Handler,
-  getHandlerMonoid,
-  foldHandlers,
-  when,
-  contramapHandler,
-} from "@dictybase/fp-ts-loom/handler"
+import { stringEq } from "@dictybase/fp-ts-loom/predicate/ord"
+import { foldHandlers, type Handler, when } from "@dictybase/fp-ts-loom/handler"
 
-const isEnterKey: Predicate<KeyboardEvent> = (event) => event.key === "Enter"
-const isComposing: Predicate<KeyboardEvent> = (event) =>
-  event.nativeEvent.isComposing
-const isPlainShiftless: Predicate<KeyboardEvent> = (event) => !event.shiftKey
+type CommentKeyEvent = KeyboardEvent<HTMLTextAreaElement>
+type CommentBoxProperties = Readonly<{ onSubmit: Handler<CommentKeyEvent> }>
 
-const shouldSubmitOnKey = MconcatAll(PgetMonoidAll<KeyboardEvent>())([
-  isEnterKey,
-  pipe(isComposing, Pnot),
-  isPlainShiftless,
+const keyOf = ({ key }: CommentKeyEvent): string => key
+const isShiftKey = ({ shiftKey }: CommentKeyEvent): boolean => shiftKey
+const isComposing = ({ nativeEvent }: CommentKeyEvent): boolean =>
+  nativeEvent.isComposing
+
+const isPlainEnter = MconcatAll(PgetMonoidAll<CommentKeyEvent>())([
+  pipe(stringEq("Enter"), Pcontramap(keyOf)),
+  Pnot(isShiftKey),
+  Pnot(isComposing),
 ])
 
-const preventDefault: Handler<KeyboardEvent> = (event) => {
+const preventDefault: Handler<CommentKeyEvent> = (event) => {
   event.preventDefault()
 }
-const submitDraft: Handler<KeyboardEvent> = () => {
-  // dispatch submit
+
+const CommentBox = ({ onSubmit }: CommentBoxProperties): ReactNode => {
+  const handleKeyDown = pipe(
+    foldHandlers([preventDefault, onSubmit]),
+    when(isPlainEnter),
+  )
+
+  return <textarea onKeyDown={handleKeyDown} />
 }
 
-const handleKeyDown = pipe(
-  foldHandlers([preventDefault, submitDraft]),
-  when(shouldSubmitOnKey),
-)
-// Runs preventDefault -> submitDraft on unmodified Enter; no-op otherwise.
-
-// Adapt a domain handler to a DOM ChangeEvent via contramapHandler
-const setQuery: Handler<string> = (query) => {
-  // update state
-}
-const handleSearchChange = pipe(
-  setQuery,
-  when(
-    pipe(
-      (text: string) => text.length <= 100,
-      Pcontramap((q: string) => q),
-    ),
-  ),
-  contramapHandler(
-    (event: ChangeEvent<HTMLInputElement>) => event.target.value,
-  ),
-)
+export { CommentBox }
 ```
+
+**Renders:**
+
+```html
+<textarea></textarea>
+```
+
+**Result:**
+
+- `Enter` stops the new line and calls `onSubmit`.
+- `Shift` + `Enter` adds a new line and does not call `onSubmit`.
+- An `Enter` key that completes an input method composition does not call `onSubmit`.
+
+#### getHandlerMonoid
+
+`foldHandlers` is built on `getHandlerMonoid`. The monoid joins two handlers: `concat(first, second)` calls `first`, then `second`. Its `empty` value is a handler that does no work.
+
+**Signature:** `getHandlerMonoid: <E>() => Monoid<Handler<E>>`
+
+**Call:** `ClickHandlerMonoid.concat(closeMenu, clearSelection)`
+
+```tsx
+import type { MouseEvent, ReactNode } from "react"
+import { getHandlerMonoid, type Handler } from "@dictybase/fp-ts-loom/handler"
+
+type ButtonClick = MouseEvent<HTMLButtonElement>
+type ClickHandler = Handler<ButtonClick>
+type SetMenuOpen = (open: boolean) => void
+type SetTableCellKey = (key: string | undefined) => void
+type CancelButtonProperties = Readonly<{
+  setIsOpen: SetMenuOpen
+  setTableCellKey: SetTableCellKey
+}>
+
+const ClickHandlerMonoid = getHandlerMonoid<ButtonClick>()
+
+const CancelButton = ({
+  setIsOpen,
+  setTableCellKey,
+}: CancelButtonProperties): ReactNode => {
+  const closeMenu: ClickHandler = () => {
+    setIsOpen(false)
+  }
+  const clearSelection: ClickHandler = () => {
+    setTableCellKey(undefined)
+  }
+  const handleClick = ClickHandlerMonoid.concat(closeMenu, clearSelection)
+
+  return (
+    <button type="button" onClick={handleClick}>
+      Cancel
+    </button>
+  )
+}
+
+export { CancelButton }
+```
+
+**Renders:**
+
+```html
+<button type="button">Cancel</button>
+```
+
+**Result:** A click calls `setIsOpen(false)`, then `setTableCellKey(undefined)`. `ClickHandlerMonoid.empty` does no work.
+
+#### Building blocks
+
+- `getHandlerMonoid<E>()` is `RgetMonoid<E, void>(MonoidVoid)`.
+- `foldHandlers` is `MconcatAll(getHandlerMonoid<E>())`.
+- `when(predicate)` is `Option.fromPredicate(predicate)`, then `Option.match(constVoid, handler)`.
+- `contramapHandler` is `Reader.local`.
+
+See [Void monoid](#void-monoid) for `MonoidVoid`.
 
 ### Predicates, parsers and errors
 
@@ -1754,36 +1964,49 @@ const createSubmitHandler = (
 ```tsx
 import { useState } from "react"
 import type { Endomorphism } from "fp-ts/Endomorphism"
+import { pipe } from "fp-ts/function"
+import { contramap as Pcontramap, type Predicate } from "fp-ts/Predicate"
+import { append as RAappend } from "fp-ts/ReadonlyArray"
+import { id as Lid, modify as Lmodify, prop as Lprop } from "monocle-ts/Lens"
 import {
-  foldEndomorphisms,
+  maxLength,
+  minLength,
   nestWrappers,
   whenEndomorphism,
   type Wrapper,
 } from "@dictybase/fp-ts-loom"
 
-type CartState = {
-  readonly items: ReadonlyArray<string>
-  readonly capacityReached: boolean
-}
+type CartState = Readonly<{ items: ReadonlyArray<string> }>
 
 const MAX_CART_ITEMS = 12
 
-const appendStrain =
-  (strainId: string): Endomorphism<CartState> =>
-  (state) => ({
-    ...state,
-    items: [...state.items, strainId],
-  })
+const itemsLens = pipe(Lid<CartState>(), Lprop("items"))
 
-const syncCapacityFlag: Endomorphism<CartState> = (state) => ({
-  ...state,
-  capacityReached: state.items.length >= MAX_CART_ITEMS,
-})
+const hasRoom: Predicate<CartState> = pipe(
+  maxLength<string>(MAX_CART_ITEMS - 1),
+  Pcontramap(itemsLens.get),
+)
 
-const addStrainTransition = (strainId: string): Endomorphism<CartState> =>
-  whenEndomorphism<CartState>(({ items }) => items.length < MAX_CART_ITEMS)(
-    foldEndomorphisms([appendStrain(strainId), syncCapacityFlag]),
+const isAtCapacity: Predicate<CartState> = pipe(
+  minLength<string>(MAX_CART_ITEMS),
+  Pcontramap(itemsLens.get),
+)
+
+const appendStrain = (strainId: string): Endomorphism<CartState> => {
+  const addStrain: Endomorphism<CartState> = pipe(
+    itemsLens,
+    Lmodify(RAappend(strainId)),
   )
+  return addStrain
+}
+
+const addStrainTransition = (strainId: string): Endomorphism<CartState> => {
+  const tryAdd: Endomorphism<CartState> = pipe(
+    appendStrain(strainId),
+    whenEndomorphism(hasRoom),
+  )
+  return tryAdd
+}
 
 const withCartLayout: Wrapper = nestWrappers([
   (node) => <main>{node}</main>,
@@ -1791,19 +2014,20 @@ const withCartLayout: Wrapper = nestWrappers([
 ])
 
 const AddStrainButton = ({ strainId }: { readonly strainId: string }) => {
-  const [cart, setCart] = useState<CartState>({
-    items: [],
-    capacityReached: false,
-  })
+  const [cart, setCart] = useState<CartState>({ items: [] })
   return withCartLayout(
     <button
       type="button"
-      disabled={cart.capacityReached}
-      onClick={() => setCart(addStrainTransition(strainId))}>
+      disabled={isAtCapacity(cart)}
+      onClick={() => {
+        setCart(addStrainTransition(strainId))
+      }}>
       Add ({cart.items.length}/{MAX_CART_ITEMS})
     </button>,
   )
 }
+
+export { AddStrainButton }
 ```
 
 ### Declarative useEffect lifecycle
