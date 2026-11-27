@@ -59,3 +59,4 @@ credentials
 /public/mockServiceWorker.js
 /.claude
 /apps/editor-playground/src/data
+/apps/dictybase-jbrowse/public

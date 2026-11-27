@@ -13,6 +13,7 @@ import {
   mockListPhenotypeEnvironmentsQuery,
   mockListPhenotypeAssaysQuery,
   mockPublicationQuery,
+  mockUpdateStrainMutation,
   mockAddStrainPhenotypeMutation,
   mockListStockSuggestionsQuery,
   mockSearchStocksQuery,
@@ -298,6 +299,17 @@ const handlers = [
       { status: 500 },
     )
   }),
+  mockUpdateStrainMutation(({ variables }) =>
+    HttpResponse.json({
+      data: {
+        updateStrain: {
+          __typename: STRAIN_TYPENAME,
+          id: variables.id,
+          updated_by: { __typename: "User", id: "1" },
+        },
+      },
+    }),
+  ),
   mockAddStrainPhenotypeMutation(async ({ variables }) => {
     await wait(1500)
     return HttpResponse.json({
