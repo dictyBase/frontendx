@@ -53,9 +53,8 @@ const fromMount = (mount: IO<void>): Effect =>
  * Guards an `Effect` with a boolean condition using `fp-ts/boolean` `match`,
  * returning `MonoidEffect.empty` when `condition` is `false` so `useEffect` stays unconditional.
  */
-const whenEffect =
-  (condition: boolean): Endomorphism<Effect> =>
-  (effect: Effect): Effect =>
+const whenEffect = (condition: boolean): Endomorphism<Effect> => {
+  const guardEffect: Endomorphism<Effect> = (effect) =>
     pipe(
       condition,
       Bmatch(
@@ -63,6 +62,8 @@ const whenEffect =
         (): Effect => effect,
       ),
     )
+  return guardEffect
+}
 
 export {
   type Cleanup,

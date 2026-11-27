@@ -19,23 +19,34 @@ const DECIMAL_TEXT = /^\s*[+-]?(?:\d+\.?\d*|\.\d+)(?:[Ee][+-]?\d+)?\s*$/
 const NOT_INTEGER = "not an integer"
 const NOT_NUMBER = "not a number"
 
-const parseError =
-  (message: string) =>
-  (input: string): ParseError => ({ type: "PARSE_ERROR", message, input })
+type ParseErrorFactory = (input: string) => ParseError
+type NumberParser = (input: string) => Either<ParseError, number>
+
+const parseError = (message: string): ParseErrorFactory => {
+  const makeParseError: ParseErrorFactory = (input) => {
+    const error: ParseError = { type: "PARSE_ERROR", message, input }
+    return error
+  }
+  return makeParseError
+}
 
 /**
  * Converts validated text to a number, then checks the number with `isValid`.
  * The error keeps the original input text.
  */
-const toCheckedNumber =
-  (isValid: (value: number) => boolean, message: string) =>
-  (input: string): Either<ParseError, number> =>
+const toCheckedNumber = (
+  isValid: (value: number) => boolean,
+  message: string,
+): NumberParser => {
+  const parseChecked: NumberParser = (input) =>
     pipe(
       input,
       Strim,
       Number,
       EfromPredicate(isValid, () => parseError(message)(input)),
     )
+  return parseChecked
+}
 
 /**
  * Parses a whole integer string. Unlike `Number.parseInt`, partial input such

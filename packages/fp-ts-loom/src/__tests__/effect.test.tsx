@@ -17,32 +17,37 @@ const CLEANUP_FIRST = "cleanup:first"
 const MOUNT_SOCKET = "mount:socket"
 const MOUNT_FOCUS = "mount:focus"
 
-const createTrackedEffect =
-  (name: string, target: Array<string>): Effect =>
-  () => {
+const createTrackedEffect = (name: string, target: Array<string>): Effect => {
+  const runEffect: Effect = () => {
     target.push(`mount:${name}`)
-    return () => {
+    const runCleanup: Cleanup = () => {
       target.push(`cleanup:${name}`)
     }
+    return runCleanup
   }
+  return runEffect
+}
 
-const cleanupFirst =
-  (target: Array<string>): Cleanup =>
-  () => {
+const cleanupFirst = (target: Array<string>): Cleanup => {
+  const runCleanup: Cleanup = () => {
     target.push(CLEANUP_FIRST)
   }
+  return runCleanup
+}
 
-const cleanupSecond =
-  (target: Array<string>): Cleanup =>
-  () => {
+const cleanupSecond = (target: Array<string>): Cleanup => {
+  const runCleanup: Cleanup = () => {
     target.push("cleanup:second")
   }
+  return runCleanup
+}
 
-const cleanupThird =
-  (target: Array<string>): Cleanup =>
-  () => {
+const cleanupThird = (target: Array<string>): Cleanup => {
+  const runCleanup: Cleanup = () => {
     target.push("cleanup:third")
   }
+  return runCleanup
+}
 
 test("MonoidCleanup is lazy until invoked and satisfies monoid laws", () => {
   const { concat, empty } = MonoidCleanup

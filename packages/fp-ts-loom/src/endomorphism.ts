@@ -60,28 +60,34 @@ const nestWrappers: (wrappers: ReadonlyArray<Wrapper>) => Wrapper =
  * Guards an `Endomorphism<A>` with a `Predicate<A>`, returning the input unchanged (`identity`)
  * when the predicate does not hold.
  */
-const whenEndomorphism =
-  <A>(predicate: Predicate<A>): Endomorphism<Endomorphism<A>> =>
-  (endomorphism: Endomorphism<A>): Endomorphism<A> =>
-  (value: A): A =>
-    pipe(
-      value,
-      OfromPredicate(predicate),
-      Omatch(() => value, endomorphism),
-    )
+const whenEndomorphism = <A>(
+  predicate: Predicate<A>,
+): Endomorphism<Endomorphism<A>> => {
+  const applyGuard: Endomorphism<Endomorphism<A>> = (endomorphism) => {
+    const guardedEndomorphism: Endomorphism<A> = (value) =>
+      pipe(
+        value,
+        OfromPredicate(predicate),
+        Omatch(() => value, endomorphism),
+      )
+    return guardedEndomorphism
+  }
+  return applyGuard
+}
 
 /**
  * Builds a `Target` value from a single `Input` by evaluating each pure recipe
  * `Reader<Input, Endomorphism<Target>>` and folding the resulting endomorphisms
  * in list order onto `initial`.
  */
-const buildFrom =
-  <Input, Target>(
-    initial: Target,
-    recipes: ReadonlyArray<Reader<Input, Endomorphism<Target>>>,
-  ): Reader<Input, Target> =>
-  (input: Input): Target =>
+const buildFrom = <Input, Target>(
+  initial: Target,
+  recipes: ReadonlyArray<Reader<Input, Endomorphism<Target>>>,
+): Reader<Input, Target> => {
+  const buildTarget: Reader<Input, Target> = (input) =>
     pipe(initial, pipe(recipes, RAflap(input), foldEndomorphisms))
+  return buildTarget
+}
 
 export {
   type Wrapper,

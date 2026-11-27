@@ -25,15 +25,18 @@ const isNonEmptyString = Pnot(SisEmpty)
  * An empty operand drops out together with its separator, so an optional
  * part needs no branch. `empty` is `""`.
  */
-const separatorMonoid = (separator: string): Monoid<string> => ({
-  concat: (first, second) =>
-    pipe(
-      [first, second],
-      RAfilter(isNonEmptyString),
-      RAintercalate(SMonoid)(separator),
-    ),
-  empty: "",
-})
+const separatorMonoid = (separator: string): Monoid<string> => {
+  const monoid: Monoid<string> = {
+    concat: (first, second) =>
+      pipe(
+        [first, second],
+        RAfilter(isNonEmptyString),
+        RAintercalate(SMonoid)(separator),
+      ),
+    empty: "",
+  }
+  return monoid
+}
 
 const Space = separatorMonoid(" ")
 const Comma = separatorMonoid(", ")
@@ -62,10 +65,10 @@ const collapseWhitespace: Endomorphism<string> = flow(
 /**
  * Adds `prefix` before and `suffix` after the string.
  */
-const wrap =
-  (prefix: string, suffix: string): Endomorphism<string> =>
-  (value) =>
-    `${prefix}${value}${suffix}`
+const wrap = (prefix: string, suffix: string): Endomorphism<string> => {
+  const wrapText: Endomorphism<string> = (value) => `${prefix}${value}${suffix}`
+  return wrapText
+}
 
 const parens = wrap("(", ")")
 const brackets = wrap("[", "]")
@@ -76,23 +79,30 @@ const period = wrap("", ".")
  * Applies `f` to a non-empty string. An empty string stays empty, so the
  * result drops out of a separator monoid.
  */
-const mapNonEmpty =
-  (f: Endomorphism<string>): Endomorphism<string> =>
-  (value) =>
+const mapNonEmpty = (f: Endomorphism<string>): Endomorphism<string> => {
+  const transformNonEmpty: Endomorphism<string> = (value) =>
     pipe(
       value,
       OfromPredicate(isNonEmptyString),
       Omap(f),
       OgetOrElse(constant("")),
     )
+  return transformNonEmpty
+}
+
+type FieldRenderer<A> = (value: A) => string
+type FieldConcatenator<A> = (
+  fields: ReadonlyArray<FieldRenderer<A>>,
+) => FieldRenderer<A>
 
 /**
  * Folds a list of field renderers into one renderer with `monoid`.
  */
-const concatFields =
-  <A>(monoid: Monoid<string>) =>
-  (fields: ReadonlyArray<(value: A) => string>): ((value: A) => string) =>
+const concatFields = <A>(monoid: Monoid<string>): FieldConcatenator<A> => {
+  const combineFields: FieldConcatenator<A> = (fields) =>
     MconcatAll(FgetMonoid(monoid)<A>())(fields)
+  return combineFields
+}
 
 export {
   separatorMonoid,

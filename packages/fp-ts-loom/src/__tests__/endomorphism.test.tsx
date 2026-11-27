@@ -135,20 +135,27 @@ test("buildFrom evaluates recipes against input and folds endomorphisms in list 
     search: "",
   }
 
+  const setOffset = ({ page }: RawQuery): Endomorphism<TableConfiguration> => {
+    const updateOffset: Endomorphism<TableConfiguration> = (configuration) => ({
+      ...configuration,
+      offset: (page - 1) * configuration.limit,
+    })
+    return updateOffset
+  }
+
+  const setSearch = ({
+    filter,
+  }: RawQuery): Endomorphism<TableConfiguration> => {
+    const updateSearch: Endomorphism<TableConfiguration> = (configuration) => ({
+      ...configuration,
+      search: filter.trim(),
+    })
+    return updateSearch
+  }
+
   const fromQuery = buildFrom<RawQuery, TableConfiguration>(
     defaultConfiguration,
-    [
-      ({ page }) =>
-        (configuration) => ({
-          ...configuration,
-          offset: (page - 1) * configuration.limit,
-        }),
-      ({ filter }) =>
-        (configuration) => ({
-          ...configuration,
-          search: filter.trim(),
-        }),
-    ],
+    [setOffset, setSearch],
   )
 
   expect(fromQuery({ page: 3, filter: "  discoidin  " })).toEqual({

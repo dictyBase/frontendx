@@ -17,34 +17,34 @@ const { isInteger } = Number
 /**
  * `Predicate<number>` that holds when the value is greater than or equal to `low`.
  */
-const atLeast =
-  (low: number): Predicate<number> =>
-  (value) =>
-    geq(NOrd)(value, low)
+const atLeast = (low: number): Predicate<number> => {
+  const isAtLeast: Predicate<number> = (value) => geq(NOrd)(value, low)
+  return isAtLeast
+}
 
 /**
  * `Predicate<number>` that holds when the value is less than `high`.
  */
-const below =
-  (high: number): Predicate<number> =>
-  (value) =>
-    lt(NOrd)(value, high)
+const below = (high: number): Predicate<number> => {
+  const isBelow: Predicate<number> = (value) => lt(NOrd)(value, high)
+  return isBelow
+}
 
 /**
  * `Predicate<number>` that holds when the value is less than or equal to `high`.
  */
-const atMost =
-  (high: number): Predicate<number> =>
-  (value) =>
-    leq(NOrd)(value, high)
+const atMost = (high: number): Predicate<number> => {
+  const isAtMost: Predicate<number> = (value) => leq(NOrd)(value, high)
+  return isAtMost
+}
 
 /**
  * `Predicate<number>` that holds when the value equals `expected`.
  */
-const numberEq =
-  (expected: number): Predicate<number> =>
-  (value) =>
-    NEq.equals(value, expected)
+const numberEq = (expected: number): Predicate<number> => {
+  const equalsNumber: Predicate<number> = (value) => NEq.equals(value, expected)
+  return equalsNumber
+}
 
 /**
  * Integer in `[low, high)`: the lower end is included, the upper end is excluded.
@@ -80,10 +80,10 @@ const stringLengthEq = (length: number): Predicate<string> =>
 /**
  * String equals `expected`.
  */
-const stringEq =
-  (expected: string): Predicate<string> =>
-  (value) =>
-    SEq.equals(value, expected)
+const stringEq = (expected: string): Predicate<string> => {
+  const equalsString: Predicate<string> = (value) => SEq.equals(value, expected)
+  return equalsString
+}
 
 /**
  * String does not equal `excluded`.

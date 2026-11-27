@@ -41,9 +41,10 @@ const foldNodes: (nodes: ReadonlyArray<ReactNode>) => ReactNode =
  * Joins a `ReadonlyArray<ReactNode>` with `separator` between adjacent elements,
  * returning `MonoidNode.empty` (`<></>`) when the array is empty.
  */
-const joinNodes =
-  (separator: ReactNode) =>
-  (nodes: ReadonlyArray<ReactNode>): ReactNode =>
+type NodeJoiner = (nodes: ReadonlyArray<ReactNode>) => ReactNode
+
+const joinNodes = (separator: ReactNode): NodeJoiner => {
+  const joinWithSeparator: NodeJoiner = (nodes) =>
     pipe(
       nodes,
       RAmatchLeft(
@@ -52,6 +53,8 @@ const joinNodes =
           pipe(tail, SconcatAll(intercalateNode(separator))(head)),
       ),
     )
+  return joinWithSeparator
+}
 
 /**
  * Unwraps an `Option<ReactNode>`, rendering `MonoidNode.empty` (`<></>`) on `None`
@@ -65,13 +68,17 @@ const fromOptionNode: (node: Option<ReactNode>) => ReactNode = OgetOrElse(
  * Lazily evaluates `render` when `condition` is `true`, or returns `MonoidNode.empty` (`<></>`)
  * when `false`, using `fp-ts/boolean` `match`.
  */
-const whenNode =
-  (condition: boolean) =>
-  (render: () => ReactNode): ReactNode =>
+type RenderThunk = () => ReactNode
+type ConditionalRender = (render: RenderThunk) => ReactNode
+
+const whenNode = (condition: boolean): ConditionalRender => {
+  const renderWhenTrue: ConditionalRender = (render) =>
     pipe(
       condition,
       Bmatch((): ReactNode => MonoidNode.empty, render),
     )
+  return renderWhenTrue
+}
 
 export {
   MonoidNode,
