@@ -7,7 +7,7 @@ import { join } from "node:path"
  * Merge all eslint output files into one file
  * @param folder - The folder containing the eslint output files
  */
-const readFilesFromFolder = (folder: string) =>
+const readEslintFiles = (folder: string) =>
   fs
     .readdirSync(folder)
     .map((file) => join(folder, file))
@@ -23,7 +23,7 @@ const mergeContent = (folder: string) => {
   try {
     fs.writeFileSync(
       "eslint_output.json",
-      JSON.stringify(readFilesFromFolder(folder)),
+      JSON.stringify(readEslintFiles(folder)),
       "utf8",
     )
   } catch (error) {
