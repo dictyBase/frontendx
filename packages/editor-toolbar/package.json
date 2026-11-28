@@ -14,6 +14,7 @@
     "lint:fix": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache --fix"
   },
   "dependencies": {
+    "@dictybase/fp-ts-loom": "*",
     "@dictybase/image-plugin": "*",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
