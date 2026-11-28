@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@mui/material"
 import { Check, FormatLineSpacing } from "@mui/icons-material"
-import { pipe, tuple } from "fp-ts/function"
+import { flow, pipe, tuple } from "fp-ts/function"
 import {
   type Option,
   none as Onone,
@@ -25,22 +25,44 @@ import {
 } from "fp-ts/Option"
 import { contramap as Pcontramap, type Predicate } from "fp-ts/Predicate"
 import {
-  filter as RAfilter,
+  getMonoid as RAgetMonoid,
   map as RAmap,
   of as RAof,
   prepend as RAprepend,
+  Traversable as RATraversable,
 } from "fp-ts/ReadonlyArray"
 import { type ReadonlyNonEmptyArray } from "fp-ts/ReadonlyNonEmptyArray"
 import { Eq as NumberEq } from "fp-ts/number"
 import {
+  component as Lcomponent,
+  id as Lid,
+  prop as Lprop,
+  type Lens,
+} from "monocle-ts/Lens"
+import {
+  composeLens as TcomposeLens,
+  filter as Tfilter,
+  foldMap as TfoldMap,
+  fromTraversable as TfromTraversable,
+  set as Tset,
+} from "monocle-ts/Traversal"
+import {
+  buildFrom,
+  contramapView,
   foldViews,
+  getHandlerMonoid,
   notEqualString,
+  stringEq,
   whenNode,
   wrapView,
   type Handler,
   type View,
 } from "@dictybase/fp-ts-loom"
-import { useLineSpacing } from "../hooks/useLineSpacing"
+import {
+  menuAnchorLens,
+  menuCurrentLens,
+  useLineSpacing,
+} from "../hooks/useLineSpacing"
 import { useToolbarItemStyles } from "../hooks/useToolbarItemStyles"
 import { Aura } from "./Aura"
 import {
@@ -52,7 +74,7 @@ import {
 } from "../utils/blockSpacing"
 
 // ---------------------------------------------------------------------------
-// Menu data: what the user can pick
+// Menu data and optics: what the user can pick
 // ---------------------------------------------------------------------------
 
 type SpacingOption = Readonly<{ label: string; value: Option<number> }>
@@ -62,13 +84,27 @@ type SpacingSection = Readonly<{
   property: SpacingProperty
   options: readonly SpacingOption[]
 }>
+type SectionHeadingPair = readonly [string, SpacingProperty]
 
 const TITLE = "Line & paragraph spacing"
 const ONE_AND_A_HALF = 1.5
 const NO_PARAGRAPH_SPACE = 0
 const FOOTER_SPACING = 1.5
 
-// Raw data tables. These are the only list literals: nothing derives them.
+const optionLabelLens = pipe(Lid<SpacingOption>(), Lprop("label"))
+const optionValueLens = pipe(Lid<SpacingOption>(), Lprop("value"))
+
+const presetLabelLens = pipe(Lid<LineHeightPreset>(), Lprop("label"))
+const presetHeightLens = pipe(Lid<LineHeightPreset>(), Lprop("height"))
+
+const sectionHeadingLens = pipe(Lid<SpacingSection>(), Lprop("heading"))
+const sectionPropertyLens = pipe(Lid<SpacingSection>(), Lprop("property"))
+const sectionOptionsLens = pipe(Lid<SpacingSection>(), Lprop("options"))
+
+const pairHeadingLens = pipe(Lid<SectionHeadingPair>(), Lcomponent(0))
+const pairPropertyLens = pipe(Lid<SectionHeadingPair>(), Lcomponent(1))
+
+// Raw data tables: domain presets with no upstream source to derive from.
 
 const LINE_HEIGHT_PRESETS: ReadonlyNonEmptyArray<LineHeightPreset> = [
   { label: "Single", height: 1 },
@@ -79,24 +115,36 @@ const LINE_HEIGHT_PRESETS: ReadonlyNonEmptyArray<LineHeightPreset> = [
 
 const PARAGRAPH_SPACE_PX: ReadonlyNonEmptyArray<number> = [4, 8, 12, 16, 24]
 
-// Option builders: each one lifts one kind of raw data into a SpacingOption.
+const SECTION_HEADINGS: ReadonlyNonEmptyArray<SectionHeadingPair> = [
+  tuple("Line spacing", SpacingProperty.LINE_HEIGHT),
+  tuple("Space before", SpacingProperty.SPACE_BEFORE),
+  tuple("Space after", SpacingProperty.SPACE_AFTER),
+]
+
+// Option builders: each one modifies DEFAULT_OPTION through lenses.
 
 const DEFAULT_OPTION: SpacingOption = { label: "Default", value: Onone }
 
-const NONE_OPTION: SpacingOption = {
-  label: "None",
-  value: Osome(NO_PARAGRAPH_SPACE),
-}
+const NONE_OPTION: SpacingOption = pipe(
+  DEFAULT_OPTION,
+  optionLabelLens.set("None"),
+  optionValueLens.set(Osome(NO_PARAGRAPH_SPACE)),
+)
 
-const toLineOption = ({ label, height }: LineHeightPreset): SpacingOption => {
-  const option: SpacingOption = { label, value: Osome(height) }
-  return option
-}
+const toPixelLabel = (px: number): string => `${px} px`
 
-const toPixelOption = (px: number): SpacingOption => {
-  const option: SpacingOption = { label: `${px} px`, value: Osome(px) }
-  return option
-}
+const toLineOption = buildFrom<LineHeightPreset, SpacingOption>(
+  DEFAULT_OPTION,
+  [
+    flow(presetLabelLens.get, optionLabelLens.set),
+    flow(presetHeightLens.get, Osome, optionValueLens.set),
+  ],
+)
+
+const toPixelOption = buildFrom<number, SpacingOption>(DEFAULT_OPTION, [
+  flow(toPixelLabel, optionLabelLens.set),
+  flow(Osome, optionValueLens.set),
+])
 
 /** Every option list starts with "Default", which clears the value. */
 const withDefault = RAprepend(DEFAULT_OPTION)
@@ -114,43 +162,69 @@ const PARAGRAPH_SPACE_OPTIONS: readonly SpacingOption[] = pipe(
   withDefault,
 )
 
-// The menu layout table: one column for each spacing property.
+// The menu layout table, built from SECTION_HEADINGS via lenses + Traversal.
 
-const SECTIONS: readonly SpacingSection[] = [
-  {
-    heading: "Line spacing",
-    property: SpacingProperty.LINE_HEIGHT,
-    options: LINE_SPACING_OPTIONS,
-  },
-  {
-    heading: "Space before",
-    property: SpacingProperty.SPACE_BEFORE,
-    options: PARAGRAPH_SPACE_OPTIONS,
-  },
-  {
-    heading: "Space after",
-    property: SpacingProperty.SPACE_AFTER,
-    options: PARAGRAPH_SPACE_OPTIONS,
-  },
-]
+const DEFAULT_SECTION: SpacingSection = {
+  heading: "",
+  property: SpacingProperty.SPACE_BEFORE,
+  options: PARAGRAPH_SPACE_OPTIONS,
+}
 
-// Preset changes, derived from the layout table.
+const toSpacingSection = buildFrom<SectionHeadingPair, SpacingSection>(
+  DEFAULT_SECTION,
+  [
+    flow(pairHeadingLens.get, sectionHeadingLens.set),
+    flow(pairPropertyLens.get, sectionPropertyLens.set),
+  ],
+)
 
-const propertyOf = ({ property }: SpacingSection): SpacingProperty => property
+const sectionsTraversal = TfromTraversable(RATraversable)<SpacingSection>()
+
+const isLineHeightSection: Predicate<SpacingSection> = pipe(
+  stringEq(SpacingProperty.LINE_HEIGHT),
+  Pcontramap(sectionPropertyLens.get),
+)
 
 /** Paragraph space is every spacing property except line height. */
 const isParagraphSpace: Predicate<SpacingSection> = pipe(
   notEqualString(SpacingProperty.LINE_HEIGHT),
-  Pcontramap(propertyOf),
+  Pcontramap(sectionPropertyLens.get),
 )
 
-const toZeroChange = (section: SpacingSection): SpacingChange =>
-  tuple(propertyOf(section), Osome(NO_PARAGRAPH_SPACE))
+const lineHeightOptionsTraversal = pipe(
+  sectionsTraversal,
+  Tfilter(isLineHeightSection),
+  TcomposeLens(sectionOptionsLens),
+)
+
+const paragraphPropertiesTraversal = pipe(
+  sectionsTraversal,
+  Tfilter(isParagraphSpace),
+  TcomposeLens(sectionPropertyLens),
+)
+
+const setLineSpacingOptions = pipe(
+  lineHeightOptionsTraversal,
+  Tset(LINE_SPACING_OPTIONS),
+)
+
+const SECTIONS: readonly SpacingSection[] = pipe(
+  SECTION_HEADINGS,
+  RAmap(toSpacingSection),
+  setLineSpacingOptions,
+)
+
+const toZeroChange = (property: SpacingProperty): SpacingChange =>
+  tuple(property, Osome(NO_PARAGRAPH_SPACE))
+
+const collectZeroChanges = pipe(
+  paragraphPropertiesTraversal,
+  TfoldMap(RAgetMonoid<SpacingChange>())(flow(toZeroChange, RAof)),
+)
 
 const REMOVE_PARAGRAPH_SPACE: readonly SpacingChange[] = pipe(
   SECTIONS,
-  RAfilter(isParagraphSpace),
-  RAmap(toZeroChange),
+  collectZeroChanges,
 )
 
 const RESET_SPACING: readonly SpacingChange[] = toSpacingChanges(EMPTY_SPACING)
@@ -161,13 +235,19 @@ const RESET_SPACING: readonly SpacingChange[] = toSpacingChanges(EMPTY_SPACING)
 
 const OPTION_EQ = OgetEq(NumberEq)
 
+const spacingPropertyLens = (
+  property: SpacingProperty,
+): Lens<BlockSpacing, Option<number>> =>
+  pipe(Lid<BlockSpacing>(), Lprop(property))
+
 /** True for the option value that the block already has for `property`. */
 const isCurrentValue = (
   current: BlockSpacing,
   property: SpacingProperty,
 ): Predicate<Option<number>> => {
+  const currentValue = spacingPropertyLens(property).get(current)
   const matchesCurrent: Predicate<Option<number>> = (value) =>
-    OPTION_EQ.equals(current[property], value)
+    OPTION_EQ.equals(currentValue, value)
   return matchesCurrent
 }
 
@@ -180,8 +260,13 @@ const toOptionChange = (
 // Styles
 // ---------------------------------------------------------------------------
 
-const anchorOrigin: PopoverOrigin = { vertical: "bottom", horizontal: "left" }
-const transformOrigin: PopoverOrigin = { vertical: "top", horizontal: "left" }
+const verticalOriginLens = pipe(Lid<PopoverOrigin>(), Lprop("vertical"))
+
+const ANCHOR_ORIGIN: PopoverOrigin = { vertical: "bottom", horizontal: "left" }
+const TRANSFORM_ORIGIN: PopoverOrigin = pipe(
+  ANCHOR_ORIGIN,
+  verticalOriginLens.set("top"),
+)
 
 const popoverStyles = { py: 1, width: "min(440px, 95vw)" }
 
@@ -265,8 +350,11 @@ type SpacingPanelProperties = Readonly<{
   onApply: Handler<readonly SpacingChange[]>
 }>
 
-type SpacingSectionColumnProperties = SpacingPanelProperties &
-  Readonly<{ section: SpacingSection }>
+type SpacingSectionColumnProperties = Readonly<{
+  section: SpacingSection
+  current: BlockSpacing
+  onApply: Handler<readonly SpacingChange[]>
+}>
 
 /** One column: a heading and the radio list for one spacing property. */
 const SpacingSectionColumn = ({
@@ -283,14 +371,18 @@ const SpacingSectionColumn = ({
       <MenuList dense aria-label={heading} autoFocusItem={false}>
         {pipe(
           options,
-          RAmap(({ label, value }) => (
-            <SpacingOptionItem
-              key={label}
-              label={label}
-              isSelected={isSelected(value)}
-              onSelect={() => onApply(toOptionChange(property, value))}
-            />
-          )),
+          RAmap((option) => {
+            const label = optionLabelLens.get(option)
+            const value = optionValueLens.get(option)
+            return (
+              <SpacingOptionItem
+                key={label}
+                label={label}
+                isSelected={isSelected(value)}
+                onSelect={() => onApply(toOptionChange(property, value))}
+              />
+            )
+          }),
         )}
       </MenuList>
     </Box>
@@ -301,21 +393,47 @@ const SpacingSectionColumn = ({
 // Panel views: the popover body, top to bottom
 // ---------------------------------------------------------------------------
 
-const SpacingColumns: View<SpacingPanelProperties> = (
-  properties: SpacingPanelProperties,
-) => (
-  <Box sx={columnsStyles}>
-    {pipe(
-      SECTIONS,
-      RAmap((section) => (
-        <SpacingSectionColumn
-          key={section.property}
-          section={section}
-          {...properties}
-        />
-      )),
-    )}
-  </Box>
+const columnCurrentLens = pipe(
+  Lid<SpacingSectionColumnProperties>(),
+  Lprop("current"),
+)
+const columnOnApplyLens = pipe(
+  Lid<SpacingSectionColumnProperties>(),
+  Lprop("onApply"),
+)
+const panelCurrentLens = pipe(Lid<SpacingPanelProperties>(), Lprop("current"))
+const panelOnApplyLens = pipe(Lid<SpacingPanelProperties>(), Lprop("onApply"))
+
+const withSection = (
+  section: SpacingSection,
+): ((properties: SpacingPanelProperties) => SpacingSectionColumnProperties) =>
+  buildFrom<SpacingPanelProperties, SpacingSectionColumnProperties>(
+    {
+      section,
+      current: EMPTY_SPACING,
+      onApply: getHandlerMonoid<readonly SpacingChange[]>().empty,
+    },
+    [
+      flow(panelCurrentLens.get, columnCurrentLens.set),
+      flow(panelOnApplyLens.get, columnOnApplyLens.set),
+    ],
+  )
+
+const withColumnsGrid = (columns: ReactNode): ReactNode => (
+  <Box sx={columnsStyles}>{columns}</Box>
+)
+
+const toSectionView = (section: SpacingSection): View<SpacingPanelProperties> =>
+  pipe(SpacingSectionColumn, contramapView(withSection(section)))
+
+const SECTION_VIEWS: readonly View<SpacingPanelProperties>[] = pipe(
+  SECTIONS,
+  RAmap(toSectionView),
+)
+
+const SpacingColumns: View<SpacingPanelProperties> = pipe(
+  foldViews(SECTION_VIEWS),
+  wrapView(withColumnsGrid),
 )
 
 const SectionDivider: View<SpacingPanelProperties> = () => <Divider />
@@ -364,17 +482,18 @@ const SpacingPanel: View<SpacingPanelProperties> = pipe(
 
 const LineSpacingButton = (): ReactElement => {
   const { menu, open, close, apply } = useLineSpacing()
-  const isOpen = OisSome(menu.anchor)
+  const anchor = menuAnchorLens.get(menu)
+  const isOpen = OisSome(anchor)
   return (
     <>
       <SpacingTrigger isOpen={isOpen} onOpen={open} />
       <Popover
         open={isOpen}
-        anchorEl={OtoNullable(menu.anchor)}
+        anchorEl={OtoNullable(anchor)}
         onClose={close}
-        anchorOrigin={anchorOrigin}
-        transformOrigin={transformOrigin}>
-        <SpacingPanel current={menu.current} onApply={apply} />
+        anchorOrigin={ANCHOR_ORIGIN}
+        transformOrigin={TRANSFORM_ORIGIN}>
+        <SpacingPanel current={menuCurrentLens.get(menu)} onApply={apply} />
       </Popover>
     </>
   )
