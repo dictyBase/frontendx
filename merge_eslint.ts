@@ -3,6 +3,10 @@
 import fs from "node:fs"
 import { join } from "node:path"
 
+/**
+ * Merge all eslint output files into one file
+ * @param folder - The folder containing the eslint output files
+ */
 const readFilesFromFolder = (folder: string) =>
   fs
     .readdirSync(folder)
@@ -11,6 +15,10 @@ const readFilesFromFolder = (folder: string) =>
     .map((content) => JSON.parse(content))
     .flat()
 
+/**
+ * Merge all eslint output files into one file
+ * @param folder - The folder containing the eslint output files
+ */
 const mergeContent = (folder: string) => {
   try {
     fs.writeFileSync(
