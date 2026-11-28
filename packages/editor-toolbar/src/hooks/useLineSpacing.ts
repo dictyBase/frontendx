@@ -1,6 +1,7 @@
 import { useState, type MouseEvent } from "react"
 import { $getSelection, type ElementNode } from "lexical"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
+import type { Endomorphism } from "fp-ts/Endomorphism"
 import { constant, pipe } from "fp-ts/function"
 import {
   asUnit as IOasUnit,
@@ -15,8 +16,10 @@ import {
   getOrElse as OgetOrElse,
 } from "fp-ts/Option"
 import { head as RAhead } from "fp-ts/ReadonlyArray"
+import { id as Lid, prop as Lprop } from "monocle-ts/Lens"
 import {
   contramapHandler,
+  foldEndomorphisms,
   foldHandlers,
   type Handler,
 } from "@dictybase/fp-ts-loom"
@@ -49,18 +52,19 @@ type LineSpacing = Readonly<{
 
 const CLOSED_MENU: SpacingMenu = { anchor: Onone, current: EMPTY_SPACING }
 
+const menuAnchorLens = pipe(Lid<SpacingMenu>(), Lprop("anchor"))
+const menuCurrentLens = pipe(Lid<SpacingMenu>(), Lprop("current"))
+
+const closeMenu: Endomorphism<SpacingMenu> = menuAnchorLens.set(Onone)
+
 const openMenuAt = (
   anchor: HTMLElement,
   current: BlockSpacing,
-): SpacingMenu => {
-  const opened: SpacingMenu = { anchor: Osome(anchor), current }
-  return opened
-}
-
-const closeMenu = ({ current }: SpacingMenu): SpacingMenu => {
-  const closed: SpacingMenu = { anchor: Onone, current }
-  return closed
-}
+): Endomorphism<SpacingMenu> =>
+  foldEndomorphisms([
+    menuAnchorLens.set(Osome(anchor)),
+    menuCurrentLens.set(current),
+  ])
 
 const toAnchor = (event: MouseEvent<HTMLElement>): HTMLElement =>
   event.currentTarget
@@ -122,4 +126,4 @@ const useLineSpacing = (): LineSpacing => {
   }
 }
 
-export { useLineSpacing, type SpacingMenu }
+export { menuAnchorLens, menuCurrentLens, useLineSpacing, type SpacingMenu }
