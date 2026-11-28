@@ -93,7 +93,7 @@ type SpacingTriggerProperties = Readonly<{
   onOpen: Handler<MouseEvent<HTMLElement>>
 }>
 
-/** The toolbar icon that opens the spacing menu. */
+/** The button that opens the popover. */
 const SpacingTrigger = ({
   isOpen,
   onOpen,
@@ -202,6 +202,7 @@ const columnOnApplyLens = pipe(
 const panelCurrentLens = pipe(Lid<SpacingPanelProperties>(), Lprop("current"))
 const panelOnApplyLens = pipe(Lid<SpacingPanelProperties>(), Lprop("onApply"))
 
+/** Build a column view from a section and the panel properties. */
 const withSection = (
   section: SpacingSection,
 ): ((properties: SpacingPanelProperties) => SpacingSectionColumnProperties) =>
@@ -221,6 +222,7 @@ const withColumnsGrid = (columns: ReactNode): ReactNode => (
   <Box sx={columnsStyles}>{columns}</Box>
 )
 
+/** Build a column view from a section and the panel properties. */
 const toSectionView = (section: SpacingSection): View<SpacingPanelProperties> =>
   pipe(SpacingSectionColumn, contramapView(withSection(section)))
 
@@ -236,6 +238,7 @@ const SpacingColumns: View<SpacingPanelProperties> = pipe(
 
 const SectionDivider: View<SpacingPanelProperties> = () => <Divider />
 
+/** The actions row: remove space and reset buttons. */
 const SpacingActions: View<SpacingPanelProperties> = ({
   onApply,
 }: SpacingPanelProperties) => (
@@ -258,6 +261,7 @@ const SpacingActions: View<SpacingPanelProperties> = ({
   </Stack>
 )
 
+/** The tip at the bottom of the popover. */
 const SpacingTip: View<SpacingPanelProperties> = () => (
   <Typography variant="caption" color="text.secondary" sx={tipStyles}>
     Tip: press Shift+Enter for a new line within the same paragraph.
