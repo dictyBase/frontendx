@@ -1,6 +1,4 @@
-import { useState, type MouseEvent, type ReactElement } from "react"
-import { $getSelection } from "lexical"
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
+import { type MouseEvent, type ReactElement, type ReactNode } from "react"
 import {
   Box,
   Button,
@@ -11,6 +9,7 @@ import {
   MenuItem,
   MenuList,
   Popover,
+  type PopoverOrigin,
   Stack,
   Typography,
 } from "@mui/material"
@@ -23,24 +22,31 @@ import {
   getEq as OgetEq,
   isSome as OisSome,
   toNullable as OtoNullable,
-  map as Omap,
-  getOrElse as OgetOrElse,
 } from "fp-ts/Option"
-import { match as Bmatch } from "fp-ts/boolean"
-import { head as RAhead, map as RAmap } from "fp-ts/ReadonlyArray"
+import { type Predicate } from "fp-ts/Predicate"
+import { concat as RAconcat, map as RAmap } from "fp-ts/ReadonlyArray"
 import { Eq as NumberEq } from "fp-ts/number"
+import {
+  foldViews,
+  whenNode,
+  wrapView,
+  type Handler,
+  type View,
+} from "@dictybase/fp-ts-loom"
+import { useLineSpacing } from "../hooks/useLineSpacing"
 import { useToolbarItemStyles } from "../hooks/useToolbarItemStyles"
 import { Aura } from "./Aura"
 import {
-  $applySpacingChanges,
-  $getBlockSpacing,
-  $getSelectedSpacingBlocks,
   EMPTY_SPACING,
   SpacingProperty,
   toSpacingChanges,
   type BlockSpacing,
   type SpacingChange,
 } from "../utils/blockSpacing"
+
+// ---------------------------------------------------------------------------
+// Menu data: what the user can pick
+// ---------------------------------------------------------------------------
 
 type SpacingOption = Readonly<{ label: string; value: Option<number> }>
 type SpacingSection = Readonly<{
@@ -55,22 +61,25 @@ const ONE_AND_A_HALF = 1.5
 const NO_PARAGRAPH_SPACE = 0
 const FOOTER_SPACING = 1.5
 
+const DEFAULT_OPTION: SpacingOption = { label: DEFAULT_LABEL, value: Onone }
+
+const toPixelOption = (px: number): SpacingOption => {
+  const option: SpacingOption = { label: `${px} px`, value: Osome(px) }
+  return option
+}
+
 const LINE_SPACING_OPTIONS: readonly SpacingOption[] = [
-  { label: DEFAULT_LABEL, value: Onone },
+  DEFAULT_OPTION,
   { label: "Single", value: Osome(1) },
   { label: "1.15", value: Osome(1.15) },
   { label: "1.5", value: Osome(ONE_AND_A_HALF) },
   { label: "Double", value: Osome(2) },
 ]
 
-const PARAGRAPH_SPACE_OPTIONS: readonly SpacingOption[] = [
-  { label: DEFAULT_LABEL, value: Onone },
-  { label: "None", value: Osome(NO_PARAGRAPH_SPACE) },
-  ...pipe(
-    [4, 8, 12, 16, 24],
-    RAmap((px) => ({ label: `${px} px`, value: Osome(px) })),
-  ),
-]
+const PARAGRAPH_SPACE_OPTIONS: readonly SpacingOption[] = pipe(
+  [DEFAULT_OPTION, { label: "None", value: Osome(NO_PARAGRAPH_SPACE) }],
+  RAconcat(pipe([4, 8, 12, 16, 24], RAmap(toPixelOption))),
+)
 
 const SECTIONS: readonly SpacingSection[] = [
   {
@@ -90,14 +99,40 @@ const SECTIONS: readonly SpacingSection[] = [
   },
 ]
 
-const OPTION_EQ = OgetEq(NumberEq)
-
 const REMOVE_PARAGRAPH_SPACE: readonly SpacingChange[] = [
   [SpacingProperty.SPACE_BEFORE, Osome(NO_PARAGRAPH_SPACE)],
   [SpacingProperty.SPACE_AFTER, Osome(NO_PARAGRAPH_SPACE)],
 ]
 
 const RESET_SPACING: readonly SpacingChange[] = toSpacingChanges(EMPTY_SPACING)
+
+// ---------------------------------------------------------------------------
+// Pure rules: which option is checked, what a click changes
+// ---------------------------------------------------------------------------
+
+const OPTION_EQ = OgetEq(NumberEq)
+
+/** True for the option value that the block already has for `property`. */
+const isCurrentValue = (
+  current: BlockSpacing,
+  property: SpacingProperty,
+): Predicate<Option<number>> => {
+  const matchesCurrent: Predicate<Option<number>> = (value) =>
+    OPTION_EQ.equals(current[property], value)
+  return matchesCurrent
+}
+
+const toOptionChange = (
+  property: SpacingProperty,
+  value: Option<number>,
+): readonly SpacingChange[] => [[property, value]]
+
+// ---------------------------------------------------------------------------
+// Styles
+// ---------------------------------------------------------------------------
+
+const anchorOrigin: PopoverOrigin = { vertical: "bottom", horizontal: "left" }
+const transformOrigin: PopoverOrigin = { vertical: "top", horizontal: "left" }
 
 const popoverStyles = { py: 1, width: "min(440px, 95vw)" }
 
@@ -113,12 +148,46 @@ const headingStyles = {
   lineHeight: 2,
 }
 
+const actionsStyles = { px: FOOTER_SPACING, pt: FOOTER_SPACING }
+
+const tipStyles = { display: "block", px: 2, pt: 1 }
+
+// ---------------------------------------------------------------------------
+// Leaf pieces: each one renders one thing
+// ---------------------------------------------------------------------------
+
+type SpacingTriggerProperties = Readonly<{
+  isOpen: boolean
+  onOpen: Handler<MouseEvent<HTMLElement>>
+}>
+
+/** The toolbar icon that opens the spacing menu. */
+const SpacingTrigger = ({
+  isOpen,
+  onOpen,
+}: SpacingTriggerProperties): ReactElement => {
+  const styles = useToolbarItemStyles()
+  return (
+    <IconButton
+      sx={styles.root}
+      title={TITLE}
+      aria-label={TITLE}
+      aria-haspopup="dialog"
+      aria-expanded={isOpen}
+      onClick={onOpen}
+      size="large">
+      <FormatLineSpacing fontSize="small" />
+    </IconButton>
+  )
+}
+
 type SpacingOptionItemProperties = Readonly<{
   label: string
   isSelected: boolean
   onSelect: () => void
 }>
 
+/** One radio item. A check mark shows the selected value. */
 const SpacingOptionItem = ({
   label,
   isSelected,
@@ -130,128 +199,133 @@ const SpacingOptionItem = ({
     role="menuitemradio"
     onClick={onSelect}>
     <ListItemIcon>
-      {pipe(
-        isSelected,
-        Bmatch(
-          () => undefined,
-          () => <Check fontSize="small" />,
-        ),
-      )}
+      {whenNode(isSelected)(() => (
+        <Check fontSize="small" />
+      ))}
     </ListItemIcon>
     <ListItemText>{label}</ListItemText>
   </MenuItem>
 )
 
+/**
+ * Everything the panel body needs. Every panel view reads this one record, so
+ * the views compose with `foldViews`.
+ */
+type SpacingPanelProperties = Readonly<{
+  current: BlockSpacing
+  onApply: Handler<readonly SpacingChange[]>
+}>
+
+type SpacingSectionColumnProperties = SpacingPanelProperties &
+  Readonly<{ section: SpacingSection }>
+
+/** One column: a heading and the radio list for one spacing property. */
+const SpacingSectionColumn = ({
+  section: { heading, property, options },
+  current,
+  onApply,
+}: SpacingSectionColumnProperties): ReactElement => {
+  const isSelected = isCurrentValue(current, property)
+  return (
+    <Box component="section" aria-label={heading}>
+      <Typography variant="overline" sx={headingStyles}>
+        {heading}
+      </Typography>
+      <MenuList dense aria-label={heading} autoFocusItem={false}>
+        {pipe(
+          options,
+          RAmap(({ label, value }) => (
+            <SpacingOptionItem
+              key={label}
+              label={label}
+              isSelected={isSelected(value)}
+              onSelect={() => onApply(toOptionChange(property, value))}
+            />
+          )),
+        )}
+      </MenuList>
+    </Box>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Panel views: the popover body, top to bottom
+// ---------------------------------------------------------------------------
+
+const SpacingColumns: View<SpacingPanelProperties> = (
+  properties: SpacingPanelProperties,
+) => (
+  <Box sx={columnsStyles}>
+    {pipe(
+      SECTIONS,
+      RAmap((section) => (
+        <SpacingSectionColumn
+          key={section.property}
+          section={section}
+          {...properties}
+        />
+      )),
+    )}
+  </Box>
+)
+
+const SectionDivider: View<SpacingPanelProperties> = () => <Divider />
+
+const SpacingActions: View<SpacingPanelProperties> = ({
+  onApply,
+}: SpacingPanelProperties) => (
+  <Stack
+    direction="row"
+    spacing={FOOTER_SPACING}
+    alignItems="center"
+    sx={actionsStyles}>
+    <Aura>
+      <Button
+        size="small"
+        color="inherit"
+        onClick={() => onApply(REMOVE_PARAGRAPH_SPACE)}>
+        Remove space between paragraphs
+      </Button>
+    </Aura>
+    <Button size="small" color="inherit" onClick={() => onApply(RESET_SPACING)}>
+      Reset
+    </Button>
+  </Stack>
+)
+
+const SpacingTip: View<SpacingPanelProperties> = () => (
+  <Typography variant="caption" color="text.secondary" sx={tipStyles}>
+    Tip: press Shift+Enter for a new line within the same paragraph.
+  </Typography>
+)
+
+const withPanelFrame = (body: ReactNode): ReactNode => (
+  <Box sx={popoverStyles}>{body}</Box>
+)
+
+/** The popover body: columns, divider, actions and tip in one frame. */
+const SpacingPanel: View<SpacingPanelProperties> = pipe(
+  foldViews([SpacingColumns, SectionDivider, SpacingActions, SpacingTip]),
+  wrapView(withPanelFrame),
+)
+
+// ---------------------------------------------------------------------------
+// The toolbar control: state from the hook, layout from the pieces
+// ---------------------------------------------------------------------------
+
 const LineSpacingButton = (): ReactElement => {
-  const [editor] = useLexicalComposerContext()
-  const styles = useToolbarItemStyles()
-  const [anchorElement, setAnchorElement] = useState<Option<HTMLElement>>(Onone)
-  const [current, setCurrent] = useState<BlockSpacing>(EMPTY_SPACING)
-  const isOpen = OisSome(anchorElement)
-
-  const readCurrentSpacing = (): BlockSpacing =>
-    editor.getEditorState().read(() =>
-      pipe(
-        $getSelectedSpacingBlocks($getSelection()),
-        RAhead,
-        Omap($getBlockSpacing),
-        OgetOrElse(() => EMPTY_SPACING),
-      ),
-    )
-
-  const onOpen = (event: MouseEvent<HTMLElement>): void => {
-    setCurrent(readCurrentSpacing())
-    setAnchorElement(Osome(event.currentTarget))
-  }
-
-  const onClose = (): void => setAnchorElement(Onone)
-
-  const updateSelectedBlocks = (changes: readonly SpacingChange[]): void => {
-    editor.update(() =>
-      $getSelectedSpacingBlocks($getSelection()).forEach(
-        $applySpacingChanges(changes),
-      ),
-    )
-    onClose()
-  }
-
+  const { menu, open, close, apply } = useLineSpacing()
+  const isOpen = OisSome(menu.anchor)
   return (
     <>
-      <IconButton
-        sx={styles.root}
-        title={TITLE}
-        aria-label={TITLE}
-        aria-haspopup="dialog"
-        aria-expanded={isOpen}
-        onClick={onOpen}
-        size="large">
-        <FormatLineSpacing fontSize="small" />
-      </IconButton>
+      <SpacingTrigger isOpen={isOpen} onOpen={open} />
       <Popover
         open={isOpen}
-        anchorEl={OtoNullable(anchorElement)}
-        onClose={onClose}
-        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-        transformOrigin={{ vertical: "top", horizontal: "left" }}>
-        <Box sx={popoverStyles}>
-          <Box sx={columnsStyles}>
-            {pipe(
-              SECTIONS,
-              RAmap(({ heading, property, options }) => (
-                <Box key={property} component="section" aria-label={heading}>
-                  <Typography variant="overline" sx={headingStyles}>
-                    {heading}
-                  </Typography>
-                  <MenuList dense aria-label={heading} autoFocusItem={false}>
-                    {pipe(
-                      options,
-                      RAmap(({ label, value }) => (
-                        <SpacingOptionItem
-                          key={label}
-                          label={label}
-                          isSelected={OPTION_EQ.equals(
-                            current[property],
-                            value,
-                          )}
-                          onSelect={() =>
-                            updateSelectedBlocks([[property, value]])
-                          }
-                        />
-                      )),
-                    )}
-                  </MenuList>
-                </Box>
-              )),
-            )}
-          </Box>
-          <Divider />
-          <Stack
-            direction="row"
-            spacing={FOOTER_SPACING}
-            alignItems="center"
-            sx={{ px: FOOTER_SPACING, pt: FOOTER_SPACING }}>
-            <Aura>
-              <Button
-                size="small"
-                color="inherit"
-                onClick={() => updateSelectedBlocks(REMOVE_PARAGRAPH_SPACE)}>
-                Remove space between paragraphs
-              </Button>
-            </Aura>
-            <Button
-              size="small"
-              color="inherit"
-              onClick={() => updateSelectedBlocks(RESET_SPACING)}>
-              Reset
-            </Button>
-          </Stack>
-          <Typography
-            variant="caption"
-            color="text.secondary"
-            sx={{ display: "block", px: 2, pt: 1 }}>
-            Tip: press Shift+Enter for a new line within the same paragraph.
-          </Typography>
-        </Box>
+        anchorEl={OtoNullable(menu.anchor)}
+        onClose={close}
+        anchorOrigin={anchorOrigin}
+        transformOrigin={transformOrigin}>
+        <SpacingPanel current={menu.current} onApply={apply} />
       </Popover>
     </>
   )
