@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@mui/material"
 import { Check, FormatLineSpacing } from "@mui/icons-material"
-import { pipe } from "fp-ts/function"
+import { pipe, tuple } from "fp-ts/function"
 import {
   type Option,
   none as Onone,
@@ -23,11 +23,18 @@ import {
   isSome as OisSome,
   toNullable as OtoNullable,
 } from "fp-ts/Option"
-import { type Predicate } from "fp-ts/Predicate"
-import { concat as RAconcat, map as RAmap } from "fp-ts/ReadonlyArray"
+import { contramap as Pcontramap, type Predicate } from "fp-ts/Predicate"
+import {
+  filter as RAfilter,
+  map as RAmap,
+  of as RAof,
+  prepend as RAprepend,
+} from "fp-ts/ReadonlyArray"
+import { type ReadonlyNonEmptyArray } from "fp-ts/ReadonlyNonEmptyArray"
 import { Eq as NumberEq } from "fp-ts/number"
 import {
   foldViews,
+  notEqualString,
   whenNode,
   wrapView,
   type Handler,
@@ -49,6 +56,7 @@ import {
 // ---------------------------------------------------------------------------
 
 type SpacingOption = Readonly<{ label: string; value: Option<number> }>
+type LineHeightPreset = Readonly<{ label: string; height: number }>
 type SpacingSection = Readonly<{
   heading: string
   property: SpacingProperty
@@ -56,30 +64,57 @@ type SpacingSection = Readonly<{
 }>
 
 const TITLE = "Line & paragraph spacing"
-const DEFAULT_LABEL = "Default"
 const ONE_AND_A_HALF = 1.5
 const NO_PARAGRAPH_SPACE = 0
 const FOOTER_SPACING = 1.5
 
-const DEFAULT_OPTION: SpacingOption = { label: DEFAULT_LABEL, value: Onone }
+// Raw data tables. These are the only list literals: nothing derives them.
+
+const LINE_HEIGHT_PRESETS: ReadonlyNonEmptyArray<LineHeightPreset> = [
+  { label: "Single", height: 1 },
+  { label: "1.15", height: 1.15 },
+  { label: "1.5", height: ONE_AND_A_HALF },
+  { label: "Double", height: 2 },
+]
+
+const PARAGRAPH_SPACE_PX: ReadonlyNonEmptyArray<number> = [4, 8, 12, 16, 24]
+
+// Option builders: each one lifts one kind of raw data into a SpacingOption.
+
+const DEFAULT_OPTION: SpacingOption = { label: "Default", value: Onone }
+
+const NONE_OPTION: SpacingOption = {
+  label: "None",
+  value: Osome(NO_PARAGRAPH_SPACE),
+}
+
+const toLineOption = ({ label, height }: LineHeightPreset): SpacingOption => {
+  const option: SpacingOption = { label, value: Osome(height) }
+  return option
+}
 
 const toPixelOption = (px: number): SpacingOption => {
   const option: SpacingOption = { label: `${px} px`, value: Osome(px) }
   return option
 }
 
-const LINE_SPACING_OPTIONS: readonly SpacingOption[] = [
-  DEFAULT_OPTION,
-  { label: "Single", value: Osome(1) },
-  { label: "1.15", value: Osome(1.15) },
-  { label: "1.5", value: Osome(ONE_AND_A_HALF) },
-  { label: "Double", value: Osome(2) },
-]
+/** Every option list starts with "Default", which clears the value. */
+const withDefault = RAprepend(DEFAULT_OPTION)
+
+const LINE_SPACING_OPTIONS: readonly SpacingOption[] = pipe(
+  LINE_HEIGHT_PRESETS,
+  RAmap(toLineOption),
+  withDefault,
+)
 
 const PARAGRAPH_SPACE_OPTIONS: readonly SpacingOption[] = pipe(
-  [DEFAULT_OPTION, { label: "None", value: Osome(NO_PARAGRAPH_SPACE) }],
-  RAconcat(pipe([4, 8, 12, 16, 24], RAmap(toPixelOption))),
+  PARAGRAPH_SPACE_PX,
+  RAmap(toPixelOption),
+  RAprepend(NONE_OPTION),
+  withDefault,
 )
+
+// The menu layout table: one column for each spacing property.
 
 const SECTIONS: readonly SpacingSection[] = [
   {
@@ -99,10 +134,24 @@ const SECTIONS: readonly SpacingSection[] = [
   },
 ]
 
-const REMOVE_PARAGRAPH_SPACE: readonly SpacingChange[] = [
-  [SpacingProperty.SPACE_BEFORE, Osome(NO_PARAGRAPH_SPACE)],
-  [SpacingProperty.SPACE_AFTER, Osome(NO_PARAGRAPH_SPACE)],
-]
+// Preset changes, derived from the layout table.
+
+const propertyOf = ({ property }: SpacingSection): SpacingProperty => property
+
+/** Paragraph space is every spacing property except line height. */
+const isParagraphSpace: Predicate<SpacingSection> = pipe(
+  notEqualString(SpacingProperty.LINE_HEIGHT),
+  Pcontramap(propertyOf),
+)
+
+const toZeroChange = (section: SpacingSection): SpacingChange =>
+  tuple(propertyOf(section), Osome(NO_PARAGRAPH_SPACE))
+
+const REMOVE_PARAGRAPH_SPACE: readonly SpacingChange[] = pipe(
+  SECTIONS,
+  RAfilter(isParagraphSpace),
+  RAmap(toZeroChange),
+)
 
 const RESET_SPACING: readonly SpacingChange[] = toSpacingChanges(EMPTY_SPACING)
 
@@ -125,7 +174,7 @@ const isCurrentValue = (
 const toOptionChange = (
   property: SpacingProperty,
   value: Option<number>,
-): readonly SpacingChange[] => [[property, value]]
+): readonly SpacingChange[] => pipe(tuple(property, value), RAof)
 
 // ---------------------------------------------------------------------------
 // Styles
