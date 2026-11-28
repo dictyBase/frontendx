@@ -4,6 +4,7 @@ import { RedoButton } from "./components/RedoButton"
 import { FontSizeDropdown } from "./components/FontSizeDropdown"
 import { FontFamilyDropdown } from "./components/FontFamilyDropdown"
 import { BlockFormatDropdown } from "./components/BlockFormatDropdown"
+import { LineSpacingButton } from "./components/LineSpacingButton"
 import { FormatBoldButton } from "./components/FormatBoldButton"
 import { FormatItalicButton } from "./components/FormatItalicButton"
 import { FormatUnderlineButton } from "./components/FormatUnderlineButton"
@@ -34,6 +35,7 @@ const DebugToolbar = () => {
         <FontSizeDropdown />
         <FontFamilyDropdown />
         <BlockFormatDropdown />
+        <LineSpacingButton />
       </Stack>
       <Stack direction="row">
         <FormatBoldButton />

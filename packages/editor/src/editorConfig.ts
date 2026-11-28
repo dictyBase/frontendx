@@ -9,7 +9,7 @@ import { WidthTableNode } from "@dictybase/width-table-plugin"
 import { flexLayoutState } from "./initialStates"
 
 const editorTheme = {
-  paragraph: "editor-paragraphy",
+  paragraph: "editor-paragraph",
   flexLayout: "editor-flex-layout",
   image: "editor-image",
   text: {

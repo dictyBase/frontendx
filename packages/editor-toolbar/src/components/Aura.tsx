@@ -1,0 +1,14 @@
+import { type ReactElement, type ReactNode } from "react"
+import { Box } from "@mui/material"
+import { useAuraStyles } from "../hooks/useAuraStyles"
+
+type AuraProperties = Readonly<{
+  children: ReactNode
+}>
+
+const Aura = ({ children }: AuraProperties): ReactElement => {
+  const styles = useAuraStyles()
+  return <Box sx={styles.root}>{children}</Box>
+}
+
+export { Aura }

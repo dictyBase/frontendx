@@ -14,6 +14,7 @@
     "lint:fix": "TIMING=1 eslint src/ --ext .ts --ext .tsx -f unix --cache --fix"
   },
   "dependencies": {
+    "@dictybase/fp-ts-loom": "*",
     "@dictybase/image-plugin": "*",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
@@ -24,6 +25,7 @@
     "dicty-graphql-schema": "https://github.com/dictyBase/dicty-graphql-schema#v1.47.0",
     "fp-ts": "^2.16.1",
     "jotai-optics": "^0.3.0",
+    "monocle-ts": "^2.3.13",
     "optics-ts": "~2.4.1",
     "react-hook-form": "^7.45.2",
     "ts-pattern": "5.x",

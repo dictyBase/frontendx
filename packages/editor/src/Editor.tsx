@@ -21,7 +21,7 @@ import {
   map as Omap,
 } from "fp-ts/Option"
 import { ImagePlugin } from "@dictybase/image-plugin"
-import { DictybaseToolbar } from "@dictybase/editor-toolbar"
+import { BlockSpacingPlugin, DictybaseToolbar } from "@dictybase/editor-toolbar"
 import { WidthTablePlugin } from "@dictybase/width-table-plugin"
 import { TableActionPlugin } from "@dictybase/table-action-plugin"
 import { TreeViewPlugin } from "./TreeViewPlugin"
@@ -63,6 +63,7 @@ const Editor = ({
     <WidthTablePlugin />
     <TableActionPlugin isEditing={editable} />
     <HistoryPlugin />
+    <BlockSpacingPlugin />
     {pipe(
       toolbar,
       OfromNullable,

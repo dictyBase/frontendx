@@ -12,6 +12,7 @@ import { InsertTableButton } from "./components/InsertTableButton"
 import { InsertImageButton } from "./components/InsertImageButton"
 import { UploadFileButton } from "./components/UploadFileButton"
 import { InsertLinkButton } from "./components/InsertLinkButton"
+import { LineSpacingButton } from "./components/LineSpacingButton"
 import { useCleanup } from "./hooks/useCleanup"
 
 const DictybaseToolbar = () => {
@@ -32,6 +33,7 @@ const DictybaseToolbar = () => {
         <FontSizeDropdown />
         <FontFamilyDropdown />
         <BlockFormatDropdown />
+        <LineSpacingButton />
       </Stack>
       <Stack direction="row">
         <FormatBoldButton />

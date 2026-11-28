@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 960 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="lifecycle-steps-title lifecycle-steps-desc" id="lifecycle-steps-root">
+        <title id="lifecycle-steps-title">Five-stage lifecycle of a toolbar control</title>
+        <desc id="lifecycle-steps-desc">A toolbar control moves through trigger, secondary UI surface, editor state read, editor state write, and dismissal; the state read stage is focal and has two loops.</desc>
+  <defs>
+      <style>@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500;600&amp;family=Noto+Serif:ital@0;1&amp;family=Noto+Sans+KR:wght@400;500;600&amp;family=Noto+Serif+KR:wght@400&amp;family=Noto+Sans+TC:wght@400;500;600&amp;family=Noto+Serif+TC:wght@400&amp;display=swap');
+      #lifecycle-steps-root { --color-paper:#f5f5f5; --color-ink:#2d3142; --color-muted:#4f5d75; --color-accent:#bf4520; --font-sans:'Geist',system-ui,sans-serif; --font-serif:'Instrument Serif',serif; --font-mono:'Geist Mono',ui-monospace,monospace; }
+      #lifecycle-steps-root { font-family: var(--font-sans); color: var(--color-ink); }
+      #lifecycle-steps-root .diagram-container { width:100%; overflow-x:auto; }
+      @media print {
+#lifecycle-steps-root .diagram-container { overflow-x:visible; }
+}</style>
+  </defs>
+                <rect width="100%" height="100%" fill="#f5f5f5"/>
+
+        <!-- Rail: one contiguous strip, stage 03 focal -->
+        <g aria-hidden="true">
+          <rect x="40" y="160" width="176" height="48" fill="#2d3142" data-role="rail" data-step="trigger" data-index="1" fill-opacity="0.08"/>
+          <rect x="216" y="160" width="176" height="48" fill="#2d3142" data-role="rail" data-step="surface" data-index="2" fill-opacity="0.14"/>
+          <rect x="392" y="160" width="176" height="48" fill="#bf4520" data-role="rail" data-step="read" data-index="3" data-focal="true" fill-opacity="0.14"/>
+          <line x1="392" y1="160" x2="568" y2="160" stroke="#bf4520" stroke-width="1"/>
+          <line x1="392" y1="208" x2="568" y2="208" stroke="#bf4520" stroke-width="1"/>
+          <rect x="568" y="160" width="176" height="48" fill="#2d3142" data-role="rail" data-step="write" data-index="4" fill-opacity="0.14"/>
+          <rect x="744" y="160" width="176" height="48" fill="#2d3142" data-role="rail" data-step="dismiss" data-index="5" fill-opacity="0.08"/>
+        </g>
+
+        <!-- Numbers and guides -->
+        <g font-family="'Geist Mono', monospace" font-size="11" font-weight="600" letter-spacing="0.14em" text-anchor="middle">
+          <text x="128" y="84" fill="#2d3142" data-role="number" data-step="trigger">01</text><line x1="128" y1="104" x2="128" y2="140" stroke="#4f5d75"/>
+          <text x="304" y="84" fill="#2d3142" data-role="number" data-step="surface">02</text><line x1="304" y1="104" x2="304" y2="140" stroke="#4f5d75"/>
+          <text x="480" y="84" fill="#bf4520" data-role="number" data-step="read">03</text><line x1="480" y1="104" x2="480" y2="140" stroke="#bf4520"/>
+          <text x="656" y="84" fill="#2d3142" data-role="number" data-step="write">04</text><line x1="656" y1="104" x2="656" y2="140" stroke="#4f5d75"/>
+          <text x="832" y="84" fill="#2d3142" data-role="number" data-step="dismiss">05</text><line x1="832" y1="104" x2="832" y2="140" stroke="#4f5d75"/>
+        </g>
+
+        <!-- Medallions (opaque paper mask first) -->
+        <g aria-hidden="true" fill="#f5f5f5" stroke-width="1.5">
+          <circle cx="128" cy="184" r="36" stroke="#2d3142" data-role="medallion" data-step="trigger"/>
+          <circle cx="304" cy="184" r="36" stroke="#2d3142" data-role="medallion" data-step="surface"/>
+          <circle cx="480" cy="184" r="36" fill="#f5f5f5" stroke="none"/>
+          <circle cx="480" cy="184" r="36" fill="#bf4520" stroke="#bf4520" data-role="medallion" data-step="read" data-focal="true" fill-opacity="0.14"/>
+          <circle cx="656" cy="184" r="36" stroke="#2d3142" data-role="medallion" data-step="write"/>
+          <circle cx="832" cy="184" r="36" stroke="#2d3142" data-role="medallion" data-step="dismiss"/>
+        </g>
+
+        <!-- Icons (Tabler: user, desktop, refresh, database, arrow-left) -->
+        <g aria-hidden="true" fill="none" stroke="#2d3142" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <g transform="translate(116 172)"><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"/><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/></g>
+          <g transform="translate(292 172)"><path d="M3 5a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10"/><path d="M7 20h10"/><path d="M9 16v4"/><path d="M15 16v4"/></g>
+          <g transform="translate(468 172)" stroke="#bf4520"><path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4"/><path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"/></g>
+          <g transform="translate(644 172)"><path d="M4 6a8 3 0 1 0 16 0a8 3 0 1 0 -16 0"/><path d="M4 6v6a8 3 0 0 0 16 0v-6"/><path d="M4 12v6a8 3 0 0 0 16 0v-6"/></g>
+          <g transform="translate(820 172)"><path d="M5 12l14 0"/><path d="M5 12l6 6"/><path d="M5 12l6 -6"/></g>
+        </g>
+
+        <!-- Titles and descriptions -->
+        <g font-family="'Geist', sans-serif" text-anchor="middle">
+          <text x="128" y="280" fill="#2d3142" font-size="14" font-weight="600">Toolbar Trigger</text>
+          <text x="128" y="308" fill="#2d3142" font-size="11" font-family="'Geist Mono', monospace">IconButton, Button,</text>
+          <text x="128" y="328" fill="#2d3142" font-size="11" font-family="'Geist Mono', monospace">or StyledSelect</text>
+          <text x="128" y="348" fill="#2d3142" font-size="11" font-family="'Geist Mono', monospace">in the toolbar row</text>
+          <text x="304" y="280" fill="#2d3142" font-size="14" font-weight="600">Secondary UI Surface</text>
+          <text x="304" y="308" fill="#2d3142" font-size="11" font-family="'Geist Mono', monospace">None, inline Select,</text>
+          <text x="304" y="328" fill="#2d3142" font-size="11" font-family="'Geist Mono', monospace">Popover/Popper,</text>
+          <text x="304" y="348" fill="#2d3142" font-size="11" font-family="'Geist Mono', monospace">or modal Dialog</text>
+          <text x="480" y="280" fill="#bf4520" font-size="14" font-weight="600">Editor State Read</text>
+          <text x="480" y="308" fill="#2d3142" font-size="11" font-family="'Geist Mono', monospace">Continuous Jotai sync</text>
+          <text x="480" y="328" fill="#2d3142" font-size="11" font-family="'Geist Mono', monospace">or on-open snapshot</text>
+          <text x="480" y="348" fill="#2d3142" font-size="11" font-family="'Geist Mono', monospace">into local useState</text>
+          <text x="656" y="280" fill="#2d3142" font-size="14" font-weight="600">Editor State Write</text>
+          <text x="656" y="308" fill="#2d3142" font-size="11" font-family="'Geist Mono', monospace">dispatchCommand or</text>
+          <text x="656" y="328" fill="#2d3142" font-size="11" font-family="'Geist Mono', monospace">editor.update</text>
+          <text x="656" y="348" fill="#2d3142" font-size="11" font-family="'Geist Mono', monospace">only stage to write</text>
+          <text x="832" y="280" fill="#2d3142" font-size="14" font-weight="600">Dismiss or Persist</text>
+          <text x="832" y="308" fill="#2d3142" font-size="11" font-family="'Geist Mono', monospace">Close the surface,</text>
+          <text x="832" y="328" fill="#2d3142" font-size="11" font-family="'Geist Mono', monospace">clear anchor/atom,</text>
+          <text x="832" y="348" fill="#2d3142" font-size="11" font-family="'Geist Mono', monospace">keep the result</text>
+        </g>
+
+        <!-- Focal detail: the two read loops of stage 03 -->
+        <line x1="480" y1="364" x2="480" y2="400" stroke="#bf4520" stroke-width="1.5"/>
+        <rect x="140" y="400" width="680" height="84" rx="6" fill="#f5f5f5" stroke="#2d3142" stroke-width="1.5"/>
+        <g font-family="'Geist Mono', monospace">
+          <text x="164" y="434" fill="#bf4520" font-size="10" font-weight="600" letter-spacing="0.14em">LOOP A · ALWAYS</text>
+          <text x="312" y="434" fill="#2d3142" font-size="11">selection change → useCleanup → useUpdateToolbar → focusAtom</text>
+          <text x="164" y="462" fill="#bf4520" font-size="10" font-weight="600" letter-spacing="0.14em">LOOP B · ON OPEN</text>
+          <text x="312" y="462" fill="#2d3142" font-size="11">trigger click → getEditorState().read() → local useState</text>
+        </g>
+
+        <!-- Legend -->
+        <line x1="40" y1="520" x2="920" y2="520" stroke="#2d3142" stroke-width="1" stroke-opacity="0.25"/>
+        <text x="40" y="544" fill="#2d3142" font-size="10" font-family="'Geist Mono', monospace" letter-spacing="0.18em">LEGEND</text>
+        <circle cx="52" cy="568" r="8" fill="#f5f5f5" stroke="#2d3142" stroke-width="1.5"/><text x="68" y="572" fill="#2d3142" font-size="11" font-family="'Geist', sans-serif">Stage</text>
+        <circle cx="148" cy="568" r="8" fill="#bf4520" stroke="#bf4520" stroke-width="1.5" fill-opacity="0.14"/><text x="164" y="572" fill="#2d3142" font-size="11" font-family="'Geist', sans-serif">Focal stage</text>
+        <text x="284" y="572" fill="#2d3142" font-size="11" font-family="'Geist', sans-serif" font-style="italic">Equal spacing shows order, not elapsed time.</text>
+      </svg>
