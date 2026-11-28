@@ -9,9 +9,11 @@ import {
 } from "@testing-library/react"
 import {
   $createParagraphNode,
+  $createRangeSelection,
   $createTextNode,
   $getNodeByKey,
   $getRoot,
+  $setSelection,
   type LexicalEditor,
 } from "lexical"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
@@ -44,6 +46,7 @@ const EXPANDED = "aria-expanded"
 const CHECKED = "aria-checked"
 const LINE_SPACING = "Line spacing"
 const SPACE_BEFORE = "Space before"
+const SPACE_AFTER = "Space after"
 const NO_SPACE = 0
 
 const captured: { editor: Option<LexicalEditor> } = { editor: Onone }
@@ -117,14 +120,44 @@ const openMenu = (): void => {
 const section = (heading: string): HTMLElement =>
   screen.getByRole("menu", { name: heading })
 
+const optionLabels = (heading: string): readonly string[] =>
+  within(section(heading))
+    .getAllByRole(RADIO)
+    .map((item) => item.textContent ?? "")
+
 test("opens a panel with line, before and after sections", async () => {
   const editor = renderToolbar()
   await setupParagraph(editor)
   openMenu()
   expect(section(LINE_SPACING)).toBeInTheDocument()
   expect(section(SPACE_BEFORE)).toBeInTheDocument()
-  expect(section("Space after")).toBeInTheDocument()
+  expect(section(SPACE_AFTER)).toBeInTheDocument()
   expect(screen.getByTitle(TITLE)).toHaveAttribute(EXPANDED, "true")
+})
+
+test("renders options in exact section order", async () => {
+  const editor = renderToolbar()
+  await setupParagraph(editor)
+  openMenu()
+
+  expect(optionLabels(LINE_SPACING)).toEqual([
+    "Default",
+    "Single",
+    "1.15",
+    "1.5",
+    "Double",
+  ])
+  const expectedParagraphLabels = [
+    "Default",
+    "None",
+    "4 px",
+    "8 px",
+    "12 px",
+    "16 px",
+    "24 px",
+  ]
+  expect(optionLabels(SPACE_BEFORE)).toEqual(expectedParagraphLabels)
+  expect(optionLabels(SPACE_AFTER)).toEqual(expectedParagraphLabels)
 })
 
 test("checks the current spacing value of the selected block", async () => {
@@ -223,4 +256,100 @@ test("dismissing the panel closes it without changing spacing", async () => {
   expect(readSpacing(editor, key)[SpacingProperty.LINE_HEIGHT]).toEqual(
     Osome(START_LINE_HEIGHT),
   )
+})
+
+test("applies spacing changes across all selected paragraphs and refreshes on reopen", async () => {
+  const editor = renderToolbar()
+  const keys: { first: Option<string>; second: Option<string> } = {
+    first: Onone,
+    second: Onone,
+  }
+  await act(async () => {
+    editor.update(
+      () => {
+        const firstText = $createTextNode("Alpha")
+        const secondText = $createTextNode("Beta")
+        const firstParagraph = $createParagraphNode().append(firstText)
+        const secondParagraph = $createParagraphNode().append(secondText)
+        $getRoot().clear().append(firstParagraph, secondParagraph)
+        keys.first = Osome(firstParagraph.getKey())
+        keys.second = Osome(secondParagraph.getKey())
+        const range = $createRangeSelection()
+        range.anchor.set(firstText.getKey(), 0, "text")
+        range.focus.set(secondText.getKey(), 4, "text")
+        $setSelection(range)
+      },
+      { discrete: true },
+    )
+  })
+  const firstKey = pipe(keys.first, getOrThrow<string>("first missing"))
+  const secondKey = pipe(keys.second, getOrThrow<string>("second missing"))
+
+  openMenu()
+  fireEvent.click(
+    within(section(LINE_SPACING)).getByRole(RADIO, { name: "Double" }),
+  )
+  await waitFor(() => {
+    expect(readSpacing(editor, firstKey)[SpacingProperty.LINE_HEIGHT]).toEqual(
+      Osome(DOUBLE),
+    )
+    expect(readSpacing(editor, secondKey)[SpacingProperty.LINE_HEIGHT]).toEqual(
+      Osome(DOUBLE),
+    )
+  })
+  await waitFor(() => {
+    expect(screen.getByTitle(TITLE)).toHaveAttribute(EXPANDED, "false")
+  })
+  openMenu()
+  expect(
+    within(section(LINE_SPACING)).getByRole(RADIO, { name: "Double" }),
+  ).toHaveAttribute(CHECKED, "true")
+})
+
+test("retains checked state during popover exit transition and refreshes on next open", async () => {
+  const editor = renderToolbar()
+  const key = await setupParagraph(editor)
+  openMenu()
+  expect(
+    within(section(LINE_SPACING)).getByRole(RADIO, { name: "1.5" }),
+  ).toHaveAttribute(CHECKED, "true")
+
+  fireEvent.keyDown(section(LINE_SPACING), { key: "Escape" })
+  expect(screen.getByTitle(TITLE)).toHaveAttribute(EXPANDED, "false")
+  const exitingLineMenu = screen.queryByRole("menu", {
+    name: LINE_SPACING,
+    hidden: true,
+  })
+  expect(exitingLineMenu).not.toBeNull()
+  expect(
+    within(exitingLineMenu as HTMLElement).getByRole(RADIO, {
+      name: "1.5",
+      hidden: true,
+    }),
+  ).toHaveAttribute(CHECKED, "true")
+
+  await waitFor(() => {
+    expect(
+      screen.queryByRole("menu", { name: LINE_SPACING, hidden: true }),
+    ).toBeNull()
+  })
+
+  await act(async () => {
+    editor.update(
+      () => {
+        const node = pipe(
+          $getNodeByKey(key),
+          OfromNullable,
+          getOrThrow("paragraph missing"),
+        )
+        $setBlockSpacing(node, SpacingProperty.LINE_HEIGHT, Osome(DOUBLE))
+      },
+      { discrete: true },
+    )
+  })
+
+  openMenu()
+  expect(
+    within(section(LINE_SPACING)).getByRole(RADIO, { name: "Double" }),
+  ).toHaveAttribute(CHECKED, "true")
 })
