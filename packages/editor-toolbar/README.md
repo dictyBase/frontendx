@@ -51,6 +51,10 @@ Every toolbar control connects a user action on the toolbar to a read or write o
 Each control moves through five stages.
 Understand these five stages before you select a pattern for a new feature.
 
+![Five-stage lifecycle of a toolbar control: trigger, secondary UI surface, editor state read, editor state write, and dismiss or persist](./docs/lifecycle-steps.svg)
+
+*Every toolbar control moves through the same five stages. In Stage 3, the control reads the editor state through Loop A (continuous Jotai sync) or Loop B (a snapshot when the menu opens).*
+
 ### Stage 1: Toolbar Trigger
 
 A control starts with a trigger element inside a toolbar row in [`src/DictybaseToolbar.tsx`](./src/DictybaseToolbar.tsx) and [`src/DebugToolbar.tsx`](./src/DebugToolbar.tsx).
@@ -130,6 +134,12 @@ After the write completes, a control with a secondary surface either closes or s
 
 - **Close automatically after one choice**: The control closes the surface immediately so that the user returns to the text. For example, `LineSpacingButton` calls `onClose()`, and `useTableFormControls` calls `setIsDialogOpen(false)` on Confirm.
 - **Stay open across choices**: The surface stays open so that the user can click several options in sequence. For example, `ColorPickerButton` stays open until an outside click or the `Escape` key triggers `onClose`.
+
+The sequence diagram that follows shows the five stages as messages between the components:
+
+![Sequence of a toolbar control: the user clicks the trigger, the trigger opens the surface, the control reads the editor state, the surface writes to the editor, the new state reaches the trigger, and the surface closes](./docs/component-flow.svg)
+
+*Each ALT frame shows one read loop. The coral arrow is the write path, which is the only message that changes the `EditorState`.*
 
 ## Control Comparison
 
